@@ -1670,10 +1670,21 @@ OFCondition DcmQueryRetrieveSCP::waitForAssociation(T_ASC_Network * theNet)
                         
                     @try
                     {
-                        NSThread *t = [[[NSThread alloc] initWithTarget: [ContextCleaner class] selector:@selector(handleAssociation:) object: [NSDictionary dictionaryWithObjectsAndKeys: [NSValue valueWithPointer: assoc], @"assoc", [NSValue valueWithPointer: this], @"DcmQueryRetrieveSCP", nil]] autorelease];
+                        NSDictionary *d = [NSDictionary dictionaryWithObjectsAndKeys:
+                                           [NSValue valueWithPointer: assoc], @"assoc",
+                                           [NSValue valueWithPointer: this], @"DcmQueryRetrieveSCP",
+                                           nil];
+                        NSThread *t = [[[NSThread alloc] initWithTarget: [ContextCleaner class]
+                                                               selector: @selector(handleAssociation:)
+                                                                 object: d]
+                                       autorelease];
                         t.name = NSLocalizedString( @"DICOM Services...", nil);
-                        if( assoc && assoc->params && assoc->params->DULparams.callingPresentationAddress)
+                        if (assoc &&
+                            assoc->params &&
+                            assoc->params->DULparams.callingPresentationAddress)
+                        {
                             t.status = [NSString stringWithFormat: NSLocalizedString( @"%s", nil), assoc->params->DULparams.callingPresentationAddress];
+                        }
                         
                         t.supportsCancel = YES;
                         [[ThreadsManager defaultManager] addThreadAndStart: t];

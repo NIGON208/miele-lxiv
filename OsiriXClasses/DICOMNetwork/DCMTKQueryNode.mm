@@ -2191,7 +2191,7 @@ static NSString *releaseNetworkVariablesSync = @"releaseNetworkVariablesSync";
 		#endif
 			
 			
-		/* initialize asscociation parameters, i.e. create an instance of T_ASC_Parameters*. */
+		/* initialize association parameters, i.e. create an instance of T_ASC_Parameters*. */
 			cond = ASC_createAssociationParameters(&params, _maxReceivePDULength);
 	//		DimseCondition::dump(cond);
 			if (cond.bad()) {
