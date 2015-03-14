@@ -4379,6 +4379,7 @@ static BOOL initialized = NO;
     if( [sender isKindOfClass:[NSString class]] && [sender isEqualToString: @"crash"])
         verboseAfterCrash = YES;
     
+#ifndef NDEBUG
 	if( [AppController hasMacOSXMountainLion]) // or better
 		url = [NSURL URLWithString:URL_OSIRIX_VERSION];
 	else
@@ -4418,6 +4419,7 @@ static BOOL initialized = NO;
 			}
 		}
 	}
+#endif
 	
 	[pool release];
 }
