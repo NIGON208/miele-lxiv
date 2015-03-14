@@ -192,8 +192,10 @@ unsigned char* CreateIconFrom16 (float* image,  unsigned char*icon,  int height,
 		diff = 1;
 		max = min + 1;
 	}
-	if( (float) width / PREVIEWSIZE > (float) height / PREVIEWSIZE) ratio = (float) width / PREVIEWSIZE;
-	else ratio = (float) height / PREVIEWSIZE;
+	if (width > height)
+        ratio = (float) width / PREVIEWSIZE;
+	else
+        ratio = (float) height / PREVIEWSIZE;
 	
 	destWidth = (float) width / ratio;
 	destHeight = (float) height / ratio;
@@ -10044,8 +10046,10 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 	
     [self CheckLoad];
 	
-	if( (float) width / PREVIEWSIZE > (float) height / PREVIEWSIZE) ratio = (float) width / PREVIEWSIZE;
-	else ratio = (float) height / PREVIEWSIZE;
+	if (width > height)
+        ratio = (float) width / PREVIEWSIZE;
+	else
+        ratio = (float) height / PREVIEWSIZE;
 	
 	destWidth = (float) width / ratio;
 	destHeight = (float) height / ratio;
