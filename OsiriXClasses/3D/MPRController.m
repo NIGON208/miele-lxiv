@@ -32,6 +32,8 @@
 #define CLUTDATABASE @"/CLUTs/"
 #define DATABASEPATH @"/DATABASE.noindex/"
 
+#define FIX_MPR_WORKAROUND
+
 extern void setvtkMeanIPMode( int m);
 extern short intersect3D_2Planes( float *Pn1, float *Pv1, float *Pn2, float *Pv2, float *u, float *iP);
 static float deg2rad = M_PI/180.0; 
@@ -341,13 +343,19 @@ static float deg2rad = M_PI/180.0;
 	BOOL c = [[NSUserDefaults standardUserDefaults] boolForKey: @"syncZoomLevelMPR"];
 	
 	[[NSUserDefaults standardUserDefaults] setBool: YES forKey: @"syncZoomLevelMPR"];
-	
+
 	// Default Init
 	[self setClippingRangeMode: 1]; // MIP
-	self.clippingRangeThickness = 0.5;
+#ifdef FIX_MPR_WORKAROUND
+    self.clippingRangeThickness = 1;
+    if( [self getClippingRangeThicknessInMm] < fabs( [originalPix sliceInterval]))
+        self.clippingRangeThickness = 2;
+#else
+    self.clippingRangeThickness = 0.5;
+#endif
 	
     int min = [self getClippingRangeThicknessInMm] * 100.;
-    self.dcmIntervalMin = (float) min / 100.;
+    self.dcmIntervalMin = (float)min / 100.;
     self.dcmIntervalMin -= 0.001;
     if( self.dcmIntervalMin < 0.01)
         self.dcmIntervalMin = 0.01;
@@ -369,7 +377,11 @@ static float deg2rad = M_PI/180.0;
 	mprView3.camera.viewUp = [Point3D pointWithX:0 y:0 z:1];
 	mprView3.camera.rollAngle = 0;
 	mprView3.angleMPR = 0;
-	mprView3.camera.parallelScale /= 1.5;
+#ifdef FIX_MPR_WORKAROUND
+    mprView3.camera.parallelScale /= 2.;
+#else
+    mprView3.camera.parallelScale /= 1.5;
+#endif
 	[mprView3 restoreCamera];
 	[mprView3 updateViewMPR];
 	
