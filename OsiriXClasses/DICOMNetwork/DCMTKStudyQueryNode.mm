@@ -91,7 +91,7 @@
 		if (dataset ->findAndGetString(DCM_StudyDescription, string).good() && string != nil) 
 			_theDescription = [[DicomFile stringWithBytes: (char*) string encodings: encoding replaceBadCharacters: NO] retain];
 		
-		if (dataset ->findAndGetString(DCM_PatientsName, string).good() && string != nil)
+		if (dataset ->findAndGetString(DCM_PatientName, string).good() && string != nil)
 			_name = [[DicomFile stringWithBytes: (char*) string encodings: encoding] retain];
 		
 		if (dataset ->findAndGetString(DCM_PatientID, string).good() && string != nil)		
@@ -100,22 +100,22 @@
 		if (dataset ->findAndGetString(DCM_AccessionNumber, string).good() && string != nil)		
 			_accessionNumber = [[DicomFile stringWithBytes: (char*) string encodings: encoding replaceBadCharacters: NO] retain];
 		
-		if (dataset ->findAndGetString(DCM_StudyComments, string).good() && string != nil)		
+		if (dataset ->findAndGetString(DCM_RETIRED_StudyComments, string).good() && string != nil)
 			_comments = [[DicomFile stringWithBytes: (char*) string encodings: encoding replaceBadCharacters: NO] retain];
 		
-        if (dataset ->findAndGetString(DCM_InterpretationStatusID, string).good() && string != nil)
+        if (dataset ->findAndGetString(DCM_RETIRED_InterpretationStatusID, string).good() && string != nil)
 			_interpretationStatusID = [[DicomFile stringWithBytes: (char*) string encodings: encoding replaceBadCharacters: NO] retain];
         
-		if (dataset ->findAndGetString(DCM_ReferringPhysiciansName, string).good() && string != nil)		
+		if (dataset ->findAndGetString(DCM_ReferringPhysicianName, string).good() && string != nil)
 			_referringPhysician = [[DicomFile stringWithBytes: (char*) string encodings: encoding] retain];
 		
-        if (dataset ->findAndGetString(DCM_PerformingPhysiciansName, string).good() && string != nil)		
+        if (dataset ->findAndGetString(DCM_PerformingPhysicianName, string).good() && string != nil)
 			_performingPhysician = [[DicomFile stringWithBytes: (char*) string encodings: encoding] retain];
         
 		if (dataset ->findAndGetString(DCM_InstitutionName, string).good() && string != nil)		
 			_institutionName = [[DicomFile stringWithBytes: (char*) string encodings: encoding] retain];
 		
-		if (dataset ->findAndGetString(DCM_PatientsBirthDate, string).good() && string != nil) {
+		if (dataset ->findAndGetString(DCM_PatientBirthDate, string).good() && string != nil) {
 			NSString *dateString = [[NSString alloc] initWithCString:string encoding:NSISOLatin1StringEncoding];
 			_birthdate = [[DCMCalendarDate dicomDate:dateString] retain];
 			[dateString release];
@@ -187,8 +187,8 @@
 	dataset-> insertEmptyElement(DCM_SeriesNumber, OFTrue);
 	dataset-> insertEmptyElement(DCM_NumberOfSeriesRelatedInstances, OFTrue);
 	dataset-> insertEmptyElement(DCM_Modality, OFTrue);
-	dataset-> insertEmptyElement(DCM_ReferringPhysiciansName, OFTrue);
-    dataset-> insertEmptyElement(DCM_PerformingPhysiciansName, OFTrue);
+	dataset-> insertEmptyElement(DCM_ReferringPhysicianName, OFTrue);
+    dataset-> insertEmptyElement(DCM_PerformingPhysicianName, OFTrue);
 	dataset-> insertEmptyElement(DCM_InstitutionName, OFTrue);
 	dataset-> putAndInsertString(DCM_StudyInstanceUID, [_uid UTF8String], OFTrue);
 	dataset-> putAndInsertString(DCM_QueryRetrieveLevel, "SERIES", OFTrue);
@@ -198,8 +198,8 @@
     
     if( [[NSUserDefaults standardUserDefaults] boolForKey: @"CFINDCommentsAndStatusSupport"])
     {
-        dataset-> insertEmptyElement(DCM_StudyComments, OFTrue);
-        dataset-> insertEmptyElement(DCM_InterpretationStatusID, OFTrue);
+        dataset-> insertEmptyElement(DCM_RETIRED_StudyComments, OFTrue);
+        dataset-> insertEmptyElement(DCM_RETIRED_InterpretationStatusID, OFTrue);
 	}
     
 	return dataset;

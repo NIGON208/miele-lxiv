@@ -30,8 +30,6 @@
 #include "ofconapp.h"
 #include "dcuid.h"       /* for dcmtk version name */
 #include "oflist.h"
-#include "dcdebug.h"
-
 
 @implementation DCMTKPrintSCU
 
@@ -140,9 +138,6 @@
 	
 	//Inverse PLUT	
 	_inverse_plut = [[_extraParameters objectForKey:@"Inverse PLUT"] boolValue];
-
-	 
-	 
 }
 
 @end

@@ -33,7 +33,10 @@
             ddir.enableInventMode(OFTrue); // +I
             
         //  ddir.enableIconImageMode(); // +X
+
+#if 0 // TODO
             ddir.enableOneIconPerSeriesMode(); // OsiriX addition
+#endif
             ddir.setIconSize(128); // we let DicomDirInterface pick the icon size.. which, depending on the modality, will be either 128 or 64
 
             DicomDirImageImplementation imagePlugin;
@@ -43,7 +46,7 @@
             OFStandard::searchDirectoryRecursively("", fileNames, NULL, path.fileSystemRepresentation); // +r +id burnFolder
             
             NSString* dicomdirPath = [path stringByAppendingPathComponent:[NSString stringWithUTF8String:DEFAULT_DICOMDIR_NAME]];
-            OFCondition result = ddir.createNewDicomDir(DicomDirInterface::AP_USBandFlash, [dicomdirPath fileSystemRepresentation], DEFAULT_FILESETID); // -Pfl
+            OFCondition result = ddir.createNewDicomDir(DicomDirInterface::AP_USBandFlashJPEG, [dicomdirPath fileSystemRepresentation], DEFAULT_FILESETID); // -Pfl
             if (!result.good())
                 [NSException raise:NSGenericException format:@"Couldn't create new DICOMDIR file: %s", result.text()];
                 

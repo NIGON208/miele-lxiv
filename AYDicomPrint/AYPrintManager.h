@@ -251,7 +251,7 @@ public:
    *  sets an ostream to which all network communication is dumped.
    *  @param stream output stream, default: no output
    */
-  void setDumpStream(ostream *stream=NULL)
+  void setDumpStream(std::ostream *stream=NULL)
   {
     dumpStream = stream;
   }
@@ -342,7 +342,7 @@ private:
   int timeout;
 
   /// if not NULL, dump all network communication
-  ostream *dumpStream;
+  std::ostream *dumpStream;
 
   /// output stream for error messages, never NULL
   OFConsole *logstream;

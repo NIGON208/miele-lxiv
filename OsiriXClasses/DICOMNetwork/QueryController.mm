@@ -4512,6 +4512,19 @@ extern "C"
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(saveTableColumns) name:NSOutlineViewColumnDidMoveNotification object: outlineView];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(saveTableColumns) name:NSOutlineViewColumnDidResizeNotification object: outlineView];
     }
+    
+    if ([[NSUserDefaults standardUserDefaults] boolForKey: @"verbose_dcmtkStoreScu"])
+    {
+#ifndef NDEBUG
+        OFLog::configure(OFLogger::DEBUG_LOG_LEVEL);
+#else
+        OFLog::configure(OFLogger::INFO_LOG_LEVEL);
+#endif
+    }
+    else
+    {
+        OFLog::configure(OFLogger::ERROR_LOG_LEVEL);
+    }
 }
 
 - (void)saveTableColumns
@@ -5044,19 +5057,7 @@ extern "C"
 
 - (int) dicomEcho:(NSDictionary*) aServer
 {
-	int status = 0;
-	
-	NSString *theirAET;
-	NSString *hostname;
-	NSString *port;
-	
-	theirAET = [aServer objectForKey:@"AETitle"];
-	hostname = [aServer objectForKey:@"Address"];
-	port = [aServer objectForKey:@"Port"];
-	
-	status = [QueryController echoServer:aServer];
-	
-	return status;
+	return [QueryController echoServer:aServer];
 }
 
 - (IBAction) verify:(id)sender

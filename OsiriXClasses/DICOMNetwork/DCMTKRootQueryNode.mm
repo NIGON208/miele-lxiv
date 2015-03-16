@@ -43,10 +43,10 @@
 - (DcmDataset *)queryPrototype
 {
 	DcmDataset *dataset = new DcmDataset();
-	dataset-> insertEmptyElement(DCM_PatientsName, OFTrue);
+	dataset-> insertEmptyElement(DCM_PatientName, OFTrue);
 	dataset-> insertEmptyElement(DCM_PatientID, OFTrue);
 	dataset-> insertEmptyElement(DCM_AccessionNumber, OFTrue);
-	dataset-> insertEmptyElement(DCM_PatientsBirthDate, OFTrue);
+	dataset-> insertEmptyElement(DCM_PatientBirthDate, OFTrue);
 	dataset-> insertEmptyElement(DCM_StudyDescription, OFTrue);
 	dataset-> insertEmptyElement(DCM_StudyDate, OFTrue);
 	dataset-> insertEmptyElement(DCM_StudyTime, OFTrue);
@@ -54,16 +54,16 @@
 	dataset-> insertEmptyElement(DCM_StudyID, OFTrue);
 	dataset-> insertEmptyElement(DCM_NumberOfStudyRelatedInstances, OFTrue);
     dataset-> insertEmptyElement(DCM_InstitutionName, OFTrue);
-    dataset-> insertEmptyElement(DCM_ReferringPhysiciansName, OFTrue);
-    dataset-> insertEmptyElement(DCM_PerformingPhysiciansName, OFTrue);
+    dataset-> insertEmptyElement(DCM_ReferringPhysicianName, OFTrue);
+    dataset-> insertEmptyElement(DCM_PerformingPhysicianName, OFTrue);
     
     if( [[NSUserDefaults standardUserDefaults] boolForKey: @"CFINDBodyPartExaminedSupport"])
         dataset-> insertEmptyElement(DCM_BodyPartExamined, OFTrue);
     
     if( [[NSUserDefaults standardUserDefaults] boolForKey: @"CFINDCommentsAndStatusSupport"])
     {
-        dataset-> insertEmptyElement(DCM_StudyComments, OFTrue);
-        dataset-> insertEmptyElement(DCM_InterpretationStatusID, OFTrue);
+        dataset-> insertEmptyElement(DCM_RETIRED_StudyComments, OFTrue);
+        dataset-> insertEmptyElement(DCM_RETIRED_InterpretationStatusID, OFTrue);
     }
     
     if( [[NSUserDefaults standardUserDefaults] boolForKey: @"SupportQRModalitiesinStudy"])

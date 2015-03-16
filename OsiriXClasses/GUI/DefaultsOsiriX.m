@@ -1697,6 +1697,8 @@ static NSHost *currentHost = nil;
 	[defaultValues setObject:[NSNumber numberWithBool:YES] forKey:OsirixWadoServiceEnabledDefaultsKey];
 	[defaultValues setObject:[NSNumber numberWithBool:YES] forKey:OsirixWebPortalUsesWeasisDefaultsKey];
 	[defaultValues setObject:[NSNumber numberWithBool:YES] forKey:OsirixWebPortalPrefersFlashDefaultsKey];
+    
+    [defaultValues setObject:[NSNumber numberWithBool:NO] forKey:@"verbose_dcmtkStoreScu"];
 	
 	return defaultValues;
 }

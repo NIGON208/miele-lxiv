@@ -5599,8 +5599,12 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
     if( [dcmObject attributeValueWithName:@"BitsStored"])
         bitsStored = [[dcmObject attributeValueWithName:@"BitsStored"] intValue];
     
-    if( bitsStored == 8 && bitsAllocated == 16 && [[dcmObject attributeValueWithName:@"PhotometricInterpretation"] isEqualToString:@"RGB"])
+    if (bitsStored == 8 &&
+        bitsAllocated == 16 &&
+        [[dcmObject attributeValueWithName:@"PhotometricInterpretation"] isEqualToString:@"RGB"])
+    {
         bitsAllocated = 8;
+    }
     
     if ([dcmObject attributeValueWithName:@"RescaleIntercept"])
         offset = [[dcmObject attributeValueWithName:@"RescaleIntercept"] floatValue];
@@ -6532,7 +6536,8 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
                     if( bitsAllocated == 16)
                     {
                         short *bufPtr = (short*) oImage, *tmpImage;
-                        long loop, totSize;
+                        long loop;
+                        //long totSize;
                         const int shift = bitsAllocated - bitsStored;
                         
                         tmpImage = malloc( height * width * 2L);
@@ -7150,7 +7155,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 					#endif
                     #endif
 				}
-				#ifndef OSIRIX_LIGHT  // @@@ Also Decompress ?
+				#ifndef OSIRIX_LIGHT  // Also Decompress ?
 				else
 				{
 					success = [self loadDICOMDCMFramework];

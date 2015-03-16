@@ -901,7 +901,11 @@ PixelRepresentation
                     if( [DCMValueRepresentation isSequenceVR:vr] || ([DCMValueRepresentation  isUnknownVR:vr] && vl == 0xFFFFFFFF))
                     {
                         attr = (DCMAttribute *) [[[DCMSequenceAttribute alloc] initWithAttributeTag:(DCMAttributeTag *)tag] autorelease];
-                        *byteOffset = [self readNewSequenceAttribute:attr dicomData:dicomData byteOffset:byteOffset lengthToRead:vl specificCharacterSet:specificCharacterSet];
+                        *byteOffset = [self readNewSequenceAttribute:attr
+                                                           dicomData:dicomData
+                                                          byteOffset:byteOffset
+                                                        lengthToRead:vl
+                                                specificCharacterSet:specificCharacterSet];
                     } 
                     // "7FE0,0010" == PixelData
                     else if (strcmp(tagUTF8, "7FE0,0010") == 0 && tag.isPrivate == NO)
@@ -1488,20 +1492,18 @@ PixelRepresentation
                     newValue = [NSNull null];
 				[values replaceObjectAtIndex:index withObject:newValue];
 			}
-		}	
-		
+		}
 	}
-
 }
 
 - (NSString *)anonymizeString:(NSString *)string
 {
 	int root = 0;
 	int i = 0;
-	int value = 0;
+	NSUInteger value = 0;
 	char newChar = 0;
 	char x;
-	int length = [string length];
+	NSUInteger length = [string length];
 	char newString[length];
 	const char *chars = [string UTF8String];
 	while (i < length) {

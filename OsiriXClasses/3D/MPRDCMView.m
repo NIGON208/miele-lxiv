@@ -390,8 +390,13 @@ unsigned int minimumStep;
 				
 		if( [self frame].size.width > 0 && [self frame].size.height > 0)
 		{
-			if( windowController.maxMovieIndex > 1 && (windowController.clippingRangeMode == 1 || windowController.clippingRangeMode == 3 || windowController.clippingRangeMode == 2))	//To avoid the wrong pixel value bug...
+			if( windowController.maxMovieIndex > 1 &&
+               (windowController.clippingRangeMode == 1 ||
+                windowController.clippingRangeMode == 3 ||
+                windowController.clippingRangeMode == 2))	//To avoid the wrong pixel value bug...
+            {
 				[vrView prepareFullDepthCapture];
+            }
 			
 			if( moveCenter)
 			{
@@ -421,7 +426,9 @@ unsigned int minimumStep;
 		float orientation[ 9];
 		[vrView getOrientation: orientation];
 		
-		float location[ 3] = {previousOrigin[ 0], previousOrigin[ 1], previousOrigin[ 2]}, orig[ 3] = {currentCamera.position.x, currentCamera.position.y, currentCamera.position.z}, locationTemp[ 3];
+		float location[ 3] = {previousOrigin[ 0], previousOrigin[ 1], previousOrigin[ 2]},
+              orig[ 3] = {currentCamera.position.x, currentCamera.position.y, currentCamera.position.z},
+              locationTemp[ 3];
 		float distance = [DCMView pbase_Plane: location :orig :&(orientation[ 6]) :locationTemp];
 		if( distance < pix.sliceThickness / 2.)
 			previousOriginInPlane = YES;
@@ -1264,7 +1271,7 @@ unsigned int minimumStep;
 	mouseLocation.x -= center.x;
 	mouseLocation.y -= center.y;
 	
-	return -atan2( mouseLocation.x, mouseLocation.y) / deg2rad;
+    return -atan2( mouseLocation.x, mouseLocation.y) / deg2rad;
 }
 
 - (NSPoint) centerLines

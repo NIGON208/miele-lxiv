@@ -27,12 +27,11 @@
 #include "dcdatset.h"
 #include "dcmetinf.h"
 #include "dcfilefo.h"
-#include "dcdebug.h"
 #include "dcuid.h"
 #include "dcdict.h"
 #include "dcdeftag.h"
-#include "../Binaries/dcmtk-source/dcmjpls/djdecode.h" //JPEG-LS
-#include "../Binaries/dcmtk-source/dcmjpls/djencode.h" //JPEG-LS
+#include "dcmjpls/djdecode.h" //JPEG-LS
+#include "dcmjpls/djencode.h" //JPEG-LS
 
 #include "options.h"
 
@@ -136,7 +135,7 @@ int main(int argc, const char *argv[])
 		DJEncoderRegistration::registerCodecs(
 			ECC_lossyRGB,
 			EUC_never,
-			OFFalse,
+			//OFFalse,// pVerbose
 			OFFalse,
 			0,
 			0,
@@ -190,8 +189,10 @@ int main(int argc, const char *argv[])
 			}
 		}
 		
+#if 0 // TODO
 		dcmtkSetJPEGColorSpace( [[dict objectForKey:@"UseJPEGColorSpace"] intValue]);
-		
+#endif
+        
 //		BOOL useDCMTKForJP2K = [[dict objectForKey:@"useDCMTKForJP2K"] intValue];
 		
 #pragma mark compress
@@ -317,7 +318,7 @@ int main(int argc, const char *argv[])
                                     break;
                                     
                                     case compression_JPEG:
-                                        if( original_xfer.getXfer() == EXS_JPEGProcess14SV1TransferSyntax)
+                                        if( original_xfer.getXfer() == EXS_JPEGProcess14SV1)
                                             alreadyCompressed = YES;
                                     break;
                                 }
@@ -389,7 +390,7 @@ int main(int argc, const char *argv[])
                                     if( compression == compression_JPEG)
                                     {
                                         params = &losslessParams;
-                                        tSyntax = EXS_JPEGProcess14SV1TransferSyntax;
+                                        tSyntax = EXS_JPEGProcess14SV1;
                                     }
                                     else if( compression == compression_JPEGLS)
                                     {

@@ -2656,7 +2656,7 @@ public:
 		double zd = point2[ 2]- point1[ 2];
 		double length = sqrt(xd*xd + yd*yd + zd*zd);
         
-        if( isnan( length) || length < 0.00001 || length > 1000)
+        if( std::isnan( length) || length < 0.00001 || length > 1000)
             NSLog( @"****** vrView getResolution");
         
 		return (length/factor);

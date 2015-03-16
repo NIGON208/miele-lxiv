@@ -20,7 +20,6 @@
 #include "ofstd.h"
 
 #include "dctk.h"
-#include "dcdebug.h"
 #include "cmdlnarg.h"
 #include "ofconapp.h"
 #include "dcuid.h"       /* for dcmtk version name */

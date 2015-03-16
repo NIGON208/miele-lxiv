@@ -12,6 +12,7 @@ AYDicomPrint/libdcmprintscu.dylib
 Binaries/3DconnexionClient.framework/
 Binaries/DB_Previous_Models/
 Binaries/DCMTK/
+Binaries/DCMTK.zip
 Binaries/dciodvfy
 Binaries/Growl.framework/
 Binaries/ILCrashReporter.framework/

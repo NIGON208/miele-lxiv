@@ -210,11 +210,10 @@
                         //NSLog(@"DCMObject sequence: %f", -[timestamp  timeIntervalSinceNow]);
                             attr = (DCMAttribute *) [[[DCMSequenceAttribute alloc] initWithAttributeTag:(DCMAttributeTag *)tag] autorelease];
                             *byteOffset = [self readNewSequenceAttribute:attr dicomData:dicomData byteOffset:byteOffset lengthToRead:vl specificCharacterSet:specificCharacterSet];
-
                     }
                     else if ([[tag stringValue] isEqualToString:[sharedTagForNameDictionary objectForKey:@"PixelData"]])
                     {
-                        attr = (DCMPixelDataAttribute *) [[[DCMPixelDataAttribute alloc]	initWithAttributeTag:(DCMAttributeTag *)tag 
+                        attr = (DCMPixelDataAttribute *) [[[DCMPixelDataAttribute alloc] initWithAttributeTag:(DCMAttributeTag *)tag 
                         vr:(NSString *)vr 
                         length:(long) vl 
                         data:(DCMDataContainer *)dicomData 

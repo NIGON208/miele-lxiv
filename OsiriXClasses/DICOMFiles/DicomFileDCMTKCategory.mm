@@ -26,7 +26,6 @@
 #include "ofstd.h"
 
 #include "dctk.h"
-#include "dcdebug.h"
 #include "cmdlnarg.h"
 #include "ofconapp.h"
 #include "dcuid.h"       /* for dcmtk version name */
@@ -588,14 +587,14 @@ extern NSRecursiveLock *PapyrusLock;
 		}
 		
 		//Referring Physician
-		if (dataset->findAndGetString(DCM_ReferringPhysiciansName,  string, OFFalse).good() && string != NULL)
+		if (dataset->findAndGetString(DCM_ReferringPhysicianName,  string, OFFalse).good() && string != NULL)
 		{
 			NSString *referringPhysiciansName = [DicomFile stringWithBytes: (char*) string encodings:encoding];
 			[dicomElements setObject:referringPhysiciansName forKey:@"referringPhysiciansName"];
 		}
 		
 		//Performing Physician
-		if (dataset->findAndGetString(DCM_PerformingPhysiciansName,  string, OFFalse).good() && string != NULL)
+		if (dataset->findAndGetString(DCM_PerformingPhysicianName,  string, OFFalse).good() && string != NULL)
 		{
 			NSString *performingPhysiciansName = [DicomFile stringWithBytes: (char*) string encodings:encoding];
 			[dicomElements setObject:performingPhysiciansName forKey:@"performingPhysiciansName"];
@@ -609,7 +608,7 @@ extern NSRecursiveLock *PapyrusLock;
 		}
 		
 		//Patients Name
-		if (dataset->findAndGetString(DCM_PatientsName, string, OFFalse).good() && string != NULL)
+		if (dataset->findAndGetString(DCM_PatientName, string, OFFalse).good() && string != NULL)
 		{
 			name = [[DicomFile stringWithBytes: (char*) string encodings:encoding replaceBadCharacters:NO] retain];
 			if(name == nil) name = [[NSString alloc] initWithCString: string encoding: encoding[ 0]];
@@ -627,7 +626,7 @@ extern NSRecursiveLock *PapyrusLock;
 		}
 		
 		//Patients Age
-		if (dataset->findAndGetString(DCM_PatientsAge, string, OFFalse).good() && string != NULL)
+		if (dataset->findAndGetString(DCM_PatientAge, string, OFFalse).good() && string != NULL)
 		{
 			NSString *patientAge  = [[NSString alloc] initWithCString:string encoding: NSASCIIStringEncoding];
 			[dicomElements setObject:patientAge forKey:@"patientAge"];	
@@ -635,7 +634,7 @@ extern NSRecursiveLock *PapyrusLock;
 		}
 		
 		//Patients BD
-		if (dataset->findAndGetString(DCM_PatientsBirthDate, string, OFFalse).good() && string != NULL)
+		if (dataset->findAndGetString(DCM_PatientBirthDate, string, OFFalse).good() && string != NULL)
 		{
 			NSString		*patientDOB =  [[[NSString alloc] initWithCString:string encoding: NSASCIIStringEncoding] autorelease];
 			NSCalendarDate	*DOB = [NSCalendarDate dateWithString: patientDOB calendarFormat:@"%Y%m%d"];
@@ -643,7 +642,7 @@ extern NSRecursiveLock *PapyrusLock;
 		}
 		
 		//Patients Sex
-		if (dataset->findAndGetString(DCM_PatientsSex, string, OFFalse).good() && string != NULL)
+		if (dataset->findAndGetString(DCM_PatientSex, string, OFFalse).good() && string != NULL)
 		{
 			NSString *patientSex  = [[NSString alloc] initWithCString:string encoding: NSASCIIStringEncoding];
 			[dicomElements setObject:patientSex forKey:@"patientSex"];	
@@ -802,13 +801,13 @@ extern NSRecursiveLock *PapyrusLock;
 		
 		if( [self commentsFromDICOMFiles])
 		{
-			if (dataset->findAndGetString( DCM_StudyComments, string, OFFalse).good() && string != NULL)
+			if (dataset->findAndGetString( DCM_RETIRED_StudyComments, string, OFFalse).good() && string != NULL)
 				[dicomElements setObject: [NSString stringWithCString:string encoding: NSASCIIStringEncoding] forKey:@"studyComments"];
 			
 			if (dataset->findAndGetString( DCM_ImageComments, string, OFFalse).good() && string != NULL)
 				[dicomElements setObject: [NSString stringWithCString:string encoding: NSASCIIStringEncoding] forKey:@"seriesComments"];
 			
-			if (dataset->findAndGetString( DCM_InterpretationStatusID, string, OFFalse).good() && string != NULL)
+			if (dataset->findAndGetString( DCM_RETIRED_InterpretationStatusID, string, OFFalse).good() && string != NULL)
 				[dicomElements setObject: [NSNumber numberWithInt: [[NSString stringWithCString:string encoding: NSASCIIStringEncoding] intValue]] forKey:@"stateText"];
 		}
 		
@@ -858,11 +857,11 @@ extern NSRecursiveLock *PapyrusLock;
 				DcmItem *eitem = NULL;
 				do
 				{
-					if (ditem->findAndGetSequenceItem(DCM_CardiacTriggerSequence, eitem, x).good())
+					if (ditem->findAndGetSequenceItem(DCM_CardiacSynchronizationSequence, eitem, x).good())
 					{
 						Float64 triggerSequence = 0;
 						
-						if( eitem->findAndGetFloat64(DCM_TriggerDelayTime, triggerSequence, 0, OFFalse).good())
+						if( eitem->findAndGetFloat64(DCM_NominalCardiacTriggerDelayTime, triggerSequence, 0, OFFalse).good())
 							[imageCardiacTriggerArray addObject: [NSString stringWithFormat: @"%lf", triggerSequence]];
 					}
                     
@@ -955,7 +954,7 @@ extern NSRecursiveLock *PapyrusLock;
 		if( [sopClassUID isEqualToString:[DCMAbstractSyntaxUID pdfStorageClassUID]])
 		{
 			const Uint8 *buffer = nil;
-			unsigned int length;
+			NSUInteger length;
 			if (dataset->findAndGetUint8Array(DCM_EncapsulatedDocument, buffer, &length, OFFalse).good() && length > 0)
 			{
 				NSData *pdfData = [NSData dataWithBytes:buffer length:(unsigned)length];;

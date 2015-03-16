@@ -36,7 +36,6 @@
 #include "dcdatset.h"
 #include "dcmetinf.h"
 #include "dcfilefo.h"
-#include "dcdebug.h"
 #include "dcuid.h"
 #include "dcdict.h"
 #include "dcdeftag.h"
@@ -116,9 +115,9 @@ static NSString *uniqueSync = @"uniqueSync";
 			DcmRLERepresentationParameter rleParams;
 			DJ_RPLossless losslessParams(6,0);
 			
-			if( xfer.getXfer() == EXS_JPEGProcess14SV1TransferSyntax)
+			if( xfer.getXfer() == EXS_JPEGProcess14SV1)
 				params = &losslessParams;
-			else if( xfer.getXfer() == EXS_JPEGProcess2_4TransferSyntax)
+			else if( xfer.getXfer() == EXS_JPEGProcess2_4)
 				params = &lossyParams; 
 			else if( xfer.getXfer() == EXS_RLELossless)
 				params = &rleParams;

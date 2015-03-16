@@ -12,6 +12,8 @@
      PURPOSE.
 =========================================================================*/
 
+/* See dcmqrscp.cc */
+
 #import "DCMTKQueryRetrieveSCP.h"
 #import "AppController.h"
 #import "DICOMTLS.h"
@@ -69,7 +71,6 @@ END_EXTERN_C
 #include "dcmqrcnf.h"
 #include "dcmqrsrv.h"
 #include "dcdict.h"
-#include "dcdebug.h"
 #include "cmdlnarg.h"
 #include "ofconapp.h"
 #include "dcuid.h"       /* for dcmtk version name */
@@ -79,6 +80,8 @@ END_EXTERN_C
 //#else
 //#include "dcmqrdbi.h"
 //#endif
+
+#include "DcmQueryRetrieveOsiriXSCP.h"
 
 #define OPENSSL_DISABLE_OLD_DES_SUPPORT // joris
 
@@ -98,6 +101,8 @@ END_EXTERN_C
 #define OFFIS_CONSOLE_APPLICATION "dcmqrscp"
 #endif
 
+static OFLogger dcmqrscpLogger = OFLog::getLogger("dcmtk.apps." OFFIS_CONSOLE_APPLICATION);
+
 #define APPLICATIONTITLE    "DCMQRSCP"
 
 //const char *opt_configFileName = "dcmqrscp.cfg";
@@ -105,52 +110,40 @@ END_EXTERN_C
 //OFBool      opt_checkMoveIdentifier = OFFalse;
 //OFCmdUnsignedInt opt_port = 0;
 
-DcmQueryRetrieveSCP *scp = nil;
-DcmQueryRetrieveSCP *scptls = nil;
+DcmQueryRetrieveOsiriXSCP *scp = nil;
 
-OFCondition mainStoreSCP(T_ASC_Association * assoc, T_DIMSE_C_StoreRQ * request, T_ASC_PresentationContextID presId, DcmQueryRetrieveDatabaseHandle *dbHandle)
+OFCondition mainStoreSCP(T_ASC_Association * assoc,
+                         T_DIMSE_C_StoreRQ * request,
+                         T_ASC_PresentationContextID presId,
+                         DcmQueryRetrieveDatabaseHandle *dbHandle)
 {
-	OFBool isTLS = assoc->params->DULparams.useSecureLayer;
-	if(!isTLS)
-	{
-		if( scp == nil)
-		{
-			NSLog( @"***** scp == nil !");
-			return EC_IllegalCall;
-		}
-		else
-			return scp->storeSCP( assoc, request, presId, *dbHandle, FALSE);
-	}
-	else
-	{
-		if( scptls == nil)
-		{
-			NSLog( @"***** scptls == nil !");
-			return EC_IllegalCall;
-		}
-		else
-			return scptls->storeSCP( assoc, request, presId, *dbHandle, FALSE);
-	}
+	//OFBool isTLS = assoc->params->DULparams.useSecureLayer;
+    
+    if (scp)
+        return scp->storeSCP( assoc, request, presId, *dbHandle, FALSE);
+    
+    NSLog( @"***** scp == nil !");
 	return EC_IllegalCall;
 }
-
-void errmsg(const char* msg, ...)
-{
-    va_list args;
-
-    fprintf(stderr, "%s: ", OFFIS_CONSOLE_APPLICATION);
-    va_start(args, msg);
-    vfprintf(stderr, msg, args);
-    va_end(args);
-    fprintf(stderr, "\n");
-}
-
 
 @implementation DCMTKQueryRetrieveSCP
 
 + (BOOL) storeSCP
 {
-	if( scp || scptls || [[NSUserDefaults standardUserDefaults] boolForKey:@"NinjaSTORESCP"]) // some undefined external entity is running a DIOCM listener...
+    if ([[NSUserDefaults standardUserDefaults] boolForKey: @"verbose_dcmtkStoreScu"])
+    {
+#ifndef NDEBUG
+        OFLog::configure(OFLogger::DEBUG_LOG_LEVEL);
+#else
+        OFLog::configure(OFLogger::INFO_LOG_LEVEL);
+#endif
+    }
+    else
+    {
+        OFLog::configure(OFLogger::ERROR_LOG_LEVEL);
+    }
+
+	if( scp || [[NSUserDefaults standardUserDefaults] boolForKey:@"NinjaSTORESCP"]) // some undefined external entity is running a DICOM listener...
 		return YES;
 	else
 		return NO;
@@ -197,10 +190,7 @@ void errmsg(const char* msg, ...)
 	OFCondition cond = EC_Normal;
     OFCmdUnsignedInt overrideMaxPDU = 0;
     DcmQueryRetrieveOptions options;
-
-	//verbose
-	options.verbose_= 0;
-	
+    
 	//single process
 	options.singleProcess_ = [[NSUserDefaults standardUserDefaults] boolForKey: @"SingleProcessMultiThreadedListener"];
 	
@@ -215,7 +205,7 @@ void errmsg(const char* msg, ...)
     options.restrictMoveToSameHost_ = OFFalse;
     options.restrictMoveToSameVendor_ = OFFalse;
 	
-	//only suppport Study Root fornow
+	//only support Study Root for now
 	options.supportPatientRoot_ = OFFalse;
 	options.supportPatientStudyOnly_ = OFFalse;
 	
@@ -228,9 +218,9 @@ void errmsg(const char* msg, ...)
 	/*
 	options.networkTransferSyntaxOut_ = EXS_LittleEndianExplicit;
 	options.networkTransferSyntaxOut_ = EXS_BigEndianExplicit;
-	options.networkTransferSyntaxOut_ = EXS_JPEGProcess14SV1TransferSyntax;
-	options.networkTransferSyntaxOut_ = EXS_JPEGProcess1TransferSyntax;
-	options.networkTransferSyntaxOut_ = EXS_JPEGProcess2_4TransferSyntax;
+	options.networkTransferSyntaxOut_ = EXS_JPEGProcess14SV1;
+	options.networkTransferSyntaxOut_ = EXS_JPEGProcess1;
+	options.networkTransferSyntaxOut_ = EXS_JPEGProcess2_4;
 	options.networkTransferSyntaxOut_ = EXS_JPEG2000LosslessOnly;
 	options.networkTransferSyntaxOut_ = EXS_JPEG2000;
 	options.networkTransferSyntaxOut_ = EXS_RLELossless;
@@ -318,9 +308,9 @@ void errmsg(const char* msg, ...)
 	cond = ASC_initializeNetwork(NET_ACCEPTORREQUESTOR, (int)_port, options.acse_timeout_, &options.net_);
     if (cond.bad())
 	{
-		errmsg("Error initialising network:");
-		DimseCondition::dump(cond);
-		
+        OFString temp_str;
+        OFLOG_ERROR(dcmqrscpLogger, "Error initialising network:" << DimseCondition::dump(temp_str, cond));
+
         [[AppController sharedAppController] performSelectorOnMainThread:@selector(displayUpdateMessage:) withObject:@"LISTENER" waitUntilDone: NO];
 		return;
     }
@@ -376,7 +366,8 @@ void errmsg(const char* msg, ...)
 			//					app.checkValue(cmd.getValue(current));
 			//					if (TCS_ok != tLayer->addTrustedCertificateDir(current, opt_keyFileFormat))
 			//					{
-			//						CERR << "warning unable to load certificates from directory '" << current << "', ignoring" << endl;
+            //                      DCMQRDB_ERROR("warning unable to load certificates from directory '" << current << "', ignoring");
+
 			//					}
 			//				} while (cmd.findOption("--add-cert-dir", 0, OFCommandLine::FOM_Next));
 			//			}
@@ -494,9 +485,6 @@ void errmsg(const char* msg, ...)
 		}
 	}
 #endif
-	
-	
-	
 
 // Have this to avoid errors until I can get rid of it
 DcmQueryRetrieveConfig config;
@@ -509,21 +497,15 @@ DcmQueryRetrieveConfig config;
 //    DcmQueryRetrieveIndexDatabaseHandleFactory factory(&config);
 //#endif
 	 //use if static scp rather than pointer
-    //DcmQueryRetrieveSCP scp(config, options, factory);
+    //DcmQueryRetrieveOsiriXSCP scp(config, options, factory);
 	//scp.setDatabaseFlags(OFFalse, OFFalse, options.debug_);
 
-	DcmQueryRetrieveSCP *localSCP = nil;
-    
-	localSCP = new DcmQueryRetrieveSCP(config, options, factory);
+	DcmQueryRetrieveOsiriXSCP *localSCP = new DcmQueryRetrieveOsiriXSCP(config, options, factory);
+    scp = localSCP;
 	
-	if([[_params objectForKey:@"TLSEnabled"] boolValue])
-		scptls = localSCP;
-	else
-		scp = localSCP;
-	
-	localSCP->setDatabaseFlags(OFFalse, OFFalse, options.debug_);
-	localSCP->setSecureConnection([[_params objectForKey:@"TLSEnabled"] boolValue]);
-	
+    localSCP->setDatabaseFlags(OFFalse, OFFalse);
+    //localSCP->opt_secureConnection = [[_params objectForKey:@"TLSEnabled"] boolValue];
+
 	_abort = NO;
 	running = YES;
 		
@@ -565,19 +547,15 @@ DcmQueryRetrieveConfig config;
 		delete localSCP;
 	
 	localSCP = NULL;
-	
-    if([[_params objectForKey:@"TLSEnabled"] boolValue])
-		scptls = nil;
-	else
-		scp = nil;
+    scp = nil;
     
 	if (cond.bad())
-		errmsg("****** cond.good() != normal ---- DCMTKQueryRetrieve");
+		OFLOG_ERROR(dcmqrscpLogger, "****** cond.good() != normal ---- DCMTKQueryRetrieve");
 	
 	cond = ASC_dropNetwork(&options.net_);
     if (cond.bad()) {
-        errmsg("Error dropping network:");
-        DimseCondition::dump(cond);
+        OFString temp_str;
+        OFLOG_ERROR(dcmqrscpLogger, "Error dropping network:" << DimseCondition::dump(temp_str, cond));
     }
 	
 	running = NO;

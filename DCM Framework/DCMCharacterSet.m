@@ -63,7 +63,7 @@ char* DCMreplaceInvalidCharacter( char* str ) {
 {
 	if( str == nil) return nil;
     
-    int	fromLength;
+    NSUInteger fromLength;
     
     if( length > 0)
         fromLength = length;
@@ -90,7 +90,7 @@ char* DCMreplaceInvalidCharacter( char* str ) {
         
         if (isEscape || isDelimiter)
         {
-            int convertLength = currentChar - firstChar - 1;
+            NSInteger convertLength = currentChar - firstChar - 1;
 			
             if( convertLength - (escLength+1) >= 0)
             {

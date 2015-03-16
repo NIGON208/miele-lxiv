@@ -22,10 +22,10 @@
 #include "dcrledrg.h"  /* for DcmRLEDecoderRegistration */
 #include "dcrleerg.h"  /* for DcmRLEEncoderRegistration */
 
-#include "../../Binaries/dcmtk-source/dcmjpls/djdecode.h" //JPEG-LS
-#include "../../Binaries/dcmtk-source/dcmjpls/djencode.h" //JPEG-LS
+#include "dcmjpls/djdecode.h" //JPEG-LS
+#include "dcmjpls/djencode.h" //JPEG-LS
 
-extern int gPutSrcAETitleInSourceApplicationEntityTitle, gPutDstAETitleInPrivateInformationCreatorUID;
+//extern int gPutSrcAETitleInSourceApplicationEntityTitle, gPutDstAETitleInPrivateInformationCreatorUID;
 
 @implementation AppController (AppControllerDCMTKCategory)
 
@@ -40,7 +40,7 @@ extern int gPutSrcAETitleInSourceApplicationEntityTitle, gPutDstAETitleInPrivate
     DJEncoderRegistration::registerCodecs(
 	 	ECC_lossyRGB,
 		EUC_never,
-		OFFalse,
+		//OFFalse,
 		OFFalse,
 		0,
 		0,
@@ -71,8 +71,10 @@ extern int gPutSrcAETitleInSourceApplicationEntityTitle, gPutDstAETitleInPrivate
     // register RLE decompression codec
     DcmRLEDecoderRegistration::registerCodecs();
     
+#if 0 // TODO
     gPutSrcAETitleInSourceApplicationEntityTitle = [[NSUserDefaults standardUserDefaults] boolForKey: @"putSrcAETitleInSourceApplicationEntityTitle"];
     gPutDstAETitleInPrivateInformationCreatorUID = [[NSUserDefaults standardUserDefaults] boolForKey: @"putDstAETitleInPrivateInformationCreatorUID"];
+#endif
     #endif
 }
 - (void)destroyDCMTK

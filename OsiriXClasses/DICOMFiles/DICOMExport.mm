@@ -304,13 +304,13 @@ static float deg2rad = M_PI / 180.0f;
 	if (result.good()) result = dataset->insertEmptyElement(DCM_StudyTime);
 	if (result.good()) result = dataset->insertEmptyElement(DCM_AccessionNumber);
 	if (result.good()) result = dataset->insertEmptyElement(DCM_Manufacturer);
-	if (result.good()) result = dataset->insertEmptyElement(DCM_ReferringPhysiciansName);
+	if (result.good()) result = dataset->insertEmptyElement(DCM_ReferringPhysicianName);
 	if (result.good()) result = dataset->insertEmptyElement(DCM_StudyID);
 	if (result.good()) result = dataset->insertEmptyElement(DCM_ContentDate);
 	if (result.good()) result = dataset->insertEmptyElement(DCM_ContentTime);
 	if (result.good()) result = dataset->insertEmptyElement(DCM_AcquisitionDate);
 	if (result.good()) result = dataset->insertEmptyElement(DCM_AcquisitionTime);
-	if (result.good()) result = dataset->insertEmptyElement(DCM_AcquisitionDatetime);
+	if (result.good()) result = dataset->insertEmptyElement(DCM_AcquisitionDateTime);
 	if (result.good()) result = dataset->insertEmptyElement(DCM_ConceptNameCodeSequence);
 	
     if (result.good()) result = dataset->putAndInsertString(DCM_SOPClassUID, UID_SecondaryCaptureImageStorage);
@@ -323,16 +323,16 @@ static float deg2rad = M_PI / 180.0f;
 	
 	// insert variable value attributes
 	if (result.good() && [dict objectForKey: @"patientsName"])
-        result = dataset->putAndInsertString(DCM_PatientsName, [[dict objectForKey: @"patientsName"] UTF8String]);
+        result = dataset->putAndInsertString(DCM_PatientName, [[dict objectForKey: @"patientsName"] UTF8String]);
     
 	if (result.good() && [dict objectForKey: @"patientID"])
         result = dataset->putAndInsertString(DCM_PatientID, [[dict objectForKey: @"patientID"] UTF8String]);
     
 	if (result.good() && [dict objectForKey: @"patientsBirthdate"])
-        result = dataset->putAndInsertString(DCM_PatientsBirthDate, [[[DCMCalendarDate dicomDateWithDate: [dict objectForKey: @"patientsBirthdate"]] dateString] UTF8String]);
+        result = dataset->putAndInsertString(DCM_PatientBirthDate, [[[DCMCalendarDate dicomDateWithDate: [dict objectForKey: @"patientsBirthdate"]] dateString] UTF8String]);
     
 	if (result.good() && [dict objectForKey: @"patientsSex"])
-        result = dataset->putAndInsertString(DCM_PatientsSex, [[dict objectForKey: @"patientsSex"] UTF8String]);
+        result = dataset->putAndInsertString(DCM_PatientSex, [[dict objectForKey: @"patientsSex"] UTF8String]);
     
 	if (result.good() && [dict objectForKey: @"studyDate"])
         result = dataset->putAndInsertString(DCM_AcquisitionDate, [[[DCMCalendarDate dicomDateWithDate: [dict objectForKey: @"studyDate"]] dateString] UTF8String]);
@@ -801,7 +801,7 @@ static float deg2rad = M_PI / 180.0f;
                     else
                         delete dataset->remove( DCM_MediaStorageSOPClassUID);
                     
-					dataset->putAndInsertString( DCM_ManufacturersModelName, "OsiriX");
+					dataset->putAndInsertString( DCM_ManufacturerModelName, "OsiriX");
 					dataset->putAndInsertString( DCM_InstanceNumber, [[NSString stringWithFormat: @"%d", exportInstanceNumber++] UTF8String]);
 					dataset->putAndInsertString( DCM_AcquisitionNumber, "1");
 					

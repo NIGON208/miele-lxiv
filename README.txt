@@ -105,12 +105,11 @@ Cocoa (OpenStep, GNUStep, NextStep)
 VTK (Visualization Toolkit)
 ITK (Insight Toolkit)
 PixelMed (David Clunie)
-Papyrus 3.0
+OpenJPEG
 DICOM Offis DCMTK
 OpenGL
 LibTIFF
 LibJPEG
-CharLS
 
 Complete DICOM Conformance statement for OsiriX is available here: http://www.osirix-viewer.com/DICOMConformanceStatements.pdf
 

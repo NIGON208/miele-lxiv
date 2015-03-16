@@ -12,6 +12,8 @@
      PURPOSE.
 =========================================================================*/
 
+/* See DCMTK's storescu.cc */
+
 #import "LogManager.h"
 #import "AppController.h"
 #import "DCMTKStoreSCU.h"
@@ -26,7 +28,7 @@
 #undef verify
 #include "osconfig.h" /* make sure OS specific configuration is included first */
 
-#define  ON_THE_FLY_COMPRESSION 1
+#define ON_THE_FLY_COMPRESSION 1
 
 #define INCLUDE_CSTDLIB
 #define INCLUDE_CSTDIO
@@ -52,11 +54,9 @@ END_EXTERN_C
 #include "dcdatset.h"
 #include "dcmetinf.h"
 #include "dcfilefo.h"
-#include "dcdebug.h"
 #include "dcuid.h"
 #include "dcdict.h"
 #include "dcdeftag.h"
-//#include "cmdlnarg.h"
 #include "ofconapp.h"
 #include "dcuid.h"     /* for dcmtk version name */
 #include "dicom.h"     /* for DICOM_APPLICATION_REQUESTOR */
@@ -95,6 +95,8 @@ END_EXTERN_C
 
 #define OFFIS_CONSOLE_APPLICATION "storescu"
 
+static OFLogger storescuLogger = OFLog::getLogger("dcmtk.apps." OFFIS_CONSOLE_APPLICATION);
+
 //static char rcsid[] = "$dcmtk: " OFFIS_CONSOLE_APPLICATION " v"
 //  OFFIS_DCMTK_VERSION " " OFFIS_DCMTK_RELEASEDATE " $";
 
@@ -102,14 +104,13 @@ END_EXTERN_C
 #define APPLICATIONTITLE        "STORESCU"
 #define PEERAPPLICATIONTITLE    "ANY-SCP"
 
-static OFBool opt_verbose = OFFalse;
 static OFBool opt_showPresentationContexts = OFFalse;
-static OFBool opt_debug = OFFalse;
 static OFBool opt_abortAssociation = OFFalse;
 static OFCmdUnsignedInt opt_maxReceivePDULength = ASC_DEFAULTMAXPDU;
 //static OFCmdUnsignedInt opt_maxSendPDULength = 0;
 static E_TransferSyntax opt_networkTransferSyntax = EXS_LittleEndianExplicit;
 
+static OFBool unsuccessfulStoreEncountered = OFFalse;
 static int lastStatusCode = STATUS_Success;
 
 static OFBool opt_proposeOnlyRequiredPresentationContexts = OFFalse;
@@ -151,18 +152,6 @@ static NSString *opensslSync = @"openssl";
 #endif
 
 static int inc = 0;
-
-static void
-errmsg(const char *msg,...)
-{
-    va_list args;
-
-    fprintf(stderr, "%s: ", OFFIS_CONSOLE_APPLICATION);
-    va_start(args, msg);
-    vfprintf(stderr, msg, args);
-    va_end(args);
-    fprintf(stderr, "\n");
-}
 
 static OFCondition
 addStoragePresentationContexts(T_ASC_Parameters *params, OFList<OFString>& sopClasses);
@@ -316,7 +305,7 @@ addStoragePresentationContexts(T_ASC_Parameters *params, OFList<OFString>& sopCl
     while (s_cur != s_end && cond.good()) {
 
         if (pid > 255) {
-            errmsg("Too many presentation contexts");
+            OFLOG_ERROR(storescuLogger, "Too many presentation contexts");
             return ASC_BADPRESENTATIONCONTEXTID;
         }
 
@@ -331,7 +320,7 @@ addStoragePresentationContexts(T_ASC_Parameters *params, OFList<OFString>& sopCl
 
             if (fallbackSyntaxes.size() > 0) {
                 if (pid > 255) {
-                    errmsg("Too many presentation contexts");
+                    OFLOG_ERROR(storescuLogger, "Too many presentation contexts");
                     return ASC_BADPRESENTATIONCONTEXTID;
                 }
 
@@ -379,9 +368,9 @@ addStoragePresentationContexts(T_ASC_Parameters *params, OFList<OFString>& sopCl
 //    OFCondition cond = EC_Normal;
 //    cond = dataset->search(key, stack, ESM_fromHere, OFFalse);
 //    if (cond != EC_Normal) {
-//        CERR << "error: updateStringAttributeValue: cannot find: " << tag.getTagName()
+//        DCMQRDB_ERROR( "error: updateStringAttributeValue: cannot find: " << tag.getTagName()
 //             << " " << key << ": "
-//             << cond.text() << endl;
+//             << cond.text());
 //        return OFFalse;
 //    }
 //
@@ -389,17 +378,17 @@ addStoragePresentationContexts(T_ASC_Parameters *params, OFList<OFString>& sopCl
 //
 //    DcmVR vr(elem->ident());
 //    if (elem->getLength() > vr.getMaxValueLength()) {
-//        CERR << "error: updateStringAttributeValue: INTERNAL ERROR: " << tag.getTagName()
+//        DCMQRDB_ERROR("error: updateStringAttributeValue: INTERNAL ERROR: " << tag.getTagName()
 //             << " " << key << ": value too large (max "
-//            << vr.getMaxValueLength() << ") for " << vr.getVRName() << " value: " << value << endl;
+//            << vr.getMaxValueLength() << ") for " << vr.getVRName() << " value: " << value);
 //        return OFFalse;
 //    }
 //
 //    cond = elem->putOFStringArray(value);
 //    if (cond != EC_Normal) {
-//        CERR << "error: updateStringAttributeValue: cannot put string in attribute: " << tag.getTagName()
+//        DCMQRDB_ERROR("error: updateStringAttributeValue: cannot put string in attribute: " << tag.getTagName()
 //             << " " << key << ": "
-//             << cond.text() << endl;
+//             << cond.text());
 //        return OFFalse;
 //    }
 //
@@ -453,7 +442,7 @@ addStoragePresentationContexts(T_ASC_Parameters *params, OFList<OFString>& sopCl
 //    OFString sopInstanceUID = makeUID(SITE_INSTANCE_UID_ROOT, (int)imageCounter);
 //    OFString imageNumber = intToString((int)imageCounter);
 //
-//    if (opt_verbose) {
+//    if ([[NSUserDefaults standardUserDefaults] boolForKey: @"verbose_dcmtkStoreScu"])
 //        COUT << "Inventing Identifying Information (" <<
 //            "pa" << patientCounter << ", st" << studyCounter <<
 //            ", se" << seriesCounter << ", im" << imageCounter << "): " << endl;
@@ -467,7 +456,7 @@ addStoragePresentationContexts(T_ASC_Parameters *params, OFList<OFString>& sopCl
 //        COUT << "  ImageNumber=" << imageNumber << endl;
 //    }
 //
-//    updateStringAttributeValue(dataset, DCM_PatientsName, patientName);
+//    updateStringAttributeValue(dataset, DCM_PatientName, patientName);
 //    updateStringAttributeValue(dataset, DCM_PatientID, patientID);
 //    updateStringAttributeValue(dataset, DCM_StudyInstanceUID, studyInstanceUID);
 //    updateStringAttributeValue(dataset, DCM_StudyID, studyID);
@@ -482,18 +471,29 @@ addStoragePresentationContexts(T_ASC_Parameters *params, OFList<OFString>& sopCl
 static void
 progressCallback(void * /*callbackData*/,
     T_DIMSE_StoreProgress *progress,
-    T_DIMSE_C_StoreRQ * /*req*/)
+    T_DIMSE_C_StoreRQ * req)
 {
-    if (opt_verbose) {
+    if (progress->state == DIMSE_StoreBegin)
+    {
+        OFString str;
+        OFLOG_DEBUG(storescuLogger, DIMSE_dumpMessage(str, *req, DIMSE_OUTGOING));
+    }
+    
+    // We can't use oflog for the pdu output, but we use a special logger for
+    // generating this output. If it is set to level "INFO" we generate the
+    // output, if it's set to "DEBUG" then we'll assume that there is debug output
+    // generated for each PDU elsewhere.
+    OFLogger progressLogger = OFLog::getLogger("dcmtk.apps." OFFIS_CONSOLE_APPLICATION ".progress");
+    if (progressLogger.getChainedLogLevel() == OFLogger::INFO_LOG_LEVEL) {
         switch (progress->state) {
         case DIMSE_StoreBegin:
-            printf("XMIT:"); break;
+            COUT << "XMIT: "; break;
         case DIMSE_StoreEnd:
-            printf("\n"); break;
+            COUT << OFendl; break;
         default:
-            putchar('.'); break;
+            COUT << "."; break;
         }
-        fflush(stdout);
+        COUT.flush();
     }
 }
 
@@ -619,9 +619,9 @@ static OFBool compressFile(DcmFileFormat fileformat, const char *fname, char *ou
                 DcmRLERepresentationParameter rleParams;
                 DJ_RPLossless losslessParams(6,0);
                 
-                if (opt_networkTransferSyntax == EXS_JPEGProcess14SV1TransferSyntax)
+                if (opt_networkTransferSyntax == EXS_JPEGProcess14SV1)
                     params = &losslessParams;
-                else if (opt_networkTransferSyntax == EXS_JPEGProcess2_4TransferSyntax)
+                else if (opt_networkTransferSyntax == EXS_JPEGProcess2_4)
                     params = &lossyParams; 
                 else if (opt_networkTransferSyntax == EXS_RLELossless)
                     params = &rleParams;
@@ -695,12 +695,9 @@ storeSCU(T_ASC_Association * assoc, const char *fname)
 	
 	sprintf( outfname, "%s/%ld.dcm", [[BrowserController currentBrowser] cfixedTempNoIndexDirectory], seed++);
 
-    OFBool unsuccessfulStoreEncountered = OFTrue; // assumption
+    unsuccessfulStoreEncountered = OFTrue; // assumption
 	
-    if (opt_verbose) {
-        printf("--------------------------\n");
-        printf("Sending file: %s\n", fname);
-    }
+    OFLOG_INFO(storescuLogger, "Sending file: " << fname);
 
     /* read information from file. After the call to DcmFileFormat::loadFile(...) the information */
     /* which is encapsulated in the file will be available through the DcmFileFormat object. */
@@ -711,7 +708,7 @@ storeSCU(T_ASC_Association * assoc, const char *fname)
 
     /* figure out if an error occured while the file was read*/
     if (cond.bad()) {
-        errmsg("Bad DICOM file: %s: %s", fname, cond.text());
+        OFLOG_ERROR(storescuLogger, "Bad DICOM file: " << fname << ": " << cond.text());
         return cond;
     }
 
@@ -723,7 +720,7 @@ storeSCU(T_ASC_Association * assoc, const char *fname)
     /* figure out which SOP class and SOP instance is encapsulated in the file */
     if (!DU_findSOPClassAndInstanceInDataSet(dcmff.getDataset(),
         sopClass, sopInstance, opt_correctUIDPadding)) {
-        errmsg("No SOP Class & Instance UIDs in file: %s", fname);
+        OFLOG_ERROR(storescuLogger, "No SOP Class or Instance UID in file: " << fname);
         return DIMSE_BADDATA;
     }
 	
@@ -740,8 +737,7 @@ storeSCU(T_ASC_Association * assoc, const char *fname)
         filexfer = EXS_DeflatedLittleEndianExplicit;
     }
 	
-	
-	/************* do on the fly conversion here*********************/
+	/************* do on the fly conversion here *********************/
 	
 	//printf("on the fly conversion\n");
 	//we have a valid presentation ID,.Chaeck and see if file is consistent with it
@@ -773,14 +769,17 @@ storeSCU(T_ASC_Association * assoc, const char *fname)
 			
 			if( (filexfer.getXfer() == EXS_JPEG2000LosslessOnly && preferredXfer.getXfer() == EXS_JPEG2000) ||
 				(filexfer.getXfer() == EXS_JPEG2000 && preferredXfer.getXfer() == EXS_JPEG2000LosslessOnly))
-				{
-				}
+            {
+			}
             else if( (filexfer.getXfer() == EXS_JPEGLSLossless && preferredXfer.getXfer() == EXS_JPEGLSLossy) ||
                     (filexfer.getXfer() == EXS_JPEGLSLossy && preferredXfer.getXfer() == EXS_JPEGLSLossless))
             {
             }
-			else
-				printf("------ Warning! Recompression: presentation for syntax:\n%s -> %s\n", dcmFindNameOfUID(filexfer.getXferID()), dcmFindNameOfUID(preferredXfer.getXferID()));
+            else {
+                OFLOG_WARN(storescuLogger, "Recompression: presentation for syntax: "
+                           << dcmFindNameOfUID(filexfer.getXferID()) << OFendl
+                           << " -> " << dcmFindNameOfUID(preferredXfer.getXferID()));
+            }
 			
 			status = compressFile(dcmff, fname, outfname);
 		}
@@ -796,7 +795,7 @@ storeSCU(T_ASC_Association * assoc, const char *fname)
 		/* figure out which SOP class and SOP instance is encapsulated in the file */
 		if (!DU_findSOPClassAndInstanceInDataSet(dcmff.getDataset(),
 			sopClass, sopInstance, opt_correctUIDPadding)) {
-			errmsg("No SOP Class & Instance UIDs in file: %s", outfname);
+			OFLOG_ERROR(storescuLogger, "No SOP Class & Instance UIDs in file: " << outfname);
 			return DIMSE_BADDATA;
 		}
 		
@@ -812,22 +811,21 @@ storeSCU(T_ASC_Association * assoc, const char *fname)
         const char *modalityName = dcmSOPClassUIDToModality(sopClass);
         if (!modalityName) modalityName = dcmFindNameOfUID(sopClass);
         if (!modalityName) modalityName = "unknown SOP class";
-        errmsg("No presentation context for: (%s) %s", modalityName, sopClass);
+        OFLOG_ERROR(storescuLogger, "No presentation context for: (" << modalityName << ") " << sopClass);
         return DIMSE_NOVALIDPRESENTATIONCONTEXTID;
     }
 
     /* if required, dump general information concerning transfer syntaxes */
-    if (opt_verbose) {
+    ASC_findAcceptedPresentationContext(assoc->params, presId, &pc);  // @@ redundant ?
+    DcmXfer netTransfer(pc.acceptedTransferSyntax);
+    if (storescuLogger.isEnabledFor(OFLogger::INFO_LOG_LEVEL)) {
         DcmXfer fileTransfer(dcmff.getDataset()->getOriginalXfer());
-        T_ASC_PresentationContext pc;
-        ASC_findAcceptedPresentationContext(assoc->params, presId, &pc);
-        DcmXfer netTransfer(pc.acceptedTransferSyntax);
-        printf("Transfer: %s -> %s\n",
-            dcmFindNameOfUID(fileTransfer.getXferID()), dcmFindNameOfUID(netTransfer.getXferID()));
+        OFLOG_INFO(storescuLogger, "Converting transfer syntax: " << fileTransfer.getXferName()
+                   << " -> " << netTransfer.getXferName());
     }
 
     /* prepare the transmission of data */
-    bzero((char*)&req, sizeof(req));
+    bzero(OFreinterpret_cast(char *, &req), sizeof(req));
     req.MessageID = msgId;
     strcpy(req.AffectedSOPClassUID, sopClass);
     strcpy(req.AffectedSOPInstanceUID, sopInstance);
@@ -835,15 +833,14 @@ storeSCU(T_ASC_Association * assoc, const char *fname)
     req.Priority = DIMSE_PRIORITY_LOW;
 
     /* if required, dump some more general information */
-    if (opt_verbose) {
-        printf("Store SCU RQ: MsgID %d, (%s)\n", msgId, dcmSOPClassUIDToModality(sopClass));
-    }
+    OFLOG_INFO(storescuLogger, "Sending Store Request (MsgID " << msgId << ", "
+               << dcmSOPClassUIDToModality(sopClass) << ")");
 
     /* finally conduct transmission of data */
     cond = DIMSE_storeUser(assoc, presId, &req,
         NULL, dcmff.getDataset(), progressCallback, NULL,
         opt_blockMode, opt_dimse_timeout,
-        &rsp, &statusDetail, NULL, DU_fileSize(fname));
+        &rsp, &statusDetail, NULL, OFStandard::getFileSize(fname));
 
     /*
      * If store command completed normally, with a status
@@ -864,20 +861,26 @@ storeSCU(T_ASC_Association * assoc, const char *fname)
     /* dump some more general information */
     if (cond == EC_Normal)
     {
-        if (opt_verbose) {
-            DIMSE_printCStoreRSP(stdout, &rsp);
+        OFString temp_str;
+        if (storescuLogger.isEnabledFor(OFLogger::DEBUG_LOG_LEVEL))
+        {
+            //DIMSE_printCStoreRSP(stdout, &rsp);
+            OFLOG_INFO(storescuLogger, "Received Store Response");
+            OFLOG_DEBUG(storescuLogger, DIMSE_dumpMessage(temp_str, rsp, DIMSE_INCOMING, NULL, presId));
+        }
+        else {
+            OFLOG_INFO(storescuLogger, "Received Store Response (" << DU_cstoreStatusString(rsp.DimseStatus) << ")");
         }
     }
     else
     {
-        errmsg("Store Failed, file: %s:", fname);
-        DimseCondition::dump(cond);
+        OFString temp_str;
+        OFLOG_ERROR(storescuLogger, "Store Failed, file: " << fname << ":" << OFendl << DimseCondition::dump(temp_str, cond));
     }
 
     /* dump status detail information if there is some */
     if (statusDetail != NULL) {
-        printf("  Status Detail:\n");
-        statusDetail->print(COUT);
+        OFLOG_DEBUG(storescuLogger, "Status Detail:" << OFendl << DcmObject::PrintHelper(*statusDetail));
         delete statusDetail;
     }
 	
@@ -892,7 +895,6 @@ storeSCU(T_ASC_Association * assoc, const char *fname)
     /* return */
     return cond;
 }
-
 
 static OFCondition cstore(T_ASC_Association * assoc, const OFString& fname)
     /*
@@ -920,24 +922,27 @@ static OFCondition cstore(T_ASC_Association * assoc, const OFString& fname)
     return cond;
 }
 
-
-
 @implementation DCMTKStoreSCU
+
++ (void) showDcmtkVersion
+{
+    NSLog(@"DCMTK %s %s", OFFIS_DCMTK_VERSION, OFFIS_DCMTK_RELEASEDATE);    
+}
 
 + (int) sendSyntaxForListenerSyntax: (int) listenerSyntax
 {
 	switch( listenerSyntax)
 	{
-		case EXS_LittleEndianExplicit:				return SendExplicitLittleEndian;	break;
-		case EXS_JPEG2000:							return SendJPEG2000Lossless;	break;
-		case EXS_JPEGProcess14SV1TransferSyntax:	return SendJPEGLossless;	break;
-		case EXS_JPEGProcess1TransferSyntax:		return SendJPEGLossless;	break;
-		case EXS_JPEGProcess2_4TransferSyntax:		return SendJPEGLossless;	break;
-		case EXS_RLELossless:						return SendRLE;	break;
-		case EXS_LittleEndianImplicit:				return SendImplicitLittleEndian;	break;
-		case EXS_JPEG2000LosslessOnly:				return SendJPEG2000Lossless;	break;
-        case EXS_JPEGLSLossless:                    return SendJPEGLSLossless;	break;
-        case EXS_JPEGLSLossy:                       return SendJPEGLSLossless;	break;
+		case EXS_LittleEndianExplicit:		return SendExplicitLittleEndian;	break;
+		case EXS_JPEG2000:					return SendJPEG2000Lossless;	break;
+		case EXS_JPEGProcess14SV1:          return SendJPEGLossless;	break;
+		case EXS_JPEGProcess1:              return SendJPEGLossless;	break;
+		case EXS_JPEGProcess2_4:            return SendJPEGLossless;	break;
+		case EXS_RLELossless:				return SendRLE;	break;
+		case EXS_LittleEndianImplicit:		return SendImplicitLittleEndian;	break;
+		case EXS_JPEG2000LosslessOnly:		return SendJPEG2000Lossless;	break;
+        case EXS_JPEGLSLossless:            return SendJPEGLSLossless;	break;
+        case EXS_JPEGLSLossy:               return SendJPEGLSLossless;	break;
 	}
 	
 	return SendExplicitLittleEndian;
@@ -1042,7 +1047,7 @@ static OFCondition cstore(T_ASC_Association * assoc, const OFString& fname)
 					}
 				}
 
-				if (fileformat.getDataset()->findAndGetString(DCM_PatientsName, string, OFFalse).good() && string != nil)
+				if (fileformat.getDataset()->findAndGetString(DCM_PatientName, string, OFFalse).good() && string != nil)
 					_patientName = [[DicomFile stringWithBytes: (char*) string encodings:encoding] retain];
 				else _patientName = [@"Unnamed" retain];
 				
@@ -1092,6 +1097,7 @@ static OFCondition cstore(T_ASC_Association * assoc, const OFString& fname)
 //	
 //	if ([fileManager createDirectoryAtPath:tempFolder attributes:nil]) NSLog(@"created Folder: %@", tempFolder);
 	
+    OFString temp_str;
 	OFCondition cond;
 	const char *opt_peer = NULL;
     OFCmdUnsignedInt opt_port = 104;
@@ -1119,16 +1125,22 @@ static OFCondition cstore(T_ASC_Association * assoc, const OFString& fname)
 	opt_peer = [_hostname UTF8String];
 	opt_port = _port;
 	
-    [[NSUserDefaults standardUserDefaults] setBool: 0 forKey: @"verbose_dcmtkStoreScu"];
-    
-	opt_verbose = [[NSUserDefaults standardUserDefaults] boolForKey: @"verbose_dcmtkStoreScu"];
 	opt_showPresentationContexts = [[NSUserDefaults standardUserDefaults] boolForKey: @"verbose_dcmtkStoreScu"];
-	opt_debug = [[NSUserDefaults standardUserDefaults] boolForKey: @"verbose_dcmtkStoreScu"];
-	DUL_Debug( [[NSUserDefaults standardUserDefaults] boolForKey: @"verbose_dcmtkStoreScu"]);
-	DIMSE_debug( [[NSUserDefaults standardUserDefaults] boolForKey: @"verbose_dcmtkStoreScu"]);
-	SetDebugLevel( [[NSUserDefaults standardUserDefaults] boolForKey: @"verbose_dcmtkStoreScu"]);
-	
-	switch (_transferSyntax)
+    
+    if ([[NSUserDefaults standardUserDefaults] boolForKey: @"verbose_dcmtkStoreScu"])
+    {
+#ifndef NDEBUG
+        OFLog::configure(OFLogger::DEBUG_LOG_LEVEL);
+#else
+        OFLog::configure(OFLogger::INFO_LOG_LEVEL);
+#endif
+    }
+    else
+    {
+        OFLog::configure(OFLogger::ERROR_LOG_LEVEL);
+    }
+
+    switch (_transferSyntax)
 	{
 		default:
 		case SendExplicitLittleEndian:
@@ -1167,18 +1179,18 @@ static OFCondition cstore(T_ASC_Association * assoc, const OFString& fname)
 			opt_Quality = 3;
 			break;
 		case SendJPEGLossless: 
-			opt_networkTransferSyntax = EXS_JPEGProcess14SV1TransferSyntax;
+			opt_networkTransferSyntax = EXS_JPEGProcess14SV1;
 			break;
 		case SendJPEGLossy9:
-			opt_networkTransferSyntax = EXS_JPEGProcess2_4TransferSyntax;
+			opt_networkTransferSyntax = EXS_JPEGProcess2_4;
 			opt_Quality = 90;
 			break;
 		case SendJPEGLossy8:
-			opt_networkTransferSyntax = EXS_JPEGProcess2_4TransferSyntax;
+			opt_networkTransferSyntax = EXS_JPEGProcess2_4;
 			opt_Quality = 80;
 			break;
 		case SendJPEGLossy7:
-			opt_networkTransferSyntax = EXS_JPEGProcess2_4TransferSyntax;
+			opt_networkTransferSyntax = EXS_JPEGProcess2_4;
 			opt_Quality = 70;
 			break;
 		case SendImplicitLittleEndian:
@@ -1325,7 +1337,7 @@ static OFCondition cstore(T_ASC_Association * assoc, const OFString& fname)
 			  errormsg += currentFilename;
 //			  if (opt_haltOnUnsuccessfulStore)
 //				 errmsg(errormsg.c_str());
-//				 else CERR << "warning: " << errormsg << ", ignoring file" << endl;
+//			  else DCMQRDB_ERROR("warning: " << errormsg << ", ignoring file");
 			}
 			else
 			{
@@ -1338,7 +1350,7 @@ static OFCondition cstore(T_ASC_Association * assoc, const OFString& fname)
 					errormsg += currentFilename;
 //					if (opt_haltOnUnsuccessfulStore)
 //					   errmsg(errormsg.c_str());
-//					   else CERR << "warning: " << errormsg << ", ignoring file" << endl;
+//					   else DCMQRDB_ERROR("warning: " << errormsg << ", ignoring file");;
 				  }
 				  else if (!dcmIsaStorageSOPClassUID(sopClassUID))
 				  {
@@ -1349,7 +1361,7 @@ static OFCondition cstore(T_ASC_Association * assoc, const OFString& fname)
 					errormsg += sopClassUID;
 //					if (opt_haltOnUnsuccessfulStore)
 //					   errmsg(errormsg.c_str());
-//					   else CERR << "warning: " << errormsg << ", ignoring file" << endl;
+//					   else DCMQRDB_ERROR("warning: " << errormsg << ", ignoring file");
 				  }
 				  else
 				  {
@@ -1432,7 +1444,7 @@ static OFCondition cstore(T_ASC_Association * assoc, const OFString& fname)
                             //					app.checkValue(cmd.getValue(current));
                             //					if (TCS_ok != tLayer->addTrustedCertificateDir(current, opt_keyFileFormat))
                             //					{
-                            //						CERR << "warning unable to load certificates from directory '" << current << "', ignoring" << endl;
+                            //						DCMQRDB_ERROR("warning unable to load certificates from directory '" << current << "', ignoring");
                             //					}
                             //				} while (cmd.findOption("--add-cert-dir", 0, OFCommandLine::FOM_Next));
                             //			}
@@ -1546,19 +1558,15 @@ static OFCondition cstore(T_ASC_Association * assoc, const OFString& fname)
             //return;
         }
 
-        
         /* dump presentation contexts if required */
-        if (opt_showPresentationContexts || opt_debug)
-        {
-            printf("Request Parameters:\n");
-            ASC_dumpParameters(params, COUT);
-        }
-        
+        if (opt_showPresentationContexts)
+            OFLOG_INFO(storescuLogger, "Request Parameters:" << OFendl << ASC_dumpParameters(temp_str, params, ASC_ASSOC_RQ));
+        else
+            OFLOG_DEBUG(storescuLogger, "Request Parameters:" << OFendl << ASC_dumpParameters(temp_str, params, ASC_ASSOC_RQ));
         
         /* create association, i.e. try to establish a network connection to another */
         /* DICOM application. This call creates an instance of T_ASC_Association*. */
-        if (opt_verbose)
-            printf("Requesting Association\n");
+        OFLOG_INFO(storescuLogger, "Requesting Association");
         cond = ASC_requestAssociation(net, params, &assoc);
         if (cond.bad())
         {
@@ -1566,50 +1574,41 @@ static OFCondition cstore(T_ASC_Association * assoc, const OFString& fname)
             {
                 T_ASC_RejectParameters rej;
                 ASC_getRejectParameters(params, &rej);
-                errmsg("Association Rejected:");
-                ASC_printRejectParameters(stderr, &rej);
+                OFLOG_FATAL(storescuLogger, "Association Rejected:" << OFendl << ASC_printRejectParameters(temp_str, &rej));
+               
                 localException = [[NSException exceptionWithName:@"DICOM Network Failure (STORE-SCU)" reason:[NSString stringWithFormat: @"Association Rejected %04x:%04x %s", cond.module(), cond.code(), cond.text()] userInfo:nil] retain];
                 [localException raise];
 
             } else {
-                errmsg("Association Request Failed:");
-                DimseCondition::dump(cond);
+                OFLOG_FATAL(storescuLogger, "Association Request Failed: " << DimseCondition::dump(temp_str, cond));
+
                 localException = [[NSException exceptionWithName:@"DICOM Network Failure (STORE-SCU)" reason:[NSString stringWithFormat: @"Association Request Failed %04x:%04x %s", cond.module(), cond.code(), cond.text()] userInfo:nil] retain];
                 [localException raise];
             }
         }
         
-        
         /* dump the connection parameters if in debug mode*/
-        if (opt_debug)
-        {
-            ostream& out = ofConsole.lockCout();     
-            ASC_dumpConnectionParameters(assoc, out);
-            ofConsole.unlockCout();
-        }
+        OFLOG_DEBUG(storescuLogger, ASC_dumpConnectionParameters(temp_str, assoc));
 
         /* dump the presentation contexts which have been accepted/refused */
-        if (opt_showPresentationContexts || opt_debug)
-        {
-            printf("Association Parameters Negotiated:\n");
-            ASC_dumpParameters(params, COUT);
-        }
+        if (opt_showPresentationContexts)
+            OFLOG_INFO(storescuLogger, "Association Parameters Negotiated:" << OFendl << ASC_dumpParameters(temp_str, params, ASC_ASSOC_AC));
+        else
+            OFLOG_DEBUG(storescuLogger, "Association Parameters Negotiated:" << OFendl << ASC_dumpParameters(temp_str, params, ASC_ASSOC_AC));
 
         /* count the presentation contexts which have been accepted by the SCP */
         /* If there are none, finish the execution */
         if (ASC_countAcceptedPresentationContexts(params) == 0)
         {
-            errmsg("No Acceptable Presentation Contexts");
+            OFLOG_FATAL(storescuLogger, "No Acceptable Presentation Contexts");
+
             localException = [[NSException exceptionWithName:@"DICOM Network Failure (STORE-SCU)" reason:@"No acceptable presentation contexts" userInfo:nil] retain];
             [localException raise];
             //return;
         }
 
         /* dump general information concerning the establishment of the network connection if required */
-        if (opt_verbose) {
-            printf("Association Accepted (Max Send PDV: %u)\n",
-                    assoc->sendPDVLength);
-        }
+        OFLOG_INFO(storescuLogger, "Association Accepted (Max Send PDV: " << assoc->sendPDVLength << ")");
 
          /* do the real work, i.e. for all files which were specified in the */
         /* command line, transmit the encapsulated DICOM objects to the SCP. */
@@ -1659,26 +1658,24 @@ static OFCondition cstore(T_ASC_Association * assoc, const OFString& fname)
         {
             if (opt_abortAssociation)
             {
-                if (opt_verbose)
-                    printf("Aborting Association\n");
+                OFLOG_INFO(storescuLogger, "Aborting Association");
                 cond = ASC_abortAssociation(assoc);
                 if (cond.bad())
                 {
-                    errmsg("Association Abort Failed:");
-                    DimseCondition::dump(cond);
+                    OFLOG_ERROR(storescuLogger, "Association Abort Failed: " << DimseCondition::dump(temp_str, cond));
+
                     localException = [[NSException exceptionWithName:@"DICOM Network Failure (STORE-SCU)" reason:[NSString stringWithFormat: @"Association Abort Failed %04x:%04x %s", cond.module(), cond.code(), cond.text()] userInfo:nil] retain];
                     [localException raise];
                 }
             } else
             {
                 /* release association */
-                if (opt_verbose)
-                    printf("Releasing Association\n");
+                OFLOG_INFO(storescuLogger, "Releasing Association");
                 cond = ASC_releaseAssociation(assoc);
                 if (cond.bad())
                 {
-                    errmsg("Association Release Failed:");
-                    DimseCondition::dump(cond);
+                    OFLOG_ERROR(storescuLogger, "Association Release Failed: " << DimseCondition::dump(temp_str, cond));
+
                     localException = [[NSException exceptionWithName:@"DICOM Network Failure (STORE-SCU)" reason:[NSString stringWithFormat: @"Association Release Failed %04x:%04x %s", cond.module(), cond.code(), cond.text()] userInfo:nil] retain];
                     [localException raise];
                 }
@@ -1686,36 +1683,31 @@ static OFCondition cstore(T_ASC_Association * assoc, const OFString& fname)
         }
         else if (cond == DUL_PEERREQUESTEDRELEASE)
         {
-            errmsg("Protocol Error: peer requested release (Aborting)");
-            if (opt_verbose)
-                printf("Aborting Association\n");
+            OFLOG_ERROR(storescuLogger, "Protocol Error: Peer requested release (Aborting)");
+            OFLOG_INFO(storescuLogger, "Aborting Association");
+
             localException = [[NSException exceptionWithName:@"DICOM Network Failure (STORE-SCU)" reason:[NSString stringWithFormat: @"Protocol Error: peer requested release (Aborting) %04x:%04x %s", cond.module(), cond.code(), cond.text()] userInfo:nil] retain];
             cond = ASC_abortAssociation(assoc);
             if (cond.bad())
             {
-                errmsg("Association Abort Failed:");
-                DimseCondition::dump(cond);
+                OFLOG_ERROR(storescuLogger, "Association Abort Failed: " << DimseCondition::dump(temp_str, cond));
             }
             [localException raise];
         }
         else if (cond == DUL_PEERABORTEDASSOCIATION)
         {
-            if (opt_verbose) printf("Peer Aborted Association\n");
+            OFLOG_INFO(storescuLogger, "Peer Aborted Association");
         }
         else
         {
-            errmsg("SCU Failed:");
-            DimseCondition::dump(cond);
-            if (opt_verbose)
-                printf("Aborting Association\n");
+            OFLOG_ERROR(storescuLogger, "Store SCU Failed" << DimseCondition::dump(temp_str, cond));
+            OFLOG_INFO(storescuLogger, "Aborting Association");
             
             localException = [[NSException exceptionWithName:@"DICOM Network Failure (STORE-SCU)" reason:[NSString stringWithFormat: @"SCU Failed %04x:%04x %s", cond.module(), cond.code(), cond.text()] userInfo:nil] retain];
             cond = ASC_abortAssociation(assoc);
             if (cond.bad())
             {
-                errmsg("Association Abort Failed:");
-                DimseCondition::dump(cond);
-                
+                OFLOG_ERROR(storescuLogger, "Association Abort Failed: " << DimseCondition::dump(temp_str, cond));
             }
             [localException raise];
         }
@@ -1767,10 +1759,10 @@ static OFCondition cstore(T_ASC_Association * assoc, const OFString& fname)
       {
         if (!tLayer->writeRandomSeed(opt_writeSeedFile))
         {
-          CERR << "Error while writing random seed file '" << opt_writeSeedFile << "', ignoring." << endl;
+          DCMQRDB_ERROR("Error while writing random seed file '" << opt_writeSeedFile << "', ignoring.");
         }
       } else {
-        CERR << "Warning: cannot write random seed, ignoring." << endl;
+        DCMQRDB_ERROR("Warning: cannot write random seed, ignoring.");
       }
     }
     delete tLayer;

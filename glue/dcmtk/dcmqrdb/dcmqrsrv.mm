@@ -1,0 +1,252 @@
+//
+/* Alex Bettarini
+    at first removed, then modified
+    the second part of this file which is C++ code that is in the DCMTK sources
+ */
+
+#import "browserController.h"
+#import "ThreadsManager.h"
+#import "DicomDatabase.h"
+#import "NSThread+N2.h"
+#import "AppController.h"
+#import "N2Debug.h"
+#import "ContextCleaner.h"
+
+#include "osconfig.h"    /* make sure OS specific configuration is included first */
+#include "dcmqrsrv.h"
+#include "dcmqropt.h"
+#include "dcfilefo.h"
+#include "dcmqrdba.h"
+#include "dcmqrcbf.h"    /* for class DcmQueryRetrieveFindContext */
+#include "dcmqrcbm.h"    /* for class DcmQueryRetrieveMoveContext */
+#include "dcmqrcbg.h"    /* for class DcmQueryRetrieveGetContext */
+#include "dcmqrcbs.h"    /* for class DcmQueryRetrieveStoreContext */
+#include "dcmetinf.h"
+#include "dul.h"
+#import "dcmqrdbq.h"
+
+#include <signal.h>
+
+//#import "dimse.h"
+#include "DcmQueryRetrieveOsiriXSCP.h"
+
+extern int AbortAssociationTimeOut;
+
+static int numberOfActiveAssociations = 0;
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//static N2ConnectionListener* listenerForSCPProcess = nil;
+//
+//@interface listenerForSCPProcessClass : N2Connection{
+//    
+//    NSPoint origin;
+//}
+//
+//@end
+//
+//@implementation listenerForSCPProcessClass
+//
+//-(id)initWithAddress:(NSString *)address port:(NSInteger)port is:(NSInputStream *)is os:(NSOutputStream *)os
+//{
+//    if( (self = [super initWithAddress:address port:port is:is os:os]))
+//    {
+//        NSLog( @"SCP Process Connected");
+//    }
+//    
+//    return self;
+//}
+//
+//
+//-(void)handleData:(NSMutableData*)data
+//{
+//    NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+//    @try
+//    {
+//        NSDictionary *dict = [NSKeyedUnarchiver unarchiveObjectWithData: data];
+//        
+//        NSLog( @"***** %@", dict);
+//        
+//        NSDictionary *response = [NSDictionary dictionaryWithObjectsAndKeys: @"Hello World", @"message", nil];
+//        
+//        [self writeData: [NSKeyedArchiver archivedDataWithRootObject: response]];
+//    }
+//    @catch (NSException* e)
+//    {
+//        N2LogException( e);
+//    }
+//    @finally
+//    {
+//        [pool release];
+//    }
+//}
+//@end
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+@implementation ContextCleaner
+
++ (void) waitUnlockFileWithPID: (NSDictionary*) dict
+{
+	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    
+    // Father
+    [NSThread sleepForTimeInterval: 0.3]; // To allow the creation of lock_process file with corresponding pid
+    
+    NSPersistentStoreCoordinator *dbLock = [dict valueForKey: @"dbStoreCoordinator"];
+    
+    [dbLock lock];
+    
+    // Father
+    [NSThread sleepForTimeInterval: 0.3]; // To allow the creation of lock_process file with corresponding pid
+    
+	BOOL fileExist = YES;
+	int pid = [[dict valueForKey: @"pid"] intValue], inc = 0, rc = pid, state;
+	char dir[ 1024];
+	sprintf( dir, "%s-%d", "/tmp/lock_process", pid);
+
+    #define TIMEOUT 1200 // 1200*100000 = 120 secs
+    #define DBTIMEOUT 400 // = 40 secs
+    
+	do
+	{
+		FILE * pFile = fopen (dir,"r");
+		if( pFile)
+		{
+			rc = waitpid( pid, &state, WNOHANG);	// Check to see if this pid is still alive?
+			fclose (pFile);
+		}
+		else
+			fileExist = NO;
+            
+            usleep( 100000);
+            inc++;
+        
+        if( inc >= DBTIMEOUT)
+        {
+            [dbLock unlock];
+            dbLock = nil;
+        }
+	}
+    while( fileExist == YES && inc < TIMEOUT && rc >= 0);
+	
+	if( inc >= TIMEOUT)
+	{
+		kill( pid, 15);
+		NSLog( @"******* waitUnlockFile for %d sec", inc/10);
+	}
+	
+	if( rc < 0)
+	{
+        NSLog( @"******* waitUnlockFile : child process died... %d / %d", rc, errno);
+		kill( pid, 15);
+	}
+	
+	unlink( dir);
+    
+    [dbLock unlock];
+    dbLock = nil;
+	
+    [dbLock unlock];
+    dbLock = nil;
+    
+	if( [[NSFileManager defaultManager] fileExistsAtPath: @"/tmp/kill_all_storescu"] == NO)
+	{
+		NSString *str = [NSString stringWithContentsOfFile: @"/tmp/error_message"];
+		[[NSFileManager defaultManager] removeFileAtPath: @"/tmp/error_message" handler: nil];
+		
+		if( str && [str length] > 0)
+			[[AppController sharedAppController] performSelectorOnMainThread: @selector(displayListenerError:) withObject: str waitUntilDone: NO];
+	}
+    
+    // And finally release memory on the father side, after the death of the process
+    inc = 0;
+    do
+	{
+		rc = waitpid( pid, &state, WNOHANG);	// Check to see if this pid is still alive?
+		
+        usleep( 100000);
+        inc++;
+	}
+    #define TIMEOUTRELEASE 60000 // 60000*100000 = 6000 secs = 100 min
+	while( inc < TIMEOUTRELEASE && rc >= 0);
+    
+    [NSThread sleepForTimeInterval: 5];
+    
+    T_ASC_Association *assoc = (T_ASC_Association*) [[dict valueForKey: @"assoc"] pointerValue];
+    OFCondition cond = EC_Normal;
+    
+    /* the child will handle the association, we can drop it */
+    cond = ASC_dropAssociation(assoc);
+    if (cond.bad())
+    {
+        //DcmQueryRetrieveOptions::errmsg("Cannot Drop Association:");
+        DimseCondition::dump(cond);
+    }
+    
+    cond = ASC_destroyAssociation(&assoc);
+    if (cond.bad())
+    {
+        //DcmQueryRetrieveOptions::errmsg("Cannot Destroy Association:");
+        DimseCondition::dump(cond);
+    }
+    
+	[pool release];
+}
+
++ (void) waitForHandledAssociations
+{
+    while( numberOfActiveAssociations > 0)
+        [NSThread sleepForTimeInterval: 0.1];
+}
+
++ (void) handleAssociation: (NSDictionary*) d
+{
+    numberOfActiveAssociations++;
+    
+    NSAutoreleasePool *pool = [NSAutoreleasePool new];
+    
+    @try
+    {
+        T_ASC_Association * assoc = (T_ASC_Association*) [[d valueForKey: @"assoc"] pointerValue];
+        DcmQueryRetrieveOsiriXSCP *scp = (DcmQueryRetrieveOsiriXSCP*) [[d valueForKey: @"DcmQueryRetrieveSCP"] pointerValue];
+        
+        if( assoc && scp)
+        {
+            OFCondition cond = scp->handleAssociation(assoc, YES);
+            
+            cond = ASC_dropAssociation(assoc);
+            if (cond.bad())
+                DimseCondition::dump(cond);
+            
+            cond = ASC_destroyAssociation(&assoc);
+            if (cond.bad())
+                DimseCondition::dump(cond);
+        }
+    }
+    @catch (NSException *e) {
+        N2LogException( e);
+    }
+    
+    [[DicomDatabase activeLocalDatabase] initiateImportFilesFromIncomingDirUnlessAlreadyImporting];
+    
+    [pool release];
+    
+    numberOfActiveAssociations--;
+}
+@end
+
+////////////////////////////////////////////////////////////////////////////////
+extern "C"
+{
+	void (*signal(int signum, void (*sighandler)(int)))(int);
+	
+	void silent_exit_on_sig(int sig_num)
+	{
+		printf ("\rSignal %d received in OsiriX child process - will quit silently.\r", sig_num);
+		_Exit(3);
+	}
+}
+
+NSManagedObjectContext *staticContext = nil;

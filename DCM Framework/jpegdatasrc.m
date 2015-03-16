@@ -29,7 +29,7 @@
 GLOBAL(int)
 readFromData(NSData *data, JOCTET *buffer, int currentPosition, int length){
 	//NSLog(@"readFromData: %d", length);
-	int lengthToRead = 0;
+	NSInteger lengthToRead = 0;
 	NSRange range;
 	
 	if ([data length] > length + currentPosition) {

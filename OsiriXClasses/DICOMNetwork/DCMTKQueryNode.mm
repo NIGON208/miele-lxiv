@@ -12,6 +12,9 @@
      PURPOSE.
 =========================================================================*/
 
+/* See findscu.cc movescu.cc
+ */
+
 #import "DCMTKStudyQueryNode.h"
 #import "DCMTKSeriesQueryNode.h"
 #import "DCMTKImageQueryNode.h"
@@ -48,14 +51,13 @@
 #include "dcdatset.h"
 #include "dcmetinf.h"
 #include "dcfilefo.h"
-#include "dcdebug.h"
 #include "dcdict.h"
 #include "dcdeftag.h"
-//#include "cmdlnarg.h"
 #include "ofconapp.h"
 #include "dcuid.h"     /* for dcmtk version name */
 #include "dicom.h"     /* for DICOM_APPLICATION_REQUESTOR */
 #include "dcostrmz.h"  /* for dcmZlibCompressionLevel */
+#include "dcmqrcnf.h"  /* for DCMQRDB_INFO */
 
 #ifdef WITH_OPENSSL
 #include "tlstrans.h"
@@ -64,11 +66,14 @@
 
 #define OFFIS_CONSOLE_APPLICATION "DCMTKQueryNode"
 
+//static OFLogger findscuLogger = OFLog::getLogger("dcmtk.apps." OFFIS_CONSOLE_APPLICATION);
+
 /* default application titles */
 #define APPLICATIONTITLE        "FINDSCU"
 #define PEERAPPLICATIONTITLE    "ANY-SCP"
 
-extern int AbortAssociationTimeOut;
+//extern
+int AbortAssociationTimeOut;
 
 #ifdef WITH_OPENSSL
 
@@ -89,21 +94,6 @@ typedef struct {
     T_ASC_PresentationContextID presId;
 	DCMTKQueryNode *node;
 } MyCallbackInfo;
-
-static void
-errmsg(const char *msg,...)
-{
-    va_list args;
-
-    fprintf(stderr, "%s: ", OFFIS_CONSOLE_APPLICATION);
-    va_start(args, msg);
-    vfprintf(stderr, msg, args);
-    va_end(args);
-    fprintf(stderr, "\n");
-}
-
-
-
 
 static void
 progressCallback(
@@ -128,15 +118,12 @@ progressCallback(
      */
 {	
 
-	if (debugLevel > 0)
-	{
-		/* dump response number */
-		printf("RESPONSE: %d (%s)\n", responseCount,
-			DU_cfindStatusString(rsp->DimseStatus));
+    /* dump response number */
+    DCMNET_INFO("Response " << responseCount << " [status: "
+                 << DU_cfindStatusString(rsp->DimseStatus) << "]");
 
-		/* dump data set which was received */
-		responseIdentifiers->print(COUT);
-   }
+    /* dump data set which was received */
+    DCMQRDB_DEBUG(DcmObject::PrintHelper(*responseIdentifiers));
 
 	MyCallbackInfo *callbackInfo = (MyCallbackInfo *)callbackData;
 	DCMTKQueryNode *node = callbackInfo -> node;
@@ -170,7 +157,7 @@ getCallback(void *callbackData, T_DIMSE_C_GetRQ *request,
 //    int numTransferSyntaxes;
 //	
 //	OFCmdUnsignedInt  opt_maxPDU = ASC_DEFAULTMAXPDU;
-//	E_TransferSyntax opt_in_networkTransferSyntax = EXS_JPEGProcess14SV1TransferSyntax;
+//	E_TransferSyntax opt_in_networkTransferSyntax = EXS_JPEGProcess14SV1;
 //	
 //    OFCondition cond = ASC_receiveAssociation(aNet, assoc, opt_maxPDU);
 //    if (cond.good())
@@ -196,7 +183,7 @@ getCallback(void *callbackData, T_DIMSE_C_GetRQ *request,
 //          transferSyntaxes[2]  = UID_LittleEndianImplicitTransferSyntax;
 //          numTransferSyntaxes = 3;
 //          break;
-//        case EXS_JPEGProcess14SV1TransferSyntax:
+//        case EXS_JPEGProcess14SV1:
 //          /* we prefer JPEGLossless:Hierarchical-1stOrderPrediction (default lossless) */
 //          transferSyntaxes[0] = UID_JPEGProcess14SV1TransferSyntax;
 //          transferSyntaxes[1] = UID_LittleEndianExplicitTransferSyntax;
@@ -204,7 +191,7 @@ getCallback(void *callbackData, T_DIMSE_C_GetRQ *request,
 //          transferSyntaxes[3] = UID_LittleEndianImplicitTransferSyntax;
 //          numTransferSyntaxes = 4;
 //          break;
-//        case EXS_JPEGProcess1TransferSyntax:
+//        case EXS_JPEGProcess1:
 //          /* we prefer JPEGBaseline (default lossy for 8 bit images) */
 //          transferSyntaxes[0] = UID_JPEGProcess1TransferSyntax;
 //          transferSyntaxes[1] = UID_LittleEndianExplicitTransferSyntax;
@@ -645,17 +632,17 @@ subOpCallback(void * /*subOpCallbackData*/ ,
                     if ([key isEqualToString:@"PatientsName"])
                     {	
                         string = [(NSString*)value cStringUsingEncoding:encoding];
-                        dataset->putAndInsertString(DCM_PatientsName, string);
+                        dataset->putAndInsertString(DCM_PatientName, string);
                     }
                     else if ([key isEqualToString:@"ReferringPhysiciansName"])
                     {
                         string = [(NSString*)value cStringUsingEncoding:encoding];
-                        dataset->putAndInsertString(DCM_ReferringPhysiciansName, string);
+                        dataset->putAndInsertString(DCM_ReferringPhysicianName, string);
                     }
                     else if ([key isEqualToString:@"PerformingPhysiciansName"])
                     {
                         string = [(NSString*)value cStringUsingEncoding:encoding];
-                        dataset->putAndInsertString(DCM_PerformingPhysiciansName, string);
+                        dataset->putAndInsertString(DCM_PerformingPhysicianName, string);
                     }
                     else if ([key isEqualToString:@"InstitutionName"])
                     {
@@ -697,13 +684,13 @@ subOpCallback(void * /*subOpCallbackData*/ ,
                     {
                         NSString *date = [(DCMCalendarDate *)value queryString];
                         string = [(NSString*)date cStringUsingEncoding:NSISOLatin1StringEncoding];
-                        dataset->putAndInsertString(DCM_PatientsBirthDate, string);
+                        dataset->putAndInsertString(DCM_PatientBirthDate, string);
                     }
                     else if ([key isEqualToString:@"PatientsBirthDate"])
                     {
                         NSString *date = [(DCMCalendarDate *)value queryString];
                         string = [(NSString*)date cStringUsingEncoding:NSISOLatin1StringEncoding];
-                        dataset->putAndInsertString(DCM_PatientsBirthDate, string);
+                        dataset->putAndInsertString(DCM_PatientBirthDate, string);
                     }
                     else if ([key isEqualToString:@"StudyTime"])
                     {
@@ -1636,7 +1623,7 @@ subOpCallback(void * /*subOpCallbackData*/ ,
         break;
 		
 #ifndef DISABLE_COMPRESSION_EXTENSION
-      case EXS_JPEGProcess14SV1TransferSyntax:
+      case EXS_JPEGProcess14SV1:
         /* we prefer JPEGLossless:Hierarchical-1stOrderPrediction (default lossless) */
         transferSyntaxes[0] = UID_JPEGProcess14SV1TransferSyntax;
 		transferSyntaxes[1] = UID_JPEGProcess1TransferSyntax;					//jpeg 8
@@ -1647,7 +1634,7 @@ subOpCallback(void * /*subOpCallbackData*/ ,
 		
         numTransferSyntaxes = 6;
         break;
-      case EXS_JPEGProcess1TransferSyntax:
+      case EXS_JPEGProcess1:
         /* we prefer JPEGBaseline (default lossy for 8 bit images) */
         transferSyntaxes[0] = UID_JPEGProcess1TransferSyntax;
 		transferSyntaxes[1] = UID_JPEGProcess2_4TransferSyntax;					//jpeg 12
@@ -1658,7 +1645,7 @@ subOpCallback(void * /*subOpCallbackData*/ ,
 		
         numTransferSyntaxes = 6;
         break;
-      case EXS_JPEGProcess2_4TransferSyntax:
+      case EXS_JPEGProcess2_4:
         /* we prefer JPEGExtended (default lossy for 12 bit images) */
         transferSyntaxes[0] = UID_JPEGProcess2_4TransferSyntax;
 		transferSyntaxes[1] = UID_JPEGProcess14SV1TransferSyntax;
@@ -1756,7 +1743,7 @@ subOpCallback(void * /*subOpCallbackData*/ ,
 	// For C-GET we also need the storage presentation contexts : the is only one association
 	if( strcmp(abstractSyntax, UID_GETPatientRootQueryRetrieveInformationModel) == 0 ||
 		strcmp(abstractSyntax, UID_GETStudyRootQueryRetrieveInformationModel) == 0 ||
-		strcmp(abstractSyntax, UID_GETPatientStudyOnlyQueryRetrieveInformationModel) == 0)
+		strcmp(abstractSyntax, UID_RETIRED_GETPatientStudyOnlyQueryRetrieveInformationModel) == 0)
 	if( abstractSyntax)
 	{
 		pid += 2;
@@ -1949,10 +1936,11 @@ static NSString *releaseNetworkVariablesSync = @"releaseNetworkVariablesSync";
                  {
                  if (!tLayer->writeRandomSeed(opt_writeSeedFile))
                  {
-                 CERR << "Error while writing random seed file '" << opt_writeSeedFile << "', ignoring." << endl;
+                    DCMQRDB_ERROR("Error while writing random seed file '" << opt_writeSeedFile << "', ignoring.");
+
                  }
                  } else {
-                 CERR << "Warning: cannot write random seed, ignoring." << endl;
+                    DCMQRDB_ERROR("Warning: cannot write random seed, ignoring.");
                  }
                  }
                  delete tLayer;
@@ -1983,6 +1971,7 @@ static NSString *releaseNetworkVariablesSync = @"releaseNetworkVariablesSync";
 	
 	@try 
 	{
+        OFString temp_str;
 		OFCondition cond;
 		const char *opt_peer = NULL;
 		OFCmdUnsignedInt opt_port = 104;
@@ -2017,7 +2006,7 @@ static NSString *releaseNetworkVariablesSync = @"releaseNetworkVariablesSync";
 		
 		if( strcmp(abstractSyntax, UID_GETPatientRootQueryRetrieveInformationModel) == 0 ||
 			strcmp(abstractSyntax, UID_GETStudyRootQueryRetrieveInformationModel) == 0 ||
-			strcmp(abstractSyntax, UID_GETPatientStudyOnlyQueryRetrieveInformationModel) == 0)
+			strcmp(abstractSyntax, UID_RETIRED_GETPatientStudyOnlyQueryRetrieveInformationModel) == 0)
 		{
 			_networkTransferSyntax = (E_TransferSyntax) [[NSUserDefaults standardUserDefaults] integerForKey: @"preferredSyntaxForIncoming"];
 		}
@@ -2127,7 +2116,8 @@ static NSString *releaseNetworkVariablesSync = @"releaseNetworkVariablesSync";
 							//					app.checkValue(cmd.getValue(current));
 							//					if (TCS_ok != tLayer->addTrustedCertificateDir(current, opt_keyFileFormat))
 							//					{
-							//						CERR << "warning unable to load certificates from directory '" << current << "', ignoring" << endl;
+                            //                        DCMQRDB_ERROR("warning unable to load certificates from directory '" << current << "', ignoring");
+
 							//					}
 							//				} while (cmd.findOption("--add-cert-dir", 0, OFCommandLine::FOM_Next));
 							//			}
@@ -2243,7 +2233,7 @@ static NSString *releaseNetworkVariablesSync = @"releaseNetworkVariablesSync";
 			{
 				if( strcmp(abstractSyntax, UID_GETPatientRootQueryRetrieveInformationModel) == 0 ||
 				strcmp(abstractSyntax, UID_GETStudyRootQueryRetrieveInformationModel) == 0 ||
-				strcmp(abstractSyntax, UID_GETPatientStudyOnlyQueryRetrieveInformationModel) == 0)
+				strcmp(abstractSyntax, UID_RETIRED_GETPatientStudyOnlyQueryRetrieveInformationModel) == 0)
 				{
 				
 				}
@@ -2309,22 +2299,17 @@ static NSString *releaseNetworkVariablesSync = @"releaseNetworkVariablesSync";
 			{
 				if (cond == DUL_ASSOCIATIONREJECTED)
 				{
-                    if (_verbose) {
-                        T_ASC_RejectParameters rej;
-                        ASC_getRejectParameters(params, &rej);
-                        errmsg("Association Rejected:");
-                        ASC_printRejectParameters(stderr, &rej);
-                        
-                    }
-					[[NSException exceptionWithName:@"DICOM Network Failure (query)" reason:[NSString stringWithFormat: @"Association Rejected : %04x:%04x %s", cond.module(), cond.code(), cond.text()] userInfo:nil] raise];
+                    T_ASC_RejectParameters rej;
+                    ASC_getRejectParameters(params, &rej);
+                    
+                    DCMNET_ERROR("Association Rejected:" << OFendl << ASC_printRejectParameters(temp_str, &rej));
 
+                    [[NSException exceptionWithName:@"DICOM Network Failure (query)" reason:[NSString stringWithFormat: @"Association Rejected : %04x:%04x %s", cond.module(), cond.code(), cond.text()] userInfo:nil] raise];
 				}
 				else
 				{
-                    if (_verbose) {
-                        errmsg("Association Request Failed:");
-                        DimseCondition::dump(cond);
-                    }
+                    DCMNET_ERROR("Association Request Failed: " << DimseCondition::dump(temp_str, cond));
+                    
 					[[NSException exceptionWithName:@"DICOM Network Failure (query)" reason:[NSString stringWithFormat: @"Association Request Failed : %04x:%04x %s", cond.module(), cond.code(), cond.text()] userInfo:nil] raise];
 				}
 			}
@@ -2332,33 +2317,37 @@ static NSString *releaseNetworkVariablesSync = @"releaseNetworkVariablesSync";
 			  /* dump the presentation contexts which have been accepted/refused */
 			if (_verbose)
 			{
-				if( strcmp(abstractSyntax, UID_GETPatientRootQueryRetrieveInformationModel) == 0 ||
-				strcmp(abstractSyntax, UID_GETStudyRootQueryRetrieveInformationModel) == 0 ||
-				strcmp(abstractSyntax, UID_GETPatientStudyOnlyQueryRetrieveInformationModel) == 0)
+				if (strcmp(abstractSyntax, UID_GETPatientRootQueryRetrieveInformationModel) == 0 ||
+                    strcmp(abstractSyntax, UID_GETStudyRootQueryRetrieveInformationModel) == 0 ||
+                    strcmp(abstractSyntax, UID_RETIRED_GETPatientStudyOnlyQueryRetrieveInformationModel) == 0)
 				{
 	//				printf("Association Parameters Negotiated:\n");
 	//				ASC_dumpParameters(params, COUT);
 				}
 				else
 				{
-					printf("Association Parameters Negotiated:\n");
-					ASC_dumpParameters(params, COUT);
+                    DCMNET_DEBUG("Association Parameters Negotiated:" << OFendl << ASC_dumpParameters(temp_str, params, ASC_ASSOC_AC));
 				}
 			}
 			
-				/* count the presentation contexts which have been accepted by the SCP */
+            /* count the presentation contexts which have been accepted by the SCP */
 			/* If there are none, finish the execution */
 			if (ASC_countAcceptedPresentationContexts(params) == 0) {
-				errmsg("No Acceptable Presentation Contexts");
+                DCMNET_ERROR("No Acceptable Presentation Contexts");
+                
 				[[NSException exceptionWithName:@"DICOM Network Failure (query)" reason:@"No acceptable presentation contexts" userInfo:nil] raise];
 			}
 			
-			//specific for Move vs find
+            /* dump general information concerning the establishment of the network connection if required */
+            DCMNET_INFO("Association Accepted (Max Send PDV: " << assoc->sendPDVLength << ")");
+            
+			//specific for Move vs Find
 			if (strcmp(abstractSyntax, UID_FINDStudyRootQueryRetrieveInformationModel) == 0)
 			{
 				if (cond == EC_Normal) // compare with EC_Normal since DUL_PEERREQUESTEDRELEASE is also good()
 				{
-//					if( [NSThread isMainThread] == YES && [[NSUserDefaults standardUserDefaults] boolForKey: @"dontUseThreadForAssociationAndCFind"] == NO)
+//					if( [NSThread isMainThread] == YES &&
+//                      [[NSUserDefaults standardUserDefaults] boolForKey: @"dontUseThreadForAssociationAndCFind"] == NO)
 					{
 						NSRecursiveLock *lock = [[NSRecursiveLock alloc] init];
 						NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithObjectsAndKeys: lock, @"lock", [NSValue valueWithPointer: assoc], @"assoc", [NSValue valueWithPointer: dataset], @"dataset", nil];
@@ -2402,7 +2391,7 @@ static NSString *releaseNetworkVariablesSync = @"releaseNetworkVariablesSync";
 				if( destination) cond = [self cmove:assoc network:net dataset:dataset destination: (char*) [destination UTF8String]];
 				else cond = [self cmove:assoc network:net dataset:dataset];
 			}
-			else if (strcmp(abstractSyntax, UID_GETStudyRootQueryRetrieveInformationModel) == 0 || strcmp(abstractSyntax, UID_GETPatientStudyOnlyQueryRetrieveInformationModel) == 0)
+			else if (strcmp(abstractSyntax, UID_GETStudyRootQueryRetrieveInformationModel) == 0 || strcmp(abstractSyntax, UID_RETIRED_GETPatientStudyOnlyQueryRetrieveInformationModel) == 0)
 			{
 				cond = [self cget:assoc network:net dataset:dataset];
 			}
@@ -2417,8 +2406,7 @@ static NSString *releaseNetworkVariablesSync = @"releaseNetworkVariablesSync";
 			{
 				if (_abortAssociation)
 				{
-					if (_verbose)
-						printf("Aborting Association\n");
+                    DCMNET_INFO("Aborting Association");
 						
 					AbortAssociationTimeOut = 2;
 					cond = ASC_abortAssociation(assoc);
@@ -2426,34 +2414,28 @@ static NSString *releaseNetworkVariablesSync = @"releaseNetworkVariablesSync";
 					
 					if (cond.bad())
 					{
-                        if (_verbose) {
-                            errmsg("Association Abort Failed:");
-                            DimseCondition::dump(cond);
-                        }
+                        DCMNET_ERROR("Association Abort Failed: " <<                           DimseCondition::dump(temp_str, cond));
+                            
                         [[NSException exceptionWithName:@"DICOM Network Failure (query)" reason:[NSString stringWithFormat: @"Association Abort Failed %04x:%04x %s", cond.module(), cond.code(), cond.text()] userInfo:nil] raise];
 					}
 				}
 				else
 				{
 					/* release association */
-					if (_verbose)
-						printf("Releasing Association\n");
+                    DCMNET_INFO("Releasing Association");
 					cond = ASC_releaseAssociation(assoc);
 					if (cond.bad())
 					{
-                        if (_verbose) {
-                            errmsg("Association Release Failed:");
-                            DimseCondition::dump(cond);
-                        }
+                        DCMNET_ERROR("Association Release Failed:" << DimseCondition::dump(temp_str, cond));
+ 
                         [[NSException exceptionWithName:@"DICOM Network Failure (query)" reason:[NSString stringWithFormat: @"Association Release Failed %04x:%04x %s", cond.module(), cond.code(), cond.text()] userInfo:nil] raise];
 					}
 				}
 			}
 			else if (cond == DUL_PEERREQUESTEDRELEASE)
 			{
-				errmsg("Protocol Error: peer requested release (Aborting)");
-				if (_verbose)
-					printf("Aborting Association\n");
+                DCMNET_ERROR("Protocol Error: Peer requested release (Aborting)");
+                DCMNET_INFO("Aborting Association");
 				
                 NSString *reason = [NSString stringWithFormat: @"Protocol Error: peer requested release (Aborting) %04x:%04x %s", cond.module(), cond.code(), cond.text()];
 				
@@ -2463,24 +2445,19 @@ static NSString *releaseNetworkVariablesSync = @"releaseNetworkVariablesSync";
 				
 				if (cond.bad())
 				{
-                    if (_verbose) {
-                        errmsg("Association Abort Failed:");
-                        DimseCondition::dump(cond);
-                    }
+                    DCMNET_ERROR("Association Abort Failed: " << DimseCondition::dump(temp_str, cond));
+                    
+                    [[NSException exceptionWithName:@"DICOM Network Failure (query)" reason: reason userInfo:nil] raise];
 				}
-				[[NSException exceptionWithName:@"DICOM Network Failure (query)" reason: reason userInfo:nil] raise];
 			}
 			else if (cond == DUL_PEERABORTEDASSOCIATION)
 			{
-				if (_verbose) printf("Peer Aborted Association\n");
+                DCMNET_INFO("Peer Aborted Association");
 			}
 			else
 			{
-				if (_verbose) {
-                    errmsg("SCU Failed:");
-                    DimseCondition::dump(cond);
-					printf("Aborting Association\n");
-				}
+                DCMNET_ERROR("Find SCU Failed: " << DimseCondition::dump(temp_str, cond));
+                DCMNET_INFO("Aborting Association");
                 
                 NSString *reason = [NSString stringWithFormat: @"SCU Failed %04x:%04x %s", cond.module(), cond.code(), cond.text()];
                 
@@ -2490,13 +2467,10 @@ static NSString *releaseNetworkVariablesSync = @"releaseNetworkVariablesSync";
 				
 				if (cond.bad())
 				{
-                    if (_verbose) {
-                        errmsg("Association Abort Failed:");
-                        DimseCondition::dump(cond);
-                    }
+                    DCMNET_ERROR("Association Abort Failed: " << DimseCondition::dump(temp_str, cond));
+                    
+                    [[NSException exceptionWithName: @"DICOM Network Failure (query)" reason: reason userInfo:nil] raise];
 				}
-				
-				[[NSException exceptionWithName: @"DICOM Network Failure (query)" reason: reason userInfo:nil] raise];
 			}
 		}
 		@catch (NSException *e)
@@ -2566,10 +2540,10 @@ static NSString *releaseNetworkVariablesSync = @"releaseNetworkVariablesSync";
 //		  {
 //			if (!tLayer->writeRandomSeed(opt_writeSeedFile))
 //			{
-//			  CERR << "Error while writing random seed file '" << opt_writeSeedFile << "', ignoring." << endl;
+//              DCMQRDB_ERROR("Error while writing random seed file '" << opt_writeSeedFile << "', ignoring.");
 //			}
 //		  } else {
-//			CERR << "Warning: cannot write random seed, ignoring." << endl;
+//          DCMQRDB_ERROR("Warning: cannot write random seed, ignoring.");
 //		  }
 //		}
 //		delete tLayer;
@@ -2622,13 +2596,15 @@ static NSString *releaseNetworkVariablesSync = @"releaseNetworkVariablesSync";
     T_DIMSE_C_FindRSP rsp;
     DcmDataset *statusDetail = NULL;
     MyCallbackInfo callbackData;
+    OFString temp_str;
     
     /* figure out which of the accepted presentation contexts should be used */
     presId = ASC_findAcceptedPresentationContextID(
         assoc, UID_FINDStudyRootQueryRetrieveInformationModel);
     if (presId == 0)
 	{
-        errmsg("No presentation context");
+        DCMNET_ERROR("No presentation context");
+
         return DIMSE_NOVALIDPRESENTATIONCONTEXTID;
     }
 	
@@ -2694,28 +2670,21 @@ static NSString *releaseNetworkVariablesSync = @"releaseNetworkVariablesSync";
 		{
             if (rsp.DimseStatus != STATUS_Success)
 			{
-                printf("Response: %s\n", DU_cfindStatusString(rsp.DimseStatus));
-				
-				
+                DCMNET_ERROR("Response: " << DU_cfindStatusString(rsp.DimseStatus));
             }
         }
     }
 	else
 	{
-        if (_verbose) {
-            errmsg("Find Failed\n Condition:\n");
-            //dataset->print(COUT);
-            DimseCondition::dump(cond);
+        DCMNET_ERROR("Find Failed" << OFendl
+                     <<" Condition: " << DimseCondition::dump(temp_str, cond));
+        if (_verbose)
             NSLog(@"Dimse Status: %@", [NSString stringWithCString: DU_cfindStatusString(rsp.DimseStatus)]);
-        }
     }
 
     /* dump status detail information if there is some */
     if (statusDetail != NULL) {
-        if (_verbose) {
-            printf("  Status Detail:\n");
-            statusDetail->print(COUT);
-        }
+        DCMNET_DEBUG("Status Detail:" << OFendl << DcmObject::PrintHelper(*statusDetail));
         delete statusDetail;
     }
 
@@ -2792,7 +2761,10 @@ static NSString *releaseNetworkVariablesSync = @"releaseNetworkVariablesSync";
 	return [self moveSCU:(T_ASC_Association *)assoc  network:(T_ASC_Network *)net dataset:( DcmDataset *)dataset destination: nil];
 }
 
-- (OFCondition)moveSCU:(T_ASC_Association *)assoc  network:(T_ASC_Network *)net dataset:( DcmDataset *)dataset destination: (char*) destination
+- (OFCondition)moveSCU:(T_ASC_Association *)assoc
+               network:(T_ASC_Network *)net
+               dataset:(DcmDataset *)dataset
+           destination:(char*) destination
 {
 	T_ASC_PresentationContextID presId;
     T_DIMSE_C_MoveRQ    req;
@@ -2802,6 +2774,7 @@ static NSString *releaseNetworkVariablesSync = @"releaseNetworkVariablesSync";
     DcmDataset          *statusDetail = NULL;
     MyCallbackInfo      callbackData;
 	OFCondition			cond = EC_Normal;
+    OFString temp_str;
 	
    // sopClass = querySyntax[opt_queryModel].moveSyntax;
 
@@ -2809,17 +2782,13 @@ static NSString *releaseNetworkVariablesSync = @"releaseNetworkVariablesSync";
     presId = ASC_findAcceptedPresentationContextID(assoc, UID_MOVEStudyRootQueryRetrieveInformationModel);
     if (presId == 0) return DIMSE_NOVALIDPRESENTATIONCONTEXTID;
 
-	//add self to list of moves. Prevents deallocating  the move if a new query is done
+	//add self to list of moves. Prevents deallocating the move if a new query is done
 	[[MoveManager sharedManager] addMove:self];
 	
 	@try
 	{
-		if (_verbose)
-		{
-			printf("Move SCU RQ: MsgID %d\n", msgId);
-			printf("Request:\n");
-			dataset->print(COUT);
-		}
+        DCMNET_INFO("Move SCU RQ: MsgID " << msgId << OFendl
+                    << "Request:" << DcmObject::PrintHelper(*dataset));
 
 		/* prepare the callback data */
 		callbackData.assoc = assoc;
@@ -2868,20 +2837,16 @@ static NSString *releaseNetworkVariablesSync = @"releaseNetworkVariablesSync";
 			if (_verbose)
 			{
 				DIMSE_printCMoveRSP(stdout, &rsp);
-				if (rspIds != NULL) {
-					printf("Response Identifiers:\n");
-					rspIds->print(COUT);
-				}
+				if (rspIds != NULL)
+                    DCMNET_DEBUG("Response Identifiers:" << OFendl << DcmObject::PrintHelper(*rspIds));
 			}
 		}
 		else
 		{
             if (showErrorMessage)
                 [DCMTKQueryNode performSelectorOnMainThread:@selector(errorMessage:) withObject:[NSArray arrayWithObjects: NSLocalizedString(@"Move Failed", nil), [NSString stringWithCString: cond.text()], NSLocalizedString(@"Continue", nil), nil] waitUntilDone: NO];
-            if (_verbose) {
-                errmsg("Move Failed:");
-                DimseCondition::dump(cond);
-            }
+
+            DCMNET_ERROR("Move Failed: " << DimseCondition::dump(temp_str, cond));
 		}
 	}
 	@catch (NSException* e)
@@ -2894,8 +2859,7 @@ static NSString *releaseNetworkVariablesSync = @"releaseNetworkVariablesSync";
     @finally
     {
         if (statusDetail != NULL) {
-            printf("  Status Detail:\n");
-            statusDetail->print(COUT);
+            DCMNET_DEBUG("  Status Detail:" << OFendl << DcmObject::PrintHelper(*statusDetail));
             delete statusDetail;
         }
         
@@ -2919,27 +2883,27 @@ static NSString *releaseNetworkVariablesSync = @"releaseNetworkVariablesSync";
     DcmDataset          *rspIds = NULL;
     DcmDataset          *statusDetail = NULL;
     MyCallbackInfo      callbackData;
+    OFString temp_str;
 		
    // sopClass = querySyntax[opt_queryModel].moveSyntax;
 
     /* which presentation context should be used */
-    presId = ASC_findAcceptedPresentationContextID(assoc, UID_GETStudyRootQueryRetrieveInformationModel); //UID_GETStudyRootQueryRetrieveInformationModel UID_GETPatientStudyOnlyQueryRetrieveInformationModel
-    if (presId == 0) return DIMSE_NOVALIDPRESENTATIONCONTEXTID;
-
-    if (_verbose)
-	{
-        printf("Get SCU RQ: MsgID %d\n", msgId);
-        printf("Request:\n");
-        dataset->print(COUT);
+    presId = ASC_findAcceptedPresentationContextID(assoc, UID_GETStudyRootQueryRetrieveInformationModel); //UID_GETStudyRootQueryRetrieveInformationModel UID_RETIRED_GETPatientStudyOnlyQueryRetrieveInformationModel
+    if (presId == 0) {
+        DCMNET_ERROR("No presentation context");
+        return DIMSE_NOVALIDPRESENTATIONCONTEXTID;
     }
-	
+
+    DCMNET_INFO("Get SCU RQ: MsgID " << msgId << OFendl
+                 << "Request:" << OFendl << DcmObject::PrintHelper(*dataset));
+    
     /* prepare the callback data */
     callbackData.assoc = assoc;
     callbackData.presId = presId;
 	callbackData.node = self;
 	
     req.MessageID = msgId;
-    strcpy(req.AffectedSOPClassUID, UID_GETStudyRootQueryRetrieveInformationModel); //UID_GETStudyRootQueryRetrieveInformationModel UID_GETPatientStudyOnlyQueryRetrieveInformationModel
+    strcpy(req.AffectedSOPClassUID, UID_GETStudyRootQueryRetrieveInformationModel); //UID_GETStudyRootQueryRetrieveInformationModel UID_RETIRED_GETPatientStudyOnlyQueryRetrieveInformationModel
     req.Priority = DIMSE_PRIORITY_MEDIUM;
     req.DataSetType = DIMSE_DATASET_PRESENT;
  
@@ -2983,8 +2947,7 @@ static NSString *releaseNetworkVariablesSync = @"releaseNetworkVariablesSync";
             DIMSE_printCGetRSP(stdout, &rsp);
             if (rspIds != NULL)
 			{
-                printf("Response Identifiers:\n");
-                rspIds->print(COUT);
+                DCMNET_DEBUG("Response Identifiers:" << OFendl << DcmObject::PrintHelper(*rspIds));
 			}
         }
     }
@@ -2992,16 +2955,12 @@ static NSString *releaseNetworkVariablesSync = @"releaseNetworkVariablesSync";
 	{
         if( showErrorMessage)
             [DCMTKQueryNode performSelectorOnMainThread:@selector(errorMessage:) withObject:[NSArray arrayWithObjects: NSLocalizedString(@"Get Failed", nil), [NSString stringWithCString: cond.text()], NSLocalizedString(@"Continue", nil), nil] waitUntilDone:NO];
-        if (_verbose) {
-            errmsg("Get Failed:");
-            DimseCondition::dump(cond);
-        }
+        DCMNET_ERROR("Get Failed: " << DimseCondition::dump(temp_str, cond));
     }
 	
     if (statusDetail != NULL)
 	{
-        printf("  Status Detail:\n");
-        statusDetail->print(COUT);
+        DCMNET_DEBUG("Status Detail:" << OFendl << DcmObject::PrintHelper(*statusDetail));
         delete statusDetail;
     }
 	

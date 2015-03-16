@@ -155,7 +155,7 @@
                                                 calledAET: calledAET 
                                                 hostname: hostname
                                                 port: [port intValue]
-                                                transferSyntax: 0		//EXS_LittleEndianExplicit / EXS_JPEGProcess14SV1TransferSyntax
+                                                transferSyntax: 0		//EXS_LittleEndianExplicit / EXS_JPEGProcess14SV1
                                                 compression: 0
                                                 extraParameters: distantServer] retain];
                                                 

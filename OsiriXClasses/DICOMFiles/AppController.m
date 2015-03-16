@@ -88,8 +88,9 @@
 
 #import "url.h"
 #include "opj_config.h"	 
-#define BUILTIN_DCMTK YES
+#import "DCMTKStoreSCU.h"  // for DCMTK version
 
+#define BUILTIN_DCMTK YES
 #define MAXSCREENS 10
 
 //ToolbarPanelController *toolbarPanel[ MAXSCREENS] = {nil, nil, nil, nil, nil, nil, nil, nil, nil, nil};
@@ -102,7 +103,7 @@ static PluginManager *pluginManager = nil;
 static unsigned char *LUT12toRGB = nil;
 static BOOL canDisplay12Bit = NO;
 static NSInvocation *fill12BitBufferInvocation = nil;
-static NSString *appStartingDate = nil;
+//static NSString *appStartingDate = nil;
 
 BOOL					NEEDTOREBUILD = NO;
 BOOL					COMPLETEREBUILD = NO;
@@ -2868,7 +2869,6 @@ static BOOL firstCall = YES;
 	return self;
 }
 
-
 static BOOL initialized = NO;
 + (void) initialize
 {
@@ -2939,11 +2939,13 @@ static BOOL initialized = NO;
 				NSLog(@"Number of processors: %d / %d", processors, (int) [[NSProcessInfo processInfo] processorCount]);
                 NSLog(@"Number of screens: %d", (int) [[NSScreen screens] count]);
 				NSLog(@"Main screen backingScaleFactor: %f", (float) [[NSScreen mainScreen] backingScaleFactor]);
-                NSLog(@"OsiriX version: %@ - %@ - %@",
-                      [[[NSBundle mainBundle] infoDictionary] objectForKey:(NSString *)kCFBundleVersionKey],
+                NSLog(@"Osiri-LXIV version: %@ - %@ - %@",
                       [[[NSBundle mainBundle] infoDictionary] objectForKey: @"CFBundleShortVersionString"],
+                      [[[NSBundle mainBundle] infoDictionary] objectForKey:(NSString *)kCFBundleVersionKey],
                       bits);
-                NSLog(@"OpenJPEG %d.%d.%d", OPJ_VERSION_MAJOR, OPJ_VERSION_MINOR, OPJ_VERSION_BUILD);                
+                NSLog(@"OpenJPEG %d.%d.%d", OPJ_VERSION_MAJOR, OPJ_VERSION_MINOR, OPJ_VERSION_BUILD);
+                [DCMTKStoreSCU showDcmtkVersion];
+                
                 NSArray *components = [[[NSBundle mainBundle] pathForResource: @"Localizable" ofType: @"strings"] pathComponents];
                 if( components.count > 3)
                     NSLog(@"Localization: %@", [components objectAtIndex: components.count -2]);
@@ -2953,7 +2955,6 @@ static BOOL initialized = NO;
 				#endif
                 
 				[[NSUserDefaults standardUserDefaults] registerDefaults: [DefaultsOsiriX getDefaults]];
-                
                 
                 if( [BrowserController _currentModifierFlags] & NSCommandKeyMask &&
                     [BrowserController _currentModifierFlags] & NSAlternateKeyMask)

@@ -27,6 +27,8 @@
 #include "osconfig.h"   /* make sure OS specific configuration is included first */
 #include "dsrtypes.h"
 
+#define DCM_OsirixROI							 DcmTagKey(0x0071, 0x0011)
+
 @implementation SRAnnotation
 
 + (NSData *)roiFromDICOM:(NSString *)path
@@ -40,7 +42,7 @@
 	
 	OFString name;
 	const Uint8 *buffer = nil;
-	unsigned int length;
+	NSUInteger length;
 	
 	if (fileformat.getDataset()->findAndGetUint8Array(DCM_EncapsulatedDocument, buffer, &length, OFFalse).good()) //DCM_EncapsulatedDocument
 	{
@@ -87,13 +89,16 @@
 		{
 			status = document->read(*fileformat.getDataset());
 			
-			int instanceNumber = [[NSString stringWithFormat:@"%s", document->getInstanceNumber()] intValue];
+            OFString value;
+            document->getInstanceNumber(value);
+			int instanceNumber = [[NSString stringWithFormat:@"%s", value.c_str()] intValue];
 			
 			DSRCodedEntryValue codedEntryValue = DSRCodedEntryValue("IHE.10", "99HUG", "Image Reference");
 			if (document->getTree().gotoNamedNode (codedEntryValue, OFTrue, OFTrue) > 0 )
 			{
 				DSRImageReferenceValue imageRef = document->getTree().getCurrentContentItem().getImageReference();
-				result = [NSString stringWithFormat:@"%s", imageRef.getSOPInstanceUID().c_str()];
+                OFString value = imageRef.getSOPInstanceUID();
+				result = [NSString stringWithFormat:@"%s", value.c_str()];
 				
 				if( [result length] > 0)
 					result = [result stringByAppendingFormat: @"-%d", instanceNumber];
@@ -123,12 +128,15 @@
 			status = document->read(*fileformat.getDataset());
 			// See DicomFile.m
 //			int frameNumber = [[NSString stringWithFormat:@"%s", document->getInstanceNumber()] intValue];
-			NSString *accessionNumber = [NSString stringWithFormat:@"%s", document->getAccessionNumber()];
-			NSString *studyInstanceUID = [NSString stringWithFormat:@"%s", document->getStudyInstanceUID()];
-			NSString *patientName = [NSString stringWithFormat:@"%s", document->getPatientsName()];
-			NSString *patientID = [NSString stringWithFormat:@"%s", document->getPatientID()];
-			NSString *patientDOB =  [NSString stringWithFormat:@"%s", document->getPatientsBirthDate()];
-			NSCalendarDate *DOB = [NSCalendarDate dateWithString: patientDOB calendarFormat:@"%Y%m%d"];
+
+            OFString value;
+            document->getAccessionNumber(value);    NSString *accessionNumber = @(value.c_str());
+            document->getStudyInstanceUID(value);   NSString *studyInstanceUID = @(value.c_str());
+            document->getPatientName(value);        NSString *patientName = @(value.c_str());
+            document->getPatientID(value);          NSString *patientID = @(value.c_str());
+            document->getPatientBirthDate(value);   NSString *patientDOB = @(value.c_str());
+
+            NSCalendarDate *DOB = [NSCalendarDate dateWithString: patientDOB calendarFormat:@"%Y%m%d"];
 			
 			if( accessionNumber == nil)
 				accessionNumber = @"";
@@ -389,7 +397,7 @@
 				status = document->read(*fileformat.getDataset());
 				
 			const Uint8 *buffer;
-			unsigned int length;
+			NSUInteger length;
 			if (fileformat.getDataset()->findAndGetUint8Array(DCM_EncapsulatedDocument, buffer, &length, OFFalse).good())
 			{
 				@try
@@ -580,14 +588,14 @@
             NSStringEncoding encoding = [NSString encodingForDICOMCharacterSet: [encodingArray objectAtIndex: 0]];
             
             string = nil;
-            status = fileformat.getDataset()->findAndGetString( DCM_PatientsName, string, OFFalse);
+            status = fileformat.getDataset()->findAndGetString( DCM_PatientName, string, OFFalse);
             if (status.good() && string)
-                document->setPatientsName( string);
+                document->setPatientName( string);
             
             string = nil;
-            status = fileformat.getDataset()->findAndGetString( DCM_ReferringPhysiciansName, string, OFFalse);
+            status = fileformat.getDataset()->findAndGetString( DCM_ReferringPhysicianName, string, OFFalse);
             if (status.good() && string)
-                document->setReferringPhysiciansName( string);
+                document->setReferringPhysicianName( string);
             
             string = nil;
             status = fileformat.getDataset()->findAndGetString( DCM_StudyDescription, string, OFFalse);
@@ -620,10 +628,10 @@
         document->setSpecificCharacterSet( "ISO_IR 192"); // UTF-8
         
         if( [study valueForKey:@"name"])
-            document->setPatientsName([[study valueForKey:@"name"] UTF8String]);
+            document->setPatientName([[study valueForKey:@"name"] UTF8String]);
         
         if ([study valueForKey:@"referringPhysician"])
-            document->setReferringPhysiciansName([[study valueForKey:@"referringPhysician"] UTF8String]);
+            document->setReferringPhysicianName([[study valueForKey:@"referringPhysician"] UTF8String]);
         
         if( _DICOMSRDescription)
             document->setSeriesDescription( [_DICOMSRDescription UTF8String]);
@@ -633,10 +641,10 @@
     }
     
 	if ([study valueForKey:@"dateOfBirth"])
-		document->setPatientsBirthDate([[[study valueForKey:@"dateOfBirth"] descriptionWithCalendarFormat:@"%Y%m%d" timeZone:nil locale:nil] UTF8String]);
+		document->setPatientBirthDate([[[study valueForKey:@"dateOfBirth"] descriptionWithCalendarFormat:@"%Y%m%d" timeZone:nil locale:nil] UTF8String]);
 		
 	if ([study valueForKey:@"patientSex"])
-		document->setPatientsSex([[study valueForKey:@"patientSex"] UTF8String]);
+		document->setPatientSex([[study valueForKey:@"patientSex"] UTF8String]);
 		
 	NSString *patientID = [study valueForKey:@"patientID"];
 	
@@ -729,8 +737,12 @@
 
 - (NSString *)seriesInstanceUID
 {
-	if (!_seriesInstanceUID)
-		_seriesInstanceUID =  [[NSString stringWithUTF8String:document->getSeriesInstanceUID()] retain];
+    if (!_seriesInstanceUID) {
+        OFString value;
+        document->getSeriesInstanceUID(value);
+        _seriesInstanceUID = [[NSString stringWithUTF8String:value.c_str()] retain];
+    }
+    
 	return _seriesInstanceUID;
 }
 
@@ -741,22 +753,29 @@
 }
 
 - (NSString *)sopInstanceUID{
-	return [NSString stringWithUTF8String:document->getSOPInstanceUID()];
+    OFString value;
+    document->getSOPInstanceUID(value);
+    return [NSString stringWithUTF8String:value.c_str()];
 }
 
 - (NSString *)sopClassUID{
-	return [NSString stringWithUTF8String:document->getSOPClassUID()];
+    OFString value;
+    document->getSOPClassUID(value);
+    return [NSString stringWithUTF8String:value.c_str()];
 }
 
 - (NSString *)seriesDescription{
-
-	const char* seriesDescription = document->getSeriesDescription();
+    OFString value;
+    document->getSeriesDescription(value);
+	const char* seriesDescription = value.c_str();
 	if( seriesDescription) return [NSString stringWithUTF8String:seriesDescription];
 	else return @"";
 }
 
 - (NSString *)seriesNumber{
-	const char* seriesNumber = document->getSeriesNumber();
+    OFString value;
+    document->getSeriesNumber(value);
+	const char* seriesNumber = value.c_str();
 	if( seriesNumber) return [NSString stringWithUTF8String:seriesNumber];
 	else return @"";
 }
