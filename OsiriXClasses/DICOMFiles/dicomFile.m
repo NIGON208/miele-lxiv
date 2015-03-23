@@ -688,20 +688,14 @@ char* replaceBadCharacter (char* str, NSStringEncoding encoding)
 
 + (BOOL) isDICOMFile:(NSString *) file compressed:(BOOL*) compressed image:(BOOL*) image
 {
-    if ( compressed)
-        *compressed = NO; // Assume it's not compressed
-    
-    if ( image)
-        *image = YES;
-    
     BOOL readable = YES;  // TODO
     
     @try
     {
         if (image) {
-            // TODO: check that it has pixel data
-            // See also Decompress
-            //*image = [DCMAbstractSyntaxUID isImageStorage: SOPClassUID];
+            // Check if it has pixel data
+            NSString *MSSOPClassUID = [DicomFile getDicomField: @"MediaStorageSOPClassUID" forFile: file];
+            *image = [DCMAbstractSyntaxUID isImageStorage: MSSOPClassUID];
         }
         
         if (compressed) {
