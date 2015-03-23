@@ -14051,7 +14051,16 @@ static NSArray*	openSubSeriesArray = nil;
     //		[customEnd setDateValue: [NSCalendarDate dateWithYear:[[NSCalendarDate date] yearOfCommonEra] month:[[NSCalendarDate date] monthOfYear] day:[[NSCalendarDate date] dayOfMonth] hour:0 minute:0 second:0 timeZone: nil]];
     //		[customEnd2 setDateValue: [NSCalendarDate dateWithYear:[[NSCalendarDate date] yearOfCommonEra] month:[[NSCalendarDate date] monthOfYear] day:[[NSCalendarDate date] dayOfMonth] hour:0 minute:0 second:0 timeZone: nil]];
             
-            statesArray = [[NSArray arrayWithObjects:NSLocalizedString(@"empty", nil), NSLocalizedString(@"unread", nil), NSLocalizedString(@"reviewed", nil), NSLocalizedString(@"dictated", nil), NSLocalizedString(@"validated", nil), nil] retain];
+            statesArray = [[NSArray arrayWithObjects:
+                            NSLocalizedString(@"empty", nil),
+                            NSLocalizedString(@"unread", nil),
+                            NSLocalizedString(@"reviewed", nil),
+                            NSLocalizedString(@"dictated", nil),
+                            NSLocalizedString(@"validated", nil),
+                            NSLocalizedString(@"printed", nil),
+                            NSLocalizedString(@"distributed", nil),
+                            NSLocalizedString(@"archived", nil),
+                            nil] retain];
             
             
             ImageAndTextCell *cellName = [[[ImageAndTextCell alloc] init] autorelease];
