@@ -49,7 +49,7 @@
 #import "SRAnnotation.h"
 #include <copyfile.h>
 
-NSString* const CurrentDatabaseVersion = @"2.5";
+NSString* const CurrentDatabaseVersion = @"2.6";
 
 
 @interface DicomDatabase ()
@@ -3471,7 +3471,8 @@ static BOOL protectionAgainstReentry = NO;
      //   [NSThread sleepForTimeInterval:2];
         
         NSString* oldModelFilename = [NSString stringWithFormat:@"OsiriXDB_Previous_DataModel%@.mom", databaseModelVersion];
-        if ([databaseModelVersion isEqualToString:CurrentDatabaseVersion]) oldModelFilename = [NSString stringWithFormat:@"OsiriXDB_DataModel.mom"]; // same version 
+        if ([databaseModelVersion isEqualToString:CurrentDatabaseVersion])
+            oldModelFilename = [NSString stringWithFormat:@"OsiriXDB_DataModel.mom"]; // same version
         
         if (![NSFileManager.defaultManager fileExistsAtPath:[NSBundle.mainBundle.resourcePath stringByAppendingPathComponent:oldModelFilename]])
         {

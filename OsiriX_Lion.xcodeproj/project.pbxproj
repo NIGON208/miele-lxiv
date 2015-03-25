@@ -144,6 +144,9 @@
 		4352BE511AA698F6000B80E1 /* OSIDerivedROI.m in Sources */ = {isa = PBXBuildFile; fileRef = 4352BE4F1AA698F6000B80E1 /* OSIDerivedROI.m */; };
 		4352BE541AA69905000B80E1 /* OSIPETDerivedROI.h in Headers */ = {isa = PBXBuildFile; fileRef = 4352BE521AA69905000B80E1 /* OSIPETDerivedROI.h */; };
 		4352BE551AA69905000B80E1 /* OSIPETDerivedROI.m in Sources */ = {isa = PBXBuildFile; fileRef = 4352BE531AA69905000B80E1 /* OSIPETDerivedROI.m */; };
+		4356C82D1AC23F7A00653B32 /* OsiriXDB_Previous_DataModel2.5.mom in Resources */ = {isa = PBXBuildFile; fileRef = 4356C82C1AC23F7A00653B32 /* OsiriXDB_Previous_DataModel2.5.mom */; };
+		435A5A6B1AB907EB00290ABE /* liboflog.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4333FD471AB3076200E82B49 /* liboflog.a */; };
+		435A5A6C1AB907FD00290ABE /* libofstd.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4333FD481AB3076200E82B49 /* libofstd.a */; };
 		4362173C1A2F3730006FA27A /* libITKBiasCorrection-4.7.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 436216EF1A2F3730006FA27A /* libITKBiasCorrection-4.7.a */; };
 		4362173D1A2F3730006FA27A /* libITKBioCell-4.7.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 436216F01A2F3730006FA27A /* libITKBioCell-4.7.a */; };
 		4362173E1A2F3730006FA27A /* libITKCommon-4.7.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 436216F11A2F3730006FA27A /* libITKCommon-4.7.a */; };
@@ -2748,8 +2751,8 @@
 		433F9A871A1B7C1C00E52C6C /* OsiriXFixedPointVolumeRayCastMapper.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OsiriXFixedPointVolumeRayCastMapper.cxx; sourceTree = "<group>"; };
 		433F9A881A1B7C1C00E52C6C /* OsiriXFixedPointVolumeRayCastMapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OsiriXFixedPointVolumeRayCastMapper.h; sourceTree = "<group>"; };
 		434B46151A19F2A3008CF8CF /* options.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = options.h; sourceTree = "<group>"; };
-		434B461B1A19F631008CF8CF /* OPJSupport.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OPJSupport.cpp; path = Codecs/OPJSupport.cpp; sourceTree = "<group>"; };
-		434B461C1A19F631008CF8CF /* OPJSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OPJSupport.h; path = Codecs/OPJSupport.h; sourceTree = "<group>"; };
+		434B461B1A19F631008CF8CF /* OPJSupport.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OPJSupport.cpp; path = glue/OpenJPEG/OPJSupport.cpp; sourceTree = "<group>"; };
+		434B461C1A19F631008CF8CF /* OPJSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OPJSupport.h; path = glue/OpenJPEG/OPJSupport.h; sourceTree = "<group>"; };
 		434B47A11A1A18D3008CF8CF /* kdu_OsiriX_NO_Support.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = kdu_OsiriX_NO_Support.cpp; path = "Binaries/KDU SDK/kdu_OsiriX_NO_Support.cpp"; sourceTree = "<group>"; };
 		434B47AB1A1A1AD4008CF8CF /* libopenjp2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libopenjp2.a; path = Binaries/openjpeg/libopenjp2.a; sourceTree = "<group>"; };
 		434C54FE1AA5868000218595 /* BioradHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BioradHeader.h; sourceTree = "<group>"; };
@@ -2757,6 +2760,7 @@
 		4352BE4F1AA698F6000B80E1 /* OSIDerivedROI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OSIDerivedROI.m; sourceTree = "<group>"; };
 		4352BE521AA69905000B80E1 /* OSIPETDerivedROI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OSIPETDerivedROI.h; sourceTree = "<group>"; };
 		4352BE531AA69905000B80E1 /* OSIPETDerivedROI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OSIPETDerivedROI.m; sourceTree = "<group>"; };
+		4356C82C1AC23F7A00653B32 /* OsiriXDB_Previous_DataModel2.5.mom */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = OsiriXDB_Previous_DataModel2.5.mom; sourceTree = "<group>"; };
 		436216EF1A2F3730006FA27A /* libITKBiasCorrection-4.7.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libITKBiasCorrection-4.7.a"; path = "Binaries/ITKLibs/libITKBiasCorrection-4.7.a"; sourceTree = "<group>"; };
 		436216F01A2F3730006FA27A /* libITKBioCell-4.7.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libITKBioCell-4.7.a"; path = "Binaries/ITKLibs/libITKBioCell-4.7.a"; sourceTree = "<group>"; };
 		436216F11A2F3730006FA27A /* libITKCommon-4.7.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libITKCommon-4.7.a"; path = "Binaries/ITKLibs/libITKCommon-4.7.a"; sourceTree = "<group>"; };
@@ -4390,6 +4394,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				435A5A6C1AB907FD00290ABE /* libofstd.a in Frameworks */,
 				434B47AE1A1A1AD4008CF8CF /* libopenjp2.a in Frameworks */,
 				BFE0652B06755B7200AC4B67 /* Cocoa.framework in Frameworks */,
 				7E47658007428C80000C9A74 /* Accelerate.framework in Frameworks */,
@@ -4397,6 +4402,7 @@
 				4333FD731AB3150C00E82B49 /* libijg8.a in Frameworks */,
 				4333FD751AB3151200E82B49 /* libijg16.a in Frameworks */,
 				4333FD741AB3150F00E82B49 /* libijg12.a in Frameworks */,
+				435A5A6B1AB907EB00290ABE /* liboflog.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6373,6 +6379,7 @@
 				AB97238D0C684B4E00DC727C /* OsiriXDB_Previous_DataModel2.2.mom */,
 				AB97238E0C684B4E00DC727C /* OsiriXDB_Previous_DataModel2.3.mom */,
 				84CD250C11EC5564004669D6 /* OsiriXDB_Previous_DataModel2.4.mom */,
+				4356C82C1AC23F7A00653B32 /* OsiriXDB_Previous_DataModel2.5.mom */,
 			);
 			name = DB_Previous_Models;
 			path = Binaries/DB_Previous_Models;
@@ -8285,6 +8292,7 @@
 				ABD7BC5E063F00A900E24B0E /* GEcolor.plist in Resources */,
 				ABD7BC5F063F00A900E24B0E /* GrayRainbow.plist in Resources */,
 				ABD7BC60063F00A900E24B0E /* HotIron.plist in Resources */,
+				4356C82D1AC23F7A00653B32 /* OsiriXDB_Previous_DataModel2.5.mom in Resources */,
 				AB726C87063F3AD500787EF6 /* QTExportVR.icns in Resources */,
 				AB92A3A90642B32D0048DC15 /* SmallLogo.tif in Resources */,
 				ABF09BBA0642FD220044FE6C /* Stereo.icns in Resources */,
@@ -10515,6 +10523,7 @@
 					/usr/include/libxml2,
 					AYDicomPrint,
 					"Binaries/DCMTK/include/**",
+					Binaries/openjpeg,
 				);
 				IBC_FLATTEN_NIBS = YES;
 				INFOPLIST_FILE = "Deployment-Info.plist";
@@ -10553,7 +10562,7 @@
 				);
 				PRODUCT_NAME = OsiriX;
 				STRIP_STYLE = debugging;
-				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Binaries/ITKHeaders $(SRCROOT)/Binaries/VTKHeaders $(SRCROOT)/Binaries/openjpeg/** $(SRCROOT)/Binaries/LibTiff";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Binaries/ITKHeaders $(SRCROOT)/Binaries/VTKHeaders $(SRCROOT)/Binaries/LibTiff $(SRCROOT)/Binaries/openjpeg";
 				WARNING_CFLAGS = "-no-pedantic";
 			};
 			name = Deployment;
@@ -10621,6 +10630,8 @@
 				OTHER_LDFLAGS = (
 					"-seg1addr",
 					0x20000000,
+					"-l",
+					iconv,
 				);
 				PRODUCT_NAME = OsiriX;
 				PUBLIC_HEADERS_FOLDER_PATH = "$(CONTENTS_FOLDER_PATH)/Headers";
@@ -10994,6 +11005,8 @@
 				OTHER_LDFLAGS = (
 					"-seg1addr",
 					0x20000000,
+					"-l",
+					iconv,
 				);
 				PRODUCT_NAME = OsiriX;
 				PUBLIC_HEADERS_FOLDER_PATH = "$(CONTENTS_FOLDER_PATH)/Headers";
@@ -11072,6 +11085,7 @@
 					/usr/include/libxml2,
 					AYDicomPrint,
 					"Binaries/DCMTK/include/**",
+					Binaries/openjpeg,
 				);
 				IBC_FLATTEN_NIBS = NO;
 				INFOPLIST_FILE = "Deployment-Info.plist";
@@ -11108,7 +11122,7 @@
 					iconv,
 				);
 				PRODUCT_NAME = OsiriX;
-				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Binaries/ITKHeaders $(SRCROOT)/Binaries/VTKHeaders $(SRCROOT)/Binaries/openjpeg/** $(SRCROOT)/Binaries/LibTiff";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Binaries/ITKHeaders $(SRCROOT)/Binaries/VTKHeaders $(SRCROOT)/Binaries/LibTiff $(SRCROOT)/Binaries/openjpeg";
 				WARNING_CFLAGS = "-no-pedantic";
 			};
 			name = Development;
