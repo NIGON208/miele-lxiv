@@ -7,13 +7,23 @@
 
 #import <assert.h>
 #import <stdlib.h>
+//#include <iostream>
+#import <string.h>
+
+#include "options.h"
 #include "OPJSupport.h"
-#include "../Binaries/openjpeg/openjpeg.h"
+#include "../../Binaries/openjpeg/openjpeg.h"
 #include "format_defs.h"
+#include "oflog.h"
+
+static const char* const THIS_FILE_NAME = strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : __FILE__;
 
 //#define WITH_OPJ_BUFFER_STREAM
 #define WITH_OPJ_FILE_STREAM
 //#define OPJ_VERBOSE
+
+//OFLogger::Logger logger = OFLogger::Logger::getInstance(DCMTK_LOG4CPLUS_TEXT("OpenJPEG"));
+static OFLogger logger = OFLog::getLogger(DCMTK_LOG4CPLUS_TEXT("OpenJPEG"));
 
 typedef struct decode_info
 {
@@ -78,7 +88,15 @@ void release(decode_info_t *decodeInfo)
 	}
 }
 
-OPJSupport::OPJSupport() {}
+OPJSupport::OPJSupport()
+{
+#ifndef NDEBUG
+    //logger.setLogLevel(OFLogger::DEBUG_LOG_LEVEL);
+    logger.setLogLevel(OFLogger::INFO_LOG_LEVEL);
+#else
+    logger.setLogLevel(OFLogger::ERROR_LOG_LEVEL);
+#endif
+}
 
 OPJSupport::~OPJSupport() {}
 
@@ -127,6 +145,8 @@ void* OPJSupport::decompressJPEG2KWithBuffer(void* inputBuffer,
 	OPJ_CODEC_FORMAT codec_format;
 	unsigned char rc, gc, bc, ac;
 
+    OFLOG_DEBUG(logger, THIS_FILE_NAME << ":" << __LINE__ <<  " decompressJPEG2KWithBuffer");
+
     if (jp2DataSize<12)
         return 0;
     
@@ -139,7 +159,7 @@ void* OPJSupport::decompressJPEG2KWithBuffer(void* inputBuffer,
     // Create the stream
     decodeInfo.stream = opj_stream_create_buffer_stream((OPJ_BYTE *)jp2Data, (OPJ_SIZE_T)jp2DataSize, OPJ_STREAM_READ);
     if (!decodeInfo.stream) {
-        fprintf(stderr,"%s:%d:\n\tNO decodeInfo.stream\n",__FILE__,__LINE__);
+        OFLOG_ERROR(logger, THIS_FILE_NAME << ":" << __LINE__ << " cannot create stream");
         return NULL;
     }
     
@@ -160,7 +180,7 @@ void* OPJSupport::decompressJPEG2KWithBuffer(void* inputBuffer,
         case -1:
         default:
             release(&decodeInfo);
-            fprintf(stderr,"%s:%d: decode format missing\n",__FILE__,__LINE__);
+            OFLOG_ERROR(logger, THIS_FILE_NAME << ":" << __LINE__ << " decode format missing");
             return NULL;
     }
     
@@ -172,7 +192,7 @@ void* OPJSupport::decompressJPEG2KWithBuffer(void* inputBuffer,
         
         decodeInfo.codec = opj_create_decompress(codec_format);
         if (decodeInfo.codec == NULL) {
-            fprintf(stderr,"%s:%d:\n\tNO codec\n",__FILE__,__LINE__);
+            OFLOG_ERROR(logger, THIS_FILE_NAME << ":" << __LINE__ << " NO codec");
             break;
         }
 
@@ -184,7 +204,7 @@ void* OPJSupport::decompressJPEG2KWithBuffer(void* inputBuffer,
         
         // Setup the decoder decoding parameters
         if ( !opj_setup_decoder(decodeInfo.codec, &parameters)) {
-            fprintf(stderr,"%s:%d:\n\topj_setup_decoder failed\n",__FILE__,__LINE__);
+            OFLOG_ERROR(logger, THIS_FILE_NAME << ":" << __LINE__ << " setup decode parameters");
             break;
         }
 
@@ -200,7 +220,7 @@ void* OPJSupport::decompressJPEG2KWithBuffer(void* inputBuffer,
          * then call 'opj_j2k_read_header()'
          */
         if( !opj_read_header(decodeInfo.stream, decodeInfo.codec, &(decodeInfo.image))) {
-            fprintf(stderr,"%s:%d:\n\topj_read_header failed\n",__FILE__,__LINE__);
+            OFLOG_ERROR(logger, THIS_FILE_NAME << ":" << __LINE__ << " read header");
             break;
         }
 
@@ -230,27 +250,26 @@ void* OPJSupport::decompressJPEG2KWithBuffer(void* inputBuffer,
                                      (OPJ_INT32)parameters.DA_y0,
                                      (OPJ_INT32)parameters.DA_x1,
                                      (OPJ_INT32)parameters.DA_y1)) {
-                fprintf(stderr,"%s:%d:\n\topj_set_decode_area failed\n",__FILE__,__LINE__);
+                OFLOG_ERROR(logger, THIS_FILE_NAME << ":" << __LINE__ << " set decode area");
                 break;
             }
 
             /* Get the decoded image */
             if (!opj_decode(decodeInfo.codec, decodeInfo.stream, decodeInfo.image)) {
-                fprintf(stderr,"%s:%d:\n\topj_decode failed\n",__FILE__,__LINE__);
+                OFLOG_ERROR(logger, THIS_FILE_NAME << ":" << __LINE__ << " decode failed");
                 return NULL;
             }
             
             if (!opj_end_decompress(decodeInfo.codec, decodeInfo.stream)) {
-                fprintf(stderr,"%s:%d:\n\topj_end_decompress failed\n",__FILE__,__LINE__);
+                OFLOG_ERROR(logger, THIS_FILE_NAME << ":" << __LINE__ << " decompress failed");
                 break;
             }
-
         }
         else
         {
             if (!opj_get_decoded_tile(decodeInfo.codec, decodeInfo.stream, decodeInfo.image, parameters.tile_index))
             {
-                fprintf(stderr,"%s:%d:\n\topj_get_decoded_tile failed\n",__FILE__,__LINE__);
+                OFLOG_ERROR(logger, THIS_FILE_NAME << ":" << __LINE__ << " get decoded tile");
                 break;
             }
         }
@@ -348,7 +367,7 @@ void* OPJSupport::decompressJPEG2KWithBuffer(void* inputBuffer,
 
             if(has_alpha4)
             {
-            alpha = decodeInfo.image->comps[3].data;
+                alpha = decodeInfo.image->comps[3].data;
             }
 
         }	/* if(has_rgb) */
@@ -357,7 +376,7 @@ void* OPJSupport::decompressJPEG2KWithBuffer(void* inputBuffer,
             red = green = blue = decodeInfo.image->comps[0].data;
             if(has_alpha2)
             {
-            alpha = decodeInfo.image->comps[1].data;
+                alpha = decodeInfo.image->comps[1].data;
             }
         }	/* if(has_rgb) */
 
@@ -371,7 +390,6 @@ void* OPJSupport::decompressJPEG2KWithBuffer(void* inputBuffer,
             bc = (unsigned char)*blue++;
             if(hasAlpha)
             {
-            
                 ac = (unsigned char)*alpha++;;
             }
             
@@ -414,27 +432,31 @@ void* OPJSupport::decompressJPEG2KWithBuffer(void* inputBuffer,
 	}
 	else
 	{
-	    int *grey;
-
-	    fprintf(stderr,"%s:%d:Can show only first component of decodeInfo.image\n"
-		    "  components(%d) prec(%d) color_space[%d](%s)\n"
-		    "  RECT(%d,%d,%d,%d)\n",__FILE__,__LINE__,decodeInfo.image->numcomps,
-		    decodeInfo.image->comps[0].prec,
-		    decodeInfo.image->color_space,clr_space(decodeInfo.image->color_space),
-		    decodeInfo.image->x0,decodeInfo.image->y0,decodeInfo.image->x1,decodeInfo.image->y1 );
+        OFLOG_ERROR(logger, THIS_FILE_NAME << ":" << __LINE__ << " Can show only first component of decodeInfo.image");
+        OFLOG_INFO(logger, "  components(" << decodeInfo.image->numcomps << ")"
+                    << " prec(" << decodeInfo.image->comps[0].prec << ")"
+                    << " color_space[" << decodeInfo.image->color_space << "](" << clr_space(decodeInfo.image->color_space) << ")" << OFendl
+                    
+                    << "  RECT("
+                        << decodeInfo.image->x0 << ","
+                        << decodeInfo.image->y0 << ","
+                        << decodeInfo.image->x1 << ","
+                        << decodeInfo.image->y1 << ")" );
 
 	    for(i = 0; i < decodeInfo.image->numcomps; ++i)
 	    {
-            fprintf(stderr,"[%d]dx(%d) dy(%d) w(%d) h(%d) signed(%u)\n",i,
-                decodeInfo.image->comps[i].dx ,decodeInfo.image->comps[i].dy,
-                decodeInfo.image->comps[i].w,decodeInfo.image->comps[i].h,
-                decodeInfo.image->comps[i].sgnd);
+            OFLOG_INFO(logger, "[" << i
+                       << "] dx(" << decodeInfo.image->comps[i].dx
+                       << ") dy(" << decodeInfo.image->comps[i].dy
+                       << ") w("  << decodeInfo.image->comps[i].w
+                       << ") h("  << decodeInfo.image->comps[i].h
+                       << ") signed(" << decodeInfo.image->comps[i].sgnd << ")");
 	    }
 
 	    /* 1 component 8 or 16 bpp decodeInfo.image
 	     */
-	    grey = decodeInfo.image->comps[0].data;
-	    if(decodeInfo.image->comps[0].prec <= 8)
+        int *grey = decodeInfo.image->comps[0].data;
+	    if (decodeInfo.image->comps[0].prec <= 8)
 	    {
             char* ptrBBody = (char*)inputBuffer;
             for(i=0; i<width*height; i++)
@@ -615,6 +637,8 @@ OPJSupport::compressJPEG2K(  void *data,
                              int rate,
                              long *compressedDataSize)
 {
+    OFLOG_DEBUG(logger, THIS_FILE_NAME << ":" << __LINE__ << " compressJPEG2K");
+
     opj_cparameters_t parameters;
     
     opj_stream_t *l_stream = 00;
@@ -666,14 +690,14 @@ OPJSupport::compressJPEG2K(  void *data,
             
         case -1:
         default:
-            fprintf(stderr,"%s:%d: encode format missing\n",__FILE__,__LINE__);
+            OFLOG_ERROR(logger, THIS_FILE_NAME << ":" << __LINE__ << " encode format missing");
             return NULL;
     }
     
     /* see test_tile_encoder.c:232 and opj_compress.c:1746 */
     l_codec = opj_create_compress(codec_format);
     if (!l_codec) {
-        fprintf(stderr,"%s:%d:\n\tNO codec\n",__FILE__,__LINE__);
+        OFLOG_ERROR(logger, THIS_FILE_NAME << ":" << __LINE__ << " NO codec");
         return NULL;
     }
     
@@ -684,7 +708,7 @@ OPJSupport::compressJPEG2K(  void *data,
     opj_set_error_handler(l_codec, error_callback, this);
     
     if ( !opj_setup_encoder(l_codec, &parameters, image)) {
-        fprintf(stderr,"%s:%d:\n\topj_setup_decoder failed\n",__FILE__,__LINE__);
+        OFLOG_ERROR(logger, THIS_FILE_NAME << ":" << __LINE__ << " setup encoder");
         return NULL;
     }
  
@@ -698,7 +722,7 @@ OPJSupport::compressJPEG2K(  void *data,
     l_stream = opj_stream_create_default_file_stream(parameters.outfile, OPJ_STREAM_WRITE);
 #endif
     if (!l_stream){
-        fprintf(stderr,"%s:%d:\n\tstream creation failed\n",__FILE__,__LINE__);
+        OFLOG_ERROR(logger, THIS_FILE_NAME << ":" << __LINE__ << " stream creation");
         return NULL;
     }
     
@@ -711,7 +735,7 @@ OPJSupport::compressJPEG2K(  void *data,
         /* encode the image */
         bSuccess = opj_start_compress(l_codec, image, l_stream);
         if (!bSuccess) {
-            fprintf(stderr,"%s:%d:\n\topj_start_compress failed\n",__FILE__,__LINE__);
+            OFLOG_ERROR(logger, THIS_FILE_NAME << ":" << __LINE__ << " compress failed");
             break;
         }
         
@@ -723,7 +747,7 @@ OPJSupport::compressJPEG2K(  void *data,
             assert( l_data );
             for (int i=0;i<l_nb_tiles;++i) {
                 if (! opj_write_tile(l_codec,i,l_data,l_data_size,l_stream)) {
-                    fprintf(stderr, "ERROR -> test_tile_encoder: failed to write the tile %d!\n",i);
+                    OFLOG_ERROR(logger, THIS_FILE_NAME << ":" << __LINE__ << " failed to write the tile" << i);
                     opj_stream_destroy(l_stream);
                     opj_destroy_codec(l_codec);
                     opj_image_destroy(image);
@@ -734,13 +758,13 @@ OPJSupport::compressJPEG2K(  void *data,
         }
         else {
             if (!opj_encode(l_codec, l_stream)) {
-                fprintf(stderr,"%s:%d:\n\topj_encode failed\n",__FILE__,__LINE__);
+                OFLOG_ERROR(logger, THIS_FILE_NAME << ":" << __LINE__ << " encode failed");
                 break;
             }
         }
         
         if (!opj_end_compress(l_codec, l_stream)) {
-            fprintf(stderr,"%s:%d:\n\topj_end_compress failed\n",__FILE__,__LINE__);
+            OFLOG_ERROR(logger, THIS_FILE_NAME << ":" << __LINE__ << " end compress failed");
             break;
         }
         
@@ -758,7 +782,7 @@ OPJSupport::compressJPEG2K(  void *data,
     
     if (length % 2) {
         length++; // ensure even length
-        fprintf(stdout,"Padded to %li\n", length);
+        OFLOG_INFO(logger, THIS_FILE_NAME << ":" << __LINE__ << " Padded to " << length);
     }
     
     unsigned char *to = (unsigned char *)malloc(length);
@@ -781,7 +805,7 @@ OPJSupport::compressJPEG2K(  void *data,
     opj_image_destroy(image);
     
     if (fails) {
-        fprintf(stderr, "failed to encode image\n");
+        OFLOG_ERROR(logger, THIS_FILE_NAME << ":" << __LINE__ << " failed to encode image");
         remove(parameters.outfile);
     }
 

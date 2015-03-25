@@ -8,8 +8,8 @@
 #ifndef __OsiriX_Lion__OPJSupport__
 #define __OsiriX_Lion__OPJSupport__
 
-#include <iostream>
-#include "options.h"
+//#include <iostream>
+//#include "options.h"
 
 class OPJSupport {
 

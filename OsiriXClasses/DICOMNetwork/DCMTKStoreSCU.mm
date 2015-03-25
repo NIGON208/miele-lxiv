@@ -926,7 +926,10 @@ static OFCondition cstore(T_ASC_Association * assoc, const OFString& fname)
 
 + (void) showDcmtkVersion
 {
-    NSLog(@"DCMTK %s %s", OFFIS_DCMTK_VERSION, OFFIS_DCMTK_RELEASEDATE);    
+    NSLog(@"DCMTK %s %s", OFFIS_DCMTK_VERSION, OFFIS_DCMTK_RELEASEDATE);
+#ifdef WITH_ZLIB
+    NSLog(@"ZLIB, Version %s", zlibVersion());
+#endif
 }
 
 + (int) sendSyntaxForListenerSyntax: (int) listenerSyntax
