@@ -631,7 +631,8 @@ static DicomDatabase* activeLocalDatabase = nil;
     if( independentContext == NO) // avoid doing this for independent contexts: we know it's already ok, and this leads to very bad crashes
     { 
         NSString* modelVersion = [NSString stringWithContentsOfFile:self.modelVersionFilePath encoding:NSUTF8StringEncoding error:nil];
-        if (!modelVersion) modelVersion = [NSUserDefaults.standardUserDefaults stringForKey:@"DATABASEVERSION"];
+        if (!modelVersion)
+            modelVersion = [NSUserDefaults.standardUserDefaults stringForKey:@"DATABASEVERSION"];
         
         if (modelVersion.length && ![modelVersion isEqualToString:CurrentDatabaseVersion]) {
             rebuildPatientUIDs = [self upgradeSqlFileFromModelVersion:modelVersion];

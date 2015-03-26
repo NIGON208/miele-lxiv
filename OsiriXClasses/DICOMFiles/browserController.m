@@ -6222,6 +6222,7 @@ static NSConditionLock *threadLock = nil;
 	}
 }
 
+#pragma mark - NSOutlineViewDelegate
 - (id)outlineView:(NSOutlineView *)outlineView child:(NSInteger)index ofItem:(id)item
 {
 	if (_database == nil) return nil;
@@ -6491,7 +6492,9 @@ static NSConditionLock *threadLock = nil;
     
     if ([[item valueForKey:@"type"] isEqualToString:@"Series"])
     {   // only Series
-        if ([[tableColumn identifier] isEqualToString:@"name"] || [[tableColumn identifier] isEqualToString:@"studyName"] || [[tableColumn identifier] isEqualToString:@"modality"])    // only name & description & modality
+        if ([[tableColumn identifier] isEqualToString:@"name"] ||
+            [[tableColumn identifier] isEqualToString:@"studyName"] ||
+            [[tableColumn identifier] isEqualToString:@"modality"])    // only name & description & modality
         {
             if (!value || ([value isKindOfClass:[NSString class]] && [(NSString*)value length] == 0))
                 return NSLocalizedString(@"unknown", nil);
@@ -6632,7 +6635,10 @@ static NSConditionLock *threadLock = nil;
 	return nil;
 }
 
-- (void)outlineView: (NSOutlineView *)outlineView willDisplayCell: (id)cell forTableColumn: (NSTableColumn *)tableColumn item: (id)item
+- (void)outlineView: (NSOutlineView *)outlineView
+    willDisplayCell: (id)cell
+     forTableColumn: (NSTableColumn *)tableColumn
+               item: (id)item
 {
 	[cell setHighlighted: NO];
 	
@@ -6650,7 +6656,8 @@ static NSConditionLock *threadLock = nil;
 	{
 		if ([[item valueForKey:@"type"] isEqualToString: @"Study"])
 		{
-			if( [[tableColumn identifier] isEqualToString:@"lockedStudy"]) [cell setTransparent: NO];
+			if( [[tableColumn identifier] isEqualToString:@"lockedStudy"])
+                [cell setTransparent: NO];
 			
             if( [item isDistant])
             {
@@ -6659,8 +6666,10 @@ static NSConditionLock *threadLock = nil;
             }
 			else if( originalOutlineViewArray)
 			{
-				if( [originalOutlineViewArray containsObject: item]) [cell setFont: [NSFont boldSystemFontOfSize: [self fontSize: @"dbFont"]]];
-				else [cell setFont: [NSFont systemFontOfSize: [self fontSize: @"dbFont"]]];
+				if( [originalOutlineViewArray containsObject: item])
+                    [cell setFont: [NSFont boldSystemFontOfSize: [self fontSize: @"dbFont"]]];
+				else
+                    [cell setFont: [NSFont systemFontOfSize: [self fontSize: @"dbFont"]]];
 			}
 			else [cell setFont: [NSFont boldSystemFontOfSize: [self fontSize: @"dbFont"]]];
 			
@@ -6695,29 +6704,39 @@ static NSConditionLock *threadLock = nil;
 					NSDate			*today = [NSDate dateWithTimeIntervalSinceNow: [start timeIntervalSinceDate: now]];
 					
 					icon = YES;
-					if( [[item valueForKey:@"date"] timeIntervalSinceNow] > -60*10) [(ImageAndTextCell*) cell setImage:[NSImage imageNamed:@"Realised1.tif"]];													// 10 min
-					else if( [[item valueForKey:@"date"] timeIntervalSinceNow] > -60*60) [(ImageAndTextCell*) cell setImage:[NSImage imageNamed:@"Realised2.tif"]];												// 1 hour
-					else if( [[item valueForKey:@"date"] timeIntervalSinceNow] > -4*60*60) [(ImageAndTextCell*) cell setImage:[NSImage imageNamed:@"Realised3.tif"]];											// 4 hours
+					if( [[item valueForKey:@"date"] timeIntervalSinceNow] > -60*10)
+                        [(ImageAndTextCell*) cell setImage:[NSImage imageNamed:@"Realised1.tif"]];	// 10 min
+                    
+					else if( [[item valueForKey:@"date"] timeIntervalSinceNow] > -60*60)
+                        [(ImageAndTextCell*) cell setImage:[NSImage imageNamed:@"Realised2.tif"]];	// 1 hour
+                    
+					else if( [[item valueForKey:@"date"] timeIntervalSinceNow] > -4*60*60)
+                        [(ImageAndTextCell*) cell setImage:[NSImage imageNamed:@"Realised3.tif"]];	// 4 hours
+                    
 					else if( [[item valueForKey:@"date"] timeIntervalSinceReferenceDate] > [today timeIntervalSinceReferenceDate]) [(ImageAndTextCell*) cell setImage:[NSImage imageNamed:@"Realised4.tif"]];	// today
-					else icon = NO;
+					else
+                        icon = NO;
 				}
 				
 				if( icon == NO)
 				{
-					if( [item valueForKey:@"dateAdded"] && [[item valueForKey:@"dateAdded"] timeIntervalSinceNow] > -60) [(ImageAndTextCell*) cell setImage:[NSImage imageNamed:@"Receiving.tif"]];
+					if( [item valueForKey:@"dateAdded"] && [[item valueForKey:@"dateAdded"] timeIntervalSinceNow] > -60)
+                        [(ImageAndTextCell*) cell setImage:[NSImage imageNamed:@"Receiving.tif"]];
 				}
 			}
 			
 			if( [[tableColumn identifier] isEqualToString: @"reportURL"])
 			{
-				if( (![_database isLocal] && [item valueForKey:@"reportURL"] != nil) || [[NSFileManager defaultManager] fileExistsAtPath: [item valueForKey:@"reportURL"]] == YES)
+				if( (![_database isLocal] && [item valueForKey:@"reportURL"] != nil) ||
+                    [[NSFileManager defaultManager] fileExistsAtPath: [item valueForKey:@"reportURL"]] == YES)
 				{
 					NSImage	*reportIcon = [NSImage imageNamed:@"Report.icns"];
 					[reportIcon setSize: NSMakeSize(16, 16)];
 					
 					[(ImageAndTextCell*) cell setImage: reportIcon];
 				}
-				else if( [[item valueForKey: @"reportURL"] hasPrefix: @"http://"] || [[item valueForKey: @"reportURL"] hasPrefix: @"https://"])
+				else if( [[item valueForKey: @"reportURL"] hasPrefix: @"http://"] ||
+                         [[item valueForKey: @"reportURL"] hasPrefix: @"https://"])
 				{
 					NSImage	*reportIcon = [[NSWorkspace sharedWorkspace] iconForFileType: @"download"];
 					
@@ -6736,7 +6755,8 @@ static NSConditionLock *threadLock = nil;
 		}
 		else
 		{
-			if( [[tableColumn identifier] isEqualToString:@"lockedStudy"]) [cell setTransparent: YES];
+			if( [[tableColumn identifier] isEqualToString:@"lockedStudy"])
+                [cell setTransparent: YES];
 			
 			[cell setFont: [NSFont boldSystemFontOfSize: [self fontSize: @"dbSeriesFont"]]];
 		}
@@ -6747,13 +6767,16 @@ static NSConditionLock *threadLock = nil;
         if ([cell respondsToSelector:@selector(setTextColor:)])
         {
             BOOL gray = NO;
-            if ([[item valueForKey:@"type"] isEqualToString:@"Series"])                                                                                                                         // only Series
-                if ([[tableColumn identifier] isEqualToString:@"name"] || [[tableColumn identifier] isEqualToString:@"studyName"] || [[tableColumn identifier] isEqualToString:@"modality"])    // only name & description & modality
+            if ([[item valueForKey:@"type"] isEqualToString:@"Series"])        // only Series
+                if ([[tableColumn identifier] isEqualToString:@"name"] ||
+                    [[tableColumn identifier] isEqualToString:@"studyName"] ||
+                    [[tableColumn identifier] isEqualToString:@"modality"])    // only name & description & modality
                 {
                     id value = nil;
                     BOOL accessed = NO;
                     
-                    if ([[item valueForKey:@"type"] isEqualToString:@"Series"] && [[tableColumn identifier] isEqualToString:@"studyName"])
+                    if ([[item valueForKey:@"type"] isEqualToString:@"Series"] &&
+                        [[tableColumn identifier] isEqualToString:@"studyName"])
                     {
                         value = [item valueForKey:@"seriesDescription"];
                         accessed = YES;
@@ -6863,7 +6886,8 @@ static NSConditionLock *threadLock = nil;
 	if( [matrixViewArray count] > 0)
 	{
 		image = [matrixViewArray objectAtIndex: 0];
-		if( [[image valueForKey:@"type"] isEqualToString:@"Image"]) [self findAndSelectFile: nil image: image shouldExpand :NO];
+		if( [[image valueForKey:@"type"] isEqualToString:@"Image"])
+            [self findAndSelectFile: nil image: image shouldExpand :NO];
 	}
 	
 //	[_database unlock];
@@ -8756,9 +8780,9 @@ static BOOL withReset = NO;
 		}
 		
 		NSManagedObject   *aFile = [databaseOutline itemAtRow:[databaseOutline selectedRow]];
-		if ([[aFile valueForKey:@"type"] isEqualToString:@"Series"] && 
-				 [[[aFile valueForKey:@"images"] allObjects] count] == 1 && 
-				 [[[[[aFile valueForKey:@"images"] allObjects] objectAtIndex:0] valueForKey:@"numberOfFrames"] intValue] > 1)
+		if ([[aFile valueForKey:@"type"] isEqualToString:@"Series"] &&
+            [[[aFile valueForKey:@"images"] allObjects] count] == 1 &&
+            [[[[[aFile valueForKey:@"images"] allObjects] objectAtIndex:0] valueForKey:@"numberOfFrames"] intValue] > 1)
 		{
 			noOfImages = [[[[[aFile valueForKey:@"images"] allObjects] objectAtIndex:0] valueForKey:@"numberOfFrames"] intValue];
 			animate = YES;
@@ -8927,9 +8951,9 @@ static BOOL withReset = NO;
 			if( [cell tag] >= [matrixViewArray count]) return;
 			
 			NSManagedObject   *aFile = [databaseOutline itemAtRow:[databaseOutline selectedRow]];
-			if ([[aFile valueForKey:@"type"] isEqualToString:@"Series"] && 
-					 [[[aFile valueForKey:@"images"] allObjects] count] == 1 && 
-					 [[[[[aFile valueForKey:@"images"] allObjects] objectAtIndex:0] valueForKey:@"numberOfFrames"] intValue] > 1) // multi frame image that is directly selected
+			if ([[aFile valueForKey:@"type"] isEqualToString:@"Series"] &&
+                [[[aFile valueForKey:@"images"] allObjects] count] == 1 &&
+                [[[[[aFile valueForKey:@"images"] allObjects] objectAtIndex:0] valueForKey:@"numberOfFrames"] intValue] > 1) // multi frame image that is directly selected
 			{
 				NSManagedObject* image = [[[aFile valueForKey:@"images"] allObjects] objectAtIndex:0];
 				
@@ -8960,7 +8984,8 @@ static BOOL withReset = NO;
 					[imageView setIndex:[cell tag]];
 				}
 			}
-			else if( [[aFile valueForKey:@"type"] isEqualToString:@"Study"] || ([[aFile valueForKey:@"type"] isEqualToString:@"Series"] && [[[aFile valueForKey:@"images"] allObjects] count] > 1))
+			else if( [[aFile valueForKey:@"type"] isEqualToString:@"Study"] ||
+                    ([[aFile valueForKey:@"type"] isEqualToString:@"Series"] && [[[aFile valueForKey:@"images"] allObjects] count] > 1))
 			{
 				NSArray *images;
 				

@@ -29,7 +29,7 @@
 #import "DCMUSRegion.h"   // mapping ultrason
 
 #define CIRCLERESOLUTION 200
-#define ROIVERSION 11
+#define ROIVERSION 15
 
 static		float					deg2rad = M_PI / 180.0f;
 static		float					fontHeight = 0;
@@ -793,6 +793,19 @@ int spline( NSPoint *Pt, int tot, NSPoint **newPt, long **correspondingSegmentPt
 			_hasIsSpline = NO;
 		}
 		
+        if (fileVersion >= 15)
+        {
+            studyInstanceUID = [coder decodeObject];
+            
+            for (int i=0; i<2; i++)
+                angleRad[i] = [[coder decodeObject] floatValue];
+            
+            if (type==tOvalAndAngle) {
+                whatBool = [[coder decodeObject] boolValue];
+                whatFloat = [[coder decodeObject] floatValue];
+            }
+        }
+        
 		[points retain];
 		[name retain];
 		[comments retain];
@@ -1029,6 +1042,23 @@ int spline( NSPoint *Pt, int tot, NSPoint **newPt, long **correspondingSegmentPt
 	// ROIVERSION = 11
 	[coder encodeObject:[NSNumber numberWithBool: _isSpline]];
 	[coder encodeObject:[NSNumber numberWithBool: _hasIsSpline]];
+    
+    // ROIVERSION = 15
+    studyInstanceUID = nil;         // TODO: defined its value
+    [coder encodeObject:studyInstanceUID];
+    
+    for (int i=0; i<2; i++) {
+        angleRad[i] = 0;            // TODO: defined its value
+        [coder encodeObject:[NSNumber numberWithFloat:angleRad[i]]];
+    }
+    
+    if (type==tOvalAndAngle)
+    {
+        BOOL tempBool = NO;         // TODO: defined its value
+        float tempFloat = 0.0;      // TODO: defined its value
+        [coder encodeObject:[NSNumber numberWithBool: tempBool]];
+        [coder encodeObject:[NSNumber numberWithFloat:tempFloat]];
+    }
 }
 
 - (NSData*) data
@@ -1806,7 +1836,9 @@ int spline( NSPoint *Pt, int tot, NSPoint **newPt, long **correspondingSegmentPt
 			result.y = rect.origin.y;
 		break;
 		
-		case tOval:
+        case tOval:
+        case tOvalAndAngle:
+        case t3DBall:
 			result.x = rect.origin.x + rect.size.width/4;
 			result.y = rect.origin.y + rect.size.height;
 		break;
@@ -1863,7 +1895,7 @@ int spline( NSPoint *Pt, int tot, NSPoint **newPt, long **correspondingSegmentPt
 		return tempArray;
 	}
 	
-	if(  type == tOval)
+	if ((type == tOval) || (type == tOvalAndAngle) || (type == t3DBall))
 	{
 		NSMutableArray  *tempArray = [NSMutableArray array];
 		MyPoint			*tempPoint;
@@ -1873,7 +1905,8 @@ int spline( NSPoint *Pt, int tot, NSPoint **newPt, long **correspondingSegmentPt
 		{
 			angle = i * 2 * M_PI /CIRCLERESOLUTION;
 		  
-			tempPoint = [[MyPoint alloc] initWithPoint: NSMakePoint( rect.origin.x + rect.size.width*cos(angle), rect.origin.y + rect.size.height*sin(angle))];
+			tempPoint = [[MyPoint alloc] initWithPoint: NSMakePoint(rect.origin.x + rect.size.width*cos(angle),
+                                                                    rect.origin.y + rect.size.height*sin(angle))];
 			[tempArray addObject:tempPoint];
 			[tempPoint release];
 		}
@@ -1898,9 +1931,17 @@ int spline( NSPoint *Pt, int tot, NSPoint **newPt, long **correspondingSegmentPt
 
 - (void) setPoints: (NSMutableArray*) pts
 {
-	if ( type == tROI || type == tOval || type == t2DPoint) return;  // Doesn't make sense to set points for these types.
+	if (type == tROI ||
+        type == tOval||
+        type == tOvalAndAngle ||
+        type == t3DBall ||
+        type == t2DPoint)  // Doesn't make sense to set points for these types.
+    {
+         return;
+    }
 	
-	if( locked) return;
+	if (locked)
+        return;
 	
 	[points removeAllObjects];
 	for ( long i = 0; i < [pts count]; i++ )
@@ -2778,7 +2819,9 @@ int spline( NSPoint *Pt, int tot, NSPoint **newPt, long **correspondingSegmentPt
                 return NO;
             break;
             
-		case tOval:
+        case tOval:
+        case tOvalAndAngle:
+        case t3DBall:
 			if( rect.size.width < 0)
 			{
 				rect.size.width = -rect.size.width;
@@ -4197,7 +4240,8 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
 	
 	[pix computeROI:self :&mean :&total :&dev :&min :&max];
 	
-	return [NSString stringWithFormat:@"%@	%.3f	%.3f	%.3f	%.3f	%.3f", name, mean, min, max, total, dev];
+//    return [NSString stringWithFormat:@"%@	mean:%.3f	min:%.3f	max:%.3f	tot:%.3f	dev:%.3f", name, mean, min, max, total, dev];
+    return [NSString stringWithFormat:@"%@	mean:%.3f	min:%.3f	max:%.3f	angle:%.3f	angle:%.3f", name, mean, min, max, angleRad[0], angleRad[1]];
 }
 
 - (void) drawROI :(float) scaleValue :(float) offsetx :(float) offsety :(float) spacingX :(float) spacingY;
@@ -5532,13 +5576,15 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
 			}
 			break;
 #pragma mark tOval
-			case tOval:
+            case tOval:
+            case tOvalAndAngle:
+            case t3DBall:
 			{
 				float angle;
 				
 				glColor4f( color.red / 65535., color.green / 65535., color.blue / 65535., opacity);
 				glLineWidth( thick*backingScaleFactor);
-				
+                
 				NSRect rrect = rect;
 				
 				if( rrect.size.height < 0)
@@ -5549,12 +5595,17 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
 				
 				int resol = (rrect.size.height + rrect.size.width) * 1.5 * scaleValue;
 				
-				glBegin(GL_LINE_LOOP);
+                if (type==t3DBall)
+                    glBegin(GL_TRIANGLE_FAN); // The circle gets filled
+                else
+                    glBegin(GL_LINE_LOOP);
+                
 				for( int i = 0; i < resol ; i++ )
 				{
 					angle = i * 2 * M_PI /resol;
 				  
-				  glVertex2f( (rrect.origin.x + rrect.size.width*cos(angle) - offsetx)*scaleValue, (rrect.origin.y + rrect.size.height*sin(angle)- offsety)*scaleValue);
+				  glVertex2f((rrect.origin.x + rrect.size.width*cos(angle) - offsetx)*scaleValue,
+                             (rrect.origin.y + rrect.size.height*sin(angle)- offsety)*scaleValue);
 				}
 				glEnd();
 				
@@ -5564,11 +5615,13 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
 				{
 					angle = i * 2 * M_PI /resol;
 				  
-				  glVertex2f( (rrect.origin.x + rrect.size.width*cos(angle) - offsetx)*scaleValue, (rrect.origin.y + rrect.size.height*sin(angle)- offsety)*scaleValue);
+				  glVertex2f((rrect.origin.x + rrect.size.width*cos(angle) - offsetx)*scaleValue,
+                             (rrect.origin.y + rrect.size.height*sin(angle)- offsety)*scaleValue);
 				}
                 
                 if( [[NSUserDefaults standardUserDefaults] boolForKey: @"drawROICircleCenter"])
-                    glVertex2f( (rrect.origin.x - offsetx) * scaleValue, (rrect.origin.y - offsety) * scaleValue);
+                    glVertex2f((rrect.origin.x - offsetx) * scaleValue,
+                               (rrect.origin.y - offsety) * scaleValue);
                 
 				glEnd();
 				
@@ -5583,9 +5636,39 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
 					glVertex2f( (rrect.origin.x + rrect.size.width - offsetx) * scaleValue, (rrect.origin.y - rrect.size.height - offsety) * scaleValue);
 					
 					//Center
-					glVertex2f( (rrect.origin.x - offsetx) * scaleValue, (rrect.origin.y - offsety) * scaleValue);
+					glVertex2f((rrect.origin.x - offsetx) * scaleValue,
+                               (rrect.origin.y - offsety) * scaleValue);
 					glEnd();
 				}
+                
+                if (type==tOvalAndAngle)    // draw the angle
+                {
+                    static const CGFloat armScale = 1.3;
+                    CGFloat armX = rrect.size.width*armScale;
+                    CGFloat armY = rrect.size.height*armScale;
+
+                    NSPoint pt[3];
+                    pt[0] = NSMakePoint(rrect.origin.x + armX*cos(angleRad[0]),
+                                        rrect.origin.y + armY*sin(angleRad[0]));
+                    pt[1] = rrect.origin; // Center point
+                    pt[2] = NSMakePoint(rrect.origin.x + armX*cos(angleRad[1]),
+                                        rrect.origin.y + armY*sin(angleRad[1]));
+                    
+                    MyPoint *p[3];
+                    NSMutableArray *anglePoints = [NSMutableArray array];
+                    for (int i=0; i<3; i++) {
+                        p[i] = [MyPoint point:pt[i]];
+                        [anglePoints addObject:p[i]];
+                    }
+
+                    glBegin(GL_LINE_STRIP);
+                    for(long i=0; i<[anglePoints count]; i++)
+                    {
+                        glVertex2f(([[anglePoints objectAtIndex:i] x] - offsetx)*scaleValue,
+                                   ([[anglePoints objectAtIndex:i] y] - offsety)*scaleValue);
+                    }
+                    glEnd();
+                }
 				
 				glLineWidth(1.0*backingScaleFactor);
 				glColor3f (1.0f, 1.0f, 1.0f);
@@ -6136,6 +6219,8 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
 				else glLineWidth(thick * backingScaleFactor);
 				
 				NSMutableArray *splinePoints = [self splinePoints: scaleValue];
+
+                NSLog(@"tAngle %lu splinePoints", [splinePoints count]);// 3 @@@
 				
 				if( [splinePoints count] >= 1)
 				{
@@ -6144,7 +6229,8 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
 					
 					for(long i=0; i<[splinePoints count]; i++)
 					{
-						glVertex2d( ((double) [[splinePoints objectAtIndex:i] x]- (double) offsetx)*(double) scaleValue , ((double) [[splinePoints objectAtIndex:i] y]-(double) offsety)*(double) scaleValue);
+						glVertex2d(((double) [[splinePoints objectAtIndex:i] x]-(double) offsetx)*(double) scaleValue ,
+                                   ((double) [[splinePoints objectAtIndex:i] y]-(double) offsety)*(double) scaleValue);
 					}
 					glEnd();
 					
@@ -6659,18 +6745,24 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
 			
 			if( type == tOval)
 			{
-				if( pixelSpacingX != 0 && pixelSpacingY != 0)   [array setObject: [NSNumber numberWithFloat:[self EllipseArea] *pixelSpacingX*pixelSpacingY / 100.] forKey:@"AreaCM2"];
-				else [array setObject: [NSNumber numberWithFloat:[self EllipseArea]] forKey:@"AreaPIX2"];
+				if( pixelSpacingX != 0 && pixelSpacingY != 0)
+                    [array setObject: [NSNumber numberWithFloat:[self EllipseArea] *pixelSpacingX*pixelSpacingY / 100.] forKey:@"AreaCM2"];
+				else
+                    [array setObject: [NSNumber numberWithFloat:[self EllipseArea]] forKey:@"AreaPIX2"];
 			}
 			else if( type == tROI)
 			{
-				if( pixelSpacingX != 0 && pixelSpacingY != 0)   [array setObject: [NSNumber numberWithFloat:NSWidth(rect)*pixelSpacingX*NSHeight(rect)*pixelSpacingY / 100.] forKey:@"AreaCM2"];
-				else [array setObject: [NSNumber numberWithFloat:NSWidth(rect)*NSHeight(rect)] forKey:@"AreaPIX2"];
+				if( pixelSpacingX != 0 && pixelSpacingY != 0)
+                    [array setObject: [NSNumber numberWithFloat:NSWidth(rect)*pixelSpacingX*NSHeight(rect)*pixelSpacingY / 100.] forKey:@"AreaCM2"];
+				else
+                    [array setObject: [NSNumber numberWithFloat:NSWidth(rect)*NSHeight(rect)] forKey:@"AreaPIX2"];
 			}
 			else
 			{
-				if( pixelSpacingX != 0 && pixelSpacingY != 0)   [array setObject: [NSNumber numberWithFloat:[self Area] *pixelSpacingX*pixelSpacingY / 100.] forKey:@"AreaCM2"];
-				else [array setObject: [NSNumber numberWithFloat:[self Area]] forKey:@"AreaPIX2"];
+				if( pixelSpacingX != 0 && pixelSpacingY != 0)
+                    [array setObject: [NSNumber numberWithFloat:[self Area] *pixelSpacingX*pixelSpacingY / 100.] forKey:@"AreaCM2"];
+				else
+                    [array setObject: [NSNumber numberWithFloat:[self Area]] forKey:@"AreaPIX2"];
 			}
 				
 			[array setObject: [NSNumber numberWithFloat:rmean] forKey:@"Mean"];

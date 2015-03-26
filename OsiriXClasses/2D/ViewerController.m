@@ -12871,7 +12871,7 @@ float				matrix[25];
 								}
 							}
 							
-							for( ROI *r in array)
+                            for( ROI *r in array)
 								[imageView roiSet: r];
 						}
 					}
@@ -13113,7 +13113,9 @@ float				matrix[25];
 		case tROISelector:	filename = @"ROISelector";		break;
 		case tAxis:			filename = @"Axis";				break;
 		case tDynAngle:		filename = @"DynamicAngle";		break;
-        case tTAGT:         filename = @"PerpendicularLines";             break;
+        case tTAGT:         filename = @"PerpendicularLines"; break;
+        case t3DBall:		filename = @"Ball";				break;
+        case tOvalAndAngle:	filename = @"CircleAngle";		break;
         default:;
 	}
 	

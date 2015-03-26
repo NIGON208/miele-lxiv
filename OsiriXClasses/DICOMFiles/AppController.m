@@ -3228,7 +3228,7 @@ static BOOL initialized = NO;
 				}
 				
                 
-				// CREATE A TEMPORATY FILE DURING STARTUP
+				// CREATE A TEMPORARY FILE DURING STARTUP
 				
 				NSString* path = [[DicomDatabase defaultBaseDirPath] stringByAppendingPathComponent:@"Loading"];
                 
