@@ -1757,7 +1757,10 @@ int spline( NSPoint *Pt, int tot, NSPoint **newPt, long **correspondingSegmentPt
     return Intersection;
 }
 
--(int) DistancePointLine: (NSPoint) Point :(NSPoint) startPoint :(NSPoint) endPoint :(float*) Distance
+-(int) DistancePointLine:(NSPoint) Point
+                        :(NSPoint) startPoint
+                        :(NSPoint) endPoint
+                        :(float*) Distance
 {
     float   LineMag;
     float   U;
@@ -1766,7 +1769,7 @@ int spline( NSPoint *Pt, int tot, NSPoint **newPt, long **correspondingSegmentPt
     LineMag = [self Magnitude: endPoint : startPoint];
  
     U = ( ( ( Point.x - startPoint.x ) * ( endPoint.x - startPoint.x ) ) +
-        ( ( Point.y - startPoint.y ) * ( endPoint.y - startPoint.y ) ) );
+        (   ( Point.y - startPoint.y ) * ( endPoint.y - startPoint.y ) ) );
 		
 	U /= ( LineMag * LineMag);
 	
@@ -1986,7 +1989,10 @@ int spline( NSPoint *Pt, int tot, NSPoint **newPt, long **correspondingSegmentPt
 					int i;
 					for( i = 0; i < ([splinePoints count] - 1); i++ )
 					{					
-						[self DistancePointLine:pt :[[splinePoints objectAtIndex:i] point] : [[splinePoints objectAtIndex:(i+1)] point] :&distance];
+						[self DistancePointLine:pt
+                                               :[[splinePoints objectAtIndex:i] point]
+                                               :[[splinePoints objectAtIndex:(i+1)] point]
+                                               :&distance];
 						
 						if( distance*scale < 5.0)
 						{
@@ -2160,9 +2166,15 @@ int spline( NSPoint *Pt, int tot, NSPoint **newPt, long **correspondingSegmentPt
 					for( int i = 0; i < [pts count]; i++ )
 					{
                         if( i == pts.count-1) // last point
-                            [self DistancePointLine:pt :[[pts objectAtIndex:i] point] : [[pts objectAtIndex: 0] point] :&distance];
+                            [self DistancePointLine:pt
+                                                   :[[pts objectAtIndex:i] point]
+                                                   :[[pts objectAtIndex: 0] point]
+                                                   :&distance];
 						else
-                            [self DistancePointLine:pt :[[pts objectAtIndex:i] point] : [[pts objectAtIndex:(i+1)] point] :&distance];
+                            [self DistancePointLine:pt
+                                                   :[[pts objectAtIndex:i] point]
+                                                   :[[pts objectAtIndex:(i+1)] point]
+                                                   :&distance];
 						
 						if( distance*scale < neighborhoodRad/2)
 						{
@@ -2175,14 +2187,20 @@ int spline( NSPoint *Pt, int tot, NSPoint **newPt, long **correspondingSegmentPt
             break;
                 
 			case t2DPoint:
-				arect = NSMakeRect( rect.origin.x - neighborhoodRad/scale, rect.origin.y - neighborhoodRad/scale, neighborhoodRad*2/scale, neighborhoodRad*2/scale);
+				arect = NSMakeRect(rect.origin.x - neighborhoodRad/scale,
+                                   rect.origin.y - neighborhoodRad/scale,
+                                   neighborhoodRad*2/scale,
+                                   neighborhoodRad*2/scale);
 				
 				if( NSPointInRect( pt, arect))
                     imode = ROI_selected;
 			break;
 			
 			case tText:
-				arect = NSMakeRect( rect.origin.x - rect.size.width/(2*scale), rect.origin.y - rect.size.height/(2*scale), rect.size.width/scale, rect.size.height/scale);
+				arect = NSMakeRect(rect.origin.x - rect.size.width/(2*scale),
+                                   rect.origin.y - rect.size.height/(2*scale),
+                                   rect.size.width/scale,
+                                   rect.size.height/scale);
 				
 				if( NSPointInRect( pt, arect))
                     imode = ROI_selected;
@@ -2194,7 +2212,10 @@ int spline( NSPoint *Pt, int tot, NSPoint **newPt, long **correspondingSegmentPt
 			{
 				float distance;
 				
-				[self DistancePointLine:pt :[[points objectAtIndex:0] point] : [[points objectAtIndex:1] point] :&distance];
+				[self DistancePointLine:pt
+                                       :[[points objectAtIndex:0] point]
+                                       :[[points objectAtIndex:1] point]
+                                       :&distance];
 				
 				if( distance*scale < neighborhoodRad/2)
 					imode = ROI_selected;
@@ -2213,7 +2234,10 @@ int spline( NSPoint *Pt, int tot, NSPoint **newPt, long **correspondingSegmentPt
 					for( int i = 0; i < ([splinePoints count] - 1); i++ )
 					{
                         float distance;
-						[self DistancePointLine:pt :[[splinePoints objectAtIndex:i] point] : [[splinePoints objectAtIndex:(i+1)] point] :&distance];
+						[self DistancePointLine:pt
+                                               :[[splinePoints objectAtIndex:i] point]
+                                               :[[splinePoints objectAtIndex:(i+1)] point]
+                                               :&distance];
 						
 						if( distance*scale < neighborhoodRad/2)
 						{
@@ -2250,7 +2274,10 @@ int spline( NSPoint *Pt, int tot, NSPoint **newPt, long **correspondingSegmentPt
 					int i;
 					for( i = 0; i < ([splinePoints count] - 1); i++ )
 					{					
-						[self DistancePointLine:pt :[[splinePoints objectAtIndex:i] point] : [[splinePoints objectAtIndex:(i+1)] point] :&distance];
+						[self DistancePointLine:pt
+                                               :[[splinePoints objectAtIndex:i] point]
+                                               :[[splinePoints objectAtIndex:(i+1)] point]
+                                               :&distance];
 						if( distance*scale < neighborhoodRad/2)
 						{
 							imode = ROI_selected;
@@ -2258,7 +2285,10 @@ int spline( NSPoint *Pt, int tot, NSPoint **newPt, long **correspondingSegmentPt
 						}
 					}
 					
-					[self DistancePointLine:pt :[[splinePoints objectAtIndex:i] point] : [[splinePoints objectAtIndex:0] point] :&distance];
+					[self DistancePointLine:pt
+                                           :[[splinePoints objectAtIndex:i] point]
+                                           :[[splinePoints objectAtIndex:0] point]
+                                           :&distance];
 					if( distance*scale < neighborhoodRad/2)
                         imode = ROI_selected;
 				}
@@ -2883,7 +2913,8 @@ int spline( NSPoint *Pt, int tot, NSPoint **newPt, long **correspondingSegmentPt
 		case tArrow:
 			if( [points count] < 2) return NO;
 			
-			if( ABS([[points objectAtIndex:0] x] - [[points objectAtIndex:1] x]) < 0.2 && ABS([[points objectAtIndex:0] y] - [[points objectAtIndex:1] y]) < 0.2) return NO;
+			if( ABS([[points objectAtIndex:0] x] - [[points objectAtIndex:1] x]) < 0.2 &&
+                ABS([[points objectAtIndex:0] y] - [[points objectAtIndex:1] y]) < 0.2) return NO;
 		break;
 		
 		case tDynAngle:
@@ -4989,7 +5020,8 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
 					b.x = ([[points objectAtIndex: 1] x]- offsetx) * scaleValue;
 					b.y = ([[points objectAtIndex: 1] y]- offsety) * scaleValue;
 					
-					if( (b.y-a.y) == 0) slide = (b.x-a.x)/-0.001;
+					if( (b.y-a.y) == 0)
+                        slide = (b.x-a.x)/-0.001;
 					else
 					{
 						if( pixelSpacingX != 0 && pixelSpacingY != 0 )
@@ -5252,8 +5284,11 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
 				{
 					NSPoint tPt = self.lowerRightPoint;
 					
-					if( [name isEqualToString:@"Unnamed"] == NO && [name isEqualToString: NSLocalizedString( @"Unnamed", nil)] == NO) self.textualBoxLine1 = name;
-                    else self.textualBoxLine1 = nil;
+					if( [name isEqualToString:@"Unnamed"] == NO &&
+                        [name isEqualToString: NSLocalizedString( @"Unnamed", nil)] == NO)
+                        self.textualBoxLine1 = name;
+                    else
+                        self.textualBoxLine1 = nil;
                     
 					if( type == tMesure && ROITEXTNAMEONLY == NO)
 					{
@@ -5381,7 +5416,10 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
 										if( [r type] == tMesure)
 										{
 											NSArray *B = [r points];
-											NSPoint	u1 = [[[self points] objectAtIndex: 0] point], u2 = [[[self points] objectAtIndex: 1] point], v1 = [[B objectAtIndex: 0] point], v2 = [[B objectAtIndex: 1] point];
+											NSPoint	u1 = [[[self points] objectAtIndex: 0] point],
+                                                    u2 = [[[self points] objectAtIndex: 1] point],
+                                                    v1 = [[B objectAtIndex: 0] point],
+                                                    v2 = [[B objectAtIndex: 1] point];
 											
 											float pX = [curView.curDCM pixelSpacingX];
 											float pY = [curView.curDCM pixelSpacingY];
@@ -5659,6 +5697,8 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
                     for (int i=0; i<3; i++) {
                         p[i] = [MyPoint point:pt[i]];
                         [anglePoints addObject:p[i]];
+                        if ([points count] < 3)
+                            [points addObject:p[i]]; // TBC
                     }
 
                     glBegin(GL_LINE_STRIP);
@@ -5730,6 +5770,15 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
                         else
                             self.textualBoxLine2 = [NSString stringWithFormat: NSLocalizedString( @"Area: %0.3f pix2 (W: %0.3f pix H: %0.3f pix)", @"W = Width, H = Height"), [self EllipseArea], 2.0*fabs(NSWidth(rect)), 2.0*fabs(NSHeight(rect))];
                         
+//                        if (type==tOvalAndAngle)    // TODO: append angle see line 6652
+//                        {
+//                            angle = [self Angle:[[points objectAtIndex: 0] point]
+//                                               :[[points objectAtIndex: 1] point]
+//                                               :[[points objectAtIndex: 2] point]];
+//                            
+//                            self.textualBoxLine2 = [self.textualBoxLine2 stringByAppendingFormat: NSLocalizedString( @"Angle: %0.3f%@ / %0.3f%@", nil), angle, @"\u00B0", 360 - angle, @"\u00B0"];
+//                        }
+                        
                         NSString *pixelUnit = [NSString stringWithFormat:@" %@ ", self.pix.rescaleType];
                         
                         if( [self pix].SUVConverted)
@@ -5741,6 +5790,8 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
                             self.textualBoxLine4 = [NSString stringWithFormat: NSLocalizedString( @"Min: %0.3f%@ Max: %0.3f%@ Skewness: %0.3f Kurtosis: %0.3f", nil), rmin, pixelUnit, rmax, pixelUnit, rskewness, rkurtosis];
 						else
                             self.textualBoxLine4 = [NSString stringWithFormat: NSLocalizedString( @"Min: %0.3f%@ Max: %0.3f%@", nil), rmin, pixelUnit, rmax, pixelUnit];
+                        
+                        // TODO: for t3DBall
 						
 						if( [curView blendingView])
 						{
@@ -6601,10 +6652,15 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
 								NSPoint tPt = self.lowerRightPoint;
 								float   angle;
 								
-								if( [name isEqualToString:@"Unnamed"] == NO && [name isEqualToString: NSLocalizedString( @"Unnamed", nil)] == NO) self.textualBoxLine1 = name;
-                                else self.textualBoxLine1 = nil;
+								if ([name isEqualToString:@"Unnamed"] == NO &&
+                                    [name isEqualToString: NSLocalizedString( @"Unnamed", nil)] == NO)
+                                    self.textualBoxLine1 = name;
+                                else
+                                    self.textualBoxLine1 = nil;
                                 
-								angle = [self Angle:[[points objectAtIndex: 0] point] :[[points objectAtIndex: 1] point] : [[points objectAtIndex: 2] point]];
+								angle = [self Angle:[[points objectAtIndex: 0] point]
+                                                   :[[points objectAtIndex: 1] point]
+                                                   :[[points objectAtIndex: 2] point]];
 								
 								self.textualBoxLine2 = [NSString stringWithFormat: NSLocalizedString( @"Angle: %0.3f%@ / %0.3f%@", nil), angle, @"\u00B0", 360 - angle, @"\u00B0"];
 								
@@ -6626,11 +6682,15 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
 						glBegin( GL_POINTS);
 						for( long i = 0; i < [points count]; i++)
 						{
-							if( mode >= ROI_selected && (i == selectedModifyPoint || i == PointUnderMouse)) glColor3f (1.0f, 0.2f, 0.2f);
-							else if( mode == ROI_drawing && [[points objectAtIndex: i] isNearToPoint: tempPt : scaleValue/(thick*backingScaleFactor) :[[curView curDCM] pixelRatio]] == YES) glColor3f (1.0f, 0.0f, 1.0f);
-							else glColor3f (0.5f, 0.5f, 1.0f);
+							if( mode >= ROI_selected && (i == selectedModifyPoint || i == PointUnderMouse))
+                                glColor3f (1.0f, 0.2f, 0.2f);
+							else if( mode == ROI_drawing && [[points objectAtIndex: i] isNearToPoint: tempPt : scaleValue/(thick*backingScaleFactor) :[[curView curDCM] pixelRatio]] == YES)
+                                glColor3f (1.0f, 0.0f, 1.0f);
+							else
+                                glColor3f (0.5f, 0.5f, 1.0f);
 							
-							glVertex2f( ([[points objectAtIndex: i] x]- offsetx) * scaleValue , ([[points objectAtIndex: i] y]- offsety) * scaleValue);
+							glVertex2f( ([[points objectAtIndex: i] x]- offsetx) * scaleValue,
+                                        ([[points objectAtIndex: i] y]- offsety) * scaleValue);
 						}
 						glEnd();
 					}
@@ -6643,7 +6703,8 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
 							glPointSize( (1 * backingScaleFactor + sqrt( thick))*3.5 * backingScaleFactor);
 							glBegin( GL_POINTS);
 							
-							glVertex2f( ([[points objectAtIndex: PointUnderMouse] x]- offsetx) * scaleValue , ([[points objectAtIndex: PointUnderMouse] y]- offsety) * scaleValue);
+							glVertex2f( ([[points objectAtIndex: PointUnderMouse] x]- offsetx) * scaleValue,
+                                       ([[points objectAtIndex: PointUnderMouse] y]- offsety) * scaleValue);
 							
 							glEnd();
 						}
@@ -6860,7 +6921,7 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
 
 - (NSPoint) centroid
 {
-	if ( type == tROI || type == tOval )
+	if (type == tROI || type == tOval  || type == tOvalAndAngle || type == t3DBall)
 	{
 		return rect.origin;
 	}
