@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1514" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6254"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6751"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -1982,6 +1982,7 @@ CA
                         <rect key="frame" x="-1" y="-1" width="1045" height="21"/>
                         <subviews>
                             <customView misplaced="YES" id="14353">
+                                <rect key="frame" x="0.0" y="0.0" width="1044" height="21"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <subviews>
                                     <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="14357">
@@ -2017,7 +2018,6 @@ CA
                                 </constraints>
                             </customView>
                             <customView misplaced="YES" id="14354">
-                                <rect key="frame" x="1" y="0.0" width="1044" height="21"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <subviews>
                                     <button horizontalCompressionResistancePriority="1000" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1294">
@@ -2064,13 +2064,14 @@ CA
                         <rect key="frame" x="0.0" y="21" width="1044" height="654"/>
                         <subviews>
                             <splitView focusRingType="none" misplaced="YES" autosaveName="albumsAndSources" dividerStyle="thin" id="14158">
+                                <rect key="frame" x="0.0" y="0.0" width="1043" height="654"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <box misplaced="YES" title="Albums" borderType="none" titlePosition="noTitle" id="11696">
-                                        <rect key="frame" x="-3" y="-2" width="6" height="193"/>
+                                        <rect key="frame" x="-3" y="-2" width="1049" height="193"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <view key="contentView">
-                                            <rect key="frame" x="0.0" y="0.0" width="6" height="193"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="1049" height="193"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <scrollView focusRingType="none" misplaced="YES" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1466">
@@ -2135,10 +2136,10 @@ CA
                                         <font key="titleFont" size="12" name="LucidaGrande"/>
                                     </box>
                                     <box misplaced="YES" title="Sources" borderType="none" titlePosition="noTitle" id="11698">
-                                        <rect key="frame" x="-3" y="186" width="6" height="372"/>
+                                        <rect key="frame" x="-3" y="186" width="1049" height="372"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <view key="contentView">
-                                            <rect key="frame" x="0.0" y="0.0" width="6" height="372"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="1049" height="372"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <scrollView focusRingType="none" misplaced="YES" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="11692">
@@ -2211,10 +2212,10 @@ CA
                                         <font key="titleFont" size="12" name="LucidaGrande"/>
                                     </box>
                                     <box misplaced="YES" title="Threads" borderType="none" titlePosition="noTitle" id="14167">
-                                        <rect key="frame" x="-3" y="553" width="6" height="105"/>
+                                        <rect key="frame" x="-3" y="553" width="1049" height="105"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <view key="contentView">
-                                            <rect key="frame" x="0.0" y="0.0" width="6" height="105"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="1049" height="105"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <scrollView focusRingType="none" misplaced="YES" autohidesScrollers="YES" horizontalLineScroll="40" horizontalPageScroll="5" verticalLineScroll="40" verticalPageScroll="3" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="14144">
@@ -2287,7 +2288,6 @@ CA
                                 </connections>
                             </splitView>
                             <customView misplaced="YES" id="14350">
-                                <rect key="frame" x="1" y="0.0" width="1043" height="654"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <subviews>
                                     <splitView misplaced="YES" autosaveName="horizontal" dividerStyle="thin" translatesAutoresizingMaskIntoConstraints="NO" id="12422">
@@ -2305,7 +2305,7 @@ CA
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <outlineView focusRingType="exterior" verticalHuggingPriority="750" allowsExpansionToolTips="YES" alternatingRowBackgroundColors="YES" emptySelection="NO" autosaveColumns="NO" headerView="13469" indentationPerLevel="16" autoresizesOutlineColumn="YES" outlineTableColumn="958" id="966" customClass="MyOutlineView">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="2592" height="19"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="2695" height="19"/>
                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                     <size key="intercellSpacing" width="3" height="2"/>
                                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -2652,6 +2652,20 @@ CA
                                                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                             </textFieldCell>
                                                                             <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="comment4"/>
+                                                                            <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                                                        </tableColumn>
+                                                                        <tableColumn identifier="database" width="100" minWidth="100" maxWidth="300" id="SNx-WQ-5cH" userLabel="Database">
+                                                                            <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Database">
+                                                                                <font key="font" metaFont="smallSystem"/>
+                                                                                <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                                                                <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
+                                                                            </tableHeaderCell>
+                                                                            <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" title="Text Cell" id="Xie-B3-wnB">
+                                                                                <font key="font" metaFont="system" size="10"/>
+                                                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                                <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                                            </textFieldCell>
+                                                                            <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="database"/>
                                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                                         </tableColumn>
                                                                     </tableColumns>
@@ -3857,8 +3871,8 @@ Gw
                 <rect key="frame" x="0.0" y="0.0" width="537" height="273"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
-                    <button verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="14470">
-                        <rect key="frame" x="417" y="225" width="97" height="32"/>
+                    <button verticalHuggingPriority="750" ambiguous="YES" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="14470">
+                        <rect key="frame" x="417" y="225" width="97" height="33"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="85" id="jK9-Zg-CPX"/>
                         </constraints>
@@ -3873,8 +3887,8 @@ DQ
                             <action selector="okModal:" target="694" id="14537"/>
                         </connections>
                     </button>
-                    <button verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="14471">
-                        <rect key="frame" x="417" y="193" width="97" height="33"/>
+                    <button verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="14471">
+                        <rect key="frame" x="417" y="193" width="97" height="32"/>
                         <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="14511">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>

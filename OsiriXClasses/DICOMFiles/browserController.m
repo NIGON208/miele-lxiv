@@ -126,7 +126,7 @@
 #define DISTANTSTUDYFONT @"Helvetica-BoldOblique"
 
 //#define USERDATABASEVERSION @"1.0"
-#define DATABASEVERSION @"2.5"
+#define DATABASEVERSION @"2.6"
 #define DATABASEPATH @"/DATABASE.noindex/"
 #define DECOMPRESSIONPATH @"/DECOMPRESSION.noindex/"
 #define TOBEINDEXED @"/TOBEINDEXED.noindex/"
@@ -6464,7 +6464,6 @@ static NSConditionLock *threadLock = nil;
             }
             break;
         }
-        
     }
     
     if( [[tableColumn identifier] isEqualToString:@"noSeries"])
@@ -6473,6 +6472,22 @@ static NSConditionLock *threadLock = nil;
             return [NSString stringWithFormat: @"%d", (int) [[item valueForKey:@"imageSeries"] count]];
         else
             return @"";
+    }
+    
+    if ([[tableColumn identifier] isEqualToString:@"database"])
+    {
+        if ([[item valueForKey:@"type"] isEqualToString:@"Study"])
+        {
+            NSString *dbName;
+            if (_database.isLocal)
+                dbName = @"Documents";
+            else
+                dbName = [_database.sqlFilePath lastPathComponent];
+            
+            dbName = [dbName stringByAppendingString:@" DB"];
+            return dbName;
+        }
+        else return @"";
     }
     
     id value = nil;
@@ -9011,7 +9026,8 @@ static BOOL withReset = NO;
 						
 						DicomImage *imageObj = [images objectAtIndex: [animationSlider intValue]];
 						
-						if( [[[imageView curDCM] sourceFile] isEqualToString: [[images objectAtIndex: [animationSlider intValue]] valueForKey:@"completePath"]] == NO || [[imageObj valueForKey: @"frameID"] intValue] != [[imageView curDCM] frameNo])
+						if( [[[imageView curDCM] sourceFile] isEqualToString: [[images objectAtIndex: [animationSlider intValue]] valueForKey:@"completePath"]] == NO ||
+                           [[imageObj valueForKey: @"frameID"] intValue] != [[imageView curDCM] frameNo])
 						{
 							DCMPix *dcmPix = nil;
 							

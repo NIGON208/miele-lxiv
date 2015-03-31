@@ -192,12 +192,15 @@ static int gTotalN2ManagedObjectContext = 0;
 
 -(void) checkForCorrectContextThread: (NSManagedObjectContext*) c
 {
-
     if( c == _managedObjectContext && associatedThread && associatedThread != [NSThread currentThread])
     {
         NSLog( @"------------------------------");
         NSLog( @"SQL path: %@", _sqlFilePath);
-        N2LogStackTrace( @"--- warning : managedObjectContext was created in (%@, mainThread=%d), and is now used in (%@, mainThread=%d)", associatedThread.name, associatedThread == [NSThread mainThread], [[NSThread currentThread] name], [NSThread isMainThread]);
+        N2LogStackTrace( @"--- warning : managedObjectContext was created in (%@, mainThread=%d), and is now used in (%@, mainThread=%d)",
+                        associatedThread.name,
+                        associatedThread == [NSThread mainThread],
+                        [[NSThread currentThread] name],
+                        [NSThread isMainThread]);
         NSLog( @"--");
     }
 }

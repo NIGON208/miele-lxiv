@@ -223,6 +223,10 @@ NSString* N2ConnectionStatusDidChangeNotification = @"N2ConnectionStatusDidChang
     
 	[self setStatus:N2ConnectionStatusConnecting];
     
+    /* TODO:
+     Warning: +[NSStream getStreamsToHost:port:inputStream:outputStream:] is deprecated since OS X 10.10.
+     Please use +[NSStream getStreamsToHostWithName:port:inputStream:outputStream] instead.
+     */
 	[NSStream getStreamsToHost:host port:_port inputStream:&_inputStream outputStream:&_outputStream];
 	[_inputStream retain]; [_outputStream retain];
 	

@@ -3672,8 +3672,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
     if( self = [super init])
     {
 		//-------------------------received parameters
-        srcFile = [s retain];
-        
+        [self setSourceFile:s];
         [iO.managedObjectContext lock];
         @try
         {
@@ -3740,7 +3739,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
     if( copy == nil)
         return nil;
     
-    copy->srcFile = [self->srcFile retain];
+    [copy setSourceFile:self->srcFile];
     copy->imageObjectID = [self->imageObjectID retain];
     copy->URIRepresentationAbsoluteString = [self->URIRepresentationAbsoluteString retain];
     copy->fileTypeHasPrefixDICOM = self->fileTypeHasPrefixDICOM;
@@ -5363,7 +5362,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
              image:(unsigned short*) src
           isSigned:(BOOL) isSigned
 {
-	int i, index;
+	long i, index;
 	BOOL atLeastOnePixel = NO;
 	
 	if( isSigned)
@@ -5412,6 +5411,16 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 #ifdef OSIRIX_VIEWER
 	[PapyrusLock lock];
 	[annotationsDictionary removeAllObjects];
+    
+    @try
+    {
+        [self clearCachedDCMFrameworkFiles];
+    }
+    @catch (NSException * e)
+    {
+        NSLog( @"*********** reloadAnnotations: %@", e);
+    }
+    
 	[PapyrusLock unlock];
 #endif
 }
@@ -6859,27 +6868,6 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
     [PapyrusLock unlock];
 }
 
-- (void) clearCachedPapyGroups
-{
-	[PapyrusLock lock];
-	
-	@try 
-	{
-        NSMutableDictionary *cachedGroupsForThisFile = [cachedPapyGroups valueForKey: srcFile];
-		if( cachedGroupsForThisFile && retainedCacheGroup == cachedGroupsForThisFile)
-		{
-			[cachedGroupsForThisFile setValue: [NSNumber numberWithInt: [[cachedGroupsForThisFile objectForKey: @"count"] intValue]-1] forKey: @"count"];
-			retainedCacheGroup = nil;
-		}
-	}
-	@catch (NSException * e)
-	{
-		N2LogExceptionWithStackTrace(e);
-	}
-	
-	[PapyrusLock unlock];
-}
-
 - (BOOL) loadDICOMPapyrus
 {
     return NO;
@@ -7098,15 +7086,16 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
             [srcFile release];
             srcFile = nil;
             
+            NSManagedObject *obj;
+            DicomDatabase *db = [[BrowserController currentBrowser] database];
+            
             if( [NSThread isMainThread])
-            {
-                srcFile = [[BrowserController currentBrowser] getLocalDCMPath: [[[BrowserController currentBrowser] database] objectWithID: imageObjectID] :0];
-            }
+                obj = [db objectWithID: imageObjectID];
             else
-            {
-                srcFile = [[BrowserController currentBrowser] getLocalDCMPath: [[[[BrowserController currentBrowser] database] independentContext] existingObjectWithID: imageObjectID error: nil] :0];
-                [srcFile retain];
-            }
+                obj = [[db independentContext] existingObjectWithID: imageObjectID error: nil];
+
+            srcFile = [[BrowserController currentBrowser] getLocalDCMPath:obj :0];
+            [srcFile retain];
 			
             if( srcFile == nil)
                 return;
@@ -7167,8 +7156,8 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 				}
 				#endif
 				
-				if( numberOfFrames <= 1)
-					[self clearCachedPapyGroups];
+                if( numberOfFrames <= 1)
+                    [self clearCachedDCMFrameworkFiles];
 			}
             
             @catch ( NSException *e)
@@ -10050,12 +10039,17 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 	float ratio;
 	
     [self CheckLoad];
+    
+    if (width==0 || height==0) {
+        NSLog(@"DCMPix.m:%i cannot generate thumbnail", __LINE__);
+        return nil;
+    }
 	
 	if (width > height)
         ratio = (float) width / PREVIEWSIZE;
 	else
         ratio = (float) height / PREVIEWSIZE;
-	
+    
 	destWidth = (float) width / ratio;
 	destHeight = (float) height / ratio;
     
@@ -10111,7 +10105,10 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 		image = [[[NSImage alloc] initWithSize:NSMakeSize(destWidth, destHeight)] autorelease];
 		[image addRepresentation:bitmapRep];
 	}
-	else NSLog(@"Memory error... not enough RAM");
+    else
+    {
+        NSLog(@"Memory error... not enough RAM");
+    }
 	
     return image;
 }
@@ -10235,7 +10232,6 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 			[self reloadAnnotations];
 	
         [self clearCachedDCMFrameworkFiles];
-        [self clearCachedPapyGroups];
 		
 		if( fExternalOwnedImage == nil)
 		{
@@ -10347,7 +10343,6 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 	
 	if(LUT12baseAddr) free(LUT12baseAddr);
 	
-	[self clearCachedPapyGroups];
     [self clearCachedDCMFrameworkFiles];
     
 	[srcFile release];

@@ -670,9 +670,8 @@ Note setter is different to not break existing usage. :-( */
 /** Returns flag for protected mode */
 + (BOOL) isRunOsiriXInProtectedModeActivated;
 
-/** Clears the papyrus group cache */
+/** Clears the group cache */
 - (void) clearCachedDCMFrameworkFiles;
-
 + (void) purgeCachedDictionaries;
 
 + (double) moment: (float *) x length:(long) length mean: (double) mean order: (int) order;

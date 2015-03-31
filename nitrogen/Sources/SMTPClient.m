@@ -275,6 +275,10 @@ enum {
                 [self reset];
                 
                 self.connectionStatus = ConnectionStatusConnecting;
+                /* TODO:
+                 Warning: +[NSStream getStreamsToHost:port:inputStream:outputStream:] is deprecated since OS X 10.10.
+                 Please use +[NSStream getStreamsToHostWithName:port:inputStream:outputStream] instead.
+                 */
                 [NSStream getStreamsToHost:[NSHost hostWithName:self.client.address] port:port.integerValue inputStream:&_istream outputStream:&_ostream];
                 [_istream retain];
                 [_ostream retain];
