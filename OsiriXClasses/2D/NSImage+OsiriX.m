@@ -17,8 +17,12 @@
 
 #include "options.h"
 
+#define FIX_ISSUE_9
+
+#ifndef FIX_ISSUE_9
 extern unsigned char* compressJPEG(int inQuality, unsigned char* inImageBuffP, int inImageHeight, int inImageWidth, int monochrome, int *destSize);
 extern NSRecursiveLock* PapyrusLock;
+#endif
 
 @implementation NSImage (OsiriX)
 
@@ -27,6 +31,7 @@ extern NSRecursiveLock* PapyrusLock;
 	NSBitmapImageRep* imageRep = [NSBitmapImageRep imageRepWithData:self.TIFFRepresentation];
 	NSData* result = NULL;
 	
+#ifndef FIX_ISSUE_9
 	if ([imageRep bitsPerPixel] == 8)
 	{
 		[PapyrusLock lock];
@@ -34,7 +39,9 @@ extern NSRecursiveLock* PapyrusLock;
 		@try
 		{
 			int size;
-            unsigned char* p = nil;
+            // TODO: call a suitable JPEG codec, maybe in the DCMTK library
+            unsigned char* p = compressJPEG(quality*100, [imageRep bitmapData], [imageRep pixelsHigh], [imageRep pixelsWide], 1, &size);
+
 			if (p)
 				result = [NSData dataWithBytesNoCopy: p length: size freeWhenDone: YES];
 		}
@@ -46,6 +53,7 @@ extern NSRecursiveLock* PapyrusLock;
 		[PapyrusLock unlock];
 	}
 	else
+#endif
 	{
 		NSDictionary* imageProps = [NSDictionary dictionaryWithObject:[NSNumber numberWithFloat:quality] forKey:NSImageCompressionFactor];
 		result = [imageRep representationUsingType:NSJPEGFileType properties:imageProps];
