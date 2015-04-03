@@ -110,13 +110,6 @@ static NSConditionLock *processorsLock = nil;
 static NSConditionLock *purgeCacheLock = nil;
 static float deg2rad = M_PI / 180.0; 
 
-struct NSPointInt
-{
-	long x;
-	long y;
-};
-typedef struct NSPointInt NSPointInt;
-
 NSString* filenameWithDate( NSString *inputfile);
 
 extern NSRecursiveLock *PapyrusLock;
@@ -5671,27 +5664,33 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
     if( shutterRect.size.width == 0) shutterRect.size.width = width;
     if( shutterRect.size.height == 0) shutterRect.size.height = height;
     
-    //window level & width
+    // window level & width
     if ([dcmObject attributeValueWithName:@"WindowCenter"] && isRGB == NO)
         savedWL = (int)[[dcmObject attributeValueWithName:@"WindowCenter"] floatValue];
     
     if ([dcmObject attributeValueWithName:@"WindowWidth"] && isRGB == NO)
-        savedWW =  (int) [[dcmObject attributeValueWithName:@"WindowWidth"] floatValue];
+        savedWW = (int)[[dcmObject attributeValueWithName:@"WindowWidth"] floatValue];
     
-    if(  savedWW < 0) savedWW =-savedWW;
+    if (savedWW < 0)
+        savedWW =-savedWW;
     
-    if( [[dcmObject attributeValueWithName:@"RescaleType"] isEqualToString: @"US"] == NO)
+    // rescale type
+    self.rescaleType = [dcmObject attributeValueWithName:@"RescaleType"];
+    if (self.rescaleType)
     {
-        self.rescaleType = [dcmObject attributeValueWithName:@"RescaleType"];
-        
-        if( [self.rescaleType.lowercaseString isEqualToString: @"houndsfield unit"])
+        if ([self.rescaleType isEqualToString:@"US"]) // US = unspecified
+            self.rescaleType = @"";
+        else if( [self.rescaleType.lowercaseString isEqualToString:@"houndsfield unit"])
             self.rescaleType = @"HU";
     }
-    //planar configuration
+    else
+        self.rescaleType = @"";
+
+    // planar configuration
     if( [dcmObject attributeValueWithName:@"PlanarConfiguration"])
         fPlanarConf = [[dcmObject attributeValueWithName:@"PlanarConfiguration"] intValue];
     
-    //pixel Spacing
+    // pixel Spacing
     if( pixelSpacingFromUltrasoundRegions == NO)
     {
         NSArray *pixelSpacing = [dcmObject attributeArrayWithName:@"PixelSpacing"];
