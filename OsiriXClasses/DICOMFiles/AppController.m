@@ -434,7 +434,8 @@ NSString* convertDICOM( NSString *inputfile)
 	converting = YES;
 	NSLog(@"convertDICOM - FAILED to use current DICOM File Parser : %@", inputfile);
 	#ifndef OSIRIX_LIGHT
-	[[BrowserController currentBrowser] decompressDICOMList: [NSArray arrayWithObject: inputfile] to: [outputfile stringByDeletingLastPathComponent]];
+	[[BrowserController currentBrowser] decompressDICOMList: [NSArray arrayWithObject: inputfile]
+                                                         to: [outputfile stringByDeletingLastPathComponent]];
 	#endif
 	return outputfile;
 }
@@ -829,8 +830,7 @@ static NSDate *lastWarningDate = nil;
 		{
 			NSDictionary *windowResize = [NSDictionary dictionaryWithObjectsAndKeys:
                                           window, NSViewAnimationTargetKey,
-                                          [NSValue valueWithRect: newWindowFrame],
-                                          NSViewAnimationEndFrameKey,
+                                          [NSValue valueWithRect: newWindowFrame], NSViewAnimationEndFrameKey,
                                           nil];
 			
 			if( accumulateAnimations)
@@ -1932,7 +1932,10 @@ static NSDate *lastWarningDate = nil;
                     
                     NSMenuItem *mi = [[[NSMenuItem alloc] initWithTitle: name action: @selector( loadWindowsStateDICOMSR:) keyEquivalent:@""] autorelease];
                     
-                    [mi setRepresentedObject: [NSDictionary dictionaryWithObjectsAndKeys: study, @"study", viewers, @"windowsState", nil]];
+                    [mi setRepresentedObject: [NSDictionary dictionaryWithObjectsAndKeys:
+                                               study, @"study",
+                                               viewers, @"windowsState",
+                                               nil]];
                     [mi setTarget: self];
                     
                     [menu addItem: mi];
@@ -2312,7 +2315,7 @@ static NSDate *lastWarningDate = nil;
 		
 		NSString *aeTitle = [[NSUserDefaults standardUserDefaults] stringForKey: @"AETITLE"];
 		int port = [[[NSUserDefaults standardUserDefaults] stringForKey: @"AEPORT"] intValue];
-		NSDictionary *params = [NSDictionary dictionaryWithObject:[NSNumber numberWithBool:NO] forKey:@"TLSEnabled"];
+		NSDictionary *params = [NSDictionary dictionaryWithObject:@NO forKey:@"TLSEnabled"];
 		
 		dcmtkQRSCP = [[DCMTKQueryRetrieveSCP alloc] initWithPort:port  aeTitle:(NSString *)aeTitle  extraParamaters:(NSDictionary *)params];
 
@@ -2353,7 +2356,7 @@ static NSDate *lastWarningDate = nil;
 			
 			NSString *aeTitle = [[NSUserDefaults standardUserDefaults] stringForKey: @"TLSStoreSCPAETITLE"];
 			int port = [[[NSUserDefaults standardUserDefaults] stringForKey: @"TLSStoreSCPAEPORT"] intValue];
-			NSDictionary *params = [NSDictionary dictionaryWithObject:[NSNumber numberWithBool:YES] forKey:@"TLSEnabled"];
+			NSDictionary *params = [NSDictionary dictionaryWithObject:@YES forKey:@"TLSEnabled"];
 			
 			dcmtkQRSCPTLS = [[DCMTKQueryRetrieveSCP alloc] initWithPort:port aeTitle:aeTitle extraParamaters:params];
 			[dcmtkQRSCPTLS run];
@@ -3187,29 +3190,31 @@ static BOOL initialized = NO;
 				NSMutableDictionary *cluts = [[[[NSUserDefaults standardUserDefaults] objectForKey:@"CLUT"] mutableCopy] autorelease];
 				// fix bad CLUT in previous versions
 				NSDictionary *clut = [cluts objectForKey:@"Endoscopy"];
-				if (!clut || [[[clut objectForKey:@"Red"] objectAtIndex:0] intValue] != 240)
+				if (!clut ||
+                    [[[clut objectForKey:@"Red"] objectAtIndex:0] intValue] != 240)
 				{
-						NSMutableDictionary *aCLUTFilter = [NSMutableDictionary dictionary];
-						NSMutableArray		*rArray = [NSMutableArray array];
-						NSMutableArray		*gArray = [NSMutableArray array];
-						NSMutableArray		*bArray = [NSMutableArray array];
-						for( i = 0; i < 256; i++)  {
-							[bArray addObject: [NSNumber numberWithLong:(195 - (i * 0.26))]];
-							[gArray addObject: [NSNumber numberWithLong:(187 - (i *0.26))]];
-							[rArray addObject: [NSNumber numberWithLong:(240 + (i * 0.02))]];
-						}
-					[aCLUTFilter setObject:rArray forKey:@"Red"];
+                    NSMutableArray *rArray = [NSMutableArray array];
+                    NSMutableArray *gArray = [NSMutableArray array];
+                    NSMutableArray *bArray = [NSMutableArray array];
+                    for( i = 0; i < 256; i++)  {
+                        [bArray addObject: [NSNumber numberWithLong:(195 - (i * 0.26))]];
+                        [gArray addObject: [NSNumber numberWithLong:(187 - (i *0.26))]];
+                        [rArray addObject: [NSNumber numberWithLong:(240 + (i * 0.02))]];
+                    }
+                    
+                    NSMutableDictionary *aCLUTFilter = [NSMutableDictionary dictionary];
+                    [aCLUTFilter setObject:rArray forKey:@"Red"];
 					[aCLUTFilter setObject:gArray forKey:@"Green"];
 					[aCLUTFilter setObject:bArray forKey:@"Blue"];
 			
 					// Points & Colors
-					NSMutableArray *colors = [NSMutableArray array], *points = [NSMutableArray array];
-					[points addObject:[NSNumber numberWithLong: 0]];
-					[points addObject:[NSNumber numberWithLong: 255]];
+                    NSMutableArray *points = [NSMutableArray array];
+					[points addObject:@0L];
+					[points addObject:@255L];
 			
-					[colors addObject:[NSArray arrayWithObjects: [NSNumber numberWithFloat: 1], [NSNumber numberWithFloat: 1], [NSNumber numberWithFloat: 1], nil]];
-					[colors addObject:[NSArray arrayWithObjects: [NSNumber numberWithFloat: 0], [NSNumber numberWithFloat: 0], [NSNumber numberWithFloat: 0], nil]];
-
+                    NSMutableArray *colors = [NSMutableArray array];
+					[colors addObject:[NSArray arrayWithObjects: @1.0F, @1.0F, @1.0F, nil]];
+					[colors addObject:[NSArray arrayWithObjects: @0.0F, @0.0F, @0.0F, nil]];
 			
 					[aCLUTFilter setObject:colors forKey:@"Colors"];
 					[aCLUTFilter setObject:points forKey:@"Points"];
@@ -3223,10 +3228,9 @@ static BOOL initialized = NO;
 				NSDictionary *wwwl = [wlwwValues objectForKey:@"VR - Endoscopy"];
 				if (!wwwl)
                 {
-					[wlwwValues setObject:[NSArray arrayWithObjects:[NSNumber numberWithFloat:-300], [NSNumber numberWithFloat:700], nil] forKey:@"VR - Endoscopy"];
+					[wlwwValues setObject:[NSArray arrayWithObjects:@-300.0F, @700.0F, nil] forKey:@"VR - Endoscopy"];
 					[[NSUserDefaults standardUserDefaults] setObject:wlwwValues forKey:@"WLWW3"];
 				}
-				
                 
 				// CREATE A TEMPORARY FILE DURING STARTUP
 				
@@ -3236,14 +3240,24 @@ static BOOL initialized = NO;
                 {
                     if( [[NSFileManager defaultManager] fileExistsAtPath: path])
                     {
-                        int result = NSRunInformationalAlertPanel(NSLocalizedString(@"OsiriX crashed during last startup", nil), NSLocalizedString(@"Previous crash is maybe related to a corrupt database or corrupted images.\r\rShould I run OsiriX in Protected Mode (recommended) (no images displayed)? To allow you to delete the crashing/corrupted images/studies.\r\rOr Should I rebuild the local database? All albums, comments and status will be lost.", nil), NSLocalizedString(@"Continue normally",nil), NSLocalizedString(@"Protected Mode",nil), NSLocalizedString(@"Rebuild Database",nil));
-                        
-                        if( result == NSAlertOtherReturn)
+                        NSString *contents = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+                        if ([contents isEqualToString:@"OsiriX"]) // OsiriX Lite 6.5 leaves this behind
                         {
-                            NEEDTOREBUILD = YES;
-                            COMPLETEREBUILD = YES;
+                            // Not a problem. We will overwrite it anyway
                         }
-                        if( result == NSAlertAlternateReturn) [DCMPix setRunOsiriXInProtectedMode: YES];
+                        else
+                        {
+                            int result = NSRunInformationalAlertPanel(NSLocalizedString(@"OsiriX crashed during last startup", nil), NSLocalizedString(@"Previous crash is maybe related to a corrupt database or corrupted images.\r\rShould I run OsiriX in Protected Mode (recommended) (no images displayed)? To allow you to delete the crashing/corrupted images/studies.\r\rOr Should I rebuild the local database? All albums, comments and status will be lost.", nil), NSLocalizedString(@"Continue normally",nil), NSLocalizedString(@"Protected Mode",nil), NSLocalizedString(@"Rebuild Database",nil));
+                            
+                            if( result == NSAlertOtherReturn)
+                            {
+                                NEEDTOREBUILD = YES;
+                                COMPLETEREBUILD = YES;
+                            }
+                            
+                            if( result == NSAlertAlternateReturn)
+                                [DCMPix setRunOsiriXInProtectedMode: YES];
+                        }
                     }
                 }
                 
@@ -3546,8 +3560,13 @@ static BOOL initialized = NO;
 //				{
 //					grel = [grel substringToIndex: 9];
 //					
-//					NSDictionary *d = [NSDictionary dictionaryWithObjectsAndKeys: [f objectAtIndex: 2], @"Description", [f objectAtIndex: 3], @"VM", [f objectAtIndex: 1], @"VR", nil];	//[f objectAtIndex: 4], @"Version", nil];
-//					
+//					NSDictionary *d = [NSDictionary dictionaryWithObjectsAndKeys:
+//                                       [f objectAtIndex: 2], @"Description",
+//                                       [f objectAtIndex: 3], @"VM",
+//                                       [f objectAtIndex: 1], @"VR",
+//                                       nil];
+//                                       //[f objectAtIndex: 4], @"Version", nil];
+//
 //                    if( [tagDictionary objectForKey: grel])
 //                    {
 ////                        NSLog( @"%@", [tagDictionary objectForKey: grel]);
@@ -3684,7 +3703,10 @@ static BOOL initialized = NO;
 	
     NSString *bundleId = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleIdentifier"];
     NSLog(@"bundle:%@", bundleId);
-	NSDictionary *handlerForOsiriX = [NSDictionary dictionaryWithObjectsAndKeys: bundleId, @"LSHandlerRoleAll", @"dicom", @"LSHandlerURLScheme", nil];
+	NSDictionary *handlerForOsiriX = [NSDictionary dictionaryWithObjectsAndKeys:
+                                      bundleId, @"LSHandlerRoleAll",
+                                      @"dicom", @"LSHandlerURLScheme",
+                                      nil];
 	
 	[mutableDict setObject: [[dict objectForKey: @"LSHandlers"] arrayByAddingObject: handlerForOsiriX] forKey: @"LSHandlers"];
 	
@@ -4824,12 +4846,16 @@ static BOOL initialized = NO;
 
 - (IBAction) setFixedTilingRows: (id) sender
 {
-	[self tileWindows: [NSDictionary dictionaryWithObjectsAndKeys: [NSNumber numberWithInt: [sender tag]], @"rows", nil]];
+	[self tileWindows: [NSDictionary dictionaryWithObjectsAndKeys:
+                        [NSNumber numberWithInt: [sender tag]], @"rows",
+                        nil]];
 }
 
 - (IBAction) setFixedTilingColumns: (id) sender
 {
-	[self tileWindows: [NSDictionary dictionaryWithObjectsAndKeys: [NSNumber numberWithInt: [sender tag]], @"columns", nil]];
+	[self tileWindows: [NSDictionary dictionaryWithObjectsAndKeys:
+                        [NSNumber numberWithInt: [sender tag]], @"columns",
+                        nil]];
 }
 
 - (BOOL) validateMenuItem:(NSMenuItem *) item
