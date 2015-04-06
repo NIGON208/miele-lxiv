@@ -128,11 +128,14 @@
         }
         
         NSMutableDictionary* b = [[[O2DicomPredicateEditorOrderedMutableDictionary alloc] init] autorelease];
-        [b setObject:NSLocalizedString(@"empty", nil) forKey:[NSNumber numberWithInt:0]];
-        [b setObject:NSLocalizedString(@"unread", nil) forKey:[NSNumber numberWithInt:1]];
-        [b setObject:NSLocalizedString(@"reviewed", nil) forKey:[NSNumber numberWithInt:2]];
-        [b setObject:NSLocalizedString(@"dictated", nil) forKey:[NSNumber numberWithInt:3]];
-        [b setObject:NSLocalizedString(@"validated", nil) forKey:[NSNumber numberWithInt:4]];
+        [b setObject:NSLocalizedString(@"empty", nil) forKey:@0];
+        [b setObject:NSLocalizedString(@"unread", nil) forKey:@1];
+        [b setObject:NSLocalizedString(@"reviewed", nil) forKey:@2];
+        [b setObject:NSLocalizedString(@"dictated", nil) forKey:@3];
+        [b setObject:NSLocalizedString(@"validated", nil) forKey:@4];
+        [b setObject:NSLocalizedString(@"printed", nil) forKey:@5];
+        [b setObject:NSLocalizedString(@"distributed", nil) forKey:@6];
+        [b setObject:NSLocalizedString(@"archived", nil) forKey:@7];
         [base setObject:b forKey:@"OsiriX StudyStatus"];
         
 //        NSLog(@"base: %@", base);

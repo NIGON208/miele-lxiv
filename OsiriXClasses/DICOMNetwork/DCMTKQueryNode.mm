@@ -2252,7 +2252,11 @@ static NSString *releaseNetworkVariablesSync = @"releaseNetworkVariablesSync";
 //			if( [NSThread isMainThread] == YES && [[NSUserDefaults standardUserDefaults] boolForKey: @"dontUseThreadForAssociationAndCFind"] == NO)
 			{
 				NSRecursiveLock *lock = [[NSRecursiveLock alloc] init];
-				NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithObjectsAndKeys: lock, @"lock", [NSValue valueWithPointer: net], @"net", [NSValue valueWithPointer: params], @"params", nil];
+				NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                             lock, @"lock",
+                                             [NSValue valueWithPointer: net], @"net",
+                                             [NSValue valueWithPointer: params], @"params",
+                                             nil];
 				
 				globalCondition = EC_Normal;
                 
@@ -2350,7 +2354,11 @@ static NSString *releaseNetworkVariablesSync = @"releaseNetworkVariablesSync";
 //                      [[NSUserDefaults standardUserDefaults] boolForKey: @"dontUseThreadForAssociationAndCFind"] == NO)
 					{
 						NSRecursiveLock *lock = [[NSRecursiveLock alloc] init];
-						NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithObjectsAndKeys: lock, @"lock", [NSValue valueWithPointer: assoc], @"assoc", [NSValue valueWithPointer: dataset], @"dataset", nil];
+						NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                                     lock, @"lock",
+                                                     [NSValue valueWithPointer: assoc], @"assoc",
+                                                     [NSValue valueWithPointer: dataset], @"dataset",
+                                                     nil];
 						
 						globalCondition = EC_Normal;
 						[NSThread detachNewThreadSelector: @selector(cFindThread:) toTarget: self withObject: dict];

@@ -386,7 +386,7 @@ static CPRCurvedPathControlToken _controlTokenForElement(NSInteger element)
     } else if (token == CPRCurvedPathControlTokenTransverseSection) {
         _transverseSectionPosition = [self relativePositionForPoint:point transform:transform];
     } else if (token == CPRCurvedPathControlTokenTransverseSpacing) {
-        relativePosition = [self relativePositionForPoint:point transform:transform];;
+        relativePosition = [self relativePositionForPoint:point transform:transform];
         _transverseSectionSpacing = ABS(_transverseSectionPosition - relativePosition)*[_bezierPath length];
     }
 }

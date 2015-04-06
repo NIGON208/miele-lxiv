@@ -1239,9 +1239,9 @@ static inline int int_ceildivpow2(int a, int b) {
 //		{
 //			[_dcmObject setAttributeValues:[NSMutableArray arrayWithObject:@"RGB"] forName:@"PhotometricInterpretation"];
 //			[_dcmObject setAttributeValues:[NSMutableArray arrayWithObject:@"3"] forName:@"SamplesperPixel"];
-//			[_dcmObject setAttributeValues:[NSMutableArray arrayWithObject:[NSNumber numberWithInt:8]] forName:@"BitsStored"];
-//			[_dcmObject setAttributeValues:[NSMutableArray arrayWithObject:[NSNumber numberWithInt:8]] forName:@"BitsAllocated"];
-//			[_dcmObject setAttributeValues:[NSMutableArray arrayWithObject:[NSNumber numberWithInt:7]] forName:@"HighBit"];
+//			[_dcmObject setAttributeValues:[NSMutableArray arrayWithObject:@8] forName:@"BitsStored"];
+//			[_dcmObject setAttributeValues:[NSMutableArray arrayWithObject:@8] forName:@"BitsAllocated"];
+//			[_dcmObject setAttributeValues:[NSMutableArray arrayWithObject:@7] forName:@"HighBit"];
 //			
 //			_samplesPerPixel = [[[_dcmObject attributeForTag:[DCMAttributeTag tagWithName:@"SamplesperPixel"]] value] intValue];
 //			
@@ -1549,11 +1549,11 @@ static inline int int_ceildivpow2(int a, int b) {
 			
 			if( _min < 0)
 			{
-				[_dcmObject setAttributeValues: [NSMutableArray arrayWithObject: [NSNumber numberWithBool:YES]] forName:@"PixelRepresentation"];
+				[_dcmObject setAttributeValues: [NSMutableArray arrayWithObject: @YES] forName:@"PixelRepresentation"];
 				bits++;  // For the sign
 			}
 			else
-				[_dcmObject setAttributeValues: [NSMutableArray arrayWithObject: [NSNumber numberWithBool:NO]] forName:@"PixelRepresentation"];
+				[_dcmObject setAttributeValues: [NSMutableArray arrayWithObject: @NO] forName:@"PixelRepresentation"];
 			
 			if( bits < 9) bits = 9;
 			
@@ -1774,9 +1774,9 @@ static inline int int_ceildivpow2(int a, int b) {
 		[attributes removeObjectsForKeys:keysToRemove];
 		[_dcmObject setAttributeValues:[NSMutableArray arrayWithObject:@"RGB"] forName:@"PhotometricInterpretation"];
 		[_dcmObject setAttributeValues:[NSMutableArray arrayWithObject:@"3"] forName:@"SamplesperPixel"];
-		[_dcmObject setAttributeValues:[NSMutableArray arrayWithObject:[NSNumber numberWithInt:8]] forName:@"BitsStored"];
-		[_dcmObject setAttributeValues:[NSMutableArray arrayWithObject:[NSNumber numberWithInt:8]] forName:@"BitsAllocated"];
-		[_dcmObject setAttributeValues:[NSMutableArray arrayWithObject:[NSNumber numberWithInt:7]] forName:@"HighBit"];
+		[_dcmObject setAttributeValues:[NSMutableArray arrayWithObject:@8] forName:@"BitsStored"];
+		[_dcmObject setAttributeValues:[NSMutableArray arrayWithObject:@8] forName:@"BitsAllocated"];
+		[_dcmObject setAttributeValues:[NSMutableArray arrayWithObject:@7] forName:@"HighBit"];
 		
 		_samplesPerPixel = [[[_dcmObject attributeForTag:[DCMAttributeTag tagWithName:@"SamplesperPixel"]] value] intValue];
 	}
@@ -1792,7 +1792,7 @@ static inline int int_ceildivpow2(int a, int b) {
 //- (void)encodeRescale:(NSMutableData *)data WithRescaleIntercept:(int)offset{
 //	int length = [data length];
 //	int halfLength = length/2;
-//	[_dcmObject  setAttributeValues:[NSMutableArray arrayWithObject:[NSNumber numberWithFloat:1.0]] forName:@"RescaleSlope"];
+//	[_dcmObject  setAttributeValues:[NSMutableArray arrayWithObject:@1.0F] forName:@"RescaleSlope"];
 //	[_dcmObject  setAttributeValues:[NSMutableArray arrayWithObject:[NSNumber numberWithFloat:offset]] forName:@"RescaleIntercept"];
 //	int i;
 //	signed short *pixelData = (signed short *)[data bytes]; 
@@ -3135,9 +3135,9 @@ static inline int int_ceildivpow2(int a, int b) {
 		_values = [newValues retain];
 		[_dcmObject setAttributeValues:[NSMutableArray arrayWithObject:@"RGB"] forName:@"PhotometricInterpretation"];
 		[_dcmObject setAttributeValues:[NSMutableArray arrayWithObject:@"3"] forName:@"SamplesperPixel"];
-		[_dcmObject setAttributeValues:[NSMutableArray arrayWithObject:[NSNumber numberWithInt:8]] forName:@"BitsStored"];
-		[_dcmObject setAttributeValues:[NSMutableArray arrayWithObject:[NSNumber numberWithInt:8]] forName:@"BitsAllocated"];
-		[_dcmObject setAttributeValues:[NSMutableArray arrayWithObject:[NSNumber numberWithInt:7]] forName:@"HighBit"];
+		[_dcmObject setAttributeValues:[NSMutableArray arrayWithObject:@8] forName:@"BitsStored"];
+		[_dcmObject setAttributeValues:[NSMutableArray arrayWithObject:@8] forName:@"BitsAllocated"];
+		[_dcmObject setAttributeValues:[NSMutableArray arrayWithObject:@7] forName:@"HighBit"];
 		
 		_samplesPerPixel = [[[_dcmObject attributeForTag:[DCMAttributeTag tagWithName:@"SamplesperPixel"]] value] intValue];
 	}
@@ -3159,15 +3159,14 @@ static inline int int_ceildivpow2(int a, int b) {
 		[attributes removeObjectsForKeys:keysToRemove];
 		[_dcmObject setAttributeValues:[NSMutableArray arrayWithObject:@"RGB"] forName:@"PhotometricInterpretation"];
 		[_dcmObject setAttributeValues:[NSMutableArray arrayWithObject:@"3"] forName:@"SamplesperPixel"];
-		[_dcmObject setAttributeValues:[NSMutableArray arrayWithObject:[NSNumber numberWithInt:8]] forName:@"BitsStored"];
-		[_dcmObject setAttributeValues:[NSMutableArray arrayWithObject:[NSNumber numberWithInt:8]] forName:@"BitsAllocated"];
-		[_dcmObject setAttributeValues:[NSMutableArray arrayWithObject:[NSNumber numberWithInt:7]] forName:@"HighBit"];
+		[_dcmObject setAttributeValues:[NSMutableArray arrayWithObject:@8] forName:@"BitsStored"];
+		[_dcmObject setAttributeValues:[NSMutableArray arrayWithObject:@8] forName:@"BitsAllocated"];
+		[_dcmObject setAttributeValues:[NSMutableArray arrayWithObject:@7] forName:@"HighBit"];
 		
 		_samplesPerPixel = [[[_dcmObject attributeForTag:[DCMAttributeTag tagWithName:@"SamplesperPixel"]] value] intValue];
 		
 		_pixelDepth = 8;
-	}
-	
+	}	
 }
 
 - (NSMutableData *)createFrameAtIndex:(int)index{
@@ -3204,7 +3203,7 @@ static inline int int_ceildivpow2(int a, int b) {
 				}
 			}
 			else 
-				[offsetTable addObject:[NSNumber numberWithLong:0]];
+				[offsetTable addObject:[NSNumber numberWithLong:0L]];
 
 			
 			//most likely way to have data with one frame per data object.
@@ -3328,7 +3327,7 @@ static inline int int_ceildivpow2(int a, int b) {
 				}
 			}
 			else 
-				[offsetTable addObject:[NSNumber numberWithLong:0]];
+				[offsetTable addObject:[NSNumber numberWithLong:0L]];
 
 		
 			
@@ -3471,13 +3470,13 @@ static inline int int_ceildivpow2(int a, int b) {
 		{
 			_framesDecoded = [[NSMutableArray array] retain];
 			for( int i = 0; i < _numberOfFrames; i++)
-				[_framesDecoded addObject: [NSNumber numberWithBool: NO]];
+				[_framesDecoded addObject: @NO];
 		}
 		else if( [_framesDecoded count] != _numberOfFrames)
 		{
 			int s = [_framesDecoded count];
 			for( int i = s; i <= _numberOfFrames; i++)
-				[_framesDecoded addObject: [NSNumber numberWithBool: NO]];
+				[_framesDecoded addObject: @NO];
 		}
 		
 		if (DCMDEBUG)
@@ -3584,7 +3583,7 @@ static inline int int_ceildivpow2(int a, int b) {
 				{
 					data = [self convertDataFromBigEndianToHost: subData];
 				}
-				[_framesDecoded replaceObjectAtIndex: index withObject: [NSNumber numberWithBool: YES]];
+				[_framesDecoded replaceObjectAtIndex: index withObject: @YES];
 			}
 		}
 //		else if(transferSyntax.isEncapsulated == NO && [self.vr isEqualToString: @"OW"])
@@ -3609,7 +3608,7 @@ static inline int int_ceildivpow2(int a, int b) {
 //					}
 //					data = subData;
 //				}
-//				[_framesDecoded replaceObjectAtIndex: index withObject: [NSNumber numberWithBool: YES]];
+//				[_framesDecoded replaceObjectAtIndex: index withObject: @YES];
 //			}
 //		}
 		
@@ -3627,7 +3626,7 @@ static inline int int_ceildivpow2(int a, int b) {
 			{
 				if( [transferSyntax isEqualToTransferSyntax:[DCMTransferSyntax JPEGExtendedTransferSyntax]] || [transferSyntax isEqualToTransferSyntax:[DCMTransferSyntax JPEGLosslessTransferSyntax]] || [transferSyntax isEqualToTransferSyntax:[DCMTransferSyntax JPEG2000LosslessTransferSyntax]] || [transferSyntax isEqualToTransferSyntax:[DCMTransferSyntax JPEG2000LossyTransferSyntax]])
 				{
-					[_dcmObject setAttributeValues:[NSMutableArray arrayWithObject: [NSNumber numberWithInt: 0]] forName:@"PlanarConfiguration"];
+					[_dcmObject setAttributeValues:[NSMutableArray arrayWithObject: @0] forName:@"PlanarConfiguration"];
 				}
 				else data = [self interleavePlanesInData:data];
 			}

@@ -512,7 +512,10 @@ static volatile int sendControllerObjects = 0;
     
     if( arraysOfFiles.count)
     {
-        NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys: arraysOfFiles, @"arraysOfFiles", arrayOfPatientNames, @"arrayOfPatientNames", nil];
+        NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
+                              arraysOfFiles, @"arraysOfFiles",
+                              arrayOfPatientNames, @"arrayOfPatientNames",
+                              nil];
         
         NSThread* t = [[[NSThread alloc] initWithTarget:self selector:@selector(sendDICOMFilesOffis:) object: dict] autorelease];
         t.name = NSLocalizedString( @"Sending...", nil);

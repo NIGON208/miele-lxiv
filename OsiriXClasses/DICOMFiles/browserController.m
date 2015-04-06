@@ -965,7 +965,13 @@ static NSConditionLock *threadLock = nil;
         [pool release];
 	}
 	
-	[self copyFilesIntoDatabaseIfNeeded: filesArray options: [NSDictionary dictionaryWithObjectsAndKeys: [[NSUserDefaults standardUserDefaults] objectForKey: @"onlyDICOM"], @"onlyDICOM", [NSNumber numberWithBool: YES], @"async", [NSNumber numberWithBool: YES], @"addToAlbum",  [NSNumber numberWithBool: YES], @"selectStudy", nil]];
+	[self copyFilesIntoDatabaseIfNeeded: filesArray
+                                options: [NSDictionary dictionaryWithObjectsAndKeys:
+                                          [[NSUserDefaults standardUserDefaults] objectForKey: @"onlyDICOM"], @"onlyDICOM",
+                                          @YES, @"async",
+                                          @YES, @"addToAlbum",
+                                          @YES, @"selectStudy",
+                                          nil]];
 }
 
 //ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ
@@ -1323,7 +1329,13 @@ static NSConditionLock *threadLock = nil;
         }
         
         NSThread *t = nil;
-            t = [[[NSThread alloc] initWithTarget: self selector:@selector(regenerateAutoCommentsThread:) object: [NSDictionary dictionaryWithObjectsAndKeys: studiesArray, @"studyArrayIDs", seriesArray, @"seriesArrayIDs", nil]] autorelease];
+        t = [[[NSThread alloc] initWithTarget:self
+                                     selector:@selector(regenerateAutoCommentsThread:)
+                                       object:[NSDictionary dictionaryWithObjectsAndKeys:
+                                               studiesArray, @"studyArrayIDs",
+                                               seriesArray, @"seriesArrayIDs",
+                                               nil]]
+             autorelease];
         
         t.name = NSLocalizedString( @"Regenerate Auto Comments...", nil);
         t.status = N2LocalizedSingularPluralCount( [studiesArray count], NSLocalizedString(@"study", nil), NSLocalizedString(@"studies", nil));
@@ -2117,15 +2129,15 @@ static NSConditionLock *threadLock = nil;
 				
 				if( [[NSFileManager defaultManager] copyPath:srcPath toPath:dstPath handler:nil])
 				{
-					[[im valueForKey:@"series"] setValue: [NSNumber numberWithBool: NO] forKey:@"mountedVolume"];
+					[[im valueForKey:@"series"] setValue: @NO forKey:@"mountedVolume"];
 					
 					for( NSManagedObject *c in [[im valueForKeyPath: @"series.images"] allObjects]) // For multi frame files
 					{
 						if( [[c valueForKey:@"completePath"] isEqualToString: srcPath])
 						{
-							[c setValue: [NSNumber numberWithBool: YES] forKey:@"inDatabaseFolder"];
+							[c setValue: @YES forKey:@"inDatabaseFolder"];
 							[c setValue: [dstPath lastPathComponent] forKey:@"path"];
-							[c setValue: [NSNumber numberWithBool: NO] forKey:@"mountedVolume"];
+							[c setValue: @NO forKey:@"mountedVolume"];
 						}
 					}
 				}
@@ -2242,7 +2254,11 @@ static NSConditionLock *threadLock = nil;
 		
 		if( [[options objectForKey: @"async"] boolValue])
 		{
-			NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithObjectsAndKeys: filesInput, @"filesInput", [NSNumber numberWithBool: YES], @"copyFiles", [NSNumber numberWithBool: [[options objectForKey: @"mountedVolume"] boolValue]], @"mountedVolume", nil];
+			NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                         filesInput, @"filesInput",
+                                         @YES, @"copyFiles",
+                                         [NSNumber numberWithBool: [[options objectForKey: @"mountedVolume"] boolValue]], @"mountedVolume",
+                                         nil];
 			[dict addEntriesFromDictionary: options];
 			
             NSThread *t = nil;
@@ -2325,8 +2341,11 @@ static NSConditionLock *threadLock = nil;
 	}
 	else
 	{
-		NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithObjectsAndKeys: filesInput, @"filesInput", [NSNumber numberWithBool: NO], @"copyFiles", [NSNumber numberWithBool: [[options objectForKey: @"mountedVolume"] boolValue]], @"mountedVolume", nil];
-
+		NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                     filesInput, @"filesInput",
+                                     @NO, @"copyFiles",
+                                     [NSNumber numberWithBool: [[options objectForKey: @"mountedVolume"] boolValue]], @"mountedVolume",
+                                     nil];
         
 		[dict addEntriesFromDictionary: options]; 
 		
@@ -2594,7 +2613,13 @@ static NSConditionLock *threadLock = nil;
             distantSearchThread = nil;
         }
         
-        [NSThread detachNewThreadSelector: @selector(searchForSearchField:) toTarget:self withObject: [NSDictionary dictionaryWithObjectsAndKeys: [NSNumber numberWithInt: searchType], @"searchType", _searchString, @"searchString", [NSNumber numberWithInt: albumTable.selectedRow], @"selectedAlbumIndex", nil]];
+        [NSThread detachNewThreadSelector:@selector(searchForSearchField:)
+                                 toTarget:self
+                               withObject:[NSDictionary dictionaryWithObjectsAndKeys:
+                                           [NSNumber numberWithInt: searchType], @"searchType",
+                                           _searchString, @"searchString",
+                                           [NSNumber numberWithInt: albumTable.selectedRow], @"selectedAlbumIndex",
+                                           nil]];
     }
     else if( timeIntervalStart || timeIntervalEnd)
     {
@@ -2606,7 +2631,12 @@ static NSConditionLock *threadLock = nil;
         }
         
         if( albumTable.selectedRow == 0)
-            [NSThread detachNewThreadSelector: @selector(searchForTimeIntervalFromTo:) toTarget:self withObject: [NSDictionary dictionaryWithObjectsAndKeys: timeIntervalStart, @"from", timeIntervalEnd, @"to", nil]];
+            [NSThread detachNewThreadSelector: @selector(searchForTimeIntervalFromTo:)
+                                     toTarget: self
+                                   withObject: [NSDictionary dictionaryWithObjectsAndKeys:
+                                                timeIntervalStart, @"from",
+                                                timeIntervalEnd, @"to",
+                                                nil]];
     }
     else
     {
@@ -2706,7 +2736,12 @@ static NSConditionLock *threadLock = nil;
             }
             
             if( albumTable.selectedRow == 0)
-                [NSThread detachNewThreadSelector: @selector(searchForTimeIntervalFromTo:) toTarget:self withObject: [NSDictionary dictionaryWithObjectsAndKeys: timeIntervalStart, @"from", timeIntervalEnd, @"to", nil]];
+                [NSThread detachNewThreadSelector: @selector(searchForTimeIntervalFromTo:)
+                                         toTarget: self
+                                       withObject: [NSDictionary dictionaryWithObjectsAndKeys:
+                                                    timeIntervalStart, @"from",
+                                                    timeIntervalEnd, @"to",
+                                                    nil]];
         }
     }
     else if( _searchString.length > 2 || (_searchString.length >= 2 && searchType == 5))
@@ -3326,7 +3361,7 @@ static NSConditionLock *threadLock = nil;
     autoretrievingPACSOnDemandSmartAlbum = YES;
     {
         #ifndef OSIRIX_LIGHT
-        [studies setValue:[NSNumber numberWithBool:YES] forKey:@"isAutoRetrieve"];
+        [studies setValue:@YES forKey:@"isAutoRetrieve"];
         [QueryController retrieveStudies: studies showErrors: NO checkForPreviousAutoRetrieve: YES];
         #endif
     }
@@ -4500,7 +4535,9 @@ static NSConditionLock *threadLock = nil;
     {
         NSMutableArray *mergedStudies = nil;
         
-        //[NSNotificationCenter.defaultCenter postNotificationOnMainThreadName:O2SearchForComparativeStudiesStartedNotification object:self userInfo:[NSDictionary dictionaryWithObjectsAndKeys: studySelectedID, @"study", nil]];
+//        [NSNotificationCenter.defaultCenter postNotificationOnMainThreadName:O2SearchForComparativeStudiesStartedNotification
+//                                                                      object:self
+//                                                                    userInfo:[NSDictionary dictionaryWithObjectsAndKeys: studySelectedID, @"study", nil]];
         
         DicomDatabase *idatabase = [NSThread isMainThread] ? self.database : self.database.independentDatabase;
         
@@ -5069,7 +5106,13 @@ static NSConditionLock *threadLock = nil;
                     [matrixLoadIconsThread release];
                     matrixLoadIconsThread = nil;
                 
-                    NSDictionary* dict = [NSDictionary dictionaryWithObjectsAndKeys: _database, @"DicomDatabase", [files valueForKey:@"objectID"], @"objectIDs", [NSNumber numberWithBool: imageLevel], @"imageLevel", previewPix, @"Context", _database, @"DicomDatabase", nil];
+                    NSDictionary* dict = [NSDictionary dictionaryWithObjectsAndKeys:
+                                          _database, @"DicomDatabase",
+                                          [files valueForKey:@"objectID"], @"objectIDs",
+                                          [NSNumber numberWithBool: imageLevel], @"imageLevel",
+                                          previewPix, @"Context",
+                                          _database, @"DicomDatabase",
+                                          nil];
                     if( separateThread)
                     {
                         matrixLoadIconsThread = [[NSThread alloc] initWithTarget: self selector: @selector(matrixLoadIcons:) object: dict];
@@ -5265,7 +5308,7 @@ static NSConditionLock *threadLock = nil;
             
             // TODO: when merging multiframe series, we should reevaluate the instanceNumbers in order to have a well-sorted [DicomSeries sortedImages] array
 			
-			[destSeries setValue:[NSNumber numberWithInt:0] forKey:@"numberOfImages"];
+			[destSeries setValue:@0 forKey:@"numberOfImages"];
 			
 			[_database save:NULL];
 			
@@ -5599,7 +5642,7 @@ static NSConditionLock *threadLock = nil;
 			}
 		}
 		
-		[destStudy setValue:[NSNumber numberWithInt:0] forKey:@"numberOfImages"];
+		[destStudy setValue:@0 forKey:@"numberOfImages"];
 		
 		[_database save:NULL];
 		
@@ -5709,7 +5752,7 @@ static NSConditionLock *threadLock = nil;
                         }
                         else
                         {
-                            series.numberOfImages = [NSNumber numberWithInt:0];
+                            series.numberOfImages = @0;
                             series.thumbnail = nil;
                         }
                     }
@@ -5741,7 +5784,7 @@ static NSConditionLock *threadLock = nil;
                         }
                         else
                         {
-                            [study setValue:[NSNumber numberWithInt:0]  forKey:@"numberOfImages"];
+                            [study setValue:@0  forKey:@"numberOfImages"];
                             [study setValue:[study valueForKey: @"modalities"] forKey:@"modality"];
                         }
                     }
@@ -6622,7 +6665,7 @@ static NSConditionLock *threadLock = nil;
 -(NSString*)outlineView:(NSOutlineView*)outlineView toolTipForCell:(NSCell*)cell rect:(NSRectPointer)rect tableColumn:(NSTableColumn*)tableColumn item:(id)item mouseLocation:(NSPoint)mouseLocation
 {
     if ([item isDistant])
-		return NSLocalizedString( @"Double-Click to retrieve", nil);;
+		return NSLocalizedString( @"Double-Click to retrieve", nil);
     
     @try
     {
@@ -6839,7 +6882,11 @@ static NSConditionLock *threadLock = nil;
 				NSMutableArray *dicomFiles2Export = [NSMutableArray array];
 				NSMutableArray *filesToExport = [self filesForDatabaseOutlineSelection: dicomFiles2Export onlyImages: NO];
 				
-				NSMutableDictionary *d = [NSMutableDictionary dictionaryWithObjectsAndKeys: [dropDestination path], @"location", filesToExport, @"filesToExport", [dicomFiles2Export valueForKey: @"objectID"], @"dicomFiles2Export", nil];
+				NSMutableDictionary *d = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                          [dropDestination path], @"location",
+                                          filesToExport, @"filesToExport",
+                                          [dicomFiles2Export valueForKey: @"objectID"], @"dicomFiles2Export",
+                                          nil];
 		
 				NSThread* t = [[[NSThread alloc] initWithTarget:self selector:@selector(exportDICOMFileInt: ) object: d] autorelease];
 				t.name = NSLocalizedString( @"Exporting...", nil);
@@ -6894,7 +6941,7 @@ static NSConditionLock *threadLock = nil;
 	id object = [[notification userInfo] objectForKey:@"NSObject"];
 	
     if( [object isDistant] == NO)
-        [object setValue:[NSNumber numberWithBool: NO] forKey:@"expanded"];
+        [object setValue:@NO forKey:@"expanded"];
 	
 	DicomImage	*image = nil;
 	
@@ -6915,7 +6962,7 @@ static NSConditionLock *threadLock = nil;
 	id object = [[notification userInfo] objectForKey:@"NSObject"];
     
     if( [object isDistant] == NO)
-        [object setValue:[NSNumber numberWithBool:YES] forKey:@"expanded"];
+        [object setValue:@YES forKey:@"expanded"];
 	
 //	[_database unlock];
 }
@@ -7784,7 +7831,10 @@ static NSConditionLock *threadLock = nil;
                         {
                             if( rw.length == 2)
                             {
-                                d = [NSDictionary dictionaryWithObjectsAndKeys: [NSNumber numberWithInt: [[rw substringWithRange: NSMakeRange( 0, 1)] intValue]], @"rows", [NSNumber numberWithInt: [[rw substringWithRange: NSMakeRange( 1, 1)] intValue]], @"columns", nil];
+                                d = [NSDictionary dictionaryWithObjectsAndKeys:
+                                     [NSNumber numberWithInt: [[rw substringWithRange: NSMakeRange( 0, 1)] intValue]], @"rows",
+                                     [NSNumber numberWithInt: [[rw substringWithRange: NSMakeRange( 1, 1)] intValue]], @"columns",
+                                     nil];
                             }
                         }
                         [[AppController sharedAppController] tileWindows: d];
@@ -10819,7 +10869,7 @@ constrainSplitPosition:(CGFloat)proposedPosition
 			
 			NSManagedObject	*album = [NSEntityDescription insertNewObjectForEntityForName:@"Album" inManagedObjectContext: context];
 			[album setValue:name forKey:@"name"];
-			[album setValue:[NSNumber numberWithBool:YES] forKey:@"smartAlbum"];
+			[album setValue:@YES forKey:@"smartAlbum"];
 			
 			[album setValue: [smartWindowController sqlQueryString] forKey:@"predicateString"];
 			[_database save:NULL];
@@ -10834,7 +10884,7 @@ constrainSplitPosition:(CGFloat)proposedPosition
                 if( idx != NSNotFound)
                     [savedSmartAlbums removeObjectAtIndex: idx];
                 
-                NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool: NO], @"activated", name, @"name", nil];
+                NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:@NO, @"activated", name, @"name", nil];
                 
                 [dict addEntriesFromDictionary: [smartWindowController onDemandFilter]];
                 
@@ -10879,7 +10929,7 @@ constrainSplitPosition:(CGFloat)proposedPosition
         SmartWindowController* swc = sheet.windowController;
         
         album.name = swc.name;
-        album.smartAlbum = [NSNumber numberWithBool:YES];
+        album.smartAlbum = @YES;
         album.predicateString = [swc.predicate predicateFormat];
         [self.database save];
         
@@ -12365,7 +12415,10 @@ constrainSplitPosition:(CGFloat)proposedPosition
                 {
                     if( rw.length == 2)
                     {
-                        d = [NSDictionary dictionaryWithObjectsAndKeys: [NSNumber numberWithInt: [[rw substringWithRange: NSMakeRange( 0, 1)] intValue]], @"rows", [NSNumber numberWithInt: [[rw substringWithRange: NSMakeRange( 1, 1)] intValue]], @"columns", nil];
+                        d = [NSDictionary dictionaryWithObjectsAndKeys:
+                             [NSNumber numberWithInt: [[rw substringWithRange: NSMakeRange( 0, 1)] intValue]], @"rows",
+                             [NSNumber numberWithInt: [[rw substringWithRange: NSMakeRange( 1, 1)] intValue]], @"columns",
+                             nil];
                     }
                 }
                 
@@ -12814,7 +12867,7 @@ constrainSplitPosition:(CGFloat)proposedPosition
 									[image setValue: newSeries forKey: @"series"];
 								}
 								
-								[newSeries setValue: [NSNumber numberWithInt: 0] forKey: @"numberOfImages"];
+								[newSeries setValue: @0 forKey: @"numberOfImages"];
 								[newSeries setValue: nil forKey:@"thumbnail"];
 							}
 								
@@ -12886,7 +12939,7 @@ constrainSplitPosition:(CGFloat)proposedPosition
 									[image setValue: newSeries forKey: @"series"];
 								}
 								
-								[newSeries setValue: [NSNumber numberWithInt: 0] forKey: @"numberOfImages"];
+								[newSeries setValue: @0 forKey: @"numberOfImages"];
 								[newSeries setValue: nil forKey:@"thumbnail"];
 							}
 							
@@ -13262,7 +13315,7 @@ constrainSplitPosition:(CGFloat)proposedPosition
 	if( [[NSUserDefaults standardUserDefaults] boolForKey: @"AUTOTILING"])
 		[NSApp sendAction: @selector(tileWindows:) to:nil from: self];
 	else
-		[[AppController sharedAppController] checkAllWindowsAreVisible: self makeKey: YES];;
+		[[AppController sharedAppController] checkAllWindowsAreVisible: self makeKey: YES];
 }
 
 - (void) viewerDICOMROIsImages:(id) sender
@@ -13491,8 +13544,8 @@ static NSArray*	openSubSeriesArray = nil;
 	[self setValue:[NSNumber numberWithInt:[[toOpenArray objectAtIndex:0] count]] forKey:@"subTo"];
 	[self setValue:[NSNumber numberWithInt:[[toOpenArray objectAtIndex:0] count]] forKey:@"subMax"];
 	
-	[self setValue:[NSNumber numberWithInt:1] forKey:@"subFrom"];
-	[self setValue:[NSNumber numberWithInt:1] forKey:@"subInterval"];
+	[self setValue:@1 forKey:@"subFrom"];
+	[self setValue:@1 forKey:@"subInterval"];
 	
     if (!subSeriesWindowIsOn)
     {
@@ -14487,7 +14540,10 @@ static NSArray*	openSubSeriesArray = nil;
                                                      
 	if( [[databaseOutline sortDescriptors] count] >= 1)
 	{
-		NSDictionary	*sort = [NSDictionary	dictionaryWithObjectsAndKeys: [NSNumber numberWithBool:[[[databaseOutline sortDescriptors] objectAtIndex: 0] ascending]], @"order", [[[databaseOutline sortDescriptors] objectAtIndex: 0] key], @"key", nil];
+		NSDictionary *sort = [NSDictionary	dictionaryWithObjectsAndKeys:
+                              [NSNumber numberWithBool:[[[databaseOutline sortDescriptors] objectAtIndex: 0] ascending]], @"order",
+                              [[[databaseOutline sortDescriptors] objectAtIndex: 0] key], @"key",
+                              nil];
 		[[NSUserDefaults standardUserDefaults] setObject:sort forKey: @"databaseSortDescriptor"];
 	}
 	[[NSUserDefaults standardUserDefaults] setObject:[databaseOutline columnState] forKey: @"databaseColumns2"];
@@ -14625,7 +14681,7 @@ static NSArray*	openSubSeriesArray = nil;
 		NSManagedObject	*object = [databaseOutline itemAtRow: row];
 		
 		if( [[object valueForKey:@"type"] isEqualToString: @"Study"] && [[object valueForKey: @"lockedStudy"] boolValue])
-			[object setValue: [NSNumber numberWithBool: NO] forKey: @"lockedStudy"];
+			[object setValue: @NO forKey: @"lockedStudy"];
 	}
 	
 	[self refreshDatabase: self];
@@ -14643,7 +14699,7 @@ static NSArray*	openSubSeriesArray = nil;
 		NSManagedObject	*object = [databaseOutline itemAtRow: row];
 		
 		if( [[object valueForKey:@"type"] isEqualToString: @"Study"] && [[object valueForKey: @"lockedStudy"] boolValue] == NO)
-			[object setValue: [NSNumber numberWithBool: YES] forKey: @"lockedStudy"];
+			[object setValue: @YES forKey: @"lockedStudy"];
 	}
 	
 	[self refreshDatabase: self];
@@ -16431,7 +16487,10 @@ static volatile int numberOfThreadsForJPEG = 0;
 			
 			if( t != 2)
 			{
-				[renameArray addObject: [NSDictionary dictionaryWithObjectsAndKeys: [NSString stringWithFormat:@"%@/IM-%4.4d-%4.4d.%@", tempPath, (int) serieCount, (int) imageNo, extension], @"oldName", [NSString stringWithFormat:@"%@/IM-%4.4d-%4.4d-%4.4d.%@", tempPath, (int) serieCount, (int) imageNo, 1, extension], @"newName", nil]];
+				[renameArray addObject: [NSDictionary dictionaryWithObjectsAndKeys:
+                                         [NSString stringWithFormat:@"%@/IM-%4.4d-%4.4d.%@", tempPath, (int) serieCount, (int) imageNo, extension], @"oldName",
+                                         [NSString stringWithFormat:@"%@/IM-%4.4d-%4.4d-%4.4d.%@", tempPath, (int) serieCount, (int) imageNo, 1, extension], @"newName",
+                                         nil]];
 			}
 			
 			DCMPix* dcmPix = [[DCMPix alloc] initWithPath: [curImage valueForKey:@"completePathResolved"] :0 :1 :nil :[[curImage valueForKey:@"frameID"] intValue] :[[curImage valueForKeyPath:@"series.id"] intValue] isBonjour:![_database isLocal] imageObj:curImage];
@@ -16888,7 +16947,11 @@ static volatile int numberOfThreadsForJPEG = 0;
 
 - (NSArray*) exportDICOMFileInt: (NSString*) location files: (NSMutableArray*) filesToExport objects: (NSMutableArray*) dicomFiles2Export
 {
-	return [self exportDICOMFileInt: [NSMutableDictionary dictionaryWithObjectsAndKeys: location, @"location", filesToExport, @"filesToExport", dicomFiles2Export, @"dicomFiles2Export", nil]];
+	return [self exportDICOMFileInt: [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                      location, @"location",
+                                      filesToExport, @"filesToExport",
+                                      dicomFiles2Export, @"dicomFiles2Export",
+                                      nil]];
 }
 
 - (void) runInformationAlertPanel:(NSMutableDictionary*) dict
@@ -17082,7 +17145,7 @@ static volatile int numberOfThreadsForJPEG = 0;
                     NSNumber *seriesId = [curImage valueForKeyPath: @"series.id"];
                     
 					if( seriesId == nil)
-						seriesId = [NSNumber numberWithInt: 0];
+						seriesId = @0;
 					
 					if( seriesName.length == 0)
 						seriesName = @"unnamed";
@@ -17149,9 +17212,15 @@ static volatile int numberOfThreadsForJPEG = 0;
 				if( t != 2)
 				{
 					if (!addDICOMDIR)
-						[renameArray addObject: [NSDictionary dictionaryWithObjectsAndKeys: [NSString stringWithFormat:@"%@/IM-%4.4d-%4.4d.%@", tempPath, (int) serieCount, (int) imageNo, extension], @"oldName", [NSString stringWithFormat:@"%@/IM-%4.4d-%4.4d-%4.4d.%@", tempPath, (int) serieCount, (int) imageNo, 1, extension], @"newName", nil]];
+						[renameArray addObject: [NSDictionary dictionaryWithObjectsAndKeys:
+                                                 [NSString stringWithFormat:@"%@/IM-%4.4d-%4.4d.%@", tempPath, (int) serieCount, (int) imageNo, extension], @"oldName",
+                                                 [NSString stringWithFormat:@"%@/IM-%4.4d-%4.4d-%4.4d.%@", tempPath, (int) serieCount, (int) imageNo, 1, extension], @"newName",
+                                                 nil]];
 					else
-						[renameArray addObject: [NSDictionary dictionaryWithObjectsAndKeys: [NSString stringWithFormat:@"%@/%4.4d%4.4d", tempPath, (int) serieCount, (int) imageNo], @"oldName", [NSString stringWithFormat:@"%@/%4.4d%d", tempPath, (int) imageNo, 1], @"newName", nil]];
+						[renameArray addObject: [NSDictionary dictionaryWithObjectsAndKeys:
+                                                 [NSString stringWithFormat:@"%@/%4.4d%4.4d", tempPath, (int) serieCount, (int) imageNo], @"oldName",
+                                                 [NSString stringWithFormat:@"%@/%4.4d%d", tempPath, (int) imageNo, 1], @"newName",
+                                                 nil]];
 				}
 				
 				NSError *error = nil;
@@ -17636,7 +17705,11 @@ static volatile int numberOfThreadsForJPEG = 0;
 		[wait close];
 		[wait autorelease];
 		
-		NSMutableDictionary *d = [NSMutableDictionary dictionaryWithObjectsAndKeys: [[sPanel filenames] objectAtIndex:0], @"location", filesToExport, @"filesToExport", [dicomFiles2Export valueForKey: @"objectID"], @"dicomFiles2Export", nil];
+		NSMutableDictionary *d = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                  [[sPanel filenames] objectAtIndex:0], @"location",
+                                  filesToExport, @"filesToExport",
+                                  [dicomFiles2Export valueForKey: @"objectID"], @"dicomFiles2Export",
+                                  nil];
 		
 		NSThread* t = [[[NSThread alloc] initWithTarget:self selector:@selector(exportDICOMFileInt: ) object: d] autorelease];
 		t.name = NSLocalizedString( @"Exporting...", nil);
@@ -17888,15 +17961,15 @@ static volatile int numberOfThreadsForJPEG = 0;
 	[[rdPatientForm cellWithTag:1] setStringValue: @"RD0001"];	//Patient ID
 	[[rdPatientForm cellWithTag:2] setStringValue: @"Raw Data Secondary Capture"]; //Study Descripition
 	
-	[[rdPixelForm cellWithTag:0] setObjectValue:[NSNumber numberWithInt:512]];		//rows
-	[[rdPixelForm cellWithTag:1] setObjectValue:[NSNumber numberWithInt:512]];		//columns
-	[[rdPixelForm cellWithTag:2] setObjectValue:[NSNumber numberWithInt:1]];		//slices
+	[[rdPixelForm cellWithTag:0] setObjectValue:@512];		//rows
+	[[rdPixelForm cellWithTag:1] setObjectValue:@512];		//columns
+	[[rdPixelForm cellWithTag:2] setObjectValue:@1];		//slices
 	
-	[[rdVoxelForm cellWithTag:0] setObjectValue:[NSNumber numberWithInt:1]];		//voxel width
-	[[rdVoxelForm cellWithTag:1] setObjectValue:[NSNumber numberWithInt:1]];		//voxel height
-	[[rdVoxelForm cellWithTag:2] setObjectValue:[NSNumber numberWithInt:1]];		//voxel depth
+	[[rdVoxelForm cellWithTag:0] setObjectValue:@1];		//voxel width
+	[[rdVoxelForm cellWithTag:1] setObjectValue:@1];		//voxel height
+	[[rdVoxelForm cellWithTag:2] setObjectValue:@1];		//voxel depth
 	
-	[[rdOffsetForm cellWithTag:0] setObjectValue:[NSNumber numberWithInt:0]];		//offset
+	[[rdOffsetForm cellWithTag:0] setObjectValue:@0];		//offset
 	
 	NSOpenPanel *openPanel = [NSOpenPanel openPanel];
 	[openPanel setAccessoryView:rdAccessory];
@@ -18515,7 +18588,10 @@ static volatile int numberOfThreadsForJPEG = 0;
 					if( [[NSFileManager defaultManager] fileExistsAtPath: localReportFile])
 					{
 						NSDictionary *fattrs = [[NSFileManager defaultManager] fileAttributesAtPath:localReportFile traverseLink:YES];
-						NSMutableDictionary *d = [NSMutableDictionary dictionaryWithObjectsAndKeys: studySelected, @"study", [fattrs objectForKey:NSFileModificationDate], @"date", nil];
+						NSMutableDictionary *d = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                                  studySelected, @"study",
+                                                  [fattrs objectForKey:NSFileModificationDate], @"date",
+                                                  nil];
 						
 						[reportFilesToCheck setObject: d forKey: [localReportFile lastPathComponent]];
 					}
@@ -19973,7 +20049,13 @@ static volatile int numberOfThreadsForJPEG = 0;
             distantSearchThread = nil;
         }
         
-        [NSThread detachNewThreadSelector: @selector(searchForSearchField:) toTarget:self withObject: [NSDictionary dictionaryWithObjectsAndKeys: [NSNumber numberWithInt: searchType], @"searchType", _searchString, @"searchString", [NSNumber numberWithInt: albumTable.selectedRow], @"selectedAlbumIndex", nil]];
+        [NSThread detachNewThreadSelector: @selector(searchForSearchField:)
+                                 toTarget: self
+                               withObject: [NSDictionary dictionaryWithObjectsAndKeys:
+                                            [NSNumber numberWithInt: searchType], @"searchType",
+                                            _searchString, @"searchString",
+                                            [NSNumber numberWithInt: albumTable.selectedRow], @"selectedAlbumIndex",
+                                            nil]];
     }
     else if( timeIntervalStart || timeIntervalEnd)
     {
@@ -19985,7 +20067,12 @@ static volatile int numberOfThreadsForJPEG = 0;
         }
         
         if( albumTable.selectedRow == 0)
-            [NSThread detachNewThreadSelector: @selector(searchForTimeIntervalFromTo:) toTarget:self withObject: [NSDictionary dictionaryWithObjectsAndKeys: timeIntervalStart, @"from", timeIntervalEnd, @"to", nil]];
+            [NSThread detachNewThreadSelector: @selector(searchForTimeIntervalFromTo:)
+                                     toTarget: self
+                                   withObject: [NSDictionary dictionaryWithObjectsAndKeys:
+                                                timeIntervalStart, @"from",
+                                                timeIntervalEnd, @"to",
+                                                nil]];
     }
     else
     {

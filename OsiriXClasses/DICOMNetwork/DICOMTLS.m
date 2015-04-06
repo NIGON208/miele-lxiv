@@ -81,7 +81,10 @@
 	
 	for (NSString *suite in availableCipherSuites)
 	{
-		[cipherSuites addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:NO], @"Supported", suite, @"Cipher", nil]];
+		[cipherSuites addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                 @NO, @"Supported",
+                                 suite, @"Cipher",
+                                 nil]];
 	}
 	
 	return [NSArray arrayWithArray:cipherSuites];

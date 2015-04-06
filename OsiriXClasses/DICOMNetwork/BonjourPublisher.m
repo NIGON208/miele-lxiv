@@ -573,7 +573,11 @@ static NSString* const O2NotEnoughData = @"O2NotEnoughData";
 }
 
 - (void)GETDI {
-    NSDictionary* dictionary = [NSDictionary dictionaryWithObjectsAndKeys: [[NSUserDefaults standardUserDefaults] stringForKey: @"AETITLE"], @"AETitle", [[NSUserDefaults standardUserDefaults] stringForKey: @"AEPORT"], @"Port", [NSString stringWithFormat: @"%d", [DCMTKStoreSCU sendSyntaxForListenerSyntax: [[NSUserDefaults standardUserDefaults] integerForKey: @"preferredSyntaxForIncoming"]]], @"TransferSyntax", nil];
+    NSDictionary* dictionary = [NSDictionary dictionaryWithObjectsAndKeys:
+                                [[NSUserDefaults standardUserDefaults] stringForKey: @"AETITLE"], @"AETitle",
+                                [[NSUserDefaults standardUserDefaults] stringForKey: @"AEPORT"], @"Port",
+                                [NSString stringWithFormat: @"%d", [DCMTKStoreSCU sendSyntaxForListenerSyntax: [[NSUserDefaults standardUserDefaults] integerForKey: @"preferredSyntaxForIncoming"]]], @"TransferSyntax",
+                                nil];
     
     [self writeData:[NSMutableData dataWithData: [NSArchiver archivedDataWithRootObject: dictionary]]];
     
@@ -785,7 +789,8 @@ static NSString* const O2NotEnoughData = @"O2NotEnoughData";
         //NSLog(@"URL:%@", object);
         if( item)
         {
-            if( [[item valueForKeyPath: key] isKindOfClass: [NSNumber class]]) [item setValue: [NSNumber numberWithInt: [value intValue]] forKeyPath: key];
+            if( [[item valueForKeyPath: key] isKindOfClass: [NSNumber class]])
+                [item setValue: [NSNumber numberWithInt: [value intValue]] forKeyPath: key];
             else
             {
                 if( [key isEqualToString: @"reportURL"])
@@ -875,7 +880,13 @@ static NSString* const O2NotEnoughData = @"O2NotEnoughData";
         Address = _address;
     }
     
-    NSDictionary *todo = [NSDictionary dictionaryWithObjectsAndKeys: Address, @"Address", TransferSyntax, @"TransferSyntax", Port, @"Port", AETitle, @"AETitle", localPaths, @"Files", nil];
+    NSDictionary *todo = [NSDictionary dictionaryWithObjectsAndKeys:
+                          Address, @"Address",
+                          TransferSyntax, @"TransferSyntax",
+                          Port, @"Port",
+                          AETitle, @"AETitle",
+                          localPaths, @"Files",
+                          nil];
     
     [NSThread detachNewThreadSelector:@selector(sendDICOMFilesToOsiriXNode:) toTarget:[BonjourPublisher currentPublisher] withObject: todo];
 

@@ -180,7 +180,7 @@
 {
 	const char *chars = [_vr UTF8String];
 	int vr = chars[0]<<8 | chars[1];
-	int length = 0;
+	NSUInteger length = 0;
 	int vm = self.valueMultiplicity;
 	NSString *string;
 	switch (vr) {

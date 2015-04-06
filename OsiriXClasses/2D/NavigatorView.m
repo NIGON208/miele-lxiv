@@ -229,7 +229,7 @@ static float deg2rad = M_PI/180.0;
 		for(int z=0; z<[pixList count]; z++)
 		{
 			[thumbnailsTextureArray addObject:[NSNumber numberWithInt:-1]];
-			[isTextureWLWWUpdated addObject:[NSNumber numberWithBool:NO]];
+			[isTextureWLWWUpdated addObject:@NO];
 		}
 	}
 }
@@ -248,7 +248,7 @@ static float deg2rad = M_PI/180.0;
 	[[self openGLContext] makeCurrentContext];
 	CGLContextObj cgl_ctx = [[NSOpenGLContext currentContext] CGLContextObj];
 
-	[isTextureWLWWUpdated replaceObjectAtIndex:i withObject:[NSNumber numberWithBool:YES]];	
+	[isTextureWLWWUpdated replaceObjectAtIndex:i withObject:@YES];	
 	
 	char* textureBuffer = [pix baseAddr];
 	
@@ -840,7 +840,7 @@ static float deg2rad = M_PI/180.0;
 		ww = pix.ww;
 		wl = pix.wl;
 		for(int i=0; i<[isTextureWLWWUpdated count]; i++)
-			[isTextureWLWWUpdated replaceObjectAtIndex:i withObject:[NSNumber numberWithBool:NO]];
+			[isTextureWLWWUpdated replaceObjectAtIndex:i withObject:@NO];
 		[self setNeedsDisplay:YES];
 		
 		for (ViewerController *viewer in [self associatedViewers])
@@ -885,7 +885,7 @@ static float deg2rad = M_PI/180.0;
 	
 	[[[self viewer] imageView] setWLWW:wl :ww];
 	for (int i=0; i<[isTextureWLWWUpdated count]; i++)
-		[isTextureWLWWUpdated replaceObjectAtIndex:i withObject:[NSNumber numberWithBool:NO]];
+		[isTextureWLWWUpdated replaceObjectAtIndex:i withObject:@NO];
 		
 	for (ViewerController *viewer in [self associatedViewers])
 	{

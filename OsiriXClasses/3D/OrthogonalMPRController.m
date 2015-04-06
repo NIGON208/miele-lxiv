@@ -1196,16 +1196,16 @@
 															@"Cross",
 															 nil];	// DO NOT LOCALIZE THIS LINE ! -> filenames !
 			
-			NSArray *tagIndexes = [NSArray arrayWithObjects:[NSNumber numberWithInt:0],
-															[NSNumber numberWithInt:1],
-															[NSNumber numberWithInt:2],
-															[NSNumber numberWithInt:3],
-															[NSNumber numberWithInt:4],
-															[NSNumber numberWithInt:5],
-															[NSNumber numberWithInt:9],
-															[NSNumber numberWithInt:12],
-															[NSNumber numberWithInt:19],
-															[NSNumber numberWithInt:8],
+			NSArray *tagIndexes = [NSArray arrayWithObjects:@0,
+															@1,
+															@2,
+															@3,
+															@4,
+															@5,
+															@9,
+															@12,
+															@19,
+															@8,
 															nil];
 															
 			NSEnumerator *enumerator2 = [images objectEnumerator];

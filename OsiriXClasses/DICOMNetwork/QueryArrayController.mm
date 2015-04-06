@@ -248,7 +248,7 @@
 	NSMutableDictionary *params = [NSMutableDictionary dictionary];
 	@try {
 		
-		[params setObject: [NSNumber numberWithInt:1] forKey:@"debugLevel"];
+		[params setObject:@1 forKey:@"debugLevel"];
 		[params setObject:callingAET forKey:@"callingAET"];
 		[params setObject:calledAET forKey:@"calledAET"];
 		[params setObject:hostname forKey:@"hostname"];

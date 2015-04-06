@@ -468,10 +468,18 @@ extern short Altivec;
 			numberOfThreadsForCompute = [[NSProcessInfo processInfo] processorCount];
 			for( i = 0; i < [[NSProcessInfo processInfo] processorCount]-1; i++)
 			{
-				[NSThread detachNewThreadSelector: @selector(subRender:) toTarget:self withObject: [NSDictionary dictionaryWithObjectsAndKeys: [NSNumber numberWithInt: size], @"size", [NSNumber numberWithInt: i], @"pos", nil]];
+				[NSThread detachNewThreadSelector: @selector(subRender:)
+                                         toTarget: self
+                                       withObject: [NSDictionary dictionaryWithObjectsAndKeys:
+                                                    [NSNumber numberWithInt: size], @"size",
+                                                    [NSNumber numberWithInt: i], @"pos",
+                                                    nil]];
 			}
 			
-			[self subRender: [NSDictionary dictionaryWithObjectsAndKeys: [NSNumber numberWithInt: size], @"size", [NSNumber numberWithInt: i], @"pos", nil]];
+			[self subRender: [NSDictionary dictionaryWithObjectsAndKeys:
+                              [NSNumber numberWithInt: size], @"size",
+                              [NSNumber numberWithInt: i], @"pos",
+                              nil]];
 			
 			BOOL done = NO;
 			while( done == NO)

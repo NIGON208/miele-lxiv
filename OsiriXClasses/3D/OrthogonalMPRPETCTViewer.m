@@ -2673,7 +2673,7 @@ return YES;
 			if( [[NSUserDefaults standardUserDefaults] boolForKey: @"afterExportMarkThemAsKeyImages"])
 			{
 				for( NSManagedObject *im in objects)
-					[im setValue: [NSNumber numberWithBool: YES] forKey: @"isKeyImage"];
+					[im setValue: @YES forKey: @"isKeyImage"];
 			}
 		}
 	}

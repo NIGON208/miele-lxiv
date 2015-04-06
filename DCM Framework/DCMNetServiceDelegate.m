@@ -218,11 +218,11 @@ static DCMNetServiceDelegate *_netServiceDelegate = nil;
 		retrieveMode = CGETRetrieveMode;
 	
 	NSMutableDictionary* s = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-					 [NSNumber numberWithBool:YES] , @"QR",
-					 [NSNumber numberWithInt: retrieveMode] , @"retrieveMode",
-					 [NSNumber numberWithBool:YES] , @"Send",
-					 [NSNumber numberWithInt: transferSyntax], @"TransferSyntax",
-							nil];
+                              @YES , @"QR",
+                              [NSNumber numberWithInt: retrieveMode] , @"retrieveMode",
+                              @YES , @"Send",
+                              [NSNumber numberWithInt: transferSyntax], @"TransferSyntax",
+                              nil];
 	if (description)
 		[s setObject:description forKey:@"Description"];
 	
@@ -232,7 +232,7 @@ static DCMNetServiceDelegate *_netServiceDelegate = nil;
 		[s setObject: icon forKey: @"icon"];
 	}
     
-    [s setObject: [NSNumber numberWithBool: YES] forKey: @"Activated"];
+    [s setObject: @YES forKey: @"Activated"];
     
 	return s;
 }
@@ -263,7 +263,7 @@ static DCMNetServiceDelegate *_netServiceDelegate = nil;
                 {
                     NSMutableDictionary *mdict = [NSMutableDictionary dictionaryWithDictionary: d];
                     
-                    [mdict setObject: [NSNumber numberWithBool: YES] forKey: @"Activated"];
+                    [mdict setObject: @YES forKey: @"Activated"];
                     
                     [serversArray replaceObjectAtIndex: i withObject: mdict];
                     
@@ -355,14 +355,14 @@ static DCMNetServiceDelegate *_netServiceDelegate = nil;
                         }
                         
                         NSMutableDictionary *s = [NSMutableDictionary dictionaryWithObjectsAndKeys:	hostname, @"Address",
-                                                                                                        [aServer name], @"AETitle",
-                                                                                                        [NSString stringWithFormat:@"%d", port], @"Port",
-                                                                                                        [NSNumber numberWithBool:YES] , @"QR",
-                                                                                                        [NSNumber numberWithInt: retrieveMode] , @"retrieveMode",
-                                                                                                        [NSNumber numberWithBool:YES] , @"Send",
-                                                                                                        description, @"Description",
-                                                                                                        [NSNumber numberWithInt: transferSyntax], @"TransferSyntax",
-                                                                                                        nil];
+                                                                                                    [aServer name], @"AETitle",
+                                                                                                    [NSString stringWithFormat:@"%d", port], @"Port",
+                                                                                                    @YES, @"QR",
+                                                                                                    [NSNumber numberWithInt: retrieveMode] , @"retrieveMode",
+                                                                                                    @YES, @"Send",
+                                                                                                    description, @"Description",
+                                                                                                    [NSNumber numberWithInt: transferSyntax], @"TransferSyntax",
+                                                                                                    nil];
                         
                         if( [dict valueForKey: @"icon"])
                         {

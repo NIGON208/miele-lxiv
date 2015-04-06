@@ -273,13 +273,13 @@
 - (IBAction)selectAllSuites:(id)sender;
 {
 	for( NSMutableDictionary *suite in self.TLSSupportedCipherSuite)
-		[suite setObject: [NSNumber numberWithBool: YES] forKey: @"Supported"];
+		[suite setObject: @YES forKey: @"Supported"];
 }
 
 - (IBAction)deselectAllSuites:(id)sender;
 {
 	for( NSMutableDictionary *suite in self.TLSSupportedCipherSuite)
-		[suite setObject: [NSNumber numberWithBool: NO] forKey: @"Supported"];
+		[suite setObject: @NO forKey: @"Supported"];
 }
 
 - (IBAction)chooseTLSCertificate:(id)sender;

@@ -20,7 +20,12 @@
 NSString* const OsirixErrorDomain = @"OsiriXDomain";
 
 +(NSError*)osirixErrorWithCode:(NSInteger)code underlyingError:(NSError*)underlyingError localizedDescription:(NSString*)desc {
-	return [NSError errorWithDomain:OsirixErrorDomain code:code userInfo:[NSDictionary dictionaryWithObjectsAndKeys: desc, NSLocalizedDescriptionKey, underlyingError, NSUnderlyingErrorKey, NULL]];
+	return [NSError errorWithDomain:OsirixErrorDomain
+                               code:code
+                           userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
+                                     desc, NSLocalizedDescriptionKey,
+                                     underlyingError, NSUnderlyingErrorKey,
+                                     NULL]];
 }
 
 +(NSError*)osirixErrorWithCode:(NSInteger)code underlyingError:(NSError*)underlyingError localizedDescriptionFormat:(NSString*)format, ... {

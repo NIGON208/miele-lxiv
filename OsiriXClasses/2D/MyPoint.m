@@ -85,8 +85,14 @@
 
 - (BOOL)isNearToPoint:(NSPoint)a :(float)scale :(float)ratio
 {
-	if (a.x >= pt.x - NEAR/scale && a.x <= pt.x + NEAR/scale && a.y >= pt.y - NEAR/(scale*ratio) && a.y <= pt.y + NEAR/(scale*ratio))
+	if (a.x >= pt.x - NEAR/scale &&
+        a.x <= pt.x + NEAR/scale &&
+        a.y >= pt.y - NEAR/(scale*ratio) &&
+        a.y <= pt.y + NEAR/(scale*ratio))
+    {
 		return YES;
+    }
+    
 	return NO;
 }
 

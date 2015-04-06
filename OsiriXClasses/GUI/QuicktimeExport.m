@@ -49,8 +49,17 @@
 {
     NSMutableArray *compressors = [NSMutableArray array];
     
-    [compressors addObject: [NSDictionary dictionaryWithObjectsAndKeys: AVVideoCodecJPEG, @"videoCodec", @"JPEG Quicktime Movie", @"name", @"mov", @"extension", nil]];
-    [compressors addObject: [NSDictionary dictionaryWithObjectsAndKeys: AVVideoCodecH264, @"videoCodec", @"H264 Movie", @"name", @"mp4", @"extension", nil]];
+    [compressors addObject: [NSDictionary dictionaryWithObjectsAndKeys:
+                             AVVideoCodecJPEG, @"videoCodec",
+                             @"JPEG Quicktime Movie", @"name",
+                             @"mov", @"extension",
+                             nil]];
+    
+    [compressors addObject: [NSDictionary dictionaryWithObjectsAndKeys:
+                             AVVideoCodecH264, @"videoCodec",
+                             @"H264 Movie", @"name",
+                             @"mp4", @"extension",
+                             nil]];
     
     return compressors;
 }
@@ -82,7 +91,10 @@
     size_t bitsPerComponent = 8;
     CGColorSpaceRef cs = CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB);
     CGBitmapInfo bi = kCGImageAlphaNoneSkipFirst;
-    NSDictionary *d = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES], kCVPixelBufferCGImageCompatibilityKey, [NSNumber numberWithBool:YES], kCVPixelBufferCGBitmapContextCompatibilityKey, nil];
+    NSDictionary *d = [NSDictionary dictionaryWithObjectsAndKeys:
+                       @YES, kCVPixelBufferCGImageCompatibilityKey,
+                       @YES, kCVPixelBufferCGBitmapContextCompatibilityKey,
+                       nil];
     
     // create pixel buffer
     CVPixelBufferCreate(kCFAllocatorDefault, width, height, k32ARGBPixelFormat, (CFDictionaryRef)d, &buffer);
@@ -221,13 +233,14 @@
                                     
                                     if( bitsPerSecond > 0)
                                         videoSettings = [NSDictionary dictionaryWithObjectsAndKeys:
-                                                     c, AVVideoCodecKey,
-                                                     [NSDictionary dictionaryWithObjectsAndKeys:
-                                                      [NSNumber numberWithDouble: bitsPerSecond], AVVideoAverageBitRateKey,
-                                                      [NSNumber numberWithInteger: 1], AVVideoMaxKeyFrameIntervalKey,
-                                                      nil], AVVideoCompressionPropertiesKey,
-                                                     [NSNumber numberWithInt: im.size.width], AVVideoWidthKey,
-                                                     [NSNumber numberWithInt: im.size.height], AVVideoHeightKey, nil];
+                                                         c, AVVideoCodecKey,
+                                                         [NSDictionary dictionaryWithObjectsAndKeys:
+                                                                [NSNumber numberWithDouble: bitsPerSecond], AVVideoAverageBitRateKey,
+                                                                @1, AVVideoMaxKeyFrameIntervalKey,
+                                                                nil], AVVideoCompressionPropertiesKey,
+                                                         [NSNumber numberWithInt: im.size.width], AVVideoWidthKey,
+                                                         [NSNumber numberWithInt: im.size.height], AVVideoHeightKey,
+                                                         nil];
                                     else
                                         N2LogStackTrace( @"********** bitsPerSecond == 0");
                                 }
@@ -235,9 +248,10 @@
                                 {
                                     videoSettings = [NSDictionary dictionaryWithObjectsAndKeys:
                                                      c, AVVideoCodecKey,
-                                                     [NSDictionary dictionaryWithObjectsAndKeys: [NSNumber numberWithFloat: 0.9], AVVideoQualityKey, nil] ,AVVideoCompressionPropertiesKey,
+                                                     [NSDictionary dictionaryWithObjectsAndKeys: @0.9F, AVVideoQualityKey, nil] ,AVVideoCompressionPropertiesKey,
                                                      [NSNumber numberWithInt: im.size.width], AVVideoWidthKey,
-                                                     [NSNumber numberWithInt: im.size.height], AVVideoHeightKey, nil];
+                                                     [NSNumber numberWithInt: im.size.height], AVVideoHeightKey,
+                                                     nil];
                                 }
                                 
                                 if( videoSettings)

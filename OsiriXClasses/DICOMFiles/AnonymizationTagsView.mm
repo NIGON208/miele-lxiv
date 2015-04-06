@@ -211,12 +211,12 @@
 		} else if ([tag.vr isEqualToString:@"UL"]) { //unsigned long
 			[textField.cell setFormatter: nf = [[[NSNumberFormatter alloc] init] autorelease]];
 			[nf setAllowsFloats:NO];
-			[nf setMinimum:[NSNumber numberWithInteger:0]];
+			[nf setMinimum:@0];
 			[nf setMaximum:[NSNumber numberWithInteger:0xFFFFFFFF]];
             [textField setToolTip: NSLocalizedString( @"Required format: integer number", nil)];
 		} else if ([tag.vr isEqualToString:@"US"]) { //unsigned short
 			[nf setAllowsFloats:NO];
-			[nf setMinimum:[NSNumber numberWithInteger:0]];
+			[nf setMinimum:@0];
 			[nf setMaximum:[NSNumber numberWithInteger:0xFFFF]];
             [textField setToolTip: NSLocalizedString( @"Required format: integer number", nil)];
 		} else if ([tag.vr isEqualToString:@"FL"]) { //float

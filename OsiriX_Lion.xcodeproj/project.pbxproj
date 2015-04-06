@@ -3175,7 +3175,7 @@
 		59E088A70FF0AB9400452F19 /* Notifications.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Notifications.h; sourceTree = "<group>"; };
 		59E088A80FF0AB9400452F19 /* Notifications.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Notifications.m; sourceTree = "<group>"; };
 		59E379CD116B293A00E84FE3 /* NSImage+OsiriX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSImage+OsiriX.h"; sourceTree = "<group>"; };
-		59E379CE116B293A00E84FE3 /* NSImage+OsiriX.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSImage+OsiriX.m"; sourceTree = "<group>"; };
+		59E379CE116B293A00E84FE3 /* NSImage+OsiriX.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = "NSImage+OsiriX.m"; sourceTree = "<group>"; };
 		59E379D6116B295B00E84FE3 /* DicomAlbum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DicomAlbum.h; sourceTree = "<group>"; };
 		59E379D7116B295B00E84FE3 /* DicomAlbum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DicomAlbum.m; sourceTree = "<group>"; };
 		59E5235E12BF5E3E0094E668 /* N2Task.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = N2Task.h; path = nitrogen/Sources/N2Task.h; sourceTree = "<group>"; };

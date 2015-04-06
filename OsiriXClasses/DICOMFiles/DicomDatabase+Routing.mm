@@ -124,7 +124,7 @@
 	
 	NSLog( @" Autorouting: %@ - %@", [[samePatientArray objectAtIndex: 0] valueForKeyPath:@"series.study.studyName"], N2SingularPluralCount(samePatientArray.count, @"object", @"objects"));
 	
-    NSMutableDictionary* xp = [NSMutableDictionary dictionaryWithObject:[NSNumber numberWithBool:NO] forKey:@"threadStatus"];
+    NSMutableDictionary* xp = [NSMutableDictionary dictionaryWithObject:@NO forKey:@"threadStatus"];
     [xp addEntriesFromDictionary:server];
     [xp setObject:self forKey:@"DicomDatabase"];
     
@@ -143,7 +143,9 @@
 	} @catch (NSException *ne) {
 		NSLog( @"Autorouting FAILED : %@ - %@", ne, [samePatientArray valueForKey: @"completePath"]);
 		
-		[self performSelectorOnMainThread:@selector(_routingErrorMessage:) withObject: [NSDictionary dictionaryWithObjectsAndKeys: ne, @"exception", server, @"server", nil] waitUntilDone: NO];
+		[self performSelectorOnMainThread: @selector(_routingErrorMessage:)
+                               withObject: [NSDictionary dictionaryWithObjectsAndKeys: ne, @"exception", server, @"server", nil]
+                            waitUntilDone: NO];
 		
 		NSThread.currentThread.status = NSLocalizedString( @"Sending failed. Will re-try later...", nil);
 		[NSThread sleepForTimeInterval: 4];
@@ -157,7 +159,8 @@
                                                 [NSMutableArray arrayWithArray:[samePatientArray valueForKey:@"objectID"]], @"objectIDs",
                                                 [server objectForKey:@"Description"], @"server", 
                                                 [dict valueForKey:@"routingRule"], @"routingRule", 
-                                                [NSNumber numberWithInt: [[dict valueForKey:@"failureRetry"] intValue]-1], @"failureRetry", nil]];
+                                                [NSNumber numberWithInt: [[dict valueForKey:@"failureRetry"] intValue]-1], @"failureRetry",
+                                                nil]];
 			}
 		}
 	}
@@ -334,7 +337,8 @@
                                            [NSMutableArray arrayWithArray:[dicomImages valueForKey:@"objectID"]], @"objectIDs",
                                            [routingRule objectForKey:@"server"], @"server", 
                                            routingRule, @"routingRule", 
-                                           [routingRule valueForKey:@"failureRetry"], @"failureRetry", nil]];
+                                           [routingRule valueForKey:@"failureRetry"], @"failureRetry",
+                                           nil]];
 	}
 }
 

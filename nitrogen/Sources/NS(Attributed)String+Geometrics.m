@@ -108,8 +108,7 @@ int gNSStringGeometricsTypesetterBehavior = NSTypesetterLatestBehavior ;
 		NSLog(@"[%@]: Error: cannot compute size with nil font", [self class]) ;
 	}
 	else {
-		NSDictionary* attributes = [NSDictionary dictionaryWithObjectsAndKeys:
-									font, NSFontAttributeName, nil] ;
+		NSDictionary* attributes = [NSDictionary dictionaryWithObjectsAndKeys: font, NSFontAttributeName, nil] ;
 		answer = [self sizeForWidth:width
 							 height:height
 						 attributes:attributes] ;

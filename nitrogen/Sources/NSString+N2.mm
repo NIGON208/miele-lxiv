@@ -150,7 +150,11 @@
 	
 	NSMutableString* temp = [[self mutableCopy] autorelease];
 	for (NSString* k in chars)
-		[temp replaceOccurrencesOfString:k withString:[chars objectForKey:k] options:NSLiteralSearch range:temp.range];
+		[temp replaceOccurrencesOfString:k
+                              withString:[chars objectForKey:k]
+                                 options:NSLiteralSearch
+                                   range:temp.range];
+    
 	return [NSString stringWithString: temp];
 }
 

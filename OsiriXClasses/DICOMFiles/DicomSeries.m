@@ -168,7 +168,11 @@
 			{
 				if( [c isEqualToString: [self primitiveValueForKey: @"comment"]] == NO)
 				{
-					NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys: [[self paths] allObjects], @"files", @"(0020,4000)", @"field", c, @"value", nil];
+					NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
+                                          [[self paths] allObjects], @"files",
+                                          @"(0020,4000)", @"field",
+                                          c, @"value",
+                                          nil];
 					
 					NSThread *t = [[[NSThread alloc] initWithTarget:self selector:@selector(dcmodifyThread:) object: dict] autorelease];
 					t.name = NSLocalizedString( @"Updating DICOM files...", nil);
@@ -544,7 +548,7 @@
                     if( v > 1)
                         no = [NSNumber numberWithInt: count]; // For the return
                 }
-                else no = [NSNumber numberWithInt: 0];
+                else no = @0;
             }
             @catch (NSException* e) {
                 N2LogExceptionWithStackTrace(e);
@@ -567,7 +571,7 @@
         N2LogException( exception);
     }
     
-    return [NSNumber numberWithInt: 0];
+    return @0;
 }
 
 - (NSNumber *) noFilesExcludingMultiFrames

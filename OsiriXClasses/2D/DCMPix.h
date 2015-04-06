@@ -260,11 +260,11 @@ Note setter is different to not break existing usage. :-( */
 
 /**  Axial Location */
 @property double sliceLocation;
-/**  Slice Thickness */
+
 @property double sliceThickness;
-/**  Slice Interval */
+
 @property double sliceInterval;
-/**  Gap between slices */
+
 @property(readonly) double spacingBetweenSlices;
 
 /**  8-bit TransferFunction */

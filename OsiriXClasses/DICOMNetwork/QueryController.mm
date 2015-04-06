@@ -552,7 +552,12 @@ extern "C"
 
 + (BOOL) echo: (NSString*) address port:(int) port AET:(NSString*) aet
 {
-	return [QueryController echoServer:[NSDictionary dictionaryWithObjectsAndKeys:address, @"Address", [NSNumber numberWithInt:port], @"Port", aet, @"AETitle", [NSNumber numberWithBool:NO], @"TLSEnabled", nil]];
+	return [QueryController echoServer:[NSDictionary dictionaryWithObjectsAndKeys:
+                                        address, @"Address",
+                                        [NSNumber numberWithInt:port], @"Port",
+                                        aet, @"AETitle",
+                                        @NO, @"TLSEnabled",
+                                        nil]];
 }
 
 + (BOOL) echoServer:(NSDictionary*)serverParameters
@@ -864,7 +869,7 @@ extern "C"
             [[autoQRInstances objectAtIndex: currentAutoQR] setObject: [NSNumber numberWithInt: self.autoRefreshQueryResults] forKey: @"autoRefreshQueryResults"];
             
             [[NSUserDefaults standardUserDefaults] setBool: NO forKey: @"autoRetrieving"];
-            [[autoQRInstances objectAtIndex: currentAutoQR] setObject: [NSNumber numberWithBool: NO] forKey: @"autoRetrieving"];
+            [[autoQRInstances objectAtIndex: currentAutoQR] setObject: @NO forKey: @"autoRetrieving"];
         }
         
         [self didChangeValueForKey: @"instancesMenuList"];
@@ -1111,7 +1116,7 @@ extern "C"
 			
 			for( id src in sourcesArray)
 			{
-				[src setValue: [NSNumber numberWithBool: NO] forKey: @"activated"];
+				[src setValue: @NO forKey: @"activated"];
 			}
 			
 //			if( [r count] == 1)
@@ -1141,7 +1146,7 @@ extern "C"
                     {
                         if( [[src valueForKey: @"AddressAndPort"] isEqualToString: v] && (ae == nil || [ae isEqualToString: [src valueForKey:@"AETitle"]]))
                         {
-                            [src setValue: [NSNumber numberWithBool: YES] forKey: @"activated"];
+                            [src setValue: @YES forKey: @"activated"];
                             
                             if( first)
                             {
@@ -2993,7 +2998,7 @@ extern "C"
 	checkAndViewTry = -1;
 	
     if( [NSThread isMainThread] == NO)
-        showErrors = [NSNumber numberWithBool: NO];
+        showErrors = @NO;
     
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     
@@ -3167,12 +3172,17 @@ extern "C"
                 {
                     @synchronized( self)
                     {
-                        [downloadedStudies addObject: [NSDictionary dictionaryWithObjectsAndKeys: [NSDate date], @"date", [item valueForKey: @"accessionNumber"], @"accessionNumber", [item valueForKey: @"numberImages"], @"numberImages", nil]];
+                        [downloadedStudies addObject: [NSDictionary dictionaryWithObjectsAndKeys:
+                                                       [NSDate date], @"date",
+                                                       [item valueForKey: @"accessionNumber"], @"accessionNumber",
+                                                       [item valueForKey: @"numberImages"], @"numberImages",
+                                                       nil]];
                     }
                 }
             }
                 
-			if( [selectedItems count] >= [[NSUserDefaults standardUserDefaults] integerForKey: @"MaxNumberOfRetrieveForAutoQR"]) break;
+			if( [selectedItems count] >= [[NSUserDefaults standardUserDefaults] integerForKey: @"MaxNumberOfRetrieveForAutoQR"])
+                break;
 		}
 		
 		if( [selectedItems count])
@@ -3353,9 +3363,16 @@ extern "C"
                                 if( i == currentAutoQR)
                                     [self saveSettings];
                                 
-                                [[AppController sharedAppController] growlTitle: NSLocalizedString( @"Q&R Auto-Query", nil) description: NSLocalizedString( @"Refreshing...", nil) name: @"autoquery"];
+                                [[AppController sharedAppController] growlTitle: NSLocalizedString( @"Q&R Auto-Query", nil)
+                                                                    description: NSLocalizedString( @"Refreshing...", nil)
+                                                                           name: @"autoquery"];
                                 
-                                NSThread *t = [[[NSThread alloc] initWithTarget:self selector: @selector(autoQueryThread: ) object: [NSDictionary dictionaryWithObjectsAndKeys: [[QRInstance mutableCopy] autorelease], @"instance", [NSNumber numberWithInt: i], @"index", nil]] autorelease];
+                                NSThread *t = [[[NSThread alloc] initWithTarget: self
+                                                                       selector: @selector(autoQueryThread: )
+                                                                         object: [NSDictionary dictionaryWithObjectsAndKeys:
+                                                                                  [[QRInstance mutableCopy] autorelease], @"instance",
+                                                                                  [NSNumber numberWithInt: i], @"index",
+                                                                                  nil]] autorelease];
                                 
                                 if( [[QRInstance objectForKey: @"instanceName"] length] && autoQRInstances.count > 1)
                                     t.name = [NSString stringWithFormat: NSLocalizedString( @"Auto-Querying images (%@)...", nil), [QRInstance objectForKey: @"instanceName"]];
@@ -4543,13 +4560,19 @@ extern "C"
     if( autoQuery)
     {
         [[NSUserDefaults standardUserDefaults] setObject:cols forKey: @"NewQueryControllerTableColumnsAutoQR"];
-        NSDictionary *sort = [NSDictionary	dictionaryWithObjectsAndKeys: [NSNumber numberWithBool:[[[outlineView sortDescriptors] objectAtIndex: 0] ascending]], @"order", [[[outlineView sortDescriptors] objectAtIndex: 0] key], @"key", nil];
+        NSDictionary *sort = [NSDictionary	dictionaryWithObjectsAndKeys:
+                              [NSNumber numberWithBool:[[[outlineView sortDescriptors] objectAtIndex: 0] ascending]], @"order",
+                              [[[outlineView sortDescriptors] objectAtIndex: 0] key], @"key",
+                              nil];
         [[NSUserDefaults standardUserDefaults] setObject:sort forKey: @"QueryControllerTableColumnsSortDescriptorAutoQR"];
     }
     else
     {
         [[NSUserDefaults standardUserDefaults] setObject:cols forKey: @"NewQueryControllerTableColumns"];
-        NSDictionary *sort = [NSDictionary	dictionaryWithObjectsAndKeys: [NSNumber numberWithBool:[[[outlineView sortDescriptors] objectAtIndex: 0] ascending]], @"order", [[[outlineView sortDescriptors] objectAtIndex: 0] key], @"key", nil];
+        NSDictionary *sort = [NSDictionary	dictionaryWithObjectsAndKeys:
+                              [NSNumber numberWithBool:[[[outlineView sortDescriptors] objectAtIndex: 0] ascending]], @"order",
+                              [[[outlineView sortDescriptors] objectAtIndex: 0] key], @"key",
+                              nil];
         [[NSUserDefaults standardUserDefaults] setObject:sort forKey: @"QueryControllerTableColumnsSortDescriptor"];
     }
 }
@@ -4580,8 +4603,10 @@ extern "C"
 	{
 		NSMutableDictionary		*source = [NSMutableDictionary dictionaryWithDictionary: [sourcesArray objectAtIndex: i]];
 		
-		if( [sender selectedRow] == i) [source setObject: [NSNumber numberWithBool:YES] forKey:@"activated"];
-		else [source setObject: [NSNumber numberWithBool:NO] forKey:@"activated"];
+		if( [sender selectedRow] == i)
+            [source setObject: @YES forKey:@"activated"];
+		else
+            [source setObject: @NO forKey:@"activated"];
 		
 		[sourcesArray	replaceObjectAtIndex: i withObject:source];
 	}
@@ -4620,7 +4645,13 @@ extern "C"
 		
 		if( server && ([[server valueForKey:@"QR"] boolValue] == YES || [server valueForKey:@"QR"] == nil ))
 		{
-			[sourcesArray addObject: [NSMutableDictionary dictionaryWithObjectsAndKeys:[[savedArray objectAtIndex: i] valueForKey:@"activated"], @"activated", [server valueForKey:@"Description"], @"name", [server valueForKey:@"AETitle"], @"AETitle", [NSString stringWithFormat:@"%@:%@", [server valueForKey:@"Address"], [server valueForKey:@"Port"]], @"AddressAndPort", server, @"server", nil]];
+			[sourcesArray addObject: [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                      [[savedArray objectAtIndex: i] valueForKey:@"activated"], @"activated",
+                                      [server valueForKey:@"Description"], @"name",
+                                      [server valueForKey:@"AETitle"], @"AETitle",
+                                      [NSString stringWithFormat:@"%@:%@", [server valueForKey:@"Address"], [server valueForKey:@"Port"]], @"AddressAndPort",
+                                      server, @"server",
+                                      nil]];
 			
 			[serversArray removeObject: server];
 		}
@@ -4632,7 +4663,13 @@ extern "C"
 		
 		if( ([[server valueForKey:@"QR"] boolValue] == YES || [server valueForKey:@"QR"] == nil ))
 		
-			[sourcesArray addObject: [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool: NO], @"activated", [server valueForKey:@"Description"], @"name", [server valueForKey:@"AETitle"], @"AETitle", [NSString stringWithFormat:@"%@:%@", [server valueForKey:@"Address"], [server valueForKey:@"Port"]], @"AddressAndPort", server, @"server", nil]];
+			[sourcesArray addObject: [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                      @NO, @"activated",
+                                      [server valueForKey:@"Description"], @"name",
+                                      [server valueForKey:@"AETitle"], @"AETitle",
+                                      [NSString stringWithFormat:@"%@:%@", [server valueForKey:@"Address"], [server valueForKey:@"Port"]], @"AddressAndPort",
+                                      server, @"server",
+                                      nil]];
 	}
 	
 	[sourcesTable reloadData];
@@ -5203,7 +5240,7 @@ extern "C"
 		if (doBind)
 			@try
             {
-				[view bind:bk toObject:obj withKeyPath:keyPath options:[NSDictionary dictionaryWithObject:[NSNumber numberWithBool:YES] forKey:NSConditionallySetsEnabledBindingOption]];
+				[view bind:bk toObject:obj withKeyPath:keyPath options:[NSDictionary dictionaryWithObject:@YES forKey:NSConditionallySetsEnabledBindingOption]];
 				return;
 			}
             @catch (NSException* e)

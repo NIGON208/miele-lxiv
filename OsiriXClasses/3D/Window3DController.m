@@ -156,8 +156,8 @@
 {
 	NSMutableDictionary	*settings = [NSMutableDictionary dictionaryWithDictionary: [[NSUserDefaults standardUserDefaults] objectForKey: @"previousPrintSettings"]];
 	
-	[settings setObject: [NSNumber numberWithInt: 1] forKey: @"columns"];
-	[settings setObject: [NSNumber numberWithInt: 1] forKey: @"rows"];
+	[settings setObject: @1 forKey: @"columns"];
+	[settings setObject: @1 forKey: @"rows"];
 		
 	// ************
 	NSString	*tmpFolder = [NSString stringWithFormat:@"/tmp/print"];

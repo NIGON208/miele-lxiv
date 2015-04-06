@@ -1079,7 +1079,7 @@ static NSString *savedPositionIsVerticalKey		= @"isVertical";
     NSMutableDictionary *positionDict = [NSMutableDictionary dictionary];
     
     // save position data format version
-    [positionDict setObject:[NSNumber numberWithInt:2] forKey:savedPositionVersionKey];
+    [positionDict setObject:@2 forKey:savedPositionVersionKey];
     
     // save subview positions
     NSArray *subviews;
@@ -1099,9 +1099,9 @@ static NSString *savedPositionIsVerticalKey		= @"isVertical";
         
         // subview data consists of frame and collapse state
         subviewPositionData = [NSDictionary dictionaryWithObjectsAndKeys:
-            NSStringFromRect([subview frame]), 					savedPositionSubviewFrameKey,
-            [NSNumber numberWithBool:[self isSubviewCollapsed:subview]], 	savedPositionSubviewIsCollapsedKey,
-            nil];
+                               NSStringFromRect([subview frame]), savedPositionSubviewFrameKey,
+                               [NSNumber numberWithBool:[self isSubviewCollapsed:subview]], savedPositionSubviewIsCollapsedKey,
+                               nil];
         [subviewPositionsArray addObject:subviewPositionData];
     }
         

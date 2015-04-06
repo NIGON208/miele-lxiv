@@ -166,13 +166,11 @@
 	{
 		NSString	*trace;
 		NSMutableParagraphStyle *paragraphStyle = [[[NSParagraphStyle defaultParagraphStyle] mutableCopy] autorelease];
-		NSDictionary	*boldFont = [NSDictionary dictionaryWithObjectsAndKeys:	[NSFont labelFontOfSize:12.0],NSFontAttributeName,
-																			[NSColor blackColor],NSForegroundColorAttributeName,
-																			paragraphStyle,NSParagraphStyleAttributeName,
-																			nil];
-
-		
-		
+		NSDictionary	*boldFont = [NSDictionary dictionaryWithObjectsAndKeys:
+                                     [NSFont labelFontOfSize:12.0],NSFontAttributeName,
+                                     [NSColor blackColor],NSForegroundColorAttributeName,
+                                     paragraphStyle,NSParagraphStyleAttributeName,
+                                     nil];
 
 		[[NSColor selectedMenuItemColor] set];
 		NSRect lineRect = NSMakeRect( (curMousePosition * boundsRect.size.width)/(dataSize-1), 0, 2, boundsRect.size.height);

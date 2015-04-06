@@ -87,7 +87,7 @@ NSString* const CurrentDatabaseVersion = @"2.6";
 
 static NSString* const SqlFileName = @"Database.sql";
 NSString* const OsirixDataDirName = @"OsiriX Data";
-NSString* const O2ScreenCapturesSeriesName = NSLocalizedString(@"OsiriX Screen Captures", nil);;
+NSString* const O2ScreenCapturesSeriesName = NSLocalizedString(@"OsiriX Screen Captures", nil);
 
 +(NSString*)baseDirPathForPath:(NSString*)path {
 	// were we given a path inside a OsirixDataDirName dir?
@@ -975,7 +975,7 @@ NSString* const DicomDatabaseLogEntryEntityName = @"LogEntry";
 					
 					if ([[dict objectForKey: @"smartAlbum"] boolValue])
                     {
-						a.smartAlbum = [NSNumber numberWithBool:YES];
+						a.smartAlbum = @YES;
                         a.predicateString = [dict valueForKey: @"predicateString"];
 					}
 				}
@@ -984,7 +984,7 @@ NSString* const DicomDatabaseLogEntryEntityName = @"LogEntry";
                 }
                 
                 if (!a.smartAlbum.boolValue) {
-                    a.smartAlbum = [NSNumber numberWithBool:NO];
+                    a.smartAlbum = @NO;
                     for (NSDictionary* entry in [dict objectForKey:@"studies"]) {
                         NSString* studyInstanceUID = [entry objectForKey:@"studyInstanceUID"];
                         NSArray* qr = [self objectsForEntity:self.studyEntity predicate:[NSPredicate predicateWithFormat:@"studyInstanceUID = %@", studyInstanceUID]];
@@ -1007,7 +1007,7 @@ NSString* const DicomDatabaseLogEntryEntityName = @"LogEntry";
                             [[a mutableSetValueForKey:@"studies"] addObject:s];
                             DicomSeries* se = [self newObjectForEntity:self.seriesEntity];
                             se.name = @"OsiriX No Autodeletion";
-                            se.id = [NSNumber numberWithInt:5005];
+                            se.id = @5005;
                             [[s mutableSetValueForKey:@"series"] addObject:se];
                         }
                     }
@@ -1050,7 +1050,7 @@ NSString* const DicomDatabaseLogEntryEntityName = @"LogEntry";
                 
                 if (album.smartAlbum.boolValue)
                 {
-                    [entry setObject:[NSNumber numberWithBool:YES] forKey:@"smartAlbum"];
+                    [entry setObject:@YES forKey:@"smartAlbum"];
                     [entry setObject:album.predicateString forKey:@"predicateString"];
                 }
                 else
@@ -1117,18 +1117,19 @@ NSString* const DicomDatabaseLogEntryEntityName = @"LogEntry";
 	NSCalendarDate* now = [NSCalendarDate calendarDate];
 	NSDate *start = [NSDate dateWithTimeIntervalSinceReferenceDate: [[NSCalendarDate dateWithYear:[now yearOfCommonEra] month:[now monthOfYear] day:[now dayOfMonth] hour:0 minute:0 second:0 timeZone: [now timeZone]] timeIntervalSinceReferenceDate]];
     
-    NSDictionary	*sub = [NSDictionary dictionaryWithObjectsAndKeys:	[NSString stringWithFormat:@"%lf", [[now addTimeInterval: -60*60*1] timeIntervalSinceReferenceDate]],			@"$LASTHOUR",
-							[NSString stringWithFormat:@"%lf", [[now addTimeInterval: -60*60*6] timeIntervalSinceReferenceDate]],			@"$LAST6HOURS",
-							[NSString stringWithFormat:@"%lf", [[now addTimeInterval: -60*60*12] timeIntervalSinceReferenceDate]],			@"$LAST12HOURS",
-							[NSString stringWithFormat:@"%lf", [start timeIntervalSinceReferenceDate]],										@"$TODAY",
-							[NSString stringWithFormat:@"%lf", [[start addTimeInterval: -60*60*24] timeIntervalSinceReferenceDate]],			@"$YESTERDAY",
-							[NSString stringWithFormat:@"%lf", [[start addTimeInterval: -60*60*24*2] timeIntervalSinceReferenceDate]],		@"$2DAYS",
-							[NSString stringWithFormat:@"%lf", [[start addTimeInterval: -60*60*24*7] timeIntervalSinceReferenceDate]],		@"$WEEK",
-							[NSString stringWithFormat:@"%lf", [[start addTimeInterval: -60*60*24*31] timeIntervalSinceReferenceDate]],		@"$MONTH",
-							[NSString stringWithFormat:@"%lf", [[start addTimeInterval: -60*60*24*31*2] timeIntervalSinceReferenceDate]],	@"$2MONTHS",
-							[NSString stringWithFormat:@"%lf", [[start addTimeInterval: -60*60*24*31*3] timeIntervalSinceReferenceDate]],	@"$3MONTHS",
-							[NSString stringWithFormat:@"%lf", [[start addTimeInterval: -60*60*24*365] timeIntervalSinceReferenceDate]],		@"$YEAR",
-							nil];
+    NSDictionary *sub = [NSDictionary dictionaryWithObjectsAndKeys:
+                         [NSString stringWithFormat:@"%lf", [[now addTimeInterval: -60*60*1] timeIntervalSinceReferenceDate]],			@"$LASTHOUR",
+                         [NSString stringWithFormat:@"%lf", [[now addTimeInterval: -60*60*6] timeIntervalSinceReferenceDate]],			@"$LAST6HOURS",
+                         [NSString stringWithFormat:@"%lf", [[now addTimeInterval: -60*60*12] timeIntervalSinceReferenceDate]],			@"$LAST12HOURS",
+                         [NSString stringWithFormat:@"%lf", [start timeIntervalSinceReferenceDate]],									@"$TODAY",
+                         [NSString stringWithFormat:@"%lf", [[start addTimeInterval: -60*60*24] timeIntervalSinceReferenceDate]],		@"$YESTERDAY",
+                         [NSString stringWithFormat:@"%lf", [[start addTimeInterval: -60*60*24*2] timeIntervalSinceReferenceDate]],		@"$2DAYS",
+                         [NSString stringWithFormat:@"%lf", [[start addTimeInterval: -60*60*24*7] timeIntervalSinceReferenceDate]],		@"$WEEK",
+                         [NSString stringWithFormat:@"%lf", [[start addTimeInterval: -60*60*24*31] timeIntervalSinceReferenceDate]],	@"$MONTH",
+                         [NSString stringWithFormat:@"%lf", [[start addTimeInterval: -60*60*24*31*2] timeIntervalSinceReferenceDate]],	@"$2MONTHS",
+                         [NSString stringWithFormat:@"%lf", [[start addTimeInterval: -60*60*24*31*3] timeIntervalSinceReferenceDate]],	@"$3MONTHS",
+                         [NSString stringWithFormat:@"%lf", [[start addTimeInterval: -60*60*24*365] timeIntervalSinceReferenceDate]],	@"$YEAR",
+                         nil];
 	
 	NSEnumerator *enumerator = [sub keyEnumerator];
 	NSString *key;
@@ -1160,31 +1161,31 @@ NSString* const DicomDatabaseLogEntryEntityName = @"LogEntry";
 -(void)addDefaultAlbums {
 	NSDictionary* albumDescriptors = [NSDictionary dictionaryWithObjectsAndKeys:
                                       
-									  @"(dateAdded >= $NSDATE_LASTHOUR)", NSLocalizedString( @"Just Added (last hour)", nil),
-                                      @"(date >= $NSDATE_LASTHOUR)", NSLocalizedString( @"Just Acquired (last hour)", nil),
-                                      @"(dateOpened >= $NSDATE_LAST6HOURS)", NSLocalizedString( @"Just Opened", nil),
-                                      
-									  @"(modality CONTAINS[cd] 'MR') AND (date >= $NSDATE_TODAY)", NSLocalizedString( @"Today MR", nil),
-									  @"(modality CONTAINS[cd] 'CT') AND (date >= $NSDATE_TODAY)", NSLocalizedString( @"Today CT", nil),
-                                      @"(modality CONTAINS[cd] 'US') AND (date >= $NSDATE_TODAY)", NSLocalizedString( @"Today US", nil),
-                                      @"(modality CONTAINS[cd] 'MG') AND (date >= $NSDATE_TODAY)", NSLocalizedString( @"Today MG", nil),
-                                      @"(modality CONTAINS[cd] 'CR') AND (date >= $NSDATE_TODAY)", NSLocalizedString( @"Today CR", nil),
-                                      @"(modality CONTAINS[cd] 'XA') AND (date >= $NSDATE_TODAY)", NSLocalizedString( @"Today XA", nil),
-                                      @"(modality CONTAINS[cd] 'RF') AND (date >= $NSDATE_TODAY)", NSLocalizedString( @"Today RF", nil),
-                                      
-									  @"(modality CONTAINS[cd] 'MR') AND (date >= $NSDATE_YESTERDAY AND date <= $NSDATE_TODAY)", NSLocalizedString( @"Yesterday MR", nil),
-									  @"(modality CONTAINS[cd] 'CT') AND (date >= $NSDATE_YESTERDAY AND date <= $NSDATE_TODAY)", NSLocalizedString( @"Yesterday CT", nil),
-                                      @"(modality CONTAINS[cd] 'US') AND (date >= $NSDATE_YESTERDAY AND date <= $NSDATE_TODAY)", NSLocalizedString( @"Yesterday US", nil),
-									  @"(modality CONTAINS[cd] 'MG') AND (date >= $NSDATE_YESTERDAY AND date <= $NSDATE_TODAY)", NSLocalizedString( @"Yesterday MG", nil),
-                                      @"(modality CONTAINS[cd] 'CR') AND (date >= $NSDATE_YESTERDAY AND date <= $NSDATE_TODAY)", NSLocalizedString( @"Yesterday CR", nil),
-									  @"(modality CONTAINS[cd] 'XA') AND (date >= $NSDATE_YESTERDAY AND date <= $NSDATE_TODAY)", NSLocalizedString( @"Yesterday XA", nil),
-                                      @"(modality CONTAINS[cd] 'RF') AND (date >= $NSDATE_YESTERDAY AND date <= $NSDATE_TODAY)", NSLocalizedString( @"Yesterday RF", nil),
-                                      
-									  [NSNull null], NSLocalizedString( @"Interesting Cases", nil),
-                                      
-									  @"(comment != '' AND comment != NIL)", NSLocalizedString( @"Cases with comments", nil),
-                                      
-									  NULL];
+                          @"(dateAdded >= $NSDATE_LASTHOUR)", NSLocalizedString( @"Just Added (last hour)", nil),
+                          @"(date >= $NSDATE_LASTHOUR)", NSLocalizedString( @"Just Acquired (last hour)", nil),
+                          @"(dateOpened >= $NSDATE_LAST6HOURS)", NSLocalizedString( @"Just Opened", nil),
+                          
+                          @"(modality CONTAINS[cd] 'MR') AND (date >= $NSDATE_TODAY)", NSLocalizedString( @"Today MR", nil),
+                          @"(modality CONTAINS[cd] 'CT') AND (date >= $NSDATE_TODAY)", NSLocalizedString( @"Today CT", nil),
+                          @"(modality CONTAINS[cd] 'US') AND (date >= $NSDATE_TODAY)", NSLocalizedString( @"Today US", nil),
+                          @"(modality CONTAINS[cd] 'MG') AND (date >= $NSDATE_TODAY)", NSLocalizedString( @"Today MG", nil),
+                          @"(modality CONTAINS[cd] 'CR') AND (date >= $NSDATE_TODAY)", NSLocalizedString( @"Today CR", nil),
+                          @"(modality CONTAINS[cd] 'XA') AND (date >= $NSDATE_TODAY)", NSLocalizedString( @"Today XA", nil),
+                          @"(modality CONTAINS[cd] 'RF') AND (date >= $NSDATE_TODAY)", NSLocalizedString( @"Today RF", nil),
+                          
+                          @"(modality CONTAINS[cd] 'MR') AND (date >= $NSDATE_YESTERDAY AND date <= $NSDATE_TODAY)", NSLocalizedString( @"Yesterday MR", nil),
+                          @"(modality CONTAINS[cd] 'CT') AND (date >= $NSDATE_YESTERDAY AND date <= $NSDATE_TODAY)", NSLocalizedString( @"Yesterday CT", nil),
+                          @"(modality CONTAINS[cd] 'US') AND (date >= $NSDATE_YESTERDAY AND date <= $NSDATE_TODAY)", NSLocalizedString( @"Yesterday US", nil),
+                          @"(modality CONTAINS[cd] 'MG') AND (date >= $NSDATE_YESTERDAY AND date <= $NSDATE_TODAY)", NSLocalizedString( @"Yesterday MG", nil),
+                          @"(modality CONTAINS[cd] 'CR') AND (date >= $NSDATE_YESTERDAY AND date <= $NSDATE_TODAY)", NSLocalizedString( @"Yesterday CR", nil),
+                          @"(modality CONTAINS[cd] 'XA') AND (date >= $NSDATE_YESTERDAY AND date <= $NSDATE_TODAY)", NSLocalizedString( @"Yesterday XA", nil),
+                          @"(modality CONTAINS[cd] 'RF') AND (date >= $NSDATE_YESTERDAY AND date <= $NSDATE_TODAY)", NSLocalizedString( @"Yesterday RF", nil),
+                          
+                          [NSNull null], NSLocalizedString( @"Interesting Cases", nil),
+                          
+                          @"(comment != '' AND comment != NIL)", NSLocalizedString( @"Cases with comments", nil),
+                          
+                          NULL];
 	
 	NSArray* albums = [self albums];
 	
@@ -1199,7 +1200,7 @@ NSString* const DicomDatabaseLogEntryEntityName = @"LogEntry";
 			if ([predicate isKindOfClass:[NSString class]])
             {
 				album.predicateString = predicate;
-				album.smartAlbum = [NSNumber numberWithBool:YES];
+				album.smartAlbum = @YES;
 			}
 		}
 	}
@@ -1412,7 +1413,12 @@ NSString* const DicomDatabaseLogEntryEntityName = @"LogEntry";
 
 -(void)initiateProcessFilesAtPaths:(NSArray*)paths intoDirAtPath:(NSString*)destDir mode:(int)mode
 {
-	[self performSelectorInBackground:@selector(threadBridgeForProcessFilesAtPaths:) withObject:[NSDictionary dictionaryWithObjectsAndKeys: paths, @":", [NSNumber numberWithInt:mode], @"mode:", destDir, @"intoDirAtPath:", /*destDir can be nil*/nil]];
+	[self performSelectorInBackground:@selector(threadBridgeForProcessFilesAtPaths:)
+                           withObject:[NSDictionary dictionaryWithObjectsAndKeys:
+                                       paths, @":",
+                                       [NSNumber numberWithInt:mode], @"mode:",
+                                       destDir, @"intoDirAtPath:", /*destDir can be nil*/
+                                       nil]];
 }
 
 -(void)initiateCompressFilesAtPaths:(NSArray*)paths
@@ -2285,7 +2291,7 @@ static BOOL protectionAgainstReentry = NO;
                                                     if ([k intValue] == f) // corresponding frame
                                                     {
                                                         [image willChangeValueForKey: @"storedIsKeyImage"];
-                                                        [image setPrimitiveValue: [NSNumber numberWithBool: YES] forKey: @"storedIsKeyImage"];
+                                                        [image setPrimitiveValue: @YES forKey: @"storedIsKeyImage"];
                                                         [image didChangeValueForKey: @"storedIsKeyImage"];
                                                         break;
                                                     }
@@ -2505,21 +2511,43 @@ static BOOL protectionAgainstReentry = NO;
 			@try {
                 if( returnArray)
                 {
-                    [NSNotificationCenter.defaultCenter postNotificationName:_O2AddToDBAnywayNotification object:self userInfo:[NSDictionary dictionaryWithObjectsAndKeys: addedImageObjects, OsirixAddToDBNotificationImagesArray, addedImagesPerCreatorUID, OsirixAddToDBNotificationImagesPerAETDictionary, nil]];
+                    [NSNotificationCenter.defaultCenter postNotificationName:_O2AddToDBAnywayNotification
+                                                                      object:self
+                                                                    userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                                              addedImageObjects, OsirixAddToDBNotificationImagesArray,
+                                                                              addedImagesPerCreatorUID, OsirixAddToDBNotificationImagesPerAETDictionary,
+                                                                              nil]];
                     
-                    [NSNotificationCenter.defaultCenter postNotificationName:_O2AddToDBAnywayCompleteNotification object:self userInfo:[NSDictionary dictionaryWithObjectsAndKeys:completeAddedImageObjects, OsirixAddToDBNotificationImagesArray, completeAddedImagesPerCreatorUID, OsirixAddToDBNotificationImagesPerAETDictionary, nil]];
+                    [NSNotificationCenter.defaultCenter postNotificationName:_O2AddToDBAnywayCompleteNotification
+                                                                      object:self
+                                                                    userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                                              completeAddedImageObjects, OsirixAddToDBNotificationImagesArray,
+                                                                              completeAddedImagesPerCreatorUID, OsirixAddToDBNotificationImagesPerAETDictionary,
+                                                                              nil]];
                 }
                 
 				if (postNotifications)
                 {
                     if( newStudy)
                     {
-                        [NSNotificationCenter.defaultCenter postNotificationOnMainThreadName:OsirixAddNewStudiesDBNotification object:self userInfo: [NSDictionary dictionaryWithObject:newStudies forKey: OsirixAddToDBNotificationImagesArray]];
+                        [NSNotificationCenter.defaultCenter postNotificationOnMainThreadName:OsirixAddNewStudiesDBNotification
+                                                                                      object:self
+                                                                                    userInfo: [NSDictionary dictionaryWithObject:newStudies forKey: OsirixAddToDBNotificationImagesArray]];
                     }
                     
-                    [NSNotificationCenter.defaultCenter postNotificationOnMainThreadName:OsirixAddToDBNotification object:self userInfo:[NSDictionary dictionaryWithObjectsAndKeys: addedImageObjects, OsirixAddToDBNotificationImagesArray, addedImagesPerCreatorUID, OsirixAddToDBNotificationImagesPerAETDictionary, nil]];
+                    [NSNotificationCenter.defaultCenter postNotificationOnMainThreadName:OsirixAddToDBNotification
+                                                                                  object:self
+                                                                                userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                                                          addedImageObjects, OsirixAddToDBNotificationImagesArray,
+                                                                                          addedImagesPerCreatorUID, OsirixAddToDBNotificationImagesPerAETDictionary,
+                                                                                          nil]];
                     
-                    [NSNotificationCenter.defaultCenter postNotificationOnMainThreadName:OsirixAddToDBCompleteNotification object:self userInfo:[NSDictionary dictionaryWithObjectsAndKeys: completeAddedImageObjects, OsirixAddToDBNotificationImagesArray, completeAddedImagesPerCreatorUID, OsirixAddToDBNotificationImagesPerAETDictionary, nil]];
+                    [NSNotificationCenter.defaultCenter postNotificationOnMainThreadName:OsirixAddToDBCompleteNotification
+                                                                                  object:self
+                                                                                userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                                                          completeAddedImageObjects, OsirixAddToDBNotificationImagesArray,
+                                                                                          completeAddedImagesPerCreatorUID, OsirixAddToDBNotificationImagesPerAETDictionary,
+                                                                                          nil]];
 				}
 			} @catch (NSException* e) {
 				N2LogExceptionWithStackTrace(e);
@@ -3881,7 +3909,11 @@ static BOOL protectionAgainstReentry = NO;
                 
                 @try {
                     
-                    NSString *uid = [DicomFile patientUID: [NSDictionary dictionaryWithObjectsAndKeys: study.name, @"patientName", study.patientID, @"patientID", study.dateOfBirth, @"patientBirthDate", nil]];
+                    NSString *uid = [DicomFile patientUID: [NSDictionary dictionaryWithObjectsAndKeys:
+                                                            study.name, @"patientName",
+                                                            study.patientID, @"patientID",
+                                                            study.dateOfBirth, @"patientBirthDate",
+                                                            nil]];
                     
                     if( uid)
                         study.patientUID = uid;

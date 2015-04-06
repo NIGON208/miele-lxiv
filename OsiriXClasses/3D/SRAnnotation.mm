@@ -153,7 +153,13 @@
 			if( studyInstanceUID == nil)
 				studyInstanceUID = patientName;
 			
-			result = [DicomFile patientUID: [NSDictionary dictionaryWithObjectsAndKeys: patientName, @"patientName", accessionNumber, @"accessionNumber", patientID, @"patientID", studyInstanceUID, @"studyInstanceUID", DOB, @"patientBirthDate", nil]];
+			result = [DicomFile patientUID: [NSDictionary dictionaryWithObjectsAndKeys:
+                                             patientName, @"patientName",
+                                             accessionNumber, @"accessionNumber",
+                                             patientID, @"patientID",
+                                             studyInstanceUID, @"studyInstanceUID",
+                                             DOB, @"patientBirthDate",
+                                             nil]];
 		}
 	}
 	

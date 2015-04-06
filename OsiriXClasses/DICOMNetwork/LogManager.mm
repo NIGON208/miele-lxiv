@@ -160,7 +160,12 @@ static LogManager *currentLogManager = nil;
                                 N2LogException( e);
                             }
                             
-                            [_currentLogs setObject: [NSDictionary dictionaryWithObjectsAndKeys: logEntry.objectID, @"objectID", dict, @"dict", [NSNumber numberWithDouble: [NSDate timeIntervalSinceReferenceDate]], @"lastSave", nil] forKey:uid];
+                            [_currentLogs setObject: [NSDictionary dictionaryWithObjectsAndKeys:
+                                                      logEntry.objectID, @"objectID",
+                                                      dict, @"dict",
+                                                      [NSNumber numberWithDouble: [NSDate timeIntervalSinceReferenceDate]], @"lastSave",
+                                                      nil]
+                                             forKey: uid];
                         }
                         
                         if( [_currentLogs objectForKey:uid])

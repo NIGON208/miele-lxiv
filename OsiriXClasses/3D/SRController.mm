@@ -1264,11 +1264,11 @@ return YES;
 					nil];
 					  
 	NSArray *tags = [NSArray arrayWithObjects: 
-					[NSNumber numberWithInt:1], 
-					[NSNumber numberWithInt:2], 
-					[NSNumber numberWithInt:3],
-					[NSNumber numberWithInt:7],
-					[NSNumber numberWithInt:15],  
+					@1,
+					@2,
+					@3,
+					@7,
+					@15,  
 					nil];
 	
 	

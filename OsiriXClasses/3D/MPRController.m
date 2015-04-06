@@ -1110,7 +1110,11 @@ static float deg2rad = M_PI/180.0;
 		[angleMPRs addObject: [NSNumber numberWithFloat: mprView2.angleMPR]];
 		[angleMPRs addObject: [NSNumber numberWithFloat: mprView3.angleMPR]];
 		
-		return [NSDictionary dictionaryWithObjectsAndKeys: string, @"type", cameras, @"cameras", angleMPRs, @"angleMPRs", nil];
+		return [NSDictionary dictionaryWithObjectsAndKeys:
+                string, @"type",
+                cameras, @"cameras",
+                angleMPRs, @"angleMPRs",
+                nil];
 	}
 	
 	return nil;
@@ -2393,7 +2397,7 @@ static float deg2rad = M_PI/180.0;
 				if( [[NSUserDefaults standardUserDefaults] boolForKey: @"afterExportMarkThemAsKeyImages"])
 				{
 					for( DicomImage *im in objects)
-						[im setValue: [NSNumber numberWithBool: YES] forKey: @"isKeyImage"];
+						[im setValue: @YES forKey: @"isKeyImage"];
 				}
 			}
 		}

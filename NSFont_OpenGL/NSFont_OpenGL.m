@@ -243,7 +243,11 @@ static  unsigned char			*charPtrArrayScale2[ MAXCOUNT], *charPtrArrayPreviewScal
 	else [curArray removeAllObjects];
     
     blackColor = [ NSColor blackColor ];
-	attribDict = [ NSDictionary dictionaryWithObjectsAndKeys: font, NSFontAttributeName, [ NSColor whiteColor ], NSForegroundColorAttributeName, blackColor, NSBackgroundColorAttributeName, nil ];
+	attribDict = [ NSDictionary dictionaryWithObjectsAndKeys:
+                  font, NSFontAttributeName,
+                  [ NSColor whiteColor ], NSForegroundColorAttributeName,
+                  blackColor, NSBackgroundColorAttributeName,
+                  nil ];
 	charRect.origin.x = charRect.origin.y = 0;
 	retval = TRUE;
 	for( currentUnichar = first; currentUnichar < first + count; currentUnichar++ )

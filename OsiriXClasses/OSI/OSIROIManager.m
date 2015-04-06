@@ -378,8 +378,11 @@ NSString* const OSIROIAddedROIKey = @"OSIROIAddedROIKey";
     
     [_watchedROIs addObjectsFromArray:watchedROIs];
     
-    NSDictionary *userInfoDict = [NSDictionary dictionaryWithObjectsAndKeys:oldOSIROIs, OSIROIRemovedROIKey,
-                                  _OSIROIs, OSIROIAddedROIKey, [NSArray array], OSIROIUpdatedROIKey, nil];
+    NSDictionary *userInfoDict = [NSDictionary dictionaryWithObjectsAndKeys:
+                                  oldOSIROIs, OSIROIRemovedROIKey,
+                                  _OSIROIs, OSIROIAddedROIKey,
+                                  [NSArray array], OSIROIUpdatedROIKey,
+                                  nil];
     
 	[[NSNotificationCenter defaultCenter] postNotificationName:OSIROIManagerROIsDidUpdateNotification object:self userInfo:userInfoDict];
 	
@@ -496,8 +499,11 @@ NSString* const OSIROIAddedROIKey = @"OSIROIAddedROIKey";
     [_addedOSIROIs addObject:roi];
 	[self didChangeValueForKey:@"ROIs"];
     
-    NSDictionary *userInfoDict = [NSDictionary dictionaryWithObjectsAndKeys:[NSArray array], OSIROIRemovedROIKey,
-                                  [NSArray arrayWithObject:roi], OSIROIAddedROIKey, [NSArray array], OSIROIUpdatedROIKey, nil];
+    NSDictionary *userInfoDict = [NSDictionary dictionaryWithObjectsAndKeys:
+                                  [NSArray array], OSIROIRemovedROIKey,
+                                  [NSArray arrayWithObject:roi], OSIROIAddedROIKey,
+                                  [NSArray array], OSIROIUpdatedROIKey,
+                                  nil];
     
 	[[NSNotificationCenter defaultCenter] postNotificationName:OSIROIManagerROIsDidUpdateNotification object:self userInfo:userInfoDict];
     [_volumeWindow setNeedsDisplay];
@@ -509,8 +515,11 @@ NSString* const OSIROIAddedROIKey = @"OSIROIAddedROIKey";
     [_addedOSIROIs removeObject:roi];
 	[self didChangeValueForKey:@"ROIs"];
     
-    NSDictionary *userInfoDict = [NSDictionary dictionaryWithObjectsAndKeys:[NSArray arrayWithObject:roi], OSIROIRemovedROIKey,
-                                  [NSArray array], OSIROIAddedROIKey, [NSArray array], OSIROIUpdatedROIKey, nil];
+    NSDictionary *userInfoDict = [NSDictionary dictionaryWithObjectsAndKeys:
+                                  [NSArray arrayWithObject:roi], OSIROIRemovedROIKey,
+                                  [NSArray array], OSIROIAddedROIKey,
+                                  [NSArray array], OSIROIUpdatedROIKey,
+                                  nil];
     
 	[[NSNotificationCenter defaultCenter] postNotificationName:OSIROIManagerROIsDidUpdateNotification object:self userInfo:userInfoDict];
 

@@ -76,7 +76,8 @@
 	
 	float deltaX = [theEvent deltaX];
 	
-	if( [[NSUserDefaults standardUserDefaults] boolForKey: @"ZoomWithHorizonScroll"] == NO) deltaX = 0;
+	if( [[NSUserDefaults standardUserDefaults] boolForKey: @"ZoomWithHorizonScroll"] == NO)
+        deltaX = 0;
 	
 	if ([[NSUserDefaults standardUserDefaults] boolForKey: @"Scroll Wheel Reversed"])
 		reverseScrollWheel = -1.0;
@@ -296,10 +297,16 @@
         if(flippedData) stackImageIndex = curImage-(curDCM.stack-1)/2;
         else stackImageIndex = curImage+(curDCM.stack-1)/2;
         
-        if( stackImageIndex < 0) stackImageIndex = 0;
-        if( stackImageIndex >= [dcmPixList count]) stackImageIndex = (long)[dcmPixList count]-1;
+        if( stackImageIndex < 0)
+            stackImageIndex = 0;
         
-        [[dcmPixList objectAtIndex: stackImageIndex] convertPixX: x pixY: y toDICOMCoords: location pixelCenter: YES];
+        if( stackImageIndex >= [dcmPixList count])
+            stackImageIndex = (long)[dcmPixList count]-1;
+        
+        [[dcmPixList objectAtIndex: stackImageIndex] convertPixX: x
+                                                            pixY: y
+                                                   toDICOMCoords: location
+                                                     pixelCenter: YES];
     }
     else {
         [curDCM convertPixX: x pixY: y toDICOMCoords: location pixelCenter: YES];
@@ -332,9 +339,10 @@
 - (void) setCrossPositionX: (float) x
 {
 	if(crossPositionX == x)
-		return ;
+		return;
+    
 	x = (x<0)? 0 : x;
-	x = (x>=[[self curDCM] pwidth])? [[self curDCM] pwidth]-1 : x;
+	x = (x>=[[self curDCM] pwidth]) ? [[self curDCM] pwidth]-1 : x;
 	crossPositionX = x;
 }
 
@@ -342,8 +350,9 @@
 {
 	if(crossPositionY == y)
 		return;
+    
 	y = (y<0)? 0 : y;
-	y = (y>=[[self curDCM] pheight])? [[self curDCM] pheight]-1 : y;
+	y = (y>=[[self curDCM] pheight]) ? [[self curDCM] pheight]-1 : y;
 	crossPositionY = y;
 }
 
@@ -383,9 +392,18 @@
 {
 	if( [self pixelSpacingX] != 0 && [[controller originalView] pixelSpacingX] != 0)
 	{
-		if( [controller originalView] == self) [[self controller] setScaleValue: x ];
-		else if( [controller yReslicedView] == self) [[self controller] setScaleValue: x  * [[controller originalView] pixelSpacingX] / [self pixelSpacingX]];
-		else if( [controller xReslicedView] == self) [[self controller] setScaleValue: x  * [[controller originalView] pixelSpacingX] / [self pixelSpacingX]];
+		if( [controller originalView] == self)
+        {
+            [[self controller] setScaleValue: x ];
+        }
+		else if( [controller yReslicedView] == self)
+        {
+            [[self controller] setScaleValue: x  * [[controller originalView] pixelSpacingX] / [self pixelSpacingX]];
+        }
+		else if( [controller xReslicedView] == self)
+        {
+            [[self controller] setScaleValue: x  * [[controller originalView] pixelSpacingX] / [self pixelSpacingX]];
+        }
 	}
 	else
 	{
@@ -524,7 +542,9 @@
 	if (annotationType != annotNone && stringID == nil)
 	{
 		glLoadIdentity (); // reset model view matrix to identity (eliminates rotation basically)
-		glScalef (2.0f /(xFlipped ? -(drawingFrameRect.size.width) : drawingFrameRect.size.width), -2.0f / (yFlipped ? -(drawingFrameRect.size.height) : drawingFrameRect.size.height), 1.0f); // scale to port per pixel scale
+		glScalef ( 2.0f / (xFlipped ? -(drawingFrameRect.size.width) : drawingFrameRect.size.width),
+                  -2.0f / (yFlipped ? -(drawingFrameRect.size.height) : drawingFrameRect.size.height),
+                  1.0f); // scale to port per pixel scale
 		
 		// draw line around key View
 		
@@ -554,7 +574,8 @@
 
 - (void) keyDown:(NSEvent *)event
 {
-    if( [[event characters] length] == 0) return;
+    if( [[event characters] length] == 0)
+        return;
     
 	unichar	c = [[event characters] characterAtIndex:0];	
 	if( c == ' ')
@@ -599,7 +620,9 @@
 - (void) toggleDisplayResliceAxes
 {
 	displayResliceAxes++;
-	if( displayResliceAxes >= 3) displayResliceAxes = 0;
+	if( displayResliceAxes >= 3)
+        displayResliceAxes = 0;
+    
 	[self setNeedsDisplay:YES];
 }
 
@@ -626,7 +649,9 @@
 
 - (void) scrollTool: (long) from : (long) to
 {
-	[controller scrollTool: from : to : self];
+	[controller scrollTool: from
+                          : to
+                          : self];
 }
 
 - (void) saveScaleValue
@@ -654,7 +679,8 @@
 
 - (void) setCurCLUTMenu: (NSString*) clut
 {
-	if(curCLUTMenu == clut) return;
+	if (curCLUTMenu == clut)
+        return;
 	
 	[curCLUTMenu release];
 	curCLUTMenu = [clut retain];
@@ -698,11 +724,16 @@
 	
 	if (![self isEqualTo:sender])// && ![self isEqualTo:[controller xReslicedView]] && ![self isEqualTo:[controller yReslicedView]])
 	{
-		if (([[controller xReslicedView] isEqualTo:sender] || [[controller yReslicedView] isEqualTo:sender]) && [[controller originalView] isEqualTo:self])
+		if (([[controller xReslicedView] isEqualTo:sender] || [[controller yReslicedView] isEqualTo:sender]) &&
+            [[controller originalView] isEqualTo:self])
 		{
 			if([addedROI type]==t2DPoint)
 			{
-				ROI *new2DPointROI = [[[ROI alloc] initWithType: t2DPoint :[[controller originalView] pixelSpacingX] :[[controller originalView] pixelSpacingY] :NSMakePoint( [[controller originalView] origin].x, [[controller originalView] origin].y)] autorelease];
+				ROI *new2DPointROI = [[[ROI alloc] initWithType:t2DPoint
+                                                               :[[controller originalView] pixelSpacingX]
+                                                               :[[controller originalView] pixelSpacingY]
+                                                               :NSMakePoint([[controller originalView] origin].x,
+                                                                            [[controller originalView] origin].y)] autorelease];
 
 				NSRect irect;
 				if([[controller xReslicedView] isEqualTo:sender])
@@ -749,14 +780,18 @@
 				[new2DPointROI setName:finalName];
 					
 				// add the 2D Point ROI to the ROI list
-				long slice = ([controller sign]>0)? (long)[[[controller originalView] dcmPixList] count]-1 -[[[addedROI points] objectAtIndex:0] y] : [[[addedROI points] objectAtIndex:0] y];
+				long slice = ([controller sign]>0) ? (long)[[[controller originalView] dcmPixList] count]-1 -[[[addedROI points] objectAtIndex:0] y] : [[[addedROI points] objectAtIndex:0] y];
 				
-				if( slice < 0) slice = 0;
-				if( slice >= [[[controller originalView] dcmRoiList] count]) slice = (long)[[[controller originalView] dcmRoiList] count]-1;
+				if( slice < 0)
+                    slice = 0;
+                
+				if( slice >= [[[controller originalView] dcmRoiList] count])
+                    slice = (long)[[[controller originalView] dcmRoiList] count]-1;
 				
 				[[[[controller originalView] dcmRoiList] objectAtIndex: slice] addObject: new2DPointROI];
 			}
-			[controller loadROIonReslicedViews: [[controller originalView] crossPositionX] : [[controller originalView] crossPositionY]];
+			[controller loadROIonReslicedViews: [[controller originalView] crossPositionX]
+                                              : [[controller originalView] crossPositionY]];
 		}
 	}
 }
@@ -769,11 +804,12 @@
 	
 	if( [roi type] != t2DPoint) return;
 	
-	if( [[[note userInfo] valueForKey:@"action"] isEqualToString:@"mouseUp"] && [[self window] firstResponder] == self)
+	if ([[[note userInfo] valueForKey:@"action"] isEqualToString:@"mouseUp"] &&
+        [[self window] firstResponder] == self)
 	{
 		if([roi parentROI])
 		{
-			int		reslicedview = 0;
+			int	reslicedview = 0;
 			
 			// the ROI has a parent. Thus it is on a resliced view. Which one?
 			NSLog(@"roi is 2D Point and has parent");
@@ -803,8 +839,7 @@
 			ROI *new2DPointROI = [[[ROI alloc] initWithType: t2DPoint :[[controller originalView] pixelSpacingX] :[[controller originalView] pixelSpacingY] :NSMakePoint( [[controller originalView] origin].x, [[controller originalView] origin].y)] autorelease];
 
 			// remove the parent ROI on original view. (will be replaced by the new one)
-			int i;
-			for(i=0; i<[[[controller originalView] dcmRoiList] count]; i++)
+			for(int i=0; i<[[[controller originalView] dcmRoiList] count]; i++)
 			{
 				if([[[[controller originalView] dcmRoiList] objectAtIndex:i] containsObject:[roi parentROI]])
 				{
@@ -822,10 +857,13 @@
 			[new2DPointROI setName:[roi name]];
 			
 			// add the 2D Point ROI to the ROI list
-			long slice = ([controller sign]>0)? (long)[[[controller originalView] dcmPixList] count]-1 -[[[roi points] objectAtIndex:0] y] : [[[roi points] objectAtIndex:0] y];
+			long slice = ([controller sign]>0) ? (long)[[[controller originalView] dcmPixList] count]-1 -[[[roi points] objectAtIndex:0] y] : [[[roi points] objectAtIndex:0] y];
 			
-			if( slice < 0) slice = 0;
-			if( slice >= [[[controller originalView] dcmRoiList] count]) slice = (long)[[[controller originalView] dcmRoiList] count]-1;
+			if( slice < 0)
+                slice = 0;
+            
+			if( slice >= [[[controller originalView] dcmRoiList] count])
+                slice = (long)[[[controller originalView] dcmRoiList] count]-1;
 			
 			NSLog(@"slice : %d", (int) slice);
 			
@@ -857,7 +895,7 @@
 		
 		if( [roi parentROI])
 		{
-			for(int i=0; i<[[[controller originalView] dcmRoiList] count]; i++)
+			for (int i=0; i<[[[controller originalView] dcmRoiList] count]; i++)
 			{
 				if([[[[controller originalView] dcmRoiList] objectAtIndex:i] containsObject:[roi parentROI]])
 				{
@@ -1017,62 +1055,63 @@
 - (void)mouseDraggedImageScroll:(NSEvent *) event {
 	short   now, prev;
 	BOOL	movie4Dmove = NO;
-	NSPoint current = [self currentPointInView:event];
-	if( scrollMode == 0)
-	{
-		if( fabs( start.x - current.x) < fabs( start.y - current.y))
-		{
-			prev = start.y/2;
-			now = current.y/2;
-			if( fabs( start.y - current.y) > 3) scrollMode = 1;
-		}
-		else if( fabs( start.x - current.x) >= fabs( start.y - current.y))
-		{
-			prev = start.x/2;
-			now = current.x/2;
-			if( fabs( start.x - current.x) > 3) scrollMode = 2;
-		}
-		
-	//	NSLog(@"scrollMode : %d", scrollMode);
-	}
+    NSPoint current = [self convertPoint: event.locationInWindow fromView: nil];
+    
+    if( scrollMode == 0)
+    {
+        if( fabs( start.x - current.x) < fabs( start.y - current.y))
+        {
+            prev = start.y/2;
+            now = current.y/2;
+            if( fabs( start.y - current.y) > 3)
+                scrollMode = 1;
+        }
+        else if( fabs( start.x - current.x) >= fabs( start.y - current.y))
+        {
+            prev = start.x/2;
+            now = current.x/2;
+            if( fabs( start.x - current.x) > 3)
+                scrollMode = 2;
+        }
+        
+        //	NSLog(@"scrollMode : %d", scrollMode);
+    }
 
-
- if( movie4Dmove == NO)
-	{
-		long from, to;
-		if( scrollMode == 2)
-		{
-			from = current.x;
-			to = start.x;
-		}
-		else if( scrollMode == 1)
-		{
-			from = start.y;
-			to = current.y;
-		}
-		else
-		{
-			from = 0;
-			to = 0;
-		}
-		
-		if ( fabs( from-to ) >= 1) {
-			[self scrollTool: from : to];
-		}
-	}
+    if( movie4Dmove == NO)
+    {
+        long from, to;
+        if( scrollMode == 2)
+        {
+            from = current.x;
+            to = start.x;
+        }
+        else if( scrollMode == 1)
+        {
+            from = start.y;
+            to = current.y;
+        }
+        else
+        {
+            from = 0;
+            to = 0;
+        }
+        
+        if ( fabs( from-to ) >= 1)
+            [self scrollTool: from : to];
+    }
 }
 
 - (void)mouseDraggedBlending:(NSEvent *)event{
 	[super mouseDraggedBlending:event];
 	[self setWLWW: curWL :curWW];
-	[blendingView setWLWW:[[blendingView curDCM] wl] :[[blendingView curDCM] ww]];
+	[blendingView setWLWW:[[blendingView curDCM] wl]
+                         :[[blendingView curDCM] ww]];
 }
-
 
 - (void)mouseDraggedWindowLevel: (NSEvent *)event
 {
-	NSPoint current = [self currentPointInView:event];
-	
+    NSPoint current = [self convertPoint: event.locationInWindow fromView: nil];
+
 	if( blendingView == nil)
 	{
 		float WWAdapter = startWW / 100.0;
@@ -1091,44 +1130,45 @@
 			
 			float eWW = 5, eWL = 5;
 			
-			switch( [[NSUserDefaults standardUserDefaults] integerForKey: @"PETWindowingMode"])
-			{
-				case 0:
-					eWL = startWL + (current.y -  start.y)*WWAdapter;
-					eWW = startWW + (current.x -  start.x)*WWAdapter;
-					
-					if( eWW < 0.1) eWW = 0.1;
-				break;
-				
-				case 1:
-					endlevel = startMax + (current.y -  start.y) * WWAdapter ;
-					
-					eWL = (endlevel - startMin) / 2 + [[NSUserDefaults standardUserDefaults] integerForKey: @"PETMinimumValue"];
-					eWW = endlevel - startMin;
-					
-					if( eWW < 0.1) eWW = 0.1;
-					if( eWL - eWW/2 < 0) eWL = eWW/2;
-				break;
-				
-				case 2:
-					endlevel = startMax + (current.y -  start.y) * WWAdapter ;
-					startlevel = startMin + (current.x -  start.x) * WWAdapter ;
-					
-					if( startlevel < 0) startlevel = 0;
-					
-					eWL = startlevel + (endlevel - startlevel) / 2;
-					eWW = endlevel - startlevel;
-					
-					if( eWW < 0.1) eWW = 0.1;
-					if( eWL - eWW/2 < 0) eWL = eWW/2;
-				break;
-			}
+            switch( [[NSUserDefaults standardUserDefaults] integerForKey: @"PETWindowingMode"])
+            {
+                case 0:
+                    eWL = startWL + (current.y -  start.y)*WWAdapter;
+                    eWW = startWW + (current.x -  start.x)*WWAdapter;
+                    
+                    if( eWW < 0.1) eWW = 0.1;
+                    break;
+                    
+                case 1:
+                    endlevel = startMax + (current.y -  start.y) * WWAdapter ;
+                    
+                    eWL = (endlevel - startMin) / 2 + [[NSUserDefaults standardUserDefaults] integerForKey: @"PETMinimumValue"];
+                    eWW = endlevel - startMin;
+                    
+                    if( eWW < 0.1) eWW = 0.1;
+                    if( eWL - eWW/2 < 0) eWL = eWW/2;
+                    break;
+                    
+                case 2:
+                    endlevel = startMax + (current.y -  start.y) * WWAdapter ;
+                    startlevel = startMin + (current.x -  start.x) * WWAdapter ;
+                    
+                    if( startlevel < 0) startlevel = 0;
+                    
+                    eWL = startlevel + (endlevel - startlevel) / 2;
+                    eWW = endlevel - startlevel;
+                    
+                    if( eWW < 0.1) eWW = 0.1;
+                    if( eWL - eWW/2 < 0) eWL = eWW/2;
+                    break;
+            }
 			
 			[curDCM changeWLWW :eWL  :eWW];
 		}
 		else
 		{
-			[curDCM changeWLWW : startWL + (current.y -  start.y)*WWAdapter :startWW + (current.x -  start.x)*WWAdapter];
+			[curDCM changeWLWW :startWL + (current.y - start.y)*WWAdapter
+                               :startWW + (current.x - start.x)*WWAdapter];
 		}
 		
 		curWW = [curDCM ww];
@@ -1139,7 +1179,6 @@
 		
 		// change Window level
 		[self setWLWW: curWL :curWW];
-
 		
 		[[NSNotificationCenter defaultCenter] postNotificationName: OsirixChangeWLWWNotification object: curDCM userInfo:nil];
 		
@@ -1170,7 +1209,6 @@
 		
 		[self setBlendingFactor: blendingFactor];
 	}
-	
 }
 
 - (IBAction) flipVertical: (id)sender{
@@ -1183,11 +1221,9 @@
 	[controller  flipHorizontal: self];
 }
 
-
 - (BOOL)acceptsFirstMouse:(NSEvent *)theEvent
 {
 	return YES;
 }
-
 
 @end

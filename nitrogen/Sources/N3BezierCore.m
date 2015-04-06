@@ -304,8 +304,12 @@ CFDictionaryRef N3BezierCoreCreateDictionaryRepresentation(N3BezierCoreRef bezie
 				segmentDictionary = [NSDictionary dictionaryWithObjectsAndKeys:@"close", @"segmentType", (id)endpointDict, @"endpoint", nil];
                 break;
             case N3CurveToBezierCoreSegmentType:
-				segmentDictionary = [NSDictionary dictionaryWithObjectsAndKeys:@"curveTo", @"segmentType", (id)control1Dict, @"control1",
-									 (id)control2Dict, @"control2", (id)endpointDict, @"endpoint", nil];
+				segmentDictionary = [NSDictionary dictionaryWithObjectsAndKeys:
+                                     @"curveTo", @"segmentType",
+                                     (id)control1Dict, @"control1",
+									 (id)control2Dict, @"control2",
+                                     (id)endpointDict, @"endpoint",
+                                     nil];
 				break;
 			default:
 				assert(0);

@@ -1494,7 +1494,7 @@ extern BOOL forkedProcess;
             DcmElement* dcelem = dataset->getElement(elemIndex);
             DcmTagKey key = dcelem->getTag().getXTag();
             
-            [findTemplate setObject: [NSNumber numberWithBool: YES] forKey: [NSString stringWithFormat: @"%d,%d", key.getElement(), key.getGroup()]];
+            [findTemplate setObject: @YES forKey: [NSString stringWithFormat: @"%d,%d", key.getElement(), key.getGroup()]];
         }
         
         if (strcmp(sType, "STUDY") == 0) 
@@ -1662,7 +1662,7 @@ extern BOOL forkedProcess;
     [logDictionary setObject: [NSDate date] forKey: @"logStartTime"];
     [logDictionary setObject: [NSDate date] forKey: @"logEndTime"];
     [logDictionary setObject: @"In Progress" forKey: @"logMessage"];
-    [logDictionary setObject: [NSNumber numberWithInt: 0] forKey: @"logNumberReceived"];
+    [logDictionary setObject: @0 forKey: @"logNumberReceived"];
     [logDictionary setObject: @"Move" forKey: @"logType"];
     [logDictionary setObject: @"UTF-8" forKey: @"logEncoding"];
     

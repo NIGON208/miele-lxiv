@@ -331,7 +331,7 @@ enum /*typedef NS_ENUM(NSUInteger, O2ValueRepresentation)*/ {
 
         
         //        NSLog(@"ascadfasf %@", [_tagsPopUp exposedBindings]);
-        [_tagsPopUp bind:@"selectedTag" toObject:self withKeyPath:@"selectedTag" options:[NSDictionary dictionaryWithObject:[NSNumber numberWithBool:YES] forKey:NSValidatesImmediatelyBindingOption]];
+        [_tagsPopUp bind:@"selectedTag" toObject:self withKeyPath:@"selectedTag" options:[NSDictionary dictionaryWithObject:@YES forKey:NSValidatesImmediatelyBindingOption]];
 
         [self _observePopUpButtonWillPopUpNotification:nil];
 
@@ -382,9 +382,13 @@ enum /*typedef NS_ENUM(NSUInteger, O2ValueRepresentation)*/ {
         [_stringValueTextField.cell setControlSize:NSSmallControlSize];
         _stringValueTextField.font = [NSFont controlContentFontOfSize:[NSFont smallSystemFontSize]];
         
-        [_stringValueTextField bind:@"value" toObject:self withKeyPath:@"stringValue" options:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                                                               [NSNumber numberWithBool:YES], NSContinuouslyUpdatesValueBindingOption,
-                                                                                               NSLocalizedString(@"empty", nil), NSNullPlaceholderBindingOption, nil]];
+        [_stringValueTextField bind:@"value"
+                           toObject:self
+                        withKeyPath:@"stringValue"
+                            options:[NSDictionary dictionaryWithObjectsAndKeys:
+                                     @YES, NSContinuouslyUpdatesValueBindingOption,
+                                     NSLocalizedString(@"empty", nil), NSNullPlaceholderBindingOption,
+                                     nil]];
         
         // number value field
         
@@ -392,7 +396,7 @@ enum /*typedef NS_ENUM(NSUInteger, O2ValueRepresentation)*/ {
         [_numberValueTextField.cell setControlSize:NSSmallControlSize];
         _numberValueTextField.font = [NSFont controlContentFontOfSize:[NSFont smallSystemFontSize]];
         
-        [_numberValueTextField bind:@"value" toObject:self withKeyPath:@"numberValue" options:[NSDictionary dictionaryWithObject:[NSNumber numberWithBool:YES] forKey:NSContinuouslyUpdatesValueBindingOption]];
+        [_numberValueTextField bind:@"value" toObject:self withKeyPath:@"numberValue" options:[NSDictionary dictionaryWithObject:@YES forKey:NSContinuouslyUpdatesValueBindingOption]];
         
         // date picker
         
@@ -572,7 +576,7 @@ enum /*typedef NS_ENUM(NSUInteger, O2ValueRepresentation)*/ {
                 case DCM_FL:
                 case DCM_FD: {
                     if (![self.numberValue isKindOfClass:[NSNumber class]])
-                        self.numberValue = [NSNumber numberWithInt:0];
+                        self.numberValue = @0;
                 } break;
                     
                 case DCM_DA:

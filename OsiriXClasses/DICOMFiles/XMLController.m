@@ -249,7 +249,7 @@ extern int delayedTileWindows;
 			// The database structure changed because of these modifications -> Delete the previous objects WITHOUT deleting the files : we have the SAME original files
 			
 			for( NSManagedObject *image in objects)
-				[image setValue: [NSNumber numberWithBool: NO] forKey: @"inDatabaseFolder"];
+				[image setValue: @NO forKey: @"inDatabaseFolder"];
 			
 			[[BrowserController currentBrowser] proceedDeleteObjects: objects];
 			

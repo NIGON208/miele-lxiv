@@ -1007,7 +1007,11 @@ static NSRecursiveLock *dbModifyLock = nil;
 		{
 			if( [c isEqualToString: [self primitiveValueForKey: @"comment"]] == NO)
 			{
-				NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys: [[self paths] allObjects], @"files", @"(0032,4000)", @"field", c, @"value", nil];
+				NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
+                                      [[self paths] allObjects], @"files",
+                                      @"(0032,4000)", @"field",
+                                      c, @"value",
+                                      nil];
 				
 				NSThread *t = [[[NSThread alloc] initWithTarget:self selector:@selector(dcmodifyThread:) object: dict] autorelease];
 				t.name = NSLocalizedString( @"Updating DICOM files...", nil);
@@ -1085,11 +1089,15 @@ static NSRecursiveLock *dbModifyLock = nil;
 		if( [self.hasDICOM boolValue] == YES && [[NSUserDefaults standardUserDefaults] boolForKey: @"savedCommentsAndStatusInDICOMFiles"] && [[BrowserController currentBrowser] isBonjour: [self managedObjectContext]] == NO)
 		{
 			if( c == nil)
-				c = [NSNumber numberWithInt: 0];
+				c = @0;
 			
 			if( [c intValue] != [[self primitiveValueForKey: @"stateText"] intValue])
 			{
-				NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys: [[self paths] allObjects], @"files", @"(4008,0212)", @"field", [c stringValue], @"value", nil];
+				NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
+                                      [[self paths] allObjects], @"files",
+                                      @"(4008,0212)", @"field",
+                                      [c stringValue], @"value",
+                                      nil];
 				
 				NSThread *t = [[[NSThread alloc] initWithTarget:self selector:@selector(dcmodifyThread:) object: dict] autorelease];
 				t.name = NSLocalizedString( @"Updating DICOM files...", nil);
@@ -1783,7 +1791,7 @@ static NSRecursiveLock *dbModifyLock = nil;
 						[r addObjectsFromArray: [[i valueForKey: @"images"] allObjects]];
 						
 						NSMutableSet *o = [i mutableSetValueForKey: @"images"];
-						[o setValue: [NSNumber numberWithBool: NO] forKeyPath: @"inDatabaseFolder"];
+						[o setValue: @NO forKeyPath: @"inDatabaseFolder"];
 						[o removeAllObjects];
 						[[self managedObjectContext] deleteObject: i];
 					}
@@ -1791,7 +1799,7 @@ static NSRecursiveLock *dbModifyLock = nil;
                 
 				[self.managedObjectContext save:nil];
 				
-				[r setValue: [NSNumber numberWithBool: YES] forKeyPath: @"inDatabaseFolder"];
+				[r setValue: @YES forKeyPath: @"inDatabaseFolder"];
 			}
 			@catch (NSException * e)
 			{
@@ -1880,7 +1888,7 @@ static NSRecursiveLock *dbModifyLock = nil;
 						[r addObjectsFromArray: [[i valueForKey: @"images"] allObjects]];
 						
 						NSMutableSet *o = [i mutableSetValueForKey: @"images"];
-						[o setValue: [NSNumber numberWithBool: NO] forKeyPath: @"inDatabaseFolder"];
+						[o setValue: @NO forKeyPath: @"inDatabaseFolder"];
 						[o removeAllObjects];
 						[[self managedObjectContext] deleteObject: i];
 					}
@@ -1890,7 +1898,7 @@ static NSRecursiveLock *dbModifyLock = nil;
                 
 				[self.managedObjectContext save:nil];
 
-				[r setValue: [NSNumber numberWithBool: YES] forKeyPath: @"inDatabaseFolder"];
+				[r setValue: @YES forKeyPath: @"inDatabaseFolder"];
 			}
 			@catch (NSException * e)
 			{
@@ -1971,7 +1979,7 @@ static NSRecursiveLock *dbModifyLock = nil;
 						[r addObjectsFromArray: [[i valueForKey: @"images"] allObjects]];
 						
 						NSMutableSet *o = [i mutableSetValueForKey: @"images"];
-						[o setValue: [NSNumber numberWithBool: NO] forKeyPath: @"inDatabaseFolder"];
+						[o setValue: @NO forKeyPath: @"inDatabaseFolder"];
 						[o removeAllObjects];
 						[[self managedObjectContext] deleteObject: i];
 					}
@@ -1981,7 +1989,7 @@ static NSRecursiveLock *dbModifyLock = nil;
                 
 				[self.managedObjectContext save:nil];
                 
-				[r setValue: [NSNumber numberWithBool: YES] forKeyPath: @"inDatabaseFolder"];
+				[r setValue: @YES forKeyPath: @"inDatabaseFolder"];
 			}
 			@catch (NSException * e)
 			{
@@ -2034,7 +2042,7 @@ static NSRecursiveLock *dbModifyLock = nil;
 						[r addObjectsFromArray: [[i valueForKey: @"images"] allObjects]];
 						
 						NSMutableSet *o = [i mutableSetValueForKey: @"images"];
-						[o setValue: [NSNumber numberWithBool: NO] forKeyPath: @"inDatabaseFolder"];
+						[o setValue: @NO forKeyPath: @"inDatabaseFolder"];
 						[o removeAllObjects];
 						[[self managedObjectContext] deleteObject: i];
 					}
@@ -2044,7 +2052,7 @@ static NSRecursiveLock *dbModifyLock = nil;
                 
 				[self.managedObjectContext save:nil];
 
-				[r setValue: [NSNumber numberWithBool: YES] forKeyPath: @"inDatabaseFolder"];
+				[r setValue: @YES forKeyPath: @"inDatabaseFolder"];
 			}
 			@catch (NSException * e)
 			{

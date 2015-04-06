@@ -49,21 +49,23 @@ enum ctTypes {ElectronCTType, MultiSliceCTType};
 		NSString *name;
 		for (name in _vesselNames)
 		{
-			[(NSMutableArray *)_vessels addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys: name, @"vesselName",
-															[NSNumber numberWithFloat:0.0], @"score",
-															[NSNumber numberWithFloat:0.0], @"mass",
-															[NSNumber numberWithFloat:0.0], @"volume",
-															nil]];
+			[(NSMutableArray *)_vessels addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                                   name, @"vesselName",
+                                                   @0.0F, @"score",
+                                                   @0.0F, @"mass",
+                                                   @0.0F, @"volume",
+                                                   nil]];
 				// get exisiting ROIs
 				NSArray *roiList = [_viewer roisWithName:name];
 				[_rois addObjectsFromArray:roiList];
 		}
 		
-		[(NSMutableArray *)_vessels addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys: NSLocalizedString(@"Total", nil), @"vesselName",
-															[NSNumber numberWithFloat:0.0], @"score",
-															[NSNumber numberWithFloat:0.0], @"mass",
-															[NSNumber numberWithFloat:0.0], @"volume",
-															nil]];
+		[(NSMutableArray *)_vessels addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                               NSLocalizedString(@"Total", nil), @"vesselName",
+                                               @0.0F, @"score",
+                                               @0.0F, @"mass",
+                                               @0.0F, @"volume",
+                                               nil]];
 		
 		[self setRoiName:NSLocalizedString(@"Left Coronary Artery", nil)];
 		NSNotificationCenter *nc;
@@ -182,11 +184,12 @@ enum ctTypes {ElectronCTType, MultiSliceCTType};
 		if ([filteredVessels count] == 0)
 		{
 			NSMutableArray *vessels = [NSMutableArray arrayWithArray:_vessels];
-			[vessels insertObject:[NSMutableDictionary dictionaryWithObjectsAndKeys: roiName, @"vesselName",
-															[NSNumber numberWithFloat:0.0], @"score",
-															[NSNumber numberWithFloat:0.0], @"mass",
-															[NSNumber numberWithFloat:0.0], @"volume",
-															nil]
+			[vessels insertObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                   roiName, @"vesselName",
+                                   @0.0F, @"score",
+                                   @0.0F, @"mass",
+                                   @0.0F, @"volume",
+                                   nil]
 			atIndex:[vessels count] - 1];
 			[self setVessels:vessels];
 		}

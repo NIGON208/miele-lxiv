@@ -388,7 +388,11 @@
                 
                 for ( x = 0; x < newY; x ++)
                 {
-                    ResliceOperation *op = [[[ResliceOperation alloc] initWithDict: [NSDictionary dictionaryWithObjectsAndKeys: [NSValue valueWithPointer: Ycache], @"Ycache", [NSNumber numberWithInt:x], @"zValue", originalDCMPixList, @"DCMPixArray", nil]] autorelease];
+                    ResliceOperation *op = [[[ResliceOperation alloc] initWithDict: [NSDictionary dictionaryWithObjectsAndKeys:
+                                                                                     [NSValue valueWithPointer: Ycache], @"Ycache",
+                                                                                     [NSNumber numberWithInt:x], @"zValue",
+                                                                                     originalDCMPixList, @"DCMPixArray",
+                                                                                     nil]] autorelease];
                     
                     [yCacheQueue addOperation: op];
                 }

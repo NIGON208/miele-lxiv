@@ -120,11 +120,13 @@ ss
         NSArray *studies = nil;
         
         if( ss)
-            studies = [QueryController queryStudyInstanceUID: uid server: ss showErrors: NO];
+            studies = [QueryController queryStudyInstanceUID: uid
+                                                      server: ss
+                                                  showErrors: NO];
         else
-        {
-            studies = [QueryController queryStudiesForFilters: [NSDictionary dictionaryWithObjectsAndKeys: uid, @"StudyInstanceUID", nil] servers: [BrowserController comparativeServers] showErrors: NO];
-        }
+            studies = [QueryController queryStudiesForFilters: [NSDictionary dictionaryWithObjectsAndKeys: uid, @"StudyInstanceUID", nil]
+                                                      servers: [BrowserController comparativeServers]
+                                                   showErrors: NO];
         
         if( studies.count)
         {
@@ -532,7 +534,7 @@ ss
     if( [parameters objectForKey:@"page"])
         [self.session setObject: [parameters objectForKey:@"page"] forKey:@"Page"];
     else
-        [self.session setObject: [NSNumber numberWithInt: 0] forKey:@"Page"];
+        [self.session setObject: @0 forKey:@"Page"];
     
     [self.session setObject: [NSNumber numberWithInt: numberOfStudies] forKey:@"NumberOfStudies"];
     
@@ -551,9 +553,16 @@ ss
 	[self.portal updateLogEntryForStudy: [[images lastObject] valueForKeyPath: @"series.study"] withMessage: [NSString stringWithFormat: @"DICOM Send to: %@", [dicomNodeDescription objectForKey:@"Address"]] forUser:user.name ip:asyncSocket.connectedHost];
 	
 	@try {
-		NSDictionary* todo = [NSDictionary dictionaryWithObjectsAndKeys: [dicomNodeDescription objectForKey:@"Address"], @"Address", [dicomNodeDescription objectForKey:@"TransferSyntax"], @"TransferSyntax", [dicomNodeDescription objectForKey:@"Port"], @"Port", [dicomNodeDescription objectForKey:@"AETitle"], @"AETitle", [images valueForKey: @"completePath"], @"Files", nil];
+		NSDictionary* todo = [NSDictionary dictionaryWithObjectsAndKeys:
+                              [dicomNodeDescription objectForKey:@"Address"], @"Address",
+                              [dicomNodeDescription objectForKey:@"TransferSyntax"], @"TransferSyntax",
+                              [dicomNodeDescription objectForKey:@"Port"], @"Port",
+                              [dicomNodeDescription objectForKey:@"AETitle"], @"AETitle",
+                              [images valueForKey: @"completePath"], @"Files",
+                              nil];
 		[NSThread detachNewThreadSelector:@selector(sendImagesToDicomNodeThread:) toTarget:self withObject:todo];
-	} @catch (NSException* e) {
+	}
+    @catch (NSException* e) {
 		NSLog( @"Error: [WebPortalConnection sendImages:toDicomNode:] %@", e);
 	}
 }
@@ -571,9 +580,11 @@ ss
 									 transferSyntax:[[todo objectForKey:@"TransferSyntax"] intValue]
 										compression:1.0
 									extraParameters:[NSDictionary dictionaryWithObject:self.portal.dicomDatabase.independentDatabase forKey:@"DicomDatabase"]] autorelease] run: nil];
-	} @catch (NSException* e) {
+	}
+    @catch (NSException* e) {
 		NSLog(@"Error: [WebServiceConnection sendImagesToDicomNodeThread:] %@", e);
-	} @finally {
+	}
+    @finally {
 		[pool release];
 	}
 }
@@ -640,7 +651,7 @@ ss
         NSString *fileName = [dict valueForKey: @"fileName"];
         NSInteger* fpsP = (NSInteger*)[[dict valueForKey:@"fpsP"] pointerValue];
         
-        NSDictionary *imageProps = [NSDictionary dictionaryWithObject:[NSNumber numberWithFloat: 0.7] forKey:NSImageCompressionFactor];
+        NSDictionary *imageProps = [NSDictionary dictionaryWithObject:@0.7F forKey:NSImageCompressionFactor];
         
         DicomSeries *series = [(DicomImage*)[dicomImageArray lastObject] series];
         NSArray *allImages = [series sortedImages];
@@ -813,7 +824,8 @@ const NSString* const GenerateMovieDicomImagesParamKey = @"dicomImageArray";
 															outFile, @"outFile",
 															fileName, @"fileName",
 															[dicomImageArray valueForKey: @"objectID"], @"DicomImageArray",
-                                                            [NSValue valueWithPointer:&fps], @"fpsP", nil]];
+                                                            [NSValue valueWithPointer:&fps], @"fpsP",
+                                                            nil]];
 					}
 					
 					range.location += range.length;
@@ -892,7 +904,7 @@ const NSString* const GenerateMovieDicomImagesParamKey = @"dicomImageArray";
                             {
                                 videoSettings = [NSDictionary dictionaryWithObjectsAndKeys:
                                                  AVVideoCodecJPEG, AVVideoCodecKey,
-                                                 [NSDictionary dictionaryWithObjectsAndKeys: [NSNumber numberWithFloat: 0.9], AVVideoQualityKey, nil] ,AVVideoCompressionPropertiesKey,
+                                                 [NSDictionary dictionaryWithObjectsAndKeys: @0.9F, AVVideoQualityKey, nil] ,AVVideoCompressionPropertiesKey,
                                                  [NSNumber numberWithInt: width], AVVideoWidthKey,
                                                  [NSNumber numberWithInt: height], AVVideoHeightKey, nil];
                             }
@@ -1025,14 +1037,20 @@ const NSString* const GenerateMovieDicomImagesParamKey = @"dicomImageArray";
 				NSLog( @"%@", [e description]);
 			}
 			
-			NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithObjectsAndKeys: /*[NSNumber numberWithBool: isiPhone], @"isiPhone", */fileURL, @"fileURL", fileName, @"fileName", outFile, @"outFile", parameters, @"parameters", dicomImageArray, @"dicomImageArray", nil];
+			NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                         /*[NSNumber numberWithBool: isiPhone], @"isiPhone", */
+                                         fileURL, @"fileURL",
+                                         fileName, @"fileName",
+                                         outFile, @"outFile",
+                                         parameters, @"parameters",
+                                         dicomImageArray, @"dicomImageArray",
+                                         nil];
 			
-            //			[self.portal.dicomDatabase unlock];
+//			[self.portal.dicomDatabase unlock];
 			
 			[self generateMovie: dict];
 			
-            //			[self.portal.dicomDatabase lock];
-            
+//			[self.portal.dicomDatabase lock];
 			
 			data = [NSData dataWithContentsOfFile: outFile];
 		}
@@ -1040,7 +1058,6 @@ const NSString* const GenerateMovieDicomImagesParamKey = @"dicomImageArray";
 	
 	return data;
 }
-
 
 #pragma mark HTML
 
@@ -1557,10 +1574,19 @@ const NSString* const GenerateMovieDicomImagesParamKey = @"dicomImageArray";
                         
 						[self.portal updateLogEntryForStudy: nil withMessage: @"Password reset for user" forUser:u.name ip: nil];
 						
-                        NSDictionary *messageHeaders = [NSDictionary dictionaryWithObjectsAndKeys: u.email, @"To", fromEmailAddress, @"Sender", emailSubject, @"Subject", nil];
+                        NSDictionary *messageHeaders = [NSDictionary dictionaryWithObjectsAndKeys:
+                                                        u.email, @"To",
+                                                        fromEmailAddress, @"Sender",
+                                                        emailSubject, @"Subject",
+                                                        nil];
                         
                         // NSAttributedString initWithHTML is NOT thread-safe
-                        [self performSelectorOnMainThread: @selector(sendEmailOnMainThread:) withObject: [NSDictionary dictionaryWithObjectsAndKeys: emailMessage, @"template", messageHeaders, @"headers", nil] waitUntilDone: NO];
+                        [self performSelectorOnMainThread: @selector(sendEmailOnMainThread:)
+                                               withObject: [NSDictionary dictionaryWithObjectsAndKeys:
+                                                            emailMessage, @"template",
+                                                            messageHeaders, @"headers",
+                                                            nil]
+                                            waitUntilDone: NO];
                         
 						[response.tokens addMessage:NSLocalizedString(@"You will shortly receive an email with your new password.", nil)];
 						
@@ -1645,12 +1671,14 @@ const NSString* const GenerateMovieDicomImagesParamKey = @"dicomImageArray";
 		user.phone = [parameters valueForKey:@"phone"];
 		
 		if ([[[parameters valueForKey:@"emailNotification"] lowercaseString] isEqualToString:@"on"])
-			user.emailNotification = [NSNumber numberWithBool:YES];
-		else user.emailNotification = [NSNumber numberWithBool: NO];
+			user.emailNotification = @YES;
+		else
+            user.emailNotification = @NO;
         
         if ([[[parameters valueForKey:@"showRecentPatients"] lowercaseString] isEqualToString:@"on"])
-			user.showRecentPatients = [NSNumber numberWithBool:YES];
-		else user.showRecentPatients = [NSNumber numberWithBool: NO];
+			user.showRecentPatients = @YES;
+		else
+            user.showRecentPatients = @NO;
 		
 		[user.managedObjectContext save: nil];
 		
@@ -2280,7 +2308,16 @@ const NSString* const GenerateMovieDicomImagesParamKey = @"dicomImageArray";
 					else
 						outFile = fileName;
 					
-					NSMutableDictionary* dict = [NSMutableDictionary dictionaryWithObjectsAndKeys: /*[NSNumber numberWithBool: self.requestIsIOS], GenerateMovieIsIOSParamKey,*/ /*fileURL, @"fileURL",*/ fileName, GenerateMovieFileNameParamKey, outFile, GenerateMovieOutFileParamKey, parameters, @"parameters", dicomImageArray, GenerateMovieDicomImagesParamKey, [NSNumber numberWithInt: rows], @"rows", [NSNumber numberWithInt: columns], @"columns", nil];
+					NSMutableDictionary* dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                                 /*[NSNumber numberWithBool: self.requestIsIOS], GenerateMovieIsIOSParamKey,*/
+                                                 /*fileURL, @"fileURL",*/
+                                                 fileName, GenerateMovieFileNameParamKey,
+                                                 outFile, GenerateMovieOutFileParamKey,
+                                                 parameters, @"parameters",
+                                                 dicomImageArray, GenerateMovieDicomImagesParamKey,
+                                                 [NSNumber numberWithInt: rows], @"rows",
+                                                 [NSNumber numberWithInt: columns], @"columns",
+                                                 nil];
 					
 					[self generateMovie:dict];
 					
@@ -2376,7 +2413,7 @@ const NSString* const GenerateMovieDicomImagesParamKey = @"dicomImageArray";
 							newImage = image;
 						
 						NSBitmapImageRep *imageRep = [NSBitmapImageRep imageRepWithData:[newImage TIFFRepresentation]];
-						NSDictionary *imageProps = [NSDictionary dictionaryWithObject:[NSNumber numberWithFloat: 0.8] forKey:NSImageCompressionFactor];
+						NSDictionary *imageProps = [NSDictionary dictionaryWithObject:@0.8F forKey:NSImageCompressionFactor];
 						
 						if ([contentType isEqualToString: @"image/gif"])
 							self.response.data = [imageRep representationUsingType: NSGIFFileType properties:imageProps];
@@ -2702,11 +2739,11 @@ const NSString* const GenerateMovieDicomImagesParamKey = @"dicomImageArray";
 	
 	if ([object isKindOfClass:[DicomSeries class]]) {
 		NSBitmapImageRep* imageRep = [NSBitmapImageRep imageRepWithData:[object thumbnail]];
-		NSDictionary* imageProps = [NSDictionary dictionaryWithObject:[NSNumber numberWithFloat:1.0] forKey:NSImageCompressionFactor];
+		NSDictionary* imageProps = [NSDictionary dictionaryWithObject:@1.0F forKey:NSImageCompressionFactor];
 		response.data = data = [imageRep representationUsingType:NSPNGFileType properties:imageProps];
 	} else if ([object isKindOfClass: [DicomImage class]]) {
 		NSBitmapImageRep* imageRep = [NSBitmapImageRep imageRepWithData:[[(DicomImage*)object thumbnail] JPEGRepresentationWithQuality:0.3]];
-		NSDictionary* imageProps = [NSDictionary dictionaryWithObject:[NSNumber numberWithFloat:1.0] forKey:NSImageCompressionFactor];
+		NSDictionary* imageProps = [NSDictionary dictionaryWithObject:@1.0F forKey:NSImageCompressionFactor];
 		response.data = data = [imageRep representationUsingType:NSPNGFileType properties:imageProps];
 	}
 	
@@ -2938,7 +2975,7 @@ const NSString* const GenerateMovieDicomImagesParamKey = @"dicomImageArray";
 	
 	NSBitmapImageRep* imageRep = [NSBitmapImageRep imageRepWithData:image.TIFFRepresentation];
 	
-	NSDictionary *imageProps = [NSDictionary dictionaryWithObject: [NSNumber numberWithFloat: 0.8] forKey:NSImageCompressionFactor];
+	NSDictionary *imageProps = [NSDictionary dictionaryWithObject: @0.8F forKey:NSImageCompressionFactor];
 	if ([requestedPath.pathExtension isEqualToString:@"png"])
     {
 		response.data = [imageRep representationUsingType:NSPNGFileType properties:imageProps];

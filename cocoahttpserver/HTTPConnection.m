@@ -1558,7 +1558,7 @@ static NSMutableArray *recentNonces;
 		NSMutableDictionary *settings = [NSMutableDictionary dictionaryWithCapacity:3];
 		
 		// Configure this connection as the server
-		[settings setObject:[NSNumber numberWithBool:YES]
+		[settings setObject:@YES
 					 forKey:(NSString *)kCFStreamSSLIsServer];
 		
 		[settings setObject:certificates
@@ -1568,10 +1568,10 @@ static NSMutableArray *recentNonces;
 		[settings setObject:(NSString *)kCFStreamSocketSecurityLevelNegotiatedSSL
 					 forKey:(NSString *)kCFStreamSSLLevel];
 		
-        [settings setObject:[NSNumber numberWithBool:YES]
+        [settings setObject:@YES
                      forKey:(NSString *)kCFStreamSSLValidatesCertificateChain];
         
-        [settings setObject:[NSNumber numberWithBool:YES]
+        [settings setObject:@YES
                      forKey:(NSString *)kCFStreamSSLIsServer];
         
 		[asyncSocket startTLS:settings];

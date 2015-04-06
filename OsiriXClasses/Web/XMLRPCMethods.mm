@@ -376,7 +376,7 @@
                         [NSThread detachNewThreadSelector: @selector( _PACSOnDemandRetrieve:) toTarget: self withObject: studies];
                         
                         NSTimeInterval dateStart = [NSDate timeIntervalSinceReferenceDate];
-                        DicomDatabase *db = [NSThread isMainThread] ? self.database : [self.database independentDatabase];;
+                        DicomDatabase *db = [NSThread isMainThread] ? self.database : [self.database independentDatabase];
                         do
                         {
                             [db importFilesFromIncomingDir];
@@ -887,13 +887,13 @@
     @try
     {
         DCMTKRootQueryNode* rootNode = [DCMTKRootQueryNode queryNodeWithDataset:nil
-                                                                        callingAET:[NSUserDefaults defaultAETitle]
-                                                                         calledAET:[source objectForKey:@"AETitle"]
-                                                                          hostname:[source objectForKey:@"Address"]
-                                                                              port:[[source objectForKey:@"Port"] intValue]
-                                                                    transferSyntax:0
-                                                                       compression:0
-                                                                   extraParameters:source];
+                                                                     callingAET:[NSUserDefaults defaultAETitle]
+                                                                      calledAET:[source objectForKey:@"AETitle"]
+                                                                       hostname:[source objectForKey:@"Address"]
+                                                                           port:[[source objectForKey:@"Port"] intValue]
+                                                                 transferSyntax:0
+                                                                    compression:0
+                                                                extraParameters:source];
         
         NSMutableArray* filters = [NSMutableArray array];
         for (NSInteger i = 1; i < 10; ++i) {
@@ -913,8 +913,9 @@
         {
             NSDictionary* dict = [NSDictionary dictionaryWithObjectsAndKeys:
                                   [NSUserDefaults defaultAETitle], @"moveDestination",
-                                  [NSNumber numberWithInt:retrieveMode] , @"retrieveMode",
-                                  [rootNode children], @"children", nil];
+                                  [NSNumber numberWithInt:retrieveMode], @"retrieveMode",
+                                  [rootNode children], @"children",
+                                  nil];
             [NSThread detachNewThreadSelector:@selector(_threadRetrieve:) toTarget:self withObject:dict];
             
             ReturnWithErrorValue(0);
@@ -1056,9 +1057,15 @@
     ReturnWithErrorValueAndObjectForKey(0, path, @"currentDCMPath");
 }
 
-#pragma mark Old
+#pragma mark - Old
 
-- (void)processXMLRPCMessage:(NSString*)selName httpServerMessage:(NSMutableDictionary*)httpServerMessage HTTPServerRequest:(HTTPServerRequest*)mess version:(NSString*)vers paramDict:(NSDictionary*)paramDict encoding:(NSString*)encoding { // __deprecated
+- (void)processXMLRPCMessage:(NSString*)selName
+           httpServerMessage:(NSMutableDictionary*)httpServerMessage
+           HTTPServerRequest:(HTTPServerRequest*)mess
+                     version:(NSString*)vers
+                   paramDict:(NSDictionary*)paramDict
+                    encoding:(NSString*)encoding // __deprecated
+{
     XMLRPCInterfaceConnection* conn = [[[XMLRPCInterfaceConnection alloc] init] autorelease];
     conn.delegate = self;
     
@@ -1089,6 +1096,8 @@
 
 @end
 
+#pragma mark -
+
 @implementation XMLRPCInterfaceConnection
 
 -(id)methodCall:(NSString*)methodName params:(NSArray*)params error:(NSError**)error {
@@ -1104,14 +1113,23 @@
         else notificationObject = [NSMutableDictionary dictionary];
     }
     
-    [notificationObject addEntriesFromDictionary:[NSDictionary dictionaryWithObjectsAndKeys: methodName, @"MethodName", methodName, @"methodName", doc, @"NSXMLDocument", self.address, @"peerAddress", nil]];
+    [notificationObject addEntriesFromDictionary:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                  methodName, @"MethodName",
+                                                  methodName, @"methodName",
+                                                  doc, @"NSXMLDocument",
+                                                  self.address, @"peerAddress",
+                                                  nil]];
     [[NSNotificationCenter defaultCenter] postNotificationName:OsirixXMLRPCMessageNotification object:notificationObject];
     
-    if ([[notificationObject valueForKey:@"Processed"] boolValue] || [notificationObject valueForKey:@"Response"] || [notificationObject valueForKey:@"NSXMLDocumentResponse"]) { // request processed, most probably by a plugin
+    if ([[notificationObject valueForKey:@"Processed"] boolValue] ||
+         [notificationObject valueForKey:@"Response"] ||
+         [notificationObject valueForKey:@"NSXMLDocumentResponse"]) // request processed, most probably by a plugin
+    {
         // new plugins are expected to return a value through the Response key, containing Cocoa values (NSNumber, NSArray, NSDictionary...)
         id response = [notificationObject valueForKey:@"Response"];
         if (response)
             return response;
+        
         // older plugins returned a NSXMLDocument in the NSXMLDocumentResponse key
         doc = [notificationObject valueForKey:@"NSXMLDocumentResponse"];
         return [N2XMLRPC ParseElement:[[doc objectsForXQuery:@"/methodResponse/params/param/value" error:NULL] objectAtIndex:0]];

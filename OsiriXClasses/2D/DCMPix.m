@@ -76,8 +76,6 @@
 #import "altivecFunctions.h"
 #import "DICOMToNSString.h"
 
-//#include "../Binaries/openjpeg/openjpeg.h"
-
 #ifdef STATIC_DICOM_LIB
 #define PREVIEWSIZE 512
 #else
@@ -2423,12 +2421,13 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 	{
 		NSArray *ptsTemp = [roi points];
 		
-		int no = ptsTemp.count;
+		NSUInteger no = ptsTemp.count;
 		struct NSPointInt *ptsInt = (struct NSPointInt*) malloc( no * sizeof(struct NSPointInt));
 		
-		if( no == 0) NSLog( @"******** ERROR no == 0 getMapFromPolygonROI");
+		if( no == 0)
+            NSLog( @"******** ERROR no == 0 getMapFromPolygonROI");
 		
-		int minX,maxX,minY,maxY;
+		NSInteger minX,maxX,minY,maxY;
 		
 		for( int i = 0; i < no; i++)
 		{
@@ -5907,7 +5906,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
                 if( retainedCacheGroup != nil)
                     NSLog( @"******** DCMPix : retainedCacheGroup 4 != nil ! %@", srcFile);
                 
-                [dic setValue: [NSNumber numberWithInt: 1] forKey: @"count"];
+                [dic setValue: @1 forKey: @"count"];
                 retainedCacheGroup = dic;
                 
                 [cachedDCMFrameworkFiles setObject: dic forKey: srcFile];
@@ -10662,7 +10661,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
                                     else if([[field objectForKey:@"group"] intValue] == 0x0018 &&
                                             [[field objectForKey:@"element"] intValue] == 0x0081 && echotime != 0L)	// Echotime
                                     {
-                                        value = [NSString stringWithFormat:@"%.6g", [echotime floatValue]];;
+                                        value = [NSString stringWithFormat:@"%.6g", [echotime floatValue]];
                                     }
                                     else
                                     {

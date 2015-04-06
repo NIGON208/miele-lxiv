@@ -658,9 +658,15 @@ static const NSSize PopUpWindowBorder = NSMakeSize(10,4);
     if (self.isHighlighted) {
         [[[NSColor selectedMenuItemColor] colorWithAlphaComponent:1] setFill];
         [NSBezierPath fillRect:NSInsetRect(cellFrame, -1, 0)];
-        attributes = [NSDictionary dictionaryWithObjectsAndKeys: [NSColor selectedMenuItemTextColor], NSForegroundColorAttributeName, controlView.font, NSFontAttributeName, nil];
+        attributes = [NSDictionary dictionaryWithObjectsAndKeys:
+                      [NSColor selectedMenuItemTextColor], NSForegroundColorAttributeName,
+                      controlView.font, NSFontAttributeName,
+                      nil];
     } else {
-        attributes = [NSDictionary dictionaryWithObjectsAndKeys: [NSColor controlTextColor], NSForegroundColorAttributeName, controlView.font, NSFontAttributeName, nil];
+        attributes = [NSDictionary dictionaryWithObjectsAndKeys:
+                      [NSColor controlTextColor], NSForegroundColorAttributeName,
+                      controlView.font, NSFontAttributeName,
+                      nil];
     }
 
     [self setAttributedStringValue:[[NSAttributedString alloc] initWithString:self.title attributes:attributes]];

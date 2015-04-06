@@ -139,7 +139,22 @@ static BOOL newRouteMode = NO;
 {
 	if( [sender tag] == 1)
 	{
-		[routesArray replaceObjectAtIndex: [routesTable selectedRow] withObject: [NSMutableDictionary dictionaryWithObjectsAndKeys: [newName stringValue], @"name", @YES, @"activated", [newDescription stringValue], @"description", [newFilter stringValue], @"filter", [[serversArray objectAtIndex: [serverPopup indexOfSelectedItem]] objectForKey:@"Description"], @"server", [NSNumber numberWithInt: [previousPopup selectedTag]], @"previousStudies", [NSNumber numberWithBool: [previousModality state]], @"previousModality", [NSNumber numberWithBool: [previousDescription state]], @"previousDescription", [NSNumber numberWithInt: [failurePopup selectedTag]], @"failureRetry",  [NSNumber numberWithBool: [cfindTest state]], @"cfindTest", [NSNumber numberWithInt: filterType], @"filterType", [NSNumber numberWithInt: imagesOnly], @"imagesOnly", @CURRENTVERSION, @"version", nil]];
+		[routesArray replaceObjectAtIndex: [routesTable selectedRow]
+                               withObject: [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                            [newName stringValue], @"name",
+                                            @YES, @"activated",
+                                            [newDescription stringValue], @"description",
+                                            [newFilter stringValue], @"filter",
+                                            [[serversArray objectAtIndex: [serverPopup indexOfSelectedItem]] objectForKey:@"Description"], @"server",
+                                            [NSNumber numberWithInt: [previousPopup selectedTag]], @"previousStudies",
+                                            [NSNumber numberWithBool: [previousModality state]], @"previousModality",
+                                            [NSNumber numberWithBool: [previousDescription state]], @"previousDescription",
+                                            [NSNumber numberWithInt: [failurePopup selectedTag]], @"failureRetry",
+                                            [NSNumber numberWithBool: [cfindTest state]], @"cfindTest",
+                                            [NSNumber numberWithInt: filterType], @"filterType",
+                                            [NSNumber numberWithInt: imagesOnly], @"imagesOnly",
+                                            @CURRENTVERSION, @"version",
+                                            nil]];
 	}
 	else
 	{
@@ -242,7 +257,15 @@ static BOOL newRouteMode = NO;
 
 - (IBAction) newRoute:(id) sender
 {
-    [routesArray addObject: [NSDictionary dictionaryWithObjectsAndKeys: @"new route", @"name", @"", @"description", @"(series.study.modality contains[c] \"CT\")", @"filter", [[serversArray objectAtIndex: 0] objectForKey:@"Description"], @"server", @"20", @"failureRetry", @"0", @"filterType", @NO, @"imagesOnly", nil]];
+    [routesArray addObject: [NSDictionary dictionaryWithObjectsAndKeys:
+                             @"new route", @"name",
+                             @"", @"description",
+                             @"(series.study.modality contains[c] \"CT\")", @"filter",
+                             [[serversArray objectAtIndex: 0] objectForKey:@"Description"], @"server",
+                             @"20", @"failureRetry",
+                             @"0", @"filterType",
+                             @NO, @"imagesOnly",
+                             nil]];
     
     [routesTable reloadData];
     

@@ -394,7 +394,11 @@ static NSMutableDictionary *studiesForUserCache = nil;
                 @synchronized( studiesForUserCache)
                 {
                     if( studiesArray)
-                        [studiesForUserCache setObject: [NSDictionary dictionaryWithObjectsAndKeys: [WebPortalUser cachedArrayForArray: studiesArray], @"array", [NSDate date], @"date", nil] forKey: @"all DB studies"];
+                        [studiesForUserCache setObject: [NSDictionary dictionaryWithObjectsAndKeys:
+                                                         [WebPortalUser cachedArrayForArray: studiesArray], @"array",
+                                                         [NSDate date], @"date",
+                                                         nil]
+                                                forKey: @"all DB studies"];
                 }
                 
                 [dicomDBContext unlock];
@@ -431,7 +435,11 @@ static NSMutableDictionary *studiesForUserCache = nil;
             @synchronized( studiesForUserCache)
             {
                 if( userID)
-                    [studiesForUserCache setObject: [NSDictionary dictionaryWithObjectsAndKeys: [WebPortalUser cachedArrayForArray: specificArray], @"array", [NSDate date], @"date", nil] forKey: userID];
+                    [studiesForUserCache setObject: [NSDictionary dictionaryWithObjectsAndKeys:
+                                                     [WebPortalUser cachedArrayForArray: specificArray], @"array",
+                                                     [NSDate date], @"date",
+                                                     nil]
+                                            forKey: userID];
             }
         }
 	}
@@ -522,7 +530,11 @@ static NSMutableDictionary *studiesForUserCache = nil;
                 @synchronized( studiesForUserCache)
                 {
                     if( user && studiesArray)
-                        [studiesForUserCache setObject: [NSDictionary dictionaryWithObjectsAndKeys: [WebPortalUser cachedArrayForArray: studiesArray], @"array", [NSDate date], @"date", nil] forKey: userID];
+                        [studiesForUserCache setObject: [NSDictionary dictionaryWithObjectsAndKeys:
+                                                         [WebPortalUser cachedArrayForArray: studiesArray], @"array",
+                                                         [NSDate date], @"date",
+                                                         nil]
+                                                forKey: userID];
                 }
             }
             
@@ -813,7 +825,11 @@ static NSMutableDictionary *studiesForUserCache = nil;
         {
             if( user && studiesArray)
             {
-                [studiesForUserCache setObject: [NSDictionary dictionaryWithObjectsAndKeys: [WebPortalUser cachedArrayForArray: studiesArray], @"array", [NSDate date], @"date", nil] forKey: userID];
+                [studiesForUserCache setObject: [NSDictionary dictionaryWithObjectsAndKeys:
+                                                 [WebPortalUser cachedArrayForArray: studiesArray], @"array",
+                                                 [NSDate date], @"date",
+                                                 nil]
+                                        forKey: userID];
             }
         }
     }

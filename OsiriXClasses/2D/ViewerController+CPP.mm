@@ -98,7 +98,7 @@
     
     // set the new images as key images
     for (DicomImage* imageID in imageIDs)
-        [[database objectWithID:imageID] setIsKeyImage:[NSNumber numberWithBool:YES]];
+        [[database objectWithID:imageID] setIsKeyImage:@YES];
 }
 
 @end

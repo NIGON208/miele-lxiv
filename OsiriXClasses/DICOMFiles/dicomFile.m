@@ -926,7 +926,7 @@ char* replaceBadCharacter (char* str, NSStringEncoding encoding)
 	[dicomElements setObject:[self patientUID] forKey:@"patientUID"];
 	[dicomElements setObject:self.serieID forKey:@"seriesID"];
 	[dicomElements setObject:name forKey:@"seriesDescription"];
-	[dicomElements setObject:[NSNumber numberWithInt: 0] forKey:@"seriesNumber"];
+	[dicomElements setObject:@0 forKey:@"seriesNumber"];
 	[dicomElements setObject:imageID forKey:@"SOPUID"];
 	[dicomElements setObject:[NSNumber numberWithInt:[imageID intValue]] forKey:@"imageID"];
 	[dicomElements setObject:fileType forKey:@"fileType"];
@@ -1102,7 +1102,7 @@ char* replaceBadCharacter (char* str, NSStringEncoding encoding)
 				[dicomElements setObject:[self patientUID] forKey:@"patientUID"];
 				[dicomElements setObject:self.serieID forKey:@"seriesID"];
 				[dicomElements setObject:name forKey:@"seriesDescription"];
-				[dicomElements setObject:[NSNumber numberWithInt: 0] forKey:@"seriesNumber"];
+				[dicomElements setObject:@0 forKey:@"seriesNumber"];
 				[dicomElements setObject:SOPUID forKey:@"SOPUID"];
 				[dicomElements setObject:[NSNumber numberWithInt:[imageID intValue]] forKey:@"imageID"];
 				[dicomElements setObject:fileType forKey:@"fileType"];
@@ -1189,7 +1189,7 @@ char* replaceBadCharacter (char* str, NSStringEncoding encoding)
         [dicomElements setObject:[self patientUID] forKey:@"patientUID"];
         [dicomElements setObject:self.serieID forKey:@"seriesID"];
         [dicomElements setObject:name forKey:@"seriesDescription"];
-        [dicomElements setObject:[NSNumber numberWithInt: 0] forKey:@"seriesNumber"];
+        [dicomElements setObject:@0 forKey:@"seriesNumber"];
         [dicomElements setObject:imageID forKey:@"SOPUID"];
         [dicomElements setObject:[NSNumber numberWithInt:[imageID intValue]] forKey:@"imageID"];
         [dicomElements setObject:fileType forKey:@"fileType"];
@@ -1278,7 +1278,7 @@ char* replaceBadCharacter (char* str, NSStringEncoding encoding)
 //				[dicomElements setObject:[self patientUID] forKey:@"patientUID"];
 //				[dicomElements setObject:serieID forKey:@"seriesID"];
 //				[dicomElements setObject:name forKey:@"seriesDescription"];
-//				[dicomElements setObject:[NSNumber numberWithInt: 0] forKey:@"seriesNumber"];
+//				[dicomElements setObject:@0 forKey:@"seriesNumber"];
 //				[dicomElements setObject:imageID forKey:@"SOPUID"];
 //				[dicomElements setObject:[NSNumber numberWithInt:[imageID intValue]] forKey:@"imageID"];
 //				[dicomElements setObject:fileType forKey:@"fileType"];
@@ -1359,7 +1359,7 @@ char* replaceBadCharacter (char* str, NSStringEncoding encoding)
 			[dicomElements setObject:[self patientUID] forKey:@"patientUID"];
 			[dicomElements setObject:self.serieID forKey:@"seriesID"];
 			[dicomElements setObject:name forKey:@"seriesDescription"];
-			[dicomElements setObject:[NSNumber numberWithInt: 0] forKey:@"seriesNumber"];
+			[dicomElements setObject:@0 forKey:@"seriesNumber"];
 			[dicomElements setObject:imageID forKey:@"SOPUID"];
 			[dicomElements setObject:[NSNumber numberWithInt:[imageID intValue]] forKey:@"imageID"];
 			[dicomElements setObject:fileType forKey:@"fileType"];
@@ -1674,7 +1674,7 @@ char* replaceBadCharacter (char* str, NSStringEncoding encoding)
 			[dicomElements setObject:[self patientUID] forKey:@"patientUID"];
 //			[dicomElements setObject:serieID forKey:@"seriesID"];
 //			[dicomElements setObject:name forKey:@"seriesDescription"];
-//			[dicomElements setObject:[NSNumber numberWithInt: 0] forKey:@"seriesNumber"];
+//			[dicomElements setObject:@0 forKey:@"seriesNumber"];
 //			[dicomElements setObject:imageID forKey:@"SOPUID"];
 //			[dicomElements setObject:[NSNumber numberWithInt:[imageID intValue]] forKey:@"imageID"];
 			[dicomElements setObject:fileType forKey:@"fileType"];
@@ -1759,7 +1759,7 @@ char* replaceBadCharacter (char* str, NSStringEncoding encoding)
 				[dicomElements setObject:[self patientUID] forKey:@"patientUID"];
 				[dicomElements setObject:self.serieID forKey:@"seriesID"];
 				[dicomElements setObject:name forKey:@"seriesDescription"];
-				[dicomElements setObject:[NSNumber numberWithInt: 0] forKey:@"seriesNumber"];
+				[dicomElements setObject:@0 forKey:@"seriesNumber"];
 				[dicomElements setObject:imageID forKey:@"SOPUID"];
 				[dicomElements setObject:[NSNumber numberWithInt:[imageID intValue]] forKey:@"imageID"];
 				[dicomElements setObject:fileType forKey:@"fileType"];
@@ -1829,7 +1829,7 @@ char* replaceBadCharacter (char* str, NSStringEncoding encoding)
 			[dicomElements setObject:[self patientUID] forKey:@"patientUID"];
 			[dicomElements setObject:self.serieID forKey:@"seriesID"];
 			[dicomElements setObject:name forKey:@"seriesDescription"];
-			[dicomElements setObject:[NSNumber numberWithInt: 0] forKey:@"seriesNumber"];
+			[dicomElements setObject:@0 forKey:@"seriesNumber"];
 			[dicomElements setObject:imageID forKey:@"SOPUID"];
 			[dicomElements setObject:[NSNumber numberWithInt:[imageID intValue]] forKey:@"imageID"];
 			[dicomElements setObject:fileType forKey:@"fileType"];
@@ -2297,7 +2297,7 @@ char* replaceBadCharacter (char* str, NSStringEncoding encoding)
 		else
 			[dicomElements setObject:name forKey:@"seriesDescription"];
 
-		[dicomElements setObject:[NSNumber numberWithInt: 0] forKey:@"seriesNumber"];
+		[dicomElements setObject:@0 forKey:@"seriesNumber"];
 		[dicomElements setObject:imageID forKey:@"SOPUID"];
 		[dicomElements setObject:[NSNumber numberWithInt:[imageID intValue]] forKey:@"imageID"];
 		[dicomElements setObject:fileType forKey:@"fileType"];
@@ -2483,7 +2483,7 @@ char* replaceBadCharacter (char* str, NSStringEncoding encoding)
 //			[dicomElements setObject:[self patientUID] forKey:@"patientUID"];
 //			[dicomElements setObject:self.serieID forKey:@"seriesID"];
 //			[dicomElements setObject:[[[NSString alloc] initWithString:[filePath lastPathComponent]] autorelease] forKey:@"seriesDescription"];
-//			[dicomElements setObject:[NSNumber numberWithInt: 0] forKey:@"seriesNumber"];
+//			[dicomElements setObject:@0 forKey:@"seriesNumber"];
 //			[dicomElements setObject:imageID forKey:@"SOPUID"];
 //			[dicomElements setObject:[NSNumber numberWithInt:[imageID intValue]] forKey:@"imageID"];
 //			[dicomElements setObject:fileType forKey:@"fileType"];

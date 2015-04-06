@@ -309,7 +309,7 @@ NSString* const OSIPasteboardTypeCodingROI = @BUNDLE_IDENTIFIER@".codingROI";
         case tPlain:
             return [[[OSIPlanarBrushROI alloc] initWithOsiriXROI:roi pixToDICOMTransfrom:pixToDICOMTransfrom] autorelease];
 		default:
-			return nil;;
+			return nil;
 	}
 }
 

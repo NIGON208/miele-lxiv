@@ -1460,10 +1460,15 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 			
 			[self convert3Dto2Dpoint:dc :sc];
 			
-			NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:	[NSNumber numberWithInt: sc[0]*[firstObject pixelSpacingX]], @"x", [NSNumber numberWithInt: sc[1]*[firstObject pixelSpacingY]], @"y", [NSNumber numberWithInt: sc[2]], @"z",
+			NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
+                                  [NSNumber numberWithInt: sc[0]*[firstObject pixelSpacingX]], @"x",
+                                  [NSNumber numberWithInt: sc[1]*[firstObject pixelSpacingY]], @"y",
+                                  [NSNumber numberWithInt: sc[2]], @"z",
 								  nil];
 			
-			[[NSNotificationCenter defaultCenter] postNotificationName: OsirixDisplay3dPointNotification object:pixList  userInfo: dict];
+			[[NSNotificationCenter defaultCenter] postNotificationName: OsirixDisplay3dPointNotification
+                                                                object: pixList
+                                                              userInfo: dict];
 			
 			return;
 		}
@@ -1673,7 +1678,7 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 	
 	if (_resizeFrame){
 		NSRect	newFrame = [self frame];
-		NSRect	beforeFrame = [self frame];;
+		NSRect	beforeFrame = [self frame];
 		NSPoint mouseLoc = [theEvent locationInWindow];	//[self convertPoint: [theEvent locationInWindow] fromView:nil];
 		
 		if( [theEvent modifierFlags] & NSShiftKeyMask)

@@ -831,7 +831,8 @@
 
 - (NSNumber*) getSizeOfDirectory: (NSString*) path
 {
-	if( [[NSFileManager defaultManager] fileExistsAtPath: path] == NO) return [NSNumber numberWithLong: 0];
+	if( [[NSFileManager defaultManager] fileExistsAtPath: path] == NO)
+        return @(0L);
 
 	if( [[[NSFileManager defaultManager] fileAttributesAtPath:path traverseLink:NO]fileType]!=NSFileTypeSymbolicLink || [[[NSFileManager defaultManager] fileAttributesAtPath:path traverseLink:NO]fileType]!=NSFileTypeUnknown)
 	{

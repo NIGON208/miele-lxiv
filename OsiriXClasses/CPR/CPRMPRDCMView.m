@@ -1943,7 +1943,7 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
 {
 	[self checkCursor];
 	
-	NSPoint current = [self currentPointInView: event];
+    NSPoint current = [self convertPoint: event.locationInWindow fromView: nil];
 	
 	if( scrollMode == 0)
 	{
@@ -1965,11 +1965,9 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
 		delta = ((current.x - previous.x) * 512. )/ ([self convertSizeToBacking: self.frame.size].width/2);
 	
 	[self restoreCamera];
-	windowController.lowLOD = YES;
 	[vrView scrollInStack: delta];
 	[self updateViewMPR];
 	[self updateMousePosition: event];
-	windowController.lowLOD = NO;
 }
 
 -(void) magnifyWithEvent:(NSEvent *)anEvent

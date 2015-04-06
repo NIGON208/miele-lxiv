@@ -552,7 +552,10 @@ enum RemoteDicomDatabaseStudiesAlbumAction { RemoteDicomDatabaseStudiesAlbumActi
 		[studiesIds addObject:dicomStudy.objectID.URIRepresentation.absoluteString];
 	NSString* albumId = dicomAlbum.objectID.URIRepresentation.absoluteString;
 	
-	NSDictionary* params = [NSDictionary dictionaryWithObjectsAndKeys: studiesIds, @"albumStudies", albumId, @"albumUID", nil];
+	NSDictionary* params = [NSDictionary dictionaryWithObjectsAndKeys:
+                            studiesIds, @"albumStudies",
+                            albumId, @"albumUID",
+                            nil];
 	
 	NSMutableData* request = [NSMutableData dataWithBytes:command length:6];
 	[RemoteDicomDatabase _data:request appendStringUTF8:params.description];
@@ -630,7 +633,7 @@ enum RemoteDicomDatabaseStudiesAlbumAction { RemoteDicomDatabaseStudiesAlbumActi
                                 {
                                     DicomImage* image = [dbObjsInRequest objectAtIndex:i];
                                     [image setValue:[NSString stringWithFormat:@"%d.dcm", number] forKey:@"path"];
-                                    [image setValue:[NSNumber numberWithBool:YES] forKey:@"inDatabaseFolder"];
+                                    [image setValue:@YES forKey:@"inDatabaseFolder"];
 
                                 }
                                 else break;

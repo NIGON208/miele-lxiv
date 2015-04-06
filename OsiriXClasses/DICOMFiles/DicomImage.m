@@ -316,7 +316,8 @@ NSString* sopInstanceUIDDecode( unsigned char *r, int length)
         
         NSNumber *f = [self primitiveValueForKey:@"storedInDatabaseFolder"];
         
-        if( f == nil) f = [NSNumber numberWithBool: YES];
+        if( f == nil)
+            f = @YES;
         
         [inDatabaseFolder release];
         inDatabaseFolder = [f retain];
@@ -357,8 +358,10 @@ NSString* sopInstanceUIDDecode( unsigned char *r, int length)
         if (height) return height;
         
         NSNumber* f = [self primitiveValueForKey:@"storedHeight"];
-        if (f == nil) f = [NSNumber numberWithInt: 512];
-        else if ([f integerValue] == OsirixDicomImageSizeUnknown) {
+        if (f == nil)
+            f = @512;
+        else if ([f integerValue] == OsirixDicomImageSizeUnknown)
+        {
             [self _updateMetaData_size];
             f = [self primitiveValueForKey:@"storedHeight"];
         }
@@ -395,8 +398,10 @@ NSString* sopInstanceUIDDecode( unsigned char *r, int length)
         if (width) return width;
         
         NSNumber* f = [self primitiveValueForKey:@"storedWidth"];
-        if (f == nil) f = [NSNumber numberWithInt: 512];
-        else if ([f integerValue] == OsirixDicomImageSizeUnknown) {
+        if (f == nil)
+            f = @512;
+        else if ([f integerValue] == OsirixDicomImageSizeUnknown)
+        {
             [self _updateMetaData_size];
             f = [self primitiveValueForKey:@"storedWidth"];
         }
@@ -434,7 +439,8 @@ NSString* sopInstanceUIDDecode( unsigned char *r, int length)
         
         NSNumber	*f = [self primitiveValueForKey:@"storedNumberOfFrames"];
         
-        if( f == nil) f = [NSNumber numberWithInt: 1];
+        if( f == nil)
+            f = @1;
 
         [numberOfFrames release];
         numberOfFrames = [f retain];
@@ -469,7 +475,8 @@ NSString* sopInstanceUIDDecode( unsigned char *r, int length)
         
         NSNumber *f = [self primitiveValueForKey:@"storedNumberOfSeries"];
         
-        if( f == nil) f = [NSNumber numberWithInt: 1];
+        if( f == nil)
+            f = @1;
 
         [numberOfSeries release];
         numberOfSeries = [f retain];
@@ -513,7 +520,7 @@ NSString* sopInstanceUIDDecode( unsigned char *r, int length)
 //	
 //	NSNumber	*f = [self primitiveValueForKey:@"storedMountedVolume"];
 //	
-//	if( f == nil)  f = [NSNumber numberWithBool: NO];
+//	if( f == nil)  f = @NO;
 //
 //	[mountedVolume release];
 //	mountedVolume = [f retain];
@@ -597,7 +604,8 @@ NSString* sopInstanceUIDDecode( unsigned char *r, int length)
         
         NSNumber *f = [self primitiveValueForKey:@"storedIsKeyImage"];
         
-        if( f == nil)  f = [NSNumber numberWithBool: NO];
+        if( f == nil)
+            f = @NO;
 
         [isKeyImage release];
         isKeyImage = [f retain];
@@ -662,7 +670,11 @@ NSString* sopInstanceUIDDecode( unsigned char *r, int length)
                         
                         [dcmObject release];
                         
-                        NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys: [NSArray arrayWithObject: self.completePath], @"files", @"(0028,6022)", @"field", c, @"value", nil]; // c can be nil : it's important to have it at the end
+                        NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
+                                              [NSArray arrayWithObject: self.completePath], @"files",
+                                              @"(0028,6022)", @"field",
+                                              c, @"value", // c can be nil : it's important to have it at the end
+                                              nil];
                         
                         NSThread *t = [[[NSThread alloc] initWithTarget:self selector:@selector(dcmodifyThread:) object: dict] autorelease];
                         t.name = NSLocalizedString( @"Updating DICOM files...", nil);
@@ -680,7 +692,11 @@ NSString* sopInstanceUIDDecode( unsigned char *r, int length)
                     if( [f boolValue])
                         c = @"0"; // frame 0 is key image 
                         
-                    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys: [NSArray arrayWithObject: self.completePath], @"files", @"(0028,6022)", @"field", c, @"value", nil]; // c can be nil : it's important to have it at the end
+                    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
+                                          [NSArray arrayWithObject: self.completePath], @"files",
+                                          @"(0028,6022)", @"field",
+                                          c, @"value", // c can be nil : it's important to have it at the end
+                                          nil];
 
                     NSThread *t = [[[NSThread alloc] initWithTarget:self selector:@selector(dcmodifyThread:) object: dict] autorelease];
                     t.name = NSLocalizedString( @"Updating DICOM files...", nil);
@@ -1042,7 +1058,7 @@ NSString* sopInstanceUIDDecode( unsigned char *r, int length)
                 if( [[self.path pathExtension] isEqualToString:@"hdr"])		// ANALYZE -> DELETE IMG
                     [[BrowserController currentBrowser] addFileToDeleteQueue: [[self.completePath stringByDeletingPathExtension] stringByAppendingPathExtension:@"img"]];
                 
-                self.inDatabaseFolder = [NSNumber numberWithBool: NO];
+                self.inDatabaseFolder = @NO;
             }
             #endif
         }

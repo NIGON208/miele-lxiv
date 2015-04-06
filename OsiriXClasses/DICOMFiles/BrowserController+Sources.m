@@ -207,7 +207,10 @@ enum {
 	NSInteger i = [self rowForDatabase:_database];
 	if (i == -1 && _database != [DicomDatabase defaultDatabase])
     {
-		NSDictionary* source = [NSDictionary dictionaryWithObjectsAndKeys: [_database.baseDirPath stringByDeletingLastPathComponent], @"Path", [_database.baseDirPath.stringByDeletingLastPathComponent.lastPathComponent stringByAppendingString: NSLocalizedString( @" DB", @"DB = DataBase")], @"Description", nil];
+		NSDictionary* source = [NSDictionary dictionaryWithObjectsAndKeys:
+                                [_database.baseDirPath stringByDeletingLastPathComponent], @"Path",
+                                [_database.baseDirPath.stringByDeletingLastPathComponent.lastPathComponent stringByAppendingString: NSLocalizedString( @" DB", @"DB = DataBase")], @"Description",
+                                nil];
 		[[NSUserDefaults standardUserDefaults] setObject:[[[NSUserDefaults standardUserDefaults] objectForKey:@"localDatabasePaths"] arrayByAddingObject:source] forKey:@"localDatabasePaths"];
         
 		i = [self rowForDatabase:_database];
@@ -262,7 +265,7 @@ enum {
 		if (![e.description isEqualToString:@"Cancelled."])
         {
 			N2LogExceptionWithStackTrace(e);
-			[self performSelectorOnMainThread:@selector(_complain:) withObject:[NSArray arrayWithObjects: [NSNumber numberWithFloat:0.1], NSLocalizedString(@"Error", nil), e.description, NULL] waitUntilDone:NO modes:[NSArray arrayWithObject:NSDefaultRunLoopMode]];
+			[self performSelectorOnMainThread:@selector(_complain:) withObject:[NSArray arrayWithObjects: @0.1F, NSLocalizedString(@"Error", nil), e.description, NULL] waitUntilDone:NO modes:[NSArray arrayWithObject:NSDefaultRunLoopMode]];
 		}
 	} @finally
     {

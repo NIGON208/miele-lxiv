@@ -217,7 +217,7 @@
                 }
             }
             
-            [logEntry setValue:[NSNumber numberWithInt: 1 + WADOTotal - WADOThreads] forKey:@"logNumberReceived"];
+            [logEntry setValue:[NSNumber numberWithInt: (1 + WADOTotal - WADOThreads)] forKey:@"logNumberReceived"];
             
             [logEntry setValue:[NSDate date] forKey:@"logEndTime"];
             [logEntry setValue:@"In Progress" forKey:@"logMessage"];
@@ -321,7 +321,11 @@
                 
                 if( downloadConnection)
                 {
-                    [WADODownloadDictionary setObject: [NSDictionary dictionaryWithObjectsAndKeys: url, @"url", [NSMutableData data], @"data", nil] forKey: [NSString stringWithFormat:@"%ld", (long) downloadConnection]];
+                    [WADODownloadDictionary setObject: [NSDictionary dictionaryWithObjectsAndKeys:
+                                                        url, @"url",
+                                                        [NSMutableData data], @"data",
+                                                        nil]
+                                               forKey: [NSString stringWithFormat:@"%ld", (long) downloadConnection]];
                     [downloadConnection start];
                     [connectionsArray addObject: downloadConnection];
                 }
@@ -329,7 +333,10 @@
                 if( downloadConnection == nil)
                     WADOThreads--;
                 
-                if( _abortAssociation || [NSThread currentThread].isCancelled || [[NSFileManager defaultManager] fileExistsAtPath: @"/tmp/kill_all_storescu"] || [NSDate timeIntervalSinceReferenceDate] - retrieveStartingDate > timeout)
+                if (_abortAssociation ||
+                    [NSThread currentThread].isCancelled ||
+                    [[NSFileManager defaultManager] fileExistsAtPath: @"/tmp/kill_all_storescu"] ||
+                    [NSDate timeIntervalSinceReferenceDate] - retrieveStartingDate > timeout)
                 {
                     aborted = YES;
                     break;
@@ -342,7 +349,10 @@
                 {
                     [[NSRunLoop currentRunLoop] runUntilDate: [NSDate dateWithTimeIntervalSinceNow: 0.1]];
                     
-                    if( _abortAssociation || [NSThread currentThread].isCancelled || [[NSFileManager defaultManager] fileExistsAtPath: @"/tmp/kill_all_storescu"]  || [NSDate timeIntervalSinceReferenceDate] - retrieveStartingDate > timeout)
+                    if (_abortAssociation ||
+                        [NSThread currentThread].isCancelled ||
+                        [[NSFileManager defaultManager] fileExistsAtPath: @"/tmp/kill_all_storescu"] ||
+                        [NSDate timeIntervalSinceReferenceDate] - retrieveStartingDate > timeout)
                     {
                         aborted = YES;
                         break;
@@ -355,8 +365,10 @@
                 [[DicomDatabase activeLocalDatabase] initiateImportFilesFromIncomingDirUnlessAlreadyImporting];
             }
             
-            if( aborted) [logEntry setValue:@"Incomplete" forKey:@"logMessage"];
-            else [logEntry setValue:@"Complete" forKey:@"logMessage"];
+            if( aborted)
+                [logEntry setValue:@"Incomplete" forKey:@"logMessage"];
+            else
+                [logEntry setValue:@"Complete" forKey:@"logMessage"];
             
             [[LogManager currentLogManager] addLogLine: logEntry];
             
@@ -389,6 +401,5 @@
         [pool release];
     }
 }
-
 
 @end

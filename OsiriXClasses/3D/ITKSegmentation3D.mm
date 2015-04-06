@@ -705,7 +705,8 @@ void ConnectPipelines(ITK_Exporter exporter, VTK_Importer* importer)
                             
                             [[[srcViewer roiList] objectAtIndex:i] addObject:theNewROI];
                             
-                            NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:theNewROI, @"ROI",
+                            NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
+                                                      theNewROI, @"ROI",
                                                       [NSNumber numberWithInt:i], @"sliceNumber",
                                                       nil];
                             
@@ -738,10 +739,10 @@ void ConnectPipelines(ITK_Exporter exporter, VTK_Importer* importer)
                     {
                         int currentImageIndex = [[srcViewer imageView] curImage];
                         
-                        for( NSMutableArray *rois in [srcViewer roiList])
-                        {
-                            [srcViewer mergeBrushROI: self ROIs: rois ROIList: rois];
-                        }
+//                        for( NSMutableArray *rois in [srcViewer roiList])
+//                        {
+//                            [srcViewer mergeBrushROI: self ROIs: rois ROIList: rois];
+//                        }
                         
                         [[srcViewer imageView] setIndex: currentImageIndex];
                         [[srcViewer imageView] sendSyncMessage:0];
@@ -775,7 +776,8 @@ void ConnectPipelines(ITK_Exporter exporter, VTK_Importer* importer)
                 [theNewROI setSliceThickness:[[[srcViewer imageView] curDCM] sliceThickness]];
                 [[[srcViewer roiList] objectAtIndex:slice] addObject:theNewROI];
                 [[srcViewer imageView] roiSet];
-                NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:theNewROI, @"ROI",
+                NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
+                                          theNewROI, @"ROI",
                                           [NSNumber numberWithInt:slice], @"sliceNumber",
                                           nil];
                 

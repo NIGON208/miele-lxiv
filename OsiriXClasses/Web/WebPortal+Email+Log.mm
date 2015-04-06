@@ -76,7 +76,12 @@
 		[messageHeaders setObject:emailSubject forKey:@"Subject"];
 		
 		// NSAttributedString initWithHTML is NOT thread-safe
-		[self performSelectorOnMainThread: @selector(sendEmailOnMainThread:) withObject: [NSDictionary dictionaryWithObjectsAndKeys: ts, @"template", messageHeaders, @"headers", nil] waitUntilDone: NO];
+		[self performSelectorOnMainThread: @selector(sendEmailOnMainThread:)
+                               withObject: [NSDictionary dictionaryWithObjectsAndKeys:
+                                            ts, @"template",
+                                            messageHeaders, @"headers",
+                                            nil]
+                            waitUntilDone: NO];
 		
 		for (NSManagedObject* s in filteredStudies)
 			[self updateLogEntryForStudy:s withMessage: @"notification email" forUser:user.name ip:nil];
@@ -271,7 +276,7 @@
         for (int i = 1; ![user validateForInsert:nil]; ++i)
             user.name = [[email substringToIndex:[email rangeOfString:@"@"].location] stringByAppendingFormat:@"-%d", i];
         
-        user.autoDelete = [NSNumber numberWithBool:YES];
+        user.autoDelete = @YES;
         
         // send message
         NSMutableDictionary* tokens = [NSMutableDictionary dictionary];
@@ -291,10 +296,16 @@
             [messageHeaders setObject:[[NSUserDefaults standardUserDefaults] valueForKey: @"notificationsEmailsSender"] forKey:@"Sender"];
         else
             [messageHeaders setObject: @"" forKey:@"Sender"];
+        
         [messageHeaders setObject:emailSubject forKey:@"Subject"];
         
         // NSAttributedString initWithHTML is NOT thread-safe
-        [self performSelectorOnMainThread: @selector(sendEmailOnMainThread:) withObject: [NSDictionary dictionaryWithObjectsAndKeys: ts, @"template", messageHeaders, @"headers", nil] waitUntilDone: NO];
+        [self performSelectorOnMainThread: @selector(sendEmailOnMainThread:)
+                               withObject: [NSDictionary dictionaryWithObjectsAndKeys:
+                                            ts, @"template",
+                                            messageHeaders, @"headers",
+                                            nil]
+                            waitUntilDone: NO];
     }
 	
 	return user;

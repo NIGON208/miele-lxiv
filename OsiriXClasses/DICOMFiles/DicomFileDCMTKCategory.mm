@@ -216,7 +216,7 @@ extern NSRecursiveLock *PapyrusLock;
 			[dicomElements setObject:[self patientUID] forKey:@"patientUID"];
 			[dicomElements setObject:self.serieID forKey:@"seriesID"];
 			[dicomElements setObject:name forKey:@"seriesDescription"];
-			[dicomElements setObject:[NSNumber numberWithInt: 0] forKey:@"seriesNumber"];
+			[dicomElements setObject:@0 forKey:@"seriesNumber"];
 			[dicomElements setObject:imageID forKey:@"SOPUID"];
 			[dicomElements setObject:[NSNumber numberWithInt:[imageID intValue]] forKey:@"imageID"];
 			[dicomElements setObject:fileType forKey:@"fileType"];
@@ -957,7 +957,7 @@ extern NSRecursiveLock *PapyrusLock;
 			NSUInteger length;
 			if (dataset->findAndGetUint8Array(DCM_EncapsulatedDocument, buffer, &length, OFFalse).good() && length > 0)
 			{
-				NSData *pdfData = [NSData dataWithBytes:buffer length:(unsigned)length];;
+				NSData *pdfData = [NSData dataWithBytes:buffer length:(unsigned)length];
 				NSPDFImageRep *rep = [NSPDFImageRep imageRepWithData:pdfData];
 				
 				NoOfFrames = [rep pageCount];
@@ -1096,7 +1096,7 @@ extern NSRecursiveLock *PapyrusLock;
 			[dicomElements setObject:date forKey:@"studyDate"];
 		}
 		
-		[dicomElements setObject:[NSNumber numberWithBool:YES] forKey:@"hasDICOM"];
+		[dicomElements setObject:@YES forKey:@"hasDICOM"];
         
 		if( name != nil && studyID != nil && self.serieID != nil && imageID != nil && width != 0 && height != 0)
 		{

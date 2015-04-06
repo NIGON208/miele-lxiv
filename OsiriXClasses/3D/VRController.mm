@@ -3126,7 +3126,7 @@ return YES;
 			}
 		}
 	}
-	return [settingsGroups sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];;
+	return [settingsGroups sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
 }
 NSInteger sort3DSettingsDict(id preset1, id preset2, void *context)
 {

@@ -28,9 +28,9 @@ static NSArray *languagesToMoveWhenQuitting = nil;
 + (BOOL)allowsReverseTransformation { return NO; }
 - (id)transformedValue:(id)item {
    if( [item intValue] == 3 || [item intValue] == 4)
-		return [NSNumber numberWithBool: YES];
+		return @YES;
 	else
-		return [NSNumber numberWithBool: NO];
+		return @NO;
 }
 @end
 
@@ -53,7 +53,11 @@ static NSArray *languagesToMoveWhenQuitting = nil;
                 if( name.length == 0)
                     name = [file stringByDeletingPathExtension];
                 
-                [languages addObject: [NSMutableDictionary dictionaryWithObjectsAndKeys: [file stringByDeletingPathExtension], @"foldername", name, @"language", [NSNumber numberWithBool: YES], @"active", nil]];
+                [languages addObject: [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                       [file stringByDeletingPathExtension], @"foldername",
+                                       name, @"language",
+                                       @YES, @"active",
+                                       nil]];
             }
         }
         
@@ -66,7 +70,11 @@ static NSArray *languagesToMoveWhenQuitting = nil;
                 if( name.length == 0)
                     name = [file stringByDeletingPathExtension];
                 
-                [languages addObject: [NSMutableDictionary dictionaryWithObjectsAndKeys: [file stringByDeletingPathExtension], @"foldername", name, @"language", [NSNumber numberWithBool: NO], @"active", nil]];
+                [languages addObject: [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                       [file stringByDeletingPathExtension], @"foldername",
+                                       name, @"language",
+                                       @NO, @"active",
+                                       nil]];
             }
         }
         
@@ -295,7 +303,7 @@ static NSArray *languagesToMoveWhenQuitting = nil;
     
     // At least one language must be active !
     if( enabled == NO)
-        [[languages objectAtIndex: 0] setValue: [NSNumber numberWithBool: YES] forKey: @"active"];
+        [[languages objectAtIndex: 0] setValue: @YES forKey: @"active"];
     
     [languagesToMoveWhenQuitting release];
     languagesToMoveWhenQuitting = [languages copy];

@@ -214,7 +214,7 @@ static NSString* _dcmElementKey(DcmElement* element) {
                 [item setObject:@"DICOMMPEG2" forKey:@"fileType"];
             else [item setObject:@"DICOM" forKey:@"fileType"];
             
-            [item conditionallySetObject:[NSNumber numberWithBool:YES] forKey:@"hasDICOM"];
+            [item conditionallySetObject:@YES forKey:@"hasDICOM"];
             
             temp = [[elements objectForKeyRemove: @"0008,0016"] stringValue];
             if (!temp) temp = [[elements objectForKey: @"0004,1510"] stringValue];
@@ -676,10 +676,10 @@ static NSString* _dcmElementKey(DcmElement* element) {
                 [DicomDatabase.activeLocalDatabase.independentDatabase performSelector:@selector(copyFilesThread:)
                                                                             withObject:[NSDictionary dictionaryWithObjectsAndKeys:
                                                                                         paths, @"filesInput",
-                                                                                        [NSNumber numberWithBool:YES], @"mountedVolume",
-                                                                                        [NSNumber numberWithBool:YES], @"copyFiles",
-                                                                                        [NSNumber numberWithBool: YES], @"addToAlbum",
-                                                                                        [NSNumber numberWithBool: YES], @"selectStudy",
+                                                                                        @YES, @"mountedVolume",
+                                                                                        @YES, @"copyFiles",
+                                                                                        @YES, @"addToAlbum",
+                                                                                        @YES, @"selectStudy",
                                                                                         NULL]];
             }];
             

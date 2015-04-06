@@ -1369,8 +1369,8 @@ PixelRepresentation
 
 - (void)removePlanarAndRescaleAttributes{
 	[attributes removeObjectForKey:[[DCMAttributeTag tagWithName:@"RescaleSlope"] stringValue]];
-	[attributes removeObjectForKey:[[DCMAttributeTag tagWithName:@"RescaleIntercept"] stringValue]];;
-	[attributes removeObjectForKey:[[DCMAttributeTag tagWithName:@"PlanarConfiguration"] stringValue]];;
+	[attributes removeObjectForKey:[[DCMAttributeTag tagWithName:@"RescaleIntercept"] stringValue]];
+	[attributes removeObjectForKey:[[DCMAttributeTag tagWithName:@"PlanarConfiguration"] stringValue]];
 }
 
 
@@ -1414,7 +1414,7 @@ PixelRepresentation
 				case DCM_FD:	//double floating point 8 bytes fixed
 				case DCM_US:   //unsigned short
 				case DCM_SS:	//signed short
-					newValue = [NSNumber numberWithInt:0];
+					newValue = @0;
 					break;
 					//calendar dates
 				case DCM_DA:	format = @"%Y%m%d";

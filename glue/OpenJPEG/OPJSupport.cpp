@@ -321,7 +321,7 @@ void* OPJSupport::decompressJPEG2KWithBuffer(void* inputBuffer,
     long depth = (decodeInfo.image->comps[0].prec + 7)/8;
     long decompressSize = width * height * decodeInfo.image->numcomps * depth;
     if (decompressedBufferSize)
-        *decompressedBufferSize = decompressSize;;
+        *decompressedBufferSize = decompressSize;
    
     if (!inputBuffer ) {
         inputBuffer =  malloc(decompressSize);
@@ -390,7 +390,7 @@ void* OPJSupport::decompressJPEG2KWithBuffer(void* inputBuffer,
             bc = (unsigned char)*blue++;
             if(hasAlpha)
             {
-                ac = (unsigned char)*alpha++;;
+                ac = (unsigned char)*alpha++;
             }
             
             /*                         A        R          G       B

@@ -75,7 +75,7 @@
 		[[serverList objectAtIndex: x] setValue: [[serverList objectAtIndex: x] valueForKey:@"AETitle"] forKey:@"AETitle"];
 		
         if( [[serverList objectAtIndex: x] valueForKey:@"Activated"] == nil)
-            [[serverList objectAtIndex: x] setValue: [NSNumber numberWithBool: YES] forKey: @"Activated"];
+            [[serverList objectAtIndex: x] setValue: @YES forKey: @"Activated"];
         
 		NSString *currentAETitle = [[serverList objectAtIndex: x] valueForKey: @"AETitle"];
 		
@@ -327,7 +327,7 @@
 	{
 		NSMutableDictionary *aServer = [[dicomNodes arrangedObjects] objectAtIndex: i];
 		if( [aServer valueForKey:@"Send"] == 0L)
-			[aServer setValue:[NSNumber numberWithBool:YES] forKey:@"Send"];
+			[aServer setValue:@YES forKey:@"Send"];
 	}
 }
 
@@ -364,18 +364,18 @@
     [aServer setObject:@"127.0.0.1" forKey:@"Address"];
     [aServer setObject:@"PACS" forKey:@"AETitle"];
     [aServer setObject:@"11112" forKey:@"Port"];
-	[aServer setObject:[NSNumber numberWithBool:YES] forKey:@"QR"];
-	[aServer setObject:[NSNumber numberWithBool:YES] forKey:@"Send"];
+	[aServer setObject:@YES forKey:@"QR"];
+	[aServer setObject:@YES forKey:@"Send"];
     [aServer setObject:@"Description" forKey:@"Description"];
-	[aServer setObject:[NSNumber numberWithInt:0] forKey:@"TransferSyntax"];
-	[aServer setObject: [NSNumber numberWithInt: 0] forKey: @"retrieveMode"]; // CMove
-	[aServer setObject: [NSNumber numberWithInt: 8080] forKey: @"WADOPort"];
-	[aServer setObject: [NSNumber numberWithInt: -1] forKey: @"WADOTransferSyntax"]; // useOrig=true
-	[aServer setObject: [NSNumber numberWithInt: 0] forKey: @"WADOhttps"];
-	[aServer setObject: @"wado" forKey: @"WADOUrl"];
+	[aServer setObject:@0 forKey:@"TransferSyntax"];
+	[aServer setObject:@0 forKey: @"retrieveMode"]; // CMove
+	[aServer setObject:@8080 forKey: @"WADOPort"];
+	[aServer setObject:@(-1) forKey: @"WADOTransferSyntax"]; // useOrig=true
+	[aServer setObject:@0 forKey: @"WADOhttps"];
+	[aServer setObject:@"wado" forKey: @"WADOUrl"];
 	
-	[aServer setObject:[NSNumber numberWithBool:NO] forKey:@"TLSEnabled"];
-	[aServer setObject:[NSNumber numberWithBool:NO] forKey:@"TLSAuthenticated"];
+	[aServer setObject:@NO forKey:@"TLSEnabled"];
+	[aServer setObject:@NO forKey:@"TLSAuthenticated"];
 	
 	[dicomNodes addObject:aServer];
 	
@@ -466,7 +466,7 @@
 	
 	if( result == NSRunStoppedResponse)
 	{
-		[aServer setObject: [NSNumber numberWithInt: 2] forKey: @"retrieveMode"]; // WADORetrieveMode
+		[aServer setObject: @2 forKey: @"retrieveMode"]; // WADORetrieveMode
 		[aServer setObject: [NSNumber numberWithInt: WADOPort] forKey: @"WADOPort"];
 		[aServer setObject: [NSNumber numberWithInt: WADOTransferSyntax] forKey: @"WADOTransferSyntax"];
 		[aServer setObject: [NSNumber numberWithInt: WADOhttps] forKey: @"WADOhttps"];
@@ -478,7 +478,7 @@
             [aServer setObject: WADOPassword forKey: @"WADOPassword"];
 		
 		// disable TLS
-		[aServer setObject:[NSNumber numberWithBool:NO] forKey:@"TLSEnabled"];
+		[aServer setObject:@NO forKey:@"TLSEnabled"];
 		
 		[[NSUserDefaults standardUserDefaults] setObject: [dicomNodes arrangedObjects] forKey: @"SERVERS"];
 	}
@@ -785,7 +785,10 @@
 			
 			if( isDirectory)
 			{
-				dict = [NSDictionary dictionaryWithObjectsAndKeys: location, @"Path", [[location lastPathComponent] stringByAppendingString: NSLocalizedString( @" DB", @"DB = DataBase")], @"Description", nil];
+				dict = [NSDictionary dictionaryWithObjectsAndKeys:
+                        location, @"Path",
+                        [[location lastPathComponent] stringByAppendingString: NSLocalizedString( @" DB", @"DB = DataBase")], @"Description",
+                        nil];
 				
 				[localPaths addObject: dict];
 			
@@ -929,13 +932,13 @@
 - (IBAction)selectAllSuites:(id)sender;
 {
 	for( NSMutableDictionary *suite in self.TLSSupportedCipherSuite)
-		[suite setObject: [NSNumber numberWithBool: YES] forKey: @"Supported"];
+		[suite setObject: @YES forKey: @"Supported"];
 }
 
 - (IBAction)deselectAllSuites:(id)sender;
 {
 	for( NSMutableDictionary *suite in self.TLSSupportedCipherSuite)
-		[suite setObject: [NSNumber numberWithBool: NO] forKey: @"Supported"];
+		[suite setObject: @NO forKey: @"Supported"];
 }
 
 @end
@@ -959,10 +962,12 @@
 	{
 		float retrieveMode = [value intValue]; // this should be the tag of the retrieve mode
 		if (retrieveMode==2)
-			return [NSNumber numberWithInt:0];
-		return [NSNumber numberWithInt:1];
+			return @0;
+        
+		return @1;
 	}
-	return [NSNumber numberWithInt:1];
+    
+	return @1;
 }
 
 @end

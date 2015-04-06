@@ -303,7 +303,7 @@ static NSString* ThreadModalForWindowControllerObservationContext = @"ThreadModa
 -(ThreadModalForWindowController*)startModalForWindow:(NSWindow*)window {
 //	if ([[self threadDictionary] objectForKey:ThreadIsCurrentlyModal])
 //		return nil;
-//	[[self threadDictionary] setObject:[NSNumber numberWithBool:YES] forKey:ThreadIsCurrentlyModal];
+//	[[self threadDictionary] setObject:@YES forKey:ThreadIsCurrentlyModal];
 	if ([NSThread isMainThread]) {
 		if (![self isFinished])
 			return [[[ThreadModalForWindowController alloc] initWithThread:self window:window] autorelease];

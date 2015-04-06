@@ -210,7 +210,7 @@ static const NSMutableArray* pluginPanes = [[NSMutableArray alloc] init];
 		
 		if (doBind)
 			@try {
-				[view bind:bk toObject:obj withKeyPath:keyPath options:[NSDictionary dictionaryWithObject:[NSNumber numberWithBool:YES] forKey:NSConditionallySetsEnabledBindingOption]];
+				[view bind:bk toObject:obj withKeyPath:keyPath options:[NSDictionary dictionaryWithObject:@YES forKey:NSConditionallySetsEnabledBindingOption]];
 				return;
 			} @catch (NSException* e) {
 				NSLog(@"Warning: %@", e.description);
@@ -405,8 +405,8 @@ static const NSMutableArray* pluginPanes = [[NSMutableArray alloc] init];
 		[flippedDocumentView setFrameSize:view.frame.size];
 		[flippedDocumentView addSubview:view];
         [animations addObject:[NSDictionary dictionaryWithObjectsAndKeys:
-							       view, NSViewAnimationTargetKey,
-							       NSViewAnimationFadeInEffect, NSViewAnimationEffectKey,
+                               view, NSViewAnimationTargetKey,
+                               NSViewAnimationFadeInEffect, NSViewAnimationEffectKey,
 							   NULL]];
 		[context.pane didSelect];
 
@@ -471,8 +471,8 @@ static const NSMutableArray* pluginPanes = [[NSMutableArray alloc] init];
 	[scrollView setHasVerticalScroller:NO];
 	
 	[animations addObject:[NSDictionary dictionaryWithObjectsAndKeys:
-						       self.window, NSViewAnimationTargetKey,
-						       [NSValue valueWithRect:frame], NSViewAnimationEndFrameKey,
+                           self.window, NSViewAnimationTargetKey,
+                           [NSValue valueWithRect:frame], NSViewAnimationEndFrameKey,
 						   NULL]];
 	
 	// scroll to topleft

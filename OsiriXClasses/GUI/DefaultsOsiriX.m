@@ -497,14 +497,14 @@ static NSHost *currentHost = nil;
 	//	NSMutableArray		*gArray = [NSMutableArray array];
 	//	for( i = 0; i < 256; i++)
 	//	{
-	//		[gArray addObject: [NSNumber numberWithLong:0]];
+	//		[gArray addObject: [NSNumber numberWithLong:0L]];
 	//	}
 	//	[aCLUTFilter setObject:gArray forKey:@"Green"];
 	//	
 	//	NSMutableArray		*bArray = [NSMutableArray array];
 	//	for( i = 0; i < 256; i++)
 	//	{
-	//		[bArray addObject: [NSNumber numberWithLong:0]];
+	//		[bArray addObject: [NSNumber numberWithLong:0L]];
 	//	}
 	//	[aCLUTFilter setObject:bArray forKey:@"Blue"];
 	//	
@@ -516,33 +516,33 @@ static NSHost *currentHost = nil;
 		NSMutableDictionary *aCLUTFilter = [NSMutableDictionary dictionary];
 		NSMutableArray		*rArray = [NSMutableArray array];
 		for( i = 0; i < 128; i++) [rArray addObject: [NSNumber numberWithLong:i*2]];
-		for( i = 128; i < 256; i++) [rArray addObject: [NSNumber numberWithLong:255]];
+		for( i = 128; i < 256; i++) [rArray addObject: [NSNumber numberWithLong:255L]];
 		[aCLUTFilter setObject:rArray forKey:@"Red"];
 		
 		NSMutableArray		*gArray = [NSMutableArray array];
-		for( i = 0; i < 128; i++) [gArray addObject: [NSNumber numberWithLong:0]];
+		for( i = 0; i < 128; i++) [gArray addObject: [NSNumber numberWithLong:0L]];
 		for( i = 128; i < 192; i++) [gArray addObject: [NSNumber numberWithLong: (i-128)*4]];
-		for( i = 192; i < 256; i++) [gArray addObject: [NSNumber numberWithLong: 255]];
+		for( i = 192; i < 256; i++) [gArray addObject: [NSNumber numberWithLong: 255L]];
 		[aCLUTFilter setObject:gArray forKey:@"Green"];
 		
 		NSMutableArray		*bArray = [NSMutableArray array];
-		for( i = 0; i < 192; i++) [bArray addObject: [NSNumber numberWithLong:0]];
+		for( i = 0; i < 192; i++) [bArray addObject: [NSNumber numberWithLong:0L]];
 		for( i = 192; i < 256; i++) [bArray addObject: [NSNumber numberWithLong:(i-192)*4]];
 		[aCLUTFilter setObject:bArray forKey:@"Blue"];
 		
 		// Points & Colors
 		NSMutableArray *colors = [NSMutableArray array], *points = [NSMutableArray array];
 		
-		[colors addObject:[NSArray arrayWithObjects: [NSNumber numberWithFloat: 0], [NSNumber numberWithFloat: 0], [NSNumber numberWithFloat: 0], nil]];
-		[points addObject:[NSNumber numberWithLong: 0]];
+		[colors addObject:[NSArray arrayWithObjects: @0.0F, @0.0F, @0.0F, nil]];
+		[points addObject:[NSNumber numberWithLong: 0L]];
 		
-		[colors addObject:[NSArray arrayWithObjects: [NSNumber numberWithFloat: 1], [NSNumber numberWithFloat: 0], [NSNumber numberWithFloat: 0], nil]];
-		[points addObject:[NSNumber numberWithLong: 128]];
+		[colors addObject:[NSArray arrayWithObjects: @1.0F, @0.0F, @0.0F, nil]];
+		[points addObject:[NSNumber numberWithLong: 128L]];
 		
-		[colors addObject:[NSArray arrayWithObjects: [NSNumber numberWithFloat: 1], [NSNumber numberWithFloat: 1], [NSNumber numberWithFloat: 0], nil]];
-		[points addObject:[NSNumber numberWithLong: 192]];
+		[colors addObject:[NSArray arrayWithObjects: @1.0F, @1.0F, @0.0F, nil]];
+		[points addObject:[NSNumber numberWithLong: 192L]];
 		
-		[colors addObject:[NSArray arrayWithObjects: [NSNumber numberWithFloat: 1], [NSNumber numberWithFloat: 1], [NSNumber numberWithFloat: 1], nil]];
+		[colors addObject:[NSArray arrayWithObjects: @1.0F, @1.0F, @1.0F, nil]];
 		[points addObject:[NSNumber numberWithLong: 256]];
 		
 		[aCLUTFilter setObject:colors forKey:@"Colors"];
@@ -569,10 +569,10 @@ static NSHost *currentHost = nil;
 		// Points & Colors
 		NSMutableArray *colors = [NSMutableArray array], *points = [NSMutableArray array];
 		
-		[colors addObject:[NSArray arrayWithObjects: [NSNumber numberWithFloat: 1], [NSNumber numberWithFloat: 1], [NSNumber numberWithFloat: 1], nil]];
-		[points addObject:[NSNumber numberWithLong: 0]];
+		[colors addObject:[NSArray arrayWithObjects: @1.0F, @1.0F, @1.0F, nil]];
+		[points addObject:[NSNumber numberWithLong: 0L]];
 		
-		[colors addObject:[NSArray arrayWithObjects: [NSNumber numberWithFloat: 0], [NSNumber numberWithFloat: 0], [NSNumber numberWithFloat: 0], nil]];
+		[colors addObject:[NSArray arrayWithObjects: @0.0F, @0.0F, @0.0F, nil]];
 		[points addObject:[NSNumber numberWithLong: 256]];
 		
 		[aCLUTFilter setObject:colors forKey:@"Colors"];
@@ -597,11 +597,11 @@ static NSHost *currentHost = nil;
 		
 		// Points & Colors
 		NSMutableArray *colors = [NSMutableArray array], *points = [NSMutableArray array];
-		[points addObject:[NSNumber numberWithLong: 0]];
-		[points addObject:[NSNumber numberWithLong: 255]];
+		[points addObject:[NSNumber numberWithLong: 0L]];
+		[points addObject:[NSNumber numberWithLong: 255L]];
 		
-		[colors addObject:[NSArray arrayWithObjects: [NSNumber numberWithFloat: 1], [NSNumber numberWithFloat: 1], [NSNumber numberWithFloat: 1], nil]];
-		[colors addObject:[NSArray arrayWithObjects: [NSNumber numberWithFloat: 0], [NSNumber numberWithFloat: 0], [NSNumber numberWithFloat: 0], nil]];
+		[colors addObject:[NSArray arrayWithObjects: @1.0F, @1.0F, @1.0F, nil]];
+		[colors addObject:[NSArray arrayWithObjects: @0.0F, @0.0F, @0.0F, nil]];
 
 		
 		[aCLUTFilter setObject:colors forKey:@"Colors"];
@@ -634,11 +634,11 @@ static NSHost *currentHost = nil;
 		
 		// Points & Colors
 		NSMutableArray *colors = [NSMutableArray array], *points = [NSMutableArray array];
-		[points addObject:[NSNumber numberWithLong: 0]];
-		[points addObject:[NSNumber numberWithLong: 255]];
+		[points addObject:[NSNumber numberWithLong: 0L]];
+		[points addObject:[NSNumber numberWithLong: 255L]];
 		
-		[colors addObject:[NSArray arrayWithObjects: [NSNumber numberWithFloat: 1], [NSNumber numberWithFloat: 1], [NSNumber numberWithFloat: 1], nil]];
-		[colors addObject:[NSArray arrayWithObjects: [NSNumber numberWithFloat: 0], [NSNumber numberWithFloat: 0], [NSNumber numberWithFloat: 0], nil]];
+		[colors addObject:[NSArray arrayWithObjects: @1.0F, @1.0F, @1.0F, nil]];
+		[colors addObject:[NSArray arrayWithObjects: @0.0F, @0.0F, @0.0F, nil]];
         
 		
 		[aCLUTFilter setObject:colors forKey:@"Colors"];
@@ -671,11 +671,11 @@ static NSHost *currentHost = nil;
 		
 		// Points & Colors
 		NSMutableArray *colors = [NSMutableArray array], *points = [NSMutableArray array];
-		[points addObject:[NSNumber numberWithLong: 0]];
-		[points addObject:[NSNumber numberWithLong: 255]];
+		[points addObject:[NSNumber numberWithLong: 0L]];
+		[points addObject:[NSNumber numberWithLong: 255L]];
 		
-		[colors addObject:[NSArray arrayWithObjects: [NSNumber numberWithFloat: 1], [NSNumber numberWithFloat: 1], [NSNumber numberWithFloat: 1], nil]];
-		[colors addObject:[NSArray arrayWithObjects: [NSNumber numberWithFloat: 0], [NSNumber numberWithFloat: 0], [NSNumber numberWithFloat: 0], nil]];
+		[colors addObject:[NSArray arrayWithObjects: @1.0F, @1.0F, @1.0F, nil]];
+		[colors addObject:[NSArray arrayWithObjects: @0.0F, @0.0F, @0.0F, nil]];
         
 		
 		[aCLUTFilter setObject:colors forKey:@"Colors"];
@@ -720,7 +720,7 @@ static NSHost *currentHost = nil;
 	[aServer setObject:@"127.0.0.1" forKey: @"Address"];
 	[aServer setObject:@"OsiriX" forKey: @"AETitle"];
 	[aServer setObject:@"4444" forKey: @"Port"];
-	[aServer setObject:[NSNumber numberWithInt:0] forKey:@"TransferSyntax"];
+	[aServer setObject:@0 forKey:@"TransferSyntax"];
 	[aServer setObject:NSLocalizedString(@"This is an example", nil) forKey:@"Description"];
 	
 	[serversValues addObject:aServer];
@@ -1153,9 +1153,9 @@ static NSHost *currentHost = nil;
 	
 	
 	// ** ROI Default
-	[defaultValues setObject:[NSNumber numberWithFloat: 2] forKey:@"ROIThickness"];
-	[defaultValues setObject:[NSNumber numberWithFloat: 3] forKey:@"ROITextThickness"];
-	[defaultValues setObject:[NSNumber numberWithFloat: 1.0] forKey:@"ROIOpacity"];
+	[defaultValues setObject:@2.0F forKey:@"ROIThickness"];
+	[defaultValues setObject:@3.0F forKey:@"ROITextThickness"];
+	[defaultValues setObject:@1.0F forKey:@"ROIOpacity"];
 	[defaultValues setObject:[NSNumber numberWithFloat: 0.3 * 65535.] forKey:@"ROIColorR"];
 	[defaultValues setObject:[NSNumber numberWithFloat: 1.0 * 65535.] forKey:@"ROIColorG"];
 	[defaultValues setObject:[NSNumber numberWithFloat: 0.3 * 65535.] forKey:@"ROIColorB"];
@@ -1165,22 +1165,36 @@ static NSHost *currentHost = nil;
 	[defaultValues setObject:[NSNumber numberWithFloat: 1.0 * 65535.] forKey:@"ROIRegionColorR"];
 	[defaultValues setObject:[NSNumber numberWithFloat: 0.0 * 65535.] forKey:@"ROIRegionColorG"];
 	[defaultValues setObject:[NSNumber numberWithFloat: 0.0 * 65535.] forKey:@"ROIRegionColorB"];
-	[defaultValues setObject:[NSNumber numberWithFloat: 0.5] forKey:@"ROIRegionOpacity"];
-	[defaultValues setObject:[NSNumber numberWithFloat: 5] forKey:@"ROIRegionThickness"];
+	[defaultValues setObject:@0.5F forKey:@"ROIRegionOpacity"];
+	[defaultValues setObject:@5.0F forKey:@"ROIRegionThickness"];
 	
 	// **HANGING PROTOCOLS
 	NSMutableDictionary *defaultHangingProtocols = [NSMutableDictionary dictionary];
-	NSArray *modalities = [NSArray arrayWithObjects:NSLocalizedString(@"CR", nil), NSLocalizedString(@"CT", nil), NSLocalizedString(@"DX", nil), NSLocalizedString(@"ES", nil), NSLocalizedString(@"MG", nil), NSLocalizedString(@"MR", nil), NSLocalizedString(@"NM", nil), NSLocalizedString(@"OT", nil),NSLocalizedString(@"PT", nil),NSLocalizedString(@"RF", nil),NSLocalizedString(@"SC", nil),NSLocalizedString(@"US", nil),NSLocalizedString(@"XA", nil), nil];
+	NSArray *modalities = [NSArray arrayWithObjects:
+                           NSLocalizedString(@"CR", nil),
+                           NSLocalizedString(@"CT", nil),
+                           NSLocalizedString(@"DX", nil),
+                           NSLocalizedString(@"ES", nil),
+                           NSLocalizedString(@"MG", nil),
+                           NSLocalizedString(@"MR", nil),
+                           NSLocalizedString(@"NM", nil),
+                           NSLocalizedString(@"OT", nil),
+                           NSLocalizedString(@"PT", nil),
+                           NSLocalizedString(@"RF", nil),
+                           NSLocalizedString(@"SC", nil),
+                           NSLocalizedString(@"US", nil),
+                           NSLocalizedString(@"XA", nil),
+                           nil];
     
 	for (NSString *modality in modalities)
     {
-		NSMutableDictionary *protocol = [NSMutableDictionary dictionaryWithObjects:[NSArray arrayWithObjects: NSLocalizedString( @"Default", nil), [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], nil] forKeys:[NSArray arrayWithObjects:@"Study Description", @"WindowsTiling", @"ImageTiling", nil]];
+		NSMutableDictionary *protocol = [NSMutableDictionary dictionaryWithObjects:[NSArray arrayWithObjects: NSLocalizedString( @"Default", nil), @0, @0, nil] forKeys:[NSArray arrayWithObjects:@"Study Description", @"WindowsTiling", @"ImageTiling", nil]];
         
         if( [modality isEqualToString: @"MG"])
         {
             [protocol setObject: @5 forKey: @"WindowsTiling"]; // 2 x 2
             [protocol setObject: @"R CC,L CC,R MLO,L MLO" forKey: @"SeriesOrder"];
-            [protocol setObject: [NSNumber numberWithInt: 4] forKey: @"NumberOfSeriesPerComparative"];
+            [protocol setObject: @4 forKey: @"NumberOfSeriesPerComparative"];
         }
 		[defaultHangingProtocols setObject: [NSMutableArray arrayWithObject:protocol] forKey:modality];
 	}
@@ -1272,12 +1286,12 @@ static NSHost *currentHost = nil;
 	{
 		stringValue = [array objectAtIndex:x];
 		[hotkeys setObject:[NSNumber numberWithInt:x] forKey:stringValue];
-//		[hotkeysModifiers setObject:[NSNumber numberWithInt:0] forKey:stringValue];
+//		[hotkeysModifiers setObject:@0 forKey:stringValue];
 	}
 	[defaultValues setObject:hotkeys forKey:@"HOTKEYS"];
 	
 	NSArray *compressionSettings = [NSArray arrayWithObjects: 
-							[NSDictionary dictionaryWithObjectsAndKeys: NSLocalizedString( @"default", nil), @"modality", @"3", @"compression", @"1", @"quality", nil], 
+							[NSDictionary dictionaryWithObjectsAndKeys: NSLocalizedString( @"default", nil), @"modality", @"3", @"compression", @"1", @"quality", nil],
 							[NSDictionary dictionaryWithObjectsAndKeys: @"CR", @"modality", @"0", @"compression", @"1", @"quality", nil],
 							[NSDictionary dictionaryWithObjectsAndKeys: @"CT", @"modality", @"0", @"compression", @"1", @"quality", nil],
 							[NSDictionary dictionaryWithObjectsAndKeys: @"DX", @"modality", @"0", @"compression", @"1", @"quality", nil],
@@ -1393,8 +1407,8 @@ static NSHost *currentHost = nil;
 //									nil],
 //								[NSDictionary dictionaryWithObjectsAndKeys:
 //									NSLocalizedString(@"MEDIASTINUM", nil), @"region",
-//									[NSNumber numberWithBool:YES], @"isLeaf",
-//									[NSNumber numberWithInt:0], @"count",
+//									@YES, @"isLeaf",
+//									@0, @"count",
 //									nil],
 //								[NSDictionary dictionaryWithObjectsAndKeys:
 //									NSLocalizedString(@"HEART", nil), @"region",
@@ -1677,28 +1691,28 @@ static NSHost *currentHost = nil;
 //	[defaultValues setObject:bodyRegions forKey:@"bodyRegions"];
 	
 	// ITK Segmentation Defaults
-	[defaultValues setObject:[NSNumber numberWithInt:0] forKey:@"growingRegionType"];
-	[defaultValues setObject:[NSNumber numberWithInt:0] forKey:@"growingRegionAlgorithm"];
-	[defaultValues setObject:[NSNumber numberWithBool:YES] forKey:@"previewGrowingRegion"];
-	[defaultValues setObject:[NSNumber numberWithInt:100] forKey:@"growingRegionInterval"];
-	[defaultValues setObject:[NSNumber numberWithInt:0] forKey:@"growingRegionLowerThreshold"];
-	[defaultValues setObject:[NSNumber numberWithInt:100] forKey:@"growingRegionUpperThreshold"];
-	[defaultValues setObject:[NSNumber numberWithInt:2] forKey:@"growingRegionRadius"];
-	[defaultValues setObject:[NSNumber numberWithFloat:2.5] forKey:@"growingRegionMultiplier"];
-	[defaultValues setObject:[NSNumber numberWithInt:5] forKey:@"growingRegionIterations"];
-	[defaultValues setObject:[NSNumber numberWithInt:0] forKey:@"growingRegionROIType"];
-	[defaultValues setObject:[NSNumber numberWithInt:20] forKey:@"growingRegionPointCount"];
-	[defaultValues setObject:NSLocalizedString(@"Growing Region", nil) forKey:@"growingRegionROIName"];
-	[defaultValues setObject:[NSNumber numberWithInt:0] forKey:@"displayCalciumScore"];
-	[defaultValues setObject:[NSNumber numberWithInt:0] forKey:@"CalciumScoreCTType"];
+	[defaultValues setObject: @0 forKey:@"growingRegionType"];
+	[defaultValues setObject: @0 forKey:@"growingRegionAlgorithm"];
+	[defaultValues setObject: @YES forKey:@"previewGrowingRegion"];
+	[defaultValues setObject: @100 forKey:@"growingRegionInterval"];
+	[defaultValues setObject: @0 forKey:@"growingRegionLowerThreshold"];
+	[defaultValues setObject: @100 forKey:@"growingRegionUpperThreshold"];
+	[defaultValues setObject: @2 forKey:@"growingRegionRadius"];
+	[defaultValues setObject: @2.5F forKey:@"growingRegionMultiplier"];
+	[defaultValues setObject: @5 forKey:@"growingRegionIterations"];
+	[defaultValues setObject: @0 forKey:@"growingRegionROIType"];
+	[defaultValues setObject: @20 forKey:@"growingRegionPointCount"];
+	[defaultValues setObject: NSLocalizedString(@"Growing Region", nil) forKey:@"growingRegionROIName"];
+	[defaultValues setObject: @0 forKey:@"displayCalciumScore"];
+	[defaultValues setObject: @0 forKey:@"CalciumScoreCTType"];
     [defaultValues setObject: @YES forKey: @"defaultShading"];
     [defaultValues setObject: @YES forKey: @"dontDeleteStudiesIfInAlbum"];
 		
-	[defaultValues setObject:[NSNumber numberWithBool:YES] forKey:OsirixWadoServiceEnabledDefaultsKey];
-	[defaultValues setObject:[NSNumber numberWithBool:YES] forKey:OsirixWebPortalUsesWeasisDefaultsKey];
-	[defaultValues setObject:[NSNumber numberWithBool:YES] forKey:OsirixWebPortalPrefersFlashDefaultsKey];
+	[defaultValues setObject: @YES forKey:OsirixWadoServiceEnabledDefaultsKey];
+	[defaultValues setObject: @YES forKey:OsirixWebPortalUsesWeasisDefaultsKey];
+	[defaultValues setObject: @YES forKey:OsirixWebPortalPrefersFlashDefaultsKey];
     
-    [defaultValues setObject:[NSNumber numberWithBool:NO] forKey:@"verbose_dcmtkStoreScu"];
+    [defaultValues setObject: @NO forKey:@"verbose_dcmtkStoreScu"];
 	
 	return defaultValues;
 }

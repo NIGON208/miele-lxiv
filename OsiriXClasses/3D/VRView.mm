@@ -1533,7 +1533,7 @@ public:
 			if( [[NSUserDefaults standardUserDefaults] boolForKey: @"afterExportMarkThemAsKeyImages"])
 			{
 				for( DicomImage *im in objects)
-					[im setValue: [NSNumber numberWithBool: YES] forKey: @"isKeyImage"];
+					[im setValue: @YES forKey: @"isKeyImage"];
 			}
 		}
 		
@@ -3815,15 +3815,22 @@ public:
 			sc[ 1] /= [firstObject pixelSpacingY];
 			sc[ 2] /= [firstObject sliceInterval];
 			
-			NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys: [NSNumber numberWithInt: sc[0]], @"x", [NSNumber numberWithInt: sc[1]], @"y", [NSNumber numberWithInt: sc[2]], @"z", nil];
+			NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
+                                  [NSNumber numberWithInt: sc[0]], @"x",
+                                  [NSNumber numberWithInt: sc[1]], @"y",
+                                  [NSNumber numberWithInt: sc[2]], @"z",
+                                  nil];
 			[[NSNotificationCenter defaultCenter] postNotificationName: OsirixDisplay3dPointNotification object:pixList  userInfo: dict];
 		}
 		else
 		{
 			if( [self get3DPixelUnder2DPositionX:_mouseLocStart.x Y:_mouseLocStart.y pixel:pix position:pos value:&value])
 			{
-				NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:	[NSNumber numberWithInt: pix[0]], @"x", [NSNumber numberWithInt: pix[1]], @"y", [NSNumber numberWithInt: pix[2]], @"z",
-																					nil];
+				NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
+                                      [NSNumber numberWithInt: pix[0]], @"x",
+                                      [NSNumber numberWithInt: pix[1]], @"y",
+                                      [NSNumber numberWithInt: pix[2]], @"z",
+                                      nil];
 				[[NSNotificationCenter defaultCenter] postNotificationName: OsirixDisplay3dPointNotification object:pixList  userInfo: dict];
 			}
 		}
@@ -4172,7 +4179,7 @@ public:
 					NSPoint mouseLocationOnScreen = [[self window] convertBaseToScreen:[theEvent locationInWindow]];
 					[point3DInfoPanel setAlphaValue:0.8];
 					[point3DInfoPanel	setFrame:	NSMakeRect(	mouseLocationOnScreen.x - [point3DInfoPanel frame].size.width/2.0, 
-																mouseLocationOnScreen.y-[point3DInfoPanel frame].size.height-20.0,
+																mouseLocationOnScreen.y - [point3DInfoPanel frame].size.height-20.0,
 																[point3DInfoPanel frame].size.width,
 																[point3DInfoPanel frame].size.height)
 										display:YES animate: NO];
@@ -4187,8 +4194,11 @@ public:
 					pix[1] = (int)[[[[[controller roi2DPointsArray] objectAtIndex:[self selected3DPointIndex]] points] objectAtIndex:0] y];
 					pix[2] = [[[controller sliceNumber2DPointsArray] objectAtIndex:[self selected3DPointIndex]] intValue];
 					
-					NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:	[NSNumber numberWithInt: pix[0]], @"x", [NSNumber numberWithInt: pix[1]], @"y", [NSNumber numberWithInt: pix[2]], @"z",
-																						nil];
+					NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
+                                          [NSNumber numberWithInt: pix[0]], @"x",
+                                          [NSNumber numberWithInt: pix[1]], @"y",
+                                          [NSNumber numberWithInt: pix[2]], @"z",
+                                          nil];
 					[[NSNotificationCenter defaultCenter] postNotificationName: OsirixDisplay3dPointNotification object:pixList  userInfo: dict];
 				}
 			}
@@ -4254,7 +4264,10 @@ public:
 					NSMutableArray *d = [NSMutableArray array];
 					for( ROI *r in rois)
 					{
-						[d addObject: [NSDictionary dictionaryWithObjectsAndKeys: r, @"roi", [r pix], @"curPix", nil]];
+						[d addObject: [NSDictionary dictionaryWithObjectsAndKeys:
+                                       r, @"roi",
+                                       [r pix], @"curPix",
+                                       nil]];
 					}
 					
 					roiList = d;
@@ -4269,16 +4282,25 @@ public:
 					BOOL addition = NO;
 					
 					// Bone Removal
-					NSNumber		*nsnewValue	= [NSNumber numberWithFloat: -1000];		//-1000
+					NSNumber		*nsnewValue	= @-1000.0F;		//-1000
 					NSNumber		*nsminValue	= [NSNumber numberWithFloat: -FLT_MAX];		//-99999
 					NSNumber		*nsmaxValue	= [NSNumber numberWithFloat: FLT_MAX];
-					NSNumber		*nsoutside	= [NSNumber numberWithBool: NO];
+					NSNumber		*nsoutside	= @NO;
 					NSNumber		*nsaddition	= [NSNumber numberWithBool: addition];
 					NSMutableArray	*roiToProceed = [NSMutableArray array];
 					
 					for( NSDictionary *rr in roiList)
 					{
-						[roiToProceed addObject: [NSDictionary dictionaryWithObjectsAndKeys:  [rr objectForKey:@"roi"], @"roi", [rr objectForKey:@"curPix"], @"curPix", @"setPixelRoi", @"action", nsnewValue, @"newValue", nsminValue, @"minValue", nsmaxValue, @"maxValue", nsoutside, @"outside", nsaddition, @"addition", nil]];
+						[roiToProceed addObject: [NSDictionary dictionaryWithObjectsAndKeys:
+                                                  [rr objectForKey:@"roi"], @"roi",
+                                                  [rr objectForKey:@"curPix"], @"curPix",
+                                                  @"setPixelRoi", @"action",
+                                                  nsnewValue, @"newValue",
+                                                  nsminValue, @"minValue",
+                                                  nsmaxValue, @"maxValue",
+                                                  nsoutside, @"outside",
+                                                  nsaddition, @"addition",
+                                                  nil]];
 					}
 					
 					[[controller viewer2D] roiSetStartScheduler: roiToProceed];

@@ -270,9 +270,9 @@ static float deg2rad = M_PI / 180.0;
         curvedPath = [[CPRCurvedPath alloc] init];
         displayInfo = [[CPRDisplayInfo alloc] init];
         
-        [[NSUserDefaults standardUserDefaults] registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithFloat:0], @"CPRColorR",
-                                                                                                           [NSNumber numberWithFloat:1], @"CPRColorG",
-                                                                                                           [NSNumber numberWithFloat:0], @"CPRColorB", nil]];
+        [[NSUserDefaults standardUserDefaults] registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:@0.0F, @"CPRColorR",
+                                                                                                           @1.0F, @"CPRColorG",
+                                                                                                           @0.0F, @"CPRColorB", nil]];
 		self.curvedPathCreationMode = YES;
         cprVolumeData = [[CPRVolumeData alloc] initWithWithPixList:pix volume:volume];
         cprView.volumeData = cprVolumeData;
@@ -417,7 +417,7 @@ static float deg2rad = M_PI / 180.0;
 //		self.dcmRotation = 360;
 //		self.dcmSeriesName = @"CPR";
         
-        self.exportSeriesName = @"CPR";;
+        self.exportSeriesName = @"CPR";
         self.exportSequenceType = CPRCurrentOnlyExportSequenceType;
         self.exportSeriesType = CPRRotationExportSeriesType;
         self.exportRotationSpan = CPR180ExportRotationSpan;
@@ -1340,9 +1340,17 @@ static float deg2rad = M_PI / 180.0;
 		[angleMPRs addObject: [NSNumber numberWithFloat: mprView2.angleMPR]];
 		[angleMPRs addObject: [NSNumber numberWithFloat: mprView3.angleMPR]];
 		
-		return [NSDictionary dictionaryWithObjectsAndKeys: string, @"type", cameras, @"cameras", angleMPRs, @"angleMPRs", nil];
-	} else if ([string isEqualToString:@"curvedPath"]) {
-		return [NSDictionary dictionaryWithObjectsAndKeys:string, @"type", [NSKeyedArchiver archivedDataWithRootObject:curvedPath], @"curvedPath", nil];
+		return [NSDictionary dictionaryWithObjectsAndKeys:
+                string, @"type",
+                cameras, @"cameras",
+                angleMPRs, @"angleMPRs",
+                nil];
+	}
+    else if ([string isEqualToString:@"curvedPath"]) {
+		return [NSDictionary dictionaryWithObjectsAndKeys:
+                string, @"type",
+                [NSKeyedArchiver archivedDataWithRootObject:curvedPath], @"curvedPath",
+                nil];
 	}
 	
 	return nil;
@@ -2584,7 +2592,7 @@ static float deg2rad = M_PI / 180.0;
 		BOOL copyDisplayCrossLines = cprView.displayCrossLines;
 		BOOL copyDisplayMousePosition = self.displayMousePosition;
 		
-		cprView.displayInfo = [[[CPRDisplayInfo alloc] init] autorelease];;
+		cprView.displayInfo = [[[CPRDisplayInfo alloc] init] autorelease];
 		cprView.displayCrossLines = NO;
 		self.displayMousePosition = NO;
 		
@@ -3035,7 +3043,7 @@ static float deg2rad = M_PI / 180.0;
 				if( [[NSUserDefaults standardUserDefaults] boolForKey: @"afterExportMarkThemAsKeyImages"])
 				{
 					for( DicomImage *im in objects)
-						[im setValue: [NSNumber numberWithBool: YES] forKey: @"isKeyImage"];
+						[im setValue: @YES forKey: @"isKeyImage"];
 				}
 			}
 		}

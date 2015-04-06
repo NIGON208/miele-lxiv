@@ -313,7 +313,10 @@ static int gTotalN2ManagedObjectContext = 0;
                         ++i;
                         
                         NSError* err = nil;
-                        NSDictionary* options = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:[self migratePersistentStoresAutomatically]], NSMigratePersistentStoresAutomaticallyOption, [NSNumber numberWithBool:YES], NSInferMappingModelAutomaticallyOption, nil];
+                        NSDictionary* options = [NSDictionary dictionaryWithObjectsAndKeys:
+                                                 [NSNumber numberWithBool:[self migratePersistentStoresAutomatically]], NSMigratePersistentStoresAutomaticallyOption,
+                                                 @YES, NSInferMappingModelAutomaticallyOption,
+                                                 nil];
                         NSURL* url = [NSURL fileURLWithPath:sqlFilePath];
                         @try {
                             pStore = [persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:url options:options error:&err];

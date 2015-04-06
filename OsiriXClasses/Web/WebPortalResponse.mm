@@ -727,23 +727,32 @@ NSString* iPhoneCompatibleNumericalFormat(NSString* aString) { // this is to avo
 	return [[[self alloc] init] autorelease];
 }
 
--(id)valueForKey:(NSString*)key object:(NSDate*)object context:(WebPortalConnection*)wpc {
-	if ([key isEqualToString:@"DateTime"]) {
+-(id)valueForKey:(NSString*)key object:(NSDate*)object context:(WebPortalConnection*)wpc
+{
+	if ([key isEqualToString:@"DateTime"])
 		return [NSUserDefaults.dateTimeFormatter stringFromDate:object];
-	}
 	
-	if ([key isEqualToString:@"Date"]) {
+	if ([key isEqualToString:@"Date"])
 		return [NSUserDefaults.dateFormatter stringFromDate:object];
-	}
 	
 	if ([key isEqualToString:@"Months"]) {
 		static NSArray* monthNames = [[NSArray alloc] initWithObjects: NSLocalizedString(@"January", @"Month"), NSLocalizedString(@"February", @"Month"), NSLocalizedString(@"March", @"Month"), NSLocalizedString(@"April", @"Month"), NSLocalizedString(@"May", @"Month"), NSLocalizedString(@"June", @"Month"), NSLocalizedString(@"July", @"Month"), NSLocalizedString(@"August", @"Month"), NSLocalizedString(@"September", @"Month"), NSLocalizedString(@"October", @"Month"), NSLocalizedString(@"November", @"Month"), NSLocalizedString(@"December", @"Month"), NULL];
 		NSMutableArray* months = [NSMutableArray array];
 		NSCalendarDate* calDate = object? [NSCalendarDate dateWithTimeIntervalSinceReferenceDate:object.timeIntervalSinceReferenceDate] : NULL;
 		if (!object)
-			[months addObject:[NSDictionary dictionaryWithObjectsAndKeys: [NSNumber numberWithInt:-1], @"value", NSLocalizedString(@"Month", @"Month"), @"name", @YES, @"selected", @YES, @"disabled", NULL]];
+			[months addObject:[NSDictionary dictionaryWithObjectsAndKeys:
+                               [NSNumber numberWithInt:-1], @"value",
+                               NSLocalizedString(@"Month", @"Month"), @"name",
+                               @YES, @"selected",
+                               @YES, @"disabled",
+                               NULL]];
+        
 		for (NSUInteger i = 0; i < 12; ++i)
-			[months addObject:[NSDictionary dictionaryWithObjectsAndKeys: [NSNumber numberWithInt:i], @"value", [monthNames objectAtIndex:i], @"name", [NSNumber numberWithBool: [calDate monthOfYear] == i+1 ], @"selected", NULL]];
+			[months addObject:[NSDictionary dictionaryWithObjectsAndKeys:
+                               [NSNumber numberWithInt:i], @"value",
+                               [monthNames objectAtIndex:i], @"name",
+                               [NSNumber numberWithBool: [calDate monthOfYear] == i+1 ], @"selected",
+                               NULL]];
 		return months;
 	}
 	
@@ -751,23 +760,48 @@ NSString* iPhoneCompatibleNumericalFormat(NSString* aString) { // this is to avo
 		NSMutableArray* days = [NSMutableArray array];
 		NSCalendarDate* calDate = object? [NSCalendarDate dateWithTimeIntervalSinceReferenceDate:object.timeIntervalSinceReferenceDate] : NULL;
 		if (!object)
-			[days addObject:[NSDictionary dictionaryWithObjectsAndKeys: [NSNumber numberWithInt:0], @"value", NSLocalizedString(@"Day", @"Day"), @"name", @YES, @"selected", @YES, @"disabled", NULL]];
+			[days addObject:[NSDictionary dictionaryWithObjectsAndKeys:
+                             @0, @"value",
+                             NSLocalizedString(@"Day", @"Day"), @"name",
+                             @YES, @"selected",
+                             @YES, @"disabled",
+                             NULL]];
+        
 		for (NSUInteger i = 0; i < 31; ++i)
-			[days addObject:[NSDictionary dictionaryWithObjectsAndKeys: [NSNumber numberWithInt:i+1], @"value", [NSNumber numberWithInt:i+1], @"name", [NSNumber numberWithBool: [calDate dayOfMonth] == i+1 ], @"selected", NULL]];
+			[days addObject:[NSDictionary dictionaryWithObjectsAndKeys:
+                             [NSNumber numberWithInt:i+1], @"value",
+                             [NSNumber numberWithInt:i+1], @"name",
+                             [NSNumber numberWithBool: [calDate dayOfMonth] == i+1 ], @"selected",
+                             NULL]];
 		return days;
 	}
 	
 	const NSUInteger NextYears = 5;
-	if ([key isEqualToString:@"NextYears"]) {
+	if ([key isEqualToString:@"NextYears"])
+    {
 		NSMutableArray* years = [NSMutableArray array];
 		NSCalendarDate* calDate = object? [NSCalendarDate dateWithTimeIntervalSinceReferenceDate:object.timeIntervalSinceReferenceDate] : NULL;
 		NSCalendarDate* currDate = [NSCalendarDate dateWithTimeIntervalSinceReferenceDate:[NSDate timeIntervalSinceReferenceDate]];
 		if ([calDate yearOfCommonEra] < [currDate yearOfCommonEra])
-			[years addObject:[NSDictionary dictionaryWithObjectsAndKeys: [NSNumber numberWithInt:[calDate yearOfCommonEra]], @"value", [NSNumber numberWithInt:[calDate yearOfCommonEra]], @"name", @YES, @"selected", NULL]];
+			[years addObject:[NSDictionary dictionaryWithObjectsAndKeys:
+                              [NSNumber numberWithInt:[calDate yearOfCommonEra]], @"value",
+                              [NSNumber numberWithInt:[calDate yearOfCommonEra]], @"name",
+                              @YES, @"selected",
+                              NULL]];
+        
 		for (NSUInteger i = [currDate yearOfCommonEra]; i < [currDate yearOfCommonEra]+NextYears; ++i)
-			[years addObject:[NSDictionary dictionaryWithObjectsAndKeys: [NSNumber numberWithInt:i], @"value", [NSNumber numberWithInt:i], @"name", [NSNumber numberWithBool: [calDate yearOfCommonEra] == i ], @"selected", NULL]];
+			[years addObject:[NSDictionary dictionaryWithObjectsAndKeys:
+                              [NSNumber numberWithInt:i], @"value",
+                              [NSNumber numberWithInt:i], @"name",
+                              [NSNumber numberWithBool: [calDate yearOfCommonEra] == i ], @"selected",
+                              NULL]];
+        
 		if ([calDate yearOfCommonEra] >= [currDate yearOfCommonEra]+NextYears)
-			[years addObject:[NSDictionary dictionaryWithObjectsAndKeys: [NSNumber numberWithInt:[calDate yearOfCommonEra]], @"value", [NSNumber numberWithInt:[calDate yearOfCommonEra]], @"name", @YES, @"selected", NULL]];
+			[years addObject:[NSDictionary dictionaryWithObjectsAndKeys:
+                              [NSNumber numberWithInt:[calDate yearOfCommonEra]], @"value",
+                              [NSNumber numberWithInt:[calDate yearOfCommonEra]], @"name",
+                              @YES, @"selected",
+                              NULL]];
 		return years;
 	}
 	
@@ -912,7 +946,10 @@ static NSMutableDictionary *otherStudiesForThisPatientCache = nil;
             
             @synchronized( otherStudiesForThisPatientCache)
             {
-                NSDictionary *d = [NSDictionary dictionaryWithObjectsAndKeys: [NSDate date], @"timeStamp", [otherStudies valueForKey: @"objectID"], @"studyIDs", nil];
+                NSDictionary *d = [NSDictionary dictionaryWithObjectsAndKeys:
+                                   [NSDate date], @"timeStamp",
+                                   [otherStudies valueForKey: @"objectID"], @"studyIDs",
+                                   nil];
                 [otherStudiesForThisPatientCache setObject: d forKey:study.patientID];
             }
         }

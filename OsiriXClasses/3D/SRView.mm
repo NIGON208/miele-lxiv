@@ -689,7 +689,7 @@ typedef struct _xyzArray
 			if( [[NSUserDefaults standardUserDefaults] boolForKey: @"afterExportMarkThemAsKeyImages"])
 			{
 				for( NSManagedObject *im in objects)
-					[im setValue: [NSNumber numberWithBool: YES] forKey: @"isKeyImage"];
+					[im setValue: @YES forKey: @"isKeyImage"];
 			}
 		}
 		
@@ -1011,7 +1011,7 @@ typedef struct _xyzArray
 	if (_resizeFrame)
     {
 		NSRect	newFrame = [self frame];
-		NSRect	beforeFrame = [self frame];;
+		NSRect	beforeFrame = [self frame];
 		NSPoint mouseLoc = [theEvent locationInWindow];	//[self convertPoint: [theEvent locationInWindow] fromView:nil];
 		
 		if( [theEvent modifierFlags] & NSShiftKeyMask)
@@ -1275,10 +1275,15 @@ typedef struct _xyzArray
 			
 			[self convert3Dto2Dpoint:dc :sc];
 			
-			NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:	[NSNumber numberWithInt: sc[0]*[firstObject pixelSpacingX]], @"x", [NSNumber numberWithInt: sc[1]*[firstObject pixelSpacingY]], @"y", [NSNumber numberWithInt: sc[2]], @"z",
-																				nil];
+			NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
+                                  [NSNumber numberWithInt: sc[0]*[firstObject pixelSpacingX]], @"x",
+                                  [NSNumber numberWithInt: sc[1]*[firstObject pixelSpacingY]], @"y",
+                                  [NSNumber numberWithInt: sc[2]], @"z",
+                                  nil];
 			
-			[[NSNotificationCenter defaultCenter] postNotificationName: OsirixDisplay3dPointNotification object:pixList  userInfo: dict];
+			[[NSNotificationCenter defaultCenter] postNotificationName: OsirixDisplay3dPointNotification
+                                                                object: pixList
+                                                              userInfo: dict];
 			
 			return;
 		}
@@ -2826,12 +2831,12 @@ typedef struct _xyzArray
 	center[2]=z;
 	[point3DPositionsArray addObject:[NSValue value:center withObjCType:@encode(double[3])]];
 	[point3DRadiusArray addObject:[NSNumber numberWithFloat:radius]];
-	[point3DColorsArray addObject:[NSColor colorWithCalibratedRed:r green:g blue:b alpha:1.0]];
+	[point3DColorsArray addObject:[NSColor colorWithCalibratedRed:r green:g blue:b alpha:1.0F]];
 
-	[point3DDisplayPositionArray addObject:[NSNumber numberWithInt:0]];
+	[point3DDisplayPositionArray addObject:@0];
 	[point3DPositionsStringsArray addObject:[NSString stringWithFormat:@"x: %0.3f mm\ny: %0.3f mm\nz: %0.3f mm", x, y, z]];
-	[point3DTextColorsArray addObject:[NSColor colorWithCalibratedRed:1.0 green:1.0 blue:1.0 alpha:1.0]];
-	[point3DTextSizesArray addObject:[NSNumber numberWithFloat:4.0]];
+	[point3DTextColorsArray addObject:[NSColor colorWithCalibratedRed:1.0F green:1.0F blue:1.0F alpha:1.0F]];
+	[point3DTextSizesArray addObject:@4.0F];
 	
 	[self add3DPointActor: sphereActor];
 	

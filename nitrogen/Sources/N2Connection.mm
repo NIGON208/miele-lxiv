@@ -135,7 +135,11 @@ NSString* N2ConnectionStatusDidChangeNotification = @"N2ConnectionStatusDidChang
                 if( [NSDate timeIntervalSinceReferenceDate] - c.lastEventTimeInterval > TIMEOUT)
                 {
                     N2LogStackTrace( @"N2Connection timeout.");
-                    c.error = [NSError errorWithDomain:N2ErrorDomain code:-31 userInfo:[NSDictionary dictionaryWithObjectsAndKeys: NSLocalizedString(@"N2Connection timeout.", NULL), NSLocalizedDescriptionKey, NULL]];
+                    c.error = [NSError errorWithDomain:N2ErrorDomain
+                                                  code:-31
+                                              userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                        NSLocalizedString(@"N2Connection timeout.", NULL), NSLocalizedDescriptionKey,
+                                                        NULL]];
                     break;
                 }
             }

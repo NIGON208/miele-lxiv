@@ -235,8 +235,8 @@
 
 - (void)updateFrameAroundAnnotationsWithAnimation:(BOOL)animate;
 {
-	float totalHeight = 0.0;
-	float maxWidth = [CIAPlaceHolder defaultSize].width - RIGHT_MARGIN;;
+	float totalHeight = 0.0F;
+	float maxWidth = [CIAPlaceHolder defaultSize].width - RIGHT_MARGIN;
 	int i;
 	CIAAnnotation *currentAnnotation;
 	for (i=0; i<[annotationsArray count]; i++)
@@ -246,13 +246,16 @@
 			totalHeight += [currentAnnotation frame].size.height;
 		else
 			totalHeight += [currentAnnotation frame].size.height-2.0;
-		if([currentAnnotation width] > maxWidth) maxWidth=[currentAnnotation width];
+        
+		if ([currentAnnotation width] > maxWidth)
+            maxWidth=[currentAnnotation width];
 	}
 	
 	totalHeight += TOP_MARGIN + BOTTOM_MARGIN;
 	maxWidth += RIGHT_MARGIN;
 	
-	if(totalHeight<[CIAPlaceHolder defaultSize].height) totalHeight = [CIAPlaceHolder defaultSize].height;
+	if (totalHeight<[CIAPlaceHolder defaultSize].height)
+        totalHeight = [CIAPlaceHolder defaultSize].height;
 	
 	NSSize newSize = NSMakeSize(maxWidth,totalHeight);
 	

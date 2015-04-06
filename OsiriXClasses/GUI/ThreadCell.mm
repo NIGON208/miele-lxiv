@@ -206,7 +206,11 @@
     
 	NSMutableParagraphStyle* paragraphStyle = [[[NSParagraphStyle defaultParagraphStyle] mutableCopy] autorelease];
 	[paragraphStyle setLineBreakMode:NSLineBreakByTruncatingTail];
-	NSMutableDictionary* textAttributes = [NSMutableDictionary dictionaryWithObjectsAndKeys: [self textColor], NSForegroundColorAttributeName, [NSFont labelFontOfSize:[[BrowserController currentBrowser] fontSize: @"threadNameSize"]], NSFontAttributeName, paragraphStyle, NSParagraphStyleAttributeName, NULL];
+	NSMutableDictionary* textAttributes = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                           [self textColor], NSForegroundColorAttributeName,
+                                           [NSFont labelFontOfSize:[[BrowserController currentBrowser] fontSize: @"threadNameSize"]], NSFontAttributeName,
+                                           paragraphStyle, NSParagraphStyleAttributeName,
+                                           NULL];
 
 	[NSGraphicsContext saveGraphicsState];
 	

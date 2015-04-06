@@ -1742,7 +1742,7 @@ return YES;
 			if( [[NSUserDefaults standardUserDefaults] boolForKey: @"afterExportMarkThemAsKeyImages"])
 			{
 				for( NSManagedObject *im in objects)
-					[im setValue: [NSNumber numberWithBool: YES] forKey: @"isKeyImage"];
+					[im setValue: @YES forKey: @"isKeyImage"];
 			}
 		}
 	}
@@ -2140,7 +2140,7 @@ return YES;
     
     NSDictionary *userInfo = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                               relativePositionChange,@"positionChange",
-                               nil ];
+                              nil ];
     
     if(globalSyncSeriesScope != SyncSeriesScopeAllSeries){     // Scope is at least same patient
         [userInfo setValue: [currentStudy valueForKey:@"patientID"] forKey:@"patientID"];       //  NSString

@@ -47,7 +47,11 @@ const static void *namesKey = &namesKey;
                 objc_setAssociatedObject(self, (void*) namesKey, names, OBJC_ASSOCIATION_RETAIN);
             }
             
-            NSDictionary *observerDictionary = [NSDictionary dictionaryWithObjectsAndKeys: [NSValue valueWithPointer: notificationObserver] , @"observer", [NSValue valueWithPointer: notificationSelector], @"selector", notificationSender, @"sender", nil];
+            NSDictionary *observerDictionary = [NSDictionary dictionaryWithObjectsAndKeys:
+                                                [NSValue valueWithPointer: notificationObserver], @"observer",
+                                                [NSValue valueWithPointer: notificationSelector], @"selector",
+                                                notificationSender, @"sender",
+                                                nil];
             
             NSMutableSet *observers = [names objectForKey:notificationName];
             if (!observers)

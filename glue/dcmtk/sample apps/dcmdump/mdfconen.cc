@@ -505,9 +505,9 @@ int MdfConsoleEngine::startProvidingService()
     parseCommandLine();
     // iterators for job and file loops
     OFListIterator(MdfJob) job_it;
-    OFListIterator(MdfJob) job_last = jobs->end();;
+    OFListIterator(MdfJob) job_last = jobs->end();
     OFListIterator(OFString) file_it = files->begin();
-    OFListIterator(OFString) file_last = files->end();;
+    OFListIterator(OFString) file_last = files->end();
     // outer loop: iterate over all files
     while (file_it != file_last)
     {

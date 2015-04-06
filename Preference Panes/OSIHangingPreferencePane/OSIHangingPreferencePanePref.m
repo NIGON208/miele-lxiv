@@ -184,7 +184,7 @@
     for( NSMutableDictionary *d in a)
     {
         if( [[d valueForKey: @"NumberOfComparativeToDisplay"] intValue] <= 0)
-             [d setValue: [NSNumber numberWithInt: 1] forKey: @"NumberOfComparativeToDisplay"];
+             [d setValue: @1 forKey: @"NumberOfComparativeToDisplay"];
     }
     
     return a;
@@ -357,14 +357,14 @@
 {
 	NSMutableDictionary *protocol = [NSMutableDictionary dictionary];
     [protocol setObject: [NSString stringWithFormat: @"%@ %d", NSLocalizedString( @"Character String", nil), (int) [[hangingProtocols objectForKey:modalityForHangingProtocols] count]] forKey:@"Study Description"];
-    [protocol setObject: [NSNumber numberWithInt:0] forKey:@"WindowsTiling"];
-	[protocol setObject: [NSNumber numberWithInt:0] forKey:@"ImageTiling"];
-    [protocol setObject: @(YES) forKey:@"Sync"];
-    [protocol setObject: @(YES) forKey:@"Propagate"];
-    [protocol setObject: [NSNumber numberWithInt:0] forKey:@"WL"]; // Default WL/WW
-    [protocol setObject: [NSNumber numberWithInt:0] forKey:@"WW"];
-    [protocol setObject: [NSNumber numberWithInt:100] forKey:@"WLWW"];
-    [protocol setObject: [NSNumber numberWithInt:1] forKey:@"NumberOfComparativeToDisplay"];
+    [protocol setObject: @0 forKey:@"WindowsTiling"];
+	[protocol setObject: @0 forKey:@"ImageTiling"];
+    [protocol setObject: @YES forKey:@"Sync"];
+    [protocol setObject: @YES forKey:@"Propagate"];
+    [protocol setObject: @0 forKey:@"WL"]; // Default WL/WW
+    [protocol setObject: @0 forKey:@"WW"];
+    [protocol setObject: @100 forKey:@"WLWW"];
+    [protocol setObject: @1 forKey:@"NumberOfComparativeToDisplay"];
     
     [self willChangeValueForKey: @"currentHangingProtocol"];
     [[hangingProtocols objectForKey:modalityForHangingProtocols] addObject:protocol];

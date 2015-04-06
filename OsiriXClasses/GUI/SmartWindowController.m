@@ -102,14 +102,14 @@
     [NSApp endSheet:self.window returnCode:NSRunAbortedResponse];
     
     [BrowserController currentBrowser].testPredicate = nil;
-    [[BrowserController currentBrowser] outlineViewRefresh];;
+    [[BrowserController currentBrowser] outlineViewRefresh];
 }
 
 - (IBAction)okAction:(id)sender {
     [NSApp endSheet:self.window];
     
     [BrowserController currentBrowser].testPredicate = nil;
-    [[BrowserController currentBrowser] outlineViewRefresh];;
+    [[BrowserController currentBrowser] outlineViewRefresh];
 }
 
 - (IBAction)helpAction:(NSSegmentedControl*)sender {

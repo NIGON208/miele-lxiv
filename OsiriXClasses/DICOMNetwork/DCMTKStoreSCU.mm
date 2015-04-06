@@ -1353,7 +1353,7 @@ static OFCondition cstore(T_ASC_Association * assoc, const OFString& fname)
 					errormsg += currentFilename;
 //					if (opt_haltOnUnsuccessfulStore)
 //					   errmsg(errormsg.c_str());
-//					   else DCMQRDB_ERROR("warning: " << errormsg << ", ignoring file");;
+//					   else DCMQRDB_ERROR("warning: " << errormsg << ", ignoring file");
 				  }
 				  else if (!dcmIsaStorageSOPClassUID(sopClassUID))
 				  {

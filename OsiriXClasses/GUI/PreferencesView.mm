@@ -88,8 +88,8 @@ static const NSInteger labelHeight = 38, labelSeparator = 3;
 	[style setAlignment:NSCenterTextAlignment];
 	NSFont* font = [NSFont labelFontOfSize:[NSFont smallSystemFontSize]];
 	NSDictionary* attributes = [NSDictionary dictionaryWithObjectsAndKeys:
-									style, NSParagraphStyleAttributeName,
-									font, NSFontAttributeName,
+                                style, NSParagraphStyleAttributeName,
+                                font, NSFontAttributeName,
 								NULL];
 	[self.title drawInRect:labelRect withAttributes:attributes];
 }

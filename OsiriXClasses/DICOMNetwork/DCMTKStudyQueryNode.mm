@@ -241,7 +241,7 @@
 
 - (NSNumber*) expanded // Match DicomStudy
 {
-    return [NSNumber numberWithBool: NO];
+    return @NO;
 }
 
 - (NSString*) name  // Match DicomStudy
@@ -265,7 +265,11 @@
 
 - (NSString*) patientUID // Match DicomStudy
 {
-    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys: _name, @"patientName", _patientID, @"patientID", _birthdate, @"patientBirthDate", nil];
+    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
+                          _name, @"patientName",
+                          _patientID, @"patientID",
+                          _birthdate, @"patientBirthDate",
+                          nil];
     
     return [DicomFile patientUID: dict];
 }
@@ -375,7 +379,7 @@
 
 - (NSNumber*) lockedStudy // Match DicomStudy
 {
-    return [NSNumber numberWithBool: NO];
+    return @NO;
 }
 
 - (NSString*) dictateURL // Match DicomStudy

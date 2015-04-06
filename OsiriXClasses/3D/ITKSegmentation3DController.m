@@ -216,7 +216,7 @@ enum algorithmTypes { intervalSegmentationType, thresholdSegmentationType, neigh
 		
 		[self preview: viewer];
 		
-		[[note userInfo] setValue: [NSNumber numberWithBool: YES] forKey: @"stopMouseDown"];
+		[[note userInfo] setValue: @YES forKey: @"stopMouseDown"];
 	}
 }
 

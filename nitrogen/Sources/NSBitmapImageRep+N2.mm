@@ -152,7 +152,7 @@ struct P {
 
 
 -(NSBitmapImageRep*)smoothen:(NSUInteger)kernelSize {
-	return self;;
+	return self;
 	
 	assert(kernelSize%2 == 1 && [self bitsPerSample] == 8 && [self samplesPerPixel] == 4);
 	
