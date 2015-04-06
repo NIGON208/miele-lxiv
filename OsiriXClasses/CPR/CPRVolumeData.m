@@ -224,6 +224,16 @@
     return YES;
 }
 
+- (BOOL)getCubicInterpolatedFloat:(float *)floatPtr atDicomVector:(N3Vector)vector
+{
+    CPRVolumeDataInlineBuffer inlineBuffer;
+
+    [self aquireInlineBuffer:&inlineBuffer];
+    *floatPtr = CPRVolumeDataCubicInterpolatedFloatAtDicomVector(&inlineBuffer, vector);
+    return YES;
+}
+
+
 - (instancetype)volumeDataByApplyingTransform:(N3AffineTransform)transform;
 {
     return [[[CPRVolumeData alloc] initWithData:_floatData pixelsWide:_pixelsWide pixelsHigh:_pixelsHigh pixelsDeep:_pixelsDeep
