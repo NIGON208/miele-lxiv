@@ -2366,9 +2366,11 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void *context
         [showDescriptionInLargeText autorelease];
         showDescriptionInLargeText = nil;
         
+#ifdef WITH_RED_CAPTION        
         [warningNotice autorelease];
         warningNotice = nil;
-        
+#endif
+
         [blendingView autorelease];
         blendingView = nil;
         
