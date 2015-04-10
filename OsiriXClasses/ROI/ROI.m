@@ -1977,11 +1977,11 @@ int spline( NSPoint *Pt, int tot, NSPoint **newPt, long **correspondingSegmentPt
 
 - (id) initWith3DRepresentation:(NSDictionary*) d inView: (DCMView*) v
 {
-    //    if( v.volumicData != 1)
-    //    {
-    //        NSLog( @"------ volumic data required for 3D ROIs");
-    //        return nil;
-    //    }
+//    if( v.volumicData != 1)
+//    {
+//        NSLog( @"------ volumic data required for 3D ROIs");
+//        return nil;
+//    }
     
     if( [d objectForKey: @"type"] == nil)
         return nil;
@@ -3220,7 +3220,7 @@ static float Sign(NSPoint p1, NSPoint p2, NSPoint p3)
                 if( mode != ROI_selectedModify)
                     selectedModifyPoint = -1;
 
-		NSUInteger modifierFlags = [[[NSApplication sharedApplication] currentEvent] modifierFlags];
+                NSUInteger modifierFlags = [[[NSApplication sharedApplication] currentEvent] modifierFlags];
                 
 				for( int i = 0 ; i < [points count]; i++ )
 				{
@@ -5365,7 +5365,14 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
     return str;
 }
 
-- (void) drawROIWithScaleValue:(float)scaleValue offsetX:(float)offsetx offsetY:(float)offsety pixelSpacingX:(float)spacingX pixelSpacingY:(float)spacingY highlightIfSelected:(BOOL)highlightIfSelected thickness:(float)thick prepareTextualData:(BOOL) prepareTextualData;
+- (void) drawROIWithScaleValue:(float)scaleValue
+                       offsetX:(float)offsetx
+                       offsetY:(float)offsety
+                 pixelSpacingX:(float)spacingX
+                 pixelSpacingY:(float)spacingY
+           highlightIfSelected:(BOOL)highlightIfSelected
+                     thickness:(float)thick
+            prepareTextualData:(BOOL)prepareTextualData;
 {
     if( hidden)
         return;
@@ -6692,10 +6699,10 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
 				}
 			}
 			break;
+                
 #pragma mark tOval + tOvalAngle
             case tOvalAngle:
             case tOval:
-            case tBall:
 			{
 				float angle;
 				
@@ -6722,13 +6729,7 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
                     r.size.width *= scaleValue;
                     r.size.height *= scaleValue;
 
-                    if (type==tBall) {
-                        glColor4f( color.red / 65535., color.green / 65535., color.blue / 65535., opacity/2.);
-                        glBegin(GL_TRIANGLE_FAN); // The circle gets filled
-                    }
-                    else
-                        glBegin(GL_LINE_LOOP);
-                    
+                    glBegin(GL_LINE_LOOP);
                     for( int i = 0; i < resol ; i++ )
                     {
                         angle = i * 2 * M_PI /resol;
@@ -6751,8 +6752,6 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
                     
                     glEnd();
                     
-                    // TODO: for tBall draw the pink circle
-
                     if( type == tOvalAngle)    // draw the angle
                     {
                         glBegin(GL_LINE_LOOP);
@@ -6854,16 +6853,6 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
                             {
                                 self.textualBoxLine2 = [NSString stringWithFormat: NSLocalizedString( @"Area: %0.3f mm\u00B2 (W: %0.3f mm H: %0.3f mm)", @"W = Width, H = Height"), area*pixelSpacingX*pixelSpacingY, 2.0*fabs(NSWidth(rect))*pixelSpacingX, 2.0*fabs(NSHeight(rect))*pixelSpacingY];
                             }
-                            else if( type == tBall)
-                            {
-                                float r = rect.size.width*pixelSpacingX/10.;
-#if 1
-                                float v = M_PI * powf(r,3) * 4. / 3.;
-#else
-                                float v = [self ballVolume]*pixelSpacingX*pixelSpacingY*self.pix.sliceInterval/1000.; // @@@ TBC
-#endif
-                                self.textualBoxLine2 = [NSString stringWithFormat:@"Volume: %0.3f cm\u00B3 (\u2300: %0.3f cm)", v, 2.0*r];
-                            }
                             else
                             {
                                 self.textualBoxLine2 = [NSString stringWithFormat: NSLocalizedString( @"Area: %0.3f cm\u00B2 (W: %0.3f cm H: %0.3f cm)", @"W = Width, H = Height"), area*pixelSpacingX*pixelSpacingY/100., 2.0*fabs(NSWidth(rect))*pixelSpacingX/10., 2.0*fabs(NSHeight(rect))*pixelSpacingY/10.];
@@ -6885,28 +6874,12 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
                         if( [self pix].SUVConverted)
                             pixelUnit = [NSString stringWithFormat:@" %@ ", NSLocalizedString( @"SUV", @"SUV = Standard Uptake Value")];
                         
-#ifdef NDEBUG
-                        if( type == tBall)
-                            self.textualBoxLine3 = @""; // TODO: calculate
-                        else
-#endif
-                            self.textualBoxLine3 = [NSString stringWithFormat: NSLocalizedString( @"Mean: %0.3f%@ SDev: %0.3f%@ Sum: %@%@", nil), rmean, pixelUnit, rdev, pixelUnit, [ROI totalLocalized: rtotal], pixelUnit];
+                        self.textualBoxLine3 = [NSString stringWithFormat: NSLocalizedString( @"Mean: %0.3f%@ SDev: %0.3f%@ Sum: %@%@", nil), rmean, pixelUnit, rdev, pixelUnit, [ROI totalLocalized: rtotal], pixelUnit];
                         
                         if( rskewness || rkurtosis)
                             self.textualBoxLine4 = [NSString stringWithFormat: NSLocalizedString( @"Min: %0.3f%@ Max: %0.3f%@ Skewness: %0.3f Kurtosis: %0.3f", nil), rmin, pixelUnit, rmax, pixelUnit, rskewness, rkurtosis];
 						else
-                        {
-#ifdef NDEBUG
-                            if( type == tBall)
-                                self.textualBoxLine4 = @""; // TODO: calculate
-                            else
-#endif
-                                self.textualBoxLine4 = [NSString stringWithFormat: NSLocalizedString( @"Min: %0.3f%@ Max: %0.3f%@", nil), rmin, pixelUnit, rmax, pixelUnit];
-                        }
-						
-                        if (type == tBall) {
-                            self.textualBoxLine5 = [NSString stringWithFormat:@"Peak: (\u2300: cm)"];   // TODO: calculate
-                        }
+                            self.textualBoxLine4 = [NSString stringWithFormat: NSLocalizedString( @"Min: %0.3f%@ Max: %0.3f%@", nil), rmin, pixelUnit, rmax, pixelUnit];
                         
 						if( [curView blendingView])
 						{
@@ -6937,6 +6910,229 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
 				}
 			}
 			break;
+
+#pragma mark tBall
+            case tBall:
+            {
+                float angle;
+                
+                glLineWidth( thick*backingScaleFactor);
+                
+                NSRect rrect = rect;
+                
+                if( rrect.size.height < 0)
+                    rrect.size.height = -rrect.size.height;
+                
+                if( rrect.size.width < 0)
+                    rrect.size.width = -rrect.size.width;
+                
+                int resol = (rrect.size.height + rrect.size.width) * 1.5 * scaleValue;
+                
+                glPushMatrix();
+                {
+                    glTranslatef( (rrect.origin.x - offsetx)*scaleValue, (rrect.origin.y - offsety)*scaleValue,  0.0f);
+                    glRotatef( roiRotation, 0, 0, 1.0f);
+                    
+                    NSRect r = rrect;
+                    r.size.width *= scaleValue;
+                    r.size.height *= scaleValue;
+                    
+                    double dZ = (curView.curDCM.originZ-_pix.originZ)*scaleValue*_pix.sliceInterval;
+                    float radius = r.size.width/2.0;
+                    
+                    if (curView.curDCM == _pix) // The ROI was placed on this image: normal size
+                    {
+                        //NSLog(@"ROI.m:%i %@, on this pix", __LINE__, name);
+                    }
+                    else if (abs(dZ)>radius)    // Too far: not visible
+                    {
+                        //NSLog(@"ROI.m:%i %@, too far, dz:%.2f, radius:%.2f", __LINE__, name, dZ, radius);
+                        break;
+                    }
+                    else                        // Scale the radius by the distance of the two images
+                    {
+                        double a = asin(dZ/radius);
+                        r.size.width *= cos(a);
+                        r.size.height *= cos(a);
+                        //NSLog(@"ROI.m:%i %@, dz:%.2f, a:%f", __LINE__, name, dZ, a/deg2rad);
+                    }
+
+                    glColor4f( color.red / 65535., color.green / 65535., color.blue / 65535., opacity/2.);
+                    glBegin(GL_TRIANGLE_FAN); // The circle gets filled
+                    for( int i = 0; i < resol ; i++ )
+                    {
+                        angle = i * 2 * M_PI /resol;
+                        glVertex2f( r.size.width*cos(angle), r.size.height*sin(angle));
+                    }
+                    glEnd();
+                    
+                    glColor4f( color.red / 65535., color.green / 65535., color.blue / 65535., opacity);
+                    glPointSize( thick * backingScaleFactor);
+                    glBegin( GL_POINTS);
+                    for( int i = 0; i < resol ; i++ )
+                    {
+                        angle = i * 2 * M_PI /resol;
+                        glVertex2f( r.size.width*cos(angle), r.size.height*sin(angle));
+                    }
+                    
+                    if( [[NSUserDefaults standardUserDefaults] boolForKey: @"drawROICircleCenter"])
+                        glVertex2f( 0, 0);
+                    
+                    glEnd();
+                    
+                    // TODO: draw the pink circle
+                    
+                    if((mode == ROI_selected || mode == ROI_selectedModify || mode == ROI_drawing) && highlightIfSelected)
+                    {
+                        glColor3f (0.5f, 0.5f, 1.0f);
+                        glPointSize( (1 * backingScaleFactor + sqrt( thick))*3.5 * backingScaleFactor);
+                        glBegin( GL_POINTS);
+                        glVertex2f( - r.size.width, - r.size.height);
+                        glVertex2f( - r.size.width, + r.size.height);
+                        glVertex2f( + r.size.width, + r.size.height);
+                        glVertex2f( + r.size.width, - r.size.height);
+                        
+                        //Center
+                        glVertex2f( 0, 0);
+                        
+                        glEnd();
+                    }
+                    
+                    glLineWidth(1.0*backingScaleFactor);
+                    glColor3f (1.0f, 1.0f, 1.0f);
+                    
+                    glTranslatef( -(rrect.origin.x + rrect.size.width), -(rrect.origin.y + rrect.size.height),  0.0f);
+                }
+                glPopMatrix();
+                
+                // TEXT
+                
+                if( self.isTextualDataDisplayed && prepareTextualData)
+                {
+                    NSPoint tPt = self.lowerRightPoint;
+                    
+                    if([name isEqualToString:@"Unnamed"] == NO &&
+                       [name isEqualToString: NSLocalizedString( @"Unnamed", nil)] == NO)
+                    {
+                        self.textualBoxLine1 = name;
+                    }
+                    else
+                        self.textualBoxLine1 = nil;
+                    
+                    if( ROITEXTNAMEONLY == NO )
+                    {
+                        [self computeROIIfNedeed];
+                        
+                        // US Regions (Oval) --->
+                        BOOL roiInside2DUSRegion = FALSE;
+                        if ([[self pix] hasUSRegions]) {
+                            
+                            NSPoint roiPoint1 = NSMakePoint(rrect.origin.x-rrect.size.width, rrect.origin.y-rrect.size.height);
+                            NSPoint roiPoint2 = NSMakePoint(rrect.origin.x+rrect.size.width, rrect.origin.y+rrect.size.height);
+                            
+                            //NSLog(@"roi [%i,%i] [%i,%i]", (int)roiPoint1.x, (int)roiPoint1.y, (int)roiPoint2.x, (int)roiPoint2.y);
+                            
+                            for(DCMUSRegion *anUsRegion in self.pix.usRegions)
+                            {
+                                if (!roiInside2DUSRegion && [anUsRegion regionSpatialFormat] == 1) {
+                                    // 2D spatial format
+                                    int usRegionMinX = [anUsRegion regionLocationMinX0];
+                                    int usRegionMinY = [anUsRegion regionLocationMinY0];
+                                    int usRegionMaxX = [anUsRegion regionLocationMaxX1];
+                                    int usRegionMaxY = [anUsRegion regionLocationMaxY1];
+                                    
+                                    //NSLog(@"usRegion [%i,%i] [%i,%i]", usRegionMinX, usRegionMinY, usRegionMaxX, usRegionMaxY);
+                                    
+                                    roiInside2DUSRegion = (((int)roiPoint1.x >= usRegionMinX) && ((int)roiPoint1.x <= usRegionMaxX) &&
+                                                           ((int)roiPoint1.y >= usRegionMinY) && ((int)roiPoint1.y <= usRegionMaxY) &&
+                                                           ((int)roiPoint2.x >= usRegionMinX) && ((int)roiPoint2.x <= usRegionMaxX) &&
+                                                           ((int)roiPoint2.y >= usRegionMinY) && ((int)roiPoint2.y <= usRegionMaxY));
+                                }
+                            }
+                        }
+                        
+                        if (roiInside2DUSRegion || (pixelSpacingX != 0 && pixelSpacingY != 0 && ![[self pix] hasUSRegions]))
+                            // <--- US Regions (Oval)
+                        {
+                            float area = [self EllipseArea];
+                            if( area*pixelSpacingX*pixelSpacingY < 1.)
+                            {
+                                self.textualBoxLine2 = [NSString stringWithFormat: NSLocalizedString( @"Area: %0.1f %cm\u00B2 (W: %0.1f %cm H: %0.1f %cm)", @"W = Width, H = Height"), area*pixelSpacingX*pixelSpacingY* 1000000.0, 0xB5, 2.0*fabs(NSWidth(rect))*pixelSpacingX*10000.0, 0xB5, 2.0*fabs(NSHeight(rect))*pixelSpacingY*10000.0, 0xB5];
+                            }
+                            else if( area*pixelSpacingX*pixelSpacingY/100. < 1.)
+                            {
+                                self.textualBoxLine2 = [NSString stringWithFormat: NSLocalizedString( @"Area: %0.3f mm\u00B2 (W: %0.3f mm H: %0.3f mm)", @"W = Width, H = Height"), area*pixelSpacingX*pixelSpacingY, 2.0*fabs(NSWidth(rect))*pixelSpacingX, 2.0*fabs(NSHeight(rect))*pixelSpacingY];
+                            }
+                            else
+                            {
+                                float r = rect.size.width*pixelSpacingX/10.;
+#if 1
+                                float v = M_PI * powf(r,3) * 4. / 3.;
+#else
+                                float v = [self ballVolume]*pixelSpacingX*pixelSpacingY*self.pix.sliceInterval/1000.; // @@@ TBC
+#endif
+                                self.textualBoxLine2 = [NSString stringWithFormat:@"Volume: %0.3f cm\u00B3 (\u2300: %0.3f cm)", v, 2.0*r];
+                            }
+                        }
+                        else
+                        {
+                            self.textualBoxLine2 = [NSString stringWithFormat: NSLocalizedString( @"Area: %0.3f pix\u00B2 (W: %0.3f pix H: %0.3f pix)", @"W = Width, H = Height"), [self EllipseArea], 2.0*fabs(NSWidth(rect)), 2.0*fabs(NSHeight(rect))];
+                        }
+                        
+                        NSString *pixelUnit = [NSString stringWithFormat:@" %@ ", self.pix.rescaleType];
+                        
+                        if( [self pix].SUVConverted)
+                            pixelUnit = [NSString stringWithFormat:@" %@ ", NSLocalizedString( @"SUV", @"SUV = Standard Uptake Value")];
+                        
+#ifdef NDEBUG
+                        self.textualBoxLine3 = @""; // TODO: calculate
+#else
+                        self.textualBoxLine3 = [NSString stringWithFormat: NSLocalizedString( @"Mean: %0.3f%@ SDev: %0.3f%@ Sum: %@%@", nil), rmean, pixelUnit, rdev, pixelUnit, [ROI totalLocalized: rtotal], pixelUnit];
+#endif
+                        
+                        if( rskewness || rkurtosis)
+                            self.textualBoxLine4 = [NSString stringWithFormat: NSLocalizedString( @"Min: %0.3f%@ Max: %0.3f%@ Skewness: %0.3f Kurtosis: %0.3f", nil), rmin, pixelUnit, rmax, pixelUnit, rskewness, rkurtosis];
+                        else
+                        {
+#ifdef NDEBUG
+                            self.textualBoxLine4 = @""; // TODO: calculate
+#else
+                            self.textualBoxLine4 = [NSString stringWithFormat: NSLocalizedString( @"Min: %0.3f%@ Max: %0.3f%@", nil), rmin, pixelUnit, rmax, pixelUnit];
+#endif
+                        }
+                        
+                        self.textualBoxLine5 = [NSString stringWithFormat:@"Peak: (\u2300: cm)"];   // TODO: calculate
+                        
+                        if( [curView blendingView])
+                        {
+                            DCMPix	*blendedPix = [[curView blendingView] curDCM];
+                            ROI *b = [[self copy] autorelease];
+                            b.pix = blendedPix;
+                            b.curView = curView.blendingView;
+                            [b setOriginAndSpacing:blendedPix.pixelSpacingX
+                                                  :blendedPix.pixelSpacingY
+                                                  :[DCMPix originCorrectedAccordingToOrientation: blendedPix]];
+                            [b computeROIIfNedeed];
+                            
+                            NSString *pixelUnit = [NSString stringWithFormat:@" %@ ", blendedPix.rescaleType];
+                            
+                            if( blendedPix.SUVConverted)
+                                pixelUnit = [NSString stringWithFormat:@" %@ ", NSLocalizedString( @"SUV", @"SUV = Standard Uptake Value")];
+                            
+                            self.textualBoxLine5 = [NSString stringWithFormat: NSLocalizedString( @"Fused Image Mean: %0.3f%@ SDev: %0.3f%@ Sum: %@%@", nil), b.mean, pixelUnit, b.dev, pixelUnit, [ROI totalLocalized: b.total], pixelUnit];
+                            
+                            if( b.skewness || b.kurtosis)
+                                self.textualBoxLine6 = [NSString stringWithFormat: NSLocalizedString( @"Fused Image Min: %0.3f%@ Max: %0.3f%@ Skewness: %0.3f Kurtosis: %0.3f", nil), b.min, pixelUnit, b.max, pixelUnit, b.skewness, b.kurtosis];
+                            else
+                                self.textualBoxLine6 = [NSString stringWithFormat: NSLocalizedString( @"Fused Image Min: %0.3f%@ Max: %0.3f%@", nil), b.min, pixelUnit, b.max, pixelUnit];
+                        }
+                    }
+                    
+                    [self prepareTextualData:tPt];
+                }
+            }
+                break;
+                
 #pragma mark tAxis
 			case tAxis:
                 {
