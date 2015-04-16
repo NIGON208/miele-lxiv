@@ -333,6 +333,7 @@
 		4362185C1A2F375D006FA27A /* libvtkViewsContext2D-6.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 436217F21A2F375C006FA27A /* libvtkViewsContext2D-6.2.a */; };
 		4362185D1A2F375D006FA27A /* libvtkViewsCore-6.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 436217F31A2F375C006FA27A /* libvtkViewsCore-6.2.a */; };
 		4362185E1A2F375D006FA27A /* libvtkViewsInfovis-6.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 436217F41A2F375C006FA27A /* libvtkViewsInfovis-6.2.a */; };
+		4365B4711ADF22D50017195C /* OsiriX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 844719AF0FD8EF50003BFDF8 /* OsiriX.framework */; };
 		439B8C141A19CCC300F396D7 /* 3DconnexionClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 439B8C131A19CCC300F396D7 /* 3DconnexionClient.framework */; };
 		439B8C151A19CCC900F396D7 /* 3DconnexionClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 439B8C131A19CCC300F396D7 /* 3DconnexionClient.framework */; };
 		43F8F9AA1AA7DAA6008F318C /* LoupeController.h in Headers */ = {isa = PBXBuildFile; fileRef = 43F8F9A41AA7DAA6008F318C /* LoupeController.h */; };
@@ -2563,8 +2564,6 @@
 		CEDEF7D60D020E9100CADB15 /* TIFFSmall.tif in Resources */ = {isa = PBXBuildFile; fileRef = CEDEF7D30D020E9100CADB15 /* TIFFSmall.tif */; };
 		CEDEF7D70D020E9100CADB15 /* MailSmall.tif in Resources */ = {isa = PBXBuildFile; fileRef = CEDEF7D40D020E9100CADB15 /* MailSmall.tif */; };
 		CEDEF7D80D020E9100CADB15 /* JPEGSmall.tif in Resources */ = {isa = PBXBuildFile; fileRef = CEDEF7D50D020E9100CADB15 /* JPEGSmall.tif */; };
-		CEDF64B717E1B751009BB3F3 /* DCMAbstractSyntaxUID.m in Sources */ = {isa = PBXBuildFile; fileRef = CE79D9870FD84C350043DD73 /* DCMAbstractSyntaxUID.m */; };
-		CEDF64B817E1B77D009BB3F3 /* DCMCalendarDate.m in Sources */ = {isa = PBXBuildFile; fileRef = BF61E58D06A5BB9E001C0B29 /* DCMCalendarDate.m */; };
 		CEDF6DC60B46FE99008B45B8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B97325FDCFA39411CA2CEA /* Foundation.framework */; };
 		CEDF6DC90B46FE99008B45B8 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		CEDF6DCB0B46FE99008B45B8 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB6D320C05B3159D0002F793 /* IOKit.framework */; };
@@ -4706,6 +4705,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4365B4711ADF22D50017195C /* OsiriX.framework in Frameworks */,
 				4333FD621AB3076300E82B49 /* libdcmtls.a in Frameworks */,
 				4333FD541AB3076200E82B49 /* libdcmjpeg.a in Frameworks */,
 				434B47AF1A1A1AD4008CF8CF /* libopenjp2.a in Frameworks */,
@@ -9858,8 +9858,6 @@
 				597BB9E712A923FD00D0A172 /* N2Shell.mm in Sources */,
 				71A28B8416383B2900489F2A /* DCMWaveform.m in Sources */,
 				8412AF9D1758C54400092D95 /* NSException+N2.mm in Sources */,
-				CEDF64B717E1B751009BB3F3 /* DCMAbstractSyntaxUID.m in Sources */,
-				CEDF64B817E1B77D009BB3F3 /* DCMCalendarDate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

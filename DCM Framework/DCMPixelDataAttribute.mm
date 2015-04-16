@@ -473,27 +473,30 @@ static inline int int_ceildivpow2(int a, int b) {
 //
 //  return raw;
 //}
+
 /////////
+#if 0//@@@
+//#include "../../Binaries/openjpeg/openjpeg.h"
 //extern "C" NSData* compressJPEG2000(int inQuality, unsigned char* inImageBuffP, int inImageHeight, int inImageWidth, int samplesPerPixel);
 //extern "C" NSImage* decompressJPEG2000( unsigned char* inImageBuffP, long theLength);
 //
 //NSData* compressJPEG2000(int inQuality, unsigned char* inImageBuffP, int inImageHeight, int inImageWidth, int samplesPerPixel)
 //{
 //	opj_cparameters_t parameters;
-//	opj_event_mgr_t event_mgr;
+//	//opj_event_mgr_t event_mgr;
 //	opj_image_t *image = NULL;
 //	
-//	memset(&event_mgr, 0, sizeof(opj_event_mgr_t));
-//	event_mgr.error_handler = error_callback;
-//	event_mgr.warning_handler = warning_callback;
-//	event_mgr.info_handler = info_callback;
+////	memset(&event_mgr, 0, sizeof(opj_event_mgr_t));
+////	event_mgr.error_handler = error_callback;
+////	event_mgr.warning_handler = warning_callback;
+////	event_mgr.info_handler = info_callback;
 //	
 //	memset(&parameters, 0, sizeof(parameters));
 //	opj_set_default_encoder_parameters(&parameters);
-//	
+//    parameters.tcp_numlayers = 1;
+//    parameters.cp_disto_alloc = 1;
 //	parameters.tcp_rates[0] = inQuality;
-//	parameters.tcp_numlayers = 1;
-//	parameters.cp_disto_alloc = 1;
+//    parameters.cod_format = 1; /* JP2_CFMT format output */
 //	
 //	int image_width = inImageWidth;
 //	int image_height = inImageHeight;
@@ -504,16 +507,21 @@ static inline int int_ceildivpow2(int a, int b) {
 //	int numberofPlanes = 1;
 //	
 //	int length = inImageHeight * inImageWidth * sample_pixel;
-//	image = rawtoimage( (char*) inImageBuffP, &parameters,  static_cast<int>( length),  image_width, image_height, sample_pixel, bitsallocated, bitsstored, sign, inQuality, numberofPlanes);
+//	image = rawtoimage( (char*) inImageBuffP,
+//                       &parameters,
+//                       static_cast<int>( length),
+//                       image_width, image_height,
+//                       sample_pixel,
+//                       bitsallocated,
+//                       bitsstored, sign, /*inQuality,*/ numberofPlanes);
 //	
-//	parameters.cod_format = 0; /* J2K format output */
 //	int codestream_length;
-//	opj_cio_t *cio = NULL;
+//	//opj_cio_t *cio = NULL;
 //	
-//	opj_cinfo_t* cinfo = opj_create_compress(CODEC_J2K);
+//	opj_codec_t* cinfo = opj_create_compress(OPJ_CODEC_JP2);
 //
 //	/* catch events using our callbacks and give a local context */
-//	opj_set_event_mgr((opj_common_ptr)cinfo, &event_mgr, stderr);
+//	//opj_set_event_mgr((opj_common_ptr)cinfo, &event_mgr, stderr);
 //
 //	/* setup the encoder parameters using the current image and using user parameters */
 //	opj_setup_encoder(cinfo, &parameters, image);
@@ -543,6 +551,8 @@ static inline int int_ceildivpow2(int a, int b) {
 //	
 //	return jpeg2000Data;
 //}
+#endif
+
 //
 //NSImage* decompressJPEG2000( unsigned char* inImageBuffP, long theCompressedLength)
 //{
@@ -883,7 +893,8 @@ static inline int int_ceildivpow2(int a, int b) {
 	}
 	
 	//jpeg2000
-	if ([[DCMTransferSyntax JPEG2000LosslessTransferSyntax] isEqualToTransferSyntax:ts] || [[DCMTransferSyntax JPEG2000LossyTransferSyntax] isEqualToTransferSyntax:ts])
+	if ([[DCMTransferSyntax JPEG2000LosslessTransferSyntax] isEqualToTransferSyntax:ts] ||
+        [[DCMTransferSyntax JPEG2000LossyTransferSyntax] isEqualToTransferSyntax:ts])
 	{
 //		if( JasperInitialized == NO)
 //		{
@@ -3474,8 +3485,8 @@ static inline int int_ceildivpow2(int a, int b) {
 		}
 		else if( [_framesDecoded count] != _numberOfFrames)
 		{
-			int s = [_framesDecoded count];
-			for( int i = s; i <= _numberOfFrames; i++)
+			NSUInteger s = [_framesDecoded count];
+			for( NSUInteger i = s; i <= _numberOfFrames; i++)
 				[_framesDecoded addObject: @NO];
 		}
 		
@@ -3498,7 +3509,7 @@ static inline int int_ceildivpow2(int a, int b) {
 			[singleThread unlock];
 			
 			if( [transferSyntax isEqualToTransferSyntax:[DCMTransferSyntax JPEG2000LosslessTransferSyntax]] == NO &&
-				[transferSyntax isEqualToTransferSyntax:[DCMTransferSyntax JPEG2000LossyTransferSyntax]]  == NO && 
+				[transferSyntax isEqualToTransferSyntax:[DCMTransferSyntax JPEG2000LossyTransferSyntax]] == NO &&
 				[transferSyntax isEqualToTransferSyntax:[DCMTransferSyntax RLETransferSyntax]] == NO)
 			{
 				depth = scanJpegDataForBitDepth( (unsigned char *) [subData bytes], [subData length]);
@@ -3552,7 +3563,8 @@ static inline int int_ceildivpow2(int a, int b) {
 				data = [self convertJPEG16ToHost:subData];		
 			}
 			//JPEG 2000
-			else if ([transferSyntax isEqualToTransferSyntax:[DCMTransferSyntax JPEG2000LosslessTransferSyntax]] || [transferSyntax isEqualToTransferSyntax:[DCMTransferSyntax JPEG2000LossyTransferSyntax]] )
+			else if ([transferSyntax isEqualToTransferSyntax:[DCMTransferSyntax JPEG2000LosslessTransferSyntax]] ||
+                     [transferSyntax isEqualToTransferSyntax:[DCMTransferSyntax JPEG2000LossyTransferSyntax]] )
 			{
 				colorspaceIsConverted = YES;
 				data = [self convertJPEG2000ToHost:subData];
@@ -3561,6 +3573,52 @@ static inline int int_ceildivpow2(int a, int b) {
 			{
 				data = [self convertRLEToHost:subData];
 			}
+#if 1
+            else if ([transferSyntax isEqualToTransferSyntax:[DCMTransferSyntax JPEGLSLosslessTransferSyntax]])
+            {
+                //data = [self convertJPEG2000ToHost:subData]; // no
+                //data = [self convertJPEG8LosslessToHost:subData]; // crash
+                //data = [self convertJPEG8ToHost:subData]; // crash
+                //data = [self convertJPEG12ToHost:subData]; // crash
+                //data = [self convertJPEG16ToHost:subData]; // crash
+                
+                //data = [self convertDataFromLittleEndianToHost:subData]; // no
+                //data = [self convertDataFromBigEndianToHost:subData]; // no
+                
+//                void* uncompressedData;
+//                size_t uncompressedLength;
+//                const void* compressedData;
+//                size_t compressedLength;
+//#include "osconfig.h"    /* make sure OS specific configuration is included first */
+//#include "ofcond.h"
+                
+//#include "dcmjpls/djdecode.h" //JPEG-LS
+//#include "dcmjpls/djencode.h" //JPEG-LS
+////#include "intrface.h"
+////#include "pubtypes.h"
+                
+//                JlsParameters info;
+//                JpegLsDecode(uncompressedData, uncompressedLength, compressedData, compressedLength, &info);
+                
+//                OFCondition res =
+//                DJLSDecoderBase::decodeFrame(            DcmPixelSequence * fromPixSeq,
+//                                                         const DJLSCodecParameter *cp,
+//                                                         DcmItem *dataset,
+//                                                         Uint32 frameNo,
+//                                                         Uint32& currentItem,
+//                                                         void * buffer,
+//                                                         Uint32 bufSize,
+//                                                         Sint32 imageFrames,
+//                                                         Uint16 imageColumns,
+//                                                         Uint16 imageRows,
+//                                                         Uint16 imageSamplesPerPixel,
+//                                                         Uint16 bytesPerSample)
+            }
+            else if ([transferSyntax isEqualToTransferSyntax:[DCMTransferSyntax JPEGLSLossyTransferSyntax]])
+            {
+                //data = [self convertRLEToHost:subData];
+            }
+#endif
 			else
 			{
 				NSLog( @"DCM Framework: Unknown compressed transfer syntax: %@ %@", transferSyntax.description, transferSyntax.transferSyntax);

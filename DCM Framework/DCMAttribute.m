@@ -305,33 +305,36 @@
 	[_values addObject:value];
 }
 
-- (void)writeBaseToData:(DCMDataContainer *)dcmData transferSyntax:(DCMTransferSyntax *)ts{
-	
+- (void)writeBaseToData:(DCMDataContainer *)dcmData transferSyntax:(DCMTransferSyntax *)ts
+{
 	[dcmData addUnsignedShort: self.group];  //write group
 	[dcmData addUnsignedShort: self.element]; //write Element
 	//write length
-		if ([ts isExplicit]) {	
-			//write VR is explicit
-			if (DCMDEBUG)
-				NSLog(@"Write VR: %@", _vr);
-			[dcmData addString:_vr];
-			if ([DCMValueRepresentation isShortValueLengthVR:_vr]) {
-				[dcmData  addUnsignedShort:self.paddedLength];
-			}
-			
-			else {
-				[dcmData  addUnsignedShort:0];		// reserved bytes
-				[dcmData  addUnsignedLong:self.paddedLength];
-			}
-			
-		}
-		else {
-			[dcmData  addUnsignedLong:self.paddedLength];
-		}
-
+    if ([ts isExplicit])
+    {
+        //write VR is explicit
+        if (DCMDEBUG)
+            NSLog(@"Write VR: %@", _vr);
+        
+        [dcmData addString:_vr];
+        if ([DCMValueRepresentation isShortValueLengthVR:_vr])
+        {
+            [dcmData  addUnsignedShort:self.paddedLength];
+        }
+        else
+        {
+            [dcmData  addUnsignedShort:0];		// reserved bytes
+            [dcmData  addUnsignedLong:self.paddedLength];
+        }
+    }
+    else
+    {
+        [dcmData  addUnsignedLong:self.paddedLength];
+    }
 }
 
-- (BOOL)writeToDataContainer:(DCMDataContainer *)container withTransferSyntax:(DCMTransferSyntax *)ts
+- (BOOL)writeToDataContainer:(DCMDataContainer *)container
+          withTransferSyntax:(DCMTransferSyntax *)ts
 {
 	if( characterSet == nil)
 		characterSet = [[DCMCharacterSet alloc] initWithCode: @"ISO_IR 100"];
@@ -344,7 +347,7 @@
 	NSString *string;
 	
 	[self writeBaseToData:container transferSyntax:ts];
-	
+
 	if (DCMDEBUG)
 		NSLog(@"Write Attr: %@", [self description]);
 		
@@ -456,10 +459,9 @@
           //  default: 
 			//	values = [NSArray arrayWithObject:[dicomData nextDataWithLength:length]];
           //      break;
-			
-			
 		}
 	}
+    
 	return YES;
 }
 

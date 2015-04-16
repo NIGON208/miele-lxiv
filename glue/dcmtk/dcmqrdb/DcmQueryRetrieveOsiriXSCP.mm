@@ -71,7 +71,9 @@ void DcmQueryRetrieveOsiriXSCP::writeErrorMessage( const char *str)
     if( options_.singleProcess_)
     {
         if( str)
-            [[AppController sharedAppController] performSelectorOnMainThread: @selector(displayListenerError:) withObject: [NSString stringWithUTF8String: str] waitUntilDone: NO];
+            [[AppController sharedAppController] performSelectorOnMainThread: @selector(displayListenerError:)
+                                                                  withObject: [NSString stringWithUTF8String: str]
+                                                               waitUntilDone: NO];
     }
     else
     {

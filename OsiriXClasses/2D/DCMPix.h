@@ -60,7 +60,7 @@ extern XYZ ArbitraryRotate(XYZ p,double theta,XYZ r);
 {
     NSString            *srcFile;  /**< source File */
     NSString            *URIRepresentationAbsoluteString;
-    NSString		*imageType;
+    NSString            *imageType;
     BOOL				isBonjour;
     BOOL                fileTypeHasPrefixDICOM;
     int                 numberOfFrames;

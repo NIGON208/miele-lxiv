@@ -44,15 +44,15 @@
 	const Uint8 *buffer = nil;
 	NSUInteger length;
 	
-	if (fileformat.getDataset()->findAndGetUint8Array(DCM_EncapsulatedDocument, buffer, &length, OFFalse).good()) //DCM_EncapsulatedDocument
+	if (fileformat.getDataset()->findAndGetUint8Array(DCM_EncapsulatedDocument, buffer, &length, OFFalse).good())
 	{
 		archiveData = [NSData dataWithBytes:buffer length:(unsigned)length];
 	}
-	else if (fileformat.getDataset()->findAndGetUint8Array(DCM_OsirixROI, buffer, &length, OFFalse).good())	//DCM_EncapsulatedDocument
-	{
+	else if (fileformat.getDataset()->findAndGetUint8Array(DCM_OsirixROI, buffer, &length, OFFalse).good())
+    {
 		archiveData = [NSData dataWithBytes:buffer length:(unsigned)length];
 	}
-	
+    
 	return archiveData;
 }
 

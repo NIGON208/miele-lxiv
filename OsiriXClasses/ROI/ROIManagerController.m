@@ -12,8 +12,6 @@ the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
 PURPOSE.
 =========================================================================*/
 
-
-
 #import "ROIManagerController.h"
 #import "Notifications.h"
 
@@ -88,8 +86,6 @@ PURPOSE.
 		[self deleteROI: self];
 	}
 }
-
-
 
 - (IBAction)deleteROI:(id)sender
 {
@@ -166,7 +162,7 @@ PURPOSE.
 	
 	if( [curRoiList count] <= row)
 		return nil;
-		
+
 	if( [[tableColumn identifier] isEqualToString:@"Index"])
 	{
 		return [NSString stringWithFormat:@"%d", (int) row+1];
@@ -196,7 +192,7 @@ PURPOSE.
 		}
 		else
 		#endif
-			return [NSString stringWithString: NSLocalizedString( @"n/a", @"Abreviation for not available")];
+			return [NSString stringWithString: NSLocalizedString( @"n/a", @"Abbreviation for not available")];
 	}
 	
 	return nil;

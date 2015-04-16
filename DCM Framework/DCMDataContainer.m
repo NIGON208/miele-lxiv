@@ -808,8 +808,11 @@ void signal_EXC(int sig_num)
 	[dicomData appendBytes:u.buffer length:size];
 }
 
-- (void)addString:(NSString *)string{
+- (void)addString:(NSString *)string
+{
+    // FIXME: when string is UI we get "Incorrect NSStringEncoding value 0x0000 detected. Assuming NSASCIIStringEncoding. Will stop this compatiblity mapping behavior in the near future."
 	NSData *data = [string dataUsingEncoding:stringEncoding];
+    
 	[dicomData appendData:data];
 	NSUInteger length = [data length];
 	if (length%2)
@@ -817,8 +820,11 @@ void signal_EXC(int sig_num)
 	
 }
 
-- (void)addStringWithZeroPadding:(NSString *)string{
+- (void)addStringWithZeroPadding:(NSString *)string
+{
+    // FIXME: "Incorrect NSStringEncoding value 0x0000 detected. Assuming NSASCIIStringEncoding. Will stop this compatiblity mapping behavior in the near future."
 	NSData *data = [string dataUsingEncoding:stringEncoding];
+    
 	[dicomData appendData:data];
 	NSUInteger length = [data length];
 	if (length%2)

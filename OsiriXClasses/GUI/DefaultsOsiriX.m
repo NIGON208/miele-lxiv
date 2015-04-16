@@ -1074,7 +1074,7 @@ static NSHost *currentHost = nil;
 	[defaultValues setObject:@"0" forKey:@"32bitDICOMAreAlwaysIntegers"];
 	[defaultValues setObject:@"1" forKey:@"archiveReportsAndAnnotationsAsDICOMSR"];
 	[defaultValues setObject:@"1" forKey:@"SelectWindowScrollWheel"];
-	[defaultValues setObject:@"1" forKey:@"useDCMTKForJP2K"];
+	[defaultValues setObject:@"1" forKey:@"useDCMTKForJP2K"]; // deprecated
 	[defaultValues setObject:@"1" forKey:@"MouseClickZoomCentered"];
 	[defaultValues setObject:@"1" forKey:@"exportOrientationIn3DExport"];
 	[defaultValues setObject:@"600" forKey:@"WADOTimeout"];

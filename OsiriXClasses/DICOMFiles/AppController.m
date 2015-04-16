@@ -4138,9 +4138,9 @@ static BOOL initialized = NO;
 		
 	[[NSUserDefaults standardUserDefaults] setBool: [AppController hasMacOSXSnowLeopard] forKey: @"hasMacOSXSnowLeopard"];
 	
-    [[NSUserDefaults standardUserDefaults] setBool: NO forKey: @"UseKDUForJPEG2000"];
+    [[NSUserDefaults standardUserDefaults] setBool: NO forKey: @"UseKDUForJPEG2000"]; // deprecated
     [[NSUserDefaults standardUserDefaults] setBool: YES forKey: @"UseOpenJpegForJPEG2000"];
-    [[NSUserDefaults standardUserDefaults] setBool: YES forKey: @"useDCMTKForJP2K"];
+    [[NSUserDefaults standardUserDefaults] setBool: YES forKey: @"useDCMTKForJP2K"]; // deprecated
     
     if( [[[NSUserDefaults standardUserDefaults] objectForKey:@"HOTKEYS"] count] < SetKeyImageAction) {
         NSMutableDictionary *d = [[[[NSUserDefaults standardUserDefaults] objectForKey:@"HOTKEYS"] mutableCopy] autorelease];

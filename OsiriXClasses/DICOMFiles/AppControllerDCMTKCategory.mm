@@ -32,11 +32,8 @@
 - (void)initDCMTK
 {
 	#ifndef OSIRIX_LIGHT
-    // register global JPEG decompression codecs
+    // register global JPEG codecs
     DJDecoderRegistration::registerCodecs();
-    DJLSDecoderRegistration::registerCodecs();
-    
-    // register global JPEG compression codecs
     DJEncoderRegistration::registerCodecs(
 	 	ECC_lossyRGB,
 		EUC_never,
@@ -63,13 +60,13 @@
 		OFFalse,
 		OFTrue);
     
-    DJLSEncoderRegistration::registerCodecs();
-    
-    // register RLE compression codec
-    DcmRLEEncoderRegistration::registerCodecs();
-
-    // register RLE decompression codec
+    // register RLE codecs
     DcmRLEDecoderRegistration::registerCodecs();
+    DcmRLEEncoderRegistration::registerCodecs();
+    
+    // register global JPEG-LS codecs
+    DJLSDecoderRegistration::registerCodecs();
+    DJLSEncoderRegistration::registerCodecs();
     
 #if 0 // TODO
     gPutSrcAETitleInSourceApplicationEntityTitle = [[NSUserDefaults standardUserDefaults] boolForKey: @"putSrcAETitleInSourceApplicationEntityTitle"];
@@ -79,7 +76,7 @@
 }
 - (void)destroyDCMTK
 {
-	#ifndef OSIRIX_LIGHT
+#ifndef OSIRIX_LIGHT
     // deregister JPEG codecs
     DJDecoderRegistration::cleanup();
     DJEncoderRegistration::cleanup();
@@ -87,7 +84,11 @@
     // deregister RLE codecs
     DcmRLEDecoderRegistration::cleanup();
     DcmRLEEncoderRegistration::cleanup();
-	#endif
+
+    // deregister JPEG-LS codecs
+    DJLSDecoderRegistration::cleanup();
+    DJLSEncoderRegistration::cleanup();
+#endif
 }
 
 @end

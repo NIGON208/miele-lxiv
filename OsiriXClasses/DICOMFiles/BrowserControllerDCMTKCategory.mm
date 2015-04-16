@@ -104,7 +104,7 @@ static NSString *uniqueSync = @"uniqueSync";
         
 		[[NSFileManager defaultManager] removeItemAtPath: tmpWADOFile  error: nil];
 		
-		if( [[NSUserDefaults standardUserDefaults] boolForKey: @"useDCMTKForJP2K"])
+		if( [[NSUserDefaults standardUserDefaults] boolForKey: @"useDCMTKForJP2K"])  // deprecated
 		{
 //			DcmItem *metaInfo = fileformat.getMetaInfo();
 			

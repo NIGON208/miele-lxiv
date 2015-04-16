@@ -6386,8 +6386,9 @@ static NSConditionLock *threadLock = nil;
 	// *********************************************
 	//	PLUGINS
 	// *********************************************
-	
-	if( [[[NSUserDefaults standardUserDefaults] stringForKey:@"REPORTSMODE"] intValue] == 3 && [[tableColumn identifier] isEqualToString:@"reportURL"])
+	   
+	if ([[[NSUserDefaults standardUserDefaults] stringForKey:@"REPORTSMODE"] intValue] == 3 &&
+        [[tableColumn identifier] isEqualToString:@"reportURL"])
 	{
 		if ([[item valueForKey:@"type"] isEqualToString:@"Study"])
 		{
@@ -6710,7 +6711,7 @@ static NSConditionLock *threadLock = nil;
 	
 	[context lock];
 	
-	@try 
+	@try
 	{
 		if ([[item valueForKey:@"type"] isEqualToString: @"Study"])
 		{
@@ -15785,7 +15786,11 @@ static volatile int numberOfThreadsForJPEG = 0;
 		
 		[_database initiateCompressFilesAtPaths:result];
 	}
-	else NSRunInformationalAlertPanel(NSLocalizedString(@"Non-Local Database", nil), NSLocalizedString(@"Cannot compress images in a distant database.", nil), NSLocalizedString(@"OK",nil), nil, nil);
+	else NSRunInformationalAlertPanel(NSLocalizedString(@"Non-Local Database", nil),
+                                      NSLocalizedString(@"Cannot compress images in a distant database.", nil),
+                                      NSLocalizedString(@"OK",nil),
+                                      nil,
+                                      nil);
 }
 
 - (IBAction)decompressSelectedFiles: (id)sender

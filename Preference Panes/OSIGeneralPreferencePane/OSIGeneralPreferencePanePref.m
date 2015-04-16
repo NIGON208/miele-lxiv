@@ -95,12 +95,12 @@ static NSArray *languagesToMoveWhenQuitting = nil;
 
 - (NSUInteger) JP2KWriter
 {
-	return [[NSUserDefaults standardUserDefaults] boolForKey: @"useDCMTKForJP2K"];
+	return [[NSUserDefaults standardUserDefaults] boolForKey: @"useDCMTKForJP2K"]; // deprecated
 }
 
 - (void) setJP2KWriter:(NSUInteger) v
 {
-	[[NSUserDefaults standardUserDefaults] setBool: v forKey: @"useDCMTKForJP2K"];
+	[[NSUserDefaults standardUserDefaults] setBool: v forKey: @"useDCMTKForJP2K"]; // deprecated
 	
 	[self willChangeValueForKey: @"JP2KWriter"];
 	[self didChangeValueForKey: @"JP2KWriter"];

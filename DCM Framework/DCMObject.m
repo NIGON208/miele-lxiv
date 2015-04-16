@@ -1745,7 +1745,11 @@ PixelRepresentation
 	return [self writeToDataContainer: container withTransferSyntax: ts AET: aet  asDICOM3: flag implicitForPixelData: NO];
 }
 
-- (BOOL)writeToDataContainer:(DCMDataContainer *)container withTransferSyntax:(DCMTransferSyntax *)ts AET:(NSString *)aet  asDICOM3:(BOOL)flag implicitForPixelData: (BOOL) ipd
+- (BOOL)writeToDataContainer:(DCMDataContainer *)container
+          withTransferSyntax:(DCMTransferSyntax *)ts
+                         AET:(NSString *)aet
+                    asDICOM3:(BOOL)flag
+        implicitForPixelData:(BOOL) ipd
 {
 	if (!ts)
 		ts = transferSyntax;
@@ -1820,30 +1824,30 @@ PixelRepresentation
 			strippingGroupLengthLength:YES];
 }
 
-- (BOOL)writeToDataContainer:(DCMDataContainer *)container 
-			withTransferSyntax:(DCMTransferSyntax *)ts 
-			quality:(int)quality 
-			asDICOM3:(BOOL)flag
-			strippingGroupLengthLength:(BOOL)stripGroupLength{
+- (BOOL)writeToDataContainer:(DCMDataContainer *)container
+          withTransferSyntax:(DCMTransferSyntax *)ts
+                     quality:(int)quality
+                    asDICOM3:(BOOL)flag
+  strippingGroupLengthLength:(BOOL)stripGroupLength
+{
 	return [self writeToDataContainer:(DCMDataContainer *)container 
 			withTransferSyntax:(DCMTransferSyntax *)ts 
 			quality:(int)quality 
 			asDICOM3:(BOOL)flag
 			AET:@"OSIRIX"
 			strippingGroupLengthLength:(BOOL)stripGroupLength];
-	}
-			
+}
 
-- (BOOL)writeToDataContainer:(DCMDataContainer *)container 
-			withTransferSyntax:(DCMTransferSyntax *)ts 
-			quality:(int)quality 
-			asDICOM3:(BOOL)flag
-			AET:(NSString *)aet 
-			strippingGroupLengthLength:(BOOL)stripGroupLength
-	{
-			
+- (BOOL)writeToDataContainer:(DCMDataContainer *)container
+          withTransferSyntax:(DCMTransferSyntax *)ts
+                     quality:(int)quality
+                    asDICOM3:(BOOL)flag
+                         AET:(NSString *)aet
+  strippingGroupLengthLength:(BOOL)stripGroupLength
+{
 	if (ts == nil)
 		ts = transferSyntax;
+    
 	DCMTransferSyntax *explicitTS = [DCMTransferSyntax ExplicitVRLittleEndianTransferSyntax];
 	
 	NSException *exception = nil;
@@ -1851,88 +1855,91 @@ PixelRepresentation
 	
 	@try
 	{
-	//routine for Files
-	if (stripGroupLength)
-		[self removeGroupLengths];
-	
-	//need to convert PixelData TransferSyntax
-	DCMAttributeTag *pixelDataTag = [DCMAttributeTag tagWithName:@"PixelData"];
-	DCMPixelDataAttribute *pixelDataAttr = (DCMPixelDataAttribute *)[attributes objectForKey:[pixelDataTag stringValue]];
+        //routine for Files
+        if (stripGroupLength)
+            [self removeGroupLengths];
 
-	//if we have the attr and the conversion failed stop	
-	if (pixelDataAttr && ![pixelDataAttr convertToTransferSyntax: ts quality:quality]) {
-		NSLog(@"Could not convert pixel Data to %@", ts.description);
-		status = NO;
-		//return NO;
-	}
-	[container setTransferSyntaxForDataset:ts];	
-	if (DCMDEBUG)
-		NSLog(@"Writing DICOM Object with syntax:%@", ts.description);
-	//writing Dicom has preamble and metaheader.  Neither for dataset
-	if (flag) {
-		if (DCMDEBUG)
-			NSLog(@"updateMetaInformation newTransferSyntax:%@", ts.description);
-		[self updateMetaInformationWithTransferSyntax:ts aet:aet];
-		[container addPremable];
-	}
-	
-	//set character set if necessary
-	if (!specificCharacterSet && [self attributeValueWithName:@"SpecificCharacterSet"])
-		[self setCharacterSet: [[[DCMCharacterSet alloc] initWithCode:[self attributeValueWithName:@"SpecificCharacterSet"]] autorelease]];
+        //need to convert PixelData TransferSyntax
+        DCMAttributeTag *pixelDataTag = [DCMAttributeTag tagWithName:@"PixelData"];
+        DCMPixelDataAttribute *pixelDataAttr = (DCMPixelDataAttribute *)[attributes objectForKey:[pixelDataTag stringValue]];
 
-	NSMutableArray *mutableKeys = [NSMutableArray arrayWithArray:[attributes allKeys]];
-	NSArray *sortedKeys = [mutableKeys sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
+        //if we have the attr and the conversion failed stop	
+        if (pixelDataAttr && ![pixelDataAttr convertToTransferSyntax: ts quality:quality]) {
+            NSLog(@"Could not convert pixel Data to %@", ts.description);
+            status = NO;
+            //return NO;
+        }
+            
+        [container setTransferSyntaxForDataset:ts];	
+        if (DCMDEBUG)
+            NSLog(@"Writing DICOM Object with syntax:%@", ts.description);
+            
+        //writing Dicom has preamble and metaheader.  Neither for dataset
+        if (flag)
+        {
+            if (DCMDEBUG)
+                NSLog(@"updateMetaInformation newTransferSyntax:%@", ts.description);
+            [self updateMetaInformationWithTransferSyntax:ts aet:aet];
+            [container addPremable];
+        }
+        
+        //set character set if necessary
+        if (!specificCharacterSet && [self attributeValueWithName:@"SpecificCharacterSet"])
+            [self setCharacterSet: [[[DCMCharacterSet alloc] initWithCode:[self attributeValueWithName:@"SpecificCharacterSet"]] autorelease]];
 
-	for ( NSString *key in sortedKeys)
-	{
-		//if (DCMDEBUG)
-		//	NSLog(@"key:%@ %@", key, NSStringFromClass([key class]));
-		DCMAttribute *attr = [attributes objectForKey:key];
-		if (attr)
-		{
-			//skip metaheader for dataset
-			if( attr.attrTag.group == 0x0002)
-			{
-				if ( flag)
-				{
-					[container setUseMetaheaderTS:YES];
-					if (![attr writeToDataContainer:container withTransferSyntax:explicitTS])
-					{
-						exception = [NSException exceptionWithName:@"DCMWriteDataError" reason:[NSString stringWithFormat:@"Cannot write %@ to data", [attr description]] userInfo:nil];
-						[exception raise];
-					}
-				}
-			}
-			else
-			{
-				[container setUseMetaheaderTS:NO];
-				
-				if( attr.attrTag.group == 0x0008 && attr.attrTag.element == 0x0005)
-				{
-					[specificCharacterSet release];
-					
-					if( [[attr values] count] > 1) // DCMFramework doesn't support multi-encoded string when writing -> switch for UTF-8
-					{
-						specificCharacterSet = [[DCMCharacterSet alloc] initWithCode: @"ISO_IR 192"];
-						attr.values = [NSMutableArray arrayWithObject: @"ISO_IR 192"];
-					}
-					else
-						specificCharacterSet = [[DCMCharacterSet alloc] initWithCode: [[attr values] componentsJoinedByString:@"\\"]];
-				}
-				
-				[attr setCharacterSet: specificCharacterSet];
-				
-				if( ![attr writeToDataContainer: container withTransferSyntax: ts])
-				{
-					exception = [NSException exceptionWithName:@"DCMWriteDataError" reason:[NSString stringWithFormat:@"Cannot write %@ to data with syntax:%@", [attr description], [ts transferSyntax]] userInfo:nil];
-					[exception raise];
-				}
-			}
-		}
+        NSMutableArray *mutableKeys = [NSMutableArray arrayWithArray:[attributes allKeys]];
+        NSArray *sortedKeys = [mutableKeys sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
+
+        for ( NSString *key in sortedKeys)
+        {
+            //if (DCMDEBUG)
+            //	NSLog(@"key:%@ %@", key, NSStringFromClass([key class]));
+            DCMAttribute *attr = [attributes objectForKey:key];
+            if (attr)
+            {
+                //skip metaheader for dataset
+                if( attr.attrTag.group == 0x0002)
+                {
+                    if ( flag)
+                    {
+                        [container setUseMetaheaderTS:YES];
+                        if (![attr writeToDataContainer:container withTransferSyntax:explicitTS])
+                        {
+                            exception = [NSException exceptionWithName:@"DCMWriteDataError" reason:[NSString stringWithFormat:@"Cannot write %@ to data", [attr description]] userInfo:nil];
+                            [exception raise];
+                        }
+                    }
+                }
+                else
+                {
+                    [container setUseMetaheaderTS:NO];
+                    
+                    if( attr.attrTag.group == 0x0008 && attr.attrTag.element == 0x0005)
+                    {
+                        [specificCharacterSet release];
+                        
+                        if( [[attr values] count] > 1) // DCMFramework doesn't support multi-encoded string when writing -> switch for UTF-8
+                        {
+                            specificCharacterSet = [[DCMCharacterSet alloc] initWithCode: @"ISO_IR 192"];
+                            attr.values = [NSMutableArray arrayWithObject: @"ISO_IR 192"];
+                        }
+                        else
+                            specificCharacterSet = [[DCMCharacterSet alloc] initWithCode: [[attr values] componentsJoinedByString:@"\\"]];
+                    }
+                    
+                    [attr setCharacterSet: specificCharacterSet];
+                    
+                    if( ![attr writeToDataContainer: container withTransferSyntax: ts])
+                    {
+                        exception = [NSException exceptionWithName:@"DCMWriteDataError"
+                                                            reason:[NSString stringWithFormat:@"Cannot write %@ to data with syntax:%@", [attr description], [ts transferSyntax]]
+                                                          userInfo:nil];
+                        [exception raise];
+                    }
+                }
+            }
+        }
 	}
-	
-	}
-	
 	@catch( NSException *e)
 	{
 			NSLog(@"Exception:%@ reason:%@", [e name], [e reason]);
@@ -1957,12 +1964,13 @@ PixelRepresentation
 	@try {		
 		DCMDataContainer *container = [[[DCMDataContainer alloc] init] autorelease];
 		//if ([self writeToDataContainer:container withTransferSyntax:ts quality:quality]) {
-			if ([self writeToDataContainer:(DCMDataContainer *)container 
-					withTransferSyntax:(DCMTransferSyntax *)ts 
-					quality:(int)quality 
-					asDICOM3:YES
-					AET:(NSString *)aet
-					strippingGroupLengthLength:YES]) {
+			if ([self writeToDataContainer:(DCMDataContainer *)container
+                        withTransferSyntax:(DCMTransferSyntax *)ts
+                                   quality:(int)quality
+                                  asDICOM3:YES
+                                       AET:(NSString *)aet
+                strippingGroupLengthLength:YES])
+            {
 			status =  [[container dicomData] writeToFile:path atomically:flag];
 		}
 		else
@@ -1973,7 +1981,7 @@ PixelRepresentation
 		status = NO;
 	}
 	
-		return status;
+    return status;
 }
 
 
