@@ -930,24 +930,24 @@ static NSHost *currentHost = nil;
 	[defaultValues setObject:@"1.2" forKey:@"BESTRENDERING"];
 	#endif
 
-    [defaultValues setObject:@"120" forKey:@"DatabaseRefreshInterval"];
+    [defaultValues setObject: @"120" forKey:@"DatabaseRefreshInterval"];
     
-    [defaultValues setObject:@"1" forKey:@"ShowAlbumOnlyIfNotEmpty"];
-	[defaultValues setObject:@"0" forKey:@"UseFrameofReferenceUID"];
-	[defaultValues setObject:@"1" forKey:@"savedCommentsAndStatusInDICOMFiles"];
-	[defaultValues setObject:@"1" forKey:@"CommentsFromDICOMFiles"];
-	[defaultValues setObject:@"1" forKey:@"OPENVIEWER"];
+    [defaultValues setObject: @"1" forKey:@"ShowAlbumOnlyIfNotEmpty"];
+	[defaultValues setObject: @"0" forKey:@"UseFrameofReferenceUID"];
+	[defaultValues setObject: @"1" forKey:@"savedCommentsAndStatusInDICOMFiles"];
+	[defaultValues setObject: @"1" forKey:@"CommentsFromDICOMFiles"];
+	[defaultValues setObject: @"1" forKey:@"OPENVIEWER"];
 	[defaultValues setObject: @"0" forKey: @"ConvertPETtoSUVautomatically"];
 	[defaultValues setObject: @"0" forKey: @"SURVEYDONE3"];
 	[defaultValues setObject: @"20" forKey: @"stackThickness"];
 	[defaultValues setObject: @"20" forKey: @"stackThicknessOrthoMPR"];
-	[defaultValues setObject:@"0" forKey:@"AUTOROUTINGACTIVATED"];
-	[defaultValues setObject:@"0" forKey:@"httpXMLRPCServer"];
-	[defaultValues setObject:@"8080" forKey:@"httpXMLRPCServerPort"];
-	[defaultValues setObject:@"0" forKey:OsirixWebPortalEnabledDefaultsKey];
-	[defaultValues setObject:@"3333" forKey:OsirixWebPortalPortNumberDefaultsKey];
-	[defaultValues setObject:@"1" forKey:@"StrechWindows"];
-	[defaultValues setObject:@"0" forKey:@"ROUTINGACTIVATED"];
+	[defaultValues setObject: @"0" forKey:@"AUTOROUTINGACTIVATED"];
+	[defaultValues setObject: @"0" forKey:@"httpXMLRPCServer"];
+	[defaultValues setObject: @"8080" forKey:@"httpXMLRPCServerPort"];
+	[defaultValues setObject: @"0" forKey:OsirixWebPortalEnabledDefaultsKey];
+	[defaultValues setObject: @"3333" forKey:OsirixWebPortalPortNumberDefaultsKey];
+	[defaultValues setObject: @"1" forKey:@"StrechWindows"];
+	[defaultValues setObject: @"0" forKey:@"ROUTINGACTIVATED"];
 	[defaultValues setObject: @"0" forKey: @"AUTOHIDEMATRIX"];
 	[defaultValues setObject: @"0" forKey: @"AutoPlayAnimation"];
 	[defaultValues setObject: @"1" forKey: @"KeepStudiesOfSamePatientTogether"];
@@ -1167,7 +1167,27 @@ static NSHost *currentHost = nil;
 	[defaultValues setObject:[NSNumber numberWithFloat: 0.0 * 65535.] forKey:@"ROIRegionColorB"];
 	[defaultValues setObject:@0.5F forKey:@"ROIRegionOpacity"];
 	[defaultValues setObject:@5.0F forKey:@"ROIRegionThickness"];
-	
+    //--- tBall
+    [defaultValues setObject:@YES forKey:@"computePeakValue"];
+    [defaultValues setObject:@10 forKey:@"peakDiameterInMm"]; // slider
+    [defaultValues setObject:@NO forKey:@"computeIsoContour"];
+    [defaultValues setObject:@2.5F forKey:@"minimumBallROIIsoContour"];
+    [defaultValues setObject:@YES forKey:@"definedMaximumForBallROIIsoContour"]; // tickbox
+    [defaultValues setObject:@999999.0F forKey:@"maximumBallROIIsoContour"]; // slider
+    // Percentages
+    [defaultValues setObject:@NO forKey:@"percentageIsoContour"];
+    [defaultValues setObject:@0.42F forKey:@"minimumBallROIIsoContourPercentage"];
+    [defaultValues setObject:@NO forKey:@"definedMaximumForBallROIIsoContourPercentage"]; // tickbox
+    [defaultValues setObject:@1.0F forKey:@"maximumBallROIIsoContourPercentage"]; // slider
+    // Top color
+    [defaultValues setObject:@1.0F forKey:@"peakValueColorR"];
+    [defaultValues setObject:@0.5F forKey:@"peakValueColorG"];
+    [defaultValues setObject:@0.5F forKey:@"peakValueColorB"];
+    // Bottom color
+    [defaultValues setObject:@0.5F forKey:@"isoContourColorG"];
+    [defaultValues setObject:@1.0F forKey:@"isoContourColorB"];
+    [defaultValues setObject:@0.5F forKey:@"isoContourColorR"];
+
 	// **HANGING PROTOCOLS
 	NSMutableDictionary *defaultHangingProtocols = [NSMutableDictionary dictionary];
 	NSArray *modalities = [NSArray arrayWithObjects:
