@@ -485,8 +485,9 @@ void QuitAndSleep(NSString* bundleIdentifier, float seconds)
       NSFileWrapper *fileWrapper = [attachment fileWrapper];
       NSString *filename = [attachtmp stringByAppendingPathComponent:
 			     [fileWrapper preferredFilename]];
-      [fileWrapper writeToFile:filename atomically:NO
-	       updateFilenames:NO];
+      [fileWrapper writeToFile:filename
+                    atomically:NO
+               updateFilenames:NO];
       [body appendFormat:@"<%@>\n", [fileWrapper preferredFilename]];
 
       [files insertDescriptor:

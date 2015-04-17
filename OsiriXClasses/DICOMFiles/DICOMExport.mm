@@ -12,6 +12,8 @@
      PURPOSE.
 =========================================================================*/
 
+#include "url.h"
+
 #import "DICOMExport.h"
 #import <OsiriX/DCM.h>
 #import "BrowserController.h"
@@ -870,7 +872,7 @@ static float deg2rad = M_PI / 180.0f;
                     else
                         delete dataset->remove( DCM_MediaStorageSOPClassUID);
                     
-                    dataset->putAndInsertString( DCM_ManufacturerModelName, "OsiriX");
+                    dataset->putAndInsertString( DCM_ManufacturerModelName, OUR_MANUFACTURER_NAME);
                     dataset->putAndInsertString( DCM_InstanceNumber, [[NSString stringWithFormat: @"%d", exportInstanceNumber++] UTF8String]);
                     dataset->putAndInsertString( DCM_AcquisitionNumber, "1");
                     
@@ -1276,7 +1278,7 @@ static float deg2rad = M_PI / 180.0f;
 //					[dcmDst setAttributeValues:[NSMutableArray arrayWithObject: @""] forName:@"ReferringPhysiciansName"];
 //				}
 //				
-//				[dcmDst setAttributeValues:[NSMutableArray arrayWithObject:@"OsiriX"] forName:@"ManufacturersModelName"];
+//				[dcmDst setAttributeValues:[NSMutableArray arrayWithObject:@OUR_MANUFACTURER_NAME] forName:@"ManufacturersModelName"];
 //				
 //				if( studyDate) [dcmDst setAttributeValues:[NSMutableArray arrayWithObject:studyDate] forName:@"StudyDate"];
 //				if( studyTime) [dcmDst setAttributeValues:[NSMutableArray arrayWithObject:studyTime] forName:@"StudyTime"];

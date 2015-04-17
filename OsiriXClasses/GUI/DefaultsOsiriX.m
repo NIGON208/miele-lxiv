@@ -718,7 +718,7 @@ static NSHost *currentHost = nil;
 	NSMutableDictionary *aServer = [[NSMutableDictionary alloc] init];
     [aServer setObject:@"1" forKey:@"Activated"];
 	[aServer setObject:@"127.0.0.1" forKey: @"Address"];
-	[aServer setObject:@"OsiriX" forKey: @"AETitle"];
+	[aServer setObject:@OUR_AET forKey: @"AETitle"];
 	[aServer setObject:@"4444" forKey: @"Port"];
 	[aServer setObject:@0 forKey:@"TransferSyntax"];
 	[aServer setObject:NSLocalizedString(@"This is an example", nil) forKey:@"Description"];

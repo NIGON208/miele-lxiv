@@ -156,7 +156,11 @@ static NSString *uniqueSync = @"uniqueSync";
 //			@try
 //			{
 //				dcmObject = [[DCMObject alloc] initWithContentsOfFile: file decodingPixelData: NO];
-//				status = [dcmObject writeToFile: tmpWADOFile withTransferSyntax: [[[DCMTransferSyntax alloc] initWithTS: syntax] autorelease] quality: quality AET:@"OsiriX" atomically:YES];
+//				status = [dcmObject writeToFile:tmpWADOFile
+//                             withTransferSyntax:[[[DCMTransferSyntax alloc] initWithTS: syntax] autorelease]
+//                                        quality:quality
+//                                            AET:@OUR_AET
+//                                     atomically:YES];
 //			}
 //			@catch (NSException *e)
 //			{
@@ -171,8 +175,12 @@ static NSString *uniqueSync = @"uniqueSync";
 //			@try
 //			{
 //				dcmObject = [[DCMObject alloc] initWithContentsOfFile: file decodingPixelData: NO];
-//				status = [dcmObject writeToFile: tmpWADOFile withTransferSyntax: [DCMTransferSyntax ExplicitVRLittleEndianTransferSyntax] quality: quality AET:@"OsiriX" atomically:YES];
-//				
+//				status = [dcmObject writeToFile:tmpWADOFile
+//                             withTransferSyntax:[DCMTransferSyntax ExplicitVRLittleEndianTransferSyntax]
+//                                        quality:quality
+//                                            AET:@OUR_AET
+//                                     atomically:YES];
+//
 //			}
 //			@catch (NSException *e)
 //			{

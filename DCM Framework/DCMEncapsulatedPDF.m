@@ -12,10 +12,10 @@
      PURPOSE.
 =========================================================================*/
 
+#include "url.h"
 #import "DCMEncapsulatedPDF.h"
 #import "DCM.h"
 #import "DCMAbstractSyntaxUID.h"
-
 
 @implementation  DCMObject (DCMEncapsulatedPDF)
 
@@ -46,7 +46,7 @@
 	//other modules
 	[dcmObject setAttributeValues:[NSMutableArray array] forName:@"AccessionNumber"];
 	[dcmObject setAttributeValues:[NSMutableArray arrayWithObject:@"WSD"] forName:@"ConversionType"];
-	[dcmObject setAttributeValues:[NSMutableArray arrayWithObject:@"OsiriX"] forName:@"Manufacturer"];
+	[dcmObject setAttributeValues:[NSMutableArray arrayWithObject:@OUR_MANUFACTURER_NAME] forName:@"Manufacturer"];
 	
 	
 	[dcmObject setAttributeValues:[NSMutableArray arrayWithObject:@"OT"] forName:@"Modality"];

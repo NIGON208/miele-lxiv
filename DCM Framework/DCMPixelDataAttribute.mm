@@ -27,10 +27,13 @@
 #import "OPJSupport.h"
 //#import "jasper.h"
 
-static int Use_kdu_IfAvailable = 0;
+// JPEG-LS with DCMTK
+#include "dcmjpls/intrface.h"
 
 // KDU support
 #include "kdu_OsiriXSupport.h"
+
+static int Use_kdu_IfAvailable = 0;
 
 #if __ppc__
 
@@ -1151,7 +1154,6 @@ static inline int int_ceildivpow2(int a, int b) {
         pixelData = [NSMutableData dataWithBytesNoCopy: p length:decompressedLength freeWhenDone: YES];
 //		succeed = YES;
     }
-
 	
 //	if( succeed == NO)
 //	{
@@ -1289,21 +1291,6 @@ static inline int int_ceildivpow2(int a, int b) {
 	
 	return pixelData;
 }
-
-//#include "osconfig.h"    /* make sure OS specific configuration is included first */
-//#include "ofcond.h"
-
-#include "dcmtk/ofstd/ofstd.h"    /* for size_t */
-//#include "dcmtk/ofstd/ofdefine.h" /* for DCMTK_DECL_EXPORT */
-
-//JPEG-LS
-#include "dcmjpls/djdecode.h"
-//#include "dcmjpls/djencode.h"
-//#include "dcmjpls/djcodecd.h" // for DJLSDecoderBase
-#include "dcmjpls/djrparam.h"
-#include "dcmjpls/intrface.h"
-#include "dcmjpls/pubtypes.h"
-//#include "djerror.h"
 
 - (NSData *)convertJPEGLSToHost:(NSData *)jpegData
 {

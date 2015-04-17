@@ -12,6 +12,7 @@
      PURPOSE.
 =========================================================================*/
 
+#include "url.h"
 #import "DCMSequenceAttribute.h"
 #import "DCM.h"
 
@@ -150,7 +151,7 @@
 		
 		DCMDataContainer *c = [DCMDataContainer dataContainerWithMutableData: [NSMutableData data] transferSyntax: ts];
 		
-		[o writeToDataContainer: c withTransferSyntax: ts AET: @"OSIRIX" asDICOM3: NO];
+		[o writeToDataContainer: c withTransferSyntax: ts AET: @OUR_AET asDICOM3: NO];
 		
 		long l = [[c dicomData] length];
 		[dummyContainer addUnsignedLong:( l)];

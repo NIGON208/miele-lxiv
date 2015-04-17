@@ -1,3 +1,4 @@
+#include "url.h"
 #import "DDKeychain.h"
 #import "DICOMTLS.h"
 #include <stdio.h>
@@ -49,8 +50,8 @@ SecPolicySearchCreate:
 {
 	NSString *password = nil;
 	
-	const char *service = [@"OsiriX HTTP Server" UTF8String];
-	const char *account = [@"OsiriX" UTF8String];
+	const char *service = [OUR_HTTP_SERVICE UTF8String];
+	const char *account = [OUR_HTTP_ACCOUNT UTF8String];
 	
 	UInt32 passwordLength = 0;
 	void *passwordBytes = nil;
@@ -86,8 +87,8 @@ SecPolicySearchCreate:
 **/
 + (BOOL)setPasswordForHTTPServer:(NSString *)password
 {
-	const char *service = [@"OsiriX HTTP Server" UTF8String];
-	const char *account = [@"OsiriX" UTF8String];
+	const char *service = [OUR_HTTP_SERVICE UTF8String];
+	const char *account = [OUR_HTTP_ACCOUNT UTF8String];
 	const char *kind    = [@"OsiriX password" UTF8String];
 	const char *passwd  = [password UTF8String];
 	

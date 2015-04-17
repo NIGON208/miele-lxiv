@@ -4,6 +4,7 @@
 #import <Foundation/Foundation.h>
 
 #include "options.h"
+#include "url.h"
 
 #import "DefaultsOsiriX.h"
 #import "AppController.h"
@@ -34,8 +35,6 @@
 #include "dcmjpls/djdecode.h" //JPEG-LS
 #include "dcmjpls/djencode.h" //JPEG-LS
 
-//#import <OsiriX/DCM.h>
-//#import "DCMPixelDataAttribute.h"
 #import <OsiriX/DCMTransferSyntax.h>
 #import <OsiriX/DCMObject.h>
 #import <OsiriX/DCMAbstractSyntaxUID.h>
@@ -326,7 +325,7 @@ static void action_Compress(int argc, const char *argv[], NSString *path)
                         succeed = [dcmObject writeToFile: curFileDest
                                       withTransferSyntax: tsx
                                                  quality: quality
-                                                     AET: @"OsiriX"
+                                                     AET: @OUR_AET
                                               atomically: YES];
                     }
                     @catch (NSException *e)
@@ -552,7 +551,7 @@ static void action_Decompress(int argc, const char *argv[], NSString *path)
                         status = [dcmObject writeToFile:curFileDest
                                      withTransferSyntax:[DCMTransferSyntax ImplicitVRLittleEndianTransferSyntax]
                                                 quality:1
-                                                    AET:@"OsiriX"
+                                                    AET:@OUR_AET
                                              atomically:YES];
                     }
                     @catch (NSException *e)

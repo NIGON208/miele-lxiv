@@ -12,6 +12,8 @@
      PURPOSE.
 =========================================================================*/
 
+#import "options.h"
+#import "url.h"
 #import "DCMObject.h"
 #import "DCM.h"
 #import "DCMAbstractSyntaxUID.h"
@@ -353,8 +355,13 @@ static NSString* getMacAddressNumber( void)
 //	[object newSOPInstanceUID];
 
 	DCMTransferSyntax *ts = object.transferSyntax;
-	if (!ts.isExplicit ) ts = [DCMTransferSyntax ExplicitVRLittleEndianTransferSyntax];
-	return [object  writeToFile:destination withTransferSyntax:ts quality: DCMLosslessQuality atomically:YES];
+	if (!ts.isExplicit )
+        ts = [DCMTransferSyntax ExplicitVRLittleEndianTransferSyntax];
+    
+	return [object writeToFile:destination
+            withTransferSyntax:ts
+                       quality:DCMLosslessQuality
+                    atomically:YES];
 }
 
 + (id)secondaryCaptureObjectFromTemplate:(DCMObject *)object{
@@ -494,17 +501,17 @@ static NSString* getMacAddressNumber( void)
 	[attrs setObject:scDeviceIDAttr forKey:@"SecondaryCaptureDeviceID"];
 	
 	DCMAttributeTag *scManufacturerTag = [DCMAttributeTag tagWithName:@"Manufacturer"];
-	NSMutableArray *scManufacturerValue = [NSMutableArray arrayWithObject:  @"OsiriX"];
+	NSMutableArray *scManufacturerValue = [NSMutableArray arrayWithObject:@OUR_MANUFACTURER_NAME];
 	DCMAttribute *scManufacturerAttr = [DCMAttribute attributeWithAttributeTag:scManufacturerTag  vr: scManufacturerTag.vr  values:scManufacturerValue];
 	[attrs setObject:scManufacturerAttr forKey:@"Manufacturer"];
 	
 	DCMAttributeTag *scDeviceManufacturerTag = [DCMAttributeTag tagWithName:@"SecondaryCaptureDeviceManufacturer"];
-	NSMutableArray *scDeviceManufacturerValue = [NSMutableArray arrayWithObject:@"OsiriX"];
+	NSMutableArray *scDeviceManufacturerValue = [NSMutableArray arrayWithObject:@OUR_MANUFACTURER_NAME];
 	DCMAttribute *scDeviceManufacturerAttr = [DCMAttribute attributeWithAttributeTag:scDeviceManufacturerTag  vr: scDeviceManufacturerTag.vr values:scDeviceManufacturerValue];
 	[attrs setObject:scDeviceManufacturerAttr forKey:@"SecondaryCaptureDeviceManufacturer"];
 	
 	DCMAttributeTag *scDeviceModelTag = [DCMAttributeTag tagWithName:@"SecondaryCaptureDeviceManufacturersModelName"];
-	NSMutableArray *scDeviceModelValue = [NSMutableArray arrayWithObject:@"OsiriX"];
+	NSMutableArray *scDeviceModelValue = [NSMutableArray arrayWithObject:@OUR_MANUFACTURER_NAME];
 	DCMAttribute *scDeviceModelAttr = [DCMAttribute attributeWithAttributeTag:scDeviceModelTag  vr: scDeviceModelTag.vr values:scDeviceModelValue];
 	[attrs setObject:scDeviceModelAttr forKey:@"SecondaryCaptureDeviceManufacturersModelName"];
 	
@@ -530,7 +537,7 @@ static NSString* getMacAddressNumber( void)
 	
 	[scObject newSeriesInstanceUID];
 	[scObject newSOPInstanceUID];
-	[scObject updateMetaInformationWithTransferSyntax: scObject.transferSyntax aet:@"OsiriX"];
+	[scObject updateMetaInformationWithTransferSyntax: scObject.transferSyntax aet:@OUR_AET];
 	return scObject;
 }
 
@@ -551,15 +558,15 @@ static NSString* getMacAddressNumber( void)
 	else
 		abstractSyntax = [DCMAbstractSyntaxUID secondaryCaptureImageStorage];
 	//secondary capture tags	
-	[scObject setAttributeValues:[NSMutableArray arrayWithObject:abstractSyntax] forName:@"SOPClassUID"];
-	[scObject setAttributeValues:[NSMutableArray arrayWithObject:abstractSyntax] forName:@"MediaStorageSOPClassUID"];	
-	[scObject setAttributeValues:[NSMutableArray arrayWithObject: @"OsiriX"]  forName:@"Manufacturer"];
-	[scObject setAttributeValues:[NSMutableArray arrayWithObject: [DCMObject MACAddress]]  forName:@"SecondaryCaptureDeviceID"];
-	[scObject setAttributeValues:[NSMutableArray arrayWithObject: @"OsiriX"]  forName:@"SecondaryCaptureDeviceManufacturer"];
-	[scObject setAttributeValues:[NSMutableArray arrayWithObject: @"OsiriX"]  forName:@"SecondaryCaptureDeviceManufacturersModelName"];
-	[scObject setAttributeValues:[NSMutableArray arrayWithObject: @"3.8"]  forName:@"SecondaryCaptureDeviceSoftwareVersions"];
-	[scObject setAttributeValues:[NSMutableArray arrayWithObject: [DCMCalendarDate date]]  forName:@"DateofSecondaryCapture"];
-	[scObject setAttributeValues:[NSMutableArray arrayWithObject: [DCMCalendarDate date]]  forName:@"TimeofSecondaryCapture"];
+	[scObject setAttributeValues:[NSMutableArray arrayWithObject: abstractSyntax] forName:@"SOPClassUID"];
+	[scObject setAttributeValues:[NSMutableArray arrayWithObject: abstractSyntax] forName:@"MediaStorageSOPClassUID"];
+	[scObject setAttributeValues:[NSMutableArray arrayWithObject: @OUR_MANUFACTURER_NAME]  forName:@"Manufacturer"];
+	[scObject setAttributeValues:[NSMutableArray arrayWithObject: [DCMObject MACAddress]] forName:@"SecondaryCaptureDeviceID"];
+	[scObject setAttributeValues:[NSMutableArray arrayWithObject: @OUR_MANUFACTURER_NAME]  forName:@"SecondaryCaptureDeviceManufacturer"];
+	[scObject setAttributeValues:[NSMutableArray arrayWithObject: @OUR_MANUFACTURER_NAME]  forName:@"SecondaryCaptureDeviceManufacturersModelName"];
+	[scObject setAttributeValues:[NSMutableArray arrayWithObject: @"3.8"] forName:@"SecondaryCaptureDeviceSoftwareVersions"];
+	[scObject setAttributeValues:[NSMutableArray arrayWithObject: [DCMCalendarDate date]] forName:@"DateofSecondaryCapture"];
+	[scObject setAttributeValues:[NSMutableArray arrayWithObject: [DCMCalendarDate date]] forName:@"TimeofSecondaryCapture"];
 	[scObject setAttributeValues:[NSMutableArray arrayWithObject: @"SC"]  forName:@"Modality"];
 	//[scObject setAttributeValues:[NSMutableArray arrayWithObject:@"SC"]  forName:@"Modality"];
 	//new UIDs
@@ -601,11 +608,8 @@ HighBit
 PixelRepresentation
 	*/
 	
-
-	[scObject updateMetaInformationWithTransferSyntax:[DCMTransferSyntax ExplicitVRLittleEndianTransferSyntax] aet:@"OsiriX"];
+	[scObject updateMetaInformationWithTransferSyntax:[DCMTransferSyntax ExplicitVRLittleEndianTransferSyntax] aet:@OUR_AET];
 	return scObject;
-
-
 }
 
 + (id)objectWithData:(NSData *)data decodingPixelData:(BOOL)decodePixelData{
@@ -1737,7 +1741,7 @@ PixelRepresentation
 
 - (BOOL)writeToDataContainer:(DCMDataContainer *)container withTransferSyntax:(DCMTransferSyntax *)ts  asDICOM3:(BOOL)flag
 {
-	return [self writeToDataContainer:(DCMDataContainer *)container withTransferSyntax:(DCMTransferSyntax *)ts AET:@"OSIRIX"  asDICOM3:(BOOL)flag];
+	return [self writeToDataContainer:(DCMDataContainer *)container withTransferSyntax:(DCMTransferSyntax *)ts AET:@OUR_AET  asDICOM3:(BOOL)flag];
 }
 
 - (BOOL)writeToDataContainer:(DCMDataContainer *)container withTransferSyntax:(DCMTransferSyntax *)ts AET:(NSString *)aet  asDICOM3:(BOOL)flag
@@ -1830,12 +1834,12 @@ PixelRepresentation
                     asDICOM3:(BOOL)flag
   strippingGroupLengthLength:(BOOL)stripGroupLength
 {
-	return [self writeToDataContainer:(DCMDataContainer *)container 
-			withTransferSyntax:(DCMTransferSyntax *)ts 
-			quality:(int)quality 
-			asDICOM3:(BOOL)flag
-			AET:@"OSIRIX"
-			strippingGroupLengthLength:(BOOL)stripGroupLength];
+	return [self writeToDataContainer:(DCMDataContainer *)container
+                   withTransferSyntax:(DCMTransferSyntax *)ts
+                              quality:(int)quality
+                             asDICOM3:(BOOL)flag
+                                  AET:@OUR_AET
+           strippingGroupLengthLength:(BOOL)stripGroupLength];
 }
 
 - (BOOL)writeToDataContainer:(DCMDataContainer *)container
@@ -1954,8 +1958,13 @@ PixelRepresentation
 	return [self writeToDataContainer:container withTransferSyntax:ts quality:quality asDICOM3:YES];
 }
 
-- (BOOL)writeToFile:(NSString *)path withTransferSyntax:(DCMTransferSyntax *)ts quality:(int)quality atomically:(BOOL)flag{
-	return [self writeToFile:(NSString *)path withTransferSyntax:(DCMTransferSyntax *)ts quality:(int)quality AET:@"OSIRIX" atomically:(BOOL)flag];
+- (BOOL)writeToFile:(NSString *)path withTransferSyntax:(DCMTransferSyntax *)ts quality:(int)quality atomically:(BOOL)flag
+{
+	return [self writeToFile:(NSString *)path
+          withTransferSyntax:(DCMTransferSyntax *)ts
+                     quality:(int)quality
+                         AET:@OUR_AET
+                  atomically:(BOOL)flag];
 }
 
 - (BOOL)writeToFile:(NSString *)path withTransferSyntax:(DCMTransferSyntax *)ts quality:(int)quality AET:(NSString *)aet atomically:(BOOL)flag
@@ -1984,12 +1993,17 @@ PixelRepresentation
     return status;
 }
 
-
-- (BOOL)writeToURL:(NSURL *)aURL withTransferSyntax:(DCMTransferSyntax *)ts quality:(int)quality atomically:(BOOL)flag {
-	return [self writeToURL:(NSURL *)aURL withTransferSyntax:(DCMTransferSyntax *)ts quality:(int)quality AET:@"OSIRIX" atomically:(BOOL)flag];
+- (BOOL)writeToURL:(NSURL *)aURL withTransferSyntax:(DCMTransferSyntax *)ts quality:(int)quality atomically:(BOOL)flag
+{
+	return [self writeToURL:(NSURL *)aURL
+         withTransferSyntax:(DCMTransferSyntax *)ts
+                    quality:(int)quality
+                        AET:@OUR_AET
+                 atomically:(BOOL)flag];
 }
 
-- (BOOL)writeToURL:(NSURL *)aURL withTransferSyntax:(DCMTransferSyntax *)ts quality:(int)quality AET:(NSString *)aet atomically:(BOOL)flag{
+- (BOOL)writeToURL:(NSURL *)aURL withTransferSyntax:(DCMTransferSyntax *)ts quality:(int)quality AET:(NSString *)aet atomically:(BOOL)flag
+{
 	BOOL status = NO;
 	@try {
 	DCMDataContainer *container = [[[DCMDataContainer alloc] init] autorelease];
@@ -2009,23 +2023,28 @@ PixelRepresentation
 		return status;
 }
 
-//This is for creatina a dataset for sending. Need to strip FileMetaData first.
+//This is for creating a dataset for sending. Need to strip FileMetaData first.
 
-- (NSData *)writeDatasetWithTransferSyntax:(DCMTransferSyntax *)ts quality:(int)quality{
+- (NSData *)writeDatasetWithTransferSyntax:(DCMTransferSyntax *)ts quality:(int)quality
+{
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	DCMDataContainer *container = [[[DCMDataContainer alloc] init] autorelease];
 	NSData *data;
 	@try {
-	if ([self writeToDataContainer:(DCMDataContainer *)container 
-			withTransferSyntax:(DCMTransferSyntax *)ts 
-			quality:(int)quality 
-			asDICOM3:NO
-			strippingGroupLengthLength:YES]) 
-				// retain data to avoid autorelease
-				data = [[container dicomData] retain];
-	else
-		data = nil; 
-	}
+        if ([self writeToDataContainer:(DCMDataContainer *)container
+                    withTransferSyntax:(DCMTransferSyntax *)ts
+                               quality:(int)quality
+                              asDICOM3:NO
+            strippingGroupLengthLength:YES])
+        {
+            // retain data to avoid autorelease
+            data = [[container dicomData] retain];
+        }
+        else
+        {
+            data = nil;
+        }
+    }
     @catch( NSException *localException) {
 		data = nil;
 	}

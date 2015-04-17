@@ -251,7 +251,11 @@
 //			{
 //				DCMTransferSyntax *tsx = [DCMTransferSyntax JPEG2000LossyTransferSyntax]; // JPEG2000LosslessTransferSyntax];
 //				
-//				succeed = [dcmObject writeToFile: [NSString stringWithFormat: @"/tmp/testjp-%d.dcm", i] withTransferSyntax: tsx quality: i AET:@"OsiriX" atomically:YES];
+//				succeed = [dcmObject writeToFile:[NSString stringWithFormat: @"/tmp/testjp-%d.dcm", i]
+//                              withTransferSyntax:tsx
+//                                         quality:i
+//                                             AET:@OUR_AET
+//                                      atomically:YES];
 //			}
 //			@catch (NSException *e)
 //			{
@@ -273,7 +277,11 @@
 //	
 //	@try
 //	{
-//		succeed = [dcmObject writeToFile: [dest2 stringByAppendingString: @" temp"] withTransferSyntax:[DCMTransferSyntax JPEG2000LossyTransferSyntax] quality: 0 AET:@"OsiriX" atomically:YES];
+//		succeed = [dcmObject writeToFile:[dest2 stringByAppendingString: @" temp"]
+//                      withTransferSyntax:[DCMTransferSyntax JPEG2000LossyTransferSyntax]
+//                                 quality:0
+//                                     AET:@OUR_AET
+//                              atomically:YES];
 //	}
 //	@catch (NSException *e)
 //	{
@@ -406,7 +414,11 @@
 //	@try
 //	{
 //		DCMTransferSyntax *tsx = [DCMTransferSyntax ExplicitVRLittleEndianTransferSyntax]; // JPEG2000LosslessTransferSyntax];
-//		succeed = [dcmObject writeToFile: [[files lastObject] stringByAppendingString:@"bb.dcm"] withTransferSyntax: tsx quality: 1 AET:@"OsiriX" atomically:YES];
+//		succeed = [dcmObject writeToFile: [[files lastObject] stringByAppendingString:@"bb.dcm"]
+//                      withTransferSyntax:tsx
+//                                 quality:1
+//                                     AET:@OUR_AET
+//                              atomically:YES];
 //	}
 //	@catch (NSException *e)
 //	{

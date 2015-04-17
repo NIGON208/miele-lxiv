@@ -697,7 +697,9 @@ NSString *mediumTag[] = {@"Blue Film", @"Clear Film", @"Paper"};
 
 - (BOOL) _verifyConnection: (NSDictionary *) dict
 {
-	return [QueryController echo: [dict valueForKey: @"host"] port: [[dict valueForKey: @"port"] intValue] AET:[dict valueForKey: @"aeTitle"]];
+	return [QueryController echo: [dict valueForKey: @"host"]
+                            port: [[dict valueForKey: @"port"] intValue]
+                             AET: [dict valueForKey: @"aeTitle"]];
 }
 
 - (void) drawerDidOpen: (NSNotification *) notification

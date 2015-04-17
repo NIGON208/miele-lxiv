@@ -42,6 +42,14 @@ Alex Bettarini - 15 Mar 2015
 
 			#define DCMTK_LOG4CPLUS_HAVE_RVALUE_REFS
 			
+	* copy the two header files `intrface.h` and `pubtypes.h` from the DCMTK source directories
+	
+			dcmtk/dcmjpls/libcharls/
+			
+		to the project directory
+
+			Binaries/DCMTK/include/dcmtk/
+			
 	* Add the following `libijg*` headers (taken from the DCMTK downloaded sources) as subdirectories of `Binaries/DCMTK/include/dcmtk/dcmjpeg/`
 		
 			├── libijg12/

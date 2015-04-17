@@ -376,11 +376,15 @@ enum ctTypes {ElectronCTType, MultiSliceCTType};
 		//get Incoming Folder Path;
 		NSString *destination = [NSString stringWithFormat: @"%@/CalciumScore%d%d.dcm", [[BrowserController currentBrowser] INCOMINGPATH], 1, 1]; 
 	
-		if ([dcmObject writeToFile:destination withTransferSyntax:[DCMTransferSyntax ExplicitVRLittleEndianTransferSyntax] quality:DCMLosslessQuality atomically:YES])
+		if ([dcmObject writeToFile:destination
+                withTransferSyntax:[DCMTransferSyntax ExplicitVRLittleEndianTransferSyntax]
+                           quality:DCMLosslessQuality
+                        atomically:YES])
+        {
 			NSLog(@"Wrote Calcium Score to %@", destination);
+        }
 	}
 }
-
 
 - (void)computeROIsWithName:(NSString *)name addROIs:(BOOL)addROIs;
 {

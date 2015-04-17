@@ -1446,7 +1446,7 @@ static NSConditionLock *threadLock = nil;
 		if( data)
 		{
 			NSString *dstPath = [self getNewFileDatabasePath:@"dcm"];		
-			[data writeToFile:dstPath  atomically:YES];
+			[data writeToFile:dstPath atomically:YES];
 			[localFiles addObject:dstPath];
 		}
 	}
@@ -18172,7 +18172,10 @@ static volatile int numberOfThreadsForJPEG = 0;
 					[dcmObject setAttribute:attr];
 					
 					NSString *tempFilename = [[self INCOMINGPATH] stringByAppendingPathComponent: [NSString stringWithFormat:@"%d.dcm", (int) i]];
-					[dcmObject writeToFile:tempFilename withTransferSyntax:[DCMTransferSyntax ImplicitVRLittleEndianTransferSyntax] quality:DCMLosslessQuality atomically:YES];
+					[dcmObject writeToFile:tempFilename
+                        withTransferSyntax:[DCMTransferSyntax ImplicitVRLittleEndianTransferSyntax]
+                                   quality:DCMLosslessQuality
+                                atomically:YES];
 				} 
 			}
 			else

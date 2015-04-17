@@ -3722,8 +3722,8 @@ static BOOL initialized = NO;
 	
 	[mutableDict setObject: [[dict objectForKey: @"LSHandlers"] arrayByAddingObject: handlerForOsiriX] forKey: @"LSHandlers"];
 	
-	[[NSFileManager defaultManager] removeItemAtPath: [path stringByExpandingTildeInPath]  error: nil];
-	[mutableDict writeToFile: [path stringByExpandingTildeInPath]  atomically: YES];
+	[[NSFileManager defaultManager] removeItemAtPath: [path stringByExpandingTildeInPath] error: nil];
+	[mutableDict writeToFile: [path stringByExpandingTildeInPath] atomically: YES];
 }
 
 #define kIOPCIDevice                "IOPCIDevice"
@@ -3839,6 +3839,7 @@ static BOOL initialized = NO;
         {
             for (int i = 0; i < size2; ++i)
                 gray_1[i] = (data[i*3]+data[i*3+1]+data[i*3+2])/3;
+            
             free( data);
             
 //            planes[0] = gray_1;

@@ -2993,8 +2993,10 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void *context
 			{
 				short   inc, previmage;
 				
-				if( yMove) val = yMove/abs(yMove);
-				else val = xMove/abs(xMove);
+				if( yMove)
+                    val = yMove/abs(yMove);
+				else
+                    val = xMove/abs(xMove);
 				
 				previmage = curImage;
 				

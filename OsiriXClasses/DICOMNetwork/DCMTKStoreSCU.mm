@@ -14,6 +14,8 @@
 
 /* See DCMTK's storescu.cc */
 
+#include "url.h"
+
 #import "LogManager.h"
 #import "AppController.h"
 #import "DCMTKStoreSCU.h"
@@ -515,7 +517,12 @@ static OFBool decompressFile(DcmFileFormat fileformat, const char *fname, char *
 		DCMObject *dcmObject = [[DCMObject alloc] initWithContentsOfFile: path decodingPixelData: NO];
 		
 		unlink( outfname);
-		[dcmObject writeToFile: outpath withTransferSyntax:[DCMTransferSyntax ImplicitVRLittleEndianTransferSyntax] quality:1 AET:@"OsiriX" atomically:YES];
+		[dcmObject writeToFile: outpath
+            withTransferSyntax:[DCMTransferSyntax ImplicitVRLittleEndianTransferSyntax]
+                       quality:1
+                           AET:@OUR_AET
+                    atomically:YES];
+        
 		[dcmObject release];
 	}
 	else
@@ -575,7 +582,11 @@ static OFBool compressFile(DcmFileFormat fileformat, const char *fname, char *ou
             {
                 DCMTransferSyntax *tsx = [DCMTransferSyntax JPEG2000LossyTransferSyntax];
                                         
-                [dcmObject writeToFile:outpath withTransferSyntax: tsx quality: opt_Quality AET:@"OsiriX" atomically:YES];
+                [dcmObject writeToFile:outpath
+                    withTransferSyntax:tsx
+                               quality:opt_Quality
+                                   AET:@OUR_AET
+                            atomically:YES];
             }
             @catch( NSException *e)
             {
@@ -596,7 +607,11 @@ static OFBool compressFile(DcmFileFormat fileformat, const char *fname, char *ou
             
             @try
             {
-                [dcmObject writeToFile:outpath withTransferSyntax:[DCMTransferSyntax JPEG2000LosslessTransferSyntax] quality: DCMLosslessQuality AET:@"OsiriX" atomically:YES];
+                [dcmObject writeToFile:outpath
+                    withTransferSyntax:[DCMTransferSyntax JPEG2000LosslessTransferSyntax]
+                               quality:DCMLosslessQuality
+                                   AET:@OUR_AET
+                            atomically:YES];
             }
             @catch( NSException *e)
             {

@@ -12,6 +12,7 @@
      PURPOSE.
 =========================================================================*/
 
+#include "url.h"
 #import "AppController.h"
 #import "SRAnnotation.h"
 #import "DCMView.h"
@@ -666,7 +667,7 @@
 	if ([study valueForKey:@"accessionNumber"])
 		document->setAccessionNumber( [[study valueForKey:@"accessionNumber"] UTF8String]);
 	
-	document->setManufacturer( [@"OsiriX" UTF8String]);
+	document->setManufacturer( [@OUR_MANUFACTURER_NAME UTF8String]);
 	
 	if( _DICOMSeriesNumber)
 		document->setSeriesNumber( [_DICOMSeriesNumber UTF8String]);
