@@ -1184,9 +1184,9 @@ static NSHost *currentHost = nil;
     [defaultValues setObject:@0.5F forKey:@"peakValueColorG"];
     [defaultValues setObject:@0.5F forKey:@"peakValueColorB"];
     // Bottom color
+    [defaultValues setObject:@0.5F forKey:@"isoContourColorR"];
     [defaultValues setObject:@0.5F forKey:@"isoContourColorG"];
     [defaultValues setObject:@1.0F forKey:@"isoContourColorB"];
-    [defaultValues setObject:@0.5F forKey:@"isoContourColorR"];
 
 	// **HANGING PROTOCOLS
 	NSMutableDictionary *defaultHangingProtocols = [NSMutableDictionary dictionary];

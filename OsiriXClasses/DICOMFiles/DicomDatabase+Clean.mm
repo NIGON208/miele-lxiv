@@ -420,7 +420,11 @@ static BOOL _cleanForFreeSpaceLimitSoonReachedDisplayed = NO;
     {
         _errorCurrentlyDisplayed = YES;
         
-        NSInteger r = NSRunCriticalAlertPanel( NSLocalizedString( @"Warning - Free Space", nil), NSLocalizedString( @"The current auto-cleaning rules cannot find studies to delete. Check the parameters in Preferences Database window (Database Auto-Cleaning), or delete other files from your hard disk.", nil), NSLocalizedString( @"OK", nil), NSLocalizedString( @"See Preferences", nil), nil);
+        NSInteger r = NSRunCriticalAlertPanel(NSLocalizedString( @"Warning - Free Space", nil),
+                                              NSLocalizedString( @"The current auto-cleaning rules cannot find studies to delete. Check the parameters in Preferences Database window (Database Auto-Cleaning), or delete other files from your hard disk.", nil),
+                                              NSLocalizedString( @"OK", nil),
+                                              NSLocalizedString( @"See Preferences", nil),  // alternate button
+                                              nil);
         
         if( r == NSAlertAlternateReturn)
         {

@@ -6586,8 +6586,8 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void *context
     NSOpenGLPixelFormat* pixFmt = [[[NSOpenGLPixelFormat alloc] initWithAttributes:attrs] autorelease];
     if ( !pixFmt )
 	{
-    //        NSRunCriticalAlertPanel(NSLocalizedString(@"OPENGL ERROR",nil), NSLocalizedString(@"Not able to run Quartz Extreme: OpenGL+Quartz. Update your video hardware!",nil), NSLocalizedString(@"OK",nil), nil, nil);
-	//		exit(1);
+//        NSRunCriticalAlertPanel(NSLocalizedString(@"OPENGL ERROR",nil), NSLocalizedString(@"Not able to run Quartz Extreme: OpenGL+Quartz. Update your video hardware!",nil), NSLocalizedString(@"OK",nil), nil, nil);
+//		exit(1);
     }
 	self = [super initWithFrame:frameRect pixelFormat:pixFmt];
 	
@@ -11651,7 +11651,8 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void *context
 		[exportDCM setPixelData: data samplesPerPixel:spp bitsPerSample:bpp width: width height: height];
 		
 		f = [exportDCM writeDCMFile: nil withExportDCM: dcmExportPlugin];
-		if( f == nil) NSRunCriticalAlertPanel( NSLocalizedString(@"Error", nil),  NSLocalizedString(@"Error during the creation of the DICOM File!", nil), NSLocalizedString(@"OK", nil), nil, nil);
+		if( f == nil)
+            NSRunCriticalAlertPanel( NSLocalizedString(@"Error", nil),  NSLocalizedString(@"Error during the creation of the DICOM File!", nil), NSLocalizedString(@"OK", nil), nil, nil);
 		
 		free( data);
 	}

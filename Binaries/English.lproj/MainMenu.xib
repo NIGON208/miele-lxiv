@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1514" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7531" systemVersion="14D131" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6751"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7531"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -2308,7 +2308,7 @@ CA
                                                                     <rect key="frame" x="0.0" y="0.0" width="2695" height="19"/>
                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                     <size key="intercellSpacing" width="3" height="2"/>
-                                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                                    <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                     <tableViewGridLines key="gridStyleMask" vertical="YES"/>
                                                                     <color key="gridColor" white="0.68951612709999999" alpha="1" colorSpace="calibratedWhite"/>
                                                                     <tableColumns>
@@ -2749,9 +2749,11 @@ CA
                                                 </connections>
                                             </splitView>
                                             <splitView fixedFrame="YES" autosaveName="BrowserRightBottom" dividerStyle="thin" vertical="YES" id="12421" userLabel="Split View">
+                                                <rect key="frame" x="0.0" y="654" width="860" height="0.0"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <subviews>
                                                     <customView misplaced="YES" id="14637">
+                                                        <rect key="frame" x="0.0" y="0.0" width="430" height="0.0"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <subviews>
                                                             <splitView wantsLayer="YES" focusRingType="none" misplaced="YES" dividerStyle="thin" translatesAutoresizingMaskIntoConstraints="NO" id="14624">
@@ -2917,6 +2919,7 @@ CA
                                                         </constraints>
                                                     </customView>
                                                     <customView fixedFrame="YES" id="1166" customClass="PreviewView">
+                                                        <rect key="frame" x="431" y="0.0" width="429" height="0.0"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     </customView>
                                                 </subviews>
@@ -3922,12 +3925,10 @@ Gw
                                     <rect key="frame" x="414" y="71" width="32" height="32"/>
                                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" imageScaling="axesIndependently" image="error" id="14506"/>
                                 </imageView>
-                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="1000" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="14503">
+                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="1000" misplaced="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="14503">
                                     <rect key="frame" x="61" y="49" width="334" height="34"/>
-                                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" id="14508">
+                                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="This version of OsiriX cannot open large series" id="14508">
                                         <font key="font" metaFont="systemBold"/>
-                                        <string key="title">This version of OsiriX cannot open large series, 
-update to OsiriX 64-bit:</string>
                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
@@ -3935,20 +3936,6 @@ update to OsiriX 64-bit:</string>
                                         <binding destination="12279" name="hidden" keyPath="values.LP64bit" id="14528"/>
                                     </connections>
                                 </textField>
-                                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="14502">
-                                    <rect key="frame" x="127" y="13" width="202" height="25"/>
-                                    <constraints>
-                                        <constraint firstAttribute="width" constant="202" id="96W-sW-TxH"/>
-                                    </constraints>
-                                    <buttonCell key="cell" type="roundTextured" title="Update Now to OsiriX 64-bit !" bezelStyle="texturedRounded" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="14509">
-                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" metaFont="system"/>
-                                    </buttonCell>
-                                    <connections>
-                                        <action selector="osirix64bit:" target="694" id="14634"/>
-                                        <binding destination="12279" name="hidden" keyPath="values.LP64bit" id="14545"/>
-                                    </connections>
-                                </button>
                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="14501">
                                     <rect key="frame" x="61" y="86" width="334" height="17"/>
                                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="OK !" id="14510">
@@ -3968,8 +3955,6 @@ update to OsiriX 64-bit:</string>
                             <constraint firstItem="14503" firstAttribute="trailing" secondItem="14501" secondAttribute="trailing" id="Dmu-dE-FAk"/>
                             <constraint firstItem="14501" firstAttribute="leading" secondItem="14503" secondAttribute="leading" id="Jjp-zm-knk"/>
                             <constraint firstItem="14501" firstAttribute="top" secondItem="14504" secondAttribute="top" id="Nso-XB-5rJ"/>
-                            <constraint firstItem="14503" firstAttribute="centerX" secondItem="14502" secondAttribute="centerX" id="RAi-Us-zxG"/>
-                            <constraint firstItem="14502" firstAttribute="top" secondItem="14503" secondAttribute="bottom" constant="12" id="bBM-sv-NPe"/>
                             <constraint firstItem="14503" firstAttribute="top" secondItem="14501" secondAttribute="bottom" constant="3" id="fba-s2-bgy"/>
                             <constraint firstItem="14503" firstAttribute="centerX" secondItem="14472" secondAttribute="centerX" id="vl9-Lr-10g"/>
                         </constraints>
@@ -4707,7 +4692,7 @@ Gw
                                 </textField>
                                 <scrollView autohidesScrollers="YES" horizontalLineScroll="16" horizontalPageScroll="10" verticalLineScroll="16" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="13878">
                                     <rect key="frame" x="14" y="8" width="744" height="161"/>
-                                    <clipView key="contentView" misplaced="YES" id="M3f-Ie-25N">
+                                    <clipView key="contentView" id="M3f-Ie-25N">
                                         <rect key="frame" x="1" y="17" width="742" height="143"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
@@ -5038,7 +5023,7 @@ Gw
                                 </textField>
                                 <scrollView autohidesScrollers="YES" horizontalLineScroll="16" horizontalPageScroll="10" verticalLineScroll="16" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="13941">
                                     <rect key="frame" x="17" y="13" width="744" height="204"/>
-                                    <clipView key="contentView" misplaced="YES" id="nhs-LN-IpG">
+                                    <clipView key="contentView" id="nhs-LN-IpG">
                                         <rect key="frame" x="1" y="17" width="742" height="186"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>

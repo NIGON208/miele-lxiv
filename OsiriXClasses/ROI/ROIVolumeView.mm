@@ -246,7 +246,7 @@
 		NSString *f = [exportDCM writeDCMFile: nil];
 		if( f == nil)
             NSRunCriticalAlertPanel(NSLocalizedString(@"Error", nil),
-                                    NSLocalizedString( @"Error during the creation of the DICOM File!", nil),
+                                    NSLocalizedString(@"Error during the creation of the DICOM File!", nil),
                                     NSLocalizedString(@"OK", nil),
                                     nil,
                                     nil);

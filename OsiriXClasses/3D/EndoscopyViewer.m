@@ -1367,7 +1367,11 @@ return YES;
 	}
 	else if(err == ERROR_NOENOUGHMEM)
 	{
-		NSRunAlertPanel(NSLocalizedString(@"32-bit", nil), NSLocalizedString(@"Path Assistant can not allocate enough memory, try to increase the resample voxel size in the settings.", nil), NSLocalizedString(@"OK", nil), nil, nil);
+		NSRunAlertPanel(@"", //NSLocalizedString(@"32-bit", nil),
+                        NSLocalizedString(@"Path Assistant can not allocate enough memory, try to increase the resample voxel size in the settings.", nil),
+                        NSLocalizedString(@"OK", nil),
+                        nil,
+                        nil);
 	}
 	else if(err == ERROR_CANNOTFINDPATH)
 	{
@@ -1576,7 +1580,11 @@ return YES;
 		[assistant setCenterlineResampleStepLength:centerlineResampleStepLength];
 	}
 	else {
-		NSRunAlertPanel(NSLocalizedString(@"32-bit", nil), NSLocalizedString(@"Path Assistant can not allocate enough memory, try to increase the resample voxel size in the settings.", nil), NSLocalizedString(@"OK", nil), nil, nil);
+		NSRunAlertPanel(@"", //NSLocalizedString(@"32-bit", nil),
+                        NSLocalizedString(@"Path Assistant can not allocate enough memory, try to increase the resample voxel size in the settings.", nil),
+                        NSLocalizedString(@"OK", nil),
+                        nil,
+                        nil);
 	}
 
 	//misc
@@ -1646,7 +1654,11 @@ return YES;
 		[waiting autorelease];
 	}
 	else {
-		NSRunAlertPanel(NSLocalizedString(@"32-bit", nil), NSLocalizedString(@"Path Assistant can not allocate enough memory, try to increase the resample voxel size in the settings.", nil), NSLocalizedString(@"OK", nil), nil, nil);
+		NSRunAlertPanel(@"", //NSLocalizedString(@"32-bit", nil),
+                        NSLocalizedString(@"Path Assistant can not allocate enough memory, try to increase the resample voxel size in the settings.", nil),
+                        NSLocalizedString(@"OK", nil),
+                        nil,
+                        nil);
 	}
 }
 - (void) flyThruAssistantGoForward: (NSNotification*)note
@@ -1677,7 +1689,11 @@ return YES;
 		int err= [assistant caculateNextPositionFrom:pt Towards:dir];
 		if(err==ERROR_NOENOUGHMEM)
 		{
-			NSRunAlertPanel(NSLocalizedString(@"32-bit", nil), NSLocalizedString(@"Path Assistant can not allocate enough memory, try to increase the resample voxel size in the settings.", nil), NSLocalizedString(@"OK", nil), nil, nil);
+			NSRunAlertPanel(@"", NSLocalizedString(@"32-bit", nil),
+                            NSLocalizedString(@"Path Assistant can not allocate enough memory, try to increase the resample voxel size in the settings.", nil),
+                            NSLocalizedString(@"OK", nil),
+                            nil,
+                            nil);
 			return;
 		}		
 		else if(err==ERROR_CANNOTFINDPATH)

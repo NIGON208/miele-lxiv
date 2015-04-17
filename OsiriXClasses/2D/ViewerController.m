@@ -2520,8 +2520,16 @@ static volatile int numberOfThreadsForRelisce = 0;
     
     if( [self setOrientation: n] == NO)
     {
-        if( NSRunCriticalAlertPanel(NSLocalizedString(@"Memory Error", nil), NSLocalizedString(@"Cannot execute this reslicing.\r\r%@", nil), NSLocalizedString(@"OK", nil), NSLocalizedString(@"OsiriX MD", nil), nil, NSLocalizedString( @"Upgrade to OsiriX MD to solve this issue.", nil)) == NSAlertAlternateReturn)
-            [[AppController sharedAppController] osirix64bit: self];
+        if( NSRunCriticalAlertPanel(NSLocalizedString(@"Memory Error", nil),
+                                    NSLocalizedString(@"Cannot execute this reslicing.\r\r%@", nil),
+                                    NSLocalizedString(@"OK", nil),                  // default button
+                                    nil, //NSLocalizedString(@"OsiriX MD", nil),    // alternate button
+                                    nil,
+                                    @"" //NSLocalizedString(@"Upgrade to OsiriX MD to solve this issue.", nil)
+                                    ) == NSAlertAlternateReturn)
+        {
+            //[[AppController sharedAppController] osirix64bit: self];
+        }
     }
 }
 
@@ -9921,8 +9929,15 @@ static int avoidReentryRefreshDatabase = 0;
 	[self endWaitWindow: waitWindow];
 	if(!isResampled)
 	{
-		if( NSRunAlertPanel(NSLocalizedString(@"32-bit", nil), NSLocalizedString(@"Cannot complete the resampling\r\rUpgrade to OsiriX 64-bit or OsiriX MD to solve this issue.", nil), NSLocalizedString(@"OK", nil), NSLocalizedString(@"OsiriX 64-bit", nil), nil) == NSAlertAlternateReturn)
-			[[AppController sharedAppController] osirix64bit: self];
+		if (NSRunAlertPanel(@"", //NSLocalizedString(@"32-bit", nil),
+                            NSLocalizedString(@"Cannot complete the resampling\r\rUpgrade to OsiriX 64-bit or OsiriX MD to solve this issue.", nil),
+                            NSLocalizedString(@"OK", nil),
+                            nil, //NSLocalizedString(@"OsiriX 64-bit", nil),
+                            nil
+                            ) == NSAlertAlternateReturn)
+        {
+			//[[AppController sharedAppController] osirix64bit: self];
+        }
 	}
 }
 
@@ -14572,10 +14587,9 @@ int i,j,l;
 	ROI	*selectedROI = [self selectedROI];
 	
 	if( selectedROI)
-	{
 		[self roiIntDeleteAllROIsWithSameName: selectedROI.name];
-	}
-	else NSRunCriticalAlertPanel(NSLocalizedString(@"ROIs Error", nil), NSLocalizedString(@"Select a ROI to delete all ROIs with the same name.", nil) , NSLocalizedString(@"OK", nil), nil, nil);
+	else
+        NSRunCriticalAlertPanel(NSLocalizedString(@"ROIs Error", nil), NSLocalizedString(@"Select a ROI to delete all ROIs with the same name.", nil) , NSLocalizedString(@"OK", nil), nil, nil);
 }
 
 - (IBAction) roiDeleteWithName:(NSString*) name
@@ -15301,7 +15315,8 @@ int i,j,l;
 		}
 		else
 		{
-			if( maxMovieIndex <= 1) [[roiPropaDim cellWithTag:1] setEnabled:NO];
+			if (maxMovieIndex <= 1)
+                [[roiPropaDim cellWithTag:1] setEnabled:NO];
 			
 			[NSApp beginSheet: roiPropaWindow modalForWindow:[self window] modalDelegate:self didEndSelector:nil contextInfo:nil];
 		}
@@ -19697,11 +19712,13 @@ static BOOL viewerControllerPlaying = NO;
         }
         
 		f = [exportDCM writeDCMFile: nil withExportDCM: [imageView dcmExportPlugin]];
-		if( f == nil) NSRunCriticalAlertPanel( NSLocalizedString(@"Error", nil),  NSLocalizedString(@"Error during the creation of the DICOM File!", nil), NSLocalizedString(@"OK", nil), nil, nil);
+		if( f == nil)
+            NSRunCriticalAlertPanel( NSLocalizedString(@"Error", nil),  NSLocalizedString(@"Error during the creation of the DICOM File!", nil), NSLocalizedString(@"OK", nil), nil, nil);
 		
 		free( data);
 	}
-	else NSLog( @"No Data");
+	else
+        NSLog( @"No Data");
 	
 	if( screenCapture || allViewers)
 	{

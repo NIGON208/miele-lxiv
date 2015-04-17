@@ -12090,7 +12090,12 @@ constrainSplitPosition:(CGFloat)proposedPosition
 				}
 			}
 			
-			result = NSRunInformationalAlertPanel( NSLocalizedString(@"32-bit", nil), NSLocalizedString(@"This 32-bit version cannot load this series, but I can load a subset of the series: 1 on %d images.", nil), NSLocalizedString(@"OK",nil), NSLocalizedString(@"Cancel",nil), nil, subSampling);
+			result = NSRunInformationalAlertPanel(@"", //NSLocalizedString(@"32-bit", nil),
+                                                  NSLocalizedString(@"This 32-bit version cannot load this series, but I can load a subset of the series: 1 on %d images.", nil),
+                                                  NSLocalizedString(@"OK",nil),
+                                                  NSLocalizedString(@"Cancel",nil),
+                                                  nil,
+                                                  subSampling);
 		}
 		
 		//  (3) Load Images (memory allocation)
@@ -12101,26 +12106,26 @@ constrainSplitPosition:(CGFloat)proposedPosition
 		{
 			if( movieViewer == NO)
 			{
-				//				NSLog(@"I will try to allocate: %d Mb", (mem * sizeof(float)) / (1024 * 1024));
-				//				
-				//				fVolumePtr = malloc(mem * sizeof(float));
-				//				if( fVolumePtr == nil)
-				//				{
-				//					NSArray	*winList = [NSApp windows];
-				//					for( i = 0; i < [winList count]; i++)
-				//					{
-				//						if([[winList objectAtIndex:i] isMiniaturized])
-				//						{
-				//							[[winList objectAtIndex:i] deminiaturize:self];
-				//						}
-				//					}
-				//					
-				//					NSRunCriticalAlertPanel( NSLocalizedString(@"Not enough memory",@"Not enough memory"),  NSLocalizedString(@"Your computer doesn't have enough RAM to load this series",@"Your computer doesn't have enough RAM to load this series"), NSLocalizedString(@"OK",nil), nil, nil);
-				//					notEnoughMemory = YES;
-				//				}
-				//
-				//				free( fVolumePtr);	// We will allocate each block independently !
-				//				fVolumePtr = nil;	
+//				NSLog(@"I will try to allocate: %d Mb", (mem * sizeof(float)) / (1024 * 1024));
+//				
+//				fVolumePtr = malloc(mem * sizeof(float));
+//				if( fVolumePtr == nil)
+//				{
+//					NSArray	*winList = [NSApp windows];
+//					for( i = 0; i < [winList count]; i++)
+//					{
+//						if([[winList objectAtIndex:i] isMiniaturized])
+//						{
+//							[[winList objectAtIndex:i] deminiaturize:self];
+//						}
+//					}
+//					
+//					NSRunCriticalAlertPanel( NSLocalizedString(@"Not enough memory",@"Not enough memory"),  NSLocalizedString(@"Your computer doesn't have enough RAM to load this series",@"Your computer doesn't have enough RAM to load this series"), NSLocalizedString(@"OK",nil), nil, nil);
+//					notEnoughMemory = YES;
+//				}
+//
+//				free( fVolumePtr);	// We will allocate each block independently !
+//				fVolumePtr = nil;	
 			}
 			else
 			{
@@ -12142,8 +12147,14 @@ constrainSplitPosition:(CGFloat)proposedPosition
 				
 				if( notEnoughMemory)
 				{
-					if( NSRunCriticalAlertPanel( NSLocalizedString(@"32-bit", nil),  NSLocalizedString(@"Cannot load this series.\r\rUpgrade to OsiriX 64-bit or OsiriX MD to solve this issue.", nil), NSLocalizedString(@"OK",nil), NSLocalizedString(@"OsiriX 64-bit", nil), nil) == NSAlertAlternateReturn)
-					[[AppController sharedAppController] osirix64bit: self];
+					if( NSRunCriticalAlertPanel(@"", //NSLocalizedString(@"32-bit", nil),
+                                                NSLocalizedString(@"Cannot load this series.\r\rUpgrade to OsiriX 64-bit or OsiriX MD to solve this issue.", nil),
+                                                NSLocalizedString(@"OK",nil),
+                                                nil, //NSLocalizedString(@"OsiriX 64-bit", nil),
+                                                nil) == NSAlertAlternateReturn)
+                    {
+                        //[[AppController sharedAppController] osirix64bit: self];
+                    }
 				}
 				
 				free( memBlockTestPtr);
@@ -16872,7 +16883,10 @@ static volatile int numberOfThreadsForJPEG = 0;
 		[script release];
 		[arguments release];
 	}
-	else if( [NSThread isMainThread]) NSRunCriticalAlertPanel( NSLocalizedString( @"Unsupported", nil), NSLocalizedString( @"This function requires MacOS 10.6 or higher.", nil), NSLocalizedString( @"OK", nil) , nil, nil);
+	else if( [NSThread isMainThread])
+    {
+        NSRunCriticalAlertPanel( NSLocalizedString( @"Unsupported", nil), NSLocalizedString( @"This function requires MacOS 10.6 or higher.", nil), NSLocalizedString( @"OK", nil) , nil, nil);
+    }
 #endif
 }
 
@@ -17876,8 +17890,10 @@ static volatile int numberOfThreadsForJPEG = 0;
 
 - (void) selectServer: (NSArray*)objects
 {
-	if( [objects count] > 0) [SendController sendFiles: objects];
-	else NSRunCriticalAlertPanel(NSLocalizedString(@"DICOM Send",nil),NSLocalizedString( @"No files are selected...",nil),NSLocalizedString( @"OK",nil), nil, nil);
+	if ([objects count] > 0)
+        [SendController sendFiles: objects];
+	else
+        NSRunCriticalAlertPanel(NSLocalizedString(@"DICOM Send",nil),NSLocalizedString( @"No files are selected...",nil),NSLocalizedString( @"OK",nil), nil, nil);
 }
 
 - (void)export2PACS: (id)sender

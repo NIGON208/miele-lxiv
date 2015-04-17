@@ -288,7 +288,6 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 			second.useSmooth = useSmooth;
 			second.smoothVal = smoothVal;
 		}
-		
 
 		//	std::cout << "address of the actor " << &iso[actor] << std::endl;
 		aRenderer->AddActor( iso[ actor]);
@@ -296,16 +295,19 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 		[self setNeedsDisplay:YES];
 		
 		NSLog(@"ChangeActor OUT");
-		
 	}
 	catch (...)
 	{
-		if( NSRunAlertPanel( NSLocalizedString(@"32-bit",nil), NSLocalizedString( @"Cannot use the 3D engine.\r\rUpgrade to OsiriX 64-bit or OsiriX MD to solve this issue.",nil), NSLocalizedString(@"OK", nil), NSLocalizedString(@"OsiriX 64-bit", nil), nil) == NSAlertAlternateReturn)
-			[[AppController sharedAppController] osirix64bit: self];
+		if (NSRunAlertPanel(@"", //NSLocalizedString(@"32-bit",nil),
+                            NSLocalizedString(@"Cannot use the 3D engine.\r\rUpgrade to OsiriX 64-bit or OsiriX MD to solve this issue.",nil),
+                            NSLocalizedString(@"OK", nil),
+                            nil, //NSLocalizedString(@"OsiriX 64-bit", nil),
+                            nil) == NSAlertAlternateReturn)
+        {
+			//[[AppController sharedAppController] osirix64bit: self];
+        }
 	}
 }
-
-
 
 -(void)dealloc
 {

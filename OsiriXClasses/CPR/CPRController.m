@@ -141,8 +141,15 @@ static float deg2rad = M_PI / 180.0;
             
             if( succeed == NO)
             {
-                if( NSRunAlertPanel( NSLocalizedString(@"32-bit",nil), NSLocalizedString( @"Cannot compute the high resolution data.\r\rUpgrade to OsiriX 64-bit or OsiriX MD to solve this issue.",nil), NSLocalizedString(@"OK", nil), NSLocalizedString(@"OsiriX 64-bit", nil), nil) == NSAlertAlternateReturn)
-                    [[AppController sharedAppController] osirix64bit: self];
+                if ( NSRunAlertPanel(@"", //NSLocalizedString(@"32-bit",nil),
+                                     NSLocalizedString(@"Cannot compute the high resolution data.\r\rUpgrade to OsiriX 64-bit or OsiriX MD to solve this issue.",nil),
+                                     NSLocalizedString(@"OK", nil),
+                                     nil, //NSLocalizedString(@"OsiriX 64-bit", nil),
+                                     nil
+                                     ) == NSAlertAlternateReturn)
+                {
+                    //[[AppController sharedAppController] osirix64bit: self];
+                }
                 
                 [HR_PixList release];
                 HR_PixList = nil;
@@ -1109,7 +1116,11 @@ static float deg2rad = M_PI / 180.0;
             }
             else if(err == ERROR_NOENOUGHMEM)
             {
-                NSRunAlertPanel(NSLocalizedString(@"32-bit", nil), NSLocalizedString(@"Path Assistant can not allocate enough memory, try to increase the resample voxel size in the settings.", nil), NSLocalizedString(@"OK", nil), nil, nil);
+                NSRunAlertPanel(@"", //NSLocalizedString(@"32-bit", nil),
+                                NSLocalizedString(@"Path Assistant can not allocate enough memory, try to increase the resample voxel size in the settings.", nil),
+                                NSLocalizedString(@"OK", nil),
+                                nil,
+                                nil);
             }
             else if(err == ERROR_CANNOTFINDPATH)
             {
@@ -4587,7 +4598,8 @@ static float deg2rad = M_PI / 180.0;
 //		}
 		
 		f = [dicomExport writeDCMFile: nil];
-		if( f == nil) NSRunCriticalAlertPanel( NSLocalizedString(@"Error", nil),  NSLocalizedString( @"Error during the creation of the DICOM File!", nil), NSLocalizedString(@"OK", nil), nil, nil);
+		if (f == nil)
+            NSRunCriticalAlertPanel( NSLocalizedString(@"Error", nil),  NSLocalizedString( @"Error during the creation of the DICOM File!", nil), NSLocalizedString(@"OK", nil), nil, nil);
 		
 //		free( dataPtr);
 	}

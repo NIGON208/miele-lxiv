@@ -1366,7 +1366,12 @@ public:
 		}
 		
 		f = [exportDCM writeDCMFile: nil];
-		if( f == nil) NSRunCriticalAlertPanel( NSLocalizedString(@"Error", nil),  NSLocalizedString( @"Error during the creation of the DICOM File!", nil), NSLocalizedString(@"OK", nil), nil, nil);
+		if( f == nil)
+            NSRunCriticalAlertPanel(NSLocalizedString(@"Error", nil),
+                                    NSLocalizedString(@"Error during the creation of the DICOM File!", nil),
+                                    NSLocalizedString(@"OK", nil),
+                                    nil,
+                                    nil);
 		
 		free( dataPtr);
 	}
@@ -2228,8 +2233,15 @@ public:
         
         NSLog( @"C++ Exception during drawRect... not enough memory?");
         
-        if( NSRunAlertPanel( NSLocalizedString(@"32-bit",nil), NSLocalizedString( @"Cannot use the 3D engine.\r\rUpgrade to OsiriX 64-bit or OsiriX MD to solve this issue.",nil), NSLocalizedString(@"OK", nil), NSLocalizedString(@"OsiriX 64-bit", nil), nil) == NSAlertAlternateReturn)
-            [[AppController sharedAppController] osirix64bit: self];
+        if (NSRunAlertPanel(@"", //NSLocalizedString(@"32-bit",nil),
+                            NSLocalizedString(@"Cannot use the 3D engine.\r\rUpgrade to OsiriX 64-bit or OsiriX MD to solve this issue.",nil),
+                            NSLocalizedString(@"OK", nil),
+                            nil, //NSLocalizedString(@"OsiriX 64-bit", nil),
+                            nil
+                            ) == NSAlertAlternateReturn)
+        {
+            //[[AppController sharedAppController] osirix64bit: self];
+        }
         
         [[self window] performClose: self];
     }

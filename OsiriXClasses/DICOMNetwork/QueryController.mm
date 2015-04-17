@@ -815,7 +815,12 @@ extern "C"
 - (IBAction) deleteAutoQRInstance:(id)sender
 {
     // Delete the instance
-    if (NSRunCriticalAlertPanel( NSLocalizedString(@"Delete Auto QR Instance", nil),  NSLocalizedString(@"Are you sure you want to delete the current Auto QR Instance (%@)?", nil), NSLocalizedString(@"OK", nil), NSLocalizedString(@"Cancel", nil), nil, [[autoQRInstances objectAtIndex: currentAutoQR] objectForKey: @"instanceName"]) == NSAlertDefaultReturn)
+    if (NSRunCriticalAlertPanel(NSLocalizedString(@"Delete Auto QR Instance", nil),
+                                NSLocalizedString(@"Are you sure you want to delete the current Auto QR Instance (%@)?", nil),
+                                NSLocalizedString(@"OK", nil),
+                                NSLocalizedString(@"Cancel", nil),
+                                nil,
+                                [[autoQRInstances objectAtIndex: currentAutoQR] objectForKey: @"instanceName"]) == NSAlertDefaultReturn)
     {
         [self willChangeValueForKey: @"instancesMenuList"];
         
@@ -1059,7 +1064,14 @@ extern "C"
 		
 		if( [savedPresets objectForKey: psName])
 		{
-			if (NSRunCriticalAlertPanel( NSLocalizedString(@"Add Preset", nil),  NSLocalizedString(@"A Preset with the same name already exists. Should I replace it with the current one?", nil), NSLocalizedString(@"OK", nil), NSLocalizedString(@"Cancel", nil), nil) != NSAlertDefaultReturn) return;
+			if (NSRunCriticalAlertPanel(NSLocalizedString(@"Add Preset", nil),
+                                        NSLocalizedString(@"A Preset with the same name already exists. Should I replace it with the current one?", nil),
+                                        NSLocalizedString(@"OK", nil),
+                                        NSLocalizedString(@"Cancel", nil),
+                                        nil) != NSAlertDefaultReturn)
+            {
+                return;
+            }
 		}
 		
 		NSDictionary *presets = [self savePresetInDictionaryWithDICOMNodes: [[NSUserDefaults standardUserDefaults] boolForKey: @"includeDICOMNodes"]];
@@ -1279,7 +1291,12 @@ extern "C"
 	if([[[NSApplication sharedApplication] currentEvent] modifierFlags]  & NSShiftKeyMask)
 	{
 		// Delete the Preset
-		if (NSRunCriticalAlertPanel( NSLocalizedString( @"Delete Preset", nil), NSLocalizedString(@"Are you sure you want to delete the selected Preset (%@)?", nil), NSLocalizedString( @"OK", nil), NSLocalizedString( @"Cancel", nil), nil, [sender title]) == NSAlertDefaultReturn)
+		if (NSRunCriticalAlertPanel(NSLocalizedString( @"Delete Preset", nil),
+                                    NSLocalizedString(@"Are you sure you want to delete the selected Preset (%@)?", nil),
+                                    NSLocalizedString( @"OK", nil),
+                                    NSLocalizedString( @"Cancel", nil),
+                                    nil,
+                                    [sender title]) == NSAlertDefaultReturn)
 		{
 			NSDictionary *savedPresets = [[NSUserDefaults standardUserDefaults] dictionaryForKey:@"QRPresets"];
 			
@@ -2190,14 +2207,15 @@ extern "C"
 
 - (void) querySelectedStudy: (id) sender
 {
-	id   item = [outlineView itemAtRow: [outlineView selectedRow]];
+	id item = [outlineView itemAtRow: [outlineView selectedRow]];
 	
 	if( item && [item isMemberOfClass:[DCMTKStudyQueryNode class]])
 	{
 		queryButtonPressed = YES;
 		[self queryPatientID: [item valueForKey:@"patientID"]];
 	}
-	else NSRunCriticalAlertPanel( NSLocalizedString(@"No Study Selected", nil), NSLocalizedString(@"Select a study to query all studies of this patient.", nil), NSLocalizedString(@"OK", nil), nil, nil) ;
+	else
+        NSRunCriticalAlertPanel( NSLocalizedString(@"No Study Selected", nil), NSLocalizedString(@"Select a study to query all studies of this patient.", nil), NSLocalizedString(@"OK", nil), nil, nil) ;
 }
 
 - (NSArray*) queryPatientIDwithoutGUI: (NSString*) patientID
@@ -2446,7 +2464,11 @@ extern "C"
                     
                     if( showError && [customValue cStringUsingEncoding: [NSString encodingForDICOMCharacterSet: [[NSUserDefaults standardUserDefaults] stringForKey: @"STRINGENCODING"]]] == nil)
                     {
-                        if (NSRunCriticalAlertPanel( NSLocalizedString(@"Query Encoding", nil),  NSLocalizedString(@"The query cannot be encoded in current character set. Should I switch to UTF-8 (ISO_IR 192) encoding?", nil), NSLocalizedString(@"OK", nil), NSLocalizedString(@"Cancel", nil), nil) == NSAlertDefaultReturn)
+                        if (NSRunCriticalAlertPanel(NSLocalizedString(@"Query Encoding", nil),
+                                                    NSLocalizedString(@"The query cannot be encoded in current character set. Should I switch to UTF-8 (ISO_IR 192) encoding?", nil),
+                                                    NSLocalizedString(@"OK", nil),
+                                                    NSLocalizedString(@"Cancel", nil),
+                                                    nil) == NSAlertDefaultReturn)
                         {
                             [[NSUserDefaults standardUserDefaults] setObject: @"ISO_IR 192" forKey: @"STRINGENCODING"];
                             [queryManager addFilter: [[NSUserDefaults standardUserDefaults] stringForKey: @"STRINGENCODING"] forDescription:@"SpecificCharacterSet"];
@@ -2477,7 +2499,11 @@ extern "C"
                     
                     if( showError && [patientNameValue cStringUsingEncoding: [NSString encodingForDICOMCharacterSet: [[NSUserDefaults standardUserDefaults] stringForKey: @"STRINGENCODING"]]] == nil)
                     {
-                        if (NSRunCriticalAlertPanel( NSLocalizedString(@"Query Encoding", nil),  NSLocalizedString(@"The query cannot be encoded in current character set. Should I switch to UTF-8 (ISO_IR 192) encoding?", nil), NSLocalizedString(@"OK", nil), NSLocalizedString(@"Cancel", nil), nil) == NSAlertDefaultReturn)
+                        if (NSRunCriticalAlertPanel(NSLocalizedString(@"Query Encoding", nil),
+                                                    NSLocalizedString(@"The query cannot be encoded in current character set. Should I switch to UTF-8 (ISO_IR 192) encoding?", nil),
+                                                    NSLocalizedString(@"OK", nil),
+                                                    NSLocalizedString(@"Cancel", nil),
+                                                    nil) == NSAlertDefaultReturn)
                         {
                             [[NSUserDefaults standardUserDefaults] setObject: @"ISO_IR 192" forKey: @"STRINGENCODING"];
                             [queryManager addFilter: [[NSUserDefaults standardUserDefaults] stringForKey: @"STRINGENCODING"] forDescription:@"SpecificCharacterSet"];

@@ -894,7 +894,12 @@ static NSDate *lastWarningDate = nil;
 {
 	if( lastWarningDate == nil || [lastWarningDate timeIntervalSinceNow] < -60*5)
 	{
-		int result = NSRunCriticalAlertPanel( NSLocalizedString( @"Important Notice", nil), NSLocalizedString( @"This version of OsiriX, being a free open-source software (FOSS), is not certified as a commercial medical device for primary diagnostic imaging.\r\rFor a certified version and to get rid of this message, please update to 'OsiriX MD' certified version.", nil), NSLocalizedString( @"OsiriX MD", nil), NSLocalizedString( @"I agree", nil), NSLocalizedString( @"Quit", nil));
+		int result = NSRunCriticalAlertPanel(
+                        NSLocalizedString( @"Important Notice", nil),
+                        NSLocalizedString( @"This version of OsiriX, being a free open-source software (FOSS), is not certified as a commercial medical device for primary diagnostic imaging.\r\rFor a certified version and to get rid of this message, please update to 'OsiriX MD' certified version.", nil),
+                        NSLocalizedString( @"OsiriX MD", nil),  // default
+                        NSLocalizedString( @"I agree", nil),    // alternate
+                        NSLocalizedString( @"Quit", nil));      // other
 		
 		if( result == NSAlertDefaultReturn)
 			[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:URL_VENDOR_NOTICE]];
@@ -1422,10 +1427,15 @@ static NSDate *lastWarningDate = nil;
         if ([[previousDefaults valueForKey: @"STORESCPTLS"] intValue] != [defaults integerForKey: @"STORESCPTLS"])
             restartListener = YES;
         
-        if( [defaults integerForKey: @"httpWebServer"] == 1 && [defaults integerForKey: @"httpWebServer"] != [[previousDefaults valueForKey: @"httpWebServer"] intValue])
+        if ([defaults integerForKey: @"httpWebServer"] == 1 &&
+            [defaults integerForKey: @"httpWebServer"] != [[previousDefaults valueForKey: @"httpWebServer"] intValue])
         {
             if( [AppController hasMacOSXSnowLeopard] == NO)
-                NSRunCriticalAlertPanel( NSLocalizedString( @"Unsupported", nil), NSLocalizedString( @"It is highly recommend to upgrade to MacOS 10.6 or higher to use the OsiriX Web Server.", nil), NSLocalizedString( @"OK", nil) , nil, nil);
+                NSRunCriticalAlertPanel(NSLocalizedString( @"Unsupported", nil),
+                                        NSLocalizedString( @"It is highly recommend to upgrade to MacOS 10.6 or higher to use the OsiriX Web Server.", nil),
+                                        NSLocalizedString( @"OK", nil),
+                                        nil,
+                                        nil);
         }
         
         [previousDefaults release];
@@ -2229,7 +2239,8 @@ static NSDate *lastWarningDate = nil;
 					
 					[STORESCP unlock];
 				}
-				else NSRunCriticalAlertPanel( NSLocalizedString( @"DICOM Listener Error", nil), NSLocalizedString( @"Cannot start DICOM Listener. Another thread is already running. Restart OsiriX.", nil), NSLocalizedString( @"OK", nil), nil, nil);
+				else
+                    NSRunCriticalAlertPanel( NSLocalizedString( @"DICOM Listener Error", nil), NSLocalizedString( @"Cannot start DICOM Listener. Another thread is already running. Restart OsiriX.", nil), NSLocalizedString( @"OK", nil), nil, nil);
 			}		
 		}
 		
@@ -2248,7 +2259,8 @@ static NSDate *lastWarningDate = nil;
 				
 				[STORESCPTLS unlock];
 			}
-			else NSRunCriticalAlertPanel( NSLocalizedString( @"DICOM TLS Listener Error", nil), NSLocalizedString( @"Cannot start DICOM TLS Listener. Another thread is already running. Restart OsiriX.", nil), NSLocalizedString( @"OK", nil), nil, nil);
+			else
+                NSRunCriticalAlertPanel( NSLocalizedString( @"DICOM TLS Listener Error", nil), NSLocalizedString( @"Cannot start DICOM TLS Listener. Another thread is already running. Restart OsiriX.", nil), NSLocalizedString( @"OK", nil), nil, nil);
 		}
 	
 	} @catch (NSException* e) {

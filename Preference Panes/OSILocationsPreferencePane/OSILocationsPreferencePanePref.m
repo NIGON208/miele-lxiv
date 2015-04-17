@@ -884,7 +884,11 @@
 	}
 	else
 	{
-		NSInteger clickedButton = NSRunCriticalAlertPanel( NSLocalizedString( @"No Valid Certificate", nil), NSLocalizedString( @"Your Keychain does not contain any valid certificate.", nil), NSLocalizedString( @"Help", nil), NSLocalizedString( @"Cancel", nil), nil);
+		NSInteger clickedButton = NSRunCriticalAlertPanel(NSLocalizedString( @"No Valid Certificate", nil),
+                                                          NSLocalizedString( @"Your Keychain does not contain any valid certificate.", nil),
+                                                          NSLocalizedString( @"Help", nil), // default button
+                                                          NSLocalizedString( @"Cancel", nil),
+                                                          nil);
 		
 		if(clickedButton==NSOKButton)
 		{

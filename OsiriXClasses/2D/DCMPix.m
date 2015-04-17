@@ -1955,7 +1955,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 		{
 			unsigned char *pY, *pB, *pR;	// ptr to Y, Cb and Cr channels of the original image
 			
-			// points to the begining of each channel in memory
+			// points to the beginning of each channel in memory
 			pY = ybrImage;
 			pB = (unsigned char *) (pY + size);
 			pR = (unsigned char *) (pB + size);
@@ -5854,6 +5854,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 #ifndef OSIRIX_LIGHT
 - (BOOL)loadDICOMDCMFramework
 {
+#if 1 // TODO: try to skip this to make it faster
     // Memory test: DCMFramework requires a lot of memory...
     unsigned long long fileSize = [[[NSFileManager defaultManager] attributesOfItemAtPath: srcFile error: nil] fileSize];
     fileSize *= 1.5;
@@ -5865,6 +5866,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
         return NO;
     }
     free( memoryTest);
+#endif
     
     /////////////////////////
     
@@ -7107,7 +7109,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
             
 			@try
 			{
-				if( gUSEPAPYRUSDCMPIX)
+                if( gUSEPAPYRUSDCMPIX)
 				{
 					success = [self loadDICOMPapyrus]; // always fail
 					

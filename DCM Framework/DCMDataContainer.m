@@ -12,6 +12,7 @@
      PURPOSE.
 =========================================================================*/
 
+#include "options.h"
 #import "DCMDataContainer.h"
 #import "DCM.h"
 
@@ -653,11 +654,11 @@ void signal_EXC(int sig_num)
             else
             {
                 free( ptr);
-                NSLog( @"****** NOT ENOUGH MEMORY ! UPGRADE TO OSIRIX 64-BIT");
+                NSLog(@"%s:%i %s", __FILE__, __LINE__, MALLOC_ERROR_MESSAGE);
             }
         }
         else
-            NSLog( @"****** NOT ENOUGH MEMORY ! UPGRADE TO OSIRIX 64-BIT");
+            NSLog(@"%s:%i %s", __FILE__, __LINE__, MALLOC_ERROR_MESSAGE);
         
 		position += length;
 		
@@ -1085,7 +1086,7 @@ void signal_EXC(int sig_num)
         void *ptr = malloc( elementLength + 1024);
         if( ptr == nil)
         {
-            NSLog( @"****** NOT ENOUGH MEMORY ! UPGRADE TO OSIRIX 64-BIT");
+            NSLog(@"%s:%i %s", __FILE__, __LINE__, MALLOC_ERROR_MESSAGE);
             return [NSException exceptionWithName: @"Not Enough Memory" reason: @"Not Enough Memory - Upgrade to OsiriX 64-bit." userInfo: nil];
         }
         else free( ptr);
