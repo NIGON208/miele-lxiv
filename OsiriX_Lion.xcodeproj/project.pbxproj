@@ -77,6 +77,7 @@
 		183C865C08563F3A000E6A68 /* VRFlyThruAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 183C864808563F3A000E6A68 /* VRFlyThruAdapter.h */; };
 		183C865D08563F3A000E6A68 /* VRFlyThruAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 183C864908563F3A000E6A68 /* VRFlyThruAdapter.m */; };
 		4307C62C1A2091900083877C /* url.h in Headers */ = {isa = PBXBuildFile; fileRef = 4307C62B1A2091900083877C /* url.h */; };
+		430CC94E1AE09B4D00C0ED8B /* libcharls.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4333FD351AB3076200E82B49 /* libcharls.a */; };
 		431BCC401A24AC94002B36FB /* libtiff.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 431BCC3F1A24AC94002B36FB /* libtiff.a */; };
 		4333FD491AB3076200E82B49 /* libcharls.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4333FD351AB3076200E82B49 /* libcharls.a */; };
 		4333FD4A1AB3076200E82B49 /* libcharls.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4333FD351AB3076200E82B49 /* libcharls.a */; };
@@ -4403,6 +4404,7 @@
 				7E47658007428C80000C9A74 /* Accelerate.framework in Frameworks */,
 				AB61D9BE11BD32E5003BC1A4 /* IOKit.framework in Frameworks */,
 				4333FD731AB3150C00E82B49 /* libijg8.a in Frameworks */,
+				430CC94E1AE09B4D00C0ED8B /* libcharls.a in Frameworks */,
 				4333FD751AB3151200E82B49 /* libijg16.a in Frameworks */,
 				4333FD741AB3150F00E82B49 /* libijg12.a in Frameworks */,
 				435A5A6B1AB907EB00290ABE /* liboflog.a in Frameworks */,
@@ -7812,7 +7814,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = NO;
-				LastTestingUpgradeCheck = 0610;
+				LastTestingUpgradeCheck = 0630;
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = "OsiriX Team";
 				TargetAttributes = {

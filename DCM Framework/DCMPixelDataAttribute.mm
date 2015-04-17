@@ -831,20 +831,24 @@ static inline int int_ceildivpow2(int a, int b) {
 	}
 	
 	//syntax is unencapsulated little Endian Explicit or Implicit for both. do nothing
-	if ([[DCMTransferSyntax ExplicitVRLittleEndianTransferSyntax] isEqualToTransferSyntax:ts] && [[DCMTransferSyntax ImplicitVRLittleEndianTransferSyntax] isEqualToTransferSyntax:transferSyntax]) {
+	if ([[DCMTransferSyntax ExplicitVRLittleEndianTransferSyntax] isEqualToTransferSyntax:ts] &&
+        [[DCMTransferSyntax ImplicitVRLittleEndianTransferSyntax] isEqualToTransferSyntax:transferSyntax]) {
 		status =  YES;
 		goto finishedConversion;
 	}
-	if ([[DCMTransferSyntax ExplicitVRLittleEndianTransferSyntax] isEqualToTransferSyntax:transferSyntax] && [[DCMTransferSyntax ImplicitVRLittleEndianTransferSyntax] isEqualToTransferSyntax:ts]) {
+	if ([[DCMTransferSyntax ExplicitVRLittleEndianTransferSyntax] isEqualToTransferSyntax:transferSyntax] &&
+        [[DCMTransferSyntax ImplicitVRLittleEndianTransferSyntax] isEqualToTransferSyntax:ts]) {
 		status = YES;
 		goto finishedConversion;
 	}
-	if ([[DCMTransferSyntax JPEG2000LosslessTransferSyntax] isEqualToTransferSyntax:transferSyntax] && [[DCMTransferSyntax JPEG2000LossyTransferSyntax] isEqualToTransferSyntax:ts]) {
+	if ([[DCMTransferSyntax JPEG2000LosslessTransferSyntax] isEqualToTransferSyntax:transferSyntax] &&
+        [[DCMTransferSyntax JPEG2000LossyTransferSyntax] isEqualToTransferSyntax:ts]) {
 		status = YES;
 		self.transferSyntax = ts;
 		goto finishedConversion;
 	}
-	if ([[DCMTransferSyntax JPEG2000LossyTransferSyntax] isEqualToTransferSyntax:transferSyntax] && [[DCMTransferSyntax JPEG2000LosslessTransferSyntax] isEqualToTransferSyntax:ts])
+	if ([[DCMTransferSyntax JPEG2000LossyTransferSyntax] isEqualToTransferSyntax:transferSyntax] &&
+        [[DCMTransferSyntax JPEG2000LosslessTransferSyntax] isEqualToTransferSyntax:ts])
 	{
 		status = YES;
 		self.transferSyntax = ts;
@@ -949,14 +953,14 @@ static inline int int_ceildivpow2(int a, int b) {
 			if (_pixelDepth <= 16 && _pixelDepth > 8)
 			{
 				unsigned short *shortsToSwap = (unsigned short *) ptr;
-				int length = [data length]/2;
+				NSUInteger length = [data length]/2;
 				while( length-- > 0)
 					shortsToSwap[ length] = NSSwapShort( shortsToSwap[ length]);
 			}
 			else if (_pixelDepth > 16)
 			{
 				unsigned long *longsToSwap = (unsigned long *) ptr;
-				int length = [data length]/4;
+				NSUInteger length = [data length]/4;
 				while( length-- > 0)
 					longsToSwap[ length] = NSSwapLong(longsToSwap[ length]);
 			}
@@ -965,7 +969,7 @@ static inline int int_ceildivpow2(int a, int b) {
 		free( ptr);
 	}
     else
-        NSLog( @"****** NOT ENOUGH MEMORY ! UPGRADE TO OSIRIX 64-BIT");
+        NSLog(@"%s:%i %s", __FILE__, __LINE__, MALLOC_ERROR_MESSAGE);
     
 	return data;
 }
@@ -999,7 +1003,7 @@ static inline int int_ceildivpow2(int a, int b) {
 		free( ptr);
 	}
 	else
-        NSLog( @"****** NOT ENOUGH MEMORY ! UPGRADE TO OSIRIX 64-BIT");
+        NSLog(@"%s:%i %s", __FILE__, __LINE__, MALLOC_ERROR_MESSAGE);
     
 	return data;
 }
@@ -1042,8 +1046,8 @@ static inline int int_ceildivpow2(int a, int b) {
 				{
 					unsigned short *shortsToSwap = (unsigned short *) [data mutableBytes];
 					//signed short *signedShort = [data mutableBytes];
-					unsigned int length = [data length]/2;
-					for ( unsigned int i = 0; i < length; i++ ) {
+					NSUInteger length = [data length]/2;
+					for ( NSUInteger i = 0; i < length; i++ ) {
 						shortsToSwap[i] = NSSwapShort(shortsToSwap[i]);
 					}
 				}
@@ -1058,8 +1062,8 @@ static inline int int_ceildivpow2(int a, int b) {
 				{
 					unsigned long *longsToSwap = (unsigned long *) [data mutableBytes];
 					//signed short *signedShort = [data mutableBytes];
-					unsigned int length = [data length]/4;
-					for ( unsigned int i = 0; i < length; i++) {
+					NSUInteger length = [data length]/4;
+					for ( NSUInteger i = 0; i < length; i++) {
 						longsToSwap[i] = NSSwapLong(longsToSwap[i]);
 					}
 				}
@@ -1130,25 +1134,24 @@ static inline int int_ceildivpow2(int a, int b) {
 	
 //	BOOL succeed = NO;
 	
-	{
-		long decompressedLength = 0;
-		
-		int processors = 0;
-		
-		if( [jpegData length] > 512*1024)
-			processors = [[NSProcessInfo processInfo] processorCount] /2;
-		
-		int colorModel;
-		
-        OPJSupport opj;
-        void *p = opj.decompressJPEG2K( (void*) [jpegData bytes],
-                                       [jpegData length], &decompressedLength, &colorModel);
-		if( p)
-		{
-			pixelData = [NSMutableData dataWithBytesNoCopy: p length:decompressedLength freeWhenDone: YES];
-//			succeed = YES;
-		}
-	}
+    long decompressedLength = 0;
+    
+    NSUInteger processors = 0;
+    
+    if( [jpegData length] > 512*1024)
+        processors = [[NSProcessInfo processInfo] processorCount] /2;
+    
+    int colorModel;
+    
+    OPJSupport opj;
+    void *p = opj.decompressJPEG2K( (void*) [jpegData bytes],
+                                   [jpegData length], &decompressedLength, &colorModel);
+    if( p)
+    {
+        pixelData = [NSMutableData dataWithBytesNoCopy: p length:decompressedLength freeWhenDone: YES];
+//		succeed = YES;
+    }
+
 	
 //	if( succeed == NO)
 //	{
@@ -1285,6 +1288,64 @@ static inline int int_ceildivpow2(int a, int b) {
 //	}
 	
 	return pixelData;
+}
+
+//#include "osconfig.h"    /* make sure OS specific configuration is included first */
+//#include "ofcond.h"
+
+#include "dcmtk/ofstd/ofstd.h"    /* for size_t */
+//#include "dcmtk/ofstd/ofdefine.h" /* for DCMTK_DECL_EXPORT */
+
+//JPEG-LS
+#include "dcmjpls/djdecode.h"
+//#include "dcmjpls/djencode.h"
+//#include "dcmjpls/djcodecd.h" // for DJLSDecoderBase
+#include "dcmjpls/djrparam.h"
+#include "dcmjpls/intrface.h"
+#include "dcmjpls/pubtypes.h"
+//#include "djerror.h"
+
+- (NSData *)convertJPEGLSToHost:(NSData *)jpegData
+{
+    NSMutableData *pixelData = nil;
+    NSUInteger processors = 0;
+    
+    if( [jpegData length] > 512*1024)
+        processors = [[NSProcessInfo processInfo] processorCount] /2;
+    
+    JlsParameters params = JlsParameters();
+    const void* compressedData = [jpegData bytes];
+    size_t compressedLength = [jpegData length];
+    JLS_ERROR error = JpegLsReadHeader(compressedData, compressedLength, &params);
+    //OFCondition result = DJLSError::convert(error);
+    //if (!result.good())
+	if (error != OK)
+    {
+//        NSLog(@"ERROR JpegLsReadHeader:%i %s", error, result.text());
+        NSLog(@"ERROR JpegLsReadHeader:%i", error);
+        return nil;
+    }
+    
+    size_t uncompressedLength = params.height * params.bytesperline;
+    void* uncompressedData = malloc(uncompressedLength);
+    if (!uncompressedData) {
+        NSLog(@"malloc failed");
+        return nil;
+    }
+    
+    error = JpegLsDecode(uncompressedData, uncompressedLength, compressedData, compressedLength, &params);
+    if (error != OK)
+    {
+        NSLog(@"ERROR JpegLsDecode:%i", error);
+        free(uncompressedData);
+        return nil;
+    }
+
+    pixelData = [NSMutableData dataWithBytesNoCopy:uncompressedData
+                                            length:uncompressedLength
+                                      freeWhenDone:YES];
+
+    return pixelData;
 }
 
 - (NSData *)convertRLEToHost:(NSData *)rleData{
@@ -1777,11 +1838,16 @@ static inline int int_ceildivpow2(int a, int b) {
 		//remove Palette stuff
 		NSMutableDictionary *attributes = [_dcmObject attributes];
 		NSMutableArray *keysToRemove = [NSMutableArray array];
-		for ( NSString *key in attributes ) {
+		for ( NSString *key in attributes )
+        {
 			DCMAttribute *attr = [attributes objectForKey:key];
-			if ([(DCMAttributeTag *)[attr attrTag] group] == 0x0028 && ([(DCMAttributeTag *)[attr attrTag] element] > 0x1100 && [(DCMAttributeTag *)[attr attrTag] element] <= 0x1223))
+			if ( [(DCMAttributeTag *)[attr attrTag] group] == 0x0028 &&
+                ([(DCMAttributeTag *)[attr attrTag] element] > 0x1100 &&
+                 [(DCMAttributeTag *)[attr attrTag] element] <= 0x1223))
+            {
 				[keysToRemove addObject:key];
-			}
+            }
+        }
 		[attributes removeObjectsForKeys:keysToRemove];
 		[_dcmObject setAttributeValues:[NSMutableArray arrayWithObject:@"RGB"] forName:@"PhotometricInterpretation"];
 		[_dcmObject setAttributeValues:[NSMutableArray arrayWithObject:@"3"] forName:@"SamplesperPixel"];
@@ -2108,8 +2174,8 @@ static inline int int_ceildivpow2(int a, int b) {
 	NSMutableData *offsetTable = [NSMutableData data];
 	unsigned long offset = 0;
 	[offsetTable appendBytes:&offset length:4];
-	int i;
-	int count = [_values count];
+	NSUInteger i;
+	NSUInteger count = [_values count];
 	for (i = 1; i < count; i++) {
 		offset += NSSwapHostLongToLittle([(NSData *)[_values objectAtIndex:i -1] length] + 8);
 		[offsetTable appendBytes:&offset length:4];
@@ -2273,8 +2339,12 @@ static inline int int_ceildivpow2(int a, int b) {
 		length = [data length]/4;
 		
 	float *fBuffer = (float*) malloc(length * 4);
-	if( fBuffer)
-	{
+    if( !fBuffer) {
+        NSLog(@"%s:%i %s", __FILE__, __LINE__, MALLOC_ERROR_MESSAGE);
+        return;
+    }
+
+    {
 		vImage_Buffer src, dstf;
 		dstf.height = src.height = _rows;
 		dstf.width = src.width = _columns;
@@ -2336,8 +2406,6 @@ static inline int int_ceildivpow2(int a, int b) {
 		
 		free(fBuffer);
 	}
-    else
-        NSLog( @"****** NOT ENOUGH MEMORY ! UPGRADE TO OSIRIX 64-BIT");
 }
 
 - (NSData *)convertPaletteToRGB:(NSData *)data
@@ -2964,7 +3032,7 @@ static inline int int_ceildivpow2(int a, int b) {
     {
       unsigned char *pY, *pB, *pR;	// ptr to Y, Cb and Cr channels of the original image
 //      NSLog(@"YBR FULL and planar");  
-      // points to the begining of each channel in memory
+      // points to the beginning of each channel in memory
       pY = (unsigned char *)[ybrData bytes];
       pB = (unsigned char *) (pY + size);
       pR = (unsigned char *) (pB + size);
@@ -3292,7 +3360,7 @@ static inline int int_ceildivpow2(int a, int b) {
                     free( ptr);
             }
             else
-                NSLog( @"****** NOT ENOUGH MEMORY ! UPGRADE TO OSIRIX 64-BIT");
+                NSLog(@"%s:%i %s", __FILE__, __LINE__, MALLOC_ERROR_MESSAGE);
 		}
 		//only one fame
 		else {
@@ -3435,7 +3503,7 @@ static inline int int_ceildivpow2(int a, int b) {
                             }
                         }
                         else
-                            NSLog( @"****** NOT ENOUGH MEMORY ! UPGRADE TO OSIRIX 64-BIT");
+                            NSLog(@"%s:%i %s", __FILE__, __LINE__, MALLOC_ERROR_MESSAGE);
                     }
                     @catch (NSException *exception) {
                         NSLog( @"%@", exception);
@@ -3460,6 +3528,8 @@ static inline int int_ceildivpow2(int a, int b) {
 	BOOL colorspaceIsConverted = NO;
 	NSMutableData *subData = nil;
 	
+    NSLog(@"DCMPixelDataAttribute.mm:%i %@ %i", __LINE__, NSStringFromSelector(_cmd), index);//@@@
+
 	@try
 	{
 		if( _framesCreated)
@@ -3475,6 +3545,8 @@ static inline int int_ceildivpow2(int a, int b) {
 		return nil;
 	}
 	
+    NSLog(@"DCMPixelDataAttribute.mm:%i %@ %@", __LINE__, NSStringFromSelector(_cmd), transferSyntax.description);//@@@
+
 	if ([_values count] > 0 && index < _numberOfFrames)
 	{
 		if( _framesDecoded == nil)
@@ -3573,52 +3645,12 @@ static inline int int_ceildivpow2(int a, int b) {
 			{
 				data = [self convertRLEToHost:subData];
 			}
-#if 1
-            else if ([transferSyntax isEqualToTransferSyntax:[DCMTransferSyntax JPEGLSLosslessTransferSyntax]])
+            //JPEG-LS
+            else if ([transferSyntax isEqualToTransferSyntax:[DCMTransferSyntax JPEGLSLosslessTransferSyntax]] ||
+                     [transferSyntax isEqualToTransferSyntax:[DCMTransferSyntax JPEGLSLossyTransferSyntax]])
             {
-                //data = [self convertJPEG2000ToHost:subData]; // no
-                //data = [self convertJPEG8LosslessToHost:subData]; // crash
-                //data = [self convertJPEG8ToHost:subData]; // crash
-                //data = [self convertJPEG12ToHost:subData]; // crash
-                //data = [self convertJPEG16ToHost:subData]; // crash
-                
-                //data = [self convertDataFromLittleEndianToHost:subData]; // no
-                //data = [self convertDataFromBigEndianToHost:subData]; // no
-                
-//                void* uncompressedData;
-//                size_t uncompressedLength;
-//                const void* compressedData;
-//                size_t compressedLength;
-//#include "osconfig.h"    /* make sure OS specific configuration is included first */
-//#include "ofcond.h"
-                
-//#include "dcmjpls/djdecode.h" //JPEG-LS
-//#include "dcmjpls/djencode.h" //JPEG-LS
-////#include "intrface.h"
-////#include "pubtypes.h"
-                
-//                JlsParameters info;
-//                JpegLsDecode(uncompressedData, uncompressedLength, compressedData, compressedLength, &info);
-                
-//                OFCondition res =
-//                DJLSDecoderBase::decodeFrame(            DcmPixelSequence * fromPixSeq,
-//                                                         const DJLSCodecParameter *cp,
-//                                                         DcmItem *dataset,
-//                                                         Uint32 frameNo,
-//                                                         Uint32& currentItem,
-//                                                         void * buffer,
-//                                                         Uint32 bufSize,
-//                                                         Sint32 imageFrames,
-//                                                         Uint16 imageColumns,
-//                                                         Uint16 imageRows,
-//                                                         Uint16 imageSamplesPerPixel,
-//                                                         Uint16 bytesPerSample)
+                data = [self convertJPEGLSToHost:subData];
             }
-            else if ([transferSyntax isEqualToTransferSyntax:[DCMTransferSyntax JPEGLSLossyTransferSyntax]])
-            {
-                //data = [self convertRLEToHost:subData];
-            }
-#endif
 			else
 			{
 				NSLog( @"DCM Framework: Unknown compressed transfer syntax: %@ %@", transferSyntax.description, transferSyntax.transferSyntax);
@@ -3679,14 +3711,21 @@ static inline int int_ceildivpow2(int a, int b) {
 		}
 		else
 		{
-			int numberofPlanes = [[_dcmObject attributeValueWithName:@"PlanarConfiguration"] intValue];			
+			int numberofPlanes = [[_dcmObject attributeValueWithName:@"PlanarConfiguration"] intValue];
+            NSLog(@"DCMPixelDataAttribute.mm:%i %@ numberofPlanes:%i", __LINE__, NSStringFromSelector(_cmd), numberofPlanes);//@@@
 			if (numberofPlanes > 0 && numberofPlanes <= 4)
 			{
-				if( [transferSyntax isEqualToTransferSyntax:[DCMTransferSyntax JPEGExtendedTransferSyntax]] || [transferSyntax isEqualToTransferSyntax:[DCMTransferSyntax JPEGLosslessTransferSyntax]] || [transferSyntax isEqualToTransferSyntax:[DCMTransferSyntax JPEG2000LosslessTransferSyntax]] || [transferSyntax isEqualToTransferSyntax:[DCMTransferSyntax JPEG2000LossyTransferSyntax]])
+				if ([transferSyntax isEqualToTransferSyntax:[DCMTransferSyntax JPEGExtendedTransferSyntax]] ||
+                    [transferSyntax isEqualToTransferSyntax:[DCMTransferSyntax JPEGLosslessTransferSyntax]] ||
+                    [transferSyntax isEqualToTransferSyntax:[DCMTransferSyntax JPEG2000LosslessTransferSyntax]] ||
+                    [transferSyntax isEqualToTransferSyntax:[DCMTransferSyntax JPEG2000LossyTransferSyntax]])
 				{
 					[_dcmObject setAttributeValues:[NSMutableArray arrayWithObject: @0] forName:@"PlanarConfiguration"];
 				}
-				else data = [self interleavePlanesInData:data];
+				else
+                {
+                    data = [self interleavePlanesInData:data];
+                }
 			}
 		}
 		
