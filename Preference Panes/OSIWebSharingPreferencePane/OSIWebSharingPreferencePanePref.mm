@@ -94,7 +94,7 @@
 
 - (NSString*) UniqueLabelForSelectedServer;
 {
-	return @"com.osirixviewer.osirixwebserver";
+	return OUR_HTTP_SERVER_LABEL;
 }
 
 - (void)getTLSCertificate;

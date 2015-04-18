@@ -198,8 +198,8 @@ SecPolicySearchCreate:
 	[mStr appendFormat:@"%@\n", @"L                   = Geneva"];
 	[mStr appendFormat:@"%@\n", @"O                   = OsiriX Team"];
 	[mStr appendFormat:@"%@\n", @"OU                  = Open Source"];
-	[mStr appendFormat:@"%@\n", @"CN                  = OsiriX HTTP Server"];
-	[mStr appendFormat:@"%@\n", @"emailAddress        = osirix@osirix-viewer.com"];
+	[mStr appendFormat:@"%@%@\n", @"CN                  = ", OUR_HTTP_SERVICE];
+	[mStr appendFormat:@"%@%@\n", @"emailAddress        = ", OUR_CERTIFICATE_EMAIL];
 	
 	[mStr writeToFile:reqConfPath atomically:NO encoding:NSUTF8StringEncoding error:nil];
 	
@@ -235,7 +235,7 @@ SecPolicySearchCreate:
 	                                                     @"-inkey", privateKeyPath,
 	                                                     @"-passout", @"pass:password",
 	                                                     @"-out", certWrapperPath,
-	                                                     @"-name", @"OsiriX HTTP Server",
+	                                                     @"-name", OUR_HTTP_SERVICE,
 														nil];
 	
 	NSTask *genCertWrapperTask = [[[NSTask alloc] init] autorelease];
@@ -391,7 +391,9 @@ SecPolicySearchCreate:
 	NSLog(@"outItems: %@", (NSArray *)outItems);
 	
 	SecIdentityRef identity = (SecIdentityRef)[(NSArray *)outItems lastObject];
-	[DDKeychain KeychainAccessSetPreferredIdentity:identity forName:@"com.osirixviewer.osirixwebserver" keyUse:CSSM_KEYUSE_ANY];
+	[DDKeychain KeychainAccessSetPreferredIdentity:identity
+                                           forName:OUR_HTTP_SERVER_LABEL
+                                            keyUse:CSSM_KEYUSE_ANY];
 	
 	// Don't forget to delete the temporary files
 	[[NSFileManager defaultManager] removeFileAtPath:privateKeyPath handler:nil];
@@ -534,7 +536,7 @@ SecPolicySearchCreate:
 + (NSString *)applicationTemporaryDirectory
 {
 	NSString *userTempDir = NSTemporaryDirectory();
-	NSString *appTempDir = [userTempDir stringByAppendingPathComponent:@"OsiriX HTTP Server"];
+	NSString *appTempDir = [userTempDir stringByAppendingPathComponent:OUR_HTTP_SERVICE];
 	
 	NSFileManager *fileManager = [NSFileManager defaultManager];
 	if([fileManager fileExistsAtPath:appTempDir] == NO)

@@ -63,6 +63,8 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 
+#include "url.h"
+
 // TODO: NSUserDefaults access for keys @"logWebServer", @"notificationsEmailsSender" and @"lastNotificationsDate" must be replaced with WebPortal properties
 
 static NSMutableArray *pluginWithHTTPResponses = nil;
@@ -327,11 +329,11 @@ NSString* const SessionDicomCStorePortKey = @"DicomCStorePort"; // NSNumber (int
 - (NSArray *)sslIdentityAndCertificates
 {
 //	NSArray *result = [DDKeychain SSLIdentityAndCertificates];
-	id identity = (id)[DDKeychain KeychainAccessPreferredIdentityForName:@"com.osirixviewer.osirixwebserver" keyUse:CSSM_KEYUSE_ANY];
+	id identity = (id)[DDKeychain KeychainAccessPreferredIdentityForName:OUR_HTTP_SERVER_LABEL keyUse:CSSM_KEYUSE_ANY];
 	if (identity == nil)
 	{
 		[DDKeychain createNewIdentity];
-		identity = (id)[DDKeychain KeychainAccessPreferredIdentityForName:@"com.osirixviewer.osirixwebserver" keyUse:CSSM_KEYUSE_ANY];
+		identity = (id)[DDKeychain KeychainAccessPreferredIdentityForName:OUR_HTTP_SERVER_LABEL keyUse:CSSM_KEYUSE_ANY];
 	}
 	
 	NSMutableArray *array = [NSMutableArray arrayWithObject:identity];

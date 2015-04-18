@@ -2755,7 +2755,7 @@
 		434B46151A19F2A3008CF8CF /* options.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = options.h; sourceTree = "<group>"; };
 		434B461B1A19F631008CF8CF /* OPJSupport.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OPJSupport.cpp; path = glue/OpenJPEG/OPJSupport.cpp; sourceTree = "<group>"; };
 		434B461C1A19F631008CF8CF /* OPJSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OPJSupport.h; path = glue/OpenJPEG/OPJSupport.h; sourceTree = "<group>"; };
-		434B47A11A1A18D3008CF8CF /* kdu_OsiriX_NO_Support.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = kdu_OsiriX_NO_Support.cpp; path = "Binaries/KDU SDK/kdu_OsiriX_NO_Support.cpp"; sourceTree = "<group>"; };
+		434B47A11A1A18D3008CF8CF /* kdu_OsiriX_NO_Support.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = kdu_OsiriX_NO_Support.cpp; path = glue/Kakadu/kdu_OsiriX_NO_Support.cpp; sourceTree = SOURCE_ROOT; };
 		434B47AB1A1A1AD4008CF8CF /* libopenjp2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libopenjp2.a; path = Binaries/openjpeg/libopenjp2.a; sourceTree = "<group>"; };
 		434C54FE1AA5868000218595 /* BioradHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BioradHeader.h; sourceTree = "<group>"; };
 		4352BE4E1AA698F6000B80E1 /* OSIDerivedROI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OSIDerivedROI.h; sourceTree = "<group>"; };
@@ -3375,7 +3375,7 @@
 		849B44BA1552B2D800194728 /* OsiriXNotificationCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OsiriXNotificationCenter.m; sourceTree = "<group>"; };
 		84A220E60F25E41800C6C3EB /* ROIs.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = ROIs.tif; sourceTree = "<group>"; };
 		84A220E70F25E41800C6C3EB /* Keys.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Keys.tif; sourceTree = "<group>"; };
-		84A9D49312F7F90700DA1F99 /* kdu_OsiriXSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = kdu_OsiriXSupport.h; path = "Binaries/KDU SDK/kdu_OsiriXSupport.h"; sourceTree = "<group>"; };
+		84A9D49312F7F90700DA1F99 /* kdu_OsiriXSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = kdu_OsiriXSupport.h; path = glue/Kakadu/kdu_OsiriXSupport.h; sourceTree = SOURCE_ROOT; };
 		84ADF460115B622D00FE18B2 /* SRController+StereoVision.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SRController+StereoVision.h"; sourceTree = "<group>"; };
 		84ADF461115B622D00FE18B2 /* SRController+StereoVision.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "SRController+StereoVision.mm"; sourceTree = "<group>"; };
 		84ADF462115B622D00FE18B2 /* SRFlyThruAdapter+StereoVision.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SRFlyThruAdapter+StereoVision.h"; sourceTree = "<group>"; };
@@ -6045,6 +6045,7 @@
 				84A9D49312F7F90700DA1F99 /* kdu_OsiriXSupport.h */,
 			);
 			name = "KDU SDK";
+			path = glue/Kakadu;
 			sourceTree = "<group>";
 		};
 		A90C722016E4D8AE0060302F /* Data */ = {
