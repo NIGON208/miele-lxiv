@@ -310,7 +310,7 @@ int GetAllPIDsForProcessName(const char* ProcessName,
         * Second Argument: The number of constants in the MIB (array of integers).  In this case there are three.
         * Third Argument: The output buffer where the return value from sysctl will be stored.  This is the buffer
         *     which we allocated specifically for this purpose.  
-        * Forth Argument: The size of the output buffer (argument three).  In this case its the size of the 
+        * Forth Argument: The size of the output buffer (argument three).  In this case it's the size of the
         *     buffer we already allocated.  
         * Fifth Argument: The buffer containing the value to set the system value to.  In this case we don't
         *     want to set any system information we only want to gather it.  Thus, we pass null as the buffer

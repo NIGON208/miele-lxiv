@@ -71,7 +71,7 @@ extern NSString* const OSIVolumeWindowDidChangeDataNotification;
  */
 - (NSString *)title;
 
-/** Returns YES if the `ViewerController` paired with this Volume Window has all it's data loaded, ROIs for example will not be accessible until all the data is loaded.
+/** Returns YES if the `ViewerController` paired with this Volume Window has all its data loaded, ROIs for example will not be accessible until all the data is loaded.
  Observable.
  
  @see viewerController
@@ -88,7 +88,7 @@ extern NSString* const OSIVolumeWindowDidChangeDataNotification;
  
  @warning *Important:* The Volume Window is the delegate of this ROIManger, you should never change its delegate.
  */
-- (OSIROIManager *)ROIManager; // no not mess with the delegate of this ROI manager, but feel free to ask if for it's list of ROIs
+- (OSIROIManager *)ROIManager; // no not mess with the delegate of this ROI manager, but feel free to ask if for its list of ROIs
 
 ///-----------------------------------
 /// @name Dealing with Volume Data

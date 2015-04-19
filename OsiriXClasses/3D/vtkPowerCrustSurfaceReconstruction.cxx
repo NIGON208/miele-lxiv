@@ -392,7 +392,7 @@ STORAGE_GLOBALS(type)
 #define SLV -1 /* sunghee : if orient3d=0, sliver simplex */
 #define AV 2 /* if av contains the averaged pole vector */
 #define PSLV -2 /* probably sliver */
-#define POLE_OUTPUT 3 /* VV is pole and it's ouput */
+#define POLE_OUTPUT 3 /* VV is pole and its output */
 #define SQ(a) ((a)*(a)) /* sunghee */
 
 #define BAD_POLE -1
@@ -535,7 +535,7 @@ typedef struct simplex {
         VOR  if falis voronoi edge test
         VOR_NORM if fails both test */ 
     /* NOTE!!! neighbors has to be the LAST field in the simplex stucture, 
-       since it's length gets altered by some tricky Clarkson-move. 
+       since its length gets altered by some tricky Clarkson-move.
        Also peak has to be the one before it. 
        Don't try to move these babies!! */
     long visit;     /* number of last site visiting this simplex */
@@ -4532,7 +4532,7 @@ void newOpposite(int p1index, int p2index, double pole_angle) {
 }
 
 
-/* Outputs a pole, saving it's squared radius in adjlist */
+/* Outputs a pole, saving its squared radius in adjlist */
 void outputPole(/*TJH FILE* POLE, FILE* SPFILE, */simplex* pole, int poleid, 
                 double* samp, int* num_poles,double distance) {
     double r2, weight;

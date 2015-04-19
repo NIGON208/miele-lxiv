@@ -247,24 +247,36 @@ int main(int argc, char** argv)
 	NSTask* task;
 	
 	// make directory to hold OsiriX Lite
-	task = [NSTask launchedTaskWithLaunchPath:@"/bin/mkdir" arguments:[NSArray arrayWithObjects: @"-p", OsirixLiteLocation, NULL]];
+	task = [NSTask launchedTaskWithLaunchPath:@"/bin/mkdir"
+                                    arguments:[NSArray arrayWithObjects:
+                                               @"-p", OsirixLiteLocation,
+                                               NULL]];
 	[task waitUntilExit];
 	
 	// unzip OsiriX Lite
-	task = [NSTask launchedTaskWithLaunchPath:@"/usr/bin/unzip" arguments:[NSArray arrayWithObjects: @"-od", OsirixLiteLocation, [[NSBundle mainBundle] pathForResource:@"OsiriX Lite" ofType:@"zip"], NULL]];
+	task = [NSTask launchedTaskWithLaunchPath:@"/usr/bin/unzip"
+                                    arguments:[NSArray arrayWithObjects:
+                                               @"-od", OsirixLiteLocation,
+                                               [[NSBundle mainBundle] pathForResource:@"OsiriX Lite" ofType:@"zip"],
+                                               NULL]];
 	[task waitUntilExit];
 	
-	// launch OsiriX if available
-	
-	NSString* appName = @"OsiriX.app";
-	
-	BOOL launched = [[NSWorkspace sharedWorkspace] launchApplication:appName];
-	
-	if (!launched) {
-		appName = @"OsiriX Lite.app";
-		launched = [[NSWorkspace sharedWorkspace] launchApplication:[OsirixLiteLocation stringByAppendingPathComponent:appName]];
-	}
-	
+    // First try launching Osiri-LXIV if available
+    NSString* appName = @"Osiri-LXIV.app";
+    BOOL launched = [[NSWorkspace sharedWorkspace] launchApplication:appName];
+    
+    if (!launched) {
+        // Second choice launch OsiriX if available
+        appName = @"OsiriX.app";
+        launched = [[NSWorkspace sharedWorkspace] launchApplication:appName];
+    }
+    
+    if (!launched) {
+        // Third choice
+        appName = @"OsiriX Lite.app";
+        launched = [[NSWorkspace sharedWorkspace] launchApplication:[OsirixLiteLocation stringByAppendingPathComponent:appName]];
+    }
+    
 	if (launched) {
 		// Write the path to DICOMDIR, if available
 		[[NSFileManager defaultManager] removeItemAtPath: [OsirixLiteLocation stringByAppendingPathComponent: @"DICOMDIRPATH"] error: nil];

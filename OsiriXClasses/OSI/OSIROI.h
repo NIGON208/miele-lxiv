@@ -80,7 +80,7 @@ extern NSString* const OSIPasteboardTypeCodingROI; // an ROI that implements NSC
 
 /** Set the stroke color of the receiver.
  
- Set this value to nil if the ROI should not draw it's outline drawn.
+ Set this value to nil if the ROI should not draw its outline drawn.
  
  */
 - (void)setStrokeColor:(NSColor *)strokeColor;

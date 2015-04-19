@@ -189,18 +189,18 @@ static NSDate *CachedPluginsListDate = nil;
 - (IBAction)showWindow:(id)sender;
 {
 #ifdef MACAPPSTORE
-    if( NSRunInformationalAlertPanel(	NSLocalizedString(@"Plugin Manager", nil),
-                                 NSLocalizedString(@"This function is not available in the App Store version of OsiriX. If you want to install plug-ins, download the complete OsiriX version on our web site.", nil),
-                                 NSLocalizedString(@"Continue",nil),
-                                 NSLocalizedString(@"OsiriX Web Site",nil),
-                                     nil) == NSAlertDefaultReturn)
-    {   
-       
+    if( NSRunInformationalAlertPanel(NSLocalizedString(@"Plugin Manager", nil),
+                                     NSLocalizedString(@"This function is not available in the App Store version of OsiriX. If you want to install plug-ins, download the complete OsiriX version on our web site.", nil),
+                                     NSLocalizedString(@"Continue",nil),
+                                     NSLocalizedString(@"OsiriX Web Site",nil),
+                                     nil
+                                     ) == NSAlertDefaultReturn)
+    {
         return;
     }
     else
     {
-         [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:URL_OSIRIX_VIEWER]];
+        [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:URL_OSIRIX_VIEWER]];
         return;
     }
 #endif

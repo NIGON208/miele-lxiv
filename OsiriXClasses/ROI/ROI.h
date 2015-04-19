@@ -278,7 +278,7 @@ typedef enum ToolMode_
 */
 - (id) initWithType: (long) itype :(float) ipixelSpacingx :(float) ipixelSpacingy :(NSPoint) iimageOrigin;
 
-/** arg: specific methods for tPlain roi 
+/** arg: specific methods for tPlain ROI
 * @param tBuff  Pointer to the texture buffer
 * @param tWidth Texture width
 * @param tHeight Texture height
@@ -364,14 +364,14 @@ typedef enum ToolMode_
 /** Move the ROI */
 - (void) roiMove:(NSPoint) offset :(BOOL) sendNotification;
 
-/** Modify roi as mouse is dragged */
+/** Modify ROI as mouse is dragged */
 - (BOOL) mouseRoiDragged:(NSPoint) pt :(unsigned int) modifier :(float) scale;
 
-/** Modify roi on mouse up */
+/** Modify ROI on mouse up */
 - (BOOL) mouseRoiUp:(NSPoint) pt;
 - (BOOL) mouseRoiUp:(NSPoint) pt scaleValue: (float) scaleValue;
 
-/** Returns YES if roi is valid */
+/** Returns YES if ROI is valid */
 - (BOOL) valid;
 
 + (void) deleteROIs: (NSArray*) array;
@@ -455,7 +455,7 @@ typedef enum ToolMode_
 */
 - (int)calciumScoreCofactor;
 /** Calcium score 
-* roi Area * cofactor;  area is is mm2.
+* ROI Area * cofactor;  area is is mm2.
 *plainArea is number of pixels 
 */
 - (float)calciumScore;

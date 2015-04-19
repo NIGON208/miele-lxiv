@@ -7200,7 +7200,6 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 			}
 			else
 #endif
-				
 				if( [extension isEqualToString:@"zip"])
 				{
 					// the ZIP icon
@@ -7212,9 +7211,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 					
 					// size of the image
 					height = [TIFFRep pixelsHigh];
-					
 					width = [TIFFRep pixelsWide];
-					
 					
 					long totSize;
 					totSize = height * width * 4;
@@ -7281,9 +7278,9 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
                     
 					// Verify that this file should be treated as a NIfTI file.  If magic is not set to anything, we must assume it is analyze.
 					if( (NIfTI->magic[0] == 'n')                           &&
-					   (NIfTI->magic[1] == 'i' || NIfTI->magic[1] == '+')   &&
-					   (NIfTI->magic[2] == '1')                           &&
-					   (NIfTI->magic[3] == '\0'))
+					    (NIfTI->magic[1] == 'i' || NIfTI->magic[1] == '+')   &&
+					    (NIfTI->magic[2] == '1')                           &&
+					    (NIfTI->magic[3] == '\0'))
 					{
 						width = NIfTI->dim[ 1];
 						height = NIfTI->dim[ 2];
@@ -7940,12 +7937,12 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 				
 				[otherImage release];
 			}
-			else	// It's a Movie ??
+			else	// Is it a Movie ??
 			{
-				if( [extension isEqualToString:@"mov"] ||
-				   [extension isEqualToString:@"mpg"] ||
-				   [extension isEqualToString:@"mpeg"] ||
-				   [extension isEqualToString:@"avi"])
+				if ([extension isEqualToString:@"mov"] ||
+				    [extension isEqualToString:@"mpg"] ||
+				    [extension isEqualToString:@"mpeg"] ||
+				    [extension isEqualToString:@"avi"])
 				{
                     NSError *error = nil;
                     AVAsset *asset = [AVAsset assetWithURL: [NSURL fileURLWithPath: srcFile]];

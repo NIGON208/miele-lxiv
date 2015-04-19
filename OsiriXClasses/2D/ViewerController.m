@@ -15941,7 +15941,7 @@ int i,j,l;
 	
 	if( selectedRoi == nil)
 	{
-		// If there is only one roi on the image, choose it !
+		// If there is only one ROI on the image, choose it !
 		if( [[roiList[curMovieIndex] objectAtIndex: [imageView curImage]] count] == 1)
 		{
 			selectedRoi = [[roiList[curMovieIndex] objectAtIndex: [imageView curImage]] objectAtIndex: 0];

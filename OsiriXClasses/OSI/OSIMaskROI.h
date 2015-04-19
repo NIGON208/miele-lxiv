@@ -24,7 +24,7 @@
 
 - (instancetype)initWithROIMask:(OSIROIMask *)mask volumeTransform:(N3AffineTransform)volumeTransform name:(NSString *)name;
 
-// reinterpolateMask will take the mask with it's volume transform, and reinterpolate so that the mask is aligned on the floatVolumeData
+// reinterpolateMask will take the mask with its volume transform, and reinterpolate so that the mask is aligned on the floatVolumeData
 - (instancetype)initWithROIMask:(OSIROIMask *)mask volumeTransform:(N3AffineTransform)volumeTransform sampledOnVolumeData:(OSIFloatVolumeData *)floatVolumeData name:(NSString *)name reinterpolateMask:(BOOL)reinterpolateMask;
 
 

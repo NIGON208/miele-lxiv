@@ -4287,7 +4287,7 @@ Failed:
 
 /**
  * This is the callback we setup for CFSocket.
- * This method does nothing but forward the call to it's Objective-C counterpart
+ * This method does nothing but forward the call to its Objective-C counterpart
 **/
 static void MyCFSocketCallback (CFSocketRef sref, CFSocketCallBackType type, CFDataRef address, const void *pData, void *pInfo)
 {
@@ -4301,7 +4301,7 @@ static void MyCFSocketCallback (CFSocketRef sref, CFSocketCallBackType type, CFD
 
 /**
  * This is the callback we setup for CFReadStream.
- * This method does nothing but forward the call to it's Objective-C counterpart
+ * This method does nothing but forward the call to its Objective-C counterpart
 **/
 static void MyCFReadStreamCallback (CFReadStreamRef stream, CFStreamEventType type, void *pInfo)
 {
@@ -4315,7 +4315,7 @@ static void MyCFReadStreamCallback (CFReadStreamRef stream, CFStreamEventType ty
 
 /**
  * This is the callback we setup for CFWriteStream.
- * This method does nothing but forward the call to it's Objective-C counterpart
+ * This method does nothing but forward the call to its Objective-C counterpart
 **/
 static void MyCFWriteStreamCallback (CFWriteStreamRef stream, CFStreamEventType type, void *pInfo)
 {

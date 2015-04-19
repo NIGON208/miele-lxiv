@@ -2084,7 +2084,7 @@ static NSRecursiveLock *dbModifyLock = nil;
 		
 		NSArray	*found = [roisArray filteredArrayUsingPredicate: [NSPredicate predicateWithFormat: @"comment == %@", searchedUID]];
 		
-		// Take the most recent roi
+		// Take the most recent ROI
 		if( [found count] > 1)
 		{
 			found = [[[found sortedArrayUsingDescriptors: [NSArray arrayWithObject: [NSSortDescriptor sortDescriptorWithKey:@"date" ascending: YES]]] mutableCopy] autorelease];

@@ -1057,8 +1057,10 @@ void signal_EXC(int sig_num)
 	}
 	NSLog(@"Not a valid DICOM file");
 	@try {
-	exception = [NSException exceptionWithName:@"DCMNotDicomError" reason:@"File is not DICOM" userInfo:nil];
-	[exception raise];
+        exception = [NSException exceptionWithName:@"DCMNotDicomError"
+                                            reason:@"File is not DICOM"
+                                          userInfo:nil];
+        [exception raise];
 	} @catch( NSException *localException) {
 		NSLog(@"ERROR:%@  REASON:%@", [exception name], [exception reason]);
 	}
@@ -1067,18 +1069,24 @@ void signal_EXC(int sig_num)
 
 - (NSException *)testForLength: (int)elementLength
 {
-	if (position + elementLength > [dicomData length] || elementLength < 0 || position < 0)
+	if (position + elementLength > [dicomData length] ||
+        elementLength < 0 ||
+        position < 0)
     {
 		NSArray *keys = [NSArray arrayWithObjects:@"position", @"elementLength", @"dataLength", nil];
-		NSArray *objects = [NSArray arrayWithObjects:[NSNumber numberWithInt:position], [NSNumber numberWithInt:elementLength], [NSNumber numberWithInt:[dicomData length]], nil];
+		NSArray *objects = [NSArray arrayWithObjects:
+                            [NSNumber numberWithInt:position],
+                            [NSNumber numberWithInt:elementLength],
+                            [NSNumber numberWithInt:[dicomData length]],
+                            nil];
 	
 		NSDictionary *userInfo =  [NSDictionary dictionaryWithObjects:objects forKeys:keys];
 		if (DCMDEBUG)
 			NSLog(@"error Info: %@", [userInfo description]);
         
-        
-        
-		return [NSException exceptionWithName:@"DCMInvalidLengthException" reason:@"Length of element exceeds length remaining in data." userInfo:userInfo];
+		return [NSException exceptionWithName:@"DCMInvalidLengthException"
+                                       reason:@"Length of element exceeds length remaining in data."
+                                     userInfo:userInfo];
 	}
     
     if( elementLength > 100)
@@ -1087,9 +1095,12 @@ void signal_EXC(int sig_num)
         if( ptr == nil)
         {
             NSLog(@"%s:%i %s", __FILE__, __LINE__, MALLOC_ERROR_MESSAGE);
-            return [NSException exceptionWithName: @"Not Enough Memory" reason: @"Not Enough Memory - Upgrade to OsiriX 64-bit." userInfo: nil];
+            return [NSException exceptionWithName:@"Not Enough Memory"
+                                           reason:@"Not Enough Memory"
+                                         userInfo:nil];
         }
-        else free( ptr);
+        else
+            free( ptr);
     }
     
 	return nil;

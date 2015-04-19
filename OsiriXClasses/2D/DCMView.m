@@ -5383,7 +5383,7 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void *context
     }
 }
 
-// Check to see if an roi is selected at the Open GL point
+// Check to see if an ROI is selected at the OpenGL point
 - (BOOL)checkROIsForHitAtPoint:(NSPoint)point  forEvent:(NSEvent *)event
 {
 	BOOL haveHit = NO;

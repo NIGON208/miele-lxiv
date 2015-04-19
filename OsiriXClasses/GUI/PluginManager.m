@@ -677,9 +677,14 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
 		NSString	*sysPath = [@"/" stringByAppendingPathComponent:appSupport];
 		
 		#ifndef MACAPPSTORE
-		if ([[NSFileManager defaultManager] fileExistsAtPath:appPath] == NO) [[NSFileManager defaultManager] createDirectoryAtPath:appPath attributes:nil];
-		if ([[NSFileManager defaultManager] fileExistsAtPath:userPath] == NO) [[NSFileManager defaultManager] createDirectoryAtPath:userPath attributes:nil];
-		if ([[NSFileManager defaultManager] fileExistsAtPath:sysPath] == NO) [[NSFileManager defaultManager] createDirectoryAtPath:sysPath attributes:nil];
+		if ([[NSFileManager defaultManager] fileExistsAtPath:appPath] == NO)
+            [[NSFileManager defaultManager] createDirectoryAtPath:appPath attributes:nil];
+        
+		if ([[NSFileManager defaultManager] fileExistsAtPath:userPath] == NO)
+            [[NSFileManager defaultManager] createDirectoryAtPath:userPath attributes:nil];
+        
+		if ([[NSFileManager defaultManager] fileExistsAtPath:sysPath] == NO)
+            [[NSFileManager defaultManager] createDirectoryAtPath:sysPath attributes:nil];
 		#endif
 		
 		appSupport = [appSupport stringByAppendingPathComponent :@"Plugins/"];
@@ -690,8 +695,11 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
 		sysPath = [@"/" stringByAppendingPathComponent:appSupport];
 		
 		#ifndef MACAPPSTORE
-		if ([[NSFileManager defaultManager] fileExistsAtPath:userPath] == NO) [[NSFileManager defaultManager] createDirectoryAtPath:userPath attributes:nil];
-		if ([[NSFileManager defaultManager] fileExistsAtPath:sysPath] == NO) [[NSFileManager defaultManager] createDirectoryAtPath:sysPath attributes:nil];
+		if ([[NSFileManager defaultManager] fileExistsAtPath:userPath] == NO)
+            [[NSFileManager defaultManager] createDirectoryAtPath:userPath attributes:nil];
+        
+		if ([[NSFileManager defaultManager] fileExistsAtPath:sysPath] == NO)
+            [[NSFileManager defaultManager] createDirectoryAtPath:sysPath attributes:nil];
 		#endif
 		
 		NSArray* paths = [NSArray arrayWithObjects: [NSNull null], appPath, userPath, userAppStorePath, sysPath, nil]; // [NSNull null] is a placeholder for launch parameters load commands

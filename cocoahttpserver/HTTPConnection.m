@@ -333,7 +333,7 @@ static NSMutableArray *recentNonces;
 	// it should be honored for other connections in the near future.
 	// 
 	// In fact, this is absolutely necessary in order to support QuickTime.
-	// When QuickTime makes it's initial connection, it will be unauthorized, and will receive a nonce.
+	// When QuickTime makes its initial connection, it will be unauthorized, and will receive a nonce.
 	// It then disconnects, and creates a new connection with the nonce, and proper authentication.
 	// If we don't honor the nonce for the second connection, QuickTime will repeat the process and never connect.
 	
@@ -1910,7 +1910,7 @@ static NSMutableArray *recentNonces;
 		[httpResponse connectionDidClose];
 	}
 	
-	// Release the http response so we don't call it's connectionDidClose method again in our dealloc method
+	// Release the http response so we don't call its connectionDidClose method again in our dealloc method
 	[httpResponse release];
 	httpResponse = nil;
 	
