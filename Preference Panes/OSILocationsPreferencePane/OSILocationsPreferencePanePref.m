@@ -70,7 +70,7 @@
 	{
 		int value = [[[serverList objectAtIndex: x] valueForKey:@"Port"] intValue];
 		if( value < 1) value = 1;
-		if( value > 131072) value = 131072;
+		if( value > 65535) value = 65535;
 		[[serverList objectAtIndex: x] setValue: [NSNumber numberWithInt: value] forKey: @"Port"];		
 		[[serverList objectAtIndex: x] setValue: [[serverList objectAtIndex: x] valueForKey:@"AETitle"] forKey:@"AETitle"];
 		

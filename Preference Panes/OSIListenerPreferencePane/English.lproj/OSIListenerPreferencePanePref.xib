@@ -87,7 +87,7 @@
                                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="874">
                                         <numberFormatter key="formatter" formatterBehavior="default10_4" positiveFormat="#" negativeFormat="#" localizesFormat="NO" usesGroupingSeparator="NO" paddingCharacter="*" groupingSize="0" minimumIntegerDigits="0" maximumIntegerDigits="42" decimalSeparator="." groupingSeparator="," currencyDecimalSeparator="." plusSign="+" minusSign="-" notANumberSymbol="NaN" perMillSymbol="‰" percentSymbol="%" exponentSymbol="E" positivePrefix="" positiveSuffix="" negativePrefix="-" negativeSuffix="" id="1030">
                                             <real key="minimum" value="1"/>
-                                            <real key="maximum" value="131072"/>
+                                            <real key="maximum" value="65535"/>
                                         </numberFormatter>
                                         <font key="font" metaFont="smallSystem"/>
                                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -156,7 +156,7 @@
                                 </button>
                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="1000" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="114">
                                     <rect key="frame" x="394" y="233" width="135" height="14"/>
-                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="(between 1 and 131072)" id="311">
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="(between 1 and 65535)" id="311">
                                         <font key="font" metaFont="smallSystem"/>
                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -521,7 +521,7 @@
                                 <matrix verticalHuggingPriority="750" horizontalCompressionResistancePriority="1000" fixedFrame="YES" allowsEmptySelection="NO" autorecalculatesCellSize="YES" translatesAutoresizingMaskIntoConstraints="NO" id="437">
                                     <rect key="frame" x="165" y="70" width="413" height="54"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                    <size key="cellSize" width="413" height="18"/>
+                                    <size key="cellSize" width="409" height="18"/>
                                     <size key="intercellSpacing" width="4" height="0.0"/>
                                     <buttonCell key="prototype" type="radio" title="Radio" imagePosition="left" alignment="left" controlSize="small" inset="2" id="440">
                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -899,9 +899,9 @@ Gw
                                         <binding destination="-2" name="value" keyPath="TLSUseSameAETITLE" id="837"/>
                                     </connections>
                                 </button>
-                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="833">
+                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="833" userLabel="From 1 to 65535">
                                     <rect key="frame" x="267" y="61" width="84" height="11"/>
-                                    <textFieldCell key="cell" controlSize="mini" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="From 1 to 131072" id="834">
+                                    <textFieldCell key="cell" controlSize="mini" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="From 1 to 65535" id="834" userLabel="From 1 to 65535">
                                         <font key="font" metaFont="miniSystem"/>
                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>

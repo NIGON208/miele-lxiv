@@ -393,8 +393,11 @@
 		if(submittedPort == port)
 		{		
 			int newPort = submittedPort;
-			if(submittedPort+1<131072) newPort = submittedPort+1;
-			else if(submittedPort-1>1) newPort = submittedPort-1;
+            
+			if (submittedPort+1<65535)
+                newPort = submittedPort+1;
+			else if(submittedPort-1>1)
+                newPort = submittedPort-1;
 			
 			NSString *newStr = [NSString stringWithFormat:@"%d", newPort];
 			
