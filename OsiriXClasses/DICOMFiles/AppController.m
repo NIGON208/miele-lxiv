@@ -2954,9 +2954,11 @@ static BOOL initialized = NO;
 				NSLog(@"Number of processors: %d / %d", processors, (int) [[NSProcessInfo processInfo] processorCount]);
                 NSLog(@"Number of screens: %d", (int) [[NSScreen screens] count]);
 				NSLog(@"Main screen backingScaleFactor: %f", (float) [[NSScreen mainScreen] backingScaleFactor]);
-                NSLog(@"Osiri-LXIV version: %@ - %@ - %@",
-                      [[[NSBundle mainBundle] infoDictionary] objectForKey: @"CFBundleShortVersionString"],
-                      [[[NSBundle mainBundle] infoDictionary] objectForKey:(NSString *)kCFBundleVersionKey],
+                NSDictionary *d = [[NSBundle mainBundle] infoDictionary];
+                NSLog(@"%@ %@ %@ (%@)",
+                      [d objectForKey:@"CFBundleName"],
+                      [d objectForKey:@"CFBundleShortVersionString"],
+                      [d objectForKey:@"CFBundleVersion"],
                       bits);
                 NSLog(@"OpenJPEG %d.%d.%d", OPJ_VERSION_MAJOR, OPJ_VERSION_MINOR, OPJ_VERSION_BUILD);
                 [DCMTKStoreSCU showDcmtkVersion];

@@ -117,20 +117,23 @@ BOOL useQuartz() {
 - (IBAction) switchVersion:(id) sender
 {
 	NSMutableString *currVersionNumber = nil;
-	
+    NSDictionary *d = [[NSBundle mainBundle] infoDictionary];
+    
 	switch( versionType)
     {
         case 0:
-            currVersionNumber = [NSMutableString stringWithString:[[[NSBundle bundleForClass:[self class]] infoDictionary] objectForKey:@"CFBundleGetInfoString"]];
+            currVersionNumber = [NSMutableString stringWithFormat:@"%@ %@",
+                                 [d objectForKey:@"CFBundleName"],
+                                 [d objectForKey:@"CFBundleShortVersionString"]];
         break;
         
         case 1:
-            currVersionNumber = [NSMutableString stringWithString:[[[NSBundle bundleForClass:[self class]] infoDictionary] objectForKey:@"CFBundleVersion"]];
-            [currVersionNumber insertString:@"Revision " atIndex:0];
+            currVersionNumber = [NSMutableString stringWithFormat:@"Revision %@",
+                                 [d objectForKey:@"CFBundleVersion"]];
         break;
         
         case 2:
-            currVersionNumber = [NSMutableString stringWithString:[[[NSBundle bundleForClass:[self class]] infoDictionary] objectForKey:@"GitHash"]];
+            currVersionNumber = [d objectForKey:@"GitHash"];
             
             [[NSPasteboard generalPasteboard] clearContents];
             [[NSPasteboard generalPasteboard] writeObjects:[NSArray arrayWithObject: currVersionNumber]];
