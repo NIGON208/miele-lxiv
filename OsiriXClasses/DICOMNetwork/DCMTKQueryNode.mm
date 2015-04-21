@@ -2396,8 +2396,10 @@ static NSString *releaseNetworkVariablesSync = @"releaseNetworkVariablesSync";
 			}
 			else if (strcmp(abstractSyntax, UID_MOVEStudyRootQueryRetrieveInformationModel) == 0)
 			{
-				if( destination) cond = [self cmove:assoc network:net dataset:dataset destination: (char*) [destination UTF8String]];
-				else cond = [self cmove:assoc network:net dataset:dataset];
+				if( destination)
+                    cond = [self cmove:assoc network:net dataset:dataset destination: (char*) [destination UTF8String]];
+				else
+                    cond = [self cmove:assoc network:net dataset:dataset];
 			}
 			else if (strcmp(abstractSyntax, UID_GETStudyRootQueryRetrieveInformationModel) == 0 || strcmp(abstractSyntax, UID_RETIRED_GETPatientStudyOnlyQueryRetrieveInformationModel) == 0)
 			{

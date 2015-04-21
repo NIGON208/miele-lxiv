@@ -6,5 +6,7 @@
 	* Add colors and edit capability
 - Update code for `_STEREO_VISION_`
 - Implement ECG viewer capability
+- Implement functionality for Preferences, Listener, `C-MOVE SCP`
+- Implement GUI and functionality for Preferences, Listener, `DICOMSCPOnAllDatabases`
 
 ---

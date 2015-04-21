@@ -206,7 +206,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>20150419</string>
+	<string>20150421</string>
 	<key>GitHash</key>
 	<string></string>
 	<key>GitState</key>
@@ -222,7 +222,7 @@
 	<key>NSAppleScriptEnabled</key>
 	<string>YES</string>
 	<key>NSContactsUsageDescription</key>
-	<string>Your account will be used for the built-in iChat sharing service. If you don&apos;t allow access, you cannot use the iChat functions.</string>
+	<string>Your account will be used for the built-in iChat sharing service. If you don't allow access, you cannot use the iChat functions.</string>
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright © 2014-2015 bettar. All rights reserved.</string>
 	<key>NSMainNibFile</key>

@@ -1379,23 +1379,30 @@ static NSDate *lastWarningDate = nil;
             restartListener = YES;
         if ([[previousDefaults valueForKey: @"SingleProcessMultiThreadedListener"] intValue] != [defaults integerForKey: @"SingleProcessMultiThreadedListener"])
             restartListener = YES;
+        
         if ([[previousDefaults valueForKey: @"activateCGETSCP"] intValue] != [defaults integerForKey: @"activateCGETSCP"])
             restartListener = YES;
         if ([[previousDefaults valueForKey: @"activateCFINDSCP"] intValue] != [defaults integerForKey: @"activateCFINDSCP"])
-                restartListener = YES;
+            restartListener = YES;
+        if ([[previousDefaults valueForKey: @"activateCMOVESCP"] intValue] != [defaults integerForKey: @"activateCMOVESCP"])
+            restartListener = YES;
         
         if( [[previousDefaults valueForKey: @"AETITLE"] isKindOfClass:[NSString class]])
         {
             if ([[previousDefaults valueForKey: @"AETITLE"] isEqualToString: [defaults stringForKey: @"AETITLE"]] == NO)
                 restartListener = YES;
         }
-        else NSLog( @"*** isKindOfClass NSString");
+        else
+            NSLog( @"*** isKindOfClass NSString");
+        
         if( [[previousDefaults valueForKey: @"STORESCPEXTRA"] isKindOfClass:[NSString class]])
         {
             if ([[previousDefaults valueForKey: @"STORESCPEXTRA"] isEqualToString: [defaults stringForKey: @"STORESCPEXTRA"]] == NO)
                 restartListener = YES;
         }
-        else NSLog( @"*** isKindOfClass NSString");
+        else
+            NSLog( @"*** isKindOfClass NSString");
+        
         if ([[previousDefaults valueForKey: @"AEPORT"] intValue] != [defaults integerForKey: @"AEPORT"])
             restartListener = YES;
         if( [[previousDefaults valueForKey: @"AETransferSyntax"] isKindOfClass:[NSString class]])
@@ -1403,7 +1410,9 @@ static NSDate *lastWarningDate = nil;
             if ([[previousDefaults valueForKey: @"AETransferSyntax"] isEqualToString: [defaults stringForKey: @"AETransferSyntax"]] == NO)
                 restartListener = YES;
         }
-        else NSLog( @"*** isKindOfClass NSString");
+        else
+            NSLog( @"*** isKindOfClass NSString");
+        
         if ([[previousDefaults valueForKey: OsirixCanActivateDefaultDatabaseOnlyDefaultsKey] intValue] !=	[defaults integerForKey: OsirixCanActivateDefaultDatabaseOnlyDefaultsKey])
             restartListener = YES;
         if ([[previousDefaults valueForKey: @"STORESCP"] intValue] != [defaults integerForKey: @"STORESCP"])
@@ -2128,12 +2137,23 @@ static NSDate *lastWarningDate = nil;
 	[dict setValue: [[NSUserDefaults standardUserDefaults] stringForKey: @"AETITLE"] forKey: @"AETitle"]; 
 	[dict setValue:[AppController UID] forKey: @"UID"]; 
 	
-	if( [[NSUserDefaults standardUserDefaults] boolForKey: @"activateCGETSCP"])
-		[dict setValue: @"YES" forKey: @"CGET"]; // TXTRECORD doesnt support NSNumber
-	else
-		[dict setValue: @"NO" forKey: @"CGET"];  // TXTRECORD doesnt support NSNumber
-	
-	if( [[NSUserDefaults standardUserDefaults] boolForKey: @"httpWebServer"] && [[NSUserDefaults standardUserDefaults] boolForKey: @"wadoServer"])
+    if( [[NSUserDefaults standardUserDefaults] boolForKey: @"activateCGETSCP"])
+        [dict setValue: @"YES" forKey: @"CGET"]; // TXTRECORD doesnt support NSNumber
+    else
+        [dict setValue: @"NO" forKey: @"CGET"];  // TXTRECORD doesnt support NSNumber
+    
+    if( [[NSUserDefaults standardUserDefaults] boolForKey: @"activateCFINDSCP"])
+        [dict setValue: @"YES" forKey: @"CFIND"];
+    else
+        [dict setValue: @"NO" forKey: @"CFIND"];
+    
+    if( [[NSUserDefaults standardUserDefaults] boolForKey: @"activateCMOVESCP"])
+        [dict setValue: @"YES" forKey: @"CMOVE"];
+    else
+        [dict setValue: @"NO" forKey: @"CMOVE"];
+    
+	if ([[NSUserDefaults standardUserDefaults] boolForKey: @"httpWebServer"] &&
+        [[NSUserDefaults standardUserDefaults] boolForKey: @"wadoServer"])
 	{
 		int port = [NSUserDefaults webPortalPortNumber];
 		[dict setValue: @"YES" forKey: @"WADO"]; // TXTRECORD doesnt support NSNumber
@@ -2240,7 +2260,11 @@ static NSDate *lastWarningDate = nil;
 					[STORESCP unlock];
 				}
 				else
-                    NSRunCriticalAlertPanel( NSLocalizedString( @"DICOM Listener Error", nil), NSLocalizedString( @"Cannot start DICOM Listener. Another thread is already running. Restart OsiriX.", nil), NSLocalizedString( @"OK", nil), nil, nil);
+                    NSRunCriticalAlertPanel(NSLocalizedString(@"DICOM Listener Error", nil),
+                                            NSLocalizedString(@"Cannot start DICOM Listener. Another thread is already running. Restart OsiriX.", nil),
+                                            NSLocalizedString(@"OK", nil),
+                                            nil,
+                                            nil);
 			}		
 		}
 		
@@ -2313,8 +2337,6 @@ static NSDate *lastWarningDate = nil;
     
 	@try 
 	{
-		
-		
 		if( [[NSUserDefaults standardUserDefaults] boolForKey: @"UseHostNameForAETitle"])
 			[self setAETitleToHostname];
 		
@@ -2329,7 +2351,9 @@ static NSDate *lastWarningDate = nil;
 		int port = [[[NSUserDefaults standardUserDefaults] stringForKey: @"AEPORT"] intValue];
 		NSDictionary *params = [NSDictionary dictionaryWithObject:@NO forKey:@"TLSEnabled"];
 		
-		dcmtkQRSCP = [[DCMTKQueryRetrieveSCP alloc] initWithPort:port  aeTitle:(NSString *)aeTitle  extraParamaters:(NSDictionary *)params];
+		dcmtkQRSCP = [[DCMTKQueryRetrieveSCP alloc] initWithPort:port
+                                                         aeTitle:(NSString *)aeTitle
+                                                 extraParamaters:(NSDictionary *)params];
 
 		[dcmtkQRSCP run];
 	}
