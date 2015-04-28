@@ -1,0 +1,517 @@
+--- libsrc/dcmqrsrv.cc	2015-04-28 11:58:46.000000000 +0900
++++ dcmqrsrv.cc	2015-04-28 13:05:46.000000000 +0900
+@@ -161,7 +161,7 @@
+                     cond = echoSCP(assoc, &msg.msg.CEchoRQ, presID);
+                     break;
+                 case DIMSE_C_STORE_RQ:
+-                    cond = storeSCP(assoc, &msg.msg.CStoreRQ, presID, *dbHandle, correctUIDPadding);
++                    cond = this->storeSCP(assoc, &msg.msg.CStoreRQ, presID, *dbHandle, correctUIDPadding);
+                     break;
+                 case DIMSE_C_FIND_RQ:
+                     cond = findSCP(assoc, &msg.msg.CFindRQ, presID, *dbHandle);
+@@ -564,155 +564,244 @@
+     DIC_AE calledAETitle;
+     ASC_getAPTitles(assoc->params, NULL, calledAETitle, NULL);
+ 
+-    const char* transferSyntaxes[] = { NULL, NULL, NULL, NULL };
+-    int numTransferSyntaxes = 0;
++#define NUM_TS  12
++    const char* transferSyntaxes[NUM_TS];
++    for (int i=0; i<NUM_TS; i++)
++        transferSyntaxes[i] = NULL;
+ 
++    int nTS = 0;
++    
+     switch (options_.networkTransferSyntax_)
+     {
+-      case EXS_LittleEndianImplicit:
+-        /* we only support Little Endian Implicit */
+-        transferSyntaxes[0]  = UID_LittleEndianImplicitTransferSyntax;
+-        numTransferSyntaxes = 1;
+-        break;
+-      case EXS_LittleEndianExplicit:
+-        /* we prefer Little Endian Explicit */
+-        transferSyntaxes[0] = UID_LittleEndianExplicitTransferSyntax;
+-        transferSyntaxes[1] = UID_BigEndianExplicitTransferSyntax;
+-        transferSyntaxes[2]  = UID_LittleEndianImplicitTransferSyntax;
+-        numTransferSyntaxes = 3;
+-        break;
+-      case EXS_BigEndianExplicit:
+-        /* we prefer Big Endian Explicit */
+-        transferSyntaxes[0] = UID_BigEndianExplicitTransferSyntax;
+-        transferSyntaxes[1] = UID_LittleEndianExplicitTransferSyntax;
+-        transferSyntaxes[2]  = UID_LittleEndianImplicitTransferSyntax;
+-        numTransferSyntaxes = 3;
+-        break;
++        case EXS_LittleEndianImplicit:
++            /* we only support Little Endian Implicit */
++            transferSyntaxes[nTS++]  = UID_LittleEndianImplicitTransferSyntax;
++            break;
++            
++        case EXS_LittleEndianExplicit:
++            /* we prefer Little Endian Explicit */
++            transferSyntaxes[nTS++] = UID_LittleEndianExplicitTransferSyntax;
++            transferSyntaxes[nTS++] = UID_BigEndianExplicitTransferSyntax;
++            transferSyntaxes[nTS++] = UID_LittleEndianImplicitTransferSyntax;
++
++            transferSyntaxes[nTS++] = UID_JPEG2000LosslessOnlyTransferSyntax;
++            transferSyntaxes[nTS++] = UID_JPEG2000TransferSyntax;
++            transferSyntaxes[nTS++] = UID_JPEGLSLosslessTransferSyntax;
++            transferSyntaxes[nTS++] = UID_JPEGLSLossyTransferSyntax;
++            transferSyntaxes[nTS++] = UID_JPEGProcess14SV1TransferSyntax;
++            transferSyntaxes[nTS++] = UID_JPEGProcess1TransferSyntax;
++            transferSyntaxes[nTS++] = UID_JPEGProcess2_4TransferSyntax;
++            transferSyntaxes[nTS++] = UID_RLELosslessTransferSyntax;
++            transferSyntaxes[nTS++] = UID_MPEG2MainProfileAtMainLevelTransferSyntax;
++            break;
++            
++        case EXS_BigEndianExplicit:
++            /* we prefer Big Endian Explicit */
++            transferSyntaxes[nTS++] = UID_BigEndianExplicitTransferSyntax;
++            transferSyntaxes[nTS++] = UID_LittleEndianExplicitTransferSyntax;
++            transferSyntaxes[nTS++] = UID_LittleEndianImplicitTransferSyntax;
++
++            transferSyntaxes[nTS++] = UID_JPEGProcess14SV1TransferSyntax;
++            transferSyntaxes[nTS++] = UID_JPEGProcess1TransferSyntax;
++            transferSyntaxes[nTS++] = UID_JPEGProcess2_4TransferSyntax;
++            transferSyntaxes[nTS++] = UID_JPEG2000TransferSyntax;
++            transferSyntaxes[nTS++] = UID_RLELosslessTransferSyntax;
++            break;
++            
+ #ifndef DISABLE_COMPRESSION_EXTENSION
+-      case EXS_JPEGProcess14SV1:
+-        /* we prefer JPEGLossless:Hierarchical-1stOrderPrediction (default lossless) */
+-        transferSyntaxes[0] = UID_JPEGProcess14SV1TransferSyntax;
+-        transferSyntaxes[1] = UID_LittleEndianExplicitTransferSyntax;
+-        transferSyntaxes[2] = UID_BigEndianExplicitTransferSyntax;
+-        transferSyntaxes[3] = UID_LittleEndianImplicitTransferSyntax;
+-        numTransferSyntaxes = 4;
+-        break;
+-      case EXS_JPEGProcess1:
+-        /* we prefer JPEGBaseline (default lossy for 8 bit images) */
+-        transferSyntaxes[0] = UID_JPEGProcess1TransferSyntax;
+-        transferSyntaxes[1] = UID_LittleEndianExplicitTransferSyntax;
+-        transferSyntaxes[2] = UID_BigEndianExplicitTransferSyntax;
+-        transferSyntaxes[3] = UID_LittleEndianImplicitTransferSyntax;
+-        numTransferSyntaxes = 4;
+-        break;
+-      case EXS_JPEGProcess2_4:
+-        /* we prefer JPEGExtended (default lossy for 12 bit images) */
+-        transferSyntaxes[0] = UID_JPEGProcess2_4TransferSyntax;
+-        transferSyntaxes[1] = UID_LittleEndianExplicitTransferSyntax;
+-        transferSyntaxes[2] = UID_BigEndianExplicitTransferSyntax;
+-        transferSyntaxes[3] = UID_LittleEndianImplicitTransferSyntax;
+-        numTransferSyntaxes = 4;
+-        break;
+-      case EXS_JPEG2000LosslessOnly:
+-        /* we prefer JPEG 2000 lossless */
+-        transferSyntaxes[0] = UID_JPEG2000LosslessOnlyTransferSyntax;
+-        transferSyntaxes[1] = UID_LittleEndianExplicitTransferSyntax;
+-        transferSyntaxes[2] = UID_BigEndianExplicitTransferSyntax;
+-        transferSyntaxes[3] = UID_LittleEndianImplicitTransferSyntax;
+-        numTransferSyntaxes = 4;
+-        break;
+-      case EXS_JPEG2000:
+-        /* we prefer JPEG 2000 lossy or lossless */
+-        transferSyntaxes[0] = UID_JPEG2000TransferSyntax;
+-        transferSyntaxes[1] = UID_LittleEndianExplicitTransferSyntax;
+-        transferSyntaxes[2] = UID_BigEndianExplicitTransferSyntax;
+-        transferSyntaxes[3] = UID_LittleEndianImplicitTransferSyntax;
+-        numTransferSyntaxes = 4;
+-        break;
+-      case EXS_JPEGLSLossless:
+-        /* we prefer JPEG-LS Lossless */
+-        transferSyntaxes[0] = UID_JPEGLSLosslessTransferSyntax;
+-        transferSyntaxes[1] = UID_LittleEndianExplicitTransferSyntax;
+-        transferSyntaxes[2] = UID_BigEndianExplicitTransferSyntax;
+-        transferSyntaxes[3] = UID_LittleEndianImplicitTransferSyntax;
+-        numTransferSyntaxes = 4;
+-        break;
+-      case EXS_JPEGLSLossy:
+-        /* we prefer JPEG-LS Lossy */
+-        transferSyntaxes[0] = UID_JPEGLSLossyTransferSyntax;
+-        transferSyntaxes[1] = UID_LittleEndianExplicitTransferSyntax;
+-        transferSyntaxes[2] = UID_BigEndianExplicitTransferSyntax;
+-        transferSyntaxes[3] = UID_LittleEndianImplicitTransferSyntax;
+-        numTransferSyntaxes = 4;
+-        break;
+-      case EXS_MPEG2MainProfileAtMainLevel:
+-        /* we prefer MPEG2 MP@ML */
+-        transferSyntaxes[0] = UID_MPEG2MainProfileAtMainLevelTransferSyntax;
+-        transferSyntaxes[1] = UID_LittleEndianExplicitTransferSyntax;
+-        transferSyntaxes[2] = UID_BigEndianExplicitTransferSyntax;
+-        transferSyntaxes[3] = UID_LittleEndianImplicitTransferSyntax;
+-        numTransferSyntaxes = 4;
+-        break;
+-      case EXS_MPEG2MainProfileAtHighLevel:
+-        /* we prefer MPEG2 MP@HL */
+-        transferSyntaxes[0] = UID_MPEG2MainProfileAtHighLevelTransferSyntax;
+-        transferSyntaxes[1] = UID_LittleEndianExplicitTransferSyntax;
+-        transferSyntaxes[2] = UID_BigEndianExplicitTransferSyntax;
+-        transferSyntaxes[3] = UID_LittleEndianImplicitTransferSyntax;
+-        numTransferSyntaxes = 4;
+-        break;
+-      case EXS_MPEG4HighProfileLevel4_1:
+-        /* we prefer MPEG4 HP/L4.1 */
+-        transferSyntaxes[0] = UID_MPEG4HighProfileLevel4_1TransferSyntax;
+-        transferSyntaxes[1] = UID_LittleEndianExplicitTransferSyntax;
+-        transferSyntaxes[2] = UID_BigEndianExplicitTransferSyntax;
+-        transferSyntaxes[3] = UID_LittleEndianImplicitTransferSyntax;
+-        numTransferSyntaxes = 4;
+-        break;
+-      case EXS_MPEG4BDcompatibleHighProfileLevel4_1:
+-        /* we prefer MPEG4 BD HP/L4.1 */
+-        transferSyntaxes[0] = UID_MPEG4BDcompatibleHighProfileLevel4_1TransferSyntax;
+-        transferSyntaxes[1] = UID_LittleEndianExplicitTransferSyntax;
+-        transferSyntaxes[2] = UID_BigEndianExplicitTransferSyntax;
+-        transferSyntaxes[3] = UID_LittleEndianImplicitTransferSyntax;
+-        numTransferSyntaxes = 4;
+-        break;
+-      case EXS_RLELossless:
+-        /* we prefer RLE Lossless */
+-        transferSyntaxes[0] = UID_RLELosslessTransferSyntax;
+-        transferSyntaxes[1] = UID_LittleEndianExplicitTransferSyntax;
+-        transferSyntaxes[2] = UID_BigEndianExplicitTransferSyntax;
+-        transferSyntaxes[3] = UID_LittleEndianImplicitTransferSyntax;
+-        numTransferSyntaxes = 4;
+-        break;
++        case EXS_JPEGProcess14SV1:
++            /* we prefer JPEGLossless:Hierarchical-1stOrderPrediction (default lossless) */
++            transferSyntaxes[nTS++] = UID_JPEGProcess14SV1TransferSyntax;
++
++            transferSyntaxes[nTS++] = UID_JPEGProcess1TransferSyntax;
++            transferSyntaxes[nTS++] = UID_JPEGProcess2_4TransferSyntax;
++            transferSyntaxes[nTS++] = UID_JPEG2000LosslessOnlyTransferSyntax;
++            transferSyntaxes[nTS++] = UID_JPEG2000TransferSyntax;
++            transferSyntaxes[nTS++] = UID_JPEGLSLosslessTransferSyntax;
++            transferSyntaxes[nTS++] = UID_JPEGLSLossyTransferSyntax;
++
++            transferSyntaxes[nTS++] = UID_LittleEndianExplicitTransferSyntax;
++            transferSyntaxes[nTS++] = UID_BigEndianExplicitTransferSyntax;
++            transferSyntaxes[nTS++] = UID_LittleEndianImplicitTransferSyntax;
++
++            transferSyntaxes[nTS++] = UID_RLELosslessTransferSyntax;
++            transferSyntaxes[nTS++] = UID_MPEG2MainProfileAtMainLevelTransferSyntax;
++            break;
++            
++        case EXS_JPEGProcess1:
++            /* we prefer JPEGBaseline (default lossy for 8 bit images) */
++            transferSyntaxes[nTS++] = UID_JPEGProcess1TransferSyntax;
++
++            transferSyntaxes[nTS++] = UID_JPEGProcess2_4TransferSyntax;
++            transferSyntaxes[nTS++] = UID_JPEGProcess14SV1TransferSyntax;
++            transferSyntaxes[nTS++] = UID_JPEG2000LosslessOnlyTransferSyntax;
++            transferSyntaxes[nTS++] = UID_JPEG2000TransferSyntax;
++            transferSyntaxes[nTS++] = UID_JPEGLSLosslessTransferSyntax;
++            transferSyntaxes[nTS++] = UID_JPEGLSLossyTransferSyntax;
++
++            transferSyntaxes[nTS++] = UID_LittleEndianExplicitTransferSyntax;
++            transferSyntaxes[nTS++] = UID_BigEndianExplicitTransferSyntax;
++            transferSyntaxes[nTS++] = UID_LittleEndianImplicitTransferSyntax;
++
++            transferSyntaxes[nTS++] = UID_RLELosslessTransferSyntax;
++            transferSyntaxes[nTS++] = UID_MPEG2MainProfileAtMainLevelTransferSyntax;
++            break;
++            
++        case EXS_JPEGProcess2_4:
++            /* we prefer JPEGExtended (default lossy for 12 bit images) */
++            transferSyntaxes[nTS++] = UID_JPEGProcess2_4TransferSyntax;
++
++            transferSyntaxes[nTS++] = UID_JPEGProcess14SV1TransferSyntax;
++            transferSyntaxes[nTS++] = UID_JPEGProcess1TransferSyntax;
++            transferSyntaxes[nTS++] = UID_JPEG2000LosslessOnlyTransferSyntax;
++            transferSyntaxes[nTS++] = UID_JPEG2000TransferSyntax;
++            transferSyntaxes[nTS++] = UID_JPEGLSLosslessTransferSyntax;
++            transferSyntaxes[nTS++] = UID_JPEGLSLossyTransferSyntax;
++
++            transferSyntaxes[nTS++] = UID_LittleEndianExplicitTransferSyntax;
++            transferSyntaxes[nTS++] = UID_BigEndianExplicitTransferSyntax;
++            transferSyntaxes[nTS++] = UID_LittleEndianImplicitTransferSyntax;
++
++            transferSyntaxes[nTS++] = UID_RLELosslessTransferSyntax;
++            transferSyntaxes[nTS++] = UID_MPEG2MainProfileAtMainLevelTransferSyntax;
++            break;
++            
++        case EXS_JPEG2000LosslessOnly:
++            /* we prefer JPEG 2000 lossless */
++            transferSyntaxes[nTS++] = UID_JPEG2000LosslessOnlyTransferSyntax;
++            transferSyntaxes[nTS++] = UID_LittleEndianExplicitTransferSyntax;
++            transferSyntaxes[nTS++] = UID_BigEndianExplicitTransferSyntax;
++            transferSyntaxes[nTS++] = UID_LittleEndianImplicitTransferSyntax;
++
++            transferSyntaxes[nTS++] = UID_JPEGLSLosslessTransferSyntax;
++            break;
++
++        case EXS_JPEG2000:
++            /* we prefer JPEG 2000 lossy or lossless */
++            transferSyntaxes[nTS++] = UID_JPEG2000TransferSyntax;
++
++            transferSyntaxes[nTS++] = UID_JPEG2000LosslessOnlyTransferSyntax;
++            transferSyntaxes[nTS++] = UID_JPEGLSLossyTransferSyntax;
++            transferSyntaxes[nTS++] = UID_JPEGLSLosslessTransferSyntax;
++
++            transferSyntaxes[nTS++] = UID_LittleEndianExplicitTransferSyntax;
++            transferSyntaxes[nTS++] = UID_BigEndianExplicitTransferSyntax;
++            transferSyntaxes[nTS++] = UID_LittleEndianImplicitTransferSyntax;
++
++            transferSyntaxes[nTS++] = UID_JPEGProcess14SV1TransferSyntax;
++            transferSyntaxes[nTS++] = UID_JPEGProcess1TransferSyntax;
++            transferSyntaxes[nTS++] = UID_JPEGProcess2_4TransferSyntax;
++            transferSyntaxes[nTS++] = UID_RLELosslessTransferSyntax;
++            transferSyntaxes[nTS++] = UID_MPEG2MainProfileAtMainLevelTransferSyntax;
++            break;
++            
++        case EXS_JPEGLSLossless:
++            /* we prefer JPEG-LS Lossless */
++            transferSyntaxes[nTS++] = UID_JPEGLSLosslessTransferSyntax;
++            transferSyntaxes[nTS++] = UID_LittleEndianExplicitTransferSyntax;
++            transferSyntaxes[nTS++] = UID_BigEndianExplicitTransferSyntax;
++            transferSyntaxes[nTS++] = UID_LittleEndianImplicitTransferSyntax;
++
++            transferSyntaxes[nTS++] = UID_JPEG2000LosslessOnlyTransferSyntax;
++            break;
++
++        case EXS_JPEGLSLossy:
++            /* we prefer JPEG-LS Lossy */
++            transferSyntaxes[nTS++] = UID_JPEGLSLossyTransferSyntax;
++
++            transferSyntaxes[nTS++] = UID_JPEGLSLosslessTransferSyntax;
++            transferSyntaxes[nTS++] = UID_JPEG2000TransferSyntax;
++            transferSyntaxes[nTS++] = UID_JPEG2000LosslessOnlyTransferSyntax;
++
++            transferSyntaxes[nTS++] = UID_LittleEndianExplicitTransferSyntax;
++            transferSyntaxes[nTS++] = UID_BigEndianExplicitTransferSyntax;
++            transferSyntaxes[nTS++] = UID_LittleEndianImplicitTransferSyntax;
++
++            transferSyntaxes[nTS++] = UID_JPEGProcess14SV1TransferSyntax;
++            transferSyntaxes[nTS++] = UID_JPEGProcess1TransferSyntax;
++            transferSyntaxes[nTS++] = UID_JPEGProcess2_4TransferSyntax;
++            break;
++            
++        case EXS_MPEG2MainProfileAtMainLevel:
++            /* we prefer MPEG2 MP@ML */
++            transferSyntaxes[nTS++] = UID_MPEG2MainProfileAtMainLevelTransferSyntax;
++            transferSyntaxes[nTS++] = UID_LittleEndianExplicitTransferSyntax;
++            transferSyntaxes[nTS++] = UID_BigEndianExplicitTransferSyntax;
++            transferSyntaxes[nTS++] = UID_LittleEndianImplicitTransferSyntax;
++            break;
++        case EXS_MPEG2MainProfileAtHighLevel:
++            /* we prefer MPEG2 MP@HL */
++            transferSyntaxes[nTS++] = UID_MPEG2MainProfileAtHighLevelTransferSyntax;
++            transferSyntaxes[nTS++] = UID_LittleEndianExplicitTransferSyntax;
++            transferSyntaxes[nTS++] = UID_BigEndianExplicitTransferSyntax;
++            transferSyntaxes[nTS++] = UID_LittleEndianImplicitTransferSyntax;
++            break;
++        case EXS_MPEG4HighProfileLevel4_1:
++            /* we prefer MPEG4 HP/L4.1 */
++            transferSyntaxes[nTS++] = UID_MPEG4HighProfileLevel4_1TransferSyntax;
++            transferSyntaxes[nTS++] = UID_LittleEndianExplicitTransferSyntax;
++            transferSyntaxes[nTS++] = UID_BigEndianExplicitTransferSyntax;
++            transferSyntaxes[nTS++] = UID_LittleEndianImplicitTransferSyntax;
++            break;
++        case EXS_MPEG4BDcompatibleHighProfileLevel4_1:
++            /* we prefer MPEG4 BD HP/L4.1 */
++            transferSyntaxes[nTS++] = UID_MPEG4BDcompatibleHighProfileLevel4_1TransferSyntax;
++            transferSyntaxes[nTS++] = UID_LittleEndianExplicitTransferSyntax;
++            transferSyntaxes[nTS++] = UID_BigEndianExplicitTransferSyntax;
++            transferSyntaxes[nTS++] = UID_LittleEndianImplicitTransferSyntax;
++            break;
++        case EXS_RLELossless:
++            /* we prefer RLE Lossless */
++            transferSyntaxes[nTS++] = UID_RLELosslessTransferSyntax;
++            transferSyntaxes[nTS++] = UID_LittleEndianExplicitTransferSyntax;
++            transferSyntaxes[nTS++] = UID_BigEndianExplicitTransferSyntax;
++            transferSyntaxes[nTS++] = UID_LittleEndianImplicitTransferSyntax;
++
++            transferSyntaxes[nTS++] = UID_JPEG2000TransferSyntax;
++            transferSyntaxes[nTS++] = UID_JPEGProcess14SV1TransferSyntax;
++            transferSyntaxes[nTS++] = UID_JPEGProcess2_4TransferSyntax;
++            transferSyntaxes[nTS++] = UID_JPEGProcess1TransferSyntax;
++            transferSyntaxes[nTS++] = UID_MPEG2MainProfileAtMainLevelTransferSyntax;
++            break;
++            
+ #ifdef WITH_ZLIB
+-      case EXS_DeflatedLittleEndianExplicit:
+-        /* we prefer deflated transmission */
+-        transferSyntaxes[0] = UID_DeflatedExplicitVRLittleEndianTransferSyntax;
+-        transferSyntaxes[1] = UID_LittleEndianExplicitTransferSyntax;
+-        transferSyntaxes[2] = UID_BigEndianExplicitTransferSyntax;
+-        transferSyntaxes[3] = UID_LittleEndianImplicitTransferSyntax;
+-        numTransferSyntaxes = 4;
+-        break;
+-#endif
+-#endif
+-      default:
+-        /* We prefer explicit transfer syntaxes.
+-         * If we are running on a Little Endian machine we prefer
+-         * LittleEndianExplicitTransferSyntax to BigEndianTransferSyntax.
+-         */
+-        if (gLocalByteOrder == EBO_LittleEndian)  /* defined in dcxfer.h */
+-        {
+-          transferSyntaxes[0] = UID_LittleEndianExplicitTransferSyntax;
+-          transferSyntaxes[1] = UID_BigEndianExplicitTransferSyntax;
+-        } else {
+-          transferSyntaxes[0] = UID_BigEndianExplicitTransferSyntax;
+-          transferSyntaxes[1] = UID_LittleEndianExplicitTransferSyntax;
+-        }
+-        transferSyntaxes[2] = UID_LittleEndianImplicitTransferSyntax;
+-        numTransferSyntaxes = 3;
+-        break;
+-    }
++        case EXS_DeflatedLittleEndianExplicit:
++            /* we prefer deflated transmission */
++            transferSyntaxes[nTS++] = UID_DeflatedExplicitVRLittleEndianTransferSyntax;
++            transferSyntaxes[nTS++] = UID_LittleEndianExplicitTransferSyntax;
++            transferSyntaxes[nTS++] = UID_BigEndianExplicitTransferSyntax;
++            transferSyntaxes[nTS++] = UID_LittleEndianImplicitTransferSyntax;
++            break;
++#endif // WITH_ZLIB
++#endif // DISABLE_COMPRESSION_EXTENSION
++        default:
++            /* We prefer explicit transfer syntaxes.
++             * If we are running on a Little Endian machine we prefer
++             * LittleEndianExplicitTransferSyntax to BigEndianTransferSyntax.
++             */
++            if (gLocalByteOrder == EBO_LittleEndian)  /* defined in dcxfer.h */
++            {
++                transferSyntaxes[nTS++] = UID_LittleEndianExplicitTransferSyntax;
++                transferSyntaxes[nTS++] = UID_BigEndianExplicitTransferSyntax;
++            } else {
++                transferSyntaxes[nTS++] = UID_BigEndianExplicitTransferSyntax;
++                transferSyntaxes[nTS++] = UID_LittleEndianExplicitTransferSyntax;
++            }
++            transferSyntaxes[nTS++] = UID_LittleEndianImplicitTransferSyntax;
++
++            transferSyntaxes[nTS++] = UID_JPEG2000LosslessOnlyTransferSyntax;
++            transferSyntaxes[nTS++] = UID_JPEG2000TransferSyntax;
++            transferSyntaxes[nTS++] = UID_JPEGLSLosslessTransferSyntax;
++            transferSyntaxes[nTS++] = UID_JPEGLSLossyTransferSyntax;
++            transferSyntaxes[nTS++] = UID_JPEGProcess14SV1TransferSyntax;
++            transferSyntaxes[nTS++] = UID_JPEGProcess1TransferSyntax;
++            transferSyntaxes[nTS++] = UID_JPEGProcess2_4TransferSyntax;
++            transferSyntaxes[nTS++] = UID_RLELosslessTransferSyntax;
++            transferSyntaxes[nTS++] = UID_MPEG2MainProfileAtMainLevelTransferSyntax;
++            break;
++    } // switch
++    
++    assert(nTS <= NUM_TS);
+ 
+     const char * const nonStorageSyntaxes[] =
+     {
+@@ -784,7 +873,7 @@
+     cond = ASC_acceptContextsWithPreferredTransferSyntaxes(
+     assoc->params,
+     (const char**)selectedNonStorageSyntaxes, numberOfSelectedNonStorageSyntaxes,
+-    (const char**)transferSyntaxes, numTransferSyntaxes);
++    (const char**)transferSyntaxes, nTS);
+     if (cond.bad()) {
+         DCMQRDB_ERROR("Cannot accept presentation contexts: " << DimseCondition::dump(temp_str, cond));
+     }
+@@ -796,7 +885,7 @@
+       cond = ASC_acceptContextsWithPreferredTransferSyntaxes(
+         assoc->params,
+         dcmAllStorageSOPClassUIDs, numberOfAllDcmStorageSOPClassUIDs,
+-        (const char**)transferSyntaxes, numTransferSyntaxes);
++        (const char**)transferSyntaxes, nTS);
+       if (cond.bad()) {
+         DCMQRDB_ERROR("Cannot accept presentation contexts: " << DimseCondition::dump(temp_str, cond));
+       }
+@@ -822,7 +911,7 @@
+           ** syntax.  Accepting a transfer syntax will override previously
+           ** accepted transfer syntaxes.
+           */
+-          for (int k = numTransferSyntaxes - 1; k >= 0; k--)
++          for (int k = nTS - 1; k >= 0; k--)
+           {
+             for (int j = 0; j < (int)pc.transferSyntaxCount; j++)
+             {
+@@ -851,56 +940,6 @@
+       return ASC_SHUTDOWNAPPLICATION;
+     }
+ 
+-    /*
+-     * Refuse any "Storage" presentation contexts to non-writable
+-     * storage areas.
+-     */
+-    if (!config_->writableStorageArea(calledAETitle))
+-    {
+-      refuseAnyStorageContexts(assoc);
+-    }
+-
+-    /*
+-     * Enforce RSNA'93 Demonstration Requirements about only
+-     * accepting a context for MOVE if a context for FIND is also present.
+-     */
+-
+-    for (i = 0; i < (int)DIM_OF(queryRetrievePairs); i++) {
+-        movepid = ASC_findAcceptedPresentationContextID(assoc,
+-        queryRetrievePairs[i].moveSyntax);
+-        if (movepid != 0) {
+-          findpid = ASC_findAcceptedPresentationContextID(assoc,
+-              queryRetrievePairs[i].findSyntax);
+-          if (findpid == 0) {
+-            if (options_.requireFindForMove_) {
+-              /* refuse the move */
+-              ASC_refusePresentationContext(assoc->params,
+-                  movepid, ASC_P_USERREJECTION);
+-            } else {
+-              DCMQRDB_ERROR("Move Presentation Context but no Find (accepting for now)");
+-            }
+-          }
+-        }
+-    }
+-
+-    /*
+-     * Enforce an Ad-Hoc rule to limit storage access.
+-     * If the storage area is "writable" and some other association has
+-     * already negotiated a "Storage" class presentation context,
+-     * then refuse any "storage" presentation contexts.
+-     */
+-
+-    if (options_.refuseMultipleStorageAssociations_)
+-    {
+-        if (config_->writableStorageArea(calledAETitle))
+-        {
+-          if (processtable_.haveProcessWithWriteAccess(calledAETitle))
+-          {
+-            refuseAnyStorageContexts(assoc);
+-          }
+-        }
+-    }
+-
+     return cond;
+ }
+ 
+@@ -982,32 +1021,6 @@
+ 
+     if (! go_cleanup)
+     {
+-        /* Does peer AE have access to required service ?? */
+-        if (! config_->peerInAETitle(assoc->params->DULparams.calledAPTitle,
+-            assoc->params->DULparams.callingAPTitle,
+-            assoc->params->DULparams.callingPresentationAddress))
+-        {
+-            DCMQRDB_DEBUG("Peer "
+-                << assoc->params->DULparams.callingPresentationAddress << ":"
+-                << assoc->params->DULparams.callingAPTitle << " is not not permitted to access "
+-                << assoc->params->DULparams.calledAPTitle << " (see configuration file)");
+-            cond = refuseAssociation(&assoc, CTN_BadAEService);
+-            go_cleanup = OFTrue;
+-        }
+-    }
+-
+-    if (! go_cleanup)
+-    {
+-        // too many concurrent associations ??
+-        if (processtable_.countChildProcesses() >= OFstatic_cast(size_t, options_.maxAssociations_))
+-        {
+-            cond = refuseAssociation(&assoc, CTN_TooManyAssociations);
+-            go_cleanup = OFTrue;
+-        }
+-    }
+-
+-    if (! go_cleanup)
+-    {
+         cond = negotiateAssociation(assoc);
+         if (cond.bad()) go_cleanup = OFTrue;
+     }

@@ -134,6 +134,8 @@ OFCondition mainStoreSCP(T_ASC_Association * assoc,
     {
 #ifndef NDEBUG
         OFLog::configure(OFLogger::DEBUG_LOG_LEVEL);
+        //DCM_dcmdataLogger.setLogLevel(OFLogger::DEBUG_LOG_LEVEL);
+        //DCM_dcmqrdbLogger.setLogLevel(OFLogger::DEBUG_LOG_LEVEL);
 #else
         OFLog::configure(OFLogger::INFO_LOG_LEVEL);
 #endif
@@ -164,7 +166,8 @@ OFCondition mainStoreSCP(T_ASC_Association * assoc,
 	return _aeTitle;
 }
 
-- (id)initWithPort:(int)port aeTitle:(NSString *)aeTitle  extraParamaters:(NSDictionary *)params{
+- (id)initWithPort:(int)port aeTitle:(NSString *)aeTitle  extraParameters:(NSDictionary *)params
+{
 	if (self = [super init]) {
 		_port = port;
 		_aeTitle = [aeTitle retain];
@@ -212,9 +215,9 @@ OFCondition mainStoreSCP(T_ASC_Association * assoc,
 	options.networkTransferSyntax_ = (E_TransferSyntax) [[NSUserDefaults standardUserDefaults] integerForKey: @"preferredSyntaxForIncoming"];
 	
 //	options.networkTransferSyntax_ = EXS_LittleEndianImplicit;		// See dcmqrsrv.mm
-//	else options.networkTransferSyntax_ = EXS_LittleEndianExplicit;																								// See dcmqrsrv.mm
+//	else options.networkTransferSyntax_ = EXS_LittleEndianExplicit;	// See dcmqrsrv.mm
 	
-	options.networkTransferSyntaxOut_ =  EXS_LittleEndianExplicit;	//;	//EXS_LittleEndianExplicit;	//;		EXS_JPEG2000		// See dcmqrcbm.mm - NOT USED
+	options.networkTransferSyntaxOut_ =  EXS_LittleEndianExplicit;	// EXS_JPEG2000		// See dcmqrcbm.mm - NOT USED
 	/*
 	options.networkTransferSyntaxOut_ = EXS_LittleEndianExplicit;
 	options.networkTransferSyntaxOut_ = EXS_BigEndianExplicit;
@@ -311,7 +314,9 @@ OFCondition mainStoreSCP(T_ASC_Association * assoc,
         OFString temp_str;
         OFLOG_ERROR(dcmqrscpLogger, "Error initialising network:" << DimseCondition::dump(temp_str, cond));
 
-        [[AppController sharedAppController] performSelectorOnMainThread:@selector(displayUpdateMessage:) withObject:@"LISTENER" waitUntilDone: NO];
+        [[AppController sharedAppController] performSelectorOnMainThread:@selector(displayUpdateMessage:)
+                                                              withObject:@"LISTENER"
+                                                           waitUntilDone:NO];
 		return;
     }
 	
@@ -333,7 +338,9 @@ OFCondition mainStoreSCP(T_ASC_Association * assoc,
 		tLayer = new DcmTLSTransportLayer(DICOM_APPLICATION_ACCEPTOR, [TLS_SEED_FILE cStringUsingEncoding:NSUTF8StringEncoding]); // joris DICOM_APPLICATION_ACCEPTOR for server!!
 		if (tLayer == NULL)
 		{
-			[[AppController sharedAppController] performSelectorOnMainThread: @selector(displayListenerError:) withObject: @"unable to create TLS transport layer" waitUntilDone: NO];
+			[[AppController sharedAppController] performSelectorOnMainThread:@selector(displayListenerError:)
+                                                                  withObject:@"unable to create TLS transport layer"
+                                                               waitUntilDone:NO];
 			return;
 		}
 		
@@ -355,23 +362,23 @@ OFCondition mainStoreSCP(T_ASC_Association * assoc,
 				}
 			}
 			
-			//--add-cert-dir //// add certificates in d to list of certificates
-			//.... needs to use OpenSSL & rename files (see http://forum.dicom-cd.de/viewtopic.php?p=3237&sid=bd17bd76876a8fd9e7fdf841b90cf639 )
-			
-			//			if (cmd.findOption("--add-cert-dir", 0, OFCommandLine::FOM_First))
-			//			{
-			//				const char *current = NULL;
-			//				do
-			//				{
-			//					app.checkValue(cmd.getValue(current));
-			//					if (TCS_ok != tLayer->addTrustedCertificateDir(current, opt_keyFileFormat))
-			//					{
-            //                      DCMQRDB_ERROR("warning unable to load certificates from directory '" << current << "', ignoring");
+//--add-cert-dir //// add certificates in d to list of certificates
+//.... needs to use OpenSSL & rename files (see http://forum.dicom-cd.de/viewtopic.php?p=3237&sid=bd17bd76876a8fd9e7fdf841b90cf639 )
 
-			//					}
-			//				} while (cmd.findOption("--add-cert-dir", 0, OFCommandLine::FOM_Next));
-			//			}
-		}		
+//			if (cmd.findOption("--add-cert-dir", 0, OFCommandLine::FOM_First))
+//			{
+//				const char *current = NULL;
+//				do
+//				{
+//					app.checkValue(cmd.getValue(current));
+//					if (TCS_ok != tLayer->addTrustedCertificateDir(current, opt_keyFileFormat))
+//					{
+//                      DCMQRDB_ERROR("warning unable to load certificates from directory '" << current << "', ignoring");
+
+//					}
+//				} while (cmd.findOption("--add-cert-dir", 0, OFCommandLine::FOM_Next));
+//			}
+		}
 		
 //		if (_dhparam && ! (tLayer->setTempDHParameters(_dhparam)))
 //		{

@@ -17,7 +17,7 @@
 /**  
  
  The `OSIROIManager` class defines the interface to discover ROIs and filter for the ROIs of interest. After creating an instance of `OSIROIManager` a\
- client can use it to get an array of ROIs and can register itself as a delegate to recieve updates about the ROIs in the given `OSIVolumeWindow.
+ client can use it to get an array of ROIs and can register itself as a delegate to receive updates about the ROIs in the given `OSIVolumeWindow.
  
  */
 
@@ -111,9 +111,9 @@ extern NSString* const OSIROIAddedROIKey;
 /// @name Working witth ROIs
 ///-----------------------------------
 
-/** Returns the array OSIROI objects the reciever is managing.
+/** Returns the array OSIROI objects the receiver is managing.
  
- @return The array OSIROI objects the reciever is managing.
+ @return The array OSIROI objects the receiver is managing.
  */
 - (NSArray *)ROIs; // return OSIROIs observable
 

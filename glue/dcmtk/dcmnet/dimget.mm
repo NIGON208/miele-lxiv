@@ -260,7 +260,7 @@ DIMSE_sendGetResponse(T_ASC_Association * assoc,
     rsp.msg.CGetRSP = *response;
     /* copy over stuff from request */
     rsp.msg.CGetRSP.MessageIDBeingRespondedTo = request->MessageID;
-    /* always send afected sop class uid */
+    /* always send affected SOP class uid */
     strcpy(rsp.msg.CGetRSP.AffectedSOPClassUID, request->AffectedSOPClassUID);
     rsp.msg.CGetRSP.opts = O_GET_AFFECTEDSOPCLASSUID;
     
@@ -281,7 +281,7 @@ DIMSE_sendGetResponse(T_ASC_Association * assoc,
     }
 
     /* 
-     * Make sure the numberOf fields are conformant with
+     * Make sure the number of fields are conformant with
      * the status (see Part 4, C.4.2.1.6-9)
      */
     opts = (O_GET_NUMBEROFREMAININGSUBOPERATIONS |
@@ -351,7 +351,7 @@ DIMSE_getProvider(
                 } else if (cond == DIMSE_NODATAAVAILABLE) {
                     /* timeout */
                 } else {
-                    /* some execption condition occured, bail out */
+                    /* some exception condition occured, bail out */
                     normal = OFFalse;
                 }
             

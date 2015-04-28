@@ -103,16 +103,21 @@ OFCondition DcmQueryRetrieveOsiriXSCP::storeSCP(
                                                 DcmQueryRetrieveDatabaseHandle& dbHandle,
                                                 OFBool correctUIDPadding)
 {
+#if 0
+    // TODO: call base class instead of repeating this block of code (need to resolve imageFileName)
+    DcmQueryRetrieveSCP::storeSCP(assoc,request,presId,dbHandle,correctUIDPadding);
+#else
     OFCondition cond = EC_Normal;
     OFCondition dbcond = EC_Normal;
     char imageFileName[MAXPATHLEN+1];
     DcmFileFormat dcmff;
-    
-    //DCM_dcmqrdbLogger.isEnabledFor(OFLogger::WARN_LOG_LEVEL);
+
     if ([[NSUserDefaults standardUserDefaults] boolForKey: @"verbose_dcmtkStoreScu"])
     {
 #ifndef NDEBUG
         OFLog::configure(OFLogger::DEBUG_LOG_LEVEL);
+        //DCM_dcmdataLogger.setLogLevel(OFLogger::DEBUG_LOG_LEVEL);
+        //DCM_dcmqrdbLogger.setLogLevel(OFLogger::DEBUG_LOG_LEVEL);
 #else
         OFLog::configure(OFLogger::INFO_LOG_LEVEL);
 #endif
@@ -128,7 +133,7 @@ OFCondition DcmQueryRetrieveOsiriXSCP::storeSCP(
     DCMQRDB_INFO("Received Store SCP:" << OFendl << DIMSE_dumpMessage(temp_str, *request, DIMSE_INCOMING));
     
     if (!dcmIsaStorageSOPClassUID(request->AffectedSOPClassUID)) {
-        /* callback will send back sop class not supported status */
+        /* callback will send back SOP class not supported status */
         context.setStatus(STATUS_STORE_Refused_SOPClassNotSupported);
         /* must still receive data */
         strcpy(imageFileName, NULL_DEVICE_NAME);
@@ -150,12 +155,14 @@ OFCondition DcmQueryRetrieveOsiriXSCP::storeSCP(
         }
     }
     
+#if 1
     FILE * pFile = fopen ("/tmp/kill_all_storescu", "r");
     if( pFile)
     {
         fclose (pFile);
         cond = ASC_abortAssociation(assoc);
     }
+#endif
     
 #ifdef LOCK_IMAGE_FILES
     /* exclusively lock image file */
@@ -208,8 +215,10 @@ OFCondition DcmQueryRetrieveOsiriXSCP::storeSCP(
                                    (void*)&context, options_.blockMode_, options_.dimse_timeout_);
     }
     
+#if 1
     static_cast<DcmQueryRetrieveOsiriXDatabaseHandle *>(&dbHandle) -> updateLogEntry(dset);
-    
+#endif
+
     if (cond.bad())
     {
         DCMQRDB_ERROR("Store SCP Failed: " << DimseCondition::dump(temp_str, cond));
@@ -236,6 +245,7 @@ OFCondition DcmQueryRetrieveOsiriXSCP::storeSCP(
         dcmtk_flock(lockfd, LOCK_UN);
         close(lockfd);
     }
+#endif
 #endif
     
     // Extra stuff for OsiriX:

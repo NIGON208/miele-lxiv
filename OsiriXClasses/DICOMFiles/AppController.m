@@ -2353,8 +2353,7 @@ static NSDate *lastWarningDate = nil;
 		
 		dcmtkQRSCP = [[DCMTKQueryRetrieveSCP alloc] initWithPort:port
                                                          aeTitle:(NSString *)aeTitle
-                                                 extraParamaters:(NSDictionary *)params];
-
+                                                 extraParameters:(NSDictionary *)params];
 		[dcmtkQRSCP run];
 	}
 	@catch (NSException * e) 
@@ -2394,7 +2393,7 @@ static NSDate *lastWarningDate = nil;
 			int port = [[[NSUserDefaults standardUserDefaults] stringForKey: @"TLSStoreSCPAEPORT"] intValue];
 			NSDictionary *params = [NSDictionary dictionaryWithObject:@YES forKey:@"TLSEnabled"];
 			
-			dcmtkQRSCPTLS = [[DCMTKQueryRetrieveSCP alloc] initWithPort:port aeTitle:aeTitle extraParamaters:params];
+            dcmtkQRSCPTLS = [[DCMTKQueryRetrieveSCP alloc] initWithPort:port aeTitle:aeTitle extraParameters:params];
 			[dcmtkQRSCPTLS run];
 		}
 		@catch (NSException * e) 
@@ -3687,7 +3686,11 @@ static BOOL initialized = NO;
         NSLog( @"SecStaticCodeCheckValidity: %d", (int) status);
         NSLog( @"%@", errors);
         
-        NSRunCriticalAlertPanel( NSLocalizedString( @"Code signing and Certificate", nil), NSLocalizedString( @"Invalid code signing or certificate. You should re-download OsiriX from the web site\r\rAre you using an utility such as CleanMyMac or CCleaner? Turn it off for OsiriX.", nil), NSLocalizedString( @"Continue", nil) , nil, nil);
+        NSRunCriticalAlertPanel(NSLocalizedString( @"Code signing and Certificate", nil),
+                                NSLocalizedString( @"Invalid code signing or certificate. You should re-download OsiriX from the web site\r\rAre you using an utility such as CleanMyMac or CCleaner? Turn it off for OsiriX.", nil),
+                                NSLocalizedString( @"Continue", nil),
+                                nil,
+                                nil);
 
     }
     CFRelease( requirement);

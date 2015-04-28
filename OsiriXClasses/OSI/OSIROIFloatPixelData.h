@@ -130,9 +130,9 @@
  */
 - (NSUInteger)getFloatData:(float *)buffer floatCount:(NSUInteger)count;
 
-/** Returns a NSData containing the values of the reciever's data
+/** Returns a NSData containing the values of the receiver's data
   
- @return a NSData containing the values of the reciever's data.
+ @return a NSData containing the values of the receiver's data.
  
  */
 - (NSData *)floatData;

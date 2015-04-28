@@ -215,13 +215,13 @@ NSString* const OSIVolumeWindowDidChangeDataNotification = @"OSIVolumeWindowDidC
     
     assert([viewerController isKindOfClass:[ViewerController class]]);
     if ([viewerController isKindOfClass:[ViewerController class]] == NO) {
-        NSLog(@"_viewerControllerDidLoadImagesNotification: recieved an object that is not ViewerController");
+        NSLog(@"_viewerControllerDidLoadImagesNotification: received an object that is not ViewerController");
         return;
     }
     
     assert(viewerController == _viewerController);
     if (viewerController != _viewerController) {
-        NSLog(@"_viewerControllerDidLoadImagesNotification: recieved the wrong viewerController");
+        NSLog(@"_viewerControllerDidLoadImagesNotification: received the wrong viewerController");
         return;
     }
     

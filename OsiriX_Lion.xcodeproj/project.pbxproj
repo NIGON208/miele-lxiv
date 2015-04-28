@@ -10536,7 +10536,6 @@
 				);
 				IBC_FLATTEN_NIBS = YES;
 				INFOPLIST_FILE = "Deployment-Info.plist";
-				INSTALL_PATH = "$(USER_APPS_DIR)";
 				KEEP_PRIVATE_EXTERNS = YES;
 				LIBRARY_SEARCH_PATHS = (
 					"$(SRCROOT)/Binaries/VTKLibs",
@@ -10588,7 +10587,6 @@
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "OsiriX Launcher/Info.plist";
-				INSTALL_PATH = "$(HOME)/Applications";
 				OTHER_LDFLAGS = (
 					"-framework",
 					Foundation,
@@ -10965,7 +10963,6 @@
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "OsiriX Launcher/Info.plist";
-				INSTALL_PATH = "$(HOME)/Applications";
 				OTHER_LDFLAGS = (
 					"-framework",
 					Foundation,
@@ -11098,7 +11095,6 @@
 				);
 				IBC_FLATTEN_NIBS = NO;
 				INFOPLIST_FILE = "Deployment-Info.plist";
-				INSTALL_PATH = "$(USER_APPS_DIR)";
 				LIBRARY_SEARCH_PATHS = (
 					"$(SRCROOT)/Binaries/VTKLibs",
 					"$(SRCROOT)/Binaries/ITKLibs",

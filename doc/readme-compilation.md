@@ -13,16 +13,24 @@ Alex Bettarini - 15 Mar 2015
 	1. Download the latest sources
 	
 			$ git clone git://git.dcmtk.org/dcmtk
+			$ cd dcmtk
+			$ export DCMTK_SRC=`pwd`
+			$ git checkout 1e5785f
 	
 	* Customize the sources for usage in the Osiri-LXIV project
 		* Either
 			- Make sure none of the class names conflict with the Osiri-LXIV Objective-C class names (hint: rename `DicomImage` to `dcmImage` in all DCMTK files).
 			- Exclude `dimget.cc` from the library (then add it manually in the DCMTK Xcode project only for the target `dcmqrscp`)
 		* Or
-			- apply the dcmtk.patch. First do a dry run
+			- apply the DCMTK patch. First do a dry run
 
 					$ patch --dry-run -p1 -i dcmtk-before.patch
-		
+					
+			- apply patch
+
+					$ cd $DCMTK_SRC/dcmqrdb/libsrc
+					$ patch --dry-run -p1 -i dcmqrdb.cc.patch
+
 	* Run CMake with the following parameters:
 			
 			CMAKE_OSX_DEPLOYMENT_TARGET=10.8
@@ -71,11 +79,22 @@ Alex Bettarini - 15 Mar 2015
 			    ├── jmorecfg8.h
 			    └── jpeglib8.h
 
-   	* Edit `dcmqrdb/dcmqrsrv.h` line 110
+   	* Edit `dcmqrdb/dcmqrsrv.h`
+   		
+   		Line 110
 	
 			public:
 				OFCondition handleAssociation()
 				OFCondition storeSCP()
+			private:
+			
+   		Line 137
+	
+			public:
+				virtual OFCondition storeSCP(
+				...
+				);
+
 			private:
 
  	* Add two lines to `dcmjpeg/djutils.h` so that it looks like this

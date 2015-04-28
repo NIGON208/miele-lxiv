@@ -29,7 +29,7 @@
 }
 
 + (BOOL) storeSCP;
-- (id)initWithPort:(int)port aeTitle:(NSString *)aeTitle  extraParamaters:(NSDictionary *)params;
+- (id)initWithPort:(int)port aeTitle:(NSString *)aeTitle  extraParameters:(NSDictionary *)params;
 - (void)run;
 - (void)abort;
 - (int) port;

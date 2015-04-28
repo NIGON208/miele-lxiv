@@ -281,14 +281,14 @@ addStoragePresentationContexts(T_ASC_Parameters *params, OFList<OFString>& sopCl
     }
 
     if (!opt_proposeOnlyRequiredPresentationContexts) {
-        // add the (short list of) known storage sop classes to the list
+        // add the (short list of) known storage SOP classes to the list
         // the array of Storage SOP Class UIDs comes from dcuid.h
         for (int i=0; i<numberOfDcmShortSCUStorageSOPClassUIDs; i++) {
             sopClasses.push_back(dcmShortSCUStorageSOPClassUIDs[i]);
         }
     }
 
-    // thin out the sop classes to remove any duplicates.
+    // thin out the SOP classes to remove any duplicates.
     OFList<OFString> sops;
     s_cur = sopClasses.begin();
     s_end = sopClasses.end();
@@ -299,7 +299,7 @@ addStoragePresentationContexts(T_ASC_Parameters *params, OFList<OFString>& sopCl
         ++s_cur;
     }
 
-    // add a presentations context for each sop class / transfer syntax pair
+    // add a presentations context for each SOP class / transfer syntax pair
     OFCondition cond = EC_Normal;
     int pid = 1; // presentation context id
     s_cur = sops.begin();
@@ -316,7 +316,7 @@ addStoragePresentationContexts(T_ASC_Parameters *params, OFList<OFString>& sopCl
             pid += 2;   /* only odd presentation context id's */
         } else {
 
-            // sop class with preferred transfer syntax
+            // SOP class with preferred transfer syntax
             cond = addPresentationContext(params, pid, *s_cur, preferredTransferSyntax);
             pid += 2;   /* only odd presentation context id's */
 
@@ -326,7 +326,7 @@ addStoragePresentationContexts(T_ASC_Parameters *params, OFList<OFString>& sopCl
                     return ASC_BADPRESENTATIONCONTEXTID;
                 }
 
-                // sop class with fallback transfer syntax
+                // SOP class with fallback transfer syntax
                 cond = addPresentationContext(params, pid, *s_cur, fallbackSyntaxes);
                 pid += 2;       /* only odd presentation context id's */
             }
@@ -1106,12 +1106,14 @@ static OFCondition cstore(T_ASC_Association * assoc, const OFString& fname)
 	
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	
-	[[AppController sharedAppController] growlTitle: NSLocalizedString( @"DICOM Send", nil) description: [NSString stringWithFormat: NSLocalizedString(@"Sending %@...\rTo: %@ - %@", nil), N2LocalizedSingularPluralCount( _filesToSend.count, NSLocalizedString(@"file", nil), NSLocalizedString(@"files", nil)), _calledAET, _hostname] name:@"send"];
+	[[AppController sharedAppController] growlTitle: NSLocalizedString( @"DICOM Send", nil)
+                                        description:[NSString stringWithFormat: NSLocalizedString(@"Sending %@...\rTo: %@ - %@", nil), N2LocalizedSingularPluralCount( _filesToSend.count, NSLocalizedString(@"file", nil), NSLocalizedString(@"files", nil)), _calledAET, _hostname]
+                                               name:@"send"];
 	
 //	NSString *tempFolder = [NSString stringWithFormat:@"/tmp/DICOMSend_%@-%@", _callingAET, [[NSDate date] description]];
 	NSMutableArray *paths = [[NSMutableArray alloc] init];
 	
-	//delete if necessary and create temp folder. Allows us to compress and deompress files. Wish we could do on the fly
+	//delete if necessary and create temp folder. Allows us to compress and decompress files. Wish we could do on the fly
 //	NSFileManager *fileManager = [NSFileManager defaultManager];
 //	if ([fileManager fileExistsAtPath:tempFolder]) [fileManager removeFileAtPath:tempFolder handler:nil];
 //	
@@ -1131,8 +1133,8 @@ static OFCondition cstore(T_ASC_Association * assoc, const OFString& fname)
 		opt_peerTitle = [_calledAET UTF8String];
     
     OFList<OFString> fileNameList;       // list of files to transfer to SCP
-    OFList<OFString> sopClassUIDList;    // the list of sop classes
-    OFList<OFString> sopInstanceUIDList; // the list of sop instances
+    OFList<OFString> sopClassUIDList;    // the list of SOP classes
+    OFList<OFString> sopInstanceUIDList; // the list of SOP instances
     
     T_ASC_Network *net = NULL;
     T_ASC_Parameters *params;
@@ -1375,7 +1377,7 @@ static OFCondition cstore(T_ASC_Association * assoc, const OFString& fname)
 				  else if (!dcmIsaStorageSOPClassUID(sopClassUID))
 				  {
 					ignoreName = OFTrue;
-					errormsg = "unknown storage sop class in file: ";
+					errormsg = "unknown storage SOP class in file: ";
 					errormsg += currentFilename;
 					errormsg += ": ";
 					errormsg += sopClassUID;

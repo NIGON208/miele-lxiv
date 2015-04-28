@@ -146,7 +146,7 @@ public:
     /** Inserts new Study, Series or SOP Instance UID. If SOP Instance
      *  UID is generated, the related tag in the metaheader is deleted, too
      *  so that the new UID is also applied there when saving to disk later.
-     *  @param uidkey [in] The Instance UID to insert (study, series or sop
+     *  @param uidkey [in] The Instance UID to insert (study, series or SOP
      *                instance UID key permitted).
      *  @return EC_Normal, if insertion was successful, error otherwise
      */

@@ -1353,8 +1353,9 @@ subOpCallback(void * /*subOpCallbackData*/ ,
                                                                      if( [[dict valueForKey: @"retrieveMode"] intValue] == CGETRetrieveMode && retrieveMode == CGETRetrieveMode)
                                                                      {
                                                                          if( [DCMTKQueryRetrieveSCP storeSCP] == NO)
+                                                                         {
                                                                              [[NSException exceptionWithName: @"DICOM Network Failure" reason: NSLocalizedString( @"DICOM Listener is not activated", nil) userInfo:nil] raise];
-                                                                         
+                                                                         }
                                                                          else
                                                                          {
                                                                              if ([self setupNetworkWithSyntax: UID_GETStudyRootQueryRetrieveInformationModel dataset: &dataset destination: [dict objectForKey:@"moveDestination"]])

@@ -3515,8 +3515,6 @@ static inline int int_ceildivpow2(int a, int b) {
 	BOOL colorspaceIsConverted = NO;
 	NSMutableData *subData = nil;
 	
-    NSLog(@"DCMPixelDataAttribute.mm:%i %@ %i", __LINE__, NSStringFromSelector(_cmd), index);//@@@
-
 	@try
 	{
 		if( _framesCreated)
@@ -3532,8 +3530,6 @@ static inline int int_ceildivpow2(int a, int b) {
 		return nil;
 	}
 	
-    NSLog(@"DCMPixelDataAttribute.mm:%i %@ %@", __LINE__, NSStringFromSelector(_cmd), transferSyntax.description);//@@@
-
 	if ([_values count] > 0 && index < _numberOfFrames)
 	{
 		if( _framesDecoded == nil)
@@ -3699,7 +3695,6 @@ static inline int int_ceildivpow2(int a, int b) {
 		else
 		{
 			int numberofPlanes = [[_dcmObject attributeValueWithName:@"PlanarConfiguration"] intValue];
-            NSLog(@"DCMPixelDataAttribute.mm:%i %@ numberofPlanes:%i", __LINE__, NSStringFromSelector(_cmd), numberofPlanes);//@@@
 			if (numberofPlanes > 0 && numberofPlanes <= 4)
 			{
 				if ([transferSyntax isEqualToTransferSyntax:[DCMTransferSyntax JPEGExtendedTransferSyntax]] ||
