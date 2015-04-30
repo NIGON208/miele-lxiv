@@ -87,23 +87,25 @@
 	return self;
 }
 
-- (id)initWithAttributeTag:(DCMAttributeTag *)tag{
+- (id)initWithAttributeTag:(DCMAttributeTag *)tag
+{
 	return [self initWithAttributeTag:tag  vr:nil];
-
 }
 
-- (id)initWithAttributeTag:(DCMAttributeTag *)tag  vr:(NSString *)vr{
-	if (self = [super init]) {
-			_tag = [tag retain];
-			_valueLength =0;
-			_values = [[NSMutableArray array] retain];
+- (id)initWithAttributeTag:(DCMAttributeTag *)tag vr:(NSString *)vr
+{
+	if (self = [super init])
+    {
+        _tag = [tag retain];
+        _valueLength =0;
+        _values = [[NSMutableArray array] retain];
+        
 		if (vr != nil)
 			_vr = [vr retain];
 		else
 			_vr = [[tag vr] retain];
 			
 		_dataPtr = nil;
-
 	}
 
 	return self;
@@ -180,10 +182,11 @@
 {
 	const char *chars = [_vr UTF8String];
 	int vr = chars[0]<<8 | chars[1];
-	NSUInteger length = 0;
+	NSInteger length = 0;
 	int vm = self.valueMultiplicity;
 	NSString *string;
-	switch (vr) {
+	switch (vr)
+    {
 		// unsigned Short
 		case DCM_US:   //unsigned short
 		case DCM_SS:	//signed short
@@ -197,9 +200,12 @@
 				length = [string length];
 			}	
 			else
+            {
 				length = vm * 8 + (vm - 1);  //add (vm - 1) for between values.
-
-                break;
+            }
+            
+            break;
+            
 		case DCM_TM:
 			if ([_values count] && 
 				[[_values objectAtIndex:0] isKindOfClass:[DCMCalendarDate class]] && 
@@ -208,21 +214,29 @@
 				length = [string length];
 			}	
 			else
-			//length is 13 if we use microseconds
+            {
+                //length is 13 if we use microseconds
 				length = vm * 13 + (vm - 1);
-                break;
+            }
+
+            break;
+            
 		case DCM_DT:
 			if ([_values count] && 
 				[[_values objectAtIndex:0] isKindOfClass:[DCMCalendarDate class]] && 
-				[[_values objectAtIndex:0] isQuery]) {
+				[[_values objectAtIndex:0] isQuery])
+            {
 				string = [_values componentsJoinedByString:@"\\"];
 				length = [string length];
 			}	
 			else
-		//Date Time YYYYMMDDHHMMSS.FFFFFF&ZZZZ FFFFFF= fractional Sec. ZZZZ=offset from Hr and min offset from universal time
+            {
+                //Date Time YYYYMMDDHHMMSS.FFFFFF&ZZZZ FFFFFF= fractional Sec. ZZZZ=offset from Hr and min offset from universal time
                 // By default, we don't add the timezone = 21
 				length = vm * 21 + (vm - 1);
-                break;
+            }
+            
+            break;
 				
 		//case DCM_SQ:	//Sequence of items
 		//		//shouldn't get here
@@ -270,6 +284,7 @@
 			
 			length = [string lengthOfBytesUsingEncoding: [characterSet encoding]];
 			break;
+            
 		default: 
 			length = [(NSData *)[_values objectAtIndex:0] length];
 			break;
@@ -488,7 +503,8 @@
 - (NSString *)description{
 	if (self.valueLength < 100)
 		return  [NSString stringWithFormat:@"%@\t %@\t vl:%d\t vm:%d\t %@", _tag.description, _tag.vr, (int)self.valueLength, self.valueMultiplicity, [self valuesAsString]];
-	return  [NSString stringWithFormat:@"%@\t vl:%d\t vm:%d", _tag.description, (int) self.valueLength, self.valueMultiplicity];
+    
+	return [NSString stringWithFormat:@"%@\t vl:%d\t vm:%d", _tag.description, (int) self.valueLength, self.valueMultiplicity];
 }
 	
 - (NSString *)readableDescription{
@@ -514,6 +530,7 @@
 	else  {
 		if (DCMDEBUG && vr == DCM_DT)
 			NSLog(@"valuesForVR: length %d", length);
+        
 		switch (vr) {
 		// unsigned Short
 		 case DCM_US:   //unsigned short
