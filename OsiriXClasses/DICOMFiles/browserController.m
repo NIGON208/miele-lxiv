@@ -6370,10 +6370,14 @@ static NSConditionLock *threadLock = nil;
         }
 		else
         #endif
-        if ([[item valueForKey:@"type"] isEqualToString:@"Image"]) returnVal = 0;
-		else if ([[item valueForKey:@"type"] isEqualToString:@"Series"]) returnVal = [[item valueForKey:@"noFiles"] intValue];
-		//else if ([[item valueForKey:@"type"] isEqualToString:@"Study"]) returnVal = [[item valueForKey:@"series"] count];
-		else if ([[item valueForKey:@"type"] isEqualToString:@"Study"]) returnVal = [[item valueForKey:@"imageSeries"] count];
+        if ([[item valueForKey:@"type"] isEqualToString:@"Image"])
+            returnVal = 0;
+		else if ([[item valueForKey:@"type"] isEqualToString:@"Series"])
+            returnVal = [[item valueForKey:@"noFiles"] intValue];
+//		else if ([[item valueForKey:@"type"] isEqualToString:@"Study"])
+//            returnVal = [[item valueForKey:@"series"] count];
+		else if ([[item valueForKey:@"type"] isEqualToString:@"Study"])
+            returnVal = [[item valueForKey:@"imageSeries"] count];
 	}
 	
 //	[_database unlock];
@@ -9599,8 +9603,12 @@ static BOOL withReset = NO;
 	DCMObject *dcmObject = [DCMObject objectWithContentsOfFile:[curObj valueForKey: @"completePath"] decodingPixelData:NO];
 	NSData *encapsulatedPDF = [dcmObject attributeValueWithName:@"EncapsulatedDocument"];
 	NSFileManager *fileManager = [NSFileManager defaultManager];
-	if( [fileManager createFileAtPath:pathToPDF contents:encapsulatedPDF attributes:nil]) [[NSWorkspace sharedWorkspace] openFile:pathToPDF withApplication: nil andDeactivate: YES];
-	else NSLog( @"couldn't open pdf");
+    
+	if( [fileManager createFileAtPath:pathToPDF contents:encapsulatedPDF attributes:nil])
+        [[NSWorkspace sharedWorkspace] openFile:pathToPDF withApplication: nil andDeactivate: YES];
+	else
+        NSLog( @"couldn't open pdf");
+    
 	[NSThread sleepForTimeInterval: 1];
 	[pool release];	
 }

@@ -577,7 +577,9 @@
 						[values addObject:[NSNumber numberWithUnsignedLong: [dicomData nextUnsignedLong]]];
 						p += 4;
 					}
-					if( length - p > 0) [dicomData skipLength: length - p];
+                    
+					if( length - p > 0)
+                        [dicomData skipLength: length - p];
 				}
 				break;
             
@@ -705,7 +707,7 @@
                         [stringBuffer appendString: @"0x"];
                         const unsigned char *dataBuffer = [value bytes];
                         for (long x=0; x<[value length]; x++) {
-                            [stringBuffer appendFormat:@"%02X", (unsigned int)dataBuffer[x]];
+                            [stringBuffer appendFormat:@"%02X", (NSUInteger)dataBuffer[x]];
                         }
                         string = stringBuffer;
                     }

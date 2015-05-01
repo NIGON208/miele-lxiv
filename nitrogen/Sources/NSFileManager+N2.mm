@@ -16,6 +16,7 @@
 #import "NSFileManager+N2.h"
 #import "NSString+N2.h"
 #import <sys/stat.h>
+#include "tmp_locations.h"
 
 @implementation NSFileManager (N2)
 
@@ -41,7 +42,9 @@
         CFURLRef url = CFURLCreateFromFSRef(kCFAllocatorDefault, &folder);
         result = [(NSURL*)url path];
 		CFRelease(url);
-    } else [NSException raise:NSGenericException format:@"FSFindFolder error %d", err];
+    }
+    else
+        [NSException raise:NSGenericException format:@"FSFindFolder error %d", err];
 	
     return result;
 }
@@ -52,8 +55,14 @@
 	return path;
 }
 
--(NSString*)tmpFilePathInDir:(NSString*)dirPath {
-	NSString* prefix = [NSString stringWithFormat:@"%@_%@_%u_%lu_", [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString*)kCFBundleNameKey], [[NSDate date] descriptionWithCalendarFormat:@"%Y%m%d%H%M%S" timeZone:NULL locale:NULL], getpid(), (long) [NSThread currentThread]];
+-(NSString*)tmpFilePathInDir:(NSString*)dirPath
+{
+	NSString* prefix = [NSString stringWithFormat:@"%@_%@_%u_%lu_",
+                        [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString*)kCFBundleNameKey],
+                        [[NSDate date] descriptionWithCalendarFormat:@"%Y%m%d%H%M%S" timeZone:NULL locale:NULL],
+                        getpid(),
+                        (long) [NSThread currentThread]];
+    
 	char* path = tempnam(dirPath.UTF8String, prefix.UTF8String);
 	NSString* nsPath = [NSString stringWithUTF8String:path];
 	free(path);
@@ -61,7 +70,10 @@
 }
 
 -(NSString*)tmpDirPath {
-    NSString* path = [NSString stringWithFormat:@"/tmp/%@_%@", [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString*)kCFBundleNameKey], NSUserName()];
+    NSString* path = [NSString stringWithFormat:@"%s/%@_%@",
+                      TMP_DIR,
+                      [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString*)kCFBundleNameKey],
+                      NSUserName()];
     [self confirmDirectoryAtPath:path];
     return path;
 }
@@ -72,7 +84,9 @@
 
 -(NSString*)confirmDirectoryAtPath:(NSString*)dirPath subDirectory: (BOOL) subDirectory
 {
-	if( dirPath == nil) return nil;
+	if( dirPath == nil)
+        return nil;
+    
 	NSString* parentDirPath = [dirPath stringByDeletingLastPathComponent];
     
 	if (![dirPath isEqualToString:parentDirPath])
@@ -85,13 +99,16 @@
 		create = YES;
 	else if (!isDir) {
 		[self removeItemAtPath:dirPath error:&error];
-		if (error) [NSException raise:NSGenericException format:@"Couldn't unlink file: %@", [error localizedDescription]];
+		if (error)
+            [NSException raise:NSGenericException format:@"Couldn't unlink file: %@", [error localizedDescription]];
+        
 		create = YES;
 	}
 	
 	if (create) {
 		[self createDirectoryAtPath:dirPath withIntermediateDirectories:YES attributes:NULL error:&error];
-		if (error) [NSException raise:NSGenericException format:@"Couldn't create directory: %@", [error localizedDescription]];
+		if (error)
+            [NSException raise:NSGenericException format:@"Couldn't create directory: %@", [error localizedDescription]];
 	}
     
     if( subDirectory == NO && [self isWritableFileAtPath: dirPath] == NO)
@@ -113,7 +130,8 @@
 	if ([path hasSuffix:ext]) {
 		pathWithExt = path;
 		pathWithoutExt = [path stringByAppendingString:ext];
-	} else {
+	}
+    else {
 		pathWithoutExt = path;
 		pathWithExt = [path substringToIndex:path.length-ext.length];
 	}
@@ -124,14 +142,16 @@
 	if (pathWithExtExists && !pathWithExtIsDir) {
 		[self removeItemAtPath:pathWithExt error:NULL];
 		pathWithExtExists = [self fileExistsAtPath:pathWithExt isDirectory:&pathWithExtIsDir];
-		if (pathWithExtExists) [NSException raise:NSGenericException format:@"Could not delete file at %@", pathWithExt];
+		if (pathWithExtExists)
+            [NSException raise:NSGenericException format:@"Could not delete file at %@", pathWithExt];
 	}
 	
 	if (!pathWithExtExists && pathWithoutExtExists && pathWithoutExtIsDir) {
 		[self moveItemAtPath:pathWithoutExt toPath:pathWithExt error:NULL];
 		pathWithoutExtExists = [self fileExistsAtPath:pathWithoutExt isDirectory:&pathWithoutExtIsDir];
 		pathWithExtExists = [self fileExistsAtPath:pathWithExt isDirectory:&pathWithExtIsDir];
-		if (!pathWithExtExists) [NSException raise:NSGenericException format:@"Could not rename directory at %@ to %@", pathWithoutExt, pathWithExt];
+		if (!pathWithExtExists)
+            [NSException raise:NSGenericException format:@"Could not rename directory at %@ to %@", pathWithoutExt, pathWithExt];
 	}
 	
 	return [self confirmDirectoryAtPath:pathWithExt];
@@ -177,12 +197,14 @@
 								[fsRefs addObject:[NSData dataWithBytes:&fetchedRefs[thisIndex] length:sizeof(FSRef)]];
 							if (fsErr == errFSNoMoreItems)
 								break;
+                            
 							fsErr = FSGetCatalogInfoBulk(thisDirEnum, kMaxEntriesPerFetch, &actualFetched, NULL, kFSCatInfoDataSizes|kFSCatInfoRsrcSizes|kFSCatInfoNodeFlags, fetchedInfos, fetchedRefs, NULL, NULL);
 						}
 						
 						FSCloseIterator(thisDirEnum);
 					}
-				} else {
+				}
+                else {
 					totalSize += fetchedInfos.dataLogicalSize;
 					totalSize += fetchedInfos.rsrcLogicalSize;
 				}
@@ -225,7 +247,10 @@
 			success = [self copyItemAtPath:srcPathRes toPath:dstPathRes error:err] && success;
 		else if (dstPathIsDir)
 			for (NSString* subPath in [self contentsOfDirectoryAtPath:srcPathRes error:NULL])
-				[pairs addObject:[NSArray arrayWithObjects: [srcPath stringByAppendingPathComponent:subPath], [dstPath stringByAppendingPathComponent:subPath], NULL]];
+				[pairs addObject:[NSArray arrayWithObjects:
+                                  [srcPath stringByAppendingPathComponent:subPath],
+                                  [dstPath stringByAppendingPathComponent:subPath],
+                                  NULL]];
 	}
 
 	return success;
@@ -277,22 +302,32 @@
 -(NSString*)destinationOfAliasOrSymlinkAtPath:(NSString*)path resolved:(BOOL*)r {
 	//if (![self fileExistsAtPath:path]) {
 		NSString* temp = [self destinationOfAliasAtPath:path];
-		if (temp) {
-			if (r) *r = YES;
+		if (temp)
+        {
+			if (r)
+                *r = YES;
+            
 			return temp;
 		}
 		
-	//	if (r) *r = NO;
-	//	return path;
+
+    //if (r)
+    //    *r = NO;
+	//return path;
 	//}
 	
 	NSDictionary* attrs = [self attributesOfItemAtPath:path error:NULL];
-	if ([[attrs objectForKey:NSFileType] isEqualToString:NSFileTypeSymbolicLink]) {
-		if (r) *r = YES;
+	if ([[attrs objectForKey:NSFileType] isEqualToString:NSFileTypeSymbolicLink])
+    {
+		if (r)
+            *r = YES;
+        
 		return [self destinationOfSymbolicLinkAtPath:path error:NULL];
 	}
 	
-	if (r) *r = NO;
+	if (r)
+        *r = NO;
+    
 	return path;
 }
 
@@ -304,13 +339,11 @@
 	return [self enumeratorAtPath:path filesOnly:filesOnly recursive:YES];
 }
 
-
 -(N2DirectoryEnumerator*)enumeratorAtPath:(NSString*)path filesOnly:(BOOL)filesOnly recursive:(BOOL)recursive {
 	N2DirectoryEnumerator* de = [[[N2DirectoryEnumerator alloc] initWithPath:path maxNumberOfFiles:-1] autorelease];
 	de.filesOnly = filesOnly;
 	de.recursive = recursive;
 	return de;
 }
-
 
 @end

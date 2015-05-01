@@ -1466,7 +1466,13 @@ NSString* const DicomDatabaseLogEntryEntityName = @"LogEntry";
     return [self addFilesAtPaths: paths postNotifications: postNotifications dicomOnly: dicomOnly rereadExistingItems: rereadExistingItems generatedByOsiriX: generatedByOsiriX importedFiles: NO returnArray: returnArray];
 }
 
--(NSArray*)addFilesAtPaths:(NSArray*)paths postNotifications:(BOOL)postNotifications dicomOnly:(BOOL)dicomOnly rereadExistingItems:(BOOL)rereadExistingItems generatedByOsiriX:(BOOL)generatedByOsiriX importedFiles: (BOOL) importedFiles returnArray: (BOOL) returnArray
+-(NSArray*)addFilesAtPaths:(NSArray*)paths
+         postNotifications:(BOOL)postNotifications
+                 dicomOnly:(BOOL)dicomOnly
+       rereadExistingItems:(BOOL)rereadExistingItems
+         generatedByOsiriX:(BOOL)generatedByOsiriX
+             importedFiles:(BOOL)importedFiles
+               returnArray:(BOOL)returnArray
 {
 	NSThread* thread = [NSThread currentThread];
     
@@ -1721,7 +1727,12 @@ static BOOL protectionAgainstReentry = NO;
     return [self addFilesDescribedInDictionaries: dicomFilesArray postNotifications: postNotifications rereadExistingItems: rereadExistingItems generatedByOsiriX: generatedByOsiriX importedFiles: NO returnArray: returnArray];
 }
 
--(NSArray*)addFilesDescribedInDictionaries:(NSArray*)dicomFilesArray postNotifications:(BOOL)postNotifications rereadExistingItems:(BOOL)rereadExistingItems generatedByOsiriX:(BOOL)generatedByOsiriX importedFiles: (BOOL) importedFiles returnArray: (BOOL) returnArray
+-(NSArray*)addFilesDescribedInDictionaries:(NSArray*)dicomFilesArray
+                         postNotifications:(BOOL)postNotifications
+                       rereadExistingItems:(BOOL)rereadExistingItems
+                         generatedByOsiriX:(BOOL)generatedByOsiriX
+                             importedFiles:(BOOL)importedFiles
+                               returnArray:(BOOL)returnArray
 {
 #ifndef NDEBUG
     [self checkForCorrectContextThread];
@@ -2058,8 +2069,12 @@ static BOOL protectionAgainstReentry = NO;
                                 
                                 if (newObject || inParseExistingObject)
                                 {
-                                    if ([curDict objectForKey: @"seriesDICOMUID"]) [seriesTable setValue:[curDict objectForKey: @"seriesDICOMUID"] forKey:@"seriesDICOMUID"];
-                                    if ([curDict objectForKey: @"SOPClassUID"]) [seriesTable setValue:[curDict objectForKey: @"SOPClassUID"] forKey:@"seriesSOPClassUID"];
+                                    if ([curDict objectForKey: @"seriesDICOMUID"])
+                                        [seriesTable setValue:[curDict objectForKey: @"seriesDICOMUID"] forKey:@"seriesDICOMUID"];
+                                    
+                                    if ([curDict objectForKey: @"SOPClassUID"])
+                                        [seriesTable setValue:[curDict objectForKey: @"SOPClassUID"] forKey:@"seriesSOPClassUID"];
+                                    
                                     [seriesTable setValue:[curDict objectForKey: [@"seriesID" stringByAppendingString:SeriesNum]] forKey:@"seriesInstanceUID"];
                                     [seriesTable setValue:[curDict objectForKey: [@"seriesDescription" stringByAppendingString:SeriesNum]] forKey:@"name"];
                                     [seriesTable setValue:[curDict objectForKey: @"modality"] forKey:@"modality"];
@@ -2070,9 +2085,11 @@ static BOOL protectionAgainstReentry = NO;
                                     // Relations
                                     [seriesTable setValue:study forKey:@"study"];
                                     // If a study has an SC or other non primary image  series. May need to change modality to true modality
-                                    if (([[study valueForKey:@"modality"] isEqualToString:@"OT"]  || [[study valueForKey:@"modality"] isEqualToString:@"SC"])
+                                    if (([[study valueForKey:@"modality"] isEqualToString:@"OT"] || [[study valueForKey:@"modality"] isEqualToString:@"SC"])
                                         && !([[curDict objectForKey: @"modality"] isEqualToString:@"OT"] || [[curDict objectForKey: @"modality"] isEqualToString:@"SC"]))
+                                    {
                                         [study setValue:[curDict objectForKey: @"modality"] forKey:@"modality"];
+                                    }
                                 }
                                 
                                 curSerieID = curDictSeriesID;
@@ -2182,8 +2199,10 @@ static BOOL protectionAgainstReentry = NO;
                                     else
                                         [image setValue: [curDict objectForKey: [@"imageID" stringByAppendingString: SeriesNum]] forKey:@"instanceNumber"];
                                     
-                                    if (local) [image setValue: [newFile lastPathComponent] forKey:@"path"];
-                                    else [image setValue:newFile forKey:@"path"];
+                                    if (local)
+                                        [image setValue: [newFile lastPathComponent] forKey:@"path"];
+                                    else
+                                        [image setValue:newFile forKey:@"path"];
                                     
                                     [image setValue:[NSNumber numberWithBool: local] forKey:@"inDatabaseFolder"];
                                     

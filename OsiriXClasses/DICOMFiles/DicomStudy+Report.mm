@@ -33,12 +33,14 @@
     // determine the default app for ODT files
     NSURL* applicationUrl = NULL;
     OSStatus status = LSGetApplicationForInfo(kLSUnknownType, kLSUnknownCreator, CFSTR("odt"), kLSRolesAll, NULL, (CFURLRef*)&applicationUrl);
-    if (status) [NSException raise:NSGenericException format:@"can't find custom application for ODT files"];
+    if (status)
+        [NSException raise:NSGenericException format:@"can't find custom application for ODT files"];
+    
     NSString* applicationPath = applicationUrl.path;
     
     if( [applicationPath contains: @"LibreOffice"])
     {
-        // ./soffice --headless --convert-to pdf /Users/antoinerosset/Desktop/-28199--A10075196600.odt
+        // ./soffice --headless --convert-to pdf ~/Desktop/-28199--A10075196600.odt
         
         @try {
             NSTask* task = [[[NSTask alloc] init] autorelease];
@@ -78,24 +80,37 @@
         NSString* sofficeHelp = [N2Shell execute:sofficePath arguments:[NSArray arrayWithObject:@"-help"]];
         if ([sofficeHelp contains:@"--accept"])
             acceptString = @"--accept=socket,host=localhost,port=2083;urp;StarOffice.ServiceManager";
-        else acceptString = @"-accept=socket,host=localhost,port=2083;urp;StarOffice.ServiceManager";
+        else
+            acceptString = @"-accept=socket,host=localhost,port=2083;urp;StarOffice.ServiceManager";
         
         // LibreOffice is moving files around.....
         
         NSString* offapiPath = nil;
-        for (NSString* subpath in [NSArray arrayWithObjects:@"Contents/MacOS/types/offapi.rdb", @"Contents/basis-link/program/offapi.rdb", @"Contents/MacOS/oovbaapi.rdb", nil]) {
+        for (NSString* subpath in [NSArray arrayWithObjects:
+                                   @"Contents/MacOS/types/offapi.rdb",
+                                   @"Contents/basis-link/program/offapi.rdb",
+                                   @"Contents/MacOS/oovbaapi.rdb",
+                                   nil])
+        {
             offapiPath = [applicationPath stringByAppendingPathComponent:subpath];
             if ([NSFileManager.defaultManager fileExistsAtPath:offapiPath])
                 break;
-            else offapiPath = nil;
+            else
+                offapiPath = nil;
         }
         
         NSString* urelinklibPath = nil;
-        for (NSString* subpath in [NSArray arrayWithObjects:@"Contents/ure-link/lib", @"Contents/basis-link/ure-link/lib", @"Contents/MacOS/urelibs", nil]) {
+        for (NSString* subpath in [NSArray arrayWithObjects:
+                                   @"Contents/ure-link/lib",
+                                   @"Contents/basis-link/ure-link/lib",
+                                   @"Contents/MacOS/urelibs",
+                                   nil])
+        {
             urelinklibPath = [applicationPath stringByAppendingPathComponent:subpath];
             if ([NSFileManager.defaultManager fileExistsAtPath:urelinklibPath])
                 break;
-            else urelinklibPath = nil;
+            else
+                urelinklibPath = nil;
         }
         
         if (!offapiPath || !urelinklibPath)
@@ -134,11 +149,14 @@
                 [lastStdOut release];
                 lastStdOut = [[[[[NSString alloc] initWithData:[[[task standardOutput] fileHandleForReading] readDataToEndOfFile] encoding:NSUTF8StringEncoding] autorelease] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] retain];
                 
-                if (!succeeded) [NSThread sleepForTimeInterval:0.25];
-            } @catch (NSException* e) {
+                if (!succeeded)
+                    [NSThread sleepForTimeInterval:0.25];
+            }
+            @catch (NSException* e) {
                 [lastException release];
                 lastException = [e retain];
-            } @finally {
+            }
+            @finally {
                 [pool release];
             }
         }
@@ -180,7 +198,8 @@
     {
         [[self class] _transformOdtAtPath:reportPath toPdfAtPath:outPdfPath];
     }
-    else  if ([reportPath.pathExtension.lowercaseString isEqualToString:@"rtf"] || [reportPath.pathExtension.lowercaseString isEqualToString:@"rtfd"])
+    else if ([reportPath.pathExtension.lowercaseString isEqualToString:@"rtf"] ||
+             [reportPath.pathExtension.lowercaseString isEqualToString:@"rtfd"])
     {
         int result = 0;
         
@@ -214,7 +233,9 @@
         
         [[self class] _runAppleScriptAtPath:path withArguments:[NSArray arrayWithObjects: reportPath, outPdfPath, nil]];
     }
-    else if ([reportPath.pathExtension.lowercaseString isEqualToString:@"doc"] || [reportPath.pathExtension.lowercaseString isEqualToString:@"docx"]) {
+    else if ([reportPath.pathExtension.lowercaseString isEqualToString:@"doc"] ||
+             [reportPath.pathExtension.lowercaseString isEqualToString:@"docx"])
+    {
         NSString* path = [[NSBundle mainBundle] pathForResource:@"word2pdf" ofType:@"applescript"];
         [[self class] _runAppleScriptAtPath:path withArguments:[NSArray arrayWithObjects: reportPath, outPdfPath, nil]];
     }
@@ -257,11 +278,16 @@
     return [self _ifAvailableCopyAttributeWithName:name from:from to:to alternatively:nil];
 }
 
-+(void)transformPdfAtPath:(NSString*)pdfPath toDicomAtPath:(NSString*)outDicomPath usingSourceDicomAtPath:(NSString*)sourcePath
++(void)transformPdfAtPath:(NSString*)pdfPath
+            toDicomAtPath:(NSString*)outDicomPath
+   usingSourceDicomAtPath:(NSString*)sourcePath
 {
     DCMObject* source = [DCMObject objectWithContentsOfFile:sourcePath decodingPixelData:NO];
     
     DCMObject* output = [DCMObject encapsulatedPDF:[NSFileManager.defaultManager contentsAtPath:pdfPath]];
+    if (output == nil) {
+        NSLog(@"DicomStudy+Report.mm:%i PDF not found ?", __LINE__);
+    }
     
     NSString *reportName = NSLocalizedString( @"Report PDF", nil);
     
@@ -299,8 +325,10 @@
 -(void)transformPdfAtPath:(NSString*)pdfPath toDicomAtPath:(NSString*)outDicomPath
 {
     NSString* sourcePath = nil;
-    for (DicomSeries* series in self.series.allObjects) {
-        for (DicomImage* image in self.images.allObjects) {
+    for (DicomSeries* series in self.series.allObjects) // TODO: resolve unused variable 'series'
+    {
+        for (DicomImage* image in self.images.allObjects)
+        {
             if ([NSFileManager.defaultManager fileExistsAtPath:image.completePath])
                 sourcePath = image.completePath;
             if (sourcePath)

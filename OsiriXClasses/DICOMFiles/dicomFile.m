@@ -1986,9 +1986,10 @@ char* replaceBadCharacter (char* str, NSStringEncoding encoding)
 
 -(short) getDicomFilePapyrus :(BOOL) forceConverted
 {
-    return -1;
+    return -1; // fail
 }
 
+// return 0 means success
 -(short) getDicomFile
 {
 	BOOL isCD = NO;
@@ -1996,11 +1997,14 @@ char* replaceBadCharacter (char* str, NSStringEncoding encoding)
 	if( PREFERPAPYRUSFORCD)
 		isCD = filesAreFromCDMedia;
 
-	if( TOOLKITPARSER == 1 || isCD == YES) return [self getDicomFilePapyrus: NO];
+	if( TOOLKITPARSER == 1 || isCD == YES)
+        return [self getDicomFilePapyrus: NO];
 	
-	if( TOOLKITPARSER == 0) return [self getDicomFilePapyrus: NO];
+	if( TOOLKITPARSER == 0)
+        return [self getDicomFilePapyrus: NO];
 	
-	if( TOOLKITPARSER == 2) return [self getDicomFileDCMTK];
+	if( TOOLKITPARSER == 2)
+        return [self getDicomFileDCMTK];
 	
 	return [self getDicomFileDCMTK];
 }
@@ -2048,6 +2052,7 @@ char* replaceBadCharacter (char* str, NSStringEncoding encoding)
 {
 	id returnVal = nil;
 //	NSLog(@"Init dicomFile: %d", DICOMOnly);
+    
 	if( self = [super init])
 	{
 		[DicomFile setDefaults];

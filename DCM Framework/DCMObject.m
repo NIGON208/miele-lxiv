@@ -1909,7 +1909,9 @@ PixelRepresentation
                         [container setUseMetaheaderTS:YES];
                         if (![attr writeToDataContainer:container withTransferSyntax:explicitTS])
                         {
-                            exception = [NSException exceptionWithName:@"DCMWriteDataError" reason:[NSString stringWithFormat:@"Cannot write %@ to data", [attr description]] userInfo:nil];
+                            exception = [NSException exceptionWithName:@"DCMWriteDataError"
+                                                                reason:[NSString stringWithFormat:@"Cannot write %@ to data", [attr description]]
+                                                              userInfo:nil];
                             [exception raise];
                         }
                     }
