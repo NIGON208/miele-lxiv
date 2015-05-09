@@ -3572,7 +3572,7 @@ static NSConditionLock *threadLock = nil;
             [self delayedRefreshAlbums];
         else
         {
-            if ([[NSUserDefaults standardUserDefaults] boolForKey: @"hideListenerError"] == NO || [self.window isVisible]) // Server Mode: dont refresh albums
+            if ([[NSUserDefaults standardUserDefaults] boolForKey: @"hideListenerError"] == NO || [self.window isVisible]) // Server Mode: don't refresh albums
                 [NSThread detachNewThreadSelector:@selector(_computeNumberOfStudiesForAlbumsThread) toTarget:self withObject: nil];
         }
     }
@@ -6060,7 +6060,7 @@ static NSConditionLock *threadLock = nil;
     [context retain];
 	[context lock];
     
-	if( result == NSAlertOtherReturn)	// REMOVE FROM CURRENT ALBUMS, BUT DONT DELETE IT FROM THE DATABASE
+	if( result == NSAlertOtherReturn)	// REMOVE FROM CURRENT ALBUMS, BUT DON'T DELETE IT FROM THE DATABASE
 	{
 		NSIndexSet* selectedRows = [databaseOutline selectedRowIndexes];
 		if (selectedRows.count)
@@ -13155,7 +13155,7 @@ constrainSplitPosition:(CGFloat)proposedPosition
 					
 					if( [[curFile valueForKey:@"type"] isEqualToString: @"Study"])
 					{
-						// Find the first series of images! DONT TAKE A ROI SERIES !
+						// Find the first series of images! DON'T TAKE A ROI SERIES !
 						if( [[curFile valueForKey:@"imageSeries"] count])
 						{
 							curFile = [[curFile valueForKey:@"imageSeries"] objectAtIndex: 0];
@@ -16085,7 +16085,7 @@ static volatile int numberOfThreadsForJPEG = 0;
 				previousSeriesInstanceUID = [curImage valueForKeyPath: @"series.seriesInstanceUID"];
 				uniqueSeriesID++;
 				
-				// DONT FORGET TO MODIFY THE SAME FUNCTIONS AT THE END OF THIS LOOP !
+				// DON'T FORGET TO MODIFY THE SAME FUNCTIONS AT THE END OF THIS LOOP !
 				
 				if( [imagesArray count])
 				{
@@ -17563,7 +17563,11 @@ static volatile int numberOfThreadsForJPEG = 0;
 	if( [AppController hasMacOSXSnowLeopard] == NO && [NSThread isMainThread] && [password length] > 0)
 	{
 		password = nil;
-		NSRunCriticalAlertPanel(NSLocalizedString(@"ZIP Encryption", nil), NSLocalizedString(@"ZIP encryption requires MacOS 10.6 or higher. The ZIP file will be generated, but NOT encrypted with a password.", nil), NSLocalizedString(@"OK",nil),nil, nil);
+		NSRunCriticalAlertPanel(NSLocalizedString(@"ZIP Encryption", nil),
+                                NSLocalizedString(@"ZIP encryption requires MacOS 10.6 or higher. The ZIP file will be generated, but NOT encrypted with a password.", nil),
+                                NSLocalizedString(@"OK",nil),
+                                nil,
+                                nil);
 		return;
 	}
 	

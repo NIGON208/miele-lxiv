@@ -3095,7 +3095,7 @@ extern "C"
 	
 	if( [item valueForKey:@"numberImages"] == nil || ([[NSUserDefaults standardUserDefaults] boolForKey: @"SupportPACSWithNoNumberOfImagesField"] && [[item valueForKey:@"numberImages"] intValue] == 0))
 	{
-		// We dont know how many images are stored on the distant PACS... add it, if we have no images on our side...
+		// We don't know how many images are stored on the distant PACS... add it, if we have no images on our side...
 		if( localFiles == 0)
 			totalFiles = 1;
 	}
@@ -3178,7 +3178,7 @@ extern "C"
                     
                     for( NSDictionary *d in [NSArray arrayWithArray: downloadedStudies])
                     {
-                        if( [[d valueForKey: @"date"] timeIntervalSinceNow] > -60*60) // 1 hour - dont redownload it !
+                        if( [[d valueForKey: @"date"] timeIntervalSinceNow] > -60*60) // 1 hour - don't redownload it !
                         {
                             if( [[NSUserDefaults standardUserDefaults] boolForKey: @"QR_DontDownloadMGDescription"])
                             {
@@ -3244,7 +3244,7 @@ extern "C"
 					
 					for( id study in studiesOfThisPatient)
 					{
-						// We dont want current study
+						// We don't want current study
 						if( [[study valueForKey:@"uid"] isEqualToString: [item valueForKey:@"uid"]] == NO)
 						{
 							BOOL found = NO;
@@ -5082,7 +5082,7 @@ extern "C"
                     else
                         [resultsArrays addObject: [NSNull null]];
                     
-                    [instance removeObjectForKey: @"resultArray"]; // We dont want to save the result array in the preferences
+                    [instance removeObjectForKey: @"resultArray"]; // We don't want to save the result array in the preferences
                 }
                 
                 [[NSUserDefaults standardUserDefaults] setObject: [[autoQRInstances copy] autorelease] forKey: @"savedAutoDICOMQuerySettingsArray"];

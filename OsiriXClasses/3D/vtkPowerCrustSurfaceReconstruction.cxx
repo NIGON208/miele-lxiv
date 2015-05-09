@@ -1866,7 +1866,7 @@ void adapted_main()
     /* Begin by labeling everything outside a big bounding box as outside */
        
     /* labeling */
-    if(!poleInput) { /* if we dont have the labels */
+    if(!poleInput) { /* if we don't have the labels */
         // TJH: added this if statement
         if(DFILE)
             fprintf(DFILE,"num_poles=%d\n",num_poles);
@@ -2370,7 +2370,7 @@ void adapted_main()
     // Begin by labeling everything outside a big bounding box as outside
        
     // labeling
-    if(!poleInput) { // if we dont have the labels
+    if(!poleInput) { // if we don't have the labels
         fprintf(DFILE,"num_poles=%d\n",num_poles);
         init_heap(num_poles);
         for (i=0;i<num_poles;i++) { 

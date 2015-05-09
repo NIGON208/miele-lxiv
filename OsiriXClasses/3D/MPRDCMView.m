@@ -401,7 +401,7 @@ unsigned int minimumStep;
             if( moveCenter)
             {
                 lastRenderingWasMoveCenter = YES;
-                [vrView setLOD: 100];	// We dont need to really compute the image - we just want image origin for the other views.
+                [vrView setLOD: 100];	// We don't need to really compute the image - we just want image origin for the other views.
             }
             else lastRenderingWasMoveCenter = NO;
             
@@ -1467,7 +1467,7 @@ unsigned int minimumStep;
 	[self updateMousePosition: theEvent];
 }
 
-- (void) magicTrick	// Dont ask me to explain this function... it's just magic : rendering time is increased by 2 after this call...
+- (void) magicTrick	// Don't ask me to explain this function... it's just magic : rendering time is increased by 2 after this call...
 {
 	[self restoreCamera];
 	camera.forceUpdate = YES;

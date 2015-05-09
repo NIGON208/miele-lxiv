@@ -17,6 +17,7 @@
 #import <Cocoa/Cocoa.h>
 #import <AppKit/AppKit.h>
 #import "ROI.h"
+#import "ROI3DSettingsWindow.h"
 
 @class DCMView;
 @class OpacityTransferView;
@@ -350,6 +351,7 @@ enum
     BOOL                    scaleFitToRestore;
     
     long                    numberOfImagesForSeriesAtInit;
+    ROI3DSettingsWindow     *pController;
 }
 @property(retain) NSCalendarDate *injectionDateTime;
 @property(readonly) NSSlider *slider;
@@ -594,6 +596,7 @@ enum
 - (IBAction) roiDeleteWithName:(NSString*) name;
 - (IBAction) roiIntDeleteAllROIsWithSameName :(NSString*) name;
 - (IBAction) roiDeleteAllROIsWithSameName:(id) sender;
+- (IBAction) roi3DSettings:(id) sender;
 - (IBAction) updateZVector:(id) sender;
 - (void)displayDICOMOverlays: (id)sender;
 - (IBAction)resampleDataBy2:(id)sender;

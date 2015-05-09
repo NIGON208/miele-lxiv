@@ -190,7 +190,7 @@ static NSMutableDictionary *studiesForUserCache = nil;
 
 - (void) convertPasswordToHashIfNeeded
 {
-    if( [self.password length] > 0 && [self.password isEqualToString: HASHPASSWORD] == NO) // We dont want to store password, only sha1Digest version ! 
+    if( [self.password length] > 0 && [self.password isEqualToString: HASHPASSWORD] == NO) // We don't want to store password, only sha1Digest version !
     {
         self.passwordHash = [[[[self.password stringByAppendingString: self.name] dataUsingEncoding:NSUTF8StringEncoding] sha1Digest] hex];
         

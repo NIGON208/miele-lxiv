@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface ROI3DSettingsWindow : NSWindowController <NSPopoverDelegate>
+@interface ROI3DSettingsWindow : NSWindowController //<NSPopoverDelegate>
 {
     NSString *minimumBallROIIsoContourPercentage,
     *maximumBallROIIsoContourPercentage;
@@ -27,14 +27,20 @@
     float peakDiameterInMm;
     
     NSPopover *popoverIso;
-    NSPopover *popoverPeak;    
+    NSPopover *popoverPeak;
+    NSPopover *popover;
+    NSButton *helpIso;
+    NSButton *helpPeak;
 }
 
 @property (assign) IBOutlet NSPopover *popoverIso;
 @property (assign) IBOutlet NSPopover *popoverPeak;
+@property (assign) IBOutlet NSButton *helpIso;
+@property (assign) IBOutlet NSButton *helpPeak;
 
 -(void)computePeakValue:(id)sender;
 -(void)computeIsoContour:(id)sender;
 -(IBAction)togglePopover:(id)sender;
+-(IBAction)peakDiameterSliderAction:(id) sender;
 
 @end

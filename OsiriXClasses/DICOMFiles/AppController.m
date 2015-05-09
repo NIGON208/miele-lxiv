@@ -4275,7 +4275,7 @@ static BOOL initialized = NO;
 	}	
 }
 
-	// CONVERT OLD LUT FILES TO XML - PLEASE DONT DELETE THESE LINES!!! THANKS!!!!!
+	// CONVERT OLD LUT FILES TO XML - PLEASE DON'T DELETE THESE LINES!!! THANKS!!!!!
 	//	{
 	//		FILE*			fp;
 	//		long			c, i;
@@ -5682,8 +5682,7 @@ static BOOL initialized = NO;
     NSEnableScreenUpdates();
 }
 
-
-//———————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+//——————————————————————————————————————————————————————————————————————————————
 
 - (IBAction) closeAllViewers: (id) sender
 {

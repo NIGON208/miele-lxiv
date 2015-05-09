@@ -356,7 +356,7 @@ static int gTotalN2ManagedObjectContext = 0;
                             
                             // error = [NSError osirixErrorWithCode:0 underlyingError:error localizedDescriptionFormat:NSLocalizedString(@"Store Configuration Failure: %@", nil), error.localizedDescription? error.localizedDescription : NSLocalizedString(@"Unknown Error", nil)];
                             
-                            // delete the old file... for the Database.sql model ONLY(Dont do this for the WebUser db)
+                            // delete the old file... for the Database.sql model ONLY (Don't do this for the WebUser db)
                             if( self.deleteSQLFileIfOpeningFailed)
                                 [NSFileManager.defaultManager removeItemAtPath:sqlFilePath error:nil];
                         }

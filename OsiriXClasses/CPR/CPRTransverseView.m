@@ -480,7 +480,7 @@ extern int splitPosition[ 3];
     pixelsPerMm = self.pixelsPerMm;
     pixToSubDrawRectTransform = [self pixToSubDrawRectTransform];
 
-    // Dont display cross lines on transverse views, to keep coherence with streched mode
+    // Don't display cross lines on transverse views, to keep coherence with streched mode
 //	if( displayCrossLines && _reformationDisplayStyle == CPRTransverseViewStraightenedReformationDisplayStyle)
 //	{
 //		glColor4d(1.0, 1.0, 0.0, 1.0);

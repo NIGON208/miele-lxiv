@@ -123,7 +123,7 @@
 {
 	if( [_vr isEqualToString: @"SQ"] == NO)
 	{
-		// we dont write UN sequences
+		// We don't write UN sequences
 //		[_vr release];
 //		_vr = @"SQ";
 //		[_vr retain];

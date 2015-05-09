@@ -155,7 +155,7 @@ public:
      /** Saves current dataset back to a file. Caution: After saving
      *  MdfDatasetManager keeps working on old filename.
      *  @param file_name filename to save to
-     *  @param opt_xfer transfer syntax to save to (EXS_Unknown: dont change)
+     *  @param opt_xfer transfer syntax to save to (EXS_Unknown: don't change)
      *  @param opt_enctype write with explicit or implicit length encoding
      *  @param opt_glenc option to set group lenghth calculation mode
      *  @param opt_padenc sets padding option

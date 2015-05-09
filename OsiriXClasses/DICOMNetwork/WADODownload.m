@@ -121,7 +121,7 @@
 
 - (NSCachedURLResponse *)connection:(NSURLConnection *)connection willCacheResponse:(NSCachedURLResponse *)cachedResponse
 {
-	//We dont want to store the images in the cache! Caches/BUNDLE_IDENTIFIER/Cache.db
+	//We don't want to store the images in the cache! Caches/BUNDLE_IDENTIFIER/Cache.db
 	return nil;
 }
 
@@ -272,7 +272,7 @@
             firstWadoErrorDisplayed = NO;
             
             if( showErrorMessage == NO)
-                firstWadoErrorDisplayed = YES; // dont show errors
+                firstWadoErrorDisplayed = YES; // don't show errors
             
             [WADODownloadDictionary release];
             WADODownloadDictionary = [[NSMutableDictionary dictionary] retain];
@@ -295,7 +295,7 @@
             BOOL aborted = NO;
             for( NSURL *url in urlToDownload)
             {
-                while( [WADODownloadDictionary count] > WADOMaximumConcurrentDownloads) //Dont download more than XXX images at the same time
+                while( [WADODownloadDictionary count] > WADOMaximumConcurrentDownloads) //Don't download more than XXX images at the same time
                 {
                     [[NSRunLoop currentRunLoop] runUntilDate: [NSDate dateWithTimeIntervalSinceNow: 0.1]];
                     

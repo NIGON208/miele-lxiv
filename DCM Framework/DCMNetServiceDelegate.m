@@ -375,7 +375,7 @@ static DCMNetServiceDelegate *_netServiceDelegate = nil;
                         
                         [s setObject: @1 forKey: @"Activated"];
                         
-                        // Dont add duplicate addresses
+                        // Don't add duplicate addresses
                         BOOL alreadyHere = NO;
                         for( int v = 0; v < [serversArray count]; v++)
                         {

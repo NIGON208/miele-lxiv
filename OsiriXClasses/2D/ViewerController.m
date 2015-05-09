@@ -2623,6 +2623,19 @@ static volatile int numberOfThreadsForRelisce = 0;
         [menu addItem:m];
 	}
     
+#if 1
+    if ([roi type] == tBall)
+    {
+        [menu addItem:[NSMenuItem separatorItem]];
+
+        m = [[[NSMenuItem alloc] initWithTitle: NSLocalizedString(@"3D ROI Settings...", nil)
+                                        action: @selector(roi3DSettings:)
+                                 keyEquivalent: @""] autorelease];
+        [m setTarget:self];
+        [menu addItem:m];
+    }
+#endif
+    
 	return menu;
 }
 
@@ -15301,7 +15314,7 @@ int i,j,l;
 
 - (IBAction) roiPropagateSetup: (id) sender
 {
-	ROI		*selectedRoi = nil;
+	ROI *selectedRoi = nil;
 	
 	if( [pixList[curMovieIndex] count] > 1)
 	{
@@ -15311,20 +15324,41 @@ int i,j,l;
 		
 		if( selectedRoi == nil)
 		{
-			NSRunCriticalAlertPanel(NSLocalizedString(@"ROIs Propagate Error", nil), NSLocalizedString(@"No ROI(s) selected to propagate on the series!", nil) , NSLocalizedString(@"OK", nil), nil, nil);
+			NSRunCriticalAlertPanel(NSLocalizedString(@"ROIs Propagate Error", nil),
+                                    NSLocalizedString(@"No ROI(s) selected to propagate on the series!", nil),
+                                    NSLocalizedString(@"OK", nil),
+                                    nil,
+                                    nil);
 		}
 		else
 		{
 			if (maxMovieIndex <= 1)
                 [[roiPropaDim cellWithTag:1] setEnabled:NO];
 			
-			[NSApp beginSheet: roiPropaWindow modalForWindow:[self window] modalDelegate:self didEndSelector:nil contextInfo:nil];
+			[NSApp beginSheet:roiPropaWindow
+               modalForWindow:[self window]
+                modalDelegate:self
+               didEndSelector:nil
+                  contextInfo:nil];
 		}
 	}
 	else
 	{
-		NSRunCriticalAlertPanel(NSLocalizedString(@"ROIs Propagate Error", nil), NSLocalizedString(@"There is only one image in this series. Nothing to propagate!", nil) , NSLocalizedString(@"OK", nil), nil, nil);
+		NSRunCriticalAlertPanel(NSLocalizedString(@"ROIs Propagate Error", nil),
+                                NSLocalizedString(@"There is only one image in this series. Nothing to propagate!", nil),
+                                NSLocalizedString(@"OK", nil),
+                                nil,
+                                nil);
 	}
+}
+
+// Display singleton dialog
+- (IBAction) roi3DSettings:(id) sender
+{
+    if (!pController)
+        pController = [[ROI3DSettingsWindow alloc] initWithWindowNibName:@"ROI3DSettingsWindow"];
+    
+    [pController showWindow:nil];
 }
 
 - (IBAction) roiHistogram:(id) sender

@@ -2938,7 +2938,8 @@ static float Sign(NSPoint p1, NSPoint p2, NSPoint p3)
 				
 				if( NSPointInRect( pt, arect))
                     imode = ROI_selected;
-			break;
+
+                break;
 			
 			case tText:
 				arect = NSMakeRect(rect.origin.x - backingScaleFactor*rect.size.width/(2*scale),
@@ -2948,8 +2949,8 @@ static float Sign(NSPoint p1, NSPoint p2, NSPoint p3)
 				
 				if( NSPointInRect( pt, arect))
                     imode = ROI_selected;
-			break;
-			
+
+                break;
 			
 			case tArrow:
 			case tMesure:
@@ -3005,7 +3006,35 @@ static float Sign(NSPoint p1, NSPoint p2, NSPoint p3)
 							imode = ROI_selected;
 							break;
 						}
-					}
+                    }
+                    
+                    if (type == tBall)
+                    {
+                        // The inside of the oval also selects the ROI
+                        float distance = [self Magnitude: pt :rect.origin];
+                        
+                        NSLog(@"ROI.m:%i %@ %p distance:%.1f, %.1f", __LINE__,
+                              NSStringFromSelector(_cmd),
+                              self,
+                              distance,
+                              scale/backingScaleFactor);
+                        
+//                        if ( [[MyPoint point:pt] isNearToPoint:rect.origin
+//                                                              :scale/backingScaleFactor
+//                                                              :[[curView curDCM] pixelRatio]])
+//                        {
+//                            NSLog(@"ROI.m:%i %p A", __LINE__, self);
+////                            imode = ROI_selected;
+////                            break;
+//                        }
+                        
+                        if (distance*scale < rect.size.width)
+                        {
+                            NSLog(@"ROI.m:%i %p B", __LINE__, self);
+                            imode = ROI_selected;
+                            break;
+                        }
+                    }
                     
                     if( type == tOvalAngle)
                     {
@@ -3023,8 +3052,10 @@ static float Sign(NSPoint p1, NSPoint p2, NSPoint p3)
                         aPt.y = rect.origin.y + armScale*rect.size.height*sin(ovalAngle[1]);
                         
                         [self DistancePointLine:pt :aPt :rect.origin :&distance];
-                        if( distance*scale < neighborhoodRad/2)
+                        if (distance*scale < neighborhoodRad/2) {
                             imode = ROI_selected;
+                            //break; // TBC
+                        }
                     }
                     
                     // Test ROI center

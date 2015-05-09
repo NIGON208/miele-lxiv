@@ -2640,11 +2640,11 @@ static inline int int_ceildivpow2(int a, int b) {
 			}  //end 16 bit
 			else if (clutDepthR == 8  && clutDepthG == 8  && clutDepthB == 8)
 			{
-				NSLog(@"Segmented palettes for 8 bits ??");
+				NSLog(@"Segmented palettes for 8 bits ?");
 			}
 			else
 			{
-				NSLog(@"Dont know this kind of DICOM CLUT...");
+				NSLog(@"Don't know this kind of DICOM CLUT...");
 			}
 		} //end segmented
 		// EXTRACT THE PALETTE data only if there is 256 entries and depth is 16 bits
