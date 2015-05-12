@@ -1067,6 +1067,25 @@ static NSHost *currentHost = nil;
 	[defaultValues setObject:@"1" forKey:@"activateCGETSCP"];
     [defaultValues setObject:@"1" forKey:@"activateCFINDSCP"];
     [defaultValues setObject:@"1" forKey:@"activateCMOVESCP"];
+    
+#if 1
+    NSColor *colorPeak = [NSColor colorWithCalibratedRed:0.5 green:0.5 blue:1.0 alpha:1.0];
+    NSColor *colorIso  = [NSColor colorWithCalibratedRed:0.5 green:1.0 blue:0.5 alpha:1.0];
+    NSData *dataPeak = [NSArchiver archivedDataWithRootObject:colorPeak];
+    NSData *dataIso = [NSArchiver archivedDataWithRootObject:colorIso];
+    [defaultValues setObject: dataPeak forKey: @"peakValueColor"];
+    [defaultValues setObject: dataIso  forKey: @"isoContourColor"];
+#else
+    // OsiriX Lite does it this way ?
+    [defaultValues setObject:[NSNumber numberWithFloat: 0.5 * 65535.] forKey:@"peakValueColorR"];
+    [defaultValues setObject:[NSNumber numberWithFloat: 0.5 * 65535.] forKey:@"peakValueColorG"];
+    [defaultValues setObject:[NSNumber numberWithFloat: 1.0 * 65535.] forKey:@"peakValueColorB"];
+    
+    [defaultValues setObject:[NSNumber numberWithFloat: 0.5 * 65535.] forKey:@"isoContourColorR"];
+    [defaultValues setObject:[NSNumber numberWithFloat: 1.0 * 65535.] forKey:@"isoContourColorG"];
+    [defaultValues setObject:[NSNumber numberWithFloat: 0.5 * 65535.] forKey:@"isoContourColorB"];
+#endif
+
     [defaultValues setObject:@"0" forKey:@"DICOMSCPOnAllDatabases"]; // TODO: make use of it
     [defaultValues setObject:@"0" forKey:@"notificationsEmails"];
 	[defaultValues setObject:@"0" forKey:@"validateFilesBeforeImporting"];

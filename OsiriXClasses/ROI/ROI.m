@@ -7012,7 +7012,14 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
                     glEnd();
                     
                     // TODO: draw the pink circle
-                    
+#if 0
+                    NSColor *colorPeak = nil;
+                    //NSData *colorData = [[NSUserDefaults standardUserDefaults] objectForKey:@"peakValueColor"];
+                    NSData *colorData = [[NSUserDefaults standardUserDefaults] dataForKey:@"peakValueColor"];
+                    if (colorData != nil)
+                        colorPeak = (NSColor *)[NSUnarchiver unarchiveObjectWithData:colorData];
+                    NSLog(@"%f %f %f", [colorPeak redComponent], [colorPeak greenComponent], [colorPeak blueComponent]);
+#endif
                     if((mode == ROI_selected || mode == ROI_selectedModify || mode == ROI_drawing) && highlightIfSelected)
                     {
                         glColor3f (0.5f, 0.5f, 1.0f);

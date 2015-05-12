@@ -1,6 +1,8 @@
 ## TODO List
 
 1. Finish implementing the new ROI "3D tBall"
+	* Showing the orange circle
+	* Actually coloring the affected pixels
 - Finish implementing Study Status in database view
 	* Don't display anything for the series
 	* Add colors and edit capability
