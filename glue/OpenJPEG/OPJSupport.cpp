@@ -791,7 +791,7 @@ OPJSupport::compressJPEG2K(  void *data,
     
     *compressedDataSize = length;
 
-    if (parameters.outfile)
+    //if (parameters.outfile)
         remove(parameters.outfile);
 #endif
     

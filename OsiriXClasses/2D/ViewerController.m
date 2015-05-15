@@ -10181,7 +10181,9 @@ static int avoidReentryRefreshDatabase = 0;
 			[copyPix setSliceThickness: [curPix sliceThickness] * zFactor];
 			[copyPix setPixelRatio:  [curPix pixelRatio] / xFactor * yFactor];
 			
-			newOrigin[ 0] = origin[ 0];	newOrigin[ 1] = origin[ 1];	newOrigin[ 2] = origin[ 2];
+			newOrigin[ 0] = origin[ 0];
+            newOrigin[ 1] = origin[ 1];
+            newOrigin[ 2] = origin[ 2];
             
             switch( o)
             {
@@ -18843,8 +18845,10 @@ static BOOL viewerControllerPlaying = NO;
 		{
 			//current image
 			case 0:
-				if( [imageView flippedData]) from = [pixList[ curMovieIndex] count] - [imageView curImage] - 1;
-				else from = [imageView curImage];
+				if( [imageView flippedData])
+                    from = [pixList[ curMovieIndex] count] - [imageView curImage] - 1;
+				else
+                    from = [imageView curImage];
 				
 				to = from+1;
 				interval = 1;
@@ -18872,7 +18876,8 @@ static BOOL viewerControllerPlaying = NO;
 					from = [printTo intValue]-1;
 				}
 				
-				if( to == from) to = from+1;
+				if( to == from)
+                    to = from+1;
 				
 				interval = [printInterval intValue];
 			break;
@@ -20046,7 +20051,7 @@ static BOOL viewerControllerPlaying = NO;
 {
 	int no;
 	
-	no = fabs( [dcmFrom intValue] - [dcmTo intValue]);
+	no = abs( [dcmFrom intValue] - [dcmTo intValue]);
 	no ++;
     
     int interval = [dcmInterval intValue];
@@ -23593,7 +23598,8 @@ static BOOL viewerControllerPlaying = NO;
 		[navigatorWindowController showWindow:self];
 		[[AppController sharedAppController] tileWindows: nil];
 	}
-	else [[NavigatorWindowController navigatorWindowController] setViewer:self];
+	else
+        [[NavigatorWindowController navigatorWindowController] setViewer:self];
 }
 
 - (IBAction)threeDPanel:(id)sender;
@@ -23617,7 +23623,8 @@ static BOOL viewerControllerPlaying = NO;
 		ThreeDPositionController *threeDPositionController = [[ThreeDPositionController alloc] initWithViewer:self];
 		[threeDPositionController showWindow:self];
 	}
-	else [[ThreeDPositionController threeDPositionController] setViewer:self];
+	else
+        [[ThreeDPositionController threeDPositionController] setViewer:self];
 }
 
 - (void)updateNavigator;

@@ -1,0 +1,412 @@
+/* Alex Bettarini - 12 May 2015
+ */
+
+#include <stdio.h>
+#import "DCMObject.h"
+#import "DCM.h"
+
+#import "browserController.h"
+//#import "AppController.h"
+//#import "DicomDatabase.h"
+//
+#include "osconfig.h"    /* make sure OS specific configuration is included first */
+//#include "dcmqrsrv.h"
+//#include "dcmqropt.h"
+#include "dcfilefo.h"
+#include "dcmqrdba.h"
+#include "dcmqrdbs.h"    /* for class DcmQueryRetrieveDatabaseStatus */
+#include "dcmqrcnf.h"    /* for DCMQRDB_INFO */
+//#include "dcmqrcbf.h"    /* for class DcmQueryRetrieveFindContext */
+//#include "dcmqrcbm.h"    /* for class DcmQueryRetrieveMoveContext */
+//#include "dcmqrcbg.h"    /* for class DcmQueryRetrieveGetContext */
+//#include "dcmqrcbs.h"    /* for class DcmQueryRetrieveStoreContext */
+//#include "dcmetinf.h"
+//#include "dul.h"
+//#import "dcmqrdbq.h"
+//#include "dcdeftag.h"
+
+#include "DcmQueryRetrieveGetOsiriContext.h"
+#import "dimse.h"       // for getTransferSyntax
+#import "diutil.h"
+
+#if 1 //def ON_THE_FLY_COMPRESSION
+#include "djdecode.h"  /* for dcmjpeg decoders */
+#include "djencode.h"  /* for dcmjpeg encoders */
+#include "dcrledrg.h"  /* for DcmRLEDecoderRegistration */
+#include "dcrleerg.h"  /* for DcmRLEEncoderRegistration */
+#include "djrploss.h"
+#include "djrplol.h"
+#include "dcpixel.h"
+#include "dcrlerp.h"
+#endif
+
+#include "url.h"
+
+//extern OFCondition decompressFileFormat(DcmFileFormat fileformat, const char *fname);
+//extern OFBool compressFileFormat(DcmFileFormat fileformat, const char *fname, char *outfname, E_TransferSyntax newXfer);
+
+extern OFCondition getTransferSyntax(
+                  T_ASC_Association *assoc,
+                  T_ASC_PresentationContextID pid,
+                  E_TransferSyntax *xferSyntax);
+
+static int seed = 0;
+
+#pragma mark - taken from OsiriX dcmqrcbm.mm
+
+OFCondition decompressFileFormat(DcmFileFormat fileformat, const char *fname)
+{
+    OFBool status = YES;
+    OFCondition cond = EC_Normal;
+    
+    DcmXfer filexfer(fileformat.getDataset()->getOriginalXfer());
+#ifndef OSIRIX_LIGHT
+    BOOL useDCMTKForJP2K = [[NSUserDefaults standardUserDefaults] boolForKey: @"useDCMTKForJP2K"];
+    
+    if (useDCMTKForJP2K == NO &&
+       (filexfer.getXfer() == EXS_JPEG2000LosslessOnly ||
+        filexfer.getXfer() == EXS_JPEG2000))
+    {
+        @try
+        {
+            NSString *path = [NSString stringWithCString:fname encoding:NSUTF8StringEncoding];
+            DCMObject *dcmObject = [[DCMObject alloc] initWithContentsOfFile:path decodingPixelData: NO];
+            [[NSFileManager defaultManager] removeFileAtPath:path handler:0L];
+            [dcmObject writeToFile:path
+                withTransferSyntax:[DCMTransferSyntax ExplicitVRLittleEndianTransferSyntax]
+                           quality:DCMLosslessQuality
+                               AET:@"OsiriX"
+                        atomically:YES];
+            [dcmObject release];
+        }
+        @catch (NSException *e)
+        {
+            NSLog( @"*** decompressFileFormat exception: %@", e);
+            status = NO;
+        }
+    }
+    else
+#endif
+    {
+        DcmDataset *dataset = fileformat.getDataset();
+        
+        // decompress data set if compressed
+        dataset->chooseRepresentation(EXS_LittleEndianExplicit, NULL);
+        
+        // check if everything went well
+        if (dataset->canWriteXfer(EXS_LittleEndianExplicit))
+        {
+            fileformat.loadAllDataIntoMemory();
+            cond = fileformat.saveFile( fname, EXS_LittleEndianExplicit);
+            status =  (cond.good()) ? YES : NO;
+            
+            if( status == NO)
+                printf("\n*** decompressFileFormat failed\n");
+        }
+        else
+            status = NO;
+    }
+    
+    printf("\n--- Decompress for C-Move/C-Get\n");
+    
+    if( status == NO)
+        cond = EC_MemoryExhausted;
+    
+    return cond;
+}
+
+// TODO: avoid code duplication, see function compressFile() in DCMTKStoreSCU.mm (ON_THE_FLY_COMPRESSION)
+OFBool compressFileFormat(DcmFileFormat fileformat, const char *fname, char *outfname, E_TransferSyntax newXfer)
+{
+    OFCondition cond = EC_Normal;
+    OFBool status = YES;
+    DcmDataset *dataset = fileformat.getDataset();
+    DcmXfer filexfer(dataset->getOriginalXfer());
+    BOOL useDCMTKForJP2K = [[NSUserDefaults standardUserDefaults] boolForKey: @"useDCMTKForJP2K"];
+
+    useDCMTKForJP2K = NO; // FIXME: Testing issue #19, using DCMTK doesn't work.
+    
+#ifndef OSIRIX_LIGHT
+    if( useDCMTKForJP2K == NO && newXfer == EXS_JPEG2000)
+    {
+        DCMQRDB_INFO("SEND - Compress JPEG 2000 Lossy");
+        @try
+        {
+            NSString *path = [NSString stringWithCString:fname encoding:NSUTF8StringEncoding];
+            NSString *outpath = [NSString stringWithCString:outfname encoding:NSUTF8StringEncoding];
+            
+            DCMObject *dcmObject = [[DCMObject alloc] initWithContentsOfFile:path decodingPixelData: NO];
+            
+            unlink( outfname);
+            
+            [dcmObject writeToFile:outpath
+                withTransferSyntax:[DCMTransferSyntax JPEG2000LossyTransferSyntax]
+                           quality:DCMHighQuality
+                               AET:@OUR_AET
+                        atomically:YES];
+            [dcmObject release];
+        }
+        @catch (NSException *e)
+        {
+            DCMQRDB_ERROR("*** compressFileFormat EXS_JPEG2000 exception: "
+                          << [[e description] cStringUsingEncoding:NSUTF8StringEncoding]);
+            status = NO;
+        }
+    }
+    else if( useDCMTKForJP2K == NO && newXfer == EXS_JPEG2000LosslessOnly)
+    {
+        DCMQRDB_INFO("SEND - Compress JPEG 2000 Lossless");
+        @try
+        {
+            NSString *path = [NSString stringWithCString:fname encoding:NSUTF8StringEncoding];
+            NSString *outpath = [NSString stringWithCString:outfname encoding:NSUTF8StringEncoding];
+            
+            DCMObject *dcmObject = [[DCMObject alloc] initWithContentsOfFile:path decodingPixelData: NO];
+            
+            unlink( outfname);
+            
+            [dcmObject writeToFile:outpath
+                withTransferSyntax:[DCMTransferSyntax JPEG2000LosslessTransferSyntax]
+                           quality:DCMLosslessQuality
+                               AET:@"OsiriX"
+                        atomically:YES];
+            [dcmObject release];
+        }
+        @catch (NSException *e)
+        {
+            DCMQRDB_ERROR("*** compressFileFormat EXS_JPEG2000LosslessOnly exception: "
+                          << [[e description] cStringUsingEncoding:NSUTF8StringEncoding]);
+            status = NO;
+        }
+    }
+    else
+#endif
+    {
+        DCMQRDB_INFO("SEND - Compress DCMTK JPEG Lossy");
+
+#ifndef OSIRIX_LIGHT
+//		DcmItem *metaInfo = fileformat.getMetaInfo();
+        
+        DcmRepresentationParameter *params = nil;
+        DJ_RPLossy lossyParams( 90);
+        DJ_RPLossy JP2KParams( DCMHighQuality);
+        DJ_RPLossy JP2KParamsLossLess( DCMLosslessQuality);
+        DcmRLERepresentationParameter rleParams;
+        DJ_RPLossless losslessParams(6,0);
+        
+#if 1
+        if (newXfer == EXS_JPEGProcess14SV1)
+            printf("\n--- compressFileFormat EXS_JPEGProcess14SV1TransferSyntax\n");
+        else if (newXfer == EXS_JPEGProcess2_4)
+            printf("\n--- compressFileFormat EXS_JPEGProcess2_4TransferSyntax\n");
+        else if (newXfer == EXS_RLELossless)
+            printf("\n--- compressFileFormat EXS_RLELossless\n");
+        else if (newXfer == EXS_JPEG2000LosslessOnly)
+            printf("\n--- compressFileFormat EXS_JPEG2000LosslessOnly\n");
+        else if (newXfer == EXS_JPEG2000)
+            printf("\n--- compressFileFormat EXS_JPEG2000\n");
+        else if (newXfer == EXS_JPEGLSLossless)
+            printf("\n--- compressFileFormat EXS_JPEGLSLossless\n");
+        else if (newXfer == EXS_JPEGLSLossy)
+            printf("\n--- compressFileFormat EXS_JPEGLSLossy\n");
+#endif
+        
+        if (newXfer == EXS_JPEGProcess14SV1)
+            params = &losslessParams;
+        else if (newXfer == EXS_JPEGProcess2_4)
+            params = &lossyParams;
+        else if (newXfer == EXS_RLELossless)
+            params = &rleParams;
+        else if (newXfer == EXS_JPEG2000LosslessOnly)
+            params = &JP2KParamsLossLess;
+        else if (newXfer == EXS_JPEG2000)
+            params = &JP2KParams;
+        else if (newXfer == EXS_JPEGLSLossless)
+            params = &JP2KParamsLossLess;
+        else if (newXfer == EXS_JPEGLSLossy)
+            params = &JP2KParams;
+        
+        if( params)
+        {
+            // this causes the lossless JPEG version of the dataset to be created
+            dataset->chooseRepresentation(newXfer, params);
+            
+            // check if everything went well
+            if (dataset->canWriteXfer(newXfer))
+            {
+                // force the meta-header UIDs to be re-generated when storing the file
+                // since the UIDs in the data set may have changed
+                // delete metaInfo->remove(DCM_MediaStorageSOPClassUID);
+                // delete metaInfo->remove(DCM_MediaStorageSOPInstanceUID);
+                
+                // store in lossless JPEG format
+
+                fileformat.loadAllDataIntoMemory();
+                
+                unlink( outfname);
+                
+                cond = fileformat.saveFile(outfname, newXfer);
+                status =  (cond.good()) ? YES : NO;
+            }
+            else
+            {
+                status = NO;
+                DCMQRDB_ERROR("*** compressFileFormat failed");
+            }
+        }
+        else status = NO;
+#endif
+    }
+    
+    return status;
+}
+#pragma mark - class DcmQueryRetrieveGetOsiriContext
+
+/** constructor
+ *  @param handle reference to database handle
+ *  @param options options for the Q/R service
+ *  @param priorstatus prior DIMSE status
+ *  @param origassoc pointer to DIMSE association
+ *  @param origmsgid DIMSE message ID
+ *  @param prior DIMSE priority
+ *  @param origpresid presentation context ID
+ */
+DcmQueryRetrieveGetOsiriContext::DcmQueryRetrieveGetOsiriContext(DcmQueryRetrieveDatabaseHandle& handle,
+                           const DcmQueryRetrieveOptions& options,
+                           DIC_US priorstatus,
+                           T_ASC_Association *origassoc,
+                           DIC_US origmsgid,
+                           T_DIMSE_Priority prior,
+                           T_ASC_PresentationContextID origpresid)
+: DcmQueryRetrieveGetContext(handle, options, priorstatus, origassoc, origmsgid, prior, origpresid)
+{
+}
+
+void DcmQueryRetrieveGetOsiriContext::getNextImage(DcmQueryRetrieveDatabaseStatus * dbStatus)
+{
+    OFCondition cond = EC_Normal;
+    OFCondition dbcond = EC_Normal;
+    DIC_UI subImgSOPClass;      /* sub-operation image SOP Class */
+    DIC_UI subImgSOPInstance;   /* sub-operation image SOP Instance */
+    char subImgFileName[MAXPATHLEN + 1];    /* sub-operation image file */
+    
+    /* clear out strings */
+    bzero(subImgFileName, sizeof(subImgFileName));
+    bzero(subImgSOPClass, sizeof(subImgSOPClass));
+    bzero(subImgSOPInstance, sizeof(subImgSOPInstance));
+    
+    /* get DB response */
+    dbcond = dbHandle.nextMoveResponse(
+                                       subImgSOPClass, subImgSOPInstance, subImgFileName, &nRemaining, dbStatus);
+    if (dbcond.bad()) {
+        DCMQRDB_ERROR("getSCP: Database: nextMoveResponse Failed ("
+                      << DU_cmoveStatusString(dbStatus->status()) << "):");
+    }
+    
+#if 1
+    // On the fly conversion:
+    E_TransferSyntax xferSyntax;
+    T_ASC_PresentationContextID presId;
+    
+    char outfname[ 4096];
+    
+    strcpy( outfname, "");
+    sprintf( outfname, "%s/QR-CGET-%d-%d.dcm", [[BrowserController currentBrowser] cfixedTempNoIndexDirectory], seed++, getpid());
+    unlink( outfname);
+    
+    presId = ASC_findAcceptedPresentationContextID(origAssoc, subImgSOPClass);
+    cond = getTransferSyntax(origAssoc, presId, &xferSyntax);
+    
+    if (cond.good())
+    {
+        DcmFileFormat fileformat;
+        cond = fileformat.loadFile( subImgFileName);
+        
+        /* figure out which of the accepted presentation contexts should be used */
+        E_TransferSyntax originalXFer = fileformat.getDataset()->getOriginalXfer();
+        DcmXfer filexfer( originalXFer);
+        
+        //on the fly conversion:
+        
+        DcmXfer preferredXfer( xferSyntax);
+        OFBool status = YES;
+        
+        sprintf( outfname, "%s/QR-CGET-%d-%d.dcm", [[BrowserController currentBrowser] cfixedTempNoIndexDirectory], seed++, getpid());
+        unlink( outfname);
+        
+        if (filexfer.isNotEncapsulated() && preferredXfer.isNotEncapsulated())
+        {
+            // do nothing
+        }
+        else if (filexfer.isNotEncapsulated() && preferredXfer.isEncapsulated())
+        {
+            status = compressFileFormat(fileformat, subImgFileName, outfname, xferSyntax);
+            
+            if( status)
+                strcpy( subImgFileName, outfname);
+        }
+        else if (filexfer.isEncapsulated() && preferredXfer.isEncapsulated())
+        {
+            // The file is already compressed, we will re-compress the file.....
+            if( strcmp( filexfer.getXferID(), preferredXfer.getXferID()) != 0)
+            {
+                if ((filexfer.getXfer() == EXS_JPEG2000LosslessOnly && preferredXfer.getXfer() == EXS_JPEG2000) ||
+                    (filexfer.getXfer() == EXS_JPEG2000             && preferredXfer.getXfer() == EXS_JPEG2000LosslessOnly))
+                {
+                    // Switching from JPEG2000 <-> JPEG2000Lossless : we only change the transfer syntax....
+                    DCMQRDB_INFO("JPEG2000 <-> JPEG2000Lossless switch");
+                    status = compressFileFormat(fileformat, subImgFileName, outfname, xferSyntax);
+                    
+                    if( status)
+                        strcpy( subImgFileName, outfname);
+                }
+                else if ((filexfer.getXfer() == EXS_JPEGLSLossless && preferredXfer.getXfer() == EXS_JPEGLSLossy) ||
+                         (filexfer.getXfer() == EXS_JPEGLSLossy    && preferredXfer.getXfer() == EXS_JPEGLSLossless))
+                {
+                    // Switching from EXS_JPEGLSLossy <-> EXS_JPEGLSLossless : we only change the transfer syntax....
+                    DCMQRDB_INFO("EXS_JPEGLSLossy <-> EXS_JPEGLSLossless switch");
+                    status = compressFileFormat(fileformat, subImgFileName, outfname, xferSyntax);
+                    
+                    if( status)
+                        strcpy( subImgFileName, outfname);
+                }
+                else
+                {
+                    printf("---- Warning! I'm recompressing files that are already compressed, you should optimize your ts parameters to avoid this: presentation for syntax:%s -> %s\n",
+                           dcmFindNameOfUID( filexfer.getXferID()),
+                           dcmFindNameOfUID( preferredXfer.getXferID()));
+                    cond = decompressFileFormat(fileformat, subImgFileName);
+                    
+                    DcmFileFormat fileformatDecompress;
+                    cond = fileformatDecompress.loadFile( subImgFileName);
+                    
+                    status = compressFileFormat( fileformatDecompress, subImgFileName, outfname, xferSyntax);
+                    
+                    if( status)
+                        strcpy( subImgFileName, outfname);
+                }
+            }
+        }
+        else if (filexfer.isEncapsulated() && preferredXfer.isNotEncapsulated())
+        {
+            cond = decompressFileFormat(fileformat, subImgFileName);
+        }
+    }
+#endif
+    
+    if (dbStatus->status() == STATUS_Pending) {
+        /* perform sub-op */
+        cond = performGetSubOp(subImgSOPClass, subImgSOPInstance, subImgFileName);
+        
+        if (getCancelled) {
+            dbStatus->setStatus(STATUS_GET_Cancel_SubOperationsTerminatedDueToCancelIndication);
+            DCMQRDB_INFO("Get SCP: Received C-Cancel RQ");
+        }
+        
+        if (cond != EC_Normal) {
+            OFString temp_str;
+            DCMQRDB_ERROR("getSCP: Get Sub-Op Failed: " << DimseCondition::dump(temp_str, cond));
+            /* clear condition stack */
+        }
+    }
+}

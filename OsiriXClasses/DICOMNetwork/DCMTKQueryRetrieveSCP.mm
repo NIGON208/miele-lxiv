@@ -81,7 +81,7 @@ END_EXTERN_C
 //#include "dcmqrdbi.h"
 //#endif
 
-#include "DcmQueryRetrieveOsiriXSCP.h"
+#include "DcmQueryRetrieveOsiriSCP.h"
 
 #define OPENSSL_DISABLE_OLD_DES_SUPPORT // joris
 
@@ -105,12 +105,14 @@ static OFLogger dcmqrscpLogger = OFLog::getLogger("dcmtk.apps." OFFIS_CONSOLE_AP
 
 #define APPLICATIONTITLE    "DCMQRSCP"
 
+extern OFLogger DCM_dcmnetLogger;
+
 //const char *opt_configFileName = "dcmqrscp.cfg";
 //OFBool      opt_checkFindIdentifier = OFFalse;
 //OFBool      opt_checkMoveIdentifier = OFFalse;
 //OFCmdUnsignedInt opt_port = 0;
 
-DcmQueryRetrieveOsiriXSCP *scp = nil;
+DcmQueryRetrieveOsiriSCP *scp = nil;
 
 OFCondition mainStoreSCP(T_ASC_Association * assoc,
                          T_DIMSE_C_StoreRQ * request,
@@ -136,6 +138,7 @@ OFCondition mainStoreSCP(T_ASC_Association * assoc,
         OFLog::configure(OFLogger::DEBUG_LOG_LEVEL);
         //DCM_dcmdataLogger.setLogLevel(OFLogger::DEBUG_LOG_LEVEL);
         //DCM_dcmqrdbLogger.setLogLevel(OFLogger::DEBUG_LOG_LEVEL);
+        //DCM_dcmnetLogger.setLogLevel(OFLogger::DEBUG_LOG_LEVEL);
 #else
         OFLog::configure(OFLogger::INFO_LOG_LEVEL);
 #endif
@@ -504,10 +507,10 @@ DcmQueryRetrieveConfig config;
 //    DcmQueryRetrieveIndexDatabaseHandleFactory factory(&config);
 //#endif
 	 //use if static scp rather than pointer
-    //DcmQueryRetrieveOsiriXSCP scp(config, options, factory);
+    //DcmQueryRetrieveOsiriSCP scp(config, options, factory);
 	//scp.setDatabaseFlags(OFFalse, OFFalse, options.debug_);
 
-	DcmQueryRetrieveOsiriXSCP *localSCP = new DcmQueryRetrieveOsiriXSCP(config, options, factory);
+	DcmQueryRetrieveOsiriSCP *localSCP = new DcmQueryRetrieveOsiriSCP(config, options, factory);
     scp = localSCP;
 	
     localSCP->setDatabaseFlags(OFFalse, OFFalse);

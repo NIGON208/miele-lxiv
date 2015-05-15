@@ -2016,7 +2016,7 @@ PixelRepresentation
 					asDICOM3:YES
 					AET:(NSString *)aet
 					strippingGroupLengthLength:YES]) 
-		status =  [[container dicomData] writeToURL:aURL atomically:flag];
+		status = [[container dicomData] writeToURL:aURL atomically:flag];
 	else
 		status =  NO;
 	} @catch( NSException *localException) {

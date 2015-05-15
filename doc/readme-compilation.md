@@ -80,14 +80,16 @@ Alex Bettarini - 15 Mar 2015
 			    └── jpeglib8.h
 
    	* Edit `dcmqrdb/dcmqrsrv.h`
-   		
-   		Line 110
+
+   		Line 128
 	
 			public:
-				OFCondition handleAssociation()
-				OFCondition storeSCP()
+				virtual OFCondition getSCP(
+				...
+				);
+
 			private:
-			
+						
    		Line 137
 	
 			public:
@@ -96,6 +98,21 @@ Alex Bettarini - 15 Mar 2015
 				);
 
 			private:
+
+		Line 190, declare `options_` as public
+
+   	* Edit `dcmqrdb/dcmqrsrv.cc`
+
+   		Line 168, in function dispath() replace
+   		the calls to `storeSCP()` and `getSCP()`
+   		with `this->storeSCP()` and `this->getSCP()`
+   		
+   	* Edit `dcmqrdb/dcmqrcbg.h`
+   	
+   		- make getNextImage() public virtual
+
+   	* Edit `dimse.cc`
+   		- remove `static` from getTransferSyntax()
 
  	* Add two lines to `dcmjpeg/djutils.h` so that it looks like this
 

@@ -3,7 +3,7 @@
 
 #include "dcmqrsrv.h"
 
-class DcmQueryRetrieveOsiriXSCP : public DcmQueryRetrieveSCP
+class DcmQueryRetrieveOsiriSCP : public DcmQueryRetrieveSCP
 {
 public:
     
@@ -12,7 +12,7 @@ public:
      *  @param options SCP configuration options
      *  @param factory factory object used to create database handles
      */
-    DcmQueryRetrieveOsiriXSCP(
+    DcmQueryRetrieveOsiriSCP(
                         const DcmQueryRetrieveConfig& config,
                         const DcmQueryRetrieveOptions& options,
                         const DcmQueryRetrieveDatabaseHandleFactory& factory);
@@ -20,6 +20,13 @@ public:
     void writeErrorMessage( const char *str);
     OFCondition handleAssociation(T_ASC_Association * assoc, OFBool correctUIDPadding);
 
+    virtual
+    OFCondition getSCP(T_ASC_Association * assoc,
+                       T_DIMSE_C_GetRQ * request,
+                       T_ASC_PresentationContextID presID,
+                       DcmQueryRetrieveDatabaseHandle& dbHandle);
+    
+    virtual
     OFCondition storeSCP(T_ASC_Association * assoc,
                          T_DIMSE_C_StoreRQ * req,
                          T_ASC_PresentationContextID presId,

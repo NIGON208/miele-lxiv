@@ -28,7 +28,7 @@
 #include <signal.h>
 
 //#import "dimse.h"
-#include "DcmQueryRetrieveOsiriXSCP.h"
+#include "DcmQueryRetrieveOsiriSCP.h"
 
 extern int AbortAssociationTimeOut;
 
@@ -210,7 +210,7 @@ static int numberOfActiveAssociations = 0;
     @try
     {
         T_ASC_Association * assoc = (T_ASC_Association*) [[d valueForKey: @"assoc"] pointerValue];
-        DcmQueryRetrieveOsiriXSCP *scp = (DcmQueryRetrieveOsiriXSCP*) [[d valueForKey: @"DcmQueryRetrieveSCP"] pointerValue];
+        DcmQueryRetrieveOsiriSCP *scp = (DcmQueryRetrieveOsiriSCP*) [[d valueForKey: @"DcmQueryRetrieveSCP"] pointerValue];
         
         if( assoc && scp)
         {

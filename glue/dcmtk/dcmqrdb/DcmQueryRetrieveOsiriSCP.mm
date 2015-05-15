@@ -19,9 +19,10 @@
 #include "dul.h"
 #import "dcmqrdbq.h"
 #include "dcdeftag.h"
-
-#include "DcmQueryRetrieveOsiriXSCP.h"
 #import "dimse.h"
+
+#include "DcmQueryRetrieveOsiriSCP.h"
+#include "DcmQueryRetrieveGetOsiriContext.h"
 
 BOOL forkedProcess = NO;
 
@@ -32,6 +33,36 @@ static char *last(char *p, int c)
     if ((t = strrchr(p, c)) != NULL) return t + 1;
     
     return p;
+}
+
+static void getCallback(
+                        /* in */
+                        void *callbackData,
+                        OFBool cancelled, T_DIMSE_C_GetRQ *request,
+                        DcmDataset *requestIdentifiers, int responseCount,
+                        /* out */
+                        T_DIMSE_C_GetRSP *response, DcmDataset **stDetail,
+                        DcmDataset **responseIdentifiers)
+{
+#if 0
+    DcmQueryRetrieveGetContext *context = OFstatic_cast(DcmQueryRetrieveGetContext *, callbackData);
+#else
+    DcmQueryRetrieveGetOsiriContext *context = OFstatic_cast(DcmQueryRetrieveGetOsiriContext *, callbackData);
+#endif
+    context->callbackHandler(cancelled, request, requestIdentifiers, responseCount, response, stDetail, responseIdentifiers);
+    
+#if 1 // @@@ TODO Issue #19
+    if( forkedProcess == NO)
+        [[NSThread currentThread] setProgress:1.0/
+                                                 (response->NumberOfCompletedSubOperations+
+                                                  response->NumberOfFailedSubOperations+
+                                                  response->NumberOfWarningSubOperations+
+                                                  response->NumberOfRemainingSubOperations)
+                                                 *
+                                                 (response->NumberOfCompletedSubOperations+
+                                                  response->NumberOfFailedSubOperations+
+                                                  response->NumberOfWarningSubOperations)];
+#endif
 }
 
 // See DIMSE_StoreProviderCallback in dimse.h
@@ -54,19 +85,21 @@ static void storeCallback(/* in */
                              stDetail);
 }
 
-#pragma mark - class DcmQueryRetrieveOsiriXSCP
+#pragma mark - class DcmQueryRetrieveOsiriSCP
 
 // Line 362
-DcmQueryRetrieveOsiriXSCP::DcmQueryRetrieveOsiriXSCP(
+DcmQueryRetrieveOsiriSCP::DcmQueryRetrieveOsiriSCP(
                                                      const DcmQueryRetrieveConfig& config,
                                                      const DcmQueryRetrieveOptions& options,
                                                      const DcmQueryRetrieveDatabaseHandleFactory& factory)
 : DcmQueryRetrieveSCP(config, options, factory)
 {
     index=0;
+//    DCM_dcmdataLogger.setLogLevel(OFLogger::WARN_LOG_LEVEL);
+//    DCM_dcmqrdbLogger.setLogLevel(OFLogger::WARN_LOG_LEVEL);
 }
 
-void DcmQueryRetrieveOsiriXSCP::writeErrorMessage( const char *str)
+void DcmQueryRetrieveOsiriSCP::writeErrorMessage( const char *str)
 {
     if( options_.singleProcess_)
     {
@@ -90,13 +123,42 @@ void DcmQueryRetrieveOsiriXSCP::writeErrorMessage( const char *str)
     }
 }
 
-OFCondition DcmQueryRetrieveOsiriXSCP::handleAssociation(T_ASC_Association * assoc, OFBool correctUIDPadding)
+OFCondition DcmQueryRetrieveOsiriSCP::handleAssociation(T_ASC_Association * assoc, OFBool correctUIDPadding)
 {
     index = 0;
     return DcmQueryRetrieveSCP::handleAssociation(assoc, correctUIDPadding);
 }
 
-OFCondition DcmQueryRetrieveOsiriXSCP::storeSCP(
+OFCondition DcmQueryRetrieveOsiriSCP::getSCP(T_ASC_Association * assoc,
+                                             T_DIMSE_C_GetRQ * request,
+                                             T_ASC_PresentationContextID presID,
+                                             DcmQueryRetrieveDatabaseHandle& dbHandle)
+{
+    OFCondition cond = EC_Normal;
+
+#if 1
+    DcmQueryRetrieveGetOsiriContext context(dbHandle, options_, STATUS_Pending, assoc, request->MessageID, request->Priority, presID);
+#else
+    DcmQueryRetrieveGetContext context(dbHandle, options_, STATUS_Pending, assoc, request->MessageID, request->Priority, presID);
+#endif
+    
+    DIC_AE aeTitle;
+    aeTitle[0] = '\0';
+    ASC_getAPTitles(assoc->params, NULL, aeTitle, NULL);
+    context.setOurAETitle(aeTitle);
+    
+    OFString temp_str;
+    DCMQRDB_INFO("Received Get SCP:" << OFendl << DIMSE_dumpMessage(temp_str, *request, DIMSE_INCOMING));
+    
+    cond = DIMSE_getProvider(assoc, presID, request,
+                             getCallback, &context, options_.blockMode_, options_.dimse_timeout_);
+    if (cond.bad()) {
+        DCMQRDB_ERROR("Get SCP Failed: " << DimseCondition::dump(temp_str, cond));
+    }
+    return cond;
+}
+
+OFCondition DcmQueryRetrieveOsiriSCP::storeSCP(
                                                 T_ASC_Association * assoc,
                                                 T_DIMSE_C_StoreRQ * request,
                                                 T_ASC_PresentationContextID presId,

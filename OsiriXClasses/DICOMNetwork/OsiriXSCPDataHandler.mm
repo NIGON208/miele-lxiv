@@ -1828,7 +1828,7 @@ extern BOOL forkedProcess;
         if( forkedProcess)
         {
             // TO AVOID DEADLOCK
-            // See DcmQueryRetrieveOsiriXSCP::unlockFile dcmqrsrv.mm
+            // See DcmQueryRetrieveOsiriSCP::unlockFile dcmqrsrv.mm
             BOOL fileExist = YES;
             char dir[ 1024];
             sprintf( dir, "%s-%d", "/tmp/lock_process", getpid());
