@@ -5481,7 +5481,10 @@ public:
 				alpha[ i] = val / 255.;
 			}
 		}
-		blendingOpacityTransferFunction->BuildFunctionFromTable( blendingValueFactor*(blendingOFFSET16 + blendingWl-blendingWw/2), blendingValueFactor*(blendingOFFSET16 + blendingWl+blendingWw/2), 255, (double*) &alpha);
+		blendingOpacityTransferFunction->BuildFunctionFromTable(blendingValueFactor*(blendingOFFSET16 + blendingWl-blendingWw/2),
+                                                                blendingValueFactor*(blendingOFFSET16 + blendingWl+blendingWw/2),
+                                                                255,
+                                                                (double*) &alpha);
 		
 		[self setNeedsDisplay: YES];
 	}
@@ -6569,7 +6572,6 @@ public:
 	
 	try
 	{
-		
 		reader = vtkImageImport::New();
 		
 		if( isRGB)
@@ -6609,8 +6611,12 @@ public:
 		
 		factor = superSampling / [firstObject pixelSpacingX];
 		
-		if( [firstObject pixelSpacingX] == 0 || [firstObject pixelSpacingY] == 0) reader->SetDataSpacing( 1, 1, sliceThickness);
-		else reader->SetDataSpacing( factor*[firstObject pixelSpacingX], factor*[firstObject pixelSpacingY], factor * sliceThickness);
+		if( [firstObject pixelSpacingX] == 0 || [firstObject pixelSpacingY] == 0)
+            reader->SetDataSpacing( 1, 1, sliceThickness);
+		else
+            reader->SetDataSpacing(factor*[firstObject pixelSpacingX],
+                                   factor*[firstObject pixelSpacingY],
+                                   factor*sliceThickness);
 		
 		opacityTransferFunction = vtkPiecewiseFunction::New();
 		opacityTransferFunction->AddPoint(0, 0);
@@ -6749,8 +6755,10 @@ public:
 		}
 		
 		textWLWW = vtkTextActor::New();
-		if( ww < 50) sprintf(WLWWString, "WL: %0.4f WW: %0.4f ", wl, ww);
-		else sprintf(WLWWString, "WL: %0.f WW: %0.f ", wl, ww);
+		if( ww < 50)
+            sprintf(WLWWString, "WL: %0.4f WW: %0.4f ", wl, ww);
+		else
+            sprintf(WLWWString, "WL: %0.f WW: %0.f ", wl, ww);
 		textWLWW->SetInput( WLWWString);
 		textWLWW->SetTextScaleModeToNone();												//vtkviewPort
 		textWLWW->GetPositionCoordinate()->SetCoordinateSystemToDisplay();
@@ -8292,7 +8300,12 @@ public:
 			float currentPointValue;
 								
 			currentSliceNumber = ptInt[2];
-			if( ptInt[0] >= 0 && ptInt[0] < [firstObject pwidth] && ptInt[1] >= 0 && ptInt[1] < [firstObject pheight] &&  ptInt[ 2] >= 0 && ptInt[ 2] < [curPixList count])
+			if (ptInt[0] >= 0 &&
+                ptInt[0] < [firstObject pwidth] &&
+                ptInt[1] >= 0 &&
+                ptInt[1] < [firstObject pheight] &&
+                ptInt[2] >= 0 &&
+                ptInt[2] < [curPixList count])
 			{
 				currentDCMPix = [curPixList objectAtIndex:currentSliceNumber];
 				imageBuffer = [currentDCMPix fImage];
@@ -9468,8 +9481,10 @@ void VRSpaceNavigatorMessageHandler(io_connect_t connection, natural_t messageTy
 						{
 							float distance = [vV vtkCamera]->GetDistance();
 							float dolly = ((float)tz/axis_max) / 60.;
-							if(faster) dolly*=3.;
-							if( dolly < -0.9) dolly = -0.9;
+							if(faster)
+                                dolly*=3.;
+							if( dolly < -0.9)
+                                dolly = -0.9;
 							
 							[vV vtkCamera]->Dolly( 1.0 + dolly); 
 							[vV vtkCamera]->SetDistance( distance);
@@ -9481,7 +9496,8 @@ void VRSpaceNavigatorMessageHandler(io_connect_t connection, natural_t messageTy
 
 						// *** rotation ***
 						rot = -(float)rz;
-						if( vV->projectionMode == 2) rot = (float)rz;
+						if( vV->projectionMode == 2)
+                            rot = (float)rz;
 						
 						float rotX, rotY;
 						rotX = [vV frame].size.width/2.0 + cos(rot/axis_max)*50.0;

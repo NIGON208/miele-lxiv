@@ -437,7 +437,8 @@
 			HistoWindow* roiWin = [[HistoWindow alloc] initWithROI: curROI];
 			[roiWin showWindow:self];
 		}
-		else NSRunAlertPanel(NSLocalizedString(@"Error", nil), NSLocalizedString(@"Cannot create an histogram from this ROI.", nil), nil, nil, nil);
+		else
+            NSRunAlertPanel(NSLocalizedString(@"Error", nil), NSLocalizedString(@"Cannot create an histogram from this ROI.", nil), nil, nil, nil);
 	}
 }
 

@@ -510,7 +510,9 @@ static OFBool decompressFile(DcmFileFormat fileformat, const char *fname, char *
 	#ifndef OSIRIX_LIGHT
 	BOOL useDCMTKForJP2K = [[NSUserDefaults standardUserDefaults] boolForKey: @"useDCMTKForJP2K"]; // deprecated
     
-	if( useDCMTKForJP2K == NO && (filexfer.getXfer() == EXS_JPEG2000LosslessOnly || filexfer.getXfer() == EXS_JPEG2000))
+	if( useDCMTKForJP2K == NO &&
+       (filexfer.getXfer() == EXS_JPEG2000LosslessOnly ||
+        filexfer.getXfer() == EXS_JPEG2000))
 	{
 		NSString *path = [NSString stringWithCString: fname encoding: NSUTF8StringEncoding];
 		NSString *outpath = [NSString stringWithCString: outfname encoding: NSUTF8StringEncoding];
@@ -757,7 +759,7 @@ storeSCU(T_ASC_Association * assoc, const char *fname)
 	/************* do on the fly conversion here *********************/
 	
 	//printf("on the fly conversion\n");
-	//we have a valid presentation ID,.Chaeck and see if file is consistent with it
+	//we have a valid presentation ID,.Check and see if file is consistent with it
 	DcmXfer preferredXfer(opt_networkTransferSyntax);
 	OFBool status = NO;
 	presId = ASC_findAcceptedPresentationContextID(assoc, sopClass, preferredXfer.getXferID());

@@ -1016,7 +1016,7 @@ int spline( NSPoint *Pt, int tot, NSPoint **newPt, long **correspondingSegmentPt
 	
 	distance = minxIndex - minyIndex;
 	
-	if( fabs( distance) > [newPts count]/2)
+	if( abs( distance) > [newPts count]/2)
 	{
 		if( distance >= 0) reverse = YES;
 		else reverse = NO;

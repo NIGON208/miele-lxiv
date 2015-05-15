@@ -3367,7 +3367,10 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void *context
 				[ROISelectorSelectedROIList release];
 				ROISelectorSelectedROIList = nil;
 				
-				NSRect rect = NSMakeRect(ROISelectorStartPoint.x-1, ROISelectorStartPoint.y-1, fabsf(ROISelectorEndPoint.x-ROISelectorStartPoint.x)+2, fabsf(ROISelectorEndPoint.y-ROISelectorStartPoint.y)+2);
+				NSRect rect = NSMakeRect(ROISelectorStartPoint.x-1,
+                                         ROISelectorStartPoint.y-1,
+                                         fabsf(ROISelectorEndPoint.x-ROISelectorStartPoint.x)+2,
+                                         fabsf(ROISelectorEndPoint.y-ROISelectorStartPoint.y)+2);
 				ROISelectorStartPoint = NSMakePoint(0.0, 0.0);
 				ROISelectorEndPoint = NSMakePoint(0.0, 0.0);
 				[self drawRect:rect];
@@ -3378,7 +3381,9 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void *context
             N2LogExceptionWithStackTrace(e);
 		}
 		
-		[[NSNotificationCenter defaultCenter] postNotificationName: OsirixUpdateWLWWMenuNotification object: [DCMView findWLWWPreset: curWL :curWW :curDCM] userInfo: nil];
+		[[NSNotificationCenter defaultCenter] postNotificationName: OsirixUpdateWLWWMenuNotification
+                                                            object: [DCMView findWLWWPreset: curWL :curWW :curDCM]
+                                                          userInfo: nil];
         
 		[drawLock unlock];
     }
@@ -6002,7 +6007,10 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void *context
         NSPoint tempStartPoint = [self ConvertFromUpLeftView2GL: [self convertPointToBacking: ROISelectorStartPoint]];
         NSPoint tempEndPoint = [self ConvertFromUpLeftView2GL: [self convertPointToBacking: ROISelectorEndPoint]];
         
-		rect = NSMakeRect(min(tempStartPoint.x, tempEndPoint.x), min(tempStartPoint.y, tempEndPoint.y), fabsf(tempStartPoint.x - tempEndPoint.x), fabsf(tempStartPoint.y - tempEndPoint.y));
+		rect = NSMakeRect(min(tempStartPoint.x, tempEndPoint.x),
+                          min(tempStartPoint.y, tempEndPoint.y),
+                          fabsf(tempStartPoint.x - tempEndPoint.x),
+                          fabsf(tempStartPoint.y - tempEndPoint.y));
 		
 		if(rect.size.width<1)rect.size.width=1;
 		if(rect.size.height<1)rect.size.height=1;

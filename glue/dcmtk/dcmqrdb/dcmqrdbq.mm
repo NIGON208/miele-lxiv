@@ -915,7 +915,6 @@ OFCondition DcmQueryRetrieveOsiriXDatabaseHandle::startMoveRequest(
     OFCondition         cond = EC_Normal;
     OFBool qrLevelFound = OFFalse;
 
-
 	//NSLog(@"start move request");
     /**** Is SOPClassUID supported ?
     ***/

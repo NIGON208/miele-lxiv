@@ -2822,23 +2822,35 @@ return YES;
 	[clutArray sortUsingSelector:@selector(caseInsensitiveCompare:)];
 	
 	NSMenuItem *item;
-	item = [[clutPopup menu] insertItemWithTitle: NSLocalizedString(@"8-bit CLUTs", nil) action:@selector(noAction:) keyEquivalent:@"" atIndex:3];
+	item = [[clutPopup menu] insertItemWithTitle:NSLocalizedString(@"8-bit CLUTs", nil)
+                                          action:@selector(noAction:)
+                                   keyEquivalent:@""
+                                         atIndex:3];
 	
 	if( [clutArray count])
 	{
 		[[clutPopup menu] insertItem:[NSMenuItem separatorItem] atIndex:[[clutPopup menu] numberOfItems]-2];
 		
-		item = [[clutPopup menu] insertItemWithTitle: NSLocalizedString(@"16-bit CLUTs", nil) action:@selector(noAction:) keyEquivalent:@"" atIndex:[[clutPopup menu] numberOfItems]-2];
+		item = [[clutPopup menu] insertItemWithTitle:NSLocalizedString(@"16-bit CLUTs", nil)
+                                              action:@selector(noAction:)
+                                       keyEquivalent:@""
+                                             atIndex:[[clutPopup menu] numberOfItems]-2];
 
 		for (NSUInteger i=0; i<[clutArray count]; i++)
 		{
-			item = [[clutPopup menu] insertItemWithTitle:[clutArray objectAtIndex:i] action:@selector(loadAdvancedCLUTOpacity:) keyEquivalent:@"" atIndex:[[clutPopup menu] numberOfItems]-2];
+			item = [[clutPopup menu] insertItemWithTitle:[clutArray objectAtIndex:i]
+                                                  action:@selector(loadAdvancedCLUTOpacity:)
+                                           keyEquivalent:@""
+                                                 atIndex:[[clutPopup menu] numberOfItems]-2];
 			if([view isRGB])
 				[item setEnabled:NO];
 		}
 	}
 	
-    item = [[clutPopup menu] addItemWithTitle:NSLocalizedString(@"16-bit CLUT Editor", nil) action:@selector(showCLUTOpacityPanel:) keyEquivalent:@""];
+    item = [[clutPopup menu] addItemWithTitle:NSLocalizedString(@"16-bit CLUT Editor", nil)
+                                       action:@selector(showCLUTOpacityPanel:)
+                                keyEquivalent:@""];
+    
 	if([[pixList[ 0] objectAtIndex:0] isRGB])
 		[item setEnabled:NO];
 }

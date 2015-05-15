@@ -209,14 +209,15 @@ extern const char *GetPrivateIP();
         
         [dicomSendLock lock];
         @try {
-            DCMTKStoreSCU *storeSCU = [[DCMTKStoreSCU alloc]	initWithCallingAET: [[NSUserDefaults standardUserDefaults] stringForKey: @"AETITLE"]
-                                                                        calledAET: [todo objectForKey:@"AETitle"] 
-                                                                        hostname: [todo objectForKey:@"Address"] 
-                                                                        port: [[todo objectForKey:@"Port"] intValue] 
-                                                                        filesToSend: [todo valueForKey: @"Files"]
-                                                                        transferSyntax: [[todo objectForKey:@"TransferSyntax"] intValue] 
-                                                                        compression: 1.0
-                                                                        extraParameters: [NSDictionary dictionaryWithObject:[DicomDatabase defaultDatabase] forKey:@"DicomDatabase"]]; // nil == TLS not supported !
+            DCMTKStoreSCU *storeSCU =
+            [[DCMTKStoreSCU alloc] initWithCallingAET: [[NSUserDefaults standardUserDefaults] stringForKey: @"AETITLE"]
+                                            calledAET: [todo objectForKey:@"AETitle"]
+                                             hostname: [todo objectForKey:@"Address"]
+                                                 port: [[todo objectForKey:@"Port"] intValue]
+                                          filesToSend: [todo valueForKey: @"Files"]
+                                       transferSyntax: [[todo objectForKey:@"TransferSyntax"] intValue]
+                                          compression: 1.0
+                                      extraParameters: [NSDictionary dictionaryWithObject:[DicomDatabase defaultDatabase] forKey:@"DicomDatabase"]]; // nil == TLS not supported !
                                     
             @try
             {

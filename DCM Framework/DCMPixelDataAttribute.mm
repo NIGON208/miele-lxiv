@@ -1142,8 +1142,8 @@ static inline int int_ceildivpow2(int a, int b) {
     
     NSUInteger processors = 0;
     
-    if( [jpegData length] > 512*1024)
-        processors = [[NSProcessInfo processInfo] processorCount] /2;
+//    if( [jpegData length] > 512*1024)
+//        processors = [[NSProcessInfo processInfo] processorCount] /2;
     
     int colorModel;
     
@@ -1298,8 +1298,8 @@ static inline int int_ceildivpow2(int a, int b) {
     NSMutableData *pixelData = nil;
     NSUInteger processors = 0;
     
-    if( [jpegData length] > 512*1024)
-        processors = [[NSProcessInfo processInfo] processorCount] /2;
+//    if( [jpegData length] > 512*1024)
+//        processors = [[NSProcessInfo processInfo] processorCount] /2;
     
     JlsParameters params = JlsParameters();
     const void* compressedData = [jpegData bytes];

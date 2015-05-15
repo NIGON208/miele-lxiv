@@ -2053,8 +2053,9 @@ static NSDate *lastWarningDate = nil;
 			[mainMenuWLWWMenu addItemWithTitle:[NSString stringWithFormat:@"%d - %@", i+1, [sortedKeys objectAtIndex:i]] action:@selector (ApplyWLWW:) keyEquivalent:@""];
 		}
 		[mainMenuWLWWMenu addItem: [NSMenuItem separatorItem]];
-		[mainMenuWLWWMenu addItemWithTitle:NSLocalizedString(@"Add Current WL/WW", nil) action:@selector (AddCurrentWLWW:) keyEquivalent:@""];
-		[mainMenuWLWWMenu addItemWithTitle:NSLocalizedString(@"Set WL/WW manually", nil) action:@selector (AddCurrentWLWW:) keyEquivalent:@""];
+        SEL AddCurrentWLWWSelector = sel_registerName("AddCurrentWLWW:");
+		[mainMenuWLWWMenu addItemWithTitle:NSLocalizedString(@"Add Current WL/WW", nil) action:AddCurrentWLWWSelector keyEquivalent:@""];
+		[mainMenuWLWWMenu addItemWithTitle:NSLocalizedString(@"Set WL/WW manually", nil) action:AddCurrentWLWWSelector keyEquivalent:@""];
 	}
 }
 
@@ -3344,8 +3345,7 @@ static BOOL initialized = NO;
 	@catch( NSException *ne)
 	{
 		NSLog(@"+initialize exception: %@", [ne description]);
-	}
-	
+	}	
 }
 
 #pragma mark-

@@ -134,6 +134,8 @@
 	// interpolation
 	NSMutableArray *pathPosition, *pathViewUp, *pathFocalPoint, *pathClippingRangeNear, *pathClippingRangeFar, *pathViewAngle, *pathEyeAngle, *pathParallelScale, *pathWL, *pathWW, *pathCroppingPlanes, *pathFusionPercentage, *pathMovieIndexIn4D;
 	
+    
+#if 1 // FIXME:
 	pathPosition = [NSMutableArray arrayWithCapacity:nbStep];
 	pathViewUp = [NSMutableArray arrayWithCapacity:nbStep];
 	pathFocalPoint = [NSMutableArray arrayWithCapacity:nbStep];
@@ -147,6 +149,7 @@
 	pathCroppingPlanes = [NSMutableArray arrayWithCapacity:nbStep];
 	pathFusionPercentage = [NSMutableArray arrayWithCapacity:nbStep];
 	pathMovieIndexIn4D = [NSMutableArray arrayWithCapacity:nbStep];
+#endif
 	
 	[stepsPositionInPath release];
 	stepsPositionInPath = [[NSMutableArray alloc] initWithCapacity:0];

@@ -846,6 +846,7 @@ typedef GreaterPathNodeOnF NodeCompare;
         pta.z == ptb.z )
     {
         NSLog(@"Can not define path from point to itself.");
+        free(costmap);
         return ERROR_CANNOTFINDPATH;
     }
     
@@ -871,7 +872,7 @@ typedef GreaterPathNodeOnF NodeCompare;
     NSLog(@"Opt. thresholds from %f : Min = %f / Max = %f", pixVal, thresholdA, thresholdB);
     [self distanceTransformWithThreshold:nil];
 	
-	unsigned char* labelmap=(unsigned char*)malloc(distmapVolumeSize*sizeof(char));
+	unsigned char* labelmap=(unsigned char*)malloc(distmapVolumeSize*sizeof(unsigned char));
 	if(!labelmap)
 	{
 		free(costmap);

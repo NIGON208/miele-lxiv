@@ -98,7 +98,7 @@ NSString* const O2ScreenCapturesSeriesName = NSLocalizedString(@"OsiriX Screen C
 			break;
 		}
 	
-	// otherwise, consider the path was incomplete and just append the OsirixDataDirName element to tho path
+	// otherwise, consider the path was incomplete and just append the OsirixDataDirName element to the path
 	if (![[path lastPathComponent] isEqualToString:OsirixDataDirName]) 
 		path = [path stringByAppendingPathComponent:OsirixDataDirName];
 	
@@ -370,7 +370,10 @@ static DicomDatabase* activeLocalDatabase = nil;
 	return dict;
 }*/
 
--(id)initWithPath:(NSString*)p context:(NSManagedObjectContext*)c mainDatabase:(N2ManagedDatabase*)mainDbReference // reminder: context may be nil (assigned in -[N2ManagedDatabase initWithPath:] after calling this method)
+// reminder: context may be nil (assigned in -[N2ManagedDatabase initWithPath:] after calling this method)
+-(id)initWithPath:(NSString*)p
+          context:(NSManagedObjectContext*)c
+     mainDatabase:(N2ManagedDatabase*)mainDbReference
 {
     @try {
         p = [DicomDatabase baseDirPathForPath:p];
@@ -387,8 +390,12 @@ static DicomDatabase* activeLocalDatabase = nil;
         // init and register
         
         self.baseDirPath = p;
-        _dataBaseDirPath = [NSString stringWithContentsOfFile:[p stringByAppendingPathComponent:@"DBFOLDER_LOCATION"] encoding:NSUTF8StringEncoding error:NULL];
-        if (!_dataBaseDirPath) _dataBaseDirPath = p; // TODO: what if this path is not mounted?
+        _dataBaseDirPath = [NSString stringWithContentsOfFile:[p stringByAppendingPathComponent:@"DBFOLDER_LOCATION"]
+                                                     encoding:NSUTF8StringEncoding
+                                                        error:NULL];
+        if (!_dataBaseDirPath)
+            _dataBaseDirPath = p; // TODO: what if this path is not mounted?
+        
         [_dataBaseDirPath retain];
         
         BOOL isNewDb = ![NSFileManager.defaultManager fileExistsAtPath:[self dataDirPath]];
@@ -417,19 +424,31 @@ static DicomDatabase* activeLocalDatabase = nil;
             [NSFileManager.defaultManager confirmDirectoryAtPath:self.reportsDirPath];
             [NSFileManager.defaultManager confirmDirectoryAtPath:self.dumpDirPath];
             
-            if (self.baseDirPath) strncpy(baseDirPathC, self.baseDirPath.fileSystemRepresentation, sizeof(baseDirPathC)); else baseDirPathC[0] = 0;
-            if (self.incomingDirPath) strncpy(incomingDirPathC, self.incomingDirPath.fileSystemRepresentation, sizeof(incomingDirPathC)); else incomingDirPathC[0] = 0;
-            if (self.tempDirPath) strncpy(tempDirPathC, self.tempDirPath.fileSystemRepresentation, sizeof(tempDirPathC)); else tempDirPathC[0] = 0;
+            if (self.baseDirPath)
+                strncpy(baseDirPathC, self.baseDirPath.fileSystemRepresentation, sizeof(baseDirPathC));
+            else
+                baseDirPathC[0] = 0;
+            
+            if (self.incomingDirPath)
+                strncpy(incomingDirPathC, self.incomingDirPath.fileSystemRepresentation, sizeof(incomingDirPathC));
+            else
+                incomingDirPathC[0] = 0;
+            
+            if (self.tempDirPath)
+                strncpy(tempDirPathC, self.tempDirPath.fileSystemRepresentation, sizeof(tempDirPathC));
+            else
+                tempDirPathC[0] = 0;
             
             // if a TOBEINDEXED dir exists, move it into INCOMING so we will import the data
             
             if ([NSFileManager.defaultManager fileExistsAtPath:self.toBeIndexedDirPath])
-                [NSFileManager.defaultManager moveItemAtPath:self.toBeIndexedDirPath toPath:[self.incomingDirPath stringByAppendingPathComponent:@"TOBEINDEXED.noindex"] error:NULL];
+                [NSFileManager.defaultManager moveItemAtPath:self.toBeIndexedDirPath
+                                                      toPath:[self.incomingDirPath stringByAppendingPathComponent:@"TOBEINDEXED.noindex"]
+                                                       error:NULL];
             
             // report templates
     #ifndef MACAPPSTORE
     #ifndef OSIRIX_LIGHT
-            
             for (NSString* rfn in [NSArray arrayWithObjects: @"ReportTemplate.rtf", @"ReportTemplate.odt", nil]) {
                 NSString* rfp = [self.baseDirPath stringByAppendingPathComponent:rfn];
                 if (rfp && ![NSFileManager.defaultManager fileExistsAtPath:rfp]) {
@@ -440,7 +459,6 @@ static DicomDatabase* activeLocalDatabase = nil;
             
             [Reports checkForPagesTemplate];
             [Reports checkForWordTemplates];
-            
     #endif
     #endif
 
@@ -484,8 +502,7 @@ static DicomDatabase* activeLocalDatabase = nil;
 
         [self initRouting];
         [self initClean];
-            
-        }
+    }
     @catch (NSException *e) {
         N2LogExceptionWithStackTrace( e);
         
@@ -580,7 +597,7 @@ static DicomDatabase* activeLocalDatabase = nil;
         [self lock];
         @try
         {
-            DicomDatabase *idatabase = self.isMainDatabase? self : self.mainDatabase; //We are on the mainthread : we can'safely' use the maindatabase
+            DicomDatabase *idatabase = self.isMainDatabase? self : self.mainDatabase; // We are on the main thread : we can 'safely' use the maindatabase
             
             NSArray* independentObjects = [notification.userInfo objectForKey:OsirixAddToDBNotificationImagesArray];
             if (independentObjects) {
@@ -682,7 +699,8 @@ static DicomDatabase* activeLocalDatabase = nil;
     [self.managedObjectContext lock];
 	@try {
         NSError* error = nil;
-        if (!err) err = &error;
+        if (!err)
+            err = &error;
         
         b = [super save:err];
         

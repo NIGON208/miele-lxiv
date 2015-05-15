@@ -344,7 +344,7 @@
 			pt3.x += shift;
 			pt4.x += shift;
 			i=-1;
-			needsShift = NO;
+			needsShift = NO; // FIXME:
 		}
 	}
 	

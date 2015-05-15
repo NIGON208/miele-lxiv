@@ -2050,7 +2050,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 	if( upleft.y > height) upleft.y = height;
 	if( downright.y > height) downright.y = height;
 	
-	size = BresLine(	[[ptsTemp objectAtIndex:0] x],
+	size = BresLine([[ptsTemp objectAtIndex:0] x],
 					[[ptsTemp objectAtIndex:0] y],
 					[[ptsTemp objectAtIndex:1] x],
 					[[ptsTemp objectAtIndex:1] y],
