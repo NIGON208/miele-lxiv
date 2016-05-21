@@ -128,6 +128,15 @@ Alex Bettarini - 15 Mar 2015
  	* Optionally edit `include/dcmtk/config/osconfig.h` and put the build date in place of "DEV" in `#define PACKAGE_DATE "DEV"`
 
 ---
+### VTK, ITK, OpenJPEG
+Prebuilt binaries are no longer provided. It's more appropriate to rebuild the toolkits from the sources downloaded from the respective repositories.
+
+1. Download the sources
+- Build the toolkits
+- Install the toolkits
+- Create symbolic links from the `Binaries/` directory to the installed toolkits
+
+---
 - Now you should be able to launch the Osiri-LXIV Xcode project and build it as usual:
 	* (The first time only) build the target "Unzip Binaries" 
 	* Build the target OsiriX
