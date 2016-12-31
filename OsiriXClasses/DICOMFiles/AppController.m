@@ -136,7 +136,6 @@ enum	{kSuccess = 0,
 #include <netinet/in.h>
 #include <arpa/inet.h>
 
-
 #ifdef OSIRIX_LIGHT
 void exitOsiriX(void)
 {
@@ -146,6 +145,10 @@ void exitOsiriX(void)
 
 static char *privateIPstring = nil;
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif /*cplusplus*/
 const char *GetPrivateIP()
 {
 	if( privateIPstring == nil)
@@ -171,6 +174,9 @@ const char *GetPrivateIP()
 	
 	return privateIPstring;
 }
+#ifdef __cplusplus
+}
+#endif /*cplusplus*/
 
 int GetAllPIDsForProcessName(const char* ProcessName, 
                              pid_t ArrayOfReturnedPIDs[], 
@@ -678,115 +684,74 @@ static NSDate *lastWarningDate = nil;
 
 +(BOOL) hasMacOSX1083
 {
-	OSErr err;
-	SInt32 osVersion;
-	
-	err = Gestalt ( gestaltSystemVersion, &osVersion );
-	if ( err == noErr)
-	{
-		if( osVersion < 0x1083UL || osVersion >= 0x1084UL)
-		{
-			return NO;
-		}
-	}
-	return YES;
+    NSOperatingSystemVersion version = [[NSProcessInfo processInfo] operatingSystemVersion];
+    if (version.majorVersion == 10 &&
+        version.minorVersion == 8 &&
+        version.patchVersion == 3)
+        return YES;
+
+    return NO;
 }
 
 +(BOOL) hasMacOSXYosemite
 {
-    SInt32 OSXversionMajor, OSXversionMinor;
-    if(Gestalt(gestaltSystemVersionMajor, &OSXversionMajor) == noErr &&
-       Gestalt(gestaltSystemVersionMinor, &OSXversionMinor) == noErr)
-    {
-        if(OSXversionMajor == 10 &&
-           OSXversionMinor >= 10)
-        {
-            return YES;
-        }
-    }
-    
+    NSOperatingSystemVersion version = [[NSProcessInfo processInfo] operatingSystemVersion];
+    if (version.majorVersion == 10 ||
+        version.minorVersion >= 10)
+        return YES;
+
     return NO;
 }
 
 +(BOOL) hasMacOSXMaverick
 {
-	OSErr err;
-	SInt32 osVersion;
-	
-	err = Gestalt ( gestaltSystemVersion, &osVersion );
-	if ( err == noErr)
-	{
-		if ( osVersion < 0x1090UL )
-		{
-			return NO;
-		}
-	}
-	return YES;
+    NSOperatingSystemVersion version = [[NSProcessInfo processInfo] operatingSystemVersion];
+    if (version.majorVersion < 10 ||
+        version.minorVersion < 9)
+        return NO;
+
+    return YES;
 }
 
 +(BOOL) hasMacOSXMountainLion
 {
-	OSErr err;
-	SInt32 osVersion;
-	
-	err = Gestalt ( gestaltSystemVersion, &osVersion );
-	if ( err == noErr)
-	{
-		if ( osVersion < 0x1080UL )
-		{
-			return NO;
-		}
-	}
-	return YES;
+    NSOperatingSystemVersion version = [[NSProcessInfo processInfo] operatingSystemVersion];
+    if (version.majorVersion < 10 ||
+        version.minorVersion < 8)
+        return NO;
+
+    return YES;
 }
 
 +(BOOL) hasMacOSXLion
 {
-	OSErr err;       
-	SInt32 osVersion;
-	
-	err = Gestalt ( gestaltSystemVersion, &osVersion );       
-	if ( err == noErr)       
-	{
-		if ( osVersion < 0x1075UL )
-		{
-			return NO;
-		}
-	}
-	return YES;                   
-}
+    NSOperatingSystemVersion version = [[NSProcessInfo processInfo] operatingSystemVersion];
+    if (version.majorVersion < 10 ||
+        version.minorVersion < 7 ||
+        version.patchVersion < 5)
+        return NO;
 
+    return YES;
+}
 
 +(BOOL) hasMacOSXSnowLeopard
 {
-	OSErr err;
-	SInt32 osVersion;
-	
-	err = Gestalt ( gestaltSystemVersion, &osVersion );       
-	if ( err == noErr)       
-	{
-		if ( osVersion < 0x1060UL )
-		{
-			return NO;
-		}
-	}
-	return YES;                   
+    NSOperatingSystemVersion version = [[NSProcessInfo processInfo] operatingSystemVersion];
+    if (version.majorVersion < 10 ||
+        version.minorVersion < 6)
+        return NO;
+
+    return YES;
 }
 
 +(BOOL) hasMacOSXLeopard
 {
-	OSErr err;       
-	SInt32 osVersion;
-	
-	err = Gestalt ( gestaltSystemVersion, &osVersion );       
-	if ( err == noErr)       
-	{
-		if ( osVersion < 0x1050UL )
-		{
-			return NO;
-		}
-	}
-	return YES;                   
+    NSOperatingSystemVersion version = [[NSProcessInfo processInfo] operatingSystemVersion];
+    if (version.majorVersion < 10 ||
+        version.minorVersion < 5)
+        return NO;
+
+    return YES;
 }
 
 + (void) createNoIndexDirectoryIfNecessary:(NSString*) path { // __deprecated
@@ -1197,7 +1162,7 @@ static NSDate *lastWarningDate = nil;
 
 -(IBAction)sendEmail:(id)sender
 {
-	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"mailto:"URL_EMAIL]];
+	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"mailto:" URL_EMAIL]];
 }
 
 -(IBAction)openOsirixWebPage:(id)sender
@@ -3000,7 +2965,7 @@ static BOOL initialized = NO;
                 if( [BrowserController _currentModifierFlags] & NSCommandKeyMask &&
                     [BrowserController _currentModifierFlags] & NSAlternateKeyMask)
                 {
-                    NSInteger result = NSRunInformationalAlertPanel( NSLocalizedString(@"Reset Preferences", nil), NSLocalizedString(@"Are you sure you want to reset ALL preferences of OsiriX? All the preferences will be reseted to their default values.", nil), NSLocalizedString(@"Cancel",nil), NSLocalizedString(@"OK",nil),  nil);
+                    NSInteger result = NSRunInformationalAlertPanel( NSLocalizedString(@"Reset Preferences", nil), NSLocalizedString(@"Are you sure you want to reset ALL preferences of OsiriX? All the preferences will be reset to their default values.", nil), NSLocalizedString(@"Cancel",nil), NSLocalizedString(@"OK",nil),  nil);
                     
                     if( result == NSAlertAlternateReturn)
                     {
@@ -3465,7 +3430,7 @@ static BOOL initialized = NO;
 - (void) applicationDidFinishLaunching:(NSNotification*) aNotification
 {
 	unlink( "/tmp/kill_all_storescu");
-	
+
     [[[NSWorkspace sharedWorkspace] notificationCenter]
             addObserver:self
             selector:@selector(switchHandler:)
