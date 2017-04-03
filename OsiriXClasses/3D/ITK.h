@@ -19,7 +19,7 @@
 typedef float itkPixelType;
 //typedef itk::RGBPixel<unsigned char> itkPixelType;
 typedef itk::Image< itkPixelType, 3 > ImageType;
-typedef itk::ImportImageFilter< itkPixelType, 3 > ImportFilterType;
+typedef itk::ImportImageFilter< itkPixelType, 3 > ImportFilterType3;
 
 
 /** \brief Creates an itkImageImportFilter
@@ -28,7 +28,7 @@ typedef itk::ImportImageFilter< itkPixelType, 3 > ImportFilterType;
 @interface ITK : NSObject {
 
 	// ITK objects
-	ImportFilterType::Pointer importFilter;
+	ImportFilterType3::Pointer importFilter;
 }
 
 #ifdef id
@@ -45,8 +45,8 @@ typedef itk::ImportImageFilter< itkPixelType, 3 > ImportFilterType;
 #undef redefineID
 #endif
 
-- (ImportFilterType::Pointer) itkImporter;
-- (void)setupImportFilterWithSize:(ImportFilterType::SizeType)size  
+- (ImportFilterType3::Pointer) itkImporter;
+- (void)setupImportFilterWithSize:(ImportFilterType3::SizeType)size
 	origin:(double[3])origin 
 	spacing:(double[3])spacing 
 	data:(float *)data

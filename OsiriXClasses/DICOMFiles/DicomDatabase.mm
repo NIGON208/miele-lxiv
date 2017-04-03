@@ -182,7 +182,10 @@ static DicomDatabase* defaultDatabase = nil;
                 }
                 
                 [[NSFileManager defaultManager] removeItemAtPath: databaseDir  error: nil];
-                [[NSFileManager defaultManager] createDirectoryAtPath: databaseDir withIntermediateDirectories: NO attributes: nil error: nil];
+                [[NSFileManager defaultManager] createDirectoryAtPath: databaseDir
+                                          withIntermediateDirectories: NO
+                                                           attributes: nil
+                                                                error: nil];
             }
             
             NSString *dbName = nil;
@@ -1533,10 +1536,16 @@ NSString* const DicomDatabaseLogEntryEntityName = @"LogEntry";
 		NSMutableArray *dicomFilesArray = [NSMutableArray arrayWithCapacity:chunkRange.length];
 		
 		if ([[NSFileManager defaultManager] fileExistsAtPath: dataDirPath] == NO)
-			[[NSFileManager defaultManager] createDirectoryAtPath: dataDirPath attributes:nil];
+			[[NSFileManager defaultManager] createDirectoryAtPath: dataDirPath
+                                      withIntermediateDirectories: YES
+                                                       attributes: nil
+                                                            error: nil];
 		
 		if ([[NSFileManager defaultManager] fileExistsAtPath: reportsDirPath] == NO)
-			[[NSFileManager defaultManager] createDirectoryAtPath: reportsDirPath attributes:nil];
+			[[NSFileManager defaultManager] createDirectoryAtPath: reportsDirPath
+                                      withIntermediateDirectories: YES
+                                                       attributes: nil
+                                                            error: nil];
 		
 		if (chunkRange.length == 0)
             break;
@@ -4266,7 +4275,10 @@ static BOOL protectionAgainstReentry = NO;
 	// directory
 	NSString* htmlTemplatesDirectory = [self htmlTemplatesDirPath];
 	if ([[NSFileManager defaultManager] fileExistsAtPath:htmlTemplatesDirectory] == NO)
-		[[NSFileManager defaultManager] createDirectoryAtPath:htmlTemplatesDirectory attributes:nil];
+		[[NSFileManager defaultManager] createDirectoryAtPath: htmlTemplatesDirectory
+                                  withIntermediateDirectories: YES
+                                                   attributes: nil
+                                                        error: nil];
 	
 	// HTML templates
 	NSString *templateFile;
@@ -4289,7 +4301,10 @@ static BOOL protectionAgainstReentry = NO;
 	// HTML-extra directory
 	NSString *htmlExtraDirectory = [htmlTemplatesDirectory stringByAppendingPathComponent:@"html-extra/"];
 	if ([[NSFileManager defaultManager] fileExistsAtPath:htmlExtraDirectory] == NO)
-		[[NSFileManager defaultManager] createDirectoryAtPath:htmlExtraDirectory attributes:nil];
+		[[NSFileManager defaultManager] createDirectoryAtPath: htmlExtraDirectory
+                                  withIntermediateDirectories: YES
+                                                   attributes: nil
+                                                        error: nil];
 	
 	// CSS file
 	NSString *cssFile = [htmlExtraDirectory stringByAppendingPathComponent:@"style.css"];

@@ -16,6 +16,7 @@
 #include <Accelerate/Accelerate.h>
 #include "itkImage.h"
 #include "itkImportImageFilter.h"
+#include "itkTransformFactory.h"
 #include "itkAffineTransform.h"
 #include "itkResampleImageFilter.h"
 #undef id
@@ -84,6 +85,7 @@ typedef itk::ResampleImageFilter<ImageType, ImageType> ResampleFilterType;
         @try
         {
 #ifndef TODO_FIX_ITK_NEW_VERSION  // @@@ problem
+            itk::TransformFactory< itk::AffineTransform<double, 3> >::RegisterTransform ();
             typedef itk::AffineTransform< double, 3 > AffineTransformType;
             typedef AffineTransformType::ParametersType ParametersType;
             

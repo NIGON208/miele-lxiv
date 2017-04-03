@@ -241,16 +241,17 @@
         //the pasteboard was able to give us some meaningful data
 			if ([desiredType isEqualToString:NSFilenamesPboardType])
 			{
-			return YES;
+                return YES;
 			}
 			else
 			{
-            //this can't happen
+                //this can't happen
 				NSAssert(NO, @"This can't happen");
 				return NO;
 			}
 		}
-		[self setNeedsDisplay:YES];    //redraw us with the new image
+
+        [self setNeedsDisplay:YES];    //redraw us with the new image
 		return YES;
 	}
 	return NO;

@@ -262,7 +262,6 @@
 		437439361DF9B8F500D38F52 /* libvtkzlib-7.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 437438C81DF9B8F400D38F52 /* libvtkzlib-7.1.a */; };
 		4374398C1DF9BA4700D38F52 /* libITKBiasCorrection-4.11.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 437439371DF9BA4600D38F52 /* libITKBiasCorrection-4.11.a */; };
 		4374398D1DF9BA4700D38F52 /* libITKBioCell-4.11.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 437439381DF9BA4600D38F52 /* libITKBioCell-4.11.a */; };
-		4374398E1DF9BA4700D38F52 /* libITKCommon-4.11.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 437439391DF9BA4600D38F52 /* libITKCommon-4.11.a */; };
 		4374398F1DF9BA4700D38F52 /* libITKDICOMParser-4.11.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4374393A1DF9BA4600D38F52 /* libITKDICOMParser-4.11.a */; };
 		437439901DF9BA4700D38F52 /* libitkdouble-conversion-4.11.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4374393B1DF9BA4600D38F52 /* libitkdouble-conversion-4.11.a */; };
 		437439911DF9BA4700D38F52 /* libITKEXPAT-4.11.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4374393C1DF9BA4600D38F52 /* libITKEXPAT-4.11.a */; };
@@ -345,6 +344,7 @@
 		437439DE1DF9BA4700D38F52 /* libITKWatersheds-4.11.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 437439891DF9BA4700D38F52 /* libITKWatersheds-4.11.a */; };
 		437439DF1DF9BA4700D38F52 /* libitkzlib-4.11.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4374398A1DF9BA4700D38F52 /* libitkzlib-4.11.a */; };
 		437439E01DF9BA4700D38F52 /* libITKznz-4.11.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4374398B1DF9BA4700D38F52 /* libITKznz-4.11.a */; };
+		4384EC361E92825C00ACAF67 /* libITKCommon-4.11.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4384EC351E92825C00ACAF67 /* libITKCommon-4.11.a */; };
 		4390EF391E04ACD6003FE85C /* libjpeg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4390EF381E04ACD6003FE85C /* libjpeg.a */; };
 		4390EF3B1E04ACE1003FE85C /* libtiff.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4390EF3A1E04ACE1003FE85C /* libtiff.a */; };
 		439B8C141A19CCC300F396D7 /* 3DconnexionClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 439B8C131A19CCC300F396D7 /* 3DconnexionClient.framework */; };
@@ -2893,7 +2893,6 @@
 		437438C81DF9B8F400D38F52 /* libvtkzlib-7.1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libvtkzlib-7.1.a"; path = "../../Documents/projects/install/vtk-201612/lib/libvtkzlib-7.1.a"; sourceTree = "<group>"; };
 		437439371DF9BA4600D38F52 /* libITKBiasCorrection-4.11.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libITKBiasCorrection-4.11.a"; path = "../../Documents/projects/install/itk-201612/lib/libITKBiasCorrection-4.11.a"; sourceTree = "<group>"; };
 		437439381DF9BA4600D38F52 /* libITKBioCell-4.11.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libITKBioCell-4.11.a"; path = "../../Documents/projects/install/itk-201612/lib/libITKBioCell-4.11.a"; sourceTree = "<group>"; };
-		437439391DF9BA4600D38F52 /* libITKCommon-4.11.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libITKCommon-4.11.a"; path = "../../Documents/projects/install/itk-201612/lib/libITKCommon-4.11.a"; sourceTree = "<group>"; };
 		4374393A1DF9BA4600D38F52 /* libITKDICOMParser-4.11.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libITKDICOMParser-4.11.a"; path = "../../Documents/projects/install/itk-201612/lib/libITKDICOMParser-4.11.a"; sourceTree = "<group>"; };
 		4374393B1DF9BA4600D38F52 /* libitkdouble-conversion-4.11.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libitkdouble-conversion-4.11.a"; path = "../../Documents/projects/install/itk-201612/lib/libitkdouble-conversion-4.11.a"; sourceTree = "<group>"; };
 		4374393C1DF9BA4600D38F52 /* libITKEXPAT-4.11.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libITKEXPAT-4.11.a"; path = "../../Documents/projects/install/itk-201612/lib/libITKEXPAT-4.11.a"; sourceTree = "<group>"; };
@@ -2976,6 +2975,7 @@
 		437439891DF9BA4700D38F52 /* libITKWatersheds-4.11.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libITKWatersheds-4.11.a"; path = "../../Documents/projects/install/itk-201612/lib/libITKWatersheds-4.11.a"; sourceTree = "<group>"; };
 		4374398A1DF9BA4700D38F52 /* libitkzlib-4.11.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libitkzlib-4.11.a"; path = "../../Documents/projects/install/itk-201612/lib/libitkzlib-4.11.a"; sourceTree = "<group>"; };
 		4374398B1DF9BA4700D38F52 /* libITKznz-4.11.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libITKznz-4.11.a"; path = "../../Documents/projects/install/itk-201612/lib/libITKznz-4.11.a"; sourceTree = "<group>"; };
+		4384EC351E92825C00ACAF67 /* libITKCommon-4.11.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libITKCommon-4.11.a"; path = "../../Documents/projects/install/itk-201612/lib/libITKCommon-4.11.a"; sourceTree = "<group>"; };
 		4390EF381E04ACD6003FE85C /* libjpeg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libjpeg.a; path = "../../Documents/projects/install/jpeg-9b/lib/libjpeg.a"; sourceTree = "<group>"; };
 		4390EF3A1E04ACE1003FE85C /* libtiff.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtiff.a; path = "../../Documents/projects/install/tiff-4.0.7/lib/libtiff.a"; sourceTree = "<group>"; };
 		439B8C131A19CCC300F396D7 /* 3DconnexionClient.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = 3DconnexionClient.framework; path = Binaries/3DconnexionClient.framework; sourceTree = "<group>"; };
@@ -4574,6 +4574,7 @@
 				437439D91DF9BA4700D38F52 /* libitkvnl_algo-4.11.a in Frameworks */,
 				437439AF1DF9BA4700D38F52 /* libITKIOMeta-4.11.a in Frameworks */,
 				AB28B93505B79D5D00A9906C /* IOKit.framework in Frameworks */,
+				4384EC361E92825C00ACAF67 /* libITKCommon-4.11.a in Frameworks */,
 				4390EF391E04ACD6003FE85C /* libjpeg.a in Frameworks */,
 				437438CA1DF9B8F400D38F52 /* libvtkChartsCore-7.1.a in Frameworks */,
 				437438E21DF9B8F500D38F52 /* libvtkFiltersImaging-7.1.a in Frameworks */,
@@ -4631,7 +4632,6 @@
 				437438CB1DF9B8F400D38F52 /* libvtkCommonColor-7.1.a in Frameworks */,
 				437438E01DF9B8F500D38F52 /* libvtkFiltersHybrid-7.1.a in Frameworks */,
 				437439211DF9B8F500D38F52 /* libvtkpng-7.1.a in Frameworks */,
-				4374398E1DF9BA4700D38F52 /* libITKCommon-4.11.a in Frameworks */,
 				437438EB1DF9B8F500D38F52 /* libvtkFiltersStatistics-7.1.a in Frameworks */,
 				BFBF3AA409B681F500545F5E /* libz.dylib in Frameworks */,
 				4333FD491AB3076200E82B49 /* libcharls.a in Frameworks */,
@@ -6889,9 +6889,9 @@
 		CE11138608EDD5E2005B15E1 /* ITKLibs */ = {
 			isa = PBXGroup;
 			children = (
+				4384EC351E92825C00ACAF67 /* libITKCommon-4.11.a */,
 				437439371DF9BA4600D38F52 /* libITKBiasCorrection-4.11.a */,
 				437439381DF9BA4600D38F52 /* libITKBioCell-4.11.a */,
-				437439391DF9BA4600D38F52 /* libITKCommon-4.11.a */,
 				4374393A1DF9BA4600D38F52 /* libITKDICOMParser-4.11.a */,
 				4374393B1DF9BA4600D38F52 /* libitkdouble-conversion-4.11.a */,
 				4374393C1DF9BA4600D38F52 /* libITKEXPAT-4.11.a */,

@@ -36,7 +36,7 @@
 	[super dealloc];
 }
 
-- (ImportFilterType::Pointer) itkImporter
+- (ImportFilterType3::Pointer) itkImporter
 {
 	return importFilter;
 }
@@ -67,10 +67,10 @@
 		
 		// init Filter
 		//itk::MultiThreader::SetGlobalDefaultNumberOfThreads( [[NSProcessInfo processInfo] processorCount]ors());
-		//importFilter = ImportFilterType::New();
-		ImportFilterType::SizeType size;
-		//ImportFilterType::IndexType start;
-		//ImportFilterType::RegionType region;
+		//importFilter = ImportFilterType3::New();
+		ImportFilterType3::SizeType size;
+		//ImportFilterType3::IndexType start;
+		//ImportFilterType3::RegionType region;
 		
 		
 		float	*data;
@@ -162,7 +162,7 @@
 }
 
 
-- (void)setupImportFilterWithSize:(ImportFilterType::SizeType)size
+- (void)setupImportFilterWithSize:(ImportFilterType3::SizeType)size
                            origin:(double[3])origin
                           spacing:(double[3])spacing
                              data:(float *)data
@@ -171,14 +171,14 @@
 	itk::MultiThreader::SetGlobalDefaultNumberOfThreads( [[NSProcessInfo processInfo] processorCount]);
 
 #ifndef TODO_FIX_ITK_NEW_VERSION  // @@@ problem
-    importFilter = ImportFilterType::New();
+    importFilter = ImportFilterType3::New();
 //	importFilter->DebugOn();
 	
 	importFilter->Register();
 	
-	//ImportFilterType::SizeType size;
-	ImportFilterType::IndexType start;
-	ImportFilterType::RegionType region;
+	//ImportFilterType3::SizeType size;
+	ImportFilterType3::IndexType start;
+	ImportFilterType3::RegionType region;
 	start.Fill( 0 );
 	region.SetIndex( start );
 	region.SetSize( size );

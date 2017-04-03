@@ -1014,7 +1014,11 @@ return YES;
     self.windowsStateName = [NSUserDefaults formatDateTime: [NSDate date]];
     
     if( saveWindowsStateWindow)
-        [NSApp beginSheet: saveWindowsStateWindow modalForWindow: nil modalDelegate:self didEndSelector:nil contextInfo:nil];
+        [NSApp beginSheet: saveWindowsStateWindow
+           modalForWindow: nil
+            modalDelegate: self
+           didEndSelector: nil
+              contextInfo: nil];
     else
         [ViewerController saveWindowsStateWithDICOMSR: YES name: nil];
 }
@@ -18888,7 +18892,10 @@ static BOOL viewerControllerPlaying = NO;
 		NSMutableArray	*files = [NSMutableArray array];
 		NSString	*tmpFolder = [NSString stringWithFormat:@"/tmp/print"];		
 		[[NSFileManager defaultManager] removeFileAtPath: tmpFolder handler:nil];
-		[[NSFileManager defaultManager] createDirectoryAtPath:tmpFolder attributes:nil];
+		[[NSFileManager defaultManager] createDirectoryAtPath: tmpFolder
+                                  withIntermediateDirectories: YES
+                                                   attributes: nil
+                                                        error: nil];
 		
 		Wait *splash = [[Wait alloc] initWithString:NSLocalizedString(@"Preparing printing...", nil)];
 		[splash setCancel: YES];
@@ -19427,7 +19434,7 @@ static BOOL viewerControllerPlaying = NO;
 {
 	int no;
 	
-	no = fabs( [quicktimeFrom intValue] - [quicktimeTo intValue]);
+	no = abs( [quicktimeFrom intValue] - [quicktimeTo intValue]);
 	no ++;
 	no /= [quicktimeInterval intValue];
 
@@ -20289,7 +20296,10 @@ static BOOL viewerControllerPlaying = NO;
 	//check if the folder PAGES exists in OsiriX document folder
 	NSString *pathToPAGES = [[[BrowserController currentBrowser] database] pagesDirPath];
 	if (!([fileManager fileExistsAtPath:pathToPAGES]))
-	[fileManager createDirectoryAtPath:pathToPAGES attributes:nil];
+	[fileManager createDirectoryAtPath: pathToPAGES
+           withIntermediateDirectories: YES
+                            attributes: nil
+                                 error: nil];
 
 	//pathToPAGES = timeStamp
 	NSDateFormatter *datetimeFormatter = [[[NSDateFormatter alloc]initWithDateFormat:@"%Y%m%d.%H%M%S" allowNaturalLanguage:NO] autorelease];
@@ -20580,7 +20590,10 @@ static BOOL viewerControllerPlaying = NO;
 		if( pathOK == YES)
 		{
 			[[NSFileManager defaultManager] removeItemAtPath: [[[[BrowserController currentBrowser] database] tempDirPath] stringByAppendingPathComponent:@"EXPORT"] error:nil];
-			[[NSFileManager defaultManager] createDirectoryAtPath: [[[[BrowserController currentBrowser] database] tempDirPath] stringByAppendingPathComponent:@"EXPORT"] withIntermediateDirectories:YES attributes:nil error:nil];
+			[[NSFileManager defaultManager] createDirectoryAtPath:[[[[BrowserController currentBrowser] database] tempDirPath] stringByAppendingPathComponent:@"EXPORT"]
+                                      withIntermediateDirectories:YES
+                                                       attributes:nil
+                                                            error:nil];
 		
 			int fileIndex;
 			

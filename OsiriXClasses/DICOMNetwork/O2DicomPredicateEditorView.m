@@ -1293,7 +1293,8 @@ enum /*typedef NS_ENUM(NSUInteger, O2ValueRepresentation)*/ {
             case DCM_DA:
             case DCM_DT: {
                 if (otype == NSGreaterThanOrEqualToPredicateOperatorType && ([predicate variable] || [predicate function])) {
-                    if ([[predicate variable] isEqualToString:O2VarToday] || [[[[predicate arguments] objectAtIndex:0] variable] isEqualToString:LegacyTimeKey(O2VarToday)])
+                    if ([[predicate variable] isEqualToString:O2VarToday] ||
+                        [[[[predicate arguments] objectAtIndex:0] variable] isEqualToString:LegacyTimeKey(O2VarToday)])
                         [self setOperator:O2Today];
                     else {
                         [self setOperator:O2Within];

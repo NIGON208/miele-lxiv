@@ -970,9 +970,10 @@ extern int delayedTileWindows;
 
 - (BOOL)outlineView:(NSOutlineView *)outlineView shouldEditTableColumn:(NSTableColumn *)tableColumn item:(id)item
 {
+#if 1 //@@@
 	return YES;
-	
-	if( [[NSUserDefaults standardUserDefaults] boolForKey:@"ALLOWDICOMEDITING"] == NO) return NO;
+#else
+	if ([[NSUserDefaults standardUserDefaults] boolForKey:@"ALLOWDICOMEDITING"] == NO)
 	
 	if( isDICOM == NO) return NO;
 	
@@ -1002,6 +1003,7 @@ extern int delayedTileWindows;
 	}
 	else
 		return NO;
+#endif
 }
 
 - (IBAction) switchEditing: (id) sender

@@ -892,7 +892,10 @@ static NSConditionLock *threadLock = nil;
 												NSString *unzipPath = [@"/tmp" stringByAppendingPathComponent: @"unzip_folder"];
 												
 												[[NSFileManager defaultManager] removeItemAtPath: unzipPath error: nil];
-												[[NSFileManager defaultManager] createDirectoryAtPath: unzipPath attributes: nil];
+												[[NSFileManager defaultManager] createDirectoryAtPath: unzipPath
+                                                                          withIntermediateDirectories: YES
+                                                                                           attributes: nil
+                                                                                                error:nil];
 												
 												[self askForZIPPassword: itemPath destination: unzipPath];
 												
@@ -939,7 +942,10 @@ static NSConditionLock *threadLock = nil;
 							NSString *unzipPath = [@"/tmp" stringByAppendingPathComponent: @"unzip_folder"];
 							
 							[[NSFileManager defaultManager] removeItemAtPath: unzipPath error: nil];
-							[[NSFileManager defaultManager] createDirectoryAtPath: unzipPath attributes: nil];
+							[[NSFileManager defaultManager] createDirectoryAtPath: unzipPath
+                                                      withIntermediateDirectories: YES
+                                                                       attributes: nil
+                                                                            error: nil];
 							
 							[self askForZIPPassword: filename destination: unzipPath];
 							
@@ -9571,7 +9577,10 @@ static BOOL withReset = NO;
 	//check if the folder PDF exists in OsiriX document folder
 	NSString *pathToPDF = [[self documentsDirectory] stringByAppendingPathComponent:@"/PDF/"];
 	if (!([[NSFileManager defaultManager] fileExistsAtPath:pathToPDF]))
-		[[NSFileManager defaultManager] createDirectoryAtPath:pathToPDF attributes:nil];
+		[[NSFileManager defaultManager] createDirectoryAtPath: pathToPDF
+                                  withIntermediateDirectories: YES
+                                                   attributes: nil
+                                                        error: nil];
 	
 	//pathToPDF = /PDF/yyyymmdd.hhmmss.pdf
 	NSDateFormatter *datetimeFormatter = [[[NSDateFormatter alloc]initWithDateFormat:@"%Y%m%d.%H%M%S" allowNaturalLanguage:NO] autorelease];
@@ -11282,7 +11291,7 @@ constrainSplitPosition:(CGFloat)proposedPosition
                 cell.leftTextFirstLine = [study studyName];
                 cell.rightTextFirstLine = [study modality];
                 cell.leftTextSecondLine = [[NSUserDefaults dateFormatter] stringFromDate: [study date]];
-                cell.rightTextSecondLine = N2LocalizedSingularPluralCount( (int) fabs( [[study numberOfImages] intValue]), NSLocalizedString(@"image", nil), NSLocalizedString(@"images", nil));
+                cell.rightTextSecondLine = N2LocalizedSingularPluralCount( (int) abs( [[study numberOfImages] intValue]), NSLocalizedString(@"image", nil), NSLocalizedString(@"images", nil));
             }
             else
             {
@@ -15391,7 +15400,10 @@ static NSArray*	openSubSeriesArray = nil;
 		[t setLaunchPath: @"/usr/bin/unzip"];
 		
 		if( [[NSFileManager defaultManager] fileExistsAtPath: @"/tmp/"] == NO)
-			[[NSFileManager defaultManager] createDirectoryAtPath: @"/tmp/" attributes: nil];
+			[[NSFileManager defaultManager] createDirectoryAtPath: @"/tmp/"
+                                      withIntermediateDirectories: YES
+                                                       attributes: nil
+                                                            error: nil];
 			
 		[t setCurrentDirectoryPath: @"/tmp/"];
 		if( pass)
@@ -15614,7 +15626,10 @@ static NSArray*	openSubSeriesArray = nil;
     {
 		NSString* temp = [self pathResolved:path];
 		if (!temp)
-			[[NSFileManager defaultManager] createDirectoryAtPath:path attributes:nil];
+			[[NSFileManager defaultManager] createDirectoryAtPath: path
+                                      withIntermediateDirectories: YES
+                                                       attributes: nil
+                                                            error: nil];
 		else
 		{ 
 			folder = temp;
@@ -15629,8 +15644,11 @@ static NSArray*	openSubSeriesArray = nil;
 		NSDictionary *attrs = [[NSFileManager defaultManager] fileAttributesAtPath:path traverseLink:YES];
 		
 		if (![[attrs objectForKey:NSFileType] isEqualToString:NSFileTypeDirectory]) 
-			[[NSFileManager defaultManager] createDirectoryAtPath:path attributes:nil];		
-		
+			[[NSFileManager defaultManager] createDirectoryAtPath: path
+                                      withIntermediateDirectories: YES
+                                                       attributes: nil
+                                                            error: nil];
+        
 		attrs = [[NSFileManager defaultManager] fileAttributesAtPath:path traverseLink:NO];
 		
 		//get absolute path if link
@@ -16048,8 +16066,10 @@ static volatile int numberOfThreadsForJPEG = 0;
 					if( NSRunInformationalAlertPanel( NSLocalizedString(@"Export", nil), NSLocalizedString(@"A folder already exists. Should I replace it? It will delete the entire content of this folder (%@)", nil), NSLocalizedString(@"Replace", nil), NSLocalizedString(@"Cancel", nil), nil, [tempPath lastPathComponent]) == NSAlertDefaultReturn)
 					{
 						[[NSFileManager defaultManager] removeFileAtPath:tempPath handler:nil];
-						[[NSFileManager defaultManager] createDirectoryAtPath:tempPath attributes:nil];
-					}
+						[[NSFileManager defaultManager] createDirectoryAtPath: tempPath
+                                                  withIntermediateDirectories: YES
+                                                                   attributes: nil
+                                                                        error: nil];					}
 					else break;
 				}
 			}
@@ -16067,8 +16087,11 @@ static volatile int numberOfThreadsForJPEG = 0;
 			
 			// Find the STUDY folder
 			if (![[NSFileManager defaultManager] fileExistsAtPath:tempPath])
-				[[NSFileManager defaultManager] createDirectoryAtPath:tempPath attributes:nil];
-			
+				[[NSFileManager defaultManager] createDirectoryAtPath:tempPath
+                                          withIntermediateDirectories: YES
+                                                           attributes: nil
+                                                                error: nil];
+ 
             NSString *seriesName = [curImage.series.name filenameString];
             if( seriesName.length == 0)
                 seriesName = @"series";
@@ -16462,16 +16485,22 @@ static volatile int numberOfThreadsForJPEG = 0;
 			NSString *tempPath = [path stringByAppendingPathComponent:[curImage valueForKeyPath: @"series.study.name"]];
 			
 			// Find the PATIENT folder
-			if (![[NSFileManager defaultManager] fileExistsAtPath:tempPath]) [[NSFileManager defaultManager] createDirectoryAtPath:tempPath attributes:nil];
-			else
+			if (![[NSFileManager defaultManager] fileExistsAtPath:tempPath])
+                [[NSFileManager defaultManager] createDirectoryAtPath: tempPath
+                                          withIntermediateDirectories: YES
+                                                           attributes: nil
+                                                                error: nil];
+            else
 			{
 				if( i == 0)
 				{
 					if( NSRunInformationalAlertPanel( NSLocalizedString(@"Export", nil), NSLocalizedString(@"A folder already exists. Should I replace it? It will delete the entire content of this folder (%@)", nil), NSLocalizedString(@"Replace", nil), NSLocalizedString(@"Cancel", nil), nil, [tempPath lastPathComponent]) == NSAlertDefaultReturn)
 					{
 						[[NSFileManager defaultManager] removeFileAtPath:tempPath handler:nil];
-						[[NSFileManager defaultManager] createDirectoryAtPath:tempPath attributes:nil];
-					}
+						[[NSFileManager defaultManager] createDirectoryAtPath: tempPath
+                                                  withIntermediateDirectories: YES
+                                                                   attributes: nil
+                                                                        error: nil];					}
 					else break;
 				}
 			}
@@ -16479,9 +16508,13 @@ static volatile int numberOfThreadsForJPEG = 0;
 			tempPath = [tempPath stringByAppendingPathComponent: [BrowserController replaceNotAdmitted: [NSMutableString stringWithFormat: @"%@ - %@", [curImage valueForKeyPath: @"series.study.studyName"], [curImage valueForKeyPath: @"series.study.id"]]]];
 			
 			// Find the STUDY folder
-			if (![[NSFileManager defaultManager] fileExistsAtPath:tempPath]) [[NSFileManager defaultManager] createDirectoryAtPath:tempPath attributes:nil];
-			
-			NSMutableString *seriesStr = [NSMutableString stringWithString: @"series"];
+			if (![[NSFileManager defaultManager] fileExistsAtPath:tempPath])
+                [[NSFileManager defaultManager] createDirectoryAtPath: tempPath
+                                          withIntermediateDirectories: YES
+                                                           attributes: nil
+                                                                error: nil];
+
+            NSMutableString *seriesStr = [NSMutableString stringWithString: @"series"];
             if( [curImage valueForKeyPath: @"series.name"])
                 seriesStr = [NSMutableString stringWithString: [curImage valueForKeyPath: @"series.name"]];
             
@@ -16490,9 +16523,13 @@ static volatile int numberOfThreadsForJPEG = 0;
 			tempPath = [tempPath stringByAppendingFormat:@"_%@", [curImage valueForKeyPath: @"series.id"]];
 			
 			// Find the SERIES folder
-			if (![[NSFileManager defaultManager] fileExistsAtPath:tempPath]) [[NSFileManager defaultManager] createDirectoryAtPath:tempPath attributes:nil];
-			
-			long imageNo = [[curImage valueForKey:@"instanceNumber"] intValue];
+			if (![[NSFileManager defaultManager] fileExistsAtPath:tempPath])
+                [[NSFileManager defaultManager] createDirectoryAtPath: tempPath
+                                          withIntermediateDirectories: YES
+                                                           attributes: nil
+                                                                error: nil];
+
+            long imageNo = [[curImage valueForKey:@"instanceNumber"] intValue];
 			
 			if( previousSeries != [[curImage valueForKeyPath: @"series.id"] intValue])
 			{
@@ -16833,7 +16870,10 @@ static volatile int numberOfThreadsForJPEG = 0;
 			NSMutableArray *filesToExport = [self filesForDatabaseOutlineSelection: dicomFiles2Export onlyImages: NO];
 			
 			[[NSFileManager defaultManager] removeItemAtPath: @"/tmp/zipFilesForMail" error: nil];
-			[[NSFileManager defaultManager] createDirectoryAtPath: @"/tmp/zipFilesForMail" attributes: nil];
+			[[NSFileManager defaultManager] createDirectoryAtPath: @"/tmp/zipFilesForMail"
+                                      withIntermediateDirectories: YES
+                                                       attributes: nil
+                                                            error: nil];
 			
 			BOOL encrypt = [[NSUserDefaults standardUserDefaults] boolForKey: @"encryptForExport"];
 			
@@ -17085,7 +17125,10 @@ static volatile int numberOfThreadsForJPEG = 0;
 				// Find the DICOM-PATIENT folder
 				if ( ![[NSFileManager defaultManager] fileExistsAtPath:tempPath])
 				{
-					[[NSFileManager defaultManager] createDirectoryAtPath:tempPath attributes:nil];
+					[[NSFileManager defaultManager] createDirectoryAtPath: tempPath
+                                              withIntermediateDirectories: YES
+                                                               attributes: nil
+                                                                    error: nil];
 				}
 				else
 				{
@@ -17108,7 +17151,10 @@ static volatile int numberOfThreadsForJPEG = 0;
 						if( a == NSAlertDefaultReturn)
 						{
 							[[NSFileManager defaultManager] removeFileAtPath:tempPath handler:nil];
-							[[NSFileManager defaultManager] createDirectoryAtPath:tempPath attributes:nil];
+							[[NSFileManager defaultManager] createDirectoryAtPath: tempPath
+                                                      withIntermediateDirectories: YES
+                                                                       attributes: nil
+                                                                            error: nil];
 						}
 						else if( a == NSAlertOtherReturn)
 						{
@@ -17159,7 +17205,10 @@ static volatile int numberOfThreadsForJPEG = 0;
 					
 					// Find the DICOM-STUDY folder
 					if (![[NSFileManager defaultManager] fileExistsAtPath:tempPath])
-						[[NSFileManager defaultManager] createDirectoryAtPath:tempPath attributes:nil];
+						[[NSFileManager defaultManager] createDirectoryAtPath: tempPath
+                                                  withIntermediateDirectories: YES
+                                                                   attributes: nil
+                                                                        error: nil];
 					
 					studyPath = tempPath;
 					
@@ -17205,7 +17254,10 @@ static volatile int numberOfThreadsForJPEG = 0;
 					
 					// Find the DICOM-SERIE folder
 					if (![[NSFileManager defaultManager] fileExistsAtPath:tempPath])
-						[[NSFileManager defaultManager] createDirectoryAtPath:tempPath attributes:nil];
+						[[NSFileManager defaultManager] createDirectoryAtPath: tempPath
+                                                  withIntermediateDirectories: YES
+                                                                   attributes: nil
+                                                                        error: nil];
 				}
 				else studyPath = tempPath;
 				

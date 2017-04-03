@@ -1090,7 +1090,7 @@ CFIndex findRealCubicRoots(CGFloat a, CGFloat b, CGFloat c, CGFloat d, CGFloat *
     }
 
 #if CGFLOAT_IS_DOUBLE
-    A = -1.0*copysign(pow(abs(R)+sqrt(R2-Q3), 1.0/3.0), R);
+    A = -1.0*copysign(pow(fabs(R)+sqrt(R2-Q3), 1.0/3.0), R);
 #else
     A = -1.0*copysignf(powf(abs(R)+sqrtf(R2-Q3), 1.0/3.0), R);
 #endif

@@ -843,7 +843,10 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
 	BOOL isDir = YES;
 	
 	if( ![[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDir])
-		[[NSFileManager defaultManager] createDirectoryAtPath:path attributes:nil];
+		[[NSFileManager defaultManager] createDirectoryAtPath: path
+                                  withIntermediateDirectories: YES
+                                                   attributes: nil
+                                                        error: nil];
 
     DicomSeries *series = nil;
     
@@ -865,7 +868,10 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
 	BOOL isDir = YES;
 	
 	if( ![[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDir])
-		[[NSFileManager defaultManager] createDirectoryAtPath:path attributes:nil];
+		[[NSFileManager defaultManager] createDirectoryAtPath: path
+                                  withIntermediateDirectories: YES
+                                                   attributes: nil
+                                                        error: nil];
 	
 	NSString *str;
 	
@@ -902,7 +908,10 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
         
         if (![[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDir] && isDir)
         {
-            [[NSFileManager defaultManager] createDirectoryAtPath:path attributes:nil];
+            [[NSFileManager defaultManager] createDirectoryAtPath: path
+                                      withIntermediateDirectories: YES
+                                                       attributes: nil
+                                                            error: nil];
         }
         
         NSString *str;
@@ -3102,7 +3111,10 @@ return YES;
 	[path appendString:PRESETS_DIRECTORY];
 	BOOL isDir = YES;
 	if (![[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDir] && isDir)
-		[[NSFileManager defaultManager] createDirectoryAtPath:path attributes:nil];
+		[[NSFileManager defaultManager] createDirectoryAtPath: path
+                                  withIntermediateDirectories: YES
+                                                   attributes: nil
+                                                        error: nil];
 	[path appendString:name];
 	[path appendString:@".plist"];
 	

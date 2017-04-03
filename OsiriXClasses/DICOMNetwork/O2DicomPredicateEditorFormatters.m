@@ -74,7 +74,10 @@
     return value;
 }
 
-- (BOOL)getObjectValue:(id*)obj forString:(NSString*)string errorDescription:(NSString**)error {
+- (BOOL)getObjectValue:(id*)obj
+             forString:(NSString*)string
+      errorDescription:(NSString**)error
+{
     NSArray* parts = [string componentsSeparatedByString:@"\\"];
     for (size_t i = 0; i < parts.count; ++i) {
         NSString* part = [parts objectAtIndex:i];
@@ -87,9 +90,9 @@
     }
     
     *obj = string;
+#if 1 // TODO: resolve
     return YES;
-    
-        
+#else
     NSScanner* s = [NSScanner scannerWithString:string];
     
     NSInteger num = 0;
@@ -125,6 +128,7 @@
     
     *obj = [NSString stringWithFormat:@"%03d%c", (int)num, t];
     return YES;
+#endif
 }
 
 

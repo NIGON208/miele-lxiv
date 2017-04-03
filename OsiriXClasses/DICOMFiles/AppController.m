@@ -2287,7 +2287,10 @@ static NSDate *lastWarningDate = nil;
 		[alert setInformativeText: [err stringByAppendingString: @"\r\rThis error message can be hidden by activating the Server Mode (see Listener Preferences)"]];
 		[alert addButtonWithTitle: NSLocalizedString(@"OK", nil)];
 		
-		[alert beginSheetModalForWindow:nil modalDelegate:nil didEndSelector:nil contextInfo:nil];
+		[alert beginSheetModalForWindow:nil
+                          modalDelegate:nil
+                         didEndSelector:nil
+                            contextInfo:nil];
 	}
 }
 
@@ -3935,9 +3938,11 @@ static BOOL initialized = NO;
     
 	BOOL dialog = NO;
     
-	if( [[NSFileManager defaultManager] fileExistsAtPath: @"/tmp/"] == NO)
-		[[NSFileManager defaultManager] createDirectoryAtPath: @"/tmp/" attributes: nil];
-	
+    if( [[NSFileManager defaultManager] fileExistsAtPath: @"/tmp/"] == NO)
+        [[NSFileManager defaultManager] createDirectoryAtPath:@"/tmp/"
+                                  withIntermediateDirectories:YES
+                                                   attributes:nil
+                                                        error:nil];
     
     NSMutableArray *dbArray = [[[[NSUserDefaults standardUserDefaults] arrayForKey: @"localDatabasePaths"] deepMutableCopy] autorelease];
     NSMutableArray *toBeRemoved = [NSMutableArray array];

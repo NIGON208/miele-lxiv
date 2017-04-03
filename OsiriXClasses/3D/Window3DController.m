@@ -165,7 +165,10 @@
 	NSMutableArray	*files = [NSMutableArray array];
 
 	[[NSFileManager defaultManager] removeFileAtPath: tmpFolder handler:nil];
-	[[NSFileManager defaultManager] createDirectoryAtPath:tmpFolder attributes:nil];
+	[[NSFileManager defaultManager] createDirectoryAtPath: tmpFolder
+                              withIntermediateDirectories: YES
+                                               attributes: nil
+                                                    error: nil];
 
 	NSImage *im = ( [[self view] respondsToSelector: @selector(nsimageQuicktime:)] ) ?
 		[(VRView*) [self view] nsimageQuicktime] : nil;

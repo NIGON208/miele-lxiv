@@ -678,10 +678,11 @@ enum RemoteDicomDatabaseStudiesAlbumAction { RemoteDicomDatabaseStudiesAlbumActi
 	
     NSArray* images = [image.series.images.allObjects sortedArrayUsingDescriptors: image.series.sortDescriptorsForImages];
     
-    NSInteger size = 0, i = [images indexOfObject:image];
+    NSInteger i = [images indexOfObject:image];
 	
     if( 1) // Multiple files download
     {
+        NSInteger size = 0;
         while (i < images.count)
         {
             Dicom_Image* iImage = [images objectAtIndex:i++];
@@ -693,7 +694,7 @@ enum RemoteDicomDatabaseStudiesAlbumAction { RemoteDicomDatabaseStudiesAlbumActi
             [localPaths addObject:iLocalPath];
             [remotePaths addObject:iImage.path];
             
-            size += iImage.width.intValue*iImage.height.intValue*2*iImage.numberOfFrames.intValue;
+            size += iImage.width.intValue * iImage.height.intValue * 2 * iImage.numberOfFrames.intValue;
             
             if (maxFiles == 1 || size >= maxFiles*512*512*2)
                 break;
@@ -713,7 +714,8 @@ enum RemoteDicomDatabaseStudiesAlbumAction { RemoteDicomDatabaseStudiesAlbumActi
         [localPaths addObject:iLocalPath];
         [remotePaths addObject:iImage.path];
 	}
-	if (!localPaths.count)
+
+    if (!localPaths.count)
 		return nil;
 	
 	// DLog(@"RDD requesting images: %@", localPaths.description);

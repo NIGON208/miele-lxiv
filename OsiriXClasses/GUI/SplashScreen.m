@@ -66,11 +66,10 @@ long vramSize()
 	// Ask for the physical size of VRAM of the primary display
 	typeCode = IORegistryEntryCreateCFProperty(dspPorts[0], CFSTR("IOFBMemorySize"), kCFAllocatorDefault, kNilOptions);
 	
+    SInt32 vramStorage = 0;
 	// Validate our data and make sure we're getting the right type
 	if(typeCode)
 	{
-		SInt32 vramStorage = 0;
-		
 		if( CFGetTypeID(typeCode) == CFNumberGetTypeID())
 		{
 			// Convert this to a useable number
@@ -78,19 +77,17 @@ long vramSize()
 		}
 		
 		CFRelease( typeCode);
-		
-		return vramStorage;
 	}
 	
-	return 0;
+    return vramStorage;
 }
 
 
 BOOL useQuartz() {
+#if 1
 	return NO;				// Disable quartz about screen:  DDP (060224)
-	
-	
-	if (vramSize() >= 32)
+#else
+	if (vramSize() >= 32L)
 		return YES;
 	else 
 		return NO;
@@ -99,7 +96,9 @@ BOOL useQuartz() {
 		return YES;
 		
 	return GetAltiVecTypeAvailable();
+#endif
 }
+
 @implementation SplashScreen
 
 - (void)windowDidLoad

@@ -605,7 +605,10 @@ static float deg2rad = M_PI / 180.0;
     NSString *path = [[[BrowserController currentBrowser] documentsDirectory] stringByAppendingPathComponent:STATEDATABASE];
 	
 	if (![[NSFileManager defaultManager] fileExistsAtPath: path])
-		[[NSFileManager defaultManager] createDirectoryAtPath: path attributes: nil];
+		[[NSFileManager defaultManager] createDirectoryAtPath: path
+                                  withIntermediateDirectories: YES
+                                                   attributes: nil
+                                                        error: nil];
 	
     path = [path stringByAppendingPathComponent: [NSString stringWithFormat:@"CPR-%@", [[[viewer2D fileList: 0] objectAtIndex:0] valueForKey:@"uniqueFilename"]]];
 	
@@ -2304,9 +2307,9 @@ static float deg2rad = M_PI / 180.0;
             
             if (self.exportSliceIntervalSameAsVolumeSliceInterval)
 			{
-                sliceInterval = fabsf( [cprView.volumeData minPixelSpacing]);
+                sliceInterval = fabs( [cprView.volumeData minPixelSpacing]);
             } else {
-                sliceInterval = fabsf( exportSliceInterval);
+                sliceInterval = fabs( exportSliceInterval);
             }
             
             return MAX(1, ceil(slabWidth / sliceInterval));
@@ -2399,7 +2402,7 @@ static float deg2rad = M_PI / 180.0;
         if (!isSame) {
             [self willChangeValueForKey:@"exportSequenceNumberOfFrames"];
         }
-        exportSliceInterval = fabsf( newExportSliceInterval);
+        exportSliceInterval = fabs( newExportSliceInterval);
         if (!isSame) {
             [self didChangeValueForKey:@"exportSequenceNumberOfFrames"];        
         }
@@ -2441,7 +2444,7 @@ static float deg2rad = M_PI / 180.0;
         [self willChangeValueForKey:@"exportSequenceNumberOfFrames"];
         exportSliceIntervalSameAsVolumeSliceInterval = newExportSliceIntervalSameAsVolumeSliceInterval;
         if (exportSliceIntervalSameAsVolumeSliceInterval) {
-            self.exportSliceInterval = fabsf( [cprView.volumeData minPixelSpacing]);
+            self.exportSliceInterval = fabs( [cprView.volumeData minPixelSpacing]);
         }
 		
 		self.exportSeriesType = CPRSlabExportSeriesType;
@@ -3554,7 +3557,10 @@ static float deg2rad = M_PI / 180.0;
         NSString *path = [[[BrowserController currentBrowser] documentsDirectory] stringByAppendingPathComponent:STATEDATABASE];
         
         if (![[NSFileManager defaultManager] fileExistsAtPath:path])
-            [[NSFileManager defaultManager] createDirectoryAtPath: path attributes:nil];
+            [[NSFileManager defaultManager] createDirectoryAtPath: path
+                                      withIntermediateDirectories: YES
+                                                       attributes: nil
+                                                            error: nil];
         
         path = [path stringByAppendingPathComponent: [NSString stringWithFormat:@"CPR-%@", [[[viewer2D fileList: 0] objectAtIndex:0] valueForKey:@"uniqueFilename"]]];
         

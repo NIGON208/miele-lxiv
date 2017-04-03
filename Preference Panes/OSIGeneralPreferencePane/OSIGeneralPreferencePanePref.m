@@ -326,7 +326,10 @@ static NSArray *languagesToMoveWhenQuitting = nil;
     NSString *inactivePath = [[activePath stringByDeletingLastPathComponent] stringByAppendingPathComponent: @"Resources Disabled"];
     
     if( [[NSFileManager defaultManager] fileExistsAtPath: inactivePath] == NO)
-        [[NSFileManager defaultManager] createDirectoryAtPath: inactivePath withIntermediateDirectories: NO attributes: nil error: nil];
+        [[NSFileManager defaultManager] createDirectoryAtPath: inactivePath
+                                  withIntermediateDirectories: NO
+                                                   attributes: nil
+                                                        error: nil];
     
     for( NSDictionary *d in languagesToMoveWhenQuitting)
     {

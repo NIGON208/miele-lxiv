@@ -9288,7 +9288,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 -(float*) subtractImages:(float*)input :(float*)subfImage
 {
 	long	firstPixel = subPixOffset.y * width - subPixOffset.x;			
-	long	firstPixelAbs = abs(subPixOffset.y * width) + abs(subPixOffset.x);
+	long	firstPixelAbs = fabs(subPixOffset.y * width) + fabs(subPixOffset.x);
 	float	*firstSourcePixel = subfImage + (firstPixelAbs + firstPixel)/2;
 	long	i = height * width;	
 	float	*result = malloc( i * sizeof(float));

@@ -306,8 +306,27 @@ OFCondition mainStoreSCP(T_ASC_Association * assoc,
     /* make sure data dictionary is loaded */
     if (!dcmDataDict.isDictionaryLoaded())
 	{
+#if 1 // original
 		fprintf(stderr, "Warning: data dictionary not loaded, check environment variable: %s\n", DCM_DICT_ENVIRONMENT_VARIABLE);
         return;
+#else
+//        const char* env = NULL;
+//        env = getenv(DCM_DICT_ENVIRONMENT_VARIABLE);
+//        fprintf(stderr, "DCM_DICT_ENVIRONMENT_VARIABLE: %s\n", env);
+        
+        NSString *dicPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"/dicom.dic"];
+        DcmDataDictionary& globalDataDict = dcmDataDict.wrlock();
+        globalDataDict.clear();        // clear out any preloaded dictionary
+        globalDataDict.loadDictionary([dicPath UTF8String], OFFalse);
+        dcmDataDict.unlock();
+        if (dcmDataDict.isDictionaryLoaded()) {
+            fprintf(stderr, "Data dictionary loaded from resources\n");
+        }
+        else {
+            fprintf(stderr, "Warning: data dictionary not loaded from resources\n");
+            return;
+        }
+#endif
     }
 
 	//init the network

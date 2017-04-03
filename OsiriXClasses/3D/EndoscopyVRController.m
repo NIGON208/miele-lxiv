@@ -218,7 +218,10 @@
 	
 	if (![[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDir] && isDir)
 	{
-		[[NSFileManager defaultManager] createDirectoryAtPath:path attributes:nil];
+		[[NSFileManager defaultManager] createDirectoryAtPath: path
+                                  withIntermediateDirectories: YES
+                                                   attributes: nil
+                                                        error: nil];
 	}
 	NSString	*str = [path stringByAppendingPathComponent: [NSString stringWithFormat:@"VRENDOSCOPY-%@", [[fileList objectAtIndex:0] valueForKey:@"uniqueFilename"]]];
 	
@@ -241,7 +244,10 @@
 	
 	if (![[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDir] && isDir)
 	{
-		[[NSFileManager defaultManager] createDirectoryAtPath:path attributes:nil];
+		[[NSFileManager defaultManager] createDirectoryAtPath: path
+                                  withIntermediateDirectories: YES
+                                                   attributes: nil
+                                                        error: nil];
 	}
 	NSString	*str = [path stringByAppendingPathComponent: [NSString stringWithFormat:@"VRENDOSCOPY-%@", [[fileList objectAtIndex:0] valueForKey:@"uniqueFilename"]]];
 	

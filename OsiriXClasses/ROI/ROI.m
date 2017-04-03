@@ -6975,7 +6975,7 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
                     {
                         //NSLog(@"ROI.m:%i %@, on this pix", __LINE__, name);
                     }
-                    else if (abs(dZ)>radius)    // Too far: not visible
+                    else if (fabs(dZ)>radius)    // Too far: not visible
                     {
                         //NSLog(@"ROI.m:%i %@, too far, dz:%.2f, radius:%.2f", __LINE__, name, dZ, radius);
                         break;

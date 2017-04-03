@@ -539,9 +539,12 @@ SecPolicySearchCreate:
 	NSString *appTempDir = [userTempDir stringByAppendingPathComponent:OUR_HTTP_SERVICE];
 	
 	NSFileManager *fileManager = [NSFileManager defaultManager];
-	if([fileManager fileExistsAtPath:appTempDir] == NO)
+	if ([fileManager fileExistsAtPath:appTempDir] == NO)
 	{
-		[fileManager createDirectoryAtPath:appTempDir attributes:nil];
+		[fileManager createDirectoryAtPath: appTempDir
+               withIntermediateDirectories: YES
+                                attributes: nil
+                                     error: nil];
 	}
 	
 	return appTempDir;
@@ -757,8 +760,14 @@ SecPolicySearchCreate:
 	BOOL isDirectory, directoryExists;
 	
 	directoryExists = [[NSFileManager defaultManager] fileExistsAtPath:directory isDirectory:&isDirectory];
-	if(directoryExists) return;
-	if(!directoryExists)[[NSFileManager defaultManager] createDirectoryAtPath:directory withIntermediateDirectories:NO attributes:nil error:nil];
+	if (directoryExists)
+        return;
+
+    if (!directoryExists)
+        [[NSFileManager defaultManager] createDirectoryAtPath:directory
+                                  withIntermediateDirectories:NO
+                                                   attributes:nil
+                                                        error:nil];
 		
 	int domains[3] = {kSecTrustSettingsDomainUser, kSecTrustSettingsDomainAdmin, kSecTrustSettingsDomainSystem};
 	

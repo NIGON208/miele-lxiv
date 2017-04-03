@@ -1373,7 +1373,10 @@ static void* const SearchDicomNodesContext = @"SearchDicomNodesContext";
 	MountedDatabaseNodeIdentifier* bs = [[self class] localDatabaseNodeIdentifierWithPath:path description:description dictionary:dictionary];
 	bs.devicePath = devicePath;
     bs.mountType = type;
-	[[NSFileManager defaultManager] createDirectoryAtPath:path attributes:nil];
+	[[NSFileManager defaultManager] createDirectoryAtPath:path
+                                               withIntermediateDirectories:YES
+                                               attributes:nil
+                                                    error:nil];
 	
 	if (scan)
 		[bs initiateVolumeScan];

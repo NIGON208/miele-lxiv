@@ -90,7 +90,7 @@
     size_t height = [image size].height;
     size_t bitsPerComponent = 8;
     CGColorSpaceRef cs = CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB);
-    CGBitmapInfo bi = kCGImageAlphaNoneSkipFirst;
+    CGBitmapInfo bi = kCGBitmapByteOrderDefault;
     NSDictionary *d = [NSDictionary dictionaryWithObjectsAndKeys:
                        @YES, kCVPixelBufferCGImageCompatibilityKey,
                        @YES, kCVPixelBufferCGBitmapContextCompatibilityKey,
@@ -141,7 +141,10 @@
 	
 	panel = [NSSavePanel savePanel];
 	
-    [[NSFileManager defaultManager] createDirectoryAtPath: [[[BrowserController currentBrowser] documentsDirectory] stringByAppendingFormat:@"/TEMP.noindex/"]  withIntermediateDirectories: YES attributes: nil error: nil];
+    [[NSFileManager defaultManager] createDirectoryAtPath: [[[BrowserController currentBrowser] documentsDirectory] stringByAppendingFormat:@"/TEMP.noindex/"]
+                              withIntermediateDirectories: YES
+                                               attributes: nil
+                                                    error: nil];
     
     
     if( produceFiles)
@@ -149,7 +152,10 @@
         result = NSFileHandlingPanelOKButton;
         
         [[NSFileManager defaultManager] removeFileAtPath: [[[[BrowserController currentBrowser] database] tempDirPath] stringByAppendingPathComponent:@"IPHOTO"] handler: nil];
-        [[NSFileManager defaultManager] createDirectoryAtPath: [[[[BrowserController currentBrowser] database] tempDirPath] stringByAppendingPathComponent:@"IPHOTO"] withIntermediateDirectories: YES attributes: nil error: nil];
+        [[NSFileManager defaultManager] createDirectoryAtPath: [[[[BrowserController currentBrowser] database] tempDirPath] stringByAppendingPathComponent:@"IPHOTO"]
+                                  withIntermediateDirectories: YES
+                                                   attributes: nil
+                                                        error: nil];
         
         fileName = [[[[BrowserController currentBrowser] database] tempDirPath] stringByAppendingPathComponent:@"OsiriXMovie.mov"];
     }

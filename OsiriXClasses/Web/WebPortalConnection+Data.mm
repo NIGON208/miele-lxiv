@@ -798,7 +798,10 @@ const NSString* const GenerateMovieDicomImagesParamKey = @"dicomImageArray";
 				[self getWidth: &width height:&height fromImagesArray: dicomImageArray /* isiPhone:.. */];
 			
 			[[NSFileManager defaultManager] removeItemAtPath: [fileName stringByAppendingString: @" dir"] error: nil];
-			[[NSFileManager defaultManager] createDirectoryAtPath: [fileName stringByAppendingString: @" dir"] attributes: nil];
+			[[NSFileManager defaultManager] createDirectoryAtPath: [fileName stringByAppendingString: @" dir"]
+                                      withIntermediateDirectories: YES
+                                                       attributes: nil
+                                                            error: nil];
 			
             NSInteger fps = 0;
             
@@ -2290,7 +2293,10 @@ const NSString* const GenerateMovieDicomImagesParamKey = @"dicomImageArray";
 				if ([dicomImageArray count] > 1)
 				{
 					NSString *path = [WebPortalConnection tmpDirPath];
-					[[NSFileManager defaultManager] createDirectoryAtPath:path attributes:nil];
+					[[NSFileManager defaultManager] createDirectoryAtPath: path
+                                              withIntermediateDirectories: YES
+                                                               attributes: nil
+                                                                    error: nil];
 					
 					NSString *name = [NSString stringWithFormat:@"%@",[parameters objectForKey:@"xid"]];
 					name = [name stringByAppendingFormat:@"-WADOMpeg-%d", (int) [dicomImageArray count]];

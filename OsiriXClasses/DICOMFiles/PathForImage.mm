@@ -24,12 +24,20 @@ const char *pathToJPEG(const char *sopInstanceUID){
 	BOOL isDir;
 	//CHECK FOR REPORTS FOLDER
 	if (!([defaultManager	fileExistsAtPath:path isDirectory:&isDir] && isDir))
-		[defaultManager createDirectoryAtPath:path attributes:nil];
-	//CHECK AND CREATE JPEGS SUBFOLDER
+		[defaultManager createDirectoryAtPath: path
+                  withIntermediateDirectories: YES
+                                   attributes: nil
+                                        error: nil];
+
+    //CHECK AND CREATE JPEGS SUBFOLDER
 	path = [path stringByAppendingPathComponent:@"JPEGS"];
-	if (!([defaultManager	fileExistsAtPath:path isDirectory:&isDir] && isDir))
-		[defaultManager createDirectoryAtPath:path attributes:nil];
-	//CREATE JPEG FOR HTML VIEWING
+	if (!([defaultManager fileExistsAtPath:path isDirectory:&isDir] && isDir))
+		[defaultManager createDirectoryAtPath: path
+                  withIntermediateDirectories: YES
+                                   attributes: nil
+                                        error: nil];
+
+    //CREATE JPEG FOR HTML VIEWING
 	NSString *imageUID = [NSString stringWithFormat:@"%s", sopInstanceUID];
 	path = [path stringByAppendingPathComponent:imageUID];
 	NSURL *url = [NSURL fileURLWithPath:path];

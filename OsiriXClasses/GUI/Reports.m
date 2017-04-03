@@ -522,7 +522,10 @@
         return folder;
     
     [[NSFileManager defaultManager] removeItemAtPath: folder error: nil];
-    [[NSFileManager defaultManager] createDirectoryAtPath: folder withIntermediateDirectories: NO attributes: nil error: nil];
+    [[NSFileManager defaultManager] createDirectoryAtPath: folder
+                              withIntermediateDirectories: NO
+                                               attributes: nil
+                                                    error: nil];
     
     return folder;
 }
@@ -768,7 +771,10 @@ static int Pages5orHigher = -1;
 	NSString* templatesDirPath = [Reports databasePagesTemplatesDirPath];
 	
     if ([[NSFileManager defaultManager] fileExistsAtPath:templatesDirPath] == NO)
-        [[NSFileManager defaultManager] createDirectoryAtPath:templatesDirPath withIntermediateDirectories:NO attributes:nil error:nil];
+        [[NSFileManager defaultManager] createDirectoryAtPath:templatesDirPath
+                                  withIntermediateDirectories:NO
+                                                   attributes:nil
+                                                        error:nil];
     
 	// Pages template
     NSString *defaultReport = [templatesDirPath stringByAppendingPathComponent:@"/OsiriX Basic Report.pages"];

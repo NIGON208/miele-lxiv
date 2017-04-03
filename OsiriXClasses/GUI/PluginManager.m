@@ -676,16 +676,25 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
 		NSString	*userPath = [NSHomeDirectory() stringByAppendingPathComponent:appSupport];
 		NSString	*sysPath = [@"/" stringByAppendingPathComponent:appSupport];
 		
-		#ifndef MACAPPSTORE
+#ifndef MACAPPSTORE
 		if ([[NSFileManager defaultManager] fileExistsAtPath:appPath] == NO)
-            [[NSFileManager defaultManager] createDirectoryAtPath:appPath attributes:nil];
+            [[NSFileManager defaultManager] createDirectoryAtPath: appPath
+                                      withIntermediateDirectories: YES
+                                                       attributes: nil
+                                                            error: nil];
         
 		if ([[NSFileManager defaultManager] fileExistsAtPath:userPath] == NO)
-            [[NSFileManager defaultManager] createDirectoryAtPath:userPath attributes:nil];
+            [[NSFileManager defaultManager] createDirectoryAtPath: userPath
+                                      withIntermediateDirectories: YES
+                                                       attributes: nil
+                                                            error: nil];
         
 		if ([[NSFileManager defaultManager] fileExistsAtPath:sysPath] == NO)
-            [[NSFileManager defaultManager] createDirectoryAtPath:sysPath attributes:nil];
-		#endif
+            [[NSFileManager defaultManager] createDirectoryAtPath: sysPath
+                                      withIntermediateDirectories: YES
+                                                       attributes: nil
+                                                            error: nil];
+#endif
 		
 		appSupport = [appSupport stringByAppendingPathComponent :@"Plugins/"];
 		appAppStoreSupport = [appAppStoreSupport stringByAppendingPathComponent :@"Plugins/"];
@@ -694,13 +703,19 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
         userAppStorePath = [NSHomeDirectory() stringByAppendingPathComponent:appAppStoreSupport];
 		sysPath = [@"/" stringByAppendingPathComponent:appSupport];
 		
-		#ifndef MACAPPSTORE
+#ifndef MACAPPSTORE
 		if ([[NSFileManager defaultManager] fileExistsAtPath:userPath] == NO)
-            [[NSFileManager defaultManager] createDirectoryAtPath:userPath attributes:nil];
+            [[NSFileManager defaultManager] createDirectoryAtPath: userPath
+                                      withIntermediateDirectories: YES
+                                                       attributes: nil
+                                                            error: nil];
         
 		if ([[NSFileManager defaultManager] fileExistsAtPath:sysPath] == NO)
-            [[NSFileManager defaultManager] createDirectoryAtPath:sysPath attributes:nil];
-		#endif
+            [[NSFileManager defaultManager] createDirectoryAtPath: sysPath
+                                      withIntermediateDirectories: YES
+                                                       attributes: nil
+                                                            error: nil];
+#endif
 		
 		NSArray* paths = [NSArray arrayWithObjects: [NSNull null], appPath, userPath, userAppStorePath, sysPath, nil]; // [NSNull null] is a placeholder for launch parameters load commands
 		
@@ -934,8 +949,13 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
 {
 	if([sourcePath isEqualToString:destinationPath]) return;
 	
-	if(![[NSFileManager defaultManager] fileExistsAtPath:[destinationPath stringByDeletingLastPathComponent]])
-		[[NSFileManager defaultManager] createDirectoryAtPath:[destinationPath stringByDeletingLastPathComponent] attributes:nil];
+    if(![[NSFileManager defaultManager] fileExistsAtPath:[destinationPath stringByDeletingLastPathComponent]])
+    {
+        [[NSFileManager defaultManager] createDirectoryAtPath:[destinationPath stringByDeletingLastPathComponent]
+                                  withIntermediateDirectories:YES
+                                                   attributes:nil
+                                                        error:nil];
+    }
 
     NSMutableArray *args = [NSMutableArray array];
 	[args addObject:@"-f"];
@@ -1086,7 +1106,10 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
 	BOOL isDir = YES;
 	BOOL directoryCreated = NO;
 	if (![[NSFileManager defaultManager] fileExistsAtPath:directoryPath isDirectory:&isDir] && isDir)
-		directoryCreated = [[NSFileManager defaultManager] createDirectoryAtPath:directoryPath attributes:nil];
+		directoryCreated = [[NSFileManager defaultManager] createDirectoryAtPath: directoryPath
+                                                     withIntermediateDirectories: YES
+                                                                      attributes: nil
+                                                                           error: nil];
 
 	if(!directoryCreated)
 	{

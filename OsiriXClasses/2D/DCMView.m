@@ -412,8 +412,8 @@ BOOL lineIntersectsRect(NSPoint lineStarts, NSPoint lineEnds, NSRect rect)
 	
 	if( rect.size.width == 0 || rect.size.height == 0) return NO;
 	
-	float width = fabsf(lineStarts.x - lineEnds.x);
-	float height = fabsf(lineStarts.y - lineEnds.y);
+	float width = fabs(lineStarts.x - lineEnds.x);
+	float height = fabs(lineStarts.y - lineEnds.y);
 	NSRect lineBoundingBox = NSMakeRect(min(lineStarts.x, lineEnds.x), min(lineStarts.y, lineEnds.y), width, height);
 
 	if(NSIsEmptyRect(lineBoundingBox))
@@ -1017,9 +1017,9 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void *context
 		NSLog( @"w:%f, h:%f", [im size].width, [im size].height);
 		
 		if ([im size].height < [im size].width)
-			[printInfo setOrientation: NSLandscapeOrientation];
+			[printInfo setOrientation: NSPaperOrientationLandscape];
 		else
-			[printInfo setOrientation: NSPortraitOrientation];
+            [printInfo setOrientation: NSPaperOrientationPortrait];
 		
 		//NSRect	r = NSMakeRect( 0, 0, [printInfo paperSize].width, [printInfo paperSize].height);
 		
@@ -2994,9 +2994,9 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void *context
 				short   inc, previmage;
 				
 				if( yMove)
-                    val = yMove/abs(yMove);
+                    val = yMove/labs(yMove);
 				else
-                    val = xMove/abs(xMove);
+                    val = xMove/labs(xMove);
 				
 				previmage = curImage;
 				
@@ -3369,8 +3369,8 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void *context
 				
 				NSRect rect = NSMakeRect(ROISelectorStartPoint.x-1,
                                          ROISelectorStartPoint.y-1,
-                                         fabsf(ROISelectorEndPoint.x-ROISelectorStartPoint.x)+2,
-                                         fabsf(ROISelectorEndPoint.y-ROISelectorStartPoint.y)+2);
+                                         fabs(ROISelectorEndPoint.x-ROISelectorStartPoint.x)+2,
+                                         fabs(ROISelectorEndPoint.y-ROISelectorStartPoint.y)+2);
 				ROISelectorStartPoint = NSMakePoint(0.0, 0.0);
 				ROISelectorEndPoint = NSMakePoint(0.0, 0.0);
 				[self drawRect:rect];
@@ -6009,8 +6009,8 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void *context
         
 		rect = NSMakeRect(min(tempStartPoint.x, tempEndPoint.x),
                           min(tempStartPoint.y, tempEndPoint.y),
-                          fabsf(tempStartPoint.x - tempEndPoint.x),
-                          fabsf(tempStartPoint.y - tempEndPoint.y));
+                          fabs(tempStartPoint.x - tempEndPoint.x),
+                          fabs(tempStartPoint.y - tempEndPoint.y));
 		
 		if(rect.size.width<1)rect.size.width=1;
 		if(rect.size.height<1)rect.size.height=1;

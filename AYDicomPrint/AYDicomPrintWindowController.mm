@@ -598,7 +598,10 @@ NSString *mediumTag[] = {@"Blue Film", @"Clear Film", @"Paper"};
 		// create log directory, if it does not exist
 		NSFileManager *fileManager = [NSFileManager defaultManager];
 		if (![fileManager fileExistsAtPath: logPath])
-			[fileManager createDirectoryAtPath: logPath attributes: nil];
+			[fileManager createDirectoryAtPath: logPath
+                   withIntermediateDirectories:YES
+                                    attributes:nil
+                                         error:nil];
 		
 		NSTask *theTask = [[NSTask alloc] init];
 		

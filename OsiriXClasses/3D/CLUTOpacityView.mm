@@ -1985,7 +1985,10 @@ zoomFixedPoint = [sender floatValue] / [sender maxValue] * drawingRect.size.widt
 	BOOL isDir = YES;
 	if (![[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDir] && isDir)
 	{
-		[[NSFileManager defaultManager] createDirectoryAtPath:path attributes:nil];
+		[[NSFileManager defaultManager] createDirectoryAtPath: path
+                                  withIntermediateDirectories: YES
+                                                   attributes: nil
+                                                        error: nil];
 	}
 	
 	[path appendString:name];

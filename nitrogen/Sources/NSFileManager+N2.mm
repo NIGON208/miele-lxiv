@@ -82,7 +82,8 @@
 	return [self tmpFilePathInDir:[self tmpDirPath]];
 }
 
--(NSString*)confirmDirectoryAtPath:(NSString*)dirPath subDirectory: (BOOL) subDirectory
+-(NSString*)confirmDirectoryAtPath: (NSString*) dirPath
+                      subDirectory: (BOOL) subDirectory
 {
 	if( dirPath == nil)
         return nil;

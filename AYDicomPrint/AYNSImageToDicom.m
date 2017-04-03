@@ -338,7 +338,10 @@ extern BOOL FULL32BITPIPELINE;
 	BOOL isDir = YES;
 	
 	if (![[NSFileManager defaultManager] fileExistsAtPath:destinationPath isDirectory:&isDir] && isDir)
-		[[NSFileManager defaultManager] createDirectoryAtPath:destinationPath attributes:nil];
+		[[NSFileManager defaultManager] createDirectoryAtPath:destinationPath
+                                  withIntermediateDirectories:YES
+                                                   attributes:nil
+                                                        error:nil];
 	
 	NSString *tempFilePath;
 	

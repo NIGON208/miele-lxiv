@@ -913,9 +913,17 @@
         //create burn Folder and dicomdir.
         
         if( ![manager fileExistsAtPath:burnFolder])
-            [manager createDirectoryAtPath:burnFolder attributes:nil];
+            [manager createDirectoryAtPath: burnFolder
+               withIntermediateDirectories: YES
+                                attributes: nil
+                                     error: nil];
+
         if( ![manager fileExistsAtPath:subFolder])
-            [manager createDirectoryAtPath:subFolder attributes:nil];
+            [manager createDirectoryAtPath: subFolder
+               withIntermediateDirectories: YES
+                                attributes: nil
+                                     error: nil];
+        
         if( ![manager fileExistsAtPath:dicomdirPath])
             [manager copyPath:[[NSBundle mainBundle] pathForResource:@"DICOMDIR" ofType:nil] toPath:dicomdirPath handler:nil];
             
@@ -1130,7 +1138,10 @@
                 self.password = @"";
                 
                 [[NSFileManager defaultManager] removeItemAtPath: burnFolder error: nil];
-                [[NSFileManager defaultManager] createDirectoryAtPath: burnFolder attributes: nil];
+                [[NSFileManager defaultManager] createDirectoryAtPath: burnFolder
+                                          withIntermediateDirectories: YES
+                                                           attributes: nil
+                                                                error: nil];
                 
                 [[NSFileManager defaultManager] moveItemAtPath: [[burnFolder stringByDeletingLastPathComponent] stringByAppendingPathComponent: @"encryptedDICOM.zip"] toPath: [burnFolder stringByAppendingPathComponent: @"encryptedDICOM.zip"] error: nil];
                 [[NSString stringWithString: NSLocalizedString( @"The images are encrypted with a password in this ZIP file: first, unzip this file to read the content. Use an Unzip application to extract the files.", nil)] writeToFile: [burnFolder stringByAppendingPathComponent: @"ReadMe.txt"] atomically: YES encoding: NSASCIIStringEncoding error: nil];

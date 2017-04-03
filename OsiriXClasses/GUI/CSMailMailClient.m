@@ -478,7 +478,10 @@ void QuitAndSleep(NSString* bundleIdentifier, float seconds)
 	attachtmp = [tmpdir stringByAppendingPathComponent:
 			      [NSString stringWithFormat:@"csmail-%08lx",
 					random ()]];
-      } while (![fileManager createDirectoryAtPath:attachtmp attributes:nil]);
+      } while (![fileManager createDirectoryAtPath: attachtmp
+                       withIntermediateDirectories: YES
+                                        attributes: nil
+                                             error: nil]);
     }
 
     if (attachment) {
