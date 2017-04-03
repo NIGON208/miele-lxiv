@@ -150,7 +150,7 @@ static float deg2rad = M_PI / 180.0f;
     [super dealloc];
 }
 
-- (void) setSourceDicomImage:(DicomImage*) i
+- (void) setSourceDicomImage:(Dicom_Image*) i
 {
 	[iDicomImage release];
 	iDicomImage = [i retain];

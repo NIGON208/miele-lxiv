@@ -448,7 +448,7 @@ static NSString *templateDicomFile = nil;
         NSMutableArray* dicomSeries = [NSMutableArray array];
         for (int i = 0; i < [dicomImages count]; i++)
         {
-            DicomImage *image = [dicomImages objectAtIndex: i];
+            Dicom_Image *image = [dicomImages objectAtIndex: i];
             
             @try
             {		

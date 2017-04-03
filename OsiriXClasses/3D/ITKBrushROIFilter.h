@@ -13,6 +13,7 @@
  =========================================================================*/
 
 #import <Cocoa/Cocoa.h>
+#define TODO_FIX_ITK_NEW_VERSION  // @@@
 
 @class ROI;
 

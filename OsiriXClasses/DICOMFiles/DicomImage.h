@@ -27,7 +27,7 @@ void* sopInstanceUIDEncode( NSString *sopuid);
 
 /** \brief  Core Data Entity for an image (frame) */
 
-@interface DicomImage : NSManagedObject
+@interface Dicom_Image : NSManagedObject
 {
 	NSString	*completePathCache;
 	

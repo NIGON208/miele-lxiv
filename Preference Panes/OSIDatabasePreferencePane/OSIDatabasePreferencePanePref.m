@@ -23,6 +23,8 @@
 #import "dicomFile.h"
 #import "WaitRendering.h"
 
+#import "url.h"
+
 @implementation OSIDatabasePreferencePanePref
 
 @synthesize currentCommentsAutoFill, currentCommentsField;
@@ -497,13 +499,13 @@
 	{
 		NSString	*location = [oPanel directory];
 		
-		if( [[location lastPathComponent] isEqualToString:@"OsiriX Data"])
+		if( [[location lastPathComponent] isEqualToString:OUR_DATA_LOCATION])
 		{
 			NSLog( @"%@", [location lastPathComponent]);
 			location = [location stringByDeletingLastPathComponent];
 		}
 		
-		if( [[location lastPathComponent] isEqualToString:@"DATABASE"] && [[[location stringByDeletingLastPathComponent] lastPathComponent] isEqualToString:@"OsiriX Data"])
+		if( [[location lastPathComponent] isEqualToString:@"DATABASE"] && [[[location stringByDeletingLastPathComponent] lastPathComponent] isEqualToString:OUR_DATA_LOCATION])
 		{
 			NSLog( @"%@", [location lastPathComponent]);
 			location = [[location stringByDeletingLastPathComponent] stringByDeletingLastPathComponent];

@@ -29,6 +29,8 @@
 #import "NSUserDefaultsController+OsiriX.h"
 #import "N2Debug.h"
 
+#import "url.h"
+
 @implementation BonjourBrowser
 
 static BonjourBrowser *currentBrowser = nil;
@@ -203,7 +205,7 @@ static BonjourBrowser *currentBrowser = nil;
 		NSMutableDictionary	*dict = [NSMutableDictionary dictionaryWithDictionary: [dbArray objectAtIndex: i]];
 		
 		if( [[dict valueForKey:@"Path"] isEqualToString: defaultPath] == NO &&
-           [[[dict valueForKey:@"Path"] stringByAppendingPathComponent:@"OsiriX Data"] isEqualToString: defaultPath] == NO)
+           [[[dict valueForKey:@"Path"] stringByAppendingPathComponent:OUR_DATA_LOCATION] isEqualToString: defaultPath] == NO)
 		{
 			[dict setValue:@"localPath" forKey:@"type"];
 			[services addObject: dict];

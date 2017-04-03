@@ -35,7 +35,7 @@
 	NSString					*srcFile;
 	NSXMLDocument				*xmlDocument;
     DCMObject                   *dcmDocument;
-	DicomImage                  *imObj;
+	Dicom_Image                  *imObj;
 	NSMutableArray				*dictionaryArray;
 	
 	ViewerController			*viewer;
@@ -61,8 +61,8 @@
 
 + (XMLController*) windowForViewer: (ViewerController*) v;
 
-- (void) changeImageObject:(DicomImage*) image;
-- (id) initWithImage:(DicomImage*) image windowName:(NSString*) name viewer:(ViewerController*) v;
+- (void) changeImageObject:(Dicom_Image*) image;
+- (id) initWithImage:(Dicom_Image*) image windowName:(NSString*) name viewer:(ViewerController*) v;
 - (void) setupToolbar;
 
 - (IBAction) addDICOMField:(id) sender;

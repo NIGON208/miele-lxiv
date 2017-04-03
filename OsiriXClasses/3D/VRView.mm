@@ -48,13 +48,14 @@
 #include "vtkAbstractPropPicker.h"
 #include "vtkInteractorStyle.h"
 #include "vtkWorldPointPicker.h"
-#include "vtkOpenGLVolumeTextureMapper3D.h"
+//#include "vtkOpenGLVolumeTextureMapper3D.h"
 #include "vtkPropAssembly.h"
 #include "vtkFixedPointRayCastImage.h"
 #include "vtkSmartVolumeMapper.h"
 #include "vtkSphereSource.h"
 #include "vtkAssemblyPath.h"
 #include "vtkDoubleArray.h"
+//#include "VTKViewOSIRIX.h"  // @@@
 
 #define id Id
 #include "itkImage.h"
@@ -972,7 +973,11 @@ public:
 {
     if( newEngine != 0 && [AppController hasMacOSXLion] == NO)
     {
-        NSRunCriticalAlertPanel( NSLocalizedString(@"GPU Rendering", nil),  NSLocalizedString( @"GPU Rendering requires MacOS 10.7 or higher.", nil), NSLocalizedString( @"OK", nil), nil, nil);
+        NSRunCriticalAlertPanel(NSLocalizedString(@"GPU Rendering", nil),
+                                NSLocalizedString(@"GPU Rendering requires MacOS 10.7 or higher.", nil),
+                                NSLocalizedString(@"OK", nil),
+                                nil,
+                                nil);
         newEngine = 0;
     }
     
@@ -1537,7 +1542,7 @@ public:
 			
 			if( [[NSUserDefaults standardUserDefaults] boolForKey: @"afterExportMarkThemAsKeyImages"])
 			{
-				for( DicomImage *im in objects)
+				for( Dicom_Image *im in objects)
 					[im setValue: @YES forKey: @"isKeyImage"];
 			}
 		}
@@ -6679,7 +6684,6 @@ public:
 			volumeProperty->SetColor( colorTransferFunction);	//	if( isRGB == NO) 
 			volumeProperty->SetScalarOpacity( opacityTransferFunction);
 		}
-		
 		
 		[self setCLUT:nil :nil :nil];
 		

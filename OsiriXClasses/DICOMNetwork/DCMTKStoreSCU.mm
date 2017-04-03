@@ -14,6 +14,7 @@
 
 /* See DCMTK's storescu.cc */
 
+
 #include "url.h"
 
 #import "LogManager.h"
@@ -1002,7 +1003,8 @@ static OFCondition cstore(T_ASC_Association * assoc, const OFString& fname)
 		_doAuthenticate = NO;
 		_cipherSuites = nil;
 		_dhparam = NULL;
-		
+
+#ifdef WITH_OPENSSL
 		if (_secureConnection)
 		{
 			_doAuthenticate = [[extraParameters objectForKey:@"TLSAuthenticated"] boolValue];
@@ -1026,8 +1028,9 @@ static OFCondition cstore(T_ASC_Association * assoc, const OFString& fname)
 			_readSeedFile = [TLS_SEED_FILE cStringUsingEncoding:NSUTF8StringEncoding];
 			_writeSeedFile = TLS_WRITE_SEED_FILE;
 		}
-		
-		_filesToSend = [[NSMutableArray arrayWithArray: filesToSend] retain];
+#endif
+
+        _filesToSend = [[NSMutableArray arrayWithArray: filesToSend] retain];
 		[_filesToSend removeDuplicatedStrings];
         
         NSMutableArray *toBeRemoved = [NSMutableArray array];
@@ -1278,10 +1281,12 @@ static OFCondition cstore(T_ASC_Association * assoc, const OFString& fname)
 	//max-send-pdu
 	//opt_maxSendPDULength = 
 	//dcmMaxOutgoingPDUSize.set((Uint32)opt_maxSendPDULength);
-	
+
+#ifdef WITH_OPENSSL
 	DcmTLSTransportLayer *tLayer = NULL;
-	
-	#ifndef OSIRIX_LIGHT
+#endif
+
+#ifndef OSIRIX_LIGHT
 //	if( _secureConnection)
 //		[DDKeychain lockTmpFiles];
 	NSString *uniqueStringID = [NSString stringWithFormat:@"%d.%d.%d", getpid(), inc++, (int) random()];

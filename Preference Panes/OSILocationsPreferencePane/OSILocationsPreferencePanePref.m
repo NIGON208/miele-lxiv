@@ -767,12 +767,12 @@
 	{
 		NSString	*location = [oPanel filename];
 		
-		if( [[location lastPathComponent] isEqualToString:@"OsiriX Data"])
+		if( [[location lastPathComponent] isEqualToString:OUR_DATA_LOCATION])
 		{
 			location = [location stringByDeletingLastPathComponent];
 		}
 
-		if( [[location lastPathComponent] isEqualToString:@"DATABASE"] && [[[location stringByDeletingLastPathComponent] lastPathComponent] isEqualToString:@"OsiriX Data"])
+		if( [[location lastPathComponent] isEqualToString:@"DATABASE"] && [[[location stringByDeletingLastPathComponent] lastPathComponent] isEqualToString:OUR_DATA_LOCATION])
 		{
 			location = [[location stringByDeletingLastPathComponent] stringByDeletingLastPathComponent];
 		}

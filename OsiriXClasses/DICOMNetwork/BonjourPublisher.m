@@ -41,6 +41,8 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 
+#import "url.h"
+
 extern const char *GetPrivateIP();
 
 
@@ -121,8 +123,9 @@ extern const char *GetPrivateIP();
 //            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(connectionOpened:) name:N2ConnectionListenerOpenedConnectionNotification object:_listener];
             [_listener setThreadPerConnection:YES];
             if (_listener)
-                NSLog(@"OsiriX database shared on port %d", [_listener port]);
-            else NSLog(@"Warning: unable to share OsiriX database");
+                NSLog(@"%s database shared on port %d", OUR_MANUFACTURER_NAME, [_listener port]);
+            else
+                NSLog(@"Warning: unable to share %s database", OUR_MANUFACTURER_NAME);
         }
         
         if (!activate && _listener) {
@@ -146,14 +149,14 @@ extern const char *GetPrivateIP();
     
     NSMutableDictionary* txtrec = [NSMutableDictionary dictionary];
 #define EitherOr(a, b) (a? a : b)
-    [txtrec setObject: EitherOr([[NSUserDefaults standardUserDefaults] stringForKey:@"AETITLE"], @"OSIRIX") forKey:@"AETitle"];
+    [txtrec setObject: EitherOr([[NSUserDefaults standardUserDefaults] stringForKey:@"AETITLE"], @OUR_AET) forKey:@"AETitle"];
     [txtrec setObject: EitherOr([[NSUserDefaults standardUserDefaults] stringForKey: @"AEPORT"], @"11112") forKey:@"port"];
 #undef EitherOr
     if ([AppController UID])
         [txtrec setObject:[AppController UID] forKey:@"UID"];
     
     if( [_bonjour setTXTRecordData:[NSNetService dataFromTXTRecordDictionary:txtrec]] == NO)
-        NSLog(@"Warning: OsiriX Bonjour net service setTXTRecordData FAILED");
+        NSLog(@"Warning: %s Bonjour net service setTXTRecordData FAILED", OUR_MANUFACTURER_NAME);
 
     if (_listener)
         [_bonjour publish];
@@ -166,14 +169,14 @@ extern const char *GetPrivateIP();
 
 - (void)netService:(NSNetService*)sender didNotPublish:(NSDictionary*)errorDict
 {
-	NSLog(@"Warning: OsiriX Bonjour net service did not publish, %@", errorDict);
+	NSLog(@"Warning: %s Bonjour net service did not publish, %@", OUR_MANUFACTURER_NAME, errorDict);
     [_bonjour release];
     _bonjour = nil;
 }
 
 - (void) netServiceDidStop:(NSNetService *)sender
 {
-    NSLog(@"OsiriX Bonjour net service did stop");
+    NSLog(@"%s Bonjour net service did stop", OUR_MANUFACTURER_NAME);
 }
 
 
@@ -665,7 +668,7 @@ static NSString* const O2NotEnoughData = @"O2NotEnoughData";
     NSMutableData* representationToSend = [NSMutableData data];
     unsigned int temp = NSSwapHostIntToBig([objects count]);
     [representationToSend appendBytes:&temp length:4];
-    for (DicomImage* image in objects) {
+    for (Dicom_Image* image in objects) {
         unsigned int temp = NSSwapHostIntToBig(image.pathNumber.intValue);
         [representationToSend appendBytes:&temp length:4];
     }

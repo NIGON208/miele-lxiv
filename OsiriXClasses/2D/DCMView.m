@@ -698,7 +698,7 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void *context
 	}
 }
 
-+ (BOOL) noPropagateSettingsInSeriesForModality: (DicomImage*) imageObj
++ (BOOL) noPropagateSettingsInSeriesForModality: (Dicom_Image*) imageObj
 {
 	if( IndependentCRWLWW &&
        [[NSUserDefaults standardUserDefaults] boolForKey: [NSString stringWithFormat: @"noPropagateInSeriesFor%@", imageObj.modality]])
@@ -2186,7 +2186,7 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void *context
 			dcmPixList = [pixels retain];
 
 			curWW = curWL = 0;
-            DicomImage *imageObj = [files lastObject]; // Unused ?
+            Dicom_Image *imageObj = [files lastObject]; // Unused ?
             
             BOOL a = ![DCMView noPropagateSettingsInSeriesForModality: [files objectAtIndex: dcmPixList.count/2]];
             
@@ -2428,7 +2428,7 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void *context
                 
                 if( COPYSETTINGSINSERIES)
                 {
-                    DicomImage *im = pix.imageObj;
+                    Dicom_Image *im = pix.imageObj;
                     
                     [im setValue: nil forKey:@"windowWidth"];
                     [im setValue: nil forKey:@"windowLevel"];
@@ -2441,7 +2441,7 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void *context
                 }
                 else
                 {
-                    DicomImage *im = pix.imageObj;
+                    Dicom_Image *im = pix.imageObj;
                     
                     [im setValue:[NSNumber numberWithFloat:curWW] forKey:@"windowWidth"];
                     [im setValue:[NSNumber numberWithFloat:curWL] forKey:@"windowLevel"];
@@ -2481,7 +2481,7 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void *context
                     {
                         [pix changeWLWW :curWL :curWW];
                         
-                        DicomImage *im = pix.imageObj;
+                        Dicom_Image *im = pix.imageObj;
                         
                         if( COPYSETTINGSINSERIES)
                         {
@@ -7263,7 +7263,7 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void *context
 											slicePosition = [pix sliceLocation];
 										else
                                         {
-                                            DicomImage * im = [dcmFilesList objectAtIndex: i];
+                                            Dicom_Image * im = [dcmFilesList objectAtIndex: i];
 											slicePosition = [im.sliceLocation floatValue];
                                         }
                                         
@@ -13373,7 +13373,7 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void *context
 }
 
 //Database links
-- (DicomImage *)imageObj
+- (Dicom_Image *)imageObj
 {
 //	if( stringID == nil || [stringID isEqualToString: @"previewDatabase"])  <- this will break the DICOM export function: no sourceFilePath in DICOMExport
 	{
@@ -13444,7 +13444,7 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void *context
 - (void) updatePresentationStateFromSeriesOnlyImageLevel: (BOOL) onlyImage scale: (BOOL) scale offset: (BOOL) offset
 {
 	DicomSeries *series = self.seriesObj;
-	DicomImage *image = self.imageObj;
+	Dicom_Image *image = self.imageObj;
 	
 	if( series)
 	{

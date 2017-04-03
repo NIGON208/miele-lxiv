@@ -18,9 +18,8 @@
 #define id Id
 	#include "itkImage.h"
 	#include "itkImportImageFilter.h"
-	//#include "itkResampleImageFilter.h"
+	#include "itkResampleImageFilter.h"
 #undef id
-
 
 #import "DCMPix.h"
 #import "ITK.h"
@@ -66,7 +65,7 @@
 		double origin[ 3 ];
 		double spacing[ 3 ];
 		
-		// init Filiter
+		// init Filter
 		//itk::MultiThreader::SetGlobalDefaultNumberOfThreads( [[NSProcessInfo processInfo] processorCount]ors());
 		//importFilter = ImportFilterType::New();
 		ImportFilterType::SizeType size;
@@ -152,18 +151,27 @@
 		spacing[0] = voxelSpacingX; // along X direction
 		spacing[1] = voxelSpacingY; // along Y direction
 		spacing[2] = voxelSpacingZ; // along Z direction
-		
-		[self setupImportFilterWithSize:size origin:origin spacing:spacing data:data filterWillOwnBuffer:resampleData];
+
+        [self setupImportFilterWithSize:size
+                                 origin:origin
+                                spacing:spacing
+                                   data:data
+                    filterWillOwnBuffer:resampleData];
     }
     return self;
 }
 
 
-- (void)setupImportFilterWithSize:(ImportFilterType::SizeType)size origin:(double[3])origin spacing:(double[3])spacing data:(float *)data filterWillOwnBuffer:(BOOL)filterWillOwnBuffer
+- (void)setupImportFilterWithSize:(ImportFilterType::SizeType)size
+                           origin:(double[3])origin
+                          spacing:(double[3])spacing
+                             data:(float *)data
+              filterWillOwnBuffer:(BOOL)filterWillOwnBuffer
 {
 	itk::MultiThreader::SetGlobalDefaultNumberOfThreads( [[NSProcessInfo processInfo] processorCount]);
-	
-	importFilter = ImportFilterType::New();
+
+#ifndef TODO_FIX_ITK_NEW_VERSION  // @@@ problem
+    importFilter = ImportFilterType::New();
 //	importFilter->DebugOn();
 	
 	importFilter->Register();
@@ -181,6 +189,7 @@
 	
 	const bool importImageFilterWillOwnTheBuffer = filterWillOwnBuffer;
 	importFilter->SetImportPointer( data, size[0] * size[1] * size[2], importImageFilterWillOwnTheBuffer);
+#endif // @@@
 }
 
 @end

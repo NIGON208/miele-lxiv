@@ -48,7 +48,7 @@ extern XYZ ArbitraryRotate(XYZ p,double theta,XYZ r);
 @class ThickSlabController;
 @class DCMObject;
 @class Point3D;
-@class DicomImage;
+@class Dicom_Image;
 @class DicomSeries;
 @class DicomStudy;
 @class DCMWaveform;
@@ -458,7 +458,7 @@ Note setter is different to not break existing usage. :-( */
 /** Return index & sliceCoords */
 +(int) nearestSliceInPixelList: (NSArray*)pixlist withDICOMCoords: (float*)dc sliceCoords: (float*) sc;  
 
-- (DicomImage*) imageObj;
+- (Dicom_Image*) imageObj;
 - (DicomSeries*) seriesObj;
 - (DicomStudy*) studyObj;
 
@@ -581,8 +581,8 @@ Note setter is different to not break existing usage. :-( */
 - (id) initwithdata :(float*) im :(short) pixelSize :(long) xDim :(long) yDim :(float) xSpace :(float) ySpace :(float) oX :(float) oY :(float) oZ :(BOOL) volSize;
 - (id) initWithData :(float*) im :(short) pixelSize :(long) xDim :(long) yDim :(float) xSpace :(float) ySpace :(float) oX :(float) oY :(float) oZ :(BOOL) volSize;
 
-+ (id) dcmPixWithImageObj: (DicomImage*) image;
-- (id) initWithImageObj: (DicomImage *) image;
++ (id) dcmPixWithImageObj: (Dicom_Image*) image;
+- (id) initWithImageObj: (Dicom_Image *) image;
 
 - (id) initWithContentsOfFile: (NSString *)file; 
 /** create an NSImage from the current pix
@@ -691,7 +691,7 @@ Note setter is different to not break existing usage. :-( */
 
 #ifdef OSIRIX_VIEWER
 /** Custom Annotations */
-- (void)loadCustomImageAnnotationsDBFields: (DicomImage*) imageObj;
+- (void)loadCustomImageAnnotationsDBFields: (Dicom_Image*) imageObj;
 
 - (void)loadCustomImageAnnotationsPapyLink:(int)fileNb DCMLink:(DCMObject*)dcmObject;
 

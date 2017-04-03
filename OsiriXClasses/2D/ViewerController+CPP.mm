@@ -51,7 +51,7 @@
             
             // find highest instanceNumber in the series
             NSInteger instanceNumber = 0;
-            for (DicomImage* image in series.images)
+            for (Dicom_Image* image in series.images)
                 if (image.instanceNumber.integerValue > instanceNumber)
                     instanceNumber = image.instanceNumber.integerValue;
             ++instanceNumber;
@@ -97,7 +97,7 @@
         }];*/
     
     // set the new images as key images
-    for (DicomImage* imageID in imageIDs)
+    for (Dicom_Image* imageID in imageIDs)
         [[database objectWithID:imageID] setIsKeyImage:@YES];
 }
 

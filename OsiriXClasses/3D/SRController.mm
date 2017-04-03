@@ -1459,7 +1459,7 @@ return YES;
 	return [viewer2D currentSeries];
 }
 
-- (DicomImage *)currentImage
+- (Dicom_Image *)currentImage
 {
 	return [viewer2D currentImage];
 }

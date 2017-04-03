@@ -594,7 +594,7 @@ static BOOL protectedReentryWindowDidResize = NO;
 {
 	return nil;
 }
-- (DicomImage *)currentImage
+- (Dicom_Image *)currentImage
 {
 	return nil;
 }

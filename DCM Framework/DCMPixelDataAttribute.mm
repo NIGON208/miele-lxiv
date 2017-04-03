@@ -28,6 +28,8 @@
 //#import "jasper.h"
 
 // JPEG-LS with DCMTK
+//#include "dcmtk/oflog/config.h"
+typedef unsigned char BYTE;
 #include "dcmjpls/intrface.h"
 
 // KDU support

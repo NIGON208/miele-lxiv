@@ -14,7 +14,7 @@
 
 #import "DicomDatabase.h"
 
-@class DicomImage, DicomAlbum;
+@class Dicom_Image, DicomAlbum;
 
 @interface RemoteDicomDatabase : DicomDatabase {
 	NSString* _baseBaseDirPath;
@@ -40,8 +40,8 @@
 
 -(NSThread*)initiateUpdate;
 
--(NSString*)cacheDataForImage:(DicomImage*)image maxFiles:(NSInteger)maxFiles;
--(NSString*)localPathForImage:(DicomImage*)image;
+-(NSString*)cacheDataForImage:(Dicom_Image*)image maxFiles:(NSInteger)maxFiles;
+-(NSString*)localPathForImage:(Dicom_Image*)image;
 
 -(void)uploadFilesAtPaths:(NSArray*)paths imageObjects:(NSArray*)images;
 -(void)uploadFilesAtPaths:(NSArray*)paths imageObjects:(NSArray*)images generatedByOsiriX:(BOOL)generatedByOsiriX;

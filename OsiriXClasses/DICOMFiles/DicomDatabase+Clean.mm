@@ -555,12 +555,12 @@ static BOOL _cleanForFreeSpaceLimitSoonReachedDisplayed = NO;
                 // list images to be deleted
                 NSMutableArray* imagesToDelete = [NSMutableArray array];
                 for (DicomSeries* series in [[study series] allObjects])
-                    for (DicomImage* image in series.images.allObjects)
+                    for (Dicom_Image* image in series.images.allObjects)
                         if (flagDeleteLinkedImages || [image.completePath hasPrefix:dataBaseDirPathSlashed])
                             [imagesToDelete addObject:image];
                 
                 // delete image files
-                for (DicomImage* image in imagesToDelete) {
+                for (Dicom_Image* image in imagesToDelete) {
                     NSString* path = image.completePath;
                     unlink(path.fileSystemRepresentation); // faster than [NSFileManager.defaultManager removeItemAtPath:path error:NULL];
                     if ([path.pathExtension isEqualToString:@"hdr"]) // ANALYZE -> DELETE IMG
@@ -571,7 +571,7 @@ static BOOL _cleanForFreeSpaceLimitSoonReachedDisplayed = NO;
                 
                 for (DicomSeries* series in [[study series] allObjects]) {
                     @try {
-                        for (DicomImage* image in series.images.allObjects)
+                        for (Dicom_Image* image in series.images.allObjects)
                             @try {
                                 [self.managedObjectContext deleteObject:image];
                             } @catch (...) { }

@@ -498,7 +498,7 @@ extern int delayedTileWindows;
 	return nil;
 }
 
-- (void) changeImageObject:(DicomImage*) image
+- (void) changeImageObject:(Dicom_Image*) image
 {
 	if( image == imObj) return;
 	
@@ -598,7 +598,7 @@ extern int delayedTileWindows;
 		[self changeImageObject: [viewer currentImage]];
 }
 
--(id) initWithImage:(DicomImage*) image windowName:(NSString*) name viewer:(ViewerController*) v
+-(id) initWithImage:(Dicom_Image*) image windowName:(NSString*) name viewer:(ViewerController*) v
 {
     if( image == nil)
         return nil;

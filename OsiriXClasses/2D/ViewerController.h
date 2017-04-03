@@ -457,7 +457,7 @@ enum
 - (NSMutableArray*) pixList;
 - (NSMutableArray*) pixList: (long) i;
 
-/** Return the array of DicomImage objects */
+/** Return the array of Dicom_Image objects */
 - (NSMutableArray*) fileList;
 - (NSMutableArray*) fileList: (long) i;
 
@@ -822,7 +822,7 @@ enum
 - (void) SyncSeries:(id) sender;
 - (DicomStudy *)currentStudy;
 - (DicomSeries *)currentSeries;
-- (DicomImage *)currentImage;
+- (Dicom_Image *)currentImage;
 
 - (NSArray*)roisWithName:(NSString*)name;
 - (NSArray*)roisWithName:(NSString*)name in4D:(BOOL)in4D;

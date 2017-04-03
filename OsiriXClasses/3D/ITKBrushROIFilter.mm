@@ -60,6 +60,7 @@ typedef itk::BinaryDilateImageFilter<ImageType,ImageType,StucturingElementType> 
 
 ImageType::Pointer CreateImagePointerFromBuffer(unsigned char *buffer, int bufferWidth, int bufferHeight)
 {
+#ifndef TODO_FIX_ITK_NEW_VERSION  // @@@ problem
 	ImportFilterType::Pointer importFilter = ImportFilterType::New();
 	
 	ImportFilterType::SizeType size;
@@ -90,8 +91,11 @@ ImageType::Pointer CreateImagePointerFromBuffer(unsigned char *buffer, int buffe
 	importFilter->Update();
 
 	ImageType::Pointer image = importFilter->GetOutput();
-
-	return image;
+    return image;
+#else
+    return nullptr;
+#endif // @@@
+    
 }
 
 @implementation ITKBrushROIFilter

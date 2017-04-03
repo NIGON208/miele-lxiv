@@ -52,7 +52,7 @@ typedef enum {DCMViewTextAlignLeft, DCMViewTextAlignCenter, DCMViewTextAlignRigh
 @class ROI;
 @class OrthogonalMPRController;
 @class DICOMExport;
-@class DicomImage, DicomSeries, DicomStudy;
+@class Dicom_Image, DicomSeries, DicomStudy;
 @class DCMObject;
 
 @interface DCMExportPlugin: NSObject
@@ -332,7 +332,7 @@ typedef enum {DCMViewTextAlignLeft, DCMViewTextAlignCenter, DCMViewTextAlignRigh
 @property(readonly) int volumicData;
 
 + (void) setDontListenToSyncMessage: (BOOL) v;
-+ (BOOL) noPropagateSettingsInSeriesForModality: (DicomImage*) imageObj;
++ (BOOL) noPropagateSettingsInSeriesForModality: (Dicom_Image*) imageObj;
 + (void) purgeStringTextureCache;
 + (void) setDefaults;
 + (void) setCLUTBARS:(int) c ANNOTATIONS:(int) a;
@@ -455,7 +455,7 @@ typedef enum {DCMViewTextAlignLeft, DCMViewTextAlignCenter, DCMViewTextAlignRigh
 - (void) updateTilingViews;
 - (void) becomeMainWindow;
 - (void) checkCursor;
-- (DicomImage *)imageObj;
+- (Dicom_Image *)imageObj;
 - (DicomSeries *)seriesObj;
 - (DicomStudy *)studyObj;
 - (void) updatePresentationStateFromSeries;

@@ -2676,7 +2676,7 @@ return YES;
 	return [viewer currentSeries];
 }
 
-- (DicomImage*) currentImage
+- (Dicom_Image*) currentImage
 {
 	return [viewer currentImage];
 }

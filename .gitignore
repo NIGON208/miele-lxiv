@@ -11,23 +11,25 @@ AYDicomPrint/libxerces-c.27.dylib
 AYDicomPrint/libdcmprintscu.dylib
 Binaries/3DconnexionClient.framework/
 Binaries/DB_Previous_Models/
-Binaries/DCMTK/
+Binaries/DCMTK
 Binaries/DCMTK.zip
 Binaries/dciodvfy
 Binaries/Growl.framework/
 Binaries/ILCrashReporter.framework/
-Binaries/ITKHeaders/
-Binaries/ITKLibs/
+Binaries/ITKHeaders
+Binaries/ITKLibs
 Binaries/KDU SDK/libkdu_v73R.a
 Binaries/libPapyrusToolkit.a
+Binaries/libjpeg
 Binaries/LibTiff/
+Binaries/libtiff
 Binaries/Ming/
-Binaries/openjpeg/
+Binaries/openjpeg
 Binaries/OsiriX Report.template
 Binaries/PAGES/
 Binaries/ReportsToPDF/odt2pdf/build/odt2pdf
-Binaries/VTKHeaders/
-Binaries/VTKLibs/
+Binaries/VTKHeaders
+Binaries/VTKLibs
 Binaries/weasis/
 Binaries/._OsiriX Report.template
 options.h

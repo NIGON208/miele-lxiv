@@ -668,7 +668,7 @@ extern BOOL forkedProcess;
 						
 						for(int x = 0; x < [uids count]; x++)
 						{
-							NSPredicate	*p = [NSComparisonPredicate predicateWithLeftExpression: [NSExpression expressionForKeyPath: @"compressedSopInstanceUID"] rightExpression: [NSExpression expressionForConstantValue: [DicomImage sopInstanceUIDEncodeString: [uids objectAtIndex: x]]] customSelector: @selector(isEqualToSopInstanceUID:)];
+							NSPredicate	*p = [NSComparisonPredicate predicateWithLeftExpression: [NSExpression expressionForKeyPath: @"compressedSopInstanceUID"] rightExpression: [NSExpression expressionForConstantValue: [Dicom_Image sopInstanceUIDEncodeString: [uids objectAtIndex: x]]] customSelector: @selector(isEqualToSopInstanceUID:)];
 							predicateArray = [predicateArray arrayByAddingObject: p];
 						}
 						

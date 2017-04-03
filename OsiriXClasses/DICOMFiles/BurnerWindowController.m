@@ -810,7 +810,7 @@
     CGContextRelease(cgContext);
 }*/
 
-- (void)addDICOMDIRUsingDCMTK_forFilesAtPaths:(NSArray*/*NSString*/)paths dicomImages:(NSArray*/*DicomImage*/)dimages
+- (void)addDICOMDIRUsingDCMTK_forFilesAtPaths:(NSArray*/*NSString*/)paths dicomImages:(NSArray*/*Dicom_Image*/)dimages
 {
     [DicomDir createDicomDirAtDir:[self folderToBurn]];
 }

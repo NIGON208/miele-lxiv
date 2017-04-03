@@ -36,7 +36,6 @@
 #import "NSUserDefaultsController+OsiriX.h"
 #import "DicomStudy.h"
 #import "DicomSeries.h"
-#import "DicomImage.h"
 #import "N2Debug.h"
 #import "PluginManager.h"
 
@@ -851,7 +850,7 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
     if( [obj isKindOfClass: [DicomSeries class]])
         series = (DicomSeries*) obj;
     
-    else  if( [obj isKindOfClass: [DicomImage class]])
+    else  if( [obj isKindOfClass: [Dicom_Image class]])
         series = [obj valueForKey: @"series"];
     
     else
@@ -2706,7 +2705,7 @@ return YES;
 	return [viewer2D currentSeries];
 }
 
-- (DicomImage *)currentImage
+- (Dicom_Image *)currentImage
 {
 	return [viewer2D currentImage];
 }
@@ -2785,7 +2784,7 @@ return YES;
 {
 	[super UpdateCLUTMenu:note];
 	
-	// path 1 : /OsiriX Data/CLUTs/
+	// path 1 : /OUR_DATA_LOCATION/CLUTs/
 	NSMutableString *path = [NSMutableString stringWithString: [[BrowserController currentBrowser] documentsDirectory]];
 	[path appendString: CLUTDATABASE];
 	// path 2 : /resources_bundle_path/CLUTs/

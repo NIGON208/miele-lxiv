@@ -152,7 +152,10 @@ static NSArray *languagesToMoveWhenQuitting = nil;
 
 - (IBAction) resetPreferences: (id) sender
 {
-	NSInteger result = NSRunInformationalAlertPanel( NSLocalizedString(@"Reset Preferences", nil), NSLocalizedString(@"Are you sure you want to reset ALL preferences of OsiriX? All the preferences will be reseted to their default values.", nil), NSLocalizedString(@"Cancel",nil), NSLocalizedString(@"OK",nil),  nil);
+	NSInteger result = NSRunInformationalAlertPanel(NSLocalizedString(@"Reset Preferences", nil),
+                                                    NSLocalizedString(@"Are you sure you want to reset ALL preferences of OsiriX? All the preferences will be reset to their default values.", nil),
+                                                    NSLocalizedString(@"Cancel",nil),
+                                                    NSLocalizedString(@"OK",nil),  nil);
 	
 	if( result == NSAlertAlternateReturn)
 	{
@@ -189,7 +192,9 @@ static NSArray *languagesToMoveWhenQuitting = nil;
 
 + (void) errorMessage:(NSURL*) url
 {
-    NSRunAlertPanel( NSLocalizedString( @"Preferences", nil), NSLocalizedString( @"Failed to download and synchronize preferences from this URL: %@", nil), NSLocalizedString( @"OK", nil), nil, nil, url.absoluteString);
+    NSRunAlertPanel(NSLocalizedString( @"Preferences", nil),
+                    NSLocalizedString( @"Failed to download and synchronize preferences from this URL: %@", nil),
+                    NSLocalizedString( @"OK", nil), nil, nil, url.absoluteString);
 }
 
 + (void) addPreferencesFromURL: (NSURL*) url
@@ -243,7 +248,10 @@ static NSArray *languagesToMoveWhenQuitting = nil;
         NSRunInformationalAlertPanel( NSLocalizedString(@"Sync Preferences", nil), NSLocalizedString(@"The provided URL doesn't seem correct. Check it's validity.", nil), NSLocalizedString(@"OK",nil), nil,  nil);
     else
     {
-        NSInteger result = NSRunInformationalAlertPanel( NSLocalizedString(@"Sync Preferences", nil), NSLocalizedString(@"Are you sure you want to replace  current preferences with the preferences stored at this URL? You cannot undo this operation.", nil), NSLocalizedString(@"Cancel",nil), NSLocalizedString(@"OK",nil),  nil);
+        NSInteger result = NSRunInformationalAlertPanel( NSLocalizedString(@"Sync Preferences", nil),
+                                                        NSLocalizedString(@"Are you sure you want to replace  current preferences with the preferences stored at this URL? You cannot undo this operation.", nil),
+                                                        NSLocalizedString(@"Cancel",nil),
+                                                        NSLocalizedString(@"OK",nil),  nil);
         
         if( result == NSAlertAlternateReturn)
             [NSThread detachNewThreadSelector: @selector( addPreferencesFromURL:) toTarget: [OSIGeneralPreferencePanePref class] withObject: [NSURL URLWithString: [[NSUserDefaults standardUserDefaults] stringForKey: @"SyncPreferencesURL"]]];
@@ -264,7 +272,10 @@ static NSArray *languagesToMoveWhenQuitting = nil;
 	
     if( [open runModal] == NSFileHandlingPanelOKButton)
     {
-        NSInteger result = NSRunInformationalAlertPanel( NSLocalizedString(@"Load Preferences", nil), NSLocalizedString(@"Are you sure you want to replace  current preferences with the preferences stored in this file? You cannot undo this operation.", nil), NSLocalizedString(@"Cancel",nil), NSLocalizedString(@"OK",nil),  nil);
+        NSInteger result = NSRunInformationalAlertPanel( NSLocalizedString(@"Load Preferences", nil),
+                                                        NSLocalizedString(@"Are you sure you want to replace  current preferences with the preferences stored in this file? You cannot undo this operation.", nil),
+                                                        NSLocalizedString(@"Cancel",nil),
+                                                        NSLocalizedString(@"OK",nil),  nil);
         
         if( result == NSAlertAlternateReturn)
             [OSIGeneralPreferencePanePref addPreferencesFromURL: open.URL];

@@ -19,6 +19,8 @@
 #import "DicomStudy.h"
 #import "N2Debug.h"
 
+#import "url.h"
+
 @implementation MyOutlineView
 
 - (void)removeTableColumn:(NSTableColumn*)tableColumn {
@@ -261,7 +263,7 @@
 	
 	if( [fileArray count] == 1 && [[NSFileManager defaultManager] fileExistsAtPath: [fileArray objectAtIndex: 0]  isDirectory: &directory])
 	{
-		if( [[[fileArray objectAtIndex: 0] lastPathComponent] isEqualToString: @"OsiriX Data"])	// It's a database folder !
+		if( [[[fileArray objectAtIndex: 0] lastPathComponent] isEqualToString: OUR_DATA_LOCATION])	// It's a database folder !
 		{
 			if( [[NSFileManager defaultManager] fileExistsAtPath: [[fileArray objectAtIndex: 0] stringByAppendingPathComponent: @"Database.sql"]])
 			{

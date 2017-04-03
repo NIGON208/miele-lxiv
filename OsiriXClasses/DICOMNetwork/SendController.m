@@ -483,7 +483,7 @@ static volatile int sendControllerObjects = 0;
             NSString *previousPatientUID = nil;
             NSMutableArray *samePatientArray = [NSMutableArray array];
             
-            for( DicomImage *image in objectsToSend)
+            for( Dicom_Image *image in objectsToSend)
             {
                 NSString *patientUID = [image valueForKeyPath:@"series.study.patientUID"];
                 

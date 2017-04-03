@@ -322,7 +322,7 @@
 				
 				// are the files already in queue for same filter?
 				for (NSInteger i = (long)dicomImages.count-1; i >= 0; --i) {
-                    DicomImage* image = [dicomImages objectAtIndex:i];
+                    Dicom_Image* image = [dicomImages objectAtIndex:i];
 					if ([orderFilePaths containsObject:[image completePath]])
 						[dicomImages removeObject:image];
 				}
@@ -388,7 +388,7 @@
                 {
                     NSMutableArray *imagesOnlyArray = [NSMutableArray array];
                     
-                    for( DicomImage *i in newImages)
+                    for( Dicom_Image *i in newImages)
                     {
                         if( i.isImageStorage.boolValue)
                            [imagesOnlyArray addObject: i];

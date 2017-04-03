@@ -1892,7 +1892,7 @@ static NSDate *lastWarningDate = nil;
         int index = 1;
         DicomStudy *study = [studies objectAtIndex: 0];
         
-        for( DicomImage *i in [study allWindowsStateSRSeries])
+        for( Dicom_Image *i in [study allWindowsStateSRSeries])
         {
             @try {
                 SRAnnotation *r = [[[SRAnnotation alloc] initWithContentsOfFile: [i completePathResolved]] autorelease];
@@ -2497,7 +2497,7 @@ static NSDate *lastWarningDate = nil;
 							
 							@try
 							{
-								NSPredicate	*request = [NSComparisonPredicate predicateWithLeftExpression: [NSExpression expressionForKeyPath: @"compressedSopInstanceUID"] rightExpression: [NSExpression expressionForConstantValue: [DicomImage sopInstanceUIDEncodeString: sopinstanceuid]] customSelector: @selector(isEqualToSopInstanceUID:)];
+								NSPredicate	*request = [NSComparisonPredicate predicateWithLeftExpression: [NSExpression expressionForKeyPath: @"compressedSopInstanceUID"] rightExpression: [NSExpression expressionForConstantValue: [Dicom_Image sopInstanceUIDEncodeString: sopinstanceuid]] customSelector: @selector(isEqualToSopInstanceUID:)];
 								
 								NSArray *imagesArray = [allImages filteredArrayUsingPredicate: request];
 								
@@ -2540,10 +2540,10 @@ static NSDate *lastWarningDate = nil;
 								for( NSSet *s in allSeries)
 									[allImages addObjectsFromArray: [s allObjects]];
 								
-								NSData *searchedUID = [DicomImage sopInstanceUIDEncodeString: sopinstanceuid];
-								DicomImage *searchUIDImage = nil;
+								NSData *searchedUID = [Dicom_Image sopInstanceUIDEncodeString: sopinstanceuid];
+								Dicom_Image *searchUIDImage = nil;
 								
-								for( DicomImage *i in allImages)
+								for( Dicom_Image *i in allImages)
 								{
 									if( [[i valueForKey: @"compressedSopInstanceUID"] isEqualToSopInstanceUID: searchedUID])
 										searchUIDImage = i;
@@ -2900,7 +2900,7 @@ static BOOL initialized = NO;
 //	
 //	NSException *e = [NSException exceptionWithName: @"hallo" reason: @"prout" userInfo: nil];
 //	[e raise];
-	
+
 	@try
 	{
 		if ( self == [AppController class] && initialized == NO)
@@ -3042,7 +3042,8 @@ static BOOL initialized = NO;
                 
                 NSString* dataBasePath = nil;
                 @try {
-                    dataBasePath = [DicomDatabase baseDirPathForMode: [[NSUserDefaults standardUserDefaults] integerForKey:@"DATABASELOCATION"] path:[[NSUserDefaults standardUserDefaults] stringForKey: @"DATABASELOCATIONURL"]];
+                    dataBasePath = [DicomDatabase baseDirPathForMode:[[NSUserDefaults standardUserDefaults] integerForKey:@"DATABASELOCATION"]
+                                                                path:[[NSUserDefaults standardUserDefaults] stringForKey:@"DATABASELOCATIONURL"]];
                 }
                 @catch (NSException *e) {
                     N2LogException( e);
@@ -3051,7 +3052,7 @@ static BOOL initialized = NO;
                 if ([dataBasePath hasPrefix:@"/Volumes/"] || dataBasePath == nil) {
                     NSString* volumePath = [[[dataBasePath componentsSeparatedByString:@"/"] subarrayWithRange:NSMakeRange(0,3)] componentsJoinedByString:@"/"];
                     if (![[NSFileManager defaultManager] fileExistsAtPath:volumePath]) {
-                        NSPanel* dialog = [NSPanel alertWithTitle:@"OsiriX Data"
+                        NSPanel* dialog = [NSPanel alertWithTitle:OUR_DATA_LOCATION
                                                           message:[NSString stringWithFormat:NSLocalizedString(@"OsiriX is configured to use the database located at %@. This volume is currently not available, most likely because it hasn't yet been mounted by the system, or because it is not plugged in or is turned off, or because you don't have write permissions for this location. OsiriX will wait for a few minutes, then give up and switch to a database in the current user's home directory.", nil), [[NSUserDefaults standardUserDefaults] stringForKey: @"DATABASELOCATIONURL"]]
                                                     defaultButton:@"Quit"
                                                   alternateButton:@"Continue"
@@ -3087,13 +3088,13 @@ static BOOL initialized = NO;
                 }
                 
                 // now, sometimes databases point to other volumes for data storage through the DBFOLDER_LOCATION file, so if it's the case verify that that volume is mounted, too
-                dataBasePath = [DicomDatabase baseDirPathForPath:dataBasePath]; // we know this is the ".../OsiriX Data" path
+                dataBasePath = [DicomDatabase baseDirPathForPath:dataBasePath]; // we know this is the OUR_DATA_LOCATION path
                 // TODO: sometimes people use an alias... and if it's an alias, we should check that it points to an available volume..... should.
                 NSString* dataBaseDataPath = [NSString stringWithContentsOfFile:[dataBasePath stringByAppendingPathComponent:@"DBFOLDER_LOCATION"] encoding:NSUTF8StringEncoding error:NULL];
                 if ([dataBaseDataPath hasPrefix:@"/Volumes/"]) {
                     NSString* volumePath = [[[dataBaseDataPath componentsSeparatedByString:@"/"] subarrayWithRange:NSMakeRange(0,3)] componentsJoinedByString:@"/"];
                     if (![[NSFileManager defaultManager] fileExistsAtPath:volumePath]) {
-                        NSPanel* dialog = [NSPanel alertWithTitle:@"OsiriX Data"
+                        NSPanel* dialog = [NSPanel alertWithTitle:OUR_DATA_LOCATION
                                                           message:[NSString stringWithFormat:NSLocalizedString(@"OsiriX is configured to use the database with data located at %@. This volume is currently not available, most likely because it hasn't yet been mounted by the system, or because it is not plugged in or is turned off, or because you don't have write permissions for this location. OsiriX will wait for a few minutes, then give up and ignore this highly dangerous situation.", nil), dataBaseDataPath]
                                                     defaultButton:@"Quit"
                                                   alternateButton:@"Continue"
@@ -3389,7 +3390,7 @@ static BOOL initialized = NO;
 		
 		if( [[NSUserDefaults standardUserDefaults] boolForKey:@"RunListenerOnlyIfActive"])
 		{
-			NSLog( @"----- OsiriX : session deactivation: STOP DICOM LISTENER FOR THIS SESSION");
+			NSLog( @"----- %s : session deactivation: STOP DICOM LISTENER FOR THIS SESSION", OUR_MANUFACTURER_NAME);
 			
 			[self killDICOMListenerWait: YES];
 			
@@ -3404,7 +3405,7 @@ static BOOL initialized = NO;
 		
 		if( [[NSUserDefaults standardUserDefaults] boolForKey:@"RunListenerOnlyIfActive"])
 		{
-			NSLog( @"----- OsiriX : session activation: START DICOM LISTENER FOR THIS SESSION");
+			NSLog( @"----- %s : session activation: START DICOM LISTENER FOR THIS SESSION", OUR_MANUFACTURER_NAME);
 			
 			// [[BrowserController currentBrowser] loadDatabase: [[BrowserController currentBrowser] currentDatabasePath]]; // TODO: hmm
 			
@@ -3421,7 +3422,7 @@ static BOOL initialized = NO;
 	if( [dcmtkQRSCPTLS running])
 		return YES;
     
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"NinjaSTORESCP"]) // some undefined external entity is linked to OsiriX for DICOM communications...
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"NinjaSTORESCP"]) // some undefined external entity is linked to us for DICOM communications...
         return YES;
 		
 	return NO;
@@ -3430,7 +3431,7 @@ static BOOL initialized = NO;
 - (void) applicationDidFinishLaunching:(NSNotification*) aNotification
 {
 	unlink( "/tmp/kill_all_storescu");
-
+    
     [[[NSWorkspace sharedWorkspace] notificationCenter]
             addObserver:self
             selector:@selector(switchHandler:)
@@ -3489,7 +3490,7 @@ static BOOL initialized = NO;
 		[NSThread detachNewThreadSelector:@selector(checkForUpdates:) toTarget:pluginManager withObject:pluginManager];
 	
     
-    // If OsiriX crashed before...
+    // If this application crashed before...
     NSString *OsiriXCrashed = @"/tmp/OsiriXCrashed";
     
     if( [[NSFileManager defaultManager] fileExistsAtPath: OsiriXCrashed]) // Activate check for update !
@@ -3752,11 +3753,13 @@ static BOOL initialized = NO;
                 // If we have an IOName, and its value is "display", then we've
                 // got a "model" key, whose value is a CFDataRef that we can
                 // convert into a string.
-                if (CFGetTypeID(ioName) == CFStringGetTypeID() && CFStringCompare(ioName, CFSTR(kDisplayKey), kCFCompareCaseInsensitive) == kCFCompareEqualTo) {
+                if (CFGetTypeID(ioName) == CFStringGetTypeID() &&
+                    CFStringCompare(ioName, CFSTR(kDisplayKey), kCFCompareCaseInsensitive) == kCFCompareEqualTo)
+                {
                     const void *model = CFDictionaryGetValue(serviceDictionary, @kModelKey);
                     
-                    NSString *gpuName = [[[NSString alloc] initWithData:( NSData *)model
-                                                              encoding:NSASCIIStringEncoding] autorelease];
+                    NSString *gpuName = [[[NSString alloc] initWithData:(NSData *)model
+                                                               encoding:NSASCIIStringEncoding] autorelease];
                     
                     [GPUs addObject:gpuName];
                 }
@@ -4365,7 +4368,10 @@ static BOOL initialized = NO;
     
 	if( [msg isEqualToString:@"UPDATE"])
 	{
-		int button = NSRunAlertPanel( NSLocalizedString( @"New Version Available", nil), NSLocalizedString( @"A new version of OsiriX is available. Would you like to download the new version now?", nil), NSLocalizedString( @"Download", nil), NSLocalizedString( @"Continue", nil), nil);
+		int button = NSRunAlertPanel( NSLocalizedString( @"New Version Available", nil),
+                                     NSLocalizedString( @"A new version of the application is available. Would you like to download it now?", nil),
+                                     NSLocalizedString( @"Download", nil),
+                                     NSLocalizedString( @"Continue", nil), nil);
 		
 		if (NSOKButton == button)
 			[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:URL_OSIRIX_UPDATE]];

@@ -49,6 +49,8 @@
 #import "SRAnnotation.h"
 #include <copyfile.h>
 
+#import "url.h"
+
 NSString* const CurrentDatabaseVersion = @"2.6";
 
 
@@ -86,7 +88,7 @@ NSString* const CurrentDatabaseVersion = @"2.6";
 }
 
 static NSString* const SqlFileName = @"Database.sql";
-NSString* const OsirixDataDirName = @"OsiriX Data";
+NSString* const OsirixDataDirName = OUR_DATA_LOCATION;
 NSString* const O2ScreenCapturesSeriesName = NSLocalizedString(@"OsiriX Screen Captures", nil);
 
 +(NSString*)baseDirPathForPath:(NSString*)path {
@@ -1791,7 +1793,7 @@ static BOOL protectionAgainstReentry = NO;
 		
 		DicomStudy *study = nil;
 		DicomSeries *seriesTable = nil;
-		DicomImage *image = nil;
+		Dicom_Image *image = nil;
 		NSMutableArray *studiesArrayStudyInstanceUID = [[studiesArray valueForKey:@"studyInstanceUID"] mutableCopy];
 		NSString *curPatientUID = nil, *curStudyID = nil, *curSerieID = nil;
 		BOOL newObject = NO;
@@ -2133,7 +2135,7 @@ static BOOL protectionAgainstReentry = NO;
                                 
                                 @autoreleasepool
                                 {
-                                    for( DicomImage *ii in imagesArray)
+                                    for( Dicom_Image *ii in imagesArray)
                                     {
                                         if( [ii.sopInstanceUID isEqualToString: SOPUID] && [ii.frameID intValue] == f)
                                         {
@@ -2146,7 +2148,7 @@ static BOOL protectionAgainstReentry = NO;
                                 if( image)
                                 {
                                     // Does this image contain a valid image path? If not replace it, with the new one
-                                    if ([[NSFileManager defaultManager] fileExistsAtPath: [DicomImage completePathForLocalPath: [image valueForKey:@"path"] directory:self.dataBaseDirPath]] == YES && inParseExistingObject == NO)
+                                    if ([[NSFileManager defaultManager] fileExistsAtPath: [Dicom_Image completePathForLocalPath: [image valueForKey:@"path"] directory:self.dataBaseDirPath]] == YES && inParseExistingObject == NO)
                                     {
                                         if (local)	// Delete this file, it's already in the DB folder
                                         {
@@ -2160,7 +2162,7 @@ static BOOL protectionAgainstReentry = NO;
                                     {
                                         newObject = YES;
                                         
-                                        NSString *imPath = [DicomImage completePathForLocalPath: [image valueForKey:@"path"] directory:self.dataBaseDirPath];
+                                        NSString *imPath = [Dicom_Image completePathForLocalPath: [image valueForKey:@"path"] directory:self.dataBaseDirPath];
                                         
                                         if ([[image valueForKey:@"inDatabaseFolder"] boolValue] && [imPath isEqualToString: newFile] == NO)
                                         {
@@ -2342,7 +2344,7 @@ static BOOL protectionAgainstReentry = NO;
                                     
                                     if (DICOMSR && [[curDict valueForKey:@"seriesDescription"] isEqualToString: @"OsiriX WindowsState SR"])
                                     {
-                                        DicomImage *reportSR = [study windowsStateImage]; // return the most recent sr
+                                        Dicom_Image *reportSR = [study windowsStateImage]; // return the most recent sr
                                         
                                         if (reportSR == image) // Because we can have multiple sr -> only the most recent one is valid
                                         {
@@ -2380,7 +2382,7 @@ static BOOL protectionAgainstReentry = NO;
                                         {
 //                                            NSString *reportURL = nil; // <- For an empty DICOM SR File
                                             
-                                            DicomImage *reportSR = [study reportImage];
+                                            Dicom_Image *reportSR = [study reportImage];
                                             
                                             if (reportSR == image) // Because we can have multiple reports -> only the most recent one is valid
                                             {
@@ -2793,7 +2795,7 @@ static BOOL protectionAgainstReentry = NO;
                                     NSMutableSet *studies = [album mutableSetValueForKey: @"studies"];
                                     
                                     BOOL change = NO;
-                                    for( DicomImage* mobject in [idatabase objectsWithIDs: objects])
+                                    for( Dicom_Image* mobject in [idatabase objectsWithIDs: objects])
                                     {
                                         DicomStudy* s = [mobject valueForKeyPath:@"series.study"];
                                         
@@ -3955,7 +3957,7 @@ static BOOL protectionAgainstReentry = NO;
                     if( uid)
                         study.patientUID = uid;
                     
-    //				DicomImage* o = [[[[study valueForKey:@"series"] anyObject] valueForKey:@"images"] anyObject];
+    //				Dicom_Image* o = [[[[study valueForKey:@"series"] anyObject] valueForKey:@"images"] anyObject];
     //				DicomFile* dcm = [[DicomFile alloc] init:o.completePath];
     //				if (dcm && [dcm elementForKey:@"patientUID"])
     //					study.patientUID = [dcm elementForKey:@"patientUID"];
@@ -4098,7 +4100,7 @@ static BOOL protectionAgainstReentry = NO;
 			thread.status = NSLocalizedString(@"Checking for missing files...", nil);
 			
 			// remove non-available images
-			for (DicomImage* aFile in [self objectsForEntity:self.imageEntity]) {
+			for (Dicom_Image* aFile in [self objectsForEntity:self.imageEntity]) {
 				FILE* fp = fopen(aFile.completePath.UTF8String, "r");
 				if (fp)
 					fclose( fp);

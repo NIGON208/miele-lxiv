@@ -99,7 +99,7 @@ extern "C"
 
 extern AppController* OsiriX;
 
-@interface AppController : NSObject	<NSNetServiceBrowserDelegate, NSNetServiceDelegate, NSSoundDelegate, NSMenuDelegate> // GrowlApplicationBridgeDelegate
+@interface AppController : NSObject	<NSApplicationDelegate, NSNetServiceBrowserDelegate, NSNetServiceDelegate, NSSoundDelegate, NSMenuDelegate> // GrowlApplicationBridgeDelegate
 {
 	IBOutlet BrowserController		*browserController;
 

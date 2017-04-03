@@ -53,10 +53,22 @@ typedef itk::ResampleImageFilter<ImageType, ImageType> ResampleFilterType;
 
 + (float*) resampleWithParameters: (double*)theParameters firstObject: (DCMPix*) firstObject firstObjectOriginal: (DCMPix*)  firstObjectOriginal noOfImages: (int) noOfImages length: (long*) length itkImage: (ITK*) itkImage
 {
-    return [ITKTransform resampleWithParameters: theParameters firstObject: firstObject firstObjectOriginal: firstObjectOriginal noOfImages: noOfImages length: length itkImage: itkImage rescale: YES];
+    return [ITKTransform resampleWithParameters: theParameters
+                                    firstObject: firstObject
+                            firstObjectOriginal: firstObjectOriginal
+                                     noOfImages: noOfImages
+                                         length: length
+                                       itkImage: itkImage
+                                        rescale: YES];
 }
 
-+ (float*) resampleWithParameters: (double*)theParameters firstObject: (DCMPix*) firstObject firstObjectOriginal: (DCMPix*)  firstObjectOriginal noOfImages: (int) noOfImages length: (long*) length itkImage: (ITK*) itkImage rescale: (BOOL) rescale
++ (float*) resampleWithParameters: (double*) theParameters
+                      firstObject: (DCMPix*) firstObject
+              firstObjectOriginal: (DCMPix*)  firstObjectOriginal
+                       noOfImages: (int) noOfImages
+                           length: (long*) length
+                         itkImage: (ITK*) itkImage
+                          rescale: (BOOL) rescale
 {
 	double vectorReference[ 9], vectorOriginal[ 9];
     float *fVolumePtr = nil;
@@ -71,6 +83,7 @@ typedef itk::ResampleImageFilter<ImageType, ImageType> ResampleFilterType;
     {
         @try
         {
+#ifndef TODO_FIX_ITK_NEW_VERSION  // @@@ problem
             typedef itk::AffineTransform< double, 3 > AffineTransformType;
             typedef AffineTransformType::ParametersType ParametersType;
             
@@ -175,6 +188,7 @@ typedef itk::ResampleImageFilter<ImageType, ImageType> ResampleFilterType;
                 memcpy( fVolumePtr, resultBuff, mem);
                 *length = mem;
             }
+#endif // TODO_FIX_ITK_NEW_VERSION  // @@@
         }
         @catch (NSException *e)
         {
@@ -205,9 +219,13 @@ typedef itk::ResampleImageFilter<ImageType, ImageType> ResampleFilterType;
 		memcpy( tempPtr + size, [firstObjectOriginal fImage], size * sizeof( float));
 		
 		ITK *itk = [[ITK alloc] initWith: [NSArray arrayWithObjects: firstObjectOriginal, firstObjectOriginal, nil] : tempPtr : -2];
-		
-		p = [ITKTransform resampleWithParameters: theParameters firstObject: firstObject firstObjectOriginal: firstObjectOriginal noOfImages: 1 length: length itkImage: itk];
-		
+
+		p = [ITKTransform resampleWithParameters: theParameters
+                                     firstObject: firstObject
+                             firstObjectOriginal: firstObjectOriginal
+                                      noOfImages: 1
+                                          length: length
+                                        itkImage: itk];
 		[itk release];
 		
 		free( tempPtr);
@@ -227,10 +245,16 @@ typedef itk::ResampleImageFilter<ImageType, ImageType> ResampleFilterType;
 	DCMPix *firstObjectOriginal = [[originalViewer pixList] objectAtIndex: 0];
 	int noOfImages = [[referenceViewer pixList] count];
 	long length;
-	
-	float *resultBuff = [ITKTransform resampleWithParameters: theParameters firstObject: firstObject firstObjectOriginal: firstObjectOriginal noOfImages: noOfImages length: &length itkImage: (ITK*) itkImage rescale: rescale];
-	
-	ViewerController *v = [self createNewViewerWithBuffer:resultBuff length: length resampleOnViewer:referenceViewer rescale: rescale];
+
+	float *resultBuff = [ITKTransform resampleWithParameters: theParameters
+                                                 firstObject: firstObject
+                                         firstObjectOriginal: firstObjectOriginal
+                                                  noOfImages: noOfImages
+                                                      length: &length
+                                                    itkImage: (ITK*) itkImage
+                                                     rescale: rescale];
+
+    ViewerController *v = [self createNewViewerWithBuffer:resultBuff length: length resampleOnViewer:referenceViewer rescale: rescale];
     
     return v;
 }
@@ -240,7 +264,10 @@ typedef itk::ResampleImageFilter<ImageType, ImageType> ResampleFilterType;
     return [self createNewViewerWithBuffer: fVolumePtr length: length resampleOnViewer: referenceViewer rescale: YES];
 }
 
-- (ViewerController*) createNewViewerWithBuffer:(float*)fVolumePtr length: (long) length resampleOnViewer:(ViewerController*)referenceViewer rescale: (BOOL) rescale
+- (ViewerController*) createNewViewerWithBuffer:(float*) fVolumePtr
+                                         length:(long) length
+                               resampleOnViewer:(ViewerController*)referenceViewer
+                                        rescale:(BOOL) rescale
 {
 	long				i;
 	ViewerController	*new2DViewer = nil;
@@ -250,8 +277,8 @@ typedef itk::ResampleImageFilter<ImageType, ImageType> ResampleFilterType;
 	
 	NSArray	*pixList = [referenceViewer pixList];
 	DCMPix	*curPix;
-	
-	if( fVolumePtr) 
+
+	if( fVolumePtr)
 	{
 		// Create a NSData object to control the new pointer
 		NSData	*volumeData = [NSData dataWithBytesNoCopy: fVolumePtr length: length freeWhenDone:YES]; 
@@ -312,7 +339,7 @@ typedef itk::ResampleImageFilter<ImageType, ImageType> ResampleFilterType;
 			curPix.annotationsDictionary = originalPix.annotationsDictionary;
             curPix.annotationsDBFields = originalPix.annotationsDBFields;
             
-            DicomImage *dicomObject = [[originalViewer fileList] objectAtIndex:0];
+            Dicom_Image *dicomObject = [[originalViewer fileList] objectAtIndex:0];
             
 			[newPixList addObject: curPix];
 			[newFileList addObject: dicomObject];
@@ -355,7 +382,7 @@ typedef itk::ResampleImageFilter<ImageType, ImageType> ResampleFilterType;
             //[[AppController sharedAppController] osirix64bit: self];
         }
 	}
-	
+
 	return new2DViewer;
 }
 

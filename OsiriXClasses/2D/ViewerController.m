@@ -2957,7 +2957,7 @@ static volatile int numberOfThreadsForRelisce = 0;
     
 	if( [fileList[ curMovieIndex] count])
 	{
-		DicomImage *curImage = [fileList[ curMovieIndex] objectAtIndex:0];
+		Dicom_Image *curImage = [fileList[ curMovieIndex] objectAtIndex:0];
 		
 		if( [[curImage.completePath lastPathComponent] isEqualToString:@"Empty.tif"])
 			[[self window] setTitle: NSLocalizedString( @"No images", nil)];
@@ -5312,7 +5312,7 @@ static volatile int numberOfThreadsForRelisce = 0;
         DicomDatabase *db = [[BrowserController currentBrowser] database];
         NSPredicate *predicate = nil;
         long i = 0, index = 0;
-        DicomImage *curImage = [fileList[0] objectAtIndex:0];
+        Dicom_Image *curImage = [fileList[0] objectAtIndex:0];
         NSPoint origin = [[previewMatrix superview] bounds].origin;
         
         BOOL visible = [self checkFrameSize];
@@ -6037,7 +6037,7 @@ static volatile int numberOfThreadsForRelisce = 0;
 	NSString	*path = [[BrowserController currentBrowser] getLocalDCMPath:[fileList[curMovieIndex] objectAtIndex:[imageView curImage]] : 0];
 	[[self window] setRepresentedFilename: path];
 	
-	DicomImage *im = [fileList[curMovieIndex] objectAtIndex:[imageView curImage]];
+	Dicom_Image *im = [fileList[curMovieIndex] objectAtIndex:[imageView curImage]];
 	
 	if( [XMLController windowForViewer: self])
 		[[[XMLController windowForViewer: self] window] makeKeyAndOrderFront: self];
@@ -8143,7 +8143,7 @@ static NSMutableArray *poolOf2DViewers = nil;
     
 //	*(long*)0 = 0xDEADBEEF; // ILCrashReporter test -- DO NOT ACTIVATE THIS LINE
 	
-	DicomImage* dicomImage = [d objectAtIndex:0];
+	Dicom_Image* dicomImage = [d objectAtIndex:0];
 	self.database = [DicomDatabase databaseForContext:dicomImage.managedObjectContext];
 	
 #if 0
@@ -8333,7 +8333,7 @@ static NSMutableArray *poolOf2DViewers = nil;
 
 -(void)comparativeRefresh:(NSString*) patientUID
 {
-    DicomImage* firstObject = [fileList[curMovieIndex] count]? [fileList[curMovieIndex] objectAtIndex:0] : nil;
+    Dicom_Image* firstObject = [fileList[curMovieIndex] count]? [fileList[curMovieIndex] objectAtIndex:0] : nil;
     
     if( firstObject && [patientUID compare: firstObject.series.study.patientUID options: NSCaseInsensitiveSearch | NSDiacriticInsensitiveSearch | NSWidthInsensitiveSearch] == NSOrderedSame)
         [self buildMatrixPreview: NO];
@@ -8360,8 +8360,8 @@ static int avoidReentryRefreshDatabase = 0;
         if( !newImages)
             rebuild = YES;
         
-        DicomImage* firstObject = [fileList[curMovieIndex] count]? [fileList[curMovieIndex] objectAtIndex:0] : nil;
-        for( DicomImage* dicomImage in newImages)
+        Dicom_Image* firstObject = [fileList[curMovieIndex] count]? [fileList[curMovieIndex] objectAtIndex:0] : nil;
+        for( Dicom_Image* dicomImage in newImages)
         {
             if( [[dicomImage.series objectID] isEqualTo: [firstObject.series objectID]])
                 reload = YES;
@@ -8700,7 +8700,7 @@ static int avoidReentryRefreshDatabase = 0;
 		
 	NSString	*previousPatientUID = [imageView.studyObj.patientUID retain];
 	NSString	*previousStudyInstanceUID = [imageView.studyObj.studyInstanceUID retain];
-    DicomImage    *previousDicomImage = [imageView imageObj];
+    Dicom_Image    *previousDicomImage = [imageView imageObj];
 	float		previousOrientation[ 9] = {0, 0, 0, 0, 0, 0, 0, 0, 0};
 	float		previousLocation;
 	int			previousCurImage = [imageView curImage];
@@ -9001,7 +9001,7 @@ static int avoidReentryRefreshDatabase = 0;
 					{
                         if( sameSeries)
                         {
-                            // Can we find the same DicomImage?
+                            // Can we find the same Dicom_Image?
                             
                             NSUInteger index = NSNotFound;
                             
@@ -13640,7 +13640,7 @@ float				matrix[25];
 			{
 				if( [[pixList[mIndex] objectAtIndex:i] generated] == NO)
 				{
-					DicomImage *image = [fileList[mIndex] objectAtIndex:i];
+					Dicom_Image *image = [fileList[mIndex] objectAtIndex:i];
 					
 					{
 						NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
@@ -18949,7 +18949,7 @@ static BOOL viewerControllerPlaying = NO;
                 if( [imageView flippedData]) index = [[self fileList] count] -1 -i;
 				else index = i;
                 
-                DicomImage *image = [[self fileList] objectAtIndex: index];
+                Dicom_Image *image = [[self fileList] objectAtIndex: index];
 				
 				if( ![image.isKeyImage boolValue] && [[self.roiList objectAtIndex: index] count] == 0) saveImage = NO;
 			}
@@ -19223,7 +19223,7 @@ static BOOL viewerControllerPlaying = NO;
 		if( [imageView flippedData]) index = (long)[[self fileList] count] -1 -curSample;
 		else index = curSample;
         
-		DicomImage *image = [[self fileList] objectAtIndex: index];
+		Dicom_Image *image = [[self fileList] objectAtIndex: index];
 		
         export = [image.isKeyImage boolValue];
         
@@ -19913,7 +19913,7 @@ static BOOL viewerControllerPlaying = NO;
                     if( [imageView flippedData]) index = [[self fileList] count] -1 -i;
                     else index = i;
                     
-                    DicomImage *image = [[self fileList] objectAtIndex: index];
+                    Dicom_Image *image = [[self fileList] objectAtIndex: index];
 					
 					export = [image.isKeyImage boolValue];
                     
@@ -19975,7 +19975,7 @@ static BOOL viewerControllerPlaying = NO;
 			
 			if( [[NSUserDefaults standardUserDefaults] boolForKey: @"afterExportMarkThemAsKeyImages"])
 			{
-				for( DicomImage *im in objects)
+				for( Dicom_Image *im in objects)
 					[im setValue: @YES forKey: @"isKeyImage"];
 			}
 		}
@@ -20328,7 +20328,7 @@ static BOOL viewerControllerPlaying = NO;
 
 	NSString *pdf2dcmContent = @"# pdf2dcm Configuration";
 	pdf2dcmContent = [pdf2dcmContent stringByAppendingString: @"\r# For use with dcm4che pdf2dcm, version 2.0.7"];
-	DicomImage *curImage = [fileList[0] objectAtIndex:0];
+	Dicom_Image *curImage = [fileList[0] objectAtIndex:0];
 		
 //0010,0010	(2) Patient Module Attributes
 			tagString = curImage.series.study.name;
@@ -20530,7 +20530,7 @@ static BOOL viewerControllerPlaying = NO;
 		
 		if( [[imageSelection selectedCell] tag] == 2)	// Keyimages & ROIs only
 		{
-			DicomImage *image = [[self fileList] objectAtIndex: index];
+			Dicom_Image *image = [[self fileList] objectAtIndex: index];
 			
 			export = [image.isKeyImage boolValue];
             
@@ -20601,7 +20601,7 @@ static BOOL viewerControllerPlaying = NO;
 				
 				if( [[imageSelection selectedCell] tag] == 2)	// Keyimages only
 				{
-					DicomImage *image = [[self fileList] objectAtIndex: index];
+					Dicom_Image *image = [[self fileList] objectAtIndex: index];
 					
 					export = [image.isKeyImage boolValue];
                     
@@ -20645,7 +20645,7 @@ static BOOL viewerControllerPlaying = NO;
 						
 						[bitmapData writeToFile: jpegFile atomically:YES];
 						
-						DicomImage *curImage = [fileList[ 0] objectAtIndex:0];
+						Dicom_Image *curImage = [fileList[ 0] objectAtIndex:0];
 						
 						NSDictionary *exifDict = [NSDictionary dictionaryWithObjectsAndKeys:
                                                   @"Exported from OsiriX", kCGImagePropertyExifUserComment,
@@ -20675,7 +20675,7 @@ static BOOL viewerControllerPlaying = NO;
 							
 							[bitmapData writeToFile: jpegFile atomically:YES];
 							
-							DicomImage *curImage = [fileList[0] objectAtIndex:0];
+							Dicom_Image *curImage = [fileList[0] objectAtIndex:0];
 						
 							NSDictionary *exifDict = [NSDictionary dictionaryWithObjectsAndKeys:
                                                       @"Exported from OsiriX", kCGImagePropertyExifUserComment,
@@ -23397,7 +23397,7 @@ static BOOL viewerControllerPlaying = NO;
 {
 	return imageView.seriesObj;
 }
-- (DicomImage *)currentImage
+- (Dicom_Image *)currentImage
 {
 	return imageView.imageObj;
 }

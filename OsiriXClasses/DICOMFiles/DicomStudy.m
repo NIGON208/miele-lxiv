@@ -461,14 +461,14 @@ static NSRecursiveLock *dbModifyLock = nil;
 								compressedSopInstanceUIDArray = [allImages filteredArrayUsingPredicate: [NSPredicate predicateWithFormat:@"compressedSopInstanceUID != NIL"]];
 							}
 							
-							NSPredicate	*predicate = [NSComparisonPredicate predicateWithLeftExpression: [NSExpression expressionForKeyPath: @"compressedSopInstanceUID"] rightExpression: [NSExpression expressionForConstantValue: [DicomImage sopInstanceUIDEncodeString: [image valueForKey: @"sopInstanceUID"]]] customSelector: @selector(isEqualToSopInstanceUID:)];
+							NSPredicate	*predicate = [NSComparisonPredicate predicateWithLeftExpression: [NSExpression expressionForKeyPath: @"compressedSopInstanceUID"] rightExpression: [NSExpression expressionForConstantValue: [Dicom_Image sopInstanceUIDEncodeString: [image valueForKey: @"sopInstanceUID"]]] customSelector: @selector(isEqualToSopInstanceUID:)];
 							NSArray	*found = [compressedSopInstanceUIDArray filteredArrayUsingPredicate: predicate];
 					
 							// -------------------------
 							// Find corresponding image
 							if( [found count] > 0)
 							{
-								DicomImage *i = [found lastObject];
+								Dicom_Image *i = [found lastObject];
 								
 								if( [image valueForKey:@"isKeyImage"])
                                 {
@@ -720,7 +720,7 @@ static NSRecursiveLock *dbModifyLock = nil;
 			NSString *zippedFile = @"/tmp/zippedReport.zip";
 			BOOL needToArchive = NO;
 			NSString *dstPath = nil;
-			DicomImage *reportImage = [self reportImage];
+			Dicom_Image *reportImage = [self reportImage];
 			
 			dstPath = [reportImage valueForKey: @"completePathResolved"];
 			
@@ -1253,7 +1253,8 @@ static NSRecursiveLock *dbModifyLock = nil;
 	
 	if (local)
         return @"L";
-	else return @"";
+
+    return @"";
 }
 
 - (void) setDate:(NSDate*) date
@@ -1832,7 +1833,7 @@ static NSRecursiveLock *dbModifyLock = nil;
 	return nil;
 }
 
-- (DicomImage*) reportImage
+- (Dicom_Image*) reportImage
 {
 	NSArray *images = nil;
 	
@@ -1940,7 +1941,7 @@ static NSRecursiveLock *dbModifyLock = nil;
 	return images;
 }
 
-- (DicomImage*) windowsStateImage // most recent state
+- (Dicom_Image*) windowsStateImage // most recent state
 {
 	return [[self allWindowsStateSRSeries] lastObject];
 }
@@ -2071,7 +2072,7 @@ static NSRecursiveLock *dbModifyLock = nil;
 	return nil;
 }
 
-- (DicomImage*) roiForImage: (DicomImage*) image inArray: (NSArray*) roisArray
+- (Dicom_Image*) roiForImage: (Dicom_Image*) image inArray: (NSArray*) roisArray
 {
 	[self.managedObjectContext lock];
 	@try  {
@@ -2092,7 +2093,7 @@ static NSRecursiveLock *dbModifyLock = nil;
 			
 			// Merge the other ROIs with this ROI, and empty the old ones
 			NSMutableArray *r = [NSMutableArray array];
-			for( DicomImage *i in found)
+			for( Dicom_Image *i in found)
 			{
 				if( i != [found lastObject])
 				{
@@ -2160,18 +2161,18 @@ static NSRecursiveLock *dbModifyLock = nil;
 	return nil;
 }
 
-- (NSString*) roiPathForImage: (DicomImage*) image
+- (NSString*) roiPathForImage: (Dicom_Image*) image
 {
 	return [self roiPathForImage: image inArray: nil];
 }
 
-- (NSString*) roiPathForImage: (DicomImage*) image inArray: (NSArray*) roisArray
+- (NSString*) roiPathForImage: (Dicom_Image*) image inArray: (NSArray*) roisArray
 {
 	NSString *path = nil;
 	
 	@try 
 	{
-		DicomImage *roi = [self roiForImage: image inArray: roisArray];
+		Dicom_Image *roi = [self roiForImage: image inArray: roisArray];
 		
 		path = [roi valueForKey: @"completePathResolved"];
 		
@@ -2213,7 +2214,7 @@ static NSRecursiveLock *dbModifyLock = nil;
     
     NSArray *allImages = [self.images allObjects];
     
-    for (DicomImage *roi in [self.roiSRSeries images])
+    for (Dicom_Image *roi in [self.roiSRSeries images])
     {
         NSArray *robjs = [NSUnarchiver unarchiveObjectWithData:[SRAnnotation roiFromDICOM:[roi completePath]]];
         if (!robjs.count) continue;
@@ -2283,7 +2284,7 @@ static NSRecursiveLock *dbModifyLock = nil;
     NSMutableArray *producedFiles = [NSMutableArray array];
     DICOMExport *exporter = [[[DICOMExport alloc] init] autorelease];
     
-    for( DicomImage *image in images)
+    for( Dicom_Image *image in images)
     {
         NSDictionary *d = [image imageAsDICOMScreenCapture: exporter];
         

@@ -108,7 +108,13 @@ void ConnectPipelines(ITK_Exporter exporter, VTK_Importer* importer)
 
 @implementation ITKSegmentation3D
 
-+ (NSArray*) fastGrowingRegionWithVolume: (float*) volume width:(long) w height:(long) h depth:(long) depth seedPoint:(long*) seed from:(float) from pixList:(NSArray*) pixList
++ (NSArray*) fastGrowingRegionWithVolume: (float*) volume
+                                   width:(long) w
+                                  height:(long) h
+                                   depth:(long) depth
+                               seedPoint:(long*) seed
+                                    from:(float) from
+                                 pixList:(NSArray*) pixList
 {
 	BOOL					found = YES, foundPlane = YES;
 	long					minX, minY, minZ, maxX, maxY, maxZ;
@@ -117,11 +123,11 @@ void ConnectPipelines(ITK_Exporter exporter, VTK_Importer* importer)
 	float					*srcPtrZ, *srcPtrY, *srcPtrX;
 	unsigned char			*rPtr, *rPtrZ, *rPtrY, *rPtrX;
 	NSMutableArray			*roiList = [NSMutableArray array];
-	
+
 	if( seed[ 0] <= 1) seed[ 0] = 2;	if( seed[ 0] >= w - 2)		seed[ 0] = w - 3;
 	if( seed[ 1] <= 1) seed[ 1] = 2;	if( seed[ 1] >= h - 2)		seed[ 1] = h - 3;
 	if( seed[ 2] <= 1) seed[ 2] = 2;	if( seed[ 2] >= depth - 2)	seed[ 2] = depth - 3;
-	
+    
 	minX = seed[ 0]-1;		maxX = seed[ 0]+2;
 	minY = seed[ 1]-1;		maxY = seed[ 1]+2;
 	minZ = seed[ 2];		maxZ = seed[ 2]+1;
@@ -355,12 +361,23 @@ void ConnectPipelines(ITK_Exporter exporter, VTK_Importer* importer)
 	return roiList;
 }
 
-+ (NSMutableArray*) extractContour:(unsigned char*) map width:(long) width height:(long) height numPoints:(long) numPoints
++ (NSMutableArray*) extractContour:(unsigned char*) map
+                             width:(long) width
+                            height:(long) height
+                         numPoints:(long) numPoints
 {
-	return [ITKSegmentation3D extractContour:(unsigned char*) map width:(long) width height:(long) height numPoints:(long) numPoints largestRegion: YES];
+	return [ITKSegmentation3D extractContour:(unsigned char*) map
+                                       width:(long) width
+                                      height:(long) height
+                                   numPoints:(long) numPoints
+                               largestRegion: YES];
 }
 
-+ (NSMutableArray*) extractContour:(unsigned char*) map width:(long) width height:(long) height numPoints:(long) numPoints largestRegion:(BOOL) largestRegion
++ (NSMutableArray*) extractContour:(unsigned char*) map
+                             width:(long) width
+                            height:(long) height
+                         numPoints:(long) numPoints
+                     largestRegion:(BOOL) largestRegion
 {
 	itk::MultiThreader::SetGlobalDefaultNumberOfThreads( [[NSProcessInfo processInfo] processorCount]);
 	
@@ -454,8 +471,8 @@ void ConnectPipelines(ITK_Exporter exporter, VTK_Importer* importer)
 	filter->Delete();
 	filter2->Delete();
 	image2D->Delete();
-	
-	return tempArray;
+
+    return tempArray;
 }
 
 + (NSMutableArray*) extractContour:(unsigned char*) map width:(long) width height:(long) height
@@ -465,13 +482,15 @@ void ConnectPipelines(ITK_Exporter exporter, VTK_Importer* importer)
 
 -(void) dealloc
 {
-	[itkImage release];
-	
+    [itkImage release];
 	[super dealloc];
 }
 
 - (id) initWith :(NSMutableArray*) pix :(float*) volumeData :(long) slice {
-	return [self initWithPix :(NSMutableArray*) pix volume:(float*) volumeData  slice:(long) slice resampleData:NO];
+	return [self initWithPix:(NSMutableArray*) pix
+                      volume:(float*) volumeData
+                       slice:(long) slice
+                resampleData:NO];
 }
 
 - (id) initWithPix :(NSMutableArray*) pix volume:(float*) volumeData  slice:(long) slice resampleData:(BOOL)resampleData
@@ -481,13 +500,29 @@ void ConnectPipelines(ITK_Exporter exporter, VTK_Importer* importer)
 		itk::MultiThreader::SetGlobalDefaultNumberOfThreads( [[NSProcessInfo processInfo] processorCount]);
 		_resampledData = resampleData;
 		NSLog(@"slice ID: %d", (int) slice);
-		itkImage = [[ITK alloc] initWithPix :(NSMutableArray*) pix volume:(float*) volumeData sliceCount:(long) slice resampleData:(BOOL)resampleData];
+		itkImage = [[ITK alloc] initWithPix:(NSMutableArray*) pix
+                                     volume:(float*) volumeData
+                                 sliceCount:(long) slice
+                               resampleData:(BOOL) resampleData];
 		//itkImage = [[ITK alloc] initWith: pix :volumeData :slice];
     }
     return self;
 }
 
-- (void) regionGrowing3D:(ViewerController*) srcViewer :(ViewerController*) destViewer :(long) slice :(NSPoint) startingPoint :(int) algorithmNumber :(NSArray*) parameters :(BOOL) setIn :(float) inValue :(BOOL) setOut :(float) outValue :(ToolMode) roiType :(long) roiResolution :(NSString*) newname :(BOOL) mergeWithExistingROIs;
+- (void) regionGrowing3D:(ViewerController*) srcViewer
+                        :(ViewerController*) destViewer
+                        :(long) slice
+                        :(NSPoint) startingPoint
+                        :(int) algorithmNumber
+                        :(NSArray*) parameters
+                        :(BOOL) setIn
+                        :(float) inValue
+                        :(BOOL) setOut
+                        :(float) outValue
+                        :(ToolMode) roiType
+                        :(long) roiResolution
+                        :(NSString*) newname
+                        :(BOOL) mergeWithExistingROIs;
 {
 	NSLog(@"ITK max number of threads: %d", itk::MultiThreader::GetGlobalDefaultNumberOfThreads());
 	
@@ -499,6 +534,7 @@ void ConnectPipelines(ITK_Exporter exporter, VTK_Importer* importer)
 	typedef itk::Image< OutputPixelType, 3 > OutputImageType;
 	// Type Caster
 	typedef itk::CastImageFilter< InternalImageType, OutputImageType > CastingFilterType;
+#ifndef TODO_FIX_ITK_NEW_VERSION  // @@@ problem
 	CastingFilterType::Pointer caster = CastingFilterType::New();
 	
 	// STARTING POINT
@@ -1030,6 +1066,7 @@ void ConnectPipelines(ITK_Exporter exporter, VTK_Importer* importer)
             vtkImporter->Delete();
         }
     }
+#endif // TODO_FIX_ITK_NEW_VERSION  // @@@
     
 	[wait close];
 	[wait autorelease];
@@ -1225,6 +1262,5 @@ void ConnectPipelines(ITK_Exporter exporter, VTK_Importer* importer)
 //	
 //	return centerlinePoints;
 //}
-
 
 @end

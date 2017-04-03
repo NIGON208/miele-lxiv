@@ -27,7 +27,7 @@ typedef char DSRDocument;
 @interface SRAnnotation : NSObject
 {
 	DSRDocument			*document;
-	DicomImage          *image;
+	Dicom_Image          *image;
 	BOOL				_newSR;
 	NSString			*_seriesInstanceUID, *_DICOMSRDescription, *_DICOMSeriesNumber, *_reportURL;
 	NSData				*_dataEncapsulated;
@@ -52,10 +52,10 @@ typedef char DSRDocument;
 
 - (id) initWithROIs:(NSArray *)ROIs  path:(NSString *)path forImage:(NSManagedObject*) im;
 - (id) initWithContentsOfFile:(NSString *)path;
-- (id) initWithDictionary:(NSDictionary *) dict path:(NSString *) path forImage: (DicomImage*) im;
-- (id) initWithWindowsState:(NSData *) dict path:(NSString *) path forImage: (DicomImage*) im;
-- (id) initWithFileReport:(NSString *) file path:(NSString *) path forImage: (DicomImage*) im contentDate: (NSDate*) d;
-- (id) initWithURLReport:(NSString *) s path:(NSString *) path forImage: (DicomImage*) im;
+- (id) initWithDictionary:(NSDictionary *) dict path:(NSString *) path forImage: (Dicom_Image*) im;
+- (id) initWithWindowsState:(NSData *) dict path:(NSString *) path forImage: (Dicom_Image*) im;
+- (id) initWithFileReport:(NSString *) file path:(NSString *) path forImage: (Dicom_Image*) im contentDate: (NSDate*) d;
+- (id) initWithURLReport:(NSString *) s path:(NSString *) path forImage: (Dicom_Image*) im;
 - (void) addROIs:(NSArray *)someROIs;
 - (NSArray *) ROIs;
 - (BOOL) writeToFileAtPath:(NSString *)path;

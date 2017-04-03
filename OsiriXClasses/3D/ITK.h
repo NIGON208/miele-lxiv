@@ -12,11 +12,9 @@
      PURPOSE.
 =========================================================================*/
 
-
-
-
-
 #import <Cocoa/Cocoa.h>
+
+#define TODO_FIX_ITK_NEW_VERSION  // @@@
 
 typedef float itkPixelType;
 //typedef itk::RGBPixel<unsigned char> itkPixelType;
@@ -28,8 +26,8 @@ typedef itk::ImportImageFilter< itkPixelType, 3 > ImportFilterType;
 */
 
 @interface ITK : NSObject {
-	
-	// ITK objects	
+
+	// ITK objects
 	ImportFilterType::Pointer importFilter;
 }
 

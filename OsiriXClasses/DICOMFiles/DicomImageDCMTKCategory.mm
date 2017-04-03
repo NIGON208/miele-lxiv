@@ -25,7 +25,7 @@
 #include "dsrtypes.h"
 #include "dsrimgtn.h"
 
-@implementation DicomImage(DicomImageDCMTKCategory)
+@implementation Dicom_Image(DicomImageDCMTKCategory)
 
 - (NSString*) keyObjectType
 {
@@ -57,8 +57,13 @@
 		DSRDocumentTreeNode *node = NULL; 
 		//DSRDocumentTree  *tree = doc->getTree();
 		/* iterate over all nodes */ 
-        do { 
-            node = OFstatic_cast(DSRDocumentTreeNode *, doc->getTree().getNode()); 
+        do {
+#if 0 // @@@ original TODO: getNode is a protected member of DSRDocumentTreeNode
+            node = OFstatic_cast(DSRDocumentTreeNode *, doc->getTree().getNode());
+//#else
+//            DSRDocumentTree &pTree = doc->getTree();
+//            DSRDocumentTreeNode *pNode = DSRTreeNodeCursor::pTree.getNode();
+#endif
             if (node->getValueType() == DSRTypes::VT_Image)
 			{
 				//image node get SOPCInstance

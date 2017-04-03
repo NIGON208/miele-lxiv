@@ -1037,7 +1037,7 @@ static NSConditionLock *threadLock = nil;
     
     [self filesForDatabaseMatrixSelection: objects onlyImages: NO];
     
-    DicomImage *im = objects.lastObject;
+    Dicom_Image *im = objects.lastObject;
     
     if( im == nil)
     {
@@ -1857,10 +1857,10 @@ static NSConditionLock *threadLock = nil;
 	{
 		NSString	*location = [oPanel filename];
 		
-		if( [[location lastPathComponent] isEqualToString:@"OsiriX Data"])
+		if( [[location lastPathComponent] isEqualToString:OUR_DATA_LOCATION])
 			location = [location stringByDeletingLastPathComponent];
 		
-		if( [[location lastPathComponent] isEqualToString:@"DATABASE.noindex"] && [[[location stringByDeletingLastPathComponent] lastPathComponent] isEqualToString:@"OsiriX Data"])
+		if( [[location lastPathComponent] isEqualToString:@"DATABASE.noindex"] && [[[location stringByDeletingLastPathComponent] lastPathComponent] isEqualToString:OUR_DATA_LOCATION])
 			location = [[location stringByDeletingLastPathComponent] stringByDeletingLastPathComponent];
 		
 		[self openDatabasePath: location];
@@ -1937,7 +1937,7 @@ static NSConditionLock *threadLock = nil;
 		if( isDirectory)
 		{
 			// Default SQL file
-			NSString	*index = [[path stringByAppendingPathComponent:@"OsiriX Data"] stringByAppendingPathComponent:@"Database.sql"];
+			NSString	*index = [[path stringByAppendingPathComponent:OUR_DATA_LOCATION] stringByAppendingPathComponent:@"Database.sql"];
 			
 			if( [[NSFileManager defaultManager] fileExistsAtPath: index])
 			{
@@ -1997,7 +1997,7 @@ static NSConditionLock *threadLock = nil;
     if( [s isKindOfClass: [DicomSeries class]])
         study = [s valueForKey: @"study"];
     
-    if( [s isKindOfClass: [DicomImage class]])
+    if( [s isKindOfClass: [Dicom_Image class]])
         study = [s valueForKeyPath: @"series.study"];
     
     if( study)
@@ -5090,7 +5090,7 @@ static NSConditionLock *threadLock = nil;
                 if( imageLevel == NO) // If series level, and less than 5 thumbnails to compute: do it on main thread: faster, and no-blinking icons...
                 {
                     int thumbnailsToGenerate = 0;
-                    for( DicomImage* im in files)
+                    for( Dicom_Image* im in files)
                     {
                         if( [im.series primitiveValueForKey:@"thumbnail"] == nil)
                             thumbnailsToGenerate++;
@@ -6422,7 +6422,7 @@ static NSConditionLock *threadLock = nil;
 			if( [item valueForKey:@"reportURL"])
 			{
 				DicomStudy *study = (DicomStudy*) item;
-				DicomImage *report = [study reportImage];
+				Dicom_Image *report = [study reportImage];
 				
 				if( [report valueForKey: @"date"])
 					return [report valueForKey: @"date"];
@@ -6948,7 +6948,7 @@ static NSConditionLock *threadLock = nil;
     if( [object isDistant] == NO)
         [object setValue:@NO forKey:@"expanded"];
 	
-	DicomImage	*image = nil;
+	Dicom_Image	*image = nil;
 	
 	if( [matrixViewArray count] > 0)
 	{
@@ -6982,7 +6982,7 @@ static NSConditionLock *threadLock = nil;
 		
 		NSArray *images = [self childrenArray: item onlyImages: NO];
 		
-		DicomImage *im = nil;
+		Dicom_Image *im = nil;
 		
 		if( [images count] > [animationSlider intValue])
 			im = [images objectAtIndex: [animationSlider intValue]];
@@ -7972,12 +7972,12 @@ static NSConditionLock *threadLock = nil;
 	}
 }
 
--(BOOL) findAndSelectFile: (NSString*) path image: (DicomImage*) curImage shouldExpand: (BOOL) expand
+-(BOOL) findAndSelectFile: (NSString*) path image: (Dicom_Image*) curImage shouldExpand: (BOOL) expand
 {
-	return [self findAndSelectFile: (NSString*) path image: (DicomImage*) curImage shouldExpand: (BOOL) expand extendingSelection: NO];
+	return [self findAndSelectFile: (NSString*) path image: (Dicom_Image*) curImage shouldExpand: (BOOL) expand extendingSelection: NO];
 }
 
--(BOOL) findAndSelectFile: (NSString*) path image: (DicomImage*) curImage shouldExpand: (BOOL) expand extendingSelection: (BOOL) extendingSelection
+-(BOOL) findAndSelectFile: (NSString*) path image: (Dicom_Image*) curImage shouldExpand: (BOOL) expand extendingSelection: (BOOL) extendingSelection
 {
 	if( curImage == nil)
 	{
@@ -8189,7 +8189,7 @@ static NSConditionLock *threadLock = nil;
 				}
 				else if( [[element valueForKey: @"type"] isEqualToString: @"Image"])
 				{
-					[self findAndSelectFile:nil image: (DicomImage*) element shouldExpand:NO];
+					[self findAndSelectFile:nil image: (Dicom_Image*) element shouldExpand:NO];
 					[self databaseOpenStudy: [element valueForKey: @"series"]];
 					
 					// Is a viewer containing this image opened? -> select it
@@ -8956,7 +8956,7 @@ static BOOL withReset = NO;
 				{
 					for( int x = 0 ; x < vFileList.count; x++)
 					{
-						DicomImage *image = [vFileList objectAtIndex: x];
+						Dicom_Image *image = [vFileList objectAtIndex: x];
 						
 						if( [image.completePath isEqualToString: pathToFind] && [image.frameID intValue] == frameNumber)
 						{
@@ -9079,7 +9079,7 @@ static BOOL withReset = NO;
 						
 						if( [animationSlider intValue] >= [images count]) return;
 						
-						DicomImage *imageObj = [images objectAtIndex: [animationSlider intValue]];
+						Dicom_Image *imageObj = [images objectAtIndex: [animationSlider intValue]];
 						
 						if( [[[imageView curDCM] sourceFile] isEqualToString: [[images objectAtIndex: [animationSlider intValue]] valueForKey:@"completePath"]] == NO ||
                            [[imageObj valueForKey: @"frameID"] intValue] != [[imageView curDCM] frameNo])
@@ -9387,7 +9387,7 @@ static BOOL withReset = NO;
             {
                 seriesSOPClassUID = [curFile valueForKey: @"seriesSOPClassUID"];
                 
-                DicomImage *im = [[curFile valueForKey:@"images"] anyObject];
+                Dicom_Image *im = [[curFile valueForKey:@"images"] anyObject];
                 modality = [im valueForKey: @"modality"];
                 fileType = [im valueForKey: @"fileType"];
                 
@@ -9979,7 +9979,7 @@ static BOOL withReset = NO;
                     }
                 }
                 
-                DicomImage* image = [idatabase objectWithID:[objectIDs objectAtIndex:i]];
+                Dicom_Image* image = [idatabase objectWithID:[objectIDs objectAtIndex:i]];
                 if (!image) break; // the objects don't exist anymore, the selection has very likely changed after this call
                 
                 int frame = 0;
@@ -10586,7 +10586,7 @@ constrainSplitPosition:(CGFloat)proposedPosition
 	return proposedMax;
 }
 
-- (DicomImage *)firstObjectForDatabaseMatrixSelection
+- (Dicom_Image *)firstObjectForDatabaseMatrixSelection
 {
 	NSArray				*cells = [oMatrix selectedCells];
 	NSManagedObject		*aFile = [databaseOutline itemAtRow:[databaseOutline selectedRow]];
@@ -10602,7 +10602,7 @@ constrainSplitPosition:(CGFloat)proposedPosition
 				
 				if( [[curObj valueForKey:@"type"] isEqualToString:@"Image"])
 				{
-					return (DicomImage*) curObj;
+					return (Dicom_Image*) curObj;
 				}
 				
 				if( [[curObj valueForKey:@"type"] isEqualToString:@"Series"])
@@ -11407,8 +11407,8 @@ constrainSplitPosition:(CGFloat)proposedPosition
                 [studies addObject:object];
             if ([object isKindOfClass:[DicomSeries class]])
                 [studies addObject:[(DicomSeries*)object study]];
-            if ([object isKindOfClass:[DicomImage class]])
-                [studies addObject:[[(DicomImage*)object series] study]];
+            if ([object isKindOfClass:[Dicom_Image class]])
+                [studies addObject:[[(Dicom_Image*)object series] study]];
         }
 
 		if ([studies count])
@@ -11921,7 +11921,7 @@ constrainSplitPosition:(CGFloat)proposedPosition
                     
                     for( NSManagedObject *image in loadList)
                     {
-                        if( [image isKindOfClass: [DicomImage class]])
+                        if( [image isKindOfClass: [Dicom_Image class]])
                             if( [[image valueForKey:@"isKeyImage"] boolValue] == YES)
                                 [keyImagesArray addObject: image];
                     }
@@ -11959,7 +11959,7 @@ constrainSplitPosition:(CGFloat)proposedPosition
         {
             if( r.count)
             {
-                if( [r.lastObject isKindOfClass: [DicomImage class]] == NO)
+                if( [r.lastObject isKindOfClass: [Dicom_Image class]] == NO)
                 {
                     NSRunInformationalAlertPanel( NSLocalizedString( @"Loading", nil), NSLocalizedString(@"Failed to load the series.", nil), NSLocalizedString(@"All Images",nil), NSLocalizedString(@"OK",nil), nil);
 					return nil;
@@ -11985,7 +11985,7 @@ constrainSplitPosition:(CGFloat)proposedPosition
 				
 				if( [loadList count])
 				{
-					DicomImage*  curFile = [loadList objectAtIndex: 0];
+					Dicom_Image*  curFile = [loadList objectAtIndex: 0];
 					[curFile setValue:[NSDate date] forKeyPath:@"series.dateOpened"];
 					[curFile setValue:[NSDate date] forKeyPath:@"series.study.dateOpened"];
 					
@@ -12187,7 +12187,7 @@ constrainSplitPosition:(CGFloat)proposedPosition
 				{
 					@try 
 					{
-						DicomImage *o = nil;
+						Dicom_Image *o = nil;
 						o = [a objectAtIndex: 1];
 						DCMPix *p1 = [[DCMPix alloc] initWithPath: [o valueForKey:@"completePath"] :0 :1 :nil :[[o valueForKey:@"frameID"] intValue] :[[o valueForKeyPath:@"series.id"] intValue] isBonjour:![_database isLocal] imageObj: o];
 						o = [a objectAtIndex: 2];
@@ -12875,9 +12875,9 @@ constrainSplitPosition:(CGFloat)proposedPosition
 								[newSeries setValue: [originalSeries valueForKey: @"study"] forKey: @"study"];
 								
 								// Add the images
-								for( DicomImage *image in array)
+								for( Dicom_Image *image in array)
 								{
-									DicomImage *newImage = [NSEntityDescription insertNewObjectForEntityForName: @"Image" inManagedObjectContext:_database.managedObjectContext];
+									Dicom_Image *newImage = [NSEntityDescription insertNewObjectForEntityForName: @"Image" inManagedObjectContext:_database.managedObjectContext];
 								
 									for ( NSString *name in [[[NSEntityDescription entityForName: @"Image" inManagedObjectContext:_database.managedObjectContext] attributesByName] allKeys]) // Duplicate values
 									{
@@ -12947,9 +12947,9 @@ constrainSplitPosition:(CGFloat)proposedPosition
 								[newSeries setValue: [originalSeries valueForKey: @"study"] forKey: @"study"];
 								
 								// Add the images
-								for( DicomImage *image in array4D)
+								for( Dicom_Image *image in array4D)
 								{
-									DicomImage *newImage = [NSEntityDescription insertNewObjectForEntityForName: @"Image" inManagedObjectContext:_database.managedObjectContext];
+									Dicom_Image *newImage = [NSEntityDescription insertNewObjectForEntityForName: @"Image" inManagedObjectContext:_database.managedObjectContext];
 								
 									for ( NSString *name in [[[NSEntityDescription entityForName: @"Image" inManagedObjectContext:_database.managedObjectContext] attributesByName] allKeys]) // Duplicate values
 									{
@@ -16020,7 +16020,7 @@ static volatile int numberOfThreadsForJPEG = 0;
 		
 		NSInteger fps = 10;
 		
-		for( DicomImage *curImage in dicomFiles2Export)
+		for( Dicom_Image *curImage in dicomFiles2Export)
 		{
 			NSString *patientDirName = [curImage.series.study.name filenameString];
 			
@@ -17646,7 +17646,7 @@ static volatile int numberOfThreadsForJPEG = 0;
     else
         images = [self ROIsAndKeyImages: self];
     
-    for( DicomImage *image in images)
+    for( Dicom_Image *image in images)
     {
         NSDictionary *d = [image imageAsDICOMScreenCapture: exporter];
         
@@ -18540,7 +18540,7 @@ static volatile int numberOfThreadsForJPEG = 0;
 					
 					if( ![_database isLocal] && localReportFile)
 					{
-						DicomImage *reportSR = [studySelected reportImage];
+						Dicom_Image *reportSR = [studySelected reportImage];
 						
 						if( reportSR)
 						{
@@ -19391,7 +19391,7 @@ static volatile int numberOfThreadsForJPEG = 0;
 		DicomStudy *study = nil;
 		NSArray *roisArray = nil;
 		
-		for( DicomImage *image in selectedItems)
+		for( Dicom_Image *image in selectedItems)
 		{
 			if( study != image.series.study)
 			{
@@ -19401,7 +19401,7 @@ static volatile int numberOfThreadsForJPEG = 0;
 			
 			@try
 			{
-				DicomImage *roiImage = [study roiForImage: image inArray: roisArray];
+				Dicom_Image *roiImage = [study roiForImage: image inArray: roisArray];
 				
 				if( roiImage && ( [roiImage valueForKey: @"scale"] == nil || [[roiImage valueForKey: @"scale"] intValue] > 0)) // @"scale" contains the number of ROI objects
 					[roisImagesArray addObject: image];
@@ -19420,7 +19420,7 @@ static volatile int numberOfThreadsForJPEG = 0;
         if( sameSeries)
             *sameSeries = ROIsAndKeyImagesCacheSameSeries;
         
-        for( DicomImage *image in roisImagesArray)
+        for( Dicom_Image *image in roisImagesArray)
         {
             if( [image valueForKey: @"series"] != series)
             {
@@ -19458,7 +19458,7 @@ static volatile int numberOfThreadsForJPEG = 0;
 		
 		if( sameSeries == NO)
 		{
-			for( DicomImage *im in roisImagesArray)
+			for( Dicom_Image *im in roisImagesArray)
 			{
 				NSMutableDictionary *d = [NSMutableDictionary dictionary];
 				
@@ -19587,7 +19587,7 @@ static volatile int numberOfThreadsForJPEG = 0;
 
 	if( [selectedItems count] > 0)
 	{
-		for( DicomImage *image in selectedItems)
+		for( Dicom_Image *image in selectedItems)
 		{
 			NSString *str = [image.series.study roiPathForImage: image];
 			
@@ -19605,7 +19605,7 @@ static volatile int numberOfThreadsForJPEG = 0;
         ROIsImagesCacheSameSeries = YES;
         if( sameSeries)
             *sameSeries = ROIsImagesCacheSameSeries;
-        for( DicomImage *image in roisImagesArray)
+        for( Dicom_Image *image in roisImagesArray)
         {
             if( [image valueForKey: @"series"] != series)
             {
@@ -19851,7 +19851,7 @@ static volatile int numberOfThreadsForJPEG = 0;
 
 - (NSString*)getLocalDCMPath: (NSManagedObject*)obj : (long)no
 {
-	if (![_database isLocal]) return [(RemoteDicomDatabase*)_database cacheDataForImage:(DicomImage*)obj maxFiles:no];
+	if (![_database isLocal]) return [(RemoteDicomDatabase*)_database cacheDataForImage:(Dicom_Image*)obj maxFiles:no];
 	else return [obj valueForKey:@"completePath"];
 }
 

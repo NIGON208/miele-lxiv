@@ -302,12 +302,12 @@ OFCondition mainStoreSCP(T_ASC_Association * assoc,
 	//max PDU size
 	options.maxPDU_ = ASC_DEFAULTMAXPDU;
 	if (overrideMaxPDU > 0) options.maxPDU_ = overrideMaxPDU;	//;
-	
-	    /* make sure data dictionary is loaded */
+
+    /* make sure data dictionary is loaded */
     if (!dcmDataDict.isDictionaryLoaded())
 	{
-		fprintf(stderr, "Warning: no data dictionary loaded, check environment variable: %s\n",  DCM_DICT_ENVIRONMENT_VARIABLE);
-		return;
+		fprintf(stderr, "Warning: data dictionary not loaded, check environment variable: %s\n", DCM_DICT_ENVIRONMENT_VARIABLE);
+        return;
     }
 
 	//init the network

@@ -29,7 +29,7 @@ enum OsiriXBlendingTypes {BlendingPlugin = -1, BlendingFusion = 1, BlendingSubtr
 #undef id
 #endif
 
-@class DicomImage, DicomSeries, DicomStudy;
+@class Dicom_Image, DicomSeries, DicomStudy;
 
 @interface OSIWindowController : NSWindowController
 {
@@ -65,7 +65,7 @@ enum OsiriXBlendingTypes {BlendingPlugin = -1, BlendingFusion = 1, BlendingSubtr
 #pragma mark current Core Data Objects
 - (DicomStudy *)currentStudy;
 - (DicomSeries *)currentSeries;
-- (DicomImage *)currentImage;
+- (Dicom_Image *)currentImage;
 
 - (float)curWW;
 - (float)curWL;

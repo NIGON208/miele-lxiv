@@ -68,7 +68,7 @@ class vtkPowerCrustSurfaceReconstruction : public vtkDataSetToDataObjectFilter
 {
 public:
   static vtkPowerCrustSurfaceReconstruction *New();
-  vtkTypeRevisionMacro(vtkPowerCrustSurfaceReconstruction,vtkDataSetToDataObjectFilter);
+  void vtkTypeRevisionMacro(vtkPowerCrustSurfaceReconstruction,vtkDataSetToDataObjectFilter);
   void PrintSelf(ostream& os, vtkIndent indent);
 
   // Description:

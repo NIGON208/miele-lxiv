@@ -141,7 +141,7 @@
 -(DicomStudy*)studyForObject:(NSManagedObject*)obj {
     if ([obj isKindOfClass:[DicomStudy class]]) return (id)obj;
     if ([obj isKindOfClass:[DicomSeries class]]) return [obj valueForKey:@"study"];
-    if ([obj isKindOfClass:[DicomImage class]]) return [obj valueForKey:@"series.study"];
+    if ([obj isKindOfClass:[Dicom_Image class]]) return [obj valueForKey:@"series.study"];
     return nil;
 }
 
@@ -693,9 +693,9 @@
  Method: OpenDB
 
  Parameters:
- path: path of the folder containing the 'OsiriX Data' folder
+ path: path of the folder containing the OUR_DATA_LOCATION folder
 
- if path is valid, but not DB is found, OsiriX will create a new one
+ if path is valid, but not DB is found, we will create a new one
 
  Example: {path: "/Users/antoinerosset/Documents/"}
 

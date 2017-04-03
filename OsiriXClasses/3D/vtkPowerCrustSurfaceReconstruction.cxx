@@ -27,7 +27,6 @@
 #import "vtkConfigure.h"
 #endif
 
-vtkCxxRevisionMacro(vtkPowerCrustSurfaceReconstruction, "$Revision: 1.4 $");
 vtkStandardNewMacro(vtkPowerCrustSurfaceReconstruction);
 
 vtkPowerCrustSurfaceReconstruction::vtkPowerCrustSurfaceReconstruction()

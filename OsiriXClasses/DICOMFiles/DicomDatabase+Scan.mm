@@ -740,7 +740,7 @@ static NSString* _dcmElementKey(DcmElement* element) {
             NSMutableArray* dicomSeries	= [NSMutableArray array];
             
             @try {
-                for (DicomImage* di in dicomImages)
+                for (Dicom_Image* di in dicomImages)
                     if (![dicomSeries containsObject:di.series])
                         [dicomSeries addObject:di.series];
             }

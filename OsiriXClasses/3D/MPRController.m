@@ -1404,7 +1404,7 @@ static float deg2rad = M_PI/180.0;
 	
 	[[[clutPopup menu] itemAtIndex:0] setTitle:curCLUTMenu];
 	
-//	// path 1 : /OsiriX Data/CLUTs/
+//	// path 1 : /OUR_DATA_LOCATION/CLUTs/
 //	NSMutableString *path = [NSMutableString stringWithString: [[BrowserController currentBrowser] documentsDirectory]];
 //	[path appendString: CLUTDATABASE];
 //	// path 2 : /resources_bundle_path/CLUTs/
@@ -2396,7 +2396,7 @@ static float deg2rad = M_PI/180.0;
 				
 				if( [[NSUserDefaults standardUserDefaults] boolForKey: @"afterExportMarkThemAsKeyImages"])
 				{
-					for( DicomImage *im in objects)
+					for( Dicom_Image *im in objects)
 						[im setValue: @YES forKey: @"isKeyImage"];
 				}
 			}

@@ -16,7 +16,7 @@
 #import "DicomImage.h"
 
 /** \brief  DCMTK calls for Dicom Image */ 
-@interface DicomImage (DicomImageDCMTKCategory)
+@interface Dicom_Image (DicomImageDCMTKCategory)
 
 - (NSString *)keyObjectType;
 - (NSArray *)referencedObjects;

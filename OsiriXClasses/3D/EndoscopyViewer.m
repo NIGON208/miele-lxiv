@@ -1295,7 +1295,7 @@ return YES;
 	return [vrController currentSeries];
 }
 
-- (DicomImage *)currentImage
+- (Dicom_Image *)currentImage
 {
 	return [vrController currentImage];
 }

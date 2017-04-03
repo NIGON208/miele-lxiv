@@ -1171,7 +1171,7 @@ static void* const SearchDicomNodesContext = @"SearchDicomNodesContext";
 	for (NSString* xid in xids)
 		[items addObject:[_browser.database objectWithID:[NSManagedObject UidForXid:xid]]];
 	
-	NSMutableArray* dicomImages = [DicomImage dicomImagesInObjects:items];
+	NSMutableArray* dicomImages = [Dicom_Image dicomImagesInObjects:items];
 	
 	return [_browser initiateCopyImages:dicomImages toSource:[_browser sourceIdentifierAtRow:row]];
 }
@@ -1358,7 +1358,7 @@ static void* const SearchDicomNodesContext = @"SearchDicomNodesContext";
 	BOOL scan = YES;
 	NSString* path = [[NSFileManager defaultManager] tmpFilePathInTmp];
 	
-	// does it contain an OsiriX Data folder?
+	// does it contain a Data folder?
 	BOOL isDir;
 	if ([[NSFileManager defaultManager] fileExistsAtPath:[devicePath stringByAppendingPathComponent:OsirixDataDirName] isDirectory:&isDir] && isDir) {
 		path = devicePath;

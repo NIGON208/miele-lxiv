@@ -17,7 +17,7 @@
 
 #define THUMBNAILSIZE 70
 
-@class DicomStudy, DicomImage;
+@class DicomStudy, Dicom_Image;
 
 /** \brief  Core Data Entity for a Series */
 
@@ -73,8 +73,8 @@
 
 @interface DicomSeries (CoreDataGeneratedAccessors)
 
-- (void) addImagesObject:(DicomImage *)value;
-- (void) removeImagesObject:(DicomImage *)value;
+- (void) addImagesObject:(Dicom_Image *)value;
+- (void) removeImagesObject:(Dicom_Image *)value;
 - (void) addImages:(NSSet *)value;
 - (void) removeImages:(NSSet *)value;
 

@@ -24,6 +24,7 @@
 #import "DicomSeries.h"
 #import "N2Debug.h"
 #import "DICOMToNSString.h"
+#import "DICOMExport.h"
 
 #include "osconfig.h"   /* make sure OS specific configuration is included first */
 #include "dsrtypes.h"
@@ -188,7 +189,7 @@
 	return self;
 }
 
-- (id)initWithDictionary:(NSDictionary *) dict path:(NSString *) path forImage: (DicomImage*) im
+- (id)initWithDictionary:(NSDictionary *) dict path:(NSString *) path forImage: (Dicom_Image*) im
 {
 	if (self = [super init])
 	{
@@ -238,7 +239,7 @@
 	return self;
 }
 
-- (id)initWithWindowsState:(NSData *) dict path:(NSString *) path forImage: (DicomImage*) im
+- (id)initWithWindowsState:(NSData *) dict path:(NSString *) path forImage: (Dicom_Image*) im
 {
 	if (self = [super init])
 	{
@@ -287,7 +288,7 @@
 	return self;
 }
 
-- (id)initWithFileReport:(NSString *) file path:(NSString *) path forImage: (DicomImage*) im contentDate: (NSDate*) d
+- (id)initWithFileReport:(NSString *) file path:(NSString *) path forImage: (Dicom_Image*) im contentDate: (NSDate*) d
 {
 	if (self = [super init])
 	{
@@ -337,7 +338,7 @@
 	return self;
 }
 
-- (id)initWithROIs:(NSArray *)ROIs path:(NSString *) path forImage: (DicomImage*) im
+- (id)initWithROIs:(NSArray *)ROIs path:(NSString *) path forImage: (Dicom_Image*) im
 {
 	if (self = [super init])
 	{
@@ -455,7 +456,7 @@
 	return _reportURL;
 }
 
-- (id)initWithURLReport:(NSString *) s path:(NSString *) path forImage: (DicomImage*) im
+- (id)initWithURLReport:(NSString *) s path:(NSString *) path forImage: (Dicom_Image*) im
 {
 	if (self = [super init])
 	{

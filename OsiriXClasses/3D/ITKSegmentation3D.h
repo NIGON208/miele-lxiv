@@ -35,7 +35,7 @@
 */
 @interface ITKSegmentation3D : NSObject {
 
-	ITK		*itkImage;
+    ITK		*itkImage;
 	BOOL	_resampledData;
 	
 }

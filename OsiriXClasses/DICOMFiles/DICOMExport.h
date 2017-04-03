@@ -18,7 +18,7 @@
 
 @class DCMObject;
 @class DCMExportPlugin;
-@class DicomImage;
+@class Dicom_Image;
 
 #ifdef __cplusplus
 
@@ -44,7 +44,7 @@ typedef char* DcmFileFormat;
 @interface DICOMExport : NSObject
 {
     NSString			*dcmSourcePath;
-    DicomImage          *iDicomImage;
+    Dicom_Image          *iDicomImage;
     
     DcmFileFormat		*dcmtkFileFormat;
     
@@ -83,7 +83,7 @@ typedef char* DcmFileFormat;
 
 // Is this DCM file based on another DCM file?
 - (void) setSourceFile:(NSString*) isource __deprecated;
-- (void) setSourceDicomImage:(DicomImage*) i;
+- (void) setSourceDicomImage:(Dicom_Image*) i;
 
 // Set Pixel Data from a raw source
 - (long) setPixelData:		(unsigned char*) idata

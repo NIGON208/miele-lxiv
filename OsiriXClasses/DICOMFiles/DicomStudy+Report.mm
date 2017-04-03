@@ -327,7 +327,7 @@
     NSString* sourcePath = nil;
     for (DicomSeries* series in self.series.allObjects) // TODO: resolve unused variable 'series'
     {
-        for (DicomImage* image in self.images.allObjects)
+        for (Dicom_Image* image in self.images.allObjects)
         {
             if ([NSFileManager.defaultManager fileExistsAtPath:image.completePath])
                 sourcePath = image.completePath;

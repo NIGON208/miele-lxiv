@@ -86,7 +86,7 @@
 	NSArray* files = [self sortedImages];
 	if( files.count)
 	{
-		DicomImage* image = [files objectAtIndex:[files count]/2];
+		Dicom_Image* image = [files objectAtIndex:[files count]/2];
 		
         @try {
             id value = [image valueForKey:key];
@@ -327,7 +327,7 @@
                 NSArray* files = [self sortedImages];
                 if (files.count)
                 {
-                    DicomImage* image = [files objectAtIndex:[files count]/2];
+                    Dicom_Image* image = [files objectAtIndex:[files count]/2];
                     
                     NSImage* thumbAv = [image thumbnailIfAlreadyAvailable];
                     if (thumbAv) {
@@ -504,7 +504,7 @@
         NSSet *s = nil;
         @autoreleasepool
         {
-            s = [[[self primitiveValueForKey: @"images"] objectsWithOptions: NSEnumerationConcurrent passingTest:^BOOL(DicomImage *obj, BOOL *stop)
+            s = [[[self primitiveValueForKey: @"images"] objectsWithOptions: NSEnumerationConcurrent passingTest:^BOOL(Dicom_Image *obj, BOOL *stop)
                 {
                     if( obj.isDeleted)
                         return NO;

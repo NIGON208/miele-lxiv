@@ -61,7 +61,7 @@
 extern short Use_kdu_IfAvailable;
 
 #include "OPJSupport.h"
-#include "../Binaries/openjpeg/openjpeg.h"
+#include "openjpeg.h"
 
 #include "options.h"
 

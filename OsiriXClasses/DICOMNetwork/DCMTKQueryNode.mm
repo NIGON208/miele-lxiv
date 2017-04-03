@@ -1525,12 +1525,17 @@ subOpCallback(void * /*subOpCallbackData*/ ,
                 if( [[dict valueForKey: @"retrieveMode"] intValue] == CGETRetrieveMode && retrieveMode == CGETRetrieveMode)
                 {
                     if( [DCMTKQueryRetrieveSCP storeSCP] == NO)
-                        [[NSException exceptionWithName: @"DICOM Network Failure" reason: NSLocalizedString( @"DICOM Listener is not activated", nil) userInfo:nil] raise];
-                    
+                    {
+                        [[NSException exceptionWithName: @"DICOM Network Failure"
+                                                 reason: NSLocalizedString( @"DICOM Listener is not activated", nil)
+                                               userInfo: nil] raise];
+                    }
                     else
                     {
                         
-                        if ([self setupNetworkWithSyntax: UID_GETStudyRootQueryRetrieveInformationModel dataset:dataset destination: [dict objectForKey:@"moveDestination"]])
+                        if ([self setupNetworkWithSyntax: UID_GETStudyRootQueryRetrieveInformationModel
+                                                 dataset: dataset
+                                             destination: [dict objectForKey:@"moveDestination"]])
                         {
                         }
                         else
@@ -1539,12 +1544,17 @@ subOpCallback(void * /*subOpCallbackData*/ ,
                 }
                 else
                 {
-                    if( [DCMTKQueryRetrieveSCP storeSCP] == NO && [dict objectForKey: @"moveDestination"] == nil)
-                        [[NSException exceptionWithName: @"DICOM Network Failure" reason: NSLocalizedString( @"DICOM Listener is not activated", nil) userInfo:nil] raise];
-                    
+                    if ( [DCMTKQueryRetrieveSCP storeSCP] == NO && [dict objectForKey: @"moveDestination"] == nil)
+                    {
+                        [[NSException exceptionWithName: @"DICOM Network Failure"
+                                                 reason: NSLocalizedString( @"DICOM Listener is not activated", nil)
+                                               userInfo: nil] raise];
+                    }                   
                     else
                     {
-                        if ([self setupNetworkWithSyntax:UID_MOVEStudyRootQueryRetrieveInformationModel dataset:dataset destination: [dict objectForKey: @"moveDestination"]])
+                        if ([self setupNetworkWithSyntax: UID_MOVEStudyRootQueryRetrieveInformationModel
+                                                 dataset: dataset
+                                             destination: [dict objectForKey: @"moveDestination"]])
                         {
                         }
                         else
@@ -1906,7 +1916,9 @@ static NSString *releaseNetworkVariablesSync = @"releaseNetworkVariablesSync";
             {
                 T_ASC_Association *assoc = (T_ASC_Association*) [[dict objectForKey: @"assoc"] pointerValue];
                 T_ASC_Network *net = (T_ASC_Network*) [[dict objectForKey: @"net"] pointerValue];
+#ifdef WITH_OPENSSL
                 DcmTLSTransportLayer *tLayer = (DcmTLSTransportLayer*) [[dict objectForKey: @"tLayer"] pointerValue];
+#endif
                 OFCondition cond;
                 
                 // CLEANUP
@@ -2023,7 +2035,9 @@ static NSString *releaseNetworkVariablesSync = @"releaseNetworkVariablesSync";
 			[wait start];
 		}
 		
-		DcmTLSTransportLayer *tLayer = NULL;
+#ifdef WITH_OPENSSL
+        DcmTLSTransportLayer *tLayer = NULL;
+#endif
 		NSString *uniqueStringID = [NSString stringWithFormat:@"%d.%d.%d", getpid(), inc++, (int) random()];
 		
 	//	if (_secureConnection)
@@ -2081,7 +2095,7 @@ static NSString *releaseNetworkVariablesSync = @"releaseNetworkVariablesSync";
                 [[NSException exceptionWithName:@"DICOM Network Failure (query)" reason:[NSString stringWithFormat: @"ASC_initializeNetwork - %04x:%04x %s", cond.module(), cond.code(), cond.text()] userInfo:nil] raise];
 			}
 			
-		#ifdef WITH_OPENSSL // joris
+#ifdef WITH_OPENSSL // joris
 				
 			if (_secureConnection)
 			{
@@ -2178,9 +2192,7 @@ static NSString *releaseNetworkVariablesSync = @"releaseNetworkVariablesSync";
 					[[NSException exceptionWithName:@"DICOM Network Failure (TLS query)" reason:[NSString stringWithFormat: @"ASC_setTransportLayer - %04x:%04x %s", cond.module(), cond.code(), cond.text()] userInfo:nil] raise];
 				}
 			}
-
-		#endif
-			
+#endif
 			
 		/* initialize association parameters, i.e. create an instance of T_ASC_Parameters*. */
 			cond = ASC_createAssociationParameters(&params, _maxReceivePDULength);
@@ -2520,7 +2532,15 @@ static NSString *releaseNetworkVariablesSync = @"releaseNetworkVariablesSync";
         
         @synchronized( releaseNetworkVariablesDictionaries)
         {
-            [releaseNetworkVariablesDictionaries addObject: [NSDictionary dictionaryWithObjectsAndKeys: [NSDate date], @"date", [NSValue valueWithPointer: assoc], @"assoc", [NSValue valueWithPointer: net], @"net", [NSValue valueWithPointer: tLayer], @"tLayer", nil]];
+            [releaseNetworkVariablesDictionaries addObject:
+             [NSDictionary dictionaryWithObjectsAndKeys:
+              [NSDate date], @"date",
+              [NSValue valueWithPointer: assoc], @"assoc",
+              [NSValue valueWithPointer: net], @"net",
+#ifdef WITH_OPENSSL
+              [NSValue valueWithPointer: tLayer], @"tLayer",
+#endif
+              nil]];
         }
         
 //		// CLEANUP

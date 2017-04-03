@@ -163,7 +163,7 @@ NSString* sopInstanceUIDDecode( unsigned char *r, int length)
 }
 @end
 
-@implementation DicomImage
+@implementation Dicom_Image
 
 @dynamic comment, comment2, comment3, comment4;
 @dynamic compressedSopInstanceUID;
@@ -988,7 +988,7 @@ NSString* sopInstanceUIDDecode( unsigned char *r, int length)
             
             if( !isLocal)
             {
-                NSString* temp = [DicomImage completePathForLocalPath:path directory:db.dataBaseDirPath];
+                NSString* temp = [Dicom_Image completePathForLocalPath:path directory:db.dataBaseDirPath];
                 if ([[NSFileManager defaultManager] fileExistsAtPath:temp])
                     return temp;
                 
@@ -1006,7 +1006,7 @@ NSString* sopInstanceUIDDecode( unsigned char *r, int length)
                 if( [path characterAtIndex: 0] != '/')
                 {
                     [completePathCache release];
-                    completePathCache = [[DicomImage completePathForLocalPath: path directory: db.dataBaseDirPath] retain];
+                    completePathCache = [[Dicom_Image completePathForLocalPath: path directory: db.dataBaseDirPath] retain];
                     return completePathCache;
                 }
             }
@@ -1183,7 +1183,7 @@ NSString* sopInstanceUIDDecode( unsigned char *r, int length)
         
         NSWindow* win = [[NSWindow alloc] initWithContentRect:frame styleMask:NSTitledWindowMask backing:NSBackingStoreBuffered defer:NO];
         
-        DicomImage* roisImage = [self.series.study roiForImage:self inArray:nil];
+        Dicom_Image* roisImage = [self.series.study roiForImage:self inArray:nil];
         NSArray* rois = roisImage? [NSUnarchiver unarchiveObjectWithData:[SRAnnotation roiFromDICOM:[roisImage completePath]]] : nil;
         
         DCMView* view = [[DCMView alloc] initWithFrame:frame imageRows:self.height.intValue imageColumns:self.width.intValue];
@@ -1239,7 +1239,7 @@ NSString* sopInstanceUIDDecode( unsigned char *r, int length)
             
             NSWindow* win = [[NSWindow alloc] initWithContentRect:frame styleMask:NSTitledWindowMask backing:NSBackingStoreBuffered defer:NO];
             
-            DicomImage* roisImage = [self.series.study roiForImage:self inArray:nil];
+            Dicom_Image* roisImage = [self.series.study roiForImage:self inArray:nil];
             NSArray* rois = roisImage? [NSUnarchiver unarchiveObjectWithData:[SRAnnotation roiFromDICOM:[roisImage completePath]]] : nil;
             
             DCMView* view = [[DCMView alloc] initWithFrame:frame imageRows:self.height.intValue imageColumns:self.width.intValue];

@@ -164,7 +164,7 @@
 	else return [super sqlFilePath];
 }
 
--(NSString*)localPathForImage:(DicomImage*)image {
+-(NSString*)localPathForImage:(Dicom_Image*)image {
 	NSString* name = nil;
 	
 	if (image.numberOfFrames.intValue > 1)
@@ -183,7 +183,7 @@
     NSMutableArray* filesToSend = [NSMutableArray arrayWithCapacity:r.count];
     NSMutableArray* filesToSendObjectIDs = [NSMutableArray arrayWithCapacity:r.count];
     for (NSInteger i = 0; i < r.count; ++i) {
-        DicomImage* image = [r objectAtIndex:i];
+        Dicom_Image* image = [r objectAtIndex:i];
         NSString* path = image.completePath;
         if ([path hasPrefix:self.dataDirPath]) { // is in DATABASE dir, remote databases work in TEMP dir only
             NSString* tpath = [self localPathForImage:image];
@@ -631,7 +631,7 @@ enum RemoteDicomDatabaseStudiesAlbumAction { RemoteDicomDatabaseStudiesAlbumActi
                                 unsigned int number;
                                 if ([[self class] data:response readInteger:&number])
                                 {
-                                    DicomImage* image = [dbObjsInRequest objectAtIndex:i];
+                                    Dicom_Image* image = [dbObjsInRequest objectAtIndex:i];
                                     [image setValue:[NSString stringWithFormat:@"%d.dcm", number] forKey:@"path"];
                                     [image setValue:@YES forKey:@"inDatabaseFolder"];
 
@@ -660,7 +660,7 @@ enum RemoteDicomDatabaseStudiesAlbumAction { RemoteDicomDatabaseStudiesAlbumActi
 
 }
 
--(NSString*)cacheDataForImage:(DicomImage*)image maxFiles:(NSInteger) maxFiles
+-(NSString*)cacheDataForImage:(Dicom_Image*)image maxFiles:(NSInteger) maxFiles
 {
     if( image == nil)
     {
@@ -684,7 +684,7 @@ enum RemoteDicomDatabaseStudiesAlbumAction { RemoteDicomDatabaseStudiesAlbumActi
     {
         while (i < images.count)
         {
-            DicomImage* iImage = [images objectAtIndex:i++];
+            Dicom_Image* iImage = [images objectAtIndex:i++];
             NSString* iLocalPath = [self localPathForImage:iImage];
             
             if ([NSFileManager.defaultManager fileExistsAtPath:iLocalPath])
@@ -701,7 +701,7 @@ enum RemoteDicomDatabaseStudiesAlbumAction { RemoteDicomDatabaseStudiesAlbumActi
     }
     else
     {
-        DicomImage* iImage = image;
+        Dicom_Image* iImage = image;
         NSString* iLocalPath = [self localPathForImage:iImage];
         
         if( [iLocalPath isEqualToString: localPath] == NO)
@@ -854,7 +854,7 @@ enum RemoteDicomDatabaseStudiesAlbumAction { RemoteDicomDatabaseStudiesAlbumActi
 
 -(void)storeScuImages:(NSArray*)dicomImages toDestinationAETitle:(NSString*)aet address:(NSString*)address port:(NSInteger)port transferSyntax:(int)exsTransferSyntax {
 	NSMutableArray* imagePaths = [NSMutableArray array];
-	for (DicomImage* image in dicomImages)
+	for (Dicom_Image* image in dicomImages)
 		if (![imagePaths containsObject:image.path])
 			[imagePaths addObject:image.path];
 	

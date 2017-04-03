@@ -63,7 +63,8 @@
 		_cipherSuites = nil;
 		_dhparam = NULL;
 		
-		if (_secureConnection)
+#ifdef WITH_OPENSSL
+        if (_secureConnection)
 		{
 			_doAuthenticate = [[extraParameters objectForKey:@"TLSAuthenticated"] boolValue];
 			_keyFileFormat = SSL_FILETYPE_PEM;
@@ -87,6 +88,7 @@
 			_readSeedFile = [TLS_SEED_FILE cStringUsingEncoding:NSUTF8StringEncoding];
 			_writeSeedFile = TLS_WRITE_SEED_FILE;
 		}
+#endif
         
         if( numberOfDcmLongSCUStorageSOPClassUIDs > 120)
             NSLog( @"******** numberOfDcmLongSCUStorageSOPClassUIDs > 120");

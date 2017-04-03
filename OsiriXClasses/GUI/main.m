@@ -24,9 +24,9 @@
 
 int main(int argc, const char *argv[])
 {	
-	#ifndef OSIRIX_LIGHT
+#ifndef OSIRIX_LIGHT
     FVTIFFInitialize();
-	#endif
-	
+#endif
+   
     return NSApplicationMain(argc, argv);
 }

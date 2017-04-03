@@ -45,7 +45,7 @@
             NSArray* dicomImages = [srcDatabase.independentDatabase objectsWithIDs: [io objectAtIndex: 0]];
             
             NSMutableArray* imagePaths = [NSMutableArray array];
-            for (DicomImage* image in dicomImages)
+            for (Dicom_Image* image in dicomImages)
                 if (![imagePaths containsObject:image.completePath])
                     [imagePaths addObject:image.completePath];
             
@@ -131,7 +131,7 @@
     
 	NSMutableArray* imagePaths = [NSMutableArray array];
 	NSMutableArray* imagePathsObjs = [NSMutableArray array];
-	for (DicomImage* image in dicomImages)
+	for (Dicom_Image* image in dicomImages)
 		if (![imagePaths containsObject:image.completePath]) {
 			[imagePaths addObject:image.completePath];
             [imagePathsObjs addObject:image];
@@ -180,7 +180,7 @@
     {
         @try
         {
-            DicomImage* dicomImage = [dicomImages objectAtIndex:i];
+            Dicom_Image* dicomImage = [dicomImages objectAtIndex:i];
             NSString* srcPath = [srcDatabase cacheDataForImage:dicomImage maxFiles:0];
             
             if (srcPath)

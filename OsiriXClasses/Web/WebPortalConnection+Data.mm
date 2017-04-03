@@ -55,7 +55,6 @@
 #import "BrowserController.h" // TODO: remove when badness solved
 #import "BrowserControllerDCMTKCategory.h" // TODO: remove when badness solved
 #import "DCMView.h"
-#import "DicomImage.h"
 #import "DCMTKQueryNode.h"
 
 // TODO: NSUserDefaults access for keys @"logWebServer", @"notificationsEmailsSender" and @"lastNotificationsDate" must be replaced with WebPortal properties
@@ -231,7 +230,7 @@ ss
     }
     
     // ensure that the user is allowed to access this object
-    if (user && ([o isKindOfClass: [DicomStudy class]] || [o isKindOfClass: [DicomSeries class]])) // Too slow to check for DicomImage
+    if (user && ([o isKindOfClass: [DicomStudy class]] || [o isKindOfClass: [DicomSeries class]])) // Too slow to check for Dicom_Image
     {
         DicomStudy *s = nil;
         
@@ -244,9 +243,9 @@ ss
             s = series.study;
         }
         
-        if ([o isKindOfClass: [DicomImage class]])
+        if ([o isKindOfClass: [Dicom_Image class]])
         {
-            DicomImage *image = (DicomImage*) o;
+            Dicom_Image *image = (Dicom_Image*) o;
             s = image.series.study;
         }
         
@@ -653,14 +652,14 @@ ss
         
         NSDictionary *imageProps = [NSDictionary dictionaryWithObject:@0.7F forKey:NSImageCompressionFactor];
         
-        DicomSeries *series = [(DicomImage*)[dicomImageArray lastObject] series];
+        DicomSeries *series = [(Dicom_Image*)[dicomImageArray lastObject] series];
         NSArray *allImages = [series sortedImages];
         int totalImages = series.images.count;
         
         for( int x = location ; x < location+length; x++)
         {
             @autoreleasepool {
-                DicomImage *im = [dicomImageArray objectAtIndex: x];
+                Dicom_Image *im = [dicomImageArray objectAtIndex: x];
                 
                 @try
                 {
@@ -1243,7 +1242,7 @@ const NSString* const GenerateMovieDicomImagesParamKey = @"dicomImageArray";
 			
 			@try
 			{
-				for( DicomImage *image in selectedImages)
+				for( Dicom_Image *image in selectedImages)
 					[WADOURLs appendString: [baseURL stringByAppendingFormat:@"&studyUID=%@&seriesUID=%@&objectUID=%@&contentType=application/dicom%@\r", image.series.study.studyInstanceUID, image.series.seriesDICOMUID, image.sopInstanceUID, @"&useOrig=true"]];
 			}
 			@catch (NSException * e) {
@@ -1919,7 +1918,7 @@ const NSString* const GenerateMovieDicomImagesParamKey = @"dicomImageArray";
     //	[self.portal.dicomDatabase.managedObjectContext lock];
 	@try {
 		NSMutableArray* jsonImagesArray = [NSMutableArray array];
-		for (DicomImage* image in imagesArray)
+		for (Dicom_Image* image in imagesArray)
 			if (image.sopInstanceUID)
 				[jsonImagesArray addObject:image.sopInstanceUID];
 		[response setDataWithString:[jsonImagesArray JSONRepresentation]];
@@ -1967,7 +1966,7 @@ const NSString* const GenerateMovieDicomImagesParamKey = @"dicomImageArray";
 			[seriesDictionary setObject:s.seriesDICOMUID forKey:@"seriesDICOMUID"];
 			
 			NSArray* dicomImageArray = s.images.allObjects;
-			DicomImage* im = dicomImageArray.count == 1 ? [dicomImageArray lastObject] : [dicomImageArray objectAtIndex:[dicomImageArray count]/2];
+			Dicom_Image* im = dicomImageArray.count == 1 ? [dicomImageArray lastObject] : [dicomImageArray objectAtIndex:[dicomImageArray count]/2];
 			
 			[seriesDictionary setObject:im.sopInstanceUID forKey:@"keyInstanceUID"];
 			
@@ -2207,11 +2206,11 @@ const NSString* const GenerateMovieDicomImagesParamKey = @"dicomImageArray";
             
             @synchronized( self.wadoSOPInstanceUIDCache)
             {
-                for( DicomImage *image in allImages)
+                for( Dicom_Image *image in allImages)
                     [self.wadoSOPInstanceUIDCache setObject: image.completePath forKey: image.sopInstanceUID];
 			}
             
-			NSPredicate* predicate = [NSComparisonPredicate predicateWithLeftExpression: [NSExpression expressionForKeyPath: @"compressedSopInstanceUID"] rightExpression: [NSExpression expressionForConstantValue: [DicomImage sopInstanceUIDEncodeString: objectUID]] customSelector: @selector(isEqualToSopInstanceUID:)];
+			NSPredicate* predicate = [NSComparisonPredicate predicateWithLeftExpression: [NSExpression expressionForKeyPath: @"compressedSopInstanceUID"] rightExpression: [NSExpression expressionForConstantValue: [Dicom_Image sopInstanceUIDEncodeString: objectUID]] customSelector: @selector(isEqualToSopInstanceUID:)];
 			NSPredicate *N2NonNullStringPredicate = [NSPredicate predicateWithFormat:@"compressedSopInstanceUID != NIL"];
 			
 			images = [[allImages filteredArrayUsingPredicate: N2NonNullStringPredicate] filteredArrayUsingPredicate: predicate];
@@ -2270,7 +2269,7 @@ const NSString* const GenerateMovieDicomImagesParamKey = @"dicomImageArray";
 			}
 			else if ([contentType isEqualToString: @"video/mpeg"])
 			{
-				DicomImage *im = [images lastObject];
+				Dicom_Image *im = [images lastObject];
 				
 				NSArray *dicomImageArray = [[[im valueForKey: @"series"] valueForKey:@"images"] allObjects];
 				
@@ -2334,7 +2333,7 @@ const NSString* const GenerateMovieDicomImagesParamKey = @"dicomImageArray";
 				}
 				else if ([images count] > 0)
 				{
-					DicomImage *im = [images lastObject];
+					Dicom_Image *im = [images lastObject];
 					
 					dcmPix = [[[DCMPix alloc] initWithPath: [im valueForKey: @"completePathResolved"] :0 :1 :nil :frameNumber :[[im valueForKeyPath:@"series.id"] intValue] isBonjour:NO imageObj:im] autorelease];
 					
@@ -2741,8 +2740,8 @@ const NSString* const GenerateMovieDicomImagesParamKey = @"dicomImageArray";
 		NSBitmapImageRep* imageRep = [NSBitmapImageRep imageRepWithData:[object thumbnail]];
 		NSDictionary* imageProps = [NSDictionary dictionaryWithObject:@1.0F forKey:NSImageCompressionFactor];
 		response.data = data = [imageRep representationUsingType:NSPNGFileType properties:imageProps];
-	} else if ([object isKindOfClass: [DicomImage class]]) {
-		NSBitmapImageRep* imageRep = [NSBitmapImageRep imageRepWithData:[[(DicomImage*)object thumbnail] JPEGRepresentationWithQuality:0.3]];
+	} else if ([object isKindOfClass: [Dicom_Image class]]) {
+		NSBitmapImageRep* imageRep = [NSBitmapImageRep imageRepWithData:[[(Dicom_Image*)object thumbnail] JPEGRepresentationWithQuality:0.3]];
 		NSDictionary* imageProps = [NSDictionary dictionaryWithObject:@1.0F forKey:NSImageCompressionFactor];
 		response.data = data = [imageRep representationUsingType:NSPNGFileType properties:imageProps];
 	}
@@ -2781,9 +2780,17 @@ const NSString* const GenerateMovieDicomImagesParamKey = @"dicomImageArray";
 		
 		if (![NSFileManager.defaultManager fileExistsAtPath:htmlpath]) {
 			NSTask* aTask = [[[NSTask alloc] init] autorelease];
-			[aTask setEnvironment:[NSDictionary dictionaryWithObject:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"dicom.dic"] forKey:@"DCMDICTPATH"]];
+			[aTask setEnvironment:[NSDictionary dictionaryWithObject:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"/dicom.dic"] forKey:@"DCMDICTPATH"]];
 			[aTask setLaunchPath:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"dsr2html"]];
-			[aTask setArguments:[NSArray arrayWithObjects: @"+X1", @"--unknown-relationship", @"--ignore-constraints", @"--ignore-item-errors", @"--skip-invalid-items", [series.images.anyObject valueForKey:@"completePath"], htmlpath, nil]];
+			[aTask setArguments:[NSArray arrayWithObjects:
+                                 @"+X1",
+                                 @"--unknown-relationship",
+                                 @"--ignore-constraints",
+                                 @"--ignore-item-errors",
+                                 @"--skip-invalid-items",
+                                 [series.images.anyObject valueForKey:@"completePath"],
+                                 htmlpath,
+                                 nil]];
 			[aTask launch];
 			while( [aTask isRunning])
                 [NSThread sleepForTimeInterval: 0.1];
@@ -2873,7 +2880,7 @@ const NSString* const GenerateMovieDicomImagesParamKey = @"dicomImageArray";
     if( [NSThread isMainThread] == NO)
         NSLog( @"****** we should be on MAIN thread");
     
-    DicomImage *dicomImage = [self objectWithXID:[parameters objectForKey:@"xid"]];
+    Dicom_Image *dicomImage = [self objectWithXID:[parameters objectForKey:@"xid"]];
     
     [DCMView setCLUTBARS: CLUTBARS ANNOTATIONS: annotGraphics];
     
@@ -2906,12 +2913,12 @@ const NSString* const GenerateMovieDicomImagesParamKey = @"dicomImageArray";
     {
 		images = [[object images] allObjects];
 	}
-    else if ([object isKindOfClass: [DicomImage class]])
+    else if ([object isKindOfClass: [Dicom_Image class]])
     {
 		images = [NSArray arrayWithObject:object];
 	}
 	
-	DicomImage* dicomImage = images.count == 1 ? [images lastObject] : [images objectAtIndex:images.count/2];
+	Dicom_Image* dicomImage = images.count == 1 ? [images lastObject] : [images objectAtIndex:images.count/2];
 	
     if( asDisplayed)
     {

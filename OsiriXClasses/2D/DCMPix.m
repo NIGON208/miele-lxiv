@@ -44,7 +44,6 @@
 #import <DCMView.h>
 
 #import "ThickSlabController.h"
-#import "dicomFile.h"
 #import "PluginFileFormatDecoder.h"
 
 #import "url.h"
@@ -1402,7 +1401,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 
 #pragma mark -
 
-- (DicomImage*) imageObj
+- (Dicom_Image*) imageObj
 {
 #ifdef OSIRIX_VIEWER
 #ifdef NDEBUG
@@ -3634,12 +3633,12 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 	return [self initWithData: im :pixelSize :xDim :yDim :xSpace :ySpace :oX :oY :oZ :NO];
 }
 
-+ (id) dcmPixWithImageObj: (DicomImage*) image
++ (id) dcmPixWithImageObj: (Dicom_Image*) image
 {
     return  [[[DCMPix alloc] initWithImageObj: image] autorelease];
 }
 
-- (id) initWithImageObj: (DicomImage *) image
+- (id) initWithImageObj: (Dicom_Image *) image
 {
 	return  [self initWithPath: image.completePath :0 :1 :nil :[image.frameID intValue] :[image.series.id intValue] isBonjour:NO imageObj: image];
 }
@@ -3681,7 +3680,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
                 self.yearOldAcquisition = [iO valueForKeyPath: @"series.study.yearOldAcquisition"];
             
             #ifdef OSIRIX_VIEWER
-            [self loadCustomImageAnnotationsDBFields: (DicomImage*) iO];
+            [self loadCustomImageAnnotationsDBFields: (Dicom_Image*) iO];
             #endif
             
             savedHeightInDB = [[iO valueForKey:@"height"] intValue];
@@ -5060,7 +5059,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
         NSMutableDictionary *imgDict = [NSMutableDictionary dictionaryWithCapacity: imgObjects.count];
         NSMutableArray *dcmImgObjects = [NSMutableArray arrayWithCapacity: imgObjects.count];
         
-        for ( DicomImage *imgObj in imgObjects)
+        for ( Dicom_Image *imgObj in imgObjects)
         {
             [imgDict setObject: imgObj forKey: [imgObj valueForKey: @"sopInstanceUID"]];
             [dcmImgObjects addObject: [DCMObject objectWithContentsOfFile: [imgObj completePath] decodingPixelData: NO]];
@@ -5140,7 +5139,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
                 
                 for ( unsigned int imgIndex = 0; imgIndex < imgObjects.count; imgIndex++)
                 {  
-                    DicomImage *img = [imgObjects objectAtIndex: imgIndex];
+                    Dicom_Image *img = [imgObjects objectAtIndex: imgIndex];
                     
                     DCMObject *imgObject = [dcmImgObjects objectAtIndex: imgIndex];
                     
@@ -5310,7 +5309,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
         {
             if( roiArray[i].count == 0) continue;  // Nothing to see, move on.
             
-            DicomImage *img = [imgObjects objectAtIndex: i];
+            Dicom_Image *img = [imgObjects objectAtIndex: i];
             
             NSString *str = [img.series.study roiPathForImage: img inArray: nil];
             
@@ -5990,7 +5989,15 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
                 NSTask *aTask = [[[NSTask alloc] init] autorelease];
                 [aTask setEnvironment:[NSDictionary dictionaryWithObject:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"/dicom.dic"] forKey:@"DCMDICTPATH"]];
                 [aTask setLaunchPath: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"/dsr2html"]];
-                [aTask setArguments: [NSArray arrayWithObjects: @"+X1", @"--unknown-relationship", @"--ignore-constraints", @"--ignore-item-errors", @"--skip-invalid-items",srcFile, htmlpath, nil]];
+                [aTask setArguments: [NSArray arrayWithObjects:
+                                      @"+X1",
+                                      @"--unknown-relationship",
+                                      @"--ignore-constraints",
+                                      @"--ignore-item-errors",
+                                      @"--skip-invalid-items",
+                                      srcFile,
+                                      htmlpath,
+                                      nil]];
                 [aTask launch];
                 while( [aTask isRunning])
                     [NSThread sleepForTimeInterval: 0.1];
@@ -10512,7 +10519,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 }
 
 
-- (void)loadCustomImageAnnotationsDBFields: (DicomImage*) imageObj
+- (void)loadCustomImageAnnotationsDBFields: (Dicom_Image*) imageObj
 {
 #ifdef OSIRIX_VIEWER
     if( annotationsDBFields)
