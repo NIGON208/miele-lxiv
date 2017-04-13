@@ -241,7 +241,7 @@ static float deg2rad = M_PI / 180.0;
 		[self updateToolbarItems];
 		
 		for( int i = 0; i < [popupRoi numberOfItems]; i++)
-			[[popupRoi itemAtIndex: i] setImage: [self imageForROI: [[popupRoi itemAtIndex: i] tag]]];
+			[[popupRoi itemAtIndex: i] setImage: [self imageForROI: (ToolMode)[[popupRoi itemAtIndex: i] tag]]];
 		
         int dim[3];
         DCMPix* firstObject = [pix objectAtIndex:0];
@@ -490,21 +490,21 @@ static float deg2rad = M_PI / 180.0;
 
 - (void) delayedFullLODRendering:(id) sender
 {
-	if( windowWillClose) return;
+	if( windowWillClose)
+        return;
 	
 	if( hiddenVRView.lowResLODFactor > 1 || sender != nil)
 	{
 		lowLOD = NO;
-        
 		[self updateViewsAccordingToFrame: sender];
-        
 		lowLOD = YES;
 	}
 }
 
 - (void) updateViewsAccordingToFrame:(id) sender	// see setFrame in CPRMPRDCMView.m
 {
-	if( windowWillClose) return;
+	if( windowWillClose)
+        return;
 	
 	id view = [[self window] firstResponder];
 	
@@ -748,8 +748,8 @@ static float deg2rad = M_PI / 180.0;
 	else if([sender respondsToSelector:@selector(tag)])
 		toolIndex = [sender tag];
 	
-	[self setToolIndex: toolIndex];
-	[self setROIToolTag: toolIndex];
+	[self setToolIndex: (ToolMode)toolIndex];
+	[self setROIToolTag: (ToolMode)toolIndex];
 }
 
 - (void) computeCrossReferenceLinesBetween: (CPRMPRDCMView*) mp1
@@ -1033,7 +1033,8 @@ static float deg2rad = M_PI / 180.0;
 
 - (void)keyDown:(NSEvent *)theEvent
 {
-    if( [[theEvent characters] length] == 0) return;
+    if( [[theEvent characters] length] == 0)
+        return;
     
     unichar c = [[theEvent characters] characterAtIndex:0];
     
@@ -1048,7 +1049,8 @@ static float deg2rad = M_PI / 180.0;
 		else
 			[super keyDown: theEvent];
 	}
-	else [super keyDown: theEvent];
+	else
+        [super keyDown: theEvent];
 }
 
 - (id) view
@@ -1077,8 +1079,8 @@ static float deg2rad = M_PI / 180.0;
 	if( tag >= 0)
 	{
 		[toolsMatrix selectCellWithTag: tag];
-		[self setToolIndex: tag];
-		[self setROIToolTag: tag];
+		[self setToolIndex: (ToolMode)tag];
+		[self setROIToolTag: (ToolMode)tag];
 	}
 }
 
@@ -1264,8 +1266,9 @@ static float deg2rad = M_PI / 180.0;
 		case tROISelector:	filename = @"ROISelector";		break;
 		case tAxis:			filename = @"Axis";				break;
 		case tDynAngle:		filename = @"DynamicAngle";		break;
-        case tTAGT:         filename = @"PerpendicularLines";             break;
-        default:;
+        case tTAGT:         filename = @"PerpendicularLines"; break;
+        default:
+            break;
 	}
 	
 	if( filename == nil)
@@ -1391,7 +1394,8 @@ static float deg2rad = M_PI / 180.0;
 			mprView3.angleMPR = [[angleMPRs objectAtIndex: 2] floatValue];
 			
 			[self updateViewsAccordingToFrame: nil];
-		} else if( [[[u lastObject] objectForKey: @"type"] isEqualToString:@"curvedPath"]) {
+		}
+        else if( [[[u lastObject] objectForKey: @"type"] isEqualToString:@"curvedPath"]) {
 			self.curvedPath = [NSKeyedUnarchiver unarchiveObjectWithData:[[u lastObject] objectForKey:@"curvedPath"]];
 			mprView1.curvedPath = curvedPath;
 			mprView2.curvedPath = curvedPath;
@@ -1660,7 +1664,6 @@ static float deg2rad = M_PI / 180.0;
 - (void)UpdateCLUTMenu:(NSNotification*)note
 {
     //*** Build the menu
-    int i;
     NSArray *keys;
     NSArray *sortedKeys;
     
@@ -1675,7 +1678,7 @@ static float deg2rad = M_PI / 180.0;
     [[clutPopup menu] addItemWithTitle:NSLocalizedString(@"No CLUT", nil) action:@selector (ApplyCLUT:) keyEquivalent:@""];
 	[[clutPopup menu] addItem: [NSMenuItem separatorItem]];
 	
-    for( i = 0; i < [sortedKeys count]; i++)
+    for (int i = 0; i < [sortedKeys count]; i++)
     {
         [[clutPopup menu] addItemWithTitle:[sortedKeys objectAtIndex:i] action:@selector (ApplyCLUT:) keyEquivalent:@""];
     }
@@ -1742,7 +1745,8 @@ static float deg2rad = M_PI / 180.0;
 
 -(void) ApplyCLUTString:(NSString*) str
 {
-	if( str == nil) return;
+	if( str == nil)
+        return;
     
 	[OpacityPopup setEnabled:YES];
 	
@@ -1971,7 +1975,8 @@ static float deg2rad = M_PI / 180.0;
 	NSDictionary *aOpacity;
 	NSArray *array;
 	
-	if( str == nil) return;
+	if( str == nil)
+        return;
 	
 	if( curOpacityMenu != str)
 	{
@@ -2155,7 +2160,8 @@ static float deg2rad = M_PI / 180.0;
     
 	if ([self getClippingRangeThicknessInMm] > 2.0) {
 		curvedPath.thickness = [self getClippingRangeThicknessInMm];
-	} else {
+	}
+    else {
 		curvedPath.thickness = 0;
 	}
 	
@@ -2310,7 +2316,8 @@ static float deg2rad = M_PI / 180.0;
             if (self.exportSliceIntervalSameAsVolumeSliceInterval)
 			{
                 sliceInterval = fabs( [cprView.volumeData minPixelSpacing]);
-            } else {
+            }
+            else {
                 sliceInterval = fabs( exportSliceInterval);
             }
             
@@ -2651,8 +2658,8 @@ static float deg2rad = M_PI / 180.0;
 			for( NSView *v in views)
 			{
 				NSRect bounds = [v bounds];
-				NSPoint or = [v convertPoint: bounds.origin toView: nil];
-				bounds.origin = [[self window] convertBaseToScreen: or];
+				NSPoint _or = [v convertPoint: bounds.origin toView: nil];
+				bounds.origin = [[self window] convertBaseToScreen: _or];
                 
                 bounds.origin.x *= v.window.backingScaleFactor;
                 bounds.origin.y *= v.window.backingScaleFactor;
@@ -3663,11 +3670,13 @@ static float deg2rad = M_PI / 180.0;
 	[hiddenVRView getShadingValues: &ambient :&diffuse :&specular :&specularpower];
 	
 	NSArray *shadings = [shadingsPresetsController arrangedObjects];
-	int i;
-	for( i = 0; i < [shadings count]; i++)
+	for (int i = 0; i < [shadings count]; i++)
 	{
 		NSDictionary *dict = [shadings objectAtIndex: i];
-		if( ambient == [[dict valueForKey:@"ambient"] floatValue] && diffuse == [[dict valueForKey:@"diffuse"] floatValue] && specular == [[dict valueForKey:@"specular"] floatValue] && specularpower == [[dict valueForKey:@"specularPower"] floatValue])
+		if (ambient == [[dict valueForKey:@"ambient"] floatValue] &&
+            diffuse == [[dict valueForKey:@"diffuse"] floatValue] &&
+            specular == [[dict valueForKey:@"specular"] floatValue] &&
+            specularpower == [[dict valueForKey:@"specularPower"] floatValue])
 		{
 			[shadingsPresetsController setSelectedObjects: [NSArray arrayWithObject: dict]];
 			break;
@@ -4194,8 +4203,10 @@ static float deg2rad = M_PI / 180.0;
 
 - (BOOL) getMovieDataAvailable
 {
-	if( self.maxMovieIndex > 0) return YES;
-	else return NO;
+	if( self.maxMovieIndex > 0)
+        return YES;
+	else
+        return NO;
 }
 
 -(void) addMoviePixList:(NSMutableArray*) pix :(NSData*) vData
@@ -4388,7 +4399,8 @@ static float deg2rad = M_PI / 180.0;
 //			initialNormal = N3VectorApplyTransform(initialNormal, N3AffineTransformMakeRotationAroundVector(straightenedCPRAngle * (M_PI / 180.0), tangentAtStart));
 			
 //			curvedPath.initialNormal = initialNormal; 
-		} else {
+		}
+        else {
 			if (previousAngle != curvedPath.angle) {
                 [self willChangeValueForKey:@"straightenedCPRAngle"];
 				straightenedCPRAngle = curvedPath.angle * (180.0 / M_PI);
@@ -4624,19 +4636,22 @@ static float deg2rad = M_PI / 180.0;
                    cprView.orangePlane = [mprView1 plane];
                 else
                     cprView.orangePlane = N3PlaneInvalid;
-			} else if (object == mprView2) {
+			}
+            else if (object == mprView2) {
                 if( [mprView2 frame].size.width > 10 && [mprView2 frame].size.height > 10)
                     cprView.purplePlane = [mprView2 plane];
                 else
                     cprView.purplePlane = N3PlaneInvalid;
-			} else if (object == mprView3) {
+			}
+            else if (object == mprView3) {
                  if( [mprView3 frame].size.width > 10 && [mprView3 frame].size.height > 10)
                      cprView.bluePlane = [mprView3 plane];
                  else
                      cprView.bluePlane = N3PlaneInvalid;
 			}
         }
-    } else {
+    }
+    else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
 }

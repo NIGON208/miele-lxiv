@@ -107,7 +107,8 @@ DIMSE_getUser(
     T_ASC_Association *subAssoc = NULL;
     DIC_US status = STATUS_Pending;
 
-    if (requestIdentifiers == NULL) return DIMSE_NULLKEY;
+    if (requestIdentifiers == NULL)
+        return DIMSE_NULLKEY;
 
     bzero((char*)&req, sizeof(req));
     bzero((char*)&rsp, sizeof(rsp));

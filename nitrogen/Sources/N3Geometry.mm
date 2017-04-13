@@ -724,11 +724,8 @@ CFDictionaryRef N3AffineTransformCreateDictionaryRepresentation(N3AffineTransfor
     CFStringRef keys[16];
     CFNumberRef numbers[16];
 
-    int i;
-    int j;
-
-    for (i = 0; i < 4; i++) {
-        for (j = 0; j < 4; j++) {
+    for (int i = 0; i < 4; i++) {
+        for (int j = 0; j < 4; j++) {
             CFStringRef label = CFStringCreateWithFormat (NULL, NULL, CFSTR("m%d%d"), i+1, j+1);
             keys[(i*4)+j] = label;
         }
@@ -753,7 +750,7 @@ CFDictionaryRef N3AffineTransformCreateDictionaryRepresentation(N3AffineTransfor
 
     dict = CFDictionaryCreate(kCFAllocatorDefault, (const void **)keys, (const void **)numbers, 16, &kCFCopyStringDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
 
-    for (i = 0; i < 16; i++) {
+    for (int i = 0; i < 16; i++) {
         CFRelease(keys[i]);
         CFRelease(numbers[i]);
     }
@@ -822,11 +819,8 @@ bool N3AffineTransformMakeWithDictionaryRepresentation(CFDictionaryRef dict, N3A
     memset(keys, 0, sizeof(CFStringRef) * 16);
     memset(numbers, 0, sizeof(CFNumberRef) * 16);
 
-    int i;
-    int j;
-
-    for (i = 0; i < 4; i++) {
-        for (j = 0; j < 4; j++) {
+    for (int i = 0; i < 4; i++) {
+        for (int j = 0; j < 4; j++) {
             CFStringRef label = CFStringCreateWithFormat (NULL, NULL, CFSTR("m%d%d"), i+1, j+1);
             keys[(i*4)+j] = label;
         }
@@ -849,24 +843,23 @@ bool N3AffineTransformMakeWithDictionaryRepresentation(CFDictionaryRef dict, N3A
     tranformPtrs[14] = &(tempTransform.m43);
     tranformPtrs[15] = &(tempTransform.m44);
 
-    for (i = 0; i < 16; i++) {
+    for (int i = 0; i < 16; i++) {
         numbers[i] = (CFNumberRef)CFDictionaryGetValue(dict, keys[i]);
-        CFRelease(keys[j]);
+        //CFRelease(keys[j]);
         if (numbers[i] == NULL || CFGetTypeID(numbers[i]) != CFNumberGetTypeID()) {
-            for (j = 0; j <= (numbers[i] == NULL ? i-1 : i); j++) {
+            for (int j = 0; j <= (numbers[i] == NULL ? i-1 : i); j++) {
                 CFRelease(keys[j]);
             }
+
             return false;
         }
     }
 
-    for (i = 0; i < 16; i++) {
+    for (int i = 0; i < 16; i++)
         CFNumberGetValue(numbers[i], kCFNumberCGFloatType, tranformPtrs[i]);
-    }
 
-    if (transform) {
+    if (transform)
         *transform = tempTransform;
-    }
 
     return true;
 }

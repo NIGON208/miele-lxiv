@@ -40,10 +40,10 @@ enum ctTypes {ElectronCTType, MultiSliceCTType};
 	
 		_rois = [[NSMutableSet alloc] init];
 		_vesselNames = [[NSArray arrayWithObjects:NSLocalizedString(@"Left Coronary Artery", nil),
-														NSLocalizedString(@"Left Anterior Descending Artery", nil),
-														NSLocalizedString(@"Left Circumflex Artery", nil),
-														NSLocalizedString(@"Right Coronary Artery", nil),
-														nil] retain];
+                                                    NSLocalizedString(@"Left Anterior Descending Artery", nil),
+                                                    NSLocalizedString(@"Left Circumflex Artery", nil),
+                                                    NSLocalizedString(@"Right Coronary Artery", nil),
+                                                    nil] retain];
 		
 		_vessels = [[NSMutableArray alloc] init];
 		NSString *name;
@@ -418,7 +418,7 @@ enum ctTypes {ElectronCTType, MultiSliceCTType};
 								: 0
 								: 0
 								: 0
-								: 0 // Brush ROI
+								: (ToolMode)0 // Brush ROI
 								: 1
 								: temporaryName
 								: NO];

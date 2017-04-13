@@ -12,13 +12,9 @@
      PURPOSE.
 =========================================================================*/
 
-
-
-
 #import "MyPoint.h"
 
 #define NEAR 5.
-
 
 @implementation MyPoint
 @synthesize point = pt;
@@ -31,7 +27,6 @@
 - (id)initWithPoint:(NSPoint)a
 {
 	self = [super init];
-	
     pt = a;
 	
 	return self;
@@ -40,7 +35,6 @@
 - (id)initWithCoder:(NSCoder*)coder
 {
 	self = [super init];
-	
     pt = NSPointFromString([coder decodeObject]);
 	
 	return self;
@@ -54,7 +48,9 @@
 - (id)copyWithZone:(NSZone*)zone
 {
 	MyPoint* p = [[[self class] allocWithZone: zone] init];
-	if( p == nil) return nil;
+	if( p == nil)
+        return nil;
+    
 	p->pt = pt;
 	
 	return p;
@@ -78,8 +74,12 @@
 
 - (BOOL)isEqualToPoint:(NSPoint)a
 {
-	if (a.x != pt.x) return NO;
-	if (a.y != pt.y) return NO;
+	if (a.x != pt.x)
+        return NO;
+    
+	if (a.y != pt.y)
+        return NO;
+    
 	return YES;
 }
 

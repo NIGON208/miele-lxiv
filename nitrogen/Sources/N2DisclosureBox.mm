@@ -55,7 +55,8 @@ NSString* N2DisclosureBoxDidCollapseNotification = @"N2DisclosureBoxDidCollapseN
 -(void)mouseDown:(NSEvent*)event {
 	if (NSPointInRect([event locationInWindow], [self convertRect:[self titleRect] toView:NULL]))
 		[_titleCell trackMouse:event inRect:[self titleRect] ofView:self untilMouseUp:YES];
-	else [super mouseDown:event];
+	else
+        [super mouseDown:event];
 }
 
 -(BOOL)enabled {
@@ -77,12 +78,16 @@ NSString* N2DisclosureBoxDidCollapseNotification = @"N2DisclosureBoxDidCollapseN
 -(void)toggle:(id)sender {
 	if ([self isExpanded])
 		[self expand:sender];
-	else [self collapse:sender];
+	else
+        [self collapse:sender];
+    
 	[[NSNotificationCenter defaultCenter] postNotificationName:N2DisclosureBoxDidToggleNotification object:self];
 }
 
 -(void)expand:(id)sender {
-	if (_showingExpanded) return;
+	if (_showingExpanded)
+        return;
+    
 	[[NSNotificationCenter defaultCenter] postNotificationName:N2DisclosureBoxWillExpandNotification object:self];
 	_showingExpanded = YES;
 	
@@ -94,7 +99,9 @@ NSString* N2DisclosureBoxDidCollapseNotification = @"N2DisclosureBoxDidCollapseN
 }
 
 -(void)collapse:(id)sender {
-	if (!_showingExpanded) return;
+	if (!_showingExpanded)
+        return;
+    
 	_showingExpanded = NO;
 	
 	[_content removeFromSuperview];

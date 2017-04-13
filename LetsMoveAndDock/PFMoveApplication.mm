@@ -40,18 +40,20 @@ static BOOL IsLaunchedFromDMG();
 static BOOL Trash(NSString *path);
 static BOOL AuthorizedInstall(NSString *srcPath, NSString *dstPath, BOOL *canceled);
 static BOOL CopyBundle(NSString *srcPath, NSString *dstPath);
-static void Relaunch();
+static void Relaunch(NSString *);
 
 // Main worker function
 void PFMoveToApplicationsFolderIfNecessary() {
 	// Skip if user suppressed the alert before
-	if ([[NSUserDefaults standardUserDefaults] boolForKey:AlertSuppressKey]) return;
+	if ([[NSUserDefaults standardUserDefaults] boolForKey:AlertSuppressKey])
+        return;
 
 	// Path of the bundle
 	NSString *bundlePath = [[NSBundle mainBundle] bundlePath];
 
 	// Skip if the application is already in some Applications folder
-	if (IsInApplicationsFolder(bundlePath)) return;
+	if (IsInApplicationsFolder(bundlePath))
+        return;
 
 	// File Manager
 	NSFileManager *fm = [NSFileManager defaultManager];
@@ -254,7 +256,8 @@ static BOOL IsInApplicationsFolder(NSString *path) {
 	NSString *appDirPath = nil;
 
 	while ((appDirPath = [e nextObject])) {
-		if ([path hasPrefix:appDirPath]) return YES;
+		if ([path hasPrefix:appDirPath])
+            return YES;
 	}
 
 	// Also, handle the case that the user has some other Application directory (perhaps on a separate data partition).
@@ -273,7 +276,8 @@ static BOOL IsInDownloadsFolder(NSString *path) {
 		NSString *downloadsDirPath = nil;
 
 		while ((downloadsDirPath = [e nextObject])) {
-			if ([path hasPrefix:downloadsDirPath]) return YES;
+			if ([path hasPrefix:downloadsDirPath])
+                return YES;
 		}
 
 		return NO;
@@ -311,7 +315,8 @@ static BOOL AuthorizedInstall(NSString *srcPath, NSString *dstPath, BOOL *cancel
 
 	// Make sure that the destination path is an app bundle. We're essentially running 'sudo rm -rf'
 	// so we really don't want to fuck this up.
-	if (![dstPath hasSuffix:@".app"]) return NO;
+	if (![dstPath hasSuffix:@".app"])
+        return NO;
 
 	// Do some more checks
 	if ([[dstPath stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] length] == 0) return NO;
@@ -322,7 +327,8 @@ static BOOL AuthorizedInstall(NSString *srcPath, NSString *dstPath, BOOL *cancel
 
 	// Get the authorization
 	OSStatus err = AuthorizationCreate(NULL, kAuthorizationEmptyEnvironment, kAuthorizationFlagDefaults, &myAuthorizationRef);
-	if (err != errAuthorizationSuccess) return NO;
+	if (err != errAuthorizationSuccess)
+        return NO;
 
 	AuthorizationItem myItems = {kAuthorizationRightExecute, 0, NULL, 0};
 	AuthorizationRights myRights = {1, &myItems};
@@ -344,7 +350,12 @@ static BOOL AuthorizedInstall(NSString *srcPath, NSString *dstPath, BOOL *cancel
 		// if it is no longer accessible. If Apple removes the function entirely this will fail gracefully. If
 		// they keep the function and throw some sort of exception, this won't fail gracefully, but that's a
 		// risk we'll have to take for now.
-		security_AuthorizationExecuteWithPrivileges = dlsym(RTLD_DEFAULT, "AuthorizationExecuteWithPrivileges");
+        
+#if 0 // original
+        security_AuthorizationExecuteWithPrivileges = dlsym(RTLD_DEFAULT, "AuthorizationExecuteWithPrivileges");
+#else
+        *(void **)(&security_AuthorizationExecuteWithPrivileges) = dlsym(RTLD_DEFAULT, "AuthorizationExecuteWithPrivileges");
+#endif
 	}
 	if (!security_AuthorizationExecuteWithPrivileges) {
 		goto fail;
@@ -352,7 +363,7 @@ static BOOL AuthorizedInstall(NSString *srcPath, NSString *dstPath, BOOL *cancel
 
 	// Delete the destination
 	{
-		char *args[] = {"-rf", (char *)[dstPath fileSystemRepresentation], NULL};
+		char *args[] = {(char *)"-rf", (char *)[dstPath fileSystemRepresentation], NULL};
 		err = security_AuthorizationExecuteWithPrivileges(myAuthorizationRef, "/bin/rm", kAuthorizationFlagDefaults, args, NULL);
 		if (err != errAuthorizationSuccess) goto fail;
 

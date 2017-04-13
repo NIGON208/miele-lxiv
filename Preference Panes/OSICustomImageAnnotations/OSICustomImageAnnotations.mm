@@ -20,7 +20,7 @@ NSComparisonResult  compareViewTags(id firstView, id secondView, void * context)
 {
    int firstTag;
    int secondTag;
-   id v = context;
+   id v = (id)context;
 	
 	if( [v boolValue])
 	{
@@ -63,8 +63,11 @@ NSComparisonResult  compareViewTags(id firstView, id secondView, void * context)
 
 - (void) enableControls:(BOOL)enable
 {
-	if(!enable) [layoutView setDisabledText:@""];
-	else [layoutView setDefaultDisabledText];
+	if(!enable)
+        [layoutView setDisabledText:@""];
+	else
+        [layoutView setDefaultDisabledText];
+    
 	[[self mainView] sortSubviewsUsingFunction:(NSComparisonResult (*)(id, id, void *))compareViewTags context: [NSNumber numberWithBool:enable]];
 }
 
@@ -77,7 +80,8 @@ NSComparisonResult  compareViewTags(id firstView, id secondView, void * context)
 
 - (IBAction) loadsave:(id) sender
 {
-	if( [sameAsDefaultButton state] == NSOnState) return;
+	if( [sameAsDefaultButton state] == NSOnState)
+        return;
 	
 	if( [sender selectedSegment] == 0)		// Save
 	{

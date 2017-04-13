@@ -186,7 +186,7 @@ static kern_return_t GetMACAddress(io_iterator_t intfIterator, UInt8 *MACAddress
 				UInt8 tempMac[ kIOEthernetAddressSize];
 				
                 // Get the raw bytes of the MAC address from the CFData
-                CFDataGetBytes(MACAddressAsCFData, CFRangeMake(0, kIOEthernetAddressSize), tempMac);
+                CFDataGetBytes((CFDataRef)MACAddressAsCFData, CFRangeMake(0, kIOEthernetAddressSize), tempMac);
                 CFRelease(MACAddressAsCFData);
 				
 				if( tempMac[ 5] + 256*tempMac[ 4] > MACAddress[ 5] + 256*MACAddress[ 4])

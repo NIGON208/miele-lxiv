@@ -127,7 +127,8 @@
     if (e.keyCode == 49 || e.keyCode == 53 || e.keyCode == 76 || e.keyCode == 36) { // esc,return,space,enter
         if (self.helperWindow.isVisible)
             [self hideHelper];
-        else [self showHelper];
+        else
+            [self showHelper];
     }
     
     [super keyDown:e];
@@ -137,7 +138,8 @@
     if (e.clickCount == 2) {
         if (self.helperWindow.isVisible)
             [self hideHelper];
-        else [self showHelper];
+        else
+            [self showHelper];
     }
     
     [super mouseDown:e];

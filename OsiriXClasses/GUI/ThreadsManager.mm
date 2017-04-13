@@ -139,7 +139,8 @@
             [thread start]; // We want to start it immediately: subAddThread must add it on main thread: the main thread is maybe locked.
         [self performSelectorOnMainThread:@selector(subAddThread:) withObject:thread waitUntilDone: NO];
     }
-    else [self subAddThread:thread];
+    else
+        [self subAddThread:thread];
 }
 
 -(void) subRemoveThread:(NSThread*)thread
@@ -162,7 +163,8 @@
 {
     if (![NSThread isMainThread])
         [self performSelectorOnMainThread:@selector(subRemoveThread:) withObject:thread waitUntilDone:NO];
-    else [self subRemoveThread:thread];
+    else
+        [self subRemoveThread:thread];
 }
 
 -(void)threadWillExit:(NSNotification*)notification {

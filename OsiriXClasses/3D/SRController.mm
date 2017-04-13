@@ -995,7 +995,8 @@ return YES;
 - (IBAction) flyThruControllerInit:(id) sender
 {
 	//Only open 1 fly through controller
-	if( [self flyThruController]) return;
+	if( [self flyThruController])
+        return;
 
 	//flythru = [[FlyThru alloc] init];
 	FTAdapter = [[SRFlyThruAdapter alloc] initWithSRController: self];
@@ -1009,7 +1010,8 @@ return YES;
 - (void)recordFlyThru;
 {
 	NSTimeInterval now = [NSDate timeIntervalSinceReferenceDate];
-	if(now-flyThruRecordingTimeFrame<1.0) return;
+	if(now-flyThruRecordingTimeFrame<1.0)
+        return;
 	
 	flyThruRecordingTimeFrame = now;
 	[self flyThruControllerInit:self];
@@ -1353,11 +1355,10 @@ return YES;
 #ifdef roi3Dvolume
 - (void) computeROIVolumes
 {
-	int i;
 	NSArray *roiNames = [viewer2D roiNames];
 	[roiVolumes removeAllObjects];
 	
-	for(i=0; i<[roiNames count]; i++)
+	for (int i=0; i<[roiNames count]; i++)
 	{
 		NSArray *roisWithCurrentName = [viewer2D roisWithName:[roiNames objectAtIndex:i]];
 		ROIVolume *volume = [[[ROIVolume alloc] initWithViewer: viewer2D] autorelease];
@@ -1398,13 +1399,10 @@ return YES;
 
 - (void) displayROIVolumes
 {
-	int i;
-	for(i=0; i<[roiVolumes count]; i++)
+	for (int i=0; i<[roiVolumes count]; i++)
 	{
-		if([[roiVolumes objectAtIndex:i] visible])
-		{
+		if ([[roiVolumes objectAtIndex:i] visible])
 			[self displayROIVolume:[roiVolumes objectAtIndex:i]];
-		}
 	}
 }
 
@@ -1412,9 +1410,8 @@ return YES;
 {
 	BOOL	found = NO;
 	NSArray *winList = [NSApp windows];
-	long i;
 	
-	for(i = 0; i < [winList count]; i++)
+	for (long i = 0; i < [winList count]; i++)
 	{
 		if([[[[winList objectAtIndex:i] windowController] windowNibName] isEqualToString:@"ROIVolumeManager"])
 		{
@@ -1422,7 +1419,8 @@ return YES;
 			NSLog(@"FOUND!!");
 		}
 	}
-	if(!found)
+    
+	if (!found)
 	{
 		ROIVolumeManagerController *manager = [[ROIVolumeManagerController alloc] initWithViewer: self];
 		if(manager)

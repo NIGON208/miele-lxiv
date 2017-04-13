@@ -927,7 +927,7 @@ enum
 * @param b Second ROI
 * @param ratio Weighting used to morph between the two
 */
-- (ROI*) roiMorphingBetween:(ROI*) a and:(ROI*) b ratio:(float) ratio;
+- (ROI*) roiMorphingBetween:(ROI*) a andRoi:(ROI*) b ratio:(float) ratio;
 
 /** Convert Polygon ROI to a Brush ROI.
 * @param selectedROI The ROI to convert

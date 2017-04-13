@@ -2,7 +2,10 @@
  * jpegdatasrc.m
  *
  * This a NSData based datasrc module for jpeglib
-*/
+ * It's been adapted from DCMTK's jdatasrc.c in particular
+ * using 'readFromData' instead of 'JFREAD'
+ */
+
 /*=========================================================================
   Program:   OsiriX
 
@@ -19,11 +22,20 @@
 
 #include <Foundation/Foundation.h>
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif /*cplusplus*/
+    
 /* this is not a core library module, so it doesn't define JPEG_INTERNALS */
 #include "jinclude12.h"
 #include "jpeglib12.h"
 #include "jerror12.h"
 #include "jpegdatasrc.h"
+
+#ifdef __cplusplus
+}
+#endif /*cplusplus*/
 
 GLOBAL(int)
 readFromData(NSData *data, JOCTET *buffer, int currentPosition, int length)
@@ -221,13 +233,13 @@ jpeg_nsdata_src (j_decompress_ptr cinfo, NSData *aData)
    */
    //NSLog(@"init jpeg_nsdata_src");
   if (cinfo->src == NULL) {	/* first time for this JPEG object? */
-    cinfo->src = (struct jpeg_source_mgr *)
-      (*cinfo->mem->alloc_small) ((j_common_ptr) cinfo, JPOOL_PERMANENT,
-				  SIZEOF(data_source_mgr));
+      cinfo->src = (struct jpeg_source_mgr *)
+                   (*cinfo->mem->alloc_small)
+                   ((j_common_ptr) cinfo, JPOOL_PERMANENT, SIZEOF(data_source_mgr));
     src = (data_src_ptr) cinfo->src;
     src->buffer = (JOCTET *)
-      (*cinfo->mem->alloc_small) ((j_common_ptr) cinfo, JPOOL_PERMANENT,
-				  INPUT_BUF_SIZE * SIZEOF(JOCTET));
+                  (*cinfo->mem->alloc_small)
+                  ((j_common_ptr) cinfo, JPOOL_PERMANENT, INPUT_BUF_SIZE * SIZEOF(JOCTET));
 	src->currentPosition = 0;
   }
 
@@ -241,8 +253,3 @@ jpeg_nsdata_src (j_decompress_ptr cinfo, NSData *aData)
   src->pub.bytes_in_buffer = 0; /* forces fill_input_buffer on first read */
   src->pub.next_input_byte = NULL; /* until buffer loaded */
 }
-
-		
-		
-	
-

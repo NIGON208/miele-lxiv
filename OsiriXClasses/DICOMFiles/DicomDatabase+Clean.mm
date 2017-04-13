@@ -105,11 +105,17 @@
 	}
 }
 
--(void)cleanOldStuff {
+-(void)cleanOldStuff
+{
     if (self.isReadOnly)
         return;
-	if (!self.isLocal) return;
-	if ([AppController.sharedAppController isSessionInactive]) return;
+    
+	if (!self.isLocal)
+        return;
+    
+	if ([AppController.sharedAppController isSessionInactive])
+        return;
+    
     if( [[NSUserDefaults standardUserDefaults] integerForKey:@"LOGCLEANINGDAYS"] <= 1) return;
     if( [[NSUserDefaults standardUserDefaults] integerForKey:@"AUTOCLEANINGDATEPRODUCEDDAYS"] <= 1) return;
     if( [[NSUserDefaults standardUserDefaults] integerForKey:@"AUTOCLEANINGDATEOPENEDDAYS"] <= 1) return;
@@ -522,7 +528,9 @@ static BOOL _cleanForFreeSpaceLimitSoonReachedDisplayed = NO;
         
         // sort studiesDates by date
         [studiesDates sortUsingComparator: ^NSComparisonResult(id a, id b) {
-            if ([a count] < 2 || [b count] < 2) return NSOrderedSame;
+            if ([a count] < 2 || [b count] < 2)
+                return NSOrderedSame;
+            
             return [[a objectAtIndex:1] compare:[b objectAtIndex:1]];
         }];
         

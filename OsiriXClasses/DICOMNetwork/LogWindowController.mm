@@ -42,7 +42,8 @@
 		[line appendString: name];
 		[line appendString: @","];
 	}
-	[line deleteCharactersInRange: NSMakeRange( [line length]-1, 1)];
+
+    [line deleteCharactersInRange: NSMakeRange( [line length]-1, 1)];
 	[csv appendString: line];
 	[csv appendString: @"\n"];
 	

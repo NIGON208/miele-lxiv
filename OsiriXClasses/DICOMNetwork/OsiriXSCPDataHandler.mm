@@ -950,9 +950,12 @@ extern BOOL forkedProcess;
                         {
                             if( [modalities containsString: m] == NO)
                             {
-                                if( [m isEqualToString:@"SR"]) SR = YES;
-                                else if( [m isEqualToString:@"SC"]) SC = YES;
-                                else [modalities addObject: m];
+                                if( [m isEqualToString:@"SR"])
+                                    SR = YES;
+                                else if( [m isEqualToString:@"SC"])
+                                    SC = YES;
+                                else
+                                    [modalities addObject: m];
                             }
                         }
                         
@@ -1158,9 +1161,12 @@ extern BOOL forkedProcess;
                         {
                             if( [modalities containsString: m] == NO)
                             {
-                                if( [m isEqualToString:@"SR"]) SR = YES;
-                                else if( [m isEqualToString:@"SC"]) SC = YES;
-                                else [modalities addObject: m];
+                                if( [m isEqualToString:@"SR"])
+                                    SR = YES;
+                                else if( [m isEqualToString:@"SC"])
+                                    SC = YES;
+                                else
+                                    [modalities addObject: m];
                             }
                         }
                         
@@ -1406,9 +1412,12 @@ extern BOOL forkedProcess;
                         {
                             if( [modalities containsString: m] == NO)
                             {
-                                if( [m isEqualToString:@"SR"]) SR = YES;
-                                else if( [m isEqualToString:@"SC"]) SC = YES;
-                                else [modalities addObject: m];
+                                if( [m isEqualToString:@"SR"])
+                                    SR = YES;
+                                else if( [m isEqualToString:@"SC"])
+                                    SC = YES;
+                                else
+                                    [modalities addObject: m];
                             }
                         }
                         
@@ -1641,8 +1650,11 @@ extern BOOL forkedProcess;
 
 - (void) updateLog:(NSArray*) mArray
 {
-	if( [[BrowserController currentBrowser] isNetworkLogsActive] == NO) return;
-	if( [mArray count] == 0) return;
+	if( [[BrowserController currentBrowser] isNetworkLogsActive] == NO)
+        return;
+    
+	if( [mArray count] == 0)
+        return;
 	
 	[logDictionary removeAllObjects];
 	
@@ -1856,7 +1868,9 @@ extern BOOL forkedProcess;
 
 - (BOOL)findMatchFound
 {
-	if (findArray) return YES;
+	if (findArray)
+        return YES;
+    
 	return NO;
 }
 

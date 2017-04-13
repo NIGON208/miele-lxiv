@@ -374,7 +374,8 @@ typedef struct ConstrainedFloat {
 }
 
 -(NSSize)optimalSizeForWidth:(CGFloat)widthWithMarginAndBorder {
-	if (!_enabled) return [_view frame].size;
+	if (!_enabled)
+        return [_view frame].size;
 	
 	NSUInteger rowsCount = [_rows count];
 	NSUInteger colsCount = [_columnDescriptors count];

@@ -142,7 +142,8 @@
 	return imageViews;
 }
 
-- (void)addSubview:(NSView *)aView{
+- (void)addSubview:(NSView *)aView
+{
 	[super addSubview:aView];
 	if ([aView isKindOfClass:[DCMView class]]) 
 		[imageViews addObject:aView];
@@ -154,12 +155,17 @@
 	[[self window] makeFirstResponder:[imageViews objectAtIndex:0]];
 }
 
-- (void)setImageViewMatrixForRows:(int)rows  columns:(int)columns
+- (void)setImageViewMatrixForRows:(int)rows
+                          columns:(int)columns
 {
-    [self setImageViewMatrixForRows: rows columns: columns rescale: YES];
+    [self setImageViewMatrixForRows: rows
+                            columns: columns
+                            rescale: YES];
 }
 
-- (void)setImageViewMatrixForRows:(int)rows  columns:(int)columns rescale: (BOOL) rescale
+- (void)setImageViewMatrixForRows:(int)rows
+                          columns:(int)columns
+                          rescale:(BOOL) rescale
 {
 	NSDisableScreenUpdates();
 
@@ -189,15 +195,11 @@
             
             float xOffset = [[imageObj valueForKey:@"xOffset"] floatValue];
             if( xOffset)
-            {
                 [imageObj setValue: [NSNumber numberWithFloat: xOffset * factor] forKey: @"xOffset"];
-            }
             
             float yOffset = [[imageObj valueForKey:@"yOffset"] floatValue];
             if( yOffset)
-            {
                 [imageObj setValue: [NSNumber numberWithFloat: yOffset * factor] forKey: @"yOffset"];
-            }
         }
     }
 	
@@ -256,7 +258,8 @@
 	imageRows = rows;
 	imageColumns = columns;
 	
-	if( wasVisible) [[self window] makeKeyAndOrderFront: self];
+	if( wasVisible)
+        [[self window] makeKeyAndOrderFront: self];
 	
 	NSEnableScreenUpdates();
 	
@@ -273,7 +276,8 @@
 	}
  }
 
- -(void) defaultToolModified: (NSNotification*) note{
+ -(void) defaultToolModified: (NSNotification*) note
+{
 	id sender = [note object];
 
 	int ctag;
@@ -291,14 +295,17 @@
 	{
 		ctag = [sender tag];
     }
-	if( ctag >= 0)
+
+    if( ctag >= 0)
     {
+        ToolMode tool = (ToolMode)ctag;
 		for (DCMView *view in imageViews)
-			[view setCurrentTool: ctag];
+			[view setCurrentTool: tool];
     }
 }
 
- -(void) defaultRightToolModified: (NSNotification*) note{
+-(void) defaultRightToolModified: (NSNotification*) note
+{
 	id sender = [note object];
 	int ctag;
 
@@ -314,13 +321,18 @@
 	
 	if( ctag >= 0)
     {
-		DCMView *view;
-		for (view in imageViews)
-        [view setRightTool: ctag];
+        ToolMode tool = (ToolMode)ctag;
+		for (DCMView *view in imageViews)
+            [view setRightTool: tool];
     }
 }
 
-- (void) setPixels: (NSMutableArray*) pixels files: (NSArray*) files rois: (NSMutableArray*) rois firstImage: (short) firstImage level: (char) level reset: (BOOL) reset
+- (void) setPixels: (NSMutableArray*) pixels
+             files: (NSArray*) files
+              rois: (NSMutableArray*) rois
+        firstImage: (short) firstImage
+             level: (char) level
+             reset: (BOOL) reset
 {
 	[dcmPixList release];
     dcmPixList = [pixels retain];

@@ -474,8 +474,8 @@ static  unsigned char			*charPtrArrayScale2[ MAXCOUNT], *charPtrArrayPreviewScal
    bytesPerRow = [bitmap bytesPerRow];
    samplesPerPixel = [bitmap samplesPerPixel];
    
-   newBuffer = calloc( ceil( (float) bytesPerRow / 8.0 ), pixelsHigh);
-   if( newBuffer == NULL )
+   newBuffer = (unsigned char *)calloc( ceil( (float) bytesPerRow / 8.0 ), pixelsHigh);
+   if (!newBuffer)
    {
 		NSLog(@"Failed to calloc() memory in");
 		return nil;
@@ -487,22 +487,25 @@ static  unsigned char			*charPtrArrayScale2[ MAXCOUNT], *charPtrArrayPreviewScal
     * read at last row, write to first row as Cocoa and OpenGL have opposite
     * y origins
     */
-   for( rowIndex = pixelsHigh - 1; rowIndex >= 0; rowIndex --)
+   for ( rowIndex = pixelsHigh - 1; rowIndex >= 0; rowIndex --)
    {
       currentBit = 0x80;
       byteValue = 0;
       for( colIndex = 0; colIndex < pixelsWide; colIndex ++)
       {
-         if( bitmapBytes[ rowIndex * bytesPerRow + colIndex * samplesPerPixel]) byteValue |= currentBit;
-         currentBit >>= 1;
-         if( currentBit == 0)
+         if (bitmapBytes[ rowIndex * bytesPerRow + colIndex * samplesPerPixel])
+             byteValue |= currentBit;
+
+          currentBit >>= 1;
+         if (currentBit == 0)
          {
             *movingBuffer++ = byteValue;
             currentBit = 0x80;
             byteValue = 0;
          }
       }
-      if( currentBit != 0x80)
+
+       if (currentBit != 0x80)
          *movingBuffer++ = byteValue;
    }
 	

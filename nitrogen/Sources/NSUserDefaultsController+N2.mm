@@ -20,49 +20,65 @@
 
 -(NSString*)stringForKey:(NSString*)key {
 	id obj = [self.values valueForKey:key];
-	if (![obj isKindOfClass:[NSString class]]) return NULL;
+	if (![obj isKindOfClass:[NSString class]])
+        return NULL;
+    
 	return obj;
 }
 
 -(NSArray*)arrayForKey:(NSString*)key {
 	id obj = [self.values valueForKey:key];
-	if (![obj isKindOfClass:[NSArray class]]) return NULL;
+	if (![obj isKindOfClass:[NSArray class]])
+        return NULL;
+    
 	return obj;
 }
 
 -(NSDictionary*)dictionaryForKey:(NSString*)key {
 	id obj = [self.values valueForKey:key];
-	if (![obj isKindOfClass:[NSDictionary class]]) return NULL;
+	if (![obj isKindOfClass:[NSDictionary class]])
+        return NULL;
+    
 	return obj;
 }
 
 -(NSData*)dataForKey:(NSString*)key {
 	id obj = [self.values valueForKey:key];
-	if (![obj isKindOfClass:[NSData class]]) return NULL;
+	if (![obj isKindOfClass:[NSData class]])
+        return NULL;
+    
 	return obj;
 }
 
 -(NSInteger)integerForKey:(NSString*)key {
 	NSNumber* obj = [self.values valueForKey:key];
-	if (![obj respondsToSelector:@selector(integerValue)]) return 0;
+	if (![obj respondsToSelector:@selector(integerValue)])
+        return 0;
+    
 	return [obj integerValue];
 }
 
 -(float)floatForKey:(NSString*)key {
 	NSNumber* obj = [self.values valueForKey:key];
-	if (![obj respondsToSelector:@selector(floatValue)]) return 0;
+	if (![obj respondsToSelector:@selector(floatValue)])
+        return 0;
+    
 	return [obj floatValue];
 }
 
 -(double)doubleForKey:(NSString*)key {
 	NSNumber* obj = [self.values valueForKey:key];
-	if (![obj respondsToSelector:@selector(doubleValue)]) return 0;
+	if (![obj respondsToSelector:@selector(doubleValue)])
+        return 0;
+    
 	return [obj doubleValue];
 }
 
 -(BOOL)boolForKey:(NSString*)key {
 	NSNumber* obj = [self.values valueForKey:key];
-	if (![obj respondsToSelector:@selector(boolValue)]) return NO;
+	if (![obj respondsToSelector:@selector(boolValue)])
+        return NO;
+    
 	return [obj boolValue];
 }
 

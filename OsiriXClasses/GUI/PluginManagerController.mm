@@ -30,7 +30,8 @@ static NSDate *CachedPluginsListDate = nil;
 
 - (void)keyDown:(NSEvent *)event
 {
-    if( [[event characters] length] == 0) return;
+    if( [[event characters] length] == 0)
+        return;
     
 	unichar c = [[event characters] characterAtIndex:0];
 	if (( c == NSDeleteFunctionKey || c == NSDeleteCharacter || c == NSBackspaceCharacter || c == NSDeleteCharFunctionKey) && [self selectedRow] >= 0 && [self numberOfRows] > 0)
@@ -289,8 +290,7 @@ NSInteger sortPluginArrayByName(id plugin1, id plugin2, void *context)
 	WaitRendering *splash = [[[WaitRendering alloc] init: NSLocalizedString( @"Check Plugins...", nil)] autorelease];
 	[splash showWindow:self];
 
-	int i;
-	for (i=0; i<[pluginsListURLs count] && !pluginsList; i++)
+	for (int i=0; i<[pluginsListURLs count] && !pluginsList; i++)
 	{
 		pluginsListURL = [pluginsListURLs objectAtIndex:i];
 		pluginsList = [NSArray arrayWithContentsOfURL:[NSURL URLWithString:pluginsListURL]];
@@ -298,7 +298,8 @@ NSInteger sortPluginArrayByName(id plugin1, id plugin2, void *context)
 	
 	[splash close];
 	
-	if( !pluginsList) return nil;
+	if (!pluginsList)
+        return nil;
 	
 	NSArray *sortedPlugins = [pluginsList sortedArrayUsingFunction:sortPluginArrayByName context:NULL];
 	

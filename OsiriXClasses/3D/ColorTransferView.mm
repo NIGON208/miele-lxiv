@@ -161,16 +161,16 @@
 
 -(void) ConvertCLUT:(unsigned char*) red : (unsigned char*) green : (unsigned char*) blue
 {
-	long		i, x, cur, last = 0;
+	long		cur, last = 0;
 	NSColor		*curColor = nil, *prevColor = [NSColor colorWithCalibratedRed: 0 green: 0 blue: 0 alpha: 1.0];
 	
-	for( i = 0; i < [points count]; i++)
+	for (long i = 0; i < [points count]; i++)
 	{
 		NSArray	*color = [colors objectAtIndex: i];
 		curColor = [NSColor colorWithCalibratedRed: [[color objectAtIndex: 0] floatValue] green:[[color objectAtIndex: 1] floatValue] blue:[[color objectAtIndex: 2] floatValue] alpha: 1.0];
 		cur = [[points objectAtIndex: i] longValue];
 		
-		for( x = 0; x < cur-last; x++)
+		for (long x = 0; x < cur-last; x++)
 		{
 			red[ last + x] = 255. * ([prevColor redComponent] + (([curColor redComponent] - [prevColor redComponent]) * x / (cur-last)));
 			green[ last + x] = 255. * ([prevColor greenComponent] + (([curColor greenComponent] - [prevColor greenComponent]) * x / (cur-last)));
@@ -183,7 +183,7 @@
 	
 	cur = 256;
 	curColor = [NSColor colorWithCalibratedRed: 1 green: 1 blue: 1 alpha: 1.0];
-	for( x = 0; x < cur-last; x++)
+	for (long x = 0; x < cur-last; x++)
 	{
 		red[ last + x] = 255. *([prevColor redComponent] + (([curColor redComponent] - [prevColor redComponent]) * x / (cur-last)));
 		green[ last + x] = 255. *([prevColor greenComponent] + (([curColor greenComponent] - [prevColor greenComponent]) * x / (cur-last)));
@@ -196,14 +196,15 @@
     [[NSColor whiteColor] set];
     NSRectFill([self bounds]);   // Equiv to [[NSBezierPath bezierPathWithRect:[self bounds]] fill]
 
-	long	i, x, cur, last = 0;
+	long	cur, last = 0;
     NSColor	*curColor  = [NSColor colorWithCalibratedRed: 1 green: 1 blue: 1 alpha: 1.0];
     NSColor *prevColor = [NSColor colorWithCalibratedRed: 0 green: 0 blue: 0 alpha: 1.0];
 	NSRect	crect = NSZeroRect;
 	
-	if( curIndex >= [points count]) curIndex = -1;
+	if (curIndex >= [points count])
+        curIndex = -1;
 	
-	for( i = 0; i < [points count]; i++)
+	for (long i = 0; i < [points count]; i++)
 	{
 		NSArray	*color = [colors objectAtIndex: i];
 		curColor = [NSColor colorWithCalibratedRed:[[color objectAtIndex: 0] floatValue]
@@ -212,7 +213,7 @@
                                              alpha:1.0];
 		cur = [[points objectAtIndex: i] longValue];
 		
-		for( x = 0; x < cur-last; x++)
+		for (long x = 0; x < cur-last; x++)
 		{
 			NSColor *col = [NSColor colorWithCalibratedRed:[prevColor redComponent] + (([curColor redComponent] - [prevColor redComponent]) * x / (cur-last))
                                                      green:[prevColor greenComponent] + (([curColor greenComponent] - [prevColor greenComponent]) * x / (cur-last))
@@ -241,7 +242,7 @@
 	
 	cur = 256;
 	curColor = [NSColor colorWithCalibratedRed: 1 green: 1 blue: 1 alpha: 1.0];
-	for( x = 0; x < cur-last; x++)
+	for (long x = 0; x < cur-last; x++)
 	{
 		NSColor *col = [NSColor colorWithCalibratedRed:[prevColor redComponent] + (([curColor redComponent] - [prevColor redComponent]) * x / (cur-last))
                                                  green:[prevColor greenComponent] + (([curColor greenComponent] - [prevColor greenComponent]) * x / (cur-last))

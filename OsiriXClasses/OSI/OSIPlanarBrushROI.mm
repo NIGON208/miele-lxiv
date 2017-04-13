@@ -55,7 +55,8 @@
             }
             volumeTransform = N3AffineTransformConcat(N3AffineTransformInvert(pixToDICOMTransfrom), N3AffineTransformMakeTranslation(-roi.textureUpLeftCornerX, -roi.textureUpLeftCornerY, 0));
             _brushMask = [[OSIFloatVolumeData alloc] initWithFloatBytesNoCopy:mask pixelsWide:roi.textureWidth pixelsHigh:roi.textureHeight pixelsDeep:1 volumeTransform:volumeTransform outOfBoundsValue:0 freeWhenDone:YES];
-        } else {
+        }
+        else {
 			[self autorelease];
 			self = nil;
 		}
@@ -63,9 +64,7 @@
 	return self;
 }
 
-
 @end
-
 
 @implementation OSIPlanarBrushROI
 
@@ -119,7 +118,6 @@
 #else
     return [roiMask ROIMaskByTranslatingByX:0 Y:0 Z:roundf(planePixelPoint.z)];
 #endif
-
 }
 
 - (void)drawRect:(NSRect)rect inSlab:(OSISlab)slab inCGLContext:(CGLContextObj)cgl_ctx pixelFormat:(CGLPixelFormatObj)pixelFormat dicomToPixTransform:(N3AffineTransform)dicomToPixTransform;
@@ -139,7 +137,7 @@
     
     glLineWidth(3.0);    
     
-    // let's try drawing some the mask
+    // let's try drawing the mask
     OSIROIMask *mask;
     NSArray *maskRuns;
     OSIROIMaskRun maskRun;
@@ -188,32 +186,9 @@
     glPopMatrix();
 }
 
-
 - (NSSet *)osiriXROIs
 {
 	return [NSSet setWithObject:_osiriXROI];
 }
 
-
-
 @end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

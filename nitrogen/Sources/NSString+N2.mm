@@ -42,7 +42,8 @@
 		return retString;
 	}
 
-	else return self;
+	else
+        return self;
 }
 
 -(NSString*)markedString {
@@ -120,7 +121,9 @@
 	NSCharacterSet* whitespaceAndNewline = [NSCharacterSet whitespaceAndNewlineCharacterSet];
 	unsigned i;
 	for (i = 0; i < [self length] && [whitespaceAndNewline characterIsMember:[self characterAtIndex:i]]; ++i);
-	if (i == [self length]) return @"";
+	if (i == [self length])
+        return @"";
+    
 	unsigned start = i;
 	for (i = [self length]-1; i > start && [whitespaceAndNewline characterIsMember:[self characterAtIndex:i]]; --i);
 	return [self substringWithRange:NSMakeRange(start, i-start+1)];
@@ -171,12 +174,15 @@
 	// amp first!!
 	if (!unescape)
 		[temp replaceOccurrencesOfString:@"&" withString:@"&amp;"];
-	else [temp replaceOccurrencesOfString:@"&amp;" withString:@"&"];
+	else
+        [temp replaceOccurrencesOfString:@"&amp;" withString:@"&"];
+    
 	// other chars
 	for (NSString* k in chars)
 		if (!unescape)
 			[temp replaceOccurrencesOfString:k withString:[chars objectForKey:k]];
-		else [temp replaceOccurrencesOfString:[chars objectForKey:k] withString:k];
+		else
+            [temp replaceOccurrencesOfString:[chars objectForKey:k] withString:k];
 	
 	return [NSString stringWithString:temp];
 }
@@ -215,8 +221,12 @@
 	for (NSInteger i = [self length]-1; i >= 0; --i)
 		if ([self characterAtIndex:i] == '.')
 			++dotsCount;
-		else break;
-	if (dotsCount >= 3) return self;
+		else
+            break;
+    
+	if (dotsCount >= 3)
+        return self;
+    
 	return [self stringByAppendingString:[NSString stringByRepeatingString:@"." times:3-dotsCount]];
 }
 

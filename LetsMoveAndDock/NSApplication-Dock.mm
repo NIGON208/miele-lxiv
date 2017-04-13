@@ -30,7 +30,9 @@
 	
 	if ( ![self applicationExistsInDock] ) {
 		return [self addApplicationToDock:[[NSBundle mainBundle] bundlePath]];
-	} else return NO;
+	}
+    else
+        return NO;
 	
 }
 

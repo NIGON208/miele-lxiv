@@ -1270,11 +1270,13 @@ static NSDate *lastWarningDate = nil;
 	
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	
-	if( [NSThread isMainThread] == NO) return;
+	if( [NSThread isMainThread] == NO)
+        return;
 	
 	NSDictionary *dictionaryRepresentation = [defaults dictionaryRepresentation];
 	
-	if( [dictionaryRepresentation isEqualToDictionary: previousDefaults]) return;
+	if( [dictionaryRepresentation isEqualToDictionary: previousDefaults])
+        return;
 	
     @try {
         if( [[previousDefaults valueForKey: @"SeriesListVisible"] intValue] != [defaults integerForKey: @"SeriesListVisible"])
@@ -1551,8 +1553,11 @@ static NSDate *lastWarningDate = nil;
 
 - (void) preferencesUpdated: (NSNotification*) note
 {
-	if( [NSThread isMainThread] == NO) return;
-	if( checkForPreferencesUpdate == NO) return;
+	if( [NSThread isMainThread] == NO)
+        return;
+    
+	if( checkForPreferencesUpdate == NO)
+        return;
 	
 	if( updateTimer)
     {
@@ -2642,7 +2647,8 @@ static BOOL firstCall = YES;
             
 			for( id loopItem in winList)
 			{
-				if( [[loopItem windowController] isKindOfClass:[ViewerController class]]) return;
+				if( [[loopItem windowController] isKindOfClass:[ViewerController class]])
+                    return;
 			}
 			
 			[[[BrowserController currentBrowser] window] makeKeyAndOrderFront: self];
@@ -2802,7 +2808,8 @@ static BOOL firstCall = YES;
 
 - (void) terminate :(id) sender
 {
-	if( [[BrowserController currentBrowser] shouldTerminate: sender] == NO) return;
+	if( [[BrowserController currentBrowser] shouldTerminate: sender] == NO)
+        return;
 
 #ifndef OSIRIX_LIGHT
     [[NSUserDefaults standardUserDefaults] setBool: [[[QueryController currentQueryController] window] isVisible] forKey: @"isQueryControllerVisible"];
@@ -2993,9 +3000,11 @@ static BOOL initialized = NO;
                     if (!cleanOldest && !cleanOldestUnopened) {
                         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"AUTOCLEANINGSPACE"];
                         [[NSUserDefaults standardUserDefaults] setInteger:2 forKey:@"AutocleanSpaceMode"];
-                    } else if (cleanOldestUnopened) {
+                    }
+                    else if (cleanOldestUnopened) {
                         [[NSUserDefaults standardUserDefaults] setInteger:1 forKey:@"AutocleanSpaceMode"];
-                    } else 
+                    }
+                    else
                         [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"AutocleanSpaceMode"];
                 }
                 
@@ -3507,7 +3516,8 @@ static BOOL initialized = NO;
                 [NSThread detachNewThreadSelector: @selector(checkForUpdates:) toTarget: self withObject: @"crash"];
         }
     }
-    else [NSThread detachNewThreadSelector: @selector(checkForUpdates:) toTarget:self withObject: self];
+    else
+        [NSThread detachNewThreadSelector: @selector(checkForUpdates:) toTarget:self withObject: self];
     
 	#endif
 	#endif
@@ -3751,14 +3761,14 @@ static BOOL initialized = NO;
                 continue;
             }
             
-            const void *ioName = CFDictionaryGetValue(serviceDictionary, @kIONameKey);
+            CFStringRef ioName = (CFStringRef)CFDictionaryGetValue(serviceDictionary, @kIONameKey);
             
             if (ioName) {
                 // If we have an IOName, and its value is "display", then we've
                 // got a "model" key, whose value is a CFDataRef that we can
                 // convert into a string.
                 if (CFGetTypeID(ioName) == CFStringGetTypeID() &&
-                    CFStringCompare((CFStringRef)ioName, CFSTR(kDisplayKey), kCFCompareCaseInsensitive) == kCFCompareEqualTo)
+                    CFStringCompare(ioName, CFSTR(kDisplayKey), kCFCompareCaseInsensitive) == kCFCompareEqualTo)
                 {
                     const void *model = CFDictionaryGetValue(serviceDictionary, @kModelKey);
                     
@@ -3966,7 +3976,8 @@ static BOOL initialized = NO;
 		//	[NSTimeZone setDefaultTimeZone: [NSTimeZone timeZoneForSecondsFromGMT: [[NSUserDefaults standardUserDefaults] integerForKey: @"timeZone"]]];
 		}
 	}
-	else [[NSUserDefaults standardUserDefaults] setInteger: [[NSTimeZone localTimeZone] secondsFromGMT] forKey: @"timeZone"];
+	else
+        [[NSUserDefaults standardUserDefaults] setInteger: [[NSTimeZone localTimeZone] secondsFromGMT] forKey: @"timeZone"];
 	
     if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"COPYDATABASEMODE"] intValue] == 1) // tag 1 "if on CD", disappeared after new CD/DVD import system
         [[NSUserDefaults standardUserDefaults] setInteger:2 forKey:@"COPYDATABASEMODE"];
@@ -4392,14 +4403,11 @@ static BOOL initialized = NO;
 {
 	WaitRendering *wait = nil;
 	
-	#ifdef OSIRIX_LIGHT
+#ifdef OSIRIX_LIGHT
 	wait = [[[WaitRendering alloc] init: NSLocalizedString(@"Starting OsiriX Lite...", nil)] autorelease];
-	#else
-	if( sizeof( long) == 8)
-		wait = [[[WaitRendering alloc] init: NSLocalizedString(@"Starting OsiriX 64-bit", nil)] autorelease];
-	else
-		wait = [[[WaitRendering alloc] init: NSLocalizedString(@"Starting OsiriX 32-bit", nil)] autorelease];
-	#endif
+#else
+    wait = [[[WaitRendering alloc] init: NSLocalizedString(@"Starting OsiriX 64-bit", nil)] autorelease];
+#endif
 
 	return wait;
 }
@@ -4576,10 +4584,16 @@ static BOOL initialized = NO;
     
 	// arrange them left to right
     [screens sortUsingComparator:^NSComparisonResult(id o1, id o2) {
-        NSRect f1 = ((NSScreen*)o1).frame, f2 = ((NSScreen*)o2).frame;
-        CGFloat c1 = f1.origin.x+f1.size.width/2, c2 = f2.origin.x+f2.size.width/2;
-        if (c1 < c2) return NSOrderedAscending;
-        if (c1 > c2) return NSOrderedDescending;
+        NSRect f1 = ((NSScreen*)o1).frame;
+        NSRect f2 = ((NSScreen*)o2).frame;
+        CGFloat c1 = f1.origin.x + f1.size.width/2;
+        CGFloat c2 = f2.origin.x + f2.size.width/2;
+        if (c1 < c2)
+            return NSOrderedAscending;
+        
+        if (c1 > c2)
+            return NSOrderedDescending;
+        
         return NSOrderedSame;
     }];
     
@@ -4588,7 +4602,8 @@ static BOOL initialized = NO;
 
 - (void) checkAllWindowsAreVisible:(id) sender makeKey: (BOOL) makeKey
 {
-	if( checkAllWindowsAreVisibleIsOff) return;
+	if( checkAllWindowsAreVisibleIsOff)
+        return;
 
 	NSArray *winList = [NSApp windows];
 	NSWindow *last = nil;
@@ -5765,7 +5780,8 @@ static NSMutableDictionary* _receivingDict = nil;
 -(void)_receivingIconUpdate {
 	if (!_receivingDict.count)
 		[NSApp setApplicationIconImage:[NSImage imageNamed:@"Osirix.icns"]];
-	else [NSApp setApplicationIconImage:[NSImage imageNamed:@"OsirixDownload.icns"]];
+	else
+        [NSApp setApplicationIconImage:[NSImage imageNamed:@"OsirixDownload.icns"]];
 }
 
 -(void)_receivingIconSet:(BOOL)flag {
@@ -5780,11 +5796,13 @@ static NSMutableDictionary* _receivingDict = nil;
 		if (flag) {
 			if (!setCount)
 				[_receivingDict setObject: setCount = [N2MutableUInteger mutableUIntegerWithUInteger:1] forKey:threadValue];
-			else [setCount increment];
+			else
+                [setCount increment];
 		} else {
 			if (setCount) {
                 if (setCount.unsignedIntegerValue > 0)
                     [setCount decrement];
+                
 				if (!setCount.unsignedIntegerValue)
 					[_receivingDict removeObjectForKey:threadValue];
 			}

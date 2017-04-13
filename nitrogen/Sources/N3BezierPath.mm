@@ -97,35 +97,35 @@
 - (id)initWithNodeArray:(NSArray *)nodes style:(N3BezierNodeStyle)style // array of N3Vectors in NSValues;
 {
     N3VectorArray vectorArray;
-    NSInteger i;
     
     if ( (self = [super init]) ) {
 		if ([nodes count] >= 2) {
-			vectorArray = malloc(sizeof(N3Vector) * [nodes count]);
+			vectorArray = (N3VectorArray)malloc(sizeof(N3Vector) * [nodes count]);
 			
-			for (i = 0; i < [nodes count]; i++) {
+			for (NSInteger i = 0; i < [nodes count]; i++)
 				vectorArray[i] = [[nodes objectAtIndex:i] N3VectorValue];
-			}
 			
 			_bezierCore = N3BezierCoreCreateMutableCurveWithNodes(vectorArray, [nodes count], style);
 			
 			free(vectorArray);
-		} else if ([nodes count] == 0) {
+		}
+        else if ([nodes count] == 0) {
 			_bezierCore = N3BezierCoreCreateMutable();
-		} else {
+		}
+        else {
 			_bezierCore = N3BezierCoreCreateMutable();
 			N3BezierCoreAddSegment(_bezierCore, N3MoveToBezierCoreSegmentType, N3VectorZero, N3VectorZero, [[nodes objectAtIndex:0] N3VectorValue]);
 			if ([nodes count] > 1) {
 				N3BezierCoreAddSegment(_bezierCore, N3LineToBezierCoreSegmentType, N3VectorZero, N3VectorZero, [[nodes objectAtIndex:1] N3VectorValue]);
 			}
 		}
-
         
         if (_bezierCore == NULL) {
             [self autorelease];
             self = nil;
         }
     }
+    
     return self;
 }
 
@@ -620,7 +620,7 @@
     NSUInteger i;
     
     for (i = 0; i < CFArrayGetCount(cfSubPaths); i++) {
-        [subPaths addObject:[N3BezierPath bezierPathN3BezierCore:CFArrayGetValueAtIndex(cfSubPaths, i)]];
+        [subPaths addObject:[N3BezierPath bezierPathN3BezierCore:(N3BezierCoreRef)CFArrayGetValueAtIndex(cfSubPaths, i)]];
     }
     
     CFRelease(cfSubPaths);

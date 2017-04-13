@@ -72,7 +72,8 @@ static NavigatorWindowController *nav = nil;
 		return;
 	}
 	
-	if(needsUpdate)[self initView];
+	if (needsUpdate)
+        [self initView];
 	
 	//[navigatorView setViewer];
 }
@@ -179,14 +180,16 @@ static NavigatorWindowController *nav = nil;
     
 	float screenWidth = [screen frame].size.width;
 	maxSize.width = screenWidth;
-	if([[self window] frame].size.width < [navigatorView frame].size.width) maxSize.height += 11; // 11px for the horizontal scroller
+	if([[self window] frame].size.width < [navigatorView frame].size.width)
+        maxSize.height += 11; // 11px for the horizontal scroller
 
 	[[self window] setMaxSize:maxSize];
 	
 	NSSize minSize = NSMakeSize(navigatorView.thumbnailWidth, navigatorView.thumbnailHeight);
 	minSize.height += 16; // 16px for the title bar
 	minSize.width = screenWidth;
-	if([[self window] frame].size.width < [navigatorView frame].size.width) minSize.height += 11; // 11px for the horizontal scroller
+	if([[self window] frame].size.width < [navigatorView frame].size.width)
+        minSize.height += 11; // 11px for the horizontal scroller
 	
 	[[self window] setMinSize:minSize];
 }

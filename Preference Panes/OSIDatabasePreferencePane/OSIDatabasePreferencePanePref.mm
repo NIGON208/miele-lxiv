@@ -56,13 +56,21 @@
         {
             if( [[NSUserDefaults standardUserDefaults] boolForKey: @"eraseEntireDBAtStartup"])
             {
-                NSRunCriticalAlertPanel( NSLocalizedString( @"Erase Entire Database", nil), NSLocalizedString( @"Warning! With this option, each time OsiriX is restarted, the entire database will be erased. All studies will be deleted. This cannot be undone.", nil), NSLocalizedString( @"OK", nil), nil, nil);
+                NSRunCriticalAlertPanel(NSLocalizedString( @"Erase Entire Database", nil),
+                                        NSLocalizedString( @"Warning! With this option, each time OsiriX is restarted, the entire database will be erased. All studies will be deleted. This cannot be undone.", nil),
+                                        NSLocalizedString( @"OK", nil),
+                                        nil,
+                                        nil);
             }
         }
         
         if ([keyPath isEqualToString:@"values.horizontalHistory" ])
         {
-            NSRunCriticalAlertPanel( NSLocalizedString( @"Restart", nil), NSLocalizedString( @"Restart OsiriX to apply this change.", nil), NSLocalizedString( @"OK", nil), nil, nil);
+            NSRunCriticalAlertPanel(NSLocalizedString( @"Restart", nil),
+                                    NSLocalizedString( @"Restart OsiriX to apply this change.", nil),
+                                    NSLocalizedString( @"OK", nil),
+                                    nil,
+                                    nil);
         }
         
         if ([keyPath isEqualToString:@"values.dbFontSize"])
@@ -267,14 +275,14 @@
 	[item setTitle:NSLocalizedString( @"DICOM Fields", nil)];
 	[item setEnabled:NO];
 	[DICOMFieldsMenu addItem:item];
-	int i;
-	for (i=0; i<[DICOMFieldsArray count]; i++)
+	for (int i=0; i<[DICOMFieldsArray count]; i++)
 	{
 		item = [[[NSMenuItem alloc] init] autorelease];
 		[item setTitle:[[DICOMFieldsArray objectAtIndex:i] title]];
 		[item setRepresentedObject:[DICOMFieldsArray objectAtIndex:i]];
 		[DICOMFieldsMenu addItem:item];
 	}
+    
 	[dicomFieldsMenu setMenu:DICOMFieldsMenu];
 }
 

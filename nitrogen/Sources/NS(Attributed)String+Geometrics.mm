@@ -14,7 +14,7 @@
 
 #import "NS(Attributed)String+Geometrics.h"
 
-int gNSStringGeometricsTypesetterBehavior = NSTypesetterLatestBehavior ;
+NSTypesetterBehavior gNSStringGeometricsTypesetterBehavior = NSTypesetterLatestBehavior ;
 
 @implementation NSAttributedString (Geometrics) 
 

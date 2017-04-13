@@ -157,8 +157,8 @@ const static void *namesKey = &namesKey;
     
     for( NSDictionary *observerDictionary in selectors)
     {
-        SEL selector = [[observerDictionary objectForKey: @"selector"] pointerValue];
-        id observer = [[observerDictionary objectForKey: @"observer"] pointerValue];
+        SEL selector = (SEL)[[observerDictionary objectForKey: @"selector"] pointerValue];
+        id observer = (id)[[observerDictionary objectForKey: @"observer"] pointerValue];
         
         [PluginManager startProtectForCrashWithPath: [[NSBundle bundleForClass: [observer class]] bundlePath]];
         

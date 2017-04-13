@@ -261,7 +261,8 @@ static NSString *templateDicomFile = nil;
 		[ro.target performSelector:ro.action withObject:panelController];
 	else if (panelController.end)
 			[NSApp stopModal];
-		else [NSApp abortModal];
+		else
+            [NSApp abortModal];
 	[ro release];
 	
 	[panelController release];

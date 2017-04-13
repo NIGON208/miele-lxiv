@@ -275,7 +275,8 @@ static NSString* ThreadModalForWindowControllerObservationContext = @"ThreadModa
     
 	if ([NSThread isMainThread]) 
 		[NSApp endSheet:self.window];
-	else [NSApp performSelectorOnMainThread:@selector(endSheet:) withObject:self.window waitUntilDone:NO];
+	else
+        [NSApp performSelectorOnMainThread:@selector(endSheet:) withObject:self.window waitUntilDone:NO];
 //    if (![self.window isSheet]) {
 //        if ([NSThread isMainThread]) 
 //            [self.window orderOut:self];
@@ -307,7 +308,10 @@ static NSString* ThreadModalForWindowControllerObservationContext = @"ThreadModa
 	if ([NSThread isMainThread]) {
 		if (![self isFinished])
 			return [[[ThreadModalForWindowController alloc] initWithThread:self window:window] autorelease];
-	} else [self performSelectorOnMainThread:@selector(startModalForWindow:) withObject:window waitUntilDone:NO];
+	}
+    else
+        [self performSelectorOnMainThread:@selector(startModalForWindow:) withObject:window waitUntilDone:NO];
+    
 	return nil;
 }
 

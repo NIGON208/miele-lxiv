@@ -102,7 +102,8 @@
 }
 
 -(void)_routingErrorMessage:(NSDictionary*)dict {
-	if (![NSUserDefaults.standardUserDefaults boolForKey:@"ShowErrorMessagesForAutorouting"] || [NSUserDefaults.standardUserDefaults boolForKey: @"hideListenerError"]) return;
+	if (![NSUserDefaults.standardUserDefaults boolForKey:@"ShowErrorMessagesForAutorouting"] || [NSUserDefaults.standardUserDefaults boolForKey: @"hideListenerError"])
+        return;
 	
 	NSException	*ne = [dict objectForKey: @"exception"];
 	NSDictionary *server = [dict objectForKey:@"server"];

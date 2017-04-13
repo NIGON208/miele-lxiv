@@ -590,25 +590,24 @@
 	x = 0; y = 0; z = 0;
 	
 	int i;
-	for(i=0;i<20;i++)
+	for (i=0;i<20;i++)
 	{
 		Point3D* nextcenter = [self caculateNextCenterPointFrom:pt Towards:dir WithStepLength:steplen+steplen*0.1*i];
-		if (!nextcenter) {
+		if (!nextcenter)
 			break;
-		}
-		newdir.x = nextcenter.x - currentcenter.x; 
+
+        newdir.x = nextcenter.x - currentcenter.x;
 		newdir.y = nextcenter.y - currentcenter.y;
 		newdir.z = nextcenter.z - currentcenter.z;
 		float len = sqrt(newdir.x*newdir.x + newdir.y*newdir.y + newdir.z*newdir.z);
-		if (len < 1.0e-5) {
+		if (len < 1.0e-5)
 			continue;
-		}
-		x += newdir.x/len;
+
+        x += newdir.x/len;
 		y += newdir.y/len;
 		z += newdir.z/len;
-
-		
 	}
+    
 	if (i<10) {
 //		printf("turning \n");
 		i=0;
@@ -626,39 +625,33 @@
 
 
 	for (; i<10; i++) {
-
 		Point3D* nextcenter = [self caculateNextCenterPointFrom:newpos Towards:newdir WithStepLength:steplen];
-		if (!nextcenter) {
+		if (!nextcenter)
 			break;
-		}
-		newdir.x = nextcenter.x - newpos.x; 
+
+        newdir.x = nextcenter.x - newpos.x;
 		newdir.y = nextcenter.y - newpos.y;
 		newdir.z = nextcenter.z - newpos.z;
 		newpos.x = newpos.x + (nextcenter.x-newpos.x)*0.1;
 		newpos.y = newpos.y + (nextcenter.y-newpos.y)*0.1;
 		newpos.z = newpos.z + (nextcenter.z-newpos.z)*0.1;
 		float len = sqrt(newdir.x*newdir.x + newdir.y*newdir.y + newdir.z*newdir.z);
-		if (len < 1.0e-5) {
+		if (len < 1.0e-5)
 			continue;
-		}
-		x += newdir.x/len;
+
+        x += newdir.x/len;
 		y += newdir.y/len;
 		z += newdir.z/len;
-		
 	}
 //	x = x/i + dir.x*0.5;
 //	y = y/i + dir.y*0.5;
 //	z = z/i + dir.z*0.5;
 
-
-
-	
-
 	newpos = [self caculateNextCenterPointFrom:pt Towards:dir WithStepLength:steplen];
-	if (!newpos) {
+	if (!newpos)
 		return ERROR_CANNOTFINDPATH;
-	}
-	pt.x = pt.x + (newpos.x-pt.x)*0.5;
+
+    pt.x = pt.x + (newpos.x-pt.x)*0.5;
 	pt.y = pt.y + (newpos.y-pt.y)*0.5;
 	pt.z = pt.z + (newpos.z-pt.z)*0.5;	
 
@@ -667,24 +660,21 @@
 	dir.y = y/len;
 	dir.z = z/len;
 	
-
 	[self converPoint2InputCoordinate:pt];
 	[self converPoint2InputCoordinate:dir];
-	
 	
 	return 0;
 	
 //	newdir.x = newpos.x - pt.x; newdir.y = newpos.y - pt.y; newdir.z = newpos.z - pt.z;
 //	//[newpos release];
 //	
-//	int i;
 //	float x=0,y=0,z=0;
 //	float steplen=sqrt((newpos.x-pt.x)*(newpos.x-pt.x) + (newpos.y-pt.y)*(newpos.y-pt.y) + (newpos.z-pt.z)*(newpos.z-pt.z));
 //	steplen=steplen*4;
 //	
 //	if (steplen < 1.0e-6)
 //		return;
-//	for(i=0;i<5;i++)
+//	for (int i=0;i<5;i++)
 //	{
 //		
 //		float len = sqrt(newdir.x*newdir.x + newdir.y*newdir.y + newdir.z*newdir.z);
@@ -706,9 +696,8 @@
 //	newdir.x = cpos.x + x*6;
 //	newdir.y = cpos.y + y*6;
 //	newdir.z = cpos.z + z*6;
-	
-	
 }
+
 - (Point3D*) caculateNextCenterPointFrom: (Point3D*) pt Towards:(Point3D*)dir WithStepLength:(float)steplen
 {
 	if(	!distmap )
@@ -878,28 +867,27 @@ typedef GreaterPathNodeOnF NodeCompare;
 		free(costmap);
 		return ERROR_NOENOUGHMEM;
 	}
+    
 	if (!isDistanceTransformFinished) {
 		free(costmap);
 		free(labelmap);
 		return ERROR_DISTTRANSNOTFINISH;
 	}
+    
 	[self converPoint2ResampleCoordinate:pta];
 	[self converPoint2ResampleCoordinate:ptb];
-	int i;
 	//initializing
-	for (i=0; i<distmapVolumeSize; i++) {
+	for (int i=0; i<distmapVolumeSize; i++)
 		costmap[i]=3.4e+38;
-	}
-	for (i=0; i<distmapVolumeSize; i++) {
-		if (distmap[i]>0) {
-			labelmap[i]=0;
-		}
-		else {
-			labelmap[i]=OPTIMIZED;
-		}
 
+    for (int i=0; i<distmapVolumeSize; i++) {
+		if (distmap[i]>0)
+			labelmap[i]=0;
+		else
+			labelmap[i]=OPTIMIZED;
 	}
-	memset(labelmap,0,distmapVolumeSize*sizeof(char));
+
+    memset(labelmap,0,distmapVolumeSize*sizeof(char));
 	std::priority_queue<PathNode, PathContainer, NodeCompare> priorityQ;
 	//plant seed
 	int x,y,z,dx,dy,dz;
@@ -908,8 +896,8 @@ typedef GreaterPathNodeOnF NodeCompare;
 	float currentcost,newcost;
 	char currentlabel;
 	unsigned char currentdirection;	
-	for (i=0; i<2; i++) {
-		if(i==0){
+	for (int i=0; i<2; i++) {
+		if (i==0) {
 			x=pta.x; y=pta.y; z=pta.z;
 			currentlabel=LABELOFPOINTA;
 		}
@@ -920,7 +908,7 @@ typedef GreaterPathNodeOnF NodeCompare;
         
 		currentindex = z*distmapImageSize + y*distmapWidth + x;
         
-        if( currentindex >= distmapVolumeSize)
+        if (currentindex >= distmapVolumeSize)
         {
             NSLog( @"***** currentindex >= distmapVolumeSize");
             free(costmap);
@@ -1020,12 +1008,12 @@ typedef GreaterPathNodeOnF NodeCompare;
 		
 	}
 	free(costmap);
-	if(ifThe2PointsMeet)
+	if (ifThe2PointsMeet)
 	{
 		NSMutableArray* line2A = [NSMutableArray arrayWithCapacity:0];
 		NSMutableArray* line2B = [NSMutableArray arrayWithCapacity:0];
 
-		if(currentlabel==LABELOFPOINTA)
+		if (currentlabel==LABELOFPOINTA)
 		{
 			[self trackCenterline: line2A From:jointPointA WithLabel:labelmap];
 			[self trackCenterline: line2B From:jointPointB WithLabel:labelmap];
@@ -1034,29 +1022,29 @@ typedef GreaterPathNodeOnF NodeCompare;
 			[self trackCenterline: line2A From:jointPointB WithLabel:labelmap];
 			[self trackCenterline: line2B From:jointPointA WithLabel:labelmap];	
 		}
-		int ptnumber=[line2A count];
-		for (i=0; i<ptnumber; i++) {
+
+        int ptnumber=[line2A count];
+		for (int i=0; i<ptnumber; i++)
 			[centerline addObject:[line2A objectAtIndex:ptnumber-1-i]];
-		}
-		ptnumber=[line2B count];
-		for (i=0; i<ptnumber; i++) {
+
+        ptnumber=[line2B count];
+		for (int i=0; i<ptnumber; i++)
 			[centerline addObject:[line2B objectAtIndex:i]];
-		}
 		
 		ptnumber=[centerline count];
-		for (i=0; i<ptnumber; i++) {
+		for (int i=0; i<ptnumber; i++) {
 			OSIVoxel* pt = [centerline objectAtIndex:i];
 			pt.x /= resampleScale_x;
 			pt.y /= resampleScale_y;
 			pt.z /= resampleScale_z;
 		}
+        
 		[self downSampleCenterlineWithLocalRadius:centerline];
-        if (smoothFlag) {
+        if (smoothFlag)
             [self createSmoothedCenterlin:centerline withStepLength:centerlineResampleStepLength];
-        }
 		
 		free(labelmap);
-		return	0;
+		return 0;
 	}
 	else {
 		free(labelmap);
@@ -1066,10 +1054,9 @@ typedef GreaterPathNodeOnF NodeCompare;
 }
 - (void) downSampleCenterlineWithLocalRadius:(NSMutableArray*)centerline //using the input scale
 {
-	if( centerline.count <= 2)
+	if (centerline.count <= 2)
 		return;
-	unsigned int i;
-
+    
 	float radius_prept,radius_nextpt;
 	float x,y,z;
 	OSIVoxel* pt = [centerline objectAtIndex:0];
@@ -1077,7 +1064,7 @@ typedef GreaterPathNodeOnF NodeCompare;
 	radius_prept = distmap[(int)z*distmapImageSize+(int)y*distmapWidth+(int)x];
 	float prex,prey,prez;
 	prex = pt.x*resampleScale_x; prey = pt.y*resampleScale_y; prez = pt.z*resampleScale_z;
-	for (i=1; i<[centerline count]; i++) {
+	for (int i=1; i<[centerline count]; i++) {
 		pt = [centerline objectAtIndex:i];
 		x = pt.x*resampleScale_x; y = pt.y*resampleScale_y; z = pt.z*resampleScale_z;
 		radius_nextpt = distmap[(int)z*distmapImageSize+(int)y*distmapWidth+(int)x];
@@ -1091,19 +1078,19 @@ typedef GreaterPathNodeOnF NodeCompare;
 		}
 	}
 }
+
 - (void) createSmoothedCenterlin:(NSMutableArray*)centerline withStepLength:(float)len
 {
-    if( centerline.count <= 2)
+    if (centerline.count <= 2)
         return;
     
 	Spline3D* function = [[[Spline3D alloc] init] autorelease];
 	Point3D* pt = [Point3D point];
 	float delta_t= 1.0/(float)((long)[centerline count]-1);
-	int i;
 	float prex,prey,prez, totallength=0;
 	OSIVoxel* pos = [centerline objectAtIndex:0];
 	prex = pos.x; prey = pos.y; prez = pos.z;
-	for (i=0 ; i<[centerline count]; i++) {
+	for (int i=0 ; i<[centerline count]; i++) {
 		pos = [centerline objectAtIndex:i];
 		pt.x = pos.x; pt.y = pos.y; pt.z = pos.z;
 		[function addPoint:delta_t*i :pt];
@@ -1112,14 +1099,15 @@ typedef GreaterPathNodeOnF NodeCompare;
 	}
 	[centerline removeAllObjects];
 	int ptnumber = totallength/len;
-	delta_t=1.0/(float)(ptnumber-1);
-	for( i = 0 ; i < ptnumber ; i++ )
+	delta_t = 1.0/(float)(ptnumber-1);
+	for(int i = 0 ; i < ptnumber ; i++ )
 	{
 		Point3D *tempPoint = [function evaluateAt: delta_t*i];
 		pos = [OSIVoxel pointWithPoint3D:tempPoint];
 		[centerline addObject:pos];
 	}
 }
+
 - (float) stepCostFrom:(int)index1 To:(int)index2
 {
 	float cost;
@@ -1171,26 +1159,23 @@ typedef GreaterPathNodeOnF NodeCompare;
 {
 	float averageradius = 0.0;
 	int counter=0;
-	int i;
-	for (i=-nrange; i<nrange; i++) {
+	for (int i=-nrange; i<nrange; i++) {
 		if (index+i>=0 && index+i<[centerline count]) {
 			averageradius += [self radiusAtPoint:[centerline objectAtIndex:index+i]];
 			counter++;
 		}
 	}
 	
-	if (counter) {
+	if (counter)
 		averageradius = averageradius/(float)counter;
-	}
+    
 	return averageradius;
-	
-	
 }
 
 - (OSIVoxel*) computeMaximizingViewDirectionFrom:(OSIVoxel*) center LookingAt:(OSIVoxel*) direction
 {
     OSIVoxel * bestView = [[[OSIVoxel alloc] init] autorelease];
-    // calcul de la direction maximisant la vue. Mise de côté pour le moment, en attendant que les quaternions fonctionnent correctement
+    // Calculating the direction that maximises the view. Set aside for the time being, until the quaternions work correctly
     int window = 45;
     
     unsigned int maxView = 0;

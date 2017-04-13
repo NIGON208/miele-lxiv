@@ -462,15 +462,17 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
 		CFRelease(url);
 	}
 	
-	if( resolvedPath == nil) return inPath;
-	else return [(NSString *) resolvedPath autorelease];
+	if( resolvedPath == nil)
+        return inPath;
+	else
+        return [(NSString *) resolvedPath autorelease];
 }
 
-+ (void) releaseInstanciedObjectsOfClass: (Class) class
++ (void) releaseInstanciedObjectsOfClass: (Class) theClass
 {
     for( int i = 0; i < [preProcessPlugins count]; i++)
     {
-        if( [[preProcessPlugins objectAtIndex: i] class] == class)
+        if( [[preProcessPlugins objectAtIndex: i] class] == theClass)
         {
             NSObject *filter = [preProcessPlugins objectAtIndex: i];
             
@@ -484,7 +486,7 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
     
     for( NSString *key in [plugins allKeys])
     {
-        if( [[plugins valueForKey: key] class] == class)
+        if( [[plugins valueForKey: key] class] == theClass)
         {
             NSObject *filter = [plugins valueForKey: key];
             
@@ -603,7 +605,8 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
                             
                             NSLog( @"Loaded: %@, vers: %@ (%@)", [name stringByDeletingPathExtension], version, path);
                             
-                            if( filterClass == NSClassFromString( @"ARGS")) return;
+                            if( filterClass == NSClassFromString( @"ARGS"))
+                                return;
                             
                             if ([[[plugin infoDictionary] objectForKey:@"pluginType"] rangeOfString:@"Pre-Process"].location != NSNotFound) 
                             {
@@ -947,7 +950,8 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
 
 + (void)movePluginFromPath:(NSString*)sourcePath toPath:(NSString*)destinationPath;
 {
-	if([sourcePath isEqualToString:destinationPath]) return;
+	if([sourcePath isEqualToString:destinationPath])
+        return;
 	
     if(![[NSFileManager defaultManager] fileExistsAtPath:[destinationPath stringByDeletingLastPathComponent]])
     {
@@ -1344,16 +1348,16 @@ NSInteger sortPluginArray(id plugin1, id plugin2, void *context)
 					CFDictionaryRef bundleInfoDict = CFBundleCopyInfoDictionaryInDirectory((CFURLRef)bundleURL);
 								
 					CFStringRef versionString = nil;
-					if(bundleInfoDict != NULL)
+					if (bundleInfoDict != NULL)
 					{
-						versionString = CFDictionaryGetValue(bundleInfoDict, CFSTR("CFBundleVersion"));
+						versionString = (CFStringRef)CFDictionaryGetValue(bundleInfoDict, CFSTR("CFBundleVersion"));
 					
-						if(versionString == nil)
-							versionString = CFDictionaryGetValue(bundleInfoDict, CFSTR("CFBundleShortVersionString"));
+						if (versionString == nil)
+							versionString = (CFStringRef)CFDictionaryGetValue(bundleInfoDict, CFSTR("CFBundleShortVersionString"));
 					}
 					
 					NSString *pluginVersion;
-					if(versionString != NULL)
+					if (versionString != NULL)
 						pluginVersion = (NSString*)versionString;
 					else
 						pluginVersion = @"";
@@ -1499,7 +1503,8 @@ NSInteger sortPluginArray(id plugin1, id plugin2, void *context)
 
 -(void)downloadNext:(NSNotification*)notification;
 {
-	if(!startedUpdateProcess) return;
+	if(!startedUpdateProcess)
+        return;
 	
 	if([downloadQueue count]>1)
 	{

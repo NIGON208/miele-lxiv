@@ -51,9 +51,8 @@
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     
     @try {
-        if ([self isCancelled]) {
+        if ([self isCancelled])
             return;
-        }
         
 		if (_projectionMode == CPRProjectionModeNone) {
 			_generatedVolume = [_volumeData retain];
@@ -61,7 +60,7 @@
 		}
 		
 		pixelsPerPlane = _volumeData.pixelsWide * _volumeData.pixelsHigh;
-		floatBytes = malloc(sizeof(float) * pixelsPerPlane);
+		floatBytes = (float *)malloc(sizeof(float) * pixelsPerPlane);
 				
 		[_volumeData aquireInlineBuffer:&inlineBuffer];
         memcpy(floatBytes, CPRVolumeDataFloatBytes(&inlineBuffer), sizeof(float) * pixelsPerPlane);

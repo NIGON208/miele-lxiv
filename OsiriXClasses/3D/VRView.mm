@@ -120,53 +120,7 @@ typedef struct _xyzArray
 	short z;
 } xyzArray;
 
-// intersect3D_SegmentPlane(): intersect a segment and a plane
-//    Input:  S = a segment, and Pn = a plane = {Point V0; Vector n;}
-//    Output: *I0 = the intersect point (when it exists)
-//    Return: 0 = disjoint (no intersection)
-//            1 = intersection in the unique point *I0
-//            2 = the segment lies in the plane
-
-#define SMALL_NUM  0.00000001 // anything that avoids division overflow
-#define DOT(v1,v2) (v1[0]*v2[0]+v1[1]*v2[1]+v1[2]*v2[2])
-
-int intersect3D_SegmentPlane( float *P0, float *P1, float *Pnormal, float *Ppoint, float* resultPt )
-{
-    float    u[ 3];
-	float    w[ 3];
-	
-	u[ 0]  = P1[ 0] - P0[ 0];
-	u[ 1]  = P1[ 1] - P0[ 1];
-	u[ 2]  = P1[ 2] - P0[ 2];
-	
-	w[ 0] =  P0[ 0] - Ppoint[ 0];
-	w[ 1] =  P0[ 1] - Ppoint[ 1];
-	w[ 2] =  P0[ 2] - Ppoint[ 2];
-	
-    float     D = DOT(Pnormal, u);
-    float     N = -DOT(Pnormal, w);
-	
-    if (fabs(D) < SMALL_NUM) {          // segment is parallel to plane
-        if (N == 0)                     // segment lies in plane
-            return 0;
-        else
-            return 0;                   // no intersection
-    }
-	
-    // they are not parallel
-    // compute intersect param
-	
-    float sI = N / D;
-    if (sI < 0 || sI > 1)
-        return 0;						// no intersection
-	
-    resultPt[ 0] = P0[ 0] + sI * u[ 0];		// compute segment intersect point
-	resultPt[ 1] = P0[ 1] + sI * u[ 1];
-	resultPt[ 2] = P0[ 2] + sI * u[ 2];
-	
-    return 1;
-}
-
+extern int intersect3D_SegmentPlane( float *P0, float *P1, float *Pnormal, float *Ppoint, float* resultPt );
 
 class vtkMyCallbackVR : public vtkCommand
 {
@@ -453,8 +407,11 @@ public:
 	
 + (BOOL) getCroppingBox:(double*) a :(vtkVolume *) volume :(vtkBoxWidget*) croppingBox
 {
-	if( volume == nil) return NO;
-	if( croppingBox == nil) return NO;
+	if( volume == nil)
+        return NO;
+    
+	if( croppingBox == nil)
+        return NO;
 	
 	vtkVolumeMapper *mapper = (vtkVolumeMapper*) volume->GetMapper();
 	if( mapper)
@@ -541,7 +498,8 @@ public:
 		
 		return YES;
 	}
-	else return NO;
+	else
+        return NO;
 }
 
 //+ (void) setCroppingBox:(double*) a :(vtkVolume*) volume
@@ -756,7 +714,8 @@ public:
 
 - (void) setBlendingMode: (long) modeID
 {
-	if( blendingController == nil) return;
+	if( blendingController == nil)
+        return;
 	
 	switch( modeID)
 	{
@@ -1030,7 +989,8 @@ public:
 
 - (void) setBlendingEngine: (long) engineID showWait:(BOOL) showWait
 {
-	if( blendingController == nil) return;
+	if( blendingController == nil)
+        return;
 	
 	WaitRendering	*www = nil;
 	
@@ -1246,8 +1206,10 @@ public:
 
 - (IBAction) setCurrentdcmExport:(id) sender
 {
-	if( [[sender selectedCell] tag] == 1) [self checkView: dcmBox :YES];
-	else [self checkView: dcmBox :NO];
+	if( [[sender selectedCell] tag] == 1)
+        [self checkView: dcmBox :YES];
+	else
+        [self checkView: dcmBox :NO];
 	
     [[dcmquality cellWithTag: 1] setEnabled: YES];
 }
@@ -1319,8 +1281,10 @@ public:
 	
 	if( dataPtr)
 	{
-		if( fullDepth) [exportDCM setModalityAsSource: YES];
-		else [exportDCM setModalityAsSource: YES];
+		if( fullDepth)
+            [exportDCM setModalityAsSource: YES];
+		else
+            [exportDCM setModalityAsSource: YES];  // TODO: same ?
 		
 		[exportDCM setSourceFile: [firstObject sourceFile]];
 		[exportDCM setSeriesDescription: dcmSeriesString];
@@ -1597,16 +1561,17 @@ public:
 	
 	[self setCurrentdcmExport: dcmExportMode];
 	
-	if( [[[self window] windowController] movieFrames] > 1) [[dcmExportMode cellWithTag:2] setEnabled: YES];
-	else [[dcmExportMode cellWithTag:2] setEnabled: NO];
+	if( [[[self window] windowController] movieFrames] > 1)
+        [[dcmExportMode cellWithTag:2] setEnabled: YES];
+	else
+        [[dcmExportMode cellWithTag:2] setEnabled: NO];
 	
 	if( renderingMode == 1 || renderingMode == 3 || renderingMode == 2)
 		[dcmExportDepth setEnabled: YES];
 	else
-	{
 		[dcmExportDepth setEnabled: NO];
-	}
-	[NSApp beginSheet: exportDCMWindow modalForWindow:[self window] modalDelegate:self didEndSelector:nil contextInfo:(void*) nil];
+
+    [NSApp beginSheet: exportDCMWindow modalForWindow:[self window] modalDelegate:self didEndSelector:nil contextInfo:(void*) nil];
 }
 
 -(float) rotation {return rotationValue;}
@@ -1705,7 +1670,8 @@ public:
 {
 	projectionMode = mode;
 	
-	if( aCamera == nil) return;
+	if( aCamera == nil)
+        return;
 	
 	int wasMode = mode;
 	
@@ -1839,7 +1805,8 @@ public:
 			[mov release];
 		}
 	}
-	else [NSApp beginSheet: export3DWindow modalForWindow:[self window] modalDelegate:self didEndSelector:nil contextInfo:(void*) nil];
+	else
+        [NSApp beginSheet: export3DWindow modalForWindow:[self window] modalDelegate:self didEndSelector:nil contextInfo:(void*) nil];
 }
 
 -(BOOL) acceptsFirstMouse:(NSEvent*) theEvent
@@ -2166,7 +2133,8 @@ public:
 	double	temp[ 3];
 	float	ambient, diffuse, specular, specularpower;
 	
-	if( aCamera == nil) return nil;
+	if( aCamera == nil)
+        return nil;
 	
 	NSMutableDictionary *dict = [NSMutableDictionary dictionary];
 	
@@ -2239,7 +2207,7 @@ public:
         NSLog( @"C++ Exception during drawRect... not enough memory?");
         
         if (NSRunAlertPanel(@"", //NSLocalizedString(@"32-bit",nil),
-                            NSLocalizedString(@"Cannot use the 3D engine.\r\rUpgrade to OsiriX 64-bit or OsiriX MD to solve this issue.",nil),
+                            NSLocalizedString(@"Cannot use the 3D engine.",nil),
                             NSLocalizedString(@"OK", nil),
                             nil, //NSLocalizedString(@"OsiriX 64-bit", nil),
                             nil
@@ -2616,7 +2584,8 @@ public:
 		cos[4] = cos[ 4] / length;
 		cos[5] = cos[ 5] / length;
 	}
-    else return NO;
+    else
+        return NO;
 
 	double cos6[ 3];
 	
@@ -2649,7 +2618,8 @@ public:
 		cos[1] = cos[ 1] / length;
 		cos[2] = cos[ 2] / length;
 	}
-    else return NO;
+    else
+        return NO;
     
     return YES;
 }
@@ -2903,7 +2873,8 @@ public:
 {
 	_hasChanged = YES;
 	vtkCocoaRenderWindowInteractor *interactor = [self getInteractor];
-	if (!interactor) return;
+	if (!interactor)
+        return;
 	
 	isRotating = NO;
 	[self resetAutorotate: self];
@@ -2966,19 +2937,20 @@ public:
 
 - (void) scrollWheel:(NSEvent *)theEvent
 {
-    if ([self eventToPlugins:theEvent]) return;
+    if ([self eventToPlugins:theEvent])
+        return;
     
-	return [self scrollInStack: [theEvent deltaY]];
+	return [self scrollInStack: [theEvent deltaY]];  // @@@ TODO: shouldn't return anything ?
 }
 
 - (void)otherMouseDown:(NSEvent *)theEvent
 {
-    if ([self eventToPlugins:theEvent]) return;
+    if ([self eventToPlugins:theEvent])
+        return;
     
 	_hasChanged = YES;
 	ToolMode tool = [self getTool: theEvent];
 	[self setCursorForView: tool];
-	
 	[super otherMouseDown: theEvent];
 }
 
@@ -2989,7 +2961,8 @@ public:
 
 -(void) mouseMoved: (NSEvent*) theEvent
 {
-    if ([self eventToPlugins:theEvent]) return;
+    if ([self eventToPlugins:theEvent])
+        return;
     
 	if( ![[self window] isVisible])
 		return;
@@ -3008,9 +2981,11 @@ public:
 	{
 		if( mouseLocStart.x < 20 && mouseLocStart.y < 20 && isViewportResizable)
 			[self setCursorForView: tTranslate];
-		else [self setCursorForView: [self getTool: theEvent]];
+		else
+            [self setCursorForView: [self getTool: theEvent]];
 		
-		if( cursorSet) [cursor set];
+		if( cursorSet)
+            [cursor set];
 	}
 	
 	NSMutableString *s = [NSMutableString stringWithFormat: NSLocalizedString( @"View Size: %d x %d", nil), (int) [self frame].size.width, (int) [self frame].size.height];
@@ -3055,7 +3030,8 @@ public:
 
 -(void) squareView:(id) sender
 {
-	if( [[NSUserDefaults standardUserDefaults] integerForKey:@"VRDefaultViewSize"] == 1) return;
+	if( [[NSUserDefaults standardUserDefaults] integerForKey:@"VRDefaultViewSize"] == 1)
+        return;
 	
 	NSRect  selfFrame = [[[self window] contentView] frame];
 	
@@ -3126,17 +3102,20 @@ public:
 
 -(void) magnifyWithEvent:(NSEvent *)event
 {
-	if ([self eventToPlugins:event]) return;
+	if ([self eventToPlugins:event])
+        return;
 }
 
 -(void) rotateWithEvent:(NSEvent *)event
 {
-	if ([self eventToPlugins:event]) return;
+	if ([self eventToPlugins:event])
+        return;
 }
 
 - (void)mouseDragged:(NSEvent *)theEvent
 {
-    if ([self eventToPlugins:theEvent]) return;
+    if ([self eventToPlugins:theEvent])
+        return;
     
 	_hasChanged = YES;
 
@@ -3145,7 +3124,8 @@ public:
 		[self deleteMouseDownTimer];
 	}
 	
-	if (_dragInProgress == YES) return;
+	if (_dragInProgress == YES)
+        return;
 
 	[drawLock lock];
 	
@@ -3530,7 +3510,8 @@ public:
 
 - (void)rightMouseDragged:(NSEvent *)theEvent
 {
-    if ([self eventToPlugins:theEvent]) return;
+    if ([self eventToPlugins:theEvent])
+        return;
     
 	_hasChanged = YES;
 	[drawLock lock];
@@ -3576,7 +3557,8 @@ public:
 
 - (void)mouseUp:(NSEvent *)theEvent
 {
-    if ([self eventToPlugins:theEvent]) return;
+    if ([self eventToPlugins:theEvent])
+        return;
     
 	_hasChanged = YES;
 	[self deleteMouseDownTimer];
@@ -3674,7 +3656,8 @@ public:
 
 - (void)zoomMouseUp:(NSEvent *)theEvent
 {
-    if ([self eventToPlugins:theEvent]) return;
+    if ([self eventToPlugins:theEvent])
+        return;
     
 	_hasChanged = YES;
 	if (_tool == tZoom)
@@ -3701,7 +3684,8 @@ public:
 
 - (void)rightMouseDown:(NSEvent *)theEvent
 {
-    if ([self eventToPlugins:theEvent]) return;
+    if ([self eventToPlugins:theEvent])
+        return;
     
 	_hasChanged = YES;
 	[drawLock lock];
@@ -3716,7 +3700,8 @@ public:
 
 - (void)rightMouseUp:(NSEvent *)theEvent
 {
-    if ([self eventToPlugins:theEvent]) return;
+    if ([self eventToPlugins:theEvent])
+        return;
     
 	_hasChanged = YES;
 	[drawLock lock];
@@ -3764,7 +3749,8 @@ public:
 
 - (void)mouseDown:(NSEvent *)theEvent
 {
-    if ([self eventToPlugins:theEvent]) return;
+    if ([self eventToPlugins:theEvent])
+        return;
     
 	snVRView = self;
 	dontRenderVolumeRenderingOsiriX = 0;
@@ -4354,7 +4340,8 @@ public:
 
 			NSLog( @"**** Bone Removal End");
 		}
-		else [super mouseDown:theEvent];
+		else
+            [super mouseDown:theEvent];
 		
 		if( croppingBox)
 			croppingBox->SetHandleSize( 0.005);
@@ -4854,7 +4841,7 @@ public:
 			
 			Transform->TransformPoint(point,point);
 			
-			if( intersect3D_SegmentPlane( point2, point1, planeVector, point, resultPt ))
+			if ( intersect3D_SegmentPlane( point2, point1, planeVector, point, resultPt ) != NO_INTERSECT_3D)
 			{
 				float	tempPoint3D[ 3];
 				long	ptInt[ 3];
@@ -4871,7 +4858,7 @@ public:
 				
 				tempPoint3D[0] /= [fObject pixelSpacingX];
 				tempPoint3D[1] /= [fObject pixelSpacingY];
-				tempPoint3D[2] /= ( [fObject sliceInterval]);
+				tempPoint3D[2] /= [fObject sliceInterval];
 				
 				ptInt[ 0] = (long) (tempPoint3D[0] + 0.5);
 				ptInt[ 1] = (long) (tempPoint3D[1] + 0.5);
@@ -5091,9 +5078,11 @@ public:
 
 - (void) keyUp:(NSEvent *)event
 {
-    if ([self eventToPlugins: event]) return;
+    if ([self eventToPlugins: event])
+        return;
     
-    if( [[event characters] length] == 0) return;
+    if( [[event characters] length] == 0)
+        return;
     
 	unichar c = [[event characters] characterAtIndex:0];
 	
@@ -5106,9 +5095,11 @@ public:
 
 - (void) keyDown:(NSEvent *)event
 {
-    if ([self eventToPlugins: event]) return;
+    if ([self eventToPlugins: event])
+        return;
     
-    if( [[event characters] length] == 0) return;
+    if( [[event characters] length] == 0)
+        return;
     
     unichar c = [[event characters] characterAtIndex:0];
     
@@ -5138,9 +5129,8 @@ public:
 		NSDate	*now = [NSDate date];
 		
 		NSLog( @"360 degree rotation - 100 images - START");
-		int i;
 		
-		for( i = 0 ; i < 100; i++)
+		for (int i = 0 ; i < 100; i++)
 		{
 			[self Azimuth: 360. / 100.];
 			[self display];
@@ -5428,9 +5418,11 @@ public:
 
 -(void) setBlendingWLWW:(float) iwl :(float) iww
 {
-	if( blendingController == nil) return;
+	if( blendingController == nil)
+        return;
 	
-	if( fullDepthMode) return;
+	if( fullDepthMode)
+        return;
 	
 	blendingWl = iwl;
 	blendingWw = iww;
@@ -5446,7 +5438,8 @@ public:
 	long	i, blendMode;
 	float   val, ii;
 	
-	if( fullDepthMode) return;
+	if( fullDepthMode)
+        return;
 	
 	if( blendingController)
 	{
@@ -5497,9 +5490,10 @@ public:
 
 -(void) setBlendingCLUT:( unsigned char*) r : (unsigned char*) g : (unsigned char*) b
 {
-	long	i;
+	long i;
 	
-	if( fullDepthMode) return;
+	if( fullDepthMode)
+        return;
 	
     if( r == nil || g == nil || b == nil)
         return;
@@ -5533,8 +5527,11 @@ public:
 
 -(void) setOpacity:(NSArray*) array
 {
-	if( fullDepthMode) return;
-    if( opacityTransferFunction == nil) return;
+	if( fullDepthMode)
+        return;
+    
+    if( opacityTransferFunction == nil)
+        return;
     
 	long		i;
 	NSPoint		pt;
@@ -5600,7 +5597,7 @@ public:
 		appliedCurves = nil;
 	}
 	
-	int i;
+	//int i;
     
     unsigned char rr[ 256], rg[ 256], rb[ 256];
     
@@ -5608,7 +5605,7 @@ public:
     {
         if( r)
         {
-            for( i = 0; i < 256; i++)
+            for (int i = 0; i < 256; i++)
             {
                 rr[ i] = 255-r[ i];
                 rg[ i] = 255-g[ i];
@@ -5624,7 +5621,7 @@ public:
 	{
 		if( r)
 		{
-			for( i = 0; i < 256; i++)
+			for (int i = 0; i < 256; i++)
 			{
 				table[i][0] = r[i] / 255.;
 				table[i][1] = g[i] / 255.;
@@ -5648,7 +5645,7 @@ public:
 	{
 		if( r)
 		{
-			for( i = 0; i < 256; i++)
+			for (int i = 0; i < 256; i++)
 			{
 				table[i][0] = r[i] / 255.;
 				table[i][1] = g[i] / 255.;
@@ -5661,7 +5658,7 @@ public:
 		{
             if( [[[[NSUserDefaults standardUserDefaults] persistentDomainForName: @"com.apple.CoreGraphics"] objectForKey: @"DisplayUseInvertedPolarity"] boolValue])
             {
-                for( i = 0; i < 256; i++)
+                for (int i = 0; i < 256; i++)
                 {
                     table[255-i][0] = i / 255.;
                     table[255-i][1] = i / 255.;
@@ -5670,7 +5667,7 @@ public:
             }
             else
             {
-                for( i = 0; i < 256; i++)
+                for (int i = 0; i < 256; i++)
                 {
                     table[i][0] = i / 255.;
                     table[i][1] = i / 255.;
@@ -5706,7 +5703,8 @@ public:
 	wl = iwl;
 	ww = iww;
 	
-	if( fullDepthMode) return;
+	if( fullDepthMode)
+        return;
 	
 	if(advancedCLUT)
 	{
@@ -6552,8 +6550,9 @@ public:
 		dst8.width = [firstObject pwidth];
 		dst8.rowBytes = [firstObject pwidth] * sizeof(short);
 		
-		data8 = (char*) malloc( dst8.height * dst8.width * sizeof(short));
-		if( data8 == nil) return -1;
+		data8 = (char *)malloc( dst8.height * dst8.width * sizeof(short));
+		if( data8 == nil)
+            return -1;
 		
 		dst8.data = data8;
 		srcf.data = data;
@@ -7802,7 +7801,8 @@ public:
 
 - (void) setCamera: (Camera*) cam
 {
-	if( cam == nil) return;
+	if( cam == nil)
+        return;
 	
 	double pos[3], focal[3], vUp[3], pWC[ 2];
 	pWC[0] = cam.windowCenterX;
@@ -8270,7 +8270,7 @@ public:
 		
 		float resultPt[3];
 			
-		if( intersect3D_SegmentPlane(point2, point1, planeVector, currentPoint, resultPt))
+		if (intersect3D_SegmentPlane(point2, point1, planeVector, currentPoint, resultPt) != NO_INTERSECT_3D)
 		{
 			// Convert this 3D point to 2D point projected in the plane
 			float tempPoint3D[3];
@@ -8689,21 +8689,24 @@ public:
 
 - (void)mouseEntered:(NSEvent *)theEvent
 {
-    if ([self eventToPlugins:theEvent]) return;
+    if ([self eventToPlugins:theEvent])
+        return;
     
 	cursorSet = YES;
 }
 
 - (void)mouseExited:(NSEvent *)theEvent
 {
-    if ([self eventToPlugins:theEvent]) return;
+    if ([self eventToPlugins:theEvent])
+        return;
     
 	cursorSet = NO;
 }
 
 -(void)cursorUpdate:(NSEvent *)theEvent
 {
-    if ([self eventToPlugins:theEvent]) return;
+    if ([self eventToPlugins:theEvent])
+        return;
     
     cursorSet = YES;
     [cursor set];
@@ -9007,7 +9010,8 @@ public:
 
 - (void)setAdvancedCLUT:(NSMutableDictionary*)clut lowResolution:(BOOL)lowRes;
 {
-    if( [controller windowWillClose]) return;
+    if( [controller windowWillClose])
+        return;
     
 	advancedCLUT = YES;
 	
@@ -9264,14 +9268,18 @@ public:
 
 - (void)setIChatFrame:(BOOL)set;
 {
-	if([[[self controller] style] isEqualToString:@"panel"]) return;
+	if([[[self controller] style] isEqualToString:@"panel"])
+        return;
 
 	//NSLog(@"setIChatFrame");
 	if(set)
 	{
-		if(iChatFrameIsSet) return;
+		if(iChatFrameIsSet)
+            return;
+        
 		//NSLog(@"iChatWidth : %f , iChatHeight : %f", iChatWidth, iChatHeight);
-		if(iChatWidth==0 || iChatHeight==0) return;
+		if(iChatWidth==0 || iChatHeight==0)
+            return;
 
 		iChatFrameIsSet = YES;
 		
@@ -9565,14 +9573,20 @@ void VRSpaceNavigatorMessageHandler(io_connect_t connection, natural_t messageTy
 						}
 						else if(state->buttons==1) // left button pressed
 						{
-							if( vV->projectionMode != 2) [vV coView:nil];
-							else [vV yaw:180.0];
+							if( vV->projectionMode != 2)
+                                [vV coView:nil];
+							else
+                                [vV yaw:180.0];
+                            
 							[[NSNotificationCenter defaultCenter] postNotificationName:OsirixVRCameraDidChangeNotification object:vV userInfo:nil];
 						}
 						else if(state->buttons==2) // right button pressed
 						{
-							if( vV->projectionMode != 2) [vV saView:nil];
-							else [vV yaw:90.0];
+							if( vV->projectionMode != 2)
+                                [vV saView:nil];
+							else
+                                [vV yaw:90.0];
+                            
 							[[NSNotificationCenter defaultCenter] postNotificationName:OsirixVRCameraDidChangeNotification object:vV userInfo:nil];
 						}
 						else if(state->buttons==3) // both button are presed

@@ -89,8 +89,10 @@ bool OSISlabMakeWithDictionaryRepresentation(CFDictionaryRef dict, OSISlab *slab
 	planeDict = (CFDictionaryRef)CFDictionaryGetValue(dict, @"plane");
 	thicknessNumber = (CFNumberRef)CFDictionaryGetValue(dict, @"thickness");
 	
-	if (planeDict == NULL || CFGetTypeID(planeDict) != CFDictionaryGetTypeID() ||
-		thicknessNumber == NULL || CFGetTypeID(thicknessNumber) != CFNumberGetTypeID()) {
+	if (planeDict == NULL ||
+        CFGetTypeID(planeDict) != CFDictionaryGetTypeID() ||
+		thicknessNumber == NULL ||
+        CFGetTypeID(thicknessNumber) != CFNumberGetTypeID()) {
 		return false;
 	}
 	

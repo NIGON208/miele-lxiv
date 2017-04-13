@@ -88,7 +88,7 @@ static inline unsigned char intToChar( int c)
 void* sopInstanceUIDEncode( NSString *sopuid)
 {
 	unsigned int	i, x;
-	unsigned char	*r = malloc( 1024);
+	unsigned char	*r = (unsigned char *)malloc( 1024);
 	
     if( r)
     {
@@ -297,13 +297,14 @@ NSString* sopInstanceUIDDecode( unsigned char *r, int length)
             length++;
             length /= 2;
             
-            char *ss = sopInstanceUIDEncode( s);
+            char *ss = (char *)sopInstanceUIDEncode( s);
             [self setValue: [NSData dataWithBytesNoCopy: ss length: length] forKey:@"compressedSopInstanceUID"];
             
     //		if( [[self sopInstanceUID] isEqualToString: s] == NO)
     //			NSLog(@"******** ERROR sopInstanceUID : %@ %@", s, [self sopInstanceUID]);
         }
-        else [self setValue: nil forKey:@"compressedSopInstanceUID"];
+        else
+            [self setValue: nil forKey:@"compressedSopInstanceUID"];
     }
 }
 
@@ -312,7 +313,8 @@ NSString* sopInstanceUIDDecode( unsigned char *r, int length)
 - (NSNumber*) inDatabaseFolder
 {
     @synchronized (self) {
-        if( inDatabaseFolder) return inDatabaseFolder;
+        if( inDatabaseFolder)
+            return inDatabaseFolder;
         
         NSNumber *f = [self primitiveValueForKey:@"storedInDatabaseFolder"];
         
@@ -355,7 +357,8 @@ NSString* sopInstanceUIDDecode( unsigned char *r, int length)
 - (NSNumber*) height
 {
 	@synchronized (self) {
-        if (height) return height;
+        if (height)
+            return height;
         
         NSNumber* f = [self primitiveValueForKey:@"storedHeight"];
         if (f == nil)
@@ -395,7 +398,8 @@ NSString* sopInstanceUIDDecode( unsigned char *r, int length)
 - (NSNumber*) width
 {
 	@synchronized (self) {
-        if (width) return width;
+        if (width)
+            return width;
         
         NSNumber* f = [self primitiveValueForKey:@"storedWidth"];
         if (f == nil)
@@ -435,7 +439,8 @@ NSString* sopInstanceUIDDecode( unsigned char *r, int length)
 - (NSNumber*) numberOfFrames
 {
 	@synchronized (self) {
-        if( numberOfFrames) return numberOfFrames;
+        if( numberOfFrames)
+            return numberOfFrames;
         
         NSNumber	*f = [self primitiveValueForKey:@"storedNumberOfFrames"];
         
@@ -471,7 +476,8 @@ NSString* sopInstanceUIDDecode( unsigned char *r, int length)
 - (NSNumber*) numberOfSeries
 {
 	@synchronized (self) {
-        if( numberOfSeries) return numberOfSeries;
+        if( numberOfSeries)
+            return numberOfSeries;
         
         NSNumber *f = [self primitiveValueForKey:@"storedNumberOfSeries"];
         
@@ -600,7 +606,8 @@ NSString* sopInstanceUIDDecode( unsigned char *r, int length)
 - (NSNumber*) isKeyImage
 {
 	@synchronized (self) {
-        if( isKeyImage) return isKeyImage;
+        if( isKeyImage)
+            return isKeyImage;
         
         NSNumber *f = [self primitiveValueForKey:@"storedIsKeyImage"];
         
@@ -730,7 +737,8 @@ NSString* sopInstanceUIDDecode( unsigned char *r, int length)
 - (NSString*) extension
 {
     @synchronized (self) {
-        if( extension) return extension;
+        if( extension)
+            return extension;
         
         NSString *f = [self primitiveValueForKey:@"storedExtension"];
         
@@ -765,7 +773,8 @@ NSString* sopInstanceUIDDecode( unsigned char *r, int length)
 - (NSString*) modality
 {
     @synchronized (self) {
-        if( modality) return modality;
+        if( modality)
+            return modality;
         
         NSString *f = [self primitiveValueForKey:@"storedModality"];
         
@@ -800,7 +809,8 @@ NSString* sopInstanceUIDDecode( unsigned char *r, int length)
 - (NSString*) fileType
 {
     @synchronized (self) {
-        if( fileType) return fileType;
+        if( fileType)
+            return fileType;
         
         NSString *f = [self primitiveValueForKey:@"storedFileType"];
         
@@ -845,7 +855,8 @@ NSString* sopInstanceUIDDecode( unsigned char *r, int length)
 {
 	id value = [DicomFile getDicomField: key forFile: [self completePath]];
 
-	if( value) return value;
+	if( value)
+        return value;
 	
 	return [super valueForUndefinedKey: key];
 }
@@ -865,7 +876,8 @@ NSString* sopInstanceUIDDecode( unsigned char *r, int length)
 - (NSNumber*) dicomTime
 {
     @synchronized (self) {
-        if( dicomTime) return dicomTime;
+        if( dicomTime)
+            return dicomTime;
         
         dicomTime = [[[DCMCalendarDate dicomTimeWithDate:self.date] timeAsNumber] retain];
         
@@ -904,7 +916,8 @@ NSString* sopInstanceUIDDecode( unsigned char *r, int length)
 		
 		return [[dbLocation stringByAppendingPathComponent: [NSString stringWithFormat: @"%d", (int) val]] stringByAppendingPathComponent: path];
 	}
-	else return path;
+	else
+        return path;
 }
 
 - (NSString*) path
@@ -913,7 +926,8 @@ NSString* sopInstanceUIDDecode( unsigned char *r, int length)
 	
 	if( pathNumber)
 		return [NSString stringWithFormat:@"%d.dcm", [pathNumber intValue]];
-	else return [self primitiveValueForKey: @"pathString"];
+	else
+        return [self primitiveValueForKey: @"pathString"];
 }
 
 - (void) setPath:(NSString*) p
@@ -1044,11 +1058,11 @@ NSString* sopInstanceUIDDecode( unsigned char *r, int length)
 
 - (BOOL)validateForDelete:(NSError **)error
 {
-    BOOL delete = [super validateForDelete: error];
+    BOOL _delete = [super validateForDelete: error];
     
     @synchronized (self)
     {
-        if (delete)
+        if (_delete)
         {
             #ifdef OSIRIX_VIEWER
             if( [self.inDatabaseFolder boolValue] == YES)
@@ -1064,7 +1078,7 @@ NSString* sopInstanceUIDDecode( unsigned char *r, int length)
         }
     }
     
-    return delete;
+    return _delete;
 }
 
 - (NSSet *)paths
@@ -1123,7 +1137,8 @@ NSString* sopInstanceUIDDecode( unsigned char *r, int length)
 				case tCPolygon:
 					typeString = @"POLYLINE";
 					break;
-                default:;
+                default:
+                    break;
 			}
 		}
 		

@@ -17,10 +17,12 @@
 
 @implementation NSHost (N2)
 
-+(NSHost*)hostWithAddressOrName:(NSString*)str {
++(NSHost*)hostWithAddressOrName:(NSString*)str
+{
     if (![str rangeOfCharacterFromSet:[NSCharacterSet letterCharacterSet]].length)
         return [NSHost hostWithAddress:str];
-	else return [NSHost hostWithName:str];
+	else
+        return [NSHost hostWithName:str];
 }
 
 @end

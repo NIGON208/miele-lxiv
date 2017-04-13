@@ -2811,7 +2811,8 @@ static NSString *releaseNetworkVariablesSync = @"releaseNetworkVariablesSync";
 
     /* which presentation context should be used */
     presId = ASC_findAcceptedPresentationContextID(assoc, UID_MOVEStudyRootQueryRetrieveInformationModel);
-    if (presId == 0) return DIMSE_NOVALIDPRESENTATIONCONTEXTID;
+    if (presId == 0)
+        return DIMSE_NOVALIDPRESENTATIONCONTEXTID;
 
 	//add self to list of moves. Prevents deallocating the move if a new query is done
 	[[MoveManager sharedManager] addMove:self];
@@ -3006,8 +3007,10 @@ static NSString *releaseNetworkVariablesSync = @"releaseNetworkVariablesSync";
 	return _logEntry;
 }
 
-- (void)setLogEntry:(NSManagedObject *)logEntry{
-	if( logEntry == _logEntry) return;
+- (void)setLogEntry:(NSManagedObject *)logEntry
+{
+	if( logEntry == _logEntry)
+        return;
 
 	[_logEntry release];
 	_logEntry = [logEntry retain];

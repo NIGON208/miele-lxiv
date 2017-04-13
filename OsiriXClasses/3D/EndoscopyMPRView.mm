@@ -137,9 +137,8 @@
 	glColor3f (0.8f, 0.0f, 0.25f);
 	glLineWidth(1.0 * self.window.backingScaleFactor);
 	glBegin(GL_LINE_STRIP);
-	int i;
-	if(	flyThroughPath )
-		for(i=0;i<[flyThroughPath count];i++)
+	if (flyThroughPath)
+		for (int i=0;i<[flyThroughPath count];i++)
 		{
 			Point3D* pt = [flyThroughPath objectAtIndex:i];
 			float x = (pt.x-[[self curDCM] pwidth]/2) * scaleValue;
@@ -197,7 +196,8 @@
 //navigator
 - (void) keyDown:(NSEvent *)event
 {
-    if( [[event characters] length] == 0) return;
+    if( [[event characters] length] == 0)
+        return;
     
     unichar c = [[event characters] characterAtIndex:0];
     
@@ -231,9 +231,11 @@
 			cursor = [[NSCursor rotateAxisCursor] retain];
 			[cursor set];
 		}
-		else [self flagsChanged: theEvent];
+		else
+            [self flagsChanged: theEvent];
 	}
-	else [view mouseMoved:theEvent];
+	else
+        [view mouseMoved:theEvent];
 }
 
 - (void) mouseDown:(NSEvent *)theEvent

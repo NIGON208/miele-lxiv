@@ -42,7 +42,8 @@
 	
 	for(i = 0; i < [roiNames count]; i++)
 	{
-		if( [[roiNames objectAtIndex: i] isEqualToString: aString]) return i;
+		if( [[roiNames objectAtIndex: i] isEqualToString: aString])
+            return i;
 	}
 	
 	return NSNotFound;
@@ -158,7 +159,8 @@
 
 - (void) setROI: (ROI*) iroi :(ViewerController*) c
 {
-	if( curROI == iroi) return;
+	if( curROI == iroi)
+        return;
 	
 	[curROI setComments: [NSString stringWithString: [comments string]]];	// stringWithString is very important - see NSText string !
 	[curROI setName: [name stringValue]];
@@ -180,14 +182,20 @@
 	[name selectText: self];
 	[comments setString:[curROI comments]];
 		
-	if( [curROI type] == tMesure) [recalibrate setEnabled: YES];
-	else [recalibrate setEnabled: NO];
+	if( [curROI type] == tMesure)
+        [recalibrate setEnabled: YES];
+	else
+        [recalibrate setEnabled: NO];
 	
-	if( [curROI type] == tMesure) [xyPlot setEnabled: YES];
-	else [xyPlot setEnabled: NO];
+	if( [curROI type] == tMesure)
+        [xyPlot setEnabled: YES];
+	else
+        [xyPlot setEnabled: NO];
 
-	if( [curROI type] == tLayerROI) [exportToXMLButton setEnabled:NO];
-	else [exportToXMLButton setEnabled:YES];
+	if( [curROI type] == tLayerROI)
+        [exportToXMLButton setEnabled:NO];
+	else
+        [exportToXMLButton setEnabled:YES];
 }
 
 - (void)roiChange:(NSNotification*)notification;
@@ -361,12 +369,21 @@
 {
 	if([curROI type]==tPlain)
 	{
-		NSInteger confirm = NSRunInformationalAlertPanel(NSLocalizedString(@"Export to XML", @""), NSLocalizedString(@"Exporting this kind of ROI to XML will only export the contour line.", @""), NSLocalizedString(@"OK", @""), NSLocalizedString(@"Cancel", @""), nil);
-		if(!confirm) return;
+		NSInteger confirm = NSRunInformationalAlertPanel(NSLocalizedString(@"Export to XML", @""),
+                                                         NSLocalizedString(@"Exporting this kind of ROI to XML will only export the contour line.", @""),
+                                                         NSLocalizedString(@"OK", @""),
+                                                         NSLocalizedString(@"Cancel", @""),
+                                                         nil);
+		if(!confirm)
+            return;
 	}
 	else if([curROI type]==tLayerROI)
 	{
-		NSRunAlertPanel(NSLocalizedString(@"Export to XML", @""), NSLocalizedString(@"This kind of ROI can not be exported to XML.", @""), NSLocalizedString(@"OK", @""), nil, nil);
+		NSRunAlertPanel(NSLocalizedString(@"Export to XML", @""),
+                        NSLocalizedString(@"This kind of ROI can not be exported to XML.", @""),
+                        NSLocalizedString(@"OK", @""),
+                        nil,
+                        nil);
 		return;
 	}
 	
@@ -384,8 +401,7 @@
 			NSArray *roiSeriesList = [curController roiList];
 			NSMutableArray *roiArray = [NSMutableArray array];
 			
-			int i;			
-			for ( i = 0; i < [roiSeriesList count]; i++ )
+			for (int i = 0; i < [roiSeriesList count]; i++ )
 			{
 				NSArray *roiImageList = [roiSeriesList objectAtIndex: i];
 				

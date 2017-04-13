@@ -28,9 +28,9 @@ BOOL forkedProcess = NO;
 
 static char *last(char *p, int c)
 {
-    char *t;              /* temporary variable */
-    
-    if ((t = strrchr(p, c)) != NULL) return t + 1;
+    char *t;    
+    if ((t = strrchr(p, c)) != NULL)
+        return t + 1;
     
     return p;
 }

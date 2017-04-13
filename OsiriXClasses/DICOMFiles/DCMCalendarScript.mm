@@ -61,8 +61,10 @@
 	//Important:  You should access NSAppleScript only from the main thread.
 	[self performSelectorOnMainThread:@selector(routingDestination:) withObject:routingDestination waitUntilDone: YES];
 	
-	if( [routingDestination count] > 0) return routingDestination;
-	else return nil;
+	if( [routingDestination count] > 0)
+        return routingDestination;
+	else
+        return nil;
 }
 
 @end

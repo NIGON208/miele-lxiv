@@ -185,9 +185,8 @@ NSString *mediumTag[] = {@"Blue Film", @"Clear Film", @"Paper"};
 	}
 
 	// set default printer & printer state to off
-	int i;
 	NSMutableDictionary *printerDict;
-	for (i = 0; i < [printers count]; i++)
+	for (int i = 0; i < [printers count]; i++)
 	{
 		printerDict = [printers objectAtIndex: i];
 		[printerDict setValue: m_PrinterOffImage forKey: @"state"];
@@ -217,7 +216,9 @@ NSString *mediumTag[] = {@"Blue Film", @"Clear Film", @"Paper"};
 	else
 	{
 		if( [[m_CurrentViewer imageView] flippedData]) [entireSeriesFrom setIntValue: [[m_CurrentViewer pixList] count] - [[m_CurrentViewer imageView] curImage]];
-		else [entireSeriesFrom setIntValue: 1+ [[m_CurrentViewer imageView] curImage]];
+		else
+            [entireSeriesFrom setIntValue: 1+ [[m_CurrentViewer imageView] curImage]];
+        
 		[entireSeriesTo setIntValue: [[m_CurrentViewer pixList] count]];
 	}
 	
@@ -259,7 +260,13 @@ NSString *mediumTag[] = {@"Blue Film", @"Clear Film", @"Paper"};
 {
 	if( [m_pages intValue] > 10 && [[m_ImageSelection selectedCell] tag] == eAllImages)
 	{
-		if( NSRunInformationalAlertPanel( NSLocalizedString(@"DICOM Print", nil), NSLocalizedString(@"Are you really sure you want to print %d pages?", nil) , NSLocalizedString(@"OK", nil), NSLocalizedString(@"Cancel", nil), nil, [m_pages intValue]) != NSAlertDefaultReturn) return;
+		if( NSRunInformationalAlertPanel(NSLocalizedString(@"DICOM Print", nil),
+                                         NSLocalizedString(@"Are you really sure you want to print %d pages?", nil),
+                                         NSLocalizedString(@"OK", nil),
+                                         NSLocalizedString(@"Cancel", nil),
+                                         nil,
+                                         [m_pages intValue]) != NSAlertDefaultReturn)
+            return;
 	}
 	
 	[sender setEnabled: NO];
@@ -309,12 +316,11 @@ NSString *mediumTag[] = {@"Blue Film", @"Clear Film", @"Paper"};
 		[entireSeriesToText takeIntValueFrom: entireSeriesTo];
 		
 		if( [[m_CurrentViewer imageView] flippedData]) [[m_CurrentViewer imageView] setIndex: [[m_CurrentViewer pixList] count] - [sender intValue]];
-		else [[m_CurrentViewer imageView] setIndex:  [sender intValue]-1];
+		else
+            [[m_CurrentViewer imageView] setIndex:  [sender intValue]-1];
 		
 		[[m_CurrentViewer imageView] sendSyncMessage:0];
-		
 		[m_CurrentViewer adjustSlider];
-		
 		[self setPages: self];
 	}
 }
@@ -359,13 +365,10 @@ NSString *mediumTag[] = {@"Blue Film", @"Clear Film", @"Paper"};
 	else if( [[m_ImageSelection selectedCell] tag] == eCurrentImage) no_of_images = 1;
 	else if( [[m_ImageSelection selectedCell] tag] == eKeyImages)
 	{
-		int i;
-		
 		NSArray *fileList = [m_CurrentViewer fileList];
         NSArray *roiList = [m_CurrentViewer roiList];
-		
 		no_of_images = 0;
-		for (i = 0; i < [fileList count]; i++)
+		for (int i = 0; i < [fileList count]; i++)
 		{
 			if ([[[fileList objectAtIndex: i] valueForKey: @"isKeyImage"] boolValue] || [[roiList objectAtIndex: i] count]) no_of_images++;
 		}
@@ -397,15 +400,20 @@ NSString *mediumTag[] = {@"Blue Film", @"Clear Film", @"Paper"};
 		}
 	}
 	
-	if( no_of_images == 0) [m_pages setIntValue: 1];
-	else if( no_of_images % ipp == 0)  [m_pages setIntValue: no_of_images / ipp];
-	else [m_pages setIntValue: 1 + (no_of_images / ipp)];
+	if( no_of_images == 0)
+        [m_pages setIntValue: 1];
+	else if( no_of_images % ipp == 0)
+        [m_pages setIntValue: no_of_images / ipp];
+	else
+        [m_pages setIntValue: 1 + (no_of_images / ipp)];
 }
 
 - (IBAction) setExportMode:(id) sender
 {
-	if( [[sender selectedCell] tag] == eAllImages) [self checkView: entireSeriesBox :YES];
-	else [self checkView: entireSeriesBox :NO];
+	if( [[sender selectedCell] tag] == eAllImages)
+        [self checkView: entireSeriesBox :YES];
+	else
+        [self checkView: entireSeriesBox :NO];
 	
 	[self setPages: self];
 }
@@ -413,9 +421,7 @@ NSString *mediumTag[] = {@"Blue Film", @"Clear Film", @"Paper"};
 - (ViewerController *) _currentViewer
 {
 	NSArray *windows = [NSApp windows];
-
-	int i;
-	for(i = 0; i < [windows count]; i++)
+	for(int i = 0; i < [windows count]; i++)
 	{
 		if([[[windows objectAtIndex: i] windowController] isKindOfClass: [ViewerController class]] &&
 			[[windows objectAtIndex: i] isMainWindow])

@@ -387,7 +387,8 @@ NSPoint operator*(const NSLine& l1, const NSLine& l2) {
 CGFloat NSLineYAtX(const NSLine& l, CGFloat x) {
 	if (l.direction.x)
 		return l.origin.y+l.direction.y/l.direction.x*x;
-	else return l.origin.y; // TODO: return NAN or exception
+	else
+        return l.origin.y; // TODO: return NAN or exception
 }
 
 // NSRect

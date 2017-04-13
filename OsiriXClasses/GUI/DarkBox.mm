@@ -22,7 +22,6 @@
 	[backgroundColor setFill];	
 	[NSBezierPath fillRect:rect];
 	[super drawRect:rect];
-
 }
 
 @end

@@ -279,7 +279,8 @@ static NSRecursiveLock *databasesDictionaryLock = [[NSRecursiveLock alloc] init]
     
     [databasesDictionaryLock unlock];
 	
-	if (database) return database;
+	if (database)
+        return database;
 	
     database = [[[[self class] alloc] initWithPath:[self sqlFilePathForBasePath:path]] autorelease];
 	database.name = name;
@@ -1274,7 +1275,9 @@ NSString* const DicomDatabaseLogEntryEntityName = @"LogEntry";
 			
 			if (_isFileSystemFreeSizeLimitReached)
 				NSLog(@"Warning: the volume used to store data for %@ is full, incoming files will be deleted and DICOM transferts will be rejected", self.name);			
-		} else return YES;
+		}
+        else
+            return YES;
 	}
 
 	return _isFileSystemFreeSizeLimitReached;
@@ -3369,7 +3372,8 @@ static BOOL protectionAgainstReentry = NO;
                     {
                         if (self.isMainDatabase)
                             [self.independentDatabase processFilesAtPaths:todo intoDirAtPath:self.incomingDirPath mode:Compress];
-                        else [self processFilesAtPaths:todo intoDirAtPath:self.incomingDirPath mode:Compress];
+                        else
+                            [self processFilesAtPaths:todo intoDirAtPath:self.incomingDirPath mode:Compress];
                     }
                 }
                 else // decompression
@@ -3382,7 +3386,8 @@ static BOOL protectionAgainstReentry = NO;
                     {
                         if (self.isMainDatabase)
                             [self.independentDatabase processFilesAtPaths:todo intoDirAtPath:self.incomingDirPath mode:Decompress];
-                        else [self processFilesAtPaths:todo intoDirAtPath:self.incomingDirPath mode:Decompress];
+                        else
+                            [self processFilesAtPaths:todo intoDirAtPath:self.incomingDirPath mode:Decompress];
                     }
                 }
             }
@@ -3688,7 +3693,8 @@ static BOOL protectionAgainstReentry = NO;
                         }
                         [newStudyTable didChangeValueForKey: name];
 					}
-					else [newStudyTable setValue: [oldStudy primitiveValueForKey: name] forKey: name];
+					else
+                        [newStudyTable setValue: [oldStudy primitiveValueForKey: name] forKey: name];
 					
 					if ([name isEqualToString: @"name"])
 						studyName = [oldStudy primitiveValueForKey: name];
@@ -3735,7 +3741,8 @@ static BOOL protectionAgainstReentry = NO;
                                 }
                                 [newSeriesTable didChangeValueForKey: name];
 							}
-							else [newSeriesTable setValue: [oldSeries primitiveValueForKey: name] forKey: name];
+							else
+                                [newSeriesTable setValue: [oldSeries primitiveValueForKey: name] forKey: name];
 						}
 						[newSeriesTable setValue: newStudyTable forKey: @"study"];
 						
@@ -3777,7 +3784,8 @@ static BOOL protectionAgainstReentry = NO;
                                         }
                                         [newImageTable didChangeValueForKey: name];
 									}
-									else [newImageTable setValue: [oldImage primitiveValueForKey: name] forKey: name];
+									else
+                                        [newImageTable setValue: [oldImage primitiveValueForKey: name] forKey: name];
 								}
 								[newImageTable setValue: newSeriesTable forKey: @"series"];
 							}
@@ -4031,7 +4039,8 @@ static BOOL protectionAgainstReentry = NO;
         [NSFileManager.defaultManager removeItemAtPath:self.modelVersionFilePath error:NULL];
         
 		self.managedObjectContext = [self contextAtPath:self.sqlFilePath];
-	} else [self save:NULL];
+	} else
+        [self save:NULL];
 	
 	[self lock];
 	@try {
@@ -4113,7 +4122,8 @@ static BOOL protectionAgainstReentry = NO;
 				FILE* fp = fopen(aFile.completePath.UTF8String, "r");
 				if (fp)
 					fclose( fp);
-				else [self.managedObjectContext deleteObject:aFile];
+				else
+                    [self.managedObjectContext deleteObject:aFile];
 			}
 			
 			// remove empty studies

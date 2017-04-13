@@ -1638,7 +1638,7 @@ static NSMutableArray *recentNonces;
 	if(tag == HTTP_REQUEST_HEADER)
 	{
 		// Append the header line to the http message
-		BOOL result = CFHTTPMessageAppendBytes(request, [data bytes], [data length]);
+		BOOL result = CFHTTPMessageAppendBytes(request, (UInt8 *)[data bytes], [data length]);
 		if(!result)
 		{
 			// We have a received a malformed request

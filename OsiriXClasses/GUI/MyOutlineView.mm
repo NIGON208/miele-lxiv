@@ -34,7 +34,8 @@
 
 - (void)keyDown:(NSEvent*)event
 {
-    if ([[event characters] length] == 0) return;
+    if ([[event characters] length] == 0)
+        return;
     
 	unichar c = [[event characters] characterAtIndex:0];
 	 
@@ -330,9 +331,12 @@
     [self setNeedsDisplay:YES];
 }
 
-- (NSDragOperation)draggingSourceOperationMaskForLocal:(BOOL)isLocal {
-    if (isLocal) return NSDragOperationEvery;
-    else return NSDragOperationCopy;
+- (NSDragOperation)draggingSourceOperationMaskForLocal:(BOOL)isLocal
+{
+    if (isLocal)
+        return NSDragOperationEvery;
+    else
+        return NSDragOperationCopy;
 }
 
 -(NSMenu*)menuForEvent:(NSEvent*)event
@@ -353,10 +357,10 @@
 	{
         //No rows are selected, so the table should be displayed with all items disabled
 		NSMenu* tableViewMenu = [[self menu] copy];
-		int i;
-		for (i=0;i<[tableViewMenu numberOfItems];i++)
+		for (int i=0;i<[tableViewMenu numberOfItems];i++)
 			[[tableViewMenu itemAtIndex:i] setEnabled:NO];
-		return [tableViewMenu autorelease];
+
+        return [tableViewMenu autorelease];
 	}
 	else
 		return [self menu];

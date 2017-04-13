@@ -67,18 +67,18 @@ N3MutableBezierCoreRef N3BezierCoreCreateMutableCurveWithNodes(N3VectorArray vec
 	// initialization of different vectors
 	// element number 0 is not used (except h[0])
 	nb  = numVectors + 2;
-	a   = malloc(nb*sizeof(double));	
-	c   = malloc(nb*sizeof(double));	
-	cx  = malloc(nb*sizeof(double));	
-	cy  = malloc(nb*sizeof(double));	
-	cz  = malloc(nb*sizeof(double));	
-	d   = malloc(nb*sizeof(double));	
-	g   = malloc(nb*sizeof(double));	
-	gam = malloc(nb*sizeof(double));	
-	h   = malloc(nb*sizeof(double));	
-	px  = malloc(nb*sizeof(double));	
-	py  = malloc(nb*sizeof(double));	
-	pz  = malloc(nb*sizeof(double));	
+	a   = (double *)malloc(nb*sizeof(double));
+	c   = (double *)malloc(nb*sizeof(double));
+	cx  = (double *)malloc(nb*sizeof(double));
+	cy  = (double *)malloc(nb*sizeof(double));
+	cz  = (double *)malloc(nb*sizeof(double));
+	d   = (double *)malloc(nb*sizeof(double));
+	g   = (double *)malloc(nb*sizeof(double));
+	gam = (double *)malloc(nb*sizeof(double));
+	h   = (double *)malloc(nb*sizeof(double));
+	px  = (double *)malloc(nb*sizeof(double));
+	py  = (double *)malloc(nb*sizeof(double));
+	pz  = (double *)malloc(nb*sizeof(double));
     
 	
 	BOOL failed = NO;
@@ -1033,10 +1033,10 @@ N3MutableBezierCoreRef N3BezierCoreCreateMutableOutline(N3BezierCoreRef bezierCo
     
     numVectors = length/spacing + 1.0;
     
-    vectors = malloc(numVectors * sizeof(N3Vector));
-    normals = malloc(numVectors * sizeof(N3Vector));
-    scaledNormals = malloc(numVectors * sizeof(N3Vector));
-    side = malloc(numVectors * sizeof(N3Vector));
+    vectors = (N3VectorArray)malloc(numVectors * sizeof(N3Vector));
+    normals = (N3VectorArray)malloc(numVectors * sizeof(N3Vector));
+    scaledNormals = (N3VectorArray)malloc(numVectors * sizeof(N3Vector));
+    side = (N3VectorArray)malloc(numVectors * sizeof(N3Vector));
     outlineBezier = N3BezierCoreCreateMutable();
     
     numVectors = N3BezierCoreGetVectorInfo(flattenedBezierCore, spacing, 0, initialNormal, vectors, NULL, normals, numVectors);
@@ -1120,10 +1120,10 @@ N3MutableBezierCoreRef N3BezierCoreCreateMutableOutlineWithNormal(N3BezierCoreRe
     
     numVectors = length/spacing + 1.0;
     
-    vectors = malloc(numVectors * sizeof(N3Vector));
-    tangents = malloc(numVectors * sizeof(N3Vector));
-    normals = malloc(numVectors * sizeof(N3Vector));
-    side = malloc(numVectors * sizeof(N3Vector));
+    vectors = (N3VectorArray)malloc(numVectors * sizeof(N3Vector));
+    tangents = (N3VectorArray)malloc(numVectors * sizeof(N3Vector));
+    normals = (N3VectorArray)malloc(numVectors * sizeof(N3Vector));
+    side = (N3VectorArray)malloc(numVectors * sizeof(N3Vector));
     outlineBezier = N3BezierCoreCreateMutable();
     
     numVectors = N3BezierCoreGetVectorInfo(flattenedBezierCore, spacing, 0, N3VectorZero, vectors, tangents, NULL, numVectors);
@@ -1423,7 +1423,7 @@ N3Plane N3BezierCoreLeastSquaresPlane(N3BezierCoreRef bezierCore)
     }
     
     segmentCount = N3BezierCoreSegmentCount(flattenedBezierCore);
-    endpoints = malloc(segmentCount * sizeof(N3Vector));
+    endpoints = (N3VectorArray)malloc(segmentCount * sizeof(N3Vector));
     bezierCoreIterator = N3BezierCoreIteratorCreateWithBezierCore(flattenedBezierCore);
     N3BezierCoreRelease(flattenedBezierCore);
     flattenedBezierCore = NULL;
@@ -1814,7 +1814,7 @@ CGFloat N3BezierCoreSignedAreaUsingNormal(N3BezierCoreRef bezierCore, N3Vector n
     normal = N3VectorNormalize(normal);
     
     for (i = 0; i < CFArrayGetCount(subPaths); i++) {
-        subpathBezierCore = CFArrayGetValueAtIndex(subPaths, i);
+        subpathBezierCore = (N3BezierCoreRef)CFArrayGetValueAtIndex(subPaths, i);
         
         if(N3BezierCoreGetSegmentAtIndex(subpathBezierCore, N3BezierCoreSegmentCount(subpathBezierCore)-1, NULL, NULL, NULL) != N3CloseBezierCoreSegmentType) {
             continue;
@@ -1823,7 +1823,8 @@ CGFloat N3BezierCoreSignedAreaUsingNormal(N3BezierCoreRef bezierCore, N3Vector n
         if (N3BezierCoreHasCurve(subpathBezierCore)) {
             flattenedBezierCore = N3BezierCoreCreateMutableCopy(subpathBezierCore);
             N3BezierCoreFlatten((N3MutableBezierCoreRef)flattenedBezierCore, N3BezierDefaultFlatness);
-        } else {
+        }
+        else {
             flattenedBezierCore = N3BezierCoreRetain(subpathBezierCore);
         }
         

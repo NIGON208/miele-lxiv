@@ -37,24 +37,22 @@
 - (void) removeROI :(NSNotification*) note
 {
 	if( [note object] == curROI)
-	{
 		[[self window] close];
-	}
 }
 
 - (void) changeWLWW :(NSNotification*) note
 {
 	if( [note object] == [curROI pix])
-	{
 		[self changeBin: binSlider];
-	}
 }
 
 - (void) roiChange :(NSNotification*) note
 {
 	if( [note object] == curROI)
 	{
-		if( data) free( data);
+		if( data)
+            free( data);
+        
 		data = [curROI dataValuesAsFloatPointer: &dataSize];
 	
 		long fullwl = [[curROI pix] fullwl];
@@ -112,7 +110,9 @@
 	
 	[histo setCurROI: curROI];
 	
-	if( data) free(data);
+	if( data)
+        free(data);
+    
 	data = [curROI dataValuesAsFloatPointer: &dataSize];
 	
 	long fullwl = [[curROI pix] fullwl];

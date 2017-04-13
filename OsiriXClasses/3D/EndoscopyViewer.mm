@@ -76,7 +76,7 @@ static NSString*	PathAssistantToolbarItemIdentifier		= @"PathAssistant";
     
 	//[[vrController view] setEngine:1]; // Open GL engine
 	
-	[vrController setCurrentTool:18]; // 3D camera rotate tool
+	[vrController setCurrentTool:tCamera3D]; // 3D camera rotate tool
 	
 	[[self window] setWindowController: self]; // we don't want the VRController to become the window controller!!!
 	
@@ -508,7 +508,7 @@ static NSString*	PathAssistantToolbarItemIdentifier		= @"PathAssistant";
 	if( [sender tag] >= 0)
     {
 		[tools2DMatrix selectCellWithTag: [[sender selectedCell] tag]];
-		[mprController setCurrentTool: [[sender selectedCell] tag]];
+		[mprController setCurrentTool: (ToolMode)[[sender selectedCell] tag]];
     }
 }
 
@@ -522,7 +522,7 @@ static NSString*	PathAssistantToolbarItemIdentifier		= @"PathAssistant";
 	if( [sender tag] >= 0)
     {
 		[tools3DMatrix selectCellWithTag: [[sender selectedCell] tag]];
-		[vrController setCurrentTool: [[sender selectedCell] tag]];
+		[vrController setCurrentTool: (ToolMode)[[sender selectedCell] tag]];
     }
 }
 
@@ -1262,24 +1262,25 @@ return YES;
 	*spp = 3;
 	*bpp = 8;
 	unsigned char *dataPtr = (unsigned char*) malloc(*width**height*3*sizeof(char));
-
-	if(dataPtr)
+	if (dataPtr)
 	{
-		int i;
 		// copy the axial and coronal views row by row
-		for(i=0; i<heightAx; i++)
+		for(int i=0; i<heightAx; i++)
 		{
 			memcpy(dataPtr+i*(*width)*3,axialDataPtr+i*widthAx*3,widthAx*3);
 			memcpy(dataPtr+widthAx*3+i*(*width)*3,coronalDataPtr+i*widthCor*3,widthCor*3);
 		}
+        
 		free(axialDataPtr);
 		free(coronalDataPtr);
+        
 		// copy the sagittal and 3D views row by row
-		for(i=0; i<heightSag; i++)
+		for (int i=0; i<heightSag; i++)
 		{
 			memcpy(dataPtr+(heightAx*widthAx+heightCor*widthCor)*3+i*(*width)*3,sagittalDataPtr+i*widthSag*3,widthSag*3);
 			memcpy(dataPtr+(heightAx*widthAx+heightCor*widthCor)*3+widthSag*3+i*(*width)*3,view3DDataPtr+i*width3D*3,width3D*3);
 		}
+        
 		free(sagittalDataPtr);
 		free(view3DDataPtr);
 	}
@@ -1379,15 +1380,14 @@ return YES;
 	}
 	else if(err==ERROR_DISTTRANSNOTFINISH)
 	{
-		int i;
 		waiting = [[WaitRendering alloc] init:NSLocalizedString(@"Distance Transform...", nil)];
 		[waiting showWindow:self];
 		
-		for(i=0; i<5; i++)
+		for (int i=0; i<5; i++)
 		{
 			sleep(2);
 			err= [assistant createCenterline:centerline FromPointA:pointA ToPointB:pointB withSmoothing:YES];
-			if(err!=ERROR_DISTTRANSNOTFINISH)
+			if (err!=ERROR_DISTTRANSNOTFINISH)
 				break;
 		}
 		[waiting close];
@@ -1698,16 +1698,19 @@ return YES;
 		}		
 		else if(err==ERROR_CANNOTFINDPATH)
 		{
-			NSRunAlertPanel(NSLocalizedString(@"Can't find path", nil), NSLocalizedString(@"Path Assistant can not find a path from current location.", nil), NSLocalizedString(@"OK", nil), nil, nil);
+			NSRunAlertPanel(NSLocalizedString(@"Can't find path", nil),
+                            NSLocalizedString(@"Path Assistant can not find a path from current location.", nil),
+                            NSLocalizedString(@"OK", nil),
+                            nil,
+                            nil);
 			return;
 		}
 		else if(err==ERROR_DISTTRANSNOTFINISH)
 		{
-			int i;
 			WaitRendering* waiting = [[WaitRendering alloc] init:NSLocalizedString(@"Distance Transform...", nil)];
 			[waiting showWindow:self];
 			
-			for(i=0; i<5; i++)
+			for(int i=0; i<5; i++)
 			{
 				sleep(2);
 				err= [assistant caculateNextPositionFrom:pt Towards:dir];
@@ -1716,25 +1719,34 @@ return YES;
 			}
 			[waiting close];
 			[waiting autorelease];
-			if(err==ERROR_CANNOTFINDPATH)
+			if (err==ERROR_CANNOTFINDPATH)
 			{
-				NSRunAlertPanel(NSLocalizedString(@"Can't find path", nil), NSLocalizedString(@"Path Assistant can not find a path from current location.", nil), NSLocalizedString(@"OK", nil), nil, nil);
+				NSRunAlertPanel(NSLocalizedString(@"Can't find path", nil),
+                                NSLocalizedString(@"Path Assistant can not find a path from current location.", nil),
+                                NSLocalizedString(@"OK", nil),
+                                nil,
+                                nil);
 				return;
 			}
-			else if(err==ERROR_DISTTRANSNOTFINISH)
+            
+			if(err==ERROR_DISTTRANSNOTFINISH)
 			{
-				NSRunAlertPanel(NSLocalizedString(@"Unexpected error", nil), NSLocalizedString(@"Path Assistant failed to initialize!", nil), NSLocalizedString(@"OK", nil), nil, nil);
+				NSRunAlertPanel(NSLocalizedString(@"Unexpected error", nil),
+                                NSLocalizedString(@"Path Assistant failed to initialize!", nil),
+                                NSLocalizedString(@"OK", nil),
+                                nil,
+                                nil);
 				return;
 			}
 		}
 		
 		OSIVoxel * cpos=[OSIVoxel pointWithPoint3D:pt];
 		float foclength=30;
-		if(dir.z>0)
+		if (dir.z>0)
 			foclength = ((long)[pixList count] -1 - pt.z)/dir.z;
-		else if(dir.z<0){
+		else if(dir.z<0)
 			foclength = (1 - pt.z)/dir.z;
-		}
+        
 		if(foclength>30)
 			foclength = 30;
 
@@ -1747,14 +1759,12 @@ return YES;
 		flyAssistantPositionIndex = (long)[centerline count]-1;
 		
 		[self updateCenterlineInMPRViews];
-		
 	}
-
-	
 }
+
 - (void) flyThruAssistantGoBackward: (NSNotification*)note
 {
-	if(flyAssistantMode == NAVIGATORMODE_BASIC && isFlyPathLocked==NO )
+	if (flyAssistantMode == NAVIGATORMODE_BASIC && isFlyPathLocked==NO )
 	{
 		if([centerline count]<2)
 			return;
@@ -1783,14 +1793,13 @@ return YES;
 }
 - (void) updateCenterlineInMPRViews
 {
-	int i;
 	[centerlineAxial removeAllObjects];
 	[centerlineCoronal removeAllObjects];
 	[centerlineSagittal removeAllObjects];
-	if(isShowCenterLine)
+	if (isShowCenterLine)
 	{
 		int zmax = [pixList count];
-		for(i=0;i<[centerline count];i++)
+		for (int i=0;i<[centerline count];i++)
 		{
 			OSIVoxel* pt = [centerline objectAtIndex:i];
 			Point3D* pto = [Point3D point];
@@ -1805,7 +1814,7 @@ return YES;
 			
 		}
 	}
-	if([centerline count]>2&&(isFlyPathLocked||flyAssistantMode == NAVIGATORMODE_2POINT))
+	if ([centerline count]>2&&(isFlyPathLocked||flyAssistantMode == NAVIGATORMODE_2POINT))
 	{
 		[pathAssistantLookBackButton setEnabled:YES];
 		[pathAssistantCameraOrFocalOnPathMatrix setEnabled:YES];

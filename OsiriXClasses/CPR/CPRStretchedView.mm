@@ -389,7 +389,8 @@ extern int splitPosition[ 3];
 		[topLeft removeLastObject];
 		[topLeft removeLastObject];
 	}
-	else [super drawTextualData: size :annotations];
+	else
+        [super drawTextualData: size :annotations];
 }
 
 - (void)drawRect:(NSRect)rect
@@ -463,9 +464,8 @@ extern int splitPosition[ 3];
 	glEnable(GL_LINE_SMOOTH);
 	glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	
-    if ([curDCM pixelSpacingX] == 0) {
+    if ([curDCM pixelSpacingX] == 0)
         return;
-    }
     
     centerline = [self centerlinePath];
     pixToSubDrawRectTransform = [self pixToSubDrawRectTransform];
@@ -548,8 +548,8 @@ extern int splitPosition[ 3];
         N3VectorArray vectors;
         N3VectorArray tangents;
         
-        vectors = malloc(noOfFrames * sizeof(N3Vector));
-        tangents = malloc(noOfFrames * sizeof(N3Vector));
+        vectors = (N3VectorArray)malloc(noOfFrames * sizeof(N3Vector));
+        tangents = (N3VectorArray)malloc(noOfFrames * sizeof(N3Vector));
         noOfFrames = N3BezierCoreGetVectorInfo([_curvedPath.bezierPath N3BezierCore], exportTransverseSliceInterval, startingDistance, N3VectorZero, vectors, tangents, NULL, noOfFrames);
         
         CPRTransverseView *t = [[self windowController] middleTransverseView];
@@ -632,6 +632,7 @@ extern int splitPosition[ 3];
                                                withBorderColor:[NSColor colorWithDeviceRed:0.0f green:0.0f blue:0.0f alpha:0.0f]];
 			[stringTexA setAntiAliasing: YES];
 		}
+        
 		if( stringTexB == nil)
 		{
 			stringTexB = [[StringTexture alloc] initWithString: @"B"
@@ -641,6 +642,7 @@ extern int splitPosition[ 3];
                                                withBorderColor:[NSColor colorWithDeviceRed:0.0f green:0.0f blue:0.0f alpha:0.0f]];
 			[stringTexB setAntiAliasing: YES];
 		}
+        
 		if( stringTexC == nil)
 		{
 			stringTexC = [[StringTexture alloc] initWithString: @"C"
@@ -1311,7 +1313,8 @@ extern int splitPosition[ 3];
 
 - (void)keyDown:(NSEvent *)theEvent
 {
-    if( [[theEvent characters] length] == 0) return;
+    if( [[theEvent characters] length] == 0)
+        return;
     
     unichar c = [[theEvent characters] characterAtIndex:0];
     
@@ -1555,8 +1558,8 @@ extern int splitPosition[ 3];
     projectedBezierLength = N3BezierCoreLength(projectedBezierCore);
     sampleSpacing = projectedBezierLength / (CGFloat)pixelsWide;
 
-    vectors = malloc(sizeof(N3Vector) * pixelsWide);
-    relativePositions = malloc(sizeof(CGFloat) * pixelsWide);
+    vectors = (N3Vector *)malloc(sizeof(N3Vector) * pixelsWide);
+    relativePositions = (CGFloat *)malloc(sizeof(CGFloat) * pixelsWide);
     
     numVectors = N3BezierCoreGetProjectedVectorInfo(flattenedBezierCore, sampleSpacing, 0, projectionNormal, vectors, NULL, NULL, relativePositions, pixelsWide);
     
@@ -1679,9 +1682,8 @@ extern int splitPosition[ 3];
   	if( cgl_ctx == nil)
         return;
     
-    if ([curDCM pixelSpacingX] == 0) {
+    if ([curDCM pixelSpacingX] == 0)
         return;
-    }
     
     pixelsPerMm = 1.0/[curDCM pixelSpacingX];
 
@@ -1753,8 +1755,8 @@ extern int splitPosition[ 3];
     projectedBezierLength = N3BezierCoreLength(projectedBezierCore);
     sampleSpacing = projectedBezierLength / (CGFloat)pixelsWide;
     
-    vectors = malloc(sizeof(N3Vector) * pixelsWide);
-    relativePositions = malloc(sizeof(CGFloat) * pixelsWide);
+    vectors = (N3Vector *)malloc(sizeof(N3Vector) * pixelsWide);
+    relativePositions = (CGFloat *)malloc(sizeof(CGFloat) * pixelsWide);
     
     numVectors = N3BezierCoreGetProjectedVectorInfo(flattenedBezierCore, sampleSpacing, 0, projectionNormal, vectors, NULL, NULL, relativePositions, pixelsWide);
     
@@ -1843,9 +1845,8 @@ extern int splitPosition[ 3];
         range.length++;
         planeRun.range = range;
         
-        if (traveledDistance == length) {
+        if (traveledDistance == length)
             break;
-        }
         
         prevBottomPointAbove = bottomPointAbove;
     }
@@ -1892,9 +1893,8 @@ extern int splitPosition[ 3];
         range.length++;
         planeRun.range = range;
         
-        if (traveledDistance == length) {
+        if (traveledDistance == length)
             break;
-        }
         
         prevBottomPointAbove = bottomPointAbove;
     }
@@ -1960,7 +1960,7 @@ extern int splitPosition[ 3];
     projectedBezierLength = N3BezierCoreLength(projectedBezierCore);
     sampleSpacing = projectedBezierLength / (CGFloat)pixelsWide;
     
-    vectors = malloc(sizeof(N3Vector) * pixelsWide);
+    vectors = (N3Vector *)malloc(sizeof(N3Vector) * pixelsWide);
     
     numVectors = N3BezierCoreGetProjectedVectorInfo(flattenedBezierCore, sampleSpacing, 0, projectionNormal, vectors, NULL, NULL, NULL, pixelsWide);
     

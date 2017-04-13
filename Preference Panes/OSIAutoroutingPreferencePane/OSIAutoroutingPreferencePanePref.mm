@@ -204,9 +204,8 @@ static BOOL newRouteMode = NO;
         
         if( selectedRoute)
         {
-            int i;
             [serverPopup removeAllItems];
-            for( i = 0; i < [serversArray count]; i++)
+            for (int i = 0; i < [serversArray count]; i++)
             {
                 NSString *name = [NSString stringWithFormat:@"%@ - %@", [[serversArray objectAtIndex: i] objectForKey:@"AETitle"], [[serversArray objectAtIndex: i] objectForKey:@"Description"]];
                 
@@ -229,7 +228,7 @@ static BOOL newRouteMode = NO;
             self.imagesOnly = [[selectedRoute valueForKey: @"imagesOnly"] boolValue];
             
             int count = 0;
-            for( i = 0; i < [serversArray count]; i++)
+            for (int i = 0; i < [serversArray count]; i++)
             {
                 if ([[[serversArray objectAtIndex: i] objectForKey:@"Description"] isEqualToString: [selectedRoute valueForKey: @"server"]])
                 {
@@ -238,7 +237,7 @@ static BOOL newRouteMode = NO;
                 }
             }
             
-            if( count > 1)
+            if (count > 1)
             {
                 NSRunCriticalAlertPanel(NSLocalizedString(@"Multiples Servers", nil),
                                         NSLocalizedString(@"Warning, multiples destination servers have the same name: %@. Each destination should have a unique name.", nil),

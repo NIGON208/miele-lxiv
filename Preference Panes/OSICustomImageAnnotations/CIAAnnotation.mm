@@ -136,7 +136,9 @@
 
 - (void)mouseDragged:(NSEvent *)theEvent
 {
-	if(!self.isEnabled || isOrientationWidget) return;
+	if(!self.isEnabled || isOrientationWidget)
+        return;
+    
 	[[NSNotificationCenter defaultCenter] postNotificationName:@"CIAAnnotationMouseDraggedNotification" object:self];
 	
 	NSPoint eventLocation = [theEvent locationInWindow];
@@ -172,7 +174,9 @@
 
 - (void)mouseDown:(NSEvent *)theEvent
 {
-	if(!self.isEnabled || isOrientationWidget) return;
+	if(!self.isEnabled || isOrientationWidget)
+        return;
+    
 	[[NSNotificationCenter defaultCenter] postNotificationName:@"CIAAnnotationMouseDownNotification" object:self];
 	NSPoint eventLocation = [theEvent locationInWindow];
 	mouseDownLocation = [self convertPoint:eventLocation fromView:nil];
@@ -196,7 +200,9 @@
 
 - (void)mouseUp:(NSEvent *)theEvent
 {
-	if(!self.isEnabled || isOrientationWidget) return;
+	if(!self.isEnabled || isOrientationWidget)
+        return;
+    
 	[[NSNotificationCenter defaultCenter] postNotificationName:@"CIAAnnotationMouseUpNotification" object:self];
 }
 
@@ -222,8 +228,12 @@
 
 - (void)setTitle:(NSString*)aTitle;
 {
-	if([aTitle isEqualToString:@""]) return;
-	if(title) [title release];
+	if([aTitle isEqualToString:@""])
+        return;
+    
+	if(title)
+        [title release];
+    
 	title = [aTitle retain];
 
 	NSMutableDictionary *attrsDictionary = [NSMutableDictionary dictionaryWithCapacity:3];

@@ -222,7 +222,8 @@ extern int splitPosition[ 3];
 			[windowController.horizontalSplit2 setPosition: splitPosition[ 2] ofDividerAtIndex: 0];
 		}
 	}
-	else [super mouseDown: event];
+	else
+        [super mouseDown: event];
 }
 
 - (void) rightMouseUp:(NSEvent *)event

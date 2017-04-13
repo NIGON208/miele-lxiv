@@ -184,7 +184,7 @@
             return;
         }
         
-        float *sorted = malloc(floatCount * sizeof(float));
+        float *sorted = (float *)malloc(floatCount * sizeof(float));
         memcpy(sorted, [[self floatData] bytes], floatCount * sizeof(float));
         vDSP_vsort(sorted, floatCount, 1);
         
@@ -264,8 +264,8 @@
             return NAN;
         }
         
-        float *scrap1 = malloc(floatCount * sizeof(float));
-        float *scrap2 = malloc(floatCount * sizeof(float));
+        float *scrap1 = (float *)malloc(floatCount * sizeof(float));
+        float *scrap2 = (float *)malloc(floatCount * sizeof(float));
         
         vDSP_vsadd((float *)[[self floatData] bytes], 1, &negativeMean, scrap1, 1, floatCount);
         vDSP_vsq(scrap1, 1, scrap2, 1, floatCount);
@@ -331,7 +331,7 @@
         float *runBuffer;
         float *floatBuffer;
 
-        floatBuffer = malloc(floatCount * sizeof(float));
+        floatBuffer = (float *)malloc(floatCount * sizeof(float));
         memset(floatBuffer, 0, floatCount * sizeof(float));
 
         runBuffer = floatBuffer;

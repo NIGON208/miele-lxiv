@@ -121,7 +121,8 @@ static BOOL protectedReentryWindowDidResize = NO;
 
 - (void) windowDidResize:(NSNotification *)aNotification
 {
-	if( protectedReentryWindowDidResize) return;
+	if( protectedReentryWindowDidResize)
+        return;
 	
 	protectedReentryWindowDidResize = YES;
 	if( magneticWindowActivated)
@@ -356,7 +357,8 @@ static BOOL protectedReentryWindowDidResize = NO;
 			float gravityX = myFrame.size.width/4;
 			float gravityY = myFrame.size.height/4;
 			
-			if ([[NSApp currentEvent] modifierFlags] & NSAlternateKeyMask) return;
+			if ([[NSApp currentEvent] modifierFlags] & NSAlternateKeyMask)
+                return;
 			
 			NSMutableArray	*rects = [NSMutableArray array];
 			

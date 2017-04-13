@@ -24,14 +24,19 @@
 	long	i;
 	float	iY, aY;
 	
-	if( data) free( data);
+	if (data)
+        free( data);
+    
 	data = [curROI dataValuesAsFloatPointer: &dataSize];
 	
 	iY = aY = data[ 0];
 	for( i = 0 ; i < dataSize; i++)
 	{
-		if( iY > data[ i]) iY = data[ i];
-		if( aY < data[ i]) aY = data[ i];
+		if( iY > data[ i])
+            iY = data[ i];
+        
+		if( aY < data[ i])
+            aY = data[ i];
 	}
 	
 	[minY setFloatValue: iY];
@@ -59,7 +64,8 @@
 {
     [[NSNotificationCenter defaultCenter] removeObserver: self];
 	
-	if( data) free( data);
+	if (data)
+        free( data);
 	
 	[super dealloc];
 }
@@ -68,17 +74,13 @@
 - (void) removeROI :(NSNotification*) note
 {
 	if( [note object] == curROI)
-	{
 		[[self window] close];
-	}
 }
 
 - (void) changeWLWW :(NSNotification*) note
 {
 	if( [note object] == [curROI pix])
-	{
 		[plot setNeedsDisplay: YES];
-	}
 }
 
 - (void) roiChange :(NSNotification*) note
@@ -108,7 +110,6 @@
 	minValue = fullwl - fullww/2;
 	maxValue = fullwl + fullww/2;
 	
-	
 	NSNotificationCenter *nc;
     nc = [NSNotificationCenter defaultCenter];
     [nc addObserver: self
@@ -136,8 +137,7 @@
 
 - (void)windowWillClose:(NSNotification *)notification
 {
-	[[self window] setAcceptsMouseMovedEvents: NO];
-	
+	[[self window] setAcceptsMouseMovedEvents: NO];	
 	[self autorelease];
 }
 

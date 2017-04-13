@@ -242,8 +242,10 @@ static float deg2rad = M_PI/180.0;
 	
 	DCMPix *pix = [pixList objectAtIndex:z];
 	
-	if(![[isTextureWLWWUpdated objectAtIndex:i] boolValue]) [pix changeWLWW:wl :ww];
-	else if( [[thumbnailsTextureArray objectAtIndex:i] intValue] >= 0) return [[thumbnailsTextureArray objectAtIndex:i] intValue];
+	if(![[isTextureWLWWUpdated objectAtIndex:i] boolValue])
+        [pix changeWLWW:wl :ww];
+	else if( [[thumbnailsTextureArray objectAtIndex:i] intValue] >= 0)
+        return [[thumbnailsTextureArray objectAtIndex:i] intValue];
 	
 	[[self openGLContext] makeCurrentContext];
 	CGLContextObj cgl_ctx = [[NSOpenGLContext currentContext] CGLContextObj];
@@ -832,7 +834,8 @@ static float deg2rad = M_PI/180.0;
 
 - (void)changeWLWW:(NSNotification*)notif;
 {
-	if(dontListenToNotification > 0) return;
+	if(dontListenToNotification > 0)
+        return;
 
 	DCMPix *pix = [notif object];
 	if(pix.ww!=ww || pix.wl!=wl)
@@ -852,7 +855,8 @@ static float deg2rad = M_PI/180.0;
 
 - (void)refresh:(NSNotification*)notif;
 {
-	if(dontListenToNotification > 0) return;
+	if(dontListenToNotification > 0)
+        return;
 	
 	int curImageIndex = [[self viewer] imageIndex];
 	int curMovieIndex = [[self viewer] curMovieIndex];
@@ -869,7 +873,8 @@ static float deg2rad = M_PI/180.0;
 
 - (void)refreshROIs:(NSNotification*)notif;
 {
-	if(dontListenToNotification > 0) return;
+	if(dontListenToNotification > 0)
+        return;
 	
 	[self displaySelectedImage];
 	[self setNeedsDisplay:YES];
@@ -1040,7 +1045,9 @@ static float deg2rad = M_PI/180.0;
 - (void)scrollWheel:(NSEvent *)theEvent
 {
 	//float d = [theEvent deltaY];
-	if([theEvent deltaY] == 0) return;
+	if([theEvent deltaY] == 0)
+        return;
+    
 	//if( fabs( d) < 1.0) d = 1.0 * fabs( d) / d;
 	
 	[[[self viewer] imageView] scrollWheel:theEvent];
@@ -1051,7 +1058,8 @@ static float deg2rad = M_PI/180.0;
 
 - (void)displaySelectedImage;
 {
-	if(![self viewer]) return;
+	if(![self viewer])
+        return;
 	
 	NSClipView *clipView = [[self enclosingScrollView] contentView];
 	NSRect viewBounds = [clipView documentVisibleRect];
@@ -1153,8 +1161,10 @@ static float deg2rad = M_PI/180.0;
 	if(!newWindow)//t == [[self viewer] curMovieIndex] || [[self viewer] isPlaying4D]) // same time line: select the clicked slice
 	{
 		DCMView *view = [[self viewer] imageView];
-		if([view flippedData]) [view setIndex:[[[self viewer] pixList] count]-z-1];
-		else [view setIndex:z];
+		if([view flippedData])
+            [view setIndex:[[[self viewer] pixList] count]-z-1];
+		else
+            [view setIndex:z];
 		
 		if(t != [[self viewer] curMovieIndex])
 		{
@@ -1181,8 +1191,11 @@ static float deg2rad = M_PI/180.0;
 			{
 				// select the correct slice
 				DCMView *view = [selectedViewer imageView];
-				if([view flippedData]) [view setIndex:[[[self viewer] pixList] count]-z-1];
-				else [view setIndex:z];
+				if([view flippedData])
+                    [view setIndex:[[[self viewer] pixList] count]-z-1];
+				else
+                    [view setIndex:z];
+                
 				// sync other viewers
 				[view sendSyncMessage:0];
 				// make key viewer
@@ -1222,8 +1235,10 @@ static float deg2rad = M_PI/180.0;
 
 	// select the correct slice
 	DCMView *view = [newViewer imageView];
-	if([[[self viewer] imageView] flippedData]) [view setIndex:[[[self viewer] pixList] count]-z-1];
-	else [view setIndex:z];
+	if([[[self viewer] imageView] flippedData])
+        [view setIndex:[[[self viewer] pixList] count]-z-1];
+	else
+        [view setIndex:z];
 	
 	// flippedData must be the same on all viewers
 	view.flippedData = [[self viewer] imageView].flippedData;
@@ -1251,7 +1266,9 @@ static float deg2rad = M_PI/180.0;
 
 - (void)saveTransformForCurrentViewer;
 {
-	if(![self viewer]) return;
+	if(![self viewer])
+        return;
+    
 	NSString *seriesInstanceUID = [[[[[self viewer] pixList:0] objectAtIndex:0] seriesObj] valueForKey:@"seriesInstanceUID"];
 	NSMutableDictionary *currentTransform = [NSMutableDictionary dictionary];
 	[currentTransform setObject:[NSNumber numberWithFloat:zoomFactor] forKey:@"zoomFactor"];
@@ -1262,7 +1279,9 @@ static float deg2rad = M_PI/180.0;
 
 - (void)loadTransformForCurrentViewer;
 {
-	if(![self viewer]) return;
+	if(![self viewer])
+        return;
+    
 	NSString *seriesInstanceUID = [[[[[self viewer] pixList:0] objectAtIndex:0] seriesObj] valueForKey:@"seriesInstanceUID"];
 	NSMutableDictionary *currentTransform = [savedTransformDict objectForKey:seriesInstanceUID];
 	if(currentTransform)

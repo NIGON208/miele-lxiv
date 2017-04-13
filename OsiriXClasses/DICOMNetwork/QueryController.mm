@@ -715,8 +715,10 @@ extern "C"
         if( [wait aborted])
             return NO;
         
-		if( [theTask terminationStatus] == 0) return YES;
-		else return NO;
+		if( [theTask terminationStatus] == 0)
+            return YES;
+		else
+            return NO;
 	}
 	@catch (NSException * e)
 	{
@@ -1447,7 +1449,8 @@ extern "C"
 
 - (void)keyDown:(NSEvent *)event
 {
-    if( [[event characters] length] == 0) return;
+    if( [[event characters] length] == 0)
+        return;
     
     unichar c = [[event characters] characterAtIndex:0];
 	
@@ -1666,7 +1669,8 @@ extern "C"
 	NSArray *seriesArray = nil;
 	NSManagedObject *study = [[self localStudy: [outlineView parentForItem: item] context: context] lastObject];
 	
-	if( study == nil) return seriesArray;
+	if( study == nil)
+        return seriesArray;
 	
 	if( [item isMemberOfClass:[DCMTKSeriesQueryNode class]] == YES)
 	{
@@ -1953,7 +1957,8 @@ extern "C"
 
 					[(ImageAndTextCell *)cell setImage:[NSImage pieChartImageWithPercentage:percentage]];
 				}
-				else [(ImageAndTextCell *)cell setImage: nil];
+				else
+                    [(ImageAndTextCell *)cell setImage: nil];
 			}
 			else if( [item isMemberOfClass:[DCMTKSeriesQueryNode class]] == YES)
 			{
@@ -1972,17 +1977,21 @@ extern "C"
 					
 					[(ImageAndTextCell *)cell setImage:[NSImage pieChartImageWithPercentage:percentage]];
 				}
-				else [(ImageAndTextCell *)cell setImage: nil];
+				else
+                    [(ImageAndTextCell *)cell setImage: nil];
 			}
-			else [(ImageAndTextCell *)cell setImage: nil];
+			else
+                [(ImageAndTextCell *)cell setImage: nil];
 			
 			[cell setFont: [NSFont boldSystemFontOfSize:13]];
 			[cell setLineBreakMode: NSLineBreakByTruncatingMiddle];
 		}
 		else if( [[tableColumn identifier] isEqualToString: @"numberImages"])
 		{
-			if( [item valueForKey:@"numberImages"]) [cell setIntegerValue: [[item valueForKey:@"numberImages"] intValue]];
-			else [cell setStringValue:@"n/a"];
+			if( [item valueForKey:@"numberImages"])
+                [cell setIntegerValue: [[item valueForKey:@"numberImages"] intValue]];
+			else
+                [cell setStringValue:@"n/a"];
 		}
 	}
 	@catch (NSException * e)
@@ -2074,7 +2083,8 @@ extern "C"
                     {
                         return [NSNumber numberWithInt: [[item valueForKey: [tableColumn identifier]] intValue]];
                     }
-                    else return [item valueForKey: [tableColumn identifier]];
+                    else
+                        return [item valueForKey: [tableColumn identifier]];
                 }
                 else NSLog( @"***** unknown class in QueryController outlineView: %@", [item class]);
             }	
@@ -2158,9 +2168,11 @@ extern "C"
 		{
 			[outlineView selectRowIndexes: [NSIndexSet indexSetWithIndex: 0] byExtendingSelection: NO];
 		}
-		else [outlineView selectRowIndexes: [NSIndexSet indexSetWithIndex: [outlineView rowForItem: item]] byExtendingSelection: NO];
+		else
+            [outlineView selectRowIndexes: [NSIndexSet indexSetWithIndex: [outlineView rowForItem: item]] byExtendingSelection: NO];
 	}
-	else [outlineView selectRowIndexes: [NSIndexSet indexSetWithIndex: [outlineView rowForItem: item]] byExtendingSelection: NO];
+	else
+        [outlineView selectRowIndexes: [NSIndexSet indexSetWithIndex: [outlineView rowForItem: item]] byExtendingSelection: NO];
 	
 	[outlineView scrollRowToVisible: [outlineView selectedRow]];
 }
@@ -2174,7 +2186,8 @@ extern "C"
 	{
 		[selectedResultSource setStringValue: [NSString stringWithFormat:@"%@  /  %@:%d", [item valueForKey:@"calledAET"], [item valueForKey:@"hostname"], [[item valueForKey:@"port"] intValue]]];
 	}
-	else [selectedResultSource setStringValue:@""];
+	else
+        [selectedResultSource setStringValue:@""];
     
     if( [[NSUserDefaults standardUserDefaults] boolForKey: @"displaySamePatientWithColorBackground"])
         [outlineView setNeedsDisplay: YES];
@@ -3008,7 +3021,9 @@ extern "C"
             
             if( [chars length])
             {
-                if( [chars characterAtIndex:0] != 13 && [chars characterAtIndex:0] != 3) return;
+                if ([chars characterAtIndex:0] != 13 &&
+                    [chars characterAtIndex:0] != 3)
+                    return;
             }
         }
         
@@ -3192,7 +3207,8 @@ extern "C"
                                 addItem = NO;
                             }
                         }
-                        else [downloadedStudies removeObject: d];
+                        else
+                            [downloadedStudies removeObject: d];
                     }
                 }
             }

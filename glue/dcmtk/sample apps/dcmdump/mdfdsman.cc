@@ -115,37 +115,50 @@ static int readNextToken(const char *c, int& pos, DcmTagKey& key, Uint32& idx)
   OFString aString;
   int lpos = pos;
   int spos = 0;
-  if (c[lpos]=='\0') return -1; // EOF
+  if (c[lpos]=='\0')
+      return -1; // EOF
+    
   if (c[lpos]=='.')
   {
     ++pos;
     return 3; // period
   }
+    
   // look for item index between []
   if (c[lpos]=='[')
   {
     spos = ++lpos;
     while ((c[lpos] >= '0')&&(c[lpos] <= '9')) ++lpos;
-    if (c[lpos] != ']') return 0; // parse error
+    if (c[lpos] != ']')
+        return 0; // parse error
+      
     unsigned long newindex = 0;
-    if (1 != sscanf(c+spos,"%lu", &newindex)) return 0; // parse error
+    if (1 != sscanf(c+spos,"%lu", &newindex))
+        return 0; // parse error
+      
     idx = OFstatic_cast(Uint32, newindex);
     pos = ++lpos;
     return 2; // index
   }
+    
   // look for tag between ()
   if (c[lpos]=='(')
   {
     spos = ++lpos;
     while ((c[lpos] != ')')&&(c[lpos] != '\0')) ++lpos;
-    if (c[lpos] != ')') return 0; // parse error
+    if (c[lpos] != ')')
+        return 0; // parse error
+      
     unsigned int group=0;
     unsigned int elem=0;
-    if (2 != sscanf(c+spos,"%x,%x", &group, &elem)) return 0; // parse error
+    if (2 != sscanf(c+spos,"%x,%x", &group, &elem))
+        return 0; // parse error
+      
     key = DcmTagKey(OFstatic_cast(Uint16, group),OFstatic_cast(Uint16, elem));
     pos = ++lpos;
     return 1; // tag key
   }
+    
   // so far no tag and no item index found. So check if it's a dictionary name
   spos = lpos;
   while ( ((c[lpos] >= 'a')&&(c[lpos] <= 'z')) ||
@@ -315,10 +328,13 @@ OFCondition MdfDatasetManager::modifyOrInsertPath(OFString tag_path,
   // if desired, handle tag not found as being not an error
   if ( (result == EC_TagNotFound) && only_modify && ignore_missing_tags )
       return EC_Normal;
-  if (result.bad()) return result;
+  if (result.bad())
+      return result;
+    
   OFList<DcmPath*> resultPaths;
   Uint32 numResultPaths = proc.getResults(resultPaths);
-  if (numResultPaths == 0) return EC_IllegalCall;
+  if (numResultPaths == 0)
+      return EC_IllegalCall;
 
   // general validity checking; must only be done for one result
   OFListIterator(DcmPath*) resultPath = resultPaths.begin();
@@ -332,9 +348,13 @@ OFCondition MdfDatasetManager::modifyOrInsertPath(OFString tag_path,
       return makeOFCondition(OFM_dcmdata, 22, OF_error, "Groups 0001,0003,0005,0007,FFFF are illegal!");
 
   DcmPathNode *lastElement = (*resultPath)->back();
-  if (lastElement == NULL) return EC_IllegalCall;
+  if (lastElement == NULL)
+      return EC_IllegalCall;
+    
   DcmObject *obj = lastElement->m_obj;
-  if (obj == NULL) return EC_IllegalCall;
+  if (obj == NULL)
+      return EC_IllegalCall;
+    
   // if object at the end is not a leaf, the insertion is completed (or must fail)
   if (!obj->isLeaf())
   {
@@ -353,14 +373,21 @@ OFCondition MdfDatasetManager::modifyOrInsertPath(OFString tag_path,
   while (resultPath != resultPaths.end())
   {
       lastElement = (*resultPath)->back();
-      if (lastElement == NULL) return EC_IllegalCall;
+      if (lastElement == NULL)
+          return EC_IllegalCall;
+      
       // if tag is already present, start modify operation
       DcmElement *elem = OFstatic_cast(DcmElement*, lastElement->m_obj);
-      if (elem == NULL) return EC_IllegalCall;
+      if (elem == NULL)
+          return EC_IllegalCall;
+      
       result = startModify(elem, value);
-      if (result.bad()) return result;
+      if (result.bad())
+          return result;
+      
       if (update_metaheader)
           deleteRelatedMetaheaderTag(elem->getTag());
+      
       resultPath++;
   }
   return EC_Normal;
@@ -393,10 +420,13 @@ OFCondition MdfDatasetManager::modifyOrInsertFromFile(OFString tag_path,
   // if desired, handle tag not found as being not an error
   if ((result == EC_TagNotFound) && only_modify && ignore_missing_tags)
       return EC_Normal;
-  if (result.bad()) return result;
+  if (result.bad())
+      return result;
+    
   OFList<DcmPath *> resultPaths;
   Uint32 numResultPaths = proc.getResults(resultPaths);
-  if (numResultPaths == 0) return EC_IllegalCall;
+  if (numResultPaths == 0)
+      return EC_IllegalCall;
 
   // general validity checking; must only be done for one result
   OFListIterator(DcmPath*) resultPath = resultPaths.begin();
@@ -410,9 +440,13 @@ OFCondition MdfDatasetManager::modifyOrInsertFromFile(OFString tag_path,
       return makeOFCondition(OFM_dcmdata, 22, OF_error, "Groups 0001,0003,0005,0007,FFFF are illegal!");
 
   DcmPathNode *lastElement = (*resultPath)->back();
-  if (lastElement == NULL) return EC_IllegalCall;
+  if (lastElement == NULL)
+      return EC_IllegalCall;
+    
   DcmObject *obj = lastElement->m_obj;
-  if (obj == NULL) return EC_IllegalCall;
+  if (obj == NULL)
+      return EC_IllegalCall;
+    
   // if object at the end is not a leaf, the insertion/modification fails
   if (!obj->isLeaf())
       return makeOFCondition(OFM_dcmdata, 22, OF_error, "Cannot put value into non-leaf elements!");
@@ -422,10 +456,14 @@ OFCondition MdfDatasetManager::modifyOrInsertFromFile(OFString tag_path,
   while (resultPath != resultPaths.end())
   {
       lastElement = (*resultPath)->back();
-      if (lastElement == NULL) return EC_IllegalCall;
+      if (lastElement == NULL)
+          return EC_IllegalCall;
+      
       // if tag is already present, start modify operation
       DcmElement *elem = OFstatic_cast(DcmElement*, lastElement->m_obj);
-      if (elem == NULL) return EC_IllegalCall;
+      if (elem == NULL)
+          return EC_IllegalCall;
+      
       // check whether VR is "unknown"
       DcmEVR vr = elem->getTag().getEVR();
       if (ignore_un_modifies && ((vr == EVR_UN) || (vr == EVR_UNKNOWN) || (vr == EVR_UNKNOWN2B)))
@@ -444,9 +482,12 @@ OFCondition MdfDatasetManager::modifyOrInsertFromFile(OFString tag_path,
           // read element value from binary file (requires even length)
           result = elem->createValueFromTempFile(fileStream.newFactory(), OFstatic_cast(Uint32, fileLen), EBO_LittleEndian);
       }
-      if (result.bad()) return result;
+      if (result.bad())
+          return result;
+      
       if (update_metaheader)
           deleteRelatedMetaheaderTag(elem->getTag());
+      
       resultPath++;
   }
   return EC_Normal;
@@ -605,11 +646,11 @@ OFCondition MdfDatasetManager::generateAndInsertUID(const DcmTagKey& uidKey)
         // force meta-header to refresh SOP Class/Instance UIDs.
         DcmItem *meta_info = dfile->getMetaInfo();
         if (meta_info)
-        {
             delete meta_info->remove(DCM_MediaStorageSOPInstanceUID);
-        }
     }
-    else return EC_IllegalCall;
+    else
+        return EC_IllegalCall;
+    
     result = dset->putAndInsertString(uidKey, uid);
     return result;
 }
@@ -727,7 +768,8 @@ OFBool MdfDatasetManager::isTagInDictionary(const DcmTagKey &search_key)
     dcmDataDict.unlock();
     if (dicent)
         return OFTrue;
-    else return OFFalse;
+    
+    return OFFalse;
 }
 
 

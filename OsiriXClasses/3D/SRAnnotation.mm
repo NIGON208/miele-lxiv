@@ -40,7 +40,8 @@
 	NSData *archiveData = nil;
 	DcmFileFormat fileformat;
 	OFCondition status = fileformat.loadFile([path UTF8String]);
-	if( status != EC_Normal) return nil;
+	if( status != EC_Normal)
+        return nil;
 	
 	OFString name;
 	const Uint8 *buffer = nil;
@@ -776,15 +777,19 @@
     OFString value;
     document->getSeriesDescription(value);
 	const char* seriesDescription = value.c_str();
-	if( seriesDescription) return [NSString stringWithUTF8String:seriesDescription];
-	else return @"";
+	if( seriesDescription)
+        return [NSString stringWithUTF8String:seriesDescription];
+	else
+        return @"";
 }
 
 - (NSString *)seriesNumber{
     OFString value;
     document->getSeriesNumber(value);
 	const char* seriesNumber = value.c_str();
-	if( seriesNumber) return [NSString stringWithUTF8String:seriesNumber];
-	else return @"";
+	if( seriesNumber)
+        return [NSString stringWithUTF8String:seriesNumber];
+	else
+        return @"";
 }
 @end

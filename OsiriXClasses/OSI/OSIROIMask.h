@@ -77,7 +77,7 @@ NSArray *OSIROIMaskIndexesInRun(OSIROIMaskRun maskRun); // should this be a func
 /** Returns NSOrderedAscending if `maskRun2` is larger than `maskRun1`.
  
  */
-NSComparisonResult OSIROIMaskCompareRunValues(NSValue *maskRun1, NSValue *maskRun2, void *context);
+NSInteger OSIROIMaskCompareRunValues(NSValue *maskRun1, NSValue *maskRun2, void *context);
 
 /** Returns a value larger than 0 if `maskRun2` is larger than `maskRun1`.
  

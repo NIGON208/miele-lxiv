@@ -66,7 +66,8 @@
 	
 	for(i = 0; i < [roiNames count]; i++)
 	{
-		if( [[roiNames objectAtIndex: i] isEqualToString: aString]) return i;
+		if( [[roiNames objectAtIndex: i] isEqualToString: aString])
+            return i;
 	}
 	
 	return NSNotFound;

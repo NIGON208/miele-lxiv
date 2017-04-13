@@ -174,7 +174,6 @@
 		return NSDragOperationMove;
 		
 	return NSDragOperationNone;
-	
 }
 
 - (BOOL)tableView:(NSTableView *)aTableView acceptDrop:(id <NSDraggingInfo>)info row:(NSInteger)row dropOperation:(NSTableViewDropOperation)operation
@@ -186,6 +185,7 @@
 	int rowIndex = [rowIndexes firstIndex];
 	if (rowIndex  < row)
 		row--;
+    
 	id object = [[[self arrangedObjects] objectAtIndex: rowIndex] retain];
 	[self removeObjectsAtArrangedObjectIndexes:rowIndexes];
 	[self insertObject:object atArrangedObjectIndex:row];	
@@ -196,7 +196,8 @@
 
 - (void) resetCameraIndexes{
  	int count = 1;
-	for (Camera *camera in [self arrangedObjects]) camera.index = count++;
+	for (Camera *camera in [self arrangedObjects])
+        camera.index = count++;
 }
 
 - (IBAction)updateCamera:(id)sender{

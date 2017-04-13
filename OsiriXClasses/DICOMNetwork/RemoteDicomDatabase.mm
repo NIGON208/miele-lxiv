@@ -161,7 +161,8 @@
 -(NSString*)sqlFilePath {
 	if (_sqlFileName)
 		return [self.baseDirPath stringByAppendingPathComponent:_sqlFileName];
-	else return [super sqlFilePath];
+	else
+        return [super sqlFilePath];
 }
 
 -(NSString*)localPathForImage:(Dicom_Image*)image {
@@ -376,7 +377,9 @@
 			size -= w;
 			start += w;
 			obtainedSize.unsignedIntegerValue = obtainedSize.unsignedIntegerValue + w;
-		} else [NSException raise:NSGenericException format:@"%@", fileStream.streamError.localizedDescription];
+		}
+        else
+            [NSException raise:NSGenericException format:@"%@", fileStream.streamError.localizedDescription];
 	}
 		
 	thread.progress = 1.0*obtainedSize.unsignedIntegerValue/databaseIndexSize;
@@ -761,8 +764,12 @@ enum RemoteDicomDatabaseStudiesAlbumAction { RemoteDicomDatabaseStudiesAlbumActi
 					//DLog(@"RDD receiving %d files", n);
 					readSize += 4;
 					state.unsignedIntegerValue = 1;
-				} else return readSize;
-			} break;
+				}
+                else
+                    return readSize;
+			}
+                break;
+                
 			case 1: { // expecting size of next file
 				if (data.length-readSize >= 4) {
 					unsigned int big;
@@ -780,8 +787,11 @@ enum RemoteDicomDatabaseStudiesAlbumAction { RemoteDicomDatabaseStudiesAlbumActi
 					
 					readSize += 4;
 					state.unsignedIntegerValue = 2;
-				} else return readSize;
+				}
+                else
+                    return readSize;
 			} break;
+                
 			case 2: { // expecting file data, its length is in context
 				unsigned int l = [[context objectAtIndex:3] unsignedIntValue];
 				NSOutputStream* stream = [context objectAtIndex:5];
@@ -793,12 +803,15 @@ enum RemoteDicomDatabaseStudiesAlbumAction { RemoteDicomDatabaseStudiesAlbumActi
 						ll -= w;
 						readSize += w;
 						streamSize.unsignedIntegerValue = streamSize.unsignedIntegerValue+w;
-					} else [NSException raise:NSGenericException format:@"%@", stream.streamError.localizedDescription];
+					}
+                    else
+                        [NSException raise:NSGenericException format:@"%@", stream.streamError.localizedDescription];
 				}
 				
 				if (streamSize.unsignedIntegerValue >= l)
 					state.unsignedIntegerValue = 3;
 			} break;
+                
 			case 3: { // expecting length of name of received file
 				if (data.length-readSize >= 4) {
 					unsigned int big;
@@ -808,8 +821,11 @@ enum RemoteDicomDatabaseStudiesAlbumAction { RemoteDicomDatabaseStudiesAlbumActi
 					//DLog(@"RDD next path is %d bytes", l);
 					readSize += 4;
 					state.unsignedIntegerValue = 4;
-				} else return readSize;
+				}
+                else
+                    return readSize;
 			} break;
+                
 			case 4: {
 				unsigned int pathSize = [[context objectAtIndex:7] unsignedIntValue];
 				if (data.length-readSize >= pathSize) {
@@ -836,7 +852,9 @@ enum RemoteDicomDatabaseStudiesAlbumAction { RemoteDicomDatabaseStudiesAlbumActi
                     [counter increment];
                     if (counter.unsignedIntegerValue == [[context objectAtIndex:1] unsignedIntegerValue])
                         [connection close];
-				} else return readSize;
+				}
+                else
+                    return readSize;
 			} break;
 		}
 	}

@@ -39,7 +39,8 @@ static NSInteger _elementForControlToken(CPRCurvedPathControlToken token)
 {
     if (_isElementControlToken(token)) {
         return token >> 2;
-    } else {
+    }
+    else {
         return -1;
     }
 }

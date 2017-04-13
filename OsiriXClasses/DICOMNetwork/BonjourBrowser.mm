@@ -228,32 +228,23 @@ static BonjourBrowser *currentBrowser = nil;
 {
 	// Order them, first the localPath, fixedIP, and then bonjour
 	
-	NSMutableArray	*result = [NSMutableArray array];
-	int i;
+	NSMutableArray *result = [NSMutableArray array];
 	
-	for( i = 0 ; i < [services count]; i++)
-	{
+	for (int i = 0 ; i < [services count]; i++)
 		if( [[[services objectAtIndex: i] valueForKey:@"type"] isEqualToString:@"localPath"])
 			[result addObject: [services objectAtIndex: i]];
-	}
 	
-	for( i = 0 ; i < [services count]; i++)
-	{
+	for (int i = 0 ; i < [services count]; i++)
 		if( [[[services objectAtIndex: i] valueForKey:@"type"] isEqualToString:@"fixedIP"])
 			[result addObject: [services objectAtIndex: i]];
-	}
 	
-	for( i = 0 ; i < [services count]; i++)
-	{
+	for (int i = 0 ; i < [services count]; i++)
 		if( [[[services objectAtIndex: i] valueForKey:@"type"] isEqualToString:@"bonjour"])
 			[result addObject: [services objectAtIndex: i]];
-	}
 	
-	for( i = 0 ; i < [services count]; i++)
-	{
+	for (int i = 0 ; i < [services count]; i++)
 		if( [[[services objectAtIndex: i] valueForKey:@"type"] isEqualToString:@"dicomDestination"])
 			[result addObject: [services objectAtIndex: i]];
-	}
 
 	[services removeAllObjects];
 	[services addObjectsFromArray: result];

@@ -119,7 +119,7 @@ N3MutableBezierCoreRef N3BezierCoreCreateMutable()
     return bezierCore;
 }
 
-void *N3BezierCoreRetain(N3BezierCoreRef bezierCore)
+N3MutableBezierCoreRef N3BezierCoreRetain(N3BezierCoreRef bezierCore)
 {
     N3MutableBezierCoreRef mutableBezierCore;
     mutableBezierCore = (N3MutableBezierCoreRef)bezierCore;
@@ -835,9 +835,8 @@ void N3BezierCoreIteratorSetIndex(N3BezierCoreIteratorRef bezierCoreIterator, CF
     
     element = bezierCoreIterator->bezierCore->elementList;
     
-    for (i = 1; i <= index; i++) {
+    for (i = 1; i <= index; i++)
         element = element->next;
-    }
     
     assert(element);
     

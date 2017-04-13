@@ -85,7 +85,9 @@
 
 - (id)copyWithZone:(NSZone *)zone{
 	OSIVoxel *newPoint = [[OSIVoxel pointWithX:_x y:_y z:_z value:_value] retain];
-	if( newPoint == nil) return nil;
+	if( newPoint == nil)
+        return nil;
+    
 	newPoint.voxelWidth = _voxelWidth;
 	newPoint.voxelHeight = _voxelHeight;
 	newPoint.voxelDepth = _voxelDepth;

@@ -91,20 +91,20 @@ extern const char *GetPrivateIP();
 -(void)observeValueForKeyPath:(NSString*)keyPath ofObject:(id)object change:(NSDictionary*)change context:(void*)context {
 	if (object == [NSUserDefaultsController sharedUserDefaultsController]) {
 		keyPath = [keyPath substringFromIndex:7];
-		if ([keyPath isEqualToString:OsirixBonjourSharingActiveFlagDefaultsKey]) {
+
+        if ([keyPath isEqualToString:OsirixBonjourSharingActiveFlagDefaultsKey]) {
 			[self toggleSharing:[NSUserDefaultsController IsBonjourSharingActive]];
 			return;
-		} else
-		if ([keyPath isEqualToString:OsirixBonjourSharingNameDefaultsKey]) {
-		//	[self ];
-			return;
-		} else
-		if ([keyPath isEqualToString:OsirixBonjourSharingPasswordFlagDefaultsKey]) {
-			return;
-		} else
-		if ([keyPath isEqualToString:OsirixBonjourSharingPasswordDefaultsKey]) {
-			return;
 		}
+
+        if ([keyPath isEqualToString:OsirixBonjourSharingNameDefaultsKey])
+			return;
+
+        if ([keyPath isEqualToString:OsirixBonjourSharingPasswordFlagDefaultsKey])
+			return;
+
+        if ([keyPath isEqualToString:OsirixBonjourSharingPasswordDefaultsKey])
+			return;
 	}
 	
 	[super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
@@ -160,7 +160,8 @@ extern const char *GetPrivateIP();
 
     if (_listener)
         [_bonjour publish];
-    else [_bonjour stop];
+    else
+        [_bonjour stop];
 }
 
 - (NSNetService*)netService { // __deprecated
@@ -197,7 +198,8 @@ extern const char *GetPrivateIP();
 			[d setObject:[[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease] forKey:key];
 		else if ([key isEqualToString:@"UID"])
 			[d setObject:[[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease] forKey:key];
-		else [d setObject:data forKey:key];
+		else
+            [d setObject:data forKey:key];
 	}
 	
 	return d;
@@ -374,7 +376,8 @@ static NSString* const O2NotEnoughData = @"O2NotEnoughData";
         {
             if (self.writeBufferSize)
                 self.closeWhenDoneSending = YES;
-            else [self close];
+            else
+                [self close];
         }
     }
 }
@@ -427,23 +430,24 @@ static NSString* const O2NotEnoughData = @"O2NotEnoughData";
     return value;
 }
 
-- (NSString*)_readString {
+- (NSString*)_readString
+{
     [self _requireDataSize:4];
     
     int length;
     [self.readBuffer getBytes:&length length:4];
     length = NSSwapBigIntToHost(length);
-
     [self _requireDataSize:length+4];
-    
     [self readData:4];
-    
     NSData* data = [self readData:length];
     
-    return [NSString stringWithUTF8String:data.bytes];
+    NSString *s = [[[NSString alloc] initWithData:data
+                                         encoding:NSASCIIStringEncoding] autorelease];
+    return s;
 }
 
-- (NSString*)_stackReadString {
+- (NSString*)_stackReadString
+{
     if (_stack.count > _hdi)
     {
 //        N2LogStackTrace( @"_stack.count > _hdi");
@@ -516,7 +520,8 @@ static NSString* const O2NotEnoughData = @"O2NotEnoughData";
             if ([chunk length]) {
                 [self writeData: chunk];
                 return;
-            } else
+            }
+            else
                 done = YES;
             
             [self _unstack];

@@ -65,7 +65,7 @@ static float deg2rad = M_PI/180.0;
 - (DCMPix*) emptyPix: (DCMPix*) oP width: (long) w height: (long) h
 {
 	long size = sizeof( float) * w * h;
-	float *imagePtr = malloc( size);
+	float *imagePtr = (float *)malloc( size);
 	DCMPix *emptyPix = [[DCMPix alloc] initWithData: imagePtr :32 :w :h :[oP pixelSpacingX] :[oP pixelSpacingY] :[oP originX] :[oP originY] :[oP originZ]];
 	free( imagePtr);
 	
@@ -117,7 +117,7 @@ static float deg2rad = M_PI/180.0;
 		[self updateToolbarItems];
 		
 		for( int i = 0; i < [popupRoi numberOfItems]; i++)
-			[[popupRoi itemAtIndex: i] setImage: [self imageForROI: [[popupRoi itemAtIndex: i] tag]]];
+			[[popupRoi itemAtIndex: i] setImage: [self imageForROI: (ToolMode)[[popupRoi itemAtIndex: i] tag]]];
 		
 		DCMPix *emptyPix = [self emptyPix: originalPix width: 100 height: 100];
 		[mprView1 setDCMPixList: [NSMutableArray arrayWithObject: emptyPix] filesList: [NSArray arrayWithObject: [files lastObject]] roiList: nil firstImage:0 type:'i' reset:YES];
@@ -276,21 +276,21 @@ static float deg2rad = M_PI/180.0;
 
 - (void) delayedFullLODRendering:(id) sender
 {
-	if( windowWillClose) return;
+	if( windowWillClose)
+        return;
 	
 	if( hiddenVRView.lowResLODFactor > 1 || sender != nil)
 	{
 		lowLOD = NO;
-	
 		[self updateViewsAccordingToFrame: sender];
-	
 		lowLOD = YES;
 	}
 }
 
 - (void) updateViewsAccordingToFrame:(id) sender	// see setFrame in MPRDCMView.m
 {
-	if( windowWillClose) return;
+	if( windowWillClose)
+        return;
 	
     NSDisableScreenUpdates();
     
@@ -649,8 +649,8 @@ static float deg2rad = M_PI/180.0;
 	else if([sender respondsToSelector:@selector(tag)])
 		toolIndex = [sender tag];
 	
-	[self setToolIndex: toolIndex];
-	[self setROIToolTag: toolIndex];
+	[self setToolIndex: (ToolMode)toolIndex];
+	[self setROIToolTag: (ToolMode)toolIndex];
 }
 
 - (void) computeCrossReferenceLinesBetween: (MPRDCMView*) mp1
@@ -915,7 +915,8 @@ static float deg2rad = M_PI/180.0;
 
 - (void)keyDown:(NSEvent *)theEvent
 {
-    if( [[theEvent characters] length] == 0) return;
+    if( [[theEvent characters] length] == 0)
+        return;
     
     unichar c = [[theEvent characters] characterAtIndex:0];
     
@@ -927,7 +928,8 @@ static float deg2rad = M_PI/180.0;
 	{
 		if(FullScreenOn) [self fullScreenMenu:self];
 	}
-	else [super keyDown: theEvent];
+	else
+        [super keyDown: theEvent];
 }
 
 - (id) view
@@ -956,8 +958,8 @@ static float deg2rad = M_PI/180.0;
 	if( tag >= 0)
 	{
 		[toolsMatrix selectCellWithTag: tag];
-		[self setToolIndex: tag];
-		[self setROIToolTag: tag];
+		[self setToolIndex: (ToolMode)tag];
+		[self setROIToolTag: (ToolMode)tag];
 	}
 }
 
@@ -1023,8 +1025,9 @@ static float deg2rad = M_PI/180.0;
 		case tROISelector:	filename = @"ROISelector";		break;
 		case tAxis:			filename = @"Axis";				break;
 		case tDynAngle:		filename = @"DynamicAngle";		break;
-        case tTAGT:         filename = @"PerpendicularLines";             break;
-        default:;
+        case tTAGT:         filename = @"PerpendicularLines"; break;
+        default:
+            break;
 	}
 	
 	if( filename == nil)
@@ -1384,7 +1387,6 @@ static float deg2rad = M_PI/180.0;
 - (void)UpdateCLUTMenu:(NSNotification*)note
 {
     //*** Build the menu
-    int i;
     NSArray *keys;
     NSArray *sortedKeys;
 
@@ -1399,10 +1401,8 @@ static float deg2rad = M_PI/180.0;
     [[clutPopup menu] addItemWithTitle:NSLocalizedString(@"No CLUT", nil) action:@selector (ApplyCLUT:) keyEquivalent:@""];
 	[[clutPopup menu] addItem: [NSMenuItem separatorItem]];
 	
-    for( i = 0; i < [sortedKeys count]; i++)
-    {
+    for (int i = 0; i < [sortedKeys count]; i++)
         [[clutPopup menu] addItemWithTitle:[sortedKeys objectAtIndex:i] action:@selector (ApplyCLUT:) keyEquivalent:@""];
-    }
 	
 	[[[clutPopup menu] itemAtIndex:0] setTitle:curCLUTMenu];
 	
@@ -1466,7 +1466,8 @@ static float deg2rad = M_PI/180.0;
 
 -(void) ApplyCLUTString:(NSString*) str
 {
-	if( str == nil) return;
+	if( str == nil)
+        return;
 		
 	[OpacityPopup setEnabled:YES];
 	
@@ -1665,7 +1666,8 @@ static float deg2rad = M_PI/180.0;
 	NSDictionary *aOpacity;
 	NSArray *array;
 	
-	if( str == nil) return;
+	if( str == nil)
+        return;
 	
 	if( curOpacityMenu != str)
 	{
@@ -1957,14 +1959,18 @@ static float deg2rad = M_PI/180.0;
 
 - (NSString*) getDcmFromString
 {
-	if( dcmBatchReverse) return NSLocalizedString(@"To:", nil);
-	else return NSLocalizedString(@"From:", nil);
+	if( dcmBatchReverse)
+        return NSLocalizedString(@"To:", nil);
+	else
+        return NSLocalizedString(@"From:", nil);
 }
 
 - (NSString*) getDcmToString
 {
-	if( dcmBatchReverse) return NSLocalizedString(@"From:", nil);
-	else return NSLocalizedString(@"To:", nil);
+	if( dcmBatchReverse)
+        return NSLocalizedString(@"From:", nil);
+	else
+        return NSLocalizedString(@"To:", nil);
 }
 
 - (MPRDCMView*) selectedView
@@ -2091,8 +2097,8 @@ static float deg2rad = M_PI/180.0;
 			for( NSView *v in views)
 			{
 				NSRect bounds = [v bounds];
-				NSPoint or = [v convertPoint: bounds.origin toView: nil];
-				bounds.origin = [[self window] convertBaseToScreen: or];
+				NSPoint _or = [v convertPoint: bounds.origin toView: nil];
+				bounds.origin = [[self window] convertBaseToScreen: _or];
                 
                 bounds.origin.x *= v.window.backingScaleFactor;
                 bounds.origin.y *= v.window.backingScaleFactor;
@@ -2809,11 +2815,13 @@ static float deg2rad = M_PI/180.0;
 	[hiddenVRView getShadingValues: &ambient :&diffuse :&specular :&specularpower];
 	
 	NSArray *shadings = [shadingsPresetsController arrangedObjects];
-	int i;
-	for( i = 0; i < [shadings count]; i++)
+	for (int i = 0; i < [shadings count]; i++)
 	{
 		NSDictionary *dict = [shadings objectAtIndex: i];
-		if( ambient == [[dict valueForKey:@"ambient"] floatValue] && diffuse == [[dict valueForKey:@"diffuse"] floatValue] && specular == [[dict valueForKey:@"specular"] floatValue] && specularpower == [[dict valueForKey:@"specularPower"] floatValue])
+		if (ambient == [[dict valueForKey:@"ambient"] floatValue] &&
+            diffuse == [[dict valueForKey:@"diffuse"] floatValue] &&
+            specular == [[dict valueForKey:@"specular"] floatValue] &&
+            specularpower == [[dict valueForKey:@"specularPower"] floatValue])
 		{
 			[shadingsPresetsController setSelectedObjects: [NSArray arrayWithObject: dict]];
 			break;
@@ -3207,8 +3215,10 @@ static float deg2rad = M_PI/180.0;
 
 - (BOOL) getMovieDataAvailable
 {
-	if( self.maxMovieIndex > 0) return YES;
-	else return NO;
+	if( self.maxMovieIndex > 0)
+        return YES;
+	else
+        return NO;
 }
 
 -(void) addMoviePixList:(NSMutableArray*) pix :(NSData*) vData

@@ -92,7 +92,8 @@
 
 -(void) end
 {
-	if( startTime == nil) return;	// NOT STARTED
+	if( startTime == nil)
+        return;	// NOT STARTED
 	
 	[self close];
 	
@@ -136,7 +137,8 @@
 			
 			[lastTimeText setStringValue:[NSString stringWithFormat: NSLocalizedString( @"Last Duration:\r%2.2d:%2.2d:%2.2d", nil), hours, minutes, seconds]];
 		}
-		else [lastTimeText setStringValue:@""];
+		else
+            [lastTimeText setStringValue:@""];
 		
 		[self showWindow: self];
 	}
@@ -149,8 +151,11 @@
 
 -(BOOL) run
 {
-	if( stop) return NO;
-	if( startTime == nil) return YES;
+	if( stop)
+        return NO;
+    
+	if( startTime == nil)
+        return YES;
 	
 	if( supportCancel)
 	{

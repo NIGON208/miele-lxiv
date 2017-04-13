@@ -171,17 +171,16 @@
 	{
 		vImageHistogramCalculation_PlanarF( &buffer, histogram, histogramSize, HUmin, HUmax, kvImageDoNotTile);
 		
-		int i;
 		vImagePixelCount min = histogram[0], max = 0;
 		
-		for(i=0; i<histogramSize; i++)
+		for (int i=0; i<histogramSize; i++)
 		{
 			if(histogram[i]<min) min = histogram[i];
 			if(histogram[i]>max) max = histogram[i];
 		}
 
 		float temp;
-		for(i=0; i<histogramSize; i++)
+		for (int i=0; i<histogramSize; i++)
 		{
 			temp = ((float)(histogram[i] - min) / (float)max)*10000.0;
 			if (temp >= 1)
@@ -191,7 +190,7 @@
 		}
 	}
 	
-	if( protectionAgainstReentry++ > 20)
+	if (protectionAgainstReentry++ > 20)
 		return;
 	
 	[self simplifyHistogram];
@@ -199,16 +198,18 @@
 
 - (void)simplifyHistogram;
 {
-	if(!histogram) return;
-	if(histogramSize==0) return;
+	if(!histogram)
+        return;
+    
+	if(histogramSize==0)
+        return;
 	
 	vImagePixelCount sum = 0;
 	for (int i=0 ; i<histogramSize; i++)
-	{
 		sum += histogram[i];
-	}
 	
-	if(sum<=100) return;
+	if(sum<=100)
+        return;
 	
 	int maxBin = histogramSize-1;
 	float binWidth = (HUmax - HUmin) / histogramSize;
@@ -221,12 +222,15 @@
 			maxBin=i;
 			newHUmax = HUmin+binWidth*i*1.5; // factor 1.5 is for tunning
 		}
-		else i=-1;
+		else
+            i=-1;
 	}
 	
 	if(maxBin < histogramSize-2)
 	{
-		if(newHUmax >= HUmax) return;
+		if(newHUmax >= HUmax)
+            return;
+        
 		[self setHUmin:HUmin HUmax:newHUmax];
 		[self computeHistogram];
 	}
@@ -259,12 +263,10 @@
 {
 	NSAffineTransform *transform = [self transform];
 	
-	int i;
 	vImagePixelCount max = 0;
-	for(i=0; i<histogramSize; i++)
-	{
-		if(histogram[i]>max) max = histogram[i];
-	}
+	for (int i=0; i<histogramSize; i++)
+		if (histogram[i]>max)
+            max = histogram[i];
 
 	float heightFactor = (max==0)? 1.0 : 1.0 / max;
 	float binWidth = (HUmax - HUmin) / histogramSize;
@@ -272,13 +274,13 @@
 	NSBezierPath *line = [NSBezierPath bezierPath];
 
 	[line moveToPoint:[transform transformPoint:NSMakePoint(HUmin, 0.0)]];
-	for(i=0; i<histogramSize; i++)
+	for (int i=0; i<histogramSize; i++)
 	{
 		NSPoint pt = NSMakePoint(HUmin + i * binWidth, histogram[i] * heightFactor);
 		NSPoint ptInView = [transform transformPoint:pt];
 		[line lineToPoint:ptInView];
 		
-		if(mousePositionX > pt.x-1 && mousePositionX < pt.x+1)
+		if (mousePositionX > pt.x-1 && mousePositionX < pt.x+1)
 		{
 			NSRect dotFrame = NSMakeRect(ptInView.x-3, ptInView.y-3, 6, 6);
 			NSBezierPath *dot = [NSBezierPath bezierPathWithOvalInRect:dotFrame];
@@ -634,7 +636,9 @@
 
 - (void)selectCurveAtIndex:(int)i;
 {
-	if([curves count]==0) return;
+	if([curves count]==0)
+        return;
+    
 	NSPoint controlPoint = [self controlPointForCurveAtIndex:i];
 	selectedCurveIndex = i;
 	selectedPoint = controlPoint;
@@ -736,14 +740,17 @@
 
 - (void)updateView;
 {
-	if( updateView) return;	// avoid re-entry
+	if( updateView)
+        return;	// avoid re-entry
+    
 	updateView = YES;
 	
 	[self setNeedsDisplay:YES];
 	
-	if(clutChanged)[self setCLUTtoVRView];
+	if(clutChanged)
+        [self setCLUTtoVRView];
+    
 	clutChanged = NO;
-	
 	updateView = NO;
 }
 
@@ -904,7 +911,8 @@ NSRect rect = drawingRect;
 	{
 		[self deleteCurveAtIndex:ic];
 	}
-	else if(ip==0 || ip==(long)[theCurve count]-1) return;
+	else if(ip==0 || ip==(long)[theCurve count]-1)
+        return;
 	else
 	{
 		[[undoManager prepareWithInvocationTarget:self] addPoint:[[theCurve objectAtIndex:ip] pointValue] atIndex:ip inCurveAtIndex:ic withColor:[[pointColors objectAtIndex:ic] objectAtIndex:ip]];
@@ -1353,7 +1361,8 @@ NSRect rect = drawingRect;
 	
 	[super mouseMoved:theEvent];
 
-	if( ![[self window] isMainWindow]) return;
+	if( ![[self window] isMainWindow])
+        return;
 	
 	NSPoint mousePositionInView = [self convertPoint:[theEvent locationInWindow] fromView:nil];
 	
@@ -1407,7 +1416,8 @@ NSRect rect = drawingRect;
 
 - (void)keyDown:(NSEvent *)theEvent
 {
-    if( [[theEvent characters] length] == 0) return;
+    if( [[theEvent characters] length] == 0)
+        return;
     
 	unichar c = [[theEvent characters] characterAtIndex:0];
 	if( c == NSDeleteFunctionKey || c == NSDeleteCharacter || c == NSBackspaceCharacter || c == NSDeleteCharFunctionKey)
@@ -1831,12 +1841,11 @@ zoomFixedPoint = [sender floatValue] / [sender maxValue] * drawingRect.size.widt
 		else
 			selectedCurve = aCurve;
 		
-		int i;
 		float shift = 20;
 		float delta = [[selectedCurve objectAtIndex:0] pointValue].x - [[aCurve objectAtIndex:0] pointValue].x + shift;
 
 		NSMutableArray *aNewCurve = [NSMutableArray arrayWithCapacity:[aCurve count]];
-		for (i=0; i<[aCurve count]; i++)
+		for (int i=0; i<[aCurve count]; i++)
 		{
 			NSPoint pt = [[aCurve objectAtIndex:i] pointValue];
 			pt.x += delta;
@@ -2029,7 +2038,8 @@ zoomFixedPoint = [sender floatValue] / [sender maxValue] * drawingRect.size.widt
 				[clut setObject:colorArray forKey:@"colors"];
 				return clut;
 			}
-			else return nil;
+			else
+                return nil;
 		}
 		else
 		{
@@ -2050,7 +2060,8 @@ zoomFixedPoint = [sender floatValue] / [sender maxValue] * drawingRect.size.widt
 					[clut setObject:colorArray forKey:@"colors"];
 					return clut;
 				}
-				else return nil;
+				else
+                    return nil;
 			}
 			else
 				return nil;
@@ -2226,7 +2237,8 @@ zoomFixedPoint = [sender floatValue] / [sender maxValue] * drawingRect.size.widt
 		[NSObject cancelPreviousPerformRequestsWithTarget: self selector: @selector(setCLUTtoVRViewHighRes) object: nil];
 		[self performSelector: @selector(setCLUTtoVRViewHighRes) withObject:nil afterDelay: 0.5];
 	}
-	else [NSObject cancelPreviousPerformRequestsWithTarget: self selector: @selector(setCLUTtoVRViewHighRes) object: nil];
+	else
+        [NSObject cancelPreviousPerformRequestsWithTarget: self selector: @selector(setCLUTtoVRViewHighRes) object: nil];
 }
 
 - (void)setWL:(float)wl ww:(float)ww;
@@ -2248,20 +2260,24 @@ zoomFixedPoint = [sender floatValue] / [sender maxValue] * drawingRect.size.widt
 	
 	NSPoint pt;
 	float factor = 1.0;
-	int i;
-	for (i=0; i<[theCurve count]; i++)
+	for (int i=0; i<[theCurve count]; i++)
 	{
 		pt = [[theCurve objectAtIndex:i] pointValue];
 		factor = fabsf(pt.x - middle) / half;
-		if(factor<0.0) factor = 0.0;
+		if(factor<0.0)
+            factor = 0.0;
+        
 		pt.x += shiftWL;
-		if(i<[theCurve count]/2.0) pt.x -= shiftWW * factor;
-		else  pt.x += shiftWW * factor;
+		if (i<[theCurve count]/2.0)
+            pt.x -= shiftWW * factor;
+		else
+            pt.x += shiftWW * factor;
+        
 		pt = [self legalizePoint:pt inCurve:theCurve atIndex:i];
 		[theCurve replaceObjectAtIndex:i withObject:[NSValue valueWithPoint:pt]];
 	}
 
-	for (i=0; i<[theCurve count]; i++)
+	for (int i=0; i<[theCurve count]; i++)
 	{
 		pt = [[theCurve objectAtIndex:i] pointValue];
 		pt = [self legalizePoint:pt inCurve:theCurve atIndex:i];

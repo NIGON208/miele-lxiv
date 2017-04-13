@@ -266,7 +266,8 @@ static const NSSize PopUpWindowBorder = NSMakeSize(10,4);
     
     if (!NSEqualRects(self.window.frame, f))
         [self.window setFrame:f display:NO];
-    else [self refresh];
+    else
+        [self refresh];
     
     // evtl set sview frame to zerorect
 

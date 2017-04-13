@@ -12,9 +12,6 @@
      PURPOSE.
 =========================================================================*/
 
-
-
-
 #define id Id
 	#include "itkImage.h"
 	#include "itkImportImageFilter.h"
@@ -160,7 +157,6 @@
     }
     return self;
 }
-
 
 - (void)setupImportFilterWithSize:(ImportFilterType3::SizeType)size
                            origin:(double[3])origin

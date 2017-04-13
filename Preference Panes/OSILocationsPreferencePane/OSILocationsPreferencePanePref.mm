@@ -227,7 +227,7 @@
             }
 
             // peer authentication options:
-            TLSCertificateVerificationType verification = [[serverParameters objectForKey:@"TLSCertificateVerification"] intValue];
+            TLSCertificateVerificationType verification = (TLSCertificateVerificationType)[[serverParameters objectForKey:@"TLSCertificateVerification"] intValue];
             if(verification==RequirePeerCertificate)
                 [args addObject:@"--require-peer-cert"]; //verify peer certificate, fail if absent (default)
             else if(verification==VerifyPeerCertificate)
@@ -262,8 +262,10 @@
 
         [DDKeychain unlockTmpFiles];
         
-        if( [theTask terminationStatus] == 0) return YES;
-        else return NO;
+        if( [theTask terminationStatus] == 0)
+            return YES;
+        else
+            return NO;
     }
     @catch (NSException *exception) {
         N2LogException( exception);
@@ -544,7 +546,8 @@
 			{
 				
 			}
-			else [osiriXServers removeObjects: [osiriXServers arrangedObjects]];
+			else
+                [osiriXServers removeObjects: [osiriXServers arrangedObjects]];
 			
 			[osiriXServers addObjects: r];
 			
@@ -633,7 +636,8 @@
 			{
 				
 			}
-			else [dicomNodes removeObjects: [dicomNodes arrangedObjects]];
+			else
+                [dicomNodes removeObjects: [dicomNodes arrangedObjects]];
 			
 			[dicomNodes addObjects: r];
 			
@@ -825,7 +829,7 @@
 	self.TLSDHParameterFileURL = [NSURL fileURLWithPath:dhParameterFileURL];
 	
 	if([aServer valueForKey:@"TLSCertificateVerification"])
-		self.TLSCertificateVerification = [[aServer valueForKey:@"TLSCertificateVerification"] intValue];
+		self.TLSCertificateVerification = (TLSCertificateVerificationType)[[aServer valueForKey:@"TLSCertificateVerification"] intValue];
 	else
 		self.TLSCertificateVerification = IgnorePeerCertificate;
 		

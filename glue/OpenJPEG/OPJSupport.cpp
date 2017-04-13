@@ -139,7 +139,6 @@ void* OPJSupport::decompressJPEG2KWithBuffer(void* inputBuffer,
                                              int *colorModel)
 {
     opj_dparameters_t parameters;
-	int i;
 	int width, height;
 	OPJ_BOOL hasAlpha, fails = OPJ_FALSE;
 	OPJ_CODEC_FORMAT codec_format;
@@ -323,9 +322,8 @@ void* OPJSupport::decompressJPEG2KWithBuffer(void* inputBuffer,
     if (decompressedBufferSize)
         *decompressedBufferSize = decompressSize;
    
-    if (!inputBuffer ) {
+    if (!inputBuffer )
         inputBuffer =  malloc(decompressSize);
-    }
 
     if (colorModel)
         *colorModel = 0;
@@ -383,7 +381,7 @@ void* OPJSupport::decompressJPEG2KWithBuffer(void* inputBuffer,
         ac = 255;/* 255: FULLY_OPAQUE; 0: FULLY_TRANSPARENT */
         
         int* ptrIBody = (int*)inputBuffer;
-        for(i = 0; i < width*height; i++)
+        for (int i = 0; i < width*height; i++)
         {
             rc = (unsigned char)*red++;
             gc = (unsigned char)*green++;
@@ -407,7 +405,7 @@ void* OPJSupport::decompressJPEG2KWithBuffer(void* inputBuffer,
 	    if(decodeInfo.image->comps[0].prec <= 8)
 	    {
             char* ptrBBody = (char*)inputBuffer;
-            for(i=0; i<width*height; i++)
+            for (int i=0; i<width*height; i++)
             {
                 *ptrBBody++ = *grey++;
             }
@@ -421,7 +419,7 @@ void* OPJSupport::decompressJPEG2KWithBuffer(void* inputBuffer,
 
             short* ptrSBody = (short*)inputBuffer;
 
-            for(i=0; i<width*height; i++)
+            for (int i=0; i<width*height; i++)
             {
                 //disable shift up for signed data: don't know why we are doing this
                 *ptrSBody++ = *grey++;
@@ -443,7 +441,7 @@ void* OPJSupport::decompressJPEG2KWithBuffer(void* inputBuffer,
                         << decodeInfo.image->x1 << ","
                         << decodeInfo.image->y1 << ")" );
 
-	    for(i = 0; i < decodeInfo.image->numcomps; ++i)
+	    for (int i = 0; i < decodeInfo.image->numcomps; ++i)
 	    {
             OFLOG_INFO(logger, "[" << i
                        << "] dx(" << decodeInfo.image->comps[i].dx
@@ -459,10 +457,9 @@ void* OPJSupport::decompressJPEG2KWithBuffer(void* inputBuffer,
 	    if (decodeInfo.image->comps[0].prec <= 8)
 	    {
             char* ptrBBody = (char*)inputBuffer;
-            for(i=0; i<width*height; i++)
-            {
+            for (int i=0; i<width*height; i++)
                 *ptrBBody++ = *grey++;
-            }
+
             /* Replace image8 buffer:
              */
 	    }
@@ -475,10 +472,9 @@ void* OPJSupport::decompressJPEG2KWithBuffer(void* inputBuffer,
 
             short* ptrSBody = (short*)inputBuffer;
 
-            for(i=0; i<width*height; i++)
-            {
+            for (int i=0; i<width*height; i++)
                 *ptrSBody++ = *grey++;
-            }
+
             /* Replace image16 buffer:
              */
 	    }

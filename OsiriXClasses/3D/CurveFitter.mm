@@ -120,7 +120,8 @@
 
 		double rtol = 2 * fabs(simp[best][numParams] - simp[worst][numParams]) / (fabs(simp[best][numParams]) + fabs(simp[worst][numParams]) + 0.0000000001);
 
-		if (numIter >= maxIter) done = true;
+		if (numIter >= maxIter)
+            done = true;
 		else if (rtol < maxError) {
 			//System.out.print(getResultString());
 			restarts--;
@@ -144,11 +145,11 @@
 	// Calculate some things that might be useful for predicting parametres
 	numParams = [self getNumParams];
 	numVertices = numParams + 1;      // need 1 more vertice than parametres,
-	simp = malloc( numVertices * sizeof( double*));
+	simp = (double **)malloc( numVertices * sizeof( double*));
 	for( int i = 0 ; i < numVertices; i++)
-		simp[ i] = malloc( numVertices * sizeof(double));
+		simp[ i] = (double *)malloc( numVertices * sizeof(double));
 
-    next = malloc( numVertices * sizeof( double));
+    next = (double *)malloc( numVertices * sizeof( double));
 
 	double firstx = xData[0];
 	double firsty = yData[0];
@@ -161,6 +162,7 @@
 		slope = (lasty - firsty)/(lastx - firstx);
 	else
 		slope = 1.0;
+    
 	double yintercept = firsty - slope * firstx;
 	maxIter = IterFactor * numParams * numParams;  // Where does this estimate come from?
 	restarts = 1;
@@ -267,15 +269,15 @@
 		simp[0][i] = simp[n][i];
 	}
 	[self sumResiduals: simp[0]];          // Get sum of residuals^2 for first vertex
-	double *step = malloc( sizeof( double) * numParams);
+	double *step = (double *)malloc( sizeof( double) * numParams);
 	for (int i = 0; i < numParams; i++) {
 		step[i] = simp[0][i] / 2.0;     // Step half the parametre value
 		if (step[i] == 0.0)             // We can't have them all the same or we're going nowhere
 			step[i] = 0.01;
 	}
 	// Some kind of factor for generating new vertices
-	double *p = malloc( sizeof( double) * numParams);
-	double *q = malloc( sizeof( double) * numParams);
+	double *p = (double *)malloc( sizeof( double) * numParams);
+	double *q = (double *)malloc( sizeof( double) * numParams);
 	for (int i = 0; i < numParams; i++)
 	{
 		p[i] = step[i] * (sqrt(numVertices) + numParams - 1.0)/(numParams * root2);
@@ -375,6 +377,7 @@
                 return y+p[3];
 			}
             case GAMMA_VARIATE:
+            {
                 if (p[0] >= x) return 0.0;
                 if (p[1] <= 0) return -100000.0;
                 if (p[2] <= 0) return -100000.0;
@@ -383,6 +386,7 @@
                 double pw = pow((x - p[0]), p[2]);
                 double e = exp((-(x - p[0]))/p[3]);
                 return p[1]*pw*e;
+            }
             default:
                 return 0.0;
         }
@@ -399,7 +403,7 @@
 - (double*) getResiduals
 {
 	double *params = [self getParams];
-	double *residuals = malloc( sizeof( double) * numPoints);
+	double *residuals = (double *)malloc( sizeof( double) * numPoints);
 	
     for (int i = 0; i < numPoints; i++)
 		residuals[i] = yData[i] - [self f: fit :params :xData[i]];

@@ -22,10 +22,8 @@
  //drag and drop delegates
  - (void)awakeFromNib
 {
-	NSLog(@"awake from nib");
     [self  registerForDraggedTypes:  [NSArray arrayWithObject:FlyThruTableViewDataType]];
-	[self setVerticalMotionCanBeginDrag:YES];
- 
+	[self setVerticalMotionCanBeginDrag:YES]; 
 }
 
 - (BOOL)allowsColumnSelection

@@ -43,16 +43,19 @@
 		case eSagittalPos:
 		case eSagittalNeg:
 			[xReslicedView setXFlipped: YES];
-			if( [xReslicedView rotation] == 0) [xReslicedView setRotation: 90];
+			if( [xReslicedView rotation] == 0)
+                [xReslicedView setRotation: 90];
 			
 			[yReslicedView setXFlipped: YES];
-			if( [yReslicedView rotation] == 0) [yReslicedView setRotation: 90];
+			if( [yReslicedView rotation] == 0)
+                [yReslicedView setRotation: 90];
 		break;
 		
 		case eCoronalPos:
 		case eCoronalNeg:
 			[xReslicedView setYFlipped: YES];
-			if( [yReslicedView rotation] == 0) [yReslicedView setRotation: 90];
+			if( [yReslicedView rotation] == 0)
+                [yReslicedView setRotation: 90];
 		break;
 		
 		case eAxialPos:
@@ -996,9 +999,8 @@
                 {
                     if( [plainDict objectForKey: [aROI name]] == nil)
                     {
-                        unsigned char* t = calloc( imageWidth * imageHeight, sizeof(unsigned char));
-                        
-                        if( t)
+                        unsigned char *t = (unsigned char *)calloc( imageWidth * imageHeight, sizeof(unsigned char));                        
+                        if (t)
                         {
                             ROI *newROI = [[[ROI alloc] initWithType: tPlain :[yReslicedView pixelSpacingX] :[yReslicedView pixelSpacingY] :NSMakePoint( [yReslicedView origin].x, [yReslicedView origin].y)] autorelease];
                             
@@ -1089,9 +1091,8 @@
                 {
                     if( [plainDict objectForKey: [aROI name]] == nil)
                     {
-                        unsigned char* t = calloc( imageWidth * imageHeight, sizeof(unsigned char));
-                        
-                        if( t)
+                        unsigned char *t = (unsigned char *)calloc( imageWidth * imageHeight, sizeof(unsigned char));
+                        if (t)
                         {
                             ROI *newROI = [[[ROI alloc] initWithType: tPlain :[yReslicedView pixelSpacingX] :[yReslicedView pixelSpacingY] :NSMakePoint( [yReslicedView origin].x, [yReslicedView origin].y)] autorelease];
                             

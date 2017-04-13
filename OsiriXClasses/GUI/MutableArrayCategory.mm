@@ -17,8 +17,8 @@
 NSInteger sortByAddress(id roi1, id roi2, void *context)
 {
    if( roi1 > roi2) return NSOrderedDescending;
-   else if( roi1 < roi2) return NSOrderedAscending;
-   else return NSOrderedSame;
+   if( roi1 < roi2) return NSOrderedAscending;
+   return NSOrderedSame;
 }
 
 @implementation NSArray (ArrayCategory)
@@ -30,8 +30,10 @@ NSInteger sortByAddress(id roi1, id roi2, void *context)
 - (NSArray*)shuffledArray {
     NSArray* finalArray;
     int i, count=[self count];
-    id* buff=malloc(count*sizeof(id));
-    if (!buff) return nil;
+    id* buff = (id *)malloc(count*sizeof(id));
+    if (!buff)
+        return nil;
+
     [self getObjects:buff];
     for (i=count-1; i > 0; i--) {
         int newPos=(rand() / (RAND_MAX / i + 1));
@@ -48,7 +50,9 @@ NSInteger sortByAddress(id roi1, id roi2, void *context)
     NSArray* finalArray;
     int i, count=[self count];
     id* buff=malloc(count*sizeof(id));
-    if (!buff) return nil;
+    if (!buff)
+        return nil;
+    
     [self getObjects:buff];
     for (i=0; i < count; i++) {
         int newPos=(rand() / (RAND_MAX / count + 1));

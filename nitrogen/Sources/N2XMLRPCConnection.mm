@@ -72,7 +72,8 @@
 }
 
 -(void)handleData:(NSMutableData*)data {
-	if (_executed) return;
+	if (_executed)
+        return;
 	
 	CFHTTPMessageRef request = CFHTTPMessageCreateEmpty(kCFAllocatorDefault, TRUE);
 	CFHTTPMessageAppendBytes(request, (uint8*)[data bytes], [data length]);

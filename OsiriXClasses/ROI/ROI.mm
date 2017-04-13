@@ -25,7 +25,7 @@
 #import "Notifications.h"
 #import "N2Debug.h"
 #import "ITKBrushROIFilter.h"
-#import "DCMUSRegion.h"   // mapping ultrason
+#import "DCMUSRegion.h"   // mapping ultrasound
 #import "Point3D.h"
 #import "N2Stuff.h"
 #import "ViewerController.h"
@@ -33,8 +33,8 @@
 //#define dot(u,v)   ((u)[0] * (v)[0] + (u)[1] * (v)[1] + (u)[2] * (v)[2])
 //#define norm(v)    sqrt(dot(v,v))  // norm = length of vector
 
-#define CIRCLERESOLUTION 200
-#define ROIVERSION 15
+#define CIRCLERESOLUTION    200
+#define ROIVERSION          15
 
 static const CGFloat armScale = 1.2; // tOvalAngle looks like a clock :-)
 
@@ -902,14 +902,14 @@ int spline( NSPoint *Pt, int tot, NSPoint **newPt, long **correspondingSegmentPt
 }
 
 + (NSPoint) pointBetweenPoint:(NSPoint) a
-                          and:(NSPoint) b
+                     andPoint:(NSPoint) b
                         ratio:(float) r
 {
     return NSMakePoint(a.x*(1.0-r)+b.x*r, a.y*(1.0-r)+b.y*r);
 }
 
 + (float) lengthBetween:(NSPoint) mesureA
-                    and:(NSPoint) mesureB
+               andPoint:(NSPoint) mesureB
 {
     return sqrt(((double)mesureA.x - (double)mesureB.x) * ((double)mesureA.x - (double)mesureB.x) +
                 ((double)mesureA.y - (double)mesureB.y) * ((double)mesureA.y - (double)mesureB.y));
@@ -948,37 +948,38 @@ int spline( NSPoint *Pt, int tot, NSPoint **newPt, long **correspondingSegmentPt
 	if( [points count] == 0)
 		return NSMakePoint( 0, 0);
 	
-	if( distance == 0) return [[points objectAtIndex:0] point];
+	if( distance == 0)
+        return [[points objectAtIndex:0] point];
 	
 	while( position < distance && i < (long)[points count] -1)
 	{
 		position += [ROI lengthBetween:[[points objectAtIndex:i] point]
-                                   and:[[points objectAtIndex:i+1] point]];
+                              andPoint:[[points objectAtIndex:(i+1)] point]];
 		i++;
 	}
 	
 	if( position < distance)
 	{
 		position += [ROI lengthBetween:[[points objectAtIndex:i] point]
-                                   and:[[points objectAtIndex:0] point]];
+                              andPoint:[[points objectAtIndex:0] point]];
 		i++;
 	}
 	
 	if( i == [points count])
 	{
 		ratio = (position - distance) / [ROI lengthBetween:[[points objectAtIndex:i-1] point]
-                                                       and:[[points objectAtIndex: 0] point]];
+                                                  andPoint:[[points objectAtIndex: 0] point]];
 
         p = [ROI pointBetweenPoint:[[points objectAtIndex:i-1] point]
-                               and:[[points objectAtIndex:0] point]
+                          andPoint:[[points objectAtIndex:0] point]
                              ratio: 1.0 - ratio];
 	}
 	else
 	{
 		ratio = (position - distance) / [ROI lengthBetween:[[points objectAtIndex:i-1] point]
-                                                       and:[[points objectAtIndex:i] point]];
+                                                  andPoint:[[points objectAtIndex:i] point]];
 		p = [ROI pointBetweenPoint:[[points objectAtIndex:i-1] point]
-                               and:[[points objectAtIndex:i] point]
+                          andPoint:[[points objectAtIndex:i] point]
                              ratio: 1.0 - ratio];
 	}
 	
@@ -988,23 +989,21 @@ int spline( NSPoint *Pt, int tot, NSPoint **newPt, long **correspondingSegmentPt
 + (NSMutableArray*) resamplePoints: (NSArray*) points number:(int) no
 {
 	double length = 0.0;
-	int i;
-	
-	for( i = 0; i < (long)[points count]-1; i++ )
+    int i;
+	for (i = 0; i < (long)[points count]-1; i++ )
 	{
 		length += [ROI lengthBetween:[[points objectAtIndex:i] point]
-                                 and:[[points objectAtIndex:i+1] point]];
+                            andPoint:[[points objectAtIndex:i+1] point]];
 	}
-	length += [ROI lengthBetween:[[points objectAtIndex:i] point]
-                             and:[[points objectAtIndex:0] point]];
+
+    length += [ROI lengthBetween:[[points objectAtIndex:i] point]
+                        andPoint:[[points objectAtIndex:0] point]];
 	
 	NSMutableArray* newPts = [NSMutableArray array];
-	for( int i = 0; i < no; i++)
+	for (int i = 0; i < no; i++)
     {
 		double s = (i * length) / no;
-		
 		NSPoint p = [ROI positionAtDistance: s inPolygon: points];
-		
 		[newPts addObject: [MyPoint point: p]];
 	}
 	
@@ -1013,7 +1012,7 @@ int spline( NSPoint *Pt, int tot, NSPoint **newPt, long **correspondingSegmentPt
 	int minyIndex = 0, minxIndex = 0;
 	
 	//find min x - reorder the points
-	for( int i = 0 ; i < [newPts count] ; i++) {
+	for (int i = 0 ; i < [newPts count] ; i++) {
 		
 		if( minx > [[newPts objectAtIndex: i] x])
 		{
@@ -1033,7 +1032,7 @@ int spline( NSPoint *Pt, int tot, NSPoint **newPt, long **correspondingSegmentPt
 	
 	distance = minxIndex - minyIndex;
 	
-	if( abs( distance) > [newPts count]/2)
+	if ( abs( distance) > [newPts count]/2)
 	{
 		if( distance >= 0) reverse = YES;
 		else reverse = NO;
@@ -1380,7 +1379,8 @@ int spline( NSPoint *Pt, int tot, NSPoint **newPt, long **correspondingSegmentPt
 - (id) copyWithZone:(NSZone *)zone
 {
 	ROI *c = [[[self class] allocWithZone: zone] init];
-	if( c == nil) return nil;
+	if( c == nil)
+        return nil;
 	
     c->zLocation = FLT_MIN;
 	c->uniqueID = [[NSNumber numberWithInt: gUID++] retain];
@@ -1760,7 +1760,8 @@ int spline( NSPoint *Pt, int tot, NSPoint **newPt, long **correspondingSegmentPt
         else
             iimageOrigin = imageOrigin;
         
-		if( change == NO) return;
+		if( change == NO)
+            return;
 		
 		NSPoint offset;
 		
@@ -2077,7 +2078,10 @@ int spline( NSPoint *Pt, int tot, NSPoint **newPt, long **correspondingSegmentPt
     return r;
 }
 
-- (id) initWithType: (long) itype :(float) ipixelSpacingx :(float) ipixelSpacingy :(NSPoint) iimageOrigin
+- (id) initWithType:(long) itype
+                   :(float) ipixelSpacingx
+                   :(float) ipixelSpacingy
+                   :(NSPoint) iimageOrigin
 {
 	self = [super init];
     if (self)
@@ -2094,7 +2098,7 @@ int spline( NSPoint *Pt, int tot, NSPoint **newPt, long **correspondingSegmentPt
         opacity = 1.0;
 		selectable = YES;
 		locked = NO;
-        type = itype;
+        type = (ToolMode)itype;
 		mode = ROI_sleep;
 		parentROI = nil;
         ovalAngle1 = [[NSUserDefaults standardUserDefaults] floatForKey: @"ovalAngle1"];
@@ -2262,7 +2266,9 @@ int spline( NSPoint *Pt, int tot, NSPoint **newPt, long **correspondingSegmentPt
 {
 #define MAXLENGTH 300
     
-	if( str.length == 0) return;
+	if( str.length == 0)
+        return;
+    
     if( str.length > MAXLENGTH)
         str = [str substringToIndex: MAXLENGTH];
     
@@ -2435,7 +2441,8 @@ int spline( NSPoint *Pt, int tot, NSPoint **newPt, long **correspondingSegmentPt
     double LineMag, U;
     NSPoint Intersection;
  
-    LineMag = [self Magnitude: endPoint : startPoint];
+    LineMag = [self Magnitude: endPoint
+                             : startPoint];
  
     U = ( ( ( Point.x - startPoint.x ) * ( endPoint.x - startPoint.x ) ) +
         ( ( Point.y - startPoint.y ) * ( endPoint.y - startPoint.y ) ) );
@@ -2448,18 +2455,19 @@ int spline( NSPoint *Pt, int tot, NSPoint **newPt, long **correspondingSegmentPt
     return Intersection;
 }
 
-- (int) DistancePointLine:(NSPoint) Point
+- (int) DistancePointLine:(NSPoint) pt
                          :(NSPoint) startPoint
                          :(NSPoint) endPoint
                          :(float*) Distance
 {
     double LineMag, U;
-    NSPoint Intersection;
+    NSPoint Intersect;
  
-    LineMag = [self Magnitude: endPoint : startPoint];
+    LineMag = [self Magnitude: endPoint
+                             : startPoint];
  
-    U = ( ( ( Point.x - startPoint.x ) * ( endPoint.x - startPoint.x ) ) +
-        (   ( Point.y - startPoint.y ) * ( endPoint.y - startPoint.y ) ) );
+    U = ( ( ( pt.x - startPoint.x ) * ( endPoint.x - startPoint.x ) ) +
+        (   ( pt.y - startPoint.y ) * ( endPoint.y - startPoint.y ) ) );
 		
 	U /= ( LineMag * LineMag);
 	
@@ -2469,11 +2477,11 @@ int spline( NSPoint *Pt, int tot, NSPoint **newPt, long **correspondingSegmentPt
 		return 0;
 	}
 	
-    Intersection.x = startPoint.x + U * ( endPoint.x - startPoint.x );
-    Intersection.y = startPoint.y + U * ( endPoint.y - startPoint.y );
+    Intersect.x = startPoint.x + U * ( endPoint.x - startPoint.x );
+    Intersect.y = startPoint.y + U * ( endPoint.y - startPoint.y );
 
-    *Distance = [self Magnitude: Point
-                               : Intersection];
+    *Distance = [self Magnitude: pt
+                               : Intersect];
  
     return 1;
 }
@@ -2771,10 +2779,10 @@ static float Sign(NSPoint p1, NSPoint p2, NSPoint p3)
     return ((b1 == b2) && (b2 == b3));
 }
 
-- (long) clickInROI:(NSPoint) pt :(float) offsetx :(float) offsety :(float) scale :(BOOL) testDrawRect
+- (ROI_mode) clickInROI:(NSPoint) pt :(float) offsetx :(float) offsety :(float) scale :(BOOL) testDrawRect
 {
 	NSRect arect;
-	long imode = ROI_sleep;
+	ROI_mode imode = ROI_sleep;
 	
     if( hidden)
         return ROI_sleep;
@@ -3107,7 +3115,7 @@ static float Sign(NSPoint p1, NSPoint p2, NSPoint p3)
 				if( [splinePoints count] > 0)
 				{
 					int i;
-					for( i = 0; i < ([splinePoints count] - 1); i++ )
+					for (i = 0; i < ([splinePoints count] - 1); i++ )
 					{					
 						[self DistancePointLine:pt
                                                :[[splinePoints objectAtIndex:i] point]
@@ -3124,6 +3132,7 @@ static float Sign(NSPoint p1, NSPoint p2, NSPoint p3)
                                            :[[splinePoints objectAtIndex:i] point]
                                            :[[splinePoints objectAtIndex:0] point]
                                            :&distance];
+                    
 					if( distance*scale < neighborhoodRad/2)
                         imode = ROI_selected;
 				}
@@ -3531,10 +3540,13 @@ static float Sign(NSPoint p1, NSPoint p2, NSPoint p3)
 		}
 	}
 	
-	if( type == tPencil) return NO;
+	if( type == tPencil)
+        return NO;
 	
-	if( mode == ROI_drawing) return YES;
-	else return NO;
+	if( mode == ROI_drawing)
+        return YES;
+	else
+        return NO;
 }
 
 - (BOOL)mouseRoiDown:(NSPoint)pt :(int)slice :(float)scale
@@ -3559,7 +3571,8 @@ static float Sign(NSPoint p1, NSPoint p2, NSPoint p3)
 
 - (void) flipVertically: (BOOL) vertically
 {
-	if( locked) return;
+	if( locked)
+        return;
     
     float new_x, new_y;
 	NSMutableArray	*pts = self.points;
@@ -3610,7 +3623,8 @@ static float Sign(NSPoint p1, NSPoint p2, NSPoint p3)
 
 - (void) rotate: (float) angle :(NSPoint) center
 {
-	if( locked) return;
+	if( locked)
+        return;
 
     float new_x;
     float new_y;
@@ -3674,9 +3688,11 @@ static float Sign(NSPoint p1, NSPoint p2, NSPoint p3)
 
 - (void) resize: (float) factor :(NSPoint) center
 {
-	if(![self canResize]) return;
+	if(![self canResize])
+        return;
 	
-	if( locked) return;
+	if( locked)
+        return;
 	
     float new_x;
     float new_y;
@@ -3719,7 +3735,8 @@ static float Sign(NSPoint p1, NSPoint p2, NSPoint p3)
 
 - (BOOL) valid
 {
-	if( mode == ROI_drawing) return YES;
+	if( mode == ROI_drawing)
+        return YES;
 	
 	switch( type)
 	{
@@ -3781,16 +3798,19 @@ static float Sign(NSPoint p1, NSPoint p2, NSPoint p3)
 		case tCPolygon:
 		case tOPolygon:
 		case tPencil:
-			if( [points count] < 3) return NO;
+			if( [points count] < 3)
+                return NO;
             break;
 		
 		case tAngle:
-			if( [points count] < 3) return NO;
+			if( [points count] < 3)
+                return NO;
             break;
 		
 		case tMesure:
 		case tArrow:
-			if( [points count] < 2) return NO;
+			if( [points count] < 2)
+                return NO;
 			
 			if( ABS([[points objectAtIndex:0] x] - [[points objectAtIndex:1] x]) < 0.2 &&
                 ABS([[points objectAtIndex:0] y] - [[points objectAtIndex:1] y]) < 0.2)
@@ -3800,15 +3820,18 @@ static float Sign(NSPoint p1, NSPoint p2, NSPoint p3)
             break;
 		
 		case tDynAngle:
-			if( [points count] < 4) return NO;
+			if( [points count] < 4)
+                return NO;
             break;
             
 		case tAxis:
-			if( [points count] < 4) return NO;
+			if( [points count] < 4)
+                return NO;
             break;
             
         case tTAGT:
-            if( [points count] < 6) return NO;
+            if( [points count] < 6)
+                return NO;
             
             // 0-1, 2-3
             
@@ -3856,7 +3879,8 @@ static float Sign(NSPoint p1, NSPoint p2, NSPoint p3)
 
 - (void) roiMove:(NSPoint) offset :(BOOL) sendNotification
 {
-	if( locked) return;
+	if( locked)
+        return;
 
 	if( mode == ROI_selected)
 	{
@@ -4067,7 +4091,8 @@ static float Sign(NSPoint p1, NSPoint p2, NSPoint p3)
 
 - (BOOL) reduceTextureIfPossible
 {
-	if( type != tPlain) return YES;
+	if( type != tPlain)
+        return YES;
 	
 	int				minX, maxX, minY, maxY;
 	unsigned char	*tempBuf = textureBuffer;
@@ -4596,7 +4621,8 @@ static float Sign(NSPoint p1, NSPoint p2, NSPoint p3)
                                 [[points objectAtIndex: nextPoint] setPoint: b];
                             }
                         }
-                        else [[points objectAtIndex: selectedModifyPoint] setPoint: pt];
+                        else
+                            [[points objectAtIndex: selectedModifyPoint] setPoint: pt];
                         
                         if( type == tMesure)
                         {
@@ -4753,11 +4779,16 @@ static float Sign(NSPoint p1, NSPoint p2, NSPoint p3)
 	}
 	else if( type == tLayerROI)
 	{
-		if(!canColorizeLayer) return;
-		if(layerColor) [layerColor release];
+		if(!canColorizeLayer)
+            return;
+        
+		if(layerColor)
+            [layerColor release];
+        
 		layerColor = [NSColor colorWithCalibratedRed:color.red/65535.0 green:color.green/65535.0 blue:color.blue/65535.0 alpha:1.0];
 		[layerColor retain];
-		while( [ctxArray count]) [self deleteTexture: [ctxArray lastObject]];
+		while( [ctxArray count])
+            [self deleteTexture: [ctxArray lastObject]];
 	}
 	else
 	{
@@ -5612,7 +5643,7 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
                                 
                                 if( textureBufferSelected)
                                 {
-                                    unsigned char* newBufferCopy = malloc( newWidth*newHeight);
+                                    unsigned char *newBufferCopy = (unsigned char *)malloc( newWidth*newHeight);
                                     if( newBufferCopy)
                                     {
                                         memcpy( newBufferCopy, textureBufferSelected, newWidth*newHeight);
@@ -8459,7 +8490,8 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
 
 - (float) roiArea
 {
-	if( pixelSpacingX == 0 && pixelSpacingY == 0 ) return 0;
+	if( pixelSpacingX == 0 && pixelSpacingY == 0 )
+        return 0;
 
 	switch( type)
 	{
@@ -8698,12 +8730,14 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
 	int bytesPerRow = [bitmap bytesPerRow];
 	int spp = [bitmap samplesPerPixel];
 	
-	if(textureBuffer) free(textureBuffer);
-    textureBuffer = nil;
+    if (textureBuffer) {
+        free(textureBuffer);
+        textureBuffer = nil;
+    }
 	
     [self textureBufferHasChanged];
     
-	if(spp == 1)
+	if (spp == 1)
 	{
 		bytesPerRow = [bitmap bytesPerRow]/spp;
 		bytesPerRow *= 4;
@@ -8733,7 +8767,7 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
 		bytesPerRow = [bitmap bytesPerRow]/spp;
 		bytesPerRow *= 4;
 
-		unsigned char *tmpImage = malloc (bytesPerRow * height);
+		unsigned char *tmpImage = (unsigned char *)malloc (bytesPerRow * height);
 		int	loop = (int) height * bytesPerRow/4;
 		unsigned char *ptr = tmpImage;
 		
@@ -8754,15 +8788,15 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
 	}
 	else
 	{
-		textureBuffer = malloc(  bytesPerRow * height);
+		textureBuffer = (unsigned char *)malloc(bytesPerRow * height);
         if( textureBuffer)
             memcpy( textureBuffer, [bitmap bitmapData], [bitmap bytesPerRow] * height);
 	}
 	
-    if( textureBuffer == nil)
+    if (textureBuffer == nil)
         return 0;
     
-	if(!isLayerOpacityConstant)// && opacity<1.0)
+	if (!isLayerOpacityConstant)// && opacity<1.0)
 	{
 		unsigned char*	rgbaPtr = (unsigned char*) textureBuffer;
 		long			ss = bytesPerRow/4 * height;
@@ -9021,14 +9055,17 @@ NSInteger sortPointArrayAlongX(id point1, id point2, void *context)
     }
     
 	// activated in the prefs
-	if ([self isSpline] == NO) return [self points];
+	if ([self isSpline] == NO)
+        return [self points];
 	
 	// available only for ROI types : Open Polygon, Close Polygon, Pencil
 	// for other types, returns the original points
-	if(type!=tOPolygon && type!=tCPolygon && type!=tPencil) return [self points];
+	if(type!=tOPolygon && type!=tCPolygon && type!=tPencil)
+        return [self points];
 	
 	// available only for polygons with at least 3 points
-	if([points count]<3) return [self points];
+	if([points count]<3)
+        return [self points];
 	
 	int nb;
     int localType = type;
@@ -9084,14 +9121,17 @@ NSInteger sortPointArrayAlongX(id point1, id point2, void *context)
 -(NSMutableArray*)splineZPositions;
 {
 	// activated in the prefs
-	if([self isSpline] == NO) return zPositions;
+	if([self isSpline] == NO)
+        return zPositions;
 	
 	// available only for ROI types : Open Polygon, Close Polygon, Pencil
 	// for other types, returns the original points
-	if(type!=tOPolygon && type!=tCPolygon && type!=tPencil) return zPositions;
+	if(type!=tOPolygon && type!=tCPolygon && type!=tPencil)
+        return zPositions;
 	
 	// available only for polygons with at least 3 points
-	if([points count]<3) return zPositions;
+	if([points count]<3)
+        return zPositions;
 	
 	int nb; // number of points
 	if(type==tOPolygon) nb = [zPositions count];
@@ -9129,7 +9169,10 @@ NSInteger sortPointArrayAlongX(id point1, id point2, void *context)
 
 -(void)setNSColor:(NSColor*)nsColor globally:(BOOL)g {
 	[self setOpacity:[nsColor alphaComponent] globally:g];
-	RGBColor rgbColor = {[nsColor redComponent]*0xffff, [nsColor greenComponent]*0xffff, [nsColor blueComponent]*0xffff};
+    unsigned short rd = [nsColor redComponent]  *0xffff;
+    unsigned short gr = [nsColor greenComponent]*0xffff;
+    unsigned short bl = [nsColor blueComponent] *0xffff;
+	RGBColor rgbColor = {rd,gr,bl};
 	[self setColor:rgbColor globally:g];
 }
 

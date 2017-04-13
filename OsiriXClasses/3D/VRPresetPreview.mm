@@ -643,7 +643,8 @@
 
 - (void)setSelected;
 {
-	if(isEmpty) return;
+	if(isEmpty)
+        return;
 	
 	// hides the old selection frame location
 	[selectionView setHidden:YES];
@@ -660,7 +661,8 @@
 
 - (void)mouseDown:(NSEvent *)theEvent
 {
-	if(isEmpty) return;
+	if(isEmpty)
+        return;
 		
 	if([theEvent clickCount]>=2)
 	{
@@ -676,13 +678,17 @@
 
 - (void)mouseDragged:(NSEvent *)theEvent
 {
-	if(isEmpty) return;
+	if(isEmpty)
+        return;
+    
 	[super mouseDragged:theEvent];
 }
 
 - (void)mouseUp:(NSEvent *)theEvent
 {
-	if(isEmpty) return;
+	if(isEmpty)
+        return;
+    
 	[self setSelected];
 	[super mouseUp:theEvent];
 	
@@ -691,7 +697,9 @@
 
 - (void) rightMouseUp:(NSEvent *)event
 {
-	if(isEmpty) return;
+	if(isEmpty)
+        return;
+    
 	[self setSelected];
 	[super rightMouseUp: event];
 	

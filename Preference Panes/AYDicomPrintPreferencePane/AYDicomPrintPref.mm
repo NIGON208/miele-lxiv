@@ -37,9 +37,8 @@
 	// select default printer
 	NSArray *printer = [m_PrinterController arrangedObjects];
 
-	int i;
 	NSDictionary *printerDict;
-	for (i = 0; i < [printer count]; i++)
+	for (int i = 0; i < [printer count]; i++)
 	{
 		printerDict = [printer objectAtIndex: i];
 
@@ -85,7 +84,8 @@
 			{
 				
 			}
-			else [m_PrinterController removeObjects: [m_PrinterController arrangedObjects]];
+			else
+                [m_PrinterController removeObjects: [m_PrinterController arrangedObjects]];
 			
 			[m_PrinterController addObjects: r];
 			
@@ -153,9 +153,8 @@
 	// set new default printer
 	NSArray *printer = [m_PrinterController arrangedObjects];
 
-	int i;
 	NSMutableDictionary *printerDict;
-	for (i = 0; i < [printer count]; i++)
+	for (int i = 0; i < [printer count]; i++)
 	{
 		printerDict = [printer objectAtIndex: i];
 		[printerDict removeObjectForKey: @"defaultPrinter"];

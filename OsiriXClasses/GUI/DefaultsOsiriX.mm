@@ -56,8 +56,7 @@ static NSHost *currentHost = nil;
 //	if( testIsHugDone == NO)
 //	{
 ////		NSArray	*names = [[DefaultsOsiriX currentHost] names];
-////		int i;
-////		for( i = 0; i < [names count] && !isHcugeCh; i++)
+////		for (int i = 0; i < [names count] && !isHcugeCh; i++)
 ////		{
 ////			int len = [[names objectAtIndex: i] length];
 ////			if ( len < 8 ) continue;  // Fixed out of bounds error in following line when domainname is short.
@@ -95,8 +94,7 @@ static NSHost *currentHost = nil;
 //	if( testIsUniDone == NO)
 //	{
 ////		NSArray	*names = [[DefaultsOsiriX currentHost] names];
-////		int i;
-////		for( i = 0; i < [names count] && !isUnigeCh; i++)
+////		for(int i = 0; i < [names count] && !isUnigeCh; i++)
 ////		{
 ////			int len = [[names objectAtIndex: i] length];
 ////			if ( len < 8 ) continue;  // Fixed out of bounds error in following line when domainname is short.
@@ -134,9 +132,7 @@ static NSHost *currentHost = nil;
 //	#ifdef OSIRIX_VIEWER
 //	if( [self isHUG])
 //	{
-//		int i;
-//		
-//		for( i = 0; i < [[PluginManager preProcessPlugins] count]; i++)
+//		for(int i = 0; i < [[PluginManager preProcessPlugins] count]; i++)
 //		{
 //			id filter = [[PluginManager preProcessPlugins] objectAtIndex:i];
 //			
@@ -192,12 +188,12 @@ static NSHost *currentHost = nil;
     
     for (io_service_t Device; IOIteratorIsValid(Iterator) && (Device = IOIteratorNext(Iterator)); IOObjectRelease(Device))
     {
-        CFStringRef Name = IORegistryEntrySearchCFProperty(Device, kIOServicePlane, CFSTR("IOName"), kCFAllocatorDefault, kNilOptions);
+        CFStringRef Name = (CFStringRef)IORegistryEntrySearchCFProperty(Device, kIOServicePlane, CFSTR("IOName"), kCFAllocatorDefault, kNilOptions);
         if (Name)
         {
             if (CFStringCompare(Name, CFSTR("display"), 0) == kCFCompareEqualTo)
             {
-                CFDataRef Model = IORegistryEntrySearchCFProperty(Device, kIOServicePlane, CFSTR("model"), kCFAllocatorDefault, kNilOptions);
+                CFDataRef Model = (CFDataRef)IORegistryEntrySearchCFProperty(Device, kIOServicePlane, CFSTR("model"), kCFAllocatorDefault, kNilOptions);
                 if (Model)
                 {
                     _Bool ValueInBytes = TRUE;
@@ -213,10 +209,11 @@ static NSHost *currentHost = nil;
                         mach_vm_size_t Size = 0;
                         CFTypeID Type = CFGetTypeID(VRAMSize);
                         if (Type == CFDataGetTypeID())
-                            Size = (CFDataGetLength(VRAMSize) == sizeof(uint32_t) ? (mach_vm_size_t)*(const uint32_t*)CFDataGetBytePtr(VRAMSize)
-                                    : *(const uint64_t*)CFDataGetBytePtr(VRAMSize));
+                            Size = (CFDataGetLength((CFDataRef)VRAMSize) == sizeof(uint32_t) ?
+                                    (mach_vm_size_t)*(const uint32_t*)CFDataGetBytePtr((CFDataRef)VRAMSize) :
+                                    *(const uint64_t*)CFDataGetBytePtr((CFDataRef)VRAMSize));
                         else if (Type == CFNumberGetTypeID())
-                            CFNumberGetValue(VRAMSize, kCFNumberSInt64Type, &Size);
+                            CFNumberGetValue((CFNumberRef)VRAMSize, kCFNumberSInt64Type, &Size);
                         
                         if (ValueInBytes)
                             Size >>= 20;
@@ -270,7 +267,7 @@ static NSHost *currentHost = nil;
 		// Convert this to a useable number
 		
 		if( CFGetTypeID(typeCode) == CFNumberGetTypeID())
-			CFNumberGetValue(typeCode, kCFNumberSInt32Type, &vramStorage);
+			CFNumberGetValue((CFNumberRef)typeCode, kCFNumberSInt32Type, &vramStorage);
 		
 		CFRelease( typeCode);
 		

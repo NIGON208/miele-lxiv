@@ -99,12 +99,15 @@
             if (!viewerScreens.count)
                 if ([self isEnabled])
                     [[NSColor colorWithDeviceRed:113./255 green:142./255 blue:170.5/255 alpha:1] setFill];
-                else [[NSColor colorWithDeviceWhite:141.83/255 alpha:1] setFill];
+                else
+                    [[NSColor colorWithDeviceWhite:141.83/255 alpha:1] setFill];
             else if ([viewerScreens containsObject:record.screen])
                 if ([self isEnabled])
                     [[NSColor colorWithDeviceRed:99./255 green:157./255 blue:214./255 alpha:1] setFill];
-                else [[NSColor colorWithDeviceWhite:156.67/255 alpha:1] setFill];
-            else [[NSColor lightGrayColor] setFill];
+                else
+                    [[NSColor colorWithDeviceWhite:156.67/255 alpha:1] setFill];
+            else
+                [[NSColor lightGrayColor] setFill];
             
             NSRect frame = record.frame;
 

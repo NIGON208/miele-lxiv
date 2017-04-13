@@ -17,7 +17,8 @@
 @implementation N2Pair
 @synthesize first = _first, second = _second;
 
--(id)initWith:(id)first and:(id)second {
+-(id)initWith:(id)first andSecond:(id)second
+{
 	self = [super init];
 	
 	_first = [first retain];

@@ -451,10 +451,13 @@ static NSString *WebPortalResponseLock = @"WebPortalResponseLock";
 		for (NSObject* it in (NSArray*)t)
 			if (![it isKindOfClass:[WebPortalProxyObjectTransformer class]])
 				[NSException raise:NSInvalidArgumentException format:@"Invalid transformer class: %@", it.className];
+        
 		self.transformers = (NSArray*)t;
-	} else if ([t isKindOfClass:[WebPortalProxyObjectTransformer class]])
+	}
+    else if ([t isKindOfClass:[WebPortalProxyObjectTransformer class]])
 		self.transformers = [NSArray arrayWithObject:t];
-	else [NSException raise:NSInvalidArgumentException format:@"Invalid transformer class: %@", t.className];
+	else
+        [NSException raise:NSInvalidArgumentException format:@"Invalid transformer class: %@", t.className];
 	
 	return self;
 }
@@ -474,12 +477,15 @@ static NSString *WebPortalResponseLock = @"WebPortalResponseLock";
     @synchronized( WebPortalResponseLock)
     {
         for (WebPortalProxyObjectTransformer* t in transformers)
+
             @try {
 			id r = [t valueForKey:key object:object context:context];
-			if (r) return r;
+			if (r)
+                return r;
             } @catch (NSException * e) {
             }
 	}
+    
 	return [object valueForKey:key];
 }
 
@@ -549,17 +555,23 @@ static NSString *WebPortalResponseLock = @"WebPortalResponseLock";
 		return [wpc.session newChallenge];
     if ([key isEqualToString:@"proposeReport"])
     {
-        if( wpc.portal.authenticationRequired && !wpc.user) return @NO;
+        if( wpc.portal.authenticationRequired && !wpc.user)
+            return @NO;
+        
         return [NSNumber numberWithBool: !wpc.user || wpc.user.downloadReport.boolValue];
     }
 	if ([key isEqualToString:@"proposeDicomUpload"])
     {
-        if( wpc.portal.authenticationRequired && !wpc.user) return @NO;
+        if( wpc.portal.authenticationRequired && !wpc.user)
+            return @NO;
+        
 		return [NSNumber numberWithBool: (!wpc.user || wpc.user.uploadDICOM.boolValue) && !wpc.requestIsIOS];
 	}
     if ([key isEqualToString:@"proposeDicomSend"])
     {
-        if( wpc.portal.authenticationRequired && !wpc.user) return @NO;
+        if( wpc.portal.authenticationRequired && !wpc.user)
+            return @NO;
+        
 		return [NSNumber numberWithBool: !wpc.user || wpc.user.sendDICOMtoSelfIP.boolValue || (wpc.user.sendDICOMtoAnyNodes.boolValue)];
     }
 	if ([key isEqualToString:@"proposeWADORetrieve"])
@@ -579,7 +591,9 @@ static NSString *WebPortalResponseLock = @"WebPortalResponseLock";
     
 	if ([key isEqualToString:@"proposeZipDownload"])
     {
-        if( wpc.portal.authenticationRequired && !wpc.user) return @NO;
+        if( wpc.portal.authenticationRequired && !wpc.user)
+            return @NO;
+        
 		return [NSNumber numberWithBool: (!wpc.user || wpc.user.downloadZIP.boolValue) && !wpc.requestIsIOS];
 	}
     if ([key isEqualToString:@"proposeDelete"])
@@ -587,7 +601,8 @@ static NSString *WebPortalResponseLock = @"WebPortalResponseLock";
     
 	if ([key isEqualToString:@"proposeShare"])
     {
-        if( wpc.portal.authenticationRequired && !wpc.user) return @NO;
+        if( wpc.portal.authenticationRequired && !wpc.user)
+            return @NO;
         
 		if (!wpc.user || wpc.user.shareStudyWithUser.boolValue)
         {
@@ -627,7 +642,8 @@ static NSString *WebPortalResponseLock = @"WebPortalResponseLock";
 				if (set.count == 2) {
 					if ([[set objectAtIndex:1] length])
 						[vars setObject:[set objectAtIndex:1] forKey:[set objectAtIndex:0]];
-					else [vars removeObjectForKey:[set objectAtIndex:0]];
+					else
+                        [vars removeObjectForKey:[set objectAtIndex:0]];
 				}
 			}
 			
@@ -636,6 +652,7 @@ static NSString *WebPortalResponseLock = @"WebPortalResponseLock";
 		
 		if ([key hasPrefix:@"getParameters"])
 			return wpc.GETParams;
+        
 		if ([key hasPrefix:@"allParameters"])
 			return [WebPortalConnection FormatParams:wpc.parameters];
 	}

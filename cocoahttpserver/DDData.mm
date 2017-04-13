@@ -34,8 +34,7 @@ static char encodingTable[64] = {
 
 - (NSData *)sha1Digest
 {
-#if TARGET_OS_IPHONE
-	
+#if TARGET_OS_IPHONE	
 	unsigned char result[CC_SHA1_DIGEST_LENGTH];
     
 	CC_SHA1([self bytes], [self length], result);
@@ -59,14 +58,12 @@ static char encodingTable[64] = {
     return [[stringBuffer copy] autorelease];
 #else
 	return [self hexval];
-	
 #endif
 }
 
 - (NSString *)base64Encoded
 {
 #if TARGET_OS_IPHONE
-	
 	const unsigned char	*bytes = [self bytes];
 	NSMutableString *result = [NSMutableString stringWithCapacity:[self length]];
 	unsigned long ixtext = 0;

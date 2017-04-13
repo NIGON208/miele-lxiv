@@ -212,7 +212,8 @@ static NSString* _dcmElementKey(DcmElement* element) {
             
             if ([[[elements objectForKeyRemove: @"0004,1512"] stringValue] isEqualToString:@"1.2.840.10008.1.2.4.100"])
                 [item setObject:@"DICOMMPEG2" forKey:@"fileType"];
-            else [item setObject:@"DICOM" forKey:@"fileType"];
+            else
+                [item setObject:@"DICOM" forKey:@"fileType"];
             
             [item conditionallySetObject:@YES forKey:@"hasDICOM"];
             

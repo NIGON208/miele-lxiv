@@ -468,7 +468,8 @@
 	
 	if (local)
         return @"L";
-	else return @"";
+	else
+        return @"";
 }
 
 - (NSNumber *) rawNoFiles
@@ -723,11 +724,11 @@
 
 - (BOOL)validateForDelete:(NSError **)error
 {
-    BOOL delete = [super validateForDelete: error];
+    BOOL _delete = [super validateForDelete: error];
     
     @synchronized (self)
     {
-        if (delete)
+        if (_delete)
         {
 #ifndef OSIRIX_LIGHT
             NSString *vrFile = [VRController getUniqueFilenameScissorStateFor: self];
@@ -738,7 +739,7 @@
         }
     }
     
-    return delete;
+    return _delete;
 }
 
 - (NSComparisonResult)compareName:(DicomSeries*)series;

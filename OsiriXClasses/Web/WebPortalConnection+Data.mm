@@ -1945,7 +1945,8 @@ const NSString* const GenerateMovieDicomImagesParamKey = @"dicomImageArray";
 			
 			if (album.smartAlbum.intValue == 1)
 				[albumDictionary setObject:@"SmartAlbum" forKey:@"type"];
-			else [albumDictionary setObject:@"Album" forKey:@"type"];
+			else
+                [albumDictionary setObject:@"Album" forKey:@"type"];
 			
 			[jsonAlbumsArray addObject:albumDictionary];
 		}
@@ -2833,7 +2834,8 @@ const NSString* const GenerateMovieDicomImagesParamKey = @"dicomImageArray";
 		study = (DicomStudy*)o;
 		for (DicomSeries* s in study.series)
 			[images addObjectsFromArray:s.images.allObjects];
-	} else if ([o isKindOfClass:[DicomSeries class]]) {
+	}
+    else if ([o isKindOfClass:[DicomSeries class]]) {
 		study = ((DicomSeries*)o).study;
 		[images addObjectsFromArray:((DicomSeries*)o).images.allObjects];
 	}
@@ -2843,7 +2845,8 @@ const NSString* const GenerateMovieDicomImagesParamKey = @"dicomImageArray";
     
 	if (user.encryptedZIP.boolValue)
 		[self.portal updateLogEntryForStudy:study withMessage:@"Download encrypted DICOM ZIP" forUser:self.user.name ip:asyncSocket.connectedHost];
-	else [self.portal updateLogEntryForStudy:study withMessage:@"Download DICOM ZIP" forUser:self.user.name ip:asyncSocket.connectedHost];
+	else
+        [self.portal updateLogEntryForStudy:study withMessage:@"Download DICOM ZIP" forUser:self.user.name ip:asyncSocket.connectedHost];
     
 	@try
 	{

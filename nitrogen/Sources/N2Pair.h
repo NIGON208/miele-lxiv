@@ -20,6 +20,6 @@
 
 @property(retain) id first, second;
 
--(id)initWith:(id)first and:(id)second;
+-(id)initWith:(id)first andSecond:(id)second;
 
 @end

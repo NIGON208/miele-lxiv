@@ -84,7 +84,8 @@ NSString* const NSThreadIsCancelledKey = @"isCancelled";
 	if (self.isCancelled)
 		return;
 	
-	if (isCancelled == self.isCancelled) return;
+	if (isCancelled == self.isCancelled)
+        return;
 	
 	@synchronized (self) {
 		[self willChangeValueForKey:NSThreadIsCancelledKey];
@@ -286,7 +287,9 @@ NSString* const NSThreadStatusKey = @"status";
 		[self willChangeValueForKey:NSThreadStatusKey];
 		if (status)
 			[self.currentOperationDictionary setObject:[[status copy] autorelease] forKey:NSThreadStatusKey];
-		else [self.currentOperationDictionary removeObjectForKey:NSThreadStatusKey];
+		else
+            [self.currentOperationDictionary removeObjectForKey:NSThreadStatusKey];
+        
 		[self didChangeValueForKey:NSThreadStatusKey];
 	}
 	
@@ -388,7 +391,9 @@ NSString* const NSThreadProgressDetailsKey = @"progressDetails";
 		[self willChangeValueForKey:NSThreadProgressDetailsKey];
 		if (progressDetails)
 			[self.currentOperationDictionary setObject:[[progressDetails copy] autorelease] forKey:NSThreadProgressDetailsKey];
-		else [self.currentOperationDictionary removeObjectForKey:NSThreadProgressDetailsKey];
+		else
+            [self.currentOperationDictionary removeObjectForKey:NSThreadProgressDetailsKey];
+        
 		[self didChangeValueForKey:NSThreadProgressDetailsKey];
 	}
 	

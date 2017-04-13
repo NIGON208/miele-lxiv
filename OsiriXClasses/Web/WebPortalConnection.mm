@@ -376,8 +376,10 @@ NSString* const SessionDicomCStorePortKey = @"DicomCStorePort"; // NSNumber (int
 		if ([value isKindOfClass: [NSArray class]])
 			for (NSString* v2 in (NSArray*)value)
 				[str appendFormat:@"%@%@=%@", str.length?@"&":@"", [key urlEncodedString], [v2 urlEncodedString]];
-		else [str appendFormat:@"%@%@=%@", str.length?@"&":@"", [key urlEncodedString], [value urlEncodedString]];
-	} return str;
+		else
+            [str appendFormat:@"%@%@=%@", str.length?@"&":@"", [key urlEncodedString], [value urlEncodedString]];
+	}
+    return str;
 }
 
 +(NSDictionary*)ExtractParams:(NSString*)paramsString {
@@ -405,7 +407,8 @@ NSString* const SessionDicomCStorePortKey = @"DicomCStorePort"; // NSNumber (int
 		
 		if (prevVal)
 			[prevVal addObject:paramValue];
-		else [params setObject:paramValue forKey:paramName];
+		else
+            [params setObject:paramValue forKey:paramName];
 	}
 	
 	return params;
@@ -623,12 +626,14 @@ NSString* const SessionDicomCStorePortKey = @"DicomCStorePort"; // NSNumber (int
 	
 	if (response.data && !response.statusCode)
 		return [[response retain] autorelease]; // [[[WebPortalResponse alloc] initWithData:data mime:dataMime sessionId:session.sid] autorelease];*/
-	else return NULL;
+	else
+        return NULL;
 }
 
 -(BOOL)supportsMethod:(NSString *)method atPath:(NSString *)relativePath {
 	if ([method isEqualToString:@"POST"])
 		return YES;
+    
 	return [super supportsMethod:method atPath:relativePath];
 }
 

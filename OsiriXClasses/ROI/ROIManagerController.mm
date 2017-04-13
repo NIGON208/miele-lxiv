@@ -77,7 +77,8 @@ PURPOSE.
 
 - (void) keyDown:(NSEvent *)event
 {
-    if( [[event characters] length] == 0) return;
+    if( [[event characters] length] == 0)
+        return;
     
 	unichar c = [[event characters] characterAtIndex:0];
 	
@@ -93,7 +94,8 @@ PURPOSE.
 	NSIndexSet* indexSet = [tableView selectedRowIndexes];
 	index = [indexSet lastIndex];
 	
-	if ((index == NSNotFound) || index < 0) return;
+	if ((index == NSNotFound) || index < 0)
+        return;
 	
 	NSMutableArray	*curRoiList = [[viewer roiList] objectAtIndex: [[viewer imageView] curImage]];
 	
@@ -156,7 +158,8 @@ PURPOSE.
     objectValueForTableColumn:(NSTableColumn *)tableColumn
             row:(NSInteger)row
 {
-	if( viewer == nil) return nil;
+	if( viewer == nil)
+        return nil;
 	
 	NSMutableArray	*curRoiList = [[viewer roiList] objectAtIndex: [[viewer imageView] curImage]];
 	

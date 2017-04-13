@@ -79,8 +79,6 @@
 
 - (void)awakeFromNib
 {
-	int i;
-
 	[[prefPane titleTextField] setEnabled: NO];
 	[[prefPane contentTokenField] setEnabled: NO];
 	[self setCustomDICOMFieldEditingEnable:NO];
@@ -97,7 +95,7 @@
 	NSMenu *DICOMFieldsMenu = [[prefPane DICOMFieldsPopUpButton] menu];
 	[DICOMFieldsMenu setAutoenablesItems:NO];
 	
-//	for (i=0; i<[[DICOMFieldsMenu itemArray] count]; i++)
+//	for (int i=0; i<[[DICOMFieldsMenu itemArray] count]; i++)
 //		[DICOMFieldsMenu removeItemAtIndex:i];
 	[[prefPane DICOMFieldsPopUpButton] removeAllItems];
 	
@@ -106,7 +104,7 @@
 	[item setTitle:NSLocalizedString( @"DICOM Fields", nil)];
 	[item setEnabled:NO];
 	[DICOMFieldsMenu addItem:item];
-	for (i=0; i<[DICOMFieldsArray count]; i++)
+	for (int i=0; i<[DICOMFieldsArray count]; i++)
 	{
 		item = [[[NSMenuItem alloc] init] autorelease];
 		[item setTitle:[[DICOMFieldsArray objectAtIndex:i] title]];
@@ -128,7 +126,7 @@
 	[item setTitle:NSLocalizedString( @"Study level", nil)];
 	[item setEnabled:NO];
 	[databaseFieldsMenu addItem:item];
-	for (i=0; i<[databaseStudyFieldsArray count]; i++)
+	for (int i=0; i<[databaseStudyFieldsArray count]; i++)
 	{
 		item = [[[NSMenuItem alloc] init] autorelease];
 		[item setTitle:[NSString stringWithFormat:@"\t%@",[databaseStudyFieldsArray objectAtIndex:i]]];
@@ -141,7 +139,7 @@
 	[item setTitle:NSLocalizedString( @"Series level", nil)];
 	[item setEnabled:NO];
 	[databaseFieldsMenu addItem:item];
-	for (i=0; i<[databaseSeriesFieldsArray count]; i++)
+	for (int i=0; i<[databaseSeriesFieldsArray count]; i++)
 	{
 		item = [[[NSMenuItem alloc] init] autorelease];
 		[item setTitle:[NSString stringWithFormat:@"\t%@",[databaseSeriesFieldsArray objectAtIndex:i]]];
@@ -154,7 +152,7 @@
 	[item setTitle:NSLocalizedString( @"Image level", nil)];
 	[item setEnabled:NO];
 	[databaseFieldsMenu addItem:item];
-	for (i=0; i<[databaseImageFieldsArray count]; i++)
+	for (int i=0; i<[databaseImageFieldsArray count]; i++)
 	{
 		item = [[[NSMenuItem alloc] init] autorelease];
 		[item setTitle:[NSString stringWithFormat:@"\t%@",[databaseImageFieldsArray objectAtIndex:i]]];
@@ -170,7 +168,7 @@
 	NSMutableArray *fields = [self specialFieldsTitles];
 	NSMutableArray *localizedFields = [self specialFieldsLocalizedTitles];
 	
-	for (i=0; i<[fields count]; i++)
+	for (int i=0; i<[fields count]; i++)
 	{
 		item = [[[NSMenuItem alloc] init] autorelease];
 		[item setTitle:[localizedFields objectAtIndex:i]];
@@ -275,7 +273,8 @@
 
 - (void)keyDown:(NSEvent *)theEvent
 {
-    if( [[theEvent characters] length] == 0) return;
+    if( [[theEvent characters] length] == 0)
+        return;
     
 	unichar c = [[theEvent characters] characterAtIndex:0];
 	if(c==NSDeleteCharacter)
@@ -312,15 +311,11 @@
 	}
 
 	NSArray *placeHolders = [layoutView placeHolderArray];	
-	int i;
-	for (i=0; i<[placeHolders count]; i++)
-	{
+	for (int i=0; i<[placeHolders count]; i++)
 		[[placeHolders objectAtIndex:i] updateFrameAroundAnnotations];
-	}
-	[layoutView updatePlaceHolderOrigins];
-	
+
+    [layoutView updatePlaceHolderOrigins];
 	[layoutView setNeedsDisplay:YES];
-	
 	[self highlightPlaceHolderForAnnotation:annotation];
 }
 
@@ -347,8 +342,7 @@
 	
 	NSArray *placeHolders = [layoutView placeHolderArray];
 	CIAPlaceHolder *currentPlaceHolder;
-	int i;
-	for (i=0; i<[placeHolders count]; i++)
+	for (int i=0; i<[placeHolders count]; i++)
 	{
 		currentPlaceHolder = [placeHolders objectAtIndex:i];
 		if([currentPlaceHolder hasFocus] && ![currentPlaceHolder containsAnnotation:annotation])
@@ -391,7 +385,7 @@
 		[[annotation placeHolder] alignAnnotations];
 	}
 	
-	for (i=0; i<[placeHolders count]; i++)
+	for (int i=0; i<[placeHolders count]; i++)
 	{
 		[[placeHolders objectAtIndex:i] alignAnnotations];
 		[[placeHolders objectAtIndex:i] updateFrameAroundAnnotations];
@@ -409,8 +403,7 @@
 	
 	NSArray *placeHolders = [layoutView placeHolderArray];
 	NSMutableArray *highlightedPlaceHolders = [NSMutableArray arrayWithCapacity:0];
-	int i;
-	for (i=0; i<[placeHolders count]; i++)
+	for (int i=0; i<[placeHolders count]; i++)
 	{
 		NSRect interserctionRect = NSIntersectionRect(annotationFrame, [[placeHolders objectAtIndex:i] frame]);
 		if(interserctionRect.size.width*interserctionRect.size.height >= 0.1*annotationFrameArea)
@@ -431,7 +424,7 @@
 		
 		float distanceToMouse[numberOfHighlightedPlaceHolders];
 		float placeHolderCenter;
-		for (i=0; i<numberOfHighlightedPlaceHolders; i++)
+		for (int i=0; i<numberOfHighlightedPlaceHolders; i++)
 		{
 			placeHolderCenter = [[highlightedPlaceHolders objectAtIndex:i] frame].origin.x + [[highlightedPlaceHolders objectAtIndex:i] frame].size.width/2.0;
 			distanceToMouse[i] = fabsf(mouseLocationInView.x - placeHolderCenter);
@@ -439,7 +432,7 @@
 
 		float minDistance = MAXFLOAT;
 		int index = -1;
-		for (i=0; i<numberOfHighlightedPlaceHolders; i++)
+		for (int i=0; i<numberOfHighlightedPlaceHolders; i++)
 		{
 			if(distanceToMouse[i] < minDistance)
 			{
@@ -448,9 +441,9 @@
 			}
 		}
 		
-		for (i=0; i<numberOfHighlightedPlaceHolders; i++)
+		for (int i=0; i<numberOfHighlightedPlaceHolders; i++)
 		{
-			if(i!=index)
+			if (i!=index)
 				[[highlightedPlaceHolders objectAtIndex:i] setHasFocus:NO];
 		}
 	}
@@ -458,16 +451,15 @@
 
 - (void)selectAnnotation:(CIAAnnotation*)anAnnotation;
 {
-	if(anAnnotation==selectedAnnotation) return;
+	if(anAnnotation==selectedAnnotation)
+        return;
 
 	[self validateTokenTextField:self];
 	
-	int i;
-	for (i=0; i<[annotationsArray count]; i++)
-	{
+	for (int i=0; i<[annotationsArray count]; i++)
 		[[annotationsArray objectAtIndex:i] setIsSelected:NO];
-	}
-	[anAnnotation setIsSelected:YES];
+
+    [anAnnotation setIsSelected:YES];
 
 	[self willChangeValueForKey:@"selectedAnnotation"];
 	if( selectedAnnotation != anAnnotation)
@@ -671,13 +663,12 @@
 - (void)resizeTokenField; // not used
 {
 	return;
-	int i;
 	NSRect oldTokenFieldFrame = [[prefPane contentTokenField] frame];
 	NSSize cellSize = [[[prefPane contentTokenField] cell] cellSizeForBounds:[[prefPane contentTokenField] bounds]];
 
 	NSBox *globalPaneBox = [[[[self window] contentView] subviews] objectAtIndex:0];
 	
-	for (i=0; i<[[globalPaneBox subviews] count]; i++)
+	for (int i=0; i<[[globalPaneBox subviews] count]; i++)
 	{
 		NSView *currentView = [[globalPaneBox subviews] objectAtIndex:i];
 
@@ -716,8 +707,7 @@
 		if(element>0xffFF) element = 0xffFF;
 		[[prefPane dicomElementTextField] setStringValue:[NSString stringWithFormat:@"0x%04x", element]];
 		
-		int i;
-		for (i=0; i<[DICOMFieldsArray count]; i++)
+		for (int i=0; i<[DICOMFieldsArray count]; i++)
 		{
 			if ([[NSString stringWithFormat:@"0x%04x", [[DICOMFieldsArray objectAtIndex:i] group]] isEqualToString:[[prefPane dicomGroupTextField] stringValue]] && [[NSString stringWithFormat:@"0x%04x", [[DICOMFieldsArray objectAtIndex:i] element]] isEqualToString:[[prefPane dicomElementTextField] stringValue]])
 			{
@@ -908,7 +898,9 @@
 
 - (void)textViewDidChangeSelection:(NSNotification *)aNotification
 {
-	if(skipTextViewDidChangeSelectionNotification) return;
+	if(skipTextViewDidChangeSelectionNotification)
+        return;
+    
 	skipTextViewDidChangeSelectionNotification = YES;
 
 	if([[prefPane contentTokenField] currentEditor]==[aNotification object])
@@ -938,8 +930,7 @@
 					{						
 						BOOL found = NO;
 						selectedString = [selectedString substringFromIndex:6];
-						int i;
-						for (i=0; i<[DICOMFieldsArray count]; i++)
+						for (int i=0; i<[DICOMFieldsArray count]; i++)
 						{
 							if([[[DICOMFieldsArray objectAtIndex:i] name] isEqualToString:selectedString])
 							{
@@ -1365,18 +1356,15 @@
 - (void)removeAllAnnotations;
 {
 	NSArray *placeHolders = [layoutView placeHolderArray];
-	int i;
-	for (i=0; i<[placeHolders count]; i++)
+	for (int i=0; i<[placeHolders count]; i++)
 	{
 		[[[placeHolders objectAtIndex:i] annotationsArray] removeAllObjects];
 		[[placeHolders objectAtIndex:i] setHasFocus:NO];
 		[[placeHolders objectAtIndex:i] updateFrameAroundAnnotationsWithAnimation:NO];
 	}
 
-	for (i=0; i<[annotationsArray count]; i++)
-	{
+	for (int i=0; i<[annotationsArray count]; i++)
 		[[annotationsArray objectAtIndex:i] removeFromSuperview];
-	}
 	
 	[annotationsArray removeAllObjects];
 	[layoutView setNeedsDisplay:YES];

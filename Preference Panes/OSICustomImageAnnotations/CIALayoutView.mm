@@ -52,7 +52,7 @@
 		y[5] = frame.size.height - [CIAPlaceHolder defaultSize].height - FRAME_MARGIN;
 		y[6] = y[7] = y[5];
 		
-		int align[8];
+		CIAPlaceHolderAlignement align[8];
 		align[0] = CIAPlaceHolderAlignLeft;
 		align[3] = CIAPlaceHolderAlignLeft;
 		align[5] = CIAPlaceHolderAlignLeft;
@@ -63,12 +63,12 @@
 		align[7] = CIAPlaceHolderAlignRight;
 		
 		NSMutableArray *placeHolderMutableArray = [NSMutableArray arrayWithCapacity:8];
-        int i;
-		for (i=0; i<8; i++)
+		for (int i=0; i<8; i++)
 		{
 			CIAPlaceHolder *aPlaceHolder = [[CIAPlaceHolder alloc] initWithFrame: NSMakeRect(x[i], y[i], [CIAPlaceHolder defaultSize].width, [CIAPlaceHolder defaultSize].height)];
 			[aPlaceHolder setAlignment:align[i]];
-			if(i==1) [aPlaceHolder setOrientationWidgetPosition:CIAPlaceHolderOrientationWidgetBottom];
+			if (i==1)
+                [aPlaceHolder setOrientationWidgetPosition:CIAPlaceHolderOrientationWidgetBottom];
 			[self addSubview:aPlaceHolder];
 			[placeHolderMutableArray addObject:aPlaceHolder];
 			[aPlaceHolder release];
@@ -94,8 +94,9 @@
 
 - (void)updatePlaceHolderOriginsInRect:(NSRect)rect;
 {
-	//return;
-	if([placeHolderArray count]<8) return;
+	if ([placeHolderArray count]<8)
+        return;
+    
 	// The layout view contains 8 place holders for Annotations. They are labeled as follow:
 	//  +-------+
 	//	| 5 6 7 |
@@ -121,8 +122,7 @@
 	y[6] = rect.size.height - [[placeHolderArray objectAtIndex:6] frame].size.height - FRAME_MARGIN;
 	y[7] = rect.size.height - [[placeHolderArray objectAtIndex:7] frame].size.height - FRAME_MARGIN;
 	
-	int i;
-	for (i=0; i<8; i++)
+	for (int i=0; i<8; i++)
 	{
 		[[placeHolderArray objectAtIndex:i] setFrameOrigin:NSMakePoint(x[i], y[i])];
 		[[placeHolderArray objectAtIndex:i] setNeedsDisplay:YES];
@@ -184,8 +184,7 @@
 - (void)setEnabled:(BOOL)enabled;
 {
 	[super setEnabled:enabled];
-//	int i;
-//	for (i=0; i<8; i++)
+//	for (int i=0; i<8; i++)
 //		[[placeHolderArray objectAtIndex:i] setEnabled:enabled];
 }
 

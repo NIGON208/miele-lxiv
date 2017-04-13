@@ -56,8 +56,12 @@ static int validFilePathDepth = 0;
 
 - (void) _testForValidFilePath: (NSMutableArray*) dicomdirFileList path: (NSString*) startDirectory files: (NSMutableArray*) files
 {
-	if( startDirectory == Nil || files == Nil) return;
-	if( [startDirectory isEqualToString: @""] || [startDirectory isEqualToString: @"/"]) return;
+	if( startDirectory == Nil || files == Nil)
+        return;
+    
+	if( [startDirectory isEqualToString: @""] || [startDirectory isEqualToString: @"/"])
+        return;
+    
 	validFilePathDepth++;
 	
 	@try 

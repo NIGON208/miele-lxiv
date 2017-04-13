@@ -31,7 +31,8 @@
 	
 	if([[(SRController*)controller view] StereoVisionOn])
 		[[(SRController*)controller view] disableStereoModeLeftRight];
-	else [[(SRController*)controller view] restoreViewSizeAfterMatrix3DExport];
+	else
+        [[(SRController*)controller view] restoreViewSizeAfterMatrix3DExport];
 }
 
 @end

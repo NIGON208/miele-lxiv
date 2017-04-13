@@ -663,15 +663,19 @@ static NSConditionLock *threadLock = nil;
 -(NSArray*)addFilesToDatabase:(NSArray*)newFilesArray // __deprecated
 {
     N2LogStackTrace( @"****** deprecated function");
-    if( [NSThread isMainThread] == NO) N2LogStackTrace( @"********* We should be on MAIN thread for accessing objects from _database object");
-	return [_database objectsWithIDs:[_database addFilesAtPaths:newFilesArray]];
+    if( [NSThread isMainThread] == NO)
+        N2LogStackTrace( @"********* We should be on MAIN thread for accessing objects from _database object");
+
+    return [_database objectsWithIDs:[_database addFilesAtPaths:newFilesArray]];
 }
 
 #pragma deprecated (addFilesToDatabase::)
 -(NSArray*)addFilesToDatabase:(NSArray*)newFilesArray :(BOOL)onlyDICOM // __deprecated
 {
     N2LogStackTrace( @"****** deprecated function");
-    if( [NSThread isMainThread] == NO) N2LogStackTrace( @"********* We should be on MAIN thread for accessing objects from _database object");
+    if( [NSThread isMainThread] == NO)
+        N2LogStackTrace( @"********* We should be on MAIN thread for accessing objects from _database object");
+    
 	return [_database objectsWithIDs:[_database addFilesAtPaths:newFilesArray postNotifications:YES dicomOnly:onlyDICOM rereadExistingItems:NO]];
 }
 
@@ -679,16 +683,26 @@ static NSConditionLock *threadLock = nil;
 -(NSArray*) addFilesToDatabase:(NSArray*) newFilesArray onlyDICOM:(BOOL) onlyDICOM  produceAddedFiles:(BOOL) produceAddedFiles // __deprecated
 {
     N2LogStackTrace( @"****** deprecated function");
-    if( [NSThread isMainThread] == NO) N2LogStackTrace( @"********* We should be on MAIN thread for accessing objects from _database object");
-	return [_database objectsWithIDs:[_database addFilesAtPaths:newFilesArray postNotifications:produceAddedFiles dicomOnly:onlyDICOM rereadExistingItems:NO]];
+    if( [NSThread isMainThread] == NO)
+        N2LogStackTrace( @"********* We should be on MAIN thread for accessing objects from _database object");
+    
+	return [_database objectsWithIDs:[_database addFilesAtPaths:newFilesArray
+                                              postNotifications:produceAddedFiles
+                                                      dicomOnly:onlyDICOM
+                                            rereadExistingItems:NO]];
 }
 
 #pragma deprecated (addFilesToDatabase:onlyDICOM:produceAddedFiles:parseExistingObject:)
 -(NSArray*) addFilesToDatabase:(NSArray*) newFilesArray onlyDICOM:(BOOL) onlyDICOM  produceAddedFiles:(BOOL) produceAddedFiles parseExistingObject:(BOOL) parseExistingObject // __deprecated
 {
     N2LogStackTrace( @"****** deprecated function");
-    if( [NSThread isMainThread] == NO) N2LogStackTrace( @"********* We should be on MAIN thread for accessing objects from _database object");
-	return [_database objectsWithIDs:[_database addFilesAtPaths:newFilesArray postNotifications:produceAddedFiles dicomOnly:onlyDICOM rereadExistingItems:parseExistingObject]];
+    if( [NSThread isMainThread] == NO)
+        N2LogStackTrace( @"********* We should be on MAIN thread for accessing objects from _database object");
+    
+	return [_database objectsWithIDs:[_database addFilesAtPaths:newFilesArray
+                                              postNotifications:produceAddedFiles
+                                                      dicomOnly:onlyDICOM
+                                            rereadExistingItems:parseExistingObject]];
 }
 
 #pragma deprecated (checkForExistingReport:dbFolder:)
@@ -762,7 +776,9 @@ static NSConditionLock *threadLock = nil;
 -(NSArray*)addFilesToDatabase:(NSArray*)newFilesArray onlyDICOM:(BOOL)onlyDICOM safeRebuild:(BOOL)safeRebuild produceAddedFiles:(BOOL)produceAddedFiles { // __deprecated // notice: the "safeRebuild" seemed to be already ignored before the DicomDatabase transition
 
     N2LogStackTrace( @"****** deprecated function");
-    if( [NSThread isMainThread] == NO) N2LogStackTrace( @"********* We should be on MAIN thread for accessing objects from _database object");
+    if( [NSThread isMainThread] == NO)
+        N2LogStackTrace( @"********* We should be on MAIN thread for accessing objects from _database object");
+    
     return [_database objectsWithIDs:[_database addFilesAtPaths:newFilesArray postNotifications:produceAddedFiles dicomOnly:onlyDICOM rereadExistingItems:NO]];
 }
 
@@ -906,7 +922,8 @@ static NSConditionLock *threadLock = nil;
 											else if( [[[itemPath lastPathComponent] uppercaseString] isEqualToString:@"DICOMDIR"] || [[[itemPath lastPathComponent] uppercaseString] isEqualToString:@"DICOMDIR."])
 												[self addDICOMDIR: itemPath : filesArray];
 											
-											else [filesArray addObject:itemPath];
+											else
+                                                [filesArray addObject:itemPath];
 										}
 									}
 								}
@@ -958,7 +975,8 @@ static NSConditionLock *threadLock = nil;
 						else if( [[filename pathExtension] isEqualToString: @"app"])
 						{
 						}
-						else [filesArray addObject: filename];
+						else
+                            [filesArray addObject: filename];
 					}
 				}
 			}
@@ -1277,8 +1295,10 @@ static NSConditionLock *threadLock = nil;
                 for( int x = 0; x < [selectedRows count] ; x++)
                 {
                     NSUInteger row = 0;
-                    if( x == 0) row = [selectedRows firstIndex];
-                    else row = [selectedRows indexGreaterThanIndex: row];
+                    if( x == 0)
+                        row = [selectedRows firstIndex];
+                    else
+                        row = [selectedRows indexGreaterThanIndex: row];
                     
                     id object = [databaseOutline itemAtRow: row];
                     
@@ -1318,8 +1338,10 @@ static NSConditionLock *threadLock = nil;
                 for( int x = 0; x < [selectedRows count] ; x++)
                 {
                     NSUInteger row = 0;
-                    if( x == 0) row = [selectedRows firstIndex];
-                    else row = [selectedRows indexGreaterThanIndex: row];
+                    if( x == 0)
+                        row = [selectedRows firstIndex];
+                    else
+                        row = [selectedRows indexGreaterThanIndex: row];
                     
                     NSManagedObject	*object = [databaseOutline itemAtRow: row];
                     
@@ -1556,8 +1578,14 @@ static NSConditionLock *threadLock = nil;
     
     for( DicomStudy *study in studiesToCheck)
     {
-        if( study != (DicomStudy*) [NSNull null] && [patientStudies containsObject: study] == NO && self.comparativePatientUID && [self.comparativePatientUID compare: study.patientUID options: NSCaseInsensitiveSearch | NSDiacriticInsensitiveSearch | NSWidthInsensitiveSearch] == NSOrderedSame)
+        if (study != (DicomStudy*)[NSNull null] &&
+           [patientStudies containsObject: study] == NO &&
+            self.comparativePatientUID &&
+            [self.comparativePatientUID compare: study.patientUID
+                                        options: NSCaseInsensitiveSearch | NSDiacriticInsensitiveSearch | NSWidthInsensitiveSearch] == NSOrderedSame)
+        {
             [patientStudies addObject: study];
+        }
     }
     
     if( patientStudies.count && self.comparativeStudies.count)
@@ -1783,12 +1811,12 @@ static NSConditionLock *threadLock = nil;
 				[self refreshMatrix: self];
 				[self refreshAlbums];
 				
-                #ifndef OSIRIX_LIGHT
+#ifndef OSIRIX_LIGHT
 				if( [QueryController currentQueryController])
 					[[QueryController currentQueryController] refresh: self];
 				else if( [QueryController currentAutoQueryController])
 					[[QueryController currentAutoQueryController] refresh: self];
-                #endif
+#endif
 			}
             @catch (NSException* e)
             {
@@ -1866,7 +1894,8 @@ static NSConditionLock *threadLock = nil;
 		if( [[location lastPathComponent] isEqualToString:OUR_DATA_LOCATION])
 			location = [location stringByDeletingLastPathComponent];
 		
-		if( [[location lastPathComponent] isEqualToString:@"DATABASE.noindex"] && [[[location stringByDeletingLastPathComponent] lastPathComponent] isEqualToString:OUR_DATA_LOCATION])
+		if ([[location lastPathComponent] isEqualToString:@"DATABASE.noindex"] &&
+           [[[location stringByDeletingLastPathComponent] lastPathComponent] isEqualToString:OUR_DATA_LOCATION])
 			location = [[location stringByDeletingLastPathComponent] stringByDeletingLastPathComponent];
 		
 		[self openDatabasePath: location];
@@ -1892,7 +1921,8 @@ static NSConditionLock *threadLock = nil;
             [self.window setRepresentedFilename: _database.sourcePath];
         else
             [self.window setRepresentedFilename: @""];
-    }else
+    }
+    else
         [self.window setRepresentedFilename: _database? _database.baseDirPath : @""];
 }
 
@@ -2042,7 +2072,8 @@ static NSConditionLock *threadLock = nil;
                         return NO;
                 }
             }
-            else return NO;
+            else
+                return NO;
         }
         
         [self outlineViewRefresh];
@@ -2090,7 +2121,8 @@ static NSConditionLock *threadLock = nil;
 {
 	BOOL matrixThumbnails = NO;
 	
-	if (![_database isLocal]) return;
+	if (![_database isLocal])
+        return;
 	
 	if( ([sender isKindOfClass:[NSMenuItem class]] && [sender menu] == [oMatrix menu]) || [[self window] firstResponder] == oMatrix)
 	{
@@ -2169,8 +2201,11 @@ static NSConditionLock *threadLock = nil;
 
 - (void) copyFilesIntoDatabaseIfNeeded: (NSMutableArray*) filesInput options: (NSDictionary*) options
 {
-	if (![_database isLocal]) return;
-	if( [filesInput count] == 0) return;
+	if (![_database isLocal])
+        return;
+    
+	if( [filesInput count] == 0)
+        return;
 	
 	BOOL COPYDATABASE = [[NSUserDefaults standardUserDefaults] boolForKey: @"COPYDATABASE"];
 	int COPYDATABASEMODE = [[NSUserDefaults standardUserDefaults] integerForKey: @"COPYDATABASEMODE"];
@@ -2273,8 +2308,11 @@ static NSConditionLock *threadLock = nil;
             else
                 t = [[[NSThread alloc] initWithTarget:_database selector:@selector(copyFilesThread:) object: dict] autorelease];
             
-			if( [[options objectForKey: @"mountedVolume"] boolValue]) t.name = NSLocalizedString( @"Copying and indexing files from CD/DVD...", nil);
-			else t.name = NSLocalizedString( @"Copying and indexing files...", nil);
+			if( [[options objectForKey: @"mountedVolume"] boolValue])
+                t.name = NSLocalizedString( @"Copying and indexing files from CD/DVD...", nil);
+			else
+                t.name = NSLocalizedString( @"Copying and indexing files...", nil);
+            
 			t.status = N2LocalizedSingularPluralCount( [filesInput count], NSLocalizedString(@"file", nil), NSLocalizedString(@"files", nil));
 			t.supportsCancel = YES;
 			[[ThreadsManager defaultManager] addThreadAndStart: t];
@@ -2357,8 +2395,11 @@ static NSConditionLock *threadLock = nil;
 		
 		NSThread *t = [[[NSThread alloc] initWithTarget:_database selector:@selector(copyFilesThread:) object: dict] autorelease];
 		
-		if( [[options objectForKey: @"mountedVolume"] boolValue]) t.name = NSLocalizedString( @"Indexing files from CD/DVD...", nil);
-		else t.name = NSLocalizedString( @"Indexing files...", nil);
+		if( [[options objectForKey: @"mountedVolume"] boolValue])
+            t.name = NSLocalizedString( @"Indexing files from CD/DVD...", nil);
+		else
+            t.name = NSLocalizedString( @"Indexing files...", nil);
+        
 		t.status = N2LocalizedSingularPluralCount( [filesInput count], NSLocalizedString(@"file", nil), NSLocalizedString(@"files", nil));
 		t.supportsCancel = YES;
 		[[ThreadsManager defaultManager] addThreadAndStart: t];
@@ -2911,12 +2952,16 @@ static NSConditionLock *threadLock = nil;
 		_cachedAlbumsContext = nil;
 	}
 
-	if( databaseOutline == nil) return nil;
-	if( loadingIsOver == NO) return nil;
+	if( databaseOutline == nil)
+        return nil;
+    
+	if( loadingIsOver == NO)
+        return nil;
 	
 	if( [[NSUserDefaults standardUserDefaults] boolForKey: @"hideListenerError"])
 	{
-		if( [[self window] isVisible] == NO) return nil;
+		if( [[self window] isVisible] == NO)
+            return nil;
 	}
 	
 	if( [NSThread isMainThread] == NO)
@@ -2936,6 +2981,7 @@ static NSConditionLock *threadLock = nil;
 	{
 		if( [databaseOutline itemAtRow: index])
 			[previousObjects addObject: [databaseOutline itemAtRow: index]];
+        
 		index = [selectedRowIndexes indexGreaterThanIndex:index];
 	}
 	
@@ -3190,7 +3236,8 @@ static NSConditionLock *threadLock = nil;
 		exception = [ne description];
 	}
 	
-	if( albumTable.selectedRow > 0) filtered = YES;
+	if( albumTable.selectedRow > 0)
+        filtered = YES;
 	
 	NSSortDescriptor * sortdate = [[[NSSortDescriptor alloc] initWithKey: @"date" ascending:NO] autorelease];
 	NSArray * sortDescriptors;
@@ -3286,7 +3333,8 @@ static NSConditionLock *threadLock = nil;
 	{
 		for( id obj in outlineViewArray)
 		{
-			if( [[obj valueForKey:@"expanded"] boolValue]) [databaseOutline expandItem: obj];
+			if( [[obj valueForKey:@"expanded"] boolValue])
+                [databaseOutline expandItem: obj];
 		}
 	}
 	@catch( NSException *ne)
@@ -3586,15 +3634,24 @@ static NSConditionLock *threadLock = nil;
 
 - (void)refreshDatabase: (id)sender
 {
-	if( [[AppController sharedAppController] isSessionInactive] || waitForRunningProcess) return;
-	if( _database == nil) return;
+	if( [[AppController sharedAppController] isSessionInactive] || waitForRunningProcess)
+        return;
+    
+	if( _database == nil)
+        return;
+    
 //	if( bonjourDownloading) return;
-	if( DatabaseIsEdited) return;
-	if( [databaseOutline editedRow] != -1) return;
+    
+	if( DatabaseIsEdited)
+        return;
+    
+	if( [databaseOutline editedRow] != -1)
+        return;
 	
 	NSArray *albumArray = self.albumArray;
 	
-	if( albumTable.selectedRow >= [albumArray count]) return;
+	if( albumTable.selectedRow >= [albumArray count])
+        return;
 	
 	if( [[[albumArray objectAtIndex: albumTable.selectedRow] valueForKey:@"smartAlbum"] boolValue] == YES)
 	{
@@ -3616,20 +3673,20 @@ static NSConditionLock *threadLock = nil;
         [comparativeTable reloadData];
 	}
 	
-	#ifndef OSIRIX_LIGHT
+#ifndef OSIRIX_LIGHT
 	if( [QueryController currentQueryController])
 		[[QueryController currentQueryController] refresh: self];
 	else if( [QueryController currentAutoQueryController])
 		[[QueryController currentAutoQueryController] refresh: self];
-	#endif
+#endif
 }
 
 - (NSArray*) childrenArray: (id)item onlyImages: (BOOL)onlyImages
 {
-    #ifndef OSIRIX_LIGHT
+#ifndef OSIRIX_LIGHT
     if( [item isDistant])
         return [NSArray array];
-    #endif
+#endif
     
 	if( [item isDeleted])
 	{
@@ -3658,7 +3715,8 @@ static NSConditionLock *threadLock = nil;
 		NSArray *sortedArray = nil;
 		@try
 		{
-			if( onlyImages) sortedArray = [item valueForKey:@"imageSeries"];
+			if( onlyImages)
+                sortedArray = [item valueForKey:@"imageSeries"];
 			else
 			{
                 sortedArray = [item valueForKey:@"allSeries"];
@@ -3725,7 +3783,8 @@ static NSConditionLock *threadLock = nil;
 				
 				if( preferredObject == oFirstForFirst)
 				{
-					if( first == NO) preferredObject = oAny;
+					if( first == NO)
+                        preferredObject = oAny;
 				}
 				
 				first = NO;
@@ -3741,7 +3800,8 @@ static NSConditionLock *threadLock = nil;
 					case oAny:
 					{
 						NSManagedObject	*obj = [[i valueForKey:@"images"] anyObject];
-						if( obj) [imagesPathArray addObject: obj];
+						if( obj)
+                            [imagesPathArray addObject: obj];
 					}
 					break;
 					
@@ -3843,8 +3903,11 @@ static NSConditionLock *threadLock = nil;
 	
 	NSManagedObjectContext	*context = self.database.managedObjectContext;
 	
-	if( correspondingManagedObjects == nil) correspondingManagedObjects = [NSMutableArray array];
-	if( treeManagedObjects == nil) treeManagedObjects = [NSMutableSet set];
+	if( correspondingManagedObjects == nil)
+        correspondingManagedObjects = [NSMutableArray array];
+    
+	if( treeManagedObjects == nil)
+        treeManagedObjects = [NSMutableSet set];
 	
 	[context retain];
 	[context lock];
@@ -3990,18 +4053,24 @@ static NSConditionLock *threadLock = nil;
 			
 			if([event modifierFlags] & NSAlternateKeyMask)
 			{
-				if( [[self KeyImages: nil] count] == 0) ROIsAndKeyImagesButtonAvailable = NO;
-				else ROIsAndKeyImagesButtonAvailable = YES;
+				if( [[self KeyImages: nil] count] == 0)
+                    ROIsAndKeyImagesButtonAvailable = NO;
+				else
+                    ROIsAndKeyImagesButtonAvailable = YES;
 			}
 			else if([event modifierFlags] & NSShiftKeyMask)
 			{
-				if( [[self ROIImages: nil] count] == 0) ROIsAndKeyImagesButtonAvailable = NO;
-				else ROIsAndKeyImagesButtonAvailable = YES;
+				if( [[self ROIImages: nil] count] == 0)
+                    ROIsAndKeyImagesButtonAvailable = NO;
+				else
+                    ROIsAndKeyImagesButtonAvailable = YES;
 			}
 			else
 			{
-				if( [[self ROIsAndKeyImages: nil] count] == 0) ROIsAndKeyImagesButtonAvailable = NO;
-				else ROIsAndKeyImagesButtonAvailable = YES;
+				if( [[self ROIsAndKeyImages: nil] count] == 0)
+                    ROIsAndKeyImagesButtonAvailable = NO;
+				else
+                    ROIsAndKeyImagesButtonAvailable = YES;
 			}
 		}
 	}
@@ -4984,7 +5053,8 @@ static NSConditionLock *threadLock = nil;
 		_cachedAlbumsContext = nil;
 	}
 	
-	if( loadingIsOver == NO) return;
+	if( loadingIsOver == NO)
+        return;
 	
 	@try
 	{
@@ -5291,7 +5361,8 @@ static NSConditionLock *threadLock = nil;
 				}
 			}
 			
-			if( [[destSeries valueForKey:@"type"] isEqualToString: @"Series"] == NO) destSeries = [destSeries valueForKey:@"Series"];
+			if( [[destSeries valueForKey:@"type"] isEqualToString: @"Series"] == NO)
+                destSeries = [destSeries valueForKey:@"Series"];
 			
 			NSLog(@"MERGING SERIES: %@", destSeries);
 			DicomStudy *study = [destSeries valueForKey:@"study"];
@@ -5371,7 +5442,8 @@ static NSConditionLock *threadLock = nil;
                 
                 DicomStudy *study = [databaseOutline itemAtRow: row];
                 
-                if( [[study valueForKey:@"type"] isEqualToString: @"Study"] == NO) study = [study valueForKey:@"study"];
+                if( [[study valueForKey:@"type"] isEqualToString: @"Study"] == NO)
+                    study = [study valueForKey:@"study"];
                 
                 if( study != destStudy)
                 {
@@ -5448,7 +5520,8 @@ static NSConditionLock *threadLock = nil;
                                 NSRunCriticalAlertPanel( NSLocalizedString(@"Unify Patient Identity", nil), NSLocalizedString( @"Failed to change the DICOM files", nil), NSLocalizedString(@"OK",nil), nil, nil);
                             }
                         }
-                        else return;
+                        else
+                            return;
                     }
                 }
             }
@@ -5459,7 +5532,8 @@ static NSConditionLock *threadLock = nil;
 			NSInteger row = ( x == 0) ? [selectedRows firstIndex] : [selectedRows indexGreaterThanIndex: row];
 			
 			DicomStudy *study = [databaseOutline itemAtRow: row];
-			if( [[study valueForKey:@"type"] isEqualToString: @"Study"] == NO) study = [study valueForKey:@"study"];
+			if( [[study valueForKey:@"type"] isEqualToString: @"Study"] == NO)
+                study = [study valueForKey:@"study"];
 			
 			if( study != destStudy)
 			{
@@ -5509,7 +5583,8 @@ static NSConditionLock *threadLock = nil;
 	{
         row = ( x == 0) ? [selectedRows firstIndex] : [selectedRows indexGreaterThanIndex: row];
 		NSManagedObject	*series = [databaseOutline itemAtRow: row];
-		if( [[series valueForKey:@"type"] isEqualToString: @"Series"] == NO) onlySeries = NO;
+		if( [[series valueForKey:@"type"] isEqualToString: @"Series"] == NO)
+            onlySeries = NO;
 		
 		[seriesArray addObject: series];
 	}
@@ -5522,7 +5597,8 @@ static NSConditionLock *threadLock = nil;
 	
     // The destination study : prefer DICOM study
     DicomStudy	*destStudy = [databaseOutline itemAtRow: [databaseOutline selectedRow]];
-    if( [[destStudy valueForKey:@"type"] isEqualToString: @"Study"] == NO) destStudy = [destStudy valueForKey:@"study"];
+    if( [[destStudy valueForKey:@"type"] isEqualToString: @"Study"] == NO)
+        destStudy = [destStudy valueForKey:@"study"];
     
 	NSString *nameAndStudy = [NSString stringWithFormat: @"%@ / %@", destStudy.name, destStudy.studyName];
 	
@@ -5542,7 +5618,8 @@ static NSConditionLock *threadLock = nil;
                 NSInteger row = ( x == 0) ? [selectedRows firstIndex] : [selectedRows indexGreaterThanIndex: row];
                 
                 DicomStudy *study = [databaseOutline itemAtRow: row];
-                if( [[study valueForKey:@"type"] isEqualToString: @"Study"] == NO) study = [study valueForKey:@"study"];
+                if( [[study valueForKey:@"type"] isEqualToString: @"Study"] == NO)
+                    study = [study valueForKey:@"study"];
                 
                 if( study != destStudy)
                 {
@@ -5618,7 +5695,8 @@ static NSConditionLock *threadLock = nil;
                             else
                                 NSRunCriticalAlertPanel( NSLocalizedString(@"Unify Study Identity", nil), NSLocalizedString( @"Failed to change the DICOM files", nil), NSLocalizedString(@"OK",nil), nil, nil);
                         }
-                        else return;
+                        else
+                            return;
                     }
                 }
             }
@@ -5632,7 +5710,8 @@ static NSConditionLock *threadLock = nil;
             row = ( x == 0) ? [selectedRows firstIndex] : [selectedRows indexGreaterThanIndex: row];
 			
 			NSManagedObject	*study = [databaseOutline itemAtRow: row];
-			if( [[study valueForKey:@"type"] isEqualToString: @"Study"] == NO) study = [study valueForKey:@"study"];
+			if( [[study valueForKey:@"type"] isEqualToString: @"Study"] == NO)
+                study = [study valueForKey:@"study"];
 			
 			if( study != destStudy)
 			{
@@ -5944,10 +6023,13 @@ static NSConditionLock *threadLock = nil;
                             
                             //Is this directory empty?? If yes, delete it!
                             
-                            if( [dirContent count] == 0) [[NSFileManager defaultManager] removeFileAtPath:currentDirectory handler:nil];
+                            if( [dirContent count] == 0)
+                                [[NSFileManager defaultManager] removeFileAtPath:currentDirectory handler:nil];
+                            
                             if( [dirContent count] == 1)
                             {
-                                if( [[[dirContent objectAtIndex: 0] uppercaseString] hasSuffix:@".DS_STORE"]) [[NSFileManager defaultManager] removeFileAtPath:currentDirectory handler:nil];
+                                if( [[[dirContent objectAtIndex: 0] uppercaseString] hasSuffix:@".DS_STORE"])
+                                    [[NSFileManager defaultManager] removeFileAtPath:currentDirectory handler:nil];
                             }
                         }
                     }
@@ -6191,14 +6273,16 @@ static NSConditionLock *threadLock = nil;
 		{
 			if ([[NSUserDefaults standardUserDefaults] boolForKey:@"HIDEPATIENTNAME"])
 				[mi setState: NSOffState];
-			else [mi setState: NSOnState];
+			else
+                [mi setState: NSOnState];
 		}
 		else
 		{
             NSInteger index = [columnIdentifiers indexOfObject:ro];
 			if (index != NSNotFound && ![[cols objectAtIndex:index] isHidden])
                 [mi setState: NSOnState];
-			else [mi setState: NSOffState];
+			else
+                [mi setState: NSOffState];
 		}
     }
 }
@@ -6207,7 +6291,8 @@ static NSConditionLock *threadLock = nil;
 {
 	[sender setState: ![sender state]];
 	
-	if( [[sender representedObject] isEqualToString:@"name"]) [[NSUserDefaults standardUserDefaults] setBool:![sender state] forKey:@"HIDEPATIENTNAME"];
+	if( [[sender representedObject] isEqualToString:@"name"])
+        [[NSUserDefaults standardUserDefaults] setBool:![sender state] forKey:@"HIDEPATIENTNAME"];
 	else
 	{
 		NSArray				*titleArray = [[columnsMenu itemArray] valueForKey:@"title"];
@@ -6274,7 +6359,8 @@ static NSConditionLock *threadLock = nil;
 #pragma mark - NSOutlineViewDelegate
 - (id)outlineView:(NSOutlineView *)outlineView child:(NSInteger)index ofItem:(id)item
 {
-	if (_database == nil) return nil;
+	if (_database == nil)
+        return nil;
 		
 	id returnVal = nil;
 	
@@ -6333,7 +6419,8 @@ static NSConditionLock *threadLock = nil;
 
 - (NSInteger)outlineView:(NSOutlineView *)outlineView numberOfChildrenOfItem:(id)item
 {
-	if( _database == nil) return 0;
+	if( _database == nil)
+        return 0;
 	
 	int returnVal = 0;
 	
@@ -6435,9 +6522,11 @@ static NSConditionLock *threadLock = nil;
 				else
 					return nil;
 			}
-			else return nil;
+			else
+                return nil;
 		}
-		else return nil;
+		else
+            return nil;
 	}
 	
 	if( [[tableColumn identifier] isEqualToString:@"stateText"])
@@ -6450,7 +6539,8 @@ static NSConditionLock *threadLock = nil;
 	
 	if( [[tableColumn identifier] isEqualToString:@"lockedStudy"])
 	{
-		if ([[item valueForKey:@"type"] isEqualToString:@"Study"] == NO) return nil;
+		if ([[item valueForKey:@"type"] isEqualToString:@"Study"] == NO)
+            return nil;
 	}
 	
 	if( [[tableColumn identifier] isEqualToString:@"modality"])
@@ -6511,7 +6601,10 @@ static NSConditionLock *threadLock = nil;
                 else
                 {
                     if( [yearOld hasSuffix: NSLocalizedString( @" y", @"y = year")] && [yearOldAcquisition hasSuffix: NSLocalizedString( @" y", @"y = year")])
-                        return [NSString stringWithFormat: @"%@/%@%@", [yearOld substringToIndex: yearOld.length-[NSLocalizedString( @" y", @"y = year") length]], [yearOldAcquisition substringToIndex: yearOldAcquisition.length-[NSLocalizedString( @" y", @"y = year") length]], NSLocalizedString( @" y", @"y = year")];
+                        return [NSString stringWithFormat: @"%@/%@%@",
+                                [yearOld substringToIndex: yearOld.length-[NSLocalizedString( @" y", @"y = year") length]],
+                                [yearOldAcquisition substringToIndex: yearOldAcquisition.length-[NSLocalizedString( @" y", @"y = year") length]],
+                                NSLocalizedString( @" y", @"y = year")];
                     else
                         return [NSString stringWithFormat: @"%@/%@", yearOld, yearOldAcquisition];
                 }
@@ -6541,7 +6634,8 @@ static NSConditionLock *threadLock = nil;
             dbName = [dbName stringByAppendingString:@" DB"];
             return dbName;
         }
-        else return @"";
+        else
+            return @"";
     }
     
     id value = nil;
@@ -6642,12 +6736,12 @@ static NSConditionLock *threadLock = nil;
 	
 	[_database save:NULL];
 	
-	#ifndef OSIRIX_LIGHT
+#ifndef OSIRIX_LIGHT
 	if( [QueryController currentQueryController])
 		[[QueryController currentQueryController] refresh: self];
 	else if( [QueryController currentAutoQueryController])
 		[[QueryController currentAutoQueryController] refresh: self];
-	#endif
+#endif
 	
 	[databaseOutline reloadData];
 }
@@ -6740,7 +6834,8 @@ static NSConditionLock *threadLock = nil;
 				else
                     [cell setFont: [NSFont systemFontOfSize: [self fontSize: @"dbFont"]]];
 			}
-			else [cell setFont: [NSFont boldSystemFontOfSize: [self fontSize: @"dbFont"]]];
+			else
+                [cell setFont: [NSFont boldSystemFontOfSize: [self fontSize: @"dbFont"]]];
 			
 			if( [[tableColumn identifier] isEqualToString:@"name"])
 			{
@@ -6809,7 +6904,8 @@ static NSConditionLock *threadLock = nil;
 				{
 					NSImage	*reportIcon = [[NSWorkspace sharedWorkspace] iconForFileType: @"download"];
 					
-					if( reportIcon == nil) reportIcon = [NSImage imageNamed:@"Report.icns"];
+					if( reportIcon == nil)
+                        reportIcon = [NSImage imageNamed:@"Report.icns"];
 					
 					[reportIcon setSize: NSMakeSize(16, 16)];
 					
@@ -7456,12 +7552,10 @@ static NSConditionLock *threadLock = nil;
             if( [[p valueForKey: @"WL"] intValue] == 0 && [[p valueForKey: @"WW"] intValue] == 0) // Default
             {
             }
-            
             else if( [[p valueForKey: @"WL"] intValue] == 1 && [[p valueForKey: @"WW"] intValue] == 1) // Full
             {
                 [v.imageView setWLWW: 0 : 0];
             }
-            
             else if( [p valueForKey: @"WL"] && [p valueForKey: @"WW"])
             {
                 [v.imageView setWLWW: [[p valueForKey: @"WL"] floatValue] :[[p valueForKey: @"WW"] floatValue]];
@@ -7478,7 +7572,9 @@ static NSConditionLock *threadLock = nil;
 
 - (void) displayWaitWindowIfNecessary
 {
-    if( waitOpeningWindow == nil) waitOpeningWindow  = [[WaitRendering alloc] init: NSLocalizedString(@"Opening...", nil)];
+    if( waitOpeningWindow == nil)
+        waitOpeningWindow = [[WaitRendering alloc] init: NSLocalizedString(@"Opening...", nil)];
+    
     [waitOpeningWindow showWindow:self];
 }
 
@@ -7516,7 +7612,6 @@ static NSConditionLock *threadLock = nil;
 		{
 			// DICOM & others
 			[self viewerDICOMInt :NO  dcmFile: [NSArray arrayWithObject:item] viewer:nil];
-			
 		}
 	}
 	else	// STUDY - Hanging Protocols - Windows State
@@ -7717,7 +7812,8 @@ static NSConditionLock *threadLock = nil;
                         for( NSManagedObject* curFile in [seriesToOpen objectAtIndex: i])
                         {
                             NSArray *loadList = [self childrenArray: curFile];
-                            if( loadList) [toOpenArray addObject: loadList];
+                            if( loadList)
+                                [toOpenArray addObject: loadList];
                         }
                         
                         if( [[dict valueForKey: @"4DData"] boolValue])
@@ -7795,8 +7891,10 @@ static NSConditionLock *threadLock = nil;
                             
                             [v setImageIndex: index];
                             
-                            if( [[[v imageView] curDCM] SUVConverted]) [v setWL: wl*[v factorPET2SUV] WW: ww*[v factorPET2SUV]];
-                            else [v setWL: wl WW: ww];
+                            if( [[[v imageView] curDCM] SUVConverted])
+                                [v setWL: wl*[v factorPET2SUV] WW: ww*[v factorPET2SUV]];
+                            else
+                                [v setWL: wl WW: ww];
                             
                             [v setScaleValue: scale];
                             [v setRotation: rotation];
@@ -8012,7 +8110,8 @@ static NSConditionLock *threadLock = nil;
 							if( [[itemPath lastPathComponent] characterAtIndex: 0] != '.')
 								curFile = [[DicomFile alloc] init: itemPath];
 							
-							if( curFile) go = NO;
+							if( curFile)
+                                go = NO;
 						}
 					}
 				}
@@ -8056,7 +8155,8 @@ static NSConditionLock *threadLock = nil;
 							seriesTable = [seriesArray objectAtIndex: index];
 							NSArray		*imagesArray = [[seriesTable valueForKey:@"images"] allObjects] ;
 							index = [[imagesArray valueForKey:@"sopInstanceUID"] indexOfObject:[curFile elementForKey: @"SOPUID"]];
-							if( index != NSNotFound) curImage = [imagesArray objectAtIndex: index];
+							if( index != NSNotFound)
+                                curImage = [imagesArray objectAtIndex: index];
 						}
 					}
 				}
@@ -8122,7 +8222,10 @@ static NSConditionLock *threadLock = nil;
 				if( [[oMatrix selectedCell] tag] != seriesPosition)
 				{
 					// Select the right thumbnail matrix
-                    NSInteger rows, cols; [oMatrix getNumberOfRows:&rows columns:&cols];  if( cols < 1) cols = 1;
+                    NSInteger rows, cols;
+                    [oMatrix getNumberOfRows:&rows columns:&cols];
+                    if( cols < 1)
+                        cols = 1;
 					[oMatrix selectCellAtRow: seriesPosition/cols column: seriesPosition%cols];
 					[self matrixPressed: oMatrix];
 				}
@@ -8269,9 +8372,12 @@ static NSConditionLock *threadLock = nil;
 			{
 				NSManagedObject	*study = nil;
 				
-				if( [[element valueForKey: @"type"] isEqualToString: @"Image"]) study = [element valueForKeyPath: @"series.study"];
-				else if( [[element valueForKey: @"type"] isEqualToString: @"Series"]) study = [element valueForKey: @"study"];
-				else if( [[element valueForKey: @"type"] isEqualToString: @"Study"]) study = element;
+				if( [[element valueForKey: @"type"] isEqualToString: @"Image"])
+                    study = [element valueForKeyPath: @"series.study"];
+				else if( [[element valueForKey: @"type"] isEqualToString: @"Series"])
+                    study = [element valueForKey: @"study"];
+				else if( [[element valueForKey: @"type"] isEqualToString: @"Study"])
+                    study = element;
 				
 				if( [[study valueForKey: @"imageSeries"] count] == 0)
 					element = nil;
@@ -8294,10 +8400,14 @@ static NSConditionLock *threadLock = nil;
 		{
 			DicomStudy *study = nil;
 			
-			if( [[element valueForKey: @"type"] isEqualToString: @"Image"]) study = [element valueForKeyPath: @"series.study"];
-			else if( [[element valueForKey: @"type"] isEqualToString: @"Series"]) study = [element valueForKey: @"study"];
-			else if( [[element valueForKey: @"type"] isEqualToString: @"Study"]) study = (DicomStudy*)element;
-			else NSLog( @"DB selectObject : Unknown table");
+			if( [[element valueForKey: @"type"] isEqualToString: @"Image"])
+                study = [element valueForKeyPath: @"series.study"];
+			else if( [[element valueForKey: @"type"] isEqualToString: @"Series"])
+                study = [element valueForKey: @"study"];
+			else if( [[element valueForKey: @"type"] isEqualToString: @"Study"])
+                study = (DicomStudy*)element;
+			else
+                NSLog( @"DB selectObject : Unknown table");
 			
 			BOOL succeed = [self displayStudy: study object: element command: execute];
 			
@@ -8356,10 +8466,14 @@ static NSConditionLock *threadLock = nil;
 				{
 					NSManagedObject	*study = nil;
 					
-					if( [[curElement valueForKey: @"type"] isEqualToString: @"Image"]) study = [curElement valueForKeyPath: @"series.study"];
-					else if( [[curElement valueForKey: @"type"] isEqualToString: @"Series"]) study = [curElement valueForKey: @"study"];
-					else if( [[curElement valueForKey: @"type"] isEqualToString: @"Study"]) study = curElement;
-					else NSLog( @"DB selectObject : Unknown table");
+					if( [[curElement valueForKey: @"type"] isEqualToString: @"Image"])
+                        study = [curElement valueForKeyPath: @"series.study"];
+					else if( [[curElement valueForKey: @"type"] isEqualToString: @"Series"])
+                        study = [curElement valueForKey: @"study"];
+					else if( [[curElement valueForKey: @"type"] isEqualToString: @"Study"])
+                        study = curElement;
+					else
+                        NSLog( @"DB selectObject : Unknown table");
 					
 					if( study)
 						[context deleteObject: study];
@@ -8492,7 +8606,8 @@ static NSConditionLock *threadLock = nil;
 	if ([[[NSApplication sharedApplication] currentEvent] modifierFlags]  & NSShiftKeyMask)
 		applyToAllViewers = !applyToAllViewers;
 	
-	if( [viewer FullScreenON]) [viewersList addObject: viewer];
+	if( [viewer FullScreenON])
+        [viewersList addObject: viewer];
 	else
 	{
 		// If multiple viewer are opened, apply it to the entire list
@@ -8550,7 +8665,8 @@ static NSConditionLock *threadLock = nil;
 			{
 				if( direction == 0)	// Called from loadNextPatient
 				{
-					if( firstViewer == NO) direction = 1;
+					if( firstViewer == NO)
+                        direction = 1;
 				}
 				
 				index += direction*[viewersList count];
@@ -8558,13 +8674,16 @@ static NSConditionLock *threadLock = nil;
 					NSBeep();
 				else 
 				{
-					if( index < 0) index = 0;
+					if( index < 0)
+                        index = 0;
+                    
 					if( index < [seriesArray count])
 					{
 						if( index + [viewersList count] > [seriesArray count])
 						{
 							index = [seriesArray count] - [viewersList count];
-							if( index < 0) index = 0;
+							if( index < 0)
+                                index = 0;
 						}
 						
 						for( ViewerController *vc in viewersList)
@@ -8572,7 +8691,6 @@ static NSConditionLock *threadLock = nil;
 							if( index >= 0 && index < [seriesArray count])
 							{
                                 [viewersArray addObject: [self childrenArray: [seriesArray objectAtIndex: index]]];
-								
 							}
 							else
 							{
@@ -8647,8 +8765,10 @@ static NSConditionLock *threadLock = nil;
 {
 	NSIndexSet *rowIndex;
 	
-	if( onlySelected) rowIndex = [databaseOutline selectedRowIndexes];
-	else rowIndex = [NSIndexSet indexSetWithIndexesInRange: NSMakeRange( 0, [databaseOutline numberOfRows])];
+	if( onlySelected)
+        rowIndex = [databaseOutline selectedRowIndexes];
+	else
+        rowIndex = [NSIndexSet indexSetWithIndexesInRange: NSMakeRange( 0, [databaseOutline numberOfRows])];
 	
 	NSMutableString	*string = [NSMutableString string];
 	NSArray	*columns = [[databaseOutline tableColumns] valueForKey:@"identifier"];
@@ -8657,8 +8777,10 @@ static NSConditionLock *threadLock = nil;
 	
 	for( NSInteger x = 0; x < rowIndex.count; x++)
 	{
-		if( x == 0) r = rowIndex.firstIndex;
-		else r = [rowIndex indexGreaterThanIndex: r];
+		if( x == 0)
+            r = rowIndex.firstIndex;
+		else
+            r = [rowIndex indexGreaterThanIndex: r];
 		
 		NSManagedObject *aFile = [databaseOutline itemAtRow: r];
 		
@@ -8733,8 +8855,10 @@ static NSConditionLock *threadLock = nil;
 		{
 			NSMutableArray *images = [NSMutableArray array];
 			
-			if( [[self window] firstResponder] == oMatrix) [self filesForDatabaseMatrixSelection: images];
-			else [self filesForDatabaseOutlineSelection: images];
+			if( [[self window] firstResponder] == oMatrix)
+                [self filesForDatabaseMatrixSelection: images];
+			else
+                [self filesForDatabaseOutlineSelection: images];
 			
 			if( [images count])
 				sourceFile = [[images objectAtIndex: 0] valueForKey:@"completePath"];
@@ -8876,8 +9000,10 @@ static BOOL withReset = NO;
 			
 			if( [images count])
 			{
-				if( [images count] > 1) noOfImages = [images count];
-				else noOfImages = [[[images objectAtIndex:0] valueForKey:@"numberOfFrames"] intValue];
+				if( [images count] > 1)
+                    noOfImages = [images count];
+				else
+                    noOfImages = [[[images objectAtIndex:0] valueForKey:@"numberOfFrames"] intValue];
 				
 				if( [images count] > 1)
 				{
@@ -9024,7 +9150,8 @@ static BOOL withReset = NO;
 	{
 		if( [cell isEnabled])
 		{
-			if( [cell tag] >= [matrixViewArray count]) return;
+			if( [cell tag] >= [matrixViewArray count])
+                return;
 			
 			NSManagedObject   *aFile = [databaseOutline itemAtRow:[databaseOutline selectedRow]];
 			if ([[aFile valueForKey:@"type"] isEqualToString:@"Series"] &&
@@ -9076,14 +9203,17 @@ static BOOL withReset = NO;
 					
 				if( [images count])
 				{ 
-					if( [images count] > 1) noOfImages = [images count];
-					else noOfImages = [[[images objectAtIndex:0] valueForKey:@"numberOfFrames"] intValue];
+					if( [images count] > 1)
+                        noOfImages = [images count];
+					else
+                        noOfImages = [[[images objectAtIndex:0] valueForKey:@"numberOfFrames"] intValue];
 					
 					if( [images count] > 1 || noOfImages == 1)
 					{
 						animate = YES;
 						
-						if( [animationSlider intValue] >= [images count]) return;
+						if( [animationSlider intValue] >= [images count])
+                            return;
 						
 						Dicom_Image *imageObj = [images objectAtIndex: [animationSlider intValue]];
 						
@@ -9111,8 +9241,10 @@ static BOOL withReset = NO;
                                     
                                     [dcmPix release];
                                     
-                                    if( withReset) [imageView setIndexWithReset:[cell tag] :YES];
-                                    else [imageView setIndex:[cell tag]];
+                                    if( withReset)
+                                        [imageView setIndexWithReset:[cell tag] :YES];
+                                    else
+                                        [imageView setIndex:[cell tag]];
                                     
                                     @try
                                     {
@@ -9160,8 +9292,10 @@ static BOOL withReset = NO;
                                     [previewPix replaceObjectAtIndex:[cell tag] withObject:(id) dcmPix];
                                     [dcmPix release];
                                     
-                                    if( withReset) [imageView setIndexWithReset:[cell tag] :YES];
-                                    else [imageView setIndex:[cell tag]];
+                                    if( withReset)
+                                        [imageView setIndexWithReset:[cell tag] :YES];
+                                    else
+                                        [imageView setIndex:[cell tag]];
                                     
                                     @try
                                     {
@@ -9216,16 +9350,23 @@ static BOOL withReset = NO;
 		return;
     
     // Wait loading all images !!!
-	if( _database == nil) return;
+	if( _database == nil)
+        return;
+    
 //	if( bonjourDownloading) return;
-	if( animationCheck.state == NSOffState) return;
+	if( animationCheck.state == NSOffState)
+        return;
 	
-    if( self.window.isKeyWindow == NO) return;
-    if( animationSlider.isEnabled == NO) return;
+    if( self.window.isKeyWindow == NO)
+        return;
+    
+    if( animationSlider.isEnabled == NO)
+        return;
 	
 	int	pos = animationSlider.intValue;
 	pos++;
-	if( pos > animationSlider.maxValue) pos = 0;
+	if( pos > animationSlider.maxValue)
+        pos = 0;
 	
 	[animationSlider setIntValue: pos];
 	[self previewSliderAction: nil];
@@ -9258,8 +9399,11 @@ static BOOL withReset = NO;
 		pos += change;
 	}
 	
-	if( pos > [animationSlider maxValue]) pos = 0;
-	if( pos < 0) pos = [animationSlider maxValue];
+	if( pos > [animationSlider maxValue])
+        pos = 0;
+    
+	if( pos < 0)
+        pos = [animationSlider maxValue];
 	
 	[animationSlider setIntValue: pos];
 	[self previewSliderAction: animationSlider];
@@ -9337,7 +9481,9 @@ static BOOL withReset = NO;
         [self previewMatrixScrollViewFrameDidChange: nil];
         
         NSInteger rows, columns;
-        [oMatrix getNumberOfRows:&rows columns:&columns];  if( columns < 1) columns = 1;
+        [oMatrix getNumberOfRows:&rows columns:&columns];
+        if( columns < 1)
+            columns = 1;
         
         for( long i=0; i < rows*columns; i++)
         {
@@ -9371,11 +9517,15 @@ static BOOL withReset = NO;
 		
         @synchronized( previewPixThumbnails)
         {
-            if( i >= [previewPix count]) return;
-            if( i >= [previewPixThumbnails count]) return;
+            if( i >= [previewPix count])
+                return;
+            
+            if( i >= [previewPixThumbnails count])
+                return;
             
             img = [[previewPixThumbnails objectAtIndex: i] retain];
-            if( img == nil) NSLog( @"Error: [previewPixThumbnails objectAtIndex: i] == nil");
+            if( img == nil)
+                NSLog( @"Error: [previewPixThumbnails objectAtIndex: i] == nil");
         }
         
 //        [_database lock];
@@ -9412,7 +9562,11 @@ static BOOL withReset = NO;
             
             if( img || [modality  hasPrefix: @"RT"])
             {
-                NSInteger rows, cols; [oMatrix getNumberOfRows:&rows columns:&cols]; if( cols < 1) cols = 1;
+                NSInteger rows, cols;
+                [oMatrix getNumberOfRows:&rows columns:&cols];
+                if( cols < 1)
+                    cols = 1;
+                
                 NSButtonCell* cell = [oMatrix cellAtRow:i/cols column:i%cols];
                 [cell setTransparent:NO];
                 [cell setEnabled:YES];
@@ -9536,7 +9690,11 @@ static BOOL withReset = NO;
             }
             else
             {  // Show Error Button
-                NSInteger rows, cols; [oMatrix getNumberOfRows:&rows columns:&cols];  if( cols < 1) cols = 1;
+                NSInteger rows, cols;
+                [oMatrix getNumberOfRows:&rows columns:&cols];
+                if( cols < 1)
+                    cols = 1;
+                
                 NSButtonCell* cell = [oMatrix cellAtRow:i/cols column:i%cols];
                 [cell setImage: nil];
                 [oMatrix setToolTip: NSLocalizedString(@"File not readable", nil) forCell:cell];
@@ -9626,8 +9784,11 @@ static BOOL withReset = NO;
 - (void)matrixDisplayIcons:(id) sender
 {
 //	if( bonjourDownloading) return;
-	if( _database == nil) return;
-	if( [[AppController sharedAppController] isSessionInactive] || waitForRunningProcess) return;
+	if( _database == nil)
+        return;
+    
+	if( [[AppController sharedAppController] isSessionInactive] || waitForRunningProcess)
+        return;
     
 	@try
 	{
@@ -9638,7 +9799,11 @@ static BOOL withReset = NO;
                 long i;
                 for( i = 0; i < [previewPix count]; i++)
                 {
-                    NSInteger rows, cols; [oMatrix getNumberOfRows:&rows columns:&cols];  if( cols < 1) cols = 1;
+                    NSInteger rows, cols;
+                    [oMatrix getNumberOfRows:&rows columns:&cols];
+                    if( cols < 1)
+                        cols = 1;
+                    
                     NSButtonCell* cell = [oMatrix cellAtRow:i/cols column:i%cols];
                     
                     if( [cell isEnabled] == NO)
@@ -9692,8 +9857,11 @@ static BOOL withReset = NO;
 
 - (IBAction) buildAllThumbnails:(id) sender
 {
-	if( [DCMPix isRunOsiriXInProtectedModeActivated]) return;
-	if( [[NSUserDefaults standardUserDefaults] boolForKey:@"StoreThumbnailsInDB"] == NO) return;
+	if( [DCMPix isRunOsiriXInProtectedModeActivated])
+        return;
+    
+	if( [[NSUserDefaults standardUserDefaults] boolForKey:@"StoreThumbnailsInDB"] == NO)
+        return;
 	
 	NSManagedObjectContext *context = self.database.managedObjectContext;
 	NSManagedObjectModel *model = self.database.managedObjectModel;
@@ -9774,7 +9942,8 @@ static BOOL withReset = NO;
 					
 					int maxSeries = [seriesArray count];
 					
-					if( maxSeries > 60) maxSeries = 60;	// We will continue next time...
+					if( maxSeries > 60)
+                        maxSeries = 60;	// We will continue next time...
 					
 					for( int i = 0; i < maxSeries; i++)
 					{
@@ -9813,8 +9982,10 @@ static BOOL withReset = NO;
 		{
 			for( x = 0; x < [selectedRows count] ; x++)
 			{
-				if( x == 0) row = [selectedRows firstIndex];
-				else row = [selectedRows indexGreaterThanIndex: row];
+				if( x == 0)
+                    row = [selectedRows firstIndex];
+				else
+                    row = [selectedRows indexGreaterThanIndex: row];
 				
 				NSManagedObject	*object = [databaseOutline itemAtRow: row];
 				
@@ -9870,8 +10041,10 @@ static BOOL withReset = NO;
         {
 			for (NSInteger x = 0; x < selectedRows.count; x++)
             {
-				if (x == 0) row = selectedRows.firstIndex;
-				else row = [selectedRows indexGreaterThanIndex:row];
+				if (x == 0)
+                    row = selectedRows.firstIndex;
+				else
+                    row = [selectedRows indexGreaterThanIndex:row];
 				
 				id object = [databaseOutline itemAtRow:row];
 				
@@ -10161,7 +10334,8 @@ constrainSplitPosition:(CGFloat)proposedPosition
     if ([[self class] _scrollerStyle:thumbnailsScrollView.verticalScroller] == 1) { // overlay
         frame.origin.x += 2; frame.size.width -= 2;
         [thumbnailsScrollView setFrame:frame];
-    } else {
+    }
+    else {
         frame.origin.x += 2; frame.size.width -= 3;
         [thumbnailsScrollView setFrame:frame];
     }
@@ -10538,9 +10712,11 @@ constrainSplitPosition:(CGFloat)proposedPosition
     
     if (sender == splitAlbums)
     {
-        if( offset == 0) return 20;
+        if( offset == 0)
+            return 20;
         else
-            return [[[sender subviews] objectAtIndex: offset - 1] frame].origin.y + [[[sender subviews] objectAtIndex: offset - 1] frame].size.height + 20;
+            return [[[sender subviews] objectAtIndex: offset - 1] frame].origin.y +
+                   [[[sender subviews] objectAtIndex: offset - 1] frame].size.height + 20;
 	}
     
     if( sender == splitComparative)
@@ -10587,9 +10763,11 @@ constrainSplitPosition:(CGFloat)proposedPosition
     
     if (sender == splitAlbums)
     {
-        if( offset == [[sender subviews] count]) return [sender bounds].size.width-20;
+        if( offset == [[sender subviews] count])
+            return [sender bounds].size.width-20;
         else
-            return [[[sender subviews] objectAtIndex: offset + 1] frame].origin.y + [[[sender subviews] objectAtIndex: offset + 1] frame].size.height - 20;
+            return [[[sender subviews] objectAtIndex: offset + 1] frame].origin.y +
+                   [[[sender subviews] objectAtIndex: offset + 1] frame].size.height - 20;
 	}
     
 	return proposedMax;
@@ -10630,7 +10808,8 @@ constrainSplitPosition:(CGFloat)proposedPosition
 	NSArray				*cells = [oMatrix selectedCells];
 	NSManagedObject		*aFile = [databaseOutline itemAtRow:[databaseOutline selectedRow]];
 	
-	if( correspondingManagedObjects == nil) correspondingManagedObjects = [NSMutableArray array];
+	if( correspondingManagedObjects == nil)
+        correspondingManagedObjects = [NSMutableArray array];
 	
 	NSManagedObjectContext	*context = self.database.managedObjectContext;
 	
@@ -10676,7 +10855,6 @@ constrainSplitPosition:(CGFloat)proposedPosition
                     if( [splash aborted] == NO)
                     {
                         [selectedFiles addObject: [self getLocalDCMPath: img :BONJOURPACKETS]];
-                        
                         [splash incrementBy: 1];
                     }
                 }
@@ -10795,7 +10973,8 @@ constrainSplitPosition:(CGFloat)proposedPosition
 	
 	// Create alternate contextual menu for RT objects
 	
-	if( contextualRT == nil) contextualRT = [contextual copy];
+	if( contextualRT == nil)
+        contextualRT = [contextual copy];
 	
 	item = [[[NSMenuItem alloc] initWithTitle: NSLocalizedString(@"Create ROIs from RTSTRUCT", nil)  action:@selector(createROIsFromRTSTRUCT:) keyEquivalent:@""] autorelease];
 	[contextualRT insertItem: item atIndex: 0];
@@ -11043,7 +11222,8 @@ constrainSplitPosition:(CGFloat)proposedPosition
 -(void)removeAlbum:(id)sender // contextual menu action
 {
     NSInteger row = [albumTable clickedRow];
-    if (!row) return;
+    if (!row)
+        return;
     
     DicomAlbum* album = [self.albumArray objectAtIndex:row];
     
@@ -11177,8 +11357,11 @@ constrainSplitPosition:(CGFloat)proposedPosition
 
 - (NSArray*) albumArray
 {
-	if( !_database) return [NSArray array];
-    if( !_database.managedObjectContext) return [NSArray array];
+	if( !_database)
+        return [NSArray array];
+    
+    if( !_database.managedObjectContext)
+        return [NSArray array];
     
 	return [[NSArray arrayWithObject:[NSDictionary dictionaryWithObject: NSLocalizedString(@"Database", nil) forKey:@"name"]] arrayByAddingObjectsFromArray:[self albumsInDatabase]];
 }
@@ -11196,7 +11379,7 @@ constrainSplitPosition:(CGFloat)proposedPosition
     return nil;
 }
 
-//ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ
+//ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ
 #pragma mark-
 #pragma mark Albums TableView functions
 
@@ -11230,8 +11413,10 @@ constrainSplitPosition:(CGFloat)proposedPosition
             NSFont *txtFont;
             PrettyCell *cell = (PrettyCell*) aCell;
             
-            if( rowIndex == 0) txtFont = [NSFont boldSystemFontOfSize: [self fontSize: @"dbAlbumFont"]];
-            else txtFont = [NSFont systemFontOfSize: [self fontSize: @"dbAlbumFont"]];			
+            if( rowIndex == 0)
+                txtFont = [NSFont boldSystemFontOfSize: [self fontSize: @"dbAlbumFont"]];
+            else
+                txtFont = [NSFont systemFontOfSize: [self fontSize: @"dbAlbumFont"]];
             
             [cell setFont:txtFont];
             
@@ -11240,11 +11425,13 @@ constrainSplitPosition:(CGFloat)proposedPosition
             if (albumArray.count > rowIndex && [[[albumArray objectAtIndex:rowIndex] valueForKey:@"smartAlbum"] boolValue])
                 if (![_database isLocal])
                     [cell setImage:[NSImage imageNamed:@"small_sharedSmartAlbum.tif"]];
-                else [cell setImage:[NSImage imageNamed:@"small_smartAlbum.tif"]];
+                else
+                    [cell setImage:[NSImage imageNamed:@"small_smartAlbum.tif"]];
             else
                 if (![_database isLocal])
                     [cell setImage:[NSImage imageNamed:@"small_sharedAlbum.tif"]];
-                else [cell setImage:[NSImage imageNamed:@"small_album.tif"]];
+                else
+                    [cell setImage:[NSImage imageNamed:@"small_album.tif"]];
             
             [cell setTitle:nil];
             if (rowIndex >= 0 && rowIndex < albumArray.count)
@@ -11282,8 +11469,10 @@ constrainSplitPosition:(CGFloat)proposedPosition
                 if( [study isKindOfClass: [DicomStudy class]])
                     local = YES;
                 
-                if( local) txtFont = [NSFont boldSystemFontOfSize: [self fontSize: @"dbComparativeFont"]];
-                else txtFont = [NSFont fontWithName: DISTANTSTUDYFONT size: [self fontSize: @"dbComparativeFont"]];
+                if( local)
+                    txtFont = [NSFont boldSystemFontOfSize: [self fontSize: @"dbComparativeFont"]];
+                else
+                    txtFont = [NSFont fontWithName: DISTANTSTUDYFONT size: [self fontSize: @"dbComparativeFont"]];
                 
                 [cell setFont:txtFont];
                 cell.title = @"DUMMY"; // avoid NIL values here
@@ -11336,8 +11525,10 @@ constrainSplitPosition:(CGFloat)proposedPosition
 	[context unlock];
 	[context release];
 	
-	if( [studyArray count]) return [studyArray objectAtIndex: 0];
-	else return nil;
+	if( [studyArray count])
+        return [studyArray objectAtIndex: 0];
+	else
+        return nil;
 }
 
 - (NSManagedObject*) findSeriesUID: (NSString*) uid
@@ -11366,8 +11557,10 @@ constrainSplitPosition:(CGFloat)proposedPosition
 	[context unlock];
 	[context release];
 	
-	if( [seriesArray count]) return [seriesArray objectAtIndex: 0];
-	else return nil;
+	if( [seriesArray count])
+        return [seriesArray objectAtIndex: 0];
+	else
+        return nil;
 }
 
 - (void) sendFilesToCurrentBonjourDB: (NSArray*) files
@@ -11398,7 +11591,8 @@ constrainSplitPosition:(CGFloat)proposedPosition
 		
 		if (row >= [albumArray count] || row  == 0) // can't add to database
 			return NO;
-		if ([[[albumArray objectAtIndex:row] valueForKey:@"smartAlbum"] boolValue]) // // can't add to smart album -- this should not be happening: validateDrop avoids it...
+
+        if ([[[albumArray objectAtIndex:row] valueForKey:@"smartAlbum"] boolValue]) // // can't add to smart album -- this should not be happening: validateDrop avoids it...
             return NO;
 		
 		DicomAlbum* album = [albumArray objectAtIndex:row];
@@ -11441,7 +11635,8 @@ constrainSplitPosition:(CGFloat)proposedPosition
 	{
 		NSArray* array = self.albumArray;
 		
-		if ((row >= [array count]) || [[[array objectAtIndex:row] valueForKey:@"smartAlbum"] boolValue] || row == 0) return NSDragOperationNone;
+		if ((row >= [array count]) || [[[array objectAtIndex:row] valueForKey:@"smartAlbum"] boolValue] || row == 0)
+            return NSDragOperationNone;
 		
 		[albumTable setDropRow:row dropOperation:NSTableViewDropOn];
 		
@@ -11451,7 +11646,12 @@ constrainSplitPosition:(CGFloat)proposedPosition
 	return NSDragOperationNone;
 }
 
-- (NSString *)tableView:(NSTableView *)tv toolTipForCell:(NSCell *)cell rect:(NSRectPointer)rect tableColumn:(NSTableColumn *)tc row:(NSInteger)row mouseLocation:(NSPoint)mouseLocation
+- (NSString *)tableView:(NSTableView *)tv
+         toolTipForCell:(NSCell *)cell
+                   rect:(NSRectPointer)rect
+            tableColumn:(NSTableColumn *)tc
+                    row:(NSInteger)row
+          mouseLocation:(NSPoint)mouseLocation
 {
     if( tv == comparativeTable)
     {
@@ -11511,7 +11711,8 @@ constrainSplitPosition:(CGFloat)proposedPosition
         NSString* key = nil;
         if ([album isKindOfClass:[DicomAlbum class]])
             key = album.XID;
-        else key = @"Database";
+        else
+            key = @"Database";
         
         NSDictionary* plist = [NSDictionary dictionaryWithContentsOfFile:self.databaseAlbumSortDescriptorsPlistPath];
         
@@ -11530,6 +11731,7 @@ constrainSplitPosition:(CGFloat)proposedPosition
                         column = icolumn;
                         break;
                     }
+
                 if (column) {
                     [unvisitedColumns removeObject:column];
                     if ([databaseOutline columnWithIdentifier:column.identifier] == -1)
@@ -11537,7 +11739,8 @@ constrainSplitPosition:(CGFloat)proposedPosition
                     [column setHidden:NO];
                     [column setWidth:[[col objectAtIndex:1] integerValue]];
                     [databaseOutline moveColumn:[databaseOutline columnWithIdentifier:column.identifier] toColumn:index++];
-                } else {
+                }
+                else {
                     DLog(@"Warning: invalid column identifier %@", col);
                 }
             }
@@ -11547,11 +11750,14 @@ constrainSplitPosition:(CGFloat)proposedPosition
     }
 }
 
--(DicomAlbum*)_albumWithID:(id)theId {
+- (DicomAlbum*)_albumWithID:(id)theId
+{
     if ([theId isKindOfClass:[NSManagedObjectID class]])
         return [_database objectWithID:theId];
+
     if (theId)
-        return [NSDictionary dictionary];
+        return (DicomAlbum *)[NSDictionary dictionary];
+
     return nil;
 }
 
@@ -11782,8 +11988,12 @@ constrainSplitPosition:(CGFloat)proposedPosition
 //                    else // local study -> select it
 //                    #endif
                     {
-                        if( [self selectThisStudy: study] && [[self window] firstResponder] != searchField && [[self window] firstResponder] != searchField.currentEditor)
+                        if( [self selectThisStudy: study] &&
+                           [[self window] firstResponder] != searchField &&
+                           [[self window] firstResponder] != searchField.currentEditor)
+                        {
                             [[self window] makeFirstResponder: databaseOutline];
+                        }
                     }
                 }
             }
@@ -11849,18 +12059,15 @@ constrainSplitPosition:(CGFloat)proposedPosition
 			memBlock *= sizeof(float);
 			memBlock += 4L * 1024L * 1024L;
 			
-			#if __LP64__
-			#else
+#if __LP64__
+#else
 			unsigned long long max4GB = 3.5 * 1024;
-			
 			max4GB *= 1024 * 1024;
-			
-			if( memBlock >= max4GB)
-			{
+			if( memBlock >= max4GB)	{
 				memBlock = 0;	// 4-GB Limit
 				NSLog(@"4-GB Memory limit for 32-bit application...");
 			}
-			#endif
+#endif
 			
 			if( memBlock > 0)
 				testPtr[ x] = (unsigned char *)malloc( memBlock * 1.5); // * 1.5 for 3D post-processing viewers
@@ -11870,7 +12077,6 @@ constrainSplitPosition:(CGFloat)proposedPosition
 			if( testPtr[ x] == nil)
 			{
 				enoughMemory = NO;
-				
 				NSLog(@"Failed to allocate memory for: %llu Mb", (memBlock) / (1024 * 1024));
 			}
 		}
@@ -11879,25 +12085,31 @@ constrainSplitPosition:(CGFloat)proposedPosition
 	
 	for( int x = 0; x < [toOpenArray count]; x++)
 	{
-		if( testPtr[ x]) free( testPtr[ x]);
+		if( testPtr[ x])
+            free( testPtr[ x]);
 	}
 	
 	mem /= 1024;
 	mem /= 1024;
 	
-	if( requiredMem) *requiredMem = mem;
+	if( requiredMem)
+        *requiredMem = mem;
 	
 	return enoughMemory;
 }
 
 - (ViewerController*) openViewerFromImages:(NSArray*) toOpenArray movie:(BOOL) movieViewer viewer:(ViewerController*) viewer keyImagesOnly:(BOOL) keyImages
 {
-	return [self openViewerFromImages:toOpenArray movie:movieViewer viewer:viewer keyImagesOnly:keyImages tryToFlipData: NO];
+	return [self openViewerFromImages:toOpenArray
+                                movie:movieViewer
+                               viewer:viewer
+                        keyImagesOnly:keyImages
+                        tryToFlipData:NO];
 }
 
 - (ViewerController*) openViewerFromImages:(NSArray*) toOpenArray movie:(BOOL) movieViewer viewer:(ViewerController*) viewer keyImagesOnly:(BOOL) keyImages tryToFlipData:(BOOL) tryToFlipData
 {
-	unsigned long		*memBlockSize = calloc( [toOpenArray count], sizeof (unsigned long));
+	unsigned long *memBlockSize = (unsigned long *)calloc( [toOpenArray count], sizeof (unsigned long));
 	
 	BOOL				multiFrame = NO, preFlippedData = NO;
 	float				*fVolumePtr = nil;
@@ -11944,7 +12156,8 @@ constrainSplitPosition:(CGFloat)proposedPosition
                 N2LogException( e);
             }
             
-			if( [keyImagesToOpenArray count] > 0) toOpenArray = keyImagesToOpenArray;
+			if( [keyImagesToOpenArray count] > 0)
+                toOpenArray = keyImagesToOpenArray;
 			else
 			{
 				if( NSRunInformationalAlertPanel( NSLocalizedString( @"Key Images", nil), NSLocalizedString(@"No key images in these images.", nil), NSLocalizedString(@"All Images",nil), NSLocalizedString(@"Cancel",nil), nil) == NSAlertAlternateReturn)
@@ -11960,7 +12173,8 @@ constrainSplitPosition:(CGFloat)proposedPosition
 			if (([[[NSApplication sharedApplication] currentEvent] modifierFlags] & NSAlternateKeyMask) || ([self computeEnoughMemory: toOpenArray : nil] == NO) || openSubSeriesFlag == YES)
 			{
 				toOpenArray = [self openSubSeries: toOpenArray];
-                if (!toOpenArray) return nil;
+                if (!toOpenArray)
+                    return nil;
 			}
 		}
         
@@ -11970,7 +12184,11 @@ constrainSplitPosition:(CGFloat)proposedPosition
             {
                 if( [r.lastObject isKindOfClass: [Dicom_Image class]] == NO)
                 {
-                    NSRunInformationalAlertPanel( NSLocalizedString( @"Loading", nil), NSLocalizedString(@"Failed to load the series.", nil), NSLocalizedString(@"All Images",nil), NSLocalizedString(@"OK",nil), nil);
+                    NSRunInformationalAlertPanel(NSLocalizedString(@"Loading", nil),
+                                                 NSLocalizedString(@"Failed to load the series.", nil),
+                                                 NSLocalizedString(@"All Images",nil),
+                                                 NSLocalizedString(@"OK",nil),
+                                                 nil);
 					return nil;
                 }
             }
@@ -11985,7 +12203,7 @@ constrainSplitPosition:(CGFloat)proposedPosition
 		while( enoughMemory == NO)
 		{
 			BOOL memTestFailed = NO;
-			unsigned char **testPtr = calloc( [toOpenArray count], sizeof( unsigned char*));
+			unsigned char **testPtr = (unsigned char **)calloc( [toOpenArray count], sizeof( unsigned char*));
 			
 			for( unsigned long x = 0; x < [toOpenArray count]; x++)
 			{
@@ -12060,7 +12278,8 @@ constrainSplitPosition:(CGFloat)proposedPosition
 			
 			for( unsigned long x = 0; x < [toOpenArray count]; x++)
 			{
-				if( testPtr[ x]) free( testPtr[ x]);
+				if( testPtr[ x])
+                    free( testPtr[ x]);
 			}
 			
 			free( testPtr);
@@ -12083,7 +12302,8 @@ constrainSplitPosition:(CGFloat)proposedPosition
 					{
 						NSManagedObject	*image = [loadList objectAtIndex: i];
 						
-						if( i % 2 == 0)	[imagesArray addObject: image];
+						if( i % 2 == 0)
+                            [imagesArray addObject: image];
 					}
 					
 					if( [imagesArray count] > 0)
@@ -12102,9 +12322,7 @@ constrainSplitPosition:(CGFloat)proposedPosition
 			for( NSWindow *win in [NSApp windows])
 			{
 				if( [win isMiniaturized])
-				{
 					[win deminiaturize:self];
-				}
 			}
 			
 			result = NSRunInformationalAlertPanel(@"", //NSLocalizedString(@"32-bit", nil),
@@ -12146,7 +12364,7 @@ constrainSplitPosition:(CGFloat)proposedPosition
 			}
 			else
 			{
-				char **memBlockTestPtr = calloc( [toOpenArray count], sizeof( char*));
+				char **memBlockTestPtr = (char **)calloc( [toOpenArray count], sizeof( char*));
 				
 				NSLog(@"4D Viewer TOTAL: %lu Mb", (mem * sizeof(float)) / (1024 * 1024));
 				for( unsigned long x = 0; x < [toOpenArray count]; x++)
@@ -12154,12 +12372,14 @@ constrainSplitPosition:(CGFloat)proposedPosition
 					memBlockTestPtr[ x] = (char *)malloc(memBlockSize[ x] * sizeof(float));
 					NSLog(@"4D Viewer: I will try to allocate: %lu Mb", (memBlockSize[ x]* sizeof(float)) / (1024 * 1024));
 					
-					if( memBlockTestPtr[ x] == nil) notEnoughMemory = YES;
+					if( memBlockTestPtr[ x] == nil)
+                        notEnoughMemory = YES;
 				}
 				
 				for( unsigned long x = 0; x < [toOpenArray count]; x++)
 				{
-					if( memBlockTestPtr[ x] != nil) free( memBlockTestPtr[ x]);
+					if( memBlockTestPtr[ x] != nil)
+                        free( memBlockTestPtr[ x]);
 				}
 				
 				if( notEnoughMemory)
@@ -12390,7 +12610,8 @@ constrainSplitPosition:(CGFloat)proposedPosition
 					{
 						// @"COPYSETTINGS" was activated in a sub function, keep it activated: for example, when fusion is activated during opening
 					}
-					else [[NSUserDefaults standardUserDefaults] setBool: copyCOPYSETTINGS forKey:@"COPYSETTINGS"];
+					else
+                        [[NSUserDefaults standardUserDefaults] setBool: copyCOPYSETTINGS forKey:@"COPYSETTINGS"];
 					
 					[DCMView setDontListenToSyncMessage: NO];
                     
@@ -12426,7 +12647,8 @@ constrainSplitPosition:(CGFloat)proposedPosition
 	
 	free( memBlockSize);
 	
-	if( movieController) createdViewer = movieController;
+	if( movieController)
+        createdViewer = movieController;
 	
     [self.database save]; //To save 'dateOpened' field, and allow independentContext to see it
     
@@ -12527,7 +12749,8 @@ constrainSplitPosition:(CGFloat)proposedPosition
 						if( interval != 0)
 							pos3Dindex = 0;
 						
-						if( [splittedSeries count] <= pos3Dindex) [splittedSeries addObject: [NSMutableArray array]];
+						if( [splittedSeries count] <= pos3Dindex)
+                            [splittedSeries addObject: [NSMutableArray array]];
 						
 						[[splittedSeries objectAtIndex: pos3Dindex] addObject: [singleSeries objectAtIndex: x]];
 						
@@ -12555,9 +12778,11 @@ constrainSplitPosition:(CGFloat)proposedPosition
 								//NSLog(@"split at: %d", x);
 								previousinterval = 0;
 							}
-							else previousinterval = interval;
+							else
+                                previousinterval = interval;
 						}
-						else previousinterval = interval;
+						else
+                            previousinterval = interval;
 						
 						[[splittedSeries lastObject] addObject: [singleSeries objectAtIndex: x]];
 					}
@@ -12604,7 +12829,7 @@ constrainSplitPosition:(CGFloat)proposedPosition
 		{
 			if( ([[[NSApplication sharedApplication] currentEvent] modifierFlags]  & NSAlternateKeyMask) || openReparsedSeriesFlag)
 			{
-				NSArray			*singleSeries = [[toOpenArray objectAtIndex: 0] sortedArrayUsingDescriptors: [NSArray arrayWithObjects: [NSSortDescriptor sortDescriptorWithKey: @"instanceNumber" ascending: YES], [NSSortDescriptor sortDescriptorWithKey: @"frameID" ascending: YES], nil]];
+				NSArray *singleSeries = [[toOpenArray objectAtIndex: 0] sortedArrayUsingDescriptors: [NSArray arrayWithObjects: [NSSortDescriptor sortDescriptorWithKey: @"instanceNumber" ascending: YES], [NSSortDescriptor sortDescriptorWithKey: @"frameID" ascending: YES], nil]];
 				NSMutableArray	*splittedSeries = [NSMutableArray array];
 				NSMutableArray  *intervalArray = [NSMutableArray array];
 				
@@ -12642,9 +12867,11 @@ constrainSplitPosition:(CGFloat)proposedPosition
 						for( int x = 1; x < [singleSeries count]; x++)
 						{
 							float interval4D = [[intervalArray objectAtIndex: x -1] floatValue] - [[intervalArray objectAtIndex: x] floatValue];
-							if( interval4D != 0) pos3Dindex = 0;
+							if( interval4D != 0)
+                                pos3Dindex = 0;
 							
-							if( [splittedSeries count] <= pos3Dindex) [splittedSeries addObject: [NSMutableArray array]];
+							if( [splittedSeries count] <= pos3Dindex)
+                                [splittedSeries addObject: [NSMutableArray array]];
 							
 							[[splittedSeries objectAtIndex: pos3Dindex] addObject: [singleSeries objectAtIndex: x]];
 							
@@ -12838,8 +13065,10 @@ constrainSplitPosition:(CGFloat)proposedPosition
 						
 						if( [subOpenMatrix3D selectedColumn] < 0)
 						{
-							if( [subOpenMatrix4D selectedColumn] < 0) result = 0;
-							else result = 5;
+							if( [subOpenMatrix4D selectedColumn] < 0)
+                                result = 0;
+							else
+                                result = 5;
 						}
 					}
 					else if( result == 6)
@@ -13096,7 +13325,8 @@ constrainSplitPosition:(CGFloat)proposedPosition
 
 - (void) viewerDICOMInt:(BOOL) movieViewer dcmFile:(NSArray *)selectedLines viewer:(ViewerController*) viewer tileWindows: (BOOL) tileWindows protocol: (NSDictionary*) protocol
 {
-	if( [selectedLines count] == 0) return;
+	if( [selectedLines count] == 0)
+        return;
 	
 	[_database lock];
 	
@@ -13177,7 +13407,8 @@ constrainSplitPosition:(CGFloat)proposedPosition
 						loadList = [self childrenArray: curFile];
 					}
 					
-					if( loadList) [toOpenArray addObject: loadList];
+					if( loadList)
+                        [toOpenArray addObject: loadList];
 				}
 			}
 			else
@@ -13203,7 +13434,8 @@ constrainSplitPosition:(CGFloat)proposedPosition
                         if( [[curFile valueForKey:@"type"] isEqualToString: @"Series"])
                             loadList = [self childrenArray: curFile onlyImages: YES];
                         
-                        if( loadList) [toOpenArray addObject: loadList];
+                        if( loadList)
+                            [toOpenArray addObject: loadList];
                     }
 				}
 			}
@@ -13228,7 +13460,8 @@ constrainSplitPosition:(CGFloat)proposedPosition
 						[[v imageView] scaleToFit];
 						[[v imageView] setOriginX:0 Y:0];
 						
-						if( [[v window] isKeyWindow]) kV = v;
+						if( [[v window] isKeyWindow])
+                            kV = v;
 					}
 					
 					[kV propagateSettings];
@@ -13293,7 +13526,8 @@ constrainSplitPosition:(CGFloat)proposedPosition
 			
 			BOOL savedValue = [[NSUserDefaults standardUserDefaults] boolForKey:@"automaticWorkspaceLoad"];
 			
-			if( [array count] > 1 && savedValue == YES) [[NSUserDefaults standardUserDefaults] setBool: NO forKey:@"automaticWorkspaceLoad"];
+			if( [array count] > 1 && savedValue == YES)
+                [[NSUserDefaults standardUserDefaults] setBool: NO forKey:@"automaticWorkspaceLoad"];
 			
 			for( id obj in array)
 			{
@@ -13301,7 +13535,8 @@ constrainSplitPosition:(CGFloat)proposedPosition
 				[self databaseOpenStudy: obj];
 			}
 			
-			if( [array count] > 1 && savedValue == YES) [[NSUserDefaults standardUserDefaults] setBool: YES forKey:@"automaticWorkspaceLoad"];
+			if( [array count] > 1 && savedValue == YES)
+                [[NSUserDefaults standardUserDefaults] setBool: YES forKey:@"automaticWorkspaceLoad"];
 		}
 		else
 		{
@@ -13337,7 +13572,8 @@ constrainSplitPosition:(CGFloat)proposedPosition
 	
 	
 	if( ([sender isKindOfClass:[NSMenuItem class]] && [sender menu] == [oMatrix menu]) || [[self window] firstResponder] == oMatrix) [self filesForDatabaseMatrixSelection: images];
-	else [self filesForDatabaseOutlineSelection: images];
+	else
+        [self filesForDatabaseOutlineSelection: images];
 	
 	[self openViewerFromImages :[NSArray arrayWithObject:images] movie: NO viewer :nil keyImagesOnly:NO];
 	
@@ -13410,9 +13646,7 @@ constrainSplitPosition:(CGFloat)proposedPosition
 		if( [[ViewerController getDisplayed2DViewers] count])
 		{
 			ViewerController *v = [[ViewerController getDisplayed2DViewers] objectAtIndex: 0];
-			
 			[v exportAllImages: @"Key images"];
-			
 			[[v window] close];
 		}
 	}
@@ -13427,7 +13661,8 @@ constrainSplitPosition:(CGFloat)proposedPosition
 	NSIndexSet				*selectedRowIndexes = [databaseOutline selectedRowIndexes];
 	for (index = [selectedRowIndexes firstIndex]; 1+[selectedRowIndexes lastIndex] != index; ++index)
 	{
-		if ([selectedRowIndexes containsIndex:index]) [selectedItems addObject: [databaseOutline itemAtRow:index]];
+		if ([selectedRowIndexes containsIndex:index])
+            [selectedItems addObject: [databaseOutline itemAtRow:index]];
 	}
 	
 	[self viewerDICOMInt:YES dcmFile: selectedItems viewer:nil];
@@ -13441,29 +13676,42 @@ static NSArray*	openSubSeriesArray = nil;
 	
 	int from = subFrom-1, to = subTo, interval = subInterval;
 	
-	if( interval < 1) interval = 1;
+	if( interval < 1)
+        interval = 1;
 	
 	int max = 0;
 	
 	for( NSArray *loadList in toOpenArray)
 	{		
-		if( max < [loadList count]) max = [loadList count];
+		if( max < [loadList count])
+            max = [loadList count];
 		
-		if( from >= to) from = to-1;
-		if( from < 0) from = 0;
-		if( to < 0) to = 0;
+		if( from >= to)
+            from = to-1;
+        
+		if( from < 0)
+            from = 0;
+        
+		if( to < 0)
+            to = 0;
 	}
 	
-	if( from > max) from = max;
-	if( to > max) to = max;
+	if( from > max)
+        from = max;
+    
+	if( to > max)
+        to = max;
 	
 	for( NSArray *loadList in toOpenArray)
 	{
 		from = subFrom-1;
 		to = subTo;
 		
-		if( from >= [loadList count]) from = [loadList count];
-		if( to >= [loadList count]) to = [loadList count];
+		if( from >= [loadList count])
+            from = [loadList count];
+        
+		if( to >= [loadList count])
+            to = [loadList count];
 		
 		NSMutableArray *imagesArray = [NSMutableArray array];
 		
@@ -13471,7 +13719,8 @@ static NSArray*	openSubSeriesArray = nil;
 		{
 			NSManagedObject	*image = [loadList objectAtIndex: i];
 			
-			if( i % interval == 0) [imagesArray addObject: image];
+			if( i % interval == 0)
+                [imagesArray addObject: image];
 		}
 		
 		[imagesArray sortUsingDescriptors: [[[imagesArray lastObject] series] sortDescriptorsForImages]];
@@ -13526,7 +13775,8 @@ static NSArray*	openSubSeriesArray = nil;
 {
 	subFrom = [sender intValue];
 	
-	if( _database == nil) return;
+	if( _database == nil)
+        return;
 //	if( bonjourDownloading) return;
 	
 	[animationSlider setIntValue: subFrom-1];
@@ -13544,7 +13794,8 @@ static NSArray*	openSubSeriesArray = nil;
 {
 	subTo = [sender intValue];
 	
-	if( _database == nil) return;
+	if( _database == nil)
+        return;
 //	if( bonjourDownloading) return;
 	
 	[animationSlider setIntValue: subTo-1];
@@ -14639,7 +14890,12 @@ static NSArray*	openSubSeriesArray = nil;
 	
 	if( [SendController sendControllerObjects] > 0)
 	{
-		if( NSRunInformationalAlertPanel( NSLocalizedString(@"DICOM Sending - STORE", nil), NSLocalizedString(@"Files are currently being sent to a DICOM node. Are you sure you want to quit now? The sending will be stopped.", nil), NSLocalizedString(@"No", nil), NSLocalizedString(@"Quit", nil), nil) == NSAlertDefaultReturn) return NO;
+		if( NSRunInformationalAlertPanel(NSLocalizedString(@"DICOM Sending - STORE", nil),
+                                         NSLocalizedString(@"Files are currently being sent to a DICOM node. Are you sure you want to quit now? The sending will be stopped.", nil),
+                                         NSLocalizedString(@"No", nil),
+                                         NSLocalizedString(@"Quit", nil),
+                                         nil) == NSAlertDefaultReturn)
+            return NO;
 	}
 	
     [self setDatabase:nil];
@@ -14663,7 +14919,8 @@ static NSArray*	openSubSeriesArray = nil;
         return;
     }
 
-    if( [[event characters] length] == 0) return;
+    if( [[event characters] length] == 0)
+        return;
     
     unichar c = [[event characters] characterAtIndex:0];
 	
@@ -14868,16 +15125,20 @@ static NSArray*	openSubSeriesArray = nil;
 	}
 	else if( [menuItem action] == @selector(unifyStudies:))
 	{
-		if (![_database isLocal]) return NO;
+		if (![_database isLocal])
+            return NO;
 		
-		if( [[databaseOutline selectedRowIndexes] count] <= 1) return NO;
+		if( [[databaseOutline selectedRowIndexes] count] <= 1)
+            return NO;
 		
 		return YES;
 	}
     else if( [menuItem action] == @selector(regenerateAutoComments:))
     {
-        if( [[NSUserDefaults standardUserDefaults] boolForKey: @"COMMENTSAUTOFILL"]) return YES;
-        else return NO;
+        if( [[NSUserDefaults standardUserDefaults] boolForKey: @"COMMENTSAUTOFILL"])
+            return YES;
+        else
+            return NO;
     }
 	else if( [menuItem action] == @selector(viewerDICOMROIsImages:))
 	{
@@ -14886,9 +15147,11 @@ static NSArray*	openSubSeriesArray = nil;
         
 		if ([_database isLocal])
 		{
-			if( [[databaseOutline selectedRowIndexes] count] < 10 && [[self ROIImages: menuItem] count] == 0) return NO;
+			if( [[databaseOutline selectedRowIndexes] count] < 10 && [[self ROIImages: menuItem] count] == 0)
+                return NO;
 		}
-		else return YES;
+		else
+            return YES;
 	}
 	else if( [menuItem action] == @selector(viewerKeyImagesAndROIsImages:))
 	{
@@ -14897,9 +15160,11 @@ static NSArray*	openSubSeriesArray = nil;
         
 		if ([_database isLocal])
 		{
-			if( [[databaseOutline selectedRowIndexes] count] < 10 && [[self ROIsAndKeyImages: menuItem] count] == 0) return NO;
+			if( [[databaseOutline selectedRowIndexes] count] < 10 && [[self ROIsAndKeyImages: menuItem] count] == 0)
+                return NO;
 		}
-		else return YES;
+		else
+            return YES;
 	}
     else if( [menuItem action] == @selector(exportROIAndKeyImagesAsDICOMSeries:))
 	{
@@ -14908,9 +15173,11 @@ static NSArray*	openSubSeriesArray = nil;
         
 		if ([_database isLocal])
 		{
-			if( [[databaseOutline selectedRowIndexes] count] < 10 && [[self ROIsAndKeyImages: menuItem] count] == 0) return NO;
+			if( [[databaseOutline selectedRowIndexes] count] < 10 && [[self ROIsAndKeyImages: menuItem] count] == 0)
+                return NO;
 		}
-		else return YES;
+		else
+            return YES;
 	}
 	else if( [menuItem action] == @selector(viewerDICOMKeyImages:))
 	{
@@ -14919,9 +15186,11 @@ static NSArray*	openSubSeriesArray = nil;
         
 		if ([_database isLocal])
 		{
-			if( [[databaseOutline selectedRowIndexes] count] < 10 && [[self KeyImages: menuItem] count] == 0) return NO;
+			if( [[databaseOutline selectedRowIndexes] count] < 10 && [[self KeyImages: menuItem] count] == 0)
+                return NO;
 		}
-		else return YES;
+		else
+            return YES;
 	}
 	else if( [menuItem action] == @selector(createROIsFromRTSTRUCT:))
 	{
@@ -14973,7 +15242,8 @@ static NSArray*	openSubSeriesArray = nil;
 			
 			return NO;
 		}
-		else return YES;
+		else
+            return YES;
 	}
 	else if( [menuItem action] == @selector(lockStudies:))
 	{
@@ -15020,7 +15290,8 @@ static NSArray*	openSubSeriesArray = nil;
         if( containsDistantStudy)
             return NO;
         
-		if (![_database isLocal]) return NO;
+		if (![_database isLocal])
+            return NO;
 		
 		BOOL matrixThumbnails = YES;
 		
@@ -15040,7 +15311,8 @@ static NSArray*	openSubSeriesArray = nil;
         if( containsDistantStudy)
             return NO;
         
-		if (![_database isLocal]) return NO;
+		if (![_database isLocal])
+            return NO;
 		
 		NSIndexSet		*selectedRows = [databaseOutline selectedRowIndexes];
 		BOOL	onlySeries = YES;
@@ -15058,23 +15330,30 @@ static NSArray*	openSubSeriesArray = nil;
 		else
 			[menuItem setTitle: NSLocalizedString( @"Merge Selected Studies", nil)];
 		
-		if( [selectedRows count] > 1) return YES;
-		else return NO;
+		if( [selectedRows count] > 1)
+            return YES;
+		else
+            return NO;
 	}
 	else if( [menuItem action] == @selector(mergeSeries:))
 	{
         if( containsDistantStudy)
             return NO;
         
-		if (![_database isLocal]) return NO;
+		if (![_database isLocal])
+            return NO;
 		
-		if( [[oMatrix selectedCells] count] > 1) return YES;
-		else return NO;
+		if( [[oMatrix selectedCells] count] > 1)
+            return YES;
+		else
+            return NO;
 	}
 	else if( [menuItem action] == @selector(annotMenu:))
 	{
-		if( [menuItem tag] == [[NSUserDefaults standardUserDefaults] integerForKey:@"ANNOTATIONS"]) [menuItem setState: NSOnState];
-		else [menuItem setState: NSOffState];
+		if( [menuItem tag] == [[NSUserDefaults standardUserDefaults] integerForKey:@"ANNOTATIONS"])
+            [menuItem setState: NSOnState];
+		else
+            [menuItem setState: NSOffState];
 	}
 	return YES;
 }
@@ -15272,7 +15551,8 @@ static NSArray*	openSubSeriesArray = nil;
 
 - (void) emptyDeleteQueue: (id)sender
 {
-	if( [[AppController sharedAppController] isSessionInactive] || waitForRunningProcess) return;
+	if( [[AppController sharedAppController] isSessionInactive] || waitForRunningProcess)
+        return;
 	
 	// Check for the errors generated by the Q&R DICOM functions -- see dcmqrsrv.mm
 	
@@ -19842,8 +20122,10 @@ static volatile int numberOfThreadsForJPEG = 0;
 	
 	if ([[toolbarItem itemIdentifier] isEqualToString: ViewersToolbarItemIdentifier])
 	{
-		if( [ViewerController numberOf2DViewer] >= 1) return YES;
-		else return NO;
+		if( [ViewerController numberOf2DViewer] >= 1)
+            return YES;
+		else
+            return NO;
 	}
 	
 	if( [[toolbarItem itemIdentifier] isEqualToString: WebServerSingleNotification])
@@ -19903,8 +20185,10 @@ static volatile int numberOfThreadsForJPEG = 0;
 
 - (NSString*)getLocalDCMPath: (NSManagedObject*)obj : (long)no
 {
-	if (![_database isLocal]) return [(RemoteDicomDatabase*)_database cacheDataForImage:(Dicom_Image*)obj maxFiles:no];
-	else return [obj valueForKey:@"completePath"];
+	if (![_database isLocal])
+        return [(RemoteDicomDatabase*)_database cacheDataForImage:(Dicom_Image*)obj maxFiles:no];
+	else
+        return [obj valueForKey:@"completePath"];
 }
 
 - (void)displayBonjourServices

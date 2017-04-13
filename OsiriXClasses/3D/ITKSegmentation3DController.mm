@@ -254,7 +254,8 @@ enum algorithmTypes { intervalSegmentationType, thresholdSegmentationType, neigh
 		}
 	}
 	
-	if( [[NSUserDefaults standardUserDefaults] boolForKey: @"previewGrowingRegion"] == NO && [[NSUserDefaults standardUserDefaults] boolForKey: @"segmentationDirectlyGenerate"] == NO) return;
+	if( [[NSUserDefaults standardUserDefaults] boolForKey: @"previewGrowingRegion"] == NO && [[NSUserDefaults standardUserDefaults] boolForKey: @"segmentationDirectlyGenerate"] == NO)
+        return;
 	
 	for(p=0;p<[params numberOfRows]; p++)
 	{
@@ -262,14 +263,10 @@ enum algorithmTypes { intervalSegmentationType, thresholdSegmentationType, neigh
 	}
 	
 	if (!parametersProvided)
-	{
 		return;
-	}
 	
 	if ( startingPoint.x == 0 && startingPoint.y == 0)
-	{
 		return;
-	}
 
 	long slice;
 	int previousMovieIndex = [viewer curMovieIndex];
@@ -290,11 +287,8 @@ enum algorithmTypes { intervalSegmentationType, thresholdSegmentationType, neigh
 				int algo = [[algorithmPopup selectedItem] tag];
 				int parametersCount = [[parameters objectAtIndex:algo] count];
 				NSMutableArray *parametersArray = [NSMutableArray arrayWithCapacity:parametersCount];
-				int i;
-				for(i=0; i<parametersCount; i++)
-				{
+				for(int i=0; i<parametersCount; i++)
 					[parametersArray addObject:[NSNumber numberWithFloat:[[params cellAtRow:i column:0] floatValue]]];
-				}
 				
 				[itk regionGrowing3D	: viewer
 										: nil
@@ -402,11 +396,8 @@ enum algorithmTypes { intervalSegmentationType, thresholdSegmentationType, neigh
 				int algo = [[algorithmPopup selectedItem] tag];
 				int parametersCount = [[parameters objectAtIndex:algo] count];
 				NSMutableArray *parametersArray = [NSMutableArray arrayWithCapacity:parametersCount] ;
-				int i;
-				for(i=0; i<parametersCount; i++)
-				{
+				for(int i=0; i<parametersCount; i++)
 					[parametersArray addObject:[NSNumber numberWithFloat:[[params cellAtRow:i column:0] floatValue]]];
-				}
 				
 				[itk regionGrowing3D	: viewer
 										: v
@@ -446,16 +437,16 @@ enum algorithmTypes { intervalSegmentationType, thresholdSegmentationType, neigh
 
 - (void) fillAlgorithmPopup
 {
-	int i;
 	NSMenu *items = [[[NSMenu alloc] initWithTitle:@""] autorelease];
 	
-	for (i=0; i<[algorithms count]; i++)
+	for (int i=0; i<[algorithms count]; i++)
 	{
 		NSMenuItem *item = [[[NSMenuItem alloc] init] autorelease];				
 		[item setTitle: [algorithms objectAtIndex: i]];
 		[item setTag:i];
 		[items addItem:item];
 	}
+    
 	[algorithmPopup removeAllItems];
 	[algorithmPopup setMenu:items];
 	[algorithmPopup bind:@"selectedIndex" toObject:[NSUserDefaultsController sharedUserDefaultsController] withKeyPath:@"values.growingRegionAlgorithm" options:nil];

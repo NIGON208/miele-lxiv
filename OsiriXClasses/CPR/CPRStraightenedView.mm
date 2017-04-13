@@ -373,7 +373,8 @@ extern int splitPosition[ 3];
 		[topLeft removeLastObject];
 		[topLeft removeLastObject];
 	}
-	else [super drawTextualData: size :annotations];
+	else
+        [super drawTextualData: size :annotations];
 }
 
 - (void) drawRect:(NSRect)rect

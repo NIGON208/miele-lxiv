@@ -40,7 +40,8 @@
 
 - (void)setWindow3DController:(Window3DController*) w3Dc
 {
-	if( controller3D == w3Dc) return;
+	if( controller3D == w3Dc)
+        return;
 	
 	[controller3D release];
 	controller3D = [w3Dc retain];
@@ -144,7 +145,8 @@
 
 - (void) keyDown:(NSEvent *)theEvent
 {
-    if( [[theEvent characters] length] == 0) return;
+    if( [[theEvent characters] length] == 0)
+        return;
     
 	unichar	c = [[theEvent characters] characterAtIndex:0];
 	if (c == NSDeleteFunctionKey || c == NSDeleteCharacter || c == NSBackspaceCharacter || c == NSDeleteCharFunctionKey)
@@ -200,8 +202,11 @@
 	{
 		int v = [numberOfFramesTextField intValue];
 		
-		if( v < 2) v = 2;
-		if( v > 5000) v = 5000;
+		if( v < 2)
+            v = 2;
+        
+		if( v > 5000)
+            v = 5000;
 		
 		[numberOfFramesTextField setIntValue: v];
 		[numberOfFramesTextField selectText: self];
@@ -213,20 +218,20 @@
 		if([controller3D is4D])
 		{
 			NSArray *pathCameras = [flyThru pathCameras];
-			int i;
 			long previousIndex = [[pathCameras objectAtIndex:0] movieIndexIn4D];
 			BOOL sameIndexes = YES;
-			for(i=1; i<[pathCameras count] && sameIndexes; i++)
+			for (int i=1; i<[pathCameras count] && sameIndexes; i++)
 			{
 				sameIndexes = sameIndexes && (previousIndex == [[pathCameras objectAtIndex:i] movieIndexIn4D]);
 				previousIndex = [[pathCameras objectAtIndex:i] movieIndexIn4D];
 			}
-			if(sameIndexes)
+
+            if(sameIndexes)
 			{
 				NSLog(@"sameIndexes");
 				long movieFrames = [controller3D movieFrames];
 				int j = 0;
-				for(i=0; i<[pathCameras count]; i++)
+				for (int i=0; i<[pathCameras count]; i++)
 				{
 					[[pathCameras objectAtIndex:i] setMovieIndexIn4D:j];
 					j = (j+1) % movieFrames;
@@ -234,7 +239,6 @@
 				}
 			}
 		}
-
 		
 		self.hidePlayBox = NO;
 		self.hideExportBox = NO;

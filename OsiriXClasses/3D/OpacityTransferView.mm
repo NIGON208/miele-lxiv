@@ -259,7 +259,8 @@
 				[courbe moveToPoint: curPoint];
 			//	NSLog(@"zero point");
 			}
-			else [courbe moveToPoint: NSMakePoint(0, 0)];
+			else
+                [courbe moveToPoint: NSMakePoint(0, 0)];
 		}
 		
 		[courbe lineToPoint: curPoint];

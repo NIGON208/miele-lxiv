@@ -51,7 +51,7 @@ static NSMutableArray* menuItemsCache = nil;
 @synthesize tagsSortKey = _tagsSortKey;
 
 @synthesize tag = _tag;
-@synthesize operator = _operator;
+@synthesize operat = _operator;
 @synthesize stringValue = _stringValue;
 @synthesize numberValue = _numberValue;
 @synthesize dateValue = _dateValue;
@@ -206,7 +206,9 @@ enum /*typedef NS_ENUM(NSUInteger, O2ValueRepresentation)*/ {
 };
 
 + (O2ValueRepresentation)valueRepresentationFromVR:(NSString*)vr {
-    if (!vr) return 0;
+    if (!vr)
+        return 0;
+    
     const char* cvr = vr.UTF8String;
     if (!strcmp(cvr, "AE")) return DCM_AE;
     if (!strcmp(cvr, "AS")) return DCM_AS;
@@ -289,7 +291,8 @@ enum /*typedef NS_ENUM(NSUInteger, O2ValueRepresentation)*/ {
                 if (mi1.isEnabled != mi2.isEnabled) {
                     if (!mi1.isEnabled)
                         return NSOrderedDescending;
-                    else return NSOrderedAscending;
+                    else
+                        return NSOrderedAscending;
                 }
                 
                 DCMAttributeTag* obj1 = mi1.representedObject;
@@ -298,7 +301,7 @@ enum /*typedef NS_ENUM(NSUInteger, O2ValueRepresentation)*/ {
                 if (!obj1)
                     if (!obj2)
                         return NSOrderedSame;
-                    else return NSOrderedAscending;
+                    else return NSOrderedAscending;  // TODO: make sense of this
                     else if (!obj2)
                         return NSOrderedDescending;
                 
@@ -591,7 +594,7 @@ enum /*typedef NS_ENUM(NSUInteger, O2ValueRepresentation)*/ {
         }
         
         if ([keyPath isEqualToString:@"operator"])
-            if (self.operator == O2Within)
+            if (self.operat == O2Within)
                 self.within = O26Hours;
 
         [self resizeSubviewsWithOldSize:self.bounds.size];
@@ -816,15 +819,15 @@ enum /*typedef NS_ENUM(NSUInteger, O2ValueRepresentation)*/ {
             firstItem = mi;
     }
     
-    if (_operatorsPopUp.selectedTag != self.operator && [oops containsObject:[NSNumber numberWithInteger:self.operator]]) // fix the selection
-        [_operatorsPopUp selectItemWithTag:self.operator];
+    if (_operatorsPopUp.selectedTag != self.operat && [oops containsObject:[NSNumber numberWithInteger:self.operat]]) // fix the selection
+        [_operatorsPopUp selectItemWithTag:self.operat];
     if (![oops containsObject:[NSNumber numberWithInteger:_operatorsPopUp.selectedTag]]) // invalid selection... select a valid item
         [_operatorsPopUp selectItem:firstItem];
-    if (self.operator != _operatorsPopUp.selectedTag) // fix the bound value
-        self.operator = _operatorsPopUp.selectedTag;
+    if (self.operat != _operatorsPopUp.selectedTag) // fix the bound value
+        self.operat = _operatorsPopUp.selectedTag;
 }
 
-/*- (void)setOperator:(NSInteger)type {
+/*- (void)setOperat:(NSInteger)type {
  [_operatorsPopUp selectItemWithTag:type];
  
  [self resizeSubviewsWithOldSize:self.bounds.size];
@@ -960,7 +963,7 @@ enum /*typedef NS_ENUM(NSUInteger, O2ValueRepresentation)*/ {
         case DCM_DA: {
             [views addObject:_operatorsPopUp];
             [self setAvailableOperators: N(O2Today), N(O2Yesterday), N(O2DayBeforeYesterday), N(NSLessThanOrEqualToPredicateOperatorType), N(NSGreaterThanOrEqualToPredicateOperatorType), N(O2Within), N(NSEqualToPredicateOperatorType), nil]; // TODO: add 'is between'
-            switch (self.operator) {
+            switch (self.operat) {
                 case NSLessThanOrEqualToPredicateOperatorType:
                 case NSGreaterThanOrEqualToPredicateOperatorType:
                 case NSEqualToPredicateOperatorType:
@@ -976,7 +979,7 @@ enum /*typedef NS_ENUM(NSUInteger, O2ValueRepresentation)*/ {
         case DCM_TM: {
             [views addObject:_operatorsPopUp];
             [self setAvailableOperators: N(NSLessThanOrEqualToPredicateOperatorType), N(NSGreaterThanOrEqualToPredicateOperatorType), N(NSEqualToPredicateOperatorType), nil];
-            switch (self.operator) {
+            switch (self.operat) {
                 case NSLessThanOrEqualToPredicateOperatorType:
                 case NSGreaterThanOrEqualToPredicateOperatorType:
                 case NSEqualToPredicateOperatorType:
@@ -990,7 +993,7 @@ enum /*typedef NS_ENUM(NSUInteger, O2ValueRepresentation)*/ {
         case DCM_DT: {
             [views addObject:_operatorsPopUp];
             [self setAvailableOperators: N(O2Today), N(O2Yesterday), N(O2DayBeforeYesterday), N(NSLessThanOrEqualToPredicateOperatorType), N(NSGreaterThanOrEqualToPredicateOperatorType), N(O2Within), N(NSEqualToPredicateOperatorType), nil]; // TODO: add 'is between'
-            switch (self.operator) {
+            switch (self.operat) {
                 case NSLessThanOrEqualToPredicateOperatorType:
                 case NSGreaterThanOrEqualToPredicateOperatorType:
                 case NSEqualToPredicateOperatorType:
@@ -1262,13 +1265,13 @@ enum /*typedef NS_ENUM(NSUInteger, O2ValueRepresentation)*/ {
             case DCM_UI:
 //            case DCM_CS:
             case DCM_AS: {
-                [self setOperator:[predicate predicateOperatorType]];
+                [self setOperat:[predicate predicateOperatorType]];
                 [self setStringValue:[predicate constantValue]];
             } break;
                 
             case DCM_IS:
             case DCM_DS: {
-                [self setOperator:[predicate predicateOperatorType]];
+                [self setOperat:[predicate predicateOperatorType]];
                 id value = [predicate constantValue];
                 if ([value isKindOfClass:[NSNumber class]])
                     [self setStringValue:[value stringValue]];
@@ -1282,7 +1285,7 @@ enum /*typedef NS_ENUM(NSUInteger, O2ValueRepresentation)*/ {
             case DCM_UL:
             case DCM_FL:
             case DCM_FD: {
-                [self setOperator:[predicate predicateOperatorType]];
+                [self setOperat:[predicate predicateOperatorType]];
                 id value = [predicate constantValue];
                 if ([value isKindOfClass:[NSNumber class]])
                     [self setNumberValue:value];
@@ -1295,26 +1298,26 @@ enum /*typedef NS_ENUM(NSUInteger, O2ValueRepresentation)*/ {
                 if (otype == NSGreaterThanOrEqualToPredicateOperatorType && ([predicate variable] || [predicate function])) {
                     if ([[predicate variable] isEqualToString:O2VarToday] ||
                         [[[[predicate arguments] objectAtIndex:0] variable] isEqualToString:LegacyTimeKey(O2VarToday)])
-                        [self setOperator:O2Today];
+                        [self setOperat:O2Today];
                     else {
-                        [self setOperator:O2Within];
+                        [self setOperat:O2Within];
                         O2TimeTag tt = [[self class] timeTagFromKey:[predicate variable]];
                         if (!tt) tt = [[self class] timeTagFromKey:UnLegacyTimeKey([[[predicate arguments] objectAtIndex:0] variable])];
                         [self setWithin:tt];
                     }
                 } else if (otype == NSBetweenPredicateOperatorType && [[[[predicate collection] objectAtIndex:0] variable] isEqualToString:O2VarYesterday] && [[[[predicate collection] objectAtIndex:1] variable] isEqualToString:O2VarToday]) { // yesterday
-                    [self setOperator:O2Yesterday];
+                    [self setOperat:O2Yesterday];
                 } else if (otype == NSBetweenPredicateOperatorType && [[[[predicate collection] objectAtIndex:0] variable] isEqualToString:O2Var2Days] && [[[[predicate collection] objectAtIndex:1] variable] isEqualToString:O2VarYesterday]) { // day before yesterday
-                    [self setOperator:O2DayBeforeYesterday];
+                    [self setOperat:O2DayBeforeYesterday];
                 } else if ([[predicate constantValue] isKindOfClass:[NSDate class]]) {
-                    [self setOperator:otype];
+                    [self setOperat:otype];
                     [self setDateValue:[predicate constantValue]];
                 } else
                     [NSException raise:NSGenericException format:@"Unexpected comparison for DA tag: %@", predicate];
             } break;
             
             case DCM_TM: {
-                [self setOperator:[predicate predicateOperatorType]];
+                [self setOperat:[predicate predicateOperatorType]];
                 [self setDateValue:[predicate constantValue]];
             } break;
                 
@@ -1345,19 +1348,19 @@ enum /*typedef NS_ENUM(NSUInteger, O2ValueRepresentation)*/ {
             subpredicates.count == 2 &&
             sp0.predicateOperatorType == NSGreaterThanOrEqualToPredicateOperatorType && [[sp0 variable] isEqualToString:O2VarYesterday] &&
             sp1.predicateOperatorType == NSLessThanOrEqualToPredicateOperatorType && [[sp1 variable] isEqualToString:O2VarToday])
-            [self setOperator:O2Yesterday];
+            [self setOperat:O2Yesterday];
         
         if ((vr == DCM_DA || vr == DCM_DT) &&
             subpredicates.count == 2 &&
             sp0.predicateOperatorType == NSGreaterThanOrEqualToPredicateOperatorType && [[sp0 variable] isEqualToString:O2Var2Days] &&
             sp1.predicateOperatorType == NSLessThanOrEqualToPredicateOperatorType && [[sp1 variable] isEqualToString:O2VarYesterday])
-            [self setOperator:O2DayBeforeYesterday];
+            [self setOperat:O2DayBeforeYesterday];
         
         // match "LT_KeyPath != '' AND LT_KeyPath != nil"
         if ((vr == DCM_SH || vr == DCM_LO || vr == DCM_ST || vr == DCM_LT || vr == DCM_UT || vr == DCM_AE || vr == DCM_PN || vr == DCM_UI) &&
             sp0.predicateOperatorType == NSNotEqualToPredicateOperatorType && sp1.predicateOperatorType == NSNotEqualToPredicateOperatorType &&
             [sp0.constantValue isEqualToString:@""] && sp1.constantValue == nil) {
-            [self setOperator:NSNotEqualToPredicateOperatorType];
+            [self setOperat:NSNotEqualToPredicateOperatorType];
             [self setStringValue:@""];
         }
 
@@ -1389,19 +1392,19 @@ enum /*typedef NS_ENUM(NSUInteger, O2ValueRepresentation)*/ {
                 return [NSComparisonPredicate predicateWithLeftExpression:tagNameExpression
                                                           rightExpression:[NSExpression expressionForConstantValue:self.stringValue]
                                                                  modifier:NSDirectPredicateModifier
-                                                                     type:self.operator
+                                                                     type:(NSPredicateOperatorType)self.operat
                                                                   options:NSCaseInsensitivePredicateOption];
             else
                 return [NSCompoundPredicate andPredicateWithSubpredicates:[NSArray arrayWithObjects:
                                                                            [NSComparisonPredicate predicateWithLeftExpression:tagNameExpression
                                                                                                               rightExpression:[NSExpression expressionForConstantValue:@""]
                                                                                                                      modifier:NSDirectPredicateModifier
-                                                                                                                         type:self.operator
+                                                                                                                         type:(NSPredicateOperatorType)self.operat
                                                                                                                       options:NSCaseInsensitivePredicateOption],
                                                                            [NSComparisonPredicate predicateWithLeftExpression:tagNameExpression
                                                                                                               rightExpression:[NSExpression expressionForConstantValue:nil]
                                                                                                                      modifier:NSDirectPredicateModifier
-                                                                                                                         type:self.operator
+                                                                                                                         type:(NSPredicateOperatorType)self.operat
                                                                                                                       options:NSCaseInsensitivePredicateOption],
                                                                            nil]];
         } break;
@@ -1412,7 +1415,7 @@ enum /*typedef NS_ENUM(NSUInteger, O2ValueRepresentation)*/ {
             return [NSComparisonPredicate predicateWithLeftExpression:tagNameExpression
                                                       rightExpression:[NSExpression expressionForConstantValue:self.stringValue]
                                                              modifier:NSDirectPredicateModifier
-                                                                 type:self.operator
+                                                                 type:(NSPredicateOperatorType)self.operat
                                                               options:NSCaseInsensitivePredicateOption];
         }
             
@@ -1425,13 +1428,13 @@ enum /*typedef NS_ENUM(NSUInteger, O2ValueRepresentation)*/ {
             return [NSComparisonPredicate predicateWithLeftExpression:tagNameExpression
                                                       rightExpression:[NSExpression expressionForConstantValue:self.numberValue]
                                                              modifier:NSDirectPredicateModifier
-                                                                 type:self.operator
+                                                                 type:(NSPredicateOperatorType)self.operat
                                                               options:NSCaseInsensitivePredicateOption];
         }
     
         case DCM_DA:
         case DCM_DT: {
-            switch (self.operator) {
+            switch (self.operat) {
                 case O2Today:
                     return [NSComparisonPredicate predicateWithLeftExpression:tagNameExpression
                                                               rightExpression:[NSExpression expressionForVariable:O2VarToday]
@@ -1455,7 +1458,7 @@ enum /*typedef NS_ENUM(NSUInteger, O2ValueRepresentation)*/ {
                     return [NSComparisonPredicate predicateWithLeftExpression:tagNameExpression
                                                               rightExpression:[NSExpression expressionForConstantValue:self.dateValue]
                                                                      modifier:NSDirectPredicateModifier
-                                                                         type:self.operator
+                                                                         type:(NSPredicateOperatorType)self.operat
                                                                       options:0];
                 case O2Within: {
                     return [NSComparisonPredicate predicateWithLeftExpression:tagNameExpression
@@ -1480,14 +1483,14 @@ enum /*typedef NS_ENUM(NSUInteger, O2ValueRepresentation)*/ {
         } break;
             
         case DCM_TM: {
-            switch (self.operator) {
+            switch (self.operat) {
                 case NSLessThanOrEqualToPredicateOperatorType:
                 case NSGreaterThanOrEqualToPredicateOperatorType:
                 case NSEqualToPredicateOperatorType:
                     return [NSComparisonPredicate predicateWithLeftExpression:tagNameExpression
                                                               rightExpression:[NSExpression expressionForConstantValue:self.dateValue]
                                                                      modifier:NSDirectPredicateModifier
-                                                                         type:self.operator
+                                                                         type:(NSPredicateOperatorType)self.operat
                                                                       options:0];
             }
         } break;
@@ -1545,7 +1548,8 @@ enum /*typedef NS_ENUM(NSUInteger, O2ValueRepresentation)*/ {
     
     NSInteger i = [dic.allKeys indexOfObject:str];
     
-    if (i == NSNotFound) return dic.count+1;
+    if (i == NSNotFound)
+        return dic.count+1;
     
     return i+1;
 }
@@ -1566,38 +1570,62 @@ enum /*typedef NS_ENUM(NSUInteger, O2ValueRepresentation)*/ {
 @implementation NSComparisonPredicate (OsiriX)
 
 - (id)collection {
-    if (self.leftExpression.expressionType == NSAggregateExpressionType) return self.leftExpression.collection;
-    if (self.rightExpression.expressionType == NSAggregateExpressionType) return self.rightExpression.collection;
+    if (self.leftExpression.expressionType == NSAggregateExpressionType)
+        return self.leftExpression.collection;
+    
+    if (self.rightExpression.expressionType == NSAggregateExpressionType)
+        return self.rightExpression.collection;
+    
     return nil;
 }
 
 - (id)constantValue {
-    if (self.leftExpression.expressionType == NSConstantValueExpressionType) return self.leftExpression.constantValue;
-    if (self.rightExpression.expressionType == NSConstantValueExpressionType) return self.rightExpression.constantValue;
+    if (self.leftExpression.expressionType == NSConstantValueExpressionType)
+        return self.leftExpression.constantValue;
+    
+    if (self.rightExpression.expressionType == NSConstantValueExpressionType)
+        return self.rightExpression.constantValue;
+    
     return nil;
 }
 
 - (NSString *)function {
-    if (self.leftExpression.expressionType == NSFunctionExpressionType) return self.leftExpression.function;
-    if (self.rightExpression.expressionType == NSFunctionExpressionType) return self.rightExpression.function;
+    if (self.leftExpression.expressionType == NSFunctionExpressionType)
+        return self.leftExpression.function;
+    
+    if (self.rightExpression.expressionType == NSFunctionExpressionType)
+        return self.rightExpression.function;
+    
     return nil;
 }
 
 - (NSString *)keyPath {
-    if (self.leftExpression.expressionType == NSKeyPathExpressionType) return self.leftExpression.keyPath;
-    if (self.rightExpression.expressionType == NSKeyPathExpressionType) return self.rightExpression.keyPath;
+    if (self.leftExpression.expressionType == NSKeyPathExpressionType)
+        return self.leftExpression.keyPath;
+    
+    if (self.rightExpression.expressionType == NSKeyPathExpressionType)
+        return self.rightExpression.keyPath;
+    
     return nil;
 }
 
 - (NSString *)variable {
-    if (self.leftExpression.expressionType == NSVariableExpressionType) return self.leftExpression.variable;
-    if (self.rightExpression.expressionType == NSVariableExpressionType) return self.rightExpression.variable;
+    if (self.leftExpression.expressionType == NSVariableExpressionType)
+        return self.leftExpression.variable;
+    
+    if (self.rightExpression.expressionType == NSVariableExpressionType)
+        return self.rightExpression.variable;
+    
     return nil;
 }
 
 - (NSArray*)arguments {
-    if (self.leftExpression.expressionType == NSFunctionExpressionType) return self.leftExpression.arguments;
-    if (self.rightExpression.expressionType == NSFunctionExpressionType) return self.rightExpression.arguments;
+    if (self.leftExpression.expressionType == NSFunctionExpressionType)
+        return self.leftExpression.arguments;
+    
+    if (self.rightExpression.expressionType == NSFunctionExpressionType)
+        return self.rightExpression.arguments;
+    
     return nil;
 }
 

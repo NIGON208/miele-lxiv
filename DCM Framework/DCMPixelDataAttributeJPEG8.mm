@@ -18,10 +18,20 @@
 #import "DCMPixelDataAttributeJPEG16.h"
 #import "DCMPixelDataAttributeJPEG12.h"
 #import "DCMPixelDataAttributeJPEG8.h"
+
+#ifdef __cplusplus
+extern "C"
+{
+#endif /*cplusplus*/
+    
 #include "jinclude8.h"
 #include "jpeglib8.h"
 #include "jerror8.h"
 //#import "jpegdatasrc.h"
+
+#ifdef __cplusplus
+}
+#endif /*cplusplus*/
 
 //#define JMSG_LENGTH_MAX = 100;
 

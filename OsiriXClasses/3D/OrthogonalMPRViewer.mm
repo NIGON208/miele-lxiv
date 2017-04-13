@@ -688,7 +688,9 @@ static SyncSeriesScope globalSyncSeriesScope;
 	if (isFullWindow)
 	{
 		[controller restoreViewsFrame];
-		if (displayResliceAxes) [controller displayResliceAxes:displayResliceAxes];
+		if (displayResliceAxes)
+            [controller displayResliceAxes:displayResliceAxes];
+        
 		[splitView setNeedsDisplay:YES];
 		[controller restoreScaleValue];
 		// if current tool is wlww, then set current tool to cross tool
@@ -827,15 +829,19 @@ return YES;
 	if( [item action] == @selector(changeTool:))
 	{
 		valid = YES;
-		if( [item tag] == [controller currentTool]) [item setState: NSOnState];
-		else [item setState: NSOffState];
+		if( [item tag] == [controller currentTool])
+            [item setState: NSOnState];
+		else
+            [item setState: NSOffState];
 	}
 	else if( [item action] == @selector(ApplyCLUT:))
 	{
 		valid = YES;
 		
-		if( [[item title] isEqualToString: curCLUTMenu]) [item setState:NSOnState];
-		else [item setState:NSOffState];
+		if( [[item title] isEqualToString: curCLUTMenu])
+            [item setState:NSOnState];
+		else
+            [item setState:NSOffState];
 	}
 //	else if( [item action] == @selector(ApplyConv:))
 //	{
@@ -848,8 +854,10 @@ return YES;
 	{
 		valid = YES;
 		
-		if( [[item title] isEqualToString: curOpacityMenu]) [item setState:NSOnState];
-		else [item setState:NSOffState];
+		if( [[item title] isEqualToString: curOpacityMenu])
+            [item setState:NSOnState];
+		else
+            [item setState:NSOffState];
 	}
 	else if( [item action] == @selector(ApplyWLWW:))
 	{
@@ -864,8 +872,10 @@ return YES;
 		
 		@catch (NSException * e) {}
 		
-		if( [str isEqualToString: curWLWWMenu] || [[item title] isEqualToString: curWLWWMenu]) [item setState:NSOnState];
-		else [item setState:NSOffState];
+		if( [str isEqualToString: curWLWWMenu] || [[item title] isEqualToString: curWLWWMenu])
+            [item setState:NSOnState];
+		else
+            [item setState:NSOffState];
 	}
     else if( [item action] == @selector(syncSeriesScopeAction:))    {
         valid = YES;
@@ -896,8 +906,10 @@ return YES;
 	int tag = [sender tag];
 	if( tag >= 0)
     {
-		if( [sender isMemberOfClass: [NSMatrix class]]) [self setCurrentTool: [[sender selectedCell] tag]];
-		else [self setCurrentTool: tag];
+		if( [sender isMemberOfClass: [NSMatrix class]])
+            [self setCurrentTool: (ToolMode)[[sender selectedCell] tag]];
+		else
+            [self setCurrentTool: (ToolMode)tag];
     }
 }
 
@@ -1489,8 +1501,8 @@ return YES;
 		for( NSView *v in views)
 		{
 			NSRect bounds = [v bounds];
-			NSPoint or = [v convertPoint: bounds.origin toView: nil];
-			bounds.origin = [[self window] convertBaseToScreen: or];
+			NSPoint _or = [v convertPoint: bounds.origin toView: nil];
+			bounds.origin = [[self window] convertBaseToScreen: _or];
             
             bounds.origin.x *= v.window.backingScaleFactor;
             bounds.origin.y *= v.window.backingScaleFactor;
@@ -1899,8 +1911,10 @@ return YES;
 
 - (IBAction) setCurrentdcmExport:(id) sender
 {
-	if( [[sender selectedCell] tag] == 1) [self checkView: dcmBox :YES];
-	else [self checkView: dcmBox :NO];
+	if( [[sender selectedCell] tag] == 1)
+        [self checkView: dcmBox :YES];
+	else
+        [self checkView: dcmBox :NO];
 }
 
 - (void)checkView:(NSView *)aView :(BOOL) OnOff
@@ -2018,21 +2032,23 @@ return YES;
 
 + (void) syncSeriesScopeAction:(id) sender :(id)viewer
 {
-    if([sender isKindOfClass: [NSMenuItem class]]  )
-        [OrthogonalMPRViewer updateSyncSeriesScope:viewer :[sender tag]] ;
+    if ([sender isKindOfClass: [NSMenuItem class]])
+        [OrthogonalMPRViewer updateSyncSeriesScope:viewer
+                                                  :(SyncSeriesScope)[sender tag]] ;
 }
 
 + (void) syncSeriesBehaviorAction:(id) sender :(id) viewer
 {
-    if([sender isKindOfClass: [NSMenuItem class]]  ){
-        [OrthogonalMPRViewer updateSyncSeriesBehavior:viewer :[sender tag] ] ;
-    }
+    if ([sender isKindOfClass: [NSMenuItem class]])
+        [OrthogonalMPRViewer updateSyncSeriesBehavior:viewer
+                                                     :(SyncSeriesBehavior)[sender tag] ] ;
 }
 
 + (void) syncSeriesStateAction:(id) sender :(id) viewer
 {
-    if([sender isKindOfClass: [NSMenuItem class]] )
-        [OrthogonalMPRViewer updateSyncSeriesState:viewer :[sender tag] ] ;
+    if ([sender isKindOfClass: [NSMenuItem class]])
+        [OrthogonalMPRViewer updateSyncSeriesState:viewer
+                                                  :(SyncSeriesState)[sender tag] ] ;
 }
 
 + (void) syncSeriesAction:(id) sender :(id)viewer
@@ -2072,7 +2088,10 @@ return YES;
         [OrthogonalMPRViewer updateSyncSeriesProperties:viewer :[viewer syncSeriesState] :globalSyncSeriesScope :newBehavior ];
 }
 
-+ (void) updateSyncSeriesProperties:(id)viewer :(SyncSeriesState) newState :(SyncSeriesScope) newScope :(SyncSeriesBehavior) newBehavior  {
++ (void) updateSyncSeriesProperties:(id)viewer
+                                   :(SyncSeriesState) newState
+                                   :(SyncSeriesScope) newScope
+                                   :(SyncSeriesBehavior) newBehavior  {
     
     if([viewer syncSeriesState] == newState && [viewer syncSeriesBehavior] == newBehavior && globalSyncSeriesScope == newScope )
         return;
@@ -2187,11 +2206,11 @@ return YES;
     
     // Propagate syncProperties (syncSeriesState and syncSeriesBehavior) and optionnaly move to a new location according to syncBehavior 
     
-    [viewer setSyncSeriesBehavior :[[userInfo valueForKey:@"syncBehavior"]intValue]];
+    [viewer setSyncSeriesBehavior :(SyncSeriesBehavior)[[userInfo valueForKey:@"syncBehavior"] intValue]];
     
-    if([viewer syncSeriesState] != SyncSeriesStateOff){ // state is not updated when current is off
+    if ([viewer syncSeriesState] != SyncSeriesStateOff){ // state is not updated when current is off
         
-        SyncSeriesState newState = [[userInfo valueForKey:@"syncState"]intValue];
+        SyncSeriesState newState = (SyncSeriesState)[[userInfo valueForKey:@"syncState"] intValue];
         
         if(newState != SyncSeriesStateOff){ // syncOff value state is not propagated
             [viewer setSyncSeriesState: newState];

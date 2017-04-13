@@ -234,8 +234,7 @@ typedef struct _xyzArray
 //	float absY = fabs( vector[ 1]);
 //	float absZ = fabs( vector[ 2]);
 //	
-//	int i; 
-//	for (i=0; i<1; ++i)
+//	for (int i=0; i<1; ++i)
 //	{
 //		if (absX>.0001 && absX>absY && absX>absZ)
 //		{
@@ -529,8 +528,10 @@ typedef struct _xyzArray
 
 - (IBAction) setCurrentdcmExport:(id) sender
 {
-	if( [[sender selectedCell] tag] == 1) [self checkView: dcmBox :YES];
-	else [self checkView: dcmBox :NO];
+	if( [[sender selectedCell] tag] == 1)
+        [self checkView: dcmBox :YES];
+	else
+        [self checkView: dcmBox :NO];
 }
 
 #define DATABASEPATH @"/DATABASE.noindex/"
@@ -1007,7 +1008,8 @@ typedef struct _xyzArray
 	if (_dragInProgress == NO && ([theEvent deltaX] != 0 || [theEvent deltaY] != 0))
 			[self deleteMouseDownTimer];
     
-	if (_dragInProgress == YES) return;
+	if (_dragInProgress == YES)
+        return;
 	
 	if (_resizeFrame)
     {
@@ -1573,8 +1575,8 @@ typedef struct _xyzArray
 		else if (_tool == tWL) {
 			NSLog(@"WL do nothing");
 		}
-			
-		else [super mouseDown:theEvent];
+		else
+            [super mouseDown:theEvent];
 		
 	//	croppingBox->SetHandleSize( 0.005);
 	}
@@ -1584,7 +1586,8 @@ typedef struct _xyzArray
 
 - (void) keyDown:(NSEvent *)event
 {
-    if( [[event characters] length] == 0) return;
+    if( [[event characters] length] == 0)
+        return;
     
     unichar c = [[event characters] characterAtIndex:0];
 	
@@ -1604,12 +1607,12 @@ typedef struct _xyzArray
 	else if(c == NSDeleteFunctionKey || c == NSDeleteCharacter || c == NSBackspaceCharacter || c == NSDeleteCharFunctionKey) 
 	{
 		if([self isAny3DPointSelected])
-		{
 			[self removeSelected3DPoint];
-		}
-		else [self yaw:-90.0];
+		else
+            [self yaw:-90.0];
 	}
-	else [super keyDown:event];
+	else
+        [super keyDown:event];
 }
 
 -(void) setCurrentTool:(ToolMode) i
@@ -1859,7 +1862,7 @@ typedef struct _xyzArray
 		NSLog( @"Exception during drawRect... not enough memory?");
 		
 		if (NSRunAlertPanel(@"", //NSLocalizedString(@"32-bit",nil),
-                            NSLocalizedString(@"Cannot use the 3D engine.\r\rUpgrade to OsiriX 64-bit or OsiriX MD to solve this issue.",nil),
+                            NSLocalizedString(@"Cannot use the 3D engine.",nil),
                             NSLocalizedString(@"OK", nil),
                             nil, //NSLocalizedString(@"OsiriX 64-bit", nil),
                             nil
@@ -2063,7 +2066,7 @@ typedef struct _xyzArray
 	catch (...)
 	{
 		if (NSRunAlertPanel(@"", //NSLocalizedString(@"32-bit",nil),
-                            NSLocalizedString(@"Cannot use the 3D engine.\r\rUpgrade to OsiriX 64-bit or OsiriX MD to solve this issue.",nil),
+                            NSLocalizedString(@"Cannot use the 3D engine.",nil),
                             NSLocalizedString(@"OK", nil),
                             nil, //NSLocalizedString(@"OsiriX 64-bit", nil),
                             nil
@@ -3213,16 +3216,14 @@ typedef struct _xyzArray
 	
 	if([point3DPropagateToAll state])
 	{
-		int i;
-		for(i=0; i<[point3DActorArray count]; i++)
-		{
+		for(int i=0; i<[point3DActorArray count]; i++)
 			[self setAnnotationWithPosition:displayPosition for3DPointAtIndex:i];
-		}
 	}
 	else
 	{
 		[self setAnnotationWithPosition:displayPosition for3DPointAtIndex:[self selected3DPointIndex]];
 	}
+    
 	[self setNeedsDisplay:YES];
 }
 
@@ -3318,8 +3319,7 @@ typedef struct _xyzArray
 		
 		if ([point3DPropagateToAll state])
 		{
-			int i;
-			for(i=0; i<[point3DActorArray count]; i++)
+			for (int i=0; i<[point3DActorArray count]; i++)
 			{
 				vtkFollower* text = (vtkFollower*)[[point3DTextArray objectAtIndex:i] pointerValue];
 				text->GetProperty()->SetColor(r, g, b);
@@ -3332,6 +3332,7 @@ typedef struct _xyzArray
 			text->GetProperty()->SetColor(r, g, b);
 			[point3DTextColorsArray replaceObjectAtIndex:[self selected3DPointIndex] withObject:c];
 		}
+        
 		[self setNeedsDisplay:YES];
 	}
 }
@@ -3344,8 +3345,7 @@ typedef struct _xyzArray
 		
 		if ([point3DPropagateToAll state])
 		{
-			int i;
-			for(i=0; i<[point3DActorArray count]; i++)
+			for (int i=0; i<[point3DActorArray count]; i++)
 			{
 				vtkFollower* text = (vtkFollower*)[[point3DTextArray objectAtIndex:i] pointerValue];
 				text->SetScale(s,s,s);
@@ -3358,6 +3358,7 @@ typedef struct _xyzArray
 			text->SetScale(s,s,s);
 			[point3DTextSizesArray replaceObjectAtIndex:[self selected3DPointIndex] withObject:[NSNumber numberWithFloat:s]];
 		}
+        
 		[self setNeedsDisplay:YES];
 	}
 }
@@ -3535,7 +3536,8 @@ typedef struct _xyzArray
 {
 	NSLog(@"%d", (int) [[NSUserDefaults standardUserDefaults] integerForKey:@"VRDefaultViewSize"]);
 	
-	if( [[NSUserDefaults standardUserDefaults] integerForKey:@"VRDefaultViewSize"] == 1) return;
+	if( [[NSUserDefaults standardUserDefaults] integerForKey:@"VRDefaultViewSize"] == 1)
+        return;
 	
 	NSRect	newFrame = [self frame];
 	NSRect	beforeFrame = [self frame];
@@ -3799,13 +3801,17 @@ void SRSpaceNavigatorMessageHandler(io_connect_t connection, natural_t messageTy
 						}
 						else if(state->buttons==1) // left button pressed
 						{
-							if( sV->projectionMode != 2) [sV coView:nil];
-							else [sV yaw:180.0];
+							if( sV->projectionMode != 2)
+                                [sV coView:nil];
+							else
+                                [sV yaw:180.0];
 						}
 						else if(state->buttons==2) // right button pressed
 						{
-							if( sV->projectionMode != 2) [sV saView:nil];
-							else [sV yaw:90.0];
+							if( sV->projectionMode != 2)
+                                [sV saView:nil];
+							else
+                                [sV yaw:90.0];
 						}
 						else if(state->buttons==3) // both button are presed
 						{

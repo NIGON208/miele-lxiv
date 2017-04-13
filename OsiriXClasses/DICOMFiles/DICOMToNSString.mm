@@ -60,8 +60,11 @@
 {
 	NSStringEncoding encoding = NSISOLatin1StringEncoding;
 	
-	if( characterSet == nil) return encoding;
-	if( [characterSet isEqualToString:@""]) return encoding;
+	if( characterSet == nil)
+        return encoding;
+    
+	if( [characterSet isEqualToString:@""])
+        return encoding;
 	
 	characterSet = [characterSet stringByReplacingOccurrencesOfString:@"-" withString:@" "];
 	characterSet = [characterSet stringByReplacingOccurrencesOfString:@"_" withString:@" "];
@@ -77,17 +80,17 @@
 	else if( [characterSet isEqualToString:@"ISO IR 126"]) encoding = CFStringConvertEncodingToNSStringEncoding( kCFStringEncodingISOLatinGreek);
 	else if( [characterSet isEqualToString:@"ISO IR 138"]) encoding = CFStringConvertEncodingToNSStringEncoding( kCFStringEncodingISOLatinHebrew);
     else if( [characterSet isEqualToString:@"ISO IR 166"]) encoding = CFStringConvertEncodingToNSStringEncoding( kCFStringEncodingISOLatinThai);
-	else if( [characterSet isEqualToString:@"GB18030"]) encoding = CFStringConvertEncodingToNSStringEncoding( kCFStringEncodingGB_18030_2000);
+	else if( [characterSet isEqualToString:@"GB18030"])    encoding = CFStringConvertEncodingToNSStringEncoding( kCFStringEncodingGB_18030_2000);
 	else if( [characterSet isEqualToString:@"ISO IR 192"]) encoding = NSUTF8StringEncoding;
-	else if( [characterSet isEqualToString:@"ISO IR 13"]) encoding = CFStringConvertEncodingToNSStringEncoding( kCFStringEncodingMacJapanese);
-	else if( [characterSet isEqualToString:@"ISO IR 6"])	encoding = NSISOLatin1StringEncoding;
-    else if( [characterSet isEqualToString:@"ISO IR 13"]) encoding = CFStringConvertEncodingToNSStringEncoding( kCFStringEncodingMacJapanese);
-    else if( [characterSet isEqualToString:@"ISO IR 58"])	encoding = CFStringConvertEncodingToNSStringEncoding( kCFStringEncodingISO_2022_CN);
-    else if( [characterSet isEqualToString:@"ISO IR 87"]) encoding = NSISO2022JPStringEncoding;
+	else if( [characterSet isEqualToString:@"ISO IR 13"])  encoding = CFStringConvertEncodingToNSStringEncoding( kCFStringEncodingMacJapanese);
+	else if( [characterSet isEqualToString:@"ISO IR 6"])   encoding = NSISOLatin1StringEncoding;
+    else if( [characterSet isEqualToString:@"ISO IR 13"])  encoding = CFStringConvertEncodingToNSStringEncoding( kCFStringEncodingMacJapanese);
+    else if( [characterSet isEqualToString:@"ISO IR 58"])  encoding = CFStringConvertEncodingToNSStringEncoding( kCFStringEncodingISO_2022_CN);
+    else if( [characterSet isEqualToString:@"ISO IR 87"])  encoding = NSISO2022JPStringEncoding;
     else if( [characterSet isEqualToString:@"ISO IR 100"]) encoding = NSISOLatin1StringEncoding;
     else if( [characterSet isEqualToString:@"ISO IR 149"]) encoding = CFStringConvertEncodingToNSStringEncoding( kCFStringEncodingEUC_KR);
-    else if( [characterSet isEqualToString:@"ISO IR 6"])	encoding = NSISOLatin1StringEncoding;
-	else if( [characterSet isEqualToString:@"UTF 8"])	encoding = NSUTF8StringEncoding;
+    else if( [characterSet isEqualToString:@"ISO IR 6"])   encoding = NSISOLatin1StringEncoding;
+	else if( [characterSet isEqualToString:@"UTF 8"])      encoding = NSUTF8StringEncoding;
 	else
 	{
 		NSLog(@"** DICOMTONSString encoding not found: %@", characterSet);
@@ -103,7 +106,6 @@
         }
 	}
 	return encoding;
-
 }
 
 @end

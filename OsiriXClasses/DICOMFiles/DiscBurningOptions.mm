@@ -34,7 +34,9 @@
 
 -(id)copyWithZone:(NSZone*)zone {
 	DiscBurningOptions* copy = [[[self class] allocWithZone:zone] init];
-	if( copy == nil) return nil;
+	if( copy == nil)
+        return nil;
+    
 	copy.anonymize = self.anonymize;
 	copy.anonymizationTags = [[self.anonymizationTags copyWithZone:zone] autorelease];
 	copy.includeWeasis = self.includeWeasis;

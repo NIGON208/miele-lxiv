@@ -50,11 +50,11 @@
 NSString* soundex4( NSString *inString)
 {
 	char *p, *p1;
-	int i;
 	char workbuf[WBUFSIZE + 1];
 	char priorletter;
 	
-	if( inString == nil) return nil;
+	if( inString == nil)
+        return nil;
 	
       /* Make a working copy  */
 	
@@ -125,7 +125,7 @@ NSString* soundex4( NSString *inString)
 
       /* (1) remove terminal 'A's and 'S's      */
 
-      for (i = strlen(workbuf) - 1;
+      for (int i = strlen(workbuf) - 1;
             (i > 0) && ('A' == workbuf[i] || 'S' == workbuf[i]);
             --i)
       {
@@ -134,7 +134,7 @@ NSString* soundex4( NSString *inString)
 
       /* (2) terminal NT to TT      */
 
-      for (i = strlen(workbuf) - 1;
+      for (int i = strlen(workbuf) - 1;
             (i > 1) && ('N' == workbuf[i - 1] || 'T' == workbuf[i]);
             --i)
       {
@@ -146,8 +146,8 @@ NSString* soundex4( NSString *inString)
       p = p1 = workbuf;
       while ( 0 != (*p1++ = *p++))
       {
-            while ('A' == *p)
-                  ++p;
+          while ('A' == *p)
+              ++p;
       }
 
       /* Remove all duplicate letters     */
@@ -157,6 +157,7 @@ NSString* soundex4( NSString *inString)
       do {
             while (*p == priorletter)
                   ++p;
+          
             priorletter = *p;
       } while (0 != (*p1++ = *p++));
 
@@ -823,13 +824,13 @@ static NSRecursiveLock *dbModifyLock = nil;
 
 - (BOOL)validateForDelete:(NSError **)error
 {
-	BOOL delete = [super validateForDelete: error];
-	if (delete)
+	BOOL _delete = [super validateForDelete: error];
+	if (_delete)
 	{
 		if( self.reportURL && [[NSFileManager defaultManager] fileExistsAtPath: self.reportURL])
 			[[NSFileManager defaultManager] removeItemAtPath: self.reportURL error: nil];
 	}
-	return delete;
+	return _delete;
 }
 
 - (NSString*) soundex
@@ -1273,7 +1274,8 @@ static NSRecursiveLock *dbModifyLock = nil;
 - (NSNumber*) dicomTime
 {
     @synchronized (self) {
-        if( dicomTime) return dicomTime;
+        if( dicomTime)
+            return dicomTime;
         
         dicomTime = [[[DCMCalendarDate dicomTimeWithDate:self.date] timeAsNumber] retain];
         
@@ -1324,16 +1326,22 @@ static NSRecursiveLock *dbModifyLock = nil;
 			{
 				if( months < 1)
 				{
-					if( days < 0) return @"";
-					else return [NSString stringWithFormat: NSLocalizedString( @"%d d", @"d = day"), days];
+					if( days < 0)
+                        return @"";
+					else
+                        return [NSString stringWithFormat: NSLocalizedString( @"%d d", @"d = day"), days];
 				}
-				else return [NSString stringWithFormat: @"%d%@", (int) months, NSLocalizedString( @" m", @"m = month")];
+				else
+                    return [NSString stringWithFormat: @"%d%@", (int) months, NSLocalizedString( @" m", @"m = month")];
 			}
-			else return [NSString stringWithFormat: @"%d%@ %d%@", (int) years, NSLocalizedString( @" y", @"y = year"), (int) months, NSLocalizedString( @" m", @"m = month")];
+			else
+                return [NSString stringWithFormat: @"%d%@ %d%@", (int) years, NSLocalizedString( @" y", @"y = year"), (int) months, NSLocalizedString( @" m", @"m = month")];
 		}
-		else return [NSString stringWithFormat: @"%d%@", (int) years, NSLocalizedString( @" y", @"y = year")];
+		else
+            return [NSString stringWithFormat: @"%d%@", (int) years, NSLocalizedString( @" y", @"y = year")];
 	}
-	else return @"";
+	else
+        return @"";
 }
 
 - (NSString*) yearOldAcquisition
@@ -1358,16 +1366,22 @@ static NSRecursiveLock *dbModifyLock = nil;
 			{
 				if( months < 1)
 				{
-					if( days < 0) return @"";
-					else return [NSString stringWithFormat: NSLocalizedString( @"%d d", @"d = day"), days];
+					if( days < 0)
+                        return @"";
+					else
+                        return [NSString stringWithFormat: NSLocalizedString( @"%d d", @"d = day"), days];
 				}
-				else return [NSString stringWithFormat: @"%d%@", (int) months, NSLocalizedString( @" m", @"m = month")];
+				else
+                    return [NSString stringWithFormat: @"%d%@", (int) months, NSLocalizedString( @" m", @"m = month")];
 			}
-			else return [NSString stringWithFormat: @"%d%@ %d%@", (int) years, NSLocalizedString( @" y", @"y = year"), (int) months, NSLocalizedString( @" m", @"m = month")];
+			else
+                return [NSString stringWithFormat: @"%d%@ %d%@", (int) years, NSLocalizedString( @" y", @"y = year"), (int) months, NSLocalizedString( @" m", @"m = month")];
 		}
-		else return [NSString stringWithFormat: @"%d%@", (int) years, NSLocalizedString( @" y", @"y = year")];
+		else
+            return [NSString stringWithFormat: @"%d%@", (int) years, NSLocalizedString( @" y", @"y = year")];
 	}
-	else return @"";
+	else
+        return @"";
 }
 
 - (NSString*) yearOld
@@ -1505,13 +1519,15 @@ static NSRecursiveLock *dbModifyLock = nil;
 		
 		if (sum < 0)
 			return [NSNumber numberWithInt: -sum];
-		else return no;
+		else
+            return no;
 	}
 	else
 	{
 		if (n < 0)
 			return [NSNumber numberWithInt: -n];
-		else return [self primitiveValueForKey:@"numberOfImages"];
+		else
+            return [self primitiveValueForKey:@"numberOfImages"];
 	}
 }
 
@@ -1759,7 +1775,8 @@ static NSRecursiveLock *dbModifyLock = nil;
 - (NSManagedObject *) annotationsSRImage // Comments, Status, Key Images, ...
 {
 	NSSet* array = self.series;
-	if( array.count < 1) return nil;
+	if( array.count < 1)
+        return nil;
 	
 	[self.managedObjectContext lock];
 	@try {
@@ -1858,7 +1875,8 @@ static NSRecursiveLock *dbModifyLock = nil;
 - (NSManagedObject *) reportSRSeries
 {
 	NSSet* array = self.series;
-	if (array.count < 1) return nil;
+	if (array.count < 1)
+        return nil;
 	
 	[self.managedObjectContext lock];
 	@try {
@@ -1949,7 +1967,8 @@ static NSRecursiveLock *dbModifyLock = nil;
 - (NSManagedObject *) windowsStateSRSeries
 {
 	NSSet* array = self.series;
-	if (array.count < 1) return nil;
+	if (array.count < 1)
+        return nil;
 	
 	[self.managedObjectContext lock];
 	@try {
@@ -2013,7 +2032,8 @@ static NSRecursiveLock *dbModifyLock = nil;
 - (NSManagedObject *)roiSRSeries
 {
 	NSSet* array = self.series;
-	if (array.count < 1) return nil;
+	if (array.count < 1)
+        return nil;
 	
 	[self.managedObjectContext lock];
 	@try {

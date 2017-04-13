@@ -109,9 +109,9 @@ SecPolicySearchCreate:
 	{
 		// Setup the attributes the for the keychain item
 		SecKeychainAttribute attrs[] = {
-			{ kSecServiceItemAttr, strlen(service), (char *)service },
-			{ kSecAccountItemAttr, strlen(account), (char *)account },
-			{ kSecDescriptionItemAttr, strlen(kind), (char *)kind }
+			{ kSecServiceItemAttr,     (UInt32)strlen(service), (char *)service },
+			{ kSecAccountItemAttr,     (UInt32)strlen(account), (char *)account },
+			{ kSecDescriptionItemAttr, (UInt32)strlen(kind),    (char *)kind }
 		};
 		SecKeychainAttributeList attributes = { sizeof(attrs) / sizeof(attrs[0]), attrs };
 		
@@ -461,7 +461,7 @@ SecPolicySearchCreate:
 	SecIdentitySearchCreate(keychain, CSSM_KEYUSE_ANY, &searchRef);
 	
 	SecIdentityRef currentIdentityRef = NULL;
-	while(searchRef && (SecIdentitySearchCopyNext(searchRef, &currentIdentityRef) != errSecItemNotFound))
+	while (searchRef && (SecIdentitySearchCopyNext(searchRef, &currentIdentityRef) != errSecItemNotFound))
 	{
 		// Extract the private key from the identity, and examine it to see if it will work for us
 		SecKeyRef privateKeyRef = NULL;
@@ -471,17 +471,13 @@ SecPolicySearchCreate:
 		{
 			// Get the name attribute of the private key
 			// We're looking for a private key with the name of "Mojo User"
-			
-			SecItemAttr itemAttributes[] = {kSecKeyPrintName};
-			
-			SecExternalFormat externalFormats[] = {kSecFormatUnknown};
-			
-			int itemAttributesSize  = sizeof(itemAttributes) / sizeof(*itemAttributes);
-			int externalFormatsSize = sizeof(externalFormats) / sizeof(*externalFormats);
+			UInt32 itemAttributes[1] = {kSecKeyPrintName};
+			UInt32 externalFormats[1] = {kSecFormatUnknown};
+			UInt32 itemAttributesSize  = sizeof(itemAttributes) / sizeof(*itemAttributes);
+			UInt32 externalFormatsSize = sizeof(externalFormats) / sizeof(*externalFormats);
 			NSAssert(itemAttributesSize == externalFormatsSize, @"Arrays must have identical counts!");
 			
-			SecKeychainAttributeInfo info = {itemAttributesSize, (void *)&itemAttributes, (void *)&externalFormats};
-			
+            SecKeychainAttributeInfo info = {itemAttributesSize, itemAttributes, externalFormats};
 			SecKeychainAttributeList *privateKeyAttributeList = NULL;
 			SecKeychainItemCopyAttributesAndData((SecKeychainItemRef)privateKeyRef,
 			                                     &info, NULL, &privateKeyAttributeList, NULL, NULL);
@@ -497,14 +493,12 @@ SecPolicySearchCreate:
 				// Ugly Hack
 				// For some reason, name sometimes contains odd characters at the end of it
 				// I'm not sure why, and I don't know of a proper fix, thus the use of the hasPrefix: method
-				if([name hasPrefix: @"com.osirixviewer.osirixwebserver"])
+				if ([name hasPrefix: @"com.osirixviewer.osirixwebserver"])
 				{
 					// It's possible for there to be more than one private key with the above prefix
 					// But we're only allowed to have one identity, so we make sure to only add one to the array
-					if([result count] == 0)
-					{
+					if ([result count] == 0)
 						[result addObject:(id)currentIdentityRef];
-					}
 				}
 				
 				SecKeychainItemFreeAttributesAndData(privateKeyAttributeList, NULL);
@@ -673,6 +667,7 @@ SecPolicySearchCreate:
     if (err != errSecSuccess) {
         if (err == errSecItemNotFound)
             return [NSArray array];
+        
         NSLog(@"%@:%s: SecItemCopyMatching failed: %@", [[self class] description],
               __PRETTY_FUNCTION__, [DDKeychain stringForError:err]);
         return nil;
@@ -680,12 +675,20 @@ SecPolicySearchCreate:
     
     NSMutableArray * found = [NSMutableArray array];
     
-    for(int i = 0; i < CFArrayGetCount(arrayRef); i++) {
-        NSDictionary * attr = (__bridge NSDictionary *)(CFArrayGetValueAtIndex(arrayRef, i));
-        NSString * label = (NSString *)[attr objectForKey:kSecAttrLabel];
+    for (CFIndex i = 0; i < CFArrayGetCount((CFArrayRef)arrayRef); i++) {
+        NSDictionary * attr = (__bridge NSDictionary *)(CFArrayGetValueAtIndex((CFArrayRef)arrayRef, i));
+        NSString * label = (NSString *)[attr objectForKey:(id)kSecAttrLabel];
         
+        NSDictionary *valRef;
+        NSDictionary *keyUsage;
+        NSInteger flag;
+        CFBooleanRef invisible;
+        SecKeychainRef keychainRef;
+        char path[PATH_MAX];
+        UInt32 len;
+
         if (YES)  {
-            SecIdentityRef identityRef = (__bridge SecIdentityRef)([attr objectForKey:kSecValueRef]);
+            SecIdentityRef identityRef = (__bridge SecIdentityRef)([attr objectForKey:(id)kSecValueRef]);
             SecCertificateRef certRef;
             err = SecIdentityCopyCertificate(identityRef, &certRef);
             if (err != errSecSuccess) {
@@ -694,27 +697,24 @@ SecPolicySearchCreate:
                 goto skip;
             }
 
-            NSDictionary * valRef = CFBridgingRelease(SecCertificateCopyValues(certRef, nil, nil));
+            valRef = CFBridgingRelease(SecCertificateCopyValues(certRef, nil, nil));
 
-#if 0
-            SecKeychainRef keychainRef;
             err = SecKeychainItemCopyKeychain((SecKeychainItemRef)identityRef, &keychainRef);
             if (err != errSecSuccess) {
                 NSLog(@"%@:%s: SecKeychainItemCopyKeychain failed: %@ (skipping %@)", [[self class] description],
                       __PRETTY_FUNCTION__, [DDKeychain stringForError:err], identityRef);
                 goto skip;
-            };
+            }
             
-            char path[PATH_MAX];
-            UInt32 len = sizeof(path);
+            len = sizeof(path);
             err = SecKeychainGetPath(keychainRef, &len, path);
             if (err != errSecSuccess) {
                 NSLog(@"%@:%s: SecKeychainGetPath failed: %@ (skipping %@)", [[self class] description],
                       __PRETTY_FUNCTION__, [DDKeychain stringForError:err], identityRef);
                 goto skip;
-            };
+            }
+
             NSLog(@"%@: %s",[valRef objectForKey:(__bridge id)(kSecOIDCommonName)], path);
-#endif
             
             // Skip certs which cannot be used. Page 29 of ITU-T Rec. X.509 (11/2008):
             //
@@ -729,26 +729,27 @@ SecPolicySearchCreate:
             //    encipherOnly      (7),
             //    decipherOnly      (8),
             //
-            NSDictionary * keyUsage = [valRef objectForKey:(__bridge id)(kSecOIDKeyUsage)];
-            NSInteger flag = keyUsage ? [[keyUsage objectForKey:@"value"] integerValue] : 0;
-            
-            CFBooleanRef invisible = (CFBooleanRef) [valRef objectForKey:(__bridge id)(kSecAttrIsInvisible)];
+            keyUsage = [valRef objectForKey:(__bridge id)(kSecOIDKeyUsage)];
+            flag = keyUsage ? [[keyUsage objectForKey:@"value"] integerValue] : 0;
+            invisible = (CFBooleanRef) [valRef objectForKey:(__bridge id)(kSecAttrIsInvisible)];
             
             // Value of 0 is implies any use - seems to be passed by apple if none is set.
-            //
             if (invisible == kCFBooleanTrue)
                 goto skip;
             
             if ((flag != 0)&& ((flag & 1) == 0))
                 goto skip;
-                
-                [found addObject:(__bridge id)(identityRef)];
+            
+            [found addObject:(__bridge id)(identityRef)];
+
         skip:
             CFRelease(certRef);
         }
-    };
+    }
+
     if (arrayRef)
         CFRelease(arrayRef);
+    
     if (searchList)
         CFRelease(searchList);
 
@@ -769,7 +770,7 @@ SecPolicySearchCreate:
                                                    attributes:nil
                                                         error:nil];
 		
-	int domains[3] = {kSecTrustSettingsDomainUser, kSecTrustSettingsDomainAdmin, kSecTrustSettingsDomainSystem};
+	SecTrustSettingsDomain domains[3] = {kSecTrustSettingsDomainUser, kSecTrustSettingsDomainAdmin, kSecTrustSettingsDomainSystem};
 	
 	CFArrayRef certArray = NULL;
 	OSStatus status;

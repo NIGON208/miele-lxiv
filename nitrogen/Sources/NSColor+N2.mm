@@ -22,8 +22,11 @@
 }
 
 -(BOOL)isEqualToColor:(NSColor*)color alphaThreshold:(CGFloat)alphaThreshold {
-	if (!color) return NO;
-	if (color == self) return YES;
+	if (!color)
+        return NO;
+    
+	if (color == self)
+        return YES;
 	
 	NSColor *c1, *c2;
 	

@@ -60,7 +60,8 @@
 	if( [[self window] isVisible] == NO) return;
 	if( [self is2DViewer] == YES)
 	{
-		if( [[self windowController] windowWillClose]) return;
+		if( [[self windowController] windowWillClose])
+            return;
 	}
 	
 	BOOL SelectWindowScrollWheel = [[NSUserDefaults standardUserDefaults] boolForKey: @"SelectWindowScrollWheel"];
@@ -802,7 +803,8 @@
 	
 	[super roiChange:note];
 	
-	if( [roi type] != t2DPoint) return;
+	if( [roi type] != t2DPoint)
+        return;
 	
 	if ([[[note userInfo] valueForKey:@"action"] isEqualToString:@"mouseUp"] &&
         [[self window] firstResponder] == self)

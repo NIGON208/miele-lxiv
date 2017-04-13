@@ -45,7 +45,7 @@
         
         NSArray *originalDCMPixList = [dict objectForKey: @"DCMPixArray"];
         DCMPix *fPix = [originalDCMPixList objectAtIndex: 0];
-        float *Ycache = [[dict objectForKey: @"Ycache"] pointerValue];
+        float *Ycache = (float *)[[dict objectForKey: @"Ycache"] pointerValue];
         
         int	z;
         const register int maxY = [fPix pheight];
@@ -348,7 +348,7 @@
 	DCMPix	*curPix;
 	long	stack = 0;
 	
-	if( thickSlab <= 1)
+	if (thickSlab <= 1)
 	{
 		thickSlab = 1;
 		minI = sliceNumber;
@@ -365,10 +365,11 @@
 		minI = sliceNumber-floor((float)thickSlab/2.0);
 		maxI = sliceNumber+ceil((float)thickSlab/2.0);
 		
-		if( maxI > newTotal-1)
+		if (maxI > newTotal-1)
 		{
 			maxI = newTotal-1;
-			if( minI == maxI) minI = maxI-1;
+			if( minI == maxI)
+                minI = maxI-1;
 		}
 	}
 						
@@ -377,10 +378,10 @@
 	{
 		if( thickSlab > 1 && Ycache == nil)
 		{
-			if(useYcache)
-				Ycache = malloc( newTotal*newY*newX*sizeof(float));
+			if (useYcache)
+				Ycache = (float *)malloc( newTotal*newY*newX*sizeof(float));
 			
-			if( Ycache)
+			if (Ycache)
 			{
 				NSLog( @"start YCache");
 				
@@ -425,9 +426,9 @@
 	else
 	{
 		if( sign > 0)
-				[lastPix orientation: orientation];
+            [lastPix orientation: orientation];
 		else
-				[firstPix orientation: orientation];
+            [firstPix orientation: orientation];
 		
 		// Y Vector = Normal Vector
 		orientation[ 0] = orientation[ 3];
@@ -465,7 +466,8 @@
 				[newPixListX addObject: curPix];
 				[curPix release];
 			}
-			else curPix = [newPixListX objectAtIndex: stack];
+			else
+                curPix = [newPixListX objectAtIndex: stack];
 		}
 		else
 		{
@@ -477,7 +479,8 @@
 				[newPixListY addObject: curPix];
 				[curPix release];
 			}
-			else curPix = [newPixListY objectAtIndex: stack];
+			else
+                curPix = [newPixListY objectAtIndex: stack];
 		}
 		
 		[curPix fImage];	// <- Force CheckLoad
@@ -572,7 +575,9 @@
 	while( done == NO)
 	{
 		[processorsLock lock];
-		if( numberOfThreadsForCompute <= 0) done = YES;
+		if( numberOfThreadsForCompute <= 0)
+            done = YES;
+        
 		[processorsLock unlock];
 	}
 				

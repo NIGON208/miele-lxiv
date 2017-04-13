@@ -37,31 +37,35 @@ char* DCMreplaceInvalidCharacter( char* str ) {
 
 + (NSString*) NSreplaceBadCharacter: (NSString*) str
 {
-	if( str == nil) return nil;
+	if( str == nil)
+        return nil;
 	
-	NSMutableString	*mutable = [NSMutableString stringWithString: str];
+	NSMutableString	*mutable1 = [NSMutableString stringWithString: str];
 	
-//	[mutable replaceOccurrencesOfString:@"^" withString:@" " options:0 range:NSMakeRange(0, [mutable length])]; 
-//	[mutable replaceOccurrencesOfString:@"/" withString:@"-" options:0 range:NSMakeRange(0, [mutable length])]; 
-	[mutable replaceOccurrencesOfString:@"\r" withString:@"" options:0 range:NSMakeRange(0, [mutable length])]; 
-	[mutable replaceOccurrencesOfString:@"\n" withString:@"" options:0 range:NSMakeRange(0, [mutable length])]; 
-	[mutable replaceOccurrencesOfString:@"\"" withString:@"'" options:0 range:NSMakeRange(0, [mutable length])];
+//	[mutable1 replaceOccurrencesOfString:@"^" withString:@" " options:0 range:NSMakeRange(0, [mutable1 length])];
+//	[mutable1 replaceOccurrencesOfString:@"/" withString:@"-" options:0 range:NSMakeRange(0, [mutable1 length])];
+	[mutable1 replaceOccurrencesOfString:@"\r" withString:@"" options:0 range:NSMakeRange(0, [mutable1 length])];
+	[mutable1 replaceOccurrencesOfString:@"\n" withString:@"" options:0 range:NSMakeRange(0, [mutable1 length])];
+	[mutable1 replaceOccurrencesOfString:@"\"" withString:@"'" options:0 range:NSMakeRange(0, [mutable1 length])];
 	
-	NSUInteger i = [mutable length];
+	NSUInteger i = [mutable1 length];
 	while( --i > 0)
 	{
-		if( [mutable characterAtIndex: i]==' ') [mutable deleteCharactersInRange: NSMakeRange( i, 1)];
-		else i = 0;
+		if( [mutable1 characterAtIndex: i]==' ')
+            [mutable1 deleteCharactersInRange: NSMakeRange( i, 1)];
+		else
+            i = 0;
 	}
 	
-	return mutable;
+	return mutable1;
 }
 
 // Based on dcmtk 3.6 convertString function
 
 + (NSString *) stringWithBytes:(char *) str length:(unsigned) length encodings: (NSStringEncoding*) encodings
 {
-	if( str == nil) return nil;
+	if( str == nil)
+        return nil;
     
     NSUInteger fromLength;
     
@@ -248,8 +252,11 @@ char* DCMreplaceInvalidCharacter( char* str ) {
 {
 	NSStringEncoding encoding = NSISOLatin1StringEncoding;
 	
-	if( characterSet == nil) return encoding;
-	if( [characterSet isEqualToString:@""]) return encoding;
+	if( characterSet == nil)
+        return encoding;
+    
+	if( [characterSet isEqualToString:@""])
+        return encoding;
 	
 	characterSet = [characterSet stringByReplacingOccurrencesOfString:@"-" withString:@" "];
 	characterSet = [characterSet stringByReplacingOccurrencesOfString:@"_" withString:@" "];

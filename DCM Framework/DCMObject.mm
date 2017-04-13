@@ -159,7 +159,7 @@ static kern_return_t GetMACAddress(io_iterator_t intfIterator, UInt8 *MACAddress
 				UInt8 tempMac[ kIOEthernetAddressSize];
 				
                 // Get the raw bytes of the MAC address from the CFData
-                CFDataGetBytes(MACAddressAsCFData, CFRangeMake(0, kIOEthernetAddressSize), tempMac);
+                CFDataGetBytes((CFDataRef)MACAddressAsCFData, CFRangeMake(0, kIOEthernetAddressSize), tempMac);
                 CFRelease(MACAddressAsCFData);
 				
 				if( tempMac[ 5] + 256*tempMac[ 4] > MACAddress[ 5] + 256*MACAddress[ 4])
@@ -270,14 +270,18 @@ static NSString* getMacAddressNumber( void)
 @synthesize specificCharacterSet;
 @synthesize attributes, isSequence;
 
-+ (BOOL)isDICOM:(NSData *)data{
++ (BOOL)isDICOM:(NSData *)data
+{
 	//int position = 128;
-	if( [data length] < 132) return NO;
+	if( [data length] < 132)
+        return NO;
+    
 	unsigned char *string = (unsigned char *)[data bytes];
 	//unsigned char *string2 = string + 128;
 	//NSLog(@"dicom at 128: %@" , [NSString  stringWithCString:string2 length:4]);
 	if (string[128] == 'D' && string[129] == 'I'&& string[130] == 'C' && string[131] == 'M')
 		return YES;
+    
 	return NO;
 }
 
@@ -666,8 +670,11 @@ PixelRepresentation
 	return [self initWithDataContainer:container lengthToRead:[container length] byteOffset:&offset characterSet:nil decodingPixelData:NO];
 }
 
-- (id)initWithContentsOfFile:(NSString *)file decodingPixelData:(BOOL)decodePixelData{
-	if([[NSFileManager defaultManager] fileExistsAtPath:file] == NO) return nil;
+- (id)initWithContentsOfFile:(NSString *)file decodingPixelData:(BOOL)decodePixelData
+{
+	if([[NSFileManager defaultManager] fileExistsAtPath:file] == NO)
+        return nil;
+    
 	NSData *aData = [NSData dataWithContentsOfMappedFile:file];
 	return [self initWithData:aData decodingPixelData:decodePixelData] ;
 }
@@ -1078,14 +1085,14 @@ PixelRepresentation
 	
 }
 
-- (DCMAttribute *) newAttributeForAttributeTag:(DCMAttributeTag *)tag 
-			vr:(NSString *)vr 
-			length:(int) vl 
-			data:(DCMDataContainer *)dicomData 
-			specificCharacterSet:(DCMCharacterSet *)specificCharacterSet
-			isExplicit:(BOOL) explicit
-			forImplicitUseOW:(BOOL)forImplicitUseOW {
-
+- (DCMAttribute *) newAttributeForAttributeTag:(DCMAttributeTag *)tag
+                                            vr:(NSString *)vr
+                                        length:(int)vl
+                                          data:(DCMDataContainer *)dicomData
+                          specificCharacterSet:(DCMCharacterSet *)specificCharacterSet
+                                    isExplicit:(BOOL)explicitTS
+                              forImplicitUseOW:(BOOL)forImplicitUseOW
+{
 	DCMAttribute *a = nil;
 	return a;
 }

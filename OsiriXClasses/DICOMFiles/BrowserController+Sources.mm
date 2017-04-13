@@ -537,7 +537,8 @@ static void* const SearchDicomNodesContext = @"SearchDicomNodesContext";
                     dni = [LocalDatabaseNodeIdentifier localDatabaseNodeIdentifierWithPath:dpath description:[d objectForKey:@"Description"] dictionary:d];
                     dni.entered = YES;
                     [_browser.sources addObject:dni];
-                } else {
+                }
+                else {
                     dni = [_browser.sources.content objectAtIndex:i];
                     dni.entered = YES;
                     dni.description = [d objectForKey:@"Description"];
@@ -582,7 +583,8 @@ static void* const SearchDicomNodesContext = @"SearchDicomNodesContext";
                             dni = [RemoteDatabaseNodeIdentifier remoteDatabaseNodeIdentifierWithLocation:dadd port:[[d valueForKey:@"Port"] intValue] description:[d objectForKey:@"Description"] dictionary:d];
                             dni.entered = YES;
                             [_browser.sources addObject:dni];
-                        } else {
+                        }
+                        else {
                             dni = [_browser.sources.content objectAtIndex:i];
                             dni.entered = YES;
                             dni.description = [d objectForKey:@"Description"];
@@ -637,7 +639,8 @@ static void* const SearchDicomNodesContext = @"SearchDicomNodesContext";
                             dni = [DicomNodeIdentifier dicomNodeIdentifierWithLocation: [k objectForKey:@"Address"] port:[[k objectForKey:@"Port"] intValue] aetitle:[k objectForKey:@"AETitle"] description:[k objectForKey:@"Description"] dictionary:[aa objectForKey:aak]];
                             dni.entered = YES;
                             [_browser.sources addObject:dni];
-                        } else {
+                        }
+                        else {
                             dni = [_browser.sources.content objectAtIndex:i];
                             dni.entered = YES;
                             dni.dictionary = [aa objectForKey:aak];
@@ -662,7 +665,8 @@ static void* const SearchDicomNodesContext = @"SearchDicomNodesContext";
                                 [dni performSelector: @selector( autorelease) withObject: nil afterDelay: 60];
                             }
                         }
-                } else 
+                }
+                else
                 { // add remote databases detected with bonjour
                     for (DataNodeIdentifier* dni in _bonjourSources)
                         if ([dni isKindOfClass:[RemoteDatabaseNodeIdentifier class]] && !dni.detected && dni.location) {
@@ -687,7 +691,8 @@ static void* const SearchDicomNodesContext = @"SearchDicomNodesContext";
                                 [dni performSelector: @selector( autorelease) withObject: nil afterDelay: 60];
                             }
                         }
-                } else
+                }
+                else
                 { // add dicom nodes detected with bonjour
                     for (DataNodeIdentifier* dni in _bonjourSources)
                         if ([dni isKindOfClass:[DicomNodeIdentifier class]] && !dni.detected && dni.location) {
@@ -1237,7 +1242,7 @@ static void* const SearchDicomNodesContext = @"SearchDicomNodesContext";
         _unmountButton.alternateImage = [NSImage imageNamed:@"Eject_lightgray"];
         _unmountButton.alternateImage.size = NSMakeSize(10,11);
         _unmountButton.imagePosition = NSImageOnly;
-        _unmountButton.bezelStyle = 0;
+        _unmountButton.bezelStyle = (NSBezelStyle)0;
         [_unmountButton setButtonType:NSMomentaryLightButton];
         [_unmountButton setBordered:NO];
         NSButtonCell* cell = _unmountButton.cell;

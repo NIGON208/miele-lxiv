@@ -46,8 +46,11 @@ NSString* const SessionLastActivityDateKey = @"LastActivityDate"; // NSDate
 
 -(void)setObject:(id)o forKey:(NSString*)k {
 	[dictLock lock];
-	if (o) [dict setObject:o forKey:k];
-	else [dict removeObjectForKey:k];
+	if (o)
+        [dict setObject:o forKey:k];
+	else
+        [dict removeObjectForKey:k];
+    
 	[dictLock unlock];
 }
 

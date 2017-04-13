@@ -84,8 +84,10 @@ unsigned int minimumStep;
 	switch( tool)
 	{
 		case tWL:
-			if( vrView.renderingMode == 1 || vrView.renderingMode == 3 || vrView.renderingMode == 2) return YES; // MIP
-			else return NO; // VR
+			if( vrView.renderingMode == 1 || vrView.renderingMode == 3 || vrView.renderingMode == 2)
+                return YES; // MIP
+			else
+                return NO; // VR
 		break;
 		
 		case tNext:
@@ -104,7 +106,8 @@ unsigned int minimumStep;
 		case tLayerROI:
 		case tROISelector:
 			return YES;
-        default:;
+        default:
+            break;
 	}
 	
 	return NO;
@@ -1187,7 +1190,7 @@ unsigned int minimumStep;
 						
 						int mode = [[ROIsStateSaved objectForKey: [NSValue valueWithPointer: r]] intValue];
 						if( mode)
-							[new2DPointROI setROIMode: mode];
+							[new2DPointROI setROIMode: (ROI_mode)mode];
 					}
 				}
 			}
@@ -1866,8 +1869,10 @@ unsigned int minimumStep;
 				
 				[self updateViewMPR: NO];
 			}
-			else if( [vrView _tool] == tZoom) [self updateViewMPR: NO];
-			else [self updateViewMPR];
+			else if( [vrView _tool] == tZoom)
+                [self updateViewMPR: NO];
+			else
+                [self updateViewMPR];
 			
 			[NSObject cancelPreviousPerformRequestsWithTarget: windowController selector:@selector(delayedFullLODRendering:) object: nil];
 			[windowController performSelector: @selector(delayedFullLODRendering:) withObject: nil afterDelay: 0.4];
@@ -1908,8 +1913,10 @@ unsigned int minimumStep;
 		int mouseOnLines = [self mouseOnLines: [self convertPoint: [theEvent locationInWindow] fromView:nil]];
 		if( mouseOnLines==2)
 		{
-			if( [theEvent type] == NSLeftMouseDragged) [[NSCursor closedHandCursor] set];
-			else [[NSCursor openHandCursor] set];
+			if( [theEvent type] == NSLeftMouseDragged)
+                [[NSCursor closedHandCursor] set];
+			else
+                [[NSCursor openHandCursor] set];
 		}
 		else if( mouseOnLines==1)
 		{

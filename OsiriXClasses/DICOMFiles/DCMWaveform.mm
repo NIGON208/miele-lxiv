@@ -138,7 +138,7 @@
         if (numberOfChannels * numberOfSamplesPerChannel * bytesPerSample != self.waveformData.length)
             return nil;
         
-        uint8_t* op = (void*)self.waveformData.bytes;
+        uint8_t* op = (uint8_t *)self.waveformData.bytes;
         
         CGFloat* mm = (CGFloat*)malloc(sizeof(CGFloat)*2*numberOfChannels);
         memset(mm, 0, sizeof(CGFloat)*2*numberOfChannels);

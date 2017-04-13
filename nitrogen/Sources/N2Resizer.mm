@@ -36,7 +36,9 @@
 }
 
 -(void)observedBoundsSizeDidChange:(NSNotification*)notification {
-	if (_resizing) return;
+	if (_resizing)
+        return;
+    
 	_resizing = YES;
 	
 	NSValue* value = [[notification userInfo] objectForKey:N2ViewBoundsSizeDidChangeNotificationOldBoundsSize];

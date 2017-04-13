@@ -283,9 +283,11 @@ static float deg2rad = M_PI / 180.0f;
 						width:				w
 						height:				h];
 		}
-		else return -1;
+		else
+            return -1;
 	}
-	else return -1;
+	else
+        return -1;
 }
 
 - (void) setDefaultWWWL: (long) iww :(long) iwl
@@ -1402,7 +1404,8 @@ static float deg2rad = M_PI / 180.0f;
 			return nil;
 		}
 	}
-	else return nil;
+	else
+        return nil;
 	
 	return nil;
 }

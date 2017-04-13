@@ -386,7 +386,8 @@ static BOOL is_leap_year(unsigned year);
 							}
 							break;
 
-						case 1:; //-YY; -YY-MM (implicit century)
+						case 1: //-YY; -YY-MM (implicit century)
+                        {
 							NSLog(@"(%@) found %u digits and one hyphen, so this is either -YY or -YY-MM; segment (year) is %u", string, num_digits, segment);
 							unsigned current_year = nowComponents.year;
 							unsigned century = (current_year % 100U);
@@ -402,6 +403,7 @@ static BOOL is_leap_year(unsigned year);
 
 							day = 1U;
 							break;
+                        }
 
 						case 2: //--MM; --MM-DD
 							year = nowComponents.year;
@@ -489,7 +491,7 @@ static BOOL is_leap_year(unsigned year);
 						break;
 
 					case '+':
-					case '-':;
+					case '-':
 						BOOL negative = (*ch == '-');
 						if (isdigit(*++ch)) {
 							//Read hour offset.
@@ -533,7 +535,8 @@ static BOOL is_leap_year(unsigned year);
 					components.month = month_or_week;
 					break;
 
-				case week:;
+				case week:
+                {
 					//Adapted from <http://personal.ecu.edu/mccartyr/ISOwdALG.txt>.
 					//This works by converting the week date into an ordinal date, then letting the next case handle it.
 					unsigned prevYear = year - 1U;
@@ -544,6 +547,8 @@ static BOOL is_leap_year(unsigned year);
 					unsigned Jan1Weekday = (isLeapYear + G) % 7U;
 					enum { monday, tuesday, wednesday, thursday/*, friday, saturday, sunday*/ };
 					components.day = ((8U - Jan1Weekday) + (7U * (Jan1Weekday > thursday))) + (day - 1U) + (7U * (month_or_week - 2));
+                    break; // TODO: confirm
+                }
 
 				case dateOnly: //An "ordinal date".
 					break;
@@ -783,12 +788,18 @@ static unsigned read_segment_4digits(const unsigned char *str, const unsigned ch
 		++num_digits;
 	}
 
-	if (next) *next = str;
-	if (out_num_digits) *out_num_digits = num_digits;
+	if (next)
+        *next = str;
+    
+	if (out_num_digits)
+        *out_num_digits = num_digits;
 
 	return value;
 }
-static unsigned read_segment_2digits(const unsigned char *str, const unsigned char **next) {
+
+static unsigned read_segment_2digits(const unsigned char *str, const unsigned char **next)
+
+{
 	unsigned value = 0U;
 
 	if (isdigit(*str))
@@ -799,13 +810,15 @@ static unsigned read_segment_2digits(const unsigned char *str, const unsigned ch
 		value += *(str++) - '0';
 	}
 
-	if (next) *next = str;
+	if (next)
+        *next = str;
 
 	return value;
 }
 
 //strtod doesn't support ',' as a separator. This does.
-static double read_double(const unsigned char *str, const unsigned char **next) {
+static double read_double(const unsigned char *str, const unsigned char **next)
+{
 	double value = 0.0;
 
 	if (str) {

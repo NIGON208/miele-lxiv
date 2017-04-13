@@ -36,15 +36,14 @@ BOOL IsPPC()
 
 int GetAltiVecTypeAvailable( void )
 {
+    int sels[2] = { CTL_HW, HW_VECTORUNIT };
+    int vType = 0; //0 == scalar only
+    size_t length = sizeof(vType);
+    int error = sysctl(sels, 2, &vType, &length, NULL, 0);
+    if( 0 == error )
+        return vType;
 
-int sels[2] = { CTL_HW, HW_VECTORUNIT };
-int vType = 0; //0 == scalar only
-size_t length = sizeof(vType);
-int error = sysctl(sels, 2, &vType, &length, NULL, 0);
-if( 0 == error ) return vType;
-
-return 0;
-
+    return 0;
 }
 
 long vramSize()
@@ -73,7 +72,7 @@ long vramSize()
 		if( CFGetTypeID(typeCode) == CFNumberGetTypeID())
 		{
 			// Convert this to a useable number
-			CFNumberGetValue(typeCode, kCFNumberSInt32Type, &vramStorage);
+			CFNumberGetValue((CFNumberRef)typeCode, kCFNumberSInt32Type, &vramStorage);
 		}
 		
 		CFRelease( typeCode);

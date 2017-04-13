@@ -1899,7 +1899,8 @@ static OFCondition cstore(T_ASC_Association * assoc, const OFString& fname)
 
 - (void) updateLogEntry: (NSMutableDictionary*) userInfo
 {
-	if( [[BrowserController currentBrowser] isNetworkLogsActive] == NO) return;
+	if( [[BrowserController currentBrowser] isNetworkLogsActive] == NO)
+        return;
 	
 	@try
 	{

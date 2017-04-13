@@ -83,13 +83,15 @@
 - (void)mouseDragged:(NSEvent*)event {
     if (_menuWindow)
         [_menuWindow sendEvent:[NSEvent mouseEventWithType:NSLeftMouseDragged location:[_menuWindow convertScreenToBase:[event.window convertBaseToScreen:event.locationInWindow]] modifierFlags:event.modifierFlags timestamp:event.timestamp windowNumber:_menuWindow.windowNumber context:event.context eventNumber:event.eventNumber clickCount:event.clickCount pressure:event.pressure]];
-    else [super mouseDragged:event];
+    else
+        [super mouseDragged:event];
 }
 
 - (void)mouseUp:(NSEvent*)event {
     if (_menuWindow)
         [_menuWindow sendEvent:[NSEvent mouseEventWithType:NSLeftMouseUp location:[_menuWindow convertScreenToBase:[event.window convertBaseToScreen:event.locationInWindow]] modifierFlags:event.modifierFlags timestamp:event.timestamp windowNumber:_menuWindow.windowNumber context:event.context eventNumber:event.eventNumber clickCount:event.clickCount pressure:event.pressure]];
-    else [super mouseUp:event];
+    else
+        [super mouseUp:event];
 }
 
 - (void)keyDown:(NSEvent*)event {

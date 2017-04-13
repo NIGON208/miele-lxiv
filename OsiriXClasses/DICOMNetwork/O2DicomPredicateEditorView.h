@@ -47,7 +47,7 @@
 @property NSInteger tagsSortKey;
 
 @property(retain) DCMAttributeTag* tag;
-@property NSInteger operator;
+@property NSInteger operat;
 @property(retain,nonatomic) NSString* stringValue;
 @property(retain) NSNumber* numberValue;
 @property(retain) NSDate* dateValue;

@@ -351,10 +351,9 @@
 - (BOOL)writeToDataContainer:(DCMDataContainer *)container
           withTransferSyntax:(DCMTransferSyntax *)ts
 {
-	if( characterSet == nil)
+	if (characterSet == nil)
 		characterSet = [[DCMCharacterSet alloc] initWithCode: @"ISO_IR 100"];
 	
-	int i;
 	const char *chars = [_vr UTF8String];
 	int vr = chars[0]<<8 | chars[1];
 	int vm = self.valueMultiplicity;
@@ -378,16 +377,16 @@
 		{
 		// unsigned Short
 		 case DCM_US:   //unsigned short
-				for (i = 0; i< vm; i++)
+				for (int i = 0; i< vm; i++)
 					[container addUnsignedShort:[[_values objectAtIndex:i] intValue]]; 
 				break;
             case DCM_SS:	//signed short
-				for (i = 0; i< vm; i++)
+				for (int i = 0; i< vm; i++)
 					[container addSignedShort:[[_values objectAtIndex:i] intValue]];
                 break;
 			
             case DCM_DA:	//Date String yyyymmdd 8bytes old format was yyyy.mm.dd for 10 bytes. May need to implement old format
-				for (i = 0; i< vm; i++) {
+				for (int i = 0; i< vm; i++) {
 
 					[container addDate:(DCMCalendarDate *)[_values objectAtIndex:i]];
 					if (i < (vm - 1))
@@ -398,7 +397,7 @@
                 break;
 			
             case DCM_TM:
-				for (i = 0; i< vm; i++) {
+				for (int i = 0; i< vm; i++) {
 					[container addTime:(DCMCalendarDate *)[_values objectAtIndex:i]];
 					if (i < (vm - 1))
 						[container addStringWithoutPadding:@"\\"];
@@ -408,7 +407,7 @@
                 break;
 			
 			case DCM_DT:	//Date Time YYYYMMDDHHMMSS.FFFFFF&ZZZZ FFFFFF= fractional Sec. ZZZZ=offset from Hr and min offset from universal time
-				for (i = 0; i< vm; i++) {
+				for (int i = 0; i< vm; i++) {
 					[container addDateTime:[_values objectAtIndex:i]];
 					if (i < (vm - 1))
 						[container addStringWithoutPadding:@"\\"];
@@ -424,28 +423,28 @@
 			case DCM_UN:	//unknown
             case DCM_OB:	//other Byte byte string not little/big endian sensitive
             case DCM_OW:	//other word 16bit word
-				for (i = 0; i< [_values count]; i++) 
+				for (int i = 0; i< [_values count]; i++)
 					[container addData:[_values objectAtIndex:i]];
                 break;  
 			
 			case DCM_AT:	//Attribute Tag 16bit unsigned integer
             case DCM_UL:	//unsigned Long
-				for (i = 0; i< vm; i++)
+				for (int i = 0; i< vm; i++)
 					[container addUnsignedLong:[[_values objectAtIndex:i] unsignedLongValue]];
                 break;
             
             case DCM_SL:	//signed long
-				for (i = 0; i< vm; i++)
+				for (int i = 0; i< vm; i++)
 					[container addSignedLong:[[_values objectAtIndex:i] longValue]];
                 break;
 			
             case DCM_FL:	//floating point Single 4 bytes fixed
-				for (i = 0; i< vm; i++)
+				for (int i = 0; i< vm; i++)
 					[container addFloat:[[_values objectAtIndex:i] floatValue]];
                 break;
 			
             case DCM_FD:	//double floating point 8 bytes fixed
-				for (i = 0; i< vm; i++)
+				for (int i = 0; i< vm; i++)
 					[container addDouble:[[_values objectAtIndex:i] doubleValue]];
                 break;
 			
@@ -705,7 +704,7 @@
                         NSUInteger capacity = [value length] * 2;
                         NSMutableString *stringBuffer = [NSMutableString stringWithCapacity:capacity];
                         [stringBuffer appendString: @"0x"];
-                        const unsigned char *dataBuffer = [value bytes];
+                        const unsigned char *dataBuffer = (const unsigned char *)[value bytes];
                         for (long x=0; x<[value length]; x++) {
                             [stringBuffer appendFormat:@"%02lX", (unsigned long)dataBuffer[x]];
                         }

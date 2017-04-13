@@ -106,8 +106,10 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
 	switch( tool)
 	{
 		case tWL:
-			if( vrView.renderingMode == 1 || vrView.renderingMode == 3 || vrView.renderingMode == 2) return YES; // MIP
-			else return NO; // VR
+			if( vrView.renderingMode == 1 || vrView.renderingMode == 3 || vrView.renderingMode == 2)
+                return YES; // MIP
+			else
+                return NO; // VR
             break;
             
 		case tNext:
@@ -128,7 +130,8 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
 		case tCurvedROI:
 			return YES;
             break;
-        default:;
+        default:
+            break;
 	}
 	
 	return NO;
@@ -993,7 +996,8 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
 
 - (void)keyDown:(NSEvent *)theEvent
 {
-    if( [[theEvent characters] length] == 0) return;
+    if( [[theEvent characters] length] == 0)
+        return;
     
     unichar c = [[theEvent characters] characterAtIndex:0];
     
@@ -1013,7 +1017,8 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
 			else
 				[self deleteCurrentCurvedPath];
 		}
-		else [windowController keyDown:theEvent];
+		else
+            [windowController keyDown:theEvent];
 	}
 	else if( tool == tCurvedROI && (c == NSDeleteCharacter || c == NSDeleteFunctionKey))
 	{
@@ -1209,7 +1214,7 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
 						
 						int mode = [[ROIsStateSaved objectForKey: [NSValue valueWithPointer: r]] intValue];
 						if( mode)
-							[new2DPointROI setROIMode: mode];
+							[new2DPointROI setROIMode: (ROI_mode)mode];
 					}
 				}
 			}
@@ -2067,8 +2072,10 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
 				
 				[self updateViewMPR: NO];
 			}
-			else if( [vrView _tool] == tZoom) [self updateViewMPR: NO];
-			else [self updateViewMPR];
+			else if( [vrView _tool] == tZoom)
+                [self updateViewMPR: NO];
+			else
+                [self updateViewMPR];
 			
 			[NSObject cancelPreviousPerformRequestsWithTarget: windowController selector:@selector(delayedFullLODRendering:) object: nil];
 			[windowController performSelector: @selector(delayedFullLODRendering:) withObject: nil afterDelay: 0.4];
@@ -2192,8 +2199,10 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
 		int mouseOnLines = [self mouseOnLines:viewPoint];
 		if( mouseOnLines==2)
 		{
-			if( [theEvent type] == NSLeftMouseDragged || [theEvent type] == NSLeftMouseDown) [[NSCursor closedHandCursor] set];
-			else [[NSCursor openHandCursor] set];
+			if( [theEvent type] == NSLeftMouseDragged || [theEvent type] == NSLeftMouseDown)
+                [[NSCursor closedHandCursor] set];
+			else
+                [[NSCursor openHandCursor] set];
 		}
 		else if( mouseOnLines==1)
 		{

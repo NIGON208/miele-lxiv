@@ -60,6 +60,7 @@
 			specificCharacterSet = [characterSet retain];
 		else
 			specificCharacterSet = [[DCMCharacterSet alloc] initWithCode:@"ISO_IR 100"];
+        
 		transferSyntax = [[data transferSyntaxForDataset] retain];
 		DCMDataContainer *dicomData;
 		dicomData = [data retain];
@@ -71,8 +72,10 @@
 			[self autorelease];
             self = nil;
 		}
+        
 		if (DCMDEBUG)
 			NSLog(@"end readDataSet byteOffset: %d", *byteOffset);
+        
 		[dicomData release];
 			//NSLog(@"DCMObject end init: %f", -[timestamp  timeIntervalSinceNow]); 
 	}
@@ -113,6 +116,7 @@
                     //NSLog(@"start reading dataset");
                     [dicomData startReadingDataSet];
                 }
+                
                 isExplicit = [[dicomData transferSyntaxInUse] isExplicit];
                 //NSLog(@"DCMObject readTag: %f", -[timestamp  timeIntervalSinceNow]);
                 DCMAttributeTag *tag = [[[DCMAttributeTag alloc]  initWithGroup:group element:element] autorelease];
@@ -121,12 +125,14 @@
                 //		NSLog(@"byteoffset before VR %d",*byteOffset);
                 if (DCMDEBUG)
                     NSLog(@"Tag: %@  group: 0x%4000x  word 0x%4000x", [tag description], group, element);
+                
                 if ([[tag stringValue] isEqualToString:[sharedTagForNameDictionary objectForKey:@"ItemDelimitationItem"]]) {
                     // Read and discard value length
                     [dicomData nextUnsignedLong];
                     *byteOffset+=4;
                     if (DCMDEBUG)
                         NSLog(@"ItemDelimitationItem");
+                    
                     break;
                     //return *byteOffset;	// stop now, since we must have been called to read an item's dataset
                 }
@@ -151,6 +157,7 @@
                         vr = [dicomData nextStringWithLength:2];
                         if (DCMDEBUG)
                             NSLog(@"Explicit VR %@", vr);
+                        
                         *byteOffset+=2;
                         if (!vr)
                             vr = [tag vr];
@@ -164,18 +171,20 @@
                         vr = [tag vr];
                         if (!vr)
                             vr = @"UN";
+                        
                         if ([vr isEqualToString:@"US/SS/OW"])
                             vr = @"OW";
+                        
                         // set VR for Pixel Description depenedent tags. Can be either  US or SS depending on Pixel Description
                         if ([vr isEqualToString:@"US/SS"]) {
-                        if ( pixelRepresentationIsSigned)
+                            if (pixelRepresentationIsSigned)
                                 vr = @"SS";
                             else 
                                 vr = @"US";
                         }
+                        
                         if (DCMDEBUG)
-                            NSLog(@"Implicit VR %@", vr);	
-
+                            NSLog(@"Implicit VR %@", vr);
 
                     }
                     //if (DCMDEBUG)
@@ -196,6 +205,7 @@
                         vl = [dicomData nextUnsignedLong];
                         *byteOffset += 4;
                     }
+                    
                     if (DCMDEBUG)
                         NSLog(@"Tag: %@, length: %ld", [tag description], vl);
                     //if (DCMDEBUG)
@@ -244,12 +254,15 @@
                     */
                     if (DCMDEBUG)
                         NSLog(@"Attr: %@", [attr description]);
+                    
                     if (attr)
                         [attributes setObject:attr forKey:[tag stringValue]];
+                    
                     if ([[tag stringValue] isEqualToString:[sharedTagForNameDictionary objectForKey:@"MetaElementGroupLength"]])  {
                         readingMetaHeader = YES;
                         if (DCMDEBUG)
                             NSLog(@"metaheader length : %d", [[attr value] intValue]);
+                        
                         endMetaHeaderPosition = [[attr value] intValue] + *byteOffset;
                         [dicomData startReadingMetaHeader];
                     }
@@ -287,11 +300,9 @@
                             isShort = YES;
                     }
                     
-                    if ([[tag stringValue] isEqualToString:[sharedTagForNameDictionary objectForKey:@"PixelRepresentation"]]) {
-                        pixelRepresentationIsSigned = [[attr value] intValue] ;
-            
-                    }
-                        
+                    if ([[tag stringValue] isEqualToString:[sharedTagForNameDictionary objectForKey:@"PixelRepresentation"]])
+                        pixelRepresentationIsSigned = [[attr value] intValue];
+                    
                     /*
                     if (readingMetaHeader && (*byteOffset >= endMetaHeaderPosition)) {
                         if (DCMDEBUG)
@@ -299,12 +310,8 @@
                         readingMetaHeader = NO;
                         [dicomData startReadingDataSet];
                     }
-                    */	
-                        
-
+                    */
                 }
-                    
-                    
             }
             @catch (NSException *e) {
                 NSLog( @"%@", e);
@@ -327,6 +334,5 @@
 	
 	return *byteOffset;
 }
-
 
 @end

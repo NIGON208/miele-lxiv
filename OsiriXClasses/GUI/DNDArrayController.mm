@@ -84,9 +84,7 @@ NSString *CopiedRowsType = @"COPIED_ROWS_TYPE";
 	if( _authView != nil)
 	{
 		if( [_authView authorizationState] != SFAuthorizationViewUnlockedState)
-		{
 			return NO;
-		}
 	}
 
 	// declare our own pasteboard types
@@ -123,17 +121,15 @@ NSString *CopiedRowsType = @"COPIED_ROWS_TYPE";
 	if( _authView != nil)
 	{
 		if( [_authView authorizationState] != SFAuthorizationViewUnlockedState)
-		{
 			return NSDragOperationNone;
-		}
 	}
 	
     NSDragOperation dragOp = NSDragOperationCopy;
     
     // if drag source is self, it's a move
-    if ([info draggingSource] == tableView) {
+    if ([info draggingSource] == tableView)
 		dragOp =  NSDragOperationMove;
-    }
+
     // we want to put the object at, not over,
     // the current row (contrast NSTableViewDropOn) 
     [tv setDropRow:row dropOperation:NSTableViewDropAbove];
@@ -178,14 +174,11 @@ NSString *CopiedRowsType = @"COPIED_ROWS_TYPE";
 	if( _authView != nil)
 	{
 		if( [_authView authorizationState] != SFAuthorizationViewUnlockedState)
-		{
 			return NO;
-		}
 	}
 	
-    if (row < 0) {
+    if (row < 0)
 		row = 0;
-	}
     
     // if drag source is self, it's a move
     if ([info draggingSource] == tableView) {
@@ -210,8 +203,6 @@ NSString *CopiedRowsType = @"COPIED_ROWS_TYPE";
     return NO;
 }
 
-
-
 -(void) moveObjectsInArrangedObjectsFromIndexes:(NSIndexSet*)indexSet
 										toIndex:(unsigned int)insertIndex
 {
@@ -232,6 +223,7 @@ NSString *CopiedRowsType = @"COPIED_ROWS_TYPE";
 			removeIndex = index;
 			insertIndex -= 1;
 		}
+        
 		object = [objects objectAtIndex:removeIndex];
 		[self removeObjectAtArrangedObjectIndex:removeIndex];
 		[self insertObject:object atArrangedObjectIndex:insertIndex];
@@ -242,26 +234,27 @@ NSString *CopiedRowsType = @"COPIED_ROWS_TYPE";
     }
 }
 
-
 - (NSIndexSet *)indexSetFromRows:(NSArray *)rows
 {
     NSMutableIndexSet *indexSet = [NSMutableIndexSet indexSet];
     NSNumber *idx;
-    for (idx in rows) {
+    for (idx in rows)
 		[indexSet addIndex:[idx intValue]];
-    }
+
     return indexSet;
 }
-
 
 - (int)rowsAboveRow:(int)row inIndexSet:(NSIndexSet *)indexSet
 {
     NSInteger currentIndex = [indexSet firstIndex];
     NSInteger i = 0;
     while (currentIndex != NSNotFound) {
-		if (currentIndex < row) { i++; }
-		currentIndex = [indexSet indexGreaterThanIndex:currentIndex];
+		if (currentIndex < row)
+            i++;
+
+        currentIndex = [indexSet indexGreaterThanIndex:currentIndex];
     }
+    
     return i;
 }
 

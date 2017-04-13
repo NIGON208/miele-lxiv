@@ -65,7 +65,7 @@
 - (void) setVRView: (VRView*) v viewID:(int) i;
 - (void) updateViewMPR;
 - (void) updateViewMPR:(BOOL) computeCrossReferenceLines;
-- (void) setCrossReferenceLines: (float[2][3]) a and: (float[2][3]) b;
+- (void) setCrossReferenceLines: (float[2][3]) a andLine: (float[2][3]) b;
 - (void) saveCamera;
 - (void) restoreCamera;
 - (void) restoreCameraAndCheckForFrame: (BOOL) v;

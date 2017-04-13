@@ -51,9 +51,12 @@
 }
 
 -(void)layOut {
-	if (!_enabled) return;
+	if (!_enabled)
+        return;
 	
-	if (_layingOut) return;
+	if (_layingOut)
+        return;
+    
 	_layingOut = YES;
 	
 	[_view formatSubview:NULL];

@@ -122,50 +122,43 @@ extern int delayedTileWindows;
 
 -(NSArray*) arrayOfFiles
 {
-	int result;
-	
-	result = editingLevel;
-	
 	[[NSUserDefaults standardUserDefaults] setInteger: editingLevel forKey: @"editingLevel"];
 	
-	switch ( result) 
+	switch (editingLevel)
 	{
 		case 0:
+        {
 			NSLog( @"image level");
 			return [NSArray arrayWithObject: imObj];
-		break;
+            break;
+        }
 		
 		case 1:
+        {
 			NSLog( @"series level");
-			
 			NSManagedObject	*series = [imObj valueForKey:@"series"];
-			
 			NSArray	*images = [[BrowserController currentBrowser] childrenArray: series];
-			
 			return images;
-		break;
+            break;
+        }
 		
 		case 2:
-			{
+        {
 			NSLog( @"study level");
-			
 			NSArray	*allSeries =  [[BrowserController currentBrowser] childrenArray: [imObj valueForKeyPath:@"series.study"]];
-			NSMutableArray *result = [NSMutableArray array];
+			NSMutableArray *resultArray = [NSMutableArray array];
+			for (id loopItem in allSeries)
+				[resultArray addObjectsFromArray: [[BrowserController currentBrowser] childrenArray: loopItem]];
 			
-			for(id loopItem in allSeries)
-			{
-				[result addObjectsFromArray: [[BrowserController currentBrowser] childrenArray: loopItem]];
-			}
-			
-			return result;
-			}
-		break;
+			return resultArray;
+            break;
+        }
 			
 		case 3:
-			{
+        {
 			NSLog( @"patient level");
-			
-			NSPredicate *predicate = [NSPredicate predicateWithFormat:  @"(patientID == %@)", [imObj valueForKeyPath:@"series.study.patientID"]];
+			NSPredicate *predicate =
+                [NSPredicate predicateWithFormat: @"(patientID == %@)", [imObj valueForKeyPath:@"series.study.patientID"]];
 			NSFetchRequest *dbRequest = [[[NSFetchRequest alloc] init] autorelease];
 			[dbRequest setEntity: [[BrowserController.currentBrowser.database.managedObjectModel entitiesByName] objectForKey:@"Study"]];
 			[dbRequest setPredicate: predicate];
@@ -201,8 +194,8 @@ extern int delayedTileWindows;
 			}
 			
 			return result;
-			}
-		break;
+            break;
+        }
 	}
 	
 	return nil;
@@ -399,16 +392,13 @@ extern int delayedTileWindows;
 -(void) reload:(id) sender // reloadFromFile
 {
 	NSMutableDictionary	*previousOutline = [NSMutableDictionary dictionary];
-	int i;
 	
-	for( i = 1; i < [table numberOfRows]; i++)
+	for (int i = 1; i < [table numberOfRows]; i++)
 	{
 		id item = [table itemAtRow: i];
 		
 		if( [table isExpandable: item])
-		{
 			[previousOutline setValue: [NSNumber numberWithBool: [table isItemExpanded: item]] forKey: [self getPath: item]];
-		}
 	}
 
 	[xmlDocument release];
@@ -424,7 +414,7 @@ extern int delayedTileWindows;
 	[table reloadData];
 	[table expandItem:[table itemAtRow:0] expandChildren:NO];
 	
-	for( i = 1; i < [table numberOfRows]; i++)
+	for (int i = 1; i < [table numberOfRows]; i++)
 	{
 		id item = [table itemAtRow: i];
 		
@@ -432,7 +422,8 @@ extern int delayedTileWindows;
 		{
 			NSNumber *num = [previousOutline valueForKey: [self getPath: item]];
 			
-			if( [num boolValue]) [table expandItem: item];
+			if ([num boolValue])
+                [table expandItem: item];
 		}
 	}
 	
@@ -500,7 +491,8 @@ extern int delayedTileWindows;
 
 - (void) changeImageObject:(Dicom_Image*) image
 {
-	if( image == imObj) return;
+	if( image == imObj)
+        return;
 	
     int selectedRow = [table selectedRow];
 	NSPoint origin = [[table superview] bounds].origin;
@@ -592,7 +584,8 @@ extern int delayedTileWindows;
 {
 	DCMView *view = [notif object];
 	
-	if( dontListenToIndexChange) return;
+	if( dontListenToIndexChange)
+        return;
 	
 	if( [view is2DViewer] && [view windowController] == viewer)
 		[self changeImageObject: [viewer currentImage]];
@@ -642,7 +635,8 @@ extern int delayedTileWindows;
 
 -(void) CloseViewerNotification:(NSNotification*) note
 {
-	if( dontClose) return;
+	if( dontClose)
+        return;
 	
 	if( [note object] == viewer)
 	{
@@ -910,14 +904,14 @@ extern int delayedTileWindows;
 
 - (void) traverse: (NSXMLNode*) node string:(NSMutableString*) string
 {
-	int i;
-	
-	for( i = 0; i < [node childCount]; i++)
+	for (int i = 0; i < [node childCount]; i++)
 	{
 		if( [[node childAtIndex: i] stringValue] && [[node childAtIndex: i] childCount] == 0)
 		{
-			if( [string length]) [string appendFormat:@"\\%@", [[node childAtIndex: i] stringValue]];
-			else [string appendString: [[node childAtIndex: i] stringValue]];
+			if( [string length])
+                [string appendFormat:@"\\%@", [[node childAtIndex: i] stringValue]];
+			else
+                [string appendString: [[node childAtIndex: i] stringValue]];
 		}
 		
 		if( [[node childAtIndex: i] childCount])
@@ -927,7 +921,8 @@ extern int delayedTileWindows;
 
 - (NSString*) stringsSeparatedForNode:(NSXMLNode*) node
 {
-	if( [node childCount] == 0) return [node valueForKey:@"stringValue"];
+	if( [node childCount] == 0)
+        return [node valueForKey:@"stringValue"];
 	
 	NSMutableString	*string = [NSMutableString string];
 	
@@ -970,16 +965,16 @@ extern int delayedTileWindows;
 
 - (BOOL)outlineView:(NSOutlineView *)outlineView shouldEditTableColumn:(NSTableColumn *)tableColumn item:(id)item
 {
-#if 1 //@@@
-	return YES;
-#else
 	if ([[NSUserDefaults standardUserDefaults] boolForKey:@"ALLOWDICOMEDITING"] == NO)
 	
-	if( isDICOM == NO) return NO;
+	if( isDICOM == NO)
+        return NO;
 	
-	if( [[NSFileManager defaultManager] isWritableFileAtPath: [imObj valueForKey:@"completePath"]] == NO) return NO;
+	if( [[NSFileManager defaultManager] isWritableFileAtPath: [imObj valueForKey:@"completePath"]] == NO)
+        return NO;
 	
-	if( self.editingActivated == NO) return NO;
+	if( self.editingActivated == NO)
+        return NO;
 	
 	if( [[tableColumn identifier] isEqualToString: @"stringValue"])
 	{
@@ -1003,7 +998,6 @@ extern int delayedTileWindows;
 	}
 	else
 		return NO;
-#endif
 }
 
 - (IBAction) switchEditing: (id) sender
@@ -1341,7 +1335,8 @@ extern int delayedTileWindows;
 
 - (void)keyDown:(NSEvent *)event
 {
-	if( [[event characters] length] == 0) return;
+	if( [[event characters] length] == 0)
+        return;
     
 	unichar c = [[event characters] characterAtIndex:0];
 	
@@ -1424,7 +1419,8 @@ extern int delayedTileWindows;
 			}
 		}
 	}
-	else [super keyDown: event];
+	else
+        [super keyDown: event];
 }
 
 - (void)copy:(id)sender
@@ -1658,11 +1654,8 @@ extern int delayedTileWindows;
 
 - (void) expandAll: (BOOL) deep
 {
-	int i;
-	for(i=0 ; i<[table numberOfRows] ; i++)
-	{
+	for (int i=0 ; i<[table numberOfRows] ; i++)
 		[table expandItem:[table itemAtRow:i] expandChildren:deep];
-	}
 }
 
 - (void) collapseAllItems: (id) sender
@@ -1677,16 +1670,14 @@ extern int delayedTileWindows;
 
 - (void) collapseAll: (BOOL) deep
 {
-	int i;
-	for(i=1 ; i<[table numberOfRows]; i++) // starting from 1, so the DICOMObject is not collapsed
-	{
+	for (int i=1 ; i<[table numberOfRows]; i++) // starting from 1, so the DICOMObject is not collapsed
 		[table collapseItem:[table itemAtRow:i] collapseChildren:deep];
-	}
 }
 
 - (IBAction) setGroupElement: (id) sender
 {
-	if( [dictionaryArray count] == 0) [self prepareDictionaryArray];
+	if( [dictionaryArray count] == 0)
+        [self prepareDictionaryArray];
 	
 	NSScanner	*hexscanner;
 	
@@ -1750,10 +1741,11 @@ extern int delayedTileWindows;
 
 - (NSString *)comboBox:(NSComboBox *)aComboBox completedString:(NSString *)uncompletedString
 {
-	if( [dictionaryArray count] == 0) [self prepareDictionaryArray];
+	if( [dictionaryArray count] == 0)
+        [self prepareDictionaryArray];
 	
-	if( [uncompletedString length] == 0) return nil;
-	
+	if( [uncompletedString length] == 0)
+        return nil;	
 	
 	for( id loopItem in dictionaryArray)
 	{

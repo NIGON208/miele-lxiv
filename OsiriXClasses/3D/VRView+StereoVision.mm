@@ -368,7 +368,8 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 	
 	if (rightView==nil)
 		rightView = [[VTKStereoVRView alloc] initWithFrame:contentRectRightScreen:self];
-	else [rightView setFrame:contentRectRightScreen];
+	else
+        [rightView setFrame:contentRectRightScreen];
 
 	[self initStereoLeftRight];
 	
@@ -429,11 +430,13 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 	contentRectLeftScreen.origin = NSZeroPoint;
 	if (leftView == nil)
 		leftView = [[vtkCocoaGLView alloc]initWithFrame:contentRectLeftScreen];
-	else [leftView setFrame:contentRectLeftScreen];
+	else
+        [leftView setFrame:contentRectLeftScreen];
 	
 	if (rightView==nil)
 		rightView = [[VTKStereoVRView alloc] initWithFrame:contentRectRightScreen:self];
-	else [rightView setFrame:contentRectRightScreen];
+	else
+        [rightView setFrame:contentRectRightScreen];
 	
 	LeftFullScreenWindow = [[NSWindow alloc] initWithContentRect:contentRectLeftScreen
 													   styleMask:windowStyle
@@ -456,7 +459,8 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 		[LeftFullScreenWindow setContentView:leftView];
 		
 	}
-	else return -1;
+	else
+        return -1;
 	
 	if(RightFullScreenWindow != nil)
 	{
@@ -467,7 +471,8 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 		[RightFullScreenWindow setContentView:rightView];
 		
 	}	
-	else return -1;
+	else
+        return -1;
 	
 
 	[self initStereoLeftRight];
@@ -663,11 +668,13 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 	
 	if (leftView == nil)
 		leftView = [[vtkCocoaGLView alloc]initWithFrame:contentRectLeftScreen];
-	else [leftView setFrame:contentRectLeftScreen];
+	else
+        [leftView setFrame:contentRectLeftScreen];
 	
 	if (rightView==nil)
 		rightView = [[VTKStereoVRView alloc] initWithFrame:contentRectRightScreen:self];
-	else [rightView setFrame:contentRectRightScreen];
+	else
+        [rightView setFrame:contentRectRightScreen];
 	
 	if(LeftFullScreenWindow != nil)
 	{
@@ -678,7 +685,8 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 		[LeftFullScreenWindow setContentView:leftView];
 		
 	}
-	else return -1;
+	else
+        return -1;
 	
 	if(RightFullScreenWindow != nil)
 	{
@@ -689,8 +697,8 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 		[RightFullScreenWindow setContentView:rightView];
 		
 	}	
-	else return -1;
-	
+	else
+        return -1;	
 	
 	[self initStereoLeftRight];
 	
@@ -736,10 +744,10 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 #pragma mark User Commands
 - (void) keyDown:(NSEvent *)event
 {
-    if( [[event characters] length] == 0) return;
+    if( [[event characters] length] == 0)
+        return;
     
     unichar c = [[event characters] characterAtIndex:0];
-	
 	if( c == ' ')
 	{
 		if( aRenderer->GetActors()->IsItemPresent( outlineRect))
@@ -862,12 +870,12 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 	else if(c == NSDeleteFunctionKey || c == NSDeleteCharacter || c == NSBackspaceCharacter)
 	{
 		if([self isAny3DPointSelected])
-		{
 			[self removeSelected3DPoint];
-		}
-		else [self yaw:-90.0];
+		else
+            [self yaw:-90.0];
 	}
-	else [super keyDown:event];
+	else
+        [super keyDown:event];
 }
 
 #pragma mark Service Routines
@@ -960,7 +968,8 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 		[self deleteMouseDownTimer];
 	}
 	
-	if (_dragInProgress == YES) return;
+	if (_dragInProgress == YES)
+        return;
 	
 	[drawLock lock];
 	
@@ -1726,8 +1735,8 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 		// Added SilvanWidmer 10-03-10
 		if(StereoVisionOn)
 			[self disableStereoModeLeftRight];
-		else [self restoreViewSizeAfterMatrix3DExport];
-		
+		else
+            [self restoreViewSizeAfterMatrix3DExport];		
 	}
 }
 

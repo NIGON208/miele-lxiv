@@ -93,11 +93,8 @@ typedef itk::ResampleImageFilter<ImageType, ImageType> ResampleFilterType;
             
             ParametersType parameters(transform->GetNumberOfParameters());
             
-            int i;
-            for(i=0; i<transform->GetNumberOfParameters(); i++)
-            {
+            for (int i=0; i<transform->GetNumberOfParameters(); i++)
                 parameters[i] = theParameters[i];
-            }
             
             transform->SetParameters(parameters);
             
@@ -376,7 +373,7 @@ typedef itk::ResampleImageFilter<ImageType, ImageType> ResampleFilterType;
 	else
 	{
 		if( NSRunCriticalAlertPanel(@"", //NSLocalizedString(@"32-bit", nil),
-                                    NSLocalizedString(@"Cannot complete the operation.\r\rUpgrade to OsiriX 64-bit or OsiriX MD to solve this issue.", nil),
+                                    NSLocalizedString(@"Cannot complete the operation.", nil),
                                     NSLocalizedString(@"OK", nil),
                                     nil, //NSLocalizedString(@"OsiriX 64-bit", nil),
                                     nil) == NSAlertAlternateReturn)

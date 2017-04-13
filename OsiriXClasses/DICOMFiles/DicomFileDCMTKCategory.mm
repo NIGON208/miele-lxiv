@@ -275,7 +275,6 @@ extern NSRecursiveLock *PapyrusLock;
 
 -(short) getDicomFileDCMTK
 {
-	int i;
 	long cardiacTime = -1;
 
 	NSStringEncoding encoding[ 10];
@@ -292,8 +291,10 @@ extern NSRecursiveLock *PapyrusLock;
 
 	if (status.good())
 	{
-		for( i = 0; i < 10; i++) encoding[ i] = 0;
-		encoding[ 0] = NSISOLatin1StringEncoding;
+		for (int i = 0; i < 10; i++)
+            encoding[ i] = 0;
+
+        encoding[ 0] = NSISOLatin1StringEncoding;
 		
 		DcmDataset *dataset = fileformat.getDataset();
 		
@@ -311,7 +312,8 @@ extern NSRecursiveLock *PapyrusLock;
 		}
 		
         // PrivateInformationCreatorUID
-		if (fileformat.getMetaInfo()->findAndGetString(DCM_PrivateInformationCreatorUID, string, OFFalse).good() && string != NULL) {
+		if (fileformat.getMetaInfo()->findAndGetString(DCM_PrivateInformationCreatorUID, string, OFFalse).good() && string != NULL)
+        {
             [dicomElements setObject:[NSString stringWithCString:string encoding:NSISOLatin1StringEncoding] forKey:@"PrivateInformationCreatorUID"];
         }
         
@@ -320,12 +322,16 @@ extern NSRecursiveLock *PapyrusLock;
 		{
 			NSArray	*c = [[NSString stringWithCString:string encoding: NSISOLatin1StringEncoding] componentsSeparatedByString:@"\\"];
 			
-			if( [c count] >= 10) NSLog( @"Encoding number >= 10 ???");
+			if ( [c count] >= 10)
+                NSLog( @"Encoding number >= 10 ???");
 			
-			if( [c count] < 10)
+			if ( [c count] < 10)
 			{
-				for( i = 0; i < [c count]; i++) encoding[ i] = [NSString encodingForDICOMCharacterSet: [c objectAtIndex: i]];
-				for( i = [c count]; i < 10; i++) encoding[ i] = [NSString encodingForDICOMCharacterSet: [c lastObject]];
+				for (int i = 0; i < [c count]; i++)
+                    encoding[ i] = [NSString encodingForDICOMCharacterSet: [c objectAtIndex: i]];
+                
+				for (int i = [c count]; i < 10; i++)
+                    encoding[ i] = [NSString encodingForDICOMCharacterSet: [c lastObject]];
 			}
 		}
         
@@ -383,6 +389,7 @@ extern NSRecursiveLock *PapyrusLock;
                             commentsField = [commentsField stringByAppendingFormat: @" / %@", [DicomFile stringWithBytes: (char*) string encodings:encoding]];
                         else
                             commentsField = [DicomFile stringWithBytes: (char*) string encodings:encoding];
+                        
                         [dicomElements setObject:commentsField forKey:@"commentsAutoFill"];
                     }
                 }
@@ -402,6 +409,7 @@ extern NSRecursiveLock *PapyrusLock;
                             commentsField = [commentsField stringByAppendingFormat: @" / %@", [DicomFile stringWithBytes: (char*) string encodings:encoding]];
                         else
                             commentsField = [DicomFile stringWithBytes: (char*) string encodings:encoding];
+                        
                         [dicomElements setObject:commentsField forKey:@"commentsAutoFill"];
                     }
                 }
@@ -479,7 +487,8 @@ extern NSRecursiveLock *PapyrusLock;
 		else
 			imageType = nil;
 		
-		if( imageType) [dicomElements setObject:imageType forKey:@"imageType"];
+		if( imageType)
+            [dicomElements setObject:imageType forKey:@"imageType"];
 		
 		//SOPInstanceUID
 		if (dataset->findAndGetString(DCM_SOPInstanceUID, string, OFFalse).good() && string != NULL)
@@ -488,7 +497,9 @@ extern NSRecursiveLock *PapyrusLock;
 		}
 		else
 			SOPUID = nil;
-		if (SOPUID) [dicomElements setObject:SOPUID forKey:@"SOPUID"];
+        
+		if (SOPUID)
+            [dicomElements setObject:SOPUID forKey:@"SOPUID"];
 		
 		//Study Description
 		if (dataset->findAndGetString(DCM_StudyDescription, string, OFFalse).good() && string != NULL)
@@ -504,16 +515,16 @@ extern NSRecursiveLock *PapyrusLock;
         }
 		if( !study)
 			study = [[NSString alloc] initWithString: @"unnamed"];
+        
 		[dicomElements setObject:study forKey: @"studyDescription"];
 		
 		//Modality
 		if (dataset->findAndGetString(DCM_Modality, string, OFFalse).good() && string != NULL)
-		{
 			Modality = [[NSString alloc] initWithCString:string encoding: NSASCIIStringEncoding];
-		}
 		else
 			Modality = [[NSString alloc] initWithString:@"OT"];
-		[dicomElements setObject:Modality forKey:@"modality"];
+
+        [dicomElements setObject:Modality forKey:@"modality"];
 		
 		
 		//Acquistion Date
@@ -530,7 +541,8 @@ extern NSRecursiveLock *PapyrusLock;
 		else if (dataset->findAndGetString(DCM_StudyDate, string, OFFalse).good() && string != NULL && strlen( string) > 0)
             studyDate = [NSString stringWithCString:string encoding: NSASCIIStringEncoding];
         
-        if( [studyDate length] != 8) studyDate = [studyDate stringByReplacingOccurrencesOfString:@"." withString:@""];
+        if( [studyDate length] != 8)
+            studyDate = [studyDate stringByReplacingOccurrencesOfString:@"." withString:@""];
 		
         NSString* studyTime = nil;
         if (dataset->findAndGetString(DCM_AcquisitionTime, string, OFFalse).good() && string != NULL && strlen( string) > 0 && atof( string) > 0)

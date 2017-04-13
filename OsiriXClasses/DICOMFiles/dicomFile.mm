@@ -85,7 +85,8 @@ static BOOL filesAreFromCDMedia = NO;
 
 char* replaceBadCharacter (char* str, NSStringEncoding encoding) 
 {
-	if( encoding != NSISOLatin1StringEncoding) return str;
+	if( encoding != NSISOLatin1StringEncoding)
+        return str;
 
 	long i = strlen( str);
 	
@@ -176,9 +177,11 @@ char* replaceBadCharacter (char* str, NSStringEncoding encoding)
 	{
 		if ([v isKindOfClass:[NSString class]])
 		{
-			if ([v isEqualToString: s]) return YES;
+			if ([v isEqualToString: s])
+                return YES;
 		}
 	}
+    
 	return NO;
 }
 
@@ -193,27 +196,28 @@ char* replaceBadCharacter (char* str, NSStringEncoding encoding)
 
 + (NSString*) NSreplaceBadCharacter: (NSString*) str
 {
-	if( str == nil) return nil;
+	if( str == nil)
+        return nil;
 	
-	NSMutableString	*mutable = [NSMutableString stringWithString: str];
+	NSMutableString	*mutable1 = [NSMutableString stringWithString: str];
 	
-    [mutable replaceOccurrencesOfString:@"," withString:@" " options:0 range:mutable.range];
-	[mutable replaceOccurrencesOfString:@"^" withString:@" " options:0 range:mutable.range]; 
-	[mutable replaceOccurrencesOfString:@"/" withString:@"-" options:0 range:mutable.range]; 
-	[mutable replaceOccurrencesOfString:@"\r" withString:@"" options:0 range:mutable.range]; 
-	[mutable replaceOccurrencesOfString:@"\n" withString:@"" options:0 range:mutable.range]; 
-	[mutable replaceOccurrencesOfString:@"\"" withString:@"'" options:0 range:mutable.range];
-    [mutable replaceOccurrencesOfString:@"   " withString:@" " options:0 range:mutable.range]; //tripple space -> single space
-	[mutable replaceOccurrencesOfString:@"  " withString:@" " options:0 range:mutable.range]; //double space -> single space
+    [mutable1 replaceOccurrencesOfString:@"," withString:@" " options:0 range:mutable1.range];
+	[mutable1 replaceOccurrencesOfString:@"^" withString:@" " options:0 range:mutable1.range]; 
+	[mutable1 replaceOccurrencesOfString:@"/" withString:@"-" options:0 range:mutable1.range]; 
+	[mutable1 replaceOccurrencesOfString:@"\r" withString:@"" options:0 range:mutable1.range]; 
+	[mutable1 replaceOccurrencesOfString:@"\n" withString:@"" options:0 range:mutable1.range]; 
+	[mutable1 replaceOccurrencesOfString:@"\"" withString:@"'" options:0 range:mutable1.range];
+    [mutable1 replaceOccurrencesOfString:@"   " withString:@" " options:0 range:mutable1.range]; //tripple space -> single space
+	[mutable1 replaceOccurrencesOfString:@"  " withString:@" " options:0 range:mutable1.range]; //double space -> single space
     
-	int i = [mutable length];
+	int i = [mutable1 length];
 	while( --i > 0)
 	{
-		if( [mutable characterAtIndex: i]==' ') [mutable deleteCharactersInRange: NSMakeRange( i, 1)];
+		if( [mutable1 characterAtIndex: i]==' ') [mutable1 deleteCharactersInRange: NSMakeRange( i, 1)];
 		else i = 0;
 	}
 	
-	return mutable;
+	return mutable1;
 }
 
 + (NSString *) stringWithBytes:(char *) str encodings: (NSStringEncoding*) encoding
@@ -240,7 +244,8 @@ char* replaceBadCharacter (char* str, NSStringEncoding encoding)
 
 + (NSString *) originalStringWithBytes:(char *) str encodings: (NSStringEncoding*) encoding replaceBadCharacters: (BOOL) replace
 {
-	if( str == nil) return nil;
+	if( str == nil)
+        return nil;
     
 	char c;
 	int	i, from, len = strlen( str), index;
@@ -322,7 +327,8 @@ char* replaceBadCharacter (char* str, NSStringEncoding encoding)
 
 + (NSString *) stringWithBytes:(char *) str encodings: (NSStringEncoding*) encodings replaceBadCharacters: (BOOL) replace
 {
-	if( str == nil) return nil;
+	if( str == nil)
+        return nil;
     
     int fromLength = strlen( str);
     
@@ -765,7 +771,7 @@ char* replaceBadCharacter (char* str, NSStringEncoding encoding)
 		TIFF* tif = TIFFOpen( [filePath UTF8String], "r");
 		
 		short head_size = 0;
-		char* head_data = 0;
+		const char* head_data = 0;
 		
 		if(tif)
 			success = TIFFGetField(tif, TIFFTAG_FV_MMHEADER, &head_size, &head_data);
@@ -1376,11 +1382,10 @@ char* replaceBadCharacter (char* str, NSStringEncoding encoding)
 
 -(short) getLSM
 {
-	NSData		*file;
-	const char		*ptr;
-	long		i;
+	NSData *file;
+	const char *ptr;
 	
-	NSString	*extension = [[filePath pathExtension] lowercaseString];
+	NSString *extension = [[filePath pathExtension] lowercaseString];
 	
 	if( [extension isEqualToString:@"lsm"])
 	{
@@ -1389,7 +1394,7 @@ char* replaceBadCharacter (char* str, NSStringEncoding encoding)
 		{
 			fileType = [@"LSM" retain];
 			
-			ptr = [file bytes];
+			ptr = (const char *)[file bytes];
 			
 			if( ptr[ 2] == 42)
 				NSLog(@"LSM File");
@@ -1408,7 +1413,7 @@ char* replaceBadCharacter (char* str, NSStringEncoding encoding)
 			int it = 0;
 			int nextoff=0;
 			int counter=0;
-			int pos=8, k;
+			int pos=8;
 			short shortval;
 			
 			int	LENGTH1 = 0, TIF_BITSPERSAMPLE_CHANNEL1 = 0, TIF_BITSPERSAMPLE_CHANNEL2 = 0, TIF_BITSPERSAMPLE_CHANNEL3 = 0;
@@ -1421,7 +1426,7 @@ char* replaceBadCharacter (char* str, NSStringEncoding encoding)
 				fseek(fp, 8, SEEK_SET);
 				fread(&shortval, 2, 1, fp);
 				it = EndianU16_LtoN( shortval);
-				for( k=0 ; k<it ; k++)
+				for(int k=0 ; k<it ; k++)
 				{
 					unsigned char   tags2[ 12];
 					fseek(fp, pos+2+12*k, SEEK_SET);
@@ -1503,7 +1508,7 @@ char* replaceBadCharacter (char* str, NSStringEncoding encoding)
 			iterator1 = EndianU16_LtoN( shortval);
 			
 			/* Analyses each tag found */
-			for ( k=0 ; k<iterator1 ; k++)
+			for (int k=0 ; k<iterator1 ; k++)
 			{
 				unsigned char   TAG1[ 12];
 				fseek(fp, 10+12*k, SEEK_SET);
@@ -1680,7 +1685,7 @@ char* replaceBadCharacter (char* str, NSStringEncoding encoding)
 			[dicomElements setObject:fileType forKey:@"fileType"];
 			
 ////////////////
-			for (i = 0; i < NoOfSeries; i++)
+			for (long i = 0; i < NoOfSeries; i++)
 			{
 				NSString* SeriesNum;
 				if (i)

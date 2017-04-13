@@ -192,8 +192,10 @@
 		[[NSColor blackColor] set];
 		[trace drawAtPoint:xLabelPosition withAttributes:boldFont];
 		
-		if( lineRect.origin.x - boundsRect.size.width/2 > 0) [paragraphStyle setAlignment:NSLeftTextAlignment];
-		else [paragraphStyle setAlignment:NSRightTextAlignment];
+		if( lineRect.origin.x - boundsRect.size.width/2 > 0)
+            [paragraphStyle setAlignment:NSLeftTextAlignment];
+		else
+            [paragraphStyle setAlignment:NSRightTextAlignment];
 				
 		[[NSColor selectedMenuItemColor] set];
 		lineRect = NSMakeRect( 0, ((dataArray[ curMousePosition] - minValue) * boundsRect.size.height)/(maxValue- minValue), boundsRect.size.width, 2);

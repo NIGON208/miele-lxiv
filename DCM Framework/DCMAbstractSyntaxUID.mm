@@ -524,9 +524,8 @@ static NSString *DCM_Verification = @"1.2.840.10008.1.1";
     if( sopClassUID)
 	{
 		for( NSString *sopUID in [DCMAbstractSyntaxUID hiddenImageSyntaxes])
-		{
-			if( [sopClassUID isEqualToString: sopUID]) return YES;
-		}
+			if( [sopClassUID isEqualToString: sopUID])
+                return YES;
 	}
 	
 	return NO;

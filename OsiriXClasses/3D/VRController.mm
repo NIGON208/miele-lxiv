@@ -411,14 +411,16 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
 	blendingMinimumValue = [[blendingPixList objectAtIndex: 0] minValueOfSeries];
 	blendingMaximumValue = [[blendingPixList objectAtIndex: 0] maxValueOfSeries];
 	
-	int i;
-	for( i = 0; i < maxMovieIndex; i++)
+	for (int i = 0; i < maxMovieIndex; i++)
 	{
-		if( maximumValue < [[pixList[ i] objectAtIndex: 0] maxValueOfSeries]) maximumValue = [[pixList[ i] objectAtIndex: 0] maxValueOfSeries];
-		if( minimumValue > [[pixList[ i] objectAtIndex: 0] minValueOfSeries]) minimumValue = [[pixList[ i] objectAtIndex: 0] minValueOfSeries];
+		if (maximumValue < [[pixList[ i] objectAtIndex: 0] maxValueOfSeries])
+            maximumValue = [[pixList[ i] objectAtIndex: 0] maxValueOfSeries];
+
+        if (minimumValue > [[pixList[ i] objectAtIndex: 0] minValueOfSeries])
+            minimumValue = [[pixList[ i] objectAtIndex: 0] minValueOfSeries];
 	}
 	
-	if( maximumValue - minimumValue < 1)
+	if (maximumValue - minimumValue < 1)
 		maximumValue = minimumValue + 1;
 	
 	[clutOpacityView setHUmin:minimumValue HUmax:maximumValue];
@@ -484,7 +486,7 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
             if( testPtr == nil)
             {
                 if (NSRunAlertPanel(@"", //NSLocalizedString(@"32-bit",nil),
-                                    NSLocalizedString(@"Cannot use the 3D engine.\r\rUpgrade to OsiriX 64-bit or OsiriX MD to solve this issue.",nil),
+                                    NSLocalizedString(@"Cannot use the 3D engine.",nil),
                                     NSLocalizedString(@"OK", nil),
                                     nil, //NSLocalizedString(@"OsiriX 64-bit", nil),
                                     nil
@@ -619,7 +621,7 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
         if( err != 0)
         {
             if (NSRunAlertPanel(@"", //NSLocalizedString(@"32-bit",nil),
-                                NSLocalizedString(@"Cannot use the 3D engine.\r\rUpgrade to OsiriX 64-bit or OsiriX MD to solve this issue.",nil),
+                                NSLocalizedString(@"Cannot use the 3D engine.",nil),
                                 NSLocalizedString(@"OK", nil),
                                 nil, //NSLocalizedString(@"OsiriX 64-bit", nil),
                                 nil
@@ -971,8 +973,10 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
             else if([view mode] == 0 && [[pixList[ 0] objectAtIndex:0] isRGB] == NO) [self ApplyOpacityString:NSLocalizedString(@"Logarithmic Inverse Table", nil)];		//For VR mode only
         }
         
-        if( [view shading]) [shadingCheck setState: NSOnState];
-        else [shadingCheck setState: NSOffState];
+        if( [view shading])
+            [shadingCheck setState: NSOnState];
+        else
+            [shadingCheck setState: NSOffState];
         
         float ambient, diffuse, specular, specularpower;
         
@@ -1238,10 +1242,13 @@ return YES;
 	{
 		valid = YES;
 		
-		if( [item tag] == [view currentTool]) [item setState:NSOnState];
-		else [item setState:NSOffState];
+		if( [item tag] == [view currentTool])
+            [item setState:NSOnState];
+		else
+            [item setState:NSOffState];
 	}
-	else valid = YES;
+	else
+        valid = YES;
 	
 	return valid;
 }
@@ -1402,11 +1409,13 @@ return YES;
 	[view getShadingValues: &ambient :&diffuse :&specular :&specularpower];
 	
 	NSArray	*shadings = [shadingsPresetsController arrangedObjects];
-	int i;
-	for( i = 0; i < [shadings count]; i++)
+	for (int i = 0; i < [shadings count]; i++)
 	{
 		NSDictionary	*dict = [shadings objectAtIndex: i];
-		if( ambient == [[dict valueForKey:@"ambient"] floatValue] && diffuse == [[dict valueForKey:@"diffuse"] floatValue] && specular == [[dict valueForKey:@"specular"] floatValue] && specularpower == [[dict valueForKey:@"specularPower"] floatValue])
+		if (ambient == [[dict valueForKey:@"ambient"] floatValue] &&
+            diffuse == [[dict valueForKey:@"diffuse"] floatValue] &&
+            specular == [[dict valueForKey:@"specular"] floatValue] &&
+            specularpower == [[dict valueForKey:@"specularPower"] floatValue])
 		{
 			[shadingsPresetsController setSelectedObjects: [NSArray arrayWithObject: dict]];
 			break;
@@ -1441,7 +1450,8 @@ return YES;
 {
 	NSString	*previousColorName = [NSString stringWithString: curCLUTMenu];
 	
-	if( str == nil) return;
+	if( str == nil)
+        return;
 	
 	[OpacityPopup setEnabled:YES];
 	[clutOpacityView cleanup];
@@ -1522,7 +1532,8 @@ return YES;
 	NSDictionary		*aOpacity;
 	NSArray				*array;
 	
-	if( str == nil) return;
+	if( str == nil)
+        return;
 	
 	if( curOpacityMenu != str)
 	{
@@ -2276,7 +2287,8 @@ return YES;
 - (IBAction) flyThruControllerInit:(id) sender
 {
 	//Only open 1 fly through controller
-	if( [self flyThruController]) return;
+	if( [self flyThruController])
+        return;
 	
 	FTAdapter = [[VRFlyThruAdapter alloc] initWithVRController: self];
 	FlyThruController *flyThruController = [[FlyThruController alloc] initWithFlyThruAdapter:FTAdapter];
@@ -2300,7 +2312,8 @@ return YES;
 - (void)recordFlyThru;
 {
 	NSTimeInterval now = [NSDate timeIntervalSinceReferenceDate];
-	if(now-flyThruRecordingTimeFrame<1.0) return;
+	if(now-flyThruRecordingTimeFrame<1.0)
+        return;
 	
 	flyThruRecordingTimeFrame = now;
 	[self flyThruControllerInit:self];
@@ -2997,8 +3010,11 @@ return YES;
 		
 		NSMutableString *convolutionFiltersString = [NSMutableString stringWithString:@""];
 		NSArray *filters = [presetDictionary objectForKey:@"convolutionFilters"];
-		if([filters count]>1) [convolutionFiltersString appendString:NSLocalizedString(@"Filters", nil)];
-		else [convolutionFiltersString appendString:NSLocalizedString(@"Filter", nil)];
+		if([filters count]>1)
+            [convolutionFiltersString appendString:NSLocalizedString(@"Filters", nil)];
+		else
+            [convolutionFiltersString appendString:NSLocalizedString(@"Filter", nil)];
+        
 		[convolutionFiltersString appendString:@": "];
 		
 		if([filters count]>0)
@@ -3195,19 +3211,18 @@ NSInteger sort3DSettingsDict(id preset1, id preset2, void *context)
 		if([[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDir] && isDir)
 		{
 			NSArray *settingsFiles = [[NSFileManager defaultManager] subpathsAtPath:path];
-			int i;
-			for(i=0; i<[settingsFiles count]; i++)
+			for (int i=0; i<[settingsFiles count]; i++)
 			{
 				NSDictionary *settings = [[NSDictionary alloc] initWithContentsOfFile:[NSString stringWithFormat:@"%@/%@", path, [settingsFiles objectAtIndex:i]]];
+                
 				if(settings)
 				{
 					if([[settings allKeys] containsObject:@"groupName"])
 					{
 						if([[settings objectForKey:@"groupName"] isEqualToString:groupName])
-						{
 							[settingsList addObject:settings];
-						}
 					}
+                    
                     [settings release];
 				}
 			}
@@ -3343,8 +3358,7 @@ NSInteger sort3DSettingsDict(id preset1, id preset2, void *context)
 			{
 				NSString *shadingName = [preset objectForKey:@"shading"];
 				NSArray	*shadings = [shadingsPresetsController arrangedObjects];
-				int i;
-				for( i = 0; i < [shadings count]; i++)
+				for (int i = 0; i < [shadings count]; i++)
 				{
 					NSDictionary *dict = [shadings objectAtIndex:i];
 					if([[dict valueForKey:@"name"] isEqualToString:shadingName])
@@ -3385,8 +3399,7 @@ NSInteger sort3DSettingsDict(id preset1, id preset2, void *context)
 				NSArray *convolutionFilters = [preset objectForKey:@"convolutionFilters"];
 				if([convolutionFilters count]>0)
 				{
-					int i;
-					for(i=0; i<[convolutionFilters count]; i++)
+					for (int i=0; i<[convolutionFilters count]; i++)
 					{
 	//					[self prepareUndo];
 						[viewer2D ApplyConvString:[convolutionFilters objectAtIndex:i]];
@@ -3415,7 +3428,9 @@ NSInteger sort3DSettingsDict(id preset1, id preset2, void *context)
 
 - (void)displayPresetsForSelectedGroup;
 {
-	if([presetsGroupPopUpButton numberOfItems]<1) return;
+	if([presetsGroupPopUpButton numberOfItems]<1)
+        return;
+    
 	NSArray *settingsList = [self find3DSettingsForGroupName:[presetsGroupPopUpButton titleOfSelectedItem]];
 	
 	[numberOfPresetInGroupTextField setStringValue:[NSString stringWithFormat:NSLocalizedString(@"Number of Presets: %d", nil), [settingsList count]]];
@@ -3475,25 +3490,20 @@ NSInteger sort3DSettingsDict(id preset1, id preset2, void *context)
 		{
 			array = [aCLUT objectForKey:@"Red"];
 			for( NSUInteger i = 0; i < 256; i++)
-			{
 				red[i] = [[array objectAtIndex: i] longValue];
-			}
 			
 			array = [aCLUT objectForKey:@"Green"];
 			for( NSUInteger i = 0; i < 256; i++)
-			{
 				green[i] = [[array objectAtIndex: i] longValue];
-			}
 			
 			array = [aCLUT objectForKey:@"Blue"];
 			for( NSUInteger i = 0; i < 256; i++)
-			{
 				blue[i] = [[array objectAtIndex: i] longValue];
-			}
 			
 			[preview setCLUT:red :green: blue];
 		}
-		else [preview setCLUT: nil :nil :nil];
+		else
+            [preview setCLUT: nil :nil :nil];
 		
 		// opacity
 		NSDictionary *aOpacity = [[[NSUserDefaults standardUserDefaults] dictionaryForKey: @"OPACITY"] objectForKey:[preset objectForKey:@"opacity"]];
@@ -3658,7 +3668,8 @@ NSInteger sort3DSettingsDict(id preset1, id preset2, void *context)
 {
 	presetPageNumber = 0;
 	
-	if( [presetsGroupPopUpButton indexOfItemWithTitle: name] < 0) return;
+	if( [presetsGroupPopUpButton indexOfItemWithTitle: name] < 0)
+        return;
 	
 	[settingsGroupPopUpButton selectItemWithTitle:name];
 	[presetsGroupPopUpButton selectItemWithTitle:name];
@@ -3737,8 +3748,11 @@ NSInteger sort3DSettingsDict(id preset1, id preset2, void *context)
 
 - (void)updatePresetInfoPanel;
 {	
-	if( [selectedPresetPreview index] < 0) NSLog( @" ******** [selectedPresetPreview index] < 0");
-    if( selectedPresetPreview == nil) return;
+	if( [selectedPresetPreview index] < 0)
+        NSLog( @" ******** [selectedPresetPreview index] < 0");
+    
+    if( selectedPresetPreview == nil)
+        return;
     
 	NSDictionary *presetDictionary = [[self find3DSettingsForGroupName:[presetsGroupPopUpButton titleOfSelectedItem]] objectAtIndex:[selectedPresetPreview index]];
 	
@@ -3764,8 +3778,11 @@ NSInteger sort3DSettingsDict(id preset1, id preset2, void *context)
 	
 	NSMutableString *convolutionFiltersString = [NSMutableString stringWithString:@""];
 	NSArray *filters = [presetDictionary objectForKey:@"convolutionFilters"];
-	if([filters count]>1) [convolutionFiltersString appendString:NSLocalizedString(@"Filters", nil)];
-	else [convolutionFiltersString appendString:NSLocalizedString(@"Filter", nil)];
+	if([filters count]>1)
+        [convolutionFiltersString appendString:NSLocalizedString(@"Filters", nil)];
+	else
+        [convolutionFiltersString appendString:NSLocalizedString(@"Filter", nil)];
+    
 	[convolutionFiltersString appendString:@": "];
 	
 	if([filters count]>0)

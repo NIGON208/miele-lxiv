@@ -753,12 +753,12 @@
 	[self performSelectorOnMainThread:@selector(estimateFolderSize:) withObject:nil waitUntilDone:YES];
 	isExtracting = NO;
     
-    irisAnimationTimer = [[NSTimer timerWithTimeInterval: 0.07  target: self selector: @selector(irisAnimation:) userInfo: NO repeats: YES] retain];
+    irisAnimationTimer = [[NSTimer timerWithTimeInterval: 0.07  target: self selector: @selector(irisAnimation:) userInfo: nil repeats: YES] retain];
     [[NSRunLoop currentRunLoop] addTimer: irisAnimationTimer forMode: NSModalPanelRunLoopMode];
     [[NSRunLoop currentRunLoop] addTimer: irisAnimationTimer forMode: NSDefaultRunLoopMode];
     
     
-    burnAnimationTimer = [[NSTimer timerWithTimeInterval: 0.07  target: self selector: @selector(burnAnimation:) userInfo: NO repeats: YES] retain];
+    burnAnimationTimer = [[NSTimer timerWithTimeInterval: 0.07  target: self selector: @selector(burnAnimation:) userInfo: nil repeats: YES] retain];
     
     [[NSRunLoop currentRunLoop] addTimer: burnAnimationTimer forMode: NSModalPanelRunLoopMode];
     [[NSRunLoop currentRunLoop] addTimer: burnAnimationTimer forMode: NSDefaultRunLoopMode];
@@ -870,7 +870,8 @@
 		
 		return [NSNumber numberWithUnsignedLongLong:(unsigned long long)[size doubleValue]];
 	}
-	else return [NSNumber numberWithUnsignedLongLong:(unsigned long long)0];
+	else
+        return [NSNumber numberWithUnsignedLongLong:(unsigned long long)0];
 }
 
 - (IBAction) cancel:(id)sender
@@ -1079,7 +1080,8 @@
                             [manager copyPath: [NSString stringWithFormat:@"%@/%@", supplementaryBurnPath,file] toPath: [NSString stringWithFormat:@"%@/%@", burnFolder,file] handler:nil]; 
                         }
                     }
-                    else [[NSUserDefaults standardUserDefaults] setBool: NO forKey: @"BurnSupplementaryFolder"];
+                    else
+                        [[NSUserDefaults standardUserDefaults] setBool: NO forKey: @"BurnSupplementaryFolder"];
                 }
             }
             

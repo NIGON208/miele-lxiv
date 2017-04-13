@@ -90,9 +90,6 @@
     }
     
     *obj = string;
-#if 1 // TODO: resolve
-    return YES;
-#else
     NSScanner* s = [NSScanner scannerWithString:string];
     
     NSInteger num = 0;
@@ -130,9 +127,7 @@
     
     *obj = [NSString stringWithFormat:@"%03d%c", (int)num, t];
     return YES;
-#endif
 }
-
 
 @end
 

@@ -32,8 +32,11 @@ char hex2char(const char* hex) {
 
 @implementation NSData (N2)
 
-+(NSData*)dataWithHex:(NSString*)hex {
-	if (!hex) return NULL;
++(NSData*)dataWithHex:(NSString*)hex
+{
+	if (!hex)
+        return NULL;
+    
 	return [[[NSData alloc] initWithHex:hex] autorelease];
 }
 
@@ -53,8 +56,11 @@ char hex2char(const char* hex) {
 
 static const char base64EncodingTable[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 
-+(NSData*)dataWithBase64:(NSString*)base64 {
-	if (!base64) return NULL;
++(NSData*)dataWithBase64:(NSString*)base64
+{
+	if (!base64)
+        return NULL;
+    
 	return [[[NSData alloc] initWithBase64:base64] autorelease];
 }
 

@@ -30,7 +30,8 @@
 	static NSMutableDictionary* Defaults = [[NSMutableDictionary alloc] initWithCapacity:4];
 
 	N2UserDefaults* defaults = [Defaults objectForKey:identifier];
-	if (defaults) return defaults;
+	if (defaults)
+        return defaults;
 	
 	defaults = [[N2UserDefaults alloc] initWithIdentifier:identifier];
 	[Defaults setObject:defaults forKey:identifier];
@@ -81,7 +82,9 @@
 
 -(NSInteger)integerForKey:(NSString*)key default:(NSInteger)def {
 	NSNumber* value = [self objectForKey:key];
-	if ([value isKindOfClass:[NSNumber class]]) return [value integerValue];
+	if ([value isKindOfClass:[NSNumber class]])
+        return [value integerValue];
+    
 	return def;
 }
 
@@ -91,7 +94,9 @@
 
 -(float)floatForKey:(NSString*)key default:(float)def {
 	NSNumber* value = [self objectForKey:key];
-	if ([value isKindOfClass:[NSNumber class]]) return [value floatValue];
+	if ([value isKindOfClass:[NSNumber class]])
+        return [value floatValue];
+    
 	return def;
 }
 
@@ -101,7 +106,9 @@
 
 -(double)doubleForKey:(NSString*)key default:(double)def {
 	NSNumber* value = [self objectForKey:key];
-	if ([value isKindOfClass:[NSNumber class]]) return [value doubleValue];
+	if ([value isKindOfClass:[NSNumber class]])
+        return [value doubleValue];
+    
 	return def;
 }
 
@@ -111,7 +118,9 @@
 
 -(BOOL)boolForKey:(NSString*)key default:(BOOL)def {
 	NSNumber* value = [self objectForKey:key];
-	if ([value isKindOfClass:[NSNumber class]]) return [value boolValue];
+	if ([value isKindOfClass:[NSNumber class]])
+        return [value boolValue];
+    
 	return def;
 }
 
@@ -142,7 +151,9 @@
 
 -(NSRect)rectForKey:(NSString*)key default:(NSRect)def {
 	NSValue* value = [self objectForKey:key];
-	if ([value isKindOfClass:[NSValue class]]) return [value rectValue];
+	if ([value isKindOfClass:[NSValue class]])
+        return [value rectValue];
+    
 	return def;
 }
 

@@ -25,7 +25,7 @@
 	
 	NSBitmapImageRep *bitmap = [[NSBitmapImageRep alloc] initWithData:[image TIFFRepresentation]];
 	
-	buffer = malloc([bitmap bytesPerRow] * imageSize.height);
+	buffer = (GLubyte *)malloc([bitmap bytesPerRow] * imageSize.height);
 	memcpy(buffer, [bitmap bitmapData], [bitmap bytesPerRow] * imageSize.height);
 	
 	[bitmap release];
@@ -45,9 +45,10 @@
 	[[self openGLContext] makeCurrentContext];
 	CGLContextObj cgl_ctx = [[self openGLContext] CGLContextObj];
 	
-	if(textureID) glDeleteTextures(1, &textureID);
+	if (textureID)
+        glDeleteTextures(1, &textureID);
 
-	if(textureWidth!=textureSize.width || textureHeight!=textureSize.height)
+	if (textureWidth!=textureSize.width || textureHeight!=textureSize.height)
 		//free(textureBuffer);
 	
 	textureWidth = textureSize.width;
@@ -253,8 +254,7 @@
 //	float f = [self frame].size.width*0.5-5;
 //	float angle;
 //	glBegin(GL_LINE_LOOP);
-//	int i;
-//	for( i = 0; i < resol ; i++ )
+//	for (int i = 0; i < resol ; i++ )
 //	{
 //		angle = i * 2 * M_PI /resol;
 //		glVertex2f( center.x + f *cos(angle), center.y + f *sin(angle));

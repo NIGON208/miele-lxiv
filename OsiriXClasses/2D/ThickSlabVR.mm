@@ -97,7 +97,8 @@ extern short Altivec;
 {
 	flipData = flip;
 	
-	if( width == w && height == h && count == c) return;
+	if( width == w && height == h && count == c)
+        return;
 	
 	// GLOBALS
 	
@@ -136,7 +137,8 @@ extern short Altivec;
 	
 	if( dst8.data) free( dst8.data);
 	dst8.data = (char*) malloc( dst8.height * dst8.width * sizeof(char));
-	if( dst8.data == nil) return;
+	if( dst8.data == nil)
+        return;
 	
 	flipReader = nil;
 	}

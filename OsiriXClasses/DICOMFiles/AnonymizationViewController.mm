@@ -128,7 +128,8 @@
 
 -(void)addTag:(DCMAttributeTag*)tag {
 	
-	if( tag == nil) return;
+	if( tag == nil)
+        return;
 	
 	if ([self.tags containsObject:tag])
 		return;
@@ -197,7 +198,8 @@
 		
 		if (matchName)
 			[templatesPopup selectItemWithTitle:matchName];
-		else [templatesPopup.selectedItem setState:0];
+		else
+            [templatesPopup.selectedItem setState:0];
 		
 		[templatesPopup.cell setDisplayedTitle: matchName? matchName : NSLocalizedString(@"Custom", NULL) ];
 		[templatesPopup setNeedsDisplay:YES];

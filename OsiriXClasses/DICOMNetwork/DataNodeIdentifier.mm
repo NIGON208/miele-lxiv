@@ -80,10 +80,14 @@
     return [[self class] sortValueForDataNodeIdentifier:self];
 }
 
--(NSComparisonResult)compare:(DataNodeIdentifier*)dni {
+-(NSComparisonResult)compare:(DataNodeIdentifier*)dni
+{
 	NSInteger selfSortValue = [self sortValue], dniSortValue = [dni sortValue];
-    if (selfSortValue != dniSortValue)
-        return selfSortValue > dniSortValue;
+    if (selfSortValue > dniSortValue)
+        return NSOrderedAscending;
+    else if (selfSortValue < dniSortValue)
+        return NSOrderedDescending;
+    
     return [self.description caseInsensitiveCompare:dni.description];
 }
 

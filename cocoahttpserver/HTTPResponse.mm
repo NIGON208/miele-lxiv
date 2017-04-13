@@ -105,7 +105,7 @@
 	unsigned int remaining = [data length] - offset;
 	unsigned int length = lengthParameter < remaining ? lengthParameter : remaining;
 	
-	void *bytes = (void *)([data bytes] + offset);
+	uint8_t *bytes = (uint8_t *)[data bytes] + offset;
 	
 	offset += length;
 	

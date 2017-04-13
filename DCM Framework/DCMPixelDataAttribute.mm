@@ -63,25 +63,21 @@ union vectorLong {
 
 void SwapShorts( register vector unsigned short *unaligned_input, register long size)
 {
-	 register long						i = size / 8;
-	 register vector unsigned char		identity = vec_lvsl(0, (int*) NULL );
-	 register vector unsigned char		byteSwapShorts = vec_xor( identity, vec_splat_u8(sizeof( short) - 1) );
+    long i = size / 8;
+	vector unsigned char identity = vec_lvsl(0, (int*) NULL );
+	vector unsigned char byteSwapShorts = vec_xor( identity, vec_splat_u8(sizeof( short) - 1) );
 	
-	while(i-- > 0)
-	{
+	while (i-- > 0)
 		*unaligned_input++ = vec_perm( *unaligned_input, *unaligned_input, byteSwapShorts);
-	}
 }
 
 void SwapLongs( register vector unsigned int *unaligned_input, register long size)
 {
-	 register long i = size / 4;
-	 register vector unsigned char identity = vec_lvsl(0, (int*) NULL );
-	 register vector unsigned char byteSwapLongs = vec_xor( identity, vec_splat_u8(sizeof( int )- 1 ) );
-	 while(i-- > 0)
-	 {
-	 *unaligned_input++ = vec_perm( *unaligned_input, *unaligned_input, byteSwapLongs);
-	 }
+	 long i = size / 4;
+	 vector unsigned char identity = vec_lvsl(0, (int*) NULL );
+	 vector unsigned char byteSwapLongs = vec_xor( identity, vec_splat_u8(sizeof( int )- 1 ) );
+	 while (i-- > 0)
+         *unaligned_input++ = vec_perm( *unaligned_input, *unaligned_input, byteSwapLongs);
 }
 
 #endif
@@ -242,11 +238,14 @@ unsigned char scanJpegDataForBitDepth(
       case 0xff01: // TEM
         break;
       default:
-        if ((data[offset]==0xff) && (data[offset+1]>2) && (data[offset+1] <= 0xbf)) // RES reserved markers
+        if ((data[offset] == 0xff) &&
+            (data[offset+1] > 2) &&
+            (data[offset+1] <= 0xbf)) // RES reserved markers
         {
           offset += 2;
         }
-        else return 0; // syntax error, stop parsing
+        else
+            return 0; // syntax error, stop parsing
         break;
     }
   } // while
@@ -1345,11 +1344,11 @@ static inline int int_ceildivpow2(int a, int b) {
 	*/
 	unsigned int offsetTable[16];
 	[rleData getBytes:offsetTable  range:NSMakeRange(0, 64)];
-	int i;
-	for (i = 0; i < 16; i++)
+	for (int i = 0; i < 16; i++)
 		offsetTable[i] = NSSwapLittleIntToHost(offsetTable[i]);
-	int segmentCount = offsetTable[0];
-	i = 0;
+
+    int segmentCount = offsetTable[0];
+//	i = 0;
 	/*
 		if n >= 0  and < 127
 			output next n+1 bytes literally
@@ -1364,6 +1363,7 @@ static inline int int_ceildivpow2(int a, int b) {
 	int decompressedLength = _rows * _columns;
 	if (_pixelDepth > 8)
 		decompressedLength *= 2;
+        
 	signed char *buffer = (signed char *)[rleData bytes];
 	//buffer += 16;
 	NSMutableData *data;
@@ -1398,7 +1398,7 @@ static inline int int_ceildivpow2(int a, int b) {
 		break;
 		case 2:
 			data = [NSMutableData dataWithLength:decompressedLength * 2];
-			for (i = 0; i< segmentCount; i++) {
+			for (int i = 0; i< segmentCount; i++) {
 				j = i;			
 				unsigned char *newData = (unsigned char*) [data mutableBytes];
 				position = offsetTable[i+1];
@@ -1423,7 +1423,7 @@ static inline int int_ceildivpow2(int a, int b) {
 			[decompressedData appendData:data];
 			break;
 		case 3:
-			for (i = 0; i< segmentCount; i++) {
+			for (int i = 0; i< segmentCount; i++) {
 				j = 0;
 				data = [NSMutableData dataWithLength:decompressedLength];
 				unsigned char *newData = (unsigned char*) [data mutableBytes];
@@ -1571,7 +1571,6 @@ static inline int int_ceildivpow2(int a, int b) {
 		jas_image_t *image;
 		jas_image_cmptparm_t cmptparms[3];
 		jas_image_cmptparm_t *cmptparm;
-		int i;
 		int width = _columns;
 		int height = _rows;
 		int spp = _samplesPerPixel;
@@ -1589,6 +1588,7 @@ static inline int int_ceildivpow2(int a, int b) {
 		{
 			if( spp != 3)
 				NSLog( @"*** RGB Photometric?, but... spp != 3 ?");
+            
 			spp = 3;
 		}
 		
@@ -1811,14 +1811,12 @@ static inline int int_ceildivpow2(int a, int b) {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	if (!_framesCreated)
 		[self createFrames];
-	int i;
 	if (!_isDecoded)
 	{
-		for (i = 0; i < [_values count] ;i++)
-		{
+		for (int i = 0; i < [_values count] ;i++)
 			[self replaceFrameAtIndex:i withFrame:[self decodeFrameAtIndex:i]];
-		}
 	}
+    
 	self.transferSyntax = [DCMTransferSyntax ExplicitVRLittleEndianTransferSyntax];
 	
 	_isDecoded = YES;
@@ -1861,9 +1859,8 @@ static inline int int_ceildivpow2(int a, int b) {
 //	int halfLength = length/2;
 //	[_dcmObject  setAttributeValues:[NSMutableArray arrayWithObject:@1.0F] forName:@"RescaleSlope"];
 //	[_dcmObject  setAttributeValues:[NSMutableArray arrayWithObject:[NSNumber numberWithFloat:offset]] forName:@"RescaleIntercept"];
-//	int i;
-//	signed short *pixelData = (signed short *)[data bytes]; 
-//	for (i= 0; i<halfLength; i++)
+//	signed short *pixelData = (signed short *)[data bytes];
+//	for (int i= 0; i<halfLength; i++)
 //	{
 //		pixelData[i] =  (pixelData[i]  - offset); 
 //	}
@@ -2066,10 +2063,9 @@ static inline int int_ceildivpow2(int a, int b) {
 //			
 //	if ((rescaleIntercept != 0) || (rescaleSlope != 1)) {
 //		
-//		int i;
-//		short *pixelData = (short *)[data bytes]; 
+//		short *pixelData = (short *)[data bytes];
 //		short value;
-//		for (i= 0; i<halfLength; i++) {
+//		for (int i= 0; i<halfLength; i++) {
 //			value = *pixelData * rescaleSlope + rescaleIntercept;
 //			if (value < 0)
 //				_isSigned = YES;
@@ -2145,9 +2141,8 @@ static inline int int_ceildivpow2(int a, int b) {
 //		NSLog(@"max: %d min %d", _max, _min);
 //	}
 //	if ((rescaleIntercept != 0) || (rescaleSlope != 1)) {
-//		int i;
-//		signed short *pixelData = (signed short *)[data bytes]; 
-//		for (i= 0; i<halfLength; i++)
+//		signed short *pixelData = (signed short *)[data bytes];
+//		for (int i= 0; i<halfLength; i++)
 //		{
 //			pixelData[i] =  (pixelData[i]  - rescaleIntercept) / rescaleSlope;
 //		}
@@ -2881,7 +2876,9 @@ static inline int int_ceildivpow2(int a, int b) {
   int length = ( _rows *  _columns * 3);
   rgbData = [NSMutableData dataWithLength:length];
   theRGB = (unsigned char*) [rgbData mutableBytes];
-  if (theRGB == nil) return nil;
+  if (theRGB == nil)
+      return nil;
+    
   pRGB = theRGB;
   size = (long) _rows * (long) _columns;
  // int kind = 0;
@@ -3258,16 +3255,16 @@ static inline int int_ceildivpow2(int a, int b) {
 			*/
 			unsigned  long offset;
 			if ([_values count] > 1  && [(NSData *)[_values objectAtIndex:0] length] > 0) {
-				int i;
 				NSData *offsetData = [_values objectAtIndex:0];
 				unsigned long *offsets = (unsigned long *)[offsetData bytes];
 				int numberOfOffsets = [offsetData length]/4;
-				for ( i = 0; i < numberOfOffsets; i++)
+				for (int i = 0; i < numberOfOffsets; i++)
 				{
 					if ( transferSyntax.isLittleEndian ) 
 						offset = NSSwapLittleLongToHost(offsets[i]);
 					else
 						offset = offsets[i];
+                    
 					[offsetTable addObject:[NSNumber numberWithLong:offset]];
 				}
 			}
@@ -3383,15 +3380,15 @@ static inline int int_ceildivpow2(int a, int b) {
 			unsigned  long offset;
 				
 			if ([_values count] > 1  && [(NSData *)[_values objectAtIndex:0] length] > 0) {
-				int i;
 				NSData *offsetData = [_values objectAtIndex:0];
 				unsigned long *offsets = (unsigned long *)[offsetData bytes];
 				int numberOfOffsets = [offsetData length]/4;
-				for ( i = 0; i < numberOfOffsets; i++) {
+				for (int i = 0; i < numberOfOffsets; i++) {
 					if ( transferSyntax.isLittleEndian ) 
 						offset = NSSwapLittleLongToHost(offsets[i]);
 					else
 						offset = offsets[i];
+                    
 					[offsetTable addObject:[NSNumber numberWithLong:offset]];
 				}
 			}
@@ -3406,18 +3403,17 @@ static inline int int_ceildivpow2(int a, int b) {
 			[values removeObjectAtIndex:0];
 			
 			[_values removeAllObjects];
-			int i;
 			NSMutableData *subData;
 			if (DCMDEBUG)
 				NSLog(@"number of Frames: %d", _numberOfFrames);
-			for (i = 0; i < _numberOfFrames; i++) {	
+
+            for (int i = 0; i < _numberOfFrames; i++) {
 				if (DCMDEBUG)
 					NSLog(@"Frame %d", i);
 				//one to one match between frames and items
 				
-				if ([values count] == _numberOfFrames) {
+				if ([values count] == _numberOfFrames)
 					subData = [values objectAtIndex:i];
-				}
 				
 				//need to figure out where the data starts and ends
 				else{
@@ -3445,14 +3441,16 @@ static inline int int_ceildivpow2(int a, int b) {
 						combinedLength += ([(NSData *)[values objectAtIndex:startingItem] length] + 8);
 						startingItem++;
 					}
+                    
 					endItem = startingItem;
 					dataLength = ([(NSData *)[values objectAtIndex:endItem] length] + 8);
 					while ((dataLength < currentLength) && (endItem < [values count])) {
 						endItem++;
 						dataLength += ([(NSData *)[values objectAtIndex:endItem] length] + 8);
 					}
+                    
 					subData = [NSMutableData data];
-					for ( int j = startingItem; j <= endItem ; j++ ) 
+					for (int j = startingItem; j <= endItem ; j++ )
 						[subData appendData:[values objectAtIndex:j]];	
 				}
 				//subdata is new frame;
@@ -3470,6 +3468,7 @@ static inline int int_ceildivpow2(int a, int b) {
 					depth = 2;
 				else
 					depth = 4;
+                
 				int frameLength = _rows * _columns * _samplesPerPixel * depth;
 				NSMutableData *rawData = [[[_values objectAtIndex:0] retain] autorelease];
 				[_values removeAllObjects];

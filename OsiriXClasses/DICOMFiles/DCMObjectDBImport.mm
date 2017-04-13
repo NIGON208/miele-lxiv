@@ -12,18 +12,14 @@
      PURPOSE.
 =========================================================================*/
 
-
-
 #import "DCMObjectDBImport.h"
 #import <OsiriX/DCM.h>
-
 
 @implementation DCMObjectDBImport
 
 + (id)objectWithContentsOfFile:(NSString *)file decodingPixelData:(BOOL)decodePixelData	{
 	return [[[DCMObjectDBImport alloc] initWithContentsOfFile:file decodingPixelData:decodePixelData] autorelease];
 }
-
 
 - (BOOL)isNeededAttribute:(char *)tagString{
 	if (strcmp(tagString, "0008,0008") == 0 ||	//ImageType

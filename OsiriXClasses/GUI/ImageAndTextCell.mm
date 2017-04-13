@@ -18,7 +18,9 @@
 
 @implementation ImageAndTextCell
 
-- (NSUInteger) hitTestForEvent:(NSEvent *)theEvent inRect:(NSRect)cellFrame ofView:(NSView *)controlView
+- (NSUInteger) hitTestForEvent:(NSEvent *)theEvent
+                        inRect:(NSRect)cellFrame
+                        ofView:(NSView *)controlView
 {
 	if (lastImage != nil)
 	{
@@ -77,7 +79,8 @@
 
 - copyWithZone:(NSZone *)zone {
     ImageAndTextCell *cell = (ImageAndTextCell *)[super copyWithZone:zone];
-	if( cell == nil) return nil;
+	if ( cell == nil)
+        return nil;
     
     cell->image = [image retain];
     cell->lastImage = [lastImage retain];

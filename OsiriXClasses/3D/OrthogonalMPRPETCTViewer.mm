@@ -892,18 +892,19 @@ static NSString*	ThreeDPositionToolbarItemIdentifier			= @"3DPosition";
 {
 	int tag;
 	
-	if( [sender isMemberOfClass: [NSMatrix class]]) tag = [[sender selectedCell] tag];
-	else  tag = [sender tag];
+	if ([sender isMemberOfClass: [NSMatrix class]])
+        tag = [[sender selectedCell] tag];
+	else
+        tag = [sender tag];
 	
-	if(  tag >= 0)
-    {
-		[self setCurrentTool: tag];
-    }
+	if ( tag >= 0)
+		[self setCurrentTool: (ToolMode)tag];
 }
 
 - (IBAction) changeBlendingFactor:(id) sender
 {
-	if( sender == nil) sender = blendingSlider;
+	if (sender == nil)
+        sender = blendingSlider;
 	 
 	[PETCTController setBlendingFactor:[sender floatValue]];
 }
@@ -1319,7 +1320,8 @@ return YES;
     
     if ([[toolbarItem itemIdentifier] isEqualToString: SyncSeriesToolbarItemIdentifier])
     {
-        if(![OrthogonalMPRViewer getSyncSeriesToolbarItemActivation]) enable = NO;
+        if (![OrthogonalMPRViewer getSyncSeriesToolbarItemActivation])
+            enable = NO;
     }
 	
     return enable;
@@ -1342,13 +1344,13 @@ return YES;
 		
 		newSubViewSize = NSMakeSize(w,h);
 		
-		int i;
-		for (i=0;i<3;i++)
+		for (int i=0;i<3;i++)
 		{
 			[[[originalSplitView subviews] objectAtIndex:i] setFrameSize: newSubViewSize];
 			[[[xReslicedSplitView subviews] objectAtIndex:i] setFrameSize: newSubViewSize];
 			[[[yReslicedSplitView subviews] objectAtIndex:i] setFrameSize: newSubViewSize];
 		}
+        
 		[originalSplitView adjustSubviews];
 		[xReslicedSplitView adjustSubviews];
 		[yReslicedSplitView adjustSubviews];
@@ -1392,13 +1394,13 @@ return YES;
 		
 		newSubViewSize = NSMakeSize(w,h);
 		
-		int i;
-		for (i=0;i<3;i++)
+		for (int i=0;i<3;i++)
 		{
 			[[[originalSplitView subviews] objectAtIndex:i] setFrameSize: newSubViewSize];
 			[[[xReslicedSplitView subviews] objectAtIndex:i] setFrameSize: newSubViewSize];
 			[[[yReslicedSplitView subviews] objectAtIndex:i] setFrameSize: newSubViewSize];
 		}
+        
 		[originalSplitView adjustSubviews];
 		[xReslicedSplitView adjustSubviews];
 		[yReslicedSplitView adjustSubviews];
@@ -1584,7 +1586,6 @@ return YES;
 		{
 			[[CTController xReslicedView] scaleToFit];
 			[[CTController xReslicedView] blendingPropagate];
-			
 		}
 		else if(index==2)
 		{
@@ -2289,8 +2290,8 @@ return YES;
 		for( NSView *v in views)
 		{
 			NSRect bounds = [v bounds];
-			NSPoint or = [v convertPoint: bounds.origin toView: nil];
-			bounds.origin = [[self window] convertBaseToScreen: or];
+			NSPoint _or = [v convertPoint: bounds.origin toView: nil];
+			bounds.origin = [[self window] convertBaseToScreen: _or];
             
             bounds.origin.x *= v.window.backingScaleFactor;
             bounds.origin.y *= v.window.backingScaleFactor;
@@ -2810,8 +2811,10 @@ return YES;
 
 - (IBAction) setCurrentdcmExport:(id) sender
 {
-	if( [[sender selectedCell] tag] == 1) [self checkView: dcmBox :YES];
-	else [self checkView: dcmBox :NO];
+	if( [[sender selectedCell] tag] == 1)
+        [self checkView: dcmBox :YES];
+	else
+        [self checkView: dcmBox :NO];
 }
 
 - (void)checkView:(NSView *)aView :(BOOL) OnOff

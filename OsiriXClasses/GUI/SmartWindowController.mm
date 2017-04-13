@@ -85,7 +85,8 @@
 - (NSString*)predicateFormat {
     if (_predicateFormat.length)
         return _predicateFormat;
-    else return nil;
+    else
+        return nil;
 }
 
 - (void)setPredicateFormat:(NSString *)predicateFormat {

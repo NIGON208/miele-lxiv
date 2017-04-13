@@ -86,7 +86,8 @@
 								   parentScrollView.documentView, NSViewAnimationTargetKey,
 								   [NSValue valueWithRect:df], NSViewAnimationEndFrameKey,
 								   NULL]];
-		else [parentScrollView.documentView setFrame:df];
+		else
+            [parentScrollView.documentView setFrame:df];
 		
 		ret = [self.window.windowController synchronizeSizeWithContent];
 	} else {

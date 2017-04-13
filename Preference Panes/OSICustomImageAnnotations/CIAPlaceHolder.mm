@@ -197,9 +197,8 @@
 		[[NSAnimationContext currentContext] setDuration: 0.001];
 	}
 	
-	int i;
 	CIAAnnotation *currentAnnotation;
-	for (i=0; i<[annotationsArray count]; i++)
+	for (int i=0; i<[annotationsArray count]; i++)
 	{
 		currentAnnotation = [annotationsArray objectAtIndex:i];
 
@@ -223,7 +222,8 @@
 		previousY = [currentAnnotation frame].origin.y;
 	}
 	
-	if(animate) [NSAnimationContext endGrouping];
+	if (animate)
+        [NSAnimationContext endGrouping];
 	
 	[self setNeedsDisplay:YES];
 }
@@ -237,12 +237,11 @@
 {
 	float totalHeight = 0.0F;
 	float maxWidth = [CIAPlaceHolder defaultSize].width - RIGHT_MARGIN;
-	int i;
 	CIAAnnotation *currentAnnotation;
-	for (i=0; i<[annotationsArray count]; i++)
+	for (int i=0; i<[annotationsArray count]; i++)
 	{
 		currentAnnotation = [annotationsArray objectAtIndex:i];
-		if(i==0)
+		if (i==0)
 			totalHeight += [currentAnnotation frame].size.height;
 		else
 			totalHeight += [currentAnnotation frame].size.height-2.0;
@@ -307,8 +306,7 @@
 	shift.x = newOrigin.x - oldOrigin.x;
 	shift.y = newOrigin.y - oldOrigin.y;
 
-	int i;
-	for (i=0; i<[annotationsArray count]; i++)
+	for (int i=0; i<[annotationsArray count]; i++)
 	{
 		NSPoint origin = [[annotationsArray objectAtIndex:i] frame].origin;
 		origin.x += shift.x;

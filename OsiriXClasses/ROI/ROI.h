@@ -346,7 +346,7 @@ typedef enum ToolMode_
 *  @param b Second point
 *  @param r Weighting bewtween the two points
 */
-+ (NSPoint) pointBetweenPoint:(NSPoint) a and:(NSPoint) b ratio: (float) r;
++ (NSPoint) pointBetweenPoint:(NSPoint) a andPoint:(NSPoint) b ratio: (float) r;
 
 
 + (NSMutableArray*) resamplePoints: (NSArray*) points number:(int) no;
@@ -435,7 +435,7 @@ typedef enum ToolMode_
 /** Test to see if point is in text box or ROI and returns the mode.
 * Can be ROI_Selected or ROI_selectedModify if hit test is YES 
 */
-- (long) clickInROI:(NSPoint) pt :(float) offsetx :(float) offsety :(float) scale :(BOOL) testDrawRect;
+- (ROI_mode) clickInROI:(NSPoint) pt :(float) offsetx :(float) offsety :(float) scale :(BOOL) testDrawRect;
 - (NSPoint) ProjectionPointLine: (NSPoint) Point :(NSPoint) startPoint :(NSPoint) endPoint;
 
 /** Delete texture */
@@ -501,4 +501,12 @@ typedef enum ToolMode_
 -(NSMutableArray*) splineZPositions;
 
 - (void) setTexture: (unsigned char*) t width: (int) w height:(int) h;
+- (float) Magnitude: (NSPoint) Point1
+                   : (NSPoint) Point2;
+- (int) DistancePointLine:(NSPoint) Point
+                         :(NSPoint) startPoint
+                         :(NSPoint) endPoint
+                         :(float*) Distance;
++ (float) lengthBetween:(NSPoint) mesureA
+               andPoint:(NSPoint) mesureB;
 @end

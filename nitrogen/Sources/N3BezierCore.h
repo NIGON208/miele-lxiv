@@ -45,7 +45,7 @@ typedef const struct N3BezierCoreRandomAccessor *N3BezierCoreRandomAccessorRef;
 
 N3BezierCoreRef N3BezierCoreCreate();
 N3MutableBezierCoreRef N3BezierCoreCreateMutable();
-void *N3BezierCoreRetain(N3BezierCoreRef bezierCore);
+N3MutableBezierCoreRef N3BezierCoreRetain(N3BezierCoreRef bezierCore);
 void N3BezierCoreRelease(N3BezierCoreRef bezierCore);
 bool N3BezierCoreEqualToBezierCore(N3BezierCoreRef bezierCore1, N3BezierCoreRef bezierCore2);
 CFStringRef N3BezierCoreCopyDescription(N3BezierCoreRef bezierCore);

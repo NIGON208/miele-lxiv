@@ -28,9 +28,11 @@
 		//format for DA is YYMMDD = @"%Y%m%d"
 		if (DCMDEBUG)
 			NSLog (@"date string: %@ intValue: %d", string,[string intValue] );
-		NSString *format = @"%Y%m%d";
+
+        NSString *format = @"%Y%m%d";
 		if (string && [string intValue]) {
-			if ([string length] == 10)
+
+            if ([string length] == 10)
 				format = @"%Y.%m.%d";
 			else if ([string length] == 8)
 				format = @"%Y%m%d";
@@ -38,7 +40,8 @@
 				format = @"%Y%m";
 			else if ([string length] == 4)
 				format = @"%Y";
-			DCMCalendarDate *date = [[[DCMCalendarDate alloc] initWithString:string  calendarFormat:format] autorelease];
+
+            DCMCalendarDate *date = [[[DCMCalendarDate alloc] initWithString:string  calendarFormat:format] autorelease];
 			[date setIsQuery:NO];
 			[date setQueryString:nil];
 			return date;
@@ -57,9 +60,10 @@
 	if ([string rangeOfString:@"-"].location == NSNotFound)
 	{
 		//format for TM is HHMMSS.ffffff = @"%H%M%S.%U";
-			if (DCMDEBUG)
-			NSLog (@"time string: %@", string);
-		if (string  && [string intValue]) {
+        if (DCMDEBUG)
+            NSLog (@"time string: %@", string);
+
+        if (string  && [string intValue]) {
 			NSArray *timeComponents = [string componentsSeparatedByString:@"."];
 			NSString *firstComponent = [timeComponents objectAtIndex:0];
 			NSString *format = @"%H%M%S";
@@ -242,6 +246,7 @@
 - (NSString *)dateString{
 	if (isQuery)
 		return queryString;
+    
 	NSString *format = @"%Y%m%d";
 	return [self descriptionWithCalendarFormat:format];
 }
@@ -249,6 +254,7 @@
 - (NSString *)timeStringWithMilliseconds{
 	if (isQuery)
 		return queryString;
+    
 	NSString *format = @"%H%M%S.%F";
 	return [self descriptionWithCalendarFormat:format];
 }
@@ -256,6 +262,7 @@
 - (NSString *)timeString {
 	if (isQuery)
 		return queryString;
+    
 	NSString *format = @"%H%M%S";
 	NSString *time =  [self descriptionWithCalendarFormat:format];
     
@@ -269,6 +276,7 @@
 - (NSString *)dateTimeString:(BOOL)withTimeZone{
 	if (isQuery)
 		return queryString;
+    
 	NSString *format = @"%Y%m%d%H%M%S";
 	NSString *time =  [self descriptionWithCalendarFormat:format];
     
@@ -278,10 +286,9 @@
     
 	if (!withTimeZone)
 		return time;
-	else {
-		NSString *tz = [self descriptionWithCalendarFormat:@"%z"];
-		return [NSString stringWithFormat:@"%@%@", time,tz];
-	}
+
+    NSString *tz = [self descriptionWithCalendarFormat:@"%z"];
+    return [NSString stringWithFormat:@"%@%@", time,tz];
 }
 
 - (NSNumber *)dateAsNumber{
@@ -319,6 +326,7 @@
 - (NSString *)description{
 	if (isQuery)
 		return queryString;
+    
 	if ([[self calendarFormat] isEqualToString:@"%H:%M:%S"] ||
 			[[self calendarFormat] isEqualToString:@"%H%M%S"] ||
 			[[self calendarFormat] isEqualToString:@"%H%M"] ||
@@ -331,6 +339,7 @@
 - (NSString *)descriptionWithLocale:(id)localeDictionary{
 	if (isQuery)
 		return queryString;
+    
 	if ([[self calendarFormat] isEqualToString:@"%H:%M:%S"] ||
 			[[self calendarFormat] isEqualToString:@"%H%M%S"] ||
 			[[self calendarFormat] isEqualToString:@"%H%M"] ||

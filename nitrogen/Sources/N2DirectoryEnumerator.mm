@@ -181,7 +181,9 @@
 			else *name = NULL;
         }
 		return (DIR*)[[d objectAtIndex:0] pointerValue];
-	} else return nil;
+	}
+    else
+        return nil;
 }
 
 -(void)popDIR {

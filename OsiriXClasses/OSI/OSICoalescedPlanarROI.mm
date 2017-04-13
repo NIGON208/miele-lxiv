@@ -160,7 +160,7 @@
     glColor4f(1, 0, 0, .4);
     glBegin(GL_QUADS);
     runsCount = [maskRunsData length] / sizeof(OSIROIMaskRun);
-    maskRunsBytes = [maskRunsData bytes];
+    maskRunsBytes = (const OSIROIMaskRun *)[maskRunsData bytes];
     for (i = 0; i < runsCount; i++) {
         maskRun = maskRunsBytes[i];
         widthIndex = (double)maskRun.widthRange.location + minCorner.x;
@@ -226,7 +226,7 @@
         
         coalescedROIMaskVolumeTransform = N3AffineTransformConcat(self.volumeTransform, N3AffineTransformMakeTranslation(-minCorner.x, -minCorner.y, -minCorner.z));
         
-        coalescedROIMaskVolumeBytes = malloc(width * height * depth * sizeof(float));
+        coalescedROIMaskVolumeBytes = (float *)malloc(width * height * depth * sizeof(float));
         memset(coalescedROIMaskVolumeBytes, 0, width * height * depth * sizeof(float));
         _coalescedROIMaskVolumeData = [[OSIFloatVolumeData alloc] initWithFloatBytesNoCopy:coalescedROIMaskVolumeBytes pixelsWide:width pixelsHigh:height pixelsDeep:depth volumeTransform:coalescedROIMaskVolumeTransform outOfBoundsValue:0 freeWhenDone:YES];
         

@@ -387,15 +387,17 @@ void signal_EXC(int sig_num)
 			long long sll;
 			unsigned char buffer[size];
 		} u;
-		NSRange range = {position, size};
+		NSRange range = {static_cast<NSUInteger>(position), size};
 		[dicomData getBytes:u.buffer range:range];
 		position += size;
 		if ([self isLittleEndian])
 			NSSwapLittleLongLongToHost(u.ull);
+        
 		return u.sll;
 	}
 	else 
 		[exception raise];
+    
 	return 0;
 }
 
@@ -412,6 +414,7 @@ void signal_EXC(int sig_num)
 	}
 	else 
 		[exception raise];
+    
 	return 0;
 }
 
@@ -428,6 +431,7 @@ void signal_EXC(int sig_num)
 	}
 	else 
 		[exception raise];
+    
 	return 0;
 }
 
@@ -449,6 +453,7 @@ void signal_EXC(int sig_num)
 	}
 	else 
 		[exception raise];
+    
 	return nil;
 }
 
@@ -466,6 +471,7 @@ void signal_EXC(int sig_num)
 	}
 	else 
 		[exception raise];
+    
 	return nil;
 }
 
@@ -480,6 +486,7 @@ void signal_EXC(int sig_num)
 	}
 	else 
 		[exception raise];
+    
 	return nil;
 }
 
@@ -495,6 +502,7 @@ void signal_EXC(int sig_num)
 	}
 	else 
 		[exception raise];
+    
 	return nil;
 }
 
@@ -519,9 +527,9 @@ void signal_EXC(int sig_num)
 
 		return dates;
 	}
-		
 	else 
 		[exception raise];
+    
 	return nil;
 }
 
@@ -544,6 +552,7 @@ void signal_EXC(int sig_num)
 	}
 	else 
 		[exception raise];
+    
 	return nil;
 }
 
@@ -573,8 +582,8 @@ void signal_EXC(int sig_num)
 	}
 	else 
 		[exception raise];
+    
 	return nil;
-
 }
 
 - (NSCalendarDate *)nextDateTimeWithLength:(int)length{
@@ -601,10 +610,12 @@ void signal_EXC(int sig_num)
 	}
 	else 
 		[exception raise];
+    
 	return nil;
 }
 
-- (NSMutableArray *)nextDateTimesWithLength:(int)length{
+- (NSMutableArray *)nextDateTimesWithLength:(int)length
+{
 	NSException *exception = [self testForLength:length];
 	//NSString *format;
 	NSMutableArray *times = [NSMutableArray array];
@@ -625,12 +636,10 @@ void signal_EXC(int sig_num)
 		position += length;
 		return times;
 	}
-		
 	else 
 		[exception raise];
+    
 	return nil;
-
-
 }
 
 - (NSMutableData *)nextDataWithLength:(int)length
@@ -642,7 +651,7 @@ void signal_EXC(int sig_num)
         void *ptr = malloc( length);
         if( ptr)
         {
-            memcpy( ptr, dicomData.bytes + position, length);
+            memcpy( ptr, (uint8_t *)dicomData.bytes + position, length);
             
             void *tempPtr = malloc( length);
             if( tempPtr)
@@ -681,6 +690,7 @@ void signal_EXC(int sig_num)
 	}
 	else 
 		[exception raise];
+    
 	return NO;
 }
 
@@ -780,6 +790,7 @@ void signal_EXC(int sig_num)
 		u.ull = NSSwapHostLongToLittle(u.ull);
 
 	[dicomData appendBytes:u.buffer length:size];
+    
 
 }
 
@@ -946,7 +957,6 @@ void signal_EXC(int sig_num)
 		transferSyntaxInUse = [transferSyntaxForDataset retain];
 }
 
-
 - (BOOL)determineTransferSyntax
 {
 	[transferSyntaxInUse release];
@@ -1027,8 +1037,7 @@ void signal_EXC(int sig_num)
 				offset = 0;
 				return YES;
 			}
-			
-			else{
+			else {
 			//test the first tag or two to see if it is implicit or not a valid file.
 				group = [self nextUnsignedShort];
 				element = [self nextUnsignedShort]; 	
@@ -1064,9 +1073,11 @@ void signal_EXC(int sig_num)
                                             reason:@"File is not DICOM"
                                           userInfo:nil];
         [exception raise];
-	} @catch( NSException *localException) {
+	}
+    @catch( NSException *localException) {
 		NSLog(@"ERROR:%@  REASON:%@", [exception name], [exception reason]);
 	}
+    
 	return NO;			
 }
 

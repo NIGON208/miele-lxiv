@@ -154,12 +154,18 @@ static int getfd(id object, BOOL read, int def) { // http://www.quantum-step.com
 
 
 -(BOOL)isRunning {
-	if (_pid < 1) return NO;
+	if (_pid < 1)
+        return NO;
+    
 	// return YES;
 	int status;
 	pid_t ret = waitpid(_pid, &status, WNOHANG);
-	if (!ret) return YES;
-	if (ret == -1) return NO;
+	if (!ret)
+        return YES;
+    
+	if (ret == -1)
+        return NO;
+    
 	return !(WIFEXITED(status) || WIFSIGNALED(status));
 }
 

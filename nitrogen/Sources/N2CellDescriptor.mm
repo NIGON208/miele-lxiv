@@ -50,7 +50,8 @@
 
 -(id)copyWithZone:(NSZone*)zone {
 	N2CellDescriptor* copy = [[N2CellDescriptor allocWithZone:zone] initWithWidthConstraints:_widthConstraints alignment:_alignment];
-	if (copy == nil) return nil;
+	if (copy == nil)
+        return nil;
 	
 	[copy setView:_view];
 	[copy setAlignment:_alignment];
@@ -99,13 +100,15 @@
 -(NSSize)optimalSize {
 	if ([_view respondsToSelector:@selector(optimalSize)])
 		return n2::ceil([(id<OptimalSize>)_view optimalSize]);
-	else return [_view frame].size;	
+    
+	return [_view frame].size;
 }
 
 -(NSSize)optimalSizeForWidth:(CGFloat)width {
 	if ([_view respondsToSelector:@selector(optimalSizeForWidth:)])
 		return n2::ceil([(id<OptimalSize>)_view optimalSizeForWidth:width]);
-	else return n2::ceil([_view frame].size);
+    
+	return n2::ceil([_view frame].size);
 }
 
 -(NSRect)sizeAdjust {

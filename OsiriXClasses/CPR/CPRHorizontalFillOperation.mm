@@ -43,9 +43,9 @@
         _floatBytes = floatBytes;
         _width = width;
         _height = height;
-        _vectors = malloc(width * sizeof(N3Vector));
+        _vectors = (N3Vector *)malloc(width * sizeof(N3Vector));
         memcpy(_vectors, vectors, width * sizeof(N3Vector));
-        _normals = malloc(width * sizeof(N3Vector));  
+        _normals = (N3VectorArray)malloc(width * sizeof(N3Vector));
         memcpy(_normals, normals, width * sizeof(N3Vector));
         _interpolationMode = interpolationMode;
     }
@@ -104,11 +104,11 @@
     N3VectorArray volumeNormals;
     CPRVolumeDataInlineBuffer inlineBuffer;
     
-    volumeVectors = malloc(_width * sizeof(N3Vector));
+    volumeVectors = (N3VectorArray)malloc(_width * sizeof(N3Vector));
     memcpy(volumeVectors, _vectors, _width * sizeof(N3Vector));
     N3VectorApplyTransformToVectors(_volumeData.volumeTransform, volumeVectors, _width);
     
-    volumeNormals = malloc(_width * sizeof(N3Vector));
+    volumeNormals = (N3VectorArray)malloc(_width * sizeof(N3Vector));
     memcpy(volumeNormals, _normals, _width * sizeof(N3Vector));
     vectorTransform = _volumeData.volumeTransform;
     vectorTransform.m41 = vectorTransform.m42 = vectorTransform.m43 = 0.0;
@@ -140,11 +140,11 @@
     N3VectorArray volumeNormals;
     CPRVolumeDataInlineBuffer inlineBuffer;
     
-    volumeVectors = malloc(_width * sizeof(N3Vector));
+    volumeVectors = (N3VectorArray)malloc(_width * sizeof(N3Vector));
     memcpy(volumeVectors, _vectors, _width * sizeof(N3Vector));
     N3VectorApplyTransformToVectors(_volumeData.volumeTransform, volumeVectors, _width);
     
-    volumeNormals = malloc(_width * sizeof(N3Vector));
+    volumeNormals = (N3VectorArray)malloc(_width * sizeof(N3Vector));
     memcpy(volumeNormals, _normals, _width * sizeof(N3Vector));
     vectorTransform = _volumeData.volumeTransform;
     vectorTransform.m41 = vectorTransform.m42 = vectorTransform.m43 = 0.0;
@@ -176,11 +176,11 @@
     N3VectorArray volumeNormals;
     CPRVolumeDataInlineBuffer inlineBuffer;
 
-    volumeVectors = malloc(_width * sizeof(N3Vector));
+    volumeVectors = (N3VectorArray)malloc(_width * sizeof(N3Vector));
     memcpy(volumeVectors, _vectors, _width * sizeof(N3Vector));
     N3VectorApplyTransformToVectors(_volumeData.volumeTransform, volumeVectors, _width);
 
-    volumeNormals = malloc(_width * sizeof(N3Vector));
+    volumeNormals = (N3VectorArray)malloc(_width * sizeof(N3Vector));
     memcpy(volumeNormals, _normals, _width * sizeof(N3Vector));
     vectorTransform = _volumeData.volumeTransform;
     vectorTransform.m41 = vectorTransform.m42 = vectorTransform.m43 = 0.0;

@@ -22,8 +22,6 @@
 #import "VRView.h"
 #import "VRView+StereoVision.h"
 
-
-
 @implementation VRFlyThruAdapter (StereoVision)
 
 - (void) endMovieGenerating
@@ -31,7 +29,8 @@
 	
 	if([[(VRController*)controller view] StereoVisionOn])
 		[[(VRController*)controller view] disableStereoModeLeftRight];
-	else [[(VRController*)controller view] restoreViewSizeAfterMatrix3DExport];
+	else
+        [[(VRController*)controller view] restoreViewSizeAfterMatrix3DExport];
 }
 
 @end

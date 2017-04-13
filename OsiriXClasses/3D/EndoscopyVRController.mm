@@ -262,11 +262,15 @@
 		[self applyWLWWForString:@"VR - Endoscopy"];
 	}
 	
-	if( [dict objectForKey:@"CLUTName"]) [self ApplyCLUTString:[dict objectForKey:@"CLUTName"]];
-	else [self ApplyCLUTString:@"Endoscopy"];
+	if( [dict objectForKey:@"CLUTName"])
+        [self ApplyCLUTString:[dict objectForKey:@"CLUTName"]];
+	else
+        [self ApplyCLUTString:@"Endoscopy"];
 	
-	if( [dict objectForKey:@"OpacityName"]) [self ApplyOpacityString:[dict objectForKey:@"OpacityName"]];
-	else [self ApplyOpacityString: @"Logarithmic Table"];
+	if( [dict objectForKey:@"OpacityName"])
+        [self ApplyOpacityString:[dict objectForKey:@"OpacityName"]];
+	else
+        [self ApplyOpacityString: @"Logarithmic Table"];
 	
 	NSString *shadingName = [dict objectForKey:@"shading"];
 	if (!shadingName)
@@ -281,8 +285,10 @@
 		}
 	}
 	
-	if( [view shading]) [shadingCheck setState: NSOnState];
-	else [shadingCheck setState: NSOffState];
+	if( [view shading])
+        [shadingCheck setState: NSOnState];
+	else
+        [shadingCheck setState: NSOffState];
 	
 	float ambient = 0.12;
 	float diffuse = 0.62;
@@ -297,7 +303,8 @@
 - (IBAction) flyThruControllerInit:(id) sender
 {
 	//Only open 1 fly through controller
-	if( [self flyThruController]) return;
+	if( [self flyThruController])
+        return;
 	
 	FTAdapter = [[VRFlyThruAdapter alloc] initWithVRController: self];
 	FlyThruController *flyThruController = [[FlyThruController alloc] initWithFlyThruAdapter:FTAdapter];

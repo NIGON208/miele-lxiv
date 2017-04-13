@@ -19,7 +19,8 @@
 
 - (void) keyDown:(NSEvent *)theEvent
 {
-    if( [[theEvent characters] length] == 0) return;
+    if( [[theEvent characters] length] == 0)
+        return;
     
 	unichar		c = [[theEvent characters] characterAtIndex:0];
 	

@@ -73,7 +73,8 @@
     if ([[e name] isEqualToString:@"value"]) {
         if (e.childCount)
             return [N2XMLRPC ParseElement:[e childAtIndex:0]];
-        else return [[e stringValue] xmlUnescapedString];
+        
+        return [[e stringValue] xmlUnescapedString];
     }
 	
 	[NSException raise:NSGenericException format:@"unhandled XMLRPC data type: %@", [e name]]; return NULL;
@@ -95,7 +96,8 @@
 	if ([o isKindOfClass:[NSString class]]) {
 		if (options & N2XMLRPCDontSpecifyStringTypeOptionMask)
             return [(NSString*)o xmlEscapedString];
-        else return [NSString stringWithFormat:@"<string>%@</string>", [(NSString*)o xmlEscapedString]];
+        
+        return [NSString stringWithFormat:@"<string>%@</string>", [(NSString*)o xmlEscapedString]];
 	}
 	
 	if ([o isKindOfClass:[NSArray class]]) {

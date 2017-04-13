@@ -15,7 +15,6 @@
 #import "DCMObjectPixelDataImport.h"
 #import <OsiriX/DCM.h>
 
-
 @implementation DCMObjectPixelDataImport
 
 + (id)objectWithContentsOfFile:(NSString *)file decodingPixelData:(BOOL)decodePixelData

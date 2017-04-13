@@ -19,7 +19,9 @@
 
 - (id)init;
 {
-	if(![super initWithWindowNibName:@"Loupe"]) return nil;
+	if(![super initWithWindowNibName:@"Loupe"])
+        return nil;
+    
 	return self;
 }
 

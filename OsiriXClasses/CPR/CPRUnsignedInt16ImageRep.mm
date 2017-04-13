@@ -31,7 +31,7 @@
 {
     if ( (self = [super init]) ) {
         if (data == NULL) {
-            _unsignedInt16Data = malloc(sizeof(uint16_t) * pixelsWide * pixelsHigh);
+            _unsignedInt16Data = (uint16_t *)malloc(sizeof(uint16_t) * pixelsWide * pixelsHigh);
             _freeWhenDone = YES;
             if (_unsignedInt16Data == NULL) {
                 [self autorelease];

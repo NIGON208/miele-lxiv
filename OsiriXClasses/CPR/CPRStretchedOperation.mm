@@ -147,13 +147,13 @@ static NSOperationQueue *_stretchedOperationFillQueue = nil;
             numVectors = pixelsWide;
             _sampleSpacing = projectedBezierLength / (CGFloat)pixelsWide;
             
-            _floatBytes = malloc(sizeof(float) * pixelsWide * pixelsHigh * pixelsDeep);
-            vectors = malloc(sizeof(N3Vector) * pixelsWide);
-            fillVectors = malloc(sizeof(N3Vector) * pixelsWide);
-            fillNormals = malloc(sizeof(N3Vector) * pixelsWide);
-            tangents = malloc(sizeof(N3Vector) * pixelsWide);
-            normals = malloc(sizeof(N3Vector) * pixelsWide);
-            inSlabNormals = malloc(sizeof(N3Vector) * pixelsWide);
+            _floatBytes = (float *)malloc(sizeof(float) * pixelsWide * pixelsHigh * pixelsDeep);
+            vectors = (N3Vector *)malloc(sizeof(N3Vector) * pixelsWide);
+            fillVectors = (N3Vector *)malloc(sizeof(N3Vector) * pixelsWide);
+            fillNormals = (N3Vector *)malloc(sizeof(N3Vector) * pixelsWide);
+            tangents = (N3Vector *)malloc(sizeof(N3Vector) * pixelsWide);
+            normals = (N3Vector *)malloc(sizeof(N3Vector) * pixelsWide);
+            inSlabNormals = (N3Vector *)malloc(sizeof(N3Vector) * pixelsWide);
             
             if (_floatBytes == NULL || vectors == NULL || fillVectors == NULL || fillNormals == NULL || tangents == NULL || normals == NULL || inSlabNormals == NULL) {
                 free(_floatBytes);

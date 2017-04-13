@@ -20,8 +20,9 @@
 //	NSBundle *bundle = [NSBundle bundleForClass: [NFIWindow class]];
 	NSBundle *bundle = [NSBundle mainBundle];
 	NSImage *image = [[[NSImage alloc] initWithContentsOfFile:[bundle pathForImageResource:name]] autorelease];
-	if(!image)
+	if (!image)
 		return nil;
+    
 	[image setName:name];
 	
 	return image;

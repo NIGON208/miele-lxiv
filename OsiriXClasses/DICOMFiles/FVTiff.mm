@@ -96,11 +96,11 @@ NSXMLDocument * XML_from_FVTiff(NSString* srcFile)
 	int success = 0;
 
 	TIFF* tif = TIFFOpen([srcFile UTF8String], "r");
-	if(tif)
+	if (tif)
 		success = TIFFGetField(tif, TIFFTAG_IMAGEDESCRIPTION, &desc);
-	if (success)
+
+    if (success)
 	{
-		int i;
 		int descLen = strlen(desc);
 		int lineStart = 0;
 		char lineBuffer[256];
@@ -108,7 +108,7 @@ NSXMLDocument * XML_from_FVTiff(NSString* srcFile)
 		line[0] = 0;
 		NSMutableArray *elements = [NSMutableArray array];
 		
-		for (i = 0; i < descLen; i++)
+		for (int i = 0; i < descLen; i++)
 		{
 			if (desc[i] == 0x0D || desc[i] == 0x0A)
 			{
@@ -153,7 +153,8 @@ NSXMLDocument * XML_from_FVTiff(NSString* srcFile)
 		}
 	}
 	
-	if(tif) TIFFClose(tif);
+	if (tif)
+        TIFFClose(tif);
 	
 	xmlDocument = [[NSXMLDocument alloc] initWithRootElement:rootElement];
 	[rootElement release];
@@ -165,7 +166,9 @@ void FVTIFFInitialize(void)
 {
     static int first_time=1;
         
-    if (! first_time) return; /* Been there. Done that. */
+    if (! first_time)
+        return; /* Been there. Done that. */
+    
     first_time = 0;
         
     /* Grab the inherited method and install */

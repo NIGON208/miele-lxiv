@@ -147,14 +147,22 @@ NSString* const SMTPMessageKey = @"SMTPMessage";
 			if (lti < gti) {
 				if (email) *email = [[address substringWithRange:NSMakeRange(lti+1, gti-lti-1)] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet];
 				if (desc) *desc = [[address substringToIndex:MAX(0,lti-1)] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet];
-			} else [NSException raise:NSInvalidArgumentException format:@"Invalid sender email address"];
-		} else [NSException raise:NSInvalidArgumentException format:@"Invalid sender email address"];
-	} else {
+			}
+            else
+                [NSException raise:NSInvalidArgumentException format:@"Invalid sender email address"];
+		}
+        else
+            [NSException raise:NSInvalidArgumentException format:@"Invalid sender email address"];
+	}
+    else {
 		if (gti != NSNotFound)
 			[NSException raise:NSInvalidArgumentException format:@"Invalid sender email address"];
 		else {
-			if (email) *email = address;
-			if (desc) *desc = nil;
+			if (email)
+                *email = address;
+            
+			if (desc)
+                *desc = nil;
 		}
 	}
 }
@@ -580,7 +588,8 @@ enum SMTPSubstatuses {
 			self.smtpStatus = StatusAUTH;
 			self.smtpSubstatus = LoginAUTH;
 		}
-		else [NSException raise:NSGenericException format:@"The server doesn't allow any authentication techniques supported by this client."];
+		else
+            [NSException raise:NSGenericException format:@"The server doesn't allow any authentication techniques supported by this client."];
 	} else
 		[self _mail];
 }
@@ -717,15 +726,18 @@ enum SMTPSubstatuses {
 				case 354:
 					if (self.fromDescription)
 						[self writeLine:[NSString stringWithFormat:@"From: =?UTF-8?B?%@?= <%@>", [[self.fromDescription dataUsingEncoding:NSUTF8StringEncoding] base64], self.from]];
-					else [self writeLine:[NSString stringWithFormat:@"From: %@", self.from]];
+					else
+                        [self writeLine:[NSString stringWithFormat:@"From: %@", self.from]];
 					
 					NSMutableString* to = [NSMutableString string];
 					for (NSArray* ito in self.to) {
 						if (to.length)
 							[to appendString:@", "];
+                        
 						if (ito.count > 1)
 							[to appendFormat:@"=?UTF-8?B?%@?= <%@>", [[[ito objectAtIndex:1] dataUsingEncoding:NSUTF8StringEncoding] base64], [ito objectAtIndex:0]];
-						else [to appendFormat:@"%@", [ito objectAtIndex:0]];
+						else
+                            [to appendFormat:@"%@", [ito objectAtIndex:0]];
 					}
 					[self writeLine:[NSString stringWithFormat:@"To: %@", to]];
 					
@@ -770,15 +782,18 @@ enum SMTPSubstatuses {
 	[line splitStringAtCharacterFromSet:[NSCharacterSet characterSetWithCharactersInString:@" -"] intoChunks:&temp:&message separator:&separator];
 	code = [temp integerValue];
 	
-	if (code) {
+	if (code)
 		[self handleCode:code withMessage:message separator:separator];
-	} else [NSException raise:NSGenericException format:@"Couldn't parse line"];
+    else
+        [NSException raise:NSGenericException format:@"Couldn't parse line"];
 }
 
 -(void)_dataTimeoutCallback:(NSTimer*)timer {
 	if (self.client.tlsMode) {
         [self startTLS];
-    } else [NSException raise:NSGenericException format:@"Connection stalled, probably wants TLS handshake, user said no TLS"];
+    }
+    else
+        [NSException raise:NSGenericException format:@"Connection stalled, probably wants TLS handshake, user said no TLS"];
 }
 
 @end

@@ -565,7 +565,7 @@ static BOOL kfScaleUInts(unsigned *integers, int numInts, unsigned targetTotal)
     // Ex 1: The thickness of a collapsed subview is 0.
     // Ex 2: For an uncollapsed subview in a horizontal (standard direction) splitview,
     //       thickness means height.
-    unsigned *subviewThicknesses;
+    unsigned int *subviewThicknesses;
     
     // setup 
     subviews = [self subviews];
@@ -575,7 +575,7 @@ static BOOL kfScaleUInts(unsigned *integers, int numInts, unsigned targetTotal)
         return;
     }
     
-    subviewThicknesses = malloc(sizeof(unsigned)*numSubviews);
+    subviewThicknesses = (unsigned int *)malloc(sizeof(unsigned int)*numSubviews);
     
     // Fill out subviewThicknesses array.
     // Also keep track of the total thickness of all subviews, and 

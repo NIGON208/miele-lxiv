@@ -349,7 +349,7 @@ static void MyCFWriteStreamCallback(CFWriteStreamRef stream, CFStreamEventType t
 	
 	while (i < bytesDone)
 	{
-		void *subbuf = buf + startOffset + i;
+		void *subbuf = (uint8_t *)buf + startOffset + i;
 		
 		if (memcmp(subbuf, termBuf, j) == 0)
 		{
@@ -459,17 +459,16 @@ static void MyCFWriteStreamCallback(CFWriteStreamRef stream, CFStreamEventType t
 	const void *termBuf = [term bytes];
 	
 	NSUInteger bufLen = MIN(bytesDone, (termLength - 1));
-	void *buf = [buffer mutableBytes] + startOffset + bytesDone - bufLen;
+	uint8_t *buf = (uint8_t *)[buffer mutableBytes] + startOffset + bytesDone - bufLen;
 	
 	NSUInteger preLen = termLength - bufLen;
-	void *pre = (void *)[preBuffer bytes];
+	uint8_t *pre = (uint8_t *)[preBuffer bytes];
 	
 	NSUInteger loopCount = bufLen + maxPreBufferLength - termLength + 1; // Plus one. See example above.
 	
 	NSUInteger result = preBufferLength;
 	
-	NSUInteger i;
-	for (i = 0; i < loopCount; i++)
+	for (NSUInteger i = 0; i < loopCount; i++)
 	{
 		if (bufLen > 0)
 		{
@@ -495,7 +494,7 @@ static void MyCFWriteStreamCallback(CFWriteStreamRef stream, CFStreamEventType t
 			
 			if (memcmp(pre, termBuf, termLength) == 0)
 			{
-				NSUInteger preOffset = pre - [preBuffer bytes]; // pointer arithmetic
+				NSUInteger preOffset = pre - (uint8_t *)[preBuffer bytes]; // pointer arithmetic
 				
 				result = preOffset + termLength;
 				found = YES;
@@ -580,9 +579,9 @@ static void MyCFWriteStreamCallback(CFWriteStreamRef stream, CFStreamEventType t
 	
 	while ((i + termLength) <= bytesDone)
 	{
-		void *subBuffer = [buffer mutableBytes] + startOffset + i;
+		uint8_t *subBuffer = (uint8_t *)[buffer mutableBytes] + startOffset + i;
 		
-		if(memcmp(subBuffer, termBuffer, termLength) == 0)
+		if (memcmp(subBuffer, termBuffer, termLength) == 0)
 		{
 			return bytesDone - (i + termLength);
 		}
@@ -1385,7 +1384,8 @@ static void MyCFWriteStreamCallback(CFWriteStreamRef stream, CFStreamEventType t
 	if (address4)
 	{
 		theSocket4 = [self newAcceptSocketForAddress:address4 error:errPtr];
-		if (theSocket4 == NULL) goto Failed;
+		if (theSocket4 == NULL)
+            goto Failed;
 	}
 	
 	if (address6)
@@ -1395,7 +1395,8 @@ static void MyCFWriteStreamCallback(CFWriteStreamRef stream, CFStreamEventType t
 		// Note: The iPhone doesn't currently support IPv6
 		
 #if !TARGET_OS_IPHONE
-		if (theSocket6 == NULL) goto Failed;
+		if (theSocket6 == NULL)
+            goto Failed;
 #endif
 	}
 	
@@ -1405,9 +1406,11 @@ static void MyCFWriteStreamCallback(CFWriteStreamRef stream, CFStreamEventType t
 	
 	// Set the SO_REUSEADDR flags.
 
+    {
 	int reuseOn = 1;
 	if (theSocket4)	setsockopt(CFSocketGetNative(theSocket4), SOL_SOCKET, SO_REUSEADDR, &reuseOn, sizeof(reuseOn));
 	if (theSocket6)	setsockopt(CFSocketGetNative(theSocket6), SOL_SOCKET, SO_REUSEADDR, &reuseOn, sizeof(reuseOn));
+    }
 
 	// Set the local bindings which causes the sockets to start listening.
 
@@ -1415,7 +1418,8 @@ static void MyCFWriteStreamCallback(CFWriteStreamRef stream, CFStreamEventType t
 	if (theSocket4)
 	{
 		err = CFSocketSetAddress(theSocket4, (CFDataRef)address4);
-		if (err != kCFSocketSuccess) goto Failed;
+		if (err != kCFSocketSuccess)
+            goto Failed;
 		
 		//NSLog(@"theSocket4: %hu", [self localPortFromCFSocket4:theSocket4]);
 	}
@@ -1434,7 +1438,8 @@ static void MyCFWriteStreamCallback(CFWriteStreamRef stream, CFStreamEventType t
 	if (theSocket6)
 	{
 		err = CFSocketSetAddress(theSocket6, (CFDataRef)address6);
-		if (err != kCFSocketSuccess) goto Failed;
+		if (err != kCFSocketSuccess)
+            goto Failed;
 		
 		//NSLog(@"theSocket6: %hu", [self localPortFromCFSocket6:theSocket6]);
 	}
@@ -1443,19 +1448,23 @@ static void MyCFWriteStreamCallback(CFWriteStreamRef stream, CFStreamEventType t
 	return YES;
 	
 Failed:
-	if(errPtr) *errPtr = [self getSocketError];
+	if (errPtr)
+        *errPtr = [self getSocketError];
+    
 	if(theSocket4 != NULL)
 	{
 		CFSocketInvalidate(theSocket4);
 		CFRelease(theSocket4);
 		theSocket4 = NULL;
 	}
+    
 	if(theSocket6 != NULL)
 	{
 		CFSocketInvalidate(theSocket6);
 		CFRelease(theSocket6);
 		theSocket6 = NULL;
 	}
+    
 	return NO;
 }
 
@@ -1800,8 +1809,10 @@ Failed:
 		AsyncSocket *newSocket = [[[[self class] alloc] initWithDelegate:theDelegate] autorelease];
 		[newSocket setRunLoopModes:theRunLoopModes];
 		
-		if(![newSocket createStreamsFromNative:newNativeSocket error:nil])
-			goto Failed;
+        if(![newSocket createStreamsFromNative:newNativeSocket error:nil]) {
+            [newSocket close];
+            return;
+        }
 		
 		if (parentSocket == theSocket4)
 			newSocket->theNativeSocket4 = newNativeSocket;
@@ -2083,10 +2094,12 @@ Failed:
 {
 	// Get the CFSocketNativeHandle from theReadStream
 	CFSocketNativeHandle native;
-	CFDataRef nativeProp = CFReadStreamCopyProperty(theReadStream, kCFStreamPropertySocketNativeHandle);
-	if(nativeProp == NULL)
+	CFDataRef nativeProp = (CFDataRef)CFReadStreamCopyProperty(theReadStream, kCFStreamPropertySocketNativeHandle);
+	if (nativeProp == NULL)
 	{
-		if (errPtr) *errPtr = [self getStreamError];
+		if (errPtr)
+            *errPtr = [self getStreamError];
+        
 		return NO;
 	}
 	
@@ -2184,7 +2197,7 @@ Failed:
 		{
 			// We need to move its data into the front of the partial read buffer.
 			
-			void *buffer = [theCurrentRead->buffer mutableBytes] + theCurrentRead->startOffset;
+			uint8_t *buffer = (uint8_t *)[theCurrentRead->buffer mutableBytes] + theCurrentRead->startOffset;
 			
 			[partialReadBuffer replaceBytesInRange:NSMakeRange(0, 0)
 										 withBytes:buffer
@@ -2422,7 +2435,7 @@ Failed:
 		NSUInteger bytesToRead = [partialReadBuffer length] - totalBytesRead;
 		
 		// Read data into packet buffer
-		UInt8 *packetbuf = (UInt8 *)( [partialReadBuffer mutableBytes] + totalBytesRead );
+		UInt8 *packetbuf = (UInt8 *)[partialReadBuffer mutableBytes] + totalBytesRead;
 		
 		CFIndex result = CFReadStreamRead(theReadStream, packetbuf, bytesToRead);
 		
@@ -3214,8 +3227,8 @@ Failed:
 #endif
 	
 	static const char *statstr[] = {"not open","opening","open","reading","writing","at end","closed","has error"};
-	CFStreamStatus rs = (theReadStream != NULL) ? CFReadStreamGetStatus(theReadStream) : 0;
-	CFStreamStatus ws = (theWriteStream != NULL) ? CFWriteStreamGetStatus(theWriteStream) : 0;
+	CFStreamStatus rs = (theReadStream != NULL) ? CFReadStreamGetStatus(theReadStream) : kCFStreamStatusNotOpen;
+	CFStreamStatus ws = (theWriteStream != NULL) ? CFWriteStreamGetStatus(theWriteStream) : kCFStreamStatusNotOpen;
 	
 	NSString *peerstr, *selfstr;
 
@@ -3670,7 +3683,7 @@ Failed:
 		
 		// Read data into packet buffer
 		
-		void *buffer = [theCurrentRead->buffer mutableBytes] + theCurrentRead->startOffset;
+		uint8_t *buffer = (uint8_t *)[theCurrentRead->buffer mutableBytes] + theCurrentRead->startOffset;
 		void *subBuffer = buffer + theCurrentRead->bytesDone;
 		
 		CFIndex result = [self readIntoBuffer:subBuffer maxLength:bytesToRead];
@@ -3840,7 +3853,7 @@ Failed:
 			[theCurrentRead->buffer setLength:buffSize];
 		}
 		
-		void *buffer = [theCurrentRead->buffer mutableBytes] + theCurrentRead->startOffset;
+		uint8_t *buffer = (uint8_t *)[theCurrentRead->buffer mutableBytes] + theCurrentRead->startOffset;
 		
 		result = [NSData dataWithBytesNoCopy:buffer length:theCurrentRead->bytesDone freeWhenDone:NO];
 	}
@@ -4036,7 +4049,7 @@ Failed:
 		NSUInteger bytesRemaining = [theCurrentWrite->buffer length] - theCurrentWrite->bytesDone;
 		NSUInteger bytesToWrite = (bytesRemaining < WRITE_CHUNKSIZE) ? bytesRemaining : WRITE_CHUNKSIZE;
 		
-		UInt8 *writestart = (UInt8 *)([theCurrentWrite->buffer bytes] + theCurrentWrite->bytesDone);
+		UInt8 *writestart = (UInt8 *)[theCurrentWrite->buffer bytes] + theCurrentWrite->bytesDone;
 		
 		// Write
 		CFIndex result = CFWriteStreamWrite(theWriteStream, writestart, bytesToWrite);

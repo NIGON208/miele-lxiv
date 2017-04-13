@@ -46,7 +46,7 @@
     float sf; // screen factor during creation
 }
 
-// this API requires a current rendering context and all operations will be performed in regards to thar context
+// this API requires a current rendering context and all operations will be performed in regards to that context
 // the same context should be current for all method calls for a particular object instance
 
 // designated initializer

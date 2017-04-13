@@ -14,7 +14,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-/** \brief Array Controlle for query logs */
+/** \brief Array Controller for query logs */
 @interface QueryLogController : NSArrayController {
 
 }

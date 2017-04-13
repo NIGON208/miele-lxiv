@@ -86,13 +86,15 @@ NSString* N2ViewBoundsSizeDidChangeNotificationOldBoundsSize = @"oldBoundsSize";
 -(NSSize)optimalSize {
 	if (_n2layout)
 		return n2::ceil([_n2layout optimalSize]);
-	else return [self frame].size;	
+    
+	return [self frame].size;
 }
 
 -(NSSize)optimalSizeForWidth:(CGFloat)width {
 	if (_n2layout)
 		return n2::ceil([_n2layout optimalSizeForWidth:width]);
-	else return [self frame].size;
+    
+	return [self frame].size;
 }
 
 @end

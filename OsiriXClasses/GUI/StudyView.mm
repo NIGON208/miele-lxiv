@@ -35,11 +35,10 @@
 		seriesRows = rows;
 		seriesColumns = columns;
 		//tag = theTag;
-		int i;
 		int count = rows * columns;
 		seriesViews = [[NSMutableArray array] retain];
 		NSRect bounds = [self bounds];
-		for (i = 0 ; i < count; i++)
+		for (int i = 0 ; i < count; i++)
 		{
 			float newWidth = bounds.size.width / seriesColumns;
 			float newHeight = bounds.size.height / seriesRows;
@@ -51,9 +50,8 @@
 			[seriesView setTag:i];
 			[self addSubview:seriesView];
 		}
-		
-		
     }
+
     return self;
 }
 

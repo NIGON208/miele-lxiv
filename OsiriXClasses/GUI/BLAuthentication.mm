@@ -34,7 +34,6 @@ OSStatus AuthorizationExecuteWithPrivilegesStdErrAndPid (
 	char ** args = nil;
 	OSStatus result;
 	int argcount = 0;
-	int i;
 	int stderrfd = 0;
 	FILE* commPipe = 0;
 	
@@ -63,7 +62,7 @@ OSStatus AuthorizationExecuteWithPrivilegesStdErrAndPid (
 	args[1] = command;
 	args[2] = "";
 	args[3] = (char*)pathToTool;
-	for (i = 0; i < argcount; ++i) {
+	for (int i = 0; i < argcount; ++i) {
 		args[i+4] = arguments[i];
 	}
 	args[argcount+4] = 0;
@@ -109,12 +108,15 @@ OSStatus AuthorizationExecuteWithPrivilegesStdErrAndPid (
         *errPipe = fdopen(stderrfd, "r");
         /* Now it's safe to unlink the stderr file, as the opened handle will be still valid */
         unlink (stderrpath);
-	} else {
+	}
+    else {
 		unlink(stderrpath);
 	}
+    
 	if (communicationsPipe) {
 		*communicationsPipe = commPipe;
-	} else {
+	}
+    else {
 		fclose (commPipe);
 	}
     

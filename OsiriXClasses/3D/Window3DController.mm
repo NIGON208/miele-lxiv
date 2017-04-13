@@ -70,8 +70,10 @@
 	{
 		valid = YES;
 		
-		if( [[item title] isEqualToString: curCLUTMenu]) [item setState:NSOnState];
-		else [item setState:NSOffState];
+		if( [[item title] isEqualToString: curCLUTMenu])
+            [item setState:NSOnState];
+		else
+            [item setState:NSOffState];
 	}
 //	else if( [item action] == @selector(ApplyConv:))
 //	{
@@ -84,8 +86,10 @@
 	{
 		valid = YES;
 		
-		if( [[item title] isEqualToString: curOpacityMenu]) [item setState:NSOnState];
-		else [item setState:NSOffState];
+		if( [[item title] isEqualToString: curOpacityMenu])
+            [item setState:NSOnState];
+		else
+            [item setState:NSOffState];
 	}
 	else if( [item action] == @selector(ApplyWLWW:))
 	{
@@ -100,16 +104,20 @@
 		
 		@catch (NSException * e) {}
 		
-		if( [str isEqualToString: curWLWWMenu] || [[item title] isEqualToString: curWLWWMenu]) [item setState:NSOnState];
-		else [item setState:NSOffState];
+		if( [str isEqualToString: curWLWWMenu] || [[item title] isEqualToString: curWLWWMenu])
+            [item setState:NSOnState];
+		else
+            [item setState:NSOffState];
 	}
-	else  if( [item action] == @selector(showCLUTOpacityPanel:))
+	else if( [item action] == @selector(showCLUTOpacityPanel:))
 	{
-		if([[[self pixList] objectAtIndex:0] isRGB] == NO) valid = YES;
+		if([[[self pixList] objectAtIndex:0] isRGB] == NO)
+            valid = YES;
 	}
 	else if( [item action] == @selector(loadAdvancedCLUTOpacity:))
 	{
-		if([[[self pixList] objectAtIndex:0] isRGB] == NO) valid = YES;
+		if([[[self pixList] objectAtIndex:0] isRGB] == NO)
+            valid = YES;
 	}
 	else if( [item action] == @selector(noAction:))
 	{

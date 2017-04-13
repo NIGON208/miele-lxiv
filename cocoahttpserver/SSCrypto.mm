@@ -139,7 +139,7 @@
     * (in a single line of course)
     */
     unsigned int size= [self length];
-    const unsigned char *p = [self bytes];
+    const unsigned char *p = (unsigned char *)[self bytes];
     unsigned char c;
     int n;
     char bytestr[4] = {0};
@@ -564,7 +564,7 @@
 		
 		NSData *salt = nil;
 		
-		if([cipherText length] > 8+8)
+		if ([cipherText length] > 8+8)
 		{
 			if(strncmp((const char *)[cipherText bytes], "Salted__", 8) == 0)
 			{
@@ -575,8 +575,14 @@
 			}
 		}
         
-        EVP_BytesToKey(cipher, EVP_md5(), [salt bytes],
-					   [symmetricKey bytes], [symmetricKey length], 1, evp_key, iv);
+        EVP_BytesToKey(cipher,
+                       EVP_md5(),
+                       (unsigned char *)[salt bytes],
+					   (unsigned char *)[symmetricKey bytes],
+                       [symmetricKey length],
+                       1,
+                       evp_key,
+                       iv);
 		
         EVP_CIPHER_CTX_init(&cCtx);
 
@@ -806,7 +812,7 @@
     int outlen, templen, inlen;
     inlen = [clearText length];
     
-    if([self isSymmetric])
+    if ([self isSymmetric])
 	{
 		// Perform symmetric encryption...
 		
@@ -828,8 +834,14 @@
             }
         }
 
-        EVP_BytesToKey(cipher, EVP_md5(), NULL,
-                       [[self symmetricKey] bytes], [[self symmetricKey] length], 1, evp_key, iv);
+        EVP_BytesToKey(cipher,
+                       EVP_md5(),
+                       NULL,
+                       (unsigned char *)[[self symmetricKey] bytes],
+                       [[self symmetricKey] length],
+                       1,
+                       evp_key,
+                       iv);
         EVP_CIPHER_CTX_init(&cCtx);
 
         if (!EVP_EncryptInit(&cCtx, cipher, evp_key, iv)) {
@@ -1190,7 +1202,7 @@
     unsigned char *md = (unsigned char *)calloc(SHA_DIGEST_LENGTH, sizeof(unsigned char));
     NSAssert((md != NULL), @"Cannot calloc memory for buffer.");
 
-    (void)SHA1(buffer, length, md);
+    (void)SHA1((unsigned char *)buffer, length, md);
 
     return [NSData dataWithBytesNoCopy:md length:SHA_DIGEST_LENGTH freeWhenDone:YES];
 }
@@ -1202,7 +1214,7 @@
     unsigned char *md = (unsigned char *)calloc(MD5_DIGEST_LENGTH, sizeof(unsigned char));
     NSAssert((md != NULL), @"Cannot calloc memory for buffer.");
 	
-	(void)MD5(buffer, length, md);
+	(void)MD5((unsigned char *)buffer, length, md);
 	
     return [NSData dataWithBytesNoCopy:md length:MD5_DIGEST_LENGTH freeWhenDone:YES];
 }

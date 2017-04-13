@@ -229,10 +229,9 @@
 					if( range.length > 0)
 					{
 						if( string)
-						{
 							[rtf replaceCharactersInRange:range withString:string];
-						}
-						else [rtf replaceCharactersInRange:range withString:@""];
+						else
+                            [rtf replaceCharactersInRange:range withString:@""];
 						
 						searchRange = NSMakeRange( range.location, [rtf length]-(range.location+1));
 					}

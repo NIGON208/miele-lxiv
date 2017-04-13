@@ -3407,37 +3407,36 @@ int basis_vec_size;
 
     
 Coord Vec_dot(point x, point y) {
-    int i;
     Coord sum = 0;
-    for (i=0;i<rdim;i++) sum += x[i] * y[i];
+    for (int i=0;i<rdim;i++)
+        sum += x[i] * y[i];
     return sum;
 }
 
 Coord Vec_dot_pdim(point x, point y) {
-    int i;
     Coord sum = 0;
-    for (i=0;i<pdim;i++) sum += x[i] * y[i];
+    for (int i=0;i<pdim;i++)
+        sum += x[i] * y[i];
     /*  check_overshoot(sum); */
     return sum;
 }
 
 Coord Norm2(point x) {
-    int i;
     Coord sum = 0;
-    for (i=0;i<rdim;i++) sum += x[i] * x[i];
+    for (int i=0;i<rdim;i++)
+        sum += x[i] * x[i];
     return sum;
 }
 
-void Ax_plus_y(Coord a, point x, point y) {
-    int i;
-    for (i=0;i<rdim;i++) {
+void Ax_plus_y(Coord a, point x, point y)
+{
+    for (int i=0;i<rdim;i++)
         *y++ += a * *x++;
-    }
 }
 
-void Ax_plus_y_test(Coord a, point x, point y) {
-    int i;
-    for (i=0;i<rdim;i++) {
+void Ax_plus_y_test(Coord a, point x, point y)
+{
+    for (int i=0;i<rdim;i++) {
         check_overshoot(*y + a * *x);
         *y++ += a * *x++;
     }
@@ -3447,7 +3446,9 @@ void Vec_scale(int n, Coord a, Coord *x)
 {
     register Coord *xx = x,
         *xend = xx + n;
-    while (xx!=xend) *xx++ *= a;
+    
+    while (xx!=xend)
+        *xx++ *= a;
 }
 
 void Vec_scale_test(int n, Coord a, Coord *x)

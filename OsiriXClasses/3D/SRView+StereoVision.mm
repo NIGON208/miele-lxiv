@@ -299,7 +299,7 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 	catch (...)
 	{
 		if (NSRunAlertPanel(@"", //NSLocalizedString(@"32-bit",nil),
-                            NSLocalizedString(@"Cannot use the 3D engine.\r\rUpgrade to OsiriX 64-bit or OsiriX MD to solve this issue.",nil),
+                            NSLocalizedString(@"Cannot use the 3D engine.",nil),
                             NSLocalizedString(@"OK", nil),
                             nil, //NSLocalizedString(@"OsiriX 64-bit", nil),
                             nil) == NSAlertAlternateReturn)
@@ -653,11 +653,13 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 	contentRectLeftScreen.origin = NSZeroPoint;
 	if (leftView == nil)
 		leftView = [[vtkCocoaGLView alloc]initWithFrame:contentRectLeftScreen];
-	else [leftView setFrame:contentRectLeftScreen];
+	else
+        [leftView setFrame:contentRectLeftScreen];
 	
 	if (rightView==nil)
 		rightView = [[VTKStereoSRView alloc] initWithFrame:contentRectRightScreen:self];
-	else [rightView setFrame:contentRectRightScreen];
+	else
+        [rightView setFrame:contentRectRightScreen];
 		
 	LeftFullScreenWindow = [[NSWindow alloc] initWithContentRect:contentRectLeftScreen
 													   styleMask:windowStyle
@@ -680,7 +682,8 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 		[LeftFullScreenWindow setContentView:leftView];
 		
 	}
-	else return -1;
+	else
+        return -1;
 	
 	if(RightFullScreenWindow != nil)
 	{
@@ -691,7 +694,8 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 		[RightFullScreenWindow setContentView:rightView];
 		
 	}	
-	else return -1;
+	else
+        return -1;
 	
 	[self initStereoLeftRight];
 	
@@ -878,11 +882,13 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 	
 	if (leftView == nil)
 		leftView = [[vtkCocoaGLView alloc]initWithFrame:contentRectLeftScreen];
-	else [leftView setFrame:contentRectLeftScreen];
+	else
+        [leftView setFrame:contentRectLeftScreen];
 	
 	if (rightView==nil)
 		rightView = [[VTKStereoSRView alloc] initWithFrame:contentRectRightScreen:self];
-	else [rightView setFrame:contentRectRightScreen];
+	else
+        [rightView setFrame:contentRectRightScreen];
 	
 	if(LeftFullScreenWindow != nil)
 	{
@@ -893,7 +899,8 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 		[LeftFullScreenWindow setContentView:leftView];
 		
 	}
-	else return -1;
+	else
+        return -1;
 	
 	if(RightFullScreenWindow != nil)
 	{
@@ -904,7 +911,8 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 		[RightFullScreenWindow setContentView:rightView];
 		
 	}	
-	else return -1;
+	else
+        return -1;
 	
 	[self initStereoLeftRight];
 	
@@ -1036,7 +1044,8 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 		// Added SilvanWidmer 19-08-09
 		if(StereoVisionOn)
 			[self disableStereoModeLeftRight];
-		else [self restoreViewSizeAfterMatrix3DExport];
+		else
+            [self restoreViewSizeAfterMatrix3DExport];
 	}
 }
 
@@ -1233,7 +1242,8 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 #pragma mark User Commands
 - (void) keyDown:(NSEvent *)event
 {
-    if( [[event characters] length] == 0) return;
+    if( [[event characters] length] == 0)
+        return;
     
     unichar c = [[event characters] characterAtIndex:0];
 	
@@ -1401,12 +1411,12 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 	else if(c == NSDeleteFunctionKey || c == NSDeleteCharacter || c == NSBackspaceCharacter)
 	{
 		if([self isAny3DPointSelected])
-		{
 			[self removeSelected3DPoint];
-		}
-		else [self yaw:-90.0];
+		else
+            [self yaw:-90.0];
 	}
-	else [super keyDown:event];
+	else
+        [super keyDown:event];
 }
 
 - (void)mouseDown:(NSEvent *)theEvent
@@ -1623,9 +1633,9 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 		}
 		else if (_tool == tWL) {
 			NSLog(@"WL do nothing");
-		}
-		
-		else [super mouseDown:theEvent];
+		}		
+		else
+            [super mouseDown:theEvent];
 		
 		//	croppingBox->SetHandleSize( 0.005);
 	}
@@ -1676,7 +1686,8 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 	if (_dragInProgress == NO && ([theEvent deltaX] != 0 || [theEvent deltaY] != 0)) {
 		[self deleteMouseDownTimer];
 	}
-	if (_dragInProgress == YES) return;
+	if (_dragInProgress == YES)
+        return;
 	
 	if (_resizeFrame){
 		NSRect	newFrame = [self frame];

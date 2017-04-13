@@ -140,7 +140,8 @@
                     np = [NSCompoundPredicate andPredicateWithSubpredicates:pka];
                     if ([_dpert matchForPredicate:np])
                         [a replaceObjectAtIndex:i withObject:np];
-                    else [a replaceObjectsInRange:NSMakeRange(i,1) withObjectsFromArray:pka];
+                    else
+                        [a replaceObjectsInRange:NSMakeRange(i,1) withObjectsFromArray:pka];
                 }
             }
         

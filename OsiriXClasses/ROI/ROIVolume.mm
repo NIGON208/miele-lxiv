@@ -79,13 +79,12 @@
 
 - (void) setROIList: (NSArray*) newRoiList
 {
-	int i;
 	float prevArea, preLocation;
 	prevArea = 0.;
 	preLocation = 0.;
 	volume = 0.;
 	
-	for(i = 0; i < [newRoiList count]; i++)
+	for (int i = 0; i < [newRoiList count]; i++)
 	{
 		ROI *curROI = [newRoiList objectAtIndex:i];
 		if([curROI type]==tPencil || [curROI type]==tCPolygon || [curROI type]==tPlain)

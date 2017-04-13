@@ -171,10 +171,12 @@
 		if ([tag.vr isEqualToString:@"DA"]) { //Date String
 			[df setTimeStyle:NSDateFormatterNoStyle];
 			[df setDateStyle:NSDateFormatterShortStyle];
-		} else if ([tag.vr isEqualToString:@"TM"]) { //Time String
+		}
+        else if ([tag.vr isEqualToString:@"TM"]) { //Time String
 			[df setTimeStyle:NSDateFormatterShortStyle];
 			[df setDateStyle:NSDateFormatterNoStyle];
-		} else if ([tag.vr isEqualToString:@"DT"]) { //Date Time
+		}
+        else if ([tag.vr isEqualToString:@"DT"]) { //Date Time
 			[df setTimeStyle:NSDateFormatterShortStyle];
 			[df setDateStyle:NSDateFormatterShortStyle];
 		}
@@ -249,7 +251,8 @@
 
 -(void)removeTag:(DCMAttributeTag*)tag {
 	NSArray* group = [self groupForObject:tag];
-	if (!group) return;
+	if (!group)
+        return;
 	
 //	[[NSNotificationCenter defaultCenter] removeObserver:self name:NSControlTextDidEndEditingNotification object:[group objectAtIndex:1]];
 //	[[NSNotificationCenter defaultCenter] removeObserver:self name:NSControlTextDidChangeNotification object:[group objectAtIndex:1]];

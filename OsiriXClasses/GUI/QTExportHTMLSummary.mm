@@ -444,7 +444,7 @@
 	NSFileManager *fileManager = [NSFileManager defaultManager];
 	NSString *htmlExtraDirectory = [[[BrowserController currentBrowser] documentsDirectory] stringByAppendingPathComponent:@"/HTML_TEMPLATES/html-extra/"];
 	//if([directoryContent count])
-	[fileManager copyPath:htmlExtraDirectory toPath:[rootPath stringByAppendingPathComponent:@"/html-extra/"] handler:NO];
+	[fileManager copyPath:htmlExtraDirectory toPath:[rootPath stringByAppendingPathComponent:@"/html-extra/"] handler:nil];
 }
 
 - (void)createHTMLSeriesPage:(NSManagedObject*)series numberOfImages:(int)imagesCount outPutFileName:(NSString*)fileName;

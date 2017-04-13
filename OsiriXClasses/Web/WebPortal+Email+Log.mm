@@ -203,7 +203,8 @@
 
 -(void)updateLogEntryForStudy:(DicomStudy*)study withMessage:(NSString*)message forUser:(NSString*)user ip:(NSString*)ip
 {
-	if ([[NSUserDefaults standardUserDefaults] boolForKey: @"logWebServer"] == NO) return;
+	if ([[NSUserDefaults standardUserDefaults] boolForKey: @"logWebServer"] == NO)
+        return;
 	
     DicomDatabase* independentDatabase = nil;
     

@@ -154,11 +154,9 @@ OFCondition DcmQueryRetrieveOsiriXDatabaseHandle::pruneInvalidRecords()
 
 static int DB_TagSupported (DcmTagKey tag)
 {
-    int i;
-
-    for (i = 0; i < NbFindAttr; i++)
-    if (TbFindAttr[i]. tag == tag)
-        return (OFTrue);
+    for (int i = 0; i < NbFindAttr; i++)
+        if (TbFindAttr[i]. tag == tag)
+            return (OFTrue);
 
     return (OFFalse);
 }
@@ -169,9 +167,7 @@ static int DB_TagSupported (DcmTagKey tag)
 
 //static OFCondition DB_GetUIDTag (DB_LEVEL level, DcmTagKey *tag)
 //{
-//    int i;
-//
-//    for (i = 0; i < NbFindAttr; i++)
+//    for (int i = 0; i < NbFindAttr; i++)
 //    if ((TbFindAttr[i]. level == level) && (TbFindAttr[i]. keyAttr == UNIQUE_KEY))
 //        break;
 //
@@ -191,16 +187,15 @@ static int DB_TagSupported (DcmTagKey tag)
 static OFCondition DB_GetTagLevel (DcmTagKey tag, DB_LEVEL *level)
 {
     int i;
-
     for (i = 0; i < NbFindAttr; i++)
-    if (TbFindAttr[i]. tag == tag)
-        break;
+        if (TbFindAttr[i]. tag == tag)
+            break;
 
     if (i < NbFindAttr) {
-    *level = TbFindAttr[i]. level;
-    return (EC_Normal);
+        *level = TbFindAttr[i]. level;
+        return (EC_Normal);
     }
-    else
+    
     return (DcmQROsiriXDatabaseError);
 }
 
@@ -275,17 +270,22 @@ static OFCondition DB_GetTagKeyAttr (DcmTagKey tag, DB_KEY_TYPE *keyAttr)
 
 static OFCondition DB_FreeUidList (DB_UidList *lst)
 {
-    if (lst == NULL) return EC_Normal;
+    if (lst == NULL)
+        return EC_Normal;
 
     OFCondition cond = DB_FreeUidList (lst -> next);
     if (lst -> patient)
-    free (lst -> patient);
+        free (lst -> patient);
+    
     if (lst -> study)
-    free (lst -> study);
+        free (lst -> study);
+    
     if (lst -> serie)
-    free (lst -> serie);
+        free (lst -> serie);
+    
     if (lst -> image)
-    free (lst -> image);
+        free (lst -> image);
+    
     free (lst);
     return (cond);
 }
@@ -297,7 +297,8 @@ static OFCondition DB_FreeUidList (DB_UidList *lst)
 
 static OFCondition DB_FreeElementList (DB_ElementList *lst)
 {
-    if (lst == NULL) return EC_Normal;
+    if (lst == NULL)
+        return EC_Normal;
 
     OFCondition cond = DB_FreeElementList (lst -> next);
     if (lst->elem.PValueField != NULL) {
@@ -325,7 +326,8 @@ Log Entry
 *************/
 OFCondition DcmQueryRetrieveOsiriXDatabaseHandle::updateLogEntry(DcmDataset *dataset)
 {
-	if( [[BrowserController currentBrowser] isNetworkLogsActive] == NO) return EC_Normal;
+	if( [[BrowserController currentBrowser] isNetworkLogsActive] == NO)
+        return EC_Normal;
 	
 	const char *scs = 0L;
 	const char *pn = 0L;
