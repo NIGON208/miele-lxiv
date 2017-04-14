@@ -404,7 +404,9 @@ static const NSSize PopUpWindowBorder = NSMakeSize(10,4);
                 wf.origin.y -= itemHeight;
                 vf.size.height += itemHeight;
                 sViewDVR.size.height += itemHeight;
-            } else break;
+            }
+            else
+                break;
         }
     }
     

@@ -174,7 +174,8 @@
     _dbMode = dbMode;
     if (dbMode)
         self.nestingMode = NSRuleEditorNestingModeCompound;
-    else self.nestingMode = NSRuleEditorNestingModeList;
+    else
+        self.nestingMode = NSRuleEditorNestingModeList;
 }
 
 + (NSSet*)keyPathsForValuesAffectingValue {
@@ -209,7 +210,9 @@
         double rtok = 0;
         if ([rt respondsToSelector:@selector(reallyMatchForPredicate:)])
             rtok = [(O2DicomPredicateEditorCompoundRowTemplate*)rt reallyMatchForPredicate:p];
-        else rtok = [(NSPredicateEditorRowTemplate*)rt matchForPredicate:p];
+        else
+            rtok = [(NSPredicateEditorRowTemplate*)rt matchForPredicate:p];
+        
         if (rtok > 0)
             return YES;
     }

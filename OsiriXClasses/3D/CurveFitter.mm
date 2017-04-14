@@ -99,6 +99,7 @@
 		else {
 			for (int i = 0; i < numParams; i++)
 				next[i] = center[i] + beta*(simp[worst][i] - center[i]);
+            
 			[self sumResiduals: next];
 			// if this is better than the second worst, keep it.
 			if (next[numParams] <= simp[nextWorst][numParams]) {

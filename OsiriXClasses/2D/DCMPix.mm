@@ -628,8 +628,10 @@ static inline void DrawRuns(	struct edge *active,
 						*idev += temp;
 					}
 					
-					if( orientation) curPix ++;
-					else curPix += w;
+					if( orientation)
+                        curPix ++;
+					else
+                        curPix += w;
 				}
 			}
             else
@@ -658,8 +660,10 @@ static inline void DrawRuns(	struct edge *active,
 						*idev += temp;
 					}
 					
-					if( orientation) curPix ++;
-					else curPix += w;
+					if( orientation)
+                        curPix ++;
+					else
+                        curPix += w;
 				}
             }
 		}
@@ -677,15 +681,23 @@ static inline void DrawRuns(	struct edge *active,
 				}
 				else
 				{
-					start = xCoords[i]+1;		if( start < 0) start = 0;		if( start >= w) start = w;
+					start = xCoords[i]+1;
+                    if( start < 0)
+                        start = 0;
+                    
+                    if( start >= w)
+                        start = w;
 					
 					if( i == numCoords-1)
-					{
 						end = w;
-					}
-					else end = xCoords[i+1];
+					else
+                        end = xCoords[i+1];
 					
-					if( end < 0) end = 0;			if( end >= w) end = w;
+					if( end < 0)
+                        end = 0;
+                    
+                    if( end >= w)
+                        end = w;
 				}
 				
 				if( RGB == NO)
@@ -693,8 +705,8 @@ static inline void DrawRuns(	struct edge *active,
 					switch( orientation)
 					{
 						case 1:		curPix = &pix[ (curY * ims) + start + stackNo *w];		break;
-						case 0:		curPix = &pix[ (curY * ims) + (start * w) + stackNo];		break;
-						case 2:		curPix = &pix[ (curY * w) + start];							break;
+						case 0:		curPix = &pix[ (curY * ims) + (start * w) + stackNo];	break;
+						case 2:		curPix = &pix[ (curY * w) + start];						break;
 					}
 					
 					long x = end - start;
@@ -705,8 +717,10 @@ static inline void DrawRuns(	struct edge *active,
 						{
 							if( *curPix >= min && *curPix <= max) *curPix += newVal;
 							
-							if( orientation) curPix ++;
-							else curPix += w;
+							if( orientation)
+                                curPix ++;
+							else
+                                curPix += w;
 						}
 					}
 					else
@@ -715,8 +729,10 @@ static inline void DrawRuns(	struct edge *active,
 						{
 							if( *curPix >= min && *curPix <= max) *curPix = newVal;
 							
-							if( orientation) curPix ++;
-							else curPix += w;
+							if( orientation)
+                                curPix ++;
+							else
+                                curPix += w;
 						}
 					}
 				}
@@ -748,8 +764,10 @@ static inline void DrawRuns(	struct edge *active,
 							if( rgbPtr[ 3] >= min && rgbPtr[ 3] <= max) rgbPtr[ 3] = newVal;
 						}
 						
-						if( orientation) curPix ++;
-						else curPix += w;
+						if( orientation)
+                            curPix ++;
+						else
+                            curPix += w;
 					}
 				}
 			}
@@ -838,8 +856,10 @@ static inline void DrawRuns(	struct edge *active,
 								{
 									if( *curPix >= min && *curPix <= max) *curPix += newVal;
 									
-									if( orientation) curPix ++;
-									else curPix += w;
+									if( orientation)
+                                        curPix ++;
+									else
+                                        curPix += w;
 								}
 							}
 							else
@@ -848,8 +868,10 @@ static inline void DrawRuns(	struct edge *active,
 								{
 									if( *curPix >= min && *curPix <= max) *curPix = newVal;
 									
-									if( orientation) curPix ++;
-									else curPix += w;
+									if( orientation)
+                                        curPix ++;
+									else
+                                        curPix += w;
 								}
 							}
 						}
@@ -872,8 +894,10 @@ static inline void DrawRuns(	struct edge *active,
 									if( rgbPtr[ 3] >= min && rgbPtr[ 3] <= max) rgbPtr[ 3] = newVal;
 								}
 								
-								if( orientation) curPix ++;
-								else curPix += w;
+								if( orientation)
+                                    curPix ++;
+								else
+                                    curPix += w;
 							}
 						}
 					}
@@ -1198,21 +1222,25 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 	for( int i = 1; i < stack; i++)
 	{
 		int res;
-		if( stackDirection) res = ppos-i;
-		else res = ppos+i;
+		if( stackDirection)
+            res = ppos-i;
+		else
+            res = ppos+i;
 		
 		if( res < p.count && res >= 0)
 		{
 			fNext = [[p objectAtIndex: res] fImage];
 			if( fNext)
 			{
-				if( stackMode == 2) vDSP_vmax( fResult + from, 1, fNext + from, 1, fResult + from, 1, size);
+				if( stackMode == 2)
+                    vDSP_vmax( fResult + from, 1, fNext + from, 1, fResult + from, 1, size);
 				else if( stackMode == 1) 
 				{
 					vDSP_vadd( fResult + from, 1, fNext + from, 1, fResult + from, 1, size);
 					if( from == 0) o.countstackMean++;
 				}
-				else vDSP_vmin( fResult + from, 1, fNext + from, 1, fResult + from, 1, size);
+				else
+                    vDSP_vmin( fResult + from, 1, fNext + from, 1, fResult + from, 1, size);
 			}
 		}
 	}
@@ -2074,10 +2102,9 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 		for( long i = 0; i < size; i++)
 		{
 			if( yPoints[ i] >= 0 && yPoints[ i] < height && xPoints[ i] >= 0 && xPoints[ i] < width)
-			{
                 values[ count] = [self getPixelValueX: xPoints[ i] Y: yPoints[ i]];
-			}
-			else values[ count] = 0;
+			else
+                values[ count] = 0;
 			
 			count++;
 		}
@@ -2405,7 +2432,8 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 		
 		NSLog( @"prepare Restore cache");
 	}
-	else NSLog( @"prepare Restore cache - FAILED");
+	else
+        NSLog( @"prepare Restore cache - FAILED");
 }
 
 - (void) freeRestore
@@ -2671,7 +2699,8 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 						{
 							if( !buf [ x - textureUpLeftCornerX + (y - textureUpLeftCornerY) * textWidth]) doit = YES;
 						} 
-						else doit = YES;
+						else
+                            doit = YES;
 						
 						if( doit)
 						{
@@ -2717,8 +2746,10 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 		}
 		else
 		{
-			if( spline) ptsTemp = [roi splinePoints];
-			else ptsTemp = [roi points];
+			if( spline)
+                ptsTemp = [roi splinePoints];
+			else
+                ptsTemp = [roi points];
 			
 			no = ptsTemp.count;
 			
@@ -2814,7 +2845,8 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 			}
 		}
 	}
-	else ptsInt = nil;
+	else
+        ptsInt = nil;
 	
 	if( outside)
 	{
@@ -2866,8 +2898,10 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 					if( rgbPtr[ 2] >= minValue && rgbPtr[ 2] <= maxValue) rgbPtr[ 2] = newVal;
 					if( rgbPtr[ 3] >= minValue && rgbPtr[ 3] <= maxValue) rgbPtr[ 3] = newVal;
 					
-					if( orientationStack) fTempImage++;
-					else fTempImage += width;
+					if( orientationStack)
+                        fTempImage++;
+					else
+                        fTempImage += width;
 				}
 			}
 			
@@ -2888,8 +2922,10 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 					if( rgbPtr[ 2] >= minValue && rgbPtr[ 2] <= maxValue) rgbPtr[ 2] = newVal;
 					if( rgbPtr[ 3] >= minValue && rgbPtr[ 3] <= maxValue) rgbPtr[ 3] = newVal;
 					
-					if( orientationStack) fTempImage ++;
-					else fTempImage += width;
+					if( orientationStack)
+                        fTempImage ++;
+					else
+                        fTempImage += width;
 				}
 			}
 		}
@@ -2906,10 +2942,13 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 				
 				for( long x = 0; x < width ; x++)
 				{
-					if( *fTempImage >= minValue && *fTempImage <= maxValue) *fTempImage = newVal;
+					if( *fTempImage >= minValue && *fTempImage <= maxValue)
+                        *fTempImage = newVal;
 					
-					if( orientationStack) fTempImage ++;
-					else fTempImage += width;
+					if( orientationStack)
+                        fTempImage ++;
+					else
+                        fTempImage += width;
 				}
 			}
 			
@@ -2924,10 +2963,13 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 				
 				for( long x = 0; x < width ; x++)
 				{ 
-					if( *fTempImage >= minValue && *fTempImage <= maxValue) *fTempImage = newVal;
+					if( *fTempImage >= minValue && *fTempImage <= maxValue)
+                        *fTempImage = newVal;
 					
-					if( orientationStack) fTempImage ++;
-					else fTempImage += width;
+					if( orientationStack)
+                        fTempImage ++;
+					else
+                        fTempImage += width;
 				}
 			}
 		}
@@ -2969,8 +3011,10 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 						if( rgbPtr[ 2] >= minValue && rgbPtr[ 2] <= maxValue) rgbPtr[ 2] = newVal;
 						if( rgbPtr[ 3] >= minValue && rgbPtr[ 3] <= maxValue) rgbPtr[ 3] = newVal;
 						
-						if( orientationStack) fTempImage ++;
-						else fTempImage += width;
+						if( orientationStack)
+                            fTempImage ++;
+						else
+                            fTempImage += width;
 					}
 				}
 			}
@@ -2987,10 +3031,13 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 					
 					for( long x = 0; x < xIm ; x++)
 					{
-						if( *fTempImage >= minValue && *fTempImage <= maxValue) *fTempImage = newVal;
+						if( *fTempImage >= minValue && *fTempImage <= maxValue)
+                            *fTempImage = newVal;
 						
-						if( orientationStack) fTempImage ++;
-						else fTempImage += width;
+						if( orientationStack)
+                            fTempImage ++;
+						else
+                            fTempImage += width;
 					}
 				}
 			}
@@ -3564,8 +3611,10 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
         if( isnan( pixelSpacingY) || pixelSpacingY < 0.00001 || pixelSpacingY > 1000)
             NSLog( @"****** DCMPix initWithData");
         
-		if( pixelSpacingY != 0 && pixelSpacingX != 0) pixelRatio = pixelSpacingY / pixelSpacingX;
-		else pixelRatio = 1.0;
+		if( pixelSpacingY != 0 && pixelSpacingX != 0)
+            pixelRatio = pixelSpacingY / pixelSpacingX;
+		else
+            pixelRatio = 1.0;
 		
 		if( volSize)
 		{
@@ -3593,14 +3642,14 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 							{
 								//	NSLog(@"Allocate a new fImage");
 								for( i =0; i < height; i++)
-								{
 									memcpy( fImage + i*width, im + i*xDim, width*sizeof(float));
-								}
 							}
-							else memcpy( fImage, im, width*height*sizeof(float));
+							else
+                                memcpy( fImage, im, width*height*sizeof(float));
 						}
 					}
-					else N2LogStackTrace( @"*** Not enough memory - malloc failed");
+					else
+                        N2LogStackTrace( @"*** Not enough memory - malloc failed");
 					break;
 					
 					case 8:		// RGBA -> argb
@@ -3621,7 +3670,8 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 							}
 						}
 					}
-					else N2LogStackTrace( @"*** Not enough memory - malloc failed");
+					else
+                        N2LogStackTrace( @"*** Not enough memory - malloc failed");
 					
 					isRGB = YES;
 					break;
@@ -3982,12 +4032,10 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 					axisNumberString = [aLine substringWithRange:NSMakeRange(5,1)];
 					// The pixel size is:  - field 3 (0 indexed)
 					NSArray *listItems = [aLine componentsSeparatedByString:@" "];
-					if([listItems count]>=5)
-					{
+					if ([listItems count]>=5)
 						pixelSpacingString=[listItems objectAtIndex:3];
-					}else{
+                    else
 						pixelSpacingString=@"";
-					}
 					
 					switch( [axisNumberString intValue])
 				{
@@ -4052,7 +4100,8 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 		
 		if( dstf.data)
 			vImageConvert_16SToF( &src16, &dstf, 0, 1, 0);
-		else N2LogStackTrace( @"*** Not enough memory - malloc failed");
+		else
+            N2LogStackTrace( @"*** Not enough memory - malloc failed");
 		
 		free(oImage);
 		oImage = nil;
@@ -4133,7 +4182,8 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 			isRGB = YES;
 			totSize *= 4;
 		}
-		else totSize *= 2;
+		else
+            totSize *= 2;
 		
 		short *oImage = (short *)malloc( totSize);
 		
@@ -4179,7 +4229,8 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 							if( buf[ i*3 + 0] == buf[ i*3 + 1] && buf[ i*3 + 0] == buf[ i*3 + 2])
 							{
 							}
-							else trueRGB = YES;
+							else
+                                trueRGB = YES;
 						}
 					}
 					
@@ -4229,7 +4280,8 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 						if( dst[ i+1] == dst[ i+2] && dst[ i+2] == dst[ i+3])
 						{
 						}
-						else trueRGB = YES;
+						else
+                            trueRGB = YES;
 						
 						dst[ i] = 0;
 					}
@@ -4269,7 +4321,8 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 							if( buf[ i*3 + 0] == buf[ i*3 + 1] && buf[ i*3 + 0] == buf[ i*3 + 2])
 							{
 							}
-							else trueRGB = YES;
+							else
+                                trueRGB = YES;
 						}
 					}
 					
@@ -4409,7 +4462,8 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 		
 		TIFFClose(tif);
 	}
-	else NSLog( @"ERROR TIFF UNKNOWN");
+	else
+        NSLog( @"ERROR TIFF UNKNOWN");
 #endif
 #endif
 }
@@ -5389,9 +5443,12 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 		while( i-- > 0)
 		{
 			index = signedSrc[ i] - first;
-			if( index <= 0) index = 0;
-			else if( index >= number) index = number -1;
-			else atLeastOnePixel = YES;
+			if( index <= 0)
+                index = 0;
+			else if( index >= number)
+                index = number -1;
+			else
+                atLeastOnePixel = YES;
 			
 			src[ i] = table[ index];
 		}
@@ -5402,9 +5459,12 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 		while( i-- > 0)
 		{
 			index = src[ i] - first;
-			if( index <= 0) index = 0;
-			else if( index >= number) index = number -1;
-			else atLeastOnePixel = YES;
+			if( index <= 0)
+                index = 0;
+			else if( index >= number)
+                index = number -1;
+			else
+                atLeastOnePixel = YES;
 			
 			src[ i] = table[ index];
 		}
@@ -5551,7 +5611,8 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
                         shutterPolygonalSize++;
                     }
                 }
-                else NSLog( @"Shutter not supported: %@", shutter);
+                else
+                    NSLog( @"Shutter not supported: %@", shutter);
             }
         }
     }
@@ -6294,8 +6355,10 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 #pragma mark *SUV
         
         // Get values needed for SUV calcs:
-        if( [dcmObject attributeValueWithName:@"PatientsWeight"]) patientsWeight = [[dcmObject attributeValueWithName:@"PatientsWeight"] floatValue];
-        else patientsWeight = 0.0;
+        if( [dcmObject attributeValueWithName:@"PatientsWeight"])
+            patientsWeight = [[dcmObject attributeValueWithName:@"PatientsWeight"] floatValue];
+        else
+            patientsWeight = 0.0;
         
         [units release];
         units = [[dcmObject attributeValueWithName:@"Units"] retain];
@@ -6645,7 +6708,9 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
                     memcpy( fImage, oImage, width*height*sizeof(float));
                     free(oImage);
                 }
-                else fImage = (float*) oImage;
+                else
+                    fImage = (float*) oImage;
+                
                 oImage = nil;
                 
                 if( oData && gDisplayDICOMOverlays)
@@ -6760,7 +6825,8 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
                             vDSP_vsmul( fImage, 1, &neg, fImage, 1, height * width);
                         }
                     }
-                    else N2LogStackTrace( @"*** Not enough memory - malloc failed");
+                    else
+                        N2LogStackTrace( @"*** Not enough memory - malloc failed");
                     
                     free(oImage);
                     oImage = nil;
@@ -6876,7 +6942,8 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
         [PapyrusLock unlock];
         [purgeCacheLock unlock];
     }
-    else NSLog( @"****** failed to acquire lock on purgeCacheLock during 10 secs : purgeCacheLock condition: %d", (int) [purgeCacheLock condition]);
+    else
+        NSLog( @"****** failed to acquire lock on purgeCacheLock during 10 secs : purgeCacheLock condition: %d", (int) [purgeCacheLock condition]);
 }
 
 - (void) clearCachedDCMFrameworkFiles
@@ -7431,7 +7498,8 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
                                                (unsigned char *)[fileData bytes] + frameNo * (height * width)*sizeof(float) + i*width*sizeof(float),
                                                width * sizeof(float));
 								}
-								else N2LogStackTrace( @"*** Not enough memory - malloc failed");
+								else
+                                    N2LogStackTrace( @"*** Not enough memory - malloc failed");
 								
 								free(oImage);
 								oImage = nil;
@@ -7460,7 +7528,8 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 										
 									}
 								}
-								else N2LogStackTrace( @"*** Not enough memory - malloc failed");
+								else
+                                    N2LogStackTrace( @"*** Not enough memory - malloc failed");
 								
 								free(oImage);
 								oImage = nil;
@@ -7525,12 +7594,10 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 							}
 							
 							dstf.data = fImage;
-							
 							if( dstf.data)
-							{
 								vImageConvert_16SToF( &src16, &dstf, 0, 1, 0);
-							}
-							else N2LogStackTrace( @"*** Not enough memory - malloc failed");
+							else
+                                N2LogStackTrace( @"*** Not enough memory - malloc failed");
 							
 							free(oImage);
 							oImage = nil;
@@ -7906,7 +7973,8 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 									
 									if( dstf.data)
 										vImageConvert_16SToF( &src16, &dstf, 0, 1, 0);
-									else N2LogStackTrace( @"*** Not enough memory - malloc failed");
+									else
+                                        N2LogStackTrace( @"*** Not enough memory - malloc failed");
 									
 									free(oImage);
 									oImage = nil;
@@ -9110,8 +9178,10 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
         for( long i = 1; i < stack; i++)
         {
             long next;
-            if( stackDirection) next = pixPos-i;
-            else next = pixPos+i;
+            if( stackDirection)
+                next = pixPos-i;
+            else
+                next = pixPos+i;
             
             if( next < pixArray.count && next >= 0)
             {
@@ -9651,37 +9721,47 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 			
 		case 2:		// Maximum IP
 		case 3:		// Minimum IP
-			if( stackDirection) next = pixPos-1;
-			else next = pixPos+1;
+			if( stackDirection)
+                next = pixPos-1;
+			else
+                next = pixPos+1;
 			
 			if( next < pixArray.count  && next >= 0)
 			{
 				fNext = [[pixArray objectAtIndex: next] fImage];
 				if( fNext)
 				{
-					if( stackMode == 2) vmax8Intel( (vUInt8*) fNext, (vUInt8*) fImage, (vUInt8*) fResult, height * width);
-					else vmin8Intel( (vUInt8*) fNext, (vUInt8*) fImage, (vUInt8*) fResult, height * width);
+					if( stackMode == 2)
+                        vmax8Intel( (vUInt8*) fNext, (vUInt8*) fImage, (vUInt8*) fResult, height * width);
+					else
+                        vmin8Intel( (vUInt8*) fNext, (vUInt8*) fImage, (vUInt8*) fResult, height * width);
 				}
 				
 				for( long i = 2; i < stack; i++)
 				{
 					long res;
-					if( stackDirection) res = pixPos-i;
-					else res = pixPos+i;
+					if( stackDirection)
+                        res = pixPos-i;
+					else
+                        res = pixPos+i;
 					
 					if( res < pixArray.count)
 					{
 						long res;
-						if( stackDirection) res = pixPos-i;
-						else res = pixPos+i;
+						if( stackDirection)
+                            res = pixPos-i;
+						else
+                            res = pixPos+i;
 						
 						if( res < pixArray.count && res >= 0)
 						{
 							fNext = [[pixArray objectAtIndex: res] fImage];
 							if( fNext)
 							{
-								if( stackMode == 2) vmax8Intel( (vUInt8*) fResult, (vUInt8*) fNext, (vUInt8*) fResult, height * width);
-								else vmin8Intel( (vUInt8*) fResult, (vUInt8*) fNext, (vUInt8*) fResult, height * width);
+								if( stackMode == 2)
+                                    vmax8Intel( (vUInt8*) fResult, (vUInt8*) fNext, (vUInt8*) fResult, height * width);
+								else
+                                    vmin8Intel( (vUInt8*) fResult, (vUInt8*) fNext, (vUInt8*) fResult, height * width);
 							}
 						}
 					}
@@ -9726,13 +9806,17 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 			{											
 				if( stackDirection)
 				{
-					if( pixPos-stack < 0) stacksize = pixPos+1; 
-					else stacksize = stack+1;
+					if( pixPos-stack < 0)
+                        stacksize = pixPos+1;
+					else
+                        stacksize = stack+1;
 				}
 				else
 				{
-					if( pixPos+stack < [pixArray count]) stacksize = stack; 
-					else stacksize = [pixArray count] - pixPos;
+					if( pixPos+stack < [pixArray count])
+                        stacksize = stack;
+					else
+                        stacksize = [pixArray count] - pixPos;
 				}
 				
 				if( stackDirection)
@@ -9822,10 +9906,9 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 	
 	// = STACK IMAGES thickslab
 	if( stackMode > 0 && stack >= 1 && [pixArray count] > 1)
-	{
 		result = [self computeThickSlab];
-	}
-	else result = fImage;
+	else
+        result = fImage;
 
 	if( convolution)
 		result = [self applyConvolutionOnImage: result RGB: NO];
@@ -10798,8 +10881,10 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
                                         [[field objectForKey:@"element"] intValue] == 0x0010)
                                         value = [BrowserController compressionString: value];
                                     
-                                    if(value==nil || [value length] == 0) value = @"-";
-                                    else contentForLine = YES;
+                                    if(value==nil || [value length] == 0)
+                                        value = @"-";
+                                    else
+                                        contentForLine = YES;
                                 }
                                 else if([type isEqualToString:@"DB"])
                                 {
@@ -10813,8 +10898,10 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
                                         if( (id) value == [NSNull null])
                                             value = nil;
                                         
-                                        if(value==nil) value = @"-";
-                                        else contentForLine = YES;
+                                        if(value==nil)
+                                            value = @"-";
+                                        else
+                                            contentForLine = YES;
                                         
                                         if( [value isKindOfClass: [NSDate class]])
                                         {
@@ -10849,8 +10936,10 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
                                         if ([value isEqualToString: NSLocalizedString(@"Patient's Age At Acquisition", nil)] || [value isEqualToString: (@"Patient's Age At Acquisition")])
                                             value = yearOldAcquisition;
                                         
-                                        if(value==nil || [value length] == 0) value = @"-";
-                                        else contentForLine = YES;
+                                        if(value==nil || [value length] == 0)
+                                            value = @"-";
+                                        else
+                                            contentForLine = YES;
                                     }
                                     @catch (NSException *e)
                                     {

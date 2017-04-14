@@ -654,7 +654,8 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
                                 [reportPlugins setObject: plugin forKey:[[plugin infoDictionary] objectForKey:@"CFBundleExecutable"]];
                             }
                         }
-                        else NSLog( @"********* principal class not found for: %@ - %@", name, [plugin principalClass]);
+                        else
+                            NSLog( @"********* principal class not found for: %@ - %@", name, [plugin principalClass]);
                     }
                 }
                 
@@ -755,7 +756,12 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
         {
             NSString *pluginCrashPath = [NSString stringWithContentsOfFile: pluginCrash encoding: NSUTF8StringEncoding error: nil];
             
-            int result = NSRunInformationalAlertPanel(NSLocalizedString(@"OsiriX crashed", nil), NSLocalizedString(@"Previous crash is maybe related to a plugin.\r\rShould I remove this plugin (%@)?", nil), NSLocalizedString(@"Delete Plugin",nil), NSLocalizedString(@"Continue",nil), nil, [pluginCrashPath lastPathComponent]);
+            int result = NSRunInformationalAlertPanel(NSLocalizedString(@"OsiriX crashed", nil),
+                                                      NSLocalizedString(@"Previous crash is maybe related to a plugin.\r\rShould I remove this plugin (%@)?", nil),
+                                                      NSLocalizedString(@"Delete Plugin",nil),
+                                                      NSLocalizedString(@"Continue",nil),
+                                                      nil,
+                                                        [pluginCrashPath lastPathComponent]);
             
             if( result == NSAlertDefaultReturn) // Delete Plugin
             {
@@ -1494,7 +1500,8 @@ NSInteger sortPluginArray(id plugin1, id plugin2, void *context)
 				[pluginManagerController download:self];
 			}
 		}
-		else startedUpdateProcess = NO;
+		else
+            startedUpdateProcess = NO;
 	
 	[pool release];
 	

@@ -277,7 +277,8 @@ enum /*typedef NS_ENUM(NSUInteger, O2ValueRepresentation)*/ {
                 NSString* title = nil;
                 if ([tag isKindOfClass:[O2DicomPredicateEditorDCMAttributeTag class]])
                     title = [tag description];
-                else title = [NSString stringWithFormat:@"(%04x,%04x) %@", tag.group, tag.element, [[self class] _transformTagName:tag.name]];
+                else
+                    title = [NSString stringWithFormat:@"(%04x,%04x) %@", tag.group, tag.element, [[self class] _transformTagName:tag.name]];
                 
                 NSMenuItem* mi = [menu addItemWithTitle:title action:nil keyEquivalent:@""]; // @selector(_setTag:)
                 
@@ -1018,9 +1019,12 @@ enum /*typedef NS_ENUM(NSUInteger, O2ValueRepresentation)*/ {
                 NSString* t = nil;
                 if ([k isKindOfClass:[NSString class]] && ![k isEqualToString:[dic objectForKey:k]] && [[dic objectForKey:k] length] < 80)
                     t = [NSString stringWithFormat:NSLocalizedString(@"%@, %@", nil), k, [dic objectForKey:k]];
-                else t = [dic objectForKey:k];
+                else
+                    t = [dic objectForKey:k];
+                
                 if (![t isKindOfClass:[NSString class]])
                     t = [(id)t stringValue];
+                
                 NSMenuItem* mi = [_codeStringPopUp.menu addItemWithTitle:t action:nil keyEquivalent:@""];
                 mi.tag = ++i;
             }
@@ -1191,10 +1195,13 @@ enum /*typedef NS_ENUM(NSUInteger, O2ValueRepresentation)*/ {
                     if ([p isKindOfClass:[NSComparisonPredicate class]]) {
                         if (keyPath && ![[p keyPath] isEqualToString:keyPath]) { // subpredicates must have the same keyPath
                             keyPath = nil; break;
-                        } else keyPath = [p keyPath];
-                    } else { // subpredicates must all be comparisons
+                        }
+                        else
+                            keyPath = [p keyPath];
+                    }
+                    else { // subpredicates must all be comparisons
                         keyPath = nil; break;
-                    };
+                    }
                 
                 DCMAttributeTag* tag = [self tagWithKeyPath:keyPath];
                 O2ValueRepresentation vr = [[self class] valueRepresentationFromVR:tag.vr];

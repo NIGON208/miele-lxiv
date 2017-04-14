@@ -3257,7 +3257,8 @@ Failed:
 					   [self connectedPort6]];
 		}
 	}
-	else peerstr = @"nowhere";
+	else
+        peerstr = @"nowhere";
 
 	if (is4 || is6)
 	{
@@ -3281,7 +3282,8 @@ Failed:
 					   [self localPort6]];
 		}
 	}
-	else selfstr = @"nowhere";
+	else
+        selfstr = @"nowhere";
 	
 	NSMutableString *ms = [[NSMutableString alloc] initWithCapacity:150];
 	

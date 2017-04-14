@@ -1478,8 +1478,10 @@ static inline int int_ceildivpow2(int a, int b) {
                 break;
                 
             case DCMMediumQuality:
-                if( _columns <= 600 || _rows <= 600) rate = 6;
-                else rate = 8;
+                if( _columns <= 600 || _rows <= 600)
+                    rate = 6;
+                else
+                    rate = 8;
                 break;
                 
             case DCMLowQuality:

@@ -80,12 +80,15 @@
 		
 		if( r)
 		{
-			if( NSRunInformationalAlertPanel(NSLocalizedString(@"Load printers", nil), NSLocalizedString(@"Should I add or replace the printer list? If you choose 'replace', the current list will be deleted.", nil), NSLocalizedString(@"Add", nil), NSLocalizedString(@"Replace", nil), nil) == NSAlertDefaultReturn)
-			{
-				
-			}
-			else
+			if ( NSRunInformationalAlertPanel(NSLocalizedString(@"Load printers", nil),
+                                              NSLocalizedString(@"Should I add or replace the printer list? If you choose 'replace', the current list will be deleted.", nil),
+                                              NSLocalizedString(@"Add", nil),
+                                              NSLocalizedString(@"Replace", nil),
+                                              nil
+                                              ) != NSAlertDefaultReturn)
+            {
                 [m_PrinterController removeObjects: [m_PrinterController arrangedObjects]];
+            }
 			
 			[m_PrinterController addObjects: r];
 			

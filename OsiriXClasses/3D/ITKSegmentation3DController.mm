@@ -348,7 +348,8 @@ enum algorithmTypes { intervalSegmentationType, thresholdSegmentationType, neigh
 	{
 		slice = -1;
 	}
-	else slice = [[viewer imageView] curImage];
+	else
+        slice = [[viewer imageView] curImage];
 
 	for( int i = 0; i < [viewer maxMovieIndex]; i++)
 	{

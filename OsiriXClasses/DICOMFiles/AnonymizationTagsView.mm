@@ -99,16 +99,22 @@
 
 -(NSRect)checkBoxFrameForCellFrame:(NSRect)frame {
 	CGFloat textFieldWidth;
-	if((frame.size.width-kButtonSpace)/2 < kMaxTextFieldWidth) textFieldWidth = (frame.size.width-kButtonSpace)/2;
-	else textFieldWidth = kMaxTextFieldWidth;
+	if((frame.size.width-kButtonSpace)/2 < kMaxTextFieldWidth)
+        textFieldWidth = (frame.size.width-kButtonSpace)/2;
+	else
+        textFieldWidth = kMaxTextFieldWidth;
+    
 	frame.size.width -= frame.size.height+textFieldWidth;
 	return frame;
 }
 
 -(NSRect)textFieldFrameForCellFrame:(NSRect)frame {
 	CGFloat textFieldWidth;
-	if((frame.size.width-kButtonSpace)/2 < kMaxTextFieldWidth) textFieldWidth = (frame.size.width-kButtonSpace)/2;
-	else textFieldWidth = kMaxTextFieldWidth;
+	if((frame.size.width-kButtonSpace)/2 < kMaxTextFieldWidth)
+        textFieldWidth = (frame.size.width-kButtonSpace)/2;
+	else
+        textFieldWidth = kMaxTextFieldWidth;
+    
 	frame.origin.x += frame.size.width - textFieldWidth - frame.size.height;
 	frame.size.width = textFieldWidth;
 	return frame;
@@ -189,41 +195,49 @@
         
         [textField setToolTip: [NSString stringWithFormat: NSLocalizedString( @"Required format: %@", nil), df.dateFormat]];
         
-	} else if ([tag.vr isEqualToString:@"DS"] || [tag.vr isEqualToString:@"IS"] || [tag.vr isEqualToString:@"SL"] || [tag.vr isEqualToString:@"SS"] || [tag.vr isEqualToString:@"UL"] || [tag.vr isEqualToString:@"US"] || [tag.vr isEqualToString:@"FL"] || [tag.vr isEqualToString:@"FD"]) {
+	}
+    else if ([tag.vr isEqualToString:@"DS"] || [tag.vr isEqualToString:@"IS"] || [tag.vr isEqualToString:@"SL"] || [tag.vr isEqualToString:@"SS"] || [tag.vr isEqualToString:@"UL"] || [tag.vr isEqualToString:@"US"] || [tag.vr isEqualToString:@"FL"] || [tag.vr isEqualToString:@"FD"]) {
 		[textField.cell setFormatter: nf = [[[NSNumberFormatter alloc] init] autorelease]];
 		[nf setFormatterBehavior:NSNumberFormatterBehavior10_4];
 		[nf setNumberStyle:NSNumberFormatterDecimalStyle];
 		if ([tag.vr isEqualToString:@"DS"]) { //Decimal String representing floating point
 			[nf setMaximumSignificantDigits:16];
             [textField setToolTip: NSLocalizedString( @"Required format: floating point number", nil)];
-		} else if ([tag.vr isEqualToString:@"IS"]) { //Integer String
+		}
+        else if ([tag.vr isEqualToString:@"IS"]) { //Integer String
 			[nf setMaximumSignificantDigits:12];
 			[nf setAllowsFloats:NO];
             [textField setToolTip: NSLocalizedString( @"Required format: integer number", nil)];
-		} else if ([tag.vr isEqualToString:@"SL"]) { //signed long
+		}
+        else if ([tag.vr isEqualToString:@"SL"]) { //signed long
 			[nf setAllowsFloats:NO];
 			[nf setMinimum:[NSNumber numberWithInteger:-0x80000000]];
 			[nf setMaximum:[NSNumber numberWithInteger:0x7FFFFFFF]];
             [textField setToolTip: NSLocalizedString( @"Required format: integer number", nil)];
-		} else if ([tag.vr isEqualToString:@"SS"]) { //signed short
+		}
+        else if ([tag.vr isEqualToString:@"SS"]) { //signed short
 			[nf setAllowsFloats:NO];
 			[nf setMinimum:[NSNumber numberWithInteger:-0x8000]];
 			[nf setMaximum:[NSNumber numberWithInteger:0x7FFF]];
             [textField setToolTip: NSLocalizedString( @"Required format: integer number", nil)];
-		} else if ([tag.vr isEqualToString:@"UL"]) { //unsigned long
+		}
+        else if ([tag.vr isEqualToString:@"UL"]) { //unsigned long
 			[textField.cell setFormatter: nf = [[[NSNumberFormatter alloc] init] autorelease]];
 			[nf setAllowsFloats:NO];
 			[nf setMinimum:@0];
 			[nf setMaximum:[NSNumber numberWithInteger:0xFFFFFFFF]];
             [textField setToolTip: NSLocalizedString( @"Required format: integer number", nil)];
-		} else if ([tag.vr isEqualToString:@"US"]) { //unsigned short
+		}
+        else if ([tag.vr isEqualToString:@"US"]) { //unsigned short
 			[nf setAllowsFloats:NO];
 			[nf setMinimum:@0];
 			[nf setMaximum:[NSNumber numberWithInteger:0xFFFF]];
             [textField setToolTip: NSLocalizedString( @"Required format: integer number", nil)];
-		} else if ([tag.vr isEqualToString:@"FL"]) { //float
+		}
+        else if ([tag.vr isEqualToString:@"FL"]) { //float
             [textField setToolTip: NSLocalizedString( @"Required format: floating point number", nil)];
-		} else if ([tag.vr isEqualToString:@"FD"]) { //double
+		}
+        else if ([tag.vr isEqualToString:@"FD"]) { //double
             [textField setToolTip: NSLocalizedString( @"Required format: floating point number", nil)];
 		}
 	}

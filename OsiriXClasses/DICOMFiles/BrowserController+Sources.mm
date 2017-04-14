@@ -193,7 +193,8 @@ enum {
 	NSInteger row = [self rowForDatabase:database];
 	if (row >= 0)
 		[_sourcesTableView selectRowIndexes:[NSIndexSet indexSetWithIndex:row] byExtendingSelection:NO];
-	else NSLog(@"Warning: couldn't find database in sources (%@)", database);
+	else
+        NSLog(@"Warning: couldn't find database in sources (%@)", database);
 }
 
 -(void)selectCurrentDatabaseSource
@@ -738,7 +739,8 @@ static void* const SearchDicomNodesContext = @"SearchDicomNodesContext";
             NSDictionary* dict = nil;
             if (![service.domain isEqualToString:@"_osirixdb._tcp."])
                 dict = [BonjourPublisher dictionaryFromXTRecordData:service.TXTRecordData];
-            else dict = [DCMNetServiceDelegate DICOMNodeInfoFromTXTRecordData:service.TXTRecordData];
+            else
+                dict = [DCMNetServiceDelegate DICOMNodeInfoFromTXTRecordData:service.TXTRecordData];
             
             if ([[dict objectForKey:@"UID"] isEqualToString:[AppController UID]])
             {

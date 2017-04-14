@@ -270,7 +270,8 @@
 		NSRectFill( crect);
 	}
 	
-	if( curPoint.x != 512 || [points count] == 0) [courbe lineToPoint:NSMakePoint( 512, 100)];
+	if( curPoint.x != 512 || [points count] == 0)
+        [courbe lineToPoint:NSMakePoint( 512, 100)];
 //	else NSLog(@"end point");
 	
 	[[NSColor blackColor] set];

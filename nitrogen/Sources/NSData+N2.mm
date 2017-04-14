@@ -149,10 +149,13 @@ static const char base64EncodingTable[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijk
 		characters[length++] = base64EncodingTable[((buffer[0] & 0x03) << 4) | ((buffer[1] & 0xF0) >> 4)];
 		if (bufferLength > 1)
 			characters[length++] = base64EncodingTable[((buffer[1] & 0x0F) << 2) | ((buffer[2] & 0xC0) >> 6)];
-		else characters[length++] = '=';
+		else
+            characters[length++] = '=';
+        
 		if (bufferLength > 2)
 			characters[length++] = base64EncodingTable[buffer[2] & 0x3F];
-		else characters[length++] = '=';	
+		else
+            characters[length++] = '=';
 	}
 	
 	return [[[NSString alloc] initWithBytesNoCopy:characters length:length encoding:NSASCIIStringEncoding freeWhenDone:YES] autorelease];	

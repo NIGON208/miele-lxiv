@@ -738,13 +738,16 @@ subOpCallback(void * /*subOpCallbackData*/ ,
             {
             
             }
-            else NSLog( @"---- SetupNetworkWithSyntax error : queryWithValues DCMTKQueryNode");
+            else
+                NSLog( @"---- SetupNetworkWithSyntax error : queryWithValues DCMTKQueryNode");
             
-            if (dataset != NULL && localAllocatedDataset) delete dataset;
+            if (dataset != NULL && localAllocatedDataset)
+                delete dataset;
         }
         @catch (NSException* e) {
             if (_dontCatchExceptions)
                 @throw e;
+            
             if (![NSThread.currentThread isCancelled])
                 N2LogExceptionWithStackTrace(e);
         }
@@ -1058,7 +1061,8 @@ subOpCallback(void * /*subOpCallbackData*/ ,
                             else
                                 downloader.WADOBaseTotal++;
                         }
-                        else NSLog( @"****** no image uid !");
+                        else
+                            NSLog( @"****** no image uid !");
                     }
                 }
                 @catch (NSException* e)
@@ -1115,7 +1119,8 @@ subOpCallback(void * /*subOpCallbackData*/ ,
                             NSLog( @"****** no url : %@", [baseURL stringByAppendingFormat:@"&studyUID=%@&seriesUID=%@&objectUID=%@&contentType=application/dicom%@", [study uid], [self uid], [image uid], ts]);
                     }
                 }
-                else NSLog( @"****** no image uid !");
+                else
+                    NSLog( @"****** no image uid !");
             }
         }
         @catch (NSException* e) {
@@ -1286,9 +1291,11 @@ subOpCallback(void * /*subOpCallbackData*/ ,
                                                     [imagesUIDsWithoutSeriesInstanceUID addObject: [image uid]];
                                             }
                                         }
-                                        else NSLog( @"****** no image uid !");
+                                        else
+                                            NSLog( @"****** no image uid !");
                                         
-                                        if( [[NSThread currentThread] isCancelled]) break;
+                                        if( [[NSThread currentThread] isCancelled])
+                                            break;
                                     }
                                 }
                                 else
@@ -1305,9 +1312,11 @@ subOpCallback(void * /*subOpCallbackData*/ ,
                                                 [[seriesUIDsToRetrieve objectForKey: [image seriesInstanceUID]] addObject: [image uid]];
                                             }
                                         }
-                                        else NSLog( @"****** no image uid !");
+                                        else
+                                            NSLog( @"****** no image uid !");
                                         
-                                        if( [[NSThread currentThread] isCancelled]) break;
+                                        if( [[NSThread currentThread] isCancelled])
+                                            break;
                                     }
                                 }
                             }

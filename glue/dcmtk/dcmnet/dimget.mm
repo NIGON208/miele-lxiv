@@ -276,8 +276,10 @@ DIMSE_sendGetResponse(T_ASC_Association * assoc,
         break;
     default:
         /* send it if provided */
-        if (rspIds == NULL) rsp.msg.CGetRSP.DataSetType = DIMSE_DATASET_NULL;
-        else rsp.msg.CGetRSP.DataSetType = DIMSE_DATASET_PRESENT;
+        if (rspIds == NULL)
+            rsp.msg.CGetRSP.DataSetType = DIMSE_DATASET_NULL;
+        else
+            rsp.msg.CGetRSP.DataSetType = DIMSE_DATASET_PRESENT;
         break;
     }
 

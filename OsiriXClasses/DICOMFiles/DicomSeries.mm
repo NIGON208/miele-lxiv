@@ -549,7 +549,8 @@
                     if( v > 1)
                         no = [NSNumber numberWithInt: count]; // For the return
                 }
-                else no = @0;
+                else
+                    no = @0;
             }
             @catch (NSException* e) {
                 N2LogExceptionWithStackTrace(e);

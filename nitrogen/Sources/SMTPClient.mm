@@ -118,11 +118,16 @@ NSString* const SMTPMessageKey = @"SMTPMessage";
 
 -(id)initWithServerAddress:(NSString*)address ports:(NSArray*)ports tlsMode:(SMTPClientTLSMode)tlsMode username:(NSString*)authUsername password:(NSString*)authPassword {
 	if ((self = [super init])) {
-		if (!address.length) [NSException raise:NSInvalidArgumentException format:@"Invalid server address"];
+		if (!address.length)
+            [NSException raise:NSInvalidArgumentException format:@"Invalid server address"];
+        
 		self.address = address;
-		if (ports.count) self.ports = ports;
-		else self.ports = [NSArray arrayWithObjects: [NSNumber numberWithInteger:25], [NSNumber numberWithInteger:465], [NSNumber numberWithInteger:587], NULL];
-		self.tlsMode = tlsMode;
+		if (ports.count)
+            self.ports = ports;
+		else
+            self.ports = [NSArray arrayWithObjects: [NSNumber numberWithInteger:25], [NSNumber numberWithInteger:465], [NSNumber numberWithInteger:587], NULL];
+
+        self.tlsMode = tlsMode;
 		self.username = authUsername;
 		self.password = authPassword;
 	}

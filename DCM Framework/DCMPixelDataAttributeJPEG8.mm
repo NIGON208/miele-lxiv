@@ -474,7 +474,8 @@ jpeg8_NSData_dest (j_compress_ptr cinfo, NSMutableData *aData)
 						break;
 					}
 				}
-				else theCInfo.jpeg_color_space = JCS_RGB;
+				else
+                    theCInfo.jpeg_color_space = JCS_RGB;
 			}
 		}
 		break;

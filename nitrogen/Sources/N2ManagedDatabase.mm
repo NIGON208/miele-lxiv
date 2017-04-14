@@ -621,7 +621,8 @@ static int gTotalN2ManagedObjectContext = 0;
     } @catch (NSException* e) {
         if (error && !*error)
             *error = [NSError errorWithDomain:N2ErrorDomain code:1 userInfo:[NSDictionary dictionaryWithObject:e.reason forKey:NSLocalizedDescriptionKey]];
-        else N2LogException(e);
+        else
+            N2LogException(e);
     } @finally {
         [self.managedObjectContext unlock];
     }
@@ -650,7 +651,8 @@ static int gTotalN2ManagedObjectContext = 0;
     } @catch (NSException* e) {
         if (error && !*error)
             *error = [NSError errorWithDomain:N2ErrorDomain code:1 userInfo:[NSDictionary dictionaryWithObject:e.reason forKey:NSLocalizedDescriptionKey]];
-        else N2LogException(e);
+        else
+            N2LogException(e);
     } @finally {
         [self.managedObjectContext unlock];
     }
@@ -684,7 +686,8 @@ static int gTotalN2ManagedObjectContext = 0;
     } @catch(NSException* e) {
         if (error && !*error)
             *error = [NSError errorWithDomain:N2ErrorDomain code:1 userInfo:[NSDictionary dictionaryWithObject:e.reason forKey:NSLocalizedDescriptionKey]];
-        else N2LogException(e);
+        else
+            N2LogException(e);
     } @finally {
         [self.managedObjectContext unlock];
     }

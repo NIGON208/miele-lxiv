@@ -1298,7 +1298,8 @@ const NSString* const GenerateMovieDicomImagesParamKey = @"dicomImageArray";
                 else
                     [response.tokens addError: NSLocalizedString(@"Study share failed: not authorized.", @"Web Portal, study, share, error")];
             }
-            else destUser = [self objectWithXID:shareStudyDestination];
+            else
+                destUser = [self objectWithXID:shareStudyDestination];
             
             if ([destUser isKindOfClass: [WebPortalUser class]])
             {
@@ -1538,7 +1539,8 @@ const NSString* const GenerateMovieDicomImagesParamKey = @"dicomImageArray";
                 NSPredicate* predicate = nil;
 				if ([email length] > [username length])
 					predicate = [NSPredicate predicateWithFormat: @"(email BEGINSWITH[cd] %@) AND (email ENDSWITH[cd] %@)", email, email];
-				else predicate = [NSPredicate predicateWithFormat: @"(name BEGINSWITH[cd] %@) AND (name ENDSWITH[cd] %@)", username, username];
+				else
+                    predicate = [NSPredicate predicateWithFormat: @"(name BEGINSWITH[cd] %@) AND (name ENDSWITH[cd] %@)", username, username];
 				
 				NSArray *users = [db objectsForEntity: db.userEntity predicate:predicate];
 				
@@ -2858,10 +2860,12 @@ const NSString* const GenerateMovieDicomImagesParamKey = @"dicomImageArray";
 		destFile = [destFile stringByAppendingFormat:@"-%d", uniqueInc++];
 		if (self.requestIsMacOS)
 			destFile = [destFile stringByAppendingPathExtension:@"osirixzip"];
-		else destFile = [destFile stringByAppendingPathExtension:@"zip"];
+		else
+            destFile = [destFile stringByAppendingPathExtension:@"zip"];
 		
 		if (srcFolder)
 			[NSFileManager.defaultManager removeItemAtPath:srcFolder error:nil];
+        
 		if (destFile)
 			[NSFileManager.defaultManager removeItemAtPath:destFile error:nil];
 		

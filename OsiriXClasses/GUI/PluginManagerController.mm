@@ -141,11 +141,12 @@ static NSDate *CachedPluginsListDate = nil;
 
 - (IBAction)delete:(id)sender;
 {
-	if( NSRunInformationalAlertPanel(	NSLocalizedString(@"Delete a plugin", nil),
-												 NSLocalizedString(@"Are you sure you want to delete the selected plugin?", nil),
-												 NSLocalizedString(@"OK",nil),
-												 NSLocalizedString(@"Cancel",nil),
-												 nil) == NSAlertDefaultReturn)
+	if( NSRunInformationalAlertPanel(NSLocalizedString(@"Delete a plugin", nil),
+                                     NSLocalizedString(@"Are you sure you want to delete the selected plugin?", nil),
+                                     NSLocalizedString(@"OK",nil),
+                                     NSLocalizedString(@"Cancel",nil),
+                                     nil
+                                     ) == NSAlertDefaultReturn)
 	{
 		NSArray *pluginsList = [pluginsArrayController arrangedObjects];
 		NSString *pluginName = [[pluginsList objectAtIndex:[pluginTable selectedRow]] objectForKey:@"name"];

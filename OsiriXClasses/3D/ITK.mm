@@ -73,8 +73,10 @@
 		height = [firstObject pheight];
 		width =  [firstObject pwidth];
 				  
-		if( slice == -1 || slice == -2) depth = [pixList count]; // size along Z
-		else depth = 1;
+		if( slice == -1 || slice == -2)
+            depth = [pixList count]; // size along Z
+		else
+            depth = 1;
 		
 		originX = [firstObject originX];
 		originY = [firstObject originY];

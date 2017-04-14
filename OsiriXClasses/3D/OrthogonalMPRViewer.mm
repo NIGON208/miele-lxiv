@@ -889,7 +889,8 @@ return YES;
         valid = YES;
         [item setState: (syncSeriesState == [item tag] ? NSOnState : NSOffState)];
     }
-    else valid = YES;
+    else
+        valid = YES;
 	
     return valid;
 }
@@ -996,11 +997,10 @@ return YES;
      
     NSToolbarItem *toolbarItem =nil;
     
-    if ([itemIdent isEqualToString: SyncSeriesToolbarItemIdentifier]) {
+    if ([itemIdent isEqualToString: SyncSeriesToolbarItemIdentifier])
         toolbarItem = [[[KBPopUpToolbarItem alloc] initWithItemIdentifier: itemIdent] autorelease];
-    }else{
+    else
         toolbarItem = [[[NSToolbarItem alloc] initWithItemIdentifier: itemIdent] autorelease];
-    }
     
 //    NSToolbarItem *toolbarItem = [[NSToolbarItem alloc] initWithItemIdentifier: itemIdent];
     

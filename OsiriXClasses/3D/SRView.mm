@@ -198,11 +198,16 @@ typedef struct _xyzArray
 		{
 			[optr appendString: orientationX]; absX=0;
 		}
-		else if (absY>.2 && absY>=absX && absY>=absZ)	{
+		else if (absY>.2 && absY>=absX && absY>=absZ)
+        {
 			[optr appendString: orientationY]; absY=0;
-		} else if (absZ>.2 && absZ>=absX && absZ>=absY) {
+		}
+        else if (absZ>.2 && absZ>=absX && absZ>=absY)
+        {
 			[optr appendString: orientationZ]; absZ=0;
-		} else break;
+		}
+        else
+            break;
 	}
 	
 	strcpy( orientation, [optr UTF8String]);
@@ -309,8 +314,10 @@ typedef struct _xyzArray
 	
 	numberOfFrames = [framesSlider intValue];
 	
-	if( [[rotation selectedCell] tag] == 1) rotationValue = 360;
-	else rotationValue = 180;
+	if( [[rotation selectedCell] tag] == 1)
+        rotationValue = 360;
+	else
+        rotationValue = 180;
 	
 	if( [sender tag])
 	{
@@ -544,11 +551,15 @@ typedef struct _xyzArray
 	
 	numberOfFrames = [dcmframesSlider intValue];
 //	bestRenderingMode = [[dcmquality selectedCell] tag];
-	if( [[dcmrotation selectedCell] tag] == 1) rotationValue = 360;
-	else rotationValue = 180;
+	if( [[dcmrotation selectedCell] tag] == 1)
+        rotationValue = 360;
+	else
+        rotationValue = 180;
 	
-	if( [[dcmorientation selectedCell] tag] == 1) rotationOrientation = 1;
-	else rotationOrientation = 0;
+	if( [[dcmorientation selectedCell] tag] == 1)
+        rotationOrientation = 1;
+	else
+        rotationOrientation = 0;
 	
 	NSMutableArray *producedFiles = [NSMutableArray array];
 	
@@ -776,9 +787,12 @@ typedef struct _xyzArray
 {
 	ToolMode tool;
 	
-	if( [event type] == NSRightMouseDown || [event type] == NSRightMouseDragged || [event type] == NSRightMouseUp) tool = tZoom;
-	else if( [event type] == NSOtherMouseDown || [event type] == NSOtherMouseDragged || [event type] == NSOtherMouseUp) tool = tTranslate;
-	else tool = currentTool;
+	if( [event type] == NSRightMouseDown || [event type] == NSRightMouseDragged || [event type] == NSRightMouseUp)
+        tool = tZoom;
+	else if( [event type] == NSOtherMouseDown || [event type] == NSOtherMouseDragged || [event type] == NSOtherMouseUp)
+        tool = tTranslate;
+	else
+        tool = currentTool;
 	
 	if (([event modifierFlags] & NSControlKeyMask))  tool = tRotate;
 	if (([event modifierFlags] & NSShiftKeyMask))  tool = tZoom;
@@ -1823,11 +1837,10 @@ typedef struct _xyzArray
 			blendingFlip->SetInputConnection( blendingReader->GetOutputPort());
 			blendingFlip->SetFlipAboutOrigin( TRUE);
 			blendingFlip->SetFilteredAxis(2);
-
 			blendingFlip->Update();
-
 		}
-		else blendingFlip = nil;
+		else
+            blendingFlip = nil;
 		
 		matriceBlending = vtkMatrix4x4::New();
 		matriceBlending->Element[0][0] = blendingcosines[0];			matriceBlending->Element[1][0] = blendingcosines[1];			matriceBlending->Element[2][0] = blendingcosines[2];			matriceBlending->Element[3][0] = 0;
@@ -1864,7 +1877,7 @@ typedef struct _xyzArray
 		if (NSRunAlertPanel(@"", //NSLocalizedString(@"32-bit",nil),
                             NSLocalizedString(@"Cannot use the 3D engine.",nil),
                             NSLocalizedString(@"OK", nil),
-                            nil, //NSLocalizedString(@"OsiriX 64-bit", nil),
+                            (__bridge NSString *)CFSTR("CFBundleName"),
                             nil
                             ) == NSAlertAlternateReturn)
         {
@@ -2068,7 +2081,7 @@ typedef struct _xyzArray
 		if (NSRunAlertPanel(@"", //NSLocalizedString(@"32-bit",nil),
                             NSLocalizedString(@"Cannot use the 3D engine.",nil),
                             NSLocalizedString(@"OK", nil),
-                            nil, //NSLocalizedString(@"OsiriX 64-bit", nil),
+                            (__bridge NSString *)CFSTR("CFBundleName"),
                             nil
                             ) == NSAlertAlternateReturn)
         {
@@ -2294,7 +2307,8 @@ typedef struct _xyzArray
 			flip->SetFilteredAxis(2);
 			flip->Update();
 		}
-		else flip = nil;
+		else
+            flip = nil;
 			
 		// PLANE
 		
@@ -2643,8 +2657,10 @@ typedef struct _xyzArray
 	
 	dataPtr = [self getRawPixels :&width :&height :&spp :&bpp :!originalSize : YES];
 	
-	if( spp == 3) colorSpace = NSCalibratedRGBColorSpace;
-	else colorSpace = NSCalibratedWhiteColorSpace;
+	if( spp == 3)
+        colorSpace = NSCalibratedRGBColorSpace;
+	else
+        colorSpace = NSCalibratedWhiteColorSpace;
 	
 	rep = [[[NSBitmapImageRep alloc]
 			 initWithBitmapDataPlanes:nil
@@ -3699,14 +3715,16 @@ void SRSpaceNavigatorMessageHandler(io_connect_t connection, natural_t messageTy
 
 						// if shift is pressed -> faster movement
 						BOOL faster;
-						if([[[NSApplication sharedApplication] currentEvent] modifierFlags] & NSShiftKeyMask)
+						if ([[[NSApplication sharedApplication] currentEvent] modifierFlags] & NSShiftKeyMask)
 							faster = YES;
-						else faster = NO;
+						else
+                            faster = NO;
 
 						// if ctrl is pressed -> record
-						if([[[NSApplication sharedApplication] currentEvent] modifierFlags] & NSControlKeyMask)
+						if ([[[NSApplication sharedApplication] currentEvent] modifierFlags] & NSControlKeyMask)
 							record = YES;
-						else record = NO;
+						else
+                            record = NO;
 
 						if( sV->snCloseEventTimer)
 						{

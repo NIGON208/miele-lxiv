@@ -85,8 +85,11 @@ static int getfd(id object, BOOL read, int def) { // http://www.quantum-step.com
 	int ienv = 0;
 	for (NSString* kenv in self.environment) {
 		NSString* venv = [self.environment objectForKey:kenv], *aenv;
-		if (venv) aenv = [NSString stringWithFormat:@"%@=%@", kenv, venv];
-		else aenv = [NSString stringWithFormat:@"%@=", kenv];
+		if (venv)
+            aenv = [NSString stringWithFormat:@"%@=%@", kenv, venv];
+		else
+            aenv = [NSString stringWithFormat:@"%@=", kenv];
+        
 		env[ienv++] = aenv.UTF8String;
 	}
 	

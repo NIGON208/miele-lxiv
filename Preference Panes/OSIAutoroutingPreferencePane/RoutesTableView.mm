@@ -31,8 +31,11 @@
                                          NSLocalizedString( @"Are you sure you want to delete the selected route?", 0L),
                                          NSLocalizedString(@"OK", nil),
                                          NSLocalizedString(@"Cancel", nil),
-                                         nil) == NSAlertDefaultReturn)
+                                         nil
+                                         ) == NSAlertDefaultReturn)
+        {
 			[(OSIAutoroutingPreferencePanePref*) [self delegate] deleteSelectedRow:self];
+        }
 	}
 	else
 		 [super keyDown:event];

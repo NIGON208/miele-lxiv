@@ -540,7 +540,8 @@ OFCondition MdfDatasetManager::modifyAllTags(OFString tag_path,
             if (result.good()) count++;
         }
         // if user gave "unchangeable" tag:
-        else result = makeOFCondition(OFM_dcmdata,22,OF_error,"Unable to modify tag!");
+        else
+            result = makeOFCondition(OFM_dcmdata,22,OF_error,"Unable to modify tag!");
     }
     // if desired, handle "tag not found" as being OK
     if (ignore_missing_tags && (result == EC_TagNotFound))

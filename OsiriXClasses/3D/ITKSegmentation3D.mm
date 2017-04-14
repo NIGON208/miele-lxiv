@@ -403,14 +403,20 @@ void ConnectPipelines(ITK_Exporter exporter, VTK_Importer* importer)
 				
 	vtkPolyDataConnectivityFilter	*filter = vtkPolyDataConnectivityFilter::New();
 	filter->SetColorRegions( 1);
-	if( largestRegion) filter->SetExtractionModeToLargestRegion();
-	else filter->SetExtractionModeToAllRegions();
+	if( largestRegion)
+        filter->SetExtractionModeToLargestRegion();
+	else
+        filter->SetExtractionModeToAllRegions();
+    
 	filter->SetInputConnection( isoContour->GetOutputPort());
 
 	vtkPolyDataConnectivityFilter	*filter2 = vtkPolyDataConnectivityFilter::New();
 	filter2->SetColorRegions( 1);
-	if( largestRegion) filter2->SetExtractionModeToLargestRegion();
-	else filter2->SetExtractionModeToAllRegions();
+	if( largestRegion)
+        filter2->SetExtractionModeToLargestRegion();
+	else
+        filter2->SetExtractionModeToAllRegions();
+    
 	filter2->SetInputConnection( filter->GetOutputPort());
 
 	vtkPolyData *output = filter2->GetOutput();
@@ -685,8 +691,10 @@ void ConnectPipelines(ITK_Exporter exporter, VTK_Importer* importer)
                 dstImage = [curPix fImage];
                 srcImage = [[[srcViewer pixList] objectAtIndex: i] fImage];
                 
-                if(slice == -1) pixelIndex[2] = i; // z position
-                else pixelIndex[2] = 0; // z position
+                if(slice == -1)
+                    pixelIndex[2] = i; // z position
+                else
+                    pixelIndex[2] = 0; // z position
                 
                 for( y = 0; y < [curPix pheight]; y++) 
                 {
@@ -791,7 +799,7 @@ void ConnectPipelines(ITK_Exporter exporter, VTK_Importer* importer)
                     if (NSRunAlertPanel(@"regionGrowing3D", //NSLocalizedString(@"32-bit",nil),
                                         @"Casting filter error", //NSLocalizedString(@"Upgrade to OsiriX 64-bit to solve this issue.",nil),
                                         NSLocalizedString(@"OK", nil),
-                                        nil, //NSLocalizedString(@"OsiriX 64-bit", nil),
+                                        (__bridge NSString *)CFSTR("CFBundleName"),
                                         nil
                                         ) == NSAlertAlternateReturn)
                     {
@@ -1045,8 +1053,10 @@ void ConnectPipelines(ITK_Exporter exporter, VTK_Importer* importer)
 
                             roiSeriesList = [srcViewer roiList];
                             
-                            if( slice == -1) roiImageList = [roiSeriesList objectAtIndex: i];
-                            else roiImageList = [roiSeriesList objectAtIndex: [[srcViewer imageView] curImage]];
+                            if( slice == -1)
+                                roiImageList = [roiSeriesList objectAtIndex: i];
+                            else
+                                roiImageList = [roiSeriesList objectAtIndex: [[srcViewer imageView] curImage]];
                             
                             [newROI setName: newname];
                             [roiImageList addObject: newROI];

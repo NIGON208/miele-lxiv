@@ -209,7 +209,8 @@
                                     }
                                 }
                             }
-                            else lastString = s;
+                            else
+                                lastString = s;
                         }
                         
                         if( [tempResult count])

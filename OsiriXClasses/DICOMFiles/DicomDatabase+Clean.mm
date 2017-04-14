@@ -84,12 +84,15 @@
 	if ([_cleanLock tryLock])
 		@try {
 			[self performSelectorInBackground:@selector(_cleanThread) withObject:nil];
-		} @catch (NSException* e) {
+		}
+        @catch (NSException* e) {
 			N2LogExceptionWithStackTrace(e);
-		} @finally {
+		}
+        @finally {
 			[_cleanLock unlock];
 		}
-	else NSLog(@"Warning: couldn't initiate clean");
+	else
+        NSLog(@"Warning: couldn't initiate clean");
 }
 
 -(void)_cleanThread {
@@ -165,8 +168,10 @@
 							{
 								i++;
 								studyDate = [studyDate laterDate: [[studiesArray objectAtIndex: i] valueForKey:@"date"]];
-								if( [[studiesArray objectAtIndex: i] valueForKey:@"dateOpened"]) openedStudyDate = [openedStudyDate laterDate: [[studiesArray objectAtIndex: i] valueForKey:@"dateOpened"]];
-								else openedStudyDate = [openedStudyDate laterDate: [[studiesArray objectAtIndex: i] valueForKey:@"dateAdded"]];
+								if( [[studiesArray objectAtIndex: i] valueForKey:@"dateOpened"])
+                                    openedStudyDate = [openedStudyDate laterDate: [[studiesArray objectAtIndex: i] valueForKey:@"dateOpened"]];
+								else
+                                    openedStudyDate = [openedStudyDate laterDate: [[studiesArray objectAtIndex: i] valueForKey:@"dateAdded"]];
 							}
 							to = i;
 							
@@ -279,7 +284,8 @@
 									if ([[curObj valueForKey:@"type"] isEqualToString:@"Study"])
 										for (DicomSeries* series in [[((DicomStudy*)curObj) series] allObjects])
 											[nonLocalImagesPath addObjectsFromArray:[[series.images.allObjects filteredArrayUsingPredicate: [NSPredicate predicateWithFormat:@"inDatabaseFolder == NO"]] valueForKey:@"completePath"]];
-									else NSLog(@"Uh? Autocleaning, object strange...");
+									else
+                                        NSLog(@"Uh? Autocleaning, object strange...");
 								}
 								
 								for (NSString* path in nonLocalImagesPath) {
@@ -365,7 +371,9 @@ static BOOL _showingCleanForFreeSpaceWarning = NO;
 			if (acss < 0) { // Percentages !
                 unsigned long long diskSizeMB = [[fsattrs objectForKey:NSFileSystemSize] unsignedLongLongValue]/1024/1024;
 				freeMemoryRequested = -acss/100*diskSizeMB;
-			} else freeMemoryRequested = acss;
+			}
+            else
+                freeMemoryRequested = acss;
 			
 			[self cleanForFreeSpaceMB:freeMemoryRequested];
 		}
@@ -507,20 +515,27 @@ static BOOL _cleanForFreeSpaceLimitSoonReachedDisplayed = NO;
             switch (autocleanSpaceMode) {
                 case 0: { // oldest Studies
                     d = study.date;
-                } break;
+                }
+                    break;
+                    
                 case 1: { // oldest unopened
                     if (study.dateOpened)
                         d = study.dateOpened;
                     else
                         if (study.dateAdded)
                             d = study.dateAdded;
-                        else d = study.date;
-                } break;
+                        else
+                            d = study.date;
+                }
+                    break;
+                    
                 case 2: { // least recently added
                     if (study.dateAdded)
                         d = study.dateAdded;
-                    else d = study.date;
-                } break;
+                    else
+                        d = study.date;
+                }
+                    break;
             }
             
             [studiesDates addObject:[NSArray arrayWithObjects: study, d, nil]];   

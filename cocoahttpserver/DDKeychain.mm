@@ -797,8 +797,8 @@ SecPolicySearchCreate:
 					if(![[NSFileManager defaultManager] fileExistsAtPath:path])
 						[(NSData*)certificateDataRef writeToFile:path atomically:YES];
 				}
-				else NSLog(@"SecKeychainItemExport : error : %@", [DDKeychain stringForError:status]);
-				
+				else
+                    NSLog(@"SecKeychainItemExport : error : %@", [DDKeychain stringForError:status]);
 			}
 			
 			CFRelease(certArray);
@@ -842,7 +842,8 @@ SecPolicySearchCreate:
 				name = [NSString stringWithString:(NSString*)commonName];
 				CFRelease(commonName);
 			}
-			else NSLog(@"KeychainAccessCertificateCommonNameForIdentity: error: %@", [DDKeychain stringForError:status]);
+			else
+                NSLog(@"KeychainAccessCertificateCommonNameForIdentity: error: %@", [DDKeychain stringForError:status]);
 			
 			CFRelease(certificateRef);
 		}		
@@ -964,18 +965,22 @@ SecPolicySearchCreate:
 								CFRelease(certChain);
 								returnedValue = certificatesChain;
 							}
-							else NSLog(@"SecTrustGetResult : error : %@", [DDKeychain stringForError:status]);
+							else
+                                NSLog(@"SecTrustGetResult : error : %@", [DDKeychain stringForError:status]);
 						}
-						else NSLog(@"SecTrustEvaluate : error : %@", [DDKeychain stringForError:status]);	
+						else
+                            NSLog(@"SecTrustEvaluate : error : %@", [DDKeychain stringForError:status]);
 						
 						CFRelease(trust);
 					}
-					else NSLog(@"SecTrustCreateWithCertificates : error : %@", [DDKeychain stringForError:status]);
+					else
+                        NSLog(@"SecTrustCreateWithCertificates : error : %@", [DDKeychain stringForError:status]);
 
 					CFRelease(sslPolicy);
 				}
 			}
-			else NSLog(@"SSLSecPolicyCopy : error : %@", [DDKeychain stringForError:status]);
+			else
+                NSLog(@"SSLSecPolicyCopy : error : %@", [DDKeychain stringForError:status]);
 
 			CFRelease(certificateRef);
 		}
@@ -994,16 +999,15 @@ SecPolicySearchCreate:
 	{
 		CFDataRef certificateDataRef = NULL;
 		status = SecKeychainItemExport(certificate, kSecFormatX509Cert, kSecItemPemArmour, NULL, &certificateDataRef);
-		
-		if(status==0)
-		{
+		if (status==0)
 			[(NSData*)certificateDataRef writeToFile:path atomically:YES];
-		}
-		else NSLog(@"SecKeychainItemExport : error : %@", [DDKeychain stringForError:status]);
+		else
+            NSLog(@"SecKeychainItemExport : error : %@", [DDKeychain stringForError:status]);
 		
 		CFRelease(certificate);	
 	}
-	else NSLog(@"SecIdentityCopyCertificate : error : %@", [DDKeychain stringForError:status]);	
+	else
+        NSLog(@"SecIdentityCopyCertificate : error : %@", [DDKeychain stringForError:status]);
 }
 
 + (void)KeychainAccessExportPrivateKeyForIdentity:(SecIdentityRef)identity toPath:(NSString*)path cryptWithPassword:(NSString*)password;
@@ -1043,11 +1047,13 @@ SecPolicySearchCreate:
             
 			[[NSFileManager defaultManager] removeFileAtPath:[path stringByAppendingPathExtension:@"p12"] handler:nil]; // remove the .p12 file
 		}
-		else NSLog(@"SecKeychainItemExport : error : %@", [DDKeychain stringForError:status]);
+		else
+            NSLog(@"SecKeychainItemExport : error : %@", [DDKeychain stringForError:status]);
 		
 		CFRelease(privateKey);
 	}
-	else NSLog(@"SecIdentityCopyPrivateKey : error : %@", [DDKeychain stringForError:status]);			
+	else
+        NSLog(@"SecIdentityCopyPrivateKey : error : %@", [DDKeychain stringForError:status]);
 }
 
 + (void)KeychainAccessOpenCertificatePanelForIdentity:(SecIdentityRef)identity;

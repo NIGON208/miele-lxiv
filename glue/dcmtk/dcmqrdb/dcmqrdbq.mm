@@ -374,10 +374,9 @@ OFCondition DcmQueryRetrieveOsiriXDatabaseHandle::updateLogEntry(DcmDataset *dat
 	}
 	
 	if (dataset->findAndGetString (DCM_SeriesInstanceUID, sss, OFFalse).good() && sss != NULL)
-	{
 		strcpy( seriesUID, sss);
-	}
-	else strcpy( seriesUID, patientName);
+	else
+        strcpy( seriesUID, patientName);
 	
 	if( handle->logDictionary == nil)
 	{
@@ -891,7 +890,8 @@ OFCondition DcmQueryRetrieveOsiriXDatabaseHandle::nextMoveResponse(
 					strcpy (SOPClassUID, (char *) sopclass) ;
 					strcpy (SOPInstanceUID, (char *) sopinstance) ;
 				}
-				else cond = EC_IllegalParameter;
+				else
+                    cond = EC_IllegalParameter;
 			}
 		}
 		

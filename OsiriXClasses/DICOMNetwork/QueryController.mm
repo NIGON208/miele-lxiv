@@ -829,7 +829,8 @@ extern "C"
                                 NSLocalizedString(@"OK", nil),
                                 NSLocalizedString(@"Cancel", nil),
                                 nil,
-                                [[autoQRInstances objectAtIndex: currentAutoQR] objectForKey: @"instanceName"]) == NSAlertDefaultReturn)
+                                    [[autoQRInstances objectAtIndex: currentAutoQR] objectForKey: @"instanceName"]
+                                ) == NSAlertDefaultReturn)
     {
         [self willChangeValueForKey: @"instancesMenuList"];
         
@@ -1077,7 +1078,8 @@ extern "C"
                                         NSLocalizedString(@"A Preset with the same name already exists. Should I replace it with the current one?", nil),
                                         NSLocalizedString(@"OK", nil),
                                         NSLocalizedString(@"Cancel", nil),
-                                        nil) != NSAlertDefaultReturn)
+                                        nil
+                                        ) != NSAlertDefaultReturn)
             {
                 return;
             }
@@ -1305,7 +1307,8 @@ extern "C"
                                     NSLocalizedString( @"OK", nil),
                                     NSLocalizedString( @"Cancel", nil),
                                     nil,
-                                    [sender title]) == NSAlertDefaultReturn)
+                                        [sender title]
+                                    ) == NSAlertDefaultReturn)
 		{
 			NSDictionary *savedPresets = [[NSUserDefaults standardUserDefaults] dictionaryForKey:@"QRPresets"];
 			
@@ -1384,7 +1387,8 @@ extern "C"
 			}
 		}
     }
-	else valid = YES;
+	else
+        valid = YES;
 	
     return valid;
 }
@@ -1489,7 +1493,8 @@ extern "C"
 				[outlineView selectRowIndexes: [NSIndexSet indexSetWithIndex: [outlineView rowForItem: [resultFilter objectAtIndex: 0]]] byExtendingSelection: NO];
 				[outlineView scrollRowToVisible: [outlineView selectedRow]];
 			}
-			else NSBeep();
+			else
+                NSBeep();
 		}
 	}
 }
@@ -2031,7 +2036,8 @@ extern "C"
                             return [[seriesArray objectAtIndex: 0] valueForKey: @"stateText"];
                     }
                 }
-                else NSLog( @"***** unknown class in QueryController outlineView: %@", [item class]);
+                else
+                    NSLog( @"***** unknown class in QueryController outlineView: %@", [item class]);
             }
             else if( [[tableColumn identifier] isEqualToString: @"serverStateText"])
             {
@@ -2042,11 +2048,11 @@ extern "C"
                     else
                         return [item stateText];
                 }
-                
                 else if( [item isMemberOfClass:[DCMTKSeriesQueryNode class]])
                     return nil;
                 
-                else NSLog( @"***** unknown class in QueryController outlineView: %@", [item class]);
+                else
+                    NSLog( @"***** unknown class in QueryController outlineView: %@", [item class]);
             }
             else if( [[tableColumn identifier] isEqualToString: @"comment"])
             {
@@ -2063,7 +2069,8 @@ extern "C"
                     if( [seriesArray count] > 0)
                         return [[seriesArray objectAtIndex: 0] valueForKey: @"comment"];
                 }
-                else NSLog( @"***** unknown class in QueryController outlineView: %@", [item class]);
+                else
+                    NSLog( @"***** unknown class in QueryController outlineView: %@", [item class]);
             }
             else if( [[tableColumn identifier] isEqualToString: @"serverComment"])
             {
@@ -2073,7 +2080,8 @@ extern "C"
                 else if( [item isMemberOfClass:[DCMTKSeriesQueryNode class]])
                     return [item valueForKey: @"comments"];
                 
-                else NSLog( @"***** unknown class in QueryController outlineView: %@", [item class]);
+                else
+                    NSLog( @"***** unknown class in QueryController outlineView: %@", [item class]);
             }
             else if ( [[tableColumn identifier] isEqualToString: @"Button"] == NO && [tableColumn identifier] != nil)
             {
@@ -2086,7 +2094,8 @@ extern "C"
                     else
                         return [item valueForKey: [tableColumn identifier]];
                 }
-                else NSLog( @"***** unknown class in QueryController outlineView: %@", [item class]);
+                else
+                    NSLog( @"***** unknown class in QueryController outlineView: %@", [item class]);
             }	
         }
         @catch (NSException * e)
@@ -2488,7 +2497,8 @@ extern "C"
                                                     NSLocalizedString(@"The query cannot be encoded in current character set. Should I switch to UTF-8 (ISO_IR 192) encoding?", nil),
                                                     NSLocalizedString(@"OK", nil),
                                                     NSLocalizedString(@"Cancel", nil),
-                                                    nil) == NSAlertDefaultReturn)
+                                                    nil
+                                                    ) == NSAlertDefaultReturn)
                         {
                             [[NSUserDefaults standardUserDefaults] setObject: @"ISO_IR 192" forKey: @"STRINGENCODING"];
                             [queryManager addFilter: [[NSUserDefaults standardUserDefaults] stringForKey: @"STRINGENCODING"] forDescription:@"SpecificCharacterSet"];
@@ -2523,7 +2533,8 @@ extern "C"
                                                     NSLocalizedString(@"The query cannot be encoded in current character set. Should I switch to UTF-8 (ISO_IR 192) encoding?", nil),
                                                     NSLocalizedString(@"OK", nil),
                                                     NSLocalizedString(@"Cancel", nil),
-                                                    nil) == NSAlertDefaultReturn)
+                                                    nil
+                                                    ) == NSAlertDefaultReturn)
                         {
                             [[NSUserDefaults standardUserDefaults] setObject: @"ISO_IR 192" forKey: @"STRINGENCODING"];
                             [queryManager addFilter: [[NSUserDefaults standardUserDefaults] stringForKey: @"STRINGENCODING"] forDescription:@"SpecificCharacterSet"];
@@ -2549,7 +2560,12 @@ extern "C"
                     
                     if( showError && [refPhysicianValue cStringUsingEncoding: [NSString encodingForDICOMCharacterSet: [[NSUserDefaults standardUserDefaults] stringForKey: @"STRINGENCODING"]]] == nil)
                     {
-                        if (NSRunCriticalAlertPanel( NSLocalizedString(@"Query Encoding", nil),  NSLocalizedString(@"The query cannot be encoded in current character set. Should I switch to UTF-8 (ISO_IR 192) encoding?", nil), NSLocalizedString(@"OK", nil), NSLocalizedString(@"Cancel", nil), nil) == NSAlertDefaultReturn)
+                        if (NSRunCriticalAlertPanel(NSLocalizedString(@"Query Encoding", nil),
+                                                    NSLocalizedString(@"The query cannot be encoded in current character set. Should I switch to UTF-8 (ISO_IR 192) encoding?", nil),
+                                                    NSLocalizedString(@"OK", nil),
+                                                    NSLocalizedString(@"Cancel", nil),
+                                                    nil
+                                                    ) == NSAlertDefaultReturn)
                         {
                             [[NSUserDefaults standardUserDefaults] setObject: @"ISO_IR 192" forKey: @"STRINGENCODING"];
                             [queryManager addFilter: [[NSUserDefaults standardUserDefaults] stringForKey: @"STRINGENCODING"] forDescription:@"SpecificCharacterSet"];
@@ -2575,7 +2591,12 @@ extern "C"
                     
                     if( showError && [institutionNameValue cStringUsingEncoding: [NSString encodingForDICOMCharacterSet: [[NSUserDefaults standardUserDefaults] stringForKey: @"STRINGENCODING"]]] == nil)
                     {
-                        if (NSRunCriticalAlertPanel( NSLocalizedString(@"Query Encoding", nil),  NSLocalizedString(@"The query cannot be encoded in current character set. Should I switch to UTF-8 (ISO_IR 192) encoding?", nil), NSLocalizedString(@"OK", nil), NSLocalizedString(@"Cancel", nil), nil) == NSAlertDefaultReturn)
+                        if (NSRunCriticalAlertPanel(NSLocalizedString(@"Query Encoding", nil),
+                                                    NSLocalizedString(@"The query cannot be encoded in current character set. Should I switch to UTF-8 (ISO_IR 192) encoding?", nil),
+                                                    NSLocalizedString(@"OK", nil),
+                                                    NSLocalizedString(@"Cancel", nil),
+                                                    nil
+                                                    ) == NSAlertDefaultReturn)
                         {
                             [[NSUserDefaults standardUserDefaults] setObject: @"ISO_IR 192" forKey: @"STRINGENCODING"];
                             [queryManager addFilter: [[NSUserDefaults standardUserDefaults] stringForKey: @"STRINGENCODING"] forDescription:@"SpecificCharacterSet"];
@@ -2601,7 +2622,12 @@ extern "C"
                     
                     if( showError && [studyStatusValue cStringUsingEncoding: [NSString encodingForDICOMCharacterSet: [[NSUserDefaults standardUserDefaults] stringForKey: @"STRINGENCODING"]]] == nil)
                     {
-                        if (NSRunCriticalAlertPanel( NSLocalizedString(@"Query Encoding", nil),  NSLocalizedString(@"The query cannot be encoded in current character set. Should I switch to UTF-8 (ISO_IR 192) encoding?", nil), NSLocalizedString(@"OK", nil), NSLocalizedString(@"Cancel", nil), nil) == NSAlertDefaultReturn)
+                        if (NSRunCriticalAlertPanel(NSLocalizedString(@"Query Encoding", nil),
+                                                    NSLocalizedString(@"The query cannot be encoded in current character set. Should I switch to UTF-8 (ISO_IR 192) encoding?", nil),
+                                                    NSLocalizedString(@"OK", nil),
+                                                    NSLocalizedString(@"Cancel", nil),
+                                                    nil
+                                                    ) == NSAlertDefaultReturn)
                         {
                             [[NSUserDefaults standardUserDefaults] setObject: @"ISO_IR 192" forKey: @"STRINGENCODING"];
                             [queryManager addFilter: [[NSUserDefaults standardUserDefaults] stringForKey: @"STRINGENCODING"] forDescription:@"SpecificCharacterSet"];
@@ -2689,7 +2715,12 @@ extern "C"
                     
                     if( showError && [studyDescriptionValue cStringUsingEncoding: [NSString encodingForDICOMCharacterSet: [[NSUserDefaults standardUserDefaults] stringForKey: @"STRINGENCODING"]]] == nil)
                     {
-                        if (NSRunCriticalAlertPanel( NSLocalizedString(@"Query Encoding", nil),  NSLocalizedString(@"The query cannot be encoded in current character set. Should I switch to UTF-8 (ISO_IR 192) encoding?", nil), NSLocalizedString(@"OK", nil), NSLocalizedString(@"Cancel", nil), nil) == NSAlertDefaultReturn)
+                        if (NSRunCriticalAlertPanel(NSLocalizedString(@"Query Encoding", nil),
+                                                    NSLocalizedString(@"The query cannot be encoded in current character set. Should I switch to UTF-8 (ISO_IR 192) encoding?", nil),
+                                                    NSLocalizedString(@"OK", nil),
+                                                    NSLocalizedString(@"Cancel", nil),
+                                                    nil
+                                                    ) == NSAlertDefaultReturn)
                         {
                             [[NSUserDefaults standardUserDefaults] setObject: @"ISO_IR 192" forKey: @"STRINGENCODING"];
                             [queryManager addFilter: [[NSUserDefaults standardUserDefaults] stringForKey: @"STRINGENCODING"] forDescription:@"SpecificCharacterSet"];
@@ -2715,7 +2746,12 @@ extern "C"
                     
                     if( showError && [commentsValue cStringUsingEncoding: [NSString encodingForDICOMCharacterSet: [[NSUserDefaults standardUserDefaults] stringForKey: @"STRINGENCODING"]]] == nil)
                     {
-                        if (NSRunCriticalAlertPanel( NSLocalizedString(@"Query Encoding", nil),  NSLocalizedString(@"The query cannot be encoded in current character set. Should I switch to UTF-8 (ISO_IR 192) encoding?", nil), NSLocalizedString(@"OK", nil), NSLocalizedString(@"Cancel", nil), nil) == NSAlertDefaultReturn)
+                        if (NSRunCriticalAlertPanel(NSLocalizedString(@"Query Encoding", nil),
+                                                    NSLocalizedString(@"The query cannot be encoded in current character set. Should I switch to UTF-8 (ISO_IR 192) encoding?", nil),
+                                                    NSLocalizedString(@"OK", nil),
+                                                    NSLocalizedString(@"Cancel", nil),
+                                                    nil
+                                                    ) == NSAlertDefaultReturn)
                         {
                             [[NSUserDefaults standardUserDefaults] setObject: @"ISO_IR 192" forKey: @"STRINGENCODING"];
                             [queryManager addFilter: [[NSUserDefaults standardUserDefaults] stringForKey: @"STRINGENCODING"] forDescription:@"SpecificCharacterSet"];
@@ -2797,7 +2833,8 @@ extern "C"
                             if( [alert runModal] == NSAlertFirstButtonReturn) doit = YES;
                         }
                     }
-                    else doit = YES;
+                    else
+                        doit = YES;
                 }
                 
                 if( doit)
@@ -2935,8 +2972,10 @@ extern "C"
 {
 	NSIndexSet *rowIndex;
 	
-	if( onlySelected) rowIndex = [outlineView selectedRowIndexes];
-	else rowIndex = [NSIndexSet indexSetWithIndexesInRange: NSMakeRange( 0, [outlineView numberOfRows])];
+	if( onlySelected)
+        rowIndex = [outlineView selectedRowIndexes];
+	else
+        rowIndex = [NSIndexSet indexSetWithIndexesInRange: NSMakeRange( 0, [outlineView numberOfRows])];
 	
 	NSMutableString	*string = [NSMutableString string];
 	NSArray	*columns = [[outlineView tableColumns] valueForKey:@"identifier"];
@@ -2945,8 +2984,10 @@ extern "C"
 	
 	for( NSInteger x = 0; x < rowIndex.count; x++)
 	{
-		if( x == 0) r = rowIndex.firstIndex;
-		else r = [rowIndex indexGreaterThanIndex: r];
+		if( x == 0)
+            r = rowIndex.firstIndex;
+		else
+            r = [rowIndex indexGreaterThanIndex: r];
 		
 		id aFile = [outlineView itemAtRow: r];
 		
@@ -3324,10 +3365,11 @@ extern "C"
 			}
 			NSLog( @"______________________________________________");
 			
-			NSString *desc = nil;
-			
-			if( [selectedItems count] == 1) desc = [NSString stringWithFormat: NSLocalizedString( @"Will auto-retrieve %d study", nil), [selectedItems count]];
-			else desc = [NSString stringWithFormat: NSLocalizedString( @"Will auto-retrieve %d studies", nil), [selectedItems count]];
+			NSString *desc = nil;			
+			if( [selectedItems count] == 1)
+                desc = [NSString stringWithFormat: NSLocalizedString( @"Will auto-retrieve %d study", nil), [selectedItems count]];
+			else
+                desc = [NSString stringWithFormat: NSLocalizedString( @"Will auto-retrieve %d studies", nil), [selectedItems count]];
 			
 			[[AppController sharedAppController] growlTitle: NSLocalizedString( @"Q&R Auto-Retrieve", nil) description: desc name: @"autoquery"];
 		}
@@ -3438,7 +3480,8 @@ extern "C"
                                 
                                 [autoQueryLock unlock];
                             }
-                            else autoQueryRemainingSecs[ i] = 0;
+                            else
+                                autoQueryRemainingSecs[ i] = 0;
                         }
                     }
                     i++;
@@ -3469,7 +3512,8 @@ extern "C"
                         
                         [autoQueryLock unlock];
                     }
-                    else autoQueryRemainingSecs[ currentAutoQR] = 0;
+                    else
+                        autoQueryRemainingSecs[ currentAutoQR] = 0;
                 }
             }
         }
@@ -3631,7 +3675,8 @@ extern "C"
 								[selectedItems addObject: item];
 								[previousAutoRetrieve setValue: [NSNumber numberWithInt: [[item valueForKey:@"numberImages"] intValue]] forKey: stringID];
 							}
-							else NSLog( @"Already in transfer.... We don't need to download it...");
+							else
+                                NSLog( @"Already in transfer.... We don't need to download it...");
 						}
 					}
 					else
@@ -3653,7 +3698,8 @@ extern "C"
 						[selectedItems addObject: item];
 						[previousAutoRetrieve setValue: [NSNumber numberWithInt: [[item valueForKey:@"numberImages"] intValue]] forKey: stringID];
 					}
-					else NSLog( @"Already in transfer.... We don't need to download it...");
+					else
+                        NSLog( @"Already in transfer.... We don't need to download it...");
 				}
 			}
 		}
@@ -3768,14 +3814,19 @@ extern "C"
 		{
 			if( months < 1)
             {
-                if( days < 0) yearOld = @"";
-                else yearOld = [NSString stringWithFormat: NSLocalizedString( @"%d d", @"d = day"), days];
+                if( days < 0)
+                    yearOld = @"";
+                else
+                    yearOld = [NSString stringWithFormat: NSLocalizedString( @"%d d", @"d = day"), days];
             }
-            else yearOld = [NSString stringWithFormat: @"%d%@", (int) months, NSLocalizedString( @" m", @"m = month")];
+            else
+                yearOld = [NSString stringWithFormat: @"%d%@", (int) months, NSLocalizedString( @" m", @"m = month")];
         }
-        else yearOld = [NSString stringWithFormat: @"%d%@ %d%@", (int) years, NSLocalizedString( @" y", @"y = year"), (int) months, NSLocalizedString( @" m", @"m = month")];
+        else
+            yearOld = [NSString stringWithFormat: @"%d%@ %d%@", (int) years, NSLocalizedString( @" y", @"y = year"), (int) months, NSLocalizedString( @" m", @"m = month")];
     }
-    else yearOld = [NSString stringWithFormat: @"%d%@", (int) years, NSLocalizedString( @" y", @"y = year")];
+    else
+        yearOld = [NSString stringWithFormat: @"%d%@", (int) years, NSLocalizedString( @" y", @"y = year")];
     
 	[yearOldBirth setStringValue: yearOld];
 }
@@ -3905,8 +3956,10 @@ extern "C"
 			
 			if( [object isMemberOfClass:[DCMTKStudyQueryNode class]])
 			{
-				if( [array count] == 1) status = [NSString stringWithFormat: NSLocalizedString( @"%d study", nil), [array count]];
-				else status = [NSString stringWithFormat: NSLocalizedString( @"%d studies", nil), [array count]];
+				if( [array count] == 1)
+                    status = [NSString stringWithFormat: NSLocalizedString( @"%d study", nil), [array count]];
+				else
+                    status = [NSString stringWithFormat: NSLocalizedString( @"%d studies", nil), [array count]];
                 
                 if( [object name])
                     status = [status stringByAppendingFormat:@" - %@", [object name]];
@@ -4047,9 +4100,11 @@ extern "C"
 						[[BrowserController currentBrowser] showEntireDatabase];
 						if( [[BrowserController currentBrowser] findAndSelectFile:nil image:[[series valueForKey:@"images"] anyObject] shouldExpand:NO]) success = YES;
 					}
-					else success = YES;
+					else
+                        success = YES;
 					
-					if( success) [[BrowserController currentBrowser] databaseOpenStudy: study];
+					if( success)
+                        [[BrowserController currentBrowser] databaseOpenStudy: study];
 				}
 			}
 		}
@@ -4241,7 +4296,8 @@ extern "C"
                     
                     *timeQueryFilter = [QueryFilter queryFilterWithObject:between ofSearchType:searchExactMatch  forKey:@"StudyTime"];
                 }
-                else NSLog( @"******* unknown setDateQuery tag: %d", (int) tag);
+                else
+                    NSLog( @"******* unknown setDateQuery tag: %d", (int) tag);
                 break;
             }
 		*dateQueryFilter = [QueryFilter queryFilterWithObject: date ofSearchType: searchType forKey:@"StudyDate"];

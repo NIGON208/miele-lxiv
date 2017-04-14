@@ -170,7 +170,8 @@
 	
 	if (image.numberOfFrames.intValue > 1)
 		name = [NSString stringWithFormat:@"%@-%@.%@", [image valueForKeyPath:@"series.study.patientUID"], [image valueForKey:@"sopInstanceUID"], [image valueForKey:@"extension"]];
-	else name = [NSString stringWithFormat:@"%@-%@-%d.%@", [image valueForKeyPath:@"series.study.patientUID"], [image valueForKey:@"sopInstanceUID"], [[image valueForKey:@"instanceNumber"] intValue], [image valueForKey:@"extension"]];
+	else
+        name = [NSString stringWithFormat:@"%@-%@-%d.%@", [image valueForKeyPath:@"series.study.patientUID"], [image valueForKey:@"sopInstanceUID"], [[image valueForKey:@"instanceNumber"] intValue], [image valueForKey:@"extension"]];
 	
 	return [self.tempDirPath stringByAppendingPathComponent:[DicomFile NSreplaceBadCharacter:name]];
 }
@@ -639,7 +640,8 @@ enum RemoteDicomDatabaseStudiesAlbumAction { RemoteDicomDatabaseStudiesAlbumActi
                                     [image setValue:@YES forKey:@"inDatabaseFolder"];
 
                                 }
-                                else break;
+                                else
+                                    break;
                             }
                         }
                     }

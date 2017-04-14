@@ -676,7 +676,12 @@ extern int delayedTileWindows;
 {
     if( editingActivated == YES && modifiedValues.count > 0)
     {
-        if( NSRunInformationalAlertPanel( NSLocalizedString( @"Cancel modifications", nil), NSLocalizedString(@"Are you sure you want to close the window? The modifications to DICOM fields have not been applied. The DICOM files will NOT be modified.", nil), NSLocalizedString(@"Close Window", nil), NSLocalizedString(@"Continue Editing", nil), nil) == NSAlertDefaultReturn)
+        if( NSRunInformationalAlertPanel(NSLocalizedString( @"Cancel modifications", nil),
+                                         NSLocalizedString(@"Are you sure you want to close the window? The modifications to DICOM fields have not been applied. The DICOM files will NOT be modified.", nil),
+                                         NSLocalizedString(@"Close Window", nil),
+                                         NSLocalizedString(@"Continue Editing", nil),
+                                         nil
+                                         ) == NSAlertDefaultReturn)
         {
             return YES;
         }
@@ -991,7 +996,8 @@ extern int delayedTileWindows;
             {
                 return YES;
             }
-            else NSLog( @"Sequence");
+            else
+                NSLog( @"Sequence");
 		}
         
 		return NO;
@@ -1050,7 +1056,12 @@ extern int delayedTileWindows;
     }
     else if( editingActivated == YES && modifiedValues.count > 0)
     {
-        if( NSRunInformationalAlertPanel( NSLocalizedString( @"Cancel modifications", nil), NSLocalizedString(@"Are you sure you want to stop editing the fields? The modifications have not been applied. The DICOM files will NOT be modified.", nil), NSLocalizedString(@"Cancel Modifications", nil), NSLocalizedString(@"Continue Editing", nil), nil) == NSAlertDefaultReturn)
+        if( NSRunInformationalAlertPanel(NSLocalizedString( @"Cancel modifications", nil),
+                                         NSLocalizedString(@"Are you sure you want to stop editing the fields? The modifications have not been applied. The DICOM files will NOT be modified.", nil),
+                                         NSLocalizedString(@"Cancel Modifications", nil),
+                                         NSLocalizedString(@"Continue Editing", nil),
+                                         nil
+                                         ) == NSAlertDefaultReturn)
 		{
             [modificationsToApplyArray removeAllObjects];
             [modifiedValues removeAllObjects];
@@ -1303,7 +1314,12 @@ extern int delayedTileWindows;
 	
 	if( index > 0 && item && [[item attributeForName:@"group"] objectValue] && [[item attributeForName:@"element"] objectValue])
 	{
-		if( NSRunInformationalAlertPanel( NSLocalizedString( @"Sort Series Images", nil), NSLocalizedString(@"Are you sure you want to re-sort the series images according to this field?", nil), NSLocalizedString(@"OK", nil), NSLocalizedString(@"Cancel", nil), nil) == NSAlertDefaultReturn)
+		if( NSRunInformationalAlertPanel( NSLocalizedString( @"Sort Series Images", nil),
+                                         NSLocalizedString(@"Are you sure you want to re-sort the series images according to this field?", nil),
+                                         NSLocalizedString(@"OK", nil),
+                                         NSLocalizedString(@"Cancel", nil),
+                                         nil
+                                         ) == NSAlertDefaultReturn)
 		{
 			unsigned gr = 0, el = 0;
 			
@@ -1330,7 +1346,8 @@ extern int delayedTileWindows;
 			dontListenToIndexChange = NO;
 		}
 	}
-	else NSRunAlertPanel( NSLocalizedString( @"Sort Series Images", nil) , NSLocalizedString( @"Select an element to use to sort the images of the series.", nil), NSLocalizedString( @"OK", nil), nil, nil);
+	else
+        NSRunAlertPanel( NSLocalizedString( @"Sort Series Images", nil) , NSLocalizedString( @"Select an element to use to sort the images of the series.", nil), NSLocalizedString( @"OK", nil), nil, nil);
 }
 
 - (void)keyDown:(NSEvent *)event
@@ -1342,7 +1359,12 @@ extern int delayedTileWindows;
 	
 	if( self.editingActivated && [[NSFileManager defaultManager] isWritableFileAtPath: [imObj valueForKey:@"completePath"]] && [[NSUserDefaults standardUserDefaults] boolForKey:@"ALLOWDICOMEDITING"] && isDICOM && (c == NSDeleteFunctionKey || c == NSDeleteCharacter || c == NSBackspaceCharacter || c == NSDeleteCharFunctionKey))
 	{
-		if( NSRunInformationalAlertPanel( NSLocalizedString( @"DICOM Editing", nil), NSLocalizedString(@"Are you sure you want to delete selected field(s)?", nil), NSLocalizedString(@"OK", nil), NSLocalizedString(@"Cancel", nil), nil) == NSAlertDefaultReturn)
+		if( NSRunInformationalAlertPanel(NSLocalizedString(@"DICOM Editing", nil),
+                                         NSLocalizedString(@"Are you sure you want to delete selected field(s)?", nil),
+                                         NSLocalizedString(@"OK", nil),
+                                         NSLocalizedString(@"Cancel", nil),
+                                         nil
+                                         ) == NSAlertDefaultReturn)
 		{
 			NSIndexSet*			selectedRowIndexes = [table selectedRowIndexes];
 			NSInteger			index;

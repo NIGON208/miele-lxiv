@@ -254,7 +254,8 @@ OFBool compressFileFormat(DcmFileFormat fileformat, const char *fname, char *out
                 DCMQRDB_ERROR("*** compressFileFormat failed");
             }
         }
-        else status = NO;
+        else
+            status = NO;
 #endif
     }
     

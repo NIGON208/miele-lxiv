@@ -889,10 +889,10 @@ static NSDate *lastWarningDate = nil;
 	{
 		int result = NSRunCriticalAlertPanel(
                         NSLocalizedString( @"Important Notice", nil),
-                        NSLocalizedString( @"This version of OsiriX, being a free open-source software (FOSS), is not certified as a commercial medical device for primary diagnostic imaging.\r\rFor a certified version and to get rid of this message, please update to 'OsiriX MD' certified version.", nil),
-                        NSLocalizedString( @"OsiriX MD", nil),  // default
-                        NSLocalizedString( @"I agree", nil),    // alternate
-                        NSLocalizedString( @"Quit", nil));      // other
+                        NSLocalizedString( @"This version of OsiriX, being a free open-source software (FOSS), is not certified as a commercial medical device for primary diagnostic imaging.", nil),
+                        (__bridge NSString *)CFSTR("CFBundleName"), // default
+                        NSLocalizedString( @"I agree", nil),        // alternate
+                        NSLocalizedString( @"Quit", nil));          // other
 		
 		if( result == NSAlertDefaultReturn)
 			[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:URL_VENDOR_NOTICE]];
@@ -1500,7 +1500,11 @@ static NSDate *lastWarningDate = nil;
             if( showRestartNeeded == YES)
             {
                 showRestartNeeded = NO;
-                NSRunAlertPanel( NSLocalizedString( @"DICOM Listener", nil), NSLocalizedString( @"Restart OsiriX to apply these changes.", nil), NSLocalizedString( @"OK", nil), nil, nil);
+                NSRunAlertPanel(NSLocalizedString( @"DICOM Listener", nil),
+                                NSLocalizedString( @"Restart OsiriX to apply these changes.", nil),
+                                NSLocalizedString( @"OK", nil),
+                                nil,
+                                nil);
             }
         }
         
@@ -3027,7 +3031,11 @@ static BOOL initialized = NO;
 				
 				if ([AppController hasMacOSXSnowLeopard] == NO)
 				{
-					NSRunCriticalAlertPanel(NSLocalizedString(@"Mac OS X", nil), NSLocalizedString(@"This application requires Mac OS X 10.6 or higher. Please upgrade your operating system.", nil), NSLocalizedString(@"Quit", nil), nil, nil);
+					NSRunCriticalAlertPanel(NSLocalizedString(@"Mac OS X", nil),
+                                            NSLocalizedString(@"This application requires Mac OS X 10.6 or higher. Please upgrade your operating system.", nil),
+                                            NSLocalizedString(@"Quit", nil),
+                                            nil,
+                                            nil);
 					exit(0);
 				}
                 
@@ -3168,7 +3176,10 @@ static BOOL initialized = NO;
                     NSString* volumePath = [[[dataBasePath componentsSeparatedByString:@"/"] subarrayWithRange:NSMakeRange(0,3)] componentsJoinedByString:@"/"];
                     if (![[NSFileManager defaultManager] fileExistsAtPath:volumePath]) {
                         NSPanel* dialog = [NSPanel alertWithTitle:OUR_DATA_LOCATION
-                                                          message:[NSString stringWithFormat:NSLocalizedString(@"OsiriX is configured to use the database located at %@. This volume is currently not available, most likely because it hasn't yet been mounted by the system, or because it is not plugged in or is turned off, or because you don't have write permissions for this location. OsiriX will wait for a few minutes, then give up and switch to a database in the current user's home directory.", nil), [[NSUserDefaults standardUserDefaults] stringForKey: @"DATABASELOCATIONURL"]]
+                                                          message:[NSString stringWithFormat:NSLocalizedString(@"%@ is configured to use the database located at %@. This volume is currently not available, most likely because it hasn't yet been mounted by the system, or because it is not plugged in or is turned off, or because you don't have write permissions for this location. %@ will wait for a few minutes, then give up and switch to a database in the current user's home directory.", nil),
+                                                                   CFSTR("CFBundleName"),
+                                                                   [[NSUserDefaults standardUserDefaults] stringForKey: @"DATABASELOCATIONURL"],
+                                                                   CFSTR("CFBundleName")]
                                                     defaultButton:@"Quit"
                                                   alternateButton:@"Continue"
                                                              icon:nil];
@@ -3207,12 +3218,19 @@ static BOOL initialized = NO;
                 // now, sometimes databases point to other volumes for data storage through the DBFOLDER_LOCATION file, so if it's the case verify that that volume is mounted, too
                 dataBasePath = [DicomDatabase baseDirPathForPath:dataBasePath]; // we know this is the OUR_DATA_LOCATION path
                 // TODO: sometimes people use an alias... and if it's an alias, we should check that it points to an available volume..... should.
-                NSString* dataBaseDataPath = [NSString stringWithContentsOfFile:[dataBasePath stringByAppendingPathComponent:@"DBFOLDER_LOCATION"] encoding:NSUTF8StringEncoding error:NULL];
-                if ([dataBaseDataPath hasPrefix:@"/Volumes/"]) {
+                NSString* dataBaseDataPath = [NSString stringWithContentsOfFile:[dataBasePath stringByAppendingPathComponent:@"DBFOLDER_LOCATION"]
+                                                                       encoding:NSUTF8StringEncoding
+                                                                          error:NULL];
+                if ([dataBaseDataPath hasPrefix:@"/Volumes/"])
+                {
                     NSString* volumePath = [[[dataBaseDataPath componentsSeparatedByString:@"/"] subarrayWithRange:NSMakeRange(0,3)] componentsJoinedByString:@"/"];
-                    if (![[NSFileManager defaultManager] fileExistsAtPath:volumePath]) {
+                    if (![[NSFileManager defaultManager] fileExistsAtPath:volumePath])
+                    {
                         NSPanel* dialog = [NSPanel alertWithTitle:OUR_DATA_LOCATION
-                                                          message:[NSString stringWithFormat:NSLocalizedString(@"OsiriX is configured to use the database with data located at %@. This volume is currently not available, most likely because it hasn't yet been mounted by the system, or because it is not plugged in or is turned off, or because you don't have write permissions for this location. OsiriX will wait for a few minutes, then give up and ignore this highly dangerous situation.", nil), dataBaseDataPath]
+                                                          message:[NSString stringWithFormat:NSLocalizedString(@"%@ is configured to use the database with data located at %@. This volume is currently not available, most likely because it hasn't yet been mounted by the system, or because it is not plugged in or is turned off, or because you don't have write permissions for this location. %@ will wait for a few minutes, then give up and ignore this highly dangerous situation.", nil),
+                                                                   CFSTR("CFBundleName"),
+                                                                   dataBaseDataPath,
+                                                                   CFSTR("CFBundleName")]
                                                     defaultButton:@"Quit"
                                                   alternateButton:@"Continue"
                                                              icon:nil];
@@ -3771,7 +3789,6 @@ static BOOL initialized = NO;
                                 NSLocalizedString( @"Continue", nil),
                                 nil,
                                 nil);
-
     }
     CFRelease( requirement);
     CFRelease( code);
@@ -3781,7 +3798,11 @@ static BOOL initialized = NO;
     
     if( [AppController hasMacOSXLion] == NO)
     {
-        NSRunCriticalAlertPanel( NSLocalizedString( @"MacOS Version", nil), NSLocalizedString( @"OsiriX requires MacOS 10.7.5 or higher. Please update your OS: Apple Menu - Software Update...", nil), NSLocalizedString( @"Quit", nil) , nil, nil);
+        NSRunCriticalAlertPanel(NSLocalizedString( @"MacOS Version", nil),
+                                NSLocalizedString( @"OsiriX requires MacOS 10.7.5 or higher. Please update your OS: Apple Menu - Software Update...", nil),
+                                NSLocalizedString( @"Quit", nil),
+                                nil,
+                                nil);
         exit( 0);
     }
     
@@ -5298,7 +5319,8 @@ static BOOL initialized = NO;
 				}
 			}
 		}
-		else keepSameStudyOnSameScreen = NO;
+		else
+            keepSameStudyOnSameScreen = NO;
 	}
 	@catch ( NSException *e)
 	{
@@ -5383,8 +5405,10 @@ static BOOL initialized = NO;
 	{
 		float ratioValue;
 		
-		if( landscape) ratioValue = landscapeRatio;
-		else ratioValue = portraitRatio;
+		if( landscape)
+            ratioValue = landscapeRatio;
+		else
+            ratioValue = portraitRatio;
 		
 		float viewerCountPerScreen = (float) viewerCount / (float) numberOfMonitors;
 		int columnsPerScreen = ceil( (float) columns / (float) numberOfMonitors);
@@ -5512,8 +5536,10 @@ static BOOL initialized = NO;
                     {
                         float ratioValue;
                         
-                        if( landscape) ratioValue = landscapeRatio;
-                        else ratioValue = portraitRatio;
+                        if( landscape)
+                            ratioValue = landscapeRatio;
+                        else
+                            ratioValue = portraitRatio;
                         
                         BOOL fixedRows = NO, fixedColumns = NO;
                         

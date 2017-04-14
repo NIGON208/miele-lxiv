@@ -1051,7 +1051,8 @@
 		if(![[annotationsArray objectAtIndex:a] placeHolder])
 		{
 			int r = NSRunAlertPanel(NSLocalizedString( @"Saving Annotations", nil), NSLocalizedString( @"Any Annotation left outside the place holders will be lost.", nil), NSLocalizedString( @"OK", nil), NSLocalizedString( @"Cancel", nil), nil);
-			if(r==NSAlertDefaultReturn)
+            
+			if (r==NSAlertDefaultReturn)
 				return YES;
 			else
 				return NO;
@@ -1272,8 +1273,10 @@
 	
 	[currentModality release];
 	
-	if( [sender indexOfSelectedItem] == 0) currentModality = @"Default";
-	else currentModality = [[sender selectedItem] title];
+	if( [sender indexOfSelectedItem] == 0)
+        currentModality = @"Default";
+	else
+        currentModality = [[sender selectedItem] title];
 	
 	[currentModality retain];
 	

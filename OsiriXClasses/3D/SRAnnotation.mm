@@ -105,7 +105,8 @@
 				
 				if( [result length] > 0)
 					result = [result stringByAppendingFormat: @"-%d", instanceNumber];
-				else result = nil;
+				else
+                    result = nil;
 			}
 		}
 	}

@@ -611,8 +611,10 @@ public:
 			pts->GetPoint( 1, pt2);
 			
 			Line2DText->GetPositionCoordinate()->SetCoordinateSystemToViewport();
-			if( pt1[ 0] > pt2[ 0]) Line2DText->GetPositionCoordinate()->SetValue( pt1[0] + 3, pt1[ 1]);
-			else Line2DText->GetPositionCoordinate()->SetValue( pt2[0], pt2[ 1]);
+			if( pt1[ 0] > pt2[ 0])
+                Line2DText->GetPositionCoordinate()->SetValue( pt1[0] + 3, pt1[ 1]);
+			else
+                Line2DText->GetPositionCoordinate()->SetValue( pt2[0], pt2[ 1]);
 		}
 		else
 		{
@@ -705,7 +707,8 @@ public:
 		{
 			[optr appendString: orientationZ]; absZ=0;
 		}
-		else break;
+		else
+            break;
 	}
 	
 	strcpy( o, [optr UTF8String]);
@@ -1358,11 +1361,15 @@ public:
 	
 	numberOfFrames = [dcmframesSlider intValue];
 	bestRenderingMode = [[dcmquality selectedCell] tag];
-	if( [[dcmrotation selectedCell] tag] == 1) rotationValue = 360;
-	else rotationValue = 180;
+	if( [[dcmrotation selectedCell] tag] == 1)
+        rotationValue = 360;
+	else
+        rotationValue = 180;
 	
-	if( [[dcmorientation selectedCell] tag] == 1) rotationOrientation = 1;
-	else rotationOrientation = 0;
+	if( [[dcmorientation selectedCell] tag] == 1)
+        rotationOrientation = 1;
+	else
+        rotationOrientation = 0;
 	
 	NSMutableArray *producedFiles = [NSMutableArray array];
 	
@@ -1523,11 +1530,15 @@ public:
 	numberOfFrames = [framesSlider intValue];
 	bestRenderingMode = [[quality selectedCell] tag];
 	
-	if( [[rotation selectedCell] tag] == 1) rotationValue = 360;
-	else rotationValue = 180;
+	if( [[rotation selectedCell] tag] == 1)
+        rotationValue = 360;
+	else
+        rotationValue = 180;
 	
-	if( [[orientation selectedCell] tag] == 1) rotationOrientation = 1;
-	else rotationOrientation = 0;
+	if( [[orientation selectedCell] tag] == 1)
+        rotationOrientation = 1;
+	else
+        rotationOrientation = 0;
 	
 	if( [sender tag])
 	{
@@ -1794,7 +1805,12 @@ public:
 //	if( [[[self window] windowController] movieFrames] > 1)
 	if( [controller movieFrames] > 1)
 	{
-		if( NSRunInformationalAlertPanel( NSLocalizedString(@"Quicktime Export", nil), NSLocalizedString(@"Should I export the temporal series or the 3D scene?", nil), NSLocalizedString(@"3D Scene", nil), NSLocalizedString(@"Temporal Series", nil), nil) == NSAlertDefaultReturn)
+		if( NSRunInformationalAlertPanel(NSLocalizedString(@"Quicktime Export", nil),
+                                         NSLocalizedString(@"Should I export the temporal series or the 3D scene?", nil),
+                                         NSLocalizedString(@"3D Scene", nil),
+                                         NSLocalizedString(@"Temporal Series", nil),
+                                         nil
+                                         ) == NSAlertDefaultReturn)
 		{
 			[NSApp beginSheet: export3DWindow modalForWindow:[self window] modalDelegate:self didEndSelector:nil contextInfo:(void*) nil];
 		}
@@ -1842,9 +1858,12 @@ public:
 - (ToolMode) getTool: (NSEvent*) event
 {
 	ToolMode tool;
-	if(([event type] == NSRightMouseDown || [event type] == NSRightMouseDragged || [event type] == NSRightMouseUp) && !_contextualMenuActive) tool = tZoom;
-	else if( [event type] == NSOtherMouseDown || [event type] == NSOtherMouseDragged || [event type] == NSOtherMouseUp) tool = tTranslate;
-	else tool = currentTool;
+	if(([event type] == NSRightMouseDown || [event type] == NSRightMouseDragged || [event type] == NSRightMouseUp) && !_contextualMenuActive)
+        tool = tZoom;
+	else if( [event type] == NSOtherMouseDown || [event type] == NSOtherMouseDragged || [event type] == NSOtherMouseUp)
+        tool = tTranslate;
+	else
+        tool = currentTool;
 	
 	if (([event modifierFlags] & NSControlKeyMask))  tool = tRotate;
 	if (([event modifierFlags] & NSShiftKeyMask))  tool = tZoom;
@@ -2115,7 +2134,9 @@ public:
 			self.clipRangeActivated = [[dict valueForKey: @"clipRangeActivated"] boolValue];
 			self.clippingRangeThickness = [[dict valueForKey: @"clippingRangeThickness"] floatValue];
 		}
-		else self.clipRangeActivated = NO;
+		else
+            self.clipRangeActivated = NO;
+        
 		dontResetImage = NO;
 	}
 	else
@@ -2209,7 +2230,7 @@ public:
         if (NSRunAlertPanel(@"", //NSLocalizedString(@"32-bit",nil),
                             NSLocalizedString(@"Cannot use the 3D engine.",nil),
                             NSLocalizedString(@"OK", nil),
-                            nil, //NSLocalizedString(@"OsiriX 64-bit", nil),
+                            (__bridge NSString *)CFSTR("CFBundleName"),
                             nil
                             ) == NSAlertAlternateReturn)
         {
@@ -2472,8 +2493,10 @@ public:
         
         vtkFixedPointRayCastImage *rayCastImage = nil;
         
-        if( blendedView) rayCastImage = blendingVolumeMapper->GetRayCastImage();
-        else rayCastImage = volumeMapper->GetRayCastImage();
+        if( blendedView)
+            rayCastImage = blendingVolumeMapper->GetRayCastImage();
+        else
+            rayCastImage = volumeMapper->GetRayCastImage();
         
         int size[2];
         rayCastImage->GetImageInUseSize( size);
@@ -2488,8 +2511,10 @@ public:
         
         double sampleDistance = 0;
         
-        if( blendedView) sampleDistance = blendingVolumeMapper->GetRayCastImage()->GetImageSampleDistance();
-        else sampleDistance = volumeMapper->GetRayCastImage()->GetImageSampleDistance();
+        if( blendedView)
+            sampleDistance = blendingVolumeMapper->GetRayCastImage()->GetImageSampleDistance();
+        else
+            sampleDistance = volumeMapper->GetRayCastImage()->GetImageSampleDistance();
         
         // turn ImageOrigin into (x1,y1) in window (not viewport!) coordinates.
         int imageOrigin[2];
@@ -2681,8 +2706,10 @@ public:
 		pts->GetPoint( 1, point2);
 		
 		Line2DText->GetPositionCoordinate()->SetCoordinateSystemToViewport();
-		if( point1[ 0] > point2[ 0]) Line2DText->GetPositionCoordinate()->SetValue( point1[0] + 3, point1[ 1]);
-		else Line2DText->GetPositionCoordinate()->SetValue( point2[0], point2[ 1]);
+		if( point1[ 0] > point2[ 0])
+            Line2DText->GetPositionCoordinate()->SetValue( point1[0] + 3, point1[ 1]);
+		else
+            Line2DText->GetPositionCoordinate()->SetValue( point2[0], point2[ 1]);
 		
         NSString *localizedText = nil;
         
@@ -2993,8 +3020,10 @@ public:
 	if( [self get3DPixelUnder2DPositionX:mouseLocStart.x Y:mouseLocStart.y pixel:pix position:pos value:&value])
 	{
 		int sliceNo;
-		if( [[[controller viewer2D] imageView] flippedData]) sliceNo = pix[ 2];
-		else sliceNo = (long)[pixList count] -1 -pix[ 2];
+		if( [[[controller viewer2D] imageView] flippedData])
+            sliceNo = pix[ 2];
+		else
+            sliceNo = (long)[pixList count] -1 -pix[ 2];
 	
 		NSString	*pixLoc = [[NSString stringWithFormat: @"X:%d Y:%d Z:%d (px)", (int) pix[ 0], (int) pix[ 1], sliceNo] stringByPaddingToLength: 23 withString: @" " startingAtIndex: 0];
 		NSString	*mmLoc = [[NSString stringWithFormat: @"X:%.2f Y:%.2f Z:%.2f (mm)", pos[ 0], pos[ 1], pos[ 2]] stringByPaddingToLength: 38 withString: @" " startingAtIndex: 0];
@@ -3400,13 +3429,17 @@ public:
 					
 					if( [[[controller viewer2D] modality] isEqualToString:@"PT"] || ([[NSUserDefaults standardUserDefaults] boolForKey:@"mouseWindowingNM"] == YES && [[[controller viewer2D] modality] isEqualToString:@"NM"]))
 					{
-						if( ww < 50) sprintf(WLWWString, "From: %0.4f   To: %0.4f ", wl-ww/2, wl+ww/2);
-						else sprintf(WLWWString, "From: %0.f   To: %0.f ", wl-ww/2, wl+ww/2);
+						if( ww < 50)
+                            sprintf(WLWWString, "From: %0.4f   To: %0.4f ", wl-ww/2, wl+ww/2);
+						else
+                            sprintf(WLWWString, "From: %0.f   To: %0.f ", wl-ww/2, wl+ww/2);
 					}
 					else
 					{
-						if( ww < 50) sprintf(WLWWString, "WL: %0.4f WW: %0.4f ", wl, ww);
-						else sprintf(WLWWString, "WL: %0.f WW: %0.f ", wl, ww);
+						if( ww < 50)
+                            sprintf(WLWWString, "WL: %0.4f WW: %0.4f ", wl, ww);
+						else
+                            sprintf(WLWWString, "WL: %0.f WW: %0.f ", wl, ww);
 					}
 					
 //					if( [[NSUserDefaults standardUserDefaults] boolForKey: @"dontAutoCropScissors"] == NO)
@@ -4336,7 +4369,8 @@ public:
 				
 				[[controller viewer2D] needsDisplayUpdate];
 			}
-			else NSRunAlertPanel(NSLocalizedString(@"Bone Removing", nil), NSLocalizedString(@"Failed to detect a high density voxel to start growing region.", nil), NSLocalizedString(@"OK", nil), nil, nil);
+			else
+                NSRunAlertPanel(NSLocalizedString(@"Bone Removing", nil), NSLocalizedString(@"Failed to detect a high density voxel to start growing region.", nil), NSLocalizedString(@"OK", nil), nil, nil);
 
 			NSLog( @"**** Bone Removal End");
 		}
@@ -4597,8 +4631,10 @@ public:
 	
 	vtkMatrix4x4 *ActorMatrix;
 	
-	if( blendedSeries)  ActorMatrix = blendingVolume->GetUserMatrix();
-	else ActorMatrix = volume->GetUserMatrix();
+	if( blendedSeries)
+        ActorMatrix = blendingVolume->GetUserMatrix();
+	else
+        ActorMatrix = volume->GetUserMatrix();
 	
 	vtkTransform *Transform = vtkTransform::New();
 	
@@ -4783,8 +4819,10 @@ public:
 			float	resultPt[ 3];
 			double	vPos[ 3];
 			
-			if( blendedSeries)  blendingVolume->GetPosition( vPos);
-			else volume->GetPosition( vPos);
+			if( blendedSeries)
+                blendingVolume->GetPosition( vPos);
+			else
+                volume->GetPosition( vPos);
 	
 			 // factor
 			
@@ -5116,7 +5154,8 @@ public:
 				flyto = YES;
 				incFlyTo = 1;
 			}
-			else flyto = NO;
+			else
+                flyto = NO;
 		}
 	}
 	else if( c == ' ')
@@ -5566,7 +5605,8 @@ public:
 		pt.x -=1000;
 		if(pt.x != 0) opacityTransferFunction->AddPoint(0 +start, 0);
 	}
-	else opacityTransferFunction->AddPoint(0 +start, 0);
+	else
+        opacityTransferFunction->AddPoint(0 +start, 0);
 	
 	for( i = 0; i < [array count]; i++)
 	{
@@ -5721,13 +5761,17 @@ public:
 	
 	if( [[[controller viewer2D] modality] isEqualToString:@"PT"] || ([[NSUserDefaults standardUserDefaults] boolForKey:@"mouseWindowingNM"] == YES && [[[controller viewer2D] modality] isEqualToString:@"NM"]))
 	{
-		if( ww < 50) sprintf(WLWWString, "From: %0.4f   To: %0.4f ", wl-ww/2, wl+ww/2);
-		else sprintf(WLWWString, "From: %0.f   To: %0.f ", wl-ww/2, wl+ww/2);
+		if( ww < 50)
+            sprintf(WLWWString, "From: %0.4f   To: %0.4f ", wl-ww/2, wl+ww/2);
+		else
+            sprintf(WLWWString, "From: %0.f   To: %0.f ", wl-ww/2, wl+ww/2);
 	}
 	else
 	{
-		if( ww < 50) sprintf(WLWWString, "WL: %0.4f WW: %0.4f ", wl, ww);
-		else sprintf(WLWWString, "WL: %0.f WW: %0.f ", wl, ww);
+		if( ww < 50)
+            sprintf(WLWWString, "WL: %0.4f WW: %0.4f ", wl, ww);
+		else
+            sprintf(WLWWString, "WL: %0.f WW: %0.f ", wl, ww);
 	}
 	textWLWW->SetInput( WLWWString);
 	
@@ -6074,8 +6118,10 @@ public:
 	
 	if( blendingVolumeMapper)
 	{
-		if( l) blendingVolumeMapper->SetMinimumImageSampleDistance( LOD*lowResLODFactor);
-		else blendingVolumeMapper->SetMinimumImageSampleDistance( LOD);
+		if( l)
+            blendingVolumeMapper->SetMinimumImageSampleDistance( LOD*lowResLODFactor);
+		else
+            blendingVolumeMapper->SetMinimumImageSampleDistance( LOD);
 	}	
 	
 	[self setNeedsDisplay: YES];
@@ -6688,8 +6734,10 @@ public:
 		
 		[self setShadingValues:0.15 :0.9 :0.3 :15];
 		
-		if( [[NSApp currentEvent] modifierFlags] & NSAlternateKeyMask) volumeProperty->SetInterpolationTypeToNearest();
-		else volumeProperty->SetInterpolationTypeToLinear();//SetInterpolationTypeToNearest();	//SetInterpolationTypeToLinear
+		if( [[NSApp currentEvent] modifierFlags] & NSAlternateKeyMask)
+            volumeProperty->SetInterpolationTypeToNearest();
+		else
+            volumeProperty->SetInterpolationTypeToLinear();//SetInterpolationTypeToNearest();	//SetInterpolationTypeToLinear
 			
 		compositeFunction = vtkVolumeRayCastCompositeFunction::New();
 		
@@ -7441,8 +7489,10 @@ public:
 	
 	dataPtr = [self getRawPixels :&width :&height :&spp :&bpp :!originalSize : YES];
 
-	if( spp == 3) colorSpace = NSCalibratedRGBColorSpace;
-	else colorSpace = NSCalibratedWhiteColorSpace;
+	if( spp == 3)
+        colorSpace = NSCalibratedRGBColorSpace;
+	else
+        colorSpace = NSCalibratedWhiteColorSpace;
 
 	rep = [[[NSBitmapImageRep alloc]
 			 initWithBitmapDataPlanes:nil
@@ -7577,8 +7627,15 @@ public:
 	switch( tag)
 	{
 		case 2:
-            if( NSRunAlertPanel(NSLocalizedString(@"3D Scissor State", nil), NSLocalizedString(@"Are you sure you want to delete this 3D state? You cannot undo this operation.", nil), NSLocalizedString(@"OK", nil), NSLocalizedString(@"Cancel", nil), nil) == NSAlertDefaultReturn)
+            if( NSRunAlertPanel(NSLocalizedString(@"3D Scissor State", nil),
+                                NSLocalizedString(@"Are you sure you want to delete this 3D state? You cannot undo this operation.", nil),
+                                NSLocalizedString(@"OK", nil),
+                                NSLocalizedString(@"Cancel", nil),
+                                nil
+                                ) == NSAlertDefaultReturn)
+            {
                 [[NSFileManager defaultManager] removeFileAtPath: str handler: nil];
+            }
 		break;
 		
 		case 1:	// Load
@@ -7599,13 +7656,16 @@ public:
                         if( croppingBox)
                             cropcallback->Execute(croppingBox, 0, nil);
                     }
-                    else NSRunAlertPanel(NSLocalizedString(@"3D Scissor State", nil), NSLocalizedString(@"No saved data are available.", nil), NSLocalizedString(@"OK", nil), nil, nil);
+                    else
+                        NSRunAlertPanel(NSLocalizedString(@"3D Scissor State", nil), NSLocalizedString(@"No saved data are available.", nil), NSLocalizedString(@"OK", nil), nil, nil);
                     
                     [volumeData release];
                 }
-                else NSRunAlertPanel(NSLocalizedString(@"3D Scissor State", nil), NSLocalizedString(@"No saved data are available.", nil), NSLocalizedString(@"OK", nil), nil, nil);
+                else
+                    NSRunAlertPanel(NSLocalizedString(@"3D Scissor State", nil), NSLocalizedString(@"No saved data are available.", nil), NSLocalizedString(@"OK", nil), nil, nil);
             }
-			else NSRunAlertPanel(NSLocalizedString(@"3D Scissor State", nil), NSLocalizedString(@"No saved data are available.", nil), NSLocalizedString(@"OK", nil), nil, nil);
+			else
+                NSRunAlertPanel(NSLocalizedString(@"3D Scissor State", nil), NSLocalizedString(@"No saved data are available.", nil), NSLocalizedString(@"OK", nil), nil, nil);
 		break;
 		
 		case 0:	// Save
@@ -8201,18 +8261,24 @@ public:
 	switch(stackOrientation)
 	{
 		case 0:
-			if( point1[0] - point2[0] < 0) direction = YES;
-			else direction = NO;
+			if( point1[0] - point2[0] < 0)
+                direction = YES;
+			else
+                direction = NO;
 		break;
 		
 		case 1:
-			if( point1[1] - point2[1] < 0) direction = YES;
-			else direction = NO;
+			if( point1[1] - point2[1] < 0)
+                direction = YES;
+			else
+                direction = NO;
 		break;
 		
 		case 2:
-			if( point1[2] - point2[2] < 0) direction = YES;
-			else direction = NO;
+			if( point1[2] - point2[2] < 0)
+                direction = YES;
+			else
+                direction = NO;
 		break;
 	}
 	
@@ -8352,10 +8418,9 @@ public:
 					if( currentPointValue > maxValue)
 					{
 						if( minValue)
-						{
 							pointFound = currentPointValue >= minValue;
-						}
-						else pointFound = YES;
+						else
+                            pointFound = YES;
 						
 						maxValue = currentPointValue;
 						*val = currentPointValue;
@@ -8998,9 +9063,11 @@ public:
 				break;
 			}
 		}
-		else returnedVal = NO;
+		else
+            returnedVal = NO;
 	}
-	else returnedVal = NO;
+	else
+        returnedVal = NO;
 	
 	return returnedVal;
 }
@@ -9463,12 +9530,14 @@ void VRSpaceNavigatorMessageHandler(io_connect_t connection, natural_t messageTy
 						BOOL faster;
 						if([[[NSApplication sharedApplication] currentEvent] modifierFlags] & NSShiftKeyMask)
 							faster = YES;
-						else faster = NO;
+						else
+                            faster = NO;
 
 						// if ctrl is pressed -> record
 						if([[[NSApplication sharedApplication] currentEvent] modifierFlags] & NSControlKeyMask)
 							record = YES;
-						else record = NO;
+						else
+                            record = NO;
 						
 						if( vV->snCloseEventTimer)
 						{

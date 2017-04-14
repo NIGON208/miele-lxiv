@@ -295,8 +295,10 @@
     if( curDCM.stack > 1) {
         long stackImageIndex;
         
-        if(flippedData) stackImageIndex = curImage-(curDCM.stack-1)/2;
-        else stackImageIndex = curImage+(curDCM.stack-1)/2;
+        if(flippedData)
+            stackImageIndex = curImage-(curDCM.stack-1)/2;
+        else
+            stackImageIndex = curImage+(curDCM.stack-1)/2;
         
         if( stackImageIndex < 0)
             stackImageIndex = 0;
@@ -1030,9 +1032,11 @@
 				break;
 			}
 		}
-		else returnedVal = NO;
+		else
+            returnedVal = NO;
 	}
-	else returnedVal = NO;
+	else
+        returnedVal = NO;
 	
 	return returnedVal;
 }

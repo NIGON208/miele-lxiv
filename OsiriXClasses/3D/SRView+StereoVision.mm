@@ -301,7 +301,7 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 		if (NSRunAlertPanel(@"", //NSLocalizedString(@"32-bit",nil),
                             NSLocalizedString(@"Cannot use the 3D engine.",nil),
                             NSLocalizedString(@"OK", nil),
-                            nil, //NSLocalizedString(@"OsiriX 64-bit", nil),
+                            (__bridge NSString *)CFSTR("CFBundleName"),
                             nil) == NSAlertAlternateReturn)
         {
 			//[[AppController sharedAppController] osirix64bit: self];
@@ -942,8 +942,10 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 	
 	numberOfFrames = [framesSlider intValue];
 	
-	if( [[rotation selectedCell] tag] == 1) rotationValue = 360;
-	else rotationValue = 180;
+	if( [[rotation selectedCell] tag] == 1)
+        rotationValue = 360;
+	else
+        rotationValue = 180;
 	
 	if( [sender tag])
 	{	

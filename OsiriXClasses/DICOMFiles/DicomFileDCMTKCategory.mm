@@ -904,7 +904,8 @@ extern NSRecursiveLock *PapyrusLock;
                             if( count != 3)
                                 succeed = NO;
                         }
-                        else succeed = NO;
+                        else
+                            succeed = NO;
                         
                         if (ditem->findAndGetSequenceItem(DCM_PlaneOrientationSequence, eitem, x).good())
                         {
@@ -915,7 +916,8 @@ extern NSRecursiveLock *PapyrusLock;
                             if( count != 6 && count != 0)
                                 succeed = NO;
                         }
-                        else succeed = NO;
+                        else
+                            succeed = NO;
 					}
                     
 					if( succeed)
@@ -1085,7 +1087,8 @@ extern NSRecursiveLock *PapyrusLock;
 			{
 				[dicomElements setObject: [self.serieID stringByAppendingString: imageID] forKey:@"seriesID"];
 			}
-			else NSLog( @"ARG! ERROR !? Unknown combineProjectionSeriesMode");
+			else
+                NSLog( @"ARG! ERROR !? Unknown combineProjectionSeriesMode");
 		}
 		else
 			[dicomElements setObject:self.serieID forKey:@"seriesID"];

@@ -709,7 +709,8 @@
     
     if ([[NSFileManager defaultManager] fileExistsAtPath:path])
         [[BrowserController currentBrowser] performSelectorOnMainThread:@selector(setDatabase:) withObject:[DicomDatabase databaseAtPath:path] waitUntilDone:NO];
-    else ReturnWithErrorValue(-1);
+    else
+        ReturnWithErrorValue(-1);
     
     ReturnWithErrorValue(0);
 }
@@ -1110,7 +1111,8 @@
         NSDictionary* dic = [params objectAtIndex:0];
         if ([dic isKindOfClass:[NSDictionary class]])
             notificationObject = [[dic mutableCopy] autorelease];
-        else notificationObject = [NSMutableDictionary dictionary];
+        else
+            notificationObject = [NSMutableDictionary dictionary];
     }
     
     [notificationObject addEntriesFromDictionary:[NSDictionary dictionaryWithObjectsAndKeys:

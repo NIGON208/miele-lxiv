@@ -289,8 +289,10 @@
 	
 	if( roiVolumeActor)
 	{
-		if( o) roiVolumeActor->SetTexture( textureImage);
-		else roiVolumeActor->SetTexture( nil);
+		if( o)
+            roiVolumeActor->SetTexture( textureImage);
+		else
+            roiVolumeActor->SetTexture( nil);
 	}
 	[properties setValue:[NSNumber numberWithBool: textured] forKey:@"texture"];
 	[[NSNotificationCenter defaultCenter] postNotificationName:OsirixROIVolumePropertiesChangedNotification object:self userInfo:[NSDictionary dictionaryWithObject:@"texture" forKey:@"key"]];

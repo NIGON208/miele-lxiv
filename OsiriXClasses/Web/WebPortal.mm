@@ -452,7 +452,8 @@ static NSString* DefaultWebPortalDatabasePath = nil;
 			
 			if (self.usesSSL)
 				server.type = @"_https._tcp.";
-			else server.type = @"_http._tcp.";
+			else
+                server.type = @"_http._tcp.";
 			
 			server.TXTRecordDictionary = [NSDictionary dictionaryWithObject:@"OsiriX" forKey:@"ServerType"];
 			server.port = self.portNumber;

@@ -173,8 +173,10 @@ static NSString* const SuperThreadNameKey = @"SuperThreadName";
             [self didChangeValueForKey:NSThreadStatusKey];
             
             self.name = name;
-            if (temp) self.progress = temp.floatValue;
-            else self.progress = 1;
+            if (temp)
+                self.progress = temp.floatValue;
+            else
+                self.progress = 1;
         }
 		self.progress = 1;
 	}

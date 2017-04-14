@@ -1199,7 +1199,8 @@ static float deg2rad = M_PI/180.0;
 		
 		[self executeUndo: redoQueue];
 	}
-	else NSBeep();
+	else
+        NSBeep();
 }
 
 - (IBAction) undo:(id) sender
@@ -1213,7 +1214,8 @@ static float deg2rad = M_PI/180.0;
 		
 		[self executeUndo: undoQueue];
 	}
-	else NSBeep();
+	else
+        NSBeep();
 }
 
 - (void) removeLastItemFromUndoQueue

@@ -74,8 +74,10 @@
 
 - (void) setPixList: (NSArray*)pix :(NSArray*)files :(ViewerController*)vC
 {
-	if( originalDCMPixList) [originalDCMPixList removeAllObjects];
-	else originalDCMPixList = [[NSMutableArray alloc] initWithCapacity: [pix count]];
+	if( originalDCMPixList)
+        [originalDCMPixList removeAllObjects];
+	else
+        originalDCMPixList = [[NSMutableArray alloc] initWithCapacity: [pix count]];
 	
 	for( DCMPix *p in pix)
 		[originalDCMPixList addObject:  [[p copy] autorelease]];

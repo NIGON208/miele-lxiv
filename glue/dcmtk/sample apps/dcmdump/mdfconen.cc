@@ -441,7 +441,8 @@ void MdfConsoleEngine::splitPathAndValue(const OFString &whole,
         path = whole.substr(0, pos);
         value = whole.substr(pos + 1, value.length() - 1);
     }
-    else path = whole;
+    else
+        path = whole;
 }
 
 

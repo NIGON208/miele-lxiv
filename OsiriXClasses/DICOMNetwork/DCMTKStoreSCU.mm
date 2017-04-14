@@ -684,7 +684,8 @@ static OFBool compressFile(DcmFileFormat fileformat, const char *fname, char *ou
             }
         }
     }
-    else status = NO;
+    else
+        status = NO;
 
 	return status;
 }

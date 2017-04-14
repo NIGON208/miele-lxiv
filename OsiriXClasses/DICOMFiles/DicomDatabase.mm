@@ -1104,7 +1104,8 @@ NSString* const DicomDatabaseLogEntryEntityName = @"LogEntry";
                 [albums writeToFile: path atomically: YES];
             }
         }
-        else NSLog( @"--- no albums to save");
+        else
+            NSLog( @"--- no albums to save");
     }
     @catch (NSException * e)
     {
@@ -2749,10 +2750,9 @@ static BOOL protectionAgainstReentry = NO;
                                     @try
                                     {
                                         if( [[[DicomFile alloc] init: srcPath] autorelease]) // Pre-load for CD/DVD in cache
-                                        {
                                             [copiedFiles addObject: srcPath];
-                                        }
-                                        else NSLog( @"**** DicomFile *curFile = nil");
+                                        else
+                                            NSLog( @"**** DicomFile *curFile = nil");
                                     }
                                     @catch (NSException * e) {
                                         N2LogExceptionWithStackTrace(e);
@@ -4069,7 +4069,8 @@ static BOOL protectionAgainstReentry = NO;
                 {
                     [[NSFileManager defaultManager] moveItemAtPath:itemPath toPath:[incomingPath stringByAppendingPathComponent: [itemPath lastPathComponent]] error:NULL];
                 }
-                else totalFiles += [[[[NSFileManager defaultManager] fileAttributesAtPath: itemPath traverseLink: YES] objectForKey: NSFileReferenceCount] intValue];
+                else
+                    totalFiles += [[[[NSFileManager defaultManager] fileAttributesAtPath: itemPath traverseLink: YES] objectForKey: NSFileReferenceCount] intValue];
             }
         }
 		

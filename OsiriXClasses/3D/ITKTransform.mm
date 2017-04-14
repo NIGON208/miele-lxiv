@@ -375,7 +375,7 @@ typedef itk::ResampleImageFilter<ImageType, ImageType> ResampleFilterType;
 		if( NSRunCriticalAlertPanel(@"", //NSLocalizedString(@"32-bit", nil),
                                     NSLocalizedString(@"Cannot complete the operation.", nil),
                                     NSLocalizedString(@"OK", nil),
-                                    nil, //NSLocalizedString(@"OsiriX 64-bit", nil),
+                                    (__bridge NSString *)CFSTR("CFBundleName"),
                                     nil) == NSAlertAlternateReturn)
         {
             //[[AppController sharedAppController] osirix64bit: self];

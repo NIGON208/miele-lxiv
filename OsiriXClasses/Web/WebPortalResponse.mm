@@ -267,7 +267,8 @@ static NSString *WebPortalResponseLock = @"WebPortalResponseLock";
 						vl = [sl substringWithRange:NSMakeRange(1,sl.length-2)];
 					else if (sl0 >= '0' && sl0 <= '9')
 						vl = [NSNumber numberWithFloat:sl.floatValue];
-					else vl = [self object:dict valueForKeyPath:sl context:context];
+					else
+                        vl = [self object:dict valueForKeyPath:sl context:context];
 					
 					NSString* sr = [conditionPartsOp2 objectAtIndex:1];
 					unichar sr0 = [sr characterAtIndex:0];
@@ -276,7 +277,8 @@ static NSString *WebPortalResponseLock = @"WebPortalResponseLock";
 						vr = [sr substringWithRange:NSMakeRange(1,sr.length-2)];
 					else if (sr0 >= '0' && sr0 <= '9')
 						vr = [NSNumber numberWithFloat:sr.floatValue];
-					else vr = [self object:dict valueForKeyPath:sr context:context];
+					else
+                        vr = [self object:dict valueForKeyPath:sr context:context];
 					
 					if ([vl isKindOfClass:[vr class]] || [vr isKindOfClass:[vl class]])
 						if ([vl isKindOfClass:[NSString class]] || [vl isKindOfClass:[NSNumber class]]) {
@@ -407,7 +409,8 @@ static NSString *WebPortalResponseLock = @"WebPortalResponseLock";
 					[dict setObject:[string substringWithRange:NSMakeRange(occ2.location+1, tokenCloserRange.location-(occ2.location+1))] forKey:blockKey];
 					occ2.location = tokenCloserRange.location+tokenCloserRange.length-1;
 				}
-                else NSLog( @"***** WebPortal: syntax error : no closing for: %@", tokenCloser);
+                else
+                    NSLog( @"***** WebPortal: syntax error : no closing for: %@", tokenCloser);
 			}
 				
 			BOOL mustReevaluate = NO;

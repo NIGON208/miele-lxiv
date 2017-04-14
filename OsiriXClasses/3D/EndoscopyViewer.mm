@@ -1358,7 +1358,7 @@ return YES;
 	[waiting close];
 	[waiting autorelease];
 	
-	if(!err)
+	if (!err)
 	{
 		[self updateCenterlineInMPRViews];
 		flyAssistantPositionIndex=0;
@@ -1689,7 +1689,8 @@ return YES;
 		int err= [assistant caculateNextPositionFrom:pt Towards:dir];
 		if(err==ERROR_NOENOUGHMEM)
 		{
-			NSRunAlertPanel(@"", NSLocalizedString(@"32-bit", nil),
+			NSRunAlertPanel(@"",
+                            NSLocalizedString(@"32-bit", nil),
                             NSLocalizedString(@"Path Assistant can not allocate enough memory, try to increase the resample voxel size in the settings.", nil),
                             NSLocalizedString(@"OK", nil),
                             nil,

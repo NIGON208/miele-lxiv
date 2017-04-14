@@ -147,14 +147,15 @@ static NSString* _dcmElementKey(DcmElement* element) {
             for (NSUInteger i = 0; i < width*height*bitsAllocated/8; ++i) {
                 if (bitsAllocated == 1)
                     bitmapData[i] = data[i]^0xff;
-                else bitmapData[i] = 0xff-data[i];
+                else
+                    bitmapData[i] = 0xff-data[i];
             }
         } else
         if (spi == "MONOCHROME2") {
             rep = [[[NSBitmapImageRep alloc] initWithBitmapDataPlanes:nil pixelsWide:width pixelsHigh:height bitsPerSample:bitsStored samplesPerPixel:1 hasAlpha:NO isPlanar:NO colorSpaceName:NSDeviceWhiteColorSpace bytesPerRow:width*8/bitsAllocated bitsPerPixel:bitsAllocated] autorelease];
             memcpy(rep.bitmapData, data, ceilf(1.0*width*height*bitsAllocated/8));
-        } else
-        if (spi == "PALETTE COLOR") {
+        }
+        else if (spi == "PALETTE COLOR") {
             return nil; // TODO: this type of thumbnail should be read too...
         } else
             return nil;
@@ -723,10 +724,9 @@ static NSString* _dcmElementKey(DcmElement* element) {
                     {
                         attempts++;
                         if( attempts < 5)
-                        {
                             [NSThread sleepForTimeInterval: 1.0];
-                        }
-                        else success = YES;
+                        else
+                            success = YES;
                     }
                 }
                 

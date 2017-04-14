@@ -131,8 +131,10 @@ NSString *mediumTag[] = {@"Blue Film", @"Clear Film", @"Paper"};
             windowFrameToRestore = m_CurrentViewer.window.frame;
             NSRect newFrame = [AppController usefullRectForScreen: m_CurrentViewer.window.screen];
             
-            if( newFrame.size.width < newFrame.size.height) newFrame.size.height = newFrame.size.width;
-            else newFrame.size.width = newFrame.size.height;
+            if( newFrame.size.width < newFrame.size.height)
+                newFrame.size.height = newFrame.size.width;
+            else
+                newFrame.size.width = newFrame.size.height;
             
             [AppController resizeWindowWithAnimation: m_CurrentViewer.window newSize: newFrame];
             if( scaleFitToRestore) [m_CurrentViewer.imageView scaleToFit];
@@ -265,8 +267,11 @@ NSString *mediumTag[] = {@"Blue Film", @"Clear Film", @"Paper"};
                                          NSLocalizedString(@"OK", nil),
                                          NSLocalizedString(@"Cancel", nil),
                                          nil,
-                                         [m_pages intValue]) != NSAlertDefaultReturn)
+                                         [m_pages intValue]
+                                         ) != NSAlertDefaultReturn)
+        {
             return;
+        }
 	}
 	
 	[sender setEnabled: NO];
@@ -584,7 +589,12 @@ NSString *mediumTag[] = {@"Blue Film", @"Clear Film", @"Paper"};
 
 - (void) errorMessage:(NSArray*) msg
 {
-	NSRunCriticalAlertPanel( [msg objectAtIndex: 0], @"%@", [msg objectAtIndex: 2], nil, nil, [msg objectAtIndex: 1]) ;
+	NSRunCriticalAlertPanel([msg objectAtIndex: 0],
+                            @"%@",
+                            [msg objectAtIndex: 2],
+                            nil,
+                            nil,
+                            [msg objectAtIndex: 1]) ;
 }
 
 - (void) _sendPrintjob: (NSString *) xmlPath

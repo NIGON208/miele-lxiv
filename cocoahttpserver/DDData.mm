@@ -156,9 +156,14 @@ static char encodingTable[64] = {
 			
 			if( flendtext )
 			{
-				if( ! ixinbuf ) break;
-				if( ( ixinbuf == 1 ) || ( ixinbuf == 2 ) ) ctcharsinbuf = 1;
-				else ctcharsinbuf = 2;
+				if( ! ixinbuf )
+                    break;
+                
+				if( ( ixinbuf == 1 ) || ( ixinbuf == 2 ) )
+                    ctcharsinbuf = 1;
+				else
+                    ctcharsinbuf = 2;
+                
 				ixinbuf = 3;
 				flbreak = YES;
 			}

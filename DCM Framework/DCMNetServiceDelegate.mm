@@ -478,10 +478,13 @@ static DCMNetServiceDelegate *_netServiceDelegate = nil;
 			struct hostent *hp;
 			
 			hp = gethostbyname( host_name);
-			if( hp) bcopy(hp->h_addr, (char *) &service.sin_addr, hp->h_length);
-			else service.sin_addr.s_addr = inet_addr( host_name);
+			if( hp)
+                bcopy(hp->h_addr, (char *) &service.sin_addr, hp->h_length);
+			else
+                service.sin_addr.s_addr = inet_addr( host_name);
 		}
-		else service.sin_addr.s_addr = inet_addr( host_name);
+		else
+            service.sin_addr.s_addr = inet_addr( host_name);
 		
 		char buffer[256] = "";
 		NSString *result = nil;

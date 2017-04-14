@@ -373,7 +373,12 @@
 
 - (void) deleteSelectedRow:(NSTableView*)sender
 {
-    if( NSRunInformationalAlertPanel(NSLocalizedString( @"Delete Protocol", 0L), NSLocalizedString( @"Are you sure you want to delete the selected protocol?", 0L), NSLocalizedString(@"OK", nil), NSLocalizedString(@"Cancel", nil), nil) == NSAlertDefaultReturn)
+    if( NSRunInformationalAlertPanel(NSLocalizedString(@"Delete Protocol", 0L),
+                                     NSLocalizedString(@"Are you sure you want to delete the selected protocol?", 0L),
+                                     NSLocalizedString(@"OK", nil),
+                                     NSLocalizedString(@"Cancel", nil),
+                                     nil
+                                     ) == NSAlertDefaultReturn)
     {
         [self willChangeValueForKey: @"currentHangingProtocol"];
         [[hangingProtocols objectForKey:modalityForHangingProtocols] removeObjectAtIndex: sender.selectedRow];

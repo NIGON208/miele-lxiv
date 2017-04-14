@@ -211,7 +211,8 @@
             NSString* thumbnailName;
 			if ((thumbnailName = [self imagePathForSeriesId:[iId intValue] kind:@"thumb"])) // thumbnailName is in patient/study/series format, should be study/series
                 thumbnailName = [[[thumbnailName componentsSeparatedByString:@"/"] subarrayWithRange:NSMakeRange(1,2)] componentsJoinedByString:@"/"];
-            else thumbnailName = [NSMutableString stringWithFormat:@"%@_thumb.jpg", fileName];
+            else
+                thumbnailName = [NSMutableString stringWithFormat:@"%@_thumb.jpg", fileName];
 			
 			htmlName = [NSMutableString stringWithFormat:@"%@.html", fileName];
 			

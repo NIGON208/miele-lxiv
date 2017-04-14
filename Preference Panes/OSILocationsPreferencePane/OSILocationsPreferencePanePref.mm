@@ -522,9 +522,11 @@
 				[osiriXServers removeObjects: [osiriXServers arrangedObjects]];
 				[osiriXServers addObjects: r];
 			}
-			else NSRunInformationalAlertPanel(NSLocalizedString(@"URL Invalid", 0L), NSLocalizedString( @"Cannot download data from this URL.", 0L), NSLocalizedString( @"OK", nil), nil, nil);
+			else
+                NSRunInformationalAlertPanel(NSLocalizedString(@"URL Invalid", 0L), NSLocalizedString( @"Cannot download data from this URL.", 0L), NSLocalizedString( @"OK", nil), nil, nil);
 		}
-		else NSRunInformationalAlertPanel(NSLocalizedString(@"URL Invalid", 0L), NSLocalizedString( @"This URL is invalid. Check syntax.", 0L), NSLocalizedString( @"OK", nil), nil, nil);
+		else
+            NSRunInformationalAlertPanel(NSLocalizedString(@"URL Invalid", 0L), NSLocalizedString( @"This URL is invalid. Check syntax.", 0L), NSLocalizedString( @"OK", nil), nil, nil);
 	}
 }
 
@@ -542,7 +544,12 @@
 		
 		if( r)
 		{
-			if( NSRunInformationalAlertPanel(NSLocalizedString(@"Load locations", 0L), NSLocalizedString(@"Should I add or replace this locations list? If you choose 'replace', the current list will be deleted.", 0L), NSLocalizedString(@"Add", nil), NSLocalizedString(@"Replace", nil), nil) == NSAlertDefaultReturn)
+			if( NSRunInformationalAlertPanel(NSLocalizedString(@"Load locations", 0L),
+                                             NSLocalizedString(@"Should I add or replace this locations list? If you choose 'replace', the current list will be deleted.", 0L),
+                                             NSLocalizedString(@"Add", nil),
+                                             NSLocalizedString(@"Replace", nil),
+                                             nil
+                                             ) == NSAlertDefaultReturn)
 			{
 				
 			}
@@ -612,9 +619,11 @@
 				[dicomNodes removeObjects: [dicomNodes arrangedObjects]];
 				[dicomNodes addObjects: r];
 			}
-			else NSRunInformationalAlertPanel(NSLocalizedString(@"URL Invalid", 0L), NSLocalizedString(@"Cannot download data from this URL.", 0L), NSLocalizedString(@"OK", nil), nil, nil);
+			else
+                NSRunInformationalAlertPanel(NSLocalizedString(@"URL Invalid", 0L), NSLocalizedString(@"Cannot download data from this URL.", 0L), NSLocalizedString(@"OK", nil), nil, nil);
 		}
-		else NSRunInformationalAlertPanel(NSLocalizedString(@"URL Invalid", 0L), NSLocalizedString(@"This URL is invalid. Check syntax.", 0L), NSLocalizedString(@"OK", nil), nil, nil);
+		else
+            NSRunInformationalAlertPanel(NSLocalizedString(@"URL Invalid", 0L), NSLocalizedString(@"This URL is invalid. Check syntax.", 0L), NSLocalizedString(@"OK", nil), nil, nil);
 	}
 }
 
@@ -632,7 +641,12 @@
 		
 		if( r)
 		{
-			if( NSRunInformationalAlertPanel(NSLocalizedString(@"Load locations", 0L), NSLocalizedString(@"Should I add or replace this locations list? If you choose 'replace', the current list will be deleted.", 0L), NSLocalizedString(@"Add", nil), NSLocalizedString(@"Replace", nil), nil) == NSAlertDefaultReturn)
+			if( NSRunInformationalAlertPanel(NSLocalizedString(@"Load locations", 0L),
+                                             NSLocalizedString(@"Should I add or replace this locations list? If you choose 'replace', the current list will be deleted.", 0L),
+                                             NSLocalizedString(@"Add", nil),
+                                             NSLocalizedString(@"Replace", nil),
+                                             nil
+                                             ) == NSAlertDefaultReturn)
 			{
 				
 			}

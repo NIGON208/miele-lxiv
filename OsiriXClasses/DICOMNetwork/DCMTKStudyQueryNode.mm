@@ -517,7 +517,8 @@
             if( alreadyHere == NO)
                 [_children addObject: newNode];
         }
-        else NSLog( @"******** unknown queryLevel *****");
+        else
+            NSLog( @"******** unknown queryLevel *****");
         
         _sortChildren = YES; // instead of sorting after every addChild, we sort when the array is requested, so for N elements we only have 1 sort instead of N
     }

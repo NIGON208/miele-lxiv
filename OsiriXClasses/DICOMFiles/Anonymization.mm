@@ -98,7 +98,7 @@ static NSString *templateDicomFile = nil;
 									@"AccessionNumber", @"AccessionNumber",
 									NULL];
 	
-	// older versions of OsiriX stored anonymization descriptors using the spaced keys and linked those with the DICOM tags through tags in the xib views and code.
+	// older versions of this viewer stored anonymization descriptors using the spaced keys and linked those with the DICOM tags through tags in the xib views and code.
 	// here, through the oldKeys dictionary, we support these keys and directly translate them to standard dicom tag names.
 	NSString* k2 = [oldKeys objectForKey:k];
 	if (k2) k = k2;
@@ -491,8 +491,10 @@ static NSString *templateDicomFile = nil;
                 
                 NSString* k = [filenameTranslation keyForObject:tempFilePath];
                 
-                if (k) [filenameTranslation setObject:filePath forKey: k];
-                else NSLog(@"Warning: anonymization file naming error: unknown original for %@ which should have changed to %@", tempFilePath, filePath);
+                if (k)
+                    [filenameTranslation setObject:filePath forKey: k];
+                else
+                    NSLog(@"Warning: anonymization file naming error: unknown original for %@ which should have changed to %@", tempFilePath, filePath);
             }
             @catch (NSException * e)
             {

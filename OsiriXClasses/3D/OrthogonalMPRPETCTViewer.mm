@@ -708,8 +708,10 @@ static NSString*	ThreeDPositionToolbarItemIdentifier			= @"3DPosition";
 	
 	NSArray *controllersArray;
 	
-	if( sender == PETController) controllersArray = [NSArray arrayWithObjects: PETController, CTController, PETCTController, nil];
-	else controllersArray = [NSArray arrayWithObjects: CTController, PETController, PETCTController, nil];
+	if( sender == PETController)
+        controllersArray = [NSArray arrayWithObjects: PETController, CTController, PETCTController, nil];
+	else
+        controllersArray = [NSArray arrayWithObjects: CTController, PETController, PETCTController, nil];
 	
 	for( id controller in controllersArray)
 	{
@@ -1016,11 +1018,10 @@ static NSString*	ThreeDPositionToolbarItemIdentifier			= @"3DPosition";
     
     NSToolbarItem *toolbarItem =nil;
     
-    if ([itemIdent isEqualToString: SyncSeriesToolbarItemIdentifier]) {
+    if ([itemIdent isEqualToString: SyncSeriesToolbarItemIdentifier])
         toolbarItem = [[[KBPopUpToolbarItem alloc] initWithItemIdentifier: itemIdent] autorelease];
-    }else{
+    else
         toolbarItem = [[[NSToolbarItem alloc] initWithItemIdentifier: itemIdent] autorelease];
-    }
 
     //    NSToolbarItem *toolbarItem = [[NSToolbarItem alloc] initWithItemIdentifier: itemIdent];
     
@@ -2100,7 +2101,8 @@ return YES;
     else if( [item action] == @selector(syncSeriesStateAction:))   {
         [item setState: (syncSeriesState == [item tag] ? NSOnState : NSOffState)];
     }
-    else valid = [super validateMenuItem: item];
+    else
+        valid = [super validateMenuItem: item];
 	
     return valid;
 }
@@ -2319,20 +2321,21 @@ return YES;
 											   views: views
 										   viewsRect: viewsRect];
 	}
-	else data = [curView getRawPixelsWidth: &width
-									height: &height
-									   spp: &spp
-									   bpp: &bpp
-							 screenCapture: screenCapture
-								force8bits: YES
-						   removeGraphical: YES
-							  squarePixels: NO
-								  allTiles: NO
-						allowSmartCropping: YES
-									origin: imOrigin
-								   spacing: imSpacing
-									offset: &offset
-								  isSigned: &isSigned];
+	else
+        data = [curView getRawPixelsWidth: &width
+                                   height: &height
+                                      spp: &spp
+                                      bpp: &bpp
+                            screenCapture: screenCapture
+                               force8bits: YES
+                          removeGraphical: YES
+                             squarePixels: NO
+                                 allTiles: NO
+                       allowSmartCropping: YES
+                                   origin: imOrigin
+                                  spacing: imSpacing
+                                   offset: &offset
+                                 isSigned: &isSigned];
 	
 	if( data)
 	{

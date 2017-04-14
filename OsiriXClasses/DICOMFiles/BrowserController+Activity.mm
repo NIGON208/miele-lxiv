@@ -194,8 +194,10 @@ static NSString* const BrowserActivityHelperContext = @"BrowserActivityHelperCon
 
 -(void)tableView:(NSTableView*)tableView willDisplayCell:(ThreadCell*)cell forTableColumn:(NSTableColumn*)tableColumn row:(NSInteger)row {
 	NSRect frame;
-	if (tableColumn) frame = [tableView frameOfCellAtColumn:[tableView.tableColumns indexOfObject:tableColumn] row:row];
-	else frame = [tableView rectOfRow:row];
+	if (tableColumn)
+        frame = [tableView frameOfCellAtColumn:[tableView.tableColumns indexOfObject:tableColumn] row:row];
+	else
+        frame = [tableView rectOfRow:row];
 	
     @synchronized (ThreadsManager.defaultManager.threadsController)
     {

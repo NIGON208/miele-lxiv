@@ -584,7 +584,8 @@ static NSConditionLock *threadLock = nil;
 							 [[d objectForKey: @"scale"] floatValue],
 							 kvImageDoNotTile);
 	}
-	else NSLog( @"****** unknown vImageThread what: %@", [d objectForKey: @"what"]);
+	else
+        NSLog( @"****** unknown vImageThread what: %@", [d objectForKey: @"what"]);
 	
 	[threadLock lock];
 	[threadLock unlockWithCondition: [threadLock condition]-1];
@@ -1264,11 +1265,12 @@ static NSConditionLock *threadLock = nil;
 
 - (IBAction) regenerateAutoComments:(id) sender;
 {
-	if( NSRunInformationalAlertPanel(	NSLocalizedString(@"Regenerate Auto Comments", nil),
-											 NSLocalizedString(@"Are you sure you want to regenerate the comments field? It will delete the existing comments of studies and series.", nil),
-											 NSLocalizedString(@"OK",nil),
-											 NSLocalizedString(@"Cancel",nil),
-											 nil) == NSAlertDefaultReturn)
+	if( NSRunInformationalAlertPanel(NSLocalizedString(@"Regenerate Auto Comments", nil),
+									 NSLocalizedString(@"Are you sure you want to regenerate the comments field? It will delete the existing comments of studies and series.", nil),
+									 NSLocalizedString(@"OK",nil),
+									 NSLocalizedString(@"Cancel",nil),
+									 nil
+                                     ) == NSAlertDefaultReturn)
 	{
         NSArray *studiesArray = nil;
         
@@ -1494,7 +1496,11 @@ static NSConditionLock *threadLock = nil;
 		
 		if( [result count] == 0)
 		{
-			NSRunCriticalAlertPanel(NSLocalizedString(@"URL Error",nil), NSLocalizedString(@"I'm not able to download this file.",nil),NSLocalizedString( @"OK",nil), nil, nil);
+			NSRunCriticalAlertPanel(NSLocalizedString(@"URL Error",nil),
+                                    NSLocalizedString(@"I'm not able to download this file.",nil),
+                                    NSLocalizedString( @"OK",nil),
+                                    nil,
+                                    nil);
 		}
 		else
 		{
@@ -2363,7 +2369,8 @@ static NSConditionLock *threadLock = nil;
                             [curFile release];
 							curFile = nil;
 						}
-						else NSLog( @"**** DicomFile *curFile = nil");
+						else
+                            NSLog( @"**** DicomFile *curFile = nil");
 					}
 				}
 				@catch (NSException * e)
@@ -2573,7 +2580,12 @@ static NSConditionLock *threadLock = nil;
 
 - (void) autoCleanDatabaseFreeSpaceWarning: (NSString*) message
 {
-	NSRunCriticalAlertPanel( NSLocalizedString(@"Warning", nil),  @"%@", NSLocalizedString(@"OK",nil), nil, nil, message);
+	NSRunCriticalAlertPanel(NSLocalizedString(@"Warning", nil),
+                            @"%@",
+                            NSLocalizedString(@"OK",nil),
+                            nil,
+                            nil,
+                            message);
 }
 
 - (void) autoCleanDatabaseFreeSpace: (id)sender // __deprecated
@@ -3022,7 +3034,8 @@ static NSConditionLock *threadLock = nil;
 			}
 		}
 	}
-	else description = [description stringByAppendingString: NSLocalizedString(@"No album selected", nil)];
+	else
+        description = [description stringByAppendingString: NSLocalizedString(@"No album selected", nil)];
 	
 	// ********************
 	// TIME INTERVAL
@@ -3251,7 +3264,8 @@ static NSConditionLock *threadLock = nil;
 	{
 		sortDescriptors = [NSArray arrayWithObjects: [[databaseOutline sortDescriptors] objectAtIndex: 0], sortdate, nil];
 	}
-	else sortDescriptors = [databaseOutline sortDescriptors];
+	else
+        sortDescriptors = [databaseOutline sortDescriptors];
 	
 	if( filtered == YES && [[NSUserDefaults standardUserDefaults] boolForKey: @"KeepStudiesOfSamePatientTogether"] && outlineViewArray.count > 0 && outlineViewArray.count < 500)
 	{
@@ -3566,7 +3580,8 @@ static NSConditionLock *threadLock = nil;
                         N2LogExceptionWithStackTrace(e);
                     }
                 }
-                else count = ialbum.studies.count;
+                else
+                    count = ialbum.studies.count;
                 
                 
                 [NoOfStudies addObject: count >= 0 ? [decimalNumberFormatter stringForObjectValue:[NSNumber numberWithInt:count]] : @"#"];
@@ -4306,7 +4321,8 @@ static NSConditionLock *threadLock = nil;
                                 smartAlbumDistantArray = [array retain];
                             }
                         }
-                        else distantEntireDBResultCount = array.count;
+                        else
+                            distantEntireDBResultCount = array.count;
                         
                         self.distantSearchString = curSearchString;
                         self.distantSearchType = curSearchType;
@@ -5332,7 +5348,11 @@ static NSConditionLock *threadLock = nil;
 
 - (void) mergeSeriesExecute:(NSArray*) seriesArray
 {
-	NSInteger result = NSRunInformationalAlertPanel(NSLocalizedString(@"Merge Series", nil), NSLocalizedString(@"Are you sure you want to merge the selected series? It cannot be cancelled.\r\rWARNING! If you merge multiple patients, the Patient Name and ID will be identical.", nil), NSLocalizedString(@"OK",nil), NSLocalizedString(@"Cancel",nil), nil);
+	NSInteger result = NSRunInformationalAlertPanel(NSLocalizedString(@"Merge Series", nil),
+                                                    NSLocalizedString(@"Are you sure you want to merge the selected series? It cannot be cancelled.\r\rWARNING! If you merge multiple patients, the Patient Name and ID will be identical.", nil),
+                                                    NSLocalizedString(@"OK",nil),
+                                                    NSLocalizedString(@"Cancel",nil),
+                                                    nil);
 	
 	if( result == NSAlertDefaultReturn)
 	{
@@ -5517,7 +5537,11 @@ static NSConditionLock *threadLock = nil;
                             {
                                 [wait close];
                                 
-                                NSRunCriticalAlertPanel( NSLocalizedString(@"Unify Patient Identity", nil), NSLocalizedString( @"Failed to change the DICOM files", nil), NSLocalizedString(@"OK",nil), nil, nil);
+                                NSRunCriticalAlertPanel(NSLocalizedString(@"Unify Patient Identity", nil),
+                                                        NSLocalizedString( @"Failed to change the DICOM files", nil),
+                                                        NSLocalizedString(@"OK",nil),
+                                                        nil,
+                                                        nil);
                             }
                         }
                         else
@@ -5693,7 +5717,11 @@ static NSConditionLock *threadLock = nil;
                                 }
                             }
                             else
-                                NSRunCriticalAlertPanel( NSLocalizedString(@"Unify Study Identity", nil), NSLocalizedString( @"Failed to change the DICOM files", nil), NSLocalizedString(@"OK",nil), nil, nil);
+                                NSRunCriticalAlertPanel(NSLocalizedString(@"Unify Study Identity", nil),
+                                                        NSLocalizedString( @"Failed to change the DICOM files", nil),
+                                                        NSLocalizedString(@"OK",nil),
+                                                        nil,
+                                                        nil);
                         }
                         else
                             return;
@@ -5994,7 +6022,8 @@ static NSConditionLock *threadLock = nil;
                 
                 [wait.window makeKeyAndOrderFront: self];
             }
-            else result = NSAlertDefaultReturn;
+            else
+                result = NSAlertDefaultReturn;
             
             @try
             {
@@ -6410,7 +6439,8 @@ static NSConditionLock *threadLock = nil;
     
     if ([[item valueForKey:@"type"] isEqualToString:@"Series"])
         returnVal = NO;
-	else returnVal = YES;
+	else
+        returnVal = YES;
 	
 //	[_database unlock];
 	
@@ -7169,7 +7199,8 @@ static NSConditionLock *threadLock = nil;
 				
 				path = [htmlpath stringByAppendingPathExtension: @"pdf"];
 			}
-			else path = [im valueForKey: @"completePath"];
+			else
+                path = [im valueForKey: @"completePath"];
 			
 			if( path && [[NSWorkspace sharedWorkspace] openFile: path withApplication: nil andDeactivate: YES] == NO)
 				r = NO;
@@ -7183,10 +7214,11 @@ static NSConditionLock *threadLock = nil;
         if( [[[im valueForKey:@"modality"] lowercaseString] isEqualToString:@"rtstruct"])
 		{
 			if( NSRunInformationalAlertPanel(NSLocalizedString(@"RTSTRUCT", nil),
-                                         NSLocalizedString(@"This series contains RTSTRUCT ROIs. Should I generate the corresponding ROIs on the images series?", nil),
-                                         NSLocalizedString(@"OK",nil),
-                                         NSLocalizedString(@"Cancel",nil),
-                                         nil) == NSAlertDefaultReturn)
+                                             NSLocalizedString(@"This series contains RTSTRUCT ROIs. Should I generate the corresponding ROIs on the images series?", nil),
+                                             NSLocalizedString(@"OK",nil),
+                                             NSLocalizedString(@"Cancel",nil),
+                                             nil
+                                             ) == NSAlertDefaultReturn)
             {
                 DCMObject *dcmObj = [DCMObject objectWithContentsOfFile: im.completePathResolved decodingPixelData: NO];
                 
@@ -8115,7 +8147,8 @@ static NSConditionLock *threadLock = nil;
 						}
 					}
 				}
-				else curFile = [[DicomFile alloc] init: path];
+				else
+                    curFile = [[DicomFile alloc] init: path];
 			}
 			@catch ( NSException *e)
 			{
@@ -8703,7 +8736,8 @@ static NSConditionLock *threadLock = nil;
 							index++;
 						}
 					}
-					else NSBeep();
+					else
+                        NSBeep();
 				}
 			}
 		}
@@ -9895,7 +9929,13 @@ static BOOL withReset = NO;
             if( [[NSUserDefaults standardUserDefaults] boolForKey: @"hideListenerError"])
                 r = NSAlertDefaultReturn;
             else
-                r = NSRunAlertPanel( NSLocalizedString(@"Corrupted files", nil), NSLocalizedString(@"A corrupted study crashed OsiriX:\r\r%@ / %@\r\rThis file will be deleted.\r\rYou can run OsiriX in Protected Mode (shift + option keys at startup) if you have more crashes.\r\rShould I delete this corrupted study? (Highly recommended)", nil), NSLocalizedString(@"OK", nil), NSLocalizedString(@"Cancel", nil), nil, [studyObject valueForKey:@"name"], [studyObject valueForKey:@"studyName"]);
+                r = NSRunAlertPanel(NSLocalizedString(@"Corrupted files", nil),
+                                    NSLocalizedString(@"A corrupted study crashed OsiriX:\r\r%@ / %@\r\rThis file will be deleted.\r\rYou can run OsiriX in Protected Mode (shift + option keys at startup) if you have more crashes.\r\rShould I delete this corrupted study? (Highly recommended)", nil),
+                                    NSLocalizedString(@"OK", nil),
+                                    NSLocalizedString(@"Cancel", nil),
+                                    nil,
+                                        [studyObject valueForKey:@"name"],
+                                        [studyObject valueForKey:@"studyName"]);
             
             if( r == NSAlertDefaultReturn)
 			{
@@ -10073,8 +10113,10 @@ static BOOL withReset = NO;
 		if ([databaseOutline selectedRow] >= 0)
 			for (NSInteger x = 0; x < selectedRows.count; x++)
             {
-				if (x == 0) row = selectedRows.firstIndex;
-				else row = [selectedRows indexGreaterThanIndex:row];
+				if (x == 0)
+                    row = selectedRows.firstIndex;
+				else
+                    row = [selectedRows indexGreaterThanIndex:row];
 				
 				NSManagedObject* object = [databaseOutline itemAtRow:row];
 				
@@ -11233,11 +11275,12 @@ constrainSplitPosition:(CGFloat)proposedPosition
 -(void)removeAlbumObject:(DicomAlbum*)album {
     if ((album.smartAlbum.boolValue == NO && album.studies.count == 0) ||
         NSRunInformationalAlertPanel(NSLocalizedString(@"Delete Album", nil),
-                                                     NSLocalizedString(@"Are you sure you want to delete the album named %@?", nil),
-                                                     NSLocalizedString(@"OK",nil),
-                                                     NSLocalizedString(@"Cancel",nil),
-                                                     nil,
-                                                        album.name) == NSAlertDefaultReturn)
+                                     NSLocalizedString(@"Are you sure you want to delete the album named %@?", nil),
+                                     NSLocalizedString(@"OK",nil),
+                                     NSLocalizedString(@"Cancel",nil),
+                                     nil,
+                                        album.name
+                                     ) == NSAlertDefaultReturn)
     {
         [self.database lock];
         @try
@@ -11684,7 +11727,8 @@ constrainSplitPosition:(CGFloat)proposedPosition
         NSString* key = nil;
         if ([album isKindOfClass:[DicomAlbum class]])
             key = album.XID;
-        else key = @"Database";
+        else
+            key = @"Database";
         
         NSMutableArray* cols = [NSMutableArray array];
         for (NSTableColumn* column in [databaseOutline tableColumns])
@@ -11795,7 +11839,8 @@ constrainSplitPosition:(CGFloat)proposedPosition
     [previousSelectedAlbumId release];
     if (!_database)
         previousSelectedAlbumId = nil;
-    else previousSelectedAlbumId = [selectedAlbum isKindOfClass:[DicomAlbum class]]? [selectedAlbum.objectID retain] : [[NSDictionary dictionary] retain];
+    else
+        previousSelectedAlbumId = [selectedAlbum isKindOfClass:[DicomAlbum class]]? [selectedAlbum.objectID retain] : [[NSDictionary dictionary] retain];
     
     if (previousSelectedAlbumId)
         [self loadSortDescriptors:[self _albumWithID:previousSelectedAlbumId]];
@@ -12312,7 +12357,8 @@ constrainSplitPosition:(CGFloat)proposedPosition
 				
 				toOpenArray = newArray;
 			}
-			else enoughMemory = YES;
+			else
+                enoughMemory = YES;
 		} //end while
 		
 		int result = NSAlertDefaultReturn;
@@ -12330,7 +12376,7 @@ constrainSplitPosition:(CGFloat)proposedPosition
                                                   NSLocalizedString(@"OK",nil),
                                                   NSLocalizedString(@"Cancel",nil),
                                                   nil,
-                                                  subSampling);
+                                                    subSampling);
 		}
 		
 		//  (3) Load Images (memory allocation)
@@ -12387,7 +12433,7 @@ constrainSplitPosition:(CGFloat)proposedPosition
 					if( NSRunCriticalAlertPanel(@"", //NSLocalizedString(@"32-bit", nil),
                                                 NSLocalizedString(@"Cannot load this series", nil),
                                                 NSLocalizedString(@"OK",nil),
-                                                nil, //NSLocalizedString(@"OsiriX 64-bit", nil),
+                                                (__bridge NSString *)CFSTR("CFBundleName"),
                                                 nil) == NSAlertAlternateReturn)
                     {
                         //[[AppController sharedAppController] osirix64bit: self];
@@ -12398,7 +12444,8 @@ constrainSplitPosition:(CGFloat)proposedPosition
 				fVolumePtr = nil;
 			}
 		}
-		else notEnoughMemory = YES;
+		else
+            notEnoughMemory = YES;
 		
 		//  (4) Load Images loop
 		
@@ -12516,10 +12563,17 @@ constrainSplitPosition:(CGFloat)proposedPosition
 							[[viewerPix[0] objectAtIndex: i] setID: i];
 							[[viewerPix[0] objectAtIndex: i] setTot: [viewerPix[0] count]];
 						}
-						if( [viewerPix[0] count] == 0)
-							NSRunCriticalAlertPanel( NSLocalizedString(@"Files not available (readable)", nil), NSLocalizedString(@"No files available (readable) in this series.", nil), NSLocalizedString(@"Continue",nil), nil, nil);
+						if ( [viewerPix[0] count] == 0)
+							NSRunCriticalAlertPanel(NSLocalizedString(@"Files not available (readable)", nil),
+                                                    NSLocalizedString(@"No files available (readable) in this series.", nil),
+                                                    NSLocalizedString(@"Continue",nil),
+                                                    nil,
+                                                    nil);
 						else
-							NSRunCriticalAlertPanel( NSLocalizedString(@"Not all files available (readable)", nil), NSLocalizedString(@"Not all files are available (readable) in this series.\r%@ are missing.", nil), NSLocalizedString(@"Continue",nil), nil, nil, N2LocalizedSingularPluralCount( [loadList count] - [viewerPix[0] count], NSLocalizedString(@"file", nil), NSLocalizedString(@"files", nil)));
+							NSRunCriticalAlertPanel(NSLocalizedString(@"Not all files available (readable)", nil),
+                                                    NSLocalizedString(@"Not all files are available (readable) in this series.\r%@ are missing.", nil),
+                                                    NSLocalizedString(@"Continue",nil), nil, nil,
+                                                    N2LocalizedSingularPluralCount( [loadList count] - [viewerPix[0] count], NSLocalizedString(@"file", nil), NSLocalizedString(@"files", nil)));
 					}
 					//opening images refered to in viewerPix[0] in the adequate viewer
 					
@@ -12794,12 +12848,21 @@ constrainSplitPosition:(CGFloat)proposedPosition
 		
 		if( [toOpenArray count] == 1)
 		{
-			NSRunCriticalAlertPanel( NSLocalizedString(@"4D Player",@"4D Player"), NSLocalizedString(@"To see an animated series, you have to select multiple series of the same area at different times: e.g. a cardiac CT", nil), NSLocalizedString(@"OK",nil), nil, nil);
+			NSRunCriticalAlertPanel(NSLocalizedString(@"4D Player",@"4D Player"),
+                                    NSLocalizedString(@"To see an animated series, you have to select multiple series of the same area at different times: e.g. a cardiac CT", nil),
+                                    NSLocalizedString(@"OK",nil),
+                                    nil,
+                                    nil);
 			movieError = YES;
 		}
 		else if( [toOpenArray count] > MAX4D)
 		{
-			NSRunCriticalAlertPanel( NSLocalizedString(@"4D Player",@"4D Player"), NSLocalizedString(@"4D Player is limited to a maximum number of %d series.", nil), NSLocalizedString(@"OK",nil), nil, nil, MAX4D);
+			NSRunCriticalAlertPanel(NSLocalizedString(@"4D Player",@"4D Player"),
+                                    NSLocalizedString(@"4D Player is limited to a maximum number of %d series.", nil),
+                                    NSLocalizedString(@"OK",nil),
+                                    nil,
+                                    nil,
+                                    MAX4D);
 			movieError = YES;
 		}
 		else
@@ -12814,7 +12877,11 @@ constrainSplitPosition:(CGFloat)proposedPosition
 				}
 				else if( [[toOpenArray objectAtIndex: x] count] != numberImages)
 				{
-					NSRunCriticalAlertPanel( NSLocalizedString(@"4D Player",@"4D Player"),  NSLocalizedString(@"In the current version, all series must contain the same number of images.",@"In the current version, all series must contain the same number of images."), NSLocalizedString(@"OK",nil), nil, nil);
+					NSRunCriticalAlertPanel(NSLocalizedString(@"4D Player",@"4D Player"),
+                                            NSLocalizedString(@"In the current version, all series must contain the same number of images.",@"In the current version, all series must contain the same number of images."),
+                                            NSLocalizedString(@"OK",nil),
+                                            nil,
+                                            nil);
 					movieError = YES;
 					x = [toOpenArray count];
 				}
@@ -12958,11 +13025,14 @@ constrainSplitPosition:(CGFloat)proposedPosition
 											//NSLog(@"split at: %d", x);
 											previousinterval = 0;
 										}
-										else previousinterval = interval;
+										else
+                                            previousinterval = interval;
 									}
-									else previousinterval = interval;
+									else
+                                        previousinterval = interval;
 								}
-								else previousinterval = interval;
+								else
+                                    previousinterval = interval;
 								
 								[[splittedSeries lastObject] addObject: [singleSeries objectAtIndex: x]];
 							}
@@ -13278,7 +13348,13 @@ constrainSplitPosition:(CGFloat)proposedPosition
 								{
 									openAllWindows = NO;
 									
-									if( NSRunInformationalAlertPanel( NSLocalizedString(@"Series Opening", nil), NSLocalizedString(@"Are you sure you want to open %d windows? It's a lot of windows for this screen...", nil), NSLocalizedString(@"Yes", nil), NSLocalizedString(@"Cancel", nil), nil, [[splittedSeries objectAtIndex: 0] count]) == NSAlertDefaultReturn)
+									if( NSRunInformationalAlertPanel(NSLocalizedString(@"Series Opening", nil),
+                                                                     NSLocalizedString(@"Are you sure you want to open %d windows? It's a lot of windows for this screen...", nil),
+                                                                     NSLocalizedString(@"Yes", nil),
+                                                                     NSLocalizedString(@"Cancel", nil),
+                                                                     nil,
+                                                                        [[splittedSeries objectAtIndex: 0] count]
+                                                                     ) == NSAlertDefaultReturn)
 										openAllWindows = YES;
 								}
 								
@@ -13906,7 +13982,11 @@ static NSArray*	openSubSeriesArray = nil;
 		}
 	}
 	
-	NSRunCriticalAlertPanel(NSLocalizedString(@"Search", nil), NSLocalizedString(@"The search field is currently not displayed in the toolbar. Customize your toolbar to add it.", nil), NSLocalizedString(@"OK", nil), nil, nil);
+	NSRunCriticalAlertPanel(NSLocalizedString(@"Search", nil),
+                            NSLocalizedString(@"The search field is currently not displayed in the toolbar. Customize your toolbar to add it.", nil),
+                            NSLocalizedString(@"OK", nil),
+                            nil,
+                            nil);
 }
 
 + (long) computeDATABASEINDEXforDatabase:(NSString*)path // __deprecated
@@ -13960,7 +14040,11 @@ static NSArray*	openSubSeriesArray = nil;
 		
 		if( [DCMPix isRunOsiriXInProtectedModeActivated])
 		{
-			NSRunCriticalAlertPanel(NSLocalizedString(@"Protected Mode", nil), NSLocalizedString(@"OsiriX is now running in Protected Mode (shift + option keys at startup): no images are displayed, allowing you to delete crashing or corrupted images/studies.", nil), NSLocalizedString(@"OK", nil), nil, nil);
+			NSRunCriticalAlertPanel(NSLocalizedString(@"Protected Mode", nil),
+                                    NSLocalizedString(@"OsiriX is now running in Protected Mode (shift + option keys at startup): no images are displayed, allowing you to delete crashing or corrupted images/studies.", nil),
+                                    NSLocalizedString(@"OK", nil),
+                                    nil,
+                                    nil);
 		}
 		
         _distantAlbumNoOfStudiesCache = [[NSMutableDictionary alloc] init];
@@ -14894,7 +14978,8 @@ static NSArray*	openSubSeriesArray = nil;
                                          NSLocalizedString(@"Files are currently being sent to a DICOM node. Are you sure you want to quit now? The sending will be stopped.", nil),
                                          NSLocalizedString(@"No", nil),
                                          NSLocalizedString(@"Quit", nil),
-                                         nil) == NSAlertDefaultReturn)
+                                         nil
+                                         ) == NSAlertDefaultReturn)
             return NO;
 	}
 	
@@ -14951,7 +15036,8 @@ static NSArray*	openSubSeriesArray = nil;
 			[databaseOutline selectRowIndexes: [NSIndexSet indexSetWithIndex: [databaseOutline rowForItem: [result objectAtIndex: 0]]] byExtendingSelection: NO];
 			[databaseOutline scrollRowToVisible: databaseOutline.selectedRow];
 		}
-		else NSBeep();
+		else
+            NSBeep();
     }
 }
 
@@ -14961,8 +15047,10 @@ static NSArray*	openSubSeriesArray = nil;
 	
 	for( NSInteger x = 0, row; x < selectedRows.count; x++)
 	{
-		if( x == 0) row = selectedRows.firstIndex;
-		else row = [selectedRows indexGreaterThanIndex: row];
+		if( x == 0)
+            row = selectedRows.firstIndex;
+		else
+            row = [selectedRows indexGreaterThanIndex: row];
 		
 		NSManagedObject	*object = [databaseOutline itemAtRow: row];
 		
@@ -14979,8 +15067,10 @@ static NSArray*	openSubSeriesArray = nil;
 	
 	for( NSInteger x = 0, row; x < selectedRows.count; x++)
 	{
-		if( x == 0) row = selectedRows.firstIndex;
-		else row = [selectedRows indexGreaterThanIndex: row];
+		if( x == 0)
+            row = selectedRows.firstIndex;
+		else
+            row = [selectedRows indexGreaterThanIndex: row];
 		
 		NSManagedObject	*object = [databaseOutline itemAtRow: row];
 		
@@ -15222,8 +15312,10 @@ static NSArray*	openSubSeriesArray = nil;
 		{
 			BOOL matrixThumbnails;
 			
-			if( menuItem.menu == contextual) matrixThumbnails = YES;
-			else matrixThumbnails = NO;
+			if( menuItem.menu == contextual)
+                matrixThumbnails = YES;
+			else
+                matrixThumbnails = NO;
 			
 			NSMutableArray *files, *objects = [NSMutableArray array];
 			
@@ -15254,8 +15346,10 @@ static NSArray*	openSubSeriesArray = nil;
 		
 		for( NSInteger x = 0, row; x < selectedRows.count; x++)
 		{
-			if( x == 0) row = selectedRows.firstIndex;
-			else row = [selectedRows indexGreaterThanIndex: row];
+			if( x == 0)
+                row = selectedRows.firstIndex;
+			else
+                row = [selectedRows indexGreaterThanIndex: row];
 			
 			NSManagedObject	*object = [databaseOutline itemAtRow: row];
 			
@@ -15274,8 +15368,10 @@ static NSArray*	openSubSeriesArray = nil;
 		
 		for( NSInteger x = 0, row; x < selectedRows.count; x++)
 		{
-			if( x == 0) row = selectedRows.firstIndex;
-			else row = [selectedRows indexGreaterThanIndex: row];
+			if( x == 0)
+                row = selectedRows.firstIndex;
+			else
+                row = [selectedRows indexGreaterThanIndex: row];
 			
 			NSManagedObject	*object = [databaseOutline itemAtRow: row];
 			
@@ -16087,7 +16183,8 @@ static volatile int numberOfThreadsForJPEG = 0;
 		{
 			filesToExport = [self filesForDatabaseMatrixSelection: dicomFiles2Export];
 		}
-		else filesToExport = [self filesForDatabaseOutlineSelection: dicomFiles2Export];
+		else
+            filesToExport = [self filesForDatabaseOutlineSelection: dicomFiles2Export];
 		
 		[filesToExport removeDuplicatedStringsInSyncWithThisArray: dicomFiles2Export];
 		
@@ -16103,7 +16200,8 @@ static volatile int numberOfThreadsForJPEG = 0;
 		
 		[_database initiateCompressFilesAtPaths:result];
 	}
-	else NSRunInformationalAlertPanel(NSLocalizedString(@"Non-Local Database", nil),
+	else
+        NSRunInformationalAlertPanel( NSLocalizedString(@"Non-Local Database", nil),
                                       NSLocalizedString(@"Cannot compress images in a distant database.", nil),
                                       NSLocalizedString(@"OK",nil),
                                       nil,
@@ -16121,7 +16219,8 @@ static volatile int numberOfThreadsForJPEG = 0;
 		{
 			filesToExport = [self filesForDatabaseMatrixSelection: dicomFiles2Export];
 		}
-		else filesToExport = [self filesForDatabaseOutlineSelection: dicomFiles2Export];
+		else
+            filesToExport = [self filesForDatabaseOutlineSelection: dicomFiles2Export];
 		
 		[filesToExport removeDuplicatedStringsInSyncWithThisArray: dicomFiles2Export];
 		
@@ -16137,7 +16236,12 @@ static volatile int numberOfThreadsForJPEG = 0;
 		
 		[_database initiateDecompressFilesAtPaths:result];
 	}
-	else NSRunInformationalAlertPanel(NSLocalizedString(@"Non-Local Database", nil), NSLocalizedString(@"Cannot decompress images in a distant database.", nil), NSLocalizedString(@"OK",nil), nil, nil);
+	else
+        NSRunInformationalAlertPanel(NSLocalizedString(@"Non-Local Database", nil),
+                                     NSLocalizedString(@"Cannot decompress images in a distant database.", nil),
+                                     NSLocalizedString(@"OK",nil),
+                                     nil,
+                                     nil);
 }
 
 #endif
@@ -16343,14 +16447,22 @@ static volatile int numberOfThreadsForJPEG = 0;
 			{
 				if( first)
 				{
-					if( NSRunInformationalAlertPanel( NSLocalizedString(@"Export", nil), NSLocalizedString(@"A folder already exists. Should I replace it? It will delete the entire content of this folder (%@)", nil), NSLocalizedString(@"Replace", nil), NSLocalizedString(@"Cancel", nil), nil, [tempPath lastPathComponent]) == NSAlertDefaultReturn)
+					if( NSRunInformationalAlertPanel(NSLocalizedString(@"Export", nil),
+                                                     NSLocalizedString(@"A folder already exists. Should I replace it? It will delete the entire content of this folder (%@)", nil),
+                                                     NSLocalizedString(@"Replace", nil),
+                                                     NSLocalizedString(@"Cancel", nil),
+                                                     nil,
+                                                        [tempPath lastPathComponent]
+                                                     ) == NSAlertDefaultReturn)
 					{
 						[[NSFileManager defaultManager] removeFileAtPath:tempPath handler:nil];
 						[[NSFileManager defaultManager] createDirectoryAtPath: tempPath
                                                   withIntermediateDirectories: YES
                                                                    attributes: nil
-                                                                        error: nil];					}
-					else break;
+                                                                        error: nil];
+                    }
+					else
+                        break;
 				}
 			}
 			first = NO;
@@ -16738,7 +16850,8 @@ static volatile int numberOfThreadsForJPEG = 0;
 		filesToExport = [self filesForDatabaseMatrixSelection: dicomFiles2Export];
 		NSLog(@"Files from contextual menu: %d", (int) [filesToExport count]);
 	}
-	else filesToExport = [self filesForDatabaseOutlineSelection: dicomFiles2Export];
+	else
+        filesToExport = [self filesForDatabaseOutlineSelection: dicomFiles2Export];
 	
 	[sPanel setCanChooseDirectories:YES];
 	[sPanel setCanChooseFiles:NO];
@@ -16774,14 +16887,22 @@ static volatile int numberOfThreadsForJPEG = 0;
 			{
 				if( i == 0)
 				{
-					if( NSRunInformationalAlertPanel( NSLocalizedString(@"Export", nil), NSLocalizedString(@"A folder already exists. Should I replace it? It will delete the entire content of this folder (%@)", nil), NSLocalizedString(@"Replace", nil), NSLocalizedString(@"Cancel", nil), nil, [tempPath lastPathComponent]) == NSAlertDefaultReturn)
+					if( NSRunInformationalAlertPanel(NSLocalizedString(@"Export", nil),
+                                                     NSLocalizedString(@"A folder already exists. Should I replace it? It will delete the entire content of this folder (%@)", nil),
+                                                     NSLocalizedString(@"Replace", nil),
+                                                     NSLocalizedString(@"Cancel", nil),
+                                                     nil,
+                                                        [tempPath lastPathComponent]
+                                                     ) == NSAlertDefaultReturn)
 					{
 						[[NSFileManager defaultManager] removeFileAtPath:tempPath handler:nil];
 						[[NSFileManager defaultManager] createDirectoryAtPath: tempPath
                                                   withIntermediateDirectories: YES
                                                                    attributes: nil
-                                                                        error: nil];					}
-					else break;
+                                                                        error: nil];
+                    }
+					else
+                        break;
 				}
 			}
 			
@@ -17414,7 +17535,7 @@ static volatile int numberOfThreadsForJPEG = 0;
 				{
 					if( i == 0)
 					{
-						NSMutableDictionary *options = [NSMutableDictionary dictionaryWithObjectsAndKeys:	NSLocalizedString(@"Export", nil), @"title",
+						NSMutableDictionary *options = [NSMutableDictionary dictionaryWithObjectsAndKeys: NSLocalizedString(@"Export", nil), @"title",
 																												[NSString stringWithFormat: NSLocalizedString(@"A folder already exists. Should I replace it? It will delete the entire content of this folder (%@), or merge the existing content with the new files?", nil), [tempPath lastPathComponent]], @"message",
 																												NSLocalizedString(@"Replace", nil), @"button1",
 																												NSLocalizedString(@"Cancel", nil), @"button2",
@@ -17426,7 +17547,8 @@ static volatile int numberOfThreadsForJPEG = 0;
 						int a;
 						if( [options objectForKey: @"result"])
 							a = [[options objectForKey: @"result"] intValue];
-						else a = NSAlertAlternateReturn; // Cancel
+						else
+                            a = NSAlertAlternateReturn; // Cancel
 						
 						if( a == NSAlertDefaultReturn)
 						{
@@ -17440,7 +17562,8 @@ static volatile int numberOfThreadsForJPEG = 0;
 						{
 							// Merge
 						}
-						else break;
+						else
+                            break;
 					}
 				}
 				
@@ -17539,7 +17662,8 @@ static volatile int numberOfThreadsForJPEG = 0;
                                                                    attributes: nil
                                                                         error: nil];
 				}
-				else studyPath = tempPath;
+				else
+                    studyPath = tempPath;
 				
 				if( previousStudy != [curImage valueForKeyPath: @"series.study"])
 				{
@@ -17835,8 +17959,10 @@ static volatile int numberOfThreadsForJPEG = 0;
 		{
 			int no;
 			
-			if( i + CHUNKZIP >= total) no = total - i; 
-			else no = CHUNKZIP;
+			if( i + CHUNKZIP >= total)
+                no = total - i;
+			else
+                no = CHUNKZIP;
 			
 			NSRange range = NSMakeRange( i, no);
 			
@@ -18103,7 +18229,8 @@ static volatile int numberOfThreadsForJPEG = 0;
 	//Burn additional Files. Not just images. Add SRs
     
 	if( ([sender isKindOfClass:[NSMenuItem class]] && [sender menu] == [oMatrix menu]) || [[self window] firstResponder] == oMatrix) filesToBurn = [self filesForDatabaseMatrixSelection:managedObjects onlyImages:NO];
-	else filesToBurn = [self filesForDatabaseOutlineSelection: managedObjects onlyImages:NO];
+	else
+        filesToBurn = [self filesForDatabaseOutlineSelection: managedObjects onlyImages:NO];
 	
 	BurnerWindowController *burnerWindowController = [[BurnerWindowController alloc] initWithFiles:filesToBurn managedObjects:managedObjects];
 	
@@ -18203,7 +18330,8 @@ static volatile int numberOfThreadsForJPEG = 0;
 			{
 				[NSThread sleepForTimeInterval: 1.0];
 			}
-			else success = YES;
+			else
+                success = YES;
 		}
 	}
 	
@@ -18923,12 +19051,15 @@ static volatile int numberOfThreadsForJPEG = 0;
 						{
 							NSLog( @"***** reportURL contains a path, but file doesnt exist.");
 							
-							if( NSRunInformationalAlertPanel( NSLocalizedString(@"Report", nil),
-											 NSLocalizedString(@"Report file is not found... Should I create a new one?", nil),
-											 NSLocalizedString(@"OK",nil),
-											 NSLocalizedString(@"Cancel",nil),
-											 nil) == NSAlertDefaultReturn)
-												localReportFile = nil;
+							if( NSRunInformationalAlertPanel(NSLocalizedString(@"Report", nil),
+                                                             NSLocalizedString(@"Report file is not found... Should I create a new one?", nil),
+                                                             NSLocalizedString(@"OK",nil),
+                                                             NSLocalizedString(@"Cancel",nil),
+                                                             nil
+                                                             ) == NSAlertDefaultReturn)
+                            {
+                                localReportFile = nil;
+                            }
 						}
 					}
 					

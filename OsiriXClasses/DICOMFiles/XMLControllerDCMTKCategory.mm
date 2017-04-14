@@ -73,11 +73,11 @@ extern NSRecursiveLock *PapyrusLock;
     {
         key = dicent->getKey();
 		*gp = key.getGroup();
-		*el = key.getElement();
-		
+		*el = key.getElement();		
 		result = 0;
      }
-	 else result = -1;
+	 else
+         result = -1;
 	 
      dcmDataDict.unlock();
     

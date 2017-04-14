@@ -813,7 +813,8 @@ static NSMutableDictionary *studiesForUserCache = nil;
                     studiesArray = nil;
                 }
             }
-            else studiesArray = originalAlbum;
+            else
+                studiesArray = originalAlbum;
         }
         
         if ([sortValue length] && [sortValue isEqualToString: @"date"] == NO)

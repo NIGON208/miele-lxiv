@@ -144,7 +144,7 @@ static float deg2rad = M_PI / 180.0;
                 if ( NSRunAlertPanel(@"", //NSLocalizedString(@"32-bit",nil),
                                      NSLocalizedString(@"Cannot compute the high resolution data.",nil),
                                      NSLocalizedString(@"OK", nil),
-                                     nil, //NSLocalizedString(@"OsiriX 64-bit", nil),
+                                     (__bridge NSString *)CFSTR("CFBundleName"),
                                      nil
                                      ) == NSAlertAlternateReturn)
                 {
@@ -1459,7 +1459,8 @@ static float deg2rad = M_PI / 180.0;
 		
 		[self executeUndo: redoQueue];
 	}
-	else NSBeep();
+	else
+        NSBeep();
 }
 
 - (IBAction) undo:(id) sender
@@ -1473,7 +1474,8 @@ static float deg2rad = M_PI / 180.0;
 		
 		[self executeUndo: undoQueue];
 	}
-	else NSBeep();
+	else
+        NSBeep();
 }
 
 - (void) removeLastItemFromUndoQueue

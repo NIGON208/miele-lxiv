@@ -404,10 +404,11 @@
         
         isSettingUpBurn = NO;
         
-        int no = 0;
-            
-        if( anonymizedFiles) no = [anonymizedFiles count];
-        else no = [files count];
+        int no = 0;            
+        if( anonymizedFiles)
+            no = [anonymizedFiles count];
+        else
+            no = [files count];
         
         burning = YES;
         
@@ -772,7 +773,8 @@
 		NSDate *date = [NSDate date];
 		title = [NSString stringWithFormat:@"Archive-%@",  [date descriptionWithCalendarFormat:@"%Y%m%d" timeZone:nil locale:nil]];
 	}
-	else title = [[self defaultTitle] uppercaseString];
+	else
+        title = [[self defaultTitle] uppercaseString];
 	
 	[self setCDTitle: title];
 	[pool release];
@@ -901,8 +903,10 @@
 	@try
     {
         NSEnumerator *enumerator;
-        if( anonymizedFiles) enumerator = [anonymizedFiles objectEnumerator];
-        else enumerator = [files objectEnumerator];
+        if( anonymizedFiles)
+            enumerator = [anonymizedFiles objectEnumerator];
+        else
+            enumerator = [files objectEnumerator];
         
         NSString *file;
         NSString *burnFolder = [self folderToBurn];

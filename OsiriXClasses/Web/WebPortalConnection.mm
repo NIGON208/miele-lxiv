@@ -254,10 +254,13 @@ NSString* const SessionDicomCStorePortKey = @"DicomCStorePort"; // NSNumber (int
 			if (isalpha(host_name[0]))
 			{
 				struct hostent* hp = gethostbyname(host_name);
-				if (hp) bcopy(hp->h_addr, (char*)&service.sin_addr, hp->h_length);
-				else service.sin_addr.s_addr = inet_addr(host_name);
+				if (hp)
+                    bcopy(hp->h_addr, (char*)&service.sin_addr, hp->h_length);
+				else
+                    service.sin_addr.s_addr = inet_addr(host_name);
 			}
-			else service.sin_addr.s_addr = inet_addr(host_name);
+			else
+                service.sin_addr.s_addr = inet_addr(host_name);
 			
 			char buffer[256];
 			if (inet_ntop(AF_INET, &service.sin_addr, buffer, sizeof(buffer)))
@@ -427,8 +430,10 @@ NSString* const SessionDicomCStorePortKey = @"DicomCStorePort"; // NSNumber (int
 	// parse the URL to find the parameters (if any)
 	NSArray *urlComponenents = [url componentsSeparatedByString:@"?"];
     
-	if ([urlComponenents count] == 2) self.GETParams = [urlComponenents lastObject];
-	else self.GETParams = nil;
+	if ([urlComponenents count] == 2)
+        self.GETParams = [urlComponenents lastObject];
+	else
+        self.GETParams = nil;
 	
 	NSMutableDictionary* params = [NSMutableDictionary dictionary];
 	// GET params
@@ -834,8 +839,8 @@ NSString* const SessionDicomCStorePortKey = @"DicomCStorePort"; // NSNumber (int
 					}
 					///
 				}
-				else NSLog( @"****** studyInstanceUID && patientUID == nil upload POST");
-				
+				else
+                    NSLog( @"****** studyInstanceUID && patientUID == nil upload POST");
 			}
 		}
 	}
@@ -938,7 +943,8 @@ NSString* const SessionDicomCStorePortKey = @"DicomCStorePort"; // NSNumber (int
 									[file seekToEndOfFile];
 									[multipartData addObject:file];
 								}
-								else NSLog( @"***** Failed to create file - processDataChunk : %@", POSTfilename);
+								else
+                                    NSLog( @"***** Failed to create file - processDataChunk : %@", POSTfilename);
 								
 								if (eof)
 								{

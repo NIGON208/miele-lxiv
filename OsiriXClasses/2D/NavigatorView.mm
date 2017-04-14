@@ -987,8 +987,10 @@ static float deg2rad = M_PI/180.0;
 	
 	BOOL canScroll = YES;
 	
-	if(amount<0) canScroll = (origin.x>0);
-	else canScroll = (origin.x+viewBounds.size.width<[self frame].size.width);
+	if(amount<0)
+        canScroll = (origin.x>0);
+	else
+        canScroll = (origin.x+viewBounds.size.width<[self frame].size.width);
 
 	return canScroll;
 }

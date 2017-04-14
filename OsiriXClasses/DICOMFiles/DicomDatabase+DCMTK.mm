@@ -127,8 +127,10 @@
 	for( int i = 0; i < total;)
 	{
 		int no;
-		if( i + CHUNK_SUBPROCESS >= total) no = total - i; 
-		else no = CHUNK_SUBPROCESS;
+		if( i + CHUNK_SUBPROCESS >= total)
+            no = total - i;
+		else
+            no = CHUNK_SUBPROCESS;
 		
 		if (i || i+no<total)
 			thread.progress = 1.0*i/total;
@@ -315,8 +317,10 @@
 	for( int i = 0; i < total;)
 	{
 		int no;
-		if( i + CHUNK_SUBPROCESS >= total) no = total - i; 
-		else no = CHUNK_SUBPROCESS;
+		if( i + CHUNK_SUBPROCESS >= total)
+            no = total - i;
+		else
+            no = CHUNK_SUBPROCESS;
 		
 		if (i || i+no<total)
 			thread.progress = 1.0*i/total;
@@ -512,8 +516,10 @@
 		{
 			int no;
 			
-			if( i + CHUNK_SIZE >= total) no = total - i; 
-			else no = CHUNK_SIZE;
+			if( i + CHUNK_SIZE >= total)
+                no = total - i;
+			else
+                no = CHUNK_SIZE;
 			
 			NSRange range = NSMakeRange( i, no);
 			

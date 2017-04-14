@@ -278,7 +278,8 @@ static BonjourBrowser *currentBrowser = nil;
                 address = [[sender addresses] objectAtIndex:index];
                 socketAddress = (struct sockaddr *)[address bytes];
 
-                if (socketAddress->sa_family == AF_INET) break;
+                if (socketAddress->sa_family == AF_INET)
+                    break;
             }
 
             // Be sure to include <netinet/in.h> and <arpa/inet.h> or else you'll get compile errors.

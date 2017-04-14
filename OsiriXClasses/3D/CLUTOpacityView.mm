@@ -1392,7 +1392,8 @@ NSRect rect = drawingRect;
 		{
 			mouseLabel = NSLocalizedString(@"Close", @"");
 		}
-		else mouseLabel = @"";
+		else
+            mouseLabel = @"";
 		
 		[self setCursorLabelWithText:mouseLabel];
 		mousePositionX = - 9999.0;

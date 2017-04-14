@@ -90,7 +90,8 @@ NSInteger sortByAddress(id roi1, id roi2, void *context)
         {
             if( s == lastObject)
                 [self removeObjectAtIndex: [self indexOfObject: s]];
-            else lastObject = s;
+            else
+                lastObject = s;
         }
     }
 }
@@ -106,7 +107,8 @@ NSInteger sortByAddress(id roi1, id roi2, void *context)
         {
             if( [s isKindOfClass:[NSString class]] && [s isEqualToString: lastString])
                 [self removeObjectAtIndex: [self indexOfObject: s]];
-            else lastString = s;
+            else
+                lastString = s;
         }
     }
 }
@@ -128,7 +130,8 @@ NSInteger sortByAddress(id roi1, id roi2, void *context)
                 [otherArray removeObjectAtIndex: index];
             }
 		}
-		else lastString = s;
+		else
+            lastString = s;
 	}
 }
 

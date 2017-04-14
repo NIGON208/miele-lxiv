@@ -98,8 +98,11 @@ void* sopInstanceUIDEncode( NSString *sopuid)
             
             c1 = [sopuid characterAtIndex: i];
             i++;
-            if( i == [sopuid length]) c2 = 0;
-            else c2 = [sopuid characterAtIndex: i];
+            if( i == [sopuid length])
+                c2 = 0;
+            else
+                c2 = [sopuid characterAtIndex: i];
+            
             i++;
             
             r[ x] = (charToInt( c1) << 4) + charToInt( c2);

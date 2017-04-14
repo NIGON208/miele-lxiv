@@ -160,8 +160,10 @@
 	
 	dataPtr = [self getRawPixels :&width :&height :&spp :&bpp :!originalSize : YES];
 
-	if( spp == 3) colorSpace = NSCalibratedRGBColorSpace;
-	else colorSpace = NSCalibratedWhiteColorSpace;
+	if( spp == 3)
+        colorSpace = NSCalibratedRGBColorSpace;
+	else
+        colorSpace = NSCalibratedWhiteColorSpace;
 
 	rep = [[[NSBitmapImageRep alloc]
 			 initWithBitmapDataPlanes:nil
@@ -810,21 +812,29 @@
 		
         sS = YES;
         
-		if( sS == NO) aRenderer->RemoveActor( roiVolumeActor);
-		else aRenderer->AddActor( roiVolumeActor);
+		if( sS == NO)
+            aRenderer->RemoveActor( roiVolumeActor);
+		else
+            aRenderer->AddActor( roiVolumeActor);
 		
-		if( w) roiVolumeActor->GetProperty()->SetRepresentationToWireframe();
-		else roiVolumeActor->GetProperty()->SetRepresentationToSurface();
+		if( w)
+            roiVolumeActor->GetProperty()->SetRepresentationToWireframe();
+		else
+            roiVolumeActor->GetProperty()->SetRepresentationToSurface();
 		
 		roiVolumeActor->GetProperty()->SetOpacity( opacity);
 		
 		NSColor* rgbCol = [col colorUsingColorSpaceName: NSCalibratedRGBColorSpace];
 		
-		if( usecol) roiVolumeActor->GetProperty()->SetColor( [rgbCol redComponent], [rgbCol greenComponent], [rgbCol blueComponent]);
-		else roiVolumeActor->GetProperty()->SetColor( 1, 1, 1);
+		if( usecol)
+            roiVolumeActor->GetProperty()->SetColor( [rgbCol redComponent], [rgbCol greenComponent], [rgbCol blueComponent]);
+		else
+            roiVolumeActor->GetProperty()->SetColor( 1, 1, 1);
 		
-		if( tex) roiVolumeActor->SetTexture(texture);
-		else roiVolumeActor->SetTexture( nil);
+		if( tex)
+            roiVolumeActor->SetTexture(texture);
+		else
+            roiVolumeActor->SetTexture( nil);
 	}
 	
 	[self setNeedsDisplay: YES];

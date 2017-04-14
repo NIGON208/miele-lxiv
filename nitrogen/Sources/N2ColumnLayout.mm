@@ -180,7 +180,8 @@ typedef struct ConstrainedFloat {
                         {
 							if (unfixedInvasivity == 0)
 								widths[0][i].value *= 1+deltaWidth/unfixedRefWidth;
-							else widths[0][i].value += deltaWidth*([[_columnDescriptors objectAtIndex:i] invasivity]/unfixedInvasivity);
+							else
+                                widths[0][i].value += deltaWidth*([[_columnDescriptors objectAtIndex:i] invasivity]/unfixedInvasivity);
                         }
                     }
 				}

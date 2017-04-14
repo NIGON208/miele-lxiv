@@ -730,7 +730,8 @@ int main(int argc, const char *argv[])
                 //*(long*)0 = 0xDEADBEEF; // Dead Beef ? WTF ??? Will it unlock the matrix....
                 [dcmPix release];
             }
-            else NSLog( @"dcmPix == nil");
+            else
+                NSLog( @"dcmPix == nil");
         }
     }
     else if( [what isEqualToString:@"decompressList"])

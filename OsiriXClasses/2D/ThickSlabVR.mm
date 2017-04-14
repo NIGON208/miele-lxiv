@@ -156,10 +156,13 @@ extern short Altivec;
 	{
 		pt = NSPointFromString( [array objectAtIndex: 0]);
 		pt.x -=1000;
-		if(pt.x != 0) opacityTransferFunction->AddPoint(0, 0);
-		else NSLog(@"start point");
+		if(pt.x != 0)
+            opacityTransferFunction->AddPoint(0, 0);
+		else
+            NSLog(@"start point");
 	}
-	else opacityTransferFunction->AddPoint(0, 0);
+	else
+        opacityTransferFunction->AddPoint(0, 0);
 	
 	for( i = 0; i < [array count]; i++)
 	{
@@ -447,10 +450,10 @@ extern short Altivec;
 					{
 						opacityBlending *= opacityTot/opacityAdd;
 						opacity *= opacityTot/opacityAdd;
-						
 						x = 0;
 					}
-					else opacityTot -= opacityAdd;
+					else
+                        opacityTot -= opacityAdd;
 					
 					dstFloatRv += tableFloatR[ val]*opacity + tableBlendingFloatR[ valBlending]*opacityBlending;
 					dstFloatGv += tableFloatG[ val]*opacity + tableBlendingFloatG[ valBlending]*opacityBlending;

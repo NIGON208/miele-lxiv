@@ -3695,7 +3695,8 @@ nifti_image *nifti_image_read( const char *hname , int read_data )
          return NULL;
       }
    }
-   else nim->data = NULL ;
+   else
+       nim->data = NULL ;
 
    return nim ;
 }
@@ -4243,8 +4244,10 @@ static znzFile nifti_image_load_prep( nifti_image *nim )
        nim->nbyper <= 0 || nim->nvox <= 0       )
    {
       if ( g_opts.debug > 0 ){
-         if( !nim ) fprintf(stderr,"** ERROR: N_image_load: no nifti image\n");
-         else fprintf(stderr,"** ERROR: N_image_load: bad params (%p,%d,%d)\n",
+         if( !nim )
+             fprintf(stderr,"** ERROR: N_image_load: no nifti image\n");
+         else
+             fprintf(stderr,"** ERROR: N_image_load: bad params (%p,%d,%d)\n",
                       nim->iname, nim->nbyper, nim->nvox);
       }
       return NULL;

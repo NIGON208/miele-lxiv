@@ -406,7 +406,8 @@ unsigned int minimumStep;
                 lastRenderingWasMoveCenter = YES;
                 [vrView setLOD: 100];	// We don't need to really compute the image - we just want image origin for the other views.
             }
-            else lastRenderingWasMoveCenter = NO;
+            else
+                lastRenderingWasMoveCenter = NO;
             
             [vrView render];
         }

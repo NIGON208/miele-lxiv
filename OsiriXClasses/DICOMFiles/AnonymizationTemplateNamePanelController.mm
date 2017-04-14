@@ -25,7 +25,9 @@
 -(void)observeTextDidChangeNotification:(NSNotification*)notif {
 	if ([self.replaceValues containsObject:self.nameField.stringValue])
 		self.okButton.title = NSLocalizedString(@"Replace", NULL);
-	else self.okButton.title = NSLocalizedString(@"Save", NULL);
+	else
+        self.okButton.title = NSLocalizedString(@"Save", NULL);
+    
 	[self.okButton setEnabled:self.nameField.stringValue.length > 0 ];
 }
 

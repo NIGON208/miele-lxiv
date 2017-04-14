@@ -215,10 +215,9 @@
 				NSString	*string;
 				
 				if( [[study valueForKey: name] isKindOfClass: [NSDate class]])
-				{
 					string = [date stringFromDate: [study valueForKey: name]];
-				}
-				else string = [[study valueForKey: name] description];
+				else
+                    string = [[study valueForKey: name] description];
 				
 				NSRange	searchRange = rtf.range;
 				
@@ -272,11 +271,15 @@
                             
                             moreFields = YES;
 						}
-						else moreFields = NO;
+						else
+                            moreFields = NO;
 					}
-					else moreFields = NO;
+					else
+                        moreFields = NO;
 				}
-				while( moreFields);
+                
+				while( moreFields)
+                    ;
 			}
 			
 			[[rtf RTFFromRange:rtf.range documentAttributes:attr] writeToFile:destinationFile atomically:YES];
@@ -450,11 +453,15 @@
                 
 				moreFields = YES;
 			}
-			else moreFields = NO;
+			else
+                moreFields = NO;
 		}
-		else moreFields = NO;
+		else
+            moreFields = NO;
 	}
-	while( moreFields);
+    
+	while( moreFields)
+        ;
 }
 
 
@@ -578,10 +585,9 @@
 		NSString	*string;
 		
 		if( [[study valueForKey: name] isKindOfClass: [NSDate class]])
-		{
 			string = [date stringFromDate: [study valueForKey: name]];
-		}
-		else string = [[study valueForKey: name] description];
+		else
+            string = [[study valueForKey: name] description];
 		
 		if( string)
 			[file appendString: [DicomFile NSreplaceBadCharacter:string]];

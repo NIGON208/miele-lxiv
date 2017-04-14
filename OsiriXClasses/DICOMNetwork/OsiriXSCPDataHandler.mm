@@ -703,8 +703,10 @@ extern BOOL forkedProcess;
 			
 			if (predicate)
 			{
-				if( compoundPredicate == nil) compoundPredicate = predicate;
-				else compoundPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:[NSArray arrayWithObjects: compoundPredicate, predicate, nil]];
+				if( compoundPredicate == nil)
+                    compoundPredicate = predicate;
+				else
+                    compoundPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:[NSArray arrayWithObjects: compoundPredicate, predicate, nil]];
 			}
 		}
 		
@@ -734,7 +736,8 @@ extern BOOL forkedProcess;
 					DCMCalendarDate *time = [DCMCalendarDate dicomTime: dcmstartTime];
 					startDate = [[[DCMCalendarDate dicomDate: dcmstartDate] dateByAddingYears: 0 months: 0 days: 0 hours: [time hourOfDay] minutes: [time minuteOfHour] seconds: [time secondOfMinute]] timeIntervalSinceReferenceDate];
 				}
-				else startDate = [self startOfDay: [DCMCalendarDate dicomDate: dcmstartDate]];
+				else
+                    startDate = [self startOfDay: [DCMCalendarDate dicomDate: dcmstartDate]];
 			}
 			
 			if( dcmendDate)
@@ -744,7 +747,8 @@ extern BOOL forkedProcess;
 					DCMCalendarDate *time = [DCMCalendarDate dicomTime: dcmendTime];
 					endDate = [[[DCMCalendarDate dicomDate: dcmendDate] dateByAddingYears: 0 months: 0 days: 0 hours: [time hourOfDay] minutes: [time minuteOfHour] seconds: [time secondOfMinute]] timeIntervalSinceReferenceDate];
 				}
-				else endDate = [self endOfDay: [DCMCalendarDate dicomDate: dcmendDate]];
+				else
+                    endDate = [self endOfDay: [DCMCalendarDate dicomDate: dcmendDate]];
 			}
 			
 			if( startDate && endDate)
@@ -990,7 +994,8 @@ extern BOOL forkedProcess;
                         sprintf(value, "%d", numberInstances);
                         dataset->putAndInsertString(DCM_NumberOfStudyRelatedSeries, value);
                     }
-                    else dataset->insertEmptyElement( key, OFTrue);
+                    else
+                        dataset->insertEmptyElement( key, OFTrue);
                 }
             }
             @catch( NSException *e)
@@ -1203,8 +1208,8 @@ extern BOOL forkedProcess;
                         sprintf(value, "%d", numberInstances);
                         dataset->putAndInsertString(DCM_NumberOfStudyRelatedSeries, value);
                     }
-                    
-                    else dataset ->insertEmptyElement( key, OFTrue);
+                    else
+                        dataset ->insertEmptyElement( key, OFTrue);
                 }
             }
             @catch( NSException *e)
@@ -1296,7 +1301,8 @@ extern BOOL forkedProcess;
                         {
                             dataset->putAndInsertString( key, [self encodeString: [fetchedObject valueForKeyPath:@"series.study.comment"] image: image]);
                         }
-                        else dataset ->insertEmptyElement( key, OFTrue);
+                        else
+                            dataset ->insertEmptyElement( key, OFTrue);
                     }
                     
                     else if( key == DCM_SeriesDescription && [fetchedObject valueForKeyPath: @"series.name"])

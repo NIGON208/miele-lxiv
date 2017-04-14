@@ -49,7 +49,8 @@
 		else {
 			if ([[self cell] placeholderString])
 				self.formatIsOk = YES;
-			else self.formatIsOk = NO;
+			else
+                self.formatIsOk = NO;
 		}
 		
 	/*	if (invalidContentBackgroundColor) {

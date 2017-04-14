@@ -448,7 +448,8 @@
 										{
 											if( [[study valueForKey:@"modality"] rangeOfString: [s valueForKey:@"modality"]].location == NSNotFound) found = NO;
 										}
-										else found = NO;
+										else
+                                            found = NO;
 									}
 									
 									if( [[routingRule valueForKey: @"previousDescription"] boolValue])
@@ -457,7 +458,8 @@
 										{
 											if( [[study valueForKey:@"studyName"] rangeOfString: [s valueForKey:@"studyName"]].location == NSNotFound) found = NO;
 										}
-										else found = NO;
+										else
+                                            found = NO;
 									}
 									
 									if( found && previousNumber > 0)

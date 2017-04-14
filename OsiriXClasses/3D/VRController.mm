@@ -488,7 +488,7 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
                 if (NSRunAlertPanel(@"", //NSLocalizedString(@"32-bit",nil),
                                     NSLocalizedString(@"Cannot use the 3D engine.",nil),
                                     NSLocalizedString(@"OK", nil),
-                                    nil, //NSLocalizedString(@"OsiriX 64-bit", nil),
+                                    (__bridge NSString *)CFSTR("CFBundleName"),
                                     nil
                                     ) == NSAlertAlternateReturn)
                 {
@@ -497,7 +497,8 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
                 
                 return nil;
             }
-            else free( testPtr);
+            else
+                free( testPtr);
         }
 
         [[NSUserDefaults standardUserDefaults] setFloat: 1125 forKey: @"VRGrowingRegionValue"];
@@ -602,8 +603,10 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
         if( blendingController) blendingPixList = [blendingController pixList];
         
         // Find Minimum Value
-        if( [firstObject isRGB] == NO) [self computeMinMax];
-        else minimumValue = self.deleteValue = 0;
+        if( [firstObject isRGB] == NO)
+            [self computeMinMax];
+        else
+            minimumValue = self.deleteValue = 0;
         
         self = [super initWithWindowNibName:@"VR"];
         
@@ -623,7 +626,7 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
             if (NSRunAlertPanel(@"", //NSLocalizedString(@"32-bit",nil),
                                 NSLocalizedString(@"Cannot use the 3D engine.",nil),
                                 NSLocalizedString(@"OK", nil),
-                                nil, //NSLocalizedString(@"OsiriX 64-bit", nil),
+                                (__bridge NSString *)CFSTR("CFBundleName"),
                                 nil
                                 ) == NSAlertAlternateReturn)
             {
@@ -1074,7 +1077,8 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
 			
 //			memcpy( undodata[ i], data, memSize);
 		}
-		else NSLog(@"Undo failed... not enough memory");
+		else
+            NSLog(@"Undo failed... not enough memory");
 	}
 }
 
@@ -1298,7 +1302,8 @@ return YES;
 			
 			if( result == NSRunStoppedResponse)
 				NSLog( @"deleteValue for 3DCut changed : %f", self.deleteValue);
-			else self.deleteValue = copyValue;
+			else
+                self.deleteValue = copyValue;
 		}
 	}
 	
@@ -1664,8 +1669,10 @@ return YES;
 - (void) setupToolbar {
     // Create a new toolbar instance, and attach it to our document window
 	
-	if( [style isEqualToString:@"standard"]) toolbar = [[NSToolbar alloc] initWithIdentifier: VRStandardToolbarIdentifier];
-    else toolbar = [[NSToolbar alloc] initWithIdentifier: VRPanelToolbarIdentifier];
+	if( [style isEqualToString:@"standard"])
+        toolbar = [[NSToolbar alloc] initWithIdentifier: VRStandardToolbarIdentifier];
+    else
+        toolbar = [[NSToolbar alloc] initWithIdentifier: VRPanelToolbarIdentifier];
     
     // Set up toolbar properties: Allow customization, give a default display mode, and remember state in user defaults 
     [toolbar setAllowsUserCustomization: YES];
@@ -3071,8 +3078,10 @@ return YES;
 		[self close3DSettingsSavePanel:sender];
 		NSString *settingsName = [settingsNameTextField stringValue];
 		NSString *groupName;
-		if(![settingsNewGroupNameTextField isHidden]) groupName = [settingsNewGroupNameTextField stringValue];
-		else groupName = [[settingsGroupPopUpButton selectedItem] title];
+		if(![settingsNewGroupNameTextField isHidden])
+            groupName = [settingsNewGroupNameTextField stringValue];
+		else
+            groupName = [[settingsGroupPopUpButton selectedItem] title];
 		
 		[self save3DSettings:presetDictionary WithName:settingsName group:groupName];
 		[self updatePresetsGroupPopUpButtonSelectingGroupWithName:groupName];

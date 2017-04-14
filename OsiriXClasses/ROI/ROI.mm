@@ -1034,13 +1034,17 @@ int spline( NSPoint *Pt, int tot, NSPoint **newPt, long **correspondingSegmentPt
 	
 	if ( abs( distance) > [newPts count]/2)
 	{
-		if( distance >= 0) reverse = YES;
-		else reverse = NO;
+		if( distance >= 0)
+            reverse = YES;
+		else
+            reverse = NO;
 	}
 	else
 	{
-		if( distance >= 0) reverse = NO;
-		else reverse = YES;
+		if( distance >= 0)
+            reverse = NO;
+		else
+            reverse = YES;
 	}
 	
 	NSMutableArray* orderedPts = [NSMutableArray array];
@@ -1197,10 +1201,9 @@ int spline( NSPoint *Pt, int tot, NSPoint **newPt, long **correspondingSegmentPt
 		imageOrigin = NSPointFromString( [coder decodeObject]);
 		
 		if( fileVersion >= 2)
-		{
 			pixelSpacingY = [[coder decodeObject] floatValue];
-		}
-		else pixelSpacingY = pixelSpacingX;
+		else
+            pixelSpacingY = pixelSpacingX;
 		
 		if (type == tPlain)
 		{
@@ -1232,10 +1235,9 @@ int spline( NSPoint *Pt, int tot, NSPoint **newPt, long **correspondingSegmentPt
 		}
 		
 		if( fileVersion >= 3)
-		{
 			zPositions = [coder decodeObject];
-		}
-		else zPositions = [[NSMutableArray array] retain];
+		else
+            zPositions = [[NSMutableArray array] retain];
 		
 		if( fileVersion >= 4)
 		{
@@ -1289,7 +1291,8 @@ int spline( NSPoint *Pt, int tot, NSPoint **newPt, long **correspondingSegmentPt
 			if(layerColor)[layerColor retain];
 			displayTextualData = [[coder decodeObject] boolValue];
 		}
-		else displayTextualData = YES;
+		else
+            displayTextualData = YES;
 		
 		if (fileVersion >= 8)
 		{
@@ -2421,9 +2424,12 @@ int spline( NSPoint *Pt, int tot, NSPoint **newPt, long **correspondingSegmentPt
         }
     }
     double mesureLength;
-    if( coteA == 0) mesureLength = coteB;
-    else if( coteB == 0) mesureLength = coteA;
-    else mesureLength = coteB / (sin (atan( coteB / coteA)));
+    if( coteA == 0)
+        mesureLength = coteB;
+    else if( coteB == 0)
+        mesureLength = coteA;
+    else
+        mesureLength = coteB / (sin (atan( coteB / coteA)));
     
     if( pixelSpacingX != 0 && pixelSpacingY != 0)
     {
@@ -2494,8 +2500,10 @@ int spline( NSPoint *Pt, int tot, NSPoint **newPt, long **correspondingSegmentPt
 	switch( type)
 	{
 		case tMesure:
-			if( [[points objectAtIndex:0] x] < [[points objectAtIndex:1] x]) result = [[points objectAtIndex:1] point];
-			else result = [[points objectAtIndex:0] point];
+			if( [[points objectAtIndex:0] x] < [[points objectAtIndex:1] x])
+                result = [[points objectAtIndex:1] point];
+			else
+                result = [[points objectAtIndex:0] point];
 		break;
 			
 		case tPlain:
@@ -4222,7 +4230,8 @@ static float Sign(NSPoint p1, NSPoint p2, NSPoint p3)
 				buf[ rad+x + (rad-y)*width] = val;
 				buf[ rad-x + (rad-y)*width] = val;
 			}
-			else break;
+			else
+                break;
 		}
 	}
 }
@@ -4361,13 +4370,17 @@ static float Sign(NSPoint p1, NSPoint p2, NSPoint p3)
 					
 					unsigned char val;
 					
-					if( ![curView eraserFlag]) val = 0xFF;
-					else val = 0x00;
+					if( ![curView eraserFlag])
+                        val = 0xFF;
+					else
+                        val = 0x00;
 					
 					if( modifier & NSCommandKeyMask && !(modifier & NSShiftKeyMask))
 					{
-						if( val == 0xFF) val = 0;
-						else val = 0xFF;
+						if( val == 0xFF)
+                            val = 0;
+						else
+                            val = 0xFF;
 					}
 					
 					long size, *xPoints, *yPoints;
@@ -4731,8 +4744,10 @@ static float Sign(NSPoint p1, NSPoint p2, NSPoint p3)
 	{
 		NSString *finalString;
 		
-		if( [comments length] > 0) finalString = [name stringByAppendingFormat:@"\r%@", comments];
-		else finalString = name;
+		if( [comments length] > 0)
+            finalString = [name stringByAppendingFormat:@"\r%@", comments];
+		else
+            finalString = name;
 		
 		if( [finalString length] > 4096)
 			finalString = [finalString substringToIndex: 4096];
@@ -5064,8 +5079,10 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
 			
 			if( direction)
 			{
-				if( direction == -1) dRect.origin.y -= interRect.size.height;
-				else dRect.origin.y += interRect.size.height;
+				if( direction == -1)
+                    dRect.origin.y -= interRect.size.height;
+				else
+                    dRect.origin.y += interRect.size.height;
 			}
 			else
 			{
@@ -5189,8 +5206,10 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
 		ctrlpoints[2][0] = anchor.x;                        ctrlpoints[2][1] = anchor.y;								ctrlpoints[2][2] = 0;
 		
 		glLineWidth( 3.0 * curView.window.backingScaleFactor);
-		if( mode == ROI_sleep) glColor4f(0.0f, 0.0f, 0.0f, 0.4f);
-		else glColor4f(0.3f, 0.0f, 0.0f, 0.8f);
+		if( mode == ROI_sleep)
+            glColor4f(0.0f, 0.0f, 0.0f, 0.4f);
+		else
+            glColor4f(0.3f, 0.0f, 0.0f, 0.8f);
 		
 		glMap1f(GL_MAP1_VERTEX_3, 0.0, 1.0, 3, 3,&ctrlpoints[0][0]);
 		glEnable(GL_MAP1_VERTEX_3);
@@ -5233,8 +5252,10 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
             
             glScalef( 2.0f /([curView drawingFrameRect].size.width), -2.0f / ([curView drawingFrameRect].size.height), 1.0f);
             
-            if( mode == ROI_sleep) glColor4f(0.0f, 0.0f, 0.0f, 0.4f);
-            else glColor4f(0.3f, 0.0f, 0.0f, 0.8f);
+            if( mode == ROI_sleep)
+                glColor4f(0.0f, 0.0f, 0.0f, 0.4f);
+            else
+                glColor4f(0.3f, 0.0f, 0.0f, 0.8f);
             
             glBegin(GL_POLYGON);
             glVertex2f(  drawRect.origin.x, drawRect.origin.y-1);
@@ -5604,7 +5625,8 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
 						NSPoint tPt = self.lowerRightPoint;
                         
                         if( [name isEqualToString:@"Unnamed"] == NO && [name isEqualToString: NSLocalizedString( @"Unnamed", nil)] == NO) self.textualBoxLine1 = name;
-                        else self.textualBoxLine1 = nil;
+                        else
+                            self.textualBoxLine1 = nil;
 
 						[self prepareTextualData:tPt];
 					}
@@ -5832,7 +5854,8 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
 					NSPoint tPt = [self lowerRightPoint];
 					
 					if( [name isEqualToString: @"Unnamed"] == NO && [name isEqualToString: NSLocalizedString( @"Unnamed", nil)] == NO) self.textualBoxLine1 = name;
-                    else self.textualBoxLine1 = nil;
+                    else
+                        self.textualBoxLine1 = nil;
 					
 					if ( ROITEXTNAMEONLY == NO )
 					{
@@ -5949,8 +5972,10 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
 				}
 				glEnd();
 				
-				if((mode == ROI_selected || mode == ROI_selectedModify || mode == ROI_drawing) && highlightIfSelected) glColor4f (0.5f, 0.5f, 1.0f, opacity);
-				else glColor4f (color.red / 65535., color.green / 65535., color.blue / 65535., opacity);
+				if((mode == ROI_selected || mode == ROI_selectedModify || mode == ROI_drawing) && highlightIfSelected)
+                    glColor4f (0.5f, 0.5f, 1.0f, opacity);
+				else
+                    glColor4f (color.red / 65535., color.green / 65535., color.blue / 65535., opacity);
 				//else glColor4f (1.0f, 0.0f, 0.0f, opacity);
 				
 				glPointSize( (1 + sqrt( thick))*3.5 * backingScaleFactor);
@@ -5967,7 +5992,8 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
 					NSPoint tPt = self.lowerRightPoint;
 					
 					if( [name isEqualToString:@"Unnamed"] == NO && [name isEqualToString: NSLocalizedString( @"Unnamed", nil)] == NO) self.textualBoxLine1 = name;
-                    else self.textualBoxLine1 = nil;
+                    else
+                        self.textualBoxLine1 = nil;
 					
 					if( ROITEXTNAMEONLY == NO )
 					{
@@ -6696,7 +6722,8 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
 						NSPoint			tPt = self.lowerRightPoint;
 						
 						if( [name isEqualToString:@"Unnamed"] == NO && [name isEqualToString: NSLocalizedString( @"Unnamed", nil)] == NO) self.textualBoxLine1 = name;
-						else self.textualBoxLine1 = nil;
+						else
+                            self.textualBoxLine1 = nil;
 						
 						if( ROITEXTNAMEONLY == NO)
 						{
@@ -7276,9 +7303,12 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
                         glPointSize( (1 * backingScaleFactor + sqrt( thick))*3.5 * backingScaleFactor);
                         glBegin( GL_POINTS);
                         for( long i = 0; i < [points count]; i++) {
-                            if( mode >= ROI_selected && (i == selectedModifyPoint || i == PointUnderMouse)) glColor3f (1.0f, 0.2f, 0.2f);
-                            else if( mode == ROI_drawing && [[points objectAtIndex: i] isNearToPoint: tempPt : scaleValue/(thick*backingScaleFactor) :[[curView curDCM] pixelRatio]] == YES) glColor3f (1.0f, 0.0f, 1.0f);
-                            else glColor3f (0.5f, 0.5f, 1.0f);
+                            if( mode >= ROI_selected && (i == selectedModifyPoint || i == PointUnderMouse))
+                                glColor3f (1.0f, 0.2f, 0.2f);
+                            else if( mode == ROI_drawing && [[points objectAtIndex: i] isNearToPoint: tempPt : scaleValue/(thick*backingScaleFactor) :[[curView curDCM] pixelRatio]] == YES)
+                                glColor3f (1.0f, 0.0f, 1.0f);
+                            else
+                                glColor3f (0.5f, 0.5f, 1.0f);
                             
                             glVertex2f( ([[points objectAtIndex: i] x]- offsetx) * scaleValue , ([[points objectAtIndex: i] y]- offsety) * scaleValue);
                         }
@@ -8226,7 +8256,8 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
 								[self prepareTextualData:tPt];
 							}
 						}
-						else displayTextualData = NO;
+						else
+                            displayTextualData = NO;
 					}
 					
 					if((mode == ROI_selected || mode == ROI_selectedModify || mode == ROI_drawing) && highlightIfSelected)
@@ -9073,8 +9104,10 @@ NSInteger sortPointArrayAlongX(id point1, id point2, void *context)
 	if( mode == ROI_drawing)
 		localType = tOPolygon;
 	
-	if( localType == tOPolygon) nb = [points count];
-	else nb = [points count]+1;
+	if( localType == tOPolygon)
+        nb = [points count];
+	else
+        nb = [points count]+1;
 
 	NSPoint pts[nb];
 	
@@ -9134,8 +9167,10 @@ NSInteger sortPointArrayAlongX(id point1, id point2, void *context)
         return zPositions;
 	
 	int nb; // number of points
-	if(type==tOPolygon) nb = [zPositions count];
-	else nb = [zPositions count]+1;
+	if(type==tOPolygon)
+        nb = [zPositions count];
+	else
+        nb = [zPositions count]+1;
 
 	NSPoint pts[nb];
 	

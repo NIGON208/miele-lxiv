@@ -1095,12 +1095,14 @@ void read_bounding_box(long j)
     if ((maxs[0] - mins[0])>(maxs[1] - mins[1])) {
         if ((maxs[2] - mins[2]) > (maxs[0] - mins[0]))
             width = maxs[2] - mins[2];
-        else width = maxs[0] - mins[0];
+        else
+            width = maxs[0] - mins[0];
     }
     else {
         if ((maxs[1] - mins[1]) > (maxs[2] - mins[2]))
             width = maxs[1] - mins[1];
-        else width = maxs[2] - mins[2];
+        else
+            width = maxs[2] - mins[2];
     }
 
     width = width * 4;
@@ -2029,7 +2031,8 @@ void adapted_main()
 
     // TJH: copied this line from earlier - how else does site_blocks get deallocated?
     // (trying to solve memory leaks)
-    for (i=0;i<num_blocks;i++) free(site_blocks[i]);
+    for (i=0;i<num_blocks;i++)
+        free(site_blocks[i]);
 
 	free_heap();	// EPRO added
     // TJH: we don't need to crash out here...
@@ -3678,7 +3681,10 @@ int reduce(basis_s **v, point p, simplex *s, int k) {
 			trans(z,p,tt); 
 			lift(z,s);
 		}
-    } else trans(z,p,tt);
+    }
+    else
+        trans(z,p,tt);
+    
     return reduce_inner(*v,s,k);
 }
 
@@ -3698,7 +3704,13 @@ void get_basis_sede(simplex *s) {
         if (!sn0->basis) {
             sn0->basis = tt_basisp;
             tt_basisp->ref_count++;
-        } else while (k < cdim && sn->basis) {k++;sn++;}
+        }
+        else
+            while (k < cdim && sn->basis)
+            {
+                k++;
+                sn++;
+            }
     }
     while (k<cdim) {
         NULLIFY(basis_s,sn->basis);
@@ -3751,7 +3763,9 @@ int check_perps(simplex *s) {
         b = (basis_s*)malloc(basis_s_size);
         OSIRIX_ASSERT((long) (b));
     }
-    else b->lscale = 0;
+    else
+        b->lscale = 0;
+    
     z = VB(b);
     tt = s->neigh[0].vert;
     for (i=1;i<cdim;i++) {
@@ -3834,7 +3848,9 @@ int sees(site p, simplex *s) {
         b = (basis_s*)malloc(basis_s_size);
         OSIRIX_ASSERT((long) (b));
     }
-    else b->lscale = 0;
+    else
+        b->lscale = 0;
+    
     zz = VB(b);
     if (cdim==0) return 0;
     if (!s->normal) {
@@ -3964,10 +3980,14 @@ void *mark_points(simplex *s, void *dum) {
     neighbor *sn;
 
     for  (i=0,sn=s->neigh;i<cdim;i++,sn++) {
-        if (sn->vert==infinity) continue;
+        if (sn->vert==infinity)
+            continue;
+        
         snum = site_num(sn->vert);
-        if (s->mark) mo[snum] = 1;
-        else mi[snum] = 1;
+        if (s->mark)
+            mo[snum] = 1;
+        else
+            mi[snum] = 1;
     }
     return NULL;
 }
@@ -4005,9 +4025,13 @@ double find_alpha(simplex *root) {
     int check_ashape_returns = check_ashape(root,ah);
     OSIRIX_ASSERT((long) (check_ashape_returns));
     for (i=0;i<17;i++) {
-        if (check_ashape(root, am = (al+ah)/2)) ah = am;
-        else al = am;
-        if ((ah-al)/ah<.5) break;
+        if (check_ashape(root, am = (al+ah)/2))
+            ah = am;
+        else
+            al = am;
+        
+        if ((ah-al)/ah<.5)
+            break;
     }
     return 1.1*ah;
 }
@@ -4028,7 +4052,11 @@ void vols(fg *f, Tree *t, basis_s* n, int depth) {
     if (!s) {NEWL(simplex,s); sn = s->neigh;}
     cdim = depth;
     s->normal = n;
-    if (depth>1 && sees(t->key,s)) signum = -1; else signum = 1;
+    if (depth>1 && sees(t->key,s))
+        signum = -1;
+    else
+        signum = 1;
+    
     cdim = tdim;
 
     if (t->fgs->dist == 0) {
@@ -4042,16 +4070,21 @@ void vols(fg *f, Tree *t, basis_s* n, int depth) {
         else
             t->fgs->dist = Vec_dot_pdim(nnv,nnv)
                 /4/nnv[rdim-1]/nnv[rdim-1];
-        if (!t->fgs->facets) t->fgs->vol = 1;
-        else vols(t->fgs, t->fgs->facets, nn, depth+1);
+        
+        if (!t->fgs->facets)
+            t->fgs->vol = 1;
+        else
+            vols(t->fgs, t->fgs->facets, nn, depth+1);
     }
 
     OSIRIX_ASSERT((long) (f->dist!=Huge || t->fgs->dist==Huge));
     if (t->fgs->dist==Huge || t->fgs->vol==Huge) f->vol = Huge;
     else {
         sqq = t->fgs->dist - f->dist;
-        if (NEARZERO(sqq)) f->vol = 0;
-        else f->vol += signum
+        if (NEARZERO(sqq))
+            f->vol = 0;
+        else
+            f->vol += signum
                  *sqrt(sqq)
                  *t->fgs->vol
                  /(cdim-depth+1);
@@ -4711,7 +4744,8 @@ STORAGE(Tree)
             r = t;
             t = t->left;
             r_size += 1+node_size(r->right);
-        } else if (comp > 0) {
+        }
+        else if (comp > 0) {
             if (!t->right) break;
             if (compare(i, t->right->key) > 0) {
                 y = t->right;                          /* rotate left */
@@ -4725,7 +4759,9 @@ STORAGE(Tree)
             l = t;
             t = t->right;
             l_size += 1+node_size(l->left);
-        } else break;
+        }
+        else
+            break;
     }
     l_size += node_size(t->left);  /* Now l_size and r_size are the sizes of */
     r_size += node_size(t->right); /* the left and right trees we just built.*/
@@ -5057,8 +5093,11 @@ void print_hist_fg(simplex *root, fg *faces_gr, FILE *F) {
     for (i=19;i>=0 && !tot_good[i] && !tot_bad[i]; i--);
     fprintf(F,"totals   ");
     for (k=0;k<=i;k++) {
-        if (k==0) fprintf(F, "  ");
-        else fprintf(F,"            ");
+        if (k==0)
+            fprintf(F, "  ");
+        else
+            fprintf(F,"            ");
+        
         fprintf(F, "%d/%d/%d",
                 (int)tot_far[k], (int)tot_good[k], (int)tot_good[k] + (int)tot_bad[k]);
     }
@@ -5070,8 +5109,11 @@ void print_hist_fg(simplex *root, fg *faces_gr, FILE *F) {
         fprintf(F, "\n%d    ",j);fflush(F);
             
         for (k=0;k<=i;k++) {
-            if (k==0) fprintf(F, "  ");
-            else fprintf(F,"            ");
+            if (k==0)
+                fprintf(F, "  ");
+            else
+                fprintf(F,"            ");
+            
             if (fg_hist[k][j] || fg_hist_bad[k][j])
                 fprintf(F,
                         "%2.1f/%2.1f/%2.1f",
@@ -5139,7 +5181,8 @@ void heapify(int hi)
  
     if ((LEFT(hi) <= heap_size) && (heap_A[LEFT(hi)].pri > heap_A[hi].pri))
         largest = LEFT(hi);
-    else largest = hi;
+    else
+        largest = hi;
   
     if ((RIGHT(hi) <= heap_size) && (heap_A[RIGHT(hi)].pri > heap_A[largest].pri))
         largest = RIGHT(hi);
@@ -5211,10 +5254,9 @@ void update(int hi, double pr)
         heap_A[i].pid = pi;
         adjlist[pi].hid = i;
     }
-    else heapify(hi);
+    else
+        heapify(hi);
 }
-
-
 
 //========hull.c=============================================================
 /* hull.c : "combinatorial" functions for hull computation */
@@ -5433,7 +5475,9 @@ void connect(simplex *s) {
             if (!sf->peak.vert) {   /* are we done already? */
                 sf = op_vert(seen,xb)->simp;
                 if (sf->peak.vert) continue;                
-            } else do {
+            }
+            else
+                do {
                 xb = xf;
                 neighbor *n = op_simp(sf,sb);
                 if( n)
@@ -5447,7 +5491,9 @@ void connect(simplex *s) {
                     else
                         break;
                 }
-                else break;
+                else
+                    break;
+                
             } while (sf->peak.vert);
 
             sn->simp = sf;
@@ -6205,7 +6251,8 @@ int propagate()
     pid = extract_max();
     if (adjlist[pid].in > adjlist[pid].out) 
         adjlist[pid].label = IN;
-    else adjlist[pid].label = OUT;
+    else
+        adjlist[pid].label = OUT;
     /*  fprintf(DFILE,"pole %d in %f out %f label %d\n",pid, adjlist[pid].in, adjlist[pid].out, adjlist[pid].label);  */
     
     if (pid != -1) {
@@ -6464,12 +6511,14 @@ void label_unlabeled(int num)
                             if (tangle > tangle1) {
                                 adjlist[i].label = IN;
                             }
-                            else adjlist[i].label = OUT;
+                            else
+                                adjlist[i].label = OUT;
                         }
                         else if (opplabel == IN) {
                             adjlist[i].label = OUT;
                         }
-                        else  adjlist[i].label = IN;
+                        else
+                            adjlist[i].label = IN;
                     }
                     else { /* intersecting only in deeply */
                         adjlist[i].label = IN;

@@ -814,7 +814,8 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void *context
                     searchString = [study valueForKey:@"name"];
                     predicate = [NSPredicate predicateWithFormat: @"(name == %@)", searchString];
                 }
-                else predicate = [NSPredicate predicateWithFormat: @"(patientUID == %@)", searchString];
+                else
+                    predicate = [NSPredicate predicateWithFormat: @"(patientUID == %@)", searchString];
                 
                 allStudiesArray = [db objectsForEntity:db.studyEntity predicate:predicate];
                 allStudiesArray = [allStudiesArray sortedArrayUsingDescriptors: [NSArray arrayWithObject: [NSSortDescriptor sortDescriptorWithKey: @"date" ascending: NO]]];
@@ -1406,7 +1407,8 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void *context
 		else
             [item setState: NSOffState];
 	}
-	else valid = YES;
+	else
+        valid = YES;
 	
 	if( showDescriptionInLarge)
 	{
@@ -1798,14 +1800,17 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void *context
 			[stringTex release];
 		}
 		
-		if(align==DCMViewTextAlignRight) x -= [stringTex texSize].width;
-		else if(align==DCMViewTextAlignCenter) x -= [stringTex texSize].width/2.0;
-		else x -= 5 * self.window.backingScaleFactor;
+		if(align==DCMViewTextAlignRight)
+            x -= [stringTex texSize].width;
+		else if(align==DCMViewTextAlignCenter)
+            x -= [stringTex texSize].width/2.0;
+		else
+            x -= 5 * self.window.backingScaleFactor;
 		
 		CGLContextObj cgl_ctx = [[NSOpenGLContext currentContext] CGLContextObj];
 		if( cgl_ctx)
         {
-            glEnable (GL_TEXTURE_RECTANGLE_EXT);
+            glEnable(GL_TEXTURE_RECTANGLE_EXT);
             glEnable(GL_BLEND);
             glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
             
@@ -1824,10 +1829,11 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void *context
                 glColor4f (0.0f, 0.0f, 0.0f, 1.0f);
             else
                 glColor4f (1.0f, 1.0f, 1.0f, 1.0f);
+            
             [stringTex drawWithBounds: NSMakeRect( xc, yc, [stringTex texSize].width, [stringTex texSize].height)];
             
             glDisable(GL_BLEND);
-            glDisable (GL_TEXTURE_RECTANGLE_EXT);
+            glDisable(GL_TEXTURE_RECTANGLE_EXT);
         }
 	}
 	else
@@ -1835,15 +1841,19 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void *context
 		char *cstrOut = (char*) [str UTF8String];
 		if(align==DCMViewTextAlignRight)
 		{
-			if( fontL == labelFontListGL) x -= [DCMView lengthOfString:cstrOut forFont:labelFontListGLSize] + 2*self.window.backingScaleFactor;
+			if( fontL == labelFontListGL)
+                x -= [DCMView lengthOfString:cstrOut forFont:labelFontListGLSize] + 2*self.window.backingScaleFactor;
 //			else if( fontL == iChatFontListGL) x -= [DCMView lengthOfString:cstrOut forFont:iChatFontListGLSize] + 2*self.window.backingScaleFactor;
-			else x -= [DCMView lengthOfString:cstrOut forFont:fontListGLSize] + 2;
+			else
+                x -= [DCMView lengthOfString:cstrOut forFont:fontListGLSize] + 2;
 		}
 		else if(align==DCMViewTextAlignCenter)
 		{
-			if( fontL == labelFontListGL) x -= [DCMView lengthOfString:cstrOut forFont:labelFontListGLSize]/2.0 + 2*self.window.backingScaleFactor;
+			if( fontL == labelFontListGL)
+                x -= [DCMView lengthOfString:cstrOut forFont:labelFontListGLSize]/2.0 + 2*self.window.backingScaleFactor;
 //			else if( fontL == iChatFontListGL) x -= [DCMView lengthOfString:cstrOut forFont:iChatFontListGLSize]/2.0 + 2*self.window.backingScaleFactor;
-			else x -= [DCMView lengthOfString:cstrOut forFont:fontListGLSize]/2.0 + 2*self.window.backingScaleFactor;
+			else
+                x -= [DCMView lengthOfString:cstrOut forFont:fontListGLSize]/2.0 + 2*self.window.backingScaleFactor;
 		}
 		
 		unsigned char	*lstr = (unsigned char*) cstrOut;
@@ -1867,7 +1877,8 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void *context
             while (lstr [i])
             {
                 long val = lstr[i++] - ' ';
-                if( val < 150 && val >= 0) glCallList (fontL+val);
+                if( val < 150 && val >= 0)
+                    glCallList (fontL+val);
             }
             
             if( whiteBackground)
@@ -1881,7 +1892,8 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void *context
             while (lstr [i])
             {
                 long val = lstr[i++] - ' ';
-                if( val < 150 && val >= 0) glCallList (fontL+val);
+                if( val < 150 && val >= 0)
+                    glCallList (fontL+val);
             }
         }
 	}
@@ -1995,9 +2007,12 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void *context
 					
 					float rot = [self rotation];
 					
-					if ([event modifierFlags] & NSAlternateKeyMask) rot -= 180;		// -> 180
-					else if ([event modifierFlags] & NSShiftKeyMask) rot -= 90;	// -> 90
-					else rot += 90;	// -> 90
+					if ([event modifierFlags] & NSAlternateKeyMask)
+                        rot -= 180;		// -> 180
+					else if ([event modifierFlags] & NSShiftKeyMask)
+                        rot -= 90;	// -> 90
+					else
+                        rot += 90;	// -> 90
 					
 					self.rotation = rot;
 					
@@ -2983,8 +2998,10 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void *context
 		{
 			if (currentTool == tZoom)
 			{
-				if( yMove) val = yMove;
-				else val = xMove;
+				if( yMove)
+                    val = yMove;
+				else
+                    val = xMove;
 				
 				self.scaleValue = scaleValue + val / 10.0f;
 			}
@@ -3008,8 +3025,10 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void *context
 			
 			if (currentTool == tRotate)
 			{
-				if( yMove) val = yMove * 3;
-				else val = xMove * 3;
+				if( yMove)
+                    val = yMove * 3;
+				else
+                    val = xMove * 3;
 				
 				float rot = self.rotation;
 				
@@ -3536,7 +3555,8 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void *context
 		LENSRATIO = (float) textureWidth / (float) [curDCM pwidth];
 		LENSSIZE *= LENSRATIO;
 	}
-	else LENSRATIO = 1;
+	else
+        LENSRATIO = 1;
 	
 	if( LENSSIZE < textureWidth)
 	{
@@ -3881,7 +3901,8 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void *context
                             blendingPixelMouseValueG = ((unsigned char*) [[blendingView curDCM] fImage])[ 4 * (xPos + yPos * [[blendingView curDCM] pwidth]) +2];
                             blendingPixelMouseValueB = ((unsigned char*) [[blendingView curDCM] fImage])[ 4 * (xPos + yPos * [[blendingView curDCM] pwidth]) +3];
                         }
-                        else blendingPixelMouseValue = [[blendingView curDCM] getPixelValueX: xPos Y:yPos];
+                        else
+                            blendingPixelMouseValue = [[blendingView curDCM] getPixelValueX: xPos Y:yPos];
                     }
                 }
             }
@@ -4088,8 +4109,10 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void *context
 	if (([event modifierFlags] & (NSShiftKeyMask|NSAlternateKeyMask)) == NSAlternateKeyMask)  tool = tWL;
 	if (([event modifierFlags] & NSControlKeyMask) && ([event modifierFlags] & NSAlternateKeyMask))
 	{
-		if( blendingView) tool = tWLBlended;
-		else tool = tWL;
+		if( blendingView)
+            tool = tWLBlended;
+		else
+            tool = tWL;
 	}
 	
 	if( [self roiTool:currentTool] != YES && currentTool != tROISelector)   // Not a ROI TOOL !
@@ -4142,11 +4165,16 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void *context
     {
         int maxVal;
         
-        if( flippedData) maxVal = curImage-(curDCM.stack-1)/2;
-        else maxVal = curImage+(curDCM.stack-1)/2;
+        if( flippedData)
+            maxVal = curImage-(curDCM.stack-1)/2;
+        else
+            maxVal = curImage+(curDCM.stack-1)/2;
         
-        if( maxVal < 0) maxVal = 0;
-        if( maxVal >= [dcmPixList count]) maxVal = (long)[dcmPixList count]-1;
+        if( maxVal < 0)
+            maxVal = 0;
+        
+        if( maxVal >= [dcmPixList count])
+            maxVal = (long)[dcmPixList count]-1;
         
         return [dcmPixList objectAtIndex: maxVal];
     }
@@ -4170,7 +4198,8 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void *context
 		
 		thickDCM = [dcmPixList objectAtIndex: maxVal];
 	}
-	else thickDCM = nil;
+	else
+        thickDCM = nil;
 
 	int pos = flippedData? (long)[dcmPixList count] -1 -curImage : curImage;
 
@@ -6847,7 +6876,8 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void *context
 		
 		thickDCM = [dcmPixList objectAtIndex: maxVal];
 	}
-	else thickDCM = nil;
+	else
+        thickDCM = nil;
 	
 	int pos = flippedData? (long)[dcmPixList count] -1 -curImage : curImage;
 	
@@ -7253,11 +7283,16 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void *context
 				// Absolute Vodka
 				if( syncro == syncroABS && point3D == NO && syncSeriesIndex == -1)
 				{
-					if( flippedData) newImage = (long)[dcmPixList count] -1 -pos;
-					else newImage = pos;
+					if( flippedData)
+                        newImage = (long)[dcmPixList count] -1 -pos;
+					else
+                        newImage = pos;
 					
-					if( newImage >= [dcmPixList count]) newImage = [dcmPixList count] - 1;
-					if( newImage < 0) newImage = 0;
+					if( newImage >= [dcmPixList count])
+                        newImage = [dcmPixList count] - 1;
+                    
+					if( newImage < 0)
+                        newImage = 0;
 				}
                 
                 // Absolute Ratio
@@ -7267,11 +7302,16 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void *context
 
                     int ratioPos = round( ratio * (float) [dcmPixList count]);
                     
-					if( flippedData) newImage = (long)[dcmPixList count] -1 -ratioPos;
-					else newImage = ratioPos;
+					if( flippedData)
+                        newImage = (long)[dcmPixList count] -1 -ratioPos;
+					else
+                        newImage = ratioPos;
 					
-					if( newImage >= [dcmPixList count]) newImage = [dcmPixList count] - 1;
-					if( newImage < 0) newImage = 0;
+					if( newImage >= [dcmPixList count])
+                        newImage = [dcmPixList count] - 1;
+                    
+					if( newImage < 0)
+                        newImage = 0;
 				}
 				
 				// Based on Location
@@ -7382,11 +7422,14 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void *context
 									{
 										float sliceDistance;
 										
-										if( [[dcmPixList objectAtIndex: 1] isLoaded] && [[dcmPixList objectAtIndex: 0] isLoaded]) everythingLoaded = YES;
-										else everythingLoaded = NO;
+										if( [[dcmPixList objectAtIndex: 1] isLoaded] && [[dcmPixList objectAtIndex: 0] isLoaded])
+                                            everythingLoaded = YES;
+										else
+                                            everythingLoaded = NO;
 										
 										if( everythingLoaded) sliceDistance = fabs( [(DCMPix*)[dcmPixList objectAtIndex: 1] sliceLocation] - [(DCMPix*)[dcmPixList objectAtIndex: 0] sliceLocation]);
-										else sliceDistance = fabs( [[[dcmFilesList objectAtIndex: 1] valueForKey:@"sliceLocation"] floatValue] - [[[dcmFilesList objectAtIndex: 0] valueForKey:@"sliceLocation"] floatValue]);
+										else
+                                            sliceDistance = fabs( [[[dcmFilesList objectAtIndex: 1] valueForKey:@"sliceLocation"] floatValue] - [[[dcmFilesList objectAtIndex: 0] valueForKey:@"sliceLocation"] floatValue]);
 										
 										if( fabs( smallestdiff) > sliceDistance * 2)
 										{
@@ -7411,28 +7454,40 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void *context
                             float ratio = (float) pos / (float) [[otherView dcmPixList] count];
                             int ratioPos = round( ratio * (float) [dcmPixList count]);
                             
-                            if( flippedData) newImage = (long)[dcmPixList count] -1 -ratioPos;
-                            else newImage = ratioPos;
+                            if( flippedData)
+                                newImage = (long)[dcmPixList count] -1 -ratioPos;
+                            else
+                                newImage = ratioPos;
                         }
                         else if( [[NSUserDefaults standardUserDefaults] integerForKey: @"DefaultModeForNonVolumicSeries"] == syncroABS)
                         {
-                            if( flippedData) newImage = (long)[dcmPixList count] -1 -pos;
-                            else newImage = pos;
+                            if( flippedData)
+                                newImage = (long)[dcmPixList count] -1 -pos;
+                            else
+                                newImage = pos;
                         }
                         
-                        if( newImage >= [dcmPixList count]) newImage = [dcmPixList count] - 1;
-                        if( newImage < 0) newImage = 0;
+                        if( newImage >= [dcmPixList count])
+                            newImage = [dcmPixList count] - 1;
+                        
+                        if( newImage < 0)
+                            newImage = 0;
 					}
 				}
                 
 				 // Relative
 				 if( syncro == syncroREL && point3D == NO && syncSeriesIndex == -1)
 				 {
-					if( flippedData) newImage -= diff;
-					else newImage += diff;
+					if( flippedData)
+                        newImage -= diff;
+					else
+                        newImage += diff;
 					
-					if( newImage < 0) newImage += [dcmPixList count];
-					if( newImage >= [dcmPixList count]) newImage -= [dcmPixList count];
+					if( newImage < 0)
+                        newImage += [dcmPixList count];
+                     
+					if( newImage >= [dcmPixList count])
+                        newImage -= [dcmPixList count];
 				 }
 				
 				// Relatif
@@ -8033,7 +8088,8 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void *context
 		{
 			[optr appendString: orientationZ]; absZ=0;
 		}
-		else break;
+		else
+            break;
 	}
 	
 	strcpy( orientation, [optr UTF8String]);
@@ -8380,9 +8436,12 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void *context
 		{
 			long maxVal = flippedData? maxVal = curImage-curDCM.stack : curImage+curDCM.stack;
 			
-			if( maxVal < 0) maxVal = curImage;
-			else if( maxVal > [dcmPixList count]) maxVal = [dcmPixList count] - curImage;
-			else maxVal = curDCM.stack;
+			if( maxVal < 0)
+                maxVal = curImage;
+			else if( maxVal > [dcmPixList count])
+                maxVal = [dcmPixList count] - curImage;
+			else
+                maxVal = curDCM.stack;
 			
 			float vv = fabs( (maxVal-1) * [[dcmPixList objectAtIndex:0] sliceInterval]);
 			
@@ -8517,7 +8576,8 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void *context
                 [studyDateBox drawAtPoint: NSMakePoint( size.origin.x + 5*sf, size.origin.y + 4*sf) view: self];
             }
 		}
-		else colorBoxSize = 0;
+		else
+            colorBoxSize = 0;
 		
 		NSDictionary *annotationsDictionary = curDCM.annotationsDictionary;
 		
@@ -8768,10 +8828,11 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void *context
 									
 									if( stackOrientationStart[ 0] != 0 && stackOrientationEnd[ 0] != 0)
 									{
-										float pos;
-										
-										if( flippedData) pos = (float) ([dcmPixList count] - curImage) / (float) [dcmPixList count];
-										else pos = (float) curImage / (float) [dcmPixList count];
+										float pos;										
+										if( flippedData)
+                                            pos = (float) ([dcmPixList count] - curImage) / (float) [dcmPixList count];
+										else
+                                            pos = (float) curImage / (float) [dcmPixList count];
 										
 										if( pos < 0.4)
 											orientationStack = [NSString stringWithFormat: @" %c (%c -> %c)", stackOrientationStart[ 0], stackOrientationStart[ 0], stackOrientationEnd[ 0]];
@@ -8787,11 +8848,16 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void *context
 							{
 								long maxVal;
 								
-								if(flippedData) maxVal = curImage-curDCM.stack+1;
-								else maxVal = curImage+curDCM.stack;
+								if(flippedData)
+                                    maxVal = curImage-curDCM.stack+1;
+								else
+                                    maxVal = curImage+curDCM.stack;
 								
-								if(maxVal < 0) maxVal = 0;
-								if(maxVal > [dcmPixList count]) maxVal = [dcmPixList count];
+								if(maxVal < 0)
+                                    maxVal = 0;
+                                
+								if(maxVal > [dcmPixList count])
+                                    maxVal = [dcmPixList count];
 								
 								if( flippedData)
                                     [tempString appendFormat: NSLocalizedString( @"Im: %ld-%ld/%ld %@", @"No special characters for this string, only ASCII characters."), (long) [dcmPixList count] - curImage, [dcmPixList count] - maxVal, (long) [dcmPixList count], orientationStack];
@@ -8821,11 +8887,16 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void *context
 									if( curDCM.stack > 1) {
 										long maxVal;
 									
-										if( flippedData) maxVal = curImage-(curDCM.stack-1)/2;
-										else maxVal = curImage+(curDCM.stack-1)/2;
+										if( flippedData)
+                                            maxVal = curImage-(curDCM.stack-1)/2;
+										else
+                                            maxVal = curImage+(curDCM.stack-1)/2;
 										
-										if( maxVal < 0) maxVal = 0;
-										if( maxVal >= [dcmPixList count]) maxVal = (long)[dcmPixList count]-1;
+										if( maxVal < 0)
+                                            maxVal = 0;
+                                        
+										if( maxVal >= [dcmPixList count])
+                                            maxVal = (long)[dcmPixList count]-1;
 										
 										[[dcmPixList objectAtIndex: maxVal] convertPixX: mouseXPos pixY: mouseYPos toDICOMCoords: location pixelCenter: YES];
 									}
@@ -9875,8 +9946,10 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void *context
 				// Draw ROIs
 				BOOL drawROI = NO;
 				
-				if( is2DViewer == YES) drawROI = [[[self windowController] roiLock] tryLock];
-				else drawROI = YES;
+				if( is2DViewer == YES)
+                    drawROI = [[[self windowController] roiLock] tryLock];
+				else
+                    drawROI = YES;
 				
 				if( drawROI )
 				{
@@ -10631,8 +10704,10 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void *context
 			{
 				float yChanged = sqrt( (rect.size.height / previousViewSize.height) * (rect.size.width / previousViewSize.width));
 				
-				if( yChanged > 0.01 && yChanged < 1000) yChanged = yChanged;
-				else yChanged = 0.01;
+				if( yChanged > 0.01 && yChanged < 1000)
+                    yChanged = yChanged;
+				else
+                    yChanged = 0.01;
 				
 				if( is2DViewer)
 				{
@@ -11137,7 +11212,8 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void *context
 //                    }
 //                }
 			}
-			else smartCroppedRect = NSMakeRect( 0, 0, drawingFrameRect.size.width, drawingFrameRect.size.height);
+			else
+                smartCroppedRect = NSMakeRect( 0, 0, drawingFrameRect.size.width, drawingFrameRect.size.height);
 			
 			if( imOrigin)
 			{
@@ -11966,7 +12042,19 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void *context
 								  views: [viewers valueForKey: @"imageView"]
 							  viewsRect: viewsRect];
 	}
-	else data = [self getRawPixelsWidth :&width height:&height spp:&spp bpp:&bpp screenCapture:!originalSize force8bits: YES removeGraphical:NO squarePixels:YES allTiles: [[NSUserDefaults standardUserDefaults] boolForKey:@"includeAllTiledViews"] allowSmartCropping: [[NSUserDefaults standardUserDefaults] boolForKey: @"allowSmartCropping"] origin: nil spacing: nil];
+	else
+        data = [self getRawPixelsWidth : &width
+                                 height: &height
+                                    spp: &spp
+                                    bpp: &bpp
+                          screenCapture: !originalSize
+                             force8bits: YES
+                        removeGraphical: NO
+                           squarePixels: YES
+                               allTiles: [[NSUserDefaults standardUserDefaults] boolForKey:@"includeAllTiledViews"]
+                     allowSmartCropping: [[NSUserDefaults standardUserDefaults] boolForKey: @"allowSmartCropping"]
+                                 origin: nil
+                                spacing: nil];
 	
 	if( [stringID isEqualToString:@"copy"])
 	{
@@ -11986,8 +12074,10 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void *context
 		}
 	}
 	
-	if( spp == 3) colorSpace = NSCalibratedRGBColorSpace;
-	else colorSpace = NSCalibratedWhiteColorSpace;
+	if( spp == 3)
+        colorSpace = NSCalibratedRGBColorSpace;
+	else
+        colorSpace = NSCalibratedWhiteColorSpace;
 	
 	rep = [[[NSBitmapImageRep alloc]
 			 initWithBitmapDataPlanes: nil
@@ -12625,7 +12715,8 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void *context
 			}
 			vImageTableLookUp_ARGB8888( &dest8, &dest8, (Pixel_8*) currentAlphaTable, (Pixel_8*) &credTable, (Pixel_8*) &cgreenTable, (Pixel_8*) &cblueTable, 0);
 		}
-		else vImageTableLookUp_ARGB8888( &dest8, &dest8, (Pixel_8*) currentAlphaTable, (Pixel_8*) rT, (Pixel_8*) gT, (Pixel_8*) bT, 0);
+		else
+            vImageTableLookUp_ARGB8888( &dest8, &dest8, (Pixel_8*) currentAlphaTable, (Pixel_8*) rT, (Pixel_8*) gT, (Pixel_8*) bT, 0);
 	}
 
 	glEnable(TEXTRECTMODE);
@@ -12643,8 +12734,10 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void *context
 	{
 		zoomIsSoftwareInterpolated = YES;
 		
-		if( curDCM.pwidth <= 256) resampledScale = 3;
-		else resampledScale = 2;
+		if( curDCM.pwidth <= 256)
+            resampledScale = 3;
+		else
+            resampledScale = 2;
 		
 		*tW = curDCM.pwidth * resampledScale;
 		*tH = curDCM.pheight * resampledScale;
@@ -12914,14 +13007,19 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void *context
 					}
 					else
 					{
-						#if __BIG_ENDIAN__
-						if( isRGB == YES || [curDCM thickSlabVRActivated] == YES) glTexImage2D (TEXTRECTMODE, 0, GL_RGBA, currWidth, currHeight, 0, GL_BGRA_EXT, GL_UNSIGNED_INT_8_8_8_8_REV, pBuffer);
-						else if( (localColorTransfer == YES) || (blending == YES)) glTexImage2D (TEXTRECTMODE, 0, GL_RGBA, currWidth, currHeight, 0, GL_BGRA_EXT, GL_UNSIGNED_INT_8_8_8_8_REV, pBuffer);
-						#else
-						if( isRGB == YES || [curDCM thickSlabVRActivated] == YES) glTexImage2D (TEXTRECTMODE, 0, GL_RGBA, currWidth, currHeight, 0, GL_BGRA_EXT, GL_UNSIGNED_INT_8_8_8_8, pBuffer);
-						else if( (localColorTransfer == YES) || (blending == YES)) glTexImage2D (TEXTRECTMODE, 0, GL_RGBA, currWidth, currHeight, 0, GL_BGRA_EXT, GL_UNSIGNED_INT_8_8_8_8, pBuffer);
-						#endif
-						else glTexImage2D (TEXTRECTMODE, 0, GL_INTENSITY8, currWidth, currHeight, 0, GL_LUMINANCE, GL_UNSIGNED_BYTE, pBuffer);
+#if __BIG_ENDIAN__
+						if( isRGB == YES || [curDCM thickSlabVRActivated] == YES)
+                            glTexImage2D (TEXTRECTMODE, 0, GL_RGBA, currWidth, currHeight, 0, GL_BGRA_EXT, GL_UNSIGNED_INT_8_8_8_8_REV, pBuffer);
+						else if( (localColorTransfer == YES) || (blending == YES))
+                            glTexImage2D (TEXTRECTMODE, 0, GL_RGBA, currWidth, currHeight, 0, GL_BGRA_EXT, GL_UNSIGNED_INT_8_8_8_8_REV, pBuffer);
+#else
+						if( isRGB == YES || [curDCM thickSlabVRActivated] == YES)
+                            glTexImage2D (TEXTRECTMODE, 0, GL_RGBA, currWidth, currHeight, 0, GL_BGRA_EXT, GL_UNSIGNED_INT_8_8_8_8, pBuffer);
+						else if( (localColorTransfer == YES) || (blending == YES))
+                            glTexImage2D (TEXTRECTMODE, 0, GL_RGBA, currWidth, currHeight, 0, GL_BGRA_EXT, GL_UNSIGNED_INT_8_8_8_8, pBuffer);
+#endif
+						else
+                            glTexImage2D (TEXTRECTMODE, 0, GL_INTENSITY8, currWidth, currHeight, 0, GL_LUMINANCE, GL_UNSIGNED_BYTE, pBuffer);
 					}
 				}
 				
@@ -12969,8 +13067,10 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void *context
 {
 	long	x = curImage;//x = curImage before sliderAction
 
-	if( flippedData) curImage = (long)[dcmPixList count] -1 -[sender intValue];
-    else curImage = [sender intValue];
+	if( flippedData)
+        curImage = (long)[dcmPixList count] -1 -[sender intValue];
+    else
+        curImage = [sender intValue];
 		
 	[self setIndex:curImage];
 	
@@ -14235,9 +14335,11 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void *context
 				break;
 			}
 		}
-		else returnedVal = NO;
+		else
+            returnedVal = NO;
 	}
-	else returnedVal = NO;
+	else
+        returnedVal = NO;
 	
 	return returnedVal;
 }
