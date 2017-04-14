@@ -12,12 +12,7 @@
      PURPOSE.
 =========================================================================*/
 
-#define id Id
-	#include "itkImage.h"
-	#include "itkImportImageFilter.h"
-	#include "itkResampleImageFilter.h"
-#undef id
-
+#include <locale>
 #import "DCMPix.h"
 #import "ITK.h"
 
@@ -166,7 +161,6 @@
 {
 	itk::MultiThreader::SetGlobalDefaultNumberOfThreads( [[NSProcessInfo processInfo] processorCount]);
 
-#ifndef TODO_FIX_ITK_NEW_VERSION  // @@@ problem
     importFilter = ImportFilterType3::New();
 //	importFilter->DebugOn();
 	
@@ -185,7 +179,6 @@
 	
 	const bool importImageFilterWillOwnTheBuffer = filterWillOwnBuffer;
 	importFilter->SetImportPointer( data, size[0] * size[1] * size[2], importImageFilterWillOwnTheBuffer);
-#endif // @@@
 }
 
 @end

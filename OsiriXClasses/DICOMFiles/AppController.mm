@@ -50,11 +50,13 @@
 #import "NSPanel+N2.h"
 #ifndef OSIRIX_LIGHT
 #import "BonjourPublisher.h"
+
 #ifndef MACAPPSTORE
 #import "Reports.h"
 #import <ILCrashReporter/ILCrashReporter.h>
 #import "VRView.h"
 #endif
+
 #endif
 #import "PluginManagerController.h"
 #import "OSIWindowController.h"
@@ -88,8 +90,10 @@
 #include <stdlib.h>
 
 #import "url.h"
-#include "opj_config.h"	 
-#import "DCMTKStoreSCU.h"  // for DCMTK version
+#import "vtkVersion.h"      // for VTK version
+#import "itkConfigure.h"    // for ITK version
+#import "DCMTKStoreSCU.h"   // for DCMTK version
+#include "opj_config.h"
 
 #define BUILTIN_DCMTK YES
 #define MAXSCREENS 10
@@ -694,13 +698,33 @@ static NSDate *lastWarningDate = nil;
     return NO;
 }
 
++(BOOL) hasMacOSXSierra
+{
+    NSOperatingSystemVersion version = [[NSProcessInfo processInfo] operatingSystemVersion];
+    if (version.majorVersion == 10 ||
+        version.minorVersion >= 12)
+        return YES;
+    
+    return NO;
+}
+/*
++(BOOL) hasMacOSXElCapitan
+{
+    NSOperatingSystemVersion version = [[NSProcessInfo processInfo] operatingSystemVersion];
+    if (version.majorVersion == 10 ||
+        version.minorVersion >= 11)
+        return YES;
+    
+    return NO;
+}
+
 +(BOOL) hasMacOSXYosemite
 {
     NSOperatingSystemVersion version = [[NSProcessInfo processInfo] operatingSystemVersion];
     if (version.majorVersion == 10 ||
         version.minorVersion >= 10)
         return YES;
-
+    
     return NO;
 }
 
@@ -713,6 +737,7 @@ static NSDate *lastWarningDate = nil;
 
     return YES;
 }
+ */
 
 +(BOOL) hasMacOSXMountainLion
 {
@@ -801,7 +826,9 @@ static NSDate *lastWarningDate = nil;
 			
 			if( accumulateAnimations)
 			{
-				if( accumulateAnimationsArray == nil) accumulateAnimationsArray = [[NSMutableArray array] retain];
+				if( accumulateAnimationsArray == nil)
+                    accumulateAnimationsArray = [[NSMutableArray array] retain];
+                
 				[accumulateAnimationsArray addObject: windowResize];
 			}
 			else
@@ -956,16 +983,11 @@ static NSDate *lastWarningDate = nil;
 + (void) DNSResolve:(id) o
 {
 	NSAutoreleasePool *p = [[NSAutoreleasePool alloc] init];
-	
 	NSLog( @"start DNSResolve");
-	
 	for( NSString *s in [[DefaultsOsiriX currentHost] names])
-	{
 		NSLog( @"%@", s);
-	}
 	
 	NSLog( @"end DNSResolve");
-	
 	[p release];
 }
 
@@ -997,6 +1019,7 @@ static NSDate *lastWarningDate = nil;
 					NSLog( @"------- %@", frame_description);
 					[r appendFormat: @"%@\r", frame_description];
 				}
+                
 				free( frameStrings);
 				frameStrings = nil;
 			}
@@ -1017,9 +1040,7 @@ static NSDate *lastWarningDate = nil;
 
 + (BOOL) willExecutePlugin:(id) filter;
 {
-	BOOL returnValue = YES;
-	
-	return returnValue;
+	return YES;
 }
 
 - (void) pause
@@ -1037,7 +1058,6 @@ static NSDate *lastWarningDate = nil;
 	
 	NSString *replacing = NSLocalizedString(@" will be replaced by ", @"");
 	NSString *strVersion = NSLocalizedString(@" version ", @"");
-	
 	
 	for(NSString *path in pluginsArray)
 	{
@@ -1083,7 +1103,8 @@ static NSDate *lastWarningDate = nil;
 	}
 	
 	pluginNames = [NSMutableString stringWithString: [pluginNames substringToIndex:[pluginNames length]-2]];
-	if([replacingPlugins length]) replacingPlugins = [NSMutableString stringWithString:[replacingPlugins substringToIndex:[replacingPlugins length]-2]];
+	if([replacingPlugins length])
+        replacingPlugins = [NSMutableString stringWithString:[replacingPlugins substringToIndex:[replacingPlugins length]-2]];
 	
 	NSString *msg;
 	NSString *areYouSure = NSLocalizedString(@"Are you sure you want to install", @"");
@@ -1132,7 +1153,7 @@ static NSDate *lastWarningDate = nil;
     [NSApp abortModal];
 }
 
-//———————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+//——————————————————————————————————————————————————————————————————————————————
 
 - (IBAction)okModal:(id)sender
 {
@@ -1146,7 +1167,7 @@ static NSDate *lastWarningDate = nil;
 }
 #endif
 
-//———————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+//——————————————————————————————————————————————————————————————————————————————
 #pragma mark-
 
 -(IBAction) osirix64bit:(id)sender
@@ -1157,7 +1178,11 @@ static NSDate *lastWarningDate = nil;
 	{
 		NSArray* urls = [NSArray arrayWithObject: [NSURL URLWithString:URL_OSIRIX_VIEWER@"/OsiriX-64bit.html"]];
 
-        [[NSWorkspace sharedWorkspace] openURLs:urls withAppBundleIdentifier: nil options: NSWorkspaceLaunchWithoutActivation additionalEventParamDescriptor: nil launchIdentifiers: nil];
+        [[NSWorkspace sharedWorkspace] openURLs: urls
+                        withAppBundleIdentifier: nil
+                                        options: NSWorkspaceLaunchWithoutActivation
+                 additionalEventParamDescriptor: nil
+                              launchIdentifiers: nil];
 	}
 }
 
@@ -1185,7 +1210,7 @@ static NSDate *lastWarningDate = nil;
 {
 	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:URL_VENDOR@"/products.html#OsiriXUserManual"]];
 }
-//———————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+//——————————————————————————————————————————————————————————————————————————————
 #pragma mark-
 
 - (void) waitForPID: (NSNumber*) pidNumber
@@ -1224,7 +1249,8 @@ static NSDate *lastWarningDate = nil;
 	gethostname(s,_POSIX_HOST_NAME_MAX);
 	NSString *c = [NSString stringWithCString:s encoding:NSUTF8StringEncoding];
 	NSRange range = [c rangeOfString: @"."];
-	if( range.location != NSNotFound) c = [c substringToIndex: range.location];
+	if( range.location != NSNotFound)
+        c = [c substringToIndex: range.location];
 	
 	if( [c length] > 16)
 		c = [c substringToIndex: 16];
@@ -1288,6 +1314,7 @@ static NSDate *lastWarningDate = nil;
                     ViewerController *v = [ViewerController frontMostDisplayed2DViewerForScreen: s];
                     [v.window makeKeyAndOrderFront: self];
                 }
+                
                 [[AppController sharedAppController] tileWindows: nil];
             }
             else
@@ -1295,63 +1322,86 @@ static NSDate *lastWarningDate = nil;
                 NSDisableScreenUpdates();
                 for( ViewerController *v in [ViewerController getDisplayed2DViewers])
                     [v setMatrixVisible: [defaults integerForKey: @"SeriesListVisible"]];
+                
                 NSEnableScreenUpdates();
             }
         }
             
         if( [[previousDefaults valueForKey: @"DisplayDICOMOverlays"] intValue] != [defaults integerForKey: @"DisplayDICOMOverlays"])
             revertViewer = YES;
+        
         if( [[previousDefaults valueForKey: @"ROITEXTNAMEONLY"] intValue] != [defaults integerForKey: @"ROITEXTNAMEONLY"])
             refreshViewer = YES;
+        
         if( [[previousDefaults valueForKey: @"ROITEXTIFSELECTED"] intValue] != [defaults integerForKey: @"ROITEXTIFSELECTED"])
             refreshViewer = YES;
+        
         if( [[previousDefaults valueForKey: @"PET Blending CLUT"] isKindOfClass: [NSString class]])
         {
             if ([[previousDefaults valueForKey: @"PET Blending CLUT"] isEqualToString: [defaults stringForKey: @"PET Blending CLUT"]] == NO) 
                 recomputePETBlending = YES;
         }
-        else NSLog( @"*** isKindOfClass NSString");
+        else
+            NSLog( @"*** isKindOfClass NSString");
+        
         if( [[previousDefaults valueForKey: @"COPYSETTINGS"] intValue] != [defaults integerForKey: @"COPYSETTINGS"])
             refreshViewer = YES;
+        
         if( [[previousDefaults valueForKey: @"DBDateFormat2"] isKindOfClass:[NSString class]])
         {
             if( [[previousDefaults valueForKey: @"DBDateFormat2"] isEqualToString: [defaults stringForKey: @"DBDateFormat2"]] == NO)
                 refreshDatabase = YES;
         }
-        else NSLog( @"*** isKindOfClass NSString");
+        else
+            NSLog( @"*** isKindOfClass NSString");
+        
         if( [[previousDefaults valueForKey: @"DBDateOfBirthFormat2"] isKindOfClass:[NSString class]])
         {
             if( [[previousDefaults valueForKey: @"DBDateOfBirthFormat2"] isEqualToString: [defaults stringForKey: @"DBDateOfBirthFormat2"]] == NO)
                 refreshDatabase = YES;
         }
-        else NSLog( @"*** isKindOfClass NSString");
+        else
+            NSLog( @"*** isKindOfClass NSString");
+        
         if ([[previousDefaults valueForKey: @"DICOMTimeout"] intValue] != [defaults integerForKey: @"DICOMTimeout"])
             restartListener = YES;
+        
         if ([[previousDefaults valueForKey: @"DICOMConnectionTimeout"] intValue] != [defaults integerForKey: @"DICOMConnectionTimeout"])
             restartListener = YES;
+        
         if ([[previousDefaults valueForKey: @"UseHostNameForAETitle"] intValue] != [defaults integerForKey: @"UseHostNameForAETitle"])
             restartListener = YES;
+        
         if ([[previousDefaults valueForKey: @"preferredSyntaxForIncoming"] intValue] != [defaults integerForKey: @"preferredSyntaxForIncoming"])
             restartListener = YES;
+        
         if ([[previousDefaults valueForKey: @"httpXMLRPCServer"] intValue] != [defaults integerForKey: @"httpXMLRPCServer"])
             restartListener = YES;
+        
         if ([[previousDefaults valueForKey: @"httpXMLRPCServerPort"] intValue] != [defaults integerForKey: @"httpXMLRPCServerPort"])
             restartListener = YES;
+        
         if ([[previousDefaults valueForKey: @"httpWebServer"] intValue] != [defaults integerForKey: @"httpWebServer"])
             restartListener = YES;
+        
         if ([[previousDefaults valueForKey: @"httpWebServerPort"] intValue] != [defaults integerForKey: @"httpWebServerPort"])
             restartListener = YES;
+        
         if ([[previousDefaults valueForKey: @"encryptedWebServer"] intValue] != [defaults integerForKey: @"encryptedWebServer"])
             restartListener = YES;
+        
         if ([[previousDefaults valueForKey: @"LISTENERCHECKINTERVAL"] intValue] != [defaults integerForKey: @"LISTENERCHECKINTERVAL"])
             restartListener = YES;
+        
         if ([[previousDefaults valueForKey: @"SingleProcessMultiThreadedListener"] intValue] != [defaults integerForKey: @"SingleProcessMultiThreadedListener"])
             restartListener = YES;
         
         if ([[previousDefaults valueForKey: @"activateCGETSCP"] intValue] != [defaults integerForKey: @"activateCGETSCP"])
             restartListener = YES;
+        
         if ([[previousDefaults valueForKey: @"activateCFINDSCP"] intValue] != [defaults integerForKey: @"activateCFINDSCP"])
             restartListener = YES;
+        
         if ([[previousDefaults valueForKey: @"activateCMOVESCP"] intValue] != [defaults integerForKey: @"activateCMOVESCP"])
             restartListener = YES;
         
@@ -1373,6 +1423,7 @@ static NSDate *lastWarningDate = nil;
         
         if ([[previousDefaults valueForKey: @"AEPORT"] intValue] != [defaults integerForKey: @"AEPORT"])
             restartListener = YES;
+        
         if( [[previousDefaults valueForKey: @"AETransferSyntax"] isKindOfClass:[NSString class]])
         {
             if ([[previousDefaults valueForKey: @"AETransferSyntax"] isEqualToString: [defaults stringForKey: @"AETransferSyntax"]] == NO)
@@ -1383,24 +1434,34 @@ static NSDate *lastWarningDate = nil;
         
         if ([[previousDefaults valueForKey: OsirixCanActivateDefaultDatabaseOnlyDefaultsKey] intValue] !=	[defaults integerForKey: OsirixCanActivateDefaultDatabaseOnlyDefaultsKey])
             restartListener = YES;
+        
         if ([[previousDefaults valueForKey: @"STORESCP"] intValue] != [defaults integerForKey: @"STORESCP"])
             restartListener = YES;
+        
         if ([[previousDefaults valueForKey: @"USESTORESCP"] intValue] != [defaults integerForKey: @"USESTORESCP"])
             restartListener = YES;
+        
         if ([[previousDefaults valueForKey: @"HIDEPATIENTNAME"] intValue] != [defaults integerForKey: @"HIDEPATIENTNAME"])
             refreshDatabase = YES;
+        
         if ([[previousDefaults valueForKey: @"COLUMNSDATABASE"] isEqualToDictionary:[defaults objectForKey: @"COLUMNSDATABASE"]] == NO)
-            refreshColumns = YES;	
+            refreshColumns = YES;
+        
         if ([[previousDefaults valueForKey: @"SERIESORDER"] intValue] != [defaults integerForKey: @"SERIESORDER"])
             refreshDatabase = YES;
+        
         if ([[previousDefaults valueForKey: @"KeepStudiesOfSamePatientTogether"] intValue] != [defaults integerForKey: @"KeepStudiesOfSamePatientTogether"])
             refreshDatabase = YES;
+        
         if ([[previousDefaults valueForKey: @"NOINTERPOLATION"] intValue] != [defaults integerForKey: @"NOINTERPOLATION"])
             refreshViewer = YES;
+        
         if ([[previousDefaults valueForKey: @"SOFTWAREINTERPOLATION"] intValue] != [defaults integerForKey: @"SOFTWAREINTERPOLATION"])
             refreshViewer = YES;
+        
         if ([[previousDefaults valueForKey: @"publishDICOMBonjour"] intValue] != [defaults integerForKey: @"publishDICOMBonjour"])
             restartListener = YES;
+        
         if ([[previousDefaults valueForKey: @"STORESCPTLS"] intValue] != [defaults integerForKey: @"STORESCPTLS"])
             restartListener = YES;
         
@@ -1528,9 +1589,9 @@ static NSDate *lastWarningDate = nil;
         
         Use_kdu_IfAvailable = [[NSUserDefaults standardUserDefaults] boolForKey:@"UseKDUForJPEG2000"];
         
-        #ifndef OSIRIX_LIGHT
+#ifndef OSIRIX_LIGHT
         [DCMPixelDataAttribute setUse_kdu_IfAvailable: Use_kdu_IfAvailable];
-        #endif
+#endif
         
         [[BrowserController currentBrowser] setNetworkLogs];
         [DicomFile resetDefaults];
@@ -1539,12 +1600,8 @@ static NSDate *lastWarningDate = nil;
         [ROI loadDefaultSettings];
         
         if( restartListener)
-        {
             if( [defaults boolForKey: @"UseHostNameForAETitle"])
-            {
                 [self setAETitleToHostname];
-            }
-        }
     }
     @catch( NSException *localException) {
 		NSLog(@"Exception updating prefs: %@", [localException description]);
@@ -1564,16 +1621,18 @@ static NSDate *lastWarningDate = nil;
 		[updateTimer invalidate];
         [updateTimer release];
         updateTimer = nil;
-	
     }
     
-	updateTimer = [[NSTimer scheduledTimerWithTimeInterval: 0.5 target: self selector:@selector(runPreferencesUpdateCheck:) userInfo:nil repeats: NO] retain];
+	updateTimer = [[NSTimer scheduledTimerWithTimeInterval: 0.5
+                                                    target: self
+                                                  selector: @selector(runPreferencesUpdateCheck:)
+                                                  userInfo: nil
+                                                   repeats: NO] retain];
 }
 
 - (void) testMenus
 {
-#ifdef NDEBUG
-#else
+#ifndef NDEBUG
 	NSLog( @"Testing localization for menus");
 	
 	if( [self viewerMenu] == nil)
@@ -1605,7 +1664,6 @@ static NSDate *lastWarningDate = nil;
 	
 	if( [self exportMenu] == nil)
         NSLog( @"******* WARNING MENU MOVED / RENAMED ! exportMenu");
-
     
     if( [self viewerMenuTestLocalized: YES] == nil)
         NSLog( @"******* WARNING MENU MOVED / RENAMED ! viewerMenu Localized");
@@ -1636,7 +1694,6 @@ static NSDate *lastWarningDate = nil;
 	
 	if( [self exportMenuTestLocalized: YES] == nil)
         NSLog( @"******* WARNING MENU MOVED / RENAMED ! exportMenu Localized");
-
 #endif
 }
 
@@ -1644,7 +1701,9 @@ static NSDate *lastWarningDate = nil;
 {
     NSMenu *mainMenu = [NSApp mainMenu];
     NSMenu *viewerMenu = [[mainMenu itemWithTitle:NSLocalizedString(@"2D Viewer", nil)] submenu];
-    if( testLocalized) viewerMenu = nil;
+    if( testLocalized)
+        viewerMenu = nil;
+    
     if( viewerMenu == nil)
     {
         viewerMenu = [[mainMenu itemAtIndex: 5]  submenu];
@@ -1667,7 +1726,9 @@ static NSDate *lastWarningDate = nil;
 {
     NSMenu *mainMenu = [NSApp mainMenu];
     NSMenu *fileMenu = [[mainMenu itemWithTitle:NSLocalizedString(@"File", nil)] submenu];
-    if( testLocalized) fileMenu = nil;
+    if( testLocalized)
+        fileMenu = nil;
+    
     if( fileMenu == nil)
     {
         fileMenu = [[mainMenu itemAtIndex: 1] submenu];
@@ -1690,7 +1751,9 @@ static NSDate *lastWarningDate = nil;
 {
     NSMenu *fileMenu = [self fileMenu];
     NSMenu *exportMenu = [[fileMenu itemWithTitle:NSLocalizedString(@"Export", nil)] submenu];
-    if( testLocalized) exportMenu = nil;
+    if( testLocalized)
+        exportMenu = nil;
+    
     if( exportMenu == nil)
     {
         exportMenu = [[fileMenu itemAtIndex: 12] submenu];
@@ -1735,7 +1798,9 @@ static NSDate *lastWarningDate = nil;
 {
     NSMenu *viewerMenu = [self viewerMenu];
     NSMenu *orientationMenu = [[viewerMenu itemWithTitle: NSLocalizedString(@"Orientation", nil)] submenu];
-    if( testLocalized) orientationMenu = nil;
+    if( testLocalized)
+        orientationMenu = nil;
+    
     if( orientationMenu == nil)
     {
         orientationMenu = [[viewerMenu itemAtIndex: 12]  submenu];
@@ -1758,7 +1823,9 @@ static NSDate *lastWarningDate = nil;
 {
     NSMenu *viewerMenu = [self viewerMenu];
     NSMenu *opacityMenu = [[viewerMenu itemWithTitle: NSLocalizedString(@"Opacity", nil)] submenu];
-    if( testLocalized) opacityMenu = nil;
+    if( testLocalized)
+        opacityMenu = nil;
+    
     if( opacityMenu == nil)
     {
         opacityMenu = [[viewerMenu itemAtIndex: 44]  submenu];
@@ -1781,7 +1848,9 @@ static NSDate *lastWarningDate = nil;
 {
     NSMenu *viewerMenu = [self viewerMenu];
     NSMenu *wlwwMenu = [[viewerMenu itemWithTitle:NSLocalizedString(@"Window Width & Level", nil)] submenu];
-    if( testLocalized) wlwwMenu = nil;
+    if( testLocalized)
+        wlwwMenu = nil;
+    
     if( wlwwMenu == nil)
     {
         wlwwMenu = [[viewerMenu itemAtIndex: 41]  submenu];
@@ -1804,7 +1873,9 @@ static NSDate *lastWarningDate = nil;
 {
     NSMenu *viewerMenu = [self viewerMenu];
     NSMenu *convMenu = [[viewerMenu itemWithTitle: NSLocalizedString(@"Convolution Filters", nil)] submenu];
-    if( testLocalized) convMenu = nil;
+    if( testLocalized)
+        convMenu = nil;
+    
     if( convMenu == nil)
     {
         convMenu = [[viewerMenu itemAtIndex: 45]  submenu];
@@ -1827,7 +1898,9 @@ static NSDate *lastWarningDate = nil;
 {
     NSMenu *viewerMenu = [self viewerMenu];
     NSMenu *clutMenu = [[viewerMenu itemWithTitle:NSLocalizedString(@"Color Look Up Table", nil)] submenu];
-    if( testLocalized) clutMenu = nil;
+    if( testLocalized)
+        clutMenu = nil;
+    
     if( clutMenu == nil)
     {
         clutMenu = [[viewerMenu itemAtIndex: 42]  submenu];
@@ -1850,7 +1923,9 @@ static NSDate *lastWarningDate = nil;
 {
     NSMenu *viewerMenu = [self viewerMenu];
     NSMenu *workspaceMenu = [[viewerMenu itemWithTitle:NSLocalizedString(@"Load Workspace State DICOM SR", nil)] submenu];
-    if( testLocalized) workspaceMenu = nil;
+    if( testLocalized)
+        workspaceMenu = nil;
+    
     if( workspaceMenu == nil)
     {
         @try {
@@ -1927,7 +2002,6 @@ static NSDate *lastWarningDate = nil;
                                                viewers, @"windowsState",
                                                nil]];
                     [mi setTarget: self];
-                    
                     [menu addItem: mi];
                 }
             }
@@ -1957,11 +2031,13 @@ static NSDate *lastWarningDate = nil;
         
         BOOL c = [[NSUserDefaults standardUserDefaults] boolForKey:@"automaticWorkspaceLoad"];
         
-        if( c == NO) [[NSUserDefaults standardUserDefaults] setBool: YES forKey:@"automaticWorkspaceLoad"];
+        if( c == NO)
+            [[NSUserDefaults standardUserDefaults] setBool: YES forKey:@"automaticWorkspaceLoad"];
         
         [[BrowserController currentBrowser] databaseOpenStudy: study];
         
-        if( c == NO) [[NSUserDefaults standardUserDefaults] setBool: c forKey:@"automaticWorkspaceLoad"];
+        if( c == NO)
+            [[NSUserDefaults standardUserDefaults] setBool: c forKey:@"automaticWorkspaceLoad"];
     }
 }
 
@@ -1985,10 +2061,12 @@ static NSDate *lastWarningDate = nil;
         [mainOpacityMenu removeAllItems];
 		
 		[mainOpacityMenu addItemWithTitle:NSLocalizedString(@"Linear Table", nil) action:@selector (ApplyOpacity:) keyEquivalent:@""];
+        
 		for( i = 0; i < [sortedKeys count]; i++)
 		{
 			[mainOpacityMenu addItemWithTitle:[sortedKeys objectAtIndex:i] action:@selector (ApplyOpacity:) keyEquivalent:@""];
 		}
+        
 		[mainOpacityMenu addItem: [NSMenuItem separatorItem]];
 		[mainOpacityMenu addItemWithTitle:NSLocalizedString(@"Add an Opacity Table", nil) action:@selector (AddOpacity:) keyEquivalent:@""];
 	}
@@ -2023,6 +2101,7 @@ static NSDate *lastWarningDate = nil;
 		{
 			[mainMenuWLWWMenu addItemWithTitle:[NSString stringWithFormat:@"%d - %@", i+1, [sortedKeys objectAtIndex:i]] action:@selector (ApplyWLWW:) keyEquivalent:@""];
 		}
+        
 		[mainMenuWLWWMenu addItem: [NSMenuItem separatorItem]];
         SEL AddCurrentWLWWSelector = sel_registerName("AddCurrentWLWW:");
 		[mainMenuWLWWMenu addItemWithTitle:NSLocalizedString(@"Add Current WL/WW", nil) action:AddCurrentWLWWSelector keyEquivalent:@""];
@@ -2057,6 +2136,7 @@ static NSDate *lastWarningDate = nil;
 		{
 			[mainMenuConvMenu addItemWithTitle:[sortedKeys objectAtIndex:i] action:@selector (ApplyConv:) keyEquivalent:@""];
 		}
+        
 		[mainMenuConvMenu addItem: [NSMenuItem separatorItem]];
 		[mainMenuConvMenu addItemWithTitle:NSLocalizedString(@"Add a Filter", nil) action:@selector (AddConv:) keyEquivalent:@""];
 	}
@@ -2089,6 +2169,7 @@ static NSDate *lastWarningDate = nil;
 		{
 			[mainMenuCLUTMenu addItemWithTitle:[sortedKeys objectAtIndex:i] action:@selector (ApplyCLUT:) keyEquivalent:@""];
 		}
+        
 		[mainMenuCLUTMenu addItem: [NSMenuItem separatorItem]];
 		[mainMenuCLUTMenu addItemWithTitle:NSLocalizedString(@"Add a CLUT", nil) action:@selector (AddCLUT:) keyEquivalent:@""];
 	}
@@ -2174,7 +2255,6 @@ static NSDate *lastWarningDate = nil;
 	[[DCMNetServiceDelegate sharedNetServiceDelegate] setPublisher: BonjourDICOMService];
 }
 
-
 #pragma mark-
 
 -(void) restartSTORESCP
@@ -2212,7 +2292,9 @@ static NSDate *lastWarningDate = nil;
 				[theArguments addObject:@"storescp"];
 				[aTask setArguments:theArguments];		
 				[aTask launch];
-                while( [aTask isRunning]) [NSThread sleepForTimeInterval: 0.01];
+                while( [aTask isRunning])
+                    [NSThread sleepForTimeInterval: 0.01];
+                
 //				[aTask waitUntilExit];
 				[aTask interrupt];
 				[aTask release];
@@ -2256,7 +2338,11 @@ static NSDate *lastWarningDate = nil;
 				[STORESCPTLS unlock];
 			}
 			else
-                NSRunCriticalAlertPanel( NSLocalizedString( @"DICOM TLS Listener Error", nil), NSLocalizedString( @"Cannot start DICOM TLS Listener. Another thread is already running. Restart OsiriX.", nil), NSLocalizedString( @"OK", nil), nil, nil);
+                NSRunCriticalAlertPanel(NSLocalizedString( @"DICOM TLS Listener Error", nil),
+                                        NSLocalizedString( @"Cannot start DICOM TLS Listener. Another thread is already running. Restart OsiriX.", nil),
+                                        NSLocalizedString( @"OK", nil),
+                                        nil,
+                                        nil);
 		}
 	
 	} @catch (NSException* e) {
@@ -2304,7 +2390,7 @@ static NSDate *lastWarningDate = nil;
 {
 	// this method is always executed as a new thread detached from the NSthread command of RestartSTORESCP method
     
-	#ifndef OSIRIX_LIGHT
+#ifndef OSIRIX_LIGHT
 	[STORESCP lock];
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	
@@ -2338,7 +2424,7 @@ static NSDate *lastWarningDate = nil;
 	
 	[pool release];
 	[STORESCP unlock];
-	#endif
+#endif
 	
 	return;
 }
@@ -2612,6 +2698,7 @@ static NSDate *lastWarningDate = nil;
             if ([[args objectAtIndex:i] isEqualToString:@"--LoadPlugin"])
                 if ([[args objectAtIndex:i+1] isEqualToString:path])
                     isLoadPlugin = YES;
+        
         if (!isLoadPlugin)
             [passedFilenames addObject:path];
     }
@@ -2754,16 +2841,20 @@ static BOOL firstCall = YES;
         // DELETE the content of TEMP.noindex directory...
         if ([[NSFileManager defaultManager] fileExistsAtPath:tempDirectory])
             [[NSFileManager defaultManager] removeItemAtPath:tempDirectory error:NULL];
+        
         if ([[NSFileManager defaultManager] fileExistsAtPath:tempDirectory])
             [[NSFileManager defaultManager] moveItemAtPathToTrash: tempDirectory];
+        
         if ([[NSFileManager defaultManager] fileExistsAtPath: tempDirectory])
             NSLog( @"******** FAILED to clean the tempDirectory directory: %@", tempDirectory);
         
         // DELETE THE DECOMPRESSION.noindex DIRECTORY...
         if ([[NSFileManager defaultManager] fileExistsAtPath:decompressionDirectory])
             [[NSFileManager defaultManager] removeItemAtPath:decompressionDirectory error:NULL];
+        
         if ([[NSFileManager defaultManager] fileExistsAtPath:decompressionDirectory])
             [[NSFileManager defaultManager] moveItemAtPathToTrash: decompressionDirectory];
+        
         if ([[NSFileManager defaultManager] fileExistsAtPath: decompressionDirectory])
             NSLog( @"******** FAILED to clean the decompressionDirectory directory: %@", decompressionDirectory);
     }
@@ -2778,8 +2869,10 @@ static BOOL firstCall = YES;
     NSString *tmpDirPath = [[NSFileManager defaultManager] tmpDirPath];
     if ([[NSFileManager defaultManager] fileExistsAtPath: tmpDirPath])
         [[NSFileManager defaultManager] removeItemAtPath: tmpDirPath error:NULL];
+    
     if ([[NSFileManager defaultManager] fileExistsAtPath: tmpDirPath])
         [[NSFileManager defaultManager] moveItemAtPathToTrash: tmpDirPath];
+    
     if ([[NSFileManager defaultManager] fileExistsAtPath: tmpDirPath])
         NSLog( @"******** FAILED to clean the tmpDirPath directory: %@", tmpDirPath);
     
@@ -2817,23 +2910,24 @@ static BOOL firstCall = YES;
     for( NSWindow *w in [NSApp windows])
 		[w orderOut:sender];
     
-	#ifndef OSIRIX_LIGHT
+#ifndef OSIRIX_LIGHT
 	[dcmtkQRSCP abort];
 	[dcmtkQRSCPTLS abort];
-	#endif
+#endif
 	
     [NSThread sleepForTimeInterval: 0.5];
     
-	#ifndef OSIRIX_LIGHT
+#ifndef OSIRIX_LIGHT
 	[[QueryController currentQueryController] release];
 	[[QueryController currentAutoQueryController] release];
-    #endif
+#endif
 	
     NSTimeInterval t = [NSDate timeIntervalSinceReferenceDate];
     while ([[[ThreadsManager defaultManager] threads] count] && [NSDate timeIntervalSinceReferenceDate]-t < 10) { // give declared background threads 10 secs to cancel
         for (NSThread* thread in [[ThreadsManager defaultManager] threads])
             if (![thread isCancelled])
                 [thread cancel];
+        
         [NSThread sleepForTimeInterval:0.05];
     }
     
@@ -2841,9 +2935,7 @@ static BOOL firstCall = YES;
 		[w close];
     
 	[[NSUserDefaults standardUserDefaults] synchronize];
-	
     [OSIGeneralPreferencePanePref applyLanguagesIfNeeded];
-    
 	[NSApp terminate: sender];
 }
 
@@ -2939,19 +3031,22 @@ static BOOL initialized = NO;
 					exit(0);
 				}
                 
-                int processors;
+                int numCPU;
                 int mib[2] = {CTL_HW, HW_NCPU};
-                size_t dataLen = sizeof(int); // 'num' is an 'int'
-                int result = sysctl(mib, 2, &processors, &dataLen, NULL, 0);
-                if (result == -1)
-                    processors = 1;
+                size_t dataLen = sizeof(int);
+                int result = sysctl(mib, 2, &numCPU, &dataLen, NULL, 0);
+                if ((result != 0) || (numCPU < 1))
+                    numCPU = 1;
                 
                 NSString *bits = @"32-bit";
-                if( sizeof( long) == 8)
+                if (sizeof(long) == 8)
                     bits = @"64-bit";
                 
                 NSLog(@"*-+-*-+-*-+-*-+-*-+-*-+-*-+-*-+-*-+-*-+-*-+-*-+-*-+-*-+-*-+-*-+-*-+-*");
-				NSLog(@"Number of processors: %d / %d", processors, (int) [[NSProcessInfo processInfo] processorCount]);
+				NSLog(@"Number of CPUs: %d, processors: %u (%u active)",
+                      numCPU,
+                      [[NSProcessInfo processInfo] processorCount],
+                      [[NSProcessInfo processInfo] activeProcessorCount]);
                 NSLog(@"Number of screens: %d", (int) [[NSScreen screens] count]);
 				NSLog(@"Main screen backingScaleFactor: %f", (float) [[NSScreen mainScreen] backingScaleFactor]);
                 NSDictionary *d = [[NSBundle mainBundle] infoDictionary];
@@ -2960,23 +3055,29 @@ static BOOL initialized = NO;
                       [d objectForKey:@"CFBundleShortVersionString"],
                       [d objectForKey:@"CFBundleVersion"],
                       bits);
+                NSLog(@"VTK %d.%d.%d", VTK_MAJOR_VERSION, VTK_MINOR_VERSION, VTK_BUILD_VERSION);
+                NSLog(@"ITK %d.%d.%d", ITK_VERSION_MAJOR, ITK_VERSION_MINOR, ITK_VERSION_PATCH);
                 NSLog(@"OpenJPEG %d.%d.%d", OPJ_VERSION_MAJOR, OPJ_VERSION_MINOR, OPJ_VERSION_BUILD);
                 [DCMTKStoreSCU showDcmtkVersion];
                 
                 NSArray *components = [[[NSBundle mainBundle] pathForResource: @"Localizable" ofType: @"strings"] pathComponents];
                 if( components.count > 3)
                     NSLog(@"Localization: %@", [components objectAtIndex: components.count -2]);
-				#ifdef NDEBUG
-				#else
+#ifndef NDEBUG
 				NSLog( @"**** DEBUG MODE ****");
-				#endif
+#endif
                 
 				[[NSUserDefaults standardUserDefaults] registerDefaults: [DefaultsOsiriX getDefaults]];
                 
                 if( [BrowserController _currentModifierFlags] & NSCommandKeyMask &&
                     [BrowserController _currentModifierFlags] & NSAlternateKeyMask)
                 {
-                    NSInteger result = NSRunInformationalAlertPanel( NSLocalizedString(@"Reset Preferences", nil), NSLocalizedString(@"Are you sure you want to reset ALL preferences of OsiriX? All the preferences will be reset to their default values.", nil), NSLocalizedString(@"Cancel",nil), NSLocalizedString(@"OK",nil),  nil);
+                    NSInteger result = NSRunInformationalAlertPanel(
+                                            NSLocalizedString(@"Reset Preferences", nil),
+                                            NSLocalizedString(@"Are you sure you want to reset ALL preferences of OsiriX? All the preferences will be reset to their default values.", nil),
+                                            NSLocalizedString(@"Cancel",nil),
+                                            NSLocalizedString(@"OK",nil),
+                                            nil);
                     
                     if( result == NSAlertAlternateReturn)
                     {
@@ -2997,6 +3098,7 @@ static BOOL initialized = NO;
                 if ([[NSUserDefaults standardUserDefaults] objectForKey:@"AutocleanSpaceMode"] == nil) {
                     BOOL cleanOldest = [[[NSUserDefaults standardUserDefaults] objectForKey:@"AUTOCLEANINGSPACEPRODUCED"] boolValue];
                     BOOL cleanOldestUnopened = [[[NSUserDefaults standardUserDefaults] objectForKey:@"AUTOCLEANINGSPACEOPENED"] boolValue];
+                    
                     if (!cleanOldest && !cleanOldestUnopened) {
                         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"AUTOCLEANINGSPACE"];
                         [[NSUserDefaults standardUserDefaults] setInteger:2 forKey:@"AutocleanSpaceMode"];
@@ -3019,20 +3121,20 @@ static BOOL initialized = NO;
 				if( [[NSUserDefaults standardUserDefaults] objectForKey: @"copyHideListenerError"])
 					[[NSUserDefaults standardUserDefaults] setBool: [[NSUserDefaults standardUserDefaults] boolForKey: @"copyHideListenerError"] forKey: @"hideListenerError"];
 				
-				#ifdef MACAPPSTORE
+#ifdef MACAPPSTORE
 				[[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"MACAPPSTORE"]; // Also modify in DefaultsOsiriX.m
 				[[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"AUTHENTICATION"];
 				[[NSUserDefaults standardUserDefaults] setObject: NSLocalizedString( @"(~/Library/Application Support/OsiriX App/)", nil) forKey:@"DefaultDatabasePath"];
-				#else
+#else
 				[[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"MACAPPSTORE"]; // Also modify in DefaultsOsiriX.m
 				[[NSUserDefaults standardUserDefaults] setObject: NSLocalizedString( @"(Current User Documents folder)", nil) forKey:@"DefaultDatabasePath"];
-				#endif
+#endif
 				
-				#ifdef __LP64__
+#ifdef __LP64__
 				[[NSUserDefaults standardUserDefaults] setBool:YES forKey: @"LP64bit"];
-				#else
+#else
 				[[NSUserDefaults standardUserDefaults] setBool:NO forKey: @"LP64bit"];
-				#endif
+#endif
                 
 //                [[NSUserDefaults standardUserDefaults] setObject:@"1" forKey:@"allow_qr_name"];
 //                [[NSUserDefaults standardUserDefaults] setObject:@"1" forKey:@"allow_qr_id"];
@@ -3079,8 +3181,10 @@ static BOOL initialized = NO;
                                 exit(0);
                             else if (r == NSAlertAlternateReturn) // alternate button says Continue
                                 break;
+                            
                             if ([[NSFileManager defaultManager] fileExistsAtPath:volumePath]) // the volume has become available, we can close the dialog
                                 break;
+                            
                             if ([NSDate timeIntervalSinceReferenceDate] > endTime) { // time's out, we close the dialog
                                 NSLog(@"Warning: after waiting for 10 minutes, OsiriX is switching to the default database location because %@ is still not available", volumePath);
                                 break;
@@ -3121,8 +3225,10 @@ static BOOL initialized = NO;
                                 exit(0);
                             else if (r == NSAlertAlternateReturn) // alternate button says Continue
                                 break;
+                            
                             if ([[NSFileManager defaultManager] fileExistsAtPath:volumePath]) // the volume has become available, we can close the dialog
                                 break;
+                            
                             if ([NSDate timeIntervalSinceReferenceDate] > endTime) { // time's out, we close the dialog
                                 NSLog(@"Warning: after waiting for 10 minutes, OsiriX is switching to the default database location because %@ is still not available", volumePath);
                                 break;
@@ -3133,11 +3239,6 @@ static BOOL initialized = NO;
                         [dialog orderOut:self];
                     }
                 }
-                
-                
-                
-                
-                
                 
                 pluginManager = [[PluginManager alloc] init];
                 
@@ -3282,11 +3383,11 @@ static BOOL initialized = NO;
 				
 				Use_kdu_IfAvailable = [[NSUserDefaults standardUserDefaults] boolForKey:@"UseKDUForJPEG2000"];
 				
-				#ifndef OSIRIX_LIGHT
+#ifndef OSIRIX_LIGHT
                 [Reports checkForWordTemplates];
 				[Reports checkForPagesTemplate];
 				[DCMPixelDataAttribute setUse_kdu_IfAvailable: Use_kdu_IfAvailable];
-				#endif
+#endif
 				
 				// CHECK FOR THE HTML TEMPLATES DIRECTORY
 //				
@@ -3366,12 +3467,13 @@ static BOOL initialized = NO;
 	
 	[self killAllStoreSCU: self];
 	
-	#ifndef OSIRIX_LIGHT
+#ifndef OSIRIX_LIGHT
 	if( dcmtkQRSCP)
 		[QueryController echo: [self privateIP] port:[dcmtkQRSCP port] AET: [dcmtkQRSCP aeTitle]];
-	if( dcmtkQRSCPTLS)
+
+    if( dcmtkQRSCPTLS)
 		[QueryController echo: [self privateIP] port:[dcmtkQRSCPTLS port] AET: [dcmtkQRSCPTLS aeTitle]];
-	#endif
+#endif
 	
 	[NSThread sleepForTimeInterval: 0.1];
 	
@@ -3382,6 +3484,7 @@ static BOOL initialized = NO;
 			NSLog( @"waiting for listener to stop...");
 			[NSThread sleepForTimeInterval: 0.1];
 		}
+        
 		while( [dcmtkQRSCPTLS running])
 		{
 			NSLog( @"waiting for TLS listener to stop...");
@@ -3496,9 +3599,8 @@ static BOOL initialized = NO;
     [[NSUserDefaults standardUserDefaults] setBool: YES forKey: @"SeriesListVisible"];
 //    [[NSUserDefaults standardUserDefaults] setBool: NO  forKey: @"AUTOHIDEMATRIX"];
     
-    
-	#ifndef MACAPPSTORE
-	#ifndef OSIRIX_LIGHT
+#ifndef MACAPPSTORE
+#ifndef OSIRIX_LIGHT
 	if( [[NSUserDefaults standardUserDefaults] boolForKey: @"checkForUpdatesPlugins"])
 		[NSThread detachNewThreadSelector:@selector(checkForUpdates:) toTarget:pluginManager withObject:pluginManager];
 	
@@ -3519,16 +3621,16 @@ static BOOL initialized = NO;
     else
         [NSThread detachNewThreadSelector: @selector(checkForUpdates:) toTarget:self withObject: self];
     
-	#endif
-	#endif
+#endif
+#endif
     
     // Remove PluginManager items...
-    #ifdef MACAPPSTORE
+#ifdef MACAPPSTORE
     NSMenu *pluginsMenu = [filtersMenu supermenu];
     
     [pluginsMenu removeItemAtIndex: [pluginsMenu numberOfItems]-1];
     [pluginsMenu removeItemAtIndex: [pluginsMenu numberOfItems]-1];
-    #endif
+#endif
 	
 	if( [[NSUserDefaults standardUserDefaults] boolForKey: @"hideListenerError"]) // Server mode
 		[[[BrowserController currentBrowser] window] orderOut: self];
@@ -3546,9 +3648,7 @@ static BOOL initialized = NO;
 		N2LogExceptionWithStackTrace(e);
 		exit( 0);
 	}
-	
 #endif
-	
 	
 //	NSString *source = [NSString stringWithContentsOfFile: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"/dicom.dic"]];
 //	
@@ -3630,10 +3730,10 @@ static BOOL initialized = NO;
 
 	[self testMenus];
     
-    #ifndef OSIRIX_LIGHT
+#ifndef OSIRIX_LIGHT
     if( [[NSBundle bundleForClass:[self class]] pathForAuxiliaryExecutable:@"odt2pdf"] == nil)
         N2LogStackTrace( @"\r****** path2odt2pdf == nil\r*****************************");
-    #endif
+#endif
     
     
     [ROI loadDefaultSettings];
@@ -3989,8 +4089,8 @@ static BOOL initialized = NO;
 		
 	}
 	
-	#ifndef OSIRIX_LIGHT
-	#ifndef MACAPPSTORE
+#ifndef OSIRIX_LIGHT
+#ifndef MACAPPSTORE
     if( [[NSUserDefaults standardUserDefaults] boolForKey: @"hideListenerError"] == NO)
     {
         @try
@@ -4024,8 +4124,8 @@ static BOOL initialized = NO;
             NSLog( @"**** Exception ILCrashReporter: %@", e);
         }
     }
-	#endif
-	#endif
+#endif
+#endif
 	
 	[PluginManager setMenus: filtersMenu :roisMenu :othersMenu :dbMenu];
     
@@ -4037,16 +4137,16 @@ static BOOL initialized = NO;
 	
 	[DicomDatabase initializeDicomDatabaseClass];
 	[BrowserController initializeBrowserControllerClass];
-	#ifndef OSIRIX_LIGHT
+#ifndef OSIRIX_LIGHT
 	[WebPortal initializeWebPortalClass];
     _bonjourPublisher = [[BonjourPublisher alloc] init];
-	#endif
+#endif
 	
-	#ifndef OSIRIX_LIGHT
-	if( [[NSUserDefaults standardUserDefaults] boolForKey:@"httpXMLRPCServer"]) {
-		if(XMLRPCServer == nil) XMLRPCServer = [[XMLRPCInterface alloc] init];
-	}
-	#endif
+#ifndef OSIRIX_LIGHT
+	if( [[NSUserDefaults standardUserDefaults] boolForKey:@"httpXMLRPCServer"])
+		if(XMLRPCServer == nil)
+            XMLRPCServer = [[XMLRPCInterface alloc] init];
+#endif
 	
 //	#ifndef OSIRIX_LIGHT
 //	#ifndef MACAPPSTORE
@@ -4193,7 +4293,7 @@ static BOOL initialized = NO;
         }
     }
     
-    if( [AppController hasMacOSXYosemite])
+    if( [AppController hasMacOSXSierra])
     {
 #ifdef WITH_OS_VALIDATION
         NSAlert* alert = [[NSAlert new] autorelease];
@@ -4207,9 +4307,7 @@ static BOOL initialized = NO;
         NSInteger button = [alert runModal];
         
         if( button == NSAlertSecondButtonReturn)
-        {
             [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:URL_OSIRIX_VIEWER]];
-        }
 #endif
     }
     

@@ -13,17 +13,21 @@
 =========================================================================*/
 
 #import <Cocoa/Cocoa.h>
+#include "itkConfigure.h"
 
-#define TODO_FIX_ITK_NEW_VERSION  // @@@
+#define id Id
+#include "itkImage.h"
+#include "itkImportImageFilter.h"
+#include "itkResampleImageFilter.h"
+#undef id
 
 typedef float itkPixelType;
 //typedef itk::RGBPixel<unsigned char> itkPixelType;
 typedef itk::Image< itkPixelType, 3 > ImageType;
 typedef itk::ImportImageFilter< itkPixelType, 3 > ImportFilterType3;
 
-
 /** \brief Creates an itkImageImportFilter
-*/
+ */
 
 @interface ITK : NSObject {
 

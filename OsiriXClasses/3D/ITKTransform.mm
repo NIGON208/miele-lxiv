@@ -12,6 +12,8 @@
  PURPOSE.
  =========================================================================*/
 
+#include <locale>
+
 #define id Id
 #include <Accelerate/Accelerate.h>
 #include "itkImage.h"
@@ -84,7 +86,6 @@ typedef itk::ResampleImageFilter<ImageType, ImageType> ResampleFilterType;
     {
         @try
         {
-#ifndef TODO_FIX_ITK_NEW_VERSION  // @@@ problem
             itk::TransformFactory< itk::AffineTransform<double, 3> >::RegisterTransform ();
             typedef itk::AffineTransform< double, 3 > AffineTransformType;
             typedef AffineTransformType::ParametersType ParametersType;
@@ -187,7 +188,6 @@ typedef itk::ResampleImageFilter<ImageType, ImageType> ResampleFilterType;
                 memcpy( fVolumePtr, resultBuff, mem);
                 *length = mem;
             }
-#endif // TODO_FIX_ITK_NEW_VERSION  // @@@
         }
         @catch (NSException *e)
         {

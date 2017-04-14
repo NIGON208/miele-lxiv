@@ -14,6 +14,8 @@
 
 #import "options.h"
 
+#include <locale>
+
 //#import "Centerline.h"
 #import "MyPoint.h"
 #import "Notifications.h"
@@ -534,7 +536,6 @@ void ConnectPipelines(ITK_Exporter exporter, VTK_Importer* importer)
 	typedef itk::Image< OutputPixelType, 3 > OutputImageType;
 	// Type Caster
 	typedef itk::CastImageFilter< InternalImageType, OutputImageType > CastingFilterType;
-#ifndef TODO_FIX_ITK_NEW_VERSION  // @@@ problem
 	CastingFilterType::Pointer caster = CastingFilterType::New();
 	
 	// STARTING POINT
@@ -1066,7 +1067,6 @@ void ConnectPipelines(ITK_Exporter exporter, VTK_Importer* importer)
             vtkImporter->Delete();
         }
     }
-#endif // TODO_FIX_ITK_NEW_VERSION  // @@@
     
 	[wait close];
 	[wait autorelease];
