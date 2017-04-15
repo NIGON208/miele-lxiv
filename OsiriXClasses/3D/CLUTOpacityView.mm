@@ -161,10 +161,11 @@
 	
 	histogramSize = (int)((HUmax-HUmin)/2);
 	histogramSize++;
-	if( histogramSize < 100)
+	if (histogramSize < 100)
 		histogramSize = 100;
 	
-	if(histogram) free(histogram);
+	if (histogram)
+        free(histogram);
 	
 	histogram = (vImagePixelCount*) malloc(sizeof(vImagePixelCount) * ((histogramSize+100)*2L));
 	if( histogram && buffer.data)

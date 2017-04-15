@@ -7201,21 +7201,13 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
                         if( [self pix].SUVConverted)
                             pixelUnit = [NSString stringWithFormat:@" %@ ", NSLocalizedString( @"SUV", @"SUV = Standard Uptake Value")];
                         
-#ifdef NDEBUG
-                        self.textualBoxLine3 = @""; // TODO: calculate
-#else
                         self.textualBoxLine3 = [NSString stringWithFormat: NSLocalizedString( @"Mean: %0.3f%@ SDev: %0.3f%@ Sum: %@%@", nil), rmean, pixelUnit, rdev, pixelUnit, [ROI totalLocalized: rtotal], pixelUnit];
-#endif
                         
                         if( rskewness || rkurtosis)
                             self.textualBoxLine4 = [NSString stringWithFormat: NSLocalizedString( @"Min: %0.3f%@ Max: %0.3f%@ Skewness: %0.3f Kurtosis: %0.3f", nil), rmin, pixelUnit, rmax, pixelUnit, rskewness, rkurtosis];
                         else
                         {
-#ifdef NDEBUG
-                            self.textualBoxLine4 = @""; // TODO: calculate
-#else
                             self.textualBoxLine4 = [NSString stringWithFormat: NSLocalizedString( @"Min: %0.3f%@ Max: %0.3f%@", nil), rmin, pixelUnit, rmax, pixelUnit];
-#endif
                         }
                         
                         self.textualBoxLine5 = [NSString stringWithFormat:@"Peak: (\u2300: cm)"];   // TODO: calculate

@@ -246,11 +246,10 @@ static CPRCurvedPathControlToken _controlTokenForElement(NSInteger element)
     
     [_nodes addObject:[NSValue valueWithN3Vector:node]];
     
-    if ([_nodes count] >= 2) {
+    if ([_nodes count] >= 2)
         self.bezierPath = [[[N3MutableBezierPath alloc] initWithNodeArray:_nodes style:N3BezierNodeOpenEndsStyle] autorelease];
-    } else {
+    else
         self.bezierPath = [[[N3MutableBezierPath alloc] init] autorelease];
-    }
 }
 
 - (void)insertPatientNode:(N3Vector)node atIndex:(NSUInteger)index // adds the point to z = 0 in the arbitrary coordinate space to a given index
@@ -263,17 +262,15 @@ static CPRCurvedPathControlToken _controlTokenForElement(NSInteger element)
     
     assert(N3VectorIsZero(node) == false);
     
-    if (index < [_nodes count]) {
+    if (index < [_nodes count])
         [_nodes insertObject:[NSValue valueWithN3Vector:node] atIndex:index];
-    } else {
+    else
         [_nodes addObject:[NSValue valueWithN3Vector:node]];
-    }
     
-    if ([_nodes count] >= 2) {
+    if ([_nodes count] >= 2)
         self.bezierPath = [[[N3MutableBezierPath alloc] initWithNodeArray:_nodes style:N3BezierNodeOpenEndsStyle] autorelease];
-    } else {
+    else
         self.bezierPath = [[[N3MutableBezierPath alloc] init] autorelease];
-    }
 }
 
 - (void)addPatientNode:(N3Vector)node
@@ -287,11 +284,10 @@ static CPRCurvedPathControlToken _controlTokenForElement(NSInteger element)
     
     [_nodes addObject:[NSValue valueWithN3Vector:node]];
     
-    if ([_nodes count] >= 2) {
+    if ([_nodes count] >= 2)
         self.bezierPath = [[[N3MutableBezierPath alloc] initWithNodeArray:_nodes style:N3BezierNodeOpenEndsStyle] autorelease];
-    } else {
+    else
         self.bezierPath = [[[N3MutableBezierPath alloc] init] autorelease];
-    }
 }
 
 
@@ -340,7 +336,8 @@ static CPRCurvedPathControlToken _controlTokenForElement(NSInteger element)
     
     if ([_nodes count] >= 2) {
         self.bezierPath = [[[N3MutableBezierPath alloc] initWithNodeArray:_nodes style:N3BezierNodeOpenEndsStyle] autorelease];
-    } else {
+    }
+    else {
         self.bezierPath = [[[N3MutableBezierPath alloc] init] autorelease];
     }
 }
@@ -372,6 +369,7 @@ static CPRCurvedPathControlToken _controlTokenForElement(NSInteger element)
             NSLog(@"Warning, CPRCurvedPath trying to move a node too close the the previous node");
             return; //refuse to move a node right on top the the previous node
         }
+        
         if ([_nodes count] > element + 1 && N3VectorDistance([[_nodes objectAtIndex:element + 1] N3VectorValue], node) < _CPRCurvedPathNodeSpacingThreshold) {
             NSLog(@"Warning, CPRCurvedPath trying to move a node too close the the next node]");
             return; //refuse to move a node right on top the the next node
@@ -381,12 +379,15 @@ static CPRCurvedPathControlToken _controlTokenForElement(NSInteger element)
         
         if ([_nodes count] >= 2) {
             self.bezierPath = [[[N3MutableBezierPath alloc] initWithNodeArray:_nodes style:N3BezierNodeOpenEndsStyle] autorelease];
-        } else {
+        }
+        else {
             self.bezierPath = [[[N3MutableBezierPath alloc] init] autorelease];
         }
-    } else if (token == CPRCurvedPathControlTokenTransverseSection) {
+    }
+    else if (token == CPRCurvedPathControlTokenTransverseSection) {
         _transverseSectionPosition = [self relativePositionForPoint:point transform:transform];
-    } else if (token == CPRCurvedPathControlTokenTransverseSpacing) {
+    }
+    else if (token == CPRCurvedPathControlTokenTransverseSpacing) {
         relativePosition = [self relativePositionForPoint:point transform:transform];
         _transverseSectionSpacing = ABS(_transverseSectionPosition - relativePosition)*[_bezierPath length];
     }
@@ -559,7 +560,6 @@ static CPRCurvedPathControlToken _controlTokenForElement(NSInteger element)
     return MIN(_transverseSectionPosition + _transverseSectionSpacing/[_bezierPath length], 1.0);
 }
 
-
 - (void)_resetNodeRelativePositions
 {
     NSMutableArray *nodeRelativePositions;
@@ -571,14 +571,14 @@ static CPRCurvedPathControlToken _controlTokenForElement(NSInteger element)
     nodeRelativePositions = [NSMutableArray array];
 
     if (curveLength > 0) {
-        for (i = 0; i < [_nodes count]; i++) {
+        for (i = 0; i < [_nodes count]; i++)
             [nodeRelativePositions addObject:[NSNumber numberWithDouble:MIN([_bezierPath lengthThroughElementAtIndex:i] / curveLength, 1.0)]];
-        }
-    } else {
-        for (i = 0; i < [_nodes count]; i++) {
-            [nodeRelativePositions addObject:[NSNumber numberWithDouble:0.0]];
-        }
     }
+    else {
+        for (i = 0; i < [_nodes count]; i++)
+            [nodeRelativePositions addObject:[NSNumber numberWithDouble:0.0]];
+    }
+    
     self.nodeRelativePositions = nodeRelativePositions;
 }
 
@@ -593,11 +593,3 @@ static CPRCurvedPathControlToken _controlTokenForElement(NSInteger element)
 }
 
 @end
-
-
-
-
-
-
-
-

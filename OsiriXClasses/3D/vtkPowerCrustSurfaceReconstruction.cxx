@@ -63,6 +63,8 @@ vtkPowerCrustSurfaceReconstruction::~vtkPowerCrustSurfaceReconstruction()
   The original code can be found at:
 
   http://www.cs.utexas.edu/users/amenta/powercrust/welcome.html
+  https://github.com/krm15/Powercrust
+  https://github.com/timhutton/vtkpowercrust
 
   Getting it to compile and run on my Windows box was fun. Notes on how to 
   do this can be found at the bottom of this file.
@@ -3882,10 +3884,6 @@ int sees(site p, simplex *s) {
         return 0;
 }
 
-
-
-
-
 double radsq(simplex *s) {
 
     point n;
@@ -5509,8 +5507,6 @@ void connect(simplex *s) {
     depthConnect--;
 }
 
-
-                
 simplex *make_facets(simplex *seen) {
     /*
      * visit simplices s with sees(p,s), and make a facet for every neighbor
@@ -5521,7 +5517,6 @@ simplex *make_facets(simplex *seen) {
     static simplex *ns;
     neighbor *bn;
     int i;
-
 
     if (!seen) return NULL;
     DEBS(-1) OSIRIX_ASSERT((long) (sees(p,seen) && !seen->peak.vert));
@@ -6604,7 +6599,7 @@ void normalize(double a[3])
 
 double sqdist(double a[3], double b[3]) 
 {
-  /* returns the squared distance between a and b */ 
+  /* returns the squared distance between a and b */
   return SQ(a[0]-b[0])+SQ(a[1]-b[1])+SQ(a[2]-b[2]);
 }
 
@@ -6734,7 +6729,7 @@ void tetcircumcenter(double a[3],double b[3],double c[3],double d[3],
             denominator;
         circumcenter[0] = xcirca;
         circumcenter[1] = ycirca;
-        circumcenter[2] = zcirca;  
+        circumcenter[2] = zcirca;
 }
 
 
@@ -6788,7 +6783,7 @@ void tricircumcenter3d(double a[3],double b[3],double c[3],double circumcenter[3
     /* Squares of lengths of the edges incident to `a'. */
     balength = xba * xba + yba * yba + zba * zba;
     calength = xca * xca + yca * yca + zca * zca;
-  
+
     /* Cross product of these edges. */
 #ifdef EXACT
     /* Use orient2d() from http://www.cs.cmu.edu/~quake/robust.html     */
@@ -6858,10 +6853,10 @@ void tetorthocenter(double a[4],double b[4],double c[4],double d[4],double ortho
     zca = c[2] - a[2];
     wca = wc - wa;
     xda = d[0] - a[0];
-    yda = d[1] - a[1];  
+    yda = d[1] - a[1];
     zda = d[2] - a[2];
     wda = wd - wa;
-  
+
     /* Squares of lengths of the edges incident to `a'. */
     balength = xba * xba + yba * yba + zba * zba - wba;
     calength = xca * xca + yca * yca + zca * zca - wca;
@@ -6876,9 +6871,9 @@ void tetorthocenter(double a[4],double b[4],double c[4],double d[4],double ortho
     xcrossbc = yba * zca - yca * zba;
     ycrossbc = zba * xca - zca * xba;
     zcrossbc = xba * yca - xca * yba;
-  
+
     /* Calculate the denominator of the formulae. */
-#ifdef EXACT 
+#ifdef EXACT
     /* Use orient3d() from http://www.cs.cmu.edu/~quake/robust.html     */
         /*   to ensure a correctly signed (and reasonably accurate) result, */
         /*   avoiding any possibility of division by zero.                  */
@@ -6889,7 +6884,7 @@ void tetorthocenter(double a[4],double b[4],double c[4],double d[4],double ortho
         denominator = 0.5 / (xba * xcrosscd + yba * ycrosscd + zba * zcrosscd);
 
 #endif
-  
+
         /* Calculate offset (from `a') of circumcenter. */
         xcirca = (balength * xcrosscd + calength * xcrossdb + dalength * xcrossbc) *
             denominator;
@@ -6900,8 +6895,8 @@ void tetorthocenter(double a[4],double b[4],double c[4],double d[4],double ortho
         orthocenter[0] = xcirca;
         orthocenter[1] = ycirca;
         orthocenter[2] = zcirca;
-} 
-  
+}
+
 /*****************************************************************************/
 /*                                                                           */
 /*  tricircumcenter()   Find the circumcenter of a triangle.                 */
@@ -6962,8 +6957,8 @@ void triorthocenter(double a[3],double b[3],double c[3],double orthocenter[2],
 #endif
 
         /* Calculate offset (from `a') of circumcenter. */
-        xcirca = (yca * balength - yba * calength) * denominator;  
-        ycirca = (xba * calength - xca * balength) * denominator;  
+        xcirca = (yca * balength - yba * calength) * denominator;
+        ycirca = (xba * calength - xca * balength) * denominator;
         orthocenter[0] = xcirca;
         orthocenter[1] = ycirca;
 
@@ -9442,7 +9437,7 @@ REAL orient3d(REAL *pa,REAL *pb,REAL *pc,REAL *pd)
     adxbdy = adx * bdy;
     bdxady = bdx * ady;
 
-    det = adz * (bdxcdy - cdxbdy) 
+    det = adz * (bdxcdy - cdxbdy)
         + bdz * (cdxady - adxcdy)
         + cdz * (adxbdy - bdxady);
 
@@ -11452,7 +11447,7 @@ double logb(double x) {
 
 double logb(double x)
 {
-  //return log(x)/log(2); // EPRO commented 
+  //return log(x)/log(2); // EPRO commented
   return log(x)/log(2.0); // EPRO added
 
 }
@@ -11472,8 +11467,7 @@ double logb(double x)
 
 // #include "rand48.h"  TJH: this file is now above
 
-long
-nrand48(unsigned short xseed[3])
+long nrand48(unsigned short xseed[3])
 {
   _dorand48(xseed);
   return ((long) xseed[2] << 15) + ((long) xseed[1] >> 1);
@@ -11491,7 +11485,7 @@ nrand48(unsigned short xseed[3])
  * of any kind. I shall in no event be liable for anything that happens
  * to anyone/anything when using this software.
  */
- 
+
 /*
  * modified to compile in MetroWerks C++, D. Eppstein, April 1997
  * (my changes marked with "DE")
@@ -11504,8 +11498,7 @@ extern double erand48(unsigned short xseed[3]);
 
 extern unsigned short _rand48_seed[3];
 
-double
-drand48(void)
+double drand48(void)
 {
   return erand48(_rand48_seed);
 }
@@ -11650,13 +11643,18 @@ srand48(long seed)
 }
 //=====================================================================
 
+void vtkPowerCrustSurfaceReconstruction::PrintSelf(ostream& os, vtkIndent indent)
+{
+  this->Superclass::PrintSelf(os,indent);
+
+}
+
 void vtkPowerCrustSurfaceReconstruction::Execute()
 {
-#if 0 // TODO: update it to the new VTK
-  vtkDataSet *input= this->GetInput();
+  vtkDataSet *input = vtkDataSet::SafeDownCast(this->GetInput());
 //  vtkIdType numPts=input->GetNumberOfPoints();
 
-  vtkPolyData *output = this->GetOutput();
+  vtkPolyData *output = vtkPolyData::SafeDownCast(this->GetOutput());
 
   // ghost cell stuff
 //  unsigned char  updateLevel = (unsigned char)(output->GetUpdateGhostLevel());
@@ -11709,53 +11707,41 @@ void vtkPowerCrustSurfaceReconstruction::Execute()
     }
     
   this->medial_surface->Modified();
-#endif
-}
-
-void vtkPowerCrustSurfaceReconstruction::PrintSelf(ostream& os, vtkIndent indent)
-{
-  this->Superclass::PrintSelf(os,indent);
-
 }
 
 void vtkPowerCrustSurfaceReconstruction::ComputeInputUpdateExtents(vtkDataObject *output)
 {
-#if 0 // TODO: update it to the new VTK
   int piece, numPieces, ghostLevels;
   
-  if (this->GetInput() == NULL)
-    {
+  if (this->GetInput() == NULL) {
     vtkErrorMacro("No Input");
     return;
-    }
+  }
+    
+#if 0 // TODO: update it to the new VTK 7.1.1
   piece = output->GetUpdatePiece();
   numPieces = output->GetUpdateNumberOfPieces();
   ghostLevels = output->GetUpdateGhostLevel();
   
   if (numPieces > 1)
-    {
     ++ghostLevels;
-    }
 
   this->GetInput()->SetUpdateExtent(piece, numPieces, ghostLevels);
-
   this->GetInput()->RequestExactExtentOn();
 #endif
 }
 
 void vtkPowerCrustSurfaceReconstruction::ExecuteInformation()
 {
-  if (this->GetInput() == NULL)
-    {
+  if (this->GetInput() == NULL) {
     vtkErrorMacro("No Input");
     return;
-    }
+  }
 }
 
 // EPRO added to reinitialize 
 void pcInit ()
 {
-
 	messcount = 0;
 	vd_new = 1;
 	s_num = 0;
@@ -11779,14 +11765,12 @@ void pcInit ()
 	X [1] = 10000;
 	X [2] = 0;
 
-	int i;
-	for (i = 0; i < MAXDIM; i++)
-	{
+	for (int i = 0; i < MAXDIM; i++) {
 		mins [i] = DBL_MAX;
 		maxs [i] = -DBL_MAX;
 	}
+    
 	vd = 0;
-	
 	 
 	tt_basis.next = 0;
 	tt_basis.ref_count = 1;
@@ -11834,7 +11818,7 @@ points.h
 pointsites.h
 
 Hit F7 to build the application. Ah, the naivete!
-Of couse there was an endless stream of error messages.
+Of course there was an endless stream of error messages.
 
 \powercrust\predicates.c(119) : fatal error C1083: Cannot open include file: 'sys/time.h': 
 No such file or directory
@@ -11928,7 +11912,7 @@ double logb(double x)
   return log(x)/log(2);
 }
 
-A fool marches on where wish men fear to tread.
+A fool marches on where wise men fear to tread.
 
 And.. and.. and.. it's linked. powercrust.exe has been produced. You can run it and everything. 
 It speaks:

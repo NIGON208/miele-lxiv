@@ -341,7 +341,8 @@ static char ctrl[0x22];
             [self addErrorWithCode:ECTRL description: [NSString stringWithFormat:@"Unescaped control character '0x%x'", *c]];
             return NO;
             
-        } else {
+        }
+        else {
             NSLog(@"should not be able to get here");
         }
     } while (*c);
@@ -425,7 +426,8 @@ static char ctrl[0x22];
         [self addErrorWithCode:EPARSENUM description: @"No digits after initial minus"];
         return NO;
         
-    } else {
+    }
+    else {
         skipDigits(c);
     }
     

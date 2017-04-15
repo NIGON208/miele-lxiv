@@ -339,7 +339,6 @@ static void action_Compress(int argc, const char *argv[], NSString *path)
 
                 [dcmObject release];
                 
-#if 1 // TODO: tidy up
                 if (succeed)
                 {
                     myunlink([curFile fileSystemRepresentation]);
@@ -362,7 +361,6 @@ static void action_Compress(int argc, const char *argv[], NSString *path)
                         NSLog( @"failed to compress file: %@", curFile);
                 }
                 return;
-#endif
             }
             else if (compression == compression_JPEG ||
                      compression == compression_JPEGLS)

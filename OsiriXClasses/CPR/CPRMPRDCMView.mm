@@ -1934,7 +1934,8 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
         if (distanceToCurve < CPRMPRDCMViewCurveMouseTrackingDistance) {
             displayInfo.mouseCursorHidden = NO;
             displayInfo.mouseCursorPosition = relativePositionOnCurve;
-        } else {
+        }
+        else {
             displayInfo.mouseCursorHidden = YES;
             displayInfo.mouseCursorPosition = 0.0;
         }
@@ -2137,7 +2138,8 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
 				if (displayInfo.hoverNodeHidden == YES || displayInfo.hoverNodeIndex != [CPRCurvedPath nodeIndexForToken:curveToken]) {
 					needToModifyCurve = YES;
 				}
-			} else {
+			}
+            else {
 				if (displayInfo.hoverNodeHidden == NO) {
 					needToModifyCurve = YES;
 				}
@@ -2186,7 +2188,8 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
 			if (distanceToCurve < CPRMPRDCMViewCurveMouseTrackingDistance) {
 				displayInfo.mouseCursorHidden = NO;
 				displayInfo.mouseCursorPosition = relativePositionOnCurve;
-			} else {
+			}
+            else {
 				displayInfo.mouseCursorHidden = YES;
 				displayInfo.mouseCursorPosition = 0;
 			}
@@ -2464,9 +2467,11 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
         
         if(ABS(vector.z) <= 0.5) {
 			glColor4d( pathRed, pathGreen, pathBlue, 1.0);
-		} else if(ABS(vector.z) >= 1.0){
+		}
+        else if(ABS(vector.z) >= 1.0){
 			glColor4d( pathRed, pathGreen, pathBlue, 0.2);
-		} else {
+		}
+        else {
             glColor4d( pathRed, pathGreen, pathBlue, ABS(vector.z)*-1.6 + 1.8);
         }
 		        
@@ -2480,16 +2485,19 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
         glLineWidth(1.0 * self.window.backingScaleFactor);
         if (_CPRType == CPRMPRDCMViewCPRStraightenedType) {
             outlinePath = [[bezierPath outlineBezierPathAtDistance:curvedPath.thickness / 2.0 initialNormal:N3VectorCrossProduct(curvedPath.initialNormal, [flattenedBezierPath tangentAtStart]) spacing:1.0] mutableCopy];
-        } else {
+        }
+        else {
             outlinePath = [[bezierPath outlineBezierPathAtDistance:curvedPath.thickness / 2.0 projectionNormal:[curvedPath stretchedProjectionNormal] spacing:1.0] mutableCopy];
         }
+        
         [outlinePath applyAffineTransform:transform];
         glColor4d(0.0, 1.0, 0.0, 1.0); 
         glBegin(GL_LINE_STRIP);
         for (i = 0; i < [outlinePath elementCount]; i++) {
             if ([outlinePath elementAtIndex:i control1:NULL control2:NULL endpoint:&vector] == N3LineToBezierPathElement) {
                 glVertex2d(vector.x, vector.y);
-            } else {
+            }
+            else {
                 glEnd();
                 glBegin(GL_LINE_STRIP);
                 glVertex2d(vector.x, vector.y);
@@ -2506,7 +2514,8 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
 		glLineWidth(1.0 * self.window.backingScaleFactor);
         if (_CPRType == CPRMPRDCMViewCPRStraightenedType) {
             outlinePath = [[bezierPath outlineBezierPathAtDistance: [[self windowController] exportSlabThickness] / 2.0 initialNormal:N3VectorCrossProduct(curvedPath.initialNormal, [flattenedBezierPath tangentAtStart]) spacing:1.0] mutableCopy];
-        } else {
+        }
+        else {
             outlinePath = [[bezierPath outlineBezierPathAtDistance: [[self windowController] exportSlabThickness] / 2.0 projectionNormal:[curvedPath stretchedProjectionNormal] spacing:1.0] mutableCopy];
         }
         [outlinePath applyAffineTransform:transform];
@@ -2515,7 +2524,8 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
         for (i = 0; i < [outlinePath elementCount]; i++) {
             if ([outlinePath elementAtIndex:i control1:NULL control2:NULL endpoint:&vector] == N3LineToBezierPathElement) {
                 glVertex2d(vector.x, vector.y);
-            } else {
+            }
+            else {
                 glEnd();
                 glBegin(GL_LINE_STRIP);
                 glVertex2d(vector.x, vector.y);
@@ -2718,11 +2728,10 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
     plane.point = N3VectorApplyTransform(N3VectorMake((CGFloat)curDCM.pwidth/2.0, (CGFloat)curDCM.pheight/2.0, 0.0), pixToDicomTransform);
     plane.normal = N3VectorNormalize(N3VectorApplyTransformToDirectionalVector(N3VectorMake(0.0, 0.0, 1.0), pixToDicomTransform));
     
-	if (N3PlaneIsValid(plane)) {
+	if (N3PlaneIsValid(plane))
 		return plane;
-	} else {
-		return N3PlaneInvalid;
-	}
+
+    return N3PlaneInvalid;
 }
 
 - (NSString *)planeName

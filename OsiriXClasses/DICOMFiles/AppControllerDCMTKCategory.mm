@@ -25,13 +25,13 @@
 #include "dcmjpls/djdecode.h" //JPEG-LS
 #include "dcmjpls/djencode.h" //JPEG-LS
 
-//extern int gPutSrcAETitleInSourceApplicationEntityTitle, gPutDstAETitleInPrivateInformationCreatorUID;
+extern int gPutSrcAETitleInSourceApplicationEntityTitle, gPutDstAETitleInPrivateInformationCreatorUID;
 
 @implementation AppController (AppControllerDCMTKCategory)
 
 - (void)initDCMTK
 {
-	#ifndef OSIRIX_LIGHT
+#ifndef OSIRIX_LIGHT
     // register global JPEG codecs
     DJDecoderRegistration::registerCodecs();
     DJEncoderRegistration::registerCodecs(
@@ -72,7 +72,7 @@
     gPutSrcAETitleInSourceApplicationEntityTitle = [[NSUserDefaults standardUserDefaults] boolForKey: @"putSrcAETitleInSourceApplicationEntityTitle"];
     gPutDstAETitleInPrivateInformationCreatorUID = [[NSUserDefaults standardUserDefaults] boolForKey: @"putDstAETitleInPrivateInformationCreatorUID"];
 #endif
-    #endif
+#endif
 }
 - (void)destroyDCMTK
 {

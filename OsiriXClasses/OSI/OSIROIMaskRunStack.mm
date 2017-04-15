@@ -32,9 +32,11 @@
 {
     if ([_maskRunArray count]) {
         return [[_maskRunArray lastObject] OSIROIMaskRunValue];
-    } else if (_maskRunIndex < maskRunCount) {
+    }
+    else if (_maskRunIndex < maskRunCount) {
         return ((OSIROIMaskRun *)[_maskRunData bytes])[_maskRunIndex];
-    } else {
+    }
+    else {
         assert(0);
         return OSIROIMaskRunZero;
     }
@@ -52,10 +54,12 @@
     if ([_maskRunArray count]) {
         maskRun = [[_maskRunArray lastObject] OSIROIMaskRunValue];
         [_maskRunArray removeLastObject];
-    } else if (_maskRunIndex < maskRunCount) {
+    }
+    else if (_maskRunIndex < maskRunCount) {
         maskRun = ((OSIROIMaskRun *)[_maskRunData bytes])[_maskRunIndex];
         _maskRunIndex++;
-    } else {
+    }
+    else {
         assert(0);
         maskRun = OSIROIMaskRunZero;
     }

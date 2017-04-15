@@ -176,13 +176,13 @@ OFCondition DcmQueryRetrieveOsiriSCP::storeSCP(
 
     if ([[NSUserDefaults standardUserDefaults] boolForKey: @"verbose_dcmtkStoreScu"])
     {
-#ifndef NDEBUG
+  #ifndef NDEBUG
         OFLog::configure(OFLogger::DEBUG_LOG_LEVEL);
         //DCM_dcmdataLogger.setLogLevel(OFLogger::DEBUG_LOG_LEVEL);
         //DCM_dcmqrdbLogger.setLogLevel(OFLogger::DEBUG_LOG_LEVEL);
-#else
+  #else
         OFLog::configure(OFLogger::INFO_LOG_LEVEL);
-#endif
+  #endif
     }
     else
     {

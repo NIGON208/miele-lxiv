@@ -90,10 +90,18 @@
 #include <stdlib.h>
 
 #import "url.h"
-#import "vtkVersion.h"      // for VTK version
-#import "itkConfigure.h"    // for ITK version
-#import "DCMTKStoreSCU.h"   // for DCMTK version
-#include "opj_config.h"
+#import "vtkVersionMacros.h"    // for VTK version
+#import "itkVersion.h"          // for ITK version
+#import "dcuid.h"               // for DCMTK version
+#import "opj_config.h"
+#ifdef WITH_ZLIB
+#include <zlib.h>               // for zlibVersion()
+#endif
+#ifdef VTK_USE_SYSTEM_TIFF
+#include <tiffio.h>
+#else
+#include "tiffio.h"
+#endif
 
 #define BUILTIN_DCMTK YES
 #define MAXSCREENS 10
@@ -202,26 +210,17 @@ int GetAllPIDsForProcessName(const char* ProcessName,
 
     // --- Checking input arguments for validity --- //
     if (ProcessName == NULL) //need valid process name
-    {
         return(kInvalidArgumentsError);
-    }
 
     if (ArrayOfReturnedPIDs == NULL) //need an actual array
-    {
         return(kInvalidArgumentsError);
-    }
 
     if (NumberOfPossiblePIDsInArray <= 0)
-    {
         //length of the array must be larger than zero.
         return(kInvalidArgumentsError);
-    }
 
     if (NumberOfMatchesFound == NULL) //need an integer for return.
-    {
         return(kInvalidArgumentsError);
-    }
-    
 
     //--- Setting return values to known values --- //
 
@@ -231,9 +230,7 @@ int GetAllPIDsForProcessName(const char* ProcessName,
     *NumberOfMatchesFound = 0; //no matches found yet
 
     if (SysctlError != NULL) //only set sysctlError if it is present
-    {
         *SysctlError = 0;
-    }
 
     //--- Getting list of process information for all processes --- //
     
@@ -290,9 +287,7 @@ int GetAllPIDsForProcessName(const char* ProcessName,
         if (error != 0) 
         {
             if (SysctlError != NULL)
-            {
                 *SysctlError = errno;  //we only set this variable if the pre-allocated variable is given
-            } 
 
             return(kErrorGettingSizeOfBufferRequired);
         }
@@ -305,9 +300,7 @@ int GetAllPIDsForProcessName(const char* ProcessName,
         if (BSDProcessInformationStructure == NULL)
         {
             if (SysctlError != NULL)
-            {
                 *SysctlError = ENOMEM;  //we only set this variable if the pre-allocated variable is given
-            } 
 
             return(kUnableToAllocateMemoryForBuffer); //unrecoverable error (no memory available) so give up
         }
@@ -476,7 +469,7 @@ short HasAltiVec ( )
 	return hasAltiVec;                   
 }
 
-//———————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+//——————————————————————————————————————————————————————————————————————————————
 
 SInt32 osVersion()
 {
@@ -491,7 +484,7 @@ SInt32 osVersion()
 	return 0;                   
 }
 
-//———————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+//——————————————————————————————————————————————————————————————————————————————
 
 NSRect screenFrame()
 {
@@ -677,7 +670,7 @@ void exceptionHandler(NSException *exception)
     N2LogExceptionWithStackTrace(exception);
 }
 
-//———————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+//——————————————————————————————————————————————————————————————————————————————
 
 static NSDate *lastWarningDate = nil;
 
@@ -701,43 +694,12 @@ static NSDate *lastWarningDate = nil;
 +(BOOL) hasMacOSXSierra
 {
     NSOperatingSystemVersion version = [[NSProcessInfo processInfo] operatingSystemVersion];
-    if (version.majorVersion == 10 ||
+    if (version.majorVersion == 10 &&
         version.minorVersion >= 12)
         return YES;
     
     return NO;
 }
-/*
-+(BOOL) hasMacOSXElCapitan
-{
-    NSOperatingSystemVersion version = [[NSProcessInfo processInfo] operatingSystemVersion];
-    if (version.majorVersion == 10 ||
-        version.minorVersion >= 11)
-        return YES;
-    
-    return NO;
-}
-
-+(BOOL) hasMacOSXYosemite
-{
-    NSOperatingSystemVersion version = [[NSProcessInfo processInfo] operatingSystemVersion];
-    if (version.majorVersion == 10 ||
-        version.minorVersion >= 10)
-        return YES;
-    
-    return NO;
-}
-
-+(BOOL) hasMacOSXMaverick
-{
-    NSOperatingSystemVersion version = [[NSProcessInfo processInfo] operatingSystemVersion];
-    if (version.majorVersion < 10 ||
-        version.minorVersion < 9)
-        return NO;
-
-    return YES;
-}
- */
 
 +(BOOL) hasMacOSXMountainLion
 {
@@ -2898,8 +2860,6 @@ static BOOL firstCall = YES;
     }
 
     [[NSFileManager defaultManager] confirmDirectoryAtPath: incomingDirectoryPath];
-    
-    
     [[NSUserDefaults standardUserDefaults] setBool: NO forKey: @"NSConstraintBasedLayoutVisualizeMutuallyExclusiveConstraints"];
 }
 
@@ -3063,13 +3023,16 @@ static BOOL initialized = NO;
                       [d objectForKey:@"CFBundleShortVersionString"],
                       [d objectForKey:@"CFBundleVersion"],
                       bits);
-                NSLog(@"VTK %d.%d.%d", VTK_MAJOR_VERSION, VTK_MINOR_VERSION, VTK_BUILD_VERSION);
-                NSLog(@"ITK %d.%d.%d", ITK_VERSION_MAJOR, ITK_VERSION_MINOR, ITK_VERSION_PATCH);
+                NSLog(@"VTK %s", VTK_VERSION);
+                NSLog(@"ITK %s", ITK_VERSION);
+                NSLog(@"DCMTK %s %s", OFFIS_DCMTK_VERSION, OFFIS_DCMTK_RELEASEDATE);
                 NSLog(@"OpenJPEG %d.%d.%d", OPJ_VERSION_MAJOR, OPJ_VERSION_MINOR, OPJ_VERSION_BUILD);
-                [DCMTKStoreSCU showDcmtkVersion];
-                
+#ifdef WITH_ZLIB
+                NSLog(@"ZLIB %s", zlibVersion());
+#endif                
+                NSLog(@"%s", TIFFGetVersion());
                 NSArray *components = [[[NSBundle mainBundle] pathForResource: @"Localizable" ofType: @"strings"] pathComponents];
-                if( components.count > 3)
+                if (components.count > 3)
                     NSLog(@"Localization: %@", [components objectAtIndex: components.count -2]);
 #ifndef NDEBUG
 				NSLog( @"**** DEBUG MODE ****");
@@ -3807,8 +3770,9 @@ static BOOL initialized = NO;
     }
     
     if( [[NSUserDefaults standardUserDefaults] boolForKey: @"SyncPreferencesFromURL"])
-        [NSThread detachNewThreadSelector: @selector( addPreferencesFromURL:) toTarget: [OSIGeneralPreferencePanePref class] withObject: [NSURL URLWithString: [[NSUserDefaults standardUserDefaults] stringForKey: @"SyncPreferencesURL"]]];
-
+        [NSThread detachNewThreadSelector: @selector( addPreferencesFromURL:)
+                                 toTarget: [OSIGeneralPreferencePanePref class]
+                               withObject: [NSURL URLWithString: [[NSUserDefaults standardUserDefaults] stringForKey: @"SyncPreferencesURL"]]];
 
 #ifdef NDEBUG
     [[NSUserDefaults standardUserDefaults] setBool: NO forKey: @"NSConstraintBasedLayoutVisualizeMutuallyExclusiveConstraints"];
@@ -4314,7 +4278,7 @@ static BOOL initialized = NO;
         }
     }
     
-    if( [AppController hasMacOSXSierra])
+    if ([AppController hasMacOSXSierra])
     {
 #ifdef WITH_OS_VALIDATION
         NSAlert* alert = [[NSAlert new] autorelease];

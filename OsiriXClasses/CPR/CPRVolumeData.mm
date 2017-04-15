@@ -168,11 +168,7 @@
     
     unsignedInt16Data = [imageRep unsignedInt16Data];
     
-#if 0 // original
-    floatBuffer.data = (void *)self.floatBytes + (_pixelsWide * _pixelsHigh * sizeof(float) * z);
-#else // @@@ TBC arithmetic on pointer to void
-    floatBuffer.data = (void *)(self.floatBytes + (_pixelsWide * _pixelsHigh * sizeof(float) * z));
-#endif
+    floatBuffer.data = (uint8_t *)self.floatBytes + (_pixelsWide * _pixelsHigh * sizeof(float) * z);
     floatBuffer.height = _pixelsHigh;
     floatBuffer.width = _pixelsWide;
     floatBuffer.rowBytes = sizeof(float) * _pixelsWide;

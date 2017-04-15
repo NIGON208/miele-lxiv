@@ -2081,7 +2081,6 @@ void nifti_swap_Nbytes( int n , int siz , void *ar )  /* subsuming case */
 *//*---------------------------------------------------------------------- */
 void swap_nifti_header( struct nifti_1_header *h , int is_nifti )
 {
-
 #if 0                /* ANALYZE fields not used by this software */
    swap_4(h->sizeof_hdr) ;
    swap_4(h->extents) ;
@@ -3096,10 +3095,11 @@ nifti_image* nifti_convert_nhdr2nim(struct nifti_1_header nhdr,
      if( nhdr.dim[ii] != 1 && nhdr.dim[ii] != 0) nhdr.dim[ii] = 1 ;
 
 #if 0  /* rely on dim[0], do not attempt to modify it   16 Nov 2005 [rickr] */
-
    /**- get number of dimensions (ignoring dim[0] now) */
    for( ii=7 ; ii >= 2 ; ii-- )            /* loop backwards until we  */
-     if( nhdr.dim[ii] > 1 ) break ;        /* find a dim bigger than 1 */
+     if( nhdr.dim[ii] > 1 )                /* find a dim bigger than 1 */
+         break;
+    
    ndim = ii ;
 #endif
 

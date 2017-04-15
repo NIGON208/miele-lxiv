@@ -52,6 +52,7 @@
 	OFCondition status = fileformat.loadFile([[self completePath] UTF8String]);
 	if (status.good())
 		status = doc->read(*fileformat.getDataset());
+    
 	if (status.good())
 	{
 		DSRDocumentTreeNode *node = NULL; 

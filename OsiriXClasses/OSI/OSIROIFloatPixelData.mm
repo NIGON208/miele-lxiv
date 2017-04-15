@@ -192,11 +192,13 @@
             Q2Index = (floatCount - 1) / 2;
             Q3StartIndex = Q2Index + 1;
             Q2 = sorted[Q2Index];
-        } else {
+        }
+        else {
             Q2Index = floatCount/2;
             Q3StartIndex = Q2Index;
             Q2 = (sorted[Q2Index] + sorted[Q2Index - 1]) / 2.0f;
         }
+        
         QLength = Q2Index;
         
         if (QLength % 2) {
@@ -205,7 +207,8 @@
             
             Q3Index = Q1Index + Q3StartIndex;
             Q3 = sorted[Q3Index];
-        } else {
+        }
+        else {
             Q1Index = QLength/2;
             Q1 = (sorted[Q1Index] + sorted[Q1Index - 1]) / 2.0f;
             

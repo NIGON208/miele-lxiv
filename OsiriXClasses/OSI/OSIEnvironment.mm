@@ -129,7 +129,7 @@ static OSIEnvironment *sharedEnvironment = nil;
 {
 	OSIVolumeWindow *volumeWindow;
 	
-	assert([_volumeWindows objectForKey:[NSValue valueWithPointer:viewerController]] == NO); // already added this viewerController!
+	assert([_volumeWindows objectForKey:[NSValue valueWithPointer:viewerController]] == nil); // already added this viewerController!
 	
 	volumeWindow = [[OSIVolumeWindow alloc] initWithViewerController:viewerController];
 	[self willChangeValueForKey:@"openVolumeWindows"];

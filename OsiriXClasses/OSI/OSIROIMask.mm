@@ -880,7 +880,8 @@ NSArray *OSIROIMaskIndexesInRun(OSIROIMaskRun maskRun)
 {
     if (_maskRuns) {
         return [_maskRuns count];
-    } else {
+    }
+    else {
         return [_maskRunsData length] / sizeof(OSIROIMaskRun);
     }
 }
@@ -891,11 +892,9 @@ NSArray *OSIROIMaskIndexesInRun(OSIROIMaskRun maskRun)
     const OSIROIMaskRun *maskRunArray = (const OSIROIMaskRun *)[maskRunData bytes];
     NSUInteger maskRunCount = [self maskRunCount];
     NSUInteger maskIndexCount = 0;
-    NSUInteger i = 0;
     
-    for (i = 0; i < maskRunCount; i++) {
+    for (NSUInteger i = 0; i < maskRunCount; i++)
         maskIndexCount += maskRunArray[i].widthRange.length;
-    }
     
     return maskIndexCount;
 }
@@ -942,15 +941,18 @@ NSArray *OSIROIMaskIndexesInRun(OSIROIMaskRun maskRun)
         BOOL before = NO;
         if (index.z < maskRuns[middleIndex].depthIndex) {
             before = YES;
-        } else if (index.z == maskRuns[middleIndex].depthIndex && index.y < maskRuns[middleIndex].heightIndex) {
+        }
+        else if (index.z == maskRuns[middleIndex].depthIndex && index.y < maskRuns[middleIndex].heightIndex) {
             before = YES;
-        } else if (index.z == maskRuns[middleIndex].depthIndex && index.y == maskRuns[middleIndex].heightIndex && index.x < maskRuns[middleIndex].widthRange.location) {
+        }
+        else if (index.z == maskRuns[middleIndex].depthIndex && index.y == maskRuns[middleIndex].heightIndex && index.x < maskRuns[middleIndex].widthRange.location) {
             before = YES;
         }
         
         if (before) {
             runCount /= 2; 
-        } else {
+        }
+        else {
             runIndex = middleIndex + 1;
             runCount = (runCount - 1) / 2;
         }
@@ -961,13 +963,11 @@ NSArray *OSIROIMaskIndexesInRun(OSIROIMaskRun maskRun)
 
 - (instancetype)ROIMaskByResamplingFromVolumeTransform:(N3AffineTransform)fromTransform toVolumeTransform:(N3AffineTransform)toTransform interpolationMode:(CPRInterpolationMode)interpolationsMode
 {
-    if (N3AffineTransformEqualToTransform(fromTransform, toTransform)) {
+    if (N3AffineTransformEqualToTransform(fromTransform, toTransform))
         return self;
-    }
 
-    if ([self maskRunCount] == 0) {
+    if ([self maskRunCount] == 0)
         return self;
-    }
 
     // The implementation of this function can be made a lot less memory demanding my only sampling one slice at a time instead of the whole volume
     OSIROIMask *resampledMask = nil;
@@ -1009,32 +1009,31 @@ NSArray *OSIROIMaskIndexesInRun(OSIROIMaskRun maskRun)
 
     OSIROIMaskRun *maskRuns = (OSIROIMaskRun *)[[self maskRunsData] bytes];
     NSInteger maskRunCount = [self maskRunCount];
-    NSInteger i;
 
-    if (maskRunCount == 0) {
-        if (minWidthPtr) {
+    if (maskRunCount == 0)
+    {
+        if (minWidthPtr)
             *minWidthPtr = 0;
-        }
-        if (maxWidthPtr) {
+
+        if (maxWidthPtr)
             *maxWidthPtr = 0;
-        }
-        if (minHeightPtr) {
+
+        if (minHeightPtr)
             *minHeightPtr = 0;
-        }
-        if (maxHeightPtr) {
+
+        if (maxHeightPtr)
             *maxHeightPtr = 0;
-        }
-        if (minDepthPtr) {
+
+        if (minDepthPtr)
             *minDepthPtr = 0;
-        }
-        if (maxDepthPtr) {
+
+        if (maxDepthPtr)
             *maxDepthPtr = 0;
-        }
 
         return;
     }
 
-    for (i = 0; i < maskRunCount; i++) {
+    for (NSInteger i = 0; i < maskRunCount; i++) {
         maxWidth = MAX(maxWidth, (NSInteger)OSIROIMaskRunLastWidthIndex(maskRuns[i]));
         minWidth = MIN(minWidth, (NSInteger)OSIROIMaskRunFirstWidthIndex(maskRuns[i]));
 
@@ -1045,24 +1044,23 @@ NSArray *OSIROIMaskIndexesInRun(OSIROIMaskRun maskRun)
         minDepth = MIN(minDepth, (NSInteger)maskRuns[i].depthIndex);
     }
 
-    if (minWidthPtr) {
+    if (minWidthPtr)
         *minWidthPtr = minWidth;
-    }
-    if (maxWidthPtr) {
+
+    if (maxWidthPtr)
         *maxWidthPtr = maxWidth;
-    }
-    if (minHeightPtr) {
+
+    if (minHeightPtr)
         *minHeightPtr = minHeight;
-    }
-    if (maxHeightPtr) {
+
+    if (maxHeightPtr)
         *maxHeightPtr = maxHeight;
-    }
-    if (minDepthPtr) {
+
+    if (minDepthPtr)
         *minDepthPtr = minDepth;
-    }
-    if (maxDepthPtr) {
+
+    if (maxDepthPtr)
         *maxDepthPtr = maxDepth;
-    }
 }
 
 - (NSArray *)convexHull
@@ -1094,11 +1092,10 @@ NSArray *OSIROIMaskIndexesInRun(OSIROIMaskRun maskRun)
     NSData *maskData = [self maskRunsData];
     NSInteger runCount = [maskData length]/sizeof(OSIROIMaskRun);
     const OSIROIMaskRun *runArray = (const OSIROIMaskRun *)[maskData bytes];
-    NSUInteger i;
     CGFloat floatCount = 0;
     N3Vector centerOfMass = N3VectorZero;
     
-    for (i = 0; i < runCount; i++) {
+    for (NSUInteger i = 0; i < runCount; i++) {
         centerOfMass.x += ((CGFloat)runArray[i].widthRange.location+((CGFloat)runArray[i].widthRange.length/2.0)) * (CGFloat)runArray[i].widthRange.length;
         centerOfMass.y += (CGFloat)runArray[i].heightIndex*(CGFloat)runArray[i].widthRange.length;
         centerOfMass.z += (CGFloat)runArray[i].depthIndex*(CGFloat)runArray[i].widthRange.length;
@@ -1136,9 +1133,7 @@ NSArray *OSIROIMaskIndexesInRun(OSIROIMaskRun maskRun)
 
     NSUInteger maskRunsCount = [self maskRunCount];
     const OSIROIMaskRun *maskRuns = (const OSIROIMaskRun *)[[self maskRunsData] bytes];
-    NSUInteger i;
-
-    for (i = 0; i < maskRunsCount; i++) {
+    for (NSUInteger i = 0; i < maskRunsCount; i++) {
         [desc appendFormat:@"X:%4ld...%-4ld Y:%-4ld Z:%-4ld\n", (long)OSIROIMaskRunFirstWidthIndex(maskRuns[i]), (long)OSIROIMaskRunLastWidthIndex(maskRuns[i]), (long)maskRuns[i].heightIndex, (long)maskRuns[i].depthIndex];
     }
 
@@ -1154,14 +1149,14 @@ NSArray *OSIROIMaskIndexesInRun(OSIROIMaskRun maskRun)
     NSInteger i;
     if (_maskRunsData) {
         NSInteger maskRunsDataCount = [_maskRunsData length]/sizeof(OSIROIMaskRun);
-        const OSIROIMaskRun *maskRunArray = [_maskRunsData bytes];
+        const OSIROIMaskRun *maskRunArray = (const OSIROIMaskRun *)[_maskRunsData bytes];
         for (i = 0; i < (maskRunsDataCount - 1); i++) {
             assert(OSIROIMaskCompareRun(maskRunArray[i], maskRunArray[i+1]) == NSOrderedAscending);
             assert(OSIROIMaskRunsOverlap(maskRunArray[i], maskRunArray[i+1]) == NO);
         }
-        for (i = 0; i < maskRunsDataCount; i++) {
+
+        for (i = 0; i < maskRunsDataCount; i++)
             assert(maskRunArray[i].widthRange.length > 0);
-        }
     }
     
     if (_maskRuns) {
@@ -1170,16 +1165,11 @@ NSArray *OSIROIMaskIndexesInRun(OSIROIMaskRun maskRun)
             assert(OSIROIMaskRunsOverlap([[_maskRuns objectAtIndex:i] OSIROIMaskRunValue], [[_maskRuns objectAtIndex:i+1] OSIROIMaskRunValue]) == NO);
         }
         
-        for (i = 0; i < [_maskRuns count]; i++) {
+        for (i = 0; i < [_maskRuns count]; i++)
             assert([[_maskRuns objectAtIndex:i] OSIROIMaskRunValue].widthRange.length > 0);
-        }
     }
 #endif
 }
-
-
-
-
 
 @end
 

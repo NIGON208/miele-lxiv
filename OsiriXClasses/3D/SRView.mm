@@ -2211,14 +2211,8 @@ typedef struct _xyzArray
 {
 	short   error = 0;
 	
-#if 0
-	NSLog(@"VTK version %s", vtkVersion::GetVTKSourceVersion());
-	NSLog(@"VTK version %s", VTK_SOURCE_VERSION);
-#endif
-
 	try
 	{
-		
 		long	i;
 		
 		[pix retain];
@@ -2269,9 +2263,8 @@ typedef struct _xyzArray
 			if( dataFRGB)
             {
                 size /= 4;
-                
                 dstPtr = dataFRGB;
-                for( i = 0 ; i < size; i++)
+                for(long i = 0 ; i < size; i++)
                 {
                     srcPtr++;
                     val = *srcPtr++;

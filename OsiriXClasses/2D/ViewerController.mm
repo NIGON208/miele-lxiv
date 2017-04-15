@@ -8200,10 +8200,11 @@ static NSMutableArray *poolOf2DViewers = nil;
 	Dicom_Image* dicomImage = [d objectAtIndex:0];
 	self.database = [DicomDatabase databaseForContext:dicomImage.managedObjectContext];
 	
-#if 0
+#if 1
 	[self setMagnetic: YES];
 	
-	if( [d count] == 0) d = nil;
+	if( [d count] == 0)
+        d = nil;
 	
     [[NSUserDefaults standardUserDefaults] setObject: [NSString stringWithFormat: @"%d%d", 1, 1] forKey: @"LastWindowsTilingRowsColumns"];
     

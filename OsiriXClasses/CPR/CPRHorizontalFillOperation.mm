@@ -78,11 +78,14 @@
         
         if (_interpolationMode == CPRInterpolationModeLinear) {
             [self _linearInterpolatingFill];
-        } else if (_interpolationMode == CPRInterpolationModeNearestNeighbor) {
+        }
+        else if (_interpolationMode == CPRInterpolationModeNearestNeighbor) {
             [self _nearestNeighborFill];
-        } else if (_interpolationMode == CPRInterpolationModeCubic) {
+        }
+        else if (_interpolationMode == CPRInterpolationModeCubic) {
             [self _cubicInterpolatingFill];
-        } else {
+        }
+        else {
             [self _unknownInterpolatingFill];
         }
         

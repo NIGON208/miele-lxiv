@@ -31,8 +31,8 @@
                             <rect key="frame" x="2" y="2" width="684" height="57"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <button toolTip="Connect to OsiriX and check for latest version." horizontalCompressionResistancePriority="1000" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="101">
-                                    <rect key="frame" x="15" y="11" width="436" height="18"/>
+                                <button toolTip="Connect to OsiriX and check for latest version." horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="101">
+                                    <rect key="frame" x="15" y="11" width="445" height="18"/>
                                     <buttonCell key="cell" type="check" title="Automatically check for Osiri-LXIV application updates at startup time" bezelStyle="regularSquare" imagePosition="left" alignment="left" scrollable="YES" lineBreakMode="clipping" inset="2" id="178">
                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                         <font key="font" metaFont="system"/>
@@ -42,8 +42,8 @@
                                         <binding destination="167" name="hidden" keyPath="values.MACAPPSTORE" id="392"/>
                                     </connections>
                                 </button>
-                                <button toolTip="Connect to OsiriX and check for latest version." horizontalCompressionResistancePriority="1000" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="191">
-                                    <rect key="frame" x="15" y="31" width="428" height="18"/>
+                                <button toolTip="Connect to OsiriX and check for latest version." horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="191">
+                                    <rect key="frame" x="15" y="31" width="412" height="18"/>
                                     <buttonCell key="cell" type="check" title="Automatically check for installed Plugins updates at startup time" bezelStyle="regularSquare" imagePosition="left" alignment="left" scrollable="YES" lineBreakMode="clipping" inset="2" id="192">
                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                         <font key="font" metaFont="system"/>
@@ -95,8 +95,8 @@
                                         <binding destination="167" name="selectedTag" keyPath="values.TOOLKITPARSER4" id="394"/>
                                     </connections>
                                 </matrix>
-                                <button misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="174">
-                                    <rect key="frame" x="26" y="11" width="416" height="18"/>
+                                <button translatesAutoresizingMaskIntoConstraints="NO" id="174">
+                                    <rect key="frame" x="26" y="11" width="402" height="18"/>
                                     <buttonCell key="cell" type="check" title="For CD/DVD Media, always use Papyrus Toolkit (faster reading)" bezelStyle="regularSquare" imagePosition="left" alignment="left" scrollable="YES" lineBreakMode="clipping" inset="2" id="182">
                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                         <font key="font" metaFont="system"/>
@@ -122,8 +122,8 @@
                             <rect key="frame" x="2" y="2" width="684" height="140"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <button toolTip="Connect to OsiriX and check for latest version." horizontalCompressionResistancePriority="1000" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="159">
-                                    <rect key="frame" x="15" y="83" width="476" height="18"/>
+                                <button toolTip="Connect to OsiriX and check for latest version." horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="159">
+                                    <rect key="frame" x="15" y="83" width="457" height="18"/>
                                     <buttonCell key="cell" type="check" title="Require an 'Administrator' authentication to modify preferences settings" bezelStyle="regularSquare" imagePosition="left" alignment="left" scrollable="YES" lineBreakMode="clipping" inset="2" id="183">
                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                         <font key="font" metaFont="system"/>
@@ -133,8 +133,8 @@
                                         <binding destination="167" name="hidden" keyPath="values.MACAPPSTORE" id="391"/>
                                     </connections>
                                 </button>
-                                <button toolTip="Connect to OsiriX and check for latest version." misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BXs-xj-ZZ5">
-                                    <rect key="frame" x="15" y="11" width="416" height="18"/>
+                                <button toolTip="Connect to OsiriX and check for latest version." translatesAutoresizingMaskIntoConstraints="NO" id="BXs-xj-ZZ5">
+                                    <rect key="frame" x="15" y="11" width="399" height="18"/>
                                     <buttonCell key="cell" type="check" title="Display Notifications (MacOS 10.8 or higher or Growl required)" bezelStyle="regularSquare" imagePosition="left" alignment="left" scrollable="YES" lineBreakMode="clipping" inset="2" id="eOV-F7-aFg">
                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                         <font key="font" metaFont="system"/>
@@ -177,8 +177,8 @@
                                         <action selector="loadPreferences:" target="-2" id="550"/>
                                     </connections>
                                 </button>
-                                <button toolTip="Connect to OsiriX and check for latest version." misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="535">
-                                    <rect key="frame" x="15" y="63" width="328" height="18"/>
+                                <button toolTip="Connect to OsiriX and check for latest version." translatesAutoresizingMaskIntoConstraints="NO" id="535">
+                                    <rect key="frame" x="15" y="63" width="317" height="18"/>
                                     <buttonCell key="cell" type="check" title="Synchronize preferences at startup with this url :" bezelStyle="regularSquare" imagePosition="left" alignment="left" scrollable="YES" lineBreakMode="clipping" inset="2" id="536">
                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                         <font key="font" metaFont="system"/>
@@ -203,8 +203,8 @@
                                         <binding destination="167" name="value" keyPath="values.SyncPreferencesURL" id="551"/>
                                     </connections>
                                 </textField>
-                                <button verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="546">
-                                    <rect key="frame" x="535" y="33" width="20" height="25"/>
+                                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="546">
+                                    <rect key="frame" x="535" y="33" width="21" height="25"/>
                                     <buttonCell key="cell" type="roundTextured" title="Button" bezelStyle="texturedRounded" image="NSRefreshTemplate" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="547">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="system"/>
@@ -248,8 +248,8 @@
                             <rect key="frame" x="2" y="2" width="684" height="37"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <button toolTip="Connect to OsiriX and check for latest version." misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="171">
-                                    <rect key="frame" x="15" y="11" width="311" height="18"/>
+                                <button toolTip="Connect to OsiriX and check for latest version." translatesAutoresizingMaskIntoConstraints="NO" id="171">
+                                    <rect key="frame" x="15" y="11" width="300" height="18"/>
                                     <buttonCell key="cell" type="check" title="Allow DICOM Editing. See Meta-Data Window." bezelStyle="regularSquare" imagePosition="left" alignment="left" scrollable="YES" lineBreakMode="clipping" inset="2" id="184">
                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                         <font key="font" metaFont="system"/>
@@ -368,16 +368,16 @@ If multiple languages are enabled, the used language will be chosen according to
                             <rect key="frame" x="2" y="2" width="684" height="68"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="1000" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="364">
-                                    <rect key="frame" x="20" y="35" width="132" height="22"/>
+                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="364">
+                                    <rect key="frame" x="20" y="35" width="130" height="22"/>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Compression Levels:" id="374">
                                         <font key="font" metaFont="system"/>
                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
-                                <button verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="366">
-                                    <rect key="frame" x="160" y="30" width="141" height="32"/>
+                                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="366">
+                                    <rect key="frame" x="158" y="30" width="141" height="32"/>
                                     <constraints>
                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="129" id="8TN-G8-XXC"/>
                                     </constraints>
@@ -389,8 +389,8 @@ If multiple languages are enabled, the used language will be chosen according to
                                         <action selector="editCompressionSettings:" target="-2" id="375"/>
                                     </connections>
                                 </button>
-                                <button horizontalCompressionResistancePriority="1000" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="166">
-                                    <rect key="frame" x="21" y="11" width="582" height="18"/>
+                                <button horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="166">
+                                    <rect key="frame" x="21" y="11" width="573" height="18"/>
                                     <buttonCell key="cell" type="check" title="For Color JPEG DICOMs, use JPEG photometric value, instead of DICOM photometric value" bezelStyle="regularSquare" imagePosition="left" alignment="left" scrollable="YES" lineBreakMode="clipping" inset="2" id="181">
                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                         <font key="font" metaFont="system"/>
@@ -683,8 +683,8 @@ Gw
                             <autoresizingMask key="autoresizingMask"/>
                         </tableHeaderView>
                     </scrollView>
-                    <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="305">
-                        <rect key="frame" x="18" y="398" width="186" height="17"/>
+                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="305">
+                        <rect key="frame" x="18" y="398" width="177" height="17"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="If matrix size is smaller than:" id="306">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -699,8 +699,8 @@ Gw
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <popUpButton verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="307">
-                        <rect key="frame" x="206" y="392" width="67" height="26"/>
+                    <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="307">
+                        <rect key="frame" x="197" y="392" width="70" height="26"/>
                         <popUpButtonCell key="cell" type="push" title="128" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="128" imageScaling="proportionallyDown" inset="2" selectedItem="310" id="308">
                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="menu"/>

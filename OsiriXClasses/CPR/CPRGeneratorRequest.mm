@@ -241,9 +241,11 @@
         [key isEqualToString:@"pixelSpacingX"] ||
         [key isEqualToString:@"pixelSpacingY"]) {
         return [keyPaths setByAddingObjectsFromSet:[NSSet setWithObject:@"sliceToDicomTransform"]];
-    } else if ([key isEqualToString:@"sliceToDicomTransform"]) {
+    }
+    else if ([key isEqualToString:@"sliceToDicomTransform"]) {
         return [keyPaths setByAddingObjectsFromSet:[NSSet setWithObjects:@"origin", @"directionX", @"directionY", @"pixelSpacingX", @"pixelSpacingY", nil]];
-    } else {
+    }
+    else {
         return keyPaths;
     }
 }

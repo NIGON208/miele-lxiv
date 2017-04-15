@@ -54,7 +54,8 @@ NSString * SBJSONErrorDomain = @"org.brautaset.JSON.ErrorDomain";
         errorTrace = [NSMutableArray new];
         userInfo = [NSDictionary dictionaryWithObject:str forKey:NSLocalizedDescriptionKey];
         
-    } else {
+    }
+    else {
         userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
                     str, NSLocalizedDescriptionKey,
                     [errorTrace lastObject], NSUnderlyingErrorKey,

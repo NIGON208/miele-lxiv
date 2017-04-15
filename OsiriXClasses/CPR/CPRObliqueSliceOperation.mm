@@ -137,7 +137,8 @@ static NSOperationQueue *_obliqueSliceOperationFillQueue = nil;
             downDirection = N3VectorScalarMultiply(N3VectorNormalize(self.request.directionY), self.request.pixelSpacingY);
             if (N3VectorEqualToVector(self.request.directionZ, N3VectorZero)) {
                 inSlabNormal = N3VectorScalarMultiply(N3VectorNormalize(N3VectorCrossProduct(leftDirection, downDirection)), [self _slabSampleDistance]);
-            } else {
+            }
+            else {
                 inSlabNormal = N3VectorScalarMultiply(N3VectorNormalize(self.request.directionZ), [self _slabSampleDistance]);
             }
 
@@ -213,7 +214,8 @@ static NSOperationQueue *_obliqueSliceOperationFillQueue = nil;
 			free(vectors);
             free(fillVectors);
             free(downVectors);
-        } else {
+        }
+        else {
             [self willChangeValueForKey:@"isFinished"];
             [self willChangeValueForKey:@"isExecuting"];
             _operationExecuting = NO;
@@ -287,7 +289,8 @@ static NSOperationQueue *_obliqueSliceOperationFillQueue = nil;
                 
             }
         }
-    } else {
+    }
+    else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
 }
@@ -308,7 +311,8 @@ static NSOperationQueue *_obliqueSliceOperationFillQueue = nil;
 {
     if (self.request.slabSampleDistance != 0.0) {
         return self.request.slabSampleDistance;
-    } else {
+    }
+    else {
         return self.volumeData.minPixelSpacing;
     }
 }
@@ -334,7 +338,8 @@ static NSOperationQueue *_obliqueSliceOperationFillQueue = nil;
     downDirection = N3VectorScalarMultiply(N3VectorNormalize(self.request.directionY), self.request.pixelSpacingY);
     if (N3VectorEqualToVector(self.request.directionZ, N3VectorZero)) {
         inSlabNormal = N3VectorScalarMultiply(N3VectorNormalize(N3VectorCrossProduct(leftDirection, downDirection)), [self _slabSampleDistance]);
-    } else {
+    }
+    else {
         inSlabNormal = N3VectorScalarMultiply(N3VectorNormalize(self.request.directionZ), [self _slabSampleDistance]);
     }
 

@@ -177,6 +177,7 @@ enum {
 {
 	if (database == [DicomDatabase defaultDatabase])
 		return [DefaultLocalDatabaseNodeIdentifier identifier];
+    
 	if (database.isLocal)
 		return [LocalDatabaseNodeIdentifier localDatabaseNodeIdentifierWithPath:database.baseDirPath];
 	else

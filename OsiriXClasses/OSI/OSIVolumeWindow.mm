@@ -98,20 +98,18 @@ NSString* const OSIVolumeWindowDidChangeDataNotification = @"OSIVolumeWindowDidC
 
 - (NSArray *)dimensions // dimensions other than the 3 natural dimensions
 {
-	if ([_viewerController maxMovieIndex] > 1) {
+	if ([_viewerController maxMovieIndex] > 1)
 		return [NSArray arrayWithObject:@"movieIndex"];
-	} else {
-		return [NSArray array];
-	}
+
+    return [NSArray array];
 }
 
 - (NSUInteger)depthOfDimension:(NSString *)dimension
 {
-	if ([dimension isEqualToString:@"movieIndex"]) {
+	if ([dimension isEqualToString:@"movieIndex"])
 		return [_viewerController maxMovieIndex];
-	} else {
-		return 0;
-	}
+
+    return 0;
 }
 
 - (OSIFloatVolumeData *)floatVolumeDataForDimensions:(NSArray *)dimensions indexes:(NSArray *)indexes;
@@ -184,7 +182,8 @@ NSString* const OSIVolumeWindowDidChangeDataNotification = @"OSIVolumeWindowDidC
 		va_end(args);
 		
 		return [self floatVolumeDataForDimensions:dimensions indexes:indexes];
-	} else {
+	}
+    else {
         assert(0);
 		return nil;
 	}

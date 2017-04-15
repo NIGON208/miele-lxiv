@@ -64,7 +64,8 @@ znzFile znzopen(const char *path, const char *mode, int use_compression)
         free(file);
         file = NULL;
     }
-  } else {
+  }
+  else {
 #endif
 
     file->withz = 0;
@@ -94,7 +95,8 @@ znzFile znzdopen(int fd, const char *mode, int use_compression)
     file->withz = 1;
     file->zfptr = gzdopen(fd,mode);
     file->nzfptr = NULL;
-  } else {
+  }
+  else {
 #endif
     file->withz = 0;
 #ifdef HAVE_FDOPEN

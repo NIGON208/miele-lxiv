@@ -566,11 +566,10 @@ extern int splitPosition[ 3];
             
             glLineWidth(2.0 * self.window.backingScaleFactor);
 
-            if (transverseRun) {
+            if (transverseRun)
                 [self _drawPlaneRuns:[NSArray arrayWithObject:transverseRun]];
-            } else {
+            else
                 [self _drawVerticalLines:[NSArray arrayWithObject:[NSNumber numberWithUnsignedInteger:transverseIndex]] length: transverseWidth];
-            }
 		}
 	}
 	else if(_displayTransverseLines)
@@ -586,22 +585,21 @@ extern int splitPosition[ 3];
         for (name in _transverseVerticalLines) {
             NSArray *transverseVerticalLine = [_transverseVerticalLines objectForKey:name];
             
-            if ([name isEqualToString:@"center"]) {
+            if ([name isEqualToString:@"center"])
                 glLineWidth(2.0 * self.window.backingScaleFactor);
-            } else {
+            else
                 glLineWidth(1.0 * self.window.backingScaleFactor);
-            }
             
             [self _drawVerticalLines:transverseVerticalLine length:curDCM.pheight/3.0];
         }
+        
         for (name in _transversePlaneRuns) {
             NSArray *transversePlaneRun = [_transversePlaneRuns objectForKey:name];
             
-            if ([name isEqualToString:@"center"]) {
+            if ([name isEqualToString:@"center"])
                 glLineWidth(2.0 * self.window.backingScaleFactor);
-            } else {
+            else
                 glLineWidth(1.0 * self.window.backingScaleFactor);
-            }
             
             [self _drawPlaneRuns:transversePlaneRun];
         }
@@ -746,12 +744,9 @@ extern int splitPosition[ 3];
             cursorVector = N3VectorApplyTransform(cursorVector, pixToSubDrawRectTransform);
             
             if (_displayInfo.hoverNodeHidden == NO && _displayInfo.hoverNodeIndex == i)
-			{
                 glColor4d(1.0, 0.5, 0.0, 1.0);
-            } else {
+            else
                 glColor4d(1.0, 0.0, 0.0, 1.0);
-            }
-            
             
             glEnable(GL_POINT_SMOOTH);
             glPointSize(8 * self.window.backingScaleFactor);
@@ -998,7 +993,8 @@ extern int splitPosition[ 3];
 						_displayInfo.hoverNodeHidden = NO;
 						_displayInfo.hoverNodeIndex = hoverNodeIndex;
 					}
-				} else {
+				}
+                else {
 					if (_displayInfo.hoverNodeHidden == NO) {
 						_displayInfo.hoverNodeHidden = YES;
 						_displayInfo.hoverNodeIndex = 0;
@@ -2372,9 +2368,8 @@ extern int splitPosition[ 3];
         relativePositionPlane = N3PlaneMake(N3VectorMake(0, 0, relativePosition), N3VectorMake(0, 0, 1));
         intersections = [self.centerlinePath intersectionsWithPlane:relativePositionPlane]; // TODO make this O(log(n)) not O(n)
         
-        if ([intersections count] == 0) {
+        if ([intersections count] == 0)
             return N3VectorZero;
-        } 
         
         relativePositionIntersection = [[intersections objectAtIndex:0] N3VectorValue];
     }
@@ -2390,9 +2385,8 @@ extern int splitPosition[ 3];
     plane = N3PlaneMake(N3VectorMake((CGFloat)index, 0, 0), N3VectorMake(1, 0, 0));
     
     intersections = [_centerlinePath intersectionsWithPlane:plane]; // TODO make this O(log(n)) not O(n) 
-    if ([intersections count] == 0) {
+    if ([intersections count] == 0)
         return 0;
-    }
     
     return [[intersections objectAtIndex:0] N3VectorValue].z;
 }

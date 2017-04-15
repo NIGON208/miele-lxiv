@@ -83,10 +83,6 @@ END_EXTERN_C
 #include "tlslayer.h"
 #endif
 
-#ifdef WITH_ZLIB
-#include <zlib.h>          /* for zlibVersion() */
-#endif
-
 #include "browserController.h"
 #import "DICOMToNSString.h"
 #import <OsiriX/DCMObject.h>
@@ -944,14 +940,6 @@ static OFCondition cstore(T_ASC_Association * assoc, const OFString& fname)
 }
 
 @implementation DCMTKStoreSCU
-
-+ (void) showDcmtkVersion
-{
-    NSLog(@"DCMTK %s %s", OFFIS_DCMTK_VERSION, OFFIS_DCMTK_RELEASEDATE);
-#ifdef WITH_ZLIB
-    NSLog(@"ZLIB, Version %s", zlibVersion());
-#endif
-}
 
 + (int) sendSyntaxForListenerSyntax: (int) listenerSyntax
 {

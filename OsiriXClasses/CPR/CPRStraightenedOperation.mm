@@ -183,7 +183,8 @@ static NSOperationQueue *_straightenedOperationFillQueue = nil;
                     normals[numVectors] = normals[numVectors - 1];
                     numVectors++;
                 }
-            } else { // there are no vectors at all to copy from, so just zero out everthing
+            }
+            else { // there are no vectors at all to copy from, so just zero out everthing
                 while (numVectors < pixelsWide) { // make sure that the full array is filled and that there is not a vector that did not get filled due to roundoff error
                     vectors[numVectors] = N3VectorZero;
                     tangents[numVectors] = N3VectorZero;
@@ -244,7 +245,8 @@ static NSOperationQueue *_straightenedOperationFillQueue = nil;
             free(normals);
             free(inSlabNormals);
             N3BezierCoreRelease(flattenedBezierCore);
-        } else {
+        }
+        else {
             [self willChangeValueForKey:@"isFinished"];
             [self willChangeValueForKey:@"isExecuting"];
             _operationExecuting = NO;
@@ -319,7 +321,8 @@ static NSOperationQueue *_straightenedOperationFillQueue = nil;
 
             }
         }
-    } else {
+    }
+    else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
 }
@@ -340,7 +343,8 @@ static NSOperationQueue *_straightenedOperationFillQueue = nil;
 {
     if (self.request.slabSampleDistance != 0.0) {
         return self.request.slabSampleDistance;
-    } else {
+    }
+    else {
         return self.volumeData.minPixelSpacing; // this should be /2.0 to hit nyquist spacing, but it is too slow, and with this implementation to memory intensive
     }
 }

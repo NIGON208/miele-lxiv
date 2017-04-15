@@ -162,7 +162,8 @@ NSString * const _CPRGeneratorRunLoopMode = @"_CPRGeneratorRunLoopMode";
 											modes:[NSArray arrayWithObjects:NSRunLoopCommonModes, _CPRGeneratorRunLoopMode, nil]];
             }
         }
-    } else {
+    }
+    else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
 }
@@ -197,7 +198,8 @@ NSString * const _CPRGeneratorRunLoopMode = @"_CPRGeneratorRunLoopMode";
                 [_delegate generator:self didGenerateVolume:operation.generatedVolume request:operation.request];
             }
             sentGeneratedVolume = YES;
-        } else {
+        }
+        else {
             if ([_delegate respondsToSelector:@selector(generator:didAbandonRequest:)]) {
                 [_delegate generator:self didAbandonRequest:operation.request];
             }
@@ -219,7 +221,8 @@ NSString * const _CPRGeneratorRunLoopMode = @"_CPRGeneratorRunLoopMode";
     while (!done) {
         if ([_generatedFrameTimes count] && [[_generatedFrameTimes objectAtIndex:0] timeIntervalSinceNow] < -4.0) {
             [_generatedFrameTimes removeObjectAtIndex:0];
-        } else {
+        }
+        else {
             done = YES;
         }
     }

@@ -1853,7 +1853,9 @@ static NSConditionLock *threadLock = nil;
 
 -(void)openDatabaseIn:(NSString*)a Bonjour:(BOOL)isBonjour refresh:(BOOL)refresh // __deprecated
 {
-	if (isBonjour) [NSException raise:NSGenericException format:@"TODO do something smart :P"]; // TODO: hmmm
+	if (isBonjour)
+        [NSException raise:NSGenericException format:@"TODO do something smart :P"]; // TODO: hmmm
+    
 	DicomDatabase* db = isBonjour? nil : [DicomDatabase databaseAtPath:a];
 	[self setDatabase:db];
 }
