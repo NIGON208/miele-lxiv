@@ -417,9 +417,7 @@ static const NSSize PopUpWindowBorder = NSMakeSize(10,4);
         p.y += scroll;
         [_sView.contentView scrollToPoint:p];
         [_sView reflectScrolledClipView:_sView.contentView];
-    }
-
-    
+    }    
     
 //    {
 //        BOOL isShowingBottom = (_sView.documentVisibleRect.origin.y+_sView.documentVisibleRect.size.height >= _sView.contentView.documentRect.origin.y+_sView.contentView.documentRect.size.height);
