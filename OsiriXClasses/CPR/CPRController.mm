@@ -141,10 +141,11 @@ static float deg2rad = M_PI / 180.0;
             
             if( succeed == NO)
             {
+                NSString *bundleName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleName"];
                 if ( NSRunAlertPanel(@"", //NSLocalizedString(@"32-bit",nil),
                                      NSLocalizedString(@"Cannot compute the high resolution data.",nil),
                                      NSLocalizedString(@"OK", nil),
-                                     (__bridge NSString *)CFSTR("CFBundleName"),
+                                     bundleName,
                                      nil
                                      ) == NSAlertAlternateReturn)
                 {

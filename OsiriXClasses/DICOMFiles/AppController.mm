@@ -732,15 +732,15 @@ static NSDate *lastWarningDate = nil;
     return YES;
 }
 
-+(BOOL) hasMacOSXLeopard
-{
-    NSOperatingSystemVersion version = [[NSProcessInfo processInfo] operatingSystemVersion];
-    if (version.majorVersion < 10 ||
-        version.minorVersion < 5)
-        return NO;
-
-    return YES;
-}
+//+(BOOL) hasMacOSXLeopard
+//{
+//    NSOperatingSystemVersion version = [[NSProcessInfo processInfo] operatingSystemVersion];
+//    if (version.majorVersion < 10 ||
+//        version.minorVersion < 5)
+//        return NO;
+//
+//    return YES;
+//}
 
 + (void) createNoIndexDirectoryIfNecessary:(NSString*) path { // __deprecated
 	[[NSFileManager defaultManager] confirmNoIndexDirectoryAtPath:path];
@@ -849,12 +849,13 @@ static NSDate *lastWarningDate = nil;
 {
 	if( lastWarningDate == nil || [lastWarningDate timeIntervalSinceNow] < -60*5)
 	{
-		int result = NSRunCriticalAlertPanel(
+        NSString *bundleName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleName"];
+        int result = NSRunCriticalAlertPanel(
                         NSLocalizedString( @"Important Notice", nil),
                         NSLocalizedString( @"This version of OsiriX, being a free open-source software (FOSS), is not certified as a commercial medical device for primary diagnostic imaging.", nil),
-                        (__bridge NSString *)CFSTR("CFBundleName"), // default
-                        NSLocalizedString( @"I agree", nil),        // alternate
-                        NSLocalizedString( @"Quit", nil));          // other
+                        bundleName,                             // default
+                        NSLocalizedString( @"I agree", nil),    // alternate
+                        NSLocalizedString( @"Quit", nil));      // other
 		
 		if( result == NSAlertDefaultReturn)
 			[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:URL_VENDOR_NOTICE]];
@@ -3095,7 +3096,7 @@ static BOOL initialized = NO;
 #ifdef MACAPPSTORE
 				[[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"MACAPPSTORE"]; // Also modify in DefaultsOsiriX.m
 				[[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"AUTHENTICATION"];
-				[[NSUserDefaults standardUserDefaults] setObject: NSLocalizedString( @"(~/Library/Application Support/OsiriX App/)", nil) forKey:@"DefaultDatabasePath"];
+				[[NSUserDefaults standardUserDefaults] setObject: NSLocalizedString( @"(~/Library/Application Support/OsiriX App/)", nil) forKey:@"DefaultDatabasePath"];  // TODO
 #else
 				[[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"MACAPPSTORE"]; // Also modify in DefaultsOsiriX.m
 				[[NSUserDefaults standardUserDefaults] setObject: NSLocalizedString( @"(Current User Documents folder)", nil) forKey:@"DefaultDatabasePath"];
@@ -3137,12 +3138,14 @@ static BOOL initialized = NO;
                 
                 if ([dataBasePath hasPrefix:@"/Volumes/"] || dataBasePath == nil) {
                     NSString* volumePath = [[[dataBasePath componentsSeparatedByString:@"/"] subarrayWithRange:NSMakeRange(0,3)] componentsJoinedByString:@"/"];
-                    if (![[NSFileManager defaultManager] fileExistsAtPath:volumePath]) {
+                    if (![[NSFileManager defaultManager] fileExistsAtPath:volumePath])
+                    {
+                        NSString *bundleName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleName"];
                         NSPanel* dialog = [NSPanel alertWithTitle:OUR_DATA_LOCATION
                                                           message:[NSString stringWithFormat:NSLocalizedString(@"%@ is configured to use the database located at %@. This volume is currently not available, most likely because it hasn't yet been mounted by the system, or because it is not plugged in or is turned off, or because you don't have write permissions for this location. %@ will wait for a few minutes, then give up and switch to a database in the current user's home directory.", nil),
-                                                                   CFSTR("CFBundleName"),
+                                                                   bundleName,
                                                                    [[NSUserDefaults standardUserDefaults] stringForKey: @"DATABASELOCATIONURL"],
-                                                                   CFSTR("CFBundleName")]
+                                                                   bundleName]
                                                     defaultButton:@"Quit"
                                                   alternateButton:@"Continue"
                                                              icon:nil];
@@ -3189,11 +3192,12 @@ static BOOL initialized = NO;
                     NSString* volumePath = [[[dataBaseDataPath componentsSeparatedByString:@"/"] subarrayWithRange:NSMakeRange(0,3)] componentsJoinedByString:@"/"];
                     if (![[NSFileManager defaultManager] fileExistsAtPath:volumePath])
                     {
+                        NSString *bundleName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleName"];
                         NSPanel* dialog = [NSPanel alertWithTitle:OUR_DATA_LOCATION
                                                           message:[NSString stringWithFormat:NSLocalizedString(@"%@ is configured to use the database with data located at %@. This volume is currently not available, most likely because it hasn't yet been mounted by the system, or because it is not plugged in or is turned off, or because you don't have write permissions for this location. %@ will wait for a few minutes, then give up and ignore this highly dangerous situation.", nil),
-                                                                   CFSTR("CFBundleName"),
+                                                                   bundleName,
                                                                    dataBaseDataPath,
-                                                                   CFSTR("CFBundleName")]
+                                                                   bundleName]
                                                     defaultButton:@"Quit"
                                                   alternateButton:@"Continue"
                                                              icon:nil];
@@ -4468,7 +4472,7 @@ static BOOL initialized = NO;
     
 	if( [msg isEqualToString:@"UPDATE"])
 	{
-		int button = NSRunAlertPanel( NSLocalizedString( @"New Version Available", nil),
+		int button = NSRunAlertPanel(NSLocalizedString( @"New Version Available", nil),
                                      NSLocalizedString( @"A new version of the application is available. Would you like to download it now?", nil),
                                      NSLocalizedString( @"Download", nil),
                                      NSLocalizedString( @"Continue", nil), nil);
@@ -4478,7 +4482,6 @@ static BOOL initialized = NO;
 	}
 	
 	[pool release];
-	
 	[msg release];
 }
 
@@ -4529,13 +4532,12 @@ static BOOL initialized = NO;
 			if ([latestVersionNumber intValue] <= [currVersionNumber intValue])
 			{
 				if (verboseUpdateCheck && verboseAfterCrash == NO)
-				{
 					[self performSelectorOnMainThread:@selector(displayUpdateMessage:) withObject:@"UPTODATE" waitUntilDone: NO];
-				}
 			}
 			else
 			{
-				if( ([[NSUserDefaults standardUserDefaults] boolForKey: @"CheckOsiriXUpdates4"] == YES && [[NSUserDefaults standardUserDefaults] boolForKey: @"hideListenerError"] == NO) || verboseUpdateCheck == YES)
+				if( ([[NSUserDefaults standardUserDefaults] boolForKey: @"CheckOsiriXUpdates4"] == YES &&
+                     [[NSUserDefaults standardUserDefaults] boolForKey: @"hideListenerError"] == NO) || verboseUpdateCheck == YES)
 				{
                     if( verboseAfterCrash)
                         [self performSelectorOnMainThread:@selector(displayUpdateMessage:) withObject:@"UPDATECRASH" waitUntilDone: NO];
@@ -4547,9 +4549,7 @@ static BOOL initialized = NO;
 		else
 		{
 			if (verboseUpdateCheck)
-			{
 				[self performSelectorOnMainThread:@selector(displayUpdateMessage:) withObject:@"ERROR" waitUntilDone: NO];
-			}
 		}
 	}
 #endif
@@ -4578,6 +4578,7 @@ static BOOL initialized = NO;
 */
 	if (splashController)
 		[splashController release];
+    
 	splashController = [[SplashScreen alloc] init];
 	[splashController showWindow:self];
 	[splashController affiche];
@@ -4587,7 +4588,6 @@ static BOOL initialized = NO;
 {
 	[[PreferencesWindowController sharedPreferencesWindowController] showWindow: sender];
 }
-
 
 //———————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 

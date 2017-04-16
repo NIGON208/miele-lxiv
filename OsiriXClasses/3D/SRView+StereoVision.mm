@@ -298,11 +298,13 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 	}
 	catch (...)
 	{
+        NSString *bundleName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleName"];
 		if (NSRunAlertPanel(@"", //NSLocalizedString(@"32-bit",nil),
                             NSLocalizedString(@"Cannot use the 3D engine.",nil),
                             NSLocalizedString(@"OK", nil),
-                            (__bridge NSString *)CFSTR("CFBundleName"),
-                            nil) == NSAlertAlternateReturn)
+                            bundleName,
+                            nil
+                            ) == NSAlertAlternateReturn)
         {
 			//[[AppController sharedAppController] osirix64bit: self];
         }

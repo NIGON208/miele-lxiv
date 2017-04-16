@@ -372,10 +372,11 @@ typedef itk::ResampleImageFilter<ImageType, ImageType> ResampleFilterType;
 	}
 	else
 	{
+        NSString *bundleName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleName"];
 		if( NSRunCriticalAlertPanel(@"", //NSLocalizedString(@"32-bit", nil),
                                     NSLocalizedString(@"Cannot complete the operation.", nil),
                                     NSLocalizedString(@"OK", nil),
-                                    (__bridge NSString *)CFSTR("CFBundleName"),
+                                    bundleName,
                                     nil) == NSAlertAlternateReturn)
         {
             //[[AppController sharedAppController] osirix64bit: self];

@@ -148,7 +148,11 @@ static const NSMutableArray* pluginPanes = [[NSMutableArray alloc] init];
 	return self;
 }
 
--(void)addPaneWithResourceNamed:(NSString*)resourceName inBundle:(NSBundle*)parentBundle withTitle:(NSString*)title image:(NSImage*)image toGroupWithName:(NSString*)groupName
+-(void)addPaneWithResourceNamed:(NSString*)resourceName
+                       inBundle:(NSBundle*)parentBundle
+                      withTitle:(NSString*)title
+                          image:(NSImage*)image
+                toGroupWithName:(NSString*)groupName
 {
 	Class builtinPrefPaneClass = NSClassFromString(resourceName);
 	
@@ -159,14 +163,19 @@ static const NSMutableArray* pluginPanes = [[NSMutableArray alloc] init];
 	}
 	
 	if (![parentBundle pathForResource:resourceName ofType:@"prefPane"] && !builtinPrefPaneClass) {
-		#ifndef OSIRIX_LIGHT
+#ifndef OSIRIX_LIGHT
 		NSLog(@"Warning: preferences pane %@ not added because resource %@ not found in %@", title, resourceName, [parentBundle resourcePath]);
-		#endif
+#endif
 		return;
 	}
 	
-	PreferencesWindowContext* context = [[PreferencesWindowContext alloc] initWithTitle:title withResourceNamed:resourceName inBundle:parentBundle];
-	[panesListView addItemWithTitle:title image:image toGroupWithName:groupName context:context];
+	PreferencesWindowContext* context = [[PreferencesWindowContext alloc] initWithTitle:title
+                                                                      withResourceNamed:resourceName
+                                                                               inBundle:parentBundle];
+	[panesListView addItemWithTitle:title
+                              image:image
+                    toGroupWithName:groupName
+                            context:context];
     [context release];
 }
 
@@ -174,6 +183,7 @@ static const NSMutableArray* pluginPanes = [[NSMutableArray alloc] init];
 {
 	if (!image)
 		image = [NSImage imageNamed:@"osirixplugin"];
+    
 	[pluginPanes addObject:[NSArray arrayWithObjects:resourceName, parentBundle, title, image, NULL]];
 }
 
@@ -191,7 +201,8 @@ static const NSMutableArray* pluginPanes = [[NSMutableArray alloc] init];
     }
 }
 
--(void)view:(NSView*)view recursiveBindEnableToObject:(id)obj withKeyPath:(NSString*)keyPath {
+-(void)view:(NSView*)view recursiveBindEnableToObject:(id)obj withKeyPath:(NSString*)keyPath
+{
 	if ([view isKindOfClass:[NSControl class]]) {
 		NSUInteger bki = 0;
 		NSString* bk = NULL;
@@ -202,7 +213,8 @@ static const NSMutableArray* pluginPanes = [[NSMutableArray alloc] init];
 			bk = [NSString stringWithFormat:@"enabled%@", bki==1? @"" : [NSString stringWithFormat:@"%d", (int) bki]];
 	
 			NSDictionary* b = [view infoForBinding:bk];
-			if (!b) break;
+			if (!b)
+                break;
 			
 			if ([b objectForKey:NSObservedObjectKey] == obj && [[b objectForKey:NSObservedKeyPathKey] isEqualToString:keyPath])
 				doBind = NO; // already bound
@@ -212,7 +224,8 @@ static const NSMutableArray* pluginPanes = [[NSMutableArray alloc] init];
 			@try {
 				[view bind:bk toObject:obj withKeyPath:keyPath options:[NSDictionary dictionaryWithObject:@YES forKey:NSConditionallySetsEnabledBindingOption]];
 				return;
-			} @catch (NSException* e) {
+			}
+            @catch (NSException* e) {
 				NSLog(@"Warning: %@", e.description);
 			}
 	}
@@ -232,7 +245,8 @@ static const NSMutableArray* pluginPanes = [[NSMutableArray alloc] init];
 			bk = [NSString stringWithFormat:@"enabled%@", bki==1? @"" : [NSString stringWithFormat:@"%d", (int) bki]];
 			
 			NSDictionary* b = [view infoForBinding:bk];
-			if (!b) break;
+			if (!b)
+                break;
 			
 			if ([b objectForKey:NSObservedObjectKey] == obj && [[b objectForKey:NSObservedKeyPathKey] isEqualToString:keyPath])
 				unbind = YES;
@@ -240,6 +254,7 @@ static const NSMutableArray* pluginPanes = [[NSMutableArray alloc] init];
 		
 		if (unbind)
 			[view unbind:bk];
+        
 		return;
 	}
 	
@@ -262,7 +277,6 @@ static const NSMutableArray* pluginPanes = [[NSMutableArray alloc] init];
 		[inv setArgument:&enable atIndex:2];
 		[inv invokeWithTarget:pane];
 	}
-
 }
 
 -(void)awakeFromNib {
@@ -276,6 +290,7 @@ static const NSMutableArray* pluginPanes = [[NSMutableArray alloc] init];
 		[authView setString:BUNDLE_IDENTIFIER".preferences.allowalways"];
 		[authView setEnabled:NO];
 	}
+    
 	[authView updateStatus:self];
 	
 	NSRect mainScreenFrame = [[NSScreen mainScreen] visibleFrame];
@@ -292,23 +307,100 @@ static const NSMutableArray* pluginPanes = [[NSMutableArray alloc] init];
 	NSString* name;
 	
 	name = NSLocalizedString(@"Basics", @"Section in preferences window");
-	[self addPaneWithResourceNamed:@"OSIGeneralPreferencePanePref" inBundle:bundle withTitle:NSLocalizedString(@"General", @"Panel in preferences window") image:[NSImage imageNamed:@"GeneralPreferences"] toGroupWithName:name];
-	[self addPaneWithResourceNamed:@"OSIDatabasePreferencePanePref" inBundle:bundle withTitle:NSLocalizedString(@"Database", @"Panel in preferences window") image:[NSImage imageNamed:@"DatabaseIcon"] toGroupWithName:name];
-	[self addPaneWithResourceNamed:@"OSICDPreferencePanePref" inBundle:bundle withTitle:NSLocalizedString(@"CD/DVD", @"Panel in preferences window") image:[NSImage imageNamed:@"CD"] toGroupWithName:name];
-	[self addPaneWithResourceNamed:@"OSIHangingPreferencePanePref" inBundle:bundle withTitle:NSLocalizedString(@"Protocols", @"Panel in preferences window") image:[NSImage imageNamed:@"ZoomToFit"] toGroupWithName:name];
-    [self addPaneWithResourceNamed:@"OSIHotKeysPref" inBundle:bundle withTitle:NSLocalizedString(@"Hot Keys", @"Panel in preferences window") image:[NSImage imageNamed:@"key"] toGroupWithName:name];
+    
+	[self addPaneWithResourceNamed:@"OSIGeneralPreferencePanePref"
+                          inBundle:bundle
+                         withTitle:NSLocalizedString(@"General", @"Panel in preferences window")
+                             image:[NSImage imageNamed:@"GeneralPreferences"]
+                   toGroupWithName:name];
+    
+	[self addPaneWithResourceNamed:@"OSIDatabasePreferencePanePref"
+                          inBundle:bundle
+                         withTitle:NSLocalizedString(@"Database", @"Panel in preferences window")
+                             image:[NSImage imageNamed:@"DatabaseIcon"]
+                   toGroupWithName:name];
+    
+	[self addPaneWithResourceNamed:@"OSICDPreferencePanePref"
+                          inBundle:bundle
+                         withTitle:NSLocalizedString(@"CD/DVD", @"Panel in preferences window")
+                             image:[NSImage imageNamed:@"CD"]
+                   toGroupWithName:name];
+    
+	[self addPaneWithResourceNamed:@"OSIHangingPreferencePanePref"
+                          inBundle:bundle
+                         withTitle:NSLocalizedString(@"Protocols", @"Panel in preferences window")
+                             image:[NSImage imageNamed:@"ZoomToFit"]
+                   toGroupWithName:name];
+    
+    [self addPaneWithResourceNamed:@"OSIHotKeysPref"
+                          inBundle:bundle
+                         withTitle:NSLocalizedString(@"Hot Keys", @"Panel in preferences window")
+                             image:[NSImage imageNamed:@"key"]
+                   toGroupWithName:name];
+    
 	name = NSLocalizedString(@"Display", @"Section in preferences window");
-	[self addPaneWithResourceNamed:@"OSIViewerPreferencePanePref" inBundle:bundle withTitle:NSLocalizedString(@"Viewers", @"Panel in preferences window") image:[NSImage imageNamed:@"AxialSmall"] toGroupWithName:name];
-	[self addPaneWithResourceNamed:@"OSI3DPreferencePanePref" inBundle:bundle withTitle:NSLocalizedString(@"3D", @"Panel in preferences window") image:[NSImage imageNamed:@"VolumeRendering"] toGroupWithName:name];
-	[self addPaneWithResourceNamed:@"OSIPETPreferencePane" inBundle:bundle withTitle:NSLocalizedString(@"PET", @"Panel in preferences window") image:[NSImage imageNamed:@"SUV"] toGroupWithName:name];
-	[self addPaneWithResourceNamed:@"OSICustomImageAnnotations" inBundle:bundle withTitle:NSLocalizedString(@"Annotations", @"Panel in preferences window") image:[NSImage imageNamed:@"CustomImageAnnotations"] toGroupWithName:name];
-    [self addPaneWithResourceNamed:@"AYDicomPrintPref" inBundle:bundle withTitle:NSLocalizedString(@"DICOM Print", @"Panel in preferences window") image:[NSImage imageNamed:@"Print"] toGroupWithName:name];
+    
+	[self addPaneWithResourceNamed:@"OSIViewerPreferencePanePref"
+                          inBundle:bundle
+                         withTitle:NSLocalizedString(@"Viewers", @"Panel in preferences window")
+                             image:[NSImage imageNamed:@"AxialSmall"]
+                   toGroupWithName:name];
+    
+	[self addPaneWithResourceNamed:@"OSI3DPreferencePanePref"
+                          inBundle:bundle
+                         withTitle:NSLocalizedString(@"3D", @"Panel in preferences window")
+                             image:[NSImage imageNamed:@"VolumeRendering"]
+                   toGroupWithName:name];
+    
+	[self addPaneWithResourceNamed:@"OSIPETPreferencePane"
+                          inBundle:bundle
+                         withTitle:NSLocalizedString(@"PET", @"Panel in preferences window")
+                             image:[NSImage imageNamed:@"SUV"]
+                   toGroupWithName:name];
+    
+	[self addPaneWithResourceNamed:@"OSICustomImageAnnotations"
+                          inBundle:bundle
+                         withTitle:NSLocalizedString(@"Annotations", @"Panel in preferences window")
+                             image:[NSImage imageNamed:@"CustomImageAnnotations"]
+                   toGroupWithName:name];
+    
+    [self addPaneWithResourceNamed:@"AYDicomPrintPref"
+                          inBundle:bundle
+                         withTitle:NSLocalizedString(@"DICOM Print", @"Panel in preferences window")
+                             image:[NSImage imageNamed:@"Print"]
+                   toGroupWithName:name];
+    
 	name = NSLocalizedString(@"Sharing", @"Section in preferences window");
-	[self addPaneWithResourceNamed:@"OSIListenerPreferencePanePref" inBundle:bundle withTitle:NSLocalizedString(@"Listener", @"Panel in preferences window") image:[NSImage imageNamed:@"Network"] toGroupWithName:name];
-	[self addPaneWithResourceNamed:@"OSILocationsPreferencePanePref" inBundle:bundle withTitle:NSLocalizedString(@"Locations", @"Panel in preferences window") image:[NSImage imageNamed:@"AccountPreferences"] toGroupWithName:name];
-	[self addPaneWithResourceNamed:@"OSIAutoroutingPreferencePanePref" inBundle:bundle withTitle:NSLocalizedString(@"Routing", @"Panel in preferences window") image:[NSImage imageNamed:@"route"] toGroupWithName:name];
-	[self addPaneWithResourceNamed:@"OSIWebSharingPreferencePanePref" inBundle:bundle withTitle:NSLocalizedString(@"Web Server", @"Panel in preferences window") image:[NSImage imageNamed:@"Safari"] toGroupWithName:name];
-    [self addPaneWithResourceNamed:@"OSIPACSOnDemandPreferencePane" inBundle:bundle withTitle:NSLocalizedString(@"On-Demand", @"Panel in preferences window") image:[NSImage imageNamed:@"Cloud"] toGroupWithName:name];
+    
+	[self addPaneWithResourceNamed:@"OSIListenerPreferencePanePref"
+                          inBundle:bundle
+                         withTitle:NSLocalizedString(@"Listener", @"Panel in preferences window")
+                             image:[NSImage imageNamed:@"Network"]
+                   toGroupWithName:name];
+    
+	[self addPaneWithResourceNamed:@"OSILocationsPreferencePanePref"
+                          inBundle:bundle
+                         withTitle:NSLocalizedString(@"Locations", @"Panel in preferences window")
+                             image:[NSImage imageNamed:@"AccountPreferences"]
+                   toGroupWithName:name];
+    
+	[self addPaneWithResourceNamed:@"OSIAutoroutingPreferencePanePref"
+                          inBundle:bundle
+                         withTitle:NSLocalizedString(@"Routing", @"Panel in preferences window")
+                             image:[NSImage imageNamed:@"route"]
+                   toGroupWithName:name];
+    
+	[self addPaneWithResourceNamed:@"OSIWebSharingPreferencePanePref"
+                          inBundle:bundle
+                         withTitle:NSLocalizedString(@"Web Server", @"Panel in preferences window")
+                             image:[NSImage imageNamed:@"Safari"]
+                   toGroupWithName:name];
+    
+    [self addPaneWithResourceNamed:@"OSIPACSOnDemandPreferencePane"
+                          inBundle:bundle
+                         withTitle:NSLocalizedString(@"On-Demand", @"Panel in preferences window")
+                             image:[NSImage imageNamed:@"Cloud"]
+                   toGroupWithName:name];
 	
 	for (NSArray* pluginPane in pluginPanes)
 		[self addPaneWithResourceNamed:[pluginPane objectAtIndex:0] inBundle:[pluginPane objectAtIndex:1] withTitle:[pluginPane objectAtIndex:2] image:[pluginPane objectAtIndex:3] toGroupWithName:NSLocalizedString(@"Plugins", @"Title of Plugins section in preferences window")];
@@ -320,7 +412,6 @@ static const NSMutableArray* pluginPanes = [[NSMutableArray alloc] init];
 	[panesListView setFrameSize:flippedDocumentView.frame.size];
 	
 	[self synchronizeSizeWithContent];
-    
     
     // If we need to remove a plugin with a custom pref pane
     for (NSWindow* window in [NSApp windows])
@@ -363,7 +454,8 @@ static const NSMutableArray* pluginPanes = [[NSMutableArray alloc] init];
     }
 }
 
--(void)setCurrentContext:(PreferencesWindowContext*)context {
+-(void)setCurrentContext:(PreferencesWindowContext*)context
+{
 	if (context == currentContext)
 		return;
 	
@@ -419,7 +511,6 @@ static const NSMutableArray* pluginPanes = [[NSMutableArray alloc] init];
 		
 		[oldview release];
 	}
-
 }
 
 -(void)dealloc {
@@ -463,6 +554,7 @@ static const NSMutableArray* pluginPanes = [[NSMutableArray alloc] init];
 	if (tempFrame.size.height < idealFrame.size.height)
 		if (tempFrame.size.width < screenFrame.size.width)
 			frame.size.width = std::min(frame.size.width+scrollView.horizontalScroller.frame.size.height, screenFrame.size.width);
+    
 	if (tempFrame.size.width < idealFrame.size.width)
 		if (tempFrame.size.height < screenFrame.size.height)
 			frame.size.height = std::min(frame.size.height+scrollView.verticalScroller.frame.size.width, screenFrame.size.height);
@@ -497,8 +589,10 @@ static const NSMutableArray* pluginPanes = [[NSMutableArray alloc] init];
 	NSSize windowMaxSize = idealFrame.size;
 	if (tempFrame.size.height < idealFrame.size.height)
 		windowMaxSize.width += scrollView.verticalScroller.frame.size.width;
+    
 	if (tempFrame.size.width < idealFrame.size.width)
 		windowMaxSize.height += scrollView.horizontalScroller.frame.size.height;
+    
 	windowMaxSize.height -= self.window.toolbarHeight;
 	self.window.maxSize = windowMaxSize;
 	
@@ -519,8 +613,11 @@ static const NSMutableArray* pluginPanes = [[NSMutableArray alloc] init];
 	}
 	
 	NSInteger panesCount = [panesListView itemsCount];
-	if (index < 0) index = panesCount-1;
-	if (index >= panesCount) index = 0;
+	if (index < 0)
+        index = panesCount-1;
+    
+	if (index >= panesCount)
+        index = 0;
 	
 	[self setCurrentContext:[panesListView contextForItemAtIndex:index]];
 }
@@ -537,7 +634,9 @@ static const NSMutableArray* pluginPanes = [[NSMutableArray alloc] init];
 
 -(void)reopenDatabase {
 	[[NSUserDefaults standardUserDefaults] setInteger: [[NSUserDefaults standardUserDefaults] integerForKey: @"DEFAULT_DATABASELOCATION"] forKey: @"DATABASELOCATION"];
+    
 	[[NSUserDefaults standardUserDefaults] setObject: [[NSUserDefaults standardUserDefaults] stringForKey: @"DEFAULT_DATABASELOCATIONURL"] forKey: @"DATABASELOCATIONURL"];
+    
 	[[BrowserController currentBrowser] resetToLocalDatabase];
 }
 

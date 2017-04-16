@@ -2226,11 +2226,11 @@ public:
         alertDisplayed = YES;
         
         NSLog( @"C++ Exception during drawRect... not enough memory?");
-        
+        NSString *bundleName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleName"];
         if (NSRunAlertPanel(@"", //NSLocalizedString(@"32-bit",nil),
                             NSLocalizedString(@"Cannot use the 3D engine.",nil),
                             NSLocalizedString(@"OK", nil),
-                            (__bridge NSString *)CFSTR("CFBundleName"),
+                            bundleName,
                             nil
                             ) == NSAlertAlternateReturn)
         {

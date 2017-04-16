@@ -2552,10 +2552,11 @@ static volatile int numberOfThreadsForRelisce = 0;
     
     if( [self setOrientation: n] == NO)
     {
+        NSString *bundleName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleName"];
         if( NSRunCriticalAlertPanel(NSLocalizedString(@"Memory Error", nil),
                                     NSLocalizedString(@"Cannot execute this reslicing.\r\r%@", nil),
-                                    NSLocalizedString(@"OK", nil),              // default button
-                                    (__bridge NSString *)CFSTR("CFBundleName"), // alternate button
+                                    NSLocalizedString(@"OK", nil),  // default button
+                                    bundleName,                     // alternate button
                                     nil,
                                     @""
                                     ) == NSAlertAlternateReturn)
@@ -10015,10 +10016,11 @@ static int avoidReentryRefreshDatabase = 0;
 	[self endWaitWindow: waitWindow];
 	if(!isResampled)
 	{
+        NSString *bundleName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleName"];
 		if (NSRunAlertPanel(@"", //NSLocalizedString(@"32-bit", nil),
                             NSLocalizedString(@"Cannot complete the resampling.", nil),
                             NSLocalizedString(@"OK", nil),
-                            (__bridge NSString *)CFSTR("CFBundleName"),
+                            bundleName,
                             nil
                             ) == NSAlertAlternateReturn)
         {

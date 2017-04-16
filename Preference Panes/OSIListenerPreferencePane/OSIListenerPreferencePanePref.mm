@@ -116,8 +116,7 @@
 		[defaults setObject:@"1" forKey:@"DICOMTimeout"];
 	
 	if( [defaults integerForKey:@"DICOMTimeout"] > 480)
-		[defaults setObject:@"480" forKey:@"DICOMTimeout"];
-	
+		[defaults setObject:@"480" forKey:@"DICOMTimeout"];	
 
 	//setup GUI
 	

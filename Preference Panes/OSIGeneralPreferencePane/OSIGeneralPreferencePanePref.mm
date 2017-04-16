@@ -40,6 +40,7 @@ static NSArray *languagesToMoveWhenQuitting = nil;
 
 - (id) initWithBundle:(NSBundle *)bundle
 {
+    NSLog(@"OSIGeneralPreferencePanePref initWithBundle");
 	if( self = [super init])
 	{
         // Scan for available languages
@@ -80,7 +81,9 @@ static NSArray *languagesToMoveWhenQuitting = nil;
         
 		NSNib *nib = [[[NSNib alloc] initWithNibNamed: @"OSIGeneralPreferencePanePref" bundle: nil] autorelease];
 		[nib instantiateNibWithOwner:self topLevelObjects: nil];
-		
+
+        NSLog(@"OSIGeneralPreferencePanePref.mm:%d initWithBundle, contentView:%p", __LINE__, [mainWindow contentView]);
+
 		[self setMainView: [mainWindow contentView]];
 		[self mainViewDidLoad];
 	}

@@ -124,11 +124,13 @@ static NSString* DefaultWebPortalDatabasePath = nil;
 
 +(void)initialize
 {
-    #ifdef MACAPPSTORE
-	DefaultWebPortalDatabasePath = [[NSString alloc] initWithString: [@"~/Library/Application Support/OsiriX App/WebUsers.sql" stringByExpandingTildeInPath]];
-    #else
-    DefaultWebPortalDatabasePath = [[NSString alloc] initWithString: [@"~/Library/Application Support/OsiriX/WebUsers.sql" stringByExpandingTildeInPath]];
-    #endif
+#ifdef MACAPPSTORE
+    NSString *s = @"~/Library/Application Support/OsiriX App/WebUsers.sql"; // TODO
+#else
+    NSString *bundleName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleName"];
+    NSString *s = [NSString stringWithFormat:@"~/Library/Application Support/%@/WebUsers.sql", bundleName];
+#endif
+    DefaultWebPortalDatabasePath = [[NSString alloc] initWithString: [s stringByExpandingTildeInPath]];
 	[NSUserDefaultsController.sharedUserDefaultsController addObserver:self forValuesKey:OsirixWadoServiceEnabledDefaultsKey options:NSKeyValueObservingOptionInitial context:NULL];
 }
 
@@ -199,11 +201,14 @@ static NSString* DefaultWebPortalDatabasePath = nil;
         {
 			NSMutableArray* dirsToScanForFiles = [NSMutableArray arrayWithCapacity:2];
 #ifdef MACAPPSTORE
-			if (NSUserDefaults.webPortalPrefersCustomWebPages)
-                [dirsToScanForFiles addObject: [@"~/Library/Application Support/OsiriX App/WebServicesHTML" stringByExpandingTildeInPath]];
-#else
             if (NSUserDefaults.webPortalPrefersCustomWebPages)
-                [dirsToScanForFiles addObject: [@"~/Library/Application Support/OsiriX/WebServicesHTML" stringByExpandingTildeInPath]];
+                [dirsToScanForFiles addObject: [@"~/Library/Application Support/OsiriX App/WebServicesHTML" stringByExpandingTildeInPath]];  // TODO
+#else
+            if (NSUserDefaults.webPortalPrefersCustomWebPages) {
+                NSString *bundleName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleName"];
+                NSString *s = [NSString stringWithFormat:@"~/Library/Application Support/%@/WebServicesHTML", bundleName];
+                [dirsToScanForFiles addObject: [s stringByExpandingTildeInPath]];
+            }
 #endif
             [dirsToScanForFiles addObject:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"WebServicesHTML"]];
 			webPortal.dirsToScanForFiles = dirsToScanForFiles;

@@ -145,7 +145,7 @@ NSComparisonResult  compareViewTags(id firstView, id secondView, void * context)
 
 - (id)init
 {
-	NSLog(@"OSICustomImageAnnotations init");
+	//NSLog(@"OSICustomImageAnnotations init");
 	
 	self = [super init];
 	if (self != nil)
@@ -162,7 +162,7 @@ NSComparisonResult  compareViewTags(id firstView, id secondView, void * context)
 
 - (void)willSelect
 {
-	NSLog(@"OSICustomImageAnnotations willSelect");
+	//NSLog(@"OSICustomImageAnnotations willSelect");
 	
 	if( [modalitiesPopUpButton numberOfItems] < 5)
 	{

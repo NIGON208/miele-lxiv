@@ -796,10 +796,11 @@ void ConnectPipelines(ITK_Exporter exporter, VTK_Importer* importer)
                 }
                 else
                 {
+                    NSString *bundleName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleName"];
                     if (NSRunAlertPanel(@"regionGrowing3D", //NSLocalizedString(@"32-bit",nil),
                                         @"Casting filter error", //NSLocalizedString(@"Upgrade to OsiriX 64-bit to solve this issue.",nil),
                                         NSLocalizedString(@"OK", nil),
-                                        (__bridge NSString *)CFSTR("CFBundleName"),
+                                        bundleName,
                                         nil
                                         ) == NSAlertAlternateReturn)
                     {

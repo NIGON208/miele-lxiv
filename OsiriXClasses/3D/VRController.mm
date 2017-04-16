@@ -482,13 +482,14 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
         // MEMORY TEST: The renderer needs to have the volume in short
         {
             unsigned long sizeofshort = sizeof( short) + 1;	//extra space for gradients computation
-            char	*testPtr = (char*) malloc( [firstObject pwidth] * [firstObject pheight] * [pix count] * sizeofshort);
-            if( testPtr == nil)
+            char *testPtr = (char*) malloc( [firstObject pwidth] * [firstObject pheight] * [pix count] * sizeofshort);
+            if (testPtr == nil)
             {
+                NSString *bundleName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleName"];
                 if (NSRunAlertPanel(@"", //NSLocalizedString(@"32-bit",nil),
                                     NSLocalizedString(@"Cannot use the 3D engine.",nil),
                                     NSLocalizedString(@"OK", nil),
-                                    (__bridge NSString *)CFSTR("CFBundleName"),
+                                    bundleName,
                                     nil
                                     ) == NSAlertAlternateReturn)
                 {
@@ -623,10 +624,11 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
         err = [view setPixSource:pixList[0] :(float*) [volumeData[0] bytes]];
         if( err != 0)
         {
+            NSString *bundleName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleName"];
             if (NSRunAlertPanel(@"", //NSLocalizedString(@"32-bit",nil),
                                 NSLocalizedString(@"Cannot use the 3D engine.",nil),
                                 NSLocalizedString(@"OK", nil),
-                                (__bridge NSString *)CFSTR("CFBundleName"),
+                                bundleName,
                                 nil
                                 ) == NSAlertAlternateReturn)
             {

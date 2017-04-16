@@ -141,7 +141,7 @@ extern AppController* OsiriX;
 + (BOOL) willExecutePlugin;
 + (BOOL) willExecutePlugin:(id) filter;
 
-+ (BOOL) hasMacOSXLeopard;
+//+ (BOOL) hasMacOSXLeopard;
 + (BOOL) hasMacOSXSnowLeopard;
 + (BOOL) hasMacOSXLion;         // >= 10.7.5
 + (BOOL) hasMacOSXMountainLion;

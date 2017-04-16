@@ -326,13 +326,19 @@ enum {
 
 -(void)setDatabaseFromSourceIdentifier:(DataNodeIdentifier*)dni
 {
+    NSLog(@"BrowserController+Sources.mm:%d setDatabaseFromSourceIdentifier", __LINE__);
 	if ([dni isEqualToDataNodeIdentifier:[self sourceIdentifierForDatabase:_database]])
 		return;
 	
     @try
     {
         DicomDatabase* db = [dni database];
-        
+
+        if (!db) {
+            NSLog(@"BrowserController+Sources.mm:%d setDatabaseFromSourceIdentifier", __LINE__);
+            return; // TODO: confirm
+        }
+
         if (db)
             [self performSelector: @selector( setDatabaseWithModalWindow:) withObject: db afterDelay: 0.01]; //This will guarantee that this will not happen in middle of a drag & drop, for example
         
@@ -349,6 +355,7 @@ enum {
         }
         else
         {
+            NSLog(@"BrowserController+Sources.mm:%d setDatabaseFromSourceIdentifier", __LINE__);
             [UnavaliableDataNodeException raise:NSGenericException format:@"%@", NSLocalizedString(@"This is a DICOM destination node: you cannot browse its content. You can only drag & drop studies on them.", nil)];
         }
     } @catch (UnavaliableDataNodeException* e)

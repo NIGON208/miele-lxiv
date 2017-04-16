@@ -75,5 +75,4 @@
 	return DICOMFieldsArray;
 }
 
-
 @end

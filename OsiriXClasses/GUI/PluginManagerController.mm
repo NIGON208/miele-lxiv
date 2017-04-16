@@ -91,7 +91,11 @@ static NSDate *CachedPluginsListDate = nil;
 {
     if( [AppController isFDACleared])
     {
-        NSRunCriticalAlertPanel( NSLocalizedString( @"Important Notice", nil), NSLocalizedString( @"Plugins are not certified for primary diagnosis in medical imaging, unless specifically written by the plugin author(s).", nil), NSLocalizedString( @"OK", nil), nil, nil);
+        NSRunCriticalAlertPanel( NSLocalizedString( @"Important Notice", nil),
+                                NSLocalizedString( @"Plugins are not certified for primary diagnosis in medical imaging, unless specifically written by the plugin author(s).", nil),
+                                NSLocalizedString( @"OK", nil),
+                                nil,
+                                nil);
     }
 }
 

@@ -9954,7 +9954,8 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void *context
 				if( drawROI )
 				{
 					BOOL resetData = NO;
-					if(_imageColumns > 1 || _imageRows > 1) resetData = YES;	//For alias ROIs
+					if(_imageColumns > 1 || _imageRows > 1)
+                        resetData = YES;	//For alias ROIs
 					
 					rectArray = [[NSMutableArray alloc] initWithCapacity: [curRoiList count]];
 					
@@ -9964,10 +9965,11 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void *context
                         {
                             ROI *r = [[curRoiList objectAtIndex:i] retain];	// If we are not in the main thread (iChat), we want to be sure to keep our ROIs
                             
-                            if( resetData) [r recompute];
+                            if( resetData)
+                                [r recompute];
+                            
                             r.curView = self;
                             [r drawROI: scaleValue : curDCM.pwidth / 2. : curDCM.pheight / 2. : curDCM.pixelSpacingX : curDCM.pixelSpacingY];
-                            
                             [r release];
                         }
                     }
@@ -10019,7 +10021,8 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void *context
 				if( is2DViewer)
 				{
 					[self draw2DPointMarker];
-					if( blendingView) [blendingView draw2DPointMarker];
+					if( blendingView)
+                        [blendingView draw2DPointMarker];
 				}
 				// Draw any Plugin objects
 				
@@ -10363,7 +10366,7 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void *context
 		else
 		{
 			//no valid image  ie curImage = -1
-			NSLog(@"****** No Image");
+			NSLog(@"****** No Image, %d", curImage);
 			glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 			glClear (GL_COLOR_BUFFER_BIT);
 		}
@@ -10585,7 +10588,7 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void *context
 			
 			
 		}
-		#endif
+    #endif
         
         [self drawRectAnyway:aRect];
         

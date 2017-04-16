@@ -193,6 +193,7 @@ static const NSInteger labelHeight = 38, labelSeparator = 3;
 		NSArray* buttons = [[groups objectAtIndex:r] buttons];
 		if (count+buttons.count > index)
 			return [[[buttons objectAtIndex:index-count] cell] representedObject];
+        
 		count += buttons.count;
 	}
 	
@@ -205,7 +206,9 @@ static const NSInteger labelHeight = 38, labelSeparator = 3;
 		for (NSButton* button in [[groups objectAtIndex:r] buttons])
 			if ([[button cell] representedObject] == context)
 				return count;
-			else ++count;
+			else
+                ++count;
+    
 	return -1;
 }
 
@@ -264,12 +267,3 @@ static const NSUInteger colWidth = 80, colSeparator = 1, rowHeight = 101, titleH
 }
 
 @end
-
-
-
-
-
-
-
-
-

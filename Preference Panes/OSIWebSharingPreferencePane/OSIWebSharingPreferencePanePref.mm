@@ -253,12 +253,14 @@
 {
 #ifdef MACAPPSTORE
     [[NSFileManager defaultManager] copyItemAtPath:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"WebServicesHTML"]
-                                            toPath:[@"~/Library/Application Support/OsiriX App/WebServicesHTML" stringByExpandingTildeInPath]
+                                            toPath:[@"~/Library/Application Support/OsiriX App/WebServicesHTML" stringByExpandingTildeInPath] // TODO
                                byReplacingExisting:NO
                                              error:NULL];
 #else
+    NSString *bundleName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleName"];
+    NSString *s = [NSString stringWithFormat:@"~/Library/Application Support/%@/WebServicesHTML", bundleName];
     [[NSFileManager defaultManager] copyItemAtPath:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"WebServicesHTML"]
-                                            toPath:[@"~/Library/Application Support/OsiriX/WebServicesHTML" stringByExpandingTildeInPath]
+                                            toPath:[s stringByExpandingTildeInPath]
                                byReplacingExisting:NO
                                              error:NULL];
 #endif

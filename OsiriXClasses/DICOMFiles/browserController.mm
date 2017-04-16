@@ -12432,11 +12432,13 @@ constrainSplitPosition:(CGFloat)proposedPosition
 				
 				if( notEnoughMemory)
 				{
+                    NSString *bundleName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleName"];
 					if( NSRunCriticalAlertPanel(@"", //NSLocalizedString(@"32-bit", nil),
                                                 NSLocalizedString(@"Cannot load this series", nil),
                                                 NSLocalizedString(@"OK",nil),
-                                                (__bridge NSString *)CFSTR("CFBundleName"),
-                                                nil) == NSAlertAlternateReturn)
+                                                bundleName,
+                                                nil
+                                                ) == NSAlertAlternateReturn)
                     {
                         //[[AppController sharedAppController] osirix64bit: self];
                     }

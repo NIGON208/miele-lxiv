@@ -52,7 +52,7 @@
         <window title="DICOM Query/Retrieve" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" visibleAtLaunch="NO" frameAutosaveName="QR" animationBehavior="default" id="144" userLabel="Window">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" texturedBackground="YES"/>
             <rect key="contentRect" x="0.0" y="0.0" width="920" height="672"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1080"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1057"/>
             <value key="minSize" type="size" width="920" height="370"/>
             <view key="contentView" id="145">
                 <rect key="frame" x="0.0" y="0.0" width="920" height="672"/>
@@ -70,11 +70,11 @@
                         <tabViewItems>
                             <tabViewItem label="Name" identifier="1" id="660">
                                 <view key="view" id="661">
-                                    <rect key="frame" x="10" y="28" width="894" height="21"/>
+                                    <rect key="frame" x="10" y="28" width="900" height="21"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <searchField wantsLayer="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="667">
-                                            <rect key="frame" x="47" y="-6" width="771" height="22"/>
+                                            <rect key="frame" x="47" y="-6" width="777" height="22"/>
                                             <searchFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" alignment="left" placeholderString="Patient Name" bezelStyle="round" sendsWholeSearchString="YES" maximumRecents="20" recentsAutosaveName="LastQueryPatientName" id="749">
                                                 <font key="font" metaFont="cellTitle"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -147,11 +147,14 @@
                             </tabViewItem>
                             <tabViewItem label="Birthdate" identifier="2" id="662">
                                 <view key="view" id="663">
-                                    <rect key="frame" x="10" y="19" width="900" height="30"/>
+                                    <rect key="frame" x="10" y="28" width="900" height="21"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <matrix verticalHuggingPriority="750" allowsEmptySelection="NO" autorecalculatesCellSize="YES" translatesAutoresizingMaskIntoConstraints="NO" id="990">
-                                            <rect key="frame" x="200" y="6" width="262" height="18"/>
+                                            <rect key="frame" x="200" y="-2" width="262" height="18"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="262" id="Nfy-cu-ACk"/>
+                                            </constraints>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             <size key="cellSize" width="84" height="18"/>
                                             <size key="intercellSpacing" width="4" height="2"/>
@@ -184,9 +187,9 @@
                                             </connections>
                                         </matrix>
                                         <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="997">
-                                            <rect key="frame" x="467" y="7" width="84" height="17"/>
+                                            <rect key="frame" x="467" y="-1" width="84" height="17"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="80" id="Zyb-Y4-8s6"/>
+                                                <constraint firstAttribute="width" constant="80" id="nVG-p9-7Sz"/>
                                             </constraints>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="XX Years" id="998">
                                                 <font key="font" metaFont="system"/>
@@ -195,9 +198,9 @@
                                             </textFieldCell>
                                         </textField>
                                         <datePicker verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="686">
-                                            <rect key="frame" x="560" y="3" width="123" height="26"/>
+                                            <rect key="frame" x="560" y="-6" width="123" height="27"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="120" id="TXu-0y-kx3"/>
+                                                <constraint firstAttribute="width" constant="120" id="4Bs-as-ahO"/>
                                             </constraints>
                                             <datePickerCell key="cell" borderStyle="bezel" alignment="left" id="750">
                                                 <font key="font" metaFont="system"/>
@@ -215,14 +218,12 @@
                                         </datePicker>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="centerY" secondItem="990" secondAttribute="centerY" id="DP3-fb-52D"/>
-                                        <constraint firstItem="990" firstAttribute="top" secondItem="997" secondAttribute="top" id="Fd6-dn-NeK"/>
-                                        <constraint firstItem="990" firstAttribute="leading" secondItem="663" secondAttribute="leading" constant="200" id="VgJ-Vl-0UO"/>
-                                        <constraint firstItem="997" firstAttribute="leading" secondItem="990" secondAttribute="trailing" constant="7" id="VhI-f7-tef"/>
-                                        <constraint firstItem="686" firstAttribute="top" secondItem="663" secondAttribute="top" constant="5" id="eQR-c0-II2"/>
-                                        <constraint firstAttribute="trailing" secondItem="686" secondAttribute="trailing" constant="220" id="wNY-Vn-alr"/>
-                                        <constraint firstItem="686" firstAttribute="leading" secondItem="997" secondAttribute="trailing" constant="11" id="xDj-j8-GTw"/>
-                                        <constraint firstAttribute="bottom" secondItem="686" secondAttribute="bottom" constant="3" id="yEs-se-tVq"/>
+                                        <constraint firstItem="990" firstAttribute="top" secondItem="663" secondAttribute="top" constant="5" id="65T-AY-UtR"/>
+                                        <constraint firstItem="990" firstAttribute="leading" secondItem="663" secondAttribute="leading" constant="200" id="BzT-c6-Khn"/>
+                                        <constraint firstItem="997" firstAttribute="leading" secondItem="990" secondAttribute="trailing" constant="7" id="Cxx-v4-JrP"/>
+                                        <constraint firstItem="686" firstAttribute="leading" secondItem="997" secondAttribute="trailing" constant="11" id="T6f-Zu-J7J"/>
+                                        <constraint firstItem="686" firstAttribute="top" secondItem="663" secondAttribute="top" constant="4" id="dFN-pT-ASH"/>
+                                        <constraint firstItem="990" firstAttribute="top" secondItem="997" secondAttribute="top" id="gCk-pT-cPp"/>
                                     </constraints>
                                 </view>
                             </tabViewItem>
