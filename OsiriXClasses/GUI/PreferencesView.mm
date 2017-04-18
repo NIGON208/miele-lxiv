@@ -77,8 +77,12 @@ static const NSInteger labelHeight = 38, labelSeparator = 3;
 	
 	NSImage* image = [self isHighlighted]? self.alternateImage : self.image;
 	NSSize imageSize = [image size];
-	if (imageSize.width > 32 || imageSize.height > 32) [image setSize:imageSize = NSMakeSize(32,32)];
-	[image drawAtPoint:imageRect.origin+NSMakePoint((imageRect.size.width-imageSize.width)/2, 0) fromRect:NSMakeRect(NSZeroPoint, imageSize) operation:NSCompositeSourceOver fraction:1];
+	if (imageSize.width > 32 || imageSize.height > 32)
+        [image setSize:imageSize = NSMakeSize(32,32)];
+    
+	[image drawAtPoint:imageRect.origin+NSMakePoint((imageRect.size.width-imageSize.width)/2, 0)
+              fromRect:NSMakeRect(NSZeroPoint, imageSize)
+             operation:NSCompositeSourceOver fraction:1];
 
 	[NSGraphicsContext restoreGraphicsState];
 	
@@ -176,14 +180,17 @@ static const NSInteger labelHeight = 38, labelSeparator = 3;
 	return NO;
 }
 
--(void)buttonAction:(NSButton*)sender {
-	[[self buttonActionTarget] performSelector:[self buttonActionSelector] withObject:[[sender cell] representedObject]];
+-(void)buttonAction:(NSButton*)sender
+{
+	[[self buttonActionTarget] performSelector:[self buttonActionSelector]
+                                    withObject:[[sender cell] representedObject]];
 }
 
 -(NSUInteger)itemsCount {
 	NSUInteger count = 0;
 	for (PreferencesViewGroup* group in groups)
 		count += group.buttons.count;
+    
 	return count;
 }
 
@@ -228,8 +235,11 @@ static const NSUInteger colWidth = 80, colSeparator = 1, rowHeight = 101, titleH
 	for (NSUInteger r = 1; r < groups.count; r += 2) {
 		NSRect rect = NSMakeRect(0, frame.size.height-rowHeight*r-rowHeight-padding[0], frame.size.width, rowHeight);
 		[NSBezierPath fillRect:rect];
-		[NSBezierPath strokeLineFromPoint:NSMakePoint(rect.origin.x, rect.origin.y+.5) toPoint:NSMakePoint(rect.origin.x+rect.size.width, rect.origin.y+.5)];
-		[NSBezierPath strokeLineFromPoint:NSMakePoint(rect.origin.x, rect.origin.y+rect.size.height-.5) toPoint:NSMakePoint(rect.origin.x+rect.size.width, rect.origin.y+rect.size.height-.5)];
+		[NSBezierPath strokeLineFromPoint:NSMakePoint(rect.origin.x, rect.origin.y+.5)
+                                  toPoint:NSMakePoint(rect.origin.x+rect.size.width, rect.origin.y+.5)];
+        
+		[NSBezierPath strokeLineFromPoint:NSMakePoint(rect.origin.x, rect.origin.y+rect.size.height-.5)
+                                  toPoint:NSMakePoint(rect.origin.x+rect.size.width, rect.origin.y+rect.size.height-.5)];
 	}
 	
 	[NSGraphicsContext restoreGraphicsState];
@@ -247,14 +257,23 @@ static const NSUInteger colWidth = 80, colSeparator = 1, rowHeight = 101, titleH
 		colsCount = std::max(colsCount, group.buttons.count);
 	
 	NSRect frame = [self frame];
-	frame = NSMakeRect(frame.origin.x, frame.origin.y, padding[3]+(colWidth+colSeparator)*colsCount-colSeparator+padding[1], padding[2]+rowHeight*groups.count+padding[0]);
+	frame = NSMakeRect(frame.origin.x,
+                       frame.origin.y,
+                       padding[3]+(colWidth+colSeparator)*colsCount-colSeparator+padding[1],
+                       padding[2]+rowHeight*groups.count+padding[0]);
 	[self setFrame:frame];
 
 	for (NSInteger r = (long)groups.count-1; r >= 0; --r) {
 		PreferencesViewGroup* group = [groups objectAtIndex:r];
-		NSRect rowRect = NSMakeRect(padding[3], frame.size.height-rowHeight*r-rowHeight-padding[0], frame.size.width-padding[3]-padding[1], rowHeight);
+		NSRect rowRect = NSMakeRect(padding[3],
+                                    frame.size.height-rowHeight*r-rowHeight-padding[0],
+                                    frame.size.width-padding[3]-padding[1],
+                                    rowHeight);
 		
-		[group.label setFrame:NSMakeRect(rowRect.origin.x+titleMargin[0], rowRect.origin.y+rowRect.size.height-titleHeight-titleMargin[1], rowRect.size.width-titleMargin[0]*2, titleHeight)];
+		[group.label setFrame:NSMakeRect(rowRect.origin.x+titleMargin[0],
+                                         rowRect.origin.y+rowRect.size.height-titleHeight-titleMargin[1],
+                                         rowRect.size.width-titleMargin[0]*2,
+                                         titleHeight)];
 		
 		for (NSUInteger i = 0; i < group.buttons.count; ++i) {
 			NSButton* button = [group.buttons objectAtIndex:i];

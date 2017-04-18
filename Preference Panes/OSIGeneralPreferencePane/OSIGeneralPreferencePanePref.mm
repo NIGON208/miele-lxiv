@@ -40,7 +40,6 @@ static NSArray *languagesToMoveWhenQuitting = nil;
 
 - (id) initWithBundle:(NSBundle *)bundle
 {
-    NSLog(@"OSIGeneralPreferencePanePref initWithBundle");
 	if( self = [super init])
 	{
         // Scan for available languages
@@ -81,8 +80,6 @@ static NSArray *languagesToMoveWhenQuitting = nil;
         
 		NSNib *nib = [[[NSNib alloc] initWithNibNamed: @"OSIGeneralPreferencePanePref" bundle: nil] autorelease];
 		[nib instantiateNibWithOwner:self topLevelObjects: nil];
-
-        NSLog(@"OSIGeneralPreferencePanePref.mm:%d initWithBundle, contentView:%p", __LINE__, [mainWindow contentView]);
 
 		[self setMainView: [mainWindow contentView]];
 		[self mainViewDidLoad];
@@ -312,10 +309,8 @@ static NSArray *languagesToMoveWhenQuitting = nil;
     BOOL enabled = NO;
     
     for( NSDictionary *d in languages)
-    {
         if( [[d valueForKey: @"active"] boolValue])
             enabled = YES;
-    }
     
     // At least one language must be active !
     if( enabled == NO)
@@ -344,8 +339,8 @@ static NSArray *languagesToMoveWhenQuitting = nil;
         {
             if( [[NSFileManager defaultManager] fileExistsAtPath: [inactivePath stringByAppendingPathComponent: language]])
             {
-                NSError *error = nil;
                 [[NSFileManager defaultManager] removeItemAtPath: [activePath stringByAppendingPathComponent: language] error: nil];
+                NSError *error = nil;
                 if ([[NSFileManager defaultManager] moveItemAtPath: [inactivePath stringByAppendingPathComponent: language]
                                                             toPath: [activePath stringByAppendingPathComponent: language]
                                                              error: &error] == NO)
@@ -358,8 +353,8 @@ static NSArray *languagesToMoveWhenQuitting = nil;
         {
             if( [[NSFileManager defaultManager] fileExistsAtPath: [activePath stringByAppendingPathComponent: language]])
             {
-                NSError *error = nil;
                 [[NSFileManager defaultManager] removeItemAtPath: [inactivePath stringByAppendingPathComponent: language] error: nil];
+                NSError *error = nil;
                 if ([[NSFileManager defaultManager] moveItemAtPath: [activePath stringByAppendingPathComponent: language]
                                                             toPath: [inactivePath stringByAppendingPathComponent: language]
                                                              error: &error] == NO)
@@ -379,10 +374,7 @@ static NSArray *languagesToMoveWhenQuitting = nil;
 	[compressionSettingsWindow orderOut:sender];
 	[NSApp endSheet: compressionSettingsWindow returnCode:[sender tag]];
 	
-	if( [sender tag] == 1)
-	{
-	}
-	else
+	if( [sender tag] != 1)
 	{
 		[[NSUserDefaults standardUserDefaults] setObject: compressionSettingsCopy forKey: @"CompressionSettings"];
 		[[NSUserDefaults standardUserDefaults] setObject: compressionSettingsLowResCopy forKey: @"CompressionSettingsLowRes"];

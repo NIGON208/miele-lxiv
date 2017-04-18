@@ -326,7 +326,6 @@ enum {
 
 -(void)setDatabaseFromSourceIdentifier:(DataNodeIdentifier*)dni
 {
-    NSLog(@"BrowserController+Sources.mm:%d setDatabaseFromSourceIdentifier", __LINE__);
 	if ([dni isEqualToDataNodeIdentifier:[self sourceIdentifierForDatabase:_database]])
 		return;
 	

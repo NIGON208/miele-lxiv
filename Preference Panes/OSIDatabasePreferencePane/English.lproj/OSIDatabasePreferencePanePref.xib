@@ -86,7 +86,7 @@
                                     </connections>
                                 </matrix>
                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="103">
-                                    <rect key="frame" x="-2" y="0.0" width="146" height="14"/>
+                                    <rect key="frame" x="15" y="132" width="146" height="14"/>
                                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Default Database Location:" id="754">
                                         <font key="font" metaFont="smallSystem"/>
                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -179,15 +179,15 @@
                                 <constraint firstItem="104" firstAttribute="top" secondItem="105" secondAttribute="top" id="KvJ-IF-TYP"/>
                                 <constraint firstItem="829" firstAttribute="top" secondItem="626" secondAttribute="bottom" constant="6" symbolic="YES" id="Nru-jq-btE"/>
                                 <constraint firstItem="810" firstAttribute="leading" secondItem="348" secondAttribute="trailing" constant="10" id="Reb-Yd-dhh"/>
-                                <constraint firstItem="103" firstAttribute="top" secondItem="104" secondAttribute="bottom" constant="35" id="Yr6-9M-2nj"/>
-                                <constraint firstAttribute="bottom" secondItem="103" secondAttribute="bottom" id="bJq-cI-e9M"/>
+                                <constraint firstItem="103" firstAttribute="leading" secondItem="vDi-Aq-FOL" secondAttribute="leading" constant="17" id="and-Zm-QXC"/>
                                 <constraint firstItem="104" firstAttribute="top" secondItem="829" secondAttribute="bottom" constant="6" symbolic="YES" id="eDF-Ds-FTq"/>
                                 <constraint firstItem="110" firstAttribute="bottom" secondItem="348" secondAttribute="bottom" id="gfb-4a-HTy"/>
-                                <constraint firstItem="103" firstAttribute="leading" secondItem="vDi-Aq-FOL" secondAttribute="leading" id="hfZ-mR-ARW"/>
                                 <constraint firstItem="348" firstAttribute="leading" secondItem="110" secondAttribute="trailing" constant="16" id="nFN-vP-k8m"/>
                                 <constraint firstItem="348" firstAttribute="top" secondItem="810" secondAttribute="top" id="sKa-WV-uhZ"/>
-                                <constraint firstItem="105" firstAttribute="leading" secondItem="103" secondAttribute="trailing" constant="75" id="wvi-vJ-DzR"/>
                                 <constraint firstItem="626" firstAttribute="leading" secondItem="829" secondAttribute="leading" id="x7P-hZ-EDO"/>
+                                <constraint firstItem="110" firstAttribute="leading" secondItem="103" secondAttribute="trailing" constant="16" id="xtX-0q-8ON"/>
+                                <constraint firstItem="626" firstAttribute="top" secondItem="103" secondAttribute="bottom" constant="35" id="yal-gw-Jgg"/>
+                                <constraint firstItem="103" firstAttribute="top" secondItem="vDi-Aq-FOL" secondAttribute="top" constant="5" id="yf7-ur-T07"/>
                                 <constraint firstItem="626" firstAttribute="top" secondItem="110" secondAttribute="bottom" constant="12" id="zmo-H3-WvL"/>
                             </constraints>
                         </view>
@@ -918,7 +918,7 @@ If a study is in an album, it will NOT be deleted.</string>
                                     </connections>
                                 </textField>
                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="359">
-                                    <rect key="frame" x="200" y="51" width="55" height="19"/>
+                                    <rect key="frame" x="200" y="52" width="55" height="19"/>
                                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="781">
                                         <font key="font" metaFont="smallSystem"/>
                                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>

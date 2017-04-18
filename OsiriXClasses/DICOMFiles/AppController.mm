@@ -5636,8 +5636,7 @@ static BOOL initialized = NO;
 		int columnsPerScreen = columns;
 		int rowsPerScreen = rows;
 		
-		columnsPerScreen = ceil(((float) columns / (float) numberOfMonitors));
-		
+		columnsPerScreen = ceil(((float) columns / (float) numberOfMonitors));	
 		
 		NSMutableArray *viewersForThisScreen = [NSMutableArray array];
 		
@@ -5650,7 +5649,8 @@ static BOOL initialized = NO;
 			{
 				monitorIndex =  i / (columnsPerScreen*rowsPerScreen);
 				
-				if( monitorIndex == numberOfMonitors) monitorIndex = numberOfMonitors-1;
+				if (monitorIndex == numberOfMonitors)
+                    monitorIndex = numberOfMonitors-1;
 				
 				NSScreen *screen = [screens objectAtIndex: monitorIndex];
 				
@@ -5704,7 +5704,8 @@ static BOOL initialized = NO;
 			[animation setDuration: 0.20];
 		else
 			[animation setDuration: 0.40];
-		[animation startAnimation];
+
+        [animation startAnimation];
 		
 		[accumulateAnimationsArray release];
 		accumulateAnimationsArray = nil;

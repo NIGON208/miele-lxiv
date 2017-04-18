@@ -216,7 +216,9 @@ static NSString* ThreadModalForWindowControllerObservationContext = @"ThreadModa
                         {
                             [self.progressIndicator setDoubleValue:self.thread.subthreadsAwareProgress];
                             [self.progressIndicator setIndeterminate: self.thread.progress < 0];
-                            if (self.thread.progress < 0) [self.progressIndicator startAnimation:self];
+                            if (self.thread.progress < 0)
+                                [self.progressIndicator startAnimation:self];
+                            
                             _lastDisplayedProgress = obj.progress;
                             [self.progressIndicator displayIfNeeded];
                             lastGUIUpdate = [NSDate timeIntervalSinceReferenceDate];
@@ -265,7 +267,9 @@ static NSString* ThreadModalForWindowControllerObservationContext = @"ThreadModa
     
     [self.progressIndicator setDoubleValue:self.thread.subthreadsAwareProgress];
     [self.progressIndicator setIndeterminate: self.thread.progress < 0];
-    if (self.thread.progress < 0) [self.progressIndicator startAnimation:self];
+    if (self.thread.progress < 0)
+        [self.progressIndicator startAnimation:self];
+    
     [self.progressIndicator displayIfNeeded];
     lastGUIUpdate = [NSDate timeIntervalSinceReferenceDate];
     

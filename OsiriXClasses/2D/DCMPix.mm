@@ -4869,7 +4869,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 		else
             fImage = (float *)malloc(width*height*sizeof(float) + 100);
 		
-		int numPixels = height * width;
+		long numPixels = height * width;
 		
 		// GJ: Move to correct location for image data
 		fseek(fp, imageDataOffsetForThisFrame, SEEK_SET);

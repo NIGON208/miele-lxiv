@@ -181,7 +181,11 @@ NSString *mediumTag[] = {@"Blue Film", @"Clear Film", @"Paper"};
 	// show dialog if no printers are configured OR open modal print dialog
 	if ([printers count] == 0)
 	{
-		NSRunAlertPanel(NSLocalizedString(@"DICOM Print", nil), NSLocalizedString(@"No DICOM printers were found, please add a dicom printer in the preferences.", nil), NSLocalizedString(@"OK", nil), nil, nil);
+		NSRunAlertPanel(NSLocalizedString(@"DICOM Print", nil),
+                        NSLocalizedString(@"No DICOM printers were found, please add a dicom printer in the preferences.", nil),
+                        NSLocalizedString(@"OK", nil),
+                        nil,
+                        nil);
 		[self close];
 		return;
 	}

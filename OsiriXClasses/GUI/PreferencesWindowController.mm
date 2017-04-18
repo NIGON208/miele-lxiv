@@ -59,7 +59,8 @@
 
 static NSMutableDictionary *prefPanes = nil;
 
--(NSPreferencePane*)pane {
+-(NSPreferencePane*)pane
+{
 	if (!_pane)
 	{
 		Class builtinPrefPaneClass = NSClassFromString( self.resourceName);
@@ -78,7 +79,7 @@ static NSMutableDictionary *prefPanes = nil;
         
 		if( builtinPrefPaneClass)
 		{
-			self.pane = [[[builtinPrefPaneClass alloc] initWithBundle: nil] autorelease];
+			self.pane = [[[builtinPrefPaneClass alloc] initWithBundle: nil] autorelease];  // TODO
 		}
 		else
 		{
@@ -179,7 +180,10 @@ static const NSMutableArray* pluginPanes = [[NSMutableArray alloc] init];
     [context release];
 }
 
-+(void) addPluginPaneWithResourceNamed:(NSString*)resourceName inBundle:(NSBundle*)parentBundle withTitle:(NSString*)title image:(NSImage*)image
++(void) addPluginPaneWithResourceNamed: (NSString*)resourceName
+                              inBundle: (NSBundle*)parentBundle
+                             withTitle: (NSString*)title
+                                 image: (NSImage*)image
 {
 	if (!image)
 		image = [NSImage imageNamed:@"osirixplugin"];
@@ -369,7 +373,7 @@ static const NSMutableArray* pluginPanes = [[NSMutableArray alloc] init];
                          withTitle:NSLocalizedString(@"DICOM Print", @"Panel in preferences window")
                              image:[NSImage imageNamed:@"Print"]
                    toGroupWithName:name];
-    
+
 	name = NSLocalizedString(@"Sharing", @"Section in preferences window");
     
 	[self addPaneWithResourceNamed:@"OSIListenerPreferencePanePref"
@@ -401,10 +405,14 @@ static const NSMutableArray* pluginPanes = [[NSMutableArray alloc] init];
                          withTitle:NSLocalizedString(@"On-Demand", @"Panel in preferences window")
                              image:[NSImage imageNamed:@"Cloud"]
                    toGroupWithName:name];
-	
+
 	for (NSArray* pluginPane in pluginPanes)
-		[self addPaneWithResourceNamed:[pluginPane objectAtIndex:0] inBundle:[pluginPane objectAtIndex:1] withTitle:[pluginPane objectAtIndex:2] image:[pluginPane objectAtIndex:3] toGroupWithName:NSLocalizedString(@"Plugins", @"Title of Plugins section in preferences window")];
-	
+		[self addPaneWithResourceNamed:[pluginPane objectAtIndex:0]
+                              inBundle:[pluginPane objectAtIndex:1]
+                             withTitle:[pluginPane objectAtIndex:2]
+                                 image:[pluginPane objectAtIndex:3]
+                       toGroupWithName:NSLocalizedString(@"Plugins", @"Title of Plugins section in preferences window")];
+
     flippedDocumentView.translatesAutoresizingMaskIntoConstraints = YES;
     panesListView.translatesAutoresizingMaskIntoConstraints = YES;
     
@@ -440,7 +448,8 @@ static const NSMutableArray* pluginPanes = [[NSMutableArray alloc] init];
 }
 
 -(BOOL)isUnlocked {
-	return ![[NSUserDefaults standardUserDefaults] boolForKey:@"AUTHENTICATION"] || ([authView authorizationState] == SFAuthorizationViewUnlockedState);
+	return ![[NSUserDefaults standardUserDefaults] boolForKey:@"AUTHENTICATION"] ||
+            ([authView authorizationState] == SFAuthorizationViewUnlockedState);
 }
 
 -(void)setCurrentContextWithResourceName: (NSString*) name
@@ -458,7 +467,7 @@ static const NSMutableArray* pluginPanes = [[NSMutableArray alloc] init];
 {
 	if (context == currentContext)
 		return;
-	
+
 	if (!currentContext || [currentContext.pane shouldUnselect]) { // TODO: NSUnselectNow or NSUnselectLater?
 		[self willChangeValueForKey:@"currentContext"];
 		
@@ -493,7 +502,8 @@ static const NSMutableArray* pluginPanes = [[NSMutableArray alloc] init];
             title = [title stringByAppendingFormat:@"%@%@", NSLocalizedString(@": ", @"Semicolon with space prefix and suffix (example: english ': ', french ' : ')"), context.title];
 		[self.window setTitle:title];
 		
-		[context.pane willSelect];
+
+        [context.pane willSelect];
 		[flippedDocumentView setFrameSize:view.frame.size];
 		[flippedDocumentView addSubview:view];
         [animations addObject:[NSDictionary dictionaryWithObjectsAndKeys:
@@ -506,7 +516,6 @@ static const NSMutableArray* pluginPanes = [[NSMutableArray alloc] init];
 		currentContext = context;
 		
 		[self didChangeValueForKey:@"currentContext"];
-		
 		[self synchronizeSizeWithContent];
 		
 		[oldview release];
@@ -528,19 +537,24 @@ static const NSMutableArray* pluginPanes = [[NSMutableArray alloc] init];
 	[self pane:currentContext.pane enable:NO];
 }
 
--(NSAnimation*)synchronizeSizeWithContent {
+-(NSAnimation*)synchronizeSizeWithContent
+{
 	NSRect paneFrame = [[scrollView documentView] frame];
 	for (NSDictionary* animation in animations)
-		if ([animation objectForKey:NSViewAnimationTargetKey] == [scrollView documentView] && [animation objectForKey:NSViewAnimationEndFrameKey])
+		if ([animation objectForKey:NSViewAnimationTargetKey] == [scrollView documentView] &&
+            [animation objectForKey:NSViewAnimationEndFrameKey])
+        {
 			paneFrame = [[animation objectForKey:NSViewAnimationEndFrameKey] rectValue];
-	
+        }
+
 	NSRect initframe = [self.window frame];
 	NSRect sizeframe = [self.window frameRectForContentRect:paneFrame];
-	NSRect frame = initframe;
+
+    NSRect frame = initframe;
 	frame.origin.y += frame.size.height-sizeframe.size.height;
 	frame.size = sizeframe.size;
-	
-	NSRect idealFrame = frame;
+
+    NSRect idealFrame = frame;
 	// if window doesn't fit in screen, then resize it
 	NSRect screenFrame = self.window.screen.visibleFrame;
 	frame.size.width = std::min(frame.size.width, screenFrame.size.width);
@@ -552,13 +566,13 @@ static const NSMutableArray* pluginPanes = [[NSMutableArray alloc] init];
 	NSRect tempFrame = frame;
 	// the resizing makes scrollers appear, give them space
 	if (tempFrame.size.height < idealFrame.size.height)
-		if (tempFrame.size.width < screenFrame.size.width)
+        if (tempFrame.size.width < screenFrame.size.width)
 			frame.size.width = std::min(frame.size.width+scrollView.horizontalScroller.frame.size.height, screenFrame.size.width);
     
 	if (tempFrame.size.width < idealFrame.size.width)
-		if (tempFrame.size.height < screenFrame.size.height)
+        if (tempFrame.size.height < screenFrame.size.height)
 			frame.size.height = std::min(frame.size.height+scrollView.verticalScroller.frame.size.width, screenFrame.size.height);
-	
+
 	[scrollView setHasHorizontalScroller:NO];
 	[scrollView setHasVerticalScroller:NO];
 	
@@ -573,7 +587,7 @@ static const NSMutableArray* pluginPanes = [[NSMutableArray alloc] init];
 		[scrollView.contentView scrollToPoint:NSMakePoint(0, vp)];
 		[scrollView reflectScrolledClipView:scrollView.contentView];
 	}*/
-	
+    
 	NSViewAnimation* animation = [[NSViewAnimation alloc] initWithViewAnimations:animations];
 	@try {
 		[animation setAnimationBlockingMode:NSAnimationBlocking];
@@ -587,12 +601,12 @@ static const NSMutableArray* pluginPanes = [[NSMutableArray alloc] init];
 	[animations removeAllObjects];
 	
 	NSSize windowMaxSize = idealFrame.size;
-	if (tempFrame.size.height < idealFrame.size.height)
+    if (tempFrame.size.height < idealFrame.size.height)
 		windowMaxSize.width += scrollView.verticalScroller.frame.size.width;
     
-	if (tempFrame.size.width < idealFrame.size.width)
+    if (tempFrame.size.width < idealFrame.size.width)
 		windowMaxSize.height += scrollView.horizontalScroller.frame.size.height;
-    
+
 	windowMaxSize.height -= self.window.toolbarHeight;
 	self.window.maxSize = windowMaxSize;
 	
@@ -641,3 +655,4 @@ static const NSMutableArray* pluginPanes = [[NSMutableArray alloc] init];
 }
 
 @end
+
