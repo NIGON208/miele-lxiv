@@ -36,7 +36,7 @@
 + (NSMutableArray*)wordTemplatesList;
 - (NSMutableString *)templateName;
 - (void)setTemplateName:(NSString *)aName;
-+ (int) Pages5orHigher;
++ (BOOL) Pages5orHigher;
 + (void)checkForPagesTemplate;
 + (void)checkForWordTemplates;
 

@@ -11,15 +11,11 @@
      the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
      PURPOSE.
 =========================================================================*/
-
-
 #import <Cocoa/Cocoa.h>
 #import <PreferencePanes/NSPreferencePane.h>
 #import "SFAuthorizationView+OsiriX.h"
 
-
 @class PreferencesView, PreferencesWindowContext;
-
 
 /** \brief Window Controller for Preferences */
 @interface PreferencesWindowController : NSWindowController <NSWindowDelegate>
@@ -47,7 +43,7 @@
 -(IBAction)authAction:(id)sender;
 
 -(void)reopenDatabase;
--(void)setCurrentContextWithResourceName: (NSString*) name;
+//-(void)setCurrentContextWithResourceName: (NSString*) name;
 -(void)setCurrentContext:(PreferencesWindowContext*)context;
 @end
 

@@ -96,6 +96,7 @@ static NSMutableDictionary *prefPanes = nil;
 
 @end
 
+#pragma mark -
 
 @implementation PreferencesWindowController
 
@@ -375,7 +376,7 @@ static const NSMutableArray* pluginPanes = [[NSMutableArray alloc] init];
                    toGroupWithName:name];
 
 	name = NSLocalizedString(@"Sharing", @"Section in preferences window");
-    
+
 	[self addPaneWithResourceNamed:@"OSIListenerPreferencePanePref"
                           inBundle:bundle
                          withTitle:NSLocalizedString(@"Listener", @"Panel in preferences window")
@@ -405,7 +406,7 @@ static const NSMutableArray* pluginPanes = [[NSMutableArray alloc] init];
                          withTitle:NSLocalizedString(@"On-Demand", @"Panel in preferences window")
                              image:[NSImage imageNamed:@"Cloud"]
                    toGroupWithName:name];
-
+    
 	for (NSArray* pluginPane in pluginPanes)
 		[self addPaneWithResourceNamed:[pluginPane objectAtIndex:0]
                               inBundle:[pluginPane objectAtIndex:1]
@@ -417,9 +418,12 @@ static const NSMutableArray* pluginPanes = [[NSMutableArray alloc] init];
     panesListView.translatesAutoresizingMaskIntoConstraints = YES;
     
 	[flippedDocumentView setFrameSize:panesListView.frame.size];
-	[panesListView setFrameSize:flippedDocumentView.frame.size];
-	
-	[self synchronizeSizeWithContent];
+	//[panesListView setFrameSize:flippedDocumentView.frame.size];  // ???
+    
+    [scrollView setNeedsUpdateConstraints:YES];
+    [scrollView setNeedsDisplay:YES];
+    
+    [self synchronizeSizeWithContent];
     
     // If we need to remove a plugin with a custom pref pane
     for (NSWindow* window in [NSApp windows])
@@ -436,7 +440,8 @@ static const NSMutableArray* pluginPanes = [[NSMutableArray alloc] init];
 -(BOOL)windowShouldClose:(id)sender {
 	if (currentContext && [currentContext.pane shouldUnselect] == NSUnselectCancel)
 		return NO;
-	return YES;
+
+    return YES;
 }
 
 -(void)windowWillClose:(NSNotification *)notification
@@ -452,29 +457,39 @@ static const NSMutableArray* pluginPanes = [[NSMutableArray alloc] init];
             ([authView authorizationState] == SFAuthorizationViewUnlockedState);
 }
 
--(void)setCurrentContextWithResourceName: (NSString*) name
-{
-    NSInteger panesCount = [panesListView itemsCount];
-	
-    for( NSInteger index = 0; index < panesCount; index++)
-    {
-        if( [[[panesListView contextForItemAtIndex: index] resourceName] isEqualToString: name])
-            [self setCurrentContext:[panesListView contextForItemAtIndex:index]];
-    }
-}
+//-(void)setCurrentContextWithResourceName: (NSString*) name
+//{
+//    NSInteger panesCount = [panesListView itemsCount];
+//	
+//    for( NSInteger index = 0; index < panesCount; index++)
+//        if( [[[panesListView contextForItemAtIndex: index] resourceName] isEqualToString: name]) {
+//            [self setCurrentContext:[panesListView contextForItemAtIndex:index]];
+//            return;
+//        }
+//}
 
+// If (!context) we show an index page with all the icons
+// If (context) a button (icon) representing a preference pane has been clicked
 -(void)setCurrentContext:(PreferencesWindowContext*)context
 {
-	if (context == currentContext)
-		return;
-
-	if (!currentContext || [currentContext.pane shouldUnselect]) { // TODO: NSUnselectNow or NSUnselectLater?
-		[self willChangeValueForKey:@"currentContext"];
-		
-		if (context && !context.pane.mainView) {
+    NSString *bundleName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleName"];
+    NSString *title = [NSString stringWithFormat:NSLocalizedString(@"%@ Preferences", NULL), bundleName];
+    if (context)
+        title = [title stringByAppendingFormat:@"%@%@",
+                 NSLocalizedString(@": ", @"Semicolon with space prefix and suffix (example: english ': ', french ' : ')"),
+                 context.title];
+    
+    [self.window setTitle:title];
+    
+	if (!currentContext ||   // index page
+        [currentContext.pane shouldUnselect])  // TODO: NSUnselectNow or NSUnselectLater?
+    {
+		if (context && !context.pane.mainView)
+        {
 			@try {
 				[context.pane loadMainView];
-			} @catch (NSException* e) {
+			}
+            @catch (NSException* e) {
 				NSLog(@"Warning: %@", e.description);
 				return;
 			}
@@ -495,13 +510,7 @@ static const NSMutableArray* pluginPanes = [[NSMutableArray alloc] init];
 		// add new view
 		[self view:context.pane.mainView recursiveBindEnableToObject:self withKeyPath:@"isUnlocked"];
 		
-		NSView* view = context? context.pane.mainView : panesListView;
-		
-        NSString* title = NSLocalizedString(@"OsiriX Preferences", NULL);
-        if (context)
-            title = [title stringByAppendingFormat:@"%@%@", NSLocalizedString(@": ", @"Semicolon with space prefix and suffix (example: english ': ', french ' : ')"), context.title];
-		[self.window setTitle:title];
-		
+		NSView* view = context ? context.pane.mainView : panesListView;
 
         [context.pane willSelect];
 		[flippedDocumentView setFrameSize:view.frame.size];
@@ -511,14 +520,16 @@ static const NSMutableArray* pluginPanes = [[NSMutableArray alloc] init];
                                NSViewAnimationFadeInEffect, NSViewAnimationEffectKey,
 							   NULL]];
 		[context.pane didSelect];
-
 		[currentContext.pane didUnselect];
-		currentContext = context;
-		
-		[self didChangeValueForKey:@"currentContext"];
-		[self synchronizeSizeWithContent];
-		
-		[oldview release];
+
+        // Binding for the "Show All" button
+        [self willChangeValueForKey:@"currentContext"];
+        currentContext = context;
+        [self didChangeValueForKey:@"currentContext"];
+
+        [self synchronizeSizeWithContent];
+
+        [oldview release];
 	}
 }
 
@@ -608,7 +619,7 @@ static const NSMutableArray* pluginPanes = [[NSMutableArray alloc] init];
 		windowMaxSize.height += scrollView.horizontalScroller.frame.size.height;
 
 	windowMaxSize.height -= self.window.toolbarHeight;
-	self.window.maxSize = windowMaxSize;
+    self.window.maxSize = windowMaxSize;
 	
 	[scrollView setHasHorizontalScroller:YES];
 	[scrollView setHasVerticalScroller:YES];
@@ -637,7 +648,7 @@ static const NSMutableArray* pluginPanes = [[NSMutableArray alloc] init];
 }
 
 -(IBAction)showAllAction:(id)sender {
-	[self setCurrentContext:NULL];
+    [self setCurrentContext:NULL];
 }
 
 -(IBAction)authAction:(id)sender {
@@ -655,4 +666,3 @@ static const NSMutableArray* pluginPanes = [[NSMutableArray alloc] init];
 }
 
 @end
-

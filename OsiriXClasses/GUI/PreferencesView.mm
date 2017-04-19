@@ -58,14 +58,17 @@
 
 @end
 
+#pragma mark -
 
 @interface PreferencesViewButtonCell : NSButtonCell
 @end
+
 @implementation PreferencesViewButtonCell
 
 static const NSInteger labelHeight = 38, labelSeparator = 3;
 
--(void)drawWithFrame:(NSRect)frame inView:(NSView*)controlView {
+-(void)drawWithFrame:(NSRect)frame inView:(NSView*)controlView
+{
 	[NSGraphicsContext saveGraphicsState];
 	
 	NSAffineTransform* transform = [NSAffineTransform transform];
@@ -100,6 +103,7 @@ static const NSInteger labelHeight = 38, labelSeparator = 3;
 
 @end
 
+#pragma mark -
 
 @interface PreferencesView (Private)
 
@@ -173,7 +177,7 @@ static const NSInteger labelHeight = 38, labelSeparator = 3;
 	
 	[group.buttons addObject:button];
 	
-	[self layout];
+	//[self layout]; // No need to redisplay everything for each new button added
 }
 
 -(BOOL)isOpaque {
@@ -219,10 +223,16 @@ static const NSInteger labelHeight = 38, labelSeparator = 3;
 	return -1;
 }
 
-static const NSUInteger colWidth = 80, colSeparator = 1, rowHeight = 101, titleHeight = 20, titleMargin[2] = {6,3}, padding[4] = {0,16,1,6}; //top,right,bottom,left
+static const NSUInteger colWidth = 80, colSeparator = 1, rowHeight = 101, titleHeight = 20;
+static const NSPoint titleMargin = NSMakePoint(6,3);
+static const NSUInteger padTop = 0;
+static const NSUInteger padRight = 16;
+static const NSUInteger padBottom = 1;
+static const NSUInteger padLeft = 6;
 
--(void)drawRect:(NSRect)dirtyRect {
-	[NSGraphicsContext saveGraphicsState];
+-(void)drawRect:(NSRect)dirtyRect
+{
+    [NSGraphicsContext saveGraphicsState];
 	
 	NSRect frame = [self bounds];
 	
@@ -232,8 +242,8 @@ static const NSUInteger colWidth = 80, colSeparator = 1, rowHeight = 101, titleH
 	[[NSColor colorWithCalibratedWhite:230./255 alpha:1] setFill];
 	[[NSColor colorWithCalibratedWhite:207./255 alpha:1] setStroke];
 	[NSBezierPath setDefaultLineWidth:1];
-	for (NSUInteger r = 1; r < groups.count; r += 2) {
-		NSRect rect = NSMakeRect(0, frame.size.height-rowHeight*r-rowHeight-padding[0], frame.size.width, rowHeight);
+	for (NSUInteger r = 1; r < groups.count; r += 2) { // darker background for alternate groups
+        NSRect rect = NSMakeRect(0, frame.size.height-rowHeight*r-rowHeight-padTop, frame.size.width, rowHeight);
 		[NSBezierPath fillRect:rect];
 		[NSBezierPath strokeLineFromPoint:NSMakePoint(rect.origin.x, rect.origin.y+.5)
                                   toPoint:NSMakePoint(rect.origin.x+rect.size.width, rect.origin.y+.5)];
@@ -251,33 +261,38 @@ static const NSUInteger colWidth = 80, colSeparator = 1, rowHeight = 101, titleH
 
 @implementation PreferencesView (Private)
 
--(void)layout {
+-(void)layout
+{
 	NSUInteger colsCount = 0;
 	for (PreferencesViewGroup* group in groups)
 		colsCount = std::max(colsCount, group.buttons.count);
 	
 	NSRect frame = [self frame];
-	frame = NSMakeRect(frame.origin.x,
+    frame = NSMakeRect(frame.origin.x,
                        frame.origin.y,
-                       padding[3]+(colWidth+colSeparator)*colsCount-colSeparator+padding[1],
-                       padding[2]+rowHeight*groups.count+padding[0]);
+                       padLeft + (colWidth+colSeparator)*colsCount - colSeparator+padRight,
+                       padBottom + rowHeight*groups.count + padTop);
 	[self setFrame:frame];
-
+   
+    // Lay them out bottom-up because the origin is in the bottom-left corner of the view
 	for (NSInteger r = (long)groups.count-1; r >= 0; --r) {
 		PreferencesViewGroup* group = [groups objectAtIndex:r];
-		NSRect rowRect = NSMakeRect(padding[3],
-                                    frame.size.height-rowHeight*r-rowHeight-padding[0],
-                                    frame.size.width-padding[3]-padding[1],
+		NSRect rowRect = NSMakeRect(padLeft,
+                                    frame.size.height - rowHeight*r - rowHeight-padTop,
+                                    frame.size.width - padLeft - padRight,
                                     rowHeight);
 		
-		[group.label setFrame:NSMakeRect(rowRect.origin.x+titleMargin[0],
-                                         rowRect.origin.y+rowRect.size.height-titleHeight-titleMargin[1],
-                                         rowRect.size.width-titleMargin[0]*2,
+        [group.label setFrame:NSMakeRect(rowRect.origin.x+titleMargin.x,
+                                         rowRect.origin.y+rowRect.size.height-titleHeight-titleMargin.y,
+                                         rowRect.size.width-titleMargin.x*2,
                                          titleHeight)];
 		
 		for (NSUInteger i = 0; i < group.buttons.count; ++i) {
 			NSButton* button = [group.buttons objectAtIndex:i];
-			NSRect rect = NSMakeRect(rowRect.origin.x+(colWidth+colSeparator)*i, rowRect.origin.y, colWidth, rowHeight);
+			NSRect rect = NSMakeRect(rowRect.origin.x+(colWidth+colSeparator)*i,
+                                     rowRect.origin.y,
+                                     colWidth,
+                                     rowHeight);
 			[button setFrame:rect];
 		}
 	}

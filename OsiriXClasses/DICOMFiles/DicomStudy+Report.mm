@@ -226,7 +226,7 @@
     else if ([reportPath.pathExtension.lowercaseString isEqualToString:@"pages"])
     {
         NSString *path = nil;
-        if( [Reports Pages5orHigher])
+        if ([Reports Pages5orHigher])
             path = [[NSBundle mainBundle] pathForResource:@"pages2pdf" ofType:@"applescript"];
         else
             path = [[NSBundle mainBundle] pathForResource:@"pages092pdf" ofType:@"applescript"];

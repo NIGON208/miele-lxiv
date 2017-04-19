@@ -756,7 +756,7 @@
 #pragma mark -
 #pragma mark Pages.app
 
-static int Pages5orHigher = -1;
+static BOOL Pages5orHigher = FALSE;
 
 +(NSString*)databasePagesTemplatesDirPath {
     
@@ -782,32 +782,28 @@ static int Pages5orHigher = -1;
                                                         error:nil];
     
 	// Pages template
-    NSString *defaultReport = [templatesDirPath stringByAppendingPathComponent:@"/OsiriX Basic Report.pages"];
+    NSString *defaultReport = [templatesDirPath stringByAppendingPathComponent:@"/Basic Report.pages"];
 	if ([[NSFileManager defaultManager] fileExistsAtPath: defaultReport] == NO)
-		[[NSFileManager defaultManager] copyPath:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"/OsiriX Report.pages"] toPath:defaultReport handler:nil];
+		[[NSFileManager defaultManager] copyPath: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"/Report.pages"]
+                                          toPath: defaultReport handler:nil];
 	
 #endif
 #endif
 }
 
-
-+ (int) Pages5orHigher
++ (BOOL) Pages5orHigher
 {
-    if( Pages5orHigher != -1)
-        return Pages5orHigher;
+    if (Pages5orHigher)
+        return TRUE;
     
     // Pages 09 (4.0) or 2013 (5.0) ??
     NSString *appPath = [[NSWorkspace sharedWorkspace] absolutePathForAppBundleWithIdentifier:@"com.apple.iWork.Pages"];
-    
     if( appPath.length)
     {
+        // Example: 0700 for version 5.6.2
         NSString *version = [[[NSBundle bundleWithPath: appPath] infoDictionary] objectForKey:@"DTXcode"];
-        
-        int number =  version.integerValue;
-        if( number >= 500)
+        if (version.integerValue >= 500)
             Pages5orHigher = YES;
-        else
-            Pages5orHigher = NO;
     }
     
     return Pages5orHigher;
@@ -854,14 +850,25 @@ static int Pages5orHigher = -1;
     
     NSString* templatePath = [[self class] pathForPagesTemplate: templateName];
     if( templatePath)
-        [[NSFileManager defaultManager] copyItemAtPath: templatePath toPath:aPath byReplacingExisting:YES error: nil];
+        [[NSFileManager defaultManager] copyItemAtPath: templatePath
+                                                toPath: aPath
+                                   byReplacingExisting: YES
+                                                 error: nil];
     else {
-		NSRunCriticalAlertPanel( NSLocalizedString( @"Pages", nil),  NSLocalizedString(@"Failed to create the report with Pages.", nil), NSLocalizedString(@"OK", nil), nil, nil);
+		NSRunCriticalAlertPanel(NSLocalizedString(@"Pages", nil),
+                                NSLocalizedString(@"Failed to create the report with Pages.", nil),
+                                NSLocalizedString(@"OK", nil),
+                                nil,
+                                nil);
         return NO;
 	}
     
 	if ([[NSFileManager defaultManager] fileExistsAtPath:aPath] == NO) {
-		NSRunCriticalAlertPanel( NSLocalizedString( @"Pages", nil),  NSLocalizedString(@"Failed to create the report with Pages.", nil), NSLocalizedString(@"OK", nil), nil, nil);
+		NSRunCriticalAlertPanel(NSLocalizedString(@"Pages", nil),
+                                NSLocalizedString(@"Failed to create the report with Pages.", nil),
+                                NSLocalizedString(@"OK", nil),
+                                nil,
+                                nil);
         return NO;
 	}
     
@@ -888,7 +895,11 @@ static int Pages5orHigher = -1;
         
         if( [[NSFileManager defaultManager] fileExistsAtPath:indexFilePath] == NO)
         {
-            NSRunCriticalAlertPanel( NSLocalizedString( @"Pages", nil),  NSLocalizedString(@"OsiriX requires templates files in Pages '09 format. Open your template in Pages, select File menu and Export to Pages '09 format.", nil), NSLocalizedString(@"OK", nil), nil, nil);
+            NSRunCriticalAlertPanel(NSLocalizedString( @"Pages", nil),
+                                    NSLocalizedString(@"OsiriX requires templates files in Pages '09 format. Open your template in Pages, select File menu and Export to Pages '09 format.", nil),
+                                    NSLocalizedString(@"OK", nil),
+                                    nil,
+                                    nil);
             return NO;
         }
     }
@@ -914,8 +925,11 @@ static int Pages5orHigher = -1;
 
 + (NSString*) pathForPagesTemplate: (NSString*) templateName
 {
-    if( templateName.length == 0 && [[Reports pagesTemplatesList] count])
+    if (templateName.length == 0 &&
+       [[Reports pagesTemplatesList] count])
+    {
         templateName = [[Reports pagesTemplatesList] objectAtIndex: 0];
+    }
     
     if( [Reports Pages5orHigher])
     {
@@ -935,17 +949,19 @@ static int Pages5orHigher = -1;
     }
     else
     {
-        NSArray *templateDirectoryPathArray = [NSArray arrayWithObjects:NSHomeDirectory(), @"Library", @"Application Support", @"iWork", @"Pages", @"Templates", @"OsiriX", nil];
+        NSString *bundleName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleName"];
+        NSArray *templateDirectoryPathArray = [NSArray arrayWithObjects:NSHomeDirectory(), @"Library", @"Application Support", @"iWork", @"Pages", @"Templates", @"OsiriX", bundleName, nil];
         NSString *templateDirectory = [NSString pathWithComponents:templateDirectoryPathArray];
         NSDirectoryEnumerator *directoryEnumerator = [[NSFileManager defaultManager] enumeratorAtPath:templateDirectory];
         
 //        NSMutableArray *templatesArray = [NSMutableArray arrayWithCapacity:1];
         id file;
-        while ((file = [directoryEnumerator nextObject]))
+        while (file = [directoryEnumerator nextObject])
         {
             [directoryEnumerator skipDescendents];
             
-            if( [file isEqualToString: templateName] || [file isEqualToString: [NSString stringWithFormat: @"OsiriX %@", templateName]])
+            if ([file isEqualToString: templateName] ||
+                [file isEqualToString: [NSString stringWithFormat: @"OsiriX %@", templateName]])
                 return [templateDirectory stringByAppendingPathComponent: file];
         }
     }

@@ -18,7 +18,7 @@
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <window title="OsiriX Preferences" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" visibleAtLaunch="NO" frameAutosaveName="PreferencesWindow" animationBehavior="default" id="19" userLabel="OsiriX Preferences">
+        <window title="Osiri-LXIV Preferences" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" visibleAtLaunch="NO" frameAutosaveName="PreferencesWindow" animationBehavior="default" id="19" userLabel="Osiri-LXIV Preferences">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" texturedBackground="YES" unifiedTitleAndToolbar="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="114" y="455" width="583" height="397"/>
@@ -28,7 +28,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <customView hidden="YES" translatesAutoresizingMaskIntoConstraints="NO" id="754" customClass="SFAuthorizationView">
-                        <rect key="frame" x="573" y="100" width="10" height="297"/>
+                        <rect key="frame" x="387" y="330" width="170" height="50"/>
                     </customView>
                     <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="715">
                         <rect key="frame" x="0.0" y="0.0" width="583" height="397"/>
@@ -44,10 +44,10 @@
                                         </customView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="757" firstAttribute="leading" secondItem="718" secondAttribute="leading" id="5MT-Kt-MzC"/>
+                                        <constraint firstAttribute="bottom" secondItem="757" secondAttribute="bottom" priority="999" identifier="id31" id="EHv-DW-oVs"/>
                                         <constraint firstItem="757" firstAttribute="top" secondItem="718" secondAttribute="top" priority="999" identifier="id25" id="YsM-0D-QFP"/>
-                                        <constraint firstAttribute="bottom" secondItem="757" secondAttribute="bottom" id="ZQ6-c7-jQS"/>
-                                        <constraint firstAttribute="trailing" secondItem="757" secondAttribute="trailing" id="b8Q-gK-7d2"/>
+                                        <constraint firstItem="757" firstAttribute="leading" secondItem="718" secondAttribute="leading" priority="999" identifier="id32" id="kPH-kd-v20"/>
+                                        <constraint firstAttribute="trailing" secondItem="757" secondAttribute="trailing" priority="999" identifier="id33" id="qL5-aa-TGn"/>
                                     </constraints>
                                 </customView>
                             </subviews>
@@ -59,24 +59,24 @@
                             </constraints>
                         </clipView>
                         <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="717">
-                            <rect key="frame" x="0.0" y="381" width="300" height="16"/>
+                            <rect key="frame" x="0.0" y="259" width="568" height="15"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                         <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="716">
-                            <rect key="frame" x="719" y="0.0" width="16" height="397"/>
+                            <rect key="frame" x="568" y="0.0" width="15" height="259"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                     </scrollView>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="754" firstAttribute="leading" secondItem="21" secondAttribute="leading" constant="573" identifier="ids19" id="094-37-5Gr"/>
+                    <constraint firstItem="754" firstAttribute="top" secondItem="21" secondAttribute="top" constant="17" id="6OF-F0-BYB"/>
                     <constraint firstItem="715" firstAttribute="top" secondItem="21" secondAttribute="top" identifier="ids13" id="Btm-gQ-c7U"/>
-                    <constraint firstItem="754" firstAttribute="top" secondItem="715" secondAttribute="top" priority="999" identifier="ids20" id="E7a-K6-epr"/>
                     <constraint firstAttribute="trailing" secondItem="715" secondAttribute="trailing" identifier="ids18" id="Gdu-kZ-WED"/>
-                    <constraint firstItem="754" firstAttribute="trailing" secondItem="715" secondAttribute="trailing" priority="999" identifier="ids22" id="dOy-SV-HRb"/>
-                    <constraint firstAttribute="bottom" secondItem="754" secondAttribute="bottom" priority="999" constant="100" identifier="ids23" id="laZ-Pq-YJh"/>
                     <constraint firstItem="715" firstAttribute="leading" secondItem="21" secondAttribute="leading" priority="999" identifier="ids14" id="oUx-EI-5KL"/>
                     <constraint firstAttribute="bottom" secondItem="715" secondAttribute="bottom" priority="999" identifier="ids15" id="pEp-Cx-Aeh"/>
+                    <constraint firstAttribute="bottom" secondItem="754" secondAttribute="bottom" constant="330" id="pOn-dO-wHf"/>
+                    <constraint firstAttribute="trailing" secondItem="754" secondAttribute="trailing" constant="26" id="qP8-mG-hLY"/>
+                    <constraint firstItem="754" firstAttribute="leading" secondItem="21" secondAttribute="leading" constant="387" id="wGz-6q-xF2"/>
                 </constraints>
             </view>
             <toolbar key="toolbar" implicitIdentifier="95223799-629E-4BA8-B285-ED3A011B2554" autosavesConfiguration="NO" allowsUserCustomization="NO" displayMode="iconOnly" sizeMode="regular" id="600">
