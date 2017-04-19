@@ -268,7 +268,8 @@
     return YES;
 }
 
--(NSString*)destinationOfAliasAtPath:(NSString*)inPath {
+-(NSString*)destinationOfAliasAtPath:(NSString*)inPath
+{
     if (inPath == nil)
         return nil;
     
@@ -300,16 +301,17 @@
 	return [self destinationOfAliasOrSymlinkAtPath:path resolved:NULL];
 }
 
--(NSString*)destinationOfAliasOrSymlinkAtPath:(NSString*)path resolved:(BOOL*)r {
+-(NSString*)destinationOfAliasOrSymlinkAtPath:(NSString*)path resolved:(BOOL*)r
+{
 	//if (![self fileExistsAtPath:path]) {
-		NSString* temp = [self destinationOfAliasAtPath:path];
-		if (temp)
-        {
-			if (r)
-                *r = YES;
-            
-			return temp;
-		}
+    NSString* temp = [self destinationOfAliasAtPath:path];
+    if (temp)
+    {
+        if (r)
+            *r = YES;
+        
+        return temp;
+    }
 		
 
     //if (r)
@@ -321,14 +323,31 @@
 	if ([[attrs objectForKey:NSFileType] isEqualToString:NSFileTypeSymbolicLink])
     {
 		if (r)
-            *r = YES;
+            *r = NO;  // Assume not resolved
         
-		return [self destinationOfSymbolicLinkAtPath:path error:NULL];
+        NSError	*error = nil;
+        NSString *s = [self destinationOfSymbolicLinkAtPath:path error:&error];
+        if (!s) {
+            NSLog(@"NSFileManager+N2.mm:%d error:%@", __LINE__, error);
+            return nil;
+        }
+        
+        // Verify the existence of the symbolic link target
+        if (![self fileExistsAtPath:s]) {
+            NSLog(@"Symbolic link target doesn't exist: %@", s);
+            return nil;
+        }
+        
+        if (r)
+            *r = YES;
+
+        return s;
 	}
 	
 	if (r)
         *r = NO;
     
+    // We get here also for a valid existing directory
 	return path;
 }
 

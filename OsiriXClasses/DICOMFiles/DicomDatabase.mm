@@ -453,8 +453,8 @@ static DicomDatabase* activeLocalDatabase = nil;
                                                        error:NULL];
             
             // report templates
-    #ifndef MACAPPSTORE
-    #ifndef OSIRIX_LIGHT
+#ifndef MACAPPSTORE
+#ifndef OSIRIX_LIGHT
             for (NSString* rfn in [NSArray arrayWithObjects: @"ReportTemplate.rtf", @"ReportTemplate.odt", nil]) {
                 NSString* rfp = [self.baseDirPath stringByAppendingPathComponent:rfn];
                 if (rfp && ![NSFileManager.defaultManager fileExistsAtPath:rfp]) {
@@ -465,8 +465,8 @@ static DicomDatabase* activeLocalDatabase = nil;
             
             [Reports checkForPagesTemplate];
             [Reports checkForWordTemplates];
-    #endif
-    #endif
+#endif
+#endif
 
             [self checkForHtmlTemplates];
             

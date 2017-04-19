@@ -27,7 +27,7 @@
 #import "url.h"
 
 static NSMutableDictionary		*plugins = nil, *pluginsDict = nil, *fileFormatPlugins = nil;
-static NSMutableDictionary		*reportPlugins = nil, *pluginsBundleDictionnary = nil;
+static NSMutableDictionary		*reportPlugins = nil, *pluginsBundleDictionary = nil;
 
 static NSMutableArray			*preProcessPlugins = nil;
 static NSMenu					*fusionPluginsMenu = nil;
@@ -45,7 +45,7 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
 {
 //    *(long*)0 = 0xDEADBEEF;
     
-    for( NSBundle *bundle in [pluginsBundleDictionnary allValues])
+    for( NSBundle *bundle in [pluginsBundleDictionary allValues])
     {
         if( [NSStringFromClass( [filter class]) isEqualToString: NSStringFromClass( [bundle principalClass])])
         {
@@ -524,11 +524,11 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
 //        }
 //        else
 //        {
-//            for( NSString *key in [pluginsBundleDictionnary allKeys])
+//            for( NSString *key in [pluginsBundleDictionary allKeys])
 //            {
-//                if( [pluginsBundleDictionnary valueForKey: key] == bundle)
+//                if( [pluginsBundleDictionary valueForKey: key] == bundle)
 //                {
-//                    [pluginsBundleDictionnary removeObjectForKey: key];
+//                    [pluginsBundleDictionary removeObjectForKey: key];
 //                    return;
 //                }
 //            }
@@ -542,7 +542,7 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
 
 + (void) unloadPluginWithName: (NSString*) name
 {
-    for( NSBundle *bundle in [pluginsBundleDictionnary allValues])
+    for( NSBundle *bundle in [pluginsBundleDictionary allValues])
     {
         if( [[[[bundle bundlePath] lastPathComponent] stringByDeletingPathExtension] isEqualToString: name])
             [PluginManager unloadPlugin: bundle];
@@ -552,7 +552,6 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
 + (void) loadPluginAtPath: (NSString*) path
 {
     NSString *name = [path lastPathComponent];
-    
     path = [path stringByDeletingLastPathComponent];
     
     if (([[name pathExtension] isEqualToString:@"plugin"] || [[name pathExtension] isEqualToString:@"osirixplugin"]))
@@ -596,7 +595,7 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
                         
                         if( filterClass)
                         {
-                            [pluginsBundleDictionnary setObject: plugin forKey: pathResolved];
+                            [pluginsBundleDictionary setObject: plugin forKey: pathResolved];
                             
                             NSString *version = [[plugin infoDictionary] valueForKey: (NSString*) kCFBundleVersionKey];
                             
@@ -722,9 +721,15 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
                                                             error: nil];
 #endif
 		
-		NSArray* paths = [NSArray arrayWithObjects: [NSNull null], appPath, userPath, userAppStorePath, sysPath, nil]; // [NSNull null] is a placeholder for launch parameters load commands
+		NSArray* paths = [NSArray arrayWithObjects:
+                          [NSNull null],  // [NSNull null] is a placeholder for launch parameters load commands
+                          appPath,
+                          userPath,
+                          userAppStorePath,
+                          sysPath,
+                          nil];
 		
-        for( NSBundle *bundle in [pluginsBundleDictionnary allValues])
+        for (NSBundle *bundle in [pluginsBundleDictionary allValues])
             [PluginManager unloadPlugin: bundle];
         
 		[plugins release];
@@ -735,9 +740,9 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
 		[fusionPlugins release];
 		[fusionPluginsMenu release];
 		[pluginsNames  release];
-        [pluginsBundleDictionnary release];
+        [pluginsBundleDictionary release];
         
-        pluginsBundleDictionnary = [[NSMutableDictionary alloc] init];
+        pluginsBundleDictionary = [[NSMutableDictionary alloc] init];
 		plugins = [[NSMutableDictionary alloc] init];
 		pluginsDict = [[NSMutableDictionary alloc] init];
 		fileFormatPlugins = [[NSMutableDictionary alloc] init];
@@ -780,16 +785,19 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
         
         for (id path in paths)
             @try {
-                NSArray* donotloadnames = nil;
-                if (![path isKindOfClass:[NSNull class]]) {
-                    donotloadnames = [[NSString stringWithContentsOfFile:[path stringByAppendingPathComponent:@"DoNotLoad.txt"]] componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]];
-                    if ([donotloadnames containsObject:@"*"])
+                NSArray* doNotLoadNames = nil;
+                if (![path isKindOfClass:[NSNull class]])
+                {
+                    doNotLoadNames = [[NSString stringWithContentsOfFile:[path stringByAppendingPathComponent:@"DoNotLoad.txt"]] componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+                    if ([doNotLoadNames containsObject:@"*"])
                         break;
                 }
 
                 NSEnumerator* e = nil;
                 if ([path isKindOfClass:[NSString class]])
+                {
                     e = [[[NSFileManager defaultManager] directoryContentsAtPath:path] objectEnumerator];
+                }
                 else if (path == [NSNull null])
                 {
                     path = @"/";
@@ -799,19 +807,24 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
                         if ([[args objectAtIndex:i] isEqualToString:@"--LoadPlugin"] && [args count] > i+1) {
                             [cl addObject:[args objectAtIndex:++i]];
                         }
+
                     e = [cl objectEnumerator];
                 }
                 
                 NSString* name;
                 while (name = [e nextObject])
-                    if (/*[[name pathExtension] isEqualToString:@"osirixplugin"] &&*/ [donotloadnames containsObject:[name stringByDeletingPathExtension]] == NO)
-                        [pathsOfPluginsToLoad addObject:[NSFileManager.defaultManager destinationOfAliasOrSymlinkAtPath:[path stringByAppendingPathComponent: name]]];
+                    if (/*[[name pathExtension] isEqualToString:@"osirixplugin"] &&*/
+                        [doNotLoadNames containsObject:[name stringByDeletingPathExtension]] == NO)
+                    {
+                        BOOL ok;
+                        NSString *s = [NSFileManager.defaultManager destinationOfAliasOrSymlinkAtPath:[path stringByAppendingPathComponent:name] resolved:&ok];
+                        if (ok)
+                            [pathsOfPluginsToLoad addObject:s];
+                    }
             } @catch (NSException* e) {
                 N2LogExceptionWithStackTrace(e);
             }
         
-        NSLog(@"paths: %@", pathsOfPluginsToLoad);
-
         // some plugins require other plugins to be loaded before them
         for (__block NSInteger i = pathsOfPluginsToLoad.count-1; i >= 0; --i)
         {
@@ -820,7 +833,6 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
             if (!name)
                 name = [[[pathsOfPluginsToLoad objectAtIndex:i] lastPathComponent] stringByDeletingPathExtension];
 //            
-            NSLog(@"for %@", name);
             
             // list of requirements
             for (NSString* req in [bundle.infoDictionary objectForKey:@"Requirements"]) {
@@ -843,8 +855,6 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
                     }
                 }];
             }
-            
-//            NSLog(@"paths: %@", pathsOfPluginsToLoad);
         }
         
         for (id path in pathsOfPluginsToLoad)
