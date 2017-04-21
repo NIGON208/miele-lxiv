@@ -15,6 +15,8 @@
 #import <Cocoa/Cocoa.h>
 #import "DDKeychain.h"
 
+#import "tmp_locations.h"
+
 typedef enum
 {
 	RequirePeerCertificate = 0,
@@ -22,13 +24,13 @@ typedef enum
 	IgnorePeerCertificate
 } TLSCertificateVerificationType;
 
-#define TLS_SEED_FILE @"/tmp/OsiriXTLSSeed"
-#define TLS_WRITE_SEED_FILE "/tmp/OsiriXTLSSeedWrite"
-#define TLS_PRIVATE_KEY_FILE @"/tmp/TLSKey"
-#define TLS_CERTIFICATE_FILE @"/tmp/TLSCert"
-#define TLS_TRUSTED_CERTIFICATES_DIR @"/tmp/TLSTrustedCert" 
-#define TLS_KEYCHAIN_IDENTITY_NAME_CLIENT @"com.osirixviewer.dicomtlsclient"
-#define TLS_KEYCHAIN_IDENTITY_NAME_SERVER @"com.osirixviewer.dicomtlsserver"
+#define TLS_SEED_FILE                       AT_TLS_TMP@"/OsiriXTLSSeed"
+#define TLS_WRITE_SEED_FILE                 TLS_TMP"/OsiriXTLSSeedWrite"
+#define TLS_PRIVATE_KEY_FILE                AT_TLS_TMP@"/TLSKey"
+#define TLS_CERTIFICATE_FILE                AT_TLS_TMP@"/TLSCert"
+#define TLS_TRUSTED_CERTIFICATES_DIR        AT_TLS_TMP@"/TLSTrustedCert"
+#define TLS_KEYCHAIN_IDENTITY_NAME_CLIENT   @"com.osirixviewer.dicomtlsclient"
+#define TLS_KEYCHAIN_IDENTITY_NAME_SERVER   @"com.osirixviewer.dicomtlsserver"
 
 /** \brief
  A utility class for secure DICOM connections with TLS.

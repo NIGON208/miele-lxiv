@@ -7747,11 +7747,11 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void *context
         // get max size of non-power of two texture on devices which support
         if (NULL != strstr ((const char *) strExtension, "GL_EXT_texture_rectangle"))
         {
-        #ifdef GL_MAX_RECTANGLE_TEXTURE_SIZE_EXT
-                glGetIntegerv (GL_MAX_RECTANGLE_TEXTURE_SIZE_EXT, &NPOTDMaxTextureSize);
-                if (NPOTDMaxTextureSize < maxNOPTDTextureSize)
-                        maxNOPTDTextureSize = NPOTDMaxTextureSize;
-        #endif
+#ifdef GL_MAX_RECTANGLE_TEXTURE_SIZE_EXT
+            glGetIntegerv (GL_MAX_RECTANGLE_TEXTURE_SIZE_EXT, &NPOTDMaxTextureSize);
+            if (NPOTDMaxTextureSize < maxNOPTDTextureSize)
+            maxNOPTDTextureSize = NPOTDMaxTextureSize;
+#endif
         }
         
     //			maxTextureSize = 500;

@@ -19,6 +19,8 @@
 #import "DicomDatabase.h"
 #import "N2Debug.h"
 
+#import "tmp_locations.h"
+
 @implementation SmartWindowController
 
 @synthesize name = _name;
@@ -116,9 +118,13 @@
 - (IBAction)helpAction:(NSSegmentedControl*)sender {
     if ([sender selectedSegment] == 0)
     {
-        [[NSFileManager defaultManager] removeItemAtPath: @"/tmp/OsiriXTables.pdf" error:nil];
-        [[NSFileManager defaultManager] copyItemAtPath: [[NSBundle mainBundle] pathForResource:@"OsiriXTables" ofType:@"pdf"] toPath: @"/tmp/OsiriXTables.pdf" error: nil];
-		[[NSWorkspace sharedWorkspace] openFile: @"/tmp/OsiriXTables.pdf" withApplication: nil andDeactivate: YES];
+        NSString *tablesFile = [@(SYSTEM_TMP) stringByAppendingString:@"/OsiriXTables.pdf"];
+        [[NSFileManager defaultManager] removeItemAtPath: tablesFile error:nil];
+        [[NSFileManager defaultManager] copyItemAtPath: [[NSBundle mainBundle] pathForResource:@"OsiriXTables" ofType:@"pdf"]
+                                                toPath: tablesFile error: nil];
+		[[NSWorkspace sharedWorkspace] openFile: tablesFile
+                                withApplication: nil
+                                  andDeactivate: YES];
         
         [NSThread sleepForTimeInterval:1];
     }

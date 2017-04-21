@@ -45,6 +45,8 @@
 #import "DICOMExport.h"
 #endif
 
+#import "tmp_locations.h"
+
 #define WBUFSIZE 512
 
 NSString* soundex4( NSString *inString)
@@ -649,11 +651,11 @@ static NSRecursiveLock *dbModifyLock = nil;
                                                              rereadExistingItems: YES
                                                                generatedByOsiriX: YES];
                 else
-                    [[DicomDatabase databaseAtPath: @"/tmp"] addFilesAtPaths: [NSArray arrayWithObject: dstPath]
-                                                           postNotifications: NO
-                                                                   dicomOnly: YES
-                                                         rereadExistingItems: YES
-                                                           generatedByOsiriX: YES];
+                    [[DicomDatabase databaseAtPath: @(SYSTEM_TMP)] addFilesAtPaths: [NSArray arrayWithObject: dstPath]
+                                                                 postNotifications: NO
+                                                                         dicomOnly: YES
+                                                               rereadExistingItems: YES
+                                                                 generatedByOsiriX: YES];
 			}
 		}
 		@catch (NSException* e) {
@@ -718,7 +720,7 @@ static NSRecursiveLock *dbModifyLock = nil;
             BOOL isMainDB = self.managedObjectContext.persistentStoreCoordinator == BrowserController.currentBrowser.database.managedObjectContext.persistentStoreCoordinator;
 
 			// Report
-			NSString *zippedFile = @"/tmp/zippedReport.zip";
+            NSString *zippedFile = [@(SYSTEM_TMP) stringByAppendingString:@"/zippedReport.zip"];
 			BOOL needToArchive = NO;
 			NSString *dstPath = nil;
 			Dicom_Image *reportImage = [self reportImage];
@@ -799,11 +801,11 @@ static NSRecursiveLock *dbModifyLock = nil;
                                                              rereadExistingItems: YES
                                                                generatedByOsiriX: YES];
                 else
-                    [[DicomDatabase databaseAtPath: @"/tmp"] addFilesAtPaths: [NSArray arrayWithObject: dstPath]
-                                                           postNotifications: YES
-                                                                   dicomOnly: YES
-                                                         rereadExistingItems: YES
-                                                           generatedByOsiriX: YES];
+                    [[DicomDatabase databaseAtPath: @(SYSTEM_TMP)] addFilesAtPaths: [NSArray arrayWithObject: dstPath]
+                                                                 postNotifications: YES
+                                                                         dicomOnly: YES
+                                                               rereadExistingItems: YES
+                                                                 generatedByOsiriX: YES];
 			}
 			
 			if( zippedFile)
@@ -1133,11 +1135,11 @@ static NSRecursiveLock *dbModifyLock = nil;
                          rereadExistingItems: YES
                            generatedByOsiriX: YES];
                     else
-                        [[DicomDatabase databaseAtPath: @"/tmp"] addFilesAtPaths: [NSArray arrayWithObject: filePath]
-                                                               postNotifications: YES
-                                                                       dicomOnly: YES
-                                                             rereadExistingItems: YES
-                                                               generatedByOsiriX: YES];
+                        [[DicomDatabase databaseAtPath: @(SYSTEM_TMP)] addFilesAtPaths: [NSArray arrayWithObject: filePath]
+                                                                     postNotifications: YES
+                                                                             dicomOnly: YES
+                                                                   rereadExistingItems: YES
+                                                                     generatedByOsiriX: YES];
                 }
                 @catch (NSException *e) {
                     N2LogExceptionWithStackTrace(e);

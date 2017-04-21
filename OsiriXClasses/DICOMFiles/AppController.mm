@@ -48,6 +48,7 @@
 #import "NSFileManager+N2.h"
 #import <objc/runtime.h>
 #import "NSPanel+N2.h"
+
 #ifndef OSIRIX_LIGHT
 #import "BonjourPublisher.h"
 
@@ -58,6 +59,7 @@
 #endif
 
 #endif
+
 #import "PluginManagerController.h"
 #import "OSIWindowController.h"
 #import "Notifications.h"
@@ -90,6 +92,8 @@
 #include <stdlib.h>
 
 #import "url.h"
+#import "tmp_locations.h"
+
 #import "vtkVersionMacros.h"    // for VTK version
 #import "itkVersion.h"          // for ITK version
 #import "dcuid.h"               // for DCMTK version
@@ -901,7 +905,7 @@ static NSDate *lastWarningDate = nil;
                     kill( MyArray[ Counter], 15);
                     
                     char dir[ 1024];
-                    sprintf( dir, "%s-%d", "/tmp/lock_process", MyArray[ Counter]);
+                    sprintf( dir, "%s-%d", SYSTEM_TMP"/lock_process", MyArray[ Counter]);
                     unlink( dir);
                 }
             } 
@@ -1183,7 +1187,7 @@ static NSDate *lastWarningDate = nil;
 	int pid = [pidNumber intValue];
 	int rc, state;
 	BOOL threadStateChanged = NO;
-	NSString *path = [NSString stringWithFormat: @"/tmp/process_state-%d", pid]; 
+	NSString *path = [NSString stringWithFormat: @"%s/process_state-%d", SYSTEM_TMP, pid];
 	
 	do
 	{
@@ -1205,7 +1209,6 @@ static NSDate *lastWarningDate = nil;
 	[pool release];
 }
 
-
 - (void) setAETitleToHostname
 {
 	char s[_POSIX_HOST_NAME_MAX+1];
@@ -1219,17 +1222,19 @@ static NSDate *lastWarningDate = nil;
 		c = [c substringToIndex: 16];
 	
     if( c.length == 0)
-        c = @"OSIRIX";
+        c = OUR_IMPLEMENTATION_NAME;
     
 	[[NSUserDefaults standardUserDefaults] setObject: c forKey:@"AETITLE"];
 }
 
 - (void) checkForRestartStoreSCPOrder: (NSTimer*) t
 {
-	if( [[NSFileManager defaultManager] fileExistsAtPath: @"/tmp/RESTARTOSIRIXSTORESCP"])
+    NSString *path = [NSString stringWithFormat: @"%s/RESTARTOSIRIXSTORESCP", SYSTEM_TMP];
+
+	if ([[NSFileManager defaultManager] fileExistsAtPath: path])
 	{
 		[NSThread sleepForTimeInterval: 1];
-		[[NSFileManager defaultManager] removeItemAtPath: @"/tmp/RESTARTOSIRIXSTORESCP" error: nil];
+		[[NSFileManager defaultManager] removeItemAtPath: path error: nil];
 		
 		if ([[NSUserDefaults standardUserDefaults] boolForKey: @"hideListenerError"]) // Only for server mode
 		{
@@ -2731,14 +2736,17 @@ static BOOL firstCall = YES;
 	[[NSUserDefaults standardUserDefaults] setBool: hideListenerError_copy forKey: @"copyHideListenerError"];
 	[[NSUserDefaults standardUserDefaults] setBool: YES forKey: @"hideListenerError"];
 	[[NSUserDefaults standardUserDefaults] synchronize];
-	
-	[[NSFileManager defaultManager] createFileAtPath: @"/tmp/kill_all_storescu" contents: [NSData data] attributes: nil];
+
+    NSString *pathKillAll = [@(SYSTEM_TMP) stringByAppendingString:@"/kill_all_storescu"];
+	[[NSFileManager defaultManager] createFileAtPath: pathKillAll
+                                            contents: [NSData data]
+                                          attributes: nil];
 	[[NSRunLoop currentRunLoop] runUntilDate: [NSDate dateWithTimeIntervalSinceNow: 3]];
 	
 	[wait close];
 	[wait autorelease];
 	
-	unlink( "/tmp/kill_all_storescu");
+	unlink( SYSTEM_TMP"/kill_all_storescu");
 	
 	[[NSUserDefaults standardUserDefaults] setBool: hideListenerError_copy forKey: @"hideListenerError"];
 	[[NSUserDefaults standardUserDefaults] removeObjectForKey: @"copyHideListenerError"];
@@ -2747,7 +2755,7 @@ static BOOL firstCall = YES;
 
 - (void) applicationWillTerminate: (NSNotification*) aNotification
 {
-	unlink( "/tmp/kill_all_storescu");
+	unlink( SYSTEM_TMP"/kill_all_storescu");
 	
 #ifndef OSIRIX_LIGHT
     [DICOMTLS eraseKeys];
@@ -2827,11 +2835,11 @@ static BOOL firstCall = YES;
     }
 
 	// Delete all process_state files
-	for (NSString* s in [[NSFileManager defaultManager] contentsOfDirectoryAtPath: @"/tmp" error:nil])
+	for (NSString* s in [[NSFileManager defaultManager] contentsOfDirectoryAtPath: @(SYSTEM_TMP) error:nil])
 		if ([s hasPrefix:@"process_state-"])
-			[[NSFileManager defaultManager] removeItemAtPath:[@"/tmp" stringByAppendingPathComponent:s] error:nil];
+			[[NSFileManager defaultManager] removeItemAtPath:[@(SYSTEM_TMP) stringByAppendingPathComponent:s] error:nil];
 	
-	[[NSFileManager defaultManager] removeItemAtPath:@"/tmp/zippedCD/" error:nil];
+    [[NSFileManager defaultManager] removeItemAtPath:[@(SYSTEM_TMP) stringByAppendingString:@"/zippedCD/"] error:nil];
 
     NSString *tmpDirPath = [[NSFileManager defaultManager] tmpDirPath];
     if ([[NSFileManager defaultManager] fileExistsAtPath: tmpDirPath])
@@ -3032,6 +3040,14 @@ static BOOL initialized = NO;
                 NSLog(@"ZLIB %s", zlibVersion());
 #endif                
                 NSLog(@"%s", TIFFGetVersion());
+
+                CGLContextObj cgl_ctx = [[NSOpenGLContext currentContext] CGLContextObj];
+                if( cgl_ctx) {
+                    const GLubyte * strVersion = glGetString (GL_VERSION); // get version string
+                    const GLubyte * strExtension = glGetString (GL_EXTENSIONS);	// get extension string
+                    NSLog(@"OpenGL version:%@, extension:%@", strVersion, strExtension);
+                }
+                
                 NSArray *components = [[[NSBundle mainBundle] pathForResource: @"Localizable" ofType: @"strings"] pathComponents];
                 if (components.count > 3)
                     NSLog(@"Localization: %@", [components objectAtIndex: components.count -2]);
@@ -3163,7 +3179,8 @@ static BOOL initialized = NO;
                                 break;
                             
                             if ([NSDate timeIntervalSinceReferenceDate] > endTime) { // time's out, we close the dialog
-                                NSLog(@"Warning: after waiting for 10 minutes, OsiriX is switching to the default database location because %@ is still not available", volumePath);
+                                NSString *bundleName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleName"];
+                                NSLog(@"Warning: after waiting for 10 minutes, %@ is switching to the default database location because %@ is still not available", bundleName, volumePath);
                                 break;
                             }
                         }
@@ -3215,7 +3232,8 @@ static BOOL initialized = NO;
                                 break;
                             
                             if ([NSDate timeIntervalSinceReferenceDate] > endTime) { // time's out, we close the dialog
-                                NSLog(@"Warning: after waiting for 10 minutes, OsiriX is switching to the default database location because %@ is still not available", volumePath);
+                                NSString *bundleName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleName"];
+                                NSLog(@"Warning: after waiting for 10 minutes, %@ is switching to the default database location because %@ is still not available", bundleName, volumePath);
                                 break;
                             }
                         }
@@ -3531,7 +3549,7 @@ static BOOL initialized = NO;
 
 - (void) applicationDidFinishLaunching:(NSNotification*) aNotification
 {
-	unlink( "/tmp/kill_all_storescu");
+	unlink( SYSTEM_TMP"/kill_all_storescu");
     
     [[[NSWorkspace sharedWorkspace] notificationCenter]
             addObserver:self
@@ -3587,20 +3605,24 @@ static BOOL initialized = NO;
 #ifndef MACAPPSTORE
 #ifndef OSIRIX_LIGHT
 	if( [[NSUserDefaults standardUserDefaults] boolForKey: @"checkForUpdatesPlugins"])
-		[NSThread detachNewThreadSelector:@selector(checkForUpdates:) toTarget:pluginManager withObject:pluginManager];
+		[NSThread detachNewThreadSelector: @selector(checkForUpdates:)
+                                 toTarget: pluginManager
+                               withObject: pluginManager];
 	
     
     // If this application crashed before...
-    NSString *OsiriXCrashed = @"/tmp/OsiriXCrashed";
+    NSString *pathOsiriXCrashed = [@(SYSTEM_TMP) stringByAppendingString:@"/OsiriXCrashed"];
     
-    if( [[NSFileManager defaultManager] fileExistsAtPath: OsiriXCrashed]) // Activate check for update !
+    if( [[NSFileManager defaultManager] fileExistsAtPath: pathOsiriXCrashed]) // Activate check for update !
     {
-        [[NSFileManager defaultManager] removeItemAtPath: OsiriXCrashed error: nil];
+        [[NSFileManager defaultManager] removeItemAtPath: pathOsiriXCrashed error: nil];
         
         if( [[NSUserDefaults standardUserDefaults] boolForKey: @"CheckOsiriXUpdates4"] == NO)
         {
             if( [[NSUserDefaults standardUserDefaults] boolForKey: @"hideListenerError"] == NO)
-                [NSThread detachNewThreadSelector: @selector(checkForUpdates:) toTarget: self withObject: @"crash"];
+                [NSThread detachNewThreadSelector: @selector(checkForUpdates:)
+                                         toTarget: self
+                                       withObject: @"crash"];
         }
     }
     else
@@ -3623,7 +3645,11 @@ static BOOL initialized = NO;
 #ifdef OSIRIX_LIGHT
 	@try
 	{
-		int button = NSRunAlertPanel( NSLocalizedString( @"OsiriX Lite", nil), NSLocalizedString( @"This is the Lite version of OsiriX: many functions are not available. You can download the full version of OsiriX on the Internet.", nil), NSLocalizedString( @"Continue", nil), NSLocalizedString( @"Download", nil), nil);
+		int button = NSRunAlertPanel(NSLocalizedString( @"OsiriX Lite", nil),
+                                     NSLocalizedString( @"This is the Lite version of OsiriX: many functions are not available. You can download the full version of OsiriX on the Internet.", nil),
+                                     NSLocalizedString( @"Continue", nil),
+                                     NSLocalizedString( @"Download", nil),
+                                     nil);
 	
 		if (NSCancelButton == button)
 			[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:URL_OSIRIX_VIEWER]];
@@ -4030,16 +4056,18 @@ static BOOL initialized = NO;
 {
     [AppController cleanOsiriXSubProcesses];
     
-    if( [NSDate timeIntervalSinceReferenceDate] - [[NSUserDefaults standardUserDefaults] doubleForKey: @"lastDate32bitPipelineCheck"] > 60L*60L*24L) // 1 days
+    if ([NSDate timeIntervalSinceReferenceDate] -
+        [[NSUserDefaults standardUserDefaults] doubleForKey: @"lastDate32bitPipelineCheck"] > 60L*60L*24L) // 1 day
 	{
-		[[NSUserDefaults standardUserDefaults] setDouble: [NSDate timeIntervalSinceReferenceDate] forKey: @"lastDate32bitPipelineCheck"];
+		[[NSUserDefaults standardUserDefaults] setDouble: [NSDate timeIntervalSinceReferenceDate]
+                                                  forKey: @"lastDate32bitPipelineCheck"];
 		[self verifyHardwareInterpolation];
 	}
     
 	BOOL dialog = NO;
-    
-    if( [[NSFileManager defaultManager] fileExistsAtPath: @"/tmp/"] == NO)
-        [[NSFileManager defaultManager] createDirectoryAtPath:@"/tmp/"
+    NSString *path = [@(SYSTEM_TMP) stringByAppendingString:@"/"];
+    if( [[NSFileManager defaultManager] fileExistsAtPath: path] == NO)
+        [[NSFileManager defaultManager] createDirectoryAtPath:path
                                   withIntermediateDirectories:YES
                                                    attributes:nil
                                                         error:nil];
@@ -4048,8 +4076,12 @@ static BOOL initialized = NO;
     NSMutableArray *toBeRemoved = [NSMutableArray array];
     for( NSMutableDictionary *d in dbArray)
 	{
-		if( [[d valueForKey:@"Path"] hasPrefix: @"/tmp/"] || [[d valueForKey:@"Path"] hasPrefix: @"/private/tmp/"] || [[d valueForKey:@"Path"] hasPrefix: @"/private/var/tmp/"])
+		if ([[d valueForKey:@"Path"] hasPrefix: path] ||
+            [[d valueForKey:@"Path"] hasPrefix: PRIVATE_TMP] ||
+            [[d valueForKey:@"Path"] hasPrefix: PRIVATE_VAR_TMP])
+        {
 			[toBeRemoved addObject: d];
+        }
 	}
     if( toBeRemoved.count)
     {
@@ -4088,10 +4120,11 @@ static BOOL initialized = NO;
             
             NSUserDefaults *d = [NSUserDefaults standardUserDefaults];
             
-            if( [d valueForKey: @"crashReporterSMTPServer"]) {
+            if( [d valueForKey: @"crashReporterSMTPServer"])
+            {
                 reporter.SMTPServer = [d valueForKey: @"crashReporterSMTPServer"];
                 int port = [d integerForKey: @"crashReporterSMTPPort"];
-                reporter.SMTPPort = port? port : 25;
+                reporter.SMTPPort = port ? port : 25;
                 // if these are empty, set them to empty
                 reporter.SMTPUsername = [d valueForKey: @"crashReporterSMTPUsername"];
                 reporter.SMTPPassword = [d valueForKey: @"crashReporterSMTPPassword"];
@@ -4100,13 +4133,15 @@ static BOOL initialized = NO;
             if( [d valueForKey: @"crashReporterFromAddress"])
                 reporter.fromAddress = [d valueForKey: @"crashReporterFromAddress"];
             
-            NSString *reportAddr = @"crash@osirix-viewer.com";
+            NSString *reportAddr = CRASH_EMAIL;
             if( [d valueForKey: @"crashReporterToAddress"])
                 reportAddr = [d valueForKey: @"crashReporterToAddress"];
             
             reporter.automaticReport = [d boolForKey: @"crashReporterAutomaticReport"];
             
-            [reporter launchReporterForCompany: @"OsiriX Developers" reportAddr: reportAddr];
+            NSString *bundleName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleName"];
+            NSString *company = [bundleName stringByAppendingString:@" Developers"];
+            [reporter launchReporterForCompany: company reportAddr: reportAddr];
         }
         @catch (NSException *e)
         {
@@ -4197,7 +4232,11 @@ static BOOL initialized = NO;
 	
 	if (startCount == 0) // Replaces FIRSTTIME.
 	{
-		switch( NSRunInformationalAlertPanel( NSLocalizedString(@"OsiriX Updates", nil), NSLocalizedString( @"Would you like to activate automatic checking for updates?", nil), NSLocalizedString( @"Yes", nil), NSLocalizedString( @"No", nil), nil))
+		switch (NSRunInformationalAlertPanel(NSLocalizedString( @"OsiriX Updates", nil),
+                                             NSLocalizedString( @"Would you like to activate automatic checking for updates?", nil),
+                                             NSLocalizedString( @"Yes", nil),
+                                             NSLocalizedString( @"No", nil),
+                                             nil))
 		{
 			case 0:
 				[[NSUserDefaults standardUserDefaults] setObject: @"NO" forKey: @"CheckOsiriXUpdates4"];

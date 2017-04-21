@@ -22,6 +22,7 @@
 #import "AppController.h"
 
 #import "url.h"
+#import "tmp_locations.h"
 
 static NSArray *CachedPluginsList = nil;
 static NSDate *CachedPluginsListDate = nil;
@@ -426,7 +427,9 @@ NSInteger sortPluginArrayByName(id plugin1, id plugin2, void *context)
 
 - (IBAction)download:(id)sender;
 {
-    NSString *downloadedFilePath = [NSString stringWithFormat:@"/tmp/%@", [[downloadURL lastPathComponent] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    NSString *downloadedFilePath = [NSString stringWithFormat:@"%s/%@",
+                                    SYSTEM_TMP,
+                                    [[downloadURL lastPathComponent] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     
     @synchronized( downloadingPlugins)
     {

@@ -7761,7 +7761,13 @@ return YES;
 			{
 				NSBitmapImageRep *bits = [[[NSBitmapImageRep alloc] initWithData:[im TIFFRepresentation]] autorelease];
 				
-				NSString *path = [NSString stringWithFormat: @"/tmp/sc/%@.png", [[[[item label] stringByReplacingOccurrencesOfString: @"&" withString:@"And"] stringByReplacingOccurrencesOfString: @" " withString:@""] stringByReplacingOccurrencesOfString: @"/" withString:@"-"]];
+				NSString *path = [NSString stringWithFormat: @"%s/sc/%@.png",
+                                  SYSTEM_TMP,
+                                  [[[[item label]
+                                     stringByReplacingOccurrencesOfString: @"&" withString:@"And"]
+                                    stringByReplacingOccurrencesOfString: @" " withString:@""]
+                                   stringByReplacingOccurrencesOfString: @"/" withString:@"-"]];
+                
 				[[bits representationUsingType: NSPNGFileType properties: nil] writeToFile:path  atomically: NO];
 			}
 		}
@@ -8207,20 +8213,16 @@ static NSMutableArray *poolOf2DViewers = nil;
 	if( [d count] == 0)
         d = nil;
 	
-    [[NSUserDefaults standardUserDefaults] setObject: [NSString stringWithFormat: @"%d%d", 1, 1] forKey: @"LastWindowsTilingRowsColumns"];
+    [[NSUserDefaults standardUserDefaults] setObject: [NSString stringWithFormat: @"%d%d", 1, 1]
+                                              forKey: @"LastWindowsTilingRowsColumns"];
     
 	self = [super initWithWindowNibName:@"Viewer"];
 	
 	retainedToolbarItems = [[NSMutableArray alloc] initWithCapacity: 0];
-	
 	[self setupToolbar];
-	
 	[ROI loadDefaultSettings];
-	
 	resampleRatio = 1.0;
-	
 	[imageView setDrawing: NO];
-	
 	processorsLock = [[NSConditionLock alloc] initWithCondition: 1];
 	
 	undoQueue = [[NSMutableArray alloc] initWithCapacity: 0];
@@ -18933,10 +18935,8 @@ static BOOL viewerControllerPlaying = NO;
 	
     }
 	
-	NSString	*tmpFolder = [NSString stringWithFormat:@"/tmp/print"];
-	
+    NSString *tmpFolder = [@(SYSTEM_TMP) stringByAppendingString:@"/print"];
 	[[NSFileManager defaultManager] removeFileAtPath: tmpFolder handler:nil];
-    
     [self restoreWindowsAfterPrint];
 }
 
@@ -19053,8 +19053,9 @@ static BOOL viewerControllerPlaying = NO;
 		
 		//--------------------------Preparation images in /tmp/print---------------------------------
 		
-		NSMutableArray	*files = [NSMutableArray array];
-		NSString	*tmpFolder = [NSString stringWithFormat:@"/tmp/print"];		
+		NSMutableArray *files = [NSMutableArray array];
+        NSString *tmpFolder = [@(SYSTEM_TMP) stringByAppendingString:@"/print"];
+
 		[[NSFileManager defaultManager] removeFileAtPath: tmpFolder handler:nil];
 		[[NSFileManager defaultManager] createDirectoryAtPath: tmpFolder
                                   withIntermediateDirectories: YES
@@ -20482,11 +20483,11 @@ static BOOL viewerControllerPlaying = NO;
 //
 //	bitmapData = [NSBitmapImageRep representationOfImageRepsInArray:representations usingType:NSJPEGFileType properties:[NSDictionary dictionaryWithObject:[NSDecimalNumber numberWithFloat:0.9] forKey:NSImageCompressionFactor]];
 //
-//	[bitmapData writeToFile:[[[BrowserController currentBrowser] documentsDirectory] stringByAppendingFormat:@"/TEMP.noindex/OsiriX.jpg"] atomically:YES];
+//	[bitmapData writeToFile:[[[BrowserController currentBrowser] documentsDirectory] stringByAppendingFormat:@"/TEMP.noindex/%@", OUR_IMAGE_JPG] atomically:YES];
 //				
 //	email = [[Mailer alloc] init];
 //	
-//	[email sendMail:@"--" to:@"--" subject:@"" isMIME:YES name:@"--" sendNow:NO image: [[[BrowserController currentBrowser] documentsDirectory] stringByAppendingFormat:@"/TEMP.noindex/OsiriX.jpg"]];
+//	[email sendMail:@"--" to:@"--" subject:@"" isMIME:YES name:@"--" sendNow:NO image: [[[BrowserController currentBrowser] documentsDirectory] stringByAppendingFormat:@"/TEMP.noindex/%@", OUR_IMAGE_JPG]];
 //	
 //	[email release];
 }
@@ -21059,7 +21060,7 @@ static BOOL viewerControllerPlaying = NO;
 //				{
 //					bitmapData = [NSBitmapImageRep representationOfImageRepsInArray:representations usingType:NSJPEGFileType properties:[NSDictionary dictionaryWithObject:[NSDecimalNumber numberWithFloat:0.9] forKey:NSImageCompressionFactor]];
 //					
-//					NSString *jpegFile = [[[BrowserController currentBrowser] documentsDirectory] stringByAppendingFormat:@"/TEMP.noindex/OsiriX.jpg"];
+//					NSString *jpegFile = [[[BrowserController currentBrowser] documentsDirectory] stringByAppendingFormat:@"/TEMP.noindex/%@", OUR_IMAGE_JPG];
 //					
 //					[bitmapData writeToFile: jpegFile atomically:YES];
 //					

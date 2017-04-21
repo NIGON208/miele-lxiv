@@ -24,7 +24,9 @@
 #import "NSMutableDictionary+N2.h"
 #import "PreferencesWindowController.h"
 #import "N2Debug.h"
+
 #import "url.h"
+#import "tmp_locations.h"
 
 static NSMutableDictionary		*plugins = nil, *pluginsDict = nil, *fileFormatPlugins = nil;
 static NSMutableDictionary		*reportPlugins = nil, *pluginsBundleDictionary = nil;
@@ -63,13 +65,18 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
 + (void) startProtectForCrashWithPath: (NSString*) path
 {
     // Match with AppController, ILCrashReporter
-    [path writeToFile: @"/tmp/PluginCrashed" atomically: YES encoding: NSUTF8StringEncoding error: nil];
+
+    [path writeToFile: [@(SYSTEM_TMP) stringByAppendingString:@"/PluginCrashed"]
+           atomically: YES
+             encoding: NSUTF8StringEncoding
+                error: nil];
 }
 
 + (void) endProtectForCrash
 {
     // Match with AppController, ILCrashReporter
-    [[NSFileManager defaultManager] removeItemAtPath: @"/tmp/PluginCrashed" error: nil];
+    [[NSFileManager defaultManager] removeItemAtPath: [@(SYSTEM_TMP) stringByAppendingString:@"/PluginCrashed"]
+                                               error: nil];
 }
 
 + (int) compareVersion: (NSString *) v1 withVersion: (NSString *) v2

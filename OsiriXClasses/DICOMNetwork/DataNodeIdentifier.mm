@@ -281,7 +281,8 @@
 
 @implementation DicomNodeIdentifier
 
-+(id)dicomNodeIdentifierWithLocation:(NSString*)location port:(NSUInteger)port aetitle:(NSString*)aetitle description:(NSString*)description dictionary:(NSDictionary*)dictionary {
++(id)dicomNodeIdentifierWithLocation:(NSString*)location port:(NSUInteger)port aetitle:(NSString*)aetitle description:(NSString*)description dictionary:(NSDictionary*)dictionary
+{
     return [[[[self class] alloc] initWithLocation:location port:port aetitle:aetitle description:description dictionary:dictionary] autorelease];
 }
 

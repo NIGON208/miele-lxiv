@@ -34,6 +34,7 @@
 #import "DCMAbstractSyntaxUID.h"
 
 #include "dctk.h"
+#import "tmp_locations.h"
 
 char currentDestinationMoveAET[ 60] = "";
 
@@ -1849,7 +1850,7 @@ extern BOOL forkedProcess;
             // See DcmQueryRetrieveOsiriSCP::unlockFile dcmqrsrv.mm
             BOOL fileExist = YES;
             char dir[ 1024];
-            sprintf( dir, "%s-%d", "/tmp/lock_process", getpid());
+            sprintf( dir, "%s-%d", SYSTEM_TMP"/lock_process", getpid());
             
             int inc = 0;
             do

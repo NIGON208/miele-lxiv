@@ -43,6 +43,8 @@
 #include "dcdict.h"
 #include "dcdeftag.h"
 
+#import "tmp_locations.h"
+
 #define CHUNK_SUBPROCESS 200
 #define TIMEOUT 20UL
 
@@ -53,7 +55,7 @@
 +(BOOL)fileNeedsDecompression:(NSString*)path {
 	DcmFileFormat fileformat;
 	OFCondition cond = fileformat.loadFile( [path UTF8String]);
-	if( cond.good())
+	if (cond.good())
 	{
 		DcmDataset *dataset = fileformat.getDataset();
 //		DcmItem *metaInfo = fileformat.getMetaInfo();
@@ -433,12 +435,15 @@
 //	return YES;
 }
 
-+(NSString*)extractReportSR:(NSString*)dicomSR contentDate:(NSDate*)date {
++(NSString*)extractReportSR:(NSString*)dicomSR contentDate:(NSDate*)date
+{
+    NSString *pathSlash = [@(SYSTEM_TMP) stringByAppendingPathComponent: @"/"];
+    NSString *pathZippedSlash = [@(SYSTEM_TMP) stringByAppendingPathComponent: @"/zippedFile/"];
 	NSString* destPath = nil;
 	NSString* uidName = [SRAnnotation getReportFilenameFromSR: dicomSR];
 	if( [uidName length] > 0)
 	{
-		NSString *zipFile = [@"/tmp/" stringByAppendingPathComponent: uidName];
+ 		NSString *zipFile = [pathSlash stringByAppendingPathComponent: uidName];
 		
 		// Extract the CONTENT to the REPORTS folder
 		SRAnnotation *r = [[[SRAnnotation alloc] initWithContentsOfFile: dicomSR] autorelease];
@@ -452,23 +457,23 @@
 			if( [[r dataEncapsulated] length] > 0)
 			{
 				[[r dataEncapsulated] writeToFile: zipFile atomically: YES];
-				
-				[[NSFileManager defaultManager] removeFileAtPath: @"/tmp/zippedFile/" handler: nil];
-				[BrowserController unzipFile: zipFile withPassword: nil destination: @"/tmp/zippedFile/" showGUI: NO];
+
+				[[NSFileManager defaultManager] removeFileAtPath: pathZippedSlash handler: nil];
+				[BrowserController unzipFile: zipFile withPassword: nil destination: pathZippedSlash showGUI: NO];
 				[[NSFileManager defaultManager] removeFileAtPath: zipFile handler: nil];
 				
-				for( NSString *f in [[NSFileManager defaultManager] contentsOfDirectoryAtPath: @"/tmp/zippedFile/" error: nil])
+				for( NSString *f in [[NSFileManager defaultManager] contentsOfDirectoryAtPath: pathZippedSlash error: nil])
 				{
 					if( [f hasPrefix: @"."] == NO)
 					{
 						if( destPath)
 							NSLog( @"*** multiple files in Report decompression ?");
 						
-						destPath = [@"/tmp/" stringByAppendingPathComponent: f];
+						destPath = [pathSlash stringByAppendingPathComponent: f];
 						if( destPath)
 						{
 							[[NSFileManager defaultManager] removeItemAtPath: destPath error: nil];
-							[[NSFileManager defaultManager] moveItemAtPath: [@"/tmp/zippedFile/" stringByAppendingPathComponent: f] toPath: destPath error: nil];
+							[[NSFileManager defaultManager] moveItemAtPath: [pathZippedSlash stringByAppendingPathComponent: f] toPath: destPath error: nil];
 						}
 					}
 				}
@@ -476,7 +481,7 @@
 		}
 	}
 	
-	[[NSFileManager defaultManager] removeFileAtPath: @"/tmp/zippedFile/" handler: nil];
+	[[NSFileManager defaultManager] removeFileAtPath: pathZippedSlash handler: nil];
 	
 	if( destPath)
 		[[NSFileManager defaultManager] setAttributes: [NSDictionary dictionaryWithObjectsAndKeys: date, NSFileModificationDate, nil] ofItemAtPath: destPath error: nil];

@@ -25,7 +25,7 @@
 //#import "dcmqrdbq.h"
 //#include "dcdeftag.h"
 
-#include "DcmQueryRetrieveGetOsiriContext.h"
+#include "DcmQueryRetrieveGetOurContext.h"
 #import "dimse.h"       // for getTransferSyntax
 #import "diutil.h"
 
@@ -261,7 +261,7 @@ OFBool compressFileFormat(DcmFileFormat fileformat, const char *fname, char *out
     
     return status;
 }
-#pragma mark - class DcmQueryRetrieveGetOsiriContext
+#pragma mark - class DcmQueryRetrieveGetOurContext
 
 /** constructor
  *  @param handle reference to database handle
@@ -272,7 +272,7 @@ OFBool compressFileFormat(DcmFileFormat fileformat, const char *fname, char *out
  *  @param prior DIMSE priority
  *  @param origpresid presentation context ID
  */
-DcmQueryRetrieveGetOsiriContext::DcmQueryRetrieveGetOsiriContext(DcmQueryRetrieveDatabaseHandle& handle,
+DcmQueryRetrieveGetOurContext::DcmQueryRetrieveGetOurContext(DcmQueryRetrieveDatabaseHandle& handle,
                            const DcmQueryRetrieveOptions& options,
                            DIC_US priorstatus,
                            T_ASC_Association *origassoc,
@@ -283,7 +283,7 @@ DcmQueryRetrieveGetOsiriContext::DcmQueryRetrieveGetOsiriContext(DcmQueryRetriev
 {
 }
 
-void DcmQueryRetrieveGetOsiriContext::getNextImage(DcmQueryRetrieveDatabaseStatus * dbStatus)
+void DcmQueryRetrieveGetOurContext::getNextImage(DcmQueryRetrieveDatabaseStatus * dbStatus)
 {
     OFCondition cond = EC_Normal;
     OFCondition dbcond = EC_Normal;

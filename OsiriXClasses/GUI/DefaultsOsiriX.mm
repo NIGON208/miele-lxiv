@@ -749,7 +749,7 @@ static NSHost *currentHost = nil;
 	}
     
     if( [defaultValues objectForKey:@"AETITLE"] == nil)
-        [defaultValues setObject:@"OSIRIX" forKey:@"AETITLE"];
+        [defaultValues setObject:OUR_IMPLEMENTATION_NAME forKey:@"AETITLE"];
     
 	[defaultValues setObject:@"11112" forKey:@"AEPORT"];
 

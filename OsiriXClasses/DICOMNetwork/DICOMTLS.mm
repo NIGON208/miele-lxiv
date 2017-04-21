@@ -13,6 +13,7 @@
 =========================================================================*/
 
 #import "DICOMTLS.h"
+#import "tmp_locations.h"
 
 @implementation DICOMTLS
 
@@ -96,9 +97,10 @@ static NSMutableString *TLS_PRIVATE_KEY_PASSWORD = nil;
 
 + (void) eraseKeys
 {
-    for( NSString *path in [[NSFileManager defaultManager] contentsOfDirectoryAtPath: @"/tmp" error: nil])
+    for( NSString *path in [[NSFileManager defaultManager] contentsOfDirectoryAtPath: @(SYSTEM_TMP) error: nil])
     {
-        path = [@"/tmp/" stringByAppendingPathComponent: path];
+        NSString *tmpPath = [@(SYSTEM_TMP) stringByAppendingPathComponent: @"/"];
+        path = [tmpPath stringByAppendingPathComponent: path];
         
         if( [path hasPrefix: TLS_SEED_FILE] || [path hasPrefix: [NSString stringWithUTF8String: TLS_WRITE_SEED_FILE]] || [path hasPrefix: TLS_PRIVATE_KEY_FILE] || [path hasPrefix: TLS_CERTIFICATE_FILE] || [path hasPrefix: TLS_TRUSTED_CERTIFICATES_DIR])
         {

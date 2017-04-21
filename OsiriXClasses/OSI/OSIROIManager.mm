@@ -253,8 +253,10 @@ NSString* const OSIROIAddedROIKey = @"OSIROIAddedROIKey";
 {
 	if ([self _isROIManaged:[notification object]]) {
 		assert([NSThread isMainThread]);
-		[self performSelector:@selector(_removeROICallbackHack:) withObject:[notification object] afterDelay:0]; // OsiriX manages to send this notification before the ROI is
-												// actually removed. This super ultra sketchy bit of code copies the stratagy used by ROIManagerController
+		[self performSelector:@selector(_removeROICallbackHack:)
+                   withObject:[notification object]
+                   afterDelay:0]; // OsiriX manages to send this notification before the ROI is
+								  // actually removed. This super ultra sketchy bit of code copies the strategy used by ROIManagerController
 	}
 }
 
@@ -296,7 +298,8 @@ NSString* const OSIROIAddedROIKey = @"OSIROIAddedROIKey";
     if( cgl_ctx == nil)
         return;
     
-	if ([self.delegate isKindOfClass:[OSIVolumeWindow class]] == NO) { // only draw ROIs for the ROIs in an ROI manager that is owned by the VolumeWindow
+	if ([self.delegate isKindOfClass:[OSIVolumeWindow class]] == NO) {
+        // only draw ROIs for the ROIs in an ROI manager that is owned by the VolumeWindow
 		return;
 	}
     
@@ -505,7 +508,9 @@ NSString* const OSIROIAddedROIKey = @"OSIROIAddedROIKey";
                                   [NSArray array], OSIROIUpdatedROIKey,
                                   nil];
     
-	[[NSNotificationCenter defaultCenter] postNotificationName:OSIROIManagerROIsDidUpdateNotification object:self userInfo:userInfoDict];
+	[[NSNotificationCenter defaultCenter] postNotificationName:OSIROIManagerROIsDidUpdateNotification
+                                                        object:self
+                                                      userInfo:userInfoDict];
     [_volumeWindow setNeedsDisplay];
 }
 
@@ -547,10 +552,11 @@ NSString* const OSIROIAddedROIKey = @"OSIROIAddedROIKey";
     CGLContextObj cgl_ctx;
     
     cgl_ctx = [[NSOpenGLContext currentContext] CGLContextObj];
-    if( cgl_ctx == nil)
+    if (cgl_ctx == nil)
         return;
     
-	if ([self.delegate isKindOfClass:[OSIVolumeWindow class]] == NO) { // only draw ROIs for the ROIs in an ROI manager that is owned by the VolumeWindow
+	if ([self.delegate isKindOfClass:[OSIVolumeWindow class]] == NO) {
+        // only draw ROIs for the ROIs in an ROI manager that is owned by the VolumeWindow
 		return;
 	}
     
@@ -560,7 +566,8 @@ NSString* const OSIROIAddedROIKey = @"OSIROIAddedROIKey";
 	if (N3AffineTransformDeterminant(pixToDicomTransform) != 0.0) {
 		dicomToPixTransform = N3AffineTransformInvert(pixToDicomTransform);
 		plane = N3PlaneApplyTransform(N3PlaneZZero, pixToDicomTransform);
-	} else {
+	}
+    else {
 		dicomToPixTransform = N3AffineTransformIdentity;
 		plane = N3PlaneZZero;
 	}
@@ -589,15 +596,3 @@ NSString* const OSIROIAddedROIKey = @"OSIROIAddedROIKey";
 }
 
 @end
-
-
-
-
-
-
-
-
-
-
-
-

@@ -13,6 +13,7 @@
 =========================================================================*/
 
 #import "options.h"
+#import "url.h"
 
 #import "AppController.h"
 #import "VRController.h"
@@ -271,10 +272,7 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
 		{
 			[view movieChangeSource: (float*) [volumeData[ curMovieIndex] bytes]];
 		}
-	}
-    
-    
-    
+	}    
 }
 
 - (void) movieRateSliderAction:(id) sender
@@ -1721,11 +1719,17 @@ return YES;
 				}
 			}
 			
-			if( im)
+			if (im)
 			{
 				NSBitmapImageRep *bits = [[[NSBitmapImageRep alloc] initWithData:[im TIFFRepresentation]] autorelease];
 				
-				NSString *path = [NSString stringWithFormat: @"/tmp/sc/%@.png", [[[[item label] stringByReplacingOccurrencesOfString: @"&" withString:@"And"] stringByReplacingOccurrencesOfString: @" " withString:@""] stringByReplacingOccurrencesOfString: @"/" withString:@"-"]];
+				NSString *path = [NSString stringWithFormat: @"%s/sc/%@.png",
+                                  SYSTEM_TMP,
+                                  [[[[item label]
+                                     stringByReplacingOccurrencesOfString: @"&" withString:@"And"]
+                                    stringByReplacingOccurrencesOfString: @" " withString:@""]
+                                   stringByReplacingOccurrencesOfString: @"/" withString:@"-"]];
+                
 				[[bits representationUsingType: NSPNGFileType properties: nil] writeToFile:path  atomically: NO];
 			}
 		}
@@ -2250,10 +2254,11 @@ return YES;
 	
 	bitmapData = [NSBitmapImageRep representationOfImageRepsInArray:representations usingType:NSJPEGFileType properties:[NSDictionary dictionaryWithObject:[NSDecimalNumber numberWithFloat:0.9] forKey:NSImageCompressionFactor]];
 	
-	[bitmapData writeToFile:[[[BrowserController currentBrowser] documentsDirectory] stringByAppendingFormat:@"/TEMP.noindex/OsiriX.jpg"] atomically:YES];
+	[bitmapData writeToFile:[[[BrowserController currentBrowser] documentsDirectory] stringByAppendingFormat:@"/TEMP.noindex/%@", OUR_IMAGE_JPG]
+                 atomically:YES];
 	
 	ifoto = [[iPhoto alloc] init];
-	[ifoto importIniPhoto: [NSArray arrayWithObject:[[[BrowserController currentBrowser] documentsDirectory] stringByAppendingFormat:@"/TEMP.noindex/OsiriX.jpg"]]];
+	[ifoto importIniPhoto: [NSArray arrayWithObject:[[[BrowserController currentBrowser] documentsDirectory] stringByAppendingFormat:@"/TEMP.noindex/%@", OUR_IMAGE_JPG]]];
 	[ifoto release];
 }
 

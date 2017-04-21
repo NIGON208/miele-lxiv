@@ -20,6 +20,8 @@ PURPOSE.
 #import "N2Stuff.h"
 #import "N2Debug.h"
 
+#import "tmp_locations.h"
+
 static NSString *albumDragType = @"Osirix Album drag";
 
 @implementation BrowserMatrix
@@ -270,8 +272,12 @@ static NSString *albumDragType = @"Osirix Album drag";
 		}
 		DCMPix *previewPix = [[BrowserController currentBrowser] previewPix:[selectedButtonCell tag]];
 		
-		NSString *jpgPath = [NSString stringWithFormat:@"/tmp/%@.%d.jpg",[[selectedObject valueForKeyPath:@"completePath"] lastPathComponent], [[[previewPix imageObj] valueForKey:@"frameID"] intValue]];
-		if (![[NSFileManager defaultManager] fileExistsAtPath:jpgPath])
+		NSString *jpgPath = [NSString stringWithFormat:@"%s/%@.%d.jpg",
+                             SYSTEM_TMP,
+                             [[selectedObject valueForKeyPath:@"completePath"] lastPathComponent],
+                             [[[previewPix imageObj] valueForKey:@"frameID"] intValue]];
+
+        if (![[NSFileManager defaultManager] fileExistsAtPath:jpgPath])
 		{
 			NSArray *representations = [[previewPix image] representations];
 			NSData *bitmapData = [NSBitmapImageRep representationOfImageRepsInArray:representations usingType:NSJPEGFileType properties:[NSDictionary dictionaryWithObject:[NSDecimalNumber numberWithFloat:0.9] forKey:NSImageCompressionFactor]];

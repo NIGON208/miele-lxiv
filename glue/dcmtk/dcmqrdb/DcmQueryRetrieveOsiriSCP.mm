@@ -22,7 +22,9 @@
 #import "dimse.h"
 
 #include "DcmQueryRetrieveOsiriSCP.h"
-#include "DcmQueryRetrieveGetOsiriContext.h"
+#include "DcmQueryRetrieveGetOurContext.h"
+
+#import "tmp_locations.h"
 
 BOOL forkedProcess = NO;
 
@@ -44,10 +46,10 @@ static void getCallback(
                         T_DIMSE_C_GetRSP *response, DcmDataset **stDetail,
                         DcmDataset **responseIdentifiers)
 {
-#if 0
-    DcmQueryRetrieveGetContext *context = OFstatic_cast(DcmQueryRetrieveGetContext *, callbackData);
+#if 1
+    DcmQueryRetrieveGetOurContext *context = OFstatic_cast(DcmQueryRetrieveGetOurContext *, callbackData);
 #else
-    DcmQueryRetrieveGetOsiriContext *context = OFstatic_cast(DcmQueryRetrieveGetOsiriContext *, callbackData);
+    DcmQueryRetrieveGetContext *context = OFstatic_cast(DcmQueryRetrieveGetContext *, callbackData);
 #endif
     context->callbackHandler(cancelled, request, requestIdentifiers, responseCount, response, stDetail, responseIdentifiers);
     
@@ -111,7 +113,7 @@ void DcmQueryRetrieveOsiriSCP::writeErrorMessage( const char *str)
     else
     {
         char dir[ 1024];
-        sprintf( dir, "%s", "/tmp/error_message");
+        sprintf( dir, "%s", SYSTEM_TMP"/error_message");
         unlink( dir);
         
         FILE * pFile = fopen (dir,"w+");
@@ -137,7 +139,7 @@ OFCondition DcmQueryRetrieveOsiriSCP::getSCP(T_ASC_Association * assoc,
     OFCondition cond = EC_Normal;
 
 #if 1
-    DcmQueryRetrieveGetOsiriContext context(dbHandle, options_, STATUS_Pending, assoc, request->MessageID, request->Priority, presID);
+    DcmQueryRetrieveGetOurContext context(dbHandle, options_, STATUS_Pending, assoc, request->MessageID, request->Priority, presID);
 #else
     DcmQueryRetrieveGetContext context(dbHandle, options_, STATUS_Pending, assoc, request->MessageID, request->Priority, presID);
 #endif
@@ -217,14 +219,12 @@ OFCondition DcmQueryRetrieveOsiriSCP::storeSCP(
         }
     }
     
-#if 1
-    FILE * pFile = fopen ("/tmp/kill_all_storescu", "r");
-    if( pFile)
+    FILE *pFile = fopen(SYSTEM_TMP"/kill_all_storescu", "r");
+    if (pFile)
     {
         fclose (pFile);
         cond = ASC_abortAssociation(assoc);
     }
-#endif
     
 #ifdef LOCK_IMAGE_FILES
     /* exclusively lock image file */

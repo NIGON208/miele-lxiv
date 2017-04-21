@@ -50,6 +50,7 @@
 #include <copyfile.h>
 
 #import "url.h"
+#import "tmp_locations.h"
 
 NSString* const CurrentDatabaseVersion = @"2.6";
 
@@ -470,7 +471,12 @@ static DicomDatabase* activeLocalDatabase = nil;
 
             [self checkForHtmlTemplates];
             
-            if (isNewFile && [NSThread isMainThread] && ![p hasPrefix:@"/tmp/"] && !isNewDb) {
+            NSString *path = [@(SYSTEM_TMP) stringByAppendingPathComponent: @"/"];
+            if (isNewFile &&
+                [NSThread isMainThread] &&
+                ![p hasPrefix:path] &&
+                !isNewDb)
+            {
                 [NSThread.currentThread enterOperation];
                 NSThread.currentThread.name = NSLocalizedString(@"Rebuilding default OsiriX database...", nil);
                 ThreadModalForWindowController* tmfwc = [[ThreadModalForWindowController alloc] initWithThread:[NSThread currentThread] window:nil];
@@ -480,8 +486,9 @@ static DicomDatabase* activeLocalDatabase = nil;
                 [NSThread.currentThread exitOperation];
             }
             
-            if (isNewFile && ![p hasPrefix:@"/tmp/"])
+            if (isNewFile && ![p hasPrefix:path])
                 [self addDefaultAlbums];
+
             [self modifyDefaultAlbums];
         
             [DicomDatabase syncImportFilesFromIncomingDirTimerWithUserDefaults];
@@ -4017,12 +4024,12 @@ static BOOL protectionAgainstReentry = NO;
     
 	[_importFilesFromIncomingDirLock lock];
     
-#define SAVEDALBUMS @"/tmp/rebuildDB_savedAlbums"
+    NSString *pathSavedAlbums = [@(SYSTEM_TMP) stringByAppendingString:@"/rebuildDB_savedAlbums"];
     
 	if (complete) {	// Delete the database file
         
         //First back-up albums
-        [self saveAlbumsToPath: SAVEDALBUMS];
+        [self saveAlbumsToPath: pathSavedAlbums];
         
         thread.status = NSLocalizedString(@"Locking database...", nil);
         NSManagedObjectContext* oldContext = [self.managedObjectContext retain];
@@ -4138,10 +4145,10 @@ static BOOL protectionAgainstReentry = NO;
         else
         {
             //Restore albums
-            if( [[NSFileManager defaultManager] fileExistsAtPath: SAVEDALBUMS])
+            if( [[NSFileManager defaultManager] fileExistsAtPath: pathSavedAlbums])
             {
-                [self loadAlbumsFromPath: SAVEDALBUMS];
-                [[NSFileManager defaultManager] removeItemAtPath: SAVEDALBUMS error: nil];
+                [self loadAlbumsFromPath: pathSavedAlbums];
+                [[NSFileManager defaultManager] removeItemAtPath: pathSavedAlbums error: nil];
             }
         }
 		

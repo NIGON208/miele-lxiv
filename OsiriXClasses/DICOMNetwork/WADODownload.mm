@@ -22,6 +22,8 @@
 #import "N2Debug.h"
 #import "NSString+N2.h"
 
+#import "tmp_locations.h"
+
 @interface NSURLRequest (DummyInterface)
 + (BOOL)allowsAnyHTTPSCertificateForHost:(NSString*)host;
 + (void)setAllowsAnyHTTPSCertificate:(BOOL)allow forHost:(NSString*)host;
@@ -291,23 +293,25 @@
             NSLog( @"------ WADO parameters: timeout:%2.2f [secs] / WADOMaximumConcurrentDownloads:%d [URLRequests]", timeout, WADOMaximumConcurrentDownloads);
 #endif
             self.countOfSuccesses = 0;
-            WADOTotal = WADOThreads = [urlToDownload count];
-            
+            WADOTotal = WADOThreads = [urlToDownload count];            
             NSTimeInterval retrieveStartingDate = [NSDate timeIntervalSinceReferenceDate];
-            
+            NSString *pathKillAll = [@(SYSTEM_TMP) stringByAppendingString:@"/kill_all_storescu"];
             BOOL aborted = NO;
-            for( NSURL *url in urlToDownload)
+            for (NSURL *url in urlToDownload)
             {
                 while( [WADODownloadDictionary count] > WADOMaximumConcurrentDownloads) //Don't download more than XXX images at the same time
                 {
                     [[NSRunLoop currentRunLoop] runUntilDate: [NSDate dateWithTimeIntervalSinceNow: 0.1]];
-                    
-                    if( _abortAssociation || [NSThread currentThread].isCancelled || [[NSFileManager defaultManager] fileExistsAtPath: @"/tmp/kill_all_storescu"] || [NSDate timeIntervalSinceReferenceDate] - retrieveStartingDate > timeout)
+                    if (_abortAssociation ||
+                        [NSThread currentThread].isCancelled ||
+                        [[NSFileManager defaultManager] fileExistsAtPath: pathKillAll] ||
+                        [NSDate timeIntervalSinceReferenceDate] - retrieveStartingDate > timeout)
                     {
                         aborted = YES;
                         break;
                     }
                 }
+
                 retrieveStartingDate = [NSDate timeIntervalSinceReferenceDate];
                 
                 @try
@@ -338,7 +342,7 @@
                 
                 if (_abortAssociation ||
                     [NSThread currentThread].isCancelled ||
-                    [[NSFileManager defaultManager] fileExistsAtPath: @"/tmp/kill_all_storescu"] ||
+                    [[NSFileManager defaultManager] fileExistsAtPath: pathKillAll] ||
                     [NSDate timeIntervalSinceReferenceDate] - retrieveStartingDate > timeout)
                 {
                     aborted = YES;
@@ -354,7 +358,7 @@
                     
                     if (_abortAssociation ||
                         [NSThread currentThread].isCancelled ||
-                        [[NSFileManager defaultManager] fileExistsAtPath: @"/tmp/kill_all_storescu"] ||
+                        [[NSFileManager defaultManager] fileExistsAtPath: pathKillAll] ||
                         [NSDate timeIntervalSinceReferenceDate] - retrieveStartingDate > timeout)
                     {
                         aborted = YES;

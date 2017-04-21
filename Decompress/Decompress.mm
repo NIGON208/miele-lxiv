@@ -5,6 +5,7 @@
 
 #include "options.h"
 #include "url.h"
+#import "tmp_locations.h"
 
 #import "DefaultsOsiriX.h"
 #import "AppController.h"
@@ -204,7 +205,8 @@ static void action_Compress(int argc, const char *argv[], NSString *path)
             @try
             {
                 [t setLaunchPath: @"/usr/bin/unzip"];
-                [t setCurrentDirectoryPath: @"/tmp/"];
+                NSString *path = [@(SYSTEM_TMP) stringByAppendingPathComponent: @"/"];
+                [t setCurrentDirectoryPath: path];
                 NSArray *args = [NSArray arrayWithObjects: @"-o", @"-d", tempCurFileDest, curFile, nil];
                 [t setArguments: args];
                 [t launch];
@@ -507,7 +509,8 @@ static void action_Decompress(int argc, const char *argv[], NSString *path)
             @try
             {
                 [t setLaunchPath: @"/usr/bin/unzip"];
-                [t setCurrentDirectoryPath: @"/tmp/"];
+                NSString *path = [@(SYSTEM_TMP) stringByAppendingPathComponent: @"/"];
+                [t setCurrentDirectoryPath: path];
                 NSArray *args = [NSArray arrayWithObjects: @"-o", @"-d", tempCurFileDest, curFile, nil];
                 [t setArguments: args];
                 [t launch];

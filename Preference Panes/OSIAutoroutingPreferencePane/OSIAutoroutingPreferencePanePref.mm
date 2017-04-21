@@ -17,7 +17,9 @@
 #import <NSPreferencePane+OsiriX.h>
 #import <AppController.h>
 
-#define CURRENTVERSION 1
+#import "tmp_locations.h"
+
+#define CURRENTVERSION      1
 
 @implementation OSIAutoroutingPreferencePanePref
 
@@ -122,9 +124,12 @@
 {
 	if( [sender tag] == 0)
 	{
-        [[NSFileManager defaultManager] removeItemAtPath: @"/tmp/OsiriXTables.pdf" error:nil];
-        [[NSFileManager defaultManager] copyItemAtPath: [[NSBundle mainBundle] pathForResource:@"OsiriXTables" ofType:@"pdf"] toPath: @"/tmp/OsiriXTables.pdf" error: nil];
-		[[NSWorkspace sharedWorkspace] openFile: @"/tmp/OsiriXTables.pdf"];
+        NSString *tablesFile = [@(SYSTEM_TMP) stringByAppendingString:@"/OsiriXTables.pdf"];
+
+        [[NSFileManager defaultManager] removeItemAtPath: tablesFile error:nil];
+        [[NSFileManager defaultManager] copyItemAtPath: [[NSBundle mainBundle] pathForResource:@"OsiriXTables" ofType:@"pdf"]
+                                                toPath: tablesFile error: nil];
+		[[NSWorkspace sharedWorkspace] openFile: tablesFile];
 	}
 	
 	if( [sender tag] == 1)

@@ -23,6 +23,7 @@
 #import "NSUserDefaults+OsiriX.h"
 #import "N2Debug.h"
 #import "AppController.h"
+#import "tmp_locations.h"
 
 #define VERSIONNUMBERSTRING	@"v1.00.000"
 #define ECHOTIMEOUT 5
@@ -495,15 +496,15 @@ NSString *mediumTag[] = {@"Blue Film", @"Clear Film", @"Paper"};
         int rows = imageDisplayFormatRows[[[dict valueForKey: @"imageDisplayFormatTag"] intValue]];
         int columns = imageDisplayFormatColumns[[[dict valueForKey: @"imageDisplayFormatTag"] intValue]];
         
-        NSString *destPath = @"/tmp/dicomPrint/";
+        NSString *pathDicomPrint = [@(SYSTEM_TMP) stringByAppendingString:@"dicomPrint/"];
         NSFileManager *fileManager = [NSFileManager defaultManager];
         
         // remove destination directory
-        if ([fileManager fileExistsAtPath: destPath])
-            [fileManager removeFileAtPath: destPath handler: nil];
+        if ([fileManager fileExistsAtPath: pathDicomPrint])
+            [fileManager removeFileAtPath: pathDicomPrint handler: nil];
         
         // create destination directory
-        if ([fileManager fileExistsAtPath: destPath] || ![fileManager createDirectoryAtPath: destPath attributes: nil])
+        if ([fileManager fileExistsAtPath: pathDicomPrint] || ![fileManager createDirectoryAtPath: pathDicomPrint attributes: nil])
             [self _setProgressMessage: NSLocalizedString( @"Can't write to temporary directory.", nil)];
         else
         {
@@ -530,7 +531,7 @@ NSString *mediumTag[] = {@"Blue Film", @"Clear Film", @"Paper"};
             
             // collect images for printing
             AYNSImageToDicom *dicomConverter = [[[AYNSImageToDicom alloc] init] autorelease];
-            NSArray *images = [dicomConverter dicomFileListForViewer: m_CurrentViewer destinationPath: destPath options: options asColorPrint: [[dict valueForKey: @"colorPrint"] intValue] withAnnotations: NO];
+            NSArray *images = [dicomConverter dicomFileListForViewer: m_CurrentViewer destinationPath: pathDicomPrint options: options asColorPrint: [[dict valueForKey: @"colorPrint"] intValue] withAnnotations: NO];
             
             // check, if images were collected
             if ([images count] == 0)
@@ -572,7 +573,7 @@ NSString *mediumTag[] = {@"Blue Film", @"Clear Film", @"Paper"};
                     [filmsession addChild: filmbox];
                 }
 
-                NSString *xmlPath = [NSString stringWithFormat: @"%@/printjob-%@.xml", destPath, [[NSDate date] description]];
+                NSString *xmlPath = [NSString stringWithFormat: @"%@/printjob-%@.xml", pathDicomPrint, [[NSDate date] description]];
                 
                 if (![[document XMLData] writeToFile: xmlPath atomically: YES])
                     [self _setProgressMessage: NSLocalizedString( @"Can't write to temporary directory.", nil)];

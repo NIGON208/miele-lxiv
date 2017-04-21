@@ -128,6 +128,7 @@
 {
     if (fps <= 0)
         fps = [[NSUserDefaults standardUserDefaults] integerForKey: @"quicktimeExportRateValue"];
+    
     if (fps <= 0)
         fps = 10;
     
@@ -152,6 +153,7 @@
         result = NSFileHandlingPanelOKButton;
         
         [[NSFileManager defaultManager] removeFileAtPath: [[[[BrowserController currentBrowser] database] tempDirPath] stringByAppendingPathComponent:@"IPHOTO"] handler: nil];
+        
         [[NSFileManager defaultManager] createDirectoryAtPath: [[[[BrowserController currentBrowser] database] tempDirPath] stringByAppendingPathComponent:@"IPHOTO"]
                                   withIntermediateDirectories: YES
                                                    attributes: nil
@@ -199,7 +201,8 @@
             NSError *error = nil;
             BOOL aborted = NO;
             
-            AVAssetWriter *writer = [[AVAssetWriter alloc] initWithURL:[NSURL fileURLWithPath: fileName] fileType: AVFileTypeQuickTimeMovie error:&error];
+            AVAssetWriter *writer = [[AVAssetWriter alloc] initWithURL: [NSURL fileURLWithPath: fileName]
+                                                              fileType: AVFileTypeQuickTimeMovie error:&error];
             if (!error)
             {
                 Wait *wait = [[[Wait alloc] initWithString: NSLocalizedString( @"Movie Export", nil)] autorelease];

@@ -23,7 +23,7 @@
 static NSString *DCM_SecondaryCaptureImageStorage = @"1.2.840.10008.5.1.4.1.1.7";
 static NSString *rootUID = @"1.3.6.1.4.1.19291.2.1";
 static NSString *uidQualifier = @"99";
-static NSString *implementationName = @"OSIRIX";
+static NSString *implementationName = OUR_IMPLEMENTATION_NAME;
 static NSString *softwareVersion = @"001";
 static unsigned int globallyUnique = 1;
 static NSString *macAddress = nil;

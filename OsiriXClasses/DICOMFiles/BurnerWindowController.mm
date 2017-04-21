@@ -39,6 +39,8 @@
 #import "DCMUIDs.h"
 #import "DicomDatabase+DCMTK.h"
 
+#import "tmp_locations.h"
+
 @implementation BurnerWindowController
 
 @synthesize password, buttonsDisabled, selectedUSB;
@@ -238,7 +240,8 @@
         }
         
         [[NSFileManager defaultManager] removeFileAtPath:[self folderToBurn] handler:nil];
-        [[NSFileManager defaultManager] removeFileAtPath:[NSString stringWithFormat:@"/tmp/burnAnonymized"] handler:nil];
+        NSString *pathBurnAnonymized = [@(SYSTEM_TMP) stringByAppendingString:@"/burnAnonymized"];
+        [[NSFileManager defaultManager] removeFileAtPath:[NSString stringWithFormat:pathBurnAnonymized] handler:nil];
         
         [writeVolumePath release];
         writeVolumePath = nil;
@@ -394,7 +397,8 @@
         
         if( anonymizationTags)
         {
-            NSDictionary* anonOut = [Anonymization anonymizeFiles:files dicomImages: dbObjects toPath:@"/tmp/burnAnonymized" withTags: anonymizationTags];
+            NSString *pathBurnAnonymized = [@(SYSTEM_TMP) stringByAppendingString:@"/burnAnonymized"];
+            NSDictionary* anonOut = [Anonymization anonymizeFiles:files dicomImages: dbObjects toPath:pathBurnAnonymized withTags: anonymizationTags];
             
             [anonymizedFiles release];
             anonymizedFiles = [[anonOut allValues] mutableCopy];
@@ -488,7 +492,7 @@
 
 -(NSString *)folderToBurn
 {
-	return [NSString stringWithFormat:@"/tmp/%@",cdName];
+	return [NSString stringWithFormat:@"%s/%@", SYSTEM_TMP, cdName];
 }
 
 -(NSArray*) volumes
@@ -700,24 +704,23 @@
 {
 	NSLog(@"Burner windowShouldClose");
 	
-	if( (isExtracting || isSettingUpBurn || burning))
+	if (isExtracting || isSettingUpBurn || burning)
 		return NO;
-	else
-	{
-		[[NSFileManager defaultManager] removeFileAtPath: [self folderToBurn] handler:nil];
-		[[NSFileManager defaultManager] removeFileAtPath: [NSString stringWithFormat:@"/tmp/burnAnonymized"] handler:nil];
-		
-		[filesToBurn release];
-		filesToBurn = nil;
-		[files release];
-		files = nil;
-		[anonymizedFiles release];
-		anonymizedFiles = nil;
-		
-		NSLog(@"Burner windowShouldClose YES");
-		
-		return YES;
-	}
+
+    NSString *pathBurnAnonymized = [@(SYSTEM_TMP) stringByAppendingString:@"/burnAnonymized"];
+    [[NSFileManager defaultManager] removeFileAtPath: [self folderToBurn] handler:nil];
+    [[NSFileManager defaultManager] removeFileAtPath: [NSString stringWithFormat:pathBurnAnonymized] handler:nil];
+    
+    [filesToBurn release];
+    filesToBurn = nil;
+    [files release];
+    files = nil;
+    [anonymizedFiles release];
+    anonymizedFiles = nil;
+    
+    NSLog(@"Burner windowShouldClose YES");
+    
+    return YES;
 }
 
 

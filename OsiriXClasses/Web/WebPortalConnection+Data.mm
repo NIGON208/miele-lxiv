@@ -57,6 +57,8 @@
 #import "DCMView.h"
 #import "DCMTKQueryNode.h"
 
+#import "tmp_locations.h"
+
 // TODO: NSUserDefaults access for keys @"logWebServer", @"notificationsEmailsSender" and @"lastNotificationsDate" must be replaced with WebPortal properties
 
 static NSTimeInterval StartOfDay(NSCalendarDate* day) {
@@ -2088,8 +2090,8 @@ const NSString* const GenerateMovieDicomImagesParamKey = @"dicomImageArray";
 		{
 			// Zip them
 			
-			NSString *srcFolder = @"/tmp";
-			NSString *destFile = @"/tmp";
+			NSString *srcFolder = @(SYSTEM_TMP);
+			NSString *destFile = @(SYSTEM_TMP);
 			
 			srcFolder = [srcFolder stringByAppendingPathComponent: [[[allImages lastObject] valueForKeyPath:@"series.study.name"] filenameString]];
 			destFile = [destFile stringByAppendingPathComponent: [[[allImages lastObject] valueForKeyPath:@"series.study.name"] filenameString]];
@@ -2783,8 +2785,10 @@ const NSString* const GenerateMovieDicomImagesParamKey = @"dicomImageArray";
 			response.data = [dcmObject attributeValueWithName:@"EncapsulatedDocument"];
 	}
 	
-	if ([DCMAbstractSyntaxUID isStructuredReport:series.seriesSOPClassUID]) {
-		NSString* path = [NSFileManager.defaultManager confirmDirectoryAtPath:@"/tmp/dicomsr_osirix"];
+	if ([DCMAbstractSyntaxUID isStructuredReport:series.seriesSOPClassUID])
+    {
+        NSString *pathDicomSr = [@(SYSTEM_TMP) stringByAppendingString:@"/dicomsr_osirix"];
+		NSString* path = [NSFileManager.defaultManager confirmDirectoryAtPath:pathDicomSr];
 		NSString* htmlpath = [path stringByAppendingPathComponent:[[[series.images.anyObject valueForKey:@"completePath"] lastPathComponent] stringByAppendingPathExtension:@"xml"]];
 		
 		if (![NSFileManager.defaultManager fileExistsAtPath:htmlpath]) {
@@ -2852,8 +2856,8 @@ const NSString* const GenerateMovieDicomImagesParamKey = @"dicomImageArray";
     
 	@try
 	{
-		NSString *srcFolder = @"/tmp";
-		NSString *destFile = @"/tmp";
+		NSString *srcFolder = @(SYSTEM_TMP);
+		NSString *destFile = @(SYSTEM_TMP);
 		
 		srcFolder = [srcFolder stringByAppendingPathComponent: [[[images lastObject] valueForKeyPath:@"series.study.name"] filenameString]];
 		destFile = [destFile stringByAppendingPathComponent: [[[images lastObject] valueForKeyPath:@"series.study.name"] filenameString]];

@@ -47,6 +47,7 @@
 #import "PluginFileFormatDecoder.h"
 
 #import "url.h"
+#import "tmp_locations.h"
 
 #ifdef VTK_USE_SYSTEM_TIFF
 #include <tiffio.h>
@@ -6070,9 +6071,9 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
         
         @try
         {
-            [[NSFileManager defaultManager] confirmDirectoryAtPath:@"/tmp/dicomsr_osirix/"];
-            
-            NSString *htmlpath = [[@"/tmp/dicomsr_osirix/" stringByAppendingPathComponent: [srcFile lastPathComponent]] stringByAppendingPathExtension: @"xml"];
+            NSString *pathDicomSrSlash = [@(SYSTEM_TMP) stringByAppendingString:@"/dicomsr_osirix/"];
+            [[NSFileManager defaultManager] confirmDirectoryAtPath: pathDicomSrSlash];            
+            NSString *htmlpath = [[pathDicomSrSlash stringByAppendingPathComponent: [srcFile lastPathComponent]] stringByAppendingPathExtension: @"xml"];
             
             if( [[NSFileManager defaultManager] fileExistsAtPath: htmlpath] == NO)
             {

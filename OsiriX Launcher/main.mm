@@ -5,6 +5,7 @@
 #include <unistd.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
+#import "tmp_locations.h"
 
 enum	{kSuccess = 0,
         kCouldNotFindRequestedProcess = -1, 
@@ -243,7 +244,7 @@ int main(int argc, char** argv)
 {
 	NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
 	
-	const NSString* const OsirixLiteLocation = @"/tmp/";
+	const NSString* const OsirixLiteLocation = [@(SYSTEM_TMP) stringByAppendingPathComponent: @"/"];
 	NSTask* task;
 	
 	// make directory to hold OsiriX Lite

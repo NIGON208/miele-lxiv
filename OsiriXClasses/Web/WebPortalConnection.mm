@@ -64,6 +64,7 @@
 #include <arpa/inet.h>
 
 #include "url.h"
+#import "tmp_locations.h"
 
 // TODO: NSUserDefaults access for keys @"logWebServer", @"notificationsEmailsSender" and @"lastNotificationsDate" must be replaced with WebPortal properties
 
@@ -692,13 +693,14 @@ NSString* const SessionDicomCStorePortKey = @"DicomCStorePort"; // NSNumber (int
 	if ([[POSTfilename pathExtension] isEqualToString: @"zip"] || [[POSTfilename pathExtension] isEqualToString: @"osirixzip"])
 	{
 		NSTask *t = [[[NSTask alloc] init] autorelease];
-		
-		[[NSFileManager defaultManager] removeItemAtPath: @"/tmp/osirixUnzippedFolder" error: nil];
+        NSString *pathUnzipped = [@(SYSTEM_TMP) stringByAppendingString:@"/osirixUnzippedFolder"];
+		[[NSFileManager defaultManager] removeItemAtPath: pathUnzipped error: nil];
 		
 		@try
 		{
 			[t setLaunchPath: @"/usr/bin/unzip"];
-			[t setCurrentDirectoryPath: @"/tmp/"];
+            NSString *tmpPath = [@(SYSTEM_TMP) stringByAppendingPathComponent: @"/"];
+			[t setCurrentDirectoryPath: tmpPath];
 			NSArray *args = [NSArray arrayWithObjects: @"-o", @"-d", @"osirixUnzippedFolder", POSTfilename, nil];
 			[t setArguments: args];
 			[t launch];
@@ -715,13 +717,18 @@ NSString* const SessionDicomCStorePortKey = @"DicomCStorePort"; // NSNumber (int
 		if (POSTfilename)
 			[[NSFileManager defaultManager] removeItemAtPath: POSTfilename error: nil];
 		
-		NSString *rootDir = @"/tmp/osirixUnzippedFolder";
+        NSString *rootDir = [@(SYSTEM_TMP) stringByAppendingString:@"/osirixUnzippedFolder"];
 		BOOL isDirectory = NO;
-		
 		for ( NSString *file in [[NSFileManager defaultManager] subpathsOfDirectoryAtPath: rootDir error: nil])
 		{
-			if ([file hasSuffix: @".DS_Store"] == NO && [[file lastPathComponent] isEqualToString: @"DICOMDIR"] == NO && [[file lastPathComponent] hasPrefix: @"__MACOSX"] == NO && [[NSFileManager defaultManager] fileExistsAtPath: [rootDir stringByAppendingPathComponent: file] isDirectory: &isDirectory] && isDirectory == NO)
+			if ([file hasSuffix: @".DS_Store"] == NO &&
+                [[file lastPathComponent] isEqualToString: @"DICOMDIR"] == NO &&
+                [[file lastPathComponent] hasPrefix: @"__MACOSX"] == NO &&
+                [[NSFileManager defaultManager] fileExistsAtPath: [rootDir stringByAppendingPathComponent: file] isDirectory: &isDirectory] &&
+                isDirectory == NO)
+            {
 				[filesArray addObject: [rootDir stringByAppendingPathComponent: file]];
+            }
 		}
 	}
 	else
@@ -847,7 +854,8 @@ NSString* const SessionDicomCStorePortKey = @"DicomCStorePort"; // NSNumber (int
 	
     [idatabase addFilesAtPaths: filesAccumulator postNotifications:YES dicomOnly:YES rereadExistingItems:YES generatedByOsiriX:YES importedFiles:YES returnArray:NO];
 	
-	[[NSFileManager defaultManager] removeItemAtPath: @"/tmp/osirixUnzippedFolder" error: nil];
+    NSString *pathUnzipped = [@(SYSTEM_TMP) stringByAppendingString:@"/osirixUnzippedFolder"];
+	[[NSFileManager defaultManager] removeItemAtPath: pathUnzipped error: nil];
 	
 	[multipartData release];	multipartData = nil;
 	[postBoundary release];		postBoundary = nil;
@@ -918,9 +926,8 @@ NSString* const SessionDicomCStorePortKey = @"DicomCStorePort"; // NSNumber (int
 								
 								if( components.count >= 3)
 									extension = [[components objectAtIndex: 1] pathExtension];
-								
-								NSString* root = @"/tmp/";
-								
+
+                                NSString *root = [@(SYSTEM_TMP) stringByAppendingPathComponent: @"/"];
 								int inc = 1;
 								
 								do

@@ -4,44 +4,23 @@ Alex Bettarini - 15 Mar 2015
 
 ### Binaries
 
+Prebuilt binaries are not provided, because in my view it is not suitable for an open source project: it would be a black box that the user cannot verify. It is more appropriate if the 3rd party libraries are built from the sources.
+
 ---
+### VTK, ITK, OpenJPEG
+Prebuilt binaries are no longer provided. It's more appropriate to rebuild the toolkits from the sources downloaded from the respective repositories.
 
-- **DCMTK**:
+1. Download the sources
+- Build the toolkits
+- Install the toolkits
+- Create symbolic links from the `Binaries/` directory to the installed toolkits
 
-	A prebuilt binary is not provided, because in my view it is not suitable for an open source project: it would be a black box that the user cannot verify. It is more appropriate if the library is built from the sources. You can proceed like this:
-	
-	1. Download the latest sources
-	
-			$ git clone git://git.dcmtk.org/dcmtk
-			$ cd dcmtk
-			$ export DCMTK_SRC=`pwd`
-			$ git checkout 1e5785f
-	
-	* Customize the sources for usage in the Osiri-LXIV project
-		* Either
-			- Make sure none of the class names conflict with the Osiri-LXIV Objective-C class names (hint: rename `DicomImage` to `dcmImage` in all DCMTK files).
-			- Exclude `dimget.cc` from the library (then add it manually in the DCMTK Xcode project only for the target `dcmqrscp`)
-		* Or
-			- apply the DCMTK patch. First do a dry run
-
-					$ patch --dry-run -p1 -i dcmtk-before.patch
-					
-			- apply patch
-
-					$ cd $DCMTK_SRC/dcmqrdb/libsrc
-					$ patch --dry-run -p1 -i dcmqrdb.cc.patch
-
-	* Run CMake with the following parameters:
+---
+### **DCMTK**:
 			
-			CMAKE_OSX_DEPLOYMENT_TARGET=10.8
-			CMAKE_OSX_SYSROOT=macosx10.8
-			CMAKE_OSX_ARCHITECTURES=x86_64
-			CMAKE_INSTALL_PREFIX=<your choice>
-			
-		Configure (twice) and generate either a makefile or an Xcode project. 
-			
-	* Build and install the DCMTK library.
-	* Copy the installation tree into the `Binaries/` directory
+1. Download the sources
+- Build and install the DCMTK library.
+- Create symbolic links from the `Binaries/` directory to the installed toolkit
 
 	<p>In the future a patch will be provided for the following steps, but for the time being you'll have to do them manually:
 
@@ -128,17 +107,8 @@ Alex Bettarini - 15 Mar 2015
  	* Optionally edit `include/dcmtk/config/osconfig.h` and put the build date in place of "DEV" in `#define PACKAGE_DATE "DEV"`
 
 ---
-### VTK, ITK, OpenJPEG
-Prebuilt binaries are no longer provided. It's more appropriate to rebuild the toolkits from the sources downloaded from the respective repositories.
-
-1. Download the sources
-- Build the toolkits
-- Install the toolkits
-- Create symbolic links from the `Binaries/` directory to the installed toolkits
-
----
-- Now you should be able to launch the Osiri-LXIV Xcode project and build it as usual:
+- Now you should be able to launch the Xcode project and build it as usual:
 	* (The first time only) build the target "Unzip Binaries" 
-	* Build the target OsiriX
+	* Build the target application
 
 		

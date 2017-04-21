@@ -10,6 +10,7 @@
 #import "BLAuthentication.h"
 #import <Security/AuthorizationTags.h>
 #include <sys/stat.h>
+#import "tmp_locations.h"
 
 OSStatus AuthorizationExecuteWithPrivilegesStdErrAndPid (
                                                          AuthorizationRef authorization, 
@@ -21,9 +22,10 @@ OSStatus AuthorizationExecuteWithPrivilegesStdErrAndPid (
                                                          pid_t* processid
                                                          )
 {
-    [[NSFileManager defaultManager] changeCurrentDirectoryPath: @"/tmp/"];
+    NSString *path = [@(SYSTEM_TMP) stringByAppendingString:@"/"];
+    [[NSFileManager defaultManager] changeCurrentDirectoryPath: path];
     
-    char stderrpath[] = "/tmp/AuthorizationExecuteWithPrivilegesStdErrXXXXXXX.err" ;
+    char stderrpath[] = SYSTEM_TMP"/AuthorizationExecuteWithPrivilegesStdErrXXXXXXX.err" ;
 	const char* commandtemplate = "echo $$; \"$@\" 2>%s" ;
     if (communicationsPipe == errPipe) {
         commandtemplate = "echo $$; \"$@\" 2>1";

@@ -790,7 +790,8 @@
 			location = [location stringByDeletingLastPathComponent];
 		}
 
-		if( [[location lastPathComponent] isEqualToString:@"DATABASE"] && [[[location stringByDeletingLastPathComponent] lastPathComponent] isEqualToString:OUR_DATA_LOCATION])
+		if ([[location lastPathComponent] isEqualToString:@"DATABASE"] &&
+           [[[location stringByDeletingLastPathComponent] lastPathComponent] isEqualToString:OUR_DATA_LOCATION])
 		{
 			location = [[location stringByDeletingLastPathComponent] stringByDeletingLastPathComponent];
 		}
@@ -799,7 +800,7 @@
 		
 		if( [[NSFileManager defaultManager] fileExistsAtPath: location isDirectory: &isDirectory])
 		{
-			NSDictionary	*dict = nil;
+			NSDictionary *dict = nil;
 			
 			if( isDirectory)
 			{
@@ -809,7 +810,6 @@
                         nil];
 				
 				[localPaths addObject: dict];
-			
 				[[localPaths tableView] scrollRowToVisible: [[localPaths tableView] selectedRow]];
 			}
 		}
@@ -840,6 +840,7 @@
 	NSString *dhParameterFileURL = [aServer valueForKey:@"TLSDHParameterFileURL"];
 	if(!dhParameterFileURL)
 		dhParameterFileURL = NSHomeDirectory();
+    
 	self.TLSDHParameterFileURL = [NSURL fileURLWithPath:dhParameterFileURL];
 	
 	if([aServer valueForKey:@"TLSCertificateVerification"])
@@ -893,7 +894,9 @@
 			SecIdentityRef identity = [[SFChooseIdentityPanel sharedChooseIdentityPanel] identity];
 			if(identity)
 			{
-				[DDKeychain KeychainAccessSetPreferredIdentity:identity forName:[self DICOMTLSUniqueLabelForSelectedServer] keyUse:CSSM_KEYUSE_ANY];
+				[DDKeychain KeychainAccessSetPreferredIdentity:identity
+                                                       forName:[self DICOMTLSUniqueLabelForSelectedServer]
+                                                        keyUse:CSSM_KEYUSE_ANY];
 				[self getTLSCertificate];
 			}
 		}
@@ -948,7 +951,9 @@
 - (NSString*)DICOMTLSUniqueLabelForSelectedServer;
 {
 	NSMutableDictionary *aServer = [[dicomNodes arrangedObjects] objectAtIndex:[[dicomNodes tableView] selectedRow]];
-	return [DICOMTLS uniqueLabelForServerAddress:[aServer valueForKey:@"Address"] port:[NSString stringWithFormat:@"%d",[[aServer valueForKey:@"Port"] intValue]] AETitle:[aServer valueForKey:@"AETitle"]];
+	return [DICOMTLS uniqueLabelForServerAddress: [aServer valueForKey:@"Address"]
+                                            port: [NSString stringWithFormat:@"%d",[[aServer valueForKey:@"Port"] intValue]]
+                                         AETitle: [aServer valueForKey:@"AETitle"]];
 }
 
 - (IBAction)selectAllSuites:(id)sender;

@@ -28,6 +28,7 @@
 
 #import "DDKeychain.h"
 #import "url.h"
+#import "tmp_locations.h"
 
 //#include <netdb.h>
 //#include <unistd.h>
@@ -216,9 +217,11 @@
 {
 	if( [sender tag] == 0)
     {
-        [[NSFileManager defaultManager] removeItemAtPath: @"/tmp/OsiriXTables.pdf" error:nil];
-        [[NSFileManager defaultManager] copyItemAtPath: [[NSBundle mainBundle] pathForResource:@"OsiriXTables" ofType:@"pdf"] toPath: @"/tmp/OsiriXTables.pdf" error: nil];
-		[[NSWorkspace sharedWorkspace] openFile: @"/tmp/OsiriXTables.pdf"];
+        NSString *tablesFile = [@(SYSTEM_TMP) stringByAppendingString:@"/OsiriXTables.pdf"];
+        [[NSFileManager defaultManager] removeItemAtPath: tablesFile error:nil];
+        [[NSFileManager defaultManager] copyItemAtPath: [[NSBundle mainBundle] pathForResource:@"OsiriXTables" ofType:@"pdf"]
+                                                toPath: tablesFile error: nil];
+		[[NSWorkspace sharedWorkspace] openFile: tablesFile];
 	}
     
 	if( [sender tag] == 1)

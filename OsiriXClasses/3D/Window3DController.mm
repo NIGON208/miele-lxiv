@@ -24,6 +24,9 @@
 #import "NSUserDefaultsController+OsiriX.h"
 #import "DicomDatabase.h"
 
+#import "url.h"
+#import "tmp_locations.h"
+
 @implementation Window3DController
 
 #ifndef OSIRIX_LIGHT
@@ -52,6 +55,7 @@
 	[[self viewer] SRViewer: sender];
 }
 #endif
+
 - (void) orthogonalMPRViewer:(id) sender
 {
 	[[self viewer] orthogonalMPRViewer: sender];
@@ -155,22 +159,21 @@
 	
     }
 	
-	NSString	*tmpFolder = [NSString stringWithFormat:@"/tmp/print"];
-	
+    NSString *tmpFolder = [@(SYSTEM_TMP) stringByAppendingString:@"/print"];
 	[[NSFileManager defaultManager] removeFileAtPath: tmpFolder handler:nil];
 }
 
 - (void) print:(id) sender
 {
-	NSMutableDictionary	*settings = [NSMutableDictionary dictionaryWithDictionary: [[NSUserDefaults standardUserDefaults] objectForKey: @"previousPrintSettings"]];
+	NSMutableDictionary	*settings =
+    [NSMutableDictionary dictionaryWithDictionary: [[NSUserDefaults standardUserDefaults] objectForKey: @"previousPrintSettings"]];
 	
 	[settings setObject: @1 forKey: @"columns"];
 	[settings setObject: @1 forKey: @"rows"];
 		
 	// ************
-	NSString	*tmpFolder = [NSString stringWithFormat:@"/tmp/print"];
-	
-	NSMutableArray	*files = [NSMutableArray array];
+    NSString *tmpFolder = [@(SYSTEM_TMP) stringByAppendingString:@"/print"];
+	NSMutableArray *files = [NSMutableArray array];
 
 	[[NSFileManager defaultManager] removeFileAtPath: tmpFolder handler:nil];
 	[[NSFileManager defaultManager] createDirectoryAtPath: tmpFolder
@@ -191,16 +194,19 @@
 
 	// ************
 	
-	printView	*pV = [[[printView alloc] initWithViewer: self settings: settings files: files printInfo: [NSPrintInfo sharedPrintInfo]] autorelease];
+	printView *pV = [[[printView alloc] initWithViewer: self
+                                              settings: settings
+                                                 files: files
+                                             printInfo: [NSPrintInfo sharedPrintInfo]] autorelease];
 			
 	NSPrintOperation * printOperation = [NSPrintOperation printOperationWithView: pV];
 	
 	[printOperation setCanSpawnSeparateThread: YES];
 	
 	[printOperation runOperationModalForWindow:[self window]
-		delegate:self
-		didRunSelector: @selector(printOperationDidRun:success:contextInfo:)
-		contextInfo:nil];
+                                      delegate:self
+                                didRunSelector: @selector(printOperationDidRun:success:contextInfo:)
+                                   contextInfo:nil];
 }
 
 //==============================================================================
@@ -219,13 +225,21 @@
 
 	representations = [im representations];
 
-	bitmapData = [NSBitmapImageRep representationOfImageRepsInArray:representations usingType:NSJPEGFileType properties:[NSDictionary dictionaryWithObject:[NSDecimalNumber numberWithFloat:0.9] forKey:NSImageCompressionFactor]];
+	bitmapData = [NSBitmapImageRep representationOfImageRepsInArray:representations
+                                                          usingType:NSJPEGFileType
+                                                         properties:[NSDictionary dictionaryWithObject:[NSDecimalNumber numberWithFloat:0.9]
+                                                                                                forKey:NSImageCompressionFactor]];
 
-	[bitmapData writeToFile:[[[[BrowserController currentBrowser] database] tempDirPath] stringByAppendingPathComponent:@"OsiriX.jpg"] atomically:YES];
+	[bitmapData writeToFile:[[[[BrowserController currentBrowser] database] tempDirPath] stringByAppendingPathComponent:OUR_IMAGE_JPG] atomically:YES];
 				
 	email = [[Mailer alloc] init];
-	
-	[email sendMail:@"--" to:@"--" subject:@"" isMIME:YES name:@"--" sendNow:NO image: [[[[BrowserController currentBrowser] database] tempDirPath] stringByAppendingPathComponent:@"OsiriX.jpg"]];
+	[email sendMail:@"--"
+                 to:@"--"
+            subject:@""
+             isMIME:YES
+               name:@"--"
+            sendNow:NO
+              image:[[[[BrowserController currentBrowser] database] tempDirPath] stringByAppendingPathComponent:OUR_IMAGE_JPG]];
 	
 	[email release];
 }
@@ -380,7 +394,8 @@ static float oldsetww, oldsetwl;
     
     iwl = [wl floatValue];
     iww = [ww floatValue];
-    if (iww == 0) iww = 1;
+    if (iww == 0)
+        iww = 1;
 
     [addWLWWWindow orderOut: sender];
     
@@ -397,7 +412,10 @@ static float oldsetww, oldsetwl;
 			[curWLWWMenu release];
 			curWLWWMenu = [[newName stringValue] retain];
 		}
-        [[NSNotificationCenter defaultCenter] postNotificationName: OsirixUpdateWLWWMenuNotification object: curWLWWMenu userInfo: nil];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName: OsirixUpdateWLWWMenuNotification
+                                                            object: curWLWWMenu
+                                                          userInfo: nil];
     }
 }
 
@@ -405,14 +423,16 @@ static float oldsetww, oldsetwl;
 
 - (void) deleteWLWW: (NSWindow *) sheet returnCode: (int) returnCode contextInfo: (void*) contextInfo
 {
-	NSString	*name = (id) contextInfo;
+	NSString *name = (id) contextInfo;
 	
-    if( returnCode == 1)
+    if (returnCode == 1)
     {
 		NSMutableDictionary *presetsDict = [[[[NSUserDefaults standardUserDefaults] dictionaryForKey:@"WLWW3"] mutableCopy] autorelease];
         [presetsDict removeObjectForKey: name];
 		[[NSUserDefaults standardUserDefaults] setObject: presetsDict forKey:@"WLWW3"];
-		[[NSNotificationCenter defaultCenter] postNotificationName: OsirixUpdateWLWWMenuNotification object: curWLWWMenu userInfo: nil];
+		[[NSNotificationCenter defaultCenter] postNotificationName: OsirixUpdateWLWWMenuNotification
+                                                            object: curWLWWMenu
+                                                          userInfo: nil];
     }
 	
 	[name release];

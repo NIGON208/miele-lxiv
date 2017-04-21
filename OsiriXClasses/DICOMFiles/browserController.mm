@@ -111,6 +111,7 @@
 #import "DicomDir.h"
 
 #import "url.h"
+#import "tmp_locations.h"
 
 #ifndef OSIRIX_LIGHT
 #import "Anonymization.h"
@@ -906,7 +907,7 @@ static NSConditionLock *threadLock = nil;
 											}
 											else if( [[itemPath pathExtension] isEqualToString: @"zip"] || [[itemPath pathExtension] isEqualToString: @"osirixzip"])
 											{
-												NSString *unzipPath = [@"/tmp" stringByAppendingPathComponent: @"unzip_folder"];
+												NSString *unzipPath = [@(SYSTEM_TMP) stringByAppendingPathComponent: @"unzip_folder"];
 												
 												[[NSFileManager defaultManager] removeItemAtPath: unzipPath error: nil];
 												[[NSFileManager defaultManager] createDirectoryAtPath: unzipPath
@@ -957,7 +958,7 @@ static NSConditionLock *threadLock = nil;
 						}
 						else if( [[filename pathExtension] isEqualToString: @"zip"] || [[filename pathExtension] isEqualToString: @"osirixzip"])
 						{
-							NSString *unzipPath = [@"/tmp" stringByAppendingPathComponent: @"unzip_folder"];
+							NSString *unzipPath = [@(SYSTEM_TMP) stringByAppendingPathComponent: @"unzip_folder"];
 							
 							[[NSFileManager defaultManager] removeItemAtPath: unzipPath error: nil];
 							[[NSFileManager defaultManager] createDirectoryAtPath: unzipPath
@@ -1923,7 +1924,9 @@ static NSConditionLock *threadLock = nil;
 {
 	[self.window setTitle: _database? [_database name] : @""];
     
-    if( [_database.baseDirPath hasPrefix: @"/tmp/"] || _database.isLocal == NO)
+    NSString *prefix = [@(SYSTEM_TMP) stringByAppendingPathComponent: @"/"];
+
+    if( [_database.baseDirPath hasPrefix: prefix] || _database.isLocal == NO)
     {
         if( _database.sourcePath.length)
             [self.window setRepresentedFilename: _database.sourcePath];
@@ -3384,11 +3387,12 @@ static NSConditionLock *threadLock = nil;
 	@try
 	{
 		// Test for deadlock processes lock_process pid in tmp folder
-		for( NSString *s in [[NSFileManager defaultManager] contentsOfDirectoryAtPath: @"/tmp" error: nil]) 
+		for( NSString *s in [[NSFileManager defaultManager] contentsOfDirectoryAtPath: @(SYSTEM_TMP) error: nil])
 		{
 			if( [s hasPrefix: @"lock_process-"])
 			{
-				int timeIntervalSinceNow = [[[[NSFileManager defaultManager] attributesOfItemAtPath: [@"/tmp/" stringByAppendingPathComponent: s] error: nil] fileCreationDate] timeIntervalSinceNow];
+                NSString *path = [@(SYSTEM_TMP) stringByAppendingPathComponent: @"/"];
+				int timeIntervalSinceNow = [[[[NSFileManager defaultManager] attributesOfItemAtPath: [path stringByAppendingPathComponent: s] error: nil] fileCreationDate] timeIntervalSinceNow];
 				
 				if( timeIntervalSinceNow < -60*60*1)
 				{
@@ -3403,7 +3407,7 @@ static NSConditionLock *threadLock = nil;
 						kill( pid, 15);
 						
 						char dir[ 1024];
-						sprintf( dir, "%s-%d", "/tmp/lock_process", pid);
+						sprintf( dir, "%s-%d", SYSTEM_TMP"/lock_process", pid);
 						unlink( dir);
 					}
 				}
@@ -7164,16 +7168,25 @@ static NSConditionLock *threadLock = nil;
 			}
 			else if( [DCMAbstractSyntaxUID isStructuredReport: [im valueForKeyPath: @"series.seriesSOPClassUID"]])
 			{
-                [[NSFileManager defaultManager] confirmDirectoryAtPath:@"/tmp/dicomsr_osirix"];
+                NSString *pathDicomSr = [@(SYSTEM_TMP) stringByAppendingString:@"/dicomsr_osirix"];
+                [[NSFileManager defaultManager] confirmDirectoryAtPath:pathDicomSr];
 				
-				NSString *htmlpath = [[@"/tmp/dicomsr_osirix/" stringByAppendingPathComponent: [[im valueForKey: @"completePath"] lastPathComponent]] stringByAppendingPathExtension: @"xml"];
+				NSString *htmlpath = [[pathDicomSr stringByAppendingPathComponent: [[im valueForKey: @"completePath"] lastPathComponent]] stringByAppendingPathExtension: @"xml"];
 				
 				if( [[NSFileManager defaultManager] fileExistsAtPath: htmlpath] == NO)
 				{
 					NSTask *aTask = [[[NSTask alloc] init] autorelease];		
 					[aTask setEnvironment:[NSDictionary dictionaryWithObject:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"/dicom.dic"] forKey:@"DCMDICTPATH"]];
 					[aTask setLaunchPath: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"/dsr2html"]];
-					[aTask setArguments: [NSArray arrayWithObjects: @"+X1", @"--unknown-relationship", @"--ignore-constraints", @"--ignore-item-errors", @"--skip-invalid-items", [im completePathResolved], htmlpath, nil]];
+					[aTask setArguments: [NSArray arrayWithObjects:
+                                          @"+X1",
+                                          @"--unknown-relationship",
+                                          @"--ignore-constraints",
+                                          @"--ignore-item-errors",
+                                          @"--skip-invalid-items",
+                                          [im completePathResolved],
+                                          htmlpath,
+                                          nil]];
 					[aTask launch];
 					while( [aTask isRunning])
                         [NSThread sleepForTimeInterval: 0.1];
@@ -14666,8 +14679,9 @@ static NSArray*	openSubSeriesArray = nil;
         
         [self refreshMatrix: self];
         
-        #ifndef OSIRIX_LIGHT
-        if( [[NSUserDefaults standardUserDefaults] boolForKey: @"restartAutoQueryAndRetrieve"] == YES && [[NSUserDefaults standardUserDefaults] objectForKey: @"savedAutoDICOMQuerySettingsArray"] != nil)
+#ifndef OSIRIX_LIGHT
+        if ([[NSUserDefaults standardUserDefaults] boolForKey: @"restartAutoQueryAndRetrieve"] == YES &&
+            [[NSUserDefaults standardUserDefaults] objectForKey: @"savedAutoDICOMQuerySettingsArray"] != nil)
         {
             [[AppController sharedAppController] growlTitle: NSLocalizedString( @"Auto-Query", nil) description: NSLocalizedString( @"DICOM Auto-Query is restarting...", nil)  name:@"autoquery"];
             NSLog( @"-------- automatically restart DICOM AUTO-QUERY --------");
@@ -14682,7 +14696,7 @@ static NSArray*	openSubSeriesArray = nil;
         }
         else 
             [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"autoRetrieving"];
-        #endif
+#endif
         
 #ifdef WITH_BANNER
         [NSThread detachNewThreadSelector: @selector(checkForBanner:) toTarget: self withObject: nil];
@@ -14823,9 +14837,12 @@ static NSArray*	openSubSeriesArray = nil;
 		[[NSUserDefaults standardUserDefaults] setBool: YES forKey: @"hideListenerError"];
 		[[NSUserDefaults standardUserDefaults] synchronize];
 		
-		[[NSFileManager defaultManager] createFileAtPath: @"/tmp/kill_all_storescu" contents: [NSData data] attributes: nil];
+        NSString *pathKillAll = [@(SYSTEM_TMP) stringByAppendingString:@"/kill_all_storescu"];
+		[[NSFileManager defaultManager] createFileAtPath: pathKillAll
+                                                contents: [NSData data]
+                                              attributes: nil];
 		
-		unlink( "/tmp/kill_all_storescu");
+		unlink( SYSTEM_TMP"/kill_all_storescu");
 		[[NSUserDefaults standardUserDefaults] setBool: hideListenerError_copy forKey: @"hideListenerError"];
 		[[NSUserDefaults standardUserDefaults] removeObjectForKey: @"copyHideListenerError"];
 		[[NSUserDefaults standardUserDefaults] synchronize];
@@ -14922,8 +14939,11 @@ static NSArray*	openSubSeriesArray = nil;
 	
 	[[NSUserDefaults standardUserDefaults] synchronize];
 	
-	[[NSFileManager defaultManager] removeFileAtPath: @"/tmp/OsiriXTemporaryDatabase" handler: nil];
-	[[NSFileManager defaultManager] removeFileAtPath: @"/tmp/dicomsr_osirix" handler: nil];
+    NSString *pathTempDb  = [@(SYSTEM_TMP) stringByAppendingString:@"/OsiriXTemporaryDatabase"];
+    NSString *pathDicomSr = [@(SYSTEM_TMP) stringByAppendingString:@"/dicomsr_osirix"];
+
+	[[NSFileManager defaultManager] removeFileAtPath: pathTempDb handler: nil];
+	[[NSFileManager defaultManager] removeFileAtPath: pathDicomSr handler: nil];
 }
 
 -(void)shouldTerminateCallback:(NSTimer*) tt
@@ -15655,11 +15675,12 @@ static NSArray*	openSubSeriesArray = nil;
         return;
 	
 	// Check for the errors generated by the Q&R DICOM functions -- see dcmqrsrv.mm
-	
-	NSString *str = [NSString stringWithContentsOfFile: @"/tmp/error_message"];
-	if( str)
+
+    NSString *pathErrorMsg  = [@(SYSTEM_TMP) stringByAppendingString:@"/error_message"];
+	NSString *str = [NSString stringWithContentsOfFile: pathErrorMsg];
+	if (str)
 	{
-		[[NSFileManager defaultManager] removeFileAtPath: @"/tmp/error_message" handler: nil];
+		[[NSFileManager defaultManager] removeFileAtPath: pathErrorMsg handler: nil];
 		
 		NSString *alertSuppress = @"hideListenerError";
 		if ([[NSUserDefaults standardUserDefaults] boolForKey: alertSuppress] == NO)
@@ -15777,20 +15798,22 @@ static NSArray*	openSubSeriesArray = nil;
 	
 	@try
 	{
-		[t setLaunchPath: @"/usr/bin/unzip"];
-		
-		if( [[NSFileManager defaultManager] fileExistsAtPath: @"/tmp/"] == NO)
-			[[NSFileManager defaultManager] createDirectoryAtPath: @"/tmp/"
+		[t setLaunchPath: @"/usr/bin/unzip"];		
+        NSString *path = [@(SYSTEM_TMP) stringByAppendingPathComponent: @"/"];
+
+		if( [[NSFileManager defaultManager] fileExistsAtPath: path] == NO)
+			[[NSFileManager defaultManager] createDirectoryAtPath: path
                                       withIntermediateDirectories: YES
                                                        attributes: nil
                                                             error: nil];
-			
-		[t setCurrentDirectoryPath: @"/tmp/"];
-		if( pass)
+		[t setCurrentDirectoryPath: path];
+
+        if( pass)
 			args = [NSArray arrayWithObjects: @"-qq", @"-o", @"-d", destination, @"-P", pass, file, nil];
 		else
 			args = [NSArray arrayWithObjects: @"-qq", @"-o", @"-d", destination, file, nil];
-		[t setArguments: args];
+
+        [t setArguments: args];
 		[t launch];
 		while( [t isRunning])
             [NSThread sleepForTimeInterval: 0.1];
@@ -16634,16 +16657,24 @@ static volatile int numberOfThreadsForJPEG = 0;
 			}
 			else if( [DCMAbstractSyntaxUID isStructuredReport: [curImage valueForKeyPath: @"series.seriesSOPClassUID"]])
 			{
-                [[NSFileManager defaultManager] confirmDirectoryAtPath:@"/tmp/dicomsr_osirix/"];
-			
-				NSString *htmlpath = [[@"/tmp/dicomsr_osirix/" stringByAppendingPathComponent: [[curImage valueForKey: @"completePath"] lastPathComponent]] stringByAppendingPathExtension: @"xml"];
+                NSString *pathDicomSr = [@(SYSTEM_TMP) stringByAppendingString:@"/dicomsr_osirix"];
+                [[NSFileManager defaultManager] confirmDirectoryAtPath:pathDicomSr];
+				NSString *htmlpath = [[pathDicomSr stringByAppendingPathComponent: [[curImage valueForKey: @"completePath"] lastPathComponent]] stringByAppendingPathExtension: @"xml"];
 				
 				if( [[NSFileManager defaultManager] fileExistsAtPath: htmlpath] == NO)
 				{
 					NSTask *aTask = [[[NSTask alloc] init] autorelease];		
 					[aTask setEnvironment:[NSDictionary dictionaryWithObject:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"/dicom.dic"] forKey:@"DCMDICTPATH"]];
 					[aTask setLaunchPath: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"/dsr2html"]];
-					[aTask setArguments: [NSArray arrayWithObjects: @"+X1", @"--unknown-relationship", @"--ignore-constraints", @"--ignore-item-errors", @"--skip-invalid-items", [curImage valueForKey: @"completePath"], htmlpath, nil]];		
+					[aTask setArguments: [NSArray arrayWithObjects:
+                                          @"+X1",
+                                          @"--unknown-relationship",
+                                          @"--ignore-constraints",
+                                          @"--ignore-item-errors",
+                                          @"--skip-invalid-items",
+                                          [curImage valueForKey: @"completePath"],
+                                          htmlpath,
+                                          nil]];
 					[aTask launch];
 					while( [aTask isRunning])
                         [NSThread sleepForTimeInterval: 0.1];
@@ -17274,8 +17305,9 @@ static volatile int numberOfThreadsForJPEG = 0;
 			NSMutableArray *dicomFiles2Export = [NSMutableArray array];
 			NSMutableArray *filesToExport = [self filesForDatabaseOutlineSelection: dicomFiles2Export onlyImages: NO];
 			
-			[[NSFileManager defaultManager] removeItemAtPath: @"/tmp/zipFilesForMail" error: nil];
-			[[NSFileManager defaultManager] createDirectoryAtPath: @"/tmp/zipFilesForMail"
+            NSString *pathZipFiles = [@(SYSTEM_TMP) stringByAppendingString:@"/zipFilesForMail"];
+			[[NSFileManager defaultManager] removeItemAtPath: pathZipFiles error: nil];
+			[[NSFileManager defaultManager] createDirectoryAtPath: pathZipFiles
                                       withIntermediateDirectories: YES
                                                        attributes: nil
                                                             error: nil];
@@ -17286,14 +17318,17 @@ static volatile int numberOfThreadsForJPEG = 0;
 			
 			self.passwordForExportEncryption = [[NSUserDefaults standardUserDefaults] valueForKey: @"defaultZIPPasswordForEmail"];
 			
-			NSArray *r = [self exportDICOMFileInt: @"/tmp/zipFilesForMail/" files: filesToExport objects: dicomFiles2Export];
+            NSString *pathZipFilesSlash = [@(SYSTEM_TMP) stringByAppendingString:@"/zipFilesForMail/"];
+			NSArray *r = [self exportDICOMFileInt: pathZipFilesSlash
+                                            files: filesToExport
+                                          objects: dicomFiles2Export];
 			
 			[[NSUserDefaults standardUserDefaults] setBool: encrypt forKey: @"encryptForExport"];
 			
 			if( [r count] > 0)
 			{
 				int f = 0;
-				NSString *root = @"/tmp/zipFilesForMail";
+				NSString *root = pathZipFiles;
 				NSArray *files = [[NSFileManager defaultManager] contentsOfDirectoryAtPath: root error: nil];
 				for( int x = 0; x < [files count] ; x++)
 				{
@@ -19423,8 +19458,14 @@ static volatile int numberOfThreadsForJPEG = 0;
 			{
 				NSBitmapImageRep *bits = [[[NSBitmapImageRep alloc] initWithData:[im TIFFRepresentation]] autorelease];
 				
-				NSString *path = [NSString stringWithFormat: @"/tmp/sc/%@.png", [[[[item label] stringByReplacingOccurrencesOfString: @"&" withString:@"And"] stringByReplacingOccurrencesOfString: @" " withString:@""] stringByReplacingOccurrencesOfString: @"/" withString:@"-"]];
-				[[bits representationUsingType: NSPNGFileType properties: nil] writeToFile:path  atomically: NO];
+				NSString *path = [NSString stringWithFormat: @"%s/sc/%@.png",
+                                  SYSTEM_TMP,
+                                  [[[[item label]
+                                     stringByReplacingOccurrencesOfString: @"&" withString:@"And"]
+                                    stringByReplacingOccurrencesOfString: @" " withString:@""]
+                                   stringByReplacingOccurrencesOfString: @"/" withString:@"-"]];
+
+                [[bits representationUsingType: NSPNGFileType properties: nil] writeToFile:path  atomically: NO];
 			}
 		}
 		@catch (NSException * e)

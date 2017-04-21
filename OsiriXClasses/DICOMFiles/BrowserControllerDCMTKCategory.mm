@@ -40,6 +40,8 @@
 #include "dcdict.h"
 #include "dcdeftag.h"
 
+#import "tmp_locations.h"
+
 extern NSRecursiveLock *PapyrusLock;
 
 @implementation BrowserController (BrowserControllerDCMTKCategory)
@@ -99,7 +101,7 @@ static NSString *uniqueSync = @"uniqueSync";
         NSString *tmpWADOFile = nil;
         @synchronized( uniqueSync)
         {
-            tmpWADOFile = [NSString stringWithFormat: @"/tmp/wado-recompress-%d.dcm", uniqueID++];
+            tmpWADOFile = [NSString stringWithFormat: @"%s/wado-recompress-%d.dcm", SYSTEM_TMP, uniqueID++];
         }
         
 		[[NSFileManager defaultManager] removeItemAtPath: tmpWADOFile  error: nil];

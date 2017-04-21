@@ -236,7 +236,7 @@ SecPolicySearchCreate:
 	                                                     @"-passout", @"pass:password",
 	                                                     @"-out", certWrapperPath,
 	                                                     @"-name", OUR_HTTP_SERVICE,
-														nil];
+														 nil];
 	
 	NSTask *genCertWrapperTask = [[[NSTask alloc] init] autorelease];
 	

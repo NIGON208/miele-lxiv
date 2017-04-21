@@ -3,7 +3,7 @@
 
 #include "dcmqrcbg.h"
 
-class DcmQueryRetrieveGetOsiriContext : public DcmQueryRetrieveGetContext
+class DcmQueryRetrieveGetOurContext : public DcmQueryRetrieveGetContext
 {
 public:
     /** constructor
@@ -15,7 +15,7 @@ public:
      *  @param prior DIMSE priority
      *  @param origpresid presentation context ID
      */
-    DcmQueryRetrieveGetOsiriContext(DcmQueryRetrieveDatabaseHandle& handle,
+    DcmQueryRetrieveGetOurContext(DcmQueryRetrieveDatabaseHandle& handle,
                                const DcmQueryRetrieveOptions& options,
                                DIC_US priorstatus,
                                T_ASC_Association *origassoc,

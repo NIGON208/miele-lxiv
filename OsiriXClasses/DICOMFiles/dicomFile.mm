@@ -16,6 +16,7 @@
 
 #include "options.h"
 #include "url.h"
+#import "tmp_locations.h"
 #import "DCMUIDs.h"
 
 #ifndef OSIRIX_LIGHT
@@ -1949,16 +1950,26 @@ char* replaceBadCharacter (char* str, NSStringEncoding encoding)
 #ifdef OSIRIX_VIEWER
 #ifndef OSIRIX_LIGHT
 
-	[[NSFileManager defaultManager] confirmDirectoryAtPath:@"/tmp/dicomsr_osirix/"];
+    NSString *pathDicomSrSlash = [@(SYSTEM_TMP) stringByAppendingString:@"/dicomsr_osirix/"];
+
+	[[NSFileManager defaultManager] confirmDirectoryAtPath: pathDicomSrSlash];
 	
-	NSString *htmlpath = [[@"/tmp/dicomsr_osirix/" stringByAppendingPathComponent: [filePath lastPathComponent]] stringByAppendingPathExtension: @"xml"];
+	NSString *htmlpath = [[pathDicomSrSlash stringByAppendingPathComponent: [filePath lastPathComponent]] stringByAppendingPathExtension: @"xml"];
 	
 	if( [[NSFileManager defaultManager] fileExistsAtPath: htmlpath] == NO)
 	{
 		NSTask *aTask = [[[NSTask alloc] init] autorelease];		
 		[aTask setEnvironment:[NSDictionary dictionaryWithObject:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"/dicom.dic"] forKey:@"DCMDICTPATH"]];
 		[aTask setLaunchPath: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"/dsr2html"]];
-		[aTask setArguments: [NSArray arrayWithObjects: @"+X1", @"--unknown-relationship", @"--ignore-constraints", @"--ignore-item-errors", @"--skip-invalid-items", filePath, htmlpath, nil]];		
+		[aTask setArguments: [NSArray arrayWithObjects:
+                              @"+X1",
+                              @"--unknown-relationship",
+                              @"--ignore-constraints",
+                              @"--ignore-item-errors",
+                              @"--skip-invalid-items",
+                              filePath,
+                              htmlpath,
+                              nil]];
 		[aTask launch];
 		while( [aTask isRunning])
             [NSThread sleepForTimeInterval: 0.1];

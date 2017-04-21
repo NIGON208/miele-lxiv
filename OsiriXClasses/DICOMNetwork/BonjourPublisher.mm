@@ -34,7 +34,7 @@
 #import <netinet/in.h>
 #import <unistd.h>
 
-// BY DEFAULT OSIRIX USES 8780 PORT
+// BY DEFAULT WE USE PORT 8780
 
 #include <netdb.h>
 #include <unistd.h>

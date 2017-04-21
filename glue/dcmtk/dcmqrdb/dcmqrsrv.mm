@@ -30,6 +30,8 @@
 //#import "dimse.h"
 #include "DcmQueryRetrieveOsiriSCP.h"
 
+#import "tmp_locations.h"
+
 extern int AbortAssociationTimeOut;
 
 static int numberOfActiveAssociations = 0;
@@ -104,7 +106,7 @@ static int numberOfActiveAssociations = 0;
 	BOOL fileExist = YES;
 	int pid = [[dict valueForKey: @"pid"] intValue], inc = 0, rc = pid, state;
 	char dir[ 1024];
-	sprintf( dir, "%s-%d", "/tmp/lock_process", pid);
+	sprintf( dir, "%s-%d", SYSTEM_TMP"/lock_process", pid);
 
     #define TIMEOUT 1200 // 1200*100000 = 120 secs
     #define DBTIMEOUT 400 // = 40 secs
@@ -151,10 +153,12 @@ static int numberOfActiveAssociations = 0;
     [dbLock unlock];
     dbLock = nil;
     
-	if( [[NSFileManager defaultManager] fileExistsAtPath: @"/tmp/kill_all_storescu"] == NO)
+    NSString *pathKillAll  = [@(SYSTEM_TMP) stringByAppendingString:@"/kill_all_storescu"];
+    NSString *pathErrorMsg = [@(SYSTEM_TMP) stringByAppendingString:@"/error_message"];
+	if( [[NSFileManager defaultManager] fileExistsAtPath: pathKillAll] == NO)
 	{
-		NSString *str = [NSString stringWithContentsOfFile: @"/tmp/error_message"];
-		[[NSFileManager defaultManager] removeFileAtPath: @"/tmp/error_message" handler: nil];
+		NSString *str = [NSString stringWithContentsOfFile: pathErrorMsg];
+		[[NSFileManager defaultManager] removeFileAtPath: pathErrorMsg handler: nil];
 		
 		if( str && [str length] > 0)
 			[[AppController sharedAppController] performSelectorOnMainThread: @selector(displayListenerError:) withObject: str waitUntilDone: NO];
