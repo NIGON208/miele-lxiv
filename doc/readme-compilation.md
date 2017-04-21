@@ -2,25 +2,45 @@
 
 Alex Bettarini - 15 Mar 2015
 
-### Binaries
+Prebuilt binaries are no longer provided. It's more appropriate to rebuild the toolkits from the sources downloaded from the respective repositories.
 
-Prebuilt binaries are not provided, because in my view it is not suitable for an open source project: it would be a black box that the user cannot verify. It is more appropriate if the 3rd party libraries are built from the sources.
+A number of bash shell scripts are available in the `steps` directory.
+
+The sources can be built "as is" resulting in a version of the application with the branding, logo and defaults inherited from the original OsiriX project, later forked to the Osiri-LXIV project.
+
+Alternatively you can spend some time creating your on branding, which involves:
+
+- creating your logo and icon
+- customizing the strings in `options.h` and `url.h`
+- setup your own web server hosting a home page and a page to allow checking for updates
+- setup a server for bug reporting and management, for example [MantisBT](https://www.mantisbt.org), or you can use the system built into the GitHub if you forked your own project.
+
+---
+# Step 1
+- First run (you need to do this only once)
+
+		$ cd steps
+		$ unzip-binaries-sh
+
+---
+# Step 2
+
+Build the third-party open source toolkits
 
 ---
 ### VTK, ITK, OpenJPEG
-Prebuilt binaries are no longer provided. It's more appropriate to rebuild the toolkits from the sources downloaded from the respective repositories.
 
-1. Download the sources
-- Build the toolkits
-- Install the toolkits
-- Create symbolic links from the `Binaries/` directory to the installed toolkits
+- Either install these toolkits with a package manager like [Homebrew](https://brew.sh)
+- or install them from sources
+
+	- Download the sources from their respective repositories.
+	- Build the toolkits with CMake (GUI) or cmake (CLI), as you prefer.
+	- Install the toolkits anywhere you like, but keep in mind where you installed them, because next you will need to create symbolic links to those install locations.
 
 ---
 ### **DCMTK**:
 			
-1. Download the sources
-- Build and install the DCMTK library.
-- Create symbolic links from the `Binaries/` directory to the installed toolkit
+- Proceed as above, then
 
 	<p>In the future a patch will be provided for the following steps, but for the time being you'll have to do them manually:
 
@@ -107,8 +127,10 @@ Prebuilt binaries are no longer provided. It's more appropriate to rebuild the t
  	* Optionally edit `include/dcmtk/config/osconfig.h` and put the build date in place of "DEV" in `#define PACKAGE_DATE "DEV"`
 
 ---
-- Now you should be able to launch the Xcode project and build it as usual:
-	* (The first time only) build the target "Unzip Binaries" 
-	* Build the target application
+# Step 3
+- Create symbolic links from the `Binaries/` directory to the directories where you installed the toolkits
 
-		
+---
+# Step 4
+- Now you should be able to launch the Xcode project and build the application, or if you prefer and know how to do it, build it directly from the command line.
+
