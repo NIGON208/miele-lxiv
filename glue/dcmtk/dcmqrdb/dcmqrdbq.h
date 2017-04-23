@@ -157,7 +157,8 @@ public:
    */
   OFCondition nextFindResponse(
       DcmDataset **findResponseIdentifiers,
-      DcmQueryRetrieveDatabaseStatus *status);
+      DcmQueryRetrieveDatabaseStatus *status,
+      const DcmQueryRetrieveCharacterSetOptions& characterSetOptions);
    
   /** cancel the ongoing FIND request, stop and reset every running operation
    *  associated with this request, delete existing temporary files.

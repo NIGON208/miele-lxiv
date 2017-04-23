@@ -77,9 +77,13 @@ END_EXTERN_C
 
 #include "dcerror.h"
 
+//#define HANDLE_QUERY_IDENTIFIER
+
 extern BOOL forkedProcess;
 
-const OFCondition DcmQROsiriXDatabaseError(OFM_dcmqrdb, 0x001, OF_error, "DcmQR Index Database Error");
+const OFCondition DcmQROsiriXDatabaseError(OFM_dcmqrdb, 1, OF_error, "DcmQR Index Database Error");
+
+// See DCMTK's dcmqrdbi.cc
 
 /* ========================= static data ========================= */
 
@@ -101,40 +105,45 @@ const OFCondition DcmQROsiriXDatabaseError(OFM_dcmqrdb, 0x001, OF_error, "DcmQR 
  ***/
 
 static const DB_FindAttr TbFindAttr [] = {
-        DB_FindAttr( DCM_PatientBirthDate ,                    PATIENT_LEVEL,  OPTIONAL_KEY,   DATE_CLASS      ),
-        DB_FindAttr( DCM_PatientSex,                           PATIENT_LEVEL,  OPTIONAL_KEY,   STRING_CLASS    ),
-        DB_FindAttr( DCM_PatientName,                          PATIENT_LEVEL,  REQUIRED_KEY,   STRING_CLASS    ),
-        DB_FindAttr( DCM_PatientID,                             PATIENT_LEVEL,  UNIQUE_KEY,     STRING_CLASS    ),
-        DB_FindAttr( DCM_PatientBirthTime,                     PATIENT_LEVEL,  OPTIONAL_KEY,   TIME_CLASS      ),
-       // DB_FindAttr( DCM_OtherPatientIDs,                       PATIENT_LEVEL,  OPTIONAL_KEY,   STRING_CLASS    ),
-       // DB_FindAttr( DCM_OtherPatientNames,                     PATIENT_LEVEL,  OPTIONAL_KEY,   STRING_CLASS    ),
-       // DB_FindAttr( DCM_EthnicGroup,                           PATIENT_LEVEL,  OPTIONAL_KEY,   STRING_CLASS    ),
-       // DB_FindAttr( DCM_PatientComments,                       PATIENT_LEVEL,  OPTIONAL_KEY,   STRING_CLASS    ),
-       // DB_FindAttr( DCM_NumberOfPatientRelatedStudies,         PATIENT_LEVEL,  OPTIONAL_KEY,   STRING_CLASS    ),
-      //  DB_FindAttr( DCM_NumberOfPatientRelatedSeries,          PATIENT_LEVEL,  OPTIONAL_KEY,   STRING_CLASS    ),
-     //   DB_FindAttr( DCM_NumberOfPatientRelatedInstances,       PATIENT_LEVEL,  OPTIONAL_KEY,   STRING_CLASS    ),
-        DB_FindAttr( DCM_StudyDate,                             STUDY_LEVEL,    REQUIRED_KEY,   DATE_CLASS      ),
-        DB_FindAttr( DCM_StudyTime,                             STUDY_LEVEL,    REQUIRED_KEY,   TIME_CLASS      ),
-        DB_FindAttr( DCM_StudyID,                               STUDY_LEVEL,    REQUIRED_KEY,   STRING_CLASS    ),
-        DB_FindAttr( DCM_AccessionNumber,                       STUDY_LEVEL,    REQUIRED_KEY,   STRING_CLASS    ),
-        DB_FindAttr( DCM_ReferringPhysicianName,               STUDY_LEVEL,    OPTIONAL_KEY,   STRING_CLASS    ),
-        DB_FindAttr( DCM_StudyDescription,                      STUDY_LEVEL,    OPTIONAL_KEY,   STRING_CLASS    ),
-   //     DB_FindAttr( DCM_NameOfPhysiciansReadingStudy,          STUDY_LEVEL,    OPTIONAL_KEY,   STRING_CLASS    ),
-        DB_FindAttr( DCM_StudyInstanceUID,                      STUDY_LEVEL,    UNIQUE_KEY,     UID_CLASS       ),
-   //     DB_FindAttr( DCM_OtherStudyNumbers,                     STUDY_LEVEL,    OPTIONAL_KEY,   OTHER_CLASS     ),
-   //     DB_FindAttr( DCM_AdmittingDiagnosesDescription,         STUDY_LEVEL,    OPTIONAL_KEY,   STRING_CLASS    ),
-   //     DB_FindAttr( DCM_PatientsAge,                           STUDY_LEVEL,    OPTIONAL_KEY,   STRING_CLASS    ),
-   //     DB_FindAttr( DCM_PatientsSize,                          STUDY_LEVEL,    OPTIONAL_KEY,   OTHER_CLASS     ),
-  //      DB_FindAttr( DCM_PatientsWeight,                        STUDY_LEVEL,    OPTIONAL_KEY,   OTHER_CLASS     ),
-  //      DB_FindAttr( DCM_Occupation,                            STUDY_LEVEL,    OPTIONAL_KEY,   STRING_CLASS    ),
-  //      DB_FindAttr( DCM_AdditionalPatientHistory,              STUDY_LEVEL,    OPTIONAL_KEY,   STRING_CLASS    ),
-        DB_FindAttr( DCM_NumberOfStudyRelatedSeries,            STUDY_LEVEL,    OPTIONAL_KEY,   OTHER_CLASS     ),
-        DB_FindAttr( DCM_NumberOfStudyRelatedInstances,         STUDY_LEVEL,    OPTIONAL_KEY,   OTHER_CLASS     ),
-        DB_FindAttr( DCM_SeriesNumber,                          SERIE_LEVEL,    REQUIRED_KEY,   OTHER_CLASS     ),
-        DB_FindAttr( DCM_SeriesInstanceUID,                     SERIE_LEVEL,    UNIQUE_KEY,     UID_CLASS       ),
-        DB_FindAttr( DCM_Modality,                              SERIE_LEVEL,    OPTIONAL_KEY,   STRING_CLASS    ),
-        DB_FindAttr( DCM_InstanceNumber,                        IMAGE_LEVEL,    REQUIRED_KEY,   OTHER_CLASS     ),
-        DB_FindAttr( DCM_SOPInstanceUID,                        IMAGE_LEVEL,    UNIQUE_KEY,     UID_CLASS       )
+    DB_FindAttr( DCM_PatientBirthDate ,                    PATIENT_LEVEL,  OPTIONAL_KEY ),
+    DB_FindAttr( DCM_PatientSex,                           PATIENT_LEVEL,  OPTIONAL_KEY ),
+    DB_FindAttr( DCM_PatientName,                          PATIENT_LEVEL,  REQUIRED_KEY ),
+    DB_FindAttr( DCM_PatientID,                            PATIENT_LEVEL,  UNIQUE_KEY   ),
+    DB_FindAttr( DCM_PatientBirthTime,                     PATIENT_LEVEL,  OPTIONAL_KEY ),
+    
+//    DB_FindAttr( DCM_OtherPatientIDs,                       PATIENT_LEVEL,  OPTIONAL_KEY       ),
+//    DB_FindAttr( DCM_OtherPatientNames,                     PATIENT_LEVEL,  OPTIONAL_KEY       ),
+//    DB_FindAttr( DCM_EthnicGroup,                           PATIENT_LEVEL,  OPTIONAL_KEY       ),
+//    DB_FindAttr( DCM_PatientComments,                       PATIENT_LEVEL,  OPTIONAL_KEY       ),
+//    DB_FindAttr( DCM_NumberOfPatientRelatedStudies,         PATIENT_LEVEL,  OPTIONAL_KEY       ),
+//    DB_FindAttr( DCM_NumberOfPatientRelatedSeries,          PATIENT_LEVEL,  OPTIONAL_KEY       ),
+//    DB_FindAttr( DCM_NumberOfPatientRelatedInstances,       PATIENT_LEVEL,  OPTIONAL_KEY       ),
+
+    DB_FindAttr( DCM_StudyDate,                             STUDY_LEVEL,    REQUIRED_KEY ),
+    DB_FindAttr( DCM_StudyTime,                             STUDY_LEVEL,    REQUIRED_KEY ),
+    DB_FindAttr( DCM_StudyID,                               STUDY_LEVEL,    REQUIRED_KEY ),
+    DB_FindAttr( DCM_AccessionNumber,                       STUDY_LEVEL,    REQUIRED_KEY ),
+    DB_FindAttr( DCM_ReferringPhysicianName,                STUDY_LEVEL,    OPTIONAL_KEY  ),
+    DB_FindAttr( DCM_StudyDescription,                      STUDY_LEVEL,    OPTIONAL_KEY ),
+
+//    DB_FindAttr( DCM_NameOfPhysiciansReadingStudy,          STUDY_LEVEL,    OPTIONAL_KEY       ),
+    DB_FindAttr( DCM_StudyInstanceUID,                      STUDY_LEVEL,    UNIQUE_KEY           ),
+
+//    DB_FindAttr( DCM_RETIRED_OtherStudyNumbers,             STUDY_LEVEL,    OPTIONAL_KEY       ),
+//    DB_FindAttr( DCM_AdmittingDiagnosesDescription,         STUDY_LEVEL,    OPTIONAL_KEY       ),
+//    DB_FindAttr( DCM_PatientAge,                            STUDY_LEVEL,    OPTIONAL_KEY       ),
+//    DB_FindAttr( DCM_PatientSize,                           STUDY_LEVEL,    OPTIONAL_KEY       ),
+//    DB_FindAttr( DCM_PatientWeight,                         STUDY_LEVEL,    OPTIONAL_KEY       ),
+//    DB_FindAttr( DCM_Occupation,                            STUDY_LEVEL,    OPTIONAL_KEY       ),
+//    DB_FindAttr( DCM_AdditionalPatientHistory,              STUDY_LEVEL,    OPTIONAL_KEY       ),
+
+    DB_FindAttr( DCM_NumberOfStudyRelatedSeries,            STUDY_LEVEL,    OPTIONAL_KEY ),
+    DB_FindAttr( DCM_NumberOfStudyRelatedInstances,         STUDY_LEVEL,    OPTIONAL_KEY ),
+    DB_FindAttr( DCM_SeriesNumber,                          SERIE_LEVEL,    REQUIRED_KEY ),
+    DB_FindAttr( DCM_SeriesInstanceUID,                     SERIE_LEVEL,    UNIQUE_KEY   ),
+    DB_FindAttr( DCM_Modality,                              SERIE_LEVEL,    OPTIONAL_KEY ),
+    DB_FindAttr( DCM_InstanceNumber,                        IMAGE_LEVEL,    REQUIRED_KEY ),
+    DB_FindAttr( DCM_SOPInstanceUID,                        IMAGE_LEVEL,    UNIQUE_KEY   )
   };
 
 /**** The NbFindAttr variable contains the length of the TbFindAttr table
@@ -172,8 +181,8 @@ static int DB_TagSupported (DcmTagKey tag)
 //        break;
 //
 //    if (i < NbFindAttr) {
-//    *tag = TbFindAttr[i].tag;
-//    return (EC_Normal);
+//        *tag = TbFindAttr[i].tag;
+//        return (EC_Normal);
 //    }
 //    else
 //    return (DcmQROsiriXDatabaseError);
@@ -244,25 +253,27 @@ static OFCondition DB_GetTagKeyAttr (DcmTagKey tag, DB_KEY_TYPE *keyAttr)
  *    dst space is supposed provided by the caller
  */
 
-//static void DB_DuplicateElement (DB_SmallDcmElmt *src, DB_SmallDcmElmt *dst)
-//{
-//    bzero( (char*)dst, sizeof (DB_SmallDcmElmt));
-//    dst -> XTag = src -> XTag;
-//    dst -> ValueLength = src -> ValueLength;
-//
-//    if (src -> ValueLength == 0)
-//    dst -> PValueField = NULL;
-//    else {
-//    dst -> PValueField = (char *)malloc ((int) src -> ValueLength+1);
-//    bzero(dst->PValueField, (size_t)(src->ValueLength+1));
-//    if (dst->PValueField != NULL) {
-//        memcpy (dst -> PValueField,  src -> PValueField,
-//            (size_t) src -> ValueLength);
-//    } else {
-//        DCMQRDB_ERROR("DB_DuplicateElement: out of memory");
-//    }
-//    }
-//}
+#ifdef HANDLE_QUERY_IDENTIFIER
+static void DB_DuplicateElement (DB_SmallDcmElmt *src, DB_SmallDcmElmt *dst)
+{
+    bzero( (char*)dst, sizeof (DB_SmallDcmElmt));
+    dst -> XTag = src -> XTag;
+    dst -> ValueLength = src -> ValueLength;
+
+    if (src -> ValueLength == 0)
+        dst -> PValueField = NULL;
+    else {
+        dst -> PValueField = (char *)malloc ((int) src -> ValueLength+1);
+        bzero(dst->PValueField, (size_t)(src->ValueLength+1));
+        if (dst->PValueField != NULL) {
+            memcpy (dst -> PValueField,  src -> PValueField,
+                (size_t) src -> ValueLength);
+        } else {
+            DCMQRDB_ERROR("DB_DuplicateElement: out of memory");
+        }
+    }
+}
+#endif
 
 /*******************
  *    Free an element List
@@ -302,9 +313,9 @@ static OFCondition DB_FreeElementList (DB_ElementList *lst)
 
     OFCondition cond = DB_FreeElementList (lst -> next);
     if (lst->elem.PValueField != NULL) {
-    free ((char *) lst -> elem. PValueField);
+        free ((char *) lst -> elem. PValueField);
     }
-    free (lst);
+    delete lst;
     return (cond);
 }
 
@@ -391,7 +402,8 @@ OFCondition DcmQueryRetrieveOsiriXDatabaseHandle::updateLogEntry(DcmDataset *dat
         
         if( [c count] < 10)
         {
-            for( int i = 0; i < [c count]; i++) encoding[ i] = [NSString encodingForDICOMCharacterSet: [c objectAtIndex: i]];
+            for (int i = 0; i < [c count]; i++)
+                encoding[ i] = [NSString encodingForDICOMCharacterSet: [c objectAtIndex: i]];
         }
         
         [handle->logDictionary setObject: [DicomFile stringWithBytes: patientName encodings: encoding] forKey: @"logPatientName"];
@@ -430,8 +442,10 @@ OFCondition DcmQueryRetrieveOsiriXDatabaseHandle::startFindRequest(
                 DcmQueryRetrieveDatabaseStatus  *status)
 {
     DB_SmallDcmElmt     elem ;
-	
-	
+#ifdef HANDLE_QUERY_IDENTIFIER
+    DB_ElementList      *plist = NULL;
+    DB_ElementList      *last = NULL;
+#endif
     int                 MatchFound ;
     IdxRecord           idxRec ;
     DB_LEVEL            qLevel = PATIENT_LEVEL; // highest legal level for a query in the current model
@@ -442,11 +456,13 @@ OFCondition DcmQueryRetrieveOsiriXDatabaseHandle::startFindRequest(
 
     /**** Is SOPClassUID supported ?
     ***/
-//we only support study root currently
+
+    // We only support study root currently
+
 //    if (strcmp( SOPClassUID, UID_FINDPatientRootQueryRetrieveInformationModel) == 0)
 //        handle->rootLevel = PATIENT_ROOT ;
 
- if (strcmp( SOPClassUID, UID_FINDStudyRootQueryRetrieveInformationModel) == 0)
+    if (strcmp( SOPClassUID, UID_FINDStudyRootQueryRetrieveInformationModel) == 0)
         handle->rootLevel = STUDY_ROOT ;
 		
 //#ifndef NO_PATIENTSTUDYONLY_SUPPORT
@@ -459,14 +475,14 @@ OFCondition DcmQueryRetrieveOsiriXDatabaseHandle::startFindRequest(
         return (DcmQROsiriXDatabaseError) ;
     }
 	
-	    /**** Parse Identifiers in the Dicom Object
+    /**** Parse Identifiers in the Dicom Object
     **** Find Query Level and contruct a list
     **** of query identifiers
     ***/
 	
 //	findRequestIdentifiers->print(COUT);
 	
-    int elemCount = (int)(findRequestIdentifiers->card());
+    int elemCount = OFstatic_cast(int, findRequestIdentifiers->card());
     for (int elemIndex=0; elemIndex<elemCount; elemIndex++)
 	{
         DcmElement* dcelem = findRequestIdentifiers->getElement(elemIndex);
@@ -479,7 +495,7 @@ OFCondition DcmQueryRetrieveOsiriXDatabaseHandle::startFindRequest(
 			{
                 elem.PValueField = NULL ;
             }
-			else if ((elem.PValueField = (char*)malloc((size_t)(elem.ValueLength+1))) == NULL)
+            else if ((elem.PValueField = OFstatic_cast(char*, malloc(OFstatic_cast(size_t, elem.ValueLength+1)))) == NULL)
 			{
                 status->setStatus(STATUS_FIND_Refused_OutOfResources);
                 return (DcmQROsiriXDatabaseError) ;
@@ -527,9 +543,8 @@ OFCondition DcmQueryRetrieveOsiriXDatabaseHandle::startFindRequest(
                     return (DcmQROsiriXDatabaseError);
                 }
                 qrLevelFound = OFTrue;
-				
-            } 
-			/*
+            }
+#ifdef HANDLE_QUERY_IDENTIFIER
 			else {
                 // Else it is a query identifier.
                 // Append it to our RequestList if it is supported
@@ -551,7 +566,7 @@ OFCondition DcmQueryRetrieveOsiriXDatabaseHandle::startFindRequest(
                     }
                 }
             }
-			*/	
+#endif
             if ( elem. PValueField ) {
                 free (elem. PValueField) ;
             }
@@ -562,13 +577,13 @@ OFCondition DcmQueryRetrieveOsiriXDatabaseHandle::startFindRequest(
         /* The Query/Retrieve Level is missing */
         status->setStatus(STATUS_FIND_Failed_IdentifierDoesNotMatchSOPClass);
         DCMQRDB_ERROR("DB_startFindRequest(): missing Query/Retrieve Level");
-        //handle->idxCounter = -1 ;
+        handle->idxCounter = -1 ;
         DB_FreeElementList (handle->findRequestList) ;
         handle->findRequestList = NULL ;
         return (DcmQROsiriXDatabaseError) ;
     }
 	
-	    switch (handle->rootLevel)
+    switch (handle->rootLevel)
     {
       case PATIENT_ROOT :
         qLevel = PATIENT_LEVEL ;
@@ -586,12 +601,12 @@ OFCondition DcmQueryRetrieveOsiriXDatabaseHandle::startFindRequest(
 	
 	    /**** Test the consistency of the request list
     ***/
-	// I'm not sure this is necessary 
-	/*
+	// I'm not sure this is necessary
+#if 0
     if (doCheckFindIdentifier) {
         cond = testFindRequestList (handle->findRequestList, handle->queryLevel, qLevel, lLevel) ;
         if (cond != EC_Normal) {
-            //handle->idxCounter = -1 ;
+            handle->idxCounter = -1 ;
             DB_FreeElementList (handle->findRequestList) ;
             handle->findRequestList = NULL ;
             DCMQRDB_INFO("DB_startFindRequest () : STATUS_FIND_Failed_IdentifierDoesNotMatchSOPClass - Invalid RequestList");
@@ -599,7 +614,7 @@ OFCondition DcmQueryRetrieveOsiriXDatabaseHandle::startFindRequest(
             return (cond) ;
         }
     }
-	*/
+#endif
 	
 	/**** Then find the first matching image
     ***/
@@ -610,20 +625,22 @@ OFCondition DcmQueryRetrieveOsiriXDatabaseHandle::startFindRequest(
 		
 	cond = [handle->dataHandler prepareFindForDataSet:findRequestIdentifiers];
 	MatchFound = [handle->dataHandler findMatchFound];
-	 /**** If an error occured in Matching function
+
+    /**** If an error occured in Matching function
     ****    return a failed status
     ***/
 
     if (cond != EC_Normal)
 	{
-       DB_FreeElementList (handle->findRequestList) ;
+        handle->idxCounter = -1 ;
+        DB_FreeElementList (handle->findRequestList) ;
         handle->findRequestList = NULL ;
         DCMQRDB_INFO("DB_startFindRequest () : STATUS_FIND_Failed_UnableToProcess");
         status->setStatus(STATUS_FIND_Failed_UnableToProcess);
         return (cond) ;
     }
 	
-	 /**** If a matching image has been found,
+    /**** If a matching image has been found,
     ****         add index record to UID found list
     ****    prepare Response List in handle
     ****    return status is pending
@@ -643,16 +660,14 @@ OFCondition DcmQueryRetrieveOsiriXDatabaseHandle::startFindRequest(
     ***/
 
     else {
-  //      handle->idxCounter = -1 ;
+        handle->idxCounter = -1 ;
         DB_FreeElementList (handle->findRequestList) ;
         handle->findRequestList = NULL ;
         DCMQRDB_INFO("DB_startFindRequest () : STATUS_Success");
         status->setStatus(STATUS_Success);
         return (EC_Normal) ;
     }
-
 }
-
 
 /************
 **      Test a Find Request List
@@ -793,20 +808,21 @@ OFCondition DcmQueryRetrieveOsiriXDatabaseHandle::testFindRequestList (
 
 OFCondition DcmQueryRetrieveOsiriXDatabaseHandle::nextFindResponse (
                 DcmDataset      **findResponseIdentifiers,
-                DcmQueryRetrieveDatabaseStatus  *status)
-		
+                DcmQueryRetrieveDatabaseStatus  *status,
+                const DcmQueryRetrieveCharacterSetOptions& characterSetOptions)
 {
     DCMQRDB_INFO("nextFindResponse () : start");
 
 	OFCondition         cond = EC_Normal;
 	BOOL isComplete;
-	*findResponseIdentifiers = new DcmDataset ;
+
+    *findResponseIdentifiers = new DcmDataset ;
     DCMQRDB_INFO("nextFindResponse () : new dataset");
 	
 	if( handle -> dataHandler == 0L)
 		handle -> dataHandler = [OsiriXSCPDataHandler allocRequestDataHandler];
 		
-	cond = [handle ->dataHandler nextFindObject:*findResponseIdentifiers  isComplete:&isComplete];
+	cond = [handle ->dataHandler nextFindObject:*findResponseIdentifiers isComplete:&isComplete];
     DCMQRDB_INFO("nextFindResponse () : next response");
 
 	if (isComplete) {
@@ -826,8 +842,6 @@ OFCondition DcmQueryRetrieveOsiriXDatabaseHandle::nextFindResponse (
 	return DcmQROsiriXDatabaseError;
 }
 
-
-
 OFCondition DcmQueryRetrieveOsiriXDatabaseHandle::cancelFindRequest (DcmQueryRetrieveDatabaseStatus *status)
 {
 	return DcmQROsiriXDatabaseError;
@@ -844,7 +858,6 @@ OFCondition DcmQueryRetrieveOsiriXDatabaseHandle::nextMoveResponse(
       unsigned short *numberOfRemainingSubOperations,
       DcmQueryRetrieveDatabaseStatus *status)
 {
-	  
 	return this->nextMoveResponse( SOPClassUID, SOPInstanceUID, imageFileName, EXS_LittleEndianExplicit, numberOfRemainingSubOperations, status);		//EXS_JPEGProcess14SV1  EXS_LittleEndianExplicit
 }
 
@@ -901,7 +914,7 @@ OFCondition DcmQueryRetrieveOsiriXDatabaseHandle::nextMoveResponse(
 		}
 	}
 	
-	 return cond;
+    return cond;
 }
 
 OFCondition DcmQueryRetrieveOsiriXDatabaseHandle::startMoveRequest(
@@ -910,6 +923,10 @@ OFCondition DcmQueryRetrieveOsiriXDatabaseHandle::startMoveRequest(
         DcmQueryRetrieveDatabaseStatus  *status)
 {
 	DB_SmallDcmElmt     elem ;
+#ifdef HANDLE_QUERY_IDENTIFIER
+    DB_ElementList      *plist = NULL;
+    DB_ElementList      *last = NULL;
+#endif
     IdxRecord           idxRec ;
     DB_LEVEL            qLevel = PATIENT_LEVEL; // highest legal level for a query in the current model
     DB_LEVEL            lLevel = IMAGE_LEVEL;   // lowest legal level for a query in the current model
@@ -917,12 +934,12 @@ OFCondition DcmQueryRetrieveOsiriXDatabaseHandle::startMoveRequest(
     OFCondition         cond = EC_Normal;
     OFBool qrLevelFound = OFFalse;
 
-	//NSLog(@"start move request");
     /**** Is SOPClassUID supported ?
     ***/
-//we only support study root currently
-    // handle->rootLevel = PATIENT_ROOT ;
-	if (strcmp(SOPClassUID, UID_MOVEStudyRootQueryRetrieveInformationModel) == 0)
+
+    // We only support study root currently
+
+    if (strcmp(SOPClassUID, UID_MOVEStudyRootQueryRetrieveInformationModel) == 0)
         handle->rootLevel = STUDY_ROOT ;
 	else if (strcmp( SOPClassUID, UID_GETStudyRootQueryRetrieveInformationModel) == 0)
         handle->rootLevel = STUDY_ROOT ;
@@ -932,7 +949,7 @@ OFCondition DcmQueryRetrieveOsiriXDatabaseHandle::startMoveRequest(
         return (DcmQROsiriXDatabaseError) ;
     }
 	
-	    /**** Parse Identifiers in the Dicom Object
+    /**** Parse Identifiers in the Dicom Object
     **** Find Query Level and contruct a list
     **** of query identifiers
     ***/
@@ -959,12 +976,12 @@ OFCondition DcmQueryRetrieveOsiriXDatabaseHandle::startMoveRequest(
             /** If element is the Query Level, store it in handle
              */
 
-            if (elem. XTag == DCM_QueryRetrieveLevel) {
+            if (elem. XTag == DCM_QueryRetrieveLevel && elem.PValueField) {
                 char *pc ;
                 char level [50] ;
 
                 strncpy(level, (char*)elem.PValueField,
-                        (elem.ValueLength<50)? (size_t)(elem.ValueLength) : 49) ;
+                        (elem.ValueLength < 50)? (size_t)(elem.ValueLength) : 49) ;
 
                 /*** Skip this two lines if you want strict comparison
                 **/
@@ -988,14 +1005,14 @@ OFCondition DcmQueryRetrieveOsiriXDatabaseHandle::startMoveRequest(
                     if (elem. PValueField)
                         free (elem. PValueField) ;
 
-                    DCMQRDB_INFO("DB_startFindRequest () : Illegal query level (" << level << ")");
-                    status->setStatus(STATUS_FIND_Failed_UnableToProcess);
+                    DCMQRDB_INFO("DB_startMoveRequest () : Illegal query level (" << level << ")");
+                    status->setStatus(STATUS_MOVE_Failed_UnableToProcess);
                     return (DcmQROsiriXDatabaseError) ;
                 }
                 qrLevelFound = OFTrue;
 				
-            } 
-			/*
+            }
+#ifdef HANDLE_QUERY_IDENTIFIER
 			else {
                 // Else it is a query identifier.
                 // Append it to our RequestList if it is supported
@@ -1007,7 +1024,6 @@ OFCondition DcmQueryRetrieveOsiriXDatabaseHandle::startMoveRequest(
                         status->setStatus(STATUS_FIND_Refused_OutOfResources);
                         return (DcmQROsiriXDatabaseError) ;
                     }
-                    plist->next = NULL ;
                     DB_DuplicateElement (&elem, &(plist->elem)) ;
                     if (handle->findRequestList == NULL) {
                         handle->findRequestList = last = plist ;
@@ -1017,7 +1033,7 @@ OFCondition DcmQueryRetrieveOsiriXDatabaseHandle::startMoveRequest(
                     }
                 }
             }
-			*/	
+#endif
             if ( elem. PValueField ) {
                 free (elem. PValueField) ;
             }
@@ -1026,9 +1042,9 @@ OFCondition DcmQueryRetrieveOsiriXDatabaseHandle::startMoveRequest(
 
     if (!qrLevelFound) {
         /* The Query/Retrieve Level is missing */
-        status->setStatus(STATUS_FIND_Failed_IdentifierDoesNotMatchSOPClass);
-        DCMQRDB_ERROR("DB_startFindRequest(): missing Query/Retrieve Level");
-        //handle->idxCounter = -1 ;
+        status->setStatus(STATUS_MOVE_Failed_IdentifierDoesNotMatchSOPClass);
+        DCMQRDB_ERROR("DB_startMoveRequest(): missing Query/Retrieve Level");
+        handle->idxCounter = -1 ;
         DB_FreeElementList (handle->findRequestList) ;
         handle->findRequestList = NULL ;
         return (DcmQROsiriXDatabaseError) ;
@@ -1081,13 +1097,11 @@ OFCondition DcmQueryRetrieveOsiriXDatabaseHandle::startMoveRequest(
     ***/
 
     else {
-        //handle->idxCounter = -1 ;
+        handle->idxCounter = -1 ;
         DCMQRDB_INFO("DB_startMoveRequest : STATUS_Success");
         status->setStatus(STATUS_Success);
         return (EC_Normal) ;
     }
-
-
 }
 
 OFCondition DcmQueryRetrieveOsiriXDatabaseHandle::cancelMoveRequest (DcmQueryRetrieveDatabaseStatus *status)

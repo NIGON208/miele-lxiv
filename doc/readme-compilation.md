@@ -17,7 +17,7 @@ Alternatively you can spend some time creating your on branding, which involves:
 
 ---
 # Step 1
-- First run (you need to do this only once)
+- First time (you need to do this only once)
 
 		$ cd steps
 		$ unzip-binaries-sh
@@ -25,7 +25,7 @@ Alternatively you can spend some time creating your on branding, which involves:
 ---
 # Step 2
 
-Build the third-party open source toolkits
+- Build the third-party open-source toolkits:
 
 ---
 ### VTK, ITK, OpenJPEG
@@ -39,25 +39,92 @@ Build the third-party open source toolkits
 
 ---
 ### **DCMTK**:
-			
-- Proceed as above, then
 
-	<p>In the future a patch will be provided for the following steps, but for the time being you'll have to do them manually:
+- Download the sources, then edit them as follows:
 
-	* Add `#undef verify` at the top of file `dcmdata/dcobject.h` (line 24)
-	* Edit the file `include/dcmtk/oflog/config.h` line 118 to comment out
+- Add `#undef verify` at the top of file `dcmdata/dcobject.h` (line 24)
 
-			#define DCMTK_LOG4CPLUS_HAVE_RVALUE_REFS
-			
-	* copy the two header files `intrface.h` and `pubtypes.h` from the DCMTK source directories
+- Add two lines to `dcmjpeg/include/dcmtk/dcmjpeg/djutils.h` so that it looks like this
+
+			enum EJ_Mode
+			{
+				...
+
+				EJM_lossless,
+			 	EJM_JP2K_lossy,
+				EJM_JP2K_lossless
+			};
+
+- Edit the file `dcmjpls/libcharls/context.h`
+
+	At the top insert the line
 	
-			dcmtk/dcmjpls/libcharls/
-			
-		to the project directory
+		#include <vector>
 
-			Binaries/DCMTK/include/dcmtk/
+- Edit `dcmnet/libsrc/dimse.cc`
+ 
+	Remove `static` from `OFCondition getTransferSyntax()`
+
+- Edit `dcmqrdb/include/dcmtk/dcmqrdb/dcmqrcbg.h`
+   	
+   	- Near line 115 insert the line
+
+	   	    friend class DcmQueryRetrieveGetOurContext;
+	   	    
+		before the line
+
+    			OFCondition performGetSubOp(DIC_UI sopClass, DIC_UI sopInstance, char *fname);
+
+   	- Near line 123 make `getNextImage()` public virtual
+   	- Near line 133 make `DcmQueryRetrieveDatabaseHandle` protected
+   	- Near line 176 make `nRemaining` protected
+   	- Near line 194 make `getCancelled` protected
+
+- Edit `dcmqrdb/include/dcmtk/dcmqrdb/dcmqrsrv.h`
+
+	- Near line 116 make `handleAssociation` public
+	- Near line 128
+	
+			public:
+				virtual OFCondition getSCP(
+				...
+				);
+
+			private:
+
+	- Near line 137
+	
+			public:
+				virtual OFCondition storeSCP(
+				...
+				);
+
+			private:
+
+	- Near line 195 make `DcmQueryRetrieveOptions & options_` public
+
+- Edit `dcmqrdb/libsrc/dcmqrcbg.cc`
+
+	- Near line 100 change `getNextImage(&dbStatus)`
+	into `this->getNextImage(&dbStatus)`
+
+- Edit `dcmqrdb/dcmqrsrv.cc`
+
+	- Near line 100 insert:
+	
+			#include "dcmtk/dcmnet/dimse.h"
 			
-	* Add the following `libijg*` headers (taken from the DCMTK downloaded sources) as subdirectories of `Binaries/DCMTK/include/dcmtk/dcmjpeg/`
+   		Line 168, in function dispatch() replace
+   		the calls to `storeSCP()` and `getSCP()`
+   		with `this->storeSCP()` and `this->getSCP()`
+
+- Build and install DCMTK
+
+- Optionally edit the installed file `include/dcmtk/config/osconfig.h` and put the build date in place of `DEV` in `#define PACKAGE_DATE "DEV"`
+
+- Copy the two header files `intrface.h` and `pubtypes.h` from the DCMTK source directory `dcmtk/dcmjpls/libcharls/` to the installed directory `/include/dcmtk/`
+			
+- Add the following `libijg*` headers (taken from the DCMTK downloaded sources) as subdirectories of the installed files in `include/dcmtk/dcmjpeg/`
 		
 			├── libijg12/
 			│   ├── jconfig12.h
@@ -77,60 +144,12 @@ Build the third-party open source toolkits
 			    ├── jinclude8.h
 			    ├── jmorecfg8.h
 			    └── jpeglib8.h
-
-   	* Edit `dcmqrdb/dcmqrsrv.h`
-
-   		Line 128
-	
-			public:
-				virtual OFCondition getSCP(
-				...
-				);
-
-			private:
-						
-   		Line 137
-	
-			public:
-				virtual OFCondition storeSCP(
-				...
-				);
-
-			private:
-
-		Line 190, declare `options_` as public
-
-   	* Edit `dcmqrdb/dcmqrsrv.cc`
-
-   		Line 168, in function dispath() replace
-   		the calls to `storeSCP()` and `getSCP()`
-   		with `this->storeSCP()` and `this->getSCP()`
-   		
-   	* Edit `dcmqrdb/dcmqrcbg.h`
-   	
-   		- make getNextImage() public virtual
-
-   	* Edit `dimse.cc`
-   		- remove `static` from getTransferSyntax()
-
- 	* Add two lines to `dcmjpeg/djutils.h` so that it looks like this
-
-			enum EJ_Mode
-			{
-				...
-
-				EJM_lossless,
-			 	EJM_JP2K_lossy,
-				EJM_JP2K_lossless
-			};
-			
- 	* Optionally edit `include/dcmtk/config/osconfig.h` and put the build date in place of "DEV" in `#define PACKAGE_DATE "DEV"`
-
+			    
 ---
 # Step 3
 - Create symbolic links from the `Binaries/` directory to the directories where you installed the toolkits
 
 ---
 # Step 4
-- Now you should be able to launch the Xcode project and build the application, or if you prefer and know how to do it, build it directly from the command line.
+- Now you should be able to launch the Xcode project and build the application, or if you prefer build it directly from the command line.
 
