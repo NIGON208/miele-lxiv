@@ -14,10 +14,14 @@ Binaries/DB_Previous_Models/
 Binaries/DCMTK
 Binaries/DCMTK.zip
 Binaries/dciodvfy
+Binaries/GLEW
+Binaries/GLM
 Binaries/Growl.framework/
 Binaries/ILCrashReporter.framework/
+Binaries/ITK
 Binaries/ITKHeaders
 Binaries/ITKLibs
+Binaries/Jasper*
 Binaries/KDU SDK/libkdu_v73R.a
 Binaries/libPapyrusToolkit.a
 Binaries/libjpeg
@@ -28,6 +32,7 @@ Binaries/openjpeg
 Binaries/OsiriX Report.template
 Binaries/PAGES/
 Binaries/ReportsToPDF/odt2pdf/build/odt2pdf
+Binaries/VTK
 Binaries/VTKHeaders
 Binaries/VTKLibs
 Binaries/weasis/
