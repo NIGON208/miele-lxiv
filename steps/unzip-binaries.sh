@@ -3,7 +3,7 @@
 SRCROOT=$(pwd)/../
 
 cd "$SRCROOT/Binaries"
-unzip -uo DB_Preßvious_Models.zip
+unzip -uo DB_Previous_Models.zip
 unzip -uo PAGES.zip
 unzip -uo OsiriXReport.template.zip
 unzip -uo ILCrashReporter.framework.zip
