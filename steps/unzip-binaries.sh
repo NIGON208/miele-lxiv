@@ -3,18 +3,12 @@
 SRCROOT=$(pwd)/../
 
 cd "$SRCROOT/Binaries"
-unzip -uo LibTiff.zip
-unzip -uo ITKLibs.zip
-unzip -uo VTKLibs.zip
-unzip -uo ITKHeaders.zip
-unzip -uo VTKHeaders.zip
-unzip -uo DB_Previous_Models.zip
+unzip -uo DB_Preßvious_Models.zip
 unzip -uo PAGES.zip
 unzip -uo OsiriXReport.template.zip
 unzip -uo ILCrashReporter.framework.zip
 unzip -uo Growl.framework.zip
 unzip -uo 3DconnexionClient.framework.zip
-unzip -uo openjpeg.zip
 unzip -uo dciodvfy.zip
 unzip -uo libPapyrusToolkit.a.zip
 unzip -uo Ming.zip
