@@ -9723,6 +9723,7 @@
 					"$(SRCROOT)",
 					"\"$(SRCROOT)/Binaries\"",
 					"\"$(SRCROOT)/build/Development\"",
+					"\"$(SRCROOT)/Binaries/GLEW\"",
 				);
 				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -9751,19 +9752,17 @@
 				INFOPLIST_FILE = "Deployment-Info.plist";
 				KEEP_PRIVATE_EXTERNS = YES;
 				LIBRARY_SEARCH_PATHS = (
-					"$(SRCROOT)/Binaries/VTKLibs",
-					"$(SRCROOT)/Binaries/ITKLibs",
+					"$(SRCROOT)/Binaries/VTK/lib",
+					"$(SRCROOT)/Binaries/ITK/lib",
 					"\"$(SRCROOT)/Binaries\"",
 					"$(SRCROOT)/Binaries/openjpeg/lib",
 					AYDicomPrint,
 					/usr/local/lib,
-					"$(PROJECT_DIR)/Binaries/ITKLibs",
-					"$(PROJECT_DIR)/Binaries/VTKLibs",
 					"$(PROJECT_DIR)/Binaries/DCMTK/lib",
 					/usr/local/Cellar/openssl/1.0.2/lib,
 					/usr/local/Cellar/libxml2/2.9.4/lib,
 					/usr/local/Cellar/jpeg/8d/lib,
-					/usr/local/Cellar/libtiff/4.0.7/lib,
+					"$(SRCROOT)/Binaries/libtiff/lib",
 				);
 				OTHER_CFLAGS = "-fvisibility=default";
 				OTHER_CPLUSPLUSFLAGS = (
@@ -9847,10 +9846,10 @@
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					Binaries/openjpeg/lib,
-					"$(PROJECT_DIR)/Binaries/VTKLibs",
-					"$(PROJECT_DIR)/Binaries/LibTiff",
+					"$(PROJECT_DIR)/Binaries/VTK/lib",
+					"$(PROJECT_DIR)/Binaries/libtiff/lib",
 					"$(PROJECT_DIR)/Binaries/DCMTK/lib",
-					Binaries/DCMTK/lib,
+					Binaries/Jasper/lib,
 				);
 				OTHER_LDFLAGS = (
 					"-seg1addr",
@@ -9922,6 +9921,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(FRAMEWORK_SEARCH_PATHS)",
 					"$(SRCROOT)",
+					"\"$(SRCROOT)/Binaries/GLEW\"",
 				);
 				GCC_FAST_MATH = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
@@ -9939,7 +9939,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/Binaries\"",
 					"\"$(SRCROOT)/Binaries/Ming\"",
-					"\"$(SRCROOT)/Binaries/VTKLibs\"",
+					"\"$(SRCROOT)/Binaries/VTK/lib\"",
 					"$(PROJECT_DIR)/Binaries/openjpeg/lib",
 					"$(PROJECT_DIR)/Binaries/DCMTK/lib",
 				);
@@ -9955,7 +9955,7 @@
 				SKIP_INSTALL = YES;
 				STRIP_INSTALLED_PRODUCT = YES;
 				SYMROOT = build;
-				USER_HEADER_SEARCH_PATHS = "Binaries/VTKHeaders $(SRCROOT)/Binaries/openjpeg/** Binaries/libtiff/include";
+				USER_HEADER_SEARCH_PATHS = "Binaries/VTK/include/** $(SRCROOT)/Binaries/openjpeg/** Binaries/libtiff/include $(SRCROOT)";
 			};
 			name = Deployment;
 		};
@@ -10012,6 +10012,11 @@
 				GCC_OPTIMIZATION_LEVEL = s;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				HEADER_SEARCH_PATHS = (
+					/usr/include/libxml2,
+					AYDicomPrint,
+					Binaries/Jasper/include,
+				);
 				INFOPLIST_FILE = "OsiriXAPI-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				OTHER_LDFLAGS = (
@@ -10149,10 +10154,10 @@
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					Binaries/openjpeg/lib,
-					"$(PROJECT_DIR)/Binaries/VTKLibs",
-					"$(PROJECT_DIR)/Binaries/LibTiff",
+					"$(PROJECT_DIR)/Binaries/VTK/lib",
+					"$(PROJECT_DIR)/Binaries/libtiff/lib",
 					"$(PROJECT_DIR)/Binaries/DCMTK/lib",
-					Binaries/DCMTK/lib,
+					Binaries/Jasper/lib,
 				);
 				OTHER_LDFLAGS = (
 					"-seg1addr",
@@ -10215,6 +10220,7 @@
 					"$(SRCROOT)",
 					"\"$(SRCROOT)/Binaries\"",
 					"\"$(SRCROOT)/build/Development\"",
+					"\"$(SRCROOT)/Binaries/GLEW\"",
 				);
 				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -10241,19 +10247,17 @@
 				IBC_FLATTEN_NIBS = NO;
 				INFOPLIST_FILE = "Deployment-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
-					"$(SRCROOT)/Binaries/VTKLibs",
-					"$(SRCROOT)/Binaries/ITKLibs",
+					"$(SRCROOT)/Binaries/VTK/lib",
+					"$(SRCROOT)/Binaries/ITK/lib",
 					"\"$(SRCROOT)/Binaries\"",
 					"$(SRCROOT)/Binaries/openjpeg/lib",
 					AYDicomPrint,
 					/usr/local/lib,
-					"$(PROJECT_DIR)/Binaries/ITKLibs",
-					"$(PROJECT_DIR)/Binaries/VTKLibs",
 					"$(PROJECT_DIR)/Binaries/DCMTK/lib",
 					/usr/local/Cellar/openssl/1.0.2/lib,
 					/usr/local/Cellar/libxml2/2.9.4/lib,
 					/usr/local/Cellar/jpeg/8d/lib,
-					/usr/local/Cellar/libtiff/4.0.7/lib,
+					"$(SRCROOT)/Binaries/libtiff/lib",
 				);
 				OTHER_CFLAGS = "-fvisibility=default";
 				OTHER_CPLUSPLUSFLAGS = (
@@ -10423,6 +10427,11 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				HEADER_SEARCH_PATHS = (
+					/usr/include/libxml2,
+					AYDicomPrint,
+					Binaries/Jasper/include,
+				);
 				INFOPLIST_FILE = "OsiriXAPI-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				OTHER_LDFLAGS = (
@@ -10446,6 +10455,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(FRAMEWORK_SEARCH_PATHS)",
 					"$(SRCROOT)",
+					"\"$(SRCROOT)/Binaries/GLEW\"",
 				);
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
@@ -10461,7 +10471,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/Binaries\"",
 					"\"$(SRCROOT)/Binaries/Ming\"",
-					"\"$(SRCROOT)/Binaries/VTKLibs\"",
+					"\"$(SRCROOT)/Binaries/VTK/lib\"",
 					"$(PROJECT_DIR)/Binaries/openjpeg/lib",
 					"$(PROJECT_DIR)/Binaries/DCMTK/lib",
 				);
@@ -10477,7 +10487,7 @@
 				SKIP_INSTALL = YES;
 				STRIP_INSTALLED_PRODUCT = YES;
 				SYMROOT = build;
-				USER_HEADER_SEARCH_PATHS = "Binaries/VTKHeaders $(SRCROOT)/Binaries/openjpeg/** Binaries/libtiff/include";
+				USER_HEADER_SEARCH_PATHS = "Binaries/VTK/include/** $(SRCROOT)/Binaries/openjpeg/** Binaries/libtiff/include $(SRCROOT)";
 			};
 			name = Development;
 		};
