@@ -4,7 +4,7 @@
     the second part of this file which is C++ code that is in the DCMTK sources
  */
 
-#import "browserController.h"
+#import "BrowserController.h"
 #import "ThreadsManager.h"
 #import "DicomDatabase.h"
 #import "NSThread+N2.h"

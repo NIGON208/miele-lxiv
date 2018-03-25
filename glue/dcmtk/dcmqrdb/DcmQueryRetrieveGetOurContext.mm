@@ -5,7 +5,7 @@
 #import "DCMObject.h"
 #import "DCM.h"
 
-#import "browserController.h"
+#import "BrowserController.h"
 //#import "AppController.h"
 //#import "DicomDatabase.h"
 //

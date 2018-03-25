@@ -13,7 +13,7 @@
 =========================================================================*/
 
 #import "LogWindowController.h"
-#import "browserController.h"
+#import "BrowserController.h"
 #import "DicomDatabase.h"
 
 @implementation LogWindowController

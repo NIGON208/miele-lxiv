@@ -12,7 +12,7 @@
      PURPOSE.
 =========================================================================*/
 
-#import "browserController.h"
+#import "BrowserController.h"
 #import "DICOMToNSString.h"
 #import "LogManager.h"
 #import "dicomFile.h"

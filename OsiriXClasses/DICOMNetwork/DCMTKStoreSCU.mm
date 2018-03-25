@@ -20,7 +20,7 @@
 #import "LogManager.h"
 #import "AppController.h"
 #import "DCMTKStoreSCU.h"
-#import "browserController.h"
+#import "BrowserController.h"
 #import "DicomFile.h"
 #import "Notifications.h"
 #import "MutableArrayCategory.h"
@@ -83,7 +83,6 @@ END_EXTERN_C
 #include "tlslayer.h"
 #endif
 
-#include "browserController.h"
 #import "DICOMToNSString.h"
 #import <OsiriX/DCMObject.h>
 #import <OsiriX/DCM.h>

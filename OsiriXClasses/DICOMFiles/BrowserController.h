@@ -14,7 +14,7 @@
 
 
 #import <Cocoa/Cocoa.h>
-#include <Accelerate/Accelerate.h>
+#import <Accelerate/Accelerate.h>
 
 @class DicomDatabase;
 

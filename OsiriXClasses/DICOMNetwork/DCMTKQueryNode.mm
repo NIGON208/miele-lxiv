@@ -25,7 +25,7 @@
 #import <OsiriX/DCMNetServiceDelegate.h>
 #import "DICOMToNSString.h"
 #import "MoveManager.h"
-#import "browserController.h"
+#import "BrowserController.h"
 #import "AppController.h"
 #import "SendController.h"
 #import "DCMTKQueryRetrieveSCP.h"

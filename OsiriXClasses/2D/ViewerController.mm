@@ -30,7 +30,7 @@
 //#import "MPR2DController.h"
 #import "NSFullScreenWindow.h"
 #import "ViewerController.h"
-#import "browserController.h"
+#import "BrowserController.h"
 #import "wait.h"
 #import "XMLController.h"
 #include <Accelerate/Accelerate.h>

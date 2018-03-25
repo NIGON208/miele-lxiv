@@ -13,7 +13,7 @@
  =========================================================================*/
 
 #import "CustomIntervalPanel.h"
-#import "browserController.h"
+#import "BrowserController.h"
 
 @interface CustomIntervalPanel ()
 

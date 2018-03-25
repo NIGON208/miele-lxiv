@@ -24,7 +24,7 @@
 #import "SeriesView.h"
 #import "ViewerController.h"
 #import "ThickSlabController.h"
-#import "browserController.h"
+#import "BrowserController.h"
 #import "AppController.h"
 #import "OrthogonalMPRController.h"
 #import "OrthogonalMPRView.h"

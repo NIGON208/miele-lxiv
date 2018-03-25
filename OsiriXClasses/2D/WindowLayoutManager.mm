@@ -17,7 +17,7 @@
 #import "AppController.h"
 #import "OSIWindowController.h"
 #import "Window3DController.h"
-#import "browserController.h"
+#import "BrowserController.h"
 #import "VRController.h"
 //#import "VRControllerVPRO.h"
 //#import "MPR2DController.h"

@@ -33,7 +33,7 @@
 #include "vtkImageFlip.h"
 #import "QuicktimeExport.h"
 #import "AppController.h"
-#import "browserController.h"
+#import "BrowserController.h"
 #import "DicomDatabase.h"
 #include "vtkRIBExporter.h"
 #include "vtkIVExporter.h"
