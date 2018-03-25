@@ -128,6 +128,20 @@
 		4365FC351B01C3A300380C25 /* DcmQueryRetrieveGetOurContext.h in Headers */ = {isa = PBXBuildFile; fileRef = 4365FC331B01C3A300380C25 /* DcmQueryRetrieveGetOurContext.h */; };
 		4365FC361B01C3A300380C25 /* DcmQueryRetrieveGetOurContext.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4365FC341B01C3A300380C25 /* DcmQueryRetrieveGetOurContext.mm */; };
 		4365FC381B01C4F100380C25 /* DcmQueryRetrieveOsiriSCP.h in Headers */ = {isa = PBXBuildFile; fileRef = 4365FC371B01C4F100380C25 /* DcmQueryRetrieveOsiriSCP.h */; };
+		438718A32067BDA9009575DB /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 438718A22067BDA9009575DB /* AddressBook.framework */; };
+		438718A52067BDE1009575DB /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 438718A42067BDE1009575DB /* AVFoundation.framework */; };
+		438718A62067BDE1009575DB /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 438718A42067BDE1009575DB /* AVFoundation.framework */; };
+		438718A82067BDF4009575DB /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 438718A72067BDF4009575DB /* Carbon.framework */; };
+		438718AA2067BE0D009575DB /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 438718A92067BE0D009575DB /* CoreFoundation.framework */; };
+		438718AC2067BE1F009575DB /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 438718AB2067BE1F009575DB /* CoreMedia.framework */; };
+		438718AD2067BE1F009575DB /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 438718AB2067BE1F009575DB /* CoreMedia.framework */; };
+		438718AF2067BE2B009575DB /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 438718AE2067BE2B009575DB /* CoreServices.framework */; };
+		438718B12067BE3A009575DB /* DiskArbitration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 438718B02067BE3A009575DB /* DiskArbitration.framework */; };
+		438718B32067BE4B009575DB /* InstantMessage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 438718B22067BE4B009575DB /* InstantMessage.framework */; };
+		438718B62067BF72009575DB /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 438718B42067BF6C009575DB /* Quartz.framework */; };
+		438718BC2067C00F009575DB /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 438718BB2067C00F009575DB /* libxml2.dylib */; };
+		438718BE2067C09E009575DB /* libcrypto.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 438718BD2067C09E009575DB /* libcrypto.dylib */; };
+		438718C02067C0B3009575DB /* libssl.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 438718BF2067C0B3009575DB /* libssl.dylib */; };
 		439584E02066890000FA179C /* libjpeg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 439584DF2066890000FA179C /* libjpeg.a */; };
 		439584E22066891D00FA179C /* libtiff.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 439584E12066891D00FA179C /* libtiff.a */; };
 		439584E420668D9200FA179C /* libopenjp2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 439584E320668D9200FA179C /* libopenjp2.a */; };
@@ -136,12 +150,6 @@
 		439B8C141A19CCC300F396D7 /* 3DconnexionClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 439B8C131A19CCC300F396D7 /* 3DconnexionClient.framework */; };
 		43A4038C1DFA32F300ADA719 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43A4038B1DFA32F300ADA719 /* XCTest.framework */; };
 		43AB2D3C1E05884500CBD0B5 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8406956210B6800E00C37AD0 /* SystemConfiguration.framework */; };
-		43ACF8BB1E9BE478000388AB /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43ACF8BA1E9BE478000388AB /* CoreFoundation.framework */; };
-		43ACF8BD1E9BE4B1000388AB /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43ACF8BC1E9BE4B1000388AB /* CoreServices.framework */; };
-		43ACF9691E9BEBB8000388AB /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43ACF9681E9BEBB8000388AB /* Carbon.framework */; };
-		43AD7DF61DF3197300CC7B12 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43AD7DF51DF3197300CC7B12 /* libxml2.dylib */; };
-		43AD7DF81DF319B800CC7B12 /* libcrypto.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43AD7DF71DF319B800CC7B12 /* libcrypto.dylib */; };
-		43AD7DFA1DF319C600CC7B12 /* libssl.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43AD7DF91DF319C600CC7B12 /* libssl.dylib */; };
 		43E27D271AF32929007B92CA /* tmp_locations.h in Headers */ = {isa = PBXBuildFile; fileRef = 43E27D261AF32929007B92CA /* tmp_locations.h */; };
 		43E27D2A1AF338FA007B92CA /* ROI3DSettingsWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 43E27D281AF338FA007B92CA /* ROI3DSettingsWindow.h */; };
 		43E27D2B1AF338FA007B92CA /* ROI3DSettingsWindow.mm in Sources */ = {isa = PBXBuildFile; fileRef = 43E27D291AF338FA007B92CA /* ROI3DSettingsWindow.mm */; };
@@ -551,13 +559,8 @@
 		841B0B3C18980EFF0007E5C5 /* 3DCutWrite.png in Resources */ = {isa = PBXBuildFile; fileRef = 841B0B3918980EFF0007E5C5 /* 3DCutWrite.png */; };
 		84281FFE13BC91380093BA26 /* N2OpenGLViewWithSplitsWindow.mm in Sources */ = {isa = PBXBuildFile; fileRef = 84281FFC13BC91380093BA26 /* N2OpenGLViewWithSplitsWindow.mm */; };
 		84281FFF13BC91380093BA26 /* N2OpenGLViewWithSplitsWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 84281FFD13BC91380093BA26 /* N2OpenGLViewWithSplitsWindow.h */; };
-		84321F23147E9BDA00C86CC1 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84321F22147E9BDA00C86CC1 /* Quartz.framework */; };
 		843F847B12439E00004FBBF6 /* AYDicomPrintPref.h in Headers */ = {isa = PBXBuildFile; fileRef = 843F847A12439E00004FBBF6 /* AYDicomPrintPref.h */; };
 		8440039A0E8CF99500A00EBD /* dciodvfy in Resources */ = {isa = PBXBuildFile; fileRef = 844003990E8CF99500A00EBD /* dciodvfy */; };
-		8476BC2F1599D4B200451331 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8476BC2E1599D4B200451331 /* AVFoundation.framework */; };
-		8476BC321599D51300451331 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8476BC2E1599D4B200451331 /* AVFoundation.framework */; };
-		8476BC341599D7E900451331 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8476BC331599D7E900451331 /* CoreMedia.framework */; };
-		8476BC361599D7E900451331 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8476BC331599D7E900451331 /* CoreMedia.framework */; };
 		848327AB15ED08F4003BAEEB /* CustomIntervalPanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = 848327A915ED08F3003BAEEB /* CustomIntervalPanel.xib */; };
 		8483ABA60E1BE33900C21B31 /* crossCursor.tif in Resources */ = {isa = PBXBuildFile; fileRef = 8483ABA50E1BE33900C21B31 /* crossCursor.tif */; };
 		848A6BEB14C5BBA700C936C3 /* Tiling1x1.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 848A6BE714C5BBA700C936C3 /* Tiling1x1.pdf */; };
@@ -686,11 +689,6 @@
 		A96F795E16DBC740000E877A /* SecurityInterface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A997B15610E0C412004C5BB1 /* SecurityInterface.framework */; };
 		A96F795F16DBC740000E877A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8406956210B6800E00C37AD0 /* SystemConfiguration.framework */; };
 		A96F796016DBC740000E877A /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE790A19105D4DE200CE6AAF /* WebKit.framework */; };
-		A96F796116DBC749000E877A /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEA9237415CE436E00D3385F /* AddressBook.framework */; };
-		A96F796216DBC749000E877A /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8476BC2E1599D4B200451331 /* AVFoundation.framework */; };
-		A96F796316DBC749000E877A /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8476BC331599D7E900451331 /* CoreMedia.framework */; };
-		A96F796416DBC749000E877A /* DiskArbitration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE65D9F015C4843300E9D94C /* DiskArbitration.framework */; };
-		A96F796516DBC749000E877A /* InstantMessage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEA9237115CE3F7C00D3385F /* InstantMessage.framework */; };
 		A96F796816DBC753000E877A /* ILCrashReporter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABE881440FC1444D009F5C80 /* ILCrashReporter.framework */; };
 		A96F796916DBC753000E877A /* OsiriX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE8D057D0FD8505000165DDE /* OsiriX.framework */; };
 		A96F796A16DBCAFA000E877A /* N2SOAPWebServiceClient.mm in Sources */ = {isa = PBXBuildFile; fileRef = 592CFF071212F84F00176E39 /* N2SOAPWebServiceClient.mm */; };
@@ -2160,7 +2158,6 @@
 		CE5EABCF0935E702006D85DD /* HotGreen.plist in Resources */ = {isa = PBXBuildFile; fileRef = CE5EABC40935E702006D85DD /* HotGreen.plist */; };
 		CE5EEFC9182D249B009D2045 /* ThumbnailsListPanel.mm in Sources */ = {isa = PBXBuildFile; fileRef = CE5EEFC7182D249B009D2045 /* ThumbnailsListPanel.mm */; };
 		CE5EEFCB182D249B009D2045 /* ThumbnailsListPanel.h in Headers */ = {isa = PBXBuildFile; fileRef = CE5EEFC8182D249B009D2045 /* ThumbnailsListPanel.h */; };
-		CE65D9F115C4843300E9D94C /* DiskArbitration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE65D9F015C4843300E9D94C /* DiskArbitration.framework */; };
 		CE6692DA0AF545F90073D923 /* printView.h in Headers */ = {isa = PBXBuildFile; fileRef = CE6692D80AF545F90073D923 /* printView.h */; };
 		CE6692DB0AF545F90073D923 /* printView.mm in Sources */ = {isa = PBXBuildFile; fileRef = CE6692D90AF545F90073D923 /* printView.mm */; };
 		CE6C77ED09739B3100F951C2 /* Rotate3DCursor.tif in Resources */ = {isa = PBXBuildFile; fileRef = CE6C77EB09739B3100F951C2 /* Rotate3DCursor.tif */; };
@@ -2254,8 +2251,6 @@
 		CEA4F07915AEA5FE009584C7 /* OSIPACSOnDemandPreferencePane.h in Headers */ = {isa = PBXBuildFile; fileRef = CEA4F07415AEA5FE009584C7 /* OSIPACSOnDemandPreferencePane.h */; };
 		CEA4F07D15AEA606009584C7 /* OSIPACSOnDemand.xib in Resources */ = {isa = PBXBuildFile; fileRef = CEA4F07B15AEA606009584C7 /* OSIPACSOnDemand.xib */; };
 		CEA6CC7318068CE900F5A748 /* Growl Registration Ticket.growlRegDict in Resources */ = {isa = PBXBuildFile; fileRef = CEA6CC7218068CE900F5A748 /* Growl Registration Ticket.growlRegDict */; };
-		CEA9237215CE3F7C00D3385F /* InstantMessage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEA9237115CE3F7C00D3385F /* InstantMessage.framework */; };
-		CEA9237515CE436E00D3385F /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEA9237415CE436E00D3385F /* AddressBook.framework */; };
 		CEAA6F420E50C084008802D2 /* OsiriXSCPDataHandler.mm in Sources */ = {isa = PBXBuildFile; fileRef = BF9201E90883667800A3D77B /* OsiriXSCPDataHandler.mm */; };
 		CEAA6F430E50C085008802D2 /* OsiriXSCPDataHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = BF9201E80883667800A3D77B /* OsiriXSCPDataHandler.h */; };
 		CEAE02E00DE7E33B00E9BD01 /* DICOMDestination.tif in Resources */ = {isa = PBXBuildFile; fileRef = CEAE02DF0DE7E33B00E9BD01 /* DICOMDestination.tif */; };
@@ -2558,17 +2553,23 @@
 		4365FC331B01C3A300380C25 /* DcmQueryRetrieveGetOurContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DcmQueryRetrieveGetOurContext.h; sourceTree = "<group>"; };
 		4365FC341B01C3A300380C25 /* DcmQueryRetrieveGetOurContext.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = DcmQueryRetrieveGetOurContext.mm; sourceTree = "<group>"; };
 		4365FC371B01C4F100380C25 /* DcmQueryRetrieveOsiriSCP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DcmQueryRetrieveOsiriSCP.h; sourceTree = "<group>"; };
+		438718A22067BDA9009575DB /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = ../../../../../../System/Library/Frameworks/AddressBook.framework; sourceTree = "<group>"; };
+		438718A42067BDE1009575DB /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = ../../../../../../System/Library/Frameworks/AVFoundation.framework; sourceTree = "<group>"; };
+		438718A72067BDF4009575DB /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = ../../../../../../System/Library/Frameworks/Carbon.framework; sourceTree = "<group>"; };
+		438718A92067BE0D009575DB /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = ../../../../../../System/Library/Frameworks/CoreFoundation.framework; sourceTree = "<group>"; };
+		438718AB2067BE1F009575DB /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = ../../../../../../System/Library/Frameworks/CoreMedia.framework; sourceTree = "<group>"; };
+		438718AE2067BE2B009575DB /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = ../../../../../../System/Library/Frameworks/CoreServices.framework; sourceTree = "<group>"; };
+		438718B02067BE3A009575DB /* DiskArbitration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DiskArbitration.framework; path = ../../../../../../System/Library/Frameworks/DiskArbitration.framework; sourceTree = "<group>"; };
+		438718B22067BE4B009575DB /* InstantMessage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = InstantMessage.framework; path = ../../../../../../System/Library/Frameworks/InstantMessage.framework; sourceTree = "<group>"; };
+		438718B42067BF6C009575DB /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = ../../../../../../System/Library/Frameworks/Quartz.framework; sourceTree = "<group>"; };
+		438718BB2067C00F009575DB /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = ../../../../../../usr/local/Cellar/libxml2/2.9.4/lib/libxml2.dylib; sourceTree = "<group>"; };
+		438718BD2067C09E009575DB /* libcrypto.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcrypto.dylib; path = ../../../../../../usr/local/Cellar/openssl/1.0.2/lib/libcrypto.dylib; sourceTree = "<group>"; };
+		438718BF2067C0B3009575DB /* libssl.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libssl.dylib; path = ../../../../../../usr/local/Cellar/openssl/1.0.2/lib/libssl.dylib; sourceTree = "<group>"; };
 		439584DF2066890000FA179C /* libjpeg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libjpeg.a; path = "../../../projects/install/miele-201612/jpeg-9b/lib/libjpeg.a"; sourceTree = "<group>"; };
 		439584E12066891D00FA179C /* libtiff.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtiff.a; path = "../../../projects/install/miele-201612/tiff-4.0.8/lib/libtiff.a"; sourceTree = "<group>"; };
 		439584E320668D9200FA179C /* libopenjp2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libopenjp2.a; path = "../../../projects/install/miele-201612/openjpeg-2.2.0/lib/libopenjp2.a"; sourceTree = "<group>"; };
 		439B8C131A19CCC300F396D7 /* 3DconnexionClient.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = 3DconnexionClient.framework; path = Binaries/3DconnexionClient.framework; sourceTree = "<group>"; };
 		43A4038B1DFA32F300ADA719 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/MacOSX.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		43ACF8BA1E9BE478000388AB /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = ../../../../System/Library/Frameworks/CoreFoundation.framework; sourceTree = "<group>"; };
-		43ACF8BC1E9BE4B1000388AB /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = ../../../../System/Library/Frameworks/CoreServices.framework; sourceTree = "<group>"; };
-		43ACF9681E9BEBB8000388AB /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = ../../../../System/Library/Frameworks/Carbon.framework; sourceTree = "<group>"; };
-		43AD7DF51DF3197300CC7B12 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = ../../../../usr/local/Cellar/libxml2/2.9.4/lib/libxml2.dylib; sourceTree = "<group>"; };
-		43AD7DF71DF319B800CC7B12 /* libcrypto.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcrypto.dylib; path = ../../../../usr/local/Cellar/openssl/1.0.2/lib/libcrypto.dylib; sourceTree = "<group>"; };
-		43AD7DF91DF319C600CC7B12 /* libssl.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libssl.dylib; path = ../../../../usr/local/Cellar/openssl/1.0.2/lib/libssl.dylib; sourceTree = "<group>"; };
 		43E27D261AF32929007B92CA /* tmp_locations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tmp_locations.h; sourceTree = "<group>"; };
 		43E27D281AF338FA007B92CA /* ROI3DSettingsWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ROI3DSettingsWindow.h; sourceTree = "<group>"; };
 		43E27D291AF338FA007B92CA /* ROI3DSettingsWindow.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ROI3DSettingsWindow.mm; sourceTree = "<group>"; };
@@ -2981,13 +2982,10 @@
 		841B0B3918980EFF0007E5C5 /* 3DCutWrite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 3DCutWrite.png; sourceTree = "<group>"; };
 		84281FFC13BC91380093BA26 /* N2OpenGLViewWithSplitsWindow.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = N2OpenGLViewWithSplitsWindow.mm; path = nitrogen/Sources/N2OpenGLViewWithSplitsWindow.mm; sourceTree = "<group>"; };
 		84281FFD13BC91380093BA26 /* N2OpenGLViewWithSplitsWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = N2OpenGLViewWithSplitsWindow.h; path = nitrogen/Sources/N2OpenGLViewWithSplitsWindow.h; sourceTree = "<group>"; };
-		84321F22147E9BDA00C86CC1 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = ../../../../System/Library/Frameworks/Quartz.framework; sourceTree = "<group>"; };
 		843F847A12439E00004FBBF6 /* AYDicomPrintPref.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AYDicomPrintPref.h; path = "Preference Panes/AYDicomPrintPreferencePane/AYDicomPrintPref.h"; sourceTree = SOURCE_ROOT; };
 		844003990E8CF99500A00EBD /* dciodvfy */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = dciodvfy; path = Binaries/dciodvfy; sourceTree = "<group>"; };
 		844719AF0FD8EF50003BFDF8 /* OsiriX.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = OsiriX.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		84704DBF181ACF440061B1BF /* Rules.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Rules.plist; sourceTree = "<group>"; };
-		8476BC2E1599D4B200451331 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = ../../../../System/Library/Frameworks/AVFoundation.framework; sourceTree = "<group>"; };
-		8476BC331599D7E900451331 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = ../../../../System/Library/Frameworks/CoreMedia.framework; sourceTree = "<group>"; };
 		848327AA15ED08F3003BAEEB /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = Binaries/English.lproj/CustomIntervalPanel.xib; sourceTree = "<group>"; };
 		8483ABA50E1BE33900C21B31 /* crossCursor.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = crossCursor.tif; path = Cursors/crossCursor.tif; sourceTree = "<group>"; };
 		848A6BE714C5BBA700C936C3 /* Tiling1x1.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Tiling1x1.pdf; path = Binaries/Icons/Tiling/Tiling1x1.pdf; sourceTree = "<group>"; };
@@ -3773,7 +3771,6 @@
 		CE5EABC40935E702006D85DD /* HotGreen.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.xml; path = HotGreen.plist; sourceTree = "<group>"; };
 		CE5EEFC7182D249B009D2045 /* ThumbnailsListPanel.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ThumbnailsListPanel.mm; sourceTree = "<group>"; };
 		CE5EEFC8182D249B009D2045 /* ThumbnailsListPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThumbnailsListPanel.h; sourceTree = "<group>"; };
-		CE65D9F015C4843300E9D94C /* DiskArbitration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DiskArbitration.framework; path = ../../../../System/Library/Frameworks/DiskArbitration.framework; sourceTree = "<group>"; };
 		CE6692D80AF545F90073D923 /* printView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = printView.h; sourceTree = "<group>"; };
 		CE6692D90AF545F90073D923 /* printView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = printView.mm; sourceTree = "<group>"; };
 		CE6693C60AF551210073D923 /* libxerces-c.27.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libxerces-c.27.dylib"; path = "AYDicomPrint/libxerces-c.27.dylib"; sourceTree = "<group>"; };
@@ -3866,8 +3863,6 @@
 		CEA4F07415AEA5FE009584C7 /* OSIPACSOnDemandPreferencePane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OSIPACSOnDemandPreferencePane.h; path = "Preference Panes/OSIPACSOnDemandPreferencePane/OSIPACSOnDemandPreferencePane.h"; sourceTree = "<group>"; };
 		CEA4F07C15AEA606009584C7 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = "Preference Panes/OSIPACSOnDemandPreferencePane/English.lproj/OSIPACSOnDemand.xib"; sourceTree = "<group>"; };
 		CEA6CC7218068CE900F5A748 /* Growl Registration Ticket.growlRegDict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "Growl Registration Ticket.growlRegDict"; path = "Binaries/Growl Registration Ticket.growlRegDict"; sourceTree = "<group>"; };
-		CEA9237115CE3F7C00D3385F /* InstantMessage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = InstantMessage.framework; path = ../../../../System/Library/Frameworks/InstantMessage.framework; sourceTree = "<group>"; };
-		CEA9237415CE436E00D3385F /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = ../../../../System/Library/Frameworks/AddressBook.framework; sourceTree = "<group>"; };
 		CEAE02DF0DE7E33B00E9BD01 /* DICOMDestination.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = DICOMDestination.tif; sourceTree = "<group>"; };
 		CEAF4ECC089D6E9400DE46AF /* OsiriXTables.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = OsiriXTables.pdf; sourceTree = "<group>"; };
 		CEB1DA6608A3B1040058C303 /* smalltrash.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = smalltrash.tif; sourceTree = "<group>"; };
@@ -4056,11 +4051,6 @@
 				A96F795E16DBC740000E877A /* SecurityInterface.framework in Frameworks */,
 				A96F795C16DBC740000E877A /* QuartzCore.framework in Frameworks */,
 				A9FBD38316DBE701003A0E04 /* Growl.framework in Frameworks */,
-				A96F796216DBC749000E877A /* AVFoundation.framework in Frameworks */,
-				A96F796316DBC749000E877A /* CoreMedia.framework in Frameworks */,
-				A96F796416DBC749000E877A /* DiskArbitration.framework in Frameworks */,
-				A96F796516DBC749000E877A /* InstantMessage.framework in Frameworks */,
-				A96F796116DBC749000E877A /* AddressBook.framework in Frameworks */,
 				43A4038C1DFA32F300ADA719 /* XCTest.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -4078,26 +4068,28 @@
 			files = (
 				4333FD611AB3076300E82B49 /* libdcmtls.a in Frameworks */,
 				AB28B48805B7998800A9906C /* AppKit.framework in Frameworks */,
-				43AD7DFA1DF319C600CC7B12 /* libssl.dylib in Frameworks */,
+				438718BC2067C00F009575DB /* libxml2.dylib in Frameworks */,
 				AB28B48A05B7998A00A9906C /* AGL.framework in Frameworks */,
 				AB28B48B05B7998A00A9906C /* OpenGL.framework in Frameworks */,
-				43AD7DF61DF3197300CC7B12 /* libxml2.dylib in Frameworks */,
 				AB28B48C05B7998B00A9906C /* Foundation.framework in Frameworks */,
 				4333FD511AB3076200E82B49 /* libdcmimgle.a in Frameworks */,
 				AB28B93305B79D5B00A9906C /* Cocoa.framework in Frameworks */,
 				AB28B93405B79D5C00A9906C /* ApplicationServices.framework in Frameworks */,
 				AB28B93505B79D5D00A9906C /* IOKit.framework in Frameworks */,
+				438718BE2067C09E009575DB /* libcrypto.dylib in Frameworks */,
+				438718B32067BE4B009575DB /* InstantMessage.framework in Frameworks */,
 				439584E02066890000FA179C /* libjpeg.a in Frameworks */,
-				43ACF8BB1E9BE478000388AB /* CoreFoundation.framework in Frameworks */,
+				438718A32067BDA9009575DB /* AddressBook.framework in Frameworks */,
 				AB28B93705B79D5E00A9906C /* Accelerate.framework in Frameworks */,
 				7E3E38660715FFDC0049E72E /* PreferencePanes.framework in Frameworks */,
-				43ACF9691E9BEBB8000388AB /* Carbon.framework in Frameworks */,
+				438718C02067C0B3009575DB /* libssl.dylib in Frameworks */,
 				7E54303D07A05E7100500ABB /* DiscRecording.framework in Frameworks */,
 				7E54303E07A05E7100500ABB /* DiscRecordingUI.framework in Frameworks */,
+				438718A82067BDF4009575DB /* Carbon.framework in Frameworks */,
 				CE2C82EC0C708B380093C162 /* CoreVideo.framework in Frameworks */,
 				439584E420668D9200FA179C /* libopenjp2.a in Frameworks */,
 				4333FD4B1AB3076200E82B49 /* libdcmdata.a in Frameworks */,
-				43ACF8BD1E9BE4B1000388AB /* CoreServices.framework in Frameworks */,
+				438718AF2067BE2B009575DB /* CoreServices.framework in Frameworks */,
 				4333FD6D1AB3076300E82B49 /* liboflog.a in Frameworks */,
 				4333FD671AB3076300E82B49 /* libijg8.a in Frameworks */,
 				439584E22066891D00FA179C /* libtiff.a in Frameworks */,
@@ -4112,23 +4104,21 @@
 				CE790A1B105D4DE200CE6AAF /* Security.framework in Frameworks */,
 				CE790A1C105D4DE200CE6AAF /* WebKit.framework in Frameworks */,
 				A997B15710E0C412004C5BB1 /* SecurityInterface.framework in Frameworks */,
+				438718B12067BE3A009575DB /* DiskArbitration.framework in Frameworks */,
 				4333FD531AB3076200E82B49 /* libdcmjpeg.a in Frameworks */,
 				4333FD651AB3076300E82B49 /* libi2d.a in Frameworks */,
 				4333FD591AB3076200E82B49 /* libdcmpstat.a in Frameworks */,
 				841524C5113D6BDB008250E6 /* QuartzCore.framework in Frameworks */,
+				438718A52067BDE1009575DB /* AVFoundation.framework in Frameworks */,
 				4333FD691AB3076300E82B49 /* libijg12.a in Frameworks */,
+				438718AC2067BE1F009575DB /* CoreMedia.framework in Frameworks */,
 				4333FD551AB3076200E82B49 /* libdcmjpls.a in Frameworks */,
 				4333FD6B1AB3076300E82B49 /* libijg16.a in Frameworks */,
 				CE2BE05E1524344D00AE6156 /* Growl.framework in Frameworks */,
-				8476BC2F1599D4B200451331 /* AVFoundation.framework in Frameworks */,
-				43AD7DF81DF319B800CC7B12 /* libcrypto.dylib in Frameworks */,
+				438718AA2067BE0D009575DB /* CoreFoundation.framework in Frameworks */,
 				4333FD4D1AB3076200E82B49 /* libdcmdsig.a in Frameworks */,
-				8476BC341599D7E900451331 /* CoreMedia.framework in Frameworks */,
 				4333FD5D1AB3076200E82B49 /* libdcmrt.a in Frameworks */,
-				CE65D9F115C4843300E9D94C /* DiskArbitration.framework in Frameworks */,
-				CEA9237215CE3F7C00D3385F /* InstantMessage.framework in Frameworks */,
 				43AB2D3C1E05884500CBD0B5 /* SystemConfiguration.framework in Frameworks */,
-				CEA9237515CE436E00D3385F /* AddressBook.framework in Frameworks */,
 				4333FD5F1AB3076200E82B49 /* libdcmsr.a in Frameworks */,
 				4333FD4F1AB3076200E82B49 /* libdcmimage.a in Frameworks */,
 				439B8C141A19CCC300F396D7 /* 3DconnexionClient.framework in Frameworks */,
@@ -4151,28 +4141,28 @@
 				4333FD521AB3076200E82B49 /* libdcmimgle.a in Frameworks */,
 				4333FD561AB3076200E82B49 /* libdcmjpls.a in Frameworks */,
 				4333FD661AB3076300E82B49 /* libi2d.a in Frameworks */,
+				438718AD2067BE1F009575DB /* CoreMedia.framework in Frameworks */,
 				CE8D062C0FD8733C00165DDE /* Accelerate.framework in Frameworks */,
 				4333FD6A1AB3076300E82B49 /* libijg12.a in Frameworks */,
+				438718B62067BF72009575DB /* Quartz.framework in Frameworks */,
 				4333FD681AB3076300E82B49 /* libijg8.a in Frameworks */,
 				4333FD5C1AB3076200E82B49 /* libdcmqrdb.a in Frameworks */,
 				84DE8CD311AC227B0029396D /* WebKit.framework in Frameworks */,
 				4333FD4E1AB3076200E82B49 /* libdcmdsig.a in Frameworks */,
 				4333FD501AB3076200E82B49 /* libdcmimage.a in Frameworks */,
 				59FB64391230EE4100EBA136 /* libfreetypeOsiriX.a in Frameworks */,
+				438718A62067BDE1009575DB /* AVFoundation.framework in Frameworks */,
 				59FB643A1230EE4100EBA136 /* libgifOsiriX.a in Frameworks */,
 				59FB643B1230EE4100EBA136 /* libmingOsiriX.a in Frameworks */,
 				4333FD6C1AB3076300E82B49 /* libijg16.a in Frameworks */,
 				4333FD6E1AB3076300E82B49 /* liboflog.a in Frameworks */,
 				59FB643C1230EE4100EBA136 /* libpng12OsiriX.a in Frameworks */,
-				84321F23147E9BDA00C86CC1 /* Quartz.framework in Frameworks */,
 				4333FD581AB3076200E82B49 /* libdcmnet.a in Frameworks */,
 				439584E620668D9E00FA179C /* libopenjp2.a in Frameworks */,
 				4333FD5E1AB3076200E82B49 /* libdcmrt.a in Frameworks */,
 				4333FD601AB3076300E82B49 /* libdcmsr.a in Frameworks */,
-				8476BC321599D51300451331 /* AVFoundation.framework in Frameworks */,
 				4333FD701AB3076300E82B49 /* libofstd.a in Frameworks */,
 				4333FD4A1AB3076200E82B49 /* libcharls.a in Frameworks */,
-				8476BC361599D7E900451331 /* CoreMedia.framework in Frameworks */,
 				4333FD4C1AB3076200E82B49 /* libdcmdata.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -4217,31 +4207,31 @@
 			isa = PBXGroup;
 			children = (
 				AB5E1A300595697700C48BEB /* Accelerate.framework */,
-				CEA9237415CE436E00D3385F /* AddressBook.framework */,
+				438718A22067BDA9009575DB /* AddressBook.framework */,
 				AB38FC99057A9B050041FEBB /* AGL.framework */,
 				29B97324FDCFA39411CA2CEA /* AppKit.framework */,
 				ABFF0A95056D97800066794C /* ApplicationServices.framework */,
-				8476BC2E1599D4B200451331 /* AVFoundation.framework */,
-				43ACF9681E9BEBB8000388AB /* Carbon.framework */,
+				438718A42067BDE1009575DB /* AVFoundation.framework */,
+				438718A72067BDF4009575DB /* Carbon.framework */,
 				1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */,
-				43ACF8BA1E9BE478000388AB /* CoreFoundation.framework */,
-				8476BC331599D7E900451331 /* CoreMedia.framework */,
-				43ACF8BC1E9BE4B1000388AB /* CoreServices.framework */,
+				438718A92067BE0D009575DB /* CoreFoundation.framework */,
+				438718AB2067BE1F009575DB /* CoreMedia.framework */,
+				438718AE2067BE2B009575DB /* CoreServices.framework */,
 				BF5F14C20B14E12700B309B9 /* CoreVideo.framework */,
 				7E54303B07A05E7100500ABB /* DiscRecording.framework */,
 				7E54303C07A05E7100500ABB /* DiscRecordingUI.framework */,
-				CE65D9F015C4843300E9D94C /* DiskArbitration.framework */,
+				438718B02067BE3A009575DB /* DiskArbitration.framework */,
 				29B97325FDCFA39411CA2CEA /* Foundation.framework */,
-				CEA9237115CE3F7C00D3385F /* InstantMessage.framework */,
+				438718B22067BE4B009575DB /* InstantMessage.framework */,
 				AB6D320C05B3159D0002F793 /* IOKit.framework */,
-				43AD7DF51DF3197300CC7B12 /* libxml2.dylib */,
-				43AD7DF71DF319B800CC7B12 /* libcrypto.dylib */,
-				43AD7DF91DF319C600CC7B12 /* libssl.dylib */,
+				438718BB2067C00F009575DB /* libxml2.dylib */,
+				438718BD2067C09E009575DB /* libcrypto.dylib */,
+				438718BF2067C0B3009575DB /* libssl.dylib */,
 				BFBF3AA009B681F500545F5E /* libz.dylib */,
 				43A4038B1DFA32F300ADA719 /* XCTest.framework */,
 				AB0EA93B056EDC7E004BBDD3 /* OpenGL.framework */,
 				7E3E38650715FFDC0049E72E /* PreferencePanes.framework */,
-				84321F22147E9BDA00C86CC1 /* Quartz.framework */,
+				438718B42067BF6C009575DB /* Quartz.framework */,
 				841524C4113D6BDB008250E6 /* QuartzCore.framework */,
 				CE790A18105D4DE200CE6AAF /* Security.framework */,
 				A997B15610E0C412004C5BB1 /* SecurityInterface.framework */,
@@ -9743,10 +9733,12 @@
 				GCC_WARN_TYPECHECK_CALLS_TO_PRINTF = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = NO;
 				HEADER_SEARCH_PATHS = (
-					/usr/local/Cellar/libxml2/2.9.4/include/libxml2,
-					AYDicomPrint,
 					"Binaries/openjpeg/include/**",
+					"Binaries/VTK/include/**",
+					"Binaries/DCMTK/include/**",
+					AYDicomPrint,
 					/usr/local/Cellar/openssl/1.0.2/include,
+					/usr/local/Cellar/libxml2/2.9.4/include/libxml2,
 				);
 				IBC_FLATTEN_NIBS = YES;
 				INFOPLIST_FILE = "Deployment-Info.plist";
@@ -9788,7 +9780,7 @@
 				);
 				PRODUCT_NAME = "Osiri-LXIV";
 				STRIP_STYLE = debugging;
-				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Binaries/ITK/include/** $(SRCROOT)/Binaries/VTK/include/** $(SRCROOT)/Binaries/libtiff/include $(SRCROOT)/Binaries/openjpeg $(SRCROOT)/Binaries/DCMTK/include/**";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Binaries/ITK/include/** $(SRCROOT)/Binaries/VTK/include/** $(SRCROOT)/Binaries/DCMTK/include/** $(SRCROOT)/Binaries/libjpeg/include $(SRCROOT)/Binaries/libtiff/include $(SRCROOT)/Binaries/openjpeg/include/** $(SRCROOT)/Binaries/Jasper/include/** $(SRCROOT)";
 				WARNING_CFLAGS = "-no-pedantic";
 			};
 			name = Deployment;
@@ -9930,10 +9922,10 @@
 				GCC_PREFIX_HEADER = Decompress/Decompres_Prefix.pch;
 				GCC_UNROLL_LOOPS = YES;
 				HEADER_SEARCH_PATHS = (
-					/usr/local/Cellar/libxml2/2.9.4/include/libxml2,
 					AYDicomPrint,
 					"Binaries/DCMTK/include/**",
 					"Binaries/openjpeg/include/**",
+					/usr/local/Cellar/libxml2/2.9.4/include/libxml2,
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -9975,9 +9967,9 @@
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
 				HEADER_SEARCH_PATHS = (
-					/usr/local/Cellar/libxml2/2.9.4/include/libxml2,
 					AYDicomPrint,
 					"Binaries/DCMTK/include/**",
+					/usr/local/Cellar/libxml2/2.9.4/include/libxml2,
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -10239,10 +10231,12 @@
 				GCC_WARN_SHADOW = NO;
 				GCC_WARN_TYPECHECK_CALLS_TO_PRINTF = YES;
 				HEADER_SEARCH_PATHS = (
-					/usr/local/Cellar/libxml2/2.9.4/include/libxml2,
-					AYDicomPrint,
 					"Binaries/openjpeg/include/**",
+					"Binaries/VTK/include/**",
+					"Binaries/DCMTK/include/**",
+					AYDicomPrint,
 					/usr/local/Cellar/openssl/1.0.2/include,
+					/usr/local/Cellar/libxml2/2.9.4/include/libxml2,
 				);
 				IBC_FLATTEN_NIBS = NO;
 				INFOPLIST_FILE = "Deployment-Info.plist";
@@ -10282,7 +10276,7 @@
 					"-lm",
 				);
 				PRODUCT_NAME = "Osiri-LXIV";
-				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Binaries/ITK/include/** $(SRCROOT)/Binaries/VTK/include/** $(SRCROOT)/Binaries/libtiff/include $(SRCROOT)/Binaries/openjpeg $(SRCROOT)/Binaries/DCMTK/include/**";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Binaries/ITK/include/** $(SRCROOT)/Binaries/VTK/include/** $(SRCROOT)/Binaries/DCMTK/include/** $(SRCROOT)/Binaries/libjpeg/include $(SRCROOT)/Binaries/libtiff/include $(SRCROOT)/Binaries/openjpeg/include/** $(SRCROOT)/Binaries/Jasper/include/** $(SRCROOT)";
 				WARNING_CFLAGS = "-no-pedantic";
 			};
 			name = Development;
@@ -10462,10 +10456,10 @@
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREFIX_HEADER = Decompress/Decompres_Prefix.pch;
 				HEADER_SEARCH_PATHS = (
-					/usr/local/Cellar/libxml2/2.9.4/include/libxml2,
 					AYDicomPrint,
 					"Binaries/DCMTK/include/**",
 					"Binaries/openjpeg/include/**",
+					/usr/local/Cellar/libxml2/2.9.4/include/libxml2,
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -10519,9 +10513,9 @@
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
 				HEADER_SEARCH_PATHS = (
-					/usr/local/Cellar/libxml2/2.9.4/include/libxml2,
 					AYDicomPrint,
 					"Binaries/DCMTK/include/**",
+					/usr/local/Cellar/libxml2/2.9.4/include/libxml2,
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
