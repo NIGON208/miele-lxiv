@@ -29,7 +29,7 @@
 #include "dcmtk/dcmdata/dcistrmf.h"  /* for class DcmInputFileStream */
 
 #define INCLUDE_CSTDIO
-#include "dcmtk/ofstd/ofstdinc.h"
+#include "dcmtk/ofstd/dcmtk/ofstd/ofstdinc.h"
 
 
 static OFLogger mdfdsmanLogger = OFLog::getLogger("dcmtk.dcmdata.mdfdsman");

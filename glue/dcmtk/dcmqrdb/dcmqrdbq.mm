@@ -19,7 +19,7 @@
 
 #undef verify
 
-#include "osconfig.h"    /* make sure OS specific configuration is included first */
+#include "dcmtk/config/osconfig.h"    /* make sure OS specific configuration is included first */
 
 BEGIN_EXTERN_C
 #ifdef HAVE_SYS_STAT_H
@@ -35,47 +35,43 @@ END_EXTERN_C
 
 #define INCLUDE_CCTYPE
 #define INCLUDE_CSTDARG
-#include "ofstdinc.h"
+#include "dcmtk/ofstd/ofstdinc.h"
 
-#include "dcmqrdbs.h"
-// #include "dcmqrdbi.h"
-#include "dcmqrcnf.h"
+#include "dcmtk/dcmqrdb/dcmqrdbs.h"
+// #include "dcmtk/dcmqrdb/dcmqrdbi.h"
+#include "dcmtk/dcmqrdb/dcmqrcnf.h"
 
-#include "dcmqridx.h"
-#include "diutil.h"
-#include "dcfilefo.h"
-#include "ofstd.h"
+#include "dcmtk/dcmqrdb/dcmqridx.h"
+#include "dcmtk/dcmnet/diutil.h"
+#include "dcmtk/dcmdata/dcfilefo.h"
+#include "dcmtk/ofstd/ofstd.h"
 
+#import "dcmtk/dcmqrdbx/dcmqrdbq.h"
 
-#import "dcmqrdbq.h"
+#include "dcmtk/ofstd/ofstring.h"
+#include "dcmtk/dcmnet/dimse.h"
+#include "dcmtk/dcmdata/dcdatset.h"
+#include "dcmtk/dcmdata/dcmetinf.h"
+#include "dcmtk/dcmdata/dcuid.h"
+#include "dcmtk/dcmdata/dcdict.h"
+#include "dcmtk/dcmdata/dcdeftag.h"
 
-#include "ofstring.h"
-#include "dimse.h"
-#include "diutil.h"
-#include "dcdatset.h"
-#include "dcmetinf.h"
-#include "dcfilefo.h"
-#include "dcuid.h"
-#include "dcdict.h"
-#include "dcdeftag.h"
+#include "dcmtk/ofstd/ofconapp.h"
+#include "dcmtk/dcmnet/dicom.h"     /* for DICOM_APPLICATION_REQUESTOR */
+#include "dcmtk/dcmdata/dcostrmz.h"  /* for dcmZlibCompressionLevel */
+#include "dcmtk/dcmnet/dcasccfg.h"  /* for class DcmAssociationConfiguration */
+#include "dcmtk/dcmnet/dcasccff.h"  /* for class DcmAssociationConfigurationFile */
 
-#include "ofconapp.h"
-#include "dcuid.h"     /* for dcmtk version name */
-#include "dicom.h"     /* for DICOM_APPLICATION_REQUESTOR */
-#include "dcostrmz.h"  /* for dcmZlibCompressionLevel */
-#include "dcasccfg.h"  /* for class DcmAssociationConfiguration */
-#include "dcasccff.h"  /* for class DcmAssociationConfigurationFile */
+#include "dcmtk/dcmjpeg/djdecode.h"  /* for dcmjpeg decoders */
+#include "dcmtk/dcmjpeg/djencode.h"  /* for dcmjpeg encoders */
+#include "dcmtk/dcmdata/dcrledrg.h"  /* for DcmRLEDecoderRegistration */
+#include "dcmtk/dcmdata/dcrleerg.h"  /* for DcmRLEEncoderRegistration */
+#include "dcmtk/dcmjpeg/djrploss.h"
+#include "dcmtk/dcmjpeg/djrplol.h"
+#include "dcmtk/dcmdata/dcpixel.h"
+#include "dcmtk/dcmdata/dcrlerp.h"
 
-#include "djdecode.h"  /* for dcmjpeg decoders */
-#include "djencode.h"  /* for dcmjpeg encoders */
-#include "dcrledrg.h"  /* for DcmRLEDecoderRegistration */
-#include "dcrleerg.h"  /* for DcmRLEEncoderRegistration */
-#include "djrploss.h"
-#include "djrplol.h"
-#include "dcpixel.h"
-#include "dcrlerp.h"
-
-#include "dcerror.h"
+#include "dcmtk/dcmdata/dcerror.h"
 
 //#define HANDLE_QUERY_IDENTIFIER
 

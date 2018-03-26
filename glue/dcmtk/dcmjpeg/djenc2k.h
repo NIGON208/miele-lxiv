@@ -34,8 +34,8 @@
 #ifndef DJENC2K_H
 #define DJENC2K_H
 
-#include "osconfig.h"
-#include "djcodece.h" /* for class DJCodecEncoder */
+#include "dcmtk/config/osconfig.h"
+#include "dcmtk/dcmjpeg/djcodece.h" /* for class DJCodecEncoder */
 
 
 /** Encoder class for JPEG 2K

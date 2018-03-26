@@ -16,7 +16,7 @@
 #import <OsiriX/DCM.h>
 
 #undef verify
-#include "dcdatset.h"
+#include "dcmtk/dcmdata/dcdatset.h"
 #include "ofcond.h"
 
 //NSString * const OsiriXFileReceivedNotification;

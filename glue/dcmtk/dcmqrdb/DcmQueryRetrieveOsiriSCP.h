@@ -1,7 +1,7 @@
 /* Alex Bettarini - 12 Mar 2015
  */
 
-#include "dcmqrsrv.h"
+#include "dcmtk/dcmqrdb/dcmqrsrv.h"
 
 class DcmQueryRetrieveOsiriSCP : public DcmQueryRetrieveSCP
 {

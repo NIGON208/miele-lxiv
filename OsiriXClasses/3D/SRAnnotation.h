@@ -16,7 +16,7 @@
 #import <Cocoa/Cocoa.h>
 
 #ifdef __cplusplus
-#include "dsrdoc.h"
+#include "dcmtk/dcmsr/dsrdoc.h"
 #else
 typedef char DSRDocument;
 #endif

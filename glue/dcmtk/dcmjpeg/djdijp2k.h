@@ -34,8 +34,8 @@
 #ifndef DJDIJP2K_H
 #define DJDIJP2K_H
 
-#include "osconfig.h"
-#include "djdecabs.h" /* for class DJDecoder */
+#include "dcmtk/config/osconfig.h"
+#include "dcmtk/dcmjpeg/djdecabs.h" /* for class DJDecoder */
 
 extern "C"
 {

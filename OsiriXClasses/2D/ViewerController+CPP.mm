@@ -19,8 +19,8 @@
 #import "DicomSeries.h"
 #import "DicomImage.h"
 #import "NSThread+N2.h"
-#include "dcfilefo.h"
-#include "dcdeftag.h"
+#include "dcmtk/dcmdata/dcfilefo.h"
+#include "dcmtk/dcmdata/dcdeftag.h"
 
 @implementation ViewerController (CPP)
 

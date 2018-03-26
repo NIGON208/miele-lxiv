@@ -28,9 +28,9 @@ extern "C"
 #endif /*cplusplus*/
     
 /* this is not a core library module, so it doesn't define JPEG_INTERNALS */
-#include "jinclude12.h"
-#include "jpeglib12.h"
-#include "jerror12.h"
+#include "dcmtk/dcmjpeg/libijg12/jinclude12.h"
+#include "dcmtk/dcmjpeg/libijg12/jpeglib12.h"
+#include "dcmtk/dcmjpeg/libijg12/jerror12.h"
 #include "jpegdatasrc.h"
 
 #ifdef __cplusplus

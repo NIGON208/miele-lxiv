@@ -32,7 +32,7 @@
 #include "dcmtk/dcmnet/diutil.h"
 #include "dcmtk/dcmnet/dimse.h"              /* always include the module header */
 #include "dcmtk/dcmnet/cond.h"
-#include "dcmqrdbq.h"
+#include "dcmtk/dcmqrdbx/dcmqrdbq.h"
 /*
 **
 */

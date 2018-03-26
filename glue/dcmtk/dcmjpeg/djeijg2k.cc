@@ -31,19 +31,18 @@
  *
  */
 
-#include "osconfig.h"
+#include "dcmtk/config/osconfig.h"
 #include "djeijg2k.h"
-#include "djcparam.h"
-#include "ofconsol.h"
-#import "Accelerate/Accelerate.h"
-#include "ofconsol.h"
+#include "dcmtk/dcmjpls/djcparam.h"
+#include "dcmtk/ofstd/ofconsol.h"
+#import <Accelerate/Accelerate.h>
 
 #include <sys/types.h>
 #include <sys/sysctl.h>
 
 #define INCLUDE_CSTDIO
 #define INCLUDE_CSETJMP
-#include "ofstdinc.h"
+#include "dcmtk/ofstd/ofstdinc.h"
 
 // These two macros are re-defined in the IJG header files.
 // We undefine them here and hope that IJG's configure has

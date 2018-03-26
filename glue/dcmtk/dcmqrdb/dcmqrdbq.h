@@ -15,16 +15,16 @@
 #import <Cocoa/Cocoa.h>
 #undef verify
 
-#include "osconfig.h"    /* make sure OS specific configuration is included first */
-#include "dcmqrdba.h"    /* for class DcmQueryRetrieveDatabaseHandle */
+#include "dcmtk/config/osconfig.h"    /* make sure OS specific configuration is included first */
+#include "dcmtk/dcmqrdb/dcmqrdba.h"    /* for class DcmQueryRetrieveDatabaseHandle */
 
-#include "dicom.h"
-#include "dimse.h"
-#include "offname.h"
-#include "dcdatset.h"
+#include "dcmtk/dcmnet/dicom.h"
+#include "dcmtk/dcmnet/dimse.h"
+#include "dcmtk/ofstd/offname.h"
+#include "dcmtk/dcmdata/dcdatset.h"
 
-#include "dcmqrdbi.h" // for DB_Level
-#include "dcmqridx.h"
+#include "dcmtk/dcmqrdb/dcmqrdbi.h" // for DB_Level
+#include "dcmtk/dcmqrdb/dcmqridx.h"
 
 struct StudyDescRecord;
 struct DB_OsiriX_Handle;

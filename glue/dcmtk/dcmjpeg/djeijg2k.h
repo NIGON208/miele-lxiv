@@ -2,9 +2,9 @@
 #ifndef DJEIJG2K_H
 #define DJEIJG2K_H
 
-#include "osconfig.h"
-#include "oflist.h"
-#include "djencabs.h"
+#include "dcmtk/config/osconfig.h"
+#include "dcmtk/ofstd/oflist.h"
+#include "dcmtk/dcmjpeg/djencabs.h"
 
 class DJCodecParameter;
 

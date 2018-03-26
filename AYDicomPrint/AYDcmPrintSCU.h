@@ -9,9 +9,9 @@
 #include <vector>
 using namespace std;
 
-#include "dcdatset.h"
-#include "ofstd.h"
-#include "dctk.h"
+#include "dcmtk/dcmdata/dcdatset.h"
+#include "dcmtk/ofstd/ofstd.h"
+#include "dcmtk/dcmdata/dctk.h"
 
 #include <xercesc/parsers/XercesDOMParser.hpp>
 #include <xercesc/dom/DOM.hpp>

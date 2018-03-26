@@ -1,8 +1,8 @@
 #ifndef CAYPRINTMANAGER_H
 #define CAYPRINTMANAGER_H
 
-#include "dimse.h"
-#include "ofstring.h"
+#include "dcmtk/dcmnet/dimse.h"
+#include "dcmtk/ofstd/ofstring.h"
 //#include "dvpsdef.h"
 
 

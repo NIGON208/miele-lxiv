@@ -22,7 +22,7 @@
 #import "DicomStudy.h"
 
 #undef verify
-#include "dcdeftag.h"
+#include "dcmtk/dcmdata/dcdeftag.h"
 
 
 @implementation DCMTKStudyQueryNode

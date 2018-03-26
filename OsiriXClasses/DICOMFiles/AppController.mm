@@ -96,7 +96,7 @@
 
 #import "vtkVersionMacros.h"    // for VTK version
 #import "itkVersion.h"          // for ITK version
-#import "dcuid.h"               // for DCMTK version
+#import "dcmtk/dcmdata/dcuid.h" // for DCMTK version
 #import "opj_config.h"
 #ifdef WITH_ZLIB
 #include <zlib.h>               // for zlibVersion()

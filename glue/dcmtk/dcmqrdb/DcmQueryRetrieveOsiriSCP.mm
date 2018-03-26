@@ -6,20 +6,20 @@
 #import "AppController.h"
 #import "DicomDatabase.h"
 
-#include "osconfig.h"    /* make sure OS specific configuration is included first */
-#include "dcmqrsrv.h"
-#include "dcmqropt.h"
-#include "dcfilefo.h"
-#include "dcmqrdba.h"
+#include "dcmtk/config/osconfig.h"    /* make sure OS specific configuration is included first */
+#include "dcmtk/dcmqrdb/dcmqrsrv.h"
+#include "dcmtk/dcmqrdb/dcmqropt.h"
+#include "dcmtk/dcmdata/dcfilefo.h"
+#include "dcmtk/dcmqrdb/dcmqrdba.h"
 #include "dcmqrcbf.h"    /* for class DcmQueryRetrieveFindContext */
 #include "dcmqrcbm.h"    /* for class DcmQueryRetrieveMoveContext */
 #include "dcmqrcbg.h"    /* for class DcmQueryRetrieveGetContext */
 #include "dcmqrcbs.h"    /* for class DcmQueryRetrieveStoreContext */
-#include "dcmetinf.h"
-#include "dul.h"
-#import "dcmqrdbq.h"
-#include "dcdeftag.h"
-#import "dimse.h"
+#include "dcmtk/dcmdata/dcmetinf.h"
+#include "dcmtk/dcmnet/dul.h"
+#import "dcmtk/dcmqrdbx/dcmqrdbq.h"
+#include "dcmtk/dcmdata/dcdeftag.h"
+#import "dcmtk/dcmnet/dimse.h"
 
 #include "DcmQueryRetrieveOsiriSCP.h"
 #include "DcmQueryRetrieveGetOurContext.h"

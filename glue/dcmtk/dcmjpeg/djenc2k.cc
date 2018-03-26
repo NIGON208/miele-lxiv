@@ -31,11 +31,10 @@
  *
  */
 
-#include "osconfig.h"
-#include "djcparam.h"
+#include "dcmtk/config/osconfig.h"
+#include "dcmtk/dcmjpls/djcparam.h"
 #include "djenc2k.h"
-#include "djrploss.h"
-#include "djrploss.h"
+#include "dcmtk/dcmjpeg/djrploss.h"
 #include "djeijg2k.h"
 
 DJEncoder2K::DJEncoder2K()

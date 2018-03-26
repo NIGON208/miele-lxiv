@@ -9,35 +9,35 @@
 //#import "AppController.h"
 //#import "DicomDatabase.h"
 //
-#include "osconfig.h"    /* make sure OS specific configuration is included first */
-//#include "dcmqrsrv.h"
-//#include "dcmqropt.h"
-#include "dcfilefo.h"
-#include "dcmqrdba.h"
-#include "dcmqrdbs.h"    /* for class DcmQueryRetrieveDatabaseStatus */
-#include "dcmqrcnf.h"    /* for DCMQRDB_INFO */
+#include "dcmtk/config/osconfig.h"    /* make sure OS specific configuration is included first */
+//#include "dcmtk/dcmqrdb/dcmqrsrv.h"
+//#include "dcmtk/dcmqrdb/dcmqropt.h"
+#include "dcmtk/dcmdata/dcfilefo.h"
+#include "dcmtk/dcmqrdb/dcmqrdba.h"
+#include "dcmtk/dcmqrdb/dcmqrdbs.h"    /* for class DcmQueryRetrieveDatabaseStatus */
+#include "dcmtk/dcmqrdb/dcmqrcnf.h"    /* for DCMQRDB_INFO */
 //#include "dcmqrcbf.h"    /* for class DcmQueryRetrieveFindContext */
 //#include "dcmqrcbm.h"    /* for class DcmQueryRetrieveMoveContext */
 //#include "dcmqrcbg.h"    /* for class DcmQueryRetrieveGetContext */
 //#include "dcmqrcbs.h"    /* for class DcmQueryRetrieveStoreContext */
-//#include "dcmetinf.h"
-//#include "dul.h"
-//#import "dcmqrdbq.h"
-//#include "dcdeftag.h"
+//#include "dcmtk/dcmdata/dcmetinf.h"
+//#include "dcmtk/dcmnet/dul.h"
+//#import "dcmtk/dcmqrdbx/dcmqrdbq.h"
+//#include "dcmtk/dcmdata/dcdeftag.h"
 
 #include "DcmQueryRetrieveGetOurContext.h"
-#import "dimse.h"       // for getTransferSyntax
-#import "diutil.h"
+#import "dcmtk/dcmnet/dimse.h"       // for getTransferSyntax
+#import "dcmtk/dcmnet/diutil.h"
 
 #if 1 //def ON_THE_FLY_COMPRESSION
-#include "djdecode.h"  /* for dcmjpeg decoders */
-#include "djencode.h"  /* for dcmjpeg encoders */
-#include "dcrledrg.h"  /* for DcmRLEDecoderRegistration */
-#include "dcrleerg.h"  /* for DcmRLEEncoderRegistration */
-#include "djrploss.h"
-#include "djrplol.h"
-#include "dcpixel.h"
-#include "dcrlerp.h"
+#include "dcmtk/dcmjpeg/djdecode.h"  /* for dcmjpeg decoders */
+#include "dcmtk/dcmjpeg/djencode.h"  /* for dcmjpeg encoders */
+#include "dcmtk/dcmdata/dcrledrg.h"  /* for DcmRLEDecoderRegistration */
+#include "dcmtk/dcmdata/dcrleerg.h"  /* for DcmRLEEncoderRegistration */
+#include "dcmtk/dcmjpeg/djrploss.h"
+#include "dcmtk/dcmjpeg/djrplol.h"
+#include "dcmtk/dcmdata/dcpixel.h"
+#include "dcmtk/dcmdata/dcrlerp.h"
 #endif
 
 #include "url.h"

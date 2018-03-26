@@ -16,13 +16,13 @@
 
 #import "DCMPixelDataAttribute.h"
 #import "DCM.h"
-#import "jpeglib12.h"
+#import "dcmtk/dcmjpeg/libijg12/jpeglib12.h"
 #import <stdio.h>
 #import "jpegdatasrc.h"
 #import "DCMPixelDataAttributeJPEG8.h"
 #import "DCMPixelDataAttributeJPEG12.h"
 #import "DCMPixelDataAttributeJPEG16.h"
-#import "Accelerate/Accelerate.h"
+#import <Accelerate/Accelerate.h>
 
 #import "OPJSupport.h"
 //#import "jasper.h"
@@ -30,7 +30,7 @@
 // JPEG-LS with DCMTK
 //#include "dcmtk/oflog/config.h"
 typedef unsigned char BYTE;
-#include "dcmjpls/intrface.h"
+#include "dcmtk/dcmjpls/intrface.h"
 
 // KDU support
 #include "kdu_OsiriXSupport.h"

@@ -1,8 +1,8 @@
 #ifndef DJDEC2K_H
 #define DJDEC2K_H
 
-#include "osconfig.h"
-#include "djcodecd.h" /* for class DJCodecDecoder */
+#include "dcmtk/config/osconfig.h"
+#include "dcmtk/dcmjpeg/djcodecd.h" /* for class DJCodecDecoder */
 
 
 /** Decoder class for JPEG 2K

@@ -21,7 +21,7 @@
 
 #undef verify
 
-#include "osconfig.h"    /* make sure OS specific configuration is included first */
+#include "dcmtk/config/osconfig.h"    /* make sure OS specific configuration is included first */
 
 #define INCLUDE_CSTDLIB
 #define INCLUDE_CSTDIO
@@ -30,7 +30,7 @@
 #define INCLUDE_CERRNO
 #define INCLUDE_CTIME
 #define INCLUDE_LIBC
-#include "ofstdinc.h"
+#include "dcmtk/ofstd/ofstdinc.h"
 
 BEGIN_EXTERN_C
 #ifdef HAVE_SYS_FILE_H
@@ -65,20 +65,20 @@ BEGIN_EXTERN_C
 #endif
 END_EXTERN_C
 
-#include "dicom.h"
-#include "dcmqropt.h"
-#include "dimse.h"
-#include "dcmqrcnf.h"
-#include "dcmqrsrv.h"
-#include "dcdict.h"
-#include "cmdlnarg.h"
-#include "ofconapp.h"
-#include "dcuid.h"       /* for dcmtk version name */
+#include "dcmtk/dcmnet/dicom.h"
+#include "dcmtk/dcmqrdb/dcmqropt.h"
+#include "dcmtk/dcmnet/dimse.h"
+#include "dcmtk/dcmqrdb/dcmqrcnf.h"
+#include "dcmtk/dcmqrdb/dcmqrsrv.h"
+#include "dcmtk/dcmdata/dcdict.h"
+#include "dcmtk/dcmdata/cmdlnarg.h"
+#include "dcmtk/ofstd/ofconapp.h"
+#include "dcmtk/dcmdata/dcuid.h"       /* for dcmtk version name */
 
 //#ifdef WITH_SQL_DATABASE
-#include "dcmqrdbq.h"
+#include "dcmtk/dcmqrdbx/dcmqrdbq.h"
 //#else
-//#include "dcmqrdbi.h"
+//#include "dcmtk/dcmqrdb/dcmqrdbi.h"
 //#endif
 
 #include "DcmQueryRetrieveOsiriSCP.h"
@@ -89,8 +89,8 @@ END_EXTERN_C
 #ifdef UI
 #undef UI // For MacOS 10.7 compilation
 #endif
-#include "tlstrans.h"
-#include "tlslayer.h"
+#include "dcmtk/dcmtls/tlstrans.h"
+#include "dcmtk/dcmtls/tlslayer.h"
 #endif
 
 #ifdef WITH_ZLIB

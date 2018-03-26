@@ -90,7 +90,7 @@
 		4333FD681AB3076300E82B49 /* libijg8.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4333FD441AB3076200E82B49 /* libijg8.a */; };
 		4333FD691AB3076300E82B49 /* libijg12.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4333FD451AB3076200E82B49 /* libijg12.a */; };
 		4333FD6A1AB3076300E82B49 /* libijg12.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4333FD451AB3076200E82B49 /* libijg12.a */; };
-		4333FD6B1AB3076300E82B49 /* libijg16.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4333FD461AB3076200E82B49 /* libijg16.a */; };
+		4333FD6B1AB3076300E82B49 /* libijg16.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4333FD461AB3076200E82B49 /* libijg16.a */; settings = {ATTRIBUTES = (Required, ); }; };
 		4333FD6C1AB3076300E82B49 /* libijg16.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4333FD461AB3076200E82B49 /* libijg16.a */; };
 		4333FD6D1AB3076300E82B49 /* liboflog.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4333FD471AB3076200E82B49 /* liboflog.a */; };
 		4333FD6E1AB3076300E82B49 /* liboflog.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4333FD471AB3076200E82B49 /* liboflog.a */; };
@@ -4066,14 +4066,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AB28B48C05B7998B00A9906C /* Foundation.framework in Frameworks */,
+				AB28B93305B79D5B00A9906C /* Cocoa.framework in Frameworks */,
 				4333FD611AB3076300E82B49 /* libdcmtls.a in Frameworks */,
 				AB28B48805B7998800A9906C /* AppKit.framework in Frameworks */,
 				438718BC2067C00F009575DB /* libxml2.dylib in Frameworks */,
 				AB28B48A05B7998A00A9906C /* AGL.framework in Frameworks */,
 				AB28B48B05B7998A00A9906C /* OpenGL.framework in Frameworks */,
-				AB28B48C05B7998B00A9906C /* Foundation.framework in Frameworks */,
 				4333FD511AB3076200E82B49 /* libdcmimgle.a in Frameworks */,
-				AB28B93305B79D5B00A9906C /* Cocoa.framework in Frameworks */,
 				AB28B93405B79D5C00A9906C /* ApplicationServices.framework in Frameworks */,
 				AB28B93505B79D5D00A9906C /* IOKit.framework in Frameworks */,
 				438718BE2067C09E009575DB /* libcrypto.dylib in Frameworks */,
@@ -9703,6 +9703,7 @@
 		43E98D1A1A32BF6A001B9E51 /* Deployment */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_WARN_EMPTY_BODY = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
@@ -9735,7 +9736,6 @@
 				HEADER_SEARCH_PATHS = (
 					"Binaries/openjpeg/include/**",
 					"Binaries/VTK/include/**",
-					"Binaries/DCMTK/include/**",
 					AYDicomPrint,
 					/usr/local/Cellar/openssl/1.0.2/include,
 					/usr/local/Cellar/libxml2/2.9.4/include/libxml2,
@@ -9780,7 +9780,7 @@
 				);
 				PRODUCT_NAME = "Osiri-LXIV";
 				STRIP_STYLE = debugging;
-				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Binaries/ITK/include/** $(SRCROOT)/Binaries/VTK/include/** $(SRCROOT)/Binaries/DCMTK/include/** $(SRCROOT)/Binaries/libjpeg/include $(SRCROOT)/Binaries/libtiff/include $(SRCROOT)/Binaries/openjpeg/include/** $(SRCROOT)/Binaries/Jasper/include/** $(SRCROOT)";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT) $(SRCROOT)/Binaries/ITK/include/** $(SRCROOT)/Binaries/VTK/include/** $(SRCROOT)/Binaries/DCMTK/include $(SRCROOT)/Binaries/libjpeg/include $(SRCROOT)/Binaries/libtiff/include $(SRCROOT)/Binaries/openjpeg/include/** $(SRCROOT)/Binaries/Jasper/include/**";
 				WARNING_CFLAGS = "-no-pedantic";
 			};
 			name = Deployment;
@@ -9830,10 +9830,7 @@
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DCM Framework/DCM Framework_Prefix.pch";
-				HEADER_SEARCH_PATHS = (
-					"Binaries/openjpeg/include/**",
-					"Binaries/DCMTK/include/**",
-				);
+				HEADER_SEARCH_PATHS = "Binaries/openjpeg/include/**";
 				INFOPLIST_FILE = "DCM Framework/DCM-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -9853,7 +9850,7 @@
 				PUBLIC_HEADERS_FOLDER_PATH = "$(CONTENTS_FOLDER_PATH)/Headers";
 				SECTORDER_FLAGS = "";
 				SKIP_INSTALL = YES;
-				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Binaries/openjpeg/**";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Binaries/openjpeg/** $(SRCROOT)/Binaries/DCMTK/include";
 			};
 			name = Deployment;
 		};
@@ -9923,7 +9920,6 @@
 				GCC_UNROLL_LOOPS = YES;
 				HEADER_SEARCH_PATHS = (
 					AYDicomPrint,
-					"Binaries/DCMTK/include/**",
 					"Binaries/openjpeg/include/**",
 					/usr/local/Cellar/libxml2/2.9.4/include/libxml2,
 				);
@@ -9947,7 +9943,7 @@
 				SKIP_INSTALL = YES;
 				STRIP_INSTALLED_PRODUCT = YES;
 				SYMROOT = build;
-				USER_HEADER_SEARCH_PATHS = "Binaries/VTK/include/** $(SRCROOT)/Binaries/openjpeg/** Binaries/libtiff/include $(SRCROOT)";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Binaries/VTK/include/** $(SRCROOT)/Binaries/DCMTK/include $(SRCROOT)/Binaries/openjpeg/** $(SRCROOT)/Binaries/libtiff/include $(SRCROOT)";
 			};
 			name = Deployment;
 		};
@@ -10138,10 +10134,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DCM Framework/DCM Framework_Prefix.pch";
-				HEADER_SEARCH_PATHS = (
-					"Binaries/openjpeg/include/**",
-					"Binaries/DCMTK/include/**",
-				);
+				HEADER_SEARCH_PATHS = "Binaries/openjpeg/include/**";
 				INFOPLIST_FILE = "DCM Framework/DCM-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -10161,7 +10154,7 @@
 				PUBLIC_HEADERS_FOLDER_PATH = "$(CONTENTS_FOLDER_PATH)/Headers";
 				SECTORDER_FLAGS = "";
 				SKIP_INSTALL = YES;
-				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Binaries/openjpeg/**";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Binaries/openjpeg/** $(SRCROOT)/Binaries/DCMTK/include";
 			};
 			name = Development;
 		};
@@ -10202,6 +10195,7 @@
 		7E76BEC7085757B70073649A /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_WARN_EMPTY_BODY = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
@@ -10233,7 +10227,6 @@
 				HEADER_SEARCH_PATHS = (
 					"Binaries/openjpeg/include/**",
 					"Binaries/VTK/include/**",
-					"Binaries/DCMTK/include/**",
 					AYDicomPrint,
 					/usr/local/Cellar/openssl/1.0.2/include,
 					/usr/local/Cellar/libxml2/2.9.4/include/libxml2,
@@ -10276,7 +10269,7 @@
 					"-lm",
 				);
 				PRODUCT_NAME = "Osiri-LXIV";
-				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Binaries/ITK/include/** $(SRCROOT)/Binaries/VTK/include/** $(SRCROOT)/Binaries/DCMTK/include/** $(SRCROOT)/Binaries/libjpeg/include $(SRCROOT)/Binaries/libtiff/include $(SRCROOT)/Binaries/openjpeg/include/** $(SRCROOT)/Binaries/Jasper/include/** $(SRCROOT)";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT) $(SRCROOT)/Binaries/ITK/include/** $(SRCROOT)/Binaries/VTK/include/** $(SRCROOT)/Binaries/DCMTK/include $(SRCROOT)/Binaries/libjpeg/include $(SRCROOT)/Binaries/libtiff/include $(SRCROOT)/Binaries/openjpeg/include/** $(SRCROOT)/Binaries/Jasper/include/**";
 				WARNING_CFLAGS = "-no-pedantic";
 			};
 			name = Development;
@@ -10457,7 +10450,6 @@
 				GCC_PREFIX_HEADER = Decompress/Decompres_Prefix.pch;
 				HEADER_SEARCH_PATHS = (
 					AYDicomPrint,
-					"Binaries/DCMTK/include/**",
 					"Binaries/openjpeg/include/**",
 					/usr/local/Cellar/libxml2/2.9.4/include/libxml2,
 				);
@@ -10481,7 +10473,7 @@
 				SKIP_INSTALL = YES;
 				STRIP_INSTALLED_PRODUCT = YES;
 				SYMROOT = build;
-				USER_HEADER_SEARCH_PATHS = "Binaries/VTK/include/** $(SRCROOT)/Binaries/openjpeg/** Binaries/libtiff/include $(SRCROOT)";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Binaries/VTK/include/** $(SRCROOT)/Binaries/DCMTK/include $(SRCROOT)/Binaries/openjpeg/** $(SRCROOT)/Binaries/libtiff/include $(SRCROOT)";
 			};
 			name = Development;
 		};

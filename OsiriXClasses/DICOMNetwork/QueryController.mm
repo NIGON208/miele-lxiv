@@ -41,16 +41,16 @@
 #import "DICOMFile.h"
 #import "N2Debug.h"
 
-#include "osconfig.h"
+#include "dcmtk/config/osconfig.h"
 
-#include "dcvrsl.h"
-#include "ofcast.h"
-#include "ofstd.h"
-#include "dctk.h"
-#include "dcuid.h"
+#include "dcmtk/dcmdata/dcvrsl.h"
+#include "dcmtk/ofstd/ofcast.h"
+#include "dcmtk/ofstd/ofstd.h"
+#include "dcmtk/dcmdata/dctk.h"
+#include "dcmtk/dcmdata/dcuid.h"
 
 #define INCLUDE_CSTDIO
-#include "ofstdinc.h"
+#include "dcmtk/ofstd/ofstdinc.h"
 
 #include "url.h"
 #import "tmp_locations.h"

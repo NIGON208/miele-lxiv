@@ -33,7 +33,7 @@
 #import "MutableArrayCategory.h"
 #import "DCMAbstractSyntaxUID.h"
 
-#include "dctk.h"
+#include "dcmtk/dcmdata/dctk.h"
 #import "tmp_locations.h"
 
 char currentDestinationMoveAET[ 60] = "";

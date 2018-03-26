@@ -24,9 +24,9 @@ extern "C"
 {
 #endif /*cplusplus*/
     
-#include "jinclude8.h"
-#include "jpeglib8.h"
-#include "jerror8.h"
+#include "dcmtk/dcmjpeg/libijg8/jinclude8.h"
+#include "dcmtk/dcmjpeg/libijg8/jpeglib8.h"
+#include "dcmtk/dcmjpeg/libijg8/jerror8.h"
 //#import "jpegdatasrc.h"
 
 #ifdef __cplusplus

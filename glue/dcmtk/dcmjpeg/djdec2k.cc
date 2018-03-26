@@ -1,9 +1,9 @@
-#include "osconfig.h"
+#include "dcmtk/config/osconfig.h"
 #include "djdec2k.h"
-#include "djcparam.h"
-#include "djrplol.h"
+#include "dcmtk/dcmjpls/djcparam.h"
+#include "dcmtk/dcmjpeg/djrplol.h"
 #include "djdijp2k.h"
-#include "dcpixseq.h"  /* for class DcmPixelSequence */
+#include "dcmtk/dcmdata/dcpixseq.h"  /* for class DcmPixelSequence */
 
 DJDecoderJP2k::DJDecoderJP2k()
 : DJCodecDecoder()

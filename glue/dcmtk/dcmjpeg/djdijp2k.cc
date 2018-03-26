@@ -1,9 +1,9 @@
 #include "options.h"
 
-#include "osconfig.h"
+#include "dcmtk/config/osconfig.h"
 #include "djdijp2k.h"
-#include "djcparam.h"
-#include "ofconsol.h"
+#include "dcmtk/dcmjpls/djcparam.h"
+#include "dcmtk/ofstd/ofconsol.h"
 #include "OPJSupport.h"
 
 #include <sys/types.h>
@@ -11,7 +11,7 @@
 
 #define INCLUDE_CSTDIO
 #define INCLUDE_CSETJMP
-#include "ofstdinc.h"
+#include "dcmtk/ofstd/ofstdinc.h"
 
 // These two macros are re-defined in the IJG header files.
 // We undefine them here and hope that IJG's configure has
@@ -30,8 +30,8 @@ extern short Use_kdu_IfAvailable;
 
 BEGIN_EXTERN_C
 #define boolean ijg_boolean
-#include "jpeglib16.h"
-#include "jerror16.h"
+#include "dcmtk/dcmjpeg/libijg16/jpeglib16.h"
+#include "dcmtk/dcmjpeg/libijg16/jerror16.h"
 #undef boolean
 
 // disable any preprocessor magic the IJG library might be doing with the "const" keyword

@@ -17,7 +17,7 @@
 #import <OsiriX/DCMCalendarDate.h>
 #import "dicomFile.h"
 
-#include "dcdeftag.h"
+#include "dcmtk/dcmdata/dcdeftag.h"
 
 
 @implementation DCMTKRootQueryNode

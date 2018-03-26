@@ -15,7 +15,7 @@
 #import "DicomDir.h"
 #import "N2Debug.h"
 #include "dcddirif.h"
-#include "ofstd.h"
+#include "dcmtk/ofstd/ofstd.h"
 
 #include "ddpiimpl.h"     /* for class DicomDirImageImplementation */
 

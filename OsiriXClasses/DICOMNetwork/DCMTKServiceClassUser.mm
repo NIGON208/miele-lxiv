@@ -15,9 +15,9 @@
 
 #import "DCMTKServiceClassUser.h"
 
-#include "tlstrans.h"
-#include "tlslayer.h"
-#include "ofstring.h"
+#include "dcmtk/dcmtls/tlstrans.h"
+#include "dcmtk/dcmtls/tlslayer.h"
+#include "dcmtk/ofstd/ofstring.h"
 
 
 @implementation DCMTKServiceClassUser

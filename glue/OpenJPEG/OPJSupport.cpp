@@ -14,7 +14,7 @@
 #include "OPJSupport.h"
 #include "openjpeg-2.2/openjpeg.h"
 #include "format_defs.h"
-#include "oflog.h"
+#include "dcmtk/oflog/oflog.h"
 
 static const char* const THIS_FILE_NAME = strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : __FILE__;
 

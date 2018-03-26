@@ -26,7 +26,7 @@
 #import "DICOMToNSString.h"
 #import "DICOMExport.h"
 
-#include "osconfig.h"   /* make sure OS specific configuration is included first */
+#include "dcmtk/config/osconfig.h"   /* make sure OS specific configuration is included first */
 #include "dsrtypes.h"
 
 #define DCM_OsirixROI							 DcmTagKey(0x0071, 0x0011)
