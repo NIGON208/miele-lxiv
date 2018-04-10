@@ -14,8 +14,8 @@
 
 #include "options.h"
 
-#import "DCMPixelDataAttribute.h"
-#import "DCM.h"
+#import "DCM Framework/DCMPixelDataAttribute.h"
+#import "DCM Framework/DCM.h"
 #import "dcmtk/dcmjpeg/libijg12/jpeglib12.h"
 #import <stdio.h>
 #import "jpegdatasrc.h"

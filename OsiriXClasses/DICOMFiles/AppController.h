@@ -28,7 +28,7 @@
 #ifdef OSIRIX_VIEWER
 #ifndef OSIRIX_LIGHT
 #ifndef MACAPPSTORE
-#import <Growl/Growl.h>
+//#import <Growl/Growl.h>
 #endif
 #endif
 #endif
@@ -146,6 +146,7 @@ extern AppController* OsiriX;
 + (BOOL) hasMacOSXLion;         // >= 10.7.5
 + (BOOL) hasMacOSXMountainLion;
 + (BOOL) hasMacOSX1083;
++ (BOOL) hasMacOS_Mavericks;    // 10.9
 + (BOOL) hasMacOSXSierra;       // 10.12
 
 +(NSString*)UID;

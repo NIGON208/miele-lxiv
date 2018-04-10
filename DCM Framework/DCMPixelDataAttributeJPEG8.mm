@@ -14,7 +14,7 @@
 
 #import <stdio.h>
 
-#import "DCM.h"
+#import "DCM Framework/DCM.h"
 #import "DCMPixelDataAttributeJPEG16.h"
 #import "DCMPixelDataAttributeJPEG12.h"
 #import "DCMPixelDataAttributeJPEG8.h"

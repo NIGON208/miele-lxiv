@@ -13,7 +13,7 @@
 =========================================================================*/
 
 #import "DCMObjectPixelDataImport.h"
-#import <OsiriX/DCM.h>
+#import "DCM Framework/DCM.h"
 
 @implementation DCMObjectPixelDataImport
 

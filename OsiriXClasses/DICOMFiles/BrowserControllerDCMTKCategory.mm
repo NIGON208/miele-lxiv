@@ -13,10 +13,10 @@
 =========================================================================*/
 
 #import "BrowserControllerDCMTKCategory.h"
-#import <OsiriX/DCMObject.h>
-#import <OsiriX/DCM.h>
-#import <OsiriX/DCMTransferSyntax.h>
-#import <OsiriX/DCMAbstractSyntaxUID.h>
+#import "DCM Framework/DCMObject.h"
+#import "DCM Framework/DCM.h"
+#import "DCM Framework/DCMTransferSyntax.h"
+#import "DCM Framework/DCMAbstractSyntaxUID.h"
 #import "AppController.h"
 #import "DCMPix.h"
 #import "WaitRendering.h"

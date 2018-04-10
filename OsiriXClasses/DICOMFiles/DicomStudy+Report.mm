@@ -18,12 +18,12 @@
 #import "N2Debug.h"
 #import "NSAppleScript+N2.h"
 #import "NSFileManager+N2.h"
-#import "DCMObject.h"
-#import "DCMEncapsulatedPDF.h"
+#import "DCM Framework/DCMObject.h"
+#import "DCM Framework/DCMEncapsulatedPDF.h"
 #import "DicomImage.h"
-#import "DCMCalendarDate.h"
-#import "DCMTransferSyntax.h"
-#import "DCM.h"
+#import "DCM Framework/DCMCalendarDate.h"
+#import "DCM Framework/DCMTransferSyntax.h"
+#import "DCM Framework/DCM.h"
 #import "Reports.h"
 
 @implementation DicomStudy (Report)

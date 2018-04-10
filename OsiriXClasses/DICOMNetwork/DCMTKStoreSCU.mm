@@ -21,7 +21,7 @@
 #import "AppController.h"
 #import "DCMTKStoreSCU.h"
 #import "BrowserController.h"
-#import "DicomFile.h"
+#import "DICOMFiles/dicomFile.h"
 #import "Notifications.h"
 #import "MutableArrayCategory.h"
 #import "NSThread+N2.h"
@@ -83,9 +83,9 @@ END_EXTERN_C
 #endif
 
 #import "DICOMToNSString.h"
-#import <OsiriX/DCMObject.h>
-#import <OsiriX/DCM.h>
-#import <OsiriX/DCMTransferSyntax.h>
+#import "DCM Framework/DCMObject.h"
+#import "DCM Framework/DCM.h"
+#import "DCM Framework/DCMTransferSyntax.h"
 #import "SendController.h"
 
 #import "OpenGLScreenReader.h"

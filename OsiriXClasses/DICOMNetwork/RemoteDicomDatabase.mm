@@ -26,7 +26,7 @@
 #import "DicomStudy.h"
 #import "DicomSeries.h"
 #import "DicomAlbum.h"
-#import "DicomFile.h"
+#import "DICOMFiles/dicomFile.h"
 #import "NSManagedObject+N2.h"
 #import "DCMTKStoreSCU.h"
 #import "ViewerController.h"

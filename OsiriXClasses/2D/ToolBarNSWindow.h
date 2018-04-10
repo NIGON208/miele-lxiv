@@ -12,7 +12,7 @@
      PURPOSE.
 =========================================================================*/
 
-#import <Foundation/Foundation.h>
+#import <Cocoa/Cocoa.h>
 
 /** \brief Window with only a toolbar */
 @interface ToolBarNSWindow : NSPanel

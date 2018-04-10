@@ -12,7 +12,7 @@
      PURPOSE.
 =========================================================================*/
 
-#import "DCMAbstractSyntaxUID.h"
+#import "DCM Framework/DCMAbstractSyntaxUID.h"
 
 static NSArray *imagesSyntaxes = nil;
 static NSArray *hiddenImagesSyntaxes = nil;

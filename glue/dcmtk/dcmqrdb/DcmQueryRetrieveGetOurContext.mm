@@ -2,8 +2,8 @@
  */
 
 #include <stdio.h>
-#import "DCMObject.h"
-#import "DCM.h"
+#import "DCM Framework/DCMObject.h"
+#import "DCM Framework/DCM.h"
 
 #import "BrowserController.h"
 //#import "AppController.h"
@@ -16,10 +16,10 @@
 #include "dcmtk/dcmqrdb/dcmqrdba.h"
 #include "dcmtk/dcmqrdb/dcmqrdbs.h"    /* for class DcmQueryRetrieveDatabaseStatus */
 #include "dcmtk/dcmqrdb/dcmqrcnf.h"    /* for DCMQRDB_INFO */
-//#include "dcmqrcbf.h"    /* for class DcmQueryRetrieveFindContext */
-//#include "dcmqrcbm.h"    /* for class DcmQueryRetrieveMoveContext */
-//#include "dcmqrcbg.h"    /* for class DcmQueryRetrieveGetContext */
-//#include "dcmqrcbs.h"    /* for class DcmQueryRetrieveStoreContext */
+//#include "dcmtk/dcmqrdb/dcmqrcbf.h"    /* for class DcmQueryRetrieveFindContext */
+//#include "dcmtk/dcmqrdb/dcmqrcbm.h"    /* for class DcmQueryRetrieveMoveContext */
+//#include "dcmtk/dcmqrdb/dcmqrcbg.h"    /* for class DcmQueryRetrieveGetContext */
+//#include "dcmtk/dcmqrdb/dcmqrcbs.h"    /* for class DcmQueryRetrieveStoreContext */
 //#include "dcmtk/dcmdata/dcmetinf.h"
 //#include "dcmtk/dcmnet/dul.h"
 //#import "dcmtk/dcmqrdbx/dcmqrdbq.h"

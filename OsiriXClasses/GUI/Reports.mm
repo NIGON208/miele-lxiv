@@ -13,8 +13,8 @@
 =========================================================================*/
 
 #import "Reports.h"
-#import "DicomFile.h"
-#import "OsiriX/DCM.h"
+#import "DICOMFiles/dicomFile.h"
+#import "DCM Framework/DCM.h"
 #import "BrowserController.h"
 #import "NSString+N2.h"
 #import "NSFileManager+N2.h"

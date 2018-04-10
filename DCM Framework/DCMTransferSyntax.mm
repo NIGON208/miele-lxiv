@@ -12,9 +12,9 @@
      PURPOSE.
 =========================================================================*/
 
-#import "DCMTransferSyntax.h"
-#import "DCM.h"
-//#import "DCMUIDs.h"
+#import "DCM Framework/DCMTransferSyntax.h"
+#import "DCM Framework/DCM.h"
+//#import "DCM Framework/DCMUIDs.h"
 
 static NSString *DCM_ExplicitVRBigEndian = @"1.2.840.10008.1.2.2";
 static NSString *DCM_ExplicitVRLittleEndian = @"1.2.840.10008.1.2.1";

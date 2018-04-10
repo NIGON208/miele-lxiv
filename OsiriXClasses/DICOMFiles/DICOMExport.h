@@ -22,7 +22,7 @@
 
 #ifdef __cplusplus
 
-#ifdef OSIRIX_VIEWER
+#if 1 //def OSIRIX_VIEWER
 #include "dcmtk/config/osconfig.h"
 #include "dcmtk/dcmdata/dcfilefo.h"
 #include "dcmtk/dcmdata/dcdeftag.h"

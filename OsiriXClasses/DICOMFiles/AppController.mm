@@ -27,9 +27,9 @@
 #import "ViewerController.h"
 #import "XMLController.h"
 #import "SplashScreen.h"
-#import "NSFont_OpenGL.h"
-#import "DicomFile.h"
-#import <OsiriX/DCM.h>
+#import "NSFont_OpenGL/NSFont_OpenGL.h"
+#import "DICOMFiles/dicomFile.h"
+#import "DCM Framework/DCM.h"
 #import "PluginManager.h"
 #import "DCMTKQueryRetrieveSCP.h"
 #import "BLAuthentication.h"
@@ -59,6 +59,8 @@
 #endif
 
 #endif
+
+//#import <Growl/Growl.h>
 
 #import "PluginManagerController.h"
 #import "OSIWindowController.h"
@@ -705,6 +707,16 @@ static NSDate *lastWarningDate = nil;
     return NO;
 }
 
++(BOOL) hasMacOS_Mavericks
+{
+    NSOperatingSystemVersion version = [[NSProcessInfo processInfo] operatingSystemVersion];
+    if (version.majorVersion == 10 &&
+        version.minorVersion >= 9)
+        return YES;
+    
+    return NO;
+}
+
 +(BOOL) hasMacOSXMountainLion
 {
     NSOperatingSystemVersion version = [[NSProcessInfo processInfo] operatingSystemVersion];
@@ -718,6 +730,8 @@ static NSDate *lastWarningDate = nil;
 +(BOOL) hasMacOSXLion
 {
     NSOperatingSystemVersion version = [[NSProcessInfo processInfo] operatingSystemVersion];
+    printf("OS Version %d %d %d", version.majorVersion, version.minorVersion, version.patchVersion);
+    //NSLog(@"OS Version %d %d %d", version.majorVersion, version.minorVersion, version.patchVersion);
     if (version.majorVersion < 10 ||
         version.minorVersion < 7 ||
         version.patchVersion < 5)
@@ -3434,19 +3448,21 @@ static BOOL initialized = NO;
 #pragma mark-
 #pragma mark growl
 
-- (void) growlTitle:(NSString*) title description:(NSString*) description name:(NSString*) name
+- (void) growlTitle:(NSString*) title
+        description:(NSString*) description
+               name:(NSString*) name
 {
 #ifndef OSIRIX_LIGHT
 #ifndef MACAPPSTORE
 	if( [[NSUserDefaults standardUserDefaults] boolForKey: @"displayGrowlNotification"])
 	{
-        [GrowlApplicationBridge notifyWithTitle: title
-							description: description 
-							notificationName: name
-							iconData: nil
-							priority: 0
-							isSticky: NO
-							clickContext: nil];
+//        [GrowlApplicationBridge notifyWithTitle: title
+//                            description: description 
+//                            notificationName: name
+//                            iconData: nil
+//                            priority: 0
+//                            isSticky: NO
+//                            clickContext: nil];
     }
     
 //    if( [[NSUserDefaults standardUserDefaults] boolForKey: @"displayMacOSUserNotification"] && [AppController hasMacOSXMountainLion]) Growl SDK 1.3 will automatically use MacOS User Notification, if Growl is not installed
@@ -3789,7 +3805,7 @@ static BOOL initialized = NO;
 #endif // NDEBUG
 #endif // OSIRIX_LIGHT
     
-    if( [AppController hasMacOSXLion] == NO)
+    if (![AppController hasMacOS_Mavericks])
     {
         NSRunCriticalAlertPanel(NSLocalizedString( @"MacOS Version", nil),
                                 NSLocalizedString( @"OsiriX requires MacOS 10.7.5 or higher. Please update your OS: Apple Menu - Software Update...", nil),

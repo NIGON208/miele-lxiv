@@ -12,7 +12,7 @@
      PURPOSE.
 =========================================================================*/
 
-#import "DCMNetServiceDelegate.h"
+#import "DCM Framework/DCMNetServiceDelegate.h"
 #import "SendController.h"
 #import "N2Debug.h"
 

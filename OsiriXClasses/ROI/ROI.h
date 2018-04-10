@@ -13,6 +13,8 @@
 =========================================================================*/
 
 #import <Foundation/Foundation.h>
+#import <AppKit/AppKit.h>
+
 #import "MyPoint.h"
 
 #import <OpenGL/CGLMacro.h>

@@ -14,6 +14,7 @@
 
 #import <Foundation/Foundation.h>
 #import <Carbon/Carbon.h>
+#import <CoreData/CoreData.h>
 
 /** \brief reports */
 @interface Reports : NSObject

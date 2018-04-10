@@ -32,12 +32,12 @@
 #import "DicomStudy+Report.h"
 #import "WebPortalStudy.h"
 #import "DicomImage.h"
-#import "DCM.h"
+#import "DCM Framework/DCM.h"
 #import "DCMPix.h"
 #import "DCMTKStoreSCU.h"
 #import "NSFileManager+N2.h"
 #import "N2Alignment.h"
-#import "DCMAbstractSyntaxUID.h"
+#import "DCM Framework/DCMAbstractSyntaxUID.h"
 #import "NSFileManager+N2.h"
 #import "CSMailMailClient.h"
 #import "NSObject+SBJSON.h"
@@ -49,7 +49,7 @@
 #import <CoreMedia/CoreMedia.h>
 #import <AVFoundation/AVFoundation.h>
 #import "QuicktimeExport.h"
-#import "dicomFile.h"
+#import "DICOMFiles/dicomFile.h"
 #import "QueryController.h"
 #import "SRAnnotation.h"
 #import "BrowserController.h" // TODO: remove when badness solved

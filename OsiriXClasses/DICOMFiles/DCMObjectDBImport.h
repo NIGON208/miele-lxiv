@@ -15,7 +15,7 @@
 
 
 #import <Cocoa/Cocoa.h>
-#import <OsiriX/DCMObject.h>
+#import "DCM Framework/DCMObject.h"
 
 @interface DCMObjectDBImport : DCMObject {
 

@@ -14,10 +14,10 @@
 
 #import "BrowserController+Sources+Copy.h"
 #import "DicomImage.h"
-#import "DicomFile.h"
+#import "DICOMFiles/dicomFile.h"
 #import "DicomDatabase.h"
 #import "DataNodeIdentifier.h"
-#import "DCMNetServiceDelegate.h"
+#import "DCM Framework/DCMNetServiceDelegate.h"
 #import "MutableArrayCategory.h"
 #import "ThreadsManager.h"
 #import "RemoteDicomDatabase.h"

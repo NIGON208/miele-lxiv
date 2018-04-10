@@ -29,7 +29,7 @@
 #import "ViewerController.h"
 #import "DCMTKRootQueryNode.h"
 #import "DCMTKSeriesQueryNode.h"
-#import "DCMNetServiceDelegate.h"
+#import "DCM Framework/DCMNetServiceDelegate.h"
 #import "DCMView.h"
 #import "NSUserDefaults+OsiriX.h"
 #import "QueryController.h"

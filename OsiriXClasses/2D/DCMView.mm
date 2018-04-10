@@ -12,12 +12,12 @@
      PURPOSE.
 =========================================================================*/
 
-#import "OsiriX/DCMAbstractSyntaxUID.h"
+#import "DCM Framework/DCMAbstractSyntaxUID.h"
 #import "DCMView.h"
 #import "StringTexture.h"
 #import "DCMPix.h"
 #import "ROI.h"
-#import "NSFont_OpenGL.h"
+#import "NSFont_OpenGL/NSFont_OpenGL.h"
 #import "DCMCursor.h"
 #import "GLString.h"
 #import "DICOMExport.h"
@@ -41,7 +41,7 @@
 #include <OpenGL/CGLContext.h>
 #import <CoreVideo/CoreVideo.h>
 #import "DefaultsOsiriX.h"
-#include "NSFont_OpenGL.h"
+#include "NSFont_OpenGL/NSFont_OpenGL.h"
 #import "Notifications.h"
 #import "PluginManager.h"
 #import "N2Debug.h"

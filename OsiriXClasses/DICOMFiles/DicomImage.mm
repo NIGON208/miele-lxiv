@@ -16,12 +16,12 @@
 #import "DicomSeries.h"
 #import "DicomStudy.h"
 #import "DicomFileDCMTKCategory.h"
-#import <OsiriX/DCM.h>
-#import <OsiriX/DCMAbstractSyntaxUID.h>
+#import "DCM Framework/DCM.h"
+#import "DCM Framework/DCMAbstractSyntaxUID.h"
 #import "DCMObjectPixelDataImport.h"
 #import "DCMView.h"
 #import "MutableArrayCategory.h"
-#import "DicomFile.h"
+#import "DICOMFiles/dicomFile.h"
 #import "DICOMToNSString.h"
 #import "XMLController.h"
 #import "XMLControllerDCMTKCategory.h"

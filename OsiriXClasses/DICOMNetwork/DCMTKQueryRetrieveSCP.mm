@@ -75,11 +75,12 @@ END_EXTERN_C
 #include "dcmtk/ofstd/ofconapp.h"
 #include "dcmtk/dcmdata/dcuid.h"       /* for dcmtk version name */
 
-//#ifdef WITH_SQL_DATABASE
+#ifdef WITH_SQL_DATABASE
 #include "dcmtk/dcmqrdbx/dcmqrdbq.h"
-//#else
+#else
 //#include "dcmtk/dcmqrdb/dcmqrdbi.h"
-//#endif
+#include "dcmqrdbq.h" // glue/dcmqrdb
+#endif
 
 #include "DcmQueryRetrieveOsiriSCP.h"
 
@@ -529,7 +530,10 @@ DcmQueryRetrieveConfig config;
     //DcmQueryRetrieveOsiriSCP scp(config, options, factory);
 	//scp.setDatabaseFlags(OFFalse, OFFalse, options.debug_);
 
-	DcmQueryRetrieveOsiriSCP *localSCP = new DcmQueryRetrieveOsiriSCP(config, options, factory);
+    DcmAssociationConfiguration asccfg;
+    // TODO: init asccfg from configuration file
+
+	DcmQueryRetrieveOsiriSCP *localSCP = new DcmQueryRetrieveOsiriSCP(config, options, factory, asccfg);
     scp = localSCP;
 	
     localSCP->setDatabaseFlags(OFFalse, OFFalse);

@@ -14,11 +14,11 @@
 
 
 #import "DCMTKStudyQueryNode.h"
-#import <OsiriX/DCMCalendarDate.h>
+#import "DCM Framework/DCMCalendarDate.h"
 #import "DCMTKSeriesQueryNode.h"
 #import "DCMTKImageQueryNode.h"
 #import "DICOMToNSString.h"
-#import "dicomFile.h"
+#import "DICOMFiles/dicomFile.h"
 #import "DicomStudy.h"
 
 #undef verify

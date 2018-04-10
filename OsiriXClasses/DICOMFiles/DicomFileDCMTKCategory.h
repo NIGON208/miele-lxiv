@@ -13,7 +13,7 @@
 =========================================================================*/
 
 #import <Cocoa/Cocoa.h>
-#import "dicomFile.h"
+#import "DICOMFiles/dicomFile.h"
 
 /** \brief  C++ calls for DicomFile 
 *

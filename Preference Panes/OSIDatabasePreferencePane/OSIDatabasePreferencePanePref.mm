@@ -17,10 +17,10 @@
 #import <BrowserController.h>
 #import "BrowserControllerDCMTKCategory.h"
 #import <PreferencesWindowController+DCMTK.h>
-#import <OsiriX/DCMAbstractSyntaxUID.h>
+#import "DCM Framework/DCMAbstractSyntaxUID.h"
 //#import <BrowserControllerDCMTKCategory.h>
 #import "DicomDatabase.h"
-#import "dicomFile.h"
+#import "DICOMFiles/dicomFile.h"
 #import "WaitRendering.h"
 
 #import "url.h"

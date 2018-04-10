@@ -11,7 +11,7 @@
 #import "AppController.h"
 #import "DCMPix.h"
 #import <WebKit/WebKit.h>
-#include <mingpp.h>
+#include "mingpp.h"
 #import "N2Debug.h"
 #import <Quartz/Quartz.h>
 
@@ -35,9 +35,9 @@
 #include "dcmtk/dcmjpls/djdecode.h" //JPEG-LS
 #include "dcmtk/dcmjpls/djencode.h" //JPEG-LS
 
-#import <OsiriX/DCMTransferSyntax.h>
-#import <OsiriX/DCMObject.h>
-#import <OsiriX/DCMAbstractSyntaxUID.h>
+#import "DCM Framework/DCMTransferSyntax.h"
+#import "DCM Framework/DCMObject.h"
+#import "DCM Framework/DCMAbstractSyntaxUID.h"
 
 // We don`t care: we are just a small app, our memory will be killed by the system. Don't loose time here !
 //#define WASTE_TIME_CLEANING_UP

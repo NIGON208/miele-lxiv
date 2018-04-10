@@ -13,7 +13,7 @@
 =========================================================================*/
 
 #import <Cocoa/Cocoa.h>
-#import "DCMObject.h"
+#import "DCM Framework/DCMObject.h"
 
 /** DCMObject category for dealing with Presentation States */
 @interface   DCMObject (DCMPresentationState) 

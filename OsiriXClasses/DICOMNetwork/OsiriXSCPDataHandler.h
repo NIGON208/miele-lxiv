@@ -13,11 +13,11 @@
 =========================================================================*/
 
 #import <Cocoa/Cocoa.h>
-#import <OsiriX/DCM.h>
+#import "DCM Framework/DCM.h"
 
 #undef verify
 #include "dcmtk/dcmdata/dcdatset.h"
-#include "ofcond.h"
+#include "dcmtk/ofstd/ofcond.h"
 
 //NSString * const OsiriXFileReceivedNotification;
 

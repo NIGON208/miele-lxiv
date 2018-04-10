@@ -14,8 +14,8 @@
 
 #include <locale>
 
-#define id Id
 #include <Accelerate/Accelerate.h>
+#define id Id
 #include "itkImage.h"
 #include "itkImportImageFilter.h"
 #include "itkBinaryErodeImageFilter.h"

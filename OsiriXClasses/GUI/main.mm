@@ -14,7 +14,7 @@
 
 
 #import <Cocoa/Cocoa.h>
-#import "NSFont_OpenGL.h"
+#import "NSFont_OpenGL/NSFont_OpenGL.h"
 
 #include "options.h"
 

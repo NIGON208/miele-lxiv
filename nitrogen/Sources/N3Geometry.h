@@ -18,7 +18,7 @@
 #include <QuartzCore/CATransform3D.h>
 
 #ifdef __OBJC__
-#import <Foundation/NSValue.h>
+#import <Cocoa/Cocoa.h>
 @class NSString;
 #endif
 

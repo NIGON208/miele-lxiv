@@ -13,8 +13,8 @@
 =========================================================================*/
 
 #import "DCMPresentationState.h"
-#import "DCMAbstractSyntaxUID.h"
-#import "DCM.h"
+#import "DCM Framework/DCMAbstractSyntaxUID.h"
+#import "DCM Framework/DCM.h"
 
 
 @implementation  DCMObject (DCMPresentationState) 

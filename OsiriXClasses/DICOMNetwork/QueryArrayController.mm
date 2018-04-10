@@ -14,9 +14,9 @@
 
 #import "DefaultsOsiriX.h"
 #import "QueryArrayController.h"
-#import <OsiriX/DCM.h>
-#import <OsiriX/DCMNetServiceDelegate.h>
-#import <OsiriX/DCMAbstractSyntaxUID.h>
+#import "DCM Framework/DCM.h"
+#import "DCM Framework/DCMNetServiceDelegate.h"
+#import "DCM Framework/DCMAbstractSyntaxUID.h"
 
 #import "DCMTKRootQueryNode.h"
 #import "DCMTKStudyQueryNode.h"

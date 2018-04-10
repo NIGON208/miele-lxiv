@@ -268,7 +268,8 @@
     {
         xprev = value;
         value += step;
-    } while ( value < maxi && inputHisto[xprev] >= inputHisto[value] && abs(inputHisto[xprev] - inputHisto[value]) > epsilon);
+    } while (value < maxi && inputHisto[xprev] >= inputHisto[value] &&
+             abs((int)(inputHisto[xprev] - inputHisto[value])) > epsilon);
     
     return xprev;
 }

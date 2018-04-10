@@ -18,7 +18,7 @@
 #import "AppController.h"
 #import "VRController.h"
 #import "DCMView.h"
-#import "dicomFile.h"
+#import "DICOMFiles/dicomFile.h"
 #import "NSFullScreenWindow.h"
 #import "BrowserController.h"
 #include <Accelerate/Accelerate.h>

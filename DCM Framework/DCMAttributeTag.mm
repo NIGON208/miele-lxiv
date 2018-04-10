@@ -13,8 +13,8 @@
 =========================================================================*/
 
 
-#import "DCMAttributeTag.h"
-#import "DCM.h"
+#import "DCM Framework/DCMAttributeTag.h"
+#import "DCM Framework/DCM.h"
 
 @implementation DCMAttributeTag
 

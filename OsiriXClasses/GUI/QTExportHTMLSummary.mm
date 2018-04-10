@@ -15,7 +15,7 @@
 #import "QTExportHTMLSummary.h"
 #import "AppController.h"
 #import "BrowserController.h"
-#import "DCMAbstractSyntaxUID.h"
+#import "DCM Framework/DCMAbstractSyntaxUID.h"
 #import "NSDictionary+N2.h"
 #import "DicomSeries.h"
 #import "BrowserController.h"

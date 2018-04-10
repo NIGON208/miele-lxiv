@@ -8433,7 +8433,7 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
                 float length = 0;
                 long i;
                 NSMutableArray* ptsTemp = self.points;
-                if( self.points > 0)
+                if( [self.points count] > 0)
                 {
                     for( i = 0; i < (long)[ptsTemp count]-1; i++ )
                         length += [self Length:[[ptsTemp objectAtIndex:i] point]

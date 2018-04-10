@@ -14,7 +14,7 @@
 
 
 #import "AnonymizationCustomTagPanelController.h"
-#import "DCMAttributeTag.h"
+#import "DCM Framework/DCMAttributeTag.h"
 
 
 @implementation AnonymizationCustomTagPanelController

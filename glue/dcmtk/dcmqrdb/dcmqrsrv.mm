@@ -12,18 +12,32 @@
 #import "N2Debug.h"
 #import "ContextCleaner.h"
 
+#if 1
+//#include "/Users/lxiv/Documents/projects/install/miele-201612/DCMTK-3.6.2/include/dcmtk/config/osconfig.h" // ok
+//#include "/Users/lxiv/Documents/temp/miele-20180322/miele-201612/Binaries/DCMTK/include/dcmtk/config/osconfig.h" // ok
+//#include "Binaries/DCMTK/include/dcmtk/config/osconfig.h"
+//#include "Binaries/DCMTK/include/dcmtk/config/osconfig.h"  // no
+//#include "../../Binaries/DCMTK/include/dcmtk/config/osconfig.h"  // no
+//#include "~/Documents/temp/miele-20180322/miele-201612/Binaries/DCMTK/include/dcmtk/config/osconfig.h"
+//#include "osconfig.h"    /* make sure OS specific configuration is included first */
 #include "dcmtk/config/osconfig.h"    /* make sure OS specific configuration is included first */
 #include "dcmtk/dcmqrdb/dcmqrsrv.h"
 #include "dcmtk/dcmqrdb/dcmqropt.h"
 #include "dcmtk/dcmdata/dcfilefo.h"
 #include "dcmtk/dcmqrdb/dcmqrdba.h"
-#include "dcmqrcbf.h"    /* for class DcmQueryRetrieveFindContext */
-#include "dcmqrcbm.h"    /* for class DcmQueryRetrieveMoveContext */
-#include "dcmqrcbg.h"    /* for class DcmQueryRetrieveGetContext */
-#include "dcmqrcbs.h"    /* for class DcmQueryRetrieveStoreContext */
+#include "dcmtk/dcmqrdb/dcmqrcbf.h"    /* for class DcmQueryRetrieveFindContext */
+#include "dcmtk/dcmqrdb/dcmqrcbm.h"    /* for class DcmQueryRetrieveMoveContext */
+#include "dcmtk/dcmqrdb/dcmqrcbg.h"    /* for class DcmQueryRetrieveGetContext */
+#include "dcmtk/dcmqrdb/dcmqrcbs.h"    /* for class DcmQueryRetrieveStoreContext */
 #include "dcmtk/dcmdata/dcmetinf.h"
 #include "dcmtk/dcmnet/dul.h"
-#import "dcmtk/dcmqrdbx/dcmqrdbq.h"
+#ifdef WITH_SQL_DATABASE
+#include "dcmtk/dcmqrdbx/dcmqrdbq.h"
+#else
+//#include "dcmtk/dcmqrdb/dcmqrdbi.h"
+#include "dcmqrdbq.h" // glue/dcmqrdb
+#endif
+#endif
 
 #include <signal.h>
 

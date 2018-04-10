@@ -17,7 +17,7 @@
 #include "options.h"
 #include "url.h"
 #import "tmp_locations.h"
-#import "DCMUIDs.h"
+#import "DCM Framework/DCMUIDs.h"
 
 #ifndef OSIRIX_LIGHT
 #include "FVTiff.h"
@@ -25,12 +25,12 @@
 #import "MutableArrayCategory.h"
 #import "SRAnnotation.h"
 #import "SRAnnotation.h"
-#import "dicomFile.h"
+#import "DICOMFiles/dicomFile.h"
 #import "ViewerController.h"
 #import "PluginFileFormatDecoder.h"
-#import <OsiriX/DCMCalendarDate.h>
-#import <OsiriX/DCMAbstractSyntaxUID.h>
-#import <OsiriX/DCMSequenceAttribute.h>
+#import "DCM Framework/DCMCalendarDate.h"
+#import "DCM Framework/DCMAbstractSyntaxUID.h"
+#import "DCM Framework/DCMSequenceAttribute.h"
 #import "DICOMToNSString.h"
 #import "DefaultsOsiriX.h"
 

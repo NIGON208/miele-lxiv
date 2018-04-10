@@ -13,7 +13,7 @@
  =========================================================================*/
 
 #import <Foundation/Foundation.h>
-
+#import <AppKit/AppKit.h>
 
 @class ThreadsManager;
 

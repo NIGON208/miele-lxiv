@@ -13,7 +13,7 @@
 =========================================================================*/
 
 #import <Foundation/Foundation.h>
-#import "DCMPixelDataAttribute.h"
+#import "DCM Framework/DCMPixelDataAttribute.h"
  
 @interface DCMPixelDataAttribute (DCMPixelDataAttributeJPEG8)
 

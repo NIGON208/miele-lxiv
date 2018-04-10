@@ -14,7 +14,7 @@
 
 #import "DICOMFilesTests.h"
 #import "DCMPix.h"
-#import "dicomFile.h"
+#import "DICOMFiles/dicomFile.h"
 #import "DDData.h"
 
 #include "options.h"

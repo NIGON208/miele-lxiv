@@ -12,7 +12,7 @@
  PURPOSE.
  =========================================================================*/
 
-#import <OsiriX/DCMAttributeTag.h>
+#import "DCM Framework/DCMAttributeTag.h"
 
 
 @interface O2DicomPredicateEditorDCMAttributeTag : DCMAttributeTag {

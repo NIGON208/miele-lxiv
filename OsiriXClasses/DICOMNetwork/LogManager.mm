@@ -16,7 +16,7 @@
 #import "BrowserController.h"
 #import "DicomDatabase.h"
 #import "DICOMToNSString.h"
-#import "DicomFile.h"
+#import "DICOMFiles/dicomFile.h"
 #import "N2Debug.h"
 #import "Notifications.h"
 

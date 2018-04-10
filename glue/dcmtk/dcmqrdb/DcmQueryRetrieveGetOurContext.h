@@ -1,7 +1,7 @@
 /* Alex Bettarini - 12 May 2015
  */
 
-#include "dcmqrcbg.h"
+#include "dcmtk/dcmqrdb/dcmqrcbg.h"
 
 class DcmQueryRetrieveGetOurContext : public DcmQueryRetrieveGetContext
 {

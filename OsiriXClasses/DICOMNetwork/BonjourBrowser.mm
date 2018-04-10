@@ -17,9 +17,9 @@
 #import "BonjourBrowser.h"
 #import "BrowserController.h"
 #import "AppController.h"
-#import "DicomFile.h"
+#import "DICOMFiles/dicomFile.h"
 #import "DicomImage.h"
-#import "DCMNetServiceDelegate.h"
+#import "DCM Framework/DCMNetServiceDelegate.h"
 #import "Notifications.h"
 #import "SendController.h"
 #import <sys/socket.h>

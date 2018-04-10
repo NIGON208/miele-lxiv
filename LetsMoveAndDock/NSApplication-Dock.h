@@ -13,6 +13,8 @@
 //
 ////////////////////////////////////////////
 
+#import <AppKit/AppKit.h>
+
 @interface NSApplication (Dock)
 
 - (BOOL)addApplicationToDock;

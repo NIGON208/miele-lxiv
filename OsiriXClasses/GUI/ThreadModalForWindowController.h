@@ -12,6 +12,7 @@
  PURPOSE.
  =========================================================================*/
 
+#import <AppKit/AppKit.h>
 
 @class ThreadsManagerThreadInfo;
 

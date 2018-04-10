@@ -14,7 +14,7 @@
 
 
 #import <Cocoa/Cocoa.h>
-#import "DCMObject.h"
+#import "DCM Framework/DCMObject.h"
 
 @interface DCMLimitedObject : DCMObject {
 

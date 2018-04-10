@@ -11,15 +11,20 @@
 #include "dcmtk/dcmqrdb/dcmqropt.h"
 #include "dcmtk/dcmdata/dcfilefo.h"
 #include "dcmtk/dcmqrdb/dcmqrdba.h"
-#include "dcmqrcbf.h"    /* for class DcmQueryRetrieveFindContext */
-#include "dcmqrcbm.h"    /* for class DcmQueryRetrieveMoveContext */
-#include "dcmqrcbg.h"    /* for class DcmQueryRetrieveGetContext */
-#include "dcmqrcbs.h"    /* for class DcmQueryRetrieveStoreContext */
+#include "dcmtk/dcmqrdb/dcmqrcbf.h"    /* for class DcmQueryRetrieveFindContext */
+#include "dcmtk/dcmqrdb/dcmqrcbm.h"    /* for class DcmQueryRetrieveMoveContext */
+#include "dcmtk/dcmqrdb/dcmqrcbg.h"    /* for class DcmQueryRetrieveGetContext */
+#include "dcmtk/dcmqrdb/dcmqrcbs.h"    /* for class DcmQueryRetrieveStoreContext */
 #include "dcmtk/dcmdata/dcmetinf.h"
 #include "dcmtk/dcmnet/dul.h"
-#import "dcmtk/dcmqrdbx/dcmqrdbq.h"
+#ifdef WITH_SQL_DATABASE
+#include "dcmtk/dcmqrdbx/dcmqrdbq.h"
+#else
+//#include "dcmtk/dcmqrdb/dcmqrdbi.h"
+#include "dcmqrdbq.h" // glue/dcmqrdb
+#endif
 #include "dcmtk/dcmdata/dcdeftag.h"
-#import "dcmtk/dcmnet/dimse.h"
+#include "dcmtk/dcmnet/dimse.h"
 
 #include "DcmQueryRetrieveOsiriSCP.h"
 #include "DcmQueryRetrieveGetOurContext.h"
@@ -91,10 +96,11 @@ static void storeCallback(/* in */
 
 // Line 362
 DcmQueryRetrieveOsiriSCP::DcmQueryRetrieveOsiriSCP(
-                                                     const DcmQueryRetrieveConfig& config,
-                                                     const DcmQueryRetrieveOptions& options,
-                                                     const DcmQueryRetrieveDatabaseHandleFactory& factory)
-: DcmQueryRetrieveSCP(config, options, factory)
+                                                   const DcmQueryRetrieveConfig& config,
+                                                   const DcmQueryRetrieveOptions& options,
+                                                   const DcmQueryRetrieveDatabaseHandleFactory& factory,
+                                                   const DcmAssociationConfiguration& associationConfiguration)
+: DcmQueryRetrieveSCP(config, options, factory, associationConfiguration)
 {
     index=0;
 //    DCM_dcmdataLogger.setLogLevel(OFLogger::WARN_LOG_LEVEL);

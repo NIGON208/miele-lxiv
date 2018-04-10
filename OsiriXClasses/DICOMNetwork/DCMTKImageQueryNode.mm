@@ -14,9 +14,9 @@
 
 
 #import "DCMTKImageQueryNode.h"
-#import <OsiriX/DCMCalendarDate.h>
+#import "DCM Framework/DCMCalendarDate.h"
 #import "DICOMToNSString.h"
-#import "dicomFile.h"
+#import "DICOMFiles/dicomFile.h"
 
 #undef verify
 #include "dcmtk/dcmdata/dcdeftag.h"

@@ -15,11 +15,11 @@
 #import "DefaultsOsiriX.h"
 #import "PluginManager.h"
 #import "NSUserDefaults+OsiriX.h"
-#import "OsiriX/DCMAbstractSyntaxUID.h"
+#import "DCM Framework/DCMAbstractSyntaxUID.h"
 #import <AVFoundation/AVFoundation.h>
 
 #ifdef OSIRIX_VIEWER
-#import "DCMNetServiceDelegate.h"
+#import "DCM Framework/DCMNetServiceDelegate.h"
 #endif
 
 #include <IOKit/graphics/IOGraphicsLib.h>

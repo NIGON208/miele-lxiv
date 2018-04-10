@@ -13,7 +13,7 @@
 =========================================================================*/
 
 #import "DicomFileDCMTKCategory.h"
-#import <OsiriX/DCMAbstractSyntaxUID.h>
+#import "DCM Framework/DCMAbstractSyntaxUID.h"
 #import "DICOMToNSString.h"
 #import "MutableArrayCategory.h"
 #import "DicomStudy.h"

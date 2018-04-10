@@ -2,6 +2,7 @@
 #import "DDKeychain.h"
 #import "DICOMTLS.h"
 #include <stdio.h>
+#include <AssertMacros.h>
 
 static NSMutableDictionary *lockedFiles = nil;
 static NSRecursiveLock *lockFile = nil;
@@ -20,10 +21,10 @@ static OSStatus SSLSecPolicyCopy(SecPolicyRef *ret_policy)
 	*ret_policy = NULL;
 	status = SecPolicySearchCreate(CSSM_CERT_X_509v3, &CSSMOID_APPLE_TP_SSL, NULL, &policy_search);
 	//status = SecPolicySearchCreate(CSSM_CERT_X_509v3, &CSSMOID_APPLE_X509_BASIC, NULL, &policy_search);
-	require_noerr(status, SecPolicySearchCreate);
+	__Require_noErr(status, SecPolicySearchCreate);
 	
 	status = SecPolicySearchCopyNext(policy_search, &policy);
-	require_noerr(status, SecPolicySearchCopyNext);
+	__Require_noErr(status, SecPolicySearchCopyNext);
 	
 	*ret_policy = policy;
 	

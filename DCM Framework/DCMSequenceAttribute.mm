@@ -13,8 +13,8 @@
 =========================================================================*/
 
 #include "url.h"
-#import "DCMSequenceAttribute.h"
-#import "DCM.h"
+#import "DCM Framework/DCMSequenceAttribute.h"
+#import "DCM Framework/DCM.h"
 
 @implementation DCMSequenceAttribute
 

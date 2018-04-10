@@ -15,6 +15,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreMedia/CoreMedia.h>
 #import <AVFoundation/AVFoundation.h>
+#import <AppKit/AppKit.h>
 
 /** \brief QuickTime export */
 @interface QuicktimeExport : NSObject

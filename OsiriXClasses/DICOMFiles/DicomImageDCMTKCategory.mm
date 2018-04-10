@@ -22,8 +22,8 @@
 #include "dcmtk/dcmsr/dsrdoc.h"
 #include "dcmtk/dcmdata/dcuid.h"
 #include "dcmtk/dcmdata/dcfilefo.h"
-#include "dsrtypes.h"
-#include "dsrimgtn.h"
+#include "dcmtk/dcmsr/dsrtypes.h"
+#include "dcmtk/dcmsr/dsrimgtn.h"
 
 @implementation Dicom_Image(DicomImageDCMTKCategory)
 

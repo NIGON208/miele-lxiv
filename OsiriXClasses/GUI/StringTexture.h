@@ -16,6 +16,7 @@
 
 
 #import <Foundation/Foundation.h>
+#import <AppKit/AppKit.h>
 #import <OpenGL/gl.h>
 #import <OpenGL/glext.h>
 #import <OpenGL/OpenGL.h>

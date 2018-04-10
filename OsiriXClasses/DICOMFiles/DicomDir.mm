@@ -14,10 +14,10 @@
 
 #import "DicomDir.h"
 #import "N2Debug.h"
-#include "dcddirif.h"
+#include "dcmtk/dcmdata/dcddirif.h"
 #include "dcmtk/ofstd/ofstd.h"
 
-#include "ddpiimpl.h"     /* for class DicomDirImageImplementation */
+#include "dcmtk/dcmjpeg/ddpiimpl.h"     /* for class DicomDirImageImplementation */
 
 
 @implementation DicomDir

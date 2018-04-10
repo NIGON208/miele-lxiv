@@ -14,7 +14,7 @@
 
 
 #import "DCMLimitedObject.h"
-#import "DCM.h"
+#import "DCM Framework/DCM.h"
 
 
 @implementation DCMLimitedObject

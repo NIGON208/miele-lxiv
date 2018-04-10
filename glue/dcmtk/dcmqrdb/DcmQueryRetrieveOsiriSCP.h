@@ -15,7 +15,8 @@ public:
     DcmQueryRetrieveOsiriSCP(
                         const DcmQueryRetrieveConfig& config,
                         const DcmQueryRetrieveOptions& options,
-                        const DcmQueryRetrieveDatabaseHandleFactory& factory);
+                        const DcmQueryRetrieveDatabaseHandleFactory& factory,
+                        const DcmAssociationConfiguration& associationConfiguration);
     
     void writeErrorMessage( const char *str);
     OFCondition handleAssociation(T_ASC_Association * assoc, OFBool correctUIDPadding);

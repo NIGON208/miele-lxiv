@@ -13,9 +13,9 @@
 =========================================================================*/
 
 #include "url.h"
-#import "DCMEncapsulatedPDF.h"
-#import "DCM.h"
-#import "DCMAbstractSyntaxUID.h"
+#import "DCM Framework/DCMEncapsulatedPDF.h"
+#import "DCM Framework/DCM.h"
+#import "DCM Framework/DCMAbstractSyntaxUID.h"
 
 @implementation  DCMObject (DCMEncapsulatedPDF)
 

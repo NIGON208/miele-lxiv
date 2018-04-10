@@ -22,7 +22,7 @@ Manages the Window for creating Calcium Scoring ROIs
 #import "DCMView.h"
 #import "ROI.h"
 #import "BrowserController.h"
-#import <OsiriX/DCM.h>
+#import "DCM Framework/DCM.h"
 #import "CalciumScoringWindowController.h"
 #import "Notifications.h"
 

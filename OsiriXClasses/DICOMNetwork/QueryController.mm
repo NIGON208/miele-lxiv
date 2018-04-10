@@ -17,8 +17,8 @@
 #import "QueryFilter.h"
 #import "AppController.h"
 #import "ImageAndTextCell.h"
-#import <OsiriX/DCMCalendarDate.h>
-#import <OsiriX/DCMNetServiceDelegate.h>
+#import "DCM Framework/DCMCalendarDate.h"
+#import "DCM Framework/DCMNetServiceDelegate.h"
 #import "QueryArrayController.h"
 //#import "AdvancedQuerySubview.h"
 #import "DCMTKRootQueryNode.h"
@@ -38,7 +38,8 @@
 #import "DicomStudy.h"
 #import "CIADICOMField.h"
 #import "N2Stuff.h"
-#import "DICOMFile.h"
+//#import "DICOMFiles/DICOMFile.h"
+#import "DICOMFiles/dicomFile.h"
 #import "N2Debug.h"
 
 #include "dcmtk/config/osconfig.h"

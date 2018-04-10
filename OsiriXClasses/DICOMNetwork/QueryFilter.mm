@@ -15,7 +15,7 @@
 
 
 #import "QueryFilter.h"
-#import "Osirix/DCM.h"
+#import "DCM Framework/DCM.h"
 
 
 @implementation QueryFilter

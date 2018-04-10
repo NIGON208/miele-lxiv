@@ -34,9 +34,9 @@
 #import "DicomDir.h"
 #import "DicomDatabase.h"
 #import <DiskArbitration/DiskArbitration.h>
-#import "DicomFile.h"
+#import "DICOMFiles/dicomFile.h"
 #import "DicomFileDCMTKCategory.h"
-#import "DCMUIDs.h"
+#import "DCM Framework/DCMUIDs.h"
 #import "DicomDatabase+DCMTK.h"
 
 #import "tmp_locations.h"

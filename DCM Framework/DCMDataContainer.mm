@@ -14,7 +14,7 @@
 
 #include "options.h"
 #import "DCMDataContainer.h"
-#import "DCM.h"
+#import "DCM Framework/DCM.h"
 
 static NSString *signalCatch = @"signalCatch";
 

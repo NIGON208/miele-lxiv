@@ -17,7 +17,7 @@
 #import "DicomDatabase.h"
 #import "NSThread+N2.h"
 #include <libkern/OSAtomic.h>
-#import "dicomFile.h"
+#import "DICOMFiles/dicomFile.h"
 #import "LogManager.h"
 #import "N2Debug.h"
 #import "NSString+N2.h"

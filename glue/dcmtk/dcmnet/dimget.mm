@@ -17,7 +17,7 @@
 */
 
 #import "DicomDatabase.h"
-#include "dcmtk/config/osconfig.h"    /* make sure OS specific configuration is included first */
+#import "dcmtk/config/osconfig.h"    /* make sure OS specific configuration is included first */
 
 #define INCLUDE_CSTDLIB
 #define INCLUDE_CSTDIO
@@ -32,7 +32,13 @@
 #include "dcmtk/dcmnet/diutil.h"
 #include "dcmtk/dcmnet/dimse.h"              /* always include the module header */
 #include "dcmtk/dcmnet/cond.h"
+
+#ifdef WITH_SQL_DATABASE
 #include "dcmtk/dcmqrdbx/dcmqrdbq.h"
+#else
+//#include "dcmtk/dcmqrdb/dcmqrdbi.h"
+#include "dcmqrdbq.h" // glue/dcmqrdb
+#endif
 /*
 **
 */

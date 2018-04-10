@@ -14,9 +14,9 @@
 
 #import "options.h"
 #import "url.h"
-#import "DCMObject.h"
-#import "DCM.h"
-#import "DCMAbstractSyntaxUID.h"
+#import "DCM Framework/DCMObject.h"
+#import "DCM Framework/DCM.h"
+#import "DCM Framework/DCMAbstractSyntaxUID.h"
 #import <Accelerate/Accelerate.h>
 #import "DCMCharacterSet.h"
 

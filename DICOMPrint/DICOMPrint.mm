@@ -1,7 +1,6 @@
 #import <Foundation/Foundation.h>
-#import <OsiriX/DCMObject.h>
-#import <OsiriX/DCMTransferSyntax.h>
-#import <OsiriX/DCMTransferSyntax.h>
+#import "DCM Framework/DCMObject.h"
+#import "DCM Framework/DCMTransferSyntax.h"
 
 #include "AYDcmPrintSCU.h"
 

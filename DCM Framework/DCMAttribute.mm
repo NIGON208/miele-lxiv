@@ -12,8 +12,8 @@
      PURPOSE.
 =========================================================================*/
 
-#import "DCMAttribute.h"
-#import "DCM.h"
+#import "DCM Framework/DCMAttribute.h"
+#import "DCM Framework/DCM.h"
 
 @implementation DCMAttribute
 

@@ -1,5 +1,5 @@
 /*
- * This program is Copyright © 2002 Bryan L Blackburn.  All rights reserved.
+ * This program is Copyright ï¿½ 2002 Bryan L Blackburn.  All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -29,7 +29,7 @@
 
 /* NSFont_OpenGL.m */
 
-#import "NSFont_OpenGL.h"
+#import "NSFont_OpenGL/NSFont_OpenGL.h"
 #import "N2Debug.h"
 
 #define MAXCOUNT 256

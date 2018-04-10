@@ -22,7 +22,7 @@
 #import "SFAuthorizationView+OsiriX.h"
 #import "AppController.h"
 #import "BrowserController.h"
-#import "DicomFile.h"
+#import "DICOMFiles/dicomFile.h"
 #import "DCMView.h"
 #import "PluginManagerController.h"
 #import <Foundation/NSObjCRuntime.h>

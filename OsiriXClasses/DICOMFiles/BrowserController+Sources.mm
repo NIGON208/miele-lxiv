@@ -28,11 +28,11 @@
 #import "N2Operators.h"
 #import "ThreadModalForWindowController.h"
 #import "BonjourPublisher.h"
-#import "DicomFile.h"
+#import "DICOMFiles/dicomFile.h"
 #import "ThreadsManager.h"
 #import "NSDictionary+N2.h"
 #import "NSFileManager+N2.h"
-#import "DCMNetServiceDelegate.h"
+#import "DCM Framework/DCMNetServiceDelegate.h"
 #import "AppController.h"
 #import <netinet/in.h>
 #import <arpa/inet.h>

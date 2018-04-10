@@ -13,7 +13,7 @@
 =========================================================================*/
 
 #import "DCMTagForNameDictionary.h"
-#import "DCM.h"
+#import "DCM Framework/DCM.h"
 
 static DCMTagForNameDictionary *sharedTagForNameDictionary; 
 

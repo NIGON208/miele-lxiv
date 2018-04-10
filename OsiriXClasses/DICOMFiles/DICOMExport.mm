@@ -16,9 +16,9 @@
 #import "tmp_locations.h"
 
 #import "DICOMExport.h"
-#import <OsiriX/DCM.h>
+#import "DCM Framework/DCM.h"
 #import "BrowserController.h"
-#import "dicomFile.h"
+#import "DICOMFiles/dicomFile.h"
 #import "DCMView.h"
 #import "DCMPix.h"
 #import "altivecFunctions.h"
@@ -27,6 +27,7 @@
 #import "DicomImage.h"
 #import "DicomSeries.h"
 #import "DicomStudy.h"
+#include "dcmtk/ofstd/ofcond.h"
 
 static float deg2rad = M_PI / 180.0f; 
 

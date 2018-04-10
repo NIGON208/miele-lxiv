@@ -18,8 +18,8 @@
 #import "DCMView.h"
 #import "DCMPix.h"
 #import "BrowserController.h"
-#import "DicomFile.h"
-#import <OsiriX/DCMCalendarDate.h>
+#import "DICOMFiles/dicomFile.h"
+#import "DCM Framework/DCMCalendarDate.h"
 #import "DicomStudy.h"
 #import "DicomSeries.h"
 #import "N2Debug.h"
@@ -27,7 +27,7 @@
 #import "DICOMExport.h"
 
 #include "dcmtk/config/osconfig.h"   /* make sure OS specific configuration is included first */
-#include "dsrtypes.h"
+#include "dcmtk/dcmsr/dsrtypes.h"
 
 #define DCM_OsirixROI							 DcmTagKey(0x0071, 0x0011)
 

@@ -41,7 +41,7 @@
 #import "viewerController.h"
 #import "PluginFilter.h"
 #import "ReportPluginFilter.h"
-#import "dicomFile.h"
+#import "DICOMFiles/dicomFile.h"
 #import "DicomFileDCMTKCategory.h"
 #import "NSSplitViewSave.h"
 #import "DicomDirParser.h"
@@ -52,14 +52,14 @@
 #import "Wait.h"
 #import "WaitRendering.h"
 #import "BurnerWindowController.h"
-#import "DCMTransferSyntax.h"
-#import "DCMAttributeTag.h"
-#import "DCMPixelDataAttribute.h"
-#import "DCMCalendarDate.h"
-#import <OsiriX/DCM.h>
-#import <OsiriX/DCMObject.h>
-#import <OsiriX/DCMAbstractSyntaxUID.h>
-#import <OsiriX/DCMNetServiceDelegate.h>
+#import "DCM Framework/DCMTransferSyntax.h"
+#import "DCM Framework/DCMAttributeTag.h"
+#import "DCM Framework/DCMPixelDataAttribute.h"
+#import "DCM Framework/DCMCalendarDate.h"
+#import "DCM Framework/DCM.h"
+#import "DCM Framework/DCMObject.h"
+#import "DCM Framework/DCMAbstractSyntaxUID.h"
+#import "DCM Framework/DCMNetServiceDelegate.h"
 #import "LogWindowController.h"
 #import "stringAdditions.h"
 #import "SendController.h"

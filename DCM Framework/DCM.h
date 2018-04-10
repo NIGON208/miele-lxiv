@@ -13,23 +13,23 @@
 =========================================================================*/
 
 
-#import "OsiriX/DCMValueRepresentation.h"
-#import "OsiriX/DCMAttributeTag.h"
-#import "OsiriX/DCMAttribute.h"
-#import "OsiriX/DCMSequenceAttribute.h"
-#import "OsiriX/DCMDataContainer.h"
-#import "OsiriX/DCMObject.h"
-#import "OsiriX/DCMTransferSyntax.h"
-#import "OsiriX/DCMTagDictionary.h"
-#import "OsiriX/DCMTagForNameDictionary.h"
-#import "OsiriX/DCMCharacterSet.h"
-#import "OsiriX/DCMPixelDataAttribute.h"
-#import "OsiriX/DCMCalendarDate.h"
+#import "DCM Framework/DCMValueRepresentation.h"
+#import "DCM Framework/DCMAttributeTag.h"
+#import "DCM Framework/DCMAttribute.h"
+#import "DCM Framework/DCMSequenceAttribute.h"
+#import "DCM Framework/DCMDataContainer.h"
+#import "DCM Framework/DCMObject.h"
+#import "DCM Framework/DCMTransferSyntax.h"
+#import "DCM Framework/DCMTagDictionary.h"
+#import "DCM Framework/DCMTagForNameDictionary.h"
+#import "DCM Framework/DCMCharacterSet.h"
+#import "DCM Framework/DCMPixelDataAttribute.h"
+#import "DCM Framework/DCMCalendarDate.h"
 
 #import "DCMLimitedObject.h"
 
-#import "DCMNetServiceDelegate.h"
-#import "DCMEncapsulatedPDF.h"
+#import "DCM Framework/DCMNetServiceDelegate.h"
+#import "DCM Framework/DCMEncapsulatedPDF.h"
 
 
 #define DCMDEBUG 0

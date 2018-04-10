@@ -15,7 +15,7 @@
 #import "BrowserController.h"
 #import "DICOMToNSString.h"
 #import "LogManager.h"
-#import "dicomFile.h"
+#import "DICOMFiles/dicomFile.h"
 
 #undef verify
 
@@ -46,7 +46,12 @@ END_EXTERN_C
 #include "dcmtk/dcmdata/dcfilefo.h"
 #include "dcmtk/ofstd/ofstd.h"
 
-#import "dcmtk/dcmqrdbx/dcmqrdbq.h"
+#ifdef WITH_SQL_DATABASE
+#include "dcmtk/dcmqrdbx/dcmqrdbq.h"
+#else
+//#include "dcmtk/dcmqrdb/dcmqrdbi.h"
+#include "dcmqrdbq.h" // glue/dcmqrdb
+#endif
 
 #include "dcmtk/ofstd/ofstring.h"
 #include "dcmtk/dcmnet/dimse.h"

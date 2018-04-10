@@ -16,7 +16,7 @@
 
 #import "AsyncSocket.h"
 #import "OsiriXSCPDataHandler.h"
-#import "DicomFile.h"
+#import "DICOMFiles/dicomFile.h"
 #import "DicomFileDCMTKCategory.h"
 #import "BrowserController.h"
 #import "AppController.h"
@@ -31,7 +31,7 @@
 #import "NSThread+N2.h"
 #import "LogManager.h"
 #import "MutableArrayCategory.h"
-#import "DCMAbstractSyntaxUID.h"
+#import "DCM Framework/DCMAbstractSyntaxUID.h"
 
 #include "dcmtk/dcmdata/dctk.h"
 #import "tmp_locations.h"

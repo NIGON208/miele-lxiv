@@ -13,7 +13,7 @@
 =========================================================================*/
 
 #import "PreviewView.h"
-#import "NSFont_OpenGL.h"
+#import "NSFont_OpenGL/NSFont_OpenGL.h"
 
 @implementation PreviewView
 
