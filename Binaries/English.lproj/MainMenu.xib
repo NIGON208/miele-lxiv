@@ -20,7 +20,7 @@
                 <menuItem title="OsiriX" id="56">
                     <menu key="submenu" title="OsiriX" systemMenu="apple" id="57">
                         <items>
-                            <menuItem title="About Osiri-LXIV" id="58">
+                            <menuItem title="About Miele-LXIV" id="58">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="about:" target="694" id="1115"/>
@@ -40,7 +40,7 @@
                             <menuItem isSeparatorItem="YES" id="143">
                                 <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                             </menuItem>
-                            <menuItem title="Hide Osiri-LXIV" keyEquivalent="h" id="134">
+                            <menuItem title="Hide Miele-LXIV" keyEquivalent="h" id="134">
                                 <connections>
                                     <action selector="hide:" target="-2" id="152"/>
                                 </connections>
@@ -59,7 +59,7 @@
                             <menuItem isSeparatorItem="YES" id="149">
                                 <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                             </menuItem>
-                            <menuItem title="Quit Osiri-LXIV" keyEquivalent="q" id="136">
+                            <menuItem title="Quit Miele-LXIV" keyEquivalent="q" id="136">
                                 <connections>
                                     <action selector="terminate:" target="694" id="1722"/>
                                 </connections>
@@ -2081,7 +2081,7 @@ CA
                                                     <rect key="frame" x="-1" y="-1" width="308" height="194"/>
                                                     <clipView key="contentView" drawsBackground="NO" id="SVE-qJ-JP0">
                                                         <rect key="frame" x="1" y="0.0" width="306" height="193"/>
-                                                        <autoresizingMask key="autoresizingMask"/>
+                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <subviews>
                                                             <tableView focusRingType="none" appearanceType="vibrantLight" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="firstColumnOnly" selectionHighlightStyle="sourceList" columnReordering="NO" multipleSelection="NO" emptySelection="NO" autosaveColumns="NO" headerView="13474" id="1465">
                                                                 <rect key="frame" x="0.0" y="0.0" width="306" height="170"/>
@@ -2147,7 +2147,7 @@ CA
                                                     <rect key="frame" x="-1" y="-1" width="308" height="374"/>
                                                     <clipView key="contentView" drawsBackground="NO" id="Gln-GV-aBY">
                                                         <rect key="frame" x="1" y="0.0" width="306" height="373"/>
-                                                        <autoresizingMask key="autoresizingMask"/>
+                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <subviews>
                                                             <tableView focusRingType="none" appearanceType="vibrantLight" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="firstColumnOnly" selectionHighlightStyle="sourceList" columnReordering="NO" columnResizing="NO" multipleSelection="NO" emptySelection="NO" autosaveColumns="NO" headerView="13477" id="11693">
                                                                 <rect key="frame" x="0.0" y="0.0" width="306" height="350"/>
@@ -2221,7 +2221,7 @@ CA
                                                     <rect key="frame" x="-1" y="-1" width="308" height="107"/>
                                                     <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="ydr-H4-NAn">
                                                         <rect key="frame" x="1" y="0.0" width="306" height="106"/>
-                                                        <autoresizingMask key="autoresizingMask"/>
+                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <subviews>
                                                             <tableView focusRingType="none" appearanceType="vibrantLight" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="firstColumnOnly" selectionHighlightStyle="sourceList" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" typeSelect="NO" rowHeight="38" headerView="14179" id="14153" customClass="ThreadsTableView">
                                                                 <rect key="frame" x="0.0" y="0.0" width="306" height="83"/>
@@ -2300,7 +2300,7 @@ CA
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <clipView key="contentView" id="cHT-ZM-bts">
                                                             <rect key="frame" x="0.0" y="0.0" width="299" height="638"/>
-                                                            <autoresizingMask key="autoresizingMask"/>
+                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <outlineView focusRingType="exterior" verticalHuggingPriority="750" allowsExpansionToolTips="YES" alternatingRowBackgroundColors="YES" emptySelection="NO" autosaveColumns="NO" headerView="13469" indentationPerLevel="16" autoresizesOutlineColumn="YES" outlineTableColumn="958" id="966" customClass="MyOutlineView">
                                                                     <rect key="frame" x="0.0" y="0.0" width="2695" height="615"/>
@@ -2674,7 +2674,7 @@ CA
                                                                 </outlineView>
                                                             </subviews>
                                                         </clipView>
-                                                        <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="13468">
+                                                        <scroller key="horizontalScroller" verticalHuggingPriority="750" doubleValue="6.9912667622487408e-05" horizontal="YES" id="13468">
                                                             <rect key="frame" x="0.0" y="638" width="299" height="15"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                         </scroller>
@@ -2692,7 +2692,7 @@ CA
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <clipView key="contentView" drawsBackground="NO" id="vKi-LS-gLS">
                                                             <rect key="frame" x="0.0" y="0.0" width="428" height="653"/>
-                                                            <autoresizingMask key="autoresizingMask"/>
+                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <tableView focusRingType="none" appearanceType="vibrantLight" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="firstColumnOnly" selectionHighlightStyle="sourceList" columnReordering="NO" multipleSelection="NO" emptySelection="NO" autosaveColumns="NO" rowHeight="29" headerView="14721" id="14724">
                                                                     <rect key="frame" x="0.0" y="0.0" width="428" height="630"/>
@@ -2775,7 +2775,7 @@ CA
                                                                                 <rect key="frame" x="2" y="0.0" width="439" height="427"/>
                                                                                 <clipView key="contentView" id="mpo-d1-Wrk">
                                                                                     <rect key="frame" x="0.0" y="0.0" width="424" height="427"/>
-                                                                                    <autoresizingMask key="autoresizingMask"/>
+                                                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                                     <subviews>
                                                                                         <matrix verticalHuggingPriority="750" mode="list" allowsEmptySelection="NO" autosizesCells="NO" translatesAutoresizingMaskIntoConstraints="NO" id="12411" customClass="BrowserMatrix">
                                                                                             <rect key="frame" x="0.0" y="0.0" width="424" height="432"/>
@@ -4225,8 +4225,8 @@ Gw
                     <scrollView misplaced="YES" horizontalLineScroll="0.0" horizontalPageScroll="0.0" verticalLineScroll="0.0" verticalPageScroll="0.0" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="12804">
                         <rect key="frame" x="35" y="188" width="584" height="130"/>
                         <clipView key="contentView" id="x65-cS-UGw">
-                            <rect key="frame" x="1" y="1" width="582" height="113"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <rect key="frame" x="1" y="1" width="609" height="113"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <subviews>
                                 <matrix verticalHuggingPriority="750" misplaced="YES" selectionByRect="NO" autosizesCells="NO" translatesAutoresizingMaskIntoConstraints="NO" id="12805">
                                     <rect key="frame" x="0.0" y="-15" width="111" height="113"/>
@@ -4253,7 +4253,7 @@ Gw
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </clipView>
                         <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="13479">
-                            <rect key="frame" x="1" y="114" width="582" height="15"/>
+                            <rect key="frame" x="1" y="114" width="609" height="15"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                         <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="13478">
@@ -4306,8 +4306,8 @@ Gw
                     <scrollView misplaced="YES" horizontalLineScroll="0.0" horizontalPageScroll="0.0" verticalLineScroll="0.0" verticalPageScroll="0.0" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="12936">
                         <rect key="frame" x="35" y="30" width="584" height="130"/>
                         <clipView key="contentView" id="q7Q-H8-RIB">
-                            <rect key="frame" x="1" y="1" width="582" height="113"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <rect key="frame" x="1" y="1" width="609" height="113"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <subviews>
                                 <matrix verticalHuggingPriority="750" misplaced="YES" selectionByRect="NO" autosizesCells="NO" translatesAutoresizingMaskIntoConstraints="NO" id="12937">
                                     <rect key="frame" x="0.0" y="-15" width="111" height="113"/>
@@ -4334,7 +4334,7 @@ Gw
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </clipView>
                         <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="13481">
-                            <rect key="frame" x="1" y="114" width="582" height="15"/>
+                            <rect key="frame" x="1" y="114" width="609" height="15"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                         <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="13480">

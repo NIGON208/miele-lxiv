@@ -1,10 +1,8 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1421" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14109" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11762"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14109"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
-        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="box content view" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -33,8 +31,8 @@
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <button toolTip="Connect to OsiriX and check for latest version." horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="101">
-                                    <rect key="frame" x="15" y="11" width="445" height="18"/>
-                                    <buttonCell key="cell" type="check" title="Automatically check for Osiri-LXIV application updates at startup time" bezelStyle="regularSquare" imagePosition="left" alignment="left" scrollable="YES" lineBreakMode="clipping" inset="2" id="178">
+                                    <rect key="frame" x="15" y="11" width="450" height="18"/>
+                                    <buttonCell key="cell" type="check" title="Automatically check for Miele-LXIV application updates at startup time" bezelStyle="regularSquare" imagePosition="left" alignment="left" scrollable="YES" lineBreakMode="clipping" inset="2" id="178">
                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
@@ -186,7 +184,7 @@
                                         <binding destination="167" name="value" keyPath="values.SyncPreferencesFromURL" id="552"/>
                                     </connections>
                                 </button>
-                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="545">
+                                <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="545">
                                     <rect key="frame" x="57" y="35" width="467" height="22"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="467" id="onX-Wv-Ksi"/>
@@ -282,7 +280,7 @@
                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                 <tableColumns>
-                                                    <tableColumn width="68.39453125" minWidth="40" maxWidth="1000" id="522">
+                                                    <tableColumn identifier="" width="68.39453125" minWidth="40" maxWidth="1000" id="522">
                                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Enabled">
                                                             <font key="font" metaFont="smallSystem"/>
                                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -297,7 +295,7 @@
                                                             <binding destination="433" name="value" keyPath="arrangedObjects.active" id="529"/>
                                                         </connections>
                                                     </tableColumn>
-                                                    <tableColumn width="292" minWidth="40" maxWidth="1000" id="523">
+                                                    <tableColumn identifier="" width="292" minWidth="40" maxWidth="1000" id="523">
                                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Language">
                                                             <font key="font" metaFont="smallSystem"/>
                                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -333,7 +331,7 @@
                                         <autoresizingMask key="autoresizingMask"/>
                                     </tableHeaderView>
                                 </scrollView>
-                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" preferredMaxLayoutWidth="269" translatesAutoresizingMaskIntoConstraints="NO" id="533">
+                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" allowsCharacterPickerTouchBarItem="YES" preferredMaxLayoutWidth="269" translatesAutoresizingMaskIntoConstraints="NO" id="533">
                                     <rect key="frame" x="394" y="72" width="273" height="56"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="269" id="2DB-Rw-l5q"/>
@@ -364,7 +362,7 @@ If multiple languages are enabled, the used language will be chosen according to
                             <rect key="frame" x="2" y="2" width="684" height="68"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="364">
+                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="1000" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="364">
                                     <rect key="frame" x="20" y="40" width="130" height="17"/>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Compression Levels:" id="374">
                                         <font key="font" metaFont="system"/>
@@ -478,7 +476,7 @@ Gw
                         <rect key="frame" x="483" y="49" width="457" height="341"/>
                         <clipView key="contentView" id="EK6-dZ-HuA">
                             <rect key="frame" x="1" y="0.0" width="455" height="340"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <subviews>
                                 <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" alternatingRowBackgroundColors="YES" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" headerView="219" id="218">
                                     <rect key="frame" x="0.0" y="0.0" width="455" height="317"/>
@@ -582,7 +580,7 @@ Gw
                         <rect key="frame" x="20" y="49" width="457" height="341"/>
                         <clipView key="contentView" id="FNE-Eu-X4N">
                             <rect key="frame" x="1" y="0.0" width="455" height="340"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <subviews>
                                 <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" alternatingRowBackgroundColors="YES" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" headerView="289" id="290">
                                     <rect key="frame" x="0.0" y="0.0" width="455" height="317"/>
@@ -679,15 +677,15 @@ Gw
                             <autoresizingMask key="autoresizingMask"/>
                         </tableHeaderView>
                     </scrollView>
-                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="305">
-                        <rect key="frame" x="18" y="398" width="177" height="17"/>
+                    <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="305">
+                        <rect key="frame" x="18" y="398" width="176" height="17"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="If matrix size is smaller than:" id="306">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="318">
+                    <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="318">
                         <rect key="frame" x="481" y="398" width="33" height="17"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Else:" id="319">
                             <font key="font" metaFont="system"/>
@@ -696,7 +694,7 @@ Gw
                         </textFieldCell>
                     </textField>
                     <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="307">
-                        <rect key="frame" x="197" y="392" width="70" height="26"/>
+                        <rect key="frame" x="196" y="392" width="70" height="26"/>
                         <popUpButtonCell key="cell" type="push" title="128" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="128" imageScaling="proportionallyDown" inset="2" selectedItem="310" id="308">
                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="menu"/>

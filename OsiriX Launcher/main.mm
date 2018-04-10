@@ -262,8 +262,8 @@ int main(int argc, char** argv)
                                                NULL]];
 	[task waitUntilExit];
 	
-    // First try launching Osiri-LXIV if available
-    NSString* appName = @"Osiri-LXIV.app";
+    // First try launching Miele-LXIV if available
+    NSString* appName = @"Miele.app";
     BOOL launched = [[NSWorkspace sharedWorkspace] launchApplication:appName];
     
     if (!launched) {
