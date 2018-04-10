@@ -697,11 +697,11 @@ static NSDate *lastWarningDate = nil;
     return NO;
 }
 
-+(BOOL) hasMacOSXSierra
++(BOOL) hasMacOSXHighSierra
 {
     NSOperatingSystemVersion version = [[NSProcessInfo processInfo] operatingSystemVersion];
     if (version.majorVersion == 10 &&
-        version.minorVersion >= 12)
+        version.minorVersion == 13)
         return YES;
     
     return NO;
@@ -4337,7 +4337,7 @@ static BOOL initialized = NO;
         }
     }
     
-    if ([AppController hasMacOSXSierra])
+    if ([AppController hasMacOSXHighSierra])
     {
 #ifdef WITH_OS_VALIDATION
         NSAlert* alert = [[NSAlert new] autorelease];

@@ -147,7 +147,8 @@ extern AppController* OsiriX;
 + (BOOL) hasMacOSXMountainLion;
 + (BOOL) hasMacOSX1083;
 + (BOOL) hasMacOS_Mavericks;    // 10.9
-+ (BOOL) hasMacOSXSierra;       // 10.12
+//+ (BOOL) hasMacOSXSierra;       // 10.12
++ (BOOL) hasMacOSXHighSierra;   // 10.13
 
 +(NSString*)UID;
 
