@@ -686,28 +686,30 @@ static NSDate *lastWarningDate = nil;
 @synthesize checkAllWindowsAreVisibleIsOff, filtersMenu, windowsTilingMenuRows, recentStudiesMenu, windowsTilingMenuColumns, isSessionInactive, dicomBonjourPublisher = BonjourDICOMService, XMLRPCServer;
 @synthesize bonjourPublisher = _bonjourPublisher;
 
-+(BOOL) hasMacOSX1083
+//+(BOOL) hasMacOSX1083
+//{
+//    NSOperatingSystemVersion version = [[NSProcessInfo processInfo] operatingSystemVersion];
+//    if (version.majorVersion == 10 &&
+//        version.minorVersion == 8 &&
+//        version.patchVersion == 3)
+//        return YES;
+//
+//    return NO;
+//}
+
++(BOOL) hasMacOSXAfterHighSierra
 {
     NSOperatingSystemVersion version = [[NSProcessInfo processInfo] operatingSystemVersion];
-    if (version.majorVersion == 10 &&
-        version.minorVersion == 8 &&
-        version.patchVersion == 3)
+    if ((version.majorVersion > 10) ||
+        (version.majorVersion == 10 && version.minorVersion > 13))
+    {
         return YES;
-
-    return NO;
-}
-
-+(BOOL) hasMacOSXHighSierra
-{
-    NSOperatingSystemVersion version = [[NSProcessInfo processInfo] operatingSystemVersion];
-    if (version.majorVersion == 10 &&
-        version.minorVersion == 13)
-        return YES;
+    }
     
     return NO;
 }
 
-+(BOOL) hasMacOS_Mavericks
++(BOOL) hasAtLeastMacOS_Mavericks
 {
     NSOperatingSystemVersion version = [[NSProcessInfo processInfo] operatingSystemVersion];
     if (version.majorVersion == 10 &&
@@ -749,16 +751,6 @@ static NSDate *lastWarningDate = nil;
 
     return YES;
 }
-
-//+(BOOL) hasMacOSXLeopard
-//{
-//    NSOperatingSystemVersion version = [[NSProcessInfo processInfo] operatingSystemVersion];
-//    if (version.majorVersion < 10 ||
-//        version.minorVersion < 5)
-//        return NO;
-//
-//    return YES;
-//}
 
 + (void) createNoIndexDirectoryIfNecessary:(NSString*) path { // __deprecated
 	[[NSFileManager defaultManager] confirmNoIndexDirectoryAtPath:path];
@@ -3041,11 +3033,12 @@ static BOOL initialized = NO;
                 NSLog(@"Number of screens: %d", (int) [[NSScreen screens] count]);
 				NSLog(@"Main screen backingScaleFactor: %f", (float) [[NSScreen mainScreen] backingScaleFactor]);
                 NSDictionary *d = [[NSBundle mainBundle] infoDictionary];
-                NSLog(@"%@ %@ %@ (%@)",
+                NSLog(@"%@ %@ %@ (%@), for macOS %@ or better",
                       [d objectForKey:@"CFBundleName"],
                       [d objectForKey:@"CFBundleShortVersionString"],
                       [d objectForKey:@"CFBundleVersion"],
-                      bits);
+                      bits,
+                      [d valueForKey:@"LSMinimumSystemVersion"]);
                 NSLog(@"VTK %s", VTK_VERSION);
                 NSLog(@"ITK %s", ITK_VERSION);
                 NSLog(@"DCMTK %s %s", OFFIS_DCMTK_VERSION, OFFIS_DCMTK_RELEASEDATE);
@@ -3805,10 +3798,10 @@ static BOOL initialized = NO;
 #endif // NDEBUG
 #endif // OSIRIX_LIGHT
     
-    if (![AppController hasMacOS_Mavericks])
+    if (![AppController hasAtLeastMacOS_Mavericks])
     {
         NSRunCriticalAlertPanel(NSLocalizedString( @"MacOS Version", nil),
-                                NSLocalizedString( @"OsiriX requires MacOS 10.7.5 or higher. Please update your OS: Apple Menu - Software Update...", nil),
+                                NSLocalizedString( @"This app requires MacOS major.minor or higher. Please update your OS: Apple Menu - Software Update...", nil),
                                 NSLocalizedString( @"Quit", nil),
                                 nil,
                                 nil);
@@ -3919,24 +3912,24 @@ static BOOL initialized = NO;
 
 -(void)verifyHardwareInterpolation
 {
-    if( [AppController hasMacOSX1083]) // Intel 10.8.3 graphic bug
-    {
-        BOOL onlyIntelGraphicBoard = YES;
-        for( NSString *gpuName in [AppController getGPUNames])
-        {
-            if( [gpuName hasPrefix: kIntelGPUPrefix] == NO)
-                onlyIntelGraphicBoard = NO;
-        }
-        
-        if( onlyIntelGraphicBoard)
-        {
-            NSLog( @"**** 10.8.3 graphic board bug: only intel board discovered : No 32-bit pipeline available");
-            NSLog( @"%@", [AppController getGPUNames]);
-            
-            [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"FULL32BITPIPELINE"];
-            return;
-        }
-    }
+//    if( [AppController hasMacOSX1083]) // Intel 10.8.3 graphic bug
+//    {
+//        BOOL onlyIntelGraphicBoard = YES;
+//        for( NSString *gpuName in [AppController getGPUNames])
+//        {
+//            if( [gpuName hasPrefix: kIntelGPUPrefix] == NO)
+//                onlyIntelGraphicBoard = NO;
+//        }
+//
+//        if( onlyIntelGraphicBoard)
+//        {
+//            NSLog( @"**** 10.8.3 graphic board bug: only intel board discovered : No 32-bit pipeline available");
+//            NSLog( @"%@", [AppController getGPUNames]);
+//
+//            [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"FULL32BITPIPELINE"];
+//            return;
+//        }
+//    }
     
 	NSUInteger size = 32, size2 = size*size;
 	
@@ -4337,7 +4330,7 @@ static BOOL initialized = NO;
         }
     }
     
-    if ([AppController hasMacOSXHighSierra])
+    if ([AppController hasMacOSXAfterHighSierra])
     {
 #ifdef WITH_OS_VALIDATION
         NSAlert* alert = [[NSAlert new] autorelease];
@@ -4571,12 +4564,8 @@ static BOOL initialized = NO;
         verboseAfterCrash = YES;
     
 #ifdef NDEBUG
-	if( [AppController hasMacOSXMountainLion]) // or better
-		url = [NSURL URLWithString:URL_OSIRIX_VERSION];
-	else
-		url = [NSURL URLWithString:URL_OSIRIX_VERSION_OLD_OS];  // TODO: remove
-	
-	if( url)
+    url = [NSURL URLWithString:URL_OSIRIX_VERSION];
+	if (url)
 	{
 		NSString *currVersionNumber = [[[NSBundle bundleForClass:[self class]] infoDictionary] objectForKey:@"CFBundleVersion"];
 		NSDictionary *productVersionDict = [NSDictionary dictionaryWithContentsOfURL: url];
