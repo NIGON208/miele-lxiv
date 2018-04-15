@@ -1132,7 +1132,7 @@ char *nifti_xform_string( int xx )
 
     \sa     NIFTI1_INTENT_CODES group in nifti1.h
 *//*-------------------------------------------------------------------------*/
-char *nifti_intent_string( int ii )
+const char *nifti_intent_string( int ii )
 {
    switch( ii ){
      case NIFTI_INTENT_CORREL:     return "Correlation statistic" ;

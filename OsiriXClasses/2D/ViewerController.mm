@@ -31,7 +31,7 @@
 #import "NSFullScreenWindow.h"
 #import "ViewerController.h"
 #import "BrowserController.h"
-#import "wait.h"
+#import "Wait.h"
 #import "XMLController.h"
 #include <Accelerate/Accelerate.h>
 #import "WaitRendering.h"

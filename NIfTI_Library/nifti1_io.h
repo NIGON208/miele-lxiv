@@ -169,7 +169,7 @@ typedef struct {
 
 char *nifti_datatype_string   ( int dt ) ;
 char *nifti_units_string      ( int uu ) ;
-char *nifti_intent_string     ( int ii ) ;
+const char *nifti_intent_string     ( int ii ) ;
 char *nifti_xform_string      ( int xx ) ;
 char *nifti_slice_string      ( int ss ) ;
 char *nifti_orientation_string( int ii ) ;

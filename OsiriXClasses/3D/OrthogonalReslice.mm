@@ -48,23 +48,23 @@
         float *Ycache = (float *)[[dict objectForKey: @"Ycache"] pointerValue];
         
         int	z;
-        const register int maxY = [fPix pheight];
-        const register int maxX = [fPix pwidth];
+        const int maxY = [fPix pheight];
+        const int maxX = [fPix pwidth];
         
         z = [[dict objectForKey:@"zValue"] intValue];
         
-        register float *basedstPtr = Ycache + z*maxY*maxX;
-        register float *basesrcPtr = [[originalDCMPixList objectAtIndex: z] fImage];
-        register int x = maxX;
+        float *basedstPtr = Ycache + z*maxY*maxX;
+        float *basesrcPtr = [[originalDCMPixList objectAtIndex: z] fImage];
+        int x = maxX;
         while (x-->0)
         {
-            register float *dstPtr = basedstPtr;
-            register float *srcPtr = basesrcPtr;
+            float *dstPtr = basedstPtr;
+            float *srcPtr = basesrcPtr;
             
             basedstPtr += maxY;
             basesrcPtr++;
             
-            register int yy = maxY;
+            int yy = maxY;
             while (yy-->0)
             {
                 *dstPtr++ = *srcPtr;
@@ -234,9 +234,9 @@
 		}
 		else									// Y - RESLICE
 		{
-			register float	*srcPtr;
-			register float	*dstPtr;
-			register long	rowBytes = [firstPix pwidth];
+			float	*srcPtr;
+			float	*dstPtr;
+			long	rowBytes = [firstPix pwidth];
 			
 			DCMPix *curPix = [newPixListY objectAtIndex: stack];
 			
@@ -287,7 +287,7 @@
 					}
 					dstPtr = [curPix fImage] + x * newX;
 					
-					register long yy = newX;
+					long yy = newX;
 					while (yy-->0)
 					{
 						*dstPtr++ = *srcPtr;

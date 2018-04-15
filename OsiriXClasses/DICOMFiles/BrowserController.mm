@@ -19304,8 +19304,6 @@ static volatile int numberOfThreadsForJPEG = 0;
 	#endif
 }
 
-//ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ
-
 #pragma mark-
 #pragma mark Toolbar functions
 
@@ -19320,7 +19318,7 @@ static volatile int numberOfThreadsForJPEG = 0;
 
 - (void)windowDidBecomeKey:(NSNotification *)notification
 {
-	[self flagsChanged: 0L];
+	[self flagsChanged: nil];
 	
     @synchronized (_albumNoOfStudiesCache)
     {
