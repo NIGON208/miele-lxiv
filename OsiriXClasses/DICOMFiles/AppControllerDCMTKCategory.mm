@@ -12,11 +12,11 @@
      PURPOSE.
 =========================================================================*/
 
+#undef verify
+#include "dcmtk/config/osconfig.h"
+
 #import "AppControllerDCMTKCategory.h"
 
-#undef verify
-
-#include "dcmtk/config/osconfig.h"
 #include "dcmtk/dcmjpeg/djdecode.h"  /* for dcmjpeg decoders */
 #include "dcmtk/dcmjpeg/djencode.h"  /* for dcmjpeg encoders */
 #include "dcmtk/dcmdata/dcrledrg.h"  /* for DcmRLEDecoderRegistration */

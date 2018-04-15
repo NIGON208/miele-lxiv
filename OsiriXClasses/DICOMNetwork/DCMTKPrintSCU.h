@@ -12,12 +12,13 @@
      PURPOSE.
 =========================================================================*/
 
+#undef verify
+#include "dcmtk/config/osconfig.h"
+
 #import <Cocoa/Cocoa.h>
 #import "DCMTKServiceClassUser.h"
 
-#undef verify
-
-#include "dcmtk/config/osconfig.h" 
+#define INCLUDE_CTIME
 #include "dcmtk/ofstd/ofstdinc.h"
 #include "dcmtk/dcmpstat/dviface.h"
 #include "dcmtk/dcmpstat/dvpssp.h"

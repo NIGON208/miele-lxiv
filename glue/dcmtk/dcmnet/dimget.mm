@@ -23,6 +23,7 @@
 #define INCLUDE_CSTDIO
 #define INCLUDE_CSTRING
 #define INCLUDE_CSTDARG
+#define INCLUDE_CTIME
 #include "dcmtk/ofstd/ofstdinc.h"
 
 #ifdef HAVE_FCNTL_H

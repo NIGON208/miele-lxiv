@@ -29,6 +29,7 @@
 #include "dcmtk/dcmdata/dcistrmf.h"  /* for class DcmInputFileStream */
 
 #define INCLUDE_CSTDIO
+#define INCLUDE_CTIME
 #include "dcmtk/ofstd/ofstdinc.h"
 
 

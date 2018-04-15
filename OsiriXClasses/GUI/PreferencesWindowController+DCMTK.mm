@@ -12,10 +12,11 @@
      PURPOSE.
 =========================================================================*/
 
+#include "dcmtk/config/osconfig.h"
+
 #import "PreferencesWindowController+DCMTK.h"
 #import "CIADICOMField.h"
 
-#include "dcmtk/config/osconfig.h"
 #include "mdfconen.h"
 
 #include "dcmtk/dcmdata/dcvrsl.h"
@@ -25,6 +26,7 @@
 #include "dcmtk/dcmdata/dcuid.h"
 
 #define INCLUDE_CSTDIO
+#define INCLUDE_CTIME
 #include "dcmtk/ofstd/ofstdinc.h"
 
 

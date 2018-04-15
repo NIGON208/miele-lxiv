@@ -12,11 +12,10 @@
      PURPOSE.
 =========================================================================*/
 
-#import "DicomImageDCMTKCategory.h"
-
 #undef verify
-
 #include "dcmtk/config/osconfig.h"    /* make sure OS specific configuration is included first */
+
+#import "DicomImageDCMTKCategory.h"
 
 #include "dcmtk/ofstd/ofstream.h"
 #include "dcmtk/dcmsr/dsrdoc.h"

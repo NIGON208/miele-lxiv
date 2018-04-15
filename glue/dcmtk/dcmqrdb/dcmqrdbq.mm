@@ -12,14 +12,14 @@
      PURPOSE.
 =========================================================================*/
 
+#undef verify
+#include "dcmtk/config/osconfig.h"    /* make sure OS specific configuration is included first */
+
 #import "BrowserController.h"
 #import "DICOMToNSString.h"
 #import "LogManager.h"
 #import "DICOMFiles/dicomFile.h"
 
-#undef verify
-
-#include "dcmtk/config/osconfig.h"    /* make sure OS specific configuration is included first */
 
 BEGIN_EXTERN_C
 #ifdef HAVE_SYS_STAT_H
@@ -35,6 +35,7 @@ END_EXTERN_C
 
 #define INCLUDE_CCTYPE
 #define INCLUDE_CSTDARG
+#define INCLUDE_CTIME
 #include "dcmtk/ofstd/ofstdinc.h"
 
 #include "dcmtk/dcmqrdb/dcmqrdbs.h"

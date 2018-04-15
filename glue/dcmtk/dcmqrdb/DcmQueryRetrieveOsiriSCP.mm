@@ -2,11 +2,12 @@
  */
 
 #include <stdio.h>
+#include "dcmtk/config/osconfig.h"    /* make sure OS specific configuration is included first */
+
 #import "BrowserController.h"
 #import "AppController.h"
 #import "DicomDatabase.h"
 
-#include "dcmtk/config/osconfig.h"    /* make sure OS specific configuration is included first */
 #include "dcmtk/dcmqrdb/dcmqrsrv.h"
 #include "dcmtk/dcmqrdb/dcmqropt.h"
 #include "dcmtk/dcmdata/dcfilefo.h"

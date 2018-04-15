@@ -12,6 +12,9 @@
      PURPOSE.
 =========================================================================*/
 
+#undef verify
+#include "dcmtk/config/osconfig.h" /* make sure OS specific configuration is included first */
+
 #import "BrowserControllerDCMTKCategory.h"
 #import "DCM Framework/DCMObject.h"
 #import "DCM Framework/DCM.h"
@@ -22,8 +25,6 @@
 #import "WaitRendering.h"
 #import "DicomDatabase+DCMTK.h"
 
-#undef verify
-#include "dcmtk/config/osconfig.h" /* make sure OS specific configuration is included first */
 #include "dcmtk/dcmjpeg/djdecode.h"  /* for dcmjpeg decoders */
 #include "dcmtk/dcmjpeg/djencode.h"  /* for dcmjpeg encoders */
 #include "dcmtk/dcmdata/dcrledrg.h"  /* for DcmRLEDecoderRegistration */

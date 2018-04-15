@@ -12,6 +12,8 @@
      PURPOSE.
 =========================================================================*/
 
+#include "dcmtk/config/osconfig.h"
+
 #import "DicomFileDCMTKCategory.h"
 #import "DCM Framework/DCMAbstractSyntaxUID.h"
 #import "DICOMToNSString.h"
@@ -20,7 +22,6 @@
 #import "SRAnnotation.h"
 #import "N2Debug.h"
 
-#include "dcmtk/config/osconfig.h"
 #include "dcmtk/dcmdata/dcfilefo.h"
 #include "dcmtk/dcmdata/dcdeftag.h"
 #include "dcmtk/ofstd/ofstd.h"

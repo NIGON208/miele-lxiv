@@ -12,9 +12,10 @@
  PURPOSE.
  =========================================================================*/
 
+#include "dcmtk/config/osconfig.h"
+
 #import "DCMTKFileFormat.h"
 
-#include "dcmtk/config/osconfig.h"
 #include "dcmtk/dcmdata/dcfilefo.h"
 #include "dcmtk/dcmdata/dcdeftag.h"
 #include "dcmtk/ofstd/ofstd.h"

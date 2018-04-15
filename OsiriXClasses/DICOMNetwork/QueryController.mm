@@ -12,6 +12,8 @@
      PURPOSE.
 =========================================================================*/
 
+#include "dcmtk/config/osconfig.h"
+
 #import "QueryController.h"
 #import "WaitRendering.h"
 #import "QueryFilter.h"
@@ -42,8 +44,6 @@
 #import "DICOMFiles/dicomFile.h"
 #import "N2Debug.h"
 
-#include "dcmtk/config/osconfig.h"
-
 #include "dcmtk/dcmdata/dcvrsl.h"
 #include "dcmtk/ofstd/ofcast.h"
 #include "dcmtk/ofstd/ofstd.h"
@@ -51,6 +51,7 @@
 #include "dcmtk/dcmdata/dcuid.h"
 
 #define INCLUDE_CSTDIO
+#define INCLUDE_CTIME
 #include "dcmtk/ofstd/ofstdinc.h"
 
 #include "url.h"

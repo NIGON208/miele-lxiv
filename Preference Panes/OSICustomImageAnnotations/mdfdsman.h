@@ -33,7 +33,7 @@
 #ifndef MDFDSMAN_H
 #define MDFDSMAN_H
 
-#include "osconfig.h"   // make sure OS specific configuration is included first
+#include "dcmtk/config/osconfig.h"   // make sure OS specific configuration is included first
 #include "dctagkey.h"
 #include "dcfilefo.h"
 #include "ofcond.h"

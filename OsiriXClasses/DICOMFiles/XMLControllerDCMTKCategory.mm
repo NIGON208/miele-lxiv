@@ -12,11 +12,12 @@
      PURPOSE.
 =========================================================================*/
 
+#undef verify
+#include "dcmtk/config/osconfig.h"
+
 #import "XMLControllerDCMTKCategory.h"
 #import "BrowserController.h"
-#undef verify
 
-#include "dcmtk/config/osconfig.h"
 #include "mdfconen.h"
 #import "N2Debug.h"
 
@@ -27,6 +28,7 @@
 #include "dcmtk/dcmdata/dcuid.h"
 
 #define INCLUDE_CSTDIO
+#define INCLUDE_CTIME
 #include "dcmtk/ofstd/ofstdinc.h"
 
 extern NSRecursiveLock *PapyrusLock;

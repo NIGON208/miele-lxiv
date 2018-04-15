@@ -15,6 +15,9 @@
 /* See findscu.cc movescu.cc
  */
 
+#undef verify
+#include "dcmtk/config/osconfig.h" /* make sure OS specific configuration is included first */
+
 #import "DCMTKStudyQueryNode.h"
 #import "DCMTKSeriesQueryNode.h"
 #import "DCMTKImageQueryNode.h"
@@ -41,11 +44,7 @@
 
 #import "tmp_locations.h"
 
-#undef verify
 #include "dcmtk/dcmdata/dccodec.h"
-
-#include "dcmtk/config/osconfig.h" /* make sure OS specific configuration is included first */
-
 #include "dcmtk/dcmdata/dctag.h"
 #include "dcmtk/ofstd/ofstring.h"
 #include "dcmtk/dcmnet/dimse.h"

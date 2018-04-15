@@ -100,6 +100,8 @@
 #import "itkVersion.h"          // for ITK version
 #import "dcmtk/dcmdata/dcuid.h" // for DCMTK version
 #import "opj_config.h"
+//#include "openjpeg-2.2/opj_config.h"
+
 #ifdef WITH_ZLIB
 #include <zlib.h>               // for zlibVersion()
 #endif

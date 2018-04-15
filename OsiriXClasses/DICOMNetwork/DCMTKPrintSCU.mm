@@ -12,13 +12,13 @@
      PURPOSE.
 =========================================================================*/
 
-#import "DCMTKPrintSCU.h"
-
 #undef verify
-
 #include "dcmtk/config/osconfig.h"    /* make sure OS specific configuration is included first */
 
+#import "DCMTKPrintSCU.h"
+
 #define INCLUDE_CCTYPE
+#define INCLUDE_CTIME
 #include "dcmtk/ofstd/ofstdinc.h"
 
 #include "dcmtk/ofstd/ofstream.h"

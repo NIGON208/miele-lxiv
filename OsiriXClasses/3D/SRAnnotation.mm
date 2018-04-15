@@ -13,6 +13,8 @@
 =========================================================================*/
 
 #include "url.h"
+#include "dcmtk/config/osconfig.h"   /* make sure OS specific configuration is included first */
+
 #import "AppController.h"
 #import "SRAnnotation.h"
 #import "DCMView.h"
@@ -26,7 +28,6 @@
 #import "DICOMToNSString.h"
 #import "DICOMExport.h"
 
-#include "dcmtk/config/osconfig.h"   /* make sure OS specific configuration is included first */
 #include "dcmtk/dcmsr/dsrtypes.h"
 
 #define DCM_OsirixROI							 DcmTagKey(0x0071, 0x0011)

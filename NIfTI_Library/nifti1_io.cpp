@@ -28,7 +28,7 @@
  */
 
 /*! global history and version strings, for printing */
-static char * gni_history[] = 
+static const char * gni_history[] = 
 {
   "----------------------------------------------------------------------\n"
   "history (of nifti library changes):\n"

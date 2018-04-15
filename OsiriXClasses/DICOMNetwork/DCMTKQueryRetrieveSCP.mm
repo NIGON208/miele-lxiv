@@ -12,16 +12,19 @@
      PURPOSE.
 =========================================================================*/
 
-/* See dcmqrscp.cc */
+/* See dcmqrscp.cc
+ * See dcmtk/dcmnet/dcompat.h
+ */
+
+#undef verify
+#include "dcmtk/config/osconfig.h"    /* make sure OS specific configuration is included first */
 
 #import "DCMTKQueryRetrieveSCP.h"
 #import "AppController.h"
 #import "DICOMTLS.h"
 #import "ContextCleaner.h"
 
-#undef verify
-
-#include "dcmtk/config/osconfig.h"    /* make sure OS specific configuration is included first */
+//#include "dcmtk/dcmnet/dcompat.h"
 
 #define INCLUDE_CSTDLIB
 #define INCLUDE_CSTDIO

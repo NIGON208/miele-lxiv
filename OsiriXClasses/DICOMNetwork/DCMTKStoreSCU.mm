@@ -17,6 +17,9 @@
 
 #include "url.h"
 
+#undef verify
+#include "dcmtk/config/osconfig.h" /* make sure OS specific configuration is included first */
+
 #import "LogManager.h"
 #import "AppController.h"
 #import "DCMTKStoreSCU.h"
@@ -28,8 +31,6 @@
 #import "DicomDatabase.h"
 #import "N2Debug.h"
 #import "N2Stuff.h"
-#undef verify
-#include "dcmtk/config/osconfig.h" /* make sure OS specific configuration is included first */
 
 #define ON_THE_FLY_COMPRESSION 1
 
@@ -39,6 +40,7 @@
 #define INCLUDE_CERRNO
 #define INCLUDE_CSTDARG
 #define INCLUDE_CCTYPE
+#define INCLUDE_CTIME
 #include "dcmtk/ofstd/ofstdinc.h"
 
 BEGIN_EXTERN_C

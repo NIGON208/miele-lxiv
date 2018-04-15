@@ -14,6 +14,8 @@
 
 
 #import <Cocoa/Cocoa.h>
+#define INCLUDE_CTIME
+#include "dcmtk/dcmnet/dcompat.h"    /* compatibility routines */
 #import <Accelerate/Accelerate.h>
 
 @class DicomDatabase;
