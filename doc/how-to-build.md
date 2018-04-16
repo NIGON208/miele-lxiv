@@ -1,18 +1,18 @@
-## Osiri-LXIV compilation
+## Miele-LXIV compilation
 
 Alex Bettarini - 15 Mar 2015
 
-Prebuilt binaries are no longer provided. It's more appropriate to rebuild the toolkits from the sources downloaded from the respective repositories.
+Some pre-built toolkits in the `Binaries` directory are no longer provided. It's more appropriate to rebuild the toolkits from the sources downloaded from the respective repositories.
 
 A number of bash shell scripts are available in the `steps` directory.
 
-The sources can be built "as is" resulting in a version of the application with the branding, logo and defaults inherited from the original OsiriX project, later forked to the Osiri-LXIV project.
+The sources can be built "as is" resulting in a version of the application with the branding, logo and defaults inherited from the original OsiriX project, later forked to the Osiri-LXIV project, and finally renamed Miele-LXIV.
 
 Alternatively you can spend some time creating your on branding, which involves:
 
 - creating your logo and icon
 - customizing the strings in `options.h` and `url.h`
-- setup your own web server hosting a home page and a page to allow checking for updates
+- setup your own web server hosting a home page, and a page to allow checking for updates
 - setup a server for bug reporting and management, for example [MantisBT](https://www.mantisbt.org), or you can use the system built into the GitHub if you forked your own project.
 
 ---
@@ -25,7 +25,16 @@ Alternatively you can spend some time creating your on branding, which involves:
 ---
 # Step 2
 
-- Build the third-party open-source toolkits:
+- Download and build the third-party open-source toolkits. Tested versions are:
+
+	- VTK 7.1.1
+	- ITK 4.11.1
+	- DCMTK 3.6.2
+	- JASPER 2.0.12
+	- OpenJPG 2.2.0
+	- libjpg 9b
+	- libtiff 4.0.8
+	- libz 1.2.11
 
 ---
 ### VTK, ITK, OpenJPEG
@@ -40,7 +49,7 @@ Alternatively you can spend some time creating your on branding, which involves:
 ---
 ### **DCMTK**:
 
-- Download the sources, then edit them as follows:
+- Download the sources, then edit them as follows (a patch will be provided here in the future):
 
 - Add `#undef verify` at the top of file `dcmdata/dcobject.h` (line 24)
 
@@ -120,7 +129,7 @@ Alternatively you can spend some time creating your on branding, which involves:
 
 - Build and install DCMTK
 
-- Optionally edit the installed file `include/dcmtk/config/osconfig.h` and put the build date in place of `DEV` in `#define PACKAGE_DATE "DEV"`
+- Optionally edit the installed file `include/dcmtk/config/osconfig.h` and put the build date in place of `DEV` in `#define PACKAGE_DATE "DEV"`. This is recommended if you are not using the official "versioned" sources, but just any intermediate commit of the repository.
 
 - Copy the two header files `intrface.h` and `pubtypes.h` from the DCMTK source directory `dcmtk/dcmjpls/libcharls/` to the installed directory `/include/dcmtk/`
 			
@@ -147,9 +156,9 @@ Alternatively you can spend some time creating your on branding, which involves:
 			    
 ---
 # Step 3
-- Create symbolic links from the `Binaries/` directory to the directories where you installed the toolkits
+- Create symbolic links from the `Binaries/` directory to the directories where you installed the toolkits, unless you installed the toolkits directly there.
 
 ---
 # Step 4
-- Now you should be able to launch the Xcode project and build the application, or if you prefer build it directly from the command line.
+- Now you should be able to launch the Xcode project and build the application, or if you prefer build it directly from the command line using `xcodebuild`.
 
