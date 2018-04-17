@@ -23,7 +23,10 @@
 @property(retain) id buttonActionTarget;
 @property(assign) SEL buttonActionSelector;
 
--(void)addItemWithTitle:(NSString*)title image:(NSImage*)image toGroupWithName:(NSString*)groupName context:(id)context;
+-(void)addItemWithTitle:(NSString*)title
+                  image:(NSImage*)image
+        toGroupWithName:(NSString*)groupName
+                context:(id)context;
 -(NSUInteger)itemsCount;
 -(id)contextForItemAtIndex:(NSUInteger)index;
 -(NSInteger)indexOfItemWithContext:(id)context;

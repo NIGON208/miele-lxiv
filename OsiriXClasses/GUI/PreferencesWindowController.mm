@@ -158,9 +158,9 @@ static const NSMutableArray* pluginPanes = [[NSMutableArray alloc] init];
 {
 	Class builtinPrefPaneClass = NSClassFromString(resourceName);
 	
-	if( builtinPrefPaneClass)
+	if (builtinPrefPaneClass)
 	{
-		if( [builtinPrefPaneClass isSubclassOfClass: [NSPreferencePane class]] == NO)
+		if ([builtinPrefPaneClass isSubclassOfClass: [NSPreferencePane class]] == NO)
 			builtinPrefPaneClass = nil;
 	}
 	
@@ -284,7 +284,8 @@ static const NSMutableArray* pluginPanes = [[NSMutableArray alloc] init];
 	}
 }
 
--(void)awakeFromNib {
+-(void)awakeFromNib
+{
 	[authView setDelegate:self];
 	if( [[NSUserDefaults standardUserDefaults] boolForKey:@"AUTHENTICATION"])
 	{
@@ -414,17 +415,18 @@ static const NSMutableArray* pluginPanes = [[NSMutableArray alloc] init];
                                  image:[pluginPane objectAtIndex:3]
                        toGroupWithName:NSLocalizedString(@"Plugins", @"Title of Plugins section in preferences window")];
 
-    flippedDocumentView.translatesAutoresizingMaskIntoConstraints = YES;
-    panesListView.translatesAutoresizingMaskIntoConstraints = YES;
-    
+    flippedDocumentView.translatesAutoresizingMaskIntoConstraints = NO;
+    panesListView.translatesAutoresizingMaskIntoConstraints = NO;
+#if 0
 	[flippedDocumentView setFrameSize:panesListView.frame.size];
 	//[panesListView setFrameSize:flippedDocumentView.frame.size];  // ???
     
     [scrollView setNeedsUpdateConstraints:YES];
     [scrollView setNeedsDisplay:YES];
-    
+
     [self synchronizeSizeWithContent];
-    
+#endif
+
     // If we need to remove a plugin with a custom pref pane
     for (NSWindow* window in [NSApp windows])
     {
@@ -502,7 +504,7 @@ static const NSMutableArray* pluginPanes = [[NSMutableArray alloc] init];
 		// remove old view
 		[currentContext.pane willUnselect];
         [currentContext.pane.mainView.window makeFirstResponder: nil];
-		NSView* oldview = currentContext? currentContext.pane.mainView : panesListView;
+		NSView* oldview = currentContext ? currentContext.pane.mainView : panesListView;
 		[oldview retain];
 		[oldview removeFromSuperview];
 
