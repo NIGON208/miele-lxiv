@@ -720,7 +720,7 @@ static NSRecursiveLock *dbModifyLock = nil;
             BOOL isMainDB = self.managedObjectContext.persistentStoreCoordinator == BrowserController.currentBrowser.database.managedObjectContext.persistentStoreCoordinator;
 
 			// Report
-            NSString *zippedFile = [NSTemporaryDirectory() stringByAppendingString:@"/zippedReport.zip"];
+            NSString *zippedFile = [NSTemporaryDirectory() stringByAppendingPathComponent:@"zippedReport.zip"];
 			BOOL needToArchive = NO;
 			NSString *dstPath = nil;
 			Dicom_Image *reportImage = [self reportImage];

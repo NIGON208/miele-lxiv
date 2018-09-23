@@ -69,8 +69,9 @@
 	return nsPath;
 }
 
--(NSString*)tmpDirPath {
-    NSString* path = [NSString stringWithFormat:@"%s/%@_%@",
+-(NSString*)tmpDirPath
+{
+    NSString* path = [NSString stringWithFormat:@"%@%@_%@",
                       NSTemporaryDirectory(),
                       [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString*)kCFBundleNameKey],
                       NSUserName()];

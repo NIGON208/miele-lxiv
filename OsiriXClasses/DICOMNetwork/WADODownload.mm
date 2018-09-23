@@ -295,7 +295,7 @@
             self.countOfSuccesses = 0;
             WADOTotal = WADOThreads = [urlToDownload count];            
             NSTimeInterval retrieveStartingDate = [NSDate timeIntervalSinceReferenceDate];
-            NSString *pathKillAll = [NSTemporaryDirectory() stringByAppendingString:@"/kill_all_storescu"];
+            NSString *pathKillAll = [NSTemporaryDirectory() stringByAppendingPathComponent:@"kill_all_storescu"];
             BOOL aborted = NO;
             for (NSURL *url in urlToDownload)
             {

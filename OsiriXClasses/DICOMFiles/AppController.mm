@@ -913,7 +913,7 @@ static NSDate *lastWarningDate = nil;
                     kill( MyArray[ Counter], 15);
                     
                     char dir[ 1024];
-                    sprintf( dir, "%s/lock_process-%d", [NSTemporaryDirectory() UTF8String], MyArray[ Counter]);
+                    sprintf( dir, "%slock_process-%d", [NSTemporaryDirectory() UTF8String], MyArray[ Counter]);
                     unlink( dir);
                 }
             } 
@@ -1195,7 +1195,7 @@ static NSDate *lastWarningDate = nil;
 	int pid = [pidNumber intValue];
 	int rc, state;
 	BOOL threadStateChanged = NO;
-	NSString *path = [NSString stringWithFormat: @"%@/process_state-%d", NSTemporaryDirectory(), pid];
+	NSString *path = [NSString stringWithFormat: @"%@process_state-%d", NSTemporaryDirectory(), pid];
 	
 	do
 	{
@@ -1237,7 +1237,7 @@ static NSDate *lastWarningDate = nil;
 
 - (void) checkForRestartStoreSCPOrder: (NSTimer*) t
 {
-    NSString *path = [NSString stringWithFormat: @"%@/RESTARTOSIRIXSTORESCP", NSTemporaryDirectory()];
+    NSString *path = [NSString stringWithFormat: @"%@RESTARTOSIRIXSTORESCP", NSTemporaryDirectory()];
 
 	if ([[NSFileManager defaultManager] fileExistsAtPath: path])
 	{
@@ -2745,7 +2745,7 @@ static BOOL firstCall = YES;
 	[[NSUserDefaults standardUserDefaults] setBool: YES forKey: @"hideListenerError"];
 	[[NSUserDefaults standardUserDefaults] synchronize];
 
-    NSString *pathKillAll = [NSTemporaryDirectory() stringByAppendingString:@"/kill_all_storescu"];
+    NSString *pathKillAll = [NSTemporaryDirectory() stringByAppendingPathComponent:@"kill_all_storescu"];
 	[[NSFileManager defaultManager] createFileAtPath: pathKillAll
                                             contents: [NSData data]
                                           attributes: nil];
@@ -2754,7 +2754,7 @@ static BOOL firstCall = YES;
 	[wait close];
 	[wait autorelease];
 	
-	unlink( [[NSTemporaryDirectory() stringByAppendingString:@"/kill_all_storescu"] UTF8String]);
+	unlink( [[NSTemporaryDirectory() stringByAppendingPathComponent:@"kill_all_storescu"] UTF8String]);
 	
 	[[NSUserDefaults standardUserDefaults] setBool: hideListenerError_copy forKey: @"hideListenerError"];
 	[[NSUserDefaults standardUserDefaults] removeObjectForKey: @"copyHideListenerError"];
@@ -2763,7 +2763,7 @@ static BOOL firstCall = YES;
 
 - (void) applicationWillTerminate: (NSNotification*) aNotification
 {
-	unlink( [[NSTemporaryDirectory() stringByAppendingString:@"/kill_all_storescu"] UTF8String]);
+	unlink( [[NSTemporaryDirectory() stringByAppendingPathComponent:@"kill_all_storescu"] UTF8String]);
 	
 #ifndef OSIRIX_LIGHT
     [DICOMTLS eraseKeys];
@@ -2847,7 +2847,7 @@ static BOOL firstCall = YES;
 		if ([s hasPrefix:@"process_state-"])
 			[[NSFileManager defaultManager] removeItemAtPath:[NSTemporaryDirectory() stringByAppendingPathComponent:s] error:nil];
 	
-    [[NSFileManager defaultManager] removeItemAtPath:[NSTemporaryDirectory() stringByAppendingString:@"/zippedCD/"] error:nil];
+    [[NSFileManager defaultManager] removeItemAtPath:[NSTemporaryDirectory() stringByAppendingPathComponent:@"zippedCD/"] error:nil];
 
     NSString *tmpDirPath = [[NSFileManager defaultManager] tmpDirPath];
     if ([[NSFileManager defaultManager] fileExistsAtPath: tmpDirPath])
@@ -2933,19 +2933,23 @@ static BOOL firstCall = YES;
         [[NSFileManager defaultManager] removeItemAtPath:[[NSFileManager defaultManager] tmpDirPath] error:NULL];
         
         if ([[NSFileManager defaultManager] fileExistsAtPath:[[[[NSFileManager defaultManager] findSystemFolderOfType:kApplicationSupportFolderType forDomain:kLocalDomain] stringByAppendingPathComponent:[[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString*)kCFBundleNameKey]] stringByAppendingPathComponent:@"DLog.enable"]])
+        {
             [N2Debug setActive:YES];
+        }
         
     //  NSLog(@"%@ -> %d", [[[[NSFileManager defaultManager] findSystemFolderOfType:kApplicationSupportFolderType forDomain:kLocalDomain] stringByAppendingPathComponent:[[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString*)kCFBundleNameKey]] stringByAppendingPathComponent:@"DLog.enable"], [N2Debug isActive]);
         
+        NSLog(@"%s %d", __FUNCTION__, __LINE__);
+
         PapyrusLock = [[NSRecursiveLock alloc] init];
         STORESCP = [[NSRecursiveLock alloc] init];
         STORESCPTLS = [[NSRecursiveLock alloc] init];
         
         [[NSAppleEventManager sharedAppleEventManager] setEventHandler:self andSelector:@selector(getUrl:withReplyEvent:) forEventClass:kInternetEventClass andEventID:kAEGetURL];
         
-        #ifndef OSIRIX_LIGHT
+#ifndef OSIRIX_LIGHT
         [VRView testGraphicBoard];
-        #endif
+#endif
     }
     @catch (NSException * e)
     {
@@ -3054,13 +3058,14 @@ static BOOL initialized = NO;
                 if( cgl_ctx) {
                     const GLubyte * strVersion = glGetString (GL_VERSION); // get version string
                     const GLubyte * strExtension = glGetString (GL_EXTENSIONS);	// get extension string
-                    NSLog(@"OpenGL version:%@, extension:%@", strVersion, strExtension);
+                    NSLog(@"OpenGL version:%s, extension:%@", strVersion, strExtension);
                 }
                 
                 NSArray *components = [[[NSBundle mainBundle] pathForResource: @"Localizable" ofType: @"strings"] pathComponents];
                 if (components.count > 3)
                     NSLog(@"Localization: %@", [components objectAtIndex: components.count -2]);
 #ifndef NDEBUG
+                NSLog(@"NSTemporaryDirectory():%@", NSTemporaryDirectory());
 				NSLog( @"**** DEBUG MODE ****");
 #endif
                 
@@ -3560,7 +3565,7 @@ static BOOL initialized = NO;
 
 - (void) applicationDidFinishLaunching:(NSNotification*) aNotification
 {
-	unlink( [[NSTemporaryDirectory() stringByAppendingString:@"/kill_all_storescu"] UTF8String]);
+	unlink( [[NSTemporaryDirectory() stringByAppendingPathComponent:@"kill_all_storescu"] UTF8String]);
     
     [[[NSWorkspace sharedWorkspace] notificationCenter]
             addObserver:self
@@ -3622,7 +3627,7 @@ static BOOL initialized = NO;
 	
     
     // If this application crashed before...
-    NSString *pathOsiriXCrashed = [NSTemporaryDirectory() stringByAppendingString:@"/OsiriXCrashed"];
+    NSString *pathOsiriXCrashed = [NSTemporaryDirectory() stringByAppendingPathComponent:@"OsiriXCrashed"];
     
     if( [[NSFileManager defaultManager] fileExistsAtPath: pathOsiriXCrashed]) // Activate check for update !
     {
@@ -3831,7 +3836,7 @@ static BOOL initialized = NO;
     }
 #endif
 #ifndef NDEBUG
-    [dbWindow setBackgroundColor:[NSColor yellowColor]];
+    //[dbWindow setBackgroundColor:[NSColor yellowColor]];
 #endif
 }
 
@@ -4079,7 +4084,7 @@ static BOOL initialized = NO;
 	}
     
 	BOOL dialog = NO;
-    NSString *path = [NSTemporaryDirectory() stringByAppendingString:@"/"];
+    NSString *path = NSTemporaryDirectory();
     if( [[NSFileManager defaultManager] fileExistsAtPath: path] == NO)
         [[NSFileManager defaultManager] createDirectoryAtPath:path
                                   withIntermediateDirectories:YES

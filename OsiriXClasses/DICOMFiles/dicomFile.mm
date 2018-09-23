@@ -1950,7 +1950,7 @@ char* replaceBadCharacter (char* str, NSStringEncoding encoding)
 #ifdef OSIRIX_VIEWER
 #ifndef OSIRIX_LIGHT
 
-    NSString *pathDicomSrSlash = [NSTemporaryDirectory() stringByAppendingString:@"/dicomsr_osirix/"];
+    NSString *pathDicomSrSlash = [NSTemporaryDirectory() stringByAppendingPathComponent:@"dicomsr_osirix/"];
 
 	[[NSFileManager defaultManager] confirmDirectoryAtPath: pathDicomSrSlash];
 	

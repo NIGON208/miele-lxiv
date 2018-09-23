@@ -114,7 +114,7 @@ static int numberOfActiveAssociations = 0;
 	BOOL fileExist = YES;
 	int pid = [[dict valueForKey: @"pid"] intValue], inc = 0, rc = pid, state;
 	char dir[ 1024];
-	sprintf( dir, "%s/lock_process-%d", [NSTemporaryDirectory() UTF8String], pid);
+	sprintf( dir, "%slock_process-%d", [NSTemporaryDirectory() UTF8String], pid);
 
     #define TIMEOUT 1200 // 1200*100000 = 120 secs
     #define DBTIMEOUT 400 // = 40 secs
@@ -161,8 +161,8 @@ static int numberOfActiveAssociations = 0;
     [dbLock unlock];
     dbLock = nil;
     
-    NSString *pathKillAll  = [NSTemporaryDirectory() stringByAppendingString:@"/kill_all_storescu"];
-    NSString *pathErrorMsg = [NSTemporaryDirectory() stringByAppendingString:@"/error_message"];
+    NSString *pathKillAll  = [NSTemporaryDirectory() stringByAppendingPathComponent:@"kill_all_storescu"];
+    NSString *pathErrorMsg = [NSTemporaryDirectory() stringByAppendingPathComponent:@"error_message"];
 	if( [[NSFileManager defaultManager] fileExistsAtPath: pathKillAll] == NO)
 	{
 		NSString *str = [NSString stringWithContentsOfFile: pathErrorMsg];

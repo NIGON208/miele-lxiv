@@ -7761,7 +7761,7 @@ return YES;
 			{
 				NSBitmapImageRep *bits = [[[NSBitmapImageRep alloc] initWithData:[im TIFFRepresentation]] autorelease];
 				
-				NSString *path = [NSString stringWithFormat: @"%@/sc/%@.png",
+				NSString *path = [NSString stringWithFormat: @"%@sc/%@.png",
                                   NSTemporaryDirectory(),
                                   [[[[item label]
                                      stringByReplacingOccurrencesOfString: @"&" withString:@"And"]
@@ -18935,7 +18935,7 @@ static BOOL viewerControllerPlaying = NO;
 	
     }
 	
-    NSString *tmpFolder = [NSTemporaryDirectory() stringByAppendingString:@"/print"];
+    NSString *tmpFolder = [NSTemporaryDirectory() stringByAppendingPathComponent:@"print"];
 	[[NSFileManager defaultManager] removeFileAtPath: tmpFolder handler:nil];
     [self restoreWindowsAfterPrint];
 }
@@ -19054,7 +19054,7 @@ static BOOL viewerControllerPlaying = NO;
 		//--------------------------Preparation images in /tmp/print---------------------------------
 		
 		NSMutableArray *files = [NSMutableArray array];
-        NSString *tmpFolder = [NSTemporaryDirectory() stringByAppendingString:@"/print"];
+        NSString *tmpFolder = [NSTemporaryDirectory() stringByAppendingPathComponent:@"print"];
 
 		[[NSFileManager defaultManager] removeFileAtPath: tmpFolder handler:nil];
 		[[NSFileManager defaultManager] createDirectoryAtPath: tmpFolder

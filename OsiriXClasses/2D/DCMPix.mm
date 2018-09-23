@@ -6071,7 +6071,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
         
         @try
         {
-            NSString *pathDicomSrSlash = [NSTemporaryDirectory() stringByAppendingString:@"/dicomsr_osirix/"];
+            NSString *pathDicomSrSlash = [NSTemporaryDirectory() stringByAppendingPathComponent:@"dicomsr_osirix/"];
             [[NSFileManager defaultManager] confirmDirectoryAtPath: pathDicomSrSlash];            
             NSString *htmlpath = [[pathDicomSrSlash stringByAppendingPathComponent: [srcFile lastPathComponent]] stringByAppendingPathExtension: @"xml"];
             

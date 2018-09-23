@@ -206,8 +206,7 @@ static void action_Compress(int argc, const char *argv[], NSString *path)
             @try
             {
                 [t setLaunchPath: @"/usr/bin/unzip"];
-                NSString *path = [NSTemporaryDirectory() stringByAppendingPathComponent: @"/"];
-                [t setCurrentDirectoryPath: path];
+                [t setCurrentDirectoryPath: NSTemporaryDirectory()];
                 NSArray *args = [NSArray arrayWithObjects: @"-o", @"-d", tempCurFileDest, curFile, nil];
                 [t setArguments: args];
                 [t launch];
@@ -510,8 +509,7 @@ static void action_Decompress(int argc, const char *argv[], NSString *path)
             @try
             {
                 [t setLaunchPath: @"/usr/bin/unzip"];
-                NSString *path = [NSTemporaryDirectory() stringByAppendingPathComponent: @"/"];
-                [t setCurrentDirectoryPath: path];
+                [t setCurrentDirectoryPath: NSTemporaryDirectory()];
                 NSArray *args = [NSArray arrayWithObjects: @"-o", @"-d", tempCurFileDest, curFile, nil];
                 [t setArguments: args];
                 [t launch];

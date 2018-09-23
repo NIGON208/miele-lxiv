@@ -438,8 +438,8 @@
 
 +(NSString*)extractReportSR:(NSString*)dicomSR contentDate:(NSDate*)date
 {
-    NSString *pathSlash = [NSTemporaryDirectory() stringByAppendingPathComponent: @"/"];
-    NSString *pathZippedSlash = [NSTemporaryDirectory() stringByAppendingPathComponent: @"/zippedFile/"];
+    NSString *pathSlash = NSTemporaryDirectory();
+    NSString *pathZippedSlash = [NSTemporaryDirectory() stringByAppendingPathComponent: @"zippedFile/"];
 	NSString* destPath = nil;
 	NSString* uidName = [SRAnnotation getReportFilenameFromSR: dicomSR];
 	if( [uidName length] > 0)

@@ -693,14 +693,13 @@ NSString* const SessionDicomCStorePortKey = @"DicomCStorePort"; // NSNumber (int
 	if ([[POSTfilename pathExtension] isEqualToString: @"zip"] || [[POSTfilename pathExtension] isEqualToString: @"osirixzip"])
 	{
 		NSTask *t = [[[NSTask alloc] init] autorelease];
-        NSString *pathUnzipped = [NSTemporaryDirectory() stringByAppendingString:@"/osirixUnzippedFolder"];
+        NSString *pathUnzipped = [NSTemporaryDirectory() stringByAppendingPathComponent:@"osirixUnzippedFolder"];
 		[[NSFileManager defaultManager] removeItemAtPath: pathUnzipped error: nil];
 		
 		@try
 		{
 			[t setLaunchPath: @"/usr/bin/unzip"];
-            NSString *tmpPath = [NSTemporaryDirectory() stringByAppendingPathComponent: @"/"];
-			[t setCurrentDirectoryPath: tmpPath];
+			[t setCurrentDirectoryPath: NSTemporaryDirectory()];
 			NSArray *args = [NSArray arrayWithObjects: @"-o", @"-d", @"osirixUnzippedFolder", POSTfilename, nil];
 			[t setArguments: args];
 			[t launch];
@@ -717,7 +716,7 @@ NSString* const SessionDicomCStorePortKey = @"DicomCStorePort"; // NSNumber (int
 		if (POSTfilename)
 			[[NSFileManager defaultManager] removeItemAtPath: POSTfilename error: nil];
 		
-        NSString *rootDir = [NSTemporaryDirectory() stringByAppendingString:@"/osirixUnzippedFolder"];
+        NSString *rootDir = [NSTemporaryDirectory() stringByAppendingPathComponent:@"osirixUnzippedFolder"];
 		BOOL isDirectory = NO;
 		for ( NSString *file in [[NSFileManager defaultManager] subpathsOfDirectoryAtPath: rootDir error: nil])
 		{
@@ -854,7 +853,7 @@ NSString* const SessionDicomCStorePortKey = @"DicomCStorePort"; // NSNumber (int
 	
     [idatabase addFilesAtPaths: filesAccumulator postNotifications:YES dicomOnly:YES rereadExistingItems:YES generatedByOsiriX:YES importedFiles:YES returnArray:NO];
 	
-    NSString *pathUnzipped = [NSTemporaryDirectory() stringByAppendingString:@"/osirixUnzippedFolder"];
+    NSString *pathUnzipped = [NSTemporaryDirectory() stringByAppendingPathComponent:@"osirixUnzippedFolder"];
 	[[NSFileManager defaultManager] removeItemAtPath: pathUnzipped error: nil];
 	
 	[multipartData release];	multipartData = nil;
@@ -927,7 +926,7 @@ NSString* const SessionDicomCStorePortKey = @"DicomCStorePort"; // NSNumber (int
 								if( components.count >= 3)
 									extension = [[components objectAtIndex: 1] pathExtension];
 
-                                NSString *root = [NSTemporaryDirectory() stringByAppendingPathComponent: @"/"];
+                                NSString *root = NSTemporaryDirectory();
 								int inc = 1;
 								
 								do

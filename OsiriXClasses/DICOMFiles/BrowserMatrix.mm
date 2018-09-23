@@ -272,7 +272,7 @@ static NSString *albumDragType = @"Osirix Album drag";
 		}
 		DCMPix *previewPix = [[BrowserController currentBrowser] previewPix:[selectedButtonCell tag]];
 		
-		NSString *jpgPath = [NSString stringWithFormat:@"%@/%@.%d.jpg",
+		NSString *jpgPath = [NSString stringWithFormat:@"%@%@.%d.jpg",
                              NSTemporaryDirectory(),
                              [[selectedObject valueForKeyPath:@"completePath"] lastPathComponent],
                              [[[previewPix imageObj] valueForKey:@"frameID"] intValue]];

@@ -530,8 +530,7 @@ SecPolicySearchCreate:
 **/
 + (NSString *)applicationTemporaryDirectory
 {
-	NSString *userTempDir = NSTemporaryDirectory();
-	NSString *appTempDir = [userTempDir stringByAppendingPathComponent:OUR_HTTP_SERVICE];
+	NSString *appTempDir = [NSTemporaryDirectory() stringByAppendingPathComponent:OUR_HTTP_SERVICE];
 	
 	NSFileManager *fileManager = [NSFileManager defaultManager];
 	if ([fileManager fileExistsAtPath:appTempDir] == NO)

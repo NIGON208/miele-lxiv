@@ -471,7 +471,7 @@ static DicomDatabase* activeLocalDatabase = nil;
 
             [self checkForHtmlTemplates];
             
-            NSString *path = [NSTemporaryDirectory() stringByAppendingPathComponent: @"/"];
+            NSString *path = NSTemporaryDirectory();
             if (isNewFile &&
                 [NSThread isMainThread] &&
                 ![p hasPrefix:path] &&
@@ -4034,7 +4034,7 @@ static BOOL protectionAgainstReentry = NO;
     
 	[_importFilesFromIncomingDirLock lock];
     
-    NSString *pathSavedAlbums = [NSTemporaryDirectory() stringByAppendingString:@"/rebuildDB_savedAlbums"];
+    NSString *pathSavedAlbums = [NSTemporaryDirectory() stringByAppendingPathComponent:@"rebuildDB_savedAlbums"];
     
 	if (complete) {	// Delete the database file
         

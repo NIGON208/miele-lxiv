@@ -22,10 +22,9 @@ OSStatus AuthorizationExecuteWithPrivilegesStdErrAndPid (
                                                          pid_t* processid
                                                          )
 {
-    NSString *path = [NSTemporaryDirectory() stringByAppendingString:@"/"];
-    [[NSFileManager defaultManager] changeCurrentDirectoryPath: path];
+    [[NSFileManager defaultManager] changeCurrentDirectoryPath: NSTemporaryDirectory()];
     
-    const char *stderrpath= [[NSTemporaryDirectory() stringByAppendingString:@"/AuthorizationExecuteWithPrivilegesStdErrXXXXXXX.err"] UTF8String];
+    const char *stderrpath= [[NSTemporaryDirectory() stringByAppendingPathComponent:@"AuthorizationExecuteWithPrivilegesStdErrXXXXXXX.err"] UTF8String];
 	const char* commandtemplate = "echo $$; \"$@\" 2>%s" ;
     if (communicationsPipe == errPipe) {
         commandtemplate = "echo $$; \"$@\" 2>1";
@@ -59,11 +58,11 @@ OSStatus AuthorizationExecuteWithPrivilegesStdErrAndPid (
     if( arguments)
         for (argcount = 0; arguments[argcount] != 0; ++argcount) {}	
 	args = (char**)malloc (sizeof(char*)*(argcount + 5));
-	args[0] = "-c";
+	args[0] = (char *)"-c";
 	snprintf (command, sizeof (command), commandtemplate, stderrpath);
 	args[1] = command;
-	args[2] = "";
-	args[3] = (char*)pathToTool;
+	args[2] = (char *)"";
+	args[3] = (char *)pathToTool;
 	for (int i = 0; i < argcount; ++i) {
 		args[i+4] = arguments[i];
 	}

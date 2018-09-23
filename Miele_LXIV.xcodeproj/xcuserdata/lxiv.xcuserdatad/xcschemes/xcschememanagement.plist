@@ -7,12 +7,12 @@
 		<key>Build All Prerequisites.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>3</integer>
+			<integer>5</integer>
 		</dict>
 		<key>DCM Framework.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>2</integer>
+			<integer>0</integer>
 		</dict>
 		<key>DICOMPrint.xcscheme</key>
 		<dict>
@@ -22,7 +22,7 @@
 		<key>Decompress.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>5</integer>
+			<integer>3</integer>
 		</dict>
 		<key>Documentation.xcscheme</key>
 		<dict>
@@ -37,7 +37,7 @@
 		<key>OsiriX Launcher.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>1</integer>
+			<integer>2</integer>
 		</dict>
 		<key>Unit Tests.xcscheme</key>
 		<dict>
@@ -47,7 +47,15 @@
 		<key>miele-lxiv.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>0</integer>
+			<integer>1</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>AB28B42E05B7921E00A9906C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
 		</dict>
 	</dict>
 </dict>

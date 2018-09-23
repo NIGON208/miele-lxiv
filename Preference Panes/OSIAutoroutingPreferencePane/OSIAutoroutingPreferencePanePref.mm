@@ -124,7 +124,7 @@
 {
 	if( [sender tag] == 0)
 	{
-        NSString *tablesFile = [NSTemporaryDirectory() stringByAppendingString:@"/OsiriXTables.pdf"];
+        NSString *tablesFile = [NSTemporaryDirectory() stringByAppendingPathComponent:@"OsiriXTables.pdf"];
 
         [[NSFileManager defaultManager] removeItemAtPath: tablesFile error:nil];
         [[NSFileManager defaultManager] copyItemAtPath: [[NSBundle mainBundle] pathForResource:@"OsiriXTables" ofType:@"pdf"]

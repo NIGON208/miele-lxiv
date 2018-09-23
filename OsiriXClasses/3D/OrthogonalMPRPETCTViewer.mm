@@ -989,7 +989,7 @@ static NSString*	ThreeDPositionToolbarItemIdentifier			= @"3DPosition";
 			{
 				NSBitmapImageRep *bits = [[[NSBitmapImageRep alloc] initWithData:[im TIFFRepresentation]] autorelease];
 				
-				NSString *path = [NSString stringWithFormat: @"%@/sc/%@.png",
+				NSString *path = [NSString stringWithFormat: @"%@sc/%@.png",
                                   NSTemporaryDirectory(),
                                   [[[[item label]
                                      stringByReplacingOccurrencesOfString: @"&" withString:@"And"]

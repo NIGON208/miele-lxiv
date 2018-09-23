@@ -2787,7 +2787,7 @@ const NSString* const GenerateMovieDicomImagesParamKey = @"dicomImageArray";
 	
 	if ([DCMAbstractSyntaxUID isStructuredReport:series.seriesSOPClassUID])
     {
-        NSString *pathDicomSr = [NSTemporaryDirectory() stringByAppendingString:@"/dicomsr_osirix"];
+        NSString *pathDicomSr = [NSTemporaryDirectory() stringByAppendingPathComponent:@"dicomsr_osirix"];
 		NSString* path = [NSFileManager.defaultManager confirmDirectoryAtPath:pathDicomSr];
 		NSString* htmlpath = [path stringByAppendingPathComponent:[[[series.images.anyObject valueForKey:@"completePath"] lastPathComponent] stringByAppendingPathExtension:@"xml"]];
 		

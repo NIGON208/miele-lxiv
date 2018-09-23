@@ -25,15 +25,15 @@ typedef enum
 } TLSCertificateVerificationType;
 
 // NSString *
-#define TLS_SEED_FILE                [NSString stringWithFormat:@"%@/%@", NSTemporaryDirectory(), @"OsiriXTLSSeed"]
-#define TLS_PRIVATE_KEY_FILE         [NSString stringWithFormat:@"%@/%@", NSTemporaryDirectory(), @"TLSKey"]
-#define TLS_CERTIFICATE_FILE         [NSString stringWithFormat:@"%@/%@", NSTemporaryDirectory(), @"TLSCert"]
-#define TLS_TRUSTED_CERTIFICATES_DIR [NSString stringWithFormat:@"%@/%@", NSTemporaryDirectory(), @"TLSTrustedCert"]
+#define TLS_SEED_FILE                [NSString stringWithFormat:@"%@%@", NSTemporaryDirectory(), @"OsiriXTLSSeed"]
+#define TLS_PRIVATE_KEY_FILE         [NSString stringWithFormat:@"%@%@", NSTemporaryDirectory(), @"TLSKey"]
+#define TLS_CERTIFICATE_FILE         [NSString stringWithFormat:@"%@%@", NSTemporaryDirectory(), @"TLSCert"]
+#define TLS_TRUSTED_CERTIFICATES_DIR [NSString stringWithFormat:@"%@%@", NSTemporaryDirectory(), @"TLSTrustedCert"]
 #define TLS_KEYCHAIN_IDENTITY_NAME_CLIENT   @"com.osirixviewer.dicomtlsclient"
 #define TLS_KEYCHAIN_IDENTITY_NAME_SERVER   @"com.osirixviewer.dicomtlsserver"
 
 // char *
-#define TLS_WRITE_SEED_FILE          [[NSString stringWithFormat:@"%@/%@", NSTemporaryDirectory(), @"OsiriXTLSSeedWrite"] UTF8String]
+#define TLS_WRITE_SEED_FILE          [[NSString stringWithFormat:@"%@%@", NSTemporaryDirectory(), @"OsiriXTLSSeedWrite"] UTF8String]
 
 /** \brief
  A utility class for secure DICOM connections with TLS.

@@ -66,7 +66,7 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
 {
     // Match with AppController, ILCrashReporter
 
-    [path writeToFile: [NSTemporaryDirectory() stringByAppendingString:@"/PluginCrashed"]
+    [path writeToFile: [NSTemporaryDirectory() stringByAppendingPathComponent:@"PluginCrashed"]
            atomically: YES
              encoding: NSUTF8StringEncoding
                 error: nil];
@@ -75,7 +75,7 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
 + (void) endProtectForCrash
 {
     // Match with AppController, ILCrashReporter
-    [[NSFileManager defaultManager] removeItemAtPath: [NSTemporaryDirectory() stringByAppendingString:@"/PluginCrashed"]
+    [[NSFileManager defaultManager] removeItemAtPath: [NSTemporaryDirectory() stringByAppendingPathComponent:@"PluginCrashed"]
                                                error: nil];
 }
 

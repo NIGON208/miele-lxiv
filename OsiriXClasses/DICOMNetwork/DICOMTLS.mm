@@ -97,9 +97,12 @@ static NSMutableString *TLS_PRIVATE_KEY_PASSWORD = nil;
 
 + (void) eraseKeys
 {
-    for( NSString *path in [[NSFileManager defaultManager] contentsOfDirectoryAtPath: NSTemporaryDirectory() error: nil])
+
+    NSArray *tempDirContents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath: NSTemporaryDirectory()
+                                                                                   error: nil];
+    for (NSString *path in tempDirContents)
     {
-        NSString *tmpPath = [NSTemporaryDirectory() stringByAppendingPathComponent: @"/"];
+        NSString *tmpPath = NSTemporaryDirectory();
         path = [tmpPath stringByAppendingPathComponent: path];
         
         if ([path hasPrefix: TLS_SEED_FILE] ||
