@@ -8722,7 +8722,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 7E76BED8085757B70073649A /* Build configuration list for PBXProject "Osiri_LXIV" */;
+			buildConfigurationList = 7E76BED8085757B70073649A /* Build configuration list for PBXProject "Miele_LXIV" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 1;
@@ -13230,7 +13230,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Development;
 		};
-		7E76BED8085757B70073649A /* Build configuration list for PBXProject "Osiri_LXIV" */ = {
+		7E76BED8085757B70073649A /* Build configuration list for PBXProject "Miele_LXIV" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				7E76BED9085757B70073649A /* Development */,
