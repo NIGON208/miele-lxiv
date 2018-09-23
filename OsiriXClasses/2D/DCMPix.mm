@@ -991,7 +991,7 @@ static inline long pnpoly( NSPoint *p, long count, float x, float y)
 {
 	long	c = 0;
     
-    for ( int i = 0, j = count-1; i < count; j = i++)
+    for ( long i = 0, j = count-1; i < count; j = i++)
 	{
 		if ((((p[i].y <= y) && (y < p[j].y)) ||
 			 ((p[j].y <= y) && (y < p[i].y))) &&
@@ -1005,7 +1005,7 @@ inline long pnpolyInt( struct NSPointInt *p, long count, long x, long y)
 {
 	long	c = 0;
     
-    for ( int i = 0, j = count-1; i < count; j = i++)
+    for ( long i = 0, j = count-1; i < count; j = i++)
 	{
 		if ((((p[i].y <= y) && (y < p[j].y)) ||
 			 ((p[j].y <= y) && (y < p[i].y))) &&
