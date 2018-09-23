@@ -651,7 +651,7 @@ static NSRecursiveLock *dbModifyLock = nil;
                                                              rereadExistingItems: YES
                                                                generatedByOsiriX: YES];
                 else
-                    [[DicomDatabase databaseAtPath: @(SYSTEM_TMP)] addFilesAtPaths: [NSArray arrayWithObject: dstPath]
+                    [[DicomDatabase databaseAtPath: NSTemporaryDirectory()] addFilesAtPaths: [NSArray arrayWithObject: dstPath]
                                                                  postNotifications: NO
                                                                          dicomOnly: YES
                                                                rereadExistingItems: YES
@@ -720,7 +720,7 @@ static NSRecursiveLock *dbModifyLock = nil;
             BOOL isMainDB = self.managedObjectContext.persistentStoreCoordinator == BrowserController.currentBrowser.database.managedObjectContext.persistentStoreCoordinator;
 
 			// Report
-            NSString *zippedFile = [@(SYSTEM_TMP) stringByAppendingString:@"/zippedReport.zip"];
+            NSString *zippedFile = [NSTemporaryDirectory() stringByAppendingString:@"/zippedReport.zip"];
 			BOOL needToArchive = NO;
 			NSString *dstPath = nil;
 			Dicom_Image *reportImage = [self reportImage];
@@ -801,7 +801,7 @@ static NSRecursiveLock *dbModifyLock = nil;
                                                              rereadExistingItems: YES
                                                                generatedByOsiriX: YES];
                 else
-                    [[DicomDatabase databaseAtPath: @(SYSTEM_TMP)] addFilesAtPaths: [NSArray arrayWithObject: dstPath]
+                    [[DicomDatabase databaseAtPath: NSTemporaryDirectory()] addFilesAtPaths: [NSArray arrayWithObject: dstPath]
                                                                  postNotifications: YES
                                                                          dicomOnly: YES
                                                                rereadExistingItems: YES
@@ -1135,7 +1135,7 @@ static NSRecursiveLock *dbModifyLock = nil;
                          rereadExistingItems: YES
                            generatedByOsiriX: YES];
                     else
-                        [[DicomDatabase databaseAtPath: @(SYSTEM_TMP)] addFilesAtPaths: [NSArray arrayWithObject: filePath]
+                        [[DicomDatabase databaseAtPath: NSTemporaryDirectory()] addFilesAtPaths: [NSArray arrayWithObject: filePath]
                                                                      postNotifications: YES
                                                                              dicomOnly: YES
                                                                    rereadExistingItems: YES

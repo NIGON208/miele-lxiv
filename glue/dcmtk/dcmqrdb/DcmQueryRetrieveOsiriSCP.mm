@@ -120,7 +120,7 @@ void DcmQueryRetrieveOsiriSCP::writeErrorMessage( const char *str)
     else
     {
         char dir[ 1024];
-        sprintf( dir, "%s", SYSTEM_TMP"/error_message");
+        sprintf( dir, "%s/error_message", [NSTemporaryDirectory() UTF8String]);
         unlink( dir);
         
         FILE * pFile = fopen (dir,"w+");
@@ -226,7 +226,7 @@ OFCondition DcmQueryRetrieveOsiriSCP::storeSCP(
         }
     }
     
-    FILE *pFile = fopen(SYSTEM_TMP"/kill_all_storescu", "r");
+    FILE *pFile = fopen([[NSTemporaryDirectory() stringByAppendingString:@"/kill_all_storescu"] UTF8String], "r");
     if (pFile)
     {
         fclose (pFile);

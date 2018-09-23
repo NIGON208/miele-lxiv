@@ -913,7 +913,7 @@ static NSDate *lastWarningDate = nil;
                     kill( MyArray[ Counter], 15);
                     
                     char dir[ 1024];
-                    sprintf( dir, "%s-%d", SYSTEM_TMP"/lock_process", MyArray[ Counter]);
+                    sprintf( dir, "%s/lock_process-%d", [NSTemporaryDirectory() UTF8String], MyArray[ Counter]);
                     unlink( dir);
                 }
             } 
@@ -1195,7 +1195,7 @@ static NSDate *lastWarningDate = nil;
 	int pid = [pidNumber intValue];
 	int rc, state;
 	BOOL threadStateChanged = NO;
-	NSString *path = [NSString stringWithFormat: @"%s/process_state-%d", SYSTEM_TMP, pid];
+	NSString *path = [NSString stringWithFormat: @"%@/process_state-%d", NSTemporaryDirectory(), pid];
 	
 	do
 	{
@@ -1237,7 +1237,7 @@ static NSDate *lastWarningDate = nil;
 
 - (void) checkForRestartStoreSCPOrder: (NSTimer*) t
 {
-    NSString *path = [NSString stringWithFormat: @"%s/RESTARTOSIRIXSTORESCP", SYSTEM_TMP];
+    NSString *path = [NSString stringWithFormat: @"%@/RESTARTOSIRIXSTORESCP", NSTemporaryDirectory()];
 
 	if ([[NSFileManager defaultManager] fileExistsAtPath: path])
 	{
@@ -2745,7 +2745,7 @@ static BOOL firstCall = YES;
 	[[NSUserDefaults standardUserDefaults] setBool: YES forKey: @"hideListenerError"];
 	[[NSUserDefaults standardUserDefaults] synchronize];
 
-    NSString *pathKillAll = [@(SYSTEM_TMP) stringByAppendingString:@"/kill_all_storescu"];
+    NSString *pathKillAll = [NSTemporaryDirectory() stringByAppendingString:@"/kill_all_storescu"];
 	[[NSFileManager defaultManager] createFileAtPath: pathKillAll
                                             contents: [NSData data]
                                           attributes: nil];
@@ -2754,7 +2754,7 @@ static BOOL firstCall = YES;
 	[wait close];
 	[wait autorelease];
 	
-	unlink( SYSTEM_TMP"/kill_all_storescu");
+	unlink( [[NSTemporaryDirectory() stringByAppendingString:@"/kill_all_storescu"] UTF8String]);
 	
 	[[NSUserDefaults standardUserDefaults] setBool: hideListenerError_copy forKey: @"hideListenerError"];
 	[[NSUserDefaults standardUserDefaults] removeObjectForKey: @"copyHideListenerError"];
@@ -2763,7 +2763,7 @@ static BOOL firstCall = YES;
 
 - (void) applicationWillTerminate: (NSNotification*) aNotification
 {
-	unlink( SYSTEM_TMP"/kill_all_storescu");
+	unlink( [[NSTemporaryDirectory() stringByAppendingString:@"/kill_all_storescu"] UTF8String]);
 	
 #ifndef OSIRIX_LIGHT
     [DICOMTLS eraseKeys];
@@ -2843,11 +2843,11 @@ static BOOL firstCall = YES;
     }
 
 	// Delete all process_state files
-	for (NSString* s in [[NSFileManager defaultManager] contentsOfDirectoryAtPath: @(SYSTEM_TMP) error:nil])
+	for (NSString* s in [[NSFileManager defaultManager] contentsOfDirectoryAtPath: NSTemporaryDirectory() error:nil])
 		if ([s hasPrefix:@"process_state-"])
-			[[NSFileManager defaultManager] removeItemAtPath:[@(SYSTEM_TMP) stringByAppendingPathComponent:s] error:nil];
+			[[NSFileManager defaultManager] removeItemAtPath:[NSTemporaryDirectory() stringByAppendingPathComponent:s] error:nil];
 	
-    [[NSFileManager defaultManager] removeItemAtPath:[@(SYSTEM_TMP) stringByAppendingString:@"/zippedCD/"] error:nil];
+    [[NSFileManager defaultManager] removeItemAtPath:[NSTemporaryDirectory() stringByAppendingString:@"/zippedCD/"] error:nil];
 
     NSString *tmpDirPath = [[NSFileManager defaultManager] tmpDirPath];
     if ([[NSFileManager defaultManager] fileExistsAtPath: tmpDirPath])
@@ -3560,7 +3560,7 @@ static BOOL initialized = NO;
 
 - (void) applicationDidFinishLaunching:(NSNotification*) aNotification
 {
-	unlink( SYSTEM_TMP"/kill_all_storescu");
+	unlink( [[NSTemporaryDirectory() stringByAppendingString:@"/kill_all_storescu"] UTF8String]);
     
     [[[NSWorkspace sharedWorkspace] notificationCenter]
             addObserver:self
@@ -3622,7 +3622,7 @@ static BOOL initialized = NO;
 	
     
     // If this application crashed before...
-    NSString *pathOsiriXCrashed = [@(SYSTEM_TMP) stringByAppendingString:@"/OsiriXCrashed"];
+    NSString *pathOsiriXCrashed = [NSTemporaryDirectory() stringByAppendingString:@"/OsiriXCrashed"];
     
     if( [[NSFileManager defaultManager] fileExistsAtPath: pathOsiriXCrashed]) // Activate check for update !
     {
@@ -3829,6 +3829,9 @@ static BOOL initialized = NO;
         
         [[QueryController currentQueryController] showWindow: self];
     }
+#endif
+#ifndef NDEBUG
+    [dbWindow setBackgroundColor:[NSColor yellowColor]];
 #endif
 }
 
@@ -4076,7 +4079,7 @@ static BOOL initialized = NO;
 	}
     
 	BOOL dialog = NO;
-    NSString *path = [@(SYSTEM_TMP) stringByAppendingString:@"/"];
+    NSString *path = [NSTemporaryDirectory() stringByAppendingString:@"/"];
     if( [[NSFileManager defaultManager] fileExistsAtPath: path] == NO)
         [[NSFileManager defaultManager] createDirectoryAtPath:path
                                   withIntermediateDirectories:YES

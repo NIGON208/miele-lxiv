@@ -496,7 +496,7 @@ NSString *mediumTag[] = {@"Blue Film", @"Clear Film", @"Paper"};
         int rows = imageDisplayFormatRows[[[dict valueForKey: @"imageDisplayFormatTag"] intValue]];
         int columns = imageDisplayFormatColumns[[[dict valueForKey: @"imageDisplayFormatTag"] intValue]];
         
-        NSString *pathDicomPrint = [@(SYSTEM_TMP) stringByAppendingString:@"dicomPrint/"];
+        NSString *pathDicomPrint = [NSTemporaryDirectory() stringByAppendingString:@"dicomPrint/"];
         NSFileManager *fileManager = [NSFileManager defaultManager];
         
         // remove destination directory

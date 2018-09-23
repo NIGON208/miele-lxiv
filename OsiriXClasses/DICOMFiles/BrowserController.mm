@@ -907,7 +907,7 @@ static NSConditionLock *threadLock = nil;
 											}
 											else if( [[itemPath pathExtension] isEqualToString: @"zip"] || [[itemPath pathExtension] isEqualToString: @"osirixzip"])
 											{
-												NSString *unzipPath = [@(SYSTEM_TMP) stringByAppendingPathComponent: @"unzip_folder"];
+												NSString *unzipPath = [NSTemporaryDirectory() stringByAppendingPathComponent: @"unzip_folder"];
 												
 												[[NSFileManager defaultManager] removeItemAtPath: unzipPath error: nil];
 												[[NSFileManager defaultManager] createDirectoryAtPath: unzipPath
@@ -958,7 +958,7 @@ static NSConditionLock *threadLock = nil;
 						}
 						else if( [[filename pathExtension] isEqualToString: @"zip"] || [[filename pathExtension] isEqualToString: @"osirixzip"])
 						{
-							NSString *unzipPath = [@(SYSTEM_TMP) stringByAppendingPathComponent: @"unzip_folder"];
+							NSString *unzipPath = [NSTemporaryDirectory() stringByAppendingPathComponent: @"unzip_folder"];
 							
 							[[NSFileManager defaultManager] removeItemAtPath: unzipPath error: nil];
 							[[NSFileManager defaultManager] createDirectoryAtPath: unzipPath
@@ -1924,7 +1924,7 @@ static NSConditionLock *threadLock = nil;
 {
 	[self.window setTitle: _database? [_database name] : @""];
     
-    NSString *prefix = [@(SYSTEM_TMP) stringByAppendingPathComponent: @"/"];
+    NSString *prefix = [NSTemporaryDirectory() stringByAppendingPathComponent: @"/"];
 
     if( [_database.baseDirPath hasPrefix: prefix] || _database.isLocal == NO)
     {
@@ -3387,11 +3387,11 @@ static NSConditionLock *threadLock = nil;
 	@try
 	{
 		// Test for deadlock processes lock_process pid in tmp folder
-		for( NSString *s in [[NSFileManager defaultManager] contentsOfDirectoryAtPath: @(SYSTEM_TMP) error: nil])
+		for( NSString *s in [[NSFileManager defaultManager] contentsOfDirectoryAtPath: NSTemporaryDirectory() error: nil])
 		{
 			if( [s hasPrefix: @"lock_process-"])
 			{
-                NSString *path = [@(SYSTEM_TMP) stringByAppendingPathComponent: @"/"];
+                NSString *path = [NSTemporaryDirectory() stringByAppendingPathComponent: @"/"];
 				int timeIntervalSinceNow = [[[[NSFileManager defaultManager] attributesOfItemAtPath: [path stringByAppendingPathComponent: s] error: nil] fileCreationDate] timeIntervalSinceNow];
 				
 				if( timeIntervalSinceNow < -60*60*1)
@@ -3407,7 +3407,7 @@ static NSConditionLock *threadLock = nil;
 						kill( pid, 15);
 						
 						char dir[ 1024];
-						sprintf( dir, "%s-%d", SYSTEM_TMP"/lock_process", pid);
+						sprintf( dir, "%s/lock_process-%d", [NSTemporaryDirectory() UTF8String], pid);
 						unlink( dir);
 					}
 				}
@@ -7168,7 +7168,7 @@ static NSConditionLock *threadLock = nil;
 			}
 			else if( [DCMAbstractSyntaxUID isStructuredReport: [im valueForKeyPath: @"series.seriesSOPClassUID"]])
 			{
-                NSString *pathDicomSr = [@(SYSTEM_TMP) stringByAppendingString:@"/dicomsr_osirix"];
+                NSString *pathDicomSr = [NSTemporaryDirectory() stringByAppendingString:@"/dicomsr_osirix"];
                 [[NSFileManager defaultManager] confirmDirectoryAtPath:pathDicomSr];
 				
 				NSString *htmlpath = [[pathDicomSr stringByAppendingPathComponent: [[im valueForKey: @"completePath"] lastPathComponent]] stringByAppendingPathExtension: @"xml"];
@@ -10512,12 +10512,16 @@ constrainSplitPosition:(CGFloat)proposedPosition
 
 #pragma mark - NSSplitViewDelegate
 
+#if 1 // @@@
 -(void)splitView:(NSSplitView*)sender resizeSubviewsWithOldSize:(NSSize)oldSize
 {
 //    if( starting)
 //        return;
-    
-	if (sender == splitDrawer)
+#ifndef NDEBUG
+    //NSLog(@"%s sender:%p", __FUNCTION__, sender);
+#endif
+
+    if (sender == splitDrawer)
     {
         NSView* left = [[sender subviews] objectAtIndex:0];
         NSView* right = [[sender subviews] objectAtIndex:1];
@@ -10657,7 +10661,9 @@ constrainSplitPosition:(CGFloat)proposedPosition
 {
 //    if( starting)
 //        return;
-    
+#ifndef NDEBUG
+    //NSLog(@"%s", __FUNCTION__);
+#endif
 	N2OpenGLViewWithSplitsWindow *window = (N2OpenGLViewWithSplitsWindow*)self.window;
 	
 	if( [window respondsToSelector:@selector(disableUpdatesUntilFlush)])
@@ -10668,7 +10674,9 @@ constrainSplitPosition:(CGFloat)proposedPosition
 {
 //    if( starting)
 //        return;
-    
+#ifndef NDEBUG
+    //NSLog(@"%s", __FUNCTION__);
+#endif
     if ([notification object] == splitViewVert)
     {
         NSView* theView = [[splitViewVert subviews] objectAtIndex:0];
@@ -10698,6 +10706,9 @@ constrainSplitPosition:(CGFloat)proposedPosition
 
 - (BOOL)splitView: (NSSplitView *)sender canCollapseSubview: (NSView *)subview
 {
+#ifndef NDEBUG
+    //NSLog(@"%s subview:%@", __FUNCTION__, [subview class]);
+#endif
     if (sender == splitViewVert)
         return NO;
     
@@ -10728,6 +10739,9 @@ constrainSplitPosition:(CGFloat)proposedPosition
 
 - (IBAction)comparativeToggle:(id)sender
 {
+#ifndef NDEBUG
+    NSLog(@"%s", __FUNCTION__);
+#endif
     if( gHorizontalHistory)
     {
         NSView* top = [[splitComparative subviews] objectAtIndex:0];
@@ -10745,9 +10759,13 @@ constrainSplitPosition:(CGFloat)proposedPosition
     
     [splitComparative resizeSubviewsWithOldSize:splitComparative.bounds.size];
 }
+#endif // @@@
 
 - (IBAction)drawerToggle: (id)sender
 {
+#ifndef NDEBUG
+    //NSLog(@"%s", __FUNCTION__);
+#endif
     NSView* left = [[splitDrawer subviews] objectAtIndex:0];
     BOOL shouldExpand = [left isHidden] || [splitDrawer isSubviewCollapsed:[[splitDrawer subviews] objectAtIndex:0]];
     
@@ -10756,8 +10774,13 @@ constrainSplitPosition:(CGFloat)proposedPosition
     [splitDrawer resizeSubviewsWithOldSize:splitDrawer.bounds.size];
 }
 
+#if 1 // @@@
 - (CGFloat)splitView:(NSSplitView *)sender constrainMinCoordinate: (CGFloat)proposedMin ofSubviewAt: (NSInteger)offset
 {
+#ifndef NDEBUG
+    //NSLog(@"%s", __FUNCTION__);
+#endif
+
 	if (sender == splitViewHorz)
 		return oMatrix.cellSize.height;
 
@@ -10794,6 +10817,9 @@ constrainSplitPosition:(CGFloat)proposedPosition
 
 - (CGFloat)splitView:(NSSplitView *)sender constrainMaxCoordinate: (CGFloat)proposedMax ofSubviewAt: (NSInteger)offset
 {
+#ifndef NDEBUG
+    //NSLog(@"%s", __FUNCTION__);
+#endif
 	if (sender == splitViewVert)
 		return [sender bounds].size.width-200;
     
@@ -10858,6 +10884,9 @@ constrainSplitPosition:(CGFloat)proposedPosition
 	}
 	return nil;
 }
+#endif // @@@
+
+#pragma mark -
 
 - (NSMutableArray *) filesForDatabaseMatrixSelection :(NSMutableArray*) correspondingManagedObjects onlyImages:(BOOL) onlyImages
 {
@@ -14407,6 +14436,9 @@ static NSArray*	openSubSeriesArray = nil;
 
 -(void) awakeFromNib
 {
+#ifndef NDEBUG
+    NSLog(@"%s", __FUNCTION__);
+#endif
     @try
     {
     //	dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
@@ -14739,6 +14771,9 @@ static NSArray*	openSubSeriesArray = nil;
     @catch (NSException *e) {
         N2LogException( e);
     }
+#ifndef NDEBUG
+    //[splitDrawer setBackgroundColor:[NSColor yellowColor]];
+#endif
 }
 
 - (IBAction) clickBanner:(id) sender
@@ -14837,12 +14872,12 @@ static NSArray*	openSubSeriesArray = nil;
 		[[NSUserDefaults standardUserDefaults] setBool: YES forKey: @"hideListenerError"];
 		[[NSUserDefaults standardUserDefaults] synchronize];
 		
-        NSString *pathKillAll = [@(SYSTEM_TMP) stringByAppendingString:@"/kill_all_storescu"];
+        NSString *pathKillAll = [NSTemporaryDirectory() stringByAppendingString:@"/kill_all_storescu"];
 		[[NSFileManager defaultManager] createFileAtPath: pathKillAll
                                                 contents: [NSData data]
                                               attributes: nil];
 		
-		unlink( SYSTEM_TMP"/kill_all_storescu");
+		unlink( [[NSTemporaryDirectory() stringByAppendingString:@"/kill_all_storescu"] UTF8String]);
 		[[NSUserDefaults standardUserDefaults] setBool: hideListenerError_copy forKey: @"hideListenerError"];
 		[[NSUserDefaults standardUserDefaults] removeObjectForKey: @"copyHideListenerError"];
 		[[NSUserDefaults standardUserDefaults] synchronize];
@@ -14939,8 +14974,8 @@ static NSArray*	openSubSeriesArray = nil;
 	
 	[[NSUserDefaults standardUserDefaults] synchronize];
 	
-    NSString *pathTempDb  = [@(SYSTEM_TMP) stringByAppendingString:@"/OsiriXTemporaryDatabase"];
-    NSString *pathDicomSr = [@(SYSTEM_TMP) stringByAppendingString:@"/dicomsr_osirix"];
+    NSString *pathTempDb  = [NSTemporaryDirectory() stringByAppendingString:@"/OsiriXTemporaryDatabase"];
+    NSString *pathDicomSr = [NSTemporaryDirectory() stringByAppendingString:@"/dicomsr_osirix"];
 
 	[[NSFileManager defaultManager] removeFileAtPath: pathTempDb handler: nil];
 	[[NSFileManager defaultManager] removeFileAtPath: pathDicomSr handler: nil];
@@ -15676,7 +15711,7 @@ static NSArray*	openSubSeriesArray = nil;
 	
 	// Check for the errors generated by the Q&R DICOM functions -- see dcmqrsrv.mm
 
-    NSString *pathErrorMsg  = [@(SYSTEM_TMP) stringByAppendingString:@"/error_message"];
+    NSString *pathErrorMsg  = [NSTemporaryDirectory() stringByAppendingString:@"/error_message"];
 	NSString *str = [NSString stringWithContentsOfFile: pathErrorMsg];
 	if (str)
 	{
@@ -15799,7 +15834,7 @@ static NSArray*	openSubSeriesArray = nil;
 	@try
 	{
 		[t setLaunchPath: @"/usr/bin/unzip"];		
-        NSString *path = [@(SYSTEM_TMP) stringByAppendingPathComponent: @"/"];
+        NSString *path = [NSTemporaryDirectory() stringByAppendingPathComponent: @"/"];
 
 		if( [[NSFileManager defaultManager] fileExistsAtPath: path] == NO)
 			[[NSFileManager defaultManager] createDirectoryAtPath: path
@@ -16657,7 +16692,7 @@ static volatile int numberOfThreadsForJPEG = 0;
 			}
 			else if( [DCMAbstractSyntaxUID isStructuredReport: [curImage valueForKeyPath: @"series.seriesSOPClassUID"]])
 			{
-                NSString *pathDicomSr = [@(SYSTEM_TMP) stringByAppendingString:@"/dicomsr_osirix"];
+                NSString *pathDicomSr = [NSTemporaryDirectory() stringByAppendingString:@"/dicomsr_osirix"];
                 [[NSFileManager defaultManager] confirmDirectoryAtPath:pathDicomSr];
 				NSString *htmlpath = [[pathDicomSr stringByAppendingPathComponent: [[curImage valueForKey: @"completePath"] lastPathComponent]] stringByAppendingPathExtension: @"xml"];
 				
@@ -17305,7 +17340,7 @@ static volatile int numberOfThreadsForJPEG = 0;
 			NSMutableArray *dicomFiles2Export = [NSMutableArray array];
 			NSMutableArray *filesToExport = [self filesForDatabaseOutlineSelection: dicomFiles2Export onlyImages: NO];
 			
-            NSString *pathZipFiles = [@(SYSTEM_TMP) stringByAppendingString:@"/zipFilesForMail"];
+            NSString *pathZipFiles = [NSTemporaryDirectory() stringByAppendingString:@"/zipFilesForMail"];
 			[[NSFileManager defaultManager] removeItemAtPath: pathZipFiles error: nil];
 			[[NSFileManager defaultManager] createDirectoryAtPath: pathZipFiles
                                       withIntermediateDirectories: YES
@@ -17318,7 +17353,7 @@ static volatile int numberOfThreadsForJPEG = 0;
 			
 			self.passwordForExportEncryption = [[NSUserDefaults standardUserDefaults] valueForKey: @"defaultZIPPasswordForEmail"];
 			
-            NSString *pathZipFilesSlash = [@(SYSTEM_TMP) stringByAppendingString:@"/zipFilesForMail/"];
+            NSString *pathZipFilesSlash = [NSTemporaryDirectory() stringByAppendingString:@"/zipFilesForMail/"];
 			NSArray *r = [self exportDICOMFileInt: pathZipFilesSlash
                                             files: filesToExport
                                           objects: dicomFiles2Export];
@@ -19456,8 +19491,8 @@ static volatile int numberOfThreadsForJPEG = 0;
 			{
 				NSBitmapImageRep *bits = [[[NSBitmapImageRep alloc] initWithData:[im TIFFRepresentation]] autorelease];
 				
-				NSString *path = [NSString stringWithFormat: @"%s/sc/%@.png",
-                                  SYSTEM_TMP,
+				NSString *path = [NSString stringWithFormat: @"%@/sc/%@.png",
+                                  NSTemporaryDirectory(),
                                   [[[[item label]
                                      stringByReplacingOccurrencesOfString: @"&" withString:@"And"]
                                     stringByReplacingOccurrencesOfString: @" " withString:@""]
@@ -19645,7 +19680,6 @@ static volatile int numberOfThreadsForJPEG = 0;
     } 
 	else if ([itemIdent isEqualToString: BurnerToolbarItemIdentifier])
 	{
-        
 		[toolbarItem setLabel: NSLocalizedString(@"Burn",nil)];
 		[toolbarItem setPaletteLabel: NSLocalizedString(@"Burn",nil)];
 		[toolbarItem setToolTip: NSLocalizedString(@"Burn a DICOM-compatible CD or DVD",@"Burn a DICOM-compatible CD or DVD")];
@@ -19655,7 +19689,6 @@ static volatile int numberOfThreadsForJPEG = 0;
     } 
 	else if ([itemIdent isEqualToString: ToggleDrawerToolbarItemIdentifier])
 	{
-        
 		[toolbarItem setLabel: NSLocalizedString(@"Albums & Sources",nil)];
 		[toolbarItem setPaletteLabel: NSLocalizedString(@"Albums & Sources",nil)];
         [toolbarItem setToolTip: NSLocalizedString(@"Toggle Albums & Sources drawer",nil)];

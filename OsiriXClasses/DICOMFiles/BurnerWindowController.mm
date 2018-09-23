@@ -240,7 +240,7 @@
         }
         
         [[NSFileManager defaultManager] removeFileAtPath:[self folderToBurn] handler:nil];
-        NSString *pathBurnAnonymized = [@(SYSTEM_TMP) stringByAppendingString:@"/burnAnonymized"];
+        NSString *pathBurnAnonymized = [NSTemporaryDirectory() stringByAppendingString:@"/burnAnonymized"];
         [[NSFileManager defaultManager] removeFileAtPath:[NSString stringWithFormat:pathBurnAnonymized] handler:nil];
         
         [writeVolumePath release];
@@ -397,7 +397,7 @@
         
         if( anonymizationTags)
         {
-            NSString *pathBurnAnonymized = [@(SYSTEM_TMP) stringByAppendingString:@"/burnAnonymized"];
+            NSString *pathBurnAnonymized = [NSTemporaryDirectory() stringByAppendingString:@"/burnAnonymized"];
             NSDictionary* anonOut = [Anonymization anonymizeFiles:files dicomImages: dbObjects toPath:pathBurnAnonymized withTags: anonymizationTags];
             
             [anonymizedFiles release];
@@ -492,7 +492,7 @@
 
 -(NSString *)folderToBurn
 {
-	return [NSString stringWithFormat:@"%s/%@", SYSTEM_TMP, cdName];
+	return [NSString stringWithFormat:@"%@/%@", NSTemporaryDirectory(), cdName];
 }
 
 -(NSArray*) volumes
@@ -707,7 +707,7 @@
 	if (isExtracting || isSettingUpBurn || burning)
 		return NO;
 
-    NSString *pathBurnAnonymized = [@(SYSTEM_TMP) stringByAppendingString:@"/burnAnonymized"];
+    NSString *pathBurnAnonymized = [NSTemporaryDirectory() stringByAppendingString:@"/burnAnonymized"];
     [[NSFileManager defaultManager] removeFileAtPath: [self folderToBurn] handler:nil];
     [[NSFileManager defaultManager] removeFileAtPath: [NSString stringWithFormat:pathBurnAnonymized] handler:nil];
     

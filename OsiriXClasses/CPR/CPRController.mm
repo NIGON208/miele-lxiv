@@ -3744,8 +3744,8 @@ static float deg2rad = M_PI / 180.0;
 			{
 				NSBitmapImageRep *bits = [[[NSBitmapImageRep alloc] initWithData:[im TIFFRepresentation]] autorelease];
 				
-				NSString *path = [NSString stringWithFormat: @"%s/sc/%@.png",
-                                  SYSTEM_TMP,
+				NSString *path = [NSString stringWithFormat: @"%@/sc/%@.png",
+                                  NSTemporaryDirectory(),
                                   [[[[item label]
                                      stringByReplacingOccurrencesOfString: @"&" withString:@"And"]
                                     stringByReplacingOccurrencesOfString: @" " withString:@""]

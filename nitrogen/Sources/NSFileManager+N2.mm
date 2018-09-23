@@ -71,7 +71,7 @@
 
 -(NSString*)tmpDirPath {
     NSString* path = [NSString stringWithFormat:@"%s/%@_%@",
-                      TMP_DIR,
+                      NSTemporaryDirectory(),
                       [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString*)kCFBundleNameKey],
                       NSUserName()];
     [self confirmDirectoryAtPath:path];

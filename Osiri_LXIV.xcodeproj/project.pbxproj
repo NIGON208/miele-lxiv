@@ -43,7 +43,6 @@
 		183C865908563F3A000E6A68 /* Spline3D.mm in Sources */ = {isa = PBXBuildFile; fileRef = 183C864508563F3A000E6A68 /* Spline3D.mm */; };
 		183C865B08563F3A000E6A68 /* SRFlyThruAdapter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 183C864708563F3A000E6A68 /* SRFlyThruAdapter.mm */; };
 		183C865D08563F3A000E6A68 /* VRFlyThruAdapter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 183C864908563F3A000E6A68 /* VRFlyThruAdapter.mm */; };
-		4310F7AA20692C26000BDDCC /* CMakeLists.txt in Resources */ = {isa = PBXBuildFile; fileRef = 4310F30F20692C22000BDDCC /* CMakeLists.txt */; };
 		4310F7AC20692C26000BDDCC /* jcapimin.c in Sources */ = {isa = PBXBuildFile; fileRef = 4310F31120692C22000BDDCC /* jcapimin.c */; };
 		4310F7AD20692C26000BDDCC /* jcapistd.c in Sources */ = {isa = PBXBuildFile; fileRef = 4310F31220692C22000BDDCC /* jcapistd.c */; };
 		4310F7AE20692C26000BDDCC /* jcarith.c in Sources */ = {isa = PBXBuildFile; fileRef = 4310F31320692C22000BDDCC /* jcarith.c */; };
@@ -107,9 +106,6 @@
 		4310F7F420692C27000BDDCC /* jquant1.c in Sources */ = {isa = PBXBuildFile; fileRef = 4310F35920692C23000BDDCC /* jquant1.c */; };
 		4310F7F520692C27000BDDCC /* jquant2.c in Sources */ = {isa = PBXBuildFile; fileRef = 4310F35A20692C23000BDDCC /* jquant2.c */; };
 		4310F7F620692C27000BDDCC /* jutils.c in Sources */ = {isa = PBXBuildFile; fileRef = 4310F35B20692C23000BDDCC /* jutils.c */; };
-		4310F7F820692C27000BDDCC /* Makefile.dep in Resources */ = {isa = PBXBuildFile; fileRef = 4310F35D20692C23000BDDCC /* Makefile.dep */; };
-		4310F7F920692C27000BDDCC /* Makefile.in in Resources */ = {isa = PBXBuildFile; fileRef = 4310F35E20692C23000BDDCC /* Makefile.in */; };
-		4310F7FA20692C27000BDDCC /* CMakeLists.txt in Resources */ = {isa = PBXBuildFile; fileRef = 4310F36020692C23000BDDCC /* CMakeLists.txt */; };
 		4310F7FC20692C27000BDDCC /* jcapimin.c in Sources */ = {isa = PBXBuildFile; fileRef = 4310F36220692C23000BDDCC /* jcapimin.c */; };
 		4310F7FD20692C27000BDDCC /* jcapistd.c in Sources */ = {isa = PBXBuildFile; fileRef = 4310F36320692C23000BDDCC /* jcapistd.c */; };
 		4310F7FE20692C27000BDDCC /* jcarith.c in Sources */ = {isa = PBXBuildFile; fileRef = 4310F36420692C23000BDDCC /* jcarith.c */; };
@@ -173,9 +169,6 @@
 		4310F84420692C27000BDDCC /* jquant1.c in Sources */ = {isa = PBXBuildFile; fileRef = 4310F3AA20692C23000BDDCC /* jquant1.c */; };
 		4310F84520692C27000BDDCC /* jquant2.c in Sources */ = {isa = PBXBuildFile; fileRef = 4310F3AB20692C23000BDDCC /* jquant2.c */; };
 		4310F84620692C27000BDDCC /* jutils.c in Sources */ = {isa = PBXBuildFile; fileRef = 4310F3AC20692C23000BDDCC /* jutils.c */; };
-		4310F84820692C27000BDDCC /* Makefile.dep in Resources */ = {isa = PBXBuildFile; fileRef = 4310F3AE20692C23000BDDCC /* Makefile.dep */; };
-		4310F84920692C27000BDDCC /* Makefile.in in Resources */ = {isa = PBXBuildFile; fileRef = 4310F3AF20692C23000BDDCC /* Makefile.in */; };
-		4310F84A20692C27000BDDCC /* CMakeLists.txt in Resources */ = {isa = PBXBuildFile; fileRef = 4310F3B120692C23000BDDCC /* CMakeLists.txt */; };
 		4310F84C20692C27000BDDCC /* jcapimin.c in Sources */ = {isa = PBXBuildFile; fileRef = 4310F3B320692C23000BDDCC /* jcapimin.c */; };
 		4310F84D20692C27000BDDCC /* jcapistd.c in Sources */ = {isa = PBXBuildFile; fileRef = 4310F3B420692C23000BDDCC /* jcapistd.c */; };
 		4310F84E20692C27000BDDCC /* jcarith.c in Sources */ = {isa = PBXBuildFile; fileRef = 4310F3B520692C23000BDDCC /* jcarith.c */; };
@@ -239,8 +232,6 @@
 		4310F89420692C28000BDDCC /* jquant1.c in Sources */ = {isa = PBXBuildFile; fileRef = 4310F3FB20692C23000BDDCC /* jquant1.c */; };
 		4310F89520692C28000BDDCC /* jquant2.c in Sources */ = {isa = PBXBuildFile; fileRef = 4310F3FC20692C23000BDDCC /* jquant2.c */; };
 		4310F89620692C28000BDDCC /* jutils.c in Sources */ = {isa = PBXBuildFile; fileRef = 4310F3FD20692C23000BDDCC /* jutils.c */; };
-		4310F89820692C28000BDDCC /* Makefile.dep in Resources */ = {isa = PBXBuildFile; fileRef = 4310F3FF20692C23000BDDCC /* Makefile.dep */; };
-		4310F89920692C28000BDDCC /* Makefile.in in Resources */ = {isa = PBXBuildFile; fileRef = 4310F40020692C23000BDDCC /* Makefile.in */; };
 		4310FAD320692C2B000BDDCC /* cnvrsn.def in Resources */ = {isa = PBXBuildFile; fileRef = 4310F65220692C25000BDDCC /* cnvrsn.def */; };
 		4310FAD420692C2B000BDDCC /* mmtag.def in Resources */ = {isa = PBXBuildFile; fileRef = 4310F65320692C25000BDDCC /* mmtag.def */; };
 		4310FAD520692C2B000BDDCC /* nsdfti.def in Resources */ = {isa = PBXBuildFile; fileRef = 4310F65420692C25000BDDCC /* nsdfti.def */; };
@@ -329,7 +320,6 @@
 		5969033E12DDE30800379E41 /* WebPortalConnection+Data.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5969033A12DDE30800379E41 /* WebPortalConnection+Data.mm */; };
 		5969034612DDE5EA00379E41 /* WebPortalResponse.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5969034412DDE5EA00379E41 /* WebPortalResponse.mm */; };
 		596D30B21439B9C8004EE9EC /* pages2pdf.applescript in Resources */ = {isa = PBXBuildFile; fileRef = 596D30AE1439B98A004EE9EC /* pages2pdf.applescript */; };
-		596D30B31439B9CD004EE9EC /* word2pdf.applescript in Resources */ = {isa = PBXBuildFile; fileRef = 596D30AF1439B98A004EE9EC /* word2pdf.applescript */; };
 		596D30B71439BA17004EE9EC /* DicomStudy+Report.mm in Sources */ = {isa = PBXBuildFile; fileRef = 596D30B51439BA17004EE9EC /* DicomStudy+Report.mm */; };
 		596D30BC1439BABD004EE9EC /* NSAppleScript+N2.mm in Sources */ = {isa = PBXBuildFile; fileRef = 596D30B91439BABD004EE9EC /* NSAppleScript+N2.mm */; };
 		596EB3071189D9A600880192 /* NSPreferencePane+OsiriX.mm in Sources */ = {isa = PBXBuildFile; fileRef = 596EB3051189D9A600880192 /* NSPreferencePane+OsiriX.mm */; };
@@ -9157,9 +9147,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				43A89B0F208222AD00D7B11D /* DICOMPrint in Resources */,
-				4310F7F920692C27000BDDCC /* Makefile.in in Resources */,
 				CE902EA3181C034E00CC4B88 /* pages2pages09.applescript in Resources */,
-				596D30B31439B9CD004EE9EC /* word2pdf.applescript in Resources */,
 				CE0C4792183139C400D4C50E /* pages092pdf.applescript in Resources */,
 				596D30B21439B9C8004EE9EC /* pages2pdf.applescript in Resources */,
 				CE289B1D0D00AF91004F0A93 /* Mail.scpt in Resources */,
@@ -9240,7 +9228,6 @@
 				CE49E2CA0760B93500444203 /* Empty.tif in Resources */,
 				CE16066E0769EFE60036CAD3 /* VR Muscles-Bones.plist in Resources */,
 				CE52264F077C48D900EED851 /* Sync.pdf in Resources */,
-				4310F84920692C27000BDDCC /* Makefile.in in Resources */,
 				CEE6717D077D5ECF00E4BB10 /* SyncLock.pdf in Resources */,
 				7E54309F07A05F7500500ABB /* burn_throb.tif in Resources */,
 				CE1F6C4C07D715EB00165CBE /* Reset.pdf in Resources */,
@@ -9289,7 +9276,6 @@
 				CE54877A0989363200CF4C60 /* Brush.tif in Resources */,
 				CEDCDD5B099C8AA20026AA4B /* ROIManager.pdf in Resources */,
 				ABEF846A09A23EF5006CEC3E /* ReportTemplate.doc in Resources */,
-				4310F84820692C27000BDDCC /* Makefile.dep in Resources */,
 				AB46648D09A331DF005A2766 /* Report.icns in Resources */,
 				AB9DCD7B09A9C47800AA19E7 /* ReportTemplate.rtf in Resources */,
 				A9E7042709B89E1C00971B6E /* BonesRemovalCursor.tif in Resources */,
@@ -9316,7 +9302,6 @@
 				ABD559FF0AEE146900108895 /* CorSmall.tif in Resources */,
 				ABD55A000AEE146900108895 /* AxialSmall.tif in Resources */,
 				ABB36D800AF2548C00DBEEA2 /* away.tif in Resources */,
-				4310F7FA20692C27000BDDCC /* CMakeLists.txt in Resources */,
 				ABB36D810AF2548C00DBEEA2 /* available.tif in Resources */,
 				AB3886AC0B2449CD00831F74 /* SagSmallOpposite.tif in Resources */,
 				AB9E05470B30107A00661F7E /* key.png in Resources */,
@@ -9348,7 +9333,6 @@
 				AB3674BB0BE0CEB1003634E6 /* HUDSliderKnobRound.tif in Resources */,
 				AB3674BC0BE0CEB1003634E6 /* HUDSliderTrack.tif in Resources */,
 				AB3674BD0BE0CEB1003634E6 /* HUDSliderTrack5Tick.tif in Resources */,
-				4310F89920692C28000BDDCC /* Makefile.in in Resources */,
 				AB3674BE0BE0CEB1003634E6 /* HUDSliderTrackFill.tif in Resources */,
 				AB3674BF0BE0CEB1003634E6 /* HUDSliderTrackLeft.tif in Resources */,
 				AB3674C00BE0CEB1003634E6 /* HUDSliderTrackRight.tif in Resources */,
@@ -9385,7 +9369,6 @@
 				4310FAD720692C2B000BDDCC /* piof.def in Resources */,
 				CE3F99540C84724B00CB38F1 /* Send.xib in Resources */,
 				CE3F99550C84724B00CB38F1 /* OrthogonalMPR.xib in Resources */,
-				4310F7AA20692C26000BDDCC /* CMakeLists.txt in Resources */,
 				CE3F99570C84724B00CB38F1 /* Endoscopy.xib in Resources */,
 				CE3F995A0C84724B00CB38F1 /* ITKSegmentation.xib in Resources */,
 				CE3F995B0C84724B00CB38F1 /* Query.xib in Resources */,
@@ -9466,7 +9449,6 @@
 				84B5EA4311A2BC0900193FDB /* dsr2html in Resources */,
 				CEBA5FE011B244EA005F3A0E /* SpectroIcon.jpg in Resources */,
 				5997896E11B7B402002DB107 /* PlusButton.png in Resources */,
-				4310F7F820692C27000BDDCC /* Makefile.dep in Resources */,
 				5997897011B7B40B002DB107 /* MinusButton.png in Resources */,
 				5997897B11B7B423002DB107 /* AnonymizationCustomTagPanel.xib in Resources */,
 				5997897C11B7B423002DB107 /* AnonymizationPanel.xib in Resources */,
@@ -9477,7 +9459,6 @@
 				CE8A5017181BA499009A453B /* Report.pages in Resources */,
 				84CD250D11EC5564004669D6 /* OsiriXDB_Previous_DataModel2.4.mom in Resources */,
 				A9A80E3811F73E22009F54B9 /* Activity_Stop.tif in Resources */,
-				4310F84A20692C27000BDDCC /* CMakeLists.txt in Resources */,
 				A9A80E3911F73E22009F54B9 /* Activity_StopPressed.tif in Resources */,
 				59FB654F12312D8900EBA136 /* weasis in Resources */,
 				A97569581237D132003F00D3 /* PathAssistant.png in Resources */,
@@ -9501,7 +9482,6 @@
 				CEB98C6B1335086B0083F3FD /* OSIAutoroutingPreferencePanePref.xib in Resources */,
 				CEB98C791335087D0083F3FD /* OSI3DPreferencePanePref.xib in Resources */,
 				CEB98C851335088C0083F3FD /* AYDicomPrintPref.xib in Resources */,
-				4310F89820692C28000BDDCC /* Makefile.dep in Resources */,
 				CE9E11D013DBB5DD008B2848 /* OsiriX.sdef in Resources */,
 				59C447E21451705900D71580 /* Eject_gray.pdf in Resources */,
 				59C447E41451705900D71580 /* Eject_lightgray.pdf in Resources */,

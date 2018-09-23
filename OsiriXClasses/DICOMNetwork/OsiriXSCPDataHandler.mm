@@ -1850,7 +1850,7 @@ extern BOOL forkedProcess;
             // See DcmQueryRetrieveOsiriSCP::unlockFile dcmqrsrv.mm
             BOOL fileExist = YES;
             char dir[ 1024];
-            sprintf( dir, "%s-%d", SYSTEM_TMP"/lock_process", getpid());
+            sprintf( dir, "%s/lock_process-%d", [NSTemporaryDirectory() UTF8String], getpid());
             
             int inc = 0;
             do

@@ -43,3 +43,6 @@ url.h
 *.xcscheme
 
 nitrogen/Nitrogen.xcodeproj/xcuserdata/admin.xcuserdatad/xcschemes/xcschememanagement.plist
+CMake*
+CPack*
+doxy/

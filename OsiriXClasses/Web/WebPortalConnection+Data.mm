@@ -2090,8 +2090,8 @@ const NSString* const GenerateMovieDicomImagesParamKey = @"dicomImageArray";
 		{
 			// Zip them
 			
-			NSString *srcFolder = @(SYSTEM_TMP);
-			NSString *destFile = @(SYSTEM_TMP);
+			NSString *srcFolder = NSTemporaryDirectory();
+			NSString *destFile = NSTemporaryDirectory();
 			
 			srcFolder = [srcFolder stringByAppendingPathComponent: [[[allImages lastObject] valueForKeyPath:@"series.study.name"] filenameString]];
 			destFile = [destFile stringByAppendingPathComponent: [[[allImages lastObject] valueForKeyPath:@"series.study.name"] filenameString]];
@@ -2787,7 +2787,7 @@ const NSString* const GenerateMovieDicomImagesParamKey = @"dicomImageArray";
 	
 	if ([DCMAbstractSyntaxUID isStructuredReport:series.seriesSOPClassUID])
     {
-        NSString *pathDicomSr = [@(SYSTEM_TMP) stringByAppendingString:@"/dicomsr_osirix"];
+        NSString *pathDicomSr = [NSTemporaryDirectory() stringByAppendingString:@"/dicomsr_osirix"];
 		NSString* path = [NSFileManager.defaultManager confirmDirectoryAtPath:pathDicomSr];
 		NSString* htmlpath = [path stringByAppendingPathComponent:[[[series.images.anyObject valueForKey:@"completePath"] lastPathComponent] stringByAppendingPathExtension:@"xml"]];
 		
@@ -2856,8 +2856,8 @@ const NSString* const GenerateMovieDicomImagesParamKey = @"dicomImageArray";
     
 	@try
 	{
-		NSString *srcFolder = @(SYSTEM_TMP);
-		NSString *destFile = @(SYSTEM_TMP);
+		NSString *srcFolder = NSTemporaryDirectory();
+		NSString *destFile = NSTemporaryDirectory();
 		
 		srcFolder = [srcFolder stringByAppendingPathComponent: [[[images lastObject] valueForKeyPath:@"series.study.name"] filenameString]];
 		destFile = [destFile stringByAppendingPathComponent: [[[images lastObject] valueForKeyPath:@"series.study.name"] filenameString]];

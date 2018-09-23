@@ -471,7 +471,7 @@ static DicomDatabase* activeLocalDatabase = nil;
 
             [self checkForHtmlTemplates];
             
-            NSString *path = [@(SYSTEM_TMP) stringByAppendingPathComponent: @"/"];
+            NSString *path = [NSTemporaryDirectory() stringByAppendingPathComponent: @"/"];
             if (isNewFile &&
                 [NSThread isMainThread] &&
                 ![p hasPrefix:path] &&
@@ -1533,7 +1533,8 @@ NSString* const DicomDatabaseLogEntryEntityName = @"LogEntry";
 	//NSString* tempDirPath = self.tempDirPath;
     
 	[thread enterOperation];
-    thread.status = [NSString stringWithFormat:NSLocalizedString(@"Scanning %@", nil), N2LocalizedSingularPluralCount(paths.count, NSLocalizedString(@"file", nil), NSLocalizedString(@"files", nil))];
+    thread.status = [NSString stringWithFormat:NSLocalizedString(@"Scanning %@", nil),
+                     N2LocalizedSingularPluralCount(paths.count, NSLocalizedString(@"file", nil), NSLocalizedString(@"files", nil))];
 	
     NSArray* chunkRanges = [paths splitArrayIntoChunksOfMinSize:20000 maxChunks:0];
 
@@ -2657,6 +2658,9 @@ static BOOL protectionAgainstReentry = NO;
 
 -(void)copyFilesThread:(NSDictionary*)dict
 {
+#ifndef NDEBUG
+    NSLog(@"%s dictionary:%@", __FUNCTION__, dict);
+#endif
     @autoreleasepool
     {
         NSOperationQueue* queue = [[[NSOperationQueue alloc] init] autorelease];
@@ -2666,9 +2670,10 @@ static BOOL protectionAgainstReentry = NO;
         __block BOOL studySelected = NO;
         NSArray *filesInput = [[dict objectForKey: @"filesInput"] sortedArrayUsingSelector:@selector(compare:)]; // sorting the array should make the data access faster on optical media
         
-        for( int i = 0; i < [filesInput count];)
+        for (int i = 0; i < [filesInput count];)
         {
-            if ([[NSThread currentThread] isCancelled]) break;
+            if ([[NSThread currentThread] isCancelled])
+                break;
 
             @autoreleasepool
             {
@@ -2678,11 +2683,12 @@ static BOOL protectionAgainstReentry = NO;
                     NSTimeInterval lastGUIUpdate = 0;
                     NSTimeInterval twentySeconds = [NSDate timeIntervalSinceReferenceDate] + 5; // actually fiveSeconds 
                     
-                    for( ; i < [filesInput count] && twentySeconds > [NSDate timeIntervalSinceReferenceDate]; i++)
+                    for ( ; i < [filesInput count] && twentySeconds > [NSDate timeIntervalSinceReferenceDate]; i++)
                     {
-                        if ([[NSThread currentThread] isCancelled]) break;
+                        if ([[NSThread currentThread] isCancelled])
+                            break;
                         
-                        if( [NSDate timeIntervalSinceReferenceDate] - lastGUIUpdate > 1)
+                        if ([NSDate timeIntervalSinceReferenceDate] - lastGUIUpdate > 1)
                         {
                             lastGUIUpdate = [NSDate timeIntervalSinceReferenceDate];
                             
@@ -2692,7 +2698,7 @@ static BOOL protectionAgainstReentry = NO;
                         
                         NSString *srcPath = [filesInput objectAtIndex: i], *dstPath = nil;
                         
-                        if( copyFiles)
+                        if (copyFiles)
                         {
                             NSString *extension = [srcPath pathExtension];
                             
@@ -2711,7 +2717,10 @@ static BOOL protectionAgainstReentry = NO;
                                     static NSString *oneCopyAtATime = @"oneCopyAtATime";
                                     @synchronized( oneCopyAtATime)
                                     {
-                                        if( [[dict objectForKey: @"mountedVolume"] boolValue])
+#ifndef NDEBUG
+                                        NSLog(@"%d mountedVolume:%d", __LINE__, [[dict objectForKey: @"mountedVolume"] boolValue]);
+#endif
+                                        if ([[dict objectForKey: @"mountedVolume"] boolValue])
                                         {
                                             NSTask *t = [NSTask launchedTaskWithLaunchPath: @"/bin/cp" arguments: @[srcPath, dstPath]];
                                             while( [t isRunning]){};
@@ -2721,7 +2730,10 @@ static BOOL protectionAgainstReentry = NO;
                                             if( [[NSFileManager defaultManager] copyItemAtPath: srcPath toPath: dstPath error: nil] == NO)
                                                 NSLog( @"***** copyItemAtPath %@ failed", srcPath);
                                         }
-                                        
+                                      
+#ifndef NDEBUG
+                                        NSLog(@"%d dstPath:%@", __LINE__, dstPath);
+#endif
                                         if( [[NSFileManager defaultManager] fileExistsAtPath: dstPath])
                                         {
                                             if( [extension isEqualToString: @"dcm"] == NO)
@@ -2880,7 +2892,6 @@ static BOOL protectionAgainstReentry = NO;
             {
                 [NSThread sleepForTimeInterval:0.05];
                 
-                
                 if( [[NSThread currentThread] isCancelled])
                     [queue cancelAllOperations];
             }
@@ -2893,7 +2904,6 @@ static BOOL protectionAgainstReentry = NO;
         }
     }
 }
-
 
 -(void)_growlImagesAdded:(NSString*)message {
 	[AppController.sharedAppController growlTitle:NSLocalizedString(@"Incoming Files", nil) description:message name:@"newfiles"];
@@ -4024,7 +4034,7 @@ static BOOL protectionAgainstReentry = NO;
     
 	[_importFilesFromIncomingDirLock lock];
     
-    NSString *pathSavedAlbums = [@(SYSTEM_TMP) stringByAppendingString:@"/rebuildDB_savedAlbums"];
+    NSString *pathSavedAlbums = [NSTemporaryDirectory() stringByAppendingString:@"/rebuildDB_savedAlbums"];
     
 	if (complete) {	// Delete the database file
         

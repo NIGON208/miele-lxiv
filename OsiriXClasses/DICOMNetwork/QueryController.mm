@@ -228,7 +228,7 @@ extern "C"
 				[dictionary setObject: [object valueForKey:@"port"] forKey:@"port"];
 				[dictionary setObject: [object valueForKey:@"transferSyntax"] forKey:@"transferSyntax"];
 				
-				FILE * pFile = fopen(SYSTEM_TMP"/kill_all_storescu", "r");
+				FILE * pFile = fopen([[NSTemporaryDirectory() stringByAppendingString:@"/kill_all_storescu"] UTF8String], "r");
 				if( pFile)
 					fclose (pFile);
 				else
@@ -302,8 +302,8 @@ extern "C"
                 [dictionary setObject: [object valueForKey:@"port"] forKey:@"port"];
                 [dictionary setObject: [object valueForKey:@"transferSyntax"] forKey:@"transferSyntax"];
                 [dictionary setObject: [[object extraParameters] valueForKey: @"retrieveMode"] forKey: @"retrieveMode"];
-                 
-                FILE * pFile = fopen(SYSTEM_TMP"/kill_all_storescu", "r");
+                
+                FILE * pFile = fopen([[NSTemporaryDirectory() stringByAppendingString:@"/kill_all_storescu"] UTF8String], "r");
                 if( pFile)
                     fclose (pFile);
                 else
@@ -3980,7 +3980,7 @@ extern "C"
 			
 			@try
 			{
-				FILE * pFile = fopen(SYSTEM_TMP"/kill_all_storescu", "r");
+				FILE * pFile = fopen([[NSTemporaryDirectory() stringByAppendingString:@"/kill_all_storescu"] UTF8String], "r");
 				if( pFile)
 					fclose (pFile);
 				else
@@ -4006,12 +4006,12 @@ extern "C"
 			[NSThread currentThread].progress = (float) ++i / (float) [moveArray count];
 			if( [NSThread currentThread].isCancelled)
 			{
-                NSString *pathKillAll = [@(SYSTEM_TMP) stringByAppendingString:@"/kill_all_storescu"];
+                NSString *pathKillAll = [NSTemporaryDirectory() stringByAppendingString:@"/kill_all_storescu"];
 				[[NSFileManager defaultManager] createFileAtPath: pathKillAll
                                                         contents: [NSData data]
                                                       attributes: nil];
 				[NSThread sleepForTimeInterval: 3];
-				unlink( SYSTEM_TMP"/kill_all_storescu");
+				unlink( [[NSTemporaryDirectory() stringByAppendingString:@"/kill_all_storescu"] UTF8String]);
 				break;
 			}
 		}
@@ -4035,7 +4035,7 @@ extern "C"
 		
 		if( [[self window] isVisible])
 		{
-			FILE * pFile = fopen( SYSTEM_TMP"/kill_all_storescu", "r");
+			FILE * pFile = fopen( [[NSTemporaryDirectory() stringByAppendingString:@"/kill_all_storescu"] UTF8String], "r");
 			if( pFile)
 				fclose (pFile);
 			else

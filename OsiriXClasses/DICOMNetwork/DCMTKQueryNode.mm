@@ -1911,7 +1911,7 @@ static NSString *releaseNetworkVariablesSync = @"releaseNetworkVariablesSync";
     {
         NSAutoreleasePool *pool2 = [[NSAutoreleasePool alloc] init];
         
-        NSString *pathKillAll = [@(SYSTEM_TMP) stringByAppendingString:@"/kill_all_storescu"];
+        NSString *pathKillAll = [NSTemporaryDirectory() stringByAppendingString:@"/kill_all_storescu"];
         BOOL abortAssociations = [[NSFileManager defaultManager] fileExistsAtPath: pathKillAll];
         
         NSArray *copyArray = nil;
@@ -2287,7 +2287,7 @@ static NSString *releaseNetworkVariablesSync = @"releaseNetworkVariablesSync";
                 [NSThread detachNewThreadSelector: @selector(requestAssociationThread:) toTarget: self withObject: dict];
 				[NSThread sleepForTimeInterval: 0.05];
 				
-                NSString *pathKillAll = [@(SYSTEM_TMP) stringByAppendingString:@"/kill_all_storescu"];
+                NSString *pathKillAll = [NSTemporaryDirectory() stringByAppendingString:@"/kill_all_storescu"];
 				while ([wait aborted] == NO &&
                        _abortAssociation == NO &&
                        [NSThread currentThread].isCancelled == NO &&
@@ -2395,7 +2395,7 @@ static NSString *releaseNetworkVariablesSync = @"releaseNetworkVariablesSync";
 						[NSThread detachNewThreadSelector: @selector(cFindThread:) toTarget: self withObject: dict];
 						[NSThread sleepForTimeInterval: 0.05];
 						
-                        NSString *pathKillAll = [@(SYSTEM_TMP) stringByAppendingString:@"/kill_all_storescu"];
+                        NSString *pathKillAll = [NSTemporaryDirectory() stringByAppendingString:@"/kill_all_storescu"];
 
 						while( [wait aborted] == NO && _abortAssociation == NO && [NSThread currentThread].isCancelled == NO && [[NSFileManager defaultManager] fileExistsAtPath: pathKillAll] == NO)
 						{

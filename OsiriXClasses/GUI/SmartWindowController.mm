@@ -118,7 +118,7 @@
 - (IBAction)helpAction:(NSSegmentedControl*)sender {
     if ([sender selectedSegment] == 0)
     {
-        NSString *tablesFile = [@(SYSTEM_TMP) stringByAppendingString:@"/OsiriXTables.pdf"];
+        NSString *tablesFile = [NSTemporaryDirectory() stringByAppendingString:@"/OsiriXTables.pdf"];
         [[NSFileManager defaultManager] removeItemAtPath: tablesFile error:nil];
         [[NSFileManager defaultManager] copyItemAtPath: [[NSBundle mainBundle] pathForResource:@"OsiriXTables" ofType:@"pdf"]
                                                 toPath: tablesFile error: nil];

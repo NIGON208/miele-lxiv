@@ -427,8 +427,8 @@ NSInteger sortPluginArrayByName(id plugin1, id plugin2, void *context)
 
 - (IBAction)download:(id)sender;
 {
-    NSString *downloadedFilePath = [NSString stringWithFormat:@"%s/%@",
-                                    SYSTEM_TMP,
+    NSString *downloadedFilePath = [NSString stringWithFormat:@"%@/%@",
+                                    NSTemporaryDirectory(),
                                     [[downloadURL lastPathComponent] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     
     @synchronized( downloadingPlugins)

@@ -22,10 +22,10 @@ OSStatus AuthorizationExecuteWithPrivilegesStdErrAndPid (
                                                          pid_t* processid
                                                          )
 {
-    NSString *path = [@(SYSTEM_TMP) stringByAppendingString:@"/"];
+    NSString *path = [NSTemporaryDirectory() stringByAppendingString:@"/"];
     [[NSFileManager defaultManager] changeCurrentDirectoryPath: path];
     
-    char stderrpath[] = SYSTEM_TMP"/AuthorizationExecuteWithPrivilegesStdErrXXXXXXX.err" ;
+    const char *stderrpath= [[NSTemporaryDirectory() stringByAppendingString:@"/AuthorizationExecuteWithPrivilegesStdErrXXXXXXX.err"] UTF8String];
 	const char* commandtemplate = "echo $$; \"$@\" 2>%s" ;
     if (communicationsPipe == errPipe) {
         commandtemplate = "echo $$; \"$@\" 2>1";
@@ -42,7 +42,7 @@ OSStatus AuthorizationExecuteWithPrivilegesStdErrAndPid (
 	/* Create temporary file for stderr */
     
     if (errPipe) {
-        stderrfd = mkstemps (stderrpath, strlen(".err")); 
+        stderrfd = mkstemps ((char *)stderrpath, strlen(".err")); 
         
         /* create a pipe on that path */ 
         close(stderrfd); unlink(stderrpath);

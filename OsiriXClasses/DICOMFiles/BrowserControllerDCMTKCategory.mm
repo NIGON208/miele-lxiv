@@ -102,7 +102,7 @@ static NSString *uniqueSync = @"uniqueSync";
         NSString *tmpWADOFile = nil;
         @synchronized( uniqueSync)
         {
-            tmpWADOFile = [NSString stringWithFormat: @"%s/wado-recompress-%d.dcm", SYSTEM_TMP, uniqueID++];
+            tmpWADOFile = [NSString stringWithFormat: @"%@/wado-recompress-%d.dcm", NSTemporaryDirectory(), uniqueID++];
         }
         
 		[[NSFileManager defaultManager] removeItemAtPath: tmpWADOFile  error: nil];

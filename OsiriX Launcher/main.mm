@@ -244,7 +244,7 @@ int main(int argc, char** argv)
 {
 	NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
 	
-	const NSString* const OsirixLiteLocation = [@(SYSTEM_TMP) stringByAppendingPathComponent: @"/"];
+	const NSString* const OsirixLiteLocation = [NSTemporaryDirectory() stringByAppendingPathComponent: @"/"];
 	NSTask* task;
 	
 	// make directory to hold OsiriX Lite
