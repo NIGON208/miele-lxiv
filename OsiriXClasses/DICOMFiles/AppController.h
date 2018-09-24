@@ -141,10 +141,6 @@ extern AppController* OsiriX;
 + (BOOL) willExecutePlugin;
 + (BOOL) willExecutePlugin:(id) filter;
 
-+ (BOOL) hasMacOSXSnowLeopard;
-//+ (BOOL) hasMacOSXLion;                 // >= 10.7.5
-//+ (BOOL) hasMacOSXMountainLion;
-//+ (BOOL) hasMacOSX1083;
 + (BOOL) hasAtLeastMacOS_Mavericks;     // 10.9
 + (BOOL) hasMacOSXAfterHighSierra;      // > 10.13
 
@@ -206,6 +202,7 @@ extern AppController* OsiriX;
 - (IBAction) openOsirixWebPage: (id) sender;  /**<  Open OsiriX web page */
 - (IBAction) openOsirixDiscussion: (id) sender; /**< Open OsiriX discussion web page */
 - (IBAction) osirix64bit: (id) sender;
+- (IBAction) userManual: (id) sender;
 //---------------------------------------------
 - (IBAction) help: (id) sender;  /**< Open help window */
 //=============================================

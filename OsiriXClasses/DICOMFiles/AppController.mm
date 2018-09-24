@@ -477,7 +477,7 @@ short HasAltiVec ( )
 	return hasAltiVec;                   
 }
 
-//——————————————————————————————————————————————————————————————————————————————
+////////////////////////////////////////////////////////////////////////////////
 
 SInt32 osVersion()
 {
@@ -492,7 +492,7 @@ SInt32 osVersion()
 	return 0;                   
 }
 
-//——————————————————————————————————————————————————————————————————————————————
+////////////////////////////////////////////////////////////////////////////////
 
 NSRect screenFrame()
 {
@@ -678,7 +678,7 @@ void exceptionHandler(NSException *exception)
     N2LogExceptionWithStackTrace(exception);
 }
 
-//——————————————————————————————————————————————————————————————————————————————
+////////////////////////////////////////////////////////////////////////////////
 
 static NSDate *lastWarningDate = nil;
 
@@ -719,39 +719,6 @@ static NSDate *lastWarningDate = nil;
         return YES;
     
     return NO;
-}
-
-//+(BOOL) hasMacOSXMountainLion
-//{
-//    NSOperatingSystemVersion version = [[NSProcessInfo processInfo] operatingSystemVersion];
-//    if (version.majorVersion < 10 ||
-//        version.minorVersion < 8)
-//        return NO;
-//
-//    return YES;
-//}
-
-//// Deployment target is 10.9, so this will always return YES
-//+(BOOL) hasMacOSXLion
-//{
-//    NSOperatingSystemVersion version = [[NSProcessInfo processInfo] operatingSystemVersion];
-//    NSLog(@"%s OS Version %ld %ld %ld", __FUNCTION__, (long)version.majorVersion, (long)version.minorVersion, (long)version.patchVersion);
-//    if (version.majorVersion < 10 ||
-//        version.minorVersion < 7 ||
-//        version.patchVersion < 5)
-//        return NO;
-//
-//    return YES;
-//}
-
-+(BOOL) hasMacOSXSnowLeopard
-{
-    NSOperatingSystemVersion version = [[NSProcessInfo processInfo] operatingSystemVersion];
-    if (version.majorVersion < 10 ||
-        version.minorVersion < 6)
-        return NO;
-
-    return YES;
 }
 
 + (void) createNoIndexDirectoryIfNecessary:(NSString*) path { // __deprecated
@@ -1128,7 +1095,7 @@ static NSDate *lastWarningDate = nil;
     [NSApp abortModal];
 }
 
-//——————————————————————————————————————————————————————————————————————————————
+////////////////////////////////////////////////////////////////////////////////
 
 - (IBAction)okModal:(id)sender
 {
@@ -1142,7 +1109,7 @@ static NSDate *lastWarningDate = nil;
 }
 #endif
 
-//——————————————————————————————————————————————————————————————————————————————
+////////////////////////////////////////////////////////////////////////////////
 #pragma mark-
 
 -(IBAction) osirix64bit:(id)sender
@@ -1183,9 +1150,10 @@ static NSDate *lastWarningDate = nil;
 
 -(IBAction)userManual:(id)sender
 {
-	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:URL_VENDOR@"/products.html#OsiriXUserManual"]];
+	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:URL_VENDOR_USER_MANUAL]];
 }
-//——————————————————————————————————————————————————————————————————————————————
+
+////////////////////////////////////////////////////////////////////////////////
 #pragma mark-
 
 - (void) waitForPID: (NSNumber*) pidNumber
@@ -1440,17 +1408,6 @@ static NSDate *lastWarningDate = nil;
         
         if ([[previousDefaults valueForKey: @"STORESCPTLS"] intValue] != [defaults integerForKey: @"STORESCPTLS"])
             restartListener = YES;
-        
-        if ([defaults integerForKey: @"httpWebServer"] == 1 &&
-            [defaults integerForKey: @"httpWebServer"] != [[previousDefaults valueForKey: @"httpWebServer"] intValue])
-        {
-            if( [AppController hasMacOSXSnowLeopard] == NO)
-                NSRunCriticalAlertPanel(NSLocalizedString( @"Unsupported", nil),
-                                        NSLocalizedString( @"It is highly recommend to upgrade to MacOS 10.6 or higher to use the OsiriX Web Server.", nil),
-                                        NSLocalizedString( @"OK", nil),
-                                        nil,
-                                        nil);
-        }
         
         [previousDefaults release];
         previousDefaults = [dictionaryRepresentation retain];
@@ -3009,16 +2966,6 @@ static BOOL initialized = NO;
 				//		NSRunCriticalAlertPanel(@"Hardware Info", @"This application is optimized for Altivec - Velocity Engine unit, available only on G4/G5 processors.", @"OK", nil, nil);
 				//		exit(0);
 				//	}
-				
-				if ([AppController hasMacOSXSnowLeopard] == NO)
-				{
-					NSRunCriticalAlertPanel(NSLocalizedString(@"Mac OS X", nil),
-                                            NSLocalizedString(@"This application requires Mac OS X 10.6 or higher. Please upgrade your operating system.", nil),
-                                            NSLocalizedString(@"Quit", nil),
-                                            nil,
-                                            nil);
-					exit(0);
-				}
                 
                 int numCPU;
                 int mib[2] = {CTL_HW, HW_NCPU};
@@ -3070,7 +3017,7 @@ static BOOL initialized = NO;
                 NSLog(@"Library Directory______: %@", NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES).firstObject);
                 NSLog(@"Document Directory_____: %@", NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).firstObject);
                 NSLog(@"Application Support Dir: %@", NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES).firstObject);
-                NSLog(@"Preference Panes Dir___: %@", NSSearchPathForDirectoriesInDomains(NSPreferencePanesDirectory, NSUserDomainMask, YES).firstObject);
+                //NSLog(@"Preference Panes Dir___: %@", NSSearchPathForDirectoriesInDomains(NSPreferencePanesDirectory, NSUserDomainMask, YES).firstObject);
 
                 NSString *bundleIdentifier = [d objectForKey:@"CFBundleIdentifier"];
                 NSLog(@"Defaults file__________: %@/Preferences/%@.plist",
@@ -3079,6 +3026,10 @@ static BOOL initialized = NO;
 
                 NSLog(@"DATABASELOCATION_______: %@", documentsDirectory());  // (deprecated method) defined in Preferences Panel, initially from OUR_DATA_LOCATION
                 NSLog(@"resourcePath___________: %@", [[NSBundle mainBundle] resourcePath]);
+
+                NSLog(@"MAC_OS_X_VERSION_MIN_REQUIRED: %d", MAC_OS_X_VERSION_MIN_REQUIRED);
+                NSLog(@"MAC_OS_X_VERSION_MAX_ALLOWED: %d",  MAC_OS_X_VERSION_MAX_ALLOWED);
+
                 NSLog( @"**** DEBUG MODE ****");
 #endif
                 
@@ -3477,15 +3428,6 @@ static BOOL initialized = NO;
 //                            isSticky: NO
 //                            clickContext: nil];
     }
-    
-//    if( [[NSUserDefaults standardUserDefaults] boolForKey: @"displayMacOSUserNotification"] && [AppController hasMacOSXMountainLion]) Growl SDK 1.3 will automatically use MacOS User Notification, if Growl is not installed
-//    {
-//        NSUserNotification *notification = [[NSUserNotification alloc] init];
-//        [notification setTitle: title];
-//        [notification setInformativeText: description];
-//        [notification setSoundName: NSUserNotificationDefaultSoundName];
-//        [[NSUserNotificationCenter defaultUserNotificationCenter] scheduleNotification: notification];
-//    }
 #endif
 #endif
 }
@@ -3849,7 +3791,8 @@ static BOOL initialized = NO;
     }
 #endif
 #ifndef NDEBUG
-    //[dbWindow setBackgroundColor:[NSColor yellowColor]];
+    [dbWindow setBackgroundColor:[NSColor yellowColor]];
+    
 #endif
 }
 
@@ -4323,7 +4266,7 @@ static BOOL initialized = NO;
 	
 	[[NSUserDefaults standardUserDefaults] setBool:YES forKey: @"SAMESTUDY"];
 		
-	[[NSUserDefaults standardUserDefaults] setBool: [AppController hasMacOSXSnowLeopard] forKey: @"hasMacOSXSnowLeopard"];
+	[[NSUserDefaults standardUserDefaults] setBool: YES forKey: @"hasMacOSXSnowLeopard"];  // At least
 	
     [[NSUserDefaults standardUserDefaults] setBool: NO forKey: @"UseKDUForJPEG2000"]; // deprecated
     [[NSUserDefaults standardUserDefaults] setBool: YES forKey: @"UseOpenJpegForJPEG2000"];
@@ -4370,20 +4313,6 @@ static BOOL initialized = NO;
             [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:URL_OSIRIX_VIEWER]];
 #endif
     }
-    
-//    if( [AppController hasMacOSXMountainLion] == NO)
-//    {
-//        [[NSUserDefaults standardUserDefaults] setBool: NO forKey: @"EncryptCD"];
-//        [[NSUserDefaults standardUserDefaults] setBool: NO forKey: @"encryptForExport"];
-//        
-//        NSAlert* alert = [[NSAlert new] autorelease];
-//        [alert setMessageText: NSLocalizedString( @"Mac OS Version", nil)];
-//        [alert setInformativeText: NSLocalizedString( @"You should upgrade to MacOS 10.9 or higher, for better performances, more features and more stability.", nil)];
-//        [alert addButtonWithTitle: NSLocalizedString( @"Continue", nil)];
-//        [alert addButtonWithTitle: NSLocalizedString( @"Upgrade", nil)];
-//        if( [alert runModal] == NSAlertSecondButtonReturn)
-//            [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://www.apple.com/osx/"]];
-//    }
 	
 	[self initTilingWindows];
     
@@ -4502,9 +4431,7 @@ static BOOL initialized = NO;
 	//			}
 	//	}
 	
-
-//———————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
-
+////////////////////////////////////////////////////////////////////////////////
 
 #pragma mark-
 
@@ -4632,7 +4559,7 @@ static BOOL initialized = NO;
 		NSRunAlertPanel( NSLocalizedString( @"No connection available", nil), @"%@", NSLocalizedString( @"OK", nil), nil, nil, reason);
 }	
 
-//———————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+////////////////////////////////////////////////////////////////////////////////
 #pragma mark-
 
 - (IBAction) about: (id) sender
@@ -4656,7 +4583,7 @@ static BOOL initialized = NO;
 	[[PreferencesWindowController sharedPreferencesWindowController] showWindow: sender];
 }
 
-//———————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+////////////////////////////////////////////////////////////////////////////////
 
 -(void) dealloc
 {
@@ -4676,7 +4603,7 @@ static BOOL initialized = NO;
     [super dealloc];
 }
 
-//———————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+////////////////////////////////////////////////////////////////////////////////
 
 - (id) FindViewer:(NSString*) nib :(NSArray*) pixList
 {
@@ -4710,7 +4637,7 @@ static BOOL initialized = NO;
 	return viewersList;
 }
 
-//———————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+////////////////////////////////////////////////////////////////////////////////
 
 - (NSScreen *)dbScreen
 {
@@ -5830,7 +5757,7 @@ static BOOL initialized = NO;
     NSEnableScreenUpdates();
 }
 
-//——————————————————————————————————————————————————————————————————————————————
+////////////////////////////////////////////////////////////////////////////////
 
 - (IBAction) closeAllViewers: (id) sender
 {
@@ -5847,7 +5774,7 @@ static BOOL initialized = NO;
 	[ViewerController closeAllWindows];
 }
 
-//———————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+////////////////////////////////////////////////////////////////////////////////
 
 #pragma mark-
 #pragma mark HTML Templates

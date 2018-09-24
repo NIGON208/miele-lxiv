@@ -261,18 +261,10 @@ static NSMutableDictionary *studiesForUserCache = nil;
 	return YES;
 }
 
--(BOOL)validateDownloadZIP:(NSNumber**)value error:(NSError**)error {
-	if ([*value boolValue] && !AppController.hasMacOSXSnowLeopard) {
-		if (error) *error = [NSError osirixErrorWithCode:-31 localizedDescription:NSLocalizedString(@"ZIP download requires MacOS 10.6 or higher.", NULL)];
-		return NO;
-	}
-	
-	return YES;
-}
-
 -(BOOL)validateName:(NSString**)value error:(NSError**)error {
 	if ([*value length] < 2) {
-		if (error) *error = [NSError osirixErrorWithCode:-31 localizedDescription:NSLocalizedString(@"Name needs to be at least 2 characters long.", NULL)];
+		if (error)
+            *error = [NSError osirixErrorWithCode:-31 localizedDescription:NSLocalizedString(@"Name needs to be at least 2 characters long.", NULL)];
 		return NO;
 	}
 	
@@ -285,13 +277,15 @@ static NSMutableDictionary *studiesForUserCache = nil;
 		if (err) [NSException exceptionWithName:NSGenericException reason:@"Database error." userInfo:[NSDictionary dictionaryWithObject:err forKey:NSUnderlyingErrorKey]];
 		
 		if ((users.count == 1 && users.lastObject != self) || users.count > 1) {
-			if (error) *error = [NSError osirixErrorWithCode:-31 localizedDescription:NSLocalizedString(@"A user with that name already exists. Two users cannot have the same name.", NULL)];
+			if (error)
+                *error = [NSError osirixErrorWithCode:-31 localizedDescription:NSLocalizedString(@"A user with that name already exists. Two users cannot have the same name.", NULL)];
 			return NO;
 		}
 	} @catch (NSException* e) {
 		NSLog(@"*** [WebPortalUser validateName:error:] exception: %@", e);
 		NSDictionary* info = [NSDictionary dictionaryWithObject:NSLocalizedString(@"Internal database error.", NULL) forKey:NSLocalizedDescriptionKey];
-		if (error) *error = [NSError errorWithDomain:@"OsiriXDomain" code:-31 userInfo:info];
+		if (error)
+            *error = [NSError errorWithDomain:@"OsiriXDomain" code:-31 userInfo:info];
 		return NO;
 	} @finally {
 	}

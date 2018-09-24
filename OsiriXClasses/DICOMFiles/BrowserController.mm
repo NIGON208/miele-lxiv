@@ -14,6 +14,8 @@
 
 #include "options.h"
 
+#define DEBUG_MAIN_XIB
+
 #import "ToolbarPanel.h"
 #import "DicomDatabase.h"
 #import "DicomDatabase+Routing.h"
@@ -38,7 +40,7 @@
 #import "AppController.h"
 #import "dicomData.h"
 #import "BrowserController.h"
-#import "viewerController.h"
+#import "ViewerController.h"
 #import "PluginFilter.h"
 #import "ReportPluginFilter.h"
 #import "DICOMFiles/dicomFile.h"
@@ -154,12 +156,13 @@ static NSString *smartAlbumDistantArraySync = @"smartAlbumDistantArraySync";
 extern int delayedTileWindows;
 extern BOOL NEEDTOREBUILD;//, COMPLETEREBUILD;
 
-
 #pragma deprecated(asciiString)
 NSString* asciiString(NSString* str)
 {
-	return [str ASCIIString];
+    return [str ASCIIString];
 }
+
+#pragma mark -
 
 @implementation NSString (BrowserController)
 
@@ -177,6 +180,8 @@ NSString* asciiString(NSString* str)
 
 @end
 
+#pragma mark -
+
 @interface BrowserController ()
 
 -(void)setDBWindowTitle;
@@ -192,8 +197,12 @@ NSString* asciiString(NSString* str)
 
 @end
 
+#pragma mark -
+
 @interface BrowserControllerClassHelper : NSObject
 @end
+
+#pragma mark -
 
 @implementation BrowserControllerClassHelper
 
@@ -227,6 +236,7 @@ static NSString* BrowserControllerClassHelperContext = @"BrowserControllerClassH
 }
 
 @end
+#pragma mark -
 
 @implementation BrowserController
 
@@ -634,7 +644,7 @@ static NSConditionLock *threadLock = nil;
 	[threadLock unlock];
 }
 
-//ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ
+////////////////////////////////////////////////////////////////////////////////
 
 #pragma mark-
 #pragma mark Add DICOM Database functions
@@ -1000,7 +1010,7 @@ static NSConditionLock *threadLock = nil;
                                           nil]];
 }
 
-//ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ
+////////////////////////////////////////////////////////////////////////////////
 
 #pragma mark-
 #pragma mark Autorouting functions
@@ -2637,7 +2647,7 @@ static NSConditionLock *threadLock = nil;
 }
 
 
-//ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ
+////////////////////////////////////////////////////////////////////////////////
 
 #pragma mark-
 #pragma mark OutlineView Search & Time Interval Functions
@@ -2849,7 +2859,7 @@ static NSConditionLock *threadLock = nil;
     [self outlineViewRefresh];
 }
 
-//ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ
+////////////////////////////////////////////////////////////////////////////////
 
 #pragma mark-
 #pragma mark OutlineView functions
@@ -8996,7 +9006,7 @@ static NSConditionLock *threadLock = nil;
 	}
 }
 
-//ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ
+////////////////////////////////////////////////////////////////////////////////
 
 #pragma mark-
 #pragma mark Thumbnails Matrix & Preview functions
@@ -10327,6 +10337,8 @@ static BOOL withReset = NO;
     return 0; // NSScrollerStyleLegacy is 0
 }
 
+#pragma mark - NSSplitViewDelegate
+
 - (CGFloat)splitView:(NSSplitView*)sender
 constrainSplitPosition:(CGFloat)proposedPosition
          ofSubviewAt:(NSInteger)offset
@@ -10517,12 +10529,10 @@ constrainSplitPosition:(CGFloat)proposedPosition
 {
 //    if( starting)
 //        return;
-#ifndef NDEBUG
-    //NSLog(@"%s sender:%p", __FUNCTION__, sender);
-#endif
 
     if (sender == splitDrawer)
     {
+        NSLog(@"%s line %d, splitDrawer", __FUNCTION__, __LINE__);
         NSView* left = [[sender subviews] objectAtIndex:0];
         NSView* right = [[sender subviews] objectAtIndex:1];
         
@@ -10536,19 +10546,21 @@ constrainSplitPosition:(CGFloat)proposedPosition
         leftFrame.size.height = splitFrame.size.height;
         [left setFrame:leftFrame];
         
-        if ([splitDrawer isSubviewCollapsed: [[splitDrawer subviews] objectAtIndex:0]] || [left isHidden])
+        if ([splitDrawer isSubviewCollapsed: [[splitDrawer subviews] objectAtIndex:0]] ||
+            [left isHidden])
+        {
             leftFrame.size.width = 0;
+        }
         
         rightFrame.origin.x = leftFrame.origin.x + leftFrame.size.width + dividerThickness;
         rightFrame.size.height = splitFrame.size.height;
         rightFrame.size.width = availableWidth - leftFrame.size.width;
         [right setFrame:rightFrame];
-        
-        return;
     }
-    
-    if (sender == splitComparative)
+    else if (sender == splitComparative)
     {
+        NSLog(@"%s line %d, splitComparative", __FUNCTION__, __LINE__);
+
         #define MINIMUMSIZEFORCOMPARATIVEDRAWER_HORZ 50
         if( gHorizontalHistory)
         {
@@ -10627,11 +10639,11 @@ constrainSplitPosition:(CGFloat)proposedPosition
             [right setFrame:rightFrame];
             [left setFrame:leftFrame];
         }
-        return;
     }
-    
-    if (sender == splitViewVert)
+    else if (sender == splitViewVert)
     {
+        NSLog(@"%s line %d, splitViewVert", __FUNCTION__, __LINE__);
+
         if (!_splitViewVertDividerRatio)
             _splitViewVertDividerRatio = [[[sender subviews] objectAtIndex:0] bounds].size.width/oldSize.width;
         
@@ -10644,17 +10656,18 @@ constrainSplitPosition:(CGFloat)proposedPosition
         
         [[[sender subviews] objectAtIndex:0] setFrame:NSMakeRect(0, 0, dividerPosition, splitFrame.size.height)];
         [[[sender subviews] objectAtIndex:1] setFrame:NSMakeRect(dividerPosition+sender.dividerThickness, 0, splitFrame.size.width-dividerPosition-sender.dividerThickness, splitFrame.size.height)];
-        
-        return;
     }
-    
-    if (sender == _bottomSplit)
+    else if (sender == _bottomSplit)
     {
+        NSLog(@"%s line %d, _bottomSplit", __FUNCTION__, __LINE__);
+
 		[self splitViewDidResizeSubviews:[NSNotification notificationWithName:NSSplitViewDidResizeSubviewsNotification object:splitViewVert]];
-        return;
     }
-    
-    [sender adjustSubviews];
+    else {
+        NSLog(@"%s line %d, none-of-the-above", __FUNCTION__, __LINE__);
+
+        [sender adjustSubviews];
+    }
 }
 
 -(void)splitViewWillResizeSubviews:(NSNotification *)notification
@@ -10734,7 +10747,7 @@ constrainSplitPosition:(CGFloat)proposedPosition
     if (sender == _bottomSplit)
         return NO;
     
-    return YES;
+    return YES; // splitViewHorz
 }
 
 - (IBAction)comparativeToggle:(id)sender
@@ -10774,7 +10787,8 @@ constrainSplitPosition:(CGFloat)proposedPosition
     [splitDrawer resizeSubviewsWithOldSize:splitDrawer.bounds.size];
 }
 
-#if 1 // @@@
+#pragma mark - NSSplitViewDelegate
+
 - (CGFloat)splitView:(NSSplitView *)sender constrainMinCoordinate: (CGFloat)proposedMin ofSubviewAt: (NSInteger)offset
 {
 #ifndef NDEBUG
@@ -10884,7 +10898,6 @@ constrainSplitPosition:(CGFloat)proposedPosition
 	}
 	return nil;
 }
-#endif // @@@
 
 #pragma mark -
 
@@ -11100,7 +11113,7 @@ constrainSplitPosition:(CGFloat)proposedPosition
 	[imageView annotMenu: sender];
 }
 
-//ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ
+////////////////////////////////////////////////////////////////////////////////
 
 #pragma mark-
 #pragma mark Albums functions
@@ -11466,9 +11479,8 @@ constrainSplitPosition:(CGFloat)proposedPosition
     return nil;
 }
 
-//ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ
-#pragma mark-
-#pragma mark Albums TableView functions
+////////////////////////////////////////////////////////////////////////////////
+#pragma mark - Albums TableView functions
 
 //NSTableView delegate and datasource
 - (NSInteger)numberOfRowsInTableView: (NSTableView *)aTableView
@@ -12095,9 +12107,8 @@ constrainSplitPosition:(CGFloat)proposedPosition
     }
 }
 
-//ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ
-#pragma mark-
-#pragma mark Open 2D/4D Viewer functions
+////////////////////////////////////////////////////////////////////////////////
+#pragma mark - Open 2D/4D Viewer functions
 
 - (BOOL)computeEnoughMemory: (NSArray*)toOpenArray :(unsigned long*)requiredMem
 {
@@ -13630,7 +13641,7 @@ constrainSplitPosition:(CGFloat)proposedPosition
 }
 
 
-//ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ
+////////////////////////////////////////////////////////////////////////////////
 
 - (void)newViewerDICOM: (id)sender
 {
@@ -13685,8 +13696,7 @@ constrainSplitPosition:(CGFloat)proposedPosition
     [self closeWaitWindowIfNecessary];
 }
 
-
-//ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ
+////////////////////////////////////////////////////////////////////////////////
 
 - (void)viewerDICOMMergeSelection: (id)sender
 {
@@ -13985,8 +13995,7 @@ static NSArray*	openSubSeriesArray = nil;
     return nil;
 }
 
-
-//ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ
+////////////////////////////////////////////////////////////////////////////////
 
 #pragma mark-
 #pragma mark GUI functions
@@ -14454,16 +14463,41 @@ static NSArray*	openSubSeriesArray = nil;
         NSRect r = NSMakeRect(0, 0, 0, 0);
         
         r = NSRectFromString( [[NSUserDefaults standardUserDefaults] stringForKey: @"DBWindowFrame"]);
+        NSLog(@"%s %d DBWindowFrame:%@", __FUNCTION__, __LINE__, NSStringFromRect(r));
         
         if( NSIsEmptyRect( r)) // No position for the window -> fullscreen
             [[self window] zoom: self];
         else
             [self.window setFrame: r display: YES];
-        
+
+#ifndef NDEBUG
+        NSLog(@"splitAlbums subviews %lu", (unsigned long)[[splitAlbums subviews] count]);
+        NSLog(@"splitDrawer subviews %lu", (unsigned long)[[splitDrawer subviews] count]);
+
+        NSView* leftView = [[splitDrawer subviews] objectAtIndex:0];
+        NSView* rightView = [[splitDrawer subviews] objectAtIndex:1];
+        leftView.wantsLayer = TRUE;
+        rightView.wantsLayer = TRUE;
+        leftView.layer.backgroundColor = [[NSColor orangeColor] CGColor];
+        rightView.layer.backgroundColor = [[NSColor brownColor] CGColor];
+
+        NSView* topView = [[splitAlbums subviews] objectAtIndex:0];
+        NSView* midView = [[splitAlbums subviews] objectAtIndex:1];
+        NSView* botView = [[splitAlbums subviews] objectAtIndex:2];
+        topView.wantsLayer = TRUE;
+        midView.wantsLayer = TRUE;
+        botView.wantsLayer = TRUE;
+        topView.layer.backgroundColor = [[NSColor redColor] CGColor];
+        midView.layer.backgroundColor = [[NSColor greenColor] CGColor];
+        botView.layer.backgroundColor = [[NSColor blueColor] CGColor];
+#endif
+#ifdef DEBUG_MAIN_XIB
+        return;
+#endif
         gHorizontalHistory = [[NSUserDefaults standardUserDefaults] boolForKey: @"horizontalHistory"];
-        
-        if( gHorizontalHistory)
+        if (gHorizontalHistory)
         {
+            NSLog(@"%s %d", __FUNCTION__, __LINE__);
             NSSplitView * s = [[NSSplitView alloc] initWithFrame: splitViewVert.bounds];
             
             [s setDelegate: self];
@@ -14771,9 +14805,6 @@ static NSArray*	openSubSeriesArray = nil;
     @catch (NSException *e) {
         N2LogException( e);
     }
-#ifndef NDEBUG
-    //[splitDrawer setBackgroundColor:[NSColor yellowColor]];
-#endif
 }
 
 - (IBAction) clickBanner:(id) sender
@@ -15539,7 +15570,7 @@ static NSArray*	openSubSeriesArray = nil;
 	[helpMenu release];
 }
 
-//ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ
+////////////////////////////////////////////////////////////////////////////////
 
 #pragma mark-
 #pragma mark DICOM Network & Files functions
@@ -16529,8 +16560,11 @@ static volatile int numberOfThreadsForJPEG = 0;
 			}
 			first = NO;
 			
-			tempPath = [tempPath stringByAppendingPathComponent: [[NSMutableString stringWithFormat: @"%@ - %@", [curImage valueForKeyPath: @"series.study.studyName"], [curImage valueForKeyPath: @"series.study.id"]] filenameString]];
-			if( [[curImage valueForKeyPath: @"series.study.id"] isEqualToString: previousStudy] == NO || [[curImage valueForKeyPath: @"series.study.patientUID"] compare: previousPatientUID options: NSCaseInsensitiveSearch | NSDiacriticInsensitiveSearch | NSWidthInsensitiveSearch] != NSOrderedSame)
+			tempPath = [tempPath stringByAppendingPathComponent: [[NSMutableString stringWithFormat: @"%@ - %@",
+                                                                   [curImage valueForKeyPath: @"series.study.studyName"],
+                                                                   [curImage valueForKeyPath: @"series.study.id"]] filenameString]];
+			if ([[curImage valueForKeyPath: @"series.study.id"] isEqualToString: previousStudy] == NO ||
+                [[curImage valueForKeyPath: @"series.study.patientUID"] compare: previousPatientUID options: NSCaseInsensitiveSearch | NSDiacriticInsensitiveSearch | NSWidthInsensitiveSearch] != NSOrderedSame)
 			{
 				previousPatientUID = [curImage valueForKeyPath: @"series.study.patientUID"];
 				previousStudy = [curImage valueForKeyPath: @"series.study.id"];
@@ -16557,7 +16591,8 @@ static volatile int numberOfThreadsForJPEG = 0;
 			tempPath = [tempPath stringByAppendingFormat: @"_%@", [curImage valueForKeyPath: @"series.id"]];
 			
 			
-			if( previousSeries != [[curImage valueForKeyPath: @"series.id"] intValue] || [[curImage valueForKeyPath: @"series.seriesInstanceUID"] isEqualToString: previousSeriesInstanceUID] == NO)
+			if (previousSeries != [[curImage valueForKeyPath: @"series.id"] intValue] ||
+                [[curImage valueForKeyPath: @"series.seriesInstanceUID"] isEqualToString: previousSeriesInstanceUID] == NO)
 			{
 				previousSeriesInstanceUID = [curImage valueForKeyPath: @"series.seriesInstanceUID"];
 				uniqueSeriesID++;
@@ -17284,132 +17319,125 @@ static volatile int numberOfThreadsForJPEG = 0;
 -(IBAction)sendMail:(id)sender
 {
 #ifndef OSIRIX_LIGHT
-	if( [AppController hasMacOSXSnowLeopard])
-	{
-		#define kScriptName (@"Mail")
-		#define kScriptType (@"scpt")
-		#define kHandlerName (@"mail_images")
-		#define noScriptErr 0
-		
-		/* Locate the script within the bundle */
-		NSString *scriptPath = [[NSBundle mainBundle] pathForResource: kScriptName ofType: kScriptType];
-		NSURL *scriptURL = [NSURL fileURLWithPath: scriptPath];
+    #define kScriptName (@"Mail")
+    #define kScriptType (@"scpt")
+    #define kHandlerName (@"mail_images")
+    #define noScriptErr 0
+    
+    /* Locate the script within the bundle */
+    NSString *scriptPath = [[NSBundle mainBundle] pathForResource: kScriptName ofType: kScriptType];
+    NSURL *scriptURL = [NSURL fileURLWithPath: scriptPath];
 
-		NSDictionary *errorInfo = nil;
-		
-		/* Here I am using "initWithContentsOfURL:" to load a pre-compiled script, rather than using "initWithSource:" to load a text file with AppleScript source.  The main reason for this is that the latter technique seems to give rise to inexplicable -1708 (errAEEventNotHandled) errors on Jaguar. */
-		NSAppleScript *script = [[NSAppleScript alloc] initWithContentsOfURL: scriptURL error: &errorInfo];
-		
-		/* See if there were any errors loading the script */
-		if (!script || errorInfo)
-			NSLog(@"%@", errorInfo);
-		
-		/* We have to construct an AppleEvent descriptor to contain the arguments for our handler call.  Remember that this list is 1, rather than 0, based. */
-		NSAppleEventDescriptor *arguments = [[NSAppleEventDescriptor alloc] initListDescriptor];
-		[arguments insertDescriptor: [NSAppleEventDescriptor descriptorWithString: @"subject"] atIndex: 1];
-		[arguments insertDescriptor: [NSAppleEventDescriptor descriptorWithString: @"defaultaddress@mac.com"] atIndex: 2];
-		
-		NSAppleEventDescriptor *listFiles = [NSAppleEventDescriptor listDescriptor];
-		NSAppleEventDescriptor *listCaptions = [NSAppleEventDescriptor listDescriptor];
-		NSAppleEventDescriptor *listComments = [NSAppleEventDescriptor listDescriptor];
-		
-		[[NSUserDefaults standardUserDefaults] setValue: @"" forKey:@"defaultZIPPasswordForEmail"];
-		
-		redoZIPpassword:
-		
-		[NSApp beginSheet: ZIPpasswordWindow
-		   modalForWindow: self.window
-			modalDelegate: nil
-		   didEndSelector: nil
-			  contextInfo: nil];
-		
-		int result = [NSApp runModalForWindow: ZIPpasswordWindow];
-		[ZIPpasswordWindow makeFirstResponder: nil];
-		
-		[NSApp endSheet: ZIPpasswordWindow];
-		[ZIPpasswordWindow orderOut: self];
-		
-		if( result == NSRunStoppedResponse)
-		{
-			if( [(NSString*) [[NSUserDefaults standardUserDefaults] valueForKey: @"defaultZIPPasswordForEmail"] length] < 8)
-			{
-				NSBeep();
-				goto redoZIPpassword;
-			}
-			
-			NSMutableArray *dicomFiles2Export = [NSMutableArray array];
-			NSMutableArray *filesToExport = [self filesForDatabaseOutlineSelection: dicomFiles2Export onlyImages: NO];
-			
-            NSString *pathZipFiles = [NSTemporaryDirectory() stringByAppendingPathComponent:@"zipFilesForMail"];
-			[[NSFileManager defaultManager] removeItemAtPath: pathZipFiles error: nil];
-			[[NSFileManager defaultManager] createDirectoryAtPath: pathZipFiles
-                                      withIntermediateDirectories: YES
-                                                       attributes: nil
-                                                            error: nil];
-			
-			BOOL encrypt = [[NSUserDefaults standardUserDefaults] boolForKey: @"encryptForExport"];
-			
-			[[NSUserDefaults standardUserDefaults] setBool: YES forKey: @"encryptForExport"];
-			
-			self.passwordForExportEncryption = [[NSUserDefaults standardUserDefaults] valueForKey: @"defaultZIPPasswordForEmail"];
-			
-            NSString *pathZipFilesSlash = [NSTemporaryDirectory() stringByAppendingPathComponent:@"zipFilesForMail/"];
-			NSArray *r = [self exportDICOMFileInt: pathZipFilesSlash
-                                            files: filesToExport
-                                          objects: dicomFiles2Export];
-			
-			[[NSUserDefaults standardUserDefaults] setBool: encrypt forKey: @"encryptForExport"];
-			
-			if( [r count] > 0)
-			{
-				int f = 0;
-				NSString *root = pathZipFiles;
-				NSArray *files = [[NSFileManager defaultManager] contentsOfDirectoryAtPath: root error: nil];
-				for( int x = 0; x < [files count] ; x++)
-				{
-					if( [[[files objectAtIndex: x] pathExtension] isEqualToString: @"zip"])
-					{
-						[listFiles insertDescriptor: [NSAppleEventDescriptor descriptorWithString: [root stringByAppendingPathComponent: [files objectAtIndex: x]]] atIndex:1+f];
-						[listCaptions insertDescriptor: [NSAppleEventDescriptor descriptorWithString: @""] atIndex:1+f];
-						[listComments insertDescriptor: [NSAppleEventDescriptor descriptorWithString: @""] atIndex:1+f];
-						f++;
-					}
-				}
-				
-				[arguments insertDescriptor: [NSAppleEventDescriptor descriptorWithInt32: f] atIndex: 3];
-				[arguments insertDescriptor: listFiles atIndex: 4];
-				[arguments insertDescriptor: listCaptions atIndex: 5];
-				[arguments insertDescriptor: listComments atIndex: 6];
-				
-				[arguments insertDescriptor: [NSAppleEventDescriptor descriptorWithString: @"Cancel"] atIndex: 7];
-
-				errorInfo = nil;
-
-				/* Call the handler using the method in our special category */
-				NSAppleEventDescriptor *result = [script callHandler: kHandlerName withArguments: arguments errorInfo: &errorInfo];
-				
-				int scriptResult = [result int32Value];
-
-				/* Check for errors in running the handler */
-				if (errorInfo)
-				{
-					NSLog(@"%@", errorInfo);
-				}
-				/* Check the handler's return value */
-				else if (scriptResult != noScriptErr)
-				{
-					NSRunAlertPanel(NSLocalizedString(@"Script Failure", @"Title on script failure window."), @"%@ %d", NSLocalizedString(@"OK", @""), nil, nil, NSLocalizedString(@"The script failed:", @"Message on script failure window."), scriptResult);
-				}
-			}
-		}
-		
-		[script release];
-		[arguments release];
-	}
-	else if( [NSThread isMainThread])
+    NSDictionary *errorInfo = nil;
+    
+    /* Here I am using "initWithContentsOfURL:" to load a pre-compiled script, rather than using "initWithSource:" to load a text file with AppleScript source.  The main reason for this is that the latter technique seems to give rise to inexplicable -1708 (errAEEventNotHandled) errors on Jaguar. */
+    NSAppleScript *script = [[NSAppleScript alloc] initWithContentsOfURL: scriptURL error: &errorInfo];
+    
+    /* See if there were any errors loading the script */
+    if (!script || errorInfo)
+        NSLog(@"%@", errorInfo);
+    
+    /* We have to construct an AppleEvent descriptor to contain the arguments for our handler call.  Remember that this list is 1, rather than 0, based. */
+    NSAppleEventDescriptor *arguments = [[NSAppleEventDescriptor alloc] initListDescriptor];
+    [arguments insertDescriptor: [NSAppleEventDescriptor descriptorWithString: @"subject"] atIndex: 1];
+    [arguments insertDescriptor: [NSAppleEventDescriptor descriptorWithString: @"defaultaddress@mac.com"] atIndex: 2];
+    
+    NSAppleEventDescriptor *listFiles = [NSAppleEventDescriptor listDescriptor];
+    NSAppleEventDescriptor *listCaptions = [NSAppleEventDescriptor listDescriptor];
+    NSAppleEventDescriptor *listComments = [NSAppleEventDescriptor listDescriptor];
+    
+    [[NSUserDefaults standardUserDefaults] setValue: @"" forKey:@"defaultZIPPasswordForEmail"];
+    
+    redoZIPpassword:
+    
+    [NSApp beginSheet: ZIPpasswordWindow
+       modalForWindow: self.window
+        modalDelegate: nil
+       didEndSelector: nil
+          contextInfo: nil];
+    
+    int result = [NSApp runModalForWindow: ZIPpasswordWindow];
+    [ZIPpasswordWindow makeFirstResponder: nil];
+    
+    [NSApp endSheet: ZIPpasswordWindow];
+    [ZIPpasswordWindow orderOut: self];
+    
+    if( result == NSRunStoppedResponse)
     {
-        NSRunCriticalAlertPanel( NSLocalizedString( @"Unsupported", nil), NSLocalizedString( @"This function requires MacOS 10.6 or higher.", nil), NSLocalizedString( @"OK", nil) , nil, nil);
+        if( [(NSString*) [[NSUserDefaults standardUserDefaults] valueForKey: @"defaultZIPPasswordForEmail"] length] < 8)
+        {
+            NSBeep();
+            goto redoZIPpassword;
+        }
+        
+        NSMutableArray *dicomFiles2Export = [NSMutableArray array];
+        NSMutableArray *filesToExport = [self filesForDatabaseOutlineSelection: dicomFiles2Export onlyImages: NO];
+        
+        NSString *pathZipFiles = [NSTemporaryDirectory() stringByAppendingPathComponent:@"zipFilesForMail"];
+        [[NSFileManager defaultManager] removeItemAtPath: pathZipFiles error: nil];
+        [[NSFileManager defaultManager] createDirectoryAtPath: pathZipFiles
+                                  withIntermediateDirectories: YES
+                                                   attributes: nil
+                                                        error: nil];
+        
+        BOOL encrypt = [[NSUserDefaults standardUserDefaults] boolForKey: @"encryptForExport"];
+        
+        [[NSUserDefaults standardUserDefaults] setBool: YES forKey: @"encryptForExport"];
+        
+        self.passwordForExportEncryption = [[NSUserDefaults standardUserDefaults] valueForKey: @"defaultZIPPasswordForEmail"];
+        
+        NSString *pathZipFilesSlash = [NSTemporaryDirectory() stringByAppendingPathComponent:@"zipFilesForMail/"];
+        NSArray *r = [self exportDICOMFileInt: pathZipFilesSlash
+                                        files: filesToExport
+                                      objects: dicomFiles2Export];
+        
+        [[NSUserDefaults standardUserDefaults] setBool: encrypt forKey: @"encryptForExport"];
+        
+        if( [r count] > 0)
+        {
+            int f = 0;
+            NSString *root = pathZipFiles;
+            NSArray *files = [[NSFileManager defaultManager] contentsOfDirectoryAtPath: root error: nil];
+            for( int x = 0; x < [files count] ; x++)
+            {
+                if( [[[files objectAtIndex: x] pathExtension] isEqualToString: @"zip"])
+                {
+                    [listFiles insertDescriptor: [NSAppleEventDescriptor descriptorWithString: [root stringByAppendingPathComponent: [files objectAtIndex: x]]] atIndex:1+f];
+                    [listCaptions insertDescriptor: [NSAppleEventDescriptor descriptorWithString: @""] atIndex:1+f];
+                    [listComments insertDescriptor: [NSAppleEventDescriptor descriptorWithString: @""] atIndex:1+f];
+                    f++;
+                }
+            }
+            
+            [arguments insertDescriptor: [NSAppleEventDescriptor descriptorWithInt32: f] atIndex: 3];
+            [arguments insertDescriptor: listFiles atIndex: 4];
+            [arguments insertDescriptor: listCaptions atIndex: 5];
+            [arguments insertDescriptor: listComments atIndex: 6];
+            
+            [arguments insertDescriptor: [NSAppleEventDescriptor descriptorWithString: @"Cancel"] atIndex: 7];
+
+            errorInfo = nil;
+
+            /* Call the handler using the method in our special category */
+            NSAppleEventDescriptor *result = [script callHandler: kHandlerName withArguments: arguments errorInfo: &errorInfo];
+            
+            int scriptResult = [result int32Value];
+
+            /* Check for errors in running the handler */
+            if (errorInfo)
+            {
+                NSLog(@"%@", errorInfo);
+            }
+            /* Check the handler's return value */
+            else if (scriptResult != noScriptErr)
+            {
+                NSRunAlertPanel(NSLocalizedString(@"Script Failure", @"Title on script failure window."), @"%@ %d", NSLocalizedString(@"OK", @""), nil, nil, NSLocalizedString(@"The script failed:", @"Message on script failure window."), scriptResult);
+            }
+        }
     }
+    
+    [script release];
+    [arguments release];
 #endif
 }
 
@@ -17884,33 +17912,6 @@ static volatile int numberOfThreadsForJPEG = 0;
 				
 				if( [[NSFileManager defaultManager] fileExistsAtPath: [tempPath stringByAppendingPathComponent:@"DICOMDIR"]] == NO)
 				{
-//					if( [AppController hasMacOSXSnowLeopard] == NO)
-//					{
-//						NSRunCriticalAlertPanel( NSLocalizedString( @"DICOMDIR", nil), NSLocalizedString( @"DICOMDIR creation requires MacOS 10.6 or higher. DICOMDIR file will NOT be generated.", nil), NSLocalizedString( @"OK", nil), nil, nil);
-//					}
-//					else
-//					{
-//						NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-//						
-//						NSTask *theTask;
-//						NSMutableArray *theArguments = [NSMutableArray arrayWithObjects:@"+r", @"-Pfl", @"-W", @"-Nxc",@"+I",@"+id", tempPath,  nil];
-//						
-//						theTask = [[NSTask alloc] init];
-//						[theTask setEnvironment:[NSDictionary dictionaryWithObject:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"/dicom.dic"] forKey:@"DCMDICTPATH"]];	// DO NOT REMOVE !
-//						[theTask setLaunchPath:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"/dcmmkdir"]];
-//						[theTask setCurrentDirectoryPath:tempPath];
-//						[theTask setArguments:theArguments];		
-//						
-//						[theTask launch];
-//						while( [theTask isRunning])
-//                            [NSThread sleepForTimeInterval: 0.1];
-//                        
-//                        //[theTask waitUntilExit];		// <- This is VERY DANGEROUS : the main runloop is continuing...
-//						[theTask release];
-//						
-//						[pool release];
-//					}
-                    
                     [NSThread currentThread].status = NSLocalizedString( @"Writing DICOMDIR...", nil);
                     [DicomDir createDicomDirAtDir: tempPath];
 				}
@@ -18006,13 +18007,6 @@ static volatile int numberOfThreadsForJPEG = 0;
 	NSTask *t;
 	NSArray *args;
 	
-	if( [AppController hasMacOSXSnowLeopard] == NO && [NSThread isMainThread] && [password length] > 0)
-	{
-		password = nil;
-		NSRunCriticalAlertPanel(NSLocalizedString(@"ZIP Encryption", nil), NSLocalizedString(@"ZIP encryption requires MacOS 10.6 or higher. The ZIP file will be generated, but NOT encrypted with a password.", nil), NSLocalizedString(@"OK",nil),nil, nil);
-		return;
-	}
-	
 	if( destFile)
 		[[NSFileManager defaultManager] removeItemAtPath: destFile error: nil];
 	
@@ -18091,17 +18085,6 @@ static volatile int numberOfThreadsForJPEG = 0;
 {
 	NSTask *t;
 	NSArray *args;
-	
-	if( [AppController hasMacOSXSnowLeopard] == NO && [NSThread isMainThread] && [password length] > 0)
-	{
-		password = nil;
-		NSRunCriticalAlertPanel(NSLocalizedString(@"ZIP Encryption", nil),
-                                NSLocalizedString(@"ZIP encryption requires MacOS 10.6 or higher. The ZIP file will be generated, but NOT encrypted with a password.", nil),
-                                NSLocalizedString(@"OK",nil),
-                                nil,
-                                nil);
-		return;
-	}
 	
 	if( destFile)
 		[[NSFileManager defaultManager] removeItemAtPath: destFile error: nil];
@@ -18738,7 +18721,7 @@ static volatile int numberOfThreadsForJPEG = 0;
 }
 #endif
 
-//ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ
+////////////////////////////////////////////////////////////////////////////////
 
 #pragma mark -
 #pragma mark RTSTRUCT
@@ -18768,7 +18751,7 @@ static volatile int numberOfThreadsForJPEG = 0;
 }
 #endif
 
-//ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ
+////////////////////////////////////////////////////////////////////////////////
 
 #pragma mark -
 #pragma mark Report functions
@@ -20356,7 +20339,7 @@ static volatile int numberOfThreadsForJPEG = 0;
     return YES;
 }
 
-//ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ
+////////////////////////////////////////////////////////////////////////////////
 
 #pragma mark-
 #pragma mark Bonjour
@@ -20440,7 +20423,7 @@ static volatile int numberOfThreadsForJPEG = 0;
 	return [[DicomDatabase activeLocalDatabase] sqlFilePath];
 }
 
-//ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ
+////////////////////////////////////////////////////////////////////////////////
 
 #pragma mark-
 #pragma mark Plugins

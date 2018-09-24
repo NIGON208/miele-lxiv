@@ -202,7 +202,9 @@
 			uniqueSeriesID++;
 			
 			seriesName = [[NSMutableString stringWithString: [QTExportHTMLSummary nonNilString: [[series objectAtIndex:i] valueForKey: @"name"]]] filenameString];
-			fileName = [[NSMutableString stringWithFormat:@"%@ - %@", [[series objectAtIndex:i] valueForKeyPath:@"study.studyName"], [[series objectAtIndex:i] valueForKeyPath:@"study.id"]] filenameString];
+			fileName = [[NSMutableString stringWithFormat:@"%@ - %@",
+                         [[series objectAtIndex:i] valueForKeyPath:@"study.studyName"],
+                         [[series objectAtIndex:i] valueForKeyPath:@"study.id"]] filenameString];
 			NSString* iId = [[series objectAtIndex:i] valueForKey: @"id"];
 			[fileName appendFormat:@"/%@_%@", seriesName, iId];
 			
@@ -435,7 +437,8 @@
 		{
 			patientName = [[[study objectAtIndex:0] valueForKeyPath: @"study.name"] filenameString];
 			NSString *htmlContent = [self fillStudiesListTemplatesForSeries:study];
-			[fileManager createFileAtPath:[rootPath stringByAppendingFormat:@"/%@/index.html", patientName] contents:[htmlContent dataUsingEncoding:NSUTF8StringEncoding] attributes:nil];
+			[fileManager createFileAtPath:[rootPath stringByAppendingFormat:@"/%@/index.html", patientName]
+                                 contents:[htmlContent dataUsingEncoding:NSUTF8StringEncoding] attributes:nil];
 		}
 	}
 }
@@ -453,7 +456,8 @@
 	NSFileManager *fileManager = [NSFileManager defaultManager];
 	NSString *htmlContent = [self fillSeriesTemplatesForSeries:series numberOfImages:imagesCount];
 	NSString *patientName = [[series valueForKeyPath: @"study.name"] filenameString];
-	[fileManager createFileAtPath:[rootPath stringByAppendingFormat:@"/%@/%@", patientName, fileName] contents:[htmlContent dataUsingEncoding:NSUTF8StringEncoding] attributes:nil];
+	[fileManager createFileAtPath:[rootPath stringByAppendingFormat:@"/%@/%@", patientName, fileName]
+                         contents:[htmlContent dataUsingEncoding:NSUTF8StringEncoding] attributes:nil];
 }
 
 #pragma mark-
