@@ -721,28 +721,28 @@ static NSDate *lastWarningDate = nil;
     return NO;
 }
 
-+(BOOL) hasMacOSXMountainLion
-{
-    NSOperatingSystemVersion version = [[NSProcessInfo processInfo] operatingSystemVersion];
-    if (version.majorVersion < 10 ||
-        version.minorVersion < 8)
-        return NO;
+//+(BOOL) hasMacOSXMountainLion
+//{
+//    NSOperatingSystemVersion version = [[NSProcessInfo processInfo] operatingSystemVersion];
+//    if (version.majorVersion < 10 ||
+//        version.minorVersion < 8)
+//        return NO;
+//
+//    return YES;
+//}
 
-    return YES;
-}
-
-+(BOOL) hasMacOSXLion
-{
-    NSOperatingSystemVersion version = [[NSProcessInfo processInfo] operatingSystemVersion];
-    printf("OS Version %d %d %d", version.majorVersion, version.minorVersion, version.patchVersion);
-    //NSLog(@"OS Version %d %d %d", version.majorVersion, version.minorVersion, version.patchVersion);
-    if (version.majorVersion < 10 ||
-        version.minorVersion < 7 ||
-        version.patchVersion < 5)
-        return NO;
-
-    return YES;
-}
+//// Deployment target is 10.9, so this will always return YES
+//+(BOOL) hasMacOSXLion
+//{
+//    NSOperatingSystemVersion version = [[NSProcessInfo processInfo] operatingSystemVersion];
+//    NSLog(@"%s OS Version %ld %ld %ld", __FUNCTION__, (long)version.majorVersion, (long)version.minorVersion, (long)version.patchVersion);
+//    if (version.majorVersion < 10 ||
+//        version.minorVersion < 7 ||
+//        version.patchVersion < 5)
+//        return NO;
+//
+//    return YES;
+//}
 
 +(BOOL) hasMacOSXSnowLeopard
 {
@@ -3032,10 +3032,10 @@ static BOOL initialized = NO;
                     bits = @"64-bit";
                 
                 NSLog(@"*-+-*-+-*-+-*-+-*-+-*-+-*-+-*-+-*-+-*-+-*-+-*-+-*-+-*-+-*-+-*-+-*-+-*");
-				NSLog(@"Number of CPUs: %d, processors: %u (%u active)",
+				NSLog(@"Number of CPUs: %d, processors: %lu (%lu active)",
                       numCPU,
-                      [[NSProcessInfo processInfo] processorCount],
-                      [[NSProcessInfo processInfo] activeProcessorCount]);
+                      (unsigned long)[[NSProcessInfo processInfo] processorCount],
+                      (unsigned long)[[NSProcessInfo processInfo] activeProcessorCount]);
                 NSLog(@"Number of screens: %d", (int) [[NSScreen screens] count]);
 				NSLog(@"Main screen backingScaleFactor: %f", (float) [[NSScreen mainScreen] backingScaleFactor]);
                 NSDictionary *d = [[NSBundle mainBundle] infoDictionary];
@@ -3055,18 +3055,31 @@ static BOOL initialized = NO;
                 NSLog(@"%s", TIFFGetVersion());
 
                 CGLContextObj cgl_ctx = [[NSOpenGLContext currentContext] CGLContextObj];
-                if( cgl_ctx) {
+                if (cgl_ctx) {
                     const GLubyte * strVersion = glGetString (GL_VERSION); // get version string
                     const GLubyte * strExtension = glGetString (GL_EXTENSIONS);	// get extension string
-                    NSLog(@"OpenGL version:%s, extension:%@", strVersion, strExtension);
+                    NSLog(@"OpenGL version:%s, extension:%s", strVersion, strExtension);
                 }
                 
                 NSArray *components = [[[NSBundle mainBundle] pathForResource: @"Localizable" ofType: @"strings"] pathComponents];
                 if (components.count > 3)
                     NSLog(@"Localization: %@", [components objectAtIndex: components.count -2]);
 #ifndef NDEBUG
-                NSLog(@"NSTemporaryDirectory():%@", NSTemporaryDirectory());
-				NSLog( @"**** DEBUG MODE ****");
+                NSLog(@"NSTemporaryDirectory()_: %@", NSTemporaryDirectory());
+                NSLog(@"NSHomeDirectory()______: %@", NSHomeDirectory());
+                NSLog(@"Library Directory______: %@", NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES).firstObject);
+                NSLog(@"Document Directory_____: %@", NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).firstObject);
+                NSLog(@"Application Support Dir: %@", NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES).firstObject);
+                NSLog(@"Preference Panes Dir___: %@", NSSearchPathForDirectoriesInDomains(NSPreferencePanesDirectory, NSUserDomainMask, YES).firstObject);
+
+                NSString *bundleIdentifier = [d objectForKey:@"CFBundleIdentifier"];
+                NSLog(@"Defaults file__________: %@/Preferences/%@.plist",
+                      NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES).firstObject,
+                      bundleIdentifier);
+
+                NSLog(@"DATABASELOCATION_______: %@", documentsDirectory());  // (deprecated method) defined in Preferences Panel, initially from OUR_DATA_LOCATION
+                NSLog(@"resourcePath___________: %@", [[NSBundle mainBundle] resourcePath]);
+                NSLog( @"**** DEBUG MODE ****");
 #endif
                 
 				[[NSUserDefaults standardUserDefaults] registerDefaults: [DefaultsOsiriX getDefaults]];
@@ -4358,19 +4371,19 @@ static BOOL initialized = NO;
 #endif
     }
     
-	if( [AppController hasMacOSXMountainLion] == NO)
-	{
-		[[NSUserDefaults standardUserDefaults] setBool: NO forKey: @"EncryptCD"];
-		[[NSUserDefaults standardUserDefaults] setBool: NO forKey: @"encryptForExport"];
-		
-        NSAlert* alert = [[NSAlert new] autorelease];
-        [alert setMessageText: NSLocalizedString( @"Mac OS Version", nil)];
-        [alert setInformativeText: NSLocalizedString( @"You should upgrade to MacOS 10.9 or higher, for better performances, more features and more stability.", nil)];
-        [alert addButtonWithTitle: NSLocalizedString( @"Continue", nil)];
-        [alert addButtonWithTitle: NSLocalizedString( @"Upgrade", nil)];
-        if( [alert runModal] == NSAlertSecondButtonReturn)
-            [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://www.apple.com/osx/"]];
-	}
+//    if( [AppController hasMacOSXMountainLion] == NO)
+//    {
+//        [[NSUserDefaults standardUserDefaults] setBool: NO forKey: @"EncryptCD"];
+//        [[NSUserDefaults standardUserDefaults] setBool: NO forKey: @"encryptForExport"];
+//        
+//        NSAlert* alert = [[NSAlert new] autorelease];
+//        [alert setMessageText: NSLocalizedString( @"Mac OS Version", nil)];
+//        [alert setInformativeText: NSLocalizedString( @"You should upgrade to MacOS 10.9 or higher, for better performances, more features and more stability.", nil)];
+//        [alert addButtonWithTitle: NSLocalizedString( @"Continue", nil)];
+//        [alert addButtonWithTitle: NSLocalizedString( @"Upgrade", nil)];
+//        if( [alert runModal] == NSAlertSecondButtonReturn)
+//            [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://www.apple.com/osx/"]];
+//    }
 	
 	[self initTilingWindows];
     

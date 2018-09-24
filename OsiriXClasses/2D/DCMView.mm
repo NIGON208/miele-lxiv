@@ -1421,9 +1421,9 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void *context
 
 - (IBAction) roiSaveSelected: (id) sender
 {
-	NSSavePanel     *panel = [NSSavePanel savePanel];
+	NSSavePanel *panel = [NSSavePanel savePanel];
 	
-	NSMutableArray  *selectedROIs = [NSMutableArray  array];
+	NSMutableArray *selectedROIs = [NSMutableArray  array];
 	
 	for( ROI *r in curRoiList)
 	{
@@ -1495,8 +1495,12 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void *context
         [roi setRoiView :self];
         if( [[NSUserDefaults standardUserDefaults] boolForKey: @"markROIImageAsKeyImage"])
         {
-            if( [self is2DViewer] == YES && [self isKeyImage] == NO && [[self windowController] isPostprocessed] == NO)
+            if ([self is2DViewer] == YES &&
+                [self isKeyImage] == NO &&
+                [[self windowController] isPostprocessed] == NO)
+            {
                 [[self windowController] setKeyImage: self];
+            }
         }
         
         [curRoiList addObject: roi];
@@ -1574,8 +1578,12 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void *context
 		
 		if( [[NSUserDefaults standardUserDefaults] boolForKey: @"markROIImageAsKeyImage"])
 		{
-			if( [self is2DViewer] == YES && [self isKeyImage] == NO && [[self windowController] isPostprocessed] == NO)
+			if ([self is2DViewer] == YES &&
+                [self isKeyImage] == NO &&
+                [[self windowController] isPostprocessed] == NO)
+            {
 					[[self windowController] setKeyImage: self];
+            }
 		}
 		
         for( ROI *roi in roiArray)
@@ -1650,7 +1658,7 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void *context
 {
 	[self copy:sender];
 	
-	NSTimeInterval groupID = 0;
+	//NSTimeInterval groupID = 0;
 
 	[[self windowController] addToUndoQueue:@"roi"];
 	
@@ -1662,8 +1670,11 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void *context
 	{
 		for( ROI *r in curRoiList)
 		{
-			if( (r.ROImode == ROI_selected || r.ROImode == ROI_selectedModify || r.ROImode == ROI_drawing) && r.locked == NO)
+			if ((r.ROImode == ROI_selected || r.ROImode == ROI_selectedModify || r.ROImode == ROI_drawing) &&
+                r.locked == NO)
+            {
                 [roisToDelete addObject: r];
+            }
 		}
         
         [ROI deleteROIs: roisToDelete];
@@ -1962,8 +1973,13 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void *context
 	int clickCount = 1;
 	@try
 	{
-		if( [event type] ==	NSLeftMouseDown || [event type] ==	NSRightMouseDown || [event type] ==	NSLeftMouseUp || [event type] == NSRightMouseUp)
+		if ([event type] ==	NSLeftMouseDown ||
+            [event type] ==	NSRightMouseDown ||
+            [event type] ==	NSLeftMouseUp ||
+            [event type] == NSRightMouseUp)
+        {
 			clickCount = [event clickCount];
+        }
 	}
 	@catch (NSException * e)
 	{
@@ -2001,7 +2017,10 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void *context
 		case tRotate:
 			if( [event type] != NSKeyDown)
 			{
-				if( clickCount == 2 && gClickCountSet == NO && isKeyView == YES && [[self window] isKeyWindow] == YES)
+				if (clickCount == 2 &&
+                    gClickCountSet == NO &&
+                    isKeyView == YES &&
+                    [[self window] isKeyWindow] == YES)
 				{
 					gClickCountSet = YES;
 					
@@ -2119,22 +2138,29 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void *context
     if( index >= (int) dcmPixList.count)
         index = 0;
     
-	if( dcmPixList && index >= 0 && index < [dcmPixList count] && [[dcmFilesList objectAtIndex: index] isDistant] == NO)
+	if (dcmPixList && index >= 0 &&
+        index < [dcmPixList count] &&
+        [[dcmFilesList objectAtIndex: index] isDistant] == NO)
 	{
 		[curROI autorelease];
 		curROI = nil;
 		
 		curImage = index; 
-		if( curImage >= [dcmPixList count]) curImage = (long)[dcmPixList count] -1;
-		if( curImage < 0) curImage = 0;
+		if( curImage >= [dcmPixList count])
+            curImage = (long)[dcmPixList count] -1;
+        
+		if( curImage < 0)
+            curImage = 0;
 		
 		[curDCM release];
 		curDCM = [[dcmPixList objectAtIndex: curImage] retain];
 		
 		[curRoiList autorelease];
 		
-		if( dcmRoiList) curRoiList = [[dcmRoiList objectAtIndex: curImage] retain];
-		else 			curRoiList = [NSMutableArray new];
+		if( dcmRoiList)
+            curRoiList = [[dcmRoiList objectAtIndex: curImage] retain];
+		else
+            curRoiList = [NSMutableArray new];
 		
 		for( ROI *r in curRoiList)
 		{
@@ -2337,16 +2363,20 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void *context
         CGLContextObj cgl_ctx = [[NSOpenGLContext currentContext] CGLContextObj];
         if( cgl_ctx)
         {
-            if( fontListGL) glDeleteLists (fontListGL, 150);
+            if( fontListGL)
+                glDeleteLists (fontListGL, 150);
             fontListGL = 0;
             
-            if( labelFontListGL) glDeleteLists(labelFontListGL, 150);
+            if( labelFontListGL)
+                glDeleteLists(labelFontListGL, 150);
             labelFontListGL = 0;
             
-            if( loupeTextureID) glDeleteTextures( 1, &loupeTextureID);
+            if( loupeTextureID)
+                glDeleteTextures( 1, &loupeTextureID);
             loupeTextureID = 0;
             
-            if( loupeMaskTextureID) glDeleteTextures( 1, &loupeMaskTextureID);
+            if( loupeMaskTextureID)
+                glDeleteTextures( 1, &loupeMaskTextureID);
             loupeMaskTextureID = 0;
             
             if( pTextureName)
@@ -2363,10 +2393,12 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void *context
             }
         }
         
-        if( colorBuf) free( colorBuf);
+        if( colorBuf)
+            free( colorBuf);
         colorBuf = nil;
         
-        if( blendingColorBuf) free( blendingColorBuf);
+        if( blendingColorBuf)
+            free( blendingColorBuf);
         blendingColorBuf = nil;
         
         [fontColor autorelease]; fontColor = nil;
@@ -2397,10 +2429,12 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void *context
             repulsorColorTimer = nil;
         }
         
-        if( resampledBaseAddr) free( resampledBaseAddr);
+        if( resampledBaseAddr)
+            free( resampledBaseAddr);
         resampledBaseAddr = nil;
         
-        if( blendingResampledBaseAddr) free( blendingResampledBaseAddr);
+        if( blendingResampledBaseAddr)
+            free( blendingResampledBaseAddr);
         blendingResampledBaseAddr = nil;
         
         [showDescriptionInLargeText autorelease];
@@ -2591,8 +2625,12 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void *context
             }
             
 			curImage = index;
-			if( curImage >= [dcmPixList count]) curImage = (long)[dcmPixList count] -1;
-			if( curImage < 0) curImage = 0;
+            
+			if( curImage >= [dcmPixList count])
+                curImage = (long)[dcmPixList count] -1;
+            
+			if( curImage < 0)
+                curImage = 0;
 			
 			DCMPix *pix2beReleased = curDCM;
 			curDCM = [[dcmPixList objectAtIndex:curImage] retain];
@@ -2772,8 +2810,11 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void *context
             }
         }
         
-        if( curImage < 0) curImage = 0;
-        if( curImage >= [dcmPixList count]) curImage = (long)[dcmPixList count]-1;
+        if( curImage < 0)
+            curImage = 0;
+        
+        if( curImage >= [dcmPixList count])
+            curImage = (long)[dcmPixList count]-1;
     }
     
     return switchSeries;
@@ -2874,13 +2915,15 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void *context
 				}
 				else
 				{
-					if( [event modifierFlags]  & NSAlternateKeyMask) [[self windowController] setKeyImage:self];
+					if( [event modifierFlags]  & NSAlternateKeyMask)
+                        [[self windowController] setKeyImage:self];
 					inc = -_imageRows * _imageColumns;
 					curImage -= _imageRows * _imageColumns;
                     
                     [self scrollThroughSeriesIfNecessary: curImage];
                     
-					if( curImage < 0) curImage = 0;
+					if( curImage < 0)
+                        curImage = 0;
 				}
 			}
         }
@@ -2899,7 +2942,8 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void *context
                     
                     [self scrollThroughSeriesIfNecessary: curImage];
                     
-					if( curImage >= [dcmPixList count]) curImage = (long)[dcmPixList count]-1;
+					if( curImage >= [dcmPixList count])
+                        curImage = (long)[dcmPixList count]-1;
 				}
 				else
 				{
@@ -2909,7 +2953,8 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void *context
                     
                     [self scrollThroughSeriesIfNecessary: curImage];
                     
-					if( curImage >= [dcmPixList count]) curImage = (long)[dcmPixList count]-1;
+					if( curImage >= [dcmPixList count])
+                        curImage = (long)[dcmPixList count]-1;
 				}
 			}
         }
@@ -2939,7 +2984,8 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void *context
 		{
 			inc = -_imageRows * _imageColumns;
 			curImage -= _imageRows * _imageColumns;
-			if (curImage < 0) curImage = 0;
+			if (curImage < 0)
+                curImage = 0;
 		}
 		else if (c == NSPageDownFunctionKey)
 		{
@@ -2954,7 +3000,8 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void *context
 		else if (c == 9)	// Tab key
 		{
 			int a = annotationType + 1;
-			if( a > annotFull) a = 0;
+			if( a > annotFull)
+                a = 0;
 			
 //			switch( a)
 //			{

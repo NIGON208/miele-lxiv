@@ -254,19 +254,14 @@
 
 - (IBAction) copyMissingCustomizedFiles: (id) sender
 {
-#ifdef MACAPPSTORE
-    [[NSFileManager defaultManager] copyItemAtPath:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"WebServicesHTML"]
-                                            toPath:[@"~/Library/Application Support/OsiriX App/WebServicesHTML" stringByExpandingTildeInPath] // TODO
-                               byReplacingExisting:NO
-                                             error:NULL];
-#else
     NSString *bundleName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleName"];
-    NSString *s = [NSString stringWithFormat:@"~/Library/Application Support/%@/WebServicesHTML", bundleName];
+    NSString *asd = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES).firstObject;  // ~/Library/Application Support
+    NSString *s = [asd stringByAppendingPathComponent:[NSString stringWithFormat:@"%@/WebServicesHTML", bundleName]];
+    
     [[NSFileManager defaultManager] copyItemAtPath:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"WebServicesHTML"]
                                             toPath:[s stringByExpandingTildeInPath]
                                byReplacingExisting:NO
                                              error:NULL];
-#endif
 }
 
 - (IBAction) editUsers: (id) sender {

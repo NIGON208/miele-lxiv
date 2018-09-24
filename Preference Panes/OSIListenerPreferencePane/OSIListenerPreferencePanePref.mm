@@ -201,7 +201,7 @@
 
 	self.TLSUseDHParameterFileURL = [[[NSUserDefaults standardUserDefaults] valueForKey:@"TLSStoreSCPUseDHParameterFileURL"] boolValue];
 	NSString *dhParameterFileURL = [[NSUserDefaults standardUserDefaults] valueForKey:@"TLSStoreSCPDHParameterFileURL"];
-	if(!dhParameterFileURL)
+	if (!dhParameterFileURL)
 		dhParameterFileURL = NSHomeDirectory();
 	self.TLSDHParameterFileURL = [NSURL fileURLWithPath:dhParameterFileURL];
 	

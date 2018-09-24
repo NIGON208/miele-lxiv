@@ -838,7 +838,7 @@
 
 	self.TLSUseDHParameterFileURL = [[aServer valueForKey:@"TLSUseDHParameterFileURL"] boolValue];
 	NSString *dhParameterFileURL = [aServer valueForKey:@"TLSDHParameterFileURL"];
-	if(!dhParameterFileURL)
+	if (!dhParameterFileURL)
 		dhParameterFileURL = NSHomeDirectory();
     
 	self.TLSDHParameterFileURL = [NSURL fileURLWithPath:dhParameterFileURL];

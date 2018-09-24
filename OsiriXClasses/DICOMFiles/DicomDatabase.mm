@@ -149,11 +149,16 @@ NSString* const O2ScreenCapturesSeriesName = NSLocalizedString(@"OsiriX Screen C
 +(NSString*)defaultBaseDirPath {
 	NSString* path = nil;
 	@try {
-		path = [self baseDirPathForMode:[[NSUserDefaults standardUserDefaults] integerForKey:@"DATABASELOCATION"] path:[[NSUserDefaults standardUserDefaults] stringForKey: @"DATABASELOCATIONURL"]];
-		if (!path || ![[NSFileManager defaultManager] fileExistsAtPath:path]) {	// STILL NOT AVAILABLE?? Use the default folder.. and reset this strange URL..
+		path = [self baseDirPathForMode:[[NSUserDefaults standardUserDefaults] integerForKey:@"DATABASELOCATION"]
+                                   path:[[NSUserDefaults standardUserDefaults] stringForKey: @"DATABASELOCATIONURL"]];
+
+        if (!path || ![[NSFileManager defaultManager] fileExistsAtPath:path])	// STILL NOT AVAILABLE?? Use the default folder.. and reset this strange URL..
+        {
 			[[NSUserDefaults standardUserDefaults] setInteger: 0 forKey: @"DATABASELOCATION"];
 			[[NSUserDefaults standardUserDefaults] setInteger: 0 forKey: @"DEFAULT_DATABASELOCATION"];
-			path = [self baseDirPathForMode:[[NSUserDefaults standardUserDefaults] integerForKey:@"DATABASELOCATION"] path:[[NSUserDefaults standardUserDefaults] stringForKey: @"DATABASELOCATIONURL"]];
+
+            path = [self baseDirPathForMode:[[NSUserDefaults standardUserDefaults] integerForKey:@"DATABASELOCATION"]
+                                       path:[[NSUserDefaults standardUserDefaults] stringForKey: @"DATABASELOCATIONURL"]];
 		}
 	} @catch (NSException* e) {
 		N2LogExceptionWithStackTrace(e);
@@ -2732,7 +2737,7 @@ static BOOL protectionAgainstReentry = NO;
                                         }
                                       
 #ifndef NDEBUG
-                                        NSLog(@"%d dstPath:%@", __LINE__, dstPath);
+                                        NSLog(@"%s %d dstPath:%@", __FUNCTION__, __LINE__, dstPath);
 #endif
                                         if( [[NSFileManager defaultManager] fileExistsAtPath: dstPath])
                                         {
