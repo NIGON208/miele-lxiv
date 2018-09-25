@@ -261,6 +261,7 @@
 		4365FC361B01C3A300380C25 /* DcmQueryRetrieveGetOurContext.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4365FC341B01C3A300380C25 /* DcmQueryRetrieveGetOurContext.mm */; };
 		43A4038C1DFA32F300ADA719 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43A4038B1DFA32F300ADA719 /* XCTest.framework */; };
 		43A89B0F208222AD00D7B11D /* DICOMPrint in Resources */ = {isa = PBXBuildFile; fileRef = 43A89B0E208222AD00D7B11D /* DICOMPrint */; };
+		43B91834215A53B900CC35FC /* BrowserController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 43B91833215A53B800CC35FC /* BrowserController.mm */; };
 		43E27D2B1AF338FA007B92CA /* ROI3DSettingsWindow.mm in Sources */ = {isa = PBXBuildFile; fileRef = 43E27D291AF338FA007B92CA /* ROI3DSettingsWindow.mm */; };
 		43E27D2E1AF33A22007B92CA /* ROI3DSettingsWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43E27D2C1AF33A22007B92CA /* ROI3DSettingsWindow.xib */; };
 		43F8F9AB1AA7DAA6008F318C /* LoupeController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 43F8F9A51AA7DAA6008F318C /* LoupeController.mm */; };
@@ -328,7 +329,6 @@
 		597BB93212A7E0F200D0A172 /* NSUserDefaults+OsiriX.mm in Sources */ = {isa = PBXBuildFile; fileRef = 597BB93012A7E0F200D0A172 /* NSUserDefaults+OsiriX.mm */; };
 		597BB99912A9225700D0A172 /* NSUserDefaults+OsiriX.mm in Sources */ = {isa = PBXBuildFile; fileRef = 597BB93012A7E0F200D0A172 /* NSUserDefaults+OsiriX.mm */; };
 		597BB9E712A923FD00D0A172 /* N2Shell.mm in Sources */ = {isa = PBXBuildFile; fileRef = AB10FAAA11293378009EB238 /* N2Shell.mm */; };
-		599115F012D7224A00924B5C /* BrowserController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 599115EF12D7224A00924B5C /* BrowserController.mm */; };
 		5997895E11B7B3E9002DB107 /* Anonymization.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5997894E11B7B3E9002DB107 /* Anonymization.mm */; };
 		5997896011B7B3E9002DB107 /* AnonymizationCustomTagPanelController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5997895011B7B3E9002DB107 /* AnonymizationCustomTagPanelController.mm */; };
 		5997896211B7B3E9002DB107 /* AnonymizationPanelController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5997895211B7B3E9002DB107 /* AnonymizationPanelController.mm */; };
@@ -923,7 +923,6 @@
 		A987970216DBAD3D00926023 /* FVTiff.mm in Sources */ = {isa = PBXBuildFile; fileRef = CEE73FC808F44724002A395F /* FVTiff.mm */; };
 		A987970316DBAD3D00926023 /* SmartWindowController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7E569398065007D6001A9762 /* SmartWindowController.mm */; };
 		A987970616DBAD3D00926023 /* AppControllerDCMTKCategory.mm in Sources */ = {isa = PBXBuildFile; fileRef = BF18A85809E0BF00005DEFB6 /* AppControllerDCMTKCategory.mm */; };
-		A987970716DBAD3D00926023 /* BrowserController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 599115EF12D7224A00924B5C /* BrowserController.mm */; };
 		A987970816DBAD3D00926023 /* BrowserController+Sources.mm in Sources */ = {isa = PBXBuildFile; fileRef = 59DB271114515B5800E78E03 /* BrowserController+Sources.mm */; };
 		A987970916DBAD3D00926023 /* BrowserController+Sources+Copy.mm in Sources */ = {isa = PBXBuildFile; fileRef = 59DB271314515B5800E78E03 /* BrowserController+Sources+Copy.mm */; };
 		A987970A16DBAD3D00926023 /* BrowserControllerDCMTKCategory.mm in Sources */ = {isa = PBXBuildFile; fileRef = BFA7D2170A51D1460013F76E /* BrowserControllerDCMTKCategory.mm */; };
@@ -3353,6 +3352,8 @@
 		439B8C131A19CCC300F396D7 /* 3DconnexionClient.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = 3DconnexionClient.framework; path = Binaries/3DconnexionClient.framework; sourceTree = "<group>"; };
 		43A4038B1DFA32F300ADA719 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/MacOSX.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		43A89B0E208222AD00D7B11D /* DICOMPrint */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = DICOMPrint; path = build/Deployment/DICOMPrint; sourceTree = "<group>"; };
+		43B91832215A53B800CC35FC /* BrowserController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrowserController.h; sourceTree = "<group>"; };
+		43B91833215A53B800CC35FC /* BrowserController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = BrowserController.mm; sourceTree = "<group>"; };
 		43E27D261AF32929007B92CA /* tmp_locations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tmp_locations.h; sourceTree = "<group>"; };
 		43E27D281AF338FA007B92CA /* ROI3DSettingsWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ROI3DSettingsWindow.h; sourceTree = "<group>"; };
 		43E27D291AF338FA007B92CA /* ROI3DSettingsWindow.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ROI3DSettingsWindow.mm; sourceTree = "<group>"; };
@@ -3488,7 +3489,6 @@
 		597BB90A12A7D3C000D0A172 /* WebPortal.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = WebPortal.mm; sourceTree = "<group>"; };
 		597BB92F12A7E0F200D0A172 /* NSUserDefaults+OsiriX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSUserDefaults+OsiriX.h"; sourceTree = "<group>"; };
 		597BB93012A7E0F200D0A172 /* NSUserDefaults+OsiriX.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "NSUserDefaults+OsiriX.mm"; sourceTree = "<group>"; };
-		599115EF12D7224A00924B5C /* BrowserController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = BrowserController.mm; sourceTree = "<group>"; };
 		5997894D11B7B3E9002DB107 /* Anonymization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Anonymization.h; sourceTree = "<group>"; };
 		5997894E11B7B3E9002DB107 /* Anonymization.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Anonymization.mm; sourceTree = "<group>"; };
 		5997894F11B7B3E9002DB107 /* AnonymizationCustomTagPanelController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnonymizationCustomTagPanelController.h; sourceTree = "<group>"; };
@@ -3595,7 +3595,6 @@
 		59E83A1212FC6556006B930A /* NSManagedObject+N2.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = "NSManagedObject+N2.mm"; path = "nitrogen/Sources/NSManagedObject+N2.mm"; sourceTree = "<group>"; };
 		59EBFDDA12BA5A1A00809C61 /* WebPortal+Email+Log.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WebPortal+Email+Log.h"; sourceTree = "<group>"; };
 		59EBFDDB12BA5A1A00809C61 /* WebPortal+Email+Log.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "WebPortal+Email+Log.mm"; sourceTree = "<group>"; };
-		59EBFEA212BB500C00809C61 /* BrowserController.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; path = BrowserController.h; sourceTree = "<group>"; };
 		59F1A4C7104BA5BE009E3215 /* OsiriXHeaders.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = OsiriXHeaders.mm; path = OsiriXClasses/OsiriXHeaders.mm; sourceTree = "<group>"; };
 		59F5F3F711F476030047A90D /* N2ImageButtonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = N2ImageButtonCell.h; path = nitrogen/Sources/N2ImageButtonCell.h; sourceTree = "<group>"; };
 		59F5F3F811F476030047A90D /* N2ImageButtonCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = N2ImageButtonCell.mm; path = nitrogen/Sources/N2ImageButtonCell.mm; sourceTree = "<group>"; };
@@ -6882,8 +6881,8 @@
 				BF18A85709E0BF00005DEFB6 /* AppControllerDCMTKCategory.h */,
 				BF18A85809E0BF00005DEFB6 /* AppControllerDCMTKCategory.mm */,
 				434C54FE1AA5868000218595 /* BioradHeader.h */,
-				59EBFEA212BB500C00809C61 /* BrowserController.h */,
-				599115EF12D7224A00924B5C /* BrowserController.mm */,
+				43B91832215A53B800CC35FC /* BrowserController.h */,
+				43B91833215A53B800CC35FC /* BrowserController.mm */,
 				59F5F4EA11F485CC0047A90D /* BrowserController+Activity.h */,
 				59F5F4EB11F485CC0047A90D /* BrowserController+Activity.mm */,
 				59DB271014515B5800E78E03 /* BrowserController+Sources.h */,
@@ -10057,7 +10056,6 @@
 				A987970216DBAD3D00926023 /* FVTiff.mm in Sources */,
 				A987970316DBAD3D00926023 /* SmartWindowController.mm in Sources */,
 				A987970616DBAD3D00926023 /* AppControllerDCMTKCategory.mm in Sources */,
-				A987970716DBAD3D00926023 /* BrowserController.mm in Sources */,
 				A987970816DBAD3D00926023 /* BrowserController+Sources.mm in Sources */,
 				A987970916DBAD3D00926023 /* BrowserController+Sources+Copy.mm in Sources */,
 				A987970A16DBAD3D00926023 /* BrowserControllerDCMTKCategory.mm in Sources */,
@@ -10346,6 +10344,7 @@
 				CEE1922E08636FA100DED1F0 /* DicomImage.mm in Sources */,
 				CE9DD284086B35050058DD2A /* DicomStudy.mm in Sources */,
 				CE9DD287086B35050058DD2A /* DicomSeries.mm in Sources */,
+				43B91834215A53B900CC35FC /* BrowserController.mm in Sources */,
 				A99B7ECB0885A61F004328C0 /* BonjourPublisher.mm in Sources */,
 				A99B7ECD0885A621004328C0 /* BonjourBrowser.mm in Sources */,
 				4310F7D620692C26000BDDCC /* jdlossy.c in Sources */,
@@ -10695,7 +10694,6 @@
 				59E5236012BF5E440094E668 /* N2Task.mm in Sources */,
 				4310F7D920692C26000BDDCC /* jdmaster.c in Sources */,
 				59E52B3812C109B80094E668 /* DicomDatabase.mm in Sources */,
-				599115F012D7224A00924B5C /* BrowserController.mm in Sources */,
 				4310F80120692C27000BDDCC /* jcdctmgr.c in Sources */,
 				5969033E12DDE30800379E41 /* WebPortalConnection+Data.mm in Sources */,
 				5969034612DDE5EA00379E41 /* WebPortalResponse.mm in Sources */,
