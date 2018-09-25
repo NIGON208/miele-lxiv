@@ -14,8 +14,6 @@
 
 #include "options.h"
 
-#define DEBUG_MAIN_XIB
-
 #import "ToolbarPanel.h"
 #import "DicomDatabase.h"
 #import "DicomDatabase+Routing.h"
@@ -14491,9 +14489,7 @@ static NSArray*	openSubSeriesArray = nil;
         midView.layer.backgroundColor = [[NSColor greenColor] CGColor];
         botView.layer.backgroundColor = [[NSColor blueColor] CGColor];
 #endif
-#ifdef DEBUG_MAIN_XIB
-        return;
-#endif
+
         gHorizontalHistory = [[NSUserDefaults standardUserDefaults] boolForKey: @"horizontalHistory"];
         if (gHorizontalHistory)
         {
