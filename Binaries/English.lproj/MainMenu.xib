@@ -4414,6 +4414,7 @@ Gw
                     </textField>
                 </subviews>
             </view>
+            <point key="canvasLocation" x="124" y="937"/>
         </window>
         <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" visibleAtLaunch="NO" animationBehavior="default" id="13869" userLabel="Notification">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>

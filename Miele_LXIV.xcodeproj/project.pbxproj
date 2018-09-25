@@ -243,6 +243,7 @@
 		4310FADB20692C2B000BDDCC /* signcmp.def in Resources */ = {isa = PBXBuildFile; fileRef = 4310F65A20692C25000BDDCC /* signcmp.def */; };
 		4310FADC20692C2B000BDDCC /* vsprfw.def in Resources */ = {isa = PBXBuildFile; fileRef = 4310F65B20692C25000BDDCC /* vsprfw.def */; };
 		4333FD721AB3082C00E82B49 /* DcmQueryRetrieveOsiriSCP.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4333FD711AB3082C00E82B49 /* DcmQueryRetrieveOsiriSCP.mm */; };
+		433DA138215A5B2600D5A70B /* BrowserController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 433DA136215A5B2500D5A70B /* BrowserController.mm */; };
 		433F9A801A1B18A500E52C6C /* VTKView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 433F9A7E1A1B18A500E52C6C /* VTKView.mm */; };
 		433F9A891A1B7C1C00E52C6C /* OsiriXFixedPointVolumeRayCastMapper.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 433F9A871A1B7C1C00E52C6C /* OsiriXFixedPointVolumeRayCastMapper.cxx */; };
 		434499B21A1D70840047F0F2 /* options.h in Headers */ = {isa = PBXBuildFile; fileRef = 434B46151A19F2A3008CF8CF /* options.h */; };
@@ -261,7 +262,6 @@
 		4365FC361B01C3A300380C25 /* DcmQueryRetrieveGetOurContext.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4365FC341B01C3A300380C25 /* DcmQueryRetrieveGetOurContext.mm */; };
 		43A4038C1DFA32F300ADA719 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43A4038B1DFA32F300ADA719 /* XCTest.framework */; };
 		43A89B0F208222AD00D7B11D /* DICOMPrint in Resources */ = {isa = PBXBuildFile; fileRef = 43A89B0E208222AD00D7B11D /* DICOMPrint */; };
-		43B91834215A53B900CC35FC /* BrowserController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 43B91833215A53B800CC35FC /* BrowserController.mm */; };
 		43E27D2B1AF338FA007B92CA /* ROI3DSettingsWindow.mm in Sources */ = {isa = PBXBuildFile; fileRef = 43E27D291AF338FA007B92CA /* ROI3DSettingsWindow.mm */; };
 		43E27D2E1AF33A22007B92CA /* ROI3DSettingsWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43E27D2C1AF33A22007B92CA /* ROI3DSettingsWindow.xib */; };
 		43F8F9AB1AA7DAA6008F318C /* LoupeController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 43F8F9A51AA7DAA6008F318C /* LoupeController.mm */; };
@@ -3315,6 +3315,8 @@
 		4333FD471AB3076200E82B49 /* liboflog.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liboflog.a; path = Binaries/DCMTK/lib/liboflog.a; sourceTree = "<group>"; };
 		4333FD481AB3076200E82B49 /* libofstd.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libofstd.a; path = Binaries/DCMTK/lib/libofstd.a; sourceTree = "<group>"; };
 		4333FD711AB3082C00E82B49 /* DcmQueryRetrieveOsiriSCP.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = DcmQueryRetrieveOsiriSCP.mm; sourceTree = "<group>"; };
+		433DA136215A5B2500D5A70B /* BrowserController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = BrowserController.mm; sourceTree = "<group>"; };
+		433DA137215A5B2500D5A70B /* BrowserController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrowserController.h; sourceTree = "<group>"; };
 		433F9A7E1A1B18A500E52C6C /* VTKView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VTKView.mm; sourceTree = "<group>"; };
 		433F9A7F1A1B18A500E52C6C /* VTKViewOSIRIX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VTKViewOSIRIX.h; sourceTree = "<group>"; };
 		433F9A871A1B7C1C00E52C6C /* OsiriXFixedPointVolumeRayCastMapper.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OsiriXFixedPointVolumeRayCastMapper.cxx; sourceTree = "<group>"; };
@@ -3352,8 +3354,6 @@
 		439B8C131A19CCC300F396D7 /* 3DconnexionClient.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = 3DconnexionClient.framework; path = Binaries/3DconnexionClient.framework; sourceTree = "<group>"; };
 		43A4038B1DFA32F300ADA719 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/MacOSX.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		43A89B0E208222AD00D7B11D /* DICOMPrint */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = DICOMPrint; path = build/Deployment/DICOMPrint; sourceTree = "<group>"; };
-		43B91832215A53B800CC35FC /* BrowserController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrowserController.h; sourceTree = "<group>"; };
-		43B91833215A53B800CC35FC /* BrowserController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = BrowserController.mm; sourceTree = "<group>"; };
 		43E27D261AF32929007B92CA /* tmp_locations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tmp_locations.h; sourceTree = "<group>"; };
 		43E27D281AF338FA007B92CA /* ROI3DSettingsWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ROI3DSettingsWindow.h; sourceTree = "<group>"; };
 		43E27D291AF338FA007B92CA /* ROI3DSettingsWindow.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ROI3DSettingsWindow.mm; sourceTree = "<group>"; };
@@ -6881,8 +6881,8 @@
 				BF18A85709E0BF00005DEFB6 /* AppControllerDCMTKCategory.h */,
 				BF18A85809E0BF00005DEFB6 /* AppControllerDCMTKCategory.mm */,
 				434C54FE1AA5868000218595 /* BioradHeader.h */,
-				43B91832215A53B800CC35FC /* BrowserController.h */,
-				43B91833215A53B800CC35FC /* BrowserController.mm */,
+				433DA137215A5B2500D5A70B /* BrowserController.h */,
+				433DA136215A5B2500D5A70B /* BrowserController.mm */,
 				59F5F4EA11F485CC0047A90D /* BrowserController+Activity.h */,
 				59F5F4EB11F485CC0047A90D /* BrowserController+Activity.mm */,
 				59DB271014515B5800E78E03 /* BrowserController+Sources.h */,
@@ -10344,7 +10344,7 @@
 				CEE1922E08636FA100DED1F0 /* DicomImage.mm in Sources */,
 				CE9DD284086B35050058DD2A /* DicomStudy.mm in Sources */,
 				CE9DD287086B35050058DD2A /* DicomSeries.mm in Sources */,
-				43B91834215A53B900CC35FC /* BrowserController.mm in Sources */,
+				433DA138215A5B2600D5A70B /* BrowserController.mm in Sources */,
 				A99B7ECB0885A61F004328C0 /* BonjourPublisher.mm in Sources */,
 				A99B7ECD0885A621004328C0 /* BonjourBrowser.mm in Sources */,
 				4310F7D620692C26000BDDCC /* jdlossy.c in Sources */,
