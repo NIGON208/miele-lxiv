@@ -197,7 +197,7 @@ char* replaceBadCharacter (char* str, NSStringEncoding encoding)
 
 + (NSString*) NSreplaceBadCharacter: (NSString*) str
 {
-	if( str == nil)
+	if (str.length == 0)
         return nil;
 	
 	NSMutableString	*mutable1 = [NSMutableString stringWithString: str];
@@ -208,17 +208,13 @@ char* replaceBadCharacter (char* str, NSStringEncoding encoding)
 	[mutable1 replaceOccurrencesOfString:@"\r" withString:@"" options:0 range:mutable1.range]; 
 	[mutable1 replaceOccurrencesOfString:@"\n" withString:@"" options:0 range:mutable1.range]; 
 	[mutable1 replaceOccurrencesOfString:@"\"" withString:@"'" options:0 range:mutable1.range];
-    [mutable1 replaceOccurrencesOfString:@"   " withString:@" " options:0 range:mutable1.range]; //tripple space -> single space
-	[mutable1 replaceOccurrencesOfString:@"  " withString:@" " options:0 range:mutable1.range]; //double space -> single space
-    
+    [mutable1 replaceOccurrencesOfString:@"   " withString:@" " options:0 range:mutable1.range]; //triple space -> single space
+	[mutable1 replaceOccurrencesOfString:@"  " withString:@" " options:0 range:mutable1.range];  //double space -> single space
+
 	NSUInteger i = [mutable1 length];
 	while( --i > 0)
-	{
-		if ( [mutable1 characterAtIndex: i]==' ')
+        if ( [mutable1 characterAtIndex: i]==' ')
             [mutable1 deleteCharactersInRange: NSMakeRange( i, 1)];
-		else
-            i = 0;
-	}
 	
 	return mutable1;
 }
