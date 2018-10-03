@@ -181,7 +181,7 @@ static const NSInteger labelHeight = 38, labelSeparator = 3;
 	
 	[group.buttons addObject:button];
 	
-	//[self layout]; // No need to redisplay everything for each new button added
+	[self layout]; // Redisplay everything for each new button added
 }
 
 -(BOOL)isOpaque {
