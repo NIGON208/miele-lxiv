@@ -504,8 +504,11 @@ NSString *mediumTag[] = {@"Blue Film", @"Clear Film", @"Paper"};
             [fileManager removeFileAtPath: pathDicomPrint handler: nil];
         
         // create destination directory
-        if ([fileManager fileExistsAtPath: pathDicomPrint] || ![fileManager createDirectoryAtPath: pathDicomPrint attributes: nil])
+        if ([fileManager fileExistsAtPath: pathDicomPrint] ||
+            ![fileManager createDirectoryAtPath:pathDicomPrint withIntermediateDirectories:YES attributes:nil error:nil])
+        {
             [self _setProgressMessage: NSLocalizedString( @"Can't write to temporary directory.", nil)];
+        }
         else
         {
             int from = [entireSeriesFrom intValue]-1;

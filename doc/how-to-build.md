@@ -2,18 +2,16 @@
 
 Alex Bettarini - 15 Mar 2015
 
-Some pre-built toolkits in the `Binaries` directory are no longer provided. It's more appropriate to rebuild the toolkits from the sources downloaded from the respective repositories.
+Some of the pre-built toolkits in the `Binaries` directory are no longer provided. It's more appropriate to rebuild the toolkits from the sources downloaded from the respective repositories.
 
-A number of bash shell scripts are available in the `steps` directory.
+A number of bash shell scripts are available in the `../steps` directory.
 
-The sources can be built "as is" resulting in a version of the application with the branding, logo and defaults inherited from the original OsiriX project, later forked to the Osiri-LXIV project, and finally renamed Miele-LXIV.
+If you want to fork the project and create your on branding, you should:
 
-Alternatively you can spend some time creating your on branding, which involves:
-
-- creating your logo and icon
-- customizing the strings in `options.h` and `url.h`
+- create your own logo and icon
+- customize the strings in `options.h` and `url.h`
 - setup your own web server hosting a home page, and a page to allow checking for updates
-- setup a server for bug reporting and management, for example [MantisBT](https://www.mantisbt.org), or you can use the system built into the GitHub if you forked your own project.
+- setup a server for bug reporting and management, for example [MantisBT](https://www.mantisbt.org), or you can use the system of issue tracking built into the GitHub
 
 ---
 # Step 1
@@ -24,6 +22,11 @@ Alternatively you can spend some time creating your on branding, which involves:
 
 ---
 # Step 2
+		$ cd ../Binaries/Icons/
+		$ ln Logo-GitHub.tifLogo.tif
+
+---
+# Step 3
 
 - Download and build the third-party open-source toolkits. Tested versions are:
 
@@ -155,10 +158,10 @@ Alternatively you can spend some time creating your on branding, which involves:
 			    └── jpeglib8.h
 			    
 ---
-# Step 3
+# Step 4
 - Create symbolic links from the `Binaries/` directory to the directories where you installed the toolkits, unless you installed the toolkits directly there.
 
 ---
-# Step 4
+# Step 5
 - Now you should be able to launch the Xcode project and build the application, or if you prefer build it directly from the command line using `xcodebuild`.
 

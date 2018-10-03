@@ -4,22 +4,6 @@ About Osiri-LXIV...
 
 Initally forked from the OsiriX project.
 
-OsiriX is an image processing software dedicated to DICOM images (".dcm" / ".DCM" extension) produced by imaging equipment (MRI, CT, PET, PET-CT, SPECT-CT, Ultrasounds, ...). It is fully compliant with the DICOM standard for image comunication and image file formats. OsiriX is able to receive images transferred by DICOM communication protocol from any PACS or imaging modality (C-STORE SCP/SCU, and Query/Retrieve : C-MOVE SCU/SCP, C-FIND SCU/SCP, C-GET SCU/SCP, WADO) .
-
-OsiriX has been specifically designed for navigation and visualization of multimodality and multidimensional images: 2D Viewer, 3D Viewer, 4D Viewer (3D series with temporal dimension, for example: Cardiac-CT) and 5D Viewer (3D series with temporal and functional dimensions, for example: Cardiac-PET-CT). The 3D Viewer offers all modern rendering modes: Multiplanar reconstruction (MPR), Surface Rendering, Volume Rendering and Maximum Intensity Projection (MIP). All these modes support 4D data and are able to produce image fusion between two different series (PET-CT and SPECT-CT display support).
-
-OsiriX is at the same time a DICOM PACS workstation for imaging and an image processing software for medical research (radiology and nuclear imaging), functional imaging, 3D imaging, confocal microscopy and molecular imaging.
-
-Who is behind OsiriX? Read the [User Manual introduction](http://www.osirix-viewer.com/UserManualIntroduction.pdf)
-
-OsiriX is currently developped and maintained by Pixmeo, a Geneva based company in Switzerland.
-
-Looking for certified version for using OsiriX in clinical environments? We distribute a FDA-Cleared version for primary diagnostic imaging: OsiriX MD, or you can go to our partners page to find a certified version of OsiriX.
-
-OsiriX is available in 32-bit and 64-bit format. The 64-bit version allows you to load an unlimited number of images, exceeding the 4-GB limit of 32-bit applications. The 64-bit version is also fully optimized for Intel multi-cores processors, offering the best performances for 3D renderings.
-
-OsiriX supports a complete plug-ins architecture that allows you to expand the capabilities of OsiriX for your personal needs! This plug-in architecture gives you access to the powerfull Cocoa framework with an easy object-oriented and dynamic language: Objective-C.
-
 ---
 ## Current features
 
@@ -109,6 +93,3 @@ C-GET SCU/SCP and WADO support for dynamic IP transfers
 - OpenGL
 - LibTIFF
 - LibJPEG
-
-Complete DICOM Conformance statement for OsiriX is available here: <http://www.osirix-viewer.com/DICOMConformanceStatements.pdf>
-

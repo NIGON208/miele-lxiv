@@ -22,12 +22,12 @@
 		<key>Decompress.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>5</integer>
+			<integer>4</integer>
 		</dict>
 		<key>Documentation.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>4</integer>
+			<integer>5</integer>
 		</dict>
 		<key>OsiriX API.xcscheme</key>
 		<dict>
@@ -52,6 +52,11 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>59BDEC2C117C92B2007F1F2C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>AB28B42E05B7921E00A9906C</key>
 		<dict>
 			<key>primary</key>

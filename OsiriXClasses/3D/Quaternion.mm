@@ -1,6 +1,6 @@
 //
 //  Quaternion.cpp
-//  OsiriX_Lion
+//  Miele_LXIV
 //
 //  Created by Benoit Deville on 04.06.12.
 //  Copyright (c) 2012 OsiriX Team. All rights reserved.

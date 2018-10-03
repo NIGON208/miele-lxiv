@@ -181,9 +181,9 @@
 	<key>CFBundleGetInfoString</key>
 	<string>OsiriX Lite v.5.9</string>
 	<key>CFBundleIconFile</key>
-	<string>Osirix.icns</string>
+	<string></string>
 	<key>CFBundleIdentifier</key>
-	<string>com.rossetantoine.osirix-lite</string>
+	<string>com.bettarini.miele-lxiv-lite</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundlePackageType</key>
@@ -214,7 +214,7 @@
 	<key>NSAppleScriptEnabled</key>
 	<string>YES</string>
 	<key>NSHumanReadableCopyright</key>
-	<string>Copyright 2003-2014, Pixmeo</string>
+	<string>Copyright 2003-2014, bettar</string>
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>

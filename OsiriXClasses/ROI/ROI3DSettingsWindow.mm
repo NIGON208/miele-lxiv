@@ -1,6 +1,6 @@
 //
 //  ROI3DSettingsWindow.m
-//  OsiriX_Lion
+//  Miele_LXIV
 //
 //  Created by Alex Bettarini on 4/6/15.
 //  Copyright (c) 2015 OsiriX Team. All rights reserved.

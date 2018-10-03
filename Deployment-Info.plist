@@ -177,9 +177,9 @@
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIconFile</key>
-	<string>Osirix.icns</string>
+	<string></string>
 	<key>CFBundleIdentifier</key>
-	<string>com.github-bettar.$(PRODUCT_NAME:rfc1034identifier)</string>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -206,7 +206,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>20170414</string>
+	<string>20181003</string>
 	<key>GitHash</key>
 	<string></string>
 	<key>GitState</key>
@@ -227,9 +227,9 @@
 	<key>NSAppleScriptEnabled</key>
 	<string>YES</string>
 	<key>NSContactsUsageDescription</key>
-	<string>Your account will be used for the built-in iChat sharing service. If you don't allow access, you cannot use the iChat functions.</string>
+	<string>Your account will be used for the built-in iChat sharing service. If you don&apos;t allow access, you cannot use the iChat functions.</string>
 	<key>NSHumanReadableCopyright</key>
-	<string>Copyright © 2014-2017 bettar. All rights reserved.</string>
+	<string>Copyright © 2014-2018 bettar. All rights reserved.</string>
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>

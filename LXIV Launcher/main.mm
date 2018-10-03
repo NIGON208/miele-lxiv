@@ -7,6 +7,8 @@
 #include <arpa/inet.h>
 #import "tmp_locations.h"
 
+#define WITH_CHOICE_FOR_VIEWER_LITE
+
 enum	{kSuccess = 0,
         kCouldNotFindRequestedProcess = -1, 
         kInvalidArgumentsError = -2,
@@ -243,47 +245,75 @@ int GetAllPIDsForProcessName(const char* ProcessName,
 int main(int argc, char** argv)
 {
 	NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+
+    const NSString* const tempLocation = NSTemporaryDirectory();
+#ifndef NDEBUG
+    NSLog(@"tempLocation: %@", tempLocation);
+#endif
 	
-	const NSString* const OsirixLiteLocation = NSTemporaryDirectory();
-	NSTask* task;
-	
-	// make directory to hold OsiriX Lite
-	task = [NSTask launchedTaskWithLaunchPath:@"/bin/mkdir"
-                                    arguments:[NSArray arrayWithObjects:
-                                               @"-p", OsirixLiteLocation,
-                                               NULL]];
-	[task waitUntilExit];
-	
-	// unzip OsiriX Lite
-	task = [NSTask launchedTaskWithLaunchPath:@"/usr/bin/unzip"
-                                    arguments:[NSArray arrayWithObjects:
-                                               @"-od", OsirixLiteLocation,
-                                               [[NSBundle mainBundle] pathForResource:@"OsiriX Lite" ofType:@"zip"],
-                                               NULL]];
-	[task waitUntilExit];
-	
+    ////////////////////////////////////////////////////////////////////////////
     // First try launching Miele-LXIV if available
-    NSString* appName = @"Miele.app";
+    NSString* appName = @"miele-lxiv.app";
+#ifndef NDEBUG
+    NSLog(@"Launching %@", [[NSWorkspace sharedWorkspace] fullPathForApplication:appName]);
+#endif
     BOOL launched = [[NSWorkspace sharedWorkspace] launchApplication:appName];
-    
+
+    ////////////////////////////////////////////////////////////////////////////
+    // Second choice launch OsiriX if available
     if (!launched) {
-        // Second choice launch OsiriX if available
         appName = @"OsiriX.app";
+#ifndef NDEBUG
+        NSLog(@"Launching %@", [[NSWorkspace sharedWorkspace] fullPathForApplication:appName]);
+#endif
         launched = [[NSWorkspace sharedWorkspace] launchApplication:appName];
     }
-    
+
+    ////////////////////////////////////////////////////////////////////////////
+    // Third choice
+#ifdef WITH_CHOICE_FOR_VIEWER_LITE
     if (!launched) {
-        // Third choice
-        appName = @"OsiriX Lite.app";
-        launched = [[NSWorkspace sharedWorkspace] launchApplication:[OsirixLiteLocation stringByAppendingPathComponent:appName]];
+        NSTask* task;
+        BOOL liteViewerAvailable;
+        
+#if 0  // No need to make it because NSTemporaryDirectory() gives an existing directory
+        // make directory to hold OsiriX Lite
+        task = [NSTask launchedTaskWithLaunchPath:@"/bin/mkdir"
+                                        arguments:[NSArray arrayWithObjects:
+                                                   @"-p", tempLocation,
+                                                   NULL]];
+        [task waitUntilExit];
+#endif
+        
+        // unzip OsiriX Lite
+        NSString *liteViewerName = @"OsiriX Lite";
+        NSString *liteViewerPath = [[NSBundle mainBundle] pathForResource:liteViewerName ofType:@"zip"];
+        NSLog(@"liteViewerPath %@", liteViewerPath);
+        NSFileManager *fm = [NSFileManager defaultManager];
+        liteViewerAvailable = [fm fileExistsAtPath:liteViewerPath];
+        if (liteViewerAvailable) {
+            task = [NSTask launchedTaskWithLaunchPath:@"/usr/bin/unzip"
+                                            arguments:[NSArray arrayWithObjects:
+                                                       @"-od", tempLocation,
+                                                       liteViewerPath,
+                                                       NULL]];
+            [task waitUntilExit];
+
+            appName = [NSString stringWithFormat:@"%@.app", liteViewerName];
+#ifndef NDEBUG
+            NSLog(@"Launching %@", [tempLocation stringByAppendingPathComponent:appName]);
+#endif
+            launched = [[NSWorkspace sharedWorkspace] launchApplication:[tempLocation stringByAppendingPathComponent:appName]];
+        }
     }
+#endif
     
 	if (launched) {
 		// Write the path to DICOMDIR, if available
-		[[NSFileManager defaultManager] removeItemAtPath: [OsirixLiteLocation stringByAppendingPathComponent: @"DICOMDIRPATH"] error: nil];
+		[[NSFileManager defaultManager] removeItemAtPath: [tempLocation stringByAppendingPathComponent: @"DICOMDIRPATH"] error: nil];
 		NSString *DICOMDIR = [[[[NSBundle mainBundle] bundlePath] stringByDeletingLastPathComponent] stringByAppendingPathComponent: @"DICOMDIR"];
 		if( [[NSFileManager defaultManager] fileExistsAtPath: DICOMDIR])
-			[DICOMDIR writeToFile: [OsirixLiteLocation stringByAppendingPathComponent: @"DICOMDIRPATH"] atomically: YES encoding: NSUTF8StringEncoding error: nil];
+			[DICOMDIR writeToFile: [tempLocation stringByAppendingPathComponent: @"DICOMDIRPATH"] atomically: YES encoding: NSUTF8StringEncoding error: nil];
 		
 		[NSThread sleepForTimeInterval: 2];
 		
@@ -300,11 +330,19 @@ int main(int argc, char** argv)
 			for (Counter = 0 ; Counter < NumberOfMatches ; Counter++)
 				if( MyArray[ Counter] != getpid())
 				{
-					ProcessSerialNumber psn; 
+                    
+#if 1
+                    NSRunningApplication *app = [NSRunningApplication runningApplicationWithProcessIdentifier:MyArray[Counter]];
+                    if (app)
+                        [app activateWithOptions:NSApplicationActivateAllWindows];
+#else
+                    ProcessSerialNumber psn;
 					GetProcessForPID( MyArray[ Counter], &psn);
 					SetFrontProcess( &psn);
+#endif
 				}
-	} else {
+	}
+    else {
 		// TODO: display error
 	}
 	

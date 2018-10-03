@@ -1,13 +1,13 @@
 //
 //  Quaternion.h
-//  OsiriX_Lion
+//  Miele_LXIV
 //
 //  Created by Benoit Deville on 04.06.12.
 //  Copyright (c) 2012 OsiriX Team. All rights reserved.
 //
 
-#ifndef OsiriX_Lion_Quaternion_h
-#define OsiriX_Lion_Quaternion_h
+#ifndef Miele_LXIV_Quaternion_h
+#define Miele_LXIV_Quaternion_h
 
 #import "Point3D.h"
 #import "N3Geometry.h"

@@ -564,7 +564,7 @@ char* replaceBadCharacter (char* str, NSStringEncoding encoding)
 		else	// FOR THE SAFEDBREBUILD ! Shell tool
 		{
 			NSMutableDictionary	*dict = [DefaultsOsiriX getDefaults];
-			[dict addEntriesFromDictionary: [[NSUserDefaults standardUserDefaults] persistentDomainForName:@BUNDLE_IDENTIFIER]];
+			[dict addEntriesFromDictionary: [[NSUserDefaults standardUserDefaults] persistentDomainForName:@(BUNDLE_IDENTIFIER)]];
 			
 			DEFAULTSSET = YES;
 			

@@ -1,6 +1,6 @@
 //
 //  OSIMaskROI.h
-//  OsiriX_Lion
+//  Miele_LXIV
 //
 //  Created by Joël Spaltenstein on 9/26/12.
 //  Copyright (c) 2012 OsiriX Team. All rights reserved.

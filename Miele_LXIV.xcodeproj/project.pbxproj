@@ -262,6 +262,9 @@
 		4365FC361B01C3A300380C25 /* DcmQueryRetrieveGetOurContext.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4365FC341B01C3A300380C25 /* DcmQueryRetrieveGetOurContext.mm */; };
 		43A4038C1DFA32F300ADA719 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43A4038B1DFA32F300ADA719 /* XCTest.framework */; };
 		43A89B0F208222AD00D7B11D /* DICOMPrint in Resources */ = {isa = PBXBuildFile; fileRef = 43A89B0E208222AD00D7B11D /* DICOMPrint */; };
+		43BF296D21662E1D0022CF3B /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = 43BF296C21662E1D0022CF3B /* main.mm */; };
+		43BF296E21662F100022CF3B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 43CC5BA5216511E200F1B1CA /* Assets.xcassets */; };
+		43CC5BA6216511E200F1B1CA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 43CC5BA5216511E200F1B1CA /* Assets.xcassets */; };
 		43E27D2B1AF338FA007B92CA /* ROI3DSettingsWindow.mm in Sources */ = {isa = PBXBuildFile; fileRef = 43E27D291AF338FA007B92CA /* ROI3DSettingsWindow.mm */; };
 		43E27D2E1AF33A22007B92CA /* ROI3DSettingsWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43E27D2C1AF33A22007B92CA /* ROI3DSettingsWindow.xib */; };
 		43F8F9AB1AA7DAA6008F318C /* LoupeController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 43F8F9A51AA7DAA6008F318C /* LoupeController.mm */; };
@@ -352,8 +355,7 @@
 		5997899B11B7B4BD002DB107 /* NSFileManager+N2.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5997899911B7B4BD002DB107 /* NSFileManager+N2.mm */; };
 		59A31D5211BF9371001D4844 /* N2TextField.mm in Sources */ = {isa = PBXBuildFile; fileRef = 59A31D5011BF9371001D4844 /* N2TextField.mm */; };
 		59B696651337C957009356ED /* N2DirectoryEnumerator.mm in Sources */ = {isa = PBXBuildFile; fileRef = 59B696631337C957009356ED /* N2DirectoryEnumerator.mm */; };
-		59BDEC44117C9366007F1F2C /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = 59BDEC43117C9366007F1F2C /* main.mm */; };
-		59BDED7D117CA4F6007F1F2C /* Osirix.icns in Resources */ = {isa = PBXBuildFile; fileRef = ABBB6495063587B200D9531F /* Osirix.icns */; };
+		59BDED7D117CA4F6007F1F2C /* miele-lxiv.icns in Resources */ = {isa = PBXBuildFile; fileRef = ABBB6495063587B200D9531F /* miele-lxiv.icns */; };
 		59BDEF42117DA2DF007F1F2C /* NSUserDefaultsController+OsiriX.mm in Sources */ = {isa = PBXBuildFile; fileRef = 59BDEF40117DA2DF007F1F2C /* NSUserDefaultsController+OsiriX.mm */; };
 		59BDEF45117DA2DF007F1F2C /* NSUserDefaultsController+OsiriX.mm in Sources */ = {isa = PBXBuildFile; fileRef = 59BDEF40117DA2DF007F1F2C /* NSUserDefaultsController+OsiriX.mm */; };
 		59BDF106117EE61E007F1F2C /* PreferencesWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 59BDF104117EE61E007F1F2C /* PreferencesWindow.xib */; };
@@ -391,7 +393,7 @@
 		59E83A1412FC6556006B930A /* NSManagedObject+N2.mm in Sources */ = {isa = PBXBuildFile; fileRef = 59E83A1212FC6556006B930A /* NSManagedObject+N2.mm */; };
 		59EBFDDD12BA5A1B00809C61 /* WebPortal+Email+Log.mm in Sources */ = {isa = PBXBuildFile; fileRef = 59EBFDDB12BA5A1A00809C61 /* WebPortal+Email+Log.mm */; };
 		59F1A4C8104BA5BE009E3215 /* OsiriXHeaders.mm in Sources */ = {isa = PBXBuildFile; fileRef = 59F1A4C7104BA5BE009E3215 /* OsiriXHeaders.mm */; };
-		59F1A515104BA8AE009E3215 /* OsiriXAPI.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = AB0F3A2C1046BD2B004129DD /* OsiriXAPI.framework */; };
+		59F1A515104BA8AE009E3215 /* OsiriXAPI.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = AB0F3A2C1046BD2B004129DD /* OsiriXAPI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		59F5F3FA11F476030047A90D /* N2ImageButtonCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 59F5F3F811F476030047A90D /* N2ImageButtonCell.mm */; };
 		59F5F4ED11F485CC0047A90D /* BrowserController+Activity.mm in Sources */ = {isa = PBXBuildFile; fileRef = 59F5F4EB11F485CC0047A90D /* BrowserController+Activity.mm */; };
 		59FB64DD1231295400EBA136 /* NSUserDefaultsController+N2.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5997899111B7B48E002DB107 /* NSUserDefaultsController+N2.mm */; };
@@ -526,7 +528,7 @@
 		84CE7CA814D84F87008CA119 /* Tiling2x4.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 84CE7CA514D84F87008CA119 /* Tiling2x4.pdf */; };
 		84D7BBE5154A941A007B5A86 /* NSNotificationCenter+N2.mm in Sources */ = {isa = PBXBuildFile; fileRef = 84D7BBE2154A941A007B5A86 /* NSNotificationCenter+N2.mm */; };
 		84E191FC1369966A008DCFC8 /* WADODownload.mm in Sources */ = {isa = PBXBuildFile; fileRef = 84E191FA1369966A008DCFC8 /* WADODownload.mm */; };
-		84F453570FC3DF5400D29666 /* ILCrashReporter.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = ABE881440FC1444D009F5C80 /* ILCrashReporter.framework */; };
+		84F453570FC3DF5400D29666 /* ILCrashReporter.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = ABE881440FC1444D009F5C80 /* ILCrashReporter.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		A0344496143DE4AA003E1AFA /* DCMUSRegion.mm in Sources */ = {isa = PBXBuildFile; fileRef = A085E104141E53210072BF0D /* DCMUSRegion.mm */; };
 		A90202BF0B980CD60001A00B /* PluginManagerController.mm in Sources */ = {isa = PBXBuildFile; fileRef = A90202BB0B980CD60001A00B /* PluginManagerController.mm */; };
 		A90A04980BF09BA000D00273 /* VRPresetPreview.mm in Sources */ = {isa = PBXBuildFile; fileRef = A90A04960BF09BA000D00273 /* VRPresetPreview.mm */; };
@@ -1325,7 +1327,7 @@
 		A9FBD2C916DBE2E9003A0E04 /* Opened Polygon.pdf in Resources */ = {isa = PBXBuildFile; fileRef = A9B23D1E15CFE917000E47C3 /* Opened Polygon.pdf */; };
 		A9FBD2CA16DBE2E9003A0E04 /* OrientationWidget.tif in Resources */ = {isa = PBXBuildFile; fileRef = CEE619EE0912C73000C31D78 /* OrientationWidget.tif */; };
 		A9FBD2CB16DBE2E9003A0E04 /* orthogonalReslice.tif in Resources */ = {isa = PBXBuildFile; fileRef = A9FEC13F0907EBA600B218BE /* orthogonalReslice.tif */; };
-		A9FBD2CC16DBE2E9003A0E04 /* Osirix.icns in Resources */ = {isa = PBXBuildFile; fileRef = ABBB6495063587B200D9531F /* Osirix.icns */; };
+		A9FBD2CC16DBE2E9003A0E04 /* miele-lxiv.icns in Resources */ = {isa = PBXBuildFile; fileRef = ABBB6495063587B200D9531F /* miele-lxiv.icns */; };
 		A9FBD2CD16DBE2E9003A0E04 /* OsirixDownload.icns in Resources */ = {isa = PBXBuildFile; fileRef = AB10FA670B96C95500D74684 /* OsirixDownload.icns */; };
 		A9FBD2CE16DBE2E9003A0E04 /* osirixplugin.icns in Resources */ = {isa = PBXBuildFile; fileRef = A97B73970CB380EF00E5348D /* osirixplugin.icns */; };
 		A9FBD2CF16DBE2E9003A0E04 /* OsiriXTables.pdf in Resources */ = {isa = PBXBuildFile; fileRef = CEAF4ECC089D6E9400DE46AF /* OsiriXTables.pdf */; };
@@ -1489,12 +1491,12 @@
 		A9FBD37316DBE3AA003A0E04 /* VR Red Vessels.plist in Resources */ = {isa = PBXBuildFile; fileRef = ABBA8D9B065AB90200A1F89C /* VR Red Vessels.plist */; };
 		A9FBD37416DBE3AE003A0E04 /* OsiriX.sdef in Resources */ = {isa = PBXBuildFile; fileRef = CE9E11CF13DBB5DD008B2848 /* OsiriX.sdef */; };
 		A9FBD38316DBE701003A0E04 /* Growl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE2BE05D1524344D00AE6156 /* Growl.framework */; settings = {ATTRIBUTES = (Required, ); }; };
-		A9FBD38416DBE782003A0E04 /* Growl.framework in Copy Files */ = {isa = PBXBuildFile; fileRef = CE2BE05D1524344D00AE6156 /* Growl.framework */; };
-		A9FBD38516DBE818003A0E04 /* OsiriX.framework in Copy Files */ = {isa = PBXBuildFile; fileRef = CE8D057D0FD8505000165DDE /* OsiriX.framework */; };
-		A9FBD38616DBE821003A0E04 /* OsiriXAPI.framework in Copy Files */ = {isa = PBXBuildFile; fileRef = AB0F3A2C1046BD2B004129DD /* OsiriXAPI.framework */; };
-		A9FBD38716DBE83E003A0E04 /* ILCrashReporter.framework in Copy Files */ = {isa = PBXBuildFile; fileRef = ABE881440FC1444D009F5C80 /* ILCrashReporter.framework */; };
-		A9FBD38816DBE84D003A0E04 /* libxerces-c.27.dylib in Copy Files */ = {isa = PBXBuildFile; fileRef = CE6693C60AF551210073D923 /* libxerces-c.27.dylib */; };
-		A9FBD38A16DBE855003A0E04 /* libdcmprintscu.dylib in Copy Files */ = {isa = PBXBuildFile; fileRef = CE586CC30C74B75D00DB7D5A /* libdcmprintscu.dylib */; };
+		A9FBD38416DBE782003A0E04 /* Growl.framework in Copy Files */ = {isa = PBXBuildFile; fileRef = CE2BE05D1524344D00AE6156 /* Growl.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		A9FBD38516DBE818003A0E04 /* OsiriX.framework in Copy Files */ = {isa = PBXBuildFile; fileRef = CE8D057D0FD8505000165DDE /* OsiriX.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		A9FBD38616DBE821003A0E04 /* OsiriXAPI.framework in Copy Files */ = {isa = PBXBuildFile; fileRef = AB0F3A2C1046BD2B004129DD /* OsiriXAPI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		A9FBD38716DBE83E003A0E04 /* ILCrashReporter.framework in Copy Files */ = {isa = PBXBuildFile; fileRef = ABE881440FC1444D009F5C80 /* ILCrashReporter.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		A9FBD38816DBE84D003A0E04 /* libxerces-c.27.dylib in Copy Files */ = {isa = PBXBuildFile; fileRef = CE6693C60AF551210073D923 /* libxerces-c.27.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		A9FBD38A16DBE855003A0E04 /* libdcmprintscu.dylib in Copy Files */ = {isa = PBXBuildFile; fileRef = CE586CC30C74B75D00DB7D5A /* libdcmprintscu.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		A9FEC1400907EBA600B218BE /* orthogonalReslice.tif in Resources */ = {isa = PBXBuildFile; fileRef = A9FEC13F0907EBA600B218BE /* orthogonalReslice.tif */; };
 		AB0128650635991400A74AA1 /* QuicktimeExport.mm in Sources */ = {isa = PBXBuildFile; fileRef = AB0128630635991400A74AA1 /* QuicktimeExport.mm */; };
 		AB0CA46205BE159500F52729 /* ColorTransferView.mm in Sources */ = {isa = PBXBuildFile; fileRef = AB0CA46005BE159500F52729 /* ColorTransferView.mm */; };
@@ -1654,7 +1656,7 @@
 		ABBB64C3063587B200D9531F /* MPR.tif in Resources */ = {isa = PBXBuildFile; fileRef = ABBB6491063587B200D9531F /* MPR.tif */; };
 		ABBB64C4063587B200D9531F /* MPR3D.tif in Resources */ = {isa = PBXBuildFile; fileRef = ABBB6492063587B200D9531F /* MPR3D.tif */; };
 		ABBB64C5063587B200D9531F /* Next.tif in Resources */ = {isa = PBXBuildFile; fileRef = ABBB6493063587B200D9531F /* Next.tif */; };
-		ABBB64C7063587B200D9531F /* Osirix.icns in Resources */ = {isa = PBXBuildFile; fileRef = ABBB6495063587B200D9531F /* Osirix.icns */; };
+		ABBB64C7063587B200D9531F /* miele-lxiv.icns in Resources */ = {isa = PBXBuildFile; fileRef = ABBB6495063587B200D9531F /* miele-lxiv.icns */; };
 		ABBB64C9063587B200D9531F /* Play.pdf in Resources */ = {isa = PBXBuildFile; fileRef = ABBB6497063587B200D9531F /* Play.pdf */; };
 		ABBB64CA063587B200D9531F /* Preferences.icns in Resources */ = {isa = PBXBuildFile; fileRef = ABBB6498063587B200D9531F /* Preferences.icns */; };
 		ABBB64CB063587B200D9531F /* Presets.tif in Resources */ = {isa = PBXBuildFile; fileRef = ABBB6499063587B200D9531F /* Presets.tif */; };
@@ -1769,7 +1771,7 @@
 		BFF5D24109F93B3F0077E16B /* LogManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = BFF5D23F09F93B3F0077E16B /* LogManager.mm */; };
 		BFF97D720BDE8BE6008333CF /* ShadingArrayController.mm in Sources */ = {isa = PBXBuildFile; fileRef = BFF97D6C0BDE8BE6008333CF /* ShadingArrayController.mm */; };
 		CE03A3CC0EA2AE0300951EF4 /* iPhone.tif in Resources */ = {isa = PBXBuildFile; fileRef = CE03A3CB0EA2AE0300951EF4 /* iPhone.tif */; };
-		CE04B81B15289AF400EF6E52 /* Growl.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = CE2BE05D1524344D00AE6156 /* Growl.framework */; };
+		CE04B81B15289AF400EF6E52 /* Growl.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = CE2BE05D1524344D00AE6156 /* Growl.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		CE06475210F12DA500551AD9 /* PlayTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = CE06475110F12DA500551AD9 /* PlayTemplate.png */; };
 		CE087B0C0DE9BD6E000E5593 /* GLString.mm in Sources */ = {isa = PBXBuildFile; fileRef = CE087B0A0DE9BD6E000E5593 /* GLString.mm */; };
 		CE0C4792183139C400D4C50E /* pages092pdf.applescript in Resources */ = {isa = PBXBuildFile; fileRef = CE0C478F1831366600D4C50E /* pages092pdf.applescript */; };
@@ -1882,7 +1884,7 @@
 		CE74824206C9701200FFA74C /* trash.icns in Resources */ = {isa = PBXBuildFile; fileRef = CE74824006C9701200FFA74C /* trash.icns */; };
 		CE74DEB008CCE0C1005D12A7 /* SagOpposite.tif in Resources */ = {isa = PBXBuildFile; fileRef = CE74DEAF08CCE0C1005D12A7 /* SagOpposite.tif */; };
 		CE79D9890FD84C350043DD73 /* DCMAbstractSyntaxUID.mm in Sources */ = {isa = PBXBuildFile; fileRef = CE79D9870FD84C350043DD73 /* DCMAbstractSyntaxUID.mm */; };
-		CE81E2A50FDA9F00000D3D96 /* OsiriX.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = CE8D057D0FD8505000165DDE /* OsiriX.framework */; };
+		CE81E2A50FDA9F00000D3D96 /* OsiriX.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = CE8D057D0FD8505000165DDE /* OsiriX.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		CE882AC70C889B6500D4F982 /* XMLRPCMethods.mm in Sources */ = {isa = PBXBuildFile; fileRef = CE882AC50C889B6500D4F982 /* XMLRPCMethods.mm */; };
 		CE88576008AF938800B72DA7 /* ROIVolumeController.mm in Sources */ = {isa = PBXBuildFile; fileRef = CE88575C08AF938800B72DA7 /* ROIVolumeController.mm */; };
 		CE88576108AF938800B72DA7 /* ROIVolumeView.mm in Sources */ = {isa = PBXBuildFile; fileRef = CE88575D08AF938800B72DA7 /* ROIVolumeView.mm */; };
@@ -3354,6 +3356,9 @@
 		439B8C131A19CCC300F396D7 /* 3DconnexionClient.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = 3DconnexionClient.framework; path = Binaries/3DconnexionClient.framework; sourceTree = "<group>"; };
 		43A4038B1DFA32F300ADA719 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/MacOSX.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		43A89B0E208222AD00D7B11D /* DICOMPrint */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = DICOMPrint; path = build/Deployment/DICOMPrint; sourceTree = "<group>"; };
+		43BF296C21662E1D0022CF3B /* main.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = main.mm; path = "LXIV Launcher/main.mm"; sourceTree = "<group>"; };
+		43BF296F21662F420022CF3B /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = "LXIV Launcher/Info.plist"; sourceTree = "<group>"; };
+		43CC5BA5216511E200F1B1CA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		43E27D261AF32929007B92CA /* tmp_locations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tmp_locations.h; sourceTree = "<group>"; };
 		43E27D281AF338FA007B92CA /* ROI3DSettingsWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ROI3DSettingsWindow.h; sourceTree = "<group>"; };
 		43E27D291AF338FA007B92CA /* ROI3DSettingsWindow.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ROI3DSettingsWindow.mm; sourceTree = "<group>"; };
@@ -3528,8 +3533,7 @@
 		59A31D5011BF9371001D4844 /* N2TextField.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = N2TextField.mm; path = nitrogen/Sources/N2TextField.mm; sourceTree = "<group>"; };
 		59B696621337C957009356ED /* N2DirectoryEnumerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = N2DirectoryEnumerator.h; path = nitrogen/Sources/N2DirectoryEnumerator.h; sourceTree = "<group>"; };
 		59B696631337C957009356ED /* N2DirectoryEnumerator.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = N2DirectoryEnumerator.mm; path = nitrogen/Sources/N2DirectoryEnumerator.mm; sourceTree = "<group>"; };
-		59BDEC2D117C92B2007F1F2C /* OsiriX Launcher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "OsiriX Launcher.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		59BDEC43117C9366007F1F2C /* main.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = main.mm; path = "OsiriX Launcher/main.mm"; sourceTree = "<group>"; };
+		59BDEC2D117C92B2007F1F2C /* LXIV Launcher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "LXIV Launcher.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		59BDEF3F117DA2DF007F1F2C /* NSUserDefaultsController+OsiriX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSUserDefaultsController+OsiriX.h"; sourceTree = "<group>"; };
 		59BDEF40117DA2DF007F1F2C /* NSUserDefaultsController+OsiriX.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "NSUserDefaultsController+OsiriX.mm"; sourceTree = "<group>"; };
 		59BDF105117EE61E007F1F2C /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = Binaries/English.lproj/PreferencesWindow.xib; sourceTree = "<group>"; };
@@ -4261,7 +4265,7 @@
 		ABBB6491063587B200D9531F /* MPR.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = MPR.tif; sourceTree = "<group>"; };
 		ABBB6492063587B200D9531F /* MPR3D.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = MPR3D.tif; sourceTree = "<group>"; };
 		ABBB6493063587B200D9531F /* Next.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Next.tif; sourceTree = "<group>"; };
-		ABBB6495063587B200D9531F /* Osirix.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Osirix.icns; sourceTree = "<group>"; };
+		ABBB6495063587B200D9531F /* miele-lxiv.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = "miele-lxiv.icns"; sourceTree = "<group>"; };
 		ABBB6497063587B200D9531F /* Play.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = Play.pdf; sourceTree = "<group>"; };
 		ABBB6498063587B200D9531F /* Preferences.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Preferences.icns; sourceTree = "<group>"; };
 		ABBB6499063587B200D9531F /* Presets.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Presets.tif; sourceTree = "<group>"; };
@@ -4922,7 +4926,7 @@
 				CEDF6DD00B46FE99008B45B8 /* DICOMPrint */,
 				844719AF0FD8EF50003BFDF8 /* OsiriX.framework */,
 				AB0F3A2C1046BD2B004129DD /* OsiriXAPI.framework */,
-				59BDEC2D117C92B2007F1F2C /* OsiriX Launcher.app */,
+				59BDEC2D117C92B2007F1F2C /* LXIV Launcher.app */,
 				A98795C216DB9FD100926023 /* Unit Tests.octest */,
 			);
 			name = Products;
@@ -4935,7 +4939,7 @@
 				434B461A1A19F4E4008CF8CF /* OpenJPEG */,
 				84704DBF181ACF440061B1BF /* Rules.plist */,
 				84A9D44712F7F8BE00DA1F99 /* KDU SDK */,
-				59BDEC17117C927D007F1F2C /* OsiriX Launcher */,
+				59BDEC17117C927D007F1F2C /* LXIV Launcher */,
 				AB10FA9611293361009EB238 /* Nitrogen */,
 				CEDF6E1E0B46FF46008B45B8 /* DICOMPrint */,
 				AB724F1C0ADE6CFC00A212A0 /* DecompressDICOM */,
@@ -5053,6 +5057,7 @@
 				CE286C100964196C001A4573 /* Localizable.strings */,
 				CE9E11CF13DBB5DD008B2848 /* OsiriX.sdef */,
 				B7CDAC730AB3003200068D70 /* PAGES */,
+				43CC5BA5216511E200F1B1CA /* Assets.xcassets */,
 			);
 			name = Resources;
 			sourceTree = SOURCE_ROOT;
@@ -7393,12 +7398,13 @@
 			name = Deprecated;
 			sourceTree = "<group>";
 		};
-		59BDEC17117C927D007F1F2C /* OsiriX Launcher */ = {
+		59BDEC17117C927D007F1F2C /* LXIV Launcher */ = {
 			isa = PBXGroup;
 			children = (
-				59BDEC43117C9366007F1F2C /* main.mm */,
+				43BF296F21662F420022CF3B /* Info.plist */,
+				43BF296C21662E1D0022CF3B /* main.mm */,
 			);
-			name = "OsiriX Launcher";
+			name = "LXIV Launcher";
 			sourceTree = "<group>";
 		};
 		59E3E445127EE6150077B88A /* Studies */ = {
@@ -8180,7 +8186,7 @@
 				ABBB64AA063587B200D9531F /* XML.icns */,
 				A9B23D0915CFDF81000E47C3 /* Zoom.pdf */,
 				ABBB64AC063587B200D9531F /* ZoomToFit.tif */,
-				ABBB6495063587B200D9531F /* Osirix.icns */,
+				ABBB6495063587B200D9531F /* miele-lxiv.icns */,
 			);
 			name = Icons;
 			path = Binaries/Icons;
@@ -8570,9 +8576,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		59BDEC2C117C92B2007F1F2C /* OsiriX Launcher */ = {
+		59BDEC2C117C92B2007F1F2C /* LXIV Launcher */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 59BDEC33117C92B4007F1F2C /* Build configuration list for PBXNativeTarget "OsiriX Launcher" */;
+			buildConfigurationList = 59BDEC33117C92B4007F1F2C /* Build configuration list for PBXNativeTarget "LXIV Launcher" */;
 			buildPhases = (
 				59BDEC29117C92B2007F1F2C /* Resources */,
 				59BDEDC8117CAB86007F1F2C /* Zip OsiriX Lite into Resources */,
@@ -8582,9 +8588,9 @@
 			);
 			dependencies = (
 			);
-			name = "OsiriX Launcher";
+			name = "LXIV Launcher";
 			productName = "OsiriX Launcher\n";
-			productReference = 59BDEC2D117C92B2007F1F2C /* OsiriX Launcher.app */;
+			productReference = 59BDEC2D117C92B2007F1F2C /* LXIV Launcher.app */;
 			productType = "com.apple.product-type.application";
 		};
 		7E0B3A3E067526CD00908593 /* DCM Framework */ = {
@@ -8649,7 +8655,7 @@
 			buildPhases = (
 				AB28B42B05B7921E00A9906C /* Resources */,
 				7183153F161065BE0098576F /* Replace Weasis ext-config.properties */,
-				59BDEE70117CB3A6007F1F2C /* Zip OsiriX Launcher into Resources */,
+				59BDEE70117CB3A6007F1F2C /* Zip LXIV Launcher into Resources */,
 				AB28B42C05B7921E00A9906C /* Sources */,
 				AB28B42D05B7921E00A9906C /* Frameworks */,
 				CECA66E306CD8C1500D8750E /* Copy Frameworks */,
@@ -8710,7 +8716,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = NO;
 				LastTestingUpgradeCheck = 0630;
-				LastUpgradeCheck = 0810;
+				LastUpgradeCheck = 1000;
 				ORGANIZATIONNAME = "OsiriX Team";
 				TargetAttributes = {
 					59BDEC2C117C92B2007F1F2C = {
@@ -8747,7 +8753,7 @@
 			projectRoot = "";
 			targets = (
 				AB28B42E05B7921E00A9906C /* miele-lxiv */,
-				59BDEC2C117C92B2007F1F2C /* OsiriX Launcher */,
+				59BDEC2C117C92B2007F1F2C /* LXIV Launcher */,
 				7E0B3A3E067526CD00908593 /* DCM Framework */,
 				4A2F58D8078D118700C514A2 /* Build All Prerequisites */,
 				BF7486A50CC6AA5C00198387 /* Documentation */,
@@ -8764,7 +8770,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				59BDED7D117CA4F6007F1F2C /* Osirix.icns in Resources */,
+				43BF296E21662F100022CF3B /* Assets.xcassets in Resources */,
+				59BDED7D117CA4F6007F1F2C /* miele-lxiv.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -8972,7 +8979,7 @@
 				A9FBD2C916DBE2E9003A0E04 /* Opened Polygon.pdf in Resources */,
 				A9FBD2CA16DBE2E9003A0E04 /* OrientationWidget.tif in Resources */,
 				A9FBD2CB16DBE2E9003A0E04 /* orthogonalReslice.tif in Resources */,
-				A9FBD2CC16DBE2E9003A0E04 /* Osirix.icns in Resources */,
+				A9FBD2CC16DBE2E9003A0E04 /* miele-lxiv.icns in Resources */,
 				A9FBD2CD16DBE2E9003A0E04 /* OsirixDownload.icns in Resources */,
 				A9FBD2CE16DBE2E9003A0E04 /* osirixplugin.icns in Resources */,
 				A9FBD2CF16DBE2E9003A0E04 /* OsiriXTables.pdf in Resources */,
@@ -9167,7 +9174,7 @@
 				ABBB64C3063587B200D9531F /* MPR.tif in Resources */,
 				ABBB64C4063587B200D9531F /* MPR3D.tif in Resources */,
 				ABBB64C5063587B200D9531F /* Next.tif in Resources */,
-				ABBB64C7063587B200D9531F /* Osirix.icns in Resources */,
+				ABBB64C7063587B200D9531F /* miele-lxiv.icns in Resources */,
 				ABBB64C9063587B200D9531F /* Play.pdf in Resources */,
 				ABBB64CA063587B200D9531F /* Preferences.icns in Resources */,
 				ABBB64CB063587B200D9531F /* Presets.tif in Resources */,
@@ -9471,6 +9478,7 @@
 				CEB98A18133507C80083F3FD /* OSILocationsPreferencePanePref.xib in Resources */,
 				CEB98BB1133507F50083F3FD /* OSIListenerPreferencePanePref.xib in Resources */,
 				CEB98BC3133508040083F3FD /* OSIHotKeysPref.xib in Resources */,
+				43CC5BA6216511E200F1B1CA /* Assets.xcassets in Resources */,
 				CEB98BE9133508180083F3FD /* OSIHangingPreferencePanePref.xib in Resources */,
 				CEB98C05133508280083F3FD /* OSIGeneralPreferencePanePref.xib in Resources */,
 				CEB98C0F133508350083F3FD /* OSIDatabasePreferencePanePref.xib in Resources */,
@@ -9598,22 +9606,22 @@
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "#cd \"${BUILT_PRODUCTS_DIR}\"\n#product=\"OsiriX Lite.app\"\n#dest=\"${UNLOCALIZED_RESOURCES_FOLDER_PATH}/OsiriX Lite.zip\"\n#rm -f \"$dest\"\n#zip -qr \"$dest\" \"$product\"";
+			shellPath = /bin/bash;
+			shellScript = "cd \"${BUILT_PRODUCTS_DIR}\"\nproduct=\"OsiriX Lite.app\"\ndest=\"${UNLOCALIZED_RESOURCES_FOLDER_PATH}/OsiriX Lite.zip\"\nrm -f \"${dest}\"\nzip -qr \"${dest}\" \"${product}\"\n";
 		};
-		59BDEE70117CB3A6007F1F2C /* Zip OsiriX Launcher into Resources */ = {
+		59BDEE70117CB3A6007F1F2C /* Zip LXIV Launcher into Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Zip OsiriX Launcher into Resources";
+			name = "Zip LXIV Launcher into Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#cd \"${BUILT_PRODUCTS_DIR}\"\n#product=\"OsiriX Launcher.app\"\n#dest=\"${UNLOCALIZED_RESOURCES_FOLDER_PATH}/OsiriX Launcher.zip\"\n#rm -f \"$dest\"\n#zip -qr \"$dest\" \"$product\"\n\n#product=\"$SRCROOT/Binaries/OsiriX Launcher.zip\"\n#cp \"$product\" \"${UNLOCALIZED_RESOURCES_FOLDER_PATH}\"";
+			shellScript = "cd \"${BUILT_PRODUCTS_DIR}\"\nproduct=\"LXIV Launcher.app\"\ndest=\"${UNLOCALIZED_RESOURCES_FOLDER_PATH}/LXIV Launcher.zip\"\nrm -f \"$dest\"\nzip -qr \"$dest\" \"$product\"\n\n#product=\"$SRCROOT/Binaries/LXIV Launcher.zip\"\n#cp \"$product\" \"${UNLOCALIZED_RESOURCES_FOLDER_PATH}\"\n";
 		};
 		59F69A4E1056328D008585F5 /* Clean Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -9696,7 +9704,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cp -f \"$PROJECT_DIR/Binaries/ReportsToPDF/odt2pdf/build/odt2pdf\" \"$BUILT_PRODUCTS_DIR/$CONTENTS_FOLDER_PATH/MacOS/\"\nexit 0";
+			shellScript = "cp -f \"$PROJECT_DIR/Binaries/ReportsToPDF/odt2pdf/build/odt2pdf\" \"$BUILT_PRODUCTS_DIR/$CONTENTS_FOLDER_PATH/MacOS/\"\nexit 0\n";
 		};
 		BF7486A40CC6AA5C00198387 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -9751,7 +9759,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#test with codesign -vvv\n\nchmod -R 777 \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/\"\n\nif [[ ${CONFIGURATION} == \"Deployment 32-bit\" ]]\nthen\n# -f means force to re-sign even if already signed\ncodesign -f -s \"Developer ID Application\" \"$TARGET_BUILD_DIR/$FRAMEWORKS_FOLDER_PATH/OsiriXAPI.framework\"\ncodesign --resource-rules Rules.plist -f -s \"Developer ID Application\" \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/\"\necho \"code signed\"\nfi\n\nif [[ ${CONFIGURATION} == \"Deployment 64-bit\" ]]\nthen\n# -f means force to re-sign even if already signed\ncodesign -f -s \"Developer ID Application\" \"$TARGET_BUILD_DIR/$FRAMEWORKS_FOLDER_PATH/OsiriXAPI.framework\"\ncodesign --resource-rules Rules.plist -f -s \"Developer ID Application\" \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/\"\necho \"code signed\"\nfi";
+			shellScript = "#test with codesign -vvv\n\nchmod -R 777 \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/\"\n\nif [[ ${CONFIGURATION} == \"Deployment 32-bit\" ]]\nthen\n# -f means force to re-sign even if already signed\ncodesign -f -s \"Developer ID Application\" \"$TARGET_BUILD_DIR/$FRAMEWORKS_FOLDER_PATH/OsiriXAPI.framework\"\ncodesign --resource-rules Rules.plist -f -s \"Developer ID Application\" \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/\"\necho \"code signed\"\nfi\n\nif [[ ${CONFIGURATION} == \"Deployment 64-bit\" ]]\nthen\n# -f means force to re-sign even if already signed\ncodesign -f -s \"Developer ID Application\" \"$TARGET_BUILD_DIR/$FRAMEWORKS_FOLDER_PATH/OsiriXAPI.framework\"\ncodesign --resource-rules Rules.plist -f -s \"Developer ID Application\" \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/\"\necho \"code signed\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -9760,7 +9768,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				59BDEC44117C9366007F1F2C /* main.mm in Sources */,
+				43BF296D21662E1D0022CF3B /* main.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -10950,7 +10958,7 @@
 		};
 		59BDEE6B117CB393007F1F2C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 59BDEC2C117C92B2007F1F2C /* OsiriX Launcher */;
+			target = 59BDEC2C117C92B2007F1F2C /* LXIV Launcher */;
 			targetProxy = 59BDEE6A117CB393007F1F2C /* PBXContainerItemProxy */;
 		};
 		AB0F3A421046BFB9004129DD /* PBXTargetDependency */ = {
@@ -11492,13 +11500,21 @@
 		43E98D191A32BF6A001B9E51 /* Deployment */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = x86_64;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -11508,7 +11524,6 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_FAST_OBJC_DISPATCH = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = s;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -11533,6 +11548,8 @@
 		43E98D1A1A32BF6A001B9E51 /* Deployment */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
@@ -11868,6 +11885,7 @@
 					"$(SRCROOT)/Binaries/VTK/lib/libvtkViewsInfovis-7.1.a",
 					"$(SRCROOT)/Binaries/VTK/lib/libvtkzlib-7.1.a",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.bettarini.miele-lxiv";
 				PRODUCT_NAME = "miele-lxiv";
 				STRIP_STYLE = debugging;
 				SYSTEM_HEADER_SEARCH_PATHS = "/usr/local/opt/openssl/include $(SRCROOT)/Binaries/ITK/include/ITK-4.11 $(SRCROOT)/Binaries/VTK/include $(SRCROOT)/Binaries/ITK/include";
@@ -11879,6 +11897,8 @@
 		43E98D1B1A32BF6A001B9E51 /* Deployment */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -11886,7 +11906,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
 				HEADER_SEARCH_PATHS = "$(SRCROOT)";
-				INFOPLIST_FILE = "OsiriX Launcher/Info.plist";
+				INFOPLIST_FILE = "LXIV Launcher/Info.plist";
 				OTHER_CFLAGS = "";
 				OTHER_CPLUSPLUSFLAGS = (
 					"-stdlib=libc++",
@@ -11901,7 +11921,8 @@
 					"-framework",
 					AppKit,
 				);
-				PRODUCT_NAME = "OsiriX Launcher";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.bettarini.miele-lxiv-launcher";
+				PRODUCT_NAME = "LXIV Launcher";
 				SKIP_INSTALL = YES;
 				USE_HEADERMAP = NO;
 			};
@@ -11910,6 +11931,7 @@
 		43E98D1C1A32BF6A001B9E51 /* Deployment */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
 				CURRENT_PROJECT_VERSION = "";
@@ -11992,7 +12014,7 @@
 					/usr/lib/libz.dylib,
 					"-lm",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.github-bettar.dcmframework";
+				PRODUCT_BUNDLE_IDENTIFIER = com.bettarini.dcmframework;
 				PRODUCT_NAME = OsiriX;
 				PUBLIC_HEADERS_FOLDER_PATH = "$(CONTENTS_FOLDER_PATH)/Headers";
 				SECTORDER_FLAGS = "";
@@ -12004,6 +12026,7 @@
 		43E98D1F1A32BF6A001B9E51 /* Deployment */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_ALTIVEC_EXTENSIONS = YES;
@@ -12038,6 +12061,7 @@
 		43E98D201A32BF6A001B9E51 /* Deployment */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -12050,6 +12074,7 @@
 		43E98D211A32BF6A001B9E51 /* Deployment */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_RESOURCE_RULES_PATH = "";
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)";
 				COPY_PHASE_STRIP = YES;
@@ -12156,6 +12181,7 @@
 		43E98D221A32BF6A001B9E51 /* Deployment */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_RESOURCE_RULES_PATH = "";
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)";
 				COPY_PHASE_STRIP = NO;
@@ -12194,6 +12220,7 @@
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
 				CLANG_CXX_LIBRARY = "compiler-default";
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -12265,7 +12292,7 @@
 					/usr/lib/libz.dylib,
 					"-lm",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.github-bettar.OsiriXAPI";
+				PRODUCT_BUNDLE_IDENTIFIER = com.bettarini.OsiriXAPI;
 				PRODUCT_NAME = OsiriXAPI;
 				SKIP_INSTALL = YES;
 				USE_HEADERMAP = NO;
@@ -12276,6 +12303,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
@@ -12338,6 +12366,7 @@
 					__info_plist,
 					"Deployment-Info.plist",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.pixmeo.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "ITK180/Modules/Core/Common/include ITK180/Modules/ThirdParty/VNL/src/vxl/core ITK180/Modules/ThirdParty/VNL/src/vxl/vcl ITK180/Modules/Core/Common ITK180/Modules/Core/Mesh/include ITK180/Modules/Segmentation/RegionGrowing/include ITK180/Modules/Filtering/CurvatureFlow/include ITK180/Modules/Core/ImageFunction/include ITK180/Modules/Core/FiniteDifference/include ITK180/Modules/Filtering/ImageFilterBase/include ITK180/Modules/Segmentation/LevelSets/include ITK180/Modules/Filtering/FastMarching/include ITK180/Modules/Filtering/ImageIntensity/include ITK180/Modules/Bridge/VTK/include ITK180/Modules/Filtering/MathematicalMorphology/include ITK180/Modules/Core/Transform/include ITK180/Modules/Filtering/ImageGrid/include ITK180/Modules/Filtering/BinaryMathematicalMorphology/include ITK180/Modules/ThirdParty/NrrdIO/src/NrrdIO";
 				WRAPPER_EXTENSION = octest;
@@ -12347,6 +12376,8 @@
 		59BDEC30117C92B3007F1F2C /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -12354,7 +12385,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
 				HEADER_SEARCH_PATHS = "$(SRCROOT)";
-				INFOPLIST_FILE = "OsiriX Launcher/Info.plist";
+				INFOPLIST_FILE = "LXIV Launcher/Info.plist";
 				OTHER_CFLAGS = "";
 				OTHER_CPLUSPLUSFLAGS = (
 					"-stdlib=libc++",
@@ -12368,7 +12399,8 @@
 					"-framework",
 					AppKit,
 				);
-				PRODUCT_NAME = "OsiriX Launcher";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.bettarini.miele-lxiv-launcher";
+				PRODUCT_NAME = "LXIV Launcher";
 				SKIP_INSTALL = YES;
 				USE_HEADERMAP = NO;
 			};
@@ -12377,6 +12409,7 @@
 		7E76BEC1085757B60073649A /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = "";
@@ -12457,7 +12490,7 @@
 					/usr/lib/libz.dylib,
 					"-lm",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.github-bettar.dcmframework";
+				PRODUCT_BUNDLE_IDENTIFIER = com.bettarini.dcmframework;
 				PRODUCT_NAME = OsiriX;
 				PUBLIC_HEADERS_FOLDER_PATH = "$(CONTENTS_FOLDER_PATH)/Headers";
 				SECTORDER_FLAGS = "";
@@ -12469,6 +12502,7 @@
 		7E76BEC4085757B60073649A /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_ALTIVEC_EXTENSIONS = YES;
@@ -12503,6 +12537,8 @@
 		7E76BEC7085757B70073649A /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
@@ -12834,6 +12870,7 @@
 					"$(SRCROOT)/Binaries/VTK/lib/libvtkViewsInfovis-7.1.a",
 					"$(SRCROOT)/Binaries/VTK/lib/libvtkzlib-7.1.a",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.bettarini.miele-lxiv";
 				PRODUCT_NAME = "miele-lxiv";
 				SYSTEM_HEADER_SEARCH_PATHS = "/usr/local/opt/openssl/include $(SRCROOT)/Binaries/ITK/include/ITK-4.11 $(SRCROOT)/Binaries/VTK/include $(SRCROOT)/Binaries/ITK/include";
 				USE_HEADERMAP = NO;
@@ -12844,13 +12881,21 @@
 		7E76BED9085757B70073649A /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = x86_64;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -12858,8 +12903,8 @@
 				CODE_SIGN_RESOURCE_RULES_PATH = Rules.plist;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_FAST_OBJC_DISPATCH = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -12877,6 +12922,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IBC_FLATTEN_NIBS = NO;
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "-fvisibility=default";
 				OTHER_CODE_SIGN_FLAGS = "";
 				OTHER_LDFLAGS = "";
@@ -12888,6 +12934,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
@@ -12950,6 +12997,7 @@
 					__info_plist,
 					"Deployment-Info.plist",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.pixmeo.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "ITK180/Modules/Core/Common/include ITK180/Modules/ThirdParty/VNL/src/vxl/core ITK180/Modules/ThirdParty/VNL/src/vxl/vcl ITK180/Modules/Core/Common ITK180/Modules/Core/Mesh/include ITK180/Modules/Segmentation/RegionGrowing/include ITK180/Modules/Filtering/CurvatureFlow/include ITK180/Modules/Core/ImageFunction/include ITK180/Modules/Core/FiniteDifference/include ITK180/Modules/Filtering/ImageFilterBase/include ITK180/Modules/Segmentation/LevelSets/include ITK180/Modules/Filtering/FastMarching/include ITK180/Modules/Filtering/ImageIntensity/include ITK180/Modules/Bridge/VTK/include ITK180/Modules/Filtering/MathematicalMorphology/include ITK180/Modules/Core/Transform/include ITK180/Modules/Filtering/ImageGrid/include ITK180/Modules/Filtering/BinaryMathematicalMorphology/include ITK180/Modules/ThirdParty/NrrdIO/src/NrrdIO";
 				WRAPPER_EXTENSION = octest;
@@ -12961,6 +13009,7 @@
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
 				CLANG_CXX_LIBRARY = "compiler-default";
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -13031,7 +13080,7 @@
 					/usr/lib/libz.dylib,
 					"-lm",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.github-bettar.OsiriXAPI";
+				PRODUCT_BUNDLE_IDENTIFIER = com.bettarini.OsiriXAPI;
 				PRODUCT_NAME = OsiriXAPI;
 				SKIP_INSTALL = YES;
 				USE_HEADERMAP = NO;
@@ -13041,6 +13090,7 @@
 		AB724FF40ADE6ECB00A212A0 /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_RESOURCE_RULES_PATH = "";
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)";
 				COPY_PHASE_STRIP = YES;
@@ -13144,6 +13194,7 @@
 		BF7486A60CC6AA5D00198387 /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -13156,6 +13207,7 @@
 		CEDF6DCE0B46FE99008B45B8 /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_RESOURCE_RULES_PATH = "";
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)";
 				COPY_PHASE_STRIP = NO;
@@ -13192,14 +13244,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		59BDEC33117C92B4007F1F2C /* Build configuration list for PBXNativeTarget "OsiriX Launcher" */ = {
+		59BDEC33117C92B4007F1F2C /* Build configuration list for PBXNativeTarget "LXIV Launcher" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				59BDEC30117C92B3007F1F2C /* Development */,
 				43E98D1B1A32BF6A001B9E51 /* Deployment */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Development;
+			defaultConfigurationName = Deployment;
 		};
 		7E76BEC0085757B60073649A /* Build configuration list for PBXNativeTarget "DCM Framework" */ = {
 			isa = XCConfigurationList;
@@ -13208,7 +13260,7 @@
 				43E98D1C1A32BF6A001B9E51 /* Deployment */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Development;
+			defaultConfigurationName = Deployment;
 		};
 		7E76BEC3085757B60073649A /* Build configuration list for PBXAggregateTarget "Build All Prerequisites" */ = {
 			isa = XCConfigurationList;
@@ -13217,7 +13269,7 @@
 				43E98D1F1A32BF6A001B9E51 /* Deployment */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Development;
+			defaultConfigurationName = Deployment;
 		};
 		7E76BEC6085757B70073649A /* Build configuration list for PBXNativeTarget "miele-lxiv" */ = {
 			isa = XCConfigurationList;
@@ -13226,7 +13278,7 @@
 				43E98D1A1A32BF6A001B9E51 /* Deployment */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Development;
+			defaultConfigurationName = Deployment;
 		};
 		7E76BED8085757B70073649A /* Build configuration list for PBXProject "Miele_LXIV" */ = {
 			isa = XCConfigurationList;
@@ -13235,7 +13287,7 @@
 				43E98D191A32BF6A001B9E51 /* Deployment */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Development;
+			defaultConfigurationName = Deployment;
 		};
 		A98795D716DB9FD100926023 /* Build configuration list for PBXNativeTarget "Unit Tests" */ = {
 			isa = XCConfigurationList;
@@ -13244,7 +13296,7 @@
 				43E98D241A32BF6A001B9E51 /* Deployment */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Development;
+			defaultConfigurationName = Deployment;
 		};
 		AB0F3A321046BD2D004129DD /* Build configuration list for PBXNativeTarget "OsiriX API" */ = {
 			isa = XCConfigurationList;
@@ -13253,7 +13305,7 @@
 				43E98D231A32BF6A001B9E51 /* Deployment */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Development;
+			defaultConfigurationName = Deployment;
 		};
 		AB724FF30ADE6ECB00A212A0 /* Build configuration list for PBXNativeTarget "Decompress" */ = {
 			isa = XCConfigurationList;
@@ -13262,7 +13314,7 @@
 				43E98D211A32BF6A001B9E51 /* Deployment */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Development;
+			defaultConfigurationName = Deployment;
 		};
 		BF7486AA0CC6AA7C00198387 /* Build configuration list for PBXAggregateTarget "Documentation" */ = {
 			isa = XCConfigurationList;
@@ -13271,7 +13323,7 @@
 				43E98D201A32BF6A001B9E51 /* Deployment */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Development;
+			defaultConfigurationName = Deployment;
 		};
 		CEDF6DCD0B46FE99008B45B8 /* Build configuration list for PBXNativeTarget "DICOMPrint" */ = {
 			isa = XCConfigurationList;
@@ -13280,7 +13332,7 @@
 				43E98D221A32BF6A001B9E51 /* Deployment */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Development;
+			defaultConfigurationName = Deployment;
 		};
 /* End XCConfigurationList section */
 

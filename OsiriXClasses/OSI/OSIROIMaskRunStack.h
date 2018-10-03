@@ -1,6 +1,6 @@
 //
 //  OISROIMaskStack.h
-//  OsiriX_Lion
+//  Miele_LXIV
 //
 //  Created by Joël Spaltenstein on 9/25/12.
 //  Copyright (c) 2012 OsiriX Team. All rights reserved.

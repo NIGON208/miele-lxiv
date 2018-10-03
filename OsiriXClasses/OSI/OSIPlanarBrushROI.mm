@@ -1,6 +1,6 @@
 //
 //  OSIPlanarBrushROI.m
-//  OsiriX_Lion
+//  Miele_LXIV
 //
 //  Created by Joël Spaltenstein on 9/26/11.
 //  Copyright 2011 OsiriX Team. All rights reserved.

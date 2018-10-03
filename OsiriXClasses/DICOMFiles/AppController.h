@@ -142,7 +142,7 @@ extern AppController* OsiriX;
 + (BOOL) willExecutePlugin:(id) filter;
 
 + (BOOL) hasAtLeastMacOS_Mavericks;     // 10.9
-+ (BOOL) hasMacOSXAfterHighSierra;      // > 10.13
++ (BOOL) hasMacOSX_AfterMojave;      // > 10.14
 
 +(NSString*)UID;
 

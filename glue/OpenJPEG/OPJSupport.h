@@ -1,12 +1,12 @@
 //
 //  OPJSupport.h
-//  OsiriX_Lion
+//  Miele_LXIV
 //
 //  Created by Aaron Boxer on 1/21/14.
 //
 
-#ifndef __OsiriX_Lion__OPJSupport__
-#define __OsiriX_Lion__OPJSupport__
+#ifndef __Miele_LXIV__OPJSupport__
+#define __Miele_LXIV__OPJSupport__
 
 //#include <iostream>
 //#include "options.h"
@@ -31,4 +31,4 @@ public:
                                      long *compressedDataSize);
 };
 
-#endif /* defined(__OsiriX_Lion__OPJSupport__) */
+#endif /* defined(__Miele_LXIV__OPJSupport__) */

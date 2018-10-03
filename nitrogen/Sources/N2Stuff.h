@@ -12,8 +12,8 @@
  PURPOSE.
  =========================================================================*/
 
-#ifndef OsiriX_Lion_N2Localization_h
-#define OsiriX_Lion_N2Localization_h
+#ifndef Miele_LXIV_N2Localization_h
+#define Miele_LXIV_N2Localization_h
 
 #define N2SingularPlural(c, s, p) (c == 1? s : p)
 #define N2LocalizedSingularPlural(c, s, p) (c == 1? NSLocalizedString(s, @"Singular") : NSLocalizedString(p, @"Plural")

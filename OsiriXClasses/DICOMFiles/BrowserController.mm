@@ -921,7 +921,7 @@ static NSConditionLock *threadLock = nil;
 												[[NSFileManager defaultManager] createDirectoryAtPath: unzipPath
                                                                           withIntermediateDirectories: YES
                                                                                            attributes: nil
-                                                                                                error:nil];
+                                                                                                error: nil];
 												
 												[self askForZIPPassword: itemPath destination: unzipPath];
 												
@@ -14467,28 +14467,6 @@ static NSArray*	openSubSeriesArray = nil;
             [[self window] zoom: self];
         else
             [self.window setFrame: r display: YES];
-
-#ifndef NDEBUG
-        NSLog(@"splitAlbums subviews %lu", (unsigned long)[[splitAlbums subviews] count]);
-        NSLog(@"splitDrawer subviews %lu", (unsigned long)[[splitDrawer subviews] count]);
-
-        NSView* leftView = [[splitDrawer subviews] objectAtIndex:0];
-        NSView* rightView = [[splitDrawer subviews] objectAtIndex:1];
-        leftView.wantsLayer = TRUE;
-        rightView.wantsLayer = TRUE;
-        leftView.layer.backgroundColor = [[NSColor orangeColor] CGColor];
-        rightView.layer.backgroundColor = [[NSColor brownColor] CGColor];
-
-        NSView* topView = [[splitAlbums subviews] objectAtIndex:0];
-        NSView* midView = [[splitAlbums subviews] objectAtIndex:1];
-        NSView* botView = [[splitAlbums subviews] objectAtIndex:2];
-        topView.wantsLayer = TRUE;
-        midView.wantsLayer = TRUE;
-        botView.wantsLayer = TRUE;
-        topView.layer.backgroundColor = [[NSColor redColor] CGColor];
-        midView.layer.backgroundColor = [[NSColor greenColor] CGColor];
-        botView.layer.backgroundColor = [[NSColor blueColor] CGColor];
-#endif
 
         gHorizontalHistory = [[NSUserDefaults standardUserDefaults] boolForKey: @"horizontalHistory"];
         if (gHorizontalHistory)

@@ -1,6 +1,6 @@
 //
 //  OPJSupport.cpp
-//  OsiriX_Lion
+//  Miele_LXIV
 //
 //  Created by Aaron Boxer on 21 Jan 2014
 //  Updated by Alex Bettarini on 17 Feb 2015

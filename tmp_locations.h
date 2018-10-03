@@ -1,9 +1,9 @@
 //
 //  tmp_locations.h
-//  OsiriX_Lion
+//  Miele_LXIV
 //
 //  Created by Alex Bettarini on 1 May 2014.
-//  Copyright (c) 2015 Osiri-LXIV Team. All rights reserved.
+//  Copyright (c) 2015 Miele_LXIV Team. All rights reserved.
 //
 
 #ifndef TMP_LOCATIONS_H_INCLUDED

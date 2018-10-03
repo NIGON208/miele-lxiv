@@ -1,6 +1,6 @@
 //
 //  OSIDerivedROI.m
-//  OsiriX_Lion
+//  Miele_LXIV
 //
 //  Created by Joël Spaltenstein on 11/29/14.
 //  Copyright (c) 2014 OsiriX Team. All rights reserved.

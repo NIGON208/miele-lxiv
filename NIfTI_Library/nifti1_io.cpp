@@ -2037,9 +2037,9 @@ typedef struct { unsigned char a,b,c,d,e,f,g,h ,
 *//*--------------------------------------------------------------------*/
 void nifti_swap_16bytes( int n , void *ar )    /* 16 bytes at a time */
 {
-   register int ii ;
-   register sixteenbytes *tb = (sixteenbytes *)ar ;
-   register unsigned char tt ;
+    int ii ;
+    sixteenbytes *tb = (sixteenbytes *)ar ;
+    unsigned char tt ;
 
    for( ii=0 ; ii < n ; ii++ ){
      tt = tb[ii].a ; tb[ii].a = tb[ii].A ; tb[ii].A = tt ;
@@ -2052,7 +2052,6 @@ void nifti_swap_16bytes( int n , void *ar )    /* 16 bytes at a time */
      tt = tb[ii].g ; tb[ii].g = tb[ii].G ; tb[ii].G = tt ;
      tt = tb[ii].h ; tb[ii].h = tb[ii].H ; tb[ii].H = tt ;
    }
-   return ;
 }
 
 /*---------------------------------------------------------------------------*/

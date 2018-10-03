@@ -699,11 +699,11 @@ static NSDate *lastWarningDate = nil;
 //    return NO;
 //}
 
-+(BOOL) hasMacOSXAfterHighSierra
++(BOOL) hasMacOSX_AfterMojave
 {
     NSOperatingSystemVersion version = [[NSProcessInfo processInfo] operatingSystemVersion];
     if ((version.majorVersion > 10) ||
-        (version.majorVersion == 10 && version.minorVersion > 13))
+        (version.majorVersion == 10 && version.minorVersion > 14))
     {
         return YES;
     }
@@ -3728,7 +3728,7 @@ static BOOL initialized = NO;
     SecRequirementRef requirement = 0;
     SecStaticCodeRef code = 0;
     
-    OSStatus status = SecRequirementCreateWithString( (CFStringRef) @"anchor trusted and certificate leaf [subject.OU] = \"66HE7FMBC4\"", kSecCSDefaultFlags, &requirement);
+    OSStatus status = SecRequirementCreateWithString( (CFStringRef) @"anchor trusted and certificate leaf [subject.OU] = \"57BXF7EQEM\"", kSecCSDefaultFlags, &requirement);
     
     if( status == noErr)
         status = SecStaticCodeCreateWithPath( (CFURLRef) [[NSBundle mainBundle] bundleURL], kSecCSDefaultFlags, &code);
@@ -3789,10 +3789,6 @@ static BOOL initialized = NO;
         
         [[QueryController currentQueryController] showWindow: self];
     }
-#endif
-#ifndef NDEBUG
-    [dbWindow setBackgroundColor:[NSColor yellowColor]];
-    
 #endif
 }
 
@@ -4296,7 +4292,7 @@ static BOOL initialized = NO;
         }
     }
     
-    if ([AppController hasMacOSXAfterHighSierra])
+    if ([AppController hasMacOSX_AfterMojave])
     {
 #ifdef WITH_OS_VALIDATION
         NSAlert* alert = [[NSAlert new] autorelease];
@@ -5860,9 +5856,10 @@ static BOOL initialized = NO;
 
 static NSMutableDictionary* _receivingDict = nil;
 
--(void)_receivingIconUpdate {
+-(void)_receivingIconUpdate
+{
 	if (!_receivingDict.count)
-		[NSApp setApplicationIconImage:[NSImage imageNamed:@"Osirix.icns"]];
+		[NSApp setApplicationIconImage:[NSImage imageNamed:@"miele-lxiv.icns"]];
 	else
         [NSApp setApplicationIconImage:[NSImage imageNamed:@"OsirixDownload.icns"]];
 }
