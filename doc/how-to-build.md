@@ -4,7 +4,7 @@ Alex Bettarini - 15 Mar 2015
 
 Some of the pre-built toolkits in the `Binaries` directory are no longer provided. It's more appropriate to rebuild the toolkits from the sources downloaded from the respective repositories.
 
-A number of bash shell scripts are available in the `../steps` directory.
+A number of bash shell scripts are available in the `./build-steps` directory.
 
 If you want to fork the project and create your on branding, you should:
 
@@ -164,4 +164,5 @@ If you want to fork the project and create your on branding, you should:
 ---
 # Step 5
 - Now you should be able to launch the Xcode project and build the application, or if you prefer build it directly from the command line using `xcodebuild`.
+- Make sure in the build scheme you select the "Development" configuration, otherwise you might have issues with missing certificates for signing the app.
 

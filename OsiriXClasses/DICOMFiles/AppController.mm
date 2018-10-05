@@ -51,14 +51,12 @@
 
 #ifndef OSIRIX_LIGHT
 #import "BonjourPublisher.h"
-
 #ifndef MACAPPSTORE
 #import "Reports.h"
 #import <ILCrashReporter/ILCrashReporter.h>
+#endif
 #import "VRView.h"
-#endif
-
-#endif
+#endif // OSIRIX_LIGHT
 
 //#import <Growl/Growl.h>
 
@@ -2998,8 +2996,10 @@ static BOOL initialized = NO;
                 NSLog(@"OpenJPEG %d.%d.%d", OPJ_VERSION_MAJOR, OPJ_VERSION_MINOR, OPJ_VERSION_BUILD);
 #ifdef WITH_ZLIB
                 NSLog(@"ZLIB %s", zlibVersion());
-#endif                
-                NSLog(@"%s", TIFFGetVersion());
+#endif
+                NSString *tiffVersion = [NSString stringWithFormat:@"%s", TIFFGetVersion()];
+                NSArray *tiffLines = [tiffVersion componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+                NSLog(@"%@", tiffLines[0]);
 
                 CGLContextObj cgl_ctx = [[NSOpenGLContext currentContext] CGLContextObj];
                 if (cgl_ctx) {
@@ -3032,6 +3032,7 @@ static BOOL initialized = NO;
 
                 NSLog( @"**** DEBUG MODE ****");
 #endif
+                NSLog(@"Configuration: %@", [d objectForKey:@"Config"]);
                 
 				[[NSUserDefaults standardUserDefaults] registerDefaults: [DefaultsOsiriX getDefaults]];
                 

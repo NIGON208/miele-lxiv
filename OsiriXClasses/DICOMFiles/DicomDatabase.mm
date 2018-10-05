@@ -113,10 +113,12 @@ NSString* const O2ScreenCapturesSeriesName = NSLocalizedString(@"OsiriX Screen C
 		case 0:
 			path = [NSFileManager.defaultManager findSystemFolderOfType:kDocumentsFolderType forDomain:kOnAppropriateDisk];
 #ifdef MACAPPSTORE
+        {
 			NSString* temp = [self baseDirPathForPath:path];
 			BOOL isDir;
 			if (![NSFileManager.defaultManager fileExistsAtPath:temp isDirectory:&isDir] || !isDir)
 				path = [NSFileManager.defaultManager userApplicationSupportFolderForApp];
+        }
 #endif
 			break;
 		case 1:

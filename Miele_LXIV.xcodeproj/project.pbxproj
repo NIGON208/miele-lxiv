@@ -11497,6 +11497,883 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		4372A20121675E9300EE69CB /* Distribution */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_RESOURCE_RULES_PATH = Rules.plist;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					FOR_MIELE_LXIV,
+					XCODE_LXIV,
+					NDEBUG,
+				);
+				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
+				GCC_WARN_ABOUT_MISSING_FIELD_INITIALIZERS = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = NO;
+				GCC_WARN_INITIALIZER_NOT_FULLY_BRACKETED = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				IBC_FLATTEN_NIBS = NO;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				OTHER_CFLAGS = "-fvisibility=default";
+				OTHER_CODE_SIGN_FLAGS = "";
+				OTHER_LDFLAGS = "";
+				SDKROOT = macosx;
+			};
+			name = Distribution;
+		};
+		4372A20221675E9300EE69CB /* Distribution */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SRCROOT)/Binaries",
+					"$(BUILD_DIR)/$(CONFIGURATION)",
+				);
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_FAST_MATH = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = fast;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					FOR_MIELE_LXIV,
+					XCODE_LXIV,
+					NDEBUG,
+					OSIRIX_VIEWER,
+					MACAPPSTORE,
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
+				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
+				GCC_WARN_ABOUT_POINTER_SIGNEDNESS = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_ALLOW_INCOMPLETE_PROTOCOL = YES;
+				GCC_WARN_SHADOW = NO;
+				GCC_WARN_TYPECHECK_CALLS_TO_PRINTF = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = NO;
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/Binaries/libtiff/include",
+					"$(SRCROOT)/Binaries/VTK/include/vtk-7.1",
+					"$(SRCROOT)/Binaries/DCMTK/include",
+					"$(SRCROOT)/Binaries/openjpeg/include/**",
+					"$(SRCROOT)",
+					"$(SRCROOT)/AYDicomPrint",
+					"$(SRCROOT)/cocoahttpserver",
+					"$(SRCROOT)/glue/**",
+					"$(SRCROOT)/LetsMoveAndDock",
+					"$(SRCROOT)/NIfTI_Library",
+					"$(SRCROOT)/nitrogen/Sources/**",
+					"\"$(SRCROOT)/Preference Panes/**\"",
+					"$(SRCROOT)/OsiriXClasses/**",
+				);
+				IBC_FLATTEN_NIBS = YES;
+				INFOPLIST_FILE = "Deployment-Info.plist";
+				KEEP_PRIVATE_EXTERNS = YES;
+				OTHER_CFLAGS = "";
+				OTHER_CPLUSPLUSFLAGS = (
+					"-stdlib=libc++",
+					"-std=gnu++14",
+					"-DNDEBUG",
+				);
+				OTHER_LDFLAGS = (
+					"-Wl,-search_paths_first",
+					"-Wl,-headerpad_max_install_names",
+					"-framework",
+					Accelerate,
+					"-framework",
+					AppKit,
+					"-framework",
+					ApplicationServices,
+					"-framework",
+					AVFoundation,
+					"-framework",
+					Carbon,
+					"-framework",
+					Cocoa,
+					"-framework",
+					CoreData,
+					"-framework",
+					CoreFoundation,
+					"-framework",
+					CoreMedia,
+					"-framework",
+					CoreServices,
+					"-framework",
+					CoreVideo,
+					"-framework",
+					DiscRecording,
+					"-framework",
+					DiscRecordingUI,
+					"-framework",
+					Foundation,
+					"-framework",
+					ILCrashReporter,
+					"-framework",
+					IOKit,
+					"-framework",
+					OpenGL,
+					"-framework",
+					OsiriX,
+					"-framework",
+					PreferencePanes,
+					"-framework",
+					QuartzCore,
+					"-framework",
+					Security,
+					"-framework",
+					SecurityInterface,
+					"-framework",
+					SystemConfiguration,
+					"-framework",
+					WebKit,
+					"-ldl",
+					"-lm",
+					"-lpthread",
+					"-weak_framework",
+					3DconnexionClient,
+					/usr/lib/libm.dylib,
+					/usr/lib/libxml2.dylib,
+					/usr/lib/libz.dylib,
+					/usr/local/lib/libjpeg.dylib,
+					/usr/local/lib/libpng.dylib,
+					/usr/local/lib/libtiff.dylib,
+					/usr/local/opt/openssl/lib/libcrypto.a,
+					/usr/local/opt/openssl/lib/libssl.a,
+					"$(SRCROOT)/Binaries/DCMTK/lib/libcharls.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libcmr.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmdata.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmdsig.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmfg.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmimage.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmimgle.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmiod.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmjpeg.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmjpls.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmnet.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmpmap.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmpstat.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmqrdb.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmrt.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmseg.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmsr.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmtls.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmtract.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmwlm.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libi2d.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libijg12.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libijg16.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libijg8.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/liboflog.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libofstd.a",
+					"$(SRCROOT)/Binaries/ITK/lib/libITKBiasCorrection-4.11.a",
+					"$(SRCROOT)/Binaries/ITK/lib/libITKBioCell-4.11.a",
+					"$(SRCROOT)/Binaries/ITK/lib/libITKCommon-4.11.a",
+					"$(SRCROOT)/Binaries/ITK/lib/libITKDICOMParser-4.11.a",
+					"$(SRCROOT)/Binaries/ITK/lib/libitkdouble-conversion-4.11.a",
+					"$(SRCROOT)/Binaries/ITK/lib/libITKEXPAT-4.11.a",
+					"$(SRCROOT)/Binaries/ITK/lib/libITKFEM-4.11.a",
+					"$(SRCROOT)/Binaries/ITK/lib/libitkgdcmcharls-4.11.a",
+					"$(SRCROOT)/Binaries/ITK/lib/libitkgdcmCommon-4.11.a",
+					"$(SRCROOT)/Binaries/ITK/lib/libitkgdcmDICT-4.11.a",
+					"$(SRCROOT)/Binaries/ITK/lib/libitkgdcmDSED-4.11.a",
+					"$(SRCROOT)/Binaries/ITK/lib/libitkgdcmIOD-4.11.a",
+					"$(SRCROOT)/Binaries/ITK/lib/libitkgdcmjpeg12-4.11.a",
+					"$(SRCROOT)/Binaries/ITK/lib/libitkgdcmjpeg16-4.11.a",
+					"$(SRCROOT)/Binaries/ITK/lib/libitkgdcmjpeg8-4.11.a",
+					"$(SRCROOT)/Binaries/ITK/lib/libitkgdcmMSFF-4.11.a",
+					"$(SRCROOT)/Binaries/ITK/lib/libitkgdcmopenjpeg-4.11.a",
+					"$(SRCROOT)/Binaries/ITK/lib/libitkgdcmuuid-4.11.a",
+					"$(SRCROOT)/Binaries/ITK/lib/libITKgiftiio-4.11.a",
+					"$(SRCROOT)/Binaries/ITK/lib/libitkhdf5_cpp.a",
+					"$(SRCROOT)/Binaries/ITK/lib/libitkhdf5.a",
+					"$(SRCROOT)/Binaries/ITK/lib/libITKIOBioRad-4.11.a",
+					"$(SRCROOT)/Binaries/ITK/lib/libITKIOBMP-4.11.a",
+					"$(SRCROOT)/Binaries/ITK/lib/libITKIOCSV-4.11.a",
+					"$(SRCROOT)/Binaries/ITK/lib/libITKIOGDCM-4.11.a",
+					"$(SRCROOT)/Binaries/ITK/lib/libITKIOGE-4.11.a",
+					"$(SRCROOT)/Binaries/ITK/lib/libITKIOGIPL-4.11.a",
+					"$(SRCROOT)/Binaries/ITK/lib/libITKIOHDF5-4.11.a",
+					"$(SRCROOT)/Binaries/ITK/lib/libITKIOImageBase-4.11.a",
+					"$(SRCROOT)/Binaries/ITK/lib/libITKIOIPL-4.11.a",
+					"$(SRCROOT)/Binaries/ITK/lib/libITKIOJPEG-4.11.a",
+					"$(SRCROOT)/Binaries/ITK/lib/libITKIOLSM-4.11.a",
+					"$(SRCROOT)/Binaries/ITK/lib/libITKIOMesh-4.11.a",
+					"$(SRCROOT)/Binaries/ITK/lib/libITKIOMeta-4.11.a",
+					"$(SRCROOT)/Binaries/ITK/lib/libITKIOMRC-4.11.a",
+					"$(SRCROOT)/Binaries/ITK/lib/libITKIONIFTI-4.11.a",
+					"$(SRCROOT)/Binaries/ITK/lib/libITKIONRRD-4.11.a",
+					"$(SRCROOT)/Binaries/ITK/lib/libITKIOPNG-4.11.a",
+					"$(SRCROOT)/Binaries/ITK/lib/libITKIOSiemens-4.11.a",
+					"$(SRCROOT)/Binaries/ITK/lib/libITKIOSpatialObjects-4.11.a",
+					"$(SRCROOT)/Binaries/ITK/lib/libITKIOStimulate-4.11.a",
+					"$(SRCROOT)/Binaries/ITK/lib/libITKIOTIFF-4.11.a",
+					"$(SRCROOT)/Binaries/ITK/lib/libITKIOTransformBase-4.11.a",
+					"$(SRCROOT)/Binaries/ITK/lib/libITKIOTransformHDF5-4.11.a",
+					"$(SRCROOT)/Binaries/ITK/lib/libITKIOTransformInsightLegacy-4.11.a",
+					"$(SRCROOT)/Binaries/ITK/lib/libITKIOTransformMatlab-4.11.a",
+					"$(SRCROOT)/Binaries/ITK/lib/libITKIOVTK-4.11.a",
+					"$(SRCROOT)/Binaries/ITK/lib/libITKIOXML-4.11.a",
+					"$(SRCROOT)/Binaries/ITK/lib/libitkjpeg-4.11.a",
+					"$(SRCROOT)/Binaries/ITK/lib/libITKKLMRegionGrowing-4.11.a",
+					"$(SRCROOT)/Binaries/ITK/lib/libITKLabelMap-4.11.a",
+					"$(SRCROOT)/Binaries/ITK/lib/libITKMesh-4.11.a",
+					"$(SRCROOT)/Binaries/ITK/lib/libITKMetaIO-4.11.a",
+					"$(SRCROOT)/Binaries/ITK/lib/libitknetlib-4.11.a",
+					"$(SRCROOT)/Binaries/ITK/lib/libitkNetlibSlatec-4.11.a",
+					"$(SRCROOT)/Binaries/ITK/lib/libITKniftiio-4.11.a",
+					"$(SRCROOT)/Binaries/ITK/lib/libITKNrrdIO-4.11.a",
+					"$(SRCROOT)/Binaries/ITK/lib/libITKOptimizers-4.11.a",
+					"$(SRCROOT)/Binaries/ITK/lib/libITKOptimizersv4-4.11.a",
+					"$(SRCROOT)/Binaries/ITK/lib/libITKPath-4.11.a",
+					"$(SRCROOT)/Binaries/ITK/lib/libitkpng-4.11.a",
+					"$(SRCROOT)/Binaries/ITK/lib/libITKPolynomials-4.11.a",
+					"$(SRCROOT)/Binaries/ITK/lib/libITKQuadEdgeMesh-4.11.a",
+					"$(SRCROOT)/Binaries/ITK/lib/libITKSpatialObjects-4.11.a",
+					"$(SRCROOT)/Binaries/ITK/lib/libITKStatistics-4.11.a",
+					"$(SRCROOT)/Binaries/ITK/lib/libitksys-4.11.a",
+					"$(SRCROOT)/Binaries/ITK/lib/libitktiff-4.11.a",
+					"$(SRCROOT)/Binaries/ITK/lib/libITKTransform-4.11.a",
+					"$(SRCROOT)/Binaries/ITK/lib/libITKTransformFactory-4.11.a",
+					"$(SRCROOT)/Binaries/ITK/lib/libitkv3p_netlib-4.11.a",
+					"$(SRCROOT)/Binaries/ITK/lib/libitkvcl-4.11.a",
+					"$(SRCROOT)/Binaries/ITK/lib/libITKVideoCore-4.11.a",
+					"$(SRCROOT)/Binaries/ITK/lib/libITKVideoIO-4.11.a",
+					"$(SRCROOT)/Binaries/ITK/lib/libitkvnl_algo-4.11.a",
+					"$(SRCROOT)/Binaries/ITK/lib/libitkvnl-4.11.a",
+					"$(SRCROOT)/Binaries/ITK/lib/libITKVNLInstantiation-4.11.a",
+					"$(SRCROOT)/Binaries/ITK/lib/libITKVTK-4.11.a",
+					"$(SRCROOT)/Binaries/ITK/lib/libITKVtkGlue-4.11.a",
+					"$(SRCROOT)/Binaries/ITK/lib/libITKWatersheds-4.11.a",
+					"$(SRCROOT)/Binaries/ITK/lib/libitkzlib-4.11.a",
+					"$(SRCROOT)/Binaries/ITK/lib/libITKznz-4.11.a",
+					"$(SRCROOT)/Binaries/openjpeg/lib/libopenjp2.2.2.0.dylib",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkalglib-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkChartsCore-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkCommonColor-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkCommonComputationalGeometry-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkCommonCore-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkCommonDataModel-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkCommonExecutionModel-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkCommonMath-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkCommonMisc-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkCommonSystem-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkCommonTransforms-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkDICOMParser-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkDomainsChemistry-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkDomainsChemistryOpenGL2-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkexoIIc-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkexpat-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkFiltersAMR-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkFiltersCore-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkFiltersExtraction-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkFiltersFlowPaths-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkFiltersGeneral-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkFiltersGeneric-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkFiltersGeometry-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkFiltersHybrid-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkFiltersHyperTree-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkFiltersImaging-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkFiltersModeling-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkFiltersParallel-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkFiltersParallelImaging-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkFiltersPoints-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkFiltersProgrammable-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkFiltersSelection-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkFiltersSMP-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkFiltersSources-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkFiltersStatistics-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkFiltersTexture-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkFiltersVerdict-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkfreetype-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkGeovisCore-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkgl2ps-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkglew-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkhdf5_hl-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkhdf5-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkImagingColor-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkImagingCore-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkImagingFourier-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkImagingGeneral-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkImagingHybrid-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkImagingMath-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkImagingMorphological-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkImagingSources-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkImagingStatistics-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkImagingStencil-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkInfovisCore-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkInfovisLayout-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkInteractionImage-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkInteractionStyle-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkInteractionWidgets-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkIOAMR-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkIOCore-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkIOEnSight-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkIOExodus-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkIOExport-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkIOGeometry-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkIOImage-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkIOImport-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkIOInfovis-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkIOLegacy-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkIOLSDyna-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkIOMINC-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkIOMovie-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkIONetCDF-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkIOParallel-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkIOParallelXML-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkIOPLY-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkIOSQL-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkIOTecplotTable-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkIOVideo-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkIOXML-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkIOXMLParser-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkjpeg-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkjsoncpp-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtklibxml2-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkmetaio-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkNetCDF_cxx-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkNetCDF-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkoggtheora-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkParallelCore-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkpng-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkproj4-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkRenderingAnnotation-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkRenderingContext2D-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkRenderingContextOpenGL2-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkRenderingCore-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkRenderingFreeType-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkRenderingGL2PSOpenGL2-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkRenderingImage-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkRenderingLabel-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkRenderingLOD-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkRenderingOpenGL2-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkRenderingVolume-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkRenderingVolumeOpenGL2-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtksqlite-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtksys-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtktiff-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkverdict-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkViewsContext2D-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkViewsCore-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkViewsInfovis-7.1.a",
+					"$(SRCROOT)/Binaries/VTK/lib/libvtkzlib-7.1.a",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.bettarini.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "miele-lxiv";
+				STRIP_STYLE = debugging;
+				SYSTEM_HEADER_SEARCH_PATHS = "/usr/local/opt/openssl/include $(SRCROOT)/Binaries/ITK/include/ITK-4.11 $(SRCROOT)/Binaries/VTK/include $(SRCROOT)/Binaries/ITK/include";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = "-no-pedantic";
+			};
+			name = Distribution;
+		};
+		4372A20321675E9300EE69CB /* Distribution */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				HEADER_SEARCH_PATHS = "$(SRCROOT)";
+				INFOPLIST_FILE = "LXIV Launcher/Info.plist";
+				OTHER_CFLAGS = "";
+				OTHER_CPLUSPLUSFLAGS = (
+					"-stdlib=libc++",
+					"-std=gnu++14",
+					"-DNDEBUG",
+				);
+				OTHER_LDFLAGS = (
+					"-Wl,-search_paths_first",
+					"-Wl,-headerpad_max_install_names",
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.bettarini.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "LXIV Launcher";
+				SKIP_INSTALL = YES;
+				USE_HEADERMAP = NO;
+			};
+			name = Distribution;
+		};
+		4372A20421675E9300EE69CB /* Distribution */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = YES;
+				CURRENT_PROJECT_VERSION = "";
+				DEAD_CODE_STRIPPING = YES;
+				FRAMEWORK_VERSION = A;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 3;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "DCM Framework/DCM Framework_Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/Binaries/DCMTK/include",
+					"$(SRCROOT)",
+					"$(SRCROOT)/Binaries/openjpeg/include",
+					"$(SRCROOT)/nitrogen/Sources",
+					"$(SRCROOT)/OsiriXClasses/**",
+					"$(SRCROOT)/glue/**",
+				);
+				INFOPLIST_FILE = "DCM Framework/DCM-Info.plist";
+				INSTALL_PATH = "@executable_path/../Frameworks";
+				OTHER_CFLAGS = "";
+				OTHER_CPLUSPLUSFLAGS = (
+					"-stdlib=libc++",
+					"-std=gnu++14",
+					"-DNDEBUG",
+					"-fPIC",
+				);
+				OTHER_LDFLAGS = (
+					"$(SRCROOT)/Binaries/DCMTK/lib/libofstd.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/liboflog.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmdata.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libi2d.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmimgle.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmimage.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmjpeg.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libijg8.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libijg12.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libijg16.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmjpls.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libcharls.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmtls.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmnet.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmsr.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libcmr.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmdsig.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmwlm.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmqrdb.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmpstat.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmrt.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmiod.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmfg.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmseg.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmtract.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmpmap.a",
+					"$(SRCROOT)/Binaries/openjpeg/lib/libopenjp2.2.2.0.dylib",
+					"-framework",
+					Accelerate,
+					"-framework",
+					AppKit,
+					"-framework",
+					IOKit,
+					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmtls.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmsr.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmimage.a",
+					/usr/local/lib/libtiff.dylib,
+					/usr/local/lib/libjpeg.dylib,
+					/usr/local/lib/libpng.dylib,
+					/usr/lib/libxml2.dylib,
+					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmdsig.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmqrdb.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmnet.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmimgle.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmfg.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmiod.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmdata.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/liboflog.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libofstd.a",
+					"-lpthread",
+					/usr/lib/libz.dylib,
+					"-lm",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.bettarini.dcmframework;
+				PRODUCT_NAME = OsiriX;
+				PUBLIC_HEADERS_FOLDER_PATH = "$(CONTENTS_FOLDER_PATH)/Headers";
+				SECTORDER_FLAGS = "";
+				SKIP_INSTALL = YES;
+				USE_HEADERMAP = NO;
+			};
+			name = Distribution;
+		};
+		4372A20521675E9300EE69CB /* Distribution */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_ALTIVEC_EXTENSIONS = YES;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_MODEL_CPU = "";
+				GCC_MODEL_PPC64 = NO;
+				GCC_MODEL_TUNING = "";
+				GCC_OPTIMIZATION_LEVEL = 1;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_SHADOW = NO;
+				GCC_WARN_UNINITIALIZED_AUTOS = NO;
+				HEADER_SEARCH_PATHS = Binaries;
+				OTHER_CFLAGS = (
+					"-falign-functions=32",
+					"-falign-labels=32",
+					"-falign-loops=32",
+					"-falign-jumps=32",
+				);
+				OTHER_LDFLAGS = "";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = "Build All Prerequisites";
+				SECTORDER_FLAGS = "";
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+			};
+			name = Distribution;
+		};
+		4372A20621675E9300EE69CB /* Distribution */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				PRODUCT_NAME = Documentation;
+			};
+			name = Distribution;
+		};
+		4372A20721675E9300EE69CB /* Distribution */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_RESOURCE_RULES_PATH = "";
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)";
+				COPY_PHASE_STRIP = YES;
+				DEPLOYMENT_LOCATION = NO;
+				FRAMEWORK_SEARCH_PATHS = " $(BUILD_DIR)/$(CONFIGURATION)";
+				GCC_FAST_MATH = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 3;
+				GCC_PREFIX_HEADER = Decompress/Decompres_Prefix.pch;
+				GCC_UNROLL_LOOPS = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/Binaries/libtiff/include",
+					"$(SRCROOT)/Binaries/DCMTK/include",
+					"$(SRCROOT)",
+					"$(SRCROOT)/Binaries/Ming",
+					"$(SRCROOT)/cocoahttpserver",
+					"$(SRCROOT)/glue/**",
+					"$(SRCROOT)/NIfTI_Library",
+					"$(SRCROOT)/nitrogen/Sources",
+					"$(SRCROOT)/Binaries/openjpeg/include/**",
+					"$(SRCROOT)/OsiriXClasses/**",
+				);
+				LD_RUNPATH_SEARCH_PATHS = "$(BUILD_DIR)/$(CONFIGURATION)";
+				LIBRARY_SEARCH_PATHS = "";
+				OTHER_CFLAGS = "";
+				OTHER_CPLUSPLUSFLAGS = (
+					"-stdlib=libc++",
+					"-std=gnu++14",
+					"-DNDEBUG",
+				);
+				OTHER_LDFLAGS = (
+					"-Wl,-search_paths_first",
+					"-Wl,-headerpad_max_install_names",
+					"$(SRCROOT)/Binaries/Ming/libfreetypeOsiriX.a",
+					"$(SRCROOT)/Binaries/Ming/libgifOsiriX.a",
+					"$(SRCROOT)/Binaries/Ming/libmingOsiriX.a",
+					"$(SRCROOT)/Binaries/Ming/libpng12OsiriX.a",
+					"-framework",
+					Accelerate,
+					"-framework",
+					AppKit,
+					"-framework",
+					AVFoundation,
+					"-framework",
+					CoreGraphics,
+					"-framework",
+					CoreMedia,
+					"-framework",
+					CoreVideo,
+					"-framework",
+					Foundation,
+					"-framework",
+					IOKit,
+					"-framework",
+					Quartz,
+					"-framework",
+					WebKit,
+					"-framework",
+					OsiriX,
+					"$(SRCROOT)/Binaries/DCMTK/lib/libcharls.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libcmr.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmdata.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmdsig.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmfg.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmimage.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmimgle.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmiod.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmjpeg.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmjpls.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmnet.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmpmap.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmpstat.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmqrdb.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmrt.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmseg.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmsr.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmtls.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmtract.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmwlm.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libi2d.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libijg12.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libijg16.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libijg8.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/liboflog.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libofstd.a",
+					"$(SRCROOT)/Binaries/openjpeg/lib/libopenjp2.2.2.0.dylib",
+					/usr/local/lib/libtiff.dylib,
+					/usr/local/lib/libjpeg.dylib,
+					/usr/local/lib/libpng.dylib,
+					/usr/lib/libxml2.dylib,
+					"-lpthread",
+					/usr/lib/libz.dylib,
+					"-lm",
+				);
+				PRODUCT_NAME = Decompress;
+				SKIP_INSTALL = YES;
+				STRIP_INSTALLED_PRODUCT = YES;
+				SYMROOT = build;
+				USE_HEADERMAP = NO;
+			};
+			name = Distribution;
+		};
+		4372A20821675E9300EE69CB /* Distribution */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_RESOURCE_RULES_PATH = "";
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)";
+				COPY_PHASE_STRIP = NO;
+				DEPLOYMENT_LOCATION = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(FRAMEWORK_SEARCH_PATHS)",
+					"$(SRCROOT)",
+				);
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 3;
+				HEADER_SEARCH_PATHS = (
+					AYDicomPrint,
+					/usr/local/Cellar/libxml2/2.9.4/include/libxml2,
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					Binaries/LibTiff,
+					AYDicomPrint,
+				);
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PRODUCT_NAME = DICOMPrint;
+				SKIP_INSTALL = YES;
+				SYMROOT = build;
+				USER_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/Binaries/DCMTK/include $(PROJECT_DIR)";
+			};
+			name = Distribution;
+		};
+		4372A20921675E9300EE69CB /* Distribution */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
+				CLANG_CXX_LIBRARY = "compiler-default";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				FRAMEWORK_VERSION = A;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/Binaries/DCMTK/include",
+					"$(SRCROOT)",
+					"$(SRCROOT)/Binaries/openjpeg/include",
+				);
+				INFOPLIST_FILE = "OsiriXAPI-Info.plist";
+				INSTALL_PATH = "@executable_path/../Frameworks";
+				OTHER_CPLUSPLUSFLAGS = (
+					"-stdlib=libc++",
+					"-std=gnu++14",
+					"-DNDEBUG",
+					"-fPIC",
+				);
+				OTHER_LDFLAGS = (
+					"$(SRCROOT)/Binaries/DCMTK/lib/libofstd.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/liboflog.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmdata.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libi2d.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmimgle.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmimage.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmjpeg.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libijg8.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libijg12.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libijg16.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmjpls.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libcharls.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmtls.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmnet.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmsr.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libcmr.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmdsig.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmwlm.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmqrdb.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmpstat.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmrt.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmiod.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmfg.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmseg.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmtract.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmpmap.a",
+					"$(SRCROOT)/Binaries/openjpeg/lib/libopenjp2.2.2.0.dylib",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmtls.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmsr.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmimage.a",
+					/usr/local/lib/libtiff.dylib,
+					/usr/local/lib/libjpeg.dylib,
+					/usr/local/lib/libpng.dylib,
+					/usr/lib/libxml2.dylib,
+					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmdsig.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmqrdb.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmnet.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmimgle.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmfg.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmiod.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmdata.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/liboflog.a",
+					"$(SRCROOT)/Binaries/DCMTK/lib/libofstd.a",
+					"-lpthread",
+					/usr/lib/libz.dylib,
+					"-lm",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.bettarini.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = OsiriXAPI;
+				SKIP_INSTALL = YES;
+				USE_HEADERMAP = NO;
+			};
+			name = Distribution;
+		};
+		4372A20A21675E9300EE69CB /* Distribution */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+					.,
+					Binaries,
+					"$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks",
+					"$(SRCROOT)",
+					"\"$(SRCROOT)/Binaries\"",
+					"\"$(SRCROOT)/build/Development\"",
+					"\"$(SRCROOT)/../../../../System/Library/Frameworks\"",
+					"$(PROJECT_DIR)/Binaries",
+				);
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Unit Tests/Unit Tests-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = "";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
+				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
+				GCC_WARN_ABOUT_POINTER_SIGNEDNESS = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_ALLOW_INCOMPLETE_PROTOCOL = YES;
+				GCC_WARN_MISSING_PARENTHESES = NO;
+				GCC_WARN_SHADOW = NO;
+				GCC_WARN_TYPECHECK_CALLS_TO_PRINTF = YES;
+				INFOPLIST_FILE = "Unit Tests/Unit Tests-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					Binaries/LibTiff,
+					Binaries/VTKLibs,
+					ITK180,
+					ITK180/Modules/Core/Common/include,
+					AYDicomPrint,
+					"\"$(SRCROOT)/Binaries/VTKLibs\"",
+					"\"$(SRCROOT)/Binaries\"",
+					"\"$(SRCROOT)/Binaries/KDU SDK\"",
+					"\"$(SRCROOT)/Binaries/LibTiff\"",
+					"\"$(SRCROOT)/Binaries/CharLS\"",
+					"\"$(SRCROOT)/ITK180/lib\"",
+					"\"$(SRCROOT)/Binaries/Ming\"",
+					"\"$(SRCROOT)/AYDicomPrint\"",
+				);
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(OTHER_CFLAGS)",
+					"-Wno-deprecated",
+				);
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+					"-weak_framework",
+					3DconnexionClient,
+					"-sectcreate",
+					__TEXT,
+					__info_plist,
+					"Deployment-Info.plist",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.bettarini.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "ITK180/Modules/Core/Common/include ITK180/Modules/ThirdParty/VNL/src/vxl/core ITK180/Modules/ThirdParty/VNL/src/vxl/vcl ITK180/Modules/Core/Common ITK180/Modules/Core/Mesh/include ITK180/Modules/Segmentation/RegionGrowing/include ITK180/Modules/Filtering/CurvatureFlow/include ITK180/Modules/Core/ImageFunction/include ITK180/Modules/Core/FiniteDifference/include ITK180/Modules/Filtering/ImageFilterBase/include ITK180/Modules/Segmentation/LevelSets/include ITK180/Modules/Filtering/FastMarching/include ITK180/Modules/Filtering/ImageIntensity/include ITK180/Modules/Bridge/VTK/include ITK180/Modules/Filtering/MathematicalMorphology/include ITK180/Modules/Core/Transform/include ITK180/Modules/Filtering/ImageGrid/include ITK180/Modules/Filtering/BinaryMathematicalMorphology/include ITK180/Modules/ThirdParty/NrrdIO/src/NrrdIO";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Distribution;
+		};
 		43E98D191A32BF6A001B9E51 /* Deployment */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -11527,7 +12404,7 @@
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = s;
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					FOR_OSIRI_LXIV,
+					FOR_MIELE_LXIV,
 					XCODE_LXIV,
 					NDEBUG,
 				);
@@ -11564,7 +12441,7 @@
 				GCC_OPTIMIZATION_LEVEL = fast;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					FOR_OSIRI_LXIV,
+					FOR_MIELE_LXIV,
 					XCODE_LXIV,
 					NDEBUG,
 					OSIRIX_VIEWER,
@@ -11885,7 +12762,7 @@
 					"$(SRCROOT)/Binaries/VTK/lib/libvtkViewsInfovis-7.1.a",
 					"$(SRCROOT)/Binaries/VTK/lib/libvtkzlib-7.1.a",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.bettarini.miele-lxiv";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.github-bettar.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "miele-lxiv";
 				STRIP_STYLE = debugging;
 				SYSTEM_HEADER_SEARCH_PATHS = "/usr/local/opt/openssl/include $(SRCROOT)/Binaries/ITK/include/ITK-4.11 $(SRCROOT)/Binaries/VTK/include $(SRCROOT)/Binaries/ITK/include";
@@ -11921,7 +12798,7 @@
 					"-framework",
 					AppKit,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.bettarini.miele-lxiv-launcher";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.github-bettar.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "LXIV Launcher";
 				SKIP_INSTALL = YES;
 				USE_HEADERMAP = NO;
@@ -12014,7 +12891,7 @@
 					/usr/lib/libz.dylib,
 					"-lm",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.bettarini.dcmframework;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.github-bettar.dcmframework";
 				PRODUCT_NAME = OsiriX;
 				PUBLIC_HEADERS_FOLDER_PATH = "$(CONTENTS_FOLDER_PATH)/Headers";
 				SECTORDER_FLAGS = "";
@@ -12292,7 +13169,7 @@
 					/usr/lib/libz.dylib,
 					"-lm",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.bettarini.OsiriXAPI;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.github-bettar.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = OsiriXAPI;
 				SKIP_INSTALL = YES;
 				USE_HEADERMAP = NO;
@@ -12366,7 +13243,7 @@
 					__info_plist,
 					"Deployment-Info.plist",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.pixmeo.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.github-bettar.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "ITK180/Modules/Core/Common/include ITK180/Modules/ThirdParty/VNL/src/vxl/core ITK180/Modules/ThirdParty/VNL/src/vxl/vcl ITK180/Modules/Core/Common ITK180/Modules/Core/Mesh/include ITK180/Modules/Segmentation/RegionGrowing/include ITK180/Modules/Filtering/CurvatureFlow/include ITK180/Modules/Core/ImageFunction/include ITK180/Modules/Core/FiniteDifference/include ITK180/Modules/Filtering/ImageFilterBase/include ITK180/Modules/Segmentation/LevelSets/include ITK180/Modules/Filtering/FastMarching/include ITK180/Modules/Filtering/ImageIntensity/include ITK180/Modules/Bridge/VTK/include ITK180/Modules/Filtering/MathematicalMorphology/include ITK180/Modules/Core/Transform/include ITK180/Modules/Filtering/ImageGrid/include ITK180/Modules/Filtering/BinaryMathematicalMorphology/include ITK180/Modules/ThirdParty/NrrdIO/src/NrrdIO";
 				WRAPPER_EXTENSION = octest;
@@ -12399,7 +13276,7 @@
 					"-framework",
 					AppKit,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.bettarini.miele-lxiv-launcher";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.bettarini.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "LXIV Launcher";
 				SKIP_INSTALL = YES;
 				USE_HEADERMAP = NO;
@@ -12552,7 +13429,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					FOR_OSIRI_LXIV,
+					FOR_MIELE_LXIV,
 					XCODE_LXIV,
 					OSIRIX_VIEWER,
 				);
@@ -12870,7 +13747,7 @@
 					"$(SRCROOT)/Binaries/VTK/lib/libvtkViewsInfovis-7.1.a",
 					"$(SRCROOT)/Binaries/VTK/lib/libvtkzlib-7.1.a",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.bettarini.miele-lxiv";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.bettarini.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "miele-lxiv";
 				SYSTEM_HEADER_SEARCH_PATHS = "/usr/local/opt/openssl/include $(SRCROOT)/Binaries/ITK/include/ITK-4.11 $(SRCROOT)/Binaries/VTK/include $(SRCROOT)/Binaries/ITK/include";
 				USE_HEADERMAP = NO;
@@ -12908,7 +13785,7 @@
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					FOR_OSIRI_LXIV,
+					FOR_MIELE_LXIV,
 					XCODE_LXIV,
 				);
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -12997,7 +13874,7 @@
 					__info_plist,
 					"Deployment-Info.plist",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.pixmeo.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.bettarini.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "ITK180/Modules/Core/Common/include ITK180/Modules/ThirdParty/VNL/src/vxl/core ITK180/Modules/ThirdParty/VNL/src/vxl/vcl ITK180/Modules/Core/Common ITK180/Modules/Core/Mesh/include ITK180/Modules/Segmentation/RegionGrowing/include ITK180/Modules/Filtering/CurvatureFlow/include ITK180/Modules/Core/ImageFunction/include ITK180/Modules/Core/FiniteDifference/include ITK180/Modules/Filtering/ImageFilterBase/include ITK180/Modules/Segmentation/LevelSets/include ITK180/Modules/Filtering/FastMarching/include ITK180/Modules/Filtering/ImageIntensity/include ITK180/Modules/Bridge/VTK/include ITK180/Modules/Filtering/MathematicalMorphology/include ITK180/Modules/Core/Transform/include ITK180/Modules/Filtering/ImageGrid/include ITK180/Modules/Filtering/BinaryMathematicalMorphology/include ITK180/Modules/ThirdParty/NrrdIO/src/NrrdIO";
 				WRAPPER_EXTENSION = octest;
@@ -13080,7 +13957,7 @@
 					/usr/lib/libz.dylib,
 					"-lm",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.bettarini.OsiriXAPI;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.bettarini.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = OsiriXAPI;
 				SKIP_INSTALL = YES;
 				USE_HEADERMAP = NO;
@@ -13249,6 +14126,7 @@
 			buildConfigurations = (
 				59BDEC30117C92B3007F1F2C /* Development */,
 				43E98D1B1A32BF6A001B9E51 /* Deployment */,
+				4372A20321675E9300EE69CB /* Distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Deployment;
@@ -13258,6 +14136,7 @@
 			buildConfigurations = (
 				7E76BEC1085757B60073649A /* Development */,
 				43E98D1C1A32BF6A001B9E51 /* Deployment */,
+				4372A20421675E9300EE69CB /* Distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Deployment;
@@ -13267,6 +14146,7 @@
 			buildConfigurations = (
 				7E76BEC4085757B60073649A /* Development */,
 				43E98D1F1A32BF6A001B9E51 /* Deployment */,
+				4372A20521675E9300EE69CB /* Distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Deployment;
@@ -13276,6 +14156,7 @@
 			buildConfigurations = (
 				7E76BEC7085757B70073649A /* Development */,
 				43E98D1A1A32BF6A001B9E51 /* Deployment */,
+				4372A20221675E9300EE69CB /* Distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Deployment;
@@ -13285,6 +14166,7 @@
 			buildConfigurations = (
 				7E76BED9085757B70073649A /* Development */,
 				43E98D191A32BF6A001B9E51 /* Deployment */,
+				4372A20121675E9300EE69CB /* Distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Deployment;
@@ -13294,6 +14176,7 @@
 			buildConfigurations = (
 				A98795D416DB9FD100926023 /* Development */,
 				43E98D241A32BF6A001B9E51 /* Deployment */,
+				4372A20A21675E9300EE69CB /* Distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Deployment;
@@ -13303,6 +14186,7 @@
 			buildConfigurations = (
 				AB0F3A2E1046BD2D004129DD /* Development */,
 				43E98D231A32BF6A001B9E51 /* Deployment */,
+				4372A20921675E9300EE69CB /* Distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Deployment;
@@ -13312,6 +14196,7 @@
 			buildConfigurations = (
 				AB724FF40ADE6ECB00A212A0 /* Development */,
 				43E98D211A32BF6A001B9E51 /* Deployment */,
+				4372A20721675E9300EE69CB /* Distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Deployment;
@@ -13321,6 +14206,7 @@
 			buildConfigurations = (
 				BF7486A60CC6AA5D00198387 /* Development */,
 				43E98D201A32BF6A001B9E51 /* Deployment */,
+				4372A20621675E9300EE69CB /* Distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Deployment;
@@ -13330,6 +14216,7 @@
 			buildConfigurations = (
 				CEDF6DCE0B46FE99008B45B8 /* Development */,
 				43E98D221A32BF6A001B9E51 /* Deployment */,
+				4372A20821675E9300EE69CB /* Distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Deployment;

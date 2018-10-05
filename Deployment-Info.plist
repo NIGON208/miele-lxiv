@@ -262,5 +262,7 @@
 			</dict>
 		</dict>
 	</array>
+	<key>Config</key>
+	<string>$(CONFIGURATION)</string>
 </dict>
 </plist>
