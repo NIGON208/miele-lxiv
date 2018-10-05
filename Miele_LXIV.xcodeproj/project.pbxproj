@@ -242,8 +242,7 @@
 		4310FADA20692C2B000BDDCC /* shadow.def in Resources */ = {isa = PBXBuildFile; fileRef = 4310F65920692C25000BDDCC /* shadow.def */; };
 		4310FADB20692C2B000BDDCC /* signcmp.def in Resources */ = {isa = PBXBuildFile; fileRef = 4310F65A20692C25000BDDCC /* signcmp.def */; };
 		4310FADC20692C2B000BDDCC /* vsprfw.def in Resources */ = {isa = PBXBuildFile; fileRef = 4310F65B20692C25000BDDCC /* vsprfw.def */; };
-		43110BE92167902800B0405B /* OsiriX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43110BE82167902700B0405B /* OsiriX.framework */; };
-		43110BEA2167916700B0405B /* OsiriX.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 43110BE82167902700B0405B /* OsiriX.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		43110BEB21679E5B00B0405B /* OsiriX.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 844719AF0FD8EF50003BFDF8 /* OsiriX.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4333FD721AB3082C00E82B49 /* DcmQueryRetrieveOsiriSCP.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4333FD711AB3082C00E82B49 /* DcmQueryRetrieveOsiriSCP.mm */; };
 		433DA138215A5B2600D5A70B /* BrowserController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 433DA136215A5B2500D5A70B /* BrowserController.mm */; };
 		433F9A801A1B18A500E52C6C /* VTKView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 433F9A7E1A1B18A500E52C6C /* VTKView.mm */; };
@@ -2116,7 +2115,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				43110BEA2167916700B0405B /* OsiriX.framework in Copy Frameworks */,
+				43110BEB21679E5B00B0405B /* OsiriX.framework in Copy Frameworks */,
 				59F1A515104BA8AE009E3215 /* OsiriXAPI.framework in Copy Frameworks */,
 				CE04B81B15289AF400EF6E52 /* Growl.framework in Copy Frameworks */,
 				84F453570FC3DF5400D29666 /* ILCrashReporter.framework in Copy Frameworks */,
@@ -3304,7 +3303,6 @@
 		4310F69320692C25000BDDCC /* tuplefrd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tuplefrd.h; sourceTree = "<group>"; };
 		4310F69420692C25000BDDCC /* tuplefwd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tuplefwd.h; sourceTree = "<group>"; };
 		4310F69520692C25000BDDCC /* variant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = variant.h; sourceTree = "<group>"; };
-		43110BE82167902700B0405B /* OsiriX.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OsiriX.framework; path = build/Development/OsiriX.framework; sourceTree = "<group>"; };
 		4333FD351AB3076200E82B49 /* libcharls.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcharls.a; path = Binaries/DCMTK/lib/libcharls.a; sourceTree = "<group>"; };
 		4333FD361AB3076200E82B49 /* libdcmdata.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdcmdata.a; path = Binaries/DCMTK/lib/libdcmdata.a; sourceTree = "<group>"; };
 		4333FD371AB3076200E82B49 /* libdcmdsig.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdcmdsig.a; path = Binaries/DCMTK/lib/libdcmdsig.a; sourceTree = "<group>"; };
@@ -4833,7 +4831,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				43110BE92167902800B0405B /* OsiriX.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4914,7 +4911,6 @@
 		1058C7A2FEA54F0111CA2CBB /* Other Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				43110BE82167902700B0405B /* OsiriX.framework */,
 				439B8C131A19CCC300F396D7 /* 3DconnexionClient.framework */,
 				ABE881440FC1444D009F5C80 /* ILCrashReporter.framework */,
 				CE2BE05D1524344D00AE6156 /* Growl.framework */,
@@ -9635,7 +9631,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#set -x\n\nheaderspath=\"$TARGET_BUILD_DIR/$FRAMEWORKS_FOLDER_PATH/OsiriXAPI.framework/Versions/A/Headers\"\nrm -Rf \"$headerspath\"\nmkdir -p \"$headerspath\"\nrm -Rf \"$TARGET_BUILD_DIR/$FRAMEWORKS_FOLDER_PATH/OsiriXAPI.framework/Versions/A/Frameworks/Nitrogen.framework\"\n\nif [ \"$DEBUGGING_SYMBOLS\" == \"YES\" ] ; then\n\trm -Rf \"$TARGET_BUILD_DIR/$FRAMEWORKS_FOLDER_PATH/Nitrogen.framework/Versions/A/Nitrogen.framework.dSYM\"\nfi\n\nrm -Rf \"$TARGET_BUILD_DIR/$FRAMEWORKS_FOLDER_PATH/OsiriX Headers.framework\"\n\ncd \"$TARGET_BUILD_DIR/$FRAMEWORKS_FOLDER_PATH\"\nln -sf \"OsiriXAPI.framework\" \"OsiriX Headers.framework\"\n\ncd \"$TARGET_BUILD_DIR/$FRAMEWORKS_FOLDER_PATH/OsiriXAPI.framework\"\nln -sf \"OsiriXAPI\" \"OsiriX Headers\"\n\ncd \"$TARGET_BUILD_DIR/$FRAMEWORKS_FOLDER_PATH/OsiriXAPI.framework/Versions/A\"\nln -sf \"OsiriXAPI\" \"OsiriX Headers\"\n";
+			shellScript = "#set -x\n\nheaderspath=\"$TARGET_BUILD_DIR/$FRAMEWORKS_FOLDER_PATH/OsiriXAPI.framework/Versions/A/Headers\"\nrm -Rf \"$headerspath\"\nmkdir -p \"$headerspath\"\nrm -Rf \"$TARGET_BUILD_DIR/$FRAMEWORKS_FOLDER_PATH/OsiriXAPI.framework/Versions/A/Frameworks/Nitrogen.framework\"\n\nif [ \"$DEBUGGING_SYMBOLS\" == \"YES\" ] ; then\n    rm -Rf \"$TARGET_BUILD_DIR/$FRAMEWORKS_FOLDER_PATH/Nitrogen.framework/Versions/A/Nitrogen.framework.dSYM\"\nfi\n\nrm -Rf \"$TARGET_BUILD_DIR/$FRAMEWORKS_FOLDER_PATH/OsiriX Headers.framework\"\n\ncd \"$TARGET_BUILD_DIR/$FRAMEWORKS_FOLDER_PATH\"\nln -sf \"OsiriXAPI.framework\" \"OsiriX Headers.framework\"\n\ncd \"$TARGET_BUILD_DIR/$FRAMEWORKS_FOLDER_PATH/OsiriXAPI.framework\"\nln -sf \"OsiriXAPI\" \"OsiriX Headers\"\n\ncd \"$TARGET_BUILD_DIR/$FRAMEWORKS_FOLDER_PATH/OsiriXAPI.framework/Versions/A\"\nln -sf \"OsiriXAPI\" \"OsiriX Headers\"\n";
 		};
 		7183153F161065BE0098576F /* Replace Weasis ext-config.properties */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -9731,7 +9727,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /usr/bin/perl;
-			shellScript = "use strict;\nuse warnings;\n\ndie \"$0: Must be run from Xcode\" unless $ENV{\"BUILT_PRODUCTS_DIR\"};\n\nmy $FH;\nmy $output;\n\n# SHA hash :\n\nopen $FH, \"xcrun git rev-parse HEAD|\" or die;\n$output = <$FH>;\nclose($FH);\n\nchomp( $output );\nmy $GitHash = $output;\n\n# clean state :\n\n$output = `xcrun git status`;\n\nmy $GitState;\nif ( index( $output, \"nothing to commit (working directory clean)\" ) != -1 ) {\n    $GitState = \"clean\";\n} else {\n    $GitState = \"dirty\";\n}\n\nprint \"GitHash : $GitHash\\n\";\nprint \"GitState : $GitState\";\n\n# Update Info.plist in build product. Use defaults command\n\n#my $INFO = \"$ENV{BUILT_PRODUCTS_DIR}/$ENV{WRAPPER_NAME}/Info\"; #iOS\nmy $INFO = \"$ENV{BUILT_PRODUCTS_DIR}/$ENV{WRAPPER_NAME}/Contents/Info\"; #OSX\n\nmy @defaults = ( 'defaults', 'write', $INFO, 'GitHash', \"$GitHash\" );\nsystem( @defaults );\n\n@defaults = ( 'defaults', 'write', $INFO, 'GitState', \"$GitState\" );\nsystem( @defaults );";
+			shellScript = "use strict;\nuse warnings;\n\ndie \"$0: Must be run from Xcode\" unless $ENV{\"BUILT_PRODUCTS_DIR\"};\n\nmy $FH;\nmy $output;\n\n# SHA hash :\n\nopen $FH, \"xcrun git rev-parse HEAD|\" or die;\n$output = <$FH>;\nclose($FH);\n\nchomp( $output );\nmy $GitHash = $output;\n\n# clean state :\n\n$output = `xcrun git status`;\n\nmy $GitState;\nif ( index( $output, \"nothing to commit (working directory clean)\" ) != -1 ) {\n    $GitState = \"clean\";\n} else {\n    $GitState = \"dirty\";\n}\n\nprint \"GitHash : $GitHash\\n\";\nprint \"GitState : $GitState\";\n\n# Update Info.plist in build product. Use defaults command\n\n#my $INFO = \"$ENV{BUILT_PRODUCTS_DIR}/$ENV{WRAPPER_NAME}/Info\"; #iOS\nmy $INFO = \"$ENV{BUILT_PRODUCTS_DIR}/$ENV{WRAPPER_NAME}/Contents/Info\"; #OSX\n\nmy @defaults = ( 'defaults', 'write', $INFO, 'GitHash', \"$GitHash\" );\nsystem( @defaults );\n\n@defaults = ( 'defaults', 'write', $INFO, 'GitState', \"$GitState\" );\nsystem( @defaults );\n";
 		};
 		CED7488F158F07B500120143 /* Code Signing */ = {
 			isa = PBXShellScriptBuildPhase;

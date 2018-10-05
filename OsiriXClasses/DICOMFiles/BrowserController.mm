@@ -14442,7 +14442,7 @@ static NSArray*	openSubSeriesArray = nil;
 -(void) awakeFromNib
 {
 #ifndef NDEBUG
-    NSLog(@"%s", __FUNCTION__);
+    //NSLog(@"%s", __FUNCTION__);
 #endif
     @try
     {
@@ -14459,7 +14459,7 @@ static NSArray*	openSubSeriesArray = nil;
         NSRect r = NSMakeRect(0, 0, 0, 0);
         
         r = NSRectFromString( [[NSUserDefaults standardUserDefaults] stringForKey: @"DBWindowFrame"]);
-        NSLog(@"%s %d DBWindowFrame:%@", __FUNCTION__, __LINE__, NSStringFromRect(r));
+        //NSLog(@"%s %d DBWindowFrame:%@", __FUNCTION__, __LINE__, NSStringFromRect(r));
         
         if( NSIsEmptyRect( r)) // No position for the window -> fullscreen
             [[self window] zoom: self];
@@ -14469,7 +14469,7 @@ static NSArray*	openSubSeriesArray = nil;
         gHorizontalHistory = [[NSUserDefaults standardUserDefaults] boolForKey: @"horizontalHistory"];
         if (gHorizontalHistory)
         {
-            NSLog(@"%s %d", __FUNCTION__, __LINE__);
+            //NSLog(@"%s %d", __FUNCTION__, __LINE__);
             NSSplitView * s = [[NSSplitView alloc] initWithFrame: splitViewVert.bounds];
             
             [s setDelegate: self];

@@ -2894,7 +2894,7 @@ static BOOL firstCall = YES;
         
     //  NSLog(@"%@ -> %d", [[[[NSFileManager defaultManager] findSystemFolderOfType:kApplicationSupportFolderType forDomain:kLocalDomain] stringByAppendingPathComponent:[[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString*)kCFBundleNameKey]] stringByAppendingPathComponent:@"DLog.enable"], [N2Debug isActive]);
         
-        NSLog(@"%s %d", __FUNCTION__, __LINE__);
+        //NSLog(@"%s %d", __FUNCTION__, __LINE__);
 
         PapyrusLock = [[NSRecursiveLock alloc] init];
         STORESCP = [[NSRecursiveLock alloc] init];

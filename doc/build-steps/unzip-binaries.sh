@@ -29,6 +29,9 @@ find . -name __MACOSX | xargs rm -Rf
 cd "$SRCROOT/Binaries/ReportsToPDF/odt2pdf/build"
 unzip -uo odt2pdf.zip
 
+cd "$SRCROOT/Binaries/Icons"
+unzip -uo Logo.tif.zip
+
 cd "$SRCROOT/Binaries/PAGES"
 rm ._*
 
