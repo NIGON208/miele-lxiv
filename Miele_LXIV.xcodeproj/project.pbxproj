@@ -242,6 +242,8 @@
 		4310FADA20692C2B000BDDCC /* shadow.def in Resources */ = {isa = PBXBuildFile; fileRef = 4310F65920692C25000BDDCC /* shadow.def */; };
 		4310FADB20692C2B000BDDCC /* signcmp.def in Resources */ = {isa = PBXBuildFile; fileRef = 4310F65A20692C25000BDDCC /* signcmp.def */; };
 		4310FADC20692C2B000BDDCC /* vsprfw.def in Resources */ = {isa = PBXBuildFile; fileRef = 4310F65B20692C25000BDDCC /* vsprfw.def */; };
+		43110BE92167902800B0405B /* OsiriX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43110BE82167902700B0405B /* OsiriX.framework */; };
+		43110BEA2167916700B0405B /* OsiriX.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 43110BE82167902700B0405B /* OsiriX.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4333FD721AB3082C00E82B49 /* DcmQueryRetrieveOsiriSCP.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4333FD711AB3082C00E82B49 /* DcmQueryRetrieveOsiriSCP.mm */; };
 		433DA138215A5B2600D5A70B /* BrowserController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 433DA136215A5B2500D5A70B /* BrowserController.mm */; };
 		433F9A801A1B18A500E52C6C /* VTKView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 433F9A7E1A1B18A500E52C6C /* VTKView.mm */; };
@@ -597,7 +599,6 @@
 		A96F795F16DBC740000E877A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8406956210B6800E00C37AD0 /* SystemConfiguration.framework */; };
 		A96F796016DBC740000E877A /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE790A19105D4DE200CE6AAF /* WebKit.framework */; };
 		A96F796816DBC753000E877A /* ILCrashReporter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABE881440FC1444D009F5C80 /* ILCrashReporter.framework */; };
-		A96F796916DBC753000E877A /* OsiriX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE8D057D0FD8505000165DDE /* OsiriX.framework */; };
 		A96F796A16DBCAFA000E877A /* N2SOAPWebServiceClient.mm in Sources */ = {isa = PBXBuildFile; fileRef = 592CFF071212F84F00176E39 /* N2SOAPWebServiceClient.mm */; };
 		A96F796B16DBCAFA000E877A /* N2WSDL.mm in Sources */ = {isa = PBXBuildFile; fileRef = 592CFF041212F84F00176E39 /* N2WSDL.mm */; };
 		A96F796C16DBCAFA000E877A /* N2XMLRPCConnection.mm in Sources */ = {isa = PBXBuildFile; fileRef = 592CFF011212F84F00176E39 /* N2XMLRPCConnection.mm */; };
@@ -1492,7 +1493,6 @@
 		A9FBD37416DBE3AE003A0E04 /* OsiriX.sdef in Resources */ = {isa = PBXBuildFile; fileRef = CE9E11CF13DBB5DD008B2848 /* OsiriX.sdef */; };
 		A9FBD38316DBE701003A0E04 /* Growl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE2BE05D1524344D00AE6156 /* Growl.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		A9FBD38416DBE782003A0E04 /* Growl.framework in Copy Files */ = {isa = PBXBuildFile; fileRef = CE2BE05D1524344D00AE6156 /* Growl.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		A9FBD38516DBE818003A0E04 /* OsiriX.framework in Copy Files */ = {isa = PBXBuildFile; fileRef = CE8D057D0FD8505000165DDE /* OsiriX.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		A9FBD38616DBE821003A0E04 /* OsiriXAPI.framework in Copy Files */ = {isa = PBXBuildFile; fileRef = AB0F3A2C1046BD2B004129DD /* OsiriXAPI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		A9FBD38716DBE83E003A0E04 /* ILCrashReporter.framework in Copy Files */ = {isa = PBXBuildFile; fileRef = ABE881440FC1444D009F5C80 /* ILCrashReporter.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		A9FBD38816DBE84D003A0E04 /* libxerces-c.27.dylib in Copy Files */ = {isa = PBXBuildFile; fileRef = CE6693C60AF551210073D923 /* libxerces-c.27.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
@@ -1884,7 +1884,6 @@
 		CE74824206C9701200FFA74C /* trash.icns in Resources */ = {isa = PBXBuildFile; fileRef = CE74824006C9701200FFA74C /* trash.icns */; };
 		CE74DEB008CCE0C1005D12A7 /* SagOpposite.tif in Resources */ = {isa = PBXBuildFile; fileRef = CE74DEAF08CCE0C1005D12A7 /* SagOpposite.tif */; };
 		CE79D9890FD84C350043DD73 /* DCMAbstractSyntaxUID.mm in Sources */ = {isa = PBXBuildFile; fileRef = CE79D9870FD84C350043DD73 /* DCMAbstractSyntaxUID.mm */; };
-		CE81E2A50FDA9F00000D3D96 /* OsiriX.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = CE8D057D0FD8505000165DDE /* OsiriX.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		CE882AC70C889B6500D4F982 /* XMLRPCMethods.mm in Sources */ = {isa = PBXBuildFile; fileRef = CE882AC50C889B6500D4F982 /* XMLRPCMethods.mm */; };
 		CE88576008AF938800B72DA7 /* ROIVolumeController.mm in Sources */ = {isa = PBXBuildFile; fileRef = CE88575C08AF938800B72DA7 /* ROIVolumeController.mm */; };
 		CE88576108AF938800B72DA7 /* ROIVolumeView.mm in Sources */ = {isa = PBXBuildFile; fileRef = CE88575D08AF938800B72DA7 /* ROIVolumeView.mm */; };
@@ -2038,6 +2037,13 @@
 			remoteGlobalIDString = 7E0B3A3E067526CD00908593;
 			remoteInfo = "DCM Framework";
 		};
+		43E9D2BA2167886200CFBD0B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7E0B3A3E067526CD00908593;
+			remoteInfo = "DCM Framework";
+		};
 		4A2ADDFC078D3C6200416F53 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
@@ -2097,7 +2103,6 @@
 			files = (
 				A9FBD38616DBE821003A0E04 /* OsiriXAPI.framework in Copy Files */,
 				A9FBD38416DBE782003A0E04 /* Growl.framework in Copy Files */,
-				A9FBD38516DBE818003A0E04 /* OsiriX.framework in Copy Files */,
 				A9FBD38816DBE84D003A0E04 /* libxerces-c.27.dylib in Copy Files */,
 				A9FBD38716DBE83E003A0E04 /* ILCrashReporter.framework in Copy Files */,
 				A9FBD38A16DBE855003A0E04 /* libdcmprintscu.dylib in Copy Files */,
@@ -2111,9 +2116,9 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				43110BEA2167916700B0405B /* OsiriX.framework in Copy Frameworks */,
 				59F1A515104BA8AE009E3215 /* OsiriXAPI.framework in Copy Frameworks */,
 				CE04B81B15289AF400EF6E52 /* Growl.framework in Copy Frameworks */,
-				CE81E2A50FDA9F00000D3D96 /* OsiriX.framework in Copy Frameworks */,
 				84F453570FC3DF5400D29666 /* ILCrashReporter.framework in Copy Frameworks */,
 			);
 			name = "Copy Frameworks";
@@ -3299,6 +3304,7 @@
 		4310F69320692C25000BDDCC /* tuplefrd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tuplefrd.h; sourceTree = "<group>"; };
 		4310F69420692C25000BDDCC /* tuplefwd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tuplefwd.h; sourceTree = "<group>"; };
 		4310F69520692C25000BDDCC /* variant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = variant.h; sourceTree = "<group>"; };
+		43110BE82167902700B0405B /* OsiriX.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OsiriX.framework; path = build/Development/OsiriX.framework; sourceTree = "<group>"; };
 		4333FD351AB3076200E82B49 /* libcharls.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcharls.a; path = Binaries/DCMTK/lib/libcharls.a; sourceTree = "<group>"; };
 		4333FD361AB3076200E82B49 /* libdcmdata.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdcmdata.a; path = Binaries/DCMTK/lib/libdcmdata.a; sourceTree = "<group>"; };
 		4333FD371AB3076200E82B49 /* libdcmdsig.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdcmdsig.a; path = Binaries/DCMTK/lib/libdcmdsig.a; sourceTree = "<group>"; };
@@ -3363,6 +3369,7 @@
 		43E27D281AF338FA007B92CA /* ROI3DSettingsWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ROI3DSettingsWindow.h; sourceTree = "<group>"; };
 		43E27D291AF338FA007B92CA /* ROI3DSettingsWindow.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ROI3DSettingsWindow.mm; sourceTree = "<group>"; };
 		43E27D2D1AF33A22007B92CA /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = Binaries/English.lproj/ROI3DSettingsWindow.xib; sourceTree = "<group>"; };
+		43E9D2B92167869100CFBD0B /* OsiriXAPI-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "OsiriXAPI-Info.plist"; sourceTree = SOURCE_ROOT; };
 		43F8F9A41AA7DAA6008F318C /* LoupeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoupeController.h; sourceTree = "<group>"; };
 		43F8F9A51AA7DAA6008F318C /* LoupeController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = LoupeController.mm; sourceTree = "<group>"; };
 		43F8F9A61AA7DAA6008F318C /* LoupeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoupeView.h; sourceTree = "<group>"; };
@@ -3599,7 +3606,7 @@
 		59E83A1212FC6556006B930A /* NSManagedObject+N2.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = "NSManagedObject+N2.mm"; path = "nitrogen/Sources/NSManagedObject+N2.mm"; sourceTree = "<group>"; };
 		59EBFDDA12BA5A1A00809C61 /* WebPortal+Email+Log.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WebPortal+Email+Log.h"; sourceTree = "<group>"; };
 		59EBFDDB12BA5A1A00809C61 /* WebPortal+Email+Log.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "WebPortal+Email+Log.mm"; sourceTree = "<group>"; };
-		59F1A4C7104BA5BE009E3215 /* OsiriXHeaders.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = OsiriXHeaders.mm; path = OsiriXClasses/OsiriXHeaders.mm; sourceTree = "<group>"; };
+		59F1A4C7104BA5BE009E3215 /* OsiriXHeaders.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = OsiriXHeaders.mm; sourceTree = "<group>"; };
 		59F5F3F711F476030047A90D /* N2ImageButtonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = N2ImageButtonCell.h; path = nitrogen/Sources/N2ImageButtonCell.h; sourceTree = "<group>"; };
 		59F5F3F811F476030047A90D /* N2ImageButtonCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = N2ImageButtonCell.mm; path = nitrogen/Sources/N2ImageButtonCell.mm; sourceTree = "<group>"; };
 		59F5F4EA11F485CC0047A90D /* BrowserController+Activity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BrowserController+Activity.h"; sourceTree = "<group>"; };
@@ -4587,7 +4594,6 @@
 		CE8A5016181BA499009A453B /* Report.pages */ = {isa = PBXFileReference; lastKnownFileType = file; name = Report.pages; path = Binaries/Report.pages; sourceTree = "<group>"; };
 		CE8CAB0A0B4715DD0068DBAE /* DICOMPrint */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = DICOMPrint; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE8CDAF112B3C88D00268E4F /* DatabaseIcon.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = DatabaseIcon.tif; sourceTree = "<group>"; };
-		CE8D057D0FD8505000165DDE /* OsiriX.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OsiriX.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE902EA1181C004C00CC4B88 /* pages2pages09.applescript */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.applescript; name = pages2pages09.applescript; path = Binaries/ReportsToPDF/pages2pages09.applescript; sourceTree = "<group>"; };
 		CE9054CF12F5B64200263AB6 /* CPRClusterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPRClusterView.h; sourceTree = "<group>"; };
 		CE9054D012F5B64200263AB6 /* CPRClusterView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CPRClusterView.mm; sourceTree = "<group>"; };
@@ -4806,7 +4812,6 @@
 				A96F793A16DBC59D000E877A /* libz.dylib in Frameworks */,
 				A96F793B16DBC59D000E877A /* libdcmprintscu.dylib in Frameworks */,
 				A96F796816DBC753000E877A /* ILCrashReporter.framework in Frameworks */,
-				A96F796916DBC753000E877A /* OsiriX.framework in Frameworks */,
 				A96F795D16DBC740000E877A /* Security.framework in Frameworks */,
 				A96F796016DBC740000E877A /* WebKit.framework in Frameworks */,
 				A96F795F16DBC740000E877A /* SystemConfiguration.framework in Frameworks */,
@@ -4828,6 +4833,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				43110BE92167902800B0405B /* OsiriX.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4908,12 +4914,12 @@
 		1058C7A2FEA54F0111CA2CBB /* Other Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				43110BE82167902700B0405B /* OsiriX.framework */,
 				439B8C131A19CCC300F396D7 /* 3DconnexionClient.framework */,
 				ABE881440FC1444D009F5C80 /* ILCrashReporter.framework */,
 				CE2BE05D1524344D00AE6156 /* Growl.framework */,
 				CE586CC30C74B75D00DB7D5A /* libdcmprintscu.dylib */,
 				CE6693C60AF551210073D923 /* libxerces-c.27.dylib */,
-				CE8D057D0FD8505000165DDE /* OsiriX.framework */,
 			);
 			name = "Other Frameworks";
 			sourceTree = "<group>";
@@ -4935,6 +4941,7 @@
 		29B97314FDCFA39411CA2CEA /* OsiriX */ = {
 			isa = PBXGroup;
 			children = (
+				43E9D2B82167865800CFBD0B /* API framework */,
 				43A89B0E208222AD00D7B11D /* DICOMPrint */,
 				434B461A1A19F4E4008CF8CF /* OpenJPEG */,
 				84704DBF181ACF440061B1BF /* Rules.plist */,
@@ -5068,8 +5075,6 @@
 				439584DF2066890000FA179C /* libjpeg.a */,
 				439584E12066891D00FA179C /* libtiff.a */,
 				59FB64331230EE2F00EBA136 /* Ming */,
-				CE11138608EDD5E2005B15E1 /* ITKLibs */,
-				CE11138108EDD5CE005B15E1 /* VTKLibs */,
 				1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */,
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
 			);
@@ -6609,7 +6614,6 @@
 		434C54F31AA5524E00218595 /* OsiriXClasses */ = {
 			isa = PBXGroup;
 			children = (
-				59F1A4C7104BA5BE009E3215 /* OsiriXHeaders.mm */,
 				434C54FD1AA5835800218595 /* Web */,
 				434C54FC1AA5829200218595 /* ROI */,
 				434C54FB1AA5808E00218595 /* OSI */,
@@ -7290,6 +7294,15 @@
 			);
 			name = Web;
 			path = OsiriXClasses/Web;
+			sourceTree = "<group>";
+		};
+		43E9D2B82167865800CFBD0B /* API framework */ = {
+			isa = PBXGroup;
+			children = (
+				43E9D2B92167869100CFBD0B /* OsiriXAPI-Info.plist */,
+				59F1A4C7104BA5BE009E3215 /* OsiriXHeaders.mm */,
+			);
+			path = "API framework";
 			sourceTree = "<group>";
 		};
 		4A2F58D9078D119600C514A2 /* Dependencies */ = {
@@ -8271,20 +8284,6 @@
 			path = Binaries/Icons/Cursors;
 			sourceTree = SOURCE_ROOT;
 		};
-		CE11138108EDD5CE005B15E1 /* VTKLibs */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = VTKLibs;
-			sourceTree = "<group>";
-		};
-		CE11138608EDD5E2005B15E1 /* ITKLibs */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = ITKLibs;
-			sourceTree = "<group>";
-		};
 		CE594401155E382B007BDF5B /* LetsMove and Dock */ = {
 			isa = PBXGroup;
 			children = (
@@ -8670,6 +8669,7 @@
 			dependencies = (
 				4A2ADDFD078D3C6200416F53 /* PBXTargetDependency */,
 				59BDEE6B117CB393007F1F2C /* PBXTargetDependency */,
+				43E9D2BB2167886200CFBD0B /* PBXTargetDependency */,
 			);
 			name = "miele-lxiv";
 			productName = Deployment;
@@ -9607,7 +9607,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "cd \"${BUILT_PRODUCTS_DIR}\"\nproduct=\"OsiriX Lite.app\"\ndest=\"${UNLOCALIZED_RESOURCES_FOLDER_PATH}/OsiriX Lite.zip\"\nrm -f \"${dest}\"\nzip -qr \"${dest}\" \"${product}\"\n";
+			shellScript = "#cd \"${BUILT_PRODUCTS_DIR}\"\ncd \"${PROJECT_DIR}/build/${CONFIGURATION}\"\nproduct=\"OsiriX Lite.app\"\ndest=\"${UNLOCALIZED_RESOURCES_FOLDER_PATH}/OsiriX Lite.zip\"\nrm -f \"${dest}\"\nzip -qr \"${dest}\" \"${product}\"\n";
 		};
 		59BDEE70117CB3A6007F1F2C /* Zip LXIV Launcher into Resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -9621,7 +9621,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cd \"${BUILT_PRODUCTS_DIR}\"\nproduct=\"LXIV Launcher.app\"\ndest=\"${UNLOCALIZED_RESOURCES_FOLDER_PATH}/LXIV Launcher.zip\"\nrm -f \"$dest\"\nzip -qr \"$dest\" \"$product\"\n\n#product=\"$SRCROOT/Binaries/LXIV Launcher.zip\"\n#cp \"$product\" \"${UNLOCALIZED_RESOURCES_FOLDER_PATH}\"\n";
+			shellScript = "#cd \"${BUILT_PRODUCTS_DIR}\"\ncd \"${PROJECT_DIR}/build/${CONFIGURATION}\"\nproduct=\"LXIV Launcher.app\"\ndest=\"${UNLOCALIZED_RESOURCES_FOLDER_PATH}/LXIV Launcher.zip\"\nrm -f \"$dest\"\nzip -qr \"$dest\" \"$product\"\n\n#product=\"$SRCROOT/Binaries/LXIV Launcher.zip\"\n#cp \"$product\" \"${UNLOCALIZED_RESOURCES_FOLDER_PATH}\"\n";
 		};
 		59F69A4E1056328D008585F5 /* Clean Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -9690,7 +9690,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /usr/bin/perl;
-			shellScript = "#!/usr/bin/perl\n\nuse strict;\nuse File::Copy;\nuse File::Basename;\nmy $destination = \"$ENV{TARGET_BUILD_DIR}/$ENV{PUBLIC_HEADERS_FOLDER_PATH}\";\n\nmkdir $destination unless -d $destination;\nopen OsiriX_h, \">\", \"$destination/OsiriX.h\" or die $!;\n\nprint OsiriX_h \"#ifndef __OsiriX_API\\n#define __OsiriX_API\\n\\n\";\n\nmy @fromdirs = (\"$ENV{PROJECT_DIR}/cocoahttpserver\", \"$ENV{PROJECT_DIR}/Binaries/dcmtk-source/config\", \"$ENV{PROJECT_DIR}/Binaries/dcmtk-source/dcmsr\", \"$ENV{PROJECT_DIR}/Binaries/dcmtk-source/dcmdata\", \"$ENV{PROJECT_DIR}/Binaries/dcmtk-source/ofstd\", \"$ENV{PROJECT_DIR}/Binaries/dcmtk-source/dcmnet\", \"$ENV{PROJECT_DIR}/VTKHeaders\", \"$ENV{PROJECT_DIR}/Nitrogen/Sources\", \"$ENV{PROJECT_DIR}/Nitrogen/Sources/JSON\", $ENV{PROJECT_DIR});\n\nforeach my $root (@fromdirs) {\n\topendir(DIR, $root);\n\t\n\tmy @files = readdir(DIR);\n\tforeach (@files) {\n\t\tmy $filename = $_;\n\t\tnext unless -f \"$root/$filename\" && $filename =~ /\\.h$/s;\n\t\tmy @args = ( \"cp\", \"-fp\", \"$root/$filename\", \"$destination/\".(basename $filename) );\n\t\tsystem(@args) == 0 or die \"Copy failed: $?\";\n\t\tprint OsiriX_h \"#include <OsiriXAPI/$filename>\\n\";\n\t}\n\t\n\tclosedir(DIR);\n}\n\nprint OsiriX_h \"\\n#endif\\n\";\nclose OsiriX_h;\n\nchdir \"$ENV{TARGET_BUILD_DIR}/$ENV{FULL_PRODUCT_NAME}\";\nsymlink \"Versions/Current/Headers\", \"Headers\";\n\nexit 0;";
+			shellScript = "#!/usr/bin/perl\n\nuse strict;\nuse File::Copy;\nuse File::Basename;\nmy $destination = \"$ENV{TARGET_BUILD_DIR}/$ENV{PUBLIC_HEADERS_FOLDER_PATH}\";\n\nmkdir $destination unless -d $destination;\nopen OsiriX_h, \">\", \"$destination/OsiriX.h\" or die $!;\n\nprint OsiriX_h \"#ifndef __OsiriX_API\\n#define __OsiriX_API\\n\\n\";\n\nmy @fromdirs = (\"$ENV{PROJECT_DIR}/cocoahttpserver\", \"$ENV{PROJECT_DIR}/Binaries/dcmtk-source/config\", \"$ENV{PROJECT_DIR}/Binaries/dcmtk-source/dcmsr\", \"$ENV{PROJECT_DIR}/Binaries/dcmtk-source/dcmdata\", \"$ENV{PROJECT_DIR}/Binaries/dcmtk-source/ofstd\", \"$ENV{PROJECT_DIR}/Binaries/dcmtk-source/dcmnet\", \"$ENV{PROJECT_DIR}/VTKHeaders\", \"$ENV{PROJECT_DIR}/Nitrogen/Sources\", \"$ENV{PROJECT_DIR}/Nitrogen/Sources/JSON\", $ENV{PROJECT_DIR});\n\nforeach my $root (@fromdirs) {\n    opendir(DIR, $root);\n    \n    my @files = readdir(DIR);\n    foreach (@files) {\n        my $filename = $_;\n        next unless -f \"$root/$filename\" && $filename =~ /\\.h$/s;\n        my @args = ( \"cp\", \"-fp\", \"$root/$filename\", \"$destination/\".(basename $filename) );\n        system(@args) == 0 or die \"Copy failed: $?\";\n        print OsiriX_h \"#include <OsiriXAPI/$filename>\\n\";\n    }\n    \n    closedir(DIR);\n}\n\nprint OsiriX_h \"\\n#endif\\n\";\nclose OsiriX_h;\n\nchdir \"$ENV{TARGET_BUILD_DIR}/$ENV{FULL_PRODUCT_NAME}\";\nsymlink \"Versions/Current/Headers\", \"Headers\";\n\nexit 0;\n";
 		};
 		ABF307FB1443330100BBC96A /* Copy odt2pdf script */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -9745,7 +9745,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#test with codesign -vvv\n\nif [[ ${CONFIGURATION} == \"Deployment 32-bit\" ]]\nthen\n# -f means force to re-sign even if already signed\ncodesign -f -s \"Developer ID Application\" \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/\"\necho \"code signed\"\nfi\n\nif [[ ${CONFIGURATION} == \"Deployment 64-bit\" ]]\nthen\n# -f means force to re-sign even if already signed\ncodesign -f -s \"Developer ID Application\" \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/\"\necho \"code signed\"\nfi";
+			shellScript = "#test with codesign -vvv\n\nIDENTITY=\"Mac Developer: Alex Bettarini (L74MX98MKG)\"\n\nif [[ ${CONFIGURATION} == \"Deployment\" ]]\nthen\n# -f means force to re-sign even if already signed\ncodesign -f -s \"$IDENTITY\" \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/\"\necho \"code signed\"\nfi\n";
 		};
 		CED88262125064F70085A861 /* CodeSigning */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -9759,7 +9759,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#test with codesign -vvv\n\nchmod -R 777 \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/\"\n\nif [[ ${CONFIGURATION} == \"Deployment 32-bit\" ]]\nthen\n# -f means force to re-sign even if already signed\ncodesign -f -s \"Developer ID Application\" \"$TARGET_BUILD_DIR/$FRAMEWORKS_FOLDER_PATH/OsiriXAPI.framework\"\ncodesign --resource-rules Rules.plist -f -s \"Developer ID Application\" \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/\"\necho \"code signed\"\nfi\n\nif [[ ${CONFIGURATION} == \"Deployment 64-bit\" ]]\nthen\n# -f means force to re-sign even if already signed\ncodesign -f -s \"Developer ID Application\" \"$TARGET_BUILD_DIR/$FRAMEWORKS_FOLDER_PATH/OsiriXAPI.framework\"\ncodesign --resource-rules Rules.plist -f -s \"Developer ID Application\" \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/\"\necho \"code signed\"\nfi\n";
+			shellScript = "#test with codesign -vvv\n\nchmod -R 777 \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/\"\nIDENTITY=\"Mac Developer: Alex Bettarini (L74MX98MKG)\"\n\nif [[ ${CONFIGURATION} == \"Deployment\" ]]\nthen\n# -f means force to re-sign even if already signed\ncodesign -f -s \"$IDENTITY\" \"$TARGET_BUILD_DIR/$FRAMEWORKS_FOLDER_PATH/OsiriXAPI.framework\"\ncodesign --resource-rules Rules.plist -f -s \"$IDENTITY\" \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/\"\necho \"code signed\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -10946,6 +10946,11 @@
 			target = 7E0B3A3E067526CD00908593 /* DCM Framework */;
 			targetProxy = 43D3A073208347FA008F044B /* PBXContainerItemProxy */;
 		};
+		43E9D2BB2167886200CFBD0B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7E0B3A3E067526CD00908593 /* DCM Framework */;
+			targetProxy = 43E9D2BA2167886200CFBD0B /* PBXContainerItemProxy */;
+		};
 		4A2ADDFD078D3C6200416F53 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 4A2F58D8078D118700C514A2 /* Build All Prerequisites */;
@@ -11551,11 +11556,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = 57BXF7EQEM;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SRCROOT)/Binaries",
 					"$(BUILD_DIR)/$(CONFIGURATION)",
+					"$(PROJECT_DIR)/build/Development",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_FAST_MATH = YES;
@@ -11900,8 +11908,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = 57BXF7EQEM;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -11933,10 +11943,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
 				CURRENT_PROJECT_VERSION = "";
 				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = 57BXF7EQEM;
 				FRAMEWORK_VERSION = A;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
@@ -12076,10 +12088,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_RESOURCE_RULES_PATH = "";
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)";
 				COPY_PHASE_STRIP = YES;
 				DEPLOYMENT_LOCATION = NO;
+				DEVELOPMENT_TEAM = 57BXF7EQEM;
 				FRAMEWORK_SEARCH_PATHS = " $(BUILD_DIR)/$(CONFIGURATION)";
 				GCC_FAST_MATH = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
@@ -12183,10 +12197,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_RESOURCE_RULES_PATH = "";
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)";
 				COPY_PHASE_STRIP = NO;
 				DEPLOYMENT_LOCATION = NO;
+				DEVELOPMENT_TEAM = 57BXF7EQEM;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(FRAMEWORK_SEARCH_PATHS)",
 					"$(SRCROOT)",
@@ -12222,8 +12238,10 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
 				CLANG_CXX_LIBRARY = "compiler-default";
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = 57BXF7EQEM;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				FRAMEWORK_VERSION = A;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -12433,6 +12451,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SRCROOT)/Binaries",
 					"$(BUILD_DIR)/$(CONFIGURATION)",
+					"$(PROJECT_DIR)/build/Development",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_FAST_MATH = YES;
@@ -13422,6 +13441,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SRCROOT)/Binaries",
 					"$(BUILD_DIR)/$(CONFIGURATION)",
+					"$(PROJECT_DIR)/build/Development",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;

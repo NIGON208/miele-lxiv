@@ -10522,7 +10522,6 @@ constrainSplitPosition:(CGFloat)proposedPosition
 
 #pragma mark - NSSplitViewDelegate
 
-#if 1 // @@@
 -(void)splitView:(NSSplitView*)sender resizeSubviewsWithOldSize:(NSSize)oldSize
 {
 //    if( starting)
@@ -10530,7 +10529,7 @@ constrainSplitPosition:(CGFloat)proposedPosition
 
     if (sender == splitDrawer)
     {
-        NSLog(@"%s line %d, splitDrawer", __FUNCTION__, __LINE__);
+        //NSLog(@"%s line %d, splitDrawer", __FUNCTION__, __LINE__);
         NSView* left = [[sender subviews] objectAtIndex:0];
         NSView* right = [[sender subviews] objectAtIndex:1];
         
@@ -10557,7 +10556,7 @@ constrainSplitPosition:(CGFloat)proposedPosition
     }
     else if (sender == splitComparative)
     {
-        NSLog(@"%s line %d, splitComparative", __FUNCTION__, __LINE__);
+        //NSLog(@"%s line %d, splitComparative", __FUNCTION__, __LINE__);
 
         #define MINIMUMSIZEFORCOMPARATIVEDRAWER_HORZ 50
         if( gHorizontalHistory)
@@ -10640,7 +10639,7 @@ constrainSplitPosition:(CGFloat)proposedPosition
     }
     else if (sender == splitViewVert)
     {
-        NSLog(@"%s line %d, splitViewVert", __FUNCTION__, __LINE__);
+        //NSLog(@"%s line %d, splitViewVert", __FUNCTION__, __LINE__);
 
         if (!_splitViewVertDividerRatio)
             _splitViewVertDividerRatio = [[[sender subviews] objectAtIndex:0] bounds].size.width/oldSize.width;
@@ -10657,12 +10656,12 @@ constrainSplitPosition:(CGFloat)proposedPosition
     }
     else if (sender == _bottomSplit)
     {
-        NSLog(@"%s line %d, _bottomSplit", __FUNCTION__, __LINE__);
+        //NSLog(@"%s line %d, _bottomSplit", __FUNCTION__, __LINE__);
 
 		[self splitViewDidResizeSubviews:[NSNotification notificationWithName:NSSplitViewDidResizeSubviewsNotification object:splitViewVert]];
     }
     else {
-        NSLog(@"%s line %d, none-of-the-above", __FUNCTION__, __LINE__);
+        //NSLog(@"%s line %d, none-of-the-above", __FUNCTION__, __LINE__);
 
         [sender adjustSubviews];
     }
@@ -10751,7 +10750,7 @@ constrainSplitPosition:(CGFloat)proposedPosition
 - (IBAction)comparativeToggle:(id)sender
 {
 #ifndef NDEBUG
-    NSLog(@"%s", __FUNCTION__);
+    //NSLog(@"%s", __FUNCTION__);
 #endif
     if( gHorizontalHistory)
     {
@@ -10770,7 +10769,6 @@ constrainSplitPosition:(CGFloat)proposedPosition
     
     [splitComparative resizeSubviewsWithOldSize:splitComparative.bounds.size];
 }
-#endif // @@@
 
 - (IBAction)drawerToggle: (id)sender
 {
