@@ -3331,6 +3331,7 @@
 		434B461B1A19F631008CF8CF /* OPJSupport.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OPJSupport.cpp; path = glue/OpenJPEG/OPJSupport.cpp; sourceTree = "<group>"; };
 		434B461C1A19F631008CF8CF /* OPJSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OPJSupport.h; path = glue/OpenJPEG/OPJSupport.h; sourceTree = "<group>"; };
 		434B47A11A1A18D3008CF8CF /* kdu_OsiriX_NO_Support.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = kdu_OsiriX_NO_Support.cpp; path = glue/Kakadu/kdu_OsiriX_NO_Support.cpp; sourceTree = SOURCE_ROOT; };
+		434B69402168BEBC00C35AB6 /* miele-lxiv.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "miele-lxiv.entitlements"; sourceTree = "<group>"; };
 		434C54FE1AA5868000218595 /* BioradHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BioradHeader.h; sourceTree = "<group>"; };
 		4352BE4E1AA698F6000B80E1 /* OSIDerivedROI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OSIDerivedROI.h; sourceTree = "<group>"; };
 		4352BE4F1AA698F6000B80E1 /* OSIDerivedROI.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = OSIDerivedROI.mm; sourceTree = "<group>"; };
@@ -4937,6 +4938,7 @@
 		29B97314FDCFA39411CA2CEA /* OsiriX */ = {
 			isa = PBXGroup;
 			children = (
+				434B69402168BEBC00C35AB6 /* miele-lxiv.entitlements */,
 				43E9D2B82167865800CFBD0B /* API framework */,
 				43A89B0E208222AD00D7B11D /* DICOMPrint */,
 				434B461A1A19F4E4008CF8CF /* OpenJPEG */,
@@ -8720,6 +8722,11 @@
 					};
 					AB28B42E05B7921E00A9906C = {
 						DevelopmentTeam = 66HE7FMBC4;
+						SystemCapabilities = {
+							com.apple.Sandbox = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -11552,6 +11559,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
+				CODE_SIGN_ENTITLEMENTS = "miele-lxiv.entitlements";
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;

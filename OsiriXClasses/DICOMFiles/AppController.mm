@@ -3014,9 +3014,10 @@ static BOOL initialized = NO;
 #ifndef NDEBUG
                 NSLog(@"NSTemporaryDirectory()_: %@", NSTemporaryDirectory());
                 NSLog(@"NSHomeDirectory()______: %@", NSHomeDirectory());
-                NSLog(@"Library Directory______: %@", NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES).firstObject);
-                NSLog(@"Document Directory_____: %@", NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).firstObject);
-                NSLog(@"Application Support Dir: %@", NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES).firstObject);
+                NSLog(@"Library directory______: %@", NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES).firstObject);
+                NSLog(@"Document directory_____: %@", NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).firstObject);
+                NSLog(@"Application Support dir: %@", NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES).firstObject);
+                NSLog(@"Shared Public dir______: %@", NSSearchPathForDirectoriesInDomains(NSSharedPublicDirectory, NSUserDomainMask, YES).firstObject);
                 //NSLog(@"Preference Panes Dir___: %@", NSSearchPathForDirectoriesInDomains(NSPreferencePanesDirectory, NSUserDomainMask, YES).firstObject);
 
                 NSString *bundleIdentifier = [d objectForKey:@"CFBundleIdentifier"];
