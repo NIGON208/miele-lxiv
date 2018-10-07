@@ -13,6 +13,7 @@ unzip -uo dciodvfy.zip
 unzip -uo libPapyrusToolkit.a.zip
 unzip -uo Ming.zip
 unzip -uo weasis-portable.zip
+mv weasis-portable weasis
 chmod -R 755 weasis
 cd "$SRCROOT/Binaries/weasis"
 if [ -d "weasis-portable" ]; then
