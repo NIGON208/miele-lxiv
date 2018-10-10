@@ -242,7 +242,7 @@
 		4310FADA20692C2B000BDDCC /* shadow.def in Resources */ = {isa = PBXBuildFile; fileRef = 4310F65920692C25000BDDCC /* shadow.def */; };
 		4310FADB20692C2B000BDDCC /* signcmp.def in Resources */ = {isa = PBXBuildFile; fileRef = 4310F65A20692C25000BDDCC /* signcmp.def */; };
 		4310FADC20692C2B000BDDCC /* vsprfw.def in Resources */ = {isa = PBXBuildFile; fileRef = 4310F65B20692C25000BDDCC /* vsprfw.def */; };
-		43110BEB21679E5B00B0405B /* OsiriX.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 844719AF0FD8EF50003BFDF8 /* OsiriX.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		43110BEB21679E5B00B0405B /* DCM.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 844719AF0FD8EF50003BFDF8 /* DCM.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4333FD721AB3082C00E82B49 /* DcmQueryRetrieveOsiriSCP.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4333FD711AB3082C00E82B49 /* DcmQueryRetrieveOsiriSCP.mm */; };
 		433DA138215A5B2600D5A70B /* BrowserController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 433DA136215A5B2500D5A70B /* BrowserController.mm */; };
 		433F9A801A1B18A500E52C6C /* VTKView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 433F9A7E1A1B18A500E52C6C /* VTKView.mm */; };
@@ -262,12 +262,12 @@
 		4356C8311AC2A13300653B32 /* Ball.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 4356C8301AC2A13300653B32 /* Ball.pdf */; };
 		4365FC361B01C3A300380C25 /* DcmQueryRetrieveGetOurContext.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4365FC341B01C3A300380C25 /* DcmQueryRetrieveGetOurContext.mm */; };
 		43A4038C1DFA32F300ADA719 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43A4038B1DFA32F300ADA719 /* XCTest.framework */; };
-		43A89B0F208222AD00D7B11D /* DICOMPrint in Resources */ = {isa = PBXBuildFile; fileRef = 43A89B0E208222AD00D7B11D /* DICOMPrint */; };
 		43BF296D21662E1D0022CF3B /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = 43BF296C21662E1D0022CF3B /* main.mm */; };
 		43BF296E21662F100022CF3B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 43CC5BA5216511E200F1B1CA /* Assets.xcassets */; };
 		43CC5BA6216511E200F1B1CA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 43CC5BA5216511E200F1B1CA /* Assets.xcassets */; };
 		43E27D2B1AF338FA007B92CA /* ROI3DSettingsWindow.mm in Sources */ = {isa = PBXBuildFile; fileRef = 43E27D291AF338FA007B92CA /* ROI3DSettingsWindow.mm */; };
 		43E27D2E1AF33A22007B92CA /* ROI3DSettingsWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43E27D2C1AF33A22007B92CA /* ROI3DSettingsWindow.xib */; };
+		43E6A513216CC2BA005A031A /* odt2pdf.zip in Resources */ = {isa = PBXBuildFile; fileRef = 43E6A512216CC297005A031A /* odt2pdf.zip */; };
 		43F8F9AB1AA7DAA6008F318C /* LoupeController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 43F8F9A51AA7DAA6008F318C /* LoupeController.mm */; };
 		43F8F9AD1AA7DAA6008F318C /* LoupeView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 43F8F9A71AA7DAA6008F318C /* LoupeView.mm */; };
 		43F8F9AF1AA7DAA6008F318C /* LoupeWindow.mm in Sources */ = {isa = PBXBuildFile; fileRef = 43F8F9A91AA7DAA6008F318C /* LoupeWindow.mm */; };
@@ -398,7 +398,6 @@
 		59F5F3FA11F476030047A90D /* N2ImageButtonCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 59F5F3F811F476030047A90D /* N2ImageButtonCell.mm */; };
 		59F5F4ED11F485CC0047A90D /* BrowserController+Activity.mm in Sources */ = {isa = PBXBuildFile; fileRef = 59F5F4EB11F485CC0047A90D /* BrowserController+Activity.mm */; };
 		59FB64DD1231295400EBA136 /* NSUserDefaultsController+N2.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5997899111B7B48E002DB107 /* NSUserDefaultsController+N2.mm */; };
-		59FB654F12312D8900EBA136 /* weasis in Resources */ = {isa = PBXBuildFile; fileRef = 59FB652912312D8900EBA136 /* weasis */; };
 		711849781590A377006AB447 /* SMTPClient.mm in Sources */ = {isa = PBXBuildFile; fileRef = 711849761590A377006AB447 /* SMTPClient.mm */; };
 		7128FD791487D54A00AB54A1 /* N2UnclickableSplitView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7128FD761487D54A00AB54A1 /* N2UnclickableSplitView.mm */; };
 		71353C531469260B00359CAB /* NSDate+N2.mm in Sources */ = {isa = PBXBuildFile; fileRef = 71353C501469260B00359CAB /* NSDate+N2.mm */; };
@@ -432,7 +431,6 @@
 		71EB83D116DCB9AE00D48646 /* N2PopUpMenu.mm in Sources */ = {isa = PBXBuildFile; fileRef = 71EB83CF16DCB9AE00D48646 /* N2PopUpMenu.mm */; };
 		71EB83D416DD0F1800D48646 /* dicom3tools-libsrc-standard-strval-base.tpl in Resources */ = {isa = PBXBuildFile; fileRef = 71EB83D216DD0F1800D48646 /* dicom3tools-libsrc-standard-strval-base.tpl */; };
 		71EB83D516DD0F1800D48646 /* osirix-complementary.tpl in Resources */ = {isa = PBXBuildFile; fileRef = 71EB83D316DD0F1800D48646 /* osirix-complementary.tpl */; };
-		7E0B3A4A0675273500908593 /* DCM Framework_Prefix.pch in Resources */ = {isa = PBXBuildFile; fileRef = 7E0B3A12067526A600908593 /* DCM Framework_Prefix.pch */; };
 		7E0B3A4D0675273500908593 /* DCM.h in Headers */ = {isa = PBXBuildFile; fileRef = 7E0B3A13067526A600908593 /* DCM.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7E0B3A530675273600908593 /* DCMAttribute.h in Headers */ = {isa = PBXBuildFile; fileRef = 7E0B3A14067526A600908593 /* DCMAttribute.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7E0B3A590675273B00908593 /* DCMAttribute.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7E0B3A15067526A600908593 /* DCMAttribute.mm */; };
@@ -529,7 +527,6 @@
 		84CE7CA814D84F87008CA119 /* Tiling2x4.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 84CE7CA514D84F87008CA119 /* Tiling2x4.pdf */; };
 		84D7BBE5154A941A007B5A86 /* NSNotificationCenter+N2.mm in Sources */ = {isa = PBXBuildFile; fileRef = 84D7BBE2154A941A007B5A86 /* NSNotificationCenter+N2.mm */; };
 		84E191FC1369966A008DCFC8 /* WADODownload.mm in Sources */ = {isa = PBXBuildFile; fileRef = 84E191FA1369966A008DCFC8 /* WADODownload.mm */; };
-		84F453570FC3DF5400D29666 /* ILCrashReporter.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = ABE881440FC1444D009F5C80 /* ILCrashReporter.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		A0344496143DE4AA003E1AFA /* DCMUSRegion.mm in Sources */ = {isa = PBXBuildFile; fileRef = A085E104141E53210072BF0D /* DCMUSRegion.mm */; };
 		A90202BF0B980CD60001A00B /* PluginManagerController.mm in Sources */ = {isa = PBXBuildFile; fileRef = A90202BB0B980CD60001A00B /* PluginManagerController.mm */; };
 		A90A04980BF09BA000D00273 /* VRPresetPreview.mm in Sources */ = {isa = PBXBuildFile; fileRef = A90A04960BF09BA000D00273 /* VRPresetPreview.mm */; };
@@ -1770,7 +1767,6 @@
 		BFF5D24109F93B3F0077E16B /* LogManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = BFF5D23F09F93B3F0077E16B /* LogManager.mm */; };
 		BFF97D720BDE8BE6008333CF /* ShadingArrayController.mm in Sources */ = {isa = PBXBuildFile; fileRef = BFF97D6C0BDE8BE6008333CF /* ShadingArrayController.mm */; };
 		CE03A3CC0EA2AE0300951EF4 /* iPhone.tif in Resources */ = {isa = PBXBuildFile; fileRef = CE03A3CB0EA2AE0300951EF4 /* iPhone.tif */; };
-		CE04B81B15289AF400EF6E52 /* Growl.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = CE2BE05D1524344D00AE6156 /* Growl.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		CE06475210F12DA500551AD9 /* PlayTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = CE06475110F12DA500551AD9 /* PlayTemplate.png */; };
 		CE087B0C0DE9BD6E000E5593 /* GLString.mm in Sources */ = {isa = PBXBuildFile; fileRef = CE087B0A0DE9BD6E000E5593 /* GLString.mm */; };
 		CE0C4792183139C400D4C50E /* pages092pdf.applescript in Resources */ = {isa = PBXBuildFile; fileRef = CE0C478F1831366600D4C50E /* pages092pdf.applescript */; };
@@ -2115,10 +2111,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				43110BEB21679E5B00B0405B /* OsiriX.framework in Copy Frameworks */,
+				43110BEB21679E5B00B0405B /* DCM.framework in Copy Frameworks */,
 				59F1A515104BA8AE009E3215 /* OsiriXAPI.framework in Copy Frameworks */,
-				CE04B81B15289AF400EF6E52 /* Growl.framework in Copy Frameworks */,
-				84F453570FC3DF5400D29666 /* ILCrashReporter.framework in Copy Frameworks */,
 			);
 			name = "Copy Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3303,6 +3297,7 @@
 		4310F69320692C25000BDDCC /* tuplefrd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tuplefrd.h; sourceTree = "<group>"; };
 		4310F69420692C25000BDDCC /* tuplefwd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tuplefwd.h; sourceTree = "<group>"; };
 		4310F69520692C25000BDDCC /* variant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = variant.h; sourceTree = "<group>"; };
+		43254D58216A1A9F003846E3 /* LXIV Launcher.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = "LXIV Launcher.entitlements"; path = "LXIV Launcher/LXIV Launcher.entitlements"; sourceTree = "<group>"; };
 		4333FD351AB3076200E82B49 /* libcharls.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcharls.a; path = Binaries/DCMTK/lib/libcharls.a; sourceTree = "<group>"; };
 		4333FD361AB3076200E82B49 /* libdcmdata.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdcmdata.a; path = Binaries/DCMTK/lib/libdcmdata.a; sourceTree = "<group>"; };
 		4333FD371AB3076200E82B49 /* libdcmdsig.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdcmdsig.a; path = Binaries/DCMTK/lib/libdcmdsig.a; sourceTree = "<group>"; };
@@ -3360,7 +3355,6 @@
 		439584E320668D9200FA179C /* libopenjp2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libopenjp2.a; path = "../../../projects/install/miele-201612/openjpeg-2.2.0/lib/libopenjp2.a"; sourceTree = "<group>"; };
 		439B8C131A19CCC300F396D7 /* 3DconnexionClient.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = 3DconnexionClient.framework; path = Binaries/3DconnexionClient.framework; sourceTree = "<group>"; };
 		43A4038B1DFA32F300ADA719 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/MacOSX.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		43A89B0E208222AD00D7B11D /* DICOMPrint */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = DICOMPrint; path = build/Deployment/DICOMPrint; sourceTree = "<group>"; };
 		43BF296C21662E1D0022CF3B /* main.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = main.mm; path = "LXIV Launcher/main.mm"; sourceTree = "<group>"; };
 		43BF296F21662F420022CF3B /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = "LXIV Launcher/Info.plist"; sourceTree = "<group>"; };
 		43CC5BA5216511E200F1B1CA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -3368,6 +3362,7 @@
 		43E27D281AF338FA007B92CA /* ROI3DSettingsWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ROI3DSettingsWindow.h; sourceTree = "<group>"; };
 		43E27D291AF338FA007B92CA /* ROI3DSettingsWindow.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ROI3DSettingsWindow.mm; sourceTree = "<group>"; };
 		43E27D2D1AF33A22007B92CA /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = Binaries/English.lproj/ROI3DSettingsWindow.xib; sourceTree = "<group>"; };
+		43E6A512216CC297005A031A /* odt2pdf.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; name = odt2pdf.zip; path = Binaries/ReportsToPDF/odt2pdf/build/odt2pdf.zip; sourceTree = "<group>"; };
 		43E9D2B92167869100CFBD0B /* OsiriXAPI-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "OsiriXAPI-Info.plist"; sourceTree = SOURCE_ROOT; };
 		43F8F9A41AA7DAA6008F318C /* LoupeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoupeController.h; sourceTree = "<group>"; };
 		43F8F9A51AA7DAA6008F318C /* LoupeController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = LoupeController.mm; sourceTree = "<group>"; };
@@ -3681,7 +3676,6 @@
 		71EB83D316DD0F1800D48646 /* osirix-complementary.tpl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "osirix-complementary.tpl"; path = "Binaries/osirix-complementary.tpl"; sourceTree = "<group>"; };
 		7E0339E607415C4F0025DDB4 /* BurnerWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BurnerWindowController.h; sourceTree = "<group>"; };
 		7E0339E707415C4F0025DDB4 /* BurnerWindowController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = BurnerWindowController.mm; sourceTree = "<group>"; };
-		7E0B3A12067526A600908593 /* DCM Framework_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = "DCM Framework_Prefix.pch"; sourceTree = "<group>"; };
 		7E0B3A13067526A600908593 /* DCM.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = DCM.h; sourceTree = "<group>"; };
 		7E0B3A14067526A600908593 /* DCMAttribute.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = DCMAttribute.h; sourceTree = "<group>"; };
 		7E0B3A15067526A600908593 /* DCMAttribute.mm */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.objcpp; path = DCMAttribute.mm; sourceTree = "<group>"; };
@@ -3776,8 +3770,7 @@
 		84281FFD13BC91380093BA26 /* N2OpenGLViewWithSplitsWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = N2OpenGLViewWithSplitsWindow.h; path = nitrogen/Sources/N2OpenGLViewWithSplitsWindow.h; sourceTree = "<group>"; };
 		843F847A12439E00004FBBF6 /* AYDicomPrintPref.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AYDicomPrintPref.h; path = "Preference Panes/AYDicomPrintPreferencePane/AYDicomPrintPref.h"; sourceTree = SOURCE_ROOT; };
 		844003990E8CF99500A00EBD /* dciodvfy */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = dciodvfy; path = Binaries/dciodvfy; sourceTree = "<group>"; };
-		844719AF0FD8EF50003BFDF8 /* OsiriX.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = OsiriX.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		84704DBF181ACF440061B1BF /* Rules.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Rules.plist; sourceTree = "<group>"; };
+		844719AF0FD8EF50003BFDF8 /* DCM.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DCM.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		848327AA15ED08F3003BAEEB /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = Binaries/English.lproj/CustomIntervalPanel.xib; sourceTree = "<group>"; };
 		8483ABA50E1BE33900C21B31 /* crossCursor.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = crossCursor.tif; path = Cursors/crossCursor.tif; sourceTree = "<group>"; };
 		848A6BE714C5BBA700C936C3 /* Tiling1x1.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Tiling1x1.pdf; path = Binaries/Icons/Tiling/Tiling1x1.pdf; sourceTree = "<group>"; };
@@ -4927,7 +4920,7 @@
 				ABA71D3F06726B1800335A62 /* miele-lxiv.app */,
 				AB724FF60ADE6ECB00A212A0 /* Decompress */,
 				CEDF6DD00B46FE99008B45B8 /* DICOMPrint */,
-				844719AF0FD8EF50003BFDF8 /* OsiriX.framework */,
+				844719AF0FD8EF50003BFDF8 /* DCM.framework */,
 				AB0F3A2C1046BD2B004129DD /* OsiriXAPI.framework */,
 				59BDEC2D117C92B2007F1F2C /* LXIV Launcher.app */,
 				A98795C216DB9FD100926023 /* Unit Tests.octest */,
@@ -4940,9 +4933,7 @@
 			children = (
 				434B69402168BEBC00C35AB6 /* miele-lxiv.entitlements */,
 				43E9D2B82167865800CFBD0B /* API framework */,
-				43A89B0E208222AD00D7B11D /* DICOMPrint */,
 				434B461A1A19F4E4008CF8CF /* OpenJPEG */,
-				84704DBF181ACF440061B1BF /* Rules.plist */,
 				84A9D44712F7F8BE00DA1F99 /* KDU SDK */,
 				59BDEC17117C927D007F1F2C /* LXIV Launcher */,
 				AB10FA9611293361009EB238 /* Nitrogen */,
@@ -4976,6 +4967,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				43E6A512216CC297005A031A /* odt2pdf.zip */,
 				434C54F21AA5497000218595 /* CLUT */,
 				71EB83D216DD0F1800D48646 /* dicom3tools-libsrc-standard-strval-base.tpl */,
 				71EB83D316DD0F1800D48646 /* osirix-complementary.tpl */,
@@ -7412,6 +7404,7 @@
 		59BDEC17117C927D007F1F2C /* LXIV Launcher */ = {
 			isa = PBXGroup;
 			children = (
+				43254D58216A1A9F003846E3 /* LXIV Launcher.entitlements */,
 				43BF296F21662F420022CF3B /* Info.plist */,
 				43BF296C21662E1D0022CF3B /* main.mm */,
 			);
@@ -7486,7 +7479,6 @@
 				BFAEB40706BF3BEE00C7EF1E /* DCMPixelDataAttributeJPEG12.mm */,
 				BFAEB41606BF3BFA00C7EF1E /* DCMPixelDataAttributeJPEG16.h */,
 				BFAEB41706BF3BFA00C7EF1E /* DCMPixelDataAttributeJPEG16.mm */,
-				7E0B3A12067526A600908593 /* DCM Framework_Prefix.pch */,
 				7E0B3A14067526A600908593 /* DCMAttribute.h */,
 				7E0B3A15067526A600908593 /* DCMAttribute.mm */,
 				7EE0DC3C067A5138003E745F /* DCMSequenceAttribute.h */,
@@ -8590,9 +8582,9 @@
 			productReference = 59BDEC2D117C92B2007F1F2C /* LXIV Launcher.app */;
 			productType = "com.apple.product-type.application";
 		};
-		7E0B3A3E067526CD00908593 /* DCM Framework */ = {
+		7E0B3A3E067526CD00908593 /* DCM */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 7E76BEC0085757B60073649A /* Build configuration list for PBXNativeTarget "DCM Framework" */;
+			buildConfigurationList = 7E76BEC0085757B60073649A /* Build configuration list for PBXNativeTarget "DCM" */;
 			buildPhases = (
 				7E0B3A3A067526CD00908593 /* Headers */,
 				7E0B3A3B067526CD00908593 /* Resources */,
@@ -8602,9 +8594,9 @@
 			);
 			dependencies = (
 			);
-			name = "DCM Framework";
+			name = DCM;
 			productName = DCM;
-			productReference = 844719AF0FD8EF50003BFDF8 /* OsiriX.framework */;
+			productReference = 844719AF0FD8EF50003BFDF8 /* DCM.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		A98795C116DB9FD100926023 /* Unit Tests */ = {
@@ -8717,16 +8709,48 @@
 				LastUpgradeCheck = 1000;
 				ORGANIZATIONNAME = "OsiriX Team";
 				TargetAttributes = {
-					59BDEC2C117C92B2007F1F2C = {
-						DevelopmentTeam = 66HE7FMBC4;
+					4A2F58D8078D118700C514A2 = {
+						DevelopmentTeam = 57BXF7EQEM;
 					};
-					AB28B42E05B7921E00A9906C = {
-						DevelopmentTeam = 66HE7FMBC4;
+					59BDEC2C117C92B2007F1F2C = {
+						DevelopmentTeam = 57BXF7EQEM;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Sandbox = {
 								enabled = 1;
 							};
 						};
+					};
+					7E0B3A3E067526CD00908593 = {
+						DevelopmentTeam = 57BXF7EQEM;
+						ProvisioningStyle = Automatic;
+					};
+					A98795C116DB9FD100926023 = {
+						DevelopmentTeam = 57BXF7EQEM;
+					};
+					AB0F3A2B1046BD2B004129DD = {
+						DevelopmentTeam = 57BXF7EQEM;
+						ProvisioningStyle = Automatic;
+					};
+					AB28B42E05B7921E00A9906C = {
+						DevelopmentTeam = 57BXF7EQEM;
+						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Sandbox = {
+								enabled = 1;
+							};
+						};
+					};
+					AB724F300ADE6ECB00A212A0 = {
+						DevelopmentTeam = 57BXF7EQEM;
+						ProvisioningStyle = Automatic;
+					};
+					BF7486A50CC6AA5C00198387 = {
+						DevelopmentTeam = 57BXF7EQEM;
+					};
+					CEDF6C600B46FE99008B45B8 = {
+						DevelopmentTeam = 57BXF7EQEM;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -8757,7 +8781,7 @@
 			targets = (
 				AB28B42E05B7921E00A9906C /* miele-lxiv */,
 				59BDEC2C117C92B2007F1F2C /* LXIV Launcher */,
-				7E0B3A3E067526CD00908593 /* DCM Framework */,
+				7E0B3A3E067526CD00908593 /* DCM */,
 				4A2F58D8078D118700C514A2 /* Build All Prerequisites */,
 				BF7486A50CC6AA5C00198387 /* Documentation */,
 				AB724F300ADE6ECB00A212A0 /* Decompress */,
@@ -8782,7 +8806,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7E0B3A4A0675273500908593 /* DCM Framework_Prefix.pch in Resources */,
 				7E0B3AA00675274500908593 /* version.plist in Resources */,
 				BFEB76410677FDA700F242F3 /* nameDictionary.plist in Resources */,
 				BFEB76420677FDA700F242F3 /* tagDictionary.plist in Resources */,
@@ -9155,7 +9178,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				43A89B0F208222AD00D7B11D /* DICOMPrint in Resources */,
+				43E6A513216CC2BA005A031A /* odt2pdf.zip in Resources */,
 				CE902EA3181C034E00CC4B88 /* pages2pages09.applescript in Resources */,
 				CE0C4792183139C400D4C50E /* pages092pdf.applescript in Resources */,
 				596D30B21439B9C8004EE9EC /* pages2pdf.applescript in Resources */,
@@ -9469,7 +9492,6 @@
 				84CD250D11EC5564004669D6 /* OsiriXDB_Previous_DataModel2.4.mom in Resources */,
 				A9A80E3811F73E22009F54B9 /* Activity_Stop.tif in Resources */,
 				A9A80E3911F73E22009F54B9 /* Activity_StopPressed.tif in Resources */,
-				59FB654F12312D8900EBA136 /* weasis in Resources */,
 				A97569581237D132003F00D3 /* PathAssistant.png in Resources */,
 				59D9471D125333640095680D /* SWFInit.as in Resources */,
 				CE72D7C31263702500874EF6 /* Pause.pdf in Resources */,
@@ -9652,7 +9674,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cp -fp \"${PROJECT_DIR}/Binaries/weasis-ext-config.properties\" \"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/weasis/weasis/conf/ext-config.properties\"";
+			shellScript = "mkdir -p \"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/weasis/weasis/conf/\"\ncp -fp \"${PROJECT_DIR}/Binaries/weasis-ext-config.properties\" \"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/weasis/weasis/conf/ext-config.properties\"\n";
 		};
 		847B929C15480BC400271A61 /* Create Resources Disabled folder */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -9707,7 +9729,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cp -f \"$PROJECT_DIR/Binaries/ReportsToPDF/odt2pdf/build/odt2pdf\" \"$BUILT_PRODUCTS_DIR/$CONTENTS_FOLDER_PATH/MacOS/\"\nexit 0\n";
+			shellScript = "#cp -f \"$PROJECT_DIR/Binaries/ReportsToPDF/odt2pdf/build/odt2pdf\" \"$BUILT_PRODUCTS_DIR/$CONTENTS_FOLDER_PATH/MacOS/\"\nexit 0\n";
 		};
 		BF7486A40CC6AA5C00198387 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -9748,7 +9770,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#test with codesign -vvv\n\nIDENTITY=\"Mac Developer: Alex Bettarini (L74MX98MKG)\"\n\nif [[ ${CONFIGURATION} == \"Distribution\" ]]\nthen\n# -f means force to re-sign even if already signed\ncodesign -f -s \"$IDENTITY\" \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/\"\necho \"code signed\"\nfi\n";
+			shellScript = "##IDENTITY=\"Mac Developer: Alex Bettarini (L74MX98MKG)\"\n#IDENTITY=\"Developer ID Application: Alex Bettarini (57BXF7EQEM)\"\n\n#if [[ ${CONFIGURATION} == \"Distribution\" ]]\n#then\n#codesign -f -s \"$IDENTITY\" \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/\"\n#echo \"code signed\"\n#fi\n";
 		};
 		CED88262125064F70085A861 /* CodeSigning */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -9762,7 +9784,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#test with codesign -vvv\n\nchmod -R 777 \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/\"\nIDENTITY=\"Mac Developer: Alex Bettarini (L74MX98MKG)\"\n\nif [[ ${CONFIGURATION} == \"Distribution\" ]]\nthen\n# -f means force to re-sign even if already signed\ncodesign -f -s \"$IDENTITY\" \"$TARGET_BUILD_DIR/$FRAMEWORKS_FOLDER_PATH/OsiriXAPI.framework\"\n#codesign --resource-rules Rules.plist -f -s \"$IDENTITY\" \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/\"\necho \"code signed\"\nfi\n";
+			shellScript = "#test with codesign -vvv\n\nchmod -R 777 \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/\"\n#IDENTITY=\"Mac Developer: Alex Bettarini (L74MX98MKG)\"\nIDENTITY=\"Developer ID Application: Alex Bettarini (57BXF7EQEM)\"\n\nfunction cs {\n  codesign --force --sign \"$IDENTITY\" \"$1\"\n}\n\nfunction cse {\n  codesign --force --sign \"$IDENTITY\" --entitlements \"$PROJECT_DIR/generic.entitlements\" \"$1\"\n}\n\nif [[ ${CONFIGURATION} == \"Distribution\" ]] ; then\n#cs  \"$TARGET_BUILD_DIR/$FRAMEWORKS_FOLDER_PATH/OsiriXAPI.framework\"\n\n#cse \"$TARGET_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/odt2pdf\"\n  cse \"$TARGET_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/Decompress\"\n  cse \"$TARGET_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/dciodvfy\"\n  cse \"$TARGET_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/dcmdump\"\n  cse \"$TARGET_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/dsr2html\"\n  cse \"$TARGET_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/echoscu\"\n\n#codesign --resource-rules Rules.plist -f -s \"$IDENTITY\" \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/\"\n  echo \"code signed\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -10946,12 +10968,12 @@
 /* Begin PBXTargetDependency section */
 		43D3A074208347FA008F044B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 7E0B3A3E067526CD00908593 /* DCM Framework */;
+			target = 7E0B3A3E067526CD00908593 /* DCM */;
 			targetProxy = 43D3A073208347FA008F044B /* PBXContainerItemProxy */;
 		};
 		43E9D2BB2167886200CFBD0B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 7E0B3A3E067526CD00908593 /* DCM Framework */;
+			target = 7E0B3A3E067526CD00908593 /* DCM */;
 			targetProxy = 43E9D2BA2167886200CFBD0B /* PBXContainerItemProxy */;
 		};
 		4A2ADDFD078D3C6200416F53 /* PBXTargetDependency */ = {
@@ -10961,7 +10983,7 @@
 		};
 		4A2F590D078D124B00C514A2 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 7E0B3A3E067526CD00908593 /* DCM Framework */;
+			target = 7E0B3A3E067526CD00908593 /* DCM */;
 			targetProxy = 4A2F590C078D124B00C514A2 /* PBXContainerItemProxy */;
 		};
 		59BDEE6B117CB393007F1F2C /* PBXTargetDependency */ = {
@@ -11528,7 +11550,9 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 20181010;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 57BXF7EQEM;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -11560,9 +11584,9 @@
 				CLANG_WARN_EMPTY_BODY = YES;
 				CODE_SIGN_ENTITLEMENTS = "miele-lxiv.entitlements";
 				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				DEVELOPMENT_TEAM = 57BXF7EQEM;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SRCROOT)/Binaries",
 					"$(BUILD_DIR)/$(CONFIGURATION)",
@@ -11580,6 +11604,7 @@
 					NDEBUG,
 					OSIRIX_VIEWER,
 					MACAPPSTORE,
+					WITH_CODE_SIGNING,
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
@@ -11652,7 +11677,7 @@
 					"-framework",
 					OpenGL,
 					"-framework",
-					OsiriX,
+					DCM,
 					"-framework",
 					PreferencePanes,
 					"-framework",
@@ -11899,6 +11924,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.bettarini.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "miele-lxiv";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				STRIP_STYLE = debugging;
 				SYSTEM_HEADER_SEARCH_PATHS = "/usr/local/opt/openssl/include $(SRCROOT)/Binaries/ITK/include/ITK-4.11 $(SRCROOT)/Binaries/VTK/include $(SRCROOT)/Binaries/ITK/include";
 				USE_HEADERMAP = NO;
@@ -11911,10 +11937,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_ENTITLEMENTS = "LXIV Launcher/LXIV Launcher.entitlements";
 				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				DEVELOPMENT_TEAM = 57BXF7EQEM;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -11937,6 +11964,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.bettarini.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "LXIV Launcher";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				USE_HEADERMAP = NO;
 			};
@@ -11947,18 +11975,17 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
 				CURRENT_PROJECT_VERSION = "";
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = 57BXF7EQEM;
 				FRAMEWORK_VERSION = A;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "DCM Framework/DCM Framework_Prefix.pch";
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)/Binaries/DCMTK/include",
 					"$(SRCROOT)",
@@ -12031,8 +12058,8 @@
 					"-lm",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.bettarini.dcmframework;
-				PRODUCT_NAME = OsiriX;
-				PUBLIC_HEADERS_FOLDER_PATH = "$(CONTENTS_FOLDER_PATH)/Headers";
+				PRODUCT_NAME = DCM;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SECTORDER_FLAGS = "";
 				SKIP_INSTALL = YES;
 				USE_HEADERMAP = NO;
@@ -12093,10 +12120,10 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_RESOURCE_RULES_PATH = "";
+				CODE_SIGN_STYLE = Automatic;
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)";
 				COPY_PHASE_STRIP = YES;
 				DEPLOYMENT_LOCATION = NO;
-				DEVELOPMENT_TEAM = 57BXF7EQEM;
 				FRAMEWORK_SEARCH_PATHS = " $(BUILD_DIR)/$(CONFIGURATION)";
 				GCC_FAST_MATH = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
@@ -12152,7 +12179,7 @@
 					"-framework",
 					WebKit,
 					"-framework",
-					OsiriX,
+					DCM,
 					"$(SRCROOT)/Binaries/DCMTK/lib/libcharls.a",
 					"$(SRCROOT)/Binaries/DCMTK/lib/libcmr.a",
 					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmdata.a",
@@ -12189,6 +12216,7 @@
 					"-lm",
 				);
 				PRODUCT_NAME = Decompress;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				STRIP_INSTALLED_PRODUCT = YES;
 				SYMROOT = build;
@@ -12202,10 +12230,10 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_RESOURCE_RULES_PATH = "";
+				CODE_SIGN_STYLE = Manual;
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)";
 				COPY_PHASE_STRIP = NO;
 				DEPLOYMENT_LOCATION = NO;
-				DEVELOPMENT_TEAM = 57BXF7EQEM;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(FRAMEWORK_SEARCH_PATHS)",
 					"$(SRCROOT)",
@@ -12229,6 +12257,7 @@
 					AppKit,
 				);
 				PRODUCT_NAME = DICOMPrint;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SYMROOT = build;
 				USER_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/Binaries/DCMTK/include $(PROJECT_DIR)";
@@ -12242,9 +12271,9 @@
 				CLANG_CXX_LIBRARY = "compiler-default";
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				DEVELOPMENT_TEAM = 57BXF7EQEM;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				FRAMEWORK_VERSION = A;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -12316,6 +12345,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.bettarini.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = OsiriXAPI;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				USE_HEADERMAP = NO;
 			};
@@ -12418,7 +12448,9 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 20181010;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 57BXF7EQEM;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -12448,9 +12480,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				DEVELOPMENT_TEAM = 57BXF7EQEM;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SRCROOT)/Binaries",
 					"$(BUILD_DIR)/$(CONFIGURATION)",
@@ -12467,6 +12500,7 @@
 					XCODE_LXIV,
 					NDEBUG,
 					OSIRIX_VIEWER,
+					WITH_CODE_SIGNING,
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
@@ -12539,7 +12573,7 @@
 					"-framework",
 					OpenGL,
 					"-framework",
-					OsiriX,
+					DCM,
 					"-framework",
 					PreferencePanes,
 					"-framework",
@@ -12786,6 +12820,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.github-bettar.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "miele-lxiv";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				STRIP_STYLE = debugging;
 				SYSTEM_HEADER_SEARCH_PATHS = "/usr/local/opt/openssl/include $(SRCROOT)/Binaries/ITK/include/ITK-4.11 $(SRCROOT)/Binaries/VTK/include $(SRCROOT)/Binaries/ITK/include";
 				USE_HEADERMAP = NO;
@@ -12798,6 +12833,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -12822,6 +12859,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.github-bettar.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "LXIV Launcher";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				USE_HEADERMAP = NO;
 			};
@@ -12831,6 +12869,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
 				CURRENT_PROJECT_VERSION = "";
@@ -12840,8 +12880,7 @@
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "DCM Framework/DCM Framework_Prefix.pch";
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)/Binaries/DCMTK/include",
 					"$(SRCROOT)",
@@ -12914,8 +12953,8 @@
 					"-lm",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.github-bettar.dcmframework";
-				PRODUCT_NAME = OsiriX;
-				PUBLIC_HEADERS_FOLDER_PATH = "$(CONTENTS_FOLDER_PATH)/Headers";
+				PRODUCT_NAME = DCM;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SECTORDER_FLAGS = "";
 				SKIP_INSTALL = YES;
 				USE_HEADERMAP = NO;
@@ -12974,7 +13013,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_RESOURCE_RULES_PATH = "";
+				CODE_SIGN_STYLE = Automatic;
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)";
 				COPY_PHASE_STRIP = YES;
 				DEPLOYMENT_LOCATION = NO;
@@ -13033,7 +13074,7 @@
 					"-framework",
 					WebKit,
 					"-framework",
-					OsiriX,
+					DCM,
 					"$(SRCROOT)/Binaries/DCMTK/lib/libcharls.a",
 					"$(SRCROOT)/Binaries/DCMTK/lib/libcmr.a",
 					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmdata.a",
@@ -13070,6 +13111,7 @@
 					"-lm",
 				);
 				PRODUCT_NAME = Decompress;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				STRIP_INSTALLED_PRODUCT = YES;
 				SYMROOT = build;
@@ -13081,7 +13123,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_RESOURCE_RULES_PATH = "";
+				CODE_SIGN_STYLE = Manual;
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)";
 				COPY_PHASE_STRIP = NO;
 				DEPLOYMENT_LOCATION = NO;
@@ -13108,6 +13152,7 @@
 					AppKit,
 				);
 				PRODUCT_NAME = DICOMPrint;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SYMROOT = build;
 				USER_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/Binaries/DCMTK/include $(PROJECT_DIR)";
@@ -13120,6 +13165,8 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
 				CLANG_CXX_LIBRARY = "compiler-default";
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -13193,6 +13240,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.github-bettar.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = OsiriXAPI;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				USE_HEADERMAP = NO;
 			};
@@ -13277,6 +13325,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -13300,6 +13350,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.bettarini.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "LXIV Launcher";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				USE_HEADERMAP = NO;
 			};
@@ -13309,6 +13360,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = "";
@@ -13317,8 +13370,7 @@
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "DCM Framework/DCM Framework_Prefix.pch";
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)/Binaries/DCMTK/include",
 					"$(SRCROOT)",
@@ -13390,8 +13442,8 @@
 					"-lm",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.bettarini.dcmframework;
-				PRODUCT_NAME = OsiriX;
-				PUBLIC_HEADERS_FOLDER_PATH = "$(CONTENTS_FOLDER_PATH)/Headers";
+				PRODUCT_NAME = DCM;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SECTORDER_FLAGS = "";
 				SKIP_INSTALL = YES;
 				USE_HEADERMAP = NO;
@@ -13439,6 +13491,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -13525,7 +13579,7 @@
 					"-framework",
 					OpenGL,
 					"-framework",
-					OsiriX,
+					DCM,
 					"-framework",
 					PreferencePanes,
 					"-framework",
@@ -13772,6 +13826,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.bettarini.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "miele-lxiv";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SYSTEM_HEADER_SEARCH_PATHS = "/usr/local/opt/openssl/include $(SRCROOT)/Binaries/ITK/include/ITK-4.11 $(SRCROOT)/Binaries/VTK/include $(SRCROOT)/Binaries/ITK/include";
 				USE_HEADERMAP = NO;
 				WARNING_CFLAGS = "-no-pedantic";
@@ -13800,7 +13855,9 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "";
+				CURRENT_PROJECT_VERSION = 20181010;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 57BXF7EQEM;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -13909,6 +13966,8 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
 				CLANG_CXX_LIBRARY = "compiler-default";
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -13981,6 +14040,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.bettarini.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = OsiriXAPI;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				USE_HEADERMAP = NO;
 			};
@@ -13990,7 +14050,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_RESOURCE_RULES_PATH = "";
+				CODE_SIGN_STYLE = Automatic;
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)";
 				COPY_PHASE_STRIP = YES;
 				DEPLOYMENT_LOCATION = NO;
@@ -14046,7 +14108,7 @@
 					"-framework",
 					WebKit,
 					"-framework",
-					OsiriX,
+					DCM,
 					"$(SRCROOT)/Binaries/DCMTK/lib/libcharls.a",
 					"$(SRCROOT)/Binaries/DCMTK/lib/libcmr.a",
 					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmdata.a",
@@ -14083,6 +14145,7 @@
 					"-lm",
 				);
 				PRODUCT_NAME = Decompress;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				STRIP_INSTALLED_PRODUCT = YES;
 				SYMROOT = build;
@@ -14107,7 +14170,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_RESOURCE_RULES_PATH = "";
+				CODE_SIGN_STYLE = Manual;
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)";
 				COPY_PHASE_STRIP = NO;
 				DEPLOYMENT_LOCATION = NO;
@@ -14134,6 +14199,7 @@
 					AppKit,
 				);
 				PRODUCT_NAME = DICOMPrint;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SYMROOT = build;
 				USER_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/Binaries/DCMTK/include $(PROJECT_DIR)";
@@ -14153,7 +14219,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Deployment;
 		};
-		7E76BEC0085757B60073649A /* Build configuration list for PBXNativeTarget "DCM Framework" */ = {
+		7E76BEC0085757B60073649A /* Build configuration list for PBXNativeTarget "DCM" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				7E76BEC1085757B60073649A /* Development */,

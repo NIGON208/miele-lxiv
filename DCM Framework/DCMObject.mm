@@ -14,11 +14,11 @@
 
 #import "options.h"
 #import "url.h"
-#import "DCM Framework/DCMObject.h"
-#import "DCM Framework/DCM.h"
-#import "DCM Framework/DCMAbstractSyntaxUID.h"
+#import <DCM/DCMObject.h>
+#import <DCM/DCM.h>
+#import <DCM/DCMAbstractSyntaxUID.h>
 #import <Accelerate/Accelerate.h>
-#import "DCMCharacterSet.h"
+//#import "DCMCharacterSet.h"
 
 static NSString *DCM_SecondaryCaptureImageStorage = @"1.2.840.10008.5.1.4.1.1.7";
 static NSString *rootUID = @"1.3.6.1.4.1.19291.2.1";

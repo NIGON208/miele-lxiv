@@ -15,7 +15,7 @@
 #include "dcmtk/config/osconfig.h"
 
 #import "DicomFileDCMTKCategory.h"
-#import "DCM Framework/DCMAbstractSyntaxUID.h"
+#import <DCM/DCMAbstractSyntaxUID.h>
 #import "DICOMToNSString.h"
 #import "MutableArrayCategory.h"
 #import "DicomStudy.h"

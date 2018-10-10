@@ -13,8 +13,7 @@
 =========================================================================*/
 
 #import <Foundation/Foundation.h>
-#import "DCM Framework/DCMAttribute.h"
-
+#import <DCM/DCMAttribute.h>
 
 @interface DCMSequenceAttribute : DCMAttribute
 {

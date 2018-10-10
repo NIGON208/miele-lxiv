@@ -10,5 +10,8 @@
 - Implement ECG viewer capability
 - Implement functionality for Preferences, Listener, `C-MOVE SCP`
 - Implement GUI and functionality for Preferences, Listener, `DICOMSCPOnAllDatabases`
+- replace deprecated `draggingSourceOperationMaskForLocal` with `-draggingSession:sourceOperationMaskForDraggingContext:`
+- fix usage of `sortedArrayUsingFunction`
+- weasis .app contains universal binaries. Take care of that
 
 ---

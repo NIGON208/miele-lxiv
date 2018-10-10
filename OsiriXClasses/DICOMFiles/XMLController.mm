@@ -32,9 +32,9 @@
 #import "DicomStudy.h"
 #import "DicomSeries.h"
 #import "DicomImage.h"
-#import "DCM Framework/DCMObject.h"
-#import "DCM Framework/DCMAttribute.h"
-#import "DCM Framework/DCMAttributeTag.h"
+#import <DCM/DCMObject.h>
+#import <DCM/DCMAttribute.h>
+#import <DCM/DCMAttributeTag.h>
 #import "DicomDatabase.h"
 #import "PluginManager.h"
 

@@ -27,8 +27,8 @@
 #import "N2CustomTitledPopUpButtonCell.h"
 #import "NS(Attributed)String+Geometrics.h"
 #import "NSString+N2.h"
-#import "DCM Framework/DCMTagDictionary.h"
-#import "DCM Framework/DCMAttribute.h"
+#import <DCM/DCMTagDictionary.h>
+#import <DCM/DCMAttribute.h>
 
 #import <objc/runtime.h>
 

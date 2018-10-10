@@ -17,8 +17,8 @@
 #import "DicomSeries.h"
 #import "DicomImage.h"
 #import "DicomAlbum.h"
-#import "DCM Framework/DCMAbstractSyntaxUID.h"
-#import "DCM Framework/DCM.h"
+#import <DCM/DCMAbstractSyntaxUID.h>
+#import <DCM/DCM.h>
 #import "MutableArrayCategory.h"
 #import "SRAnnotation.h"
 #import "DicomDatabase.h"

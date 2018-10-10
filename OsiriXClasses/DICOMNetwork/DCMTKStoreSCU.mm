@@ -85,9 +85,9 @@ END_EXTERN_C
 #endif
 
 #import "DICOMToNSString.h"
-#import "DCM Framework/DCMObject.h"
-#import "DCM Framework/DCM.h"
-#import "DCM Framework/DCMTransferSyntax.h"
+#import <DCM/DCMObject.h>
+#import <DCM/DCM.h>
+#import <DCM/DCMTransferSyntax.h>
 #import "SendController.h"
 
 #import "OpenGLScreenReader.h"

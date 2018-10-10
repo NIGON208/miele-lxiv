@@ -24,8 +24,8 @@
 #import "DicomStudy.h"
 #import "WaitRendering.h"
 #import "DCMTKQueryNode.h"
-#import "DCM Framework/DCMCalendarDate.h"
-#import "DCM Framework/DCMNetServiceDelegate.h"
+#import <DCM/DCMCalendarDate.h>
+#import <DCM/DCMNetServiceDelegate.h>
 #import "DICOMToNSString.h"
 #import "MoveManager.h"
 #import "BrowserController.h"

@@ -32,12 +32,14 @@
 #import "DicomStudy+Report.h"
 #import "WebPortalStudy.h"
 #import "DicomImage.h"
-#import "DCM Framework/DCM.h"
+
+#import <DCM/DCM.h>
+#import <DCM/DCMAbstractSyntaxUID.h>
+
 #import "DCMPix.h"
 #import "DCMTKStoreSCU.h"
 #import "NSFileManager+N2.h"
 #import "N2Alignment.h"
-#import "DCM Framework/DCMAbstractSyntaxUID.h"
 #import "NSFileManager+N2.h"
 #import "CSMailMailClient.h"
 #import "NSObject+SBJSON.h"

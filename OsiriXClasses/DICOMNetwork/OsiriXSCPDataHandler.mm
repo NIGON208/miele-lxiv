@@ -31,7 +31,7 @@
 #import "NSThread+N2.h"
 #import "LogManager.h"
 #import "MutableArrayCategory.h"
-#import "DCM Framework/DCMAbstractSyntaxUID.h"
+#import <DCM/DCMAbstractSyntaxUID.h>
 
 #include "dcmtk/dcmdata/dctk.h"
 #import "tmp_locations.h"

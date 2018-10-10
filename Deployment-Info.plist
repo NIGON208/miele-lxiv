@@ -187,9 +187,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>6.2.17</string>
-	<key>CFBundleSignature</key>
-	<string>OsiX</string>
+	<string>6.2.21</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -206,7 +204,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>20181006</string>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>Config</key>
 	<string>$(CONFIGURATION)</string>
 	<key>GitHash</key>
@@ -218,7 +216,7 @@
 	<key>LSCanProvideIMVideoDataSource</key>
 	<string>Yes</string>
 	<key>LSMinimumSystemVersion</key>
-	<string>10.9</string>
+	<string>$(MACOSX_DEPLOYMENT_TARGET)</string>
 	<key>LSRequiresNativeExecution</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>

@@ -12,7 +12,7 @@
      PURPOSE.
 =========================================================================*/
 
-#import "DCM Framework/DCMAbstractSyntaxUID.h"
+#import <DCM/DCMAbstractSyntaxUID.h>
 #import "DCMView.h"
 #import "StringTexture.h"
 #import "DCMPix.h"
@@ -443,7 +443,7 @@ BOOL lineIntersectsRect(NSPoint lineStarts, NSPoint lineEnds, NSRect rect)
         return NO;
 }
 
-NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void *context)
+NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void * _Nullable context)
 {
     NSDate *d1 = [[v1 currentStudy] valueForKey:@"date"];
     NSDate *d2 = [[v2 currentStudy] valueForKey:@"date"];

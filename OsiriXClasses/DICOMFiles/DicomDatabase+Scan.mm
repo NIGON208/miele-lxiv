@@ -26,7 +26,7 @@
 #import "DCMPix.h"
 #import "ThreadsManager.h"
 #import "DiscMountedAskTheUserDialogController.h"
-#import "DCM Framework/DCMAbstractSyntaxUID.h"
+#import <DCM/DCMAbstractSyntaxUID.h>
 #import "N2Stuff.h"
 #import "DICOMToNSString.h"
 #import "DicomDirParser.h"

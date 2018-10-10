@@ -14,7 +14,7 @@
 
 
 #import "AnonymizationTagsView.h"
-#import "DCM Framework/DCMAttributeTag.h"
+#import <DCM/DCMAttributeTag.h>
 #import "N2HighlightImageButtonCell.h"
 #import "AnonymizationViewController.h"
 #import "N2TextField.h"

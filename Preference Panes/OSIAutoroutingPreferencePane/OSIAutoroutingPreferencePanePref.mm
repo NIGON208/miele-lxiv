@@ -12,7 +12,7 @@
      PURPOSE.
 =========================================================================*/
 
-#import "DCM Framework/DCMObject.h"
+#import <DCM/DCMObject.h>
 #import "OSIAutoroutingPreferencePanePref.h"
 #import <NSPreferencePane+OsiriX.h>
 #import <AppController.h>

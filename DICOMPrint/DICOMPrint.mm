@@ -1,6 +1,6 @@
 #import <Foundation/Foundation.h>
-#import "DCM Framework/DCMObject.h"
-#import "DCM Framework/DCMTransferSyntax.h"
+#import <DCM/DCMObject.h>
+#import <DCM/DCMTransferSyntax.h>
 
 #include "AYDcmPrintSCU.h"
 

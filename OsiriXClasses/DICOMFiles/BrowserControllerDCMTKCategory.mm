@@ -16,10 +16,10 @@
 #include "dcmtk/config/osconfig.h" /* make sure OS specific configuration is included first */
 
 #import "BrowserControllerDCMTKCategory.h"
-#import "DCM Framework/DCMObject.h"
-#import "DCM Framework/DCM.h"
-#import "DCM Framework/DCMTransferSyntax.h"
-#import "DCM Framework/DCMAbstractSyntaxUID.h"
+#import <DCM/DCMObject.h>
+#import <DCM/DCM.h>
+#import <DCM/DCMTransferSyntax.h>
+#import <DCM/DCMAbstractSyntaxUID.h>
 #import "AppController.h"
 #import "DCMPix.h"
 #import "WaitRendering.h"

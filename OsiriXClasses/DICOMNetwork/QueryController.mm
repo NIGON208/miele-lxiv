@@ -19,8 +19,8 @@
 #import "QueryFilter.h"
 #import "AppController.h"
 #import "ImageAndTextCell.h"
-#import "DCM Framework/DCMCalendarDate.h"
-#import "DCM Framework/DCMNetServiceDelegate.h"
+#import <DCM/DCMCalendarDate.h>
+#import <DCM/DCMNetServiceDelegate.h>
 #import "QueryArrayController.h"
 //#import "AdvancedQuerySubview.h"
 #import "DCMTKRootQueryNode.h"

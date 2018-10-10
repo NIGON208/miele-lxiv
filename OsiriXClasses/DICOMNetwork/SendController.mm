@@ -15,8 +15,8 @@
 #import "BrowserController.h"
 #import "SendController.h"
 #import "Wait.h"
-#import "DCM Framework/DCMNetServiceDelegate.h"
-#import "DCM Framework/DCM.h"
+#import <DCM/DCMNetServiceDelegate.h>
+#import <DCM/DCM.h>
 #import "PluginFilter.h"
 #import "PluginManager.h"
 #import "DCMTKStoreSCU.h"

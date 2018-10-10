@@ -17,7 +17,7 @@
 #import <BrowserController.h>
 #import "BrowserControllerDCMTKCategory.h"
 #import <PreferencesWindowController+DCMTK.h>
-#import "DCM Framework/DCMAbstractSyntaxUID.h"
+#import <DCM/DCMAbstractSyntaxUID.h>
 //#import <BrowserControllerDCMTKCategory.h>
 #import "DicomDatabase.h"
 #import "DICOMFiles/dicomFile.h"

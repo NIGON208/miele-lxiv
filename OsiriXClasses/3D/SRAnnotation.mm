@@ -21,7 +21,7 @@
 #import "DCMPix.h"
 #import "BrowserController.h"
 #import "DICOMFiles/dicomFile.h"
-#import "DCM Framework/DCMCalendarDate.h"
+#import <DCM/DCMCalendarDate.h>
 #import "DicomStudy.h"
 #import "DicomSeries.h"
 #import "N2Debug.h"

@@ -14,7 +14,7 @@
 
 #import "DCMTKRootQueryNode.h"
 #import "DCMTKStudyQueryNode.h"
-#import "DCM Framework/DCMCalendarDate.h"
+#import <DCM/DCMCalendarDate.h>
 #import "DICOMFiles/dicomFile.h"
 
 #include "dcmtk/dcmdata/dcdeftag.h"

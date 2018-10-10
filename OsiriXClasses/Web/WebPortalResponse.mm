@@ -23,7 +23,7 @@
 #import "DicomStudy.h"
 #import "DicomSeries.h"
 #import "BrowserController.h"
-#import "DCM Framework/DCMAbstractSyntaxUID.h"
+#import <DCM/DCMAbstractSyntaxUID.h>
 #import "NSManagedObject+N2.h"
 #import "N2Operators.h"
 #import "NSUserDefaults+OsiriX.h"

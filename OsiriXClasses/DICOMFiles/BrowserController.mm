@@ -52,14 +52,16 @@
 #import "Wait.h"
 #import "WaitRendering.h"
 #import "BurnerWindowController.h"
-#import "DCM Framework/DCMTransferSyntax.h"
-#import "DCM Framework/DCMAttributeTag.h"
-#import "DCM Framework/DCMPixelDataAttribute.h"
-#import "DCM Framework/DCMCalendarDate.h"
-#import "DCM Framework/DCM.h"
-#import "DCM Framework/DCMObject.h"
-#import "DCM Framework/DCMAbstractSyntaxUID.h"
-#import "DCM Framework/DCMNetServiceDelegate.h"
+
+#import <DCM/DCMTransferSyntax.h>
+#import <DCM/DCMAttributeTag.h>
+#import <DCM/DCMPixelDataAttribute.h>
+#import <DCM/DCMCalendarDate.h>
+#import <DCM/DCM.h>
+#import <DCM/DCMObject.h>
+#import <DCM/DCMAbstractSyntaxUID.h>
+#import <DCM/DCMNetServiceDelegate.h>
+
 #import "LogWindowController.h"
 #import "stringAdditions.h"
 #import "SendController.h"

@@ -64,7 +64,12 @@
 #import "ThreadsManager.h"
 #import "NSThread+N2.h"
 #import "ITKBrushROIFilter.h"
-#import "DCM Framework/DCMAbstractSyntaxUID.h"
+
+#import <DCM/DCMAbstractSyntaxUID.h>
+#import <DCM/DCMObject.h>
+#import <DCM/DCMAttributeTag.h>
+#import <DCM/DCMCalendarDate.h>
+
 #import "printView.h"
 #import "ITKTransform.h"
 #import "NSManagedObject+N2.h"
@@ -79,8 +84,6 @@
 #import "N2Stuff.h"
 #import "BonjourBrowser.h"
 #import "PluginManager.h"
-#import "DCM Framework/DCMObject.h"
-#import "DCM Framework/DCMAttributeTag.h"
 #import "NavigatorWindowController.h"
 #import "ThreeDPositionController.h"
 #import "ThumbnailCell.h"
@@ -99,7 +102,6 @@
 #import "DCMTKSeriesQueryNode.h"
 #import "O2ViewerThumbnailsMatrix.h"
 #import "ToolBarNSWindow.h"
-#import "DCM Framework/DCMCalendarDate.h"
 #import "MutableArrayCategory.h"
 
 int delayedTileWindows = NO;

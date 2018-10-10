@@ -15,7 +15,7 @@
 #import "AnonymizationViewController.h"
 #import "AnonymizationTemplateNamePanelController.h"
 #import "AnonymizationTagsView.h"
-#import "DCM Framework/DCMAttributeTag.h"
+#import <DCM/DCMAttributeTag.h>
 #import "N2Operators.h"
 #import "Anonymization.h"
 #import "N2AdaptiveBox.h"

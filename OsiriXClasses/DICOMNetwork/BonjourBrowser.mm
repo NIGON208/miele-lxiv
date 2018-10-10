@@ -19,7 +19,7 @@
 #import "AppController.h"
 #import "DICOMFiles/dicomFile.h"
 #import "DicomImage.h"
-#import "DCM Framework/DCMNetServiceDelegate.h"
+#import <DCM/DCMNetServiceDelegate.h>
 #import "Notifications.h"
 #import "SendController.h"
 #import <sys/socket.h>

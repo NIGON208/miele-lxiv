@@ -12,10 +12,8 @@
      PURPOSE.
 =========================================================================*/
 
-
 #import "AnonymizationCustomTagPanelController.h"
-#import "DCM Framework/DCMAttributeTag.h"
-
+#import <DCM/DCMAttributeTag.h>
 
 @implementation AnonymizationCustomTagPanelController
 

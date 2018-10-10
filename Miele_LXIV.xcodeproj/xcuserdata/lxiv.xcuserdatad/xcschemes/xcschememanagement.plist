@@ -7,12 +7,12 @@
 		<key>Build All Prerequisites.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>3</integer>
+			<integer>2</integer>
 		</dict>
 		<key>DCM Framework.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>2</integer>
+			<integer>3</integer>
 		</dict>
 		<key>DICOMPrint.xcscheme</key>
 		<dict>
@@ -22,12 +22,12 @@
 		<key>Decompress.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>4</integer>
+			<integer>5</integer>
 		</dict>
 		<key>Documentation.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>5</integer>
+			<integer>4</integer>
 		</dict>
 		<key>LXIV Launcher.xcscheme</key>
 		<dict>
@@ -53,6 +53,16 @@
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
 		<key>59BDEC2C117C92B2007F1F2C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>7E0B3A3E067526CD00908593</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>AB0F3A2B1046BD2B004129DD</key>
 		<dict>
 			<key>primary</key>
 			<true/>

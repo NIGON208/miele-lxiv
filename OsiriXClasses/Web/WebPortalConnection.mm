@@ -30,10 +30,13 @@
 #import "DicomImage.h"
 #import "DCMTKStoreSCU.h"
 #import "DCMPix.h"
-#import "DCM Framework/DCMNetServiceDelegate.h"
+
+#import <DCM/DCMNetServiceDelegate.h>
+#import <DCM/DCM.h>
+#import <DCM/DCMAbstractSyntaxUID.h>
+
 #import "AppController.h"
 #import "BrowserControllerDCMTKCategory.h"
-#import "DCM Framework/DCM.h"
 #import "HTTPResponse.h"
 #import "HTTPAuthenticationRequest.h"
 #import "CSMailMailClient.h"
@@ -42,7 +45,6 @@
 #import "N2Debug.h"
 #import "NSString+N2.h"
 #import "NSUserDefaultsController+N2.h"
-#import "DCM Framework/DCMAbstractSyntaxUID.h"
 #import "NSString+N2.h"
 #import "DDData.h"
 #import "NSData+N2.h"

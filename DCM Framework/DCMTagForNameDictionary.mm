@@ -12,8 +12,7 @@
      PURPOSE.
 =========================================================================*/
 
-#import "DCMTagForNameDictionary.h"
-#import "DCM Framework/DCM.h"
+#import <DCM/DCM.h>
 
 static DCMTagForNameDictionary *sharedTagForNameDictionary; 
 

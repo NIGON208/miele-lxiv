@@ -13,7 +13,7 @@
 =========================================================================*/
 
 #import "OSIPACSOnDemandPreferencePane.h"
-#import "DCM Framework/DCMNetServiceDelegate.h"
+#import <DCM/DCMNetServiceDelegate.h>
 #import "DicomDatabase.h"
 #import "DicomAlbum.h"
 #import "N2Debug.h"

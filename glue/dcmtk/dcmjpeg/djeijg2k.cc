@@ -65,7 +65,7 @@ extern short Use_kdu_IfAvailable;
 
 #include "options.h"
 
-//#include "DCM Framework/DCM.h" // for DCMLosslessQuality
+//#include <DCM/DCM.h> // for DCMLosslessQuality
 
 // use 16K blocks for temporary storage of compressed JPEG data
 #define IJGE12_BLOCKSIZE 16384

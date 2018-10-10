@@ -12,8 +12,8 @@
      PURPOSE.
 =========================================================================*/
 
-#import "DCM Framework/DCMCalendarDate.h"//aTimeZone
-#import "DCM Framework/DCM.h"
+#import <DCM/DCMCalendarDate.h> //aTimeZone
+#import <DCM/DCM.h>
 
 @implementation DCMCalendarDate
 

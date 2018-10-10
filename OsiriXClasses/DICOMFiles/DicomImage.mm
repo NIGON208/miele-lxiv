@@ -16,8 +16,8 @@
 #import "DicomSeries.h"
 #import "DicomStudy.h"
 #import "DicomFileDCMTKCategory.h"
-#import "DCM Framework/DCM.h"
-#import "DCM Framework/DCMAbstractSyntaxUID.h"
+#import <DCM/DCM.h>
+#import <DCM/DCMAbstractSyntaxUID.h>
 #import "DCMObjectPixelDataImport.h"
 #import "DCMView.h"
 #import "MutableArrayCategory.h"

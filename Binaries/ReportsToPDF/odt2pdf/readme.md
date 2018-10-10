@@ -41,7 +41,9 @@ UNO_PATH=/Applications/LibreOffice.app/Contents/MacOS</pre>
 ---
 ### Build our tool
 
-- Normally we would just change to the odt2pdf directory and launch the build process:
+- Normally we would just change to the *odt2pdf* directory and launch the build process:
+
+	(Don't just do this)
 
 		$ cd path/to/odt2pdf
 		$ make
@@ -50,8 +52,13 @@ UNO_PATH=/Applications/LibreOffice.app/Contents/MacOS</pre>
 	- Trying to solve it by doing `$ export DYLD_LIBRARY_PATH=/Applications/LibreOffice.app/Contents/Frameworks` doesn't resolve the issue
 	- A succesfull workaround is shown in [How to compile Java examples in SDK on Mac](https://ask.libreoffice.org/en/question/90228/how-to-compile-java-examples-in-sdk-on-mac/) basically all you have to do is:
 
+	(Do this only once)
+
 			$ mkdir ~/fakebin
 			$ cp /bin/bash /usr/bin/make ~/fakebin
+
+	(Do this every time)
+
 			$ SHELL=~/fakebin/bash ~/Downloads/LibreOffice6.1_SDK/setsdkenv_unix
 			$ cd path/to/odt2pdf
 			$ ~/fakebin/make SHELL="$SHELL"

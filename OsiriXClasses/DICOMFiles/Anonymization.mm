@@ -13,14 +13,16 @@
 =========================================================================*/
 
 #import "Anonymization.h"
-#import "DCM Framework/DCMAttributeTag.h"
+
+#import <DCM/DCMAttributeTag.h>
+#import <DCM/DCMObject.h>
+#import <DCM/DCMCalendarDate.h>
+
 #import "AnonymizationViewController.h"
 #import "AnonymizationSavePanelController.h"
 #import "NSFileManager+N2.h"
 #import "NSDictionary+N2.h"
-#import "DCM Framework/DCMObject.h"
 #import "DicomImage.h"
-#import "DCM Framework/DCMCalendarDate.h"
 #import "DicomStudy.h"
 #import "DicomSeries.h"
 #import "BrowserController.h"

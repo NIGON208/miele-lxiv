@@ -13,7 +13,7 @@
 =========================================================================*/
 
 #import "DCMObjectDBImport.h"
-#import "DCM Framework/DCM.h"
+#import <DCM/DCM.h>
 
 @implementation DCMObjectDBImport
 

@@ -36,9 +36,9 @@
 #include "dcmtk/dcmjpls/djdecode.h" //JPEG-LS
 #include "dcmtk/dcmjpls/djencode.h" //JPEG-LS
 
-#import "DCM Framework/DCMTransferSyntax.h"
-#import "DCM Framework/DCMObject.h"
-#import "DCM Framework/DCMAbstractSyntaxUID.h"
+#import <DCM/DCMTransferSyntax.h>
+#import <DCM/DCMObject.h>
+#import <DCM/DCMAbstractSyntaxUID.h>
 
 // We don`t care: we are just a small app, our memory will be killed by the system. Don't loose time here !
 //#define WASTE_TIME_CLEANING_UP

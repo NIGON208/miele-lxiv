@@ -29,7 +29,7 @@
 #import "SplashScreen.h"
 #import "NSFont_OpenGL/NSFont_OpenGL.h"
 #import "DICOMFiles/dicomFile.h"
-#import "DCM Framework/DCM.h"
+#import <DCM/DCM.h>
 #import "PluginManager.h"
 #import "DCMTKQueryRetrieveSCP.h"
 #import "BLAuthentication.h"
@@ -3705,20 +3705,34 @@ static BOOL initialized = NO;
 //	</plist>
 	
 //	NSBitmapImageRep *rep = [NSBitmapImageRep imageRepWithData: [NSData dataWithContentsOfFile: @"/tmp/test.jp2"]];
-//	
 //	NSUInteger pix;
-//	
 //	[rep getPixel: &pix atX: 2 y: 2];
-//	
 //	NSLog( @"%@", rep);
 
 	[self testMenus];
     
 #ifndef OSIRIX_LIGHT
     if( [[NSBundle bundleForClass:[self class]] pathForAuxiliaryExecutable:@"odt2pdf"] == nil)
-        N2LogStackTrace( @"\r****** path2odt2pdf == nil\r*****************************");
+        N2LogStackTrace( @"\r****** path to odt2pdf == nil\r*****************************");
 #endif
     
+#if 1 //def MACAPPSTORE
+    // Unzip Resources/odt2pdf.zip into temp/odt2pdf.zip
+    const NSString* const tempLocation = NSTemporaryDirectory();
+    NSString *odt2pdfZipPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"odt2pdf.zip"];
+    NSString *odt2pdfPath = [tempLocation stringByAppendingPathComponent:@"odt2pdf"];
+    
+    if (![[NSFileManager defaultManager] fileExistsAtPath:odt2pdfPath]) {
+        NSTask *taskUnzip = [[[NSTask alloc] init] autorelease];
+        taskUnzip = [NSTask launchedTaskWithLaunchPath:@"/usr/bin/unzip"
+                                             arguments:[NSArray arrayWithObjects:
+                                                        @"-o",
+                                                        @"-d", tempLocation,
+                                                        odt2pdfZipPath,
+                                                        NULL]];
+        [taskUnzip waitUntilExit];
+    }
+#endif
     
     [ROI loadDefaultSettings];
     

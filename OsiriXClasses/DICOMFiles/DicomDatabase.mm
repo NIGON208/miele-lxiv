@@ -35,7 +35,7 @@
 #import "NSArray+N2.h"
 #import "DicomDatabase+DCMTK.h"
 #import "NSError+OsiriX.h"
-#import "DCM Framework/DCMAbstractSyntaxUID.h"
+#import <DCM/DCMAbstractSyntaxUID.h>
 #import "DCMTKStudyQueryNode.h"
 #import "N2Debug.h"
 #import "NSUserDefaults+OsiriX.h"

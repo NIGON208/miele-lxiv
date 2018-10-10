@@ -13,8 +13,8 @@
 =========================================================================*/
 
 #include "options.h"
-#import "DCMDataContainer.h"
-#import "DCM Framework/DCM.h"
+#import <DCM/DCMDataContainer.h>
+#import <DCM/DCM.h>
 
 static NSString *signalCatch = @"signalCatch";
 

@@ -4,8 +4,8 @@
 #include <stdio.h>
 #include "dcmtk/config/osconfig.h"    /* make sure OS specific configuration is included first */
 
-#import "DCM Framework/DCMObject.h"
-#import "DCM Framework/DCM.h"
+#import <DCM/DCMObject.h>
+#import <DCM/DCM.h>
 
 #import "BrowserController.h"
 //#import "AppController.h"

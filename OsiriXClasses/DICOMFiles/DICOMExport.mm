@@ -16,7 +16,7 @@
 #import "tmp_locations.h"
 
 #import "DICOMExport.h"
-#import "DCM Framework/DCM.h"
+#import <DCM/DCM.h>
 #import "BrowserController.h"
 #import "DICOMFiles/dicomFile.h"
 #import "DCMView.h"

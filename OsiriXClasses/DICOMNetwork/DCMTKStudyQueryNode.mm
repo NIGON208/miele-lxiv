@@ -14,7 +14,7 @@
 
 
 #import "DCMTKStudyQueryNode.h"
-#import "DCM Framework/DCMCalendarDate.h"
+#import <DCM/DCMCalendarDate.h>
 #import "DCMTKSeriesQueryNode.h"
 #import "DCMTKImageQueryNode.h"
 #import "DICOMToNSString.h"
