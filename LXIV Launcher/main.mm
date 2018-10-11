@@ -344,6 +344,7 @@ int main(int argc, char** argv)
 	}
     else {
 		// TODO: display error
+        /// @todo{display error}
 	}
 	
 	[pool release];

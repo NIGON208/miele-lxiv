@@ -56,15 +56,22 @@
 + (void) setFilesAreFromCDMedia: (BOOL) f; /**< Set flag for filesAreFromCDMedia */
 + (void) setDefaults;  /**< Set DEFAULTSSET flag to NO */
 + (void) resetDefaults; /**< Resets to user defaults */
+
 /**  Return string with invalid characters replaced
-* replaces @"^" with @" "
-* replaces @"/" with @"-"
-* replaces @"\r" with @""
-* replaces @"\n" with @""
-* @":" withString:@"-"
-* removes empty space at end of strings
-*/
+ \li replaces \c  "^" with \c " "
+
+ \li replaces \c "/" with \c "-"
+
+ \li removes \c "\r"
+
+ \li removes \c "\n"
+
+ \li \c ":" withString: \c "-"
+
+ \li removes empty space at end of strings
+ */
 + (NSString*) NSreplaceBadCharacter: (NSString*) str; 
+
 + (char *) replaceBadCharacter:(char *) str encoding: (NSStringEncoding) encoding; /**< Same as NSreplaceBadCharacter, but using char* and encodings */
 + (NSString *) stringWithBytes:(char *) str encodings: (NSStringEncoding*) encoding; /**< Convert char* str with NSStringEncoding* encoding to NSString */ 
 + (NSString *) stringWithBytes:(char *) str encodings: (NSStringEncoding*) encoding replaceBadCharacters: (BOOL) replace; /**< Convert char* str with NSStringEncoding* encoding to NSString */ 
@@ -82,22 +89,30 @@
 + (NSString*) patientUID: (id) src; /**< Returns the patientUID */
 
 /** Returns a dictionary of the elements used to import into the database
-* Keys:
-* @"studyComment", @"studyID", @"studyDescription", @"studyDate", @"modality", @"patientID", @"patientName",
-* @"patientUID", @"fileType", @"commentsAutoFill", @"album", @"SOPClassUID", @"SOPUID", @"institutionName",
-* @"referringPhysiciansName", @"performingPhysiciansName", @"accessionNumber", @"patientAge", @"patientBirthDate", 
-* @"patientSex", @"cardiacTime", @"protocolName", @"sliceLocation", @"imageID", @"seriesNumber", @"seriesDICOMUID",
-* @"studyNumber", @"seriesID", @"hasDICOM"
-* */
+
+ Keys:
+ \code
+    @"studyComment", @"studyID", @"studyDescription", @"studyDate", @"modality",
+    @"patientID", @"patientName", @"patientUID", @"fileType", @"commentsAutoFill",
+    @"album", @"SOPClassUID", @"SOPUID", @"institutionName", @"referringPhysiciansName",
+    @"performingPhysiciansName", @"accessionNumber", @"patientAge", @"patientBirthDate",
+    @"patientSex", @"cardiacTime", @"protocolName", @"sliceLocation", @"imageID",
+    @"seriesNumber", @"seriesDICOMUID", @"studyNumber", @"seriesID", @"hasDICOM"
+ \endcode
+ */
 
 - (NSMutableDictionary *)dicomElements;  
 - (id)elementForKey:(id)key;  /**< Returns the dicomElement for the key */
 - (short)getPluginFile;  /**< Looks for a plugin to decode the file. If one is found decodes the file */
+
 /** Parses the fileName to get the Series/Study/Image numbers
-*  Used for files that don't have the information embedded such as TIFFs and jpegs
-*  In these cases the files are sorted based on the file name.
-*  Numbers at the end become the image number. The remainder of the file becomes the Series and Study ID 
-*/
+
+ Used for files that don't have the information embedded such as TIFFs and jpegs
+
+ In these cases the files are sorted based on the file name.
+
+ Numbers at the end become the image number. The remainder of the file becomes the Series and Study ID
+ */
 - (void)extractSeriesStudyImageNumbersFromFileName:(NSString *)tempString;  
 
 -(short) getDicomFile;  /**< Decode DICOM.  Returns -1 for failure 0 for success */

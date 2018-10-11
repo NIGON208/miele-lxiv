@@ -48,3 +48,6 @@ nitrogen/Nitrogen.xcodeproj/xcuserdata/admin.xcuserdatad/xcschemes/xcschememanag
 CMake*
 CPack*
 doxy/
+doc/Documentation/
+doc/Doxygen/
+

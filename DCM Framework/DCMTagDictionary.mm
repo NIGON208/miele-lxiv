@@ -12,7 +12,6 @@
      PURPOSE.
 =========================================================================*/
 
-#import <DCM/DCMTagDictionary.h>
 #import <DCM/DCM.h>
 
 static DCMTagDictionary *sharedTagDictionary; 

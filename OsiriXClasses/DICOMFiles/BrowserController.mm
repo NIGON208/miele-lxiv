@@ -5419,8 +5419,9 @@ static NSConditionLock *threadLock = nil;
 				}
 			}
             
-            // TODO: when merging multiframe series, we should reevaluate the instanceNumbers in order to have a well-sorted [DicomSeries sortedImages] array
-			
+            // TODO: when...
+            /** @todo When merging multiframe series, we should re-evaluate the instanceNumbers in order to have a well-sorted [DicomSeries sortedImages] array
+             */
 			[destSeries setValue:@0 forKey:@"numberOfImages"];
 			
 			[_database save:NULL];

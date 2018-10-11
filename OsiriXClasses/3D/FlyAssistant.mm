@@ -73,7 +73,7 @@
      */
     [self determineImageRange];
     [self computeHistogram];
-    [self smoothHistogramWith:5]; // \todo{Trouver une meilleure définition ?}
+    [self smoothHistogramWith:5]; /// @todo Find a better definition (4)
 	
 	int err = [self setResampleVoxelSize:vsize];
 	if (err) {
@@ -213,24 +213,28 @@
 {
 	
 	if(	!distmap )
-		return; // todo{l'allouer à la place ?}    
+		return; /// @todo Allocate it
 
     [self thresholdImage];
     CFAbsoluteTime time = CFAbsoluteTimeGetCurrent ();
 	int its=0;	
 	
 //need OSX 10.6 sdk
-    /**
-      Multithreaded distance transform.
-     \todo{Improve the structuring element.
-            Pour la passe aller :
-            for (z = -1; z <= 0; ++z)
-                for (y = -1; y <= -z; ++y)
-                    for (x = -1; x <= -min(y,z); ++x)
-            Pour la passe retour :
-                for (z = 0; z <= 1; ++z)
-                    for (y = -z; y <= 1; ++y)
-                        for (x = -max(y,z); x <= 1; ++x)
+    /** Multithreaded distance transform.
+
+     \todo {Improve the structuring element.
+     For the forward pass:
+     \code
+        for (z = -1; z <= 0; ++z)
+            for (y = -1; y <= -z; ++y)
+                for (x = -1; x <= -min(y,z); ++x)
+     \endcode
+     For the return pass:
+     \code
+        for (z = 0; z <= 1; ++z)
+            for (y = -z; y <= 1; ++y)
+                for (x = -max(y,z); x <= 1; ++x)
+     \endcode
      }
      */
 	__block int changedpoints=1;
