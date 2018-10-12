@@ -1,1 +1,1 @@
-My Page MD
+DICOM Workstation and Viewer
