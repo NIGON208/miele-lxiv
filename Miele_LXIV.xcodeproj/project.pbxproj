@@ -11641,8 +11641,6 @@
 					"-framework",
 					Foundation,
 					"-framework",
-					ILCrashReporter,
-					"-framework",
 					IOKit,
 					"-framework",
 					OpenGL,

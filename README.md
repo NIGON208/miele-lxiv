@@ -1,8 +1,8 @@
-This repository contains the source code of Osiri-LXIV, the open-source DICOM Viewer.
+This repository contains the source code of Miele-LXIV, the open-source DICOM workstation and viewer.
 
-About Osiri-LXIV...
+About Miele-LXIV...
 
-Initally forked from the OsiriX project.
+Initially forked from the OsiriX project.
 
 ---
 ## Current features
@@ -25,7 +25,7 @@ CD/DVD Creation with DICOMDIR support, including cross-platform viewer (Weasis)
 - Send studies (C-STORE SCU, DICOM Send)
 - Receive studies (C-STORE SCP, DICOM Listener)
 - Query and Retrieve studies from/to a PACS workstation (C-FIND SCU, C-MOVE SCU, WADO)
-- Use OsiriX as a DICOM PACS server (C-FIND SCP, C-MOVE SCP, WADO)
+- Use Miele-LXIV as a DICOM PACS server (C-FIND SCP, C-MOVE SCP, WADO)
 - On-the-fly conversion between all DICOM transfer syntaxes
 C-GET SCU/SCP and WADO support for dynamic IP transfers
 - DICOM Printing support
@@ -77,7 +77,7 @@ C-GET SCU/SCP and WADO support for dynamic IP transfers
 - Graphic board accelerated, with 3D texture mapping support
 
 #### Expansion & Scientific Research
-- OsiriX supports a complete dynamic plugins architecture
+- Miele-LXIV supports a complete dynamic plugins architecture
 - Access pixels directly in 32-bits float for B&W images or ARGB values for color images
 - Create and manage windows
 - Access the entire Cocoa framework

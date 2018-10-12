@@ -11,8 +11,9 @@
 #import <Security/Security.h>
 #import <dlfcn.h>
 #import "NSApplication-Dock.h"
+#ifndef MACAPPSTORE
 #import <ILCrashReporter/ILCrashReporter.h>
-
+#endif
 
 // Needs to be defined for compiling under 10.4 SDK
 #ifndef NSAppKitVersionNumber10_4
@@ -419,7 +420,9 @@ static BOOL CopyBundle(NSString *srcPath, NSString *dstPath) {
 
 static void Relaunch(NSString *destinationPath)
 {
+#ifndef MACAPPSTORE
     [[ILCrashReporter defaultReporter] terminate];
+#endif
     
     if( [NSApp applicationExistsInDock: destinationPath] == NO)
         [NSApp addApplicationToDock: destinationPath];
