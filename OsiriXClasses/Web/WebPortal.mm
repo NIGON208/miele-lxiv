@@ -124,12 +124,8 @@ static NSString* DefaultWebPortalDatabasePath = nil;
 
 +(void)initialize
 {
-#ifdef MACAPPSTORE
-    NSString *s = @"~/Library/Application Support/OsiriX App/WebUsers.sql"; // TODO
-#else
     NSString *bundleName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleName"];
     NSString *s = [NSString stringWithFormat:@"~/Library/Application Support/%@/WebUsers.sql", bundleName];
-#endif
     DefaultWebPortalDatabasePath = [[NSString alloc] initWithString: [s stringByExpandingTildeInPath]];
 	[NSUserDefaultsController.sharedUserDefaultsController addObserver:self forValuesKey:OsirixWadoServiceEnabledDefaultsKey options:NSKeyValueObservingOptionInitial context:NULL];
 }
