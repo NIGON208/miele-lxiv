@@ -43,7 +43,7 @@
 #include "vtkAbstractPropPicker.h"
 #include "vtkInteractorStyle.h"
 #include "vtkWorldPointPicker.h"
-#include "vtkOpenGLVolumeTextureMapper3D.h"
+//#include "vtkOpenGLVolumeTextureMapper3D.h"
 #include "vtkPropAssembly.h"
 #include "vtkFixedPointRayCastImage.h"
 
@@ -60,7 +60,7 @@
 #include "vtkCocoaRenderWindowInteractor.h"
 #include "vtkCocoaRenderWindow.h"
 #include "vtkInteractorStyleTrackballCamera.h"
-#include "vtkParallelRenderManager.h"
+//#include "vtkParallelRenderManager.h"
 #include "vtkRendererCollection.h"
 #import "VRController+StereoVision.h"
 #import "Window3DController+StereoVision.h"
@@ -73,15 +73,6 @@
 
 //#import <InstantMessage/IMService.h>
 //#import <InstantMessage/IMAVManager.h>
-
-
-#if USE3DCONNEXION
-#include <3DConnexionClient/ConnexionClientAPI.h>
-extern "C" 
-{
-	extern OSErr InstallConnexionHandlers(ConnexionMessageHandlerProc messageHandler, ConnexionAddedHandlerProc addedHandler, ConnexionRemovedHandlerProc removedHandler) __attribute__((weak_import));
-}
-#endif
 
 extern "C" 
 {
@@ -98,7 +89,6 @@ extern int dontRenderVolumeRenderingOsiriX;	// See OsiriXFixedPointVolumeRayCast
 
 static NSRecursiveLock *drawLock = nil;
 static unsigned short *linearOpacity = nil;
-static VRView	*snVRView = nil;
 
 static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *calldata)
 {
@@ -221,20 +211,21 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 		
 		advancedCLUT = NO;
 		
-		if( [[NSProcessInfo processInfo] processorCount]ors() >= 4)
+		if( [[NSProcessInfo processInfo] processorCount] >= 4)
 			lowResLODFactor = 1.5;
 		else
 			lowResLODFactor = 2.5;
 		
-		[[IMService notificationCenter] addObserver:self selector:@selector(_iChatStateChanged:) name:IMAVManagerStateChangedNotification object:nil];
+		[[IMService notificationCenter] addObserver:self
+                                           selector:@selector(_iChatStateChanged:)
+                                               name:IMAVManagerStateChangedNotification
+                                             object:nil];
 	}
     
     return self;
 }
 
 #pragma mark Initialisation of Left-Right-Side-View
-
-
 
 - (void) setNeedsDisplay: (BOOL) flag
 {
@@ -955,8 +946,6 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 #pragma mark Mouse mouvements
 - (void)mouseDragged:(NSEvent *)theEvent
 {
-	//snVRView = self;
-	
 	//NSLog(@"Mouse dragged!!");
 	
 	_hasChanged = YES;

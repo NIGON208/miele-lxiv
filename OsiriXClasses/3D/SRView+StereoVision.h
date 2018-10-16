@@ -97,7 +97,7 @@
 #import	 "vtkCocoaGLView.h"
 #include "vtkCocoaRenderWindowInteractor.h"
 #include "vtkCocoaRenderWindow.h"
-#include "vtkParallelRenderManager.h"
+//#include "vtkParallelRenderManager.h"
 #include "vtkRendererCollection.h"
 #include "vtkCallbackCommand.h"
 // ****************************

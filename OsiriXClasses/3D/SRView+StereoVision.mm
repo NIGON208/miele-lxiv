@@ -16,7 +16,6 @@
 #ifdef _STEREO_VISION_
 #import "SRView+StereoVision.h"
 
-
 #import "SRView.h"
 #import "SRController.h"
 #import "DCMPix.h"
@@ -58,8 +57,8 @@
 #include "vtkCocoaRenderWindowInteractor.h"
 #include "vtkCocoaRenderWindow.h"
 #include "vtkInteractorStyleTrackballCamera.h"
-#include "vtkParallelRenderManager.h"
-#include "vtkRendererCollection.h"
+//#include "vtkParallelRenderManager.h"
+//#include "vtkRendererCollection.h"
 #import "SRController+StereoVision.h"
 #import "Window3DController+StereoVision.h"
 #import "SRFlyThruAdapter+StereoVision.h"
@@ -67,21 +66,16 @@
 #define D2R 0.01745329251994329576923690768    // degrees to radians
 #define R2D 57.2957795130823208767981548141    // radians to degrees
 // ****************************
-
 static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *calldata)
 {
-	
 	SRView* mipv = (SRView*) clientdata;
-	
 	[mipv setNeedsDisplay:YES];
 }
-
 
 @implementation SRView (StereoVision)
 
 -(id)initWithFrame:(NSRect)frame
-{
-		
+{		
     if ( self = [super initWithFrame:frame] )
     {
 		NSTrackingArea *cursorTracking = [[[NSTrackingArea alloc] initWithRect: [self visibleRect] options: (NSTrackingCursorUpdate | NSTrackingInVisibleRect | NSTrackingMouseEnteredAndExited | NSTrackingActiveInKeyWindow) owner: self userInfo: nil] autorelease];
@@ -133,8 +127,6 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 		display3DPoints = YES;
 		[self load3DPointsDefaultProperties];
 		
-		[self connect2SpaceNavigator];
-		
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windowWillClose:) name: NSWindowWillCloseNotification object: nil];
     }
     
@@ -155,8 +147,10 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 		
 		if( resolution == 1.0)
 		{	
-			if( isoResample) isoResample->Delete();
-			isoResample = nil;
+			if( isoResample)
+                isoResample->Delete();
+
+            isoResample = nil;
 		}
 		else
 		{
@@ -171,9 +165,12 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 			else
 			{
 				isoResample = vtkImageResample::New();
-				if( flip) isoResample->SetInput( flip->GetOutput());
-				else isoResample->SetInput( reader->GetOutput());
-				isoResample->SetAxisMagnificationFactor(0, resolution);
+				if (flip)
+                    isoResample->SetInput( flip->GetOutput());
+				else
+                    isoResample->SetInput( reader->GetOutput());
+
+                isoResample->SetAxisMagnificationFactor(0, resolution);
 				isoResample->SetAxisMagnificationFactor(1, resolution);
 			}
 		}
@@ -189,9 +186,12 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 		else
 		{
 			isoExtractor[ actor] = vtkContourFilter::New();
-			if( flip) isoExtractor[ actor]->SetInput( flip->GetOutput());
-			else isoExtractor[ actor]->SetInput( reader->GetOutput());
-			isoExtractor[ actor]->SetValue(0, isocontour);
+			if (flip)
+                isoExtractor[ actor]->SetInput( flip->GetOutput());
+			else
+                isoExtractor[ actor]->SetInput( reader->GetOutput());
+
+            isoExtractor[ actor]->SetValue(0, isocontour);
 		}
 		
 		vtkPolyData* previousOutput = isoExtractor[ actor]->GetOutput();
@@ -379,16 +379,6 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 	[_mouseDownTimer release];
 	
 	[destinationImage release];
-	
-	// 3D Connexion SpaceNavigator: Make sure the framework is installed
-#if USE3DCONNEXION
-	if(InstallConnexionHandlers != NULL)
-	{
-		// 3D Connexion SpaceNavigator: Unregister our client and clean up all handlers
-		if(snConnexionClientID) UnregisterConnexionClient(snConnexionClientID);
-		CleanupConnexionHandlers();
-	}
-#endif
 	
     [super dealloc];
 }
@@ -1433,19 +1423,12 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 	noWaitDialog = YES;
 	tool = currentTool;
 	
-	if( snCloseEventTimer)
-	{
-		[snCloseEventTimer fire];
-	}
-	snStopped = YES;
-	
 	if ([theEvent type] == NSLeftMouseDown) {
 		if (_mouseDownTimer) {
 			[self deleteMouseDownTimer];
 		}
 		_mouseDownTimer = [[NSTimer scheduledTimerWithTimeInterval:1.0 target:self   selector:@selector(startDrag:) userInfo:theEvent  repeats:NO] retain];
 	}
-	
 	
 	mouseLocStart = [self convertPoint: [theEvent locationInWindow] fromView: nil];
 	_mouseLocStart = mouseLocStart;
@@ -1454,7 +1437,6 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 	{
 		_resizeFrame = YES;
 		return;
-		
 	}
 	else
 	{

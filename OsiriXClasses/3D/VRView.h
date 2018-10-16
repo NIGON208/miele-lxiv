@@ -96,7 +96,7 @@
 #import	 "vtkCocoaGLView.h"
 #include "vtkCocoaRenderWindowInteractor.h"
 #include "vtkCocoaRenderWindow.h"
-#include "vtkParallelRenderManager.h"
+//#include "vtkParallelRenderManager.h"
 #include "vtkRendererCollection.h"
 #include "vtkCallbackCommand.h"
 #import	"VTKStereoVRView.h"
@@ -376,12 +376,7 @@ typedef char* VTKStereoVRView;
 	float						iChatWidth, iChatHeight;
 	BOOL						iChatFrameIsSet;
 	
-	// 3DConnexion SpaceNavigator
-	NSTimer			*snCloseEventTimer;
-	BOOL			snStopped;
-	UInt16			snConnexionClientID;
-	
-	BOOL			clipRangeActivated;
+    BOOL			clipRangeActivated;
 	double			clippingRangeThickness;
 	
 	BOOL			bestRenderingWasGenerated;
@@ -628,10 +623,6 @@ typedef char* VTKStereoVRView;
 - (void)panX:(double)x Y:(double)y;
 
 - (void)recordFlyThru;
-
-// 3DConnexion SpaceNavigator
-- (void)connect2SpaceNavigator;
-void VRSpaceNavigatorMessageHandler(io_connect_t connection, natural_t messageType, void *messageArgument);
 
 #ifdef _STEREO_VISION_
 //Added SilvanWidmer 27-08-09

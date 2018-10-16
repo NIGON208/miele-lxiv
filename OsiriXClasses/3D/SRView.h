@@ -91,7 +91,7 @@
 #import	 "vtkCocoaGLView.h"
 #include "vtkCocoaRenderWindowInteractor.h"
 #include "vtkCocoaRenderWindow.h"
-#include "vtkParallelRenderManager.h"
+//#include "vtkParallelRenderManager.h"
 #include "vtkRendererCollection.h"
 #include "vtkCallbackCommand.h"
 #import "VTKStereoSRView.h"
@@ -304,11 +304,6 @@ typedef struct renderSurface
 	
 	NSRect						savedViewSizeFrame;
 
-	// 3DConnexion SpaceNavigator
-	NSTimer			*snCloseEventTimer;
-	BOOL			snStopped;
-	UInt16			snConnexionClientID;
-	
 #ifdef _STEREO_VISION_
 	//Added SilvanWidmer 10-08-09
 	NSWindow						*LeftFullScreenWindow; 
@@ -421,9 +416,6 @@ typedef struct renderSurface
 - (void)yaw:(float)degrees;
 - (void)panX:(float)x Y:(float)y;
 
-// 3DConnexion SpaceNavigator
-- (void)connect2SpaceNavigator;
-void SRSpaceNavigatorMessageHandler(io_connect_t connection, natural_t messageType, void *messageArgument);
 #ifdef _STEREO_VISION_
 //Added SilvanWidmer 27-08-09
 - (ToolMode) getTool: (NSEvent*) event;
