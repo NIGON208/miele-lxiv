@@ -1161,11 +1161,11 @@ static NSHost *currentHost = nil;
     
     [defaultValues setObject:@"1" forKey:@"bringOsiriXToFrontAfterReceivingMessage"];
     
-	#ifdef MACAPPSTORE
+#ifdef MACAPPSTORE
 	[defaultValues setObject:@"1" forKey:@"MACAPPSTORE"];
-	#else
+#else
 	[defaultValues setObject:@"0" forKey:@"MACAPPSTORE"];
-	#endif
+#endif
 	
 	[defaultValues setObject: [NSArray arrayWithObjects: [DCMAbstractSyntaxUID MRSpectroscopyStorage], nil] forKey:@"additionalDisplayedStorageSOPClassUIDArray"];
 	

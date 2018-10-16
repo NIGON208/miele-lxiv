@@ -14806,8 +14806,13 @@ static NSArray*	openSubSeriesArray = nil;
     NSError *error = nil;
     NSURLResponse *urlResponse = nil;
     
-    NSURLRequest *request = [[[NSURLRequest alloc] initWithURL: [NSURL URLWithString:URL_OSIRIX_BANNER] cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData timeoutInterval: 30] autorelease];
-    NSData *imageData = [NSURLConnection sendSynchronousRequest: request returningResponse: &urlResponse error: &error];
+    NSURLRequest *request = [[[NSURLRequest alloc] initWithURL: [NSURL URLWithString:URL_OSIRIX_BANNER]
+                                                   cachePolicy: NSURLRequestReloadIgnoringLocalAndRemoteCacheData
+                                               timeoutInterval: 30] autorelease];
+
+    NSData *imageData = [NSURLConnection sendSynchronousRequest: request
+                                              returningResponse: &urlResponse
+                                                          error: &error];
     
     if( imageData && error == nil && [urlResponse.MIMEType isEqualToString: @"image/png"])
     {

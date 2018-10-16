@@ -4470,7 +4470,6 @@ static BOOL initialized = NO;
 #ifndef MACAPPSTORE
 - (IBAction) checkForUpdates: (id) sender
 {
-	NSURL *url;
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	
 	if( sender != self)
@@ -4483,13 +4482,15 @@ static BOOL initialized = NO;
     if( [sender isKindOfClass:[NSString class]] && [sender isEqualToString: @"crash"])
         verboseAfterCrash = YES;
     
-#ifdef NDEBUG
-    url = [NSURL URLWithString:URL_OSIRIX_VERSION];
+#ifdef NDEBUG  // AdHoc
+    NSURL *url = [NSURL URLWithString:URL_OSIRIX_VERSION];
 	if (url)
 	{
 		NSString *currVersionNumber = [[[NSBundle bundleForClass:[self class]] infoDictionary] objectForKey:@"CFBundleVersion"];
+#if 1
+#endif
 		NSDictionary *productVersionDict = [NSDictionary dictionaryWithContentsOfURL: url];
-		NSString *latestVersionNumber = [productVersionDict valueForKey:@"OsiriX"];
+		NSString *latestVersionNumber = [productVersionDict valueForKey:@"Miele-LXIV"];
 		
 		if (productVersionDict && currVersionNumber && latestVersionNumber)
 		{
@@ -4523,6 +4524,7 @@ static BOOL initialized = NO;
 #endif
 #endif
 
+// TODO: Use NSURLConnection instead
 - (void) URL: (NSURL*) sender resourceDidFailLoadingWithReason: (NSString*) reason
 {
 	if (verboseUpdateCheck)
