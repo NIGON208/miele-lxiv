@@ -13,11 +13,6 @@
 =========================================================================*/
 
 #import "options.h"
-#if !__LP64__
-#define USE3DCONNEXION 1
-#else
-#define USE3DCONNEXION 0
-#endif
 
 #import "SRView.h"
 #import "SRController.h"
@@ -51,6 +46,7 @@
 
 #include "vtkVectorText.h"
 #include "vtkFollower.h"
+
 #ifdef _STEREO_VISION_
 // ****************************
 // Added SilvanWidmer 03-08-09
@@ -65,7 +61,6 @@
 #include "vtkRendererCollection.h"
 // ****************************
 #endif
-
 
 #define D2R 0.01745329251994329576923690768    // degrees to radians
 #define R2D 57.2957795130823208767981548141    // radians to degrees

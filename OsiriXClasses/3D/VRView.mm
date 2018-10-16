@@ -14,8 +14,6 @@
 
 #import "options.h"
 
-#define USE3DCONNEXION 1
-
 #import "VRView.h"
 
 #import "OsiriXFixedPointVolumeRayCastMapper.h"

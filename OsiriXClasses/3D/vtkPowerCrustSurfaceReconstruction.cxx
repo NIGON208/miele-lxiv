@@ -3832,8 +3832,7 @@ void get_normal_sede(simplex *s) {
     }
 
     DEBS(-1) if (!check_perps(s)) {DEBTR(-1) /* TJH exit(1);*/ OSIRIX_ASSERT((long) (pcFALSE));} EDEBS
-
-                                                           }
+}
 
 
 void get_normal(simplex *s) {get_normal_sede(s); return;}
@@ -3906,7 +3905,6 @@ double radsq(simplex *s) {
 
     return Vec_dot_pdim(n,n)/4/n[rdim-1]/n[rdim-1];
 }
-
 
 void *zero_marks(simplex * s, void *dum) { s->mark = 0; return NULL; }
 

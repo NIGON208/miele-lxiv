@@ -17,8 +17,6 @@
 
 #import "VRView+StereoVision.h"
 
-#define USE3DCONNEXION 1
-
 #import "VRView.h"
 #import "DCMCursor.h"
 #import "AppController.h"

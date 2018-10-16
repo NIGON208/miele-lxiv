@@ -239,7 +239,6 @@
 		434499B21A1D70840047F0F2 /* options.h in Headers */ = {isa = PBXBuildFile; fileRef = 434B46151A19F2A3008CF8CF /* options.h */; };
 		434B46191A19F322008CF8CF /* options.h in Headers */ = {isa = PBXBuildFile; fileRef = 434B46151A19F2A3008CF8CF /* options.h */; };
 		434B461D1A19F631008CF8CF /* OPJSupport.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 434B461B1A19F631008CF8CF /* OPJSupport.cpp */; };
-		434B461F1A19F640008CF8CF /* OPJSupport.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 434B461B1A19F631008CF8CF /* OPJSupport.cpp */; };
 		434B46201A19F642008CF8CF /* OPJSupport.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 434B461B1A19F631008CF8CF /* OPJSupport.cpp */; };
 		434B47A21A1A18D3008CF8CF /* kdu_OsiriX_NO_Support.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 434B47A11A1A18D3008CF8CF /* kdu_OsiriX_NO_Support.cpp */; };
 		434B47A41A1A194F008CF8CF /* kdu_OsiriX_NO_Support.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 434B47A11A1A18D3008CF8CF /* kdu_OsiriX_NO_Support.cpp */; };
@@ -250,8 +249,10 @@
 		4356C82F1AC2A0D600653B32 /* CircleAngle.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 4356C82E1AC2A0D600653B32 /* CircleAngle.pdf */; };
 		4356C8311AC2A13300653B32 /* Ball.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 4356C8301AC2A13300653B32 /* Ball.pdf */; };
 		4365FC361B01C3A300380C25 /* DcmQueryRetrieveGetOurContext.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4365FC341B01C3A300380C25 /* DcmQueryRetrieveGetOurContext.mm */; };
-		436B587A21721209009F42D3 /* libjpeg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 436B587921721209009F42D3 /* libjpeg.a */; };
-		436B587C21721214009F42D3 /* libtiff.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 436B587B21721214009F42D3 /* libtiff.a */; };
+		436B5889217261DF009F42D3 /* libjpeg.9.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 436B5888217261DF009F42D3 /* libjpeg.9.dylib */; };
+		436B588A217261DF009F42D3 /* libjpeg.9.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 436B5888217261DF009F42D3 /* libjpeg.9.dylib */; };
+		4373D61E2174A369000F4BE1 /* OPJSupport.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 434B461B1A19F631008CF8CF /* OPJSupport.cpp */; };
+		4373D6222174A8FF000F4BE1 /* libjpeg.9.dylib in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4373D6212174A8FF000F4BE1 /* libjpeg.9.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		43A4038C1DFA32F300ADA719 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43A4038B1DFA32F300ADA719 /* XCTest.framework */; };
 		43BF296D21662E1D0022CF3B /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = 43BF296C21662E1D0022CF3B /* main.mm */; };
 		43BF296E21662F100022CF3B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 43CC5BA5216511E200F1B1CA /* Assets.xcassets */; };
@@ -2100,6 +2101,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				4373D6222174A8FF000F4BE1 /* libjpeg.9.dylib in Embed Frameworks */,
 				43110BEB21679E5B00B0405B /* DCM.framework in Embed Frameworks */,
 				59F1A515104BA8AE009E3215 /* MieleAPI.framework in Embed Frameworks */,
 			);
@@ -3327,8 +3329,9 @@
 		4365FC331B01C3A300380C25 /* DcmQueryRetrieveGetOurContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DcmQueryRetrieveGetOurContext.h; sourceTree = "<group>"; };
 		4365FC341B01C3A300380C25 /* DcmQueryRetrieveGetOurContext.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = DcmQueryRetrieveGetOurContext.mm; sourceTree = "<group>"; };
 		4365FC371B01C4F100380C25 /* DcmQueryRetrieveOsiriSCP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DcmQueryRetrieveOsiriSCP.h; sourceTree = "<group>"; };
-		436B587921721209009F42D3 /* libjpeg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libjpeg.a; path = "../../../../install/miele-201612/jpeg-9b/lib/libjpeg.a"; sourceTree = "<group>"; };
-		436B587B21721214009F42D3 /* libtiff.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtiff.a; path = "../../../../install/miele-201612/tiff-4.0.8/lib/libtiff.a"; sourceTree = "<group>"; };
+		436B5888217261DF009F42D3 /* libjpeg.9.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libjpeg.9.dylib; path = "../../../../install/miele-201612/jpeg-9b/lib/libjpeg.9.dylib"; sourceTree = "<group>"; };
+		4373D6212174A8FF000F4BE1 /* libjpeg.9.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libjpeg.9.dylib; path = "../../../../install/miele-201612/jpeg-9b/lib/libjpeg.9.dylib"; sourceTree = "<group>"; };
+		4373D6262174BC92000F4BE1 /* libopenjp2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libopenjp2.a; path = "../../../../install/miele-201612/openjpeg-2.2.0/lib/libopenjp2.a"; sourceTree = "<group>"; };
 		438718A22067BDA9009575DB /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = ../../../../../../System/Library/Frameworks/AddressBook.framework; sourceTree = "<group>"; };
 		438718A42067BDE1009575DB /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = ../../../../../../System/Library/Frameworks/AVFoundation.framework; sourceTree = "<group>"; };
 		438718A72067BDF4009575DB /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = ../../../../../../System/Library/Frameworks/Carbon.framework; sourceTree = "<group>"; };
@@ -3341,8 +3344,6 @@
 		438718BB2067C00F009575DB /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = ../../../../../../usr/local/Cellar/libxml2/2.9.4/lib/libxml2.dylib; sourceTree = "<group>"; };
 		438718BD2067C09E009575DB /* libcrypto.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcrypto.dylib; path = ../../../../../../usr/local/Cellar/openssl/1.0.2/lib/libcrypto.dylib; sourceTree = "<group>"; };
 		438718BF2067C0B3009575DB /* libssl.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libssl.dylib; path = ../../../../../../usr/local/Cellar/openssl/1.0.2/lib/libssl.dylib; sourceTree = "<group>"; };
-		439584E320668D9200FA179C /* libopenjp2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libopenjp2.a; path = "../../../projects/install/miele-201612/openjpeg-2.2.0/lib/libopenjp2.a"; sourceTree = "<group>"; };
-		439B8C131A19CCC300F396D7 /* 3DconnexionClient.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = 3DconnexionClient.framework; path = Binaries/3DconnexionClient.framework; sourceTree = "<group>"; };
 		43A4038B1DFA32F300ADA719 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/MacOSX.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		43BF296C21662E1D0022CF3B /* main.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = main.mm; path = "LXIV Launcher/main.mm"; sourceTree = "<group>"; };
 		43BF296F21662F420022CF3B /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = "LXIV Launcher/Info.plist"; sourceTree = "<group>"; };
@@ -4807,6 +4808,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				436B588A217261DF009F42D3 /* libjpeg.9.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4814,8 +4816,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				436B587C21721214009F42D3 /* libtiff.a in Frameworks */,
-				436B587A21721209009F42D3 /* libjpeg.a in Frameworks */,
+				436B5889217261DF009F42D3 /* libjpeg.9.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4896,7 +4897,6 @@
 		1058C7A2FEA54F0111CA2CBB /* Other Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				439B8C131A19CCC300F396D7 /* 3DconnexionClient.framework */,
 				ABE881440FC1444D009F5C80 /* ILCrashReporter.framework */,
 				CE2BE05D1524344D00AE6156 /* Growl.framework */,
 				CE586CC30C74B75D00DB7D5A /* libdcmprintscu.dylib */,
@@ -4922,6 +4922,7 @@
 		29B97314FDCFA39411CA2CEA /* OsiriX */ = {
 			isa = PBXGroup;
 			children = (
+				4373D6212174A8FF000F4BE1 /* libjpeg.9.dylib */,
 				434B69402168BEBC00C35AB6 /* miele-lxiv.entitlements */,
 				43E9D2B82167865800CFBD0B /* API framework */,
 				434B461A1A19F4E4008CF8CF /* OpenJPEG */,
@@ -5053,8 +5054,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				436B587921721209009F42D3 /* libjpeg.a */,
-				436B587B21721214009F42D3 /* libtiff.a */,
+				436B5888217261DF009F42D3 /* libjpeg.9.dylib */,
 				59FB64331230EE2F00EBA136 /* Ming */,
 				1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */,
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
@@ -6554,7 +6554,7 @@
 		434B461A1A19F4E4008CF8CF /* OpenJPEG */ = {
 			isa = PBXGroup;
 			children = (
-				439584E320668D9200FA179C /* libopenjp2.a */,
+				4373D6262174BC92000F4BE1 /* libopenjp2.a */,
 				434B461B1A19F631008CF8CF /* OPJSupport.cpp */,
 				434B461C1A19F631008CF8CF /* OPJSupport.h */,
 			);
@@ -8643,6 +8643,7 @@
 				59F69A4E1056328D008585F5 /* Clean Frameworks */,
 				847B929C15480BC400271A61 /* Create Resources Disabled folder */,
 				CE48FEFE181E486C00A0910B /* Git Hash */,
+				437636D02173BB7800C331D0 /* Fixup */,
 				CED88262125064F70085A861 /* CodeSigning */,
 			);
 			buildRules = (
@@ -9607,6 +9608,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		437636D02173BB7800C331D0 /* Fixup */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = Fixup;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [[ $CONFIGURATION == \"Distribution\" ]] ; then\n$PROJECT_DIR/doc/build-steps/fixup-build-phase.sh\nfi\n";
+		};
 		59BDEDC8117CAB86007F1F2C /* Zip OsiriX Lite into Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -9758,7 +9777,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#test with codesign -vvv\n\nchmod -R 777 \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/\"\n#IDENTITY=\"Mac Developer: Alex Bettarini (L74MX98MKG)\"\nIDENTITY=\"Developer ID Application: Alex Bettarini (57BXF7EQEM)\"\n\nfunction cs {\n  codesign --force --sign \"$IDENTITY\" \"$1\"\n}\n\nfunction cse {\n  codesign --force --sign \"$IDENTITY\" --entitlements \"$PROJECT_DIR/generic.entitlements\" \"$1\"\n}\n\nif [[ ${CONFIGURATION} == \"Distribution\" ]] ; then\n#cs  \"$TARGET_BUILD_DIR/$FRAMEWORKS_FOLDER_PATH/MieleAPI.framework\"\n\n#cse \"$TARGET_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/odt2pdf\"\n  cse \"$TARGET_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/Decompress\"\n  cse \"$TARGET_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/dciodvfy\"\n  cse \"$TARGET_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/dcmdump\"\n  cse \"$TARGET_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/dsr2html\"\n  cse \"$TARGET_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/echoscu\"\n\n#codesign --resource-rules Rules.plist -f -s \"$IDENTITY\" \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/\"\n  echo \"code signed\"\nfi\n";
+			shellScript = "#test with codesign -vvv\n\nchmod -R 777 \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/\"\n#IDENTITY=\"Mac Developer: Alex Bettarini (L74MX98MKG)\"\nIDENTITY=\"Developer ID Application: Alex Bettarini (57BXF7EQEM)\"\n\nfunction cs {\n  codesign --force --sign \"$IDENTITY\" \"$1\"\n}\n\nfunction cse {\n  codesign --force --sign \"$IDENTITY\" --entitlements \"$PROJECT_DIR/generic.entitlements\" \"$1\"\n}\n\nif [[ ${CONFIGURATION} == \"Distribution\" ]] ; then\n#cs  \"$TARGET_BUILD_DIR/$FRAMEWORKS_FOLDER_PATH/MieleAPI.framework\"\n\ncs  \"$TARGET_BUILD_DIR/$FRAMEWORKS_FOLDER_PATH/libjpeg.9.dylib\"\n\n#cse \"$TARGET_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/odt2pdf\"\n  cse \"$TARGET_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/Decompress\"\n  cse \"$TARGET_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/dciodvfy\"\n  cse \"$TARGET_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/dcmdump\"\n  cse \"$TARGET_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/dsr2html\"\n  cse \"$TARGET_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/echoscu\"\n\n#codesign --resource-rules Rules.plist -f -s \"$IDENTITY\" \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/\"\n  echo \"code signed\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -9783,6 +9802,7 @@
 				BFEB763E0677FDA700F242F3 /* DCMTagDictionary.mm in Sources */,
 				BFEB76400677FDA700F242F3 /* DCMTagForNameDictionary.mm in Sources */,
 				BF3BB381067808D5004F6E91 /* DCMTransferSyntax.mm in Sources */,
+				4373D61E2174A369000F4BE1 /* OPJSupport.cpp in Sources */,
 				7EE0DC03067A48A3003E745F /* DCMCharacterSet.mm in Sources */,
 				7EE0DC3F067A5138003E745F /* DCMSequenceAttribute.mm in Sources */,
 				7ECBB8240683A68D00FF3FF4 /* DCMPixelDataAttribute.mm in Sources */,
@@ -9796,7 +9816,6 @@
 				7E8340DC08E9F7C500E41C5E /* DCMPresentationState.mm in Sources */,
 				BFDDE5C2091717F80033317B /* DCMEncapsulatedPDF.mm in Sources */,
 				CE79D9890FD84C350043DD73 /* DCMAbstractSyntaxUID.mm in Sources */,
-				434B461F1A19F640008CF8CF /* OPJSupport.cpp in Sources */,
 				434B47A41A1A194F008CF8CF /* kdu_OsiriX_NO_Support.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -11524,7 +11543,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 20181013;
+				CURRENT_PROJECT_VERSION = 20181015;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 57BXF7EQEM;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -11608,8 +11627,8 @@
 				INFOPLIST_FILE = "Deployment-Info.plist";
 				KEEP_PRIVATE_EXTERNS = YES;
 				LIBRARY_SEARCH_PATHS = (
-					"$(SRCROOT)/Binaries/libtiff/lib",
 					"$(SRCROOT)/Binaries/libjpeg/lib",
+					"$(SRCROOT)/Binaries/openjpeg/lib",
 				);
 				OTHER_CFLAGS = "";
 				OTHER_CPLUSPLUSFLAGS = (
@@ -11669,14 +11688,11 @@
 					"-ldl",
 					"-lm",
 					"-lpthread",
-					"-weak_framework",
-					3DconnexionClient,
 					/usr/lib/libm.dylib,
 					/usr/lib/libxml2.dylib,
 					/usr/lib/libz.dylib,
-					/usr/local/lib/libjpeg.dylib,
-					/usr/local/lib/libpng.dylib,
 					/usr/local/lib/libtiff.dylib,
+					/usr/local/lib/libpng.dylib,
 					/usr/local/opt/openssl/lib/libcrypto.a,
 					/usr/local/opt/openssl/lib/libssl.a,
 					"$(SRCROOT)/Binaries/DCMTK/lib/libcharls.a",
@@ -11786,7 +11802,7 @@
 					"$(SRCROOT)/Binaries/ITK/lib/libITKWatersheds-4.11.a",
 					"$(SRCROOT)/Binaries/ITK/lib/libitkzlib-4.11.a",
 					"$(SRCROOT)/Binaries/ITK/lib/libITKznz-4.11.a",
-					"$(SRCROOT)/Binaries/openjpeg/lib/libopenjp2.2.2.0.dylib",
+					"$(SRCROOT)/Binaries/openjpeg/lib/libopenjp2.a",
 					"$(SRCROOT)/Binaries/VTK/lib/libvtkalglib-7.1.a",
 					"$(SRCROOT)/Binaries/VTK/lib/libvtkChartsCore-7.1.a",
 					"$(SRCROOT)/Binaries/VTK/lib/libvtkCommonColor-7.1.a",
@@ -11867,7 +11883,6 @@
 					"$(SRCROOT)/Binaries/VTK/lib/libvtkIOVideo-7.1.a",
 					"$(SRCROOT)/Binaries/VTK/lib/libvtkIOXML-7.1.a",
 					"$(SRCROOT)/Binaries/VTK/lib/libvtkIOXMLParser-7.1.a",
-					"$(SRCROOT)/Binaries/VTK/lib/libvtkjpeg-7.1.a",
 					"$(SRCROOT)/Binaries/VTK/lib/libvtkjsoncpp-7.1.a",
 					"$(SRCROOT)/Binaries/VTK/lib/libvtklibxml2-7.1.a",
 					"$(SRCROOT)/Binaries/VTK/lib/libvtkmetaio-7.1.a",
@@ -11891,14 +11906,11 @@
 					"$(SRCROOT)/Binaries/VTK/lib/libvtkRenderingVolumeOpenGL2-7.1.a",
 					"$(SRCROOT)/Binaries/VTK/lib/libvtksqlite-7.1.a",
 					"$(SRCROOT)/Binaries/VTK/lib/libvtksys-7.1.a",
-					"$(SRCROOT)/Binaries/VTK/lib/libvtktiff-7.1.a",
 					"$(SRCROOT)/Binaries/VTK/lib/libvtkverdict-7.1.a",
 					"$(SRCROOT)/Binaries/VTK/lib/libvtkViewsContext2D-7.1.a",
 					"$(SRCROOT)/Binaries/VTK/lib/libvtkViewsCore-7.1.a",
 					"$(SRCROOT)/Binaries/VTK/lib/libvtkViewsInfovis-7.1.a",
 					"$(SRCROOT)/Binaries/VTK/lib/libvtkzlib-7.1.a",
-					"-ljpeg",
-					"-ltiff",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.bettarini.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "miele-lxiv";
@@ -11974,6 +11986,10 @@
 				);
 				INFOPLIST_FILE = "DCM Framework/DCM-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(SRCROOT)/Binaries/libtiff/lib",
+					"$(SRCROOT)/Binaries/libjpeg/lib",
+				);
 				OTHER_CFLAGS = "";
 				OTHER_CPLUSPLUSFLAGS = (
 					"-stdlib=libc++",
@@ -12008,7 +12024,7 @@
 					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmseg.a",
 					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmtract.a",
 					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmpmap.a",
-					"$(SRCROOT)/Binaries/openjpeg/lib/libopenjp2.2.2.0.dylib",
+					"$(SRCROOT)/Binaries/openjpeg/lib/libopenjp2.a",
 					"-framework",
 					Accelerate,
 					"-framework",
@@ -12018,9 +12034,8 @@
 					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmtls.a",
 					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmsr.a",
 					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmimage.a",
-					/usr/local/lib/libtiff.dylib,
-					/usr/local/lib/libjpeg.dylib,
 					/usr/local/lib/libpng.dylib,
+					/usr/local/lib/libtiff.dylib,
 					/usr/lib/libxml2.dylib,
 					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmdsig.a",
 					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmqrdb.a",
@@ -12109,7 +12124,10 @@
 					"$(SRCROOT)/OsiriXClasses/**",
 				);
 				LD_RUNPATH_SEARCH_PATHS = "$(BUILD_DIR)/$(CONFIGURATION)";
-				LIBRARY_SEARCH_PATHS = "";
+				LIBRARY_SEARCH_PATHS = (
+					"$(SRCROOT)/Binaries/libtiff/lib",
+					"$(SRCROOT)/Binaries/libjpeg/lib",
+				);
 				OTHER_CFLAGS = "";
 				OTHER_CPLUSPLUSFLAGS = (
 					"-stdlib=libc++",
@@ -12171,10 +12189,9 @@
 					"$(SRCROOT)/Binaries/DCMTK/lib/libijg8.a",
 					"$(SRCROOT)/Binaries/DCMTK/lib/liboflog.a",
 					"$(SRCROOT)/Binaries/DCMTK/lib/libofstd.a",
-					"$(SRCROOT)/Binaries/openjpeg/lib/libopenjp2.2.2.0.dylib",
-					/usr/local/lib/libtiff.dylib,
-					/usr/local/lib/libjpeg.dylib,
+					"$(SRCROOT)/Binaries/openjpeg/lib/libopenjp2.a",
 					/usr/local/lib/libpng.dylib,
+					/usr/local/lib/libtiff.dylib,
 					/usr/lib/libxml2.dylib,
 					"-lpthread",
 					/usr/lib/libz.dylib,
@@ -12254,6 +12271,10 @@
 				);
 				INFOPLIST_FILE = "API framework/MieleAPI-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(SRCROOT)/Binaries/libtiff/lib",
+					"$(SRCROOT)/Binaries/libjpeg/lib",
+				);
 				OTHER_CPLUSPLUSFLAGS = (
 					"-stdlib=libc++",
 					"-std=gnu++14",
@@ -12287,13 +12308,12 @@
 					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmseg.a",
 					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmtract.a",
 					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmpmap.a",
-					"$(SRCROOT)/Binaries/openjpeg/lib/libopenjp2.2.2.0.dylib",
+					"$(SRCROOT)/Binaries/openjpeg/lib/libopenjp2.a",
 					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmtls.a",
 					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmsr.a",
 					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmimage.a",
-					/usr/local/lib/libtiff.dylib,
-					/usr/local/lib/libjpeg.dylib,
 					/usr/local/lib/libpng.dylib,
+					/usr/local/lib/libtiff.dylib,
 					/usr/lib/libxml2.dylib,
 					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmdsig.a",
 					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmqrdb.a",
@@ -12413,7 +12433,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 20181013;
+				CURRENT_PROJECT_VERSION = 20181015;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 57BXF7EQEM;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -12495,8 +12515,8 @@
 				INFOPLIST_FILE = "Deployment-Info.plist";
 				KEEP_PRIVATE_EXTERNS = YES;
 				LIBRARY_SEARCH_PATHS = (
-					"$(SRCROOT)/Binaries/libtiff/lib",
 					"$(SRCROOT)/Binaries/libjpeg/lib",
+					"$(SRCROOT)/Binaries/openjpeg/lib",
 				);
 				OTHER_CFLAGS = "";
 				OTHER_CPLUSPLUSFLAGS = (
@@ -12558,12 +12578,10 @@
 					"-ldl",
 					"-lm",
 					"-lpthread",
-					"-weak_framework",
-					3DconnexionClient,
 					/usr/lib/libm.dylib,
 					/usr/lib/libxml2.dylib,
 					/usr/lib/libz.dylib,
-					/usr/local/lib/libjpeg.dylib,
+					"-ljpeg",
 					/usr/local/lib/libpng.dylib,
 					/usr/local/lib/libtiff.dylib,
 					/usr/local/opt/openssl/lib/libcrypto.a,
@@ -12675,7 +12693,7 @@
 					"$(SRCROOT)/Binaries/ITK/lib/libITKWatersheds-4.11.a",
 					"$(SRCROOT)/Binaries/ITK/lib/libitkzlib-4.11.a",
 					"$(SRCROOT)/Binaries/ITK/lib/libITKznz-4.11.a",
-					"$(SRCROOT)/Binaries/openjpeg/lib/libopenjp2.2.2.0.dylib",
+					"$(SRCROOT)/Binaries/openjpeg/lib/libopenjp2.a",
 					"$(SRCROOT)/Binaries/VTK/lib/libvtkalglib-7.1.a",
 					"$(SRCROOT)/Binaries/VTK/lib/libvtkChartsCore-7.1.a",
 					"$(SRCROOT)/Binaries/VTK/lib/libvtkCommonColor-7.1.a",
@@ -12756,7 +12774,6 @@
 					"$(SRCROOT)/Binaries/VTK/lib/libvtkIOVideo-7.1.a",
 					"$(SRCROOT)/Binaries/VTK/lib/libvtkIOXML-7.1.a",
 					"$(SRCROOT)/Binaries/VTK/lib/libvtkIOXMLParser-7.1.a",
-					"$(SRCROOT)/Binaries/VTK/lib/libvtkjpeg-7.1.a",
 					"$(SRCROOT)/Binaries/VTK/lib/libvtkjsoncpp-7.1.a",
 					"$(SRCROOT)/Binaries/VTK/lib/libvtklibxml2-7.1.a",
 					"$(SRCROOT)/Binaries/VTK/lib/libvtkmetaio-7.1.a",
@@ -12786,8 +12803,6 @@
 					"$(SRCROOT)/Binaries/VTK/lib/libvtkViewsCore-7.1.a",
 					"$(SRCROOT)/Binaries/VTK/lib/libvtkViewsInfovis-7.1.a",
 					"$(SRCROOT)/Binaries/VTK/lib/libvtkzlib-7.1.a",
-					"-ljpeg",
-					"-ltiff",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.github-bettar.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "miele-lxiv";
@@ -12862,6 +12877,10 @@
 				);
 				INFOPLIST_FILE = "DCM Framework/DCM-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(SRCROOT)/Binaries/libtiff/lib",
+					"$(SRCROOT)/Binaries/libjpeg/lib",
+				);
 				OTHER_CFLAGS = "";
 				OTHER_CPLUSPLUSFLAGS = (
 					"-stdlib=libc++",
@@ -12896,7 +12915,7 @@
 					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmseg.a",
 					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmtract.a",
 					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmpmap.a",
-					"$(SRCROOT)/Binaries/openjpeg/lib/libopenjp2.2.2.0.dylib",
+					"$(SRCROOT)/Binaries/openjpeg/lib/libopenjp2.a",
 					"-framework",
 					Accelerate,
 					"-framework",
@@ -12907,7 +12926,7 @@
 					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmsr.a",
 					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmimage.a",
 					/usr/local/lib/libtiff.dylib,
-					/usr/local/lib/libjpeg.dylib,
+					"-ljpeg",
 					/usr/local/lib/libpng.dylib,
 					/usr/lib/libxml2.dylib,
 					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmdsig.a",
@@ -12997,7 +13016,10 @@
 					"$(SRCROOT)/OsiriXClasses/**",
 				);
 				LD_RUNPATH_SEARCH_PATHS = "$(BUILD_DIR)/$(CONFIGURATION)";
-				LIBRARY_SEARCH_PATHS = "";
+				LIBRARY_SEARCH_PATHS = (
+					"$(SRCROOT)/Binaries/libtiff/lib",
+					"$(SRCROOT)/Binaries/libjpeg/lib",
+				);
 				OTHER_CFLAGS = "";
 				OTHER_CPLUSPLUSFLAGS = (
 					"-stdlib=libc++",
@@ -13059,9 +13081,9 @@
 					"$(SRCROOT)/Binaries/DCMTK/lib/libijg8.a",
 					"$(SRCROOT)/Binaries/DCMTK/lib/liboflog.a",
 					"$(SRCROOT)/Binaries/DCMTK/lib/libofstd.a",
-					"$(SRCROOT)/Binaries/openjpeg/lib/libopenjp2.2.2.0.dylib",
+					"$(SRCROOT)/Binaries/openjpeg/lib/libopenjp2.a",
 					/usr/local/lib/libtiff.dylib,
-					/usr/local/lib/libjpeg.dylib,
+					"-ljpeg",
 					/usr/local/lib/libpng.dylib,
 					/usr/lib/libxml2.dylib,
 					"-lpthread",
@@ -13142,6 +13164,10 @@
 				);
 				INFOPLIST_FILE = "API framework/MieleAPI-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(SRCROOT)/Binaries/libtiff/lib",
+					"$(SRCROOT)/Binaries/libjpeg/lib",
+				);
 				OTHER_CPLUSPLUSFLAGS = (
 					"-stdlib=libc++",
 					"-std=gnu++14",
@@ -13175,12 +13201,12 @@
 					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmseg.a",
 					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmtract.a",
 					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmpmap.a",
-					"$(SRCROOT)/Binaries/openjpeg/lib/libopenjp2.2.2.0.dylib",
+					"$(SRCROOT)/Binaries/openjpeg/lib/libopenjp2.a",
 					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmtls.a",
 					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmsr.a",
 					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmimage.a",
 					/usr/local/lib/libtiff.dylib,
-					/usr/local/lib/libjpeg.dylib,
+					"-ljpeg",
 					/usr/local/lib/libpng.dylib,
 					/usr/lib/libxml2.dylib,
 					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmdsig.a",
@@ -13339,6 +13365,10 @@
 				);
 				INFOPLIST_FILE = "DCM Framework/DCM-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(SRCROOT)/Binaries/libtiff/lib",
+					"$(SRCROOT)/Binaries/libjpeg/lib",
+				);
 				OTHER_CFLAGS = "";
 				OTHER_CPLUSPLUSFLAGS = (
 					"-stdlib=libc++",
@@ -13372,7 +13402,7 @@
 					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmseg.a",
 					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmtract.a",
 					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmpmap.a",
-					"$(SRCROOT)/Binaries/openjpeg/lib/libopenjp2.2.2.0.dylib",
+					"$(SRCROOT)/Binaries/openjpeg/lib/libopenjp2.a",
 					"-framework",
 					Accelerate,
 					"-framework",
@@ -13383,7 +13413,7 @@
 					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmsr.a",
 					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmimage.a",
 					/usr/local/lib/libtiff.dylib,
-					/usr/local/lib/libjpeg.dylib,
+					"-ljpeg",
 					/usr/local/lib/libpng.dylib,
 					/usr/lib/libxml2.dylib,
 					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmdsig.a",
@@ -13495,8 +13525,8 @@
 				IBC_FLATTEN_NIBS = NO;
 				INFOPLIST_FILE = "Deployment-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
-					"$(SRCROOT)/Binaries/libtiff/lib",
 					"$(SRCROOT)/Binaries/libjpeg/lib",
+					"$(SRCROOT)/Binaries/openjpeg/lib",
 				);
 				OTHER_CFLAGS = "";
 				OTHER_CPLUSPLUSFLAGS = (
@@ -13557,12 +13587,10 @@
 					"-ldl",
 					"-lm",
 					"-lpthread",
-					"-weak_framework",
-					3DconnexionClient,
 					/usr/lib/libm.dylib,
 					/usr/lib/libxml2.dylib,
 					/usr/lib/libz.dylib,
-					/usr/local/lib/libjpeg.dylib,
+					"-ljpeg",
 					/usr/local/lib/libpng.dylib,
 					/usr/local/lib/libtiff.dylib,
 					/usr/local/opt/openssl/lib/libcrypto.a,
@@ -13674,7 +13702,7 @@
 					"$(SRCROOT)/Binaries/ITK/lib/libITKWatersheds-4.11.a",
 					"$(SRCROOT)/Binaries/ITK/lib/libitkzlib-4.11.a",
 					"$(SRCROOT)/Binaries/ITK/lib/libITKznz-4.11.a",
-					"$(SRCROOT)/Binaries/openjpeg/lib/libopenjp2.2.2.0.dylib",
+					"$(SRCROOT)/Binaries/openjpeg/lib/libopenjp2.a",
 					"$(SRCROOT)/Binaries/VTK/lib/libvtkalglib-7.1.a",
 					"$(SRCROOT)/Binaries/VTK/lib/libvtkChartsCore-7.1.a",
 					"$(SRCROOT)/Binaries/VTK/lib/libvtkCommonColor-7.1.a",
@@ -13755,7 +13783,6 @@
 					"$(SRCROOT)/Binaries/VTK/lib/libvtkIOVideo-7.1.a",
 					"$(SRCROOT)/Binaries/VTK/lib/libvtkIOXML-7.1.a",
 					"$(SRCROOT)/Binaries/VTK/lib/libvtkIOXMLParser-7.1.a",
-					"$(SRCROOT)/Binaries/VTK/lib/libvtkjpeg-7.1.a",
 					"$(SRCROOT)/Binaries/VTK/lib/libvtkjsoncpp-7.1.a",
 					"$(SRCROOT)/Binaries/VTK/lib/libvtklibxml2-7.1.a",
 					"$(SRCROOT)/Binaries/VTK/lib/libvtkmetaio-7.1.a",
@@ -13785,8 +13812,6 @@
 					"$(SRCROOT)/Binaries/VTK/lib/libvtkViewsCore-7.1.a",
 					"$(SRCROOT)/Binaries/VTK/lib/libvtkViewsInfovis-7.1.a",
 					"$(SRCROOT)/Binaries/VTK/lib/libvtkzlib-7.1.a",
-					"-ljpeg",
-					"-ltiff",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.bettarini.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "miele-lxiv";
@@ -13819,7 +13844,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "";
-				CURRENT_PROJECT_VERSION = 20181013;
+				CURRENT_PROJECT_VERSION = 20181015;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 57BXF7EQEM;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -13949,6 +13974,10 @@
 				);
 				INFOPLIST_FILE = "API framework/MieleAPI-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(SRCROOT)/Binaries/libtiff/lib",
+					"$(SRCROOT)/Binaries/libjpeg/lib",
+				);
 				OTHER_CPLUSPLUSFLAGS = (
 					"-stdlib=libc++",
 					"-std=gnu++14",
@@ -13981,12 +14010,12 @@
 					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmseg.a",
 					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmtract.a",
 					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmpmap.a",
-					"$(SRCROOT)/Binaries/openjpeg/lib/libopenjp2.2.2.0.dylib",
+					"$(SRCROOT)/Binaries/openjpeg/lib/libopenjp2.a",
 					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmtls.a",
 					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmsr.a",
 					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmimage.a",
 					/usr/local/lib/libtiff.dylib,
-					/usr/local/lib/libjpeg.dylib,
+					"-ljpeg",
 					/usr/local/lib/libpng.dylib,
 					/usr/lib/libxml2.dylib,
 					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmdsig.a",
@@ -14038,7 +14067,10 @@
 					"$(SRCROOT)/OsiriXClasses/**",
 				);
 				LD_RUNPATH_SEARCH_PATHS = "$(BUILD_DIR)/$(CONFIGURATION)";
-				LIBRARY_SEARCH_PATHS = "";
+				LIBRARY_SEARCH_PATHS = (
+					"$(SRCROOT)/Binaries/libtiff/lib",
+					"$(SRCROOT)/Binaries/libjpeg/lib",
+				);
 				OTHER_CFLAGS = "";
 				OTHER_CPLUSPLUSFLAGS = (
 					"-stdlib=libc++",
@@ -14099,9 +14131,9 @@
 					"$(SRCROOT)/Binaries/DCMTK/lib/libijg8.a",
 					"$(SRCROOT)/Binaries/DCMTK/lib/liboflog.a",
 					"$(SRCROOT)/Binaries/DCMTK/lib/libofstd.a",
-					"$(SRCROOT)/Binaries/openjpeg/lib/libopenjp2.2.2.0.dylib",
+					"$(SRCROOT)/Binaries/openjpeg/lib/libopenjp2.a",
 					/usr/local/lib/libtiff.dylib,
-					/usr/local/lib/libjpeg.dylib,
+					"-ljpeg",
 					/usr/local/lib/libpng.dylib,
 					/usr/lib/libxml2.dylib,
 					"-lpthread",

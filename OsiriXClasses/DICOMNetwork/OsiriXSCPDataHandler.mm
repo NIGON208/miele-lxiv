@@ -1669,11 +1669,15 @@ extern BOOL forkedProcess;
         logDictionary = [NSMutableDictionary new];
     
     NSString *fromTo = nil;
-	if ( currentDestinationMoveAET == nil || strcmp( currentDestinationMoveAET, [callingAET UTF8String]) == 0 || strlen( currentDestinationMoveAET) == 0)
+	if (strcmp( currentDestinationMoveAET, [callingAET UTF8String]) == 0 ||
+        strlen( currentDestinationMoveAET) == 0)
+    {
 		fromTo = [NSString stringWithFormat: @"%@", callingAET];
+    }
 	else
+    {
         fromTo = [NSString stringWithFormat: @"%@ / %s", callingAET, currentDestinationMoveAET];
-	
+    }
 	
     NSManagedObject *object = [mArray objectAtIndex: 0];
     

@@ -72,7 +72,7 @@ static NSString*	PresetsPanelToolbarItemIdentifier = @"3DPresetsPanel.tif";
 static NSString*	ClippingRangeViewToolbarItemIdentifier = @"ClippingRange";
 static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
 
-#include <3DConnexionClient/ConnexionClientAPI.h>
+//#include <3DConnexionClient/ConnexionClientAPI.h>
 
 
 @implementation  VRController (StereoVision)
