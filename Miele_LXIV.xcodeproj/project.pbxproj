@@ -586,7 +586,6 @@
 		A96F795E16DBC740000E877A /* SecurityInterface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A997B15610E0C412004C5BB1 /* SecurityInterface.framework */; };
 		A96F795F16DBC740000E877A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8406956210B6800E00C37AD0 /* SystemConfiguration.framework */; };
 		A96F796016DBC740000E877A /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE790A19105D4DE200CE6AAF /* WebKit.framework */; };
-		A96F796816DBC753000E877A /* ILCrashReporter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABE881440FC1444D009F5C80 /* ILCrashReporter.framework */; };
 		A96F796A16DBCAFA000E877A /* N2SOAPWebServiceClient.mm in Sources */ = {isa = PBXBuildFile; fileRef = 592CFF071212F84F00176E39 /* N2SOAPWebServiceClient.mm */; };
 		A96F796B16DBCAFA000E877A /* N2WSDL.mm in Sources */ = {isa = PBXBuildFile; fileRef = 592CFF041212F84F00176E39 /* N2WSDL.mm */; };
 		A96F796C16DBCAFA000E877A /* N2XMLRPCConnection.mm in Sources */ = {isa = PBXBuildFile; fileRef = 592CFF011212F84F00176E39 /* N2XMLRPCConnection.mm */; };
@@ -1055,7 +1054,6 @@
 		A99B7ECB0885A61F004328C0 /* BonjourPublisher.mm in Sources */ = {isa = PBXBuildFile; fileRef = A99B7E5108858D31004328C0 /* BonjourPublisher.mm */; };
 		A99B7ECD0885A621004328C0 /* BonjourBrowser.mm in Sources */ = {isa = PBXBuildFile; fileRef = A99B7E5508858D4F004328C0 /* BonjourBrowser.mm */; };
 		A99F039A16E492AA008A3657 /* Growl.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = CE2BE05D1524344D00AE6156 /* Growl.framework */; };
-		A99F039D16E4934F008A3657 /* ILCrashReporter.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = ABE881440FC1444D009F5C80 /* ILCrashReporter.framework */; };
 		A99F039E16E49359008A3657 /* libxerces-c.27.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = CE6693C60AF551210073D923 /* libxerces-c.27.dylib */; };
 		A99F039F16E4935C008A3657 /* libdcmprintscu.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = CE586CC30C74B75D00DB7D5A /* libdcmprintscu.dylib */; };
 		A9A80E3811F73E22009F54B9 /* Activity_Stop.tif in Resources */ = {isa = PBXBuildFile; fileRef = A9A80E3611F73E22009F54B9 /* Activity_Stop.tif */; };
@@ -1481,7 +1479,6 @@
 		A9FBD37416DBE3AE003A0E04 /* OsiriX.sdef in Resources */ = {isa = PBXBuildFile; fileRef = CE9E11CF13DBB5DD008B2848 /* OsiriX.sdef */; };
 		A9FBD38316DBE701003A0E04 /* Growl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE2BE05D1524344D00AE6156 /* Growl.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		A9FBD38416DBE782003A0E04 /* Growl.framework in Copy Files */ = {isa = PBXBuildFile; fileRef = CE2BE05D1524344D00AE6156 /* Growl.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		A9FBD38716DBE83E003A0E04 /* ILCrashReporter.framework in Copy Files */ = {isa = PBXBuildFile; fileRef = ABE881440FC1444D009F5C80 /* ILCrashReporter.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		A9FBD38816DBE84D003A0E04 /* libxerces-c.27.dylib in Copy Files */ = {isa = PBXBuildFile; fileRef = CE6693C60AF551210073D923 /* libxerces-c.27.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		A9FBD38A16DBE855003A0E04 /* libdcmprintscu.dylib in Copy Files */ = {isa = PBXBuildFile; fileRef = CE586CC30C74B75D00DB7D5A /* libdcmprintscu.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		A9FEC1400907EBA600B218BE /* orthogonalReslice.tif in Resources */ = {isa = PBXBuildFile; fileRef = A9FEC13F0907EBA600B218BE /* orthogonalReslice.tif */; };
@@ -2077,7 +2074,6 @@
 				A99F039E16E49359008A3657 /* libxerces-c.27.dylib in CopyFiles */,
 				A99F039A16E492AA008A3657 /* Growl.framework in CopyFiles */,
 				A99F039F16E4935C008A3657 /* libdcmprintscu.dylib in CopyFiles */,
-				A99F039D16E4934F008A3657 /* ILCrashReporter.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2089,7 +2085,6 @@
 			files = (
 				A9FBD38416DBE782003A0E04 /* Growl.framework in Copy Files */,
 				A9FBD38816DBE84D003A0E04 /* libxerces-c.27.dylib in Copy Files */,
-				A9FBD38716DBE83E003A0E04 /* ILCrashReporter.framework in Copy Files */,
 				A9FBD38A16DBE855003A0E04 /* libdcmprintscu.dylib in Copy Files */,
 			);
 			name = "Copy Files";
@@ -4313,7 +4308,6 @@
 		ABE1E8AE0649F4150028E2E0 /* iPod.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = iPod.icns; sourceTree = "<group>"; };
 		ABE33369063D624400C8E087 /* QueryFilter.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QueryFilter.h; sourceTree = "<group>"; };
 		ABE3336A063D624400C8E087 /* QueryFilter.mm */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.objcpp; path = QueryFilter.mm; sourceTree = "<group>"; };
-		ABE881440FC1444D009F5C80 /* ILCrashReporter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ILCrashReporter.framework; path = Binaries/ILCrashReporter.framework; sourceTree = "<group>"; };
 		ABEF7E7609A21070006CEC3E /* Reports.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Reports.h; sourceTree = "<group>"; };
 		ABEF7E7709A21070006CEC3E /* Reports.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Reports.mm; sourceTree = "<group>"; };
 		ABEF846909A23EF5006CEC3E /* ReportTemplate.doc */ = {isa = PBXFileReference; lastKnownFileType = file; name = ReportTemplate.doc; path = Binaries/ReportTemplate.doc; sourceTree = "<group>"; };
@@ -4793,7 +4787,6 @@
 				A96F793C16DBC59D000E877A /* libxerces-c.27.dylib in Frameworks */,
 				A96F793A16DBC59D000E877A /* libz.dylib in Frameworks */,
 				A96F793B16DBC59D000E877A /* libdcmprintscu.dylib in Frameworks */,
-				A96F796816DBC753000E877A /* ILCrashReporter.framework in Frameworks */,
 				A96F795D16DBC740000E877A /* Security.framework in Frameworks */,
 				A96F796016DBC740000E877A /* WebKit.framework in Frameworks */,
 				A96F795F16DBC740000E877A /* SystemConfiguration.framework in Frameworks */,
@@ -4897,7 +4890,6 @@
 		1058C7A2FEA54F0111CA2CBB /* Other Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				ABE881440FC1444D009F5C80 /* ILCrashReporter.framework */,
 				CE2BE05D1524344D00AE6156 /* Growl.framework */,
 				CE586CC30C74B75D00DB7D5A /* libdcmprintscu.dylib */,
 				CE6693C60AF551210073D923 /* libxerces-c.27.dylib */,
@@ -12556,8 +12548,6 @@
 					"-framework",
 					Foundation,
 					"-framework",
-					ILCrashReporter,
-					"-framework",
 					IOKit,
 					"-framework",
 					OpenGL,
@@ -12797,7 +12787,6 @@
 					"$(SRCROOT)/Binaries/VTK/lib/libvtkRenderingVolumeOpenGL2-7.1.a",
 					"$(SRCROOT)/Binaries/VTK/lib/libvtksqlite-7.1.a",
 					"$(SRCROOT)/Binaries/VTK/lib/libvtksys-7.1.a",
-					"$(SRCROOT)/Binaries/VTK/lib/libvtktiff-7.1.a",
 					"$(SRCROOT)/Binaries/VTK/lib/libvtkverdict-7.1.a",
 					"$(SRCROOT)/Binaries/VTK/lib/libvtkViewsContext2D-7.1.a",
 					"$(SRCROOT)/Binaries/VTK/lib/libvtkViewsCore-7.1.a",
@@ -13565,8 +13554,6 @@
 					"-framework",
 					Foundation,
 					"-framework",
-					ILCrashReporter,
-					"-framework",
 					IOKit,
 					"-framework",
 					OpenGL,
@@ -13806,7 +13793,6 @@
 					"$(SRCROOT)/Binaries/VTK/lib/libvtkRenderingVolumeOpenGL2-7.1.a",
 					"$(SRCROOT)/Binaries/VTK/lib/libvtksqlite-7.1.a",
 					"$(SRCROOT)/Binaries/VTK/lib/libvtksys-7.1.a",
-					"$(SRCROOT)/Binaries/VTK/lib/libvtktiff-7.1.a",
 					"$(SRCROOT)/Binaries/VTK/lib/libvtkverdict-7.1.a",
 					"$(SRCROOT)/Binaries/VTK/lib/libvtkViewsContext2D-7.1.a",
 					"$(SRCROOT)/Binaries/VTK/lib/libvtkViewsCore-7.1.a",

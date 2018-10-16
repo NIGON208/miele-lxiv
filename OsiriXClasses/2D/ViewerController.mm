@@ -8204,8 +8204,6 @@ static NSMutableArray *poolOf2DViewers = nil;
     [AppController displayImportantNotice: self];
 #endif
     
-//	*(long*)0 = 0xDEADBEEF; // ILCrashReporter test -- DO NOT ACTIVATE THIS LINE
-	
 	Dicom_Image* dicomImage = [d objectAtIndex:0];
 	self.database = [DicomDatabase databaseForContext:dicomImage.managedObjectContext];
 	

@@ -51,10 +51,11 @@
 
 #ifndef OSIRIX_LIGHT
 #import "BonjourPublisher.h"
+
 #ifndef MACAPPSTORE
 #import "Reports.h"
-#import <ILCrashReporter/ILCrashReporter.h>
 #endif
+
 #import "VRView.h"
 #endif // OSIRIX_LIGHT
 
@@ -4097,47 +4098,6 @@ static BOOL initialized = NO;
 		
 	}
 	
-#ifndef OSIRIX_LIGHT
-#ifndef MACAPPSTORE
-    if( [[NSUserDefaults standardUserDefaults] boolForKey: @"hideListenerError"] == NO)
-    {
-        @try
-        {
-            ILCrashReporter *reporter = [ILCrashReporter defaultReporter];
-            
-            NSUserDefaults *d = [NSUserDefaults standardUserDefaults];
-            
-            if( [d valueForKey: @"crashReporterSMTPServer"])
-            {
-                reporter.SMTPServer = [d valueForKey: @"crashReporterSMTPServer"];
-                int port = [d integerForKey: @"crashReporterSMTPPort"];
-                reporter.SMTPPort = port ? port : 25;
-                // if these are empty, set them to empty
-                reporter.SMTPUsername = [d valueForKey: @"crashReporterSMTPUsername"];
-                reporter.SMTPPassword = [d valueForKey: @"crashReporterSMTPPassword"];
-            }
-            
-            if( [d valueForKey: @"crashReporterFromAddress"])
-                reporter.fromAddress = [d valueForKey: @"crashReporterFromAddress"];
-            
-            NSString *reportAddr = CRASH_EMAIL;
-            if( [d valueForKey: @"crashReporterToAddress"])
-                reportAddr = [d valueForKey: @"crashReporterToAddress"];
-            
-            reporter.automaticReport = [d boolForKey: @"crashReporterAutomaticReport"];
-            
-            NSString *bundleName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleName"];
-            NSString *company = [bundleName stringByAppendingString:@" Developers"];
-            [reporter launchReporterForCompany: company reportAddr: reportAddr];
-        }
-        @catch (NSException *e)
-        {
-            NSLog( @"**** Exception ILCrashReporter: %@", e);
-        }
-    }
-#endif
-#endif
-	
 	[PluginManager setMenus: filtersMenu :roisMenu :othersMenu :dbMenu];
     
 	appController = self;
@@ -4337,8 +4297,6 @@ static BOOL initialized = NO;
     }
 	
 //	[self checkForOsirixMimeType];
-	
-// 	*(long*)0 = 0xDEADBEEF;	// Test for ILCrashReporter
 	
 //	[html2pdf pdfFromURL: @"http://zimbra.latour.ch"];
 
