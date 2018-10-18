@@ -3093,7 +3093,7 @@ static BOOL initialized = NO;
 #ifdef MACAPPSTORE
 				[[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"MACAPPSTORE"]; // Also modify in DefaultsOsiriX.m
 				[[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"AUTHENTICATION"];
-				[[NSUserDefaults standardUserDefaults] setObject: NSLocalizedString( @"(~/Library/Application Support/OsiriX App/)", nil) forKey:@"DefaultDatabasePath"];  // TODO
+                [[NSUserDefaults standardUserDefaults] setObject: NSLocalizedString( @"(~/Library/Application Support/OsiriX App/)", nil) forKey:@"DefaultDatabasePath"];  // TODO:
 #else
 				[[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"MACAPPSTORE"]; // Also modify in DefaultsOsiriX.m
 				[[NSUserDefaults standardUserDefaults] setObject: NSLocalizedString( @"(Current User Documents folder)", nil) forKey:@"DefaultDatabasePath"];
@@ -3582,16 +3582,15 @@ static BOOL initialized = NO;
 		[NSThread detachNewThreadSelector: @selector(checkForUpdates:)
                                  toTarget: pluginManager
                                withObject: pluginManager];
-	
     
     // If this application crashed before...
-    NSString *pathOsiriXCrashed = [NSTemporaryDirectory() stringByAppendingPathComponent:@"OsiriXCrashed"];
+    NSString *pathApplicationCrashed = [NSTemporaryDirectory() stringByAppendingPathComponent:@"Miele-LXIV-Crashed"];
     
-    if( [[NSFileManager defaultManager] fileExistsAtPath: pathOsiriXCrashed]) // Activate check for update !
+    if( [[NSFileManager defaultManager] fileExistsAtPath: pathApplicationCrashed]) // Activate check for update !
     {
-        [[NSFileManager defaultManager] removeItemAtPath: pathOsiriXCrashed error: nil];
+        [[NSFileManager defaultManager] removeItemAtPath: pathApplicationCrashed error: nil];
         
-        if( [[NSUserDefaults standardUserDefaults] boolForKey: @"CheckOsiriXUpdates4"] == NO)
+        if( [[NSUserDefaults standardUserDefaults] boolForKey: @"Check4Updates"] == NO)
         {
             if( [[NSUserDefaults standardUserDefaults] boolForKey: @"hideListenerError"] == NO)
                 [NSThread detachNewThreadSelector: @selector(checkForUpdates:)
@@ -3712,9 +3711,10 @@ static BOOL initialized = NO;
 
 	[self testMenus];
     
+#if 0 // TODO: reinstate odt2pdf
 #ifndef OSIRIX_LIGHT
     if( [[NSBundle bundleForClass:[self class]] pathForAuxiliaryExecutable:@"odt2pdf"] == nil)
-        N2LogStackTrace( @"\r****** path to odt2pdf == nil\r*****************************");
+        N2LogStackTrace( @"\r****** path to odt2pdf == nil\r*****************************");  // raise exception
 #endif
     
 #if 1 //def MACAPPSTORE
@@ -3733,6 +3733,7 @@ static BOOL initialized = NO;
                                                         NULL]];
         [taskUnzip waitUntilExit];
     }
+#endif
 #endif
     
     [ROI loadDefaultSettings];
@@ -4161,12 +4162,23 @@ static BOOL initialized = NO;
                name: OsirixUpdateOpacityMenuNotification
              object: nil];
 	
-	[[NSNotificationCenter defaultCenter] postNotificationName: OsirixUpdateOpacityMenuNotification object: NSLocalizedString(@"Linear Table", nil) userInfo: nil];
-	[[NSNotificationCenter defaultCenter] postNotificationName: OsirixUpdateCLUTMenuNotification object: NSLocalizedString(@"No CLUT", nil) userInfo: nil];
-	[[NSNotificationCenter defaultCenter] postNotificationName: OsirixUpdateWLWWMenuNotification object: NSLocalizedString(@"Other", nil) userInfo: nil];
-	[[NSNotificationCenter defaultCenter] postNotificationName: OsirixUpdateConvolutionMenuNotification object:NSLocalizedString( @"No Filter", nil) userInfo: nil];
+	[[NSNotificationCenter defaultCenter] postNotificationName: OsirixUpdateOpacityMenuNotification
+                                                        object: NSLocalizedString(@"Linear Table", nil)
+                                                      userInfo: nil];
+	[[NSNotificationCenter defaultCenter] postNotificationName: OsirixUpdateCLUTMenuNotification
+                                                        object: NSLocalizedString(@"No CLUT", nil)
+                                                      userInfo: nil];
+	[[NSNotificationCenter defaultCenter] postNotificationName: OsirixUpdateWLWWMenuNotification
+                                                        object: NSLocalizedString(@"Other", nil)
+                                                      userInfo: nil];
+	[[NSNotificationCenter defaultCenter] postNotificationName: OsirixUpdateConvolutionMenuNotification
+                                                        object:NSLocalizedString( @"No Filter", nil)
+                                                      userInfo: nil];
 	
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidChangeScreenParameters:) name:NSApplicationDidChangeScreenParametersNotification object:NSApp];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(applicationDidChangeScreenParameters:)
+                                                 name:NSApplicationDidChangeScreenParametersNotification
+                                               object:NSApp];
     
     [AppController resetThumbnailsList];
 	
@@ -4186,7 +4198,7 @@ static BOOL initialized = NO;
                                              nil))
 		{
 			case 0:
-				[[NSUserDefaults standardUserDefaults] setObject: @"NO" forKey: @"CheckOsiriXUpdates4"];
+				[[NSUserDefaults standardUserDefaults] setObject: @"NO" forKey: @"Check4Updates"];
 			break;
 		}
 	}
@@ -4470,8 +4482,6 @@ static BOOL initialized = NO;
 #ifndef MACAPPSTORE
 - (IBAction) checkForUpdates: (id) sender
 {
-	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	
 	if( sender != self)
         verboseUpdateCheck = YES;
 	else
@@ -4481,55 +4491,56 @@ static BOOL initialized = NO;
     
     if( [sender isKindOfClass:[NSString class]] && [sender isEqualToString: @"crash"])
         verboseAfterCrash = YES;
-    
+
 #ifdef NDEBUG  // AdHoc
-    NSURL *url = [NSURL URLWithString:URL_OSIRIX_VERSION];
-	if (url)
-	{
-		NSString *currVersionNumber = [[[NSBundle bundleForClass:[self class]] infoDictionary] objectForKey:@"CFBundleVersion"];
-#if 1
-#endif
-		NSDictionary *productVersionDict = [NSDictionary dictionaryWithContentsOfURL: url];
-		NSString *latestVersionNumber = [productVersionDict valueForKey:@"Miele-LXIV"];
-		
-		if (productVersionDict && currVersionNumber && latestVersionNumber)
-		{
-			if ([latestVersionNumber intValue] <= [currVersionNumber intValue])
-			{
-				if (verboseUpdateCheck && verboseAfterCrash == NO)
-					[self performSelectorOnMainThread:@selector(displayUpdateMessage:) withObject:@"UPTODATE" waitUntilDone: NO];
-			}
-			else
-			{
-				if( ([[NSUserDefaults standardUserDefaults] boolForKey: @"CheckOsiriXUpdates4"] == YES &&
-                     [[NSUserDefaults standardUserDefaults] boolForKey: @"hideListenerError"] == NO) || verboseUpdateCheck == YES)
-				{
-                    if( verboseAfterCrash)
-                        [self performSelectorOnMainThread:@selector(displayUpdateMessage:) withObject:@"UPDATECRASH" waitUntilDone: NO];
-                    else
-                        [self performSelectorOnMainThread:@selector(displayUpdateMessage:) withObject:@"UPDATE" waitUntilDone: NO];
-				}
-			}
-		}
-		else
-		{
-			if (verboseUpdateCheck)
-				[self performSelectorOnMainThread:@selector(displayUpdateMessage:) withObject:@"ERROR" waitUntilDone: NO];
-		}
-	}
-#endif
-	
-	[pool release];
+    NSURL *url = [NSURL URLWithString:@(URL_OSIRIX_VERSION)];
+	if (!url)
+        return;
+
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+
+    NSString *currVersionNumber = [[[NSBundle bundleForClass:[self class]] infoDictionary] objectForKey:@"CFBundleVersion"];
+    NSDictionary *productVersionDict = [NSDictionary dictionaryWithContentsOfURL:url];
+    NSString *latestVersionNumber = [productVersionDict valueForKey:@(KEY_VERSION_CHECK)];
+    
+    if (productVersionDict &&
+        currVersionNumber.length > 0 &&
+        latestVersionNumber.length > 0)
+    {
+        if ([latestVersionNumber intValue] <= [currVersionNumber intValue])
+        {
+            if (verboseUpdateCheck && verboseAfterCrash == NO)
+                [self performSelectorOnMainThread:@selector(displayUpdateMessage:) withObject:@"UPTODATE" waitUntilDone: NO];
+        }
+        else
+        {
+            if( ([[NSUserDefaults standardUserDefaults] boolForKey: @"Check4Updates"] == YES &&
+                 [[NSUserDefaults standardUserDefaults] boolForKey: @"hideListenerError"] == NO) || verboseUpdateCheck == YES)
+            {
+                if( verboseAfterCrash)
+                    [self performSelectorOnMainThread:@selector(displayUpdateMessage:) withObject:@"UPDATECRASH" waitUntilDone: NO];
+                else
+                    [self performSelectorOnMainThread:@selector(displayUpdateMessage:) withObject:@"UPDATE" waitUntilDone: NO];
+            }
+        }
+    }
+    else
+    {
+        if (verboseUpdateCheck)
+            [self performSelectorOnMainThread:@selector(displayUpdateMessage:) withObject:@"ERROR" waitUntilDone: NO];
+    }
+
+    [pool release];
+#endif // NDEBUG
 }
 #endif
 #endif
 
-// TODO: Use NSURLConnection instead
-- (void) URL: (NSURL*) sender resourceDidFailLoadingWithReason: (NSString*) reason
-{
-	if (verboseUpdateCheck)
-		NSRunAlertPanel( NSLocalizedString( @"No connection available", nil), @"%@", NSLocalizedString( @"OK", nil), nil, nil, reason);
-}	
+//- (void) URL: (NSURL*) sender resourceDidFailLoadingWithReason: (NSString*) reason
+//{
+//    if (verboseUpdateCheck)
+//        NSRunAlertPanel( NSLocalizedString( @"No connection available", nil), @"%@", NSLocalizedString( @"OK", nil), nil, nil, reason);
+//}
 
 ////////////////////////////////////////////////////////////////////////////////
 #pragma mark-

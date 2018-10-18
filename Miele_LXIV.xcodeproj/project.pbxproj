@@ -253,6 +253,8 @@
 		436B588A217261DF009F42D3 /* libjpeg.9.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 436B5888217261DF009F42D3 /* libjpeg.9.dylib */; };
 		4373D61E2174A369000F4BE1 /* OPJSupport.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 434B461B1A19F631008CF8CF /* OPJSupport.cpp */; };
 		4373D6222174A8FF000F4BE1 /* libjpeg.9.dylib in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4373D6212174A8FF000F4BE1 /* libjpeg.9.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		4399FEC921762EE100011D9E /* libtiff.5.2.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4399FEC821762EE000011D9E /* libtiff.5.2.6.dylib */; };
+		4399FECB21762F3900011D9E /* libtiff.5.2.6.dylib in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4399FEC821762EE000011D9E /* libtiff.5.2.6.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		43A4038C1DFA32F300ADA719 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43A4038B1DFA32F300ADA719 /* XCTest.framework */; };
 		43BF296D21662E1D0022CF3B /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = 43BF296C21662E1D0022CF3B /* main.mm */; };
 		43BF296E21662F100022CF3B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 43CC5BA5216511E200F1B1CA /* Assets.xcassets */; };
@@ -2097,6 +2099,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				4373D6222174A8FF000F4BE1 /* libjpeg.9.dylib in Embed Frameworks */,
+				4399FECB21762F3900011D9E /* libtiff.5.2.6.dylib in Embed Frameworks */,
 				43110BEB21679E5B00B0405B /* DCM.framework in Embed Frameworks */,
 				59F1A515104BA8AE009E3215 /* MieleAPI.framework in Embed Frameworks */,
 			);
@@ -3339,6 +3342,7 @@
 		438718BB2067C00F009575DB /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = ../../../../../../usr/local/Cellar/libxml2/2.9.4/lib/libxml2.dylib; sourceTree = "<group>"; };
 		438718BD2067C09E009575DB /* libcrypto.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcrypto.dylib; path = ../../../../../../usr/local/Cellar/openssl/1.0.2/lib/libcrypto.dylib; sourceTree = "<group>"; };
 		438718BF2067C0B3009575DB /* libssl.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libssl.dylib; path = ../../../../../../usr/local/Cellar/openssl/1.0.2/lib/libssl.dylib; sourceTree = "<group>"; };
+		4399FEC821762EE000011D9E /* libtiff.5.2.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libtiff.5.2.6.dylib; path = "../../../../install/miele-201612/tiff-4.0.8/lib/libtiff.5.2.6.dylib"; sourceTree = "<group>"; };
 		43A4038B1DFA32F300ADA719 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/MacOSX.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		43BF296C21662E1D0022CF3B /* main.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = main.mm; path = "LXIV Launcher/main.mm"; sourceTree = "<group>"; };
 		43BF296F21662F420022CF3B /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = "LXIV Launcher/Info.plist"; sourceTree = "<group>"; };
@@ -4809,6 +4813,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4399FEC921762EE100011D9E /* libtiff.5.2.6.dylib in Frameworks */,
 				436B5889217261DF009F42D3 /* libjpeg.9.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -5047,6 +5052,7 @@
 			isa = PBXGroup;
 			children = (
 				436B5888217261DF009F42D3 /* libjpeg.9.dylib */,
+				4399FEC821762EE000011D9E /* libtiff.5.2.6.dylib */,
 				59FB64331230EE2F00EBA136 /* Ming */,
 				1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */,
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
@@ -9615,7 +9621,7 @@
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
+			shellPath = /bin/bash;
 			shellScript = "if [[ $CONFIGURATION == \"Distribution\" ]] ; then\n$PROJECT_DIR/doc/build-steps/fixup-build-phase.sh\nfi\n";
 		};
 		59BDEDC8117CAB86007F1F2C /* Zip OsiriX Lite into Resources */ = {
@@ -11535,7 +11541,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 20181015;
+				CURRENT_PROJECT_VERSION = 20181017;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 57BXF7EQEM;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -11618,9 +11624,11 @@
 				IBC_FLATTEN_NIBS = YES;
 				INFOPLIST_FILE = "Deployment-Info.plist";
 				KEEP_PRIVATE_EXTERNS = YES;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(SRCROOT)/Binaries/libjpeg/lib",
 					"$(SRCROOT)/Binaries/openjpeg/lib",
+					"$(SRCROOT)/Binaries/libtiff/lib",
 				);
 				OTHER_CFLAGS = "";
 				OTHER_CPLUSPLUSFLAGS = (
@@ -11683,7 +11691,6 @@
 					/usr/lib/libm.dylib,
 					/usr/lib/libxml2.dylib,
 					/usr/lib/libz.dylib,
-					/usr/local/lib/libtiff.dylib,
 					/usr/local/lib/libpng.dylib,
 					/usr/local/opt/openssl/lib/libcrypto.a,
 					/usr/local/opt/openssl/lib/libssl.a,
@@ -11975,13 +11982,11 @@
 					"$(SRCROOT)/nitrogen/Sources",
 					"$(SRCROOT)/OsiriXClasses/**",
 					"$(SRCROOT)/glue/**",
+					"$(SRCROOT)/Binaries/libtiff/include",
 				);
 				INFOPLIST_FILE = "DCM Framework/DCM-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(SRCROOT)/Binaries/libtiff/lib",
-					"$(SRCROOT)/Binaries/libjpeg/lib",
-				);
+				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/Binaries/libjpeg/lib";
 				OTHER_CFLAGS = "";
 				OTHER_CPLUSPLUSFLAGS = (
 					"-stdlib=libc++",
@@ -12027,7 +12032,6 @@
 					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmsr.a",
 					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmimage.a",
 					/usr/local/lib/libpng.dylib,
-					/usr/local/lib/libtiff.dylib,
 					/usr/lib/libxml2.dylib,
 					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmdsig.a",
 					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmqrdb.a",
@@ -12183,7 +12187,6 @@
 					"$(SRCROOT)/Binaries/DCMTK/lib/libofstd.a",
 					"$(SRCROOT)/Binaries/openjpeg/lib/libopenjp2.a",
 					/usr/local/lib/libpng.dylib,
-					/usr/local/lib/libtiff.dylib,
 					/usr/lib/libxml2.dylib,
 					"-lpthread",
 					/usr/lib/libz.dylib,
@@ -12221,7 +12224,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					Binaries/LibTiff,
+					Binaries/libtiff/lib,
 					AYDicomPrint,
 				);
 				OTHER_LDFLAGS = (
@@ -12260,12 +12263,13 @@
 					"$(SRCROOT)/Binaries/DCMTK/include",
 					"$(SRCROOT)",
 					"$(SRCROOT)/Binaries/openjpeg/include",
+					"$(SRCROOT)/Binaries/libtiff/include",
 				);
 				INFOPLIST_FILE = "API framework/MieleAPI-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
-					"$(SRCROOT)/Binaries/libtiff/lib",
 					"$(SRCROOT)/Binaries/libjpeg/lib",
+					"$(SRCROOT)/Binaries/libtiff/lib",
 				);
 				OTHER_CPLUSPLUSFLAGS = (
 					"-stdlib=libc++",
@@ -12305,7 +12309,6 @@
 					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmsr.a",
 					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmimage.a",
 					/usr/local/lib/libpng.dylib,
-					/usr/local/lib/libtiff.dylib,
 					/usr/lib/libxml2.dylib,
 					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmdsig.a",
 					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmqrdb.a",
@@ -12423,7 +12426,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 20181015;
+				CURRENT_PROJECT_VERSION = 20181017;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 57BXF7EQEM;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -12504,9 +12507,11 @@
 				IBC_FLATTEN_NIBS = YES;
 				INFOPLIST_FILE = "Deployment-Info.plist";
 				KEEP_PRIVATE_EXTERNS = YES;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(SRCROOT)/Binaries/libjpeg/lib",
 					"$(SRCROOT)/Binaries/openjpeg/lib",
+					"$(SRCROOT)/Binaries/libtiff/lib",
 				);
 				OTHER_CFLAGS = "";
 				OTHER_CPLUSPLUSFLAGS = (
@@ -12571,7 +12576,6 @@
 					/usr/lib/libz.dylib,
 					"-ljpeg",
 					/usr/local/lib/libpng.dylib,
-					/usr/local/lib/libtiff.dylib,
 					/usr/local/opt/openssl/lib/libcrypto.a,
 					/usr/local/opt/openssl/lib/libssl.a,
 					"$(SRCROOT)/Binaries/DCMTK/lib/libcharls.a",
@@ -12861,13 +12865,11 @@
 					"$(SRCROOT)/nitrogen/Sources",
 					"$(SRCROOT)/OsiriXClasses/**",
 					"$(SRCROOT)/glue/**",
+					"$(SRCROOT)/Binaries/libtiff/include",
 				);
 				INFOPLIST_FILE = "DCM Framework/DCM-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(SRCROOT)/Binaries/libtiff/lib",
-					"$(SRCROOT)/Binaries/libjpeg/lib",
-				);
+				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/Binaries/libjpeg/lib";
 				OTHER_CFLAGS = "";
 				OTHER_CPLUSPLUSFLAGS = (
 					"-stdlib=libc++",
@@ -12912,7 +12914,6 @@
 					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmtls.a",
 					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmsr.a",
 					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmimage.a",
-					/usr/local/lib/libtiff.dylib,
 					"-ljpeg",
 					/usr/local/lib/libpng.dylib,
 					/usr/lib/libxml2.dylib,
@@ -13069,7 +13070,6 @@
 					"$(SRCROOT)/Binaries/DCMTK/lib/liboflog.a",
 					"$(SRCROOT)/Binaries/DCMTK/lib/libofstd.a",
 					"$(SRCROOT)/Binaries/openjpeg/lib/libopenjp2.a",
-					/usr/local/lib/libtiff.dylib,
 					"-ljpeg",
 					/usr/local/lib/libpng.dylib,
 					/usr/lib/libxml2.dylib,
@@ -13109,7 +13109,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					Binaries/LibTiff,
+					Binaries/libtiff/lib,
 					AYDicomPrint,
 				);
 				OTHER_LDFLAGS = (
@@ -13148,12 +13148,13 @@
 					"$(SRCROOT)/Binaries/DCMTK/include",
 					"$(SRCROOT)",
 					"$(SRCROOT)/Binaries/openjpeg/include",
+					"$(SRCROOT)/Binaries/libtiff/include",
 				);
 				INFOPLIST_FILE = "API framework/MieleAPI-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
-					"$(SRCROOT)/Binaries/libtiff/lib",
 					"$(SRCROOT)/Binaries/libjpeg/lib",
+					"$(SRCROOT)/Binaries/libtiff/lib",
 				);
 				OTHER_CPLUSPLUSFLAGS = (
 					"-stdlib=libc++",
@@ -13192,7 +13193,7 @@
 					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmtls.a",
 					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmsr.a",
 					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmimage.a",
-					/usr/local/lib/libtiff.dylib,
+					"-ltiff",
 					"-ljpeg",
 					/usr/local/lib/libpng.dylib,
 					/usr/lib/libxml2.dylib,
@@ -13347,13 +13348,11 @@
 					"$(SRCROOT)/nitrogen/Sources",
 					"$(SRCROOT)/OsiriXClasses/**",
 					"$(SRCROOT)/glue/**",
+					"$(SRCROOT)/Binaries/libtiff/include",
 				);
 				INFOPLIST_FILE = "DCM Framework/DCM-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(SRCROOT)/Binaries/libtiff/lib",
-					"$(SRCROOT)/Binaries/libjpeg/lib",
-				);
+				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/Binaries/libjpeg/lib";
 				OTHER_CFLAGS = "";
 				OTHER_CPLUSPLUSFLAGS = (
 					"-stdlib=libc++",
@@ -13397,7 +13396,6 @@
 					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmtls.a",
 					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmsr.a",
 					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmimage.a",
-					/usr/local/lib/libtiff.dylib,
 					"-ljpeg",
 					/usr/local/lib/libpng.dylib,
 					/usr/lib/libxml2.dylib,
@@ -13509,9 +13507,11 @@
 				);
 				IBC_FLATTEN_NIBS = NO;
 				INFOPLIST_FILE = "Deployment-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(SRCROOT)/Binaries/libjpeg/lib",
 					"$(SRCROOT)/Binaries/openjpeg/lib",
+					"$(SRCROOT)/Binaries/libtiff/lib",
 				);
 				OTHER_CFLAGS = "";
 				OTHER_CPLUSPLUSFLAGS = (
@@ -13575,7 +13575,6 @@
 					/usr/lib/libz.dylib,
 					"-ljpeg",
 					/usr/local/lib/libpng.dylib,
-					/usr/local/lib/libtiff.dylib,
 					/usr/local/opt/openssl/lib/libcrypto.a,
 					/usr/local/opt/openssl/lib/libssl.a,
 					"$(SRCROOT)/Binaries/DCMTK/lib/libcharls.a",
@@ -13826,7 +13825,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "";
-				CURRENT_PROJECT_VERSION = 20181015;
+				CURRENT_PROJECT_VERSION = 20181017;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 57BXF7EQEM;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -13951,12 +13950,13 @@
 					"$(SRCROOT)/Binaries/DCMTK/include",
 					"$(SRCROOT)",
 					"$(SRCROOT)/Binaries/openjpeg/include",
+					"$(SRCROOT)/Binaries/libtiff/include",
 				);
 				INFOPLIST_FILE = "API framework/MieleAPI-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
-					"$(SRCROOT)/Binaries/libtiff/lib",
 					"$(SRCROOT)/Binaries/libjpeg/lib",
+					"$(SRCROOT)/Binaries/libtiff/lib",
 				);
 				OTHER_CPLUSPLUSFLAGS = (
 					"-stdlib=libc++",
@@ -13994,7 +13994,7 @@
 					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmtls.a",
 					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmsr.a",
 					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmimage.a",
-					/usr/local/lib/libtiff.dylib,
+					"-ltiff",
 					"-ljpeg",
 					/usr/local/lib/libpng.dylib,
 					/usr/lib/libxml2.dylib,
@@ -14112,7 +14112,7 @@
 					"$(SRCROOT)/Binaries/DCMTK/lib/liboflog.a",
 					"$(SRCROOT)/Binaries/DCMTK/lib/libofstd.a",
 					"$(SRCROOT)/Binaries/openjpeg/lib/libopenjp2.a",
-					/usr/local/lib/libtiff.dylib,
+					"-ltiff",
 					"-ljpeg",
 					/usr/local/lib/libpng.dylib,
 					/usr/lib/libxml2.dylib,
@@ -14152,7 +14152,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					Binaries/LibTiff,
+					Binaries/libtiff/lib,
 					AYDicomPrint,
 				);
 				OTHER_LDFLAGS = (

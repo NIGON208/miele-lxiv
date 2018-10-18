@@ -14,19 +14,19 @@ If you want to fork the project and create your on branding, you should:
 - setup a server for bug reporting and management, for example [MantisBT](https://www.mantisbt.org), or you can use the system of issue tracking built into the GitHub
 
 ---
-# Step 1
+## Step 1
 - First time (you need to do this only once)
 
 		$ cd steps
 		$ unzip-binaries-sh
 
 ---
-# Step 2
+## Step 2
 		$ cd ../Binaries/Icons/
 		$ ln Logo-GitHub.tifLogo.tif
 
 ---
-# Step 3
+## Step 3
 
 - Download and build the third-party open-source toolkits. Tested versions are:
 
@@ -158,11 +158,17 @@ If you want to fork the project and create your on branding, you should:
 			    └── jpeglib8.h
 			    
 ---
-# Step 4
+## Step 4 - Prepare to build the application
 - Create symbolic links from the `Binaries/` directory to the directories where you installed the toolkits, unless you installed the toolkits directly there.
 
 ---
-# Step 5
-- Now you should be able to launch the Xcode project and build the application, or if you prefer build it directly from the command line using `xcodebuild`.
-- Make sure in the build scheme you select the "Development" configuration, otherwise you might have issues with missing certificates for signing the app.
+## Step 5 - Build and run the application
+- Now you should be able to launch the Xcode project and build the application, or if you prefer build it directly from the command line:
+
+		$ xcodebuild -configuration Development -target "miele-lxiv"
+
+- When you build the scheme `miele-lxiv` you should select the `Development` configuration, otherwise you might have issues with missing certificates for signing the app.
+- before running the built application, make sure your system has JPEG and TIFF shared libraries installed in the system. You might have to install them like this
+
+		$ brew install jpeg libtiff
 
