@@ -1,5 +1,5 @@
 /*=========================================================================
-  Program:   OsiriX
+  Program:   Miele_LXIV
 
   Copyright (c) OsiriX Team
   All rights reserved.

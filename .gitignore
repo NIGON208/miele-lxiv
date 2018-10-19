@@ -5,7 +5,6 @@ Miele_LXIV.xcodeproj/project.xcworkspace/xcuserdata/
 __MACOSX/
 Binaries/__MACOSX/
 build/
-AYDicomPrint/
 AYDicomPrint/xercesc
 AYDicomPrint/libxerces-c.27.dylib
 AYDicomPrint/libdcmprintscu.dylib

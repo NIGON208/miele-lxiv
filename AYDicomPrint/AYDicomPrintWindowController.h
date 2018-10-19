@@ -12,7 +12,6 @@
      PURPOSE.
 =========================================================================*/
 
-
 #import <Cocoa/Cocoa.h>
 
 @class ViewerController;
