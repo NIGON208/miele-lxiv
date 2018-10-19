@@ -38,6 +38,7 @@ If you want to fork the project and create your on branding, you should:
 	- libjpg 9b
 	- libtiff 4.0.8
 	- libz 1.2.11
+	- libpng 1.6.30
 
 ---
 ### VTK, ITK, OpenJPEG

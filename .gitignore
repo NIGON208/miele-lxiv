@@ -26,6 +26,7 @@ Binaries/Jasper*
 Binaries/KDU SDK/libkdu_v73R.a
 Binaries/libPapyrusToolkit.a
 Binaries/libjpeg
+Binaries/libpng
 Binaries/LibTiff/
 Binaries/libtiff
 Binaries/Ming/

@@ -252,6 +252,8 @@
 		436B5889217261DF009F42D3 /* libjpeg.9.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 436B5888217261DF009F42D3 /* libjpeg.9.dylib */; };
 		436B588A217261DF009F42D3 /* libjpeg.9.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 436B5888217261DF009F42D3 /* libjpeg.9.dylib */; };
 		436F14B12179CE6B00EFC5CF /* DICOMPrint in Resources */ = {isa = PBXBuildFile; fileRef = CEDF6DD00B46FE99008B45B8 /* DICOMPrint */; };
+		436F14B9217A0E0A00EFC5CF /* libpng16.16.30.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 436F14B8217A0E0900EFC5CF /* libpng16.16.30.0.dylib */; };
+		436F14BA217A0F7300EFC5CF /* libpng16.16.30.0.dylib in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 436F14B8217A0E0900EFC5CF /* libpng16.16.30.0.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		4373D61E2174A369000F4BE1 /* OPJSupport.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 434B461B1A19F631008CF8CF /* OPJSupport.cpp */; };
 		4373D6222174A8FF000F4BE1 /* libjpeg.9.dylib in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4373D6212174A8FF000F4BE1 /* libjpeg.9.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		4399FEC921762EE100011D9E /* libtiff.5.2.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4399FEC821762EE000011D9E /* libtiff.5.2.6.dylib */; };
@@ -2094,6 +2096,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				436F14BA217A0F7300EFC5CF /* libpng16.16.30.0.dylib in Embed Frameworks */,
 				4373D6222174A8FF000F4BE1 /* libjpeg.9.dylib in Embed Frameworks */,
 				4399FECB21762F3900011D9E /* libtiff.5.2.6.dylib in Embed Frameworks */,
 				43110BEB21679E5B00B0405B /* DCM.framework in Embed Frameworks */,
@@ -3324,6 +3327,7 @@
 		4365FC341B01C3A300380C25 /* DcmQueryRetrieveGetOurContext.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = DcmQueryRetrieveGetOurContext.mm; sourceTree = "<group>"; };
 		4365FC371B01C4F100380C25 /* DcmQueryRetrieveOsiriSCP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DcmQueryRetrieveOsiriSCP.h; sourceTree = "<group>"; };
 		436B5888217261DF009F42D3 /* libjpeg.9.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libjpeg.9.dylib; path = "../../../../install/miele-201612/jpeg-9b/lib/libjpeg.9.dylib"; sourceTree = "<group>"; };
+		436F14B8217A0E0900EFC5CF /* libpng16.16.30.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libpng16.16.30.0.dylib; path = "../../../../install/miele-201612/libpng-1.6.30/lib/libpng16.16.30.0.dylib"; sourceTree = "<group>"; };
 		4373D6212174A8FF000F4BE1 /* libjpeg.9.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libjpeg.9.dylib; path = "../../../../install/miele-201612/jpeg-9b/lib/libjpeg.9.dylib"; sourceTree = "<group>"; };
 		4373D6262174BC92000F4BE1 /* libopenjp2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libopenjp2.a; path = "../../../../install/miele-201612/openjpeg-2.2.0/lib/libopenjp2.a"; sourceTree = "<group>"; };
 		438718A22067BDA9009575DB /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = ../../../../../../System/Library/Frameworks/AddressBook.framework; sourceTree = "<group>"; };
@@ -4807,6 +4811,7 @@
 			files = (
 				4399FEC921762EE100011D9E /* libtiff.5.2.6.dylib in Frameworks */,
 				436B5889217261DF009F42D3 /* libjpeg.9.dylib in Frameworks */,
+				436F14B9217A0E0A00EFC5CF /* libpng16.16.30.0.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5039,6 +5044,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				436F14B8217A0E0900EFC5CF /* libpng16.16.30.0.dylib */,
 				436B5888217261DF009F42D3 /* libjpeg.9.dylib */,
 				4399FEC821762EE000011D9E /* libtiff.5.2.6.dylib */,
 				59FB64331230EE2F00EBA136 /* Ming */,
@@ -8726,7 +8732,7 @@
 					};
 					CEDF6C600B46FE99008B45B8 = {
 						DevelopmentTeam = 57BXF7EQEM;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -9765,7 +9771,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#test with codesign -vvv\n\nchmod -R 777 \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/\"\n#IDENTITY=\"Mac Developer: Alex Bettarini (L74MX98MKG)\"\nIDENTITY=\"Developer ID Application: Alex Bettarini (57BXF7EQEM)\"\n\nfunction cs {\n  codesign --force --sign \"$IDENTITY\" \"$1\"\n}\n\nfunction cse {\n  codesign --force --sign \"$IDENTITY\" --entitlements \"$PROJECT_DIR/generic.entitlements\" \"$1\"\n}\n\nif [[ ${CONFIGURATION} == \"Distribution\" ]] ; then\n#cs  \"$TARGET_BUILD_DIR/$FRAMEWORKS_FOLDER_PATH/MieleAPI.framework\"\n\ncs  \"$TARGET_BUILD_DIR/$FRAMEWORKS_FOLDER_PATH/libjpeg.9.dylib\"\n\n#cse \"$TARGET_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/odt2pdf\"\n  cse \"$TARGET_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/Decompress\"\n  cse \"$TARGET_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/dciodvfy\"\n  cse \"$TARGET_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/dcmdump\"\n  cse \"$TARGET_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/dsr2html\"\n  cse \"$TARGET_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/echoscu\"\n\n#codesign --resource-rules Rules.plist -f -s \"$IDENTITY\" \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/\"\n  echo \"code signed\"\nfi\n";
+			shellScript = "#test with codesign -vvv\n\nchmod -R 777 \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/\"\n#IDENTITY=\"Mac Developer: Alex Bettarini (L74MX98MKG)\"\nIDENTITY=\"Developer ID Application: Alex Bettarini (57BXF7EQEM)\"\n\nfunction cs {\n  codesign --force --sign \"$IDENTITY\" \"$1\"\n}\n\nfunction cse {\n  codesign --force --sign \"$IDENTITY\" --entitlements \"$PROJECT_DIR/generic.entitlements\" \"$1\"\n}\n\nif [[ ${CONFIGURATION} == \"Distribution\" ]] ; then\n#cs  \"$TARGET_BUILD_DIR/$FRAMEWORKS_FOLDER_PATH/MieleAPI.framework\"\n#cs  \"$TARGET_BUILD_DIR/$FRAMEWORKS_FOLDER_PATH/libpng16.16.30.0\"\ncs  \"$TARGET_BUILD_DIR/$FRAMEWORKS_FOLDER_PATH/libjpeg.9.dylib\"\n\n#cse \"$TARGET_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/odt2pdf\"\ncse \"$TARGET_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/Decompress\"\ncse \"$TARGET_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/dciodvfy\"\ncse \"$TARGET_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/dcmdump\"\ncse \"$TARGET_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/dsr2html\"\ncse \"$TARGET_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/echoscu\"\ncse \"$TARGET_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/DICOMPrint\"\n\n#codesign --resource-rules Rules.plist -f -s \"$IDENTITY\" \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/\"\n  echo \"code signed\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -11536,7 +11542,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 20181017;
+				CURRENT_PROJECT_VERSION = 20181019;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 57BXF7EQEM;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -11578,6 +11584,7 @@
 					"$(SRCROOT)/Binaries",
 					"$(BUILD_DIR)/$(CONFIGURATION)",
 					"$(PROJECT_DIR)/build/Development",
+					"$(SRCROOT)/Binaries/libjpeg/lib",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_FAST_MATH = YES;
@@ -11601,6 +11608,7 @@
 				GCC_WARN_TYPECHECK_CALLS_TO_PRINTF = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = NO;
 				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/Binaries/libpng/include",
 					"$(SRCROOT)/Binaries/libtiff/include",
 					"$(SRCROOT)/Binaries/VTK/include/vtk-7.1",
 					"$(SRCROOT)/Binaries/DCMTK/include",
@@ -11620,9 +11628,10 @@
 				KEEP_PRIVATE_EXTERNS = YES;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
-					"$(SRCROOT)/Binaries/libjpeg/lib",
 					"$(SRCROOT)/Binaries/openjpeg/lib",
 					"$(SRCROOT)/Binaries/libtiff/lib",
+					"$(SRCROOT)/Binaries/libjpeg/lib",
+					"$(SRCROOT)/Binaries/libpng/lib",
 				);
 				OTHER_CFLAGS = "";
 				OTHER_CPLUSPLUSFLAGS = (
@@ -11685,9 +11694,9 @@
 					/usr/lib/libm.dylib,
 					/usr/lib/libxml2.dylib,
 					/usr/lib/libz.dylib,
-					/usr/local/lib/libpng.dylib,
 					/usr/local/opt/openssl/lib/libcrypto.a,
 					/usr/local/opt/openssl/lib/libssl.a,
+					"$(SRCROOT)/Binaries/openjpeg/lib/libopenjp2.a",
 					"$(SRCROOT)/Binaries/DCMTK/lib/libcharls.a",
 					"$(SRCROOT)/Binaries/DCMTK/lib/libcmr.a",
 					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmdata.a",
@@ -11795,7 +11804,6 @@
 					"$(SRCROOT)/Binaries/ITK/lib/libITKWatersheds-4.11.a",
 					"$(SRCROOT)/Binaries/ITK/lib/libitkzlib-4.11.a",
 					"$(SRCROOT)/Binaries/ITK/lib/libITKznz-4.11.a",
-					"$(SRCROOT)/Binaries/openjpeg/lib/libopenjp2.a",
 					"$(SRCROOT)/Binaries/VTK/lib/libvtkalglib-7.1.a",
 					"$(SRCROOT)/Binaries/VTK/lib/libvtkChartsCore-7.1.a",
 					"$(SRCROOT)/Binaries/VTK/lib/libvtkCommonColor-7.1.a",
@@ -12025,7 +12033,6 @@
 					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmtls.a",
 					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmsr.a",
 					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmimage.a",
-					/usr/local/lib/libpng.dylib,
 					/usr/lib/libxml2.dylib,
 					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmdsig.a",
 					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmqrdb.a",
@@ -12102,6 +12109,7 @@
 				GCC_PREFIX_HEADER = Decompress/Decompres_Prefix.pch;
 				GCC_UNROLL_LOOPS = YES;
 				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/Binaries/libpng/include",
 					"$(SRCROOT)/Binaries/libtiff/include",
 					"$(SRCROOT)/Binaries/DCMTK/include",
 					"$(SRCROOT)",
@@ -12117,6 +12125,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(SRCROOT)/Binaries/libtiff/lib",
 					"$(SRCROOT)/Binaries/libjpeg/lib",
+					"$(SRCROOT)/Binaries/libpng/lib",
 				);
 				OTHER_CFLAGS = "";
 				OTHER_CPLUSPLUSFLAGS = (
@@ -12180,7 +12189,7 @@
 					"$(SRCROOT)/Binaries/DCMTK/lib/liboflog.a",
 					"$(SRCROOT)/Binaries/DCMTK/lib/libofstd.a",
 					"$(SRCROOT)/Binaries/openjpeg/lib/libopenjp2.a",
-					/usr/local/lib/libpng.dylib,
+					"-lpng",
 					/usr/lib/libxml2.dylib,
 					"-lpthread",
 					/usr/lib/libz.dylib,
@@ -12201,10 +12210,11 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_RESOURCE_RULES_PATH = "";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)";
 				COPY_PHASE_STRIP = NO;
 				DEPLOYMENT_LOCATION = NO;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(FRAMEWORK_SEARCH_PATHS)",
 					"$(SRCROOT)",
@@ -12215,6 +12225,8 @@
 				HEADER_SEARCH_PATHS = (
 					AYDicomPrint,
 					/usr/local/Cellar/libxml2/2.9.4/include/libxml2,
+					ALWAYS_SEARCH_USER_PATHS,
+					"$(PROJECT_DIR)",
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -12232,7 +12244,6 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SYMROOT = build;
-				USER_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/Binaries/DCMTK/include $(PROJECT_DIR)";
 			};
 			name = Distribution;
 		};
@@ -12303,7 +12314,6 @@
 					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmtls.a",
 					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmsr.a",
 					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmimage.a",
-					/usr/local/lib/libpng.dylib,
 					/usr/lib/libxml2.dylib,
 					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmdsig.a",
 					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmqrdb.a",
@@ -12421,7 +12431,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 20181017;
+				CURRENT_PROJECT_VERSION = 20181019;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 57BXF7EQEM;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -12462,6 +12472,7 @@
 					"$(SRCROOT)/Binaries",
 					"$(BUILD_DIR)/$(CONFIGURATION)",
 					"$(PROJECT_DIR)/build/Development",
+					"$(SRCROOT)/Binaries/libjpeg/lib",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_FAST_MATH = YES;
@@ -12484,6 +12495,7 @@
 				GCC_WARN_TYPECHECK_CALLS_TO_PRINTF = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = NO;
 				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/Binaries/libpng/include",
 					"$(SRCROOT)/Binaries/libtiff/include",
 					"$(SRCROOT)/Binaries/VTK/include/vtk-7.1",
 					"$(SRCROOT)/Binaries/DCMTK/include",
@@ -12503,9 +12515,10 @@
 				KEEP_PRIVATE_EXTERNS = YES;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
-					"$(SRCROOT)/Binaries/libjpeg/lib",
 					"$(SRCROOT)/Binaries/openjpeg/lib",
 					"$(SRCROOT)/Binaries/libtiff/lib",
+					"$(SRCROOT)/Binaries/libjpeg/lib",
+					"$(SRCROOT)/Binaries/libpng/lib",
 				);
 				OTHER_CFLAGS = "";
 				OTHER_CPLUSPLUSFLAGS = (
@@ -12569,9 +12582,9 @@
 					/usr/lib/libxml2.dylib,
 					/usr/lib/libz.dylib,
 					"-ljpeg",
-					/usr/local/lib/libpng.dylib,
 					/usr/local/opt/openssl/lib/libcrypto.a,
 					/usr/local/opt/openssl/lib/libssl.a,
+					"$(SRCROOT)/Binaries/openjpeg/lib/libopenjp2.a",
 					"$(SRCROOT)/Binaries/DCMTK/lib/libcharls.a",
 					"$(SRCROOT)/Binaries/DCMTK/lib/libcmr.a",
 					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmdata.a",
@@ -12679,7 +12692,6 @@
 					"$(SRCROOT)/Binaries/ITK/lib/libITKWatersheds-4.11.a",
 					"$(SRCROOT)/Binaries/ITK/lib/libitkzlib-4.11.a",
 					"$(SRCROOT)/Binaries/ITK/lib/libITKznz-4.11.a",
-					"$(SRCROOT)/Binaries/openjpeg/lib/libopenjp2.a",
 					"$(SRCROOT)/Binaries/VTK/lib/libvtkalglib-7.1.a",
 					"$(SRCROOT)/Binaries/VTK/lib/libvtkChartsCore-7.1.a",
 					"$(SRCROOT)/Binaries/VTK/lib/libvtkCommonColor-7.1.a",
@@ -12909,7 +12921,6 @@
 					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmsr.a",
 					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmimage.a",
 					"-ljpeg",
-					/usr/local/lib/libpng.dylib,
 					/usr/lib/libxml2.dylib,
 					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmdsig.a",
 					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmqrdb.a",
@@ -12986,6 +12997,7 @@
 				GCC_PREFIX_HEADER = Decompress/Decompres_Prefix.pch;
 				GCC_UNROLL_LOOPS = YES;
 				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/Binaries/libpng/include",
 					"$(SRCROOT)/Binaries/libtiff/include",
 					"$(SRCROOT)/Binaries/DCMTK/include",
 					"$(SRCROOT)",
@@ -13001,6 +13013,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(SRCROOT)/Binaries/libtiff/lib",
 					"$(SRCROOT)/Binaries/libjpeg/lib",
+					"$(SRCROOT)/Binaries/libpng/lib",
 				);
 				OTHER_CFLAGS = "";
 				OTHER_CPLUSPLUSFLAGS = (
@@ -13065,7 +13078,7 @@
 					"$(SRCROOT)/Binaries/DCMTK/lib/libofstd.a",
 					"$(SRCROOT)/Binaries/openjpeg/lib/libopenjp2.a",
 					"-ljpeg",
-					/usr/local/lib/libpng.dylib,
+					"-lpng",
 					/usr/lib/libxml2.dylib,
 					"-lpthread",
 					/usr/lib/libz.dylib,
@@ -13086,10 +13099,11 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_RESOURCE_RULES_PATH = "";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)";
 				COPY_PHASE_STRIP = NO;
 				DEPLOYMENT_LOCATION = NO;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(FRAMEWORK_SEARCH_PATHS)",
 					"$(SRCROOT)",
@@ -13100,6 +13114,8 @@
 				HEADER_SEARCH_PATHS = (
 					AYDicomPrint,
 					/usr/local/Cellar/libxml2/2.9.4/include/libxml2,
+					ALWAYS_SEARCH_USER_PATHS,
+					"$(PROJECT_DIR)",
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -13117,7 +13133,6 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SYMROOT = build;
-				USER_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/Binaries/DCMTK/include $(PROJECT_DIR)";
 			};
 			name = Deployment;
 		};
@@ -13190,7 +13205,6 @@
 					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmimage.a",
 					"-ltiff",
 					"-ljpeg",
-					/usr/local/lib/libpng.dylib,
 					/usr/lib/libxml2.dylib,
 					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmdsig.a",
 					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmqrdb.a",
@@ -13392,7 +13406,6 @@
 					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmsr.a",
 					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmimage.a",
 					"-ljpeg",
-					/usr/local/lib/libpng.dylib,
 					/usr/lib/libxml2.dylib,
 					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmdsig.a",
 					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmqrdb.a",
@@ -13465,6 +13478,7 @@
 					"$(SRCROOT)/Binaries",
 					"$(BUILD_DIR)/$(CONFIGURATION)",
 					"$(PROJECT_DIR)/build/Development",
+					"$(SRCROOT)/Binaries/libjpeg/lib",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
@@ -13487,6 +13501,7 @@
 				GCC_WARN_SHADOW = NO;
 				GCC_WARN_TYPECHECK_CALLS_TO_PRINTF = YES;
 				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/Binaries/libpng/include",
 					"$(SRCROOT)/Binaries/libtiff/include",
 					"$(SRCROOT)/Binaries/VTK/include/vtk-7.1",
 					"$(SRCROOT)/Binaries/DCMTK/include",
@@ -13505,9 +13520,10 @@
 				INFOPLIST_FILE = "Deployment-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
-					"$(SRCROOT)/Binaries/libjpeg/lib",
 					"$(SRCROOT)/Binaries/openjpeg/lib",
 					"$(SRCROOT)/Binaries/libtiff/lib",
+					"$(SRCROOT)/Binaries/libjpeg/lib",
+					"$(SRCROOT)/Binaries/libpng/lib",
 				);
 				OTHER_CFLAGS = "";
 				OTHER_CPLUSPLUSFLAGS = (
@@ -13570,9 +13586,9 @@
 					/usr/lib/libxml2.dylib,
 					/usr/lib/libz.dylib,
 					"-ljpeg",
-					/usr/local/lib/libpng.dylib,
 					/usr/local/opt/openssl/lib/libcrypto.a,
 					/usr/local/opt/openssl/lib/libssl.a,
+					"$(SRCROOT)/Binaries/openjpeg/lib/libopenjp2.a",
 					"$(SRCROOT)/Binaries/DCMTK/lib/libcharls.a",
 					"$(SRCROOT)/Binaries/DCMTK/lib/libcmr.a",
 					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmdata.a",
@@ -13680,7 +13696,6 @@
 					"$(SRCROOT)/Binaries/ITK/lib/libITKWatersheds-4.11.a",
 					"$(SRCROOT)/Binaries/ITK/lib/libitkzlib-4.11.a",
 					"$(SRCROOT)/Binaries/ITK/lib/libITKznz-4.11.a",
-					"$(SRCROOT)/Binaries/openjpeg/lib/libopenjp2.a",
 					"$(SRCROOT)/Binaries/VTK/lib/libvtkalglib-7.1.a",
 					"$(SRCROOT)/Binaries/VTK/lib/libvtkChartsCore-7.1.a",
 					"$(SRCROOT)/Binaries/VTK/lib/libvtkCommonColor-7.1.a",
@@ -13821,7 +13836,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "";
-				CURRENT_PROJECT_VERSION = 20181017;
+				CURRENT_PROJECT_VERSION = 20181019;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 57BXF7EQEM;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -13993,7 +14008,6 @@
 					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmimage.a",
 					"-ltiff",
 					"-ljpeg",
-					/usr/local/lib/libpng.dylib,
 					/usr/lib/libxml2.dylib,
 					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmdsig.a",
 					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmqrdb.a",
@@ -14032,6 +14046,7 @@
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREFIX_HEADER = Decompress/Decompres_Prefix.pch;
 				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/Binaries/libpng/include",
 					"$(SRCROOT)/Binaries/libtiff/include",
 					"$(SRCROOT)/Binaries/DCMTK/include",
 					"$(SRCROOT)",
@@ -14047,6 +14062,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(SRCROOT)/Binaries/libtiff/lib",
 					"$(SRCROOT)/Binaries/libjpeg/lib",
+					"$(SRCROOT)/Binaries/libpng/lib",
 				);
 				OTHER_CFLAGS = "";
 				OTHER_CPLUSPLUSFLAGS = (
@@ -14111,7 +14127,7 @@
 					"$(SRCROOT)/Binaries/openjpeg/lib/libopenjp2.a",
 					"-ltiff",
 					"-ljpeg",
-					/usr/local/lib/libpng.dylib,
+					"-lpng",
 					/usr/lib/libxml2.dylib,
 					"-lpthread",
 					/usr/lib/libz.dylib,
@@ -14132,10 +14148,11 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_RESOURCE_RULES_PATH = "";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)";
 				COPY_PHASE_STRIP = NO;
 				DEPLOYMENT_LOCATION = NO;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(FRAMEWORK_SEARCH_PATHS)",
 					"$(SRCROOT)",
@@ -14146,6 +14163,8 @@
 				HEADER_SEARCH_PATHS = (
 					AYDicomPrint,
 					/usr/local/Cellar/libxml2/2.9.4/include/libxml2,
+					ALWAYS_SEARCH_USER_PATHS,
+					"$(PROJECT_DIR)",
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -14163,7 +14182,6 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SYMROOT = build;
-				USER_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/Binaries/DCMTK/include $(PROJECT_DIR)";
 			};
 			name = Development;
 		};
