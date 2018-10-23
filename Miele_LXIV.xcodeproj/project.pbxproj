@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXAggregateTarget section */
@@ -8700,7 +8700,7 @@
 				BuildIndependentTargetsInParallel = NO;
 				LastTestingUpgradeCheck = 0630;
 				LastUpgradeCheck = 1000;
-				ORGANIZATIONNAME = "OsiriX Team";
+				ORGANIZATIONNAME = bettar;
 				TargetAttributes = {
 					4A2F58D8078D118700C514A2 = {
 						DevelopmentTeam = 57BXF7EQEM;
@@ -8745,7 +8745,7 @@
 				};
 			};
 			buildConfigurationList = 7E76BED8085757B70073649A /* Build configuration list for PBXProject "Miele_LXIV" */;
-			compatibilityVersion = "Xcode 3.2";
+			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
@@ -11929,7 +11929,12 @@
 				PRODUCT_NAME = "miele-lxiv";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				STRIP_STYLE = debugging;
-				SYSTEM_HEADER_SEARCH_PATHS = "/usr/local/opt/openssl/include $(SRCROOT)/Binaries/ITK/include/ITK-4.11 $(SRCROOT)/Binaries/VTK/include $(SRCROOT)/Binaries/ITK/include";
+				SYSTEM_HEADER_SEARCH_PATHS = (
+					/usr/local/opt/openssl/include,
+					"$(SRCROOT)/Binaries/ITK/include/ITK-4.11",
+					"$(SRCROOT)/Binaries/VTK/include",
+					"$(SRCROOT)/Binaries/ITK/include",
+				);
 				USE_HEADERMAP = NO;
 				WARNING_CFLAGS = "-no-pedantic";
 			};
@@ -12415,7 +12420,27 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.bettarini.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				USER_HEADER_SEARCH_PATHS = "ITK180/Modules/Core/Common/include ITK180/Modules/ThirdParty/VNL/src/vxl/core ITK180/Modules/ThirdParty/VNL/src/vxl/vcl ITK180/Modules/Core/Common ITK180/Modules/Core/Mesh/include ITK180/Modules/Segmentation/RegionGrowing/include ITK180/Modules/Filtering/CurvatureFlow/include ITK180/Modules/Core/ImageFunction/include ITK180/Modules/Core/FiniteDifference/include ITK180/Modules/Filtering/ImageFilterBase/include ITK180/Modules/Segmentation/LevelSets/include ITK180/Modules/Filtering/FastMarching/include ITK180/Modules/Filtering/ImageIntensity/include ITK180/Modules/Bridge/VTK/include ITK180/Modules/Filtering/MathematicalMorphology/include ITK180/Modules/Core/Transform/include ITK180/Modules/Filtering/ImageGrid/include ITK180/Modules/Filtering/BinaryMathematicalMorphology/include ITK180/Modules/ThirdParty/NrrdIO/src/NrrdIO";
+				USER_HEADER_SEARCH_PATHS = (
+					ITK180/Modules/Core/Common/include,
+					ITK180/Modules/ThirdParty/VNL/src/vxl/core,
+					ITK180/Modules/ThirdParty/VNL/src/vxl/vcl,
+					ITK180/Modules/Core/Common,
+					ITK180/Modules/Core/Mesh/include,
+					ITK180/Modules/Segmentation/RegionGrowing/include,
+					ITK180/Modules/Filtering/CurvatureFlow/include,
+					ITK180/Modules/Core/ImageFunction/include,
+					ITK180/Modules/Core/FiniteDifference/include,
+					ITK180/Modules/Filtering/ImageFilterBase/include,
+					ITK180/Modules/Segmentation/LevelSets/include,
+					ITK180/Modules/Filtering/FastMarching/include,
+					ITK180/Modules/Filtering/ImageIntensity/include,
+					ITK180/Modules/Bridge/VTK/include,
+					ITK180/Modules/Filtering/MathematicalMorphology/include,
+					ITK180/Modules/Core/Transform/include,
+					ITK180/Modules/Filtering/ImageGrid/include,
+					ITK180/Modules/Filtering/BinaryMathematicalMorphology/include,
+					ITK180/Modules/ThirdParty/NrrdIO/src/NrrdIO,
+				);
 				WRAPPER_EXTENSION = octest;
 			};
 			name = Distribution;
@@ -12816,7 +12841,12 @@
 				PRODUCT_NAME = "miele-lxiv";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				STRIP_STYLE = debugging;
-				SYSTEM_HEADER_SEARCH_PATHS = "/usr/local/opt/openssl/include $(SRCROOT)/Binaries/ITK/include/ITK-4.11 $(SRCROOT)/Binaries/VTK/include $(SRCROOT)/Binaries/ITK/include";
+				SYSTEM_HEADER_SEARCH_PATHS = (
+					/usr/local/opt/openssl/include,
+					"$(SRCROOT)/Binaries/ITK/include/ITK-4.11",
+					"$(SRCROOT)/Binaries/VTK/include",
+					"$(SRCROOT)/Binaries/ITK/include",
+				);
 				USE_HEADERMAP = NO;
 				WARNING_CFLAGS = "-no-pedantic";
 			};
@@ -13305,7 +13335,27 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.github-bettar.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				USER_HEADER_SEARCH_PATHS = "ITK180/Modules/Core/Common/include ITK180/Modules/ThirdParty/VNL/src/vxl/core ITK180/Modules/ThirdParty/VNL/src/vxl/vcl ITK180/Modules/Core/Common ITK180/Modules/Core/Mesh/include ITK180/Modules/Segmentation/RegionGrowing/include ITK180/Modules/Filtering/CurvatureFlow/include ITK180/Modules/Core/ImageFunction/include ITK180/Modules/Core/FiniteDifference/include ITK180/Modules/Filtering/ImageFilterBase/include ITK180/Modules/Segmentation/LevelSets/include ITK180/Modules/Filtering/FastMarching/include ITK180/Modules/Filtering/ImageIntensity/include ITK180/Modules/Bridge/VTK/include ITK180/Modules/Filtering/MathematicalMorphology/include ITK180/Modules/Core/Transform/include ITK180/Modules/Filtering/ImageGrid/include ITK180/Modules/Filtering/BinaryMathematicalMorphology/include ITK180/Modules/ThirdParty/NrrdIO/src/NrrdIO";
+				USER_HEADER_SEARCH_PATHS = (
+					ITK180/Modules/Core/Common/include,
+					ITK180/Modules/ThirdParty/VNL/src/vxl/core,
+					ITK180/Modules/ThirdParty/VNL/src/vxl/vcl,
+					ITK180/Modules/Core/Common,
+					ITK180/Modules/Core/Mesh/include,
+					ITK180/Modules/Segmentation/RegionGrowing/include,
+					ITK180/Modules/Filtering/CurvatureFlow/include,
+					ITK180/Modules/Core/ImageFunction/include,
+					ITK180/Modules/Core/FiniteDifference/include,
+					ITK180/Modules/Filtering/ImageFilterBase/include,
+					ITK180/Modules/Segmentation/LevelSets/include,
+					ITK180/Modules/Filtering/FastMarching/include,
+					ITK180/Modules/Filtering/ImageIntensity/include,
+					ITK180/Modules/Bridge/VTK/include,
+					ITK180/Modules/Filtering/MathematicalMorphology/include,
+					ITK180/Modules/Core/Transform/include,
+					ITK180/Modules/Filtering/ImageGrid/include,
+					ITK180/Modules/Filtering/BinaryMathematicalMorphology/include,
+					ITK180/Modules/ThirdParty/NrrdIO/src/NrrdIO,
+				);
 				WRAPPER_EXTENSION = octest;
 			};
 			name = Deployment;
@@ -13818,7 +13868,12 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.bettarini.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "miele-lxiv";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SYSTEM_HEADER_SEARCH_PATHS = "/usr/local/opt/openssl/include $(SRCROOT)/Binaries/ITK/include/ITK-4.11 $(SRCROOT)/Binaries/VTK/include $(SRCROOT)/Binaries/ITK/include";
+				SYSTEM_HEADER_SEARCH_PATHS = (
+					/usr/local/opt/openssl/include,
+					"$(SRCROOT)/Binaries/ITK/include/ITK-4.11",
+					"$(SRCROOT)/Binaries/VTK/include",
+					"$(SRCROOT)/Binaries/ITK/include",
+				);
 				USE_HEADERMAP = NO;
 				WARNING_CFLAGS = "-no-pedantic";
 			};
@@ -13945,7 +14000,27 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.bettarini.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				USER_HEADER_SEARCH_PATHS = "ITK180/Modules/Core/Common/include ITK180/Modules/ThirdParty/VNL/src/vxl/core ITK180/Modules/ThirdParty/VNL/src/vxl/vcl ITK180/Modules/Core/Common ITK180/Modules/Core/Mesh/include ITK180/Modules/Segmentation/RegionGrowing/include ITK180/Modules/Filtering/CurvatureFlow/include ITK180/Modules/Core/ImageFunction/include ITK180/Modules/Core/FiniteDifference/include ITK180/Modules/Filtering/ImageFilterBase/include ITK180/Modules/Segmentation/LevelSets/include ITK180/Modules/Filtering/FastMarching/include ITK180/Modules/Filtering/ImageIntensity/include ITK180/Modules/Bridge/VTK/include ITK180/Modules/Filtering/MathematicalMorphology/include ITK180/Modules/Core/Transform/include ITK180/Modules/Filtering/ImageGrid/include ITK180/Modules/Filtering/BinaryMathematicalMorphology/include ITK180/Modules/ThirdParty/NrrdIO/src/NrrdIO";
+				USER_HEADER_SEARCH_PATHS = (
+					ITK180/Modules/Core/Common/include,
+					ITK180/Modules/ThirdParty/VNL/src/vxl/core,
+					ITK180/Modules/ThirdParty/VNL/src/vxl/vcl,
+					ITK180/Modules/Core/Common,
+					ITK180/Modules/Core/Mesh/include,
+					ITK180/Modules/Segmentation/RegionGrowing/include,
+					ITK180/Modules/Filtering/CurvatureFlow/include,
+					ITK180/Modules/Core/ImageFunction/include,
+					ITK180/Modules/Core/FiniteDifference/include,
+					ITK180/Modules/Filtering/ImageFilterBase/include,
+					ITK180/Modules/Segmentation/LevelSets/include,
+					ITK180/Modules/Filtering/FastMarching/include,
+					ITK180/Modules/Filtering/ImageIntensity/include,
+					ITK180/Modules/Bridge/VTK/include,
+					ITK180/Modules/Filtering/MathematicalMorphology/include,
+					ITK180/Modules/Core/Transform/include,
+					ITK180/Modules/Filtering/ImageGrid/include,
+					ITK180/Modules/Filtering/BinaryMathematicalMorphology/include,
+					ITK180/Modules/ThirdParty/NrrdIO/src/NrrdIO,
+				);
 				WRAPPER_EXTENSION = octest;
 			};
 			name = Development;
