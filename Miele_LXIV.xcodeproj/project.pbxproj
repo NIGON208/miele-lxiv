@@ -2031,6 +2031,13 @@
 			remoteGlobalIDString = 7E0B3A3E067526CD00908593;
 			remoteInfo = "DCM Framework";
 		};
+		43FFDE9B217EEAA600740465 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AB724F300ADE6ECB00A212A0;
+			remoteInfo = Decompress;
+		};
 		4A2ADDFC078D3C6200416F53 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
@@ -8641,6 +8648,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				43FFDE9C217EEAA600740465 /* PBXTargetDependency */,
 				4A2ADDFD078D3C6200416F53 /* PBXTargetDependency */,
 				59BDEE6B117CB393007F1F2C /* PBXTargetDependency */,
 				43E9D2BB2167886200CFBD0B /* PBXTargetDependency */,
@@ -9632,7 +9640,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "#cd \"${BUILT_PRODUCTS_DIR}\"\ncd \"${PROJECT_DIR}/build/${CONFIGURATION}\"\nproduct=\"OsiriX Lite.app\"\ndest=\"${UNLOCALIZED_RESOURCES_FOLDER_PATH}/OsiriX Lite.zip\"\nrm -f \"${dest}\"\nzip -qr \"${dest}\" \"${product}\"\n";
+			shellScript = "cd \"${BUILT_PRODUCTS_DIR}\"\n#cd \"${PROJECT_DIR}/build/${CONFIGURATION}\"\nproduct=\"OsiriX Lite.app\"\ndest=\"${UNLOCALIZED_RESOURCES_FOLDER_PATH}/OsiriX Lite.zip\"\nrm -f \"${dest}\"\nzip -qr \"${dest}\" \"${product}\"\n";
 		};
 		59BDEE70117CB3A6007F1F2C /* Zip LXIV Launcher into Resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -9646,7 +9654,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#cd \"${BUILT_PRODUCTS_DIR}\"\ncd \"${PROJECT_DIR}/build/${CONFIGURATION}\"\nproduct=\"LXIV Launcher.app\"\ndest=\"${UNLOCALIZED_RESOURCES_FOLDER_PATH}/LXIV Launcher.zip\"\nrm -f \"$dest\"\nzip -qr \"$dest\" \"$product\"\n\n#product=\"$SRCROOT/Binaries/LXIV Launcher.zip\"\n#cp \"$product\" \"${UNLOCALIZED_RESOURCES_FOLDER_PATH}\"\n";
+			shellScript = "cd \"${BUILT_PRODUCTS_DIR}\"\n#cd \"${PROJECT_DIR}/build/${CONFIGURATION}\"\nproduct=\"LXIV Launcher.app\"\ndest=\"${UNLOCALIZED_RESOURCES_FOLDER_PATH}/LXIV Launcher.zip\"\nrm -f \"$dest\"\nzip -qr \"$dest\" \"$product\"\n\n#product=\"$SRCROOT/Binaries/LXIV Launcher.zip\"\n#cp \"$product\" \"${UNLOCALIZED_RESOURCES_FOLDER_PATH}\"\n";
 		};
 		59F69A4E1056328D008585F5 /* Clean Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -10967,6 +10975,11 @@
 			isa = PBXTargetDependency;
 			target = 7E0B3A3E067526CD00908593 /* DCM */;
 			targetProxy = 43E9D2BA2167886200CFBD0B /* PBXContainerItemProxy */;
+		};
+		43FFDE9C217EEAA600740465 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AB724F300ADE6ECB00A212A0 /* Decompress */;
+			targetProxy = 43FFDE9B217EEAA600740465 /* PBXContainerItemProxy */;
 		};
 		4A2ADDFD078D3C6200416F53 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
