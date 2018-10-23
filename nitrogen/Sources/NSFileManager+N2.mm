@@ -64,7 +64,7 @@
                         (long) [NSThread currentThread]];
     
 	char* path = tempnam(dirPath.UTF8String, prefix.UTF8String);
-	NSString* nsPath = [NSString stringWithUTF8String:path];
+	NSString* nsPath = @(path);
 	free(path);
 	return nsPath;
 }

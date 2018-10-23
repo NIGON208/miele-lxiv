@@ -26,7 +26,7 @@
 - (NSString*)displayName {
     io_service_t framebuffer = CGDisplayIOServicePort([self screenNumber]);
     NSDictionary* deviceInfo = [(NSDictionary*)IODisplayCreateInfoDictionary(framebuffer, kIODisplayOnlyPreferredName) autorelease];
-    NSDictionary* localizedNames = [deviceInfo objectForKey:[NSString stringWithUTF8String:kDisplayProductName]];
+    NSDictionary* localizedNames = [deviceInfo objectForKey:@(kDisplayProductName)];
     
     if ([localizedNames count] > 0)
         return [[localizedNames allValues] objectAtIndex:0];
@@ -37,7 +37,7 @@
 -(NSNumber*)serialNumber {
     io_service_t framebuffer = CGDisplayIOServicePort([self screenNumber]);
     NSDictionary* deviceInfo = [(NSDictionary*)IODisplayCreateInfoDictionary(framebuffer, kIODisplayOnlyPreferredName) autorelease];
-    return [deviceInfo objectForKey:[NSString stringWithUTF8String:kDisplaySerialNumber]];
+    return [deviceInfo objectForKey:@(kDisplaySerialNumber)];
 }
 
 @end

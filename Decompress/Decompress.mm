@@ -184,7 +184,7 @@ static void action_Compress(int argc, const char *argv[], NSString *path)
     
     for (NSInteger i = fileListFirstItemIndex; i < argc; i++)
     {
-        NSString *curFile = [NSString stringWithUTF8String:argv[ i]];
+        NSString *curFile = @(argv[i]);
         OFBool status = YES;
         NSString *curFileDest;
         
@@ -486,7 +486,7 @@ static void action_Decompress(int argc, const char *argv[], NSString *path)
     
     for (NSInteger i = fileListFirstItemIndex; i < argc ; i++)
     {
-        NSString *curFile = [NSString stringWithUTF8String:argv[ i]];
+        NSString *curFile = @(argv[i]);
         NSString *curFileDest;
         
         if( destDirec)
@@ -652,8 +652,8 @@ int main(int argc, const char *argv[])
     
     registerCodecs();
 
-    NSString *path = [NSString stringWithUTF8String:argv[1]];
-    NSString *what = [NSString stringWithUTF8String:argv[2]];
+    NSString *path = @(argv[1]);
+    NSString *what = @(argv[2]);
     
     NSBundle *bundle = [NSBundle bundleForClass:NSClassFromString(@"DCMPix")];
     NSString *bundleId = [[bundle infoDictionary] objectForKey:@"CFBundleIdentifier"];
@@ -675,9 +675,9 @@ int main(int argc, const char *argv[])
     {
         @try
         {
-            NSString* path2 = [NSString stringWithUTF8String:argv[fileListFirstItemIndex]];
+            NSString* path2 = @(argv[fileListFirstItemIndex]);
             [dict addEntriesFromDictionary:[NSMutableDictionary dictionaryWithContentsOfFile:path2]];
-            what = [NSString stringWithUTF8String:argv[4]];
+            what = @(argv[4]);
             fileListFirstItemIndex += 2;
         }
         @catch (NSException* e)
@@ -694,7 +694,7 @@ int main(int argc, const char *argv[])
 #pragma mark testDICOMDIR
     else if( [what isEqualToString: @"testDICOMDIR"])
     {
-        NSLog( @"-- Testing DICOMDIR: %@", [NSString stringWithUTF8String: argv[ 1]]);
+        NSLog( @"-- Testing DICOMDIR: %@", @(argv[ 1]));
         
         DcmDicomDir dcmdir( [[NSString stringWithUTF8String: argv[ 1]] fileSystemRepresentation]);
         DcmDirectoryRecord& record = dcmdir.getRootRecord();
@@ -718,7 +718,7 @@ int main(int argc, const char *argv[])
     {
         for (NSInteger i = fileListFirstItemIndex; i < argc ; i++)
         {
-            NSString *curFile = [NSString stringWithUTF8String: argv[ i]];
+            NSString *curFile = @(argv[i]);
             
             // Simply try to load and generate the image... will it crash?
             
@@ -748,7 +748,7 @@ int main(int argc, const char *argv[])
         }
         else
         { // SWF!!
-            NSString* inputDir = [NSString stringWithUTF8String:argv[fileListFirstItemIndex++]];
+            NSString* inputDir = @(argv[fileListFirstItemIndex++]);
             NSArray* inputFiles = [inputDir stringsByAppendingPaths:[[NSFileManager defaultManager] contentsOfDirectoryAtPath:inputDir error:NULL]];
             
             float frameRate = 0;

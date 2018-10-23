@@ -17,13 +17,13 @@ If you want to fork the project and create your on branding, you should:
 ## Step 1
 - First time (you need to do this only once)
 
-		$ cd steps
+		$ cd $PROJECT_DIR/doc/build-steps
 		$ unzip-binaries-sh
 
 ---
 ## Step 2
-		$ cd ../Binaries/Icons/
-		$ ln Logo-GitHub.tifLogo.tif
+		$ cd $PROJECT_DIR/Binaries/Icons/
+		$ ln Logo-GitHub.tif Logo.tif
 
 ---
 ## Step 3

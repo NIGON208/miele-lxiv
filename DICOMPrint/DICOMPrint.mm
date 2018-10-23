@@ -21,13 +21,13 @@ int main(int argc, const char *argv[])
     //    argv[ 3] : jsonPath
 
     NSError *error = nil;
-    NSString *jsonStr = [NSString stringWithContentsOfFile:[NSString stringWithUTF8String:argv[3]]
+    NSString *jsonStr = [NSString stringWithContentsOfFile:@(argv[3])
                                                   encoding:NSUTF8StringEncoding
                                                      error:&error];
     NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:[jsonStr dataUsingEncoding:NSUTF8StringEncoding]
                                                              options:NSJSONReadingMutableContainers
                                                                error:&error];
-    NSDictionary *filmboxDict = [jsonDict valueForKeyPath:@"association.filmsession.filmbox"];
+    //NSDictionary *filmboxDict = [jsonDict valueForKeyPath:@"association.filmsession.filmbox"];
     //NSLog(@"filmboxDict: %@", filmboxDict);
 
     NSString *image_file = [jsonDict valueForKeyPath:@"association.filmsession.filmbox.imagebox.image_file"];
