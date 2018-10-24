@@ -28,7 +28,7 @@
 #define VERSIONNUMBERSTRING	@"v1.00.000"
 #define ECHOTIMEOUT 5
 
-#define NEW_DICOM_PRINT  // Use JSON instead of XML to pass print parameters
+//#define NEW_DICOM_PRINT  // Use JSON instead of XML to pass print parameters
 
 NSString *filmOrientationTag[] = {@"Portrait", @"Landscape"};
 NSString *filmDestinationTag[] = {@"Processor", @"Magazine"};
@@ -756,8 +756,12 @@ NSString *mediumTag[] = {@"Blue Film", @"Clear Film", @"Paper"};
                                 waitUntilDone:NO];
 		}
 
+#ifndef NDEBUG
 		// remove temporary files
 		[[NSFileManager defaultManager] removeFileAtPath: [xmlPath stringByDeletingLastPathComponent] handler: nil];
+#else
+        NSLog(@"xmlPath: %@", xmlPath);
+#endif
 	}
 	@catch (NSException * e) 
 	{

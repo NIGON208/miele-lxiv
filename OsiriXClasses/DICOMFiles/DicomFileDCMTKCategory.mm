@@ -35,7 +35,7 @@
 
 #ifdef OSIRIX_VIEWER
 #ifndef OSIRIX_LIGHT
-#include "NrrdIO.h"
+#include "NrrdIO.h"  // ITK nearly raw raster data
 #endif
 #endif
 

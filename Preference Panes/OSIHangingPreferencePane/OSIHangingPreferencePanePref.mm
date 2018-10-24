@@ -113,7 +113,11 @@
     {        
         if( WLnew == nil || WWnew == nil)
         {
-            NSRunCriticalAlertPanel( NSLocalizedString( @"WL / WW Error", nil), NSLocalizedString( @"Provide values for WL and WW.", nil), NSLocalizedString( @"OK", nil), nil, nil);
+            NSRunCriticalAlertPanel(NSLocalizedString( @"WL / WW Error", nil),
+                                    NSLocalizedString( @"Provide values for WL and WW.", nil),
+                                    NSLocalizedString( @"OK", nil),
+                                    nil,
+                                    nil);
             return;
         }
         

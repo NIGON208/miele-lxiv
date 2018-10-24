@@ -59,8 +59,6 @@
 #import "VRView.h"
 #endif // OSIRIX_LIGHT
 
-//#import <Growl/Growl.h>
-
 #import "PluginManagerController.h"
 #import "OSIWindowController.h"
 #import "Notifications.h"
@@ -109,6 +107,8 @@
 #else
 #include "tiffio.h"
 #endif
+
+#import <Foundation/Foundation.h>
 
 #define BUILTIN_DCMTK YES
 #define MAXSCREENS 10
@@ -222,8 +222,7 @@ int GetAllPIDsForProcessName(const char* ProcessName,
     if (ArrayOfReturnedPIDs == NULL) //need an actual array
         return(kInvalidArgumentsError);
 
-    if (NumberOfPossiblePIDsInArray <= 0)
-        //length of the array must be larger than zero.
+    if (NumberOfPossiblePIDsInArray <= 0) //length of the array must be larger than zero.
         return(kInvalidArgumentsError);
 
     if (NumberOfMatchesFound == NULL) //need an integer for return.
@@ -556,8 +555,6 @@ NSRect screenFrame()
 	return screenRect;
 }
 
-#import <Foundation/Foundation.h>  
-
 // This function takes as parameter the data of the aliases  
 // stored in the com.apple.LaunchServices.plist file.  
 // It returns the resolved path as string.  
@@ -739,7 +736,7 @@ static NSDate *lastWarningDate = nil;
 
 + (void) resetThumbnailsList
 {
-	int numberOfScreens = [[NSScreen screens] count] + 1; //Just in case, we connect a second monitor when using OsiriX.
+	int numberOfScreens = [[NSScreen screens] count] + 1; // Just in case there is a second monitor connected
 	
 	for( int i = 0; i < MAXSCREENS; i++)
     {
@@ -1204,7 +1201,7 @@ static NSDate *lastWarningDate = nil;
 
 - (void) checkForRestartStoreSCPOrder: (NSTimer*) t
 {
-    NSString *path = [NSString stringWithFormat: @"%@RESTARTOSIRIXSTORESCP", NSTemporaryDirectory()];
+    NSString *path = [NSTemporaryDirectory() stringByAppendingPathComponent:@"RESTARTOSIRIXSTORESCP"];
 
 	if ([[NSFileManager defaultManager] fileExistsAtPath: path])
 	{
@@ -2314,11 +2311,8 @@ static NSDate *lastWarningDate = nil;
 		[alert setMessageText: NSLocalizedString( @"DICOM Listener Error", nil)];
 		[alert setInformativeText: [err stringByAppendingString: @"\r\rThis error message can be hidden by activating the Server Mode (see Listener Preferences)"]];
 		[alert addButtonWithTitle: NSLocalizedString(@"OK", nil)];
-		
-		[alert beginSheetModalForWindow:nil
-                          modalDelegate:nil
-                         didEndSelector:nil
-                            contextInfo:nil];
+        [alert beginSheetModalForWindow:[[BrowserController currentBrowser] window]
+                      completionHandler:nil];
 	}
 }
 
@@ -2417,7 +2411,11 @@ static NSDate *lastWarningDate = nil;
 	{
 		if( [[NSUserDefaults standardUserDefaults] boolForKey: @"httpXMLRPCServer"] == NO)
 		{
-			int result = NSRunInformationalAlertPanel(NSLocalizedString(@"URL scheme", nil), NSLocalizedString(@"OsiriX URL scheme (osirix://) is currently not activated!\r\rShould I activate it now? Restart is necessary.", nil), NSLocalizedString(@"No",nil), NSLocalizedString(@"Activate & Restart",nil), nil);
+			int result = NSRunInformationalAlertPanel(NSLocalizedString(@"URL scheme", nil),
+                                                      NSLocalizedString(@"OsiriX URL scheme (osirix://) is currently not activated!\r\rShould I activate it now? Restart is necessary.", nil),
+                                                      NSLocalizedString(@"No",nil),
+                                                      NSLocalizedString(@"Activate & Restart",nil),
+                                                      nil);
 			
 			if( result == NSAlertAlternateReturn)
 			{
@@ -2895,8 +2893,6 @@ static BOOL firstCall = YES;
         
     //  NSLog(@"%@ -> %d", [[[[NSFileManager defaultManager] findSystemFolderOfType:kApplicationSupportFolderType forDomain:kLocalDomain] stringByAppendingPathComponent:[[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString*)kCFBundleNameKey]] stringByAppendingPathComponent:@"DLog.enable"], [N2Debug isActive]);
         
-        //NSLog(@"%s %d", __FUNCTION__, __LINE__);
-
         PapyrusLock = [[NSRecursiveLock alloc] init];
         STORESCP = [[NSRecursiveLock alloc] init];
         STORESCPTLS = [[NSRecursiveLock alloc] init];
@@ -3093,12 +3089,14 @@ static BOOL initialized = NO;
 #ifdef MACAPPSTORE
 				[[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"MACAPPSTORE"]; // Also modify in DefaultsOsiriX.m
 				[[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"AUTHENTICATION"];
-                [[NSUserDefaults standardUserDefaults] setObject: NSLocalizedString( @"(~/Library/Application Support/OsiriX App/)", nil) forKey:@"DefaultDatabasePath"];  // TODO:
+                NSArray *paths = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES);
+                NSLog(@"NSApplicationSupportDirectory: %@", paths);
 #else
 				[[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"MACAPPSTORE"]; // Also modify in DefaultsOsiriX.m
-				[[NSUserDefaults standardUserDefaults] setObject: NSLocalizedString( @"(Current User Documents folder)", nil) forKey:@"DefaultDatabasePath"];
+                NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 #endif
-				
+                [[NSUserDefaults standardUserDefaults] setObject:[paths objectAtIndex:0] forKey:@"DefaultDatabasePath"];
+
 #ifdef __LP64__
 				[[NSUserDefaults standardUserDefaults] setBool:YES forKey: @"LP64bit"];
 #else
@@ -3780,9 +3778,11 @@ static BOOL initialized = NO;
     
     if (![AppController hasAtLeastMacOS_Mavericks])
     {
-        NSRunCriticalAlertPanel(NSLocalizedString( @"MacOS Version", nil),
-                                NSLocalizedString( @"This app requires MacOS major.minor or higher. Please update your OS: Apple Menu - Software Update...", nil),
-                                NSLocalizedString( @"Quit", nil),
+//        int verMajor = MAC_OS_X_VERSION_MIN_REQUIRED / 100;
+//        int verMinor = MAC_OS_X_VERSION_MIN_REQUIRED % 100;
+        NSRunCriticalAlertPanel(NSLocalizedString(@"macOS version", nil),
+                                [NSString stringWithFormat:NSLocalizedString(@"This app requires macOS %@.%@ or higher. Please update your OS: Apple Menu - Software Update...", nil), 10, 9],
+                                NSLocalizedString(@"Quit", nil),
                                 nil,
                                 nil);
         exit( 0);

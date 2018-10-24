@@ -297,7 +297,7 @@
     
     DCMObject* output = [DCMObject encapsulatedPDF:[NSFileManager.defaultManager contentsAtPath:pdfPath]];
     if (output == nil) {
-        NSLog(@"DicomStudy+Report.mm:%i PDF not found ?", __LINE__);
+        NSLog(@"%s:%i PDF not found ?", __FUNCTION__, __LINE__);
     }
     
     NSString *reportName = NSLocalizedString( @"Report PDF", nil);
