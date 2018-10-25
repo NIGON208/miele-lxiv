@@ -4257,7 +4257,7 @@ static BOOL protectionAgainstReentry = NO;
 		int dumpStatus = [theTask terminationStatus];
 		[theTask release];
 		
-		if (dumpStatus == 0) {
+		if (dumpStatus == EXIT_SUCCESS) {
 			NSString* repairedDBFinalFile = [repairedDBFile stringByAppendingPathExtension: @"sql"];
 			[NSFileManager.defaultManager removeItemAtPath:repairedDBFinalFile error:nil];
 			
@@ -4272,7 +4272,7 @@ static BOOL protectionAgainstReentry = NO;
             
             //[theTask waitUntilExit];		// <- This is VERY DANGEROUS : the main runloop is continuing...
 			
-			if ([theTask terminationStatus] == 0) {
+			if ([theTask terminationStatus] == EXIT_SUCCESS) {
 				NSInteger tag = 0;
 				[[NSWorkspace sharedWorkspace] performFileOperation:NSWorkspaceRecycleOperation source:self.sqlFilePath.stringByDeletingLastPathComponent destination:nil files:[NSArray arrayWithObject:self.sqlFilePath.lastPathComponent] tag:&tag];
 				[NSFileManager.defaultManager moveItemAtPath:repairedDBFinalFile toPath:self.sqlFilePath error:nil];

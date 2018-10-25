@@ -22,6 +22,7 @@
 #import "DicomDatabase.h"
 #import "DICOMFiles/dicomFile.h"
 #import "WaitRendering.h"
+#import "Reports.h" // for ReportType
 
 #import "url.h"
 
@@ -229,7 +230,7 @@
 	
 	// REPORTS
 	[self buildPluginsMenu];
-	if([[defaults stringForKey:@"REPORTSMODE"] intValue] == 3)
+	if ([[defaults stringForKey:@"REPORTSMODE"] intValue] == REPORT_TYPE_PLUGIN)
 	{
 		[reportsMode selectItemWithTitle:[defaults stringForKey:@"REPORTSPLUGIN"]];
 	}
@@ -288,14 +289,6 @@
 
 - (IBAction) setReportMode:(id) sender
 {
-	// report mode int value
-	// 0 : Microsoft Word
-	// 1 : TextEdit
-	// 2 : Pages
-	// 3 : Plugin
-	// 4 : DICOM SR
-	// 5 : OO
-	
 	NSUserDefaults	*defaults = [NSUserDefaults standardUserDefaults];
 	
 	int indexOfPluginsLabel = [reportsMode indexOfItemWithTitle:@"Plugins"];
@@ -304,16 +297,17 @@
 	
 	indexOfLabel = (indexOfLabel<=0)? 10000 : indexOfLabel ;
 	
-	if([reportsMode indexOfSelectedItem] >= indexOfLabel) // in this case it is a plugin
+	if ([reportsMode indexOfSelectedItem] >= indexOfLabel) // in this case it is a plugin
 	{
-		[defaults setInteger:3 forKey:@"REPORTSMODE"];
+		[defaults setInteger:REPORT_TYPE_PLUGIN forKey:@"REPORTSMODE"];
 		[defaults setObject:[[reportsMode selectedItem] title] forKey:@"REPORTSPLUGIN"];
 	}
 	else
 	{
 		[defaults setInteger:[[reportsMode selectedItem] tag] forKey:@"REPORTSMODE"];
 	}
-	[[NSNotificationCenter defaultCenter] postNotificationName:@"reportModeChanged" object:nil];
+
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"reportModeChanged" object:nil];
 }
 
 // - (IBAction) setDisplayAllStudiesAlbum:(id) sender

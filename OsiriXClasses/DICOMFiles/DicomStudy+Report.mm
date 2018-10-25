@@ -57,7 +57,7 @@
             
             BOOL succeeded = NO;
             
-            if ([task terminationStatus] == 0)
+            if ([task terminationStatus] == EXIT_SUCCESS)
                 succeeded = YES;
             
             if( succeeded) {
@@ -154,7 +154,7 @@
                 
                 //[aTask waitUntilExit];		// <- This is VERY DANGEROUS : the main runloop is continuing...
                 
-                if ([task terminationStatus] == 0)
+                if ([task terminationStatus] == EXIT_SUCCESS)
                     succeeded = YES;
                 
                 [lastStdOut release];

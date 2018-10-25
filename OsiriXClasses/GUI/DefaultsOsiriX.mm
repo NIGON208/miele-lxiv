@@ -27,6 +27,8 @@
 #include <CoreFoundation/CoreFoundation.h>
 #include <IOKit/IOKitLib.h>
 
+#import "Reports.h" // for ReportType
+
 #import "url.h"
 
 //static BOOL isHcugeCh = NO, isUnigeCh = NO, testIsHugDone = NO, testIsUniDone = NO;
@@ -1028,7 +1030,7 @@ static NSHost *currentHost = nil;
 	[defaultValues setObject: @"Geneva" forKey: @"FONTNAME"];
 	[defaultValues setObject: @"1" forKey: @"DICOMSENDALLOWED"];
 	[defaultValues setObject: @"14.0" forKey: @"FONTSIZE"];
-	[defaultValues setObject: @"2" forKey: @"REPORTSMODE"];
+	[defaultValues setObject: @(REPORT_TYPE_PAGES) forKey: @"REPORTSMODE"];
 	[defaultValues setObject: URL_OSIRIX_VIEWER@"/internet.dcm" forKey: @"LASTURL"];
 	[defaultValues setObject: @"0" forKey: @"MAPPERMODEVR"];
 	[defaultValues setObject: @"1" forKey: @"STARTCOUNT"];

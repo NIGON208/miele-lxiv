@@ -718,7 +718,7 @@ extern "C"
         if( [wait aborted])
             return NO;
         
-		if( [theTask terminationStatus] == 0)
+		if( [theTask terminationStatus] == EXIT_SUCCESS)
             return YES;
 		else
             return NO;

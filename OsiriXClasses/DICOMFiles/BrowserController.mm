@@ -144,6 +144,8 @@
 #include <IOKit/storage/IOCDMedia.h>
 #include <IOKit/storage/IODVDMedia.h>
 
+#import "Reports.h" // for ReportType
+
 static BrowserController *browserWindow = nil;
 NSString* O2AlbumDragType = @"Osirix Album drag";
 static BOOL loadingIsOver = NO;//, isAutoCleanDatabaseRunning = NO;
@@ -304,6 +306,7 @@ static volatile BOOL waitForRunningProcess = NO;
             [comparativeTable setRowHeight: 13];
         else
             [comparativeTable setRowHeight: 24];
+
         [_activityTableView setRowHeight: 34];
         [oMatrix setCellSize: NSMakeSize( 105 * 0.8, 113 * 0.8)];
     }
@@ -6420,11 +6423,11 @@ static NSConditionLock *threadLock = nil;
 		}
 		else
 		{
-            #ifndef  OSIRIX_LIGHT
+#ifndef  OSIRIX_LIGHT
             if( [item isKindOfClass: [DCMTKStudyQueryNode class]])
-                returnVal = [[item children]  objectAtIndex: index];
+                returnVal = [[item children] objectAtIndex: index];
             else
-            #endif
+#endif
                 returnVal = [[self childrenArray: item] objectAtIndex: index];
 		}
 	}
@@ -6531,14 +6534,14 @@ static NSConditionLock *threadLock = nil;
 	//	PLUGINS
 	// *********************************************
 	   
-	if ([[[NSUserDefaults standardUserDefaults] stringForKey:@"REPORTSMODE"] intValue] == 3 &&
+	if ([[[NSUserDefaults standardUserDefaults] stringForKey:@"REPORTSMODE"] intValue] == REPORT_TYPE_PLUGIN &&
         [[tableColumn identifier] isEqualToString:@"reportURL"])
 	{
 		if ([[item valueForKey:@"type"] isEqualToString:@"Study"])
 		{
 			NSBundle *plugin = [[PluginManager reportPlugins] objectForKey: [[NSUserDefaults standardUserDefaults] stringForKey:@"REPORTSPLUGIN"]];
 			
-			if( plugin)
+			if (plugin)
 			{
 				PluginFilter* filter = [[plugin principalClass] filter];
                 
@@ -6599,7 +6602,7 @@ static NSConditionLock *threadLock = nil;
 	{
 		if ([[item valueForKey:@"type"] isEqualToString:@"Study"])
 		{
-			NSString	*name;
+			NSString *name;
 			
 			if( [[NSUserDefaults standardUserDefaults] boolForKey: @"HIDEPATIENTNAME"])
 				name = [NSString stringWithString: NSLocalizedString( @"Name hidden", nil)];
@@ -6717,7 +6720,8 @@ static NSConditionLock *threadLock = nil;
 {
 	if (_database == nil)
         return nil;
-	[item retain];
+
+    [item retain];
 //	[_database lock];
 	@try {
 		return [self intOutlineView:outlineView objectValueForTableColumn:tableColumn byItem:item];
@@ -7000,7 +7004,7 @@ static NSConditionLock *threadLock = nil;
                     if (!value || ([value isKindOfClass:[NSString class]] && [(NSString*)value length] == 0))
                         gray = YES;
                 }
-            [cell setTextColor: gray? [NSColor grayColor] : [NSColor blackColor]];
+            [cell setTextColor: gray? [NSColor secondaryLabelColor] : [NSColor textColor]];
         }
 	}
 	@catch (NSException * e) 
@@ -10267,7 +10271,10 @@ static BOOL withReset = NO;
                         NSImage *thumbnail = [[[NSImage alloc] initWithSize: NSMakeSize( THUMBNAILSIZE, THUMBNAILSIZE)] autorelease];
                         
                         [thumbnail lockFocus];
-                        [icon drawInRect: NSMakeRect( 0, 0, THUMBNAILSIZE, THUMBNAILSIZE) fromRect: [icon alignmentRect] operation: NSCompositeCopy fraction: 1.0];
+                        [icon drawInRect: NSMakeRect( 0, 0, THUMBNAILSIZE, THUMBNAILSIZE)
+                                fromRect: [icon alignmentRect]
+                               operation: NSCompositeCopy
+                                fraction: 1.0];
                         [thumbnail unlockFocus];
                         
                         [tempPreviewPixThumbnails replaceObjectAtIndex: i withObject: thumbnail];
@@ -10277,7 +10284,8 @@ static BOOL withReset = NO;
                     {
                         NSImage* thumbnail = [dcmPix generateThumbnailImageWithWW:image.series.windowWidth.floatValue WL:image.series.windowLevel.floatValue];
                         [dcmPix revert:NO];	// <- Kill the raw data
-                        if (thumbnail == nil || dcmPix.notAbleToLoadImage == YES) thumbnail = notFoundImage;
+                        if (thumbnail == nil || dcmPix.notAbleToLoadImage == YES)
+                            thumbnail = notFoundImage;
                         
                         [tempPreviewPixThumbnails replaceObjectAtIndex: i withObject: thumbnail];
                         [tempPreviewPix addObject: dcmPix];
@@ -14641,7 +14649,10 @@ static NSArray*	openSubSeriesArray = nil;
             bonjourBrowser = [[BonjourBrowser alloc] initWithBrowserController:self];
             [self displayBonjourServices];
             
-            [[NSUserDefaultsController sharedUserDefaultsController] addObserver:self forValuesKey:OsirixBonjourSharingActiveFlagDefaultsKey options:NSKeyValueObservingOptionInitial context:bonjourBrowser];
+            [[NSUserDefaultsController sharedUserDefaultsController] addObserver:self
+                                                                    forValuesKey:OsirixBonjourSharingActiveFlagDefaultsKey
+                                                                         options:NSKeyValueObservingOptionInitial
+                                                                         context:bonjourBrowser];
             
             [splitDrawer restoreDefault: @"SplitDrawer"];
             [splitAlbums restoreDefault: @"SplitAlbums"];
@@ -14683,7 +14694,7 @@ static NSArray*	openSubSeriesArray = nil;
             
             [self initContextualMenus];
             
-            // opens a port for interapplication communication	
+            // opens a port for inter-application communication
             [[NSConnection defaultConnection] registerName:@"OsiriX"];
             [[NSConnection defaultConnection] setRootObject:self];
             //start timer for monitoring incoming logs on main thread
@@ -18102,7 +18113,7 @@ static volatile int numberOfThreadsForJPEG = 0;
                 
                 //[t waitUntilExit];		// <- This is VERY DANGEROUS : the main runloop is continuing...
                 
-                if( [t terminationStatus] == 0 && deleteSource == YES)
+                if( [t terminationStatus] == EXIT_SUCCESS && deleteSource == YES)
                 {
                     if( srcFolder)
                         [[NSFileManager defaultManager] removeItemAtPath: srcFolder error: nil];
@@ -18903,13 +18914,13 @@ static volatile int numberOfThreadsForJPEG = 0;
 			
 			long result = NSRunInformationalAlertPanel(NSLocalizedString(@"Delete report", nil), NSLocalizedString(@"Are you sure you want to delete the selected report?", nil), NSLocalizedString(@"OK",nil), NSLocalizedString(@"Cancel",nil), nil);
 			
-			if( result == NSAlertDefaultReturn)
+			if (result == NSAlertDefaultReturn)
 			{
-				if( [[[NSUserDefaults standardUserDefaults] stringForKey:@"REPORTSMODE"] intValue] == 3)
+				if ([[[NSUserDefaults standardUserDefaults] stringForKey:@"REPORTSMODE"] intValue] == REPORT_TYPE_PLUGIN)
 				{
 					NSBundle *plugin = [[PluginManager reportPlugins] objectForKey: [[NSUserDefaults standardUserDefaults] stringForKey:@"REPORTSPLUGIN"]];
 					
-					if( plugin)
+					if (plugin)
 					{
 						PluginFilter* filter = [[plugin principalClass] filter];
                         
@@ -18964,11 +18975,16 @@ static volatile int numberOfThreadsForJPEG = 0;
     if ([item isKindOfClass:[DicomSeries class]])
         item = [item valueForKey:@"study"];
     
-	if( item)
+	if (item)
 	{
-        if( reportsMode == 0 && [[NSWorkspace sharedWorkspace] fullPathForApplication:@"Microsoft Word"] == nil) // Would absolutePathForAppBundleWithIdentifier be better here? (DDP)
+        if (reportsMode == REPORT_TYPE_MS_WORD &&
+            [[NSWorkspace sharedWorkspace] fullPathForApplication:@"Microsoft Word"] == nil) // Would absolutePathForAppBundleWithIdentifier be better here? (DDP)
 		{
-			NSRunAlertPanel( NSLocalizedString(@"Report Error", nil), NSLocalizedString(@"Microsoft Word is required to open/generate '.doc' reports. You can change it to TextEdit in the Preferences.", nil), nil, nil, nil);
+			NSRunAlertPanel(NSLocalizedString(@"Report Error", nil),
+                            NSLocalizedString(@"Microsoft Word is required to open/generate '.doc' reports. You can change it to TextEdit in the Preferences.", nil),
+                            nil,
+                            nil,
+                            nil);
 			return;
 		}
 		
@@ -18979,7 +18995,8 @@ static volatile int numberOfThreadsForJPEG = 0;
 		else
 			studySelected = [item valueForKey:@"study"];
 		
-		if( [[item valueForKey: @"reportURL"] hasPrefix: @"http://"] || [[item valueForKey: @"reportURL"] hasPrefix: @"https://"])
+		if ([[item valueForKey: @"reportURL"] hasPrefix: @"http://"] ||
+            [[item valueForKey: @"reportURL"] hasPrefix: @"https://"])
 		{
 			[[NSWorkspace sharedWorkspace] openURL: [NSURL URLWithString: [item valueForKey: @"reportURL"]]];
 		}
@@ -18989,11 +19006,11 @@ static volatile int numberOfThreadsForJPEG = 0;
 			//	PLUGINS
 			// *********************************************
 			
-			if( reportsMode == 3)
+			if (reportsMode == REPORT_TYPE_PLUGIN)
 			{
 				NSBundle *plugin = [[PluginManager reportPlugins] objectForKey: [[NSUserDefaults standardUserDefaults] stringForKey:@"REPORTSPLUGIN"]];
 				
-				if( plugin)
+				if (plugin)
 				{
 //					[checkBonjourUpToDateThreadLock lock];
 					
@@ -19078,7 +19095,7 @@ static volatile int numberOfThreadsForJPEG = 0;
 					{
 						if( [[NSFileManager defaultManager] fileExistsAtPath: localReportFile])
 						{
-							if (reportsMode != 3)
+							if (reportsMode != REPORT_TYPE_PLUGIN)
 							{
 								[[NSWorkspace sharedWorkspace] openFile: localReportFile withApplication: nil andDeactivate:YES];
 								[NSThread sleepForTimeInterval: 1];
@@ -19104,16 +19121,20 @@ static volatile int numberOfThreadsForJPEG = 0;
 					{
 						NSLog( @"New report for: %@", [studySelected valueForKey: @"name"]);
 						
-						if (reportsMode != 3)
+						if (reportsMode != REPORT_TYPE_PLUGIN)
 						{
 							Reports	*report = [[Reports alloc] init];
 							if ([[sender class] isEqualTo:[reportTemplatesListPopUpButton class]])
                                 [report setTemplateName:[[sender selectedItem] title]];
 							
 							if (![_database isLocal])
-								[report createNewReport: studySelected destination: [NSString stringWithFormat: @"%@/TEMP.noindex/", [self documentsDirectory]] type:reportsMode];
+								[report createNewReport: studySelected
+                                            destination: [NSString stringWithFormat: @"%@/TEMP.noindex/", [self documentsDirectory]]
+                                                   type: reportsMode];
 							else
-								[report createNewReport: studySelected destination: [NSString stringWithFormat: @"%@/", [self.database reportsDirPath]] type:reportsMode];
+								[report createNewReport: studySelected
+                                            destination: [NSString stringWithFormat: @"%@/", [self.database reportsDirPath]]
+                                                   type: reportsMode];
 							
 							localReportFile = [studySelected valueForKey: @"reportURL"];
 							
@@ -19150,33 +19171,31 @@ static volatile int numberOfThreadsForJPEG = 0;
 - (NSImage*) reportIcon
 {
 	NSString *iconName = @"Report.icns";
-	switch( [[[NSUserDefaults standardUserDefaults] stringForKey:@"REPORTSMODE"] intValue])
+	switch ([[[NSUserDefaults standardUserDefaults] stringForKey:@"REPORTSMODE"] intValue])
 	{
-		case 0: 
-		 // M$ Word
+		case REPORT_TYPE_MS_WORD:
 			iconName = @"ReportWord.icns";
 			reportToolbarItemType = 0;
-		break;
-		case 1: 
-		 // TextEdit (RTF)
-			
+            break;
+            
+		case REPORT_TYPE_RTF:
 			iconName = @"ReportRTF.icns";
 			reportToolbarItemType = 1;
-		break;
-		case 2:
-		 // Pages.app
-			
+            break;
+            
+		case REPORT_TYPE_PAGES:
 			iconName = @"ReportPages.icns";
 			reportToolbarItemType = 2;
-		break;
-		case 5:
-		//	OpenOffice.app / LibreOffice.app
-		//	iconName = @"ReportOO.icns";
+            break;
+            
+		case REPORT_TYPE_LIBRE_OFFICE:
+            //iconName = @"ReportOO.icns";
 			reportToolbarItemType = 3;
-		break;
-		default:
+            break;
+
+        default:
 			reportToolbarItemType = 3;
-		break;
+            break;
 	}
 	return [NSImage imageNamed:iconName];
 }
@@ -19216,10 +19235,10 @@ static volatile int numberOfThreadsForJPEG = 0;
 		#ifndef OSIRIX_LIGHT
 		NSMutableArray* templatesArray = nil;
         switch ([[[NSUserDefaults standardUserDefaults] stringForKey:@"REPORTSMODE"] intValue]) {
-            case 2:
+            case REPORT_TYPE_PAGES:
                 templatesArray = [Reports pagesTemplatesList];
                 break;
-            case 0:
+            case REPORT_TYPE_MS_WORD:
                 templatesArray = [Reports wordTemplatesList];
                 break;
         }
@@ -19235,10 +19254,10 @@ static volatile int numberOfThreadsForJPEG = 0;
 		if (!studySelected.reportURL && templatesArray.count > 1)
 		{
             switch ([[[NSUserDefaults standardUserDefaults] stringForKey:@"REPORTSMODE"] intValue]) {
-                case 2:
+                case REPORT_TYPE_PAGES:
                     [reportTemplatesImageView setImage:[NSImage imageNamed:@"ReportPages"]];
                     break;
-                case 0:
+                case REPORT_TYPE_MS_WORD:
                     [reportTemplatesImageView setImage:[NSImage imageNamed:@"ReportWord"]];
                     break;
             }
@@ -19289,10 +19308,10 @@ static volatile int numberOfThreadsForJPEG = 0;
 		[reportTemplatesListPopUpButton addItemWithTitle:@""];
 		
         switch ([[[NSUserDefaults standardUserDefaults] stringForKey:@"REPORTSMODE"] intValue]) {
-            case 2:
+            case REPORT_TYPE_PAGES:
                 [reportTemplatesListPopUpButton addItemsWithTitles:[Reports pagesTemplatesList]];
                 break;
-            case 0:
+            case REPORT_TYPE_MS_WORD:
                 [reportTemplatesListPopUpButton addItemsWithTitles:[Reports wordTemplatesList]];
                 break;
         }
@@ -20565,9 +20584,9 @@ static volatile int numberOfThreadsForJPEG = 0;
 - (void)setSearchString: (NSString *)searchString
 {
     if( searchType == 0 && [[NSUserDefaults standardUserDefaults] boolForKey: @"HIDEPATIENTNAME"])
-        [searchField setTextColor: [NSColor whiteColor]];
+        [searchField setTextColor: [NSColor textBackgroundColor]];
     else
-        [searchField setTextColor: [NSColor blackColor]];
+        [searchField setTextColor: [NSColor textColor]];
     
     if( _searchString != searchString)
     {

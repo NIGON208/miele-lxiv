@@ -306,7 +306,7 @@ static const NSMutableArray* pluginPanes = [[NSMutableArray alloc] init];
 	[panesListView setButtonActionTarget:self];
 	[panesListView setButtonActionSelector:@selector(setCurrentContext:)];
 	
-	[scrollView setBackgroundColor:[NSColor colorWithCalibratedWhite:237./255 alpha:1]];
+    [scrollView setBackgroundColor:[NSColor windowBackgroundColor]];
 	[scrollView setDrawsBackground:YES];
 	
 	NSBundle* bundle = [NSBundle mainBundle];

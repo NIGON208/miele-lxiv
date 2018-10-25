@@ -571,7 +571,7 @@
 			if( [splash aborted])
 				break;
 			
-			if( [t terminationStatus] != 0)
+			if( [t terminationStatus] != EXIT_SUCCESS)
 				succeed = NO;
 		}
 		

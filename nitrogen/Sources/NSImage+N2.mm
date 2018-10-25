@@ -89,7 +89,10 @@
 {
 	NSImage* dark = [[NSImage alloc] initWithSize:[self size]];
 	[dark lockFocus];
-	[self drawInRect: NSMakeRect( 0, 0, self.size.width, self.size.height) fromRect: NSMakeRect( 0, 0, self.size.width, self.size.height) operation: NSCompositeSourceOver fraction: 1.0];
+	[self drawInRect: NSMakeRect( 0, 0, self.size.width, self.size.height)
+            fromRect: NSMakeRect( 0, 0, self.size.width, self.size.height)
+           operation: NSCompositeSourceOver
+            fraction: 1.0];
     [[NSColor colorWithCalibratedWhite: 0 alpha: 0.5] set];
     NSRectFillUsingOperation( NSMakeRect( 0, 0, self.size.width, self.size.height), NSCompositeSourceAtop);
 	[dark unlockFocus];

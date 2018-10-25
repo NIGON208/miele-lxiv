@@ -23641,25 +23641,22 @@ static BOOL viewerControllerPlaying = NO;
 - (NSImage*)reportIcon;
 {
 	NSString *iconName = @"Report.icns";
-	switch([[[NSUserDefaults standardUserDefaults] stringForKey:@"REPORTSMODE"] intValue])
+	switch ([[[NSUserDefaults standardUserDefaults] stringForKey:@"REPORTSMODE"] intValue])
 	{
-		case 0: // M$ Word
-		{
+		case REPORT_TYPE_MS_WORD:
 			iconName = @"ReportWord.icns";
-		}
-		break;
-		case 1: // TextEdit (RTF)
-		{
+            break;
+
+        case REPORT_TYPE_RTF:
 			iconName = @"ReportRTF.icns";
-		}
-		break;
-		case 2: // Pages.app
-		{
+            break;
+
+        case REPORT_TYPE_PAGES:
 			iconName = @"ReportPages.icns";
-		}
-		break;
+            break;
 	}
-	return [NSImage imageNamed:iconName];
+
+    return [NSImage imageNamed:iconName];
 }
 
 - (void) updateReportToolbarIcon:(NSNotification *)note
@@ -23681,13 +23678,13 @@ static BOOL viewerControllerPlaying = NO;
 
 - (void)setToolbarReportIconForItem:(NSToolbarItem *)item;
 {
-	#ifndef OSIRIX_LIGHT
+#ifndef OSIRIX_LIGHT
     NSMutableArray* templatesArray = nil;
     switch ([[[NSUserDefaults standardUserDefaults] stringForKey:@"REPORTSMODE"] intValue]) {
-        case 2:
+        case REPORT_TYPE_PAGES:
             templatesArray = [Reports pagesTemplatesList];
             break;
-        case 0:
+        case REPORT_TYPE_MS_WORD:
             templatesArray = [Reports wordTemplatesList];
             break;
     }
@@ -23705,32 +23702,32 @@ static BOOL viewerControllerPlaying = NO;
 	{
 		[item setImage:[self reportIcon]];
 	}
-	#else
+#else
 	[item setImage: [NSImage imageNamed: @"Report.icns"]];
-	#endif
+#endif
 }
 
 
 - (void)reportToolbarItemWillPopUp:(NSNotification *)notif;
 {
-	#ifndef OSIRIX_LIGHT
-	if([[notif object] isEqualTo:reportTemplatesListPopUpButton])
+#ifndef OSIRIX_LIGHT
+	if ([[notif object] isEqualTo:reportTemplatesListPopUpButton])
 	{
         [reportTemplatesListPopUpButton removeAllItems];
 		[reportTemplatesListPopUpButton addItemWithTitle:@""];
 		
         switch ([[[NSUserDefaults standardUserDefaults] stringForKey:@"REPORTSMODE"] intValue]) {
-            case 2:
+            case REPORT_TYPE_PAGES:
                 [reportTemplatesListPopUpButton addItemsWithTitles:[Reports pagesTemplatesList]];
                 break;
-            case 0:
+            case REPORT_TYPE_MS_WORD:
                 [reportTemplatesListPopUpButton addItemsWithTitles:[Reports wordTemplatesList]];
                 break;
         }
 		
         [reportTemplatesListPopUpButton setAction:@selector(generateReport:)];
 	}
-	#endif
+#endif
 }
 
 

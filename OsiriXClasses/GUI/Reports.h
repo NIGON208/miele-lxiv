@@ -16,6 +16,15 @@
 #import <Carbon/Carbon.h>
 #import <CoreData/CoreData.h>
 
+typedef NS_ENUM(NSUInteger, ReportType) {
+    REPORT_TYPE_MS_WORD = 0,
+    REPORT_TYPE_RTF = 1,  // TextEdit
+    REPORT_TYPE_PAGES = 2,
+    REPORT_TYPE_PLUGIN = 3,
+    REPORT_TYPE_DICOM_SR = 4,
+    REPORT_TYPE_LIBRE_OFFICE = 5
+};
+
 /** \brief reports */
 @interface Reports : NSObject
 {

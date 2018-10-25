@@ -744,7 +744,7 @@ NSString *mediumTag[] = {@"Blue Film", @"Clear Film", @"Paper"};
 		int status = [theTask terminationStatus];
 		[theTask release];
 
-		if (status != 0)
+		if (status != EXIT_SUCCESS)
 		{
             NSLog(@"%s %d, status: %d", __FUNCTION__, __LINE__, status);
 			[self performSelectorOnMainThread:@selector(errorMessage:)

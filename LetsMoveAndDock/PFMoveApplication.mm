@@ -145,7 +145,7 @@ void PFMoveToApplicationsFolderIfNecessary() {
 
 					// If the task terminated with status 0, it means that the final grep produced 1 or more lines of output.
 					// Which means that the app is already running
-					destinationIsRunning = ([task terminationStatus] == 0);
+					destinationIsRunning = ([task terminationStatus] == EXIT_SUCCESS);
 				}
 				// Use the new API on 10.6 or higher
 				else {

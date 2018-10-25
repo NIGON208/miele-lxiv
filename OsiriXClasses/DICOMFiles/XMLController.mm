@@ -765,44 +765,35 @@ extern int delayedTileWindows;
 
 - (NSInteger)outlineView:(NSOutlineView *)outlineView numberOfChildrenOfItem:(id)item 
 {
+    if (item == nil)
+        return [xmlDocument childCount];
 
-        if( item == nil)
-        {
-            return [xmlDocument childCount];
-        }
-        else
-        {
-            return [item childCount];
-        }
+    return [item childCount];
 }
 
 - (BOOL)outlineView:(NSOutlineView *)outlineView isItemExpandable:(id)item
 {
 	if( [[item valueForKey: @"name"] isEqualToString: @"value"])
 		return NO;
-	else
-	{
-		if([item childCount] == 1 && [[[[item children] objectAtIndex:0] valueForKey:@"name"] isEqualToString:@"value"])
-			return NO;
-		else if([item childCount] == 1 && [[[item children] objectAtIndex:0] kind] == NSXMLTextKind)
-			return NO;
-		else if([item childCount] == 0)
-			return NO;
-		else
-			return YES;
-	}
+
+    if([item childCount] == 1 && [[[[item children] objectAtIndex:0] valueForKey:@"name"] isEqualToString:@"value"])
+        return NO;
+
+    if([item childCount] == 1 && [[[item children] objectAtIndex:0] kind] == NSXMLTextKind)
+        return NO;
+
+    if([item childCount] == 0)
+        return NO;
+
+    return YES;
 }
 
 - (id)outlineView:(NSOutlineView *)outlineView child:(NSInteger)index ofItem:(id)item
 {
-        if( item == nil)
-        {
-            return [xmlDocument childAtIndex:index];
-        }
-        else
-        {
-			return [item childAtIndex:index];
-        }
+    if( item == nil)
+        return [xmlDocument childAtIndex:index];
+
+    return [item childAtIndex:index];
 }
 
 - (BOOL) item: (id) item containsString: (NSString*) s
@@ -887,7 +878,7 @@ extern int delayedTileWindows;
 		
 		if( found)
 		{
-			[cell setTextColor: [NSColor blackColor]];
+			[cell setTextColor: [NSColor textColor]];
 			[cell setFont:[NSFont boldSystemFontOfSize:12]];
 		}
 		else
@@ -898,7 +889,7 @@ extern int delayedTileWindows;
 	}
 	else
 	{
-		[cell setTextColor: [NSColor blackColor]];
+		[cell setTextColor: [NSColor textColor]];
 		[cell setFont:[NSFont systemFontOfSize:12]];
 	}
 	[cell setLineBreakMode: NSLineBreakByTruncatingMiddle];

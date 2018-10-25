@@ -2699,7 +2699,7 @@ const NSString* const GenerateMovieDicomImagesParamKey = @"dicomImageArray";
     //		int result = [zipTask terminationStatus];
     //		[zipTask release];
     //
-    //		if (result==0)
+    //		if (result==EXIT_SUCCESS)
     //			reportFilePath = [[reportFilePath stringByDeletingLastPathComponent] stringByAppendingPathComponent:zipFileName];
     //
     //		response.data = [NSData dataWithContentsOfFile: reportFilePath];

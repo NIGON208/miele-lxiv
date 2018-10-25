@@ -746,7 +746,7 @@ void QuitAndSleep(NSString* bundleIdentifier, float seconds)
 //                    
 //                    [task waitUntilExit];
 //                    int status = [task terminationStatus];
-//                    success = (status == 0);
+//                    success = (status == EXIT_SUCCESS);
 //                    if (!success) 
 //                        NSLog(@"*****(MailMe) WARNING: Could not send message using simple-mailer; it returned exit status %d.", status);
 //                    
