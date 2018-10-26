@@ -103,6 +103,7 @@ static const NSInteger labelHeight = 38, labelSeparator = 3;
 	NSDictionary* attributes = [NSDictionary dictionaryWithObjectsAndKeys:
                                 style, NSParagraphStyleAttributeName,
                                 font, NSFontAttributeName,
+                                [NSColor textColor], NSForegroundColorAttributeName,
 								NULL];
 	[self.title drawInRect:labelRect withAttributes:attributes];
 }
@@ -249,10 +250,11 @@ static const NSUInteger padLeft = 6;
 //	[[self backgroundColor] setFill];
 //	[NSBezierPath fillRect:frame];
 	
+    // Slightly different background for alternate groups (rows)
     [[NSColor textBackgroundColor] setFill];
 	[[NSColor colorWithCalibratedWhite:207./255 alpha:1] setStroke];
 	[NSBezierPath setDefaultLineWidth:1];
-	for (NSUInteger r = 1; r < groups.count; r += 2) { // darker background for alternate groups
+	for (NSUInteger r = 1; r < groups.count; r += 2) {
         NSRect rect = NSMakeRect(0, frame.size.height-rowHeight*r-rowHeight-padTop, frame.size.width, rowHeight);
 		[NSBezierPath fillRect:rect];
 		[NSBezierPath strokeLineFromPoint:NSMakePoint(rect.origin.x, rect.origin.y+.5)
