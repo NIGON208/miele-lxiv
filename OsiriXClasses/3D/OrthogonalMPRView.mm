@@ -1063,21 +1063,21 @@
 	BOOL	movie4Dmove = NO;
     NSPoint current = [self convertPoint: event.locationInWindow fromView: nil];
     
-    if( scrollMode == 0)
+    if (scrollMode == MY_SCROLL_MODE_UNDEFINED)
     {
         if( fabs( start.x - current.x) < fabs( start.y - current.y))
         {
             prev = start.y/2;
             now = current.y/2;
-            if( fabs( start.y - current.y) > 3)
-                scrollMode = 1;
+            if (fabs( start.y - current.y) > 3)
+                scrollMode = MY_SCROLL_MODE_VER;
         }
         else if( fabs( start.x - current.x) >= fabs( start.y - current.y))
         {
             prev = start.x/2;
             now = current.x/2;
-            if( fabs( start.x - current.x) > 3)
-                scrollMode = 2;
+            if (fabs( start.x - current.x) > 3)
+                scrollMode = MY_SCROLL_MODE_HOR;
         }
         
         //	NSLog(@"scrollMode : %d", scrollMode);
@@ -1086,12 +1086,12 @@
     if( movie4Dmove == NO)
     {
         long from, to;
-        if( scrollMode == 2)
+        if( scrollMode == MY_SCROLL_MODE_HOR)
         {
             from = current.x;
             to = start.x;
         }
-        else if( scrollMode == 1)
+        else if( scrollMode == MY_SCROLL_MODE_VER)
         {
             from = start.y;
             to = current.y;

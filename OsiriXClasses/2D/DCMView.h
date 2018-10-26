@@ -47,6 +47,12 @@ enum { NO_INTERSECT_3D = 0, INTERSECT_3D_ONE_POINT, INTERSECT_3D_SEGMENT_ON_PLAN
 
 typedef enum {DCMViewTextAlignLeft, DCMViewTextAlignCenter, DCMViewTextAlignRight} DCMViewTextAlign;
 
+typedef NS_ENUM(NSUInteger, MyScrollMode) {
+    MY_SCROLL_MODE_UNDEFINED = 0,
+    MY_SCROLL_MODE_VER = 1,
+    MY_SCROLL_MODE_HOR = 2
+};
+
 @class GLString;
 @class DCMPix;
 @class DCMView;
@@ -228,7 +234,7 @@ typedef enum {DCMViewTextAlignLeft, DCMViewTextAlignCenter, DCMViewTextAlignRigh
 	NSTimer			*repulsorColorTimer;
 	float			repulsorAlpha, repulsorAlphaSign;
 	BOOL			repulsorROIEdition;
-	long            scrollMode;
+	MyScrollMode    scrollMode;
 	
 	NSPoint			ROISelectorStartPoint, ROISelectorEndPoint;
 	BOOL			selectorROIEdition;

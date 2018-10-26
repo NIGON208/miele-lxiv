@@ -758,7 +758,7 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void * _Nulla
 //																  defer: NO
 //																 screen: s] autorelease];
 //			// Define new window	
-//			[newWindow setBackgroundColor:[NSColor blackColor]];
+//			[newWindow setBackgroundColor:[NSColor windowBackgroundColor]];
 //			[newWindow setAlphaValue:0.2];
 //			[newWindow setLevel:NSScreenSaverWindowLevel-2];
 //			[newWindow makeKeyAndOrderFront:nil];
@@ -4496,7 +4496,7 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void * _Nulla
 			startScaleValue = scaleValue;
 			rotationStart = rotation;
 			blendingFactorStart = blendingFactor;
-			scrollMode = 0;
+			scrollMode = MY_SCROLL_MODE_UNDEFINED;
 			resizeTotal = 1;
 			
 			originStart = origin;
@@ -5801,19 +5801,21 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void * _Nulla
 	BOOL	movie4Dmove = NO;
 	NSPoint current = [self convertPoint: event.locationInWindow fromView: nil];
     
-	if( scrollMode == 0)
+	if (scrollMode == MY_SCROLL_MODE_UNDEFINED)
 	{
-		if( fabs( start.x - current.x) < fabs( start.y - current.y))
+		if (fabs( start.x - current.x) < fabs( start.y - current.y))
 		{
-			if( fabs( start.y - current.y) > 3) scrollMode = 1;
+			if (fabs( start.y - current.y) > 3)
+                scrollMode = MY_SCROLL_MODE_VER;
 		}
-		else if( fabs( start.x - current.x) >= fabs( start.y - current.y))
+		else if (fabs( start.x - current.x) >= fabs( start.y - current.y))
 		{
-			if( fabs( start.x - current.x) > 3) scrollMode = 2;
+			if (fabs( start.x - current.x) > 3)
+                scrollMode = MY_SCROLL_MODE_HOR;
 		}
 	}
 	
-	if( movie4Dmove == NO)
+	if (movie4Dmove == NO)
 	{
         float reverseScrollWheel = 1.0;
         
@@ -5822,19 +5824,22 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void * _Nulla
         
 		previmage = curImage;
 		
-		if( scrollMode == 2)
+		if (scrollMode == MY_SCROLL_MODE_HOR)
 		{
 			curImage = startImage + (reverseScrollWheel*(current.x - start.x) * [dcmPixList count] )/ ([self frame].size.width/2);
 		}
-		else if( scrollMode == 1)
+		else if (scrollMode == MY_SCROLL_MODE_VER)
 		{
 			curImage = startImage + (reverseScrollWheel*(start.y - current.y) * [dcmPixList count] )/ ([self frame].size.height/2);
 		}
 		
-		if( curImage < 0) curImage = 0;
-		if( curImage >= [dcmPixList count]) curImage = (long)[dcmPixList count] -1;
+		if( curImage < 0)
+            curImage = 0;
+
+        if( curImage >= [dcmPixList count])
+            curImage = (long)[dcmPixList count] -1;
 		
-		if(previmage != curImage)
+		if (previmage != curImage)
 		{
 			if( listType == 'i')
                 [self setIndex:curImage];
@@ -5842,14 +5847,18 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void * _Nulla
                 [self setIndexWithReset:curImage :YES];
 			
 			if (matrix) {
-                NSInteger rows, cols; [matrix getNumberOfRows:&rows columns:&cols];  if( cols < 1) cols = 1;
+                NSInteger rows, cols;
+                [matrix getNumberOfRows:&rows columns:&cols];
+                if( cols < 1)
+                    cols = 1;
                 [matrix selectCellAtRow :curImage/cols column:curImage%cols];
 			}
             
 			if( [self is2DViewer] == YES)
 				[[self windowController] adjustSlider];
 			
-			if( stringID) [[self windowController] adjustSlider];
+			if( stringID)
+                [[self windowController] adjustSlider];
 			
 			// SYNCRO
 			[self sendSyncMessage: curImage - previmage];
@@ -5862,7 +5871,8 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void * _Nulla
 	float WWAdapter = bdstartWW / 100.0;
 	NSPoint current = [self convertPoint: event.locationInWindow fromView: nil];
     
-	if( WWAdapter < 0.001 * curDCM.slope) WWAdapter = 0.001 * curDCM.slope;
+	if( WWAdapter < 0.001 * curDCM.slope)
+        WWAdapter = 0.001 * curDCM.slope;
     
 	if( [self is2DViewer] == YES)
 	{
@@ -5883,7 +5893,8 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void * _Nulla
 				eWL = bdstartWL + (current.y -  start.y)*WWAdapter;
 				eWW = bdstartWW + (current.x -  start.x)*WWAdapter;
 				
-				if( eWW < 0.1) eWW = 0.1;
+				if( eWW < 0.1)
+                    eWW = 0.1;
 			break;
 			
 			case 1:
@@ -5892,29 +5903,37 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void * _Nulla
 				eWL = (endlevel - bdstartMin) / 2 + [[NSUserDefaults standardUserDefaults] integerForKey: @"PETMinimumValue"];
 				eWW = endlevel - bdstartMin;
 				
-				if( eWW < 0.1) eWW = 0.1;
-				if( eWL - eWW/2 < 0) eWL = eWW/2;
+				if( eWW < 0.1)
+                    eWW = 0.1;
+                
+				if( eWL - eWW/2 < 0)
+                    eWL = eWW/2;
 			break;
 			
 			case 2:
 				endlevel = bdstartMax + (current.y -  start.y) * WWAdapter ;
 				startlevel = bdstartMin + (current.x -  start.x) * WWAdapter ;
 				
-				if( startlevel < 0) startlevel = 0;
+				if( startlevel < 0)
+                    startlevel = 0;
 				
 				eWL = startlevel + (endlevel - startlevel) / 2;
 				eWW = endlevel - startlevel;
 				
-				if( eWW < 0.1) eWW = 0.1;
-				if( eWL - eWW/2 < 0) eWL = eWW/2;
+				if( eWW < 0.1)
+                    eWW = 0.1;
+                
+				if( eWL - eWW/2 < 0)
+                    eWL = eWW/2;
 			break;
 		}
 		
-		[[blendingView curDCM] changeWLWW :eWL  :eWW];
+		[[blendingView curDCM] changeWLWW :eWL :eWW];
 	}
 	else
 	{
-		[[blendingView curDCM] changeWLWW : bdstartWL + (current.y -  start.y)*WWAdapter :bdstartWW + (current.x -  start.x)*WWAdapter];
+		[[blendingView curDCM] changeWLWW : bdstartWL + (current.y -  start.y)*WWAdapter
+                                          : bdstartWW + (current.x -  start.x)*WWAdapter];
 	}
 
 	if( [self is2DViewer] == YES)
@@ -5937,7 +5956,8 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void * _Nulla
 	{
 		float WWAdapter = startWW / 80.00;
 
-		if( WWAdapter < 0.001 * curDCM.slope) WWAdapter = 0.001 * curDCM.slope;
+		if( WWAdapter < 0.001 * curDCM.slope)
+            WWAdapter = 0.001 * curDCM.slope;
 		
 		if( [self is2DViewer] == YES)
 		{
@@ -5958,7 +5978,8 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void * _Nulla
 					eWL = startWL + (current.y -  start.y)*WWAdapter;
 					eWW = startWW + (current.x -  start.x)*WWAdapter;
 					
-					if( eWW < 0.1) eWW = 0.1;
+					if( eWW < 0.1)
+                        eWW = 0.1;
 				break;
 				
 				case 1:
@@ -5967,21 +5988,26 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void * _Nulla
 					eWL = (endlevel - startMin) / 2 + [[NSUserDefaults standardUserDefaults] integerForKey: @"PETMinimumValue"];
 					eWW = endlevel - startMin;
 					
-					if( eWW < 0.1) eWW = 0.1;
-					if( eWL - eWW/2 < 0) eWL = eWW/2;
+					if( eWW < 0.1)
+                        eWW = 0.1;
+					if( eWL - eWW/2 < 0)
+                        eWL = eWW/2;
 				break;
 				
 				case 2:
 					endlevel = startMax + (current.y -  start.y) * WWAdapter ;
 					startlevel = startMin + (current.x -  start.x) * WWAdapter ;
 					
-					if( startlevel < 0) startlevel = 0;
+					if( startlevel < 0)
+                        startlevel = 0;
 					
 					eWL = startlevel + (endlevel - startlevel) / 2;
 					eWW = endlevel - startlevel;
 					
-					if( eWW < 0.1) eWW = 0.1;
-					if( eWL - eWW/2 < 0) eWL = eWW/2;
+					if( eWW < 0.1)
+                        eWW = 0.1;
+					if( eWL - eWW/2 < 0)
+                        eWL = eWW/2;
 				break;
 			}
 			
@@ -6027,7 +6053,6 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void * _Nulla
 	
 	repulsorPosition = tempPt;
 	tempPt = [self ConvertFromNSView2GL:tempPt];
-	
 	
 	float pixSpacingRatio = 1.0;
 	if( self.pixelSpacingY != 0 && self.pixelSpacingX !=0 )
@@ -6094,7 +6119,8 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void * _Nulla
 								if( d<=minD && d<repulsorRadius )
 								{
 									[points removeObjectAtIndex:k];
-									if(delta==-1) j--;
+									if(delta==-1)
+                                        j--;
 								}
 								else if((d>=maxD || d>=repulsorRadius) && n<maxN)
 								{
@@ -6103,7 +6129,8 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void * _Nulla
 									pt3.y = (pt2.y+pt.y)/2.0;
 									MyPoint *p = [[[MyPoint alloc] initWithPoint:pt3] autorelease];
 									int index = (delta==-1)? j : j+1 ;
-									if(delta==-1) j++;
+									if(delta==-1)
+                                        j++;
 									[points insertObject:p atIndex:index];
 									n++;
 								}
@@ -6250,9 +6277,12 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void * _Nulla
 				if( !intersected)
                 {
 					NSPoint *p = (NSPoint *)malloc( sizeof( NSPoint) * [points count]);
-					for( int j=0; j<[points count]; j++)  p[ j] = [[points objectAtIndex:j] point];
+					for( int j=0; j<[points count]; j++)
+                        p[ j] = [[points objectAtIndex:j] point];
+                    
 					for( int j=0; j<4 && !intersected; j++ )
 						intersected = [DCMPix IsPoint: polyRect[j] inPolygon:p size:[points count]];
+                    
 					free(p);
 				}
 				
@@ -6292,8 +6322,10 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void * _Nulla
 			if([event modifierFlags] & NSShiftKeyMask) // invert the mode: selected->sleep, sleep->selected
 			{
 				ROI_mode mode = [roi ROImode];
-				if(mode==ROI_sleep) mode=ROI_selected;
-				else if(mode==ROI_selected) mode=ROI_sleep;
+				if(mode==ROI_sleep)
+                    mode=ROI_selected;
+				else if(mode==ROI_selected)
+                    mode=ROI_sleep;
 					
 				// set the mode for the ROI and its group (if any)
 				[roi setROIMode:mode];
@@ -6335,7 +6367,10 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void * _Nulla
     
     if( otherPix.isRGB != curDCM.isRGB)
     {
-        if( otherPix.fullww > 250 && otherPix.fullww < 256 && curDCM.fullww > 250 && curDCM.fullww < 256)
+        if(otherPix.fullww > 250 &&
+           otherPix.fullww < 256 &&
+           curDCM.fullww > 250 &&
+           curDCM.fullww < 256)
         {
             
         }
@@ -8024,12 +8059,13 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void * _Nulla
     
     glTranslatef( origin.x - offset.x , -origin.y - offset.y, 0.0f);
     
-	if( curDCM.pixelRatio != 1.0) glScalef( 1.f, curDCM.pixelRatio, 1.f);
+	if( curDCM.pixelRatio != 1.0)
+        glScalef( 1.f, curDCM.pixelRatio, 1.f);
 	
 	effectiveTextureMod = 0;	//2;	//OVERLAP
 	
 	glEnable (TEXTRECTMODE); // enable texturing
-	glColor4f (1.0f, 1.0f, 1.0f, 1.0f); 
+	glColor4f (1.0f, 1.0f, 1.0f, 1.0f); // tint of the image
     
 //    float sf = self.window.backingScaleFactor;
     

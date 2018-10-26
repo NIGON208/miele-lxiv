@@ -777,6 +777,8 @@ static BOOL Pages5orHigher = FALSE;
     return [path stringByAppendingPathComponent:@"PAGES TEMPLATES"];
 }
 
+// Called from AppController initialize
+// Called again from DicomDatabase initiWithPath
 + (void)checkForPagesTemplate;
 {
 #ifndef OSIRIX_LIGHT

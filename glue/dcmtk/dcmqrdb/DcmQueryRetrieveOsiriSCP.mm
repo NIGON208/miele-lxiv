@@ -30,6 +30,8 @@
 #include "DcmQueryRetrieveOsiriSCP.h"
 #include "DcmQueryRetrieveGetOurContext.h"
 
+#import "NSThread+N2.h"
+
 #import "tmp_locations.h"
 
 BOOL forkedProcess = NO;
@@ -59,7 +61,6 @@ static void getCallback(
 #endif
     context->callbackHandler(cancelled, request, requestIdentifiers, responseCount, response, stDetail, responseIdentifiers);
     
-#if 1 // @@@ TODO Issue #19
     if( forkedProcess == NO)
         [[NSThread currentThread] setProgress:1.0/
                                                  (response->NumberOfCompletedSubOperations+
@@ -70,7 +71,6 @@ static void getCallback(
                                                  (response->NumberOfCompletedSubOperations+
                                                   response->NumberOfFailedSubOperations+
                                                   response->NumberOfWarningSubOperations)];
-#endif
 }
 
 // See DIMSE_StoreProviderCallback in dimse.h

@@ -171,7 +171,7 @@ extern "C"
 #endif /*cplusplus*/
 const char *GetPrivateIP()
 {
-	if( privateIPstring == nil)
+	if (privateIPstring == nil)
 	{
 		struct			hostent *h;
 		static char		hostname[ 100];
@@ -426,14 +426,14 @@ NSString* filenameWithDate( NSString *inputfile)
 	createDate = [fattrs objectForKey:NSFileModificationDate];
 	fileSize = [fattrs objectForKey:NSFileSize];
 	
-	if( createDate == nil) createDate = [NSDate date];
+	if (createDate == nil) createDate = [NSDate date];
 	
 	return [[[[inputfile lastPathComponent] stringByDeletingPathExtension] stringByAppendingFormat:@"%@-%d-%@", [createDate descriptionWithCalendarFormat:@"%Y-%m-%d-%H-%M-%S" timeZone:nil locale:nil], [fileSize intValue], [[inputfile stringByDeletingLastPathComponent]lastPathComponent]] stringByAppendingString:@".dcm"];
 }
 
 NSString* convertDICOM( NSString *inputfile)
 {
-	if( inputfile == nil)
+	if (inputfile == nil)
 		return nil;
 	
 	NSString *outputfile = [[[DicomDatabase defaultDatabase] tempDirPath] stringByAppendingPathComponent:filenameWithDate(inputfile)];
@@ -561,11 +561,11 @@ NSRect screenFrame()
 static NSString *getResolvedAliasPath(NSData* inData)  
 {  
     NSString *outPath = nil;  
-    if(inData != nil)  
+    if (inData != nil)
     {  
         const void *theDataPtr = [inData bytes];  
         NSUInteger theDataLength = [inData length];  
-        if(theDataPtr != nil && theDataLength > 0)  
+        if (theDataPtr != nil && theDataLength > 0)
         {  
             // Create an AliasHandle from the NSData  
             AliasHandle theAliasHandle;  
@@ -576,12 +576,12 @@ static NSString *getResolvedAliasPath(NSData* inData)
             Boolean wChang;  
             OSStatus err = noErr;  
             err = FSResolveAlias(NULL, theAliasHandle, &theRef, &wChang);  
-            if(err == noErr)  
+            if (err == noErr)
             {  
                 // The path was resolved.  
                 char path[1024];  
                 err = FSRefMakePath(&theRef, (UInt8*)path, sizeof(path));  
-                if(err == noErr)  
+                if (err == noErr)
                     outPath = [NSString stringWithUTF8String:path];  
             }  
             else  
@@ -592,7 +592,7 @@ static NSString *getResolvedAliasPath(NSData* inData)
                 err = FSCopyAliasInfo(theAliasHandle, NULL, NULL,  
                                       &tmpPath, NULL, NULL);  
 				
-                if(err == noErr && tmpPath != NULL)  
+                if (err == noErr && tmpPath != NULL)
                     outPath = [(NSString*)tmpPath autorelease];  
             }  
 			
@@ -610,7 +610,7 @@ static void dumpLSArchitecturesForX86_64()
     prefsPath = [prefsPath stringByExpandingTildeInPath];  
     
     NSDictionary *mainDict = [NSDictionary dictionaryWithContentsOfFile:prefsPath];  
-    if(mainDict != nil)  
+    if (mainDict != nil)
     {  
         // We are only interested by the  
         // "LSArchitecturesForX86_64" dictionary.  
@@ -619,11 +619,11 @@ static void dumpLSArchitecturesForX86_64()
         // Get the list of applications.  
         // The array is ordered by applicationID.  
         NSArray *applicationIDArray = [architectureDict allKeys];  
-        if(applicationIDArray != nil)  
+        if (applicationIDArray != nil)
         {  
             // For each applicationID  
             NSUInteger i = 0;  
-            for(i = 0 ; i < [applicationIDArray count] ; i++)  
+            for (i = 0 ; i < [applicationIDArray count] ; i++)
             {  
                 NSString *applicationID = [applicationIDArray objectAtIndex:i];
                 NSArray *appArray = [architectureDict objectForKey:applicationID];
@@ -633,23 +633,23 @@ static void dumpLSArchitecturesForX86_64()
                 // The alias is stored as a NSData  
                 // and the architecture as a NSString.  
                 NSUInteger j = 0;  
-                for(j = 0 ; j < [appArray count] / 2 ; j++)  
+                for (j = 0 ; j < [appArray count] / 2 ; j++)
                 {  
                     // Just for safety  
-                    if(j * 2 + 1 < [appArray count])  
+                    if (j * 2 + 1 < [appArray count])
                     {  
                         NSData *aliasData = [appArray objectAtIndex:j * 2];  
                         
                         NSString *theArch = [appArray objectAtIndex:j * 2 + 1];  
                         
-                        if(aliasData != nil && theArch != nil)  
+                        if (aliasData != nil && theArch != nil)
                         {  
                             // Get the path of the application  
                             NSString *resolvedPath = getResolvedAliasPath(aliasData);  
                             
-                            if( [resolvedPath isEqualToString: [[NSBundle mainBundle] bundlePath]])
+                            if ([resolvedPath isEqualToString: [[NSBundle mainBundle] bundlePath]])
                             {
-                                if( [theArch isEqualToString: @"i386"])
+                                if ([theArch isEqualToString: @"i386"])
                                 {										
                                     NSAlert* alert = [[NSAlert new] autorelease];
                                     [alert setMessageText: NSLocalizedString(@"64-bit", nil)];
@@ -738,21 +738,21 @@ static NSDate *lastWarningDate = nil;
 {
 	int numberOfScreens = [[NSScreen screens] count] + 1; // Just in case there is a second monitor connected
 	
-	for( int i = 0; i < MAXSCREENS; i++)
+	for (int i = 0; i < MAXSCREENS; i++)
     {
-		if( thumbnailsListPanel[ i])
+		if (thumbnailsListPanel[ i])
             [thumbnailsListPanel[ i] release];
         
         thumbnailsListPanel[ i] = nil;
 	}
     
-	for( int i = 0; i < numberOfScreens; i++)
+	for (int i = 0; i < numberOfScreens; i++)
 		thumbnailsListPanel[ i] = [[ThumbnailsListPanel alloc] initForScreen: i];
 }
 
 + (void) resizeWindowWithAnimation:(NSWindow*) window newSize: (NSRect) newWindowFrame
 {
-	if( [[NSUserDefaults standardUserDefaults] boolForKey:@"NSWindowsSetFrameAnimate"])
+	if ([[NSUserDefaults standardUserDefaults] boolForKey:@"NSWindowsSetFrameAnimate"])
 	{
 		@try
 		{
@@ -761,9 +761,9 @@ static NSDate *lastWarningDate = nil;
                                           [NSValue valueWithRect: newWindowFrame], NSViewAnimationEndFrameKey,
                                           nil];
 			
-			if( accumulateAnimations)
+			if (accumulateAnimations)
 			{
-				if( accumulateAnimationsArray == nil)
+				if (accumulateAnimationsArray == nil)
                     accumulateAnimationsArray = [[NSMutableArray array] retain];
                 
 				[accumulateAnimationsArray addObject: windowResize];
@@ -796,10 +796,10 @@ static NSDate *lastWarningDate = nil;
 //    NSArray* screens = [NSScreen screens];
 //    NSUInteger i = [screens indexOfObject:screen];
 //    
-//    if( i == NSNotFound)
+//    if (i == NSNotFound)
 //        return nil;
 //    
-//    if( i>= MAXSCREENS)
+//    if (i>= MAXSCREENS)
 //        return nil;
 //    
 //    return toolbarPanel[i];
@@ -810,10 +810,10 @@ static NSDate *lastWarningDate = nil;
     NSArray* screens = [NSScreen screens];
     NSUInteger i = [screens indexOfObject:screen];
     
-    if( i == NSNotFound)
+    if (i == NSNotFound)
         return nil;
     
-    if( i>= MAXSCREENS)
+    if (i>= MAXSCREENS)
         return nil;
     
     return thumbnailsListPanel[i];
@@ -822,7 +822,7 @@ static NSDate *lastWarningDate = nil;
 #ifdef WITH_IMPORTANT_NOTICE
 + (void) displayImportantNotice:(id) sender
 {
-	if( lastWarningDate == nil || [lastWarningDate timeIntervalSinceNow] < -60*5)
+	if (lastWarningDate == nil || [lastWarningDate timeIntervalSinceNow] < -60*5)
 	{
         NSString *bundleName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleName"];
         int result = NSRunCriticalAlertPanel(
@@ -832,10 +832,10 @@ static NSDate *lastWarningDate = nil;
                         NSLocalizedString( @"I agree", nil),    // alternate
                         NSLocalizedString( @"Quit", nil));      // other
 		
-		if( result == NSAlertDefaultReturn)
+		if (result == NSAlertDefaultReturn)
 			[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:URL_VENDOR_NOTICE]];
 			
-		else if( result == NSAlertOtherReturn)
+		else if (result == NSAlertOtherReturn)
 			[[AppController sharedAppController] terminate: self];
 	}
 	
@@ -862,7 +862,7 @@ static NSDate *lastWarningDate = nil;
     unsigned int NumberOfMatches;
     int Counter, Error;
 	
-    if( [[NSUserDefaults standardUserDefaults] boolForKey: @"SingleProcessMultiThreadedListener"] == NO)
+    if ([[NSUserDefaults standardUserDefaults] boolForKey: @"SingleProcessMultiThreadedListener"] == NO)
     {
         Error = GetAllPIDsForProcessName( [[[NSProcessInfo processInfo] processName] UTF8String], MyArray, kPIDArrayLength, &NumberOfMatches, NULL);
         
@@ -870,7 +870,7 @@ static NSDate *lastWarningDate = nil;
         {
             for (Counter = 0 ; Counter < NumberOfMatches ; Counter++)
             {
-                if( MyArray[ Counter] != getpid())
+                if (MyArray[ Counter] != getpid())
                 {
                     NSLog( @"Child Process to kill: %d (PID)", MyArray[ Counter]);
                     kill( MyArray[ Counter], 15);
@@ -889,7 +889,7 @@ static NSDate *lastWarningDate = nil;
     {
         for (Counter = 0 ; Counter < NumberOfMatches ; Counter++)
         {
-			if( MyArray[ Counter] != getpid())
+			if (MyArray[ Counter] != getpid())
 			{
 				NSLog( @"Child Process to kill (CrashReporter): %d (PID)", MyArray[ Counter]);
 				kill( MyArray[ Counter], 15);
@@ -922,7 +922,7 @@ static NSDate *lastWarningDate = nil;
 {
 	NSAutoreleasePool *p = [[NSAutoreleasePool alloc] init];
 	NSLog( @"start DNSResolve");
-	for( NSString *s in [[DefaultsOsiriX currentHost] names])
+	for (NSString *s in [[DefaultsOsiriX currentHost] names])
 		NSLog( @"%@", s);
 	
 	NSLog( @"end DNSResolve");
@@ -936,7 +936,7 @@ static NSDate *lastWarningDate = nil;
 	@try 
 	{
 		NSArray * addresses = [e callStackReturnAddresses];
-		if( [addresses count])
+		if ([addresses count])
 		{
 			void * backtrace_frames[[addresses count]];
 			int i = 0;
@@ -948,10 +948,10 @@ static NSDate *lastWarningDate = nil;
 			
 			char **frameStrings = backtrace_symbols(&backtrace_frames[0], [addresses count]);
 			
-			if(frameStrings != NULL)
+			if (frameStrings != NULL)
 			{
 				int x;
-				for(x = 0; x < [addresses count]; x++)
+				for (x = 0; x < [addresses count]; x++)
 				{
 					NSString *frame_description = [NSString stringWithUTF8String:frameStrings[ x]];
 					NSLog( @"------- %@", frame_description);
@@ -997,7 +997,7 @@ static NSDate *lastWarningDate = nil;
 	NSString *replacing = NSLocalizedString(@" will be replaced by ", @"");
 	NSString *strVersion = NSLocalizedString(@" version ", @"");
 	
-	for(NSString *path in pluginsArray)
+	for (NSString *path in pluginsArray)
 	{
 		[pluginNames appendFormat:@"%@, ", [[path lastPathComponent] stringByDeletingPathExtension]];
 		
@@ -1007,23 +1007,23 @@ static NSDate *lastWarningDate = nil;
 		CFDictionaryRef bundleInfoDict = CFBundleCopyInfoDictionaryInDirectory((CFURLRef)bundleURL);
 		
 		CFStringRef versionString = nil;
-		if(bundleInfoDict != NULL)
+		if (bundleInfoDict != NULL)
         {
 			versionString = (CFStringRef)CFDictionaryGetValue(bundleInfoDict, CFSTR("CFBundleVersion"));
 		
-            if( versionString == nil)
+            if (versionString == nil)
                 versionString = (CFStringRef)CFDictionaryGetValue(bundleInfoDict, CFSTR("CFBundleShortVersionString"));
         }
         
 		NSString *pluginBundleVersion = nil;
-		if(versionString != NULL)
+		if (versionString != NULL)
 			pluginBundleVersion = (NSString*)versionString;
 		else
 			pluginBundleVersion = @"";		
 		
-		for(NSDictionary *plug in [PluginManager pluginsList])
+		for (NSDictionary *plug in [PluginManager pluginsList])
 		{
-			if([pluginBundleName isEqualToString: [plug objectForKey:@"name"]])
+			if ([pluginBundleName isEqualToString: [plug objectForKey:@"name"]])
 			{
 				[replacingPlugins appendString: [plug objectForKey:@"name"]];
 				[replacingPlugins appendString: strVersion];
@@ -1036,30 +1036,30 @@ static NSDate *lastWarningDate = nil;
 			}
 		}
 		
-		if( bundleInfoDict)
+		if (bundleInfoDict)
 			CFRelease( bundleInfoDict);
 	}
 	
 	pluginNames = [NSMutableString stringWithString: [pluginNames substringToIndex:[pluginNames length]-2]];
-	if([replacingPlugins length])
+	if ([replacingPlugins length])
         replacingPlugins = [NSMutableString stringWithString:[replacingPlugins substringToIndex:[replacingPlugins length]-2]];
 	
 	NSString *msg;
 	NSString *areYouSure = NSLocalizedString(@"Are you sure you want to install", @"");
 	
-	if( [pluginsArray count] == 1)
+	if ([pluginsArray count] == 1)
 		msg = [NSString stringWithFormat:NSLocalizedString(@"%@ the plugin named : %@ ?", @""), areYouSure, pluginNames];
 	else
 		msg = [NSString stringWithFormat:NSLocalizedString(@"%@ the following plugins : %@ ?", @""), areYouSure, pluginNames];
 	
-	if( [replacingPlugins length])
+	if ([replacingPlugins length])
 		msg = [NSString stringWithFormat:@"%@\n\n%@", msg, replacingPlugins];
 	
 	NSInteger res = NSRunAlertPanel(NSLocalizedString(@"Plugins Installation", @""), @"%@", NSLocalizedString(@"OK", @""), NSLocalizedString(@"Cancel", @""), nil, msg);
 	
-	if( res)
+	if (res)
 	{
-		for( NSString *path in pluginsArray)
+		for (NSString *path in pluginsArray)
             [PluginManager installPluginFromPath: path];
 		
 		[PluginManager setMenus: filtersMenu :roisMenu :othersMenu :dbMenu];
@@ -1067,9 +1067,9 @@ static NSDate *lastWarningDate = nil;
 #ifndef OSIRIX_LIGHT
 		// refresh the plugin manager window (if open)
 		NSArray *winList = [NSApp windows];		
-		for(NSWindow *window in winList)
+		for (NSWindow *window in winList)
 		{
-			if( [[window windowController] isKindOfClass:[PluginManagerController class]])
+			if ([[window windowController] isKindOfClass:[PluginManagerController class]])
 				[[window windowController] refreshPluginList];
 		}
 #endif
@@ -1110,7 +1110,7 @@ static NSDate *lastWarningDate = nil;
 
 -(IBAction) osirix64bit:(id)sender
 {
-	if( sender)
+	if (sender)
 		[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:URL_OSIRIX_VIEWER@"/OsiriX-64bit.html"]];
 	else
 	{
@@ -1163,9 +1163,9 @@ static NSDate *lastWarningDate = nil;
 	
 	do
 	{
-		if( threadStateChanged == NO)
+		if (threadStateChanged == NO)
 		{
-			if( [[NSFileManager defaultManager] fileExistsAtPath: path] && [(NSString*)[NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil] length] > 0)
+			if ([[NSFileManager defaultManager] fileExistsAtPath: path] && [(NSString*)[NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil] length] > 0)
 			{
 				[NSThread currentThread].status = [[NSThread currentThread].status stringByAppendingFormat: NSLocalizedString( @" - %@", nil), [NSString stringWithContentsOfFile: path]];
 				[NSThread sleepForTimeInterval: 1];
@@ -1176,7 +1176,7 @@ static NSDate *lastWarningDate = nil;
 		rc = waitpid( pid, &state, WNOHANG);
 		[NSThread sleepForTimeInterval: 0.1];
 	}
-	while( rc >= 0);
+	while (rc >= 0);
 	
 	[pool release];
 }
@@ -1187,13 +1187,13 @@ static NSDate *lastWarningDate = nil;
 	gethostname(s,_POSIX_HOST_NAME_MAX);
 	NSString *c = [NSString stringWithCString:s encoding:NSUTF8StringEncoding];
 	NSRange range = [c rangeOfString: @"."];
-	if( range.location != NSNotFound)
+	if (range.location != NSNotFound)
         c = [c substringToIndex: range.location];
 	
-	if( [c length] > 16)
+	if ([c length] > 16)
 		c = [c substringToIndex: 16];
 	
-    if( c.length == 0)
+    if (c.length == 0)
         c = OUR_IMPLEMENTATION_NAME;
     
 	[[NSUserDefaults standardUserDefaults] setObject: c forKey:@"AETITLE"];
@@ -1236,20 +1236,20 @@ static NSDate *lastWarningDate = nil;
 	
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	
-	if( [NSThread isMainThread] == NO)
+	if ([NSThread isMainThread] == NO)
         return;
 	
 	NSDictionary *dictionaryRepresentation = [defaults dictionaryRepresentation];
 	
-	if( [dictionaryRepresentation isEqualToDictionary: previousDefaults])
+	if ([dictionaryRepresentation isEqualToDictionary: previousDefaults])
         return;
 	
     @try {
-        if( [[previousDefaults valueForKey: @"SeriesListVisible"] intValue] != [defaults integerForKey: @"SeriesListVisible"])
+        if ([[previousDefaults valueForKey: @"SeriesListVisible"] intValue] != [defaults integerForKey: @"SeriesListVisible"])
         {
-            if( [[NSUserDefaults standardUserDefaults] boolForKey: @"UseFloatingThumbnailsList"])
+            if ([[NSUserDefaults standardUserDefaults] boolForKey: @"UseFloatingThumbnailsList"])
             {
-                for( NSScreen *s in [NSScreen screens])
+                for (NSScreen *s in [NSScreen screens])
                 {
                     ViewerController *v = [ViewerController frontMostDisplayed2DViewerForScreen: s];
                     [v.window makeKeyAndOrderFront: self];
@@ -1260,23 +1260,23 @@ static NSDate *lastWarningDate = nil;
             else
             {
                 NSDisableScreenUpdates();
-                for( ViewerController *v in [ViewerController getDisplayed2DViewers])
+                for (ViewerController *v in [ViewerController getDisplayed2DViewers])
                     [v setMatrixVisible: [defaults integerForKey: @"SeriesListVisible"]];
                 
                 NSEnableScreenUpdates();
             }
         }
             
-        if( [[previousDefaults valueForKey: @"DisplayDICOMOverlays"] intValue] != [defaults integerForKey: @"DisplayDICOMOverlays"])
+        if ([[previousDefaults valueForKey: @"DisplayDICOMOverlays"] intValue] != [defaults integerForKey: @"DisplayDICOMOverlays"])
             revertViewer = YES;
         
-        if( [[previousDefaults valueForKey: @"ROITEXTNAMEONLY"] intValue] != [defaults integerForKey: @"ROITEXTNAMEONLY"])
+        if ([[previousDefaults valueForKey: @"ROITEXTNAMEONLY"] intValue] != [defaults integerForKey: @"ROITEXTNAMEONLY"])
             refreshViewer = YES;
         
-        if( [[previousDefaults valueForKey: @"ROITEXTIFSELECTED"] intValue] != [defaults integerForKey: @"ROITEXTIFSELECTED"])
+        if ([[previousDefaults valueForKey: @"ROITEXTIFSELECTED"] intValue] != [defaults integerForKey: @"ROITEXTIFSELECTED"])
             refreshViewer = YES;
         
-        if( [[previousDefaults valueForKey: @"PET Blending CLUT"] isKindOfClass: [NSString class]])
+        if ([[previousDefaults valueForKey: @"PET Blending CLUT"] isKindOfClass: [NSString class]])
         {
             if ([[previousDefaults valueForKey: @"PET Blending CLUT"] isEqualToString: [defaults stringForKey: @"PET Blending CLUT"]] == NO) 
                 recomputePETBlending = YES;
@@ -1284,20 +1284,20 @@ static NSDate *lastWarningDate = nil;
         else
             NSLog( @"*** isKindOfClass NSString");
         
-        if( [[previousDefaults valueForKey: @"COPYSETTINGS"] intValue] != [defaults integerForKey: @"COPYSETTINGS"])
+        if ([[previousDefaults valueForKey: @"COPYSETTINGS"] intValue] != [defaults integerForKey: @"COPYSETTINGS"])
             refreshViewer = YES;
         
-        if( [[previousDefaults valueForKey: @"DBDateFormat2"] isKindOfClass:[NSString class]])
+        if ([[previousDefaults valueForKey: @"DBDateFormat2"] isKindOfClass:[NSString class]])
         {
-            if( [[previousDefaults valueForKey: @"DBDateFormat2"] isEqualToString: [defaults stringForKey: @"DBDateFormat2"]] == NO)
+            if ([[previousDefaults valueForKey: @"DBDateFormat2"] isEqualToString: [defaults stringForKey: @"DBDateFormat2"]] == NO)
                 refreshDatabase = YES;
         }
         else
             NSLog( @"*** isKindOfClass NSString");
         
-        if( [[previousDefaults valueForKey: @"DBDateOfBirthFormat2"] isKindOfClass:[NSString class]])
+        if ([[previousDefaults valueForKey: @"DBDateOfBirthFormat2"] isKindOfClass:[NSString class]])
         {
-            if( [[previousDefaults valueForKey: @"DBDateOfBirthFormat2"] isEqualToString: [defaults stringForKey: @"DBDateOfBirthFormat2"]] == NO)
+            if ([[previousDefaults valueForKey: @"DBDateOfBirthFormat2"] isEqualToString: [defaults stringForKey: @"DBDateOfBirthFormat2"]] == NO)
                 refreshDatabase = YES;
         }
         else
@@ -1345,7 +1345,7 @@ static NSDate *lastWarningDate = nil;
         if ([[previousDefaults valueForKey: @"activateCMOVESCP"] intValue] != [defaults integerForKey: @"activateCMOVESCP"])
             restartListener = YES;
         
-        if( [[previousDefaults valueForKey: @"AETITLE"] isKindOfClass:[NSString class]])
+        if ([[previousDefaults valueForKey: @"AETITLE"] isKindOfClass:[NSString class]])
         {
             if ([[previousDefaults valueForKey: @"AETITLE"] isEqualToString: [defaults stringForKey: @"AETITLE"]] == NO)
                 restartListener = YES;
@@ -1353,7 +1353,7 @@ static NSDate *lastWarningDate = nil;
         else
             NSLog( @"*** isKindOfClass NSString");
         
-        if( [[previousDefaults valueForKey: @"STORESCPEXTRA"] isKindOfClass:[NSString class]])
+        if ([[previousDefaults valueForKey: @"STORESCPEXTRA"] isKindOfClass:[NSString class]])
         {
             if ([[previousDefaults valueForKey: @"STORESCPEXTRA"] isEqualToString: [defaults stringForKey: @"STORESCPEXTRA"]] == NO)
                 restartListener = YES;
@@ -1364,7 +1364,7 @@ static NSDate *lastWarningDate = nil;
         if ([[previousDefaults valueForKey: @"AEPORT"] intValue] != [defaults integerForKey: @"AEPORT"])
             restartListener = YES;
         
-        if( [[previousDefaults valueForKey: @"AETransferSyntax"] isKindOfClass:[NSString class]])
+        if ([[previousDefaults valueForKey: @"AETransferSyntax"] isKindOfClass:[NSString class]])
         {
             if ([[previousDefaults valueForKey: @"AETransferSyntax"] isEqualToString: [defaults stringForKey: @"AETransferSyntax"]] == NO)
                 restartListener = YES;
@@ -1414,19 +1414,19 @@ static NSDate *lastWarningDate = nil;
             [[BrowserController currentBrowser] outlineViewRefresh];
         }
         
-    //	if( [(NSString*) [defaults valueForKey:OsirixWebPortalAddressDefaultsKey] length] == 0)
+    //	if ([(NSString*) [defaults valueForKey:OsirixWebPortalAddressDefaultsKey] length] == 0)
     //		[defaults setValue: [[AppController sharedAppController] privateIP] forKey:OsirixWebPortalAddressDefaultsKey];
         
         if (restartListener)
         {
             NSString *c = [[NSUserDefaults standardUserDefaults] stringForKey:@"AETITLE"];
-            if( [c length] > 16)
+            if ([c length] > 16)
             {
                 c = [c substringToIndex: 16];
                 [[NSUserDefaults standardUserDefaults] setObject: c forKey:@"AETITLE"];
             }
             
-            if( showRestartNeeded == YES)
+            if (showRestartNeeded == YES)
             {
                 showRestartNeeded = NO;
                 NSRunAlertPanel(NSLocalizedString( @"DICOM Listener", nil),
@@ -1440,25 +1440,25 @@ static NSDate *lastWarningDate = nil;
         if (refreshColumns)	
             [[BrowserController currentBrowser] refreshColumns];
         
-        if( recomputePETBlending)
+        if (recomputePETBlending)
             [DCMView computePETBlendingCLUT];
         
         [DCMPix checkUserDefaults: YES];
         
-        if( refreshViewer || revertViewer)
+        if (refreshViewer || revertViewer)
         {
             NSArray *windows = [ViewerController getDisplayed2DViewers];
             
-            for(ViewerController *v in windows)
+            for (ViewerController *v in windows)
             {
                 [v needsDisplayUpdate];
-                if( revertViewer)
+                if (revertViewer)
                     [v displayDICOMOverlays: self];
             }
             
-            for(ViewerController *v in windows)
+            for (ViewerController *v in windows)
             {
-                if([[v window] isMainWindow])
+                if ([[v window] isMainWindow])
                     [v copySettingsToOthers: self];
             }
         }
@@ -1468,15 +1468,15 @@ static NSDate *lastWarningDate = nil;
             {
                 NSDictionary *defaultSettings = [[defaults arrayForKey: @"CompressionSettings"] objectAtIndex: 0];
                 
-                if( [[defaultSettings valueForKey: @"compression"] intValue] == 0 ||
+                if ([[defaultSettings valueForKey: @"compression"] intValue] == 0 ||
                     [[defaultSettings valueForKey: @"modality"] isEqualToString: NSLocalizedString( @"default", nil)] == NO)
                 {
                     NSMutableDictionary *d = [[defaultSettings mutableCopy] autorelease];
                     
-                    if( [[defaultSettings valueForKey: @"compression"] intValue] == 0) // same as default
+                    if ([[defaultSettings valueForKey: @"compression"] intValue] == 0) // same as default
                         [d setObject: @"1" forKey: @"compression"];
                     
-                    if( [[defaultSettings valueForKey: @"modality"] isEqualToString: NSLocalizedString( @"default", nil)] == NO) // item 0 IS default
+                    if ([[defaultSettings valueForKey: @"modality"] isEqualToString: NSLocalizedString( @"default", nil)] == NO) // item 0 IS default
                         [d setObject: NSLocalizedString( @"default", nil) forKey: @"modality"];
                     
                     NSMutableArray *a = [[[[NSUserDefaults standardUserDefaults] arrayForKey: @"CompressionSettings"] mutableCopy] autorelease];
@@ -1490,15 +1490,15 @@ static NSDate *lastWarningDate = nil;
             {
                 NSDictionary *defaultSettings = [[defaults arrayForKey: @"CompressionSettingsLowRes"] objectAtIndex: 0];
                 
-                if( [[defaultSettings valueForKey: @"compression"] intValue] == 0 ||
+                if ([[defaultSettings valueForKey: @"compression"] intValue] == 0 ||
                     [[defaultSettings valueForKey: @"modality"] isEqualToString: NSLocalizedString( @"default", nil)] == NO)
                 {
                     NSMutableDictionary *d = [[defaultSettings mutableCopy] autorelease];
                     
-                    if( [[defaultSettings valueForKey: @"compression"] intValue] == 0) // same as default
+                    if ([[defaultSettings valueForKey: @"compression"] intValue] == 0) // same as default
                         [d setObject: @"1" forKey: @"compression"];
                     
-                    if( [[defaultSettings valueForKey: @"modality"] isEqualToString: NSLocalizedString( @"default", nil)] == NO) // item 0 IS default
+                    if ([[defaultSettings valueForKey: @"modality"] isEqualToString: NSLocalizedString( @"default", nil)] == NO) // item 0 IS default
                         [d setObject: NSLocalizedString( @"default", nil) forKey: @"modality"];
                     
                     NSMutableArray *a = [[[[NSUserDefaults standardUserDefaults] arrayForKey: @"CompressionSettingsLowRes"] mutableCopy] autorelease];
@@ -1509,7 +1509,7 @@ static NSDate *lastWarningDate = nil;
                 }
             }
             
-            if( [[[NSUserDefaults standardUserDefaults] stringForKey: @"SupplementaryBurnPath"] length] == 0)
+            if ([[[NSUserDefaults standardUserDefaults] stringForKey: @"SupplementaryBurnPath"] length] == 0)
             {
                 [[NSUserDefaults standardUserDefaults] setBool: NO forKey: @"BurnSupplementaryFolder"];
                 [[NSUserDefaults standardUserDefaults] setObject: nil forKey: @"SupplementaryBurnPath"];
@@ -1532,8 +1532,8 @@ static NSDate *lastWarningDate = nil;
         [DCMView setDefaults];
         [ROI loadDefaultSettings];
         
-        if( restartListener)
-            if( [defaults boolForKey: @"UseHostNameForAETitle"])
+        if (restartListener)
+            if ([defaults boolForKey: @"UseHostNameForAETitle"])
                 [self setAETitleToHostname];
     }
     @catch( NSException *localException) {
@@ -1543,13 +1543,13 @@ static NSDate *lastWarningDate = nil;
 
 - (void) preferencesUpdated: (NSNotification*) note
 {
-	if( [NSThread isMainThread] == NO)
+	if ([NSThread isMainThread] == NO)
         return;
     
-	if( checkForPreferencesUpdate == NO)
+	if (checkForPreferencesUpdate == NO)
         return;
 	
-	if( updateTimer)
+	if (updateTimer)
     {
 		[updateTimer invalidate];
         [updateTimer release];
@@ -1568,64 +1568,64 @@ static NSDate *lastWarningDate = nil;
 #ifndef NDEBUG
 	NSLog( @"Testing localization for menus");
 	
-	if( [self viewerMenu] == nil)
+	if ([self viewerMenu] == nil)
         NSLog( @"******* WARNING MENU MOVED / RENAMED ! viewerMenu");
     
-	if( [self fileMenu] == nil)
+	if ([self fileMenu] == nil)
         NSLog( @"******* WARNING MENU MOVED / RENAMED ! fileMenu");
 	
-	if( [self wlwwMenu] == nil)
+	if ([self wlwwMenu] == nil)
         NSLog( @"******* WARNING MENU MOVED / RENAMED ! wlwwMenu");
     
-	if( [self imageTilingMenu] == nil)
+	if ([self imageTilingMenu] == nil)
         NSLog( @"******* WARNING MENU MOVED / RENAMED ! imageTilingMenu");
     
-	if( [self orientationMenu] == nil)
+	if ([self orientationMenu] == nil)
         NSLog( @"******* WARNING MENU MOVED / RENAMED ! orientationMenu");
     
-	if( [self opacityMenu] == nil)
+	if ([self opacityMenu] == nil)
         NSLog( @"******* WARNING MENU MOVED / RENAMED ! opacityMenu");
     
-	if( [self convMenu] == nil)
+	if ([self convMenu] == nil)
         NSLog( @"******* WARNING MENU MOVED / RENAMED ! convMenu");
     
-	if( [self clutMenu] == nil)
+	if ([self clutMenu] == nil)
         NSLog( @"******* WARNING MENU MOVED / RENAMED ! clutMenu");
     
-    if( [self workspaceMenu] == nil)
+    if ([self workspaceMenu] == nil)
         NSLog( @"******* WARNING MENU MOVED / RENAMED ! workspaceMenu");
 	
-	if( [self exportMenu] == nil)
+	if ([self exportMenu] == nil)
         NSLog( @"******* WARNING MENU MOVED / RENAMED ! exportMenu");
     
-    if( [self viewerMenuTestLocalized: YES] == nil)
+    if ([self viewerMenuTestLocalized: YES] == nil)
         NSLog( @"******* WARNING MENU MOVED / RENAMED ! viewerMenu Localized");
     
-	if( [self fileMenuTestLocalized: YES] == nil)
+	if ([self fileMenuTestLocalized: YES] == nil)
         NSLog( @"******* WARNING MENU MOVED / RENAMED ! fileMenu Localized");
 	
-	if( [self wlwwMenuTestLocalized: YES] == nil)
+	if ([self wlwwMenuTestLocalized: YES] == nil)
         NSLog( @"******* WARNING MENU MOVED / RENAMED ! wlwwMenu Localized");
     
-	if( [self imageTilingMenuTestLocalized: YES] == nil)
+	if ([self imageTilingMenuTestLocalized: YES] == nil)
         NSLog( @"******* WARNING MENU MOVED / RENAMED ! imageTilingMenu Localized");
     
-	if( [self orientationMenuTestLocalized: YES] == nil)
+	if ([self orientationMenuTestLocalized: YES] == nil)
         NSLog( @"******* WARNING MENU MOVED / RENAMED ! orientationMenu Localized");
     
-	if( [self opacityMenuTestLocalized: YES] == nil)
+	if ([self opacityMenuTestLocalized: YES] == nil)
         NSLog( @"******* WARNING MENU MOVED / RENAMED ! opacityMenu Localized");
     
-	if( [self convMenuTestLocalized: YES] == nil)
+	if ([self convMenuTestLocalized: YES] == nil)
         NSLog( @"******* WARNING MENU MOVED / RENAMED ! convMenu Localized");
     
-	if( [self clutMenuTestLocalized: YES] == nil)
+	if ([self clutMenuTestLocalized: YES] == nil)
         NSLog( @"******* WARNING MENU MOVED / RENAMED ! clutMenu Localized");
     
-    if( [self workspaceMenuTestLocalized: YES] == nil)
+    if ([self workspaceMenuTestLocalized: YES] == nil)
         NSLog( @"******* WARNING MENU MOVED / RENAMED ! workspaceMenu Localized");
 	
-	if( [self exportMenuTestLocalized: YES] == nil)
+	if ([self exportMenuTestLocalized: YES] == nil)
         NSLog( @"******* WARNING MENU MOVED / RENAMED ! exportMenu Localized");
 #endif
 }
@@ -1634,15 +1634,15 @@ static NSDate *lastWarningDate = nil;
 {
     NSMenu *mainMenu = [NSApp mainMenu];
     NSMenu *viewerMenu = [[mainMenu itemWithTitle:NSLocalizedString(@"2D Viewer", nil)] submenu];
-    if( testLocalized)
+    if (testLocalized)
         viewerMenu = nil;
     
-    if( viewerMenu == nil)
+    if (viewerMenu == nil)
     {
         viewerMenu = [[mainMenu itemAtIndex: 5]  submenu];
-        if( testLocalized)
+        if (testLocalized)
         {
-            if( [[viewerMenu title] isEqualToString: NSLocalizedString(@"2D Viewer", nil)] == NO)
+            if ([[viewerMenu title] isEqualToString: NSLocalizedString(@"2D Viewer", nil)] == NO)
                 return nil;
         }
     }
@@ -1659,15 +1659,15 @@ static NSDate *lastWarningDate = nil;
 {
     NSMenu *mainMenu = [NSApp mainMenu];
     NSMenu *fileMenu = [[mainMenu itemWithTitle:NSLocalizedString(@"File", nil)] submenu];
-    if( testLocalized)
+    if (testLocalized)
         fileMenu = nil;
     
-    if( fileMenu == nil)
+    if (fileMenu == nil)
     {
         fileMenu = [[mainMenu itemAtIndex: 1] submenu];
-        if( testLocalized)
+        if (testLocalized)
         {
-            if( [[fileMenu title] isEqualToString: NSLocalizedString(@"File", nil)] == NO)
+            if ([[fileMenu title] isEqualToString: NSLocalizedString(@"File", nil)] == NO)
                 return nil;
         }
     }
@@ -1684,15 +1684,15 @@ static NSDate *lastWarningDate = nil;
 {
     NSMenu *fileMenu = [self fileMenu];
     NSMenu *exportMenu = [[fileMenu itemWithTitle:NSLocalizedString(@"Export", nil)] submenu];
-    if( testLocalized)
+    if (testLocalized)
         exportMenu = nil;
     
-    if( exportMenu == nil)
+    if (exportMenu == nil)
     {
         exportMenu = [[fileMenu itemAtIndex: 12] submenu];
-        if( testLocalized)
+        if (testLocalized)
         {
-            if( [[exportMenu title] isEqualToString: NSLocalizedString(@"Export", nil)] == NO)
+            if ([[exportMenu title] isEqualToString: NSLocalizedString(@"Export", nil)] == NO)
                 return nil;
         }
     }
@@ -1709,12 +1709,12 @@ static NSDate *lastWarningDate = nil;
 {
     NSMenu *viewerMenu = [self viewerMenu];
     NSMenu *imageTilingMenu = [[viewerMenu itemWithTitle: NSLocalizedString(@"Image Tiling", nil)] submenu];
-    if( imageTilingMenu == nil)
+    if (imageTilingMenu == nil)
     {
         imageTilingMenu = [[viewerMenu itemAtIndex: 48]  submenu];
-        if( testLocalized)
+        if (testLocalized)
         {
-            if( [[imageTilingMenu title] isEqualToString: NSLocalizedString(@"Image Tiling", nil)] == NO)
+            if ([[imageTilingMenu title] isEqualToString: NSLocalizedString(@"Image Tiling", nil)] == NO)
                 return nil;
         }
     }
@@ -1731,15 +1731,15 @@ static NSDate *lastWarningDate = nil;
 {
     NSMenu *viewerMenu = [self viewerMenu];
     NSMenu *orientationMenu = [[viewerMenu itemWithTitle: NSLocalizedString(@"Orientation", nil)] submenu];
-    if( testLocalized)
+    if (testLocalized)
         orientationMenu = nil;
     
-    if( orientationMenu == nil)
+    if (orientationMenu == nil)
     {
         orientationMenu = [[viewerMenu itemAtIndex: 12]  submenu];
-        if( testLocalized)
+        if (testLocalized)
         {
-            if( [[orientationMenu title] isEqualToString: NSLocalizedString(@"Orientation", nil)] == NO)
+            if ([[orientationMenu title] isEqualToString: NSLocalizedString(@"Orientation", nil)] == NO)
                 return nil;
         }
     }
@@ -1756,15 +1756,15 @@ static NSDate *lastWarningDate = nil;
 {
     NSMenu *viewerMenu = [self viewerMenu];
     NSMenu *opacityMenu = [[viewerMenu itemWithTitle: NSLocalizedString(@"Opacity", nil)] submenu];
-    if( testLocalized)
+    if (testLocalized)
         opacityMenu = nil;
     
-    if( opacityMenu == nil)
+    if (opacityMenu == nil)
     {
         opacityMenu = [[viewerMenu itemAtIndex: 44]  submenu];
-        if( testLocalized)
+        if (testLocalized)
         {
-            if( [[opacityMenu title] isEqualToString: NSLocalizedString(@"Opacity", nil)] == NO)
+            if ([[opacityMenu title] isEqualToString: NSLocalizedString(@"Opacity", nil)] == NO)
                 return nil;
         }
     }
@@ -1781,15 +1781,15 @@ static NSDate *lastWarningDate = nil;
 {
     NSMenu *viewerMenu = [self viewerMenu];
     NSMenu *wlwwMenu = [[viewerMenu itemWithTitle:NSLocalizedString(@"Window Width & Level", nil)] submenu];
-    if( testLocalized)
+    if (testLocalized)
         wlwwMenu = nil;
     
-    if( wlwwMenu == nil)
+    if (wlwwMenu == nil)
     {
         wlwwMenu = [[viewerMenu itemAtIndex: 41]  submenu];
-        if( testLocalized)
+        if (testLocalized)
         {
-            if( [[wlwwMenu title] isEqualToString: NSLocalizedString(@"Window Width & Level", nil)] == NO)
+            if ([[wlwwMenu title] isEqualToString: NSLocalizedString(@"Window Width & Level", nil)] == NO)
                 return nil;
         }
     }
@@ -1806,15 +1806,15 @@ static NSDate *lastWarningDate = nil;
 {
     NSMenu *viewerMenu = [self viewerMenu];
     NSMenu *convMenu = [[viewerMenu itemWithTitle: NSLocalizedString(@"Convolution Filters", nil)] submenu];
-    if( testLocalized)
+    if (testLocalized)
         convMenu = nil;
     
-    if( convMenu == nil)
+    if (convMenu == nil)
     {
         convMenu = [[viewerMenu itemAtIndex: 45]  submenu];
-        if( testLocalized)
+        if (testLocalized)
         {
-            if( [[convMenu title] isEqualToString: NSLocalizedString(@"Convolution Filters", nil)] == NO)
+            if ([[convMenu title] isEqualToString: NSLocalizedString(@"Convolution Filters", nil)] == NO)
                 return nil;
         }
     }
@@ -1831,15 +1831,15 @@ static NSDate *lastWarningDate = nil;
 {
     NSMenu *viewerMenu = [self viewerMenu];
     NSMenu *clutMenu = [[viewerMenu itemWithTitle:NSLocalizedString(@"Color Look Up Table", nil)] submenu];
-    if( testLocalized)
+    if (testLocalized)
         clutMenu = nil;
     
-    if( clutMenu == nil)
+    if (clutMenu == nil)
     {
         clutMenu = [[viewerMenu itemAtIndex: 42]  submenu];
-        if( testLocalized)
+        if (testLocalized)
         {
-            if( [[clutMenu title] isEqualToString: NSLocalizedString(@"Color Look Up Table", nil)] == NO)
+            if ([[clutMenu title] isEqualToString: NSLocalizedString(@"Color Look Up Table", nil)] == NO)
                 return nil;
         }
     }
@@ -1856,16 +1856,16 @@ static NSDate *lastWarningDate = nil;
 {
     NSMenu *viewerMenu = [self viewerMenu];
     NSMenu *workspaceMenu = [[viewerMenu itemWithTitle:NSLocalizedString(@"Load Workspace State DICOM SR", nil)] submenu];
-    if( testLocalized)
+    if (testLocalized)
         workspaceMenu = nil;
     
-    if( workspaceMenu == nil)
+    if (workspaceMenu == nil)
     {
         @try {
             workspaceMenu = [[viewerMenu itemAtIndex: 55]  submenu];
-            if( testLocalized)
+            if (testLocalized)
             {
-                if( [[workspaceMenu title] isEqualToString: NSLocalizedString(@"Load Workspace State DICOM SR", nil)] == NO)
+                if ([[workspaceMenu title] isEqualToString: NSLocalizedString(@"Load Workspace State DICOM SR", nil)] == NO)
                     return nil;
             }
         }
@@ -1889,37 +1889,37 @@ static NSDate *lastWarningDate = nil;
    
     NSMutableArray *studies = [NSMutableArray array];
     
-    if( [BrowserController.currentBrowser.window isKeyWindow] && BrowserController.currentBrowser.selectedStudy)
+    if ([BrowserController.currentBrowser.window isKeyWindow] && BrowserController.currentBrowser.selectedStudy)
         [studies addObject: BrowserController.currentBrowser.selectedStudy];
     
-    if( studies.count == 0)
+    if (studies.count == 0)
     {
-        for( ViewerController *v in [ViewerController getDisplayed2DViewers])
+        for (ViewerController *v in [ViewerController getDisplayed2DViewers])
         {
-            if( [studies containsObject: v.currentStudy] == NO)
+            if ([studies containsObject: v.currentStudy] == NO)
                 [studies addObject: v.currentStudy];
         }
     }
     
-    if( studies.count)
+    if (studies.count)
     {
         int index = 1;
         DicomStudy *study = [studies objectAtIndex: 0];
         
-        for( Dicom_Image *i in [study allWindowsStateSRSeries])
+        for (Dicom_Image *i in [study allWindowsStateSRSeries])
         {
             @try {
                 SRAnnotation *r = [[[SRAnnotation alloc] initWithContentsOfFile: [i completePathResolved]] autorelease];
                 
                 NSArray *viewers = [NSPropertyListSerialization propertyListFromData: r.dataEncapsulated mutabilityOption: NSPropertyListImmutable format: nil errorDescription: nil];
                 
-                if( viewers.count)
+                if (viewers.count)
                 {
                     NSString *name = [[viewers lastObject] objectForKey: @"name"];
                     
-                    if( name.length == 0)
+                    if (name.length == 0)
                     {
-                        if( [[viewers lastObject] objectForKey: @"date"])
+                        if ([[viewers lastObject] objectForKey: @"date"])
                             name = [NSUserDefaults formatDateTime: [[viewers lastObject] objectForKey: @"date"]];
                         else
                         {
@@ -1944,7 +1944,7 @@ static NSDate *lastWarningDate = nil;
         }
     }
     
-    if( menu.numberOfItems == 0)
+    if (menu.numberOfItems == 0)
         [menu addItemWithTitle: NSLocalizedString( @"No saved state", nil) action: nil keyEquivalent: @""];
     
     return;
@@ -1957,19 +1957,19 @@ static NSDate *lastWarningDate = nil;
     
     NSData *windowsState = [NSPropertyListSerialization dataFromPropertyList: state  format: NSPropertyListXMLFormat_v1_0 errorDescription: nil];
     
-    if( study && windowsState)
+    if (study && windowsState)
     {
         // Replace the current windows state of the study, with the content of the DICOM SR
         [study setValue: windowsState forKey: @"windowsState"];
         
         BOOL c = [[NSUserDefaults standardUserDefaults] boolForKey:@"automaticWorkspaceLoad"];
         
-        if( c == NO)
+        if (c == NO)
             [[NSUserDefaults standardUserDefaults] setBool: YES forKey:@"automaticWorkspaceLoad"];
         
         [[BrowserController currentBrowser] databaseOpenStudy: study];
         
-        if( c == NO)
+        if (c == NO)
             [[NSUserDefaults standardUserDefaults] setBool: c forKey:@"automaticWorkspaceLoad"];
     }
 }
@@ -1981,10 +1981,10 @@ static NSDate *lastWarningDate = nil;
     NSArray     *keys;
     NSArray     *sortedKeys;
     
-	if( mainOpacityMenu == nil)
+	if (mainOpacityMenu == nil)
 		mainOpacityMenu = [[self opacityMenu] retain];
 	
-	if( [[NSUserDefaults standardUserDefaults] dictionaryForKey: @"OPACITY"] != previousOpacityKeys)
+	if ([[NSUserDefaults standardUserDefaults] dictionaryForKey: @"OPACITY"] != previousOpacityKeys)
 	{
 		previousOpacityKeys = [[NSUserDefaults standardUserDefaults] dictionaryForKey: @"OPACITY"];
 		keys = [previousOpacityKeys allKeys];
@@ -1995,7 +1995,7 @@ static NSDate *lastWarningDate = nil;
 		
 		[mainOpacityMenu addItemWithTitle:NSLocalizedString(@"Linear Table", nil) action:@selector (ApplyOpacity:) keyEquivalent:@""];
         
-		for( i = 0; i < [sortedKeys count]; i++)
+		for (i = 0; i < [sortedKeys count]; i++)
 		{
 			[mainOpacityMenu addItemWithTitle:[sortedKeys objectAtIndex:i] action:@selector (ApplyOpacity:) keyEquivalent:@""];
 		}
@@ -2012,10 +2012,10 @@ static NSDate *lastWarningDate = nil;
     NSArray     *keys;
     NSArray     *sortedKeys;
     
-	if( mainMenuWLWWMenu == nil)
+	if (mainMenuWLWWMenu == nil)
 		mainMenuWLWWMenu = [[self wlwwMenu] retain];
 	
-	if( [[NSUserDefaults standardUserDefaults] dictionaryForKey:@"WLWW3"] != previousWLWWKeys)
+	if ([[NSUserDefaults standardUserDefaults] dictionaryForKey:@"WLWW3"] != previousWLWWKeys)
 	{
 		previousWLWWKeys = [[NSUserDefaults standardUserDefaults] dictionaryForKey:@"WLWW3"];
 		keys = [previousWLWWKeys allKeys];
@@ -2030,7 +2030,7 @@ static NSDate *lastWarningDate = nil;
 		
 		[mainMenuWLWWMenu addItem: [NSMenuItem separatorItem]];
 		
-		for( i = 0; i < [sortedKeys count]; i++)
+		for (i = 0; i < [sortedKeys count]; i++)
 		{
 			[mainMenuWLWWMenu addItemWithTitle:[NSString stringWithFormat:@"%d - %@", i+1, [sortedKeys objectAtIndex:i]] action:@selector (ApplyWLWW:) keyEquivalent:@""];
 		}
@@ -2049,10 +2049,10 @@ static NSDate *lastWarningDate = nil;
 	NSArray     *keys;
 	NSArray     *sortedKeys;
 	
-	if( mainMenuConvMenu == nil)
+	if (mainMenuConvMenu == nil)
 		mainMenuConvMenu = [[self convMenu] retain];
 	
-	if( [[NSUserDefaults standardUserDefaults] dictionaryForKey: @"Convolution"] != previousConvKeys)
+	if ([[NSUserDefaults standardUserDefaults] dictionaryForKey: @"Convolution"] != previousConvKeys)
 	{
 		previousConvKeys = [[NSUserDefaults standardUserDefaults] dictionaryForKey: @"Convolution"];
 		keys = [previousConvKeys allKeys];
@@ -2065,7 +2065,7 @@ static NSDate *lastWarningDate = nil;
 		
 		[mainMenuConvMenu addItem: [NSMenuItem separatorItem]];
 		
-		for( i = 0; i < [sortedKeys count]; i++)
+		for (i = 0; i < [sortedKeys count]; i++)
 		{
 			[mainMenuConvMenu addItemWithTitle:[sortedKeys objectAtIndex:i] action:@selector (ApplyConv:) keyEquivalent:@""];
 		}
@@ -2082,10 +2082,10 @@ static NSDate *lastWarningDate = nil;
     NSArray     *keys;
     NSArray     *sortedKeys;
     
-	if( mainMenuCLUTMenu == nil)
+	if (mainMenuCLUTMenu == nil)
         mainMenuCLUTMenu = [[self clutMenu] retain];
 
-	if( [[NSUserDefaults standardUserDefaults] dictionaryForKey: @"CLUT"] != previousCLUTKeys)
+	if ([[NSUserDefaults standardUserDefaults] dictionaryForKey: @"CLUT"] != previousCLUTKeys)
 	{
 		previousCLUTKeys = [[NSUserDefaults standardUserDefaults] dictionaryForKey: @"CLUT"];
 		keys = [previousCLUTKeys allKeys];
@@ -2098,7 +2098,7 @@ static NSDate *lastWarningDate = nil;
 		
 		[mainMenuCLUTMenu addItem: [NSMenuItem separatorItem]];
 		
-		for( i = 0; i < [sortedKeys count]; i++)
+		for (i = 0; i < [sortedKeys count]; i++)
 		{
 			[mainMenuCLUTMenu addItemWithTitle:[sortedKeys objectAtIndex:i] action:@selector (ApplyCLUT:) keyEquivalent:@""];
 		}
@@ -2117,23 +2117,23 @@ static NSDate *lastWarningDate = nil;
 	NSString* description = [NSUserDefaults bonjourSharingName];
 	NSMutableDictionary *dict = [NSMutableDictionary dictionary];
 	
-	if( description && [description length] > 0)
+	if (description && [description length] > 0)
 		[dict setValue: description forKey: @"serverDescription"];
 	
 	[dict setValue: [[NSUserDefaults standardUserDefaults] stringForKey: @"AETITLE"] forKey: @"AETitle"]; 
 	[dict setValue:[AppController UID] forKey: @"UID"]; 
 	
-    if( [[NSUserDefaults standardUserDefaults] boolForKey: @"activateCGETSCP"])
+    if ([[NSUserDefaults standardUserDefaults] boolForKey: @"activateCGETSCP"])
         [dict setValue: @"YES" forKey: @"CGET"]; // TXTRECORD doesnt support NSNumber
     else
         [dict setValue: @"NO" forKey: @"CGET"];  // TXTRECORD doesnt support NSNumber
     
-    if( [[NSUserDefaults standardUserDefaults] boolForKey: @"activateCFINDSCP"])
+    if ([[NSUserDefaults standardUserDefaults] boolForKey: @"activateCFINDSCP"])
         [dict setValue: @"YES" forKey: @"CFIND"];
     else
         [dict setValue: @"NO" forKey: @"CFIND"];
     
-    if( [[NSUserDefaults standardUserDefaults] boolForKey: @"activateCMOVESCP"])
+    if ([[NSUserDefaults standardUserDefaults] boolForKey: @"activateCMOVESCP"])
         [dict setValue: @"YES" forKey: @"CMOVE"];
     else
         [dict setValue: @"NO" forKey: @"CMOVE"];
@@ -2146,7 +2146,7 @@ static NSDate *lastWarningDate = nil;
 		[dict setValue: [NSString stringWithFormat:@"%d", port] forKey: @"WADOPort"];
 		[dict setValue: @"/wado" forKey: @"WADOURL"];
 		
-		if( [[NSUserDefaults standardUserDefaults] boolForKey: @"encryptedWebServer"])
+		if ([[NSUserDefaults standardUserDefaults] boolForKey: @"encryptedWebServer"])
 			[dict setValue: @"https" forKey: @"WADOProtocol"];
 		else
 			[dict setValue: @"http" forKey: @"WADOProtocol"];
@@ -2203,7 +2203,7 @@ static NSDate *lastWarningDate = nil;
 		quitting = YES;
 		
 		// The Built-In StoreSCP is now the default and only storescp available in OsiriX.... Antoine 4/9/06
-		if( [[NSUserDefaults standardUserDefaults] boolForKey: @"USESTORESCP"] != YES)
+		if ([[NSUserDefaults standardUserDefaults] boolForKey: @"USESTORESCP"] != YES)
 			[[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"USESTORESCP"];
 		
 		if ([[NSUserDefaults standardUserDefaults] boolForKey: @"STORESCP"])
@@ -2225,7 +2225,7 @@ static NSDate *lastWarningDate = nil;
 				[theArguments addObject:@"storescp"];
 				[aTask setArguments:theArguments];		
 				[aTask launch];
-                while( [aTask isRunning])
+                while ([aTask isRunning])
                     [NSThread sleepForTimeInterval: 0.01];
                 
 //				[aTask waitUntilExit];
@@ -2240,7 +2240,7 @@ static NSDate *lastWarningDate = nil;
 			
 			if ([[NSUserDefaults standardUserDefaults] boolForKey: @"USESTORESCP"])
 			{
-				if( [STORESCP tryLock])
+				if ([STORESCP tryLock])
 				{
 					[NSThread detachNewThreadSelector: @selector(startSTORESCP:) toTarget: self withObject: self];
 					
@@ -2255,7 +2255,7 @@ static NSDate *lastWarningDate = nil;
 			}		
 		}
 		
-		if([[NSUserDefaults standardUserDefaults] boolForKey:@"STORESCPTLS"])
+		if ([[NSUserDefaults standardUserDefaults] boolForKey:@"STORESCPTLS"])
 		{
 			[dcmtkQRSCPTLS release];
 			dcmtkQRSCPTLS = nil;
@@ -2264,7 +2264,7 @@ static NSDate *lastWarningDate = nil;
 			NSString* path = [[DicomDatabase activeLocalDatabase] incomingDirPath];
 			[[NSFileManager defaultManager] confirmNoIndexDirectoryAtPath:path];
 			
-			if( [STORESCPTLS tryLock])
+			if ([STORESCPTLS tryLock])
 			{
 				[NSThread detachNewThreadSelector: @selector(startSTORESCPTLS:) toTarget: self withObject: self];
 				
@@ -2281,7 +2281,7 @@ static NSDate *lastWarningDate = nil;
 	} @catch (NSException* e) {
 		N2LogExceptionWithStackTrace(e);
         
-        if( [NSThread isMainThread])
+        if ([NSThread isMainThread])
             NSRunAlertPanel( NSLocalizedString( @"Database", nil), @"%@", NSLocalizedString( @"OK", nil), nil, nil, e.reason);
 	}
 	
@@ -2328,11 +2328,11 @@ static NSDate *lastWarningDate = nil;
     
 	@try 
 	{
-		if( [[NSUserDefaults standardUserDefaults] boolForKey: @"UseHostNameForAETitle"])
+		if ([[NSUserDefaults standardUserDefaults] boolForKey: @"UseHostNameForAETitle"])
 			[self setAETitleToHostname];
 		
 		NSString *c = [[NSUserDefaults standardUserDefaults] stringForKey:@"AETITLE"];
-		if( [c length] > 16)
+		if ([c length] > 16)
 		{
 			c = [c substringToIndex: 16];
 			[[NSUserDefaults standardUserDefaults] setObject: c forKey:@"AETITLE"];
@@ -2367,14 +2367,14 @@ static NSDate *lastWarningDate = nil;
 	
     [NSThread currentThread].name = @"DICOM Store-SCP TLS";
     
-	if([[NSUserDefaults standardUserDefaults] boolForKey:@"STORESCPTLS"])
+	if ([[NSUserDefaults standardUserDefaults] boolForKey:@"STORESCPTLS"])
 	{
 		[STORESCPTLS lock];
 		
 		@try 
 		{
 			NSString *c = [[NSUserDefaults standardUserDefaults] stringForKey:@"TLSStoreSCPAETITLE"];
-			if( [c length] > 16)
+			if ([c length] > 16)
 			{
 				c = [c substringToIndex: 16];
 				[[NSUserDefaults standardUserDefaults] setObject: c forKey:@"TLSStoreSCPAETITLE"];
@@ -2407,9 +2407,9 @@ static NSDate *lastWarningDate = nil;
 	NSString *str = [[event paramDescriptorForKeyword:keyDirectObject] stringValue];
 	NSURL *url = [NSURL URLWithString: str];
 		
-	if( [[url scheme] isEqualToString: @"osirix"])
+	if ([[url scheme] isEqualToString: @"osirix"])
 	{
-		if( [[NSUserDefaults standardUserDefaults] boolForKey: @"httpXMLRPCServer"] == NO)
+		if ([[NSUserDefaults standardUserDefaults] boolForKey: @"httpXMLRPCServer"] == NO)
 		{
 			int result = NSRunInformationalAlertPanel(NSLocalizedString(@"URL scheme", nil),
                                                       NSLocalizedString(@"OsiriX URL scheme (osirix://) is currently not activated!\r\rShould I activate it now? Restart is necessary.", nil),
@@ -2417,7 +2417,7 @@ static NSDate *lastWarningDate = nil;
                                                       NSLocalizedString(@"Activate & Restart",nil),
                                                       nil);
 			
-			if( result == NSAlertAlternateReturn)
+			if (result == NSAlertAlternateReturn)
 			{
 				[[NSUserDefaults standardUserDefaults] setBool: YES forKey: @"httpXMLRPCServer"];
 				[[NSUserDefaults standardUserDefaults] synchronize];
@@ -2430,12 +2430,12 @@ static NSDate *lastWarningDate = nil;
 		BOOL betweenQuotation = NO;
 		
 		NSMutableString *parsedContent = [NSMutableString string];
-		for( int i = 0 ; i < content.length; i++)
+		for (int i = 0 ; i < content.length; i++)
 		{
-			if( [content characterAtIndex: i] == '\'')
+			if ([content characterAtIndex: i] == '\'')
 				betweenQuotation = !betweenQuotation;
 				
-			if( [content characterAtIndex: i] == '?' && betweenQuotation)
+			if ([content characterAtIndex: i] == '?' && betweenQuotation)
 				[parsedContent appendString: @"__question__"];
 			else
 				[parsedContent appendFormat: @"%c", [content characterAtIndex: i]];
@@ -2444,42 +2444,42 @@ static NSDate *lastWarningDate = nil;
 		// parse the URL to find the parameters (if any)
 		
 		NSArray *urlComponents = [NSArray array];
-		for( NSString *s in [parsedContent componentsSeparatedByString: @"?"])
+		for (NSString *s in [parsedContent componentsSeparatedByString: @"?"])
 		{
 			urlComponents = [urlComponents arrayByAddingObject: [s stringByReplacingOccurrencesOfString:@"__question__" withString:@"?"]];
 		}
 		
-        if([urlComponents count] == 2)
+        if ([urlComponents count] == 2)
 		{
             NSString *parameterString = @"";
 			parameterString = [[urlComponents lastObject] stringByReplacingPercentEscapesUsingEncoding: NSUTF8StringEncoding];
 		
 			NSMutableDictionary *urlParameters = [NSMutableDictionary dictionary];
-			if(![parameterString isEqualToString: @""])
+			if (![parameterString isEqualToString: @""])
 			{
 				NSMutableString *parsedParameterString = [NSMutableString string];
-				for( int i = 0 ; i < parameterString.length; i++)
+				for (int i = 0 ; i < parameterString.length; i++)
 				{
-					if( [parameterString characterAtIndex: i] == '\'')
+					if ([parameterString characterAtIndex: i] == '\'')
 						betweenQuotation = !betweenQuotation;
 						
-					if( [parameterString characterAtIndex: i] == '&' && betweenQuotation)
+					if ([parameterString characterAtIndex: i] == '&' && betweenQuotation)
 						[parsedParameterString appendString: @"__and__"];
 					else
 						[parsedParameterString appendFormat: @"%c", [parameterString characterAtIndex: i]];
 				}
 				
 				NSArray *paramArray = [NSArray array];
-				for( NSString *s in [parsedParameterString componentsSeparatedByString: @"&"])
+				for (NSString *s in [parsedParameterString componentsSeparatedByString: @"&"])
 				{
 					paramArray = [paramArray arrayByAddingObject: [s stringByReplacingOccurrencesOfString:@"__and__" withString:@"&"]];
 				}
 				
-				for(NSString *param in paramArray)
+				for (NSString *param in paramArray)
 				{
 					NSRange separatorRange = [param rangeOfString: @"="];
 					
-					if( separatorRange.location != NSNotFound)
+					if (separatorRange.location != NSNotFound)
 					{
 						@try
 						{
@@ -2496,17 +2496,17 @@ static NSDate *lastWarningDate = nil;
 					}
 				}
 				
-				if( [urlParameters objectForKey: @"methodName"]) // XML-RPC message
+				if ([urlParameters objectForKey: @"methodName"]) // XML-RPC message
 				{
                     NSMutableDictionary* paramDict = [NSMutableDictionary dictionaryWithDictionary:urlParameters];
                     [XMLRPCServer methodCall:[urlParameters objectForKey:@"methodName"] parameters:paramDict error:NULL];
 				}
 				
-				if( [urlParameters objectForKey: @"image"])
+				if ([urlParameters objectForKey: @"image"])
 				{
 					NSArray *components = [[urlParameters objectForKey: @"image"] componentsSeparatedByString:@"+"];
 					
-					if( [components count] == 2)
+					if ([components count] == 2)
 					{
 						NSString *sopclassuid = [components objectAtIndex: 0];
 						NSString *sopinstanceuid = [components objectAtIndex: 1];
@@ -2515,7 +2515,7 @@ static NSDate *lastWarningDate = nil;
 						BOOL succeeded = NO;
 						
 						//First try to find it in the selected study
-						if( succeeded == NO)
+						if (succeeded == NO)
 						{
 							NSMutableArray *allImages = [NSMutableArray array];
 							[[BrowserController currentBrowser] filesForDatabaseOutlineSelection: allImages];
@@ -2530,7 +2530,7 @@ static NSDate *lastWarningDate = nil;
 								
 								NSArray *imagesArray = [allImages filteredArrayUsingPredicate: request];
 								
-								if( [imagesArray count])
+								if ([imagesArray count])
 								{
 									[[BrowserController currentBrowser] displayStudy: [[imagesArray lastObject] valueForKeyPath: @"series.study"] object: [imagesArray lastObject] command: @"Open"];
 									succeeded = YES;
@@ -2545,7 +2545,7 @@ static NSDate *lastWarningDate = nil;
 						}
 						//Second option, try to find the uid in the ENTIRE db....
 						
-						if( succeeded == NO)
+						if (succeeded == NO)
 						{
 							NSFetchRequest *dbRequest = [[[NSFetchRequest alloc] init] autorelease];
 							[dbRequest setEntity: [[[BrowserController currentBrowser] database] seriesEntity]];
@@ -2566,25 +2566,25 @@ static NSDate *lastWarningDate = nil;
 								NSArray *allSeries = [[context executeFetchRequest: dbRequest error: &error] valueForKey: @"images"];
 								
 								NSMutableArray *allImages = [NSMutableArray array];
-								for( NSSet *s in allSeries)
+								for (NSSet *s in allSeries)
 									[allImages addObjectsFromArray: [s allObjects]];
 								
 								NSData *searchedUID = [Dicom_Image sopInstanceUIDEncodeString: sopinstanceuid];
 								Dicom_Image *searchUIDImage = nil;
 								
-								for( Dicom_Image *i in allImages)
+								for (Dicom_Image *i in allImages)
 								{
-									if( [[i valueForKey: @"compressedSopInstanceUID"] isEqualToSopInstanceUID: searchedUID])
+									if ([[i valueForKey: @"compressedSopInstanceUID"] isEqualToSopInstanceUID: searchedUID])
 										searchUIDImage = i;
 									
-									if( searchUIDImage)
+									if (searchUIDImage)
 										break;
 									
-									if( [wait run] == NO)
+									if ([wait run] == NO)
 										break;
 								}
 								
-								if( searchUIDImage)
+								if (searchUIDImage)
 									[[BrowserController currentBrowser] displayStudy: [searchUIDImage valueForKeyPath: @"series.study"] object: searchUIDImage command: @"Open"];
 							}
 							@catch (NSException * e)
@@ -2601,7 +2601,7 @@ static NSDate *lastWarningDate = nil;
 				}
 			}
 		}
-        else if( [url.pathExtension isEqualToString: @"xml"])
+        else if ([url.pathExtension isEqualToString: @"xml"])
         {
             [BrowserController asyncWADOXMLDownloadURL: url];
 		}
@@ -2610,12 +2610,12 @@ static NSDate *lastWarningDate = nil;
 
 - (void)application:(NSApplication *)sender openFiles:(NSArray *)filenames
 {
-	if([filenames count] == 1) // for iChat Theatre... (drag & drop a DICOM file on the video chat window)
+	if ([filenames count] == 1) // for iChat Theatre... (drag & drop a DICOM file on the video chat window)
 	{
-		for( ViewerController *v in [ViewerController getDisplayed2DViewers])
+		for (ViewerController *v in [ViewerController getDisplayed2DViewers])
 		{
-			for( id im in [v fileList])
-				if([[im path] isEqualToString:[filenames objectAtIndex: 0]])
+			for (id im in [v fileList])
+				if ([[im path] isEqualToString:[filenames objectAtIndex: 0]])
 				{
 					[[v window] makeKeyWindow];
 					return;
@@ -2644,7 +2644,7 @@ static BOOL firstCall = YES;
 
 - (void)applicationWillBecomeActive:(NSNotification *)aNotification
 {
-    if( firstCall)
+    if (firstCall)
         return;
     
     [[NSRunningApplication currentApplication] activateWithOptions: NSApplicationActivateAllWindows];
@@ -2652,7 +2652,7 @@ static BOOL firstCall = YES;
 
 - (void)applicationDidBecomeActive:(NSNotification *)aNotification
 {
-    if( firstCall)
+    if (firstCall)
     {
         firstCall = NO;
         return;
@@ -2660,15 +2660,15 @@ static BOOL firstCall = YES;
     
     [[BrowserController currentBrowser] syncReportsIfNecessary];
 	
-	if( [[NSUserDefaults standardUserDefaults] boolForKey: @"hideListenerError"] == NO) // Server mode
+	if ([[NSUserDefaults standardUserDefaults] boolForKey: @"hideListenerError"] == NO) // Server mode
 	{
-		if( [[[BrowserController currentBrowser] window] isMiniaturized] == YES || [[[BrowserController currentBrowser] window] isVisible] == NO)
+		if ([[[BrowserController currentBrowser] window] isMiniaturized] == YES || [[[BrowserController currentBrowser] window] isVisible] == NO)
 		{
 			NSArray *winList = [NSApp windows];
             
-			for( id loopItem in winList)
+			for (id loopItem in winList)
 			{
-				if( [[loopItem windowController] isKindOfClass:[ViewerController class]])
+				if ([[loopItem windowController] isKindOfClass:[ViewerController class]])
                     return;
 			}
 			
@@ -2679,10 +2679,10 @@ static BOOL firstCall = YES;
 
 - (BOOL) applicationShouldHandleReopen:(NSApplication *)theApplication hasVisibleWindows:(BOOL)flag
 {
-	if( [[NSUserDefaults standardUserDefaults] boolForKey: @"hideListenerError"]) // Server mode
+	if ([[NSUserDefaults standardUserDefaults] boolForKey: @"hideListenerError"]) // Server mode
 		return YES;
 	
-	if( flag == NO)
+	if (flag == NO)
 		[[[BrowserController currentBrowser] window] makeKeyAndOrderFront: self];
 	
 	return YES;
@@ -2823,7 +2823,7 @@ static BOOL firstCall = YES;
         for (NSString* file in [[NSFileManager defaultManager] contentsOfDirectoryAtPath: incomingDirectoryPath error: nil])
 			[[NSFileManager defaultManager] moveItemAtPathToTrash: [tempDirectory stringByAppendingPathComponent:file]];
         
-        if( [[[NSFileManager defaultManager] contentsOfDirectoryAtPath: incomingDirectoryPath error: nil] count])
+        if ([[[NSFileManager defaultManager] contentsOfDirectoryAtPath: incomingDirectoryPath error: nil] count])
             [[NSFileManager defaultManager] moveItemAtPathToTrash: incomingDirectoryPath];
         
         if ([[[NSFileManager defaultManager] contentsOfDirectoryAtPath: incomingDirectoryPath error: nil] count])
@@ -2836,13 +2836,13 @@ static BOOL firstCall = YES;
 
 - (void) terminate :(id) sender
 {
-	if( [[BrowserController currentBrowser] shouldTerminate: sender] == NO)
+	if ([[BrowserController currentBrowser] shouldTerminate: sender] == NO)
         return;
 
 #ifndef OSIRIX_LIGHT
     [[NSUserDefaults standardUserDefaults] setBool: [[[QueryController currentQueryController] window] isVisible] forKey: @"isQueryControllerVisible"];
 #endif
-    for( NSWindow *w in [NSApp windows])
+    for (NSWindow *w in [NSApp windows])
 		[w orderOut:sender];
     
 #ifndef OSIRIX_LIGHT
@@ -2866,7 +2866,7 @@ static BOOL firstCall = YES;
         [NSThread sleepForTimeInterval:0.05];
     }
     
-    for( NSWindow *w in [NSApp windows])
+    for (NSWindow *w in [NSApp windows])
 		[w close];
     
 	[[NSUserDefaults standardUserDefaults] synchronize];
@@ -2945,7 +2945,7 @@ static BOOL initialized = NO;
 	{
 		if ( self == [AppController class] && initialized == NO)
 		{
-			if( [[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundlePackageType"] isEqualToString: @"APPL"])
+			if ([[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundlePackageType"] isEqualToString: @"APPL"])
 			{
 				[NSThread detachNewThreadSelector: @selector(DNSResolve:) toTarget: self withObject: nil];
 							
@@ -2956,7 +2956,7 @@ static BOOL initialized = NO;
 				srandom(time(NULL));
 				
 				Altivec = HasAltiVec();
-				//	if( Altivec == 0)
+				//	if (Altivec == 0)
 				//	{
 				//		NSRunCriticalAlertPanel(@"Hardware Info", @"This application is optimized for Altivec - Velocity Engine unit, available only on G4/G5 processors.", @"OK", nil, nil);
 				//		exit(0);
@@ -3034,7 +3034,7 @@ static BOOL initialized = NO;
                 
 				[[NSUserDefaults standardUserDefaults] registerDefaults: [DefaultsOsiriX getDefaults]];
                 
-                if( [BrowserController _currentModifierFlags] & NSCommandKeyMask &&
+                if ([BrowserController _currentModifierFlags] & NSCommandKeyMask &&
                     [BrowserController _currentModifierFlags] & NSAlternateKeyMask)
                 {
                     NSInteger result = NSRunInformationalAlertPanel(
@@ -3044,9 +3044,9 @@ static BOOL initialized = NO;
                                             NSLocalizedString(@"OK",nil),
                                             nil);
                     
-                    if( result == NSAlertAlternateReturn)
+                    if (result == NSAlertAlternateReturn)
                     {
-                        for( NSString *k in [[[NSUserDefaults standardUserDefaults] dictionaryRepresentation] allKeys])
+                        for (NSString *k in [[[NSUserDefaults standardUserDefaults] dictionaryRepresentation] allKeys])
                             [[NSUserDefaults standardUserDefaults] removeObjectForKey: k];
                         
                         [[NSUserDefaults standardUserDefaults] synchronize];
@@ -3083,7 +3083,7 @@ static BOOL initialized = NO;
 //				[[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"DONTCOPYWLWWSETTINGS"];
 				[[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"ROITEXTNAMEONLY"];
 				
-				if( [[NSUserDefaults standardUserDefaults] objectForKey: @"copyHideListenerError"])
+				if ([[NSUserDefaults standardUserDefaults] objectForKey: @"copyHideListenerError"])
 					[[NSUserDefaults standardUserDefaults] setBool: [[NSUserDefaults standardUserDefaults] boolForKey: @"copyHideListenerError"] forKey: @"hideListenerError"];
 				
 #ifdef MACAPPSTORE
@@ -3296,7 +3296,7 @@ static BOOL initialized = NO;
                     NSMutableArray *rArray = [NSMutableArray array];
                     NSMutableArray *gArray = [NSMutableArray array];
                     NSMutableArray *bArray = [NSMutableArray array];
-                    for( i = 0; i < 256; i++)  {
+                    for (i = 0; i < 256; i++)  {
                         [bArray addObject: [NSNumber numberWithLong:(195 - (i * 0.26))]];
                         [gArray addObject: [NSNumber numberWithLong:(187 - (i *0.26))]];
                         [rArray addObject: [NSNumber numberWithLong:(240 + (i * 0.02))]];
@@ -3336,9 +3336,9 @@ static BOOL initialized = NO;
 				
 				NSString* path = [[DicomDatabase defaultBaseDirPath] stringByAppendingPathComponent:@"Loading"];
                 
-                if( [[NSUserDefaults standardUserDefaults] boolForKey: @"hideListenerError"] == NO)
+                if ([[NSUserDefaults standardUserDefaults] boolForKey: @"hideListenerError"] == NO)
                 {
-                    if( [[NSFileManager defaultManager] fileExistsAtPath: path])
+                    if ([[NSFileManager defaultManager] fileExistsAtPath: path])
                     {
                         NSString *contents = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
                         if ([contents isEqualToString:@"OsiriX"]) // OsiriX Lite 6.5 leaves this behind
@@ -3349,13 +3349,13 @@ static BOOL initialized = NO;
                         {
                             int result = NSRunInformationalAlertPanel(NSLocalizedString(@"OsiriX crashed during last startup", nil), NSLocalizedString(@"Previous crash is maybe related to a corrupt database or corrupted images.\r\rShould I run OsiriX in Protected Mode (recommended) (no images displayed)? To allow you to delete the crashing/corrupted images/studies.\r\rOr Should I rebuild the local database? All albums, comments and status will be lost.", nil), NSLocalizedString(@"Continue normally",nil), NSLocalizedString(@"Protected Mode",nil), NSLocalizedString(@"Rebuild Database",nil));
                             
-                            if( result == NSAlertOtherReturn)
+                            if (result == NSAlertOtherReturn)
                             {
                                 NEEDTOREBUILD = YES;
                                 COMPLETEREBUILD = YES;
                             }
                             
-                            if( result == NSAlertAlternateReturn)
+                            if (result == NSAlertAlternateReturn)
                                 [DCMPix setRunOsiriXInProtectedMode: YES];
                         }
                     }
@@ -3419,7 +3419,7 @@ static BOOL initialized = NO;
 {
 #ifndef OSIRIX_LIGHT
 #ifndef MACAPPSTORE
-	if( [[NSUserDefaults standardUserDefaults] boolForKey: @"displayGrowlNotification"])
+	if ([[NSUserDefaults standardUserDefaults] boolForKey: @"displayGrowlNotification"])
 	{
 //        [GrowlApplicationBridge notifyWithTitle: title
 //                            description: description 
@@ -3443,24 +3443,24 @@ static BOOL initialized = NO;
 	[self killAllStoreSCU: self];
 	
 #ifndef OSIRIX_LIGHT
-	if( dcmtkQRSCP)
+	if (dcmtkQRSCP)
 		[QueryController echo: [self privateIP] port:[dcmtkQRSCP port] AET: [dcmtkQRSCP aeTitle]];
 
-    if( dcmtkQRSCPTLS)
+    if (dcmtkQRSCPTLS)
 		[QueryController echo: [self privateIP] port:[dcmtkQRSCPTLS port] AET: [dcmtkQRSCPTLS aeTitle]];
 #endif
 	
 	[NSThread sleepForTimeInterval: 0.1];
 	
-	if( wait)
+	if (wait)
 	{
-		while( [dcmtkQRSCP running])
+		while ([dcmtkQRSCP running])
 		{
 			NSLog( @"waiting for listener to stop...");
 			[NSThread sleepForTimeInterval: 0.1];
 		}
         
-		while( [dcmtkQRSCPTLS running])
+		while ([dcmtkQRSCPTLS running])
 		{
 			NSLog( @"waiting for TLS listener to stop...");
 			[NSThread sleepForTimeInterval: 0.1];
@@ -3479,7 +3479,7 @@ static BOOL initialized = NO;
     {
 		[[[BrowserController currentBrowser] database] save:nil];
 		
-		if( [[NSUserDefaults standardUserDefaults] boolForKey:@"RunListenerOnlyIfActive"])
+		if ([[NSUserDefaults standardUserDefaults] boolForKey:@"RunListenerOnlyIfActive"])
 		{
 			NSLog( @"----- %s : session deactivation: STOP DICOM LISTENER FOR THIS SESSION", OUR_MANUFACTURER_NAME);
 			
@@ -3494,7 +3494,7 @@ static BOOL initialized = NO;
 		
 		isSessionInactive = NO;
 		
-		if( [[NSUserDefaults standardUserDefaults] boolForKey:@"RunListenerOnlyIfActive"])
+		if ([[NSUserDefaults standardUserDefaults] boolForKey:@"RunListenerOnlyIfActive"])
 		{
 			NSLog( @"----- %s : session activation: START DICOM LISTENER FOR THIS SESSION", OUR_MANUFACTURER_NAME);
 			
@@ -3507,10 +3507,10 @@ static BOOL initialized = NO;
 
 - (BOOL) isStoreSCPRunning
 {
-	if( [dcmtkQRSCP running])
+	if ([dcmtkQRSCP running])
 		return YES;
 		
-	if( [dcmtkQRSCPTLS running])
+	if ([dcmtkQRSCPTLS running])
 		return YES;
     
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"NinjaSTORESCP"]) // some undefined external entity is linked to us for DICOM communications...
@@ -3550,7 +3550,7 @@ static BOOL initialized = NO;
 //	[AppController displayImportantNotice: self];
 //#endif
     
-//	if( [[NSUserDefaults standardUserDefaults] integerForKey: @"TOOLKITPARSER4"] == 0 || [[NSUserDefaults standardUserDefaults] boolForKey:@"USEPAPYRUSDCMPIX4"] == NO)
+//	if ([[NSUserDefaults standardUserDefaults] integerForKey: @"TOOLKITPARSER4"] == 0 || [[NSUserDefaults standardUserDefaults] boolForKey:@"USEPAPYRUSDCMPIX4"] == NO)
 //	{
 //		[self growlTitle: NSLocalizedString( @"Warning!", nil) description: NSLocalizedString( @"DCM Framework is selected as the DICOM reader/parser. The performances of this toolkit are slower.", nil)  name:@"result"];
 //        
@@ -3563,10 +3563,10 @@ static BOOL initialized = NO;
 //        NSLog( @"********");
 //	}
 	
-	if( [[NSUserDefaults standardUserDefaults] boolForKey: @"SingleProcessMultiThreadedListener"] == NO)
+	if ([[NSUserDefaults standardUserDefaults] boolForKey: @"SingleProcessMultiThreadedListener"] == NO)
 		NSLog( @"----- %@", NSLocalizedString( @"DICOM Listener is multi-processes mode.", nil));
 	
-	if( [[NSUserDefaults standardUserDefaults] boolForKey: @"hideListenerError"])
+	if ([[NSUserDefaults standardUserDefaults] boolForKey: @"hideListenerError"])
 		[[NSUserDefaults standardUserDefaults] setBool: NO forKey: @"checkForUpdatesPlugins"];
 	
     [[NSUserDefaults standardUserDefaults] setBool: YES forKey: @"USEALWAYSTOOLBARPANEL2"];
@@ -3576,7 +3576,7 @@ static BOOL initialized = NO;
     
 #ifndef MACAPPSTORE
 #ifndef OSIRIX_LIGHT
-	if( [[NSUserDefaults standardUserDefaults] boolForKey: @"checkForUpdatesPlugins"])
+	if ([[NSUserDefaults standardUserDefaults] boolForKey: @"checkForUpdatesPlugins"])
 		[NSThread detachNewThreadSelector: @selector(checkForUpdates:)
                                  toTarget: pluginManager
                                withObject: pluginManager];
@@ -3584,13 +3584,13 @@ static BOOL initialized = NO;
     // If this application crashed before...
     NSString *pathApplicationCrashed = [NSTemporaryDirectory() stringByAppendingPathComponent:@"Miele-LXIV-Crashed"];
     
-    if( [[NSFileManager defaultManager] fileExistsAtPath: pathApplicationCrashed]) // Activate check for update !
+    if ([[NSFileManager defaultManager] fileExistsAtPath: pathApplicationCrashed]) // Activate check for update !
     {
         [[NSFileManager defaultManager] removeItemAtPath: pathApplicationCrashed error: nil];
         
-        if( [[NSUserDefaults standardUserDefaults] boolForKey: @"Check4Updates"] == NO)
+        if ([[NSUserDefaults standardUserDefaults] boolForKey: @"Check4Updates"] == NO)
         {
-            if( [[NSUserDefaults standardUserDefaults] boolForKey: @"hideListenerError"] == NO)
+            if ([[NSUserDefaults standardUserDefaults] boolForKey: @"hideListenerError"] == NO)
                 [NSThread detachNewThreadSelector: @selector(checkForUpdates:)
                                          toTarget: self
                                        withObject: @"crash"];
@@ -3610,7 +3610,7 @@ static BOOL initialized = NO;
     [pluginsMenu removeItemAtIndex: [pluginsMenu numberOfItems]-1];
 #endif
 	
-	if( [[NSUserDefaults standardUserDefaults] boolForKey: @"hideListenerError"]) // Server mode
+	if ([[NSUserDefaults standardUserDefaults] boolForKey: @"hideListenerError"]) // Server mode
 		[[[BrowserController currentBrowser] window] orderOut: self];
 
 #ifdef OSIRIX_LIGHT
@@ -3643,19 +3643,19 @@ static BOOL initialized = NO;
 //    tagDictionary = [NSMutableDictionary dictionaryWithContentsOfFile: [bundle pathForResource:@"tagDictionary" ofType:@"plist"]];
 //    nameDictionary = [NSMutableDictionary dictionaryWithContentsOfFile: [bundle pathForResource:@"nameDictionary" ofType:@"plist"]];
 //    
-//	for( NSString *l in lines)
+//	for (NSString *l in lines)
 //	{
-//		if( [l hasPrefix: @"#"] == NO)
+//		if ([l hasPrefix: @"#"] == NO)
 //		{
 //			NSArray *f = [l componentsSeparatedByString: @"\t"];
 //			
-//			if( [f count] == 5)
+//			if ([f count] == 5)
 //			{
 //				NSString *grel = [[f objectAtIndex: 0] stringByReplacingOccurrencesOfString: @"(" withString:@""];
 //				grel = [grel stringByReplacingOccurrencesOfString: @")" withString:@""];
 //				grel = [grel uppercaseString];
 //				
-//				if( [grel length] >= 9 && [grel characterAtIndex:4] == ',')
+//				if ([grel length] >= 9 && [grel characterAtIndex:4] == ',')
 //				{
 //					grel = [grel substringToIndex: 9];
 //					
@@ -3666,7 +3666,7 @@ static BOOL initialized = NO;
 //                                       nil];
 //                                       //[f objectAtIndex: 4], @"Version", nil];
 //
-//                    if( [tagDictionary objectForKey: grel])
+//                    if ([tagDictionary objectForKey: grel])
 //                    {
 ////                        NSLog( @"%@", [tagDictionary objectForKey: grel]);
 //                    }
@@ -3711,7 +3711,7 @@ static BOOL initialized = NO;
     
 #if 0 // TODO: reinstate odt2pdf
 #ifndef OSIRIX_LIGHT
-    if( [[NSBundle bundleForClass:[self class]] pathForAuxiliaryExecutable:@"odt2pdf"] == nil)
+    if ([[NSBundle bundleForClass:[self class]] pathForAuxiliaryExecutable:@"odt2pdf"] == nil)
         N2LogStackTrace( @"\r****** path to odt2pdf == nil\r*****************************");  // raise exception
 #endif
     
@@ -3746,20 +3746,20 @@ static BOOL initialized = NO;
     
     OSStatus status = SecRequirementCreateWithString( (CFStringRef) @"anchor trusted and certificate leaf [subject.OU] = \"57BXF7EQEM\"", kSecCSDefaultFlags, &requirement);
     
-    if( status == noErr)
+    if (status == noErr)
         status = SecStaticCodeCreateWithPath( (CFURLRef) [[NSBundle mainBundle] bundleURL], kSecCSDefaultFlags, &code);
     
     NSError *errors = nil;
     
-    if( status == noErr)
+    if (status == noErr)
     {
-        if( code && requirement)
+        if (code && requirement)
             status = SecStaticCodeCheckValidityWithErrors(code, kSecCSDefaultFlags, requirement, (CFErrorRef*) &errors);
         else
             status = -1;
     }
     
-    if(status != noErr)
+    if (status != noErr)
     {
         NSLog( @"SecStaticCodeCheckValidity: %d", (int) status);
         NSLog( @"%@", errors);
@@ -3788,7 +3788,7 @@ static BOOL initialized = NO;
         exit( 0);
     }
     
-    if( [[NSUserDefaults standardUserDefaults] boolForKey: @"SyncPreferencesFromURL"])
+    if ([[NSUserDefaults standardUserDefaults] boolForKey: @"SyncPreferencesFromURL"])
         [NSThread detachNewThreadSelector: @selector( addPreferencesFromURL:)
                                  toTarget: [OSIGeneralPreferencePanePref class]
                                withObject: [NSURL URLWithString: [[NSUserDefaults standardUserDefaults] stringForKey: @"SyncPreferencesURL"]]];
@@ -3800,9 +3800,9 @@ static BOOL initialized = NO;
 #endif
 
 #ifndef OSIRIX_LIGHT
-    if( [[NSUserDefaults standardUserDefaults] boolForKey: @"isQueryControllerVisible"])
+    if ([[NSUserDefaults standardUserDefaults] boolForKey: @"isQueryControllerVisible"])
     {
-        if([QueryController currentQueryController] == nil)
+        if ([QueryController currentQueryController] == nil)
             [[QueryController alloc] initAutoQuery: NO];
         
         [[QueryController currentQueryController] showWindow: self];
@@ -3816,9 +3816,9 @@ static BOOL initialized = NO;
 	
 	NSDictionary *dict = [NSMutableDictionary dictionaryWithContentsOfFile: [path stringByExpandingTildeInPath]];
 
-	for( NSDictionary* handler in [dict objectForKey: @"LSHandlers"])
+	for (NSDictionary* handler in [dict objectForKey: @"LSHandlers"])
 	{
-		if( [[handler objectForKey: @"LSHandlerURLScheme"] isEqualToString: @"dicom"])
+		if ([[handler objectForKey: @"LSHandlerURLScheme"] isEqualToString: @"dicom"])
 		{
 			return;
 		}
@@ -3892,16 +3892,16 @@ static BOOL initialized = NO;
 
 -(void)verifyHardwareInterpolation
 {
-//    if( [AppController hasMacOSX1083]) // Intel 10.8.3 graphic bug
+//    if ([AppController hasMacOSX1083]) // Intel 10.8.3 graphic bug
 //    {
 //        BOOL onlyIntelGraphicBoard = YES;
-//        for( NSString *gpuName in [AppController getGPUNames])
+//        for (NSString *gpuName in [AppController getGPUNames])
 //        {
-//            if( [gpuName hasPrefix: kIntelGPUPrefix] == NO)
+//            if ([gpuName hasPrefix: kIntelGPUPrefix] == NO)
 //                onlyIntelGraphicBoard = NO;
 //        }
 //
-//        if( onlyIntelGraphicBoard)
+//        if (onlyIntelGraphicBoard)
 //        {
 //            NSLog( @"**** 10.8.3 graphic board bug: only intel board discovered : No 32-bit pipeline available");
 //            NSLog( @"%@", [AppController getGPUNames]);
@@ -3950,7 +3950,7 @@ static BOOL initialized = NO;
         
         assert( spp == 3);
         
-        if( data)
+        if (data)
         {
             for (int i = 0; i < size2; ++i)
                 gray_1[i] = (data[i*3]+data[i*3+1]+data[i*3+2])/3;
@@ -3990,7 +3990,7 @@ static BOOL initialized = NO;
         
         assert( spp == 3);
         
-        if( data)
+        if (data)
         {
             for (int i = 0; i < size2; ++i)
                 gray_1[i] = (data[i*3]+data[i*3+1]+data[i*3+2])/3;
@@ -4055,7 +4055,7 @@ static BOOL initialized = NO;
     
 	BOOL dialog = NO;
     NSString *path = NSTemporaryDirectory();
-    if( [[NSFileManager defaultManager] fileExistsAtPath: path] == NO)
+    if ([[NSFileManager defaultManager] fileExistsAtPath: path] == NO)
         [[NSFileManager defaultManager] createDirectoryAtPath:path
                                   withIntermediateDirectories:YES
                                                    attributes:nil
@@ -4063,7 +4063,7 @@ static BOOL initialized = NO;
     
     NSMutableArray *dbArray = [[[[NSUserDefaults standardUserDefaults] arrayForKey: @"localDatabasePaths"] deepMutableCopy] autorelease];
     NSMutableArray *toBeRemoved = [NSMutableArray array];
-    for( NSMutableDictionary *d in dbArray)
+    for (NSMutableDictionary *d in dbArray)
 	{
 		if ([[d valueForKey:@"Path"] hasPrefix: path] ||
             [[d valueForKey:@"Path"] hasPrefix: PRIVATE_TMP] ||
@@ -4072,15 +4072,15 @@ static BOOL initialized = NO;
 			[toBeRemoved addObject: d];
         }
 	}
-    if( toBeRemoved.count)
+    if (toBeRemoved.count)
     {
         [dbArray removeObjectsInArray: toBeRemoved];
         [[NSUserDefaults standardUserDefaults] setObject: dbArray forKey: @"localDatabasePaths"];
     }
     
-	if( [[NSUserDefaults standardUserDefaults] valueForKey: @"timeZone"])
+	if ([[NSUserDefaults standardUserDefaults] valueForKey: @"timeZone"])
 	{
-		if( [[NSUserDefaults standardUserDefaults] integerForKey: @"timeZone"] != [[NSTimeZone localTimeZone] secondsFromGMT])
+		if ([[NSUserDefaults standardUserDefaults] integerForKey: @"timeZone"] != [[NSTimeZone localTimeZone] secondsFromGMT])
 		{
 		//	NSLog( @"***** Time zone has changed: this modification can affect study dates, study times and birth dates!");
 		//	[NSTimeZone setDefaultTimeZone: [NSTimeZone timeZoneForSecondsFromGMT: [[NSUserDefaults standardUserDefaults] integerForKey: @"timeZone"]]];
@@ -4094,7 +4094,7 @@ static BOOL initialized = NO;
         
 //	NSLog(@"%s", __PRETTY_FUNCTION__, nil);
 	
-	if( dialog == NO)
+	if (dialog == NO)
 	{
 		
 	}
@@ -4115,19 +4115,19 @@ static BOOL initialized = NO;
 #endif
 	
 #ifndef OSIRIX_LIGHT
-	if( [[NSUserDefaults standardUserDefaults] boolForKey:@"httpXMLRPCServer"])
-		if(XMLRPCServer == nil)
+	if ([[NSUserDefaults standardUserDefaults] boolForKey:@"httpXMLRPCServer"])
+		if (XMLRPCServer == nil)
             XMLRPCServer = [[XMLRPCInterface alloc] init];
 #endif
 	
 //	#ifndef OSIRIX_LIGHT
 //	#ifndef MACAPPSTORE
-//	if( [[NSUserDefaults standardUserDefaults] boolForKey: @"displayGrowlNotification"])
+//	if ([[NSUserDefaults standardUserDefaults] boolForKey: @"displayGrowlNotification"])
 //	{
 //        // If Growl crashed before...
 //        NSString *GrowlCrashed = @"/tmp/OsiriXGrowlCrashed";
 //        
-//        if( [[NSFileManager defaultManager] fileExistsAtPath: GrowlCrashed])
+//        if ([[NSFileManager defaultManager] fileExistsAtPath: GrowlCrashed])
 //        {
 //            [[NSUserDefaults standardUserDefaults] setBool: NO forKey: @"displayGrowlNotification"];
 //            [[NSFileManager defaultManager] removeItemAtPath: GrowlCrashed error: nil];
@@ -4182,7 +4182,7 @@ static BOOL initialized = NO;
     
     [AppController resetThumbnailsList];
 	
-//	if( USETOOLBARPANEL) [[toolbarPanel window] makeKeyAndOrderFront:self];
+//	if (USETOOLBARPANEL) [[toolbarPanel window] makeKeyAndOrderFront:self];
 	
 // Increment the startup counter.
 	
@@ -4220,7 +4220,7 @@ static BOOL initialized = NO;
 //				}
 //			}
 			
-//			if( [[NSCalendarDate dateWithYear:2009 month:10 day:14 hour:12 minute:0 second:0 timeZone:[NSTimeZone timeZoneWithAbbreviation:@"EST"]] timeIntervalSinceNow] > 0 &&
+//			if ([[NSCalendarDate dateWithYear:2009 month:10 day:14 hour:12 minute:0 second:0 timeZone:[NSTimeZone timeZoneWithAbbreviation:@"EST"]] timeIntervalSinceNow] > 0 &&
 //				[[NSCalendarDate dateWithYear:2009 month:9 day:1 hour:12 minute:0 second:0 timeZone:[NSTimeZone timeZoneWithAbbreviation:@"EST"]] timeIntervalSinceNow] < 0)
 //			{
 //				Survey *survey = [[Survey alloc] initWithWindowNibName:@"Survey"];
@@ -4256,22 +4256,22 @@ static BOOL initialized = NO;
     [[NSUserDefaults standardUserDefaults] setBool: YES forKey: @"UseOpenJpegForJPEG2000"];
     [[NSUserDefaults standardUserDefaults] setBool: YES forKey: @"useDCMTKForJP2K"]; // deprecated
     
-    if( [[[NSUserDefaults standardUserDefaults] objectForKey:@"HOTKEYS"] count] < SetKeyImageAction) {
+    if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"HOTKEYS"] count] < SetKeyImageAction) {
         NSMutableDictionary *d = [[[[NSUserDefaults standardUserDefaults] objectForKey:@"HOTKEYS"] mutableCopy] autorelease];
         
         BOOL f = NO;
-        for( NSString *key in d) {
-            if( [[d objectForKey: key] integerValue] == FullScreenAction)
+        for (NSString *key in d) {
+            if ([[d objectForKey: key] integerValue] == FullScreenAction)
                 f = YES;
             
-            if( [[d objectForKey: key] integerValue] == Sync3DAction)
+            if ([[d objectForKey: key] integerValue] == Sync3DAction)
                 f = YES;
             
-            if( [[d objectForKey: key] integerValue] == SetKeyImageAction)
+            if ([[d objectForKey: key] integerValue] == SetKeyImageAction)
                 f = YES;
         }
         
-        if( f == NO) {
+        if (f == NO) {
             [d setObject: @(FullScreenAction) forKey: @"dbl-click"];
             [d setObject: @(Sync3DAction) forKey: @"dbl-click + alt"];
             [d setObject: @(SetKeyImageAction) forKey: @"dbl-click + cmd"];
@@ -4293,7 +4293,7 @@ static BOOL initialized = NO;
         
         NSInteger button = [alert runModal];
         
-        if( button == NSAlertSecondButtonReturn)
+        if (button == NSAlertSecondButtonReturn)
             [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:URL_OSIRIX_VIEWER]];
 #endif
     }
@@ -4312,7 +4312,7 @@ static BOOL initialized = NO;
 	
 //	[html2pdf pdfFromURL: @"http://zimbra.latour.ch"];
 
-	if( [AppController isKDUEngineAvailable])
+	if ([AppController isKDUEngineAvailable])
 		NSLog( @"/*\\ /*\\ KDU Engine AVAILABLE /*\\ /*\\");
 }
 
@@ -4320,9 +4320,9 @@ static BOOL initialized = NO;
 {
 	NSArray *winList = [NSApp windows];
 	
-	for( id loopItem in winList)
+	for (id loopItem in winList)
 	{
-		if( [[loopItem windowController] isKindOfClass:[ViewerController class]])
+		if ([[loopItem windowController] isKindOfClass:[ViewerController class]])
 		{
 			[[loopItem windowController] needsDisplayUpdate];
 		}
@@ -4389,21 +4389,21 @@ static BOOL initialized = NO;
 	//		  
 	//			NSMutableDictionary *xaCLUTFilter = [NSMutableDictionary dictionary];
 	//			NSMutableArray		*xrArray = [NSMutableArray array];
-	//			for( i = 0; i < 256; i++)
+	//			for (i = 0; i < 256; i++)
 	//			{
 	//				[xrArray addObject: [NSNumber numberWithLong: red[ i]]];
 	//			}
 	//			[xaCLUTFilter setObject:xrArray forKey:@"Red"];
 	//			
 	//			NSMutableArray		*xgArray = [NSMutableArray array];
-	//			for( i = 0; i < 256; i++)
+	//			for (i = 0; i < 256; i++)
 	//			{
 	//				[xgArray addObject: [NSNumber numberWithLong: green[ i]]];
 	//			}
 	//			[xaCLUTFilter setObject:xgArray forKey:@"Green"];
 	//			
 	//			NSMutableArray		*xbArray = [NSMutableArray array];
-	//			for( i = 0; i < 256; i++)
+	//			for (i = 0; i < 256; i++)
 	//			{
 	//				[xbArray addObject: [NSNumber numberWithLong: blue[ i]]];
 	//			}
@@ -4428,29 +4428,29 @@ static BOOL initialized = NO;
 	
 	NSAutoreleasePool   *pool = [[NSAutoreleasePool alloc] init];
 	
-	if( [msg isEqualToString:@"LISTENER"])
+	if ([msg isEqualToString:@"LISTENER"])
 	{
 		NSRunAlertPanel( NSLocalizedString( @"DICOM Listener Error", nil), NSLocalizedString( @"OsiriX listener cannot start. Is the Port valid? Is there another process using this Port?\r\rSee Listener - Preferences.", nil), NSLocalizedString( @"OK", nil), nil, nil);
 	}
 	
-	if( [msg isEqualToString:@"UPTODATE"])
+	if ([msg isEqualToString:@"UPTODATE"])
 	{
 		NSRunAlertPanel( NSLocalizedString( @"OsiriX is up-to-date", nil), NSLocalizedString( @"You have the most recent version of OsiriX.", nil), NSLocalizedString( @"OK", nil), nil, nil);
 	}
 	
-	if( [msg isEqualToString:@"ERROR"])
+	if ([msg isEqualToString:@"ERROR"])
 	{
 		NSRunAlertPanel( NSLocalizedString( @"No Internet connection", nil), NSLocalizedString( @"Unable to check latest version available.", nil), NSLocalizedString( @"OK", nil), nil, nil);
 	}
 	
-    if( [msg isEqualToString: @"UPDATECRASH"])
+    if ([msg isEqualToString: @"UPDATECRASH"])
     {
         NSRunInformationalAlertPanel(NSLocalizedString(@"OsiriX crashed", nil), NSLocalizedString(@"OsiriX crashed... You are running an outdated version of OsiriX ! This bug is probably corrected in the last version !", nil), NSLocalizedString(@"OK",nil), nil, nil);
         
         [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:URL_OSIRIX_UPDATE_CRASH]];
     }
     
-	if( [msg isEqualToString:@"UPDATE"])
+	if ([msg isEqualToString:@"UPDATE"])
 	{
 		int button = NSRunAlertPanel(NSLocalizedString( @"New Version Available", nil),
                                      NSLocalizedString( @"A new version of the application is available. Would you like to download it now?", nil),
@@ -4482,14 +4482,14 @@ static BOOL initialized = NO;
 #ifndef MACAPPSTORE
 - (IBAction) checkForUpdates: (id) sender
 {
-	if( sender != self)
+	if (sender != self)
         verboseUpdateCheck = YES;
 	else
         verboseUpdateCheck = NO;
 	
     BOOL verboseAfterCrash = NO;
     
-    if( [sender isKindOfClass:[NSString class]] && [sender isEqualToString: @"crash"])
+    if ([sender isKindOfClass:[NSString class]] && [sender isEqualToString: @"crash"])
         verboseAfterCrash = YES;
 
 #ifdef NDEBUG  // AdHoc
@@ -4514,10 +4514,10 @@ static BOOL initialized = NO;
         }
         else
         {
-            if( ([[NSUserDefaults standardUserDefaults] boolForKey: @"Check4Updates"] == YES &&
+            if (([[NSUserDefaults standardUserDefaults] boolForKey: @"Check4Updates"] == YES &&
                  [[NSUserDefaults standardUserDefaults] boolForKey: @"hideListenerError"] == NO) || verboseUpdateCheck == YES)
             {
-                if( verboseAfterCrash)
+                if (verboseAfterCrash)
                     [self performSelectorOnMainThread:@selector(displayUpdateMessage:) withObject:@"UPDATECRASH" waitUntilDone: NO];
                 else
                     [self performSelectorOnMainThread:@selector(displayUpdateMessage:) withObject:@"UPDATE" waitUntilDone: NO];
@@ -4590,11 +4590,11 @@ static BOOL initialized = NO;
 
 - (id) FindViewer:(NSString*) nib :(NSArray*) pixList
 {
-	for( id loopItem in [NSApp windows])
+	for (id loopItem in [NSApp windows])
 	{
-		if( [[[loopItem windowController] windowNibName] isEqualToString: nib])
+		if ([[[loopItem windowController] windowNibName] isEqualToString: nib])
 		{
-			if( [[loopItem windowController] pixList] == pixList)
+			if ([[loopItem windowController] pixList] == pixList)
 				return [loopItem windowController];
 		}
 	}
@@ -4606,11 +4606,11 @@ static BOOL initialized = NO;
 {
 	NSMutableArray *viewersList = [NSMutableArray array];
 	
-	for( id loopItem in [NSApp windows])
+	for (id loopItem in [NSApp windows])
 	{
-		if( [[loopItem windowController] respondsToSelector:@selector(pixList)])
+		if ([[loopItem windowController] respondsToSelector:@selector(pixList)])
 		{
-			if( [[loopItem windowController] pixList] == pixList)
+			if ([[loopItem windowController] pixList] == pixList)
 			{
 				[viewersList addObject: [loopItem windowController]];
 			}
@@ -4662,17 +4662,17 @@ static BOOL initialized = NO;
 
 - (void) checkAllWindowsAreVisible:(id) sender makeKey: (BOOL) makeKey
 {
-	if( checkAllWindowsAreVisibleIsOff)
+	if (checkAllWindowsAreVisibleIsOff)
         return;
 
 	NSArray *winList = [NSApp windows];
 	NSWindow *last = nil;
 	
-	for( NSWindow *loopItem in winList)
+	for (NSWindow *loopItem in winList)
 	{
-		if( [[loopItem windowController] isKindOfClass:[ViewerController class]])
+		if ([[loopItem windowController] isKindOfClass:[ViewerController class]])
 		{
-			if( [[loopItem windowController] windowWillClose] == NO)
+			if ([[loopItem windowController] windowWillClose] == NO)
 			{
 				last = loopItem;
 				[loopItem orderFront: self];
@@ -4682,11 +4682,11 @@ static BOOL initialized = NO;
 		}
 	}
 	
-	if( makeKey)
+	if (makeKey)
 	{
 		[last makeKeyAndOrderFront: self];
 		
-		if( [[NSUserDefaults standardUserDefaults] boolForKey:@"syncPreviewList"])
+		if ([[NSUserDefaults standardUserDefaults] boolForKey:@"syncPreviewList"])
 			[[last windowController] syncThumbnails];
 	}
 }
@@ -4701,40 +4701,40 @@ static BOOL initialized = NO;
 	BOOL strechWindows = [[NSUserDefaults standardUserDefaults] boolForKey: @"StrechWindows"];
 	BOOL lastScreen = NO;
 	
-    if( columnsPerScreen <= 0)
+    if (columnsPerScreen <= 0)
         columnsPerScreen = 1;
     
-    if( rowsPerScreen <= 0)
+    if (rowsPerScreen <= 0)
         rowsPerScreen = 1;
     
 	int OcolumnsPerScreen = columnsPerScreen;
 	int OrowsPerScreen = rowsPerScreen;
 	
-	for( int i = 0; i < [viewers count]; i++)
+	for (int i = 0; i < [viewers count]; i++)
 	{
-		if( monitorIndex == numberOfMonitors-1 && strechWindows == YES && lastScreen == NO)
+		if (monitorIndex == numberOfMonitors-1 && strechWindows == YES && lastScreen == NO)
 		{
 			int remaining = [viewers count] - i;
             
-            if( remaining < 0)
+            if (remaining < 0)
                 remaining = 0;
             
 			lastScreen = YES;
 		
-			while( rowsPerScreen*columnsPerScreen > remaining && rowsPerScreen >= 0 && columnsPerScreen >= 0)
+			while (rowsPerScreen*columnsPerScreen > remaining && rowsPerScreen >= 0 && columnsPerScreen >= 0)
 			{
 				rowsPerScreen--;
 				
-				if( rowsPerScreen*columnsPerScreen > remaining)
+				if (rowsPerScreen*columnsPerScreen > remaining)
 					columnsPerScreen--;
 			}
 		
-            if( columnsPerScreen > 0)
-                while( rowsPerScreen*columnsPerScreen < remaining)
+            if (columnsPerScreen > 0)
+                while (rowsPerScreen*columnsPerScreen < remaining)
                     rowsPerScreen++;
 		}
 		
-        if( columnsPerScreen == 0)
+        if (columnsPerScreen == 0)
             columnsPerScreen = 1;
         
 		int posInScreen = i % (OcolumnsPerScreen*OrowsPerScreen);
@@ -4758,9 +4758,9 @@ static BOOL initialized = NO;
 		frame.size.height /= rowsPerScreen;
 		frame.origin.y += frame.size.height * ((rowsPerScreen - 1) - row);
 
-		if( lastScreen)
+		if (lastScreen)
 		{
-			if( i + columnsPerScreen >= [viewers count] && strechWindows == YES)
+			if (i + columnsPerScreen >= [viewers count] && strechWindows == YES)
 			{
 				frame.size.height += frame.origin.y - visibleFrame.origin.y;
 				frame.origin.y = visibleFrame.origin.y;
@@ -4776,16 +4776,16 @@ static BOOL initialized = NO;
 	NSMutableArray *srcScreens = [NSMutableArray arrayWithArray: [NSScreen screens]];
 	NSMutableArray *dstScreens = [NSMutableArray array];
 	
-	while( [srcScreens count])
+	while ([srcScreens count])
 	{
 		float minY = 1000000, minX = 1000000;
 		
 		NSScreen *screen = nil;
-		for( NSScreen *s in srcScreens)
+		for (NSScreen *s in srcScreens)
 		{
-			if( [s visibleFrame].origin.y <= minY)
+			if ([s visibleFrame].origin.y <= minY)
 			{
-				if( [s visibleFrame].origin.x < minX)
+				if ([s visibleFrame].origin.x < minX)
 				{
 					minY = [s visibleFrame].origin.y;
 					minX = [s visibleFrame].origin.x;
@@ -4794,7 +4794,7 @@ static BOOL initialized = NO;
 			}
 		}
 		
-		if( screen)
+		if (screen)
 		{
 			[dstScreens addObject: screen];
 			[srcScreens removeObject: screen];
@@ -4807,7 +4807,7 @@ static BOOL initialized = NO;
 - (int) currentRowForViewer: (ViewerController*) v
 {
 	NSUInteger i = [[self orderedScreens] indexOfObject: [[v window] screen]];
-	if( i == NSNotFound) i = 0;
+	if (i == NSNotFound) i = 0;
 	i++;
 	
 	i *= 3000;
@@ -4819,14 +4819,14 @@ static BOOL initialized = NO;
 {
 	NSArray *array = [ViewerController getDisplayed2DViewers];
 	
-	for( ViewerController *v in array)
+	for (ViewerController *v in array)
 		[[v imageView] scaleToFit];
 }
 
 - (NSPoint) windowCenter: (NSWindow*) w
 {
 	NSUInteger i = [[self orderedScreens] indexOfObject: [w screen]];
-	if( i == NSNotFound) i = 0;
+	if (i == NSNotFound) i = 0;
 	i++;
 	
 	i *= 3000;
@@ -4838,13 +4838,13 @@ static BOOL initialized = NO;
 
 - (void) addStudyToRecentStudiesMenu: (NSManagedObjectID*) studyID
 {
-    if( [NSThread isMainThread] == NO)
+    if ([NSThread isMainThread] == NO)
     {
         [self performSelectorOnMainThread: @selector( addStudyToRecentStudiesMenu:) withObject: studyID waitUntilDone: NO];
         return;
     }
          
-    if( recentStudies == nil)
+    if (recentStudies == nil)
     {
         recentStudies = [[NSMutableArray alloc] init];
         recentStudiesAlbums = [[NSMutableDictionary alloc] init];
@@ -4853,10 +4853,10 @@ static BOOL initialized = NO;
     [recentStudies removeObject: studyID];
     [recentStudies insertObject: studyID atIndex: 0];
     
-    if( BrowserController.currentBrowser.selectedAlbumName)
+    if (BrowserController.currentBrowser.selectedAlbumName)
         [recentStudiesAlbums setObject: BrowserController.currentBrowser.selectedAlbumName forKey: studyID];
      
-    if( recentStudies.count > [[NSUserDefaults standardUserDefaults] integerForKey: @"MaxNumberOfRecentStudies"])
+    if (recentStudies.count > [[NSUserDefaults standardUserDefaults] integerForKey: @"MaxNumberOfRecentStudies"])
         [recentStudies removeLastObject];
     
     [self buildRecentStudiesMenu];
@@ -4869,9 +4869,9 @@ static BOOL initialized = NO;
     DicomDatabase *db = [[BrowserController currentBrowser] database];
     DicomStudy *study = [db objectWithID: item.representedObject];
     
-    if( study && study.isDeleted == NO)
+    if (study && study.isDeleted == NO)
     {
-        if( [recentStudiesAlbums objectForKey: item.representedObject])
+        if ([recentStudiesAlbums objectForKey: item.representedObject])
             [[BrowserController currentBrowser] selectAlbumWithName: [recentStudiesAlbums objectForKey: item.representedObject]];
         
         [[BrowserController currentBrowser] selectThisStudy: study];
@@ -4885,25 +4885,25 @@ static BOOL initialized = NO;
     
     NSMutableArray *studiesToRemove = [NSMutableArray array];
     DicomDatabase *db = [[BrowserController currentBrowser] database];
-    for( NSManagedObjectID *studyID in recentStudies)
+    for (NSManagedObjectID *studyID in recentStudies)
     {
         DicomStudy *study = [db objectWithID: studyID];
-        if( study == nil)
+        if (study == nil)
             [studiesToRemove addObject: studyID];
         else
         {
             NSMutableArray* components = [NSMutableArray array];
             
-            if( study.name.length)
+            if (study.name.length)
                 [components addObject: study.name];
             
-            if( study.date)
+            if (study.date)
                 [components addObject: [[NSUserDefaults dateTimeFormatter] stringFromDate: study.date]];
             
-            if( study.studyName.length)
+            if (study.studyName.length)
                 [components addObject: study.studyName];
             
-            if( study.modality.length)
+            if (study.modality.length)
                 [components addObject: study.modality];
             
             NSAttributedString *title = [[[NSAttributedString alloc] initWithString: [components componentsJoinedByString:@" / "] attributes: [NSDictionary dictionaryWithObject: [NSFont boldSystemFontOfSize: 14] forKey: NSFontAttributeName]] autorelease];
@@ -4925,13 +4925,13 @@ static BOOL initialized = NO;
 
 - (void) initTilingWindows
 {
-	for( NSMenuItem *item in [windowsTilingMenuRows itemArray])
+	for (NSMenuItem *item in [windowsTilingMenuRows itemArray])
 	{
 		[item setTarget: self];
 		[item setAction: @selector(setFixedTilingRows:)];
 	}
 	
-	for( NSMenuItem *item in [windowsTilingMenuColumns itemArray])
+	for (NSMenuItem *item in [windowsTilingMenuColumns itemArray])
 	{
 		[item setTarget: self];
 		[item setAction: @selector(setFixedTilingColumns:)];
@@ -4954,15 +4954,15 @@ static BOOL initialized = NO;
 
 - (BOOL) validateMenuItem:(NSMenuItem *) item
 {
-    if( [item action] == @selector(loadRecentStudy:))
+    if ([item action] == @selector(loadRecentStudy:))
     {
         DicomDatabase *db = [[BrowserController currentBrowser] database];
         
-        for( NSMenuItem *item in recentStudiesMenu.itemArray)
+        for (NSMenuItem *item in recentStudiesMenu.itemArray)
         {
             DicomStudy *study = [db objectWithID: item.representedObject];
             
-            if( study == nil || study.isDeleted)
+            if (study == nil || study.isDeleted)
             {
                 [item setEnabled: NO];
                 [item setState: NSOffState];
@@ -4971,7 +4971,7 @@ static BOOL initialized = NO;
             {
                 [item setEnabled: YES];
                 
-                if( [[[[ViewerController getDisplayed2DViewers] valueForKey: @"currentStudy"] valueForKey: @"objectID"] containsObject: item.representedObject])
+                if ([[[[ViewerController getDisplayed2DViewers] valueForKey: @"currentStudy"] valueForKey: @"objectID"] containsObject: item.representedObject])
                     [item setState: NSOnState];
                 else
                     [item setState: NSOffState];
@@ -4979,35 +4979,35 @@ static BOOL initialized = NO;
         }
         return YES;
     }
-    else if( [item action] == @selector(setFixedTilingRows:) || [item action] == @selector(setFixedTilingColumns:))
+    else if ([item action] == @selector(setFixedTilingRows:) || [item action] == @selector(setFixedTilingColumns:))
 	{
-		if( [item action] == @selector(setFixedTilingColumns:))
+		if ([item action] == @selector(setFixedTilingColumns:))
 		{
-		   if( [item tag] == lastColumns && [item tag] <= [[ViewerController getDisplayed2DViewers] count])
+		   if ([item tag] == lastColumns && [item tag] <= [[ViewerController getDisplayed2DViewers] count])
 				[item setState: NSOnState];
 			else
 				[item setState: NSOffState];
 		}
 		
-		if( [item action] == @selector(autoQueryRefresh:))
+		if ([item action] == @selector(autoQueryRefresh:))
 		{
 			#ifndef OSIRIX_LIGHT
-			if( [QueryController currentAutoQueryController])
+			if ([QueryController currentAutoQueryController])
 				return YES;
 			else
 			#endif
 				return NO;
 		}
 		
-		if( [item action] == @selector(setFixedTilingRows:))
+		if ([item action] == @selector(setFixedTilingRows:))
 		{
-			if( [item tag] == lastRows && [item tag] <= [[ViewerController getDisplayed2DViewers] count])
+			if ([item tag] == lastRows && [item tag] <= [[ViewerController getDisplayed2DViewers] count])
 				[item setState: NSOnState];
 			else
 			   [item setState: NSOffState];
 		}
 		
-		if( [item tag] > [[ViewerController getDisplayed2DViewers] count])
+		if ([item tag] > [[ViewerController getDisplayed2DViewers] count])
 			return NO;
     }
     return YES;
@@ -5022,12 +5022,12 @@ static BOOL initialized = NO;
 {
     NSRect screenFrame = screen.visibleFrame;
     
-    if( showFloatingWindows)
+    if (showFloatingWindows)
     {
-        if( [AppController USETOOLBARPANEL] || [[NSUserDefaults standardUserDefaults] boolForKey: @"USEALWAYSTOOLBARPANEL2"] == YES)
+        if ([AppController USETOOLBARPANEL] || [[NSUserDefaults standardUserDefaults] boolForKey: @"USEALWAYSTOOLBARPANEL2"] == YES)
             screenFrame.size.height -= 78;  //[[AppController toolbarForScreen: screen] exposedHeight];
         
-        if( [[NSUserDefaults standardUserDefaults] boolForKey: @"UseFloatingThumbnailsList"] && [[NSUserDefaults standardUserDefaults] boolForKey: @"SeriesListVisible"])
+        if ([[NSUserDefaults standardUserDefaults] boolForKey: @"UseFloatingThumbnailsList"] && [[NSUserDefaults standardUserDefaults] boolForKey: @"SeriesListVisible"])
         {
             screenFrame.origin.x += [ThumbnailsListPanel fixedWidth];
             screenFrame.size.width -= [ThumbnailsListPanel fixedWidth];
@@ -5044,20 +5044,20 @@ static BOOL initialized = NO;
     NSMutableArray *viewersList = [NSMutableArray array];
     
     //get 2D viewer windows
-	for( NSWindow *win in [NSApp orderedWindows])
+	for (NSWindow *win in [NSApp orderedWindows])
 	{
-		if( [[win windowController] isKindOfClass:[OSIWindowController class]] == YES)
+		if ([[win windowController] isKindOfClass:[OSIWindowController class]] == YES)
 		{
-			if( [[win windowController] magnetic])
+			if ([[win windowController] magnetic])
 			{
-				if( [[win windowController] windowWillClose] == NO && [win isMiniaturized] == NO)
+				if ([[win windowController] windowWillClose] == NO && [win isMiniaturized] == NO)
 					[viewersList addObject: [win windowController]];
                 
-				else if( [[win windowController] windowWillClose])
+				else if ([[win windowController] windowWillClose])
 				{
 				}
                 
-				if( [[viewersList lastObject] FullScreenON])
+				if ([[viewersList lastObject] FullScreenON])
                     return;
 			}
 		}
@@ -5075,25 +5075,25 @@ static BOOL initialized = NO;
     NSMutableArray *viewersList = [NSMutableArray array];
     
     //get 2D viewer windows
-	for( NSWindow *win in [NSApp orderedWindows])
+	for (NSWindow *win in [NSApp orderedWindows])
 	{
-		if( [[win windowController] isKindOfClass:[Window3DController class]] == YES)
+		if ([[win windowController] isKindOfClass:[Window3DController class]] == YES)
 		{
-            if( [[win windowController] windowWillClose] == NO && [win isMiniaturized] == NO && [win isVisible] == YES)
+            if ([[win windowController] windowWillClose] == NO && [win isMiniaturized] == NO && [win isVisible] == YES)
                 [viewersList addObject: [win windowController]];
             
-            else if( [[win windowController] windowWillClose])
+            else if ([[win windowController] windowWillClose])
             {
             }
             
-            if( [[viewersList lastObject] FullScreenON])
+            if ([[viewersList lastObject] FullScreenON])
                 return;
 		}
 	}
     
     [self tileWindows: sender windows: viewersList display2DViewerToolbar: NO displayThumbnailsList: NO];
     
-    for( NSWindowController *win in viewersList)
+    for (NSWindowController *win in viewersList)
         [[win window] makeKeyAndOrderFront: self];
 }
 
@@ -5115,9 +5115,9 @@ static BOOL initialized = NO;
 	NSMutableArray	*cWindows = [NSMutableArray arrayWithArray: viewersList];
 	
 	// Only the visible windows
-	for( int i = (long) [cWindows count]-1; i >= 0; i--)
+	for (int i = (long) [cWindows count]-1; i >= 0; i--)
 	{
-		if( [[[cWindows objectAtIndex: i] window] isVisible] == NO) [cWindows removeObjectAtIndex: i];
+		if ([[[cWindows objectAtIndex: i] window] isVisible] == NO) [cWindows removeObjectAtIndex: i];
 	}
 	
 	NSMutableArray* screens = [[[self viewerScreens] mutableCopy] autorelease];
@@ -5128,7 +5128,7 @@ static BOOL initialized = NO;
         [screens removeObjectIdenticalTo:dbscreen];
     }
     
-    if( screens.count <= 0)
+    if (screens.count <= 0)
         screens = [[[self viewerScreens] mutableCopy] autorelease];
     
     int numberOfMonitors = [screens count];
@@ -5138,14 +5138,14 @@ static BOOL initialized = NO;
 	@try
 	{
 		int count = [cWindows count];
-		while( count > 0)
+		while (count > 0)
 		{
 			int index = 0;
 			int row = [self currentRowForViewer: [cWindows objectAtIndex: index]];
 			
-			for( int x = 0; x < [cWindows count]; x++)
+			for (int x = 0; x < [cWindows count]; x++)
 			{
-				if( [self currentRowForViewer: [cWindows objectAtIndex: x]] < row)
+				if ([self currentRowForViewer: [cWindows objectAtIndex: x]] < row)
 				{
 					row = [self currentRowForViewer: [cWindows objectAtIndex: x]];
 					index = x;
@@ -5154,9 +5154,9 @@ static BOOL initialized = NO;
 			
 			float minX = [self windowCenter: [[cWindows objectAtIndex: index] window]].x;
 			
-			for( int x = 0; x < [cWindows count]; x++)
+			for (int x = 0; x < [cWindows count]; x++)
 			{
-				if( [self windowCenter: [[cWindows objectAtIndex: x] window]].x < minX && [self currentRowForViewer: [cWindows objectAtIndex: x]] <= row)
+				if ([self windowCenter: [[cWindows objectAtIndex: x] window]].x < minX && [self currentRowForViewer: [cWindows objectAtIndex: x]] <= row)
 				{
 					minX = [self windowCenter: [[cWindows objectAtIndex: x] window]].x;
 					index = x;
@@ -5176,9 +5176,9 @@ static BOOL initialized = NO;
 	NSMutableArray *hiddenWindows = [NSMutableArray array];
 	
 	// Add the hidden windows
-	for( ViewerController *v in viewersList)
+	for (ViewerController *v in viewersList)
 	{
-		if( [[v window] isVisible] == NO)
+		if ([[v window] isVisible] == NO)
 		{
 			[hiddenWindows addObject: v];
 			[cResult addObject: v];
@@ -5189,20 +5189,20 @@ static BOOL initialized = NO;
 	
 	viewersList = cResult;
 	
-    if( keyWindow == nil)
+    if (keyWindow == nil)
     {
-        for( ViewerController *v in viewersList)
+        for (ViewerController *v in viewersList)
         {
-            if( [[v window] isKeyWindow])
+            if ([[v window] isKeyWindow])
                 keyWindow = v;
         }
     }
 	
 	BOOL identical = YES;
 	
-    if( [[NSUserDefaults standardUserDefaults] boolForKey: @"tileWindowsOrderByStudyDate"])
+    if ([[NSUserDefaults standardUserDefaults] boolForKey: @"tileWindowsOrderByStudyDate"])
     {
-        if( [hiddenWindows count])
+        if ([hiddenWindows count])
             [hiddenWindows removeAllObjects];
         
         [viewersList sortUsingComparator: ^NSComparisonResult(id obj1, id obj2)
@@ -5210,24 +5210,24 @@ static BOOL initialized = NO;
             NSDate *date1 = [[obj1 currentStudy] date];
             NSDate *date2 = [[obj2 currentStudy] date];
             
-            if( [[NSUserDefaults standardUserDefaults] boolForKey: @"reversedTileWindowsOrderByStudyDate"])
+            if ([[NSUserDefaults standardUserDefaults] boolForKey: @"reversedTileWindowsOrderByStudyDate"])
                 return [date1 compare: date2];
             else
                 return [date2 compare: date1];
         }];
     }
     
-	if( keepSameStudyOnSameScreen)
+	if (keepSameStudyOnSameScreen)
 	{
 		// Are there different studies
-		if( [viewersList count])
+		if ([viewersList count])
 		{
 			NSString	*studyUID = [[[[viewersList objectAtIndex: 0] fileList] objectAtIndex: 0] valueForKeyPath:@"series.study.studyInstanceUID"];
 			
 			//get 2D viewer study arrays
-			for( int i = 0; i < [viewersList count]; i++)
+			for (int i = 0; i < [viewersList count]; i++)
 			{
-				if( [[[[[viewersList objectAtIndex: i] fileList] objectAtIndex: 0] valueForKeyPath:@"series.study.studyInstanceUID"] isEqualToString: studyUID] == NO)
+				if ([[[[[viewersList objectAtIndex: i] fileList] objectAtIndex: 0] valueForKeyPath:@"series.study.studyInstanceUID"] isEqualToString: studyUID] == NO)
 					identical = NO;
 			}
 		}
@@ -5235,25 +5235,25 @@ static BOOL initialized = NO;
 	
 	@try
 	{
-		if( keepSameStudyOnSameScreen == YES && identical == NO)
+		if (keepSameStudyOnSameScreen == YES && identical == NO)
 		{
 			//get 2D viewer study arrays
-			for( int i = 0; i < [viewersList count]; i++)
+			for (int i = 0; i < [viewersList count]; i++)
 			{
 				NSString	*studyUID = [[[[viewersList objectAtIndex: i] fileList] objectAtIndex: 0] valueForKeyPath:@"series.study.studyInstanceUID"];
 				
 				BOOL found = NO;
 				// loop through and add to correct array if present
-				for( int x = 0; x < [studyList count]; x++)
+				for (int x = 0; x < [studyList count]; x++)
 				{
-					if( [[[[[[studyList objectAtIndex: x] objectAtIndex: 0] fileList] objectAtIndex: 0] valueForKeyPath:@"series.study.studyInstanceUID"] isEqualToString: studyUID])
+					if ([[[[[[studyList objectAtIndex: x] objectAtIndex: 0] fileList] objectAtIndex: 0] valueForKeyPath:@"series.study.studyInstanceUID"] isEqualToString: studyUID])
 					{
 						[[studyList objectAtIndex: x] addObject: [viewersList objectAtIndex: i]];
 						found = YES;
 					}
 				}
 				// create new array for current UID
-				if( found == NO)
+				if (found == NO)
 				{
 					[studyList addObject: [NSMutableArray array]];
 					[[studyList lastObject] addObject: [viewersList objectAtIndex: i]];
@@ -5276,52 +5276,52 @@ static BOOL initialized = NO;
 	
     float landscapeRatio = 1.5;
     
-    if( screenRect.size.width/screenRect.size.height > 1.7) // 16/9 screen or more
+    if (screenRect.size.width/screenRect.size.height > 1.7) // 16/9 screen or more
         landscapeRatio = 2.0;
     
     float portraitRatio = 0.9;
     
-    if( screenRect.size.height/screenRect.size.width > 1.7) // 16/9 screen or more
+    if (screenRect.size.height/screenRect.size.width > 1.7) // 16/9 screen or more
         portraitRatio = 0.49;
     
 	int rows = [[WindowLayoutManager sharedWindowLayoutManager] windowsRows];
 	int columns = [[WindowLayoutManager sharedWindowLayoutManager] windowsColumns];
 	
-	if( [sender isKindOfClass: [NSDictionary class]])
+	if ([sender isKindOfClass: [NSDictionary class]])
 	{
-        if( [[sender objectForKey: @"rows"] intValue] && [[sender objectForKey: @"columns"] intValue])
+        if ([[sender objectForKey: @"rows"] intValue] && [[sender objectForKey: @"columns"] intValue])
         {
             rows = [[sender objectForKey: @"rows"] intValue];
             columns = [[sender objectForKey: @"columns"] intValue];
         }
-		else if( [[sender objectForKey: @"rows"] intValue])
+		else if ([[sender objectForKey: @"rows"] intValue])
 		{
 			rows = [[sender objectForKey: @"rows"] intValue];
 			columns = floor( (float) viewerCount / (float) rows);
 		}
-		else if( [[sender objectForKey: @"columns"] intValue])
+		else if ([[sender objectForKey: @"columns"] intValue])
 		{
 			columns = [[sender objectForKey: @"columns"] intValue];
 			rows = floor( (float) viewerCount / (float) columns);
 		}
         
-        if( [[sender objectForKey: @"Rows"] intValue] && [[sender objectForKey: @"Columns"] intValue])
+        if ([[sender objectForKey: @"Rows"] intValue] && [[sender objectForKey: @"Columns"] intValue])
         {
             rows = [[sender objectForKey: @"Rows"] intValue];
             columns = [[sender objectForKey: @"Columns"] intValue];
         }
-		else if( [[sender objectForKey: @"Rows"] intValue])
+		else if ([[sender objectForKey: @"Rows"] intValue])
 		{
 			rows = [[sender objectForKey: @"Rows"] intValue];
 			columns = floor( (float) viewerCount / (float) rows);
 		}
-		else if( [[sender objectForKey: @"Columns"] intValue])
+		else if ([[sender objectForKey: @"Columns"] intValue])
 		{
 			columns = [[sender objectForKey: @"Columns"] intValue];
 			rows = floor( (float) viewerCount / (float) columns);
 		}
 	}
-	else if( ![[WindowLayoutManager sharedWindowLayoutManager] currentHangingProtocol] || viewerCount < rows * columns)
+	else if (![[WindowLayoutManager sharedWindowLayoutManager] currentHangingProtocol] || viewerCount < rows * columns)
 	{
 		if (landscape)
 		{
@@ -5335,18 +5335,18 @@ static BOOL initialized = NO;
 		}
 	}
 	
-    if( rows <= 0)
+    if (rows <= 0)
         rows = 1;
     
-    if( columns <= 0)
+    if (columns <= 0)
         columns = 1;
     
 	//excess viewers. Need to add spaces to accept
-	if( viewerCount > (rows * columns))
+	if (viewerCount > (rows * columns))
 	{
 		float ratioValue;
 		
-		if( landscape)
+		if (landscape)
             ratioValue = landscapeRatio;
 		else
             ratioValue = portraitRatio;
@@ -5356,17 +5356,17 @@ static BOOL initialized = NO;
         
         BOOL fixedRows = NO, fixedColumns = NO;
         
-        if( [sender isKindOfClass: [NSDictionary class]] && [sender objectForKey: @"rows"])
+        if ([sender isKindOfClass: [NSDictionary class]] && [sender objectForKey: @"rows"])
             fixedRows = YES;
         
-        if( [sender isKindOfClass: [NSDictionary class]] && [sender objectForKey: @"columns"])
+        if ([sender isKindOfClass: [NSDictionary class]] && [sender objectForKey: @"columns"])
             fixedColumns = YES;
         
 		while (viewerCountPerScreen > (rows * columnsPerScreen))
 		{
-			if( fixedRows)
+			if (fixedRows)
 				columnsPerScreen++;
-			else if( fixedColumns)
+			else if (fixedColumns)
 				rows++;
 			else
 			{
@@ -5381,25 +5381,25 @@ static BOOL initialized = NO;
         
         int intViewerCountPerScreen = ceilf( viewerCountPerScreen);
         
-        if( rows * columnsPerScreen > intViewerCountPerScreen && rows*(columnsPerScreen-1) == intViewerCountPerScreen)
+        if (rows * columnsPerScreen > intViewerCountPerScreen && rows*(columnsPerScreen-1) == intViewerCountPerScreen)
             columnsPerScreen --;
 
-        if( rows * columnsPerScreen > intViewerCountPerScreen && columnsPerScreen*(rows-1) == intViewerCountPerScreen)
+        if (rows * columnsPerScreen > intViewerCountPerScreen && columnsPerScreen*(rows-1) == intViewerCountPerScreen)
             rows --;
         
         columns = columnsPerScreen * numberOfMonitors;
 	}
 	
 	// Smart arrangement if one window was added or removed
-	if( numberOfMonitors == 1)
+	if (numberOfMonitors == 1)
 	{
 		@try 
 		{
-			if( lastColumns != columns)
+			if (lastColumns != columns)
 			{
-				if( lastCount == (long) [viewersList count] -1)	// One window was added
+				if (lastCount == (long) [viewersList count] -1)	// One window was added
 				{
-					if( columns < [viewersList count])
+					if (columns < [viewersList count])
 					{
 						[viewersList insertObject: [viewersList lastObject] atIndex: lastColumns];
 						[viewersList removeObjectAtIndex: (long) [viewersList count]-1];
@@ -5407,15 +5407,15 @@ static BOOL initialized = NO;
 						
 				}
 				
-//				if( lastCount == [viewersList count] +1)	// One window was removed
+//				if (lastCount == [viewersList count] +1)	// One window was removed
 //				{
-//					if( viewersAddresses)
+//					if (viewersAddresses)
 //					{
 //						// Try to find the missing Viewer
 //						
-//						for( int i = 0 ; i < [viewersAddresses count]; i++)
+//						for (int i = 0 ; i < [viewersAddresses count]; i++)
 //						{
-//							if( [viewersList containsObject: [[viewersAddresses objectAtIndex: i] nonretainedObjectValue]] == NO)
+//							if ([viewersList containsObject: [[viewersAddresses objectAtIndex: i] nonretainedObjectValue]] == NO)
 //							{
 //								// We found the missing viewer
 //								[viewersList insertObject: [viewersList lastObject] atIndex: i];
@@ -5438,16 +5438,16 @@ static BOOL initialized = NO;
 	lastRows = rows;
 	lastCount = [viewersList count];
 	
-//	if( viewersAddresses == nil)
+//	if (viewersAddresses == nil)
 //		viewersAddresses = [[NSMutableArray array] retain];
 //	
 //	[viewersAddresses removeAllObjects];
-//	for( id v in viewersList)
+//	for (id v in viewersList)
 //		[viewersAddresses addObject: [NSValue valueWithNonretainedObject: v]];
 	
 	accumulateAnimations = YES;
 	
-	if( keepSameStudyOnSameScreen && numberOfMonitors > 1)
+	if (keepSameStudyOnSameScreen && numberOfMonitors > 1)
 	{
         int columnsForThisScreen = columns;
 		int rowsForThisScreen = rows;
@@ -5458,43 +5458,43 @@ static BOOL initialized = NO;
 		{
 			NSLog(@"Tile Windows with keepSameStudyOnSameScreen == YES");
 			
-			for( int i = 0; i < numberOfMonitors && i < [studyList count]; i++)
+			for (int i = 0; i < numberOfMonitors && i < [studyList count]; i++)
 			{
 				NSMutableArray	*viewersForThisScreen = [studyList objectAtIndex:i];
 				
-				if( i == numberOfMonitors -1 || i == (long) [studyList count]-1)
+				if (i == numberOfMonitors -1 || i == (long) [studyList count]-1)
 				{
 					// Take all remaining studies
 					
-					for( int x = i+1; x < [studyList count]; x++)
+					for (int x = i+1; x < [studyList count]; x++)
 					{
 						[viewersForThisScreen addObjectsFromArray: [studyList objectAtIndex: x]];
 					}
 				}
 				
-                if( viewersForThisScreen.count > (rowsForThisScreen * columnsForThisScreen))
+                if (viewersForThisScreen.count > (rowsForThisScreen * columnsForThisScreen))
                 {
                     {
                         float ratioValue;
                         
-                        if( landscape)
+                        if (landscape)
                             ratioValue = landscapeRatio;
                         else
                             ratioValue = portraitRatio;
                         
                         BOOL fixedRows = NO, fixedColumns = NO;
                         
-                        if( [sender isKindOfClass: [NSDictionary class]] && [sender objectForKey: @"rows"])
+                        if ([sender isKindOfClass: [NSDictionary class]] && [sender objectForKey: @"rows"])
                             fixedRows = YES;
                         
-                        if( [sender isKindOfClass: [NSDictionary class]] && [sender objectForKey: @"columns"])
+                        if ([sender isKindOfClass: [NSDictionary class]] && [sender objectForKey: @"columns"])
                             fixedColumns = YES;
                         
                         while (viewersForThisScreen.count > (rowsForThisScreen * columnsForThisScreen))
                         {
-                            if( fixedRows)
+                            if (fixedRows)
                                 columnsForThisScreen++;
-                            else if( fixedColumns)
+                            else if (fixedColumns)
                                 rowsForThisScreen++;
                             else
                             {
@@ -5509,10 +5509,10 @@ static BOOL initialized = NO;
                         
                         int intViewerCountPerScreen = ceilf( viewersForThisScreen.count);
                         
-                        if( rowsForThisScreen * columnsForThisScreen > intViewerCountPerScreen && rowsForThisScreen*(columnsForThisScreen-1) == intViewerCountPerScreen)
+                        if (rowsForThisScreen * columnsForThisScreen > intViewerCountPerScreen && rowsForThisScreen*(columnsForThisScreen-1) == intViewerCountPerScreen)
                             columnsForThisScreen --;
                         
-                        if( rowsForThisScreen * columnsForThisScreen > intViewerCountPerScreen && columnsForThisScreen*(rowsForThisScreen-1) == intViewerCountPerScreen)
+                        if (rowsForThisScreen * columnsForThisScreen > intViewerCountPerScreen && columnsForThisScreen*(rowsForThisScreen-1) == intViewerCountPerScreen)
                             rowsForThisScreen --;
                         
                         columns = columnsForThisScreen * numberOfMonitors;
@@ -5535,7 +5535,7 @@ static BOOL initialized = NO;
 	{
 		int count = [viewersList count];
 		
-		for( int i = 0; i < count; i++)
+		for (int i = 0; i < count; i++)
 		{
 			NSRect frame = [AppController usefullRectForScreen: [screens objectAtIndex:i] showFloatingWindows: display2DViewerToolbar];
 			
@@ -5550,10 +5550,10 @@ static BOOL initialized = NO;
 	 There are more columns than monitors. 
 	  Need to separate columns among the window evenly  */
 	
-	else if((viewerCount <= columns) &&  (viewerCount % numberOfMonitors == 0))
+	else if ((viewerCount <= columns) &&  (viewerCount % numberOfMonitors == 0))
 	{
 		int viewersPerScreen = viewerCount / numberOfMonitors;
-		for( int i = 0; i < viewerCount; i++)
+		for (int i = 0; i < viewerCount; i++)
 		{
 			int index = (int) i/viewersPerScreen;
 			int viewerPosition = i % viewersPerScreen;
@@ -5569,12 +5569,12 @@ static BOOL initialized = NO;
 		lastColumns = viewerCount;
 	} 
 	//have different number of columns in each window
-	else if( viewerCount <= columns) 
+	else if (viewerCount <= columns)
 	{
 		int columnsPerScreen = ceil(((float) columns / numberOfMonitors));
 		int extraViewers = viewerCount % numberOfMonitors;
 		
-		for( int i = 0; i < viewerCount; i++)
+		for (int i = 0; i < viewerCount; i++)
 		{
 			int monitorIndex = (int) i /columnsPerScreen;
 			int viewerPosition = i % columnsPerScreen;
@@ -5588,9 +5588,9 @@ static BOOL initialized = NO;
 				
 			frame.origin.x += (frame.size.width * viewerPosition);
 			
-			if( [hiddenWindows count])	// We have new viewers to insert !
+			if ([hiddenWindows count])	// We have new viewers to insert !
 			{
-				if( [[[viewersList objectAtIndex:i] window] screen] != screen)
+				if ([[[viewersList objectAtIndex:i] window] screen] != screen)
 				{
 					[viewersList removeObject: [hiddenWindows objectAtIndex: 0]];
 					[viewersList insertObject: [hiddenWindows objectAtIndex: 0] atIndex: i];
@@ -5620,9 +5620,9 @@ static BOOL initialized = NO;
 		int previousIndex = 0;
 		int monitorIndex;
 		
-		if( viewerCount)
+		if (viewerCount)
 		{
-			for( int i = 0; i < viewerCount; i++)
+			for (int i = 0; i < viewerCount; i++)
 			{
 				monitorIndex =  i / (columnsPerScreen*rowsPerScreen);
 				
@@ -5631,7 +5631,7 @@ static BOOL initialized = NO;
 				
 				NSScreen *screen = [screens objectAtIndex: monitorIndex];
 				
-				if( monitorIndex != previousIndex)
+				if (monitorIndex != previousIndex)
 				{
 					[self displayViewers: viewersForThisScreen monitorIndex: previousIndex screens: screens numberOfMonitors: numberOfMonitors rowsPerScreen: rowsPerScreen columnsPerScreen: columnsPerScreen];
 					[viewersForThisScreen removeAllObjects];
@@ -5639,9 +5639,9 @@ static BOOL initialized = NO;
 					previousIndex = monitorIndex;
 				}
 				
-				if( [hiddenWindows count])	// We have new viewers to insert !
+				if ([hiddenWindows count])	// We have new viewers to insert !
 				{
-					if( [[[viewersList objectAtIndex:i] window] screen] != screen)
+					if ([[[viewersList objectAtIndex:i] window] screen] != screen)
 					{
 						[viewersList removeObject: [hiddenWindows objectAtIndex: 0]];
 						[viewersList insertObject: [hiddenWindows objectAtIndex: 0] atIndex: i];
@@ -5655,7 +5655,7 @@ static BOOL initialized = NO;
                 [hiddenWindows removeObject: [viewersList objectAtIndex:i]];
 			}
 			
-			if( [viewersForThisScreen count])
+			if ([viewersForThisScreen count])
 				[self displayViewers: viewersForThisScreen monitorIndex: monitorIndex screens: screens numberOfMonitors: numberOfMonitors rowsPerScreen: rowsPerScreen columnsPerScreen: columnsPerScreen];
 		}
 	}
@@ -5663,13 +5663,13 @@ static BOOL initialized = NO;
 		NSLog(@"NO tiling");
 	
     int p = lastColumns / [[[AppController sharedAppController] viewerScreens] count];
-    if( p < 1)
+    if (p < 1)
         p = 1;
     
     [[NSUserDefaults standardUserDefaults] setObject: [NSString stringWithFormat: @"%d%d", lastRows, p] forKey: @"LastWindowsTilingRowsColumns"];
     
 	accumulateAnimations = NO;
-	if( [accumulateAnimationsArray count])
+	if ([accumulateAnimationsArray count])
 	{
 		[OSIWindowController setDontEnterMagneticFunctions: YES];
 		[OSIWindowController setDontEnterWindowDidChangeScreen: YES];
@@ -5677,7 +5677,7 @@ static BOOL initialized = NO;
 		NSViewAnimation * animation = [[[NSViewAnimation alloc]  initWithViewAnimations: accumulateAnimationsArray] autorelease];
 		[animation setAnimationBlockingMode: NSAnimationBlocking];
 		
-		if( [accumulateAnimationsArray count] == 1)
+		if ([accumulateAnimationsArray count] == 1)
 			[animation setDuration: 0.20];
 		else
 			[animation setDuration: 0.40];
@@ -5697,24 +5697,24 @@ static BOOL initialized = NO;
 	
     NSDisableScreenUpdates();
     
-    for( int i = 0; i < [[NSScreen screens] count]; i++)
+    for (int i = 0; i < [[NSScreen screens] count]; i++)
         [thumbnailsListPanel[ i] setThumbnailsView: nil viewer: nil];
     
-    if( keyWindow == nil)
+    if (keyWindow == nil)
         keyWindow = [ViewerController frontMostDisplayed2DViewerForScreen: nil];
     
-	if( [viewersList count] > 0 && keyWindow != nil)
+	if ([viewersList count] > 0 && keyWindow != nil)
 	{
         [DCMView setDontListenToSyncMessage: YES];
         
         [[keyWindow window] makeKeyAndOrderFront:self];
 		[keyWindow propagateSettings];
         
-		for( id v in [[viewersList reverseObjectEnumerator] allObjects])
+		for (id v in [[viewersList reverseObjectEnumerator] allObjects])
 		{
-			if( [v isKindOfClass:[ViewerController class]])
+			if ([v isKindOfClass:[ViewerController class]])
 			{
-                if( v != keyWindow)
+                if (v != keyWindow)
                 {
                     [v buildMatrixPreview: [hiddenWindows containsObject: [v window]]];
 //                    [v redrawToolbar]; this is very slow if several windows are displayed : cannot reproduce the bug// To avoid the drag & remove item bug - multiple windows
@@ -5724,7 +5724,7 @@ static BOOL initialized = NO;
         
         [ToolbarPanelController checkForValidToolbar];
         
-        if( [keyWindow isKindOfClass:[ViewerController class]])
+        if ([keyWindow isKindOfClass:[ViewerController class]])
         {
             [[keyWindow imageView] becomeMainWindow];
             [keyWindow buildMatrixPreview: YES];
@@ -5732,7 +5732,7 @@ static BOOL initialized = NO;
             [keyWindow redrawToolbar];
 		}
         
-		if( [[NSUserDefaults standardUserDefaults] boolForKey:@"syncPreviewList"])
+		if ([[NSUserDefaults standardUserDefaults] boolForKey:@"syncPreviewList"])
 			[keyWindow syncThumbnails];
         
         [DCMView setDontListenToSyncMessage: NO];
@@ -5745,9 +5745,9 @@ static BOOL initialized = NO;
 - (IBAction) closeAllViewers: (id) sender
 {
     // Is there a full screen window displayed?
-    for( id window in [NSApp orderedWindows])
+    for (id window in [NSApp orderedWindows])
     {
-        if( [window isKindOfClass: [NSFullScreenWindow class]])
+        if ([window isKindOfClass: [NSFullScreenWindow class]])
         {
             NSBeep();
             return;
@@ -5815,7 +5815,7 @@ static BOOL initialized = NO;
     }
     
     static NSManagedObjectContext *fakeContext = nil;
-    if( fakeContext == nil)
+    if (fakeContext == nil)
     {
         fakeContext  = [[NSManagedObjectContext alloc] init];
         NSManagedObjectModel *model = [[[NSManagedObjectModel alloc] initWithContentsOfURL: [NSURL fileURLWithPath: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"/WebPortalDB.momd"]]] autorelease];

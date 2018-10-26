@@ -2109,6 +2109,7 @@ CA
                                                                 </connections>
                                                             </tableView>
                                                         </subviews>
+                                                        <nil key="backgroundColor"/>
                                                     </clipView>
                                                     <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="0.0051020408163265302" horizontal="YES" id="13473">
                                                         <rect key="frame" x="-100" y="-100" width="194" height="15"/>
@@ -2183,6 +2184,7 @@ CA
                                                                 </connections>
                                                             </tableView>
                                                         </subviews>
+                                                        <nil key="backgroundColor"/>
                                                     </clipView>
                                                     <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="0.35062066063538821" horizontal="YES" id="13476">
                                                         <rect key="frame" x="-100" y="-100" width="160" height="15"/>
@@ -2243,6 +2245,7 @@ CA
                                                                 </tableColumns>
                                                             </tableView>
                                                         </subviews>
+                                                        <nil key="backgroundColor"/>
                                                     </clipView>
                                                     <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="0.71190558445836027" horizontal="YES" id="14155">
                                                         <rect key="frame" x="-100" y="-100" width="336" height="15"/>

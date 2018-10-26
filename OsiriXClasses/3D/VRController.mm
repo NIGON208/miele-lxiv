@@ -535,7 +535,8 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
         style = [m retain];
         _renderingMode = [renderingMode retain];
         
-        for( i = 0; i < 100; i++) undodata[ i] = nil;
+        for( i = 0; i < 100; i++)
+            undodata[ i] = nil;
         
         curMovieIndex = 0;
         maxMovieIndex = 1;

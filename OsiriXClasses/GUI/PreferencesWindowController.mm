@@ -79,7 +79,7 @@ static NSMutableDictionary *prefPanes = nil;
         
 		if( builtinPrefPaneClass)
 		{
-			self.pane = [[[builtinPrefPaneClass alloc] initWithBundle: nil] autorelease];  // TODO
+			self.pane = [[[builtinPrefPaneClass alloc] initWithBundle:[NSBundle mainBundle]] autorelease];
 		}
 		else
 		{

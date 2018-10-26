@@ -1954,21 +1954,23 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
 	
     NSPoint current = [self convertPoint: event.locationInWindow fromView: nil];
 	
-	if( scrollMode == 0)
+	if (scrollMode == MY_SCROLL_MODE_UNDEFINED)
 	{
-		if( fabs( start.x - current.x) < fabs( start.y - current.y))
+		if (fabs( start.x - current.x) < fabs( start.y - current.y))
 		{
-			if( fabs( start.y - current.y) > 3) scrollMode = 1;
+			if (fabs( start.y - current.y) > 3)
+                scrollMode = MY_SCROLL_MODE_VER;
 		}
 		else if( fabs( start.x - current.x) >= fabs( start.y - current.y))
 		{
-			if( fabs( start.x - current.x) > 3) scrollMode = 2;
+			if (fabs( start.x - current.x) > 3)
+                scrollMode = MY_SCROLL_MODE_HOR;
 		}
 	}
 	
 	float delta;
 	
-	if( scrollMode == 1)
+	if (scrollMode == MY_SCROLL_MODE_VER)
 		delta = ((previous.y - current.y) * 512. )/ ([self convertSizeToBacking: self.frame.size].width/2);
 	else
 		delta = ((current.x - previous.x) * 512. )/ ([self convertSizeToBacking: self.frame.size].width/2);

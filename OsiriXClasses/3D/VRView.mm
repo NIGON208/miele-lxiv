@@ -2943,7 +2943,7 @@ public:
     if ([self eventToPlugins:theEvent])
         return;
     
-	return [self scrollInStack: [theEvent deltaY]];  // @@@ TODO: shouldn't return anything ?
+	[self scrollInStack: [theEvent deltaY]];
 }
 
 - (void)otherMouseDown:(NSEvent *)theEvent

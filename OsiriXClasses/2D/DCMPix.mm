@@ -8044,7 +8044,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 				}
 				else
 				{
-					[otherImage setBackgroundColor: [NSColor whiteColor]];
+					[otherImage setBackgroundColor: [NSColor windowBackgroundColor]];
 					
 					if( [extension isEqualToString:@"pdf"])
 					{

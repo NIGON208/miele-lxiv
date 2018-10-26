@@ -815,7 +815,7 @@ int main(int argc, const char *argv[])
                 [printInfoDict setObject: NSPrintSaveJob forKey: NSPrintJobDisposition];
                 
                 [[NSFileManager defaultManager] removeItemAtPath: [path stringByAppendingPathExtension: @"pdf"] error: nil];
-                [printInfoDict setObject: [path stringByAppendingPathExtension: @"pdf"] forKey: NSPrintSavePath];
+                [printInfoDict setObject: [path stringByAppendingPathExtension: @"pdf"] forKey: NSPrintJobSavingURL];
                 
                 NSPrintInfo *printInfo = [[NSPrintInfo alloc] initWithDictionary: printInfoDict];
                 
