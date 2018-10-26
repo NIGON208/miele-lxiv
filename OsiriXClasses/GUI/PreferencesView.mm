@@ -249,7 +249,7 @@ static const NSUInteger padLeft = 6;
 //	[[self backgroundColor] setFill];
 //	[NSBezierPath fillRect:frame];
 	
-    [[NSColor windowBackgroundColor] setFill];
+    [[NSColor textBackgroundColor] setFill];
 	[[NSColor colorWithCalibratedWhite:207./255 alpha:1] setStroke];
 	[NSBezierPath setDefaultLineWidth:1];
 	for (NSUInteger r = 1; r < groups.count; r += 2) { // darker background for alternate groups
