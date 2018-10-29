@@ -2074,9 +2074,9 @@ return YES;
     SyncSeriesBehavior newBehavior = [viewer syncSeriesBehavior];
     NSUInteger modifierFlags = [[[NSApplication sharedApplication] currentEvent] modifierFlags] ;
     
-    if( modifierFlags & NSAlternateKeyMask)
+    if (modifierFlags & NSEventModifierFlagOption)
         newBehavior = SyncSeriesBehaviorAbsolutePos;
-    else if( modifierFlags & NSShiftKeyMask)
+    else if (modifierFlags & NSEventModifierFlagShift)
         newBehavior = SyncSeriesBehaviorRelativePos;
     
     [OrthogonalMPRViewer updateSyncSeriesProperties:viewer :newState :globalSyncSeriesScope :newBehavior ];

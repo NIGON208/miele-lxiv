@@ -779,12 +779,16 @@ typedef struct _xyzArray
 	else
         tool = currentTool;
 	
-	if (([event modifierFlags] & NSControlKeyMask))  tool = tRotate;
-	if (([event modifierFlags] & NSShiftKeyMask))  tool = tZoom;
-	if (([event modifierFlags] & NSCommandKeyMask))  tool = tTranslate;
-	if (([event modifierFlags] & NSAlternateKeyMask))  tool = tWL;
-	if (([event modifierFlags] & NSCommandKeyMask) && ([event modifierFlags] & NSAlternateKeyMask))  tool = tRotate;
-	if (([event modifierFlags] & NSCommandKeyMask) && ([event modifierFlags] & NSControlKeyMask))  tool = tCamera3D;
+	if (([event modifierFlags] & NSEventModifierFlagControl))  tool = tRotate;
+	if (([event modifierFlags] & NSEventModifierFlagShift))  tool = tZoom;
+	if (([event modifierFlags] & NSEventModifierFlagCommand))  tool = tTranslate;
+	if (([event modifierFlags] & NSEventModifierFlagOption))  tool = tWL;
+
+    if (([event modifierFlags] & NSEventModifierFlagCommand) &&
+        ([event modifierFlags] & NSEventModifierFlagOption))  tool = tRotate;
+	
+    if (([event modifierFlags] & NSEventModifierFlagCommand) &&
+        ([event modifierFlags] & NSEventModifierFlagControl))  tool = tCamera3D;
 	
 	return tool;
 }
@@ -1007,7 +1011,7 @@ typedef struct _xyzArray
 		NSRect	beforeFrame = [self frame];
 		NSPoint mouseLoc = [theEvent locationInWindow];	//[self convertPoint: [theEvent locationInWindow] fromView:nil];
 		
-		if( [theEvent modifierFlags] & NSShiftKeyMask)
+		if( [theEvent modifierFlags] & NSEventModifierFlagShift)
 		{
 			newFrame.size.width = [[[self window] contentView] frame].size.width - mouseLoc.x*2;
 			newFrame.size.height = newFrame.size.width;
@@ -1315,8 +1319,8 @@ typedef struct _xyzArray
 		}
 		else if( tool == t3DRotate)
 		{
-			int shiftDown = 0;//([theEvent modifierFlags] & NSShiftKeyMask);
-			int controlDown = 0;//([theEvent modifierFlags] & NSControlKeyMask);
+			int shiftDown = 0;//([theEvent modifierFlags] & NSEventModifierFlagShift);
+			int controlDown = 0;//([theEvent modifierFlags] & NSEventModifierFlagControl);
 
 			mouseLoc = [self convertPoint: [theEvent locationInWindow] fromView:nil];
 			[self getInteractor]->SetEventInformation((int)mouseLoc.x, (int)mouseLoc.y, controlDown, shiftDown);
@@ -2511,13 +2515,13 @@ typedef struct _xyzArray
 //	
 //	if( aCamera->GetParallelProjection())
 //	{
-//		[[[[[self window] windowController] toolsMatrix] cellWithTag: tMesure] setEnabled: YES];
+//		[[[[[self window] windowController] toolsMatrix] cellWithTag: tMeasure] setEnabled: YES];
 //	}
 //	else
 //	{
-//		[[[[[self window] windowController] toolsMatrix] cellWithTag: tMesure] setEnabled: NO];
+//		[[[[[self window] windowController] toolsMatrix] cellWithTag: tMeasure] setEnabled: NO];
 //		
-//		if( currentTool == tMesure)
+//		if( currentTool == tMeasure)
 //		{
 //			[self setCurrentTool: t3DRotate];
 //			[[[[self window] windowController] toolsMatrix] selectCellWithTag: t3DRotate];
@@ -3373,7 +3377,7 @@ typedef struct _xyzArray
 {
 	NSCursor	*c;
 	
-	if (tool == tMesure || tool == t3Dpoint)
+	if (tool == tMeasure || tool == t3Dpoint)
 		c = [NSCursor crosshairCursor];
 	else if( tool == t3DCut)
 		c = [NSCursor crosshairCursor];
@@ -3420,7 +3424,7 @@ typedef struct _xyzArray
 	NSMutableArray *pbTypes = [NSMutableArray array];
 	// The image we will drag 
 	NSImage *image;
-	if ([event modifierFlags] & NSShiftKeyMask)
+	if ([event modifierFlags] & NSEventModifierFlagShift)
 		image = [self nsimage: YES];
 	else
 		image = [self nsimage: NO];
@@ -3443,7 +3447,7 @@ typedef struct _xyzArray
 		[thumbnail unlockFocus];
 	}
 	
-	if ([event modifierFlags] & NSAlternateKeyMask)
+	if ([event modifierFlags] & NSEventModifierFlagOption)
 		[ pbTypes addObject: NSFilesPromisePboardType];
 	else
 		[pbTypes addObject: NSTIFFPboardType];	
@@ -3452,7 +3456,7 @@ typedef struct _xyzArray
 	[pboard declareTypes:pbTypes  owner:self];
 
 		
-	if ([event modifierFlags] & NSAlternateKeyMask) {
+	if ([event modifierFlags] & NSEventModifierFlagOption) {
 		NSRect imageLocation;
 		local_point = [self convertPoint:event_location fromView:nil];
 		imageLocation.origin =  local_point;

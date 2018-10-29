@@ -11535,6 +11535,7 @@
 		4372A20121675E9300EE69CB /* Distribution */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -11579,6 +11580,7 @@
 				OTHER_CODE_SIGN_FLAGS = "";
 				OTHER_LDFLAGS = "";
 				SDKROOT = macosx;
+				USE_HEADERMAP = NO;
 			};
 			name = Distribution;
 		};
@@ -12069,7 +12071,6 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SECTORDER_FLAGS = "";
 				SKIP_INSTALL = YES;
-				USE_HEADERMAP = NO;
 			};
 			name = Distribution;
 		};
@@ -12217,7 +12218,6 @@
 				SKIP_INSTALL = YES;
 				STRIP_INSTALLED_PRODUCT = YES;
 				SYMROOT = build;
-				USE_HEADERMAP = NO;
 			};
 			name = Distribution;
 		};
@@ -12448,6 +12448,7 @@
 		43E98D191A32BF6A001B9E51 /* Deployment */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -12492,6 +12493,7 @@
 				OTHER_CODE_SIGN_FLAGS = "";
 				OTHER_LDFLAGS = "";
 				SDKROOT = macosx;
+				USE_HEADERMAP = NO;
 			};
 			name = Deployment;
 		};
@@ -12981,7 +12983,6 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SECTORDER_FLAGS = "";
 				SKIP_INSTALL = YES;
-				USE_HEADERMAP = NO;
 			};
 			name = Deployment;
 		};
@@ -13130,7 +13131,6 @@
 				SKIP_INSTALL = YES;
 				STRIP_INSTALLED_PRODUCT = YES;
 				SYMROOT = build;
-				USE_HEADERMAP = NO;
 			};
 			name = Deployment;
 		};
@@ -13475,8 +13475,6 @@
 					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmfg.a",
 					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmiod.a",
 					"$(SRCROOT)/Binaries/DCMTK/lib/libdcmdata.a",
-					"$(SRCROOT)/Binaries/DCMTK/lib/liboflog.a",
-					"$(SRCROOT)/Binaries/DCMTK/lib/libofstd.a",
 					"-lpthread",
 					/usr/lib/libz.dylib,
 					"-lm",
@@ -13486,7 +13484,6 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SECTORDER_FLAGS = "";
 				SKIP_INSTALL = YES;
-				USE_HEADERMAP = NO;
 			};
 			name = Development;
 		};
@@ -13882,6 +13879,7 @@
 		7E76BED9085757B70073649A /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -13930,6 +13928,7 @@
 				OTHER_CODE_SIGN_FLAGS = "";
 				OTHER_LDFLAGS = "";
 				SDKROOT = macosx;
+				USE_HEADERMAP = NO;
 			};
 			name = Development;
 		};
@@ -14223,7 +14222,6 @@
 				SKIP_INSTALL = YES;
 				STRIP_INSTALLED_PRODUCT = YES;
 				SYMROOT = build;
-				USE_HEADERMAP = NO;
 			};
 			name = Development;
 		};

@@ -1276,7 +1276,7 @@ return YES;
 {
 	if( newTool == tBonesRemoval)
 	{
-		if( ([[viewer2D modality] isEqualToString:@"CT"] == NO && growingSet == NO) || ([[[NSApplication sharedApplication] currentEvent] modifierFlags]  & NSAlternateKeyMask))
+		if( ([[viewer2D modality] isEqualToString:@"CT"] == NO && growingSet == NO) || ([[[NSApplication sharedApplication] currentEvent] modifierFlags]  & NSEventModifierFlagOption))
 		{
 			[self editGrowingRegion: self];
 			growingSet = YES;
@@ -1285,7 +1285,7 @@ return YES;
 	
 	if( newTool == t3DCut)
 	{
-		if( [[[NSApplication sharedApplication] currentEvent] modifierFlags]  & NSAlternateKeyMask)
+		if( [[[NSApplication sharedApplication] currentEvent] modifierFlags]  & NSEventModifierFlagOption)
 		{
 			float copyValue = self.deleteValue;
 			
@@ -1361,7 +1361,7 @@ return YES;
 	}
 	else
 	{
-		if ([[[NSApplication sharedApplication] currentEvent] modifierFlags]  & NSShiftKeyMask)
+		if ([[[NSApplication sharedApplication] currentEvent] modifierFlags]  & NSEventModifierFlagShift)
 		{
 			NSBeginAlertSheet( NSLocalizedString(@"Delete a WL/WW preset",nil), NSLocalizedString(@"Delete",nil), NSLocalizedString(@"Cancel",nil), nil, [self window], self, @selector(deleteWLWW:returnCode:contextInfo:), NULL, [menuString retain], NSLocalizedString (@"Are you sure you want to delete preset : '%@'?", nil), menuString);
 		}
@@ -1653,7 +1653,7 @@ return YES;
 
 -(void) bestRendering:(id) sender
 {
-//	if( [[[NSApplication sharedApplication] currentEvent] modifierFlags]  & NSAlternateKeyMask)
+//	if( [[[NSApplication sharedApplication] currentEvent] modifierFlags]  & NSEventModifierFlagOption)
 //	{
 //		[OSIWindow setDontConstrainWindow: YES];
 //		[[self window] setFrame: NSMakeRect(0, [[[self window] screen] visibleFrame].origin.y - (3000-[[[self window] screen] visibleFrame].size.height), 3000, 3000) display: NO];
@@ -2797,7 +2797,7 @@ return YES;
 
 - (void)loadAdvancedCLUTOpacity:(id)sender;
 {
-	if ([[[NSApplication sharedApplication] currentEvent] modifierFlags] & NSShiftKeyMask)
+	if ([[[NSApplication sharedApplication] currentEvent] modifierFlags] & NSEventModifierFlagShift)
     {
         NSBeginAlertSheet(NSLocalizedString(@"Remove a Color Look Up Table", nil), NSLocalizedString(@"Delete", nil), NSLocalizedString(@"Cancel", nil), nil, [self window],
 		  self, @selector(delete16BitCLUT:returnCode:contextInfo:), NULL, [sender title], NSLocalizedString( @"Are you sure you want to delete this CLUT : '%@'", nil), [sender title]);

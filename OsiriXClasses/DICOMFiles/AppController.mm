@@ -3034,8 +3034,8 @@ static BOOL initialized = NO;
                 
 				[[NSUserDefaults standardUserDefaults] registerDefaults: [DefaultsOsiriX getDefaults]];
                 
-                if ([BrowserController _currentModifierFlags] & NSCommandKeyMask &&
-                    [BrowserController _currentModifierFlags] & NSAlternateKeyMask)
+                if ([BrowserController _currentModifierFlags] & NSEventModifierFlagCommand &&
+                    [BrowserController _currentModifierFlags] & NSEventModifierFlagOption)
                 {
                     NSInteger result = NSRunInformationalAlertPanel(
                                             NSLocalizedString(@"Reset Preferences", nil),

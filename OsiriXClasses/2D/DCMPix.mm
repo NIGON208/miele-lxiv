@@ -41,7 +41,7 @@
 
 #import "DCMWaveform.h"
 
-#import <DCMView.h>
+#import "DCMView.h"
 
 #import "ThickSlabController.h"
 #import "PluginFileFormatDecoder.h"
@@ -595,8 +595,13 @@ static inline void DrawRuns(	struct edge *active,
 		// ** COMPUTE
 		if( compute)
 		{
-			start = xCoords[i];		if( start < 0) start = 0;		if( start >= w) start = w;
-			end = xCoords[i + 1];	if( end < 0) end = 0;			if( end >= w) end = w;
+			start = xCoords[i];
+            if( start < 0) start = 0;
+            if( start >= w) start = w;
+            
+			end = xCoords[i + 1];
+            if( end < 0) end = 0;
+            if( end >= w) end = w;
 			
 			switch( orientation)
 			{

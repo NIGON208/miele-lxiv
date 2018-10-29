@@ -119,7 +119,7 @@
             didEndSelector:NULL 
             contextInfo:NULL];
 	
-	[recalibrateValue setStringValue: [NSString stringWithFormat:@"%0.3f", (float) [curROI MesureLength :&pixels]] ];
+	[recalibrateValue setStringValue: [NSString stringWithFormat:@"%0.3f", (float) [curROI MeasureLength :&pixels]] ];
 	
     modalVal = [NSApp runModalForWindow:recalibrateWindow];
 	
@@ -182,12 +182,12 @@
 	[name selectText: self];
 	[comments setString:[curROI comments]];
 		
-	if( [curROI type] == tMesure)
+	if( [curROI type] == tMeasure)
         [recalibrate setEnabled: YES];
 	else
         [recalibrate setEnabled: NO];
 	
-	if( [curROI type] == tMesure)
+	if( [curROI type] == tMeasure)
         [xyPlot setEnabled: YES];
 	else
         [xyPlot setEnabled: NO];

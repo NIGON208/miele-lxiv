@@ -113,7 +113,7 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
             break;
             
 		case tNext:
-		case tMesure:
+		case tMeasure:
 		case tROI:
 		case tOval:
 		case tOPolygon:
@@ -1111,8 +1111,8 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
         
         float move = 2;
         
-        if( [theEvent modifierFlags] & NSAlternateKeyMask) move = 6;
-        if( [theEvent modifierFlags] & NSCommandKeyMask) move = 1;
+        if( [theEvent modifierFlags] & NSEventModifierFlagOption) move = 6;
+        if( [theEvent modifierFlags] & NSEventModifierFlagCommand) move = 1;
         
         if( c == NSDownArrowFunctionKey) { center.y -= move*slopeY; center.x += move*slopeX;}
         if( c == NSUpArrowFunctionKey) { center.y += move*slopeY; center.x -= move*slopeX;}
@@ -1678,7 +1678,7 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
 					vrView.keep3DRotateCentered = NO;
 				else
 				{
-					if( [theEvent modifierFlags] & NSAlternateKeyMask)
+					if( [theEvent modifierFlags] & NSEventModifierFlagOption)
 						vrView.keep3DRotateCentered = NO;
 				}
 			}
@@ -1752,7 +1752,8 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
 							[self sendWillEditCurvedPath];
                             
                             // if the shift key is down, place the point at the same level as the previous point
-                            if ([curvedPath.nodes count] > 0 && [theEvent modifierFlags] & NSControlKeyMask)
+                            if ([curvedPath.nodes count] > 0 &&
+                                [theEvent modifierFlags] & NSEventModifierFlagControl)
 							{
                                 N3Vector lastPoint = [[curvedPath.nodes lastObject] N3VectorValue];
                                 viewToDicomTransform = N3AffineTransformConcat(N3AffineTransformMakeTranslation(0, 0,

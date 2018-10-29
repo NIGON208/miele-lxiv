@@ -374,7 +374,7 @@ static int hotKeyToolCrossTable[] =
 	ZoomHotKeyAction,			//tZoom				2
 	RotateHotKeyAction,			//tRotate			3
 	ScrollHotKeyAction,			//tNext				4
-	LengthHotKeyAction,			//tMesure			5
+	LengthHotKeyAction,			//tMeasure			5
 	RectangleHotKeyAction,		//tROI				6
 	Rotate3DHotKeyAction,		//t3DRotate			7
 	OrthoMPRCrossHotKeyAction,	//tCross			8
@@ -763,7 +763,7 @@ return YES;
 			ROI *r = [self selectedROI];
 			
 			if( r.type == tText) valid = NO;
-			if( r.type == tMesure) valid = NO;
+			if( r.type == tMeasure) valid = NO;
 			if( r.type == t2DPoint) valid = NO;
 			if( r.type == tArrow) valid = NO;
 		}
@@ -2744,7 +2744,9 @@ static volatile int numberOfThreadsForRelisce = 0;
     [s setValue:nil forKey:@"windowsState"];
     
     NSUInteger m = [[NSApp currentEvent] modifierFlags];
-    if( m & NSShiftKeyMask || m & NSAlternateKeyMask || m & NSCommandKeyMask)
+    if (m & NSEventModifierFlagShift ||
+        m & NSEventModifierFlagOption ||
+        m & NSEventModifierFlagCommand)
     {
         BOOL keepOn = NO;
         do
@@ -2752,8 +2754,12 @@ static volatile int numberOfThreadsForRelisce = 0;
             NSEvent *ev = [NSApp nextEventMatchingMask: NSFlagsChangedMask untilDate: [NSDate dateWithTimeIntervalSinceNow: 5] inMode: NSEventTrackingRunLoopMode dequeue: YES];
             
             m = [[NSApp currentEvent] modifierFlags];
-            if( m & NSShiftKeyMask || m & NSAlternateKeyMask || m & NSCommandKeyMask)
+            if (m & NSEventModifierFlagShift ||
+                m & NSEventModifierFlagOption ||
+                m & NSEventModifierFlagCommand)
+            {
                 keepOn = YES;
+            }
             else
                 keepOn = NO;
             
@@ -2794,7 +2800,7 @@ static volatile int numberOfThreadsForRelisce = 0;
                 NSMenuItem *item = [[[NSMenuItem alloc] initWithTitle: t action: @selector( applyWindowProtocol:) keyEquivalent:@""] autorelease];
                 [item setRepresentedObject: protocol];
                 [item setKeyEquivalent: [NSString stringWithFormat: @"%d", i++]];
-                [item setKeyEquivalentModifierMask: NSAlternateKeyMask];
+                [item setKeyEquivalentModifierMask: NSEventModifierFlagOption];
                 [a addObject:item];
             }
             
@@ -2876,10 +2882,10 @@ static volatile int numberOfThreadsForRelisce = 0;
 		[item setTarget: self];
 		
 		
-		if( [imageView currentTool] >= tMesure)
+		if( [imageView currentTool] >= tMeasure)
 			[item setImage: [self imageForROI: [imageView currentTool]]];
 		else
-			[item setImage: [self imageForROI: tMesure]];
+			[item setImage: [self imageForROI: tMeasure]];
 		
 		[[item image] setSize:ToolsMenuIconSize];
 		
@@ -3346,10 +3352,10 @@ static volatile int numberOfThreadsForRelisce = 0;
 	if( [toolbar customizationPaletteIsRunning])
 		return NO;
 	
-	if( [[[NSApplication sharedApplication] currentEvent] modifierFlags] & NSAlternateKeyMask)
+	if( [[[NSApplication sharedApplication] currentEvent] modifierFlags] & NSEventModifierFlagOption)
 		return NO;
 		
-	if( [[[NSApplication sharedApplication] currentEvent] modifierFlags] & NSShiftKeyMask)
+	if( [[[NSApplication sharedApplication] currentEvent] modifierFlags] & NSEventModifierFlagShift)
 	{
 		[NSObject cancelPreviousPerformRequestsWithTarget: [AppController sharedAppController] selector:@selector(closeAllViewers:) object:nil];
 		[[AppController sharedAppController] performSelector: @selector(closeAllViewers:) withObject:nil afterDelay: 0.1];
@@ -4563,9 +4569,9 @@ static volatile int numberOfThreadsForRelisce = 0;
             [viewerSeries addObject: [[fileList[ i] objectAtIndex:0] valueForKey:@"series"]];
     }
     
-    if( (rightClick || ([[[NSApplication sharedApplication] currentEvent] modifierFlags] & NSCommandKeyMask)) && FullScreenOn == NO)
+    if ((rightClick || ([[[NSApplication sharedApplication] currentEvent] modifierFlags] & NSEventModifierFlagCommand)) && FullScreenOn == NO)
 	{
-        if( ([[[NSApplication sharedApplication] currentEvent] modifierFlags] & NSShiftKeyMask) || [[BrowserController currentBrowser] isUsingExternalViewer: series] == NO)
+        if( ([[[NSApplication sharedApplication] currentEvent] modifierFlags] & NSEventModifierFlagShift) || [[BrowserController currentBrowser] isUsingExternalViewer: series] == NO)
         {
             BOOL c = [[NSUserDefaults standardUserDefaults] boolForKey:@"syncPreviewList"];
             
@@ -4601,7 +4607,7 @@ static volatile int numberOfThreadsForRelisce = 0;
 			BOOL found = NO;
             BOOL showWindowIfDisplayed = [[NSUserDefaults standardUserDefaults] boolForKey: @"showWindowInsteadOfSwitching"];
             
-            if( ([[[NSApplication sharedApplication] currentEvent] modifierFlags] & NSShiftKeyMask))
+            if( ([[[NSApplication sharedApplication] currentEvent] modifierFlags] & NSEventModifierFlagShift))
                 showWindowIfDisplayed = !showWindowIfDisplayed;
             
 			if( showWindowIfDisplayed)
@@ -4628,7 +4634,7 @@ static volatile int numberOfThreadsForRelisce = 0;
 				
                 @try
                 {
-                    if( ([[[NSApplication sharedApplication] currentEvent] modifierFlags] & NSShiftKeyMask) || [[BrowserController currentBrowser] isUsingExternalViewer: series] == NO)
+                    if( ([[[NSApplication sharedApplication] currentEvent] modifierFlags] & NSEventModifierFlagShift) || [[BrowserController currentBrowser] isUsingExternalViewer: series] == NO)
                     {
                         [[BrowserController currentBrowser] loadSeries :series :self :YES keyImagesOnly: displayOnlyKeyImages];
                         
@@ -4925,7 +4931,7 @@ static volatile int numberOfThreadsForRelisce = 0;
 		{
 			BOOL syncThumbnails = [[NSUserDefaults standardUserDefaults] boolForKey: @"syncPreviewList"];
 			
-			if ([[[NSApplication sharedApplication] currentEvent] modifierFlags]  & NSCommandKeyMask)
+			if ([[[NSApplication sharedApplication] currentEvent] modifierFlags] & NSEventModifierFlagCommand)
 				syncThumbnails = !syncThumbnails;
 			
 			if( syncThumbnails)
@@ -4981,7 +4987,7 @@ static volatile int numberOfThreadsForRelisce = 0;
             NSDisableScreenUpdates();
             
             // Apply show / hide matrix to all viewers
-            if( ([[[NSApplication sharedApplication] currentEvent] modifierFlags]  & NSAlternateKeyMask) == NO)
+            if( ([[[NSApplication sharedApplication] currentEvent] modifierFlags] & NSEventModifierFlagOption) == NO)
             {
                 static BOOL noreentry = NO;
                 
@@ -5215,7 +5221,7 @@ static volatile int numberOfThreadsForRelisce = 0;
 	
     if( [curStudy isKindOfClass: [DicomStudy class]]) //Local study
     {
-        if( rightClick || [[[NSApplication sharedApplication] currentEvent] modifierFlags]  & NSCommandKeyMask)
+        if (rightClick || [[[NSApplication sharedApplication] currentEvent] modifierFlags]  & NSEventModifierFlagCommand)
         {
             [[BrowserController currentBrowser] databaseOpenStudy: curStudy];
         }
@@ -6478,11 +6484,12 @@ static ViewerController *draggedController = nil;
 		else
             [super keyDown:event];
 	}
-	else if (c == NSLeftArrowFunctionKey && ([event modifierFlags] & NSCommandKeyMask))
+	else if (c == NSLeftArrowFunctionKey && ([event modifierFlags] & NSEventModifierFlagCommand))
 	{
 		[[BrowserController currentBrowser] loadNextSeries:[fileList[0] objectAtIndex:0] : -1 :self :YES keyImagesOnly: displayOnlyKeyImages];
 	}
-	else if (c == NSRightArrowFunctionKey && ([event modifierFlags] & NSCommandKeyMask))
+	else if (c == NSRightArrowFunctionKey &&
+             ([event modifierFlags] & NSEventModifierFlagCommand))
 	{
 		[[BrowserController currentBrowser] loadNextSeries:[fileList[0] objectAtIndex:0] : 1 :self :YES keyImagesOnly: displayOnlyKeyImages];
 	}
@@ -7417,7 +7424,7 @@ return YES;
 	
 	switch( tag)
 	{
-		case tMesure:
+		case tMeasure:
 		case tAngle:
 		case tROI:
 		case tOval:
@@ -11739,7 +11746,7 @@ static int avoidReentryRefreshDatabase = 0;
 	{
 		name = [[sender title] substringFromIndex: 4];
 		
-		if ([[[NSApplication sharedApplication] currentEvent] modifierFlags]  & NSShiftKeyMask)
+		if ([[[NSApplication sharedApplication] currentEvent] modifierFlags]  & NSEventModifierFlagShift)
 		{
 			NSBeginAlertSheet( NSLocalizedString(@"Remove a WL/WW preset", nil), NSLocalizedString(@"Delete", nil), NSLocalizedString(@"Cancel", nil), nil, [self window], self, @selector(deleteWLWW:returnCode:contextInfo:), NULL, [name retain], NSLocalizedString( @"Are you sure you want to delete preset : '%@'?", nil), name);
 			
@@ -12229,13 +12236,13 @@ static float oldsetww, oldsetwl;
 
 - (void) ApplyConv:(id) sender
 {
-    if ([[[NSApplication sharedApplication] currentEvent] modifierFlags]  & NSShiftKeyMask)
+    if ([[[NSApplication sharedApplication] currentEvent] modifierFlags] & NSEventModifierFlagShift)
     {
         NSBeginAlertSheet( NSLocalizedString(@"Remove a Convolution Filter", nil), NSLocalizedString(@"Delete", nil), NSLocalizedString(@"Cancel", nil), nil, [self window], self, @selector(deleteConv:returnCode:contextInfo:), NULL, [sender title], NSLocalizedString( @"Are you sure you want to delete this convolution filter : '%@'", nil), [sender title]);
 		
 		[[NSNotificationCenter defaultCenter] postNotificationName: OsirixUpdateConvolutionMenuNotification object: curConvMenu userInfo: [NSDictionary dictionary]];
 	}
-    else if ([[[NSApplication sharedApplication] currentEvent] modifierFlags]  & NSAlternateKeyMask)
+    else if ([[[NSApplication sharedApplication] currentEvent] modifierFlags] & NSEventModifierFlagOption)
     {
 		NSDictionary   *aConv;
 		NSArray			*array;
@@ -12596,13 +12603,13 @@ float				matrix[25];
 
 - (void) ApplyCLUT:(NSMenuItem*) sender
 {
-    if( ([[[NSApplication sharedApplication] currentEvent] modifierFlags] & NSShiftKeyMask) && sender.tag != 1000)
+    if( ([[[NSApplication sharedApplication] currentEvent] modifierFlags] & NSEventModifierFlagShift) && sender.tag != 1000)
     {
         NSBeginAlertSheet( NSLocalizedString(@"Remove a Color Look Up Table", nil), NSLocalizedString(@"Delete", nil), NSLocalizedString(@"Cancel", nil), nil, [self window], self, @selector(deleteCLUT:returnCode:contextInfo:), NULL, [sender title], NSLocalizedString( @"Are you sure you want to delete this CLUT : '%@'", nil), [sender title]);
         
         [[NSNotificationCenter defaultCenter] postNotificationName: OsirixUpdateCLUTMenuNotification object: curCLUTMenu userInfo: [NSDictionary dictionary]];
     }
-    else if( ([[[NSApplication sharedApplication] currentEvent] modifierFlags]  & NSAlternateKeyMask) && sender.tag != 1000)
+    else if( ([[[NSApplication sharedApplication] currentEvent] modifierFlags] & NSEventModifierFlagOption) && sender.tag != 1000)
     {
         [self ApplyCLUTString:[sender title]];
         
@@ -12805,13 +12812,13 @@ float				matrix[25];
 
 - (void) ApplyOpacity: (id) sender
 {
-    if ([[[NSApplication sharedApplication] currentEvent] modifierFlags]  & NSShiftKeyMask)
+    if ([[[NSApplication sharedApplication] currentEvent] modifierFlags] & NSEventModifierFlagShift)
     {
         NSBeginAlertSheet( NSLocalizedString(@"Remove a Color Look Up Table", nil), NSLocalizedString(@"Delete", nil), NSLocalizedString(@"Cancel", nil), nil, [self window], self, @selector(deleteOpacity:returnCode:contextInfo:), NULL, [sender title], NSLocalizedString( @"Are you sure you want to delete this Opacity Table : '%@'", nil), [sender title]);
 		
 		[[NSNotificationCenter defaultCenter] postNotificationName: OsirixUpdateOpacityMenuNotification object: curOpacityMenu userInfo: [NSDictionary dictionary]];
 	}
-	else if ([[[NSApplication sharedApplication] currentEvent] modifierFlags]  & NSAlternateKeyMask)
+	else if ([[[NSApplication sharedApplication] currentEvent] modifierFlags] & NSEventModifierFlagOption)
     {
 		NSDictionary		*aOpacity, *aCLUT;
 		NSArray				*array;
@@ -13350,7 +13357,7 @@ float				matrix[25];
 		{	// Image subtraction
 			NSUInteger modifierFlags = [[[NSApplication sharedApplication] currentEvent] modifierFlags];
 			
-			if ((modifierFlags & NSControlKeyMask) != 0)
+			if ((modifierFlags & NSEventModifierFlagControl) != 0)
 			{
 				NSUInteger count = MIN([[self pixList] count], [[bc pixList] count]);
 				for( i = 0; i < count; i++)
@@ -13363,7 +13370,7 @@ float				matrix[25];
 					[[bc imageView] sendSyncMessage:0];
 					[[[bc seriesView] imageViews] makeObjectsPerformSelector:@selector(display)];
 					
-					[imageView subtract: [bc imageView] absolute: ((modifierFlags & NSAlternateKeyMask) != 0)];
+					[imageView subtract: [bc imageView] absolute: ((modifierFlags & NSEventModifierFlagOption) != 0)];
 				}
 			}
 			else
@@ -13374,7 +13381,7 @@ float				matrix[25];
 					[imageView sendSyncMessage: 0];
 					[[seriesView imageViews] makeObjectsPerformSelector:@selector(display)];
 					
-					[imageView subtract: [bc imageView] absolute: ((modifierFlags & NSAlternateKeyMask) != 0)];
+					[imageView subtract: [bc imageView] absolute: ((modifierFlags & NSEventModifierFlagOption) != 0)];
 				}
  			}
 		}
@@ -13898,7 +13905,7 @@ float				matrix[25];
 		case tTranslate:	filename = @"Move";				break;
 		case tRotate:		filename = @"Rotate";			break;
 		case tNext:			filename = @"Stack";			break;
-		case tMesure:		filename = @"Length";			break;
+		case tMeasure:		filename = @"Length";			break;
 		case tAngle:		filename = @"Angle";			break;
 		case tROI:			filename = @"Rectangle";		break;
 		case tOval:			filename = @"Oval";				break;
@@ -14310,7 +14317,7 @@ int i,j,l;
 - (ROI*)createLayerROIFromROI:(ROI*)roi;
 {
 	if( roi.type == tText) return nil;
-	if( roi.type == tMesure) return nil;
+	if( roi.type == tMeasure) return nil;
 	if( roi.type == tArrow) return nil;
 	if( roi.type == t2DPoint) return nil;
 	
@@ -15947,9 +15954,9 @@ int i,j,l;
                      andRoi:(ROI*) b
                       ratio:(float) ratio
 {
-    if (a.type == tMesure && b.type == tMesure)
+    if (a.type == tMeasure && b.type == tMeasure)
     {
-        ROI* newMeasure = [self newROI: tMesure];
+        ROI* newMeasure = [self newROI: tMeasure];
 
         [newMeasure addPoint:[ROI pointBetweenPoint:[a pointAtIndex:0]
                                            andPoint:[b pointAtIndex:0]
@@ -15966,7 +15973,7 @@ int i,j,l;
         return newMeasure;
     }
     
-    if( a.type == tMesure)
+    if( a.type == tMeasure)
     {
         [a.points insertObject:[MyPoint point:[ROI pointBetweenPoint:[a pointAtIndex:0]
                                                             andPoint:[a pointAtIndex:1]
@@ -15975,7 +15982,7 @@ int i,j,l;
         a.type = tOPolygon;
     }
     
-    if( b.type == tMesure)
+    if( b.type == tMeasure)
     {
         [b.points insertObject:[MyPoint point:[ROI pointBetweenPoint:[b pointAtIndex:0]
                                                             andPoint:[b pointAtIndex:1]
@@ -17188,7 +17195,7 @@ int i,j,l;
 	{
 		if( [imageView syncro] == syncroOFF)
 		{
-			if( [[[NSApplication sharedApplication] currentEvent] modifierFlags] & NSAlternateKeyMask)
+			if( [[[NSApplication sharedApplication] currentEvent] modifierFlags] & NSEventModifierFlagOption)
 				[imageView setSyncro: syncroREL];
 			else
 				[imageView setSyncro: syncroLOC];
@@ -20461,7 +20468,7 @@ static BOOL viewerControllerPlaying = NO;
 	else
         [[imageSelection cellWithTag: 2] setEnabled: NO];
 	
-	if ([[[NSApplication sharedApplication] currentEvent] modifierFlags]  & NSAlternateKeyMask)
+	if ([[[NSApplication sharedApplication] currentEvent] modifierFlags] & NSEventModifierFlagOption)
         [self endExportImage: nil];
 	else
         [NSApp beginSheet: imageExportWindow modalForWindow:[self window] modalDelegate:self didEndSelector:nil contextInfo:nil];
@@ -21980,7 +21987,7 @@ static BOOL viewerControllerPlaying = NO;
 	if( [self computeInterval] == 0 ||
 		[[pixList[0] objectAtIndex:0] pixelSpacingX] == 0 ||
 		[[pixList[0] objectAtIndex:0] pixelSpacingY] == 0 ||
-		([[[NSApplication sharedApplication] currentEvent] modifierFlags]  & NSShiftKeyMask))
+		([[[NSApplication sharedApplication] currentEvent] modifierFlags]  & NSEventModifierFlagShift))
 	{
 		[self SetThicknessInterval:sender];
 	}
@@ -22088,7 +22095,7 @@ static BOOL viewerControllerPlaying = NO;
 	if( ci == 0 ||
 		[[pixList[0] objectAtIndex:0] pixelSpacingX] == 0 ||
 		[[pixList[0] objectAtIndex:0] pixelSpacingY] == 0 ||
-		([[[NSApplication sharedApplication] currentEvent] modifierFlags]  & NSShiftKeyMask))
+		([[[NSApplication sharedApplication] currentEvent] modifierFlags] & NSEventModifierFlagShift))
 	{
 		[self SetThicknessInterval:sender];
 	}
@@ -22241,7 +22248,7 @@ static BOOL viewerControllerPlaying = NO;
 	if( [self computeInterval] == 0 ||
 		[[pixList[0] objectAtIndex:0] pixelSpacingX] == 0 ||
 		[[pixList[0] objectAtIndex:0] pixelSpacingY] == 0 ||
-		([[[NSApplication sharedApplication] currentEvent] modifierFlags]  & NSShiftKeyMask))
+		([[[NSApplication sharedApplication] currentEvent] modifierFlags] & NSEventModifierFlagShift))
 	{
 		[self SetThicknessInterval:sender];
 	}
@@ -22362,7 +22369,7 @@ static BOOL viewerControllerPlaying = NO;
 	if( [self computeInterval] == 0 ||
 		[[pixList[0] objectAtIndex:0] pixelSpacingX] == 0 ||
 		[[pixList[0] objectAtIndex:0] pixelSpacingY] == 0 ||
-		([[[NSApplication sharedApplication] currentEvent] modifierFlags]  & NSShiftKeyMask))
+		([[[NSApplication sharedApplication] currentEvent] modifierFlags] & NSEventModifierFlagShift))
 	{
 		[self SetThicknessInterval:sender];
 	}
@@ -22519,7 +22526,7 @@ static BOOL viewerControllerPlaying = NO;
 	if( [self computeInterval] == 0 ||
 		[[pixList[0] objectAtIndex:0] pixelSpacingX] == 0 ||
 		[[pixList[0] objectAtIndex:0] pixelSpacingY] == 0 ||
-		([[[NSApplication sharedApplication] currentEvent] modifierFlags]  & NSShiftKeyMask))
+		([[[NSApplication sharedApplication] currentEvent] modifierFlags] & NSEventModifierFlagShift))
 	{
 		[self SetThicknessInterval:sender];
 	}
@@ -22621,7 +22628,7 @@ static BOOL viewerControllerPlaying = NO;
 	if( [self computeInterval] == 0 ||
 		[[pixList[0] objectAtIndex:0] pixelSpacingX] == 0 ||
 		[[pixList[0] objectAtIndex:0] pixelSpacingY] == 0 ||
-		([[[NSApplication sharedApplication] currentEvent] modifierFlags]  & NSShiftKeyMask))
+		([[[NSApplication sharedApplication] currentEvent] modifierFlags] & NSEventModifierFlagShift))
 	{
 		[self SetThicknessInterval:sender];
 	}
@@ -22682,7 +22689,7 @@ static BOOL viewerControllerPlaying = NO;
 //	if( [self computeInterval] == 0 ||
 //		[[pixList[0] objectAtIndex:0] pixelSpacingX] == 0 ||
 //		[[pixList[0] objectAtIndex:0] pixelSpacingY] == 0 ||
-//		([[[NSApplication sharedApplication] currentEvent] modifierFlags]  & NSShiftKeyMask))
+//		([[[NSApplication sharedApplication] currentEvent] modifierFlags] & NSEventModifierFlagShift))
 //	{
 //		[self SetThicknessInterval:sender];
 //	}
@@ -22742,7 +22749,7 @@ static BOOL viewerControllerPlaying = NO;
 	if( [self computeInterval] == 0 ||
 	   [[pixList[0] objectAtIndex:0] pixelSpacingX] == 0 ||
 	   [[pixList[0] objectAtIndex:0] pixelSpacingY] == 0 ||
-	   ([[[NSApplication sharedApplication] currentEvent] modifierFlags]  & NSShiftKeyMask))
+	   ([[[NSApplication sharedApplication] currentEvent] modifierFlags] & NSEventModifierFlagShift))
 	{
 		[self SetThicknessInterval:sender];
 	}
@@ -22817,7 +22824,7 @@ static BOOL viewerControllerPlaying = NO;
 	if( [self computeInterval] == 0 ||
 	   [[pixList[0] objectAtIndex:0] pixelSpacingX] == 0 ||
 	   [[pixList[0] objectAtIndex:0] pixelSpacingY] == 0 ||
-	   ([[[NSApplication sharedApplication] currentEvent] modifierFlags]  & NSShiftKeyMask))
+	   ([[[NSApplication sharedApplication] currentEvent] modifierFlags] & NSEventModifierFlagShift))
 	{
 		[self SetThicknessInterval:sender];
 	}
@@ -23596,7 +23603,7 @@ static BOOL viewerControllerPlaying = NO;
 
 - (IBAction) databaseWindow : (id) sender
 {
-	if (!([[[NSApplication sharedApplication] currentEvent] modifierFlags]  & NSShiftKeyMask))
+	if (!([[[NSApplication sharedApplication] currentEvent] modifierFlags] & NSEventModifierFlagShift))
 		[ViewerController closeAllWindows];
 	else
 		[[BrowserController currentBrowser] showDatabase:self];

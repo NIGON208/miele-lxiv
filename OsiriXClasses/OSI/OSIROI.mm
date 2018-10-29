@@ -298,7 +298,7 @@ NSString* const OSIPasteboardTypeCodingROI = @BUNDLE_IDENTIFIER@".codingROI";
 + (id)ROIWithOsiriXROI:(ROI *)roi pixToDICOMTransfrom:(N3AffineTransform)pixToDICOMTransfrom;
 {
 	switch ([roi type]) {
-		case tMesure:
+		case tMeasure:
 		case tOPolygon:
 		case tCPolygon:
 		case tOval:

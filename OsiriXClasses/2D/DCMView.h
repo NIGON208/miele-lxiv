@@ -157,7 +157,7 @@ typedef NS_ENUM(NSUInteger, MyScrollMode) {
 	GLuint          labelFontListGL;
 	float			fontRasterY;
 		
-    NSPoint         mesureA, mesureB;
+    NSPoint         measureA, measureB;
     NSRect          roiRect;
 	NSString		*stringID;
 	NSSize			previousViewSize;

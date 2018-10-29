@@ -167,12 +167,12 @@ typedef struct {
 /*****************************************************************************/
 /*--------------- Prototypes of functions defined in this file --------------*/
 
-char *nifti_datatype_string   ( int dt ) ;
-char *nifti_units_string      ( int uu ) ;
+const char *nifti_datatype_string   ( int dt ) ;
+const char *nifti_units_string      ( int uu ) ;
 const char *nifti_intent_string     ( int ii ) ;
-char *nifti_xform_string      ( int xx ) ;
-char *nifti_slice_string      ( int ss ) ;
-char *nifti_orientation_string( int ii ) ;
+const char *nifti_xform_string      ( int xx ) ;
+const char *nifti_slice_string      ( int ss ) ;
+const char *nifti_orientation_string( int ii ) ;
 
 int   nifti_is_inttype( int dt ) ;
 

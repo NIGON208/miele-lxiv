@@ -346,7 +346,7 @@ typedef itk::ResampleImageFilter<ImageType, ImageType> ResampleFilterType;
             [curPix reloadAnnotations];
 		}
 		
-		if( [[[NSApplication sharedApplication] currentEvent] modifierFlags]  & NSAlternateKeyMask)
+		if( [[[NSApplication sharedApplication] currentEvent] modifierFlags]  & NSEventModifierFlagOption)
 		{
 			new2DViewer = [ViewerController newWindow:newPixList :newFileList :volumeData];
 		}

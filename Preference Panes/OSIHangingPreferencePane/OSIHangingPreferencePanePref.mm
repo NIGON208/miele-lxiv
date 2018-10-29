@@ -299,7 +299,7 @@
             
             if( [[d valueForKey: @"WLWW"] intValue] != 0 && [[d valueForKey: @"WLWW"] intValue] != 100 && [[d valueForKey: @"WLWW"] intValue] != 101)
             {
-                if ([[[NSApplication sharedApplication] currentEvent] modifierFlags]  & NSShiftKeyMask) // Delete
+                if ([[[NSApplication sharedApplication] currentEvent] modifierFlags] & NSEventModifierFlagShift) // Delete
                 {
                     NSDictionary *wlwwDict = [[NSUserDefaults standardUserDefaults] dictionaryForKey:@"WLWW3"];
                     NSArray *sortedKeys = [[wlwwDict allKeys] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];

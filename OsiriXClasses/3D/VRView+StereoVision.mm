@@ -971,7 +971,7 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 		
 		beforeFrame = [self frame];
 		
-		if( [theEvent modifierFlags] & NSShiftKeyMask)
+		if( [theEvent modifierFlags] & NSEventModifierFlagShift)
 		{
 			newFrame.size.width = [[[self window] contentView] frame].size.width - mouseLoc.x*2;
 			newFrame.size.height = newFrame.size.width;
@@ -1015,7 +1015,7 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 		int controlDown;
 		switch (_tool)
 		{
-			case tMesure:
+			case tMeasure:
 			{
 				if( bestRenderingWasGenerated)
 				{
@@ -1445,7 +1445,7 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 			case tZoom:
 				[self zoomMouseUp:(NSEvent *)theEvent];
 				break;
-			case tMesure:
+			case tMeasure:
 			case t3DCut:
 				[self displayIfNeeded];
 				dontRenderVolumeRenderingOsiriX = 0;
@@ -1637,23 +1637,33 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 			}
 		}
 		
-		if( [[NSApp currentEvent] modifierFlags] & NSShiftKeyMask || projectionMode == 2)
+		if ([[NSApp currentEvent] modifierFlags] & NSEventModifierFlagShift ||
+            projectionMode == 2)
 		{
-			if( volumeMapper) volumeMapper->SetMinimumImageSampleDistance( 1.0);
-			if( volumeMapper) volumeMapper->SetSampleDistance( 1.0);
+			if (volumeMapper)
+                volumeMapper->SetMinimumImageSampleDistance( 1.0);
+
+            if (volumeMapper)
+                volumeMapper->SetSampleDistance( 1.0);
 			
 			if( blendingController)
 			{
-				if( blendingVolumeMapper) blendingVolumeMapper->SetMinimumImageSampleDistance( 1.0);
-				if( blendingVolumeMapper) blendingVolumeMapper->SetSampleDistance( 1.0);
+				if( blendingVolumeMapper)
+                    blendingVolumeMapper->SetMinimumImageSampleDistance( 1.0);
+
+                if( blendingVolumeMapper)
+                    blendingVolumeMapper->SetSampleDistance( 1.0);
 			}
 			
 			NSLog(@"resol = 1.0");
 		}
 		else
 		{
-			if( volumeMapper) volumeMapper->SetMinimumImageSampleDistance( [[NSUserDefaults standardUserDefaults] floatForKey: @"BESTRENDERING"]);
-			if( volumeMapper) volumeMapper->SetSampleDistance( [[NSUserDefaults standardUserDefaults] floatForKey: @"BESTRENDERING"]);
+			if( volumeMapper)
+                volumeMapper->SetMinimumImageSampleDistance( [[NSUserDefaults standardUserDefaults] floatForKey: @"BESTRENDERING"]);
+
+            if( volumeMapper)
+                volumeMapper->SetSampleDistance( [[NSUserDefaults standardUserDefaults] floatForKey: @"BESTRENDERING"]);
 			
 			if( blendingController)
 			{

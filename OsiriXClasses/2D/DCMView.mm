@@ -1465,7 +1465,7 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void * _Nulla
     NSArray *pointsStringArray = [xml objectForKey: @"ROIPoints"];
     
     int type = tCPolygon;
-    if( [pointsStringArray count] == 2) type = tMesure;
+    if( [pointsStringArray count] == 2) type = tMeasure;
     if( [pointsStringArray count] == 1) type = t2DPoint;
     
     ROI *roi = [ROI roiWithType: type inView: self];
@@ -1958,7 +1958,7 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void * _Nulla
 	
 	[self stopROIEditingForce: YES];
 	
-    mesureA.x = mesureA.y = mesureB.x = mesureB.y = 0;
+    measureA.x = measureA.y = measureB.x = measureB.y = 0;
     roiRect.origin.x = roiRect.origin.y = roiRect.size.width = roiRect.size.height = 0;
 	
 	if( keepROITool == NO)
@@ -2026,9 +2026,9 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void * _Nulla
 					
 					float rot = [self rotation];
 					
-					if ([event modifierFlags] & NSAlternateKeyMask)
+					if ([event modifierFlags] & NSEventModifierFlagOption)
                         rot -= 180;		// -> 180
-					else if ([event modifierFlags] & NSShiftKeyMask)
+					else if ([event modifierFlags] & NSEventModifierFlagShift)
                         rot -= 90;	// -> 90
 					else
                         rot += 90;	// -> 90
@@ -2898,13 +2898,13 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void * _Nulla
 		}
         else if (c == NSLeftArrowFunctionKey)
         {
-			if (([event modifierFlags] & NSCommandKeyMask))
+			if (([event modifierFlags] & NSEventModifierFlagCommand))
 			{
 				[super keyDown:event];
 			}
 			else
 			{
-				if( [event modifierFlags]  & NSControlKeyMask)
+				if( [event modifierFlags] & NSEventModifierFlagControl)
 				{
 					inc = - curDCM.stack;
 					curImage += inc;
@@ -2915,7 +2915,7 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void * _Nulla
 				}
 				else
 				{
-					if( [event modifierFlags]  & NSAlternateKeyMask)
+					if( [event modifierFlags] & NSEventModifierFlagOption)
                         [[self windowController] setKeyImage:self];
 					inc = -_imageRows * _imageColumns;
 					curImage -= _imageRows * _imageColumns;
@@ -2929,13 +2929,13 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void * _Nulla
         }
         else if(c ==  NSRightArrowFunctionKey)
         {
-			if (([event modifierFlags] & NSCommandKeyMask))
+			if (([event modifierFlags] & NSEventModifierFlagCommand))
 			{
 				[super keyDown:event];
 			}
 			else
 			{
-				if( [event modifierFlags]  & NSControlKeyMask)
+				if( [event modifierFlags] & NSEventModifierFlagControl)
 				{
 					inc = curDCM.stack;
 					curImage += inc;
@@ -2947,8 +2947,10 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void * _Nulla
 				}
 				else
 				{
-					if( [event modifierFlags]  & NSAlternateKeyMask) [[self windowController] setKeyImage:self];
-					inc = _imageRows * _imageColumns;
+					if ([event modifierFlags] & NSEventModifierFlagOption)
+                        [[self windowController] setKeyImage:self];
+
+                    inc = _imageRows * _imageColumns;
 					curImage += _imageRows * _imageColumns;
                     
                     [self scrollThroughSeriesIfNecessary: curImage];
@@ -3274,7 +3276,7 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void * _Nulla
 		NSUInteger modifiers = [event modifierFlags];
 		BOOL update = NO;
 		
-		if ((modifiers & (NSCommandKeyMask | NSShiftKeyMask)) == (NSCommandKeyMask | NSShiftKeyMask))
+		if ((modifiers & (NSEventModifierFlagCommand | NSEventModifierFlagShift)) == (NSEventModifierFlagCommand | NSEventModifierFlagShift))
 		{
 			if (suppress_labels == NO) update = YES;
 			suppress_labels = YES;
@@ -3289,11 +3291,11 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void * _Nulla
 		
 		BOOL cLarge = showDescriptionInLarge;
 		showDescriptionInLarge = NO;
-		if( modifiers & NSControlKeyMask)
+		if( modifiers & NSEventModifierFlagControl)
 		{
-			if(modifiers & NSCommandKeyMask) {}
-			else if(modifiers & NSShiftKeyMask) {}
-			else if(modifiers & NSAlternateKeyMask) {}
+			if (modifiers & NSEventModifierFlagCommand) {}
+			else if (modifiers & NSEventModifierFlagShift) {}
+			else if (modifiers & NSEventModifierFlagOption) {}
 			else
 				showDescriptionInLarge = YES;
 		}
@@ -3304,7 +3306,7 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void * _Nulla
             [[self windowController] showCurrentThumbnail: self];
 		}
 		
-//		if( (modifiers & NSControlKeyMask) && (modifiers & NSAlternateKeyMask) && (modifiers & NSCommandKeyMask))
+//		if( (modifiers & NSEventModifierFlagControl) && (modifiers & NSEventModifierFlagOption) && (modifiers & NSEventModifierFlagCommand))
 //		{
 //			for( ViewerController *v in [ViewerController get2DViewers])
 //			{
@@ -3326,7 +3328,11 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void * _Nulla
                 roiHit = YES;
         }
 	}
-	else if( ( [event modifierFlags] & NSShiftKeyMask) && !([event modifierFlags] & NSAlternateKeyMask)  && !([event modifierFlags] & NSCommandKeyMask)  && !([event modifierFlags] & NSControlKeyMask) && mouseDragging == NO)
+	else if ( ([event modifierFlags] & NSEventModifierFlagShift) &&
+             !([event modifierFlags] & NSEventModifierFlagOption) &&
+             !([event modifierFlags] & NSEventModifierFlagCommand) &&
+             !([event modifierFlags] & NSEventModifierFlagControl) &&
+             mouseDragging == NO)
 	{
 		if( [event type] != NSLeftMouseDragged && [event type] != NSLeftMouseDown)
 		{
@@ -3382,7 +3388,7 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void * _Nulla
 	
     if( dcmPixList)
     {
-		if ( pluginOverridesMouse && ( [event modifierFlags] & NSControlKeyMask ) )
+		if ( pluginOverridesMouse && ( [event modifierFlags] & NSEventModifierFlagControl ) )
 		{  // Simulate Right Mouse Button action
 			[nc postNotificationName: OsirixRightMouseUpNotification object: self userInfo: userInfo];
 			return;
@@ -3513,7 +3519,7 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void * _Nulla
     BOOL result;
 	switch( tool)
 	{
-		case tMesure:
+		case tMeasure:
 		case tROI:
 		case tOval:
 		case tOPolygon:
@@ -3821,11 +3827,13 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void * _Nulla
                 {
                     mouseOnImage = YES;
                     
-                    if( (modifierFlags & NSShiftKeyMask) && (modifierFlags & NSControlKeyMask) && mouseDragging == NO)
+                    if ((modifierFlags & NSEventModifierFlagShift) &&
+                        (modifierFlags & NSEventModifierFlagControl) &&
+                        mouseDragging == NO)
                     {
                         [self sync3DPosition];
                     }
-                    else if( (modifierFlags & (NSShiftKeyMask|NSCommandKeyMask|NSControlKeyMask|NSAlternateKeyMask)) == NSShiftKeyMask && mouseDragging == NO)
+                    else if( (modifierFlags & (NSEventModifierFlagShift|NSEventModifierFlagCommand | NSEventModifierFlagControl | NSEventModifierFlagOption)) == NSEventModifierFlagShift && mouseDragging == NO)
                     {
                         if( [self roiTool: currentTool] == NO)
                         {
@@ -4152,9 +4160,12 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void * _Nulla
 	else
 		tool = currentTool;
 	
-	if (([event modifierFlags] & NSCommandKeyMask))  tool = tTranslate;
-	if (([event modifierFlags] & (NSShiftKeyMask|NSAlternateKeyMask)) == NSAlternateKeyMask)  tool = tWL;
-	if (([event modifierFlags] & NSControlKeyMask) && ([event modifierFlags] & NSAlternateKeyMask))
+	if (([event modifierFlags] & NSEventModifierFlagCommand))  tool = tTranslate;
+
+    if (([event modifierFlags] & (NSEventModifierFlagShift|NSEventModifierFlagOption)) == NSEventModifierFlagOption)  tool = tWL;
+
+    if (([event modifierFlags] & NSEventModifierFlagControl) &&
+        ([event modifierFlags] & NSEventModifierFlagOption))
 	{
 		if( blendingView)
             tool = tWLBlended;
@@ -4164,14 +4175,21 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void * _Nulla
 	
 	if( [self roiTool:currentTool] != YES && currentTool != tROISelector)   // Not a ROI TOOL !
 	{
-		if (([event modifierFlags] & NSCommandKeyMask) && ([event modifierFlags] & NSAlternateKeyMask))  tool = tRotate;
-		if (([event modifierFlags] & NSShiftKeyMask))  tool = tZoom;
+		if (([event modifierFlags] & NSEventModifierFlagCommand) &&
+            ([event modifierFlags] & NSEventModifierFlagOption))
+            tool = tRotate;
+
+        if (([event modifierFlags] & NSEventModifierFlagShift))
+            tool = tZoom;
 	}
 	else
 	{
-		if (([event modifierFlags] & NSCommandKeyMask) && ([event modifierFlags] & NSAlternateKeyMask))  tool = tRotate;
-// 		if (([event modifierFlags] & NSCommandKeyMask) && ([event modifierFlags] & NSAlternateKeyMask)) tool = currentTool;
-//		if (([event modifierFlags] & NSCommandKeyMask)) tool = currentTool;
+		if (([event modifierFlags] & NSEventModifierFlagCommand) &&
+            ([event modifierFlags] & NSEventModifierFlagOption))
+            tool = tRotate;
+
+// 		if (([event modifierFlags] & NSEventModifierFlagCommand) && ([event modifierFlags] & NSEventModifierFlagOption)) tool = currentTool;
+//		if (([event modifierFlags] & NSEventModifierFlagCommand)) tool = currentTool;
 	}
 	
 	return tool;
@@ -4431,10 +4449,10 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void * _Nulla
 	
 	if( [self is2DViewer] == YES && [event type] == NSLeftMouseDown)
 	{
-		if (([event modifierFlags] & NSShiftKeyMask) == 0 &&
-            ([event modifierFlags] & NSControlKeyMask) == 0 &&
-            ([event modifierFlags] & NSAlternateKeyMask) == 0 &&
-            ([event modifierFlags] & NSCommandKeyMask) == 0)
+		if (([event modifierFlags] & NSEventModifierFlagShift) == 0 &&
+            ([event modifierFlags] & NSEventModifierFlagControl) == 0 &&
+            ([event modifierFlags] & NSEventModifierFlagOption) == 0 &&
+            ([event modifierFlags] & NSEventModifierFlagCommand) == 0)
 		{
 			NSPoint tempPt = [[[event window] contentView] convertPoint: [event locationInWindow] toView:self];
 			tempPt = [self ConvertFromNSView2GL:tempPt];
@@ -4501,8 +4519,8 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void * _Nulla
 			
 			originStart = origin;
 			
-			mesureB = mesureA = [self convertPoint:eventLocation fromView: nil];
-			mesureB.y = mesureA.y = size.size.height - mesureA.y ;
+			measureB = measureA = [self convertPoint:eventLocation fromView: nil];
+			measureB.y = measureA.y = size.size.height - measureA.y ;
 			
 			roiRect.origin = [self convertPoint:eventLocation fromView: nil];
 			roiRect.origin.y = size.size.height - roiRect.origin.y;
@@ -4525,11 +4543,11 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void * _Nulla
 			{
 				[[BrowserController currentBrowser] matrixDoublePressed:nil];
 			}
-			else if( clickCount == 2 && roiHit == NO && ([[[NSApplication sharedApplication] currentEvent] modifierFlags] & NSCommandKeyMask) && [self actionForHotKey: @"dbl-click + cmd"])
+			else if( clickCount == 2 && roiHit == NO && ([[[NSApplication sharedApplication] currentEvent] modifierFlags] & NSEventModifierFlagCommand) && [self actionForHotKey: @"dbl-click + cmd"])
 			{
                 return;
 			}
-            else if( clickCount == 2 && roiHit == NO && ([[[NSApplication sharedApplication] currentEvent] modifierFlags] & NSAlternateKeyMask) && [self actionForHotKey: @"dbl-click + alt"])
+            else if( clickCount == 2 && roiHit == NO && ([[[NSApplication sharedApplication] currentEvent] modifierFlags] & NSEventModifierFlagOption) && [self actionForHotKey: @"dbl-click + alt"])
 			{
                 return;
 			}
@@ -4653,7 +4671,7 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void * _Nulla
 				ROISelectorSelectedROIList = [[NSMutableArray array] retain];
 				
 				// if shift key is pressed, we need to keep track of the ROIs that were selected before the click 
-				if([event modifierFlags] & NSShiftKeyMask)
+				if([event modifierFlags] & NSEventModifierFlagShift)
 				{
 					for( ROI *r in curRoiList)
 					{
@@ -4729,7 +4747,7 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void * _Nulla
 					
 					BOOL roiFound = NO;
 					
-					if (!(([event modifierFlags] & NSCommandKeyMask) && ([event modifierFlags] & NSShiftKeyMask)))
+					if (!(([event modifierFlags] & NSEventModifierFlagCommand) && ([event modifierFlags] & NSEventModifierFlagShift)))
 					{
 						for( ROI *r in curRoiList)
 						{
@@ -4758,7 +4776,8 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void * _Nulla
 						}
 					}
 							
-					if (([event modifierFlags] & NSShiftKeyMask) && !([event modifierFlags] & NSCommandKeyMask) )
+					if ( ([event modifierFlags] & NSEventModifierFlagShift) &&
+                        !([event modifierFlags] & NSEventModifierFlagCommand) )
 					{
 						if( selected != -1 )
 						{
@@ -4910,7 +4929,7 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void * _Nulla
 												roiName = [NSString stringWithString: NSLocalizedString( @"ROI ", @"ROI = Region of Interest, keep the space at the end of the string")];
 											break;
 												
-											case tMesure:
+											case tMeasure:
 												roiName = [NSString stringWithString: NSLocalizedString( @"Measurement ", @"keep the space at the end of the string")];
 											break;
 												
@@ -4954,7 +4973,8 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void * _Nulla
 								}
 								
 								// Create aliases of current ROI to the entire series
-								if (([event modifierFlags] & NSShiftKeyMask) && !([event modifierFlags] & NSCommandKeyMask))
+								if ( ([event modifierFlags] & NSEventModifierFlagShift) &&
+                                    !([event modifierFlags] & NSEventModifierFlagCommand))
 								{
 									for( NSMutableArray *a in dcmRoiList)
 										[a addObject: aNewROI];
@@ -5113,7 +5133,7 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void * _Nulla
 		{
 			if( fabs( [theEvent deltaY]) * 2.0f >  fabs( deltaX) )
 			{
-				if( [theEvent modifierFlags]  & NSCommandKeyMask)
+				if( [theEvent modifierFlags] & NSEventModifierFlagCommand)
 				{
 					if( [self is2DViewer] && blendingView)
 					{
@@ -5123,7 +5143,7 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void * _Nulla
 						[self setBlendingFactor: blendingFactor];
 					}
 				}
-				else if( [theEvent modifierFlags]  & NSAlternateKeyMask)
+				else if( [theEvent modifierFlags] & NSEventModifierFlagOption)
 				{
 					if( [self is2DViewer] && [[self windowController] maxMovieIndex] > 1)
 					{
@@ -5150,7 +5170,7 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void * _Nulla
 						[[self windowController] setMovieIndex: change];
 					}
 				}
-				else if( [theEvent modifierFlags]  & NSShiftKeyMask)
+				else if( [theEvent modifierFlags] & NSEventModifierFlagShift)
 				{
 					float change = reverseScrollWheel * [theEvent deltaY] / 2.5f;
 					
@@ -5389,7 +5409,8 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void * _Nulla
 	NSPoint contextualMenuWhere = [theEvent locationInWindow]; 	//JF20070103 WindowAnchored ctrl-clickPoint registered 
 	contextualMenuInWindowPosX = contextualMenuWhere.x;
 	contextualMenuInWindowPosY = contextualMenuWhere.y;	
-	if (([theEvent modifierFlags] & NSControlKeyMask) && ([theEvent modifierFlags] & NSAlternateKeyMask))
+	if (([theEvent modifierFlags] & NSEventModifierFlagControl) &&
+        ([theEvent modifierFlags] & NSEventModifierFlagOption))
         return nil;
     
 	return [self menu]; 
@@ -5570,7 +5591,8 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void * _Nulla
 		NSPoint current = [self convertPoint: event.locationInWindow fromView: nil];
 		
 		// Command and Alternate rotate ROI
-		if (([event modifierFlags] & NSCommandKeyMask) && ([event modifierFlags] & NSAlternateKeyMask))
+		if (([event modifierFlags] & NSEventModifierFlagCommand) &&
+            ([event modifierFlags] & NSEventModifierFlagOption))
 		{
             if( !mouseDraggedForROIUndo)
             {
@@ -5591,7 +5613,8 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void * _Nulla
 			}
 		}
 		// Command and Shift scale
-		else if (([event modifierFlags] & NSCommandKeyMask) && !([event modifierFlags] & NSShiftKeyMask))
+		else if (([event modifierFlags] & NSEventModifierFlagCommand) &&
+                 !([event modifierFlags] & NSEventModifierFlagShift))
 		{
             if( !mouseDraggedForROIUndo) {
                 mouseDraggedForROIUndo = YES;
@@ -6137,7 +6160,7 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void * _Nulla
 							}
 						}
 						
-                        if( r.type == tMesure)
+                        if( r.type == tMeasure)
                             r.type = tOPolygon;
                         
 						[r recompute];
@@ -6239,7 +6262,7 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void * _Nulla
                         intersected = lineIntersectsRect(p1, p2,  rect);
                     }
                     // last segment: between last point and first one
-                    if(!intersected && roiType!=tMesure && roiType!=tAngle && roiType!=t2DPoint && roiType!=tOPolygon && roiType!=tArrow)
+                    if(!intersected && roiType!=tMeasure && roiType!=tAngle && roiType!=t2DPoint && roiType!=tOPolygon && roiType!=tArrow)
                     {
                         p1 = [[points lastObject] point];
                         p2 = [[points objectAtIndex:0] point];
@@ -6303,7 +6326,7 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void * _Nulla
                         }
                         
                         // last segment: between last point and first one
-                        if(!intersected && roiType!=tMesure && roiType!=tAngle && roiType!=t2DPoint && roiType!=tOPolygon && roiType!=tArrow)
+                        if(!intersected && roiType!=tMeasure && roiType!=tAngle && roiType!=t2DPoint && roiType!=tOPolygon && roiType!=tArrow)
                         {
                             p1 = [[points lastObject] point];
                             p2 = [[points objectAtIndex:0] point];
@@ -6319,7 +6342,7 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void * _Nulla
 		
 		if(intersected)
         {
-			if([event modifierFlags] & NSShiftKeyMask) // invert the mode: selected->sleep, sleep->selected
+			if ([event modifierFlags] & NSEventModifierFlagShift) // invert the mode: selected->sleep, sleep->selected
 			{
 				ROI_mode mode = [roi ROImode];
 				if(mode==ROI_sleep)
@@ -10135,7 +10158,7 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void * _Nulla
 					if( DISPLAYCROSSREFERENCELINES)
 					{
 //						NSUInteger modifiers = [NSEvent modifierFlags];
-//						if( (modifiers & NSControlKeyMask) && (modifiers & NSAlternateKeyMask) && (modifiers & NSCommandKeyMask)) // Display all references lines for all images
+//						if( (modifiers & NSEventModifierFlagControl) && (modifiers & NSEventModifierFlagOption) && (modifiers & NSEventModifierFlagCommand)) // Display all references lines for all images
 //						{ 
 //							for( DCMPix *o in [[ViewerController frontMostDisplayed2DViewer] pixList])
 //							{
@@ -14172,7 +14195,7 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void * _Nulla
         NSMutableArray *pbTypes = [NSMutableArray array];
         
         NSImage *image;
-        if ([event modifierFlags] & NSShiftKeyMask)
+        if ([event modifierFlags] & NSEventModifierFlagShift)
             image = [self nsimage: YES];
         else
             image = [self nsimage: NO];

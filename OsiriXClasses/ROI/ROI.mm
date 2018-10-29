@@ -173,9 +173,13 @@ int spline( NSPoint *Pt, int tot, NSPoint **newPt, long **correspondingSegmentPt
 	ok=TRUE;
 	if (nb<3) ok=FALSE;
 
-	for (i=1; i<nb; i++) 
-	if (px[i] == px[i-1] && py[i] == py[i-1]) {ok = FALSE; break;}
-	if (ok == FALSE)
+	for (i=1; i<nb; i++)
+        if (px[i] == px[i-1] && py[i] == py[i-1])
+        {
+            ok = FALSE; break;
+        }
+
+    if (ok == FALSE)
 		failed = YES;
 		
 	if (failed)
@@ -224,7 +228,8 @@ int spline( NSPoint *Pt, int tot, NSPoint **newPt, long **correspondingSegmentPt
 		bet = b - a[j] * gam[j];
 		cx[j] = (g[j] - a[j] * cx[j-1]) / bet;
 	}
-	for (j=(nb-2); j>=1; j--)
+
+    for (j=(nb-2); j>=1; j--)
         cx[j] -= gam[j+1] * cx[j+1];
 
 	// define gi in function of y
@@ -349,6 +354,8 @@ int spline( NSPoint *Pt, int tot, NSPoint **newPt, long **correspondingSegmentPt
 
 	return tt;
 }
+
+#pragma mark -
 
 @implementation ROI
 @synthesize min = rmin, max = rmax, mean = rmean;
@@ -912,11 +919,11 @@ int spline( NSPoint *Pt, int tot, NSPoint **newPt, long **correspondingSegmentPt
     return NSMakePoint(a.x*(1.0-r)+b.x*r, a.y*(1.0-r)+b.y*r);
 }
 
-+ (float) lengthBetween:(NSPoint) mesureA
-               andPoint:(NSPoint) mesureB
++ (float) lengthBetween:(NSPoint) measureA
+               andPoint:(NSPoint) measureB
 {
-    return sqrt(((double)mesureA.x - (double)mesureB.x) * ((double)mesureA.x - (double)mesureB.x) +
-                ((double)mesureA.y - (double)mesureB.y) * ((double)mesureA.y - (double)mesureB.y));
+    return sqrt(((double)measureA.x - (double)measureB.x) * ((double)measureA.x - (double)measureB.x) +
+                ((double)measureA.y - (double)measureB.y) * ((double)measureA.y - (double)measureB.y));
 }
 
 + (NSPoint) segmentDistToPoint:(NSPoint) segA
@@ -1172,6 +1179,8 @@ int spline( NSPoint *Pt, int tot, NSPoint **newPt, long **correspondingSegmentPt
 - (void) setObservers
 {
 }
+
+#pragma mark -
 
 - (id) initWithCoder:(NSCoder*) coder
 {
@@ -2411,16 +2420,16 @@ int spline( NSPoint *Pt, int tot, NSPoint **newPt, long **correspondingSegmentPt
 }
 
 // in cm or in pixels if no pixelspacing values
--(float) Length:(NSPoint) mesureA :(NSPoint) mesureB
+-(float) Length:(NSPoint) measureA :(NSPoint) measureB
 {
-	return [self LengthFrom: mesureA to : mesureB inPixel: NO];
+	return [self LengthFrom: measureA to : measureB inPixel: NO];
 }
 
 // in cm or in pixels if no pixelspacing values
--(float) LengthFrom:(NSPoint) mesureA to:(NSPoint) mesureB inPixel: (BOOL) inPixel
+-(float) LengthFrom:(NSPoint) measureA to:(NSPoint) measureB inPixel: (BOOL) inPixel
 {
-    double coteA = fabs(mesureA.x - mesureB.x);
-    double coteB = fabs(mesureA.y - mesureB.y);
+    double coteA = fabs(measureA.x - measureB.x);
+    double coteB = fabs(measureA.y - measureB.y);
     
     if (pixelSpacingX != 0 && pixelSpacingY != 0)
     {
@@ -2430,21 +2439,22 @@ int spline( NSPoint *Pt, int tot, NSPoint **newPt, long **correspondingSegmentPt
             coteB *= pixelSpacingY;
         }
     }
-    double mesureLength;
+
+    double measureLength;
     if (coteA == 0)
-        mesureLength = coteB;
+        measureLength = coteB;
     else if (coteB == 0)
-        mesureLength = coteA;
+        measureLength = coteA;
     else
-        mesureLength = coteB / (sin (atan( coteB / coteA)));
+        measureLength = coteB / (sin (atan( coteB / coteA)));
     
     if (pixelSpacingX != 0 && pixelSpacingY != 0)
     {
         if (inPixel == NO)
-            mesureLength /= 10.0;
+            measureLength /= 10.0;
     }
 	
-	return mesureLength;
+	return measureLength;
 }
 
 -(NSPoint) ProjectionPointLine:(NSPoint) Point
@@ -2506,7 +2516,7 @@ int spline( NSPoint *Pt, int tot, NSPoint **newPt, long **correspondingSegmentPt
 	
 	switch( type)
 	{
-		case tMesure:
+		case tMeasure:
 			if ([[points objectAtIndex:0] x] < [[points objectAtIndex:1] x])
                 result = [[points objectAtIndex:1] point];
 			else
@@ -2997,7 +3007,7 @@ static float Sign(NSPoint p1, NSPoint p2, NSPoint p3)
                 break;
 			
 			case tArrow:
-			case tMesure:
+			case tMeasure:
 			{
 				float distance;
 
@@ -3287,7 +3297,7 @@ static float Sign(NSPoint p1, NSPoint p2, NSPoint p3)
 			
 			case tAngle:
 			case tArrow:
-			case tMesure:
+			case tMeasure:
 			case tDynAngle:
 			case tAxis:
 			case tCPolygon:
@@ -3302,7 +3312,9 @@ static float Sign(NSPoint p1, NSPoint p2, NSPoint p3)
                 
 				for (int i = 0 ; i < [points count]; i++ )
 				{
-					if ([[points objectAtIndex: i] isNearToPoint: pt :scale/backingScaleFactor :[[curView curDCM] pixelRatio]])
+					if ([[points objectAtIndex: i] isNearToPoint: pt
+                                                                : scale/backingScaleFactor
+                                                                : [[curView curDCM] pixelRatio]])
 					{
 						imode = ROI_selectedModify;
 						selectedModifyPoint = i;
@@ -3343,40 +3355,56 @@ static float Sign(NSPoint p1, NSPoint p2, NSPoint p3)
         case tBall:
 		case tOval:
         case tOvalAngle:
-			aPt.x = rect.origin.x - rect.size.width;		aPt.y = rect.origin.y - rect.size.height;
+			aPt.x = rect.origin.x - rect.size.width;
+            aPt.y = rect.origin.y - rect.size.height;
             aPt = [self rotatePoint: aPt withAngle: roiRotation aroundCenter: rect.origin];
-            if ([tempPoint isNearToPoint: aPt :scale/backingScaleFactor :[[curView curDCM] pixelRatio]]) PointUnderMouse = 1;
+            if ([tempPoint isNearToPoint: aPt :scale/backingScaleFactor :[[curView curDCM] pixelRatio]])
+                PointUnderMouse = 1;
 			
-			aPt.x = rect.origin.x - rect.size.width;		aPt.y = rect.origin.y + rect.size.height;
+			aPt.x = rect.origin.x - rect.size.width;
+            aPt.y = rect.origin.y + rect.size.height;
             aPt = [self rotatePoint: aPt withAngle: roiRotation aroundCenter: rect.origin];
-			if ([tempPoint isNearToPoint: aPt :scale/backingScaleFactor :[[curView curDCM] pixelRatio]]) PointUnderMouse = 2;
+			if ([tempPoint isNearToPoint: aPt :scale/backingScaleFactor :[[curView curDCM] pixelRatio]])
+                PointUnderMouse = 2;
 			
-			aPt.x = rect.origin.x + rect.size.width;		aPt.y = rect.origin.y + rect.size.height;
+			aPt.x = rect.origin.x + rect.size.width;
+            aPt.y = rect.origin.y + rect.size.height;
             aPt = [self rotatePoint: aPt withAngle: roiRotation aroundCenter: rect.origin];
-			if ([tempPoint isNearToPoint: aPt :scale/backingScaleFactor :[[curView curDCM] pixelRatio]]) PointUnderMouse = 3;
+			if ([tempPoint isNearToPoint: aPt :scale/backingScaleFactor :[[curView curDCM] pixelRatio]])
+                PointUnderMouse = 3;
 			
-			aPt.x = rect.origin.x + rect.size.width;		aPt.y = rect.origin.y - rect.size.height;
+			aPt.x = rect.origin.x + rect.size.width;
+            aPt.y = rect.origin.y - rect.size.height;
             aPt = [self rotatePoint: aPt withAngle: roiRotation aroundCenter: rect.origin];
-			if ([tempPoint isNearToPoint: aPt :scale/backingScaleFactor :[[curView curDCM] pixelRatio]]) PointUnderMouse = 4;
+			if ([tempPoint isNearToPoint: aPt :scale/backingScaleFactor :[[curView curDCM] pixelRatio]])
+                PointUnderMouse = 4;
 		break;
 		
 		case tROI:
-			aPt.x = rect.origin.x;		aPt.y = rect.origin.y;
-			if ([tempPoint isNearToPoint: aPt :scale/backingScaleFactor :[[curView curDCM] pixelRatio]]) PointUnderMouse = 1;
+			aPt.x = rect.origin.x;
+            aPt.y = rect.origin.y;
+			if ([tempPoint isNearToPoint: aPt :scale/backingScaleFactor :[[curView curDCM] pixelRatio]])
+                PointUnderMouse = 1;
 			
-			aPt.x = rect.origin.x;		aPt.y = rect.origin.y + rect.size.height;
-			if ([tempPoint isNearToPoint: aPt :scale/backingScaleFactor :[[curView curDCM] pixelRatio]]) PointUnderMouse = 2;
+			aPt.x = rect.origin.x;
+            aPt.y = rect.origin.y + rect.size.height;
+			if ([tempPoint isNearToPoint: aPt :scale/backingScaleFactor :[[curView curDCM] pixelRatio]])
+                PointUnderMouse = 2;
 			
-			aPt.x = rect.origin.x + rect.size.width;		aPt.y = rect.origin.y + rect.size.height;
-			if ([tempPoint isNearToPoint: aPt :scale/backingScaleFactor :[[curView curDCM] pixelRatio]]) PointUnderMouse = 3;
+			aPt.x = rect.origin.x + rect.size.width;
+            aPt.y = rect.origin.y + rect.size.height;
+			if ([tempPoint isNearToPoint: aPt :scale/backingScaleFactor :[[curView curDCM] pixelRatio]])
+                PointUnderMouse = 3;
 			
-			aPt.x = rect.origin.x + rect.size.width;		aPt.y = rect.origin.y;
-			if ([tempPoint isNearToPoint: aPt :scale/backingScaleFactor :[[curView curDCM] pixelRatio]]) PointUnderMouse = 4;
+			aPt.x = rect.origin.x + rect.size.width;
+            aPt.y = rect.origin.y;
+			if ([tempPoint isNearToPoint: aPt :scale/backingScaleFactor :[[curView curDCM] pixelRatio]])
+                PointUnderMouse = 4;
 		break;
 		
 		case tAngle:
 		case tArrow:
-		case tMesure:
+		case tMeasure:
 		case tDynAngle:
 		case tAxis:
 		case tCPolygon:
@@ -3498,7 +3526,7 @@ static float Sign(NSPoint p1, NSPoint p2, NSPoint p3)
 		
 		return NO;
 	}
-	else if (type == tArrow || type == tMesure)
+	else if (type == tArrow || type == tMeasure)
 	{
 		mypt = [[MyPoint alloc] initWithPoint: pt];
 		[points addObject: mypt];
@@ -3822,7 +3850,7 @@ static float Sign(NSPoint p1, NSPoint p2, NSPoint p3)
                 return NO;
             break;
 		
-		case tMesure:
+		case tMeasure:
 		case tArrow:
 			if ([points count] < 2)
                 return NO;
@@ -3869,9 +3897,10 @@ static float Sign(NSPoint p1, NSPoint p2, NSPoint p3)
 
 - (void) resetCache
 {
-    if (cachedNSPoint)
-        free( cachedNSPoint);
-    cachedNSPoint = nil;
+    if (cachedNSPoint) {
+        free(cachedNSPoint);
+        cachedNSPoint = nil;
+    }
     
     [cachedSplinePoints autorelease];
     [cachedSplinePointsWithoutScale autorelease];
@@ -3914,13 +3943,14 @@ static float Sign(NSPoint p1, NSPoint p2, NSPoint p3)
 			case tAxis:
 			case tCPolygon:
 			case tOPolygon:
-			case tMesure:
+			case tMeasure:
 			case tArrow:
 			case tAngle:
 			case tPencil:
 			case tLayerROI:
             case tTAGT:
-				for (MyPoint *p in points) [p move: offset.x : offset.y];
+				for (MyPoint *p in points)
+                    [p move: offset.x : offset.y];
                 break;
 			
 			case tPlain:
@@ -3960,7 +3990,7 @@ static float Sign(NSPoint p1, NSPoint p2, NSPoint p3)
 
     previousPoint.x = previousPoint.y = -1000;
 	
-	if (type == tTAGT || type == tOval || type == tOvalAngle || type == tROI || type == tBall || type == tText || type == tArrow || type == tMesure || type == tPencil || type == t2DPoint || type == tPlain)
+	if (type == tTAGT || type == tOval || type == tOvalAngle || type == tROI || type == tBall || type == tText || type == tArrow || type == tMeasure || type == tPencil || type == t2DPoint || type == tPlain)
 	{
         if (type == tTAGT && points.count == 2)
         {
@@ -4034,8 +4064,8 @@ static float Sign(NSPoint p1, NSPoint p2, NSPoint p3)
 	if (r.type != tPlain) return;
 	if (self == r) return;
 	
-	#define min(x,y) ((x<y)? x:y)
-	#define max(x,y) ((x>y)? x:y)
+#define min(x,y) ((x<y)? x:y)
+#define max(x,y) ((x>y)? x:y)
 	
 	int	newTextureUpLeftCornerX = min( textureUpLeftCornerX, r.textureUpLeftCornerX);
 	int	newTextureDownRightCornerX = max( textureDownRightCornerX, r.textureDownRightCornerX);
@@ -4271,31 +4301,30 @@ static float Sign(NSPoint p1, NSPoint p2, NSPoint p3)
 			{
 				case ROI_selectedModify:
 				case ROI_drawing:
-                    
                 {
 					thickness = ROIRegionThickness;
 					
-					if (textureUpLeftCornerX > pt.x-thickness)
+					if (textureUpLeftCornerX > (pt.x - thickness))
 					{
 						oldTextureUpLeftCornerX = textureUpLeftCornerX;
-						textureUpLeftCornerX = pt.x-thickness - 4;
-						textureGrowDownX=NO;
+						textureUpLeftCornerX = pt.x - thickness - 4;
+						textureGrowDownX = NO;
 					}
-					if (textureUpLeftCornerY > pt.y-thickness)
+					if (textureUpLeftCornerY > (pt.y - thickness))
 					{
-						oldTextureUpLeftCornerY=textureUpLeftCornerY;
-						textureUpLeftCornerY=pt.y-thickness - 4;
-						textureGrowDownY=NO;
+						oldTextureUpLeftCornerY = textureUpLeftCornerY;
+						textureUpLeftCornerY = pt.y - thickness - 4;
+						textureGrowDownY = NO;
 					}
-					if (textureDownRightCornerX < pt.x+thickness)
+					if (textureDownRightCornerX < (pt.x + thickness))
 					{
-						textureDownRightCornerX=pt.x+thickness + 4;
-						textureGrowDownX=YES;
+						textureDownRightCornerX = pt.x + thickness + 4;
+						textureGrowDownX = YES;
 					}
-					if (textureDownRightCornerY < pt.y+thickness)
+					if (textureDownRightCornerY < (pt.y + thickness))
 					{
-						textureDownRightCornerY=pt.y+thickness + 4;
-						textureGrowDownY=YES;
+						textureDownRightCornerY = pt.y + thickness + 4;
+						textureGrowDownY = YES;
 					}
 					
 					int oldTextureHeight = textureHeight;
@@ -4317,8 +4346,18 @@ static float Sign(NSPoint p1, NSPoint p2, NSPoint p3)
 					textureWidth = (textureDownRightCornerX-textureUpLeftCornerX) + 1;
 					textureHeight = (textureDownRightCornerY-textureUpLeftCornerY) + 1;
 					
-					if (textureWidth%4) {textureWidth /=4;		textureWidth *=4;		textureWidth +=4;}
-					if (textureHeight%4) {textureHeight /=4;	textureHeight *=4;		textureHeight += 4;}
+					
+                    if (textureWidth % 4) {
+                        textureWidth /=4;
+                        textureWidth *=4;
+                        textureWidth +=4;
+                    }
+
+                    if (textureHeight % 4) {
+                        textureHeight /=4;
+                        textureHeight *=4;
+                        textureHeight += 4;
+                    }
 					
 					textureDownRightCornerX = textureWidth+textureUpLeftCornerX-1;
 					textureDownRightCornerY = textureHeight+textureUpLeftCornerY-1;
@@ -4345,27 +4384,27 @@ static float Sign(NSPoint p1, NSPoint p2, NSPoint p3)
 						
 						if (!textureGrowDownX && textureGrowDownY)
 						{
-							offsetTextureX=(oldTextureUpLeftCornerX-textureUpLeftCornerX);
+							offsetTextureX = (oldTextureUpLeftCornerX-textureUpLeftCornerX);
 							for (long j=0; j<oldTextureHeight; j++ )
 								for (long i=0; i<oldTextureWidth; i++)
-									textureBuffer[(long)(i+offsetTextureX+j*textureWidth)]=tempTextureBuffer[i+j*oldTextureWidth];
+									textureBuffer[(long)(i+offsetTextureX+j*textureWidth)] = tempTextureBuffer[i+j*oldTextureWidth];
 						}
 						
 						if (textureGrowDownX && !textureGrowDownY)
 						{
-							offsetTextureY=(oldTextureUpLeftCornerY-textureUpLeftCornerY);
+							offsetTextureY = (oldTextureUpLeftCornerY-textureUpLeftCornerY);
 							for (long j=0; j<oldTextureHeight; j++ )
 								for (long i=0; i<oldTextureWidth; i++ )
-									textureBuffer[(long)(i+(j+offsetTextureY)*textureWidth)]=tempTextureBuffer[i+j*oldTextureWidth];
+									textureBuffer[(long)(i+(j+offsetTextureY)*textureWidth)] = tempTextureBuffer[i+j*oldTextureWidth];
 						}
 						
 						if (!textureGrowDownX && !textureGrowDownY)
 						{
-							offsetTextureY=(oldTextureUpLeftCornerY-textureUpLeftCornerY);
-							offsetTextureX=(oldTextureUpLeftCornerX-textureUpLeftCornerX);
+							offsetTextureY = (oldTextureUpLeftCornerY-textureUpLeftCornerY);
+							offsetTextureX = (oldTextureUpLeftCornerX-textureUpLeftCornerX);
 							for (long j=0; j<oldTextureHeight; j++ )
 								for (long i=0; i<oldTextureWidth; i++)
-									textureBuffer[(long)(i+offsetTextureX+(j+offsetTextureY)*textureWidth)]=tempTextureBuffer[i+j*oldTextureWidth];
+									textureBuffer[(long)(i+offsetTextureX+(j+offsetTextureY)*textureWidth)] = tempTextureBuffer[i+j*oldTextureWidth];
 						}
 					}
 						
@@ -4382,7 +4421,8 @@ static float Sign(NSPoint p1, NSPoint p2, NSPoint p3)
 					else
                         val = 0x00;
 					
-					if (modifier & NSCommandKeyMask && !(modifier & NSShiftKeyMask))
+					if ((modifier & NSEventModifierFlagCommand) &&
+                        !(modifier & NSEventModifierFlagShift))
 					{
 						if (val == 0xFF)
                             val = 0;
@@ -4392,7 +4432,8 @@ static float Sign(NSPoint p1, NSPoint p2, NSPoint p3)
 					
 					long size, *xPoints, *yPoints;
 					
-					if (previousPoint.x == -1000 && previousPoint.y == -1000) previousPoint = pt;
+					if (previousPoint.x == -1000 && previousPoint.y == -1000)
+                        previousPoint = pt;
 					
 					int intThickness = thickness;
 					
@@ -4455,7 +4496,7 @@ static float Sign(NSPoint p1, NSPoint p2, NSPoint p3)
 					rect.size.width = pt.x - rect.origin.x;
 					rect.size.height = pt.y - rect.origin.y;
 					
-					if (modifier & NSShiftKeyMask)
+					if (modifier & NSEventModifierFlagShift)
 						rect.size.width = rect.size.height;
 						
 					[self recompute];
@@ -4507,7 +4548,7 @@ static float Sign(NSPoint p1, NSPoint p2, NSPoint p3)
                             ovalAngle[0] = atan2((pt.y - rect.origin.y) / (2*NSHeight(rect)),
                                                  (pt.x - rect.origin.x) / (2*NSWidth(rect)));
                             
-                            if (modifier & NSShiftKeyMask)
+                            if (modifier & NSEventModifierFlagShift)
                             {
                                 ovalAngle[0] /= deg2rad;
                                 ovalAngle[0] = roundf( ovalAngle[0]/45.) * 45.;
@@ -4520,7 +4561,7 @@ static float Sign(NSPoint p1, NSPoint p2, NSPoint p3)
                             ovalAngle[1] = atan2((pt.y - rect.origin.y) / (2*NSHeight(rect)),
                                                  (pt.x - rect.origin.x) / (2*NSWidth(rect)));
                             
-                            if (modifier & NSShiftKeyMask)
+                            if (modifier & NSEventModifierFlagShift)
                             {
                                 ovalAngle[1] /= deg2rad;
                                 ovalAngle[1] = roundf( ovalAngle[1]/45.) * 45.;
@@ -4531,7 +4572,7 @@ static float Sign(NSPoint p1, NSPoint p2, NSPoint p3)
                         else
                         {
                             rect.size.height = pt.y - rect.origin.y;
-                            rect.size.width = ( modifier & NSShiftKeyMask) ? rect.size.height : pt.x - rect.origin.x;
+                            rect.size.width = (modifier & NSEventModifierFlagShift) ? rect.size.height : pt.x - rect.origin.x;
                         }
                         
                         [[NSUserDefaults standardUserDefaults] setFloat: ovalAngle1 forKey: @"ovalAngle1"];
@@ -4584,9 +4625,10 @@ static float Sign(NSPoint p1, NSPoint p2, NSPoint p3)
 				case ROI_drawing:
                     
                     [[points lastObject] setPoint: pt];
-                    if (type == tMesure)
+                    if (type == tMeasure)
                     {
-                        if ((modifier & NSShiftKeyMask) && points.count == 2)
+                        if ((modifier & NSEventModifierFlagShift) &&
+                            points.count == 2)
                         {
                             NSPoint first = [[points objectAtIndex: 0] point];
                             NSPoint last = [[points lastObject] point];
@@ -4594,7 +4636,9 @@ static float Sign(NSPoint p1, NSPoint p2, NSPoint p3)
                             if (fabs( first.y - last.y) / fabs( first.x - last.x) < 0.5)
                                 last.y = first.y;
                             else if (fabs( first.y - last.y) / fabs( first.x - last.x) < 1.5)
-                                last.y = first.y + (last.x - first.x) * copysignf( 1.0, first.y - last.y) * copysignf( 1.0, first.x - last.x);
+                                last.y = first.y + (last.x - first.x) *
+                                         copysignf( 1.0, first.y - last.y) *
+                                         copysignf( 1.0, first.x - last.x);
                             else
                                 last.x = first.x;
                             
@@ -4619,14 +4663,20 @@ static float Sign(NSPoint p1, NSPoint p2, NSPoint p3)
                             int nextPoint = selectedModifyPoint+1;
                             int prevPoint = selectedModifyPoint-1;
                             
-                            if (prevPoint < 0) prevPoint = points.count-1;
-                            if (nextPoint >= points.count) nextPoint = 0;
+                            if (prevPoint < 0)
+                                prevPoint = points.count-1;
+
+                            if (nextPoint >= points.count)
+                                nextPoint = 0;
                             
                             int nextPoint2 = nextPoint+1;
                             int prevPoint2 = prevPoint-1;
                             
-                            if (prevPoint2 < 0) prevPoint2 = points.count-1;
-                            if (nextPoint2 >= points.count) nextPoint2 = 0;
+                            if (prevPoint2 < 0)
+                                prevPoint2 = points.count-1;
+
+                            if (nextPoint2 >= points.count)
+                                nextPoint2 = 0;
                             
                             NSPoint a = [self ProjectionPointLine: pt :[[points objectAtIndex: prevPoint2] point] :[[points objectAtIndex: prevPoint] point]];
                             NSPoint b = [self ProjectionPointLine: pt :[[points objectAtIndex: nextPoint2] point] :[[points objectAtIndex: nextPoint] point]];
@@ -4644,9 +4694,10 @@ static float Sign(NSPoint p1, NSPoint p2, NSPoint p3)
                         else
                             [[points objectAtIndex: selectedModifyPoint] setPoint: pt];
                         
-                        if (type == tMesure)
+                        if (type == tMeasure)
                         {
-                            if ((modifier & NSShiftKeyMask) && points.count == 2)
+                            if ((modifier & NSEventModifierFlagShift) &&
+                                points.count == 2)
                             {
                                 NSPoint first = selectedModifyPoint ? [[points objectAtIndex: 0] point] : [[points objectAtIndex: 1] point];
                                 NSPoint last = [[points objectAtIndex: selectedModifyPoint] point];
@@ -4654,7 +4705,9 @@ static float Sign(NSPoint p1, NSPoint p2, NSPoint p3)
                                 if (fabs( first.y - last.y) / fabs( first.x - last.x) < 0.5)
                                     last.y = first.y;
                                 else if (fabs( first.y - last.y) / fabs( first.x - last.x) < 1.5)
-                                    last.y = first.y + (last.x - first.x) * copysignf( 1.0, first.y - last.y) * copysignf( 1.0, first.x - last.x);
+                                    last.y = first.y + (last.x - first.x) *
+                                            copysignf( 1.0, first.y - last.y) *
+                                            copysignf( 1.0, first.x - last.x);
                                 else
                                     last.x = first.x;
                                 
@@ -4897,7 +4950,7 @@ static float Sign(NSPoint p1, NSPoint p2, NSPoint p3)
 			rect.size.height = 0;
             break;
 		
-		case tMesure:
+		case tMeasure:
 		case tArrow:
 		case tCPolygon:
 		case tOPolygon:
@@ -4943,7 +4996,7 @@ static float Sign(NSPoint p1, NSPoint p2, NSPoint p3)
 }
 
 // in cm or in pixels if no pixelspacing values
--(float) MesureLength:(float*) pixels pointA: (NSPoint) a pointB: (NSPoint) b
+-(float) MeasureLength:(float*) pixels pointA: (NSPoint) a pointB: (NSPoint) b
 {
 	float val = [self Length:a :b];
 	
@@ -4951,22 +5004,23 @@ static float Sign(NSPoint p1, NSPoint p2, NSPoint p3)
 	{
 		if (pixelSpacingX != 0)
 		{
-			float mesureLength = val;
+			float measureLength = val;
 			
-			mesureLength *= 10.0;
-			mesureLength /= pixelSpacingX;
+			measureLength *= 10.0;
+			measureLength /= pixelSpacingX;
 			
-			*pixels = mesureLength;
+			*pixels = measureLength;
 		}
-		else *pixels = val;
+		else
+            *pixels = val;
 	}
 	
 	return val;
 }
 
--(float) MesureLength:(float*) pixels
+- (float) MeasureLength:(float*) pixels
 {
-	return [self MesureLength: pixels pointA:[[points objectAtIndex:0] point] pointB:[[points objectAtIndex:1] point]];
+	return [self MeasureLength: pixels pointA:[[points objectAtIndex:0] point] pointB:[[points objectAtIndex:1] point]];
 }
 
 + (NSString*) formattedLength: (float) lCm
@@ -5105,7 +5159,8 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
 				}
 			}
 			
-			if (maxRedo-- >= 0) i = -1;
+			if (maxRedo-- >= 0)
+                i = -1;
 			
 			*moved = YES;
 		}
@@ -5135,7 +5190,10 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
 		
 	BOOL drawTextBox = NO;
 	
-	if (ROITEXTIFSELECTED == NO || mode == ROI_selected || mode == ROI_selectedModify || mode == ROI_drawing)
+	if (ROITEXTIFSELECTED == NO ||
+        mode == ROI_selected ||
+        mode == ROI_selectedModify ||
+        mode == ROI_drawing)
 	{
 		drawTextBox = YES;
 	}
@@ -5168,7 +5226,14 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
         return;
     }
     
-	if (textualBoxLine1.length == 0 && textualBoxLine2.length == 0  && textualBoxLine3.length == 0  && textualBoxLine4.length == 0  && textualBoxLine5.length == 0  && textualBoxLine6.length == 0 && textualBoxLine7.length == 0 && textualBoxLine8.length == 0)
+	if (textualBoxLine1.length == 0 &&
+        textualBoxLine2.length == 0 &&
+        textualBoxLine3.length == 0 &&
+        textualBoxLine4.length == 0 &&
+        textualBoxLine5.length == 0 &&
+        textualBoxLine6.length == 0 &&
+        textualBoxLine7.length == 0 &&
+        textualBoxLine8.length == 0)
 	{
 		drawRect = NSMakeRect(0, 0, 0, 0);
 		return;
@@ -5206,11 +5271,17 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
 		
 		GLfloat ctrlpoints[4][3];
 		
-		const int OFF = 30;
+		const int OFFSET = 30;
 		
-		ctrlpoints[0][0] = NSMinX( drawRect);				ctrlpoints[0][1] = NSMidY( drawRect);							ctrlpoints[0][2] = 0;
-		ctrlpoints[1][0] = anchor.x - OFF;                  ctrlpoints[1][1] = anchor.y;								ctrlpoints[1][2] = 0;
-		ctrlpoints[2][0] = anchor.x;                        ctrlpoints[2][1] = anchor.y;								ctrlpoints[2][2] = 0;
+		ctrlpoints[0][0] = NSMinX( drawRect);
+        ctrlpoints[0][1] = NSMidY( drawRect);
+        ctrlpoints[0][2] = 0;
+		ctrlpoints[1][0] = anchor.x - OFFSET;
+        ctrlpoints[1][1] = anchor.y;
+        ctrlpoints[1][2] = 0;
+		ctrlpoints[2][0] = anchor.x;
+        ctrlpoints[2][1] = anchor.y;
+        ctrlpoints[2][2] = 0;
 		
 		glLineWidth( 3.0 * curView.window.backingScaleFactor);
 		if (mode == ROI_sleep)
@@ -5396,12 +5467,26 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
 
 - (void) drawROI;
 {
-    [self drawROIWithScaleValue: curView.scaleValue offsetX: curView.curDCM.pwidth/2. offsetY: curView.curDCM.pheight/2. pixelSpacingX: curView.curDCM.pixelSpacingX pixelSpacingY:curView.curDCM.pixelSpacingY highlightIfSelected:YES thickness:thickness prepareTextualData: YES];
+    [self drawROIWithScaleValue: curView.scaleValue
+                        offsetX: curView.curDCM.pwidth/2.
+                        offsetY: curView.curDCM.pheight/2.
+                  pixelSpacingX: curView.curDCM.pixelSpacingX
+                  pixelSpacingY: curView.curDCM.pixelSpacingY
+            highlightIfSelected: YES
+                      thickness: thickness
+             prepareTextualData: YES];
 }
 
 - (void) drawROI :(float) scaleValue :(float) offsetx :(float) offsety :(float) spacingX :(float) spacingY;
 {
-	[self drawROIWithScaleValue:scaleValue offsetX:offsetx offsetY:offsety pixelSpacingX:spacingX pixelSpacingY:spacingY highlightIfSelected:YES thickness:thickness prepareTextualData: YES];
+	[self drawROIWithScaleValue: scaleValue
+                        offsetX: offsetx
+                        offsetY: offsety
+                  pixelSpacingX: spacingX
+                  pixelSpacingY: spacingY
+            highlightIfSelected: YES
+                      thickness: thickness
+             prepareTextualData: YES];
 }
 
 - (void) setTexture: (unsigned char*) t width: (int) w height:(int) h
@@ -5421,7 +5506,19 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
     static NSArray *physicalUnitsXYDirection = nil;
     
     if (physicalUnitsXYDirection == nil)
-        physicalUnitsXYDirection = [[NSArray arrayWithObjects: NSLocalizedString( @"none", nil), @"%", NSLocalizedString( @"dB", @"decibel"), NSLocalizedString( @"cm", nil), NSLocalizedString( @"sec", @"second"), NSLocalizedString( @"hertz", nil), NSLocalizedString( @"dB/sec", @"decibel per second"), NSLocalizedString( @"cm/sec", nil), NSLocalizedString( @"cm\u00B2", @"cm2"), NSLocalizedString( @"cm\u00B2/sec", @"cm2/sec"), NSLocalizedString( @"cm\u00B3", @"cm3"), NSLocalizedString( @"cm\u00B3/sec", @"cm3/sec"), @"\u00B0", nil] retain];
+        physicalUnitsXYDirection = [[NSArray arrayWithObjects:
+                                     NSLocalizedString( @"none", nil), @"%",
+                                     NSLocalizedString( @"dB", @"decibel"),
+                                     NSLocalizedString( @"cm", nil),
+                                     NSLocalizedString( @"sec", @"second"),
+                                     NSLocalizedString( @"hertz", nil),
+                                     NSLocalizedString( @"dB/sec", @"decibel per second"),
+                                     NSLocalizedString( @"cm/sec", nil),
+                                     NSLocalizedString( @"cm\u00B2", @"cm2"),
+                                     NSLocalizedString( @"cm\u00B2/sec", @"cm2/sec"),
+                                     NSLocalizedString( @"cm\u00B3", @"cm3"),
+                                     NSLocalizedString( @"cm\u00B3/sec", @"cm3/sec"), @"\u00B0",
+                                     nil] retain];
     
     return physicalUnitsXYDirection;
 }
@@ -5488,9 +5585,14 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
     if (hidden)
         return;
     
-	if (roiLock == nil) roiLock = [[NSRecursiveLock alloc] init];
+	if (roiLock == nil)
+        roiLock = [[NSRecursiveLock alloc] init];
 	
-	if (curView == nil && prepareTextualData == YES) {NSLog(@"curView == nil! We will not draw this ROI..."); return;}
+	if (curView == nil && prepareTextualData == YES)
+    {
+        NSLog(@"curView == nil! We will not draw this ROI...");
+        return;
+    }
 	
     float backingScaleFactor = curView.window.backingScaleFactor;
     
@@ -5631,7 +5733,11 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
 						// TEXT
 						NSPoint tPt = self.lowerRightPoint;
                         
-                        if ([name isEqualToString:@"Unnamed"] == NO && [name isEqualToString: NSLocalizedString( @"Unnamed", nil)] == NO) self.textualBoxLine1 = name;
+                        if ([name isEqualToString:@"Unnamed"] == NO &&
+                            [name isEqualToString: NSLocalizedString( @"Unnamed", nil)] == NO)
+                        {
+                            self.textualBoxLine1 = name;
+                        }
                         else
                             self.textualBoxLine1 = nil;
 
@@ -5658,7 +5764,7 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
                         case 	ROI_selected:
                         case 	ROI_selectedModify:
                         {
-                            #define MARGINSELECTED 1
+#define MARGINSELECTED 1
                             int margin = MARGINSELECTED;
                             
                             int newWidth = textureWidth + 4*margin;
@@ -5668,7 +5774,10 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
                             
                             if (textureBufferSelected == nil)
                             {
-                                textureBufferSelected = [ROI addMargin: 2*margin buffer: textureBuffer width: textureWidth height: textureHeight];
+                                textureBufferSelected = [ROI addMargin: 2*margin
+                                                                buffer: textureBuffer
+                                                                 width: textureWidth
+                                                                height: textureHeight];
                                 
                                 if (textureBufferSelected)
                                 {
@@ -5711,7 +5820,8 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
                                         
                                         // Subtraction
                                         for (long i = 0; i < newWidth*newHeight;i++)
-                                            if (newBufferCopy[ i]) textureBufferSelected[ i] = 0;
+                                            if (newBufferCopy[ i])
+                                                textureBufferSelected[ i] = 0;
                                         
                                         free( newBufferCopy);
                                     }
@@ -5723,11 +5833,15 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
                                 GLuint textureName = 0;
                                 
                                 glEnable(GL_TEXTURE_RECTANGLE_EXT);
+                                
+                                // Make a single memory mapping for all of the textures used by the application:
                                 glTextureRangeAPPLE(GL_TEXTURE_RECTANGLE_EXT, newWidth * newHeight, textureBufferSelected);
                                 glGenTextures (1, &textureName);
                                 glBindTexture(GL_TEXTURE_RECTANGLE_EXT, textureName);
                                 glPixelStorei (GL_UNPACK_ROW_LENGTH, newWidth);
-                                glPixelStorei (GL_UNPACK_CLIENT_STORAGE_APPLE, 1);
+                                glPixelStorei (GL_UNPACK_CLIENT_STORAGE_APPLE, GL_TRUE);
+                                
+                                // The cached hint specifies to cache texture data in video memory. This hint is recommended when you have textures that you plan to use multiple times or that use linear filtering
                                 glTexParameteri (GL_TEXTURE_RECTANGLE_EXT, GL_TEXTURE_STORAGE_HINT_APPLE, GL_STORAGE_CACHED_APPLE);
                                 
                                 glBlendEquation(GL_FUNC_ADD);
@@ -5753,14 +5867,15 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
                                 screenXDr = screenXUpL + newWidth*scaleValue;
                                 screenYDr = screenYUpL + newHeight*scaleValue;
                                 
-                                glBegin (GL_QUAD_STRIP); // draw either tri strips of line strips (so this will drw either two tris or 3 lines)
+                                // draw either tri strips of line strips (so this will draw either 2 tris or 3 lines)
+                                glBegin (GL_QUAD_STRIP);
                                 glTexCoord2f (0, 0); // draw upper left in world coordinates
                                 glVertex3d (screenXUpL, screenYUpL, 0.0);
                                 
-                                glTexCoord2f (newWidth, 0); // draw lower left in world coordinates
+                                glTexCoord2f (newWidth, 0); // draw upper right in world coordinates
                                 glVertex3d (screenXDr, screenYUpL, 0.0);
                                 
-                                glTexCoord2f (0, newHeight); // draw upper right in world coordinates
+                                glTexCoord2f (0, newHeight); // draw lower left in world coordinates
                                 glVertex3d (screenXUpL, screenYDr, 0.0);
                                 
                                 glTexCoord2f (newWidth, newHeight); // draw lower right in world coordinates
@@ -5779,12 +5894,16 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
                 GLuint textureName = 0;
 				
                 glEnable(GL_TEXTURE_RECTANGLE_EXT);
+                // Make a single memory mapping for all of the textures used by the application:
 				glTextureRangeAPPLE(GL_TEXTURE_RECTANGLE_EXT, textureWidth * textureHeight, textureBuffer);
-				glGenTextures (1, &textureName);
+
+                glGenTextures (1, &textureName);
 				glBindTexture(GL_TEXTURE_RECTANGLE_EXT, textureName);
 				glPixelStorei (GL_UNPACK_ROW_LENGTH, textureWidth);
-				glPixelStorei (GL_UNPACK_CLIENT_STORAGE_APPLE, 1);
-				glTexParameteri (GL_TEXTURE_RECTANGLE_EXT, GL_TEXTURE_STORAGE_HINT_APPLE, GL_STORAGE_CACHED_APPLE);
+				glPixelStorei (GL_UNPACK_CLIENT_STORAGE_APPLE, GL_TRUE);
+
+                // The cached hint specifies to cache texture data in video memory. This hint is recommended when you have textures that you plan to use multiple times or that use linear filtering
+                glTexParameteri (GL_TEXTURE_RECTANGLE_EXT, GL_TEXTURE_STORAGE_HINT_APPLE, GL_STORAGE_CACHED_APPLE);
 				
 				glBlendEquation(GL_FUNC_ADD);
 				glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -5809,7 +5928,8 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
 				screenXDr = screenXUpL + textureWidth*scaleValue;
 				screenYDr = screenYUpL + textureHeight*scaleValue;
                 
-				glBegin (GL_QUAD_STRIP); // draw either tri strips of line strips (so this will drw either two tris or 3 lines)
+                // draw either tri strips of line strips (so this will draw either 2 tris or 3 lines)
+				glBegin (GL_QUAD_STRIP);
 				glTexCoord2f (0, 0); // draw upper left in world coordinates
 				glVertex3d (screenXUpL, screenYUpL, 0.0);
 				
@@ -6189,8 +6309,8 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
 				glPopMatrix();
 			}
 			break;
-#pragma mark tMesure / tArrow
-			case tMesure:
+#pragma mark tMeasure / tArrow
+			case tMeasure:
 			case tArrow:
 			{
                 if (points.count > 2)
@@ -6224,7 +6344,8 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
 						else
 							slide = (b.x-a.x)/((b.y-a.y));
 					}
-					#define ARROWSIZEConstant 25.0
+
+#define ARROWSIZEConstant 25.0
 					
 					float ARROWSIZE = ARROWSIZEConstant * (thick * backingScaleFactor / 3.0);
 					
@@ -6343,7 +6464,7 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
 //					
 //					glEnd();
 				}
-				else
+				else  // type == tMeasure
 				{
 					// If there is another line, compute cobb's angle
 					if (curView && displayCobbAngle && displayCMOrPixels == NO)
@@ -6356,7 +6477,7 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
                             int no = 0;
                             for (ROI *r  in roiList)
                             {
-                                if ([r type] == tMesure)
+                                if ([r type] == tMeasure)
                                 {
                                     no++;
                                     if (no >= 2)
@@ -6371,7 +6492,7 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
                                 {
                                     ROI *r = [roiList objectAtIndex: i];
                                     
-                                    if ([r type] == tMesure)
+                                    if ([r type] == tMeasure)
                                     {
                                         f = YES;
                                         break;
@@ -6386,7 +6507,8 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
                                     glBegin(GL_LINE_STRIP);
                                     for (id pt in points)
                                     {
-                                        glVertex2f( ([pt x]- offsetx) * scaleValue , ([pt y]- offsety) * scaleValue );
+                                        glVertex2f(([pt x]- offsetx) * scaleValue ,
+                                                   ([pt y]- offsety) * scaleValue );
                                     }
                                     glEnd();
                                     
@@ -6400,7 +6522,8 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
 					glBegin(GL_LINE_STRIP);
 					for (id pt in points)
 					{
-						glVertex2f( ([pt x]- offsetx) * scaleValue , ([pt y]- offsety) * scaleValue );
+						glVertex2f(([pt x]- offsetx) * scaleValue,
+                                   ([pt y]- offsety) * scaleValue );
 					}
 					glEnd();
 					
@@ -6409,12 +6532,13 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
 					glBegin( GL_POINTS);
 					for (id pt in points)
 					{
-						glVertex2f( ([pt x]- offsetx) * scaleValue , ([pt y]- offsety) * scaleValue );
+						glVertex2f(([pt x]- offsetx) * scaleValue,
+                                   ([pt y]- offsety) * scaleValue );
 					}
 					glEnd();
-				}
+				}    // type == tMeasure
 				
-				if (highlightIfSelected)
+				if (highlightIfSelected)  // both tArrow and tMeasure
 				{
 					glColor3f (0.5f, 0.5f, 1.0f);
 					
@@ -6484,11 +6608,11 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
                     else
                         self.textualBoxLine1 = nil;
                     
-					if (type == tMesure && ROITEXTNAMEONLY == NO)
+					if (type == tMeasure && ROITEXTNAMEONLY == NO)
 					{
                         if ((pixelSpacingX != 0 && pixelSpacingY != 0) || [[self pix] hasUSRegions])
 						{
-							float lPix, lCm = [self MesureLength: &lPix];
+							float lPix, lCm = [self MeasureLength: &lPix];
 							
 							if (displayCMOrPixels)   // CPR
 							{
@@ -6620,7 +6744,7 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
 									{
 										ROI *r = [roiList objectAtIndex: i];
 										
-										if ([r type] == tMesure)
+										if ([r type] == tMeasure)
 										{
 											NSArray *B = [r points];
 											NSPoint	u1 = [[[self points] objectAtIndex: 0] point],
@@ -6726,9 +6850,13 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
 				{
 					if (self.isTextualDataDisplayed && prepareTextualData)
                     {
-						NSPoint			tPt = self.lowerRightPoint;
+						NSPoint tPt = self.lowerRightPoint;
 						
-						if ([name isEqualToString:@"Unnamed"] == NO && [name isEqualToString: NSLocalizedString( @"Unnamed", nil)] == NO) self.textualBoxLine1 = name;
+						if ([name isEqualToString:@"Unnamed"] == NO &&
+                            [name isEqualToString: NSLocalizedString( @"Unnamed", nil)] == NO)
+                        {
+                            self.textualBoxLine1 = name;
+                        }
 						else
                             self.textualBoxLine1 = nil;
 						
@@ -7047,7 +7175,9 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
                 
                 glPushMatrix();
                 {
-                    glTranslatef( (rrect.origin.x - offsetx)*scaleValue, (rrect.origin.y - offsety)*scaleValue,  0.0f);
+                    glTranslatef((rrect.origin.x - offsetx)*scaleValue,
+                                 (rrect.origin.y - offsety)*scaleValue,
+                                 0.0f);
                     glRotatef( roiRotation, 0, 0, 1.0f);
                     
                     NSRect r = rrect;
@@ -7309,7 +7439,8 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
                             else
                                 glColor3f (0.5f, 0.5f, 1.0f);
                             
-                            glVertex2f( ([[points objectAtIndex: i] x]- offsetx) * scaleValue , ([[points objectAtIndex: i] y]- offsety) * scaleValue);
+                            glVertex2f(([[points objectAtIndex: i] x]- offsetx) * scaleValue,
+                                       ([[points objectAtIndex: i] y]- offsety) * scaleValue);
                         }
                         glEnd();
                     }
@@ -7506,25 +7637,25 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
                     float lCm = 0;
                     if ([points count] == 6)
                     {
-                        lCm = [self MesureLength: nil
+                        lCm = [self MeasureLength: nil
                                           pointA: [[points objectAtIndex: 4] point]
                                           pointB: [[points objectAtIndex: 5] point]];
                         self.textualBoxLine2 = [NSString stringWithFormat: NSLocalizedString( @"B: %@", nil), [ROI formattedLength: lCm]];
                     }
                     
-                    lCm = [self MesureLength: nil
+                    lCm = [self MeasureLength: nil
                                       pointA: [[points objectAtIndex: 0] point]
                                       pointB: [[points objectAtIndex: 1] point]];
                     self.textualBoxLine3 = [NSString stringWithFormat: NSLocalizedString( @"A: %@", nil), [ROI formattedLength: lCm]];
                     
                     if ([points count] == 6)
                     {
-                        lCm = [self MesureLength: nil
+                        lCm = [self MeasureLength: nil
                                           pointA: [[points objectAtIndex: 2] point]
                                           pointB: [[points objectAtIndex: 3] point]];
                         self.textualBoxLine4 = [NSString stringWithFormat: NSLocalizedString( @"C: %@", nil), [ROI formattedLength: lCm]];
                         
-                        lCm = [self MesureLength: nil
+                        lCm = [self MeasureLength: nil
                                           pointA: [[points objectAtIndex: 4] point]
                                           pointB: [[points objectAtIndex: 2] point]];
                         self.textualBoxLine5 = [NSString stringWithFormat: NSLocalizedString( @"B-C: %@", nil), [ROI formattedLength: lCm]];
@@ -8312,7 +8443,7 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
 
             default:
                 break;
-		}
+		}  // switch
 		
 		glPointSize( 1.0 * backingScaleFactor);
 		
@@ -8334,7 +8465,7 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
 	
 	switch(type)
 	{
-		case tMesure:
+		case tMeasure:
 			data = [[self pix] getLineROIValue:no :self];
 		break;
 		
@@ -8466,7 +8597,7 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
             }
             break;
 		
-		case tMesure:
+		case tMeasure:
             {
                 array = [NSMutableDictionary dictionaryWithCapacity:0];
                 
@@ -8484,9 +8615,11 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
 
 - (BOOL) needQuartz
 {
-	switch( type)
+	switch (type)
 	{
-		default: return NO; break;
+		default:
+            return NO;
+            break;
 	}
 	
 	return NO;
@@ -8630,7 +8763,9 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
 	textureWidth += 2*margin;
 	textureHeight += 2*margin;
 	
-    if (textureBuffer) free( textureBuffer);
+    if (textureBuffer)
+        free( textureBuffer);
+
     textureBuffer = newBuffer;
     
     textureDownRightCornerX += margin;
@@ -8831,7 +8966,7 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
 		unsigned char*	rgbaPtr = (unsigned char*) textureBuffer;
 		long			ss = bytesPerRow/4 * height;
 		
-		while (ss-->0)
+		while (ss-- > 0)
 		{
 			unsigned char r = *(rgbaPtr+0);
 			unsigned char g = *(rgbaPtr+1);
@@ -8850,7 +8985,7 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
 		unsigned char*	rgbaPtr = (unsigned char*) textureBuffer;
 		long			ss = bytesPerRow/4 * height;
 		
-		while (ss-->0)
+		while (ss-- > 0)
 		{
 			unsigned char r = *(rgbaPtr+0);
 			unsigned char g = *(rgbaPtr+1);
@@ -8907,7 +9042,9 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
 	glGenTextures(1, &textureName);
 	glBindTexture(GL_TEXTURE_RECTANGLE_EXT, textureName);
 	glPixelStorei(GL_UNPACK_ROW_LENGTH, bytesPerRow/4);
-	glPixelStorei(GL_UNPACK_CLIENT_STORAGE_APPLE, 1);
+	glPixelStorei(GL_UNPACK_CLIENT_STORAGE_APPLE, GL_TRUE);
+
+    // The cached hint specifies to cache texture data in video memory. This hint is recommended when you have textures that you plan to use multiple times or that use linear filtering
 	glTexParameteri (GL_TEXTURE_RECTANGLE_EXT, GL_TEXTURE_STORAGE_HINT_APPLE, GL_STORAGE_CACHED_APPLE);
 
     
@@ -9099,7 +9236,8 @@ NSInteger sortPointArrayAlongX(id point1, id point2, void *context)
 		}
 	}
 
-	if (newNb) free(splinePts);
+	if (newNb)
+        free(splinePts);
 	
 	if ([newPoints count] == 0)
 		return [self points];

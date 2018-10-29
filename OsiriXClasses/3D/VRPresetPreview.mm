@@ -349,7 +349,7 @@
 
 //	volumeProperty->ShadeOn();
 
-	if( [[NSApp currentEvent] modifierFlags] & NSAlternateKeyMask)
+	if( [[NSApp currentEvent] modifierFlags] & NSEventModifierFlagOption)
         volumeProperty->SetInterpolationTypeToNearest();
     else
         volumeProperty->SetInterpolationTypeToLinear();//SetInterpolationTypeToNearest();	//SetInterpolationTypeToLinear

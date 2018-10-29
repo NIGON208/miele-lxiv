@@ -37,6 +37,7 @@ typedef unsigned char BYTE;
 
 static int Use_kdu_IfAvailable = 0;
 
+////////////////////////////////////////////////////////////////////////////////
 #if __ppc__
 
 union vectorShort {
@@ -81,6 +82,7 @@ void SwapLongs( register vector unsigned int *unaligned_input, register long siz
 }
 
 #endif
+////////////////////////////////////////////////////////////////////////////////
 
 ////altivec
 //#define dcmHasAltiVecMask    ( 1 << gestaltPowerPCHasVectorInstructions )  // used in  looking for a g4 

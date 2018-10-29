@@ -1497,8 +1497,8 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 		}
 		else if( tool == t3DRotate)
 		{
-			int shiftDown = 0;//([theEvent modifierFlags] & NSShiftKeyMask);
-			int controlDown = 0;//([theEvent modifierFlags] & NSControlKeyMask);
+			int shiftDown = 0;//([theEvent modifierFlags] & NSEventModifierFlagShift);
+			int controlDown = 0;//([theEvent modifierFlags] & NSEventModifierFlagControl);
 			
 			mouseLoc = [self convertPoint: [theEvent locationInWindow] fromView:nil];
 			// Added SilvanWidmer 10-08-09
@@ -1680,7 +1680,7 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 		NSRect	beforeFrame = [self frame];
 		NSPoint mouseLoc = [theEvent locationInWindow];	//[self convertPoint: [theEvent locationInWindow] fromView:nil];
 		
-		if( [theEvent modifierFlags] & NSShiftKeyMask)
+		if ([theEvent modifierFlags] & NSEventModifierFlagShift)
 		{
 			newFrame.size.width = [[[self window] contentView] frame].size.width - mouseLoc.x*2;
 			newFrame.size.height = newFrame.size.width;

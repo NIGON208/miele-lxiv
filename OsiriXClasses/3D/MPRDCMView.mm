@@ -91,7 +91,7 @@ unsigned int minimumStep;
 		break;
 		
 		case tNext:
-		case tMesure:
+		case tMeasure:
 		case tROI:
 		case tOval:
 		case tOPolygon:
@@ -1049,14 +1049,28 @@ unsigned int minimumStep;
         
         float move = 2;
         
-        if( [theEvent modifierFlags] & NSAlternateKeyMask) move = 6;
-        if( [theEvent modifierFlags] & NSCommandKeyMask) move = 1;
+        if( [theEvent modifierFlags] & NSEventModifierFlagOption) move = 6;
+        if( [theEvent modifierFlags] & NSEventModifierFlagCommand) move = 1;
         
-        if( c == NSDownArrowFunctionKey) { center.y -= move*slopeY; center.x += move*slopeX;}
-        if( c == NSUpArrowFunctionKey) { center.y += move*slopeY; center.x -= move*slopeX;}
+        if( c == NSDownArrowFunctionKey) {
+            center.y -= move*slopeY;
+            center.x += move*slopeX;
+        }
+
+        if( c == NSUpArrowFunctionKey) {
+            center.y += move*slopeY;
+            center.x -= move*slopeX;
+        }
         
-        if( c == NSRightArrowFunctionKey) { center.y -= move*slopeY; center.x += move*slopeX;}
-        if( c == NSLeftArrowFunctionKey) { center.y += move*slopeY; center.x -= move*slopeX;}
+        if( c == NSRightArrowFunctionKey) {
+            center.y -= move*slopeY;
+            center.x += move*slopeX;
+        }
+
+        if( c == NSLeftArrowFunctionKey) {
+            center.y += move*slopeY;
+            center.x -= move*slopeX;            
+        }
         
         [vrView setWindowCenter: center];
         [self updateViewMPR];
@@ -1608,7 +1622,7 @@ unsigned int minimumStep;
 					vrView.keep3DRotateCentered = NO;
 				else
 				{
-					if( [theEvent modifierFlags] & NSAlternateKeyMask)
+					if( [theEvent modifierFlags] & NSEventModifierFlagOption)
 						vrView.keep3DRotateCentered = NO;
 				}
 			}

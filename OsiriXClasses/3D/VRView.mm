@@ -1701,12 +1701,12 @@ public:
 	}
 	
 	if( aCamera->GetParallelProjection())
-		[[[controller toolsMatrix] cellWithTag: tMesure] setEnabled: YES];
+		[[[controller toolsMatrix] cellWithTag: tMeasure] setEnabled: YES];
 	else
 	{
-		[[[controller toolsMatrix] cellWithTag: tMesure] setEnabled: NO];
+		[[[controller toolsMatrix] cellWithTag: tMeasure] setEnabled: NO];
 		
-		if( currentTool == tMesure)
+		if( currentTool == tMeasure)
 		{
 			[self setCurrentTool: t3DRotate];
 			[[controller toolsMatrix] selectCellWithTag: t3DRotate];
@@ -1851,12 +1851,16 @@ public:
 	else
         tool = currentTool;
 	
-	if (([event modifierFlags] & NSControlKeyMask))  tool = tRotate;
-	if (([event modifierFlags] & NSShiftKeyMask))  tool = tZoom;
-	if (([event modifierFlags] & NSCommandKeyMask))  tool = tTranslate;
-	if (([event modifierFlags] & NSAlternateKeyMask))  tool = tWL;
-	if (([event modifierFlags] & NSCommandKeyMask) && ([event modifierFlags] & NSAlternateKeyMask)) tool = tRotate;
-	if (([event modifierFlags] & NSCommandKeyMask) && ([event modifierFlags] & NSControlKeyMask)) tool = tCamera3D;
+	if (([event modifierFlags] & NSEventModifierFlagControl))  tool = tRotate;
+	if (([event modifierFlags] & NSEventModifierFlagShift))  tool = tZoom;
+	if (([event modifierFlags] & NSEventModifierFlagCommand))  tool = tTranslate;
+	if (([event modifierFlags] & NSEventModifierFlagOption))  tool = tWL;
+
+    if (([event modifierFlags] & NSEventModifierFlagCommand) &&
+        ([event modifierFlags] & NSEventModifierFlagOption)) tool = tRotate;
+	
+    if (([event modifierFlags] & NSEventModifierFlagCommand) &&
+        ([event modifierFlags] & NSEventModifierFlagControl)) tool = tCamera3D;
 	
 	return tool;
 }
@@ -3145,7 +3149,7 @@ public:
 		
 		beforeFrame = [self frame];
 
-		if( [theEvent modifierFlags] & NSShiftKeyMask)
+		if( [theEvent modifierFlags] & NSEventModifierFlagShift)
 		{
 			newFrame.size.width = [[[self window] contentView] frame].size.width - mouseLoc.x*2;
 			newFrame.size.height = newFrame.size.width;
@@ -3233,7 +3237,7 @@ public:
             }
             break;
                 
-			case tMesure:
+			case tMeasure:
 			{
                 [self deleteMouseDownTimer];
                 
@@ -3644,7 +3648,7 @@ public:
 			case tZoom:
 				[self zoomMouseUp:(NSEvent *)theEvent];
 				break;
-			case tMesure:
+			case tMeasure:
             case tOval:
 			case t3DCut:
 				[self displayIfNeeded];
@@ -3862,7 +3866,7 @@ public:
 			[self resetAutorotate: self];
 		}
 		
-		if( tool == tMesure)
+		if( tool == tMeasure)
 		{
             [self deleteMouseDownTimer];
             
@@ -4088,8 +4092,8 @@ public:
 			}
 			else
 			{
-				int shiftDown = 0;//([theEvent modifierFlags] & NSShiftKeyMask);
-				int controlDown = 0;//([theEvent modifierFlags] & NSControlKeyMask);
+				int shiftDown = 0;//([theEvent modifierFlags] & NSEventModifierFlagShift);
+				int controlDown = 0;//([theEvent modifierFlags] & NSEventModifierFlagControl);
 
 				if( volumeMapper)
 					volumeMapper->SetMinimumImageSampleDistance( LOD*lowResLODFactor);
@@ -4909,7 +4913,7 @@ public:
 	
 	if( c == NSDeleteFunctionKey || c == NSDeleteCharacter || c == NSBackspaceCharacter || c == NSDeleteCharFunctionKey)
 	{
-		if( [[NSApp currentEvent] modifierFlags] & NSShiftKeyMask)
+		if( [[NSApp currentEvent] modifierFlags] & NSEventModifierFlagShift)
 		{
 			addition = YES;
 			gDataValuesChanged = YES;
@@ -4917,7 +4921,7 @@ public:
 			newVal = 1024;
 		}
 		
-		if( [[NSApp currentEvent] modifierFlags] & NSAlternateKeyMask)
+		if( [[NSApp currentEvent] modifierFlags] & NSEventModifierFlagOption)
 		{
 			addition = YES;
 			gDataValuesChanged = YES;
@@ -5175,11 +5179,11 @@ public:
 		
 		dontRenderVolumeRenderingOsiriX = 0;
 	}
-	else if( currentTool == tMesure || currentTool == tOval)
+	else if( currentTool == tMeasure || currentTool == tOval)
 	{
         if( c == 27 || c == NSDeleteFunctionKey || c == NSDeleteCharacter || c == NSBackspaceCharacter || c == NSDeleteCharFunctionKey)
         {
-            if(currentTool == tMesure)
+            if(currentTool == tMeasure)
             {
                 vtkPoints *pts = Line2DData->GetPoints();
                 
@@ -5351,7 +5355,7 @@ public:
 		dontRenderVolumeRenderingOsiriX = 0;
 	}
     
-	if( currentTool == tMesure || previousTool == tMesure)
+	if( currentTool == tMeasure || previousTool == tMeasure)
 	{
 		if( bestRenderingWasGenerated)
 		{
@@ -5805,7 +5809,8 @@ public:
 	// RAY CASTING SETTINGS
 	if( best)
 	{
-		if( [[NSApp currentEvent] modifierFlags] & NSShiftKeyMask || projectionMode == 2)
+		if ([[NSApp currentEvent] modifierFlags] & NSEventModifierFlagShift ||
+            projectionMode == 2)
 		{
 			if( volumeMapper)
             {
@@ -6704,7 +6709,7 @@ public:
 		
 		[self setShadingValues:0.15 :0.9 :0.3 :15];
 		
-		if( [[NSApp currentEvent] modifierFlags] & NSAlternateKeyMask)
+		if( [[NSApp currentEvent] modifierFlags] & NSEventModifierFlagOption)
             volumeProperty->SetInterpolationTypeToNearest();
 		else
             volumeProperty->SetInterpolationTypeToLinear();//SetInterpolationTypeToNearest();	//SetInterpolationTypeToLinear
@@ -8756,7 +8761,7 @@ public:
 {
 	NSCursor	*c;
 	
-	if (tool == tMesure || tool == t3Dpoint)
+	if (tool == tMeasure || tool == t3Dpoint)
 		c = [NSCursor crosshairCursor];
 	else if( tool == t3DCut)
 		c = [NSCursor crosshairCursor];
@@ -8806,7 +8811,7 @@ public:
 	NSMutableArray *pbTypes = [NSMutableArray array];
 	// The image we will drag 
 	NSImage *image;
-	if ([event modifierFlags] & NSShiftKeyMask)
+	if ([event modifierFlags] & NSEventModifierFlagShift)
 		image = [self nsimage: YES];
 	else
 		image = [self nsimage: NO];
@@ -8830,7 +8835,7 @@ public:
 		[thumbnail unlockFocus];
 	}
 	
-	if ([event modifierFlags] & NSAlternateKeyMask)
+	if ([event modifierFlags] & NSEventModifierFlagOption)
 		[ pbTypes addObject: NSFilesPromisePboardType];
 	else
 		[pbTypes addObject: NSTIFFPboardType];	
@@ -8839,7 +8844,7 @@ public:
 	[pboard declareTypes:pbTypes  owner:self];
 
 		
-	if ([event modifierFlags] & NSAlternateKeyMask)
+	if ([event modifierFlags] & NSEventModifierFlagOption)
 	{
 		NSRect imageLocation;
 		local_point = [self convertPoint:event_location fromView:nil];

@@ -990,7 +990,7 @@ extern int splitPosition[ 3];
 				if( [self roiTool: currentTool])
 				{
 					if( currentTool != tText && currentTool != tArrow)
-						currentTool = tMesure;
+						currentTool = tMeasure;
 				}
 				
 				[super mouseDown:event];
@@ -1068,7 +1068,7 @@ extern int splitPosition[ 3];
 - (void)scrollWheel:(NSEvent *)theEvent
 {
 	// Scroll/Move transverse lines
-	if( [theEvent modifierFlags] & NSAlternateKeyMask)
+	if( [theEvent modifierFlags] & NSEventModifierFlagOption)
 	{
 		CGFloat transverseSectionPosition = MIN(MAX(_curvedPath.transverseSectionPosition + [theEvent deltaY] * .002, 0.0), 1.0); 
 		
@@ -1081,7 +1081,7 @@ extern int splitPosition[ 3];
 	}
 	
 	// Scroll/Move transverse lines
-	else if( [theEvent modifierFlags] & NSCommandKeyMask)
+	else if( [theEvent modifierFlags] & NSEventModifierFlagCommand)
 	{
         float factor = 0.4;
         
@@ -1361,7 +1361,7 @@ extern int splitPosition[ 3];
 		for( int i = 0; i < curRoiList.count; i++ )
 		{
 			ROI *r = [curRoiList objectAtIndex:i];
-			if( r.type != tMesure && r.type != tText && r.type != tArrow)
+			if( r.type != tMeasure && r.type != tText && r.type != tArrow)
 			{
 				[[NSNotificationCenter defaultCenter] postNotificationName: OsirixRemoveROINotification object:r userInfo: nil];
 				[curRoiList removeObjectAtIndex:i];
@@ -1373,7 +1373,7 @@ extern int splitPosition[ 3];
 		
 		for( ROI *c in curRoiList)
 		{
-			if( c.type == tMesure)
+			if( c.type == tMeasure)
 			{
 				NSMutableArray *points = c.points;
 				

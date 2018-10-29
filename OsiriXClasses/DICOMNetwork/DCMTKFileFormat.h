@@ -12,7 +12,7 @@
  PURPOSE.
  =========================================================================*/
 
-#import <DCMPix.h>
+#import "DCMPix.h"
 
 @interface DCMTKFileFormat : NSObject
 {

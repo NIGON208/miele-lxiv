@@ -19,8 +19,10 @@
 #import "QueryFilter.h"
 #import "AppController.h"
 #import "ImageAndTextCell.h"
+
 #import <DCM/DCMCalendarDate.h>
 #import <DCM/DCMNetServiceDelegate.h>
+
 #import "QueryArrayController.h"
 //#import "AdvancedQuerySubview.h"
 #import "DCMTKRootQueryNode.h"
@@ -1302,7 +1304,7 @@ extern "C"
 
 - (void) applyPreset:(id) sender
 {
-	if([[[NSApplication sharedApplication] currentEvent] modifierFlags]  & NSShiftKeyMask)
+	if ([[[NSApplication sharedApplication] currentEvent] modifierFlags] & NSEventModifierFlagShift)
 	{
 		// Delete the Preset
 		if (NSRunCriticalAlertPanel(NSLocalizedString( @"Delete Preset", nil),
@@ -2209,7 +2211,7 @@ extern "C"
 {
 	NSEvent *event = [[NSApplication sharedApplication] currentEvent];
 	
-	if( [event modifierFlags] & NSCommandKeyMask)
+	if( [event modifierFlags] & NSEventModifierFlagCommand)
 	{
 		for( NSCell *c in [modalityFilterMatrix cells])
 		{
@@ -2437,7 +2439,7 @@ extern "C"
             }
             else
             {
-                if( [[[NSApplication sharedApplication] currentEvent] modifierFlags] & NSAlternateKeyMask)
+                if( [[[NSApplication sharedApplication] currentEvent] modifierFlags] & NSEventModifierFlagOption)
                 {
                     NSLog( @"--- Query ALL fields");
                     queryAllFields = YES;
@@ -3009,7 +3011,7 @@ extern "C"
 						{
 							[string appendString: [s stringValue]];
 							i++;
-							if( i !=  [columns count])
+							if( i != [columns count])
 								[string appendFormat: @"%c", NSTabCharacter];
 						}
 					}
@@ -3028,7 +3030,7 @@ extern "C"
 					if( [[aFile valueForKey: identifier] description])
 						[string appendString: [[aFile valueForKey: identifier] description]];
 					i++;
-					if( i !=  [columns count])
+					if( i != [columns count])
 						[string appendFormat: @"%c", NSTabCharacter];
 				}
 				@catch ( NSException *e)
@@ -4099,7 +4101,7 @@ extern "C"
 				
 				if( [seriesArray count])
 				{
-					NSManagedObject	*series =  [seriesArray objectAtIndex: 0];
+					NSManagedObject	*series = [seriesArray objectAtIndex: 0];
 					
 					if( [[BrowserController currentBrowser] findAndSelectFile:nil image:[[series valueForKey:@"images"] anyObject] shouldExpand:NO] == NO)
 					{
@@ -4117,9 +4119,9 @@ extern "C"
 		
 		if( [item isMemberOfClass:[DCMTKSeriesQueryNode class]] == YES)
 		{
-			NSPredicate	*predicate = [NSPredicate predicateWithFormat:  @"(seriesDICOMUID == %@)", [item valueForKey:@"uid"]];
+			NSPredicate	*predicate = [NSPredicate predicateWithFormat: @"(seriesDICOMUID == %@)", [item valueForKey:@"uid"]];
 			
-			NSLog( @"%@",  [predicate description]);
+			NSLog( @"%@", [predicate description]);
 			
 			[request setEntity: [[BrowserController.currentBrowser.database.managedObjectModel entitiesByName] objectForKey:@"Series"]];
 			[request setPredicate: predicate];
@@ -4238,31 +4240,58 @@ extern "C"
 		
 		switch( tag)
 		{
-			case anyDate: date = nil; break;
-            
-			case today: date = [DCMCalendarDate date]; searchType = searchExactDate; break;
-                
-			case yesteday: date = [DCMCalendarDate dateWithTimeIntervalSinceNow: -60*60*24 -1];	searchType = searchExactDate; break;
-                
-            case dayBeforeYesterday: date = [DCMCalendarDate dateWithTimeIntervalSinceNow: -60*60*48 -1]; searchType = searchExactDate; break;
-            
-            case after: date = [DCMCalendarDate dateWithTimeIntervalSinceNow: [from timeIntervalSinceReferenceDate]];
-                
-            case last2Days: date = [DCMCalendarDate dateWithTimeIntervalSinceNow: -60*60*24*2 -1]; break;
-                
-			case last7Days: date = [DCMCalendarDate dateWithTimeIntervalSinceNow: -60*60*24*7 -1]; break;
-                
-			case lastMonth: date = [DCMCalendarDate dateWithTimeIntervalSinceNow: -60*60*24*31 -1]; break;
-                
-            case last3Months: date = [DCMCalendarDate dateWithTimeIntervalSinceNow: -60*60*24*31*3 -1]; break;
-            case last2Months: date = [DCMCalendarDate dateWithTimeIntervalSinceNow: -60*60*24*31*2 -1]; break;
-            case lastYear: date = [DCMCalendarDate dateWithTimeIntervalSinceNow: -60*60*24*365 -1]; break;
-            
+			case anyDate:
+                date = nil;
+                break;
+
+			case today:
+                date = [DCMCalendarDate date];
+                searchType = searchExactDate;
+                break;
+
+			case yesterday:
+                date = [DCMCalendarDate dateWithTimeIntervalSinceNow: -60*60*24 -1];
+                searchType = searchExactDate;
+                break;
+
+            case dayBeforeYesterday:
+                date = [DCMCalendarDate dateWithTimeIntervalSinceNow: -60*60*48 -1];
+                searchType = searchExactDate;
+                break;
+
+            case after:
+                date = [DCMCalendarDate dateWithTimeIntervalSinceNow: [from timeIntervalSinceReferenceDate]];
+                break;
+
+            case last2Days:
+                date = [DCMCalendarDate dateWithTimeIntervalSinceNow: -60*60*24*2 -1];
+                break;
+
+			case last7Days:
+                date = [DCMCalendarDate dateWithTimeIntervalSinceNow: -60*60*24*7 -1];
+                break;
+
+			case lastMonth:
+                date = [DCMCalendarDate dateWithTimeIntervalSinceNow: -60*60*24*31 -1];
+                break;
+
+            case last3Months:
+                date = [DCMCalendarDate dateWithTimeIntervalSinceNow: -60*60*24*31*3 -1];
+                break;
+
+            case last2Months:
+                date = [DCMCalendarDate dateWithTimeIntervalSinceNow: -60*60*24*31*2 -1];
+                break;
+
+            case lastYear:
+                date = [DCMCalendarDate dateWithTimeIntervalSinceNow: -60*60*24*365 -1];
+                break;
+
             case todayAM:	// AM & PM
 			case todayPM:
 				date = [DCMCalendarDate date];
 				searchType = searchExactDate;
-				
+
 				if( tag == todayAM)
 					between = @"000000.000-120000.000";
 				else
@@ -4306,7 +4335,9 @@ extern "C"
                     NSLog( @"******* unknown setDateQuery tag: %d", (int) tag);
                 break;
             }
-		*dateQueryFilter = [QueryFilter queryFilterWithObject: date ofSearchType: searchType forKey:@"StudyDate"];
+		*dateQueryFilter = [QueryFilter queryFilterWithObject: date
+                                                 ofSearchType: searchType
+                                                       forKey: @"StudyDate"];
 	}
 } 
 

@@ -402,7 +402,7 @@ extern int splitPosition[ 3];
 
 - (void)scrollWheel:(NSEvent *)theEvent
 {
-	if( [theEvent modifierFlags] & NSCommandKeyMask)
+	if( [theEvent modifierFlags] & NSEventModifierFlagCommand)
 	{
 		CGFloat transverseSectionSpacing = MIN(MAX(_curvedPath.transverseSectionSpacing + [theEvent deltaY] * .4, 0.0), 300); 
 		

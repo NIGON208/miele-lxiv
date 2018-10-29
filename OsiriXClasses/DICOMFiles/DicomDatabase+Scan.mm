@@ -651,7 +651,7 @@ static NSString* _dcmElementKey(DcmElement* element) {
         mode = 0; //display the source
 #endif
         
-        if (mode == -1 || [[NSApp currentEvent] modifierFlags]&NSCommandKeyMask)
+        if (mode == -1 || [[NSApp currentEvent] modifierFlags] & NSEventModifierFlagCommand)
             [self performSelectorOnMainThread:@selector(_askUserDiscDataCopyOrBrowse:) withObject:[NSArray arrayWithObjects: path, [NSNumber numberWithInteger:dicomImages.count], [NSValue valueWithPointer:&mode], nil] waitUntilDone:YES];
         
         if (mode == 1)

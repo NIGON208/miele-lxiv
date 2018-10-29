@@ -32,7 +32,6 @@
 #include "dcmqrdbq.h" // glue/dcmqrdb
 #endif
 
-
 #include <signal.h>
 
 //#import "dcmtk/dcmnet/dimse.h"

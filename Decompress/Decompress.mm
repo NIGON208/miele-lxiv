@@ -40,7 +40,7 @@
 #import <DCM/DCMObject.h>
 #import <DCM/DCMAbstractSyntaxUID.h>
 
-// We don`t care: we are just a small app, our memory will be killed by the system. Don't loose time here !
+// We don`t care: we are just a small app, our memory will be killed by the system. Don't waste time here !
 //#define WASTE_TIME_CLEANING_UP
 
 extern "C"

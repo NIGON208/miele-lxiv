@@ -1011,7 +1011,7 @@ static float deg2rad = M_PI/180.0;
 	NSString	*filename = nil;
 	switch( i)
 	{
-		case tMesure:		filename = @"Length";			break;
+		case tMeasure:		filename = @"Length";			break;
 		case tAngle:		filename = @"Angle";			break;
 		case tROI:			filename = @"Rectangle";		break;
 		case tOval:			filename = @"Oval";				break;
@@ -1360,7 +1360,7 @@ static float deg2rad = M_PI/180.0;
 	}
 	else
 	{
-		if ([[[NSApplication sharedApplication] currentEvent] modifierFlags]  & NSShiftKeyMask)
+		if ([[[NSApplication sharedApplication] currentEvent] modifierFlags]  & NSEventModifierFlagShift)
 		{
 			NSBeginAlertSheet( NSLocalizedString(@"Delete a WL/WW preset",nil), NSLocalizedString(@"Delete",nil), NSLocalizedString(@"Cancel",nil), nil, [self window], self, @selector(deleteWLWW:returnCode:contextInfo:), NULL, [menuString retain], NSLocalizedString( @"Are you sure you want to delete preset : '%@'?", nil), menuString);
 		}
@@ -3118,7 +3118,7 @@ static float deg2rad = M_PI/180.0;
 
 - (void)toogleAxisVisibility:(id) sender;
 {
-	if ([[[NSApplication sharedApplication] currentEvent] modifierFlags]  & NSShiftKeyMask)
+	if ([[[NSApplication sharedApplication] currentEvent] modifierFlags] & NSEventModifierFlagShift)
 	{
 		if( mprView1 != [self selectedView]) mprView1.displayCrossLines = !mprView1.displayCrossLines;
 		if( mprView2 != [self selectedView]) mprView2.displayCrossLines = !mprView2.displayCrossLines;

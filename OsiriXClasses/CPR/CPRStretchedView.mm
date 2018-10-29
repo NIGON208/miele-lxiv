@@ -1209,7 +1209,7 @@ extern int splitPosition[ 3];
 				if( [self roiTool: currentTool])
 				{
 //					if( currentTool != tText && currentTool != tArrow)
-//						currentTool = tMesure;
+//						currentTool = tMeasure;
 				}
 				
 				[super mouseDown:event];
@@ -1329,7 +1329,7 @@ extern int splitPosition[ 3];
 - (void)scrollWheel:(NSEvent *)theEvent
 {
 	// Scroll/Move transverse lines
-	if( [theEvent modifierFlags] & NSAlternateKeyMask)
+	if( [theEvent modifierFlags] & NSEventModifierFlagOption)
 	{
 		CGFloat transverseSectionPosition = MIN(MAX(_curvedPath.transverseSectionPosition + [theEvent deltaY] * .002, 0.0), 1.0); 
 		
@@ -1342,7 +1342,7 @@ extern int splitPosition[ 3];
 	}
 	
 	// Scroll/Move transverse lines
-	else if( [theEvent modifierFlags] & NSCommandKeyMask)
+	else if( [theEvent modifierFlags] & NSEventModifierFlagCommand)
 	{
         float factor = 0.4;
         
@@ -1360,7 +1360,7 @@ extern int splitPosition[ 3];
 	}
     
     // Scroll/push the curve in and out
-	else if( [theEvent modifierFlags] & NSControlKeyMask) {
+	else if( [theEvent modifierFlags] & NSEventModifierFlagControl) {
         [self _pushBezierPath:[theEvent deltaY] * .4];
     }
     

@@ -1210,7 +1210,7 @@ NSRect rect = drawingRect;
 		{
 			NSMutableArray *aCurve = [curves objectAtIndex:i];
 			
-			if(!([theEvent modifierFlags] & NSAlternateKeyMask))
+			if(!([theEvent modifierFlags] & NSEventModifierFlagOption))
 			{
 				for (j=0; j<[aCurve count]; j++)
 				{
@@ -1286,7 +1286,7 @@ NSRect rect = drawingRect;
 					NSPoint pt = [[aCurve objectAtIndex:j] pointValue];
 					pt = [transformCoordinate2View transformPoint:pt];
 					NSPoint shiftedPoint;
-					if([theEvent modifierFlags] & NSAlternateKeyMask)
+					if([theEvent modifierFlags] & NSEventModifierFlagOption)
 					{
 						shiftY = 0;
 						

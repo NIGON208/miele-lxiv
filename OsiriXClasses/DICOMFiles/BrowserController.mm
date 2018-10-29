@@ -4085,14 +4085,14 @@ static NSConditionLock *threadLock = nil;
 		{
 			NSEvent *event = [[NSApplication sharedApplication] currentEvent];
 			
-			if ([event modifierFlags] & NSAlternateKeyMask)
+			if ([event modifierFlags] & NSEventModifierFlagOption)
 			{
 				if ([[self KeyImages: nil] count] == 0)
                     ROIsAndKeyImagesButtonAvailable = NO;
 				else
                     ROIsAndKeyImagesButtonAvailable = YES;
 			}
-			else if ([event modifierFlags] & NSShiftKeyMask)
+			else if ([event modifierFlags] & NSEventModifierFlagShift)
 			{
 				if ([[self ROIImages: nil] count] == 0)
                     ROIsAndKeyImagesButtonAvailable = NO;
@@ -8669,7 +8669,7 @@ static NSConditionLock *threadLock = nil;
 	
 	int previousNumberOf2DViewers = [[ViewerController getDisplayed2DViewers] count];
 	
-	if ([[[NSApplication sharedApplication] currentEvent] modifierFlags]  & NSShiftKeyMask)
+	if ([[[NSApplication sharedApplication] currentEvent] modifierFlags] & NSEventModifierFlagShift)
 		applyToAllViewers = !applyToAllViewers;
 	
 	if ([viewer FullScreenON])
@@ -8813,10 +8813,10 @@ static NSConditionLock *threadLock = nil;
 {
     BOOL movie4D = NO;
     
-    if ([[[NSApplication sharedApplication] currentEvent] modifierFlags] & NSControlKeyMask)
+    if ([[[NSApplication sharedApplication] currentEvent] modifierFlags] & NSEventModifierFlagControl)
         movie4D = YES;
     
-    if ([[[NSApplication sharedApplication] currentEvent] modifierFlags]  & NSShiftKeyMask)
+    if ([[[NSApplication sharedApplication] currentEvent] modifierFlags] & NSEventModifierFlagShift)
     {
         openReparsedSeriesFlag = YES;
         [self processOpenViewerDICOMFromArray: [NSArray arrayWithObject: [self childrenArray: series]] movie: NO viewer: viewer];
@@ -11811,7 +11811,7 @@ constrainSplitPosition:(CGFloat)proposedPosition
 
 -(void)loadSortDescriptors:(DicomAlbum*)album
 {
-    if ([[[NSApplication sharedApplication] currentEvent] modifierFlags] & NSCommandKeyMask)
+    if ([[[NSApplication sharedApplication] currentEvent] modifierFlags] & NSEventModifierFlagCommand)
         return;
     
     if (_database && album)
@@ -12280,7 +12280,7 @@ constrainSplitPosition:(CGFloat)proposedPosition
 		
 		if (dontShowOpenSubSeries == NO)
 		{
-			if (([[[NSApplication sharedApplication] currentEvent] modifierFlags] & NSAlternateKeyMask) || ([self computeEnoughMemory: toOpenArray : nil] == NO) || openSubSeriesFlag == YES)
+			if (([[[NSApplication sharedApplication] currentEvent] modifierFlags] & NSEventModifierFlagOption) || ([self computeEnoughMemory: toOpenArray : nil] == NO) || openSubSeriesFlag == YES)
 			{
 				toOpenArray = [self openSubSeries: toOpenArray];
                 if (!toOpenArray)
@@ -12961,7 +12961,7 @@ constrainSplitPosition:(CGFloat)proposedPosition
 		
 		if ([toOpenArray count] == 1)	// Just one thumbnail is selected
 		{
-			if (([[[NSApplication sharedApplication] currentEvent] modifierFlags]  & NSAlternateKeyMask) || openReparsedSeriesFlag)
+			if (([[[NSApplication sharedApplication] currentEvent] modifierFlags]  & NSEventModifierFlagOption) || openReparsedSeriesFlag)
 			{
 				NSArray *singleSeries = [[toOpenArray objectAtIndex: 0] sortedArrayUsingDescriptors: [NSArray arrayWithObjects: [NSSortDescriptor sortDescriptorWithKey: @"instanceNumber" ascending: YES], [NSSortDescriptor sortDescriptorWithKey: @"frameID" ascending: YES], nil]];
 				NSMutableArray	*splittedSeries = [NSMutableArray array];
@@ -13639,7 +13639,7 @@ constrainSplitPosition:(CGFloat)proposedPosition
 
 - (void) viewerDICOM: (id)sender
 {
-	if ([[[NSApplication sharedApplication] currentEvent] modifierFlags]  & NSShiftKeyMask) 
+	if ([[[NSApplication sharedApplication] currentEvent] modifierFlags] & NSEventModifierFlagShift)
 		[self viewerDICOMMergeSelection: sender];
 	else
 	{
@@ -14015,13 +14015,16 @@ static NSArray*	openSubSeriesArray = nil;
     unsigned int flags = 0;
     UInt32 currentKeyModifiers = GetCurrentKeyModifiers();
     if (currentKeyModifiers & cmdKey)
-        flags |= NSCommandKeyMask;
+        flags |= NSEventModifierFlagCommand;
+
     if (currentKeyModifiers & shiftKey)
-        flags |= NSShiftKeyMask;
+        flags |= NSEventModifierFlagShift;
+
     if (currentKeyModifiers & optionKey)
-        flags |= NSAlternateKeyMask;
+        flags |= NSEventModifierFlagOption;
+
     if (currentKeyModifiers & controlKey)
-        flags |= NSControlKeyMask;
+        flags |= NSEventModifierFlagControl;
 	
     return flags;
 }
@@ -14097,7 +14100,7 @@ static NSArray*	openSubSeriesArray = nil;
 		
 		[[NSUserDefaults standardUserDefaults] setObject: filteredArray forKey: @"localDatabasePaths"];
 		
-		if ([BrowserController _currentModifierFlags] & NSShiftKeyMask && [BrowserController _currentModifierFlags] & NSAlternateKeyMask)
+		if ([BrowserController _currentModifierFlags] & NSEventModifierFlagShift && [BrowserController _currentModifierFlags] & NSEventModifierFlagOption)
 		{
 			NSLog( @"WARNING ---- Protected Mode Activated");
 			[DCMPix setRunOsiriXInProtectedMode: YES];
@@ -18148,9 +18151,9 @@ static volatile int numberOfThreadsForJPEG = 0;
     
     NSEvent *event = [[NSApplication sharedApplication] currentEvent];
     NSArray *images = nil;
-    if ([event modifierFlags] & NSAlternateKeyMask)
+    if ([event modifierFlags] & NSEventModifierFlagOption)
         images = [self KeyImages: self];
-    else if ([event modifierFlags] & NSShiftKeyMask)
+    else if ([event modifierFlags] & NSEventModifierFlagShift)
         images = [self ROIImages: self];
     else
         images = [self ROIsAndKeyImages: self];
@@ -18474,7 +18477,7 @@ static volatile int numberOfThreadsForJPEG = 0;
 //		return;
 //	}
 
-	if ([[[NSApplication sharedApplication] currentEvent] modifierFlags]  & NSShiftKeyMask)	// Query selected patient
+	if ([[[NSApplication sharedApplication] currentEvent] modifierFlags] & NSEventModifierFlagShift)	// Query selected patient
 		[self querySelectedStudy: self];
 	else
 	{
@@ -19356,7 +19359,7 @@ static volatile int numberOfThreadsForJPEG = 0;
 	{
 		if ([[toolbarItem itemIdentifier] isEqualToString: OpenKeyImagesAndROIsToolbarItemIdentifier])
 		{
-			if ([event modifierFlags] & NSAlternateKeyMask)
+			if ([event modifierFlags] & NSEventModifierFlagOption)
 			{
 				[toolbarItem setImage: [NSImage imageNamed: OpenKeyImagesToolbarItemIdentifier]];
 				[toolbarItem setAction: @selector(viewerDICOMKeyImages:)];
@@ -19365,7 +19368,7 @@ static volatile int numberOfThreadsForJPEG = 0;
 				[toolbarItem setPaletteLabel: NSLocalizedString(@"Keys", nil)];
 				[toolbarItem setToolTip: NSLocalizedString(@"View all Key Images", nil)];
 			}
-			else if ([event modifierFlags] & NSShiftKeyMask)
+			else if ([event modifierFlags] & NSEventModifierFlagShift)
 			{
 				[toolbarItem setImage: [NSImage imageNamed: OpenROIsToolbarItemIdentifier]];
 				[toolbarItem setAction: @selector(viewerDICOMROIsImages:)];
@@ -19387,7 +19390,7 @@ static volatile int numberOfThreadsForJPEG = 0;
         
         if ([[toolbarItem itemIdentifier] isEqualToString: ExportROIAndKeyImagesToolbarItemIdentifier])
 		{
-			if ([event modifierFlags] & NSAlternateKeyMask)
+			if ([event modifierFlags] & NSEventModifierFlagOption)
 			{
 				[toolbarItem setImage: [NSImage imageNamed: ExportROIAndKeyImagesToolbarItemIdentifier]];
 				[toolbarItem setAction: @selector(exportROIAndKeyImagesAsDICOMSeries:)];
@@ -19396,7 +19399,7 @@ static volatile int numberOfThreadsForJPEG = 0;
 				[toolbarItem setPaletteLabel: NSLocalizedString(@"Export Keys", nil)];
 				[toolbarItem setToolTip: NSLocalizedString(@"Export Key images of selected study/series as a DICOM Series", nil)];
 			}
-			else if ([event modifierFlags] & NSShiftKeyMask)
+			else if ([event modifierFlags] & NSEventModifierFlagShift)
 			{
 				[toolbarItem setImage: [NSImage imageNamed: ExportROIAndKeyImagesToolbarItemIdentifier]];
 				[toolbarItem setAction: @selector(exportROIAndKeyImagesAsDICOMSeries:)];

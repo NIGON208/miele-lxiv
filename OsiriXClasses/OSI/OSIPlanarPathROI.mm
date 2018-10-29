@@ -43,7 +43,7 @@
 		        
 		_plane = N3PlaneApplyTransform(N3PlaneZZero, pixToDICOMTransfrom);
 
-		if ([roi type] == tMesure && [[roi points] count] > 1) {
+		if ([roi type] == tMeasure && [[roi points] count] > 1) {
 			_bezierPath = [[N3MutableBezierPath alloc] init];
 			point = [roi pointAtIndex:0];
 			[_bezierPath moveToVector:N3VectorApplyTransform(N3VectorMakeFromNSPoint(point), pixToDICOMTransfrom)];

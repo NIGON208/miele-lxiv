@@ -62,7 +62,7 @@ typedef enum ToolMode_
     tZoom,						//	2
     tRotate,					//	3
     tNext,						//	4
-    tMesure,					//	5
+    tMeasure,					//	5
     tROI,						//	6
     t3DRotate,					//	7
     tCross,						//	8
@@ -323,11 +323,11 @@ typedef enum ToolMode_
 - (NSPoint) centroid;
 
 /**  Compute the length for tMeasure ROI in cm */
-- (float) MesureLength: (float*) pixels;
+- (float) MeasureLength: (float*) pixels;
 
 /**  Compute the length for between two points in cm */
-- (float) Length:(NSPoint) mesureA :(NSPoint) mesureB;
-- (float) LengthFrom:(NSPoint) mesureA to:(NSPoint) mesureB inPixel: (BOOL) inPixel;
+- (float) Length:(NSPoint) measureA :(NSPoint) measureB;
+- (float) LengthFrom:(NSPoint) measureA to:(NSPoint) measureB inPixel: (BOOL) inPixel;
 
 /** Compute an angle between 2 lines */
 - (float) Angle:(NSPoint) p2 :(NSPoint) p1 :(NSPoint) p3;
@@ -509,6 +509,6 @@ typedef enum ToolMode_
                          :(NSPoint) startPoint
                          :(NSPoint) endPoint
                          :(float*) Distance;
-+ (float) lengthBetween:(NSPoint) mesureA
-               andPoint:(NSPoint) mesureB;
++ (float) lengthBetween:(NSPoint) measureA
+               andPoint:(NSPoint) measureB;
 @end
