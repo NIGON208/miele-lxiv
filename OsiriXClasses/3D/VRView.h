@@ -12,8 +12,6 @@
      PURPOSE.
 =========================================================================*/
 
-
-
 #import <AppKit/AppKit.h>
 #import "DCMPix.h"
 #import "DCMView.h"
@@ -22,85 +20,90 @@
 #import "VTKViewOSIRIX.h"
 
 #define id Id
-#include "vtkCommand.h"
-#include "vtkActor.h"
-#include "vtkPolyData.h"
-#include "vtkRenderer.h"
-#include "vtkRenderWindow.h"
-#include "vtkRenderWindowInteractor.h"
-#include "vtkVolume16Reader.h"
+//#include "vtkCommand.h"
+//#include "vtkActor.h"
+//#include "vtkPolyData.h"
+//#include "vtkRenderer.h"
+//#include "vtkRenderWindow.h"
+//#include "vtkRenderWindowInteractor.h"
+//#include "vtkVolume16Reader.h"
 #include "vtkPolyDataMapper.h"
-#include "vtkActor.h"
+//#include "vtkActor.h"
 #include "vtkOutlineFilter.h"
-#include "vtkImageReader.h"
+//#include "vtkImageReader.h"
 #include "vtkImageImport.h"
 #include "vtkCamera.h"
-#include "vtkStripper.h"
-#include "vtkLookupTable.h"
-#include "vtkImageDataGeometryFilter.h"
+//#include "vtkStripper.h"
+//#include "vtkLookupTable.h"
+//#include "vtkImageDataGeometryFilter.h"
 #include "vtkProperty.h"
-#include "vtkPolyDataNormals.h"
-#include "vtkContourFilter.h"
+//#include "vtkPolyDataNormals.h"
+//#include "vtkContourFilter.h"
 #include "vtkImageData.h"
-#include "vtkImageMapToColors.h"
-#include "vtkImageActor.h"
-#include "vtkLight.h"
+//#include "vtkImageMapToColors.h"
+//#include "vtkImageActor.h"
+//#include "vtkLight.h"
 #include "vtkPlane.h"
 #include "vtkPlanes.h"
-#include "vtkPlaneSource.h"
+//#include "vtkPlaneSource.h"
 #include "vtkBoxWidget.h"
-#include "vtkPiecewiseFunction.h"
 #include "vtkPiecewiseFunction.h"
 #include "vtkColorTransferFunction.h"
 #include "vtkVolumeProperty.h"
-#include "vtkVolumeRayCastCompositeFunction.h"  //@@@ VTK_LEGACY_REMOVE
-#include "vtkVolumeRayCastMapper.h"
-#include "vtkVolumeRayCastMIPFunction.h"
-#include "vtkFixedPointVolumeRayCastMapper.h"
+#include "vtkVolumeRayCastCompositeFunction.h"  // @@@ VTK_LEGACY_REMOVE (deprecated for VTK 7.0)
+
+//#ifdef TRY_NEW_VTK_API
+//#include "vtkGPUVolumeRayCastMapper.h"
+//#else
+//#include "vtkVolumeRayCastMapper.h"  // @@@ TBC: vtkFixedPointVolumeRayCastMapper ?
+//#endif
+
+//#include "vtkVolumeRayCastMIPFunction.h"
+//#include "vtkFixedPointVolumeRayCastMapper.h"
 #include "vtkTransform.h"
-#include "vtkSphere.h"
-#include "vtkImplicitBoolean.h"
-#include "vtkExtractGeometry.h"
-#include "vtkDataSetMapper.h"
-#include "vtkPicker.h"
-#include "vtkCellPicker.h"
-#include "vtkPointPicker.h"
-#include "vtkLineSource.h"
+//#include "vtkSphere.h"
+//#include "vtkImplicitBoolean.h"
+//#include "vtkExtractGeometry.h"
+//#include "vtkDataSetMapper.h"
+//#include "vtkPicker.h"
+//#include "vtkCellPicker.h"
+//#include "vtkPointPicker.h"
+//#include "vtkLineSource.h"
 #include "vtkPolyDataMapper2D.h"
-#include "vtkActor2D.h"
-#include "vtkExtractPolyDataGeometry.h"
-#include "vtkProbeFilter.h"
-#include "vtkCutter.h"
-#include "vtkTransformPolyDataFilter.h"
-#include "vtkXYPlotActor.h"
-#include "vtkClipPolyData.h"
-#include "vtkBox.h"
-#include "vtkCallbackCommand.h"
+//#include "vtkActor2D.h"
+//#include "vtkExtractPolyDataGeometry.h"
+//#include "vtkProbeFilter.h"
+//#include "vtkCutter.h"
+//#include "vtkTransformPolyDataFilter.h"
+//#include "vtkXYPlotActor.h"
+//#include "vtkClipPolyData.h"
+//#include "vtkBox.h"
+
+//#include "vtkCallbackCommand.h"
 #include "vtkTextActor.h"
 #include "vtkTextProperty.h"
 #include "vtkImageFlip.h"
 #include "vtkAnnotatedCubeActor.h"
 #include "vtkOrientationMarkerWidget.h"
-//#include "vtkVolumeTextureMapper2D.h"  //@@@ VTK_LEGACY_REMOVE
-#include "vtkSmartVolumeMapper.h"
+////#include "vtkVolumeTextureMapper2D.h"  // VTK_LEGACY_REMOVE
+//#include "vtkSmartVolumeMapper.h"
 #include "vtkGPUVolumeRayCastMapper.h"
+
 #include "OsiriXFixedPointVolumeRayCastMapper.h"
 
-#include "vtkCellArray.h"
+//#include "vtkCellArray.h"
 #include "vtkProperty2D.h"
 #include "vtkRegularPolygonSource.h"
 
 #ifdef _STEREO_VISION_
-// Added SilvanWidmer 10-08-09
-// ****************************
 #import	 "vtkCocoaGLView.h"
 #include "vtkCocoaRenderWindowInteractor.h"
 #include "vtkCocoaRenderWindow.h"
-//#include "vtkParallelRenderManager.h"
+#include "vtkParallelRenderManager.h"
 #include "vtkRendererCollection.h"
 #include "vtkCallbackCommand.h"
+
 #import	"VTKStereoVRView.h"
-// ****************************
 #endif
 
 #undef id
@@ -108,7 +111,7 @@
 class vtkMyCallbackVR;
 
 #else
-
+/*
 typedef char* vtkTransform;
 typedef char* vtkImageActor;
 typedef char* vtkImageMapToColors;
@@ -128,7 +131,6 @@ typedef char* vtkFixedPointVolumeRayCastMapper;
 typedef char* OsiriXFixedPointVolumeRayCastMapper;
 typedef char* vtkVolumeRayCastMIPFunction;
 typedef char* vtkVolume;
-
 
 typedef char* vtkPiecewiseFunction;
 typedef char* vtkVolumeTextureMapper2D;
@@ -152,8 +154,6 @@ typedef char* vtkRegularPolygonSource;
 typedef char* vtkMyCallbackVR;
 
 #ifdef _STEREO_VISION_
-// ****************************
-// Added SilvanWidmer 10-08-09
 typedef char* vtkCocoaRenderWindowInteractor;
 typedef char* vtkCocoaRenderWindow;
 typedef char* vtkParallelRenderManager;
@@ -162,8 +162,8 @@ typedef char* vtkRendererCollection;
 typedef char* vtkCocoaGLView;
 typedef char* vtkCallbackCommand;
 typedef char* VTKStereoVRView;
-// ****************************
 #endif
+ */
 #endif
 
 #include <Accelerate/Accelerate.h>
@@ -185,6 +185,17 @@ typedef char* VTKStereoVRView;
 #else
 #define VTKView NSView
 #endif
+
+typedef NS_ENUM(NSUInteger, EngineType) {
+    ENGINE_CPU = 0,             // RAY CAST
+    ENGINE_GPU_OPEN_GL = 1,
+    ENGINE_BOTH = 2     // For Stereo, see also MAPPERMODEVR
+};
+
+#define NUM_VR_LABELS   5
+
+////////////////////////////////////////////////////////////////////////////////
+#pragma mark - VRView
 
 @interface VRView : VTKView
 {
@@ -212,7 +223,7 @@ typedef char* VTKStereoVRView;
 	vtkVolume					*blendingVolume;
 	vtkVolumeProperty			*blendingVolumeProperty;
 	vtkColorTransferFunction	*blendingColorTransferFunction;
-	vtkVolumeRayCastCompositeFunction *blendingCompositeFunction;
+	vtkVolumeRayCastCompositeFunction *blendingCompositeFunction;  // @@@ VTK_LEGACY_REMOVE (deprecated for VTK 7.0)
 	vtkPiecewiseFunction		*blendingOpacityTransferFunction;
 	double						blendingtable[257][3];
 	
@@ -292,10 +303,10 @@ typedef char* VTKStereoVRView;
 	vtkColorTransferFunction	*colorTransferFunction;
 	vtkTextActor				*textWLWW, *textX;
 	BOOL						isViewportResizable;
-	vtkTextActor				*oText[ 5];
+	vtkTextActor				*oText[NUM_VR_LABELS];
 	char						WLWWString[ 200];
 	vtkImageImport				*reader;
-	vtkVolumeRayCastCompositeFunction  *compositeFunction;
+	vtkVolumeRayCastCompositeFunction  *compositeFunction;  // @@@ VTK_LEGACY_REMOVE (deprecated for VTK 7.0)
 	vtkPiecewiseFunction		*opacityTransferFunction;
 	
 	vtkColorTransferFunction	*red, *green, *blue;
@@ -385,7 +396,6 @@ typedef char* VTKStereoVRView;
 	int fullDepthMode, fullDepthEngineCopy;
 	
 #ifdef _STEREO_VISION_
-	//Added SilvanWidmer 10-08-09
 	NSWindow						*LeftFullScreenWindow; 
 	NSWindow						*RightFullScreenWindow;   
 	BOOL							StereoVisionOn;
@@ -481,7 +491,7 @@ typedef char* VTKStereoVRView;
 - (void) setBlendingPixSource:(ViewerController*) bC;
 - (IBAction) endQuicktimeSettings:(id) sender;
 - (IBAction) endDCMExportSettings:(id) sender;
-//- (IBAction) endQuicktimeVRSettings:(id) sender;
+- (IBAction) endQuicktimeVRSettings:(id) sender;
 - (IBAction) exportQuicktime :(id) sender;
 - (float) rotation;
 - (float) numberOfFrames;
@@ -625,7 +635,6 @@ typedef char* VTKStereoVRView;
 - (void)recordFlyThru;
 
 #ifdef _STEREO_VISION_
-//Added SilvanWidmer 27-08-09
 - (ToolMode) getTool: (NSEvent*) event;
 - (void) computeLength;
 - (void) generateROI;

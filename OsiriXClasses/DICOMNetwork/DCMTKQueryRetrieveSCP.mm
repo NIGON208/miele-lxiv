@@ -224,7 +224,7 @@ OFCondition mainStoreSCP(T_ASC_Association * assoc,
 //	options.networkTransferSyntax_ = EXS_LittleEndianImplicit;		// See dcmqrsrv.mm
 //	else options.networkTransferSyntax_ = EXS_LittleEndianExplicit;	// See dcmqrsrv.mm
 	
-	options.networkTransferSyntaxOut_ =  EXS_LittleEndianExplicit;	// EXS_JPEG2000		// See dcmqrcbm.mm - NOT USED
+	options.networkTransferSyntaxOut_ = EXS_LittleEndianExplicit;	// EXS_JPEG2000		// See dcmqrcbm.mm - NOT USED
 	/*
 	options.networkTransferSyntaxOut_ = EXS_LittleEndianExplicit;
 	options.networkTransferSyntaxOut_ = EXS_BigEndianExplicit;
@@ -607,7 +607,6 @@ DcmQueryRetrieveConfig config;
         [[NSFileManager defaultManager] removeFileAtPath:[DICOMTLS certificatePathForLabel:TLS_KEYCHAIN_IDENTITY_NAME_SERVER withStringID:@"StoreSCPTLS"] handler:nil];
         [[NSFileManager defaultManager] removeFileAtPath:[NSString stringWithFormat:@"%@%@", TLS_TRUSTED_CERTIFICATES_DIR, @"StoreSCPTLS"] handler:nil];
     }
-	return;
 }
 
 -(void)abort

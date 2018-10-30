@@ -35,7 +35,7 @@
 #include "vtkOBJExporter.h"
 #include "vtkSTLWriter.h"
 #include "vtkVRMLExporter.h"
-#include "vtkInteractorStyleFlight.h"
+//#include "vtkInteractorStyleFlight.h"
 
 #include "vtkAbstractPropPicker.h"
 #include "vtkInteractorStyle.h"
@@ -48,8 +48,6 @@
 #include "vtkFollower.h"
 
 #ifdef _STEREO_VISION_
-// ****************************
-// Added SilvanWidmer 03-08-09
 #import "vtkCocoaGLView.h"
 #include "vtkRenderer.h"
 #include "vtkRenderWindow.h"
@@ -57,13 +55,14 @@
 #include "vtkCocoaRenderWindowInteractor.h"
 #include "vtkCocoaRenderWindow.h"
 #include "vtkInteractorStyleTrackballCamera.h"
-//#include "vtkParallelRenderManager.h"
+#include "vtkParallelRenderManager.h"
 #include "vtkRendererCollection.h"
-// ****************************
 #endif
 
 #define D2R 0.01745329251994329576923690768    // degrees to radians
 #define R2D 57.2957795130823208767981548141    // radians to degrees
+
+static SRView	*snSRView = nil;
 
 typedef struct _xyzArray
 {
@@ -78,20 +77,20 @@ typedef struct _xyzArray
 //	
 //	//vtkRenderWindow
 //	//[self renderWindow] SetAbortRender( true);
-//	if( c == vtkCommand::StartEvent)
+//	if (c == vtkCommand::StartEvent)
 //	{
 //		[mipv newStartRenderingTime];
 //	}
 //	
-//	if( c == vtkCommand::EndEvent)
+//	if (c == vtkCommand::EndEvent)
 //	{
 //		[mipv stopRendering];
 //		[[mipv startRenderingTime] release];
 //	}
 //	
-//	if( c == vtkCommand::AbortCheckEvent)
+//	if (c == vtkCommand::AbortCheckEvent)
 //	{
-////		if( [[NSDate date] timeIntervalSinceDate:[mipv startRenderingTime]] > 2.0)
+////		if ([[NSDate date] timeIntervalSinceDate:[mipv startRenderingTime]] > 2.0)
 ////		{
 ////			[mipv startRendering];
 ////			[mipv runRendering];
@@ -102,7 +101,6 @@ typedef struct _xyzArray
 @implementation SRView
 
 #ifdef _STEREO_VISION_
-//added SilvanWidmer
 @synthesize StereoVisionOn;
 @synthesize currentTool;
 #endif
@@ -140,19 +138,21 @@ typedef struct _xyzArray
 	windowFrame.size.width = [[[self window] contentView] frame].size.width;
 	windowFrame.size.height = [[[self window] contentView] frame].size.height - 10;
 	
-	switch( [[NSUserDefaults standardUserDefaults] integerForKey:@"EXPORTMATRIXFOR3D"])
+	switch ([[NSUserDefaults standardUserDefaults] integerForKey:@"EXPORTMATRIXFOR3D"])
 	{
 		case 0:
-		break;
+            break;
 		
-		case 1:		[self setFrame: [self centerRect: NSMakeRect(0,0,512,512) inRect: windowFrame]];	break;
-		case 2:		[self setFrame: [self centerRect: NSMakeRect(0,0,768,768) inRect: windowFrame]];	break;
+		case 1: [self setFrame: [self centerRect: NSMakeRect(0,0,512,512) inRect: windowFrame]];	break;
+		case 2: [self setFrame: [self centerRect: NSMakeRect(0,0,768,768) inRect: windowFrame]];	break;
 	}
 	
 	[self display];
 }
 
-- (void)getOrientationText:(char *) orientation vector: (float *) vector inversion:(BOOL) inv
+- (void)getOrientationText:(char *) orientation
+                    vector:(float *) vector
+                 inversion:(BOOL) inv
 {	
 	NSString *orientationX;
 	NSString *orientationY;
@@ -160,15 +160,15 @@ typedef struct _xyzArray
 
 	NSMutableString *optr = [NSMutableString string];
 	
-	if( inv)
+	if (inv)
 	{
-		orientationX = -vector[ 0] < 0 ? NSLocalizedString( @"R", @"R: Right") : NSLocalizedString( @"L", @"L: Left");
+		orientationX = -vector[ 0] < 0 ? NSLocalizedString( @"R", @"R: Right")    : NSLocalizedString( @"L", @"L: Left");
 		orientationY = -vector[ 1] < 0 ? NSLocalizedString( @"A", @"A: Anterior") : NSLocalizedString( @"P", @"P: Posterior");
 		orientationZ = -vector[ 2] < 0 ? NSLocalizedString( @"I", @"I: Inferior") : NSLocalizedString( @"S", @"S: Superior");
 	}
 	else
 	{
-		orientationX = vector[ 0] < 0 ? NSLocalizedString( @"R", @"R: Right") : NSLocalizedString( @"L", @"L: Left");
+		orientationX = vector[ 0] < 0 ? NSLocalizedString( @"R", @"R: Right")    : NSLocalizedString( @"L", @"L: Left");
 		orientationY = vector[ 1] < 0 ? NSLocalizedString( @"A", @"A: Anterior") : NSLocalizedString( @"P", @"P: Posterior");
 		orientationZ = vector[ 2] < 0 ? NSLocalizedString( @"I", @"I: Inferior") : NSLocalizedString( @"S", @"S: Superior");
 	}
@@ -178,18 +178,27 @@ typedef struct _xyzArray
 	float absZ = fabs( vector[ 2]);
 	
 	// get first 3 AXIS
-	for ( int i=0; i < 3; ++i) {
-		if (absX>.2 && absX>=absY && absX>=absZ)
+	for (int i=0; i < 3; ++i) {
+		if (absX > .2 &&
+            absX >= absY &&
+            absX >= absZ)
 		{
-			[optr appendString: orientationX]; absX=0;
+			[optr appendString: orientationX];
+            absX=0;
 		}
-		else if (absY>.2 && absY>=absX && absY>=absZ)
+		else if (absY > .2 &&
+                 absY >= absX &&
+                 absY >= absZ)
         {
-			[optr appendString: orientationY]; absY=0;
+			[optr appendString: orientationY];
+            absY=0;
 		}
-        else if (absZ>.2 && absZ>=absX && absZ>=absY)
+        else if (absZ > .2 &&
+                 absZ >= absX &&
+                 absZ >= absY)
         {
-			[optr appendString: orientationZ]; absZ=0;
+			[optr appendString: orientationZ];
+            absZ=0;
 		}
         else
             break;
@@ -207,7 +216,7 @@ typedef struct _xyzArray
 //	char *optr = string;
 //	*optr = 0;
 //	
-//	if( inv)
+//	if (inv)
 //	{
 //		orientationX = -vector[ 0] < 0 ? 'R' : 'L';
 //		orientationY = -vector[ 1] < 0 ? 'A' : 'P';
@@ -242,12 +251,12 @@ typedef struct _xyzArray
 
 -(NSImage*) imageForFrame:(NSNumber*) cur maxFrame:(NSNumber*) max
 {
-//	if( [cur intValue] != -1) [self Azimuth: [self rotation] / [max floatValue]];
+//	if ([cur intValue] != -1) [self Azimuth: [self rotation] / [max floatValue]];
 //	return [self nsimageQuicktime];
 
-	if( [cur intValue] != -1)
+	if ([cur intValue] != -1)
 	{
-		switch( rotationOrientation)
+		switch (rotationOrientation)
 		{
 			case 0:
 				[self Azimuth: [self rotation] / [max floatValue]];
@@ -258,12 +267,13 @@ typedef struct _xyzArray
 			break;
 		}
 	}
+    
 	return [self nsimageQuicktime];
 }
 
 -(NSImage*) imageForFrameVR:(NSNumber*) cur maxFrame:(NSNumber*) max
 {
-	if( [cur intValue] == -1)
+	if ([cur intValue] == -1)
 	{
 		aCamera->GetPosition( camPosition);
 		aCamera->GetViewUp( camFocal);
@@ -271,18 +281,20 @@ typedef struct _xyzArray
 		return [self nsimageQuicktime];
 	}
 	
-	if( [max intValue] > 36)
+	if ([max intValue] > 36)
 	{
-		if( [cur intValue] % numberOfFrames == 0 && [cur intValue] != 0)
+		if ([cur intValue] % numberOfFrames == 0 && [cur intValue] != 0)
 		{
 			aCamera->Azimuth( 360 / numberOfFrames);
 			[self Vertical: - 360 / numberOfFrames];
 		}
-		else if([cur intValue] != 0) aCamera->Azimuth( 360 / numberOfFrames);
+		else if ([cur intValue] != 0)
+            aCamera->Azimuth( 360 / numberOfFrames);
 	}
 	else
 	{
-		if([cur intValue] != 0) aCamera->Azimuth( 360 / numberOfFrames);
+		if ([cur intValue] != 0)
+            aCamera->Azimuth( 360 / numberOfFrames);
 	}
 	
 	aCamera->OrthogonalizeViewUp();
@@ -299,21 +311,21 @@ typedef struct _xyzArray
 	
 	numberOfFrames = [framesSlider intValue];
 	
-	if( [[rotation selectedCell] tag] == 1)
+	if ([[rotation selectedCell] tag] == 1)
         rotationValue = 360;
 	else
         rotationValue = 180;
 	
-	if( [sender tag])
+	if ([sender tag])
 	{
 		[self setViewSizeToMatrix3DExport];
-		
-		QuicktimeExport *mov = [[QuicktimeExport alloc] initWithSelector: self : @selector(imageForFrame: maxFrame:) :numberOfFrames];
-		
-		[mov createMovieQTKit: YES  :NO  :[[[[[self window] windowController] fileList] objectAtIndex:0] valueForKeyPath:@"series.study.name"]];
-		
+		QuicktimeExport *mov = [[QuicktimeExport alloc] initWithSelector: self
+                                                                        : @selector(imageForFrame: maxFrame:)
+                                                                        : numberOfFrames];
+		[mov createMovieQTKit: YES
+                             : NO
+                             : [[[[[self window] windowController] fileList] objectAtIndex:0] valueForKeyPath:@"series.study.name"]];
 		[mov release];
-		
 		[self restoreViewSizeAfterMatrix3DExport];
 	}
 }
@@ -339,7 +351,7 @@ typedef struct _xyzArray
 	
 	[panel setCanSelectHiddenExtension:YES];
 	
-	switch( [sender tag])
+	switch ([sender tag])
 	{
 		case 1: [panel setRequiredFileType:@"rib"];	break;
 		case 2: [panel setRequiredFileType:@"wrl"];	break;
@@ -348,13 +360,13 @@ typedef struct _xyzArray
 		case 5: [panel setRequiredFileType:@"stl"];	break;
 	}
 	
-	if( [panel runModalForDirectory:nil file:@"3DFile"] == NSFileHandlingPanelOKButton)
+	if ([panel runModalForDirectory:nil file:@"3DFile"] == NSFileHandlingPanelOKButton)
 	{
 		BOOL orientationSwitch = NO;
 		
-		if( orientationWidget)
+		if (orientationWidget)
 		{
-			if( orientationWidget->GetEnabled())
+			if (orientationWidget->GetEnabled())
 			{
 				orientationSwitch= YES;
 				[self switchOrientationWidget: self];
@@ -364,7 +376,7 @@ typedef struct _xyzArray
 		WaitRendering *splashExport = [[WaitRendering alloc] init: NSLocalizedString( @"Exporting...", nil)];
 		[splashExport showWindow:self];
 		
-		switch( [sender tag])
+		switch ([sender tag])
 		{
 			case 1:
 			{
@@ -436,7 +448,7 @@ typedef struct _xyzArray
 		[splashExport close];
 		[splashExport autorelease];
 		
-		if( orientationSwitch)
+		if (orientationSwitch)
 		{
 			[self switchOrientationWidget: self];
 		}
@@ -454,14 +466,14 @@ typedef struct _xyzArray
 //	
 //	rotationValue = 360;
 //	
-//	if( [sender tag])
+//	if ([sender tag])
 //	{
 //		NSString			*path, *newpath;
 //		QuicktimeExport		*mov;
 //		
 //		[self setViewSizeToMatrix3DExport];
 //		
-//		if( numberOfFrames == 10 || numberOfFrames == 20)
+//		if (numberOfFrames == 10 || numberOfFrames == 20)
 //			mov = [[QuicktimeExport alloc] initWithSelector: self : @selector(imageForFrameVR: maxFrame:) :numberOfFrames*numberOfFrames];
 //		else
 //			mov = [[QuicktimeExport alloc] initWithSelector: self : @selector(imageForFrameVR: maxFrame:) :numberOfFrames];
@@ -470,9 +482,9 @@ typedef struct _xyzArray
 //		
 //		path = [mov createMovieQTKit: NO  :NO :[[[[[self window] windowController] fileList] objectAtIndex:0] valueForKeyPath:@"series.study.name"]];
 //		
-//		if( path)
+//		if (path)
 //		{
-//			if( numberOfFrames == 10 || numberOfFrames == 20 || numberOfFrames == 40)
+//			if (numberOfFrames == 10 || numberOfFrames == 20 || numberOfFrames == 40)
 //				newpath = [QuicktimeExport generateQTVR: path frames: numberOfFrames*numberOfFrames];
 //			else
 //				newpath = [QuicktimeExport generateQTVR: path frames: numberOfFrames];
@@ -511,6 +523,7 @@ typedef struct _xyzArray
        [(NSControl*) aView setEnabled: OnOff];
 	   return;
     }
+    
     // Recursively check all the subviews in the view
     enumerator = [ [aView subviews] objectEnumerator];
     while (view = [enumerator nextObject]) {
@@ -520,7 +533,7 @@ typedef struct _xyzArray
 
 - (IBAction) setCurrentdcmExport:(id) sender
 {
-	if( [[sender selectedCell] tag] == 1)
+	if ([[sender selectedCell] tag] == 1)
         [self checkView: dcmBox :YES];
 	else
         [self checkView: dcmBox :NO];
@@ -536,35 +549,36 @@ typedef struct _xyzArray
 	
 	numberOfFrames = [dcmframesSlider intValue];
 //	bestRenderingMode = [[dcmquality selectedCell] tag];
-	if( [[dcmrotation selectedCell] tag] == 1)
+	if ([[dcmrotation selectedCell] tag] == 1)
         rotationValue = 360;
 	else
         rotationValue = 180;
 	
-	if( [[dcmorientation selectedCell] tag] == 1)
+	if ([[dcmorientation selectedCell] tag] == 1)
         rotationOrientation = 1;
 	else
         rotationOrientation = 0;
 	
 	NSMutableArray *producedFiles = [NSMutableArray array];
 	
-	if( [sender tag])
+	if ([sender tag])
 	{
 		[self setViewSizeToMatrix3DExport];
 		
 		// CURRENT image only
-		if( [[dcmExportMode selectedCell] tag] == 0)
+		if ([[dcmExportMode selectedCell] tag] == 0)
 		{
 			long	width, height, spp, bpp;
 			float	o[ 9];
 			
-			if( exportDCM == nil) exportDCM = [[DICOMExport alloc] init];
+			if (exportDCM == nil)
+                exportDCM = [[DICOMExport alloc] init];
 			
 			//[self renderImageWithBestQuality: bestRenderingMode waitDialog: NO];
 			unsigned char *dataPtr = [self getRawPixels:&width :&height :&spp :&bpp :YES :YES];
 			//[self endRenderImageWithBestQuality];
 			
-			if( dataPtr)
+			if (dataPtr)
 			{
 				[exportDCM setSourceFile: [firstObject sourceFile]];
 				[exportDCM setSeriesDescription: [dcmSeriesName stringValue]];
@@ -572,17 +586,17 @@ typedef struct _xyzArray
 				[exportDCM setPixelData: dataPtr samplesPerPixel:spp bitsPerSample:bpp width: width height: height];
 				
 				[self getOrientation: o];
-				if( [[NSUserDefaults standardUserDefaults] boolForKey: @"exportOrientationIn3DExport"])
+				if ([[NSUserDefaults standardUserDefaults] boolForKey: @"exportOrientationIn3DExport"])
 					[exportDCM setOrientation: o];
 				
-//				if( aCamera->GetParallelProjection())
+//				if (aCamera->GetParallelProjection())
 //					[exportDCM setPixelSpacing: [self getResolution] :[self getResolution]];
 				
 				NSString *f = [exportDCM writeDCMFile: nil];
-				if( f == nil)
+				if (f == nil)
                     NSRunCriticalAlertPanel( NSLocalizedString(@"Error", nil),  NSLocalizedString( @"Error during the creation of the DICOM File!", nil), NSLocalizedString(@"OK", nil), nil, nil);
 				
-				if( f)
+				if (f)
 					[producedFiles addObject: [NSDictionary dictionaryWithObjectsAndKeys: f, @"file", nil]];
 				
 				free( dataPtr);
@@ -602,11 +616,11 @@ typedef struct _xyzArray
 			[dcmSequence setSeriesDescription: [dcmSeriesName stringValue]];
 			[dcmSequence setSourceFile: [firstObject sourceFile]];
 			
-			//if( croppingBox->GetEnabled()) croppingBox->Off();
+			//if (croppingBox->GetEnabled()) croppingBox->Off();
 			
 			BOOL wasPresent = NO;
 	
-			if( aRenderer->GetActors()->IsItemPresent( outlineRect))
+			if (aRenderer->GetActors()->IsItemPresent( outlineRect))
 			{
 				aRenderer->RemoveActor( outlineRect);
 				wasPresent = YES;
@@ -614,7 +628,7 @@ typedef struct _xyzArray
 			
 			aRenderer->RemoveActor(textX);
 			[self display];
-			for( i = 0; i < numberOfFrames; i++)
+			for (i = 0; i < numberOfFrames; i++)
 			{
 				NSAutoreleasePool	*pool = [[NSAutoreleasePool alloc] init];
 				
@@ -623,34 +637,34 @@ typedef struct _xyzArray
 				
 				unsigned char *dataPtr = [self getRawPixels:&width :&height :&spp :&bpp :YES :YES];
 				
-				if( dataPtr)
+				if (dataPtr)
 				{
 					[self getOrientation: o];
-					if( [[NSUserDefaults standardUserDefaults] boolForKey: @"exportOrientationIn3DExport"])
+					if ([[NSUserDefaults standardUserDefaults] boolForKey: @"exportOrientationIn3DExport"])
 						[dcmSequence setOrientation: o];
 					
 					[dcmSequence setPixelData: dataPtr samplesPerPixel:spp bitsPerSample:bpp width: width height: height];
 				
-//					if( aCamera->GetParallelProjection())
+//					if (aCamera->GetParallelProjection())
 //						[dcmSequence setPixelSpacing: [self getResolution] :[self getResolution]];
 					
 					NSString *f = [dcmSequence writeDCMFile: nil];
 					
-					if( f)
+					if (f)
 						[producedFiles addObject: [NSDictionary dictionaryWithObjectsAndKeys: f, @"file", nil]];
 					
 					free( dataPtr);
 				}
 				
-				switch( rotationOrientation)
+				switch (rotationOrientation)
 				{
 					case 0:
 						[self Azimuth: (float) rotationValue / (float) numberOfFrames];
-					break;
+                        break;
 					
 					case 1:
 						[self Vertical: (float) rotationValue / (float) numberOfFrames];
-					break;
+                        break;
 				}
 				[self display];
 				[progress incrementBy: 1];
@@ -658,7 +672,7 @@ typedef struct _xyzArray
 				[pool release];
 			}
 			
-			if( wasPresent)
+			if (wasPresent)
 				aRenderer->AddActor(outlineRect);
 			
 			aRenderer->AddActor(textX);
@@ -671,7 +685,7 @@ typedef struct _xyzArray
 			[dcmSequence release];
 		}
 		
-		if( [producedFiles count])
+		if ([producedFiles count])
 		{
 			NSArray *objects = [BrowserController.currentBrowser.database addFilesAtPaths: [producedFiles valueForKey: @"file"]
                                                                         postNotifications: YES
@@ -681,12 +695,12 @@ typedef struct _xyzArray
 			
             objects = [BrowserController.currentBrowser.database objectsWithIDs: objects];
             
-			if( [[NSUserDefaults standardUserDefaults] boolForKey: @"afterExportSendToDICOMNode"])
+			if ([[NSUserDefaults standardUserDefaults] boolForKey: @"afterExportSendToDICOMNode"])
 				[[BrowserController currentBrowser] selectServer: objects];
 			
-			if( [[NSUserDefaults standardUserDefaults] boolForKey: @"afterExportMarkThemAsKeyImages"])
+			if ([[NSUserDefaults standardUserDefaults] boolForKey: @"afterExportMarkThemAsKeyImages"])
 			{
-				for( NSManagedObject *im in objects)
+				for (NSManagedObject *im in objects)
 					[im setValue: @YES forKey: @"isKeyImage"];
 			}
 		}
@@ -698,9 +712,13 @@ typedef struct _xyzArray
 - (void) exportDICOMFile:(id) sender
 {
 	[self setCurrentdcmExport: dcmExportMode];
-	//if( [[[self window] windowController] movieFrames] > 1) [[dcmExportMode cellWithTag:2] setEnabled: YES];
+	//if ([[[self window] windowController] movieFrames] > 1) [[dcmExportMode cellWithTag:2] setEnabled: YES];
 	//else [[dcmExportMode cellWithTag:2] setEnabled: NO];
-	[NSApp beginSheet: exportDCMWindow modalForWindow:[self window] modalDelegate:self didEndSelector:nil contextInfo:(void*) nil];
+	[NSApp beginSheet: exportDCMWindow
+       modalForWindow: [self window]
+        modalDelegate: self
+       didEndSelector: nil
+          contextInfo: (void*) nil];
 }
 
 -(BOOL) acceptsFirstMouse:(NSEvent*) theEvent
@@ -710,9 +728,9 @@ typedef struct _xyzArray
 
 -(void) runRendering
 {
-	if( noWaitDialog == NO)
+	if (noWaitDialog == NO)
 	{
-		if( [splash run] == NO)
+		if ([splash run] == NO)
 		{
 			[self renderWindow]->SetAbortRender( true);
 		}
@@ -731,18 +749,14 @@ typedef struct _xyzArray
 
 -(void) startRendering
 {
-	if( noWaitDialog == NO)
-	{
+	if (noWaitDialog == NO)
 		[splash start];
-	}
 }
 
 -(void) stopRendering
 {
-	if( noWaitDialog == NO)
-	{
+	if (noWaitDialog == NO)
 		[splash end];
-	}
 }
 
 - (IBAction) resetImage:(id) sender
@@ -760,7 +774,7 @@ typedef struct _xyzArray
 
 - (void) CloseViewerNotification: (NSNotification*) note
 {
-	if([note object] == blendingController) // our blended serie is closing itself....
+	if ([note object] == blendingController) // our blended serie is closing itself....
 	{
 		[self setBlendingPixSource:nil];
 	}
@@ -772,9 +786,9 @@ typedef struct _xyzArray
 {
 	ToolMode tool;
 	
-	if( [event type] == NSRightMouseDown || [event type] == NSRightMouseDragged || [event type] == NSRightMouseUp)
+	if ([event type] == NSRightMouseDown || [event type] == NSRightMouseDragged || [event type] == NSRightMouseUp)
         tool = tZoom;
-	else if( [event type] == NSOtherMouseDown || [event type] == NSOtherMouseDragged || [event type] == NSOtherMouseUp)
+	else if ([event type] == NSOtherMouseDown || [event type] == NSOtherMouseDragged || [event type] == NSOtherMouseUp)
         tool = tTranslate;
 	else
         tool = currentTool;
@@ -795,11 +809,11 @@ typedef struct _xyzArray
 
 - (void) flagsChanged:(NSEvent *)event
 {
-	if( [event modifierFlags])
+	if ([event modifierFlags])
 	{
 		ToolMode tool = [self getTool: event];
 		[self setCursorForView: tool];
-		if( cursorSet) [cursor set];
+		if (cursorSet) [cursor set];
 	}
 	
 	[super flagsChanged: event];
@@ -810,7 +824,11 @@ typedef struct _xyzArray
 	NSLog(@"SRView initWithFrame");
     if ( self = [super initWithFrame:frame] )
     {
-		NSTrackingArea *cursorTracking = [[[NSTrackingArea alloc] initWithRect: [self visibleRect] options: (NSTrackingCursorUpdate | NSTrackingInVisibleRect | NSTrackingMouseEnteredAndExited | NSTrackingActiveInKeyWindow) owner: self userInfo: nil] autorelease];
+        NSTrackingAreaOptions _options = (NSTrackingCursorUpdate | NSTrackingInVisibleRect | NSTrackingMouseEnteredAndExited | NSTrackingActiveInKeyWindow);
+		NSTrackingArea *cursorTracking = [[[NSTrackingArea alloc] initWithRect: [self visibleRect]
+                                                                       options: _options
+                                                                         owner: self
+                                                                      userInfo: nil] autorelease];
 		
 		[self addTrackingArea: cursorTracking];
 		
@@ -843,24 +861,24 @@ typedef struct _xyzArray
 				   name: OsirixCloseViewerNotification
 				 object: nil];
 			 
-		point3DActorArray = [[NSMutableArray alloc] initWithCapacity:0];
+		point3DActorArray     = [[NSMutableArray alloc] initWithCapacity:0];
 		point3DPositionsArray = [[NSMutableArray alloc] initWithCapacity:0];
-		point3DRadiusArray = [[NSMutableArray alloc] initWithCapacity:0];
-		point3DColorsArray = [[NSMutableArray alloc] initWithCapacity:0];
+		point3DRadiusArray    = [[NSMutableArray alloc] initWithCapacity:0];
+		point3DColorsArray    = [[NSMutableArray alloc] initWithCapacity:0];
 		
-		point3DDisplayPositionArray = [[NSMutableArray alloc] initWithCapacity:0];
-		point3DTextArray = [[NSMutableArray alloc] initWithCapacity:0];
+		point3DDisplayPositionArray  = [[NSMutableArray alloc] initWithCapacity:0];
+		point3DTextArray             = [[NSMutableArray alloc] initWithCapacity:0];
 		point3DPositionsStringsArray = [[NSMutableArray alloc] initWithCapacity:0];
-		point3DTextColorsArray = [[NSMutableArray alloc] initWithCapacity:0];
-		point3DTextSizesArray = [[NSMutableArray alloc] initWithCapacity:0];
+		point3DTextColorsArray       = [[NSMutableArray alloc] initWithCapacity:0];
+		point3DTextSizesArray        = [[NSMutableArray alloc] initWithCapacity:0];
 		
 		display3DPoints = YES;
 		[self load3DPointsDefaultProperties];
 		
-		[[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(windowWillClose:)
-                                                     name:NSWindowWillCloseNotification
-                                                   object:nil];
+		[[NSNotificationCenter defaultCenter] addObserver: self
+                                                 selector: @selector(windowWillClose:)
+                                                     name: NSWindowWillCloseNotification
+                                                   object: nil];
     }
     
     return self;
@@ -868,22 +886,17 @@ typedef struct _xyzArray
 
 - (void)windowWillClose:(NSNotification *)notification
 {
-	if( [notification object] == [self window])
+	if ([notification object] == [self window])
 	{
 		[[self window] setAcceptsMouseMovedEvents: NO];
-		
 		[self deleteMouseDownTimer];
-		
 		[self prepareForRelease];
-		
 		[[NSNotificationCenter defaultCenter] removeObserver: self];
 	}
 }
 
 -(void)dealloc
 {
-	long i;
-	
     NSLog(@"Dealloc SRView");
 	
     [NSObject cancelPreviousPerformRequestsWithTarget: [self window]];
@@ -892,22 +905,27 @@ typedef struct _xyzArray
 	[splash autorelease];
 	[exportDCM release];
 	
-	if([firstObject isRGB]) free( dataFRGB);
+	if ([firstObject isRGB])
+        free( dataFRGB);
 	
     [[NSNotificationCenter defaultCenter] removeObserver: self];
 
 	[self setBlendingPixSource: nil];
 	
-	for( i = 0 ; i < 2; i++)
+	for (long i = 0 ; i < 2; i++)
 	{
 		[self deleteActor:i];
 		[self BdeleteActor:i];
 	}
 	
-	if( flip) flip->Delete();
+	if (flip)
+        flip->Delete();
 	
-	if( isoResample) isoResample->Delete();
-	if( BisoResample) BisoResample->Delete();
+	if (isoResample)
+        isoResample->Delete();
+    
+	if (BisoResample)
+        BisoResample->Delete();
 	
 //	cbStart->Delete();
 	matrice->Delete();
@@ -919,9 +937,14 @@ typedef struct _xyzArray
 	reader->Delete();
     aCamera->Delete();
 	textX->Delete();
-	if( orientationWidget)
+	if (orientationWidget)
 		orientationWidget->Delete();
-	for( i = 0; i < 4; i++) oText[ i]->Delete();
+    
+    for (int i = 0; i < NUM_SR_LABELS; i++) {
+        oText[i]->Delete();
+        oText[i] = NULL;
+    }
+    
 	//	aRenderer->Delete();
 	
     [pixList release];
@@ -944,22 +967,18 @@ typedef struct _xyzArray
 	[_mouseDownTimer release];
 	
 	[destinationImage release];
-		
     [super dealloc];
 }
 # pragma mark-
 
 - (void) getOrientation: (float*) o 
 {
-	long			i, j;
-	vtkMatrix4x4	*matrix;
-	
-    if( aCamera)
+    if (aCamera)
     {
-        matrix = aCamera->GetViewTransformMatrix();
+        vtkMatrix4x4 *matrix = aCamera->GetViewTransformMatrix();
         
-        for( i = 0; i < 3; i++)
-            for( j = 0; j < 3; j++)
+        for (long i = 0; i < 3; i++)
+            for (long j = 0; j < 3; j++)
                 o[ 3*i + j] = matrix->GetElement( i , j);
                 
         o[ 3] = -o[ 3];
@@ -970,20 +989,24 @@ typedef struct _xyzArray
 
 - (void) computeOrientationText
 {
-	char			string[ 10];
-	float			vectors[ 9];
+	char string[ 10];
+	float vectors[ 9];
 	
 	[self getOrientation: vectors];
 	
+    // Left ?
 	[self getOrientationText:string vector:vectors inversion:YES];
 	oText[ 0]->SetInput( string);
 	
+    // Right ?
 	[self getOrientationText:string vector:vectors inversion:NO];
 	oText[ 1]->SetInput( string);
 	
+    // Bottom ?
 	[self getOrientationText:string vector:vectors+3 inversion:NO];
 	oText[ 2]->SetInput( string);
 	
+    // Top ?
 	[self getOrientationText:string vector:vectors+3 inversion:YES];
 	oText[ 3]->SetInput( string);
 }
@@ -992,15 +1015,13 @@ typedef struct _xyzArray
 {
 	ToolMode tool = [self getTool: theEvent];
 	[self setCursorForView: tool];
-	
 	[super otherMouseDown: theEvent];
 }
-
 
 - (void)mouseDragged:(NSEvent *)theEvent
 {
 	if (_dragInProgress == NO && ([theEvent deltaX] != 0 || [theEvent deltaY] != 0))
-			[self deleteMouseDownTimer];
+        [self deleteMouseDownTimer];
     
 	if (_dragInProgress == YES)
         return;
@@ -1011,7 +1032,7 @@ typedef struct _xyzArray
 		NSRect	beforeFrame = [self frame];
 		NSPoint mouseLoc = [theEvent locationInWindow];	//[self convertPoint: [theEvent locationInWindow] fromView:nil];
 		
-		if( [theEvent modifierFlags] & NSEventModifierFlagShift)
+		if ([theEvent modifierFlags] & NSEventModifierFlagShift)
 		{
 			newFrame.size.width = [[[self window] contentView] frame].size.width - mouseLoc.x*2;
 			newFrame.size.height = newFrame.size.width;
@@ -1020,34 +1041,30 @@ typedef struct _xyzArray
 			mouseLoc.y = ([[[self window] contentView] frame].size.height - newFrame.size.height) / 2;
 		}
 		
-		if( [[[self window] contentView] frame].size.width - mouseLoc.x*2 < 100)
+		if ([[[self window] contentView] frame].size.width - mouseLoc.x*2 < 100)
 			mouseLoc.x = ([[[self window] contentView] frame].size.width - 100) / 2;
 		
-		if( [[[self window] contentView] frame].size.height - mouseLoc.y*2 < 100)
+		if ([[[self window] contentView] frame].size.height - mouseLoc.y*2 < 100)
 			mouseLoc.y = ([[[self window] contentView] frame].size.height - 100) / 2;
 		
-		if( mouseLoc.x < 10)
+		if (mouseLoc.x < 10)
 			mouseLoc.x = 10;
 		
-		if( mouseLoc.y < 10)
+		if (mouseLoc.y < 10)
 			mouseLoc.y = 10;
 			
 		newFrame.origin.x = mouseLoc.x;
 		newFrame.origin.y = mouseLoc.y;
-		
 		newFrame.size.width = [[[self window] contentView] frame].size.width - mouseLoc.x*2;
 		newFrame.size.height = [[[self window] contentView] frame].size.height - mouseLoc.y*2;
-		
 		[self setFrame: newFrame];
 		
 		aCamera->Zoom( beforeFrame.size.height / newFrame.size.height);
 		
 		[[self window] display];
-
-		
 		[self setNeedsDisplay:YES];
 	}	
-	else{
+	else {
 		int shiftDown;
 		int controlDown;
 		
@@ -1060,6 +1077,7 @@ typedef struct _xyzArray
 				[self computeOrientationText];
 				[self getInteractor]->InvokeEvent(vtkCommand::MouseMoveEvent, NULL);
 				break;
+                
 			case t3DRotate:
 				shiftDown  = 0;
 				controlDown = 0;		
@@ -1067,17 +1085,19 @@ typedef struct _xyzArray
 				[self computeOrientationText];
 				[self getInteractor]->InvokeEvent(vtkCommand::MouseMoveEvent, NULL);
 				break;
+                
 			case tTranslate:
 				shiftDown  = 1;
 				controlDown = 0;
 				[self getInteractor]->SetEventInformation((int) mouseLoc.x, (int) mouseLoc.y, controlDown, shiftDown);
 				[self getInteractor]->InvokeEvent(vtkCommand::MouseMoveEvent, NULL);
 				break;
+                
 			case tZoom:				
 				[self rightMouseDragged:theEvent];
 				break;
+                
 			case tCamera3D:
-
 				aCamera->Yaw( -(mouseLoc.x - _mouseLocStart.x) / 5.);
 				aCamera->Pitch( (mouseLoc.y - _mouseLocStart.y) / 5.);
 				aCamera->ComputeViewPlaneNormal();
@@ -1087,6 +1107,7 @@ typedef struct _xyzArray
 				_mouseLocStart = mouseLoc;
 				[self setNeedsDisplay:YES];
 				break;
+                
 			default:
 				break;
 		}
@@ -1097,17 +1118,17 @@ typedef struct _xyzArray
 {
 	int shiftDown, controlDown;
 	float distance;
-	NSPoint		mouseLoc,  mouseLocPre;
+	NSPoint mouseLoc, mouseLocPre;
 	mouseLocPre = mouseLoc = [self convertPoint: [theEvent locationInWindow] fromView:nil];
 	switch (_tool) {
 		case tZoom:
-			if( projectionMode != 2){
+			if (projectionMode != 2){
 				shiftDown = 0;
 				controlDown = 1;				
 				[self getInteractor]->SetEventInformation((int) mouseLoc.x, (int) mouseLoc.y, controlDown, shiftDown);
 				[self getInteractor]->InvokeEvent(vtkCommand::MouseMoveEvent, NULL);
 			}
-			else{
+			else {
 				distance = aCamera->GetDistance();
 				aCamera->Dolly( 1.0 + ( mouseLocPre.y - _mouseLocStart.y) / 1200.);
 				aCamera->SetDistance( distance);
@@ -1118,10 +1139,10 @@ typedef struct _xyzArray
 				[self setNeedsDisplay:YES];
 			}
 			break;
+            
         default:
-		break;
+            break;
 	}
-
 }
 
 - (void)mouseUp:(NSEvent *)theEvent
@@ -1134,9 +1155,11 @@ typedef struct _xyzArray
 		case tTranslate:
 			[self getInteractor]->InvokeEvent(vtkCommand::LeftButtonReleaseEvent, NULL);
 			break;
+            
 		case tZoom:
 			[self rightMouseUp:theEvent];
 			break;
+            
 		default:
 			break;
 	}
@@ -1171,17 +1194,22 @@ typedef struct _xyzArray
 	tool = currentTool;
 
 	if ([theEvent type] == NSLeftMouseDown) {
-		if (_mouseDownTimer) {
+		if (_mouseDownTimer)
 			[self deleteMouseDownTimer];
-		}
-		_mouseDownTimer = [[NSTimer scheduledTimerWithTimeInterval:1.0 target:self   selector:@selector(startDrag:) userInfo:theEvent  repeats:NO] retain];
+
+        _mouseDownTimer = [[NSTimer scheduledTimerWithTimeInterval: 1.0
+                                                            target: self
+                                                          selector: @selector(startDrag:)
+                                                          userInfo: theEvent
+                                                           repeats: NO] retain];
 	}
 
 		
 	mouseLocStart = [self convertPoint: [theEvent locationInWindow] fromView: nil];
 	_mouseLocStart = mouseLocStart;
 	
-	if( mouseLocStart.x < 10 && mouseLocStart.y < 10)
+	if (mouseLocStart.x < 10 &&
+        mouseLocStart.y < 10)
 	{
 		_resizeFrame = YES;
 		return;
@@ -1200,16 +1228,16 @@ typedef struct _xyzArray
 				case NSLeftMouseDragged:
 					beforeFrame = [self frame];
 				
-					if( [[[self window] contentView] frame].size.width - mouseLoc.x*2 < 100)
+					if ([[[self window] contentView] frame].size.width - mouseLoc.x*2 < 100)
 						mouseLoc.x = ([[[self window] contentView] frame].size.width - 100) / 2;
 					
-					if( [[[self window] contentView] frame].size.height - mouseLoc.y*2 < 100)
+					if ([[[self window] contentView] frame].size.height - mouseLoc.y*2 < 100)
 						mouseLoc.y = ([[[self window] contentView] frame].size.height - 100) / 2;
 					
-					if( mouseLoc.x < 10)
+					if (mouseLoc.x < 10)
 						mouseLoc.x = 10;
 					
-					if( mouseLoc.y < 10)
+					if (mouseLoc.y < 10)
 						mouseLoc.y = 10;
 						
 					newFrame.origin.x = mouseLoc.x;
@@ -1234,11 +1262,9 @@ typedef struct _xyzArray
 				break;
 					
 				case NSPeriodic:
-					
 				break;
 					
-				default:
-				
+				default:				
 				break;
 			}
 		}while (keepOn);
@@ -1248,11 +1274,9 @@ typedef struct _xyzArray
 	}
 	else
 	{
-		if( [theEvent clickCount] > 1 && (tool != t3Dpoint))
+		if ([theEvent clickCount] > 1 && (tool != t3Dpoint))
 		{
-			
 			vtkWorldPointPicker *picker = vtkWorldPointPicker::New();
-			
 			picker->Pick(mouseLocStart.x, mouseLocStart.y, 0.0, aRenderer);
 			
 			double wXYZ[3];
@@ -1284,7 +1308,7 @@ typedef struct _xyzArray
 		_tool = tool;
 		[self setCursorForView: tool];
 		
-		if( tool == tRotate)
+		if (tool == tRotate)
 		{
 			int shiftDown = 0;
 			int controlDown = 1;
@@ -1317,7 +1341,7 @@ typedef struct _xyzArray
 			}while (keepOn);
 			*/
 		}
-		else if( tool == t3DRotate)
+		else if (tool == t3DRotate)
 		{
 			int shiftDown = 0;//([theEvent modifierFlags] & NSEventModifierFlagShift);
 			int controlDown = 0;//([theEvent modifierFlags] & NSEventModifierFlagControl);
@@ -1350,7 +1374,7 @@ typedef struct _xyzArray
 			}while (keepOn);
 			*/
 		}
-		else if( tool == tTranslate)
+		else if (tool == tTranslate)
 		{
 			int shiftDown = 1;
 			int controlDown = 0;
@@ -1381,9 +1405,9 @@ typedef struct _xyzArray
 			}while (keepOn);
 			*/
 		}
-		else if( tool == tZoom)
+		else if (tool == tZoom)
 		{
-			if( projectionMode != 2)
+			if (projectionMode != 2)
 			{
 				int shiftDown = 0;
 				int controlDown = 1;
@@ -1421,7 +1445,7 @@ typedef struct _xyzArray
 				// vtkCamera
 				mouseLocPre = mouseLocStart = [self convertPoint: [theEvent locationInWindow] fromView:nil];
 				
-				//if( volumeMapper) volumeMapper->SetMinimumImageSampleDistance( LOD*3);
+				//if (volumeMapper) volumeMapper->SetMinimumImageSampleDistance( LOD*3);
 				/*
 				do
 				{
@@ -1450,7 +1474,6 @@ typedef struct _xyzArray
 						break;
 						
 					case NSPeriodic:
-						
 						break;
 						
 					default:
@@ -1460,18 +1483,18 @@ typedef struct _xyzArray
 					mouseLocPre = mouseLoc;
 				}while (keepOn);
 				*/
-				//if( volumeMapper) volumeMapper->SetMinimumImageSampleDistance( LOD);
+				//if (volumeMapper) volumeMapper->SetMinimumImageSampleDistance( LOD);
 				
 				[self setNeedsDisplay:YES];
 			}
 		}
-		else if( tool == tCamera3D)
+		else if (tool == tCamera3D)
 		{
 			// vtkCamera
 			mouseLocPre = mouseLocStart = [self convertPoint: [theEvent locationInWindow] fromView:nil];
 			
-//			if( volumeMapper) volumeMapper->SetMinimumImageSampleDistance( LOD*3);
-//			if( textureMapper) textureMapper->SetMaximumNumberOfPlanes( 512 / 10);
+//			if (volumeMapper) volumeMapper->SetMinimumImageSampleDistance( LOD*3);
+//			if (textureMapper) textureMapper->SetMaximumNumberOfPlanes( 512 / 10);
 			/*
 			do
 			{
@@ -1489,7 +1512,6 @@ typedef struct _xyzArray
 					aRenderer->ResetCameraClippingRange();
 					
 					[self computeOrientationText];
-					
 					[self setNeedsDisplay:YES];
 				}
 				break;
@@ -1500,7 +1522,6 @@ typedef struct _xyzArray
 					break;
 					
 				case NSPeriodic:
-					
 					break;
 					
 				default:
@@ -1510,24 +1531,23 @@ typedef struct _xyzArray
 			}while (keepOn);
 			*/
 			
-//			if( volumeMapper) volumeMapper->SetMinimumImageSampleDistance( LOD);
-//			if( textureMapper) textureMapper->SetMaximumNumberOfPlanes( (int) (512 / LOD));
+//			if (volumeMapper) volumeMapper->SetMinimumImageSampleDistance( LOD);
+//			if (textureMapper) textureMapper->SetMaximumNumberOfPlanes( (int) (512 / LOD));
 			
 			[self setNeedsDisplay:YES];
 		}
-		else if( tool == t3Dpoint)
+		else if (tool == t3Dpoint)
 		{
-			NSEvent *artificialPKeyDown = [NSEvent keyEventWithType:NSKeyDown
-												location:[theEvent locationInWindow]
-												modifierFlags:0
-												timestamp:[theEvent timestamp]
-												windowNumber:[theEvent windowNumber]
-												context:[theEvent context]
-												characters:@"p"
-												charactersIgnoringModifiers:nil
-												isARepeat:NO
-												keyCode:112
-												];
+			NSEvent *artificialPKeyDown = [NSEvent keyEventWithType: NSKeyDown
+                                                           location: [theEvent locationInWindow]
+                                                      modifierFlags: 0
+                                                          timestamp: [theEvent timestamp]
+                                                       windowNumber: [theEvent windowNumber]
+                                                            context: [theEvent context]
+                                                         characters: @"p"
+                                        charactersIgnoringModifiers: nil
+                                                          isARepeat: NO
+                                                            keyCode: 112];
 			[self keyDown:artificialPKeyDown];
 			
 			if (![self isAny3DPointSelected])
@@ -1540,13 +1560,13 @@ typedef struct _xyzArray
 			{
 				[point3DRadiusSlider setFloatValue: [[point3DRadiusArray objectAtIndex:[self selected3DPointIndex]] floatValue]];
 				[point3DColorWell setColor: [point3DColorsArray objectAtIndex:[self selected3DPointIndex]]];
-				[point3DPositionTextField setStringValue:[point3DPositionsStringsArray objectAtIndex:[self selected3DPointIndex]]];
+                [point3DPositionTextField setStringValue:[point3DPositionsStringsArray objectAtIndex:[self selected3DPointIndex]]];
 				
 				//point3DDisplayPositionArray
 				[point3DDisplayPositionButton setState:[[point3DDisplayPositionArray objectAtIndex:[self selected3DPointIndex]] intValue]];
 				[point3DTextSizeSlider setFloatValue: [[point3DTextSizesArray objectAtIndex:[self selected3DPointIndex]] floatValue]];
 				[point3DTextColorWell setColor: [point3DTextColorsArray objectAtIndex:[self selected3DPointIndex]]];
-				
+                
 				if ([theEvent clickCount]==2)
 				{
 					NSPoint mouseLocationOnScreen = [[controller window] convertBaseToScreen:[theEvent locationInWindow]];
@@ -1574,27 +1594,27 @@ typedef struct _xyzArray
 
 - (void) keyDown:(NSEvent *)event
 {
-    if( [[event characters] length] == 0)
+    if ([[event characters] length] == 0)
         return;
     
     unichar c = [[event characters] characterAtIndex:0];
 	
-	if( c == ' ')
+	if (c == ' ')
 	{
-		if( aRenderer->GetActors()->IsItemPresent( outlineRect))
+		if (aRenderer->GetActors()->IsItemPresent( outlineRect))
 			aRenderer->RemoveActor( outlineRect);
 		else
 			aRenderer->AddActor( outlineRect);
 			
 		[self setNeedsDisplay: YES];
 	}
-	else if( c == 27)
+	else if (c == 27)
 	{
 		[[[self window] windowController] offFullScreen];
 	}
-	else if(c == NSDeleteFunctionKey || c == NSDeleteCharacter || c == NSBackspaceCharacter || c == NSDeleteCharFunctionKey) 
+	else if (c == NSDeleteFunctionKey || c == NSDeleteCharacter || c == NSBackspaceCharacter || c == NSDeleteCharFunctionKey)
 	{
-		if([self isAny3DPointSelected])
+		if ([self isAny3DPointSelected])
 			[self removeSelected3DPoint];
 		else
             [self yaw:-90.0];
@@ -1605,18 +1625,21 @@ typedef struct _xyzArray
 
 -(void) setCurrentTool:(ToolMode) i
 {
-	if(currentTool==t3Dpoint && currentTool!=i)
+	if (currentTool==t3Dpoint && currentTool!=i)
 	{
 		[self unselectAllActors];
-		if ([point3DInfoPanel isVisible]) [point3DInfoPanel performClose:self];
+        
+		if ([point3DInfoPanel isVisible])
+            [point3DInfoPanel performClose:self];
+        
 		[self setNeedsDisplay:YES];
 	}
 	
     currentTool = i;
 	
-	if( currentTool != t3DRotate)
+	if (currentTool != t3DRotate)
 	{
-		//if( croppingBox->GetEnabled()) croppingBox->Off();
+		//if (croppingBox->GetEnabled()) croppingBox->Off();
 	}
 	
 	[self setCursorForView: currentTool];
@@ -1630,39 +1653,37 @@ typedef struct _xyzArray
 	
 	blendingFactor = a;
 	
-	if( a <= 0)
+	if (a <= 0)
 	{
 		a += 256;
 		
-		for(i=0; i < 256; i++) 
+		for (i=0; i < 256; i++)
 		{
 			ii = i;
 			val = (a * ii) / 256.;
 			
-			if( val > 255) val = 255;
-			if( val < 0) val = 0;
+			if (val > 255) val = 255;
+			if (val < 0) val = 0;
 			
 			alpha[ i] = val / 255.;
 		}
 	}
 	else
 	{
-		if( a == 256)
+		if (a == 256)
 		{
-			for(i=0; i < 256; i++)
-			{
+			for (i=0; i < 256; i++)
 				alpha[ i] = 1.0;
-			}
 		}
 		else
 		{
-			for(i=0; i < 256; i++) 
+			for (i=0; i < 256; i++)
 			{
 				ii = i;
 				val = (256. * ii)/(256 - a);
 				
-				if( val > 255) val = 255;
-				if( val < 0) val = 0;
+				if (val > 255) val = 255;
+				if (val < 0) val = 0;
 				
 				alpha[ i] = val / 255.0;
 			}
@@ -1688,7 +1709,9 @@ typedef struct _xyzArray
 	double vn[ 3], center[ 3];
 	aCamera->GetFocalPoint(center);
 	aCamera->GetViewPlaneNormal(vn);
-	aCamera->SetPosition(center[0]+distance*vn[0], center[1]+distance*vn[1], center[2]+distance*vn[2]);
+	aCamera->SetPosition(center[0]+distance*vn[0],
+                         center[1]+distance*vn[1],
+                         center[2]+distance*vn[2]);
 //	aCamera->SetParallelScale( pp);
 	aRenderer->ResetCameraClippingRange();	
 	[self setNeedsDisplay:YES];
@@ -1711,7 +1734,9 @@ typedef struct _xyzArray
 	double vn[ 3], center[ 3];
 	aCamera->GetFocalPoint(center);
 	aCamera->GetViewPlaneNormal(vn);
-	aCamera->SetPosition(center[0]+distance*vn[0], center[1]+distance*vn[1], center[2]+distance*vn[2]);
+	aCamera->SetPosition(center[0]+distance*vn[0],
+                         center[1]+distance*vn[1],
+                         center[2]+distance*vn[2]);
 //	aCamera->SetParallelScale( pp);
 	aRenderer->ResetCameraClippingRange();	
 	[self setNeedsDisplay:YES];
@@ -1734,7 +1759,9 @@ typedef struct _xyzArray
 	double vn[ 3], center[ 3];
 	aCamera->GetFocalPoint(center);
 	aCamera->GetViewPlaneNormal(vn);
-	aCamera->SetPosition(center[0]+distance*vn[0], center[1]+distance*vn[1], center[2]+distance*vn[2]);
+	aCamera->SetPosition(center[0]+distance*vn[0],
+                         center[1]+distance*vn[1],
+                         center[2]+distance*vn[2]);
 //	aCamera->SetParallelScale( pp);
 	aRenderer->ResetCameraClippingRange();
 	
@@ -1758,7 +1785,9 @@ typedef struct _xyzArray
 	double vn[ 3], center[ 3];
 	aCamera->GetFocalPoint(center);
 	aCamera->GetViewPlaneNormal(vn);
-	aCamera->SetPosition(center[0]+distance*vn[0], center[1]+distance*vn[1], center[2]+distance*vn[2]);
+	aCamera->SetPosition(center[0]+distance*vn[0],
+                         center[1]+distance*vn[1],
+                         center[2]+distance*vn[2]);
 //	aCamera->SetParallelScale( pp);
 	aRenderer->ResetCameraClippingRange();
 	
@@ -1767,11 +1796,10 @@ typedef struct _xyzArray
 
 
 -(void) setBlendingPixSource:(ViewerController*) bC
-{
-	
+{	
 	blendingController = bC;
 	
-	if( blendingController)
+	if (blendingController)
 	{
 		blendingPixList = [bC pixList];
 		[blendingPixList retain];
@@ -1783,7 +1811,7 @@ typedef struct _xyzArray
 		
 		float blendingSliceThickness = ([blendingFirstObject sliceInterval]);
 		
-		if( blendingSliceThickness == 0)
+		if (blendingSliceThickness == 0)
 		{
 			NSLog(@"Blending slice interval = slice thickness!");
 			blendingSliceThickness = [blendingFirstObject sliceThickness];
@@ -1794,7 +1822,9 @@ typedef struct _xyzArray
 		[blendingFirstObject orientation:blendingcosines];
 				
 		blendingReader = vtkImageImport::New();
-		blendingReader->SetWholeExtent(0, [blendingFirstObject pwidth]-1, 0, [blendingFirstObject pheight]-1, 0, (long)[blendingPixList count]-1);
+		blendingReader->SetWholeExtent(0, [blendingFirstObject pwidth]-1,
+                                       0, [blendingFirstObject pheight]-1,
+                                       0, (long)[blendingPixList count]-1);
 		blendingReader->SetDataExtentToWholeExtent();
 		blendingReader->SetDataScalarTypeToFloat();
 //		blendingReader->SetDataOrigin(  [blendingFirstObject originX],
@@ -1805,7 +1835,7 @@ typedef struct _xyzArray
 		
 		blendingReader->Update();
         
-		if( blendingSliceThickness < 0 )
+		if (blendingSliceThickness < 0 )
 		{
 			blendingFlip = vtkImageFlip::New();
 			blendingFlip->SetInputConnection( blendingReader->GetOutputPort());
@@ -1817,18 +1847,34 @@ typedef struct _xyzArray
             blendingFlip = nil;
 		
 		matriceBlending = vtkMatrix4x4::New();
-		matriceBlending->Element[0][0] = blendingcosines[0];			matriceBlending->Element[1][0] = blendingcosines[1];			matriceBlending->Element[2][0] = blendingcosines[2];			matriceBlending->Element[3][0] = 0;
-		matriceBlending->Element[0][1] = blendingcosines[3];			matriceBlending->Element[1][1] = blendingcosines[4];			matriceBlending->Element[2][1] = blendingcosines[5];			matriceBlending->Element[3][1] = 0;
-		matriceBlending->Element[0][2] = blendingcosines[6];			matriceBlending->Element[1][2] = blendingcosines[7];			matriceBlending->Element[2][2] = blendingcosines[8];			matriceBlending->Element[3][2] = 0;
-		matriceBlending->Element[0][3] = 0;								matriceBlending->Element[1][3] = 0;								matriceBlending->Element[2][3] = 0;								matrice->Element[3][3] = 1;
+		matriceBlending->Element[0][0] = blendingcosines[0];
+        matriceBlending->Element[1][0] = blendingcosines[1];
+        matriceBlending->Element[2][0] = blendingcosines[2];
+        matriceBlending->Element[3][0] = 0;
+        
+		matriceBlending->Element[0][1] = blendingcosines[3];
+        matriceBlending->Element[1][1] = blendingcosines[4];
+        matriceBlending->Element[2][1] = blendingcosines[5];
+        matriceBlending->Element[3][1] = 0;
+        
+		matriceBlending->Element[0][2] = blendingcosines[6];
+        matriceBlending->Element[1][2] = blendingcosines[7];
+        matriceBlending->Element[2][2] = blendingcosines[8];
+        matriceBlending->Element[3][2] = 0;
 
+		matriceBlending->Element[0][3] = 0;
+        matriceBlending->Element[1][3] = 0;
+		matriceBlending->Element[2][3] = 0;
+        matriceBlending->Element[3][3] = 1;
 	}
 	else
 	{
-		if( blendingReader)
+		if (blendingReader)
 		{
 			matriceBlending->Delete();
-			if( blendingFlip) blendingFlip->Delete();
+			if (blendingFlip)
+                blendingFlip->Delete();
+            
 			blendingReader->Delete();
 			blendingReader = nil;
 			[blendingPixList release];
@@ -1864,26 +1910,26 @@ typedef struct _xyzArray
 
 - (void) deleteActor:(long) actor
 {
-	if( isoExtractor[ actor])
+	if (isoExtractor[ actor])
 	{
-        if( iso[ actor]) aRenderer->RemoveActor( iso[ actor]);
+        if (iso[ actor]) aRenderer->RemoveActor( iso[ actor]);
         
-		if( isoExtractor[ actor]) isoExtractor[ actor]->Delete();
+		if (isoExtractor[ actor]) isoExtractor[ actor]->Delete();
         isoExtractor[ actor] = nil;
         
-        if( isoNormals[ actor]) isoNormals[ actor]->Delete();
+        if (isoNormals[ actor]) isoNormals[ actor]->Delete();
 		isoNormals[ actor] = nil;
         
-        if( isoMapper[ actor]) isoMapper[ actor]->Delete();
+        if (isoMapper[ actor]) isoMapper[ actor]->Delete();
 		isoMapper[ actor] = nil;
         
-        if( iso[ actor])  iso[ actor]->Delete();
+        if (iso[ actor])  iso[ actor]->Delete();
 		iso[ actor] = nil;
         
-		if( isoSmoother[ actor]) isoSmoother[ actor]->Delete();
+		if (isoSmoother[ actor]) isoSmoother[ actor]->Delete();
 		isoSmoother[ actor] = nil;
 		
-		if( isoDeci[ actor]) isoDeci[ actor]->Delete();
+		if (isoDeci[ actor]) isoDeci[ actor]->Delete();
 		isoDeci[ actor] = nil;
 	}
 	
@@ -1892,33 +1938,43 @@ typedef struct _xyzArray
 
 - (void) BdeleteActor:(long) actor
 {
-	if( BisoExtractor[ actor])
+	if (BisoExtractor[ actor])
 	{
 		aRenderer->RemoveActor( Biso[ actor]);
 		
-		if( BisoExtractor[ actor]) BisoExtractor[ actor]->Delete();
+		if (BisoExtractor[ actor]) BisoExtractor[ actor]->Delete();
         BisoExtractor[ actor] = nil;
         
-		if( BisoNormals[ actor]) BisoNormals[ actor]->Delete();
+		if (BisoNormals[ actor]) BisoNormals[ actor]->Delete();
         BisoNormals[ actor] = nil;
         
-		if( BisoMapper[ actor]) BisoMapper[ actor]->Delete();
+		if (BisoMapper[ actor]) BisoMapper[ actor]->Delete();
 		BisoMapper[ actor] = nil;
         
-        if( Biso[ actor]) Biso[ actor]->Delete();
+        if (Biso[ actor]) Biso[ actor]->Delete();
         Biso[ actor] = nil;
         
-		if( BisoSmoother[ actor]) BisoSmoother[ actor]->Delete();
+		if (BisoSmoother[ actor]) BisoSmoother[ actor]->Delete();
 		BisoSmoother[ actor] = nil;
 		
-		if(BisoDeci[ actor]) BisoDeci[ actor]->Delete();
+		if (BisoDeci[ actor]) BisoDeci[ actor]->Delete();
 		BisoDeci[ actor] = nil;
 	}
 	
 	BisoExtractor[ actor] = nil;
 }
 
-- (void) changeActor:(long) actor :(float) resolution :(float) transparency :(float) r :(float) g :(float) b :(float) isocontour :(BOOL) useDecimate :(float) decimateVal :(BOOL) useSmooth :(long) smoothVal
+- (void) changeActor:(long) actor
+                    :(float) resolution
+                    :(float) transparency
+                    :(float) r
+                    :(float) g
+                    :(float) b
+                    :(float) isocontour
+                    :(BOOL) useDecimate
+                    :(float) decimateVal
+                    :(BOOL) useSmooth
+                    :(long) smoothVal
 {
 //	[splash setCancel:YES];
 	
@@ -1929,16 +1985,18 @@ typedef struct _xyzArray
 		
 	// RESAMPLE IMAGE ?
 	
-	if( resolution == 1.0)
+	if (resolution == 1.0)
 	{
-		if( isoResample) isoResample->Delete();
+		if (isoResample)
+            isoResample->Delete();
+        
 		isoResample = nil;
 	}
 	else
 	{
-		if( isoResample)
+		if (isoResample)
 		{
-			if( isoResample->GetAxisMagnificationFactor( 0) != resolution)
+			if (isoResample->GetAxisMagnificationFactor( 0) != resolution)
 			{
 				isoResample->SetAxisMagnificationFactor(0, resolution);
 				isoResample->SetAxisMagnificationFactor(1, resolution);
@@ -1947,10 +2005,11 @@ typedef struct _xyzArray
 		else
 		{
 			isoResample = vtkImageResample::New();
-			if( flip)
+			if (flip)
 				isoResample->SetInputConnection( flip->GetOutputPort());
 			else
 				isoResample->SetInputConnection( reader->GetOutputPort());
+            
 			isoResample->SetAxisMagnificationFactor(0, resolution);
 			isoResample->SetAxisMagnificationFactor(1, resolution);
 			isoResample->Update();
@@ -1959,7 +2018,7 @@ typedef struct _xyzArray
 	
 	[self deleteActor: actor];
 	
-	if( isoResample)
+	if (isoResample)
 	{
 		isoExtractor[ actor] = vtkContourFilter::New();
 		isoExtractor[ actor]->SetInputConnection( isoResample->GetOutputPort());
@@ -1968,10 +2027,11 @@ typedef struct _xyzArray
 	else
 	{
 		isoExtractor[ actor] = vtkContourFilter::New();
-		if( flip)
+		if (flip)
 			isoExtractor[ actor]->SetInputConnection( flip->GetOutputPort());
 		else
 			isoExtractor[ actor]->SetInputConnection( reader->GetOutputPort());
+        
 		isoExtractor[ actor]->SetValue(0, isocontour);
 	}
         
@@ -1979,7 +2039,7 @@ typedef struct _xyzArray
 	
 	vtkPolyData* previousOutput = isoExtractor[ actor]->GetOutput();
 	
-	if( useDecimate)
+	if (useDecimate)
 	{
 		isoDeci[ actor] = vtkDecimatePro::New();
 		isoDeci[ actor]->SetInputData( previousOutput);
@@ -1992,13 +2052,11 @@ typedef struct _xyzArray
 //		isoDeci[ actor]->SetMaximumError(0.3);
 		
 		isoDeci[ actor]->Update();
-		
-		previousOutput = isoDeci[ actor]->GetOutput();
-		
-		NSLog(@"Use Decimate : %f", decimateVal);
+		previousOutput = isoDeci[ actor]->GetOutput();		
+		//NSLog(@"Use Decimate : %f", decimateVal);
 	}
 	
-	if( useSmooth)
+	if (useSmooth)
 	{
 		isoSmoother[ actor] = vtkSmoothPolyDataFilter::New();
 		isoSmoother[ actor]->SetInputData( previousOutput);
@@ -2006,12 +2064,9 @@ typedef struct _xyzArray
 //		isoSmoother[ actor]->SetRelaxationFactor(0.05);
 		
 		isoSmoother[ actor]->Update();
-		
 		previousOutput = isoSmoother[ actor]->GetOutput();
-		
-		NSLog(@"Use Smooth: %d", (int) smoothVal);
+		//NSLog(@"Use Smooth: %d", (int) smoothVal);
 	}
-
 
 	isoNormals[ actor] = vtkPolyDataNormals::New();
     isoNormals[ actor]->SetInputData( previousOutput);
@@ -2036,18 +2091,25 @@ typedef struct _xyzArray
     iso[ actor]->GetProperty()->SetOpacity( transparency);
 	
 	iso[ actor]->SetOrigin(		[firstObject originX], [firstObject originY], [firstObject originZ]);
-	iso[ actor]->SetPosition(	[firstObject originX] * matrice->Element[0][0] + [firstObject originY] * matrice->Element[1][0] + [firstObject originZ]*matrice->Element[2][0],
-								[firstObject originX] * matrice->Element[0][1] + [firstObject originY] * matrice->Element[1][1] + [firstObject originZ]*matrice->Element[2][1],
-								[firstObject originX] * matrice->Element[0][2] + [firstObject originY] * matrice->Element[1][2] + [firstObject originZ]*matrice->Element[2][2]);
+        
+	iso[ actor]->SetPosition([firstObject originX] * matrice->Element[0][0] +
+                             [firstObject originY] * matrice->Element[1][0] +
+                             [firstObject originZ] * matrice->Element[2][0],
+                             
+							 [firstObject originX] * matrice->Element[0][1] +
+                             [firstObject originY] * matrice->Element[1][1] +
+                             [firstObject originZ] * matrice->Element[2][1],
+                             
+							 [firstObject originX] * matrice->Element[0][2] +
+                             [firstObject originY] * matrice->Element[1][2] +
+                             [firstObject originZ] * matrice->Element[2][2]);
+        
 	iso[ actor]->SetUserMatrix( matrice);
-
-	iso[ actor]->PickableOff();
-
-    aRenderer->AddActor( iso[ actor]);
-	
+ 	iso[ actor]->PickableOff();
+     aRenderer->AddActor( iso[ actor]);
 	 [self setNeedsDisplay:YES];
 	
-	NSLog(@"ChangeActor OUT");
+	//NSLog(@"ChangeActor OUT");
 	
 	}
 	catch (...)
@@ -2065,24 +2127,35 @@ typedef struct _xyzArray
 	}
 }
 
-- (void) BchangeActor:(long) actor :(float) resolution :(float) transparency :(float) r :(float) g :(float) b :(float) isocontour :(BOOL) useDecimate :(float) decimateVal :(BOOL) useSmooth :(long) smoothVal
+- (void) BchangeActor:(long) actor
+                     :(float) resolution
+                     :(float) transparency
+                     :(float) r
+                     :(float) g
+                     :(float) b
+                     :(float) isocontour
+                     :(BOOL) useDecimate
+                     :(float) decimateVal
+                     :(BOOL) useSmooth
+                     :(long) smoothVal
 {
 	NSLog(@"BLENDING ChangeActor IN");
 //	[splash setCancel:YES];
 	
 	// RESAMPLE IMAGE ?
 	
-	if( resolution == 1.0)
+	if (resolution == 1.0)
 	{
-		if( BisoResample) BisoResample->Delete();
+		if (BisoResample)
+            BisoResample->Delete();
 		
 		BisoResample = nil;
 	}
 	else
 	{
-		if( BisoResample)
+		if (BisoResample)
 		{
-			if( BisoResample->GetAxisMagnificationFactor( 0) != resolution)
+			if (BisoResample->GetAxisMagnificationFactor( 0) != resolution)
 			{
 				BisoResample->SetAxisMagnificationFactor(0, resolution);
 				BisoResample->SetAxisMagnificationFactor(1, resolution);
@@ -2091,7 +2164,7 @@ typedef struct _xyzArray
 		else
 		{
 			BisoResample = vtkImageResample::New();
-			if( blendingFlip)
+			if (blendingFlip)
                 BisoResample->SetInputConnection( blendingFlip->GetOutputPort());
 			else
                 BisoResample->SetInputConnection( blendingReader->GetOutputPort());
@@ -2104,7 +2177,7 @@ typedef struct _xyzArray
 	
 	[self BdeleteActor: actor];
 	
-	if( BisoResample)
+	if (BisoResample)
 	{
 		BisoExtractor[ actor] = vtkContourFilter::New();
 		BisoExtractor[ actor]->SetInputConnection( BisoResample->GetOutputPort());
@@ -2113,10 +2186,11 @@ typedef struct _xyzArray
 	else
 	{
 		BisoExtractor[ actor] = vtkContourFilter::New();
-		if( blendingFlip)
+		if (blendingFlip)
             BisoExtractor[ actor]->SetInputConnection( blendingFlip->GetOutputPort());
 		else
             BisoExtractor[ actor]->SetInputConnection( blendingReader->GetOutputPort());
+        
 		BisoExtractor[ actor]->SetValue(0, isocontour);
 	}
     
@@ -2124,7 +2198,7 @@ typedef struct _xyzArray
 	
 	vtkPolyData* previousOutput = BisoExtractor[ actor]->GetOutput();
 	
-	if( useDecimate)
+	if (useDecimate)
 	{
 		BisoDeci[ actor] = vtkDecimatePro::New();
 		BisoDeci[ actor]->SetInputData( previousOutput);
@@ -2132,23 +2206,19 @@ typedef struct _xyzArray
 		BisoDeci[ actor]->SetPreserveTopology( TRUE);
 	
 		BisoDeci[ actor]->Update();
-		
 		previousOutput = BisoDeci[ actor]->GetOutput();
-		
-		NSLog(@"Use Decimate");
+		//NSLog(@"Use Decimate");
 	}
 	
-	if( useSmooth)
+	if (useSmooth)
 	{
 		BisoSmoother[ actor] = vtkSmoothPolyDataFilter::New();
 		BisoSmoother[ actor]->SetInputConnection( BisoDeci[ actor]->GetOutputPort());
 		BisoSmoother[ actor]->SetNumberOfIterations( smoothVal);
 		
 		BisoSmoother[ actor]->Update();
-		
 		previousOutput = BisoSmoother[ actor]->GetOutput();
-		
-		NSLog(@"Use Smooth");
+		//NSLog(@"Use Smooth");
 	}
 	
 	BisoNormals[ actor] = vtkPolyDataNormals::New();
@@ -2170,33 +2240,35 @@ typedef struct _xyzArray
 	
 	Biso[ actor]->SetOrigin(	[blendingFirstObject originX], [blendingFirstObject originY], [blendingFirstObject originZ]);
 	
-	Biso[ actor]->SetPosition(	[blendingFirstObject originX] * matriceBlending->Element[0][0] + [blendingFirstObject originY] * matriceBlending->Element[1][0] + [blendingFirstObject originZ]*matriceBlending->Element[2][0],
-								[blendingFirstObject originX] * matriceBlending->Element[0][1] + [blendingFirstObject originY] * matriceBlending->Element[1][1] + [blendingFirstObject originZ]*matriceBlending->Element[2][1],
-								[blendingFirstObject originX] * matriceBlending->Element[0][2] + [blendingFirstObject originY] * matriceBlending->Element[1][2] + [blendingFirstObject originZ]*matriceBlending->Element[2][2]);
+	Biso[ actor]->SetPosition([blendingFirstObject originX] * matriceBlending->Element[0][0] +
+                              [blendingFirstObject originY] * matriceBlending->Element[1][0] +
+                              [blendingFirstObject originZ] * matriceBlending->Element[2][0],
+                              
+                              [blendingFirstObject originX] * matriceBlending->Element[0][1] +
+                              [blendingFirstObject originY] * matriceBlending->Element[1][1] +
+                              [blendingFirstObject originZ] * matriceBlending->Element[2][1],
+                              
+                              [blendingFirstObject originX] * matriceBlending->Element[0][2] +
+                              [blendingFirstObject originY] * matriceBlending->Element[1][2] +
+                              [blendingFirstObject originZ] * matriceBlending->Element[2][2]);
+    
 	Biso[ actor]->SetUserMatrix( matriceBlending);
-	
     aRenderer->AddActor( Biso[ actor]);
-	
-	 [self setNeedsDisplay:YES];
-	
-	NSLog(@"BLENDING ChangeActor OUT");
+	[self setNeedsDisplay:YES];
+	//NSLog(@"BLENDING ChangeActor OUT");
 }
 
+// return 0 on success, -1 on failure
 - (short) setPixSource:(NSMutableArray*)pix :(float*) volumeData
 {
-	short   error = 0;
+	short error = 0;
 	
 	try
 	{
-		long	i;
-		
 		[pix retain];
 		pixList = pix;
-		
 		projectionMode = 0;
-		
 		data = volumeData;
-		
 		aRenderer = [self renderer];
 	//	cbStart = vtkCallbackCommand::New();
 	//	cbStart->SetCallback( startRendering);
@@ -2212,7 +2284,7 @@ typedef struct _xyzArray
 		firstObject = [pixList objectAtIndex:0];
 		float sliceThickness = [firstObject sliceInterval]; //[[pixList objectAtIndex:1] sliceLocation] - [firstObject sliceLocation];
 		
-		if( sliceThickness == 0)
+		if (sliceThickness == 0)
 		{
 			NSLog(@"slice interval = slice thickness!");
 			sliceThickness = [firstObject sliceThickness];
@@ -2222,11 +2294,11 @@ typedef struct _xyzArray
 		
 		// Convert float to char
 		
-		if( [firstObject isRGB])
+		if ([firstObject isRGB])
 		{
 			// Convert RGB to BW... We could add support for RGB later if needed by users....
 			
-			long	i, size, val;
+			long	size, val;
 			unsigned char	*srcPtr = (unsigned char*) data;
 			float   *dstPtr;
 			
@@ -2235,11 +2307,11 @@ typedef struct _xyzArray
 			size *= sizeof( float);
 			
 			dataFRGB = (float*) malloc( size);
-			if( dataFRGB)
+			if (dataFRGB)
             {
                 size /= 4;
                 dstPtr = dataFRGB;
-                for(long i = 0 ; i < size; i++)
+                for (long i = 0 ; i < size; i++)
                 {
                     srcPtr++;
                     val = *srcPtr++;
@@ -2267,7 +2339,7 @@ typedef struct _xyzArray
 	//							[firstObject originZ]);
 		reader->SetDataSpacing( [firstObject pixelSpacingX], [firstObject pixelSpacingY], fabs( sliceThickness)); 
 
-		if( sliceThickness < 0 )
+		if (sliceThickness < 0 )
 		{
 			flip = vtkImageFlip::New();
 			flip->SetInputConnection( reader->GetOutputPort());
@@ -2283,17 +2355,33 @@ typedef struct _xyzArray
 		[firstObject orientation:cosines];
 		
 		matrice = vtkMatrix4x4::New();
-		matrice->Element[0][0] = cosines[0];		matrice->Element[1][0] = cosines[1];		matrice->Element[2][0] = cosines[2];		matrice->Element[3][0] = 0;
-		matrice->Element[0][1] = cosines[3];		matrice->Element[1][1] = cosines[4];		matrice->Element[2][1] = cosines[5];		matrice->Element[3][1] = 0;
-		matrice->Element[0][2] = cosines[6];		matrice->Element[1][2] = cosines[7];		matrice->Element[2][2] = cosines[8];		matrice->Element[3][2] = 0;
-		matrice->Element[0][3] = 0;					matrice->Element[1][3] = 0;					matrice->Element[2][3] = 0;					matrice->Element[3][3] = 1;
+		matrice->Element[0][0] = cosines[0];
+        matrice->Element[1][0] = cosines[1];
+        matrice->Element[2][0] = cosines[2];
+        matrice->Element[3][0] = 0;
+        
+		matrice->Element[0][1] = cosines[3];
+        matrice->Element[1][1] = cosines[4];
+        matrice->Element[2][1] = cosines[5];
+        matrice->Element[3][1] = 0;
+        
+		matrice->Element[0][2] = cosines[6];
+        matrice->Element[1][2] = cosines[7];
+        matrice->Element[2][2] = cosines[8];
+        matrice->Element[3][2] = 0;
+        
+		matrice->Element[0][3] = 0;
+        matrice->Element[1][3] = 0;
+        matrice->Element[2][3] = 0;
+        matrice->Element[3][3] = 1;
 		
 		outlineData = vtkOutlineFilter::New();
-		if( flip)
+		if (flip)
             outlineData->SetInputConnection(flip->GetOutputPort());
 		else
             outlineData->SetInputConnection(reader->GetOutputPort());
-		outlineData->Update();
+
+        outlineData->Update();
 		mapOutline = vtkPolyDataMapper::New();
 		mapOutline->SetInputConnection(outlineData->GetOutputPort());
 		mapOutline->Update();
@@ -2303,13 +2391,22 @@ typedef struct _xyzArray
 		outlineRect->GetProperty()->SetOpacity(0.5);
 		outlineRect->SetUserMatrix( matrice);
 		outlineRect->SetOrigin( [firstObject originX], [firstObject originY], [firstObject originZ]);
-		outlineRect->SetPosition(	[firstObject originX] * matrice->Element[0][0] + [firstObject originY] * matrice->Element[1][0] + [firstObject originZ]*matrice->Element[2][0],
-									[firstObject originX] * matrice->Element[0][1] + [firstObject originY] * matrice->Element[1][1] + [firstObject originZ]*matrice->Element[2][1],
-									[firstObject originX] * matrice->Element[0][2] + [firstObject originY] * matrice->Element[1][2] + [firstObject originZ]*matrice->Element[2][2]);
-		outlineRect->PickableOff();
+
+        outlineRect->SetPosition([firstObject originX] * matrice->Element[0][0] +
+                                 [firstObject originY] * matrice->Element[1][0] +
+                                 [firstObject originZ] * matrice->Element[2][0],
+                                 
+                                 [firstObject originX] * matrice->Element[0][1] +
+                                 [firstObject originY] * matrice->Element[1][1] +
+                                 [firstObject originZ] * matrice->Element[2][1],
+                                 
+                                 [firstObject originX] * matrice->Element[0][2] +
+                                 [firstObject originY] * matrice->Element[1][2] +
+                                 [firstObject originZ] * matrice->Element[2][2]);
+
+        outlineRect->PickableOff();
 		
-		
-//		if( [[NSUserDefaults standardUserDefaults] boolForKey: @"dontShow3DCubeOrientation"] == NO)
+//		if ([[NSUserDefaults standardUserDefaults] boolForKey: @"dontShow3DCubeOrientation"] == NO)
 		{
 			vtkAnnotatedCubeActor* cube = vtkAnnotatedCubeActor::New();
 			cube->SetXPlusFaceText ( [NSLocalizedString( @"L", @"L: Left") UTF8String] );		
@@ -2319,7 +2416,6 @@ typedef struct _xyzArray
 			cube->SetZPlusFaceText ( [NSLocalizedString( @"S", @"S: Superior") UTF8String] );
 			cube->SetZMinusFaceText( [NSLocalizedString( @"I", @"I: Inferior") UTF8String] );
 			cube->SetFaceTextScale( 0.67 );
-
 
 			vtkProperty* property = cube->GetXPlusFaceProperty();
 			property->SetColor(0, 0, 1);
@@ -2346,7 +2442,6 @@ typedef struct _xyzArray
 			orientationWidget->InteractiveOff();
 			cube->Delete();
 		}
-
 
 	//	croppingBox = vtkBoxWidget::New();
 	//	croppingBox->GetHandleProperty()->SetColor(0, 1, 0);
@@ -2384,7 +2479,7 @@ typedef struct _xyzArray
 		textX->GetPositionCoordinate()->SetValue( 2., 2.);
 		aRenderer->AddActor2D(textX);
 		
-		for( i = 0; i < 4; i++)
+		for (long i = 0; i < NUM_SR_LABELS; i++)
 		{
 			oText[ i]= vtkTextActor::New();
 			oText[ i]->SetInput( "X");
@@ -2397,6 +2492,7 @@ typedef struct _xyzArray
 			
 			aRenderer->AddActor2D( oText[ i]);
 		}
+        
 		oText[ 0]->GetPositionCoordinate()->SetValue( 0.01, 0.5);
 		oText[ 1]->GetPositionCoordinate()->SetValue( 0.99, 0.5);
 		oText[ 1]->GetTextProperty()->SetJustificationToRight();
@@ -2413,12 +2509,8 @@ typedef struct _xyzArray
 	//    aCamera->ComputeViewPlaneNormal();    
 		
 		aCamera->Dolly(1.5);
-
-		
 		aRenderer->AddActor( outlineRect);
-
 		aRenderer->SetActiveCamera(aCamera);
-		
 		aCamera->SetFocalPoint (0, 0, 0);
 		aCamera->SetPosition (1, 0, 0);
 		aCamera->ComputeViewPlaneNormal();
@@ -2435,13 +2527,12 @@ typedef struct _xyzArray
 
 		[self setNeedsDisplay:YES];
         
-        if( [[[[NSUserDefaults standardUserDefaults] persistentDomainForName: @"com.apple.CoreGraphics"] objectForKey: @"DisplayUseInvertedPolarity"] boolValue])
-            aRenderer->SetBackground( 1, 1, 1);
-		
+        if ([[[[NSUserDefaults standardUserDefaults] persistentDomainForName: @"com.apple.CoreGraphics"] objectForKey: @"DisplayUseInvertedPolarity"] boolValue])
+            aRenderer->SetBackground( 1, 1, 1);		
 	}
 	catch (...)
 	{
-		NSLog( @"setPixSource C++ exception SRView.m");
+		NSLog(@"setPixSource C++ exception SRView.mm");
 		return -1;
 	}
 
@@ -2450,19 +2541,19 @@ typedef struct _xyzArray
 
 -(void) switchOrientationWidget:(id) sender
 {
-	long i;
-	
-	if( orientationWidget)
+	if (orientationWidget)
 	{
-		if( orientationWidget->GetEnabled())
+		if (orientationWidget->GetEnabled())
 		{
 			orientationWidget->Off();
-			for( i = 0; i < 4; i++) aRenderer->RemoveActor2D( oText[ i]);
+			for (long i = 0; i < NUM_SR_LABELS; i++)
+                aRenderer->RemoveActor2D( oText[ i]);
 		}
-		else if( [self renderWindow]->GetStereoRender() == false)
+		else if ([self renderWindow]->GetStereoRender() == false)
 		{
 			orientationWidget->On();
-			for( i = 0; i < 4; i++) aRenderer->AddActor2D( oText[ i]);
+			for (long i = 0; i < NUM_SR_LABELS; i++)
+                aRenderer->AddActor2D( oText[ i]);
 		}
 	}
 	
@@ -2471,16 +2562,16 @@ typedef struct _xyzArray
 
 -(IBAction) SwitchStereoMode :(id) sender
 {
-	long i;
-	
-	if( [self renderWindow]->GetStereoRender() == false)
+	if ([self renderWindow]->GetStereoRender() == false)
 	{
 		[self renderWindow]->StereoRenderOn();
 		[self renderWindow]->SetStereoTypeToRedBlue();
 		
-		if( orientationWidget)
+		if (orientationWidget)
 			orientationWidget->Off();
-		for( i = 0; i < 4; i++) aRenderer->RemoveActor2D( oText[ i]);
+        
+		for (long i = 0; i < NUM_SR_LABELS; i++)
+            aRenderer->RemoveActor2D( oText[ i]);
 	}
 	else
 	{
@@ -2495,7 +2586,7 @@ typedef struct _xyzArray
 	NSLog(@"switchProjection");
 	projectionMode = [[sender selectedCell] tag];
 	
-	switch( projectionMode)
+	switch (projectionMode)
 	{
 		case 0:
 			//aCamera->SetParallelProjection( false);
@@ -2513,7 +2604,7 @@ typedef struct _xyzArray
 		break;
 	}
 //	
-//	if( aCamera->GetParallelProjection())
+//	if (aCamera->GetParallelProjection())
 //	{
 //		[[[[[self window] windowController] toolsMatrix] cellWithTag: tMeasure] setEnabled: YES];
 //	}
@@ -2521,7 +2612,7 @@ typedef struct _xyzArray
 //	{
 //		[[[[[self window] windowController] toolsMatrix] cellWithTag: tMeasure] setEnabled: NO];
 //		
-//		if( currentTool == tMeasure)
+//		if (currentTool == tMeasure)
 //		{
 //			[self setCurrentTool: t3DRotate];
 //			[[[[self window] windowController] toolsMatrix] selectCellWithTag: t3DRotate];
@@ -2535,7 +2626,7 @@ typedef struct _xyzArray
 	NSImage *theIm;
 	BOOL wasPresent = NO;
 	
-	if( aRenderer->GetActors()->IsItemPresent( outlineRect))
+	if (aRenderer->GetActors()->IsItemPresent( outlineRect))
 	{
 		aRenderer->RemoveActor( outlineRect);
 		wasPresent = YES;
@@ -2545,7 +2636,7 @@ typedef struct _xyzArray
 	
 	theIm = [self nsimage:YES];
 	
-	if( wasPresent)
+	if (wasPresent)
 		aRenderer->AddActor(outlineRect);
 	
 	return theIm;
@@ -2556,7 +2647,7 @@ typedef struct _xyzArray
 	unsigned char	*buf = nil;
 	long			i;
 	
-//	if( screenCapture)	// Pixels displayed in current window -> only RGB 8 bits data
+//	if (screenCapture)	// Pixels displayed in current window -> only RGB 8 bits data
 	{
 		NSRect size = [self bounds];
 		
@@ -2568,7 +2659,7 @@ typedef struct _xyzArray
 		*bpp = 8;
 		
 		buf = (unsigned char*) malloc( *width * *height * 4 * *bpp/8);
-		if( buf)
+		if (buf)
 		{
 			[self getVTKRenderWindow]->MakeCurrent();
 //			[[NSOpenGLContext currentContext] flushBuffer];
@@ -2582,9 +2673,9 @@ typedef struct _xyzArray
 			#else
 				glReadPixels(0, 0, *width, *height, GL_RGBA, GL_UNSIGNED_INT_8_8_8_8_REV, buf);
 				i = *width * *height;
-				unsigned char	*t_argb = buf;
-				unsigned char	*t_rgb = buf;
-				while( i-->0)
+				unsigned char *t_argb = buf;
+				unsigned char *t_rgb = buf;
+				while (i-- > 0)
 				{
 					*((int*) t_rgb) = *((int*) t_argb);
 					t_argb+=4;
@@ -2597,7 +2688,7 @@ typedef struct _xyzArray
 			{
 				unsigned char	*tempBuf = (unsigned char*) malloc( rowBytes);
 				
-				for( i = 0; i < *height/2; i++)
+				for (i = 0; i < *height/2; i++)
 				{
 					memcpy( tempBuf, buf + (*height - 1 - i)*rowBytes, rowBytes);
 					memcpy( buf + (*height - 1 - i)*rowBytes, buf + i*rowBytes, rowBytes);
@@ -2625,7 +2716,7 @@ typedef struct _xyzArray
 	
 	dataPtr = [self getRawPixels :&width :&height :&spp :&bpp :!originalSize : YES];
 	
-	if( spp == 3)
+	if (spp == 3)
         colorSpace = NSCalibratedRGBColorSpace;
 	else
         colorSpace = NSCalibratedWhiteColorSpace;
@@ -2648,15 +2739,15 @@ typedef struct _xyzArray
 	NSImage				*logo = [NSImage imageNamed:@"SmallLogo.tif"];
 	NSBitmapImageRep	*TIFFRep = [[NSBitmapImageRep alloc] initWithData: [logo TIFFRepresentation]];
 	
-	for( i = 0; i < [TIFFRep pixelsHigh]; i++)
+	for (i = 0; i < [TIFFRep pixelsHigh]; i++)
 	{
 		unsigned char	*srcPtr = ([TIFFRep bitmapData] + i*[TIFFRep bytesPerRow]);
 		unsigned char	*dstPtr = ([rep bitmapData] + (height - [TIFFRep pixelsHigh] + i)*[rep bytesPerRow] + ((width-10)*3 - [TIFFRep bytesPerRow]));
 		
 		x = [TIFFRep bytesPerRow]/3;
-		while( x-->0)
+		while( x-- > 0)
 		{
-			if( srcPtr[ 0] != 0 || srcPtr[ 1] != 0 || srcPtr[ 2] != 0)
+			if (srcPtr[ 0] != 0 || srcPtr[ 1] != 0 || srcPtr[ 2] != 0)
 			{
 				dstPtr[ 0] = srcPtr[ 0];
 				dstPtr[ 1] = srcPtr[ 1];
@@ -2752,23 +2843,24 @@ typedef struct _xyzArray
 	aRenderer->ResetCameraClippingRange();
 }
 
-
 - (IBAction)changeColor:(id)sender
 {	
-	if( [backgroundColor isActive])
+    if ([backgroundColor isActive])
 	{
-		NSColor *color=  [[(NSColorPanel*)sender color] colorUsingColorSpaceName: NSCalibratedRGBColorSpace];
-		aRenderer->SetBackground([color redComponent],[color greenComponent],[ color blueComponent]);
+		NSColor *color= [[(NSColorPanel*)sender color] colorUsingColorSpaceName: NSCalibratedRGBColorSpace];
+		aRenderer->SetBackground([color redComponent],
+                                 [color greenComponent],
+                                 [color blueComponent]);
 		[self setNeedsDisplay:YES];
 	}
 }
 
 - (void) convert3Dto2Dpoint:(double*) pt3D :(double*) pt2D
 {
-	if( pt3D == nil)
+	if (pt3D == nil)
 		return;
 	
-	if( pt2D == nil)
+	if (pt2D == nil)
 		return;
 	
 	vtkTransform *Transform = vtkTransform::New();
@@ -2782,7 +2874,7 @@ typedef struct _xyzArray
 	
 	double vPos[ 3];
 	
-    if( iso[ 0])
+    if (iso[ 0])
     {
         iso[ 0]->GetPosition( vPos);
         
@@ -2790,13 +2882,13 @@ typedef struct _xyzArray
         pt2D[ 1] -= vPos[ 1];
         pt2D[ 2] -= vPos[ 2];
         
-        if( [firstObject pixelSpacingX])
+        if ([firstObject pixelSpacingX])
             pt2D[0] /= [firstObject pixelSpacingX];
         
-        if( [firstObject pixelSpacingY])
+        if ([firstObject pixelSpacingY])
             pt2D[1] /= [firstObject pixelSpacingY];
         
-        if( [firstObject sliceInterval])
+        if ([firstObject sliceInterval])
             pt2D[2] /= [firstObject sliceInterval];
     }
     
@@ -2808,7 +2900,13 @@ typedef struct _xyzArray
 #pragma mark 3D Points
 
 #pragma mark add
-- (void) add3DPoint: (double) x : (double) y : (double) z : (float) radius : (float) r : (float) g : (float) b
+- (void) add3DPoint: (double) x
+                   : (double) y
+                   : (double) z
+                   : (float) radius
+                   : (float) r
+                   : (float) g
+                   : (float) b
 {
 	//Sphere
 	vtkSphereSource *sphereSource = vtkSphereSource::New();
@@ -2898,7 +2996,7 @@ typedef struct _xyzArray
 {
 	long i;
 	// add some random points
-	for(i=0; i<n ; i++)
+	for (i=0; i<n ; i++)
 	{
 		[self add3DPoint: ((double)(random()/(pow(2.,31.)-1))*2.0-1.0)*(double)r // x coordinate
 						: ((double)(random()/(pow(2.,31.)-1))*2.0-1.0)*(double)r // y
@@ -2940,7 +3038,7 @@ typedef struct _xyzArray
 		actor = (vtkActor*)[objectPoint pointerValue];
 		objectText = [enumeratorText nextObject];
 		text = (vtkFollower*)[objectText pointerValue];
-		if(on)
+		if (on)
 		{
 			aRenderer->AddActor(actor);
 			aRenderer->AddActor(text);
@@ -2965,10 +3063,10 @@ typedef struct _xyzArray
 {
 	BOOL boo = NO;
 	
-	if(((vtkAbstractPropPicker*)aRenderer->GetRenderWindow()->GetInteractor()->GetPicker())->GetViewProp()!=NULL)
+	if (((vtkAbstractPropPicker*)aRenderer->GetRenderWindow()->GetInteractor()->GetPicker())->GetViewProp()!=NULL)
 	{
 		// a vtkObject is selected, let's check if it is one of our 3D Points
-		if([self selected3DPointIndex] < [point3DActorArray count])
+		if ([self selected3DPointIndex] < [point3DActorArray count])
 		{
 			boo = YES;
 		}
@@ -2991,7 +3089,7 @@ typedef struct _xyzArray
 	while (object = [enumerator nextObject])
 	{
 		actorPointer = [object pointerValue];
-		if(pickedPropPointer==actorPointer)
+		if (pickedPropPointer==actorPointer)
 		{
 			return i;
 		}
@@ -3034,7 +3132,7 @@ typedef struct _xyzArray
 
 - (void) removeSelected3DPoint
 {
-	if([self isAny3DPointSelected])
+	if ([self isAny3DPointSelected])
 	{
 		// remove 2D Point
 		double position[3];
@@ -3051,7 +3149,7 @@ typedef struct _xyzArray
 
 - (IBAction) IBSetSelected3DPointColor: (id) sender
 {
-	if([point3DPropagateToAll state])
+	if ([point3DPropagateToAll state])
 	{
 		[self setAll3DPointsColor: [sender color]];
 		[self setAll3DPointsRadius: [point3DRadiusSlider floatValue]];
@@ -3065,7 +3163,7 @@ typedef struct _xyzArray
 
 - (IBAction) IBSetSelected3DPointRadius: (id) sender
 {
-	if([point3DPropagateToAll state])
+	if ([point3DPropagateToAll state])
 	{
 		[self setAll3DPointsRadius: [sender floatValue]];
 		[self setAll3DPointsColor: [[point3DColorWell color] colorUsingColorSpaceName: NSCalibratedRGBColorSpace]];
@@ -3079,7 +3177,7 @@ typedef struct _xyzArray
 
 - (IBAction) IBPropagate3DPointsSettings: (id) sender
 {
-	if([sender state]==NSOnState)
+	if ([sender state]==NSOnState)
 	{
 		[self setAll3DPointsRadius: [point3DRadiusSlider floatValue]];
 		[self setAll3DPointsColor: [[point3DColorWell color] colorUsingColorSpaceName: NSCalibratedRGBColorSpace]];
@@ -3092,16 +3190,13 @@ typedef struct _xyzArray
 
 - (void) setSelected3DPointColor: (NSColor*) color
 {
-	if([self isAny3DPointSelected])[self set3DPointAtIndex:[self selected3DPointIndex] Color: color];
+	if ([self isAny3DPointSelected])[self set3DPointAtIndex:[self selected3DPointIndex] Color: color];
 }
 
 - (void) setAll3DPointsColor: (NSColor*) color
 {
-	unsigned int i = 0;	
-	for(i=0 ; i<[point3DColorsArray count] ; i++)
-	{
+	for (unsigned int i=0 ; i<[point3DColorsArray count] ; i++)
 		[self set3DPointAtIndex:i Color: color];
-	}
 }
 
 - (void) set3DPointAtIndex:(unsigned int) index Color: (NSColor*) color
@@ -3115,16 +3210,14 @@ typedef struct _xyzArray
 
 - (void) setSelected3DPointRadius: (float) radius
 {
-	if([self isAny3DPointSelected])[self set3DPointAtIndex:[self selected3DPointIndex] Radius: radius];
+	if ([self isAny3DPointSelected])
+        [self set3DPointAtIndex:[self selected3DPointIndex] Radius: radius];
 }
 
 - (void) setAll3DPointsRadius: (float) radius
 {
-	unsigned int i = 0;	
-	for(i=0 ; i<[point3DRadiusArray count] ; i++)
-	{
+	for (unsigned int i=0 ; i<[point3DRadiusArray count] ; i++)
 		[self set3DPointAtIndex:i Radius: radius];
-	}
 }
 
 - (void) set3DPointAtIndex:(unsigned int) index Radius: (float) radius
@@ -3178,7 +3271,7 @@ typedef struct _xyzArray
 	point3DDefaultColorBlue = [[NSUserDefaults standardUserDefaults] floatForKey:@"points3DcolorBlue"];
 	point3DDefaultColorAlpha = [[NSUserDefaults standardUserDefaults] floatForKey:@"points3DcolorAlpha"];
 	
-	if(point3DDefaultColorAlpha==0.0)
+	if (point3DDefaultColorAlpha==0.0)
 	{
 		point3DDefaultColorRed = 1.0;
 		point3DDefaultColorGreen = 0.0;
@@ -3188,7 +3281,8 @@ typedef struct _xyzArray
 
 	//radius
 	point3DDefaultRadius = [[NSUserDefaults standardUserDefaults] floatForKey:@"points3Dradius"];
-	if (point3DDefaultRadius==0) point3DDefaultRadius = 1.0;
+	if (point3DDefaultRadius==0)
+        point3DDefaultRadius = 1.0;
 }
 
 #pragma mark annotation
@@ -3198,9 +3292,9 @@ typedef struct _xyzArray
 //	int displayName = [[sender cellWithTag:0] state];
 	int displayPosition = [sender state];
 	
-	if([point3DPropagateToAll state])
+	if ([point3DPropagateToAll state])
 	{
-		for(int i=0; i<[point3DActorArray count]; i++)
+		for (int i=0; i<[point3DActorArray count]; i++)
 			[self setAnnotationWithPosition:displayPosition for3DPointAtIndex:i];
 	}
 	else
@@ -3216,7 +3310,7 @@ typedef struct _xyzArray
 	const char *position = nil;
     
 	//position
-	if(displayPosition)
+	if (displayPosition)
 		position = [[point3DPositionsStringsArray objectAtIndex:index] UTF8String];
 	else
 		position = "";
@@ -3245,16 +3339,18 @@ typedef struct _xyzArray
 	double position[3];
 	[[point3DPositionsArray objectAtIndex:index] getValue:position];
 	
-		// text
+    // text
 	vtkFollower *text = vtkFollower::New();
 	text->SetMapper(textMapper);
 	float s = [[point3DTextSizesArray objectAtIndex:index] floatValue];
 	text->SetScale(s,s,s);
-	text->SetPosition(position[0]+radius,position[1]+radius,position[2]+radius);
+	text->SetPosition(position[0]+radius,
+                      position[1]+radius,
+                      position[2]+radius);
 	NSColor *c = [point3DTextColorsArray objectAtIndex:index];
 	text->GetProperty()->SetColor([c redComponent], [c greenComponent], [c blueComponent]);
 	
-		// shadow
+    // shadow
 //	vtkFollower *textShadow = vtkFollower::New();
 //	textShadow->SetMapper(textMapper);
 //	textShadow->SetScale(4.3,4.3,4.3);
@@ -3370,16 +3466,17 @@ typedef struct _xyzArray
 
 - (void) checkCursor
 {
-	if(cursorSet) [cursor set];
+	if (cursorSet)
+        [cursor set];
 }
 
 -(void) setCursorForView: (ToolMode) tool
 {
-	NSCursor	*c;
+	NSCursor *c;
 	
 	if (tool == tMeasure || tool == t3Dpoint)
 		c = [NSCursor crosshairCursor];
-	else if( tool == t3DCut)
+	else if (tool == t3DCut)
 		c = [NSCursor crosshairCursor];
 	else if (tool == t3DRotate)
 		c = [NSCursor rotate3DCursor];
@@ -3404,87 +3501,90 @@ typedef struct _xyzArray
 	else	
 		c = [NSCursor arrowCursor];
 		
-	if( c != cursor)
+	if (c != cursor)
 	{
 		[cursor release];
-		
 		cursor = [c retain];
 	}
 }
 
-#pragma mark-  Drag and Drop
+#pragma mark - Drag and Drop
 
-- (void) startDrag:(NSTimer*)theTimer{
-	@try {
-	_dragInProgress = YES;
-	
-	NSEvent *event = (NSEvent *)[theTimer userInfo];
-	NSSize dragOffset = NSMakeSize(0.0, 0.0);
-    NSPasteboard *pboard = [NSPasteboard pasteboardWithName: NSDragPboard]; 
-	NSMutableArray *pbTypes = [NSMutableArray array];
-	// The image we will drag 
-	NSImage *image;
-	if ([event modifierFlags] & NSEventModifierFlagShift)
-		image = [self nsimage: YES];
-	else
-		image = [self nsimage: NO];
-		
-	// Thumbnail image and position
-	NSPoint event_location = [event locationInWindow];
-	NSPoint local_point = [self convertPoint:event_location fromView:nil];
-	local_point.x -= 35;
-	local_point.y -= 35;
+- (void) startDrag:(NSTimer*)theTimer
+{
+	@try
+    {
+        _dragInProgress = YES;
+        
+        NSEvent *event = (NSEvent *)[theTimer userInfo];
+        NSSize dragOffset = NSMakeSize(0.0, 0.0);
+        NSPasteboard *pboard = [NSPasteboard pasteboardWithName: NSDragPboard]; 
+        NSMutableArray *pbTypes = [NSMutableArray array];
+        // The image we will drag 
+        NSImage *image;
+        if ([event modifierFlags] & NSEventModifierFlagShift)
+            image = [self nsimage: YES];
+        else
+            image = [self nsimage: NO];
+            
+        // Thumbnail image and position
+        NSPoint event_location = [event locationInWindow];
+        NSPoint local_point = [self convertPoint:event_location fromView:nil];
+        local_point.x -= 35;
+        local_point.y -= 35;
 
-	NSSize originalSize = [image size];
-	
-	float ratio = originalSize.width / originalSize.height;
-	
-	NSImage *thumbnail = [[[NSImage alloc] initWithSize: NSMakeSize(100, 100/ratio)] autorelease];
-	if( [thumbnail size].width > 0 && [thumbnail size].height > 0)
-	{
-		[thumbnail lockFocus];
-		[image drawInRect: NSMakeRect(0, 0, 100, 100/ratio) fromRect: NSMakeRect(0, 0, originalSize.width, originalSize.height) operation: NSCompositeSourceOver fraction: 1.0];
-		[thumbnail unlockFocus];
+        NSSize originalSize = [image size];
+        
+        float ratio = originalSize.width / originalSize.height;
+        
+        NSImage *thumbnail = [[[NSImage alloc] initWithSize: NSMakeSize(100, 100/ratio)] autorelease];
+        if ([thumbnail size].width > 0 && [thumbnail size].height > 0)
+        {
+            [thumbnail lockFocus];
+            [image drawInRect: NSMakeRect(0, 0, 100, 100/ratio)
+                     fromRect: NSMakeRect(0, 0, originalSize.width, originalSize.height)
+                    operation: NSCompositeSourceOver
+                     fraction: 1.0];
+            [thumbnail unlockFocus];
+        }
+        
+        if ([event modifierFlags] & NSEventModifierFlagOption)
+            [ pbTypes addObject: NSFilesPromisePboardType];
+        else
+            [pbTypes addObject: NSTIFFPboardType];
+
+        [pboard declareTypes:pbTypes  owner:self];
+            
+        if ([event modifierFlags] & NSEventModifierFlagOption) {
+            NSRect imageLocation;
+            local_point = [self convertPoint:event_location fromView:nil];
+            imageLocation.origin = local_point;
+            imageLocation.size = NSMakeSize(32,32);
+            [pboard setData:nil forType:NSFilesPromisePboardType]; 
+            
+            [destinationImage release];
+            destinationImage = [image copy];
+            
+            [self dragPromisedFilesOfTypes:[NSArray arrayWithObject:@"jpg"]
+                fromRect:imageLocation
+                source:self
+                slideBack:YES
+                event:event];
+        } 
+        else {		
+            [pboard setData: [[NSBitmapImageRep imageRepWithData: [image TIFFRepresentation]] representationUsingType:NSJPEGFileType properties:[NSDictionary dictionaryWithObject:[NSNumber numberWithFloat:0.9] forKey:NSImageCompressionFactor]] forType:NSTIFFPboardType];
+            
+            [self dragImage:thumbnail
+                         at:local_point
+                     offset:dragOffset
+                      event:event
+                 pasteboard:pboard
+                     source:self
+                  slideBack:YES];
+        }
 	}
-	
-	if ([event modifierFlags] & NSEventModifierFlagOption)
-		[ pbTypes addObject: NSFilesPromisePboardType];
-	else
-		[pbTypes addObject: NSTIFFPboardType];	
-	
-
-	[pboard declareTypes:pbTypes  owner:self];
-
-		
-	if ([event modifierFlags] & NSEventModifierFlagOption) {
-		NSRect imageLocation;
-		local_point = [self convertPoint:event_location fromView:nil];
-		imageLocation.origin =  local_point;
-		imageLocation.size = NSMakeSize(32,32);
-		[pboard setData:nil forType:NSFilesPromisePboardType]; 
-		
-        [destinationImage release];
-		destinationImage = [image copy];
-		
-		[self dragPromisedFilesOfTypes:[NSArray arrayWithObject:@"jpg"]
-            fromRect:imageLocation
-            source:self
-            slideBack:YES
-            event:event];
-	} 
-	else {		
-		[pboard setData: [[NSBitmapImageRep imageRepWithData: [image TIFFRepresentation]] representationUsingType:NSJPEGFileType properties:[NSDictionary dictionaryWithObject:[NSNumber numberWithFloat:0.9] forKey:NSImageCompressionFactor]] forType:NSTIFFPboardType];
-		
-		[ self dragImage:thumbnail
-			at:local_point
-			offset:dragOffset
-			event:event 
-			pasteboard:pboard 
-			source:self 
-			slideBack:YES];
-	}
-	
-	} @catch( NSException *localException) {
+    @catch( NSException *localException)
+    {
 		NSLog(@"Exception while dragging: %@", [localException description]);
 	}
 	
@@ -3504,7 +3604,8 @@ typedef struct _xyzArray
 	return array;
 }
 
-- (void)deleteMouseDownTimer{
+- (void)deleteMouseDownTimer
+{
 	[_mouseDownTimer invalidate];
 	[_mouseDownTimer release];
 	_mouseDownTimer = nil;
@@ -3520,18 +3621,22 @@ typedef struct _xyzArray
 {
 	NSLog(@"%d", (int) [[NSUserDefaults standardUserDefaults] integerForKey:@"VRDefaultViewSize"]);
 	
-	if( [[NSUserDefaults standardUserDefaults] integerForKey:@"VRDefaultViewSize"] == 1)
+	if ([[NSUserDefaults standardUserDefaults] integerForKey:@"VRDefaultViewSize"] == 1)
         return;
 	
 	NSRect	newFrame = [self frame];
 	NSRect	beforeFrame = [self frame];
 	
-	int		border = [self frame].size.height-1;
+	int border = [self frame].size.height-1;
 	
-	if( border > [self frame].size.width) border = [self frame].size.width;
+	if (border > [self frame].size.width)
+        border = [self frame].size.width;
 	
-	if( [[NSUserDefaults standardUserDefaults] integerForKey:@"VRDefaultViewSize"] == 2) border = 512;
-	if( [[NSUserDefaults standardUserDefaults] integerForKey:@"VRDefaultViewSize"] == 3) border = 768;
+	if ([[NSUserDefaults standardUserDefaults] integerForKey:@"VRDefaultViewSize"] == 2)
+        border = 512;
+    
+	if ([[NSUserDefaults standardUserDefaults] integerForKey:@"VRDefaultViewSize"] == 3)
+        border = 768;
 	
 	newFrame.size.width = border;
 	newFrame.size.height = border;
@@ -3540,7 +3645,6 @@ typedef struct _xyzArray
 	newFrame.origin.y = (int) (10 + (beforeFrame.size.height - border) / 2);
 	
 	[self setFrame: newFrame];
-	
 	[[self window] display];
 }
 
@@ -3592,9 +3696,7 @@ typedef struct _xyzArray
 						MotionVector[2] + ViewPoint[2]);
 
 	if (rwi->GetLightFollowCamera()) 
-	{
 		aRenderer->UpdateLightsGeometryToFollowCamera();
-	}
 }
 
 - (void)yaw:(float)degrees;

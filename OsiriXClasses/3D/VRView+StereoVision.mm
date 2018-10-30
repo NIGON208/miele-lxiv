@@ -394,7 +394,7 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 		orientationWidget->Off();
 	for(int i = 0; i < 4; i++) aRenderer->RemoveActor2D( oText[ i]);
 	
-	unsigned int windowStyle    = NSBorderlessWindowMask;		
+	unsigned int windowStyle = NSWindowStyleMaskBorderless;
 	NSRect contentRectLeftScreen;
 	NSRect contentRectRightScreen;
 	
@@ -599,7 +599,7 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 		orientationWidget->Off();
 	for(int i = 0; i < 4; i++) aRenderer->RemoveActor2D( oText[ i]);
 	
-	unsigned int windowStyle    = NSBorderlessWindowMask;
+	unsigned int windowStyle = NSWindowStyleMaskBorderless;
 	NSRect contentRectLeftScreen;
 	NSRect contentRectRightScreen;
 	
@@ -1613,7 +1613,6 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 			[rightView renderer]->RemoveActor(textWLWW);
 		}
 	}
-
 	
 	// RAY CASTING SETTINGS
 	if( best)

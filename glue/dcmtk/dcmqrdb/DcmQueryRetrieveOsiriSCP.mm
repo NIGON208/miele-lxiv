@@ -18,12 +18,14 @@
 #include "dcmtk/dcmqrdb/dcmqrcbs.h"    /* for class DcmQueryRetrieveStoreContext */
 #include "dcmtk/dcmdata/dcmetinf.h"
 #include "dcmtk/dcmnet/dul.h"
+
 #ifdef WITH_SQL_DATABASE
 #include "dcmtk/dcmqrdbx/dcmqrdbq.h"
 #else
 //#include "dcmtk/dcmqrdb/dcmqrdbi.h"
 #include "dcmqrdbq.h" // glue/dcmqrdb
 #endif
+
 #include "dcmtk/dcmdata/dcdeftag.h"
 #include "dcmtk/dcmnet/dimse.h"
 
@@ -260,7 +262,8 @@ OFCondition DcmQueryRetrieveOsiriSCP::storeSCP(
     if (assoc && assoc->params)
     {
         const char *aet = assoc->params->DULparams.callingAPTitle;
-        if (aet) dcmff.getMetaInfo()->putAndInsertString(DCM_SourceApplicationEntityTitle, aet);
+        if (aet)
+            dcmff.getMetaInfo()->putAndInsertString(DCM_SourceApplicationEntityTitle, aet);
     }
     
     DcmDataset *dset = dcmff.getDataset();

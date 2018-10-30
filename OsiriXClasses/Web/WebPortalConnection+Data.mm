@@ -2748,7 +2748,7 @@ const NSString* const GenerateMovieDicomImagesParamKey = @"dicomImageArray";
 		return;
 	
 	if ([object isKindOfClass:[DicomSeries class]]) {
-		NSBitmapImageRep* imageRep = [NSBitmapImageRep imageRepWithData:[object thumbnail]];
+		NSBitmapImageRep* imageRep = [NSBitmapImageRep imageRepWithData:(NSData *)[object thumbnail]];
 		NSDictionary* imageProps = [NSDictionary dictionaryWithObject:@1.0F forKey:NSImageCompressionFactor];
 		response.data = data = [imageRep representationUsingType:NSPNGFileType properties:imageProps];
 	} else if ([object isKindOfClass: [Dicom_Image class]]) {

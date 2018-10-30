@@ -753,7 +753,7 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void * _Nulla
 //		for( NSScreen *s in screens)
 //		{
 //			NSWindow *newWindow = [[[NSWindow alloc] initWithContentRect: [s visibleFrame]
-//															  styleMask: NSBorderlessWindowMask
+//															  styleMask: NSWindowStyleMaskBorderless
 //																backing: NSBackingStoreBuffered
 //																  defer: NO
 //																 screen: s] autorelease];
@@ -1046,7 +1046,7 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void * _Nulla
 		
 	//	r = NSMakeRect( 0, 0, [im size].width, [im size].height);
 		
-	//	NSWindow	*pwindow = [[NSWindow alloc]  initWithContentRect: r styleMask: NSBorderlessWindowMask backing: NSBackingStoreNonretained defer: NO];
+	//	NSWindow	*pwindow = [[NSWindow alloc]  initWithContentRect: r styleMask: NSWindowStyleMaskBorderless backing: NSBackingStoreNonretained defer: NO];
 		
 	//	[pwindow setContentView: imageView];
 		

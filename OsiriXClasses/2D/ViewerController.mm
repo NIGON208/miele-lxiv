@@ -3858,7 +3858,7 @@ static volatile int numberOfThreadsForRelisce = 0;
 		[imageView setIndex: selectedIndex];
 		
         StartingWindow = [self window];
-        windowStyle = NSBorderlessWindowMask; 
+        windowStyle = NSWindowStyleMaskBorderless; 
         contentRect = [self.window.screen frame];
         
         previousScaledFit = imageView.isScaledFit;

@@ -1129,7 +1129,6 @@
 		A9FBD20D16DBE1F9003A0E04 /* SWFInit.as in Resources */ = {isa = PBXBuildFile; fileRef = 59D9471C125333640095680D /* SWFInit.as */; };
 		A9FBD20E16DBE234003A0E04 /* AnnotationsDefault.plist in Resources */ = {isa = PBXBuildFile; fileRef = CECDBE690C95467B006B11A5 /* AnnotationsDefault.plist */; };
 		A9FBD20F16DBE23A003A0E04 /* dciodvfy in Resources */ = {isa = PBXBuildFile; fileRef = 844003990E8CF99500A00EBD /* dciodvfy */; };
-		A9FBD21016DBE23E003A0E04 /* DICOMPrint in Resources */ = {isa = PBXBuildFile; fileRef = CE8CAB0A0B4715DD0068DBAE /* DICOMPrint */; };
 		A9FBD21116DBE243003A0E04 /* Decompress in Resources */ = {isa = PBXBuildFile; fileRef = AB7250370ADE6F5D00A212A0 /* Decompress */; };
 		A9FBD21216DBE26F003A0E04 /* pages2pdf.applescript in Sources */ = {isa = PBXBuildFile; fileRef = 596D30AE1439B98A004EE9EC /* pages2pdf.applescript */; };
 		A9FBD21316DBE27A003A0E04 /* word2pdf.applescript in Sources */ = {isa = PBXBuildFile; fileRef = 596D30AF1439B98A004EE9EC /* word2pdf.applescript */; };
@@ -4577,7 +4576,6 @@
 		CE88575D08AF938800B72DA7 /* ROIVolumeView.mm */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.objcpp; path = ROIVolumeView.mm; sourceTree = "<group>"; };
 		CE897DD30C21D951005C669E /* texture.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = texture.tif; path = Binaries/Icons/texture.tif; sourceTree = "<group>"; };
 		CE8A5016181BA499009A453B /* Report.pages */ = {isa = PBXFileReference; lastKnownFileType = file; name = Report.pages; path = Binaries/Report.pages; sourceTree = "<group>"; };
-		CE8CAB0A0B4715DD0068DBAE /* DICOMPrint */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = DICOMPrint; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE8CDAF112B3C88D00268E4F /* DatabaseIcon.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = DatabaseIcon.tif; sourceTree = "<group>"; };
 		CE902EA1181C004C00CC4B88 /* pages2pages09.applescript */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.applescript; name = pages2pages09.applescript; path = Binaries/ReportsToPDF/pages2pages09.applescript; sourceTree = "<group>"; };
 		CE9054CF12F5B64200263AB6 /* CPRClusterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPRClusterView.h; sourceTree = "<group>"; };
@@ -4971,7 +4969,6 @@
 				CECDBE690C95467B006B11A5 /* AnnotationsDefault.plist */,
 				CE897DD30C21D951005C669E /* texture.tif */,
 				844003990E8CF99500A00EBD /* dciodvfy */,
-				CE8CAB0A0B4715DD0068DBAE /* DICOMPrint */,
 				AB7250370ADE6F5D00A212A0 /* Decompress */,
 				596D30AC1439B979004EE9EC /* odt2pdf */,
 				596D30AE1439B98A004EE9EC /* pages2pdf.applescript */,
@@ -8810,7 +8807,6 @@
 				A9FBD20D16DBE1F9003A0E04 /* SWFInit.as in Resources */,
 				A9FBD20E16DBE234003A0E04 /* AnnotationsDefault.plist in Resources */,
 				A9FBD20F16DBE23A003A0E04 /* dciodvfy in Resources */,
-				A9FBD21016DBE23E003A0E04 /* DICOMPrint in Resources */,
 				A9FBD21116DBE243003A0E04 /* Decompress in Resources */,
 				A9FBD21416DBE27D003A0E04 /* ReportTemplate.rtf in Resources */,
 				A9FBD21516DBE280003A0E04 /* ReportTemplate.odt in Resources */,
@@ -9167,12 +9163,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ABBB63A70635874E00D9531F /* dcmdump in Resources */,
+				AB72503A0ADE6F5D00A212A0 /* Decompress in Resources */,
 				43E6A513216CC2BA005A031A /* odt2pdf.zip in Resources */,
 				CE902EA3181C034E00CC4B88 /* pages2pages09.applescript in Resources */,
 				CE0C4792183139C400D4C50E /* pages092pdf.applescript in Resources */,
 				596D30B21439B9C8004EE9EC /* pages2pdf.applescript in Resources */,
 				CE289B1D0D00AF91004F0A93 /* Mail.scpt in Resources */,
-				ABBB63A70635874E00D9531F /* dcmdump in Resources */,
 				ABBB63A80635874E00D9531F /* dicom.dic in Resources */,
 				ABBB64AD063587B200D9531F /* 2DBlending.tif in Resources */,
 				ABBB64AE063587B200D9531F /* 3D.tif in Resources */,
@@ -9315,10 +9312,10 @@
 				B7CDAD020AB30E7700068D70 /* page.tif in Resources */,
 				B7CDAD030AB30E7700068D70 /* pdf.tif in Resources */,
 				B78DA71C0ACEDA9A005C2C04 /* Shutter.tif in Resources */,
-				AB72503A0ADE6F5D00A212A0 /* Decompress in Resources */,
 				A9ADBBD10ADE80E60022DFC7 /* ReportPages.icns in Resources */,
 				A9ADBBD20ADE80E60022DFC7 /* ReportRTF.icns in Resources */,
 				A9ADBBD30ADE80E60022DFC7 /* ReportWord.icns in Resources */,
+				CE9C734A0B34946B0062FCCC /* echoscu in Resources */,
 				ABD559FE0AEE146900108895 /* SagSmall.tif in Resources */,
 				ABD559FF0AEE146900108895 /* CorSmall.tif in Resources */,
 				ABD55A000AEE146900108895 /* AxialSmall.tif in Resources */,
@@ -9326,7 +9323,6 @@
 				ABB36D810AF2548C00DBEEA2 /* available.tif in Resources */,
 				AB3886AC0B2449CD00831F74 /* SagSmallOpposite.tif in Resources */,
 				AB9E05470B30107A00661F7E /* key.png in Resources */,
-				CE9C734A0B34946B0062FCCC /* echoscu in Resources */,
 				CE1366B50B41D0F200944876 /* mpeg2.tif in Resources */,
 				CEDCFB3C0B4C4A4B00510ABD /* SyncSmall.tif in Resources */,
 				CEDCFB460B4C4E3900510ABD /* SyncSmallLocked.tif in Resources */,
@@ -9425,6 +9421,7 @@
 				ABE0D6A40CDB1B9E00F0494B /* iChatTheatre-English.html in Resources */,
 				ABE0D6A60CDB1B9E00F0494B /* shareFromMenu_small.png in Resources */,
 				ABE0D6A70CDB1B9E00F0494B /* shareFromVideoChatWindow_small.png in Resources */,
+				8440039A0E8CF99500A00EBD /* dciodvfy in Resources */,
 				ABE0D6A80CDB1B9E00F0494B /* style.css in Resources */,
 				CEDEF7D60D020E9100CADB15 /* TIFFSmall.tif in Resources */,
 				CEDEF7D70D020E9100CADB15 /* MailSmall.tif in Resources */,
@@ -9438,7 +9435,6 @@
 				CEAE02E00DE7E33B00E9BD01 /* DICOMDestination.tif in Resources */,
 				8483ABA60E1BE33900C21B31 /* crossCursor.tif in Resources */,
 				AB9693C00E823E3A00F09EEA /* ROIsAndKeys.tif in Resources */,
-				8440039A0E8CF99500A00EBD /* dciodvfy in Resources */,
 				CE03A3CC0EA2AE0300951EF4 /* iPhone.tif in Resources */,
 				AB932A960EA38DEF0006DF1B /* CobbAngle.tif in Resources */,
 				AB1B31A10EB06AFA0061FA40 /* Jet.plist in Resources */,
@@ -9459,6 +9455,7 @@
 				4310FAD520692C2B000BDDCC /* nsdfti.def in Resources */,
 				CED1FD1B1035E9BB0076AB33 /* SetPixelValue.pdf in Resources */,
 				CED1FD1C1035E9BB0076AB33 /* GrowingRegion.png in Resources */,
+				84B5EA4311A2BC0900193FDB /* dsr2html in Resources */,
 				CEFB8A9910C19902000DCCB0 /* ReportTemplate.odt in Resources */,
 				CE4B5CFC10E5F9DE00C11948 /* Safari.tif in Resources */,
 				CE06475210F12DA500551AD9 /* PlayTemplate.png in Resources */,
@@ -9467,7 +9464,6 @@
 				A917F37E10F4F20C00344C5D /* CertSmallStd.tif in Resources */,
 				AB10FA231129302A009EB238 /* PopUpArrows.png in Resources */,
 				59BDF106117EE61E007F1F2C /* PreferencesWindow.xib in Resources */,
-				84B5EA4311A2BC0900193FDB /* dsr2html in Resources */,
 				CEBA5FE011B244EA005F3A0E /* SpectroIcon.jpg in Resources */,
 				5997896E11B7B402002DB107 /* PlusButton.png in Resources */,
 				5997897011B7B40B002DB107 /* MinusButton.png in Resources */,
@@ -9596,6 +9592,7 @@
 				A9B23D5215D01089000E47C3 /* Cross.pdf in Resources */,
 				A9B23D5515D012C9000E47C3 /* curvedROI.pdf in Resources */,
 				A9B23D6915D018A4000E47C3 /* horizontalPosition.pdf in Resources */,
+				436F14B12179CE6B00EFC5CF /* DICOMPrint in Resources */,
 				A9B23D6D15D018B6000E47C3 /* normalPosition.pdf in Resources */,
 				A9B23D7015D018C5000E47C3 /* verticalPosition.pdf in Resources */,
 				848327AB15ED08F4003BAEEB /* CustomIntervalPanel.xib in Resources */,
@@ -9603,7 +9600,6 @@
 				4310FADA20692C2B000BDDCC /* shadow.def in Resources */,
 				71EB83D416DD0F1800D48646 /* dicom3tools-libsrc-standard-strval-base.tpl in Resources */,
 				71EB83D516DD0F1800D48646 /* osirix-complementary.tpl in Resources */,
-				436F14B12179CE6B00EFC5CF /* DICOMPrint in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

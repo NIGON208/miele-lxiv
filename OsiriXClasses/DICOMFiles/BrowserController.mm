@@ -2431,8 +2431,6 @@ static NSConditionLock *threadLock = nil;
 			
 		filesOutput = filesInput;
 	}
-	
-	return;
 }
 
 -(void)rebuildDatabaseThread:(NSArray*)io

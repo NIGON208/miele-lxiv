@@ -12,6 +12,8 @@
      PURPOSE.
 =========================================================================*/
 
+#import "ViewerController.h"
+
 #import <AppKit/AppKit.h>
 
 #import "DCMPix.h"
@@ -20,82 +22,88 @@
 #ifdef __cplusplus
 #import "VTKViewOSIRIX.h"
 #define id Id
-#include "vtkCommand.h"
+
+//#include "vtkCommand.h"
 #include "vtkProperty.h"
-#include "vtkActor.h"
-#include "vtkPolyData.h"
-#include "vtkRenderer.h"
-#include "vtkRenderWindow.h"
-#include "vtkRenderWindowInteractor.h"
-#include "vtkVolume16Reader.h"
+//#include "vtkActor.h"
+//#include "vtkPolyData.h"
+//#include "vtkRenderer.h"
+//#include "vtkRenderWindow.h"
+//#include "vtkRenderWindowInteractor.h"
+//#include "vtkVolume16Reader.h"
 #include "vtkPolyDataMapper.h"
-#include "vtkActor.h"
+//#include "vtkActor.h"
 #include "vtkOutlineFilter.h"
-#include "vtkImageReader.h"
+//#include "vtkImageReader.h"
 #include "vtkImageImport.h"
 #include "vtkCamera.h"
-#include "vtkStripper.h"
-#include "vtkLookupTable.h"
-#include "vtkImageDataGeometryFilter.h"
-#include "vtkProperty.h"
+//#include "vtkStripper.h"
+//#include "vtkLookupTable.h"
+
+//#include "vtkImageDataGeometryFilter.h"
+//#include "vtkProperty.h"
 #include "vtkPolyDataNormals.h"
 #include "vtkContourFilter.h"
-#include "vtkImageData.h"
-#include "vtkImageMapToColors.h"
-#include "vtkImageActor.h"
-#include "vtkLight.h"
+//#include "vtkImageData.h"
+//#include "vtkImageMapToColors.h"
+//#include "vtkImageActor.h"
+//#include "vtkLight.h"
+//#include "vtkPlane.h"
+//#include "vtkPlanes.h"
+//#include "vtkPlaneSource.h"
+//#include "vtkBoxWidget.h"
+//#include "vtkPlaneWidget.h"
+//#include "vtkPiecewiseFunction.h"
+//#include "vtkColorTransferFunction.h"
+//#include "vtkVolumeProperty.h"
+//#include "vtkVolumeRayCastCompositeFunction.h"  // VTK_LEGACY_REMOVE (deprecated for VTK 7.0)
 
-#include "vtkPlane.h"
-#include "vtkPlanes.h"
-#include "vtkPlaneSource.h"
-#include "vtkBoxWidget.h"
-#include "vtkPlaneWidget.h"
-#include "vtkPiecewiseFunction.h"
-#include "vtkPiecewiseFunction.h"
-#include "vtkColorTransferFunction.h"
-#include "vtkVolumeProperty.h"
-#include "vtkVolumeRayCastCompositeFunction.h"
-#include "vtkVolumeRayCastMapper.h"
-#include "vtkVolumeRayCastMIPFunction.h"
+//#ifdef TRY_NEW_VTK_API
+//#include "vtkGPUVolumeRayCastMapper.h"
+//#else
+//#include "vtkVolumeRayCastMapper.h"  // TBC: vtkFixedPointVolumeRayCastMapper ?
+//#endif
 
+//#include "vtkVolumeRayCastMIPFunction.h"
+
+#include "vtkMatrix4x4.h"
 #include "vtkTransform.h"
-#include "vtkSphere.h"
-#include "vtkImplicitBoolean.h"
-#include "vtkExtractGeometry.h"
-#include "vtkDataSetMapper.h"
-#include "vtkPicker.h"
-#include "vtkCellPicker.h"
-#include "vtkPointPicker.h"
-#include "vtkLineSource.h"
-#include "vtkPolyDataMapper2D.h"
-#include "vtkActor2D.h"
-#include "vtkExtractPolyDataGeometry.h"
-#include "vtkProbeFilter.h"
-#include "vtkCutter.h"
-#include "vtkTransformPolyDataFilter.h"
-#include "vtkXYPlotActor.h"
-#include "vtkClipPolyData.h"
-#include "vtkBox.h"
-#include "vtkCallbackCommand.h"
+//#include "vtkSphere.h"
+//#include "vtkImplicitBoolean.h"
+//#include "vtkExtractGeometry.h"
+//#include "vtkDataSetMapper.h"
+//#include "vtkPicker.h"
+//#include "vtkCellPicker.h"
+//#include "vtkPointPicker.h"
+//#include "vtkLineSource.h"
+//#include "vtkPolyDataMapper2D.h"
+//#include "vtkActor2D.h"
+//#include "vtkExtractPolyDataGeometry.h"
+//#include "vtkProbeFilter.h"
+//#include "vtkCutter.h"
+//#include "vtkTransformPolyDataFilter.h"
+//#include "vtkXYPlotActor.h"
+//#include "vtkClipPolyData.h"
+//#include "vtkBox.h"
+//#include "vtkCallbackCommand.h"
+
 #include "vtkImageResample.h"
 #include "vtkDecimatePro.h"
 #include "vtkSmoothPolyDataFilter.h"
 #include "vtkImageFlip.h"
 #include "vtkTextActor.h"
+#include "vtkTextProperty.h"
 #include "vtkAnnotatedCubeActor.h"
 #include "vtkOrientationMarkerWidget.h"
-#include "vtkTextProperty.h"
+
 #ifdef _STEREO_VISION_
-// Added SilvanWidmer 10-08-09
-// ****************************
 #import	 "vtkCocoaGLView.h"
 #include "vtkCocoaRenderWindowInteractor.h"
 #include "vtkCocoaRenderWindow.h"
-//#include "vtkParallelRenderManager.h"
+#include "vtkParallelRenderManager.h"
 #include "vtkRendererCollection.h"
 #include "vtkCallbackCommand.h"
 #import "VTKStereoSRView.h"
-// ****************************
 #endif
 
 #undef id
@@ -103,6 +111,7 @@
 class vtkMyCallback;
 
 #else
+/*
 typedef char* vtkTransform;
 typedef char* vtkImageActor;
 typedef char* vtkImageMapToColors;
@@ -143,8 +152,6 @@ typedef char* vtkRenderer;
 typedef char* vtkOrientationMarkerWidget;
 
 #ifdef _STEREO_VISION_
-// ****************************
-// Added SilvanWidmer 10-08-09
 typedef char* vtkCocoaRenderWindowInteractor;
 typedef char* vtkCocoaRenderWindow;
 typedef char* vtkParallelRenderManager;
@@ -153,13 +160,12 @@ typedef char* vtkRendererCollection;
 typedef char* vtkCocoaGLView;
 typedef char* vtkCallbackCommand;
 typedef char* VTKStereoSRView;
-// ****************************
 #endif
-
+*/
 #endif
 
 #include <Accelerate/Accelerate.h>
-#import "ViewerController.h"
+//#import "ViewerController.h"
 #import "WaitRendering.h"
 
 @class Camera;
@@ -189,6 +195,8 @@ typedef struct renderSurface
 #define VTKView NSView
 #endif
 
+#define NUM_SR_LABELS   4
+
 /** \brief Surface Rendering View */
 @interface SRView : VTKView
 {
@@ -201,7 +209,7 @@ typedef struct renderSurface
 	vtkImageFlip				*flip, *blendingFlip;
 	
 	vtkTextActor				*textX;
-	vtkTextActor				*oText[ 4];
+	vtkTextActor				*oText[NUM_SR_LABELS];  // orientation text
 	
 	NSCursor					*cursor;
 	BOOL						cursorSet;
@@ -216,13 +224,11 @@ typedef struct renderSurface
 	IBOutlet NSWindow			*export3DWindow;
 	IBOutlet NSSlider			*framesSlider;
 	IBOutlet NSMatrix			*rotation;
-	
 	IBOutlet NSWindow			*export3DVRWindow;
 	IBOutlet NSMatrix			*VRFrames;
-	
 	IBOutlet NSColorWell		*backgroundColor;
-	
-	double						camPosition[ 3];
+
+    double						camPosition[ 3];
 	double						camFocal[ 3];
 	
 	long						numberOfFrames;
@@ -290,7 +296,7 @@ typedef struct renderSurface
 	IBOutlet NSButton			*point3DDisplayPositionButton;
 	IBOutlet NSSlider			*point3DRadiusSlider, *point3DTextSizeSlider;
 	IBOutlet NSColorWell		*point3DColorWell, *point3DTextColorWell;
-	IBOutlet NSButton			*point3DPropagateToAll, *point3DSetDefault;
+    IBOutlet NSButton			*point3DPropagateToAll, *point3DSetDefault;
 	IBOutlet SRController		*controller;
 	float						point3DDefaultRadius, point3DDefaultColorRed, point3DDefaultColorGreen, point3DDefaultColorBlue, point3DDefaultColorAlpha;
 	
@@ -305,8 +311,7 @@ typedef struct renderSurface
 	NSRect						savedViewSizeFrame;
 
 #ifdef _STEREO_VISION_
-	//Added SilvanWidmer 10-08-09
-	NSWindow						*LeftFullScreenWindow; 
+	NSWindow						*LeftFullScreenWindow;
 	NSWindow						*RightFullScreenWindow;   
 	BOOL							StereoVisionOn;
 	vtkCocoaGLView					*leftView;
@@ -320,7 +325,6 @@ typedef struct renderSurface
 	renderSurface					second;
 	vtkCallbackCommand				*rightResponder;
 #endif
-	
 }
 
 #ifdef _STEREO_VISION_
@@ -346,7 +350,7 @@ typedef struct renderSurface
 -(void) BdeleteActor:(long) actor;
 -(IBAction) endQuicktimeSettings:(id) sender;
 -(IBAction) exportQuicktime :(id) sender;
-//-(IBAction) endQuicktimeVRSettings:(id) sender;
+-(IBAction) endQuicktimeVRSettings:(id) sender;
 - (IBAction) setCurrentdcmExport:(id) sender;
 -(IBAction) endDCMExportSettings:(id) sender;
 -(void) exportDICOMFile:(id) sender;
@@ -417,7 +421,6 @@ typedef struct renderSurface
 - (void)panX:(float)x Y:(float)y;
 
 #ifdef _STEREO_VISION_
-//Added SilvanWidmer 27-08-09
 - (ToolMode) getTool: (NSEvent*) event;
 #endif
 

@@ -1,8 +1,8 @@
-#define NEW_DICOM_PRINT_UTILITY
+#define NEW_DICOM_PRINT_UTILITY_64BIT
 
 #import <Foundation/Foundation.h>
 
-#ifndef NEW_DICOM_PRINT_UTILITY
+#ifndef NEW_DICOM_PRINT_UTILITY_64BIT
 #import <DCM/DCMObject.h>
 #import <DCM/DCMTransferSyntax.h>
 #include "AYDcmPrintSCU.h"
@@ -15,7 +15,7 @@ int main(int argc, const char *argv[])
 	
 	NSLog(@"DICOM Print Process Start");
 
-#ifdef NEW_DICOM_PRINT_UTILITY
+#ifdef NEW_DICOM_PRINT_UTILITY_64BIT
     //    argv[ 1] : logPath
     //    argv[ 2] : baseName
     //    argv[ 3] : jsonPath
@@ -32,6 +32,7 @@ int main(int argc, const char *argv[])
 
     NSString *image_file = [jsonDict valueForKeyPath:@"association.filmsession.filmbox.imagebox.image_file"];
     NSLog(@"TODO: print file: %@", image_file);
+    // See also AYDcmPrintSCU.h
     
     // TODO: launch dcmprscu
 #else

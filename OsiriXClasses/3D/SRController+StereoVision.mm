@@ -353,7 +353,7 @@ static NSString*	BackgroundColorViewToolbarItemIdentifier		= @"BackgroundColorVi
         NSRect       contentRect;
 		
         StartingWindow = [self window];
-        windowStyle    = NSBorderlessWindowMask; 
+        windowStyle    = NSWindowStyleMaskBorderless; 
         contentRect    = [[NSScreen mainScreen] frame];
         FullScreenWindow = [[NSFullScreenWindow alloc] initWithContentRect:contentRect styleMask: windowStyle backing:NSBackingStoreBuffered defer: NO];
         if(FullScreenWindow != nil)

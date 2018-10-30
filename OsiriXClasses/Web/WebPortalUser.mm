@@ -170,7 +170,8 @@ static NSMutableDictionary *studiesForUserCache = nil;
 
 - (void) setPassword: (NSString*) newPassword
 {
-	if( [newPassword length] >= 4 && [newPassword isEqualToString: HASHPASSWORD] == NO)
+	if ([newPassword length] >= 4 &&
+        [newPassword isEqualToString: HASHPASSWORD] == NO)
 	{
 		[self setValue: [NSDate date] forKey: @"passwordCreationDate"];
         
@@ -190,7 +191,8 @@ static NSMutableDictionary *studiesForUserCache = nil;
 
 - (void) convertPasswordToHashIfNeeded
 {
-    if( [self.password length] > 0 && [self.password isEqualToString: HASHPASSWORD] == NO) // We don't want to store password, only sha1Digest version !
+    if ([self.password length] > 0 &&
+        [self.password isEqualToString: HASHPASSWORD] == NO) // We don't want to store password, only sha1Digest version !
     {
         self.passwordHash = [[[[self.password stringByAppendingString: self.name] dataUsingEncoding:NSUTF8StringEncoding] sha1Digest] hex];
         
@@ -216,25 +218,29 @@ static NSMutableDictionary *studiesForUserCache = nil;
 	    
         if( [password2validate length] < 4)
         {
-            if (error) *error = [NSError osirixErrorWithCode:-31 localizedDescription:NSLocalizedString( @"Password needs to be at least 4 characters long.", NULL)];
+            if (error)
+                *error = [NSError osirixErrorWithCode:-31 localizedDescription:NSLocalizedString( @"Password needs to be at least 4 characters long.", NULL)];
             return NO;
         }
         
         if( [password2validate stringByTrimmingCharactersInSet: [NSCharacterSet decimalDigitCharacterSet]].length == 0)
         {
-            if (error) *error = [NSError osirixErrorWithCode:-31 localizedDescription:NSLocalizedString( @"Password cannot contain only numbers: add letters.", NULL)];
+            if (error)
+                *error = [NSError osirixErrorWithCode:-31 localizedDescription:NSLocalizedString( @"Password cannot contain only numbers: add letters.", NULL)];
             return NO;
         }
         
         if( [password2validate stringByReplacingOccurrencesOfString: [password2validate substringToIndex: 1] withString: @""].length == 0)
         {
-            if (error) *error = [NSError osirixErrorWithCode:-31 localizedDescription:NSLocalizedString( @"Password cannot contain only the same character.", NULL)];
+            if (error)
+                *error = [NSError osirixErrorWithCode:-31 localizedDescription:NSLocalizedString( @"Password cannot contain only the same character.", NULL)];
             return NO;
         }
         
         if( [password2validate length] - [[password2validate commonPrefixWithString: self.name options: NSCaseInsensitiveSearch] length] < 4)
         {
-            if (error) *error = [NSError osirixErrorWithCode:-31 localizedDescription:NSLocalizedString( @"Password needs to be different from the user name.", NULL)];
+            if (error)
+                *error = [NSError osirixErrorWithCode:-31 localizedDescription:NSLocalizedString( @"Password needs to be different from the user name.", NULL)];
             return NO;
         }
         
@@ -252,7 +258,8 @@ static NSMutableDictionary *studiesForUserCache = nil;
         
         if( invidualCharacters < 3)
         {
-            if (error) *error = [NSError osirixErrorWithCode:-31 localizedDescription:NSLocalizedString( @"Password needs to have at least 3 different characters.", NULL)];
+            if (error)
+                *error = [NSError osirixErrorWithCode:-31 localizedDescription:NSLocalizedString( @"Password needs to have at least 3 different characters.", NULL)];
             return NO;
         }
         

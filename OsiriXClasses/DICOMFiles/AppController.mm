@@ -96,6 +96,7 @@
 #import "vtkVersionMacros.h"    // for VTK version
 #import "itkVersion.h"          // for ITK version
 #import "dcmtk/dcmdata/dcuid.h" // for DCMTK version
+#import "dcmtk/dcmjpls/djdecode.h" // for JPEG-LS version
 #import "opj_config.h"
 //#include "openjpeg-2.2/opj_config.h"
 
@@ -1946,8 +1947,6 @@ static NSDate *lastWarningDate = nil;
     
     if (menu.numberOfItems == 0)
         [menu addItemWithTitle: NSLocalizedString( @"No saved state", nil) action: nil keyEquivalent: @""];
-    
-    return;
 }
 
 - (void) loadWindowsStateDICOMSR: (NSMenuItem*) menuItem
@@ -2154,30 +2153,34 @@ static NSDate *lastWarningDate = nil;
 	
 	switch( [[NSUserDefaults standardUserDefaults] integerForKey: @"preferredSyntaxForIncoming"])
 	{
-		case 0:
+		case EXS_LittleEndianImplicit:
 			[dict setValue: @"LittleEndianImplicit" forKey: @"preferredSyntax"];
-		break;
-		case 21:
-			[dict setValue: @"JPEGProcess14SV1TransferSyntax" forKey: @"preferredSyntax"];
-		break;
-		case 26:
-			[dict setValue: @"JPEG2000LosslessOnly" forKey: @"preferredSyntax"];
-		break;
-		case 27:
-			[dict setValue: @"JPEG2000" forKey: @"preferredSyntax"];
-		break;
-		case 22:
-			[dict setValue: @"RLELossless" forKey: @"preferredSyntax"];
-		break;
-        case 23:
-			[dict setValue: @"JPEGLSLossless" forKey: @"preferredSyntax"];
             break;
-        case 24:
+		case EXS_JPEGProcess14SV1:
+			[dict setValue: @"JPEGProcess14SV1TransferSyntax" forKey: @"preferredSyntax"];
+            break;
+		case EXS_JPEG2000LosslessOnly:
+			[dict setValue: @"JPEG2000LosslessOnly" forKey: @"preferredSyntax"];
+            break;
+		case EXS_JPEG2000:
+			[dict setValue: @"JPEG2000" forKey: @"preferredSyntax"];
+            break;
+		case EXS_RLELossless:
+			[dict setValue: @"RLELossless" forKey: @"preferredSyntax"];
+            break;
+        case EXS_DeflatedLittleEndianExplicit:
+            [dict setValue: @"DeflatedLittleEndianExplicit" forKey: @"preferredSyntax"];
+            break;
+        case EXS_JPEGLSLossless:
+            [dict setValue: @"JPEGLSLossless" forKey: @"preferredSyntax"];
+            break;
+        case EXS_JPEGLSLossy:
 			[dict setValue: @"JPEGLSLossy" forKey: @"preferredSyntax"];
             break;
-		default:
+        case EXS_LittleEndianExplicit:
+        default:
 			[dict setValue: @"LittleEndianExplicit" forKey: @"preferredSyntax"];
-		break;
+            break;
 	}
 	
 	[BonjourDICOMService setTXTRecordData: [NSNetService dataFromTXTRecordDictionary: dict]];
@@ -2355,8 +2358,6 @@ static NSDate *lastWarningDate = nil;
 	[pool release];
 	[STORESCP unlock];
 #endif
-	
-	return;
 }
 
 -(void) startSTORESCPTLS:(id) sender
@@ -2397,7 +2398,6 @@ static NSDate *lastWarningDate = nil;
 	
 	[pool release];
 #endif
-	return;
 }
 
 // Manage osirix URL : osirix://
@@ -2916,6 +2916,9 @@ static BOOL firstCall = YES;
 static BOOL initialized = NO;
 + (void) initialize
 {
+    if (initialized)
+        return;
+
 //	int test = NSSwapHostIntToBig( 19191919);
 //	unsigned char *ptr = (unsigned char*) &test;
 //	long result;
@@ -2943,7 +2946,7 @@ static BOOL initialized = NO;
 
 	@try
 	{
-		if ( self == [AppController class] && initialized == NO)
+		if ( self == [AppController class])
 		{
 			if ([[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundlePackageType"] isEqualToString: @"APPL"])
 			{
@@ -2990,6 +2993,7 @@ static BOOL initialized = NO;
                 NSLog(@"VTK %s", VTK_VERSION);
                 NSLog(@"ITK %s", ITK_VERSION);
                 NSLog(@"DCMTK %s %s", OFFIS_DCMTK_VERSION, OFFIS_DCMTK_RELEASEDATE);
+                NSLog(@"JPEG-LS %s", DJLSDecoderRegistration::getLibraryVersionString().c_str());
                 NSLog(@"OpenJPEG %d.%d.%d", OPJ_VERSION_MAJOR, OPJ_VERSION_MINOR, OPJ_VERSION_BUILD);
 #ifdef WITH_ZLIB
                 NSLog(@"ZLIB %s", zlibVersion());
@@ -3913,7 +3917,7 @@ static BOOL initialized = NO;
     
 	NSUInteger size = 32, size2 = size*size;
 	
-	NSWindow* win = [[NSWindow alloc] initWithContentRect:NSMakeRect(0,0,size,size) styleMask:NSTitledWindowMask backing:NSBackingStoreBuffered defer:NO];
+	NSWindow* win = [[NSWindow alloc] initWithContentRect:NSMakeRect(0,0,size,size) styleMask:NSWindowStyleMaskTitled backing:NSBackingStoreBuffered defer:NO];
 	
 	long annotCopy = [[NSUserDefaults standardUserDefaults] integerForKey:@"ANNOTATIONS"];
 	long clutBarsCopy = [[NSUserDefaults standardUserDefaults] integerForKey:@"CLUTBARS"];

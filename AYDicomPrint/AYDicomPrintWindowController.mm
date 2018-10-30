@@ -733,7 +733,12 @@ NSString *mediumTag[] = {@"Blue Film", @"Clear Film", @"Paper"};
 		NSTask *theTask = [[NSTask alloc] init];
 		
 		[theTask setArguments: [NSArray arrayWithObjects: logPath, baseName, xmlPath, nil]];
-		[theTask setLaunchPath:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"/DICOMPrint"]];
+#if 1  // NEW_DICOM_PRINT
+        NSString *dicomPrintUtility = @"DICOMPrint";
+#else
+        NSString *dicomPrintUtility = @"DICOMPrint32";
+#endif
+        [theTask setLaunchPath:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:dicomPrintUtility]];
 		[theTask launch];
 
         while( [theTask isRunning])
