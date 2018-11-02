@@ -12,8 +12,6 @@
      PURPOSE.
 =========================================================================*/
 
-//#define DEBUG_COPY_WITH_ZONE
-
 #import "ViewerController.h"
 
 #import <AppKit/AppKit.h>

@@ -288,6 +288,7 @@
                                     <color key="color" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     <connections>
                                         <binding destination="-2" name="enabled" keyPath="useFirstSurface" id="869"/>
+                                        <binding destination="-2" name="value" keyPath="firstColor" id="tXt-fr-Lnl"/>
                                     </connections>
                                 </colorWell>
                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="1000" setsMaxLayoutWidthAtFirstLayout="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="445">
@@ -416,6 +417,7 @@
                                     <color key="color" red="1" green="0.59274190999999998" blue="0.60887097999999995" alpha="1" colorSpace="calibratedRGB"/>
                                     <connections>
                                         <binding destination="-2" name="enabled" keyPath="useSecondSurface" id="870"/>
+                                        <binding destination="-2" name="value" keyPath="secondColor" id="G9d-Qe-EZK"/>
                                     </connections>
                                 </colorWell>
                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="1000" setsMaxLayoutWidthAtFirstLayout="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="481">

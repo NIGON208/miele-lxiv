@@ -26,8 +26,6 @@
 // ROIs Volumes
 #define roi3Dvolume
 
-//#define DEBUG_COPY_WITH_ZONE
-
 @class SRView;
 @class ROIVolume;
 

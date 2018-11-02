@@ -481,11 +481,15 @@ static NSString*	BackgroundColorViewToolbarItemIdentifier = @"BackgroundColorVie
 
 - (void)renderSurfaces
 {
+    NSLog(@"%s", __FUNCTION__);
 	WaitRendering *www = [[WaitRendering alloc] init: NSLocalizedString( @"Preparing 3D Iso Surface...", nil)];
 	[www start];
     
     NSColor *color = [_firstColor colorUsingColorSpaceName: NSCalibratedRGBColorSpace];
     NSColor *sColor = [_secondColor colorUsingColorSpaceName: NSCalibratedRGBColorSpace];
+
+    NSLog(@"color 1: %@", color);
+    NSLog(@"color 2: %@", sColor);
 
     // FIRST SURFACE
 	if (_useFirstSurface)

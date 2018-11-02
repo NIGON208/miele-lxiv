@@ -1559,17 +1559,14 @@ typedef struct _xyzArray
 			else
 			{
 				[point3DRadiusSlider setFloatValue: [[point3DRadiusArray objectAtIndex:[self selected3DPointIndex]] floatValue]];
-#ifndef DEBUG_COPY_WITH_ZONE
 				[point3DColorWell setColor: [point3DColorsArray objectAtIndex:[self selected3DPointIndex]]];
                 [point3DPositionTextField setStringValue:[point3DPositionsStringsArray objectAtIndex:[self selected3DPointIndex]]];
-#endif
 				//point3DDisplayPositionArray
 				[point3DDisplayPositionButton setState:[[point3DDisplayPositionArray objectAtIndex:[self selected3DPointIndex]] intValue]];
 				[point3DTextSizeSlider setFloatValue: [[point3DTextSizesArray objectAtIndex:[self selected3DPointIndex]] floatValue]];
-#ifndef DEBUG_COPY_WITH_ZONE
 				[point3DTextColorWell setColor: [point3DTextColorsArray objectAtIndex:[self selected3DPointIndex]]];
-#endif
-				if ([theEvent clickCount]==2)
+
+                if ([theEvent clickCount]==2)
 				{
 					NSPoint mouseLocationOnScreen = [[controller window] convertBaseToScreen:[theEvent locationInWindow]];
 					//[point3DInfoPanel setAlphaValue:0.8];
