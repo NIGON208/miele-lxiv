@@ -32,6 +32,7 @@
 		183C865908563F3A000E6A68 /* Spline3D.mm in Sources */ = {isa = PBXBuildFile; fileRef = 183C864508563F3A000E6A68 /* Spline3D.mm */; };
 		183C865B08563F3A000E6A68 /* SRFlyThruAdapter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 183C864708563F3A000E6A68 /* SRFlyThruAdapter.mm */; };
 		183C865D08563F3A000E6A68 /* VRFlyThruAdapter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 183C864908563F3A000E6A68 /* VRFlyThruAdapter.mm */; };
+		430CB70E218C66CD000C2547 /* SRController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 430CB70D218C66CD000C2547 /* SRController.mm */; };
 		4310F7AC20692C26000BDDCC /* jcapimin.c in Sources */ = {isa = PBXBuildFile; fileRef = 4310F31120692C22000BDDCC /* jcapimin.c */; };
 		4310F7AD20692C26000BDDCC /* jcapistd.c in Sources */ = {isa = PBXBuildFile; fileRef = 4310F31220692C22000BDDCC /* jcapistd.c */; };
 		4310F7AE20692C26000BDDCC /* jcarith.c in Sources */ = {isa = PBXBuildFile; fileRef = 4310F31320692C22000BDDCC /* jcarith.c */; };
@@ -936,7 +937,6 @@
 		A987971A16DBAD3D00926023 /* PluginFileFormatDecoder.mm in Sources */ = {isa = PBXBuildFile; fileRef = BFAFEE9308F2220B002AD789 /* PluginFileFormatDecoder.mm */; };
 		A987971B16DBAD3D00926023 /* PluginFilter.mm in Sources */ = {isa = PBXBuildFile; fileRef = AB2C24E00677861300A08910 /* PluginFilter.mm */; };
 		A987971C16DBAD3D00926023 /* SRView.mm in Sources */ = {isa = PBXBuildFile; fileRef = AB154F7E0627413600BD57AF /* SRView.mm */; };
-		A987971D16DBAD3D00926023 /* SRController.mm in Sources */ = {isa = PBXBuildFile; fileRef = AB154F800627413600BD57AF /* SRController.mm */; };
 		A987971E16DBAD3D00926023 /* SRController+StereoVision.mm in Sources */ = {isa = PBXBuildFile; fileRef = 84ADF461115B622D00FE18B2 /* SRController+StereoVision.mm */; };
 		A987971F16DBAD3D00926023 /* SRFlyThruAdapter+StereoVision.mm in Sources */ = {isa = PBXBuildFile; fileRef = 84ADF463115B622D00FE18B2 /* SRFlyThruAdapter+StereoVision.mm */; };
 		A987972016DBAD3D00926023 /* SRView+StereoVision.mm in Sources */ = {isa = PBXBuildFile; fileRef = 84ADF465115B622D00FE18B2 /* SRView+StereoVision.mm */; };
@@ -1528,7 +1528,6 @@
 		AB10FB6A1129338A009EB238 /* NSImageView+N2.mm in Sources */ = {isa = PBXBuildFile; fileRef = AB10FB1B1129338A009EB238 /* NSImageView+N2.mm */; };
 		AB10FB6C1129338A009EB238 /* ISO8601DateFormatter.mm in Sources */ = {isa = PBXBuildFile; fileRef = AB10FB1E1129338A009EB238 /* ISO8601DateFormatter.mm */; };
 		AB154F820627413600BD57AF /* SRView.mm in Sources */ = {isa = PBXBuildFile; fileRef = AB154F7E0627413600BD57AF /* SRView.mm */; };
-		AB154F840627413600BD57AF /* SRController.mm in Sources */ = {isa = PBXBuildFile; fileRef = AB154F800627413600BD57AF /* SRController.mm */; };
 		AB1B31A10EB06AFA0061FA40 /* Jet.plist in Resources */ = {isa = PBXBuildFile; fileRef = AB1B31A00EB06AFA0061FA40 /* Jet.plist */; };
 		AB1CB35D0618A37E00CD966B /* MyPoint.mm in Sources */ = {isa = PBXBuildFile; fileRef = AB1CB35B0618A37E00CD966B /* MyPoint.mm */; };
 		AB28B8D605B79D1500A9906C /* XMLController.mm in Sources */ = {isa = PBXBuildFile; fileRef = AB4A6DF4056EC14E009E6C6E /* XMLController.mm */; };
@@ -2139,6 +2138,8 @@
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		4307C62B1A2091900083877C /* url.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = url.h; sourceTree = "<group>"; };
+		430CB70C218C66CD000C2547 /* SRController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRController.h; sourceTree = "<group>"; };
+		430CB70D218C66CD000C2547 /* SRController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SRController.mm; sourceTree = "<group>"; };
 		4310F1F320692C22000BDDCC /* arith.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = arith.h; sourceTree = "<group>"; };
 		4310F1F420692C22000BDDCC /* osconfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = osconfig.h; sourceTree = "<group>"; };
 		4310F1F620692C22000BDDCC /* cmdlnarg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cmdlnarg.h; sourceTree = "<group>"; };
@@ -4119,8 +4120,6 @@
 		AB142DFD05600D76008461A0 /* AppController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = AppController.mm; sourceTree = "<group>"; };
 		AB154F7E0627413600BD57AF /* SRView.mm */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.objcpp; path = SRView.mm; sourceTree = "<group>"; };
 		AB154F7F0627413600BD57AF /* SRView.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = SRView.h; sourceTree = "<group>"; };
-		AB154F800627413600BD57AF /* SRController.mm */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.objcpp; path = SRController.mm; sourceTree = "<group>"; };
-		AB154F810627413600BD57AF /* SRController.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = SRController.h; sourceTree = "<group>"; };
 		AB1B31A00EB06AFA0061FA40 /* Jet.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Jet.plist; sourceTree = "<group>"; };
 		AB1CB35A0618A37E00CD966B /* MyPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyPoint.h; sourceTree = "<group>"; };
 		AB1CB35B0618A37E00CD966B /* MyPoint.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MyPoint.mm; sourceTree = "<group>"; };
@@ -6751,10 +6750,10 @@
 				183C864508563F3A000E6A68 /* Spline3D.mm */,
 				A958370C0AAEBC2A0001D415 /* SRAnnotation.h */,
 				A958370D0AAEBC2A0001D415 /* SRAnnotation.mm */,
+				430CB70C218C66CD000C2547 /* SRController.h */,
+				430CB70D218C66CD000C2547 /* SRController.mm */,
 				84ADF460115B622D00FE18B2 /* SRController+StereoVision.h */,
 				84ADF461115B622D00FE18B2 /* SRController+StereoVision.mm */,
-				AB154F800627413600BD57AF /* SRController.mm */,
-				AB154F810627413600BD57AF /* SRController.h */,
 				84ADF462115B622D00FE18B2 /* SRFlyThruAdapter+StereoVision.h */,
 				84ADF463115B622D00FE18B2 /* SRFlyThruAdapter+StereoVision.mm */,
 				183C864608563F3A000E6A68 /* SRFlyThruAdapter.h */,
@@ -10100,7 +10099,6 @@
 				A987971A16DBAD3D00926023 /* PluginFileFormatDecoder.mm in Sources */,
 				A987971B16DBAD3D00926023 /* PluginFilter.mm in Sources */,
 				A987971C16DBAD3D00926023 /* SRView.mm in Sources */,
-				A987971D16DBAD3D00926023 /* SRController.mm in Sources */,
 				A987971E16DBAD3D00926023 /* SRController+StereoVision.mm in Sources */,
 				A987971F16DBAD3D00926023 /* SRFlyThruAdapter+StereoVision.mm in Sources */,
 				A987972016DBAD3D00926023 /* SRView+StereoVision.mm in Sources */,
@@ -10304,7 +10302,6 @@
 				AB6AC6490624AC5200AFC7AF /* VRController.mm in Sources */,
 				ABCA5BA50625FC1100637E73 /* OpacityTransferView.mm in Sources */,
 				AB154F820627413600BD57AF /* SRView.mm in Sources */,
-				AB154F840627413600BD57AF /* SRController.mm in Sources */,
 				AB94E72506343D91003E4C48 /* MutableArrayCategory.mm in Sources */,
 				4310F83120692C27000BDDCC /* jdtrans.c in Sources */,
 				AB0128650635991400A74AA1 /* QuicktimeExport.mm in Sources */,
@@ -10441,6 +10438,7 @@
 				4310F80820692C27000BDDCC /* jclossy.c in Sources */,
 				BF8B2A4C09F470F400F1F759 /* dcmqrsrv.mm in Sources */,
 				BFF5D24109F93B3F0077E16B /* LogManager.mm in Sources */,
+				430CB70E218C66CD000C2547 /* SRController.mm in Sources */,
 				4310F7EF20692C27000BDDCC /* jmemnobs.c in Sources */,
 				4310F7D120692C26000BDDCC /* jdhuff.c in Sources */,
 				4310F88520692C27000BDDCC /* jfdctfst.c in Sources */,

@@ -119,10 +119,11 @@ public:
 		blendingVolume = bV;
 	}
 	
-  static vtkMyCallbackVR *New( ) 
+    static vtkMyCallbackVR *New( )
     {
 		return new vtkMyCallbackVR;
 	}
+    
  // void Delete()
 //    { delete this; }
 	
@@ -744,17 +745,20 @@ public:
 	switch (modeID)
 	{
 		case 0:
-			if (blendingVolumeMapper) blendingVolumeMapper->SetBlendModeToComposite();
+			if (blendingVolumeMapper)
+                blendingVolumeMapper->SetBlendModeToComposite();
 			break;
 			
 		case 1:
-			if (blendingVolumeMapper) blendingVolumeMapper->SetBlendModeToMaximumIntensity();
+			if (blendingVolumeMapper)
+                blendingVolumeMapper->SetBlendModeToMaximumIntensity();
 			break;
 		
 		case 2:
 		case 3:
-			if (blendingVolumeMapper) blendingVolumeMapper->SetBlendModeToMinimumIntensity();
-		break;
+			if (blendingVolumeMapper)
+                blendingVolumeMapper->SetBlendModeToMinimumIntensity();
+            break;
 	}
 }
 
@@ -811,9 +815,7 @@ public:
 	}
 	
 	[self setBlendingFactor: blendingFactor];
-	
 	[self setWLWW: wl : ww];
-	
 	[self setNeedsDisplay:YES];
 }
 
@@ -895,21 +897,19 @@ public:
 		{
 			case 0:		// FIXED RAY CAST
 				[self allocateCPUMapper];
-                
                 LOD = 2.0;
-                
                 if ([[NSProcessInfo processInfo] processorCount] >= 4)
                     lowResLODFactor = 1.5;
                 else
                     lowResLODFactor = 2.5;
-            break;
+                
+                break;
                 
             case 1:     // GPURenderMode
 				[self allocateGPUMapper];
-                
                 LOD = 1.0;
                 lowResLODFactor = 1.2;
-            break;
+                break;
                 
             default:
                 NSLog( @"Unknown Engine");
@@ -983,6 +983,7 @@ public:
 	
 	if (showWait)
         www = [[WaitRendering alloc] init: NSLocalizedString( @"Preparing 3D data...", nil)];
+    
 	[www start];
 	
 	[self instantiateEngine: engine];
@@ -1018,6 +1019,7 @@ public:
 	
 	if (showWait)
         www = [[WaitRendering alloc] init: NSLocalizedString( @"Preparing 3D data...", nil)];
+    
 	[www start];
 	
 //    double a[ 6];
@@ -1030,12 +1032,11 @@ public:
 			{
 				blendingVolumeMapper = OsiriXFixedPointVolumeRayCastMapper::New();
 				blendingVolumeMapper->SetInputConnection(blendingReader->GetOutputPort());
-
 			}
+            
 			blendingVolumeMapper->Update();
-
 			blendingVolume->SetMapper( blendingVolumeMapper);
-		break;
+            break;
 		
         case ENGINE_GPU_OPEN_GL:
             
@@ -1044,24 +1045,20 @@ public:
                 blendingTextureMapper = vtkGPUVolumeRayCastMapper::New();
                 blendingTextureMapper->SetInputConnection(blendingReader->GetOutputPort());
                 
-                unsigned
-                long memoryMB = [VTKView VRAMSizeForDisplayID: [[[[[self window] screen] deviceDescription] objectForKey: @"NSScreenNumber"] intValue]];
+                unsigned long memoryMB = [VTKView VRAMSizeForDisplayID:
+                                          [[[[[self window] screen] deviceDescription] objectForKey: @"NSScreenNumber"] intValue]];
                 
                 blendingTextureMapper->SetMaxMemoryInBytes( memoryMB*1024*1024);
-                
                 NSLog( @"Graphic Board memory: %ld MiB", memoryMB);
-                
                 blendingTextureMapper->SetMaxMemoryFraction( 0.9);
             }
             
             blendingTextureMapper->Update();
-
             blendingVolume->SetMapper( blendingTextureMapper);
 			break;
 	}
 	
     [self setLOD: LOD];
-    
 	[self setBlendingMode: renderingMode];
 	
     if (firstTime == NO)
@@ -1093,7 +1090,6 @@ public:
         [controller setMovieFrame: [cur intValue]];
 	
 	bestRenderingMode = YES;
-	
 	return [self nsimageQuicktime];
 }
 
@@ -1109,17 +1105,15 @@ public:
 	
 	if ([max intValue] > 36)
 	{
-		
 		if ([cur intValue] != 0)
 		{
-			if (verticalAngleForVR!=0 &&verticalAngleForVR!=-90 )
-			{
+			if (verticalAngleForVR!=0 && verticalAngleForVR!=-90 )
 				[self Vertical: -verticalAngleForVR]; // rotate to standard direction ( top of object facing right up)
-			}
+            
 			if ([cur intValue] % numberOfFrames == 0 )//if need increase the vertical rotation angle
 			{
 				// Evaluating beyond 90 or -90 causes problems! Don't know why, seems it is vtk's limit.
-				if (verticalAngleForVR==-90)
+				if (verticalAngleForVR == -90)
 				{
 					aCamera->Roll(-rotateDirectionForVR * 360 / numberOfFrames);
 					// Evaluation(90)
@@ -1128,8 +1122,6 @@ public:
 					verticalAngleForVR -= 360 / numberOfFrames;
 					verticalAngleForVR+=180;
 					aCamera->Azimuth(-rotateDirectionForVR * 360 / numberOfFrames);
-					
-					
 				}
 				else
 				{
@@ -1152,9 +1144,8 @@ public:
 												
 					}
 				}
-				
-	
 			}
+            
 			if (verticalAngleForVR!=-90)
 			{
 				aCamera->Azimuth( rotateDirectionForVR * 360 / numberOfFrames);// rotate camera horizontally when the top facing right up
@@ -1225,6 +1216,7 @@ public:
        [(NSControl*) aView setEnabled: OnOff];
 	   return;
     }
+    
     // Recursively check all the subviews in the view
     enumerator = [ [aView subviews] objectEnumerator];
     while (view = [enumerator nextObject]) {
@@ -1358,12 +1350,10 @@ public:
 			if (clipRangeActivated)
 			{
 				float cos[ 9];
-				
 				[self getCosMatrix: cos];
 				[exportDCM setOrientation: cos];
 				
 				float position[ 3];
-				
 				[self getOrigin: position];
 				[exportDCM setPosition: position];
 				[exportDCM setSliceThickness: [self getClippingRangeThicknessInMm]];
@@ -3196,9 +3186,7 @@ public:
 	}
 	
 	if (aCamera->GetParallelProjection())
-	{
 		[s appendFormat: NSLocalizedString( @"   Scale: %2.3f %% ", nil), [self scaleFactor]];
-	}
 	
 	[pixelInformation setStringValue: s];
 	
@@ -3485,8 +3473,8 @@ public:
 					switch ([[NSUserDefaults standardUserDefaults] integerForKey: @"PETWindowingMode"])
 					{
 						case 0:
-							blendingWl =  (_startWL - (long) ([theEvent deltaY])*WWAdapter);
-							blendingWw =  (_startWW + (long) ([theEvent deltaX])*WWAdapter);
+							blendingWl = (_startWL - (long) ([theEvent deltaY])*WWAdapter);
+							blendingWw = (_startWW + (long) ([theEvent deltaX])*WWAdapter);
 							
 							if (blendingWw < 0.1)
                                 blendingWw = 0.1;
@@ -3990,10 +3978,10 @@ public:
     
 	snVRView = self;
 	dontRenderVolumeRenderingOsiriX = 0;
-
+	
 	_hasChanged = YES;
 	[drawLock lock];
-	
+
     NSPoint mouseLoc, mouseLocPre;
 	ToolMode tool;
 	
@@ -6795,15 +6783,15 @@ public:
 				blendingReader->Update();
 				if (blendingVolumeMapper)
                     blendingVolumeMapper->Delete();
-
-                blendingVolumeMapper = nil;
+                
+				blendingVolumeMapper = nil;
 				if (blendingTextureMapper)
                 {
                     blendingTextureMapper->ReleaseGraphicsResources( aRenderer->GetRenderWindow());
                     blendingTextureMapper->Delete();
                 }
-				blendingTextureMapper = nil;
-				
+                
+				blendingTextureMapper = nil;				
 				[self setBlendingEngine: self.engine showWait: NO];
 			}
 		}
@@ -7089,7 +7077,6 @@ public:
 		}
 		
 		[self setCLUT:nil :nil :nil];
-		
 		[self setShadingValues:0.15 :0.9 :0.3 :15];
 		
 		if ([[NSApp currentEvent] modifierFlags] & NSEventModifierFlagOption)
@@ -7465,7 +7452,7 @@ public:
 		vtkPiecewiseFunction *tempOpacity = vtkPiecewiseFunction::New();
 		
 		float start = valueFactor*(OFFSET16 + [controller minimumValue]);
-		float end   = valueFactor*(OFFSET16 + [controller maximumValue]);
+		float end = valueFactor*(OFFSET16 + [controller maximumValue]);
 		
 		tempOpacity->AddPoint(start, 0);
 		tempOpacity->AddPoint(end, 1);
@@ -8433,7 +8420,6 @@ public:
                                                          green:[color greenComponent]
                                                           blue:[color blueComponent]
                                                          alpha:1.0]];
-		
 		[self setNeedsDisplay:YES];
 	}
 }

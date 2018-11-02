@@ -38,7 +38,8 @@
 extern NSString *pasteBoardOsiriX;
 extern NSString *pasteBoardOsiriXPlugin;
 extern NSString *OsirixPluginPboardUTI;
-extern int CLUTBARS, ANNOTATIONS, SOFTWAREINTERPOLATION_MAX, DISPLAYCROSSREFERENCELINES;
+extern int CLUTBARS, ANNOTATIONS, SOFTWAREINTERPOLATION_MAX;
+//extern BOOL DISPLAYCROSSREFERENCELINES;
 
 enum { annotNone = 0, annotGraphics, annotBase, annotFull };
 enum { barHide = 0, barOrigin, barFused, barBoth };
@@ -183,15 +184,20 @@ typedef NS_ENUM(NSUInteger, MyScrollMode) {
     long			textureHeight, blendingTextureHeight;
     
 	BOOL			f_ext_texture_rectangle; // is texture rectangle extension supported
+	// GL_ARB_texture_rectangle provides support for non-power of-two textures
 	BOOL			f_arb_texture_rectangle; // is texture rectangle extension supported
+	//* GL_APPLE_client_storage allows you to prevent OpenGL from copying your texture data into the client. Instead, OpenGL keeps the memory pointer you provided when creating the texture. Your application must keep the texture data at that location until the referencing OpenGL texture is deleted.
 	BOOL			f_ext_client_storage; // is client storage extension supported
 	BOOL			f_ext_packed_pixel; // is packed pixel extension supported
 	BOOL			f_ext_texture_edge_clamp; // is SGI texture edge clamp extension supported
 	BOOL			f_gl_texture_edge_clamp; // is OpenGL texture edge clamp support (1.2+)
-	unsigned long	edgeClampParam; // the param that is passed to the texturing parmeteres
+    
+	GLint           edgeClampParam; // the param that is passed to the texturing parameteres
+    GLint           interpolationType;
+
 	long			maxTextureSize; // the minimum max texture size across all GPUs
 	long			maxNOPTDTextureSize; // the minimum max texture size across all GPUs that support non-power of two texture dimensions
-	long			TEXTRECTMODE;
+	GLenum			TEXTRECTMODE;
 	
 	BOOL			isKeyView; //needed for Image View subclass
 	NSCursor		*cursor;
@@ -224,9 +230,11 @@ typedef NS_ENUM(NSUInteger, MyScrollMode) {
 #endif
     float           previousScalingFactor;
 	
+#ifdef WITH_ICHAT
 	//Context for rendering to iChat
-//	NSOpenGLContext *_alternateContext;
-	
+	NSOpenGLContext *_alternateContext;
+#endif
+    
 	BOOL			drawing;
 	
 	int				repulsorRadius;
@@ -243,7 +251,8 @@ typedef NS_ENUM(NSUInteger, MyScrollMode) {
 	BOOL			syncOnLocationImpossible, updateNotificationRunning;
 	
 	char			*resampledBaseAddr, *blendingResampledBaseAddr;
-	BOOL			zoomIsSoftwareInterpolated, firstTimeDisplay;
+    BOOL			zoomIsSoftwareInterpolated;
+    BOOL            firstTimeDisplay;
     float           resampledScale;
 	
 	int				resampledBaseAddrSize, blendingResampledBaseAddrSize;
@@ -295,6 +304,9 @@ typedef NS_ENUM(NSUInteger, MyScrollMode) {
     NSTimeInterval firstDisplay;
     
     NSString *mousePosUSRegion;
+#ifndef NDEBUG
+    int seqId;
+#endif
 }
 
 @property NSRect drawingFrameRect;

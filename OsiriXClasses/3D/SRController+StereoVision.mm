@@ -98,6 +98,7 @@ static NSString*	BackgroundColorViewToolbarItemIdentifier		= @"BackgroundColorVi
 
 -(IBAction) ApplySettings:(id) sender
 {
+    NSLog(@"%s (IBAction)", __FUNCTION__);
     [SRSettingsWindow orderOut:sender];
     
     [NSApp endSheet:SRSettingsWindow returnCode:[sender tag]];

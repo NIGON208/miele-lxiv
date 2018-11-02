@@ -1559,14 +1559,16 @@ typedef struct _xyzArray
 			else
 			{
 				[point3DRadiusSlider setFloatValue: [[point3DRadiusArray objectAtIndex:[self selected3DPointIndex]] floatValue]];
+#ifndef DEBUG_COPY_WITH_ZONE
 				[point3DColorWell setColor: [point3DColorsArray objectAtIndex:[self selected3DPointIndex]]];
                 [point3DPositionTextField setStringValue:[point3DPositionsStringsArray objectAtIndex:[self selected3DPointIndex]]];
-				
+#endif
 				//point3DDisplayPositionArray
 				[point3DDisplayPositionButton setState:[[point3DDisplayPositionArray objectAtIndex:[self selected3DPointIndex]] intValue]];
 				[point3DTextSizeSlider setFloatValue: [[point3DTextSizesArray objectAtIndex:[self selected3DPointIndex]] floatValue]];
+#ifndef DEBUG_COPY_WITH_ZONE
 				[point3DTextColorWell setColor: [point3DTextColorsArray objectAtIndex:[self selected3DPointIndex]]];
-                
+#endif
 				if ([theEvent clickCount]==2)
 				{
 					NSPoint mouseLocationOnScreen = [[controller window] convertBaseToScreen:[theEvent locationInWindow]];
@@ -2258,11 +2260,9 @@ typedef struct _xyzArray
 	//NSLog(@"BLENDING ChangeActor OUT");
 }
 
-// return 0 on success, -1 on failure
-- (short) setPixSource:(NSMutableArray*)pix :(float*) volumeData
+// Return error flag: FALSE on success, TRUE on failure
+- (BOOL) setPixSource:(NSMutableArray*)pix :(float*) volumeData
 {
-	short error = 0;
-	
 	try
 	{
 		[pix retain];
@@ -2325,7 +2325,7 @@ typedef struct _xyzArray
             else
             {
                 NSLog( @"***** not enough memory error dataFRGB = nil");
-                return -1;
+                return TRUE;  // error
             }
 		}
 		
@@ -2533,10 +2533,10 @@ typedef struct _xyzArray
 	catch (...)
 	{
 		NSLog(@"setPixSource C++ exception SRView.mm");
-		return -1;
+		return TRUE;  // error
 	}
 
-    return error;
+    return FALSE;  // ok
 }
 
 -(void) switchOrientationWidget:(id) sender
@@ -2844,9 +2844,11 @@ typedef struct _xyzArray
 }
 
 - (IBAction)changeColor:(id)sender
-{	
+{
+    NSLog(@"%s (IBAction)", __FUNCTION__);
     if ([backgroundColor isActive])
 	{
+        NSLog(@"%s (IBAction)", __FUNCTION__);
 		NSColor *color= [[(NSColorPanel*)sender color] colorUsingColorSpaceName: NSCalibratedRGBColorSpace];
 		aRenderer->SetBackground([color redComponent],
                                  [color greenComponent],
@@ -3163,34 +3165,33 @@ typedef struct _xyzArray
 
 - (IBAction) IBSetSelected3DPointRadius: (id) sender
 {
-	if ([point3DPropagateToAll state])
-	{
+	if ([point3DPropagateToAll state]) {
 		[self setAll3DPointsRadius: [sender floatValue]];
 		[self setAll3DPointsColor: [[point3DColorWell color] colorUsingColorSpaceName: NSCalibratedRGBColorSpace]];
 	}
-	else
-	{
+	else {
 		[self setSelected3DPointRadius: [sender floatValue]];
 	}
-	[self setNeedsDisplay:YES];
+
+    [self setNeedsDisplay:YES];
 }
 
 - (IBAction) IBPropagate3DPointsSettings: (id) sender
 {
-	if ([sender state]==NSOnState)
-	{
+	if ([sender state] == NSOnState) {
 		[self setAll3DPointsRadius: [point3DRadiusSlider floatValue]];
 		[self setAll3DPointsColor: [[point3DColorWell color] colorUsingColorSpaceName: NSCalibratedRGBColorSpace]];
-		[self IBSetSelected3DPointAnnotation: point3DDisplayPositionButton];
+        [self IBSetSelected3DPointAnnotation: point3DDisplayPositionButton];
 		[self IBSetSelected3DPointAnnotationColor: point3DTextColorWell];
-		[self IBSetSelected3DPointAnnotationSize: point3DTextSizeSlider];
+        [self IBSetSelected3DPointAnnotationSize: point3DTextSizeSlider];
 		[self setNeedsDisplay:YES];
 	}
 }
 
 - (void) setSelected3DPointColor: (NSColor*) color
 {
-	if ([self isAny3DPointSelected])[self set3DPointAtIndex:[self selected3DPointIndex] Color: color];
+	if ([self isAny3DPointSelected])
+        [self set3DPointAtIndex:[self selected3DPointIndex] Color: color];
 }
 
 - (void) setAll3DPointsColor: (NSColor*) color
@@ -3247,8 +3248,8 @@ typedef struct _xyzArray
 - (IBAction) save3DPointsDefaultProperties: (id) sender
 {
     NSColor *color = [[point3DColorWell color] colorUsingColorSpaceName: NSCalibratedRGBColorSpace];
-    
-	//color
+
+    //color
 	point3DDefaultColorRed = [color redComponent];
 	point3DDefaultColorGreen = [color greenComponent];
 	point3DDefaultColorBlue = [color blueComponent];

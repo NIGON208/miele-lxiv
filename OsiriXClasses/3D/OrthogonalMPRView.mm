@@ -66,7 +66,7 @@
 	
 	BOOL SelectWindowScrollWheel = [[NSUserDefaults standardUserDefaults] boolForKey: @"SelectWindowScrollWheel"];
 	
-	if( [theEvent modifierFlags] & NSAlphaShiftKeyMask) // Caps Lock
+	if( [theEvent modifierFlags] & NSEventModifierFlagCapsLock)
 		SelectWindowScrollWheel = !SelectWindowScrollWheel;
 	
 	if( SelectWindowScrollWheel)

@@ -39,18 +39,16 @@
     {
         [self initializeVTKSupport];
     }
-     return self;
-}
 
+    return self;
+}
 
 -(void)dealloc
 {
 	NSLog( @"VTKView dealloc");
-  
     [self cleanUpVTKSupport];
     [super dealloc];
 }
-
 
 // We are going to over ride the super class here to do some last minute
 // setups. We need to do this because if we initialize in the constructor or
@@ -73,7 +71,8 @@
     {
         theRenWinInt->Initialize();
     }
-    
+
+    NSLog(@"Checkpoint VTKView.mm:%d %s", __LINE__, __PRETTY_FUNCTION__);
     // Let the vtkCocoaGLView do its regular drawing
     [super drawRect:theRect];
 }
@@ -84,12 +83,9 @@
     vtkRenderer* ren = vtkRenderer::New();
     vtkRenderWindow* renWin = vtkRenderWindow::New();
     vtkRenderWindowInteractor* renWinInt = vtkRenderWindowInteractor::New();
-    
-    
-    vtkInteractorStyleTrackballCamera *interactorStyle =
-                                           vtkInteractorStyleTrackballCamera::New();
-    	renWinInt->SetInteractorStyle( interactorStyle );
-    		interactorStyle->Delete();
+    vtkInteractorStyleTrackballCamera *interactorStyle = vtkInteractorStyleTrackballCamera::New();
+    renWinInt->SetInteractorStyle( interactorStyle );
+    interactorStyle->Delete();
     
     // The cast should never fail, but we do it anyway, as
     // it's more correct to do so.
@@ -126,17 +122,14 @@
     vtkRenderWindowInteractor* renWinInt = [self getInteractor];
     
     if (ren)
-    {
         ren->Delete();
-    }
+    
     if (renWin)
-    {
         renWin->Delete();
-    }
+    
     if (renWinInt)
-    {
         renWinInt->Delete();
-    }
+    
     [self setRenderer:NULL];
     [self setVTKRenderWindow:NULL];
     
@@ -165,7 +158,7 @@
 
 - (void) keyDown:(NSEvent *)event
 {
-    if( [[event characters] length] == 0)
+    if ([[event characters] length] == 0)
         return;
 
     unichar c = [[event characters] characterAtIndex:0];
@@ -173,8 +166,6 @@
 	if (c != 'q' && c!= 'e')						// Don't forward to super if Q or E key pressed: DDP (051112,051128)
 		[super keyDown: event];
 }
-
-
 
 -(vtkRenderer *)renderer {
     return _renderer;
@@ -194,10 +185,10 @@
     return [self getVTKRenderWindow];
 }
 
-
--(void)removeAllActors {
+-(void)removeAllActors
+{
     vtkRenderer *renderer = [self renderer];
-    if ( ! renderer )
+    if (!renderer)
         return;
 
     vtkActorCollection *coll = renderer->GetActors();

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14313.18"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="SRController">
             <connections>
-                <outlet property="BackgroundColorView" destination="901" id="904"/>
+                <outlet property="BackgroundColorView" destination="DuF-LZ-AEy" id="HHI-Mb-gmm"/>
                 <outlet property="BlendingView" destination="386" id="390"/>
                 <outlet property="LODSlider" destination="352" id="354"/>
                 <outlet property="LODView" destination="350" id="353"/>
@@ -56,7 +56,6 @@
                         <rect key="frame" x="7" y="9" width="483" height="364"/>
                         <connections>
                             <outlet property="VRFrames" destination="620" id="632"/>
-                            <outlet property="backgroundColor" destination="903" id="906"/>
                             <outlet property="controller" destination="-2" id="664"/>
                             <outlet property="dcmBox" destination="768" id="792"/>
                             <outlet property="dcmExportMode" destination="784" id="791"/>
@@ -88,6 +87,10 @@
                     <constraint firstAttribute="trailing" secondItem="146" secondAttribute="trailing" constant="10" id="V9l-XC-Iim"/>
                 </constraints>
             </view>
+            <connections>
+                <outlet property="delegate" destination="-2" id="Nbh-IM-U7n"/>
+            </connections>
+            <point key="canvasLocation" x="140" y="29"/>
         </window>
         <customView id="239" userLabel="Tools">
             <rect key="frame" x="0.0" y="0.0" width="189" height="37"/>
@@ -284,7 +287,6 @@
                                     </constraints>
                                     <color key="color" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     <connections>
-                                        <binding destination="-2" name="value" keyPath="firstColor" id="872"/>
                                         <binding destination="-2" name="enabled" keyPath="useFirstSurface" id="869"/>
                                     </connections>
                                 </colorWell>
@@ -413,7 +415,6 @@
                                     </constraints>
                                     <color key="color" red="1" green="0.59274190999999998" blue="0.60887097999999995" alpha="1" colorSpace="calibratedRGB"/>
                                     <connections>
-                                        <binding destination="-2" name="value" keyPath="secondColor" id="873"/>
                                         <binding destination="-2" name="enabled" keyPath="useSecondSurface" id="870"/>
                                     </connections>
                                 </colorWell>
@@ -548,7 +549,7 @@ DQ
 </string>
                         </buttonCell>
                         <connections>
-                            <action selector="ApplySettings:" target="-2" id="507"/>
+                            <action selector="ApplySettings:" target="-2" id="aAX-4E-6Ru"/>
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="475">
@@ -564,7 +565,7 @@ Gw
 </string>
                         </buttonCell>
                         <connections>
-                            <action selector="ApplySettings:" target="-2" id="506"/>
+                            <action selector="ApplySettings:" target="-2" id="eIP-HU-FLS"/>
                         </connections>
                     </button>
                     <box title="Quality" translatesAutoresizingMaskIntoConstraints="NO" id="703">
@@ -748,6 +749,7 @@ Gw
                     <constraint firstItem="457" firstAttribute="top" secondItem="703" secondAttribute="bottom" constant="11" id="yqw-EV-8Zq"/>
                 </constraints>
             </view>
+            <point key="canvasLocation" x="156" y="826"/>
         </window>
         <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="585" userLabel="exportQuicktime">
             <windowStyleMask key="styleMask" titled="YES"/>
@@ -907,6 +909,7 @@ Gw
                     <constraint firstAttribute="trailing" secondItem="583" secondAttribute="trailing" constant="20" symbolic="YES" id="u3A-fs-i6d"/>
                 </constraints>
             </view>
+            <point key="canvasLocation" x="140" y="479"/>
         </window>
         <customView id="604" userLabel="Export3D">
             <rect key="frame" x="0.0" y="0.0" width="58" height="37"/>
@@ -1671,36 +1674,6 @@ Gw
             </constraints>
         </customView>
         <userDefaultsController representsSharedInstance="YES" id="818" userLabel="Shared Defaults"/>
-        <customView id="901" userLabel="BackgroundColor">
-            <rect key="frame" x="0.0" y="0.0" width="35" height="35"/>
-            <autoresizingMask key="autoresizingMask"/>
-            <subviews>
-                <customView translatesAutoresizingMaskIntoConstraints="NO" id="902">
-                    <rect key="frame" x="-1" y="0.0" width="39" height="35"/>
-                    <subviews>
-                        <colorWell translatesAutoresizingMaskIntoConstraints="NO" id="903">
-                            <rect key="frame" x="2" y="2" width="33" height="31"/>
-                            <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                            <connections>
-                                <action selector="changeColor:" target="146" id="905"/>
-                            </connections>
-                        </colorWell>
-                    </subviews>
-                    <constraints>
-                        <constraint firstItem="903" firstAttribute="centerY" secondItem="902" secondAttribute="centerY" id="cT8-VQ-xb3"/>
-                        <constraint firstItem="903" firstAttribute="leading" secondItem="902" secondAttribute="leading" constant="2" id="hS0-S1-2Mp"/>
-                        <constraint firstItem="903" firstAttribute="top" secondItem="902" secondAttribute="top" constant="2" id="nq9-h2-hpM"/>
-                        <constraint firstAttribute="trailing" secondItem="903" secondAttribute="trailing" constant="4" id="p5U-TL-s2c"/>
-                    </constraints>
-                </customView>
-            </subviews>
-            <constraints>
-                <constraint firstItem="902" firstAttribute="leading" secondItem="901" secondAttribute="leading" constant="-1" id="42f-17-TiC"/>
-                <constraint firstItem="902" firstAttribute="top" secondItem="901" secondAttribute="top" id="6Rj-ez-a4L"/>
-                <constraint firstAttribute="bottom" secondItem="902" secondAttribute="bottom" id="pUV-X4-1hk"/>
-                <constraint firstAttribute="trailing" secondItem="902" secondAttribute="trailing" constant="-3" id="v3u-qb-ang"/>
-            </constraints>
-        </customView>
         <customView id="1013" userLabel="Export3D">
             <rect key="frame" x="0.0" y="0.0" width="58" height="37"/>
             <autoresizingMask key="autoresizingMask"/>
@@ -1967,6 +1940,36 @@ Gw
                 </constraints>
             </view>
         </window>
+        <customView id="DuF-LZ-AEy" userLabel="BackgroundColor">
+            <rect key="frame" x="0.0" y="0.0" width="35" height="35"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <subviews>
+                <customView translatesAutoresizingMaskIntoConstraints="NO" id="UZg-pf-xqv">
+                    <rect key="frame" x="-1" y="0.0" width="39" height="35"/>
+                    <subviews>
+                        <colorWell translatesAutoresizingMaskIntoConstraints="NO" id="2eh-vM-JuI">
+                            <rect key="frame" x="2" y="2" width="33" height="31"/>
+                            <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="changeColor:" target="146" id="EcB-MV-yfz"/>
+                            </connections>
+                        </colorWell>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="2eh-vM-JuI" firstAttribute="top" secondItem="UZg-pf-xqv" secondAttribute="top" constant="2" id="8W7-U3-MFy"/>
+                        <constraint firstItem="2eh-vM-JuI" firstAttribute="leading" secondItem="UZg-pf-xqv" secondAttribute="leading" constant="2" id="XVB-6w-JUh"/>
+                        <constraint firstItem="2eh-vM-JuI" firstAttribute="centerY" secondItem="UZg-pf-xqv" secondAttribute="centerY" id="exw-h8-ea7"/>
+                        <constraint firstAttribute="trailing" secondItem="2eh-vM-JuI" secondAttribute="trailing" constant="4" id="leL-Qi-q16"/>
+                    </constraints>
+                </customView>
+            </subviews>
+            <constraints>
+                <constraint firstItem="UZg-pf-xqv" firstAttribute="top" secondItem="DuF-LZ-AEy" secondAttribute="top" id="5E2-Fs-Xlj"/>
+                <constraint firstAttribute="bottom" secondItem="UZg-pf-xqv" secondAttribute="bottom" id="QGt-AM-5NL"/>
+                <constraint firstAttribute="trailing" secondItem="UZg-pf-xqv" secondAttribute="trailing" constant="-3" id="aa2-gf-Pge"/>
+                <constraint firstItem="UZg-pf-xqv" firstAttribute="leading" secondItem="DuF-LZ-AEy" secondAttribute="leading" constant="-1" id="zmz-Sh-J0T"/>
+            </constraints>
+        </customView>
     </objects>
     <resources>
         <image name="3D" width="31" height="34"/>

@@ -115,7 +115,7 @@ extern short Altivec;
 
 void PapyrusLockFunction( int lock)
 {
-	if( lock)
+	if (lock)
 		[PapyrusLock lock];
 	else
 		[PapyrusLock unlock];
@@ -178,7 +178,7 @@ unsigned char* CreateIconFrom16 (float* image,  unsigned char*icon,  int height,
 	max = wl + ww / 2;
 	diff = max - min;
 	
-	if( diff <= 0)
+	if (diff <= 0)
 	{
 		diff = 1;
 		max = min + 1;
@@ -193,11 +193,11 @@ unsigned char* CreateIconFrom16 (float* image,  unsigned char*icon,  int height,
 	
 	// allocate the memory for the icon 
 	
-	if( diff)
+	if (diff)
 	{
         unsigned char *iconPtr = nil;
         
-		if( isRGB)
+		if (isRGB)
 		{
 			int x;
 			unsigned char *rgbImage = (unsigned char*) image;
@@ -213,8 +213,8 @@ unsigned char* CreateIconFrom16 (float* image,  unsigned char*icon,  int height,
 					{
 						value = *( rgbImage + line + x + (long) (j * ratio)*4); //ARGB
 						
-						if( value > max) value = max;
-						else if( value < min) value = min;
+						if (value > max) value = max;
+						else if (value < min) value = min;
 						
 						*iconPtr = (((value-min) * 255L) / diff);
 					}
@@ -232,8 +232,8 @@ unsigned char* CreateIconFrom16 (float* image,  unsigned char*icon,  int height,
 				{ 
 					value = *( image + line + (long) (j * ratio));
 					
-					if( value > max) value = max;
-					else if( value < min) value = min;
+					if (value > max) value = max;
+					else if (value < min) value = min;
 					
 					*iconPtr = (((value-min) * 255L) / diff);
 				}
@@ -310,7 +310,7 @@ static inline void CLIP_Top(NSPointInt *Polygon,long *count, NSPointInt V1,NSPoi
 	// *********LEAVING**********
 	if ( (V1.y>=UpLeft.y) && (V2.y<UpLeft.y))
 	{
-		if(dx)
+		if (dx)
 			Polygon[(*count)].x=V1.x+(UpLeft.y-V1.y)/m;
 		else
 			Polygon[(*count)].x=V1.x;
@@ -319,7 +319,7 @@ static inline void CLIP_Top(NSPointInt *Polygon,long *count, NSPointInt V1,NSPoi
 	// ********ENTERING*********
 	if ( (V1.y<UpLeft.y) && (V2.y>=UpLeft.y))
 	{
-		if(dx)
+		if (dx)
 			Polygon[(*count)].x=V1.x+(UpLeft.y-V1.y)/m;
 		else
 			Polygon[(*count)].x=V1.x;
@@ -337,7 +337,7 @@ static inline void CLIP_Bottom(NSPointInt *Polygon,long *count, NSPointInt V1,NS
 	// *********LEAVING**********
 	if ( (V1.y<=DownRight.y) && (V2.y>DownRight.y))
 	{
-		if(dx)
+		if (dx)
 			Polygon[(*count)].x=V1.x+(DownRight.y-V1.y)/m;
 		else
 			Polygon[(*count)].x=V1.x;
@@ -346,7 +346,7 @@ static inline void CLIP_Bottom(NSPointInt *Polygon,long *count, NSPointInt V1,NS
 	// ********ENTERING*********
 	if ( (V1.y>DownRight.y) && (V2.y<=DownRight.y))
 	{
-		if(dx)
+		if (dx)
 			Polygon[(*count)].x=V1.x+(DownRight.y-V1.y)/m;
 		else
 			Polygon[(*count)].x=V1.x;
@@ -364,7 +364,7 @@ void CLIP_Polygon(NSPointInt *inPoly, long inCount, NSPointInt *outPoly, long *o
     {
         int	d;
         
-        if( TmpPoly == nil)
+        if (TmpPoly == nil)
             TmpPoly = (NSPointInt *)malloc( MAXVERTICAL * sizeof( NSPointInt));
         
         long TmpCount;
@@ -378,42 +378,42 @@ void CLIP_Polygon(NSPointInt *inPoly, long inCount, NSPointInt *outPoly, long *o
         *outCount = 0;
         TmpCount=0;
         
-        for( int v=0; v<inCount; v++)
+        for (int v=0; v<inCount; v++)
         {
             d=v+1;
-            if(d==inCount)d=0;
+            if (d==inCount)d=0;
             CLIP_Left( TmpPoly, &TmpCount, inPoly[v],inPoly[d], UpLeft);
             
-//            if( v > MAXVERTICAL || d > MAXVERTICAL)
+//            if (v > MAXVERTICAL || d > MAXVERTICAL)
 //                NSLog( @"( v || d > MAXVERTICAL)");
         }
-        for( int v=0; v<TmpCount; v++)
+        for (int v=0; v<TmpCount; v++)
         {
             d=v+1;
-            if(d==TmpCount)d=0;
+            if (d==TmpCount)d=0;
             CLIP_Right(outPoly, outCount, TmpPoly[v],TmpPoly[d], DownRight);
             
-//            if( v > MAXVERTICAL || d > MAXVERTICAL)
+//            if (v > MAXVERTICAL || d > MAXVERTICAL)
 //                NSLog( @"( v || d > MAXVERTICAL)");
         }
         TmpCount=0;
-        for( int v=0; v<*outCount; v++)
+        for (int v=0; v<*outCount; v++)
         {
             d=v+1;
-            if(d==*outCount)d=0;
+            if (d==*outCount)d=0;
             CLIP_Top( TmpPoly, &TmpCount, outPoly[v],outPoly[d], UpLeft);
             
-//            if( v > MAXVERTICAL || d > MAXVERTICAL)
+//            if (v > MAXVERTICAL || d > MAXVERTICAL)
 //                NSLog( @"( v || d > MAXVERTICAL)");
         }
         *outCount=0;
-        for( int v=0; v<TmpCount; v++)
+        for (int v=0; v<TmpCount; v++)
         {
             d=v+1;
-            if(d==TmpCount)d=0;
+            if (d==TmpCount)d=0;
             CLIP_Bottom(outPoly, outCount, TmpPoly[v],TmpPoly[d], DownRight);
             
-//            if( v > MAXVERTICAL || d > MAXVERTICAL)
+//            if (v > MAXVERTICAL || d > MAXVERTICAL)
 //                NSLog( @"( v || d > MAXVERTICAL)");
         }
 	}
@@ -431,10 +431,10 @@ struct edge
 
 static inline long sgn( long x)
 {
-	if( x > 0)
+	if (x > 0)
         return 1;
     
-	if( x < 0)
+	if (x < 0)
         return -1;
 	
 	return 0;
@@ -563,7 +563,7 @@ static inline void DrawRuns(	struct edge *active,
 	float *ivalues = nil;
     float *ilocations = nil;
     
-    if( compute && orientation == 2) // standard orientation
+    if (compute && orientation == 2) // standard orientation
     {
         ivalues = values;
         ilocations = locations;
@@ -590,86 +590,86 @@ static inline void DrawRuns(	struct edge *active,
         numCoords++;
     }
 	
-    for( long i = 0; i < numCoords; i += 2)
+    for (long i = 0; i < numCoords; i += 2)
 	{
 		// ** COMPUTE
-		if( compute)
+		if (compute)
 		{
 			start = xCoords[i];
-            if( start < 0) start = 0;
-            if( start >= w) start = w;
+            if (start < 0) start = 0;
+            if (start >= w) start = w;
             
 			end = xCoords[i + 1];
-            if( end < 0) end = 0;
-            if( end >= w) end = w;
+            if (end < 0) end = 0;
+            if (end >= w) end = w;
 			
-			switch( orientation)
+			switch (orientation)
 			{
-				case 1:		curPix = &pix[ (curY * ims) + start + stackNo *w];			break;
-				case 0:		curPix = &pix[ (curY * ims) + (start * w) + stackNo];		break;
-				case 2:		curPix = &pix[ (curY * w) + start];							break;
+				case 1:	curPix = &pix[ (curY * ims) + start + stackNo *w];		break;
+				case 0:	curPix = &pix[ (curY * ims) + (start * w) + stackNo];	break;
+				case 2:	curPix = &pix[ (curY * w) + start];						break;
 			}
 			
 			long x = end - start;
 			long xx = 0;
-			if( RGB == NO)
+			if (RGB == NO)
 			{
-				while( x-- >= 0)
+				while (x-- >= 0)
 				{
 					val = *curPix;
 					
-					if( imax && val > *imax) *imax = val;
-                    if( imin && val < *imin) *imin = val;
-                    if( itotal) *itotal += val;
-                    if( count) (*count)++;
-                    if( values) (*ivalues++) = val;
-                    if( ilocations)
+					if (imax && val > *imax) *imax = val;
+                    if (imin && val < *imin) *imin = val;
+                    if (itotal) *itotal += val;
+                    if (count) (*count)++;
+                    if (values) (*ivalues++) = val;
+                    if (ilocations)
                     {
                         (*ilocations++) = start + xx++;
                         (*ilocations++) = curY;
                     }
                     
-					if( idev)
+					if (idev)
 					{
 						temp = imean - val;
 						temp *= temp;
 						*idev += temp;
 					}
 					
-					if( orientation)
-                        curPix ++;
+					if (orientation)
+                        curPix++;
 					else
                         curPix += w;
 				}
 			}
             else
             {
-                while( x-- >= 0)
+                while (x-- >= 0)
 				{
                     unsigned char* curPixRGB = (unsigned char*) curPix;
                     
 					val = (curPixRGB[ 1] + curPixRGB[ 2] + curPixRGB[ 3]) / 3.;
 					
-					if( imax && val > *imax) *imax = val;
-                    if( imin && val < *imin) *imin = val;
-                    if( itotal) *itotal += val;
-                    if( count) (*count)++;
-                    if( values) (*ivalues++) = val;
-                    if( ilocations)
+					if (imax && val > *imax) *imax = val;
+                    if (imin && val < *imin) *imin = val;
+                    if (itotal) *itotal += val;
+                    if (count) (*count)++;
+                    if (values) (*ivalues++) = val;
+                    if (ilocations)
                     {
                         (*ilocations++) = start + xx++;
                         (*ilocations++) = w;
                     }
                     
-					if( idev)
+					if (idev)
 					{
 						temp = imean - val;
 						temp *= temp;
 						*idev += temp;
 					}
 					
-					if( orientation)
-                        curPix ++;
+					if (orientation)
+                        curPix++;
 					else
                         curPix += w;
 				}
@@ -679,38 +679,38 @@ static inline void DrawRuns(	struct edge *active,
 		// ** DRAW
 		else
 		{
-			if( outside)	// OUTSIDE
+			if (outside)	// OUTSIDE
 			{
-				if( i == 0)
+				if (i == 0)
 				{
-					start = 0;			if( start < 0) start = 0;		if( start >= w) start = w;
-					end = xCoords[i];	if( end < 0) end = 0;			if( end >= w) end = w;
+					start = 0;			if (start < 0) start = 0;		if (start >= w) start = w;
+					end = xCoords[i];	if (end < 0) end = 0;			if (end >= w) end = w;
 					i--;
 				}
 				else
 				{
 					start = xCoords[i]+1;
-                    if( start < 0)
+                    if (start < 0)
                         start = 0;
                     
-                    if( start >= w)
+                    if (start >= w)
                         start = w;
 					
-					if( i == numCoords-1)
+					if (i == numCoords-1)
 						end = w;
 					else
                         end = xCoords[i+1];
 					
-					if( end < 0)
+					if (end < 0)
                         end = 0;
                     
-                    if( end >= w)
+                    if (end >= w)
                         end = w;
 				}
 				
-				if( RGB == NO)
+				if (RGB == NO)
 				{
-					switch( orientation)
+					switch (orientation)
 					{
 						case 1:		curPix = &pix[ (curY * ims) + start + stackNo *w];		break;
 						case 0:		curPix = &pix[ (curY * ims) + (start * w) + stackNo];	break;
@@ -719,26 +719,28 @@ static inline void DrawRuns(	struct edge *active,
 					
 					long x = end - start;
 					
-					if( addition)
+					if (addition)
 					{
-						while( x-- > 0)
+						while (x-- > 0)
 						{
-							if( *curPix >= min && *curPix <= max) *curPix += newVal;
+							if (*curPix >= min && *curPix <= max)
+                                *curPix += newVal;
 							
-							if( orientation)
-                                curPix ++;
+							if (orientation)
+                                curPix++;
 							else
                                 curPix += w;
 						}
 					}
 					else
 					{
-						while( x-- > 0)
+						while (x-- > 0)
 						{
-							if( *curPix >= min && *curPix <= max) *curPix = newVal;
+							if (*curPix >= min && *curPix <= max)
+                                *curPix = newVal;
 							
-							if( orientation)
-                                curPix ++;
+							if (orientation)
+                                curPix++;
 							else
                                 curPix += w;
 						}
@@ -746,7 +748,7 @@ static inline void DrawRuns(	struct edge *active,
 				}
 				else
 				{
-					switch( orientation)
+					switch (orientation)
 					{
                         case 1:		curPix = &pix[ (curY * ims) + start + stackNo *w];		break;
                         case 0:		curPix = &pix[ (curY * ims) + (start * w) + stackNo];		break;
@@ -755,25 +757,25 @@ static inline void DrawRuns(	struct edge *active,
 					
 					long x = end - start;
 					
-					while( x-- > 0)
+					while (x-- > 0)
 					{
 						unsigned char*  rgbPtr = (unsigned char*) curPix;
 						
-						if( addition)
+						if (addition)
 						{
-							if( rgbPtr[ 1] >= min && rgbPtr[ 1] <= max) rgbPtr[ 1] += newVal;
-							if( rgbPtr[ 2] >= min && rgbPtr[ 2] <= max) rgbPtr[ 2] += newVal;
-							if( rgbPtr[ 3] >= min && rgbPtr[ 3] <= max) rgbPtr[ 3] += newVal;
+							if (rgbPtr[ 1] >= min && rgbPtr[ 1] <= max) rgbPtr[ 1] += newVal;
+							if (rgbPtr[ 2] >= min && rgbPtr[ 2] <= max) rgbPtr[ 2] += newVal;
+							if (rgbPtr[ 3] >= min && rgbPtr[ 3] <= max) rgbPtr[ 3] += newVal;
 						}
 						else
 						{
-							if( rgbPtr[ 1] >= min && rgbPtr[ 1] <= max) rgbPtr[ 1] = newVal;
-							if( rgbPtr[ 2] >= min && rgbPtr[ 2] <= max) rgbPtr[ 2] = newVal;
-							if( rgbPtr[ 3] >= min && rgbPtr[ 3] <= max) rgbPtr[ 3] = newVal;
+							if (rgbPtr[ 1] >= min && rgbPtr[ 1] <= max) rgbPtr[ 1] = newVal;
+							if (rgbPtr[ 2] >= min && rgbPtr[ 2] <= max) rgbPtr[ 2] = newVal;
+							if (rgbPtr[ 3] >= min && rgbPtr[ 3] <= max) rgbPtr[ 3] = newVal;
 						}
 						
-						if( orientation)
-                            curPix ++;
+						if (orientation)
+                            curPix++;
 						else
                             curPix += w;
 					}
@@ -783,40 +785,52 @@ static inline void DrawRuns(	struct edge *active,
 			{
 				float	*restorePtr = nil;
 				
-				start = xCoords[i];		if( start < 0) start = 0;		if( start >= w) start = w;
-				end = xCoords[i + 1];	if( end < 0) end = 0;			if( end >= w) end = w;
+				start = xCoords[i];		if (start < 0) start = 0;		if (start >= w) start = w;
+				end = xCoords[i + 1];	if (end < 0) end = 0;			if (end >= w) end = w;
 				
-				switch( orientation)
+				switch (orientation)
 				{
-					case 0:		curPix = &pix[ (curY * ims) + (start * w) + stackNo];		if( restore && restoreImageCache) restorePtr = &[restoreImageCache[ curY] fImage][(start * w) + stackNo];			break;
-					case 1:		curPix = &pix[ (curY * ims) + start + stackNo *w];			if( restore && restoreImageCache) restorePtr = &[restoreImageCache[ curY] fImage][start + stackNo *w];				break;
-					case 2:		curPix = &pix[ (curY * w) + start];							if( restore && restoreImageCache) restorePtr = &[restoreImageCache[ stackNo] fImage][(curY * w) + start];			break;
+					case 0:
+                        curPix = &pix[ (curY * ims) + (start * w) + stackNo];
+                        if (restore && restoreImageCache)
+                            restorePtr = &[restoreImageCache[ curY] fImage][(start * w) + stackNo];
+                        break;
+                        
+					case 1:
+                        curPix = &pix[ (curY * ims) + start + stackNo *w];
+                        if (restore && restoreImageCache)
+                            restorePtr = &[restoreImageCache[ curY] fImage][start + stackNo *w];
+                        break;
+                        
+					case 2:
+                        curPix = &pix[ (curY * w) + start];
+                        if (restore && restoreImageCache)
+                            restorePtr = &[restoreImageCache[ stackNo] fImage][(curY * w) + start];
+                        break;
 				}
 				
 				long x = end - start;
 				
-				if( x >= 0)
+				if (x >= 0)
 				{
-					if( restore && restoreImageCache)
+					if (restore && restoreImageCache)
 					{
-						if( RGB == NO)
+						if (RGB == NO)
 						{
-							if( orientation)
+							if (orientation)
 							{
-								while( x-- >= 0)
+								while (x-- >= 0)
 								{
 									*curPix = *restorePtr;
-									
-									curPix ++;
-									restorePtr ++;
+									curPix++;
+									restorePtr++;
 								}
 							}
 							else
 							{
-								while( x-- >= 0)
+								while (x-- >= 0)
 								{
 									*curPix = *restorePtr;
-									
 									curPix += w;
 									restorePtr += w;
 								}
@@ -824,9 +838,9 @@ static inline void DrawRuns(	struct edge *active,
 						}
 						else
 						{
-							if( orientation)
+							if (orientation)
 							{
-								while( x-- >= 0)
+								while (x-- >= 0)
 								{
 									unsigned char*  rgbPtr = (unsigned char*) curPix;
 									
@@ -834,13 +848,13 @@ static inline void DrawRuns(	struct edge *active,
 									rgbPtr[ 2] = restorePtr[ 2];
 									rgbPtr[ 3] = restorePtr[ 3];
 									
-									curPix ++;
-									restorePtr ++;
+									curPix++;
+									restorePtr++;
 								}
 							}
 							else
 							{
-								while( x-- >= 0)
+								while (x-- >= 0)
 								{
 									unsigned char*  rgbPtr = (unsigned char*) curPix;
 									
@@ -856,28 +870,30 @@ static inline void DrawRuns(	struct edge *active,
 					}
 					else
 					{
-						if( RGB == NO)
+						if (RGB == NO)
 						{
-							if( addition)
+							if (addition)
 							{
-								while( x-- >= 0)
+								while (x-- >= 0)
 								{
-									if( *curPix >= min && *curPix <= max) *curPix += newVal;
+									if (*curPix >= min && *curPix <= max)
+                                        *curPix += newVal;
 									
-									if( orientation)
-                                        curPix ++;
+									if (orientation)
+                                        curPix++;
 									else
                                         curPix += w;
 								}
 							}
 							else
 							{
-								while( x-- >= 0)
+								while (x-- >= 0)
 								{
-									if( *curPix >= min && *curPix <= max) *curPix = newVal;
+									if (*curPix >= min && *curPix <= max)
+                                        *curPix = newVal;
 									
-									if( orientation)
-                                        curPix ++;
+									if (orientation)
+                                        curPix++;
 									else
                                         curPix += w;
 								}
@@ -885,25 +901,25 @@ static inline void DrawRuns(	struct edge *active,
 						}
 						else
 						{
-							while( x-- >= 0)
+							while (x-- >= 0)
 							{
 								unsigned char*  rgbPtr = (unsigned char*) curPix;
 								
-								if( addition)
+								if (addition)
 								{
-									if( rgbPtr[ 1] >= min && rgbPtr[ 1] <= max) rgbPtr[ 1] += newVal;
-									if( rgbPtr[ 2] >= min && rgbPtr[ 2] <= max) rgbPtr[ 2] += newVal;
-									if( rgbPtr[ 3] >= min && rgbPtr[ 3] <= max) rgbPtr[ 3] += newVal;
+									if (rgbPtr[ 1] >= min && rgbPtr[ 1] <= max) rgbPtr[ 1] += newVal;
+									if (rgbPtr[ 2] >= min && rgbPtr[ 2] <= max) rgbPtr[ 2] += newVal;
+									if (rgbPtr[ 3] >= min && rgbPtr[ 3] <= max) rgbPtr[ 3] += newVal;
 								}
 								else
 								{
-									if( rgbPtr[ 1] >= min && rgbPtr[ 1] <= max) rgbPtr[ 1] = newVal;
-									if( rgbPtr[ 2] >= min && rgbPtr[ 2] <= max) rgbPtr[ 2] = newVal;
-									if( rgbPtr[ 3] >= min && rgbPtr[ 3] <= max) rgbPtr[ 3] = newVal;
+									if (rgbPtr[ 1] >= min && rgbPtr[ 1] <= max) rgbPtr[ 1] = newVal;
+									if (rgbPtr[ 2] >= min && rgbPtr[ 2] <= max) rgbPtr[ 2] = newVal;
+									if (rgbPtr[ 3] >= min && rgbPtr[ 3] <= max) rgbPtr[ 3] = newVal;
 								}
 								
-								if( orientation)
-                                    curPix ++;
+								if (orientation)
+                                    curPix++;
 								else
                                     curPix += w;
 							}
@@ -947,14 +963,14 @@ void ras_FillPolygon( NSPointInt *p,
 //	float test;
 //	
 //	test = -FLT_MAX;
-//	if( test != -FLT_MAX)
+//	if (test != -FLT_MAX)
 //		NSLog( @"******* test != -FLT_MAX");
 //	
 //	test = FLT_MAX;
-//	if( test != FLT_MAX)
+//	if (test != FLT_MAX)
 //		NSLog( @"******* test != FLT_MAX");
 	
-    if( edgeTable == nil)
+    if (edgeTable == nil)
         return;
     
     FillEdges(p, no, edgeTable);
@@ -971,7 +987,7 @@ void ras_FillPolygon( NSPointInt *p,
     float *ivalues = nil;
     float *ilocations = nil;
     
-    if( count)
+    if (count)
     {
         ivalues = values;
         ilocations = locations;
@@ -979,14 +995,14 @@ void ras_FillPolygon( NSPointInt *p,
     
     for (active = NULL; (active = UpdateActive(active, edgeTable, curY)) != NULL; curY++)
 	{
-		if( active)
+		if (active)
         {
 			DrawRuns(active, curY, pix, w, h, min, max, outside, newVal, addition, RGB, compute, imax, imin, count, itotal, idev, imean, orientation, stackNo, restore, ivalues, ilocations);
             
-            if( ivalues)
+            if (ivalues)
                 ivalues = values + *count;
             
-            if( ilocations)
+            if (ilocations)
                 ilocations = locations + *count * 2;
         }
 	}
@@ -1098,7 +1114,7 @@ long BresLine(int Ax, int Ay, int Bx, int By,long **xBuffer, long **yBuffer)
 		}		
 	}
 	
-	if( maxVal < size)
+	if (maxVal < size)
 	{
 		NSLog( @"MAJOR BUG");
 	}
@@ -1113,57 +1129,59 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 	int		inw = rad*2;
 	int		radsqr = (inw*inw)/4;
 	
-	if( cx < 0 || cx >= width)
+	if (cx < 0 || cx >= width)
         return;
     
-	if( cy < 0 || cy >= height)
+	if (cy < 0 || cy >= height)
         return;
 	
 	cx -= rad;
 	cy -= rad;
 	
 	// top
-	for(y = 0; y <= cy; y++)
+	for (y = 0; y <= cy; y++)
 	{
-		for(x = 0; x < width; x++)
+		for (x = 0; x < width; x++)
 		{
-			if( y >= 0 && y < height) buf[ x + y*width] = blackIndex;
+			if (y >= 0 && y < height)
+                buf[ x + y*width] = blackIndex;
 		}
 	}
 	
 	// bottom
-	for(y = cy+inw; y < height; y++)
+	for (y = cy+inw; y < height; y++)
 	{
-		for(x = 0; x < width; x++)
+		for (x = 0; x < width; x++)
 		{
-			if( y >= 0 && y < height) buf[ x + y*width] = blackIndex;
+			if (y >= 0 && y < height)
+                buf[ x + y*width] = blackIndex;
 		}
 	}
 	
 	// left + right
-	for(y = cy; y < cy+inw; y++)
+	for (y = cy; y < cy+inw; y++)
 	{
-		for(x = 0; x <= cx; x++)
+		for (x = 0; x <= cx; x++)
 		{
-			if( x < width && y >= 0 && y < height) 
+			if (x < width && y >= 0 && y < height)
 				buf[ x + y*width] = blackIndex;
 		}
 		
-		for(x = cx+inw; x < width; x++)
+		for (x = cx+inw; x < width; x++)
 		{
-			if( x >= 0 && y >= 0 && y < height)
+			if (x >= 0 && y >= 0 && y < height)
 				buf[ x + y*width] = blackIndex;
 		}
 	}
 	
-	for(x = 0; x < rad; x++)
+	for (x = 0; x < rad; x++)
 	{
 		xsqr = x*x;
-		for( y = 0 ; y < rad; y++)
+		for (y = 0 ; y < rad; y++)
 		{
 			char draw;
 			
-			if((xsqr + y*y) < radsqr)
+			if ((xsqr + y*y) < radsqr)
 			{
 				draw = 0;
 			}
@@ -1172,21 +1190,21 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 				draw = 1;
 			}
 			
-			if( draw)
+			if (draw)
 			{
 				int xx, yy;
 				
 				xx = rad+x+cx;	yy = rad+y+cy;
-				if( xx >= 0 && xx < width && yy >= 0 && yy < height) buf[ xx + yy*width] = blackIndex;
+				if (xx >= 0 && xx < width && yy >= 0 && yy < height) buf[ xx + yy*width] = blackIndex;
 				
 				xx = rad-x+cx;	yy = rad+y+cy;
-				if( xx >= 0 && xx < width && yy >= 0 && yy < height) buf[ xx + yy*width] = blackIndex;
+				if (xx >= 0 && xx < width && yy >= 0 && yy < height) buf[ xx + yy*width] = blackIndex;
 				
 				xx = rad+x+cx;	yy = rad-y+cy;
-				if( xx >= 0 && xx < width && yy >= 0 && yy < height) buf[ xx + yy*width] = blackIndex;
+				if (xx >= 0 && xx < width && yy >= 0 && yy < height) buf[ xx + yy*width] = blackIndex;
 				
 				xx = rad-x+cx;	yy = rad-y+cy;
-				if( xx >= 0 && xx < width && yy >= 0 && yy < height) buf[ xx + yy*width] = blackIndex;
+				if (xx >= 0 && xx < width && yy >= 0 && yy < height) buf[ xx + yy*width] = blackIndex;
 			}
 		}
 	}
@@ -1203,6 +1221,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 //    siglongjmp( mark, -1 );
 //}
 
+#pragma mark -
 @interface PixThread : NSObject
 {
 }
@@ -1227,28 +1246,33 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 	int stackDirection = o.stackDirection;
 	int stackMode = o.stackMode;
 	
-	for( int i = 1; i < stack; i++)
+	for (int i = 1; i < stack; i++)
 	{
 		int res;
-		if( stackDirection)
+		if (stackDirection)
             res = ppos-i;
 		else
             res = ppos+i;
 		
-		if( res < p.count && res >= 0)
+		if (res < p.count && res >= 0)
 		{
 			fNext = [[p objectAtIndex: res] fImage];
-			if( fNext)
+			if (fNext)
 			{
-				if( stackMode == 2)
+				if (stackMode == STACK_MODE_MAXIMUM_IP)
+                {
                     vDSP_vmax( fResult + from, 1, fNext + from, 1, fResult + from, 1, size);
-				else if( stackMode == 1) 
+                }
+				else if (stackMode == STACK_MODE_MEAN)
 				{
 					vDSP_vadd( fResult + from, 1, fNext + from, 1, fResult + from, 1, size);
-					if( from == 0) o.countstackMean++;
+					if (from == 0)
+                        o.countstackMean++;
 				}
 				else
+                {
                     vDSP_vmin( fResult + from, 1, fNext + from, 1, fResult + from, 1, size);
+                }
 			}
 		}
 	}
@@ -1274,7 +1298,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
                 [threadLock lockWhenCondition: 1];
                 
                 @try {
-                    if( [[dict valueForKey:@"fResult"] pointerValue])
+                    if ([[dict valueForKey:@"fResult"] pointerValue])
                         [self computeMax: (float *)[[dict valueForKey:@"fResult"] pointerValue]
                                      pos: [[dict valueForKey:@"pos"] intValue]
                                  threads: numberOfThreadsForCompute
@@ -1287,7 +1311,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
                 [threadLock unlockWithCondition: 0];
             }
         }
-        while( 1);
+        while (1);
 	}
 }
 
@@ -1307,7 +1331,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
                 {
                     DCMPix *o = [dict valueForKey:@"self"];
                     
-                    if( o)
+                    if (o)
                     {
                         int startLine = [[dict valueForKey:@"start"] intValue];
                         int endLine = [[dict valueForKey:@"end"] intValue];
@@ -1321,14 +1345,14 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
                         
                         src32Ptr += startLine * [o pwidth];
                         
-                        if( tfPtr)
+                        if (tfPtr)
                         {
-                            while( ii-- > 0)
+                            while (ii-- > 0)
                             {
                                 int value = ratio * (*src32Ptr++ - from);
                                 
-                                if( value < 0) value = 0;
-                                else if( value >= 4095) value = 4095;
+                                if (value < 0) value = 0;
+                                else if (value >= 4095) value = 4095;
                                 
                                 *dst8Ptr++ = 255.*tfPtr[ value];
                             }
@@ -1345,11 +1369,12 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
                 [threadLock unlockWithCondition: 0];
             }
         }
-        while( 1);
+        while (1);
     }
 }
 @end
 
+#pragma mark -
 
 @interface DCMPix ()
 
@@ -1410,7 +1435,9 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 
 - (void)setBaseAddr: (char*) ptr
 {
-    if( baseAddr) free( baseAddr);
+    if (baseAddr)
+        free( baseAddr);
+    
     baseAddr = ptr;
 }
 
@@ -1418,10 +1445,10 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 {
     [self CheckLoad];
     
-    if( baseAddr == nil)
+    if (baseAddr == nil)
         [self allocate8bitRepresentation];
     
-    if( needToCompute8bitRepresentation)
+    if (needToCompute8bitRepresentation)
         [self compute8bitRepresentation];
     
     return baseAddr;
@@ -1429,9 +1456,11 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 
 - (void)setLUT12baseAddr: (unsigned char*) ptr
 {
-    if( ptr != LUT12baseAddr)
+    if (ptr != LUT12baseAddr)
     {
-        if(LUT12baseAddr) free(LUT12baseAddr);
+        if (LUT12baseAddr)
+            free(LUT12baseAddr);
+        
         LUT12baseAddr = ptr;
     }
 }
@@ -1439,7 +1468,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 - (unsigned char*)LUT12baseAddr;
 {
     [self CheckLoad];
-    if( LUT12baseAddr == nil)
+    if (LUT12baseAddr == nil)
         [self allocate8bitRepresentation];
     return LUT12baseAddr;
 }
@@ -1451,7 +1480,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 #ifdef OSIRIX_VIEWER
 #ifdef NDEBUG
 #else
-    if( [NSThread isMainThread] == NO)
+    if ([NSThread isMainThread] == NO)
         NSLog( @"******************* warning this object should be used only on the main thread. Create your own Context !");
 #endif
     return [[[BrowserController currentBrowser] database] objectWithID: imageObjectID];
@@ -1465,7 +1494,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 #ifdef OSIRIX_VIEWER
 #ifdef NDEBUG
 #else
-    if( [NSThread isMainThread] == NO)
+    if ([NSThread isMainThread] == NO)
         NSLog( @"******************* warning this object should be used only on the main thread. Create your own Context !");
 #endif
     return [[[[BrowserController currentBrowser] database] objectWithID: imageObjectID] valueForKey: @"series"];
@@ -1479,7 +1508,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 #ifdef OSIRIX_VIEWER
 #ifdef NDEBUG
 #else
-    if( [NSThread isMainThread] == NO)
+    if ([NSThread isMainThread] == NO)
         NSLog( @"******************* warning this object should be used only on the main thread. Create your own Context !");
 #endif
     return [[[[BrowserController currentBrowser] database] objectWithID: imageObjectID] valueForKeyPath: @"series.study"];
@@ -1491,7 +1520,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 +(int) maxProcessors
 {
     int numberOfThreadsForCompute =[[NSProcessInfo processInfo] processorCount];
-    if( numberOfThreadsForCompute > 12)
+    if (numberOfThreadsForCompute > 12)
         numberOfThreadsForCompute = 12;
     
     return numberOfThreadsForCompute;
@@ -1499,7 +1528,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 
 + (BOOL) IsPoint:(NSPoint) x inPolygon:(NSPoint*) pts size:(int) no
 {
-	if( pnpoly( pts, no, x.x, x.y))
+	if (pnpoly( pts, no, x.x, x.y))
 		return YES;
 	
 	return NO;
@@ -1514,10 +1543,10 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 {
 	// Why this? NSUserDefaults performances are poor if not in main thread
 	
-	if( update)
+	if (update)
 		gUserDefaultsSet = NO;
 	
-	if( gUserDefaultsSet == NO)
+	if (gUserDefaultsSet == NO)
 	{
 		gUserDefaultsSet = YES;
 		
@@ -1529,7 +1558,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 		gUseJPEGColorSpace = [[NSUserDefaults standardUserDefaults] boolForKey:@"UseJPEGColorSpace"];
 		gSUVAcquisitionTimeField = [[NSUserDefaults standardUserDefaults] integerForKey:@"SUVAcquisitionTimeField"];
 		
-        if( gCUSTOM_IMAGE_ANNOTATIONS == nil)
+        if (gCUSTOM_IMAGE_ANNOTATIONS == nil)
             gCUSTOM_IMAGE_ANNOTATIONS = [[NSMutableDictionary alloc] init];
         
         @synchronized( gCUSTOM_IMAGE_ANNOTATIONS)
@@ -1554,7 +1583,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 		gSUVAcquisitionTimeField = 0;
 #endif
 		
-		if( gUseVOILUT == YES && gUSEPAPYRUSDCMPIX == NO)
+		if (gUseVOILUT == YES && gUSEPAPYRUSDCMPIX == NO)
 		{
 			[[NSUserDefaults standardUserDefaults] setBool: NO forKey: @"UseVOILUT"];
 			gUseVOILUT = NO; // VOILUT is not supported with DCMFramework
@@ -1592,7 +1621,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
     pix2Origin[ 0] -= senderPixelSpacingX/2.;
     pix2Origin[ 1] -= senderPixelSpacingY/2.;
     
-	if( destPixelSpacingX == 0 || destPixelSpacingY == 0 || senderPixelSpacingX == 0 || senderPixelSpacingY == 0)
+	if (destPixelSpacingX == 0 || destPixelSpacingY == 0 || senderPixelSpacingX == 0 || senderPixelSpacingY == 0)
 	{
 		return NSMakePoint( 0, 0);
 	}
@@ -1630,7 +1659,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 
 - (NSRect) rectCoordinates
 {
-    if( self.pixelSpacingX && self.pixelSpacingY)
+    if (self.pixelSpacingX && self.pixelSpacingY)
         return NSMakeRect( self.originX, self.originY, self.pixelSpacingX*self.pwidth, self.pixelSpacingY*self.pheight);
     else
         return NSMakeRect( self.originX, self.originY, self.pwidth, self.pheight);
@@ -1649,13 +1678,14 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 	return NSMakePoint( destOrigin[ 0], destOrigin[ 1]);
 }
 
-+ (NSImage*) resizeIfNecessary:(NSImage*) currentImage dcmPix: (DCMPix*) dcmPix
++ (NSImage*) resizeIfNecessary: (NSImage*) currentImage
+                        dcmPix: (DCMPix*) dcmPix
 {
 	NSRect sourceRect = NSMakeRect(0.0, 0.0, [currentImage size].width, [currentImage size].height);
 	NSRect imageRect;
 	
-	if(	[currentImage size].width > 512 &&
-	   [currentImage size].height > 512)
+	if ([currentImage size].width > 512 &&
+	    [currentImage size].height > 512)
 	{
 		// Rescale image if resolution is too high, compared to the original resolution
 		
@@ -1666,15 +1696,20 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 			int minWidth = [dcmPix pwidth]*MAXSIZE;
 			int minHeight = [dcmPix pheight]*MAXSIZE;
 			
-			if( minWidth < 1024) MAXSIZE = 1024 / [dcmPix pwidth];
-			if( minHeight < 1024) MAXSIZE = 1024 / [dcmPix pheight];
+			if (minWidth < 1024)
+                MAXSIZE = 1024 / [dcmPix pwidth];
+            
+			if (minHeight < 1024)
+                MAXSIZE = 1024 / [dcmPix pheight];
 			
 			minWidth = [dcmPix pwidth]*MAXSIZE;
 			minHeight = [dcmPix pheight]*MAXSIZE;
 			
-			if( [currentImage size].width > minWidth && [currentImage size].height > minHeight)
+			if ([currentImage size].width > minWidth &&
+                [currentImage size].height > minHeight)
 			{
-				if( [currentImage size].width/[dcmPix pwidth] < [currentImage size].height / [dcmPix pheight])
+				if ([currentImage size].width / [dcmPix pwidth] <
+                    [currentImage size].height / [dcmPix pheight])
 				{
 					float ratio = [currentImage size].width / (minWidth);
 					imageRect = NSMakeRect(0.0, 0.0, (int) ([currentImage size].width/ratio), (int) ([currentImage size].height/ratio));
@@ -1684,19 +1719,21 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 					float ratio = [currentImage size].height / (minHeight);
 					imageRect = NSMakeRect(0.0, 0.0, (int) ([currentImage size].width/ratio), (int) ([currentImage size].height/ratio));
 				}
-				[currentImage setScalesWhenResized:YES];
+
+                //[currentImage setScalesWhenResized:YES];  // Deprecated
 				
 				NSImage *compositingImage = [[NSImage alloc] initWithSize: imageRect.size];
 				
-				if( [compositingImage size].width > 0 && [compositingImage size].height > 0)
+				if ([compositingImage size].width > 0 &&
+                    [compositingImage size].height > 0)
 				{
 					[compositingImage lockFocus];
-				//		[[NSGraphicsContext currentContext] setImageInterpolation: NSImageInterpolationDefault];
+                    //[[NSGraphicsContext currentContext] setImageInterpolation: NSImageInterpolationDefault];
 					[currentImage drawInRect: imageRect fromRect: sourceRect operation: NSCompositeCopy fraction: 1.0];
 					[compositingImage unlockFocus];
 				}
 				
-//				NSLog( @"New Size: %f %f", [compositingImage size].width, [compositingImage size].height);
+//                NSLog( @"New Size: %@", NSStringFromSize([compositingImage size]));
 				
 				return [compositingImage autorelease];
 			}
@@ -1717,17 +1754,17 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 
 - (float) maxValueOfSeries
 {
-	if( maxValueOfSeries == 0)
+	if (maxValueOfSeries == 0)
 	{
 		float tmaxValueOfSeries = -100000;
 		
-		for( DCMPix* pix in pixArray)	 
+		for (DCMPix* pix in pixArray)
 		{
-			if( tmaxValueOfSeries < [pix fullwl] + [pix fullww]/2)
+			if (tmaxValueOfSeries < [pix fullwl] + [pix fullww]/2)
 				tmaxValueOfSeries = [pix fullwl] + [pix fullww]/2;
 		}
 		
-		for( DCMPix* pix in pixArray)
+		for (DCMPix* pix in pixArray)
 		{
 			[pix setMaxValueOfSeries: tmaxValueOfSeries];
 		}
@@ -1738,16 +1775,16 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 
 - (float) minValueOfSeries
 {
-	if( minValueOfSeries == 0)
+	if (minValueOfSeries == 0)
 	{
 		float tminValueOfSeries = 100000;
 		
-		for( DCMPix* pix in pixArray)	 
+		for (DCMPix* pix in pixArray)
 		{
-			if( tminValueOfSeries > [pix fullwl] - [pix fullww]/2) tminValueOfSeries = [pix fullwl] - [pix fullww]/2;
+			if (tminValueOfSeries > [pix fullwl] - [pix fullww]/2) tminValueOfSeries = [pix fullwl] - [pix fullww]/2;
 		}
 		
-		for( DCMPix* pix in pixArray)
+		for (DCMPix* pix in pixArray)
 		{
 			[pix setMinValueOfSeries: tminValueOfSeries];
 		}
@@ -1766,17 +1803,17 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 	[self compute8bitRepresentation];
 	
     @try {
-        if( [self isRGB] == YES)
+        if ([self isRGB])
         {
             i = width * height * 3;
             buf = (unsigned char *)malloc( i);
-            if( buf)
+            if (buf)
             {
                 unsigned char *dst = buf, *src = (unsigned char*) [self baseAddr];
                 i = width * height;
                 
                 // CONVERT ARGB TO RGB
-                while( i-- > 0)
+                while (i-- > 0)
                 {
                     src++;
                     *dst++ = *src++;
@@ -1796,7 +1833,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
                         bytesPerRow:width*3
                         bitsPerPixel:24] autorelease];
                 
-                if( rep)
+                if (rep)
                 {
                     memcpy( [rep bitmapData], buf, height*width*3);
                     
@@ -1821,7 +1858,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
                     bytesPerRow:width
                     bitsPerPixel:8] autorelease];
             
-            if( rep)
+            if (rep)
             {
                 memcpy( [rep bitmapData], [self baseAddr], height*width);
             
@@ -1918,12 +1955,12 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 			// loop on the pixels of the image
 			pYBR = ybrImage;
 		
-			for( yy = 0; yy < h; yy++)
+			for (yy = 0; yy < h; yy++)
 			{
 				unsigned char	*rr = pRGB;
 				unsigned char	*rr2 = pRGB+3*w;
 				
-				for( x = 0; x < w; x++)
+				for (x = 0; x < w; x++)
 				{
 					y  = (int) pYBR [0];
 					b = (int) pYBR [1];
@@ -2068,7 +2105,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 	
 	pts = (NSPoint*) malloc( ptsTemp.count * sizeof(NSPoint));
 	no = [ptsTemp count];
-	for( long i = 0; i < no; i++)
+	for (long i = 0; i < no; i++)
 	{
 		pts[ i] = [[ptsTemp objectAtIndex: i] point];
 		//	pts[ i].x+=1.5;
@@ -2077,24 +2114,24 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 	
 	upleft = downright = [[ptsTemp objectAtIndex:0] point];
 	
-	for( long i = 0; i < [ptsTemp count]; i++)
+	for (long i = 0; i < [ptsTemp count]; i++)
 	{
-		if( upleft.x > [[ptsTemp objectAtIndex:i] x]) upleft.x = [[ptsTemp objectAtIndex:i] x];
-		if( upleft.y > [[ptsTemp objectAtIndex:i] y]) upleft.y = [[ptsTemp objectAtIndex:i] y];
+		if (upleft.x > [[ptsTemp objectAtIndex:i] x]) upleft.x = [[ptsTemp objectAtIndex:i] x];
+		if (upleft.y > [[ptsTemp objectAtIndex:i] y]) upleft.y = [[ptsTemp objectAtIndex:i] y];
 		
-		if( downright.x < [[ptsTemp objectAtIndex:i] x]) downright.x = [[ptsTemp objectAtIndex:i] x];
-		if( downright.y < [[ptsTemp objectAtIndex:i] y]) downright.y = [[ptsTemp objectAtIndex:i] y];
+		if (downright.x < [[ptsTemp objectAtIndex:i] x]) downright.x = [[ptsTemp objectAtIndex:i] x];
+		if (downright.y < [[ptsTemp objectAtIndex:i] y]) downright.y = [[ptsTemp objectAtIndex:i] y];
 	}
 	
-	if( upleft.x < 0) upleft.x = 0;
-	if( downright.x < 0) downright.x = 0;
-	if( upleft.x > width) upleft.x = width;
-	if( downright.x > width) downright.x = width;
+	if (upleft.x < 0) upleft.x = 0;
+	if (downright.x < 0) downright.x = 0;
+	if (upleft.x > width) upleft.x = width;
+	if (downright.x > width) downright.x = width;
 	
-	if( upleft.y < 0) upleft.y = 0;
-	if( downright.y < 0) downright.y = 0;
-	if( upleft.y > height) upleft.y = height;
-	if( downright.y > height) downright.y = height;
+	if (upleft.y < 0) upleft.y = 0;
+	if (downright.y < 0) downright.y = 0;
+	if (upleft.y > height) upleft.y = height;
+	if (downright.y > height) downright.y = height;
 	
 	size = BresLine([[ptsTemp objectAtIndex:0] x],
 					[[ptsTemp objectAtIndex:0] y],
@@ -2104,12 +2141,12 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 					&yPoints);
 	
 	values = (float*) malloc( size * sizeof(float));
-	if( values)
+	if (values)
 	{
 		count = 0;
-		for( long i = 0; i < size; i++)
+		for (long i = 0; i < size; i++)
 		{
-			if( yPoints[ i] >= 0 && yPoints[ i] < height && xPoints[ i] >= 0 && xPoints[ i] < width)
+			if (yPoints[ i] >= 0 && yPoints[ i] < height && xPoints[ i] >= 0 && xPoints[ i] < width)
                 values[ count] = [self getPixelValueX: xPoints[ i] Y: yPoints[ i]];
 			else
                 values[ count] = 0;
@@ -2119,7 +2156,8 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 	}
 	*numberOfValues = count;
 	
-	if( roi) free( pts);
+	if (roi)
+        free( pts);
 	
 	free( xPoints);
 	free( yPoints);
@@ -2138,46 +2176,46 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
     
     @try
     {
-        if( [self thickSlabVRActivated])
+        if ([self thickSlabVRActivated])
             isComputefImageRGB = YES;
         else
             computedfImage = [self computefImage];
         
-        if( isComputefImageRGB)
+        if (isComputefImageRGB)
             computedfImage = (float*) self.baseAddr;
         
-        if( roi.type == tPlain)
+        if (roi.type == tPlain)
         {
             long textWidth = roi.textureWidth, textHeight = roi.textureHeight;
             long textureUpLeftCornerX = roi.textureUpLeftCornerX, textureUpLeftCornerY = roi.textureUpLeftCornerY;
             unsigned char *buf = roi.textureBuffer;
             
             values = (float*) malloc( textHeight*textWidth* sizeof(float));
-            if( locations) *locations = (float*) malloc( textHeight*textWidth*2* sizeof(float));
+            if (locations) *locations = (float*) malloc( textHeight*textWidth*2* sizeof(float));
             
-            if( values)
+            if (values)
             {
-                for( long y = 0; y < textHeight; y++)
+                for (long y = 0; y < textHeight; y++)
                 {
-                    for( long x = 0; x < textWidth; x++)
+                    for (long x = 0; x < textWidth; x++)
                     {
-                        if( buf [ x + y * textWidth] != 0)
+                        if (buf [ x + y * textWidth] != 0)
                         {
                             long xx = (x + textureUpLeftCornerX);
                             long yy = (y + textureUpLeftCornerY);
                             
-                            if( xx >= 0 && xx < width && yy >= 0 && yy < height)
+                            if (xx >= 0 && xx < width && yy >= 0 && yy < height)
                             {
-                                if( isComputefImageRGB)
+                                if (isComputefImageRGB)
                                 {
                                     unsigned char*  rgbPtr = (unsigned char*) &computedfImage[ (yy * width) + xx];
                                     float val = rgbPtr[ 0] + rgbPtr[ 1] + rgbPtr[2] / 3;
                                     
                                     values[ count] = val;
                                     
-                                    if( locations)
+                                    if (locations)
                                     {
-                                        if( *locations)
+                                        if (*locations)
                                         {
                                             (*locations)[ count*2] = xx;
                                             (*locations)[ count*2 + 1] = yy;
@@ -2190,9 +2228,9 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
                                     float *curPix = &computedfImage[ (yy * width) + xx];
                                     values[ count] = *curPix;
                                     
-                                    if( locations)
+                                    if (locations)
                                     {
-                                        if( *locations)
+                                        if (*locations)
                                         {
                                             (*locations)[ count*2] = xx;
                                             (*locations)[ count*2 + 1] = yy;
@@ -2210,16 +2248,16 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
         {
             NSMutableArray *ptsTemp = [roi splinePoints];
             
-            if( [ptsTemp count] == 0)
+            if ([ptsTemp count] == 0)
                 return nil;
             
             [self CheckLoad];
             
             NSPointInt *pts = (NSPointInt*) malloc( ptsTemp.count * sizeof(NSPointInt));
-            if( pts)
+            if (pts)
             {
                 no = ptsTemp.count;
-                for( int i = 0; i < no; i++)
+                for (int i = 0; i < no; i++)
                 {
                     pts[ i].x = [[ptsTemp objectAtIndex: i] point].x;
                     pts[ i].y = [[ptsTemp objectAtIndex: i] point].y;
@@ -2228,24 +2266,24 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
                 // Need to clip?
                 BOOL clip = NO;
                 
-                for( int i = 0; i < no && clip == NO; i++)
+                for (int i = 0; i < no && clip == NO; i++)
                 {
-                    if( pts[ i].x < 0) clip = YES;
-                    if( pts[ i].y < 0) clip = YES;
-                    if( pts[ i].x >= width) clip = YES;
-                    if( pts[ i].y >= height) clip = YES;
+                    if (pts[ i].x < 0) clip = YES;
+                    if (pts[ i].y < 0) clip = YES;
+                    if (pts[ i].x >= width) clip = YES;
+                    if (pts[ i].y >= height) clip = YES;
                 }
                 
-                if( no == 1)
+                if (no == 1)
                 {
                     values = (float*) malloc( sizeof(float));
-                    if( locations) *locations = (float*) malloc( 2 * sizeof(float));
+                    if (locations) *locations = (float*) malloc( 2 * sizeof(float));
                     
-                    if( clip)
+                    if (clip)
                     {
                         values[ count] = 0;
                         
-                        if( locations && *locations)
+                        if (locations && *locations)
                         {
                             (*locations)[ count*2] = pts[ 0].x;
                             (*locations)[ count*2 + 1] = pts[ 0].y;
@@ -2254,7 +2292,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
                     }
                     else
                     {
-                        if( isComputefImageRGB)
+                        if (isComputefImageRGB)
                         {
                             unsigned char *rgbPtr = (unsigned char*) &computedfImage[ (pts[ 0].y * width) + pts[ 0].x];
                             
@@ -2262,7 +2300,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
                             
                             values[ count] = val;
                             
-                            if( locations && *locations)
+                            if (locations && *locations)
                             {
                                 (*locations)[ count*2] = pts[ 0].x;
                                 (*locations)[ count*2 + 1] = pts[ 0].y;
@@ -2277,7 +2315,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
                             
                             values[ count] = val;
                             
-                            if( locations && *locations)
+                            if (locations && *locations)
                             {
                                 (*locations)[ count*2] = pts[ 0].x;
                                 (*locations)[ count*2 + 1] = pts[ 0].y;
@@ -2288,12 +2326,12 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
                 }
                 else
                 {
-                    if( clip)
+                    if (clip)
                     {
                         long newNo;
                         
                         NSPointInt *pTemp = (NSPointInt*) malloc( sizeof(NSPointInt) * 4 * no);
-                        if( pTemp)
+                        if (pTemp)
                         {
                             CLIP_Polygon( pts, no, pTemp, &newNo, NSMakePoint( 0, 0), NSMakePoint( width, height));
                             
@@ -2305,22 +2343,22 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 //                            NSPointInt *pTemp;
 //                            BOOL clip = NO;
 //                            
-//                            for( int i = 0; i < no && clip == NO; i++)
+//                            for (int i = 0; i < no && clip == NO; i++)
 //                            {
-//                                if( pts[ i].x < 0) clip = YES;
-//                                if( pts[ i].y < 0) clip = YES;
-//                                if( pts[ i].x >= width) clip = YES;
-//                                if( pts[ i].y >= height) clip = YES;
+//                                if (pts[ i].x < 0) clip = YES;
+//                                if (pts[ i].y < 0) clip = YES;
+//                                if (pts[ i].x >= width) clip = YES;
+//                                if (pts[ i].y >= height) clip = YES;
 //                            }
 //                            
-//                            if( clip)
+//                            if (clip)
 //                                NSLog( @"arggg");
                         }
                         else
                             no = 0;
                     }
                     
-                    if( no > 2)
+                    if (no > 2)
                     {
                         [self computeROIBoundsFromPoints: pts count: no upleftx: &upleftx uplefty:&uplefty downrightx: &downrightx downrighty: &downrighty];
                         
@@ -2328,10 +2366,10 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
                         values = (float*) malloc( size*sizeof(float));
                         
                         float *ilocations = nil;
-                        if( locations)
+                        if (locations)
                             *locations = ilocations = (float*) malloc( size * 2 * sizeof(float));
                         
-                        if( values)
+                        if (values)
                             ras_FillPolygon( pts, no, computedfImage, width, height, pixArray.count, 0, 0, NO, 0, NO, isComputefImageRGB, YES, nil, nil, &count, nil, nil, 0, 2, 0, NO, values, ilocations);
                     }
                 }
@@ -2345,9 +2383,9 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
     }
     @finally
     {
-        if( computedfImage && isComputefImageRGB == NO)
+        if (computedfImage && isComputefImageRGB == NO)
         {
-            if( computedfImage != self.fImage)
+            if (computedfImage != self.fImage)
                 free( computedfImage);
         }
     }
@@ -2365,17 +2403,17 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 		
     [self CheckLoad];
 	
-	if( roi)
+	if (roi)
 	{
-		if( roi.type == tPlain)
+		if (roi.type == tPlain)
 		{
 			unsigned char *buf = roi.textureBuffer;
 			
-			if( pt.x >= roi.textureUpLeftCornerX && pt.x < roi.textureUpLeftCornerX + roi.textureWidth &&
+			if (pt.x >= roi.textureUpLeftCornerX && pt.x < roi.textureUpLeftCornerX + roi.textureWidth &&
 				pt.y >= roi.textureUpLeftCornerY && pt.y < roi.textureUpLeftCornerY + roi.textureHeight)
 			{
 				int pos = pt.x - roi.textureUpLeftCornerX + (pt.y - roi.textureUpLeftCornerY) * roi.textureWidth;
-				if( buf[ pos])
+				if (buf[ pos])
                     return YES;
 				else
                     return NO;
@@ -2391,29 +2429,31 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 			miny = maxy = [[ptsTemp objectAtIndex: 0] y];
 			
 			// Find the max rectangle of the ROI
-			for( MyPoint *pt in ptsTemp)
+			for (MyPoint *pt in ptsTemp)
 			{	
-				if( minx > [pt x]) minx = [pt x];
-				if( maxx < [pt x]) maxx = [pt x];
-				if( miny > [pt y]) miny = [pt y];
-				if( maxy < [pt y]) maxy = [pt y];
+				if (minx > [pt x]) minx = [pt x];
+				if (maxx < [pt x]) maxx = [pt x];
+				if (miny > [pt y]) miny = [pt y];
+				if (maxy < [pt y]) maxy = [pt y];
 			}
 			
-			if( pt.x < minx || pt.x > maxx) return NO;
-			if( pt.y < miny || pt.y > maxy) return NO;
+			if (pt.x < minx || pt.x > maxx) return NO;
+			if (pt.y < miny || pt.y > maxy) return NO;
 			
-			if( roi.type == tROI)
+			if (roi.type == tROI)
                 return YES;
 			
 			int no = ptsTemp.count;
 			pts = (NSPoint*) malloc( no * sizeof(NSPoint));
 			int i = 0;
-			for( MyPoint *pt in ptsTemp) pts[ i++] = [pt point];
+			for (MyPoint *pt in ptsTemp)
+                pts[ i++] = [pt point];
 			
 			long x = pt.x;
 			long y = pt.y;
 			
-			if( pnpoly( pts, no, x, y))	result = YES;
+			if (pnpoly( pts, no, x, y))
+                result = YES;
 			
 			free( pts);
 		}
@@ -2424,16 +2464,16 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 
 - (void) prepareRestore
 {
-	if( restoreImageCache)
+	if (restoreImageCache)
 		[self freeRestore];
 	
 	restoreImageCache = (DCMPix**) malloc( [pixArray count] * sizeof(DCMPix*));
 	
-	if( restoreImageCache)
+	if (restoreImageCache)
 	{
-		for( int i = 0; i < [pixArray count]; i++)
+		for (int i = 0; i < [pixArray count]; i++)
 		{
-			DCMPix	*s = [pixArray objectAtIndex:i];
+			DCMPix *s = [pixArray objectAtIndex:i];
 			
 			restoreImageCache[ i ] = [[DCMPix alloc] initWithPath: s.sourceFile : i : pixArray.count : nil : s.frameNo : 0];
 		}
@@ -2446,9 +2486,9 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 
 - (void) freeRestore
 {
-	if( restoreImageCache)
+	if (restoreImageCache)
 	{
-		for( int i = 0; i < pixArray.count; i++)
+		for (int i = 0; i < pixArray.count; i++)
 			[restoreImageCache[ i] release];
 		
 		free( restoreImageCache);
@@ -2468,24 +2508,24 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 	unsigned char*	map = nil;
 	float*			tempImage = nil;
 	
-	if( [roi type] == tCPolygon || [roi type] == tOPolygon || [roi type] == tPencil)
+	if ([roi type] == tCPolygon || [roi type] == tOPolygon || [roi type] == tPencil)
 	{
 		NSArray *ptsTemp = [roi points];
 		
 		NSUInteger no = ptsTemp.count;
 		struct NSPointInt *ptsInt = (struct NSPointInt*) malloc( no * sizeof(struct NSPointInt));
 		
-		if( no == 0)
+		if (no == 0)
             NSLog( @"******** ERROR no == 0 getMapFromPolygonROI");
 		
 		NSInteger minX,maxX,minY,maxY;
 		
-		for( int i = 0; i < no; i++)
+		for (int i = 0; i < no; i++)
 		{
 			ptsInt[ i].x = [[ptsTemp objectAtIndex: i] point].x;
 			ptsInt[ i].y = [[ptsTemp objectAtIndex: i] point].y;
 			
-			if( i == 0)
+			if (i == 0)
 			{
 				minX = ptsInt[ 0].x;
 				maxX = ptsInt[ 0].x;
@@ -2494,14 +2534,14 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 			}
 			else
 			{
-				if( ptsInt[ i].x < minX) minX = ptsInt[ i].x;
-				if( ptsInt[ i].x > maxX) maxX = ptsInt[ i].x;
-				if( ptsInt[ i].y < minY) minY = ptsInt[ i].y;
-				if( ptsInt[ i].y > maxY) maxY = ptsInt[ i].y;
+				if (ptsInt[ i].x < minX) minX = ptsInt[ i].x;
+				if (ptsInt[ i].x > maxX) maxX = ptsInt[ i].x;
+				if (ptsInt[ i].y < minY) minY = ptsInt[ i].y;
+				if (ptsInt[ i].y > maxY) maxY = ptsInt[ i].y;
 			}
 		}
 		
-		for( int i = 0; i < no; i++)
+		for (int i = 0; i < no; i++)
 		{
 			ptsInt[ i].x -= minX;
 			ptsInt[ i].y -= minY;
@@ -2519,7 +2559,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 		// Need to clip?
 		int yIm = size->height, xIm = size->width;
 		
-		if( ptsInt != nil && no > 1)
+		if (ptsInt != nil && no > 1)
         {
 			BOOL restore = NO, addition = NO, outside = NO;
 			
@@ -2532,13 +2572,13 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 			map[ i] = tempImage[ i];
 		
 		// Keep a free box around the image
-		for( int i = 0 ; i < xIm; i++)
+		for (int i = 0 ; i < xIm; i++)
 		{
 			map[ i] = 0;
 			map[ (yIm-1)*xIm +i] = 0;
 		}
 		
-		for( int i = 0 ; i < yIm; i++)
+		for (int i = 0 ; i < yIm; i++)
 		{
 			map[ i*xIm] = 0;
 			map[ i*xIm + xIm-1] = 0;
@@ -2577,14 +2617,14 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 	
     [self CheckLoad];
 	
-	if( stackNo < 0 && restore)	{
+	if (stackNo < 0 && restore)	{
 		NSLog( @"error !!!! stackNo < 0 && restore");
 		restore = NO;
 	}
 	
-    if( clipMin.x == 0 && clipMax.x == 0 && clipMin.y == 0 && clipMax.y == 0)
+    if (clipMin.x == 0 && clipMax.x == 0 && clipMin.y == 0 && clipMax.y == 0)
     {
-        switch( orientationStack)
+        switch (orientationStack)
         {
             case 0:	clipMin = NSMakePoint( 0, 0);   clipMax = NSMakePoint( height, pixArray.count); break;
             case 1:	clipMin = NSMakePoint( 0, 0);   clipMax = NSMakePoint( width, pixArray.count); break;
@@ -2592,24 +2632,24 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
         }
     }
     
-    if( clipMin.x < 0)
+    if (clipMin.x < 0)
         clipMin.x = 0;
-    if( clipMin.y < 0)
+    if (clipMin.y < 0)
         clipMin.y = 0;
     
     
-    switch( orientationStack)
+    switch (orientationStack)
     {
-        case 0:	if( clipMax.x > height) clipMax.x = height; if( clipMax.y > pixArray.count) clipMax.y = pixArray.count; break;
-        case 1:	if( clipMax.x > width) clipMax.x = width; if( clipMax.y > pixArray.count) clipMax.y = pixArray.count; break;
-        case 2:	if( clipMax.x > width) clipMax.x = width; if( clipMax.y > height) clipMax.y = height; break;
+        case 0:	if (clipMax.x > height) clipMax.x = height; if (clipMax.y > pixArray.count) clipMax.y = pixArray.count; break;
+        case 1:	if (clipMax.x > width) clipMax.x = width; if (clipMax.y > pixArray.count) clipMax.y = pixArray.count; break;
+        case 2:	if (clipMax.x > width) clipMax.x = width; if (clipMax.y > height) clipMax.y = height; break;
     }
     
-	if( roi)
+	if (roi)
 	{
-		if( roi.type == tPlain)
+		if (roi.type == tPlain)
 		{
-            if( orientationStack != 2)
+            if (orientationStack != 2)
             {
                 N2LogStackTrace( @"Unsupported orientation");
                 return;
@@ -2623,40 +2663,40 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 			
 			// *** INSIDE
 			
-			if( outside == NO)
+			if (outside == NO)
 			{
-				for( y = textureUpLeftCornerY; y < textureUpLeftCornerY + textHeight; y++)
+				for (y = textureUpLeftCornerY; y < textureUpLeftCornerY + textHeight; y++)
 				{
-					if( isRGB)
+					if (isRGB)
 					{
 						
 						unsigned char *rgbPtr = (unsigned char*) (fImage + textureUpLeftCornerX + y*width);
 						unsigned char *fTempRestore = nil;
-						if( restore) fTempRestore = (unsigned char*) &[restoreImageCache[ stackNo] fImage][textureUpLeftCornerX + y*width];
+						if (restore) fTempRestore = (unsigned char*) &[restoreImageCache[ stackNo] fImage][textureUpLeftCornerX + y*width];
 						
-						for( long x = textureUpLeftCornerX; x < textureUpLeftCornerX + textWidth; x++)
+						for (long x = textureUpLeftCornerX; x < textureUpLeftCornerX + textWidth; x++)
 						{
-							if( *buf++)
+							if (*buf++)
 							{
-								if( x >= clipMin.x && x < clipMax.x && y >= clipMin.y && y < clipMax.y)
+								if (x >= clipMin.x && x < clipMax.x && y >= clipMin.y && y < clipMax.y)
 								{
-									if( restore)
+									if (restore)
 									{
 										rgbPtr[ 1] = fTempRestore[ 1];
 										rgbPtr[ 2] = fTempRestore[ 2];
 										rgbPtr[ 3] = fTempRestore[ 3];
 									}
-									else if( addition)
+									else if (addition)
 									{
-										if( rgbPtr[ 1] >= minValue && rgbPtr[ 1] <= maxValue) rgbPtr[ 1] += newVal;
-										if( rgbPtr[ 2] >= minValue && rgbPtr[ 2] <= maxValue) rgbPtr[ 2] += newVal;
-										if( rgbPtr[ 3] >= minValue && rgbPtr[ 3] <= maxValue) rgbPtr[ 3] += newVal;
+										if (rgbPtr[ 1] >= minValue && rgbPtr[ 1] <= maxValue) rgbPtr[ 1] += newVal;
+										if (rgbPtr[ 2] >= minValue && rgbPtr[ 2] <= maxValue) rgbPtr[ 2] += newVal;
+										if (rgbPtr[ 3] >= minValue && rgbPtr[ 3] <= maxValue) rgbPtr[ 3] += newVal;
 									}
 									else
 									{
-										if( rgbPtr[ 1] >= minValue && rgbPtr[ 1] <= maxValue) rgbPtr[ 1] = newVal;
-										if( rgbPtr[ 2] >= minValue && rgbPtr[ 2] <= maxValue) rgbPtr[ 2] = newVal;
-										if( rgbPtr[ 3] >= minValue && rgbPtr[ 3] <= maxValue) rgbPtr[ 3] = newVal;
+										if (rgbPtr[ 1] >= minValue && rgbPtr[ 1] <= maxValue) rgbPtr[ 1] = newVal;
+										if (rgbPtr[ 2] >= minValue && rgbPtr[ 2] <= maxValue) rgbPtr[ 2] = newVal;
+										if (rgbPtr[ 3] >= minValue && rgbPtr[ 3] <= maxValue) rgbPtr[ 3] = newVal;
 									}
 								}
 							}
@@ -2667,22 +2707,22 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 					{
 						float *fTempImage = fImage + textureUpLeftCornerX + y*width;
 						float *fTempRestore = nil;
-						if( restore) fTempRestore = &[restoreImageCache[ stackNo] fImage][textureUpLeftCornerX + y*width];
+						if (restore) fTempRestore = &[restoreImageCache[ stackNo] fImage][textureUpLeftCornerX + y*width];
 						
-						for( long x = textureUpLeftCornerX; x < textureUpLeftCornerX + textWidth; x++)
+						for (long x = textureUpLeftCornerX; x < textureUpLeftCornerX + textWidth; x++)
 						{
-							if( *buf++)
+							if (*buf++)
 							{
-								if( x >= clipMin.x && x < clipMax.x && y >= clipMin.y && y < clipMax.y)
+								if (x >= clipMin.x && x < clipMax.x && y >= clipMin.y && y < clipMax.y)
 								{
-									if( restore) *fTempImage = *fTempRestore;
-									else if( addition)
+									if (restore) *fTempImage = *fTempRestore;
+									else if (addition)
 									{ 
-										if( *fTempImage >= minValue && *fTempImage <= maxValue) *fTempImage += newVal;
+										if (*fTempImage >= minValue && *fTempImage <= maxValue) *fTempImage += newVal;
 									}
 									else
 									{
-										if( *fTempImage >= minValue && *fTempImage <= maxValue) *fTempImage = newVal;
+										if (*fTempImage >= minValue && *fTempImage <= maxValue) *fTempImage = newVal;
 									}
 								}
 							}
@@ -2697,52 +2737,52 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 			
 			else
 			{
-				for( long y = clipMin.y; y < clipMax.y; y++)
+				for (long y = clipMin.y; y < clipMax.y; y++)
 				{
-					for( long x = clipMin.x; x < clipMax.x; x++)
+					for (long x = clipMin.x; x < clipMax.x; x++)
 					{
 						BOOL doit = NO;
 						
-						if( x >= textureUpLeftCornerX && x < textureUpLeftCornerX + textWidth && y >= textureUpLeftCornerY && y < textureUpLeftCornerY + textHeight)
+						if (x >= textureUpLeftCornerX && x < textureUpLeftCornerX + textWidth && y >= textureUpLeftCornerY && y < textureUpLeftCornerY + textHeight)
 						{
-							if( !buf [ x - textureUpLeftCornerX + (y - textureUpLeftCornerY) * textWidth]) doit = YES;
+							if (!buf [ x - textureUpLeftCornerX + (y - textureUpLeftCornerY) * textWidth]) doit = YES;
 						} 
 						else
                             doit = YES;
 						
-						if( doit)
+						if (doit)
 						{
 							long	xx = x;
 							long	yy = y;
 							
-							if( isRGB)
+							if (isRGB)
 							{
 								unsigned char*  rgbPtr = (unsigned char*) &fImage[ (yy * width) + xx];
 								
-								if( addition)
+								if (addition)
 								{
-									if( rgbPtr[ 1] >= minValue && rgbPtr[ 1] <= maxValue) rgbPtr[ 1] += newVal;
-									if( rgbPtr[ 2] >= minValue && rgbPtr[ 2] <= maxValue) rgbPtr[ 2] += newVal;
-									if( rgbPtr[ 3] >= minValue && rgbPtr[ 3] <= maxValue) rgbPtr[ 3] += newVal;
+									if (rgbPtr[ 1] >= minValue && rgbPtr[ 1] <= maxValue) rgbPtr[ 1] += newVal;
+									if (rgbPtr[ 2] >= minValue && rgbPtr[ 2] <= maxValue) rgbPtr[ 2] += newVal;
+									if (rgbPtr[ 3] >= minValue && rgbPtr[ 3] <= maxValue) rgbPtr[ 3] += newVal;
 								}
 								else
 								{
-									if( rgbPtr[ 1] >= minValue && rgbPtr[ 1] <= maxValue) rgbPtr[ 1] = newVal;
-									if( rgbPtr[ 2] >= minValue && rgbPtr[ 2] <= maxValue) rgbPtr[ 2] = newVal;
-									if( rgbPtr[ 3] >= minValue && rgbPtr[ 3] <= maxValue) rgbPtr[ 3] = newVal;
+									if (rgbPtr[ 1] >= minValue && rgbPtr[ 1] <= maxValue) rgbPtr[ 1] = newVal;
+									if (rgbPtr[ 2] >= minValue && rgbPtr[ 2] <= maxValue) rgbPtr[ 2] = newVal;
+									if (rgbPtr[ 3] >= minValue && rgbPtr[ 3] <= maxValue) rgbPtr[ 3] = newVal;
 								}
 							}
 							else
 							{
 								float	*fTempImage = &fImage[ (yy * width) + xx];
 								
-								if( addition)
+								if (addition)
 								{
-									if( *fTempImage >= minValue && *fTempImage <= maxValue) *fTempImage += newVal;
+									if (*fTempImage >= minValue && *fTempImage <= maxValue) *fTempImage += newVal;
 								}
 								else
 								{
-									if( *fTempImage >= minValue && *fTempImage <= maxValue) *fTempImage = newVal;
+									if (*fTempImage >= minValue && *fTempImage <= maxValue) *fTempImage = newVal;
 								}
 							}
 						}
@@ -2754,7 +2794,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 		}
 		else
 		{
-			if( spline)
+			if (spline)
                 ptsTemp = [roi splinePoints];
 			else
                 ptsTemp = [roi points];
@@ -2763,7 +2803,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 			
 			ptsInt = (struct NSPointInt*) malloc( no * sizeof( struct NSPointInt));
 
-			for( long i = 0; i < no; i++)
+			for (long i = 0; i < no; i++)
 			{
 				ptsInt[ i].x = [[ptsTemp objectAtIndex: i] point].x;
 				ptsInt[ i].y = [[ptsTemp objectAtIndex: i] point].y;
@@ -2773,7 +2813,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 			NSPointInt *pTemp;
 			long yIm, xIm;
 			
-			switch( orientationStack)
+			switch (orientationStack)
 			{
 				case 0:	yIm = pixArray.count;		xIm = width;	break;
 				case 1:	yIm = pixArray.count;		xIm = height;	break;
@@ -2781,18 +2821,18 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 			}
 			
 			clip = NO;
-			switch( orientationStack)
+			switch (orientationStack)
 			{
 				case 2:
-					for( long i = 0; i < no && clip == NO; i++)
+					for (long i = 0; i < no && clip == NO; i++)
 					{
-						if( ptsInt[ i].x < clipMin.x) clip = YES;
-						if( ptsInt[ i].y < clipMin.y) clip = YES;
-						if( ptsInt[ i].x >= clipMax.x) clip = YES;
-						if( ptsInt[ i].y >= clipMax.y) clip = YES;
+						if (ptsInt[ i].x < clipMin.x) clip = YES;
+						if (ptsInt[ i].y < clipMin.y) clip = YES;
+						if (ptsInt[ i].x >= clipMax.x) clip = YES;
+						if (ptsInt[ i].y >= clipMax.y) clip = YES;
 					}
 					
-					if( clip)
+					if (clip)
 					{
 						long newNo;
 						
@@ -2808,15 +2848,15 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 					break;
 					
                 case 0:
-					for( long i = 0; i < no && clip == NO; i++)
+					for (long i = 0; i < no && clip == NO; i++)
 					{
-						if( ptsInt[ i].x < clipMin.x) clip = YES;
-						if( ptsInt[ i].y < clipMin.y) clip = YES;
-						if( ptsInt[ i].x >= clipMax.x) clip = YES;
-						if( ptsInt[ i].y >= clipMax.y) clip = YES;
+						if (ptsInt[ i].x < clipMin.x) clip = YES;
+						if (ptsInt[ i].y < clipMin.y) clip = YES;
+						if (ptsInt[ i].x >= clipMax.x) clip = YES;
+						if (ptsInt[ i].y >= clipMax.y) clip = YES;
 					}
 					
-					if( clip)
+					if (clip)
 					{
 						long newNo;
 						
@@ -2830,15 +2870,15 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 					break;
 					
                 case 1:
-					for( long i = 0; i < no && clip == NO; i++)
+					for (long i = 0; i < no && clip == NO; i++)
 					{
-						if( ptsInt[ i].x < clipMin.x) clip = YES;
-						if( ptsInt[ i].y < clipMin.y) clip = YES;
-						if( ptsInt[ i].x >= clipMax.x) clip = YES;
-						if( ptsInt[ i].y >= clipMax.y) clip = YES;
+						if (ptsInt[ i].x < clipMin.x) clip = YES;
+						if (ptsInt[ i].y < clipMin.y) clip = YES;
+						if (ptsInt[ i].x >= clipMax.x) clip = YES;
+						if (ptsInt[ i].y >= clipMax.y) clip = YES;
 					}
 					
-					if( clip)
+					if (clip)
 					{
 						long newNo;
 						
@@ -2856,82 +2896,82 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 	else
         ptsInt = nil;
 	
-	if( outside)
+	if (outside)
 	{
 		long yIm, xIm;
 		
-		switch( orientationStack)
+		switch (orientationStack)
 		{
 			case 0:	yIm = pixArray.count;		xIm = width;	break;
 			case 1:	yIm = pixArray.count;		xIm = height;	break;
 			case 2:	yIm = height;				xIm = width;	break;
 		}
 		
-		if( roi) uplefty = downrighty = ptsInt[0].y;
+		if (roi) uplefty = downrighty = ptsInt[0].y;
 		else
 		{
 			uplefty = 0;
 			downrighty = yIm;
 		}
 		
-		for( long i = 0; i < no; i++)
+		for (long i = 0; i < no; i++)
 		{
-			if( uplefty > ptsInt[i].y) uplefty = ptsInt[i].y;
-			if( downrighty < ptsInt[i].y) downrighty = ptsInt[i].y;
+			if (uplefty > ptsInt[i].y) uplefty = ptsInt[i].y;
+			if (downrighty < ptsInt[i].y) downrighty = ptsInt[i].y;
 		}
 		
-		if( uplefty < 0) uplefty = 0;
-		if( uplefty >= yIm) uplefty = yIm-1;
+		if (uplefty < 0) uplefty = 0;
+		if (uplefty >= yIm) uplefty = yIm-1;
 		
-		if( downrighty < 0) downrighty = 0;
-		if( downrighty >= yIm) downrighty = yIm-1;
+		if (downrighty < 0) downrighty = 0;
+		if (downrighty >= yIm) downrighty = yIm-1;
 		
 		
-		if( isRGB)
+		if (isRGB)
 		{
-			for( long y = 0; y < uplefty ; y++)
+			for (long y = 0; y < uplefty ; y++)
 			{
-				switch( orientationStack)
+				switch (orientationStack)
 				{
 					case 1:		fTempImage = fImage + (y * ims) + stackNo*width;		break;
 					case 0:		fTempImage = fImage + (y * ims) + stackNo;				break;
 					case 2:		fTempImage = fImage + width*y;							break;
 				}
 				
-				for( long x = 0; x < width ; x++)
+				for (long x = 0; x < width ; x++)
 				{
 					unsigned char*  rgbPtr = (unsigned char*) fTempImage;
 					
-					if( rgbPtr[ 1] >= minValue && rgbPtr[ 1] <= maxValue) rgbPtr[ 1] = newVal;
-					if( rgbPtr[ 2] >= minValue && rgbPtr[ 2] <= maxValue) rgbPtr[ 2] = newVal;
-					if( rgbPtr[ 3] >= minValue && rgbPtr[ 3] <= maxValue) rgbPtr[ 3] = newVal;
+					if (rgbPtr[ 1] >= minValue && rgbPtr[ 1] <= maxValue) rgbPtr[ 1] = newVal;
+					if (rgbPtr[ 2] >= minValue && rgbPtr[ 2] <= maxValue) rgbPtr[ 2] = newVal;
+					if (rgbPtr[ 3] >= minValue && rgbPtr[ 3] <= maxValue) rgbPtr[ 3] = newVal;
 					
-					if( orientationStack)
+					if (orientationStack)
                         fTempImage++;
 					else
                         fTempImage += width;
 				}
 			}
 			
-			for( long y = downrighty; y < yIm ; y++)
+			for (long y = downrighty; y < yIm ; y++)
 			{
-				switch( orientationStack)
+				switch (orientationStack)
 				{
 					case 1:		fTempImage = fImage + (y * ims) + stackNo*width;		break;
 					case 0:		fTempImage = fImage + (y * ims) + stackNo;				break;
 					case 2:		fTempImage = fImage + width*y;							break;
 				}
 				
-				for( long x = 0; x < width ; x++)
+				for (long x = 0; x < width ; x++)
 				{
 					unsigned char*  rgbPtr = (unsigned char*) fTempImage;
 					
-					if( rgbPtr[ 1] >= minValue && rgbPtr[ 1] <= maxValue) rgbPtr[ 1] = newVal;
-					if( rgbPtr[ 2] >= minValue && rgbPtr[ 2] <= maxValue) rgbPtr[ 2] = newVal;
-					if( rgbPtr[ 3] >= minValue && rgbPtr[ 3] <= maxValue) rgbPtr[ 3] = newVal;
+					if (rgbPtr[ 1] >= minValue && rgbPtr[ 1] <= maxValue) rgbPtr[ 1] = newVal;
+					if (rgbPtr[ 2] >= minValue && rgbPtr[ 2] <= maxValue) rgbPtr[ 2] = newVal;
+					if (rgbPtr[ 3] >= minValue && rgbPtr[ 3] <= maxValue) rgbPtr[ 3] = newVal;
 					
-					if( orientationStack)
-                        fTempImage ++;
+					if (orientationStack)
+                        fTempImage++;
 					else
                         fTempImage += width;
 				}
@@ -2939,43 +2979,43 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 		}
 		else
 		{
-			for( long y = 0; y < uplefty ; y++)
+			for (long y = 0; y < uplefty ; y++)
 			{
-				switch( orientationStack)
+				switch (orientationStack)
 				{
 					case 1:		fTempImage = fImage + (y * ims) + stackNo*width;		break;
 					case 0:		fTempImage = fImage + (y * ims) + stackNo;				break;
 					case 2:		fTempImage = fImage + width*y;							break;
 				}
 				
-				for( long x = 0; x < width ; x++)
+				for (long x = 0; x < width ; x++)
 				{
-					if( *fTempImage >= minValue && *fTempImage <= maxValue)
+					if (*fTempImage >= minValue && *fTempImage <= maxValue)
                         *fTempImage = newVal;
 					
-					if( orientationStack)
-                        fTempImage ++;
+					if (orientationStack)
+                        fTempImage++;
 					else
                         fTempImage += width;
 				}
 			}
 			
-			for( long y = downrighty; y < yIm ; y++)
+			for (long y = downrighty; y < yIm ; y++)
 			{
-				switch( orientationStack)
+				switch (orientationStack)
 				{
 					case 1:		fTempImage = fImage + (y * ims) + stackNo*width;		break;
 					case 0:		fTempImage = fImage + (y * ims) + stackNo;				break;
 					case 2:		fTempImage = fImage + width*y;							break;
 				}
 				
-				for( long x = 0; x < width ; x++)
+				for (long x = 0; x < width ; x++)
 				{ 
-					if( *fTempImage >= minValue && *fTempImage <= maxValue)
+					if (*fTempImage >= minValue && *fTempImage <= maxValue)
                         *fTempImage = newVal;
 					
-					if( orientationStack)
-                        fTempImage ++;
+					if (orientationStack)
+                        fTempImage++;
 					else
                         fTempImage += width;
 				}
@@ -2983,44 +3023,44 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 		}
 	}
 	
-	if( ptsInt != nil && no > 1)
+	if (ptsInt != nil && no > 1)
 	{
 		ras_FillPolygon( ptsInt, no, fImage, width, height, pixArray.count, minValue, maxValue, outside, newVal, addition, isRGB, NO, nil, nil, nil, nil, nil, 0, orientationStack, stackNo, restore, nil, nil);
 	}
 	else
 	{	// Fill the image that contains no ROI :
-		if( outside)
+		if (outside)
 		{
 			long yIm, xIm;
 			
-			switch( orientationStack)
+			switch (orientationStack)
 			{
 				case 0:	yIm = pixArray.count;		xIm = width;	break;
 				case 1:	yIm = pixArray.count;		xIm = height;	break;
 				case 2:	yIm = height;				xIm = width;	break;
 			}
 			
-			if( isRGB)
+			if (isRGB)
 			{
-				for( long y = 0; y < yIm ; y++)
+				for (long y = 0; y < yIm ; y++)
 				{
-					switch( orientationStack)
+					switch (orientationStack)
 					{
 						case 1:		fTempImage = fImage + (y * ims) + stackNo*width;		break;
 						case 0:		fTempImage = fImage + (y * ims) + stackNo;				break;
 						case 2:		fTempImage = fImage + width*y;							break;
 					}
 					
-					for( long x = 0; x < xIm ; x++)
+					for (long x = 0; x < xIm ; x++)
 					{
 						unsigned char*  rgbPtr = (unsigned char*) fTempImage;
 						
-						if( rgbPtr[ 1] >= minValue && rgbPtr[ 1] <= maxValue) rgbPtr[ 1] = newVal;
-						if( rgbPtr[ 2] >= minValue && rgbPtr[ 2] <= maxValue) rgbPtr[ 2] = newVal;
-						if( rgbPtr[ 3] >= minValue && rgbPtr[ 3] <= maxValue) rgbPtr[ 3] = newVal;
+						if (rgbPtr[ 1] >= minValue && rgbPtr[ 1] <= maxValue) rgbPtr[ 1] = newVal;
+						if (rgbPtr[ 2] >= minValue && rgbPtr[ 2] <= maxValue) rgbPtr[ 2] = newVal;
+						if (rgbPtr[ 3] >= minValue && rgbPtr[ 3] <= maxValue) rgbPtr[ 3] = newVal;
 						
-						if( orientationStack)
-                            fTempImage ++;
+						if (orientationStack)
+                            fTempImage++;
 						else
                             fTempImage += width;
 					}
@@ -3028,22 +3068,22 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 			}
 			else
 			{
-				for( long y = 0; y < yIm ; y++)
+				for (long y = 0; y < yIm ; y++)
 				{
-					switch( orientationStack)
+					switch (orientationStack)
 					{
 						case 1:		fTempImage = fImage + (y * ims) + stackNo*width;		break;
 						case 0:		fTempImage = fImage + (y * ims) + stackNo;				break;
 						case 2:		fTempImage = fImage + width*y;							break;
 					}
 					
-					for( long x = 0; x < xIm ; x++)
+					for (long x = 0; x < xIm ; x++)
 					{
-						if( *fTempImage >= minValue && *fTempImage <= maxValue)
+						if (*fTempImage >= minValue && *fTempImage <= maxValue)
                             *fTempImage = newVal;
 						
-						if( orientationStack)
-                            fTempImage ++;
+						if (orientationStack)
+                            fTempImage++;
 						else
                             fTempImage += width;
 					}
@@ -3052,14 +3092,15 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 		}
 	}
 	
-//	for( DCMPix* pix in pixArray)
+//	for (DCMPix* pix in pixArray)
 //	{
 //		[self computePixMinPixMax];
 //		pix.minValueOfSeries = 0;
 //		pix.maxValueOfSeries = 0;
 //	}
 		
-	if( roi) free( ptsInt);
+	if (roi)
+        free( ptsInt);
 }
 
 - (void) fillROI:(ROI*) roi :(float) newVal :(float) minValue :(float) maxValue :(BOOL) outside :(long) orientationStack :(long) stackNo
@@ -3085,7 +3126,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 	int count = 0;
 	[self CheckLoad];
 	
-	if( roi.type == tPlain)
+	if (roi.type == tPlain)
 	{
 		long			textWidth = roi.textureWidth;
 		long			textHeight = roi.textureHeight;
@@ -3094,29 +3135,29 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 		unsigned char	*buf = roi.textureBuffer;
 		float			*fImageTemp;
 		
-		for( int y = 0; y < textHeight; y++)
+		for (int y = 0; y < textHeight; y++)
 		{
 			fImageTemp = fImage + ((y + textureUpLeftCornerY) * width) + textureUpLeftCornerX;
 			
-			for( int x = 0; x < textWidth; x++, fImageTemp++)
+			for (int x = 0; x < textWidth; x++, fImageTemp++)
 			{
-				if( *buf++ != 0)
+				if (*buf++ != 0)
 				{
 					long	xx = (x + textureUpLeftCornerX);
 					long	yy = (y + textureUpLeftCornerY);
 					
-					if( xx >= 0 && xx < width && yy >= 0 && yy < height)
+					if (xx >= 0 && xx < width && yy >= 0 && yy < height)
 					{
-						if( isRGB == NO)
+						if (!isRGB)
 						{
 							float	val = *fImageTemp;
 							
 							count++;
 							//NSLog(@"x: %d  y: %d Calcium %f",xx, yy,  val);
-							if(val > threshold) cf1Count++;
-							if(val > 200) cf2Count++;
-							if(val > 300) cf3Count++;
-							if(val > 400) cf4Count++; 
+							if (val > threshold) cf1Count++;
+							if (val > 200) cf2Count++;
+							if (val > 300) cf3Count++;
+							if (val > 400) cf4Count++;
 						}
 					}
 				}
@@ -3182,7 +3223,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 
 - (void) computeROIBoundsFromPoints: (NSPointInt*) pts count: (long) count upleftx:(long*) upleftx uplefty:(long*)uplefty downrightx:(long*)downrightx downrighty:(long*) downrighty
 {
-    if( count == 0)
+    if (count == 0)
     {
         NSLog( @"******** computeROIBoundsFromPoints pts.count == 0 !!!!!!");
         return;
@@ -3190,31 +3231,31 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
     *upleftx = *downrightx = pts[0].x;
     *uplefty = *downrighty = pts[0].y;
     
-    for( long i = 0; i < count; i++)
+    for (long i = 0; i < count; i++)
     {
-        if( *upleftx > pts[i].x) *upleftx = pts[i].x;
-        if( *uplefty > pts[i].y) *uplefty = pts[i].y;
+        if (*upleftx > pts[i].x) *upleftx = pts[i].x;
+        if (*uplefty > pts[i].y) *uplefty = pts[i].y;
         
-        if( *downrightx < pts[i].x) *downrightx = pts[i].x;
-        if( *downrighty < pts[i].y) *downrighty = pts[i].y;
+        if (*downrightx < pts[i].x) *downrightx = pts[i].x;
+        if (*downrighty < pts[i].y) *downrighty = pts[i].y;
     }
     
-    if( *upleftx < 0)
+    if (*upleftx < 0)
         *upleftx = 0;
-    if( *downrightx < 0)
+    if (*downrightx < 0)
         *downrightx = 0;
-    if( *upleftx > width)
+    if (*upleftx > width)
         *upleftx = width;
-    if( *downrightx > width)
+    if (*downrightx > width)
         *downrightx = width;
     
-    if( *uplefty < 0)
+    if (*uplefty < 0)
         *uplefty = 0;
-    if( *downrighty < 0)
+    if (*downrighty < 0)
         *downrighty = 0;
-    if( *uplefty > height)
+    if (*uplefty > height)
         *uplefty = height;
-    if( *downrighty > height)
+    if (*downrighty > height)
         *downrighty = height;
 }
 
@@ -3225,15 +3266,15 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 
 - (void) computeROI:(ROI*) roi :(float*) mean :(float *)total :(float *)dev :(float *)min :(float *)max :(float *)skewness :(float*) kurtosis
 {
-//    if( total)
+//    if (total)
 //        *total = rand();
 //    return;
     
-    if( [[NSUserDefaults standardUserDefaults] boolForKey: @"ROIComputeSkewnessAndKurtosis"] == NO)
+    if ([[NSUserDefaults standardUserDefaults] boolForKey: @"ROIComputeSkewnessAndKurtosis"] == NO)
     {
-        if( skewness)
+        if (skewness)
             *skewness = 0;
-        if( kurtosis)
+        if (kurtosis)
             *kurtosis = 0;
         
         skewness = nil;
@@ -3252,28 +3293,28 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 	
     float *values = [self getROIValue: &count :roi :nil];
     
-//    if( total)
+//    if (total)
 //        *total = rand();
 //    return;
     
-    for( long i = 0; i < count; i++)
+    for (long i = 0; i < count; i++)
     {
         float val = values[ i];
         
         itotal += val;
         
-        if( imin > val) imin = val;
-        if( imax < val) imax = val;
+        if (imin > val) imin = val;
+        if (imax < val) imax = val;
     }
 
-    if( count != 0)
+    if (count != 0)
         imean = itotal / count;
             
-    if( dev)
+    if (dev)
     {
         idev = 0;
                 
-        for( long i = 0; i < count; i++)
+        for (long i = 0; i < count; i++)
         {
             float temp = imean - values[ i];
             temp *= temp;
@@ -3285,23 +3326,23 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
         *dev = sqrt(*dev);
     }
             
-    if( max) *max = imax;
-    if( min) *min = imin;
-    if( total) *total = itotal;
-    if( mean) *mean = imean;
+    if (max) *max = imax;
+    if (min) *min = imin;
+    if (total) *total = itotal;
+    if (mean) *mean = imean;
     
-    if( max && *max == -FLT_MAX) *max = 0;
-    if( min && *min == FLT_MAX) *min = 0;
+    if (max && *max == -FLT_MAX) *max = 0;
+    if (min && *min == FLT_MAX) *min = 0;
     
     
-    if( kurtosis)
+    if (kurtosis)
         *kurtosis = [DCMPix kurtosis: values length: count mean: imean];
     
-    if( skewness)
+    if (skewness)
         *skewness = [DCMPix skewness: values length: count mean: imean];
     
     
-    if( values)
+    if (values)
         free( values);
 }
 
@@ -3314,7 +3355,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 {
 	[checking lock];
 	
-	if( b)
+	if (b)
 		fExternalOwnedImage = nil;
 	else
 		fExternalOwnedImage = fImage;
@@ -3326,9 +3367,9 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 {
 	[checking lock];
 	
-	if( fExternalOwnedImage == nil)
+	if (fExternalOwnedImage == nil)
 	{
-		if( fImage != nil)
+		if (fImage != nil)
 		{
 			free(fImage);
 			fImage = nil;
@@ -3339,7 +3380,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 	
 	fImage = ptr;
 	
-	if( fExternalOwnedImage)
+	if (fExternalOwnedImage)
 		fExternalOwnedImage = fImage;
 	
 	[checking unlock];
@@ -3349,9 +3390,9 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 {
 	BOOL isLoaded = NO;
 	
-	if( [checking tryLock])
+	if ([checking tryLock])
 	{
-		if( fImage)
+		if (fImage)
 			isLoaded = YES;
 	
 		[checking unlock];
@@ -3371,16 +3412,19 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 - (double) pixelSpacingY { [self CheckLoad]; return pixelSpacingY; }
 - (double) pixelSpacingX { [self CheckLoad]; return pixelSpacingX; }
 
-- (void) setPixelX: (int) x Y:(int) y value:(float) v
+- (void) setPixelX: (int) x
+                 Y: (int) y
+             value: (float) v
 {
     [self CheckLoad];
-    
     *(fImage + x + (y*width)) = v;
 }
 
 - (void) setPixelSpacingX :(double) s
 {
-	if( isnan( s) || s < 0.00001 || s > 1000)
+	if (isnan( s) ||
+        s < 0.00001 ||
+        s > 1000)
     {
 		NSLog( @"***** setPixelSpacingX with value : %lf", s);
         s = 1;
@@ -3388,12 +3432,15 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
     
 	[self CheckLoad];
 	pixelSpacingX = s;
-	if( pixelSpacingX) pixelRatio = pixelSpacingY / pixelSpacingX;
+	if (pixelSpacingX)
+        pixelRatio = pixelSpacingY / pixelSpacingX;
 }
 
 - (void) setPixelSpacingY :(double) s
 {
-	if( isnan( s) || s < 0.00001 || s > 1000)
+	if (isnan( s) ||
+        s < 0.00001 ||
+        s > 1000)
     {
 		NSLog( @"***** setPixelSpacingY with value : %lf", s);
         s = 1;
@@ -3401,7 +3448,8 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
     
 	[self CheckLoad];
 	pixelSpacingY = s;
-	if( pixelSpacingX) pixelRatio = pixelSpacingY / pixelSpacingX;
+	if (pixelSpacingX)
+        pixelRatio = pixelSpacingY / pixelSpacingX;
 }
 
 - (double) originX { [self CheckLoad]; return originX;}
@@ -3415,6 +3463,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 	o[ 1] = originY;
 	o[ 2] = originZ;
 }
+
 - (void) originDouble: (double*)o
 {
 	[self CheckLoad];
@@ -3422,18 +3471,21 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 	o[ 1] = originY;
 	o[ 2] = originZ;
 }
+
 - (void) setOrigin: (float*)o
 {
 	originX = o[ 0];
 	originY = o[ 1];
 	originZ = o[ 2];
 }
+
 - (void) setOriginDouble: (double*)o
 {
 	originX = o[ 0];
 	originY = o[ 1];
 	originZ = o[ 2];
 };
+
 - (double) sliceLocation{ [self CheckLoad]; return sliceLocation;}
 - (void) setSliceLocation: (double)l { [self CheckLoad]; sliceLocation = l;}
 - (void) computeSliceLocation
@@ -3441,21 +3493,24 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
     float centerPix[ 3];
     [self convertPixX: width/2 pixY: height/2 toDICOMCoords: centerPix];
     
-    if( fabs( orientation[6]) > fabs(orientation[7]) && fabs( orientation[6]) > fabs(orientation[8]))
+    if (fabs( orientation[6]) > fabs(orientation[7]) && fabs( orientation[6]) > fabs(orientation[8]))
         sliceLocation = centerPix[ 0];
     
-    if( fabs( orientation[7]) > fabs(orientation[6]) && fabs( orientation[7]) > fabs(orientation[8]))
+    if (fabs( orientation[7]) > fabs(orientation[6]) && fabs( orientation[7]) > fabs(orientation[8]))
         sliceLocation = centerPix[ 1];
     
-    if( fabs( orientation[8]) > fabs(orientation[6]) && fabs( orientation[8]) > fabs(orientation[7]))
+    if (fabs( orientation[8]) > fabs(orientation[6]) && fabs( orientation[8]) > fabs(orientation[7]))
         sliceLocation = centerPix[ 2];
 }
+
 - (double) sliceThickness { [self CheckLoad]; return sliceThickness;}
+
 - (void) setSliceThickness: (double)l
 {
 	[self CheckLoad];
 	sliceThickness = l;
 }
+
 - (double) spacingBetweenSlices { [self CheckLoad]; return spacingBetweenSlices;}
 
 - (double) sliceInterval { [self CheckLoad]; return sliceInterval; }
@@ -3470,13 +3525,17 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 
 - (float) fullww
 {
-	if( fullww == 0 && fullwl == 0) [self computePixMinPixMax];
+	if (fullww == 0 && fullwl == 0)
+        [self computePixMinPixMax];
+    
 	return fullww;
 }
 
 - (float) fullwl
 {
-	if( fullww == 0 && fullwl == 0) [self computePixMinPixMax];
+	if (fullww == 0 && fullwl == 0)
+        [self computePixMinPixMax];
+    
 	return fullwl;
 }
 
@@ -3491,13 +3550,13 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 {
     @synchronized( [DCMPix class])
     {
-        if( cachedPapyGroups == nil)
+        if (cachedPapyGroups == nil)
             cachedPapyGroups = [NSMutableDictionary new];
 
-        if( cachedDCMFrameworkFiles == nil)
+        if (cachedDCMFrameworkFiles == nil)
             cachedDCMFrameworkFiles = [NSMutableDictionary new];
         
-        if( cachedDCMTKFileFormat == nil)
+        if (cachedDCMTKFileFormat == nil)
             cachedDCMTKFileFormat = [NSMutableDictionary new];
     }
     
@@ -3521,13 +3580,12 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
     return [super init];
 }
 
-
 -(void) setArrayPix :(NSArray*) array :(short) i
 {
 	pixArray = array;
 	pixPos = i;
 	
-	if( [array objectAtIndex:i] != self)
+	if ([array objectAtIndex:i] != self)
 	{
 		NSLog(@"Beuh... Pix != Pix...");
 	}
@@ -3539,13 +3597,13 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 	
     @synchronized( [DCMPix class])
     {
-        if( cachedPapyGroups == nil)
+        if (cachedPapyGroups == nil)
             cachedPapyGroups = [NSMutableDictionary new];
 
-        if( cachedDCMFrameworkFiles == nil)
+        if (cachedDCMFrameworkFiles == nil)
             cachedDCMFrameworkFiles = [NSMutableDictionary new];
         
-        if( cachedDCMTKFileFormat == nil)
+        if (cachedDCMTKFileFormat == nil)
             cachedDCMTKFileFormat = [NSMutableDictionary new];
     }
     
@@ -3575,11 +3633,9 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 	orientation[ 4] = 1;
 	orientation[ 5] = 0;
 	// Compute normal vector
-	orientation[6] = orientation[1]*orientation[5] - orientation[2]*orientation[4];
-	orientation[7] = orientation[2]*orientation[3] - orientation[0]*orientation[5];
-	orientation[8] = orientation[0]*orientation[4] - orientation[1]*orientation[3];
-    
-    
+	orientation[6] = orientation[1]*orientation[5] - orientation[2]*orientation[4]; // 0
+	orientation[7] = orientation[2]*orientation[3] - orientation[0]*orientation[5]; // 0
+	orientation[8] = orientation[0]*orientation[4] - orientation[1]*orientation[3]; // 1
 }
 
 - (id) initwithdata :(float*) im :(short) pixelSize :(long) xDim :(long) yDim :(float) xSpace :(float) ySpace :(float) oX :(float) oY :(float) oZ :(BOOL) volSize
@@ -3598,8 +3654,12 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
                     :(float) oZ
                     :(BOOL) volSize
 {
-	//if( pixelSize != 32) NSLog( @"Only floating images are supported...");
-	if( self = [super init])
+    NSLog(@"DCMPix.mm:%d %s", __LINE__, __PRETTY_FUNCTION__);
+    
+	//if (pixelSize != 32)
+    //  NSLog( @"Only floating images are supported...");
+    
+	if (self = [super init])
     {
 		[self initParameters];
 		
@@ -3613,28 +3673,28 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 		pixelSpacingX = xSpace;
 		pixelSpacingY = ySpace;
         
-        if( isnan( pixelSpacingX) || pixelSpacingX < 0.00001 || pixelSpacingX > 1000)
+        if (isnan( pixelSpacingX) || pixelSpacingX < 0.00001 || pixelSpacingX > 1000)
             NSLog( @"****** DCMPix initWithData");
         
-        if( isnan( pixelSpacingY) || pixelSpacingY < 0.00001 || pixelSpacingY > 1000)
+        if (isnan( pixelSpacingY) || pixelSpacingY < 0.00001 || pixelSpacingY > 1000)
             NSLog( @"****** DCMPix initWithData");
         
-		if( pixelSpacingY != 0 && pixelSpacingX != 0)
+		if (pixelSpacingY != 0 && pixelSpacingX != 0)
             pixelRatio = pixelSpacingY / pixelSpacingX;
 		else
             pixelRatio = 1.0;
 		
-		if( volSize)
+		if (volSize)
 		{
 			fExternalOwnedImage = im;
 			fImage = im;
 			
-			if( im == nil)
+			if (im == nil)
 				NSLog( @"DCMPix initWithData ERROR im == nil");
 		}
 		else
 		{
-			switch( pixelSize)
+			switch (pixelSize)
 			{
 				case 7:		// ARGB
 					isRGB = YES;
@@ -3642,14 +3702,14 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 					fImage = (float *)malloc(width*height*sizeof(float));
 					long i;
 					
-					if( fImage)
+					if (fImage)
 					{
-						if( im)
+						if (im)
 						{
-							if( xDim != width)
+							if (xDim != width)
 							{
 								//	NSLog(@"Allocate a new fImage");
-								for( i =0; i < height; i++)
+								for (i =0; i < height; i++)
 									memcpy( fImage + i*width, im + i*xDim, width*sizeof(float));
 							}
 							else
@@ -3660,16 +3720,17 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
                         N2LogStackTrace( @"*** Not enough memory - malloc failed");
 					break;
 					
-					case 8:		// RGBA -> argb
-					fImage = (float *)malloc(width*height*sizeof(float));
+                case 8:		// RGBA -> argb
+                    fImage = (float *)malloc(width*height*sizeof(float));
 					
-					if( fImage)
+					if (fImage)
 					{
-						if( im)
+						if (im)
 						{
-							unsigned char *src = (unsigned char*) im, *dst = (unsigned char*) fImage;
+                            unsigned char *src = (unsigned char*) im;
+                            unsigned char *dst = (unsigned char*) fImage;
 							
-							for( i =0; i < height*width*4; i+= 4)
+							for (i =0; i < height*width*4; i+= 4)
 							{
 								dst[ i] = src[ i+3];
 								dst[ i+1] = src[ i];
@@ -3699,9 +3760,9 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 		sliceThickness = 0;
 		
 		memset( orientation, 0, sizeof orientation);
-		#ifdef OSIRIX_VIEWER
+#ifdef OSIRIX_VIEWER
         [self loadCustomImageAnnotationsPapyLink:-1 DCMLink:nil];
-		#endif
+#endif
     }
     return self;
 }
@@ -3711,6 +3772,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 	return [self initWithData: im :pixelSize :xDim :yDim :xSpace :ySpace :oX :oY :oZ :NO];
 }
 
+// TODO: figure out this identical function with slightly different name
 - (id) initwithdata :(float*) im :(short) pixelSize :(long) xDim :(long) yDim :(float) xSpace :(float) ySpace :(float) oX :(float) oY :(float) oZ
 {
 	return [self initWithData: im :pixelSize :xDim :yDim :xSpace :ySpace :oX :oY :oZ :NO];
@@ -3723,28 +3785,44 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 
 - (id) initWithImageObj: (Dicom_Image *) image
 {
-	return  [self initWithPath: image.completePath :0 :1 :nil :[image.frameID intValue] :[image.series.id intValue] isBonjour:NO imageObj: image];
+    NSLog(@"DCMPix.mm:%d %s", __LINE__, __PRETTY_FUNCTION__);
+	return  [self initWithPath: image.completePath
+                              : 0
+                              : 1
+                              : nil
+                              : [image.frameID intValue]
+                              : [image.series.id intValue]
+                     isBonjour: NO
+                      imageObj: image];
 }
 
  - (id)initWithContentsOfFile: (NSString *)file
 {
-	return  [self initWithPath:file :0 :1 :nil :0 :0 isBonjour:NO imageObj: nil];
+	return [self initWithPath:file :0 :1 :nil :0 :0 isBonjour:NO imageObj: nil];
 }
 
-- (id) initWithPath:(NSString*) s :(long) pos :(long) tot :(float*) ptr :(long) f :(long) ss isBonjour:(BOOL) hello imageObj: (NSManagedObject*) iO
+// It doesn't load pix data, only initializes instance variables
+- (id) initWithPath:(NSString*) s
+                   :(long) pos
+                   :(long) tot
+                   :(float*) ptr
+                   :(long) f
+                   :(long) ss
+          isBonjour:(BOOL) hello
+           imageObj:(NSManagedObject*) iO
 {	
-	// doesn't load pix data, only initializes instance variables
-	if( hello == NO && s != nil)
-		if( [[NSFileManager defaultManager] fileExistsAtPath:s] == NO)
+	if (hello == NO && s != nil)
+		if ([[NSFileManager defaultManager] fileExistsAtPath:s] == NO)
             return nil;
 	
-//#if NDEBUG
-//#else
-//    if( [NSThread isMainThread] == NO)
+    //NSLog(@"DCMPix.mm:%d initWithPath, %p, path:%@", __LINE__, self, s);
+
+//#indef NDEBUG
+//    if ([NSThread isMainThread] == NO)
 //        NSLog( @"***** Warning: DCMPix initWithPath should be created in the main thread");
 //#endif
     
-    if( self = [super init])
+    if (self = [super init])
     {
 		//-------------------------received parameters
         [self setSourceFile:s];
@@ -3753,19 +3831,19 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
         {
             imageObjectID = [[iO objectID] retain];
             
-            URIRepresentationAbsoluteString =  [[[[[iO valueForKeyPath:@"series.study"] objectID] URIRepresentation] absoluteString] retain];
+            URIRepresentationAbsoluteString = [[[[[iO valueForKeyPath:@"series.study"] objectID] URIRepresentation] absoluteString] retain];
             fileTypeHasPrefixDICOM = [[iO valueForKey:@"fileType"] hasPrefix:@"DICOM"];
             numberOfFrames = [[iO valueForKey: @"numberOfFrames"] intValue];
             
-            if( [iO valueForKeyPath: @"series.study.dateOfBirth"])
+            if ([iO valueForKeyPath: @"series.study.dateOfBirth"])
                 self.yearOld = [iO valueForKeyPath: @"series.study.yearOld"];
                 
-            if( [iO valueForKeyPath: @"series.study.dateOfBirth"] && [iO valueForKeyPath: @"series.study.date"])
+            if ([iO valueForKeyPath: @"series.study.dateOfBirth"] && [iO valueForKeyPath: @"series.study.date"])
                 self.yearOldAcquisition = [iO valueForKeyPath: @"series.study.yearOldAcquisition"];
             
-            #ifdef OSIRIX_VIEWER
+#ifdef OSIRIX_VIEWER
             [self loadCustomImageAnnotationsDBFields: (Dicom_Image*) iO];
-            #endif
+#endif
             
             savedHeightInDB = [[iO valueForKey:@"height"] intValue];
             savedWidthInDB = [[iO valueForKey:@"width"] intValue];
@@ -3798,12 +3876,22 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 	return [self initWithPath: (NSString*) s :(long) pos :(long) tot :(float*) ptr :(long) f :(long) ss isBonjour:(BOOL) hello imageObj: (NSManagedObject*) iO];
 }
 
-- (id) initWithPath:(NSString*) s :(long) pos :(long) tot :(float*) ptr :(long) f :(long) ss
+- (id) initWithPath:(NSString*) s
+                   :(long) pos
+                   :(long) tot
+                   :(float*) ptr
+                   :(long) f
+                   :(long) ss
 {
 	return [self initWithPath: s :pos :tot :ptr :f :ss isBonjour:NO imageObj: nil];
 }
 
-- (id) myinit:(NSString*) s :(long) pos :(long) tot :(float*) ptr :(long) f :(long) ss
+- (id) myinit:(NSString*) s
+             :(long) pos
+             :(long) tot
+             :(float*) ptr
+             :(long) f
+             :(long) ss
 {
 	return [self initWithPath: s :pos :tot :ptr :f :ss isBonjour:NO imageObj: nil];
 }
@@ -3811,7 +3899,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 - (id) copyWithZone:(NSZone *)zone
 {
     DCMPix *copy = [[DCMPix allocWithZone: zone] init];
-    if( copy == nil)
+    if (copy == nil)
         return nil;
     
     [copy setSourceFile:self->srcFile];
@@ -3905,7 +3993,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 	long		i;
 	
 	//NSLog(@"Handling Biorad PIC File in CheckLoad");
-	if( fp)
+	if (fp)
 	{
 		long					totSize, maxImage;
 		struct BioradHeader 	header;
@@ -3919,31 +4007,31 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
         #ifdef OSIRIX_VIEWER
         NSManagedObjectContext *iContext = nil;
         
-		if( savedWidthInDB != 0 && savedWidthInDB != width)
+		if (savedWidthInDB != 0 && savedWidthInDB != width)
 		{
-            if( savedWidthInDB != OsirixDicomImageSizeUnknown)
+            if (savedWidthInDB != OsirixDicomImageSizeUnknown)
                 NSLog( @"******* [[imageObj valueForKey:@'width'] intValue] != width - %d versus %d", (int)savedWidthInDB, (int) width);
 			
-            if( iContext == nil)
+            if (iContext == nil)
                 iContext = ([[NSThread currentThread] isMainThread] ? [[[BrowserController currentBrowser] database] managedObjectContext] : [[[BrowserController currentBrowser] database] independentContext]);
             
             [[iContext existingObjectWithID: imageObjectID error: nil]setValue: [NSNumber numberWithInt: width] forKey: @"width"];
             
-			if( width > savedWidthInDB && fExternalOwnedImage)
+			if (width > savedWidthInDB && fExternalOwnedImage)
 				width = savedWidthInDB;
 		}
 		
-		if( savedHeightInDB != 0 && savedHeightInDB != height)
+		if (savedHeightInDB != 0 && savedHeightInDB != height)
 		{
-            if( savedHeightInDB != OsirixDicomImageSizeUnknown)
+            if (savedHeightInDB != OsirixDicomImageSizeUnknown)
                 NSLog( @"******* [[imageObj valueForKey:@'height'] intValue] != height - %d versus %d", (int)savedHeightInDB, (int)height);
 			
-            if( iContext == nil)
+            if (iContext == nil)
                 iContext = ([[NSThread currentThread] isMainThread] ? [[[BrowserController currentBrowser] database] managedObjectContext] : [[[BrowserController currentBrowser] database] independentContext]);
             
             [[iContext existingObjectWithID: imageObjectID error: nil] setValue: [NSNumber numberWithInt: height] forKey: @"height"];
             
-			if( height > savedHeightInDB && fExternalOwnedImage)
+			if (height > savedHeightInDB && fExternalOwnedImage)
 				height = savedHeightInDB;
 		}
         [iContext save: nil];
@@ -3961,7 +4049,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 		totSize = height * width * 2;
 		short *oImage = (short *)malloc( totSize);
 		
-		if( NSSwapLittleShortToHost(header.byte_format) != 1)  // 16 bit
+		if (NSSwapLittleShortToHost(header.byte_format) != 1)  // 16 bit
 		{  // GJ: Fetch the data from an offset given by header + frame *bytes per frame
 			
 			fseek(fp, BIORAD_HEADER_LENGTH +frameNo*(height * width * 2), SEEK_SET);
@@ -3969,7 +4057,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 			fread( oImage, height * width * 2, 1, fp);
 			
 			i = height * width;
-			while( i-- > 0)
+			while (i-- > 0)
 			{
 				oImage[ i] = NSSwapLittleShortToHost( oImage[ i]);
 			}
@@ -3989,7 +4077,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 			ptr    = oImage;
 			
 			loop = totSize/2;
-			while( loop-- > 0)
+			while (loop-- > 0)
 			{
 				*ptr++ = *bufPtr++;
 			}
@@ -4000,7 +4088,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 		// NSLog(@"Entering Biorad PIC File footer");
 		
 		// GJ: This isn't strictly necessary and some files don't have this flag set.
-		//if( header.notesAvailable || 1) {
+		//if (header.notesAvailable || 1) {
 		
 		long numBytes = height*width*maxImage*bytesPerPixel;
 		
@@ -4017,7 +4105,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 		double zCorrection=1.0;
 		
 		// Iterate ovet the file's footer
-		while( feof(fp) == 0)
+		while (feof(fp) == 0)
 		{
 			fread( &bnote, BIORAD_NOTE_LENGTH, 1, fp);
 			bnote.noteText[ BIORAD_NOTE_TEXT_LENGTH-1] = 0;
@@ -4027,12 +4115,12 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 			
 			//Remove any illegal characters
 			noteCleaner = [NSScanner scannerWithString:noteText];
-			if([noteCleaner scanCharactersFromSet:goodSet intoString:&aLine])
+			if ([noteCleaner scanCharactersFromSet:goodSet intoString:&aLine])
 			{
 				//NSLog(@"aLine %@",aLine);
 				
 				// now try and see if we can find any indication of axis information
-				if([aLine rangeOfString:@"AXIS_"].location!=NSNotFound)
+				if ([aLine rangeOfString:@"AXIS_"].location!=NSNotFound)
 				{
 					NSString	*axisNumberString, *pixelSpacingString;
 					
@@ -4045,7 +4133,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
                     else
 						pixelSpacingString=@"";
 					
-					switch( [axisNumberString intValue])
+					switch ([axisNumberString intValue])
 				{
 					case 2: pixelSpacingX = [pixelSpacingString doubleValue];  		break;
 					case 3: pixelSpacingY = [pixelSpacingString doubleValue];  		break;
@@ -4055,7 +4143,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 				} else{
 					//check if this line contains z correction information
 					//Z_CORRECT_FACTOR = 0.950000 -2.821782
-					if([aLine rangeOfString:@"Z_CORRECT_FACTOR"].location!=NSNotFound)
+					if ([aLine rangeOfString:@"Z_CORRECT_FACTOR"].location!=NSNotFound)
 					{
 						NSArray *listItems = [aLine componentsSeparatedByString:@" "];
 						NSString	*subStringVal;
@@ -4095,7 +4183,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 		
 		src16.data = oImage;
 		
-		if( fExternalOwnedImage)
+		if (fExternalOwnedImage)
 		{
 			fImage = fExternalOwnedImage;
 		}
@@ -4106,7 +4194,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 		
 		dstf.data = fImage;
 		
-		if( dstf.data)
+		if (dstf.data)
 			vImageConvert_16SToF( &src16, &dstf, 0, 1, 0);
 		else
             N2LogStackTrace( @"*** Not enough memory - malloc failed");
@@ -4128,13 +4216,13 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 	long			i, totSize;
 	int				w, h, row;
 	short			bpp, count, tifspp;
-	short			dataType = 0;
+	short			dataTypeTiff = 0;
 	short			planarConfig = 0;
 	
 	isRGB = NO;
 	
     TIFF* tif = TIFFOpen([srcFile UTF8String], "r");
-    if( tif)
+    if (tif)
 	{
 		count = 0;
 		while (count < directory && TIFFReadDirectory (tif))
@@ -4144,48 +4232,48 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 		TIFFGetField(tif, TIFFTAG_IMAGELENGTH, &h);
 		TIFFGetField(tif, TIFFTAG_BITSPERSAMPLE, &bpp);
 		TIFFGetField(tif, TIFFTAG_SAMPLESPERPIXEL, &tifspp);
-		TIFFGetField(tif, TIFFTAG_DATATYPE, &dataType);
+		TIFFGetField(tif, TIFFTAG_DATATYPE, &dataTypeTiff);
 		TIFFGetField(tif, TIFFTAG_PLANARCONFIG, &planarConfig);
 		
 		height = h;
 		width = w;
 		
-        #ifdef OSIRIX_VIEWER
+#ifdef OSIRIX_VIEWER
         NSManagedObjectContext *iContext = nil;
         
-		if( savedHeightInDB != 0 && savedHeightInDB != height)
+		if (savedHeightInDB != 0 && savedHeightInDB != height)
 		{
-            if( savedHeightInDB != OsirixDicomImageSizeUnknown)
+            if (savedHeightInDB != OsirixDicomImageSizeUnknown)
                 NSLog( @"******* [[imageObj valueForKey:@'height'] intValue] != height - %d versus %d", (int)savedHeightInDB, (int)height);
 			
-            if( iContext == nil)
+            if (iContext == nil)
                 iContext = ([[NSThread currentThread] isMainThread] ? [[[BrowserController currentBrowser] database] managedObjectContext] : [[[BrowserController currentBrowser] database] independentContext]);
             
             [[iContext existingObjectWithID: imageObjectID error: nil] setValue: [NSNumber numberWithInt: height] forKey: @"height"];
             
-			if( height > savedHeightInDB && fExternalOwnedImage)
+			if (height > savedHeightInDB && fExternalOwnedImage)
 				height = savedHeightInDB;
 		}
 		
-		if( savedWidthInDB != 0 && savedWidthInDB != width)
+		if (savedWidthInDB != 0 && savedWidthInDB != width)
 		{
-            if( savedWidthInDB != OsirixDicomImageSizeUnknown)
+            if (savedWidthInDB != OsirixDicomImageSizeUnknown)
                 NSLog( @"******* [[imageObj valueForKey:@'width'] intValue] != width - %d versus %d", (int)savedWidthInDB, (int)width);
             
-			if( iContext == nil)
+			if (iContext == nil)
                 iContext = ([[NSThread currentThread] isMainThread] ? [[[BrowserController currentBrowser] database] managedObjectContext] : [[[BrowserController currentBrowser] database] independentContext]);
             
             [[iContext existingObjectWithID: imageObjectID error: nil] setValue: [NSNumber numberWithInt: width] forKey: @"width"];
             
-			if( width > savedWidthInDB && fExternalOwnedImage)
+			if (width > savedWidthInDB && fExternalOwnedImage)
 				width = savedWidthInDB;
 		}
         [iContext save: nil];
-        #endif
+#endif
         
 		totSize = (height+1) * (width+1);
 		
-		if( tifspp == 3)	// RGB
+		if (tifspp == 3)	// RGB
 		{
 			isRGB = YES;
 			totSize *= 4;
@@ -4195,17 +4283,17 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 		
 		short *oImage = (short *)malloc( totSize);
 		
-		if( bpp == 16)
+		if (bpp == 16)
 		{
-			if( tifspp == 3)	// RGB
+			if (tifspp == 3)	// RGB
 			{
-				if( planarConfig == PLANARCONFIG_SEPARATE)
+				if (planarConfig == PLANARCONFIG_SEPARATE)
 				{
 					unsigned char  *dst = (unsigned char*) oImage;
 					
 					TIFFReadRGBAImage(tif, w, h, (uint32 *) dst, 0);
 					
-					for( i =0; i < height*width*4; i+= 4)
+					for (i =0; i < height*width*4; i+= 4)
 					{
 						dst[ i+3] = dst[ i+2];
 						dst[ i+2] = dst[ i+1];
@@ -4227,14 +4315,14 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 						TIFFReadScanline(tif, buf, row, 0);
 						
 						dst = aImage + (row*(scanline/6) * 4);
-						for( i = 0; i < scanline/6; i++)
+						for (i = 0; i < scanline/6; i++)
 						{
 							dst[ i*4 + 0] = 0;
 							dst[ i*4 + 1] = buf[ i*3 + 0] / 256;
 							dst[ i*4 + 2] = buf[ i*3 + 1] / 256;
 							dst[ i*4 + 3] = buf[ i*3 + 2] / 256;
 							
-							if( buf[ i*3 + 0] == buf[ i*3 + 1] && buf[ i*3 + 0] == buf[ i*3 + 2])
+							if (buf[ i*3 + 0] == buf[ i*3 + 1] && buf[ i*3 + 0] == buf[ i*3 + 2])
 							{
 							}
 							else
@@ -4244,13 +4332,13 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 					
 					_TIFFfree(buf);
 					
-					if( trueRGB == NO)	// Convert it to BW
+					if (trueRGB == NO)	// Convert it to BW
 					{
 						isRGB = NO;
 						
 						unsigned char  *dst = (unsigned char*) oImage;
 						
-						for( i =0; i < height*width*4; i+= 4)
+						for (i =0; i < height*width*4; i+= 4)
 						{
 							oImage[ i/4] = dst[ i+1];
 						}
@@ -4267,11 +4355,11 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 				}
 			}
 		}
-		else if( bpp == 8)
+		else if (bpp == 8)
 		{
-			if( tifspp == 3)	// RGB
+			if (tifspp == 3)	// RGB
 			{
-				if( planarConfig == PLANARCONFIG_SEPARATE)
+				if (planarConfig == PLANARCONFIG_SEPARATE)
 				{
 					unsigned char  *dst = (unsigned char*) oImage;
 					
@@ -4279,13 +4367,13 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 					
 					BOOL trueRGB = NO;
 					
-					for( i =0; i < height*width*4; i+= 4)
+					for (i =0; i < height*width*4; i+= 4)
 					{
 						dst[ i+3] = dst[ i+2];
 						dst[ i+2] = dst[ i+1];
 						dst[ i+1] = dst[ i];
 						
-						if( dst[ i+1] == dst[ i+2] && dst[ i+2] == dst[ i+3])
+						if (dst[ i+1] == dst[ i+2] && dst[ i+2] == dst[ i+3])
 						{
 						}
 						else
@@ -4294,13 +4382,13 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 						dst[ i] = 0;
 					}
 					
-					if( trueRGB == NO)	// Convert it to BW
+					if (trueRGB == NO)	// Convert it to BW
 					{
 						isRGB = NO;
 						
 						unsigned char  *dst = (unsigned char*) oImage;
 						
-						for( i =0; i < height*width*4; i+= 4)
+						for (i =0; i < height*width*4; i+= 4)
 						{
 							oImage[ i/4] = dst[ i+1];
 						}
@@ -4319,14 +4407,14 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 						TIFFReadScanline(tif, buf, row, 0);
 						
 						dst = aImage + (row*(scanline/3) * 4);
-						for( i = 0; i < scanline/3; i++)
+						for (i = 0; i < scanline/3; i++)
 						{
 							dst[ i*4 + 0] = 0;
 							dst[ i*4 + 1] = buf[ i*3 + 0];
 							dst[ i*4 + 2] = buf[ i*3 + 1];
 							dst[ i*4 + 3] = buf[ i*3 + 2];
 							
-							if( buf[ i*3 + 0] == buf[ i*3 + 1] && buf[ i*3 + 0] == buf[ i*3 + 2])
+							if (buf[ i*3 + 0] == buf[ i*3 + 1] && buf[ i*3 + 0] == buf[ i*3 + 2])
 							{
 							}
 							else
@@ -4334,13 +4422,13 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 						}
 					}
 					
-					if( trueRGB == NO)	// Convert it to BW
+					if (trueRGB == NO)	// Convert it to BW
 					{
 						isRGB = NO;
 						
 						unsigned char  *dst = (unsigned char*) oImage;
 						
-						for( i =0; i < height*width*4; i+= 4)
+						for (i =0; i < height*width*4; i+= 4)
 						{
 							oImage[ i/4] = dst[ i+1];
 						}
@@ -4349,7 +4437,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 					_TIFFfree(buf);
 				}
 			}
-			else if( tifspp == 1)
+			else if (tifspp == 1)
 			{
 				unsigned char *buf = (unsigned char *)_TIFFmalloc(TIFFScanlineSize(tif));
 				short  *dst;
@@ -4360,7 +4448,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 					TIFFReadScanline(tif, buf, row, 0);
 					
 					dst = oImage + (row*scanline);
-					for( i = 0; i < scanline; i++)
+					for (i = 0; i < scanline; i++)
 					{
 						dst[ i] = buf[ i];
 					}
@@ -4369,7 +4457,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 				_TIFFfree(buf);
 			}
 		}
-		else if( bpp == 32)
+		else if (bpp == 32)
 		{
 			unsigned short  fmt;
 			float			*buf, max=-FLT_MAX, min=FLT_MAX, diff;
@@ -4377,7 +4465,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 			
 			TIFFGetField(tif, TIFFTAG_SAMPLEFORMAT, &fmt);
 			
-			if( fmt == SAMPLEFORMAT_IEEEFP)
+			if (fmt == SAMPLEFORMAT_IEEEFP)
 			{
 				buf = (float *)_TIFFmalloc(TIFFScanlineSize(tif));
 				
@@ -4385,12 +4473,12 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 				for (row = 0; row < h; row++)
 				{
 					i = TIFFReadScanline(tif, buf, row, 0);
-					if( i!= 1) NSLog(@"ERROR");
+					if (i!= 1) NSLog(@"ERROR");
 					
-					for( i = 0; i < TIFFScanlineSize(tif)/4; i++)
+					for (i = 0; i < TIFFScanlineSize(tif)/4; i++)
 					{
-						if( buf[ i] < min) min = buf[ i];
-						if( buf[ i] > max) max = buf[ i];
+						if (buf[ i] < min) min = buf[ i];
+						if (buf[ i] > max) max = buf[ i];
 					}
 				}
 				
@@ -4399,10 +4487,10 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 				for (row = 0; row < h; row++)
 				{
 					i = TIFFReadScanline(tif, buf, row, 0);
-					if( i!= 1) NSLog(@"ERROR");
+					if (i!= 1) NSLog(@"ERROR");
 					
 					dst = oImage + (row*TIFFScanlineSize(tif))/4;
-					for( i = 0; i < TIFFScanlineSize(tif)/4; i++)
+					for (i = 0; i < TIFFScanlineSize(tif)/4; i++)
 					{
 						dst[ i] = ((buf[ i] - min) * 16000.f) / diff;
 					}
@@ -4411,7 +4499,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 			}
 		}
 		
-		if( isRGB == NO)
+		if (!isRGB)
 		{
 			// CONVERSION TO FLOAT
 			
@@ -4424,7 +4512,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 			
 			src16.data = oImage;
 			
-			if( fExternalOwnedImage)
+			if (fExternalOwnedImage)
 			{
 				fImage = fExternalOwnedImage;
 			}
@@ -4435,9 +4523,9 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 			
 			dstf.data = fImage;
 			
-			if( dstf.data)
+			if (dstf.data)
 			{
-				switch( dataType)
+				switch (dataTypeTiff)
 				{
 					case TIFF_SSHORT:
 					case TIFF_SLONG:
@@ -4485,14 +4573,14 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 	const char * head_data = 0;
 	int NoOfFrames = 1, NoOfSeries = 1;
     TIFF* tif = TIFFOpen([srcFile UTF8String], "r");
-	if(tif)
+	if (tif)
 		success = TIFFGetField(tif, TIFFTAG_FV_MMHEADER, &head_size, &head_data);
 	if (success)
 	{
 		FV_MM_HEAD mm_head;
 		
 		FV_Read_MM_HEAD(head_data, &mm_head);
-		for(i = 0; i < FV_SPATIAL_DIMENSION; i++)
+		for (i = 0; i < FV_SPATIAL_DIMENSION; i++)
 		{
 			if (*(mm_head.DimInfo[i].Name) == 'Z')
 				NoOfFrames = mm_head.DimInfo[i].Size;
@@ -4505,7 +4593,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 		[self LoadTiff:directory];
 		
 		// Fill in image dimensions info
-		for(i = 0; i < FV_SPATIAL_DIMENSION; i++)
+		for (i = 0; i < FV_SPATIAL_DIMENSION; i++)
 		{
 			if (*(mm_head.DimInfo[i].Name) == 'X')
 			{
@@ -4530,14 +4618,13 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 			}
 		}
 		sliceLocation = originZ;
-		if( pixelSpacingY != 0.0 && pixelSpacingX != 0.0)
+		if (pixelSpacingY != 0.0 && pixelSpacingX != 0.0)
 			pixelRatio = pixelSpacingY / pixelSpacingX;
 	}
-	if(tif) TIFFClose(tif);
+	if (tif) TIFFClose(tif);
 #endif
 #endif
 }
-
 
 -(void) LoadLSM
 {
@@ -4581,9 +4668,9 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 		it = EndianU16_LtoN( shortval);
 		
 		// 1) Parse the tags at this location
-		if(lsmDebug) NSLog(@"Parsing tags in first do/while loop: there are %d tags to parse",it);  //GJ:
+		if (lsmDebug) NSLog(@"Parsing tags in first do/while loop: there are %d tags to parse",it);  //GJ:
 		TIF_NEWSUBFILETYPE=-1;
-		for( k=0 ; k<it ; k++)
+		for (k=0 ; k<it ; k++)
 		{
 			// read raw tag data
 			unsigned char   tags2[ 12];
@@ -4597,20 +4684,34 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 			
 			TAGTYPE = ((tags2[1] & MASK) << 8) | ((tags2[0] & MASK) <<0);
 			LENGTH = ((tags2[7] & MASK2) << 24) | ((tags2[6] & MASK2) << 16) | ((tags2[5] & MASK2) << 8) | (tags2[4] & MASK2);
-			if(lsmDebug) NSLog(@"FirstTagRound: Analysing tag %d of type %d and length %d",k,TAGTYPE,LENGTH);  //GJ: for reporting
+			if (lsmDebug) NSLog(@"FirstTagRound: Analysing tag %d of type %d and length %d",k,TAGTYPE,LENGTH);  //GJ: for reporting
 			switch (TAGTYPE)
 			{
 				case 254:
 					// GJ figure out whether this is a thumbnail (!0) or a real image (0)
-					TIF_NEWSUBFILETYPE = ((tags2[11] & MASK2) << 24) | ((tags2[10] & MASK2) << 16) | ((tags2[9] & MASK2) << 8) | (tags2[8] & MASK2);
-					if(lsmDebug) NSLog(@"LoadLSM: TIF_NEWSUBFILETYPE= %d",TIF_NEWSUBFILETYPE);
+					TIF_NEWSUBFILETYPE = ((tags2[11] & MASK2) << 24) |
+                                         ((tags2[10] & MASK2) << 16) |
+                                         ((tags2[ 9] & MASK2) << 8) |
+                                          (tags2[ 8] & MASK2);
+					if (lsmDebug)
+                        NSLog(@"LoadLSM: TIF_NEWSUBFILETYPE= %d",TIF_NEWSUBFILETYPE);
+                    
 					break;
+                    
 					case 273: 
 					//GJ: number of image channels (some of which can be empty)
-					LENGTH2 = ((tags2[7] & MASK2) << 24) | ((tags2[6] & MASK2) << 16) | ((tags2[5] & MASK2) << 8) | (tags2[4] & MASK2);
+					LENGTH2 =   ((tags2[7] & MASK2) << 24) |
+                                ((tags2[6] & MASK2) << 16) |
+                                ((tags2[5] & MASK2) << 8) |
+                                 (tags2[4] & MASK2);
+                    
 					// Offset of the place where STRIPOFFSETS are recorded
-					TIF_STRIPOFFSETS = ((tags2[11] & MASK2) << 24) | ((tags2[10] & MASK2) << 16) | ((tags2[9] & MASK2) << 8) | (tags2[8] & MASK2);
+					TIF_STRIPOFFSETS =  ((tags2[11] & MASK2) << 24) |
+                                        ((tags2[10] & MASK2) << 16) |
+                                        ((tags2[ 9] & MASK2) << 8) |
+                                         (tags2[ 8] & MASK2);
 					break;
+                    
 					//case 279:  
 					// the file offset 
 					// at which the size of the individual images for each slice are stored
@@ -4622,57 +4723,59 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 					//				default:
 				break;
 			}
+            
 			// We don't need to process all the tags if this is a thumbnail
-			if(TIF_NEWSUBFILETYPE>0) continue;
+			if (TIF_NEWSUBFILETYPE>0)
+                continue;
 			
 		}  // End of parsing tags at this location
 		
-		//		if( TIF_CZ_LSMINFO)
-		//		{
-		//			fseek(fp, TIF_CZ_LSMINFO + 8, SEEK_SET);
-		//			
-		//			int	DIMENSION_X, DIMENSION_Y, DIMENSION_Z, NUMBER_OF_CHANNELS, TIMESTACKSIZE, DATATYPE, DATATYPE2;
-		//			short   SCANTYPE, SPECTRALSCAN;
-		//			double   VOXELSIZE_X, VOXELSIZE_Y, VOXELSIZE_Z;
-		//			
-		//			fread( &DIMENSION_X, 4, 1, fp);		DIMENSION_X = EndianU32_LtoN( DIMENSION_X);
-		//			fread( &DIMENSION_Y, 4, 1, fp);		DIMENSION_Y = EndianU32_LtoN( DIMENSION_Y);
-		//			fread( &DIMENSION_Z, 4, 1, fp);		DIMENSION_Z = EndianU32_LtoN( DIMENSION_Z);
-		//			
-		//			fread( &NUMBER_OF_CHANNELS, 4, 1, fp);		NUMBER_OF_CHANNELS = EndianU32_LtoN( NUMBER_OF_CHANNELS);
-		//			//GJ: 
-		//			//NSLog(@"LoadLSM: Number of Channels %d",NUMBER_OF_CHANNELS);
-		//			fread( &TIMESTACKSIZE, 4, 1, fp);			TIMESTACKSIZE = EndianU32_LtoN( TIMESTACKSIZE);
-		//			
-		//			fread( &DATATYPE, 4, 1, fp);			DATATYPE = EndianU32_LtoN( DATATYPE);
-		//			
-		//			fseek(fp, TIF_CZ_LSMINFO + 88, SEEK_SET);
-		//			fread( &SCANTYPE, 2, 1, fp);			SCANTYPE = EndianU16_LtoN( SCANTYPE);
-		//
-		//			switch (SCANTYPE)
-		//			{
-		//				case 6:
-		//				{
-		//					int group = serieNo / LENGTH2;
-		//					
-		//					frameNo = frameNo + group * DIMENSION_Z;
-		//					
-		//					serieNo = serieNo - group;
-		//				}
-		//				break;
-		//			}
-		//		}
+//		if (TIF_CZ_LSMINFO)
+//		{
+//			fseek(fp, TIF_CZ_LSMINFO + 8, SEEK_SET);
+//			
+//			int	DIMENSION_X, DIMENSION_Y, DIMENSION_Z, NUMBER_OF_CHANNELS, TIMESTACKSIZE, DATATYPE, DATATYPE2;
+//			short   SCANTYPE, SPECTRALSCAN;
+//			double   VOXELSIZE_X, VOXELSIZE_Y, VOXELSIZE_Z;
+//			
+//			fread( &DIMENSION_X, 4, 1, fp);		DIMENSION_X = EndianU32_LtoN( DIMENSION_X);
+//			fread( &DIMENSION_Y, 4, 1, fp);		DIMENSION_Y = EndianU32_LtoN( DIMENSION_Y);
+//			fread( &DIMENSION_Z, 4, 1, fp);		DIMENSION_Z = EndianU32_LtoN( DIMENSION_Z);
+//			
+//			fread( &NUMBER_OF_CHANNELS, 4, 1, fp);		NUMBER_OF_CHANNELS = EndianU32_LtoN( NUMBER_OF_CHANNELS);
+//			//GJ: 
+//			//NSLog(@"LoadLSM: Number of Channels %d",NUMBER_OF_CHANNELS);
+//			fread( &TIMESTACKSIZE, 4, 1, fp);			TIMESTACKSIZE = EndianU32_LtoN( TIMESTACKSIZE);
+//			
+//			fread( &DATATYPE, 4, 1, fp);			DATATYPE = EndianU32_LtoN( DATATYPE);
+//			
+//			fseek(fp, TIF_CZ_LSMINFO + 88, SEEK_SET);
+//			fread( &SCANTYPE, 2, 1, fp);			SCANTYPE = EndianU16_LtoN( SCANTYPE);
+//
+//			switch (SCANTYPE)
+//			{
+//				case 6:
+//				{
+//					int group = serieNo / LENGTH2;
+//					
+//					frameNo = frameNo + group * DIMENSION_Z;
+//					
+//					serieNo = serieNo - group;
+//				}
+//				break;
+//			}
+//		}
 		
 		// 2) See if this was the frame that we wanted 
 		// and if it was store the relevant imageDataOffsetForThisFrame
-		if(TIF_NEWSUBFILETYPE==0)
+		if (TIF_NEWSUBFILETYPE==0)
 		{
 			// This directory entry was a main image
 			// Is it also the entry for the image we are looking for?
-			if(goodFramesChecked++ == frameNo)
+			if (goodFramesChecked++ == frameNo)
 			{
 				// yes, so record the imageDataOffsetForThisFrame
-				if(LENGTH2==1)
+				if (LENGTH2==1)
 				{
 					// for a single channel image it is just TIF_STRIPOFFSETS
 					imageDataOffsetForThisFrame = TIF_STRIPOFFSETS;
@@ -4680,14 +4783,15 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 				else
 				{
 					// if this is a multi channel image, check that serieNo has a sensible value
-					if(LENGTH2>1 && serieNo>=LENGTH2)
+					if (LENGTH2>1 && serieNo>=LENGTH2)
 					{ 
 						NSLog(@"LoadLSM: zero indexed serieNo (%d) is greater than number of channels (%d)",(int)serieNo,(int)LENGTH2);
 						return;
 					}
+                    
 					// ok serieNo is sensible use the TIF_STRIPOFFSETS to move to the right place
 					fseek(fp, TIF_STRIPOFFSETS, SEEK_SET);
-					for (i=0; i<=serieNo;i++)
+					for (i=0; i<=serieNo; i++)
 					{
 						// read serieNo+1 times to get the offset of the relevant channel's data
 						fread(&imageDataOffsetForThisFrame,4,1,fp);
@@ -4695,18 +4799,21 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 					}
 				}
 				// break out of the do/while loop since we have found the image we want
-				if(lsmDebug)  NSLog(@"Found frame number %d - breaking out of first loop",(int)frameNo);
+				if (lsmDebug)  NSLog(@"Found frame number %d - breaking out of first loop",(int)frameNo);
 				break;
 			}
 			
-			if(lsmDebug) NSLog(@"goodFramesChecked = %d",goodFramesChecked);
+			if (lsmDebug)
+                NSLog(@"goodFramesChecked = %d",goodFramesChecked);
 		}
 		
 		// 3) If not ... move to location containing the offset of the next image directory 
 		fseek(fp, (int)pos + 2 + 12 * (int)it, SEEK_SET);
 		fread( &nextoff, 4, 1, fp);
 		pos = EndianU32_LtoN( nextoff);
-		if(lsmDebug)NSLog(@"new pos = %d",pos);
+		if (lsmDebug)
+            NSLog(@"new pos = %d",pos);
+        
 		counter++;
 		
 	} while (pos!=0); //while (nextoff!=0);
@@ -4736,7 +4843,6 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 			int MASK = 0x00ff;
 			int MASK2 = 0x000000ff;
 			
-			
 			TAGTYPE = ((TAG1[1] & MASK) << 8) | ((TAG1[0] & MASK) <<0);
 			LENGTH = ((TAG1[7] & MASK2) << 24) | ((TAG1[6] & MASK2) << 16) | ((TAG1[5] & MASK2) << 8) | (TAG1[4] & MASK2);
 			
@@ -4747,7 +4853,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 				case 254:
 					TIF_NEWSUBFILETYPE = ((TAG1[11] & MASK2) << 24) | ((TAG1[10] & MASK2) << 16) | ((TAG1[9] & MASK2) << 8) | (TAG1[8] & MASK2);
 					// GJ: this is condition which cannot be handled by the present version of LoadLSM
-					if(TIF_NEWSUBFILETYPE!=0)
+					if (TIF_NEWSUBFILETYPE!=0)
 					{
 						NSLog(@"LoadLSM unable to handle files in which the first image directory entry is a thumbnail");
 						// give up on trying to read this file and exit method!
@@ -4758,17 +4864,17 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 				case 256:
 					width = ((TAG1[11] & MASK2) << 24) | ((TAG1[10] & MASK2) << 16) | ((TAG1[9] & MASK2) << 8) | (TAG1[8] & MASK2);
 					#ifdef OSIRIX_VIEWER
-					if( savedWidthInDB != 0 && savedWidthInDB != width)
+					if (savedWidthInDB != 0 && savedWidthInDB != width)
 					{
-                        if( savedWidthInDB != OsirixDicomImageSizeUnknown)
+                        if (savedWidthInDB != OsirixDicomImageSizeUnknown)
                             NSLog( @"******* [[imageObj valueForKey:@'width'] intValue] != width - %d versus %d", (int)savedWidthInDB, (int)width);
 						
-                        if( iContext == nil)
+                        if (iContext == nil)
                             iContext = ([[NSThread currentThread] isMainThread] ? [[[BrowserController currentBrowser] database] managedObjectContext] : [[[BrowserController currentBrowser] database] independentContext]);
                         
                         [[iContext existingObjectWithID: imageObjectID error: nil] setValue: [NSNumber numberWithInt: width] forKey: @"width"];
                         
-						if( width > savedWidthInDB && fExternalOwnedImage)
+						if (width > savedWidthInDB && fExternalOwnedImage)
 							width = savedWidthInDB;
 					}
                     #endif
@@ -4776,21 +4882,22 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 				
 				case 257:
 					height = ((TAG1[11] & MASK2) << 24) | ((TAG1[10] & MASK2) << 16) | ((TAG1[9] & MASK2) << 8) | (TAG1[8] & MASK2);
-					#ifdef OSIRIX_VIEWER
-					if( savedHeightInDB != 0 && savedHeightInDB != height)
+
+#ifdef OSIRIX_VIEWER
+					if (savedHeightInDB != 0 && savedHeightInDB != height)
 					{
-                        if( savedHeightInDB != OsirixDicomImageSizeUnknown)
+                        if (savedHeightInDB != OsirixDicomImageSizeUnknown)
                             NSLog( @"******* [[imageObj valueForKey:@'height'] intValue] != height - %d versus %d", (int)savedHeightInDB, (int)height);
 						
-                        if( iContext == nil)
+                        if (iContext == nil)
                             iContext = ([[NSThread currentThread] isMainThread] ? [[[BrowserController currentBrowser] database] managedObjectContext] : [[[BrowserController currentBrowser] database] independentContext]);
                         
                         [[iContext existingObjectWithID: imageObjectID error: nil] setValue: [NSNumber numberWithInt: height] forKey: @"height"];
                         
-						if( height > savedHeightInDB && fExternalOwnedImage)
+						if (height > savedHeightInDB && fExternalOwnedImage)
 							height = savedHeightInDB;
 					}
-                    #endif
+#endif
 				break;
 				
 					// GJ: don't need to parse these tags as things are wriiten now
@@ -4835,27 +4942,27 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 	
     [iContext save: nil];
     
-	if( TIF_CZ_LSMINFO)
+	if (TIF_CZ_LSMINFO)
 	{
 		fseek(fp, TIF_CZ_LSMINFO + 8, SEEK_SET);
 		
 		int	DIMENSION_X, DIMENSION_Y, DIMENSION_Z, NUMBER_OF_CHANNELS, TIMESTACKSIZE, DATATYPE;
-		short   SCANTYPE;
-		double   VOXELSIZE_X, VOXELSIZE_Y, VOXELSIZE_Z;
+		short SCANTYPE;
+		double VOXELSIZE_X, VOXELSIZE_Y, VOXELSIZE_Z;
 		
 		fread( &DIMENSION_X, 4, 1, fp);		DIMENSION_X = EndianU32_LtoN( DIMENSION_X);
 		fread( &DIMENSION_Y, 4, 1, fp);		DIMENSION_Y = EndianU32_LtoN( DIMENSION_Y);
 		fread( &DIMENSION_Z, 4, 1, fp);		DIMENSION_Z = EndianU32_LtoN( DIMENSION_Z);
 		
-		fread( &NUMBER_OF_CHANNELS, 4, 1, fp);		NUMBER_OF_CHANNELS = EndianU32_LtoN( NUMBER_OF_CHANNELS);
+		fread( &NUMBER_OF_CHANNELS, 4, 1, fp);	NUMBER_OF_CHANNELS = EndianU32_LtoN( NUMBER_OF_CHANNELS);
 		//GJ: 
 		//NSLog(@"LoadLSM: Number of Channels %d",NUMBER_OF_CHANNELS);
-		fread( &TIMESTACKSIZE, 4, 1, fp);			TIMESTACKSIZE = EndianU32_LtoN( TIMESTACKSIZE);
+		fread( &TIMESTACKSIZE, 4, 1, fp);	TIMESTACKSIZE = EndianU32_LtoN( TIMESTACKSIZE);
 		
-		fread( &DATATYPE, 4, 1, fp);			DATATYPE = EndianU32_LtoN( DATATYPE);
+		fread( &DATATYPE, 4, 1, fp);		DATATYPE = EndianU32_LtoN( DATATYPE);
 		
 		fseek(fp, TIF_CZ_LSMINFO + 88, SEEK_SET);
-		fread( &SCANTYPE, 2, 1, fp);			SCANTYPE = EndianU16_LtoN( SCANTYPE);
+		fread( &SCANTYPE, 2, 1, fp);		SCANTYPE = EndianU16_LtoN( SCANTYPE);
 		
 		//		switch (SCANTYPE) {
 		//			case 3:
@@ -4885,7 +4992,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 		
 		short *oImage = nil;
 		
-		switch( DATATYPE)
+		switch (DATATYPE)
 		{
 			default:
 			case 1:		// 8 bit image data
@@ -4893,7 +5000,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 				oImage = (short *)malloc( numPixels * sizeof(short));
 				unsigned char *eightBitData = (unsigned char *)malloc(numPixels);
 				/* 040609 GJ: rationalised this 
-				 if( LENGTH2 == 1)  // Single channel image
+				 if (LENGTH2 == 1)  // Single channel image
 				 {
 				 fseek(fp, TIF_STRIPOFFSETS + frameNo * ((numPixels* NUMBER_OF_CHANNELS) +thumbnailDataSize), SEEK_SET);
 				 fread( eightBitData, numPixels, 1 ,fp);
@@ -4913,11 +5020,12 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 				// Now copy the pixels from the temporary 8 bit array 
 				// to the 16 bit "oImage"
 				i = numPixels;
-				while( i-- > 0)
+				while (i-- > 0)
                     oImage[i] = eightBitData[ i];
+                
 				free( eightBitData);
 				
-				if( TIF_COMPRESSION)
+				if (TIF_COMPRESSION)
 				{
 					[self LoadTiff: counter];
 					
@@ -4941,7 +5049,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 				
 				/* 
 				 // GJ: Move to correct location for image data
-				 if( LENGTH2 == 1)
+				 if (LENGTH2 == 1)
 				 {  // Single channel image
 				 fseek(fp, TIF_STRIPOFFSETS + frameNo * ((numPixels*2* NUMBER_OF_CHANNELS) +thumbnailDataSize) , SEEK_SET);
 				 } else {
@@ -4954,7 +5062,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 				
 				// GJ added conversion of Little/Big endian format
 				i = numPixels;
-				while( i-- > 0)
+				while (i-- > 0)
                     oImage[i]=NSSwapLittleShortToHost( oImage[ i]);
 
                 break;
@@ -4962,18 +5070,18 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
             case 5:		// float - GJ: I have no test images for this format
 				oImage = nil;
 				/*
-				 if( LENGTH2 == 1) fseek(fp, TIF_STRIPOFFSETS + height * width * ((frameNo * NUMBER_OF_CHANNELS)) * 4, SEEK_SET);
+				 if (LENGTH2 == 1) fseek(fp, TIF_STRIPOFFSETS + height * width * ((frameNo * NUMBER_OF_CHANNELS)) * 4, SEEK_SET);
 				 else fseek(fp, TIF_STRIPOFFSETS1 + height * width * ((frameNo * NUMBER_OF_CHANNELS)), SEEK_SET);
 				 */
 				// GJ: LSM float data is 32 bit according to LSM_Reader.java
 				fread( fImage, numPixels * 4, 1 ,fp);
 				i = numPixels;
-				while( i-- > 0)
+				while (i-- > 0)
                     ConvertFloatToNative( &fImage[i]);
 			break;
 		}
 		
-		if( oImage)
+		if (oImage)
 		{
 			// CONVERSION TO FLOAT
 			
@@ -5013,24 +5121,22 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 		
 		savedWL = wl = 127;
 		savedWW = ww = 255;
-		//		
 		
-		//			stream.seek((int)position + 108);
-		//			OFFSET_CHANNELSCOLORS = swap(stream.readInt());
-		//			
-		//			stream.seek((int)position + 120);
-		//			OFFSET_CHANNELDATATYPES = swap(stream.readInt());
-		//			
-		//			stream.seek((int)position+124);
-		//			OFFSET_SCANINFO = swap(stream.readInt());
-		//			
-		//			stream.seek((int)position+132);
-		//			OFFSET_TIMESTAMPS = swap(stream.readInt());
-		//			
-		//			stream.seek((int)position+204);
-		//			OFFSET_CHANNELWAVELENGTH = swap(stream.readInt());
+//			stream.seek((int)position + 108);
+//			OFFSET_CHANNELSCOLORS = swap(stream.readInt());
+//			
+//			stream.seek((int)position + 120);
+//			OFFSET_CHANNELDATATYPES = swap(stream.readInt());
+//			
+//			stream.seek((int)position+124);
+//			OFFSET_SCANINFO = swap(stream.readInt());
+//			
+//			stream.seek((int)position+132);
+//			OFFSET_TIMESTAMPS = swap(stream.readInt());
+//			
+//			stream.seek((int)position+204);
+//			OFFSET_CHANNELWAVELENGTH = swap(stream.readInt());
 	}
-	
 	
 	fclose( fp);
 }
@@ -5039,7 +5145,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 {
 	float timebetween = -[radiopharmaceuticalStartTime timeIntervalSinceDate: acquisitionTime];
 	
-	if( halflife > 0 && timebetween > 0)
+	if (halflife > 0 && timebetween > 0)
 		radionuclideTotalDoseCorrected = radionuclideTotalDose * exp( -timebetween * logf( 2) / halflife);
 }
 
@@ -5048,7 +5154,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 {
 #ifdef OSIRIX_VIEWER
 	
-	if( [[BrowserController currentBrowser] isCurrentDatabaseBonjour])
+	if ([[BrowserController currentBrowser] isCurrentDatabaseBonjour])
 	{
 		NSLog( @"Can't (or shouldn't?) export ROIs to Bonjour mounted Database");
 		return;
@@ -5124,7 +5230,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
         
         [NSThread currentThread].progress = 0.1;
         
-        if( refSeriesUIDPredicates.count == 0)
+        if (refSeriesUIDPredicates.count == 0)
             [NSException raise: @"RTStruct" format: @"No reference series found."];
         
         NSError *error = nil;
@@ -5178,7 +5284,8 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
         
         NSMutableArray *roiArray[ imgObjects.count ];  // Array of ROIs for each defined 'image' referenced by the RTSTRUCT
         
-        for ( unsigned int i = 0; i < imgObjects.count; i++) roiArray[ i ] = [NSMutableArray array];
+        for ( unsigned int i = 0; i < imgObjects.count; i++)
+            roiArray[ i ] = [NSMutableArray array];
         
         for ( DCMObject *sequenceItem in [roiContourSequence sequence])
         {
@@ -5210,7 +5317,9 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
                 
                 NSString *contourType = [contourItem attributeValueWithName: @"ContourGeometricType"];
                 
-                if( [contourType isEqualToString: @"CLOSED_PLANAR"] == NO && [contourType isEqualToString: @"INTERPOLATED_PLANAR"] == NO && [contourType isEqualToString: @"POINT"] == NO)
+                if ([contourType isEqualToString: @"CLOSED_PLANAR"] == NO &&
+                    [contourType isEqualToString: @"INTERPOLATED_PLANAR"] == NO &&
+                    [contourType isEqualToString: @"POINT"] == NO)
                 {
                     NSLog( @"Contour type %@ is not supported at this time.", contourType);
                     continue;
@@ -5243,7 +5352,8 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
                     pixSpacingX = [[pixSpacings objectAtIndex: 0] floatValue];
                     pixSpacingY = [[pixSpacings objectAtIndex: 1] floatValue];
                     
-                    if ( pixSpacingX == 0.0f || pixSpacingY == 0.0f) continue;  // Bad slice?
+                    if ( pixSpacingX == 0.0f || pixSpacingY == 0.0f)
+                        continue;  // Bad slice?
                     
                     float pixSpacingXrecip = 1.0f / pixSpacingX;
                     float pixSpacingYrecip = 1.0f / pixSpacingY;
@@ -5255,9 +5365,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
                     float orients[ 9 ];
                     
                     for ( unsigned int i = 0; i < 6; i++)
-                    {
                         orients[ i ] = [[imageOrientation objectAtIndex: i] floatValue];
-                    }
                     
                     // Normal vector
                     orients[6] = orients[1]*orients[5] - orients[2]*orients[4];
@@ -5272,7 +5380,8 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
                     
                     float distToSlice = fabs( temp[ 0 ] * orients[ 6 ] + temp[ 1 ] * orients[ 7 ] + temp[ 2 ] * orients[ 8 ]);
                     float distCriterion = [[imgObject attributeValueWithName: @"SliceThickness"] floatValue] * 0.4;
-                    if ( distCriterion <= 0.0f) distCriterion = 0.1f;  // mm
+                    if ( distCriterion <= 0.0f)
+                        distCriterion = 0.1f;  // mm
                     
                     if ( distToSlice < distCriterion)
                     {
@@ -5288,7 +5397,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
                         
                         [pointsArray addObject: [MyPoint point:NSMakePoint( sliceCoords[ 0 ], sliceCoords[ 1 ])]];
                         
-                        if( numPoints > 1)
+                        if (numPoints > 1)
                         {
                             // Convert rest of points in contour to sliceCoord space
                             for ( unsigned int pointIndex = 1; pointIndex < numPoints; pointIndex++)
@@ -5315,46 +5424,47 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
                         roi.name = roiName;
                         roi.rgbcolor = color;
                         
-                        if( type == t2DPoint)
+                        if (type == t2DPoint)
                             roi.ROIRect = NSMakeRect( [pointsArray.lastObject x], [pointsArray.lastObject y], 1, 1);
                         else
                             roi.points = pointsArray;
+                        
                         roi.opacity = 1.0;
                         roi.thickness = 1.0;
                         roi.isSpline = NO;
                         
-                        if( [[NSUserDefaults standardUserDefaults] boolForKey: @"RSTRUCTConvertToBrush"])
+                        if ([[NSUserDefaults standardUserDefaults] boolForKey: @"RSTRUCTConvertToBrush"])
                         {
                             ROI *theNewROI = nil;
                             
-                            if( roi.type == tOval)
+                            if (roi.type == tOval)
                             {
                                 NSMutableArray *points = roi.points;
-                                if( roi.type == tROI)
+                                if (roi.type == tROI)
                                     roi.isSpline = NO;
                                 
                                 roi.type = tCPolygon;
                                 roi.points = points;
                             }
                             
-                            if( roi.type == tCPolygon || roi.type == tOPolygon || roi.type == tPencil)
+                            if (roi.type == tCPolygon || roi.type == tOPolygon || roi.type == tPencil)
                             {
                                 NSSize s;
                                 NSPoint o;
                                 unsigned char* texture = [DCMPix getMapFromPolygonROI: roi size: &s origin: &o];
                                 
-                                if( texture)
+                                if (texture)
                                 {
-                                    theNewROI = [[ROI alloc]		initWithTexture: texture
-                                                                    textWidth: s.width
-                                                                   textHeight: s.height
-                                                                     textName: roi.name
-                                                                    positionX: o.x
-                                                                    positionY: o.y
-                                                                     spacingX: pixSpacingX
-                                                                     spacingY: pixSpacingY
-                                                                  imageOrigin: NSMakePoint( posX, posY)];
-                                    if( [theNewROI reduceTextureIfPossible] == NO)	// NO means that the ROI is NOT empty
+                                    theNewROI = [[ROI alloc] initWithTexture: texture
+                                                                   textWidth: s.width
+                                                                  textHeight: s.height
+                                                                    textName: roi.name
+                                                                   positionX: o.x
+                                                                   positionY: o.y
+                                                                    spacingX: pixSpacingX
+                                                                    spacingY: pixSpacingY
+                                                                 imageOrigin: NSMakePoint( posX, posY)];
+                                    if ([theNewROI reduceTextureIfPossible] == NO)	// NO means that the ROI is NOT empty
                                     {
                                         theNewROI.rgbcolor = roi.rgbcolor;
                                         theNewROI.opacity = 0.5;
@@ -5369,7 +5479,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
                                 }
                             }
                             
-                            if( theNewROI)
+                            if (theNewROI)
                                 roi = [theNewROI autorelease];
                         }
                         
@@ -5392,9 +5502,10 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
         
         NSMutableArray	*newDICOMSR = [NSMutableArray array];
         
-        for( unsigned int i = 0; i < imgObjects.count; i++)
+        for (unsigned int i = 0; i < imgObjects.count; i++)
         {
-            if( roiArray[i].count == 0) continue;  // Nothing to see, move on.
+            if (roiArray[i].count == 0)
+                continue;  // Nothing to see, move on.
             
             Dicom_Image *img = [imgObjects objectAtIndex: i];
             
@@ -5406,10 +5517,10 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
             {
                 // Get any pre-existing ROIs and add them to the roiArray
                 NSData *data = [SRAnnotation roiFromDICOM: str];
-                if( data)
+                if (data)
                 {
                     NSMutableArray *array = [NSUnarchiver unarchiveObjectWithData: data];
-                    if( array)
+                    if (array)
                         [roiArray[ i] addObjectsFromArray: array];
                 }
             }
@@ -5420,7 +5531,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
             [newDICOMSR addObject: str];
         }
         
-        if( newDICOMSR.count)
+        if (newDICOMSR.count)
             [database addFilesAtPaths: newDICOMSR postNotifications:YES dicomOnly:YES rereadExistingItems:YES generatedByOsiriX:YES];
     }
     @catch (NSException *exception) {
@@ -5443,17 +5554,17 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 	long i, index;
 	BOOL atLeastOnePixel = NO;
 	
-	if( isSigned)
+	if (isSigned)
 	{
 		short *signedSrc = (short*) src;
 		
 		i = width * height;
-		while( i-- > 0)
+		while (i-- > 0)
 		{
 			index = signedSrc[ i] - first;
-			if( index <= 0)
+			if (index <= 0)
                 index = 0;
-			else if( index >= number)
+			else if (index >= number)
                 index = number -1;
 			else
                 atLeastOnePixel = YES;
@@ -5464,12 +5575,12 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 	else
 	{
 		i = width * height;
-		while( i-- > 0)
+		while (i-- > 0)
 		{
 			index = src[ i] - first;
-			if( index <= 0)
+			if (index <= 0)
                 index = 0;
-			else if( index >= number)
+			else if (index >= number)
                 index = number -1;
 			else
                 atLeastOnePixel = YES;
@@ -5478,7 +5589,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 		}
 	}
 	
-	if( atLeastOnePixel == NO)
+	if (atLeastOnePixel == NO)
 	{
 		gUseVOILUT = NO;
 		[[NSUserDefaults standardUserDefaults] setBool: NO forKey: @"UseVOILUT"];
@@ -5511,72 +5622,90 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 
 - (void) dcmFrameworkLoad0x0018: (DCMObject*) dcmObject
 {
-    if( [dcmObject attributeValueWithName:@"PatientsWeight"]) patientsWeight = [[dcmObject attributeValueWithName:@"PatientsWeight"] floatValue];
+    if ([dcmObject attributeValueWithName:@"PatientsWeight"])
+        patientsWeight = [[dcmObject attributeValueWithName:@"PatientsWeight"] floatValue];
     
-    if( [dcmObject attributeValueWithName:@"SliceThickness"]) sliceThickness = [[dcmObject attributeValueWithName:@"SliceThickness"] doubleValue];
-    if( [dcmObject attributeValueWithName:@"SpacingBetweenSlices"]) spacingBetweenSlices = [[dcmObject attributeValueWithName:@"SpacingBetweenSlices"] doubleValue];
-    if( [dcmObject attributeValueWithName:@"RepetitionTime"])
+    if ([dcmObject attributeValueWithName:@"SliceThickness"])
+        sliceThickness = [[dcmObject attributeValueWithName:@"SliceThickness"] doubleValue];
+    
+    if ([dcmObject attributeValueWithName:@"SpacingBetweenSlices"])
+        spacingBetweenSlices = [[dcmObject attributeValueWithName:@"SpacingBetweenSlices"] doubleValue];
+    
+    if ([dcmObject attributeValueWithName:@"RepetitionTime"])
     {
         [repetitiontime release];
         repetitiontime = [[dcmObject attributeValueWithName:@"RepetitionTime"] retain];
     }
-    if( [dcmObject attributeValueWithName:@"EchoTime"])
+    
+    if ([dcmObject attributeValueWithName:@"EchoTime"])
     {
         [echotime release];
         echotime = [[dcmObject attributeValueWithName:@"EchoTime"] retain];
     }
-    if( [dcmObject attributeValueWithName:@"FlipAngle"])
+    
+    if ([dcmObject attributeValueWithName:@"FlipAngle"])
     {
         [flipAngle release];
         flipAngle = [[dcmObject attributeValueWithName:@"FlipAngle"] retain];
     }
-    if( [dcmObject attributeValueWithName:@"ViewPosition"])
+    
+    if ([dcmObject attributeValueWithName:@"ViewPosition"])
     {
         [viewPosition release];
         viewPosition = [[dcmObject attributeValueWithName:@"ViewPosition"] retain];
     }
-    if( [dcmObject attributeValueWithName:@"PositionerPrimaryAngle"])
+    
+    if ([dcmObject attributeValueWithName:@"PositionerPrimaryAngle"])
     {
         [positionerPrimaryAngle release];
         positionerPrimaryAngle = [[dcmObject attributeValueWithName:@"PositionerPrimaryAngle"] retain];
     }
-    if( [dcmObject attributeValueWithName:@"PositionerSecondaryAngle"])
+    
+    if ([dcmObject attributeValueWithName:@"PositionerSecondaryAngle"])
     {
         [positionerSecondaryAngle release];
         positionerSecondaryAngle = [[dcmObject attributeValueWithName:@"PositionerSecondaryAngle"] retain];
     }
-    if( [dcmObject attributeValueWithName:@"EstimatedRadiographicMagnificationFactor"])
+    
+    if ([dcmObject attributeValueWithName:@"EstimatedRadiographicMagnificationFactor"])
         estimatedRadiographicMagnificationFactor = [[dcmObject attributeValueWithName:@"EstimatedRadiographicMagnificationFactor"] doubleValue];
-    if( [dcmObject attributeValueWithName:@"PatientPosition"])
+    
+    if ([dcmObject attributeValueWithName:@"PatientPosition"])
     {
         [patientPosition release];
         patientPosition = [[dcmObject attributeValueWithName:@"PatientPosition"] retain];
     }
-    if( [dcmObject attributeValueWithName:@"RecommendedDisplayFrameRate"]) cineRate = [[dcmObject attributeValueWithName:@"RecommendedDisplayFrameRate"] floatValue];
-    if( !cineRate && [dcmObject attributeValueWithName:@"CineRate"]) cineRate = [[dcmObject attributeValueWithName:@"CineRate"] floatValue];
+    
+    if ([dcmObject attributeValueWithName:@"RecommendedDisplayFrameRate"]) cineRate = [[dcmObject attributeValueWithName:@"RecommendedDisplayFrameRate"] floatValue];
+    
+    if (!cineRate && [dcmObject attributeValueWithName:@"CineRate"])
+        cineRate = [[dcmObject attributeValueWithName:@"CineRate"] floatValue];
+    
     if (!cineRate && [dcmObject attributeValueWithName:@"FrameDelay"])
     {
-        if( [[dcmObject attributeValueWithName:@"FrameDelay"] floatValue] > 0)
+        if ([[dcmObject attributeValueWithName:@"FrameDelay"] floatValue] > 0)
             cineRate = 1000. / [[dcmObject attributeValueWithName:@"FrameDelay"] floatValue];
     }
+    
     if (!cineRate && [dcmObject attributeValueWithName:@"FrameTime"])
     {
-        if( [[dcmObject attributeValueWithName:@"FrameTime"] floatValue] > 0)
+        if ([[dcmObject attributeValueWithName:@"FrameTime"] floatValue] > 0)
             cineRate = 1000. / [[dcmObject attributeValueWithName:@"FrameTime"] floatValue];
     }
+    
     if (!cineRate && [dcmObject attributeValueWithName:@"FrameTimeVector"])
     {
-        if( [[dcmObject attributeValueWithName:@"FrameTimeVector"] floatValue] > 0)
+        if ([[dcmObject attributeValueWithName:@"FrameTimeVector"] floatValue] > 0)
             cineRate = 1000. / [[dcmObject attributeValueWithName:@"FrameTimeVector"] floatValue];
     }
     
     if ( gUseShutter)
     {
-        if( [dcmObject attributeValueWithName:@"ShutterShape"])
+        if ([dcmObject attributeValueWithName:@"ShutterShape"])
         {
             NSArray *shutterArray = [dcmObject attributeArrayWithName:@"ShutterShape"];
             
-            for( NSString *shutter in shutterArray)
+            for (NSString *shutter in shutterArray)
             {
                 if ( [shutter isEqualToString:@"RECTANGULAR"])
                 {
@@ -5587,13 +5716,13 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
                     shutterRect.origin.y = [[dcmObject attributeValueWithName:@"ShutterUpperHorizontalEdge"] floatValue];
                     shutterRect.size.height = [[dcmObject attributeValueWithName:@"ShutterLowerHorizontalEdge"] floatValue] - shutterRect.origin.y;
                 }
-                else if( [shutter isEqualToString:@"CIRCULAR"])
+                else if ([shutter isEqualToString:@"CIRCULAR"])
                 {
                     shutterEnabled = YES;
                     
                     NSArray *centerArray = [dcmObject attributeArrayWithName:@"CenterofCircularShutter"];
                     
-                    if( centerArray.count == 2)
+                    if (centerArray.count == 2)
                     {
                         shutterCircular.x = [[centerArray objectAtIndex:0] intValue];
                         shutterCircular.y = [[centerArray objectAtIndex:1] intValue];
@@ -5601,18 +5730,18 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
                     
                     shutterCircular_radius = [[dcmObject attributeValueWithName:@"RadiusofCircularShutter"] floatValue];
                 }
-                else if( [shutter isEqualToString:@"POLYGONAL"])
+                else if ([shutter isEqualToString:@"POLYGONAL"])
                 {
                     shutterEnabled = YES;
                     
                     NSArray *locArray = [dcmObject attributeArrayWithName:@"VerticesofthePolygonalShutter"];
                     
-                    if( shutterPolygonal)
+                    if (shutterPolygonal)
                         free( shutterPolygonal);
                     
                     shutterPolygonalSize = 0L;
                     shutterPolygonal = (NSPoint *)malloc( [locArray count] * sizeof( NSPoint) / 2);
-                    for( unsigned int i = 0, x = 0; i < [locArray count]; i+=2, x++)
+                    for (unsigned int i = 0, x = 0; i < [locArray count]; i+=2, x++)
                     {
                         shutterPolygonal[ x].x = [[locArray objectAtIndex: i] intValue];
                         shutterPolygonal[ x].y = [[locArray objectAtIndex: i+1] intValue];
@@ -5631,7 +5760,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
     //orientation
     
     NSArray *ipp = [dcmObject attributeArrayWithName:@"ImagePositionPatient"];
-    if( ipp)
+    if (ipp)
     {
         originX = [[ipp objectAtIndex:0] doubleValue];
         originY = [[ipp objectAtIndex:1] doubleValue];
@@ -5641,7 +5770,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
     else
     {
         NSArray *ipv = [dcmObject attributeArrayWithName:@"ImagePositionVolume"];
-        if( ipv)
+        if (ipv)
         {
             originX = [[ipv objectAtIndex:0] doubleValue];
             originY = [[ipv objectAtIndex:1] doubleValue];
@@ -5650,9 +5779,8 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
         }
     }
     
-    
     NSArray *iop = [dcmObject attributeArrayWithName:@"ImageOrientationPatient"];
-    if( iop)
+    if (iop)
     {
         for ( int j = 0; j < iop.count; j++)
             orientation[ j ] = [[iop objectAtIndex:j] doubleValue];
@@ -5660,19 +5788,20 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
     else
     {
         NSArray *iov = [dcmObject attributeArrayWithName:@"ImageOrientationVolume"];
-        if( iov)
+        if (iov)
         {
             for ( int j = 0; j < iov.count; j++)
                 orientation[ j ] = [[iov objectAtIndex:j] doubleValue];
         }
     }
     
-    if( [dcmObject attributeValueWithName:@"ImageLaterality"])
+    if ([dcmObject attributeValueWithName:@"ImageLaterality"])
     {
         [laterality release];
         laterality = [[dcmObject attributeValueWithName:@"ImageLaterality"] retain];
     }
-    if( laterality == nil)
+    
+    if (laterality == nil)
     {
         [laterality release];
         laterality = [[dcmObject attributeValueWithName:@"Laterality"] retain];
@@ -5685,13 +5814,13 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 {
     // Group 0x0028
     
-    if( [dcmObject attributeValueWithName:@"PixelRepresentation"])
+    if ([dcmObject attributeValueWithName:@"PixelRepresentation"])
         fIsSigned = [[dcmObject attributeValueWithName:@"PixelRepresentation"] intValue];
     
-    if( [dcmObject attributeValueWithName:@"BitsAllocated"])
+    if ([dcmObject attributeValueWithName:@"BitsAllocated"])
         bitsAllocated = [[dcmObject attributeValueWithName:@"BitsAllocated"] intValue];
     
-    if( [dcmObject attributeValueWithName:@"BitsStored"])
+    if ([dcmObject attributeValueWithName:@"BitsStored"])
         bitsStored = [[dcmObject attributeValueWithName:@"BitsStored"] intValue];
     
     if (bitsStored == 8 &&
@@ -5707,61 +5836,64 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
     if ([dcmObject attributeValueWithName:@"RescaleSlope"])
     {
         slope = [[dcmObject attributeValueWithName:@"RescaleSlope"] floatValue];
-        if( slope == 0) slope = 1.0;
+        if (slope == 0) slope = 1.0;
     }
     
     // image size
-    if( [dcmObject attributeValueWithName:@"Rows"])
+    if ([dcmObject attributeValueWithName:@"Rows"])
     {
         height = [[dcmObject attributeValueWithName:@"Rows"] intValue];
     }
     
-    if( [dcmObject attributeValueWithName:@"Columns"])
+    if ([dcmObject attributeValueWithName:@"Columns"])
     {
-        width =  [[dcmObject attributeValueWithName:@"Columns"] intValue];
+        width = [[dcmObject attributeValueWithName:@"Columns"] intValue];
     }
     
 #ifdef OSIRIX_VIEWER
     NSManagedObjectContext *iContext = nil;
     
-    if( savedHeightInDB != 0 && savedHeightInDB != height)
+    if (savedHeightInDB != 0 && savedHeightInDB != height)
     {
-        if( savedHeightInDB != OsirixDicomImageSizeUnknown)
+        if (savedHeightInDB != OsirixDicomImageSizeUnknown)
             NSLog( @"******* [[imageObj valueForKey:@'height'] intValue] != height - %d versus %d", (int)savedHeightInDB, (int)height);
         
-        if( iContext == nil)
+        if (iContext == nil)
             iContext = ([[NSThread currentThread] isMainThread] ? [[[BrowserController currentBrowser] database] managedObjectContext] : [[[BrowserController currentBrowser] database] independentContext]);
         
         [[iContext existingObjectWithID: imageObjectID error: nil] setValue: [NSNumber numberWithInt: height] forKey: @"height"];
         
-        if( height > savedHeightInDB && fExternalOwnedImage)
+        if (height > savedHeightInDB && fExternalOwnedImage)
             height = savedHeightInDB;
     }
     
-    if( savedWidthInDB != 0 && savedWidthInDB != width)
+    if (savedWidthInDB != 0 && savedWidthInDB != width)
     {
-        if( savedWidthInDB != OsirixDicomImageSizeUnknown)
+        if (savedWidthInDB != OsirixDicomImageSizeUnknown)
             NSLog( @"******* [[imageObj valueForKey:@'width'] intValue] != width - %d versus %d", (int)savedWidthInDB, (int)width);
         
-        if( iContext == nil)
+        if (iContext == nil)
             iContext = ([[NSThread currentThread] isMainThread] ? [[[BrowserController currentBrowser] database] managedObjectContext] : [[[BrowserController currentBrowser] database] independentContext]);
         
         [[iContext existingObjectWithID: imageObjectID error: nil] setValue: [NSNumber numberWithInt: width] forKey: @"width"];
         
-        if( width > savedWidthInDB && fExternalOwnedImage)
+        if (width > savedWidthInDB && fExternalOwnedImage)
             width = savedWidthInDB;
     }
     [iContext save: nil];
 #endif
     
-    if( shutterRect.size.width == 0) shutterRect.size.width = width;
-    if( shutterRect.size.height == 0) shutterRect.size.height = height;
+    if (shutterRect.size.width == 0)
+        shutterRect.size.width = width;
+    
+    if (shutterRect.size.height == 0)
+        shutterRect.size.height = height;
     
     // window level & width
-    if ([dcmObject attributeValueWithName:@"WindowCenter"] && isRGB == NO)
+    if ([dcmObject attributeValueWithName:@"WindowCenter"] && !isRGB)
         savedWL = (int)[[dcmObject attributeValueWithName:@"WindowCenter"] floatValue];
     
-    if ([dcmObject attributeValueWithName:@"WindowWidth"] && isRGB == NO)
+    if ([dcmObject attributeValueWithName:@"WindowWidth"] && !isRGB)
         savedWW = (int)[[dcmObject attributeValueWithName:@"WindowWidth"] floatValue];
     
     if (savedWW < 0)
@@ -5773,26 +5905,26 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
     {
         if ([self.rescaleType isEqualToString:@"US"]) // US = unspecified
             self.rescaleType = @"";
-        else if( [self.rescaleType.lowercaseString isEqualToString:@"houndsfield unit"])
+        else if ([self.rescaleType.lowercaseString isEqualToString:@"houndsfield unit"])
             self.rescaleType = @"HU";
     }
     else
         self.rescaleType = @"";
 
     // planar configuration
-    if( [dcmObject attributeValueWithName:@"PlanarConfiguration"])
+    if ([dcmObject attributeValueWithName:@"PlanarConfiguration"])
         fPlanarConf = [[dcmObject attributeValueWithName:@"PlanarConfiguration"] intValue];
     
     // pixel Spacing
-    if( pixelSpacingFromUltrasoundRegions == NO)
+    if (pixelSpacingFromUltrasoundRegions == NO)
     {
         NSArray *pixelSpacing = [dcmObject attributeArrayWithName:@"PixelSpacing"];
-        if(pixelSpacing.count >= 2)
+        if (pixelSpacing.count >= 2)
         {
             pixelSpacingY = [[pixelSpacing objectAtIndex:0] doubleValue];
             pixelSpacingX = [[pixelSpacing objectAtIndex:1] doubleValue];
         }
-        else if(pixelSpacing.count >= 1)
+        else if (pixelSpacing.count >= 1)
         {
             pixelSpacingY = [[pixelSpacing objectAtIndex:0] doubleValue];
             pixelSpacingX = [[pixelSpacing objectAtIndex:0] doubleValue];
@@ -5800,12 +5932,12 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
         else
         {
             NSArray *pixelSpacing = [dcmObject attributeArrayWithName:@"ImagerPixelSpacing"];
-            if(pixelSpacing.count >= 2)
+            if (pixelSpacing.count >= 2)
             {
                 pixelSpacingY = [[pixelSpacing objectAtIndex:0] doubleValue];
                 pixelSpacingX = [[pixelSpacing objectAtIndex:1] doubleValue];
             }
-            else if(pixelSpacing.count >= 1)
+            else if (pixelSpacing.count >= 1)
             {
                 pixelSpacingY = [[pixelSpacing objectAtIndex:0] doubleValue];
                 pixelSpacingX = [[pixelSpacing objectAtIndex:0] doubleValue];
@@ -5824,7 +5956,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
         for ( DCMObject *sequenceItem in seq.sequence)
         {
             /* US Regions --->
-             if( spacingFound == NO)
+             if (spacingFound == NO)
              {
              int physicalUnitsX = 0;
              int physicalUnitsY = 0;
@@ -5834,14 +5966,14 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
              physicalUnitsY = [[sequenceItem attributeValueWithName:@"PhysicalUnitsYDirection"] intValue];
              spatialFormat = [[sequenceItem attributeValueWithName:@"RegionSpatialFormat"] intValue];
              
-             if( physicalUnitsX == 3 && physicalUnitsY == 3 && spatialFormat == 1)	// We want only cm !
+             if (physicalUnitsX == 3 && physicalUnitsY == 3 && spatialFormat == 1)	// We want only cm !
              {
              double xxx = 0, yyy = 0;
              
              xxx = [[sequenceItem attributeValueWithName:@"PhysicalDeltaX"] doubleValue];
              yyy = [[sequenceItem attributeValueWithName:@"PhysicalDeltaY"] doubleValue];
              
-             if( xxx && yyy)
+             if (xxx && yyy)
              {
              pixelSpacingX = fabs( xxx) * 10.;	// These are in cm !
              pixelSpacingY = fabs( yyy) * 10.;
@@ -5900,7 +6032,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
     }
     
     //PixelAspectRatio
-    if( pixelSpacingFromUltrasoundRegions == NO)
+    if (pixelSpacingFromUltrasoundRegions == NO)
     {
         NSArray *par = [dcmObject attributeArrayWithName:@"PixelAspectRatio"];
         if ( par.count >= 2)
@@ -5909,14 +6041,15 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
             ratiox = [[par objectAtIndex:0] doubleValue];
             ratioy = [[par objectAtIndex:1] doubleValue];
             
-            if( ratioy != 0)
+            if (ratioy != 0)
             {
                 pixelRatio = ratiox / ratioy;
             }
         }
-        else if( pixelSpacingX != pixelSpacingY)
+        else if (pixelSpacingX != pixelSpacingY)
         {
-            if( pixelSpacingY != 0 && pixelSpacingX != 0) pixelRatio = pixelSpacingY / pixelSpacingX;
+            if (pixelSpacingY != 0 && pixelSpacingX != 0)
+                pixelRatio = pixelSpacingY / pixelSpacingX;
         }
     }
     
@@ -5930,10 +6063,10 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 
 - (void) dcmFrameworkLoadOphthalmic: (DCMObject*) dcmObject
 {
-    if( [dcmObject attributeValueWithName:@"ReferencedSOPInstanceUID"])
+    if ([dcmObject attributeValueWithName:@"ReferencedSOPInstanceUID"])
         self.referencedSOPInstanceUID = [dcmObject attributeValueWithName:@"ReferencedSOPInstanceUID"];
     
-    if( [dcmObject attributeValueWithName:@"ReferenceCoordinates"])
+    if ([dcmObject attributeValueWithName:@"ReferenceCoordinates"])
     {
         NSArray *coor = [dcmObject attributeValueWithName:@"ReferenceCoordinates"];
         
@@ -5957,7 +6090,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
     fileSize *= 1.5;
     
     void *memoryTest = malloc( fileSize);
-    if( memoryTest == nil)
+    if (memoryTest == nil)
     {
         NSLog( @"------ loadDICOMDCMFramework memory test failed -> return");
         return NO;
@@ -5971,7 +6104,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
     BOOL returnValue = YES;
     DCMObject *dcmObject = 0L;
     
-    if( purgeCacheLock == nil)
+    if (purgeCacheLock == nil)
         purgeCacheLock = [[NSConditionLock alloc] initWithCondition: 0];
     
     [purgeCacheLock lock];
@@ -5981,13 +6114,13 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
     
     @try
     {
-        if( [cachedDCMFrameworkFiles objectForKey: srcFile])
+        if ([cachedDCMFrameworkFiles objectForKey: srcFile])
         {
             NSMutableDictionary *dic = [cachedDCMFrameworkFiles objectForKey: srcFile];
             
             dcmObject = [dic objectForKey: @"dcmObject"];
             
-            if( retainedCacheGroup != nil)
+            if (retainedCacheGroup != nil)
                 NSLog( @"******** DCMPix : retainedCacheGroup 3 != nil ! %@", srcFile);
             
             [dic setValue: [NSNumber numberWithInt: [[dic objectForKey: @"count"] intValue]+1] forKey: @"count"];
@@ -5997,12 +6130,12 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
         {
             dcmObject = [DCMObject objectWithContentsOfFile:srcFile decodingPixelData:NO];
             
-            if( dcmObject)
+            if (dcmObject)
             {
                 NSMutableDictionary *dic = [NSMutableDictionary dictionary];
                 
                 [dic setValue: dcmObject forKey: @"dcmObject"];
-                if( retainedCacheGroup != nil)
+                if (retainedCacheGroup != nil)
                     NSLog( @"******** DCMPix : retainedCacheGroup 4 != nil ! %@", srcFile);
                 
                 [dic setValue: @1 forKey: @"count"];
@@ -6020,7 +6153,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
     
     [PapyrusLock unlock];
     
-    if(dcmObject == nil)
+    if (dcmObject == nil)
     {
         NSLog( @"******** loadDICOMDCMFramework - no DCMObject at srcFile address, nothing to do");
         [purgeCacheLock lock];
@@ -6031,7 +6164,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
     
     self.SOPClassUID = [dcmObject attributeValueWithName:@"SOPClassUID"];
     self.referencedSOPInstanceUID = [dcmObject attributeValueWithName:@"ReferencedSOPInstanceUID"];
-    //-----------------------common----------------------------------------------------------
+    //-----------------------common---------------------------------------------
     
     self.imageType = [[dcmObject attributeArrayWithName:@"ImageType"] componentsJoinedByString:@"\\"];
     
@@ -6071,18 +6204,17 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
         [pool release];
         return YES;
     }
-    else if( [SOPClassUID hasPrefix: @"1.2.840.10008.5.1.4.1.1.88"]) // DICOM SR
+    else if ([SOPClassUID hasPrefix: @"1.2.840.10008.5.1.4.1.1.88"]) // DICOM SR
     {
 #ifdef OSIRIX_VIEWER
-#ifndef OSIRIX_LIGHT
-        
+ #ifndef OSIRIX_LIGHT
         @try
         {
             NSString *pathDicomSrSlash = [NSTemporaryDirectory() stringByAppendingPathComponent:@"dicomsr_osirix/"];
             [[NSFileManager defaultManager] confirmDirectoryAtPath: pathDicomSrSlash];            
             NSString *htmlpath = [[pathDicomSrSlash stringByAppendingPathComponent: [srcFile lastPathComponent]] stringByAppendingPathExtension: @"xml"];
             
-            if( [[NSFileManager defaultManager] fileExistsAtPath: htmlpath] == NO)
+            if ([[NSFileManager defaultManager] fileExistsAtPath: htmlpath] == NO)
             {
                 NSTask *aTask = [[[NSTask alloc] init] autorelease];
                 [aTask setEnvironment:[NSDictionary dictionaryWithObject:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"/dicom.dic"] forKey:@"DCMDICTPATH"]];
@@ -6097,23 +6229,24 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
                                       htmlpath,
                                       nil]];
                 [aTask launch];
-                while( [aTask isRunning])
+                while ([aTask isRunning])
                     [NSThread sleepForTimeInterval: 0.1];
                 
                 //[aTask waitUntilExit];		// <- This is VERY DANGEROUS : the main runloop is continuing...
                 [aTask interrupt];
             }
             
-            if( [[NSFileManager defaultManager] fileExistsAtPath: [htmlpath stringByAppendingPathExtension: @"pdf"]] == NO)
+            if ([[NSFileManager defaultManager] fileExistsAtPath: [htmlpath stringByAppendingPathExtension: @"pdf"]] == NO)
             {
-                if( [[NSFileManager defaultManager] fileExistsAtPath: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"/Decompress"]])
+                if ([[NSFileManager defaultManager] fileExistsAtPath: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"/Decompress"]])
                 {
                     NSTask *aTask = [[[NSTask alloc] init] autorelease];
                     [aTask setLaunchPath: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"/Decompress"]];
+                    NSLog(@"Checkpoint %s %d htmlpath:%@", __PRETTY_FUNCTION__, __LINE__, htmlpath);
                     [aTask setArguments: [NSArray arrayWithObjects: htmlpath, @"pdfFromURL", nil]];
                     [aTask launch];
                     NSTimeInterval start = [NSDate timeIntervalSinceReferenceDate];
-                    while( [aTask isRunning] && [NSDate timeIntervalSinceReferenceDate] - start < 10)
+                    while ([aTask isRunning] && [NSDate timeIntervalSinceReferenceDate] - start < 10)
                         [NSThread sleepForTimeInterval: 0.1];
                     
                     //[aTask waitUntilExit];		// <- This is VERY DANGEROUS : the main runloop is continuing...
@@ -6127,8 +6260,10 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
             
             NSImage *pdfImage = [[[NSImage alloc] init] autorelease];
             [pdfImage addRepresentation: rep];
-            
+
+            NSLog(@"DCMPix.mm:%d %s", __LINE__, __PRETTY_FUNCTION__);
             [self getDataFromNSImage: pdfImage];
+            NSLog(@"DCMPix.mm:%d %s", __LINE__, __PRETTY_FUNCTION__);
             
             [self loadCustomImageAnnotationsPapyLink:-1 DCMLink:dcmObject];
             
@@ -6141,12 +6276,12 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
         {
             N2LogExceptionWithStackTrace(e);
         }
-#else
+ #else // OSIRIX_LIGHT
         [self getDataFromNSImage: [NSImage imageNamed: @"NSIconViewTemplate"]];
-#endif
-#else
+ #endif // OSIRIX_LIGHT
+#else // OSIRIX_VIEWER
         [self getDataFromNSImage: [NSImage imageNamed: @"NSIconViewTemplate"]];
-#endif
+#endif // OSIRIX_VIEWER
     }
     else if ( [DCMAbstractSyntaxUID isNonImageStorage: SOPClassUID])
     {
@@ -6154,7 +6289,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
         width = 128;
         isRGB = NO;
 
-        if( fExternalOwnedImage)
+        if (fExternalOwnedImage)
             fImage = fExternalOwnedImage;
         else
             fImage = (float *)malloc( height * width * sizeof(float));
@@ -6180,7 +6315,9 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
         offset = 0.0;
         slope = 1.0;
         
-        originX = 0;	originY = 0;	originZ = 0;
+        originX = 0;
+        originY = 0;
+        originZ = 0;
         orientation[ 0] = 0;	orientation[ 1] = 0;	orientation[ 2] = 0;
         orientation[ 3] = 0;	orientation[ 4] = 0;	orientation[ 5] = 0;
         
@@ -6198,33 +6335,33 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
             {
                 DCMSequenceAttribute *MRTimingAndRelatedParametersSequence = (DCMSequenceAttribute *)[sequenceItem attributeWithName:@"MRTimingAndRelatedParametersSequence"];
                 DCMObject *MRTimingAndRelatedParametersObject = [[MRTimingAndRelatedParametersSequence sequence] objectAtIndex:0];
-                if( MRTimingAndRelatedParametersObject)
+                if (MRTimingAndRelatedParametersObject)
                     [self dcmFrameworkLoad0x0020: MRTimingAndRelatedParametersObject];
                 
                 DCMSequenceAttribute *planeOrientationSequence = (DCMSequenceAttribute *)[sequenceItem attributeWithName:@"PlaneOrientationSequence"];
                 DCMObject *planeOrientationObject = [[planeOrientationSequence sequence] objectAtIndex:0];
-                if( planeOrientationObject)
+                if (planeOrientationObject)
                     [self dcmFrameworkLoad0x0020: planeOrientationObject];
                 
                 DCMSequenceAttribute *planePositionSequence = (DCMSequenceAttribute *)[sequenceItem attributeWithName:@"PlanePositionVolumeSequence"];
                 DCMObject *planePositionObject = [[planePositionSequence sequence] objectAtIndex:0];
-                if( planePositionObject)
+                if (planePositionObject)
                     [self dcmFrameworkLoad0x0020: planePositionObject];
                 
                 DCMSequenceAttribute *pixelMeasureSequence = (DCMSequenceAttribute *)[sequenceItem attributeWithName:@"PixelMeasuresSequence"];
                 DCMObject *pixelMeasureObject = [[pixelMeasureSequence sequence] objectAtIndex:0];
-                if( pixelMeasureObject)
+                if (pixelMeasureObject)
                     [self dcmFrameworkLoad0x0018: pixelMeasureObject];
-                if( pixelMeasureObject)
+                
+                if (pixelMeasureObject)
                     [self dcmFrameworkLoad0x0028: pixelMeasureObject];
                 
                 DCMSequenceAttribute *pixelTransformationSequence = (DCMSequenceAttribute *)[sequenceItem attributeWithName:@"PixelValueTransformationSequence"];
                 DCMObject *pixelTransformationSequenceObject = [[pixelTransformationSequence sequence] objectAtIndex:0];
-                if( pixelTransformationSequenceObject)
+                if (pixelTransformationSequenceObject)
                     [self dcmFrameworkLoad0x0028: pixelTransformationSequenceObject];
             }
         }
-        
         
 #pragma mark *per frame
         
@@ -6236,12 +6373,12 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
         DCMSequenceAttribute *perFrameFunctionalGroupsSequence = (DCMSequenceAttribute *)[dcmObject attributeWithName:@"Per-frameFunctionalGroupsSequence"];
         
         //NSLog(@"perFrameFunctionalGroupsSequence: %@", [perFrameFunctionalGroupsSequence description]);
-        if( perFrameFunctionalGroupsSequence)
+        if (perFrameFunctionalGroupsSequence)
         {
-            if( perFrameFunctionalGroupsSequence.sequence.count > imageNb && imageNb >= 0)
+            if (perFrameFunctionalGroupsSequence.sequence.count > imageNb && imageNb >= 0)
             {
                 DCMObject *sequenceItem = [[perFrameFunctionalGroupsSequence sequence] objectAtIndex:imageNb];
-                if( sequenceItem)
+                if (sequenceItem)
                 {
                     DCMSequenceAttribute* seq;
                     DCMObject* object;
@@ -6306,7 +6443,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
         
 #pragma mark *tag group 6000
         
-        if( [dcmObject attributeValueWithName: @"OverlayRows"])
+        if ([dcmObject attributeValueWithName: @"OverlayRows"])
         {
             @try
             {
@@ -6336,11 +6473,11 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
                         char mask = 1;
                         long t = oColumns*oRows/16;
                         
-                        while (t-->0)
+                        while (t-- > 0)
                         {
                             unsigned short	octet = *pixels++;
                             int x = 16;
-                            while (x-->0)
+                            while (x-- > 0)
                             {
                                 char v = octet & mask ? 1 : 0;
                                 octet = octet >> 1;
@@ -6363,7 +6500,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 #pragma mark *SUV
         
         // Get values needed for SUV calcs:
-        if( [dcmObject attributeValueWithName:@"PatientsWeight"])
+        if ([dcmObject attributeValueWithName:@"PatientsWeight"])
             patientsWeight = [[dcmObject attributeValueWithName:@"PatientsWeight"] floatValue];
         else
             patientsWeight = 0.0;
@@ -6374,13 +6511,13 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
         [decayCorrection release];
         decayCorrection = [[dcmObject attributeValueWithName:@"DecayCorrection"] retain];
         
-        //	if( [dcmObject attributeValueWithName:@"DecayFactor"])
+        //	if ([dcmObject attributeValueWithName:@"DecayFactor"])
         //		decayFactor = [[dcmObject attributeValueWithName:@"DecayFactor"] floatValue];
         
         decayFactor = 1.0;
         
         DCMSequenceAttribute *radiopharmaceuticalInformationSequence = (DCMSequenceAttribute *)[dcmObject attributeWithName:@"RadiopharmaceuticalInformationSequence"];
-        if( radiopharmaceuticalInformationSequence && radiopharmaceuticalInformationSequence.sequence.count > 0)
+        if (radiopharmaceuticalInformationSequence && radiopharmaceuticalInformationSequence.sequence.count > 0)
         {
             DCMObject *radionuclideTotalDoseObject = [radiopharmaceuticalInformationSequence.sequence objectAtIndex:0];
             radionuclideTotalDose = [[radionuclideTotalDoseObject attributeValueWithName:@"RadionuclideTotalDose"] floatValue];
@@ -6388,37 +6525,37 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
             
             NSArray *priority = nil;
             
-            if( gSUVAcquisitionTimeField == 0) // Prefer SeriesTime
+            if (gSUVAcquisitionTimeField == 0) // Prefer SeriesTime
                 priority = [NSArray arrayWithObjects: @"SeriesDate", @"SeriesTime", @"AcquisitionDate", @"AcquisitionTime", @"ContentDate", @"ContentTime", @"StudyDate", @"StudyTime", nil];
             
-            if( gSUVAcquisitionTimeField == 1) // Prefer AcquisitionTime
+            if (gSUVAcquisitionTimeField == 1) // Prefer AcquisitionTime
                 priority = [NSArray arrayWithObjects: @"AcquisitionDate", @"AcquisitionTime", @"SeriesDate", @"SeriesTime", @"ContentDate", @"ContentTime", @"StudyDate", @"StudyTime", nil];
             
-            if( gSUVAcquisitionTimeField == 2) // Prefer ContentTime
+            if (gSUVAcquisitionTimeField == 2) // Prefer ContentTime
                 priority = [NSArray arrayWithObjects: @"ContentDate", @"ContentTime", @"SeriesDate", @"SeriesTime", @"AcquisitionDate", @"AcquisitionTime", @"StudyDate", @"StudyTime", nil];
             
-            if( gSUVAcquisitionTimeField == 3) // Prefer StudyTime
+            if (gSUVAcquisitionTimeField == 3) // Prefer StudyTime
                 priority = [NSArray arrayWithObjects: @"StudyDate", @"StudyTime", @"SeriesDate", @"SeriesTime", @"AcquisitionDate", @"AcquisitionTime", @"ContentDate", @"ContentTime", nil];
             
             NSString *preferredTime = nil;
             NSString *preferredDate = nil;
             
-            for( int v = 0; v < priority.count;)
+            for (int v = 0; v < priority.count;)
             {
                 NSString *value;
                 
-                if( preferredDate == nil && (value = [[dcmObject attributeValueWithName: [priority objectAtIndex: v]] dateString])) preferredDate = value;
+                if (preferredDate == nil && (value = [[dcmObject attributeValueWithName: [priority objectAtIndex: v]] dateString])) preferredDate = value;
                 v++;
                 
-                if( preferredTime == nil && (value = [[dcmObject attributeValueWithName: [priority objectAtIndex: v]] timeString])) preferredTime = value;
+                if (preferredTime == nil && (value = [[dcmObject attributeValueWithName: [priority objectAtIndex: v]] timeString])) preferredTime = value;
                 v++;
             }
             
             NSString *radioTime = [[radionuclideTotalDoseObject attributeValueWithName:@"RadiopharmaceuticalStartTime"] timeString];
             
-            if( preferredDate && preferredTime && radioTime)
+            if (preferredDate && preferredTime && radioTime)
             {
-                if( [preferredTime length] >= 6)
+                if ([preferredTime length] >= 6)
                 {
                     radiopharmaceuticalStartTime = [[NSCalendarDate alloc] initWithString:[preferredDate stringByAppendingString:radioTime] calendarFormat:@"%Y%m%d%H%M%S"];
                     acquisitionTime = [[NSCalendarDate alloc] initWithString:[preferredDate stringByAppendingString:preferredTime] calendarFormat:@"%Y%m%d%H%M%S"];
@@ -6434,12 +6571,12 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
         }
         
         DCMSequenceAttribute *detectorInformationSequence = (DCMSequenceAttribute *)[dcmObject attributeWithName:@"DetectorInformationSequence"];
-        if( detectorInformationSequence && detectorInformationSequence.sequence.count > 0)
+        if (detectorInformationSequence && detectorInformationSequence.sequence.count > 0)
         {
             DCMObject *detectorInformation = [detectorInformationSequence.sequence objectAtIndex:0];
             
             NSArray *ipp = [detectorInformation attributeArrayWithName:@"ImagePositionPatient"];
-            if( ipp)
+            if (ipp)
             {
                 originX = [[ipp objectAtIndex:0] doubleValue];
                 originY = [[ipp objectAtIndex:1] doubleValue];
@@ -6447,7 +6584,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
                 isOriginDefined = YES;
             }
             
-            if( spacingBetweenSlices)
+            if (spacingBetweenSlices)
                 originZ += frameNo * spacingBetweenSlices;
             else
                 originZ += frameNo * sliceThickness;
@@ -6456,15 +6593,15 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
             orientation[ 3] = 0;	orientation[ 4] = 0;	orientation[ 5] = 0;
             
             NSArray *iop = [detectorInformation attributeArrayWithName:@"ImageOrientationPatient"];
-            if( iop)
+            if (iop)
             {
                 BOOL equalZero = YES;
                 
                 for ( int j = 0; j < iop.count; j++)
-                    if( [[iop objectAtIndex:j] floatValue] != 0)
+                    if ([[iop objectAtIndex:j] floatValue] != 0)
                         equalZero = NO;
                 
-                if( equalZero == NO)
+                if (equalZero == NO)
                 {
                     for ( int j = 0; j < iop.count; j++)
                         orientation[ j ] = [[iop objectAtIndex:j] doubleValue];
@@ -6473,10 +6610,10 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
                 {
                     equalZero = YES;
                     for ( int j = 0; j < 6; j++)
-                        if( orientation[ j] != 0)
+                        if (orientation[ j] != 0)
                             equalZero = NO;
                     
-                    if( equalZero)
+                    if (equalZero)
                     {
                         orientation[ 0] = 1;	orientation[ 1] = 0;	orientation[ 2] = 0;
                         orientation[ 3] = 0;	orientation[ 4] = 1;	orientation[ 5] = 0;
@@ -6485,7 +6622,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
             }
         }
         
-        if( [dcmObject attributeValueForKey: @"7053,1000"])
+        if ([dcmObject attributeValueForKey: @"7053,1000"])
         {
             @try
             {
@@ -6513,8 +6650,8 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 #pragma mark READ PIXEL DATA
         
         maxFrame = [[dcmObject attributeValueWithName:@"NumberofFrames"] intValue];
-        if( maxFrame == 0) maxFrame = 1;
-        if( pixArray == nil) maxFrame = 1;
+        if (maxFrame == 0) maxFrame = 1;
+        if (pixArray == nil) maxFrame = 1;
         //pixelAttr contains the whole PixelData attribute of every frames. Hence needs to be before the loop
         if ([dcmObject attributeValueWithName:@"PixelData"])
         {
@@ -6533,9 +6670,9 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
                 [self computeSliceLocation];
             }
             
-            if( gUseShutter && imageNb != frameNo && maxFrame > 1)
+            if (gUseShutter && imageNb != frameNo && maxFrame > 1)
             {
-                if( shutterPolygonalSize)
+                if (shutterPolygonalSize)
                 {
                     self->shutterPolygonal = (NSPoint *)malloc( shutterPolygonalSize * sizeof( NSPoint));
                     memcpy( self->shutterPolygonal, shutterPolygonal, shutterPolygonalSize * sizeof( NSPoint));
@@ -6545,26 +6682,26 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
             //get PixelData
             short *oImage = nil;
             NSData *pixData = [pixelAttr decodeFrameAtIndex:imageNb];
-            if( [pixData length] > 0)
+            if ([pixData length] > 0)
             {
-                oImage =  (short *)malloc( [pixData length]);	//pointer to a memory zone where each pixel of the data has a short value reserved
-                if( oImage)
+                oImage = (short *)malloc( [pixData length]);	//pointer to a memory zone where each pixel of the data has a short value reserved
+                if (oImage)
                     [pixData getBytes:oImage];
                 else
                     NSLog( @"----- Major memory problems 1...");
             }
             
-            if( oImage == nil) //there was no data for this frame -> create empty image
+            if (oImage == nil) //there was no data for this frame -> create empty image
             {
                 //NSLog(@"image size: %d", ( height * width * 2));
                 oImage = (short *)malloc( height * width * sizeof(short));
-                if( oImage)
+                if (oImage)
                 {
                     long yo = 0;
                     for (unsigned long i = 0 ; i < height * width; i++)
                     {
                         oImage[i] = yo++;
-                        if( yo >= width)
+                        if (yo >= width)
                             yo = 0;
                     }
                 }
@@ -6580,7 +6717,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
             NSString *colorspace = [dcmObject attributeValueWithName:@"PhotometricInterpretation"];
             if ([colorspace rangeOfString:@"MONOCHROME1"].location != NSNotFound)
             {
-                if( [[dcmObject attributeValueWithName:@"Modality"] isEqualToString:@"PT"] || ([[NSUserDefaults standardUserDefaults] boolForKey:@"OpacityTableNM"] == YES && [[dcmObject attributeValueWithName:@"Modality"] isEqualToString:@"NM"]))
+                if ([[dcmObject attributeValueWithName:@"Modality"] isEqualToString:@"PT"] || ([[NSUserDefaults standardUserDefaults] boolForKey:@"OpacityTableNM"] == YES && [[dcmObject attributeValueWithName:@"Modality"] isEqualToString:@"NM"]))
                 {
                     
                 }
@@ -6588,17 +6725,25 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
                     inverseVal = YES; savedWL = -savedWL;
             }
             /*else if ( [colorspace hasPrefix:@"MONOCHROME2"])	{inverseVal = NO; savedWL = savedWL;} */
-            if ( [colorspace hasPrefix:@"YBR"]) isRGB = YES;
-            if ( [colorspace hasPrefix:@"PALETTE"])	{ bitsAllocated = 8; isRGB = YES; NSLog(@"Palette depth conveted to 8 bit");}
-            if ([colorspace rangeOfString:@"RGB"].location != NSNotFound) isRGB = YES;
+            if ( [colorspace hasPrefix:@"YBR"])
+                isRGB = YES;
+            
+            if ( [colorspace hasPrefix:@"PALETTE"])	{
+                bitsAllocated = 8;
+                isRGB = YES;
+                NSLog(@"Palette depth conveted to 8 bit");
+            }
+            
+            if ([colorspace rangeOfString:@"RGB"].location != NSNotFound)
+                isRGB = YES;
+            
             /******** dcm Object will do this *******convertYbrToRgb -> planar is converted***/
-            if ([colorspace rangeOfString:@"YBR"].location != NSNotFound)
-            {
+            if ([colorspace rangeOfString:@"YBR"].location != NSNotFound) {
                 fPlanarConf = 0;
                 isRGB = YES;
             }
             
-            if (isRGB == YES)
+            if (isRGB)
             {
                 unsigned char *ptr;
                 unsigned char *tmpImage;
@@ -6606,9 +6751,9 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
                 tmpImage = (unsigned char *)malloc (loop * 4L);
                 ptr = tmpImage;
                 
-                if( bitsAllocated > 8)
+                if (bitsAllocated > 8)
                 {
-                    if( [pixData length] < height*width*2*3)
+                    if ([pixData length] < height*width*2*3)
                     {
                         NSLog( @"************* [pixData length] < height*width*2*3");
                         loop = [pixData length]/6;
@@ -6617,7 +6762,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
                     // RGB_FFF
                     unsigned short   *bufPtr;
                     bufPtr = (unsigned short*) oImage;
-                    while( loop-- > 0)
+                    while (loop-- > 0)
                     {		//unsigned short=16 bit, then I suppose A should be 65535
                         *ptr++	= 255;			//ptr++;
                         *ptr++	= *bufPtr++;		//ptr++;  bufPtr++;
@@ -6627,7 +6772,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
                 }
                 else
                 {
-                    if( [pixData length] < height*width*3)
+                    if ([pixData length] < height*width*3)
                     {
                         NSLog( @"************* [pixData length] < height*width*3");
                         loop = [pixData length]/3;
@@ -6637,7 +6782,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
                     unsigned char   *bufPtr;
                     bufPtr = (unsigned char*) oImage;
                     
-                    while( loop-- > 0)
+                    while (loop-- > 0)
                     {
                         *ptr++	= 255;			//ptr++;
                         *ptr++	= *bufPtr++;		//ptr++;  bufPtr++;
@@ -6651,9 +6796,9 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
             }
             else
             {
-                if( fIsSigned && bitsAllocated != bitsStored) //We have to move the signing bit
+                if (fIsSigned && bitsAllocated != bitsStored) //We have to move the signing bit
                 {
-                    if( bitsAllocated == 16)
+                    if (bitsAllocated == 16)
                     {
                         short *bufPtr = (short*)oImage;
                         short *tmpImage;
@@ -6666,15 +6811,15 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
                         
                         loop = height * width;
                         short div = pow( 2, shift);
-                        while( loop-- > 0)
+                        while (loop-- > 0)
                             *ptr++ = ((short)(*(bufPtr++) << shift))/div;
                         
                         free(oImage);
-                        oImage =  (short*) tmpImage;
+                        oImage = (short*) tmpImage;
                     }
                 }
                 
-                if( bitsAllocated == 8)
+                if (bitsAllocated == 8)
                 {
                     // Planar 8
                     //-> 16 bits image
@@ -6690,27 +6835,27 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
                     
                     loop = totSize/2;
                     
-                    if( [pixData length] < loop)
+                    if ([pixData length] < loop)
                     {
                         NSLog( @"************* [pixData length] < height * width");
                         loop = [pixData length];
                     }
                     
-                    while( loop-- > 0)
+                    while (loop-- > 0)
                     {
                         *ptr++ = *bufPtr++;
                     }
                     free(oImage);
-                    oImage =  (short*) tmpImage;
+                    oImage = (short*) tmpImage;
                 }
             }
             
             
             //***********
             
-            if( isRGB)
+            if (isRGB)
             {
-                if( fExternalOwnedImage)
+                if (fExternalOwnedImage)
                 {
                     fImage = fExternalOwnedImage;
                     memcpy( fImage, oImage, width*height*sizeof(float));
@@ -6721,17 +6866,17 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
                 
                 oImage = nil;
                 
-                if( oData && gDisplayDICOMOverlays)
+                if (oData && gDisplayDICOMOverlays)
                 {
                     unsigned char	*rgbData = (unsigned char*) fImage;
                     
-                    for( int y = 0; y < oRows; y++)
+                    for (int y = 0; y < oRows; y++)
                     {
-                        for( int x = 0; x < oColumns; x++)
+                        for (int x = 0; x < oColumns; x++)
                         {
-                            if( oData[ y * oColumns + x])
+                            if (oData[ y * oColumns + x])
                             {
-                                if( (x + oOrigin[ 0]) >= 0 && (x + oOrigin[ 0]) < width &&
+                                if ((x + oOrigin[ 0]) >= 0 && (x + oOrigin[ 0]) < width &&
                                    (y + oOrigin[ 1]) >= 0 && (y + oOrigin[ 1]) < height)
                                 {
                                     rgbData[ (y + oOrigin[ 1]) * width*4 + (x + oOrigin[ 0])*4 + 1] = 0xFF;
@@ -6745,34 +6890,34 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
             }
             else
             {
-                if( bitsAllocated == 32) // 32-bit float or 32-bit integers
+                if (bitsAllocated == 32) // 32-bit float or 32-bit integers
                 {
-                    if( fExternalOwnedImage)
+                    if (fExternalOwnedImage)
                         fImage = fExternalOwnedImage;
                     else
                         fImage = (float *)malloc(width*height*sizeof(float) + 100);
                     
-                    if( fImage)
+                    if (fImage)
                     {
                         memcpy( fImage, oImage, height * width * sizeof( float));
                         
-                        if( slope != 1.0 || offset != 0 || [[NSUserDefaults standardUserDefaults] boolForKey: @"32bitDICOMAreAlwaysIntegers"]) 
+                        if (slope != 1.0 || offset != 0 || [[NSUserDefaults standardUserDefaults] boolForKey: @"32bitDICOMAreAlwaysIntegers"]) 
                         {
                             unsigned int *usint = (unsigned int*) oImage;
                             int *sint = (int*) oImage;
                             float *tDestF = fImage;
                             double dOffset = offset, dSlope = slope;
                             
-                            if( fIsSigned > 0)
+                            if (fIsSigned > 0)
                             {
                                 unsigned long x = height * width;
-                                while( x-- > 0)
+                                while (x-- > 0)
                                     *tDestF++ = ((double) (*sint++)) * dSlope + dOffset;
                             }
                             else
                             {
                                 unsigned long x = height * width;
-                                while( x-- > 0)
+                                while (x-- > 0)
                                     *tDestF++ = ((double) (*usint++)) * dSlope + dOffset;
                             }
                         }
@@ -6793,27 +6938,27 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
                     
                     src16.data = oImage;
                     
-                    if( fExternalOwnedImage)
+                    if (fExternalOwnedImage)
                         fImage = fExternalOwnedImage;
                     else
                         fImage = (float *)malloc(width*height*sizeof(float) + 100);
                     
                     dstf.data = fImage;
                     
-                    if( dstf.data)
+                    if (dstf.data)
                     {
-                        if( bitsAllocated == 16 && [pixData length] < height*width*2)
+                        if (bitsAllocated == 16 && [pixData length] < height*width*2)
                         {
                             NSLog( @"************* [pixData length] < height * width");
                             
-                            if( [pixData length] == height*width) // 8 bits??
+                            if ([pixData length] == height*width) // 8 bits??
                             {
                                 NSLog( @"************* [[pixData length] == height*width : 8 bits? but declared as 16 bits...");
                                 
                                 unsigned long x = height * width;
                                 float *tDestF = (float*) dstf.data;
                                 unsigned char *oChar = (unsigned char*) oImage;
-                                while( x-- > 0)
+                                while (x-- > 0)
                                     *tDestF++ = *oChar++;
                             }
                             else
@@ -6821,13 +6966,13 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
                         }
                         else
                         {
-                            if( fIsSigned > 0)
+                            if (fIsSigned > 0)
                                 vImageConvert_16SToF( &src16, &dstf, offset, slope, 0);
                             else
                                 vImageConvert_16UToF( &src16, &dstf, offset, slope, 0);
                         }
                         
-                        if( inverseVal)
+                        if (inverseVal)
                         {
                             float neg = -1;
                             vDSP_vsmul( fImage, 1, &neg, fImage, 1, height * width);
@@ -6840,11 +6985,11 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
                     oImage = nil;
                 }
                 
-                if( oData && gDisplayDICOMOverlays && fImage)
+                if (oData && gDisplayDICOMOverlays && fImage)
                 {
                     float maxValue = 0;
                     
-                    if( inverseVal)
+                    if (inverseVal)
                         maxValue = -offset;
                     else
                     {
@@ -6853,13 +6998,13 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
                         maxValue += offset;
                     }
                     
-                    for( int y = 0; y < oRows; y++)
+                    for (int y = 0; y < oRows; y++)
                     {
-                        for( int x = 0; x < oColumns; x++)
+                        for (int x = 0; x < oColumns; x++)
                         {
-                            if( oData[ y * oColumns + x])
+                            if (oData[ y * oColumns + x])
                             {
-                                if( (x + oOrigin[ 0]) >= 0 && (x + oOrigin[ 0]) < width &&
+                                if ((x + oOrigin[ 0]) >= 0 && (x + oOrigin[ 0]) < width &&
                                    (y + oOrigin[ 1]) >= 0 && (y + oOrigin[ 1]) < height)
                                 {
                                     fImage[ (y + oOrigin[ 1]) * width + x + oOrigin[ 0]] = maxValue;
@@ -6873,7 +7018,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
             wl = 0;
             ww = 0; //Computed later, only if needed
             
-            if( savedWW != 0)
+            if (savedWW != 0)
             {
                 wl = savedWL;
                 ww = savedWW;
@@ -6883,20 +7028,20 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
             
         }//end of if ([dcmObject attributeValueWithName:@"PixelData"])
         
-        if( pixelSpacingY != 0)
+        if (pixelSpacingY != 0)
         {
-            if( fabs(pixelSpacingX) / fabs(pixelSpacingY) > 10000 || fabs(pixelSpacingX) / fabs(pixelSpacingY) < 0.0001)
+            if (fabs(pixelSpacingX) / fabs(pixelSpacingY) > 10000 || fabs(pixelSpacingX) / fabs(pixelSpacingY) < 0.0001)
             {
                 pixelSpacingX = 1;
                 pixelSpacingY = 1;
             }
         }
         
-        if( pixelSpacingX < 0) pixelSpacingX = -pixelSpacingX;
-        if( pixelSpacingY < 0) pixelSpacingY = -pixelSpacingY;
-        if( pixelSpacingY != 0 && pixelSpacingX != 0)
+        if (pixelSpacingX < 0) pixelSpacingX = -pixelSpacingX;
+        if (pixelSpacingY < 0) pixelSpacingY = -pixelSpacingY;
+        if (pixelSpacingY != 0 && pixelSpacingX != 0)
         {
-            if( estimatedRadiographicMagnificationFactor)
+            if (estimatedRadiographicMagnificationFactor)
             {
                 pixelSpacingX /= estimatedRadiographicMagnificationFactor;
                 pixelSpacingY /= estimatedRadiographicMagnificationFactor;
@@ -6925,16 +7070,16 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 
 + (void) purgeCachedDictionaries
 {
-	if( [NSThread isMainThread] == NO)
+	if ([NSThread isMainThread] == NO)
     {
         [DCMPix performSelectorOnMainThread: @selector(purgeCachedDictionaries) withObject: nil waitUntilDone: NO];
         return;
     }
     
-	if( purgeCacheLock == nil)
+	if (purgeCacheLock == nil)
 		purgeCacheLock = [[NSConditionLock alloc] initWithCondition: 0];
 	
-	if( [purgeCacheLock lockWhenCondition: 0 beforeDate: [NSDate dateWithTimeIntervalSinceNow: 10]])
+	if ([purgeCacheLock lockWhenCondition: 0 beforeDate: [NSDate dateWithTimeIntervalSinceNow: 10]])
     {
         [PapyrusLock lock];
         
@@ -6960,16 +7105,16 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
     
     @try
     {
-        if( fImage)
+        if (fImage)
         {
             NSMutableDictionary *cachedGroupsForThisFile = [cachedDCMFrameworkFiles valueForKey: srcFile];
             
-            if( cachedGroupsForThisFile && retainedCacheGroup == cachedGroupsForThisFile)
+            if (cachedGroupsForThisFile && retainedCacheGroup == cachedGroupsForThisFile)
             {
                 [cachedGroupsForThisFile setValue: [NSNumber numberWithInt: [[cachedGroupsForThisFile objectForKey: @"count"] intValue]-1] forKey: @"count"];
                 retainedCacheGroup = nil;
                 
-                if( [[cachedGroupsForThisFile objectForKey: @"count"] intValue] <= 0)
+                if ([[cachedGroupsForThisFile objectForKey: @"count"] intValue] <= 0)
                 {
                     [cachedDCMFrameworkFiles removeObjectForKey: srcFile];
                 }
@@ -6986,7 +7131,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 
 - (BOOL) loadDICOMPapyrus
 {
-    return NO;
+    return NO; // always fail
 }
 
 - (BOOL) isDICOMFile:(NSString *) file
@@ -6994,9 +7139,9 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 	BOOL readable = YES;
 	
 #ifdef OSIRIX_VIEWER
-	if( imageObjectID)
+	if (imageObjectID)
 	{
-        if( fileTypeHasPrefixDICOM == NO) readable = NO;
+        if (fileTypeHasPrefixDICOM == NO) readable = NO;
 	}
 	else
 #endif
@@ -7014,51 +7159,55 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
         @try
         {
             CGImageRef cgRef = [otherImage CGImageForProposedRect:NULL context:nil hints:nil];
+            if (!cgRef) {
+                NSLog( @"%s %d cgRef is null", __PRETTY_FUNCTION__, __LINE__);
+                return;
+            }
+
             NSBitmapImageRep *r = [[[NSBitmapImageRep alloc] initWithCGImage:cgRef] autorelease];
             [r setSize: otherImage.size];
             
             NSBitmapImageRep *TIFFRep = [NSBitmapImageRep imageRepWithData: [r TIFFRepresentation]];
             
-            if( TIFFRep)
+            if (TIFFRep)
             {
                 height = TIFFRep.pixelsHigh;
                 width = TIFFRep.pixelsWide;
                 
-    #ifdef OSIRIX_VIEWER
+#ifdef OSIRIX_VIEWER
                 NSManagedObjectContext *iContext = nil;
                 
-                if( savedHeightInDB != 0 && savedHeightInDB != height)
+                if (savedHeightInDB != 0 && savedHeightInDB != height)
                 {
-                    if( savedHeightInDB != OsirixDicomImageSizeUnknown)
+                    if (savedHeightInDB != OsirixDicomImageSizeUnknown)
                         NSLog( @"******* [[imageObj valueForKey:@'height'] intValue] != height. New: %d / DB: %d", (int)height, (int)savedHeightInDB);
                     
-                    if( iContext == nil)
+                    if (iContext == nil)
                         iContext = ([[NSThread currentThread] isMainThread] ? [[[BrowserController currentBrowser] database] managedObjectContext] : [[[BrowserController currentBrowser] database] independentContext]);
                     
                     [[iContext existingObjectWithID: imageObjectID error: nil] setValue: [NSNumber numberWithInt: height] forKey: @"height"];
                 }
                 
-                if( height > savedHeightInDB && fExternalOwnedImage)
+                if (height > savedHeightInDB && fExternalOwnedImage)
                     height = savedHeightInDB;
                 
-                if( savedWidthInDB != 0 && savedWidthInDB != width)
+                if (savedWidthInDB != 0 && savedWidthInDB != width)
                 {
-                    if( savedWidthInDB != OsirixDicomImageSizeUnknown)
+                    if (savedWidthInDB != OsirixDicomImageSizeUnknown)
                         NSLog( @"******* [[imageObj valueForKey:@'width'] intValue] != width. New: %d / DB: %d", (int)width, (int)savedWidthInDB);
                     
-                    if( iContext == nil)
+                    if (iContext == nil)
                         iContext = ([[NSThread currentThread] isMainThread] ? [[[BrowserController currentBrowser] database] managedObjectContext] : [[[BrowserController currentBrowser] database] independentContext]);
                     
                     [[iContext existingObjectWithID: imageObjectID error: nil] setValue: [NSNumber numberWithInt: width] forKey: @"width"];
                 }
                 
-                if( width > savedWidthInDB && fExternalOwnedImage)
+                if (width > savedWidthInDB && fExternalOwnedImage)
                     width = savedWidthInDB;
                 
                 [iContext save: nil];
-    #endif
+#endif
                 unsigned char *srcImage = [TIFFRep bitmapData];
-                
                 unsigned char *argbImage = nil, *srcPtr = nil, *tmpPtr = nil;
                 
                 int totSize = height * width * 4;
@@ -7067,20 +7216,20 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
                 else
                     argbImage = (unsigned char *)malloc(totSize);
                 
-                if( srcImage != nil && argbImage != nil)
+                if (srcImage != nil && argbImage != nil)
                 {
                     int x, y;
                     
-                    switch( [TIFFRep bitsPerPixel])
+                    switch ([TIFFRep bitsPerPixel])
                     {
                         case 8:
                             tmpPtr = argbImage;
-                            for( y = 0 ; y < height; y++)
+                            for (y = 0 ; y < height; y++)
                             {
                                 srcPtr = srcImage + y*[TIFFRep bytesPerRow];
                                 
                                 x = width;
-                                while( x-->0)
+                                while (x-- > 0)
                                 {
                                     tmpPtr++;
                                     *tmpPtr++ = *srcPtr;
@@ -7093,16 +7242,16 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
                             
                         case 32:
                             tmpPtr = argbImage;
-                            for( y = 0 ; y < height; y++)
+                            for (y = 0 ; y < height; y++)
                             {
                                 srcPtr = srcImage + y*[TIFFRep bytesPerRow];
                                 
                                 x = width;
-                                while( x-->0)
+                                while (x-- > 0)
                                 {
                                     unsigned char alpha = srcPtr[ 3];
                                     
-                                    if( alpha != 255) // -> white background
+                                    if (alpha != 255) // -> white background
                                     {
                                         *tmpPtr++ = 255;
                                         *tmpPtr++ = (255 - alpha) + (alpha * *srcPtr++ / 255);
@@ -7124,12 +7273,12 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
                             
                         case 24:
                             tmpPtr = argbImage;
-                            for( y = 0 ; y < height; y++)
+                            for (y = 0 ; y < height; y++)
                             {
                                 srcPtr = srcImage + y*[TIFFRep bytesPerRow];
                                 
                                 x = width;
-                                while( x-->0)
+                                while (x-- > 0)
                                 {
                                     tmpPtr++;
                                     
@@ -7144,12 +7293,12 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
                             
                         case 48:
                             tmpPtr = argbImage;
-                            for( y = 0 ; y < height; y++)
+                            for (y = 0 ; y < height; y++)
                             {
                                 srcPtr = srcImage + y*[TIFFRep bytesPerRow];
                                 
                                 x = width;
-                                while( x-->0)
+                                while (x-- > 0)
                                 {
                                     tmpPtr++;
                                     *tmpPtr++ = *srcPtr;	srcPtr += 2;
@@ -7181,7 +7330,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 {
 	BOOL USECUSTOMTIFF = NO;
 	
-	if( fImage == nil)
+	if (fImage == nil)
 	{
 		BOOL success = NO;
 		short *oImage = nil;
@@ -7190,13 +7339,13 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
         
 		needToCompute8bitRepresentation = YES;
 		
-		if( runOsiriXInProtectedMode)
+		if (runOsiriXInProtectedMode)
             return;
 		
-		if( srcFile == nil)
+		if (srcFile == nil)
             return;
         
-		if( isBonjour)
+		if (isBonjour)
 		{
 #ifdef OSIRIX_VIEWER
 			// LOAD THE FILE FROM BONJOUR SHARED DATABASE
@@ -7207,7 +7356,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
             NSManagedObject *obj;
             DicomDatabase *db = [[BrowserController currentBrowser] database];
             
-            if( [NSThread isMainThread])
+            if ([NSThread isMainThread])
                 obj = [db objectWithID: imageObjectID];
             else
                 obj = [[db independentContext] existingObjectWithID: imageObjectID error: nil];
@@ -7215,25 +7364,25 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
             srcFile = [[BrowserController currentBrowser] getLocalDCMPath:obj :0];
             [srcFile retain];
 			
-            if( srcFile == nil)
+            if (srcFile == nil)
                 return;
 #endif
 		}
 		
-		if( [self isDICOMFile: srcFile])
+		if ([self isDICOMFile: srcFile])
 		{
 			// PLEASE, KEEP BOTH FUNCTIONS FOR TESTING PURPOSE. THANKS
 			NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
             
 			@try
 			{
-                if( gUSEPAPYRUSDCMPIX)
+                if (gUSEPAPYRUSDCMPIX)
 				{
 					success = [self loadDICOMPapyrus]; // always fail
 					
-                    #ifdef OSIRIX_VIEWER
-					#ifndef OSIRIX_LIGHT
-                    if( success == NO)
+#ifdef OSIRIX_VIEWER
+#ifndef OSIRIX_LIGHT
+                    if (success == NO)
                     {
                         // It failed with Papyrus : potential crash with DCMFramework with a corrupted file
                         // Only do it, if it failed: writing a file takes time... and slow down reading performances
@@ -7246,8 +7395,9 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
                         {
                             [URIRepresentationAbsoluteString writeToFile: recoveryPath atomically: YES encoding: NSASCIIStringEncoding  error: nil];
                             
-                            //only try again if it's strict DICOM
-                            if (success == NO && [DCMObject isDICOM:[NSData dataWithContentsOfFile: srcFile]])
+                            // Only try again if it's strict DICOM
+                            if (success == NO &&
+                                [DCMObject isDICOM:[NSData dataWithContentsOfFile: srcFile]])
                             {
                                 success = [self loadDICOMDCMFramework];
                             }
@@ -7259,22 +7409,22 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
                             NSLog( @"***** exception in %s: %@", __PRETTY_FUNCTION__, e);
                         }
                     }
-					#endif
-                    #endif
+#endif
+#endif
 				}
-				#ifndef OSIRIX_LIGHT  // Also Decompress ?
+#ifndef OSIRIX_LIGHT  // Also Decompress ?
 				else
 				{
-					success = [self loadDICOMDCMFramework];
-					
+					success = [self loadDICOMDCMFramework];					
 					if (success == NO &&
-                        [DCMObject isDICOM:[NSData dataWithContentsOfFile:srcFile]]) {
-						success = [self loadDICOMPapyrus];
+                        [DCMObject isDICOM:[NSData dataWithContentsOfFile:srcFile]])
+                    {
+						success = [self loadDICOMPapyrus]; // always fail
                     }
 				}
-				#endif
+#endif
 				
-                if( numberOfFrames <= 1)
+                if (numberOfFrames <= 1)
                     [self clearCachedDCMFrameworkFiles];
 			}
             
@@ -7286,15 +7436,14 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 				success = NO;
 			}
 			
-			[self checkSUV];
-			
+			[self checkSUV];			
 			[pool release];
 		}
 		
-		if( success == NO)	// Is it a NON-DICOM IMAGE ??
+		if (success == NO)	// Is it a NON-DICOM IMAGE ??
 		{
-			NSImage		*otherImage = nil;
-			NSString	*extension = [[srcFile pathExtension] lowercaseString];
+			NSImage *otherImage = nil;
+			NSString *extension = [[srcFile pathExtension] lowercaseString];
             
 #ifdef OSIRIX_VIEWER
 			id fileFormatBundle;
@@ -7318,7 +7467,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 			}
 			else
 #endif
-				if( [extension isEqualToString:@"zip"])
+				if ([extension isEqualToString:@"zip"])
 				{
 					// the ZIP icon
 					NSImage *icon = [[NSWorkspace sharedWorkspace] iconForFile:srcFile];
@@ -7335,7 +7484,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 					totSize = height * width * 4;
 					
 					unsigned char *argbImage;
-					if( fExternalOwnedImage)
+					if (fExternalOwnedImage)
 						argbImage =	(unsigned char *)fExternalOwnedImage;
 					else
 						argbImage = (unsigned char *)malloc(totSize);
@@ -7344,11 +7493,11 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 					unsigned char *tmpPtr = argbImage, *srcPtr;
 					
 					long x, y;
-					for( y = 0 ; y < height; y++)
+					for (y = 0 ; y < height; y++)
 					{
 						srcPtr = srcImage + y*[TIFFRep bytesPerRow];
 						x = width;
-						while( x-->0)
+						while (x-- > 0)
 						{
 							tmpPtr++;
 							*tmpPtr++ = *srcPtr++;
@@ -7362,20 +7511,20 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 					isRGB = YES;
 					[TIFFRep release];
 				}
-				else if( [extension isEqualToString:@"lsm"])
+				else if ([extension isEqualToString:@"lsm"])
 				{
 					[self LoadLSM];
 				}
-				else if( [extension isEqualToString:@"pic"])
+				else if ([extension isEqualToString:@"pic"])
 				{
 					[self LoadBioradPic];
 				}
-				else if( [DicomFile isFVTiffFile:srcFile])
+				else if ([DicomFile isFVTiffFile:srcFile])
 				{
 					[self LoadFVTiff];
 				}
-				#ifndef DECOMPRESS_APP
-				else if( (( [extension isEqualToString:@"hdr"]) &&
+#ifndef DECOMPRESS_APP
+				else if ((( [extension isEqualToString:@"hdr"]) &&
 						  ([[NSFileManager defaultManager] fileExistsAtPath:[[srcFile stringByDeletingPathExtension] stringByAppendingPathExtension:@"img"]] == YES)) ||
 						( [extension isEqualToString:@"nii"]))
 				{
@@ -7391,7 +7540,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
                     NIfTI = (nifti_1_header *) nifti_read_header([srcFile UTF8String], nil, 0);
                     
 					// Verify that this file should be treated as a NIfTI file.  If magic is not set to anything, we must assume it is analyze.
-					if( (NIfTI->magic[0] == 'n')                           &&
+					if ((NIfTI->magic[0] == 'n')                           &&
 					    (NIfTI->magic[1] == 'i' || NIfTI->magic[1] == '+')   &&
 					    (NIfTI->magic[2] == '1')                           &&
 					    (NIfTI->magic[3] == '\0'))
@@ -7414,10 +7563,10 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 						// Read img file or read nii file after vox_offset
                         nifti_imagedata = nifti_image_read([srcFile UTF8String], 1);
 
-						if( (NIfTI->magic[0] == 'n')    &&
-						   (NIfTI->magic[1] == 'i')	&&
-						   (NIfTI->magic[2] == '1')    &&
-						   (NIfTI->magic[3] == '\0'))
+						if ((NIfTI->magic[0] == 'n')    &&
+						    (NIfTI->magic[1] == 'i')	&&
+						    (NIfTI->magic[2] == '1')    &&
+						    (NIfTI->magic[3] == '\0'))
 						{
 							// This is a "two file" nifti file.  Image file is separated from header.
 							fileData = [[NSData alloc] initWithContentsOfFile: [[srcFile stringByDeletingPathExtension] stringByAppendingPathExtension:@"img"]];
@@ -7431,9 +7580,9 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 						// This "datatype" portion is taken from the analyze code.  
 						short datatype = NIfTI->datatype;
 						
-						switch( datatype)
+						switch (datatype)
 						{
-							case 2:
+							case NIFTI_TYPE_UINT8:
 							{
 								unsigned char *bufPtr;
 								short *ptr;
@@ -7443,7 +7592,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 								ptr = oImage;
 								
 								loop = height * width;
-								while( loop-- > 0)
+								while (loop-- > 0)
 								{
 									*ptr++ = *bufPtr++;
 								}
@@ -7451,7 +7600,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 							}
 							break;
 								
-							case 4:
+							case NIFTI_TYPE_INT16:
 								memcpy(oImage,
                                        (unsigned char *)[fileData bytes] + frameNo*(height * width * 2),
                                        height * width * 2);
@@ -7470,7 +7619,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 								}
 							break;
 								
-							case 8:
+							case NIFTI_TYPE_INT32:
 								{
 									unsigned int *bufPtr;
 									short *ptr;
@@ -7481,25 +7630,26 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 									ptr    = oImage;
 									
 									loop = height * width;
-									while( loop-- > 0)
+									while (loop-- > 0)
 									{
-										
-										if( swapByteOrder)  *ptr++ = Endian32_Swap( *bufPtr++);
-										else *ptr++ = *bufPtr++;
+										if (swapByteOrder)
+                                            *ptr++ = Endian32_Swap( *bufPtr++);
+										else
+                                            *ptr++ = *bufPtr++;
 									}
 								}
 							break;
 								
-							case 16:
-								if( fExternalOwnedImage)
+							case NIFTI_TYPE_FLOAT32:
+								if (fExternalOwnedImage)
 									fImage = fExternalOwnedImage;
 								else
 									fImage = (float *)malloc( (width+1) * (height+1) * sizeof(float) + 100);
 								
-								if( [fileData length] < height * width * sizeof(float))
+								if ([fileData length] < height * width * sizeof(float))
 									NSLog( @"****** [fileData length] < height * width * sizeof(float)");
 								
-								if( fImage)
+								if (fImage)
 								{
 									for (long i = 0; i < height;i++)
 										memcpy(fImage + i * width,
@@ -7513,25 +7663,25 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 								oImage = nil;
 							break;
 							
-							case 64: // double
-								if( fExternalOwnedImage)
+							case NIFTI_TYPE_FLOAT64: // double
+								if (fExternalOwnedImage)
 									fImage = fExternalOwnedImage;
 								else
 									fImage = (float *)malloc( (width+1) * (height+1) * sizeof(float) + 100);
 								
-								if( [fileData length] < height * width * sizeof(float))
+								if ([fileData length] < height * width * sizeof(float))
 									NSLog( @"****** [fileData length] < height * width * sizeof(float)");
 								
-								if( fImage)
+								if (fImage)
 								{
 									double *bufPtr = (double*) [fileData bytes];
 									bufPtr += frameNo * (height * width);
 									float *ptr = fImage;
 									
 									long loop = height * width;
-									while( loop-- > 0)
+									while (loop-- > 0)
 									{
-										if( swapByteOrder)  *ptr++ = Endian64_Swap( *bufPtr++);
+										if (swapByteOrder)  *ptr++ = Endian64_Swap( *bufPtr++);
 										else *ptr++ = *bufPtr++;
 										
 									}
@@ -7541,13 +7691,13 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 								
 								free(oImage);
 								oImage = nil;
-							break;
+                                break;
 							
-							case 128: //128 - RGB24
-								NSLog(@"unsupported... please send me this file");
-							break;
+							case NIFTI_TYPE_RGB24:
+                                NSLog(@"unsupported... please send me this file");
+                                break;
 							
-							case 256: //256 - int8
+							case NIFTI_TYPE_INT8:
 							{
 								char *bufPtr;
 								short *ptr;
@@ -7557,31 +7707,34 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 								ptr = oImage;
 								
 								loop = height * width;
-								while( loop-- > 0)
+								while (loop-- > 0)
 								{
 									*ptr++ = *bufPtr++;
 								}
 							}
 							break;
 							
-							case 512: //512 - uint16
+							case NIFTI_TYPE_UINT16:
 								NSLog(@"unsupported... please send me this file");
-							break;
+                                break;
 							
-							case 768: //768 - uint32
+							case NIFTI_TYPE_UINT32:
 								NSLog(@"unsupported... please send me this file");
-							break;
+                                break;
 							
-							case 1792: //1792 - complex128
+							case NIFTI_TYPE_COMPLEX128:
+                            default:
 								NSLog(@"unsupported... please send me this file");
-							break;
+                                break;
 						}
 						
 						[fileData release];
 						
 						// CONVERSION TO FLOAT
 						
-						if( oImage != nil && datatype != 16 && datatype != 64)
+						if (oImage != nil &&
+                            datatype != NIFTI_TYPE_FLOAT32 &&
+                            datatype != NIFTI_TYPE_FLOAT64)
 						{
 							vImage_Buffer src16, dstf;
 							
@@ -7592,17 +7745,13 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 							
 							src16.data = oImage;
 							
-							if( fExternalOwnedImage)
-							{
+							if (fExternalOwnedImage)
 								fImage = fExternalOwnedImage;
-							}
 							else
-							{
 								fImage = (float *)malloc(width*height*sizeof(float) + 100);
-							}
 							
 							dstf.data = fImage;
-							if( dstf.data)
+							if (dstf.data)
 								vImageConvert_16SToF( &src16, &dstf, 0, 1, 0);
 							else
                                 N2LogStackTrace( @"*** Not enough memory - malloc failed");
@@ -7616,16 +7765,16 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 						//	   image is axial, sagittal, or coronal.  
 						// Grab orientations for i, j, and k axes based on either qform or sform matrices.
 						int icod, jcod, kcod;
-						if(qform_code > 0)
+						if (qform_code > 0)
 						{
 							nifti_mat44_to_orientation(nifti_imagedata->qto_xyz, &icod, &jcod, &kcod);
 						}
-						else if(sform_code > 0)
+						else if (sform_code > 0)
 						{
 							nifti_mat44_to_orientation(nifti_imagedata->sto_xyz, &icod, &jcod, &kcod);
 						}	
 						
-						if(jcod == NIFTI_A2P || jcod == NIFTI_P2A)
+						if (jcod == NIFTI_A2P || jcod == NIFTI_P2A)
 						{
 							// This is axial by default, so set originZ.
 							originX = 0;
@@ -7634,9 +7783,9 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 							
 							isOriginDefined = YES;
 						}
-						else if(jcod == NIFTI_S2I || jcod == NIFTI_I2S)
+						else if (jcod == NIFTI_S2I || jcod == NIFTI_I2S)
 						{
-							if(icod == NIFTI_A2P || icod == NIFTI_P2A)
+							if (icod == NIFTI_A2P || icod == NIFTI_P2A)
 							{
 								// This is sagittal by default, so set originX.
 								originX = frameNo * pixelSpacingX;
@@ -7645,7 +7794,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 								
 								isOriginDefined = YES;
 							}
-							else if(icod == NIFTI_R2L || icod == NIFTI_L2R)
+							else if (icod == NIFTI_R2L || icod == NIFTI_L2R)
 							{
 								// This is coronal by default, so set originY.
 								originX = 0;
@@ -7656,33 +7805,30 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 							}						
 						}
 						
-						
-						
 						// Adjust orientation of nifti file
 						BOOL flipI = NO;
 						BOOL flipJ = NO;
 						int shiftNum = 0;
 						
 						// Grab orientations for i, j, and k axes based on either qform or sform matrices.
-						if(qform_code > 0)
+						if (qform_code > 0)
 						{
 							nifti_mat44_to_orientation(nifti_imagedata->qto_xyz, &icod, &jcod, &kcod);
 						}
-						else if(sform_code > 0)
+						else if (sform_code > 0)
 						{
 							nifti_mat44_to_orientation(nifti_imagedata->sto_xyz, &icod, &jcod, &kcod);
-						}	
+						}
 						
-						
-						if(icod != NIFTI_L2R && icod != NIFTI_R2L)
+						if (icod != NIFTI_L2R && icod != NIFTI_R2L)
 						{
 							// Must shift the orientation matrix so that icod, jcod, and kcod are 
 							// aligned with the orientation matrix.
-							if(icod == NIFTI_A2P || icod == NIFTI_P2A)
+							if (icod == NIFTI_A2P || icod == NIFTI_P2A)
 							{
 								shiftNum = 2;
 							}							
-							else if(icod == NIFTI_S2I || icod == NIFTI_I2S)
+							else if (icod == NIFTI_S2I || icod == NIFTI_I2S)
 							{
 								shiftNum = 1;
 							}
@@ -7690,12 +7836,13 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 						else
 						{
 							// verify that jcod is AP or PA
-							if(jcod != NIFTI_A2P && jcod != NIFTI_P2A)
+							if (jcod != NIFTI_A2P && jcod != NIFTI_P2A)
 							{
 								// this means that jcod is S2I or I2S.
 								// So set orient[3,4,5] to orient[6,7,8]
-								float	orient[ 9]; 
-								for( int i = 0 ; i < 9; i ++) orient[ i] = orientation[ i];
+								float orient[ 9];
+								for (int i = 0 ; i < 9; i++)
+                                    orient[ i] = orientation[ i];
 								
 								orient[ 3] = orient[ 6];
 								orient[ 4] = orient[ 7];
@@ -7705,19 +7852,19 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 							}
 						}
 						
-						
-						if(shiftNum > 0)
+						if (shiftNum > 0)
 						{
 							// Shift number of times specified.
 							// orient[3,4,5] takes on orient[0,1,2], which takes on orient[6,7,8]
 							// orient[6,7,8] is recalculated after setOrientation is called.
-							while(shiftNum > 0)
+							while (shiftNum > 0)
 							{
 								// Shift.
 								float	orient[ 9];
 								int t6, t7, t8;
 								
-								for( int i = 0 ; i < 9; i ++) orient[ i] = orientation[ i];
+								for (int i = 0 ; i < 9; i++)
+                                    orient[ i] = orientation[ i];
 								
 								t6 = orient[ 6];
 								t7 = orient[ 7];
@@ -7737,43 +7884,44 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 							}
 						} 
 						
-						if(icod == NIFTI_L2R)
+						if (icod == NIFTI_L2R)
 						{
 							// Need to flip horizontally.
 							flipI = YES;
 						}
-						else if(icod == NIFTI_P2A)
+						else if (icod == NIFTI_P2A)
 						{
 							// Need to flip horizontally.
 							flipI = YES;
 						}
-						else if(icod == NIFTI_S2I)
+						else if (icod == NIFTI_S2I)
 						{
-							// Need to flip vertically
+							// Need to flip horizontally  // TODO: check
 							flipI = YES;
 						}
 						
-						if(jcod == NIFTI_P2A)
+						if (jcod == NIFTI_P2A)
 						{
 							// Need to flip vertically.
 							flipJ = YES;
 						}
-						else if(jcod == NIFTI_L2R)
+						else if (jcod == NIFTI_L2R)
 						{
 							// Need to flip vertically.
 							flipJ = YES;
 						}
-						else if(jcod == NIFTI_S2I)
+						else if (jcod == NIFTI_S2I)
 						{
 							// Need to flip vertically
 							flipJ = YES;
 						}
 						
-						if(flipI)
+						if (flipI)
 						{
 							// Flip orientation horizontally
-							float	orient[ 9];
-							for( int i = 0 ; i < 9; i ++) orient[ i] = orientation[ i];
+							float orient[ 9];
+							for (int i = 0 ; i < 9; i++)
+                                orient[ i] = orientation[ i];
 							
 							orient[ 0] *= -1;
 							orient[ 1] *= -1;
@@ -7782,17 +7930,21 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 							sliceInterval = 0;
 							
 							float	o[3];
-							o[ 0] = originX;			o[ 1] = originY;			o[ 2] = originZ;
+							o[ 0] = originX;
+                            o[ 1] = originY;
+                            o[ 2] = originZ;
+                            
 							o[ 0] -= width * pixelSpacingX;
 							[self setOrigin: o];
 						}
 						
-						if(flipJ)
+						if (flipJ)
 						{
 							// Flip orientation vertically
-							float	orient[ 9];
+							float orient[ 9];
 							
-							for( int i = 0 ; i < 9; i ++) orient[ i] = orientation[ i];
+							for (int i = 0 ; i < 9; i++)
+                                orient[ i] = orientation[ i];
 							
 							orient[ 3] *= -1;
 							orient[ 4] *= -1;
@@ -7800,20 +7952,22 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 							[self setOrientation: orient];
 							sliceInterval = 0;
 							
-							float	o[3];
-							o[ 0] = originX;			o[ 1] = originY;			o[ 2] = originZ;
-							o[ 1] -=  height * pixelSpacingY;
+							float o[3];
+							o[ 0] = originX;
+                            o[ 1] = originY;
+                            o[ 2] = originZ;
+
+                            o[ 1] -= height * pixelSpacingY;
 							[self setOrigin: o];
-							
 						}
 					}
-					else if( [extension isEqualToString:@"hdr"]) // 'old' ANALYZE
+					else if ([extension isEqualToString:@"hdr"]) // 'old' ANALYZE
 					{
 						if ([[NSFileManager defaultManager] fileExistsAtPath:[[srcFile stringByDeletingPathExtension] stringByAppendingPathExtension:@"img"]] == YES)
 						{
-							NSData		*file = [NSData dataWithContentsOfFile: srcFile];
+							NSData *file = [NSData dataWithContentsOfFile: srcFile];
 							
-							if( [file length] == 348)
+							if ([file length] == 348)
 							{
 								long			totSize;
 								struct dsr*		Analyze;
@@ -7829,27 +7983,28 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 								}
 								
 								height = Analyze->dime.dim[ 2];
-								if( swapByteOrder)
+								if (swapByteOrder)
                                     height = Endian16_Swap( height);
 								width = Analyze->dime.dim[ 1];
-								if( swapByteOrder)
+								if (swapByteOrder)
                                     width = Endian16_Swap( width);
-								
-								
 								
 								float pX = Analyze->dime.pixdim[ 1];
 								if (swapByteOrder)
                                     SwitchFloat( &pX);
+                                
 								pixelSpacingX = pX;
 								
 								pX = Analyze->dime.pixdim[ 2];
-								if( swapByteOrder)
+								if (swapByteOrder)
                                     SwitchFloat( &pX);
+                                
 								pixelSpacingY = pX;
 								
 								pX = Analyze->dime.pixdim[ 3];
-								if( swapByteOrder)
+								if (swapByteOrder)
                                     SwitchFloat( &pX);
+                                
 								sliceThickness = pX;
 								sliceInterval = pX;
 								
@@ -7859,12 +8014,12 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 								fileData = [[NSData alloc] initWithContentsOfFile: [[srcFile stringByDeletingPathExtension] stringByAppendingPathExtension:@"img"]];
 								
 								short datatype = Analyze->dime.datatype;
-								if( swapByteOrder)
+								if (swapByteOrder)
                                     datatype = Endian16_Swap( datatype);
 								
-								switch( datatype)
+								switch (datatype)
 								{
-									case 2:
+									case NIFTI_TYPE_UINT8:
 									{
 										unsigned char   *bufPtr;
 										short			*ptr;
@@ -7874,7 +8029,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 										ptr = oImage;
 										
 										loop = height * width;
-										while( loop-- > 0)
+										while (loop-- > 0)
 										{
 											*ptr++ = *bufPtr++;
 										}
@@ -7883,15 +8038,16 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 										
 									case 4:
 										memcpy(oImage,
-                                               (unsigned char *)[fileData bytes] + frameNo*(height * width * 2), height * width * 2);
+                                               (unsigned char *)[fileData bytes] + frameNo*(height * width * 2),
+                                               height * width * 2);
 
-                                        if( swapByteOrder)
+                                        if (swapByteOrder)
 										{
 											long loop;
 											short *ptr = oImage;
 											
 											loop = height * width;
-											while( loop-- > 0)
+											while (loop-- > 0)
 											{
 												*ptr = Endian16_Swap( *ptr);
 												ptr++;
@@ -7910,24 +8066,21 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 											ptr    = oImage;
 											
 											loop = height * width;
-											while( loop-- > 0)
+											while (loop-- > 0)
 											{
-												
-												if( swapByteOrder)  *ptr++ = Endian32_Swap( *bufPtr++);
-												else *ptr++ = *bufPtr++;
+												if (swapByteOrder)
+                                                    *ptr++ = Endian32_Swap( *bufPtr++);
+												else
+                                                    *ptr++ = *bufPtr++;
 											}
 										}
 										break; 
 										
                                     case 16:
-										if( fExternalOwnedImage)
-										{
+										if (fExternalOwnedImage)
 											fImage = fExternalOwnedImage;
-										}
 										else
-										{
 											fImage = (float *)malloc(width*height*sizeof(float) + 100);
-										}
 										
 										if (fImage)
 										{
@@ -7954,10 +8107,9 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 								
 								[fileData release];
 								
-								
 								// CONVERSION TO FLOAT
 								
-								if( datatype != 16)
+								if (datatype != NIFTI_TYPE_FLOAT32)
 								{
 									vImage_Buffer src16, dstf;
 									
@@ -7968,18 +8120,14 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 									
 									src16.data = oImage;
 									
-									if( fExternalOwnedImage)
-									{
+									if (fExternalOwnedImage)
 										fImage = fExternalOwnedImage;
-									}
 									else
-									{
 										fImage = (float *)malloc(width*height*sizeof(float) + 100);
-									}
 									
 									dstf.data = fImage;
 									
-									if( dstf.data)
+									if (dstf.data)
 										vImageConvert_16SToF( &src16, &dstf, 0, 1, 0);
 									else
                                         N2LogStackTrace( @"*** Not enough memory - malloc failed");
@@ -7994,35 +8142,34 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 					free( NIfTI);
 					NIfTI = nil;
 				}
-				#endif
-				else if( [extension isEqualToString:@"jpg"] ||
-                        [extension isEqualToString:@"jp2"] ||
-						[extension isEqualToString:@"jpeg"] ||
-						[extension isEqualToString:@"pdf"] ||
-						[extension isEqualToString:@"pct"] ||
-						[extension isEqualToString:@"png"] ||
-						[extension isEqualToString:@"gif"])
+#endif // DECOMPRESS_APP
+				else if ([extension isEqualToString:@"jpg"] ||
+                         [extension isEqualToString:@"jp2"] ||
+						 [extension isEqualToString:@"jpeg"] ||
+						 [extension isEqualToString:@"pdf"] ||
+						 [extension isEqualToString:@"pct"] ||
+						 [extension isEqualToString:@"png"] ||
+						 [extension isEqualToString:@"gif"])
 				{
 					otherImage = [[NSImage alloc] initWithContentsOfFile: srcFile];
 				}
 			
-				else if( [extension isEqualToString:@"tiff"] ||
-							[extension isEqualToString:@"stk"] ||
-							[extension isEqualToString:@"tif"])
+				else if ([extension isEqualToString:@"tiff"] ||
+						 [extension isEqualToString:@"stk"] ||
+						 [extension isEqualToString:@"tif"])
 				{
 #ifndef STATIC_DICOM_LIB
-                    
                     TIFF* tif = TIFFOpen([srcFile UTF8String], "r");
-					if( tif)
+					if (tif)
 					{
 						short   bpp, count, tifspp;
 						
 						TIFFGetField(tif, TIFFTAG_BITSPERSAMPLE, &bpp);
 						TIFFGetField(tif, TIFFTAG_SAMPLESPERPIXEL, &tifspp);
 						
-						if( bpp == 16 || bpp == 32 || bpp == 8)
+						if (bpp == 16 || bpp == 32 || bpp == 8)
 						{
-							if( tifspp == 1)
+							if (tifspp == 1)
 								USECUSTOMTIFF = YES;
 						}
 						
@@ -8030,20 +8177,20 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 						while (TIFFReadDirectory(tif))
 							count++;
 						
-						if( count != 1) USECUSTOMTIFF = YES;
+						if (count != 1) USECUSTOMTIFF = YES;
 						
 						TIFFClose(tif);
 					}
 #endif
-					if( USECUSTOMTIFF == NO)
+					if (USECUSTOMTIFF == NO)
 					{
 						otherImage = [[NSImage alloc] initWithContentsOfFile: srcFile];
 					}
 				}
 			
-			if( otherImage != nil || USECUSTOMTIFF == YES)
+			if (otherImage != nil || USECUSTOMTIFF == YES)
 			{
-				if( USECUSTOMTIFF) // Is it a 16/32-bit TIFF not supported by Apple???
+				if (USECUSTOMTIFF) // Is it a 16/32-bit TIFF not supported by Apple???
 				{
 					[self LoadTiff:frameNo];
 				}
@@ -8051,14 +8198,13 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 				{
 					[otherImage setBackgroundColor: [NSColor windowBackgroundColor]];
 					
-					if( [extension isEqualToString:@"pdf"])
+					if ([extension isEqualToString:@"pdf"])
 					{
 						id tempID = [otherImage bestRepresentationForDevice:nil];
 						
-						if( [tempID isKindOfClass: [NSPDFImageRep class]])
+						if ([tempID isKindOfClass: [NSPDFImageRep class]])
 						{
 							NSPDFImageRep *pdfRepresentation = tempID;
-							
 							[pdfRepresentation setCurrentPage:frameNo];
 						}
 					}
@@ -8080,7 +8226,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
                     AVAssetReader *asset_reader = [[[AVAssetReader alloc] initWithAsset: asset error: &error] autorelease];
                     
                     NSArray* video_tracks = [asset tracksWithMediaType: AVMediaTypeVideo];
-                    if( video_tracks.count)
+                    if (video_tracks.count)
                     {
                         AVAssetTrack* video_track = [video_tracks objectAtIndex:0];
                         
@@ -8093,11 +8239,11 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
                         [asset_reader startReading];
                         
                         long curFrame = 0;
-                        while( [asset_reader status] == AVAssetReaderStatusReading)
+                        while ([asset_reader status] == AVAssetReaderStatusReading)
                         {
                             CMSampleBufferRef sampleBufferRef = [asset_reader_output copyNextSampleBuffer];
                             
-                            if( curFrame == frameNo && sampleBufferRef)
+                            if (curFrame == frameNo && sampleBufferRef)
                             {        
                                 CVImageBufferRef pixelBuffer = CMSampleBufferGetImageBuffer(sampleBufferRef);
                                 
@@ -8124,7 +8270,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
                                     argbImage = (unsigned char *)malloc(totSize);
                                 
                                 tmpPtr = argbImage;
-                                for( long y = 0 ; y < height; y++)
+                                for (long y = 0 ; y < height; y++)
                                 {
                                     srcPtr = srcImage + y * bytesPerRow;
                                     memcpy( tmpPtr, srcPtr, width*4);
@@ -8138,7 +8284,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
                                 CVPixelBufferUnlockBaseAddress(pixelBuffer,0);
                             }
                             
-                            if( sampleBufferRef)
+                            if (sampleBufferRef)
                             {
                                 CMSampleBufferInvalidate(sampleBufferRef);
                                 CFRelease(sampleBufferRef);
@@ -8155,11 +8301,11 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 #endif
 		}
 		
-		if( fImage == nil)
+		if (fImage == nil)
 		{
 			NSLog(@"not able to load the image : %@", srcFile);
 			
-			if( fExternalOwnedImage)
+			if (fExternalOwnedImage)
 				fImage = fExternalOwnedImage;
 			else
 				fImage = (float *)malloc(128 * 128 * sizeof(float));
@@ -8170,16 +8316,16 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 			isRGB = NO;
 			notAbleToLoadImage = YES;
 			
-			for( int i = 0; i < 128*128; i++)
+			for (int i = 0; i < 128*128; i++)
 				fImage[ i ] = i;
 		}
         
-        if( isRGB)	// COMPUTE ALPHA MASK = ALPHA = R+G+B/3
+        if (isRGB)	// COMPUTE ALPHA MASK = ALPHA = R+G+B/3
 		{
 			unsigned char *argbPtr = (unsigned char*) fImage;
 			long ss = width * height;
 			
-			while( ss-->0)
+			while (ss-- > 0)
 			{
 				*argbPtr = (*(argbPtr+1) + *(argbPtr+2) + *(argbPtr+3)) / 3;
 				argbPtr+=4;
@@ -8233,11 +8379,12 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 
 - (void) drawImage: (vImage_Buffer*) src inImage: (vImage_Buffer*) dst offset:(NSPoint) oo background:(float) b transparency: (BOOL) t
 {
-	if( t == NO)
+	if (t == NO)
 	{
 		float *f = (float*) dst->data;
 		int i = dst->height * dst->width;
-		while( i-->0) *f++ = b;
+		while (i-- > 0)
+            *f++ = b;
 	}
 	
 	int ox = oo.x;
@@ -8258,25 +8405,25 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 	float *srcData = (float*) src->data;
 	float *dstData = (float*) dst->data;
 	
-	if( t == NO)
+	if (t == NO)
 	{
-		for( int y = y1; y < y2; y++)
+		for (int y = y1; y < y2; y++)
 		{
 			memcpy( dstData + (y*dst->width + x1), srcData +((y-oy)*src->width + (x1-ox)), lineBytes);
 		}
 	}
 	else
 	{
-		for( int y = y1; y < y2; y++)
+		for (int y = y1; y < y2; y++)
 		{
-			for( int x = x1; x < x2; x++)
+			for (int x = x1; x < x2; x++)
 			{
 				 float *d = dstData + (y*dst->width + x);
 				 float *s = srcData +((y-oy)*src->width + (x-ox));
 				 
 				 int diff = *s - b;
 				 
-				 if( diff > 900)
+				 if (diff > 900)
 					*d = *s;
 			}
 		}
@@ -8290,9 +8437,9 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 
 -(DCMPix*) mergeWithDCMPix:(DCMPix*) o offset:(NSPoint) oo
 {
-	if( o == nil) return nil;
-	if( [o isRGB]) return nil;
-	if( [self isRGB]) return nil;
+	if (o == nil) return nil;
+	if ([o isRGB]) return nil;
+	if ([self isRGB]) return nil;
 	
 	DCMPix *newPix = nil;
 	
@@ -8326,7 +8473,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 		
 		// Adapt the window level
 		
-		if( [self wl] != [o wl])
+		if ([self wl] != [o wl])
 		{
 			long i = dst.height * dst.width;
 			float *ptr = (float *)dst.data;
@@ -8369,22 +8516,25 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 	return newPix;
 }
 
-- (void) orientationCorrected:(float*) correctedOrientation rotation:(float) rotation xFlipped: (BOOL) xFlipped yFlipped: (BOOL) yFlipped
+- (void) orientationCorrected:(float*) correctedOrientation
+                     rotation:(float) rotation
+                     xFlipped: (BOOL) xFlipped
+                     yFlipped: (BOOL) yFlipped
 {
-	#ifdef OSIRIX_VIEWER
-	float	o[ 9];
-	float   yRot = -1, xRot = -1;
-	float	rot = rotation;
+#ifdef OSIRIX_VIEWER
+	float o[ 9];
+	float yRot = -1, xRot = -1;
+	float rot = rotation;
 	
 	[self orientation: o];
 	
-	if( yFlipped && xFlipped)
+	if (yFlipped && xFlipped)
 	{
 		rot = rot + 180;
 	}
 	else
 	{
-		if( yFlipped)
+		if (yFlipped)
 		{
 			xRot *= -1;
 			yRot *= -1;
@@ -8394,7 +8544,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 			o[ 5] *= -1;
 		}
 		
-		if( xFlipped)
+		if (xFlipped)
 		{
 			xRot *= -1;
 			yRot *= -1;
@@ -8410,17 +8560,27 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 	o[7] = o[2]*o[3] - o[0]*o[5];
 	o[8] = o[0]*o[4] - o[1]*o[3];
 	
-	XYZ vector, rotationVector; 
+    XYZ rotationVector;
+	rotationVector.x = o[ 6];
+    rotationVector.y = o[ 7];
+    rotationVector.z = o[ 8];
 	
-	rotationVector.x = o[ 6];	rotationVector.y = o[ 7];	rotationVector.z = o[ 8];
+    XYZ vector;
+	vector.x = o[ 0];
+    vector.y = o[ 1];
+    vector.z = o[ 2];
+	vector = ArbitraryRotate(vector, xRot*rot*deg2rad, rotationVector);
+	o[ 0] = vector.x;
+    o[ 1] = vector.y;
+    o[ 2] = vector.z;
 	
-	vector.x = o[ 0];	vector.y = o[ 1];	vector.z = o[ 2];
-	vector =  ArbitraryRotate(vector, xRot*rot*deg2rad, rotationVector);
-	o[ 0] = vector.x;	o[ 1] = vector.y;	o[ 2] = vector.z;
-	
-	vector.x = o[ 3];	vector.y = o[ 4];	vector.z = o[ 5];
-	vector =  ArbitraryRotate(vector, yRot*rot*deg2rad, rotationVector);
-	o[ 3] = vector.x;	o[ 4] = vector.y;	o[ 5] = vector.z;
+	vector.x = o[ 3];
+    vector.y = o[ 4];
+    vector.z = o[ 5];
+	vector = ArbitraryRotate(vector, yRot*rot*deg2rad, rotationVector);
+	o[ 3] = vector.x;
+    o[ 4] = vector.y;
+    o[ 5] = vector.z;
 
 	// Compute normal vector
 	o[6] = o[1]*o[5] - o[2]*o[4];
@@ -8428,7 +8588,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 	o[8] = o[0]*o[4] - o[1]*o[3];
 
 	memcpy( correctedOrientation, o, sizeof o);
-	#endif
+#endif
 }
 
 - (NSRect) usefulRectWithRotation:(float) r scale:(float) scale xFlipped:(BOOL) xF yFlipped: (BOOL) yF
@@ -8457,7 +8617,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 	minX = maxX = pt[ 0].x;
 	minY = maxY = pt[ 0].y;
 	
-	for( int i = 0; i < 4; i++)
+	for (int i = 0; i < 4; i++)
 	{
 		minX = minX > pt[ i].x ? pt[ i].x : minX;
 		maxX = maxX < pt[ i].x ? pt[ i].x : maxX;
@@ -8477,7 +8637,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 
 - (DCMPix*) renderWithRotation:(float) r scale:(float) scale xFlipped:(BOOL) xF yFlipped: (BOOL) yF backgroundOffset: (float) bgO
 {
-	if( [self isRGB])
+	if ([self isRGB])
         return nil;
 	
 	NSRect dstRect = [self usefulRectWithRotation: r scale:(float) scale xFlipped:(BOOL) xF yFlipped: (BOOL) yF];
@@ -8497,14 +8657,14 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 	vImage_Buffer src;
 	vImage_Buffer dst;
 	
-	if( [self isRGB] == NO)
+	if ([self isRGB] == NO)
 	{
 		src.height = [self pheight];
 		src.width = [self pwidth];
 		src.rowBytes = [self pwidth]*4;
 		src.data = [self computefImage];
         
-        if(self.shutterEnabled &&
+        if (self.shutterEnabled &&
            shutterRect.size.width > 0 &&
            shutterRect.size.height > 0)
 		{
@@ -8513,16 +8673,18 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
             shutterRect.size.width = roundf( shutterRect.size.width);
             shutterRect.size.height = roundf( shutterRect.size.height);
 
-		if( shutterRect.origin.x < 0) { shutterRect.size.width += shutterRect.origin.x; shutterRect.origin.x = 0;}
-		if( shutterRect.origin.y < 0) { shutterRect.size.height += shutterRect.origin.y; shutterRect.origin.y = 0;}
+		if (shutterRect.origin.x < 0) { shutterRect.size.width += shutterRect.origin.x; shutterRect.origin.x = 0;}
+		if (shutterRect.origin.y < 0) { shutterRect.size.height += shutterRect.origin.y; shutterRect.origin.y = 0;}
 			
-		if( shutterRect.origin.x + shutterRect.size.width > [self pwidth]) shutterRect.size.width = [self pwidth] - shutterRect.origin.x;
+		if (shutterRect.origin.x + shutterRect.size.width > [self pwidth])
+            shutterRect.size.width = [self pwidth] - shutterRect.origin.x;
 
-		if( shutterRect.origin.y + shutterRect.size.height > [self pheight]) shutterRect.size.height = [self pheight] - shutterRect.origin.y;
+		if (shutterRect.origin.y + shutterRect.size.height > [self pheight])
+            shutterRect.size.height = [self pheight] - shutterRect.origin.y;
 
 			float *tempMem = (float *)malloc( [self pwidth] * [self pheight] * sizeof(float));
 			
-			if( tempMem)
+			if (tempMem)
 			{
 				float *s = tempMem, m = [self minValueOfSeries]-1024;
 				
@@ -8536,7 +8698,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 				float *d = tempMem + (long) ((shutterRect.origin.y * [self pwidth]) + shutterRect.origin.x);
 				
 				i = shutterRect.size.height;
-				while( i-- > 0)
+				while (i-- > 0)
 				{
 					memcpy( d, s, shutterRect.size.width*4);
 					
@@ -8544,23 +8706,25 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 					s += [self pwidth];
 				}
 				
-				if( src.data != [self fImage]) free( src.data);
+				if (src.data != [self fImage])
+                    free( src.data);
+                
 				src.data = tempMem;
 			}
 		}
 
 		// Flipping X-Y
-		if( xF)
+		if (xF)
 		{
 			dst = src;
 			dst.data = malloc( dst.height * dst.rowBytes);
-			if( dst.data && src.data)
+			if (dst.data && src.data)
 				vImageHorizontalReflect_PlanarF ( &src, &dst, 0);
 			
-			if( src.data != [self fImage])
+			if (src.data != [self fImage])
                 free( src.data);
             
-			if( dst.data == nil)
+			if (dst.data == nil)
                 return nil;
             
 			src = dst;
@@ -8568,17 +8732,17 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 			rot *= -1.;
 		}
 		
-		if( yF)
+		if (yF)
 		{
 			dst = src;
 			dst.data = malloc( dst.height * dst.rowBytes);
-			if( dst.data && src.data)
+			if (dst.data && src.data)
 				vImageVerticalReflect_PlanarF ( &src, &dst, 0);
 			
-			if( src.data != [self fImage])
+			if (src.data != [self fImage])
                 free( src.data);
             
-			if( dst.data == nil)
+			if (dst.data == nil)
                 return nil;
             
 			src = dst;
@@ -8592,14 +8756,14 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 		dst.width = [self pwidth]*scale;
 		dst.rowBytes = dst.width*4;
 		dst.data = malloc( dst.height * dst.rowBytes);
-		if( dst.data && src.data)
+		if (dst.data && src.data)
 			vImageScale_PlanarF( &src, &dst, nil, kvImageHighQualityResampling);
 		
 		// Rotation
-		if( src.data != [self fImage])
+		if (src.data != [self fImage])
             free( src.data);
         
-		if( dst.data == nil)
+		if (dst.data == nil)
             return nil;
 		
 		src = dst;
@@ -8609,19 +8773,19 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 		dst.rowBytes = newW*4;
 		dst.data = malloc( dst.height * dst.rowBytes);
 		
-		if( dst.data && src.data)
+		if (dst.data && src.data)
 		{
 			int v = r;
-			if( v % 90 == 0)
+			if (v % 90 == 0)
 				vImageRotate_PlanarF( &src, &dst, nil, -rot, [self minValueOfSeries], kvImageHighQualityResampling);
 			else
 				vImageRotate_PlanarF( &src, &dst, nil, -rot, [self minValueOfSeries] + bgO, kvImageHighQualityResampling+kvImageBackgroundColorFill);
 		}
 		
-		if( src.data != [self fImage])
+		if (src.data != [self fImage])
             free( src.data);
         
-		if( dst.data == nil)
+		if (dst.data == nil)
             return nil;
 	}
 	
@@ -8645,8 +8809,12 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 	float o[ 3];
 	NSPoint a = NSMakePoint( dstRect.origin.x, dstRect.origin.y);
 	a = [DCMPix rotatePoint: a aroundPoint: centerPt angle: -rot];
-	if( xF) a.x = newWidth - a.x -1;
-	if( yF) a.y = newHeight - a.y -1;
+	if (xF)
+        a.x = newWidth - a.x -1;
+    
+	if (yF)
+        a.y = newHeight - a.y -1;
+    
 	[self convertPixX: a.x/scale pixY: a.y/scale toDICOMCoords: o pixelCenter: NO];
 	[newPix setOrigin: o];
 	
@@ -8660,11 +8828,11 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 
 - (DCMPix*) renderInRectSize:(NSSize) rectSize atPosition:(NSPoint) oo rotation:(float) r scale:(float) scale xFlipped:(BOOL) xF yFlipped: (BOOL) yF smartCrop: (BOOL) smartCrop;
 {
-	if( [self isRGB])
+	if ([self isRGB])
         return nil;
 	
 	DCMPix *newPix = [self renderWithRotation: r scale: scale xFlipped: xF yFlipped:  yF backgroundOffset: 0];
-	if( newPix == nil)
+	if (newPix == nil)
         return nil;
 	
 	vImage_Buffer src;
@@ -8675,15 +8843,15 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 	src.rowBytes = src.width*4;
 	src.data = [newPix fImage];
 	
-	if( xF) oo.x = - oo.x;
-	if( yF) oo.y = - oo.y;
+	if (xF) oo.x = - oo.x;
+	if (yF) oo.y = - oo.y;
 	
 	oo = [DCMPix rotatePoint: oo aroundPoint:NSMakePoint( 0, 0) angle: -r*deg2rad];
 		
 	// zero coordinate is in the center of the view
 	NSPoint cov = NSMakePoint( rectSize.width/2 + oo.x - [newPix pwidth]/2, rectSize.height/2 - oo.y - [newPix pheight]/2);
 	
-	if( smartCrop)	// remove the black part of the image
+	if (smartCrop)	// remove the black part of the image
 	{
 		NSRect usefulRect;
 		
@@ -8713,7 +8881,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 	dst.rowBytes = dst.width*4;
 	dst.data = malloc( dst.height * dst.rowBytes);
 	
-	if( dst.data)
+	if (dst.data)
 		[self drawImage: &src inImage: &dst offset: cov background: [self minValueOfSeries]-1024];
 	else
         return nil;
@@ -8737,7 +8905,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 
 - (NSImage*) renderNSImageInRectSize:(NSSize) rectSize atPosition:(NSPoint) oo rotation:(float) r scale:(float) scale xFlipped:(BOOL) xF yFlipped: (BOOL) yF
 {
-	if( [self isRGB])
+	if ([self isRGB])
         return nil;
 	
 	DCMPix *newPix = [self renderInRectSize: rectSize atPosition: oo rotation: r scale: scale xFlipped: xF yFlipped: yF];
@@ -8751,7 +8919,8 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 {
 	[self CheckLoad]; 
 	
-	for( int i = 0 ; i < 9; i ++) c[ i] = orientation[ i];
+	for (int i = 0 ; i < 9; i++)
+        c[ i] = orientation[ i];
 }
 
 -(BOOL) identicalOrientationTo:(DCMPix*) c
@@ -8759,8 +8928,8 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 	double o[ 9];
 	[c orientationDouble: o];
 	
-	for( int i = 0 ; i < 9; i ++)
-        if( fabs( o[ i] - orientation[ i]) > ORIENTATION_SENSIBILITY)
+	for (int i = 0 ; i < 9; i++)
+        if (fabs( o[ i] - orientation[ i]) > ORIENTATION_SENSIBILITY)
             return NO;
 	
 	return YES;
@@ -8770,16 +8939,18 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 {
 	[self CheckLoad]; 
 	
-	for( int i = 0 ; i < 9; i ++) c[ i] = orientation[ i];
+	for (int i = 0 ; i < 9; i++)
+        c[ i] = orientation[ i];
 }
 
 -(void) setOrientationDouble:(double*) c
 {
-	for( int i = 0 ; i < 6; i ++) orientation[ i] = c[ i];
+	for (int i = 0 ; i < 6; i++)
+        orientation[ i] = c[ i];
 	
 	double length = sqrt(orientation[0]*orientation[0] + orientation[1]*orientation[1] + orientation[2]*orientation[2]);
 	
-	if( length)
+	if (length)
 	{
 		orientation[0] = orientation[ 0] / length;
 		orientation[1] = orientation[ 1] / length;
@@ -8788,7 +8959,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 	
 	length = sqrt(orientation[3]*orientation[3] + orientation[4]*orientation[4] + orientation[5]*orientation[5]);
 	
-	if( length)
+	if (length)
 	{
 		orientation[3] = orientation[ 3] / length;
 		orientation[4] = orientation[ 4] / length;
@@ -8802,7 +8973,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 	
 	length = sqrt(orientation[6]*orientation[6] + orientation[7]*orientation[7] + orientation[8]*orientation[8]);
 	
-	if( length)
+	if (length)
 	{
 		orientation[6] = orientation[ 6] / length;
 		orientation[7] = orientation[ 7] / length;
@@ -8814,28 +8985,32 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 {
 	double d[ 6];
 	
-	for( int i = 0 ; i < 6; i ++) d[ i] = c[ i];
+	for (int i = 0 ; i < 6; i++)
+        d[ i] = c[ i];
 	
 	[self setOrientationDouble: d];
 }
 
 - (BOOL) is3DPlane
 {
-    if( orientation[6] != 0 || orientation[7] != 0 || orientation[8] != 0)
+    if (orientation[6] != 0 || orientation[7] != 0 || orientation[8] != 0)
         return  YES;
     else
         return NO;
 }
 
--(void) convertPixX: (float) x pixY: (float) y toDICOMCoords: (float*) d pixelCenter: (BOOL) pixelCenter
+-(void) convertPixX: (float) x
+               pixY: (float) y
+      toDICOMCoords: (float*) d
+        pixelCenter: (BOOL) pixelCenter
 {
-	if( pixelCenter)
+	if (pixelCenter)
 	{
 		x -= 0.5;
 		y -= 0.5;
 	}
 	
-    if( orientation[6] != 0 || orientation[7] != 0 || orientation[8] != 0)
+    if (orientation[6] != 0 || orientation[7] != 0 || orientation[8] != 0)
     {
         d[0] = originX + y*orientation[3]*pixelSpacingY + x*orientation[0]*pixelSpacingX;
         d[1] = originY + y*orientation[4]*pixelSpacingY + x*orientation[1]*pixelSpacingX;
@@ -8856,13 +9031,13 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 
 -(void) convertPixDoubleX: (double) x pixY: (double) y toDICOMCoords: (double*) d pixelCenter: (BOOL) pixelCenter
 {
-	if( pixelCenter)
+	if (pixelCenter)
 	{
 		x -= 0.5;
 		y -= 0.5;
 	}
 	
-    if( orientation[6] != 0 || orientation[7] != 0 || orientation[8] != 0)
+    if (orientation[6] != 0 || orientation[7] != 0 || orientation[8] != 0)
     {
         d[0] = originX + y*orientation[3]*pixelSpacingY + x*orientation[0]*pixelSpacingX;
         d[1] = originY + y*orientation[4]*pixelSpacingY + x*orientation[1]*pixelSpacingX;
@@ -8893,7 +9068,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 	sc[ 1 ] = temp[ 0 ] * orientation[ 3 ] + temp[ 1 ] * orientation[ 4 ] + temp[ 2 ] * orientation[ 5 ];
 	sc[ 2 ] = temp[ 0 ] * orientation[ 6 ] + temp[ 1 ] * orientation[ 7 ] + temp[ 2 ] * orientation[ 8 ];
 	
-	if( pixelCenter)
+	if (pixelCenter)
 	{
 		sc[ 0 ] += pixelSpacingX /2.;	// The center of the pixel
 		sc[ 1 ] += pixelSpacingY /2.;	// The center of the pixel
@@ -8902,7 +9077,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 
 - (void) getSliceCenter3DCoords: (float*) center
 {
-    if( center == nil)
+    if (center == nil)
         return;
     
     [self convertPixX: self.pwidth/2 pixY: self.pheight/2 toDICOMCoords: center];
@@ -8925,7 +9100,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 	sc[ 1 ] = temp[ 0 ] * orientation[ 3 ] + temp[ 1 ] * orientation[ 4 ] + temp[ 2 ] * orientation[ 5 ];
 	sc[ 2 ] = temp[ 0 ] * orientation[ 6 ] + temp[ 1 ] * orientation[ 7 ] + temp[ 2 ] * orientation[ 8 ];
 	
-	if( pixelCenter)
+	if (pixelCenter)
 	{
 		sc[ 0 ] += pixelSpacingX /2.;	// The center of the pixel
 		sc[ 1 ] += pixelSpacingY /2.;	// The center of the pixel
@@ -8965,14 +9140,14 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 {
 	float pixmin, pixmax;
 	
-	if( fImage == nil || width * height <= 0)
+	if (fImage == nil || width * height <= 0)
         return;
 	
 	[checking lock];
 	
 	@try 
 	{
-		if( isRGB)
+		if (isRGB)
 		{
 			pixmax = 255;
 			pixmin = 0;
@@ -8987,7 +9162,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 			pixmax = fmax;
 			pixmin = fmin;
 			
-			if( pixmin == pixmax)
+			if (pixmin == pixmax)
 			{
 				pixmax = pixmin + 20;
 			}
@@ -9006,7 +9181,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 
 - (short)stack
 {
-    if( stackMode == 0)
+    if (stackMode == 0)
         return 1;
     
     return stack;
@@ -9014,9 +9189,13 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 
 - (void)setFusion: (short)m : (short)s : (short)direction
 {
-	if( s >= 0) stack = s;
-	if( m >= 0) stackMode = m;
-	if( direction >= 0)
+	if (s >= 0)
+        stack = s;
+    
+	if (m >= 0)
+        stackMode = m;
+    
+	if (direction >= 0)
         stackDirection = direction;
 	
 	updateToBeApplied = YES;
@@ -9025,37 +9204,37 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 
 - (void) ConvertToBW:(long) mode
 {
-	if( isRGB == NO)
+	if (!isRGB)
         return;
 	
 	long i;
 	float *dstPtr = (float *)malloc(height * width * sizeof(float));
 	
-	if( dstPtr)
+	if (dstPtr)
 	{
 		unsigned char *srcPtr = (unsigned char*) [self fImage];
 		
 		// Set this image as the Red Composant
-		switch( mode)
+		switch (mode)
 		{
 			case 0: // RED
 				i = height * width;
-				while( i-- > 0) dstPtr[ i] = srcPtr[ i*4 + 1];
+				while (i-- > 0) dstPtr[ i] = srcPtr[ i*4 + 1];
 				break;
 				
 				case 1: // GREEN
 				i = height * width;
-				while( i-- > 0) dstPtr[ i] = srcPtr[ i*4 + 2];
+				while (i-- > 0) dstPtr[ i] = srcPtr[ i*4 + 2];
 				break;
 				
 				case 2: // BLUE
 				i = height * width;
-				while( i-- > 0) dstPtr[ i] = srcPtr[ i*4 + 3];
+				while (i-- > 0) dstPtr[ i] = srcPtr[ i*4 + 3];
 				break;
 				
 				case 3: // RGB
 				i = height * width;
-				while( i-- > 0) dstPtr[ i] = ((float) srcPtr[ i*4 + 1] + (float) srcPtr[ i*4 + 2] + (float) srcPtr[ i*4 + 3]) / 3.;
+				while (i-- > 0) dstPtr[ i] = ((float) srcPtr[ i*4 + 1] + (float) srcPtr[ i*4 + 2] + (float) srcPtr[ i*4 + 3]) / 3.;
 				break;
 		}
 		
@@ -9077,13 +9256,13 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 {
 	vImage_Buffer		srcf, dst8, dst8888;
 	
-	if( isRGB)
+	if (isRGB)
         return;
 	
 	srcf.height = [self pheight];
 	srcf.width = [self pwidth];
-	srcf.rowBytes =  [self pwidth]*sizeof(float);
-	srcf.data =  [self fImage];
+	srcf.rowBytes = [self pwidth]*sizeof(float);
+	srcf.data = [self fImage];
 	
 	dst8.height = [self pheight];
 	dst8.width = [self pwidth];
@@ -9100,24 +9279,24 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 	unsigned char*  dstPtr = (unsigned char*) [self fImage];
 	
 	// Set this image as the Red Composant
-	switch( mode)
+	switch (mode)
 	{
 		case 0: // RED
 			memset( [self fImage], 0, dst8.height * dst8.width * 4);
 			i = dst8.height * dst8.width;
-			while( i-- > 0) dstPtr[ i*4 + 1] = srcPtr[ i];
+			while (i-- > 0) dstPtr[ i*4 + 1] = srcPtr[ i];
 			break;
 			
 			case 1: // GREEN
 			memset( [self fImage], 0, dst8.height * dst8.width * 4);
 			i = dst8.height * dst8.width;
-			while( i-- > 0) dstPtr[ i*4 + 2] = srcPtr[ i];
+			while (i-- > 0) dstPtr[ i*4 + 2] = srcPtr[ i];
 			break;
 			
 			case 2: // BLUE
 			memset( [self fImage], 0, dst8.height * dst8.width * 4);
 			i = dst8.height * dst8.width;
-			while( i-- > 0) dstPtr[ i*4 + 3] = srcPtr[ i];
+			while (i-- > 0) dstPtr[ i*4 + 3] = srcPtr[ i];
 			break;
 			
 			case 3: // RGB
@@ -9133,16 +9312,16 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 	
 	[self setRGB: YES];
 	
-	[self changeWLWW:127 :256];
+	[self changeWLWW:127.0 :256.0];
 	
 	free( dst8.data);
 	
-	if( isRGB)
+	if (isRGB)
 	{
 		unsigned char*	argbPtr = (unsigned char*) fImage;
 		long			ss = width * height;
 		
-		while( ss-->0)
+		while (ss-- > 0)
 		{
 			*argbPtr = (*(argbPtr+1) + *(argbPtr+2) + *(argbPtr+3)) / 3;
 			argbPtr+=4;
@@ -9169,40 +9348,53 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 {
 	float val = 0;
 	
-	if( x < 0 || x >= width || y < 0 || y >= height)
+	if (x < 0 || x >= width || y < 0 || y >= height)
         return 0;
     
-	if( fImage == nil)
+	if (fImage == nil)
         return 0;
 	
-	if( (stackMode == 1 || stackMode == 2 || stackMode == 3) && stack >= 1)
+	if ((stackMode == STACK_MODE_MEAN || stackMode == STACK_MODE_MAXIMUM_IP || stackMode == STACK_MODE_MINIMUM_IP) &&
+        stack >= 1)
 	{
-        float   *fNext = nil;
-        long	countstack = 0;
+        float *fNext = nil;
+        long countstack = 0;
         
         val = fImage[ x + (y * width)];
         countstack++;
         
-        for( long i = 1; i < stack; i++)
+        for (long i = 1; i < stack; i++)
         {
             long next;
-            if( stackDirection)
+            if (stackDirection)
                 next = pixPos-i;
             else
                 next = pixPos+i;
             
-            if( next < pixArray.count && next >= 0)
+            if (next < pixArray.count && next >= 0)
             {
                 fNext = [[pixArray objectAtIndex: next] fImage];
-                if( fNext)
+                if (fNext)
                 {
-                    if( isRGB == NO)
+                    if (!isRGB)
                     {
-                        switch( stackMode)
+                        switch (stackMode)
                         {
-                            case 1:		val += fNext[ x + (y * width)];										break;
-                            case 2:		if( fNext[ x + (y * width)] > val) val = fNext[ x + (y * width)];	break;
-                            case 3:		if( fNext[ x + (y * width)] < val) val = fNext[ x + (y * width)];	break;
+                            case STACK_MODE_MEAN:
+                                val += fNext[ x + (y * width)];
+                                break;
+                                
+                            case STACK_MODE_MAXIMUM_IP:
+                                if (fNext[ x + (y * width)] > val)
+                                    val = fNext[ x + (y * width)];
+                                
+                                break;
+                                
+                            case STACK_MODE_MINIMUM_IP:
+                                if (fNext[ x + (y * width)] < val)
+                                    val = fNext[ x + (y * width)];
+                                
+                                break;
                         }
                     }
                     else
@@ -9211,11 +9403,23 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
                         
                         float meanRGBValue = (rgbPtr[ 1] + rgbPtr[ 2] + rgbPtr[ 3])/3.;
                         
-                        switch( stackMode)
+                        switch (stackMode)
                         {
-                            case 1:		val += meanRGBValue;                        break;
-                            case 2:		if( meanRGBValue > val) val = meanRGBValue;	break;
-                            case 3:		if( meanRGBValue < val) val = meanRGBValue;	break;
+                            case STACK_MODE_MEAN:
+                                val += meanRGBValue;
+                                break;
+                                
+                            case STACK_MODE_MAXIMUM_IP:
+                                if (meanRGBValue > val)
+                                    val = meanRGBValue;
+                                
+                                break;
+                                
+                            case STACK_MODE_MINIMUM_IP:
+                                if (meanRGBValue < val)
+                                    val = meanRGBValue;
+                                
+                                break;
                         }
                     }
                     countstack++;
@@ -9223,11 +9427,12 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
             }
         }
         
-        if( stackMode == 1) val /= countstack;
+        if (stackMode == STACK_MODE_MEAN)
+            val /= countstack;
 	}
 	else
 	{
-        if( isRGB == NO)
+        if (!isRGB)
             val = fImage[ x + (y * width)];
         else
         {
@@ -9255,10 +9460,11 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 	long i = height * width;
 	float *result = (float *)malloc(height * width * sizeof(float));
 	
-	if( subPixOffset.x == 0 && subPixOffset.y == 0)
+	if (subPixOffset.x == 0 && subPixOffset.y == 0)
 	{
 #if __ppc__ || __ppc64__
-		if( Altivec) vmultiply( (vector float *)input, (vector float *)subfImage, (vector float *)result, i);
+		if (Altivec)
+            vmultiply( (vector float *)input, (vector float *)subfImage, (vector float *)result, i);
 		else
 #endif
 			vmultiplyNoAltivec(input, subfImage, result, i);
@@ -9270,7 +9476,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 		long startheight, subheight, startwidth, subwidth;
 		float *tempIn, *tempOut, *tempResult;
 		
-		if( offsetY > 0) {
+		if (offsetY > 0) {
             startheight = offsetY;
             subheight = height;
         }
@@ -9279,7 +9485,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
             subheight = height + offsetY;
         }
 		
-		if( offsetX > 0) {
+		if (offsetX > 0) {
             startwidth = offsetX;
             subwidth = width;
         }
@@ -9293,7 +9499,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 			tempIn = input + y*width;
 			tempOut = subfImage + (y-offsetY)*width - offsetX;
 			long x = subwidth - startwidth;
-			while( x-->0)
+			while (x-- > 0)
 				*tempResult++ = *tempIn++ * *tempOut++;
 		}
 	}
@@ -9325,10 +9531,10 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 	long i = height * width;
 	float *result = (float *)malloc( height * width * sizeof(float));
 	
-	if( subPixOffset.x == 0 && subPixOffset.y == 0)
+	if (subPixOffset.x == 0 && subPixOffset.y == 0)
 	{
 #if __ppc__ || __ppc64__
-		if( Altivec)
+		if (Altivec)
 		{
 			if (abs)
 				vsubtractAbs( (vector float *)input, (vector float *)subfImage, (vector float *)result, i);
@@ -9350,17 +9556,17 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 		long	startheight, subheight, startwidth, subwidth;
 		float   *tempIn, *tempOut, *tempResult;
 		
-		if( offsetY > 0)
+		if (offsetY > 0)
 			{ startheight = offsetY;   subheight = height;}
 		else { startheight = 0; subheight = height + offsetY;}
 		
-		if( offsetX > 0)
+		if (offsetX > 0)
 			{ startwidth = offsetX;   subwidth = width;}
 		else { startwidth = 0; subwidth = width + offsetX;}
 		
-		if( abs)
+		if (abs)
 		{
-			for( long y = startheight; y < subheight; y++)
+			for (long y = startheight; y < subheight; y++)
  			{
 				tempResult = result + y*width;
 				tempIn = input + y*width;
@@ -9374,7 +9580,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 		}
 		else
 		{
-			for( long y = startheight; y < subheight; y++)
+			for (long y = startheight; y < subheight; y++)
 			{
 				tempResult = result + y*width;
 				tempIn = input + y*width;
@@ -9400,7 +9606,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 	subtractedfZero = subtractedfZ - 0.8 + (p*0.8);
 	subtractedfGamma = g;
 	
-	if( subGammaFunction) vImageDestroyGammaFunction( subGammaFunction);
+	if (subGammaFunction) vImageDestroyGammaFunction( subGammaFunction);
 	
 	subGammaFunction = vImageCreateGammaFunction( subtractedfGamma, kvImageGamma_UseGammaValue_half_precision, 0);	
 	
@@ -9487,7 +9693,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 
 -(void) positionerPrimaryAngle:(NSNumber*)newPositionerPrimaryAngle
 {
-    if( positionerPrimaryAngle != newPositionerPrimaryAngle)
+    if (positionerPrimaryAngle != newPositionerPrimaryAngle)
     {
         [positionerPrimaryAngle release];
         positionerPrimaryAngle = [newPositionerPrimaryAngle retain];
@@ -9496,7 +9702,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 -(NSNumber*) positionerPrimaryAngle{return positionerPrimaryAngle;}
 -(void) positionerSecondaryAngle:(NSNumber*)newPositionerSecondaryAngle
 {
-    if( positionerSecondaryAngle != newPositionerSecondaryAngle)
+    if (positionerSecondaryAngle != newPositionerSecondaryAngle)
     {
         [positionerSecondaryAngle release];
         positionerSecondaryAngle = [newPositionerSecondaryAngle retain];
@@ -9508,7 +9714,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 {
     shutterRect  = s;
     
-    if( shutterPolygonal)
+    if (shutterPolygonal)
     {
         free( shutterPolygonal);
         shutterPolygonal = nil;
@@ -9530,29 +9736,29 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 {
 	if (shutterEnabled == NSOnState)
 	{
-        if( shutterRect.origin.x < 0) { shutterRect.size.width += shutterRect.origin.x; shutterRect.origin.x = 0;}
-        if( shutterRect.origin.y < 0) { shutterRect.size.height += shutterRect.origin.y; shutterRect.origin.y = 0;}
+        if (shutterRect.origin.x < 0) { shutterRect.size.width += shutterRect.origin.x; shutterRect.origin.x = 0;}
+        if (shutterRect.origin.y < 0) { shutterRect.size.height += shutterRect.origin.y; shutterRect.origin.y = 0;}
 		
-		if( shutterRect.size.width + shutterRect.origin.x > width) shutterRect.size.width = width - shutterRect.origin.x;
-		if( shutterRect.size.height + shutterRect.origin.y > height) shutterRect.size.height = height - shutterRect.origin.y;
+		if (shutterRect.size.width + shutterRect.origin.x > width) shutterRect.size.width = width - shutterRect.origin.x;
+		if (shutterRect.size.height + shutterRect.origin.y > height) shutterRect.size.height = height - shutterRect.origin.y;
 		
         shutterRect.origin.y = roundf( shutterRect.origin.y);
         shutterRect.origin.x = roundf( shutterRect.origin.x);
         shutterRect.size.width = roundf( shutterRect.size.width);
         shutterRect.size.height = roundf( shutterRect.size.height);
         
-		if( isRGB == YES || thickSlabVRActivated == YES)
+		if (isRGB || thickSlabVRActivated)
 		{
 			char *tempMem = (char *)calloc( 1, height * width * 4 * sizeof(char));
 			
-			if( tempMem)
+			if (tempMem)
 			{
 				int i = shutterRect.size.height;
 				
 				char*	src = baseAddr + (long) ((shutterRect.origin.y * width*4) + shutterRect.origin.x*4);
 				char*	dst = tempMem + (long) ((shutterRect.origin.y * width*4) + shutterRect.origin.x*4);
 				
-				while( i-- > 0)
+				while (i-- > 0)
 				{
 					memcpy( dst, src, shutterRect.size.width*4);
 					
@@ -9586,20 +9792,20 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 					src += width;
 				}
 				
-				if( shutterCircular_radius)
+				if (shutterCircular_radius)
 				{
 					erase_outside_circle( tempMem, width, height, shutterCircular.x, shutterCircular.y, shutterCircular_radius, blackIndex);
 				}
 				
-				if( shutterPolygonal)
+				if (shutterPolygonal)
 				{
 					int		x, y;
 					
-					for( y = 0 ; y < height; y++)
+					for (y = 0 ; y < height; y++)
 					{
-						for( x = 0 ; x < width; x++)
+						for (x = 0 ; x < width; x++)
 						{
-							if( pnpoly( shutterPolygonal, shutterPolygonalSize, x, y) == 0)
+							if (pnpoly( shutterPolygonal, shutterPolygonalSize, x, y) == 0)
 							{
 								tempMem[ x + y*width] = blackIndex;
 							}
@@ -9632,7 +9838,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
         
         srcf = dstf;
         srcf.data = result = (float *)malloc( height*width*sizeof(float));
-        if( srcf.data && dstf.data)
+        if (srcf.data && dstf.data)
         {
             short err;
             
@@ -9650,10 +9856,10 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
                 float  fkernel[25], m;
                 int i;
                 
-                if( normalization != 0)
-                    for( i = 0; i < 25; i++) fkernel[ i] = (float) kernel[ i] / (float) normalization; 
+                if (normalization != 0)
+                    for (i = 0; i < 25; i++) fkernel[ i] = (float) kernel[ i] / (float) normalization;
                 else
-                    for( i = 0; i < 25; i++) fkernel[ i] = (float) kernel[ i]; 
+                    for (i = 0; i < 25; i++) fkernel[ i] = (float) kernel[ i];
                 
                 m = *src;
                 err = vImageConvolve_PlanarF( &dstf, &srcf, 0, 0, 0, fkernel, kernelsize, kernelsize, 0, kvImageDoNotTile + kvImageEdgeExtend);
@@ -9662,13 +9868,13 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
                 
                 float *ptr = result;
                 int x = width;
-                while( x-- > 0)
+                while (x-- > 0)
                     *ptr++ = m;
             }
             
-            if( err) NSLog(@"Error applyConvolutionOnImage = %d", err);
+            if (err) NSLog(@"Error applyConvolutionOnImage = %d", err);
             
-            if( src != fImage)
+            if (src != fImage)
                 free( src);
         }
             
@@ -9686,7 +9892,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 	
 	float *result = [self applyConvolutionOnImage: fImage RGB: isRGB];
 	
-    if( result != fImage)
+    if (result != fImage)
     {
         memcpy( fImage, result, height*width*sizeof(float));
         free( result);
@@ -9703,7 +9909,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
     if (fResult == nil)
         return nil;
 
-	if( fixed8bitsWLWW)	{
+	if (fixed8bitsWLWW)	{
 		iww = 256;
 		iwl = 127;
 	}
@@ -9716,57 +9922,57 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 	max = iwl + iww / 2;
 //	diff = max - min;
 	
-	switch( stackMode)
+	switch (stackMode)
 	{
-		case 4:		// Volume Rendering
-		case 5:
+		case STACK_MODE_VOLUME_RENDERING:
+		case STACK_MODE_TBD:
 			memcpy( fResult, fImage, height * width * sizeof(float));
 			break;
 			
-		case 1:		// Mean
+		case STACK_MODE_MEAN:
 			memcpy( fResult, fImage, height * width * sizeof(float));
 			break;
 			
-		case 2:		// Maximum IP
-		case 3:		// Minimum IP
-			if( stackDirection)
+		case STACK_MODE_MAXIMUM_IP:
+		case STACK_MODE_MINIMUM_IP:
+			if (stackDirection)
                 next = pixPos-1;
 			else
                 next = pixPos+1;
 			
-			if( next < pixArray.count  && next >= 0)
+			if (next < pixArray.count  && next >= 0)
 			{
 				fNext = [[pixArray objectAtIndex: next] fImage];
-				if( fNext)
+				if (fNext)
 				{
-					if( stackMode == 2)
+					if (stackMode == STACK_MODE_MAXIMUM_IP)
                         vmax8Intel( (vUInt8*) fNext, (vUInt8*) fImage, (vUInt8*) fResult, height * width);
 					else
                         vmin8Intel( (vUInt8*) fNext, (vUInt8*) fImage, (vUInt8*) fResult, height * width);
 				}
 				
-				for( long i = 2; i < stack; i++)
+				for (long i = 2; i < stack; i++)
 				{
 					long res;
-					if( stackDirection)
+					if (stackDirection)
                         res = pixPos-i;
 					else
                         res = pixPos+i;
 					
-					if( res < pixArray.count)
+					if (res < pixArray.count)
 					{
 						long res;
-						if( stackDirection)
+						if (stackDirection)
                             res = pixPos-i;
 						else
                             res = pixPos+i;
 						
-						if( res < pixArray.count && res >= 0)
+						if (res < pixArray.count && res >= 0)
 						{
 							fNext = [[pixArray objectAtIndex: res] fImage];
-							if( fNext)
+							if (fNext)
 							{
-								if( stackMode == 2)
+								if (stackMode == STACK_MODE_MAXIMUM_IP)
                                     vmax8Intel( (vUInt8*) fResult, (vUInt8*) fNext, (vUInt8*) fResult, height * width);
 								else
                                     vmin8Intel( (vUInt8*) fResult, (vUInt8*) fNext, (vUInt8*) fResult, height * width);
@@ -9792,7 +9998,8 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 	float			iwl, iww;
 	float			*fResult = nil;
 	
-	if( fixed8bitsWLWW)
+    NSLog(@"DCMPix.mm:%d %s", __LINE__, __PRETTY_FUNCTION__);
+	if (fixed8bitsWLWW)
 	{
 		iww = 256;
 		iwl = 127;
@@ -9806,28 +10013,28 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 //	min = iwl - iww / 2;
 //	max = iwl + iww / 2;
 	
-	switch( stackMode)
+	switch (stackMode)
 	{
-		case 4:		// Volume Rendering
-		case 5:		// Volume Rendering
-			if( thickSlab)
+		case STACK_MODE_VOLUME_RENDERING:
+		case STACK_MODE_TBD:		// Volume Rendering
+			if (thickSlab)
 			{											
-				if( stackDirection)
+				if (stackDirection)
 				{
-					if( pixPos-stack < 0)
+					if (pixPos-stack < 0)
                         stacksize = pixPos+1;
 					else
                         stacksize = stack+1;
 				}
 				else
 				{
-					if( pixPos+stack < [pixArray count])
+					if (pixPos+stack < [pixArray count])
                         stacksize = stack;
 					else
                         stacksize = [pixArray count] - pixPos;
 				}
 				
-				if( stackDirection)
+				if (stackDirection)
                     [thickSlab setImageSource: fImage - (stacksize-1)*height * width :stacksize];
 				else
                     [thickSlab setImageSource: fImage :stacksize];
@@ -9841,26 +10048,27 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 				[self setBaseAddr: (char*) rgbaImage];
 			}
 			break;
-			
-			// ------------------------------------------------------------------------------------------------
-			case 1:		// Mean
-			case 2:		// Maximum IP
-			case 3:		// Minimum IP
+						
+            //------------------------------------------------------------------
+	
+        case STACK_MODE_MEAN:
+        case STACK_MODE_MAXIMUM_IP:
+        case STACK_MODE_MINIMUM_IP:
 			countstackMean = 1;
 			
 			fResult = (float *)malloc( height * width * sizeof(float));
 			memcpy( fResult, fImage, height * width * sizeof(float));
 			
-			if( processorsLock == nil)
+			if (processorsLock == nil)
 				processorsLock = [[NSConditionLock alloc] init];
 			
             int numberOfThreadsForCompute = [DCMPix maxProcessors];
             
-			if( minmaxThreads == nil)
+			if (minmaxThreads == nil)
 			{
 				minmaxThreads = [[NSMutableArray array] retain];
 				
-				for( int i = 0; i < numberOfThreadsForCompute; i++)
+				for (int i = 0; i < numberOfThreadsForCompute; i++)
 				{
 					[minmaxThreads addObject: [NSMutableDictionary dictionaryWithObjectsAndKeys: [[NSConditionLock alloc] initWithCondition: 0], @"threadLock", nil]];
 					
@@ -9873,7 +10081,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 			[processorsLock lock];
 			[processorsLock unlockWithCondition: numberOfThreadsForCompute];
 			
-			for( int i = 0; i < numberOfThreadsForCompute; i++)
+			for (int i = 0; i < numberOfThreadsForCompute; i++)
 			{
 				NSMutableDictionary *d = [minmaxThreads objectAtIndex: i];
 				
@@ -9886,14 +10094,14 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 			}
 			
 			[processorsLock lockWhenCondition: 0];
-			for( int i = 0; i < numberOfThreadsForCompute; i++)
+			for (int i = 0; i < numberOfThreadsForCompute; i++)
 			{
 				NSMutableDictionary *d = [minmaxThreads objectAtIndex: i];
 				[d setObject: [NSValue valueWithPointer: nil] forKey: @"fResult"];
 			}
 			[processorsLock unlock];
 			
-			if( countstackMean > 1)
+			if (countstackMean > 1)
 			{
 				float   invCount = 1.0f / countstackMean;
 				
@@ -9908,17 +10116,24 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 
 - (float*)computefImage
 {
+    NSLog(@"DCMPix.mm:%d %s", __LINE__, __PRETTY_FUNCTION__);
 	float *result;
 	
 	thickSlabVRActivated = NO;
 	
 	// = STACK IMAGES thickslab
-	if( stackMode > 0 && stack >= 1 && [pixArray count] > 1)
+	if (stackMode > 0 &&
+        stack >= 1 &&
+        [pixArray count] > 1)
+    {
 		result = [self computeThickSlab];
+    }
 	else
+    {
         result = fImage;
+    }
 
-	if( convolution)
+	if (convolution)
 		result = [self applyConvolutionOnImage: result RGB: NO];
 	
 	return result;
@@ -9926,13 +10141,11 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 
 - (void)setTransferFunction:(NSData*) tf
 {
-	if( transferFunction != tf)
+	if (transferFunction != tf)
 	{
 		[transferFunction release];
 		transferFunction = [tf retain];
-		
 		transferFunctionPtr = (float*) [transferFunction bytes];
-		
 		updateToBeApplied = YES;
 	}
 }
@@ -9941,7 +10154,9 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 {
 	float iwl, iww;
 	
-	if( fixed8bitsWLWW)
+    NSLog(@"DCMPix.mm:%d %s", __LINE__, __PRETTY_FUNCTION__);
+
+	if (fixed8bitsWLWW)
 	{
 		iww = 256;
 		iwl = 127;
@@ -9952,206 +10167,213 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 		iwl = wl;
 	}
 	
-	if( baseAddr)
-	{
-		[self CheckLoad];
-		
-		needToCompute8bitRepresentation = NO;
-		
-		updateToBeApplied = NO;
-		
-		float  min, max;
-		
-        min = iwl - iww / 2; 
-        max = iwl + iww / 2;
-		
-		// ***** ***** ***** ***** ***** 
-		// ***** SOURCE IMAGE IS 32 BIT FLOAT
-		// ***** ***** ***** ***** *****
-		
-		if( isRGB == NO) //fImage case
-		{
-			vImage_Buffer	srcf, dst8;
-			
-			srcf.data = [self computefImage];
-			
-			if( srcf.data == nil)
-                return;
-			
-			// CONVERSION TO 8-BIT for displaying
-			
-			if( thickSlabVRActivated == NO)
-			{
-				dst8.height = height;
-				dst8.width = width;
-				dst8.rowBytes = width;					
-				dst8.data = baseAddr;
-				
-				srcf.height = height;
-				srcf.width = width;
-				srcf.rowBytes = width*sizeof(float);
-				
-				if( subtractedfImage)
-				{
-					if( wl < 2) wl = 2;
-					if( ww < 2) ww = 2;
-					if( wl > 512) wl = 512;
-					if( ww > 512) ww = 512;
-					
-					iww = ww;
-					iwl = wl;
-					
-					float gamma = 2. * (iww / 256.);
-					float zero = 1.6 - 0.8 * (iwl / 128.);
-					
-					[self setSubSlidersPercent:subtractedfPercent gamma: gamma zero: zero];
-					
-					srcf.data = [self subtractImages: (float *)srcf.data :subtractedfImage];
-					
-					vImageGamma_PlanarFtoPlanar8 (&srcf, &dst8, subGammaFunction, 0);
-				}
-				else
-				{
-					if( transferFunctionPtr == nil)	// LINEAR
-					{
-						vImageConvert_PlanarFtoPlanar8( &srcf, &dst8, max, min, 0);
-					}
-					else
-					{
-						if( processorsLock == nil)
-							processorsLock = [[NSConditionLock alloc] init];
-						
-                        int numberOfThreadsForCompute = [DCMPix maxProcessors];
+	if (baseAddr == NULL)
+        return;
+
+    [self CheckLoad];
+    needToCompute8bitRepresentation = NO;
+    updateToBeApplied = NO;
+    
+    float min = iwl - iww / 2;
+    float max = iwl + iww / 2;
+    
+    // ***** ***** ***** ***** ***** 
+    // ***** SOURCE IMAGE IS 32 BIT FLOAT
+    // ***** ***** ***** ***** *****
+    
+    if (!isRGB) // fImage case
+    {
+        vImage_Buffer srcf, dst8;
+        
+        srcf.data = [self computefImage];
+        if (srcf.data == nil)
+            return;
+        
+        // CONVERSION TO 8-BIT for displaying
+        
+        if (!thickSlabVRActivated)
+        {
+            dst8.height = height;
+            dst8.width = width;
+            dst8.rowBytes = width;					
+            dst8.data = baseAddr;
+            
+            srcf.height = height;
+            srcf.width = width;
+            srcf.rowBytes = width*sizeof(float);
+            
+            if (subtractedfImage)
+            {
+                if (wl < 2) wl = 2;
+                if (ww < 2) ww = 2;
+                if (wl > 512) wl = 512;
+                if (ww > 512) ww = 512;
+                
+                iww = ww;
+                iwl = wl;
+                
+                float gamma = 2. * (iww / 256.);
+                float zero = 1.6 - 0.8 * (iwl / 128.);
+                
+                [self setSubSlidersPercent:subtractedfPercent gamma: gamma zero: zero];
+                
+                srcf.data = [self subtractImages: (float *)srcf.data :subtractedfImage];
+                
+                vImageGamma_PlanarFtoPlanar8 (&srcf, &dst8, subGammaFunction, 0);
+            }
+            else
+            {
+                if (transferFunctionPtr == nil)	// LINEAR
+                {
+                    vImageConvert_PlanarFtoPlanar8( &srcf, &dst8, max, min, 0);
+                }
+                else
+                {
+                    if (processorsLock == nil)
+                        processorsLock = [[NSConditionLock alloc] init];
+                    
+                    int numberOfThreadsForCompute = [DCMPix maxProcessors];
+                    
+                    if (nonLinearWLWWThreads == nil)
+                    {
+                        nonLinearWLWWThreads = [[NSMutableArray array] retain];
                         
-						if( nonLinearWLWWThreads == nil)
-						{
-							nonLinearWLWWThreads = [[NSMutableArray array] retain];
-							
-							for( int i = 0; i < numberOfThreadsForCompute; i++)
-							{
-								[nonLinearWLWWThreads addObject: [NSMutableDictionary dictionaryWithObjectsAndKeys: [[[NSConditionLock alloc] initWithCondition: 0] autorelease], @"threadLock", nil]];
-								[NSThread detachNewThreadSelector: @selector(applyNonLinearWLWWThread:) toTarget:[[PixThread alloc] init] withObject: [nonLinearWLWWThreads lastObject]];
-							}
-						} 
-						
-						NSValue *srcNSValue = [NSValue valueWithPointer: srcf.data];
-						
-						int start;
-						int end;
-						
-						[processorsLock lock];
-						[processorsLock unlockWithCondition: numberOfThreadsForCompute];
-						
-						for( int i = 0; i < numberOfThreadsForCompute; i++)
-						{
-							start = i * (int) (height / numberOfThreadsForCompute);
-							end = (i+1) * (int) (height / numberOfThreadsForCompute);
-							
-							NSMutableDictionary *d = [nonLinearWLWWThreads objectAtIndex: i];
-							
-							[d setObject: [NSNumber numberWithInt: start] forKey: @"start"];
-							[d setObject: [NSNumber numberWithInt: end] forKey: @"end"];
-							[d setObject: self forKey: @"self"];
-							[d setObject: srcNSValue forKey: @"src"];
-							
-							[[d objectForKey: @"threadLock"] lock];
-							[[d objectForKey: @"threadLock"] unlockWithCondition: 1];
-						}
-						
-						[processorsLock lockWhenCondition: 0];
-						for( int i = 0; i < numberOfThreadsForCompute; i++)
-							[[nonLinearWLWWThreads objectAtIndex: i] removeObjectForKey: @"self"];
-							
-						[processorsLock unlock];
-					}
-					
-					#ifdef OSIRIX_VIEWER
-					if(isLUT12Bit && [AppController canDisplay12Bit])
-					{
-						NSInvocation *fill12BitBufferInvocation = [AppController fill12BitBufferInvocation];
-						[fill12BitBufferInvocation setArgument:&self atIndex:2];
-						NSValue *srcNSValue = [NSValue valueWithPointer: srcf.data];
-						[fill12BitBufferInvocation setArgument:&srcNSValue atIndex:3];
-						[fill12BitBufferInvocation setArgument:&transferFunctionPtr atIndex:4];
-						[fill12BitBufferInvocation invoke];
-					}
-					#endif
-				}
-				
-				if( srcf.data != fImage) free( srcf.data);
-			}
-		}	
-		
-		// ***** ***** ***** ***** ***** 
-		// ***** SOURCE IMAGE IS RGBA
-		// ***** ***** ***** ***** *****
-		
-		if( isRGB)
-		{
-			vImage_Buffer src, dst;
-			Pixel_8 convTable[256];
-			long diff = max - min, val;
-			
-			if (stackMode > 0 &&
-                stack >= 1 &&
-                [pixArray count] > 1)
-			{
-				src.data = (void *)[self computeThickSlabRGB];
-			}
-			else
-                src.data = (void *)fImage;
-			
-			if (convolution)
-				src.data = [self applyConvolutionOnImage: (float *)src.data RGB: YES];
-			
-			// APPLY WINDOW LEVEL TO RGB IMAGE
-			
-			if( transferFunctionPtr == nil)	// LINEAR
-			{
-				for( long i = 0; i < 256; i++)
-				{
-					val = (((i-min) * 255L) / diff);
-					if( val < 0) val = 0;
-					else if( val > 255) val = 255;
-					convTable[i] = val;
-				}
-			}
-			else
-			{
-				for( long i = 0; i < 256; i++)
-				{
-					val = (((i-min) * 255L) / diff);
-					if( val < 0) val = 0;
-					else if( val > 255) val = 255;
-					
-					val = 255.*transferFunctionPtr[ val*16];	// 4096 value table
-					if( val < 0) val = 0;
-					else if( val > 255) val = 255;
-					convTable[i] = val;
-				}
-			}
-			
-			src.height = height;
-			src.width = width;
-			src.rowBytes = width*4;
-			
-			dst.height = height;
-			dst.width = width;
-			dst.rowBytes = width*4;
-			dst.data = baseAddr;
-			
-			vImageTableLookUp_ARGB8888 ( &src,  &dst,  convTable,  convTable,  convTable,  convTable,  0);
-			
-			if( src.data != fImage) free( src.data);
-		}
-		
-		[self applyShutter];		
+                        for (int i = 0; i < numberOfThreadsForCompute; i++)
+                        {
+                            [nonLinearWLWWThreads addObject: [NSMutableDictionary dictionaryWithObjectsAndKeys: [[[NSConditionLock alloc] initWithCondition: 0] autorelease], @"threadLock", nil]];
+                            [NSThread detachNewThreadSelector: @selector(applyNonLinearWLWWThread:) toTarget:[[PixThread alloc] init] withObject: [nonLinearWLWWThreads lastObject]];
+                        }
+                    } 
+                    
+                    NSValue *srcNSValue = [NSValue valueWithPointer: srcf.data];
+                    
+                    int start;
+                    int end;
+                    
+                    [processorsLock lock];
+                    [processorsLock unlockWithCondition: numberOfThreadsForCompute];
+                    
+                    for (int i = 0; i < numberOfThreadsForCompute; i++)
+                    {
+                        start =  i    * (int) (height / numberOfThreadsForCompute);
+                        end   = (i+1) * (int) (height / numberOfThreadsForCompute);
+                        
+                        NSMutableDictionary *d = [nonLinearWLWWThreads objectAtIndex: i];
+                        
+                        [d setObject: [NSNumber numberWithInt: start] forKey: @"start"];
+                        [d setObject: [NSNumber numberWithInt: end] forKey: @"end"];
+                        [d setObject: self forKey: @"self"];
+                        [d setObject: srcNSValue forKey: @"src"];
+                        
+                        [[d objectForKey: @"threadLock"] lock];
+                        [[d objectForKey: @"threadLock"] unlockWithCondition: 1];
+                    }
+                    
+                    [processorsLock lockWhenCondition: 0];
+                    for (int i = 0; i < numberOfThreadsForCompute; i++)
+                        [[nonLinearWLWWThreads objectAtIndex: i] removeObjectForKey: @"self"];
+                        
+                    [processorsLock unlock];
+                }
+                                
+#ifdef OSIRIX_VIEWER
+                if (isLUT12Bit && [AppController canDisplay12Bit])
+                {
+                    NSInvocation *fill12BitBufferInvocation = [AppController fill12BitBufferInvocation];
+                    [fill12BitBufferInvocation setArgument:&self atIndex:2];
+                    NSValue *srcNSValue = [NSValue valueWithPointer: srcf.data];
+                    [fill12BitBufferInvocation setArgument:&srcNSValue atIndex:3];
+                    [fill12BitBufferInvocation setArgument:&transferFunctionPtr atIndex:4];
+                    [fill12BitBufferInvocation invoke];
+                }
+#endif
+            }
+            
+            if (srcf.data != fImage)
+                free( srcf.data);
+        }
+    }	
+    
+    // ***** ***** ***** ***** ***** 
+    // ***** SOURCE IMAGE IS RGBA
+    // ***** ***** ***** ***** *****
+    
+    else // if (isRGB)
+    {
+        vImage_Buffer src, dst;
+        Pixel_8 convTable[256];
+        long diff = max - min;
+        long val;
+        
+        if (stackMode > 0 &&
+            stack >= 1 &&
+            [pixArray count] > 1)
+        {
+            src.data = (void *)[self computeThickSlabRGB];
+        }
+        else
+            src.data = (void *)fImage;
+        
+        if (convolution)
+            src.data = [self applyConvolutionOnImage: (float *)src.data RGB: YES];
+        
+        // APPLY WINDOW LEVEL TO RGB IMAGE
+        
+        if (transferFunctionPtr == nil)	// LINEAR
+        {
+            for (long i = 0; i < 256; i++)
+            {
+                val = (((i-min) * 255L) / diff);
+                if (val < 0)
+                    val = 0;
+                else if (val > 255)
+                    val = 255;
+                
+                convTable[i] = val;
+            }
+        }
+        else
+        {
+            for (long i = 0; i < 256; i++)
+            {
+                val = (((i-min) * 255L) / diff);
+                if (val < 0)
+                    val = 0;
+                else if (val > 255)
+                    val = 255;
+                
+                val = 255.*transferFunctionPtr[ val*16];	// 4096 value table
+                if (val < 0)
+                    val = 0;
+                else if (val > 255)
+                    val = 255;
+                
+                convTable[i] = val;
+            }
+        }
+        
+        src.height = height;
+        src.width = width;
+        src.rowBytes = width*4;
+        
+        dst.height = height;
+        dst.width = width;
+        dst.rowBytes = width*4;
+        dst.data = baseAddr;
+        
+        vImageTableLookUp_ARGB8888 ( &src,  &dst,  convTable,  convTable,  convTable,  convTable,  0);
+        
+        if (src.data != fImage)
+            free( src.data);
     }
+    
+    [self applyShutter];
 }
 
 - (void) changeWLWW:(float)newWL :(float)newWW
 {
-	if( baseAddr == nil)
+    NSLog(@"DCMView.mm:%d %s", __LINE__, __PRETTY_FUNCTION__);
+	if (baseAddr == nil)
 	{
 		[self checkImageAvailble:newWW :newWL];
 		return;
@@ -10159,16 +10381,17 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 	
 	[self CheckLoad]; 
 	
-	if( newWW !=0 || newWL != 0)   // new values to be applied
+	if (newWW !=0 || newWL != 0)   // new values to be applied
 	{
-		if( fullww > 256)
+		if (fullww > 256)
 		{
-			if( newWW < 1) newWW = 2;
+			if (newWW < 1)
+                newWW = 2;
 			
-			if( newWL - newWW/2 == 0)
+			if (newWL - newWW/2 == 0)
 			{
-				//				newWW = (int) newWW;
-				//				newWL = (int) newWL;
+//				newWW = (int) newWW;
+//				newWL = (int) newWL;
 				
 				newWL = newWW/2;
 			}
@@ -10179,12 +10402,13 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 			}
 		}
 		
-        if( newWW < 0.001 * slope) newWW = 0.001 * slope;
+        if (newWW < 0.001 * slope)
+            newWW = 0.001 * slope;
         
         ww = newWW;
         wl = newWL;
     }
-	else                          // need to compute best values... problem with subtraction performed afterwards
+	else // need to compute best values... problem with subtraction performed afterwards
 	{
 		[self computePixMinPixMax];
 	
@@ -10192,12 +10416,11 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 		wl = fullwl;
 	}
 	
-	// ----------------------------------------------------------- iww, iwl contain computMinPixMax or newWW, newWL
+	// -------------------------------------------------------------------------
+    // iww, iwl contain computMinPixMax or newWW, newWL
     
-    if( baseAddr)
-	{
+    if (baseAddr)
 		needToCompute8bitRepresentation = YES;
-	}
 }
 
 #pragma mark-
@@ -10205,7 +10428,9 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 - (void) kill8bitsImage
 {
 	needToCompute8bitRepresentation = YES;
-	if( baseAddr) free( baseAddr);
+	if (baseAddr)
+        free( baseAddr);
+    
 	baseAddr = nil;
 }
 
@@ -10216,7 +10441,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 	ww = newWW;
 	wl = newWL;
 	
-	if( baseAddr == nil)
+	if (baseAddr == nil)
 		[self allocate8bitRepresentation];
 }
 
@@ -10243,7 +10468,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
     
 	NSBitmapImageRep *bitmapRep = nil;
 	
-	if( isRGB)
+	if (isRGB)
 	{
 		bitmapRep = [[[NSBitmapImageRep alloc] 
 					 initWithBitmapDataPlanes: nil
@@ -10274,11 +10499,11 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 					 ] autorelease];
 	}
 	
-	if( bitmapRep)
+	if (bitmapRep)
 	{
-		if( newWW == 0 && newWL == 0)
+		if (newWW == 0 && newWL == 0)
 		{
-			if( ww == 0 && wl == 0)
+			if (ww == 0 && wl == 0)
 			{
 				[self computePixMinPixMax];
 				ww = fullww;
@@ -10369,12 +10594,12 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 -(void) setConvolutionKernel:(float*)val :(short) size :(float) norm
 {
 	
-	if( val)
+	if (val)
 	{
 		kernelsize = size;
 		convolution = YES;
 		normalization = norm;
-		for( long i = 0; i < kernelsize*kernelsize; i++) kernel[i] = val[i];
+		for (long i = 0; i < kernelsize*kernelsize; i++) kernel[i] = val[i];
 	}
 	else
 	{
@@ -10391,7 +10616,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 
 - (void) revert:(BOOL) reloadAnnotations
 {
-	if( fImage == nil)
+	if (fImage == nil)
         return;
 	
 	[checking lock];
@@ -10419,14 +10644,14 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 		[units release];							units = nil;
 		[decayCorrection release];					decayCorrection = nil;
 		
-		if( reloadAnnotations)
+		if (reloadAnnotations)
 			[self reloadAnnotations];
 	
         [self clearCachedDCMFrameworkFiles];
 		
-		if( fExternalOwnedImage == nil)
+		if (fExternalOwnedImage == nil)
 		{
-			if( fImage != nil)
+			if (fImage != nil)
 			{
 				free(fImage);
 				fImage = nil;
@@ -10450,20 +10675,20 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 	
     @synchronized( cachedDCMTKFileFormat)
     {
-        if( self.dcmtkDcmFileFormat)
+        if (self.dcmtkDcmFileFormat)
         {
             NSMutableDictionary *dic = [cachedDCMTKFileFormat objectForKey: srcFile];
             
             [dic setValue: [NSNumber numberWithInt: [[dic objectForKey: @"count"] intValue]-1] forKey: @"count"];
             
-            if( [[dic objectForKey: @"count"] intValue] == 0)
+            if ([[dic objectForKey: @"count"] intValue] == 0)
                 [cachedDCMTKFileFormat removeObjectForKey: srcFile];
             
             self.dcmtkDcmFileFormat = nil;
         }
     }
     
-	if( shutterPolygonal)
+	if (shutterPolygonal)
         free( shutterPolygonal);
 	
     [modalityString release];
@@ -10494,9 +10719,9 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
     self.waveform = nil;
     self.referencedSOPInstanceUID = nil;
     
-	if( fExternalOwnedImage == nil)
+	if (fExternalOwnedImage == nil)
 	{
-		if( fImage != nil)
+		if (fImage != nil)
 		{
 			free(fImage);
 			fImage = nil;
@@ -10504,7 +10729,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 	}
 	
     
-	if( baseAddr)
+	if (baseAddr)
 	{
 		free( baseAddr);
 		baseAddr = nil;
@@ -10524,15 +10749,20 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
     [annotationsDBFields release];
     annotationsDBFields = nil;
     
-	if( oData) free( oData);
-	if( VOILUT_table) free( VOILUT_table);
+	if (oData)
+        free( oData);
+    
+	if (VOILUT_table)
+        free( VOILUT_table);
 	
-	if( subGammaFunction) vImageDestroyGammaFunction( subGammaFunction);
+	if (subGammaFunction)
+        vImageDestroyGammaFunction( subGammaFunction);
 	
 	[annotationsDictionary release];
     [usRegions release];
 	
-	if(LUT12baseAddr) free(LUT12baseAddr);
+	if (LUT12baseAddr)
+        free(LUT12baseAddr);
 	
     [self clearCachedDCMFrameworkFiles];
     
@@ -10541,9 +10771,9 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 	[checking release];
 	checking = nil;
 
-	if( shortRed) free( shortRed);
-	if( shortGreen) free( shortGreen);
-	if( shortBlue) free( shortBlue);
+	if (shortRed) free( shortRed);
+	if (shortGreen) free( shortGreen);
+	if (shortBlue) free( shortBlue);
 	
     [super dealloc];
 }
@@ -10554,7 +10784,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 
 - (float) appliedFactorPET2SUV
 {
-	if( SUVConverted)
+	if (SUVConverted)
 		return factorPET2SUV;
 	else
 		return 1.0;
@@ -10590,39 +10820,38 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 {
 	hasSUV = NO;
 	
-	if( ![self.units isEqualToString: @"BQML"] && ![self.units isEqualToString: @"CNTS"])
+	if (![self.units isEqualToString: @"BQML"] && ![self.units isEqualToString: @"CNTS"])
         return;  // Must be BQ/cc
 	
-	if( [self.units isEqualToString: @"CNTS"] && philipsFactor == 0.0)
+	if ([self.units isEqualToString: @"CNTS"] && philipsFactor == 0.0)
         return;
 	
-	if( self.decayCorrection == nil)
+	if (self.decayCorrection == nil)
         return;
 	
-    if( [self.decayCorrection isEqualToString: @"START"] == NO && [self.decayCorrection isEqualToString: @"NONE"] == NO && [self.decayCorrection isEqualToString: @"ADMIN"] == NO)
+    if ([self.decayCorrection isEqualToString: @"START"] == NO && [self.decayCorrection isEqualToString: @"NONE"] == NO && [self.decayCorrection isEqualToString: @"ADMIN"] == NO)
         return;
     
-    if( [self.decayCorrection isEqualToString: @"NONE"] || [self.decayCorrection isEqualToString: @"ADMIN"])
+    if ([self.decayCorrection isEqualToString: @"NONE"] || [self.decayCorrection isEqualToString: @"ADMIN"])
     {
         decayFactor = 1.0;
         radionuclideTotalDoseCorrected = radionuclideTotalDose;
     }
     else
     {
-        if( decayFactor == 0.0f) return;
-        if( halflife <= 0.0f) return;
-        if( acquisitionTime == nil || radiopharmaceuticalStartTime == nil) return;
+        if (decayFactor == 0.0f) return;
+        if (halflife <= 0.0f) return;
+        if (acquisitionTime == nil || radiopharmaceuticalStartTime == nil) return;
 	}
     
-	if( self.radionuclideTotalDose <= 0.0)
+	if (self.radionuclideTotalDose <= 0.0)
         return;
 	
-	if( isRGB)
+	if (isRGB)
         return;
 	
 	hasSUV = YES;
 }
-
 
 #pragma mark -
 #pragma mark Database links
@@ -10652,65 +10881,65 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 {
     DCMAttribute *attr = [dcmObject attributeForTag: [DCMAttributeTag tagWithGroup: group element: element]];
     
-    if( attr)
+    if (attr)
     {
         NSMutableString *result = nil;
         
-        for( id field in [attr values])
+        for (id field in [attr values])
         {
-            if([field isKindOfClass:[NSString class]])
+            if ([field isKindOfClass:[NSString class]])
             {
                 NSString *vr = [attr vr];
                 
-                if([vr isEqualToString:@"DS"]) field = [NSString stringWithFormat:@"%.6g", [field floatValue]];
+                if ([vr isEqualToString:@"DS"]) field = [NSString stringWithFormat:@"%.6g", [field floatValue]];
                 
-                if( result == nil)
+                if (result == nil)
                     result = [NSMutableString stringWithString: field];
                 else
                     [result appendFormat: @" / %@", field];
             }
-            else if([field isKindOfClass:[NSNumber class]])
+            else if ([field isKindOfClass:[NSNumber class]])
             {
                 NSString *vr = [attr vr];
                 
-                if([vr isEqualToString:@"FD"]) field = [NSString stringWithFormat:@"%.6g", [field floatValue]];
-                if([vr isEqualToString:@"FL"]) field = [NSString stringWithFormat:@"%.6g", [field floatValue]];
+                if ([vr isEqualToString:@"FD"]) field = [NSString stringWithFormat:@"%.6g", [field floatValue]];
+                if ([vr isEqualToString:@"FL"]) field = [NSString stringWithFormat:@"%.6g", [field floatValue]];
                 
-                if([field isKindOfClass:[NSString class]])
+                if ([field isKindOfClass:[NSString class]])
                 {
-                    if( result == nil)
+                    if (result == nil)
                         result = [NSMutableString stringWithString: field];
                     else
                         [result appendFormat: @" / %@", field];
                 }
                 else
                 {
-                    if( result == nil)
+                    if (result == nil)
                         result = [NSMutableString stringWithString: [field stringValue]];
                     else
                         [result appendFormat: @" / %@", [field stringValue]];
                 }
             }
-            else if([field isKindOfClass:[NSCalendarDate class]])
+            else if ([field isKindOfClass:[NSCalendarDate class]])
             {
                 NSString *vr = [attr vr];
-                if([vr isEqualToString:@"DA"])
+                if ([vr isEqualToString:@"DA"])
                 {
-                    if( result == nil)
+                    if (result == nil)
                         result = [NSMutableString stringWithString: [[NSUserDefaults dateFormatter] stringFromDate:field]];
                     else
                         [result appendFormat: @" / %@", [[NSUserDefaults dateFormatter] stringFromDate:field]];
                 }
-                else if([vr isEqualToString:@"TM"])
+                else if ([vr isEqualToString:@"TM"])
                 {
-                    if( result == nil)
+                    if (result == nil)
                         result = [NSMutableString stringWithString: [BrowserController TimeWithSecondsFormat: field]];
                     else
                         [result appendFormat: @" / %@", [BrowserController TimeWithSecondsFormat: field]];
                 }
                 else
                 {
-                    if( result == nil)
+                    if (result == nil)
                         result = [NSMutableString stringWithString: [BrowserController DateTimeWithSecondsFormat: field]];
                     else
                         [result appendFormat: @" / %@", [BrowserController DateTimeWithSecondsFormat: field]];
@@ -10727,7 +10956,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 - (void)loadCustomImageAnnotationsDBFields: (Dicom_Image*) imageObj
 {
 #ifdef OSIRIX_VIEWER
-    if( annotationsDBFields)
+    if (annotationsDBFields)
         NSLog( @"***** loadCustomImageAnnotationsDBFields has been called several times !!");
     
     annotationsDBFields = [[NSMutableDictionary alloc] init];
@@ -10737,8 +10966,8 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
     {
         annotationsForModality = [gCUSTOM_IMAGE_ANNOTATIONS objectForKey: self.modalityString];
         
-        if(!annotationsForModality) annotationsForModality = [gCUSTOM_IMAGE_ANNOTATIONS objectForKey:@"Default"];
-        if([[annotationsForModality objectForKey:@"sameAsDefault"] intValue]==1) annotationsForModality = [gCUSTOM_IMAGE_ANNOTATIONS objectForKey:@"Default"];
+        if (!annotationsForModality) annotationsForModality = [gCUSTOM_IMAGE_ANNOTATIONS objectForKey:@"Default"];
+        if ([[annotationsForModality objectForKey:@"sameAsDefault"] intValue]==1) annotationsForModality = [gCUSTOM_IMAGE_ANNOTATIONS objectForKey:@"Default"];
         
         annotationsForModality = [[annotationsForModality copy] autorelease];
     }
@@ -10748,9 +10977,9 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
     
     [imageObj.managedObjectContext lock];
     
-    for( NSString *key in keys)
+    for (NSString *key in keys)
     {
-        if(![key isEqualToString:@"sameAsDefault"])
+        if (![key isEqualToString:@"sameAsDefault"])
         {
             NSArray *annotations = [annotationsForModality objectForKey: key];
             NSMutableArray *annotationsOUT = [NSMutableArray array];
@@ -10772,27 +11001,27 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
                             NSString *type = [field objectForKey:@"type"];
                             NSString *value = nil;
                             
-                            if([type isEqualToString:@"DB"])
+                            if ([type isEqualToString:@"DB"])
                             {
                                 @try
                                 {
                                     NSString *fieldName = [field objectForKey:@"field"];
                                     NSString *level = [field objectForKey:@"level"];
-                                    if([level isEqualToString:@"image"])
+                                    if ([level isEqualToString:@"image"])
                                         value = [imageObj valueForKey:fieldName];
                                     
-                                    else if([level isEqualToString:@"series"])
+                                    else if ([level isEqualToString:@"series"])
                                         value = [imageObj valueForKeyPath:[NSString stringWithFormat:@"series.%@", fieldName]];
                                     
-                                    else if([level isEqualToString:@"study"])
+                                    else if ([level isEqualToString:@"study"])
                                     {
                                         value = [imageObj valueForKeyPath:[NSString stringWithFormat:@"series.study.%@", fieldName]];
                                         
-                                        if( [fieldName isEqualToString:@"name"])
+                                        if ([fieldName isEqualToString:@"name"])
                                             value = @"PatientName";
                                     }
                                     
-                                    if( value == nil)
+                                    if (value == nil)
                                         [annotationsDBFields setObject: [NSNull null] forKey: [NSString stringWithFormat: @"%@ %@", fieldName, level]];
                                     else
                                         [annotationsDBFields setObject: value forKey: [NSString stringWithFormat: @"%@ %@", fieldName, level]];
@@ -10830,8 +11059,8 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 		{
 			annotationsForModality = [gCUSTOM_IMAGE_ANNOTATIONS objectForKey: self.modalityString];
 			
-			if(!annotationsForModality) annotationsForModality = [gCUSTOM_IMAGE_ANNOTATIONS objectForKey:@"Default"];
-			if([[annotationsForModality objectForKey:@"sameAsDefault"] intValue]==1) annotationsForModality = [gCUSTOM_IMAGE_ANNOTATIONS objectForKey:@"Default"];
+			if (!annotationsForModality) annotationsForModality = [gCUSTOM_IMAGE_ANNOTATIONS objectForKey:@"Default"];
+			if ([[annotationsForModality objectForKey:@"sameAsDefault"] intValue]==1) annotationsForModality = [gCUSTOM_IMAGE_ANNOTATIONS objectForKey:@"Default"];
 			
 			annotationsForModality = [[annotationsForModality copy] autorelease];
 		}
@@ -10839,9 +11068,9 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 		// image sides (LowerLeft, LowerMiddle, LowerRight, MiddleLeft, MiddleRight, TopLeft, TopMiddle, TopRight) & sameAsDefault
 		NSArray *keys = [annotationsForModality allKeys];
 		
-		for( NSString *key in keys)
+		for (NSString *key in keys)
 		{
-			if(![key isEqualToString:@"sameAsDefault"])
+			if (![key isEqualToString:@"sameAsDefault"])
 			{
 				NSArray *annotations = [annotationsForModality objectForKey: key];
 				NSMutableArray *annotationsOUT = [NSMutableArray array];
@@ -10862,14 +11091,14 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
                                 NSString *type = [field objectForKey:@"type"];
                                 NSString *value = nil;
                                 
-                                if( [type isEqualToString:@"DICOM"])
+                                if ([type isEqualToString:@"DICOM"])
                                 {
-                                    if([[field objectForKey:@"group"] intValue] == 0x0018 &&
+                                    if ([[field objectForKey:@"group"] intValue] == 0x0018 &&
                                        [[field objectForKey:@"element"] intValue] == 0x0080 && repetitiontime != 0L)	// RepetitionTime
                                     {
                                         value = [NSString stringWithFormat:@"%.6g", [repetitiontime floatValue]];
                                     }
-                                    else if([[field objectForKey:@"group"] intValue] == 0x0018 &&
+                                    else if ([[field objectForKey:@"group"] intValue] == 0x0018 &&
                                             [[field objectForKey:@"element"] intValue] == 0x0081 && echotime != 0L)	// Echotime
                                     {
                                         value = [NSString stringWithFormat:@"%.6g", [echotime floatValue]];
@@ -10881,20 +11110,20 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
                                                                          DCMLink:dcmObject];
                                     }
                                     
-                                    if( [[field objectForKey:@"group"] intValue] == 0x0010 &&
+                                    if ([[field objectForKey:@"group"] intValue] == 0x0010 &&
                                         [[field objectForKey:@"element"] intValue] == 0x0010)
                                         value = @"PatientName";
                                     
-                                    if( [[field objectForKey:@"group"] intValue] == 0x0002 &&
+                                    if ([[field objectForKey:@"group"] intValue] == 0x0002 &&
                                         [[field objectForKey:@"element"] intValue] == 0x0010)
                                         value = [BrowserController compressionString: value];
                                     
-                                    if(value==nil || [value length] == 0)
+                                    if (value==nil || [value length] == 0)
                                         value = @"-";
                                     else
                                         contentForLine = YES;
                                 }
-                                else if([type isEqualToString:@"DB"])
+                                else if ([type isEqualToString:@"DB"])
                                 {
                                     @try
                                     {
@@ -10903,19 +11132,19 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
                                         
                                         value = [annotationsDBFields objectForKey: [NSString stringWithFormat:@"%@ %@", fieldName, level]];
                                         
-                                        if( (id) value == [NSNull null])
+                                        if ((id) value == [NSNull null])
                                             value = nil;
                                         
-                                        if(value==nil)
+                                        if (value==nil)
                                             value = @"-";
                                         else
                                             contentForLine = YES;
                                         
-                                        if( [value isKindOfClass: [NSDate class]])
+                                        if ([value isKindOfClass: [NSDate class]])
                                         {
                                             //value = [value description];
                                             
-                                            if([fieldName isEqualToString:@"dateOfBirth"])
+                                            if ([fieldName isEqualToString:@"dateOfBirth"])
                                                 value = [[NSUserDefaults dateFormatter] stringFromDate:(NSDate*)value];
                                             else
                                                 value = [BrowserController DateTimeWithSecondsFormat: (NSDate *) value];
@@ -10923,7 +11152,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
                                         else
                                         {
                                             value = [value description];
-                                            if( [value length] == 0) value = @"-";
+                                            if ([value length] == 0) value = @"-";
                                         }
                                     }
                                     @catch (NSException *e)
@@ -10932,7 +11161,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
                                         value = @"ERROR IN ANNOTATIONS - See Preferences->Annotations";
                                     }
                                 }
-                                else if([type isEqualToString:@"Special"])
+                                else if ([type isEqualToString:@"Special"])
                                 {
                                     @try
                                     {
@@ -10944,7 +11173,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
                                         if ([value isEqualToString: NSLocalizedString(@"Patient's Age At Acquisition", nil)] || [value isEqualToString: (@"Patient's Age At Acquisition")])
                                             value = yearOldAcquisition;
                                         
-                                        if(value==nil || [value length] == 0)
+                                        if (value==nil || [value length] == 0)
                                             value = @"-";
                                         else
                                             contentForLine = YES;
@@ -10955,15 +11184,15 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
                                         value = @"ERROR IN ANNOTATIONS - See Preferences->Annotations";
                                     }
                                 }
-                                else if([type isEqualToString:@"Manual"])
+                                else if ([type isEqualToString:@"Manual"])
                                 {
                                     value = [field objectForKey:@"field"];
-                                    if(value==nil || [value length] == 0) value = @"-";
+                                    if (value==nil || [value length] == 0) value = @"-";
                                     
-                                    if(![value isEqualToString:@""]) value = [value stringByAppendingString:@" "];
+                                    if (![value isEqualToString:@""]) value = [value stringByAppendingString:@" "];
                                 }
                                 
-                                if( value) [contentOUT addObject:value];
+                                if (value) [contentOUT addObject:value];
                             }
                             
                             @catch (NSException *e)
@@ -10972,9 +11201,9 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
                             }
                         }
                         
-                        if( contentForLine)
+                        if (contentForLine)
                         {
-                            if( contentOUT)
+                            if (contentOUT)
                                 [annotationsOUT addObject:contentOUT];
                         }
                     }
@@ -10983,7 +11212,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
                     NSLog(@"CustomImageAnnotations Exception: %@", e);
                 }
                 
-				if( annotationsOUT)
+				if (annotationsOUT)
 				{
 					@synchronized( annotationsDictionary)
 					{
@@ -11013,7 +11242,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 
 - (void) setAnnotationsDBFields: (NSMutableDictionary*) d
 {
-	if( d != annotationsDBFields)
+	if (d != annotationsDBFields)
 	{
 		@synchronized( annotationsDBFields)
 		{
@@ -11039,7 +11268,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 
 - (void) setAnnotationsDictionary: (NSMutableDictionary*) d
 {
-	if( d != annotationsDictionary)
+	if (d != annotationsDictionary)
 	{
 		@synchronized( annotationsDictionary)
 		{

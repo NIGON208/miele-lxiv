@@ -12,6 +12,8 @@
      PURPOSE.
 =========================================================================*/
 
+//#define DEBUG_COPY_WITH_ZONE
+
 #import "ViewerController.h"
 
 #import <AppKit/AppKit.h>
@@ -226,6 +228,7 @@ typedef struct renderSurface
 	IBOutlet NSMatrix			*rotation;
 	IBOutlet NSWindow			*export3DVRWindow;
 	IBOutlet NSMatrix			*VRFrames;
+
 	IBOutlet NSColorWell		*backgroundColor;
 
     double						camPosition[ 3];
@@ -341,7 +344,7 @@ typedef struct renderSurface
 -(void) setViewSizeToMatrix3DExport;
 -(void) setCurrentTool:(ToolMode) i;
 -(id) initWithFrame:(NSRect)frame;
--(short) setPixSource:(NSMutableArray*)pix :(float*) volumeData;
+-(BOOL) setPixSource:(NSMutableArray*)pix :(float*) volumeData;
 -(void) dealloc;
 -(void) setBlendingPixSource:(ViewerController*) bC;
 - (void) changeActor:(long) actor :(float) resolution :(float) transparency :(float) r :(float) g :(float) b :(float) isocontour :(BOOL) useDecimate :(float) decimateVal :(BOOL) useSmooth :(long) smoothVal;
