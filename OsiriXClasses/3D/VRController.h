@@ -34,6 +34,7 @@
 @class VRPresetPreview;
 #import "ColorView.h"
 
+#define UNDO_DATA_SIZE      100
 
 /** \brief Window Controller for VR and MIP 
 */
@@ -64,12 +65,12 @@
 	
 	IBOutlet NSView			*convolutionView;
 	IBOutlet NSPopUpButton	*convolutionMenu;
-	
+
     NSToolbar				*toolbar;
 	
-    NSMutableArray			*pixList[ 100];
+    NSMutableArray			*pixList[ UNDO_DATA_SIZE ];
 	NSArray					*fileList;
-	NSData					*volumeData[ 100];
+	NSData					*volumeData[ UNDO_DATA_SIZE ];
 	short					curMovieIndex, maxMovieIndex;
 	
 	IBOutlet NSTextField    *blendingPercentage;
@@ -87,7 +88,7 @@
 	IBOutlet NSSlider       *movieRateSlider;
 	IBOutlet NSSlider       *moviePosSlider;
 	
-	float					*undodata[ 100];
+	float					*undodata[ UNDO_DATA_SIZE ];
 	float					minimumValue, maximumValue;
 	float					blendingMinimumValue, blendingMaximumValue;
 	float					deleteValue;
@@ -146,14 +147,12 @@
 	
 	IBOutlet NSWindow       *editDeleteValue;
 	
-#ifdef _STEREO_VISION_
-	//Added SilvanWidmer 26-08-09
-	
+#if 1 //def _STEREO_VISION_
 	IBOutlet NSWindow       *VRGeometrieSettingsWindow;
 	IBOutlet NSTextField    *distanceValue;
 	IBOutlet NSTextField	*heightValue;
 	IBOutlet NSTextField	*eyeDistance;
-	IBOutlet NSView        *stereoIconView;
+	IBOutlet NSView         *stereoIconView;
 #endif
 }
 

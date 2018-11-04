@@ -22507,6 +22507,8 @@ static BOOL viewerControllerPlaying = NO;
 #ifndef OSIRIX_LIGHT
 -(IBAction) VRViewer:(id) sender
 {
+    NSLog(@"%s IBAction", __FUNCTION__);
+    
 	[self checkEverythingLoaded];
 	[self clear8bitRepresentations];
 	
@@ -22539,80 +22541,79 @@ static BOOL viewerControllerPlaying = NO;
 		([[[NSApplication sharedApplication] currentEvent] modifierFlags] & NSEventModifierFlagShift))
 	{
 		[self SetThicknessInterval:sender];
+        NSLog(@"%s %d early return", __FUNCTION__, __LINE__);
+        return;
 	}
-	else
-	{
-		[self displayAWarningIfNonTrueVolumicData];
-		
-		[self displayWarningIfGantryTitled];
-		
-		if ([curConvMenu isEqualToString:NSLocalizedString(@"No Filter", nil)] == NO)
-		{
-			if (NSRunInformationalAlertPanel(NSLocalizedString(@"Convolution", nil),
-                                             NSLocalizedString(@"Should I apply current convolution filter on raw data? 2D/3D post-processing viewers can only display raw data.", nil),
-                                             NSLocalizedString(@"OK", nil),
-                                             NSLocalizedString(@"Cancel", nil),
-                                             nil
-                                             ) == NSAlertDefaultReturn)
-            {
-				[self applyConvolutionOnSource: self];
-            }
-		}
-		
-		[self MovieStop: self];
-		
-        NSArray *viewers = [[AppController sharedAppController] FindRelatedViewers:pixList[0]];
-        
-        VRController *viewer = nil;
-        
-        for (NSWindowController *v in viewers)
+
+    [self displayAWarningIfNonTrueVolumicData];
+    [self displayWarningIfGantryTitled];
+    
+    if ([curConvMenu isEqualToString:NSLocalizedString(@"No Filter", nil)] == NO)
+    {
+        if (NSRunInformationalAlertPanel(NSLocalizedString(@"Convolution", nil),
+                                         NSLocalizedString(@"Should I apply current convolution filter on raw data? 2D/3D post-processing viewers can only display raw data.", nil),
+                                         NSLocalizedString(@"OK", nil),
+                                         NSLocalizedString(@"Cancel", nil),
+                                         nil
+                                         ) == NSAlertDefaultReturn)
         {
-            if ([v.windowNibName isEqualToString: @"VR"])
-            {
-                VRController *vv = (VRController*) v;
-                
-                if ([vv.style isEqualToString: @"standard"])
-                    viewer = vv;
-            }
+            [self applyConvolutionOnSource: self];
         }
-        
-		if (viewer)
-		{
-			[[viewer window] makeKeyAndOrderFront:self];
-			if ([sender tag] == 3) 
-				[viewer setModeIndex: 1];
-			else
-				[viewer setModeIndex: 0];
-		}
-		else
-		{
-			NSString *mode;
-			if ([sender tag] == 3)
-                mode = @"MIP";
-			else
-                mode = @"VR";
+    }
+    
+    [self MovieStop: self];
+    
+    NSArray *viewers = [[AppController sharedAppController] FindRelatedViewers:pixList[0]];
+    
+    VRController *viewer = nil;
+    
+    for (NSWindowController *v in viewers)
+    {
+        if ([v.windowNibName isEqualToString: @"VR"])
+        {
+            VRController *vv = (VRController*) v;
             
-			viewer = [self openVRViewerForMode:mode];
-			
-			NSString *c;
-			
-			if (backCurCLUTMenu)
-                c = backCurCLUTMenu;
-			else
-                c = curCLUTMenu;
-			
-			[viewer ApplyCLUTString: c];
-			float   iwl, iww;
-			[imageView getWLWW:&iwl :&iww];
-			[viewer setWLWW:iwl :iww];
-			[self place3DViewerWindow: viewer];
-			[viewer load3DState];
-			[viewer showWindow:self];			
-			[[viewer window] makeKeyAndOrderFront:self];
-			[[viewer window] display];
-			[[viewer window] setTitle: [NSString stringWithFormat:@"%@: %@", [[viewer window] title], [[self window] title]]];
-		}
-	}
+            if ([vv.style isEqualToString: @"standard"])
+                viewer = vv;
+        }
+    }
+    
+    if (viewer)
+    {
+        [[viewer window] makeKeyAndOrderFront:self];
+        if ([sender tag] == 3)
+            [viewer setModeIndex: 1];
+        else
+            [viewer setModeIndex: 0];
+    }
+    else
+    {
+        NSString *mode;
+        if ([sender tag] == 3)
+            mode = @"MIP";
+        else
+            mode = @"VR";
+        
+        viewer = [self openVRViewerForMode:mode];
+        
+        NSString *c;
+        
+        if (backCurCLUTMenu)
+            c = backCurCLUTMenu;
+        else
+            c = curCLUTMenu;
+        
+        [viewer ApplyCLUTString: c];
+        float   iwl, iww;
+        [imageView getWLWW:&iwl :&iww];
+        [viewer setWLWW:iwl :iww];
+        [self place3DViewerWindow: viewer];
+        [viewer load3DState];
+        [viewer showWindow:self];
+        [[viewer window] makeKeyAndOrderFront:self];
+        [[viewer window] display];
+        [[viewer window] setTitle: [NSString stringWithFormat:@"%@: %@", [[viewer window] title], [[self window] title]]];
+    }
 }
 
 - (SRController *)openSRViewer
@@ -22641,7 +22642,7 @@ static BOOL viewerControllerPlaying = NO;
 // Action to open SRViewer (Surface Rendering)
 -(IBAction) SRViewer:(id) sender
 {
-    NSLog(@"Checkpoint %s (IBAction)", __FUNCTION__);
+    NSLog(@"%s (IBAction)", __FUNCTION__);
 	[self checkEverythingLoaded];
 	[self clear8bitRepresentations];
 	

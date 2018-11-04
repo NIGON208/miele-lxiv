@@ -29,7 +29,8 @@
     short           err = 0;
 	BOOL			testInterval = YES;
 	
-	for( i = 0; i < 100; i++) undodata[ i] = nil;
+	for( i = 0; i < UNDO_DATA_SIZE; i++)
+        undodata[ i] = nil;
 	
 //	[[NSUserDefaults standardUserDefaults] setInteger: 1 forKey: @"MAPPERMODEVR"];	// texture mapping
 	

@@ -8427,7 +8427,7 @@ public:
 - (void)changeColor:(id)sender
 {
 	if ([backgroundColor isActive])
-		[self changeColorWith: [[(NSColorPanel*)sender color]  colorUsingColorSpaceName: NSCalibratedRGBColorSpace]];
+		[self changeColorWith: [[(NSColorPanel*)sender color] colorUsingColorSpaceName: NSCalibratedRGBColorSpace]];
 }
 
 - (NSColor*)backgroundColor;

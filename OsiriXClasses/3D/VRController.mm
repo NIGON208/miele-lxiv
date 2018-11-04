@@ -90,6 +90,8 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
 
 }
 
+#pragma mark - IBAction
+
 - (IBAction) roiDeleteAll:(id) sender
 {
 	[viewer2D roiDeleteAll: sender];
@@ -101,27 +103,29 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
 	{
 		case 0:
 			[view axView: self];
-		break;
+            break;
 		
 		case 1:
 			[view coView: self];
-		break;
+            break;
 		
 		case 2:
 			[view saView: self];
-		break;
+            break;
 		
 		case 3:
 			[view saViewOpposite: self];
-		break;
+            break;
 	}
 }
+
+#pragma mark -
 
 -(void) revertSeries:(id) sender
 {
 	[[NSNotificationCenter defaultCenter] postNotificationName: OsirixRevertSeriesNotification object: pixList[ curMovieIndex] userInfo: nil];
 	[appliedConvolutionFilters removeAllObjects];
-	if([presetsPanel isVisible])
+	if ([presetsPanel isVisible])
 		[self displayPresetsForSelectedGroup];
 	
 //	[view resetCroppingBox];
@@ -143,7 +147,7 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
 	
     [[OpacityPopup menu] addItemWithTitle:NSLocalizedString(@"Linear Table", nil) action:@selector (ApplyOpacity:) keyEquivalent:@""];
 	[[OpacityPopup menu] addItemWithTitle:NSLocalizedString(@"Linear Table", nil) action:@selector (ApplyOpacity:) keyEquivalent:@""];
-    for( i = 0; i < [sortedKeys count]; i++)
+    for (i = 0; i < [sortedKeys count]; i++)
     {
         [[OpacityPopup menu] addItemWithTitle:[sortedKeys objectAtIndex:i] action:@selector (ApplyOpacity:) keyEquivalent:@""];
     }
@@ -181,7 +185,7 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
 	[[wlwwPopup menu] addItemWithTitle:NSLocalizedString(@"Full dynamic", nil) action:@selector (ApplyWLWW:) keyEquivalent:@""];
 	[[wlwwPopup menu] addItem: [NSMenuItem separatorItem]];
     
-    for( i = 0; i < [sortedKeys count]; i++)
+    for (i = 0; i < [sortedKeys count]; i++)
     {
         [[wlwwPopup menu] addItemWithTitle:[NSString stringWithFormat:@"%d - %@", (int) i+1, [sortedKeys objectAtIndex:i]] action:@selector (ApplyWLWW:) keyEquivalent:@""];
     }
@@ -217,6 +221,8 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
 	[view setBlendingWLWW :iwl :iww];
 }
 
+#pragma mark - IBAction
+
 - (IBAction) applyConvolution:(id) sender
 {
 	[self prepareUndo];
@@ -224,6 +230,8 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
 	[viewer2D applyConvolutionOnSource: self];
 	[appliedConvolutionFilters addObject:[sender title]];
 }
+
+#pragma mark -
 
 -(void) UpdateConvolutionMenu: (NSNotification*) note
 {
@@ -241,7 +249,7 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
 	
 	[[convolutionMenu menu] addItemWithTitle: NSLocalizedString( @"Apply a filter", nil) action:nil keyEquivalent:@""];
 	
-    for( i = 0; i < [sortedKeys count]; i++)
+    for (i = 0; i < [sortedKeys count]; i++)
     {
         [[convolutionMenu menu] addItemWithTitle:[sortedKeys objectAtIndex:i] action:@selector (applyConvolution:) keyEquivalent:@""];
     }
@@ -263,12 +271,12 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
 {
 	long i;
 	
-	if( [[note userInfo] objectForKey: @"sender"] == view)
+	if ([[note userInfo] objectForKey: @"sender"] == view)
 		return;
 	
-	for( i = 0; i < maxMovieIndex; i++)
+	for (i = 0; i < maxMovieIndex; i++)
 	{
-		if( [note object] == pixList[ i])
+		if ([note object] == pixList[ i])
 		{
 			[view movieChangeSource: (float*) [volumeData[ curMovieIndex] bytes]];
 		}
@@ -282,21 +290,21 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
 
 - (void) moviePosSliderAction:(id) sender
 {
-	[self setMovieFrame:  [moviePosSlider intValue] ];
+	[self setMovieFrame: [moviePosSlider intValue] ];
 }
 
 - (void) performMovieAnimation:(id) sender
 {
-    NSTimeInterval  thisTime = [NSDate timeIntervalSinceReferenceDate];
-    short           val;
+    NSTimeInterval thisTime = [NSDate timeIntervalSinceReferenceDate];
+    short val;
     
-    if( thisTime - lastMovieTime > 1.0 / [movieRateSlider floatValue])
+    if (thisTime - lastMovieTime > 1.0 / [movieRateSlider floatValue])
     {
         val = curMovieIndex;
-        val ++;
+        val++;
         
-		if( val < 0) val = 0;
-		if( val >= maxMovieIndex) val = 0;
+		if (val < 0) val = 0;
+		if (val >= maxMovieIndex) val = 0;
 		
 		[self setMovieFrame: val];
 		
@@ -306,7 +314,7 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
 
 - (void) MoviePlayStop:(id) sender
 {
-    if( movieTimer)
+    if (movieTimer)
     {
         [movieTimer invalidate];
         [movieTimer release];
@@ -399,7 +407,7 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
 {
     static int computeMinMaxDepth = 0;
     
-    if( computeMinMaxDepth > 2)
+    if (computeMinMaxDepth > 2)
         return;
     
     computeMinMaxDepth++;
@@ -425,18 +433,18 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
 	
 	self.deleteValue = minimumValue;
 	
-	if( [[viewer2D modality] isEqualToString: @"CT"] && maximumValue - minimumValue > 8192 && computeMinMaxDepth == 1)
+	if ([[viewer2D modality] isEqualToString: @"CT"] && maximumValue - minimumValue > 8192 && computeMinMaxDepth == 1)
 	{
         NSInteger result = NSRunCriticalAlertPanel( NSLocalizedString( @"High Dynamic Values", nil), NSLocalizedString( @"Voxel values have a very high dynamic range (>8192). Two options are available to use the 3D engine: clip values above 7168 and below -1024 or resample the values.", nil), NSLocalizedString( @"Clip", nil), NSLocalizedString( @"Resample", nil), nil);
         
-        if( result == NSAlertDefaultReturn)
+        if (result == NSAlertDefaultReturn)
         {
             NSLog( @"-- modality is CT && pixel dynamic > 8192 -> clip values to -1024 && +7168");
             
             NSLog( @"-- current maxValueOfSeries = %f", maximumValue);
             NSLog( @"-- current minValueOfSeries = %f", minimumValue);
             
-            for( int x = 0; x < maxMovieIndex; x++)
+            for (int x = 0; x < maxMovieIndex; x++)
             {
                 vImage_Buffer srcf;
                 
@@ -475,8 +483,16 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
 	BOOL			testInterval = YES;
 	DCMPix			*firstObject = [pix objectAtIndex: 0];
 	
+    NSLog(@"%s %d", __FUNCTION__, __LINE__);
+    
+#if 1
+    CGLContextObj cgl_ctx = [[NSOpenGLContext currentContext] CGLContextObj];
+    printf("VRController.mm:%d OpenGL context:%p, version %s\n", __LINE__, cgl_ctx, glGetString(GL_VERSION));
+#endif
+    
     @try
     {
+        NSLog(@"%s %d", __FUNCTION__, __LINE__);
         // MEMORY TEST: The renderer needs to have the volume in short
         {
             unsigned long sizeofshort = sizeof( short) + 1;	//extra space for gradients computation
@@ -494,12 +510,14 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
                     //[[AppController sharedAppController] osirix64bit: self];
                 }
                 
+                NSLog(@"%s %d", __FUNCTION__, __LINE__);
                 return nil;
             }
             else
                 free( testPtr);
         }
 
+        NSLog(@"%s %d", __FUNCTION__, __LINE__);
         [[NSUserDefaults standardUserDefaults] setFloat: 1125 forKey: @"VRGrowingRegionValue"];
         [[NSUserDefaults standardUserDefaults] setFloat: 1750 forKey: @"VRGrowingRegionInterval"];
         
@@ -512,7 +530,7 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
     //	NSMutableArray		*newPix = [NSMutableArray array], *newFiles = [NSMutableArray array];
     //	NSData				*newData = nil;
     //	
-    //	if( [ViewerController resampleDataFromPixArray:pix fileArray:f inPixArray:newPix fileArray:newFiles data:&newData withXFactor:2 yFactor:2 zFactor:2] == NO)
+    //	if ([ViewerController resampleDataFromPixArray:pix fileArray:f inPixArray:newPix fileArray:newFiles data:&newData withXFactor:2 yFactor:2 zFactor:2] == NO)
     //	{
     //		NSRunCriticalAlertPanel( NSLocalizedString(@"Not Enough Memory",nil), NSLocalizedString( @"Not enough memory (RAM) to use the 3D engine.",nil), NSLocalizedString(@"OK",nil), nil, nil);
     //		return nil;
@@ -535,9 +553,11 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
         style = [m retain];
         _renderingMode = [renderingMode retain];
         
-        for( i = 0; i < 100; i++)
+        NSLog(@"%s %d", __FUNCTION__, __LINE__);
+        for (i = 0; i < UNDO_DATA_SIZE; i++)
             undodata[ i] = nil;
         
+        NSLog(@"%s %d", __FUNCTION__, __LINE__);
         curMovieIndex = 0;
         maxMovieIndex = 1;
         
@@ -549,79 +569,111 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
         
         float sliceThickness = fabs( [firstObject sliceInterval]);
             
-          //fabs( [firstObject sliceLocation] - [[pixList objectAtIndex:1] sliceLocation]);
+        //fabs( [firstObject sliceLocation] - [[pixList objectAtIndex:1] sliceLocation]);
         
-        if( sliceThickness == 0)
+        NSLog(@"%s %d", __FUNCTION__, __LINE__);
+        if (sliceThickness == 0)
         {
             sliceThickness = [firstObject sliceThickness];
             
             testInterval = NO;
             
-            if( sliceThickness > 0)
-                NSRunCriticalAlertPanel( NSLocalizedString(@"Slice interval",nil), NSLocalizedString( @"I'm not able to find the slice interval. Slice interval will be equal to slice thickness.",nil), NSLocalizedString(@"OK",nil), nil, nil);
+            if (sliceThickness > 0)
+                NSRunCriticalAlertPanel(NSLocalizedString(@"Slice interval",nil),
+                                        NSLocalizedString( @"I'm not able to find the slice interval. Slice interval will be equal to slice thickness.",nil),
+                                        NSLocalizedString(@"OK",nil),
+                                        nil,
+                                        nil);
             else
             {
-                NSRunCriticalAlertPanel(NSLocalizedString( @"Slice interval/thickness",nil), NSLocalizedString( @"Problems with slice thickness/interval to do a 3D reconstruction.",nil),NSLocalizedString( @"OK",nil), nil, nil);
+                NSRunCriticalAlertPanel(NSLocalizedString( @"Slice interval/thickness",nil),
+                                        NSLocalizedString( @"Problems with slice thickness/interval to do a 3D reconstruction.",nil),
+                                        NSLocalizedString( @"OK",nil),
+                                        nil,
+                                        nil);
+                NSLog(@"%s %d", __FUNCTION__, __LINE__);
                 return nil;
             }
         }
         
+        NSLog(@"%s %d, pixList count %lu", __FUNCTION__, __LINE__, (unsigned long)[pixList[0] count]);
+        
         err = 0;
         // CHECK IMAGE SIZE
-        for( i =0 ; i < [pixList[0] count]; i++)
+        for (i =0; i < [pixList[0] count]; i++)
         {
-            if( [firstObject pwidth] != [[pixList[0] objectAtIndex:i] pwidth]) err = -1;
-            if( [firstObject pheight] != [[pixList[0] objectAtIndex:i] pheight]) err = -1;
+            if ([firstObject pwidth] != [[pixList[0] objectAtIndex:i] pwidth])
+                err = -1;
+            
+            if ([firstObject pheight] != [[pixList[0] objectAtIndex:i] pheight])
+                err = -1;
         }
-        if( err)
+        
+        if (err)
         {
-            NSRunCriticalAlertPanel(NSLocalizedString( @"Images size",nil),  NSLocalizedString(@"These images don't have the same height and width to allow a 3D reconstruction...",nil),NSLocalizedString( @"OK",nil), nil, nil);
+            NSRunCriticalAlertPanel(NSLocalizedString( @"Images size",nil),
+                                    NSLocalizedString(@"These images don't have the same height and width to allow a 3D reconstruction...",nil),
+                                    NSLocalizedString( @"OK",nil),
+                                    nil,
+                                    nil);
+            NSLog(@"%s %d", __FUNCTION__, __LINE__);
             return nil;
         }
         
         // CHECK IMAGE SIZE
-    //	if( testInterval)
-    //	{
-    //		float prevLoc = [firstObject sliceLocation];
-    //		for( i = 1 ; i < [pixList count]; i++)
-    //		{
-    //			if( fabs( sliceThickness - fabs( [[pixList objectAtIndex:i] sliceLocation] - prevLoc)) > 0.1) err = -1;
-    //			prevLoc = [[pixList objectAtIndex:i] sliceLocation];
-    //		}
-    //		if( err)
-    //		{
-    //			if( NSRunCriticalAlertPanel( @"Slices location",  @"Slice thickness/interval is not exactly equal for all images. This could distord the 3D reconstruction...", @"Continue", @"Cancel", nil) != NSAlertDefaultReturn) return nil;
-    //			err = 0;
-    //		}
-    //	}
+//	if (testInterval)
+//	{
+//		float prevLoc = [firstObject sliceLocation];
+//		for (i = 1 ; i < [pixList count]; i++)
+//		{
+//			if (fabs( sliceThickness - fabs( [[pixList objectAtIndex:i] sliceLocation] - prevLoc)) > 0.1) err = -1;
+//			prevLoc = [[pixList objectAtIndex:i] sliceLocation];
+//		}
+//		if (err)
+//		{
+//			if (NSRunCriticalAlertPanel( @"Slices location",  @"Slice thickness/interval is not exactly equal for all images. This could distort the 3D reconstruction...", @"Continue", @"Cancel", nil) != NSAlertDefaultReturn) return nil;
+//			err = 0;
+//		}
+//	}
 
         [pixList[0] retain];
         [volumeData[0] retain];
         viewer2D = [vC retain];
         
         blendingController = bC;
-        if( blendingController) blendingPixList = [blendingController pixList];
+        if (blendingController)
+            blendingPixList = [blendingController pixList];
         
         // Find Minimum Value
-        if( [firstObject isRGB] == NO)
+        if ([firstObject isRGB] == NO)
             [self computeMinMax];
         else
             minimumValue = self.deleteValue = 0;
         
+        NSLog(@"%s %d", __FUNCTION__, __LINE__);
         self = [super initWithWindowNibName:@"VR"];
         
-//        if( [style isEqualToString:@"standard"] || [style isEqualToString: @"panel"])
+//        if ([style isEqualToString:@"standard"] || [style isEqualToString: @"panel"])
 //            self = [super initWithWindowNibName:@"VR"];
-//        else if( [style isEqualToString:@"noNib"])
+//        else if ([style isEqualToString:@"noNib"])
 //            self = [super initWithWindowNibName:@"VREmpty"];
         
-        [[self window] setDelegate:self];
+        @try
+        {
+            [[self window] setDelegate:self];
+        }
+        @catch (NSException * e)
+        {
+            NSLog(@"%s %d, exception: %@", __FUNCTION__, __LINE__, e);
+        }
         
-        if( [style isEqualToString: @"panel"])
+        if ([style isEqualToString: @"panel"])
             [self.window setLevel: NSFloatingWindowLevel];
         
-        err = [view setPixSource:pixList[0] :(float*) [volumeData[0] bytes]];
-        if( err != 0)
+        NSLog(@"%s %d, view: %@ %@", __FUNCTION__, __LINE__, view, [view class]);
+        err = [view setPixSource: pixList[0]
+                                : (float*)[volumeData[0] bytes]];
+        if (err != 0)
         {
             NSString *bundleName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleName"];
             if (NSRunAlertPanel(@"", //NSLocalizedString(@"32-bit",nil),
@@ -637,7 +689,7 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
             return nil;
         }
         
-        if( blendingController) // Blending! Activate image fusion
+        if (blendingController) // Blending! Activate image fusion
         {
             [view setBlendingPixSource: blendingController];
             
@@ -657,29 +709,32 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
         
         if (viewer2D)
         {		
-            long i, j;
             float x, y, z;
             NSMutableArray	*curRoiList;
             ROI	*curROI;
             
-            for(i=0; i<[[[viewer2D imageView] dcmPixList] count]; i++)
+            for (long i=0; i<[[[viewer2D imageView] dcmPixList] count]; i++)
             {
                 curRoiList = [[viewer2D roiList] objectAtIndex: i];
-                for(j=0; j<[curRoiList count];j++)
+                for (long j=0; j<[curRoiList count];j++)
                 {
                     curROI = [curRoiList objectAtIndex:j];
                     if ([curROI type] == t2DPoint)
                     {
                         float location[ 3 ];
                         
-                        [[[viewer2D pixList] objectAtIndex: i] convertPixX: [[[curROI points] objectAtIndex:0] x] pixY: [[[curROI points] objectAtIndex:0] y] toDICOMCoords: location pixelCenter: YES];
+                        [[[viewer2D pixList] objectAtIndex: i] convertPixX: [[[curROI points] objectAtIndex:0] x]
+                                                                      pixY: [[[curROI points] objectAtIndex:0] y]
+                                                             toDICOMCoords: location
+                                                               pixelCenter: YES];
                         
                         x = location[ 0 ];
                         y = location[ 1 ];
                         z = location[ 2 ];
 
                         // add the 3D Point to the SR view
-                        [[self view] add3DPoint:  x : y : z : curROI.thickness :curROI.rgbcolor.red/65535. :curROI.rgbcolor.green/65535. :curROI.rgbcolor.blue/65535.];
+                        [[self view] add3DPoint: x : y : z : curROI.thickness :curROI.rgbcolor.red/65535. :curROI.rgbcolor.green/65535. :curROI.rgbcolor.blue/65535.];
+                        
                         // add the 2D Point to our list
                         [roi2DPointsArray addObject:curROI];
                         [sliceNumber2DPointsArray addObject:[NSNumber numberWithLong:i]];
@@ -695,14 +750,15 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
         nc = [NSNotificationCenter defaultCenter];
         
         [nc addObserver: self
-            selector: @selector(remove3DPoint:)
-            name: OsirixRemoveROINotification
-            object: nil];
+               selector: @selector(remove3DPoint:)
+                   name: OsirixRemoveROINotification
+                 object: nil];
+        
         [nc addObserver: self
-            selector: @selector(add3DPoint:)
-            //name: OsirixROIChangeNotification
-            name: OsirixROISelectedNotification //OsirixROISelectedNotification
-            object: nil];
+               selector: @selector(add3DPoint:)
+                 //name: OsirixROIChangeNotification
+                   name: OsirixROISelectedNotification //OsirixROISelectedNotification
+                 object: nil];
 
         [nc addObserver: self
                selector: @selector(UpdateWLWWMenu:)
@@ -743,6 +799,7 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
                selector: @selector(UpdateConvolutionMenu:)
                    name: OsirixUpdateConvolutionMenuNotification
                  object: nil];
+        
          [[NSNotificationCenter defaultCenter] postNotificationName: OsirixUpdateConvolutionMenuNotification object: NSLocalizedString( @"No Filter", nil) userInfo: nil];
                 
          [nc addObserver: self
@@ -751,7 +808,7 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
                  object: nil];
         
         //should we always zoom the Window?
-        //if( [style isEqualToString:@"standard"])
+        //if ([style isEqualToString:@"standard"])
         //	[[self window] performZoom:self];
         
         [movieRateSlider setEnabled: NO];
@@ -760,18 +817,17 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
         
         [view updateScissorStateButtons];
         
-        for(int m=0; m<maxMovieIndex; m++)
-        {
+        for (int m=0; m<maxMovieIndex; m++)
             roiVolumes[m] = [[NSMutableArray alloc] initWithCapacity:0];
-        }
-    #ifdef roi3Dvolume
+
+#ifdef roi3Dvolume
         [self computeROIVolumes];
         [self displayROIVolumes];
         [nc addObserver:self selector:@selector(updateROIVolume:) name:OsirixROIVolumePropertiesChangedNotification object:nil];
-    #endif
+#endif
 
     //	// allow bones removal only for CT or SC scans
-    //	if( [[viewer2D modality] isEqualToString:@"CT"] == NO && [[viewer2D modality] isEqualToString:@"SC"])
+    //	if ([[viewer2D modality] isEqualToString:@"CT"] == NO && [[viewer2D modality] isEqualToString:@"SC"])
     //	{
     //		[[toolsMatrix cellWithTag:21] setEnabled:NO];
     //	}
@@ -780,10 +836,10 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
     //		[[toolsMatrix cellWithTag:21] setEnabled:YES];
     //	}
 
-        if( [renderingMode isEqualToString:@"MIP"])
+        if ([renderingMode isEqualToString:@"MIP"])
             [self setModeIndex: 1];
             
-        if( [style isEqualToString:@"panel"])
+        if ([style isEqualToString:@"panel"])
         {
             [view setRotate: YES];
             [view setLOD: 1.0];
@@ -791,51 +847,48 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
         
         appliedConvolutionFilters = [[NSMutableArray alloc] initWithCapacity:0];
         
-        if( [style isEqualToString: @"noNib"] == NO)
+        if ([style isEqualToString: @"noNib"] == NO)
         {
             NSLog( @"presets start");
             presetPreviewArray = [[NSMutableArray alloc] initWithCapacity:0];
-            if(presetPreview1) [presetPreviewArray addObject:presetPreview1];
-            if(presetPreview2) [presetPreviewArray addObject:presetPreview2];
-            if(presetPreview3) [presetPreviewArray addObject:presetPreview3];
-            if(presetPreview4) [presetPreviewArray addObject:presetPreview4];
-            if(presetPreview5) [presetPreviewArray addObject:presetPreview5];
-            if(presetPreview6) [presetPreviewArray addObject:presetPreview6];
-            if(presetPreview7) [presetPreviewArray addObject:presetPreview7];
-            if(presetPreview8) [presetPreviewArray addObject:presetPreview8];
-            if(presetPreview9) [presetPreviewArray addObject:presetPreview9];
-            
+            if (presetPreview1) [presetPreviewArray addObject:presetPreview1];
+            if (presetPreview2) [presetPreviewArray addObject:presetPreview2];
+            if (presetPreview3) [presetPreviewArray addObject:presetPreview3];
+            if (presetPreview4) [presetPreviewArray addObject:presetPreview4];
+            if (presetPreview5) [presetPreviewArray addObject:presetPreview5];
+            if (presetPreview6) [presetPreviewArray addObject:presetPreview6];
+            if (presetPreview7) [presetPreviewArray addObject:presetPreview7];
+            if (presetPreview8) [presetPreviewArray addObject:presetPreview8];
+            if (presetPreview9) [presetPreviewArray addObject:presetPreview9];
             
             presetNameArray = [[NSMutableArray alloc] initWithCapacity:0];
-            if(presetName1) [presetNameArray addObject:presetName1];
-            if(presetName2) [presetNameArray addObject:presetName2];
-            if(presetName3) [presetNameArray addObject:presetName3];
-            if(presetName4) [presetNameArray addObject:presetName4];
-            if(presetName5) [presetNameArray addObject:presetName5];
-            if(presetName6) [presetNameArray addObject:presetName6];
-            if(presetName7) [presetNameArray addObject:presetName7];
-            if(presetName8) [presetNameArray addObject:presetName8];
-            if(presetName9) [presetNameArray addObject:presetName9];
+            if (presetName1) [presetNameArray addObject:presetName1];
+            if (presetName2) [presetNameArray addObject:presetName2];
+            if (presetName3) [presetNameArray addObject:presetName3];
+            if (presetName4) [presetNameArray addObject:presetName4];
+            if (presetName5) [presetNameArray addObject:presetName5];
+            if (presetName6) [presetNameArray addObject:presetName6];
+            if (presetName7) [presetNameArray addObject:presetName7];
+            if (presetName8) [presetNameArray addObject:presetName8];
+            if (presetName9) [presetNameArray addObject:presetName9];
             
             NSLog( @"presets end");
         }
         [nc addObserver:self selector:@selector(windowWillCloseNotification:) name:NSWindowWillCloseNotification object:nil];
         [nc addObserver:self selector:@selector(windowWillMoveNotification:) name:NSWindowWillMoveNotification object:nil];
         
-        if( [style isEqualToString:@"panel"])
+        if ([style isEqualToString:@"panel"])
         {
             [self setShouldCascadeWindows: NO];
             [[self window] setFrameAutosaveName:@"3D Panel"];
             [[self window] setFrameUsingName:@"3D Panel"];
         }
         
-        [shadingsPresetsController setWindowController: self];
-        
+        [shadingsPresetsController setWindowController: self];        
         [self setupToolbar];
     }
     @catch ( NSException *e) {
         N2LogException( e);
-        
         [self autorelease];
         return nil;
     }
@@ -848,7 +901,7 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
 	NSString *path = [[[BrowserController currentBrowser] documentsDirectory] stringByAppendingPathComponent:STATEDATABASE];
 	BOOL isDir = YES;
 	
-	if( ![[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDir])
+	if (![[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDir])
 		[[NSFileManager defaultManager] createDirectoryAtPath: path
                                   withIntermediateDirectories: YES
                                                    attributes: nil
@@ -856,10 +909,10 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
 
     DicomSeries *series = nil;
     
-    if( [obj isKindOfClass: [DicomSeries class]])
+    if ([obj isKindOfClass: [DicomSeries class]])
         series = (DicomSeries*) obj;
     
-    else  if( [obj isKindOfClass: [Dicom_Image class]])
+    else if ([obj isKindOfClass: [Dicom_Image class]])
         series = [obj valueForKey: @"series"];
     
     else
@@ -873,7 +926,7 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
 	NSString *path = [[[BrowserController currentBrowser] documentsDirectory] stringByAppendingPathComponent:STATEDATABASE];
 	BOOL isDir = YES;
 	
-	if( ![[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDir])
+	if (![[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDir])
 		[[NSFileManager defaultManager] createDirectoryAtPath: path
                                   withIntermediateDirectories: YES
                                                    attributes: nil
@@ -881,19 +934,21 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
 	
 	NSString *str;
 	
-	if( [style isEqualToString:@"noNib"])
+	if ([style isEqualToString:@"noNib"])
 		str = nil;
 	else
 		str = [path stringByAppendingPathComponent: [NSString stringWithFormat:@"VRMIP-%d-%@", (int) [view mode], [[fileList objectAtIndex:0] valueForKey:@"uniqueFilename"]]];
 	
-	if( str)
+	if (str)
 	{
 		NSMutableDictionary *dict = [view get3DStateDictionary];
 		[dict setObject:curCLUTMenu forKey:@"CLUTName"];
 		[dict setObject:[NSNumber numberWithBool:[view advancedCLUT]] forKey:@"isAdvancedCLUT"];
-		if(![view advancedCLUT])[dict setObject:curOpacityMenu forKey:@"OpacityName"];
+		if (![view advancedCLUT])
+            [dict setObject:curOpacityMenu forKey:@"OpacityName"];
 		
-		if([curCLUTMenu isEqualToString:NSLocalizedString(@"16-bit CLUT", nil)] || [curCLUTMenu isEqualToString: @"16-bit CLUT"])
+		if ([curCLUTMenu isEqualToString:NSLocalizedString(@"16-bit CLUT", nil)] ||
+            [curCLUTMenu isEqualToString: @"16-bit CLUT"])
 		{
 			NSArray *curves = [clutOpacityView convertCurvesForPlist];
 			NSArray *colors = [clutOpacityView convertPointColorsForPlist];
@@ -901,7 +956,7 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
 			[dict setObject:colors forKey:@"16bitClutColors"];
 		}
 		
-		if( [viewer2D postprocessed] == NO)
+		if ([viewer2D postprocessed] == NO)
 			[dict writeToFile:str atomically:YES];
 	}
 }
@@ -922,28 +977,28 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
         
         NSString *str;
         
-        if( [style isEqualToString:@"noNib"])
+        if ([style isEqualToString:@"noNib"])
             str = nil;
         else
             str = [path stringByAppendingPathComponent: [NSString stringWithFormat:@"VRMIP-%d-%@", (int) [view mode], [[fileList objectAtIndex:0] valueForKey:@"uniqueFilename"]]];
         
         NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile: str];
         
-        if( [viewer2D postprocessed]) dict = nil;
+        if ([viewer2D postprocessed]) dict = nil;
             
         [view set3DStateDictionary:dict];
         
         BOOL has16bitCLUT = NO;
         
-        if( [dict objectForKey:@"CLUTName"])
+        if ([dict objectForKey:@"CLUTName"])
         {
-            if([dict objectForKey:@"isAdvancedCLUT"])
+            if ([dict objectForKey:@"isAdvancedCLUT"])
             {
-                if([[dict objectForKey:@"isAdvancedCLUT"] boolValue])
+                if ([[dict objectForKey:@"isAdvancedCLUT"] boolValue])
                 {
                     [[[clutPopup menu] itemAtIndex:0] setTitle:[dict objectForKey:@"CLUTName"]];
                     [self setCurCLUTMenu:[dict objectForKey:@"CLUTName"]];
-                    if([[dict objectForKey:@"CLUTName"] isEqualToString:NSLocalizedString(@"16-bit CLUT", nil)]  || [[dict objectForKey:@"CLUTName"] isEqualToString: @"16-bit CLUT"])
+                    if ([[dict objectForKey:@"CLUTName"] isEqualToString:NSLocalizedString(@"16-bit CLUT", nil)]  || [[dict objectForKey:@"CLUTName"] isEqualToString: @"16-bit CLUT"])
                     {
                         NSMutableArray *curves = [CLUTOpacityView convertCurvesFromPlist:[dict objectForKey:@"16bitClutCurves"]];
                         NSMutableArray *colors = [CLUTOpacityView convertPointColorsFromPlist:[dict objectForKey:@"16bitClutColors"]];
@@ -969,15 +1024,15 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
             else
                 [self ApplyCLUTString:[dict objectForKey:@"CLUTName"]];
         }
-        else if([view mode] == 0 && [[pixList[ 0] objectAtIndex:0] isRGB] == NO) [self ApplyCLUTString:@"VR Muscles-Bones"];	//For VR mode only
+        else if ([view mode] == 0 && [[pixList[ 0] objectAtIndex:0] isRGB] == NO) [self ApplyCLUTString:@"VR Muscles-Bones"];	//For VR mode only
         
-        if(!has16bitCLUT)
+        if (!has16bitCLUT)
         {
-            if( [dict objectForKey:@"OpacityName"]) [self ApplyOpacityString:[dict objectForKey:@"OpacityName"]];
-            else if([view mode] == 0 && [[pixList[ 0] objectAtIndex:0] isRGB] == NO) [self ApplyOpacityString:NSLocalizedString(@"Logarithmic Inverse Table", nil)];		//For VR mode only
+            if ([dict objectForKey:@"OpacityName"]) [self ApplyOpacityString:[dict objectForKey:@"OpacityName"]];
+            else if ([view mode] == 0 && [[pixList[ 0] objectAtIndex:0] isRGB] == NO) [self ApplyOpacityString:NSLocalizedString(@"Logarithmic Inverse Table", nil)];		//For VR mode only
         }
         
-        if( [view shading])
+        if ([view shading])
             [shadingCheck setState: NSOnState];
         else
             [shadingCheck setState: NSOffState];
@@ -987,7 +1042,7 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
         [view getShadingValues: &ambient :&diffuse :&specular :&specularpower];
         [shadingValues setStringValue: [NSString stringWithFormat: NSLocalizedString( @"Ambient: %2.1f\nDiffuse: %2.1f\nSpecular :%2.1f-%2.1f", nil), ambient, diffuse, specular, specularpower]];
         
-    //	if(!dict && [_renderingMode isEqualToString:@"VR"])
+    //	if (!dict && [_renderingMode isEqualToString:@"VR"])
     //	{
     //		firstTimeDisplayed = YES;
     //		[self centerPresetsPanel];
@@ -1018,23 +1073,26 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
 	{
 		case 2:
 			index = i;
-		break;
+            break;
 			
 		case 1:
 		case 0:
 			index = 0;
-		break;
+            break;
 	}
 	
 	BOOL outside = NO;
 	BOOL restore = NO;
 
-	if( c == NSCarriageReturnCharacter || c == NSEnterCharacter) outside = YES;
-	else if( c == NSTabCharacter) restore = YES;
+	if (c == NSCarriageReturnCharacter || c == NSEnterCharacter)
+        outside = YES;
+	else if (c == NSTabCharacter)
+        restore = YES;
 	
-	if( addition == NO) newVal = self.deleteValue;
+	if (addition == NO)
+        newVal = self.deleteValue;
 	
-	if( blendedSeries)
+	if (blendedSeries)
 	{
 		[[blendingPixList objectAtIndex: index] fillROI:roi newVal:newVal minValue: -FLT_MAX maxValue: FLT_MAX outside:outside orientationStack:stackOrientation stackNo:i restore:restore addition:addition spline: NO clipMin: minClip clipMax: maxClip];
 	}
@@ -1046,18 +1104,19 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
 
 - (void) prepareUndo
 {
-	long i;
-	
-	for( i = 0; i < maxMovieIndex; i++)
+	for (long i = 0; i < maxMovieIndex; i++)
 	{
+        if (i >= UNDO_DATA_SIZE)
+            break;
+        
 		DCMPix  *firstObject = [pixList[ i] objectAtIndex:0];
 		float*	data = (float*) [volumeData[ i] bytes];
 		long	memSize = [firstObject pwidth] * [firstObject pheight] * [pixList[ i] count] * sizeof( short);
 		
-		if( undodata[ i] == nil)
+		if (undodata[ i] == nil)
 			undodata[ i] = (float*) malloc( memSize);
 		
-		if( undodata[ i])
+		if (undodata[ i])
 		{
 			vImage_Buffer srcf, dst16;
 			
@@ -1083,15 +1142,16 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
 	}
 }
 
+#pragma mark - IBAction
+
 - (IBAction) undo:(id) sender
 {
-	long i;
-	
-	NSLog(@"undo");
-	
-	for( i = 0; i < maxMovieIndex; i++)
+	for (long i = 0; i < maxMovieIndex; i++)
 	{
-		if( undodata[ i])
+        if (i >= UNDO_DATA_SIZE)
+            break;
+        
+		if (undodata[ i])
 		{
 			DCMPix  *firstObject = [pixList[ i] objectAtIndex:0];
 			float*	data = (float*) [volumeData[ i] bytes];
@@ -1117,9 +1177,13 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
 			//BlockMoveData( undodata[ i], data, memSize);
 		}
 		
-		[[NSNotificationCenter defaultCenter] postNotificationName: OsirixUpdateVolumeDataNotification object: pixList[ i] userInfo: 0];
+		[[NSNotificationCenter defaultCenter] postNotificationName: OsirixUpdateVolumeDataNotification
+                                                            object: pixList[ i]
+                                                          userInfo: 0];
 	}
 }
+
+#pragma mark -
 
 - (NSArray*) fileList
 {
@@ -1128,18 +1192,16 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
 
 -(void) dealloc
 {
-    NSLog(@"Dealloc VRController");
-	
 	[style release];
 	
 	// Release Undo system
-	for( int i = 0; i < maxMovieIndex; i++)
+	for (int i = 0; i < maxMovieIndex; i++)
 	{
-		
-		if( undodata[ i])
-		{
+        if (i >= UNDO_DATA_SIZE)
+            break;
+        
+		if (undodata[ i])
 			free( undodata[ i]);
-		}
 	}
 	
 	[self save3DState];
@@ -1147,11 +1209,12 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
     [nc removeObserver: self];
     
-	for( int i = 0; i < maxMovieIndex; i++)
+	for (int i = 0; i < maxMovieIndex; i++)
 	{
 		[pixList[ i] release];
 		[volumeData[ i] release];
 	}
+    
 	[fileList release];
 	[toolbar setDelegate: nil];
 	[toolbar release];
@@ -1163,7 +1226,9 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
 	[y2DPointsArray release];
 	[z2DPointsArray release];
 	[viewer2D release];
-	for(int m=0; m<maxMovieIndex; m++) [roiVolumes[m] release];
+	for (int m=0; m<maxMovieIndex; m++)
+        [roiVolumes[m] release];
+    
 	[_renderingMode release];
 	
 	[appliedConvolutionFilters release];
@@ -1188,7 +1253,7 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
 
 - (void) CloseViewerNotification: (NSNotification*) note
 {
-	if([note object] == viewer2D)
+	if ([note object] == viewer2D)
 	{
 		[self offFullScreen];
 		[[self window] close];
@@ -1199,19 +1264,19 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
 
 - (void)windowDidResize:(NSNotification *)aNotification
 {
-	if( [style isEqualToString:@"panel"] == NO) [view squareView: self];
+	if ([style isEqualToString:@"panel"] == NO) [view squareView: self];
 }
 
 - (void)windowWillClose:(NSNotification *)notification
 {
-	if( [notification object] == [self window])
+	if ([notification object] == [self window])
 	{
         windowWillClose = YES;
 		[[self window] setAcceptsMouseMovedEvents: NO];
 		
 		[[NSNotificationCenter defaultCenter] postNotificationName: OsirixWindow3dCloseNotification object: self userInfo: 0];
 		
-		if( movieTimer)
+		if (movieTimer)
 		{
 			[movieTimer invalidate];
 			[movieTimer release];
@@ -1234,20 +1299,19 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
 	return toolsMatrix;
 }
 
-
 - (BOOL)validateMenuItem:(NSMenuItem *)item
 {
 #ifdef EXPORTTOOLBARITEM
-return YES;
+    return YES;
 #endif
 
 	BOOL valid = NO;
 	
-	if( [item action] == @selector(setDefaultTool:))
+	if ([item action] == @selector(setDefaultTool:))
 	{
 		valid = YES;
 		
-		if( [item tag] == [view currentTool])
+		if ([item tag] == [view currentTool])
             [item setState:NSOnState];
 		else
             [item setState:NSOffState];
@@ -1258,7 +1322,9 @@ return YES;
 	return valid;
 }
 
--(void) setDefaultTool:(id) sender
+#pragma mark - IBAction
+
+-(IBAction) setDefaultTool:(id) sender
 {
 	NSInteger tag;
 	if ([sender isKindOfClass:[NSMatrix class]])
@@ -1266,26 +1332,29 @@ return YES;
 	else
 		tag = [sender tag];
     
-    if( tag >= 0)
+    if (tag >= 0)
     {
         [self setCurrentTool:(ToolMode)tag];
     }
 }
 
+#pragma mark -
+
 - (void) setCurrentTool:(ToolMode) newTool
 {
-	if( newTool == tBonesRemoval)
+	if (newTool == tBonesRemoval)
 	{
-		if( ([[viewer2D modality] isEqualToString:@"CT"] == NO && growingSet == NO) || ([[[NSApplication sharedApplication] currentEvent] modifierFlags]  & NSEventModifierFlagOption))
+		if (([[viewer2D modality] isEqualToString:@"CT"] == NO && growingSet == NO) ||
+            ([[[NSApplication sharedApplication] currentEvent] modifierFlags] & NSEventModifierFlagOption))
 		{
 			[self editGrowingRegion: self];
 			growingSet = YES;
 		}
 	}
 	
-	if( newTool == t3DCut)
+	if (newTool == t3DCut)
 	{
-		if( [[[NSApplication sharedApplication] currentEvent] modifierFlags]  & NSEventModifierFlagOption)
+		if ([[[NSApplication sharedApplication] currentEvent] modifierFlags] & NSEventModifierFlagOption)
 		{
 			float copyValue = self.deleteValue;
 			
@@ -1301,7 +1370,7 @@ return YES;
 			[NSApp endSheet: editDeleteValue];
 			[editDeleteValue orderOut: self];
 			
-			if( result == NSRunStoppedResponse)
+			if (result == NSRunStoppedResponse)
 				NSLog( @"deleteValue for 3DCut changed : %f", self.deleteValue);
 			else
                 self.deleteValue = copyValue;
@@ -1326,13 +1395,13 @@ return YES;
 {
 	NSString	*menuString = [sender title];
 	
-	if( [menuString isEqualToString:NSLocalizedString(@"Other", nil)])
+	if ([menuString isEqualToString:NSLocalizedString(@"Other", nil)])
 	{
 	}
-	else if( [menuString isEqualToString:NSLocalizedString(@"Default WL & WW", nil)])
+	else if ([menuString isEqualToString:NSLocalizedString(@"Default WL & WW", nil)])
 	{
 	}
-	else if( [menuString isEqualToString:NSLocalizedString(@"Full dynamic", nil)])
+	else if ([menuString isEqualToString:NSLocalizedString(@"Full dynamic", nil)])
 	{
 	}
 	else
@@ -1347,43 +1416,53 @@ return YES;
 
 - (void)applyWLWWForString:(NSString *)menuString
 {
-	if( [menuString isEqualToString:NSLocalizedString(@"Other", nil)])
+	if ([menuString isEqualToString:NSLocalizedString(@"Other", nil)])
 	{
 		//[imageView setWLWW:0 :0];
 	}
-	else if( [menuString isEqualToString:NSLocalizedString(@"Default WL & WW", nil)])
+	else if ([menuString isEqualToString:NSLocalizedString(@"Default WL & WW", nil)])
 	{
 		[view setWLWW:[[pixList[0] objectAtIndex:0] savedWL] :[[pixList[0] objectAtIndex:0] savedWW]];
 	}
-	else if( [menuString isEqualToString:NSLocalizedString(@"Full dynamic", nil)])
+	else if ([menuString isEqualToString:NSLocalizedString(@"Full dynamic", nil)])
 	{
 		[view setWLWW:0 :0];
 	}
 	else
 	{
-		if ([[[NSApplication sharedApplication] currentEvent] modifierFlags]  & NSEventModifierFlagShift)
+		if ([[[NSApplication sharedApplication] currentEvent] modifierFlags] & NSEventModifierFlagShift)
 		{
-			NSBeginAlertSheet( NSLocalizedString(@"Delete a WL/WW preset",nil), NSLocalizedString(@"Delete",nil), NSLocalizedString(@"Cancel",nil), nil, [self window], self, @selector(deleteWLWW:returnCode:contextInfo:), NULL, [menuString retain], NSLocalizedString (@"Are you sure you want to delete preset : '%@'?", nil), menuString);
+			NSBeginAlertSheet(NSLocalizedString(@"Delete a WL/WW preset",nil),
+                              NSLocalizedString(@"Delete",nil),
+                              NSLocalizedString(@"Cancel",nil),
+                              nil,
+                              [self window],
+                              self,
+                              @selector(deleteWLWW:returnCode:contextInfo:),
+                              NULL,
+                              [menuString retain],
+                              NSLocalizedString (@"Are you sure you want to delete preset : '%@'?", nil),
+                              menuString);
 		}
 		else
 		{
-			NSArray    *value;
-			
-			value = [[[NSUserDefaults standardUserDefaults] dictionaryForKey:@"WLWW3"] objectForKey:menuString];
-			
-			[view setWLWW:[[value objectAtIndex:0] floatValue] :[[value objectAtIndex:1] floatValue]];
+			NSArray *value = [[[NSUserDefaults standardUserDefaults] dictionaryForKey:@"WLWW3"] objectForKey:menuString];
+			[view setWLWW: [[value objectAtIndex:0] floatValue]
+                         : [[value objectAtIndex:1] floatValue]];
 		}
 	}
 	
 	[[[wlwwPopup menu] itemAtIndex:0] setTitle:menuString];
 	
-	if( curWLWWMenu != menuString)
+	if (curWLWWMenu != menuString)
 	{
 		[curWLWWMenu release];
 		curWLWWMenu = [menuString retain];
 	}
 
 }
+
+#pragma mark - IBAction
 
 - (IBAction) applyShading:(id) sender
 {
@@ -1399,7 +1478,7 @@ return YES;
 	float sambient, sdiffuse, sspecular, sspecularpower;	
 	[view getShadingValues: &sambient :&sdiffuse :&sspecular :&sspecularpower];
 	
-	if( sambient != ambient || sdiffuse != diffuse || sspecular != specular || sspecularpower != specularpower)
+	if (sambient != ambient || sdiffuse != diffuse || sspecular != specular || sspecularpower != specularpower)
 	{
 		[view setShadingValues: ambient :diffuse :specular :specularpower];
 		[shadingValues setStringValue: [NSString stringWithFormat: NSLocalizedString( @"Ambient: %2.2f\nDiffuse: %2.2f\nSpecular :%2.2f, %2.2f", nil), ambient, diffuse, specular, specularpower]];
@@ -1407,6 +1486,8 @@ return YES;
 		[view setNeedsDisplay: YES];
 	}
 }
+
+#pragma mark -
 
 - (void) findShadingPreset:(id) sender
 {
@@ -1431,11 +1512,15 @@ return YES;
 	//[self applyShading: self];
 }
 
+#pragma mark - IBAction
+
 - (IBAction) editShadingValues:(id) sender
 {
 	[shadingPanel makeKeyAndOrderFront: self];
 	[self findShadingPreset: self];
 }
+
+#pragma mark -
 
 - (void) AddCurrentWLWW:(id) sender
 {
@@ -1456,35 +1541,40 @@ return YES;
 {
 	NSString	*previousColorName = [NSString stringWithString: curCLUTMenu];
 	
-	if( str == nil)
+	if (str == nil)
         return;
 	
 	[OpacityPopup setEnabled:YES];
 	[clutOpacityView cleanup];
-	if([clutOpacityDrawer state]==NSDrawerOpenState)
+	if ([clutOpacityDrawer state]==NSDrawerOpenState)
 	{
 		[clutOpacityDrawer close];
 	}
 	
 	[self ApplyOpacityString:curOpacityMenu];
 	
-	if( [[[NSUserDefaults standardUserDefaults] dictionaryForKey: @"CLUT"] objectForKey: str] == nil)
+	if ([[[NSUserDefaults standardUserDefaults] dictionaryForKey: @"CLUT"] objectForKey: str] == nil)
 		str = NSLocalizedString(@"No CLUT", nil);
 	
-	if( curCLUTMenu != str)
+	if (curCLUTMenu != str)
 	{
 		[curCLUTMenu release];
 		curCLUTMenu = [str retain];
 	}
 	
-	if( [str isEqualToString:NSLocalizedString(@"No CLUT", nil)])
+	if ([str isEqualToString:NSLocalizedString(@"No CLUT", nil)])
 	{
 		[view setCLUT: nil :nil :nil];
 		
-		if( [previousColorName isEqualToString: NSLocalizedString( @"B/W Inverse", nil)] || [previousColorName isEqualToString:( @"B/W Inverse")])
-			[view changeColorWith: [NSColor colorWithDeviceRed:0.0 green:0.0 blue:0.0 alpha:1.0]];
+		if ([previousColorName isEqualToString: NSLocalizedString( @"B/W Inverse", nil)] || [previousColorName isEqualToString:( @"B/W Inverse")])
+			[view changeColorWith: [NSColor colorWithDeviceRed:0.0
+                                                         green:0.0
+                                                          blue:0.0
+                                                         alpha:1.0]];
 		
-		[[NSNotificationCenter defaultCenter] postNotificationName: OsirixUpdateCLUTMenuNotification object: curCLUTMenu userInfo: nil];
+		[[NSNotificationCenter defaultCenter] postNotificationName: OsirixUpdateCLUTMenuNotification
+                                                            object: curCLUTMenu
+                                                          userInfo: nil];
 		
 		[[[clutPopup menu] itemAtIndex:0] setTitle:str];
 	}
@@ -1496,40 +1586,48 @@ return YES;
 		unsigned char		red[256], green[256], blue[256];
 		
 		aCLUT = [[[NSUserDefaults standardUserDefaults] dictionaryForKey: @"CLUT"] objectForKey: str];
-		if( aCLUT)
+		if (aCLUT)
 		{
 			array = [aCLUT objectForKey:@"Red"];
-			for( i = 0; i < 256; i++)
+			for (i = 0; i < 256; i++)
 			{
 				red[i] = [[array objectAtIndex: i] longValue];
 			}
 			
 			array = [aCLUT objectForKey:@"Green"];
-			for( i = 0; i < 256; i++)
+			for (i = 0; i < 256; i++)
 			{
 				green[i] = [[array objectAtIndex: i] longValue];
 			}
 			
 			array = [aCLUT objectForKey:@"Blue"];
-			for( i = 0; i < 256; i++)
+			for (i = 0; i < 256; i++)
 			{
 				blue[i] = [[array objectAtIndex: i] longValue];
 			}
 			
 			[view setCLUT:red :green: blue];
 						
-			if( [curCLUTMenu isEqualToString: NSLocalizedString( @"B/W Inverse", nil)] || [curCLUTMenu isEqualToString:( @"B/W Inverse")])
-				[view changeColorWith: [NSColor colorWithDeviceRed:1.0 green:1.0 blue:1.0 alpha:1.0]];
+			if ([curCLUTMenu isEqualToString: NSLocalizedString( @"B/W Inverse", nil)] || [curCLUTMenu isEqualToString:( @"B/W Inverse")])
+				[view changeColorWith: [NSColor colorWithDeviceRed:1.0
+                                                             green:1.0
+                                                              blue:1.0
+                                                             alpha:1.0]];
 			else 
 			{
-				if( [previousColorName isEqualToString: NSLocalizedString( @"B/W Inverse", nil)] || [previousColorName isEqualToString:( @"B/W Inverse")])
-					[view changeColorWith: [NSColor colorWithDeviceRed:0.0 green:0.0 blue:0.0 alpha:1.0]];
+				if ([previousColorName isEqualToString: NSLocalizedString( @"B/W Inverse", nil)] || [previousColorName isEqualToString:( @"B/W Inverse")])
+					[view changeColorWith: [NSColor colorWithDeviceRed:0.0
+                                                                 green:0.0
+                                                                  blue:0.0
+                                                                 alpha:1.0]];
 			}
-			[[NSNotificationCenter defaultCenter] postNotificationName: OsirixUpdateCLUTMenuNotification object: curCLUTMenu userInfo: nil];
+
+            [[NSNotificationCenter defaultCenter] postNotificationName: OsirixUpdateCLUTMenuNotification
+                                                                object: curCLUTMenu
+                                                              userInfo: nil];
 			
 			[[[clutPopup menu] itemAtIndex:0] setTitle: curCLUTMenu];
 		}
-		
 	}
 }
 
@@ -1538,16 +1636,16 @@ return YES;
 	NSDictionary		*aOpacity;
 	NSArray				*array;
 	
-	if( str == nil)
+	if (str == nil)
         return;
 	
-	if( curOpacityMenu != str)
+	if (curOpacityMenu != str)
 	{
 		[curOpacityMenu release];
 		curOpacityMenu = [str retain];
 	}
 	
-	if( [str isEqualToString: NSLocalizedString(@"Linear Table", nil)])
+	if ([str isEqualToString: NSLocalizedString(@"Linear Table", nil)])
 	{
 		[view setOpacity:[NSArray array]];
 		[[NSNotificationCenter defaultCenter] postNotificationName: OsirixUpdateOpacityMenuNotification object: curOpacityMenu userInfo: nil];
@@ -1557,7 +1655,7 @@ return YES;
 	else
 	{
 		aOpacity = [[[NSUserDefaults standardUserDefaults] dictionaryForKey: @"OPACITY"] objectForKey: str];
-		if( aOpacity)
+		if (aOpacity)
 		{
 			array = [aOpacity objectForKey:@"Points"];
 			
@@ -1582,6 +1680,8 @@ return YES;
 	}
 }
 
+#pragma mark - IBAction
+
 - (IBAction) setModeIndex:(long) val
 {
 	[modeMatrix selectCellWithTag: val];
@@ -1600,7 +1700,7 @@ return YES;
 	[view setMode: tag];
 	[view setBlendingMode: tag];
 	
-	if( tag == 1)
+	if (tag == 1)
 	{
 		[_renderingMode release];
 		_renderingMode = [@"MIP" retain];
@@ -1623,22 +1723,22 @@ return YES;
 	unsigned char		red[256], green[256], blue[256];
 
 	aCLUT = [[[NSUserDefaults standardUserDefaults] dictionaryForKey: @"CLUT"] objectForKey: curCLUTMenu];
-	if( aCLUT)
+	if (aCLUT)
 	{
 		array = [aCLUT objectForKey:@"Red"];
-		for( i = 0; i < 256; i++)
+		for (i = 0; i < 256; i++)
 		{
 			red[i] = [[array objectAtIndex: i] longValue];
 		}
 		
 		array = [aCLUT objectForKey:@"Green"];
-		for( i = 0; i < 256; i++)
+		for (i = 0; i < 256; i++)
 		{
 			green[i] = [[array objectAtIndex: i] longValue];
 		}
 		
 		array = [aCLUT objectForKey:@"Blue"];
-		for( i = 0; i < 256; i++)
+		for (i = 0; i < 256; i++)
 		{
 			blue[i] = [[array objectAtIndex: i] longValue];
 		}
@@ -1651,9 +1751,11 @@ return YES;
     [NSApp beginSheet: addOpacityWindow modalForWindow:[self window] modalDelegate:self didEndSelector:nil contextInfo:nil];
 }
 
+#pragma mark -
+
 -(void) bestRendering:(id) sender
 {
-//	if( [[[NSApplication sharedApplication] currentEvent] modifierFlags]  & NSEventModifierFlagOption)
+//	if ([[[NSApplication sharedApplication] currentEvent] modifierFlags] & NSEventModifierFlagOption)
 //	{
 //		[OSIWindow setDontConstrainWindow: YES];
 //		[[self window] setFrame: NSMakeRect(0, [[[self window] screen] visibleFrame].origin.y - (3000-[[[self window] screen] visibleFrame].size.height), 3000, 3000) display: NO];
@@ -1670,7 +1772,7 @@ return YES;
 - (void) setupToolbar {
     // Create a new toolbar instance, and attach it to our document window
 	
-	if( [style isEqualToString:@"standard"])
+	if ([style isEqualToString:@"standard"])
         toolbar = [[NSToolbar alloc] initWithIdentifier: VRStandardToolbarIdentifier];
     else
         toolbar = [[NSToolbar alloc] initWithIdentifier: VRPanelToolbarIdentifier];
@@ -1690,9 +1792,9 @@ return YES;
     
 //    [window makeKeyAndOrderFront:nil];
 
-	#ifdef EXPORTTOOLBARITEM
+#ifdef EXPORTTOOLBARITEM
 	NSLog(@"************** WARNING EXPORTTOOLBARITEM ACTIVATED");
-	for( id s in [self toolbarAllowedItemIdentifiers: toolbar])
+	for (id s in [self toolbarAllowedItemIdentifiers: toolbar])
 	{
 		@try
 		{
@@ -1701,15 +1803,15 @@ return YES;
 			
 			NSImage *im = [item image];
 			
-			if( im == nil)
+			if (im == nil)
 			{
 				@try
 				{
-					if( [item respondsToSelector:@selector(setRecursiveEnabled:)])
+					if ([item respondsToSelector:@selector(setRecursiveEnabled:)])
 						[item setRecursiveEnabled: YES];
-					else if( [[item view] respondsToSelector:@selector(setRecursiveEnabled:)])
+					else if ([[item view] respondsToSelector:@selector(setRecursiveEnabled:)])
 						[[item view] setRecursiveEnabled: YES];
-					else if( item)
+					else if (item)
 						NSLog( @"%@", item);
 						
 					im = [[item view] screenshotByCreatingPDF];
@@ -1739,8 +1841,10 @@ return YES;
 			NSLog( @"b");
 		}
 	}
-	#endif
+#endif
 }
+
+#pragma mark - IBAction
 
 - (IBAction)customizeViewerToolBar:(id)sender
 {
@@ -1898,7 +2002,7 @@ return YES;
 	[toolbarItem setTarget: self];
 	[toolbarItem setAction: @selector(bestRendering:)];
     }
-    else if([itemIdent isEqualToString: WLWWToolbarItemIdentifier]) {
+    else if ([itemIdent isEqualToString: WLWWToolbarItemIdentifier]) {
 	// Set up the standard properties 
 	[toolbarItem setLabel: NSLocalizedString(@"WL/WW & CLUT & Opacity",nil)];
 	[toolbarItem setPaletteLabel:NSLocalizedString( @"WL/WW & CLUT & Opacity",nil)];
@@ -1911,7 +2015,7 @@ return YES;
         
 	[[wlwwPopup cell] setUsesItemFromMenu:YES];
     }
-	else if([itemIdent isEqualToString: MovieToolbarItemIdentifier]) {
+	else if ([itemIdent isEqualToString: MovieToolbarItemIdentifier]) {
 	// Set up the standard properties 
 	[toolbarItem setLabel: NSLocalizedString(@"4D Player",nil)];
 	[toolbarItem setPaletteLabel:NSLocalizedString( @"4D Player",nil)];
@@ -1922,7 +2026,7 @@ return YES;
 	[toolbarItem setMinSize:NSMakeSize(NSWidth([movieView frame]), NSHeight([movieView frame]))];
 	[toolbarItem setMaxSize:NSMakeSize(NSWidth([movieView frame]),NSHeight([movieView frame]))];
     }
-	else if([itemIdent isEqualToString: OrientationsViewToolbarItemIdentifier]) {
+	else if ([itemIdent isEqualToString: OrientationsViewToolbarItemIdentifier]) {
 	// Set up the standard properties 
 	[toolbarItem setLabel: NSLocalizedString(@"Orientations", nil)];
 	[toolbarItem setPaletteLabel: NSLocalizedString(@"Orientations", nil)];
@@ -1933,7 +2037,7 @@ return YES;
 	[toolbarItem setMinSize:NSMakeSize(NSWidth([OrientationsView frame]), NSHeight([OrientationsView frame]))];
 	[toolbarItem setMaxSize:NSMakeSize(NSWidth([OrientationsView frame]), NSHeight([OrientationsView frame]))];
     }
-	else if([itemIdent isEqualToString: ConvolutionViewToolbarItemIdentifier]) {
+	else if ([itemIdent isEqualToString: ConvolutionViewToolbarItemIdentifier]) {
 	// Set up the standard properties 
 	[toolbarItem setLabel: NSLocalizedString(@"Filters", nil)];
 	[toolbarItem setPaletteLabel: NSLocalizedString(@"Filters", nil)];
@@ -1944,7 +2048,7 @@ return YES;
 	[toolbarItem setMinSize:NSMakeSize(NSWidth([convolutionView frame]), NSHeight([convolutionView frame]))];
 	[toolbarItem setMaxSize:NSMakeSize(NSWidth([convolutionView frame]), NSHeight([convolutionView frame]))];
     }
-	else if([itemIdent isEqualToString: BackgroundColorViewToolbarItemIdentifier]) {
+	else if ([itemIdent isEqualToString: BackgroundColorViewToolbarItemIdentifier]) {
 	// Set up the standard properties 
 	[toolbarItem setLabel: NSLocalizedString(@"Background", nil)];
 	[toolbarItem setPaletteLabel: NSLocalizedString(@"Background", nil)];
@@ -1954,7 +2058,7 @@ return YES;
 	[toolbarItem setMinSize:NSMakeSize(NSWidth([BackgroundColorView frame]), NSHeight([BackgroundColorView frame]))];
 	[toolbarItem setMaxSize:NSMakeSize(NSWidth([BackgroundColorView frame]), NSHeight([BackgroundColorView frame]))];
     }
-	else if([itemIdent isEqualToString: ScissorStateToolbarItemIdentifier]) {
+	else if ([itemIdent isEqualToString: ScissorStateToolbarItemIdentifier]) {
 	// Set up the standard properties 
 	[toolbarItem setLabel: NSLocalizedString(@"Scissor State", nil)];
 	[toolbarItem setPaletteLabel: NSLocalizedString(@"Scissor State", nil)];
@@ -1964,7 +2068,7 @@ return YES;
 	[toolbarItem setMinSize:NSMakeSize(NSWidth([scissorStateView frame]), NSHeight([scissorStateView frame]))];
 	[toolbarItem setMaxSize:NSMakeSize(NSWidth([scissorStateView frame]), NSHeight([scissorStateView frame]))];
     }
-	else if([itemIdent isEqualToString: BlendingToolbarItemIdentifier]) {
+	else if ([itemIdent isEqualToString: BlendingToolbarItemIdentifier]) {
 	// Set up the standard properties 
 	[toolbarItem setLabel:NSLocalizedString( @"Fusion",nil)];
 	[toolbarItem setPaletteLabel:NSLocalizedString( @"Fusion",nil)];
@@ -1974,7 +2078,7 @@ return YES;
 	[toolbarItem setView: BlendingView];
 	[toolbarItem setMinSize:NSMakeSize(NSWidth([BlendingView frame]), NSHeight([BlendingView frame]))];
     }
-	 else if([itemIdent isEqualToString: ModeToolbarItemIdentifier]) {
+	 else if ([itemIdent isEqualToString: ModeToolbarItemIdentifier]) {
 		 // Set up the standard properties 
 		 [toolbarItem setLabel:NSLocalizedString( @"Mode",nil)];
 		 [toolbarItem setPaletteLabel:NSLocalizedString( @"Mode",nil)];
@@ -1984,7 +2088,7 @@ return YES;
 		 [toolbarItem setView: modeView];
 		 [toolbarItem setMinSize:NSMakeSize(NSWidth([modeView frame]), NSHeight([modeView frame]))];
 	 }
-	else if([itemIdent isEqualToString: LODToolbarItemIdentifier]) {
+	else if ([itemIdent isEqualToString: LODToolbarItemIdentifier]) {
 	// Set up the standard properties 
 	[toolbarItem setLabel: NSLocalizedString(@"Level of Detail",nil)];
 	[toolbarItem setPaletteLabel:NSLocalizedString( @"Level of Detail",nil)];
@@ -1996,7 +2100,7 @@ return YES;
         
         [[wlwwPopup cell] setUsesItemFromMenu:YES];
     }
-     else if([itemIdent isEqualToString: ToolsToolbarItemIdentifier])
+     else if ([itemIdent isEqualToString: ToolsToolbarItemIdentifier])
 	 {
 		 // Set up the standard properties 
 		 [toolbarItem setLabel: NSLocalizedString(@"Mouse button function",nil)];
@@ -2007,7 +2111,7 @@ return YES;
 		 [toolbarItem setMinSize:NSMakeSize(NSWidth([toolsView frame]), NSHeight([toolsView frame]))];
 		 [toolbarItem setMaxSize:NSMakeSize(NSWidth([toolsView frame]), NSHeight([toolsView frame]))];
     }
-	else if([itemIdent isEqualToString: FlyThruToolbarItemIdentifier])
+	else if ([itemIdent isEqualToString: FlyThruToolbarItemIdentifier])
 	{
 		// Set up the standard properties 
 		[toolbarItem setLabel: NSLocalizedString(@"Fly Thru",nil)];
@@ -2036,7 +2140,7 @@ return YES;
 		[toolbarItem setTarget: self];
 		[toolbarItem setAction: @selector(load3DSettings:)];
     }
-	else if( [itemIdent isEqualToString: ClippingRangeViewToolbarItemIdentifier])
+	else if ([itemIdent isEqualToString: ClippingRangeViewToolbarItemIdentifier])
 	{
 		[toolbarItem setLabel: NSLocalizedString(@"Clipping",nil)];
 		[toolbarItem setPaletteLabel:NSLocalizedString( @"Clipping",nil)];
@@ -2045,7 +2149,7 @@ return YES;
 		[toolbarItem setView: ClippingRangeView];
 		[toolbarItem setMinSize: NSMakeSize(NSWidth([ClippingRangeView frame]), NSHeight([ClippingRangeView frame]))];
 	}
-	else if( [itemIdent isEqualToString: CLUTEditorsViewToolbarItemIdentifier])
+	else if ([itemIdent isEqualToString: CLUTEditorsViewToolbarItemIdentifier])
 	{
 		[toolbarItem setLabel: NSLocalizedString(@"CLUT Editor",nil)];
 		[toolbarItem setPaletteLabel:NSLocalizedString( @"CLUT Editor",nil)];
@@ -2063,7 +2167,7 @@ return YES;
         {
             NSToolbarItem *item = [[[PluginManager plugins] objectForKey:key] toolbarItemForItemIdentifier: itemIdent forVRViewer: self];
             
-            if( item)
+            if (item)
                 toolbarItem = item;
         }
     }
@@ -2073,7 +2177,7 @@ return YES;
 
 - (NSArray *) toolbarDefaultItemIdentifiers: (NSToolbar *) toolbar
 {
-	if( [style isEqualToString:@"standard"])
+	if ([style isEqualToString:@"standard"])
 		return [NSArray arrayWithObjects:       ToolsToolbarItemIdentifier,
 												WLWWToolbarItemIdentifier,
 												CLUTEditorsViewToolbarItemIdentifier,
@@ -2115,7 +2219,7 @@ return YES;
 
 - (NSArray *) toolbarAllowedItemIdentifiers: (NSToolbar *) toolbar
 {
-	if( [style isEqualToString:@"standard"])
+	if ([style isEqualToString:@"standard"])
 	{
 		NSMutableArray * a = [NSMutableArray arrayWithObjects: 	NSToolbarCustomizeToolbarItemIdentifier,
 											NSToolbarFlexibleSpaceItemIdentifier,
@@ -2205,7 +2309,8 @@ return YES;
 	
 	if ([[toolbarItem itemIdentifier] isEqualToString: MovieToolbarItemIdentifier])
     {
-        if(maxMovieIndex == 1) enable = NO;
+        if (maxMovieIndex == 1)
+            enable = NO;
     }
 	
     return enable;
@@ -2226,7 +2331,7 @@ return YES;
 	[panel setCanSelectHiddenExtension:YES];
 	[panel setRequiredFileType:@"jpg"];
 	
-	if( [panel runModalForDirectory:nil file: NSLocalizedString( @"3D VR Image", nil)] == NSFileHandlingPanelOKButton)
+	if ([panel runModalForDirectory:nil file: NSLocalizedString( @"3D VR Image", nil)] == NSFileHandlingPanelOKButton)
 	{
 		NSArray *representations;
 		NSData *bitmapData;
@@ -2271,7 +2376,7 @@ return YES;
 	[panel setCanSelectHiddenExtension:YES];
 	[panel setRequiredFileType:@"tif"];
 	
-	if( [panel runModalForDirectory:nil file: NSLocalizedString( @"3D VR Image", nil)] == NSFileHandlingPanelOKButton)
+	if ([panel runModalForDirectory:nil file: NSLocalizedString( @"3D VR Image", nil)] == NSFileHandlingPanelOKButton)
 	{
 		[[im TIFFRepresentation] writeToFile:[panel filename] atomically:NO];
 		
@@ -2292,6 +2397,8 @@ return YES;
 	return view;
 }
 
+#pragma mark - IBAction
+
 - (IBAction) flyThruButtonMenu:(id) sender
 {
 	[self flyThruControllerInit: self];
@@ -2302,7 +2409,7 @@ return YES;
 - (IBAction) flyThruControllerInit:(id) sender
 {
 	//Only open 1 fly through controller
-	if( [self flyThruController])
+	if ([self flyThruController])
         return;
 	
 	FTAdapter = [[VRFlyThruAdapter alloc] initWithVRController: self];
@@ -2313,12 +2420,17 @@ return YES;
 	[flyThruController setWindow3DController: self];
 }
 
+#pragma mark -
+
 - (FlyThruController *) flyThruController
 {
-	for( NSWindow *w in [NSApp windows])
+	for (NSWindow *w in [NSApp windows])
 	{
-		if( [[[w windowController] windowNibName] isEqualToString:@"FlyThru"] && self == [[w windowController] window3DController])
+		if ([[[w windowController] windowNibName] isEqualToString:@"FlyThru"] &&
+            self == [[w windowController] window3DController])
+        {
 			return [w windowController];
+        }
 	}
 	
 	return nil;
@@ -2327,7 +2439,7 @@ return YES;
 - (void)recordFlyThru;
 {
 	NSTimeInterval now = [NSDate timeIntervalSinceReferenceDate];
-	if(now-flyThruRecordingTimeFrame<1.0)
+	if (now-flyThruRecordingTimeFrame<1.0)
         return;
 	
 	flyThruRecordingTimeFrame = now;
@@ -2361,7 +2473,7 @@ return YES;
 			// Create the new 2D Point ROI
 			ROI *new2DPointROI = [[[ROI alloc] initWithType: t2DPoint :[firstDCMPix pixelSpacingX] :[firstDCMPix pixelSpacingY] :[DCMPix originCorrectedAccordingToOrientation: firstDCMPix]] autorelease];
             
-            if( rgb.red != 0 && rgb.green != 1 && rgb.blue != 2)
+            if (rgb.red != 0 && rgb.green != 1 && rgb.blue != 2)
                 new2DPointROI.rgbcolor = rgb;
             
 			NSRect irect;
@@ -2405,7 +2517,7 @@ return YES;
 		
 		NSLog( @"%f %f %f", x, y, z);
 		
-		while(!found && cur2DPointIndex<[roi2DPointsArray count])
+		while (!found && cur2DPointIndex<[roi2DPointsArray count])
 		{
 			float sx = [[x2DPointsArray objectAtIndex:cur2DPointIndex] floatValue];
 			float sy = [[y2DPointsArray objectAtIndex:cur2DPointIndex] floatValue];
@@ -2413,7 +2525,7 @@ return YES;
 			
 			NSLog( @"%f %f %f", sx, sy, sz);
             
-			if(	(x < sx + [firstDCMPix pixelSpacingX] && x > sx - [firstDCMPix pixelSpacingX]) &&
+			if (	(x < sx + [firstDCMPix pixelSpacingX] && x > sx - [firstDCMPix pixelSpacingX]) &&
 				(y < sy + [firstDCMPix pixelSpacingY] && y > sy - [firstDCMPix pixelSpacingY]) &&
 				(z < sz + [firstDCMPix sliceInterval] && z > sz - [firstDCMPix sliceInterval]))
 			{
@@ -2445,40 +2557,40 @@ return YES;
 {
 	// First remove all non-available points
 	NSMutableArray *roisToBeRemoved = [NSMutableArray array];
-	for( ROI *r in roi2DPointsArray)
+	for (ROI *r in roi2DPointsArray)
 	{
 		BOOL found = NO;
 		
-		for( NSArray *a in [viewer2D roiList])
+		for (NSArray *a in [viewer2D roiList])
 		{
-			if( [a containsObject: r])
+			if ([a containsObject: r])
 			{
 				found = YES;
 				break;
 			}
 		}
 		
-		if( found == NO)
+		if (found == NO)
 			[roisToBeRemoved addObject: r];
 	}
-	for( ROI *r in roisToBeRemoved)
+	for (ROI *r in roisToBeRemoved)
 		[self remove3DPointROI: r];
 
 	// Add all non-displayed points
-	for( NSArray *a in [viewer2D roiList])
+	for (NSArray *a in [viewer2D roiList])
 	{
-		for( ROI *r in a)
+		for (ROI *r in a)
 		{
-			if( [r type] == t2DPoint)
+			if ([r type] == t2DPoint)
 			{
-				if( [roi2DPointsArray containsObject: r] == NO)
+				if ([roi2DPointsArray containsObject: r] == NO)
 				{
 					float location[ 3];
 					double x, y, z;
 					
 					DCMPix *pix = [r pix];
 					
-					if( pix == nil)
+					if (pix == nil)
 						pix = [[viewer2D pixList] objectAtIndex: [[viewer2D imageView] curImage]];
 					
 					[pix convertPixX: [[[r points] objectAtIndex:0] x] pixY: [[[r points] objectAtIndex:0] y] toDICOMCoords: location pixelCenter: YES];
@@ -2510,7 +2622,7 @@ return YES;
 	// Add the new ROI
 	ROI	*addedROI = [note object];
 	
-	if( [roi2DPointsArray containsObject: addedROI])
+	if ([roi2DPointsArray containsObject: addedROI])
 		[self remove3DPoint: note];
 	
 	if ([addedROI type] == t2DPoint)
@@ -2520,7 +2632,7 @@ return YES;
 		
 		DCMPix *pix = [addedROI pix];
 		
-		if( pix == nil)
+		if (pix == nil)
 			pix = [[viewer2D pixList] objectAtIndex: [[viewer2D imageView] curImage]];
 		
 		[pix convertPixX: [[[addedROI points] objectAtIndex:0] x] pixY: [[[addedROI points] objectAtIndex:0] y] toDICOMCoords: location pixelCenter: YES];
@@ -2547,9 +2659,9 @@ return YES;
 	long cur2DPointIndex = 0;
 	BOOL found = NO;
 
-	while(!found && cur2DPointIndex<[roi2DPointsArray count])
+	while (!found && cur2DPointIndex<[roi2DPointsArray count])
 	{
-		if(	[roi2DPointsArray objectAtIndex:cur2DPointIndex]==removedROI)
+		if (	[roi2DPointsArray objectAtIndex:cur2DPointIndex]==removedROI)
 		{
 			found = YES;
 		}
@@ -2604,11 +2716,11 @@ return YES;
 {
 	NSArray *roiNames = [viewer2D roiNames];
 	
-	for(int m=0; m<maxMovieIndex; m++)
+	for (int m=0; m<maxMovieIndex; m++)
 	{	
 		[roiVolumes[m] removeAllObjects];
 		
-		for(NSUInteger i=0; i<[roiNames count]; i++)
+		for (NSUInteger i=0; i<[roiNames count]; i++)
 		{
 			NSArray *roisWithCurrentName = [viewer2D roisWithName:[roiNames objectAtIndex:i] forMovieIndex:m];
 			ROIVolume *volume = [[[ROIVolume alloc] initWithViewer: viewer2D] autorelease];
@@ -2648,28 +2760,30 @@ return YES;
 - (void) hideROIVolume: (ROIVolume*) v
 {
 	vtkRenderer *viewRenderer = [view renderer];
-	if( [v isRoiVolumeActorComputed])
+	if ([v isRoiVolumeActorComputed])
 		viewRenderer->RemoveActor((vtkActor*)[[v roiVolumeActor] pointerValue]);
 }
 
 - (void) displayROIVolumes
 {
-	for(int m=0; m<maxMovieIndex; m++)
+	for (int m=0; m<maxMovieIndex; m++)
 	{	
-		for(NSUInteger i=0; i<[roiVolumes[m] count]; i++)
+		for (NSUInteger i=0; i<[roiVolumes[m] count]; i++)
 		{			
 			[self hideROIVolume:[roiVolumes[m] objectAtIndex:i]];
 		}
 	}
 
-	for(NSUInteger i=0; i<[roiVolumes[curMovieIndex] count]; i++)
+	for (NSUInteger i=0; i<[roiVolumes[curMovieIndex] count]; i++)
 	{
-		if([[roiVolumes[curMovieIndex] objectAtIndex:i] visible])
+		if ([[roiVolumes[curMovieIndex] objectAtIndex:i] visible])
 		{
 			[self displayROIVolume:[roiVolumes[curMovieIndex] objectAtIndex:i]];
 		}
 	}
 }
+
+#pragma mark - IBAction
 
 - (IBAction) roiGetManager:(id) sender
 {
@@ -2678,17 +2792,18 @@ return YES;
 	BOOL	found = NO;
 	NSArray *winList = [NSApp windows];
 	
-	for(NSUInteger i = 0; i < [winList count]; i++)
+	for (NSUInteger i = 0; i < [winList count]; i++)
 	{
-		if([[[[winList objectAtIndex:i] windowController] windowNibName] isEqualToString:@"ROIVolumeManager"])
+		if ([[[[winList objectAtIndex:i] windowController] windowNibName] isEqualToString:@"ROIVolumeManager"])
 		{
 			found = YES;
 		}
 	}
-	if(!found)
+
+    if (!found)
 	{
 		ROIVolumeManagerController *manager = [[ROIVolumeManagerController alloc] initWithViewer: self];
-		if(manager)
+		if (manager)
 		{
 			[manager showWindow:self];
 			[[manager window] makeKeyAndOrderFront:self];
@@ -2696,24 +2811,26 @@ return YES;
 	}
 }
 
+#pragma mark
+
 - (void)updateROIVolume:(NSNotification*)notification;
 {
 	ROIVolume* changedROIVolume = [notification object];
-	for(int m=0; m<maxMovieIndex; m++)
+	for (int m=0; m<maxMovieIndex; m++)
 	{
 		BOOL found = NO;
 		int index;
-		for(NSUInteger i=0; i<[roiVolumes[m] count] && !found; i++)
+		for (NSUInteger i=0; i<[roiVolumes[m] count] && !found; i++)
 		{
 			found = changedROIVolume==[roiVolumes[m] objectAtIndex:i];
 			index = i;
 		}
 		
-		if(found)
+		if (found)
 		{
-			for(int n=0; n<maxMovieIndex; n++)
+			for (int n=0; n<maxMovieIndex; n++)
 			{
-				if(![[[[roiVolumes[n] objectAtIndex:index] displayProperties] objectForKey:[[notification userInfo] objectForKey:@"key"]] isEqualTo:[[changedROIVolume displayProperties] objectForKey:[[notification userInfo] objectForKey:@"key"]]])
+				if (![[[[roiVolumes[n] objectAtIndex:index] displayProperties] objectForKey:[[notification userInfo] objectForKey:@"key"]] isEqualTo:[[changedROIVolume displayProperties] objectForKey:[[notification userInfo] objectForKey:@"key"]]])
 				{
 					[(ROIVolume*)[roiVolumes[n] objectAtIndex:index] setDisplayProperties:[changedROIVolume displayProperties]];
 				}
@@ -2730,7 +2847,7 @@ return YES;
 {
 	[super showWindow: sender];
 	
-	if( [style isEqualToString:@"panel"] == NO) [view squareView: self];
+	if ([style isEqualToString:@"panel"] == NO) [view squareView: self];
 }
 
 - (DicomStudy *)currentStudy
@@ -2764,7 +2881,7 @@ return YES;
 
 - (void)setCurCLUTMenu:(NSString*)clut;
 {
-	if(curCLUTMenu) [curCLUTMenu release];
+	if (curCLUTMenu) [curCLUTMenu release];
 	curCLUTMenu = clut;
 	[curCLUTMenu retain];
 	[[[clutPopup menu] itemAtIndex:0] setTitle:curCLUTMenu];
@@ -2777,21 +2894,27 @@ return YES;
 
 - (void)showCLUTOpacityPanel:(id)sender;
 {
-	[clutOpacityView setVolumePointer:[[pixList[0] objectAtIndex: 0] fImage] width:[[pixList[0] objectAtIndex: 0] pwidth] height:[[pixList[0] objectAtIndex: 0] pheight] numberOfSlices:[pixList[0] count]];
+	[clutOpacityView setVolumePointer:[[pixList[0] objectAtIndex: 0] fImage]
+                                width:[[pixList[0] objectAtIndex: 0] pwidth]
+                               height:[[pixList[0] objectAtIndex: 0] pheight]
+                       numberOfSlices:[pixList[0] count]];
 	[self computeMinMax];
 	[clutOpacityView setHUmin:minimumValue HUmax:maximumValue];
 
 	[[clutOpacityView window] setBackgroundColor:[NSColor blackColor]];
 	[clutOpacityDrawer setTrailingOffset:[clutOpacityDrawer leadingOffset]];
-	if([clutOpacityDrawer state]==NSDrawerClosedState)
+	if ([clutOpacityDrawer state]==NSDrawerClosedState)
 		[clutOpacityDrawer openOnEdge:NSMinYEdge];
 	else
 		[clutOpacityDrawer close];
+    
 	[clutOpacityView callComputeHistogram];
 	[clutOpacityView addCurveIfNeeded];
 	[clutOpacityView updateView];
 	[clutOpacityView setCLUTtoVRView:NO];
-	if(![view advancedCLUT])[self setCurCLUTMenu:NSLocalizedString(@"16-bit CLUT", nil)];
+	if (![view advancedCLUT])
+        [self setCurCLUTMenu:NSLocalizedString(@"16-bit CLUT", nil)];
+    
 	[OpacityPopup setEnabled:NO];
 }
 
@@ -2799,15 +2922,28 @@ return YES;
 {
 	if ([[[NSApplication sharedApplication] currentEvent] modifierFlags] & NSEventModifierFlagShift)
     {
-        NSBeginAlertSheet(NSLocalizedString(@"Remove a Color Look Up Table", nil), NSLocalizedString(@"Delete", nil), NSLocalizedString(@"Cancel", nil), nil, [self window],
-		  self, @selector(delete16BitCLUT:returnCode:contextInfo:), NULL, [sender title], NSLocalizedString( @"Are you sure you want to delete this CLUT : '%@'", nil), [sender title]);
+        NSBeginAlertSheet(NSLocalizedString(@"Remove a Color Look Up Table", nil),
+                          NSLocalizedString(@"Delete", nil),
+                          NSLocalizedString(@"Cancel", nil),
+                          nil,
+                          [self window],
+                          self,
+                          @selector(delete16BitCLUT:returnCode:contextInfo:),
+                          NULL,
+                          [sender title],
+                          NSLocalizedString( @"Are you sure you want to delete this CLUT : '%@'", nil),
+                          [sender title]);
 		
-		[[NSNotificationCenter defaultCenter] postNotificationName: OsirixUpdateCLUTMenuNotification object: curCLUTMenu userInfo: nil];
+		[[NSNotificationCenter defaultCenter] postNotificationName: OsirixUpdateCLUTMenuNotification
+                                                            object: curCLUTMenu
+                                                          userInfo: nil];
 	}
 	else
 	{
 		[clutOpacityView loadFromFileWithName:[sender title]];
-		if(curCLUTMenu) [curCLUTMenu release];
+		if (curCLUTMenu)
+            [curCLUTMenu release];
+        
 		curCLUTMenu = [[sender title] retain];
 		[clutOpacityView setCLUTtoVRView:NO];
 		[clutOpacityView updateView];
@@ -2835,17 +2971,17 @@ return YES;
 		
 	for (NSUInteger j=0; j<[paths count]; j++)
 	{
-		if([[NSFileManager defaultManager] fileExistsAtPath:[paths objectAtIndex:j] isDirectory:&isDir] && isDir)
+		if ([[NSFileManager defaultManager] fileExistsAtPath:[paths objectAtIndex:j] isDirectory:&isDir] && isDir)
 		{
 			NSArray *content = [[NSFileManager defaultManager] directoryContentsAtPath:[paths objectAtIndex:j]];
 			for (NSUInteger i=0; i<[content count]; i++)
 			{
-				if( [[content objectAtIndex:i] length] > 0)
+				if ([[content objectAtIndex:i] length] > 0)
 				{
-					if( [[content objectAtIndex:i] characterAtIndex: 0] != '.')
+					if ([[content objectAtIndex:i] characterAtIndex: 0] != '.')
 					{
 						NSDictionary* clut = [CLUTOpacityView presetFromFileWithName:[[content objectAtIndex:i] stringByDeletingPathExtension]];
-						if(clut)
+						if (clut)
 						{
 							[clutArray addObject:[[content objectAtIndex:i] stringByDeletingPathExtension]];
 						}
@@ -2863,7 +2999,7 @@ return YES;
                                    keyEquivalent:@""
                                          atIndex:3];
 	
-	if( [clutArray count])
+	if ([clutArray count])
 	{
 		[[clutPopup menu] insertItem:[NSMenuItem separatorItem] atIndex:[[clutPopup menu] numberOfItems]-2];
 		
@@ -2878,7 +3014,7 @@ return YES;
                                                   action:@selector(loadAdvancedCLUTOpacity:)
                                            keyEquivalent:@""
                                                  atIndex:[[clutPopup menu] numberOfItems]-2];
-			if([view isRGB])
+			if ([view isRGB])
 				[item setEnabled:NO];
 		}
 	}
@@ -2887,7 +3023,7 @@ return YES;
                                        action:@selector(showCLUTOpacityPanel:)
                                 keyEquivalent:@""];
     
-	if([[pixList[ 0] objectAtIndex:0] isRGB])
+	if ([[pixList[ 0] objectAtIndex:0] isRGB])
 		[item setEnabled:NO];
 }
 
@@ -2900,10 +3036,11 @@ return YES;
 		[path appendString:(id)contextInfo];
 		[path appendString:@".plist"];
 		
-		if([[NSFileManager defaultManager] fileExistsAtPath:path])
+		if ([[NSFileManager defaultManager] fileExistsAtPath:path])
 			[[NSFileManager defaultManager] removeFileAtPath:path handler:nil];
 		else
 			NSLog( @"**** Error: CLUT plist not found!");
+        
 		[[NSNotificationCenter defaultCenter] postNotificationName: OsirixUpdateCLUTMenuNotification object:curCLUTMenu userInfo: nil];
     }
 }
@@ -2918,15 +3055,16 @@ return YES;
 	[[self window] zoom:self];
 }
 
+#pragma mark - IBAction
+
 -(IBAction) endEditGrowingRegion:(id) sender
 {
 	[growingRegionWindow orderOut: sender];
 	
 	[NSApp endSheet: growingRegionWindow returnCode: [sender tag]];
 	
-	if( [sender tag])
+	if ([sender tag])
 	{
-		
 	}
 	else
 	{
@@ -2943,8 +3081,7 @@ return YES;
 	[NSApp beginSheet: growingRegionWindow modalForWindow:[self window] modalDelegate:self didEndSelector:nil contextInfo:(void*) nil];
 }
 
-#pragma mark-
-#pragma mark 3D presets
+#pragma mark - 3D presets
 
 #pragma mark save current
 
@@ -2977,14 +3114,15 @@ return YES;
 	[presetDictionary setObject:shadingPresetName forKey:@"shading"];
 	[presetDictionary setObject:[NSNumber numberWithBool:isAdvancedCLUT] forKey:@"advancedCLUT"];
 	[presetDictionary setObject:clut forKey:@"CLUT"];
-	if([clut isEqualToString:NSLocalizedString(@"16-bit CLUT", nil)] || [clut isEqualToString: @"16-bit CLUT"])
+	if ([clut isEqualToString:NSLocalizedString(@"16-bit CLUT", nil)] || [clut isEqualToString: @"16-bit CLUT"])
 	{
 		NSArray *curves = [clutOpacityView convertCurvesForPlist];
 		NSArray *colors = [clutOpacityView convertPointColorsForPlist];
 		[presetDictionary setObject:curves forKey:@"16bitClutCurves"];
 		[presetDictionary setObject:colors forKey:@"16bitClutColors"];
 	}
-    if( appliedConvolutionFilters)
+    
+    if (appliedConvolutionFilters)
         [presetDictionary setObject:appliedConvolutionFilters forKey:@"convolutionFilters"];
     
 	[presetDictionary setObject:[NSNumber numberWithInt:projection] forKey:@"projection"];
@@ -2993,19 +3131,21 @@ return YES;
 	return presetDictionary;
 }
 
+#pragma mark - IBAction
+
 - (IBAction)save3DSettings:(id)sender;
 {
-    if( panelInstantiated == NO)
+    if (panelInstantiated == NO)
         [self showPresetsPanel];
     
-    if( save3DSettingsWindow == nil)
+    if (save3DSettingsWindow == nil)
         return;
     
 	NSMutableDictionary *presetDictionary = [self getCurrent3DSettings];
 		
-	if([[sender className] isEqualToString:@"NSMenuItem"])
+	if ([[sender className] isEqualToString:@"NSMenuItem"])
 	{		
-		if([[presetDictionary objectForKey:@"advancedCLUT"] boolValue])
+		if ([[presetDictionary objectForKey:@"advancedCLUT"] boolValue])
 		{
 			[settingsCLUTTextField setStringValue:[NSString stringWithFormat:NSLocalizedString(@"CLUT: %@ (16-bit)", nil), [presetDictionary objectForKey:@"CLUT"]]];
 			[settingsOpacityTextField setStringValue:NSLocalizedString(@"Opacity: (defined in the CLUT)", nil)];
@@ -3016,7 +3156,7 @@ return YES;
 			[settingsOpacityTextField setStringValue:[NSString stringWithFormat:NSLocalizedString(@"Opacity: %@", nil), [presetDictionary objectForKey:@"opacity"]]];
 		}
 		
-		if(![[presetDictionary objectForKey:@"useShading"] boolValue])
+		if (![[presetDictionary objectForKey:@"useShading"] boolValue])
 			[settingsShadingsTextField setStringValue:NSLocalizedString(@"Shadings: Off", nil)];
 		else
 			[settingsShadingsTextField setStringValue:[NSString stringWithFormat:NSLocalizedString(@"Shadings: %@", nil), [presetDictionary objectForKey:@"shading"]]];
@@ -3025,16 +3165,16 @@ return YES;
 		
 		NSMutableString *convolutionFiltersString = [NSMutableString stringWithString:@""];
 		NSArray *filters = [presetDictionary objectForKey:@"convolutionFilters"];
-		if([filters count]>1)
+		if ([filters count]>1)
             [convolutionFiltersString appendString:NSLocalizedString(@"Filters", nil)];
 		else
             [convolutionFiltersString appendString:NSLocalizedString(@"Filter", nil)];
         
 		[convolutionFiltersString appendString:@": "];
 		
-		if([filters count]>0)
+		if ([filters count]>0)
 		{
-			for(NSUInteger i=0; i<(long)[filters count]-1; i++)
+			for (NSUInteger i=0; i<(long)[filters count]-1; i++)
 			{
 				[convolutionFiltersString appendString:[filters objectAtIndex:i]];
 				[convolutionFiltersString appendString:@", "];
@@ -3053,26 +3193,27 @@ return YES;
 		
 		int proj = [[presetDictionary objectForKey:@"projection"] intValue];
 		NSString *projectionName = nil;
-		if(proj==0)
+		if (proj==0)
 			projectionName = NSLocalizedString(@"Perspective", nil);
-		else if(proj==1)
+		else if (proj==1)
 			projectionName = NSLocalizedString(@"Parallel", nil);
-		else if(proj==2)
+		else if (proj==2)
 			projectionName = NSLocalizedString(@"Endoscopy", nil);
+        
 		[settingsProjectionTextField setStringValue:[NSString stringWithFormat:NSLocalizedString(@"Projection: %@", nil), projectionName]];
 		
 		[settingsGroupPopUpButton removeAllItems];
 		
 		NSArray *groups = [self find3DSettingsGroups];
-		for(NSUInteger i=0; i<[groups count]; i++)
-		{
+		for (NSUInteger i=0; i<[groups count]; i++)
 			[settingsGroupPopUpButton addItemWithTitle:[groups objectAtIndex:i]];
-		}
-		if([groups count]>0)
+
+        if ([groups count]>0)
 			[[settingsGroupPopUpButton menu] addItem:[NSMenuItem separatorItem]];
-		[settingsGroupPopUpButton addItemWithTitle:NSLocalizedString(@"New group", nil)];
+
+        [settingsGroupPopUpButton addItemWithTitle:NSLocalizedString(@"New group", nil)];
 		
-		if([presetsPanel isVisible])
+		if ([presetsPanel isVisible])
 			[settingsGroupPopUpButton selectItemWithTitle:[[presetsGroupPopUpButton selectedItem] title]];
 		
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(controlTextDidChange:) name:NSControlTextDidChangeNotification object:nil];
@@ -3081,12 +3222,12 @@ return YES;
 		
 		[NSApp beginSheet:save3DSettingsWindow modalForWindow:[self window] modalDelegate:nil didEndSelector:nil contextInfo:nil];
 	}
-	else if([[sender className] isEqualToString:@"NSButton"])
+	else if ([[sender className] isEqualToString:@"NSButton"])
 	{
 		[self close3DSettingsSavePanel:sender];
 		NSString *settingsName = [settingsNameTextField stringValue];
 		NSString *groupName;
-		if(![settingsNewGroupNameTextField isHidden])
+		if (![settingsNewGroupNameTextField isHidden])
             groupName = [settingsNewGroupNameTextField stringValue];
 		else
             groupName = [[settingsGroupPopUpButton selectedItem] title];
@@ -3099,23 +3240,27 @@ return YES;
 - (IBAction)enable3DSettingsSaveButton:(id)sender;
 {
 	BOOL condition = [[settingsNameTextField stringValue] length] > 0;
-	if(![settingsNewGroupNameTextField isHidden]) condition &= [[settingsNewGroupNameTextField stringValue] length] > 0;
+	if (![settingsNewGroupNameTextField isHidden]) condition &= [[settingsNewGroupNameTextField stringValue] length] > 0;
 	
-	if(condition)
+	if (condition)
 		[settingsSaveButton setEnabled:YES];
 	else
 		[settingsSaveButton setEnabled:NO];
 }
 
+#pragma mark -
+
 - (void)controlTextDidChange:(NSNotification*)notification;
 {
-	if([[notification object] isEqualTo:settingsNameTextField] || [[notification object] isEqualTo:settingsNewGroupNameTextField])
+	if ([[notification object] isEqualTo:settingsNameTextField] || [[notification object] isEqualTo:settingsNewGroupNameTextField])
 		[self enable3DSettingsSaveButton:self];
 }
 
+#pragma mark - IBAction
+
 - (IBAction)show3DSettingsNewGroupTextField:(id)sender;
 {
-	if([[sender title] isEqualToString:NSLocalizedString(@"New group", nil)])
+	if ([[sender title] isEqualToString:NSLocalizedString(@"New group", nil)])
 	{
 		[settingsNewGroupNameTextField setHidden:NO];
 		[settingsNewGroupNameLabelTextField setHidden:NO];
@@ -3125,6 +3270,7 @@ return YES;
 		[settingsNewGroupNameTextField setHidden:YES];
 		[settingsNewGroupNameLabelTextField setHidden:YES];
 	}
+    
 	[self enable3DSettingsSaveButton:self];
 }
 
@@ -3133,6 +3279,8 @@ return YES;
 	[save3DSettingsWindow orderOut:sender];
 	[NSApp endSheet:save3DSettingsWindow];
 }
+
+#pragma mark -
 
 - (void)save3DSettings:(NSMutableDictionary*)settings WithName:(NSString*)name group:(NSString*)groupName;
 {
@@ -3174,21 +3322,21 @@ return YES;
 	for (NSUInteger j=0; j<[paths count]; j++)
 	{
 		NSString *path = [paths objectAtIndex:j];
-		if([[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDir] && isDir)
+		if ([[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDir] && isDir)
 		{
 			NSArray *settingsFiles = [[NSFileManager defaultManager] subpathsAtPath:path];
 			
-			for(NSUInteger i=0; i<[settingsFiles count]; i++)
+			for (NSUInteger i=0; i<[settingsFiles count]; i++)
 			{
 				NSString *filePath = [NSString stringWithFormat:@"%@%@", path, [settingsFiles objectAtIndex:i]];
-				if([[filePath pathExtension] isEqualToString:@"plist"])
+				if ([[filePath pathExtension] isEqualToString:@"plist"])
 				{
 					NSDictionary *settings = [[NSDictionary alloc] initWithContentsOfFile:[NSString stringWithFormat:@"%@/%@", path, [settingsFiles objectAtIndex:i]]];
-					if(settings)
+					if (settings)
 					{
-						if([[settings allKeys] containsObject:@"groupName"])
+						if ([[settings allKeys] containsObject:@"groupName"])
 						{
-							if(![settingsGroups containsObject:[settings objectForKey:@"groupName"]])
+							if (![settingsGroups containsObject:[settings objectForKey:@"groupName"]])
 								[settingsGroups addObject:[settings objectForKey:@"groupName"]];
 						}
                         [settings release];
@@ -3220,23 +3368,21 @@ NSInteger sort3DSettingsDict(id preset1, id preset2, void *context)
 	NSMutableArray *settingsList = [NSMutableArray array];
 	
 	BOOL isDir = YES;
-	int j;
-	
-	for (j=0; j<[paths count]; j++)
+	for (int j=0; j<[paths count]; j++)
 	{
 		NSString *path = [paths objectAtIndex:j];
-		if([[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDir] && isDir)
+		if ([[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDir] && isDir)
 		{
 			NSArray *settingsFiles = [[NSFileManager defaultManager] subpathsAtPath:path];
 			for (int i=0; i<[settingsFiles count]; i++)
 			{
 				NSDictionary *settings = [[NSDictionary alloc] initWithContentsOfFile:[NSString stringWithFormat:@"%@/%@", path, [settingsFiles objectAtIndex:i]]];
                 
-				if(settings)
+				if (settings)
 				{
-					if([[settings allKeys] containsObject:@"groupName"])
+					if ([[settings allKeys] containsObject:@"groupName"])
 					{
-						if([[settings objectForKey:@"groupName"] isEqualToString:groupName])
+						if ([[settings objectForKey:@"groupName"] isEqualToString:groupName])
 							[settingsList addObject:settings];
 					}
                     
@@ -3266,16 +3412,16 @@ NSInteger sort3DSettingsDict(id preset1, id preset2, void *context)
 	[presetsGroupPopUpButton removeAllItems];
 	NSArray *groups = [self find3DSettingsGroups];
 	
-	for(NSUInteger i=0; i<[groups count]; i++)
+	for (NSUInteger i=0; i<[groups count]; i++)
 		[presetsGroupPopUpButton addItemWithTitle:[groups objectAtIndex:i]];
 
-	if([presetsGroupPopUpButton numberOfItems]<1)
+	if ([presetsGroupPopUpButton numberOfItems]<1)
 	{
 		[presetsGroupPopUpButton addItemWithTitle:NSLocalizedString(@"No Groups", nil)];
 		[presetsGroupPopUpButton setEnabled:NO];
 	}
 	
-	if(![groupName isEqualToString:@""])
+	if (![groupName isEqualToString:@""])
 		[presetsGroupPopUpButton selectItemWithTitle:groupName];
 	
 	[self displayPresetsForSelectedGroup:presetsGroupPopUpButton];
@@ -3286,24 +3432,26 @@ NSInteger sort3DSettingsDict(id preset1, id preset2, void *context)
 	[self load3DSettings:self];
 }
 
+#pragma mark - IBAction
+
 - (IBAction)load3DSettings:(id)sender;
 {
 	[[NSUserDefaults standardUserDefaults] setObject:[presetsGroupPopUpButton titleOfSelectedItem] forKey:@"LAST_3D_PRESET"];
 	
-	if([[sender className] isEqualToString:@"NSMenuItem"] || [[sender className] isEqualToString:@"NSToolbarItem"])
+	if ([[sender className] isEqualToString:@"NSMenuItem"] || [[sender className] isEqualToString:@"NSToolbarItem"])
 	{
 		[self showPresetsPanel];
 	}
-	else if([sender isEqualTo:presetsApplyButton])
+	else if ([sender isEqualTo:presetsApplyButton])
 	{	
-		if([presetsPanel isVisible])
+		if ([presetsPanel isVisible])
 			[presetsPanel close];
 		
 		[self load3DSettings];
 	}
-	else if([sender isEqualTo:self])
+	else if ([sender isEqualTo:self])
 	{
-		if( firstTimeDisplayed)
+		if (firstTimeDisplayed)
 			[presetsPanel close];
 			
 		firstTimeDisplayed = NO;
@@ -3313,7 +3461,7 @@ NSInteger sort3DSettingsDict(id preset1, id preset2, void *context)
 		
 		@try
 		{
-			if( [selectedPresetPreview index] < 0) NSLog( @" ******** if( [selectedPresetPreview index] < 0)");
+			if ([selectedPresetPreview index] < 0) NSLog( @" ******** if ([selectedPresetPreview index] < 0)");
 			 
 			NSDictionary *preset = [[self find3DSettingsForGroupName:[presetsGroupPopUpButton titleOfSelectedItem]] objectAtIndex:[selectedPresetPreview index]];
 
@@ -3321,7 +3469,7 @@ NSInteger sort3DSettingsDict(id preset1, id preset2, void *context)
 			NSString *clut = [preset objectForKey:@"CLUT"];
 
 			BOOL advancedCLUT = [[preset objectForKey:@"advancedCLUT"] boolValue];
-			if(!advancedCLUT)
+			if (!advancedCLUT)
 			{
 				[self ApplyCLUTString:clut];
 				
@@ -3336,7 +3484,7 @@ NSInteger sort3DSettingsDict(id preset1, id preset2, void *context)
 			}
 			else
 			{
-				if([clut isEqualToString:NSLocalizedString(@"16-bit CLUT", nil)] || [clut isEqualToString: @"16-bit CLUT"])
+				if ([clut isEqualToString:NSLocalizedString(@"16-bit CLUT", nil)] || [clut isEqualToString: @"16-bit CLUT"])
 				{
 					NSMutableArray *curves = [CLUTOpacityView convertCurvesFromPlist:[preset objectForKey:@"16bitClutCurves"]];
 					NSMutableArray *colors = [CLUTOpacityView convertPointColorsFromPlist:[preset objectForKey:@"16bitClutColors"]];
@@ -3355,13 +3503,13 @@ NSInteger sort3DSettingsDict(id preset1, id preset2, void *context)
 					[clutOpacityView loadFromFileWithName:clut];
 					[clutOpacityView setCLUTtoVRView:NO];
 					[clutOpacityView updateView];
-					if(curCLUTMenu) [curCLUTMenu release];
+					if (curCLUTMenu) [curCLUTMenu release];
 					curCLUTMenu = [clut retain];
 					[[[clutPopup menu] itemAtIndex:0] setTitle:clut];
 					[OpacityPopup setEnabled:NO];
 				}
 				
-				if([clutOpacityDrawer state] == NSDrawerClosedState)
+				if ([clutOpacityDrawer state] == NSDrawerClosedState)
 				{
 					[self showCLUTOpacityPanel: self];
 				}
@@ -3371,21 +3519,21 @@ NSInteger sort3DSettingsDict(id preset1, id preset2, void *context)
 			}
 			
 			// shadings
-			if([[preset objectForKey:@"useShading"] boolValue])
+			if ([[preset objectForKey:@"useShading"] boolValue])
 			{
 				NSString *shadingName = [preset objectForKey:@"shading"];
 				NSArray	*shadings = [shadingsPresetsController arrangedObjects];
 				for (int i = 0; i < [shadings count]; i++)
 				{
 					NSDictionary *dict = [shadings objectAtIndex:i];
-					if([[dict valueForKey:@"name"] isEqualToString:shadingName])
+					if ([[dict valueForKey:@"name"] isEqualToString:shadingName])
 					{
 						[shadingsPresetsController setSelectedObjects:[NSArray arrayWithObject:dict]];
 						break;
 					}
 				}
 				[self applyShading:self];
-				if([shadingCheck state]==NSOffState)
+				if ([shadingCheck state]==NSOffState)
 				{
 					[shadingCheck setState:NSOnState];
 					[view switchShading:shadingCheck];
@@ -3393,7 +3541,7 @@ NSInteger sort3DSettingsDict(id preset1, id preset2, void *context)
 			}
 			else
 			{
-				if([shadingCheck state]==NSOnState)
+				if ([shadingCheck state]==NSOnState)
 				{
 					[shadingCheck setState:NSOffState];
 					[view switchShading:shadingCheck];
@@ -3411,10 +3559,10 @@ NSInteger sort3DSettingsDict(id preset1, id preset2, void *context)
 			[view changeColorWith:[NSColor colorWithDeviceRed:red green:green blue:blue alpha:1.0]];
 					
 			// convolution filter
-			if([appliedConvolutionFilters count]==0)
+			if ([appliedConvolutionFilters count]==0)
 			{
 				NSArray *convolutionFilters = [preset objectForKey:@"convolutionFilters"];
-				if([convolutionFilters count]>0)
+				if ([convolutionFilters count]>0)
 				{
 					for (int i=0; i<[convolutionFilters count]; i++)
 					{
@@ -3423,6 +3571,7 @@ NSInteger sort3DSettingsDict(id preset1, id preset2, void *context)
 						[viewer2D applyConvolutionOnSource:self];
 						[appliedConvolutionFilters addObject:[convolutionFilters objectAtIndex:i]];
 					}
+                    
 					[self displayPresetsForSelectedGroup];
 				}
 			}
@@ -3443,9 +3592,11 @@ NSInteger sort3DSettingsDict(id preset1, id preset2, void *context)
 	[self displayPresetsForSelectedGroup];
 }
 
+#pragma mark -
+
 - (void)displayPresetsForSelectedGroup;
 {
-	if([presetsGroupPopUpButton numberOfItems]<1)
+	if ([presetsGroupPopUpButton numberOfItems]<1)
         return;
     
 	NSArray *settingsList = [self find3DSettingsForGroupName:[presetsGroupPopUpButton titleOfSelectedItem]];
@@ -3456,10 +3607,10 @@ NSInteger sort3DSettingsDict(id preset1, id preset2, void *context)
 	
 	// fill the thumbnails
 	n = 0;
-	for(i=0; i<[presetPreviewArray count] && n<[settingsList count]; i++)
+	for (i=0; i<[presetPreviewArray count] && n<[settingsList count]; i++)
 	{
 		n = presetPageNumber*[presetPreviewArray count] + i;
-		if(n<[settingsList count])
+		if (n<[settingsList count])
 		{
 			[(NSTextField*)[presetNameArray objectAtIndex:i] setStringValue:[NSString stringWithFormat:@"%d. %@", n+1,[[settingsList objectAtIndex:n] objectForKey:@"name"]]];
 			[(VRPresetPreview*)[presetPreviewArray objectAtIndex:i] setIsEmpty:NO];
@@ -3467,7 +3618,7 @@ NSInteger sort3DSettingsDict(id preset1, id preset2, void *context)
 			[(VRPresetPreview*)[presetPreviewArray objectAtIndex:i] setVtkCamera: [view vtkCamera]];
 			
 //			double a[ 6];
-//			if( [view croppingBox: a])
+//			if ([view croppingBox: a])
 //				[(VRPresetPreview*)[presetPreviewArray objectAtIndex:i] setCroppingBox: a];
 			
 			[self load3DSettingsDictionary:[settingsList objectAtIndex:n] forPreview:[presetPreviewArray objectAtIndex:i]];
@@ -3479,16 +3630,16 @@ NSInteger sort3DSettingsDict(id preset1, id preset2, void *context)
 	
 	// the others will be black
 	
-	if(n>=[settingsList count]) i--;
+	if (n>=[settingsList count]) i--;
 	
-	while(i<[presetPreviewArray count])
+	while (i<[presetPreviewArray count])
 	{
 		[(NSTextField*)[presetNameArray objectAtIndex:i] setStringValue:@""];
 		[(VRPresetPreview*)[presetPreviewArray objectAtIndex:i] setIsEmpty:YES];
 		i++;
 	}
 	
-	if([presetPreviewArray count]) [(VRPresetPreview*)[presetPreviewArray objectAtIndex:0] setSelected];
+	if ([presetPreviewArray count]) [(VRPresetPreview*)[presetPreviewArray objectAtIndex:0] setSelected];
 }
 
 - (void)load3DSettingsDictionary:(NSDictionary*)preset forPreview:(VRPresetPreview*)preview;
@@ -3496,25 +3647,25 @@ NSInteger sort3DSettingsDict(id preset1, id preset2, void *context)
 	// CLUT
 	NSString *aClutName = [preset objectForKey:@"CLUT"];
 	BOOL advancedCLUT = [[preset objectForKey:@"advancedCLUT"] boolValue];
-	if(!advancedCLUT)
+	if (!advancedCLUT)
 	{
 		NSDictionary *aCLUT;
 		NSArray *array;
 		unsigned char red[256], green[256], blue[256];
 		
 		aCLUT = [[[NSUserDefaults standardUserDefaults] dictionaryForKey: @"CLUT"] objectForKey:aClutName];
-		if(aCLUT)
+		if (aCLUT)
 		{
 			array = [aCLUT objectForKey:@"Red"];
-			for( NSUInteger i = 0; i < 256; i++)
+			for (NSUInteger i = 0; i < 256; i++)
 				red[i] = [[array objectAtIndex: i] longValue];
 			
 			array = [aCLUT objectForKey:@"Green"];
-			for( NSUInteger i = 0; i < 256; i++)
+			for (NSUInteger i = 0; i < 256; i++)
 				green[i] = [[array objectAtIndex: i] longValue];
 			
 			array = [aCLUT objectForKey:@"Blue"];
-			for( NSUInteger i = 0; i < 256; i++)
+			for (NSUInteger i = 0; i < 256; i++)
 				blue[i] = [[array objectAtIndex: i] longValue];
 			
 			[preview setCLUT:red :green: blue];
@@ -3524,7 +3675,7 @@ NSInteger sort3DSettingsDict(id preset1, id preset2, void *context)
 		
 		// opacity
 		NSDictionary *aOpacity = [[[NSUserDefaults standardUserDefaults] dictionaryForKey: @"OPACITY"] objectForKey:[preset objectForKey:@"opacity"]];
-		if(aOpacity)
+		if (aOpacity)
 		{
 			array = [aOpacity objectForKey:@"Points"];
 			[preview setOpacity:array];
@@ -3545,9 +3696,9 @@ NSInteger sort3DSettingsDict(id preset1, id preset2, void *context)
 
 		NSMutableArray *curves = nil, *pointColors = nil;
 		
-		if([[NSFileManager defaultManager] fileExistsAtPath:path])
+		if ([[NSFileManager defaultManager] fileExistsAtPath:path])
 		{
-			if([[path pathExtension] isEqualToString:@""])
+			if ([[path pathExtension] isEqualToString:@""])
 			{
 				NSMutableDictionary *clut = [NSUnarchiver unarchiveObjectWithFile:path];
 				curves = [clut objectForKey:@"curves"];
@@ -3557,13 +3708,13 @@ NSInteger sort3DSettingsDict(id preset1, id preset2, void *context)
 		else
 		{
 			[path appendString:@".plist"];
-			if([[NSFileManager defaultManager] fileExistsAtPath:path])
+			if ([[NSFileManager defaultManager] fileExistsAtPath:path])
 			{
 				NSDictionary *clut = [NSDictionary dictionaryWithContentsOfFile:path];
 				curves = [CLUTOpacityView convertCurvesFromPlist:[clut objectForKey:@"curves"]];
 				pointColors = [CLUTOpacityView convertPointColorsFromPlist:[clut objectForKey:@"colors"]];
 			}
-			else if([aClutName isEqualToString:NSLocalizedString(@"16-bit CLUT", nil)] || [aClutName isEqualToString: @"16-bit CLUT"])
+			else if ([aClutName isEqualToString:NSLocalizedString(@"16-bit CLUT", nil)] || [aClutName isEqualToString: @"16-bit CLUT"])
 			{
 				curves = [CLUTOpacityView convertCurvesFromPlist:[preset objectForKey:@"16bitClutCurves"]];
 				pointColors = [CLUTOpacityView convertPointColorsFromPlist:[preset objectForKey:@"16bitClutColors"]];
@@ -3575,7 +3726,7 @@ NSInteger sort3DSettingsDict(id preset1, id preset2, void *context)
 				[path appendString:CLUTDATABASE];
 				[path appendString:aClutName];
 				[path appendString:@".plist"];
-				if([[NSFileManager defaultManager] fileExistsAtPath:path])
+				if ([[NSFileManager defaultManager] fileExistsAtPath:path])
 				{
 					NSDictionary *clut = [NSDictionary dictionaryWithContentsOfFile:path];
 					curves = [CLUTOpacityView convertCurvesFromPlist:[clut objectForKey:@"curves"]];
@@ -3585,14 +3736,14 @@ NSInteger sort3DSettingsDict(id preset1, id preset2, void *context)
 		}
 
 		NSMutableDictionary *clut2 = [NSMutableDictionary dictionaryWithCapacity:2];
-		if(curves) [clut2 setObject:curves forKey:@"curves"];
-		if(pointColors) [clut2 setObject:pointColors forKey:@"colors"];
+		if (curves) [clut2 setObject:curves forKey:@"curves"];
+		if (pointColors) [clut2 setObject:pointColors forKey:@"colors"];
 		
 		[preview setAdvancedCLUT:clut2 lowResolution:NO];
 
 		// wl / ww for advanced CLUT
 //		int curveIndex = [self selectedCurveIndex];
-//		if(curveIndex<0) curveIndex = 0;
+//		if (curveIndex<0) curveIndex = 0;
 //		NSMutableArray *theCurve = [curves objectAtIndex:curveIndex];
 //		NSPoint firstPoint = [[theCurve objectAtIndex:0] pointValue];
 //		NSPoint lastPoint = [[theCurve lastObject] pointValue];
@@ -3602,19 +3753,19 @@ NSInteger sort3DSettingsDict(id preset1, id preset2, void *context)
 //		float savedWl, savedWw;
 //		[view getWLWW: &savedWl :&savedWw];
 //		
-//		if( savedWl != iwl || savedWw != iww)
+//		if (savedWl != iwl || savedWw != iww)
 //			[view setWLWW: iwl : iww];
 	}
 	
 	// shadings
-	if([[preset objectForKey:@"useShading"] boolValue])
+	if ([[preset objectForKey:@"useShading"] boolValue])
 	{
 		NSString *shadingName = [preset objectForKey:@"shading"];
 		NSArray *shadings = [[NSUserDefaults standardUserDefaults] arrayForKey:@"shadingsPresets"];
 		NSDictionary *selectedShading = nil;
 		for (NSUInteger i=0; i<[shadings count]; i++)
 		{
-			if([[[shadings objectAtIndex:i] objectForKey:@"name"] isEqualToString:shadingName])
+			if ([[[shadings objectAtIndex:i] objectForKey:@"name"] isEqualToString:shadingName])
 			{
 				selectedShading = [shadings objectAtIndex:i];
 			}
@@ -3622,7 +3773,7 @@ NSInteger sort3DSettingsDict(id preset1, id preset2, void *context)
 		
 		float ambient, diffuse, specular, specularpower;
 		
-		if( selectedShading)
+		if (selectedShading)
 		{
 			ambient = [[selectedShading valueForKey:@"ambient"] floatValue];
 			diffuse = [[selectedShading valueForKey:@"diffuse"] floatValue];
@@ -3632,19 +3783,19 @@ NSInteger sort3DSettingsDict(id preset1, id preset2, void *context)
 			float sambient, sdiffuse, sspecular, sspecularpower;	
 			[preview getShadingValues: &sambient :&sdiffuse :&sspecular :&sspecularpower];
 			
-			if( sambient != ambient || sdiffuse != diffuse || sspecular != specular || sspecularpower != specularpower)
+			if (sambient != ambient || sdiffuse != diffuse || sspecular != specular || sspecularpower != specularpower)
 			{
 				[preview setShadingValues: ambient :diffuse :specular :specularpower];
 				[preview setNeedsDisplay: YES];
 			}
 			
-			if(![preview shading])
+			if (![preview shading])
 				[preview activateShading:YES];
 		}
 	}
 	else
 	{
-		if([preview shading])
+		if ([preview shading])
 			[preview activateShading:NO];
 	}
 
@@ -3659,12 +3810,12 @@ NSInteger sort3DSettingsDict(id preset1, id preset2, void *context)
 	[preview changeColorWith:[NSColor colorWithDeviceRed:red green:green blue:blue alpha:1.0]];
 			
 	// convolution filter
-//	if([appliedConvolutionFilters count]==0)
+//	if ([appliedConvolutionFilters count]==0)
 //	{
 //		NSArray *convolutionFilters = [preset objectForKey:@"convolutionFilters"];
-//		if([convolutionFilters count]>0)
+//		if ([convolutionFilters count]>0)
 //		{			
-//			for(i=0; i<[convolutionFilters count]; i++)
+//			for (i=0; i<[convolutionFilters count]; i++)
 //			{
 //				[self prepareUndo];
 //				[viewer2D ApplyConvString:[convolutionFilters objectAtIndex:i]];
@@ -3685,13 +3836,15 @@ NSInteger sort3DSettingsDict(id preset1, id preset2, void *context)
 {
 	presetPageNumber = 0;
 	
-	if( [presetsGroupPopUpButton indexOfItemWithTitle: name] < 0)
+	if ([presetsGroupPopUpButton indexOfItemWithTitle: name] < 0)
         return;
 	
 	[settingsGroupPopUpButton selectItemWithTitle:name];
 	[presetsGroupPopUpButton selectItemWithTitle:name];
 	[self displayPresetsForSelectedGroup:presetsGroupPopUpButton];
 }
+
+#pragma mark - IBAction
 
 - (IBAction)nextPresetPage:(id)sender;
 {
@@ -3703,13 +3856,15 @@ NSInteger sort3DSettingsDict(id preset1, id preset2, void *context)
 - (IBAction)previousPresetPage:(id)sender;
 {
 	presetPageNumber--;
-	if(presetPageNumber<0) presetPageNumber += presetPageMax+1;
+	if (presetPageNumber<0) presetPageNumber += presetPageMax+1;
 	[self displayPresetsForSelectedGroup];
 }
 
+#pragma mark -
+
 - (void)enablePresetPageButtons;
 {
-	if(presetPageMax==0)
+	if (presetPageMax==0)
 	{
 		[nextPresetPageButton setHidden:YES];
 		[previousPresetPageButton setHidden:YES];
@@ -3723,11 +3878,11 @@ NSInteger sort3DSettingsDict(id preset1, id preset2, void *context)
 
 - (void)showPresetsPanel;
 {
-    if( panelInstantiated == NO)
+    if (panelInstantiated == NO)
     {
         panelInstantiated = YES;
         
-        for( id presetPreview in presetPreviewArray)
+        for (id presetPreview in presetPreviewArray)
         {
             [presetPreview setPixSource:pixList[0] :(float*) [volumeData[0] bytes]];
             [presetPreview setData8: [view data8]];
@@ -3765,17 +3920,17 @@ NSInteger sort3DSettingsDict(id preset1, id preset2, void *context)
 
 - (void)updatePresetInfoPanel;
 {	
-	if( [selectedPresetPreview index] < 0)
+	if ([selectedPresetPreview index] < 0)
         NSLog( @" ******** [selectedPresetPreview index] < 0");
     
-    if( selectedPresetPreview == nil)
+    if (selectedPresetPreview == nil)
         return;
     
 	NSDictionary *presetDictionary = [[self find3DSettingsForGroupName:[presetsGroupPopUpButton titleOfSelectedItem]] objectAtIndex:[selectedPresetPreview index]];
 	
 	[infoNameTextField setStringValue:[NSString stringWithFormat:NSLocalizedString(@"Name: %@", nil), [presetDictionary objectForKey:@"name"]]];
 	
-	if([[presetDictionary objectForKey:@"advancedCLUT"] boolValue])
+	if ([[presetDictionary objectForKey:@"advancedCLUT"] boolValue])
 	{
 		[infoCLUTTextField setStringValue:[NSString stringWithFormat:NSLocalizedString(@"CLUT: %@ (16-bit)", nil), [presetDictionary objectForKey:@"CLUT"]]];
 		[infoOpacityTextField setStringValue:NSLocalizedString(@"Opacity: (defined in the CLUT)", nil)];
@@ -3786,7 +3941,7 @@ NSInteger sort3DSettingsDict(id preset1, id preset2, void *context)
 		[infoOpacityTextField setStringValue:[NSString stringWithFormat:NSLocalizedString(@"Opacity: %@", nil), [presetDictionary objectForKey:@"opacity"]]];
 	}
 	
-	if(![[presetDictionary objectForKey:@"useShading"] boolValue])
+	if (![[presetDictionary objectForKey:@"useShading"] boolValue])
 		[infoShadingsTextField setStringValue:NSLocalizedString(@"Shadings: Off", nil)];
 	else
 		[infoShadingsTextField setStringValue:[NSString stringWithFormat:NSLocalizedString(@"Shadings: %@", nil), [presetDictionary objectForKey:@"shading"]]];
@@ -3795,20 +3950,21 @@ NSInteger sort3DSettingsDict(id preset1, id preset2, void *context)
 	
 	NSMutableString *convolutionFiltersString = [NSMutableString stringWithString:@""];
 	NSArray *filters = [presetDictionary objectForKey:@"convolutionFilters"];
-	if([filters count]>1)
+	if ([filters count]>1)
         [convolutionFiltersString appendString:NSLocalizedString(@"Filters", nil)];
 	else
         [convolutionFiltersString appendString:NSLocalizedString(@"Filter", nil)];
     
 	[convolutionFiltersString appendString:@": "];
 	
-	if([filters count]>0)
+	if ([filters count]>0)
 	{
-		for(NSUInteger i=0; i<(long)[filters count]-1; i++)
+		for (NSUInteger i=0; i<(long)[filters count]-1; i++)
 		{
 			[convolutionFiltersString appendString:[filters objectAtIndex:i]];
 			[convolutionFiltersString appendString:@", "];
 		}
+        
 		[convolutionFiltersString appendString:[filters objectAtIndex:(long)[filters count]-1]];
 		[convolutionFiltersString appendString:@"."];
 	}
@@ -3816,27 +3972,36 @@ NSInteger sort3DSettingsDict(id preset1, id preset2, void *context)
 	{
 		[convolutionFiltersString appendString:NSLocalizedString(@"(none).", nil)];
 	}
+    
 	[infoConvolutionFilterTextField setStringValue:convolutionFiltersString];
 	
-	[infoBackgroundColorTextField setStringValue:[NSString stringWithFormat:NSLocalizedString(@"r:%.0f%%, g:%.0f%%, b:%.0f%%", nil), 100*[[presetDictionary objectForKey:@"backgroundColorRedComponent"] floatValue], 100*[[presetDictionary objectForKey:@"backgroundColorGreenComponent"] floatValue], 100*[[presetDictionary objectForKey:@"backgroundColorBlueComponent"] floatValue]]];
+	[infoBackgroundColorTextField setStringValue:[NSString stringWithFormat:NSLocalizedString(@"r:%.0f%%, g:%.0f%%, b:%.0f%%", nil),
+                                                  100*[[presetDictionary objectForKey:@"backgroundColorRedComponent"] floatValue],
+                                                  100*[[presetDictionary objectForKey:@"backgroundColorGreenComponent"] floatValue],
+                                                  100*[[presetDictionary objectForKey:@"backgroundColorBlueComponent"] floatValue]]];
 	
-	[infoBackgroundColorView setColor:[NSColor colorWithDeviceRed:[[presetDictionary objectForKey:@"backgroundColorRedComponent"] floatValue] green:[[presetDictionary objectForKey:@"backgroundColorGreenComponent"] floatValue] blue:[[presetDictionary objectForKey:@"backgroundColorBlueComponent"] floatValue] alpha:1.0]];
+	[infoBackgroundColorView setColor:[NSColor colorWithDeviceRed:[[presetDictionary objectForKey:@"backgroundColorRedComponent"] floatValue]
+                                                            green:[[presetDictionary objectForKey:@"backgroundColorGreenComponent"] floatValue]
+                                                             blue:[[presetDictionary objectForKey:@"backgroundColorBlueComponent"] floatValue]
+                                                            alpha:1.0]];
 	
 	[infoBackgroundColorView setNeedsDisplay:YES];
 	
-//	if([presetsInfoPanel isVisible])
+//	if ([presetsInfoPanel isVisible])
 //		[infoBackgroundColorView display];
 	
 	int proj = [[presetDictionary objectForKey:@"projection"] intValue];
 	NSString *projectionName = nil;
-	if(proj==0)
+	if (proj==0)
 		projectionName = NSLocalizedString(@"Perspective", nil);
-	else if(proj==1)
+	else if (proj==1)
 		projectionName = NSLocalizedString(@"Parallel", nil);
-	else if(proj==2)
+	else if (proj==2)
 		projectionName = NSLocalizedString(@"Endoscopy", nil);
 	[infoProjectionTextField setStringValue:[NSString stringWithFormat:NSLocalizedString(@"Projection: %@", nil), projectionName]];
 }
+
+#pragma mark - IBAction
 
 - (IBAction)showPresetInfoPanel:(id)sender;
 {
@@ -3844,14 +4009,14 @@ NSInteger sort3DSettingsDict(id preset1, id preset2, void *context)
 	[presetsInfoPanel orderFront:self];
 }
 
-#pragma mark NSWindow Notifications action
+#pragma mark - NSWindow Notifications action
 
 - (void)windowWillCloseNotification:(NSNotification*)notification;
 {
-	if( [notification object] == presetsPanel)
+	if ([notification object] == presetsPanel)
 	{
 		[presetsInfoPanel close];
-		if(needToMovePresetsPanelToUserDefinedPosition)
+		if (needToMovePresetsPanelToUserDefinedPosition)
 		{
 			NSRect frame = [presetsPanel frame];
 			frame.origin = presetsPanelUserDefinedOrigin;
@@ -3862,9 +4027,9 @@ NSInteger sort3DSettingsDict(id preset1, id preset2, void *context)
 
 - (void)windowWillMoveNotification:(NSNotification*)notification;
 {
-	if( [notification object] == presetsPanel)
+	if ([notification object] == presetsPanel)
 	{
-		if(needToMovePresetsPanelToUserDefinedPosition)
+		if (needToMovePresetsPanelToUserDefinedPosition)
 		{
 			needToMovePresetsPanelToUserDefinedPosition = NO;
 		}

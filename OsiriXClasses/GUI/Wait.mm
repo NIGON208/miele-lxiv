@@ -137,19 +137,9 @@
     
     [[self window] center];
 	[[self window] setLevel: NSModalPanelWindowLevel];
-#if 0
-    NSDictionary* attributes = [NSDictionary dictionaryWithObjectsAndKeys:
-                                [NSColor textColor], NSForegroundColorAttributeName,
-                                NULL];
-    NSAttributedString *contentText;
-    contentText = [[[NSAttributedString alloc] initWithString:str attributes:attributes] autorelease];
-    
-    if (str)
-        [text setAttributedStringValue:contentText];
-#else
+
 	if (str)
         [text setStringValue:str];
-#endif
 
     startTime = nil;
 	lastTimeFrame = 0;
