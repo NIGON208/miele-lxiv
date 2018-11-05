@@ -5,7 +5,7 @@
 	<key>LSMinimumSystemVersion</key>
 	<string>10.8</string>
 	<key>CFBundleDevelopmentRegion</key>
-	<string>English</string>
+	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
 	<string>OsiriX Lite</string>
 	<key>CFBundleDocumentTypes</key>

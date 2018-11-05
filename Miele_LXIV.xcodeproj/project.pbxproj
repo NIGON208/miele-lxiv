@@ -3359,6 +3359,21 @@
 		43E27D291AF338FA007B92CA /* ROI3DSettingsWindow.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ROI3DSettingsWindow.mm; sourceTree = "<group>"; };
 		43E27D2D1AF33A22007B92CA /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = Binaries/English.lproj/ROI3DSettingsWindow.xib; sourceTree = "<group>"; };
 		43E6A512216CC297005A031A /* odt2pdf.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; name = odt2pdf.zip; path = Binaries/ReportsToPDF/odt2pdf/build/odt2pdf.zip; sourceTree = "<group>"; };
+		43E6E9E02190539C00625D92 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = "Preference Panes/OSIPACSOnDemandPreferencePane/Base.lproj/OSIPACSOnDemand.xib"; sourceTree = "<group>"; };
+		43E6E9E12190539D00625D92 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = "Preference Panes/OSIWebSharingPreferencePane/Base.lproj/OSIWebSharingPreferencePanePref.xib"; sourceTree = "<group>"; };
+		43E6E9E22190539D00625D92 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = "Preference Panes/OSIViewerPreferencePane/Base.lproj/OSIViewerPreferencePanePref.xib"; sourceTree = "<group>"; };
+		43E6E9E32190539D00625D92 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = "Preference Panes/OSIPETPreferencePane/Base.lproj/OSIPETPreferencePanePref.xib"; sourceTree = "<group>"; };
+		43E6E9E42190539E00625D92 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = "Preference Panes/OSILocationsPreferencePane/Base.lproj/OSILocationsPreferencePanePref.xib"; sourceTree = "<group>"; };
+		43E6E9E52190539F00625D92 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = "Preference Panes/OSIListenerPreferencePane/Base.lproj/OSIListenerPreferencePanePref.xib"; sourceTree = "<group>"; };
+		43E6E9E62190539F00625D92 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = "Preference Panes/OSIHotKeysPreferencePane/Base.lproj/OSIHotKeysPref.xib"; sourceTree = "<group>"; };
+		43E6E9E7219053A000625D92 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = "Preference Panes/OSIHangingPreferencePane/Base.lproj/OSIHangingPreferencePanePref.xib"; sourceTree = "<group>"; };
+		43E6E9E8219053A000625D92 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = "Preference Panes/OSIGeneralPreferencePane/Base.lproj/OSIGeneralPreferencePanePref.xib"; sourceTree = "<group>"; };
+		43E6E9E9219053A000625D92 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = "Preference Panes/OSIDatabasePreferencePane/Base.lproj/OSIDatabasePreferencePanePref.xib"; sourceTree = "<group>"; };
+		43E6E9EA219053A100625D92 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = "Preference Panes/OSICustomImageAnnotations/Base.lproj/OSICustomImageAnnotations.xib"; sourceTree = "<group>"; };
+		43E6E9EB219053A200625D92 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = "Preference Panes/OSICDPreferencePane/Base.lproj/OSICDPreferencePanePref.xib"; sourceTree = "<group>"; };
+		43E6E9EC219053A200625D92 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = "Preference Panes/OSIAutoroutingPreferencePane/Base.lproj/OSIAutoroutingPreferencePanePref.xib"; sourceTree = "<group>"; };
+		43E6E9ED219053A200625D92 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = "Preference Panes/OSI3DPreferencePane/Base.lproj/OSI3DPreferencePanePref.xib"; sourceTree = "<group>"; };
+		43E6E9EE219053A300625D92 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = "Preference Panes/AYDicomPrintPreferencePane/Base.lproj/AYDicomPrintPref.xib"; sourceTree = "<group>"; };
 		43F8F9A41AA7DAA6008F318C /* LoupeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoupeController.h; sourceTree = "<group>"; };
 		43F8F9A51AA7DAA6008F318C /* LoupeController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = LoupeController.mm; sourceTree = "<group>"; };
 		43F8F9A61AA7DAA6008F318C /* LoupeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoupeView.h; sourceTree = "<group>"; };
@@ -4635,29 +4650,22 @@
 		CEA4F07215AEA5FE009584C7 /* Cloud.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Cloud.png; path = "Preference Panes/OSIPACSOnDemandPreferencePane/Cloud.png"; sourceTree = "<group>"; };
 		CEA4F07315AEA5FE009584C7 /* OSIPACSOnDemandPreferencePane.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = OSIPACSOnDemandPreferencePane.mm; path = "Preference Panes/OSIPACSOnDemandPreferencePane/OSIPACSOnDemandPreferencePane.mm"; sourceTree = "<group>"; };
 		CEA4F07415AEA5FE009584C7 /* OSIPACSOnDemandPreferencePane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OSIPACSOnDemandPreferencePane.h; path = "Preference Panes/OSIPACSOnDemandPreferencePane/OSIPACSOnDemandPreferencePane.h"; sourceTree = "<group>"; };
-		CEA4F07C15AEA606009584C7 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = "Preference Panes/OSIPACSOnDemandPreferencePane/English.lproj/OSIPACSOnDemand.xib"; sourceTree = "<group>"; };
 		CEA6CC7218068CE900F5A748 /* Growl Registration Ticket.growlRegDict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "Growl Registration Ticket.growlRegDict"; path = "Binaries/Growl Registration Ticket.growlRegDict"; sourceTree = "<group>"; };
 		CEAE02DF0DE7E33B00E9BD01 /* DICOMDestination.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = DICOMDestination.tif; sourceTree = "<group>"; };
 		CEAF4ECC089D6E9400DE46AF /* OsiriXTables.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = OsiriXTables.pdf; sourceTree = "<group>"; };
 		CEB1DA6608A3B1040058C303 /* smalltrash.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = smalltrash.tif; sourceTree = "<group>"; };
-		CEB9898B133500D30083F3FD /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = "Preference Panes/OSIWebSharingPreferencePane/English.lproj/OSIWebSharingPreferencePanePref.xib"; sourceTree = "<group>"; };
 		CEB9898C133500D30083F3FD /* OSIWebSharingPreferencePanePref.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OSIWebSharingPreferencePanePref.h; path = "Preference Panes/OSIWebSharingPreferencePane/OSIWebSharingPreferencePanePref.h"; sourceTree = "<group>"; };
 		CEB9898D133500D30083F3FD /* OSIWebSharingPreferencePanePref.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = OSIWebSharingPreferencePanePref.mm; path = "Preference Panes/OSIWebSharingPreferencePane/OSIWebSharingPreferencePanePref.mm"; sourceTree = "<group>"; };
-		CEB989FF133507AC0083F3FD /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = "Preference Panes/OSIViewerPreferencePane/English.lproj/OSIViewerPreferencePanePref.xib"; sourceTree = "<group>"; };
 		CEB98A00133507AC0083F3FD /* OSIViewerPreferencePanePref.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OSIViewerPreferencePanePref.h; path = "Preference Panes/OSIViewerPreferencePane/OSIViewerPreferencePanePref.h"; sourceTree = "<group>"; };
 		CEB98A01133507AC0083F3FD /* OSIViewerPreferencePanePref.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = OSIViewerPreferencePanePref.mm; path = "Preference Panes/OSIViewerPreferencePane/OSIViewerPreferencePanePref.mm"; sourceTree = "<group>"; };
-		CEB98A09133507BA0083F3FD /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = "Preference Panes/OSIPETPreferencePane/English.lproj/OSIPETPreferencePanePref.xib"; sourceTree = "<group>"; };
 		CEB98A0A133507BA0083F3FD /* OSIPETPreferencePane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OSIPETPreferencePane.h; path = "Preference Panes/OSIPETPreferencePane/OSIPETPreferencePane.h"; sourceTree = "<group>"; };
 		CEB98A0B133507BB0083F3FD /* OSIPETPreferencePane.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = OSIPETPreferencePane.mm; path = "Preference Panes/OSIPETPreferencePane/OSIPETPreferencePane.mm"; sourceTree = "<group>"; };
-		CEB98A13133507C80083F3FD /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = "Preference Panes/OSILocationsPreferencePane/English.lproj/OSILocationsPreferencePanePref.xib"; sourceTree = "<group>"; };
 		CEB98A14133507C80083F3FD /* OSILocationsPreferencePanePref.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OSILocationsPreferencePanePref.h; path = "Preference Panes/OSILocationsPreferencePane/OSILocationsPreferencePanePref.h"; sourceTree = "<group>"; };
 		CEB98A15133507C80083F3FD /* OSILocationsPreferencePanePref.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = OSILocationsPreferencePanePref.mm; path = "Preference Panes/OSILocationsPreferencePane/OSILocationsPreferencePanePref.mm"; sourceTree = "<group>"; };
 		CEB98A16133507C80083F3FD /* ServerTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ServerTableView.h; path = "Preference Panes/OSILocationsPreferencePane/ServerTableView.h"; sourceTree = "<group>"; };
 		CEB98A17133507C80083F3FD /* ServerTableView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = ServerTableView.mm; path = "Preference Panes/OSILocationsPreferencePane/ServerTableView.mm"; sourceTree = "<group>"; };
-		CEB98BAC133507F50083F3FD /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = "Preference Panes/OSIListenerPreferencePane/English.lproj/OSIListenerPreferencePanePref.xib"; sourceTree = "<group>"; };
 		CEB98BAF133507F50083F3FD /* OSIListenerPreferencePanePref.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OSIListenerPreferencePanePref.h; path = "Preference Panes/OSIListenerPreferencePane/OSIListenerPreferencePanePref.h"; sourceTree = "<group>"; };
 		CEB98BB0133507F50083F3FD /* OSIListenerPreferencePanePref.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = OSIListenerPreferencePanePref.mm; path = "Preference Panes/OSIListenerPreferencePane/OSIListenerPreferencePanePref.mm"; sourceTree = "<group>"; };
-		CEB98BB8133508040083F3FD /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = "Preference Panes/OSIHotKeysPreferencePane/English.lproj/OSIHotKeysPref.xib"; sourceTree = "<group>"; };
 		CEB98BB9133508040083F3FD /* HotKeyArrayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HotKeyArrayController.h; path = "Preference Panes/OSIHotKeysPreferencePane/HotKeyArrayController.h"; sourceTree = "<group>"; };
 		CEB98BBA133508040083F3FD /* HotKeyArrayController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = HotKeyArrayController.mm; path = "Preference Panes/OSIHotKeysPreferencePane/HotKeyArrayController.mm"; sourceTree = "<group>"; };
 		CEB98BBB133508040083F3FD /* HotKeyFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HotKeyFormatter.h; path = "Preference Panes/OSIHotKeysPreferencePane/HotKeyFormatter.h"; sourceTree = "<group>"; };
@@ -4668,13 +4676,10 @@
 		CEB98BC0133508040083F3FD /* HotKeyTextFieldCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = HotKeyTextFieldCell.mm; path = "Preference Panes/OSIHotKeysPreferencePane/HotKeyTextFieldCell.mm"; sourceTree = "<group>"; };
 		CEB98BC1133508040083F3FD /* OSIHotKeysPref.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OSIHotKeysPref.h; path = "Preference Panes/OSIHotKeysPreferencePane/OSIHotKeysPref.h"; sourceTree = "<group>"; };
 		CEB98BC2133508040083F3FD /* OSIHotKeysPref.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = OSIHotKeysPref.mm; path = "Preference Panes/OSIHotKeysPreferencePane/OSIHotKeysPref.mm"; sourceTree = "<group>"; };
-		CEB98BDC133508180083F3FD /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = "Preference Panes/OSIHangingPreferencePane/English.lproj/OSIHangingPreferencePanePref.xib"; sourceTree = "<group>"; };
 		CEB98BE1133508180083F3FD /* OSIHangingPreferencePanePref.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OSIHangingPreferencePanePref.h; path = "Preference Panes/OSIHangingPreferencePane/OSIHangingPreferencePanePref.h"; sourceTree = "<group>"; };
 		CEB98BE2133508180083F3FD /* OSIHangingPreferencePanePref.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = OSIHangingPreferencePanePref.mm; path = "Preference Panes/OSIHangingPreferencePane/OSIHangingPreferencePanePref.mm"; sourceTree = "<group>"; };
-		CEB98C02133508280083F3FD /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = "Preference Panes/OSIGeneralPreferencePane/English.lproj/OSIGeneralPreferencePanePref.xib"; sourceTree = "<group>"; };
 		CEB98C03133508280083F3FD /* OSIGeneralPreferencePanePref.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OSIGeneralPreferencePanePref.h; path = "Preference Panes/OSIGeneralPreferencePane/OSIGeneralPreferencePanePref.h"; sourceTree = "<group>"; };
 		CEB98C04133508280083F3FD /* OSIGeneralPreferencePanePref.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = OSIGeneralPreferencePanePref.mm; path = "Preference Panes/OSIGeneralPreferencePane/OSIGeneralPreferencePanePref.mm"; sourceTree = "<group>"; };
-		CEB98C0C133508350083F3FD /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = "Preference Panes/OSIDatabasePreferencePane/English.lproj/OSIDatabasePreferencePanePref.xib"; sourceTree = "<group>"; };
 		CEB98C0D133508350083F3FD /* OSIDatabasePreferencePanePref.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OSIDatabasePreferencePanePref.h; path = "Preference Panes/OSIDatabasePreferencePane/OSIDatabasePreferencePanePref.h"; sourceTree = "<group>"; };
 		CEB98C0E133508350083F3FD /* OSIDatabasePreferencePanePref.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = OSIDatabasePreferencePanePref.mm; path = "Preference Panes/OSIDatabasePreferencePane/OSIDatabasePreferencePanePref.mm"; sourceTree = "<group>"; };
 		CEB98C151335084F0083F3FD /* AlphaGray.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = AlphaGray.tif; path = "Preference Panes/OSICustomImageAnnotations/AlphaGray.tif"; sourceTree = "<group>"; };
@@ -4686,26 +4691,21 @@
 		CEB98C1D1335084F0083F3FD /* CIALayoutView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = CIALayoutView.mm; path = "Preference Panes/OSICustomImageAnnotations/CIALayoutView.mm"; sourceTree = "<group>"; };
 		CEB98C1E1335084F0083F3FD /* CIAPlaceHolder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CIAPlaceHolder.h; path = "Preference Panes/OSICustomImageAnnotations/CIAPlaceHolder.h"; sourceTree = "<group>"; };
 		CEB98C1F1335084F0083F3FD /* CIAPlaceHolder.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = CIAPlaceHolder.mm; path = "Preference Panes/OSICustomImageAnnotations/CIAPlaceHolder.mm"; sourceTree = "<group>"; };
-		CEB98C211335084F0083F3FD /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = "Preference Panes/OSICustomImageAnnotations/English.lproj/OSICustomImageAnnotations.xib"; sourceTree = "<group>"; };
 		CEB98C281335084F0083F3FD /* OSICustomImageAnnotations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OSICustomImageAnnotations.h; path = "Preference Panes/OSICustomImageAnnotations/OSICustomImageAnnotations.h"; sourceTree = "<group>"; };
 		CEB98C291335084F0083F3FD /* OSICustomImageAnnotations.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = OSICustomImageAnnotations.mm; path = "Preference Panes/OSICustomImageAnnotations/OSICustomImageAnnotations.mm"; sourceTree = "<group>"; };
 		CEB98C2A1335084F0083F3FD /* RWTokenField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RWTokenField.h; path = "Preference Panes/OSICustomImageAnnotations/RWTokenField.h"; sourceTree = "<group>"; };
 		CEB98C2B1335084F0083F3FD /* RWTokenField.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = RWTokenField.mm; path = "Preference Panes/OSICustomImageAnnotations/RWTokenField.mm"; sourceTree = "<group>"; };
 		CEB98C2C1335084F0083F3FD /* Security.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = Security.tiff; path = "Preference Panes/OSICustomImageAnnotations/Security.tiff"; sourceTree = "<group>"; };
-		CEB98C5C1335085D0083F3FD /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = "Preference Panes/OSICDPreferencePane/English.lproj/OSICDPreferencePanePref.xib"; sourceTree = "<group>"; };
 		CEB98C5D1335085D0083F3FD /* OSICDPreferencePanePref.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OSICDPreferencePanePref.h; path = "Preference Panes/OSICDPreferencePane/OSICDPreferencePanePref.h"; sourceTree = "<group>"; };
 		CEB98C5E1335085D0083F3FD /* OSICDPreferencePanePref.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = OSICDPreferencePanePref.mm; path = "Preference Panes/OSICDPreferencePane/OSICDPreferencePanePref.mm"; sourceTree = "<group>"; };
-		CEB98C661335086B0083F3FD /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = "Preference Panes/OSIAutoroutingPreferencePane/English.lproj/OSIAutoroutingPreferencePanePref.xib"; sourceTree = "<group>"; };
 		CEB98C671335086B0083F3FD /* OSIAutoroutingPreferencePanePref.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OSIAutoroutingPreferencePanePref.h; path = "Preference Panes/OSIAutoroutingPreferencePane/OSIAutoroutingPreferencePanePref.h"; sourceTree = "<group>"; };
 		CEB98C681335086B0083F3FD /* OSIAutoroutingPreferencePanePref.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = OSIAutoroutingPreferencePanePref.mm; path = "Preference Panes/OSIAutoroutingPreferencePane/OSIAutoroutingPreferencePanePref.mm"; sourceTree = "<group>"; };
 		CEB98C691335086B0083F3FD /* RoutesTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RoutesTableView.h; path = "Preference Panes/OSIAutoroutingPreferencePane/RoutesTableView.h"; sourceTree = "<group>"; };
 		CEB98C6A1335086B0083F3FD /* RoutesTableView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = RoutesTableView.mm; path = "Preference Panes/OSIAutoroutingPreferencePane/RoutesTableView.mm"; sourceTree = "<group>"; };
-		CEB98C761335087D0083F3FD /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = "Preference Panes/OSI3DPreferencePane/English.lproj/OSI3DPreferencePanePref.xib"; sourceTree = "<group>"; };
 		CEB98C771335087D0083F3FD /* OSI3DPreferencePane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OSI3DPreferencePane.h; path = "Preference Panes/OSI3DPreferencePane/OSI3DPreferencePane.h"; sourceTree = "<group>"; };
 		CEB98C781335087D0083F3FD /* OSI3DPreferencePane.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = OSI3DPreferencePane.mm; path = "Preference Panes/OSI3DPreferencePane/OSI3DPreferencePane.mm"; sourceTree = "<group>"; };
 		CEB98C7F1335088C0083F3FD /* AYDicomPrintPref.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AYDicomPrintPref.h; path = "Preference Panes/AYDicomPrintPreferencePane/AYDicomPrintPref.h"; sourceTree = "<group>"; };
 		CEB98C801335088C0083F3FD /* AYDicomPrintPref.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AYDicomPrintPref.mm; path = "Preference Panes/AYDicomPrintPreferencePane/AYDicomPrintPref.mm"; sourceTree = "<group>"; };
-		CEB98C821335088C0083F3FD /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = "Preference Panes/AYDicomPrintPreferencePane/English.lproj/AYDicomPrintPref.xib"; sourceTree = "<group>"; };
 		CEBA5FDF11B244EA005F3A0E /* SpectroIcon.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = SpectroIcon.jpg; sourceTree = "<group>"; };
 		CEBA709C10C70039003A6186 /* GetPrimaryMACAddress.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GetPrimaryMACAddress.mm; sourceTree = "<group>"; };
 		CEBD3E0C14B9EDE300FBDF08 /* French.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = French.plist; sourceTree = "<group>"; };
@@ -8742,24 +8742,10 @@
 			};
 			buildConfigurationList = 7E76BED8085757B70073649A /* Build configuration list for PBXProject "Miele_LXIV" */;
 			compatibilityVersion = "Xcode 9.3";
-			developmentRegion = English;
-			hasScannedForEncodings = 1;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
-				Japanese,
-				French,
-				German,
-				zh_CN,
-				da,
-				Dutch,
-				fi,
-				Italian,
-				ko,
-				no,
-				pt,
-				Spanish,
-				sv,
-				zh_TW,
+				Base,
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* OsiriX */;
 			projectDirPath = "";
@@ -11398,7 +11384,7 @@
 		CEA4F07B15AEA606009584C7 /* OSIPACSOnDemand.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				CEA4F07C15AEA606009584C7 /* English */,
+				43E6E9E02190539C00625D92 /* Base */,
 			);
 			name = OSIPACSOnDemand.xib;
 			sourceTree = "<group>";
@@ -11406,7 +11392,7 @@
 		CEB9898A133500D30083F3FD /* OSIWebSharingPreferencePanePref.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				CEB9898B133500D30083F3FD /* English */,
+				43E6E9E12190539D00625D92 /* Base */,
 			);
 			name = OSIWebSharingPreferencePanePref.xib;
 			sourceTree = "<group>";
@@ -11414,7 +11400,7 @@
 		CEB989FE133507AC0083F3FD /* OSIViewerPreferencePanePref.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				CEB989FF133507AC0083F3FD /* English */,
+				43E6E9E22190539D00625D92 /* Base */,
 			);
 			name = OSIViewerPreferencePanePref.xib;
 			sourceTree = "<group>";
@@ -11422,7 +11408,7 @@
 		CEB98A08133507BA0083F3FD /* OSIPETPreferencePanePref.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				CEB98A09133507BA0083F3FD /* English */,
+				43E6E9E32190539D00625D92 /* Base */,
 			);
 			name = OSIPETPreferencePanePref.xib;
 			sourceTree = "<group>";
@@ -11430,7 +11416,7 @@
 		CEB98A12133507C80083F3FD /* OSILocationsPreferencePanePref.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				CEB98A13133507C80083F3FD /* English */,
+				43E6E9E42190539E00625D92 /* Base */,
 			);
 			name = OSILocationsPreferencePanePref.xib;
 			sourceTree = "<group>";
@@ -11438,7 +11424,7 @@
 		CEB98BAB133507F50083F3FD /* OSIListenerPreferencePanePref.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				CEB98BAC133507F50083F3FD /* English */,
+				43E6E9E52190539F00625D92 /* Base */,
 			);
 			name = OSIListenerPreferencePanePref.xib;
 			sourceTree = "<group>";
@@ -11446,7 +11432,7 @@
 		CEB98BB7133508040083F3FD /* OSIHotKeysPref.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				CEB98BB8133508040083F3FD /* English */,
+				43E6E9E62190539F00625D92 /* Base */,
 			);
 			name = OSIHotKeysPref.xib;
 			sourceTree = "<group>";
@@ -11454,7 +11440,7 @@
 		CEB98BDB133508180083F3FD /* OSIHangingPreferencePanePref.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				CEB98BDC133508180083F3FD /* English */,
+				43E6E9E7219053A000625D92 /* Base */,
 			);
 			name = OSIHangingPreferencePanePref.xib;
 			sourceTree = "<group>";
@@ -11462,7 +11448,7 @@
 		CEB98C01133508280083F3FD /* OSIGeneralPreferencePanePref.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				CEB98C02133508280083F3FD /* English */,
+				43E6E9E8219053A000625D92 /* Base */,
 			);
 			name = OSIGeneralPreferencePanePref.xib;
 			sourceTree = "<group>";
@@ -11470,7 +11456,7 @@
 		CEB98C0B133508350083F3FD /* OSIDatabasePreferencePanePref.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				CEB98C0C133508350083F3FD /* English */,
+				43E6E9E9219053A000625D92 /* Base */,
 			);
 			name = OSIDatabasePreferencePanePref.xib;
 			sourceTree = "<group>";
@@ -11478,7 +11464,7 @@
 		CEB98C201335084F0083F3FD /* OSICustomImageAnnotations.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				CEB98C211335084F0083F3FD /* English */,
+				43E6E9EA219053A100625D92 /* Base */,
 			);
 			name = OSICustomImageAnnotations.xib;
 			sourceTree = "<group>";
@@ -11486,7 +11472,7 @@
 		CEB98C5B1335085D0083F3FD /* OSICDPreferencePanePref.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				CEB98C5C1335085D0083F3FD /* English */,
+				43E6E9EB219053A200625D92 /* Base */,
 			);
 			name = OSICDPreferencePanePref.xib;
 			sourceTree = "<group>";
@@ -11494,7 +11480,7 @@
 		CEB98C651335086B0083F3FD /* OSIAutoroutingPreferencePanePref.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				CEB98C661335086B0083F3FD /* English */,
+				43E6E9EC219053A200625D92 /* Base */,
 			);
 			name = OSIAutoroutingPreferencePanePref.xib;
 			sourceTree = "<group>";
@@ -11502,7 +11488,7 @@
 		CEB98C751335087D0083F3FD /* OSI3DPreferencePanePref.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				CEB98C761335087D0083F3FD /* English */,
+				43E6E9ED219053A200625D92 /* Base */,
 			);
 			name = OSI3DPreferencePanePref.xib;
 			sourceTree = "<group>";
@@ -11510,7 +11496,7 @@
 		CEB98C811335088C0083F3FD /* AYDicomPrintPref.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				CEB98C821335088C0083F3FD /* English */,
+				43E6E9EE219053A300625D92 /* Base */,
 			);
 			name = AYDicomPrintPref.xib;
 			sourceTree = "<group>";
