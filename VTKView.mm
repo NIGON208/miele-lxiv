@@ -22,7 +22,7 @@
 #include "vtkCommand.h"
 #include "vtkCamera.h"
 #include "vtkInteractorStyleTrackballCamera.h"
-#include "vtkOpenGLRenderer.h"
+//#include "vtkOpenGLRenderer.h"
 #undef id
 
 #import "VTKViewOSIRIX.h"
@@ -30,8 +30,6 @@
 #import "DefaultsOsiriX.h"
 
 @implementation VTKView
-
-
 
 -(id)initWithFrame:(NSRect)frame
 {

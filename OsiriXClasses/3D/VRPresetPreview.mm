@@ -668,6 +668,7 @@
 
 - (void)mouseDown:(NSEvent *)theEvent
 {
+    NSLog(@"%s %d", __FUNCTION__, __LINE__);
 	if(isEmpty)
         return;
 		

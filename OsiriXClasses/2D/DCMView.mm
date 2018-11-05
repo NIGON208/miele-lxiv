@@ -4647,6 +4647,7 @@ int checkOpenGLErrors(int lineNo)
 
 - (void) mouseDown:(NSEvent *)event
 {
+    NSLog(@"%s %d", __FUNCTION__, __LINE__);
     if (CGCursorIsVisible() == NO && lensTexture == nil)
         return; //For Synergy compatibility
 

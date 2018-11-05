@@ -405,6 +405,8 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
 
 - (void) computeMinMax
 {
+    NSLog(@"%s", __FUNCTION__);
+
     static int computeMinMaxDepth = 0;
     
     if (computeMinMaxDepth > 2)
@@ -433,7 +435,9 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
 	
 	self.deleteValue = minimumValue;
 	
-	if ([[viewer2D modality] isEqualToString: @"CT"] && maximumValue - minimumValue > 8192 && computeMinMaxDepth == 1)
+	if ([[viewer2D modality] isEqualToString: @"CT"] &&
+        maximumValue - minimumValue > 8192 &&
+        computeMinMaxDepth == 1)
 	{
         NSInteger result = NSRunCriticalAlertPanel( NSLocalizedString( @"High Dynamic Values", nil), NSLocalizedString( @"Voxel values have a very high dynamic range (>8192). Two options are available to use the 3D engine: clip values above 7168 and below -1024 or resample the values.", nil), NSLocalizedString( @"Clip", nil), NSLocalizedString( @"Resample", nil), nil);
         
@@ -650,7 +654,7 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
         else
             minimumValue = self.deleteValue = 0;
         
-        NSLog(@"%s %d", __FUNCTION__, __LINE__);
+        NSLog(@"%s initWithWindowNibName", __FUNCTION__);
         self = [super initWithWindowNibName:@"VR"];
         
 //        if ([style isEqualToString:@"standard"] || [style isEqualToString: @"panel"])
@@ -3436,14 +3440,18 @@ NSInteger sort3DSettingsDict(id preset1, id preset2, void *context)
 
 - (IBAction)load3DSettings:(id)sender;
 {
+    NSLog(@"%s %d", __FUNCTION__, __LINE__);
+    
 	[[NSUserDefaults standardUserDefaults] setObject:[presetsGroupPopUpButton titleOfSelectedItem] forKey:@"LAST_3D_PRESET"];
 	
 	if ([[sender className] isEqualToString:@"NSMenuItem"] || [[sender className] isEqualToString:@"NSToolbarItem"])
 	{
+        NSLog(@"%s %d {A}", __FUNCTION__, __LINE__);
 		[self showPresetsPanel];
 	}
 	else if ([sender isEqualTo:presetsApplyButton])
-	{	
+	{
+        NSLog(@"%s %d {B}", __FUNCTION__, __LINE__);
 		if ([presetsPanel isVisible])
 			[presetsPanel close];
 		
@@ -3451,6 +3459,7 @@ NSInteger sort3DSettingsDict(id preset1, id preset2, void *context)
 	}
 	else if ([sender isEqualTo:self])
 	{
+        NSLog(@"%s %d {C}", __FUNCTION__, __LINE__);
 		if (firstTimeDisplayed)
 			[presetsPanel close];
 			

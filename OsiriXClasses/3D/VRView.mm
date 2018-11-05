@@ -3907,6 +3907,8 @@ public:
 
 - (void)rightMouseDown:(NSEvent *)theEvent
 {
+    NSLog(@"%s %d", __FUNCTION__, __LINE__);
+
     if ([self eventToPlugins:theEvent])
         return;
     
@@ -3973,6 +3975,7 @@ public:
 
 - (void)mouseDown:(NSEvent *)theEvent
 {
+    NSLog(@"%s %d", __FUNCTION__, __LINE__);
     if ([self eventToPlugins:theEvent])
         return;
     
@@ -6949,7 +6952,7 @@ public:
 		dst8.data = data8;
 		srcf.data = data;
 		
-		NSLog( @"maxValueOfSeries = %f", [controller maximumValue]);
+		NSLog( @"maxValueOfSeries = %f", [controller maximumValue]); // VRController
 		NSLog( @"minValueOfSeries = %f", [controller minimumValue]);
 		
 		firstPixel = *(data+0+[firstObject pwidth]);
