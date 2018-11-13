@@ -1778,8 +1778,6 @@ void adapted_main()
         */
     }
 
-    
-
     power_diagram = 1;
     vd_new = 0; 
     dim = 4; 
@@ -1790,12 +1788,13 @@ void adapted_main()
     // TJH: added this if statement
     if(DFILE)
         fprintf(DFILE,"num_blocks = %d\n",num_blocks);
-
 	
-    for (i=0;i<num_blocks;i++) site_blocks[i]= 0;	// EPRO added
+    for (i=0;i<num_blocks;i++)
+        site_blocks[i]= 0;	// EPRO added
 
     // TJH: uncommented this line, seemed like we need to free this memory before num_blocks gets reset
-    for (i=0;i<num_blocks;i++) free(site_blocks[i]);
+    for (i=0;i<num_blocks;i++)
+        free(site_blocks[i]);
 
     num_blocks = 0;  
     s_num = 0; 
@@ -1804,28 +1803,23 @@ void adapted_main()
     // TJH: we've bypassed the file handling
     //read_next_site(-1);
 
-    // TJH: added this if statement
     if(DFILE)
-    {
-        fprintf(DFILE,"dim=%d\n",dim); fflush(DFILE); 
-    }
+        fprintf(DFILE,"dim=%d\n",dim); fflush(DFILE);
+    
     /* if (dim > MAXDIM) panic("dimension bound MAXDIM exceeded"); */
     
     point_size = site_size = sizeof(Coord)*dim; 
     /* save points in order read */
     // TJH: we've bypassed the file handling
     //for (num_sites=0; read_next_site(num_sites); num_sites++);
-    for(num_sites=0;num_sites<vtk_medial_surface->GetNumberOfPoints();num_sites++)
+    for (num_sites=0; num_sites<vtk_medial_surface->GetNumberOfPoints(); num_sites++)
     {
         vtk_pole_read_next_site(num_sites);
     }
     //num_sites--;
      
-    // TJH: added this if statement
     if(DFILE)
-    {
         fprintf(DFILE,"done; num_sites=%ld\n", num_sites);fflush(DFILE);
-    }
 
     // TJH: moved to new version of code
     //efclose(INFILE);
@@ -1834,6 +1828,7 @@ void adapted_main()
     // TJH: added this if statement
     if(DFILE)
         fprintf(DFILE,"shuffling...");
+    
     init_rand(seed);
     make_shuffle();
     shuf = &shufflef;
@@ -2865,27 +2860,38 @@ void *compute_3d_power_edges(simplex *s, void *p) {
                             for (l=0;l<4;l++) {
                                 if (nexts->neigh[l].vert==edge0) {
                                     /* l == v1[k] */
-                                    nedge0 = l;continue;
+                                    nedge0 = l;
+                                    continue;
                                 }
                                 else if (nexts->neigh[l].vert==edge1) {
                                     /* l == v2[k] */
-                                    nedge1 = l;continue;
+                                    nedge1 = l;
+                                    continue;
                                 }
                                 else if (nexts->neigh[l].vert==prevv) {
-                                    nremv = l;continue;
+                                    nremv = l;
+                                    continue;
                                 }
                                 else if (nexts->neigh[l].vert==nextv) {
                                     nnextv = l;
-                                    continue; 
-       
+                                    continue;
                                 }
                                 else {
                                     nnextv = l;
                                 }
                             }
           
-                            if (nedge0 > nedge1) { l1 = nedge1; l2 = nedge0; }
-                            else { l2 = nedge1; l1 = nedge0; }
+                            if (nedge0 > nedge1)
+                            {
+                                l1 = nedge1;
+                                l2 = nedge0;
+                            }
+                            else
+                            {
+                                l2 = nedge1;
+                                l1 = nedge0;
+                            }
+                            
                             if (l1==0) {
                                 if (l2==1) nk = 0;
                                 else if (l2==2) nk = 1;
@@ -2895,7 +2901,9 @@ void *compute_3d_power_edges(simplex *s, void *p) {
                                 if (l2==2) nk = 3;
                                 else nk = 4;
                             }
-                            else nk = 5;  
+                            else
+                                nk = 5;
+                            
                             /* found nk for the edge */
                             nexts->edgestatus[nk]=POW; /* record that it's visited */
                             /* visit next simplex (opposite vertex ns )*/
@@ -3190,14 +3198,17 @@ void construct_face(simplex *s, short k)
             for (l=0;l<4;l++) {
                 if (nexts->neigh[l].vert==edge0) {
                     /* l == v1[k] */
-                    nedge0 = l;continue;
+                    nedge0 = l;
+                    continue;
                 }
                 else if (nexts->neigh[l].vert==edge1) {
                     /* l == v2[k] */
-                    nedge1 = l;continue;
+                    nedge1 = l;
+                    continue;
                 }
                 else if (nexts->neigh[l].vert==prevv) {
-                    nremv = l;continue;
+                    nremv = l;
+                    continue;
                 }
                 else if (nexts->neigh[l].vert==nextv) {
                     /*  if (nexts->neigh[nremv].simp == s) { */
@@ -3813,11 +3824,18 @@ void get_normal_sede(simplex *s) {
         s->normal->sqb = Norm2(c);
         for (i=cdim+1,rn = ch_root->neigh+cdim-1; i; i--, rn--) {
             for (j = 0; j<cdim && rn->vert != s->neigh[j].vert;j++);
-            if (j<cdim) continue;
+            if (j<cdim)
+                continue;
+            
             if (rn->vert==infinity) {
-                if (c[2] > -b_err_min) continue;
-            } else  if (!sees(rn->vert,s)) continue;
-            c[0] = -c[0]; c[1] = -c[1]; c[2] = -c[2];
+                if (c[2] > -b_err_min)
+                    continue;
+            } else if (!sees(rn->vert,s))
+                continue;
+            
+            c[0] = -c[0];
+            c[1] = -c[1];
+            c[2] = -c[2];
             break;
         }
         DEBS(-1) if (!check_perps(s)) /* TJH exit(1);*/ OSIRIX_ASSERT((long) (pcFALSE)); EDEBS
@@ -3825,14 +3843,20 @@ void get_normal_sede(simplex *s) {
     }   
         
     for (i=cdim+1,rn = ch_root->neigh+cdim-1; i; i--, rn--) {
-        for (j = 0; j<cdim && rn->vert != s->neigh[j].vert;j++);
-        if (j<cdim) continue;
+        for (j = 0; j<cdim && rn->vert != s->neigh[j].vert;j++)
+            ;
+        
+        if (j<cdim)
+            continue;
+        
         reduce(&s->normal,rn->vert,s,cdim);
-        if (s->normal->sqb != 0) break;
+        if (s->normal->sqb != 0)
+            break;
     }
 
     DEBS(-1) if (!check_perps(s)) {DEBTR(-1) /* TJH exit(1);*/ OSIRIX_ASSERT((long) (pcFALSE));} EDEBS
-}
+
+                                                           }
 
 
 void get_normal(simplex *s) {get_normal_sede(s); return;}
@@ -3906,6 +3930,7 @@ double radsq(simplex *s) {
     return Vec_dot_pdim(n,n)/4/n[rdim-1]/n[rdim-1];
 }
 
+
 void *zero_marks(simplex * s, void *dum) { s->mark = 0; return NULL; }
 
 void *one_marks(simplex * s, void *dum) {s->mark = 1; return NULL;}
@@ -3945,7 +3970,9 @@ int alph_test(simplex *s, int i, void *alphap) {
     reduce(&s->normal,infinity,s,cdim);
     rsfi = radsq(s);
 
-    for (k=0;k<cdim;k++) if (si->neigh[k].simp==s) break;
+    for (k=0;k<cdim;k++)
+        if (si->neigh[k].simp==s)
+            break;
 
     ssees = sees(scn->vert,s);
     if (!ssees) nsees = sees(si->neigh[k].vert,s);
@@ -4322,7 +4349,8 @@ void *compute_vv(simplex *s, void *p) {
   /* computing poles */
     for (j=0;j<cdim;j++) {  /* compute 1st pole for vertex j */ 
         i=(site_num)(s->neigh[j].vert);
-        if (i==-1) continue; 
+        if (i==-1)
+            continue;
 
         /* Ignore poles that are too far away to matter - a relic of the 
            original California-style crust. Probably no longer needed */
@@ -4385,7 +4413,9 @@ void *compute_pole2(simplex *s, void *p) {
 
         t=s->neigh[j].vert;
         i=(site_num)(t);
-        if (i<0) continue; /* not a vertex */
+        if (i<0)
+            continue; /* not a vertex */
+        
         if (inf) { /* on conv hull */  
             if (s->status == CNV)
             {  
@@ -4406,11 +4436,15 @@ void *compute_pole2(simplex *s, void *p) {
             // TJH: added this if statement
             if(DFILE)
                 fprintf(DFILE,"cannot happen8\n");
+            
             continue;
         }
 
         if (!s->vv) {
-            if (s->status != SLV) if(DFILE) fprintf(DFILE,"cannot happen3\n");
+            if (s->status != SLV)
+                if(DFILE)
+                    fprintf(DFILE,"cannot happen3\n");
+            
             continue;
         }
 
@@ -4727,14 +4761,17 @@ STORAGE(Tree)
     for (;;) {
         comp = compare(i, t->key);
         if (comp < 0) {
-            if (!t->left) break;
+            if (!t->left)
+                break;
+            
             if (compare(i, t->left->key) < 0) {
                 y = t->left;                           /* rotate right */
                 t->left = y->right;
                 y->right = t;
                 t->size = node_size(t->left) + node_size(t->right) + 1;
                 t = y;
-                if (!t->left) break;
+                if (!t->left)
+                    break;
             }
             r->left = t;                               /* link right */
             r = t;
@@ -4742,14 +4779,17 @@ STORAGE(Tree)
             r_size += 1+node_size(r->right);
         }
         else if (comp > 0) {
-            if (!t->right) break;
+            if (!t->right)
+                break;
+            
             if (compare(i, t->right->key) > 0) {
                 y = t->right;                          /* rotate left */
                 t->right = y->left;
                 y->left = t;
                 t->size = node_size(t->left) + node_size(t->right) + 1;
                 t = y;
-                if (!t->right) break;
+                if (!t->right)
+                    break;
             }
             l->right = t;                              /* link left */
             l = t;
@@ -5101,7 +5141,10 @@ void print_hist_fg(simplex *root, fg *faces_gr, FILE *F) {
     
     for (j=0;j<100;j++) {
         for (i=19; i>=0 && !fg_hist[i][j] && !fg_hist_bad[i][j]; i--);
-        if (i==-1) continue;
+        
+        if (i==-1)
+            continue;
+        
         fprintf(F, "\n%d    ",j);fflush(F);
             
         for (k=0;k<=i;k++) {
@@ -5189,7 +5232,7 @@ void heapify(int hi)
         adjlist[heap_A[hi].pid].hid = hi;
         heap_A[largest].pid = temp;  
         adjlist[heap_A[largest].pid].hid = largest;
-        td =  heap_A[hi].pri;
+        td = heap_A[hi].pri;
         heap_A[hi].pri = heap_A[largest].pri;
         heap_A[largest].pri = td;
         heapify(largest);
@@ -5325,9 +5368,15 @@ STORAGE(simplex)
             OSIRIX_ASSERT((long) (st));
         }
         pop(t);
-        if (!t || t->visit == vnum) continue;
+        if (!t || t->visit == vnum)
+            continue;
+        
         t->visit = vnum;
-        if ((v=(*visit)(t,0))!=NULL) {return v;}
+        if ((v=(*visit)(t,0))!=NULL)
+        {
+            return v;
+        }
+        
         for (i=-1,sn = t->neigh-1;i<cdim;i++,sn++)
             if ((sn->simp->visit != vnum) && sn->simp && test(t,i,0))
                 push(sn->simp);
@@ -5464,13 +5513,16 @@ void connect(simplex *s) {
         for (i=0, sn = s->neigh; i<cdim; i++,sn++)
         {
             xb = sn->vert;
-            if (p == xb) continue;
+            if (p == xb)
+                continue;
+            
             sb = seen;
             sf = sn->simp;
             xf = xfi;
             if (!sf->peak.vert) {   /* are we done already? */
                 sf = op_vert(seen,xb)->simp;
-                if (sf->peak.vert) continue;                
+                if (sf->peak.vert)
+                    continue;
             }
             else
                 do {
@@ -5522,12 +5574,17 @@ simplex *make_facets(simplex *seen) {
 
     for (i=0,bn = seen->neigh; i<cdim; i++,bn++) {
         n = bn->simp;
-		if( !n) return NULL;
+		if( !n)
+            return NULL;
+        
         if (pnum != n->visit) {
             n->visit = pnum;
             if (sees(p,n)) make_facets(n);
-        } 
-        if (n->peak.vert) continue;
+        }
+        
+        if (n->peak.vert)
+            continue;
+        
         copy_simp(ns,seen);
         ns->visit = 0;
         ns->peak.vert = 0;
@@ -5602,16 +5659,21 @@ simplex *search(simplex *root) {
             st=(simplex**)realloc(st,((ss+=ss)+MAXDIM+1)*sizeof(simplex*));
             OSIRIX_ASSERT((long) (st));
         }
+        
         pop(s);
-        if (s->visit == pnum) continue;
+        if (s->visit == pnum)
+            continue;
+        
         s->visit = pnum;
-        if (!sees(p,s)) continue;
+        if (!sees(p,s))
+            continue;
+        
         if (!s->peak.vert) return s;
-        for (i=0, sn=s->neigh; i<cdim; i++,sn++) push(sn->simp);
+        for (i=0, sn=s->neigh; i<cdim; i++,sn++)
+            push(sn->simp);
     }
     return NULL;
 }
-
 
 point get_another_site(void) {
   
@@ -6166,7 +6228,9 @@ void *ridges_print(simplex *s, void *p) {
     for (j=0;j<cdim;j++) {
         vnum=0;
         for (k=0;k<cdim;k++) {
-            if (k==j) continue;
+            if (k==j)
+                continue;
+            
             v[vnum++] = (s->neigh[k].vert);
         }
         out_func_here(v,cdim-1,0,0);
@@ -6184,23 +6248,34 @@ void *afacets_print(simplex *s, void *p) {
     if (p) {out_func_here = (out_func*)p; if (!s) return NULL;}
 
     for (j=0;j<cdim;j++) { /* check for ashape consistency */
-        for (k=0;k<cdim;k++) if (s->neigh[j].simp->neigh[k].simp==s) break;
+        for (k=0;k<cdim;k++)
+            if (s->neigh[j].simp->neigh[k].simp==s)
+                break;
+        
         if (alph_test(s,j,0)!=alph_test(s->neigh[j].simp,k,0)) {
             DEB(-10,alpha-shape not consistent)
                 DEBTR(-10)
                 print_simplex_f(s,DFILE/* function has empty body */,&print_neighbor_full);
             print_simplex_f(s->neigh[j].simp,DFILE/* function has empty body */,&print_neighbor_full);
-            if(DFILE) fflush(DFILE);
+            if(DFILE)
+                fflush(DFILE);
+            
             /* TJH exit(1);*/ OSIRIX_ASSERT((long) (pcFALSE));
         }
     }
+    
     for (j=0;j<cdim;j++) {
         vnum=0;
-        if (alph_test(s,j,0)) continue;
+        if (alph_test(s,j,0))
+            continue;
+        
         for (k=0;k<cdim;k++) {
-            if (k==j) continue;
+            if (k==j)
+                continue;
+            
             v[vnum++] = s->neigh[k].vert;
         }
+        
         out_func_here(v,cdim-1,0,0);
     }
     return NULL;
@@ -6386,7 +6461,7 @@ void update_pri(int hi, int pi)
     }
     else { /* both in/out nonzero */
         if (adjlist[pi].in > adjlist[pi].out) {
-            pr =  adjlist[pi].in - adjlist[pi].out - 1;
+            pr = adjlist[pi].in - adjlist[pi].out - 1;
         }
         else {
             pr = adjlist[pi].out - adjlist[pi].in - 1;

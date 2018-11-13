@@ -12,13 +12,14 @@
      PURPOSE.
 =========================================================================*/
 
+#import "ROI.h"
+
+#import <OpenGL/CGLContext.h>
+#import <OpenGL/CGLMacro.h>
+
 #import "AppController.h"
 #import "StringTexture.h"
-#include <OpenGL/gl.h>
-#include <OpenGL/glext.h>
-#include <OpenGL/glu.h>
 
-#import "ROI.h"
 #import "DCMView.h"
 #import "DCMPix.h"
 #import "ITKSegmentation3D.h"
@@ -144,7 +145,7 @@ int spline( NSPoint *Pt, int tot, NSPoint **newPt, long **correspondingSegmentPt
 		if (cy)		free(cy);
 		if (d) 		free(d);
 		if (g) 		free(g);
-		if (gam)		free(gam);
+		if (gam)	free(gam);
 		if (h) 		free(h);
 		if (px)		free(px);
 		if (py)		free(py);
@@ -171,15 +172,17 @@ int spline( NSPoint *Pt, int tot, NSPoint **newPt, long **correspondingSegmentPt
 	// so in this case the smooth is not useful
 
 	ok=TRUE;
-	if (nb<3) ok=FALSE;
+	if (nb<3)
+        ok=FALSE;
 
 	for (i=1; i<nb; i++)
         if (px[i] == px[i-1] && py[i] == py[i-1])
         {
-            ok = FALSE; break;
+            ok = FALSE;
+            break;
         }
-
-    if (ok == FALSE)
+    
+	if (ok == FALSE)
 		failed = YES;
 		
 	if (failed)
@@ -228,8 +231,8 @@ int spline( NSPoint *Pt, int tot, NSPoint **newPt, long **correspondingSegmentPt
 		bet = b - a[j] * gam[j];
 		cx[j] = (g[j] - a[j] * cx[j-1]) / bet;
 	}
-
-    for (j=(nb-2); j>=1; j--)
+    
+	for (j=(nb-2); j>=1; j--)
         cx[j] -= gam[j+1] * cx[j+1];
 
 	// define gi in function of y
@@ -707,7 +710,8 @@ int spline( NSPoint *Pt, int tot, NSPoint **newPt, long **correspondingSegmentPt
                     
                     // Convert float to char
                     int i = yIm * xIm;
-                    while ( i-- > 0) {
+                    while ( i-- > 0)
+                    {
                         if (tempImage[ i] == FLT_MAX)
                             map[ i] = 255;
                     }
@@ -1181,7 +1185,6 @@ int spline( NSPoint *Pt, int tot, NSPoint **newPt, long **correspondingSegmentPt
 }
 
 #pragma mark -
-
 - (id) initWithCoder:(NSCoder*) coder
 {
 	long fileVersion;
@@ -1660,7 +1663,6 @@ int spline( NSPoint *Pt, int tot, NSPoint **newPt, long **correspondingSegmentPt
     } while (index != NSNotFound);
 }
 
-
 - (void) prepareForRelease // We need to unlink the links related to OpenGLContext
 {
     [stringTextureCache release];
@@ -1668,11 +1670,13 @@ int spline( NSPoint *Pt, int tot, NSPoint **newPt, long **correspondingSegmentPt
     
 	while ([ctxArray count])
         [self deleteTexture: [ctxArray lastObject]];
-	[ctxArray release];
+    
+    [ctxArray release];
     ctxArray = nil;
 	
 	if ([textArray count])
         NSLog( @"** not all texture were deleted...");
+    
 	[textArray release];
     textArray = nil;
 }
@@ -1692,7 +1696,8 @@ int spline( NSPoint *Pt, int tot, NSPoint **newPt, long **correspondingSegmentPt
 	
     [self prepareForRelease];
 	
-	if (textureBuffer) free(textureBuffer);
+	if (textureBuffer)
+        free(textureBuffer);
 	[self textureBufferHasChanged];
     
     [peakValue release];
@@ -2303,14 +2308,13 @@ int spline( NSPoint *Pt, int tot, NSPoint **newPt, long **correspondingSegmentPt
     CGLContextObj cgl_ctx = [[NSOpenGLContext currentContext] CGLContextObj];
     if (cgl_ctx == nil)
         return;
-    
+
     glEnable (GL_TEXTURE_RECTANGLE_EXT);
 //    glEnable(GL_BLEND);
 //    glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
     
-    long xc, yc;
-    xc = xx - 2*curView.window.backingScaleFactor;
-    yc = yy-[sT texSize].height;
+    long xc = xx - 2*curView.window.backingScaleFactor;
+    long yc = yy - [sT texSize].height;
     
     glColor4f (0, 0, 0, 1.0f);
     [sT drawAtPoint: NSMakePoint( xc+1, yc+1)];
@@ -2343,7 +2347,8 @@ int spline( NSPoint *Pt, int tot, NSPoint **newPt, long **correspondingSegmentPt
 	long x = 0;
 	for (long i = 0; i < textureWidth*textureHeight ; i++ )
 	{
-		if (textureBuffer[i] != 0) x++;
+		if (textureBuffer[i] != 0)
+            x++;
 	}
 	
 	return x;
@@ -2521,7 +2526,8 @@ int spline( NSPoint *Pt, int tot, NSPoint **newPt, long **correspondingSegmentPt
                 result = [[points objectAtIndex:1] point];
 			else
                 result = [[points objectAtIndex:0] point];
-		break;
+            
+            break;
 			
 		case tPlain:
 			result.x = textureDownRightCornerX;
@@ -2530,11 +2536,12 @@ int spline( NSPoint *Pt, int tot, NSPoint **newPt, long **correspondingSegmentPt
 			
 		case tArrow:
 			result = [[points objectAtIndex:1] point];
-		break;
+            break;
 		
 		case tAngle:
 			result = [[points objectAtIndex:1] point];
-		break;
+            break;
+            
 		case tDynAngle:
 		case tAxis:
 		case tCPolygon:
@@ -2555,29 +2562,29 @@ int spline( NSPoint *Pt, int tot, NSPoint **newPt, long **correspondingSegmentPt
 			
 			result.x = xmax;
 			result.y = ymax;
-		break;
+            break;
 		
 		case t2DPoint:
 		case tText:
 			result.x = rect.origin.x;
 			result.y = rect.origin.y;
-		break;
+            break;
 		
         case tOval:
         case tOvalAngle:
         case tBall:
 			result.x = rect.origin.x + rect.size.width/4;
 			result.y = rect.origin.y + rect.size.height;
-		break;
+            break;
 		
 		case tROI:
 			result.x = rect.origin.x + rect.size.width;
 			result.y = rect.origin.y + rect.size.height;
-		break;
+            break;
 
 		case tLayerROI:
 			result = [[points objectAtIndex:2] point];
-		break;
+            break;
             
         default:
             N2LogStackTrace( @"***** no lowerRightPoint for this type of ROI");
@@ -3013,27 +3020,27 @@ static float Sign(NSPoint p1, NSPoint p2, NSPoint p3)
 
 				if (points.count >= 2)
 				{
-				[self DistancePointLine:pt
-                                       :[[points objectAtIndex:0] point]
-                                       :[[points objectAtIndex:1] point]
-                                       :&distance];
+                    [self DistancePointLine:pt
+                                           :[[points objectAtIndex:0] point]
+                                           :[[points objectAtIndex:1] point]
+                                           :&distance];
 				
-				if (distance*scale < neighborhoodRad/2)
-					imode = ROI_selected;
+                    if (distance*scale < neighborhoodRad/2)
+                        imode = ROI_selected;
 				}
 
-                    if (type == tArrow) // test arrow head
-                    {
-                        NSPoint ppt = pt;
-                        ppt.x -= offsetx;
-                        ppt.y -= offsety;
-                        
-                        ppt.x *= scale;
-                        ppt.y *= scale;
-                        
-                        if ([ROI point:ppt inTriangle:arh1 :arh2 :arh3])
-                            imode = ROI_selected;
-                    }
+                if (type == tArrow) // test arrow head
+                {
+                    NSPoint ppt = pt;
+                    ppt.x -= offsetx;
+                    ppt.y -= offsety;
+                    
+                    ppt.x *= scale;
+                    ppt.y *= scale;
+                    
+                    if ([ROI point:ppt inTriangle:arh1 :arh2 :arh3])
+                        imode = ROI_selected;
+                }
 			}
 			break;
 			
@@ -3304,26 +3311,27 @@ static float Sign(NSPoint p1, NSPoint p2, NSPoint p3)
 			case tOPolygon:
 			case tPencil:
             case tTAGT:
-			{
-                if (mode != ROI_selectedModify)
-                    selectedModifyPoint = -1;
+                {
+                    if (mode != ROI_selectedModify)
+                        selectedModifyPoint = -1;
 
-                NSUInteger modifierFlags = [[[NSApplication sharedApplication] currentEvent] modifierFlags];
+                    NSUInteger modifierFlags = [[[NSApplication sharedApplication] currentEvent] modifierFlags];
+                    
+                    for (int i = 0 ; i < [points count]; i++ )
+                    {
+                        if ([[points objectAtIndex: i] isNearToPoint: pt
+                                                                    : scale/backingScaleFactor
+                                                                    : [[curView curDCM] pixelRatio]])
+                        {
+                            imode = ROI_selectedModify;
+                            selectedModifyPoint = i;
+                        }
+                    }
+                }
+                break;
                 
-				for (int i = 0 ; i < [points count]; i++ )
-				{
-					if ([[points objectAtIndex: i] isNearToPoint: pt
-                                                                : scale/backingScaleFactor
-                                                                : [[curView curDCM] pixelRatio]])
-					{
-						imode = ROI_selectedModify;
-						selectedModifyPoint = i;
-					}
-				}
-			}
-			break;
             default:
-		break;
+                break;
 		}
 		
 		clickPoint = pt;
@@ -3400,7 +3408,8 @@ static float Sign(NSPoint p1, NSPoint p2, NSPoint p3)
             aPt.y = rect.origin.y;
 			if ([tempPoint isNearToPoint: aPt :scale/backingScaleFactor :[[curView curDCM] pixelRatio]])
                 PointUnderMouse = 4;
-		break;
+            
+            break;
 		
 		case tAngle:
 		case tArrow:
@@ -3423,6 +3432,7 @@ static float Sign(NSPoint p1, NSPoint p2, NSPoint p3)
                 }
             }
             break;
+            
         default:
             break;
 	}
@@ -4010,7 +4020,6 @@ static float Sign(NSPoint p1, NSPoint p2, NSPoint p3)
             pt.y += 40 * sin(angle);
             [points addObject: [MyPoint point: pt]];
             
-            
             blend = 0.6;
             pt.x = p1.x + blend * (p2.x - p1.x);
             pt.y = p1.y + blend * (p2.y - p1.y);
@@ -4039,7 +4048,7 @@ static float Sign(NSPoint p1, NSPoint p2, NSPoint p3)
 	}
 	else
 	{
-		if (mode == ROI_selectedModify)
+		if (mode == ROI_selectedModify) 
 			self.ROImode = ROI_selected;
 	}
 	
@@ -4288,7 +4297,8 @@ static float Sign(NSPoint p1, NSPoint p2, NSPoint p3)
     
 	@try
 	{
-		BOOL textureGrowDownX = YES,textureGrowDownY = YES;
+        BOOL textureGrowDownX = YES;
+        BOOL textureGrowDownY = YES;
 		float oldTextureUpLeftCornerX, oldTextureUpLeftCornerY, offsetTextureX, offsetTextureY;
 			
 		if (type == tText || type == t2DPoint)
@@ -4310,17 +4320,20 @@ static float Sign(NSPoint p1, NSPoint p2, NSPoint p3)
 						textureUpLeftCornerX = pt.x - thickness - 4;
 						textureGrowDownX = NO;
 					}
+                    
 					if (textureUpLeftCornerY > (pt.y - thickness))
 					{
-						oldTextureUpLeftCornerY = textureUpLeftCornerY;
+						oldTextureUpLeftCornerY=textureUpLeftCornerY;
 						textureUpLeftCornerY = pt.y - thickness - 4;
 						textureGrowDownY = NO;
 					}
+                    
 					if (textureDownRightCornerX < (pt.x + thickness))
 					{
 						textureDownRightCornerX = pt.x + thickness + 4;
 						textureGrowDownX = YES;
 					}
+                    
 					if (textureDownRightCornerY < (pt.y + thickness))
 					{
 						textureDownRightCornerY = pt.y + thickness + 4;
@@ -4346,16 +4359,17 @@ static float Sign(NSPoint p1, NSPoint p2, NSPoint p3)
 					textureWidth = (textureDownRightCornerX-textureUpLeftCornerX) + 1;
 					textureHeight = (textureDownRightCornerY-textureUpLeftCornerY) + 1;
 					
-					
-                    if (textureWidth % 4) {
-                        textureWidth /=4;
-                        textureWidth *=4;
-                        textureWidth +=4;
+					if (textureWidth % 4)
+                    {
+                        textureWidth /= 4;
+                        textureWidth *= 4;
+                        textureWidth += 4;
                     }
-
-                    if (textureHeight % 4) {
-                        textureHeight /=4;
-                        textureHeight *=4;
+                    
+					if (textureHeight % 4)
+                    {
+                        textureHeight /= 4;
+                        textureHeight *= 4;
                         textureHeight += 4;
                     }
 					
@@ -4469,7 +4483,6 @@ static float Sign(NSPoint p1, NSPoint p2, NSPoint p3)
 					}
 					
 					free( brush);
-					
 					free( xPoints);
 					free( yPoints);
 					
@@ -4478,7 +4491,6 @@ static float Sign(NSPoint p1, NSPoint p2, NSPoint p3)
 					action = YES;
 					
 					[self recompute];
-                    
                     [self textureBufferHasChanged];
                 }
 				break;
@@ -4488,7 +4500,7 @@ static float Sign(NSPoint p1, NSPoint p2, NSPoint p3)
 					break;
 			}
 		}
-                else if (type == tOval || type == tOvalAngle || type == tROI || type == tBall) // TBC
+        else if (type == tOval || type == tOvalAngle || type == tROI || type == tBall) // TBC
 		{
 			switch( mode)
 			{
@@ -4591,13 +4603,9 @@ static float Sign(NSPoint p1, NSPoint p2, NSPoint p3)
 				if ([[points lastObject] isNearToPoint: pt : scale/(thickness*backingScaleFactor) :[[curView curDCM] pixelRatio]] == NO)
 				{
 					MyPoint *mypt = [[MyPoint alloc] initWithPoint: pt];
-				
 					[points addObject: mypt];
-				
 					[mypt release];
-				
 					clickPoint = pt;
-				
                     [self recompute];
 					action = YES;
 				}
@@ -4620,7 +4628,7 @@ static float Sign(NSPoint p1, NSPoint p2, NSPoint p3)
 			if (type == tLayerROI)
                 clickPoint = pt;
 			
-			switch( mode)
+			switch (mode)
 			{
 				case ROI_drawing:
                     
@@ -4648,24 +4656,26 @@ static float Sign(NSPoint p1, NSPoint p2, NSPoint p3)
                     
 					[self recompute];
 					action = YES;
-				break;
+                    break;
 				
 				case ROI_selected:
 					action = NO;
-				break;
+                    break;
 				
 				case ROI_selectedModify:
                     
 					if (selectedModifyPoint >= 0)
                     {
-                        if (type == tCPolygon && _isSpline == NO && [ROI isPolygonRectangle: self.points width: nil height: nil center: nil])
+                        if (type == tCPolygon &&
+                            _isSpline == NO &&
+                            [ROI isPolygonRectangle: self.points width: nil height: nil center: nil])
                         {
                             int nextPoint = selectedModifyPoint+1;
                             int prevPoint = selectedModifyPoint-1;
                             
                             if (prevPoint < 0)
                                 prevPoint = points.count-1;
-
+                            
                             if (nextPoint >= points.count)
                                 nextPoint = 0;
                             
@@ -4674,7 +4684,7 @@ static float Sign(NSPoint p1, NSPoint p2, NSPoint p3)
                             
                             if (prevPoint2 < 0)
                                 prevPoint2 = points.count-1;
-
+                            
                             if (nextPoint2 >= points.count)
                                 nextPoint2 = 0;
                             
@@ -4726,7 +4736,8 @@ static float Sign(NSPoint p1, NSPoint p2, NSPoint p3)
 		
 		if (action)
 		{
-			if ( [self.comments isEqualToString: @"morphing generated"] ) self.comments = @"";
+			if ( [self.comments isEqualToString: @"morphing generated"] )
+                self.comments = @"";
 			
             if ([NSThread isMainThread])
                 [[NSNotificationCenter defaultCenter] postNotificationName: OsirixROIChangeNotification object:self userInfo: nil];
@@ -4812,10 +4823,15 @@ static float Sign(NSPoint p1, NSPoint p2, NSPoint p3)
 		if ([finalString length] > 4096)
 			finalString = [finalString substringToIndex: 4096];
 		
-		if (stringTex) [stringTex setString: finalString withAttributes:stanStringAttrib];
+		if (stringTex)
+            [stringTex setString: finalString withAttributes:stanStringAttrib];
 		else
 		{
-			stringTex = [[StringTexture alloc] initWithString: finalString withAttributes:stanStringAttrib withTextColor:[NSColor colorWithDeviceRed:color.red / 65535. green:color.green / 65535. blue:color.blue / 65535. alpha:1.0f] withBoxColor:[NSColor colorWithDeviceRed:0.0f green:0.0f blue:0.0f alpha:0.0f] withBorderColor:[NSColor colorWithDeviceRed:0.0f green:0.0f blue:0.0f alpha:0.0f]];
+			stringTex = [[StringTexture alloc] initWithString: finalString
+                                               withAttributes:stanStringAttrib
+                                                withTextColor:[NSColor colorWithDeviceRed:color.red / 65535. green:color.green / 65535. blue:color.blue / 65535. alpha:1.0f]
+                                                 withBoxColor:[NSColor colorWithDeviceRed:0.0f green:0.0f blue:0.0f alpha:0.0f]
+                                              withBorderColor:[NSColor colorWithDeviceRed:0.0f green:0.0f blue:0.0f alpha:0.0f]];
 			[stringTex setAntiAliasing: YES];
 		}
 		
@@ -4839,7 +4855,7 @@ static float Sign(NSPoint p1, NSPoint p2, NSPoint p3)
 		if (g)
 		{
 			ROITextColorR = color.red;	//[[NSUserDefaults standardUserDefaults] setFloat:color.red forKey:@"ROITextColorR"];
-			ROITextColorG = color.green;	//[[NSUserDefaults standardUserDefaults] setFloat:color.green forKey:@"ROITextColorG"];
+			ROITextColorG = color.green;//[[NSUserDefaults standardUserDefaults] setFloat:color.green forKey:@"ROITextColorG"];
 			ROITextColorB = color.blue;	//[[NSUserDefaults standardUserDefaults] setFloat:color.blue forKey:@"ROITextColorB"];
 		}
 	}
@@ -4860,7 +4876,10 @@ static float Sign(NSPoint p1, NSPoint p2, NSPoint p3)
 		if (layerColor)
             [layerColor release];
         
-		layerColor = [NSColor colorWithCalibratedRed:color.red/65535.0 green:color.green/65535.0 blue:color.blue/65535.0 alpha:1.0];
+		layerColor = [NSColor colorWithCalibratedRed:color.red/65535.0
+                                               green:color.green/65535.0
+                                                blue:color.blue/65535.0
+                                               alpha:1.0];
 		[layerColor retain];
 		while ([ctxArray count])
             [self deleteTexture: [ctxArray lastObject]];
@@ -5056,8 +5075,8 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
     
     for (int a=0; a<7; a++)
     {
-        vec[a][0]*= rad;
-        vec[a][1]*= rad;
+        vec[a][0] *= rad;
+        vec[a][1] *= rad;
     }
     
     glBegin(mode);
@@ -5167,9 +5186,7 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
 	}
 	
 	if (*moved)
-	{
 		dRect.origin.x += 5;
-	}
 	
 	[rectArray addObject: [NSValue valueWithRect: dRect]];
 	
@@ -5206,11 +5223,10 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
     
 	if (mode == ROI_selectedModify || mode == ROI_drawing)
 	{
-		if (	type == tOPolygon ||
+		if (type == tOPolygon ||
 			type == tCPolygon ||
 			type == tPencil ||
 			type == tPlain) drawTextBox = NO;
-			
 	}
 	
 	return drawTextBox;
@@ -5247,12 +5263,17 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
 	
 	drawRect = [self findAnEmptySpaceForMyRect: drawRect : &moved];
 	
-	if (type == tDynAngle || type == tTAGT || type == tAxis ||type == tCPolygon || type == tOPolygon || type == tPencil) moved = YES;
+	if (type == tDynAngle || type == tTAGT || type == tAxis || type == tCPolygon || type == tOPolygon || type == tPencil)
+    {
+        moved = YES;
+    }
 
 //	if (type == tCPolygon || type == tOPolygon || type == tPencil) moved = YES;
 //	if (fabs( offsetTextBox_x) > 0 || fabs( offsetTextBox_y) > 0) moved = NO;
 	
-	if (moved && ![curView suppressLabels] && self.isTextualDataDisplayed )	// Draw bezier line
+	if (moved &&
+        ![curView suppressLabels] &&
+        self.isTextualDataDisplayed )	// Draw bezier line
 	{
         NSPoint anchor = originAnchor;
         
@@ -5276,9 +5297,11 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
 		ctrlpoints[0][0] = NSMinX( drawRect);
         ctrlpoints[0][1] = NSMidY( drawRect);
         ctrlpoints[0][2] = 0;
+        
 		ctrlpoints[1][0] = anchor.x - OFFSET;
         ctrlpoints[1][1] = anchor.y;
         ctrlpoints[1][2] = 0;
+        
 		ctrlpoints[2][0] = anchor.x;
         ctrlpoints[2][1] = anchor.y;
         ctrlpoints[2][2] = 0;
@@ -5293,7 +5316,8 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
 		glEnable(GL_MAP1_VERTEX_3);
 		
 	    glBegin(GL_LINE_STRIP);
-        for ( int i = 0; i <= 30; i++ ) glEvalCoord1f((GLfloat) i/30.0);
+        for ( int i = 0; i <= 30; i++ )
+            glEvalCoord1f((GLfloat) i/30.0);
 		glEnd();
 		glDisable(GL_MAP1_VERTEX_3);
 		
@@ -5305,7 +5329,8 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
 		glEnable(GL_MAP1_VERTEX_3);
 		
 	    glBegin(GL_LINE_STRIP);
-        for ( int i = 0; i <= 30; i++ ) glEvalCoord1f((GLfloat) i/30.0);
+        for ( int i = 0; i <= 30; i++ )
+            glEvalCoord1f((GLfloat) i/30.0);
 		glEnd();
 		glDisable(GL_MAP1_VERTEX_3);
 		
@@ -5328,7 +5353,10 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
             
             float sf = curView.window.backingScaleFactor;
             
-            glScalef( 2.0f /([curView drawingFrameRect].size.width), -2.0f / ([curView drawingFrameRect].size.height), 1.0f);
+#if 1
+            glScalef( 2.0f /([curView drawingFrameRect].size.width),
+                     -2.0f / ([curView drawingFrameRect].size.height),
+                      1.0f);
             
             if (mode == ROI_sleep)
                 glColor4f(0.0f, 0.0f, 0.0f, 0.4f);
@@ -5341,6 +5369,7 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
             glVertex2f(  drawRect.origin.x+drawRect.size.width, drawRect.origin.y+drawRect.size.height);
             glVertex2f(  drawRect.origin.x+drawRect.size.width, drawRect.origin.y-1);
             glEnd();
+#endif
             
 #if 0
             glHint(GL_POLYGON_SMOOTH_HINT, GL_NICEST);
@@ -5359,8 +5388,8 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
 			[self glStr: textualBoxLine4 : tPt.x : tPt.y : line];	if (textualBoxLine4.length) line++;
 			[self glStr: textualBoxLine5 : tPt.x : tPt.y : line];	if (textualBoxLine5.length) line++;
 			[self glStr: textualBoxLine6 : tPt.x : tPt.y : line];	if (textualBoxLine6.length) line++;
-	                [self glStr: textualBoxLine7 : tPt.x : tPt.y : line];	if (textualBoxLine7.length) line++;
-	                [self glStr: textualBoxLine8 : tPt.x : tPt.y : line];	if (textualBoxLine8.length) line++;
+            [self glStr: textualBoxLine7 : tPt.x : tPt.y : line];	if (textualBoxLine7.length) line++;
+	        [self glStr: textualBoxLine8 : tPt.x : tPt.y : line];	if (textualBoxLine8.length) line++;
 
 			
 			
@@ -5672,10 +5701,9 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
 						
 						if (!texName)
 							texName = [self loadLayerImageTexture];
-							
+
 						glBindTexture(GL_TEXTURE_RECTANGLE_EXT, texName);
 					}
-					
 					
 					glBlendEquation(GL_FUNC_ADD);
 					glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -5867,6 +5895,7 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
                                 screenXDr = screenXUpL + newWidth*scaleValue;
                                 screenYDr = screenYUpL + newHeight*scaleValue;
                                 
+                                // TODO: check comment:
                                 // draw either tri strips of line strips (so this will draw either 2 tris or 3 lines)
                                 glBegin (GL_QUAD_STRIP);
                                 glTexCoord2f (0, 0); // draw upper left in world coordinates
@@ -5933,10 +5962,10 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
 				glTexCoord2f (0, 0); // draw upper left in world coordinates
 				glVertex3d (screenXUpL, screenYUpL, 0.0);
 				
-				glTexCoord2f (textureWidth, 0); // draw lower left in world coordinates
+				glTexCoord2f (textureWidth, 0); // draw upper right in world coordinates
 				glVertex3d (screenXDr, screenYUpL, 0.0);
 				
-				glTexCoord2f (0, textureHeight); // draw upper right in world coordinates
+				glTexCoord2f (0, textureHeight); // draw lower left in world coordinates
 				glVertex3d (screenXUpL, screenYDr, 0.0);
 				
 				glTexCoord2f (textureWidth, textureHeight); // draw lower right in world coordinates

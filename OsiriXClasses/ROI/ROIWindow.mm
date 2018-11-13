@@ -12,9 +12,6 @@
      PURPOSE.
 =========================================================================*/
 
-
-
-
 #import "ROIWindow.h"
 #import "HistogramWindow.h"
 #import "PlotWindow.h"
@@ -113,11 +110,11 @@
 	float	pixels;
 	float   newResolution;
 	
-    [NSApp beginSheet:recalibrateWindow 
-            modalForWindow: [self window]
-            modalDelegate:self 
-            didEndSelector:NULL 
-            contextInfo:NULL];
+    [NSApp beginSheet:recalibrateWindow
+       modalForWindow:[self window]
+        modalDelegate:self
+       didEndSelector:NULL
+          contextInfo:NULL];
 	
 	[recalibrateValue setStringValue: [NSString stringWithFormat:@"%0.3f", (float) [curROI MeasureLength :&pixels]] ];
 	

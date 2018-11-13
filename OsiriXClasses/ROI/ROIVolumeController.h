@@ -12,12 +12,9 @@
      PURPOSE.
 =========================================================================*/
 
-
-
-
+#import "ViewerController.h"
 #import <Cocoa/Cocoa.h>
 #import "DCMPix.h"
-#import "ViewerController.h"
 #import "Window3DController.h"
 
 @class ROIVolumeView;

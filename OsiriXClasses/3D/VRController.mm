@@ -15,8 +15,8 @@
 #import "options.h"
 #import "url.h"
 
-#import "AppController.h"
 #import "VRController.h"
+#import "AppController.h"
 #import "DCMView.h"
 #import "DICOMFiles/dicomFile.h"
 #import "NSFullScreenWindow.h"
@@ -421,11 +421,13 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
 	
 	for (int i = 0; i < maxMovieIndex; i++)
 	{
-		if (maximumValue < [[pixList[ i] objectAtIndex: 0] maxValueOfSeries])
-            maximumValue = [[pixList[ i] objectAtIndex: 0] maxValueOfSeries];
+        float max = [[pixList[ i] objectAtIndex: 0] maxValueOfSeries];
+		if (maximumValue < max)
+            maximumValue = max;
 
-        if (minimumValue > [[pixList[ i] objectAtIndex: 0] minValueOfSeries])
-            minimumValue = [[pixList[ i] objectAtIndex: 0] minValueOfSeries];
+        float min = [[pixList[ i] objectAtIndex: 0] minValueOfSeries];
+        if (minimumValue > min)
+            minimumValue = min;
 	}
 	
 	if (maximumValue - minimumValue < 1)
@@ -436,7 +438,7 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
 	self.deleteValue = minimumValue;
 	
 	if ([[viewer2D modality] isEqualToString: @"CT"] &&
-        maximumValue - minimumValue > 8192 &&
+        (maximumValue - minimumValue) > 8192 &&
         computeMinMaxDepth == 1)
 	{
         NSInteger result = NSRunCriticalAlertPanel( NSLocalizedString( @"High Dynamic Values", nil), NSLocalizedString( @"Voxel values have a very high dynamic range (>8192). Two options are available to use the 3D engine: clip values above 7168 and below -1024 or resample the values.", nil), NSLocalizedString( @"Clip", nil), NSLocalizedString( @"Resample", nil), nil);
@@ -486,9 +488,7 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
     short           err = 0;
 	BOOL			testInterval = YES;
 	DCMPix			*firstObject = [pix objectAtIndex: 0];
-	
-    NSLog(@"%s %d", __FUNCTION__, __LINE__);
-    
+
 #if 1
     CGLContextObj cgl_ctx = [[NSOpenGLContext currentContext] CGLContextObj];
     printf("VRController.mm:%d OpenGL context:%p, version %s\n", __LINE__, cgl_ctx, glGetString(GL_VERSION));
@@ -496,8 +496,8 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
     
     @try
     {
-        NSLog(@"%s %d", __FUNCTION__, __LINE__);
-        // MEMORY TEST: The renderer needs to have the volume in short
+#if 1  // MEMORY TEST
+        // The renderer needs to have the volume in short
         {
             unsigned long sizeofshort = sizeof( short) + 1;	//extra space for gradients computation
             char *testPtr = (char*) malloc( [firstObject pwidth] * [firstObject pheight] * [pix count] * sizeofshort);
@@ -514,46 +514,44 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
                     //[[AppController sharedAppController] osirix64bit: self];
                 }
                 
-                NSLog(@"%s %d", __FUNCTION__, __LINE__);
+                NSLog(@"%s %d MEMORY TEST failed", __FUNCTION__, __LINE__);
                 return nil;
             }
             else
                 free( testPtr);
         }
+#endif
 
         NSLog(@"%s %d", __FUNCTION__, __LINE__);
         [[NSUserDefaults standardUserDefaults] setFloat: 1125 forKey: @"VRGrowingRegionValue"];
         [[NSUserDefaults standardUserDefaults] setFloat: 1750 forKey: @"VRGrowingRegionInterval"];
         
-    //	// ** RESAMPLE START
-    //	
+#if 0 // RESAMPLE
+//        WaitRendering *www = [[WaitRendering alloc] init: NSLocalizedString( @"Resampling 3D data...", nil)];
+//        [www start];
+//
+//        NSMutableArray        *newPix = [NSMutableArray array], *newFiles = [NSMutableArray array];
+//        NSData                *newData = nil;
+//
+//        if ([ViewerController resampleDataFromPixArray:pix fileArray:f inPixArray:newPix fileArray:newFiles data:&newData withXFactor:2 yFactor:2 zFactor:2] == NO)
+//        {
+//            NSRunCriticalAlertPanel( NSLocalizedString(@"Not Enough Memory",nil), NSLocalizedString( @"Not enough memory (RAM) to use the 3D engine.",nil), NSLocalizedString(@"OK",nil), nil, nil);
+//            return nil;
+//        }
+//        else
+//        {
+//            pix = newPix;
+//            f = newFiles;
+//            vData = newData;
+//
+//            firstObject = [pix objectAtIndex: 0];
+//        }
+//
+//        [www end];
+//        [www close];
+//        [www release];
+#endif
 
-    //	WaitRendering *www = [[WaitRendering alloc] init: NSLocalizedString( @"Resampling 3D data...", nil)];
-    //	[www start];
-    //	
-    //	NSMutableArray		*newPix = [NSMutableArray array], *newFiles = [NSMutableArray array];
-    //	NSData				*newData = nil;
-    //	
-    //	if ([ViewerController resampleDataFromPixArray:pix fileArray:f inPixArray:newPix fileArray:newFiles data:&newData withXFactor:2 yFactor:2 zFactor:2] == NO)
-    //	{
-    //		NSRunCriticalAlertPanel( NSLocalizedString(@"Not Enough Memory",nil), NSLocalizedString( @"Not enough memory (RAM) to use the 3D engine.",nil), NSLocalizedString(@"OK",nil), nil, nil);
-    //		return nil;
-    //	}
-    //	else
-    //	{
-    //		pix = newPix;
-    //		f = newFiles;
-    //		vData = newData;
-    //		
-    //		firstObject = [pix objectAtIndex: 0];
-    //	}
-    //	
-    //	[www end];
-    //	[www close];
-    //	[www release];
-    //	
-    //	// ** RESAMPLE END
-                
         style = [m retain];
         _renderingMode = [renderingMode retain];
         
@@ -661,10 +659,11 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
 //            self = [super initWithWindowNibName:@"VR"];
 //        else if ([style isEqualToString:@"noNib"])
 //            self = [super initWithWindowNibName:@"VREmpty"];
-        
+
         @try
         {
             [[self window] setDelegate:self];
+            // [view controller] is now defined
         }
         @catch (NSException * e)
         {
@@ -674,7 +673,6 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
         if ([style isEqualToString: @"panel"])
             [self.window setLevel: NSFloatingWindowLevel];
         
-        NSLog(@"%s %d, view: %@ %@", __FUNCTION__, __LINE__, view, [view class]);
         err = [view setPixSource: pixList[0]
                                 : (float*)[volumeData[0] bytes]];
         if (err != 0)

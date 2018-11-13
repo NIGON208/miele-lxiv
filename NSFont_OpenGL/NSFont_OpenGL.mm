@@ -1,5 +1,5 @@
 /*
- * This program is Copyright ï¿½ 2002 Bryan L Blackburn.  All rights reserved.
+ * This program is Copyright © 2002 Bryan L Blackburn.  All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -29,7 +29,7 @@
 
 /* NSFont_OpenGL.m */
 
-#import "NSFont_OpenGL/NSFont_OpenGL.h"
+#import "NSFont_OpenGL.h"
 #import "N2Debug.h"
 
 #define MAXCOUNT 256
@@ -38,6 +38,8 @@
 + (unsigned char*) createCharacterWithImage:(NSBitmapImageRep *)bitmap;
 + (void) doOpenGLLog:(NSString *)format, ...;
 @end
+
+#pragma mark
 
 @implementation NSFont (withay_OpenGL)
 
@@ -86,16 +88,21 @@ static  unsigned char			*charPtrArrayScale2[ MAXCOUNT], *charPtrArrayPreviewScal
 					if( charPtrArray[ i]) free( charPtrArray[ i]);
 					charPtrArray[ i] = 0L;
 				}
+                
 				[imageArray release];
 				imageArray = nil;
 			}
+            
             if( imageArrayScale2)
 			{
 				for( i = 0; i < MAXCOUNT; i++)
 				{
-					if( charPtrArrayScale2[ i]) free( charPtrArrayScale2[ i]);
-					charPtrArrayScale2[ i] = 0L;
+                    if( charPtrArrayScale2[ i]) {
+                        free( charPtrArrayScale2[ i]);
+                        charPtrArrayScale2[ i] = NULL;
+                    }
 				}
+                
 				[imageArrayScale2 release];
 				imageArrayScale2 = nil;
 			}
@@ -106,19 +113,26 @@ static  unsigned char			*charPtrArrayScale2[ MAXCOUNT], *charPtrArrayPreviewScal
 			{
 				for( i = 0; i < MAXCOUNT; i++)
 				{
-					if( charPtrArrayPreview[ i]) free( charPtrArrayPreview[ i]);
+					if( charPtrArrayPreview[ i])
+                        free( charPtrArrayPreview[ i]);
+                    
 					charPtrArrayPreview[ i] = 0L;
 				}
+                
 				[imageArrayPreview release];
 				imageArrayPreview = nil;
 			}
+            
             if( imageArrayPreviewScale2)
 			{
 				for( i = 0; i < MAXCOUNT; i++)
 				{
-					if( charPtrArrayPreviewScale2[ i]) free( charPtrArrayPreviewScale2[ i]);
+					if( charPtrArrayPreviewScale2[ i])
+                        free( charPtrArrayPreviewScale2[ i]);
+                    
 					charPtrArrayPreviewScale2[ i] = 0L;
 				}
+                
 				[imageArrayPreviewScale2 release];
 				imageArrayPreviewScale2 = nil;
 			}
@@ -129,17 +143,23 @@ static  unsigned char			*charPtrArrayScale2[ MAXCOUNT], *charPtrArrayPreviewScal
 			{
 				for( i = 0; i < MAXCOUNT; i++)
 				{
-					if( charPtrArrayROI[ i]) free( charPtrArrayROI[ i]);
+					if( charPtrArrayROI[ i])
+                        free( charPtrArrayROI[ i]);
+                    
 					charPtrArrayROI[ i] = 0L;
 				}
+                
 				[imageArrayROI release];
 				imageArrayROI = nil;
 			}
+            
             if( imageArrayROIScale2)
 			{
 				for( i = 0; i < MAXCOUNT; i++)
 				{
-					if( charPtrArrayROIScale2[ i]) free( charPtrArrayROIScale2[ i]);
+					if( charPtrArrayROIScale2[ i])
+                        free( charPtrArrayROIScale2[ i]);
+                    
 					charPtrArrayROIScale2[ i] = 0L;
 				}
 				[imageArrayROIScale2 release];
@@ -235,7 +255,9 @@ static  unsigned char			*charPtrArrayScale2[ MAXCOUNT], *charPtrArrayPreviewScal
     
     for( i = 0; i < MAXCOUNT; i++)
     {
-        if( curPtrArray[ i]) free( curPtrArray[ i]);
+        if( curPtrArray[ i])
+            free( curPtrArray[ i]);
+        
         curPtrArray[ i] = 0;
     }
 	
@@ -273,7 +295,8 @@ static  unsigned char			*charPtrArrayScale2[ MAXCOUNT], *charPtrArrayPreviewScal
             
 			[theImage setSize: charRect.size];
 			
-			if([theImage size].width > 0 && [theImage size].height > 0)
+			if ([theImage size].width > 0 &&
+                [theImage size].height > 0)
 			{
 				[theImage lockFocus];
                 
@@ -418,23 +441,25 @@ static  unsigned char			*charPtrArrayScale2[ MAXCOUNT], *charPtrArrayPreviewScal
    // Save pixel unpacking state
    glPushClientAttrib( GL_CLIENT_PIXEL_STORE_BIT );
 
-   glPixelStorei( GL_UNPACK_SWAP_BYTES, GL_FALSE );
-   glPixelStorei( GL_UNPACK_LSB_FIRST, GL_FALSE );
-   glPixelStorei( GL_UNPACK_SKIP_ROWS, 0 );
-   glPixelStorei( GL_UNPACK_SKIP_PIXELS, 0 );
-   glPixelStorei( GL_UNPACK_ROW_LENGTH, 0 );
-   glPixelStorei( GL_UNPACK_ALIGNMENT, 1 );
+   glPixelStorei( GL_UNPACK_SWAP_BYTES,     GL_FALSE );
+   glPixelStorei( GL_UNPACK_LSB_FIRST,      GL_FALSE );
+   glPixelStorei( GL_UNPACK_SKIP_ROWS,      GL_FALSE );
+   glPixelStorei( GL_UNPACK_SKIP_PIXELS,    GL_FALSE );
+   glPixelStorei( GL_UNPACK_ROW_LENGTH,     GL_FALSE );
+   glPixelStorei( GL_UNPACK_ALIGNMENT,      1 );  // otherwise default is 4
 	
-   glPixelStorei (GL_UNPACK_CLIENT_STORAGE_APPLE, 1);
+   glPixelStorei (GL_UNPACK_CLIENT_STORAGE_APPLE, GL_TRUE);
+    // The cached hint specifies to cache texture data in video memory. This hint is recommended when you have textures that you plan to use multiple times or that use linear filtering
    glTexParameteri (GL_TEXTURE_RECTANGLE_EXT, GL_TEXTURE_STORAGE_HINT_APPLE, GL_STORAGE_CACHED_APPLE);
-   
+    
    retval = TRUE;
-   for( dListNum = base, currentUnichar = first; currentUnichar < first + count;
+   for (dListNum = base, currentUnichar = first;
+        currentUnichar < first + count;
         dListNum++, currentUnichar++ )
    {
 	   charSizeArrayIn[ currentUnichar] = curSizeArray[ currentUnichar];
 		
-	   if( currentUnichar - first < curArray.count)
+	   if (currentUnichar - first < curArray.count)
 		{
 			NSBitmapImageRep *bitmap = [curArray objectAtIndex: currentUnichar - first];
 			
@@ -454,7 +479,6 @@ static  unsigned char			*charPtrArrayScale2[ MAXCOUNT], *charPtrArrayPreviewScal
 
    return retval;
 }
-
 
 /*
  * Create one display list based on the given image.  This assumes the image
@@ -491,7 +515,7 @@ static  unsigned char			*charPtrArrayScale2[ MAXCOUNT], *charPtrArrayPreviewScal
    {
       currentBit = 0x80;
       byteValue = 0;
-      for( colIndex = 0; colIndex < pixelsWide; colIndex ++)
+      for( colIndex = 0; colIndex < pixelsWide; colIndex++)
       {
          if (bitmapBytes[ rowIndex * bytesPerRow + colIndex * samplesPerPixel])
              byteValue |= currentBit;
@@ -511,7 +535,6 @@ static  unsigned char			*charPtrArrayScale2[ MAXCOUNT], *charPtrArrayPreviewScal
 	
 	return newBuffer;
 }
-
 
 /*
  * Log the warning/error, if logging is enabled

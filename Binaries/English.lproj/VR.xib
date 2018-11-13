@@ -178,7 +178,6 @@
                         <connections>
                             <outlet property="VRFrames" destination="494" id="499"/>
                             <outlet property="VRquality" destination="508" id="511"/>
-                            <outlet property="backgroundColor" destination="1019" id="1024"/>
                             <outlet property="clutOpacityView" destination="1029" id="1033"/>
                             <outlet property="controller" destination="-2" id="742"/>
                             <outlet property="dcmBox" destination="783" id="785"/>

@@ -15,19 +15,18 @@
 #ifndef DCMVIEW_H_INCLUDED
 #define DCMVIEW_H_INCLUDED
 
-#import <Foundation/Foundation.h>
-#import <Cocoa/Cocoa.h>
+#include "options.h"
 
-#include <OpenGL/gl.h>
-#include <OpenGL/glext.h>
-#include <OpenGL/glu.h>
-#include <OpenGL/CGLMacro.h>
-#include <OpenGL/CGLCurrent.h>
-#include <OpenGL/CGLContext.h>
-#import "N3Geometry.h"
 #import "ROI.h"
 
-#include "options.h"
+#include <OpenGL/CGLCurrent.h>
+#include <OpenGL/CGLContext.h>
+
+#import "N3Geometry.h"
+//#import "ROI.h"
+
+#import <Foundation/Foundation.h>
+#import <Cocoa/Cocoa.h>
 
 #define STAT_UPDATE					0.6f
 #define IMAGE_COUNT					1
@@ -304,9 +303,6 @@ typedef NS_ENUM(NSUInteger, MyScrollMode) {
     NSTimeInterval firstDisplay;
     
     NSString *mousePosUSRegion;
-#ifndef NDEBUG
-    int seqId;
-#endif
 }
 
 @property NSRect drawingFrameRect;
@@ -451,7 +447,7 @@ typedef NS_ENUM(NSUInteger, MyScrollMode) {
 - (IBAction) alwaysSyncMenu:(id) sender;
 - (void) getCLUT:( unsigned char**) r : (unsigned char**) g : (unsigned char**) b;
 - (void) sync:(NSNotification*)note;
-- (id)initWithFrame:(NSRect)frame imageRows:(int)rows  imageColumns:(int)columns;
+- (id)initWithFrame:(NSRect)frame imageRows:(int)rows imageColumns:(int)columns;
 - (float)getSUV;
 - (IBAction) roiLoadFromXMLFiles: (NSArray*) filenames;
 - (BOOL)checkHasChanged;
@@ -461,9 +457,10 @@ typedef NS_ENUM(NSUInteger, MyScrollMode) {
 - (void)DrawNSStringGL:(NSString*) str     :(GLuint)fontL :(long) x :(long) y rightAlignment: (BOOL) right useStringTexture: (BOOL) stringTex;
 - (void)DrawNSStringGL:(NSString*) str     :(GLuint)fontL :(long) x :(long) y align:(DCMViewTextAlign)align useStringTexture:(BOOL)stringTex;
 
-- (void) DrawCStringGL: ( char *) cstrOut :(GLuint) fontL :(long) x :(long) y;
-- (void) DrawCStringGL: ( char *) cstrOut :(GLuint) fontL :(long) x :(long) y rightAlignment: (BOOL) right useStringTexture: (BOOL) stringTex;
-- (void)DrawCStringGL:(char*)cstrOut :(GLuint)fontL :(long)x :(long)y align:(DCMViewTextAlign)align useStringTexture:(BOOL)stringTex;
+- (void)DrawCStringGL:(char *)cstrOut :(GLuint)fontL :(long)x :(long)y;
+- (void)DrawCStringGL:(char *)cstrOut :(GLuint)fontL :(long)x :(long)y rightAlignment:(BOOL)right useStringTexture:(BOOL)stringTex;
+- (void)DrawCStringGL:(char *)cstrOut :(GLuint)fontL :(long)x :(long)y align:(DCMViewTextAlign)align useStringTexture:(BOOL)stringTex;
+
 - (void) drawTextualData:(NSRect) size :(long) annotations;
 - (void) drawTextualData:(NSRect) size annotationsLevel:(long) annotations fullText: (BOOL) fullText onlyOrientation: (BOOL) onlyOrientation;
 - (void) draw2DPointMarker;

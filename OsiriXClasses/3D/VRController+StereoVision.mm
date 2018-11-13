@@ -76,21 +76,19 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
 
 - (void)windowDidResize:(NSNotification *)notification
 {
-	if([view StereoVisionOn])
-	{
+	if ([view StereoVisionOn])
 		[view adjustWindowContent:[[view window]frame].size];
-	}
 }
 
 //Added SilvanWidmer 04-03-10
 // Overrides the Fullscreen function of Window3DController
 - (IBAction) fullScreenMenu: (id) sender
 {
-	if (FullScreenOn == -1){
+	if (FullScreenOn == -1)
+    {
 		NSLog(@"FullScreen Mode Disabled");
 	}
-	
-    else if( FullScreenOn == YES )									// we need to go back to non-full screen
+    else if( FullScreenOn == YES )					// we need to go back to non-full screen
     {
         [StartingWindow setContentView: contentView];
 		//		[FullScreenWindow setContentView: nil];
@@ -98,23 +96,22 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
         [FullScreenWindow setDelegate:nil];
         [FullScreenWindow close];
         [FullScreenWindow release];
-		// Added SilvanWidmer 04-03
-        if([view StereoVisionOn])
+
+        if ([view StereoVisionOn])
 			[view adjustWindowContent:[StartingWindow frame].size];
 		
         [StartingWindow makeKeyAndOrderFront: self];
         FullScreenOn = NO;
     }
-    else														// FullScreenOn == NO
+    else											// FullScreenOn == NO
     {
-        unsigned int windowStyle;
-        NSRect       contentRect;
-		
         StartingWindow = [self window];
-        windowStyle    = NSWindowStyleMaskBorderless; 
-        contentRect    = [[NSScreen mainScreen] frame];
-        FullScreenWindow = [[NSFullScreenWindow alloc] initWithContentRect:contentRect styleMask: windowStyle backing:NSBackingStoreBuffered defer: NO];
-        if(FullScreenWindow != nil)
+        NSRect contentRect = [[NSScreen mainScreen] frame];
+        FullScreenWindow = [[NSFullScreenWindow alloc] initWithContentRect: contentRect
+                                                                 styleMask: NSWindowStyleMaskBorderless
+                                                                   backing: NSBackingStoreBuffered
+                                                                     defer: NO];
+        if (FullScreenWindow != nil)
         {
             [FullScreenWindow setTitle: @"myWindow"];			
             [FullScreenWindow setReleasedWhenClosed: NO];
@@ -124,7 +121,7 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
             contentView = [[self window] contentView];
             [FullScreenWindow setContentView: contentView];
 			
-			if([view StereoVisionOn])
+			if ([view StereoVisionOn])
 				[view adjustWindowContent:[contentView frame].size];
             
             [FullScreenWindow makeKeyAndOrderFront: self];
@@ -138,10 +135,9 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
     }
 }
 
-
 - (IBAction) ApplyGeometrieSettings: (id) sender
 {
-	[VRGeometrieSettingsWindow orderOut:sender];
+    [VRGeometrieSettingsWindow orderOut:sender];
 	[NSApp endSheet:VRGeometrieSettingsWindow returnCode:[sender tag]];
 	
 	double height = [heightValue doubleValue];
@@ -150,10 +146,11 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
 	
 	if (height < 0.01)
 		height=0.01;
+    
 	if (distance < 0.01)
 		distance=0.01;
 	
-	if([sender tag])
+	if ([sender tag])
 	{
 		[[NSUserDefaults standardUserDefaults] setDouble: [distanceValue doubleValue] forKey: @"DISTANCETOSCREEN"];
 		[[NSUserDefaults standardUserDefaults] setDouble: [heightValue doubleValue] forKey: @"SCREENHEIGHT"];
@@ -599,4 +596,4 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
 // end addition by P. Thevenaz on June 11, 2010}
 
 @end
-#endif
+#endif // _STEREO_VISION_

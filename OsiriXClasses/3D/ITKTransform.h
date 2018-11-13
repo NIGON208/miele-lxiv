@@ -17,7 +17,6 @@
 @class ViewerController;
 @class DCMPix;
 
-
 #ifdef __cplusplus
 #import "ITK.h"
 #else
@@ -28,7 +27,6 @@
 #define redefineID
 #undef id
 #endif
-
 
 /** /brief  ITK based affine transform */
 

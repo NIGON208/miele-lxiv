@@ -14,6 +14,11 @@
 
 #import "options.h"
 
+#include <OpenGL/OpenGL.h>
+#include <OpenGL/CGLCurrent.h>
+#include <OpenGL/CGLContext.h>
+#include <OpenGL/CGLMacro.h>
+
 #import "VRView.h"
 
 #import "OsiriXFixedPointVolumeRayCastMapper.h"
@@ -23,14 +28,10 @@
 #import "DCMPix.h"
 #import "DCMView.h"
 #import "ROI.h"
-#include <OpenGL/OpenGL.h>
-#include <OpenGL/CGLCurrent.h>
-#include <OpenGL/CGLContext.h>
-#include <OpenGL/CGLMacro.h>
+
 #include "math.h"
 #import "Wait.h"
 #import "QuicktimeExport.h"
-#include "vtkImageResample.h"
 #import "VRController.h"
 #import "BrowserController.h"
 #import "DICOMExport.h"
@@ -42,6 +43,7 @@
 #import "N2Debug.h"
 #import "PluginManager.h"
 
+#include "vtkImageResample.h"
 #include "vtkMath.h"
 #include "vtkAbstractPropPicker.h"
 #include "vtkInteractorStyle.h"
@@ -77,7 +79,7 @@
 #include "vtkCocoaRenderWindowInteractor.h"
 #include "vtkCocoaRenderWindow.h"
 #include "vtkInteractorStyleTrackballCamera.h"
-//#include "vtkParallelRenderManager.h"
+#include "vtkParallelRenderManager.h"
 #include "vtkRendererCollection.h"
 #endif
 
@@ -176,7 +178,6 @@ public:
 - (id) initWithController:(VRController*) c
                   objects:(NSArray *) o
 {
-    NSLog(@"Checkpoint VRView.mm:%d %s", __LINE__, __PRETTY_FUNCTION__);
     self = [super init];
     
     controller = [c retain];
@@ -202,7 +203,7 @@ public:
 
 @end
 
-#pragma mark
+#pragma mark -
 
 @implementation VRView
 
@@ -877,7 +878,6 @@ public:
 {
     if (volumeMapper == nil)
     {
-        NSLog(@"Checkpoint VRView.mm:%d %s", __LINE__, __PRETTY_FUNCTION__);
         volumeMapper = OsiriXFixedPointVolumeRayCastMapper::New();
         volumeMapper->SetInputConnection(reader->GetOutputPort());
     }
@@ -956,7 +956,6 @@ public:
 - (void) setEngine: (long) newEngine
           showWait: (BOOL) showWait
 {
-    NSLog(@"Checkpoint VRView.mm:%d %s", __LINE__, __PRETTY_FUNCTION__);
     if (newEngine == ENGINE_GPU_OPEN_GL)
     {
         unsigned
@@ -1641,8 +1640,8 @@ public:
 	aCamera->OrthogonalizeViewUp();
 }
 
-//-(IBAction) endQuicktimeVRSettings:(id) sender
-//{
+-(IBAction) endQuicktimeVRSettings:(id) sender
+{
 //	[export3DVRWindow orderOut:sender];
 //	
 //	[NSApp endSheet:export3DVRWindow returnCode:[sender tag]];
@@ -1686,7 +1685,7 @@ public:
 //		
 //		[self restoreViewSizeAfterMatrix3DExport];
 //	}
-//}
+}
 
 - (void) setShadingValues:(float) ambient :(float) diffuse :(float) specular :(float) specularpower
 {
@@ -1969,7 +1968,6 @@ public:
 {
     if ( self = [super initWithFrame:frame])
     {
-        NSLog(@"Checkpoint VRView.mm:%d %s, self:%p %@", __LINE__, __PRETTY_FUNCTION__, self, self);
 		NSTrackingArea *cursorTracking = [[[NSTrackingArea alloc] initWithRect: [self visibleRect]
                                                                        options: (NSTrackingCursorUpdate | NSTrackingInVisibleRect | NSTrackingMouseEnteredAndExited | NSTrackingActiveInKeyWindow)
                                                                          owner: self userInfo: nil] autorelease];
@@ -2125,7 +2123,6 @@ public:
 
 - (IBAction) resetImage:(id) sender
 {
-    NSLog(@"Checkpoint VRView.mm:%d %s", __LINE__, __PRETTY_FUNCTION__);
 	aRenderer->ResetCamera();
 	[self saView:self];
 	
@@ -2289,29 +2286,28 @@ public:
 
 - (void) render
 {
-    NSLog(@"Checkpoint VRView.mm:%d %s, volumeMapper:%p", __LINE__, __PRETTY_FUNCTION__,
-          volumeMapper);
-	if (volumeMapper)
-	{
-		aRenderer->SetDraw( 0);
-		
-		dontRenderVolumeRenderingOsiriX = 0;
-		volumeMapper->SetIntermixIntersectingGeometry( 0);
-		
-		_cocoaRenderWindow->UpdateContext();
-		_cocoaRenderWindow->MakeCurrent();
+    if (!volumeMapper)
+        return;
+
+    aRenderer->SetDraw( 0);
+    
+    dontRenderVolumeRenderingOsiriX = 0;
+    volumeMapper->SetIntermixIntersectingGeometry( 0);
+    
+    _cocoaRenderWindow->UpdateContext();
+    _cocoaRenderWindow->MakeCurrent();
+
 #if 1 // @@@ FIXME: vrView render
-        NSLog(@"Checkpoint VRView.mm:%d %s, aRenderer:%p, volume:%p", __LINE__, __PRETTY_FUNCTION__,
-              aRenderer, volume);
-    #if 0 //def _VERBOSE
-        vtkIndent *indent = vtkIndent::New();
-        aRenderer->PrintSelf(std::cout, *indent);
-    #endif
-        
-        volumeMapper->Render( aRenderer, volume);
+    NSLog(@"Checkpoint VRView.mm:%d %s, aRenderer:%p, volume:%p", __LINE__, __PRETTY_FUNCTION__,
+          aRenderer, volume);
+#if 0 //def _VERBOSE
+    vtkIndent *indent = vtkIndent::New();
+    aRenderer->PrintSelf(std::cout, *indent);
 #endif
-		dontRenderVolumeRenderingOsiriX = 1;
-	}
+    volumeMapper->Render( aRenderer, volume);
+#endif
+
+    dontRenderVolumeRenderingOsiriX = 1;
 }
 
 - (void) renderBlendedVolume
@@ -2355,7 +2351,6 @@ public:
 
 - (void) drawRect:(NSRect)aRect
 {
-    NSLog(@"Checkpoint VRView.mm:%d %s", __LINE__, __PRETTY_FUNCTION__);
 	if (drawLock == nil)
         drawLock = [[NSRecursiveLock alloc] init];
 	
@@ -2379,7 +2374,6 @@ public:
 		try
 		{
 			[self computeOrientationText];
-            NSLog(@"Checkpoint VRView.mm:%d %s", __LINE__, __PRETTY_FUNCTION__);
             [super drawRect:aRect];
 		}
 		catch (...)
@@ -2570,11 +2564,9 @@ public:
 - (float) imageSampleDistance
 {
     if (volumeMapper) {
-        NSLog(@"Checkpoint VRView.mm:%d %s", __LINE__, __PRETTY_FUNCTION__);
 		return volumeMapper->GetRayCastImage()->GetImageSampleDistance();
     }
 
-    NSLog(@"Checkpoint VRView.mm:%d %s", __LINE__, __PRETTY_FUNCTION__);
     return 0;
 }
 
@@ -2592,7 +2584,6 @@ public:
 
 - (void) getOrigin: (float *) origin windowCentered:(BOOL) wc sliceMiddle:(BOOL) sliceMiddle
 {
-    NSLog(@"Checkpoint VRView.mm:%d %s", __LINE__, __PRETTY_FUNCTION__);
 	return [self getOrigin: origin
             windowCentered: wc
                sliceMiddle: sliceMiddle
@@ -2668,8 +2659,8 @@ public:
         zbufferSize[1] = static_cast<int>( static_cast<double>(imageInUseSize[1]) * sampleDistance);
 
         // Use the size to compute (x2,y2) in window coordinates
-        int x2 = x1 + zbufferSize[0] - 1;
-        int y2 = y1 + zbufferSize[1] - 1;
+//        int x2 = x1 + zbufferSize[0] - 1;
+//        int y2 = y1 + zbufferSize[1] - 1;
         
         // cameraPosition is in the center of the screen
         double x = ((double) x1 - (double) renWinSize[ 0]/2.);
@@ -2809,11 +2800,9 @@ public:
         if (length < 0.00001 || length > 1000.)
             NSLog( @"****** vrView getResolution %f", length);
         
-        NSLog(@"Checkpoint VRView.mm:%d %s", __LINE__, __PRETTY_FUNCTION__);
 		return (length/factor);
 	}
 
-    NSLog(@"Checkpoint VRView.mm:%d %s", __LINE__, __PRETTY_FUNCTION__);
     return 0;
 }
 
@@ -6019,8 +6008,6 @@ public:
 
 - (void) setWLWW:(float) iwl :(float) iww
 {
-    NSLog(@"Checkpoint VRView.mm:%d %s", __LINE__, __PRETTY_FUNCTION__);
-
     if (colorTransferFunction == nil)
         return;
     
@@ -6900,7 +6887,7 @@ public:
 	short   error = 0;
 	long	i;
     
-#if 1
+#if 0 //ndef NDEBUG
     CGLContextObj cgl_ctx = [[NSOpenGLContext currentContext] CGLContextObj];
     NSLog(@"VRView.mm:%d class:%@, OpenGL context:%p, version %s", __LINE__,
           [self class], cgl_ctx, glGetString(GL_VERSION)); // version 2.1 APPLE-12.1.0
@@ -7438,8 +7425,6 @@ public:
 
 - (void) prepareFullDepthCapture
 {
-    NSLog(@"Checkpoint VRView.mm:%d %s, self:%p", __LINE__, __PRETTY_FUNCTION__, self);
-
     fullDepthEngineCopy = engine;
     
     if (engine != ENGINE_CPU)

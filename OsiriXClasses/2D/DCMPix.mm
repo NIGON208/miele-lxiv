@@ -12,6 +12,7 @@
  PURPOSE.
  =========================================================================*/
 
+#import "PluginManager.h"
 #import "DCMPix.h"
 #import "DicomImage.h"
 #import "DicomSeries.h"
@@ -22,7 +23,6 @@
 #import <DCM/DCMAbstractSyntaxUID.h>
 #import "BrowserController.h"
 #import "BrowserControllerDCMTKCategory.h"
-#import "PluginManager.h"
 #import "ROI.h"
 #import "SRAnnotation.h"
 #import "Notifications.h"
@@ -1781,7 +1781,8 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 		
 		for (DCMPix* pix in pixArray)
 		{
-			if (tminValueOfSeries > [pix fullwl] - [pix fullww]/2) tminValueOfSeries = [pix fullwl] - [pix fullww]/2;
+			if (tminValueOfSeries > [pix fullwl] - [pix fullww]/2)
+                tminValueOfSeries = [pix fullwl] - [pix fullww]/2;
 		}
 		
 		for (DCMPix* pix in pixArray)
@@ -6242,7 +6243,6 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
                 {
                     NSTask *aTask = [[[NSTask alloc] init] autorelease];
                     [aTask setLaunchPath: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"/Decompress"]];
-                    NSLog(@"Checkpoint %s %d htmlpath:%@", __PRETTY_FUNCTION__, __LINE__, htmlpath);
                     [aTask setArguments: [NSArray arrayWithObjects: htmlpath, @"pdfFromURL", nil]];
                     [aTask launch];
                     NSTimeInterval start = [NSDate timeIntervalSinceReferenceDate];
@@ -10116,7 +10116,6 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 
 - (float*)computefImage
 {
-    NSLog(@"DCMPix.mm:%d %s", __LINE__, __PRETTY_FUNCTION__);
 	float *result;
 	
 	thickSlabVRActivated = NO;
@@ -10372,7 +10371,6 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 
 - (void) changeWLWW:(float)newWL :(float)newWW
 {
-    NSLog(@"DCMView.mm:%d %s", __LINE__, __PRETTY_FUNCTION__);
 	if (baseAddr == nil)
 	{
 		[self checkImageAvailble:newWW :newWL];

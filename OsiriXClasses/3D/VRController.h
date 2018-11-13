@@ -12,10 +12,10 @@
      PURPOSE.
 =========================================================================*/
 
+#import "ViewerController.h"
 #import <Cocoa/Cocoa.h>
 #import "DCMPix.h"
 #import "ColorTransferView.h"
-#import "ViewerController.h"
 #import "Window3DController.h"
 #import "ShadingArrayController.h"
 

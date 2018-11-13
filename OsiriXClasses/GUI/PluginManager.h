@@ -12,10 +12,9 @@
      PURPOSE.
 =========================================================================*/
 
-
-
-#import <Cocoa/Cocoa.h>
 #import "PluginFilter.h"
+#import <Cocoa/Cocoa.h>
+
 /** \brief Mangages PluginFilter loading */
 @interface PluginManager : NSObject
 {

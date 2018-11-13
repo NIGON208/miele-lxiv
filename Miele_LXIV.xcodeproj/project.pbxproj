@@ -33,6 +33,7 @@
 		183C865B08563F3A000E6A68 /* SRFlyThruAdapter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 183C864708563F3A000E6A68 /* SRFlyThruAdapter.mm */; };
 		183C865D08563F3A000E6A68 /* VRFlyThruAdapter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 183C864908563F3A000E6A68 /* VRFlyThruAdapter.mm */; };
 		430CB70E218C66CD000C2547 /* SRController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 430CB70D218C66CD000C2547 /* SRController.mm */; };
+		430D9F102199FB37006EA1B1 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB0EA93B056EDC7E004BBDD3 /* OpenGL.framework */; };
 		4310F7AC20692C26000BDDCC /* jcapimin.c in Sources */ = {isa = PBXBuildFile; fileRef = 4310F31120692C22000BDDCC /* jcapimin.c */; };
 		4310F7AD20692C26000BDDCC /* jcapistd.c in Sources */ = {isa = PBXBuildFile; fileRef = 4310F31220692C22000BDDCC /* jcapistd.c */; };
 		4310F7AE20692C26000BDDCC /* jcarith.c in Sources */ = {isa = PBXBuildFile; fileRef = 4310F31320692C22000BDDCC /* jcarith.c */; };
@@ -3350,6 +3351,21 @@
 		438718BD2067C09E009575DB /* libcrypto.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcrypto.dylib; path = ../../../../../../usr/local/Cellar/openssl/1.0.2/lib/libcrypto.dylib; sourceTree = "<group>"; };
 		438718BF2067C0B3009575DB /* libssl.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libssl.dylib; path = ../../../../../../usr/local/Cellar/openssl/1.0.2/lib/libssl.dylib; sourceTree = "<group>"; };
 		4399FEC821762EE000011D9E /* libtiff.5.2.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libtiff.5.2.6.dylib; path = "../../../../install/miele-201612/tiff-4.0.8/lib/libtiff.5.2.6.dylib"; sourceTree = "<group>"; };
+		43A36B9E219B058800C506D3 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = "Preference Panes/OSIViewerPreferencePane/en.lproj/OSIViewerPreferencePanePref.xib"; sourceTree = "<group>"; };
+		43A36B9F219B058900C506D3 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = "Preference Panes/OSICustomImageAnnotations/en.lproj/OSICustomImageAnnotations.xib"; sourceTree = "<group>"; };
+		43A36BA0219B058A00C506D3 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = "Preference Panes/OSIDatabasePreferencePane/en.lproj/OSIDatabasePreferencePanePref.xib"; sourceTree = "<group>"; };
+		43A36BA1219B058A00C506D3 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = "Preference Panes/OSIHangingPreferencePane/en.lproj/OSIHangingPreferencePanePref.xib"; sourceTree = "<group>"; };
+		43A36BA2219B058B00C506D3 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = "Preference Panes/OSIAutoroutingPreferencePane/en.lproj/OSIAutoroutingPreferencePanePref.xib"; sourceTree = "<group>"; };
+		43A36BA3219B058C00C506D3 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = "Preference Panes/OSIPETPreferencePane/en.lproj/OSIPETPreferencePanePref.xib"; sourceTree = "<group>"; };
+		43A36BA4219B058D00C506D3 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = "Preference Panes/OSIGeneralPreferencePane/en.lproj/OSIGeneralPreferencePanePref.xib"; sourceTree = "<group>"; };
+		43A36BA5219B058D00C506D3 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = "Preference Panes/OSICDPreferencePane/en.lproj/OSICDPreferencePanePref.xib"; sourceTree = "<group>"; };
+		43A36BA6219B058E00C506D3 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = "Preference Panes/AYDicomPrintPreferencePane/en.lproj/AYDicomPrintPref.xib"; sourceTree = "<group>"; };
+		43A36BA7219B058E00C506D3 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = "Preference Panes/OSILocationsPreferencePane/en.lproj/OSILocationsPreferencePanePref.xib"; sourceTree = "<group>"; };
+		43A36BA8219B058F00C506D3 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = "Preference Panes/OSIListenerPreferencePane/en.lproj/OSIListenerPreferencePanePref.xib"; sourceTree = "<group>"; };
+		43A36BA9219B058F00C506D3 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = "Preference Panes/OSIHotKeysPreferencePane/en.lproj/OSIHotKeysPref.xib"; sourceTree = "<group>"; };
+		43A36BAA219B058F00C506D3 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = "Preference Panes/OSIPACSOnDemandPreferencePane/en.lproj/OSIPACSOnDemand.xib"; sourceTree = "<group>"; };
+		43A36BAB219B059000C506D3 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = "Preference Panes/OSIWebSharingPreferencePane/en.lproj/OSIWebSharingPreferencePanePref.xib"; sourceTree = "<group>"; };
+		43A36BAC219B059000C506D3 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = "Preference Panes/OSI3DPreferencePane/en.lproj/OSI3DPreferencePanePref.xib"; sourceTree = "<group>"; };
 		43A4038B1DFA32F300ADA719 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/MacOSX.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		43BF296C21662E1D0022CF3B /* main.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = main.mm; path = "LXIV Launcher/main.mm"; sourceTree = "<group>"; };
 		43BF296F21662F420022CF3B /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = "LXIV Launcher/Info.plist"; sourceTree = "<group>"; };
@@ -3359,21 +3375,6 @@
 		43E27D291AF338FA007B92CA /* ROI3DSettingsWindow.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ROI3DSettingsWindow.mm; sourceTree = "<group>"; };
 		43E27D2D1AF33A22007B92CA /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = Binaries/English.lproj/ROI3DSettingsWindow.xib; sourceTree = "<group>"; };
 		43E6A512216CC297005A031A /* odt2pdf.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; name = odt2pdf.zip; path = Binaries/ReportsToPDF/odt2pdf/build/odt2pdf.zip; sourceTree = "<group>"; };
-		43E6E9E02190539C00625D92 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = "Preference Panes/OSIPACSOnDemandPreferencePane/Base.lproj/OSIPACSOnDemand.xib"; sourceTree = "<group>"; };
-		43E6E9E12190539D00625D92 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = "Preference Panes/OSIWebSharingPreferencePane/Base.lproj/OSIWebSharingPreferencePanePref.xib"; sourceTree = "<group>"; };
-		43E6E9E22190539D00625D92 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = "Preference Panes/OSIViewerPreferencePane/Base.lproj/OSIViewerPreferencePanePref.xib"; sourceTree = "<group>"; };
-		43E6E9E32190539D00625D92 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = "Preference Panes/OSIPETPreferencePane/Base.lproj/OSIPETPreferencePanePref.xib"; sourceTree = "<group>"; };
-		43E6E9E42190539E00625D92 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = "Preference Panes/OSILocationsPreferencePane/Base.lproj/OSILocationsPreferencePanePref.xib"; sourceTree = "<group>"; };
-		43E6E9E52190539F00625D92 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = "Preference Panes/OSIListenerPreferencePane/Base.lproj/OSIListenerPreferencePanePref.xib"; sourceTree = "<group>"; };
-		43E6E9E62190539F00625D92 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = "Preference Panes/OSIHotKeysPreferencePane/Base.lproj/OSIHotKeysPref.xib"; sourceTree = "<group>"; };
-		43E6E9E7219053A000625D92 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = "Preference Panes/OSIHangingPreferencePane/Base.lproj/OSIHangingPreferencePanePref.xib"; sourceTree = "<group>"; };
-		43E6E9E8219053A000625D92 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = "Preference Panes/OSIGeneralPreferencePane/Base.lproj/OSIGeneralPreferencePanePref.xib"; sourceTree = "<group>"; };
-		43E6E9E9219053A000625D92 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = "Preference Panes/OSIDatabasePreferencePane/Base.lproj/OSIDatabasePreferencePanePref.xib"; sourceTree = "<group>"; };
-		43E6E9EA219053A100625D92 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = "Preference Panes/OSICustomImageAnnotations/Base.lproj/OSICustomImageAnnotations.xib"; sourceTree = "<group>"; };
-		43E6E9EB219053A200625D92 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = "Preference Panes/OSICDPreferencePane/Base.lproj/OSICDPreferencePanePref.xib"; sourceTree = "<group>"; };
-		43E6E9EC219053A200625D92 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = "Preference Panes/OSIAutoroutingPreferencePane/Base.lproj/OSIAutoroutingPreferencePanePref.xib"; sourceTree = "<group>"; };
-		43E6E9ED219053A200625D92 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = "Preference Panes/OSI3DPreferencePane/Base.lproj/OSI3DPreferencePanePref.xib"; sourceTree = "<group>"; };
-		43E6E9EE219053A300625D92 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = "Preference Panes/AYDicomPrintPreferencePane/Base.lproj/AYDicomPrintPref.xib"; sourceTree = "<group>"; };
 		43F8F9A41AA7DAA6008F318C /* LoupeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoupeController.h; sourceTree = "<group>"; };
 		43F8F9A51AA7DAA6008F318C /* LoupeController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = LoupeController.mm; sourceTree = "<group>"; };
 		43F8F9A61AA7DAA6008F318C /* LoupeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoupeView.h; sourceTree = "<group>"; };
@@ -4814,6 +4815,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4399FEC921762EE100011D9E /* libtiff.5.2.6.dylib in Frameworks */,
+				430D9F102199FB37006EA1B1 /* OpenGL.framework in Frameworks */,
 				436B5889217261DF009F42D3 /* libjpeg.9.dylib in Frameworks */,
 				436F14B9217A0E0A00EFC5CF /* libpng16.16.30.0.dylib in Frameworks */,
 			);
@@ -8745,7 +8747,7 @@
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				Base,
+				en,
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* OsiriX */;
 			projectDirPath = "";
@@ -9621,7 +9623,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "cd \"${BUILT_PRODUCTS_DIR}\"\n#cd \"${PROJECT_DIR}/build/${CONFIGURATION}\"\nproduct=\"OsiriX Lite.app\"\ndest=\"${UNLOCALIZED_RESOURCES_FOLDER_PATH}/OsiriX Lite.zip\"\nrm -f \"${dest}\"\nzip -qr \"${dest}\" \"${product}\"\n";
+			shellScript = "cd \"${BUILT_PRODUCTS_DIR}\"\n#cd \"${PROJECT_DIR}/build/${CONFIGURATION}\"\nproduct=\"OsiriX Lite.app\"\ndest=\"${UNLOCALIZED_RESOURCES_FOLDER_PATH}/OsiriX Lite.zip\"\nrm -f \"${dest}\"\nzip -qr \"${dest}\" . -i \"${product}\"\n";
 		};
 		59BDEE70117CB3A6007F1F2C /* Zip LXIV Launcher into Resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -11384,7 +11386,7 @@
 		CEA4F07B15AEA606009584C7 /* OSIPACSOnDemand.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				43E6E9E02190539C00625D92 /* Base */,
+				43A36BAA219B058F00C506D3 /* en */,
 			);
 			name = OSIPACSOnDemand.xib;
 			sourceTree = "<group>";
@@ -11392,7 +11394,7 @@
 		CEB9898A133500D30083F3FD /* OSIWebSharingPreferencePanePref.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				43E6E9E12190539D00625D92 /* Base */,
+				43A36BAB219B059000C506D3 /* en */,
 			);
 			name = OSIWebSharingPreferencePanePref.xib;
 			sourceTree = "<group>";
@@ -11400,7 +11402,7 @@
 		CEB989FE133507AC0083F3FD /* OSIViewerPreferencePanePref.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				43E6E9E22190539D00625D92 /* Base */,
+				43A36B9E219B058800C506D3 /* en */,
 			);
 			name = OSIViewerPreferencePanePref.xib;
 			sourceTree = "<group>";
@@ -11408,7 +11410,7 @@
 		CEB98A08133507BA0083F3FD /* OSIPETPreferencePanePref.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				43E6E9E32190539D00625D92 /* Base */,
+				43A36BA3219B058C00C506D3 /* en */,
 			);
 			name = OSIPETPreferencePanePref.xib;
 			sourceTree = "<group>";
@@ -11416,7 +11418,7 @@
 		CEB98A12133507C80083F3FD /* OSILocationsPreferencePanePref.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				43E6E9E42190539E00625D92 /* Base */,
+				43A36BA7219B058E00C506D3 /* en */,
 			);
 			name = OSILocationsPreferencePanePref.xib;
 			sourceTree = "<group>";
@@ -11424,7 +11426,7 @@
 		CEB98BAB133507F50083F3FD /* OSIListenerPreferencePanePref.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				43E6E9E52190539F00625D92 /* Base */,
+				43A36BA8219B058F00C506D3 /* en */,
 			);
 			name = OSIListenerPreferencePanePref.xib;
 			sourceTree = "<group>";
@@ -11432,7 +11434,7 @@
 		CEB98BB7133508040083F3FD /* OSIHotKeysPref.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				43E6E9E62190539F00625D92 /* Base */,
+				43A36BA9219B058F00C506D3 /* en */,
 			);
 			name = OSIHotKeysPref.xib;
 			sourceTree = "<group>";
@@ -11440,7 +11442,7 @@
 		CEB98BDB133508180083F3FD /* OSIHangingPreferencePanePref.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				43E6E9E7219053A000625D92 /* Base */,
+				43A36BA1219B058A00C506D3 /* en */,
 			);
 			name = OSIHangingPreferencePanePref.xib;
 			sourceTree = "<group>";
@@ -11448,7 +11450,7 @@
 		CEB98C01133508280083F3FD /* OSIGeneralPreferencePanePref.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				43E6E9E8219053A000625D92 /* Base */,
+				43A36BA4219B058D00C506D3 /* en */,
 			);
 			name = OSIGeneralPreferencePanePref.xib;
 			sourceTree = "<group>";
@@ -11456,7 +11458,7 @@
 		CEB98C0B133508350083F3FD /* OSIDatabasePreferencePanePref.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				43E6E9E9219053A000625D92 /* Base */,
+				43A36BA0219B058A00C506D3 /* en */,
 			);
 			name = OSIDatabasePreferencePanePref.xib;
 			sourceTree = "<group>";
@@ -11464,7 +11466,7 @@
 		CEB98C201335084F0083F3FD /* OSICustomImageAnnotations.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				43E6E9EA219053A100625D92 /* Base */,
+				43A36B9F219B058900C506D3 /* en */,
 			);
 			name = OSICustomImageAnnotations.xib;
 			sourceTree = "<group>";
@@ -11472,7 +11474,7 @@
 		CEB98C5B1335085D0083F3FD /* OSICDPreferencePanePref.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				43E6E9EB219053A200625D92 /* Base */,
+				43A36BA5219B058D00C506D3 /* en */,
 			);
 			name = OSICDPreferencePanePref.xib;
 			sourceTree = "<group>";
@@ -11480,7 +11482,7 @@
 		CEB98C651335086B0083F3FD /* OSIAutoroutingPreferencePanePref.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				43E6E9EC219053A200625D92 /* Base */,
+				43A36BA2219B058B00C506D3 /* en */,
 			);
 			name = OSIAutoroutingPreferencePanePref.xib;
 			sourceTree = "<group>";
@@ -11488,7 +11490,7 @@
 		CEB98C751335087D0083F3FD /* OSI3DPreferencePanePref.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				43E6E9ED219053A200625D92 /* Base */,
+				43A36BAC219B059000C506D3 /* en */,
 			);
 			name = OSI3DPreferencePanePref.xib;
 			sourceTree = "<group>";
@@ -11496,7 +11498,7 @@
 		CEB98C811335088C0083F3FD /* AYDicomPrintPref.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				43E6E9EE219053A300625D92 /* Base */,
+				43A36BA6219B058E00C506D3 /* en */,
 			);
 			name = AYDicomPrintPref.xib;
 			sourceTree = "<group>";
@@ -11536,7 +11538,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 20181024;
+				CURRENT_PROJECT_VERSION = 20181113;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 57BXF7EQEM;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -12449,7 +12451,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 20181024;
+				CURRENT_PROJECT_VERSION = 20181113;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 57BXF7EQEM;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -13879,7 +13881,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "";
-				CURRENT_PROJECT_VERSION = 20181024;
+				CURRENT_PROJECT_VERSION = 20181113;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 57BXF7EQEM;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;

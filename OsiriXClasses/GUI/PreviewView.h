@@ -12,11 +12,8 @@
      PURPOSE.
 =========================================================================*/
 
-
-
-
-#import <AppKit/AppKit.h>
 #import "DCMView.h"
+#import <AppKit/AppKit.h>
 
 /** \brief Image/Frame View for BrowserController */
 @interface PreviewView : DCMView {

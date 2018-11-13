@@ -783,7 +783,10 @@ static BOOL Pages5orHigher = FALSE;
 {
 #ifndef OSIRIX_LIGHT
 	NSString* templatesDirPath = [Reports databasePagesTemplatesDirPath];
+
+#ifndef NDEBUG
     NSLog(@"%s templatesDirPath:%@", __FUNCTION__, templatesDirPath);
+#endif
 
     if ([[NSFileManager defaultManager] fileExistsAtPath:templatesDirPath] == NO)
         [[NSFileManager defaultManager] createDirectoryAtPath:templatesDirPath

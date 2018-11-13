@@ -1,5 +1,9 @@
-#import <Cocoa/Cocoa.h>
+#include "options.h"
+
 #import <OpenGL/gl.h>
+#import <OpenGL/glext.h>
+
+#import <Cocoa/Cocoa.h>
 
 @interface NSFont (withay_OpenGL)
 

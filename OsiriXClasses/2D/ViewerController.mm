@@ -1911,7 +1911,6 @@ static volatile int numberOfThreadsForRelisce = 0;
 					
 					[curPix setOrientationDouble: orientation];	// Normal vector is recomputed in this procedure
 					
-                    NSLog(@"Checkpoint ViewerController.mm:%d %s", __LINE__, __PRETTY_FUNCTION__);
 					[curPix setPixelSpacingX: newXSpace];
 					[curPix setPixelSpacingY: newYSpace];
 					
@@ -5068,8 +5067,6 @@ static volatile int numberOfThreadsForRelisce = 0;
 
 -(void)splitViewWillResizeSubviews:(NSNotification *)notification
 {
-    NSLog(@"Checkpoint ViewerController.mm:%d %s", __LINE__, __PRETTY_FUNCTION__);
-
     if (windowWillClose)
         return;
 
@@ -8443,7 +8440,6 @@ static NSMutableArray *poolOf2DViewers = nil;
 
 -(void)awakeFromNib
 {
-    NSLog(@"Checkpoint ViewerController.mm:%d %s", __LINE__, __PRETTY_FUNCTION__);
     awakeFromNib = YES;
     
     DisplayUseInvertedPolarity = [[[[NSUserDefaults standardUserDefaults] persistentDomainForName: @"com.apple.CoreGraphics"] objectForKey: @"DisplayUseInvertedPolarity"] boolValue];
@@ -8451,7 +8447,6 @@ static NSMutableArray *poolOf2DViewers = nil;
     if ([[NSUserDefaults standardUserDefaults] boolForKey: @"UseFloatingThumbnailsList"] == NO)
     {
         if (splitView == nil) { // For compatibility with old localized (without auto-layout) xibs....
-            NSLog(@"Checkpoint ViewerController.mm:%d %s", __LINE__, __PRETTY_FUNCTION__);
             splitViewAllocated = YES;
         
             splitView = [[NSSplitView alloc] initWithFrame: [self.window.contentView bounds]];
@@ -8462,7 +8457,6 @@ static NSMutableArray *poolOf2DViewers = nil;
         }
         else
         {
-            NSLog(@"Checkpoint ViewerController.mm:%d %s", __LINE__, __PRETTY_FUNCTION__);
             previewMatrix.translatesAutoresizingMaskIntoConstraints = NO;
             splitView.translatesAutoresizingMaskIntoConstraints = NO;
             
@@ -9593,7 +9587,9 @@ static int avoidReentryRefreshDatabase = 0;
     [d setObject: fileListArray forKey: @"fileListArray"];
     [d setObject: self forKey: @"viewerController"];
     
-    NSThread *tempThread = [[NSThread alloc] initWithTarget: [ViewerController class] selector: @selector(loadImageData:) object: d];
+    NSThread *tempThread = [[NSThread alloc] initWithTarget: [ViewerController class]
+                                                   selector: @selector(loadImageData:)
+                                                     object: d];
     @synchronized( tempThread)
     {
         loadingThread = tempThread;
@@ -9870,7 +9866,6 @@ static int avoidReentryRefreshDatabase = 0;
         
         [NSThread currentThread].name = @"Load Image Data";
         
-        
         @try {
             DCMPix *firstPix = [[pixListArray objectAtIndex: 0] objectAtIndex: 0];
             
@@ -9929,12 +9924,12 @@ static int avoidReentryRefreshDatabase = 0;
             if (mpprocessors == 0)
             {
                 mpprocessors = [[NSProcessInfo processInfo] processorCount];
-                NSLog( @"[[NSProcessInfo processInfo] processorCount]: %d", mpprocessors);
+                //NSLog( @"[[NSProcessInfo processInfo] processorCount]: %d", mpprocessors);
                 if (mpprocessors < 1)
                     mpprocessors = 1;
 
                 if (mpprocessors > 4)
-                    mpprocessors --;
+                    mpprocessors--;
             }
             
             queue.maxConcurrentOperationCount = mpprocessors;
@@ -11343,6 +11338,7 @@ static int avoidReentryRefreshDatabase = 0;
 
 - (double) computeOriginalOrientation
 {
+    NSLog(@"%s %d", __FUNCTION__, __LINE__);
     if ([pixList[ curMovieIndex] count] <= 2)
         return 0.0;
     
@@ -11383,7 +11379,8 @@ static int avoidReentryRefreshDatabase = 0;
         if (fabs( vectors[6]) > fabs(vectors[7]) &&
             fabs( vectors[6]) > fabs(vectors[8]))
         {
-            interval = [[pixList[ curMovieIndex] objectAtIndex:1] originX] - [[pixList[ curMovieIndex] objectAtIndex:2] originX];
+            interval = [[pixList[ curMovieIndex] objectAtIndex:1] originX] -
+                       [[pixList[ curMovieIndex] objectAtIndex:2] originX];
             
             if (vectors[6] > 0)
             {
@@ -22434,46 +22431,43 @@ static BOOL viewerControllerPlaying = NO;
     }
 	
 	if (viewer)
-	{
 		return viewer;
-	}
-	else
-	{
-		viewer = [[VRController alloc] initWithPix:pixList[0]
-                                                  :fileList[0]
-                                                  :volumeData[ 0]
-                                                  :blendingController
-                                                  :self
-                                             style:@"standard"
-                                              mode:mode];
 
-        for (long i = 1; i < maxMovieIndex; i++)
-			[viewer addMoviePixList:pixList[ i] :volumeData[ i]];
-		
-		if ([[self modality] isEqualToString:@"PT"] == YES &&
-            [[pixList[0] objectAtIndex: 0] isRGB] == NO)
-		{
-			if ([[imageView curDCM] SUVConverted] == YES)
-				[viewer setWLWW: 2 : 6];
-			else
-				[viewer setWLWW: [[pixList[0] objectAtIndex: 0] maxValueOfSeries]/2
-                               : [[pixList[0] objectAtIndex: 0] maxValueOfSeries]];
-			
-			if ([[[NSUserDefaults standardUserDefaults] stringForKey:@"PET Clut Mode"] isEqualToString: @"B/W Inverse"])
-				[viewer ApplyCLUTString: @"B/W Inverse"];
-			else
-				[viewer ApplyCLUTString: [[NSUserDefaults standardUserDefaults] stringForKey:@"PET Default CLUT"]];
-				
-			[viewer ApplyOpacityString: @"Logarithmic Table"];
-		}
-		else
-		{
-			float iwl, iww;
-			[imageView getWLWW:&iwl :&iww];
-			[viewer setWLWW:iwl :iww];
-		}
-	}
-	return viewer;
+    viewer = [[VRController alloc] initWithPix:pixList[0]
+                                              :fileList[0]
+                                              :volumeData[0]
+                                              :blendingController
+                                              :self
+                                         style:@"standard"
+                                          mode:mode];
+
+    for (long i = 1; i < maxMovieIndex; i++)
+        [viewer addMoviePixList:pixList[ i] :volumeData[ i]];
+    
+    if ([[self modality] isEqualToString:@"PT"] == YES &&
+        [[pixList[0] objectAtIndex: 0] isRGB] == NO)
+    {
+        if ([[imageView curDCM] SUVConverted] == YES)
+            [viewer setWLWW: 2 : 6];
+        else
+            [viewer setWLWW: [[pixList[0] objectAtIndex: 0] maxValueOfSeries]/2
+                           : [[pixList[0] objectAtIndex: 0] maxValueOfSeries]];
+        
+        if ([[[NSUserDefaults standardUserDefaults] stringForKey:@"PET Clut Mode"] isEqualToString: @"B/W Inverse"])
+            [viewer ApplyCLUTString: @"B/W Inverse"];
+        else
+            [viewer ApplyCLUTString: [[NSUserDefaults standardUserDefaults] stringForKey:@"PET Default CLUT"]];
+        
+        [viewer ApplyOpacityString: @"Logarithmic Table"];
+    }
+    else
+    {
+        float iwl, iww;
+        [imageView getWLWW:&iwl :&iww];
+        [viewer setWLWW:iwl :iww];
+    }
+
+    return viewer;
 }
 #endif
 
@@ -22512,9 +22506,15 @@ static BOOL viewerControllerPlaying = NO;
 	[self checkEverythingLoaded];
 	[self clear8bitRepresentations];
 	
-    if ([self isDataVolumicIn4D: YES checkEverythingLoaded: YES tryToCorrect: YES checkForSliceInterval: YES] == NO)
+    if ([self isDataVolumicIn4D: YES
+          checkEverythingLoaded: YES
+                   tryToCorrect: YES
+          checkForSliceInterval: YES] == NO)
     {
-        if ([self isDataVolumicIn4D: YES checkEverythingLoaded: YES tryToCorrect: YES checkForSliceInterval: NO])
+        if ([self isDataVolumicIn4D: YES
+              checkEverythingLoaded: YES
+                       tryToCorrect: YES
+              checkForSliceInterval: NO])
         {
             if (NSRunAlertPanel(NSLocalizedString(@"Data Error", nil),
                                 NSLocalizedString(@"Warning! Slice interval/thickness is varying, it can create distortion in 3D.", nil),
@@ -23102,7 +23102,6 @@ static BOOL viewerControllerPlaying = NO;
 // Handler to open the CPRViewer
 - (CPRController *)openCPRViewer
 {
-    NSLog(@"Checkpoint ViewerController.mm:%d %s (handler)", __LINE__, __PRETTY_FUNCTION__);
     [self checkEverythingLoaded];
 	[self clear8bitRepresentations];
 	
@@ -23126,7 +23125,6 @@ static BOOL viewerControllerPlaying = NO;
 // Action to open the CPRViewer
 - (IBAction) cprViewer:(id) sender
 {
-    NSLog(@"Checkpoint %s (IBAction)", __FUNCTION__);
 	[self checkEverythingLoaded];
 	[self clear8bitRepresentations];
 	
@@ -24175,7 +24173,6 @@ static BOOL viewerControllerPlaying = NO;
             [item setState:NSOffState];
         
         tag = [(NSMenuItem *)sender tag];
-        NSLog(@"Checkpoint ViewerController.mm:%d %s tag:%d", __LINE__, __PRETTY_FUNCTION__, tag);
     }
 	
 	if (tag < MAX_TILING_TAG)
@@ -24184,7 +24181,6 @@ static BOOL viewerControllerPlaying = NO;
 		columns = (tag % TILING_DIMENSION) + 1;
 	}
 
-    NSLog(@"Checkpoint ViewerController.mm:%d %s row:%d, col:%d", __LINE__, __PRETTY_FUNCTION__, rows, columns);
 	[self setImageRows: rows columns: columns rescale: NO];
 }
 

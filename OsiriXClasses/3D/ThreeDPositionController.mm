@@ -12,9 +12,9 @@
      PURPOSE.
 =========================================================================*/
 
+#import "ViewerController.h"
 #import "ThreeDPositionController.h"
 #import "ThreeDPanView.h"
-#import "ViewerController.h"
 #import "AppController.h"
 #import "DCMPix.h"
 #import "DCMView.h"
@@ -246,5 +246,4 @@ static ThreeDPositionController *nav = nil;
 	else if([name isEqualToString:NSApplicationWillResignActiveNotification])
 		[[self window] setLevel:[[viewerController window] level]];
 }
-
 @end

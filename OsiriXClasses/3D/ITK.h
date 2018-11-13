@@ -40,7 +40,6 @@ typedef itk::ImportImageFilter< itkPixelType, 3 > ImportFilterType3;
 #undef id
 #endif
 
-
 - (id) initWith :(NSArray*) pix :(float*) srcPtr :(long) slice;
 - (id) initWithPix :(NSArray*) pix volume:(float*) volumeData sliceCount:(long) slice resampleData:(BOOL)resampleData;
 
@@ -55,6 +54,5 @@ typedef itk::ImportImageFilter< itkPixelType, 3 > ImportFilterType3;
 	spacing:(double[3])spacing 
 	data:(float *)data
 	filterWillOwnBuffer:(BOOL)filterWillOwnBuffer;
-
 
 @end

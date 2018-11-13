@@ -456,8 +456,8 @@ typedef struct _xyzArray
 	}
 }
 
-//-(IBAction) endQuicktimeVRSettings:(id) sender
-//{
+-(IBAction) endQuicktimeVRSettings:(id) sender
+{
 //	[export3DVRWindow orderOut:sender];
 //	
 //	[NSApp endSheet:export3DVRWindow returnCode:[sender tag]];
@@ -500,7 +500,7 @@ typedef struct _xyzArray
 //		
 //		[self restoreViewSizeAfterMatrix3DExport];
 //	}
-//}
+}
 
 -(IBAction) exportQuicktime3DVR:(id) sender
 {

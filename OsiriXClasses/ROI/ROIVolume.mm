@@ -136,12 +136,37 @@
             [o orientation: cosines];
             
             vtkMatrix4x4 *matrice = vtkMatrix4x4::New();
-            matrice->Element[0][0] = cosines[0]; matrice->Element[1][0] = cosines[1]; matrice->Element[2][0] = cosines[2]; matrice->Element[3][0] = 0;
-            matrice->Element[0][1] = cosines[3]; matrice->Element[1][1] = cosines[4]; matrice->Element[2][1] = cosines[5]; matrice->Element[3][1] = 0;
-            matrice->Element[0][2] = cosines[6]; matrice->Element[1][2] = cosines[7]; matrice->Element[2][2] = cosines[8]; matrice->Element[3][2] = 0;
-            matrice->Element[0][3] = 0; matrice->Element[1][3] = 0; matrice->Element[2][3] = 0; matrice->Element[3][3] = 1;
+            matrice->Element[0][0] = cosines[0];
+            matrice->Element[1][0] = cosines[1];
+            matrice->Element[2][0] = cosines[2];
+            matrice->Element[3][0] = 0;
             
-            roiVolumeActor->SetPosition( factor*[o originX] * matrice->Element[0][0] + factor*[o originY] * matrice->Element[1][0] + factor*[o originZ]*matrice->Element[2][0], factor*[o originX] * matrice->Element[0][1] + factor*[o originY] * matrice->Element[1][1] + factor*[o originZ]*matrice->Element[2][1], factor*[o originX] * matrice->Element[0][2] + factor*[o originY] * matrice->Element[1][2] + factor*[o originZ]*matrice->Element[2][2]);
+            matrice->Element[0][1] = cosines[3];
+            matrice->Element[1][1] = cosines[4];
+            matrice->Element[2][1] = cosines[5];
+            matrice->Element[3][1] = 0;
+            
+            matrice->Element[0][2] = cosines[6];
+            matrice->Element[1][2] = cosines[7];
+            matrice->Element[2][2] = cosines[8];
+            matrice->Element[3][2] = 0;
+            
+            matrice->Element[0][3] = 0;
+            matrice->Element[1][3] = 0;
+            matrice->Element[2][3] = 0;
+            matrice->Element[3][3] = 1;
+            
+            roiVolumeActor->SetPosition(factor*[o originX] * matrice->Element[0][0] +
+                                        factor*[o originY] * matrice->Element[1][0] +
+                                        factor*[o originZ] * matrice->Element[2][0],
+                                        
+                                        factor*[o originX] * matrice->Element[0][1] +
+                                        factor*[o originY] * matrice->Element[1][1] +
+                                        factor*[o originZ] * matrice->Element[2][1],
+                                        
+                                        factor*[o originX] * matrice->Element[0][2] +
+                                        factor*[o originY] * matrice->Element[1][2] +
+                                        factor*[o originZ] * matrice->Element[2][2]);
             
             roiVolumeActor->SetUserMatrix( matrice);
             matrice->Delete();
@@ -165,7 +190,7 @@
 
         roiVolumeActor->SetTexture( textureImage);
         
-        if( roiVolumeActor)
+        if (roiVolumeActor)
         {
             roiVolumeActor->GetProperty()->SetColor(red, green, blue);
             roiVolumeActor->GetProperty()->SetSpecular(0.3);
@@ -187,7 +212,7 @@
 
 - (BOOL) isRoiVolumeActorComputed
 {
-	if(roiVolumeActor)
+	if (roiVolumeActor)
 		return YES;
 	else
 		return NO;
@@ -195,7 +220,7 @@
 
 - (NSValue*) roiVolumeActor
 {
-	if(roiVolumeActor == nil)
+	if (roiVolumeActor == nil)
 		[self prepareVTKActor];
 	
 	return [NSValue valueWithPointer:roiVolumeActor];
@@ -219,7 +244,9 @@
 	blue = [c blueComponent];
 	opacity = [c alphaComponent];
 	[properties setValue:color forKey:@"color"];
-	[[NSNotificationCenter defaultCenter] postNotificationName:OsirixROIVolumePropertiesChangedNotification object:self userInfo:[NSDictionary dictionaryWithObject:@"color" forKey:@"key"]];
+	[[NSNotificationCenter defaultCenter] postNotificationName:OsirixROIVolumePropertiesChangedNotification
+                                                        object:self
+                                                      userInfo:[NSDictionary dictionaryWithObject:@"color" forKey:@"key"]];
 }
 
 - (float) red
@@ -233,7 +260,9 @@
 	color = [NSColor colorWithCalibratedRed:red green:green blue:blue alpha:opacity];
 	if( roiVolumeActor) roiVolumeActor->GetProperty()->SetColor(red, green, blue);
 	[properties setValue:[NSNumber numberWithFloat:red] forKey:@"red"];
-	[[NSNotificationCenter defaultCenter] postNotificationName:OsirixROIVolumePropertiesChangedNotification object:self userInfo:[NSDictionary dictionaryWithObject:@"red" forKey:@"key"]];
+	[[NSNotificationCenter defaultCenter] postNotificationName:OsirixROIVolumePropertiesChangedNotification
+                                                        object:self
+                                                      userInfo:[NSDictionary dictionaryWithObject:@"red" forKey:@"key"]];
 }
 
 - (float) green
@@ -247,7 +276,9 @@
 	color = [NSColor colorWithCalibratedRed:red green:green blue:blue alpha:opacity];
 	if( roiVolumeActor) roiVolumeActor->GetProperty()->SetColor(red, green, blue);
 	[properties setValue:[NSNumber numberWithFloat:green] forKey:@"green"];
-	[[NSNotificationCenter defaultCenter] postNotificationName:OsirixROIVolumePropertiesChangedNotification object:self userInfo:[NSDictionary dictionaryWithObject:@"green" forKey:@"key"]];
+	[[NSNotificationCenter defaultCenter] postNotificationName:OsirixROIVolumePropertiesChangedNotification
+                                                        object:self
+                                                      userInfo:[NSDictionary dictionaryWithObject:@"green" forKey:@"key"]];
 }
 
 - (float) blue
@@ -261,7 +292,9 @@
 	color = [NSColor colorWithCalibratedRed:red green:green blue:blue alpha:opacity];
 	if( roiVolumeActor) roiVolumeActor->GetProperty()->SetColor(red, green, blue);
 	[properties setValue:[NSNumber numberWithFloat:blue] forKey:@"blue"];
-	[[NSNotificationCenter defaultCenter] postNotificationName:OsirixROIVolumePropertiesChangedNotification object:self userInfo:[NSDictionary dictionaryWithObject:@"blue" forKey:@"key"]];
+	[[NSNotificationCenter defaultCenter] postNotificationName:OsirixROIVolumePropertiesChangedNotification
+                                                        object:self
+                                                      userInfo:[NSDictionary dictionaryWithObject:@"blue" forKey:@"key"]];
 }
 
 - (float) opacity
@@ -275,7 +308,9 @@
 	color = [NSColor colorWithCalibratedRed:red green:green blue:blue alpha:opacity];
 	if( roiVolumeActor) roiVolumeActor->GetProperty()->SetOpacity(opacity);
 	[properties setValue:[NSNumber numberWithFloat:opacity] forKey:@"opacity"];
-	[[NSNotificationCenter defaultCenter] postNotificationName:OsirixROIVolumePropertiesChangedNotification object:self userInfo:[NSDictionary dictionaryWithObject:@"opacity" forKey:@"key"]];
+	[[NSNotificationCenter defaultCenter] postNotificationName:OsirixROIVolumePropertiesChangedNotification
+                                                        object:self
+                                                      userInfo:[NSDictionary dictionaryWithObject:@"opacity" forKey:@"key"]];
 }
 
 - (BOOL) texture
@@ -295,7 +330,9 @@
             roiVolumeActor->SetTexture( nil);
 	}
 	[properties setValue:[NSNumber numberWithBool: textured] forKey:@"texture"];
-	[[NSNotificationCenter defaultCenter] postNotificationName:OsirixROIVolumePropertiesChangedNotification object:self userInfo:[NSDictionary dictionaryWithObject:@"texture" forKey:@"key"]];
+	[[NSNotificationCenter defaultCenter] postNotificationName:OsirixROIVolumePropertiesChangedNotification
+                                                        object:self
+                                                      userInfo:[NSDictionary dictionaryWithObject:@"texture" forKey:@"key"]];
 }
 
 - (BOOL) visible
@@ -307,7 +344,9 @@
 {	
 	visible = d;
 	[properties setValue:[NSNumber numberWithBool:visible] forKey:@"visible"];
-	[[NSNotificationCenter defaultCenter] postNotificationName:OsirixROIVolumePropertiesChangedNotification object:self userInfo:[NSDictionary dictionaryWithObject:@"visible" forKey:@"key"]];
+	[[NSNotificationCenter defaultCenter] postNotificationName:OsirixROIVolumePropertiesChangedNotification
+                                                        object:self
+                                                      userInfo:[NSDictionary dictionaryWithObject:@"visible" forKey:@"key"]];
 }
 
 - (NSString*) name

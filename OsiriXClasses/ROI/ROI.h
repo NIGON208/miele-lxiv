@@ -12,12 +12,16 @@
      PURPOSE.
 =========================================================================*/
 
+#include "options.h"
+
+#import <OpenGL/gl.h>
+#import <OpenGL/glext.h>
+#import <OpenGL/glu.h> // it includes gl.h
+//#import <OpenGL/CGLMacro.h>
+
 #import <Foundation/Foundation.h>
 #import <AppKit/AppKit.h>
-
 #import "MyPoint.h"
-
-#import <OpenGL/CGLMacro.h>
 
 #ifdef __cplusplus
 extern "C"
@@ -56,7 +60,7 @@ typedef enum regionCode_
 
 typedef enum ToolMode_
 {
-    tIdle                       =   -1,
+    tIdle                       =  -1,
     tWL							=	0,
     tTranslate,					//	1
     tZoom,						//	2

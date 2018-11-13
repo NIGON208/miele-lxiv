@@ -12,15 +12,14 @@
      PURPOSE.
 =========================================================================*/
 
+// Moved before Cocoa.h to satisfy GLEW
+#import "DCMView.h"				// An object representing the 2D pane, contained in a 2D Viewer window
 
-
-#import <Cocoa/Cocoa.h>
 #import "DCMPix.h"				// An object containing an image, including pixels values
 #import "ViewerController.h"	// An object representing a 2D Viewer window
-#import "DCMView.h"				// An object representing the 2D pane, contained in a 2D Viewer window
 #import "MyPoint.h"				// An object representing a point
 #import "ROI.h"					// An object representing a ROI
-
+#import <Cocoa/Cocoa.h>
 
 /** \brief Base class for plugins */
 @interface PluginFilter : NSObject
@@ -44,8 +43,6 @@
 * action = @"openReport"   -> return nil, open and display the report, create a new one if no report available 
 */
 - (id) report: (NSManagedObject*) study action:(NSString*) action;
-
-
 
 /** This function is called at the OsiriX startup, if you need to do some memory allocation, etc. */
 - (void) initPlugin;
@@ -80,6 +77,8 @@
 /** PRIVATE FUNCTIONS - DON'T SUBCLASS OR MODIFY */
 - (long) prepareFilter:(ViewerController*) vC;
 @end
+
+#pragma mark -
 
 @interface PluginFilter (Optional)
 

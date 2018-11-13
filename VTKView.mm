@@ -12,7 +12,6 @@
  PURPOSE.
  =========================================================================*/
 
-
 #include "options.h"
 
 #define id Id
@@ -70,7 +69,6 @@
         theRenWinInt->Initialize();
     }
 
-    NSLog(@"Checkpoint VTKView.mm:%d %s", __LINE__, __PRETTY_FUNCTION__);
     // Let the vtkCocoaGLView do its regular drawing
     [super drawRect:theRect];
 }

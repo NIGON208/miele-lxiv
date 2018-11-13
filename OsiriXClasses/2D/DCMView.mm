@@ -12,6 +12,13 @@
      PURPOSE.
 =========================================================================*/
 
+#include "options.h"
+
+#include <OpenGL/glu.h> // it includes gl.h
+#include <OpenGL/gl.h>
+#include <OpenGL/glext.h>
+#include <OpenGL/CGLMacro.h>
+
 #import <DCM/DCMAbstractSyntaxUID.h>
 #import "DCMView.h"
 #import "StringTexture.h"
@@ -36,12 +43,9 @@
 #import "DicomStudy.h"
 #import "DicomSeries.h"
 #import "DicomImage.h"
-#include <OpenGL/CGLMacro.h>
-#include <OpenGL/CGLCurrent.h>
-#include <OpenGL/CGLContext.h>
+
 #import <CoreVideo/CoreVideo.h>
 #import "DefaultsOsiriX.h"
-#include "NSFont_OpenGL/NSFont_OpenGL.h"
 #import "Notifications.h"
 #import "PluginManager.h"
 #import "N2Debug.h"
@@ -297,8 +301,6 @@ static void DrawGLImageTile (unsigned long drawType,
                              Boolean texturesOverlap,
                              Boolean textureRectangle)
 {
-    NSLog(@"Checkpoint DCMView.mm:%d DrawGLImageTile(drawType:%lu)", __LINE__, drawType);  // GL_TRIANGLE_STRIP 5
-
     // left edge of poly: offset is in image local coordinates convert to world coordinates
 	float startXDraw = (offsetX - imageWidth * 0.5f) * zoom;
 
@@ -419,8 +421,7 @@ static long GetTextureNumFromTextureDim(long textureDimension,
 	// loop through each texture size, removing textures in turn which are less than the remaining texture dimension
 	// each texture has 2 pixels of overlap (one on each side) thus effective texture removed is 2 less than texture size
 	
-    NSLog(@"GetTextureNumFromTextureDim(dim:%li,max:%li,overlap:%d,rect:%d)\n",
-           textureDimension, maxTextureSize, texturesOverlap, textureRectangle);
+    //NSLog(@"GetTextureNumFromTextureDim(dim:%li,max:%li,overlap:%d,rect:%d)\n", textureDimension, maxTextureSize, texturesOverlap, textureRectangle);
     
 	long i = 0; // initially no textures
 	long bitValue = maxTextureSize; // start at max texture size
@@ -519,6 +520,7 @@ NSInteger studyCompare(ViewerController *v1, ViewerController *v2, void * _Nulla
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
 int checkOpenGLErrors(int lineNo)
 {
     int errorCount = 0;
@@ -537,6 +539,158 @@ int checkOpenGLErrors(int lineNo)
 #endif
     return errorCount;
 }
+
+// Check extensions without using GLEW
+int checkExtension(const char* ext)
+{
+    CGLContextObj cgl_ctx = [[NSOpenGLContext currentContext] CGLContextObj];
+    
+    const GLubyte *v = glGetString(GL_VERSION);
+    if (!ext)
+        NSLog(@"DCMView.mm:%d OpenGL version<%s>", __LINE__, v);
+    
+    if (v[0] < '3') { // old API before OpenGL 3.0
+        const char *strExtension = (const char *)glGetString(GL_EXTENSIONS);
+        
+        if (ext)
+            return strstr(strExtension, ext) ? 1 : 0;
+
+        printf("%s\n", strExtension); // the whole list
+        return -4;
+    }
+
+    return -5;  // invalid
+}
+
+void listAllExtensions()
+{
+    (void)checkExtension(NULL);
+}
+
+#ifndef NDEBUG
+void checkOGLVersion()
+{
+    CGLContextObj cgl_ctx = [[NSOpenGLContext currentContext] CGLContextObj];
+    const GLubyte *v = glGetString(GL_VERSION);
+    NSLog(@"DCMView.mm:%d OpenGL context:%p, version<%s>", __LINE__, cgl_ctx, v);
+
+    //NSLog(@"DCMView.mm:%d %@ ", __LINE__, [self class]);
+    //NSLog(@"DCMView.mm:%d OpenGL context:%p", __LINE__, cgl_ctx);
+    //printf("DCMView.mm:%d version %s\n", __LINE__, glGetString(GL_VERSION));
+}
+#endif // NDEBUG
+
+#define kFailedToInitialiseGLException @"Failed to initialise OpenGL"
+
+//void checkShader(GLuint shader)
+//{
+//    CGLContextObj cgl_ctx = [[NSOpenGLContext currentContext] CGLContextObj];
+//    GLint success;
+//    glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
+//    if ( !success )
+//    {
+//        GLint infoLogLength;
+//        glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &infoLogLength);
+//
+//        GLchar infoLog[infoLogLength+1];
+//        glGetShaderInfoLog(shader, infoLogLength, nullptr, infoLog);
+//        [NSException raise:kFailedToInitialiseGLException
+//                    format:@"Failed to compile shader %i\n%s", shader, infoLog];
+//    }
+//}
+
+//void checkProgram(GLuint program)
+//{
+//    CGLContextObj cgl_ctx = [[NSOpenGLContext currentContext] CGLContextObj];
+//    GLint success;
+//    glGetProgramiv(program, GL_LINK_STATUS, &success);
+//    if ( !success )
+//    {
+//        GLint infoLogLength;
+//        glGetProgramiv(program, GL_INFO_LOG_LENGTH, &infoLogLength);
+//
+//        GLchar infoLog[infoLogLength+1];
+//        glGetProgramInfoLog(program, infoLogLength, nullptr, infoLog);
+//        [NSException raise:kFailedToInitialiseGLException
+//                    format:@"Failed to link program %i\n%s", program, infoLog];
+//    }
+//}
+
+//GLuint compileShader(GLenum type, NSString *file)
+//{
+//    const GLchar *source = (GLchar *)[[NSString stringWithContentsOfFile:file encoding:NSASCIIStringEncoding error:nil] cStringUsingEncoding:NSASCIIStringEncoding];
+//
+//    if (nil == source)
+//    {
+//        [NSException raise:kFailedToInitialiseGLException
+//                    format:@"Failed to read shader file %@", file];
+//    }
+//
+//    CGLContextObj cgl_ctx = [[NSOpenGLContext currentContext] CGLContextObj];
+//    auto shader = glCreateShader(type);
+//    glShaderSource(shader, 1, &source, nullptr);
+//    glCompileShader(shader);
+//
+//    checkShader(shader);
+//    return shader;
+//}
+
+//GLuint loadShaders(NSString *vertex, NSString *fragment)
+//{
+//    GLuint vs = compileShader(GL_VERTEX_SHADER, vertex);
+//    GLuint fs = compileShader(GL_FRAGMENT_SHADER, fragment);
+//
+//    CGLContextObj cgl_ctx = [[NSOpenGLContext currentContext] CGLContextObj];
+//    // 4. Attach the shaders
+//    auto programId = glCreateProgram();
+//
+//    // checkPoint[3] = 1;
+//    NSLog(@"Checkpoint DCMView.mm:%d loadShader() [2] vertex:%u fragment:%u program:%u", __LINE__, vs, fs, programId);
+//
+//    glAttachShader(programId, vs);
+//    glAttachShader(programId, fs);
+//    glLinkProgram(programId);
+//    checkOpenGLErrors(__LINE__);
+//
+//#if 0
+//    // Too early here. It causes:
+//    //  "Validation Failed: Current draw framebuffer is invalid."
+//    glValidateProgram(programId);
+//#endif
+//
+//    checkProgram(programId);
+//
+//#ifdef DISPLAY_TEXTURE_DATA
+//    glDetachShader(programId, vs);    checkOpenGLErrors(__LINE__);
+//    glDetachShader(programId, fs);    checkOpenGLErrors(__LINE__);
+//#endif
+//
+//    glDeleteShader(vs);
+//    glDeleteShader(fs);    checkOpenGLErrors(__LINE__);
+//
+//    return programId;
+//}
+
+//GLuint getShaderProgram(NSString *shaderName)
+//{
+//    NSLog(@"Checkpoint DCMView.mm:%d %s", __LINE__, __PRETTY_FUNCTION__);
+//
+//    //static
+//    GLuint shaderProgram = GL_ZERO;
+//
+//    if (shaderProgram != GL_ZERO)
+//        return shaderProgram;
+//
+//    // 3. Define and compile vertex and fragment shaders
+//
+//
+//    NSString *vertex   = [[NSBundle mainBundle] pathForResource:shaderName ofType:@"vsh"];
+//    NSString *fragment = [[NSBundle mainBundle] pathForResource:shaderName ofType:@"fsh"];
+//    shaderProgram = loadShaders(vertex, fragment);
+//
+//    return shaderProgram;
+//}
+
 ////////////////////////////////////////////////////////////////////////////////
 #pragma mark - class DCMExportPlugin
 
@@ -562,8 +716,10 @@ int checkOpenGLErrors(int lineNo)
 - (void) drawRuler;
 - (void) drawKeyViewBox;
 @end
+
 ////////////////////////////////////////////////////////////////////////////////
 #pragma mark - class DCMView
+
 @implementation DCMView
 
 @synthesize showDescriptionInLarge, curRoiList, cleanedOutDcmPixArray, mousePosUSRegion;
@@ -1197,7 +1353,9 @@ int checkOpenGLErrors(int lineNo)
 	{
         if (display2DPointIndex == curImage)
         {
-            CGLContextObj cgl_ctx = [[NSOpenGLContext currentContext] CGLContextObj];
+			float crossx = display2DPoint.x - curDCM.pwidth/2.;
+            float crossy = display2DPoint.y - curDCM.pheight/2.;
+			CGLContextObj cgl_ctx = [[NSOpenGLContext currentContext] CGLContextObj];
             if (cgl_ctx == nil)
                 return;
 
@@ -1205,9 +1363,6 @@ int checkOpenGLErrors(int lineNo)
             glLineWidth(2.0 * self.window.backingScaleFactor);
             glBegin(GL_LINES);
             
-            float crossx = display2DPoint.x - curDCM.pwidth/2.;
-            float crossy = display2DPoint.y - curDCM.pheight/2.;
-
             glVertex2f( scaleValue * (crossx - 40), scaleValue*(crossy));
             glVertex2f( scaleValue * (crossx -  5), scaleValue*(crossy));
             glVertex2f( scaleValue * (crossx + 40), scaleValue*(crossy));
@@ -1238,7 +1393,6 @@ int checkOpenGLErrors(int lineNo)
 	glDisable(GL_POLYGON_SMOOTH);
 	glDisable(GL_POINT_SMOOTH);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	long i;
 	
 	int circleRes = 20;
 	circleRes = (repulsorRadius>5) ? 30 : circleRes;
@@ -1254,7 +1408,7 @@ int checkOpenGLErrors(int lineNo)
     pt.y = [self drawingFrameRect].size.height - pt.y;		// inverse Y scaling system
     
 	glBegin(GL_POLYGON);	
-	for (i = 0; i < circleRes ; i++)
+	for (long i = 0; i < circleRes ; i++)
 	{
 		// M_PI defined in cmath.h
 		float alpha = i * 2 * M_PI /circleRes;
@@ -2384,8 +2538,6 @@ int checkOpenGLErrors(int lineNo)
 {
 	[drawLock lock];
 	
-    NSLog(@"Checkpoint DCMView.mm:%d %s, seqId:%d", __LINE__, __PRETTY_FUNCTION__, seqId);
-
 	@try
 	{
 		if ([self is2DViewer])
@@ -2522,6 +2674,7 @@ int checkOpenGLErrors(int lineNo)
         CGLContextObj cgl_ctx = [[NSOpenGLContext currentContext] CGLContextObj];
         if (cgl_ctx)
         {
+            checkOpenGLErrors(__LINE__);
             if (fontListGL)
                 glDeleteLists(fontListGL, 150);
             fontListGL = 0;
@@ -3965,8 +4118,7 @@ int checkOpenGLErrors(int lineNo)
     if (cgl_ctx)
     {
         glGenTextures(1, texName);
-        NSLog(@"Checkpoint DCMView.mm:%d makeTextureFromImage: <%u>", __LINE__, *texName);
-        NSLog(@"Checkpoint DCMView.mm:%d %s [8d] glActiveTexture", __LINE__, __PRETTY_FUNCTION__);
+        
         glActiveTexture(textureUnit);
         glBindTexture(GL_TEXTURE_RECTANGLE_EXT, *texName);
         glPixelStorei(GL_UNPACK_ROW_LENGTH, [bitmap bytesPerRow]/[bitmap samplesPerPixel]);
@@ -3974,7 +4126,6 @@ int checkOpenGLErrors(int lineNo)
         // The cached hint specifies to cache texture data in video memory. This hint is recommended when you have textures that you plan to use multiple times or that use linear filtering
         glTexParameteri(GL_TEXTURE_RECTANGLE_EXT, GL_TEXTURE_STORAGE_HINT_APPLE, GL_STORAGE_CACHED_APPLE);
         
-        NSLog(@"Checkpoint DCMView.mm:%d glTexImage2D case_X2", __LINE__);
         glTexImage2D(GL_TEXTURE_RECTANGLE_EXT, 0,
                      ([bitmap samplesPerPixel]==4) ? GL_RGBA : GL_RGB,
                      imageSize.width, imageSize.height, 0,
@@ -3991,7 +4142,6 @@ int checkOpenGLErrors(int lineNo)
 
 -(void) mouseMovedInView: (NSPoint) eventLocationInWindow
 {
-    NSLog(@"Checkpoint DCMView.mm:%d %s", __LINE__, __PRETTY_FUNCTION__);
     NSUInteger modifierFlags = [[[NSApplication sharedApplication] currentEvent] modifierFlags];
     NSPoint eventLocationInView = [self convertPoint: eventLocationInWindow fromView: nil];
     
@@ -6772,8 +6922,6 @@ int checkOpenGLErrors(int lineNo)
 
 - (void) setWLWW:(float) wl :(float) ww
 {
-    NSLog(@"DCMView.mm:%d %s", __LINE__, __PRETTY_FUNCTION__);
-
 	[curDCM changeWLWW :wl : ww];
 	
 	if (curDCM)
@@ -8020,7 +8168,6 @@ int checkOpenGLErrors(int lineNo)
 
 -(void) FindMinimumOpenGLCapabilities
 {
-	NSLog(@"Checkpoint [[ 4]] DCMView.mm:%d %s seqId:%d", __LINE__, __PRETTY_FUNCTION__, seqId);
     GLint deviceMaxTextureSize = 0;
 	GLint NPOTDMaxTextureSize = 0;
     
@@ -8292,7 +8439,6 @@ int checkOpenGLErrors(int lineNo)
 	
 	long effectiveTextureMod = 0; // texture size modification (inset) to account for borders
 	long k = 0, offsetY, offsetX = 0, currTextureWidth, currTextureHeight;
-	NSLog(@"DCMView.mm:%d drawRectIn:, XY:(%li,%li) WH:(%li,%li), seqId:%d", __LINE__, tX, tY, tW, tH, seqId);
 	
 	CGLContextObj cgl_ctx = [[NSOpenGLContext currentContext] CGLContextObj];
     if (cgl_ctx == nil)
@@ -8754,8 +8900,6 @@ int checkOpenGLErrors(int lineNo)
 
 - (void) drawOrientation:(NSRect) size
 {
-    NSLog(@"DCMView.mm:%d %s", __LINE__, __PRETTY_FUNCTION__);
-    
     if (NSIsEmptyRect( screenCaptureRect) == NO)
         size = screenCaptureRect;
     else
@@ -8913,7 +9057,6 @@ int checkOpenGLErrors(int lineNo)
 {
     float sf = [self.window backingScaleFactor]; //retina
     
-	NSLog(@"DCMView.mm:%d drawTextualData", __LINE__);
 	CGLContextObj cgl_ctx = [[NSOpenGLContext currentContext] CGLContextObj];
 	if (cgl_ctx == nil)
         return;
@@ -8994,7 +9137,6 @@ int checkOpenGLErrors(int lineNo)
 		if (colorBoxSize && stringID == nil &&
 			[self is2DViewer] == YES)
 		{
-            NSLog(@"DCMView.mm:%d %s", __LINE__, __PRETTY_FUNCTION__);
             if (studyDateBox == nil && studyDateIndex != NSNotFound)
             {
                 NSColor *boxColor = [NSColor colorWithCalibratedRed: studyColorR green: studyColorG blue: studyColorB alpha: 1.0];
@@ -9014,7 +9156,6 @@ int checkOpenGLErrors(int lineNo)
             }
 		}
         else {
-            NSLog(@"DCMView.mm:%d %s", __LINE__, __PRETTY_FUNCTION__);
             colorBoxSize = 0;
         }
 		
@@ -9732,10 +9873,7 @@ int checkOpenGLErrors(int lineNo)
 	@synchronized (self)
 	{
         NSRect backingBounds = [self convertRectToBacking: [self frame]]; // Retina
-
-		NSLog(@"Checkpoint [[11]] DCMView.mm:%d %s bounds:%@, backingBounds:%@ seqId:%d", __LINE__, __PRETTY_FUNCTION__,
-              NSStringFromRect(r), NSStringFromRect(backingBounds), seqId);
-        
+       
         checkOpenGLErrors(__LINE__);
         
         if (previousScalingFactor != self.window.backingScaleFactor &&
@@ -9764,8 +9902,7 @@ int checkOpenGLErrors(int lineNo)
         }
         
         checkOpenGLErrors(__LINE__);
-        
-        NSLog(@"Checkpoint DCMView.mm:%d %s %p", __LINE__, __PRETTY_FUNCTION__, self);
+
 		[self drawRect: backingBounds
            withContext: [self openGLContext]];
 	}
@@ -9988,7 +10125,6 @@ int checkOpenGLErrors(int lineNo)
 
 - (void) drawClutBar
 {
-    NSLog(@"DCMView.mm:%d %s, seqId:%d", __LINE__, __PRETTY_FUNCTION__, seqId);
     long clutBars = CLUTBARS;
     float sf = self.window.backingScaleFactor;
 
@@ -10084,9 +10220,7 @@ int checkOpenGLErrors(int lineNo)
             
             heighthalf = 0;
             
-#ifdef WITH_OPENGL_32
-            NSLog(@"DCMView.mm:%d %s, TODO: find replacement code", __LINE__, __PRETTY_FUNCTION__);
-#else // WITH_OPENGL_32
+#if 1
             glLineWidth(1.0 * sf);
             glBegin(GL_LINES);
             
@@ -10116,7 +10250,7 @@ int checkOpenGLErrors(int lineNo)
             glVertex2f(  -widthhalf + BBARPOSX2*sf, heighthalf - (-128.f)*sf);
             glVertex2f(  -widthhalf + BBARPOSX2*sf, heighthalf - ( 127.f)*sf);
             glEnd();
-#endif // WITH_OPENGL_32
+#endif
             
             [blendingView getWLWW: &bwl :&bww];
             
@@ -10414,8 +10548,6 @@ int checkOpenGLErrors(int lineNo)
 //    iChatRunning = NO;
 //	#endif
 	
-	NSLog(@"DCMView.mm:%d %s r:%@ class:%@, seqId:%d", __LINE__,
-          __PRETTY_FUNCTION__, NSStringFromRect(aRect), [self class], seqId);
 	if (is2DViewer)
 		frontMost = self.window.isKeyWindow;    //[ViewerController isFrontMost2DViewer: [self window]];
 	
@@ -10461,18 +10593,14 @@ int checkOpenGLErrors(int lineNo)
 		
 //		if (ctx == _alternateContext)
 //			savedDrawingFrameRect = drawingFrameRect;
-		
-        NSLog(@"Checkpoint DCMView.mm:%d %s class:%@ (before) drawingFrameRect:%@, seqId:%d", __LINE__, __PRETTY_FUNCTION__,
-              [self class], NSStringFromRect(drawingFrameRect), seqId);
-        
+
 		drawingFrameRect = aRect;
 
-		NSLog(@"Checkpoint DCMView.mm:%d %s class:%@ (after)  drawingFrameRect:%@, seqId:%d", __LINE__, __PRETTY_FUNCTION__,
-              [self class], NSStringFromRect(drawingFrameRect), seqId);
 		CGLContextObj cgl_ctx = [[NSOpenGLContext currentContext] CGLContextObj];
 		if (cgl_ctx == nil)
             return;
-		// Set the viewport to cover entire window
+
+        // Set the viewport to cover entire window
 		glViewport (0, 0, drawingFrameRect.size.width, drawingFrameRect.size.height);
 
         if (whiteBackground)
@@ -10484,7 +10612,6 @@ int checkOpenGLErrors(int lineNo)
 		
 		if (dcmPixList && curImage > -1)
 		{
-            NSLog(@"Checkpoint DCMView.mm:%d %s class:%@ %p", __LINE__, __PRETTY_FUNCTION__, [self class], self);
 			if (blendingView != nil &&
                 syncOnLocationImpossible == NO)// && ctx!=_alternateContext)
 			{
@@ -11455,9 +11582,7 @@ int checkOpenGLErrors(int lineNo)
 			glTexParameteri (GL_TEXTURE_RECTANGLE_EXT, GL_TEXTURE_STORAGE_HINT_APPLE, GL_STORAGE_CACHED_APPLE);
 			
 			glGenTextures(1, &textID);
-			
-			NSLog(@"Checkpoint DCMView.mm:%d %s [9] glActiveTexture glBindTexture:%u, seqId:%d", __LINE__,
-                  __PRETTY_FUNCTION__, textID, seqId);
+
 			glActiveTexture(GL_TEXTURE0);
 			glBindTexture(TEXTRECTMODE, textID);
             if (NOINTERPOLATION)
@@ -11475,7 +11600,6 @@ int checkOpenGLErrors(int lineNo)
 #else
             GLenum _type = GL_UNSIGNED_INT_8_8_8_8;
 #endif
-            NSLog(@"Checkpoint DCMView.mm:%d glTexImage2D  case_X2", __LINE__);
 			glTexImage2D(TEXTRECTMODE, 0,       // target, LOD
                          GL_RGBA,               // internal format
                          LENSSIZE, LENSSIZE, 0, // width (s), height (t),border
@@ -11490,8 +11614,6 @@ int checkOpenGLErrors(int lineNo)
 			
             glPushAttrib( GL_TEXTURE_BIT);
 
-			NSLog(@"Checkpoint DCMView.mm:%d %s [8a] glActiveTexture", __LINE__, __PRETTY_FUNCTION__);
-            
 			glActiveTexture(GL_TEXTURE0);
 			glEnable(loupeMaskTextureID);
 			glBindTexture(TEXTRECTMODE, loupeMaskTextureID);
@@ -11510,8 +11632,6 @@ int checkOpenGLErrors(int lineNo)
 			glTexEnvi(GL_TEXTURE_ENV, GL_COMBINE_ALPHA, GL_REPLACE);
 			glTexEnvi(GL_TEXTURE_ENV, GL_SOURCE0_ALPHA, GL_PREVIOUS);
 			glTexEnvi(GL_TEXTURE_ENV, GL_OPERAND0_ALPHA, GL_SRC_ALPHA);
-			
-            NSLog(@"Checkpoint DCMView.mm:%d %s [8b] glActiveTexture", __LINE__, __PRETTY_FUNCTION__);
 
 			glActiveTexture(GL_TEXTURE0);
 			glEnable(TEXTRECTMODE);
@@ -11549,8 +11669,6 @@ int checkOpenGLErrors(int lineNo)
 			/* multitexturing ends */
 			
 			// back to single texturing mode:
-            NSLog(@"Checkpoint DCMView.mm:%d %s [8c] glActiveTexture", __LINE__, __PRETTY_FUNCTION__);
-
 			glActiveTexture(GL_TEXTURE0); // activate single texture unit
 			glDisable(TEXTRECTMODE);
 		
@@ -11683,7 +11801,6 @@ int checkOpenGLErrors(int lineNo)
 #pragma mark -
 - (void) reshape	// scrolled, moved or resized
 {
-    NSLog(@"Checkpoint [[10]] DCMView.mm:%d %s class:%@ seqId:%d", __LINE__, __PRETTY_FUNCTION__, [self class], seqId);
     [super reshape];
     
 	if (dcmPixList)
@@ -12232,8 +12349,6 @@ int checkOpenGLErrors(int lineNo)
                                isSigned:(BOOL*) isSigned
 {
 	unsigned char *buf = nil;
-
-    NSLog(@"Checkpoint DCMView.mm:%d getRawPixelsViewWidth", __LINE__);
 
 	if (isSigned)
         *isSigned = NO;
@@ -13265,8 +13380,6 @@ int checkOpenGLErrors(int lineNo)
 
 -(void) setScaleValueCentered:(float) x
 {
-    NSLog(@"Checkpoint DCMView.mm:%d %s", __LINE__, __PRETTY_FUNCTION__);
-
 	if (x < 0.01 ) return;
 	if (x > 100) return;
 	if (isnan( x)) return;
@@ -13771,7 +13884,6 @@ int checkOpenGLErrors(int lineNo)
      resampledBaseAddrSize: (int*) rBAddrSize
 {
 	// *tX, *tY, *tW, *tH are output parameters ?
-    NSLog(@"Checkpoint DCMView.mm:%d loadTextureIn: seqId:%d", __LINE__, seqId);
     checkOpenGLErrors(__LINE__);
 
 	unsigned char* currentAlphaTable = alphaTable;
@@ -13811,11 +13923,9 @@ int checkOpenGLErrors(int lineNo)
 	if (noScale)
 		[curDCM changeWLWW :127.0 : 256.0];
 	
-#ifndef WITH_OPENGL_32
 	CGLContextObj cgl_ctx = [[NSOpenGLContext currentContext] CGLContextObj];
     if (cgl_ctx == nil)
         return nil;
-#endif
     
     if (texture)
 	{
@@ -13857,7 +13967,6 @@ int checkOpenGLErrors(int lineNo)
     
 	if (isRGB)
 	{
-        NSLog(@"Checkpoint DCMView.mm:%d loadTextureIn: isRGB", __LINE__);
 		if (curDCM.isLUT12Bit)
 		{
 		}
@@ -13919,7 +14028,6 @@ int checkOpenGLErrors(int lineNo)
 		}
 		else if (redFactor != 1.0 || greenFactor != 1.0 || blueFactor != 1.0)
 		{
-            NSLog(@"Checkpoint DCMView.mm:%d loadTextureIn:", __LINE__);
 			unsigned char credTable[256], cgreenTable[256], cblueTable[256];
 			
 			vImage_Buffer src, dest;
@@ -13957,7 +14065,7 @@ int checkOpenGLErrors(int lineNo)
 	}
 	else if (localColorTransfer || blending)  // && grayscale
 	{
-        NSLog(@"Checkpoint DCMView.mm:%d loadTextureIn: not isRGB", __LINE__);
+        // not isRGB
 	    if (*colorBufPtr)
             free( *colorBufPtr);
 
@@ -14008,14 +14116,12 @@ int checkOpenGLErrors(int lineNo)
 
     // End of color table lookups
 
-    NSLog(@"Checkpoint DCMView.mm:%d loadTextureIn: TEXTRECTMODE=0x%X", __LINE__, TEXTRECTMODE);
     checkOpenGLErrors(__LINE__);
-#ifndef WITH_OPENGL_32
+
     if (!glIsEnabled(TEXTRECTMODE)) {
         glEnable(TEXTRECTMODE);
         checkOpenGLErrors(__LINE__); // GL_INVALID_ENUM 0x0500
     }
-#endif
     
 	float *computedfImage = nil;
 	char *baseAddr = nil;
@@ -14028,7 +14134,6 @@ int checkOpenGLErrors(int lineNo)
     
 	if ([self softwareInterpolation])
 	{
-        NSLog(@"Checkpoint DCMView.mm:%d loadTextureIn: softwareInterpolation", __LINE__);
 		zoomIsSoftwareInterpolated = YES;
 		
 		if (curDCM.pwidth <= 256)
@@ -14107,14 +14212,11 @@ int checkOpenGLErrors(int lineNo)
 			
 			TextureComputed32bitPipeline = NO;
 		}
-		
-        NSLog(@"Checkpoint DCMView.mm:%d loadTextureIn", __LINE__);
+
 		if (*rAddr)
 		{
 			baseAddr = *rAddr;
 			dst.data = baseAddr;
-            
-            NSLog(@"Checkpoint DCMView.mm:%d baseAddr [a] %p", __LINE__, baseAddr);
 
             // Image resizing
 			if (localColorTransfer || blending || isRGB || [curDCM thickSlabVRActivated])
@@ -14141,43 +14243,38 @@ int checkOpenGLErrors(int lineNo)
 				*tW = curDCM.pwidth;
 				rowBytes = curDCM.pwidth;
 				baseAddr = (char*) *colorBufPtr;
-                NSLog(@"Checkpoint DCMView.mm:%d baseAddr [b] %p", __LINE__, baseAddr);
 			}
 			else
 			{
 				*tW = curDCM.pwidth;
 				rowBytes = curDCM.pwidth;
 				baseAddr = curDCM.baseAddr;
-                NSLog(@"Checkpoint DCMView.mm:%d baseAddr [c] %p", __LINE__, baseAddr);
 			}
 		}
 	}
 	else if (intFULL32BITPIPELINE)
 	{
-        NSLog(@"Checkpoint DCMView.mm:%d loadTextureIn: NOT softwareInterpolation, intFULL32BITPIPELINE", __LINE__);  // here
+        // NOT softwareInterpolation, intFULL32BITPIPELINE
 
         *tW = curDCM.pwidth;
 		rowBytes = curDCM.pwidth * 4;
 		computedfImage = [curDCM computefImage];
 		baseAddr = (char *) computedfImage;
-        NSLog(@"Checkpoint DCMView.mm:%d baseAddr [d] %p computefImage, seqId:%d", __LINE__, baseAddr, seqId);  // @@@ here
 	}
 	else
 	{
-        NSLog(@"Checkpoint DCMView.mm:%d loadTextureIn: NOT softwareInterpolation, NOT intFULL32BITPIPELINE", __LINE__);
+        // NOT softwareInterpolation, NOT intFULL32BITPIPELINE
 		if (isRGB|| [curDCM thickSlabVRActivated])
 		{
 			*tW = curDCM.pwidth;
 			rowBytes = curDCM.pwidth * 4;
 			baseAddr = curDCM.baseAddr;
-            NSLog(@"Checkpoint DCMView.mm:%d baseAddr [e1] %p", __LINE__, baseAddr);
 			
 			if (curDCM.isLUT12Bit)
 			{
 				baseAddr = (char *) curDCM.LUT12baseAddr;
 				rowBytes = curDCM.pwidth * 4;
 				*tW = curDCM.pwidth;
-                NSLog(@"Checkpoint DCMView.mm:%d baseAddr [e2] %p", __LINE__, baseAddr);
 			}
 		}
 		else if (localColorTransfer || blending)
@@ -14185,14 +14282,12 @@ int checkOpenGLErrors(int lineNo)
 			*tW = curDCM.pwidth;
 			rowBytes = curDCM.pwidth;
 			baseAddr = (char *) *colorBufPtr;
-            NSLog(@"Checkpoint DCMView.mm:%d baseAddr [f] %p", __LINE__, baseAddr);
 		}
 		else
 		{
 			*tW = curDCM.pwidth;
 			rowBytes = curDCM.pwidth;
 			baseAddr = curDCM.baseAddr;
-            NSLog(@"Checkpoint DCMView.mm:%d baseAddr [g] %p", __LINE__, baseAddr);
 		}
 	}
 	
@@ -14201,13 +14296,10 @@ int checkOpenGLErrors(int lineNo)
 	
     checkOpenGLErrors(__LINE__);
     
-    NSLog(@"Checkpoint DCMView.mm:%d GL_UNPACK_ROW_LENGTH", __LINE__);
 	glPixelStorei(GL_UNPACK_ROW_LENGTH, *tW);    checkOpenGLErrors(__LINE__);
 	
 	*tX = GetTextureNumFromTextureDim( *tW, maxTextureSize, false, f_ext_texture_rectangle );
 	*tY = GetTextureNumFromTextureDim( *tH, maxTextureSize, false, f_ext_texture_rectangle );
-	
-    NSLog(@"Checkpoint DCMView.mm:%d loadTextureIn: XY:(%li,%li) WH:(%li,%li) seqId:%d", __LINE__, *tX, *tY, *tW, *tH, seqId);
 
 	if (*tX * *tY == 0)
 		NSLog(@"****** *tX * *tY == 0");
@@ -14225,7 +14317,6 @@ int checkOpenGLErrors(int lineNo)
     // Make a single memory mapping for all of the textures used by the application:
 	glTextureRangeAPPLE(TEXTRECTMODE, (*tW) * (*tH) * 4, baseAddr);    checkOpenGLErrors(__LINE__);
 
-    NSLog(@"Checkpoint DCMView.mm:%d loadTextureIn: XY:(%ld,%ld) WH:(%ld x %ld), seqId:%d", __LINE__, *tX, *tY, *tW, *tH, seqId);
     glGenTextures(n, texture);      checkOpenGLErrors(__LINE__);
 
 	{
@@ -14242,14 +14333,12 @@ int checkOpenGLErrors(int lineNo)
 				
 				if (isRGB || [curDCM thickSlabVRActivated])
 				{
-                    NSLog(@"Checkpoint DCMView.mm:%d pBuffer, isRGB:%d", __LINE__, isRGB);
 					pBuffer = (unsigned char*) baseAddr +
 							  offsetY * rowBytes +
 							  offsetX * 4;
 				}
 				else if (localColorTransfer || blending)
                 {
-                    NSLog(@"Checkpoint DCMView.mm:%d pBuffer, localColorTransfer:%d", __LINE__, localColorTransfer);
                     pBuffer = (unsigned char*) baseAddr +
                               offsetY * rowBytes * 4 +
 							  offsetX * 4;
@@ -14258,15 +14347,12 @@ int checkOpenGLErrors(int lineNo)
 				{
 					if (intFULL32BITPIPELINE )
 					{
-                        NSLog(@"Checkpoint DCMView.mm:%d pBuffer, intFULL32BITPIPELINE:%d, offsetX_Y:%d,%d, rowBytes:%d", __LINE__,
-                              intFULL32BITPIPELINE,offsetX,offsetY,rowBytes);  // @@@ here
 						pBuffer = (unsigned char*) baseAddr +
 								  offsetY * rowBytes * 4 +
 								  offsetX;
 					}
 					else
 					{
-                        NSLog(@"Checkpoint DCMView.mm:%d pBuffer", __LINE__);
 						pBuffer = (unsigned char*) baseAddr +
 								  offsetY * rowBytes +
 								  offsetX;
@@ -14278,23 +14364,10 @@ int checkOpenGLErrors(int lineNo)
 
 				checkOpenGLErrors(__LINE__);
 
-                NSLog(@"Checkpoint DCMView.mm:%d glBindTexture %d, k:%d, WH:(%i,%i)", __LINE__,
-                      texture[k], k, currWidth, currHeight);
-                
                 glBindTexture(TEXTRECTMODE, texture[k++]);      checkOpenGLErrors(__LINE__);
                 
-#ifdef WITH_OPENGL_32
-                // TODO
-//                GLfloat priority;
-//                glGetTexParameterfv(TEXTRECTMODE, GL_TEXTURE_PRIORITY, &priority);  checkOpenGLErrors(__LINE__);
-//                NSLog(@"glGetTexParameterfv(0x%04x, GL_TEXTURE_PRIORITY, %.2f)", TEXTRECTMODE, priority);
-//                //glTexParameterf(TEXTRECTMODE, GL_TEXTURE_PRIORITY, 1.0f);   checkOpenGLErrors(__LINE__);  // error 0x0500
-#else
-                NSLog(@"Checkpoint DCMView.mm:%d loadTextureIn: glTexParameterf GL_TEXTURE_PRIORITY", __LINE__);
 				glTexParameterf(TEXTRECTMODE, GL_TEXTURE_PRIORITY, 1.0f);   checkOpenGLErrors(__LINE__);
-#endif
                 
-                NSLog(@"Checkpoint DCMView.mm:%d loadTextureIn: glPixelStorei(GL_UNPACK_CLIENT_STORAGE_APPLE)", __LINE__);
 				if (f_ext_client_storage)
 					glPixelStorei(GL_UNPACK_CLIENT_STORAGE_APPLE, GL_TRUE);
 				else 
@@ -14319,20 +14392,15 @@ int checkOpenGLErrors(int lineNo)
                 
                 // TEXTRECTMODE: GL_TEXTURE_RECTANGLE_EXT == GL_TEXTURE_RECTANGLE_EXT == 0x84F5
                 // edgeClampParam: GL_CLAMP_TO_EDGE == GL_CLAMP_TO_EDGE_SGIS == 0x812F
-                NSLog(@"Checkpoint DCMView.mm:%d TEXTRECTMODE:0x%04x, edgeClampParam:0x%x", __LINE__, TEXTRECTMODE, edgeClampParam);
                 glTexParameteri(TEXTRECTMODE, GL_TEXTURE_WRAP_S, edgeClampParam);          checkOpenGLErrors(__LINE__);
                 glTexParameteri(TEXTRECTMODE, GL_TEXTURE_WRAP_T, edgeClampParam);          checkOpenGLErrors(__LINE__);
                 glTexParameteri(TEXTRECTMODE, GL_TEXTURE_MIN_FILTER, interpolationType);   checkOpenGLErrors(__LINE__);
                 glTexParameteri(TEXTRECTMODE, GL_TEXTURE_MAG_FILTER, interpolationType);   checkOpenGLErrors(__LINE__);
 
-#ifndef WITH_OPENGL_32
-                NSLog(@"Checkpoint DCMView.mm:%d loadTextureIn: glColor4f", __LINE__);
 				glColor4f(1.0f, 1.0f, 1.0f, 1.0f);     checkOpenGLErrors(__LINE__); // GL_INVALID_ENUM, 0x0500
-#endif
                 
 				if (currWidth > 0 && currHeight > 0)
 				{
-                    NSLog(@"Checkpoint DCMView.mm:%d loadTextureIn:", __LINE__);
                     checkOpenGLErrors(__LINE__);
 #if __BIG_ENDIAN__
                     GLenum _type = GL_UNSIGNED_INT_8_8_8_8_REV;
@@ -14342,7 +14410,6 @@ int checkOpenGLErrors(int lineNo)
                     // Allocate memory for a texture
                     if (isRGB || [curDCM thickSlabVRActivated])
                     {
-                        NSLog(@"Checkpoint DCMView.mm:%d glTexImage2D case_A", __LINE__);
                         glTexImage2D (TEXTRECTMODE, 0,
                                       GL_RGBA,
                                       currWidth, currHeight, 0,
@@ -14351,28 +14418,17 @@ int checkOpenGLErrors(int lineNo)
                     }
                     else if (localColorTransfer || blending)
                     {
-#ifdef WITH_OPENGL_32
-                        glUseProgram(scene.texture.program);
-                        if (scene.texture.ColorCorrectionLocation != -1) {
-                            glm::mat4 CCM = glm::mat4(1.0);
-                            glUniformMatrix4fv(scene.texture.ColorCorrectionLocation, 1, GL_FALSE, &CCM[0][0]);
-                        }
-#endif
-                        NSLog(@"Checkpoint DCMView.mm:%d glTexImage2D case_B", __LINE__);  // grayscale image with LUT
+                        // grayscale image with LUT
                         glTexImage2D (TEXTRECTMODE, 0,
                                       GL_RGBA,
                                       currWidth, currHeight, 0,
                                       GL_BGRA_EXT, _type,
                                       pBuffer);                 checkOpenGLErrors(__LINE__);
-#ifdef WITH_OPENGL_32
-                        glUseProgram(0);       checkOpenGLErrors(__LINE__);
-#endif
                     }
                     else
                     {
                         if (!intFULL32BITPIPELINE)
                         {
-                              NSLog(@"Checkpoint DCMView.mm:%d glTexImage2D case_C", __LINE__);
                               glTexImage2D (TEXTRECTMODE, 0,
                                             GL_INTENSITY8,
                                             currWidth, currHeight, 0,
@@ -14389,26 +14445,11 @@ int checkOpenGLErrors(int lineNo)
 								min = [curDCM fullwl] - [curDCM fullww] / 2;
 								max = [curDCM fullwl] + [curDCM fullww] / 2;
 							}
-							
-                            NSLog(@"Line:%d case_D, TEXTRECTMODE:0x%04x, min:%f, max:%f, bias:%f, scale:%f seqId:%d", __LINE__,
-                                  TEXTRECTMODE,
-                                  min, max,
-                                  -min/(max-min),   // bias
-                                  1./(max-min),     // scale
-                                  seqId);
-#ifdef WITH_OPENGL_32
-                            scene.bias = -min/(max-min);
-                            scene.scale = 1./(max-min);
-    #ifdef PLACE_1
-                            glUseProgram(scene.texture.program);       checkOpenGLErrors(__LINE__);
-                            [self applyColorCorrectionMatrix: scene.bias : scene.scale];
-    #endif
-#else
+
+#if 1
                             // Window width and level is implemented here
-                            NSLog(@"Checkpoint DCMView.mm:%d GL_RED_BIAS:%f", __LINE__, -min/(max-min));
                             glPixelTransferf( GL_RED_BIAS, -min/(max-min)); checkOpenGLErrors(__LINE__); // GL_INVALID_OPERATION, 0x0502
                             
-                            NSLog(@"Checkpoint DCMView.mm:%d GL_RED_SCALE:%f", __LINE__, 1./(max-min));
                             glPixelTransferf( GL_RED_SCALE, 1./(max-min));  checkOpenGLErrors(__LINE__);
 #endif
                             checkOpenGLErrors(__LINE__);
@@ -14417,7 +14458,6 @@ int checkOpenGLErrors(int lineNo)
                             if (checkExtension("GL_APPLE_float_pixels"))
 #endif
                             {
-                                NSLog(@"Checkpoint DCMView.mm:%d glTexImage2D case_D1", __LINE__);
                                 glTexImage2D(TEXTRECTMODE, 0,
                                              GL_LUMINANCE_FLOAT32_APPLE,  // deprecated rendering engine ?
                                              currWidth, currHeight, 0,
@@ -14430,7 +14470,6 @@ int checkOpenGLErrors(int lineNo)
                                 if (checkExtension("GL_ARB_texture_swizzle"))
   #endif
                             {
-                                NSLog(@"Checkpoint DCMView.mm:%d glTexImage2D case_D2", __LINE__);
                                 GLenum target = TEXTRECTMODE;
   #ifdef WITH_SWIZZLE_MASK
                                 GLint swizzleMask[] = {GL_RED, GL_RED, GL_RED, GL_ONE};
@@ -14453,18 +14492,12 @@ int checkOpenGLErrors(int lineNo)
 #endif
                             checkOpenGLErrors(__LINE__);
                             
-#ifdef WITH_OPENGL_32
-    #ifdef PLACE_1
-                            glUseProgram(0);    checkOpenGLErrors(__LINE__);
-    #endif
-#else
+#if 1
                             // Restore
-                            NSLog(@"Checkpoint DCMView.mm:%d GL_RED_BIAS", __LINE__);
 							glPixelTransferf( GL_RED_BIAS, 0);      checkOpenGLErrors(__LINE__); // GL_INVALID_OPERATION, 0x0502
                             //glPixelTransferf( GL_GREEN_BIAS, 0);
                             //glPixelTransferf( GL_BLUE_BIAS, 0);
 
-                            NSLog(@"Checkpoint DCMView.mm:%d GL_RED_SCALE", __LINE__);
                             glPixelTransferf( GL_RED_SCALE, 1);     checkOpenGLErrors(__LINE__);
                             //glPixelTransferf( GL_GREEN_SCALE, 1);
                             //glPixelTransferf( GL_BLUE_SCALE, 1);
@@ -14474,9 +14507,7 @@ int checkOpenGLErrors(int lineNo)
                     
                     checkOpenGLErrors(__LINE__);
 
-                    NSLog(@"Checkpoint DCMView.mm:%d loadTextureIn:", __LINE__);
                 } // if (currWidth > 0 && currHeight > 0)
-                //NSLog(@"Checkpoint DCMView.mm:%d loadTextureIn:", __LINE__);
 
 #ifndef NDEBUG
                 checkOpenGLErrors(__LINE__);  // error 0x0500
@@ -14487,9 +14518,7 @@ int checkOpenGLErrors(int lineNo)
 		}
 	}
 
-#ifndef WITH_OPENGL_32
     glDisable(TEXTRECTMODE);    checkOpenGLErrors(__LINE__);
-#endif
 	
 	if (computedfImage)
 	{
@@ -14642,8 +14671,6 @@ int checkOpenGLErrors(int lineNo)
 
 - (void)loadTexturesCompute
 {
-    NSLog(@"Checkpoint [[12]] DCMView.mm:%d %s seqId:%d", __LINE__, __PRETTY_FUNCTION__, seqId);
-
     [drawLock lock];
 
 	@try
@@ -14660,10 +14687,7 @@ int checkOpenGLErrors(int lineNo)
                              textureHeight:&textureHeight
                          resampledBaseAddr:&resampledBaseAddr
                      resampledBaseAddrSize:&resampledBaseAddrSize];
-        
-        NSLog(@"Checkpoint DCMView.mm:%d loadTexturesCompute XY:(%li,%li) WH:(%li,%li) seqId:%d", __LINE__,
-              textureX, textureY, textureWidth, textureHeight, seqId);
-	
+
 		if (blendingView)
 		{
             unsigned char *rT = nil, *gT = nil, *bT = nil;
@@ -14695,14 +14719,11 @@ int checkOpenGLErrors(int lineNo)
 		N2LogExceptionWithStackTrace(e);
 	}
 
-    NSLog(@"Checkpoint DCMView.mm:%d %s [5] END", __LINE__, __PRETTY_FUNCTION__);
-	
 	[drawLock unlock];
 }
 
 - (void) loadTextures
 {
-    NSLog(@"Checkpoint DCMView.mm:%d %s", __LINE__, __PRETTY_FUNCTION__);
 	needToLoadTexture = YES;
 }
 
@@ -14761,7 +14782,7 @@ int checkOpenGLErrors(int lineNo)
 			if (listType == 'i')
                 [self setIndex: (long)[dcmPixList count] -1 ];
 			else
-                [self setIndexWithReset:(long)[dcmPixList count] -1  :YES];
+                [self setIndexWithReset:(long)[dcmPixList count] -1 :YES];
 		}
 		else
 		{
@@ -14794,9 +14815,6 @@ int checkOpenGLErrors(int lineNo)
 
 - (id)initWithFrame:(NSRect)frame
 {
-    NSLog(@"Checkpoint [[ 1]] DCMView.mm:%d %s %@ class:%@", __LINE__, __PRETTY_FUNCTION__,
-          NSStringFromRect(frame), [self class]);
-
 #ifndef NDEBUG
     if ([self isKindOfClass: [PreviewView class]])
         NSLog(@"Checkpoint DCMView.mm:%d %s", __LINE__, __PRETTY_FUNCTION__);
@@ -14816,14 +14834,6 @@ int checkOpenGLErrors(int lineNo)
           imageRows:(int)rows
        imageColumns:(int)columns
 {
-#ifndef NDEBUG
-    seqId = seq++;
-    NSLog(@"Checkpoint [[ 2]] DCMView.mm:%d %s (%i x %i) seqId:%d", __LINE__, __PRETTY_FUNCTION__, rows, columns, seqId);
-#endif
-    
-#ifdef WITH_OPENGL_32
-    m_buffers = [NSMutableArray array];
-#endif
 	self = [self initWithFrameInternal:frame];
     if (self)
 	{
@@ -14852,7 +14862,6 @@ int checkOpenGLErrors(int lineNo)
         [self.window setAcceptsMouseMovedEvents: YES];
     }
 
-    NSLog(@"Checkpoint DCMView.mm:%d %s", __LINE__, __PRETTY_FUNCTION__);
     for (NSLayoutConstraint *c in [self constraints])
         NSLog(@"%@", c);
 
@@ -14861,7 +14870,6 @@ int checkOpenGLErrors(int lineNo)
 
 - (id)initWithFrameInternal:(NSRect)frameRect
 {
-    NSLog(@"Checkpoint [[ 3]] DCMView.mm:%d %s class:%@, seqId:%d", __LINE__, __PRETTY_FUNCTION__, [self class], seqId);
     if (PETredTable == nil)
         [DCMView computePETBlendingCLUT];
     
@@ -14969,7 +14977,6 @@ int checkOpenGLErrors(int lineNo)
 //                                nil);
 //		exit(1);
     }
-	NSLog(@"Checkpoint DCMView.mm:%d %s [1] NSOpenGLPixelFormat %p", __LINE__, __PRETTY_FUNCTION__, self);	
 	self = [super initWithFrame:frameRect pixelFormat:pixFmt];
 
     [self setWantsBestResolutionOpenGLSurface:YES]; // Retina https://developer.apple.com/library/mac/#documentation/GraphicsAnimation/Conceptual/HighResolutionOSX/CapturingScreenContents/CapturingScreenContents.html#//apple_ref/doc/uid/TP40012302-CH10-SW1
@@ -15345,7 +15352,6 @@ int checkOpenGLErrors(int lineNo)
 
 -(void) setCursorForView: (long) tool
 {
-    NSLog(@"DCMView.mm:%d %s, tool:%li, seqIf:%d", __LINE__, __PRETTY_FUNCTION__, tool, seqId); // 0=tWL
 	NSCursor *c;
 	
 	if ([self roiTool:tool])

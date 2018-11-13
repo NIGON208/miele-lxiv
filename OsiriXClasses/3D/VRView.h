@@ -12,9 +12,9 @@
      PURPOSE.
 =========================================================================*/
 
+#import "DCMView.h"
 #import <AppKit/AppKit.h>
 #import "DCMPix.h"
-#import "DCMView.h"
 
 #ifdef __cplusplus
 #import "VTKViewOSIRIX.h"
