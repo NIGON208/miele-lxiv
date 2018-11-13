@@ -12739,7 +12739,7 @@
 					"$(SRCROOT)/Binaries/VTK/lib/libvtkViewsInfovis-7.1.a",
 					"$(SRCROOT)/Binaries/VTK/lib/libvtkzlib-7.1.a",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.github-bettar.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.bettarini.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "miele-lxiv";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				STRIP_STYLE = debugging;
