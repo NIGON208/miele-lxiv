@@ -3388,6 +3388,57 @@
 		43A02C8E219D889600E788B6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = GUI/Base.lproj/AnonymizationView.xib; sourceTree = "<group>"; };
 		43A02C90219D889600E788B6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = GUI/Base.lproj/Endoscopy.xib; sourceTree = "<group>"; };
 		43A02C92219D889700E788B6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = GUI/Base.lproj/CPR.xib; sourceTree = "<group>"; };
+		43A02CAC219D8AD400E788B6 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = GUI/fr.lproj/3DPosition.strings; sourceTree = "<group>"; };
+		43A02CAE219D8AEA00E788B6 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = GUI/fr.lproj/AnonymizationCustomTagPanel.strings; sourceTree = "<group>"; };
+		43A02CB0219D8AEE00E788B6 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = GUI/fr.lproj/AnonymizationPanel.strings; sourceTree = "<group>"; };
+		43A02CB2219D8AF100E788B6 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = GUI/fr.lproj/AnonymizationSavePanel.strings; sourceTree = "<group>"; };
+		43A02CB4219D8AF800E788B6 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = GUI/fr.lproj/AnonymizationTemplateNamePanel.strings; sourceTree = "<group>"; };
+		43A02CB6219D8B0000E788B6 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = GUI/fr.lproj/AnonymizationView.strings; sourceTree = "<group>"; };
+		43A02CB8219D8B0400E788B6 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = GUI/fr.lproj/AYDicomPrint.strings; sourceTree = "<group>"; };
+		43A02CBA219D8B0700E788B6 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = GUI/fr.lproj/BurnViewer.strings; sourceTree = "<group>"; };
+		43A02CBC219D8B0F00E788B6 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = GUI/fr.lproj/CalciumScoring.strings; sourceTree = "<group>"; };
+		43A02CBE219D8B1300E788B6 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = GUI/fr.lproj/CPR.strings; sourceTree = "<group>"; };
+		43A02CC0219D8B1800E788B6 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = GUI/fr.lproj/CustomIntervalPanel.strings; sourceTree = "<group>"; };
+		43A02CC2219D8B1D00E788B6 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = GUI/fr.lproj/DiscMountedAskTheUserDialog.strings; sourceTree = "<group>"; };
+		43A02CC4219D8B2300E788B6 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = GUI/fr.lproj/Endoscopy.strings; sourceTree = "<group>"; };
+		43A02CC6219D8B2600E788B6 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = GUI/fr.lproj/FlyThru.strings; sourceTree = "<group>"; };
+		43A02CC8219D8B2A00E788B6 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = GUI/fr.lproj/Histogram.strings; sourceTree = "<group>"; };
+		43A02CCA219D8B2D00E788B6 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = GUI/fr.lproj/iChatHelper.strings; sourceTree = "<group>"; };
+		43A02CCC219D8B3400E788B6 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = GUI/fr.lproj/ITKSegmentation.strings; sourceTree = "<group>"; };
+		43A02CCD219D8B3C00E788B6 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = GUI/fr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		43A02CCF219D8B4700E788B6 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = GUI/fr.lproj/LogWindow.strings; sourceTree = "<group>"; };
+		43A02CD1219D8B4E00E788B6 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = GUI/fr.lproj/Loupe.strings; sourceTree = "<group>"; };
+		43A02CD3219D8B5600E788B6 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = GUI/fr.lproj/MainMenu.strings; sourceTree = "<group>"; };
+		43A02CD5219D8B5B00E788B6 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = GUI/fr.lproj/MPR.strings; sourceTree = "<group>"; };
+		43A02CD7219D8B5E00E788B6 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = GUI/fr.lproj/Navigator.strings; sourceTree = "<group>"; };
+		43A02CD9219D8B6500E788B6 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = GUI/fr.lproj/OrthogonalMPR.strings; sourceTree = "<group>"; };
+		43A02CDB219D8B6E00E788B6 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = GUI/fr.lproj/PaletteBrush.strings; sourceTree = "<group>"; };
+		43A02CDD219D8B7300E788B6 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = GUI/fr.lproj/PETCT.strings; sourceTree = "<group>"; };
+		43A02CDF219D8B7800E788B6 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = GUI/fr.lproj/Plot.strings; sourceTree = "<group>"; };
+		43A02CE1219D8B7C00E788B6 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = GUI/fr.lproj/PluginManager.strings; sourceTree = "<group>"; };
+		43A02CE3219D8B7F00E788B6 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = GUI/fr.lproj/PreferencesWindow.strings; sourceTree = "<group>"; };
+		43A02CE5219D8B8B00E788B6 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = GUI/fr.lproj/Query.strings; sourceTree = "<group>"; };
+		43A02CE7219D8B9200E788B6 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = GUI/fr.lproj/QuicktimeExport.strings; sourceTree = "<group>"; };
+		43A02CE9219D8B9600E788B6 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = GUI/fr.lproj/ROI.strings; sourceTree = "<group>"; };
+		43A02CEB219D8B9B00E788B6 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = GUI/fr.lproj/ROI3DSettingsWindow.strings; sourceTree = "<group>"; };
+		43A02CED219D8B9D00E788B6 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = GUI/fr.lproj/ROIDefaults.strings; sourceTree = "<group>"; };
+		43A02CEF219D8BA000E788B6 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = GUI/fr.lproj/ROIManager.strings; sourceTree = "<group>"; };
+		43A02CF1219D8BA400E788B6 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = GUI/fr.lproj/ROIVolume.strings; sourceTree = "<group>"; };
+		43A02CF3219D8BB100E788B6 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = GUI/fr.lproj/ROIVolumeManager.strings; sourceTree = "<group>"; };
+		43A02CF5219D8BB700E788B6 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = GUI/fr.lproj/Send.strings; sourceTree = "<group>"; };
+		43A02CF7219D8BBA00E788B6 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = GUI/fr.lproj/SmartAlbum.strings; sourceTree = "<group>"; };
+		43A02CF9219D8BCC00E788B6 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = GUI/fr.lproj/Splash.strings; sourceTree = "<group>"; };
+		43A02CFB219D8BD400E788B6 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = GUI/fr.lproj/SR.strings; sourceTree = "<group>"; };
+		43A02CFD219D8BDC00E788B6 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = GUI/fr.lproj/ThickSlab.strings; sourceTree = "<group>"; };
+		43A02CFF219D8BF100E788B6 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = GUI/fr.lproj/ThreadModalForWindow.strings; sourceTree = "<group>"; };
+		43A02D01219D8BF700E788B6 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = GUI/fr.lproj/ThumbnailsList.strings; sourceTree = "<group>"; };
+		43A02D03219D8C0000E788B6 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = GUI/fr.lproj/ToolbarPanel.strings; sourceTree = "<group>"; };
+		43A02D05219D8C1300E788B6 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = GUI/fr.lproj/VR.strings; sourceTree = "<group>"; };
+		43A02D07219D8C2600E788B6 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = GUI/fr.lproj/Wait.strings; sourceTree = "<group>"; };
+		43A02D09219D8C2B00E788B6 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = GUI/fr.lproj/Viewer.strings; sourceTree = "<group>"; };
+		43A02D0B219D8C3200E788B6 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = GUI/fr.lproj/WaitRendering.strings; sourceTree = "<group>"; };
+		43A02D0D219D8C3500E788B6 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = GUI/fr.lproj/XMLViewer.strings; sourceTree = "<group>"; };
+		43A02D0F219D8F1600E788B6 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = GUI/fr.lproj/OSI3DPreferencePanePref.strings; sourceTree = "<group>"; };
 		43A4038B1DFA32F300ADA719 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/MacOSX.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		43BF296C21662E1D0022CF3B /* main.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = main.mm; path = "LXIV Launcher/main.mm"; sourceTree = "<group>"; };
 		43BF296F21662F420022CF3B /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = "LXIV Launcher/Info.plist"; sourceTree = "<group>"; };
@@ -11060,6 +11111,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				43A02C0E219D86B500E788B6 /* Base */,
+				43A02D0F219D8F1600E788B6 /* fr */,
 			);
 			name = OSI3DPreferencePanePref.xib;
 			sourceTree = "<group>";
@@ -11077,6 +11129,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				43A02C16219D882700E788B6 /* Base */,
+				43A02CEB219D8B9B00E788B6 /* fr */,
 			);
 			name = ROI3DSettingsWindow.xib;
 			sourceTree = "<group>";
@@ -11085,6 +11138,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				43A02C18219D882800E788B6 /* Base */,
+				43A02D03219D8C0000E788B6 /* fr */,
 			);
 			name = ToolbarPanel.xib;
 			sourceTree = "<group>";
@@ -11093,6 +11147,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				43A02C1A219D882800E788B6 /* Base */,
+				43A02CF1219D8BA400E788B6 /* fr */,
 			);
 			name = ROIVolume.xib;
 			sourceTree = "<group>";
@@ -11101,6 +11156,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				43A02C1C219D882900E788B6 /* Base */,
+				43A02D07219D8C2600E788B6 /* fr */,
 			);
 			name = Wait.xib;
 			sourceTree = "<group>";
@@ -11109,6 +11165,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				43A02C1E219D882900E788B6 /* Base */,
+				43A02CE3219D8B7F00E788B6 /* fr */,
 			);
 			name = PreferencesWindow.xib;
 			sourceTree = "<group>";
@@ -11117,6 +11174,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				43A02C20219D882A00E788B6 /* Base */,
+				43A02CE1219D8B7C00E788B6 /* fr */,
 			);
 			name = PluginManager.xib;
 			sourceTree = "<group>";
@@ -11125,6 +11183,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				43A02C22219D882A00E788B6 /* Base */,
+				43A02CF7219D8BBA00E788B6 /* fr */,
 			);
 			name = SmartAlbum.xib;
 			sourceTree = "<group>";
@@ -11133,6 +11192,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				43A02C24219D882A00E788B6 /* Base */,
+				43A02CDD219D8B7300E788B6 /* fr */,
 			);
 			name = PETCT.xib;
 			sourceTree = "<group>";
@@ -11141,6 +11201,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				43A02C26219D882B00E788B6 /* Base */,
+				43A02CF3219D8BB100E788B6 /* fr */,
 			);
 			name = ROIVolumeManager.xib;
 			sourceTree = "<group>";
@@ -11149,6 +11210,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				43A02C28219D882B00E788B6 /* Base */,
+				43A02CEF219D8BA000E788B6 /* fr */,
 			);
 			name = ROIManager.xib;
 			sourceTree = "<group>";
@@ -11157,6 +11219,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				43A02C2A219D882B00E788B6 /* Base */,
+				43A02CDB219D8B6E00E788B6 /* fr */,
 			);
 			name = PaletteBrush.xib;
 			sourceTree = "<group>";
@@ -11165,6 +11228,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				43A02C2C219D882C00E788B6 /* Base */,
+				43A02CED219D8B9D00E788B6 /* fr */,
 			);
 			name = ROIDefaults.xib;
 			sourceTree = "<group>";
@@ -11173,6 +11237,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				43A02C2E219D882C00E788B6 /* Base */,
+				43A02CFD219D8BDC00E788B6 /* fr */,
 			);
 			name = ThickSlab.xib;
 			sourceTree = "<group>";
@@ -11181,6 +11246,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				43A02C30219D882C00E788B6 /* Base */,
+				43A02CFB219D8BD400E788B6 /* fr */,
 			);
 			name = SR.xib;
 			sourceTree = "<group>";
@@ -11189,6 +11255,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				43A02C32219D882D00E788B6 /* Base */,
+				43A02CF9219D8BCC00E788B6 /* fr */,
 			);
 			name = Splash.xib;
 			sourceTree = "<group>";
@@ -11197,6 +11264,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				43A02C34219D882D00E788B6 /* Base */,
+				43A02CE7219D8B9200E788B6 /* fr */,
 			);
 			name = QuicktimeExport.xib;
 			sourceTree = "<group>";
@@ -11205,6 +11273,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				43A02C36219D882E00E788B6 /* Base */,
+				43A02D09219D8C2B00E788B6 /* fr */,
 			);
 			name = Viewer.xib;
 			sourceTree = "<group>";
@@ -11213,6 +11282,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				43A02C38219D882E00E788B6 /* Base */,
+				43A02CE5219D8B8B00E788B6 /* fr */,
 			);
 			name = Query.xib;
 			sourceTree = "<group>";
@@ -11221,6 +11291,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				43A02C3A219D882E00E788B6 /* Base */,
+				43A02CDF219D8B7800E788B6 /* fr */,
 			);
 			name = Plot.xib;
 			sourceTree = "<group>";
@@ -11229,6 +11300,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				43A02C3C219D882F00E788B6 /* Base */,
+				43A02D05219D8C1300E788B6 /* fr */,
 			);
 			name = VR.xib;
 			sourceTree = "<group>";
@@ -11237,6 +11309,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				43A02C3E219D882F00E788B6 /* Base */,
+				43A02CF5219D8BB700E788B6 /* fr */,
 			);
 			name = Send.xib;
 			sourceTree = "<group>";
@@ -11245,6 +11318,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				43A02C40219D882F00E788B6 /* Base */,
+				43A02D0D219D8C3500E788B6 /* fr */,
 			);
 			name = XMLViewer.xib;
 			sourceTree = "<group>";
@@ -11253,6 +11327,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				43A02C42219D883000E788B6 /* Base */,
+				43A02D01219D8BF700E788B6 /* fr */,
 			);
 			name = ThumbnailsList.xib;
 			sourceTree = "<group>";
@@ -11261,6 +11336,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				43A02C44219D883000E788B6 /* Base */,
+				43A02D0B219D8C3200E788B6 /* fr */,
 			);
 			name = WaitRendering.xib;
 			sourceTree = "<group>";
@@ -11269,6 +11345,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				43A02C46219D883000E788B6 /* Base */,
+				43A02CFF219D8BF100E788B6 /* fr */,
 			);
 			name = ThreadModalForWindow.xib;
 			sourceTree = "<group>";
@@ -11277,6 +11354,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				43A02C48219D883100E788B6 /* Base */,
+				43A02CE9219D8B9600E788B6 /* fr */,
 			);
 			name = ROI.xib;
 			sourceTree = "<group>";
@@ -11285,6 +11363,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				43A02C64219D888E00E788B6 /* Base */,
+				43A02CAC219D8AD400E788B6 /* fr */,
 			);
 			name = 3DPosition.xib;
 			sourceTree = "<group>";
@@ -11293,6 +11372,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				43A02C66219D888F00E788B6 /* Base */,
+				43A02CBA219D8B0700E788B6 /* fr */,
 			);
 			name = BurnViewer.xib;
 			sourceTree = "<group>";
@@ -11301,6 +11381,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				43A02C68219D888F00E788B6 /* Base */,
+				43A02CB8219D8B0400E788B6 /* fr */,
 			);
 			name = AYDicomPrint.xib;
 			sourceTree = "<group>";
@@ -11309,6 +11390,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				43A02C6A219D889000E788B6 /* Base */,
+				43A02CAE219D8AEA00E788B6 /* fr */,
 			);
 			name = AnonymizationCustomTagPanel.xib;
 			sourceTree = "<group>";
@@ -11317,6 +11399,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				43A02C6C219D889000E788B6 /* Base */,
+				43A02CB2219D8AF100E788B6 /* fr */,
 			);
 			name = AnonymizationSavePanel.xib;
 			sourceTree = "<group>";
@@ -11325,6 +11408,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				43A02C6E219D889000E788B6 /* Base */,
+				43A02CB0219D8AEE00E788B6 /* fr */,
 			);
 			name = AnonymizationPanel.xib;
 			sourceTree = "<group>";
@@ -11333,6 +11417,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				43A02C70219D889100E788B6 /* Base */,
+				43A02CCF219D8B4700E788B6 /* fr */,
 			);
 			name = LogWindow.xib;
 			sourceTree = "<group>";
@@ -11341,6 +11426,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				43A02C72219D889100E788B6 /* Base */,
+				43A02CC0219D8B1800E788B6 /* fr */,
 			);
 			name = CustomIntervalPanel.xib;
 			sourceTree = "<group>";
@@ -11349,6 +11435,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				43A02C74219D889200E788B6 /* Base */,
+				43A02CD1219D8B4E00E788B6 /* fr */,
 			);
 			name = Loupe.xib;
 			sourceTree = "<group>";
@@ -11357,6 +11444,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				43A02C76219D889200E788B6 /* Base */,
+				43A02CD7219D8B5E00E788B6 /* fr */,
 			);
 			name = Navigator.xib;
 			sourceTree = "<group>";
@@ -11365,6 +11453,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				43A02C78219D889200E788B6 /* Base */,
+				43A02CD9219D8B6500E788B6 /* fr */,
 			);
 			name = OrthogonalMPR.xib;
 			sourceTree = "<group>";
@@ -11373,6 +11462,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				43A02C7A219D889300E788B6 /* Base */,
+				43A02CCA219D8B2D00E788B6 /* fr */,
 			);
 			name = iChatHelper.xib;
 			sourceTree = "<group>";
@@ -11381,6 +11471,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				43A02C7C219D889300E788B6 /* Base */,
+				43A02CB4219D8AF800E788B6 /* fr */,
 			);
 			name = AnonymizationTemplateNamePanel.xib;
 			sourceTree = "<group>";
@@ -11389,6 +11480,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				43A02C7E219D889300E788B6 /* Base */,
+				43A02CC2219D8B1D00E788B6 /* fr */,
 			);
 			name = DiscMountedAskTheUserDialog.xib;
 			sourceTree = "<group>";
@@ -11397,6 +11489,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				43A02C80219D889400E788B6 /* Base */,
+				43A02CCC219D8B3400E788B6 /* fr */,
 			);
 			name = ITKSegmentation.xib;
 			sourceTree = "<group>";
@@ -11405,6 +11498,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				43A02C82219D889400E788B6 /* Base */,
+				43A02CCD219D8B3C00E788B6 /* fr */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -11413,6 +11507,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				43A02C84219D889400E788B6 /* Base */,
+				43A02CBC219D8B0F00E788B6 /* fr */,
 			);
 			name = CalciumScoring.xib;
 			sourceTree = "<group>";
@@ -11421,6 +11516,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				43A02C86219D889500E788B6 /* Base */,
+				43A02CC6219D8B2600E788B6 /* fr */,
 			);
 			name = FlyThru.xib;
 			sourceTree = "<group>";
@@ -11429,6 +11525,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				43A02C88219D889500E788B6 /* Base */,
+				43A02CD3219D8B5600E788B6 /* fr */,
 			);
 			name = MainMenu.xib;
 			sourceTree = "<group>";
@@ -11437,6 +11534,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				43A02C8A219D889500E788B6 /* Base */,
+				43A02CD5219D8B5B00E788B6 /* fr */,
 			);
 			name = MPR.xib;
 			sourceTree = "<group>";
@@ -11445,6 +11543,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				43A02C8C219D889600E788B6 /* Base */,
+				43A02CC8219D8B2A00E788B6 /* fr */,
 			);
 			name = Histogram.xib;
 			sourceTree = "<group>";
@@ -11453,6 +11552,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				43A02C8E219D889600E788B6 /* Base */,
+				43A02CB6219D8B0000E788B6 /* fr */,
 			);
 			name = AnonymizationView.xib;
 			sourceTree = "<group>";
@@ -11461,6 +11561,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				43A02C90219D889600E788B6 /* Base */,
+				43A02CC4219D8B2300E788B6 /* fr */,
 			);
 			name = Endoscopy.xib;
 			sourceTree = "<group>";
@@ -11469,6 +11570,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				43A02C92219D889700E788B6 /* Base */,
+				43A02CBE219D8B1300E788B6 /* fr */,
 			);
 			name = CPR.xib;
 			sourceTree = "<group>";
