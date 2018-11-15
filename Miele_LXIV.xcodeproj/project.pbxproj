@@ -326,6 +326,7 @@
 		43A02CA8219D889700E788B6 /* AnonymizationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43A02C8D219D889600E788B6 /* AnonymizationView.xib */; };
 		43A02CA9219D889700E788B6 /* Endoscopy.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43A02C8F219D889600E788B6 /* Endoscopy.xib */; };
 		43A02CAA219D889700E788B6 /* CPR.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43A02C91219D889700E788B6 /* CPR.xib */; };
+		43A02D12219D903E00E788B6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 43A02D10219D903D00E788B6 /* InfoPlist.strings */; };
 		43A4038C1DFA32F300ADA719 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43A4038B1DFA32F300ADA719 /* XCTest.framework */; };
 		43BF296D21662E1D0022CF3B /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = 43BF296C21662E1D0022CF3B /* main.mm */; };
 		43BF296E21662F100022CF3B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 43CC5BA5216511E200F1B1CA /* Assets.xcassets */; };
@@ -3373,6 +3374,7 @@
 		43A02C8E219D889600E788B6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = GUI/Base.lproj/AnonymizationView.xib; sourceTree = "<group>"; };
 		43A02C90219D889600E788B6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = GUI/Base.lproj/Endoscopy.xib; sourceTree = "<group>"; };
 		43A02C92219D889700E788B6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = GUI/Base.lproj/CPR.xib; sourceTree = "<group>"; };
+		43A02D11219D903D00E788B6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = GUI/Base.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		43A4038B1DFA32F300ADA719 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/MacOSX.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		43BF296C21662E1D0022CF3B /* main.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = main.mm; path = "LXIV Launcher/main.mm"; sourceTree = "<group>"; };
 		43BF296F21662F420022CF3B /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = "LXIV Launcher/Info.plist"; sourceTree = "<group>"; };
@@ -7186,6 +7188,7 @@
 		43A36C26219B1E4A00C506D3 /* GUI */ = {
 			isa = PBXGroup;
 			children = (
+				43A02D10219D903D00E788B6 /* InfoPlist.strings */,
 				43A02BCD219D7FC700E788B6 /* Localizable.strings */,
 				43A02C63219D888E00E788B6 /* 3DPosition.xib */,
 				43A02C69219D889000E788B6 /* AnonymizationCustomTagPanel.xib */,
@@ -9210,6 +9213,7 @@
 				CE2028FB094EFFC300C00310 /* Endoscopy.tif in Resources */,
 				CE90D8C4095F5B48004FC7E2 /* FlipData.tif in Resources */,
 				CE6C77ED09739B3100F951C2 /* Rotate3DCursor.tif in Resources */,
+				43A02D12219D903E00E788B6 /* InfoPlist.strings in Resources */,
 				CE6C77EE09739B3100F951C2 /* Rotate3DCameraCursor.tif in Resources */,
 				CED8BC7C097F93D1002665CE /* SUV.tif in Resources */,
 				CE5487410989346800CF4C60 /* BrushPalette.tif in Resources */,
@@ -11440,6 +11444,14 @@
 				43A02C92219D889700E788B6 /* Base */,
 			);
 			name = CPR.xib;
+			sourceTree = "<group>";
+		};
+		43A02D10219D903D00E788B6 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				43A02D11219D903D00E788B6 /* Base */,
+			);
+			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
