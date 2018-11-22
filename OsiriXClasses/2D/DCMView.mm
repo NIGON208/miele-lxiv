@@ -9761,7 +9761,7 @@ void checkOGLVersion()
                 useStringTexture: YES];
         }
      }
-    
+
 #ifdef WITH_RED_CAPTION
     if (size.size.width > 500*sf &&
         [AppController isFDACleared] == NO)

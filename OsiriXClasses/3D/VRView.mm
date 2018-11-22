@@ -2843,11 +2843,11 @@ public:
         
 		if (length/(10.*factor) < .1)
             localizedText = [NSString stringWithFormat:
-                             NSLocalizedString( @"Length: %2.2f mm ", @"ONLY ASCII CHARACTERS ! NO ACCENTS OR HIEROGLYPHS"),
+                             NSLocalizedString( @"Length: %2.2f mm ", "ONLY ASCII CHARACTERS ! NO ACCENTS OR HIEROGLYPHS"),
                              (length/(10.*factor)) * 10.0];
 		else
 			localizedText = [NSString stringWithFormat:
-                             NSLocalizedString( @"Length: %2.2f cm ", @"ONLY ASCII CHARACTERS ! NO ACCENTS OR HIEROGLYPHS"),
+                             NSLocalizedString( @"Length: %2.2f cm ", "ONLY ASCII CHARACTERS ! NO ACCENTS OR HIEROGLYPHS"),
                              length/(10.*factor)];
 		
 		Line2DText->SetInput( [localizedText UTF8String]);
@@ -6841,6 +6841,7 @@ public:
 - (void) initAnnotatedCubeActor
 {
 	vtkAnnotatedCubeActor* cube = vtkAnnotatedCubeActor::New();
+    // TODO: handle Kanji
 	cube->SetXPlusFaceText ( [NSLocalizedString( @"L", @"L: Left") UTF8String]);		
 	cube->SetXMinusFaceText( [NSLocalizedString( @"R", @"R: Right") UTF8String]);
 	cube->SetYPlusFaceText ( [NSLocalizedString( @"P", @"P: Posterior") UTF8String]);

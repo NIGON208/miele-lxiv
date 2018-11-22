@@ -247,7 +247,7 @@ static NSArray *languagesToMoveWhenQuitting = nil;
     [[[self mainView] window] makeFirstResponder: nil];
     
     if( [NSURL URLWithString: [[NSUserDefaults standardUserDefaults] stringForKey: @"SyncPreferencesURL"]] == nil)
-        NSRunInformationalAlertPanel( NSLocalizedString(@"Sync Preferences", nil), NSLocalizedString(@"The provided URL doesn't seem correct. Check it's validity.", nil), NSLocalizedString(@"OK",nil), nil,  nil);
+        NSRunInformationalAlertPanel( NSLocalizedString(@"Sync Preferences", nil), NSLocalizedString(@"The provided URL doesn't seem correct. Check its validity.", nil), NSLocalizedString(@"OK",nil), nil,  nil);
     else
     {
         NSInteger result = NSRunInformationalAlertPanel( NSLocalizedString(@"Sync Preferences", nil),

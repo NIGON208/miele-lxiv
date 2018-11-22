@@ -15751,7 +15751,7 @@ int i,j,l;
 	
 	if ([[pixList[curMovieIndex] objectAtIndex:[imageView curImage]] stack] < 2)
 	{
-		NSRunCriticalAlertPanel(NSLocalizedString(@"ROIs Propagate Error", nil), NSLocalizedString(@"This function is only usefull if you use Thick Slab!", nil) , NSLocalizedString(@"OK", nil), nil, nil, nil);
+		NSRunCriticalAlertPanel(NSLocalizedString(@"ROIs Propagate Error", nil), NSLocalizedString(@"This function is only useful if you use Thick Slab!", nil) , NSLocalizedString(@"OK", nil), nil, nil, nil);
 		
 		return;
 	}
@@ -15759,7 +15759,6 @@ int i,j,l;
 	if ([pixList[curMovieIndex] count] > 1)
 	{
 		[self addToUndoQueue: @"roi"];
-		
 		long upToImage, startImage, i, x;
 		
 		for (i = 0; i < [[roiList[curMovieIndex] objectAtIndex: [imageView curImage]] count]; i++)
