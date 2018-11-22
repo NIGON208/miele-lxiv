@@ -2528,9 +2528,19 @@ static NSString *releaseNetworkVariablesSync = @"releaseNetworkVariablesSync";
             if (_abortAssociation == NO)
             {
                 if( showErrorMessage == YES)
-                    [DCMTKQueryNode performSelectorOnMainThread:@selector(errorMessage:) withObject:[NSArray arrayWithObjects: NSLocalizedString(@"Query Failed (1)", nil), response, NSLocalizedString(@"Continue", nil), nil] waitUntilDone:NO];
+                {
+                    [DCMTKQueryNode performSelectorOnMainThread:@selector(errorMessage:)
+                                                     withObject:[NSArray arrayWithObjects:
+                                                                 NSLocalizedString(@"Query Failed (1)", nil),
+                                                                 response,
+                                                                 NSLocalizedString(@"Continue", nil),
+                                                                 nil]
+                                                  waitUntilDone:NO];
+                }
                 else
-                    [[AppController sharedAppController] growlTitle: NSLocalizedString(@"Query Failed (1)", nil) description: response name: @"autoquery"];
+                    [[AppController sharedAppController] growlTitle: NSLocalizedString(@"Query Failed (1)", nil)
+                                                        description: response
+                                                               name: @"autoquery"];
 			}
             
             NSLog(@"---- DCMTKQueryNode failed: %@", e);
@@ -2711,10 +2721,20 @@ static NSString *releaseNetworkVariablesSync = @"releaseNetworkVariablesSync";
 				OFSTRINGSTREAM_FREESTR(tmpString)
 			  }
 			
-			if( showErrorMessage == YES && _abortAssociation == NO)
-				[DCMTKQueryNode performSelectorOnMainThread:@selector(errorMessage:) withObject:[NSArray arrayWithObjects: NSLocalizedString(@"Query Failed (2)", nil), response, NSLocalizedString(@"Continue", nil), nil] waitUntilDone:NO];
+			if (showErrorMessage == YES && _abortAssociation == NO)
+            {
+				[DCMTKQueryNode performSelectorOnMainThread:@selector(errorMessage:)
+                                                 withObject:[NSArray arrayWithObjects:
+                                                             NSLocalizedString(@"Query Failed (2)", nil),
+                                                             response,
+                                                             NSLocalizedString(@"Continue", nil),
+                                                             nil]
+                                              waitUntilDone:NO];
+            }
 			else
-				[[AppController sharedAppController] growlTitle: NSLocalizedString(@"Query Failed (2)", nil) description: response name: @"autoquery"];
+				[[AppController sharedAppController] growlTitle: NSLocalizedString(@"Query Failed (2)", nil)
+                                                    description: response
+                                                           name: @"autoquery"];
 				
 		}
 				
@@ -2888,7 +2908,13 @@ static NSString *releaseNetworkVariablesSync = @"releaseNetworkVariablesSync";
 				DIMSE_printCMoveRSP(stdout, &rsp);
 				
                 if( showErrorMessage)
-                    [DCMTKQueryNode performSelectorOnMainThread:@selector(errorMessage:) withObject:[NSArray arrayWithObjects: NSLocalizedString(@"Move Failed", nil), [NSString stringWithCString: DU_cmoveStatusString(rsp.DimseStatus)], NSLocalizedString(@"Continue", nil), nil] waitUntilDone: NO];
+                    [DCMTKQueryNode performSelectorOnMainThread:@selector(errorMessage:)
+                                                     withObject:[NSArray arrayWithObjects:
+                                                                 NSLocalizedString(@"Move Failed", nil),
+                                                                 [NSString stringWithCString: DU_cmoveStatusString(rsp.DimseStatus)],
+                                                                 NSLocalizedString(@"Continue", nil),
+                                                                 nil]
+                                                  waitUntilDone: NO];
 			}
 			
 			if (_verbose)
@@ -2901,7 +2927,13 @@ static NSString *releaseNetworkVariablesSync = @"releaseNetworkVariablesSync";
 		else
 		{
             if (showErrorMessage)
-                [DCMTKQueryNode performSelectorOnMainThread:@selector(errorMessage:) withObject:[NSArray arrayWithObjects: NSLocalizedString(@"Move Failed", nil), [NSString stringWithCString: cond.text()], NSLocalizedString(@"Continue", nil), nil] waitUntilDone: NO];
+                [DCMTKQueryNode performSelectorOnMainThread:@selector(errorMessage:)
+                                                 withObject:[NSArray arrayWithObjects:
+                                                             NSLocalizedString(@"Move Failed", nil),
+                                                             [NSString stringWithCString: cond.text()],
+                                                             NSLocalizedString(@"Continue", nil),
+                                                             nil]
+                                              waitUntilDone: NO];
 
             DCMNET_ERROR("Move Failed: " << DimseCondition::dump(temp_str, cond));
 		}
@@ -2996,7 +3028,13 @@ static NSString *releaseNetworkVariablesSync = @"releaseNetworkVariablesSync";
 			DIMSE_printCGetRSP(stdout, &rsp);
 			
             if( showErrorMessage)
-                [DCMTKQueryNode performSelectorOnMainThread:@selector(errorMessage:) withObject:[NSArray arrayWithObjects: NSLocalizedString(@"Get Failed", nil), [NSString stringWithCString: DU_cmoveStatusString(rsp.DimseStatus)], NSLocalizedString(@"Continue", nil), nil] waitUntilDone:NO];
+                [DCMTKQueryNode performSelectorOnMainThread:@selector(errorMessage:)
+                                                 withObject:[NSArray arrayWithObjects:
+                                                             NSLocalizedString(@"Get Failed", nil),
+                                                             [NSString stringWithCString: DU_cmoveStatusString(rsp.DimseStatus)],
+                                                             NSLocalizedString(@"Continue", nil),
+                                                             nil]
+                                              waitUntilDone:NO];
 		}
 		
         if (_verbose)
@@ -3011,7 +3049,14 @@ static NSString *releaseNetworkVariablesSync = @"releaseNetworkVariablesSync";
 	else
 	{
         if( showErrorMessage)
-            [DCMTKQueryNode performSelectorOnMainThread:@selector(errorMessage:) withObject:[NSArray arrayWithObjects: NSLocalizedString(@"Get Failed", nil), [NSString stringWithCString: cond.text()], NSLocalizedString(@"Continue", nil), nil] waitUntilDone:NO];
+            [DCMTKQueryNode performSelectorOnMainThread:@selector(errorMessage:)
+                                             withObject:[NSArray arrayWithObjects:
+                                                         NSLocalizedString(@"Get Failed", nil),
+                                                         [NSString stringWithCString: cond.text()],
+                                                         NSLocalizedString(@"Continue", nil),
+                                                         nil]
+                                          waitUntilDone:NO];
+
         DCMNET_ERROR("Get Failed: " << DimseCondition::dump(temp_str, cond));
     }
 	
