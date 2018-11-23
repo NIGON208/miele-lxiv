@@ -6940,7 +6940,6 @@ void checkOGLVersion()
 		curWLWWSUVConverted = NO;
 	}
 	
-    NSLog(@"DCMView.mm:%d %s set needToLoadTexture", __LINE__, __PRETTY_FUNCTION__);
 	[self loadTextures];  // simply set needToLoadTexture
 	[self setNeedsDisplay:YES];
 	

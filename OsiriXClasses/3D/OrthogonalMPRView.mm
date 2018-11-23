@@ -763,7 +763,8 @@
 				[new2DPointROI setROIMode:ROI_selected];
 				
 				// name		
-				NSString *finalName, *roiName = @"Point ";
+                NSString *finalName;
+                NSString *roiName = @"Point ";
 				int counter = 1;
 				BOOL existsAlready = YES;
 				while (existsAlready)

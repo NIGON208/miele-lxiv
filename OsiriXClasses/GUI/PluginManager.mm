@@ -888,7 +888,7 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
 + (NSString*)activePluginsDirectoryPath;
 {
 #ifdef MACAPPSTORE
-	return @"Library/Application Support/OsiriX App/Plugins/";  // TODO
+	return @"./";
 #else
     NSString *bundleName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleName"];
     return [NSString stringWithFormat:@"Library/Application Support/%@/Plugins/", bundleName];
@@ -898,7 +898,7 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
 + (NSString*)inactivePluginsDirectoryPath;
 {
 #ifdef MACAPPSTORE
-	return @"Library/Application Support/OsiriX App/Plugins Disabled/";  // TODO
+	return @"./";
 #else
     NSString *bundleName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleName"];
     return [NSString stringWithFormat:@"Library/Application Support/%@/Plugins Disabled/", bundleName];
@@ -1422,7 +1422,7 @@ NSInteger sortPluginArray(id plugin1, id plugin2, void *context)
     
 	[NSThread sleepForTimeInterval: 10];
 	
-	url = [NSURL URLWithString:URL_OSIRIX_VIEWER@"/osirix_plugins/plugins.plist"];
+	url = [NSURL URLWithString:URL_PLUGIN_LIST];
 	
 	if(url)
 	{
@@ -1438,7 +1438,8 @@ NSInteger sortPluginArray(id plugin1, id plugin2, void *context)
 			NSDictionary *onlinePlugin = nil;
 			for (NSDictionary *plugin in onlinePlugins)
 			{
-				NSString *name = [[[plugin valueForKey:@"download_url"] lastPathComponent] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+                NSString *path = [[plugin valueForKey:@"download_url"] valueForKey:@"path"];
+				NSString *name = [[path lastPathComponent] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 				name = [name stringByDeletingPathExtension]; // removes the .zip extension
 				name = [name stringByDeletingPathExtension]; // removes the .osirixplugin extension
 				
@@ -1511,7 +1512,7 @@ NSInteger sortPluginArray(id plugin1, id plugin2, void *context)
 			startedUpdateProcess = YES;
 			PluginManagerController *pluginManagerController = [[BrowserController currentBrowser] pluginManagerController];
 
-			if(pluginManagerController)
+			if (pluginManagerController)
 			{
 				NSArray *pluginsToDownload = [messageDictionary objectForKey:@"plugins"];
 				self.downloadQueue = [NSMutableArray arrayWithArray:pluginsToDownload];

@@ -26,7 +26,6 @@
 
 @interface PluginManagerController : NSWindowController <NSURLDownloadDelegate, WebPolicyDelegate>
 {
-
     IBOutlet NSMenu	*filtersMenu;
 	IBOutlet NSMenu	*roisMenu;
 	IBOutlet NSMenu	*othersMenu;
@@ -42,7 +41,7 @@
 	IBOutlet WebView *webView;
 	NSArray *pluginsListURLs;
 	IBOutlet NSPopUpButton *pluginsListPopUp;
-	NSString *downloadURL;
+    NSDictionary *downloadURL;
 	IBOutlet NSButton *downloadButton;
 	IBOutlet NSTextField *statusTextField;
 	IBOutlet NSProgressIndicator *statusProgressIndicator;
@@ -64,7 +63,7 @@
 - (IBAction)changeWebView:(id)sender;
 - (void)setURLforPluginWithName:(NSString*)name;
 
-- (void)setDownloadURL:(NSString*)url;
+- (void)setDownloadURL:(NSDictionary*)url;
 - (IBAction)download:(id)sender;
 
 - (void)installDownloadedPluginAtPath:(NSString*)path;

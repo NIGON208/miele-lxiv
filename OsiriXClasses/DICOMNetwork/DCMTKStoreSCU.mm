@@ -486,11 +486,14 @@ progressCallback(void * /*callbackData*/,
     if (progressLogger.getChainedLogLevel() == OFLogger::INFO_LOG_LEVEL) {
         switch (progress->state) {
         case DIMSE_StoreBegin:
-            COUT << "XMIT: "; break;
+                COUT << "XMIT: ";
+                break;
         case DIMSE_StoreEnd:
-            COUT << OFendl; break;
+                COUT << OFendl;
+                break;
         default:
-            COUT << "."; break;
+                COUT << ".";
+                break;
         }
         COUT.flush();
     }

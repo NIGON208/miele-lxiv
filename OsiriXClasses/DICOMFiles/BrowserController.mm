@@ -13892,7 +13892,8 @@ static NSArray*	openSubSeriesArray = nil;
 		if (firstTimeNotEnoughMemory)
 		{
 			firstTimeNotEnoughMemory = NO;
-			[[AppController sharedAppController] osirix64bit: nil];
+            NSLog(@"%s %d firstTimeNotEnoughMemory", __FUNCTION__, __LINE__);
+			//[[AppController sharedAppController] osirix64bit: nil];
 		}
 		
 		[leftIcon setImage: [NSImage imageNamed: @"error"]];
@@ -15555,12 +15556,28 @@ static NSArray*	openSubSeriesArray = nil;
 	NSMenuItem *helpItem = [mainMenu addItemWithTitle:NSLocalizedString(@"Help", nil) action:nil keyEquivalent:@""];
 	NSMenu *helpMenu = [[NSMenu allocWithZone: [NSMenu menuZone]] initWithTitle: NSLocalizedString(@"Help", nil)];
 	[helpItem setSubmenu:helpMenu];
-	[helpMenu addItemWithTitle: NSLocalizedString(@"Send an email to OsiriX support", nil) action: @selector(sendEmail:) keyEquivalent: @""];
-	[helpMenu addItemWithTitle: NSLocalizedString(@"Pixmeo Web site", nil) action: @selector(openOsirixWebPage:) keyEquivalent: @""];	
-	[helpMenu addItemWithTitle: NSLocalizedString(@"OsiriX Discussion Group", nil) action: @selector(openOsirixDiscussion:) keyEquivalent: @""];
-	[helpMenu addItem: [NSMenuItem separatorItem]];
-	[helpMenu addItemWithTitle: NSLocalizedString(@"OsiriX Help Web Site ", nil) action: @selector(help:) keyEquivalent: @""];
-    [helpMenu addItemWithTitle: NSLocalizedString(@"User Manual", nil) action: @selector(userManual:) keyEquivalent: @""];
+
+    [helpMenu addItemWithTitle: NSLocalizedString(@"Send an email to OsiriX support", nil)
+                        action: @selector(sendEmail:)
+                 keyEquivalent: @""];
+
+    [helpMenu addItemWithTitle: NSLocalizedString(@"Pixmeo Web site", nil)
+                        action: @selector(openOsirixWebPage:)
+                 keyEquivalent: @""];
+
+    [helpMenu addItemWithTitle: NSLocalizedString(@"OsiriX Discussion Group", nil)
+                        action: @selector(openOsirixDiscussion:)
+                 keyEquivalent: @""];
+
+    [helpMenu addItem: [NSMenuItem separatorItem]];
+
+    [helpMenu addItemWithTitle: NSLocalizedString(@"OsiriX Help Web Site", nil)
+                        action: @selector(help:)
+                 keyEquivalent: @""];
+
+    [helpMenu addItemWithTitle: NSLocalizedString(@"User Manual", nil)
+                        action: @selector(userManual:)
+                 keyEquivalent: @""];
     
 	[helpMenu release];
 }

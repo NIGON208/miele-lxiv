@@ -66,6 +66,14 @@ enum
 	ask = 3
 };
 
+typedef NS_ENUM(NSUInteger, MultipleScreenType) {
+    MULTIPLE_SCREEN_TYPE_MAIN_ONLY = 0, // use main screen only
+    MULTIPLE_SCREEN_TYPE_2ND_ONLY = 1,  // use second screen only
+    MULTIPLE_SCREEN_TYPE_ALL = 2        // use all screens
+};
+
+#pragma mark -
+
 @class PluginFilter;
 
 #ifdef __cplusplus
@@ -201,7 +209,7 @@ extern AppController* OsiriX;
 - (IBAction) sendEmail: (id) sender;   /**< Send email to lead developer */
 - (IBAction) openOsirixWebPage: (id) sender;  /**<  Open OsiriX web page */
 - (IBAction) openOsirixDiscussion: (id) sender; /**< Open OsiriX discussion web page */
-- (IBAction) osirix64bit: (id) sender;
+//- (IBAction) osirix64bit: (id) sender;
 - (IBAction) userManual: (id) sender;
 //---------------------------------------------
 - (IBAction) help: (id) sender;  /**< Open help window */

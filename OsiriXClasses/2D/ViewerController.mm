@@ -6891,7 +6891,7 @@ static ViewerController *draggedController = nil;
 	// Set up the standard properties 
 	[toolbarItem setLabel: NSLocalizedString(@"Rate", nil)];
 	[toolbarItem setPaletteLabel: NSLocalizedString(@"Rate", nil)];
-	[toolbarItem setToolTip: NSLocalizedString(@"Change the frame rate speed", nil)];
+	[toolbarItem setToolTip: NSLocalizedString(@"Change the frame rate", nil)];
 	
 	// Use a custom view, a text field, for the search item 
 	[toolbarItem setView: speedView];
@@ -9513,20 +9513,21 @@ static int avoidReentryRefreshDatabase = 0;
 	switch ([[NSUserDefaults standardUserDefaults] integerForKey: @"MULTIPLESCREENS"])
 	{
         default:
-		case 0:		// use main screen only
+		case MULTIPLE_SCREEN_TYPE_MAIN_ONLY:
 			screen = [[NSScreen screens] objectAtIndex:0];
-		break;
+            break;
 		
-		case 1:		// use second screen only
+		case MULTIPLE_SCREEN_TYPE_2ND_ONLY:
 			if ([[NSScreen screens] count] > 1)
 				screen = [[NSScreen screens] objectAtIndex:1];
 			else
 				screen = [[NSScreen screens] objectAtIndex:0];
-		break;
+
+            break;
 		
-		case 2:		// use all screens
+		case MULTIPLE_SCREEN_TYPE_ALL:
 			screen = [[NSScreen screens] objectAtIndex:0];
-		break;
+            break;
 	}
 	
     NSRect screenRect = [AppController usefullRectForScreen: screen];

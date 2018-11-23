@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14313.18"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -129,8 +129,8 @@
                                     </connections>
                                 </button>
                                 <button toolTip="Connect to OsiriX and check for latest version." translatesAutoresizingMaskIntoConstraints="NO" id="BXs-xj-ZZ5">
-                                    <rect key="frame" x="15" y="11" width="399" height="18"/>
-                                    <buttonCell key="cell" type="check" title="Display Notifications (MacOS 10.8 or higher or Growl required)" bezelStyle="regularSquare" imagePosition="left" alignment="left" scrollable="YES" lineBreakMode="clipping" inset="2" id="eOV-F7-aFg">
+                                    <rect key="frame" x="15" y="11" width="249" height="18"/>
+                                    <buttonCell key="cell" type="check" title="Display Notifications (Growl required)" bezelStyle="regularSquare" imagePosition="left" alignment="left" scrollable="YES" lineBreakMode="clipping" inset="2" id="eOV-F7-aFg">
                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
@@ -219,6 +219,7 @@
                                 <constraint firstItem="341" firstAttribute="leading" secondItem="ffY-dV-DcU" secondAttribute="leading" constant="17" id="Air-8A-tX1"/>
                                 <constraint firstItem="341" firstAttribute="top" secondItem="ffY-dV-DcU" secondAttribute="top" constant="10" id="Cvb-gw-bZu"/>
                                 <constraint firstItem="545" firstAttribute="top" secondItem="546" secondAttribute="top" id="DWk-tg-5ts"/>
+                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="159" secondAttribute="trailing" constant="20" symbolic="YES" id="Eqh-N3-jcX"/>
                                 <constraint firstItem="539" firstAttribute="baseline" secondItem="542" secondAttribute="baseline" id="Fze-nj-hJz"/>
                                 <constraint firstItem="159" firstAttribute="top" secondItem="341" secondAttribute="bottom" constant="10" id="G9b-Ht-f9v"/>
                                 <constraint firstItem="341" firstAttribute="leading" secondItem="159" secondAttribute="leading" id="Hee-dP-6zx"/>
@@ -229,6 +230,7 @@
                                 <constraint firstItem="546" firstAttribute="leading" secondItem="545" secondAttribute="trailing" constant="11" id="Rvt-2e-nHK"/>
                                 <constraint firstItem="341" firstAttribute="baseline" secondItem="539" secondAttribute="baseline" id="T19-Ga-QiY"/>
                                 <constraint firstItem="159" firstAttribute="leading" secondItem="535" secondAttribute="leading" id="ahJ-AP-oho"/>
+                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="535" secondAttribute="trailing" constant="20" symbolic="YES" id="iPw-Hb-uvC"/>
                                 <constraint firstAttribute="trailing" secondItem="542" secondAttribute="trailing" constant="17" id="lyc-hy-nBK"/>
                                 <constraint firstItem="535" firstAttribute="leading" secondItem="BXs-xj-ZZ5" secondAttribute="leading" id="rgU-Gg-nDd"/>
                                 <constraint firstItem="539" firstAttribute="leading" secondItem="341" secondAttribute="trailing" constant="39" id="tKp-FS-3mp"/>
@@ -337,7 +339,7 @@
                                     </constraints>
                                     <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" id="534">
                                         <font key="font" metaFont="smallSystem"/>
-                                        <string key="title">Restart OsiriX to apply the changes.
+                                        <string key="title">Restart Miele-LXIV to apply the changes.
 If multiple languages are enabled, the used language will be chosen according to MacOS settings.</string>
                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -475,7 +477,7 @@ Gw
                         <rect key="frame" x="483" y="48" width="457" height="341"/>
                         <clipView key="contentView" id="EK6-dZ-HuA">
                             <rect key="frame" x="1" y="0.0" width="455" height="340"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <subviews>
                                 <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" alternatingRowBackgroundColors="YES" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" headerView="219" id="218">
                                     <rect key="frame" x="0.0" y="0.0" width="455" height="317"/>
@@ -579,7 +581,7 @@ Gw
                         <rect key="frame" x="20" y="48" width="457" height="341"/>
                         <clipView key="contentView" id="FNE-Eu-X4N">
                             <rect key="frame" x="1" y="0.0" width="455" height="340"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <subviews>
                                 <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" alternatingRowBackgroundColors="YES" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" headerView="289" id="290">
                                     <rect key="frame" x="0.0" y="0.0" width="455" height="317"/>

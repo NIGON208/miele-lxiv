@@ -504,11 +504,11 @@ NSRect screenFrame()
 	NSRect screenRect;
 	switch ([[NSUserDefaults standardUserDefaults] integerForKey: @"MULTIPLESCREENS"])
 	{
-		case 0:		// use main screen only
+		case MULTIPLE_SCREEN_TYPE_MAIN_ONLY:
 			screenRect    = [[[NSScreen screens] objectAtIndex:0] visibleFrame];
-		break;
+            break;
 		
-		case 1:		// use second screen only
+		case MULTIPLE_SCREEN_TYPE_2ND_ONLY:
 			if (screenCount == 2)
 			{
 				screenRect = [[[NSScreen screens] objectAtIndex: 1] visibleFrame];
@@ -533,9 +533,9 @@ NSRect screenFrame()
 			{
 				screenRect    = [[[NSScreen screens] objectAtIndex:0] visibleFrame];
 			}
-		break;
+            break;
 		
-		case 2:		// use all screens
+		case MULTIPLE_SCREEN_TYPE_ALL:
 			height = [[[NSScreen screens] objectAtIndex:0] frame].size.height;
 			singleWidth = width = [[[NSScreen screens] objectAtIndex:0] frame].size.width;
 			for (i = 1; i < screenCount; i ++)
@@ -549,126 +549,125 @@ NSRect screenFrame()
 										width,
 										height);
 			//screenRect    = [[[NSScreen screens] objectAtIndex:0] visibleFrame];
-			
-			
-		break;
+            break;
 	}
 	return screenRect;
 }
 
+#if 0
 // This function takes as parameter the data of the aliases  
 // stored in the com.apple.LaunchServices.plist file.  
 // It returns the resolved path as string.  
 static NSString *getResolvedAliasPath(NSData* inData)  
 {  
-    NSString *outPath = nil;  
-    if (inData != nil)
-    {  
-        const void *theDataPtr = [inData bytes];  
-        NSUInteger theDataLength = [inData length];  
-        if (theDataPtr != nil && theDataLength > 0)
-        {  
-            // Create an AliasHandle from the NSData  
-            AliasHandle theAliasHandle;  
-            theAliasHandle = (AliasHandle)NewHandle(theDataLength);  
-            bcopy(theDataPtr, *theAliasHandle, theDataLength);  
-			
-            FSRef theRef;  
-            Boolean wChang;  
-            OSStatus err = noErr;  
-            err = FSResolveAlias(NULL, theAliasHandle, &theRef, &wChang);  
+    if (!inData)
+        return nil;
+
+    NSString *outPath = nil;
+    const void *theDataPtr = [inData bytes];
+    NSUInteger theDataLength = [inData length];
+    if (theDataPtr != nil && theDataLength > 0)
+    {
+        // Create an AliasHandle from the NSData
+        AliasHandle theAliasHandle;
+        theAliasHandle = (AliasHandle)NewHandle(theDataLength);
+        bcopy(theDataPtr, *theAliasHandle, theDataLength);
+        
+        FSRef theRef;
+        Boolean wChang;
+        OSStatus err = noErr;
+        err = FSResolveAlias(NULL, theAliasHandle, &theRef, &wChang);
+        if (err == noErr)
+        {
+            // The path was resolved.
+            char path[1024];
+            err = FSRefMakePath(&theRef, (UInt8*)path, sizeof(path));
             if (err == noErr)
-            {  
-                // The path was resolved.  
-                char path[1024];  
-                err = FSRefMakePath(&theRef, (UInt8*)path, sizeof(path));  
-                if (err == noErr)
-                    outPath = [NSString stringWithUTF8String:path];  
-            }  
-            else  
-            {  
-                // If we can't resolve the alias (file not found),  
-                // we can still return the path.  
-                CFStringRef tmpPath = NULL;  
-                err = FSCopyAliasInfo(theAliasHandle, NULL, NULL,  
-                                      &tmpPath, NULL, NULL);  
-				
-                if (err == noErr && tmpPath != NULL)
-                    outPath = [(NSString*)tmpPath autorelease];  
-            }  
-			
-            DisposeHandle((Handle)theAliasHandle);  
-        }  
-    }  
+                outPath = [NSString stringWithUTF8String:path];
+        }
+        else
+        {
+            // If we can't resolve the alias (file not found),
+            // we can still return the path.
+            CFStringRef tmpPath = NULL;
+            err = FSCopyAliasInfo(theAliasHandle, NULL, NULL,
+                                  &tmpPath, NULL, NULL);
+            
+            if (err == noErr && tmpPath != NULL)
+                outPath = [(NSString*)tmpPath autorelease];
+        }
+        
+        DisposeHandle((Handle)theAliasHandle);
+    }
 	
     return outPath;  
 }  
 
-static void dumpLSArchitecturesForX86_64()  
+static void dumpLSArchitecturesForX86_64()
 { 
     // The path of the com.apple.LaunchServices.plist file.  
     NSString *prefsPath = @"~/Library/Preferences/com.apple.LaunchServices.plist";  
     prefsPath = [prefsPath stringByExpandingTildeInPath];  
     
     NSDictionary *mainDict = [NSDictionary dictionaryWithContentsOfFile:prefsPath];  
-    if (mainDict != nil)
-    {  
-        // We are only interested by the  
-        // "LSArchitecturesForX86_64" dictionary.  
-        NSDictionary *architectureDict = [mainDict objectForKey:@"LSArchitecturesForX86_64"];  
+    if (!mainDict)
+        return;
+
+    // We are only interested in the
+    // "LSArchitecturesForX86_64" dictionary.
+    NSDictionary *architectureDict = [mainDict objectForKey:@"LSArchitecturesForX86_64"];
+    
+    // Get the list of applications.
+    // The array is ordered by applicationID.
+    NSArray *applicationIDArray = [architectureDict allKeys];
+    if (!applicationIDArray)
+        return;
+
+    // For each applicationID
+    NSUInteger i = 0;
+    for (i = 0 ; i < [applicationIDArray count] ; i++)
+    {
+        NSString *applicationID = [applicationIDArray objectAtIndex:i];
+        NSArray *appArray = [architectureDict objectForKey:applicationID];
         
-        // Get the list of applications.  
-        // The array is ordered by applicationID.  
-        NSArray *applicationIDArray = [architectureDict allKeys];  
-        if (applicationIDArray != nil)
-        {  
-            // For each applicationID  
-            NSUInteger i = 0;  
-            for (i = 0 ; i < [applicationIDArray count] ; i++)
-            {  
-                NSString *applicationID = [applicationIDArray objectAtIndex:i];
-                NSArray *appArray = [architectureDict objectForKey:applicationID];
+        // For each instance of the application,
+        // there is a pair (Alias, architecture).
+        // The alias is stored as a NSData
+        // and the architecture as a NSString.
+        NSUInteger j = 0;
+        for (j = 0 ; j < [appArray count] / 2 ; j++)
+        {
+            // Just for safety
+            if (j * 2 + 1 < [appArray count])
+            {
+                NSData *aliasData = [appArray objectAtIndex:j * 2];
+                NSString *theArch = [appArray objectAtIndex:j * 2 + 1];
                 
-                // For each instance of the application,  
-                // there is a pair (Alias, architecture).  
-                // The alias is stored as a NSData  
-                // and the architecture as a NSString.  
-                NSUInteger j = 0;  
-                for (j = 0 ; j < [appArray count] / 2 ; j++)
-                {  
-                    // Just for safety  
-                    if (j * 2 + 1 < [appArray count])
-                    {  
-                        NSData *aliasData = [appArray objectAtIndex:j * 2];  
-                        
-                        NSString *theArch = [appArray objectAtIndex:j * 2 + 1];  
-                        
-                        if (aliasData != nil && theArch != nil)
-                        {  
-                            // Get the path of the application  
-                            NSString *resolvedPath = getResolvedAliasPath(aliasData);  
-                            
-                            if ([resolvedPath isEqualToString: [[NSBundle mainBundle] bundlePath]])
-                            {
-                                if ([theArch isEqualToString: @"i386"])
-                                {										
-                                    NSAlert* alert = [[NSAlert new] autorelease];
-                                    [alert setMessageText: NSLocalizedString(@"64-bit", nil)];
-                                    [alert setInformativeText: NSLocalizedString(@"This version of OsiriX can run in 64-bit, but it is set to run in 32-bit. You can change this setting, by selecting the OsiriX icon in Applications folder, select 'Get Info' in Finder File menu and UNCHECK 'run in 32-bit mode'.", nil)];
-                                    [alert setShowsSuppressionButton:YES ];
-                                    [alert addButtonWithTitle: NSLocalizedString(@"Continue", nil)];
-                                    [alert runModal];
-                                    if ([[alert suppressionButton] state] == NSOnState)
-                                        [[NSUserDefaults standardUserDefaults] setBool:YES forKey: @"hideAlertRunIn32bit"];
-                                }
-                            }
-                        }  
-                    }  
-                }  
-            }  
-        }  
+                if (aliasData != nil && theArch != nil)
+                {
+                    // Get the path of the application
+                    NSString *resolvedPath = getResolvedAliasPath(aliasData);
+                    
+                    if ([resolvedPath isEqualToString: [[NSBundle mainBundle] bundlePath]])
+                    {
+                        if ([theArch isEqualToString: @"i386"])
+                        {
+                            NSAlert* alert = [[NSAlert new] autorelease];
+                            [alert setMessageText: NSLocalizedString(@"64-bit", nil)];
+                            [alert setInformativeText: NSLocalizedString(@"This version of OsiriX can run in 64-bit, but it is set to run in 32-bit. You can change this setting, by selecting the OsiriX icon in Applications folder, select 'Get Info' in Finder File menu and UNCHECK 'run in 32-bit mode'.", nil)];
+                            [alert setShowsSuppressionButton:YES ];
+                            [alert addButtonWithTitle: NSLocalizedString(@"Continue", nil)];
+                            [alert runModal];
+                            if ([[alert suppressionButton] state] == NSOnState)
+                                [[NSUserDefaults standardUserDefaults] setBool:YES forKey: @"hideAlertRunIn32bit"];
+                        }
+                    }
+                }
+            }
+        }
     }
-}  
+}
+#endif
 
 void exceptionHandler(NSException *exception)
 {
@@ -1109,21 +1108,21 @@ static NSDate *lastWarningDate = nil;
 ////////////////////////////////////////////////////////////////////////////////
 #pragma mark-
 
--(IBAction) osirix64bit:(id)sender
-{
-	if (sender)
-		[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:URL_OSIRIX_VIEWER@"/OsiriX-64bit.html"]];
-	else
-	{
-		NSArray* urls = [NSArray arrayWithObject: [NSURL URLWithString:URL_OSIRIX_VIEWER@"/OsiriX-64bit.html"]];
-
-        [[NSWorkspace sharedWorkspace] openURLs: urls
-                        withAppBundleIdentifier: nil
-                                        options: NSWorkspaceLaunchWithoutActivation
-                 additionalEventParamDescriptor: nil
-                              launchIdentifiers: nil];
-	}
-}
+//-(IBAction) osirix64bit:(id)sender
+//{
+//    if (sender)
+//        [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:URL_MIELE_SOURCES@"/OsiriX-64bit.html"]];
+//    else
+//    {
+//        NSArray* urls = [NSArray arrayWithObject: [NSURL URLWithString:URL_MIELE_SOURCES@"/OsiriX-64bit.html"]];
+//
+//        [[NSWorkspace sharedWorkspace] openURLs: urls
+//                        withAppBundleIdentifier: nil
+//                                        options: NSWorkspaceLaunchWithoutActivation
+//                 additionalEventParamDescriptor: nil
+//                              launchIdentifiers: nil];
+//    }
+//}
 
 -(IBAction)sendEmail:(id)sender
 {
@@ -1132,7 +1131,7 @@ static NSDate *lastWarningDate = nil;
 
 -(IBAction)openOsirixWebPage:(id)sender
 {
-	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:URL_OSIRIX_WEB_PAGE]];
+	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:URL_MIELE_WEB_PAGE]];
 }
 
 -(IBAction)help:(id)sender
@@ -3027,7 +3026,9 @@ static BOOL initialized = NO;
                       bundleIdentifier);
 
                 NSLog(@"DATABASELOCATION_______: %@", documentsDirectory());  // (deprecated method) defined in Preferences Panel, initially from OUR_DATA_LOCATION
-                NSLog(@"resourcePath___________: %@", [[NSBundle mainBundle] resourcePath]);
+                NSLog(@"resourcePath___________: %@", [[NSBundle mainBundle] resourcePath]);       // Contents/Resources
+                NSLog(@"sharedSupportPath______: %@", [[NSBundle mainBundle] sharedSupportPath]);  // Contents/SharedSupport
+                NSLog(@"builtInPlugInsPath_____: %@", [[NSBundle mainBundle] builtInPlugInsPath]); // Contents/PlugIns
 
                 NSLog(@"MAC_OS_X_VERSION_MIN_REQUIRED: %d", MAC_OS_X_VERSION_MIN_REQUIRED);
                 NSLog(@"MAC_OS_X_VERSION_MAX_ALLOWED: %d",  MAC_OS_X_VERSION_MAX_ALLOWED);
@@ -3627,7 +3628,7 @@ static BOOL initialized = NO;
                                      nil);
 	
 		if (NSCancelButton == button)
-			[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:URL_OSIRIX_VIEWER]];
+			[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:URL_MIELE_SOURCES]];
 	}
 	@catch (NSException * e)
 	{
@@ -4298,7 +4299,7 @@ static BOOL initialized = NO;
         NSInteger button = [alert runModal];
         
         if (button == NSAlertSecondButtonReturn)
-            [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:URL_OSIRIX_VIEWER]];
+            [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:URL_MIELE_SOURCES]];
 #endif
     }
 	
@@ -4497,7 +4498,7 @@ static BOOL initialized = NO;
         verboseAfterCrash = YES;
 
 #ifdef NDEBUG  // AdHoc
-    NSURL *url = [NSURL URLWithString:@(URL_OSIRIX_VERSION)];
+    NSURL *url = [NSURL URLWithString:URL_MIELE_VERSION];
 	if (!url)
         return;
 
