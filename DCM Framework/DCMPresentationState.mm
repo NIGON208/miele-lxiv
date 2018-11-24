@@ -14,7 +14,7 @@
 
 #import <DCM/DCMPresentationState.h>
 #import <DCM/DCMAbstractSyntaxUID.h>
-#import <DCM/DCM.h>
+#import "DCM.h"
 
 @implementation  DCMObject (DCMPresentationState) 
 

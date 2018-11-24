@@ -1382,7 +1382,11 @@ return YES;
 	}
 	else if(err == ERROR_CANNOTFINDPATH)
 	{
-		NSRunAlertPanel(NSLocalizedString(@"Can't find path", nil), NSLocalizedString(@"Path Assistant can not find a path from A to B.", nil), NSLocalizedString(@"OK", nil), nil, nil);
+		NSRunAlertPanel(NSLocalizedString(@"Can't find path", nil),
+                        NSLocalizedString(@"Path Assistant can not find a path from A to B.", nil),
+                        NSLocalizedString(@"OK", nil),
+                        nil,
+                        nil);
 	}
 	else if(err==ERROR_DISTTRANSNOTFINISH)
 	{
@@ -1400,12 +1404,20 @@ return YES;
 		[waiting autorelease];
 		if(err==ERROR_CANNOTFINDPATH)
 		{
-			NSRunAlertPanel(NSLocalizedString(@"Can't find path", nil), NSLocalizedString(@"Path Assistant can not find a path from current location.", nil), NSLocalizedString(@"OK", nil), nil, nil);
+			NSRunAlertPanel(NSLocalizedString(@"Can't find path", nil),
+                            NSLocalizedString(@"Path Assistant can not find a path from current location.", nil),
+                            NSLocalizedString(@"OK", nil),
+                            nil,
+                            nil);
 			return;
 		}
 		else if(err==ERROR_DISTTRANSNOTFINISH)
 		{
-			NSRunAlertPanel(NSLocalizedString(@"Unexpected error", nil), NSLocalizedString(@"Path Assistant failed to initialize!", nil), NSLocalizedString(@"OK", nil), nil, nil);
+			NSRunAlertPanel(NSLocalizedString(@"Unexpected error", nil),
+                            NSLocalizedString(@"Path Assistant failed to initialize!", nil),
+                            NSLocalizedString(@"OK", nil),
+                            nil,
+                            nil);
 			return;
 		}
 	}

@@ -1133,7 +1133,11 @@ static float deg2rad = M_PI / 180.0;
             }
             else if(err == ERROR_CANNOTFINDPATH)
             {
-                NSRunAlertPanel(NSLocalizedString(@"Can't find path", nil), NSLocalizedString(@"Path Assistant can not find a path from A to B.", nil), NSLocalizedString(@"OK", nil), nil, nil);
+                NSRunAlertPanel(NSLocalizedString(@"Can't find path", nil),
+                                NSLocalizedString(@"Path Assistant can not find a path from A to B.", nil),
+                                NSLocalizedString(@"OK", nil),
+                                nil,
+                                nil);
             }
             else if(err==ERROR_DISTTRANSNOTFINISH)
             {
@@ -1157,15 +1161,23 @@ static float deg2rad = M_PI / 180.0;
                         [newCP addPatientNode:N3VectorApplyTransform(node, volumeData2PatientTransform)];
                     }
                 }
-                if(err==ERROR_CANNOTFINDPATH)
+                if (err==ERROR_CANNOTFINDPATH)
                 {
-                    NSRunAlertPanel(NSLocalizedString(@"Can't find path", nil), NSLocalizedString(@"Path Assistant can not find a path from current location.", nil), NSLocalizedString(@"OK", nil), nil, nil);
+                    NSRunAlertPanel(NSLocalizedString(@"Can't find path", nil),
+                                    NSLocalizedString(@"Path Assistant can not find a path from current location.", nil),
+                                    NSLocalizedString(@"OK", nil),
+                                    nil,
+                                    nil);
                     [waiting close];
                     return;
                 }
                 else if(err==ERROR_DISTTRANSNOTFINISH)
                 {
-                    NSRunAlertPanel(NSLocalizedString(@"Unexpected error", nil), NSLocalizedString(@"Path Assistant failed to initialize!", nil), NSLocalizedString(@"OK", nil), nil, nil);
+                    NSRunAlertPanel(NSLocalizedString(@"Unexpected error", nil),
+                                    NSLocalizedString(@"Path Assistant failed to initialize!", nil),
+                                    NSLocalizedString(@"OK", nil),
+                                    nil,
+                                    nil);
                     [waiting close];
                     return;
                 }        
@@ -4997,7 +5009,11 @@ static float deg2rad = M_PI / 180.0;
     if( [curvedPath.nodes count] > 1 && [curvedPath.nodes count] <= 5)
         [self assistedCurvedPath:nil];
     else
-         NSRunAlertPanel(NSLocalizedString(@"Path Assistant error", nil), NSLocalizedString(@"Path Assistant requires at least 2 points, and no more than 5 points. Use the Curved Path tool to define at least two points.", nil), NSLocalizedString(@"OK", nil), nil, nil);
+         NSRunAlertPanel(NSLocalizedString(@"Path Assistant error", nil),
+                         NSLocalizedString(@"Path Assistant requires at least 2 points, and no more than 5 points. Use the Curved Path tool to define at least two points.", nil),
+                         NSLocalizedString(@"OK", nil),
+                         nil,
+                         nil);
     
     [self willChangeValueForKey: @"onSliderEnabled"];
     [self didChangeValueForKey: @"onSliderEnabled"];

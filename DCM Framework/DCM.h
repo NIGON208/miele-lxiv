@@ -29,16 +29,16 @@
 #import <DCM/DCMNetServiceDelegate.h>
 #import <DCM/DCMEncapsulatedPDF.h>
 
-
 #define DCMDEBUG 0
 #define DCMFramework_compile YES
 
-
 #import <Accelerate/Accelerate.h>
 
-enum DCM_CompressionQuality {DCMLosslessQuality = 0, DCMHighQuality, DCMMediumQuality, DCMLowQuality};
-
-
+enum DCM_CompressionQuality {
+    DCMLosslessQuality = 0,
+    DCMHighQuality,
+    DCMMediumQuality,
+    DCMLowQuality};
 
 @protocol MoveStatusProtocol
 	- (void)setStatus:(unsigned short)moveStatus  numberSent:(int)numberSent numberError:(int)numberErrors;

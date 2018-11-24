@@ -527,7 +527,12 @@ static DicomDatabase* activeLocalDatabase = nil;
         N2LogExceptionWithStackTrace( e);
         
         if( [NSThread isMainThread])
-            NSRunAlertPanel( NSLocalizedString( @"Database", nil), @"%@", NSLocalizedString( @"OK", nil), nil, nil, e.reason);
+            NSRunAlertPanel(NSLocalizedString( @"Database", nil),
+                            @"%@",
+                            NSLocalizedString( @"OK", nil),
+                            nil,
+                            nil,
+                                e.reason);
         
         [self autorelease];
         return nil;
@@ -3589,7 +3594,11 @@ static BOOL protectionAgainstReentry = NO;
                 r = NSAlertDefaultReturn;
             }
             else
-                r = NSRunAlertPanel(NSLocalizedString(@"OsiriX Database", nil), NSLocalizedString(@"OsiriX cannot understand the model of current saved database... The database index will be deleted and reconstructed (no images are lost).", nil), NSLocalizedString(@"OK", nil), NSLocalizedString(@"Quit", nil), nil);
+                r = NSRunAlertPanel(NSLocalizedString(@"OsiriX Database", nil),
+                                    NSLocalizedString(@"OsiriX cannot understand the model of current saved database... The database index will be deleted and reconstructed (no images are lost).", nil),
+                                    NSLocalizedString(@"OK", nil),
+                                    NSLocalizedString(@"Quit", nil),
+                                    nil);
             
             if (r == NSAlertAlternateReturn)
             {
@@ -3925,13 +3934,23 @@ static BOOL protectionAgainstReentry = NO;
 		[newAlbumsNames release];		newAlbumsNames = nil;
 		
 		if (upgradeProblems.count)
-			NSRunAlertPanel(NSLocalizedString(@"Database Upgrade", nil), NSLocalizedString(@"The upgrade encountered %d errors. These corrupted studies have been removed: %@", nil), nil, nil, nil, upgradeProblems.count, [upgradeProblems componentsJoinedByString:@", "]);
+			NSRunAlertPanel(NSLocalizedString(@"Database Upgrade", nil),
+                            NSLocalizedString(@"The upgrade encountered %d errors. These corrupted studies have been removed: %@", nil),
+                            nil,
+                            nil,
+                            nil,
+                                upgradeProblems.count,
+                                [upgradeProblems componentsJoinedByString:@", "]);
 		
 		return YES;
 	} @catch (NSException* e) {
 		N2LogExceptionWithStackTrace(e);
 		
-		NSRunAlertPanel( NSLocalizedString(@"Database Update", nil), NSLocalizedString(@"Database updating failed... The database SQL index file is probably corrupted... The database will be reconstructed.", nil), nil, nil, nil);
+		NSRunAlertPanel(NSLocalizedString(@"Database Update", nil),
+                        NSLocalizedString(@"Database updating failed... The database SQL index file is probably corrupted... The database will be reconstructed.", nil),
+                        nil,
+                        nil,
+                        nil);
 		
 		[self rebuild:YES];
 		

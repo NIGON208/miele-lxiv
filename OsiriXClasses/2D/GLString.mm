@@ -413,13 +413,9 @@
 
 - (void) drawWithBounds:(NSRect)bounds
 {
-    NSLog(@"GLString.mm:%d %s", __LINE__, __PRETTY_FUNCTION__);
-    
 	if (requiresUpdate)
 		[self genTexture];
     
-    NSLog(@"GLString.mm:%d %s", __LINE__, __PRETTY_FUNCTION__);
-
 	if (texName)
 	{
 		glPushAttrib(GL_ENABLE_BIT | GL_TEXTURE_BIT | GL_COLOR_BUFFER_BIT); // GL_COLOR_BUFFER_BIT for glBlendFunc, GL_ENABLE_BIT for glEnable / glDisable

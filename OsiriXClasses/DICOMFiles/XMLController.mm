@@ -330,7 +330,11 @@ extern int delayedTileWindows;
 		}
 		else
 		{
-			NSRunAlertPanel( NSLocalizedString( @"Add DICOM Field", nil), NSLocalizedString( @"Illegal group / element values", nil), NSLocalizedString( @"OK", nil), nil, nil);
+			NSRunAlertPanel(NSLocalizedString( @"Add DICOM Field", nil),
+                            NSLocalizedString( @"Illegal group / element values", nil),
+                            NSLocalizedString( @"OK", nil),
+                            nil,
+                            nil);
 			return;
 		}
 	}
@@ -1296,7 +1300,11 @@ extern int delayedTileWindows;
 	
 	if( [selectedRowIndexes count] != 1)
 	{
-		NSRunAlertPanel( NSLocalizedString( @"Sort Series Images", nil) , NSLocalizedString( @"Select an element to use to sort the images of the series.", nil), NSLocalizedString( @"OK", nil), nil, nil);
+		NSRunAlertPanel(NSLocalizedString( @"Sort Series Images", nil) ,
+                        NSLocalizedString( @"Select an element to use to sort the images of the series.", nil),
+                        NSLocalizedString( @"OK", nil),
+                        nil,
+                        nil);
 		return;
 	}
 	
@@ -1305,7 +1313,7 @@ extern int delayedTileWindows;
 	
 	if( index > 0 && item && [[item attributeForName:@"group"] objectValue] && [[item attributeForName:@"element"] objectValue])
 	{
-		if( NSRunInformationalAlertPanel( NSLocalizedString( @"Sort Series Images", nil),
+		if( NSRunInformationalAlertPanel(NSLocalizedString( @"Sort Series Images", nil),
                                          NSLocalizedString(@"Are you sure you want to re-sort the series images according to this field?", nil),
                                          NSLocalizedString(@"OK", nil),
                                          NSLocalizedString(@"Cancel", nil),
@@ -1331,14 +1339,22 @@ extern int delayedTileWindows;
 			@catch( NSException *e)
 			{
 				NSLog( @"%@", e);
-				NSRunAlertPanel( NSLocalizedString( @"Sort Series Images", nil) , NSLocalizedString( @"Select an element to use to sort the images of the series.", nil), NSLocalizedString( @"OK", nil), nil, nil);
+				NSRunAlertPanel(NSLocalizedString( @"Sort Series Images", nil),
+                                NSLocalizedString( @"Select an element to use to sort the images of the series.", nil),
+                                NSLocalizedString( @"OK", nil),
+                                nil,
+                                nil);
 			}
 			
 			dontListenToIndexChange = NO;
 		}
 	}
 	else
-        NSRunAlertPanel( NSLocalizedString( @"Sort Series Images", nil) , NSLocalizedString( @"Select an element to use to sort the images of the series.", nil), NSLocalizedString( @"OK", nil), nil, nil);
+        NSRunAlertPanel(NSLocalizedString( @"Sort Series Images", nil),
+                        NSLocalizedString( @"Select an element to use to sort the images of the series.", nil),
+                        NSLocalizedString( @"OK", nil),
+                        nil,
+                        nil);
 }
 
 - (void)keyDown:(NSEvent *)event

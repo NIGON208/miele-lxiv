@@ -457,7 +457,11 @@
 			
 			if (![[NSFileManager defaultManager] fileExistsAtPath:[[NSUserDefaults standardUserDefaults] stringForKey:@"DEFAULT_DATABASELOCATIONURL"] isDirectory:&isDir])
 			{
-				NSRunAlertPanel(@"OsiriX Database Location", @"This location is not valid. Select another location.", @"OK", nil, nil);
+				NSRunAlertPanel(@"Miele-LXIV Database Location",
+                                @"This location is not valid. Select another location.",
+                                @"OK",
+                                nil,
+                                nil);
 				
 				[locationMatrix selectCellWithTag:0];
 			}

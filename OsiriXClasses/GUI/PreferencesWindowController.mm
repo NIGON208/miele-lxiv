@@ -187,7 +187,7 @@ static const NSMutableArray* pluginPanes = [[NSMutableArray alloc] init];
                                  image: (NSImage*)image
 {
 	if (!image)
-		image = [NSImage imageNamed:@"osirixplugin"];
+		image = [NSImage imageNamed:PLUGIN_EXTENSION];
     
 	[pluginPanes addObject:[NSArray arrayWithObjects:resourceName, parentBundle, title, image, NULL]];
 }

@@ -198,37 +198,47 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
     }
 }
 
-+ (void) setMenus:(NSMenu*) filtersMenu :(NSMenu*) roisMenu :(NSMenu*) othersMenu :(NSMenu*) dbMenu
++ (void) setMenus:(NSMenu*) filtersMenu
+                 :(NSMenu*) roisMenu
+                 :(NSMenu*) othersMenu
+                 :(NSMenu*) dbMenu
 {
     [filtersMenu removeAllItems];
     [roisMenu removeAllItems];
     [othersMenu removeAllItems];
     [dbMenu removeAllItems];
-	
-	NSEnumerator *enumerator = [pluginsDict objectEnumerator];
+
+    NSLog(@"Line %d, plugins:<%@>", __LINE__, plugins);  // the actual plugin objects
+    NSLog(@"Line %d, pluginsDict:%@", __LINE__, pluginsDict);  // info about plugins: menu titles, toolbar name
+
+    // "pluginsDict"
+
+    NSEnumerator *enumerator = [pluginsDict objectEnumerator];
 	NSBundle *plugin;
 	
 	while ((plugin = [enumerator nextObject]))
 	{
-		NSString	*pluginName = [[plugin infoDictionary] objectForKey:@"CFBundleExecutable"];
-		NSString	*pluginType = [[plugin infoDictionary] objectForKey:@"pluginType"];
-		NSArray		*menuTitles = [[plugin infoDictionary] objectForKey:@"MenuTitles"];
+		NSString *pluginName = [[plugin infoDictionary] objectForKey:PINFO_CF_BUNDLE_EXE];
+		NSString *pluginType = [[plugin infoDictionary] objectForKey:PINFO_TYPE];
+		NSArray  *menuTitles = [[plugin infoDictionary] objectForKey:PINFO_MENU_TITLES];
 		
+        NSLog(@"%s %d, Name:<%@>, Type:%@, Titles:%@", __FUNCTION__, __LINE__,
+              pluginName, pluginType, menuTitles);
+        
         [PluginManager startProtectForCrashWithPath: [plugin bundlePath]];
         
-		if( menuTitles)
+		if (menuTitles)
 		{
-			if( [menuTitles count] > 1)
+			if ([menuTitles count] > 1)
 			{
 				// Create a sub menu item
-				
 				NSMenu  *subMenu = [[[NSMenu alloc] initWithTitle: pluginName] autorelease];
 				
-				for( NSString *menuTitle in menuTitles)
+				for (NSString *menuTitle in menuTitles)
 				{
 					NSMenuItem *item;
 					
-					if ([menuTitle isEqual:@"(-"])
+					if ([menuTitle isEqual:PINFO_MENU_ITEM_SEPARATOR])
 					{
 						item = [NSMenuItem separatorItem];
 					}
@@ -236,13 +246,14 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
 					{
 						item = [[[NSMenuItem alloc] init] autorelease];
 						[item setTitle:menuTitle];
-						
-						if( [pluginType rangeOfString: @"fusionFilter"].location != NSNotFound)
+
+						if( [pluginType rangeOfString: PTYPE_FUSION_FILTER].location != NSNotFound)
 						{
 							[fusionPlugins addObject:[item title]];
 							[item setAction:@selector(endBlendingType:)];
 						}
-						else if( [pluginType rangeOfString: @"Database"].location != NSNotFound || [pluginType rangeOfString: @"Report"].location != NSNotFound)
+						else if ([pluginType rangeOfString: PTYPE_DATABASE].location != NSNotFound ||
+                                 [pluginType rangeOfString: PTYPE_REPORT].location != NSNotFound)
 						{
 							[item setTarget: [BrowserController currentBrowser]];	//  browserWindow responds to DB plugins
 							[item setAction:@selector(executeFilterDB:)];
@@ -257,9 +268,9 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
 					[subMenu insertItem:item atIndex:[subMenu numberOfItems]];
 				}
 				
-				id  subMenuItem;
+				id subMenuItem;
 				
-				if( [pluginType rangeOfString: @"imageFilter"].location != NSNotFound)
+				if( [pluginType rangeOfString: PTYPE_IMAGE_FILTER].location != NSNotFound)
 				{
 					if( [filtersMenu indexOfItemWithTitle: pluginName] == -1)
 					{
@@ -267,7 +278,7 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
 						[filtersMenu setSubmenu:subMenu forItem:subMenuItem];
 					}
 				}
-				else if( [pluginType rangeOfString: @"roiTool"].location != NSNotFound)
+				else if( [pluginType rangeOfString: PTYPE_ROI_TOOL].location != NSNotFound)
 				{
 					if( [roisMenu indexOfItemWithTitle: pluginName] == -1)
 					{
@@ -275,7 +286,7 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
 						[roisMenu setSubmenu:subMenu forItem:subMenuItem];
 					}
 				}
-				else if( [pluginType rangeOfString: @"fusionFilter"].location != NSNotFound)
+				else if( [pluginType rangeOfString: PTYPE_FUSION_FILTER].location != NSNotFound)
 				{
 					if( [fusionPluginsMenu indexOfItemWithTitle: pluginName] == -1)
 					{
@@ -283,7 +294,7 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
 						[fusionPluginsMenu setSubmenu:subMenu forItem:subMenuItem];
 					}
 				}
-				else if( [pluginType rangeOfString: @"Database"].location != NSNotFound)
+				else if( [pluginType rangeOfString: PTYPE_DATABASE].location != NSNotFound)
 				{
 					if( [dbMenu indexOfItemWithTitle: pluginName] == -1)
 					{
@@ -304,19 +315,19 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
 			}
 			else
 			{
-				// Create a menu item
-				
+				// Create a single menu item
 				NSMenuItem *item = [[[NSMenuItem alloc] init] autorelease];
 				
 				[item setTitle: [menuTitles objectAtIndex: 0]];	//pluginName];
                 [item setRepresentedObject:plugin];
 				
-				if( [pluginType rangeOfString: @"fusionFilter"].location != NSNotFound)
+				if( [pluginType rangeOfString: PTYPE_FUSION_FILTER].location != NSNotFound)
 				{
 					[fusionPlugins addObject:[item title]];
 					[item setAction:@selector(endBlendingType:)];
 				}
-				else if( [pluginType rangeOfString: @"Database"].location != NSNotFound || [pluginType rangeOfString: @"Report"].location != NSNotFound)
+				else if ([pluginType rangeOfString: PTYPE_DATABASE].location != NSNotFound ||
+                         [pluginType rangeOfString: PTYPE_REPORT].location != NSNotFound)
 				{
 					[item setTarget:[BrowserController currentBrowser]];	//  browserWindow responds to DB plugins
 					[item setAction:@selector(executeFilterDB:)];
@@ -327,27 +338,35 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
 					[item setAction:@selector(executeFilter:)];
 				}
 				
-				if( [pluginType rangeOfString: @"imageFilter"].location != NSNotFound)
+                if ([pluginType rangeOfString: PTYPE_IMAGE_FILTER].location != NSNotFound) {
+                    NSLog(@"%s %d", __FUNCTION__, __LINE__);
 					[filtersMenu insertItem:item atIndex:[filtersMenu numberOfItems]];
-				
-				else if( [pluginType rangeOfString: @"roiTool"].location != NSNotFound)
+                }
+                else if( [pluginType rangeOfString: PTYPE_ROI_TOOL].location != NSNotFound) {
+                    NSLog(@"%s %d", __FUNCTION__, __LINE__);
 					[roisMenu insertItem:item atIndex:[roisMenu numberOfItems]];
-				
-				else if( [pluginType rangeOfString: @"fusionFilter"].location != NSNotFound)
+                }
+                else if( [pluginType rangeOfString: PTYPE_FUSION_FILTER].location != NSNotFound) {
+                    NSLog(@"%s %d", __FUNCTION__, __LINE__);
 					[fusionPluginsMenu insertItem:item atIndex:[fusionPluginsMenu numberOfItems]];
-				
-				else if( [pluginType rangeOfString: @"Database"].location != NSNotFound)
+                }
+                else if( [pluginType rangeOfString: PTYPE_DATABASE].location != NSNotFound) {
+                    NSLog(@"%s %d", __FUNCTION__, __LINE__);
 					[dbMenu insertItem:item atIndex:[dbMenu numberOfItems]];
-				
-				else
+                }
+                else {
+                    NSLog(@"%s %d", __FUNCTION__, __LINE__);
 					[othersMenu insertItem:item atIndex:[othersMenu numberOfItems]];
+                }
 			}
 		}
         
         [PluginManager endProtectForCrash];
-	}
+	} // while
 	
-	if( [filtersMenu numberOfItems] < 1)
+    // Define empty menus if necessary
+
+    if ([filtersMenu numberOfItems] < 1)
 	{
 		NSMenuItem *item = [[[NSMenuItem alloc] init] autorelease];
 		[item setTitle:NSLocalizedString(@"No plugins available for this menu", nil)];
@@ -357,7 +376,7 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
 		[filtersMenu insertItem:item atIndex:0];
 	}
 	
-	if( [roisMenu numberOfItems] < 1)
+	if ([roisMenu numberOfItems] < 1)
 	{
 		NSMenuItem *item = [[[NSMenuItem alloc] init] autorelease];
 		[item setTitle:NSLocalizedString(@"No plugins available for this menu", nil)];
@@ -367,7 +386,7 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
 		[roisMenu insertItem:item atIndex:0];
 	}
 	
-	if( [othersMenu numberOfItems] < 1)
+	if ([othersMenu numberOfItems] < 1)
 	{
 		NSMenuItem *item = [[[NSMenuItem alloc] init] autorelease];
 		[item setTitle:NSLocalizedString(@"No plugins available for this menu", nil)];
@@ -377,7 +396,7 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
 		[othersMenu insertItem:item atIndex:0];
 	}
 	
-	if( [fusionPluginsMenu numberOfItems] <= 1)
+	if ([fusionPluginsMenu numberOfItems] <= 1)
 	{
 		NSMenuItem *item = [[[NSMenuItem alloc] init] autorelease];
 		[item setTitle:NSLocalizedString(@"No plugins available for this menu", nil)];
@@ -388,7 +407,7 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
 		[fusionPluginsMenu insertItem:item atIndex:0];
 	}
 	
-	if( [dbMenu numberOfItems] < 1)
+	if ( [dbMenu numberOfItems] < 1)
 	{
 		NSMenuItem *item = [[[NSMenuItem alloc] init] autorelease];
 		[item setTitle:NSLocalizedString(@"No plugins available for this menu", nil)];
@@ -403,10 +422,13 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
     [PluginManager sortMenu: filtersMenu];
     [PluginManager sortMenu: othersMenu];
     
-	NSEnumerator *pluginEnum = [plugins objectEnumerator];
+    // "plugins"
+    // Call each plugin and give it a chance to setup the Menu
+
+    NSEnumerator *pluginEnum = [plugins objectEnumerator];
 	PluginFilter *pluginFilter;
 	
-	while( pluginFilter = [pluginEnum nextObject])
+	while (pluginFilter = [pluginEnum nextObject])
     {
         [PluginManager startProtectForCrashWithFilter: pluginFilter];
         
@@ -561,7 +583,8 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
     NSString *name = [path lastPathComponent];
     path = [path stringByDeletingLastPathComponent];
     
-    if (([[name pathExtension] isEqualToString:@"plugin"] || [[name pathExtension] isEqualToString:@"osirixplugin"]))
+    if (([[name pathExtension] isEqualToString:@"plugin"] ||
+         [[name pathExtension] isEqualToString:PLUGIN_EXTENSION]))
     {
         if( [pluginsNames valueForKey: [[name lastPathComponent] stringByDeletingPathExtension]])
         {
@@ -573,7 +596,12 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
                 
                 message = [message stringByAppendingFormat:@"\r\r%@", [name lastPathComponent]];
                 
-                NSRunAlertPanel( NSLocalizedString(@"Plugins", nil), @"%@" , nil, nil, nil, message);
+                NSRunAlertPanel(NSLocalizedString(@"Plugins", nil),
+                                @"%@" ,
+                                nil,
+                                nil,
+                                nil,
+                                message);
             }
         }
         else
@@ -614,14 +642,14 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
                             if( filterClass == NSClassFromString( @"ARGS"))
                                 return;
                             
-                            if ([[[plugin infoDictionary] objectForKey:@"pluginType"] rangeOfString:@"Pre-Process"].location != NSNotFound) 
+                            if ([[[plugin infoDictionary] objectForKey:PINFO_TYPE] rangeOfString:PTYPE_PRE_PROCESS].location != NSNotFound)
                             {
                                 PluginFilter *filter = [filterClass filter];
                                 [preProcessPlugins addObject: filter];
                             }
-                            else if ([[plugin infoDictionary] objectForKey:@"FileFormats"]) 
+                            else if ([[plugin infoDictionary] objectForKey:PINFO_FILE_FORMATS])
                             {
-                                NSEnumerator *enumerator = [[[plugin infoDictionary] objectForKey:@"FileFormats"] objectEnumerator];
+                                NSEnumerator *enumerator = [[[plugin infoDictionary] objectForKey:PINFO_FILE_FORMATS] objectEnumerator];
                                 NSString *fileFormat;
                                 while (fileFormat = [enumerator nextObject])
                                 {
@@ -631,7 +659,7 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
                             }
                             else if ( [filterClass instancesRespondToSelector:@selector(filterImage:)])
                             {
-                                NSArray *menuTitles = [[plugin infoDictionary] objectForKey:@"MenuTitles"];
+                                NSArray *menuTitles = [[plugin infoDictionary] objectForKey:PINFO_MENU_TITLES];
                                 PluginFilter *filter = [filterClass filter];
                                 
                                 if( menuTitles)
@@ -643,7 +671,7 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
                                     }
                                 }
                                 
-                                NSArray *toolbarNames = [[plugin infoDictionary] objectForKey:@"ToolbarNames"];
+                                NSArray *toolbarNames = [[plugin infoDictionary] objectForKey:PINFO_TOOLBAR_NAMES];
                                 
                                 if( toolbarNames)
                                 {
@@ -655,9 +683,10 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
                                 }
                             }
                             
-                            if ([[[plugin infoDictionary] objectForKey:@"pluginType"] rangeOfString: @"Report"].location != NSNotFound) 
+                            if ([[[plugin infoDictionary] objectForKey:PINFO_TYPE] rangeOfString: PTYPE_REPORT].location != NSNotFound)
                             {
-                                [reportPlugins setObject: plugin forKey:[[plugin infoDictionary] objectForKey:@"CFBundleExecutable"]];
+                                [reportPlugins setObject: plugin
+                                                  forKey: [[plugin infoDictionary] objectForKey:PINFO_CF_BUNDLE_EXE]];
                             }
                         }
                         else
@@ -679,10 +708,12 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
 {
 	@try
 	{
-        NSString *bundleName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleName"];
+        NSString *bundleName = [[[NSBundle mainBundle] infoDictionary] objectForKey:PINFO_CF_BUNDLE_NAME];
+
         NSString *appSupport = [NSString stringWithFormat:@"Library/Application Support/%@/", bundleName];
         NSString *appAppStoreSupport = [NSString stringWithFormat:@"Library/Application Support/%@ App/", bundleName];
 		NSString *appPath = [[NSBundle mainBundle] builtInPlugInsPath];
+
         NSString *userAppStorePath = [NSHomeDirectory() stringByAppendingPathComponent:appAppStoreSupport];
 		NSString *userPath = [NSHomeDirectory() stringByAppendingPathComponent:appSupport];
 		NSString *sysPath = [@"/" stringByAppendingPathComponent:appSupport];
@@ -769,7 +800,7 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
         {
             NSString *pluginCrashPath = [NSString stringWithContentsOfFile: pluginCrash encoding: NSUTF8StringEncoding error: nil];
             
-            int result = NSRunInformationalAlertPanel(NSLocalizedString(@"OsiriX crashed", nil),
+            int result = NSRunInformationalAlertPanel(NSLocalizedString(@"Miele-LXIV crashed", nil),
                                                       NSLocalizedString(@"Previous crash is maybe related to a plugin.\r\rShould I remove this plugin (%@)?", nil),
                                                       NSLocalizedString(@"Delete Plugin",nil),
                                                       NSLocalizedString(@"Continue",nil),
@@ -820,13 +851,11 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
                 
                 NSString* name;
                 while (name = [e nextObject])
-                    if (/*[[name pathExtension] isEqualToString:@"osirixplugin"] &&*/
+                    if ([[name pathExtension] isEqualToString:PLUGIN_EXTENSION] &&
                         [doNotLoadNames containsObject:[name stringByDeletingPathExtension]] == NO)
                     {
-                        BOOL ok;
-                        NSString *s = [NSFileManager.defaultManager destinationOfAliasOrSymlinkAtPath:[path stringByAppendingPathComponent:name] resolved:&ok];
-                        if (ok)
-                            [pathsOfPluginsToLoad addObject:s];
+                        NSString *s = [path stringByAppendingPathComponent:name];
+                        [pathsOfPluginsToLoad addObject:[s stringByStandardizingPath]];
                     }
             } @catch (NSException* e) {
                 N2LogExceptionWithStackTrace(e);
@@ -836,17 +865,17 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
         for (__block NSInteger i = pathsOfPluginsToLoad.count-1; i >= 0; --i)
         {
             NSBundle* bundle = [NSBundle bundleWithPath:[pathsOfPluginsToLoad objectAtIndex:i]];
-            NSString* name = [bundle.infoDictionary objectForKey:@"CFBundleName"];
+            NSString* name = [bundle.infoDictionary objectForKey:PINFO_CF_BUNDLE_NAME];
             if (!name)
                 name = [[[pathsOfPluginsToLoad objectAtIndex:i] lastPathComponent] stringByDeletingPathExtension];
 //            
             
             // list of requirements
-            for (NSString* req in [bundle.infoDictionary objectForKey:@"Requirements"]) {
+            for (NSString* req in [bundle.infoDictionary objectForKey:PINFO_REQUIREMENTS]) {
                 // make sure they're loaded before this plugin
                 NSIndexSet* is = [pathsOfPluginsToLoad indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
                     NSBundle* bundle = [NSBundle bundleWithPath:obj];
-                    NSString* name = [bundle.infoDictionary objectForKey:@"CFBundleName"];
+                    NSString* name = [bundle.infoDictionary objectForKey:PINFO_CF_BUNDLE_NAME];
                     if (!name)
                         name = [[obj lastPathComponent] stringByDeletingPathExtension];
                     
@@ -890,7 +919,7 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
 #ifdef MACAPPSTORE
 	return @"./";
 #else
-    NSString *bundleName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleName"];
+    NSString *bundleName = [[[NSBundle mainBundle] infoDictionary] objectForKey:PINFO_CF_BUNDLE_NAME];
     return [NSString stringWithFormat:@"Library/Application Support/%@/Plugins/", bundleName];
 #endif
 }
@@ -900,7 +929,7 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
 #ifdef MACAPPSTORE
 	return @"./";
 #else
-    NSString *bundleName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleName"];
+    NSString *bundleName = [[[NSBundle mainBundle] infoDictionary] objectForKey:PINFO_CF_BUNDLE_NAME];
     return [NSString stringWithFormat:@"Library/Application Support/%@/Plugins Disabled/", bundleName];
 #endif
 }
@@ -1032,7 +1061,11 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
 	}
     
     if( !gPluginsAlertAlreadyDisplayed)
-        NSRunInformationalAlertPanel(NSLocalizedString(@"Plugins", @""), NSLocalizedString( @"Restart OsiriX to apply the changes to the plugins.", @""), NSLocalizedString(@"OK", @""), nil, nil);
+        NSRunInformationalAlertPanel(NSLocalizedString(@"Plugins", @""),
+                                     NSLocalizedString( @"Restart OsiriX to apply the changes to the plugins.", @""),
+                                     NSLocalizedString(@"OK", @""),
+                                     nil,
+                                     nil);
     gPluginsAlertAlreadyDisplayed = YES;
 }
 
@@ -1068,7 +1101,11 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
 	}
     
     if( !gPluginsAlertAlreadyDisplayed)
-        NSRunInformationalAlertPanel(NSLocalizedString(@"Plugins", @""), NSLocalizedString( @"Restart OsiriX to apply the changes to the plugins.", @""), NSLocalizedString(@"OK", @""), nil, nil);
+        NSRunInformationalAlertPanel(NSLocalizedString(@"Plugins", @""),
+                                     NSLocalizedString( @"Restart OsiriX to apply the changes to the plugins.", @""),
+                                     NSLocalizedString(@"OK", @""),
+                                     nil,
+                                     nil);
     gPluginsAlertAlreadyDisplayed = YES;
 }
 
@@ -1302,7 +1339,11 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
 	}
 	
     if( !gPluginsAlertAlreadyDisplayed)
-        NSRunInformationalAlertPanel(NSLocalizedString(@"Plugins", @""), NSLocalizedString( @"Restart OsiriX to apply the changes to the plugins.", @""), NSLocalizedString(@"OK", @""), nil, nil);
+        NSRunInformationalAlertPanel(NSLocalizedString(@"Plugins", @""),
+                                     NSLocalizedString( @"Restart OsiriX to apply the changes to the plugins.", @""),
+                                     NSLocalizedString(@"OK", @""),
+                                     nil,
+                                     nil);
     gPluginsAlertAlreadyDisplayed = YES;
     
 	return returnPath;
@@ -1355,7 +1396,7 @@ NSInteger sortPluginArray(id plugin1, id plugin2, void *context)
 		while(name = [e nextObject])
 		{
 			if ([[name pathExtension] isEqualToString:@"plugin"] ||
-                [[name pathExtension] isEqualToString:@"osirixplugin"])
+                [[name pathExtension] isEqualToString:PLUGIN_EXTENSION])
 			{
 //				NSBundle *plugin = [NSBundle bundleWithPath:[PluginManager pathResolved:[path stringByAppendingPathComponent:name]]];
 //				if (filterClass = [plugin principalClass])	
@@ -1505,7 +1546,12 @@ NSInteger sortPluginArray(id plugin1, id plugin2, void *context)
 
 	NSAutoreleasePool   *pool = [[NSAutoreleasePool alloc] init];
 	
-		int button = NSRunAlertPanel( [messageDictionary objectForKey:@"title"], @"%@", NSLocalizedString(@"Download", @""), NSLocalizedString( @"Cancel", @""), nil, [messageDictionary objectForKey:@"body"]);
+		int button = NSRunAlertPanel([messageDictionary objectForKey:@"title"],
+                                     @"%@",
+                                     NSLocalizedString(@"Download", @""),
+                                     NSLocalizedString( @"Cancel", @""),
+                                     nil,
+                                     [messageDictionary objectForKey:@"body"]);
 			
 		if (NSOKButton == button)
 		{

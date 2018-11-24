@@ -14,7 +14,7 @@
 
 #include "url.h"
 #import <DCM/DCMSequenceAttribute.h>
-#import <DCM/DCM.h>
+#import "DCM.h"
 
 @implementation DCMSequenceAttribute
 

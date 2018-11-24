@@ -1841,7 +1841,11 @@ public:
 {
 	if (export3DWindow == nil)
 	{
-		NSRunAlertPanel(NSLocalizedString(@"Not available", nil), NSLocalizedString(@"This function is not available for this window.", nil), NSLocalizedString(@"OK", nil), nil, nil);
+		NSRunAlertPanel(NSLocalizedString(@"Not available", nil),
+                        NSLocalizedString(@"This function is not available for this window.", nil),
+                        NSLocalizedString(@"OK", nil),
+                        nil,
+                        nil);
 	}
 	
     [[quality cellWithTag: 1] setEnabled: YES];
@@ -5509,12 +5513,20 @@ public:
 		
 		if (roiPts->GetNumberOfPoints() < 3)
 		{
-			NSRunAlertPanel(NSLocalizedString(@"3D Cut", nil), NSLocalizedString(@"Draw an ROI on the 3D image and then press Return (include) or Delete (exclude) keys.", nil), NSLocalizedString(@"OK", nil), nil, nil);
+			NSRunAlertPanel(NSLocalizedString(@"3D Cut", nil),
+                            NSLocalizedString(@"Draw an ROI on the 3D image and then press Return (include) or Delete (exclude) keys.", nil),
+                            NSLocalizedString(@"OK", nil),
+                            nil,
+                            nil);
 		}
 		else if (c == NSTabCharacter &&
                  [[controller viewer2D] postprocessed] == YES)
 		{
-			NSRunAlertPanel(NSLocalizedString(@"Restore", nil), NSLocalizedString(@"This dataset has been post processed (reslicing, MPR, ...). You cannot restore it.", nil), NSLocalizedString(@"OK", nil), nil, nil);
+			NSRunAlertPanel(NSLocalizedString(@"Restore", nil),
+                            NSLocalizedString(@"This dataset has been post processed (reslicing, MPR, ...). You cannot restore it.", nil),
+                            NSLocalizedString(@"OK", nil),
+                            nil,
+                            nil);
 		}
 		else
 		{
@@ -8043,20 +8055,39 @@ public:
                             cropcallback->Execute(croppingBox, 0, nil);
                     }
                     else
-                        NSRunAlertPanel(NSLocalizedString(@"3D Scissor State", nil), NSLocalizedString(@"No saved data are available.", nil), NSLocalizedString(@"OK", nil), nil, nil);
+                        NSRunAlertPanel(NSLocalizedString(@"3D Scissor State", nil),
+                                        NSLocalizedString(@"No saved data are available.", nil),
+                                        NSLocalizedString(@"OK", nil),
+                                        nil,
+                                        nil);
                     
                     [volumeData release];
                 }
                 else
-                    NSRunAlertPanel(NSLocalizedString(@"3D Scissor State", nil), NSLocalizedString(@"No saved data are available.", nil), NSLocalizedString(@"OK", nil), nil, nil);
+                    NSRunAlertPanel(NSLocalizedString(@"3D Scissor State", nil),
+                                    NSLocalizedString(@"No saved data are available.", nil),
+                                    NSLocalizedString(@"OK", nil),
+                                    nil,
+                                    nil);
             }
 			else
-                NSRunAlertPanel(NSLocalizedString(@"3D Scissor State", nil), NSLocalizedString(@"No saved data are available.", nil), NSLocalizedString(@"OK", nil), nil, nil);
+                NSRunAlertPanel(NSLocalizedString(@"3D Scissor State", nil),
+                                NSLocalizedString(@"No saved data are available.", nil),
+                                NSLocalizedString(@"OK", nil),
+                                nil,
+                                nil);
 		break;
 		
 		case 0:	// Save
             
-            if (([[NSFileManager defaultManager] fileExistsAtPath: str] && NSRunAlertPanel(NSLocalizedString(@"3D Scissor State", nil), NSLocalizedString(@"A 3D Scissor State already exists. Do you want to replace it with curent state?", nil), NSLocalizedString(@"OK", nil), NSLocalizedString(@"Cancel", nil), nil) == NSAlertDefaultReturn) || [[NSFileManager defaultManager] fileExistsAtPath: str] == NO)
+            if (([[NSFileManager defaultManager] fileExistsAtPath: str] &&
+                 NSRunAlertPanel(NSLocalizedString(@"3D Scissor State", nil),
+                                 NSLocalizedString(@"A 3D Scissor State already exists. Do you want to replace it with curent state?", nil),
+                                 NSLocalizedString(@"OK", nil),
+                                 NSLocalizedString(@"Cancel", nil),
+                                 nil
+                                 ) == NSAlertDefaultReturn) ||
+                [[NSFileManager defaultManager] fileExistsAtPath: str] == NO)
             {
                 waiting = [[WaitRendering alloc] init:NSLocalizedString(@"Saving 3D object...", nil)];
                 [waiting showWindow:self];

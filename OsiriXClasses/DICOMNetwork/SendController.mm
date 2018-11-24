@@ -405,7 +405,11 @@ static volatile int sendControllerObjects = 0;
 		}
 		else
 		{
-			NSRunAlertPanel(NSLocalizedString(@"DICOM Send",nil),NSLocalizedString( @"There are no files of selected type to send.",nil),NSLocalizedString( @"OK",nil), nil, nil);
+			NSRunAlertPanel(NSLocalizedString(@"DICOM Send",nil),
+                            NSLocalizedString( @"There are no files of selected type to send.",nil),
+                            NSLocalizedString( @"OK",nil),
+                            nil,
+                            nil);
 			
 			[self autorelease];
 		}

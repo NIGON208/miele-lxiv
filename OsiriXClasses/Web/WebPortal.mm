@@ -197,8 +197,11 @@ static NSString* DefaultWebPortalDatabasePath = nil;
         {
 			NSMutableArray* dirsToScanForFiles = [NSMutableArray arrayWithCapacity:2];
 #ifdef MACAPPSTORE
-            if (NSUserDefaults.webPortalPrefersCustomWebPages)
-                [dirsToScanForFiles addObject: [@"~/Library/Application Support/OsiriX App/WebServicesHTML" stringByExpandingTildeInPath]];  // TODO
+            if (NSUserDefaults.webPortalPrefersCustomWebPages) {
+                NSString *bundleName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleName"];
+                NSString *s = [NSString stringWithFormat:@"~/Library/Application Support/%@ App/WebServicesHTML", bundleName];
+                [dirsToScanForFiles addObject: [s stringByExpandingTildeInPath]];
+            }
 #else
             if (NSUserDefaults.webPortalPrefersCustomWebPages) {
                 NSString *bundleName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleName"];

@@ -12,7 +12,7 @@
      PURPOSE.
 =========================================================================*/
 
-#import <DCM/DCM.h>
+#import "DCM.h"
 
 @implementation DCMLimitedObject
 + (id)objectWithData:(NSData *)data lastGroup:(unsigned short)lastGroup{

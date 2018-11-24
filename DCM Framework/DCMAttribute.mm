@@ -13,7 +13,7 @@
 =========================================================================*/
 
 #import <DCM/DCMAttribute.h>
-#import <DCM/DCM.h>
+#import "DCM.h"
 
 @implementation DCMAttribute
 

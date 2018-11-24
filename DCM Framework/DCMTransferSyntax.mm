@@ -13,8 +13,7 @@
 =========================================================================*/
 
 #import <DCM/DCMTransferSyntax.h>
-#import <DCM/DCM.h>
-//#import <DCM/DCMUIDs.h>
+#import "DCM.h"
 
 static NSString *DCM_ExplicitVRBigEndian = @"1.2.840.10008.1.2.2";
 static NSString *DCM_ExplicitVRLittleEndian = @"1.2.840.10008.1.2.1";

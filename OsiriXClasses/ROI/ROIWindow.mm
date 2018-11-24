@@ -451,7 +451,11 @@
 			[roiWin showWindow:self];
 		}
 		else
-            NSRunAlertPanel(NSLocalizedString(@"Error", nil), NSLocalizedString(@"Cannot create a histogram from this ROI.", nil), nil, nil, nil);
+            NSRunAlertPanel(NSLocalizedString(@"Error", nil),
+                            NSLocalizedString(@"Cannot create a histogram from this ROI.", nil),
+                            nil,
+                            nil,
+                            nil);
 	}
 }
 

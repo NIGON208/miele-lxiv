@@ -1055,8 +1055,12 @@ static NSDate *lastWarningDate = nil;
 	if ([replacingPlugins length])
 		msg = [NSString stringWithFormat:@"%@\n\n%@", msg, replacingPlugins];
 	
-	NSInteger res = NSRunAlertPanel(NSLocalizedString(@"Plugins Installation", @""), @"%@", NSLocalizedString(@"OK", @""), NSLocalizedString(@"Cancel", @""), nil, msg);
-	
+	NSInteger res = NSRunAlertPanel(NSLocalizedString(@"Plugins Installation", @""),
+                                    @"%@",
+                                    NSLocalizedString(@"OK", @""),
+                                    NSLocalizedString(@"Cancel", @""),
+                                    nil,
+                                    msg);
 	if (res)
 	{
 		for (NSString *path in pluginsArray)
@@ -2284,7 +2288,12 @@ static NSDate *lastWarningDate = nil;
 		N2LogExceptionWithStackTrace(e);
         
         if ([NSThread isMainThread])
-            NSRunAlertPanel( NSLocalizedString( @"Database", nil), @"%@", NSLocalizedString( @"OK", nil), nil, nil, e.reason);
+            NSRunAlertPanel(NSLocalizedString( @"Database", nil),
+                            @"%@",
+                            NSLocalizedString( @"OK", nil),
+                            nil,
+                            nil,
+                            e.reason);
 	}
 	
 	[BonjourDICOMService stop];
@@ -4104,7 +4113,10 @@ static BOOL initialized = NO;
 		
 	}
 	
-	[PluginManager setMenus: filtersMenu :roisMenu :othersMenu :dbMenu];
+	[PluginManager setMenus: filtersMenu
+                           : roisMenu
+                           : othersMenu
+                           : dbMenu];
     
 	appController = self;
 	[self initDCMTK];
@@ -4154,15 +4166,18 @@ static BOOL initialized = NO;
            selector: @selector(UpdateWLWWMenu:)
                name: OsirixUpdateWLWWMenuNotification
              object: nil];
+
     [nc addObserver: self
            selector: @selector(UpdateConvolutionMenu:)
                name: OsirixUpdateConvolutionMenuNotification
              object: nil];
-	[nc addObserver: self
+
+    [nc addObserver: self
            selector: @selector(UpdateCLUTMenu:)
                name: OsirixUpdateCLUTMenuNotification
              object: nil];
-	[nc addObserver: self
+	
+    [nc addObserver: self
            selector: @selector(UpdateOpacityMenu:)
                name: OsirixUpdateOpacityMenuNotification
              object: nil];
@@ -4170,13 +4185,16 @@ static BOOL initialized = NO;
 	[[NSNotificationCenter defaultCenter] postNotificationName: OsirixUpdateOpacityMenuNotification
                                                         object: NSLocalizedString(@"Linear Table", nil)
                                                       userInfo: nil];
-	[[NSNotificationCenter defaultCenter] postNotificationName: OsirixUpdateCLUTMenuNotification
+
+    [[NSNotificationCenter defaultCenter] postNotificationName: OsirixUpdateCLUTMenuNotification
                                                         object: NSLocalizedString(@"No CLUT", nil)
                                                       userInfo: nil];
-	[[NSNotificationCenter defaultCenter] postNotificationName: OsirixUpdateWLWWMenuNotification
+
+    [[NSNotificationCenter defaultCenter] postNotificationName: OsirixUpdateWLWWMenuNotification
                                                         object: NSLocalizedString(@"Other", nil)
                                                       userInfo: nil];
-	[[NSNotificationCenter defaultCenter] postNotificationName: OsirixUpdateConvolutionMenuNotification
+
+    [[NSNotificationCenter defaultCenter] postNotificationName: OsirixUpdateConvolutionMenuNotification
                                                         object:NSLocalizedString( @"No Filter", nil)
                                                       userInfo: nil];
 	
@@ -4435,22 +4453,38 @@ static BOOL initialized = NO;
 	
 	if ([msg isEqualToString:@"LISTENER"])
 	{
-		NSRunAlertPanel( NSLocalizedString( @"DICOM Listener Error", nil), NSLocalizedString( @"OsiriX listener cannot start. Is the Port valid? Is there another process using this Port?\r\rSee Listener - Preferences.", nil), NSLocalizedString( @"OK", nil), nil, nil);
+		NSRunAlertPanel(NSLocalizedString( @"DICOM Listener Error", nil),
+                        NSLocalizedString( @"OsiriX listener cannot start. Is the Port valid? Is there another process using this Port?\r\rSee Listener - Preferences.", nil),
+                        NSLocalizedString( @"OK", nil),
+                        nil,
+                        nil);
 	}
 	
 	if ([msg isEqualToString:@"UPTODATE"])
 	{
-		NSRunAlertPanel( NSLocalizedString( @"OsiriX is up-to-date", nil), NSLocalizedString( @"You have the most recent version of OsiriX.", nil), NSLocalizedString( @"OK", nil), nil, nil);
+		NSRunAlertPanel(NSLocalizedString( @"OsiriX is up-to-date", nil),
+                        NSLocalizedString( @"You have the most recent version of OsiriX.", nil),
+                        NSLocalizedString( @"OK", nil),
+                        nil,
+                        nil);
 	}
 	
 	if ([msg isEqualToString:@"ERROR"])
 	{
-		NSRunAlertPanel( NSLocalizedString( @"No Internet connection", nil), NSLocalizedString( @"Unable to check latest version available.", nil), NSLocalizedString( @"OK", nil), nil, nil);
+		NSRunAlertPanel(NSLocalizedString( @"No Internet connection", nil),
+                        NSLocalizedString( @"Unable to check latest version available.", nil),
+                        NSLocalizedString( @"OK", nil),
+                        nil,
+                        nil);
 	}
 	
     if ([msg isEqualToString: @"UPDATECRASH"])
     {
-        NSRunInformationalAlertPanel(NSLocalizedString(@"OsiriX crashed", nil), NSLocalizedString(@"OsiriX crashed... You are running an outdated version of OsiriX ! This bug is probably corrected in the last version !", nil), NSLocalizedString(@"OK",nil), nil, nil);
+        NSRunInformationalAlertPanel(NSLocalizedString(@"Miele-LXIV crashed", nil),
+                                     NSLocalizedString(@"OsiriX crashed... You are running an outdated version of OsiriX ! This bug is probably corrected in the last version !", nil),
+                                     NSLocalizedString(@"OK",nil),
+                                     nil,
+                                     nil);
         
         [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:URL_OSIRIX_UPDATE_CRASH]];
     }
@@ -4460,7 +4494,8 @@ static BOOL initialized = NO;
 		int button = NSRunAlertPanel(NSLocalizedString( @"New Version Available", nil),
                                      NSLocalizedString( @"A new version of the application is available. Would you like to download it now?", nil),
                                      NSLocalizedString( @"Download", nil),
-                                     NSLocalizedString( @"Continue", nil), nil);
+                                     NSLocalizedString( @"Continue", nil),
+                                     nil);
 		
 		if (NSOKButton == button)
 			[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:URL_OSIRIX_UPDATE]];

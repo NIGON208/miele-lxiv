@@ -558,7 +558,11 @@
 	{
 		if([[[prefPane dicomGroupTextField] stringValue] isEqualToString:@""] || [[[prefPane dicomElementTextField] stringValue] isEqualToString:@""])
 		{
-			NSRunAlertPanel(NSLocalizedString( @"Custom DICOM Field", nil), NSLocalizedString( @"Please provide a value for both \"Group\" and \"Element\" fields.", nil), NSLocalizedString( @"OK", nil), nil, nil);
+			NSRunAlertPanel(NSLocalizedString( @"Custom DICOM Field", nil),
+                            NSLocalizedString( @"Please provide a value for both \"Group\" and \"Element\" fields.", nil),
+                            NSLocalizedString( @"OK", nil),
+                            nil,
+                            nil);
 			return;
 		}
 		
@@ -1050,7 +1054,11 @@
 	{
 		if(![[annotationsArray objectAtIndex:a] placeHolder])
 		{
-			int r = NSRunAlertPanel(NSLocalizedString( @"Saving Annotations", nil), NSLocalizedString( @"Any Annotation left outside the place holders will be lost.", nil), NSLocalizedString( @"OK", nil), NSLocalizedString( @"Cancel", nil), nil);
+			int r = NSRunAlertPanel(NSLocalizedString( @"Saving Annotations", nil),
+                                    NSLocalizedString( @"Any Annotation left outside the place holders will be lost.", nil),
+                                    NSLocalizedString( @"OK", nil),
+                                    NSLocalizedString( @"Cancel", nil),
+                                    nil);
             
 			if (r==NSAlertDefaultReturn)
 				return YES;

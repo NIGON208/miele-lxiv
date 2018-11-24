@@ -13,7 +13,7 @@
 =========================================================================*/
 
 #import <DCM/DCMCalendarDate.h> //aTimeZone
-#import <DCM/DCM.h>
+#import "DCM.h"
 
 @implementation DCMCalendarDate
 

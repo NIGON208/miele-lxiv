@@ -7230,13 +7230,13 @@ static ViewerController *draggedController = nil;
 			
 			[toolbarItem setLabel: itemIdent];
 			[toolbarItem setPaletteLabel: itemIdent];
-			NSDictionary* toolTips = [info objectForKey: @"ToolbarToolTips"];
+			NSDictionary* toolTips = [info objectForKey: PINFO_TB_TOOLTIPS];
 			if (toolTips)
 				[toolbarItem setToolTip: [toolTips objectForKey: itemIdent]];
 			else
 				[toolbarItem setToolTip: itemIdent];
 			
-			NSImage	*image = [[[NSImage alloc] initWithContentsOfFile:[bundle pathForImageResource:[info objectForKey:@"ToolbarIcon"]]] autorelease];
+			NSImage	*image = [[[NSImage alloc] initWithContentsOfFile:[bundle pathForImageResource:[info objectForKey:PINFO_TB_ICON]]] autorelease];
 			if (!image)
                 image = [[NSWorkspace sharedWorkspace] iconForFile: [bundle bundlePath]];
             
@@ -7354,24 +7354,24 @@ static ViewerController *draggedController = nil;
 	
 	for (NSString* plugin in allPlugins)
 	{
-		if ([plugin isEqualToString: @"(-"])
+		if ([plugin isEqualToString: PINFO_MENU_ITEM_SEPARATOR])
 			continue;
 		
 		NSBundle		*bundle = [[PluginManager pluginsDict] objectForKey: plugin];
 		NSDictionary	*info = [bundle infoDictionary];
-		NSString		*pluginType = [info objectForKey: @"pluginType"];
+		NSString		*pluginType = [info objectForKey: PINFO_TYPE];
         
-		if ([pluginType isEqualToString: @"imageFilter"] == YES ||
-            [pluginType isEqualToString: @"roiTool"] == YES ||
-            [pluginType isEqualToString: @"other"] == YES)
+		if ([pluginType isEqualToString: PTYPE_IMAGE_FILTER] == YES ||
+            [pluginType isEqualToString: PTYPE_ROI_TOOL] == YES ||
+            [pluginType isEqualToString: PTYPE_OTHER] == YES)
 		{
-			id allowToolbarIcon = [info objectForKey: @"allowToolbarIcon"];
+			id allowToolbarIcon = [info objectForKey: PINFO_ALLOW_TB_ICON];
             
 			if (allowToolbarIcon)
 			{
 				if ([allowToolbarIcon boolValue] == YES)
 				{
-					NSArray* toolbarNames = [info objectForKey: @"ToolbarNames"];
+					NSArray* toolbarNames = [info objectForKey: PINFO_TOOLBAR_NAMES];
 					if (toolbarNames)
 					{
 						if ([toolbarNames containsObject: plugin])
@@ -10082,7 +10082,11 @@ static int avoidReentryRefreshDatabase = 0;
 	
 	if (filter == nil)
 	{
-		NSRunAlertPanel(NSLocalizedString(@"Plugins Error", nil), NSLocalizedString(@"OsiriX cannot launch the selected plugin.", nil), nil, nil, nil);
+		NSRunAlertPanel(NSLocalizedString(@"Plugins Error", nil),
+                        NSLocalizedString(@"OsiriX cannot launch the selected plugin.", nil),
+                        nil,
+                        nil,
+                        nil);
 		return;
 	}
 	
@@ -10093,14 +10097,18 @@ static int avoidReentryRefreshDatabase = 0;
 	
     [PluginManager startProtectForCrashWithFilter: filter];
     
-	NSLog( @"executeFilter");
+    NSLog(@"%s %d executeFilter", __FUNCTION__, __LINE__);
 	
 	@try
 	{
 		result = [filter prepareFilter: self];
 		if (result)
 		{
-			NSRunAlertPanel(NSLocalizedString(@"Plugins Error", nil), NSLocalizedString(@"OsiriX cannot launch the selected plugin.", nil), nil, nil, nil);
+			NSRunAlertPanel(NSLocalizedString(@"Plugins Error", nil),
+                            NSLocalizedString(@"OsiriX cannot launch the selected plugin.", nil),
+                            nil,
+                            nil,
+                            nil);
             [PluginManager endProtectForCrash];
             
 			return;
@@ -10109,7 +10117,11 @@ static int avoidReentryRefreshDatabase = 0;
 	@catch (NSException * e)
 	{
 		N2LogExceptionWithStackTrace(e);
-		NSRunAlertPanel(NSLocalizedString(@"Plugins Error", nil), NSLocalizedString(@"OsiriX cannot launch the selected plugin.", nil), nil, nil, nil);
+		NSRunAlertPanel(NSLocalizedString(@"Plugins Error", nil),
+                        NSLocalizedString(@"OsiriX cannot launch the selected plugin.", nil),
+                        nil,
+                        nil,
+                        nil);
         [PluginManager endProtectForCrash];
         
 		return;
@@ -10117,12 +10129,18 @@ static int avoidReentryRefreshDatabase = 0;
 	
 	@try
 	{
-        [[NSNotificationCenter defaultCenter] postNotificationName: @"OsiriXPluginFilterImage" object: filter userInfo: nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName: @"OsiriXPluginFilterImage"
+                                                            object: filter
+                                                          userInfo: nil];
         
 		result = [filter filterImage: name];
 		if (result)
 		{
-			NSRunAlertPanel(NSLocalizedString(@"Plugins Error", nil), NSLocalizedString(@"OsiriX cannot apply the selected plugin.", nil), nil, nil, nil);
+			NSRunAlertPanel(NSLocalizedString(@"Plugins Error", nil),
+                            NSLocalizedString(@"OsiriX cannot apply the selected plugin.", nil),
+                            nil,
+                            nil,
+                            nil);
             [PluginManager endProtectForCrash];
             
 			return;
@@ -10131,14 +10149,20 @@ static int avoidReentryRefreshDatabase = 0;
 	@catch (NSException * e)
 	{
 		N2LogExceptionWithStackTrace(e);
-		NSRunAlertPanel(NSLocalizedString(@"Plugins Error", nil), NSLocalizedString(@"OsiriX cannot launch the selected plugin.", nil), nil, nil, nil);
+		NSRunAlertPanel(NSLocalizedString(@"Plugins Error", nil),
+                        NSLocalizedString(@"OsiriX cannot launch the selected plugin.", nil),
+                        nil,
+                        nil,
+                        nil);
 	}
 	
     [PluginManager endProtectForCrash];
     
 	[imageView roiSet];
 	
-	[[NSNotificationCenter defaultCenter] postNotificationName: OsirixRecomputeROINotification object:self userInfo: nil];
+	[[NSNotificationCenter defaultCenter] postNotificationName: OsirixRecomputeROINotification
+                                                        object: self
+                                                      userInfo: nil];
 }
 
 
@@ -10562,7 +10586,11 @@ static int avoidReentryRefreshDatabase = 0;
 	}
 	else
 	{
-		NSRunAlertPanel(NSLocalizedString(@"Subtraction", nil), NSLocalizedString(@"Subtraction works only for XA modality.", nil), nil, nil, nil);
+		NSRunAlertPanel(NSLocalizedString(@"Subtraction", nil),
+                        NSLocalizedString(@"Subtraction works only for XA modality.", nil),
+                        nil,
+                        nil,
+                        nil);
 		[subCtrlOnOff setState: NSOffState];
 	}
 }
@@ -10983,7 +11011,11 @@ static int avoidReentryRefreshDatabase = 0;
 	
 	if ([[pixList[ curMovieIndex] objectAtIndex: 0] isRGB] == YES)
 	{
-		NSRunAlertPanel(NSLocalizedString(@"RGB", nil), NSLocalizedString(@"Sorry, these images are already in RGB mode", nil), nil, nil, nil);
+		NSRunAlertPanel(NSLocalizedString(@"RGB", nil),
+                        NSLocalizedString(@"Sorry, these images are already in RGB mode", nil),
+                        nil,
+                        nil,
+                        nil);
 	}
 	else
 	{
@@ -11006,7 +11038,11 @@ static int avoidReentryRefreshDatabase = 0;
 	
 	if ([[pixList[ curMovieIndex] objectAtIndex: 0] isRGB] == NO)
 	{
-		NSRunAlertPanel(NSLocalizedString(@"BW", nil), NSLocalizedString(@"Sorry, these images are already in BW mode", nil), nil, nil, nil);
+		NSRunAlertPanel(NSLocalizedString(@"BW", nil),
+                        NSLocalizedString(@"Sorry, these images are already in BW mode", nil),
+                        nil,
+                        nil,
+                        nil);
 	}
 	else
 	{
@@ -12272,7 +12308,11 @@ static float oldsetww, oldsetwl;
 		[[NSNotificationCenter defaultCenter] postNotificationName: OsirixUpdateVolumeDataNotification object: pixList[ curMovieIndex] userInfo: nil];
 	}
 	else
-        NSRunAlertPanel(NSLocalizedString(@"Convolution", nil), NSLocalizedString(@"First, apply a convolution filter...", nil), nil, nil, nil);
+        NSRunAlertPanel(NSLocalizedString(@"Convolution", nil),
+                        NSLocalizedString(@"First, apply a convolution filter...", nil),
+                        nil,
+                        nil,
+                        nil);
     
     [convThread release];
     convThread = nil;
@@ -12403,7 +12443,11 @@ static float oldsetww, oldsetwl;
 		aConv = [[[NSUserDefaults standardUserDefaults] dictionaryForKey: @"Convolution"] objectForKey:str];
 		
 		if (aConv == nil)
-			NSRunAlertPanel(NSLocalizedString(@"Error", nil), NSLocalizedString(@"This convolution filter cannot be loaded.", nil), nil, nil, nil);
+			NSRunAlertPanel(NSLocalizedString(@"Error", nil),
+                            NSLocalizedString(@"This convolution filter cannot be loaded.", nil),
+                            nil,
+                            nil,
+                            nil);
 		else
 		{
 			nomalization = [[aConv objectForKey:@"Normalization"] longValue];
@@ -12826,7 +12870,12 @@ long				x, y;
             }
             else
             {
-                NSRunAlertPanel(NSLocalizedString(@"Error", nil), NSLocalizedString(@"Only CLUT created in OsiriX 1.3.1 or higher can be edited...", nil), nil, nil, nil);
+                NSRunAlertPanel(NSLocalizedString(@"Error", nil),
+                                NSLocalizedString(@"Only CLUT created in OsiriX 1.3.1 or higher can be edited...",
+                                                  nil),
+                                nil,
+                                nil,
+                                nil);
             }
         }
     }
@@ -17105,7 +17154,11 @@ int i,j,l;
             [displaySUVWindow orderOut:sender];
 		}
 		else
-            NSRunAlertPanel(NSLocalizedString(@"SUV Error", nil), NSLocalizedString(@"These values (weight and dose) are not correct.", nil), nil, nil, nil);
+            NSRunAlertPanel(NSLocalizedString(@"SUV Error", nil),
+                            NSLocalizedString(@"These values (weight and dose) are not correct.", nil),
+                            nil,
+                            nil,
+                            nil);
 	}
 	else
 	{
@@ -17124,7 +17177,11 @@ int i,j,l;
 	
 	if (-[newDate timeIntervalSinceDate: [[imageView curDCM] acquisitionTime]] <= 0)
 	{
-		NSRunAlertPanel(NSLocalizedString(@"SUV Error", nil), NSLocalizedString(@"Injection time CANNOT be after acquisition time !", nil), nil, nil, nil);
+		NSRunAlertPanel(NSLocalizedString(@"SUV Error", nil),
+                        NSLocalizedString(@"Injection time CANNOT be after acquisition time !", nil),
+                        nil,
+                        nil,
+                        nil);
 
 		if ([[imageView curDCM] radiopharmaceuticalStartTime])
 			[[suvForm cellAtIndex: 3] setObjectValue: [[imageView curDCM] radiopharmaceuticalStartTime]];			
@@ -17156,7 +17213,11 @@ int i,j,l;
 	
 	if ([[imageView curDCM] hasSUV] == NO)
 	{
-		NSRunAlertPanel(NSLocalizedString(@"SUV Error", nil), NSLocalizedString(@"Cannot compute SUV on these data.", nil), nil, nil, nil);
+		NSRunAlertPanel(NSLocalizedString(@"SUV Error", nil),
+                        NSLocalizedString(@"Cannot compute SUV on these data.", nil),
+                        nil,
+                        nil,
+                        nil);
 	}
 	else
 	{
@@ -17508,10 +17569,18 @@ int i,j,l;
 			[self propagateSettings];
 		}
 		else
-            NSRunAlertPanel(NSLocalizedString(@"Error", nil), NSLocalizedString(@"Only useful if propagate settings is OFF.", nil), nil, nil, nil);
+            NSRunAlertPanel(NSLocalizedString(@"Error", nil),
+                            NSLocalizedString(@"Only useful if propagate settings is OFF.", nil),
+                            nil,
+                            nil,
+                            nil);
 	}
 	else
-        NSRunAlertPanel(NSLocalizedString(@"Error", nil), NSLocalizedString(@"Only useful if image fusion is activated.", nil), nil, nil, nil);
+        NSRunAlertPanel(NSLocalizedString(@"Error", nil),
+                        NSLocalizedString(@"Only useful if image fusion is activated.", nil),
+                        nil,
+                        nil,
+                        nil);
 }
 
 - (void) propagateSettingsToViewer: (ViewerController*) vC
@@ -19855,7 +19924,11 @@ static BOOL viewerControllerPlaying = NO;
     [[NSUserDefaults standardUserDefaults] setBool: copyCrop forKey: @"ScreenCaptureSmartCropping"];
     
 	if ([[NSFileManager defaultManager] fileExistsAtPath: path] == NO && path != nil)
-		NSRunAlertPanel(NSLocalizedString(@"Export", nil), NSLocalizedString(@"Failed to export this file.", nil), NSLocalizedString(@"OK", nil), nil, nil);
+		NSRunAlertPanel(NSLocalizedString(@"Export", nil),
+                        NSLocalizedString(@"Failed to export this file.", nil),
+                        NSLocalizedString(@"OK", nil),
+                        nil,
+                        nil);
 	
 	if ([[NSUserDefaults standardUserDefaults] boolForKey: @"OPENVIEWER"])
 	{
@@ -21309,7 +21382,13 @@ static BOOL viewerControllerPlaying = NO;
 				}
 				/* Check the handler's return value */
 				else if (scriptResult != noScriptErr) {
-					NSRunAlertPanel(NSLocalizedString(@"Script Failure", @"Title on script failure window."), @"%@ %d",NSLocalizedString(@"OK", @""), nil, nil, NSLocalizedString(@"The script failed:", @"Message on script failure window."), scriptResult);
+					NSRunAlertPanel(NSLocalizedString(@"Script Failure", @"Title on script failure window."),
+                                    @"%@ %d",
+                                    NSLocalizedString(@"OK", @""),
+                                    nil,
+                                    nil,
+                                        NSLocalizedString(@"The script failed:", @"Message on script failure window."),
+                                        scriptResult);
 				}
 
 				[script release];
@@ -21333,7 +21412,11 @@ static BOOL viewerControllerPlaying = NO;
                 if (filePath)
                 {
                     if ([[NSFileManager defaultManager] fileExistsAtPath: filePath] == NO)
-                        NSRunAlertPanel(NSLocalizedString(@"Export", nil), NSLocalizedString(@"Failed to export this file.", nil), NSLocalizedString(@"OK", nil), nil, nil);
+                        NSRunAlertPanel(NSLocalizedString(@"Export", nil),
+                                        NSLocalizedString(@"Failed to export this file.", nil),
+                                        NSLocalizedString(@"OK", nil),
+                                        nil,
+                                        nil);
                     
                     else if ([[NSUserDefaults standardUserDefaults] boolForKey: @"OPENVIEWER"])
                         [ws openFile: filePath];
@@ -22858,7 +22941,11 @@ static BOOL viewerControllerPlaying = NO;
             }
             else
             {
-                NSRunAlertPanel(NSLocalizedString(@"MPR", nil), NSLocalizedString(@"MPR requires volumic data.", nil), nil, nil, nil);
+                NSRunAlertPanel(NSLocalizedString(@"MPR", nil),
+                                NSLocalizedString(@"MPR requires volumic data.", nil),
+                                nil,
+                                nil,
+                                nil);
                 return;
             }
 		}
@@ -22955,7 +23042,11 @@ static BOOL viewerControllerPlaying = NO;
             }
             else
             {
-                NSRunAlertPanel(NSLocalizedString(@"Endoscopy", nil), NSLocalizedString(@"Endoscopy requires volumic data.", nil), nil, nil, nil);
+                NSRunAlertPanel(NSLocalizedString(@"Endoscopy", nil),
+                                NSLocalizedString(@"Endoscopy requires volumic data.", nil),
+                                nil,
+                                nil,
+                                nil);
                 return;
             }
         }
@@ -23074,7 +23165,11 @@ static BOOL viewerControllerPlaying = NO;
             }
             else
             {
-                NSRunAlertPanel(NSLocalizedString(@"MPR", nil), NSLocalizedString(@"MPR requires volumic data.", nil), nil, nil, nil);
+                NSRunAlertPanel(NSLocalizedString(@"MPR", nil),
+                                NSLocalizedString(@"MPR requires volumic data.", nil),
+                                nil,
+                                nil,
+                                nil);
                 return;
             }
         }
@@ -23446,9 +23541,9 @@ static BOOL viewerControllerPlaying = NO;
 	{
 		NSRunAlertPanel(NSLocalizedString(@"Key Images", nil),
                         NSLocalizedString(@"This dataset has been post processed (reslicing, MPR, ...). You cannot create/modify/search key images. Revert to the original series or create a secondary capture series to do this.", nil),
-                        NSLocalizedString(@"OK",
-                                          nil),
-                        nil, nil);
+                        NSLocalizedString(@"OK", nil),
+                        nil,
+                        nil);
 		return;
 	}
 	
@@ -23648,7 +23743,11 @@ static BOOL viewerControllerPlaying = NO;
 			
 			if ([keyImagesArray count] == 0)
 			{
-				NSRunAlertPanel(NSLocalizedString(@"Key Images", nil), NSLocalizedString(@"No key images have been selected in this series.", nil), nil, nil, nil);
+				NSRunAlertPanel(NSLocalizedString(@"Key Images", nil),
+                                NSLocalizedString(@"No key images have been selected in this series.", nil),
+                                nil,
+                                nil,
+                                nil);
 				[keyImagePopUpButton selectItemAtIndex: 0];
 			}
 			else
@@ -24270,7 +24369,11 @@ static BOOL viewerControllerPlaying = NO;
             }
             else
             {
-                NSRunAlertPanel(NSLocalizedString(@"Data Error", nil), NSLocalizedString(@"This tool works only with 3D data series with identical matrix sizes.", nil), nil, nil, nil);
+                NSRunAlertPanel(NSLocalizedString(@"Data Error", nil),
+                                NSLocalizedString(@"This tool works only with 3D data series with identical matrix sizes.", nil),
+                                nil,
+                                nil,
+                                nil);
                 return;
             }
         }

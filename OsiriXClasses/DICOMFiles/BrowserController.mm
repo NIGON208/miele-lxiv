@@ -1058,7 +1058,14 @@ static NSConditionLock *threadLock = nil;
                 
                 @catch( NSException *ne)
                 {
-                    NSRunAlertPanel( NSLocalizedString(@"Routing Filter Error", nil), NSLocalizedString(@"Syntax error in this routing filter: %@\r\r%@\r\r%@", nil), nil, nil, nil, [routingRule objectForKey:@"name"], [routingRule objectForKey:@"filter"], [ne description]);
+                    NSRunAlertPanel(NSLocalizedString(@"Routing Filter Error", nil),
+                                    NSLocalizedString(@"Syntax error in this routing filter: %@\r\r%@\r\r%@", nil),
+                                    nil,
+                                    nil,
+                                    nil,
+                                    [routingRule objectForKey:@"name"],
+                                    [routingRule objectForKey:@"filter"],
+                                    [ne description]);
                     
                     [AppController printStackTrace: ne];
                 }
@@ -1549,7 +1556,7 @@ static NSConditionLock *threadLock = nil;
 		for (int i = 0; i < [filenames count]; i++)
 		{
 			NSString *aPath = [filenames objectAtIndex:i];
-			if ([[aPath pathExtension] isEqualToString:@"osirixplugin"])
+			if ([[aPath pathExtension] isEqualToString:PLUGIN_EXTENSION])
                 [pluginsArray addObject:aPath];
 		}
 		
@@ -1697,7 +1704,8 @@ static NSConditionLock *threadLock = nil;
 {
 	if ([key isEqualToString:@"database"])
 		return NO;
-	return [super automaticallyNotifiesObserversForKey:key];
+
+    return [super automaticallyNotifiesObserversForKey:key];
 }
 
 -(void) willChangeContext
@@ -5976,7 +5984,11 @@ static NSConditionLock *threadLock = nil;
     
     if ([lockedImages count] == [objectsToDelete count] && [lockedImages count] > 0)
     {
-        NSRunAlertPanel( NSLocalizedString(@"Locked Studies", nil),  NSLocalizedString(@"These images are stored in locked studies. First, unlock these studies to delete them.", nil), nil, nil, nil);
+        NSRunAlertPanel(NSLocalizedString(@"Locked Studies", nil),
+                        NSLocalizedString(@"These images are stored in locked studies. First, unlock these studies to delete them.", nil),
+                        nil,
+                        nil,
+                        nil);
     }
     else
     {
@@ -6254,7 +6266,11 @@ static NSConditionLock *threadLock = nil;
         [context release];
 		[context unlock];
         
-		NSRunAlertPanel( NSLocalizedString(@"Distant Database", nil),  NSLocalizedString(@"You cannot modify a Distant Database.", nil), nil, nil, nil);
+		NSRunAlertPanel(NSLocalizedString(@"Distant Database", nil),
+                        NSLocalizedString(@"You cannot modify a Distant Database.", nil),
+                        nil,
+                        nil,
+                        nil);
 		
 		[animationCheck setState: animState];
 		
@@ -7146,7 +7162,11 @@ static NSConditionLock *threadLock = nil;
 			
 			if ([[NSWorkspace sharedWorkspace] openFile: filePath withApplication:@"VLC" andDeactivate: YES] == NO)
 			{
-				NSRunAlertPanel( NSLocalizedString( @"MPEG-2 File", nil), NSLocalizedString( @"MPEG-2 DICOM files require the VLC application. Available for free here: http://www.videolan.org/vlc/", nil), nil, nil, nil);
+				NSRunAlertPanel(NSLocalizedString( @"MPEG-2 File", nil),
+                                NSLocalizedString( @"MPEG-2 DICOM files require the VLC application. Available for free here: http://www.videolan.org/vlc/", nil),
+                                nil,
+                                nil,
+                                nil);
 			}
 			[NSThread sleepForTimeInterval: 1];
 			
@@ -12756,7 +12776,13 @@ constrainSplitPosition:(CGFloat)proposedPosition
 	@catch( NSException *e)
 	{
         N2LogExceptionWithStackTrace(e);
-		NSRunAlertPanel( NSLocalizedString(@"Opening Error", nil), NSLocalizedString(@"Opening Error : %@\r\r%@", nil), nil, nil, nil, e, [AppController printStackTrace: e]);
+		NSRunAlertPanel( NSLocalizedString(@"Opening Error", nil),
+                        NSLocalizedString(@"Opening Error : %@\r\r%@", nil),
+                        nil,
+                        nil,
+                        nil,
+                            e,
+                            [AppController printStackTrace: e]);
 	}
     @finally {
         [wait invalidate];
@@ -13615,7 +13641,13 @@ constrainSplitPosition:(CGFloat)proposedPosition
 	@catch (NSException *e)
 	{
         N2LogExceptionWithStackTrace(e);
-		NSRunAlertPanel( NSLocalizedString(@"Opening Error", nil), NSLocalizedString(@"Opening Error : %@\r\r%@", nil) , nil, nil, nil, e, [AppController printStackTrace: e]);
+		NSRunAlertPanel( NSLocalizedString(@"Opening Error", nil),
+                        NSLocalizedString(@"Opening Error : %@\r\r%@", nil),
+                        nil,
+                        nil,
+                        nil,
+                            e,
+                            [AppController printStackTrace: e]);
 	}
 	
 	[_database unlock];
@@ -17443,7 +17475,14 @@ static volatile int numberOfThreadsForJPEG = 0;
             /* Check the handler's return value */
             else if (scriptResult != noScriptErr)
             {
-                NSRunAlertPanel(NSLocalizedString(@"Script Failure", @"Title on script failure window."), @"%@ %d", NSLocalizedString(@"OK", @""), nil, nil, NSLocalizedString(@"The script failed:", @"Message on script failure window."), scriptResult);
+                NSString *msgFormat = [NSString stringWithFormat:@"%@ %d",
+                                       NSLocalizedString(@"The script failed:", @"Message on script failure window."),
+                                       scriptResult];
+                NSRunAlertPanel(NSLocalizedString(@"Script Failure", @"Title on script failure window."),
+                                msgFormat,
+                                NSLocalizedString(@"OK", @""),
+                                nil,
+                                nil);
             }
         }
     }
@@ -18333,7 +18372,11 @@ static volatile int numberOfThreadsForJPEG = 0;
 	
 	if (dicomFiles2Anonymize.count == 0)
 	{
-		NSRunAlertPanel( NSLocalizedString(@"Anonymize Error", nil), NSLocalizedString(@"No DICOM files in this selection.", nil), nil, nil, nil);
+		NSRunAlertPanel( NSLocalizedString(@"Anonymize Error", nil),
+                        NSLocalizedString(@"No DICOM files in this selection.", nil),
+                        nil,
+                        nil,
+                        nil);
 	}
 	else
 	{
@@ -18953,7 +18996,11 @@ static volatile int numberOfThreadsForJPEG = 0;
 					}
 					else
 					{
-						NSRunAlertPanel( NSLocalizedString(@"Report Error", nil), NSLocalizedString(@"Report Plugin not available.", nil), nil, nil, nil);
+						NSRunAlertPanel(NSLocalizedString(@"Report Error", nil),
+                                        NSLocalizedString(@"Report Plugin not available.", nil),
+                                        nil,
+                                        nil,
+                                        nil);
 						return;
 					}
 				}
@@ -19058,7 +19105,11 @@ static volatile int numberOfThreadsForJPEG = 0;
 				}
 				else
 				{
-					NSRunAlertPanel( NSLocalizedString(@"Report Error", nil), NSLocalizedString(@"Report Plugin not available.", nil), nil, nil, nil);
+					NSRunAlertPanel(NSLocalizedString(@"Report Error", nil),
+                                    NSLocalizedString(@"Report Plugin not available.", nil),
+                                    nil,
+                                    nil,
+                                    nil);
 					return;
 				}
 			}
@@ -19742,16 +19793,16 @@ static volatile int numberOfThreadsForJPEG = 0;
 			
 			[toolbarItem setLabel: itemIdent];
 			[toolbarItem setPaletteLabel: itemIdent];
-			NSDictionary* toolTips = [info objectForKey: @"ToolbarToolTips"];
+			NSDictionary* toolTips = [info objectForKey: PINFO_TB_TOOLTIPS];
 			if (toolTips)
 				[toolbarItem setToolTip: [toolTips objectForKey: itemIdent]];
 			else
 				[toolbarItem setToolTip: itemIdent];
 			
 			//			NSLog( @"ICON:");
-			//			NSLog( [info objectForKey:@"ToolbarIcon"]);
+			//			NSLog( [info objectForKey:PINFO_TB_ICON]);
 			
-			NSImage	*image = [[[NSImage alloc] initWithContentsOfFile:[bundle pathForImageResource:[info objectForKey:@"ToolbarIcon"]]] autorelease];
+			NSImage	*image = [[[NSImage alloc] initWithContentsOfFile:[bundle pathForImageResource:[info objectForKey:PINFO_TB_ICON]]] autorelease];
 			if (!image) image = [[NSWorkspace sharedWorkspace] iconForFile: [bundle bundlePath]];
 			[toolbarItem setImage: image];
 			
@@ -19839,20 +19890,20 @@ static volatile int numberOfThreadsForJPEG = 0;
 	
 	for (NSString *plugin in allPlugins)
 	{
-		if ([plugin isEqualToString: @"(-"])
+        if ([plugin isEqualToString: PINFO_MENU_ITEM_SEPARATOR])
 			continue;
 		
-		NSBundle		*bundle = [[PluginManager pluginsDict] objectForKey: plugin];
-		NSDictionary	*info = [bundle infoDictionary];
+		NSBundle *bundle = [[PluginManager pluginsDict] objectForKey: plugin];
+		NSDictionary *info = [bundle infoDictionary];
 		
-		if ([[info objectForKey: @"pluginType"] isEqualToString: @"Database"])
+		if ([[info objectForKey: PINFO_TYPE] isEqualToString: PTYPE_DATABASE])
 		{
-			id allowToolbarIcon = [info objectForKey: @"allowToolbarIcon"];
+			id allowToolbarIcon = [info objectForKey: PINFO_ALLOW_TB_ICON];
 			if (allowToolbarIcon)
 			{
 				if ([allowToolbarIcon boolValue] == YES)
 				{
-					NSArray* toolbarNames = [info objectForKey: @"ToolbarNames"];
+					NSArray *toolbarNames = [info objectForKey:PINFO_TOOLBAR_NAMES];
 					if (toolbarNames)
 					{
 						if ([toolbarNames containsObject: plugin])
@@ -20431,7 +20482,11 @@ static volatile int numberOfThreadsForJPEG = 0;
     @catch (NSException* e)
     {
 		N2LogExceptionWithStackTrace(e);
-		NSRunAlertPanel(NSLocalizedString(@"OsiriX Database", nil), NSLocalizedString( @"OsiriX cannot read/create this file/folder. Permissions error?", nil), nil, nil, nil);
+		NSRunAlertPanel(NSLocalizedString(@"OsiriX Database", nil),
+                        NSLocalizedString(@"OsiriX cannot read/create this file/folder. Permissions error?", nil),
+                        nil,
+                        nil,
+                        nil);
 		[self resetToLocalDatabase];
 	}
 	
@@ -20454,7 +20509,11 @@ static volatile int numberOfThreadsForJPEG = 0;
 	
 	if (filter == nil)
 	{
-		NSRunAlertPanel( NSLocalizedString( @"Plugins Error", nil), NSLocalizedString( @"OsiriX cannot launch the selected plugin.", nil), nil, nil, nil);
+		NSRunAlertPanel(NSLocalizedString( @"Plugins Error", nil),
+                        NSLocalizedString( @"OsiriX cannot launch the selected plugin.", nil),
+                        nil,
+                        nil,
+                        nil);
 		return;
 	}
 	
@@ -20465,7 +20524,11 @@ static volatile int numberOfThreadsForJPEG = 0;
     
 	if (result)
     {
-		NSRunAlertPanel( NSLocalizedString( @"Plugins Error", nil), NSLocalizedString( @"OsiriX cannot launch the selected plugin.", nil), nil, nil, nil);
+		NSRunAlertPanel(NSLocalizedString( @"Plugins Error", nil),
+                        NSLocalizedString( @"OsiriX cannot launch the selected plugin.", nil),
+                        nil,
+                        nil,
+                        nil);
 	}
     
     [PluginManager endProtectForCrash];

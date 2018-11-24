@@ -556,7 +556,11 @@ static float oldsetww, oldsetwl;
 			}
 			else
 			{
-				NSRunAlertPanel(NSLocalizedString(@"Error", nil), NSLocalizedString(@"Only CLUT created in OsiriX 1.3.1 or higher can be edited...", nil), nil, nil, nil);
+				NSRunAlertPanel(NSLocalizedString(@"Error", nil),
+                                NSLocalizedString(@"Only CLUT created in OsiriX 1.3.1 or higher can be edited...", nil),
+                                nil,
+                                nil,
+                                nil);
 			}
 		}
 	}
