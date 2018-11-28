@@ -13,7 +13,7 @@
 		<key>name</key>
 		<string>Invert Data</string>
 		<key>url</key>
-		<string>https://raw.githubusercontent.com/miele-lxiv/plugins/InvertData/html/index.html</string>
+		<string>http://bettar.github.io/miele-lxiv/plugins/InvertData/html/index.html</string>
 		<key>version</key>
 		<string>1.0</string>
 	</dict>
