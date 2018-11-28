@@ -6,9 +6,9 @@
 		<key>download_url</key>
 		<dict>
 			<key>host</key>
-			<string>raw.githubusercontent.com</string>
+			<string>github.com</string>
 			<key>path</key>
-			<string>/bettar/miele-lxiv/plugins/InvertData/html/Invert Data.mieleplugin.zip</string>
+			<string>/bettar/miele-lxiv/blob/gh-pages/plugins/InvertData/html/Invert Data.mieleplugin.zip</string>
 		</dict>
 		<key>name</key>
 		<string>Invert Data</string>
