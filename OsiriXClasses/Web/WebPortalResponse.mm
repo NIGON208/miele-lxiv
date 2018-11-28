@@ -49,7 +49,7 @@ static NSString *WebPortalResponseLock = @"WebPortalResponseLock";
  self = [self init];
  self.data = idata;
  // if (mime) [httpHeaders setObject:mime forKey:@"Content-Type"];
- if (sessionId) ;
+ if (sessionId);
  return self;
  }*/
 

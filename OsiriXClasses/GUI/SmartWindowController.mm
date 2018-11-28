@@ -152,11 +152,21 @@
         
         NSString* message = NSLocalizedString(@"This filter works: the result is now displayed in the Database Window.", nil);
         
-        NSRunInformationalAlertPanel( NSLocalizedString(@"It works!",nil), @"%@", nil, nil, nil, message);
+        NSRunInformationalAlertPanel(NSLocalizedString(@"It works!",nil),
+                                     @"%@",
+                                     nil,
+                                     nil,
+                                     nil,
+                                        message);
     }
     @catch (NSException* e) {
 //        N2LogExceptionWithStackTrace(e);
-        NSRunCriticalAlertPanel( NSLocalizedString(@"Error",nil), @"%@", nil, nil, nil, [NSString stringWithFormat: NSLocalizedString(@"This filter is NOT working: %@", nil), e]);
+        NSRunCriticalAlertPanel(NSLocalizedString(@"Error",nil),
+                                @"%@",
+                                nil,
+                                nil,
+                                nil,
+                                    [NSString stringWithFormat: NSLocalizedString(@"This filter is NOT working: %@", nil), e]);
     }
 }
 

@@ -162,7 +162,8 @@ NSString* const O2ScreenCapturesSeriesName = NSLocalizedString(@"OsiriX Screen C
             path = [self baseDirPathForMode:[[NSUserDefaults standardUserDefaults] integerForKey:@"DATABASELOCATION"]
                                        path:[[NSUserDefaults standardUserDefaults] stringForKey: @"DATABASELOCATIONURL"]];
 		}
-	} @catch (NSException* e) {
+	}
+    @catch (NSException* e) {
 		N2LogExceptionWithStackTrace(e);
 	}
 	

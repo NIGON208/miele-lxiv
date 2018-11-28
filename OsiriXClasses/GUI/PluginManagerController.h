@@ -41,7 +41,7 @@
 	IBOutlet WebView *webView;
 	NSArray *pluginsListURLs;
 	IBOutlet NSPopUpButton *pluginsListPopUp;
-    NSDictionary *downloadURL;
+    NSDictionary *downloadUrlDict;
 	IBOutlet NSButton *downloadButton;
 	IBOutlet NSTextField *statusTextField;
 	IBOutlet NSProgressIndicator *statusProgressIndicator;
@@ -57,13 +57,13 @@
 - (IBAction)loadPlugins:(id)sender;
 - (void)refreshPluginList;
 
-- (NSArray*)availablePlugins;
+- (NSArray*)availableRemotePlugins;
 - (void)generateAvailablePluginsMenu;
 - (void)setURL:(NSString*)url;
 - (IBAction)changeWebView:(id)sender;
 - (void)setURLforPluginWithName:(NSString*)name;
 
-- (void)setDownloadURL:(NSDictionary*)url;
+- (void)setDownloadUrlDict:(NSDictionary*)urlDict;
 - (IBAction)download:(id)sender;
 
 - (void)installDownloadedPluginAtPath:(NSString*)path;

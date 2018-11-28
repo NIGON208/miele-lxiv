@@ -219,10 +219,10 @@ public:
 {
 	BOOL used = NO;
 	
-	for (id key in [PluginManager plugins])
+	for (id key in [PluginManager installedPlugins])
 	{
-		if ([[[PluginManager plugins] objectForKey:key] respondsToSelector:@selector(handleEvent:forVRViewer:)])
-			if ([[[PluginManager plugins] objectForKey:key] handleEvent:event forVRViewer: [[self window] windowController]])
+		if ([[[PluginManager installedPlugins] objectForKey:key] respondsToSelector:@selector(handleEvent:forVRViewer:)])
+			if ([[[PluginManager installedPlugins] objectForKey:key] handleEvent:event forVRViewer: [[self window] windowController]])
 				used = YES;
 	}
 	
@@ -970,7 +970,7 @@ public:
                                     NSLocalizedString(@"OK", nil), // default button
                                     nil,
                                     nil,
-                                    vramMB);
+                                        vramMB);
         }
     }
     

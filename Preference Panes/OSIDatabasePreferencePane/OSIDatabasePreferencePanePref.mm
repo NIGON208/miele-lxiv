@@ -33,7 +33,7 @@
 
 - (id) initWithBundle:(NSBundle *)bundle
 {
-	if( self = [super init])
+	if (self = [super init])
 	{
 		NSNib *nib = [[[NSNib alloc] initWithNibNamed: @"OSIDatabasePreferencePanePref" bundle: nil] autorelease];
 		[nib instantiateNibWithOwner:self topLevelObjects: nil];
@@ -55,7 +55,7 @@
     {
 		if ([keyPath isEqualToString:@"values.eraseEntireDBAtStartup" ])
         {
-            if( [[NSUserDefaults standardUserDefaults] boolForKey: @"eraseEntireDBAtStartup"])
+            if ([[NSUserDefaults standardUserDefaults] boolForKey: @"eraseEntireDBAtStartup"])
             {
                 NSRunCriticalAlertPanel(NSLocalizedString( @"Erase Entire Database", nil),
                                         NSLocalizedString( @"Warning! With this option, each time OsiriX is restarted, the entire database will be erased. All studies will be deleted. This cannot be undone.", nil),
@@ -130,7 +130,7 @@
 		numberOfReportPlugins++;
 	}
 	
-	if( numberOfReportPlugins <= 0)
+	if (numberOfReportPlugins <= 0)
 	{
 		[reportsMode removeItemAtIndex:[reportsMode indexOfItem:[reportsMode lastItem]]];
 		[reportsMode removeItemAtIndex:[reportsMode indexOfItem:[reportsMode lastItem]]];
@@ -148,23 +148,27 @@
 {
     BOOL recompute = NO;
     
-    if( self.newUsePatientBirthDateForUID == NO && self.newUsePatientNameForUID == NO && self.newUsePatientIDForUID == NO)
+    if (self.newUsePatientBirthDateForUID == NO && self.newUsePatientNameForUID == NO && self.newUsePatientIDForUID == NO)
     {
-        NSRunCriticalAlertPanel( NSLocalizedString( @"Patient UID", nil), NSLocalizedString( @"At least one parameter has to be selected to generate a valid Patient UID. Patient ID will be used.", nil), NSLocalizedString( @"OK", nil), nil, nil);
+        NSRunCriticalAlertPanel(NSLocalizedString( @"Patient UID", nil),
+                                NSLocalizedString( @"At least one parameter has to be selected to generate a valid Patient UID. Patient ID will be used.", nil),
+                                NSLocalizedString( @"OK", nil),
+                                nil,
+                                nil);
         
         self.newUsePatientIDForUID = YES;
     }
     
-    if( self.newUsePatientBirthDateForUID != [[NSUserDefaults standardUserDefaults] boolForKey: @"UsePatientBirthDateForUID"])
+    if (self.newUsePatientBirthDateForUID != [[NSUserDefaults standardUserDefaults] boolForKey: @"UsePatientBirthDateForUID"])
         recompute = YES;
     
-    if( self.newUsePatientNameForUID != [[NSUserDefaults standardUserDefaults] boolForKey: @"UsePatientNameForUID"])
+    if (self.newUsePatientNameForUID != [[NSUserDefaults standardUserDefaults] boolForKey: @"UsePatientNameForUID"])
         recompute = YES;
     
-    if( self.newUsePatientIDForUID != [[NSUserDefaults standardUserDefaults] boolForKey: @"UsePatientIDForUID"])
+    if (self.newUsePatientIDForUID != [[NSUserDefaults standardUserDefaults] boolForKey: @"UsePatientIDForUID"])
         recompute = YES;
     
-    if( recompute)
+    if (recompute)
     {
         [[NSUserDefaults standardUserDefaults] setBool: self.newUsePatientBirthDateForUID forKey: @"UsePatientBirthDateForUID"];
         [[NSUserDefaults standardUserDefaults] setBool: self.newUsePatientNameForUID forKey: @"UsePatientNameForUID"];
@@ -223,10 +227,10 @@
 	// COMMENTS
 	self.currentCommentsAutoFill = 0;
     
-    if( [[[NSUserDefaults standardUserDefaults] stringForKey: @"commentFieldForAutoFill"] isEqualToString: @"comment"]) self.currentCommentsField = 1;
-    if( [[[NSUserDefaults standardUserDefaults] stringForKey: @"commentFieldForAutoFill"] isEqualToString: @"comment2"]) self.currentCommentsField = 2;
-    if( [[[NSUserDefaults standardUserDefaults] stringForKey: @"commentFieldForAutoFill"] isEqualToString: @"comment3"]) self.currentCommentsField = 3;
-    if( [[[NSUserDefaults standardUserDefaults] stringForKey: @"commentFieldForAutoFill"] isEqualToString: @"comment4"]) self.currentCommentsField = 4;
+    if ([[[NSUserDefaults standardUserDefaults] stringForKey: @"commentFieldForAutoFill"] isEqualToString: @"comment"]) self.currentCommentsField = 1;
+    if ([[[NSUserDefaults standardUserDefaults] stringForKey: @"commentFieldForAutoFill"] isEqualToString: @"comment2"]) self.currentCommentsField = 2;
+    if ([[[NSUserDefaults standardUserDefaults] stringForKey: @"commentFieldForAutoFill"] isEqualToString: @"comment3"]) self.currentCommentsField = 3;
+    if ([[[NSUserDefaults standardUserDefaults] stringForKey: @"commentFieldForAutoFill"] isEqualToString: @"comment4"]) self.currentCommentsField = 4;
 	
 	// REPORTS
 	[self buildPluginsMenu];
@@ -324,10 +328,10 @@
 {
     currentCommentsField = v;
     
-    if( currentCommentsField == 1) [[NSUserDefaults standardUserDefaults] setObject:@"comment" forKey:@"commentFieldForAutoFill"];
-    if( currentCommentsField == 2) [[NSUserDefaults standardUserDefaults] setObject:@"comment2" forKey:@"commentFieldForAutoFill"];
-    if( currentCommentsField == 3) [[NSUserDefaults standardUserDefaults] setObject:@"comment3" forKey:@"commentFieldForAutoFill"];
-    if( currentCommentsField == 4) [[NSUserDefaults standardUserDefaults] setObject:@"comment4" forKey:@"commentFieldForAutoFill"];
+    if (currentCommentsField == 1) [[NSUserDefaults standardUserDefaults] setObject:@"comment" forKey:@"commentFieldForAutoFill"];
+    if (currentCommentsField == 2) [[NSUserDefaults standardUserDefaults] setObject:@"comment2" forKey:@"commentFieldForAutoFill"];
+    if (currentCommentsField == 3) [[NSUserDefaults standardUserDefaults] setObject:@"comment3" forKey:@"commentFieldForAutoFill"];
+    if (currentCommentsField == 4) [[NSUserDefaults standardUserDefaults] setObject:@"comment4" forKey:@"commentFieldForAutoFill"];
 }
 
 - (void) setCurrentCommentsAutoFill:(int) v
@@ -335,7 +339,7 @@
     currentCommentsAutoFill = v;
     
     NSString *group, *element;
-    if( currentCommentsAutoFill > 0)
+    if (currentCommentsAutoFill > 0)
     {
         group = [NSString stringWithFormat: @"COMMENTSGROUP%d", currentCommentsAutoFill+1];
         element = [NSString stringWithFormat: @"COMMENTSELEMENT%d", currentCommentsAutoFill+1];
@@ -346,7 +350,7 @@
         element = [NSString stringWithFormat: @"COMMENTSELEMENT"];
     }
     
-    if( [[[NSUserDefaults standardUserDefaults] stringForKey:group] intValue] > 0)
+    if ([[[NSUserDefaults standardUserDefaults] stringForKey:group] intValue] > 0)
     {
         [commentsGroup setStringValue:[NSString stringWithFormat:@"0x%04X", [[[NSUserDefaults standardUserDefaults] stringForKey:group] intValue]]];
         [commentsElement setStringValue:[NSString stringWithFormat:@"0x%04X", [[[NSUserDefaults standardUserDefaults] stringForKey:element] intValue]]];
@@ -363,7 +367,7 @@
 	// COMMENTS
 
     NSString *group, *element;
-    if( currentCommentsAutoFill > 0)
+    if (currentCommentsAutoFill > 0)
     {
         group = [NSString stringWithFormat: @"COMMENTSGROUP%d", currentCommentsAutoFill+1];
         element = [NSString stringWithFormat: @"COMMENTSELEMENT%d", currentCommentsAutoFill+1];
@@ -381,7 +385,7 @@
 	hexscanner = [NSScanner scannerWithString: [commentsGroup stringValue]];
 	[hexscanner scanHexInt: &val];
     
-    if( val > 0)
+    if (val > 0)
     {
         [[NSUserDefaults standardUserDefaults] setInteger: val forKey: group];
         
@@ -411,7 +415,7 @@
 {
 	NSUserDefaults	*defaults = [NSUserDefaults standardUserDefaults];
 
-	if( [[olderType cellWithTag:0] state] == NSOffState && [[olderType cellWithTag:1] state] == NSOffState)
+	if ([[olderType cellWithTag:0] state] == NSOffState && [[olderType cellWithTag:1] state] == NSOffState)
 	{
 		[older setState: NSOffState];
 	}
@@ -449,9 +453,9 @@
 	
 	if ([[sender selectedCell] tag] == 1)
 	{
-		if( [[[NSUserDefaults standardUserDefaults] stringForKey:@"DEFAULT_DATABASELOCATIONURL"] isEqualToString:@""]) [self setLocationURL: self];
+		if ([[[NSUserDefaults standardUserDefaults] stringForKey:@"DEFAULT_DATABASELOCATIONURL"] isEqualToString:@""]) [self setLocationURL: self];
 		
-		if( [[[NSUserDefaults standardUserDefaults] stringForKey:@"DEFAULT_DATABASELOCATIONURL"] isEqualToString:@""] == NO)
+		if ([[[NSUserDefaults standardUserDefaults] stringForKey:@"DEFAULT_DATABASELOCATIONURL"] isEqualToString:@""] == NO)
 		{
 			BOOL isDir;
 			
@@ -492,19 +496,17 @@
 
 - (IBAction)setLocationURL:(id)sender
 {
-	NSOpenPanel         *oPanel = [NSOpenPanel openPanel];
-	long				result;
+	NSOpenPanel *oPanel = [NSOpenPanel openPanel];
+	long result;
 	
     [oPanel setCanChooseFiles:NO];
     [oPanel setCanChooseDirectories:YES];
-	
-	result = [oPanel runModalForDirectory:0L file:nil types: 0L];
-    
+	result = [oPanel runModal];
     if (result == NSOKButton)
 	{
-		NSString	*location = [oPanel directory];
+		NSString *location = [oPanel directory];
 		
-		if( [[location lastPathComponent] isEqualToString:OUR_DATA_LOCATION])
+		if ([[location lastPathComponent] isEqualToString:OUR_DATA_LOCATION])
 		{
 			NSLog( @"%@", [location lastPathComponent]);
 			location = [location stringByDeletingLastPathComponent];

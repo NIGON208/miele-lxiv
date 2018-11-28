@@ -1489,12 +1489,18 @@ return YES;
                         }
                         else
                         {
-                            NSRunInformationalAlertPanel( NSLocalizedString( @"Error!", nil), NSLocalizedString( @"Not Enough Memory", nil), NSLocalizedString(@"OK", nil), 0L, 0L);
+                            NSRunInformationalAlertPanel(NSLocalizedString( @"Error!", nil),
+                                                         NSLocalizedString( @"Not Enough Memory", nil),
+                                                         NSLocalizedString(@"OK", nil),
+                                                         0L,
+                                                         0L);
                             break;
                         }
                         
                         // Project the 3D point on the plane : dot product of normal plane vector (vectorModel) and distance between point and plane origin (matrix9,10,11)
-                        double distance = matrix[ 9] * vectorModel[ 6] + matrix[ 10] * vectorModel[ 7] + matrix[ 11] * vectorModel[ 8];
+                        double distance = matrix[  9] * vectorModel[ 6] +
+                                          matrix[ 10] * vectorModel[ 7] +
+                                          matrix[ 11] * vectorModel[ 8];
                         double outputOrigin[ 3];
                         
                         outputOrigin[0] = origin[ 0] + distance*vectorModel[ 6];
@@ -7223,9 +7229,9 @@ static ViewerController *draggedController = nil;
     else
 	{
 		// Is it a plugin menu item?
-		if ([[PluginManager pluginsDict] objectForKey: itemIdent] != nil)
+		if ([[PluginManager installedPluginsInfoDict] objectForKey: itemIdent] != nil)
 		{
-			NSBundle *bundle = [[PluginManager pluginsDict] objectForKey: itemIdent];
+			NSBundle *bundle = [[PluginManager installedPluginsInfoDict] objectForKey: itemIdent];
 			NSDictionary *info = [bundle infoDictionary];
 			
 			[toolbarItem setLabel: itemIdent];
@@ -7249,11 +7255,11 @@ static ViewerController *draggedController = nil;
 			toolbarItem = nil;
     }
     
-    for (id key in [PluginManager plugins])
+    for (id key in [PluginManager installedPlugins])
     {
-        if ([[[PluginManager plugins] objectForKey:key] respondsToSelector:@selector(toolbarItemForItemIdentifier:forViewer:)])
+        if ([[[PluginManager installedPlugins] objectForKey:key] respondsToSelector:@selector(toolbarItemForItemIdentifier:forViewer:)])
         {
-            NSToolbarItem *item = [[[PluginManager plugins] objectForKey:key] toolbarItemForItemIdentifier: itemIdent forViewer: self];
+            NSToolbarItem *item = [[[PluginManager installedPlugins] objectForKey:key] toolbarItemForItemIdentifier: itemIdent forViewer: self];
             if (item)
                 toolbarItem = item;
         }
@@ -7349,17 +7355,17 @@ static ViewerController *draggedController = nil;
 	if ([AppController canDisplay12Bit])
         [array addObject: LUT12BitToolbarItemIdentifier];
 	
-	NSArray*		allPlugins = [[PluginManager pluginsDict] allKeys];
-	NSMutableSet*	pluginsItems = [NSMutableSet setWithCapacity: [allPlugins count]];
+	NSArray *allPlugins = [[PluginManager installedPluginsInfoDict] allKeys];
+	NSMutableSet *pluginsItems = [NSMutableSet setWithCapacity: [allPlugins count]];
 	
 	for (NSString* plugin in allPlugins)
 	{
 		if ([plugin isEqualToString: PINFO_MENU_ITEM_SEPARATOR])
 			continue;
 		
-		NSBundle		*bundle = [[PluginManager pluginsDict] objectForKey: plugin];
-		NSDictionary	*info = [bundle infoDictionary];
-		NSString		*pluginType = [info objectForKey: PINFO_TYPE];
+		NSBundle *bundle = [[PluginManager installedPluginsInfoDict] objectForKey: plugin];
+		NSDictionary *info = [bundle infoDictionary];
+		NSString *pluginType = [info objectForKey: PINFO_TYPE];
         
 		if ([pluginType isEqualToString: PTYPE_IMAGE_FILTER] == YES ||
             [pluginType isEqualToString: PTYPE_ROI_TOOL] == YES ||
@@ -7387,10 +7393,10 @@ static ViewerController *draggedController = nil;
 	if ([pluginsItems count])
 		[array addObjectsFromArray: [pluginsItems allObjects]];
 
-    for (id key in [PluginManager plugins])
+    for (id key in [PluginManager installedPlugins])
     {
-        if ([[[PluginManager plugins] objectForKey:key] respondsToSelector:@selector(toolbarAllowedIdentifiersForViewer:)])
-            [array addObjectsFromArray: [[[PluginManager plugins] objectForKey:key] toolbarAllowedIdentifiersForViewer: self]];
+        if ([[[PluginManager installedPlugins] objectForKey:key] respondsToSelector:@selector(toolbarAllowedIdentifiersForViewer:)])
+            [array addObjectsFromArray: [[[PluginManager installedPlugins] objectForKey:key] toolbarAllowedIdentifiersForViewer: self]];
     }
     
 	return array;
@@ -7687,7 +7693,11 @@ return YES;
 			{
 				[shutterOnOff setState:NSOffState];
 				
-				NSRunCriticalAlertPanel(NSLocalizedString(@"Shutter", nil), NSLocalizedString(@"Please first define a rectangle with a rectangular ROI.", nil), NSLocalizedString(@"OK", nil), nil, nil);
+				NSRunCriticalAlertPanel(NSLocalizedString(@"Shutter", nil),
+                                        NSLocalizedString(@"Please first define a rectangle with a rectangular ROI.", nil),
+                                        NSLocalizedString(@"OK", nil),
+                                        nil,
+                                        nil);
 			}
 			else //reuse preconfigured shutterRect
 			{
@@ -10075,7 +10085,7 @@ static int avoidReentryRefreshDatabase = 0;
     id filter = nil;
     
     if (bundle==nil)
-        filter = [[PluginManager plugins] objectForKey:name];
+        filter = [[PluginManager installedPlugins] objectForKey:name];
     
 	if ([AppController willExecutePlugin: filter] == NO)
 		return;
@@ -11252,10 +11262,20 @@ static int avoidReentryRefreshDatabase = 0;
         NSString *message = nil;
 #ifdef OSIRIX_LIGHT
         message = [NSString stringWithFormat: NSLocalizedString(@"These images were acquired with a gantry tilt: %0.2f\u00B0. This gantry tilt will produce a distortion in 3D post-processing. You can use the plugin 'Gantry Tilt Correction' to convert these images.", nil), titledGantryDegrees];
-        NSRunInformationalAlertPanel( NSLocalizedString(@"Warning!", nil), @"%@", NSLocalizedString(@"OK", nil), nil, nil, message);
+        NSRunInformationalAlertPanel(NSLocalizedString(@"Warning!", nil),
+                                     @"%@",
+                                     NSLocalizedString(@"OK", nil),
+                                     nil,
+                                     nil,
+                                        message);
 #else
         message = [NSString stringWithFormat: NSLocalizedString(@"These images were acquired with a gantry tilt: %0.2f\u00B0. This gantry tilt will produce a distortion in 3D post-processing. Should I convert these images to a real 3D dataset.", nil), titledGantryDegrees];
-		NSInteger r = NSRunInformationalAlertPanel( NSLocalizedString(@"Warning!", nil), @"%@", NSLocalizedString(@"Yes", nil), NSLocalizedString(@"No", nil), nil, message);
+		NSInteger r = NSRunInformationalAlertPanel(NSLocalizedString(@"Warning!", nil),
+                                                   @"%@",
+                                                   NSLocalizedString(@"Yes", nil),
+                                                   NSLocalizedString(@"No", nil),
+                                                   nil,
+                                                    message);
         
         if (r == NSAlertDefaultReturn)
             [ViewerController correctGangtryTilt: self];
@@ -11719,7 +11739,13 @@ static int avoidReentryRefreshDatabase = 0;
 		
 		if (nonContinuous)
 		{
-			NSRunInformationalAlertPanel( NSLocalizedString(@"Warning!", nil), NSLocalizedString(@"These slices have a non regular slice interval, varying from %.3f mm to %.3f mm. This will produce distortion in 3D representations, and in measurements.", nil), NSLocalizedString(@"OK", nil), nil, nil, minInterval, maxInterval);
+			NSRunInformationalAlertPanel(NSLocalizedString(@"Warning!", nil),
+                                         NSLocalizedString(@"These slices have a non regular slice interval, varying from %.3f mm to %.3f mm. This will produce distortion in 3D representations, and in measurements.", nil),
+                                         NSLocalizedString(@"OK", nil),
+                                         nil,
+                                         nil,
+                                            minInterval,
+                                            maxInterval);
 //            
 //            // Resample origins, according to first and last image
 //            
@@ -11759,7 +11785,11 @@ static int avoidReentryRefreshDatabase = 0;
 		}
 		else if ([self isDataVolumicIn4D: YES] == NO)
 		{
-			NSRunInformationalAlertPanel( NSLocalizedString(@"Warning!", nil), NSLocalizedString(@"These slices doesn't represent a true 3D volumic data. This will produce distortion in 3D representations, and in measurements.", nil), NSLocalizedString(@"OK", nil), nil, nil);
+			NSRunInformationalAlertPanel(NSLocalizedString(@"Warning!", nil),
+                                         NSLocalizedString(@"These slices doesn't represent a true 3D volumic data. This will produce distortion in 3D representations, and in measurements.", nil),
+                                         NSLocalizedString(@"OK", nil),
+                                         nil,
+                                         nil);
 		}
 		
 		nonVolumicDataWarningDisplayed = YES;
@@ -13356,7 +13386,11 @@ long				x, y;
 	
 	if (fused == NO && sender != nil)
 	{
-		NSRunCriticalAlertPanel(NSLocalizedString(@"PET-CT Fusion", nil), NSLocalizedString(@"This function requires two parallel series: a PT/NM series and a CT series in the same study.", nil) , NSLocalizedString(@"OK", nil), nil, nil);
+		NSRunCriticalAlertPanel(NSLocalizedString(@"PET-CT Fusion", nil),
+                                NSLocalizedString(@"This function requires two parallel series: a PT/NM series and a CT series in the same study.", nil),
+                                NSLocalizedString(@"OK", nil),
+                                nil,
+                                nil);
 	}
 }
 
@@ -13413,7 +13447,12 @@ long				x, y;
                 
                 if ([imageView.studyObj.studyInstanceUID isEqualToString: blendingController.studyInstanceUID])
                 {
-                    int result = NSRunCriticalAlertPanel(NSLocalizedString(@"2D Planes",nil),NSLocalizedString(@"These 2D planes are not parallel. If you continue the result will be distorted. You can instead 'Reorient' the series to have the same origin/orientation.",nil), NSLocalizedString(@"Reorient & Fusion",nil), NSLocalizedString(@"Cancel",nil), NSLocalizedString(@"Fusion",nil));
+                    int result = NSRunCriticalAlertPanel(
+                         NSLocalizedString(@"2D Planes",nil),
+                         NSLocalizedString(@"These 2D planes are not parallel. If you continue the result will be distorted. You can instead 'Reorient' the series to have the same origin/orientation.",nil),
+                         NSLocalizedString(@"Reorient & Fusion",nil),
+                         NSLocalizedString(@"Cancel",nil),
+                         NSLocalizedString(@"Fusion",nil));
                     
                     switch( result)
                     {
@@ -13785,7 +13824,11 @@ long				x, y;
 		break;
 		
 		default:
-			NSRunCriticalAlertPanel(NSLocalizedString(@"OsiriX Light",nil), NSLocalizedString(@"This function is not available in OsiriX Light. Download the complete version of OsiriX to solve this issue.",nil) , NSLocalizedString(@"OK",nil), nil, nil);
+			NSRunCriticalAlertPanel(NSLocalizedString(@"OsiriX Light",nil),
+                                    NSLocalizedString(@"This function is not available in OsiriX Light. Download the complete version of OsiriX to solve this issue.",nil),
+                                    NSLocalizedString(@"OK",nil),
+                                    nil,
+                                    nil);
 		break;
 	}
 }
@@ -14777,15 +14820,11 @@ int i,j,l;
 
 - (IBAction) roiLoadFromFiles: (id) sender
 {
-    long result;
-    
     NSOpenPanel *oPanel = [NSOpenPanel openPanel];
     [oPanel setAllowsMultipleSelection:YES];
     [oPanel setCanChooseDirectories:NO];
-    
-    result = [oPanel runModalForDirectory:nil file:nil types:[NSArray arrayWithObjects:@"roi", @"rois_series", @"xml", nil]];
-    
-    if (result == NSOKButton) 
+    [oPanel setAllowedFileTypes: @[@"roi", @"rois_series", @"xml"]];
+    if ([oPanel runModal] == NSOKButton)
     {
 		if ([[[[oPanel filenames] lastObject] pathExtension] isEqualToString:@"xml"])
 			[imageView roiLoadFromXMLFiles: [oPanel filenames]];
@@ -14828,16 +14867,20 @@ int i,j,l;
 	if (rois > 0)
 	{
 		[panel setCanSelectHiddenExtension:NO];
-		[panel setRequiredFileType:@"rois_series"];
-		
-		if ([panel runModalForDirectory:nil file: imageView.seriesObj.name] == NSFileHandlingPanelOKButton)
+        [panel setAllowedFileTypes: @[@"rois_series"]];
+        [panel setNameFieldStringValue: imageView.seriesObj.name];
+		if ([panel runModal] == NSFileHandlingPanelOKButton)
 		{
 			[NSArchiver archiveRootObject: roisPerMovies toFile :[panel filename]];
 		}
 	}
 	else
 	{
-		NSRunCriticalAlertPanel(NSLocalizedString(@"ROIs Save Error",nil), NSLocalizedString(@"No ROIs in this series!",nil) , NSLocalizedString(@"OK",nil), nil, nil);
+		NSRunCriticalAlertPanel(NSLocalizedString(@"ROIs Save Error",nil),
+                                NSLocalizedString(@"No ROIs in this series!",nil),
+                                NSLocalizedString(@"OK",nil),
+                                nil,
+                                nil);
 	}
 }
 
@@ -14880,7 +14923,11 @@ int i,j,l;
 	
 	if (selectedRoi == nil)
 	{
-		NSRunCriticalAlertPanel(NSLocalizedString(@"ROIs Volume Error", nil), NSLocalizedString(@"Select a ROI.", nil) , NSLocalizedString(@"OK", nil), nil, nil);
+		NSRunCriticalAlertPanel(NSLocalizedString(@"ROIs Volume Error", nil),
+                                NSLocalizedString(@"Select a ROI.", nil),
+                                NSLocalizedString(@"OK", nil),
+                                nil,
+                                nil);
 		return;
 	}
 	
@@ -14889,7 +14936,12 @@ int i,j,l;
 	
 	if (error)
 	{
-		NSRunCriticalAlertPanel(NSLocalizedString(@"ROIs Volume Error", nil), @"%@" , NSLocalizedString(@"OK", nil), nil, nil, error);
+		NSRunCriticalAlertPanel(NSLocalizedString(@"ROIs Volume Error", nil),
+                                @"%@",
+                                NSLocalizedString(@"OK", nil),
+                                nil,
+                                nil,
+                                    error);
 	}
 	else
 	{
@@ -14952,7 +15004,11 @@ int i,j,l;
 	if (selectedROI)
 		[self roiIntDeleteAllROIsWithSameName: selectedROI.name];
 	else
-        NSRunCriticalAlertPanel(NSLocalizedString(@"ROIs Error", nil), NSLocalizedString(@"Select a ROI to delete all ROIs with the same name.", nil) , NSLocalizedString(@"OK", nil), nil, nil);
+        NSRunCriticalAlertPanel(NSLocalizedString(@"ROIs Error", nil),
+                                NSLocalizedString(@"Select a ROI to delete all ROIs with the same name.", nil),
+                                NSLocalizedString(@"OK", nil),
+                                nil,
+                                nil);
 }
 
 - (IBAction) roiDeleteWithName:(NSString*) name
@@ -15021,7 +15077,11 @@ int i,j,l;
 	
 	if (selectedRoi == nil)
 	{
-		NSRunCriticalAlertPanel(NSLocalizedString(@"ROIs Volume Error", nil), NSLocalizedString(@"Select a ROI to compute volume of all ROIs with the same name.", nil) , NSLocalizedString(@"OK", nil), nil, nil);
+		NSRunCriticalAlertPanel(NSLocalizedString(@"ROIs Volume Error", nil),
+                                NSLocalizedString(@"Select a ROI to compute volume of all ROIs with the same name.", nil),
+                                NSLocalizedString(@"OK", nil),
+                                nil,
+                                nil);
 		return;
 	}
 	
@@ -15037,7 +15097,11 @@ int i,j,l;
 			{
 				if (fabs( [curPix sliceLocation] - preLocation - interval) > 1.0)
 				{
-					NSRunCriticalAlertPanel(NSLocalizedString(@"ROIs Volume Error", nil), NSLocalizedString(@"Slice Interval is not constant!", nil) , NSLocalizedString(@"OK", nil), nil, nil);
+					NSRunCriticalAlertPanel(NSLocalizedString(@"ROIs Volume Error", nil),
+                                            NSLocalizedString(@"Slice Interval is not constant!", nil),
+                                            NSLocalizedString(@"OK", nil),
+                                            nil,
+                                            nil);
 					return;
 				}
 			}
@@ -15052,7 +15116,11 @@ int i,j,l;
     {
         if (interval == 0)
         {
-            NSRunCriticalAlertPanel(NSLocalizedString(@"ROIs Volume Error", nil), NSLocalizedString(@"Slice Locations not available to compute a volume.", nil) , NSLocalizedString(@"OK", nil), nil, nil);
+            NSRunCriticalAlertPanel(NSLocalizedString(@"ROIs Volume Error", nil),
+                                    NSLocalizedString(@"Slice Locations not available to compute a volume.", nil),
+                                    NSLocalizedString(@"OK", nil),
+                                    nil,
+                                    nil);
             return;
         }
 	}
@@ -15076,7 +15144,11 @@ int i,j,l;
         
 		int	numberOfGeneratedROIafter = [[self roisWithComment: @"morphing generated"] count];
 		if (!numberOfGeneratedROIafter)
-			NSRunCriticalAlertPanel(NSLocalizedString(@"ROIs Volume Error", nil), NSLocalizedString(@"The missing ROIs were not created : this feature does not work with ROIs that don't contain an area.", nil), NSLocalizedString(@"OK", nil), nil, nil);
+			NSRunCriticalAlertPanel(NSLocalizedString(@"ROIs Volume Error", nil),
+                                    NSLocalizedString(@"The missing ROIs were not created : this feature does not work with ROIs that don't contain an area.", nil),
+                                    NSLocalizedString(@"OK", nil),
+                                    nil,
+                                    nil);
 	}
 
 	[splash close];
@@ -15801,7 +15873,11 @@ int i,j,l;
 	
 	if ([[pixList[curMovieIndex] objectAtIndex:[imageView curImage]] stack] < 2)
 	{
-		NSRunCriticalAlertPanel(NSLocalizedString(@"ROIs Propagate Error", nil), NSLocalizedString(@"This function is only useful if you use Thick Slab!", nil) , NSLocalizedString(@"OK", nil), nil, nil, nil);
+		NSRunCriticalAlertPanel(NSLocalizedString(@"ROIs Propagate Error", nil),
+                                NSLocalizedString(@"This function is only useful if you use Thick Slab!", nil),
+                                NSLocalizedString(@"OK", nil),
+                                nil,
+                                nil);
 		
 		return;
 	}
@@ -15859,12 +15935,20 @@ int i,j,l;
 		}
 		else
 		{
-			NSRunCriticalAlertPanel(NSLocalizedString(@"ROIs Propagate Error", nil), NSLocalizedString(@"No ROI(s) selected to propagate on the series!", nil) , NSLocalizedString(@"OK", nil), nil, nil);
+			NSRunCriticalAlertPanel(NSLocalizedString(@"ROIs Propagate Error", nil),
+                                    NSLocalizedString(@"No ROI(s) selected to propagate on the series!", nil),
+                                    NSLocalizedString(@"OK", nil),
+                                    nil,
+                                    nil);
 		}
 	}
 	else
 	{
-		NSRunCriticalAlertPanel(NSLocalizedString(@"ROIs Propagate Error", nil), NSLocalizedString(@"There is only one image in this series. Nothing to propagate!", nil) , NSLocalizedString(@"OK", nil), nil, nil);
+		NSRunCriticalAlertPanel(NSLocalizedString(@"ROIs Propagate Error", nil),
+                                NSLocalizedString(@"There is only one image in this series. Nothing to propagate!", nil),
+                                NSLocalizedString(@"OK", nil),
+                                nil,
+                                nil);
 	}
 }
 
@@ -15989,12 +16073,20 @@ int i,j,l;
 				}
 				else
 				{
-					NSRunCriticalAlertPanel(NSLocalizedString(@"ROIs Propagate Error", nil), NSLocalizedString(@"No ROI(s) selected to propagate on the series!", nil) , NSLocalizedString(@"OK", nil), nil, nil);
+					NSRunCriticalAlertPanel(NSLocalizedString(@"ROIs Propagate Error", nil),
+                                            NSLocalizedString(@"No ROI(s) selected to propagate on the series!", nil),
+                                            NSLocalizedString(@"OK", nil),
+                                            nil,
+                                            nil);
 				}
 			}
 			else
 			{
-				NSRunCriticalAlertPanel(NSLocalizedString(@"ROIs Propagate Error", nil), NSLocalizedString(@"There is only one image in this series. Nothing to propagate!", nil) , NSLocalizedString(@"OK", nil), nil, nil);
+				NSRunCriticalAlertPanel(NSLocalizedString(@"ROIs Propagate Error", nil),
+                                        NSLocalizedString(@"There is only one image in this series. Nothing to propagate!", nil),
+                                        NSLocalizedString(@"OK", nil),
+                                        nil,
+                                        nil);
 			}
 		break;
 		
@@ -16042,7 +16134,11 @@ int i,j,l;
 				}
 				else
 				{
-					NSRunCriticalAlertPanel(NSLocalizedString(@"ROIs Propagate Error", nil), NSLocalizedString(@"No ROI(s) selected to propagate on the series!", nil) , NSLocalizedString(@"OK", nil), nil, nil);
+					NSRunCriticalAlertPanel(NSLocalizedString(@"ROIs Propagate Error", nil),
+                                            NSLocalizedString(@"No ROI(s) selected to propagate on the series!", nil),
+                                            NSLocalizedString(@"OK", nil),
+                                            nil,
+                                            nil);
 				}
 			}
 		break;
@@ -16708,7 +16804,11 @@ int i,j,l;
 	}
 	else
 	{
-		NSRunCriticalAlertPanel(NSLocalizedString(@"Brush ROI Error", nil), NSLocalizedString(@"Select a Brush ROI before to run the filter.", nil) , NSLocalizedString(@"OK", nil), nil, nil);
+		NSRunCriticalAlertPanel(NSLocalizedString(@"Brush ROI Error", nil),
+                                NSLocalizedString(@"Select a Brush ROI before to run the filter.", nil),
+                                NSLocalizedString(@"OK", nil),
+                                nil,
+                                nil);
 		return;
 	}
 }
@@ -17957,7 +18057,9 @@ int i,j,l;
     {
         NSRunCriticalAlertPanel(NSLocalizedString(@"Resampling Error", nil),
 								NSLocalizedString(@"3D Resampling requires volumic data.", nil),
-								NSLocalizedString(@"OK", nil), nil, nil);
+								NSLocalizedString(@"OK", nil),
+                                nil,
+                                nil);
         
         return nil;
     }
@@ -18027,7 +18129,9 @@ int i,j,l;
 	{
 		NSRunCriticalAlertPanel(NSLocalizedString(@"Resampling Error", nil),
 								NSLocalizedString(@"Resampling is only available for series in the SAME study.", nil),
-								NSLocalizedString(@"OK", nil), nil, nil);
+								NSLocalizedString(@"OK", nil),
+                                nil,
+                                nil);
 	}
 	
 	return newViewer;
@@ -18088,7 +18192,9 @@ int i,j,l;
     {
         NSRunCriticalAlertPanel(NSLocalizedString(@"Registration Error", nil),
 								NSLocalizedString(@"3D Resampling requires volumic data.", nil),
-								NSLocalizedString(@"OK", nil), nil, nil);
+								NSLocalizedString(@"OK", nil),
+                                nil,
+                                nil);
         return;
     }
 
@@ -18257,7 +18363,10 @@ int i,j,l;
 	{			
 		NSRunCriticalAlertPanel(NSLocalizedString(@"Point-Based Registration Error", nil),
 								@"%@",
-								NSLocalizedString(@"OK", nil), nil, nil, errorString);
+								NSLocalizedString(@"OK", nil),
+                                nil,
+                                nil,
+                                    errorString);
 	}
 	
 	[previousNames release];
@@ -20306,7 +20415,11 @@ static BOOL viewerControllerPlaying = NO;
         
 		f = [exportDCM writeDCMFile: nil withExportDCM: [imageView dcmExportPlugin]];
 		if (f == nil)
-            NSRunCriticalAlertPanel( NSLocalizedString(@"Error", nil),  NSLocalizedString(@"Error during the creation of the DICOM File!", nil), NSLocalizedString(@"OK", nil), nil, nil);
+            NSRunCriticalAlertPanel(NSLocalizedString(@"Error", nil),
+                                    NSLocalizedString(@"Error during the creation of the DICOM File!", nil),
+                                    NSLocalizedString(@"OK", nil),
+                                    nil,
+                                    nil);
 		
 		free( data);
 	}
@@ -20552,16 +20665,14 @@ static BOOL viewerControllerPlaying = NO;
 
 -(void) exportRAW:(id) sender
 {
-    NSSavePanel     *panel = [NSSavePanel savePanel];
-    short           i;
-
+    NSSavePanel *panel = [NSSavePanel savePanel];
     [panel setCanSelectHiddenExtension:NO];
-    
-	if ([panel runModalForDirectory:nil file: imageView.seriesObj.name] == NSFileHandlingPanelOKButton)
+    [panel setNameFieldStringValue: imageView.seriesObj.name];
+	if ([panel runModal] == NSFileHandlingPanelOKButton)
     {
         [panel filename];
         
-        for (i = 0; i < [fileList[ curMovieIndex] count]; i++)
+        for (short i = 0; i < [fileList[ curMovieIndex] count]; i++)
         {
             DCMPix  *pix = [pixList[ curMovieIndex] objectAtIndex:i];
             
@@ -20772,7 +20883,11 @@ static BOOL viewerControllerPlaying = NO;
 	
 	if ([pixList[ curMovieIndex] count] > 1)
 	{
-		int result = NSRunInformationalAlertPanel( NSLocalizedString(@"Send to DICOM node", nil), NSLocalizedString(@"Should I send only current image or all images of current series?", nil), NSLocalizedString(@"Current", nil), NSLocalizedString(@"All", nil), NSLocalizedString(@"Cancel", nil));
+		int result = NSRunInformationalAlertPanel(NSLocalizedString(@"Send to DICOM node", nil),
+                                                  NSLocalizedString(@"Should I send only current image or all images of current series?", nil),
+                                                  NSLocalizedString(@"Current", nil),
+                                                  NSLocalizedString(@"All", nil),
+                                                  NSLocalizedString(@"Cancel", nil));
 		
 		if (result == NSAlertOtherReturn)
             return;
@@ -21155,10 +21270,14 @@ static BOOL viewerControllerPlaying = NO;
 	
 	[panel setCanSelectHiddenExtension:YES];
 	
-	if ([[imageFormat selectedCell] tag] == 0)
-		[panel setRequiredFileType:@"jpg"];
-	else
-		[panel setRequiredFileType:@"tif"];
+    if ([[imageFormat selectedCell] tag] == 0) {
+		//[panel setRequiredFileType:@"jpg"];
+        [panel setAllowedFileTypes: @[@"jpg"]];
+    }
+    else {
+		//[panel setRequiredFileType:@"tif"];
+        [panel setAllowedFileTypes: @[@"tif"]];
+    }
 		
 	if ([sender tag] != 0 || sender == nil)
 	{
@@ -21171,7 +21290,8 @@ static BOOL viewerControllerPlaying = NO;
 			if (numberOfExportedImages > 1)
 				defaultExportName = [defaultExportName stringByAppendingPathExtension: [NSString stringWithFormat:@"%4.4d", 1]];
 			
-			if ([panel runModalForDirectory:nil file: defaultExportName] != NSFileHandlingPanelOKButton)
+            [panel setNameFieldStringValue: defaultExportName];
+			if ([panel runModal] != NSFileHandlingPanelOKButton)
 				pathOK = NO;
 		}
 		
@@ -22895,7 +23015,7 @@ static BOOL viewerControllerPlaying = NO;
             
             [viewer showWindow:self];
             
-            float   iwl, iww;
+            float iwl, iww;
             [imageView getWLWW:&iwl :&iww];
             [[viewer CTController] setWLWW:iwl :iww];
             [[blendingController imageView] getWLWW:&iwl :&iww];

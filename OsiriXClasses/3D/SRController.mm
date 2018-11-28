@@ -866,11 +866,11 @@ static NSString*	BackgroundColorViewToolbarItemIdentifier = @"BackgroundColorVie
         toolbarItem = nil;
     }
     
-    for (id key in [PluginManager plugins])
+    for (id key in [PluginManager installedPlugins])
     {
-        if ([[[PluginManager plugins] objectForKey:key] respondsToSelector:@selector(toolbarItemForItemIdentifier:forViewer:)])
+        if ([[[PluginManager installedPlugins] objectForKey:key] respondsToSelector:@selector(toolbarItemForItemIdentifier:forViewer:)])
         {
-            NSToolbarItem *item = [[[PluginManager plugins] objectForKey:key] toolbarItemForItemIdentifier: itemIdent forViewer: self];
+            NSToolbarItem *item = [[[PluginManager installedPlugins] objectForKey:key] toolbarItemForItemIdentifier: itemIdent forViewer: self];
             
             if (item)
                 toolbarItem = item;
@@ -930,10 +930,10 @@ static NSString*	BackgroundColorViewToolbarItemIdentifier = @"BackgroundColorVie
 										BackgroundColorViewToolbarItemIdentifier,
                                         nil];
     
-    for (id key in [PluginManager plugins])
+    for (id key in [PluginManager installedPlugins])
     {
-        if ([[[PluginManager plugins] objectForKey:key] respondsToSelector:@selector(toolbarAllowedIdentifiersForViewer:)])
-            [array addObjectsFromArray: [[[PluginManager plugins] objectForKey:key] toolbarAllowedIdentifiersForViewer: self]];
+        if ([[[PluginManager installedPlugins] objectForKey:key] respondsToSelector:@selector(toolbarAllowedIdentifiersForViewer:)])
+            [array addObjectsFromArray: [[[PluginManager installedPlugins] objectForKey:key] toolbarAllowedIdentifiersForViewer: self]];
     }
     
     return array;
@@ -1001,20 +1001,16 @@ return YES;
 - (void) exportJPEG:(id) sender
 {
     NSSavePanel *panel = [NSSavePanel savePanel];
-
 	[panel setCanSelectHiddenExtension:YES];
-	[panel setRequiredFileType:@"jpg"];
-	
-	if ([panel runModalForDirectory:nil file:@"3D SR Image"] == NSFileHandlingPanelOKButton)
+    [panel setAllowedFileTypes: @[@"jpg"]];
+    [panel setNameFieldStringValue: @"3D SR Image"];
+	if ([panel runModal] == NSFileHandlingPanelOKButton)
 	{
 		NSImage *im = [view nsimage:NO];
 		
-		NSArray *representations;
-		NSData *bitmapData;
+		NSArray *representations = [im representations];
 		
-		representations = [im representations];
-		
-		bitmapData = [NSBitmapImageRep representationOfImageRepsInArray:representations usingType:NSJPEGFileType properties:[NSDictionary dictionaryWithObject:[NSDecimalNumber numberWithFloat:0.9] forKey:NSImageCompressionFactor]];
+		NSData *bitmapData = [NSBitmapImageRep representationOfImageRepsInArray:representations usingType:NSJPEGFileType properties:[NSDictionary dictionaryWithObject:[NSDecimalNumber numberWithFloat:0.9] forKey:NSImageCompressionFactor]];
 		
 		[bitmapData writeToFile:[panel filename] atomically:YES];
 		
@@ -1027,11 +1023,10 @@ return YES;
 - (void) exportTIFF:(id) sender
 {
     NSSavePanel *panel = [NSSavePanel savePanel];
-
 	[panel setCanSelectHiddenExtension:YES];
-	[panel setRequiredFileType:@"tif"];
-	
-	if ([panel runModalForDirectory:nil file:@"3D SR Image"] == NSFileHandlingPanelOKButton)
+    [panel setAllowedFileTypes: @[@"tif"]];
+    [panel setNameFieldStringValue: @"3D SR Image"];
+	if ([panel runModal] == NSFileHandlingPanelOKButton)
 	{
 		NSImage *im = [view nsimage:NO];
 		

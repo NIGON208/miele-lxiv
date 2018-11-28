@@ -62,7 +62,7 @@ NSString *mediumTag[] = {@"Blue Film", @"Clear Film", @"Paper"};
 {
 	for( int i = 0 ; i < size; i++)
 	{
-		if( [array[ i] isEqualToString: v])
+		if ([array[ i] isEqualToString: v])
 			return [NSString stringWithFormat: @"%d", i];
 	}
 	
@@ -80,7 +80,7 @@ NSString *mediumTag[] = {@"Blue Film", @"Clear Film", @"Paper"};
 	{
 		NSDictionary *dict = [printers objectAtIndex: i];
 		
-		if( [dict valueForKey: @"imageDisplayFormatTag"] == nil)
+		if ([dict valueForKey: @"imageDisplayFormatTag"] == nil)
 		{
 			NSMutableDictionary *mDict = [NSMutableDictionary dictionaryWithDictionary: dict];
 			
@@ -102,7 +102,7 @@ NSString *mediumTag[] = {@"Blue Film", @"Clear Film", @"Paper"};
 		}
 	}
 	
-	if( updated)
+	if (updated)
 	{
 		[[NSUserDefaults standardUserDefaults] setObject: printers forKey: @"AYDicomPrinter"];
 	}
@@ -126,7 +126,7 @@ NSString *mediumTag[] = {@"Blue Film", @"Clear Film", @"Paper"};
         windowFrameToRestore = NSMakeRect(0, 0, 0, 0);
         scaleFitToRestore = m_CurrentViewer.imageView.isScaledFit;
         
-        if( [[NSUserDefaults standardUserDefaults] boolForKey: @"SquareWindowForPrinting"])
+        if ([[NSUserDefaults standardUserDefaults] boolForKey: @"SquareWindowForPrinting"])
         {
             int AlwaysScaleToFit = [[NSUserDefaults standardUserDefaults] integerForKey: @"AlwaysScaleToFit"];
             [[NSUserDefaults standardUserDefaults] setInteger: 0 forKey: @"AlwaysScaleToFit"];
@@ -134,20 +134,20 @@ NSString *mediumTag[] = {@"Blue Film", @"Clear Film", @"Paper"};
             windowFrameToRestore = m_CurrentViewer.window.frame;
             NSRect newFrame = [AppController usefullRectForScreen: m_CurrentViewer.window.screen];
             
-            if( newFrame.size.width < newFrame.size.height)
+            if (newFrame.size.width < newFrame.size.height)
                 newFrame.size.height = newFrame.size.width;
             else
                 newFrame.size.width = newFrame.size.height;
             
             [AppController resizeWindowWithAnimation: m_CurrentViewer.window newSize: newFrame];
-            if( scaleFitToRestore) [m_CurrentViewer.imageView scaleToFit];
+            if (scaleFitToRestore) [m_CurrentViewer.imageView scaleToFit];
             
             [[NSUserDefaults standardUserDefaults] setInteger: AlwaysScaleToFit forKey: @"AlwaysScaleToFit"];
         }
         
         for( ViewerController *v in [ViewerController getDisplayed2DViewers])
         {
-            if( v != m_CurrentViewer)
+            if (v != m_CurrentViewer)
                 [v.window orderOut: self];
         }
         
@@ -159,7 +159,7 @@ NSString *mediumTag[] = {@"Blue Film", @"Clear Film", @"Paper"};
 
 //- (void) windowWillClose: (NSNotification*) n
 //{
-//    if( NSIsEmptyRect( windowFrameToRestore) == NO)
+//    if (NSIsEmptyRect( windowFrameToRestore) == NO)
 //        [AppController resizeWindowWithAnimation: m_CurrentViewer.window newSize: windowFrameToRestore];
 //}
 
@@ -216,7 +216,7 @@ NSString *mediumTag[] = {@"Blue Film", @"Clear Film", @"Paper"};
 	[entireSeriesFrom setNumberOfTickMarks: [[m_CurrentViewer pixList] count]];
 	[entireSeriesTo setNumberOfTickMarks: [[m_CurrentViewer pixList] count]];
 	
-	if( [[m_CurrentViewer pixList] count] < 20)
+	if ([[m_CurrentViewer pixList] count] < 20)
 	{
 		[entireSeriesFrom setIntValue: 1];
 		[entireSeriesTo setIntValue: [[m_CurrentViewer pixList] count]];
@@ -224,7 +224,7 @@ NSString *mediumTag[] = {@"Blue Film", @"Clear Film", @"Paper"};
 	}
 	else
 	{
-		if( [[m_CurrentViewer imageView] flippedData]) [entireSeriesFrom setIntValue: [[m_CurrentViewer pixList] count] - [[m_CurrentViewer imageView] curImage]];
+		if ([[m_CurrentViewer imageView] flippedData]) [entireSeriesFrom setIntValue: [[m_CurrentViewer pixList] count] - [[m_CurrentViewer imageView] curImage]];
 		else
             [entireSeriesFrom setIntValue: 1+ [[m_CurrentViewer imageView] curImage]];
         
@@ -257,14 +257,14 @@ NSString *mediumTag[] = {@"Blue Film", @"Clear Film", @"Paper"};
 	[NSApp stopModal];
 	
     
-    if( [[NSUserDefaults standardUserDefaults] boolForKey: @"SquareWindowForPrinting"] && NSIsEmptyRect( windowFrameToRestore) == NO)
+    if ([[NSUserDefaults standardUserDefaults] boolForKey: @"SquareWindowForPrinting"] && NSIsEmptyRect( windowFrameToRestore) == NO)
     {
         int AlwaysScaleToFit = [[NSUserDefaults standardUserDefaults] integerForKey: @"AlwaysScaleToFit"];
         [[NSUserDefaults standardUserDefaults] setInteger: 0 forKey: @"AlwaysScaleToFit"];
         
         [AppController resizeWindowWithAnimation: m_CurrentViewer.window newSize: windowFrameToRestore];
         
-        if( scaleFitToRestore) [m_CurrentViewer.imageView scaleToFit];
+        if (scaleFitToRestore) [m_CurrentViewer.imageView scaleToFit];
         
         [[NSUserDefaults standardUserDefaults] setInteger: AlwaysScaleToFit forKey: @"AlwaysScaleToFit"];
     }
@@ -279,9 +279,10 @@ NSString *mediumTag[] = {@"Blue Film", @"Clear Film", @"Paper"};
 
 - (IBAction) printImages: (id) sender
 {
-	if( [m_pages intValue] > 10 && [[m_ImageSelection selectedCell] tag] == eAllImages)
+	if ([m_pages intValue] > 10 &&
+        [[m_ImageSelection selectedCell] tag] == eAllImages)
 	{
-		if( NSRunInformationalAlertPanel(NSLocalizedString(@"DICOM Print", nil),
+		if (NSRunInformationalAlertPanel(NSLocalizedString(@"DICOM Print", nil),
                                          NSLocalizedString(@"Are you really sure you want to print %d pages?", nil),
                                          NSLocalizedString(@"OK", nil),
                                          NSLocalizedString(@"Cancel", nil),
@@ -334,12 +335,12 @@ NSString *mediumTag[] = {@"Blue Film", @"Clear Film", @"Paper"};
 
 - (IBAction) exportDICOMSlider:(id) sender
 {
-	if( [[m_ImageSelection selectedCell] tag] == eAllImages)
+	if ([[m_ImageSelection selectedCell] tag] == eAllImages)
 	{
 		[entireSeriesFromText takeIntValueFrom: entireSeriesFrom];
 		[entireSeriesToText takeIntValueFrom: entireSeriesTo];
 		
-		if( [[m_CurrentViewer imageView] flippedData]) [[m_CurrentViewer imageView] setIndex: [[m_CurrentViewer pixList] count] - [sender intValue]];
+		if ([[m_CurrentViewer imageView] flippedData]) [[m_CurrentViewer imageView] setIndex: [[m_CurrentViewer pixList] count] - [sender intValue]];
 		else
             [[m_CurrentViewer imageView] setIndex:  [sender intValue]-1];
 		
@@ -362,18 +363,18 @@ NSString *mediumTag[] = {@"Blue Film", @"Clear Film", @"Paper"};
 	
 	int ipp = imageDisplayFormatNumbers[[[dict valueForKey: @"imageDisplayFormatTag"] intValue]];
 	
-	if( [[m_ImageSelection selectedCell] tag] == eAllImages)
+	if ([[m_ImageSelection selectedCell] tag] == eAllImages)
 	{
-		if( sender == entireSeriesTo) [entireSeriesToText setIntValue: [entireSeriesTo intValue]];
-		if( sender == entireSeriesFrom) [entireSeriesFromText setIntValue: [entireSeriesFrom intValue]];
+		if (sender == entireSeriesTo) [entireSeriesToText setIntValue: [entireSeriesTo intValue]];
+		if (sender == entireSeriesFrom) [entireSeriesFromText setIntValue: [entireSeriesFrom intValue]];
 		
-		if( sender == entireSeriesToText) [entireSeriesTo setIntValue: [entireSeriesToText intValue]];
-		if( sender == entireSeriesFromText) [entireSeriesFrom setIntValue: [entireSeriesFromText intValue]];
+		if (sender == entireSeriesToText) [entireSeriesTo setIntValue: [entireSeriesToText intValue]];
+		if (sender == entireSeriesFromText) [entireSeriesFrom setIntValue: [entireSeriesFromText intValue]];
 		
 		int from = [entireSeriesFrom intValue]-1;
 		int to = [entireSeriesTo intValue];
 		
-		if( from >= to)
+		if (from >= to)
 		{
 			to = [entireSeriesFrom intValue];
 			from = [entireSeriesTo intValue]-1;
@@ -386,8 +387,8 @@ NSString *mediumTag[] = {@"Blue Film", @"Clear Film", @"Paper"};
 		
 //		no_of_images = (to - from) / [entireSeriesInterval intValue];
 	}
-	else if( [[m_ImageSelection selectedCell] tag] == eCurrentImage) no_of_images = 1;
-	else if( [[m_ImageSelection selectedCell] tag] == eKeyImages)
+	else if ([[m_ImageSelection selectedCell] tag] == eCurrentImage) no_of_images = 1;
+	else if ([[m_ImageSelection selectedCell] tag] == eKeyImages)
 	{
 		NSArray *fileList = [m_CurrentViewer fileList];
         NSArray *roiList = [m_CurrentViewer roiList];
@@ -398,7 +399,7 @@ NSString *mediumTag[] = {@"Blue Film", @"Clear Film", @"Paper"};
 		}
 	}
 	
-	if( [[NSUserDefaults standardUserDefaults] boolForKey: @"autoAdjustPrintingFormat"])
+	if ([[NSUserDefaults standardUserDefaults] boolForKey: @"autoAdjustPrintingFormat"])
 	{
 		NSInteger index = 0, no;
 		do
@@ -410,9 +411,9 @@ NSString *mediumTag[] = {@"Blue Film", @"Clear Film", @"Paper"};
 		
 		NSMutableDictionary *currentPrinter = [[m_PrinterController selectedObjects] objectAtIndex: 0];
 		
-		if( no == 2)
+		if (no == 2)
 		{
-			if( [[filmOrientationTag[[[dict valueForKey: @"filmOrientationTag"] intValue]] uppercaseString] isEqualToString: @"PORTRAIT"])
+			if ([[filmOrientationTag[[[dict valueForKey: @"filmOrientationTag"] intValue]] uppercaseString] isEqualToString: @"PORTRAIT"])
 				[currentPrinter setObject: @"1" forKey:@"imageDisplayFormatTag"];
 			else
 				[currentPrinter setObject: @"2" forKey:@"imageDisplayFormatTag"];
@@ -424,9 +425,9 @@ NSString *mediumTag[] = {@"Blue Film", @"Clear Film", @"Paper"};
 		}
 	}
 	
-	if( no_of_images == 0)
+	if (no_of_images == 0)
         [m_pages setIntValue: 1];
-	else if( no_of_images % ipp == 0)
+	else if (no_of_images % ipp == 0)
         [m_pages setIntValue: no_of_images / ipp];
 	else
         [m_pages setIntValue: 1 + (no_of_images / ipp)];
@@ -434,7 +435,7 @@ NSString *mediumTag[] = {@"Blue Film", @"Clear Film", @"Paper"};
 
 - (IBAction) setExportMode:(id) sender
 {
-	if( [[sender selectedCell] tag] == eAllImages)
+	if ([[sender selectedCell] tag] == eAllImages)
         [self checkView: entireSeriesBox :YES];
 	else
         [self checkView: entireSeriesBox :NO];
@@ -562,14 +563,14 @@ NSString *mediumTag[] = {@"Blue Film", @"Clear Film", @"Paper"};
     int from = [entireSeriesFrom intValue]-1;
     int to = [entireSeriesTo intValue];
 
-    if( to < from)
+    if (to < from)
     {
         to = [entireSeriesFrom intValue];
         from = [entireSeriesTo intValue]-1;
     }
 
-    if( from < 0) from = 0;
-    if( to == from) to = from+1;
+    if (from < 0) from = 0;
+    if (to == from) to = from+1;
 
     NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:
                              [NSNumber numberWithInt: columns], @"columns",
@@ -637,7 +638,7 @@ NSString *mediumTag[] = {@"Blue Film", @"Clear Film", @"Paper"};
             [imageboxDict setObject:[images objectAtIndex: j] forKey:@"image_file"];
             [imageboxDict setObject:[NSString stringWithFormat: @"%d", k++] forKey:@"image_position"];
             
-            if( [[images objectAtIndex: j] length] > 0)
+            if ([[images objectAtIndex: j] length] > 0)
                 [filmboxDict setObject:imageboxDict forKey:@"imagebox"];
 #else
             NSXMLElement *imagebox = [NSXMLElement elementWithName: @"imagebox"];
@@ -645,7 +646,7 @@ NSString *mediumTag[] = {@"Blue Film", @"Clear Film", @"Paper"};
             [imagebox addAttribute: [NSXMLNode attributeWithName: @"image_file" stringValue: [images objectAtIndex: j]]];
             [imagebox addAttribute: [NSXMLNode attributeWithName: @"image_position" stringValue: [NSString stringWithFormat: @"%d", k++]]];
             
-            if( [[images objectAtIndex: j] length] > 0)
+            if ([[images objectAtIndex: j] length] > 0)
                 [filmbox addChild: imagebox];
 #endif
         }
@@ -824,7 +825,7 @@ NSString *mediumTag[] = {@"Blue Film", @"Clear Film", @"Paper"};
             
             for( NSMutableDictionary *printer in printers)
             {
-                if( [self _verifyConnection: printer])
+                if ([self _verifyConnection: printer])
                     [self performSelectorOnMainThread: @selector( setPrinterStateOn:) withObject: printer waitUntilDone: NO];
                 else
                     [self performSelectorOnMainThread: @selector( setPrinterStateOff:) withObject: printer waitUntilDone: NO];

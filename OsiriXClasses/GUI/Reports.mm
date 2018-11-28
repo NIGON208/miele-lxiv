@@ -645,7 +645,11 @@
     
     if( templatePath == nil || ![[NSFileManager defaultManager] fileExistsAtPath:templatePath])
     {
-        NSRunCriticalAlertPanel( NSLocalizedString( @"Microsoft Word", nil),  NSLocalizedString(@"I cannot find the OsiriX Word Template doc file.", nil), NSLocalizedString(@"OK", nil), nil, nil);
+        NSRunCriticalAlertPanel(NSLocalizedString( @"Microsoft Word", nil),
+                                NSLocalizedString(@"I cannot find the OsiriX Word Template doc file.", nil),
+                                NSLocalizedString(@"OK", nil),
+                                nil,
+                                nil);
         return NO;
     }
     

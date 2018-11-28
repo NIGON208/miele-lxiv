@@ -26,7 +26,7 @@ NSTypesetterBehavior gNSStringGeometricsTypesetterBehavior = NSTypesetterLatestB
     if ([self length] > 0) {
 		// Checking for empty string is necessary since Layout Manager will give the nominal
 		// height of one line if length is 0.  Our API specifies 0.0 for an empty string.
-		NSSize size = NSMakeSize(width, height) ;
+		NSSize size = NSMakeSize(width, height);
 		NSTextContainer *textContainer = [[NSTextContainer alloc] initWithContainerSize:size] ;
 		NSTextStorage *textStorage = [[NSTextStorage alloc] initWithAttributedString:self] ;
 		NSLayoutManager *layoutManager = [[NSLayoutManager alloc] init] ;
@@ -105,7 +105,7 @@ NSTypesetterBehavior gNSStringGeometricsTypesetterBehavior = NSTypesetterLatestB
 	NSSize answer = NSZeroSize ;
 	
 	if (font == nil) {
-		NSLog(@"[%@]: Error: cannot compute size with nil font", [self class]) ;
+		NSLog(@"[%@]: Error: cannot compute size with nil font", [self class]);
 	}
 	else {
 		NSDictionary* attributes = [NSDictionary dictionaryWithObjectsAndKeys: font, NSFontAttributeName, nil] ;

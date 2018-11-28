@@ -2309,7 +2309,12 @@ static NSDate *lastWarningDate = nil;
 
 -(void) displayError: (NSString*) err
 {
-	NSRunCriticalAlertPanel( NSLocalizedString( @"Error", nil), @"%@", NSLocalizedString( @"OK", nil), nil, nil, err);
+	NSRunCriticalAlertPanel(NSLocalizedString( @"Error", nil),
+                            @"%@",
+                            NSLocalizedString( @"OK", nil),
+                            nil,
+                            nil,
+                                err);
 }
 
 -(void) displayListenerError: (NSString*) err // the DiscPublishing plugin swizzles this method, do not rename it
@@ -2913,7 +2918,12 @@ static BOOL firstCall = YES;
     }
     @catch (NSException * e)
     {
-        NSRunCriticalAlertPanel(NSLocalizedString(@"Error", nil), @"%@", NSLocalizedString(@"OK", nil), nil, nil, e.reason);
+        NSRunCriticalAlertPanel(NSLocalizedString(@"Error", nil),
+                                @"%@",
+                                NSLocalizedString(@"OK", nil),
+                                nil,
+                                nil,
+                                    e.reason);
         
         N2LogExceptionWithStackTrace(e);
     }
@@ -3104,11 +3114,11 @@ static BOOL initialized = NO;
 				[[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"MACAPPSTORE"]; // Also modify in DefaultsOsiriX.m
 				[[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"AUTHENTICATION"];
                 NSArray *paths = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES);
-                NSLog(@"NSApplicationSupportDirectory: %@", paths);
 #else
 				[[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"MACAPPSTORE"]; // Also modify in DefaultsOsiriX.m
                 NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 #endif
+                NSLog(@"DefaultDatabasePath: %@", paths);
                 [[NSUserDefaults standardUserDefaults] setObject:[paths objectAtIndex:0] forKey:@"DefaultDatabasePath"];
 
 #ifdef __LP64__
@@ -3131,9 +3141,6 @@ static BOOL initialized = NO;
 //                [[NSUserDefaults standardUserDefaults] setObject:@"1" forKey:@"allow_qr_blank_query"];
 //                [[NSUserDefaults standardUserDefaults] setObject:@"1" forKey:@"allow_qr_custom_dicom_field"];
 				
-                
-                
-                
                 // if we are loading a database that isn't on the root volume, then we must wait for it to load - if it doesn't become available after a few minutes, then we'll just let osirix switch to the db at ~/Documents as it would do anyway
                 
                 NSString* dataBasePath = nil;
@@ -3145,7 +3152,8 @@ static BOOL initialized = NO;
                     N2LogException( e);
                 }
                 
-                if ([dataBasePath hasPrefix:@"/Volumes/"] || dataBasePath == nil) {
+                if ([dataBasePath hasPrefix:@"/Volumes/"] || dataBasePath == nil)
+                {
                     NSString* volumePath = [[[dataBasePath componentsSeparatedByString:@"/"] subarrayWithRange:NSMakeRange(0,3)] componentsJoinedByString:@"/"];
                     if (![[NSFileManager defaultManager] fileExistsAtPath:volumePath])
                     {
@@ -3361,7 +3369,12 @@ static BOOL initialized = NO;
                         }
                         else
                         {
-                            int result = NSRunInformationalAlertPanel(NSLocalizedString(@"OsiriX crashed during last startup", nil), NSLocalizedString(@"Previous crash is maybe related to a corrupt database or corrupted images.\r\rShould I run OsiriX in Protected Mode (recommended) (no images displayed)? To allow you to delete the crashing/corrupted images/studies.\r\rOr Should I rebuild the local database? All albums, comments and status will be lost.", nil), NSLocalizedString(@"Continue normally",nil), NSLocalizedString(@"Protected Mode",nil), NSLocalizedString(@"Rebuild Database",nil));
+                            int result = NSRunInformationalAlertPanel(
+                                NSLocalizedString(@"OsiriX crashed during last startup", nil),
+                                NSLocalizedString(@"Previous crash is maybe related to a corrupt database or corrupted images.\r\rShould I run OsiriX in Protected Mode (recommended) (no images displayed)? To allow you to delete the crashing/corrupted images/studies.\r\rOr Should I rebuild the local database? All albums, comments and status will be lost.", nil),
+                                NSLocalizedString(@"Continue normally",nil),
+                                NSLocalizedString(@"Protected Mode",nil),
+                                NSLocalizedString(@"Rebuild Database",nil));
                             
                             if (result == NSAlertOtherReturn)
                             {
@@ -3588,10 +3601,9 @@ static BOOL initialized = NO;
     [[NSUserDefaults standardUserDefaults] setBool: YES forKey: @"SeriesListVisible"];
 //    [[NSUserDefaults standardUserDefaults] setBool: NO  forKey: @"AUTOHIDEMATRIX"];
     
-#ifndef MACAPPSTORE
 #ifndef OSIRIX_LIGHT
 	if ([[NSUserDefaults standardUserDefaults] boolForKey: @"checkForUpdatesPlugins"])
-		[NSThread detachNewThreadSelector: @selector(checkForUpdates:)
+		[NSThread detachNewThreadSelector: @selector(checkForPluginUpdates:)
                                  toTarget: pluginManager
                                withObject: pluginManager];
     
@@ -3611,17 +3623,9 @@ static BOOL initialized = NO;
         }
     }
     else
-        [NSThread detachNewThreadSelector: @selector(checkForUpdates:) toTarget:self withObject: self];
-    
-#endif
-#endif
-    
-    // Remove PluginManager items...
-#ifdef MACAPPSTORE
-    NSMenu *pluginsMenu = [filtersMenu supermenu];
-    
-    [pluginsMenu removeItemAtIndex: [pluginsMenu numberOfItems]-1];
-    [pluginsMenu removeItemAtIndex: [pluginsMenu numberOfItems]-1];
+        [NSThread detachNewThreadSelector: @selector(checkForUpdates:)
+                                 toTarget: self
+                               withObject: self];
 #endif
 	
 	if ([[NSUserDefaults standardUserDefaults] boolForKey: @"hideListenerError"]) // Server mode
@@ -4086,6 +4090,7 @@ static BOOL initialized = NO;
 			[toBeRemoved addObject: d];
         }
 	}
+
     if (toBeRemoved.count)
     {
         [dbArray removeObjectsInArray: toBeRemoved];
@@ -4519,9 +4524,9 @@ static BOOL initialized = NO;
 }
 
 #ifndef OSIRIX_LIGHT
-#ifndef MACAPPSTORE
 - (IBAction) checkForUpdates: (id) sender
 {
+#ifndef MACAPPSTORE
 	if (sender != self)
         verboseUpdateCheck = YES;
 	else
@@ -4572,9 +4577,9 @@ static BOOL initialized = NO;
 
     [pool release];
 #endif // NDEBUG
+#endif // MACAPPSTORE
 }
-#endif
-#endif
+#endif // OSIRIX_LIGHT
 
 //- (void) URL: (NSURL*) sender resourceDidFailLoadingWithReason: (NSString*) reason
 //{

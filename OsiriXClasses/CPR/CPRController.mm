@@ -119,9 +119,9 @@ static float deg2rad = M_PI / 180.0;
 {
     highResolutionMode = newValue;
     
-    if( highResolutionMode)
+    if (highResolutionMode)
     {
-        if( HR_PixList == nil)
+        if (HR_PixList == nil)
         {
             HR_PixList = [[NSMutableArray array] retain];
             HR_FileList = [[NSMutableArray array] retain];
@@ -140,7 +140,7 @@ static float deg2rad = M_PI / 180.0;
             [www end];
 			[www close];
             
-            if( succeed == NO)
+            if (succeed == NO)
             {
                 NSString *bundleName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleName"];
                 if ( NSRunAlertPanel(@"", //NSLocalizedString(@"32-bit",nil),
@@ -172,7 +172,7 @@ static float deg2rad = M_PI / 180.0;
             }
         }
         
-        if( HR_PixList)
+        if (HR_PixList)
         {
             [cprVolumeData release];
             
@@ -205,7 +205,7 @@ static float deg2rad = M_PI / 180.0;
 {
 	@try
 	{
-		if( [[NSUserDefaults standardUserDefaults] integerForKey: @"ANNOTATIONS"] == annotNone)
+		if ([[NSUserDefaults standardUserDefaults] integerForKey: @"ANNOTATIONS"] == annotNone)
 			[[NSUserDefaults standardUserDefaults] setInteger: annotGraphics forKey: @"ANNOTATIONS"];
 		
 		viewer2D = viewer;
@@ -214,9 +214,13 @@ static float deg2rad = M_PI / 180.0;
 				
 		originalPix = [pix lastObject];
 		
-		if( [originalPix isRGB])
+		if ([originalPix isRGB])
 		{
-			NSRunCriticalAlertPanel( NSLocalizedString(@"RGB",nil), NSLocalizedString( @"RGB images are not supported.",nil), NSLocalizedString(@"OK",nil), nil, nil);
+			NSRunCriticalAlertPanel(NSLocalizedString(@"RGB",nil),
+                                    NSLocalizedString( @"RGB images are not supported.",nil),
+                                    NSLocalizedString(@"OK",nil),
+                                    nil,
+                                    nil);
             [self autorelease];
             
 			return nil;
@@ -232,9 +236,9 @@ static float deg2rad = M_PI / 180.0;
 		fusedViewer2D = fusedViewer;
 		clippingRangeMode = 1;
 		LOD = 1;
-		if( LOD < 1) LOD = 1;
+		if (LOD < 1) LOD = 1;
 		
-		if( fusedViewer2D)
+		if (fusedViewer2D)
 			self.blendingModeAvailable = YES;
 		
 		self.displayMousePosition = [[NSUserDefaults standardUserDefaults] boolForKey: @"MPRDisplayMousePosition"];
@@ -254,7 +258,7 @@ static float deg2rad = M_PI / 180.0;
         spacing[0]=[firstObject pixelSpacingX];
         spacing[1]=[firstObject pixelSpacingY];
         float sliceThickness = [firstObject sliceInterval];   
-        if( sliceThickness == 0)
+        if (sliceThickness == 0)
         {
             NSLog(@"Slice interval = slice thickness!");
             sliceThickness = [firstObject sliceThickness];
@@ -332,7 +336,7 @@ static float deg2rad = M_PI / 180.0;
 //		[cprView setDCMPixList: [NSMutableArray arrayWithObject: emptyPix] filesList: [NSArray arrayWithObject: [files lastObject]] roiList: nil firstImage:0 type:'i' reset:YES];
 //		[cprView setFlippedData: [[viewer imageView] flippedData]];
 //		
-		if( fusedViewer2D)
+		if (fusedViewer2D)
 		{
 			blendedMprView1 = [[DCMView alloc] initWithFrame: [mprView1 frame]];
 			blendedMprView2 = [[DCMView alloc] initWithFrame: [mprView2 frame]];
@@ -492,10 +496,10 @@ static float deg2rad = M_PI / 180.0;
 
 - (void) delayedFullLODRendering:(id) sender
 {
-	if( windowWillClose)
+	if (windowWillClose)
         return;
 	
-	if( hiddenVRView.lowResLODFactor > 1 || sender != nil)
+	if (hiddenVRView.lowResLODFactor > 1 || sender != nil)
 	{
 		lowLOD = NO;
 		[self updateViewsAccordingToFrame: sender];
@@ -505,7 +509,7 @@ static float deg2rad = M_PI / 180.0;
 
 - (void) updateViewsAccordingToFrame:(id) sender	// see setFrame in CPRMPRDCMView.m
 {
-	if( windowWillClose)
+	if (windowWillClose)
         return;
 	
 	id view = [[self window] firstResponder];
@@ -514,9 +518,9 @@ static float deg2rad = M_PI / 180.0;
 	[mprView2 camera].forceUpdate = YES;
 	[mprView3 camera].forceUpdate = YES;
 	
-	if( sender)
+	if (sender)
 	{
-		if( [[self window] firstResponder] != sender)
+		if ([[self window] firstResponder] != sender)
 			[[self window] makeFirstResponder: sender];
 		[sender restoreCamera];
 		[sender updateViewMPR];
@@ -524,14 +528,14 @@ static float deg2rad = M_PI / 180.0;
 	else
 	{
 		CPRMPRDCMView *selectedView = [self selectedView];
-		if( [[self window] firstResponder] != selectedView)
+		if ([[self window] firstResponder] != selectedView)
 			[[self window] makeFirstResponder: selectedView];
 		[selectedView restoreCamera];
 		[selectedView updateViewMPR];
 	}
 	
-	if( view)
-		if( [[self window] firstResponder] != view)
+	if (view)
+		if ([[self window] firstResponder] != view)
 			[[self window] makeFirstResponder: view];
 	
 	[mprView1 setNeedsDisplay: YES];
@@ -559,7 +563,7 @@ static float deg2rad = M_PI / 180.0;
     int min = [self getClippingRangeThicknessInMm] * 100.;
     self.dcmIntervalMin = (float) min / 100.;
     self.dcmIntervalMin -= 0.001;
-    if( self.dcmIntervalMin < 0.01)
+    if (self.dcmIntervalMin < 0.01)
         self.dcmIntervalMin = 0.01;
     
     self.dcmIntervalMax = 100;
@@ -587,7 +591,7 @@ static float deg2rad = M_PI / 180.0;
 	
 	[self setTool: toolsMatrix];
 	
-	if( c == NO)
+	if (c == NO)
 		[[NSUserDefaults standardUserDefaults] setBool: c forKey: @"syncZoomLevelMPR"];
     
 	mprView1.dontUseAutoLOD = NO;
@@ -614,7 +618,7 @@ static float deg2rad = M_PI / 180.0;
 	
     path = [path stringByAppendingPathComponent: [NSString stringWithFormat:@"CPR-%@", [[[viewer2D fileList: 0] objectAtIndex:0] valueForKey:@"uniqueFilename"]]];
 	
-    if( path)
+    if (path)
         [self loadBezierPathFromFile: path];
 }
 
@@ -626,7 +630,7 @@ static float deg2rad = M_PI / 180.0;
     [horizontalSplit2 setDelegate: self];
     [verticalSplit setDelegate: self];
     
-	if( [s frame].size.height > [s frame].size.width)
+	if ([s frame].size.height > [s frame].size.width)
 	{
 		[horizontalSplit1 setVertical: NO];
 		[horizontalSplit2 setVertical: NO];
@@ -642,7 +646,7 @@ static float deg2rad = M_PI / 180.0;
 {
     N2OpenGLViewWithSplitsWindow *window = (N2OpenGLViewWithSplitsWindow*)self.window;
 	
-	if( [window respondsToSelector:@selector(disableUpdatesUntilFlush)])
+	if ([window respondsToSelector:@selector(disableUpdatesUntilFlush)])
 		[window disableUpdatesUntilFlush];
 }
 
@@ -714,7 +718,7 @@ static float deg2rad = M_PI / 180.0;
 
 - (void) CloseViewerNotification: (NSNotification*) note
 {
-	if( [note object] == viewer2D || [note object] == fusedViewer2D)
+	if ([note object] == viewer2D || [note object] == fusedViewer2D)
 	{
 		[self offFullScreen];
 		[[self window] close];
@@ -764,7 +768,7 @@ static float deg2rad = M_PI / 180.0;
 	s[ 0][ 0] = HUGE_VALF; s[ 0][ 1] = HUGE_VALF; s[ 0][ 2] = HUGE_VALF;
 	s[ 1][ 0] = HUGE_VALF; s[ 1][ 1] = HUGE_VALF; s[ 1][ 2] = HUGE_VALF;
 	
-    if( mp2.frame.size.height > 10 && mp2.frame.size.width > 10)
+    if (mp2.frame.size.height > 10 && mp2.frame.size.width > 10)
     {
         originA[ 0] = mp2.pix.originX; originA[ 1] = mp2.pix.originY; originA[ 2] = mp2.pix.originZ;
         originB[ 0] = mp1.pix.originX; originB[ 1] = mp1.pix.originY; originB[ 2] = mp1.pix.originZ;
@@ -775,7 +779,7 @@ static float deg2rad = M_PI / 180.0;
         float slicePoint[ 3];
         float sliceVector[ 3];
 	
-        if( intersect3D_2Planes( vectorA+6, originA, vectorB+6, originB, sliceVector, slicePoint) == noErr)
+        if (intersect3D_2Planes( vectorA+6, originA, vectorB+6, originB, sliceVector, slicePoint) == noErr)
         {
             [mp1 computeSliceIntersection: mp2.pix sliceFromTo: s vector: vectorB origin: originB];
         }
@@ -817,20 +821,20 @@ static float deg2rad = M_PI / 180.0;
 	float a[2][3];
 	float b[2][3];
 	
-	if( sender)
+	if (sender)
 	{
-		if( [[NSUserDefaults standardUserDefaults] boolForKey: @"syncZoomLevelMPR"])
+		if ([[NSUserDefaults standardUserDefaults] boolForKey: @"syncZoomLevelMPR"])
 		{
 			CPRMPRDCMView *selectedView = [self selectedView];
 			
-			if( selectedView != mprView1) mprView1.camera.parallelScale = selectedView.camera.parallelScale;
-			if( selectedView != mprView2) mprView2.camera.parallelScale = selectedView.camera.parallelScale;
-			if( selectedView != mprView3) mprView3.camera.parallelScale = selectedView.camera.parallelScale;
+			if (selectedView != mprView1) mprView1.camera.parallelScale = selectedView.camera.parallelScale;
+			if (selectedView != mprView2) mprView2.camera.parallelScale = selectedView.camera.parallelScale;
+			if (selectedView != mprView3) mprView3.camera.parallelScale = selectedView.camera.parallelScale;
 		}
 	}
     
 	// Center other views on the sender view
-	if( sender && [sender isKeyView] == YES && avoidReentry == NO)
+	if (sender && [sender isKeyView] == YES && avoidReentry == NO)
 	{
 		avoidReentry = YES;
 		
@@ -845,11 +849,11 @@ static float deg2rad = M_PI / 180.0;
 		// Correct slice position according to slice center (VR: position is the beginning of the slice)
 		position = [Point3D pointWithX: position.x + halfthickness*cos[ 6] y:position.y + halfthickness*cos[ 7] z:position.z + halfthickness*cos[ 8]];
 		
-		if( sender != mprView1) mprView1.camera.position = position;
-		if( sender != mprView2) mprView2.camera.position = position;
-		if( sender != mprView3) mprView3.camera.position = position;
+		if (sender != mprView1) mprView1.camera.position = position;
+		if (sender != mprView2) mprView2.camera.position = position;
+		if (sender != mprView3) mprView3.camera.position = position;
 		
-		if( sender == mprView1)
+		if (sender == mprView1)
 		{
 			float angle = mprView1.angleMPR;
 			XYZ vector, rotationVector;
@@ -874,7 +878,7 @@ static float deg2rad = M_PI / 180.0;
 			mprView3.camera.position = [Point3D pointWithX: p.x + halfthickness*-vector.x y:p.y + halfthickness*-vector.y z:p.z + halfthickness*-vector.z];
 		}
 		
-		if( sender == mprView2)
+		if (sender == mprView2)
 		{
 			float angle = mprView2.angleMPR;
 			XYZ vector, rotationVector;
@@ -899,7 +903,7 @@ static float deg2rad = M_PI / 180.0;
 			mprView1.camera.position = [Point3D pointWithX: p.x + halfthickness*-vector.x y:p.y + halfthickness*-vector.y z:p.z + halfthickness*-vector.z];
 		}
 		
-		if( sender == mprView3)
+		if (sender == mprView3)
 		{
 			float angle = mprView3.angleMPR;
 			XYZ vector, rotationVector;
@@ -927,11 +931,11 @@ static float deg2rad = M_PI / 180.0;
 		float l, w;
 		[sender.vrView getWLWW: &l : &w];
         
-		if( sender != mprView1)
+		if (sender != mprView1)
 		{
 			[mprView1 restoreCamera];
 			
-			if( clippingRangeMode == 0) // VR mode
+			if (clippingRangeMode == 0) // VR mode
 			{
 				[mprView1.vrView setOpacity: [sender.vrView currentOpacityArray]];
 				[mprView1.vrView setWLWW: l : w];
@@ -940,11 +944,11 @@ static float deg2rad = M_PI / 180.0;
 			[mprView1 updateViewMPR];
 		}
 		
-		if( sender != mprView2)
+		if (sender != mprView2)
 		{
 			[mprView2 restoreCamera];
 			
-			if( clippingRangeMode == 0) // VR mode
+			if (clippingRangeMode == 0) // VR mode
 			{
 				[mprView2.vrView setOpacity: [sender.vrView currentOpacityArray]];
 				[mprView2.vrView setWLWW: l : w];
@@ -953,11 +957,11 @@ static float deg2rad = M_PI / 180.0;
 			[mprView2 updateViewMPR];
 		}
 		
-		if( sender != mprView3)
+		if (sender != mprView3)
 		{
 			[mprView3 restoreCamera];
 			
-			if( clippingRangeMode == 0) // VR mode
+			if (clippingRangeMode == 0) // VR mode
 			{
 				[mprView3.vrView setOpacity: [sender.vrView currentOpacityArray]];
 				[mprView3.vrView setWLWW: l : w];
@@ -966,7 +970,7 @@ static float deg2rad = M_PI / 180.0;
 			[mprView3 updateViewMPR];
 		}
 		
-		if( sender == mprView1)
+		if (sender == mprView1)
 		{
 			float o[ 9], orientation[ 9];
 			
@@ -979,7 +983,7 @@ static float deg2rad = M_PI / 180.0;
 			mprView3.angleMPR = [CPRController angleBetweenVector: o+6 andPlane:orientation]-180.;
 		}
 		
-		if( sender == mprView2)
+		if (sender == mprView2)
 		{
 			float o[ 9], orientation[ 9];
 			[sender.pix orientation: o];
@@ -991,7 +995,7 @@ static float deg2rad = M_PI / 180.0;
 			mprView3.angleMPR = [CPRController angleBetweenVector: o+6 andPlane:orientation]+90.;
 		}
 		
-		if( sender == mprView3)
+		if (sender == mprView3)
 		{
 			float o[ 9], orientation[ 9];
 			[sender.pix orientation: o];
@@ -1035,18 +1039,18 @@ static float deg2rad = M_PI / 180.0;
 
 - (void)keyDown:(NSEvent *)theEvent
 {
-    if( [[theEvent characters] length] == 0)
+    if ([[theEvent characters] length] == 0)
         return;
     
     unichar c = [[theEvent characters] characterAtIndex:0];
     
-	if( c ==  ' ')
+	if (c ==  ' ')
 	{
 		[self toogleAxisVisibility: self];
 	}
 	else if(c == 27) // 27 : escape
 	{
-		if( FullScreenOn)
+		if (FullScreenOn)
 			[self fullScreenMenu:self];
 		else
 			[super keyDown: theEvent];
@@ -1065,7 +1069,7 @@ static float deg2rad = M_PI / 180.0;
 	id sender = [note object];
 	int tag;
 	
-	if( sender)
+	if (sender)
 	{
 		if ([sender isKindOfClass:[NSMatrix class]])
 		{
@@ -1078,7 +1082,7 @@ static float deg2rad = M_PI / 180.0;
 	else
 		tag = [[[note userInfo] valueForKey:@"toolIndex"] intValue];
 	
-	if( tag >= 0)
+	if (tag >= 0)
 	{
 		[toolsMatrix selectCellWithTag: tag];
 		[self setToolIndex: (ToolMode)tag];
@@ -1215,7 +1219,7 @@ static float deg2rad = M_PI / 180.0;
 {
     DCMView *s = [self selectedViewOnlyMPRView : NO];
     
-    if( [s isKindOfClass: [CPRView class]])
+    if ([s isKindOfClass: [CPRView class]])
         s = [(CPRView*)s reformationView];
     
     @try
@@ -1224,16 +1228,16 @@ static float deg2rad = M_PI / 180.0;
         {
             long mode = [r ROImode];
             
-            if( mode == ROI_selected || mode == ROI_selectedModify || mode == ROI_drawing)
+            if (mode == ROI_selected || mode == ROI_selectedModify || mode == ROI_drawing)
             {
                 NSArray *winList = [NSApp windows];
                 BOOL	found = NO;
                 
                 for( id loopItem1 in winList)
                 {
-                    if( [[[loopItem1 windowController] windowNibName] isEqualToString:@"ROI"])
+                    if ([[[loopItem1 windowController] windowNibName] isEqualToString:@"ROI"])
                     {
-                        if( [[loopItem1 windowController] curROI] == r)
+                        if ([[loopItem1 windowController] curROI] == r)
                         {
                             found = YES;
                             [[[loopItem1 windowController] window] makeKeyAndOrderFront:self];
@@ -1241,7 +1245,7 @@ static float deg2rad = M_PI / 180.0;
                     }
                 }
                 
-                if( found == NO)
+                if (found == NO)
                 {
                     ROIWindow* roiWin = [[ROIWindow alloc] initWithROI: r :viewer2D];
                     [roiWin showWindow:self];
@@ -1285,7 +1289,7 @@ static float deg2rad = M_PI / 180.0;
             break;
 	}
 	
-	if( filename == nil)
+	if (filename == nil)
 		return nil;
 	
 	return [NSImage imageNamed: filename];
@@ -1293,11 +1297,11 @@ static float deg2rad = M_PI / 180.0;
 
 -(void) setROIToolTag:(ToolMode) roitype
 {
-	if( roitype != tRepulsor)
+	if (roitype != tRepulsor)
 	{
 		NSImage *im = [self imageForROI: roitype];
 		
-		if( im)
+		if (im)
 		{
 			NSButtonCell *cell = [toolsMatrix cellAtRow:0 column:7];
 			[cell setTag: roitype];
@@ -1314,7 +1318,7 @@ static float deg2rad = M_PI / 180.0;
 	
 	DCMView *s = [self selectedViewOnlyMPRView : NO];
     
-    if( [s isKindOfClass: [CPRView class]])
+    if ([s isKindOfClass: [CPRView class]])
          s = [(CPRView*)s reformationView];
 	
 	[s stopROIEditingForce: YES];
@@ -1337,7 +1341,7 @@ static float deg2rad = M_PI / 180.0;
 
 - (id) prepareObjectForUndo:(NSString*) string
 {
-    //	if( [string isEqualToString: @"roi"])
+    //	if ([string isEqualToString: @"roi"])
     //	{
     //		NSMutableArray	*rois = [NSMutableArray array];
     //		
@@ -1359,7 +1363,7 @@ static float deg2rad = M_PI / 180.0;
     //		return [NSDictionary dictionaryWithObjectsAndKeys: string, @"type", rois, @"rois", nil];
     //	}
 	
-	if( [string isEqualToString: @"mprCamera"] && mprView1.camera && mprView2.camera && mprView3.camera)
+	if ([string isEqualToString: @"mprCamera"] && mprView1.camera && mprView2.camera && mprView3.camera)
 	{
 		NSMutableArray	*cameras = [NSMutableArray array];
 		
@@ -1391,9 +1395,9 @@ static float deg2rad = M_PI / 180.0;
 
 - (void) executeUndo:(NSMutableArray*) u
 {
-	if( [u count])
+	if ([u count])
 	{
-		if( [[[u lastObject] objectForKey: @"type"] isEqualToString:@"mprCamera"])
+		if ([[[u lastObject] objectForKey: @"type"] isEqualToString:@"mprCamera"])
 		{
 			NSArray	*cameras = [[u lastObject] objectForKey: @"cameras"];
 			
@@ -1409,7 +1413,7 @@ static float deg2rad = M_PI / 180.0;
 			
 			[self updateViewsAccordingToFrame: nil];
 		}
-        else if( [[[u lastObject] objectForKey: @"type"] isEqualToString:@"curvedPath"]) {
+        else if ([[[u lastObject] objectForKey: @"type"] isEqualToString:@"curvedPath"]) {
 			self.curvedPath = [NSKeyedUnarchiver unarchiveObjectWithData:[[u lastObject] objectForKey:@"curvedPath"]];
 			mprView1.curvedPath = curvedPath;
 			mprView2.curvedPath = curvedPath;
@@ -1420,7 +1424,7 @@ static float deg2rad = M_PI / 180.0;
 			bottomTransverseView.curvedPath = curvedPath;
 		}
 		
-        //		if( [[[u lastObject] objectForKey: @"type"] isEqualToString:@"roi"])
+        //		if ([[[u lastObject] objectForKey: @"type"] isEqualToString:@"roi"])
         //		{
         //			NSMutableArray	*rois = [[u lastObject] objectForKey: @"rois"];
         //			
@@ -1464,11 +1468,11 @@ static float deg2rad = M_PI / 180.0;
 
 - (IBAction) redo:(id) sender
 {
-	if( [redoQueue count])
+	if ([redoQueue count])
 	{
 		id obj = [self prepareObjectForUndo: [[redoQueue lastObject] objectForKey:@"type"]];
 		
-		if( obj)
+		if (obj)
 			[undoQueue addObject: obj];
 		
 		[self executeUndo: redoQueue];
@@ -1479,11 +1483,11 @@ static float deg2rad = M_PI / 180.0;
 
 - (IBAction) undo:(id) sender
 {
-	if( [undoQueue count])
+	if ([undoQueue count])
 	{
 		id obj = [self prepareObjectForUndo: [[undoQueue lastObject] objectForKey:@"type"]];
 		
-		if( obj)
+		if (obj)
 			[redoQueue addObject: obj];
 		
 		[self executeUndo: undoQueue];
@@ -1494,21 +1498,21 @@ static float deg2rad = M_PI / 180.0;
 
 - (void) removeLastItemFromUndoQueue
 {
-	if( [undoQueue count])
+	if ([undoQueue count])
 		[undoQueue removeLastObject];
 }
 
 - (void) addToUndoQueue:(NSString*) string
 {
-    if( [[NSUserDefaults standardUserDefaults] integerForKey: @"UndoQueueSize"] <= 0)
+    if ([[NSUserDefaults standardUserDefaults] integerForKey: @"UndoQueueSize"] <= 0)
         return;
     
 	id obj = [self prepareObjectForUndo: string];
 	
-	if( obj)
+	if (obj)
 		[undoQueue addObject: obj];
 	
-	if( [undoQueue count] > [[NSUserDefaults standardUserDefaults] integerForKey: @"UndoQueueSize"])
+	if ([undoQueue count] > [[NSUserDefaults standardUserDefaults] integerForKey: @"UndoQueueSize"])
 	{
 		[undoQueue removeObjectAtIndex: 0];
 	}
@@ -1531,7 +1535,7 @@ static float deg2rad = M_PI / 180.0;
 
 - (void) setLOD: (float)lod;
 {
-	if( lod < 1) lod = 1;
+	if (lod < 1) lod = 1;
 	
 	LOD = lod;
 	[hiddenVRView setLOD: lod];
@@ -1587,7 +1591,7 @@ static float deg2rad = M_PI / 180.0;
     for( NSMenuItem *item in self.wlwwMenuItems)
         [[wlwwPopup menu] addItem: item];
     
-	if( [note object])
+	if ([note object])
 	{
 		[curWLWWMenu release];
 		curWLWWMenu = [[note object] retain];
@@ -1599,13 +1603,13 @@ static float deg2rad = M_PI / 180.0;
 {
 	NSString *menuString = [sender title];
 	
-	if( [menuString isEqualToString:NSLocalizedString(@"Other", nil)])
+	if ([menuString isEqualToString:NSLocalizedString(@"Other", nil)])
 	{
 	}
-	else if( [menuString isEqualToString:NSLocalizedString(@"Default WL & WW", nil)])
+	else if ([menuString isEqualToString:NSLocalizedString(@"Default WL & WW", nil)])
 	{
 	}
-	else if( [menuString isEqualToString:NSLocalizedString(@"Full dynamic", nil)])
+	else if ([menuString isEqualToString:NSLocalizedString(@"Full dynamic", nil)])
 	{
 	}
 	else
@@ -1620,11 +1624,11 @@ static float deg2rad = M_PI / 180.0;
 
 - (void)applyWLWWForString:(NSString *)menuString;
 {
-	if( [menuString isEqualToString:NSLocalizedString(@"Other", nil)])
+	if ([menuString isEqualToString:NSLocalizedString(@"Other", nil)])
 	{
 		//[imageView setWLWW:0 :0];
 	}
-	else if( [menuString isEqualToString:NSLocalizedString(@"Default WL & WW", nil)])
+	else if ([menuString isEqualToString:NSLocalizedString(@"Default WL & WW", nil)])
 	{
 		[mprView1 setWLWW:[[pixList[0] objectAtIndex:0] savedWL] :[[pixList[0] objectAtIndex:0] savedWW]];
 		[mprView2 setWLWW:[[pixList[0] objectAtIndex:0] savedWL] :[[pixList[0] objectAtIndex:0] savedWW]];
@@ -1634,7 +1638,7 @@ static float deg2rad = M_PI / 180.0;
 		[middleTransverseView setWLWW:[[pixList[0] objectAtIndex:0] savedWL] :[[pixList[0] objectAtIndex:0] savedWW]];
 		[bottomTransverseView setWLWW:[[pixList[0] objectAtIndex:0] savedWL] :[[pixList[0] objectAtIndex:0] savedWW]];
 	}
-	else if( [menuString isEqualToString:NSLocalizedString(@"Full dynamic", nil)])
+	else if ([menuString isEqualToString:NSLocalizedString(@"Full dynamic", nil)])
 	{
 		[mprView1 setWLWW:0 :0];
 		[mprView2 setWLWW:0 :0];
@@ -1668,7 +1672,7 @@ static float deg2rad = M_PI / 180.0;
 	
 	[[[wlwwPopup menu] itemAtIndex:0] setTitle:menuString];
 	
-	if( curWLWWMenu != menuString)
+	if (curWLWWMenu != menuString)
 	{
 		[curWLWWMenu release];
 		curWLWWMenu = [menuString retain];
@@ -1720,9 +1724,9 @@ static float deg2rad = M_PI / 180.0;
     //			NSArray *content = [[NSFileManager defaultManager] directoryContentsAtPath:[paths objectAtIndex:j]];
     //			for (NSUInteger i=0; i<[content count]; i++)
     //			{
-    //				if( [[content objectAtIndex:i] length] > 0)
+    //				if ([[content objectAtIndex:i] length] > 0)
     //				{
-    //					if( [[content objectAtIndex:i] characterAtIndex: 0] != '.')
+    //					if ([[content objectAtIndex:i] characterAtIndex: 0] != '.')
     //					{
     //						NSDictionary* clut = [CLUTOpacityView presetFromFileWithName:[[content objectAtIndex:i] stringByDeletingPathExtension]];
     //						if(clut)
@@ -1740,7 +1744,7 @@ static float deg2rad = M_PI / 180.0;
     //	NSMenuItem *item;
     //	item = [[clutPopup menu] insertItemWithTitle:@"8-bit CLUTs" action:@selector(noAction:) keyEquivalent:@"" atIndex:3];
     //	
-    //	if( [clutArray count])
+    //	if ([clutArray count])
     //	{
     //		[[clutPopup menu] insertItem:[NSMenuItem separatorItem] atIndex:[[clutPopup menu] numberOfItems]-2];
     //		
@@ -1761,17 +1765,17 @@ static float deg2rad = M_PI / 180.0;
 
 -(void) ApplyCLUTString:(NSString*) str
 {
-	if( str == nil)
+	if (str == nil)
         return;
     
 	[OpacityPopup setEnabled:YES];
 	
 	[self ApplyOpacityString:curOpacityMenu];
 	
-	if( [[[NSUserDefaults standardUserDefaults] dictionaryForKey: @"CLUT"] objectForKey: str] == nil)
+	if ([[[NSUserDefaults standardUserDefaults] dictionaryForKey: @"CLUT"] objectForKey: str] == nil)
 		str = NSLocalizedString(@"No CLUT", nil);
 	
-	if( curCLUTMenu != str)
+	if (curCLUTMenu != str)
 	{
 		[curCLUTMenu release];
 		curCLUTMenu = [str retain];
@@ -1781,7 +1785,7 @@ static float deg2rad = M_PI / 180.0;
 	mprView2.camera.forceUpdate = YES;
 	mprView3.camera.forceUpdate = YES;
 	
-	if( clippingRangeMode == 0) //VR
+	if (clippingRangeMode == 0) //VR
 	{
 		[mprView1 setCLUT: nil :nil :nil];
 		[mprView2 setCLUT: nil :nil :nil];
@@ -1840,7 +1844,7 @@ static float deg2rad = M_PI / 180.0;
 			[middleTransverseView setIndex:[middleTransverseView curImage]];
 			[bottomTransverseView setIndex:[bottomTransverseView curImage]];
 			
-			if( str != curCLUTMenu)
+			if (str != curCLUTMenu)
 			{
 				[curCLUTMenu release];
 				curCLUTMenu = [str retain];
@@ -1859,7 +1863,7 @@ static float deg2rad = M_PI / 180.0;
 		unsigned char red[256], green[256], blue[256];
 		
 		aCLUT = [[[NSUserDefaults standardUserDefaults] dictionaryForKey: @"CLUT"] objectForKey: str];
-		if( aCLUT)
+		if (aCLUT)
 		{
 			array = [aCLUT objectForKey:@"Red"];
 			for( i = 0; i < 256; i++)
@@ -1915,7 +1919,7 @@ static float deg2rad = M_PI / 180.0;
 				[middleTransverseView setIndex:[middleTransverseView curImage]];
 				[bottomTransverseView setIndex:[bottomTransverseView curImage]];
 				
-				if( str != curCLUTMenu)
+				if (str != curCLUTMenu)
 				{
 					[curCLUTMenu release];
 					curCLUTMenu = [str retain];
@@ -1976,7 +1980,7 @@ static float deg2rad = M_PI / 180.0;
 
 - (void)ApplyOpacityString:(NSString*)str
 {
-	if( clippingRangeMode == 1 || clippingRangeMode == 3  || clippingRangeMode == 2)
+	if (clippingRangeMode == 1 || clippingRangeMode == 3  || clippingRangeMode == 2)
 	{
 		[self Apply2DOpacityString:str];
 	}
@@ -1991,16 +1995,16 @@ static float deg2rad = M_PI / 180.0;
 	NSDictionary *aOpacity;
 	NSArray *array;
 	
-	if( str == nil)
+	if (str == nil)
         return;
 	
-	if( curOpacityMenu != str)
+	if (curOpacityMenu != str)
 	{
 		[curOpacityMenu release];
 		curOpacityMenu = [str retain];
 	}
 	
-	if( [str isEqualToString: NSLocalizedString(@"Linear Table", nil)])
+	if ([str isEqualToString: NSLocalizedString(@"Linear Table", nil)])
 	{
 		[mprView1.vrView setOpacity:[NSArray array]];
 		[[NSNotificationCenter defaultCenter] postNotificationName: OsirixUpdateOpacityMenuNotification object: curOpacityMenu userInfo: nil];
@@ -2010,7 +2014,7 @@ static float deg2rad = M_PI / 180.0;
 	else
 	{
 		aOpacity = [[[NSUserDefaults standardUserDefaults] dictionaryForKey: @"OPACITY"] objectForKey: str];
-		if( aOpacity)
+		if (aOpacity)
 		{
 			array = [aOpacity objectForKey:@"Points"];
 			
@@ -2039,11 +2043,11 @@ static float deg2rad = M_PI / 180.0;
 	NSDictionary *aOpacity;
 	NSArray *array;
 	
-	if( [str isEqualToString:NSLocalizedString(@"Linear Table", nil)])
+	if ([str isEqualToString:NSLocalizedString(@"Linear Table", nil)])
 	{
 		//[thickSlab setOpacity:[NSArray array]];
 		
-		if( curOpacityMenu != str)
+		if (curOpacityMenu != str)
 		{
 			[curOpacityMenu release];
 			curOpacityMenu = [str retain];
@@ -2080,7 +2084,7 @@ static float deg2rad = M_PI / 180.0;
 			array = [aOpacity objectForKey:@"Points"];
 			
 			//[thickSlab setOpacity:array];
-			if( curOpacityMenu != str)
+			if (curOpacityMenu != str)
 			{
 				[curOpacityMenu release];
 				curOpacityMenu = [str retain];
@@ -2132,16 +2136,16 @@ static float deg2rad = M_PI / 180.0;
 {
 	float previousThickness = clippingRangeThickness;
 	
-    if( f <= 0)
+    if (f <= 0)
         f = 0.5;
     
 	clippingRangeThickness = f;
 	
-	if( clippingRangeThickness <= 3)
+	if (clippingRangeThickness <= 3)
 		hiddenVRView.lowResLODFactor = 1.0;
 	else
 	{
-		if( [[NSProcessInfo processInfo] processorCount] >= 4)
+		if ([[NSProcessInfo processInfo] processorCount] >= 4)
 			hiddenVRView.lowResLODFactor = 1.5;
 		else
 			hiddenVRView.lowResLODFactor = 2.5;
@@ -2201,7 +2205,7 @@ static float deg2rad = M_PI / 180.0;
 	float pWL, pWW;
 	float bpWL, bpWW;
 	
-	if( clippingRangeMode == 1 || clippingRangeMode == 3 || clippingRangeMode == 2)		// MIP
+	if (clippingRangeMode == 1 || clippingRangeMode == 3 || clippingRangeMode == 2)		// MIP
 	{
 		[mprView1 getWLWW: &pWL :&pWW];
 		[blendedMprView1 getWLWW: &bpWL :&bpWW];
@@ -2217,9 +2221,9 @@ static float deg2rad = M_PI / 180.0;
 	[mprView1.vrView setMode: clippingRangeMode];
 	[mprView1.vrView setBlendingMode: clippingRangeMode];
     
-	if( clippingRangeMode == 1 || clippingRangeMode == 3 || clippingRangeMode == 2)	// MIP - Mean - minIP
+	if (clippingRangeMode == 1 || clippingRangeMode == 3 || clippingRangeMode == 2)	// MIP - Mean - minIP
 	{
-		if( clippingRangeMode == 3) //mean
+		if (clippingRangeMode == 3) //mean
 			setvtkMeanIPMode( 1);
 		else
 			setvtkMeanIPMode( 0);
@@ -2260,7 +2264,7 @@ static float deg2rad = M_PI / 180.0;
 	
 	[mprView1 restoreCamera];
 	mprView1.camera.forceUpdate = YES;
-	if( clippingRangeMode == 1  || clippingRangeMode == 3 || clippingRangeMode == 2)
+	if (clippingRangeMode == 1  || clippingRangeMode == 3 || clippingRangeMode == 2)
 	{
 		[mprView1 setWLWW: pWL :pWW];
 		[blendedMprView1 setWLWW: bpWL :bpWW];
@@ -2274,7 +2278,7 @@ static float deg2rad = M_PI / 180.0;
 	
 	[mprView2 restoreCamera];
 	mprView2.camera.forceUpdate = YES;
-	if( clippingRangeMode == 1  || clippingRangeMode == 3 || clippingRangeMode == 2)
+	if (clippingRangeMode == 1  || clippingRangeMode == 3 || clippingRangeMode == 2)
 	{
 		[mprView2 setWLWW: pWL :pWW];
 		[blendedMprView2 setWLWW: bpWL :bpWW];
@@ -2288,7 +2292,7 @@ static float deg2rad = M_PI / 180.0;
 	
 	[mprView3 restoreCamera];
 	mprView3.camera.forceUpdate = YES;
-	if( clippingRangeMode == 1  || clippingRangeMode == 3 || clippingRangeMode == 2)
+	if (clippingRangeMode == 1  || clippingRangeMode == 3 || clippingRangeMode == 2)
 	{
 		[mprView3 setWLWW: pWL :pWW];
 		[blendedMprView3 setWLWW: bpWL :bpWW];
@@ -2373,7 +2377,7 @@ static float deg2rad = M_PI / 180.0;
 
 - (void)setExportNumberOfRotationFrames:(NSInteger)newExportNumberOfRotationFrames
 {
-	if( exportNumberOfRotationFrames != newExportNumberOfRotationFrames)
+	if (exportNumberOfRotationFrames != newExportNumberOfRotationFrames)
 	{
 		[self willChangeValueForKey:@"exportSequenceNumberOfFrames"];
 		exportNumberOfRotationFrames = newExportNumberOfRotationFrames;
@@ -2389,13 +2393,13 @@ static float deg2rad = M_PI / 180.0;
         [self willChangeValueForKey:@"exportSequenceNumberOfFrames"];
         exportSeriesType = newExportSeriesType;
 		
-		if( exportSeriesType == CPRSlabExportSeriesType)
+		if (exportSeriesType == CPRSlabExportSeriesType)
 			self.exportImageFormat = CPR16BitExportImageFormat;
 		
-		if( exportSeriesType == CPRTransverseViewsExportSeriesType)
+		if (exportSeriesType == CPRTransverseViewsExportSeriesType)
 			self.exportImageFormat = CPR16BitExportImageFormat;
 		
-		if( exportSeriesType != CPRSlabExportSeriesType)
+		if (exportSeriesType != CPRSlabExportSeriesType)
 			self.exportSlabThickness = 0;
 		
         [self didChangeValueForKey:@"exportSequenceNumberOfFrames"];
@@ -2495,13 +2499,13 @@ static float deg2rad = M_PI / 180.0;
 //
 //- (NSString*) getDcmFromString
 //{
-//	if( dcmBatchReverse) return NSLocalizedString(@"To:", nil);
+//	if (dcmBatchReverse) return NSLocalizedString(@"To:", nil);
 //	else return NSLocalizedString(@"From:", nil);
 //}
 //
 //- (NSString*) getDcmToString
 //{
-//	if( dcmBatchReverse) return NSLocalizedString(@"From:", nil);
+//	if (dcmBatchReverse) return NSLocalizedString(@"From:", nil);
 //	else return NSLocalizedString(@"To:", nil);
 //}
 
@@ -2514,29 +2518,29 @@ static float deg2rad = M_PI / 180.0;
 {
 	id v = nil;
 	
-	if( [[self window] firstResponder] == mprView1)
+	if ([[self window] firstResponder] == mprView1)
 		v = mprView1;
-	if( [[self window] firstResponder] == mprView2)
+	if ([[self window] firstResponder] == mprView2)
 		v = mprView2;
-	if( [[self window] firstResponder] == mprView3)
+	if ([[self window] firstResponder] == mprView3)
 		v = mprView3;
-	if( onlyMPRView == NO && [[self window] firstResponder] == cprView)
+	if (onlyMPRView == NO && [[self window] firstResponder] == cprView)
 		v = cprView;
-	if( onlyMPRView == NO && [[self window] firstResponder] == topTransverseView)
+	if (onlyMPRView == NO && [[self window] firstResponder] == topTransverseView)
 		v = topTransverseView;
-	if( onlyMPRView == NO && [[self window] firstResponder] == middleTransverseView)
+	if (onlyMPRView == NO && [[self window] firstResponder] == middleTransverseView)
 		v = middleTransverseView;
-	if( onlyMPRView == NO && [[self window] firstResponder] == bottomTransverseView)
+	if (onlyMPRView == NO && [[self window] firstResponder] == bottomTransverseView)
 		v = bottomTransverseView;
 	
-	if( onlyMPRView)
+	if (onlyMPRView)
 	{
-		if( v == nil)
+		if (v == nil)
 			v = mprView3;
 	}
 	else
 	{
-		if( v == nil)
+		if (v == nil)
 			v = cprView;
 	}
 	
@@ -2545,10 +2549,10 @@ static float deg2rad = M_PI / 180.0;
 
 - (BOOL) isPlaneMeasurable
 {
-    if( cprType == CPRStretchedType)
+    if (cprType == CPRStretchedType)
         return YES;
     
-    if( cprType == CPRStraightenedType)
+    if (cprType == CPRStraightenedType)
     {
         return [cprView.curvedPath isPlaneMeasurable];
     }
@@ -2574,10 +2578,10 @@ static float deg2rad = M_PI / 180.0;
     
 	[dcmWindow makeFirstResponder: nil];	// To force nstextfield validation.
 	
-	if( movieTimer)
+	if (movieTimer)
 		[self moviePlayStop: self];
 	
-	if( quicktimeExportMode)
+	if (quicktimeExportMode)
 	{
 		[quicktimeWindow orderOut: sender];
 		[NSApp endSheet: quicktimeWindow returnCode: [sender tag]];
@@ -2593,7 +2597,7 @@ static float deg2rad = M_PI / 180.0;
     [cprView getWLWW:&windowLevel :&windowWidth];
     NSString *f = nil;
     
-	if( [sender tag])
+	if ([sender tag])
 	{
 		NSMutableArray *producedFiles = [NSMutableArray array];
 		
@@ -2602,14 +2606,14 @@ static float deg2rad = M_PI / 180.0;
         [dicomExport setSeriesDescription:self.exportSeriesName]; 
         [dicomExport setSeriesNumber:9983]; 
         
-		if( self.exportImageFormat == CPR8BitRGBExportImageFormat)
+		if (self.exportImageFormat == CPR8BitRGBExportImageFormat)
 			[dicomExport setModalityAsSource: NO];
 		else
 			[dicomExport setModalityAsSource: YES];
 		
         [dicomExport setSourceFile:[[pixList[0] lastObject] sourceFile]];
         
-		if( self.viewsPosition == VerticalPosition)
+		if (self.viewsPosition == VerticalPosition)
         {
 			exportWidth = NSHeight([cprView bounds]);
             exportHeight = NSWidth([cprView bounds]);
@@ -2620,7 +2624,7 @@ static float deg2rad = M_PI / 180.0;
             exportHeight = NSHeight([cprView bounds]);
 		}
         
-		if( self.exportSeriesType == CPRTransverseViewsExportSeriesType && self.exportSequenceType != CPRCurrentOnlyExportSequenceType)
+		if (self.exportSeriesType == CPRTransverseViewsExportSeriesType && self.exportSequenceType != CPRCurrentOnlyExportSequenceType)
 		{
 			exportWidth = NSWidth([middleTransverseView bounds]);
 			exportHeight = NSHeight([middleTransverseView bounds]);
@@ -2635,10 +2639,10 @@ static float deg2rad = M_PI / 180.0;
 		cprView.displayCrossLines = NO;
 		self.displayMousePosition = NO;
 		
-		if( [[NSUserDefaults standardUserDefaults] boolForKey: @"exportDCMIncludeAllCPRViews"] == NO)
+		if ([[NSUserDefaults standardUserDefaults] boolForKey: @"exportDCMIncludeAllCPRViews"] == NO)
 			cprView.displayTransverseLines = NO;
 		
-		if( self.exportImageFormat == CPR16BitExportImageFormat)
+		if (self.exportImageFormat == CPR16BitExportImageFormat)
 		{
 			switch( [[NSUserDefaults standardUserDefaults] integerForKey:@"EXPORTMATRIXFOR3D"])
 			{
@@ -2655,7 +2659,7 @@ static float deg2rad = M_PI / 180.0;
 		
 		NSMutableArray *views = nil, *viewsRect = nil;
 		
-		if( [[NSUserDefaults standardUserDefaults] boolForKey: @"exportDCMIncludeAllCPRViews"])
+		if ([[NSUserDefaults standardUserDefaults] boolForKey: @"exportDCMIncludeAllCPRViews"])
 		{
 			views = [NSMutableArray array];
 			viewsRect = [NSMutableArray array];
@@ -2667,7 +2671,7 @@ static float deg2rad = M_PI / 180.0;
 			
 			for( int i = (long)views.count-1; i >= 0; i--)
 			{
-				if( NSEqualRects( [[views objectAtIndex: i] visibleRect], NSZeroRect))
+				if (NSEqualRects( [[views objectAtIndex: i] visibleRect], NSZeroRect))
 					[views removeObjectAtIndex: i];
 			}
 			
@@ -2690,11 +2694,11 @@ static float deg2rad = M_PI / 180.0;
          dicomExport.rotateRawDataBy90degrees = NO;
         
 		// CURRENT image only
-		if( self.exportSequenceType == CPRCurrentOnlyExportSequenceType)
+		if (self.exportSequenceType == CPRCurrentOnlyExportSequenceType)
 		{
-			if( self.exportImageFormat == CPR16BitExportImageFormat)
+			if (self.exportImageFormat == CPR16BitExportImageFormat)
 			{
-                if( cprType == CPRStraightenedType)
+                if (cprType == CPRStraightenedType)
                 {
                     requestStraightened = [[[CPRStraightenedGeneratorRequest alloc] init] autorelease];
                     requestStraightened.pixelsWide = exportWidth;
@@ -2721,13 +2725,13 @@ static float deg2rad = M_PI / 180.0;
                     curvedVolumeData = [CPRGenerator synchronousRequestVolume:requestStretched volumeData:cprView.volumeData];                            
                 }  
                 
-                if( curvedVolumeData)
+                if (curvedVolumeData)
                 {
                     imageRep = [curvedVolumeData unsignedInt16ImageRepForSliceAtIndex:0];
                     dataPtr = (unsigned char *)[imageRep unsignedInt16Data];
                     [dicomExport setPixelData:dataPtr samplesPerPixel:1 bitsPerSample:16 width:exportWidth height:exportHeight];
                     
-                    if( self.viewsPosition == VerticalPosition)
+                    if (self.viewsPosition == VerticalPosition)
                         dicomExport.rotateRawDataBy90degrees = YES;
                     
                     [dicomExport setOffset:[imageRep offset]];
@@ -2735,13 +2739,17 @@ static float deg2rad = M_PI / 180.0;
 					
                     [dicomExport setDefaultWWWL:windowWidth :windowLevel];
 					
-					if( [self isPlaneMeasurable])
+					if ([self isPlaneMeasurable])
 						[dicomExport setPixelSpacing:[imageRep pixelSpacingX]:[imageRep pixelSpacingY]];
                     
 					f = [dicomExport writeDCMFile: nil];
-                    if( f == nil)
+                    if (f == nil)
 					{
-                        NSRunCriticalAlertPanel( NSLocalizedString(@"Error", nil),  NSLocalizedString( @"Error during the creation of the DICOM File!", nil), NSLocalizedString(@"OK", nil), nil, nil);
+                        NSRunCriticalAlertPanel(NSLocalizedString(@"Error", nil),
+                                                NSLocalizedString( @"Error during the creation of the DICOM File!", nil),
+                                                NSLocalizedString(@"OK", nil),
+                                                nil,
+                                                nil);
                     }
                     [producedFiles addObject: [NSDictionary dictionaryWithObjectsAndKeys: f, @"file", nil]];
 				}
@@ -2760,16 +2768,16 @@ static float deg2rad = M_PI / 180.0;
 			[dicomExport setSeriesNumber:8930 + [[NSCalendarDate date] minuteOfHour]  + [[NSCalendarDate date] secondOfMinute]];
             [dicomExport setSourceFile:[[pixList[0] lastObject] sourceFile]];
 			
-			if( self.exportImageFormat == CPR8BitRGBExportImageFormat)
+			if (self.exportImageFormat == CPR8BitRGBExportImageFormat)
 				[dicomExport setModalityAsSource: NO];
 			else
 				[dicomExport setModalityAsSource: YES];
 			
-			if( self.exportSeriesType == CPRRotationExportSeriesType) // 3D rotation
+			if (self.exportSeriesType == CPRRotationExportSeriesType) // 3D rotation
 			{
                 NSTimeInterval start = [NSDate timeIntervalSinceReferenceDate];
                 
-                if( cprType == CPRStraightenedType)
+                if (cprType == CPRStraightenedType)
                 {
                     requestStraightened = [[[CPRStraightenedGeneratorRequest alloc] init] autorelease];
                     requestStraightened.pixelsWide = exportWidth;
@@ -2810,9 +2818,9 @@ static float deg2rad = M_PI / 180.0;
                         else
                             angle = ((CGFloat)i/(CGFloat)self.exportSequenceNumberOfFrames) * 2.0*M_PI;
                         
-                        if( self.exportImageFormat == CPR16BitExportImageFormat)
+                        if (self.exportImageFormat == CPR16BitExportImageFormat)
                         {
-                            if( cprType == CPRStraightenedType)
+                            if (cprType == CPRStraightenedType)
                             {
                                 requestStraightened.initialNormal = N3VectorApplyTransform(curvedPath.initialNormal, N3AffineTransformMakeRotationAroundVector(angle, [curvedPath.bezierPath tangentAtStart]));
                                 
@@ -2837,7 +2845,7 @@ static float deg2rad = M_PI / 180.0;
                                 
                                 [dicomExport setPixelData:dataPtr samplesPerPixel:1 bitsPerSample:16 width:exportWidth height:exportHeight];
                                 
-                                if( self.viewsPosition == VerticalPosition)
+                                if (self.viewsPosition == VerticalPosition)
                                     dicomExport.rotateRawDataBy90degrees = YES;
                                 
                                 [dicomExport setOffset:[imageRep offset]];
@@ -2845,13 +2853,17 @@ static float deg2rad = M_PI / 180.0;
                                 
                                 [dicomExport setDefaultWWWL:windowWidth :windowLevel];
                                 
-                                if( [self isPlaneMeasurable])
+                                if ([self isPlaneMeasurable])
                                     [dicomExport setPixelSpacing:[imageRep pixelSpacingX]:[imageRep pixelSpacingY]];
                                 
                                 f = [dicomExport writeDCMFile: nil];
-                                if( f == nil)
+                                if (f == nil)
                                 {
-                                    NSRunCriticalAlertPanel( NSLocalizedString(@"Error", nil),  NSLocalizedString( @"Error during the creation of the DICOM File!", nil), NSLocalizedString(@"OK", nil), nil, nil);
+                                    NSRunCriticalAlertPanel(NSLocalizedString(@"Error", nil),
+                                                            NSLocalizedString( @"Error during the creation of the DICOM File!", nil),
+                                                            NSLocalizedString(@"OK", nil),
+                                                            nil,
+                                                            nil);
                                     break;
                                 }
                                 [producedFiles addObject: [NSDictionary dictionaryWithObjectsAndKeys: f, @"file", nil]];
@@ -2882,7 +2894,7 @@ static float deg2rad = M_PI / 180.0;
                     }
 					
 					[progress incrementBy: 1];
-					if( [progress aborted])
+					if ([progress aborted])
 						break;
 				}
 				
@@ -2898,7 +2910,7 @@ static float deg2rad = M_PI / 180.0;
 				[progress setCancel: YES];
 				[[progress progress] setMaxValue: self.exportSequenceNumberOfFrames];
                 
-                if( cprType == CPRStraightenedType)
+                if (cprType == CPRStraightenedType)
                 {
                     requestStraightened = [[[CPRStraightenedGeneratorRequest alloc] init] autorelease];
                     requestStraightened.pixelsWide = exportWidth;
@@ -2966,7 +2978,7 @@ static float deg2rad = M_PI / 180.0;
                             
                             [dicomExport setPixelData:dataPtr samplesPerPixel:1 bitsPerSample:16 width:exportWidth height:exportHeight];
                             
-                            if( self.viewsPosition == VerticalPosition)
+                            if (self.viewsPosition == VerticalPosition)
                                 dicomExport.rotateRawDataBy90degrees = YES;
                             
                             [dicomExport setOffset:[imageRep offset]];
@@ -2974,13 +2986,17 @@ static float deg2rad = M_PI / 180.0;
                             
                             [dicomExport setDefaultWWWL:windowWidth :windowLevel];
 							
-							if( [self isPlaneMeasurable])
+							if ([self isPlaneMeasurable])
 								[dicomExport setPixelSpacing:[imageRep pixelSpacingX]:[imageRep pixelSpacingY]];
 							
                             f = [dicomExport writeDCMFile: nil];
-                            if( f == nil)
+                            if (f == nil)
 							{
-                                NSRunCriticalAlertPanel( NSLocalizedString(@"Error", nil),  NSLocalizedString( @"Error during the creation of the DICOM File!", nil), NSLocalizedString(@"OK", nil), nil, nil);
+                                NSRunCriticalAlertPanel(NSLocalizedString(@"Error", nil),
+                                                        NSLocalizedString( @"Error during the creation of the DICOM File!", nil),
+                                                        NSLocalizedString(@"OK", nil),
+                                                        nil,
+                                                        nil);
                                 break;
                             }
                             [producedFiles addObject: [NSDictionary dictionaryWithObjectsAndKeys: f, @"file", nil]];
@@ -2993,14 +3009,14 @@ static float deg2rad = M_PI / 180.0;
                         }
 						
 						[progress incrementBy: 1];
-						if( [progress aborted])
+						if ([progress aborted])
 							break;
                     }
                 }
 				[progress close];
 				[progress autorelease];
 			}
-			else if( self.exportSeriesType == CPRTransverseViewsExportSeriesType)
+			else if (self.exportSeriesType == CPRTransverseViewsExportSeriesType)
 			{
 				Wait *progress = [[Wait alloc] initWithString:NSLocalizedString(@"Creating series", nil)];
 				[progress showWindow: self];
@@ -3040,9 +3056,13 @@ static float deg2rad = M_PI / 180.0;
                             [dicomExport setPosition:origin];
                             
                             f = [dicomExport writeDCMFile: nil];
-                            if( f == nil)
+                            if (f == nil)
                             {
-                                NSRunCriticalAlertPanel( NSLocalizedString(@"Error", nil),  NSLocalizedString( @"Error during the creation of the DICOM File!", nil), NSLocalizedString(@"OK", nil), nil, nil);
+                                NSRunCriticalAlertPanel(NSLocalizedString(@"Error", nil),
+                                                        NSLocalizedString( @"Error during the creation of the DICOM File!", nil),
+                                                        NSLocalizedString(@"OK", nil),
+                                                        nil,
+                                                        nil);
                                 break;
                             }
                             [producedFiles addObject: [NSDictionary dictionaryWithObjectsAndKeys: f, @"file", nil]];
@@ -3056,7 +3076,7 @@ static float deg2rad = M_PI / 180.0;
                     }
 					
 					[progress incrementBy: 1];
-					if( [progress aborted])
+					if ([progress aborted])
 						break;
                 }
 				[progress close];
@@ -3064,9 +3084,9 @@ static float deg2rad = M_PI / 180.0;
 			}
 		}
 		
-		if( quicktimeExportMode == NO)
+		if (quicktimeExportMode == NO)
 		{
-			if( [producedFiles count])
+			if ([producedFiles count])
 			{
                 NSArray *objects = [BrowserController.currentBrowser.database addFilesAtPaths: [producedFiles valueForKey: @"file"]
                          postNotifications: YES
@@ -3076,10 +3096,10 @@ static float deg2rad = M_PI / 180.0;
                 
                 objects = [BrowserController.currentBrowser.database objectsWithIDs: objects];
                  
-				if( [[NSUserDefaults standardUserDefaults] boolForKey: @"afterExportSendToDICOMNode"])
+				if ([[NSUserDefaults standardUserDefaults] boolForKey: @"afterExportSendToDICOMNode"])
 					[[BrowserController currentBrowser] selectServer: objects];
 				
-				if( [[NSUserDefaults standardUserDefaults] boolForKey: @"afterExportMarkThemAsKeyImages"])
+				if ([[NSUserDefaults standardUserDefaults] boolForKey: @"afterExportMarkThemAsKeyImages"])
 				{
 					for( Dicom_Image *im in objects)
 						[im setValue: @YES forKey: @"isKeyImage"];
@@ -3100,7 +3120,7 @@ static float deg2rad = M_PI / 180.0;
     //			[mov release];
     //		}
     
-    //		if( self.dcmFormat) 
+    //		if (self.dcmFormat)
     //			[curExportView.vrView restoreViewSizeAfterMatrix3DExport];
     
     //		[self setLOD: savedLOD];
@@ -3127,14 +3147,14 @@ static float deg2rad = M_PI / 180.0;
 
 - (void) exportDICOMFile:(id) sender
 {
-	if( [quicktimeWindow isVisible])
+	if ([quicktimeWindow isVisible])
 		return;
-	if( [dcmWindow isVisible])
+	if ([dcmWindow isVisible])
 		return;
 	
 	curExportView = [self selectedView];
 	
-	if( quicktimeExportMode)
+	if (quicktimeExportMode)
 		[NSApp beginSheet: quicktimeWindow modalForWindow: nil modalDelegate:self didEndSelector:nil contextInfo:(void*) nil];
 	else
 		[NSApp beginSheet: dcmWindow modalForWindow: nil modalDelegate:self didEndSelector:nil contextInfo:(void*) nil];
@@ -3144,7 +3164,7 @@ static float deg2rad = M_PI / 180.0;
     self.exportTransverseSliceInterval = fabs( [curvedPath transverseSectionSpacing]);
 	self.exportNumberOfRotationFrames = 50;
 	
-	if( clippingRangeThickness <= 3)
+	if (clippingRangeThickness <= 3)
 	{
 //		self.exportSlabThinknessSameAsSlabThickness = NO;
         self.exportSliceIntervalSameAsVolumeSliceInterval = NO;
@@ -3157,21 +3177,21 @@ static float deg2rad = M_PI / 180.0;
 	
     self.exportImageFormat = CPR8BitRGBExportImageFormat;
 	
-	if( quicktimeExportMode)
+	if (quicktimeExportMode)
 	{
-		if( self.exportSequenceType == CPRCurrentOnlyExportSequenceType) // Current Image is not supported for Quicktime Export
+		if (self.exportSequenceType == CPRCurrentOnlyExportSequenceType) // Current Image is not supported for Quicktime Export
 			self.exportSequenceType = CPRSeriesExportSequenceType;
 	}
 	
-	if( [self getMovieDataAvailable] == NO && self.exportSequenceType == CPRSeriesExportSequenceType)
+	if ([self getMovieDataAvailable] == NO && self.exportSequenceType == CPRSeriesExportSequenceType)
 		self.exportSequenceType = CPRCurrentOnlyExportSequenceType;
 }
 
 //- (void) exportQuicktime:(id) sender
 //{
-//	if( [quicktimeWindow isVisible])
+//	if ([quicktimeWindow isVisible])
 //		return;
-//	if( [dcmWindow isVisible])
+//	if ([dcmWindow isVisible])
 //		return;
 //    
 //	quicktimeExportMode = YES;
@@ -3182,9 +3202,9 @@ static float deg2rad = M_PI / 180.0;
 //{
 //	mprView1.viewExport = mprView2.viewExport = mprView3.viewExport = -1;
 //	
-//	if( curExportView == mprView3)
+//	if (curExportView == mprView3)
 //	{
-//		if( dcmSeriesMode == 0) // Batch
+//		if (dcmSeriesMode == 0) // Batch
 //		{
 //			mprView1.toIntervalExport = dcmTo;
 //			mprView1.fromIntervalExport = dcmFrom;
@@ -3196,16 +3216,16 @@ static float deg2rad = M_PI / 180.0;
 //		}
 //		else // Rotation
 //		{
-//			if( dcmRotationDirection == 1)
+//			if (dcmRotationDirection == 1)
 //				mprView1.viewExport = 1;
 //			else
 //				mprView2.viewExport = 1;
 //		}
 //	}
 //	
-//	if( curExportView == mprView2)
+//	if (curExportView == mprView2)
 //	{
-//		if( dcmSeriesMode == 0) // Batch
+//		if (dcmSeriesMode == 0) // Batch
 //		{
 //			mprView1.toIntervalExport = dcmTo;
 //			mprView1.fromIntervalExport = dcmFrom;
@@ -3217,16 +3237,16 @@ static float deg2rad = M_PI / 180.0;
 //		}
 //		else // Rotation
 //		{
-//			if( dcmRotationDirection == 1)
+//			if (dcmRotationDirection == 1)
 //				mprView1.viewExport = 0;
 //			else
 //				mprView3.viewExport = 1;
 //		}
 //	}
 //	
-//	if( curExportView == mprView1)
+//	if (curExportView == mprView1)
 //	{
-//		if( dcmSeriesMode == 0) // Batch
+//		if (dcmSeriesMode == 0) // Batch
 //		{
 //			mprView2.toIntervalExport = dcmTo;
 //			mprView2.fromIntervalExport = dcmFrom;
@@ -3238,7 +3258,7 @@ static float deg2rad = M_PI / 180.0;
 //		}
 //		else // Rotation
 //		{
-//			if( dcmRotationDirection == 1)
+//			if (dcmRotationDirection == 1)
 //				mprView3.viewExport = 0;
 //			else
 //				mprView2.viewExport = 0;
@@ -3256,15 +3276,15 @@ static float deg2rad = M_PI / 180.0;
 {
 	exportImageFormat = f;
 	
-	if( exportImageFormat == CPR16BitExportImageFormat)
+	if (exportImageFormat == CPR16BitExportImageFormat)
 		[[NSUserDefaults standardUserDefaults] setBool: NO forKey: @"exportDCMIncludeAllCPRViews"];
 	
-	if( exportImageFormat == CPR8BitRGBExportImageFormat)
+	if (exportImageFormat == CPR8BitRGBExportImageFormat)
 	{
-		if( self.exportSeriesType == CPRSlabExportSeriesType)
+		if (self.exportSeriesType == CPRSlabExportSeriesType)
 			self.exportSeriesType = CPRRotationExportSeriesType;
 		
-		if( self.exportSeriesType == CPRTransverseViewsExportSeriesType)
+		if (self.exportSeriesType == CPRTransverseViewsExportSeriesType)
 			self.exportSeriesType = CPRRotationExportSeriesType;
 		
 		[[NSUserDefaults standardUserDefaults] setInteger: 0 forKey:@"EXPORTMATRIXFOR3D"];
@@ -3289,7 +3309,7 @@ static float deg2rad = M_PI / 180.0;
 //{    
 //	dcmInterval = f;
 //	
-//	if( previousDcmInterval)
+//	if (previousDcmInterval)
 //	{
 //		self.dcmTo =  round(( (float) dcmTo * previousDcmInterval) /  dcmInterval);
 //		self.dcmFrom = round(( (float) dcmFrom * previousDcmInterval) / dcmInterval);
@@ -3345,7 +3365,7 @@ static float deg2rad = M_PI / 180.0;
 //{
 //	dcmSameIntervalAndThickness = f;
 //	
-//	if( dcmSameIntervalAndThickness)
+//	if (dcmSameIntervalAndThickness)
 //		self.dcmInterval = [curExportView.vrView getClippingRangeThicknessInMm];
 //}
 
@@ -3358,12 +3378,11 @@ static float deg2rad = M_PI / 180.0;
 
 - (void) exportJPEG:(id) sender
 {
-    NSSavePanel     *panel = [NSSavePanel savePanel];
-    
+    NSSavePanel *panel = [NSSavePanel savePanel];
 	[panel setCanSelectHiddenExtension:YES];
-	[panel setRequiredFileType:@"jpg"];
-	
-	if( [panel runModalForDirectory:nil file: NSLocalizedString( @"Curved MPR Image", nil)] == NSFileHandlingPanelOKButton)
+    [panel setAllowedFileTypes: @[@"jpg"]];
+    [panel setNameFieldStringValue: NSLocalizedString( @"Curved MPR Image", nil)];
+	if ([panel runModal] == NSFileHandlingPanelOKButton)
 	{
 		NSImage *im = [[self selectedViewOnlyMPRView: NO] nsimage:NO];
 		
@@ -3372,7 +3391,7 @@ static float deg2rad = M_PI / 180.0;
 		
 		representations = [im representations];
 		
-		if( representations.count)
+		if (representations.count)
 		{
 			bitmapData = [NSBitmapImageRep representationOfImageRepsInArray:representations usingType:NSJPEGFileType properties:[NSDictionary dictionaryWithObject:[NSDecimalNumber numberWithFloat:0.9] forKey:NSImageCompressionFactor]];
 		
@@ -3406,19 +3425,19 @@ static float deg2rad = M_PI / 180.0;
 
 - (void) exportTIFF:(id) sender
 {
-    NSSavePanel     *panel = [NSSavePanel savePanel];
-    
+    NSSavePanel *panel = [NSSavePanel savePanel];
 	[panel setCanSelectHiddenExtension:YES];
-	[panel setRequiredFileType:@"tif"];
-	
-	if( [panel runModalForDirectory:nil file:@"3D MPR Image"] == NSFileHandlingPanelOKButton)
+    [panel setAllowedFileTypes: @[@"tif"]];
+    [panel setNameFieldStringValue: @"3D MPR Image"];
+    if ([panel runModal] == NSFileHandlingPanelOKButton)
 	{
 		NSImage *im = [[self selectedView] nsimage:NO];
 		
 		[[im TIFFRepresentation] writeToFile:[panel filename] atomically:NO];
 		
 		NSWorkspace *ws = [NSWorkspace sharedWorkspace];
-		if ([[NSUserDefaults standardUserDefaults] boolForKey: @"OPENVIEWER"]) [ws openFile:[panel filename]];
+		if ([[NSUserDefaults standardUserDefaults] boolForKey: @"OPENVIEWER"])
+            [ws openFile:[panel filename]];
 	}
 }
 
@@ -3497,13 +3516,13 @@ static float deg2rad = M_PI / 180.0;
     NSArray	*types = [NSArray arrayWithObjects: NSFilenamesPboardType, nil];
     NSString *desiredType = [paste availableTypeFromArray: types];
 
-    if( [desiredType isEqualToString: NSFilenamesPboardType])
+    if ([desiredType isEqualToString: NSFilenamesPboardType])
     {
         NSArray *fileArray = [paste propertyListForType: @"NSFilenamesPboardType"];
         
         for( NSString *file in fileArray)
         {
-            if( [[file pathExtension] isEqualToString: @"curvedPath"])
+            if ([[file pathExtension] isEqualToString: @"curvedPath"])
             {
                 [self loadBezierPathFromFile: file];
                 
@@ -3518,10 +3537,10 @@ static float deg2rad = M_PI / 180.0;
 - (IBAction) saveBezierPath: (id) sender
 {
     NSSavePanel *sPanel	= [NSSavePanel savePanel];
-    
-    [sPanel setRequiredFileType: @"curvedPath"];
-    
-    if( [sPanel runModalForDirectory: nil file: [[[viewer2D currentStudy] valueForKey: @"name"] stringByAppendingPathExtension: @"curvedPath"]] == NSFileHandlingPanelOKButton)
+    [sPanel setAllowedFileTypes: @[@"curvedPath"]];
+    NSString *filename = [[[viewer2D currentStudy] valueForKey: @"name"] stringByAppendingPathExtension: @"curvedPath"];
+    [sPanel setNameFieldStringValue: filename];
+    if ([sPanel runModal] == NSFileHandlingPanelOKButton)
     {
         [self saveBezierPathToFile: [sPanel filename]];
     }
@@ -3530,8 +3549,8 @@ static float deg2rad = M_PI / 180.0;
 - (IBAction) loadBezierPath: (id) sender;
 {
     NSOpenPanel *oPanel = [NSOpenPanel openPanel];
-	
-	if ([oPanel runModalForDirectory: nil file:nil types:[NSArray arrayWithObject: @"curvedPath"]] == NSFileHandlingPanelOKButton)
+    [oPanel setAllowedFileTypes: @[@"curvedPath"]];
+	if ([oPanel runModal] == NSFileHandlingPanelOKButton)
 	{
         [self loadBezierPathFromFile: [oPanel filename]];
     }
@@ -3547,11 +3566,11 @@ static float deg2rad = M_PI / 180.0;
 -(void) loadBezierPathFromFile: (NSString*) path
 {
     NSData *data = [NSData dataWithContentsOfFile: path];
-    if( data)
+    if (data)
     {
         CPRCurvedPath *newCurvedPath = [NSKeyedUnarchiver unarchiveObjectWithData: data];
         
-        if( newCurvedPath)
+        if (newCurvedPath)
         {
             self.curvedPath = newCurvedPath;
             
@@ -3577,7 +3596,7 @@ static float deg2rad = M_PI / 180.0;
 
 - (void)windowWillClose:(NSNotification *)notification
 {
-	if( [notification object] == [self window])
+	if ([notification object] == [self window])
 	{
         // Save current path for next time
         NSString *path = [[[BrowserController currentBrowser] documentsDirectory] stringByAppendingPathComponent:STATEDATABASE];
@@ -3590,7 +3609,7 @@ static float deg2rad = M_PI / 180.0;
         
         path = [path stringByAppendingPathComponent: [NSString stringWithFormat:@"CPR-%@", [[[viewer2D fileList: 0] objectAtIndex:0] valueForKey:@"uniqueFilename"]]];
         
-        if( path)
+        if (path)
             [self saveBezierPathToFile: path];
         
         // *******
@@ -3611,7 +3630,7 @@ static float deg2rad = M_PI / 180.0;
 		
 		[[NSNotificationCenter defaultCenter] postNotificationName: OsirixWindow3dCloseNotification object: self userInfo: 0];
 		
-		if( movieTimer)
+		if (movieTimer)
 		{
 			[movieTimer invalidate];
 			[movieTimer release];
@@ -3661,7 +3680,7 @@ static float deg2rad = M_PI / 180.0;
 	float sambient, sdiffuse, sspecular, sspecularpower;	
 	[hiddenVRView getShadingValues: &sambient :&sdiffuse :&sspecular :&sspecularpower];
 	
-	if( sambient != ambient || sdiffuse != diffuse || sspecular != specular || sspecularpower != specularpower)
+	if (sambient != ambient || sdiffuse != diffuse || sspecular != specular || sspecularpower != specularpower)
 	{
 		[hiddenVRView setShadingValues: ambient :diffuse :specular :specularpower];
 		[shadingValues setStringValue: [NSString stringWithFormat: NSLocalizedString( @"Ambient: %2.2f\nDiffuse: %2.2f\nSpecular :%2.2f, %2.2f", nil), ambient, diffuse, specular, specularpower]];
@@ -3733,15 +3752,15 @@ static float deg2rad = M_PI / 180.0;
 			
 			NSImage *im = [item image];
 			
-			if( im == nil)
+			if (im == nil)
 			{
 				@try
 				{
-					if( [item respondsToSelector:@selector(setRecursiveEnabled:)])
+					if ([item respondsToSelector:@selector(setRecursiveEnabled:)])
 						[item setRecursiveEnabled: YES];
-					else if( [[item view] respondsToSelector:@selector(setRecursiveEnabled:)])
+					else if ([[item view] respondsToSelector:@selector(setRecursiveEnabled:)])
 						[[item view] setRecursiveEnabled: YES];
-					else if( item)
+					else if (item)
 						NSLog( @"%@", item);
                     
 					im = [[item view] screenshotByCreatingPDF];
@@ -3752,7 +3771,7 @@ static float deg2rad = M_PI / 180.0;
 				}
 			}
 			
-			if( im)
+			if (im)
 			{
 				NSBitmapImageRep *bits = [[[NSBitmapImageRep alloc] initWithData:[im TIFFRepresentation]] autorelease];
 				
@@ -3945,7 +3964,7 @@ static float deg2rad = M_PI / 180.0;
 		[toolbarItem setPaletteLabel:NSLocalizedString(@"Axis",nil)];
 		
 		[toolbarItem setLabel:NSLocalizedString(@"Axis",nil)];
-		if( ![[self selectedViewOnlyMPRView: YES] displayCrossLines])
+		if (![[self selectedViewOnlyMPRView: YES] displayCrossLines])
 			[toolbarItem setImage:[NSImage imageNamed:@"MPRAxisHide"]];
 		else
 			[toolbarItem setImage:[NSImage imageNamed:@"MPRAxisShow"]];
@@ -3958,7 +3977,7 @@ static float deg2rad = M_PI / 180.0;
 		[toolbarItem setPaletteLabel:NSLocalizedString(@"CPR Axis",nil)];
 		
 		[toolbarItem setLabel:NSLocalizedString(@"CPR Axis",nil)];
-		if( !cprView.displayCrossLines)
+		if (!cprView.displayCrossLines)
 			[toolbarItem setImage:[NSImage imageNamed:@"MPRAxisHide"]];
 		else
 			[toolbarItem setImage:[NSImage imageNamed:@"MPRAxisShow"]];
@@ -3971,7 +3990,7 @@ static float deg2rad = M_PI / 180.0;
 		[toolbarItem setPaletteLabel:NSLocalizedString(@"Mouse Position",nil)];
 		
 		[toolbarItem setLabel:NSLocalizedString(@"Mouse Position",nil)];
-		if( !self.displayMousePosition)
+		if (!self.displayMousePosition)
 			[toolbarItem setImage:[NSImage imageNamed:@"MPRMousePositionHide"]];
 		else
 			[toolbarItem setImage:[NSImage imageNamed:@"MPRMousePositionShow"]];
@@ -3992,13 +4011,13 @@ static float deg2rad = M_PI / 180.0;
 		toolbarItem = nil;
 	}
 	
-    for (id key in [PluginManager plugins])
+    for (id key in [PluginManager installedPlugins])
     {
-        if ([[[PluginManager plugins] objectForKey:key] respondsToSelector:@selector(toolbarItemForItemIdentifier:forViewer:)])
+        if ([[[PluginManager installedPlugins] objectForKey:key] respondsToSelector:@selector(toolbarItemForItemIdentifier:forViewer:)])
         {
-            NSToolbarItem *item = [[[PluginManager plugins] objectForKey:key] toolbarItemForItemIdentifier: itemIdent forViewer: self];
+            NSToolbarItem *item = [[[PluginManager installedPlugins] objectForKey:key] toolbarItemForItemIdentifier: itemIdent forViewer: self];
             
-            if( item)
+            if (item)
                 toolbarItem = item;
         }
     }
@@ -4019,10 +4038,10 @@ static float deg2rad = M_PI / 180.0;
             NSToolbarSeparatorItemIdentifier,
             @"tbTools", @"tbWLWW", @"tbStraightenedCPRAngle", @"tbCPRType", @"tbHighRes", @"tbPathAssistant", @"tbCPRPathMode", @"tbViewsPosition", @"tbThickSlab", @"Reset.pdf", @"Export.icns", @"curvedPath.icns", @"BestRendering.pdf", @"AxisColors", @"AxisShowHide", @"CPRAxisShowHide", @"MousePositionShowHide", @"syncZoomLevel", nil];
     
-    for (id key in [PluginManager plugins])
+    for (id key in [PluginManager installedPlugins])
     {
-        if ([[[PluginManager plugins] objectForKey:key] respondsToSelector:@selector(toolbarAllowedIdentifiersForViewer:)])
-            [array addObjectsFromArray: [[[PluginManager plugins] objectForKey:key] toolbarAllowedIdentifiersForViewer: self]];
+        if ([[[PluginManager installedPlugins] objectForKey:key] respondsToSelector:@selector(toolbarAllowedIdentifiersForViewer:)])
+            [array addObjectsFromArray: [[[PluginManager installedPlugins] objectForKey:key] toolbarAllowedIdentifiersForViewer: self]];
     }
     
     return array;
@@ -4030,15 +4049,15 @@ static float deg2rad = M_PI / 180.0;
 
 - (BOOL)validateMenuItem:(NSMenuItem *)item
 {
-	if( [item action] == @selector(exportDICOMFile:))
+	if ([item action] == @selector(exportDICOMFile:))
 	{
-		if( [curvedPath.nodes count] < 3)
+		if ([curvedPath.nodes count] < 3)
 			return NO;
 	}
 	
-    if( [item action] == @selector(saveBezierPath:))
+    if ([item action] == @selector(saveBezierPath:))
 	{
-		if( [curvedPath.nodes count] < 3)
+		if ([curvedPath.nodes count] < 3)
 			return NO;
 	}
     
@@ -4049,19 +4068,19 @@ static float deg2rad = M_PI / 180.0;
 {
 	if ([[toolbarItem itemIdentifier] isEqualToString: @"tbStraightenedCPRAngle"])
 	{
-		if( [curvedPath.nodes count] < 3)
+		if ([curvedPath.nodes count] < 3)
 			return NO;
 	}
 	
 	if ([[toolbarItem itemIdentifier] isEqualToString: @"Export.icns"])
 	{
-		if( [curvedPath.nodes count] < 3)
+		if ([curvedPath.nodes count] < 3)
 			return NO;
 	}
     
     if ([[toolbarItem itemIdentifier] isEqualToString: @"curvedPath.icns"])
 	{
-		if( [curvedPath.nodes count] < 3)
+		if ([curvedPath.nodes count] < 3)
 			return NO;
 	}
     
@@ -4075,21 +4094,21 @@ static float deg2rad = M_PI / 180.0;
 	{
 		if([[item itemIdentifier] isEqualToString:@"AxisShowHide"])
 		{
-			if( ![[self selectedViewOnlyMPRView: YES] displayCrossLines])
+			if (![[self selectedViewOnlyMPRView: YES] displayCrossLines])
 				[item setImage:[NSImage imageNamed:@"MPRAxisHide"]];
 			else
 				[item setImage:[NSImage imageNamed:@"MPRAxisShow"]];
 		}
         else if([[item itemIdentifier] isEqualToString:@"CPRAxisShowHide"])
 		{
-			if( !cprView.displayCrossLines)
+			if (!cprView.displayCrossLines)
 				[item setImage:[NSImage imageNamed:@"MPRAxisHide"]];
 			else
 				[item setImage:[NSImage imageNamed:@"MPRAxisShow"]];
 		}
 		else if([[item itemIdentifier] isEqualToString:@"MousePositionShowHide"])
 		{
-			if( !self.displayMousePosition)
+			if (!self.displayMousePosition)
 				[item setImage:[NSImage imageNamed:@"MPRMousePositionHide"]];
 			else
 				[item setImage:[NSImage imageNamed:@"MPRMousePositionShow"]];
@@ -4140,7 +4159,7 @@ static float deg2rad = M_PI / 180.0;
 {
 	self.displayMousePosition = !self.displayMousePosition;
 	
-	if( self.displayMousePosition && ![self selectedView].displayCrossLines)
+	if (self.displayMousePosition && ![self selectedView].displayCrossLines)
 		[self toogleAxisVisibility: sender];
 	
 	[mprView1 setNeedsDisplay: YES];
@@ -4157,16 +4176,16 @@ static float deg2rad = M_PI / 180.0;
 {
 	DCMPix	*otherPix = [note object];
 	
-	if( [[fusedViewer2D pixList] containsObject: otherPix])
+	if ([[fusedViewer2D pixList] containsObject: otherPix])
 	{
 		float iwl, iww;
 		
 		iww = [[fusedViewer2D imageView] curWW];
 		iwl = [[fusedViewer2D imageView] curWL];
 		
-		if( iww != [blendedMprView1 curWW] || iwl != [blendedMprView1 curWL])
+		if (iww != [blendedMprView1 curWW] || iwl != [blendedMprView1 curWL])
 		{
-			if( clippingRangeMode == 0)
+			if (clippingRangeMode == 0)
 			{
 				[blendedMprView1 setWLWW:128 :256];
 				[blendedMprView2 setWLWW:128 :256];
@@ -4226,7 +4245,7 @@ static float deg2rad = M_PI / 180.0;
 
 - (BOOL) getMovieDataAvailable
 {
-	if( self.maxMovieIndex > 0)
+	if (self.maxMovieIndex > 0)
         return YES;
 	else
         return NO;
@@ -4243,7 +4262,7 @@ static float deg2rad = M_PI / 180.0;
 	
 	[hiddenVRController addMoviePixList: pix :vData];	
     
-	if( clippingRangeMode == 1 || clippingRangeMode == 3 || clippingRangeMode == 2)
+	if (clippingRangeMode == 1 || clippingRangeMode == 3 || clippingRangeMode == 2)
 		[mprView1.vrView prepareFullDepthCapture];
 	else
 		[mprView1.vrView restoreFullDepthCapture];
@@ -4264,7 +4283,7 @@ static float deg2rad = M_PI / 180.0;
 	
 	[hiddenVRController setMovieFrame: m];
 	
-	if( clippingRangeMode == 1 || clippingRangeMode == 3 || clippingRangeMode == 2)
+	if (clippingRangeMode == 1 || clippingRangeMode == 3 || clippingRangeMode == 2)
 		[mprView1.vrView prepareFullDepthCapture];
 	else
 		[mprView1.vrView restoreFullDepthCapture];
@@ -4285,13 +4304,13 @@ static float deg2rad = M_PI / 180.0;
     NSTimeInterval  thisTime = [NSDate timeIntervalSinceReferenceDate];
     short           val;
     
-    if( thisTime - lastMovieTime > 1.0 / self.movieRate)
+    if (thisTime - lastMovieTime > 1.0 / self.movieRate)
     {
         val = self.curMovieIndex;
         val ++;
         
-		if( val < 0) val = 0;
-		if( val > self.maxMovieIndex) val = 0;
+		if (val < 0) val = 0;
+		if (val > self.maxMovieIndex) val = 0;
 		
 		self.curMovieIndex = val;
         lastMovieTime = thisTime;
@@ -4300,7 +4319,7 @@ static float deg2rad = M_PI / 180.0;
 
 - (NSString*) playStopButtonString
 {
-	if( movieTimer)
+	if (movieTimer)
 		return NSLocalizedString(@"Stop", nil);
 	else
 		return NSLocalizedString(@"Play", nil);
@@ -4308,7 +4327,7 @@ static float deg2rad = M_PI / 180.0;
 
 - (void) moviePlayStop:(id) sender
 {
-    if( movieTimer)
+    if (movieTimer)
     {
         [movieTimer invalidate];
         [movieTimer release];
@@ -4382,7 +4401,7 @@ static float deg2rad = M_PI / 180.0;
 	
 	[curvedPathColor release];
 	
-	if( curvedPathCreationMode)
+	if (curvedPathCreationMode)
 		curvedPathColor = [NSColor colorWithDeviceRed: 1.0
                                                  green: 0.1
                                                   blue: 0
@@ -4573,7 +4592,7 @@ static float deg2rad = M_PI / 180.0;
     CPRVolumeData *curvedVolumeData;
     CPRUnsignedInt16ImageRep *imageRep;
 	
-	if( dicomExport == nil)
+	if (dicomExport == nil)
 	{
 		dicomExport = [[[DICOMExport alloc] init] autorelease];
 		[dicomExport setSeriesNumber:5500];
@@ -4604,7 +4623,7 @@ static float deg2rad = M_PI / 180.0;
 		[dicomExport setOffset:[imageRep offset]];
 		[dicomExport setSigned:NO];
 		
-//		if( [[[self viewer2D] modality] isEqualToString:@"PT"])
+//		if ([[[self viewer2D] modality] isEqualToString:@"PT"])
 //		{
 //			float slope = firstObject.appliedFactorPET2SUV * firstObject.slope;
 //			[exportDCM setSlope: slope];
@@ -4613,10 +4632,10 @@ static float deg2rad = M_PI / 180.0;
 		[dicomExport setDefaultWWWL:windowWidth :windowLevel];
 		
 		
-//		if( aCamera->GetParallelProjection())
+//		if (aCamera->GetParallelProjection())
 //		{
         [dicomExport setPixelSpacing:[imageRep pixelSpacingX]:[imageRep pixelSpacingY]];
-//			if( fullDepth)
+//			if (fullDepth)
 //			{
 //				double r = volumeMapper->GetRayCastImage()->GetImageSampleDistance();
 //				
@@ -4625,7 +4644,7 @@ static float deg2rad = M_PI / 180.0;
 //			else
 //				[exportDCM setPixelSpacing: [self getResolution] :[self getResolution]];
 			
-//			if( clipRangeActivated)
+//			if (clipRangeActivated)
 //			{
 //				float cos[ 9];
 //				
@@ -4642,7 +4661,11 @@ static float deg2rad = M_PI / 180.0;
 		
 		f = [dicomExport writeDCMFile: nil];
 		if (f == nil)
-            NSRunCriticalAlertPanel( NSLocalizedString(@"Error", nil),  NSLocalizedString( @"Error during the creation of the DICOM File!", nil), NSLocalizedString(@"OK", nil), nil, nil);
+            NSRunCriticalAlertPanel(NSLocalizedString(@"Error", nil),
+                                    NSLocalizedString( @"Error during the creation of the DICOM File!", nil),
+                                    NSLocalizedString(@"OK", nil),
+                                    nil,
+                                    nil);
 		
 //		free( dataPtr);
 	}
@@ -4655,19 +4678,19 @@ static float deg2rad = M_PI / 180.0;
     if (context == MPRPlaneObservationContext) {        
         if ([keyPath isEqualToString:@"plane"]) {
 			if (object == mprView1) {
-				if( [mprView1 frame].size.width > 10 && [mprView1 frame].size.height > 10)
+				if ([mprView1 frame].size.width > 10 && [mprView1 frame].size.height > 10)
                    cprView.orangePlane = [mprView1 plane];
                 else
                     cprView.orangePlane = N3PlaneInvalid;
 			}
             else if (object == mprView2) {
-                if( [mprView2 frame].size.width > 10 && [mprView2 frame].size.height > 10)
+                if ([mprView2 frame].size.width > 10 && [mprView2 frame].size.height > 10)
                     cprView.purplePlane = [mprView2 plane];
                 else
                     cprView.purplePlane = N3PlaneInvalid;
 			}
             else if (object == mprView3) {
-                 if( [mprView3 frame].size.width > 10 && [mprView3 frame].size.height > 10)
+                 if ([mprView3 frame].size.width > 10 && [mprView3 frame].size.height > 10)
                      cprView.bluePlane = [mprView3 plane];
                  else
                      cprView.bluePlane = N3PlaneInvalid;
@@ -4975,7 +4998,7 @@ static float deg2rad = M_PI / 180.0;
 	viewCrossCenter = N3VectorApplyTransform(crossCenter, N3AffineTransformInvert(N3AffineTransformConcat([mprView3 viewToPixTransform], [mprView3 pixToDicomTransform])));
     [mprView3 setCrossCenter:NSPointFromN3Vector(viewCrossCenter)];
 	
-//	if( [curvedPath.nodes count] > 1 && curvedPathCreationMode)
+//	if ([curvedPath.nodes count] > 1 && curvedPathCreationMode)
 //	{
 //		// Orient the planes to the last point
 //		CPRVector normal;
@@ -5006,7 +5029,7 @@ static float deg2rad = M_PI / 180.0;
 
 - (IBAction)runFlyAssistant:(id)sender;
 {
-    if( [curvedPath.nodes count] > 1 && [curvedPath.nodes count] <= 5)
+    if ([curvedPath.nodes count] > 1 && [curvedPath.nodes count] <= 5)
         [self assistedCurvedPath:nil];
     else
          NSRunAlertPanel(NSLocalizedString(@"Path Assistant error", nil),

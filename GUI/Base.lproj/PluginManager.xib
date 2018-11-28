@@ -66,7 +66,7 @@
                                                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                     <font key="font" metaFont="cellTitle"/>
                                                                     <connections>
-                                                                        <action selector="modifiyActivation:" target="-2" id="91"/>
+                                                                        <action selector="modifiyActivation:" target="-2" id="4dq-BN-hOf"/>
                                                                     </connections>
                                                                 </buttonCell>
                                                                 <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
@@ -127,7 +127,7 @@
                                                                     <font key="font" metaFont="cellTitle"/>
                                                                     <menu key="menu" id="118"/>
                                                                     <connections>
-                                                                        <action selector="modifiyAvailability:" target="-2" id="108"/>
+                                                                        <action selector="modifiyAvailability:" target="-2" id="1Ev-Yb-TTv"/>
                                                                     </connections>
                                                                 </popUpButtonCell>
                                                                 <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
@@ -198,7 +198,7 @@
                                                 </menu>
                                             </popUpButtonCell>
                                             <connections>
-                                                <action selector="changeWebView:" target="-2" id="67"/>
+                                                <action selector="changeWebView:" target="-2" id="lGA-Dm-SGU"/>
                                             </connections>
                                         </popUpButton>
                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="950" translatesAutoresizingMaskIntoConstraints="NO" id="68">
@@ -216,7 +216,7 @@
                                                 <font key="font" metaFont="system"/>
                                             </buttonCell>
                                             <connections>
-                                                <action selector="download:" target="-2" id="70"/>
+                                                <action selector="download:" target="-2" id="Kl9-5v-jzE"/>
                                             </connections>
                                         </button>
                                         <progressIndicator horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="72">

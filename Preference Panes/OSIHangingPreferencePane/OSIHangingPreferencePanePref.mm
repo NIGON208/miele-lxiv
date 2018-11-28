@@ -133,7 +133,12 @@
             
             if( [presetsDict valueForKey: self.WLWWNewName])
             {
-                if( NSRunInformationalAlertPanel(NSLocalizedString( @"WL / WW", 0L), NSLocalizedString( @"Another WL/WW setting with this name already exists. Are you sure you want to replace it with this one?", 0L), NSLocalizedString(@"OK", nil), NSLocalizedString(@"Cancel", nil), nil) != NSAlertDefaultReturn)
+                if( NSRunInformationalAlertPanel(NSLocalizedString( @"WL / WW", 0L),
+                                                 NSLocalizedString( @"Another WL/WW setting with this name already exists. Are you sure you want to replace it with this one?", 0L),
+                                                 NSLocalizedString(@"OK", nil),
+                                                 NSLocalizedString(@"Cancel", nil),
+                                                 nil
+                                                 ) != NSAlertDefaultReturn)
                 {
                     return;
                 }
@@ -320,7 +325,11 @@
            {
                if( [[d valueForKey: @"Study Description"] isEqualToString: NSLocalizedString( @"Default", nil)] == NO && [[d valueForKey: @"Study Description"] isEqualToString: @"Default"] == NO)
                {
-                   NSRunCriticalAlertPanel( NSLocalizedString( @"Default Protocol", nil), NSLocalizedString( @"Default protocol cannot be renamed", nil), NSLocalizedString( @"OK", nil), nil, nil);
+                   NSRunCriticalAlertPanel(NSLocalizedString( @"Default Protocol", nil),
+                                           NSLocalizedString( @"Default protocol cannot be renamed", nil),
+                                           NSLocalizedString( @"OK", nil),
+                                           nil,
+                                           nil);
                    
                    [d setValue: NSLocalizedString( @"Default", nil) forKey: @"Study Description"];
                }
@@ -463,7 +472,11 @@
         if( [self selectedRow] > 0)
             [(OSIHangingPreferencePanePref*)[self delegate] deleteSelectedRow: self];
         else
-            NSRunCriticalAlertPanel( NSLocalizedString( @"Delete Protocol", 0L), NSLocalizedString( @"You cannot delete the default protocol", nil), NSLocalizedString( @"OK", nil), nil, nil);
+            NSRunCriticalAlertPanel(NSLocalizedString( @"Delete Protocol", 0L),
+                                    NSLocalizedString( @"You cannot delete the default protocol", nil),
+                                    NSLocalizedString( @"OK", nil),
+                                    nil,
+                                    nil);
 	}
 	else
         [super keyDown:event];

@@ -1800,7 +1800,12 @@ subOpCallback(void * /*subOpCallbackData*/ ,
         
         avoidErrorMessageReentry = YES;
         if ([[NSUserDefaults standardUserDefaults] boolForKey: alertSuppress] == NO)
-            NSRunCriticalAlertPanel( [msg objectAtIndex: 0], @"%@", [msg objectAtIndex: 2], nil, nil, [msg objectAtIndex: 1]);
+            NSRunCriticalAlertPanel([msg objectAtIndex: 0],
+                                    @"%@",
+                                    [msg objectAtIndex: 2],
+                                    nil,
+                                    nil,
+                                        [msg objectAtIndex: 1]);
         
         avoidErrorMessageReentry = NO;
     }

@@ -84,7 +84,7 @@ unsigned int minimumStep;
 	switch( tool)
 	{
 		case tWL:
-			if( vrView.renderingMode == 1 || vrView.renderingMode == 3 || vrView.renderingMode == 2)
+			if (vrView.renderingMode == 1 || vrView.renderingMode == 3 || vrView.renderingMode == 2)
                 return YES; // MIP
 			else
                 return NO; // VR
@@ -154,13 +154,13 @@ unsigned int minimumStep;
 {
     NSDisableScreenUpdates();
     
-	if( NSEqualRects( frameRect, [self frame]) == NO)
+	if (NSEqualRects( frameRect, [self frame]) == NO)
 	{
 		[NSObject cancelPreviousPerformRequestsWithTarget: windowController selector:@selector(updateViewsAccordingToFrame:) object: nil];
 		[windowController performSelector: @selector(updateViewsAccordingToFrame:) withObject: nil afterDelay: 0.1];
 	}
 	
-	if( blendingView)
+	if (blendingView)
 	{
 		[blendingView setFrame: frameRect];
 		blendingView.drawingFrameRect = [self convertRectToBacking: frameRect]; // very important to have correct position values with PET-CT
@@ -177,7 +177,7 @@ unsigned int minimumStep;
 	NSPoint o = [self convertPoint: NSMakePoint(0, 0) toView:0L];
 	frame.origin = o;
 	
-	if( NSEqualRects( frame, [vrView frame]) == NO)
+	if (NSEqualRects( frame, [vrView frame]) == NO)
 	{
 		[vrView setFrame: frame];
 	}
@@ -185,20 +185,20 @@ unsigned int minimumStep;
 //
 //- (BOOL) hasCameraMoved: (Camera*) currentCamera
 //{
-//	if( fabs( currentCamera.position.x - camera.position.x) > 0.1) return YES;
-//	if( fabs( currentCamera.position.y - camera.position.y) > 0.1) return YES;
-//	if( fabs( currentCamera.position.z - camera.position.z) > 0.1) return YES;
+//	if (fabs( currentCamera.position.x - camera.position.x) > 0.1) return YES;
+//	if (fabs( currentCamera.position.y - camera.position.y) > 0.1) return YES;
+//	if (fabs( currentCamera.position.z - camera.position.z) > 0.1) return YES;
 //
-//	if( fabs( currentCamera.focalPoint.x - camera.focalPoint.x) > 0.1) return YES;
-//	if( fabs( currentCamera.focalPoint.y - camera.focalPoint.y) > 0.1) return YES;
-//	if( fabs( currentCamera.focalPoint.z - camera.focalPoint.z) > 0.1) return YES;
+//	if (fabs( currentCamera.focalPoint.x - camera.focalPoint.x) > 0.1) return YES;
+//	if (fabs( currentCamera.focalPoint.y - camera.focalPoint.y) > 0.1) return YES;
+//	if (fabs( currentCamera.focalPoint.z - camera.focalPoint.z) > 0.1) return YES;
 //
-//	if( fabs( currentCamera.viewUp.x - camera.viewUp.x) > 0.1) return YES;
-//	if( fabs( currentCamera.viewUp.y - camera.viewUp.y) > 0.1) return YES;
-//	if( fabs( currentCamera.viewUp.z - camera.viewUp.z) > 0.1) return YES;
+//	if (fabs( currentCamera.viewUp.x - camera.viewUp.x) > 0.1) return YES;
+//	if (fabs( currentCamera.viewUp.y - camera.viewUp.y) > 0.1) return YES;
+//	if (fabs( currentCamera.viewUp.z - camera.viewUp.z) > 0.1) return YES;
 //
-//	if( fabs( currentCamera.viewAngle - camera.viewAngle) > 3) return YES;
-//	if( fabs( currentCamera.eyeAngle - camera.eyeAngle) > 3) return YES;
+//	if (fabs( currentCamera.viewAngle - camera.viewAngle) > 3) return YES;
+//	if (fabs( currentCamera.eyeAngle - camera.eyeAngle) > 3) return YES;
 //	
 //	return NO;
 //
@@ -218,7 +218,7 @@ unsigned int minimumStep;
 
 - (BOOL) hasCameraChanged: (Camera*) currentCamera
 {
-	if( camera.forceUpdate)
+	if (camera.forceUpdate)
 	{
 		camera.forceUpdate = NO;
 		return YES;
@@ -226,29 +226,29 @@ unsigned int minimumStep;
 	
 	#define PRECISION 0.0001
 	
-	if( fabs( currentCamera.position.x - camera.position.x) > PRECISION) return YES;
-	if( fabs( currentCamera.position.y - camera.position.y) > PRECISION) return YES;
-	if( fabs( currentCamera.position.z - camera.position.z) > PRECISION) return YES;
+	if (fabs( currentCamera.position.x - camera.position.x) > PRECISION) return YES;
+	if (fabs( currentCamera.position.y - camera.position.y) > PRECISION) return YES;
+	if (fabs( currentCamera.position.z - camera.position.z) > PRECISION) return YES;
 
-	if( fabs( currentCamera.focalPoint.x - camera.focalPoint.x) > PRECISION) return YES;
-	if( fabs( currentCamera.focalPoint.y - camera.focalPoint.y) > PRECISION) return YES;
-	if( fabs( currentCamera.focalPoint.z - camera.focalPoint.z) > PRECISION) return YES;
+	if (fabs( currentCamera.focalPoint.x - camera.focalPoint.x) > PRECISION) return YES;
+	if (fabs( currentCamera.focalPoint.y - camera.focalPoint.y) > PRECISION) return YES;
+	if (fabs( currentCamera.focalPoint.z - camera.focalPoint.z) > PRECISION) return YES;
 
-	if( fabs( currentCamera.viewUp.x - camera.viewUp.x) > PRECISION) return YES;
-	if( fabs( currentCamera.viewUp.y - camera.viewUp.y) > PRECISION) return YES;
-	if( fabs( currentCamera.viewUp.z - camera.viewUp.z) > PRECISION) return YES;
+	if (fabs( currentCamera.viewUp.x - camera.viewUp.x) > PRECISION) return YES;
+	if (fabs( currentCamera.viewUp.y - camera.viewUp.y) > PRECISION) return YES;
+	if (fabs( currentCamera.viewUp.z - camera.viewUp.z) > PRECISION) return YES;
 
-	if( fabs( currentCamera.viewAngle - camera.viewAngle) > PRECISION) return YES;
-	if( fabs( currentCamera.eyeAngle - camera.eyeAngle) > PRECISION) return YES;
-	if( fabs( currentCamera.parallelScale - camera.parallelScale) > PRECISION) return YES;
+	if (fabs( currentCamera.viewAngle - camera.viewAngle) > PRECISION) return YES;
+	if (fabs( currentCamera.eyeAngle - camera.eyeAngle) > PRECISION) return YES;
+	if (fabs( currentCamera.parallelScale - camera.parallelScale) > PRECISION) return YES;
 
-	if( currentCamera.clippingRangeNear != camera.clippingRangeNear) return YES;
-	if( currentCamera.clippingRangeFar != camera.clippingRangeFar) return YES;
+	if (currentCamera.clippingRangeNear != camera.clippingRangeNear) return YES;
+	if (currentCamera.clippingRangeFar != camera.clippingRangeFar) return YES;
 	
-//	if( currentCamera.LOD < camera.LOD) return YES;
+//	if (currentCamera.LOD < camera.LOD) return YES;
 	
-	if( currentCamera.wl != camera.wl) return YES;
-	if( currentCamera.ww != camera.ww) return YES;
+	if (currentCamera.wl != camera.wl) return YES;
+	if (currentCamera.ww != camera.ww) return YES;
 	
 	return NO;
 }
@@ -260,7 +260,7 @@ unsigned int minimumStep;
 
 - (void) restoreCameraAndCheckForFrame: (BOOL) v
 {
-	if( v)
+	if (v)
 		[self checkForFrame];
 	[vrView setCamera: camera];
 }
@@ -292,10 +292,10 @@ unsigned int minimumStep;
     CGSize f = CGDisplayScreenSize( [[[[[self window] screen] deviceDescription] valueForKey: @"NSScreenNumber"] intValue]);
     CGRect r = CGDisplayBounds( [[[[[self window] screen] deviceDescription] valueForKey: @"NSScreenNumber"] intValue]); 
     
-    if( f.width != 0 && f.height != 0)
+    if (f.width != 0 && f.height != 0)
     {
         NSLog( @"screen pixel ratio: %f", fabs( (f.width/r.size.width) - (f.height/r.size.height)));
-        if( fabs( (f.width/r.size.width) - (f.height/r.size.height)) < 0.01)
+        if (fabs( (f.width/r.size.width) - (f.height/r.size.height)) < 0.01)
         {
 //            DCMPix *o = [windowController originalPix];
             
@@ -306,16 +306,24 @@ unsigned int minimumStep;
             [self updateViewMPR];
         }
         else
-            NSRunCriticalAlertPanel(NSLocalizedString(@"Actual Size Error",nil), NSLocalizedString(@"Displayed pixels are non-squared pixel. Images cannot be displayed at actual size.",nil) , NSLocalizedString( @"OK",nil), nil, nil);
+            NSRunCriticalAlertPanel(NSLocalizedString(@"Actual Size Error",nil),
+                                    NSLocalizedString(@"Displayed pixels are non-squared pixel. Images cannot be displayed at actual size.",nil),
+                                    NSLocalizedString( @"OK",nil),
+                                    nil,
+                                    nil);
     }
     else
-        NSRunCriticalAlertPanel(NSLocalizedString(@"Actual Size Error",nil), NSLocalizedString(@"This screen doesn't support this function.",nil) , NSLocalizedString( @"OK",nil), nil, nil);
+        NSRunCriticalAlertPanel(NSLocalizedString(@"Actual Size Error",nil),
+                                NSLocalizedString(@"This screen doesn't support this function.",nil),
+                                NSLocalizedString( @"OK",nil),
+                                nil,
+                                nil);
 }
 
 
 - (BOOL)validateMenuItem:(NSMenuItem *)item
 {
-    if( [item action] == @selector(scaleToFit:))
+    if ([item action] == @selector(scaleToFit:))
     {
         return NO;
     }
@@ -330,10 +338,10 @@ unsigned int minimumStep;
 
 - (void) updateViewMPR:(BOOL) computeCrossReferenceLines
 {
-	if( [self frame].size.width <= 0)
+	if ([self frame].size.width <= 0)
 		return;
 	
-	if( [self frame].size.height <= 0)
+	if ([self frame].size.height <= 0)
 		return;
 	
 	long h, w;
@@ -347,43 +355,43 @@ unsigned int minimumStep;
 	
     minimumStep = 1;
     
-	if( [self hasCameraChanged: currentCamera] == YES)
+	if ([self hasCameraChanged: currentCamera] == YES)
 	{
 		// AutoLOD
-		if( dontUseAutoLOD == NO && lastRenderingWasMoveCenter == NO)
+		if (dontUseAutoLOD == NO && lastRenderingWasMoveCenter == NO)
 		{
 			DCMPix *o = [windowController originalPix];
 			
 			float minimumResolution = [o pixelSpacingX];
 			
-			if( minimumResolution > [o pixelSpacingY])
+			if (minimumResolution > [o pixelSpacingY])
 				minimumResolution = [o pixelSpacingY];
 			
-			if( minimumResolution > [o sliceInterval])
+			if (minimumResolution > [o sliceInterval])
 				minimumResolution = [o sliceInterval];
 			
-			if( windowController.clippingRangeThickness <= 3)
+			if (windowController.clippingRangeThickness <= 3)
 				minimumResolution *= 0.9;
 			else
 				minimumResolution *= 0.7;
 			
-			if( minimumResolution > previousPixelSpacing && previousPixelSpacing != 0)
+			if (minimumResolution > previousPixelSpacing && previousPixelSpacing != 0)
 				LOD *= ( minimumResolution / previousPixelSpacing);
 			
-			if( previousResolution == 0)
+			if (previousResolution == 0)
 				previousResolution = [vrView getResolution];
 			
 			float currentResolution = [vrView getResolution];
 			
-			if( previousResolution < currentResolution)
+			if (previousResolution < currentResolution)
 				LOD *= (previousResolution / currentResolution);
 			
-			if( LOD < windowController.LOD)
+			if (LOD < windowController.LOD)
 				LOD = windowController.LOD;
 			
-			if( LOD > 4) LOD = 4;
+			if (LOD > 4) LOD = 4;
 			
-			if( windowController.lowLOD)
+			if (windowController.lowLOD)
 				[vrView setLOD: LOD * vrView.lowResLODFactor];
 			else
 				[vrView setLOD: LOD];
@@ -391,9 +399,9 @@ unsigned int minimumStep;
 		else
 			[vrView setLOD: LOD];
 				
-        if( [self frame].size.width > 0 && [self frame].size.height > 0)
+        if ([self frame].size.width > 0 && [self frame].size.height > 0)
         {
-            if( windowController.maxMovieIndex > 1 &&
+            if (windowController.maxMovieIndex > 1 &&
                (windowController.clippingRangeMode == 1 ||
                 windowController.clippingRangeMode == 3 ||
                 windowController.clippingRangeMode == 2))	//To avoid the wrong pixel value bug...
@@ -401,7 +409,7 @@ unsigned int minimumStep;
                 [vrView prepareFullDepthCapture];
             }
             
-            if( moveCenter)
+            if (moveCenter)
             {
                 lastRenderingWasMoveCenter = YES;
                 [vrView setLOD: 100];	// We don't need to really compute the image - we just want image origin for the other views.
@@ -414,7 +422,7 @@ unsigned int minimumStep;
 		
 		float *imagePtr = nil;
 		
-		if( moveCenter)
+		if (moveCenter)
 		{
 			imagePtr = [pix fImage];
 			w = [pix pwidth];
@@ -434,38 +442,38 @@ unsigned int minimumStep;
               orig[ 3] = {currentCamera.position.x, currentCamera.position.y, currentCamera.position.z},
               locationTemp[ 3];
 		float distance = [DCMView pbase_Plane: location :orig :&(orientation[ 6]) :locationTemp];
-		if( distance < pix.sliceThickness / 2.)
+		if (distance < pix.sliceThickness / 2.)
 			previousOriginInPlane = YES;
 		else
 			previousOriginInPlane = NO;
 		
 		[self saveCamera];
 		
-		if( imagePtr)
+		if (imagePtr)
 		{
 			BOOL cameraMoved = YES;
 			
-			if( [curRoiList count] > 0)
+			if ([curRoiList count] > 0)
 			{
-				if( previousOriginInPlane == NO || arePlanesParallel( orientation+6, previousOrientation+6) == NO)
+				if (previousOriginInPlane == NO || arePlanesParallel( orientation+6, previousOrientation+6) == NO)
 					cameraMoved = YES;
 				else
 					cameraMoved = NO;
 				
-				if( cameraMoved == YES)
+				if (cameraMoved == YES)
 				{
 					for( int i = (long)[curRoiList count] -1 ; i >= 0; i--)
 					{
 						ROI *r = [curRoiList objectAtIndex: i];
-						if( [r type] != t2DPoint)
+						if ([r type] != t2DPoint)
 							[curRoiList removeObjectAtIndex: i];
 					}
 				}
 			}
 			
-			if( [pix pwidth] == w && [pix pheight] == h && isRGB == [pix isRGB])
+			if ([pix pwidth] == w && [pix pheight] == h && isRGB == [pix isRGB])
 			{
-				if( imagePtr != [pix fImage])
+				if (imagePtr != [pix fImage])
 				{
 					memcpy( [pix fImage], imagePtr, w*h*sizeof( float));
 					free( imagePtr);
@@ -490,10 +498,10 @@ unsigned int minimumStep;
 			[pix setOrigin: porigin];
 			
 			float resolution = 0;
-			if( !moveCenter)
+			if (!moveCenter)
 			{
 				resolution = [vrView getResolution] * [vrView imageSampleDistance];
-                if( resolution > 0)
+                if (resolution > 0)
                 {
                     [pix setPixelSpacingX: resolution];
                     [pix setPixelSpacingY: resolution];
@@ -505,16 +513,16 @@ unsigned int minimumStep;
 			
 			[self setWLWW: previousWL :previousWW];
 			
-			if( !moveCenter)
+			if (!moveCenter)
 			{
 				[self setScaleValue: [vrView imageSampleDistance]];
 				
 				float rotationPlane = 0;
-				if( cameraMoved == NO && [curRoiList count] > 0)
+				if (cameraMoved == NO && [curRoiList count] > 0)
 				{
-					if( previousOrientation[ 0] != 0 || previousOrientation[ 1] != 0 || previousOrientation[ 2] != 0)
+					if (previousOrientation[ 0] != 0 || previousOrientation[ 1] != 0 || previousOrientation[ 2] != 0)
 						rotationPlane = -[MPRController angleBetweenVector: orientation andPlane: previousOrientation];
-					if( fabs( rotationPlane) < 0.01)
+					if (fabs( rotationPlane) < 0.01)
 						rotationPlane = 0;
 				}
 				
@@ -522,7 +530,7 @@ unsigned int minimumStep;
 				
 				for( ROI* r in curRoiList)
 				{
-					if( rotationPlane)
+					if (rotationPlane)
 					{
 						[r setOriginAndSpacing: resolution : resolution : r.imageOrigin :NO];
 						
@@ -547,7 +555,7 @@ unsigned int minimumStep;
 			}
 		}
 		
-		if( blendingView)
+		if (blendingView)
 		{
 			[blendingView getWLWW: &previousWL :&previousWW];
 			
@@ -556,7 +564,7 @@ unsigned int minimumStep;
 			float *blendedImagePtr = nil;
 			DCMPix *bPix = [blendingView curDCM];
 			
-			if( moveCenter)
+			if (moveCenter)
 			{
 				blendedImagePtr = [bPix fImage];
 				w = [bPix pwidth];
@@ -566,9 +574,9 @@ unsigned int minimumStep;
 			else
 				blendedImagePtr = [vrView imageInFullDepthWidth: &w height: &h isRGB: &isRGB blendingView: YES];
 			
-			if( [bPix pwidth] == w && [bPix pheight] == h && isRGB == [bPix isRGB])
+			if ([bPix pwidth] == w && [bPix pheight] == h && isRGB == [bPix isRGB])
 			{
-				if( blendedImagePtr != [bPix fImage])
+				if (blendedImagePtr != [bPix fImage])
 				{
 					memcpy( [bPix fImage], blendedImagePtr, w*h*sizeof( float));
 					free( blendedImagePtr);
@@ -587,7 +595,7 @@ unsigned int minimumStep;
 			[vrView getOrigin: porigin windowCentered: YES sliceMiddle: YES blendedView: YES];
 			[bPix setOrigin: porigin];
 			
-			if( !moveCenter)
+			if (!moveCenter)
 			{
 				float resolution = [vrView getResolution] * [vrView blendingImageSampleDistance];
 				[bPix setPixelSpacingX: resolution];
@@ -601,16 +609,16 @@ unsigned int minimumStep;
 			
 			[blendingView setWLWW: previousWL :previousWW];
 			
-			if( !moveCenter)
+			if (!moveCenter)
 				[blendingView setScaleValue: [vrView blendingImageSampleDistance]];
 		}
 	}
 	
-	if( dontReenterCrossReferenceLines == NO)
+	if (dontReenterCrossReferenceLines == NO)
 	{
 		dontReenterCrossReferenceLines = YES;
 		
-		if( computeCrossReferenceLines)
+		if (computeCrossReferenceLines)
 			[windowController computeCrossReferenceLines: self];
 		else
 			[windowController computeCrossReferenceLines: nil];
@@ -624,7 +632,7 @@ unsigned int minimumStep;
 - (void) colorForView:(int) v
 {
 	CGLContextObj cgl_ctx = [[NSOpenGLContext currentContext] CGLContextObj];
-    if( cgl_ctx == nil)
+    if (cgl_ctx == nil)
         return;
     
 	switch( v)
@@ -649,10 +657,10 @@ unsigned int minimumStep;
 - (void) drawLine: (float[2][3]) sft thickness: (float) thickness
 {
 	CGLContextObj cgl_ctx = [[NSOpenGLContext currentContext] CGLContextObj];
-    if( cgl_ctx == nil)
+    if (cgl_ctx == nil)
         return;
     
-	if( thickness > 2)
+	if (thickness > 2)
 	{
 		glLineWidth(2.0 * self.window.backingScaleFactor);
 		[self drawCrossLines: sft ctx: cgl_ctx withShift: 0];
@@ -671,34 +679,34 @@ unsigned int minimumStep;
 - (void) drawExportLines: (float[2][3]) sft
 {
 	CGLContextObj cgl_ctx = [[NSOpenGLContext currentContext] CGLContextObj];
-    if( cgl_ctx == nil)
+    if (cgl_ctx == nil)
         return;
     
 	glLineWidth(1.0 * self.window.backingScaleFactor);
 						
-	if( fromIntervalExport > 0)
+	if (fromIntervalExport > 0)
 	{
 		for( int i = 1; i <= fromIntervalExport; i++)
 			[self drawCrossLines: sft ctx: cgl_ctx withShift: -i * [windowController dcmInterval]];
 	}
 	
-	if( !windowController.dcmBatchReverse)
+	if (!windowController.dcmBatchReverse)
 		[self drawCrossLines: sft ctx: cgl_ctx withShift: -fromIntervalExport * [windowController dcmInterval] showPoint: YES];
 	
-	if( toIntervalExport > 0)
+	if (toIntervalExport > 0)
 	{
 		for( int i = 1; i <= toIntervalExport; i++)
 			[self drawCrossLines: sft ctx: cgl_ctx withShift: i * [windowController dcmInterval]];
 	}
 	
-	if( windowController.dcmBatchReverse)
+	if (windowController.dcmBatchReverse)
 		[self drawCrossLines: sft ctx: cgl_ctx withShift: toIntervalExport * [windowController dcmInterval] showPoint: YES];
 }
 
 - (void) drawRotationLines: (float[2][3]) sft
 {
 	CGLContextObj cgl_ctx = [[NSOpenGLContext currentContext] CGLContextObj];
-    if( cgl_ctx == nil)
+    if (cgl_ctx == nil)
         return;
     
 	for( int i = 1; i < windowController.dcmNumberOfFrames; i++)
@@ -719,13 +727,13 @@ unsigned int minimumStep;
 
 - (void) subDrawRect: (NSRect) r
 {
-	if( [stringID isEqualToString: @"export"] && [[NSUserDefaults standardUserDefaults] boolForKey: @"exportDCMIncludeAllViews"] == NO)
+	if ([stringID isEqualToString: @"export"] && [[NSUserDefaults standardUserDefaults] boolForKey: @"exportDCMIncludeAllViews"] == NO)
 		return;
 	
 	rotation = 0;
 	
 	CGLContextObj cgl_ctx = [[NSOpenGLContext currentContext] CGLContextObj];
-    if( cgl_ctx == nil)
+    if (cgl_ctx == nil)
         return;
     
 	glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
@@ -734,7 +742,7 @@ unsigned int minimumStep;
 	glEnable(GL_LINE_SMOOTH);
 	glPointSize( 12 * self.window.backingScaleFactor);
 	
-	if( displayCrossLines && frameZoomed == NO)
+	if (displayCrossLines && frameZoomed == NO)
 	{
 		// All pix have the same thickness
 		float thickness = [pix sliceThickness];
@@ -743,84 +751,84 @@ unsigned int minimumStep;
 		{
 			case 1:
 				glColor4f ([windowController.colorAxis2 redComponent], [windowController.colorAxis2 greenComponent], [windowController.colorAxis2 blueComponent], [windowController.colorAxis2 alphaComponent]);
-				if( crossLinesA[ 0][ 0] != HUGE_VALF)
+				if (crossLinesA[ 0][ 0] != HUGE_VALF)
 				{
 					[self drawLine: crossLinesA thickness: thickness];
 					
-					if( viewExport == 0 && windowController.dcmMode == 0 && windowController.dcmSeriesMode == 0)
+					if (viewExport == 0 && windowController.dcmMode == 0 && windowController.dcmSeriesMode == 0)
 						[self drawExportLines: crossLinesA];
 					
-					if( viewExport == 0 && windowController.dcmMode == 0 && windowController.dcmSeriesMode == 1) // Rotation
+					if (viewExport == 0 && windowController.dcmMode == 0 && windowController.dcmSeriesMode == 1) // Rotation
 						[self drawRotationLines: crossLinesA];
 				}
 				glColor4f ([windowController.colorAxis3 redComponent], [windowController.colorAxis3 greenComponent], [windowController.colorAxis3 blueComponent], [windowController.colorAxis3 alphaComponent]);
-				if( crossLinesB[ 0][ 0] != HUGE_VALF)
+				if (crossLinesB[ 0][ 0] != HUGE_VALF)
 				{
 					[self drawLine: crossLinesB thickness: thickness];
 					
-					if( viewExport == 1 && windowController.dcmMode == 0 && windowController.dcmSeriesMode == 0)
+					if (viewExport == 1 && windowController.dcmMode == 0 && windowController.dcmSeriesMode == 0)
 						[self drawExportLines: crossLinesB];
 					
-					if( viewExport == 1 && windowController.dcmMode == 0 && windowController.dcmSeriesMode == 1) // Rotation
+					if (viewExport == 1 && windowController.dcmMode == 0 && windowController.dcmSeriesMode == 1) // Rotation
 						[self drawRotationLines: crossLinesB];
 				}
 			break;
 			
 			case 2:
 				glColor4f ([windowController.colorAxis1 redComponent], [windowController.colorAxis1 greenComponent], [windowController.colorAxis1 blueComponent], [windowController.colorAxis1 alphaComponent]);
-				if( crossLinesA[ 0][ 0] != HUGE_VALF)
+				if (crossLinesA[ 0][ 0] != HUGE_VALF)
 				{
 					[self drawLine: crossLinesA thickness: thickness];
 					
-					if( viewExport == 0 && windowController.dcmMode == 0 && windowController.dcmSeriesMode == 0)
+					if (viewExport == 0 && windowController.dcmMode == 0 && windowController.dcmSeriesMode == 0)
 						[self drawExportLines: crossLinesA];
 					
-					if( viewExport == 0 && windowController.dcmMode == 0 && windowController.dcmSeriesMode == 1) // Rotation
+					if (viewExport == 0 && windowController.dcmMode == 0 && windowController.dcmSeriesMode == 1) // Rotation
 						[self drawRotationLines: crossLinesA];
 				}
 				
 				glColor4f ([windowController.colorAxis3 redComponent], [windowController.colorAxis3 greenComponent], [windowController.colorAxis3 blueComponent], [windowController.colorAxis3 alphaComponent]);
-				if( crossLinesB[ 0][ 0] != HUGE_VALF)
+				if (crossLinesB[ 0][ 0] != HUGE_VALF)
 				{
 					[self drawLine: crossLinesB thickness: thickness];
 					
-					if( viewExport == 1 && windowController.dcmMode == 0 && windowController.dcmSeriesMode == 0)
+					if (viewExport == 1 && windowController.dcmMode == 0 && windowController.dcmSeriesMode == 0)
 						[self drawExportLines: crossLinesB];
 					
-					if( viewExport == 1 && windowController.dcmMode == 0 && windowController.dcmSeriesMode == 1) // Rotation
+					if (viewExport == 1 && windowController.dcmMode == 0 && windowController.dcmSeriesMode == 1) // Rotation
 						[self drawRotationLines: crossLinesB];
 				}
 			break;
 			
 			case 3:
 				glColor4f ([windowController.colorAxis1 redComponent], [windowController.colorAxis1 greenComponent], [windowController.colorAxis1 blueComponent], [windowController.colorAxis1 alphaComponent]);
-				if( crossLinesA[ 0][ 0] != HUGE_VALF)
+				if (crossLinesA[ 0][ 0] != HUGE_VALF)
 				{
 					[self drawLine: crossLinesA thickness: thickness];
 					
-					if( viewExport == 0 && windowController.dcmMode == 0 && windowController.dcmSeriesMode == 0)
+					if (viewExport == 0 && windowController.dcmMode == 0 && windowController.dcmSeriesMode == 0)
 						[self drawExportLines: crossLinesA];
 					
-					if( viewExport == 0 && windowController.dcmMode == 0 && windowController.dcmSeriesMode == 1) // Rotation
+					if (viewExport == 0 && windowController.dcmMode == 0 && windowController.dcmSeriesMode == 1) // Rotation
 						[self drawRotationLines: crossLinesA];
 				}
 				
 				glColor4f ([windowController.colorAxis2 redComponent], [windowController.colorAxis2 greenComponent], [windowController.colorAxis2 blueComponent], [windowController.colorAxis2 alphaComponent]);
-				if( crossLinesB[ 0][ 0] != HUGE_VALF)
+				if (crossLinesB[ 0][ 0] != HUGE_VALF)
 				{
 					[self drawLine: crossLinesB thickness: thickness];
 					
-					if( viewExport == 1 && windowController.dcmMode == 0 && windowController.dcmSeriesMode == 0)
+					if (viewExport == 1 && windowController.dcmMode == 0 && windowController.dcmSeriesMode == 0)
 						[self drawExportLines: crossLinesB];
 					
-					if( viewExport == 1 && windowController.dcmMode == 0 && windowController.dcmSeriesMode == 1) // Rotation
+					if (viewExport == 1 && windowController.dcmMode == 0 && windowController.dcmSeriesMode == 1) // Rotation
 						[self drawRotationLines: crossLinesB];
 				}
 			break;
 		}
 	}
 	
-	if( [stringID isEqualToString: @"export"])
+	if ([stringID isEqualToString: @"export"])
 		return;
 	
 	float heighthalf = [self convertSizeToBacking: self.frame.size].height/2;
@@ -829,7 +837,7 @@ unsigned int minimumStep;
 	[self colorForView: viewID];
 	
 	// Red Square
-	if( [[self window] firstResponder] == self && frameZoomed == NO)
+	if ([[self window] firstResponder] == self && frameZoomed == NO)
 	{
 		glLineWidth(8.0 * self.window.backingScaleFactor);
 		glBegin(GL_LINE_LOOP);
@@ -849,11 +857,11 @@ unsigned int minimumStep;
 	glEnd();
 	glLineWidth(1.0 * self.window.backingScaleFactor);
 	
-	if( displayCrossLines && frameZoomed == NO && windowController.displayMousePosition && !windowController.mprView1.rotateLines && !windowController.mprView2.rotateLines && !windowController.mprView3.rotateLines
+	if (displayCrossLines && frameZoomed == NO && windowController.displayMousePosition && !windowController.mprView1.rotateLines && !windowController.mprView2.rotateLines && !windowController.mprView3.rotateLines
 																					&& !windowController.mprView1.moveCenter && !windowController.mprView2.moveCenter && !windowController.mprView3.moveCenter)
 	{
 		// Mouse Position
-		if( viewID == windowController.mouseViewID)
+		if (viewID == windowController.mouseViewID)
 		{
 			DCMPix *pixA, *pixB;
 			int viewIDA, viewIDB;
@@ -918,7 +926,7 @@ unsigned int minimumStep;
 			glEnd();
 
 		}
-		if( viewID != windowController.mouseViewID)
+		if (viewID != windowController.mouseViewID)
 		{
 			[self colorForView: viewID];
 //			[self colorForView: windowController.mouseViewID];
@@ -966,21 +974,21 @@ unsigned int minimumStep;
 
 -(void) setCurrentTool:(ToolMode) i
 {
-	if( i != tRepulsor)
+	if (i != tRepulsor)
 		[super setCurrentTool: i];
 }
 
 - (void)keyDown:(NSEvent *)theEvent
 {
-    if( [[theEvent characters] length] == 0) return;
+    if ([[theEvent characters] length] == 0) return;
     
     unichar c = [[theEvent characters] characterAtIndex:0];
     
-	if( c ==  ' ' || c == 27) // 27 : escape
+	if (c ==  ' ' || c == 27) // 27 : escape
 	{
 		[windowController keyDown:theEvent];
 	}
-    else if( c == NSUpArrowFunctionKey || c == NSDownArrowFunctionKey || c == NSRightArrowFunctionKey || c ==  NSLeftArrowFunctionKey)
+    else if (c == NSUpArrowFunctionKey || c == NSDownArrowFunctionKey || c == NSRightArrowFunctionKey || c ==  NSLeftArrowFunctionKey)
     {
         moveCenter = YES;
         
@@ -998,34 +1006,34 @@ unsigned int minimumStep;
         float slopeX = vector.x / length;
         float slopeY = vector.y / length;
         
-        if( xFlipped)
+        if (xFlipped)
         {
-            if( c == NSLeftArrowFunctionKey)
+            if (c == NSLeftArrowFunctionKey)
                 c = NSRightArrowFunctionKey;
             
-            if( c == NSRightArrowFunctionKey)
+            if (c == NSRightArrowFunctionKey)
                 c = NSLeftArrowFunctionKey;
         }
         
-        if( yFlipped)
+        if (yFlipped)
         {
-            if( c == NSUpArrowFunctionKey)
+            if (c == NSUpArrowFunctionKey)
                 c = NSDownArrowFunctionKey;
             
-            if( c == NSDownArrowFunctionKey)
+            if (c == NSDownArrowFunctionKey)
                 c = NSUpArrowFunctionKey;
         }
         
-        if( c == NSDownArrowFunctionKey || c == NSUpArrowFunctionKey)
+        if (c == NSDownArrowFunctionKey || c == NSUpArrowFunctionKey)
         {
-            if( fabs( slopeY) < fabs( slopeX))
+            if (fabs( slopeY) < fabs( slopeX))
             {
                 float c = slopeY;
                 slopeY = -slopeX;
                 slopeX = c;
             }
             
-            if( slopeY < 0)
+            if (slopeY < 0)
             {
                 slopeY = -slopeY;
                 slopeX = -slopeX;
@@ -1033,14 +1041,14 @@ unsigned int minimumStep;
         }
         else
         {
-            if( fabs( slopeX) < fabs( slopeY))
+            if (fabs( slopeX) < fabs( slopeY))
             {
                 float c = slopeY;
                 slopeY = -slopeX;
                 slopeX = c;
             }
             
-            if( slopeX < 0)
+            if (slopeX < 0)
             {
                 slopeY = -slopeY;
                 slopeX = -slopeX;
@@ -1049,25 +1057,25 @@ unsigned int minimumStep;
         
         float move = 2;
         
-        if( [theEvent modifierFlags] & NSEventModifierFlagOption) move = 6;
-        if( [theEvent modifierFlags] & NSEventModifierFlagCommand) move = 1;
+        if ([theEvent modifierFlags] & NSEventModifierFlagOption) move = 6;
+        if ([theEvent modifierFlags] & NSEventModifierFlagCommand) move = 1;
         
-        if( c == NSDownArrowFunctionKey) {
+        if (c == NSDownArrowFunctionKey) {
             center.y -= move*slopeY;
             center.x += move*slopeX;
         }
 
-        if( c == NSUpArrowFunctionKey) {
+        if (c == NSUpArrowFunctionKey) {
             center.y += move*slopeY;
             center.x -= move*slopeX;
         }
         
-        if( c == NSRightArrowFunctionKey) {
+        if (c == NSRightArrowFunctionKey) {
             center.y -= move*slopeY;
             center.x += move*slopeX;
         }
 
-        if( c == NSLeftArrowFunctionKey) {
+        if (c == NSLeftArrowFunctionKey) {
             center.y += move*slopeY;
             center.x -= move*slopeX;            
         }
@@ -1125,7 +1133,7 @@ unsigned int minimumStep;
     pixToDicomTransform.m33 = orientation[8];
     
 #ifndef NDEBUG
-	if( isnan( pix.pixelSpacingX) || isnan( pix.pixelSpacingY) || pix.pixelSpacingX <= 0 || pix.pixelSpacingY <= 0 || pix.pixelSpacingX > 1000 || pix.pixelSpacingY > 1000)
+	if (isnan( pix.pixelSpacingX) || isnan( pix.pixelSpacingY) || pix.pixelSpacingX <= 0 || pix.pixelSpacingY <= 0 || pix.pixelSpacingX > 1000 || pix.pixelSpacingY > 1000)
 		NSLog( @"******* CPR pixel spacing incorrect for pixToSubDrawRectTransform");
 #endif
 	
@@ -1149,9 +1157,9 @@ unsigned int minimumStep;
 		for( int i = (long)[curRoiList count] -1 ; i >= 0; i--)
 		{
 			ROI *r = [curRoiList objectAtIndex: i];
-			if( [r type] == t2DPoint)
+			if ([r type] == t2DPoint)
 			{
-				if( r.parentROI)
+				if (r.parentROI)
 					[ROIsStateSaved setObject: [NSNumber numberWithInt: [r ROImode]] forKey: [NSValue valueWithPointer: r.parentROI]];
 				[curRoiList removeObjectAtIndex: i];
 			}
@@ -1167,7 +1175,7 @@ unsigned int minimumStep;
 			
 			for( ROI *r in pts)
 			{
-				if( [r type] == t2DPoint)
+				if ([r type] == t2DPoint)
 				{
 					float location[ 3];
 					
@@ -1186,7 +1194,7 @@ unsigned int minimumStep;
 					
 					distance = [DCMView pbase_Plane: location :orig :&(vectors[ 6]) :locationTemp];
 					
-					if( distance < pix.sliceThickness)
+					if (distance < pix.sliceThickness)
 					{
 						float sc[ 3];
 						
@@ -1204,7 +1212,7 @@ unsigned int minimumStep;
 						[curRoiList addObject: new2DPointROI];
 						
 						int mode = [[ROIsStateSaved objectForKey: [NSValue valueWithPointer: r]] intValue];
-						if( mode)
+						if (mode)
 							[new2DPointROI setROIMode: (ROI_mode)mode];
 					}
 				}
@@ -1251,11 +1259,11 @@ unsigned int minimumStep;
 
 -(void) roiChange:(NSNotification*)note
 {
-	if( dontCheckRoiChange == NO)
+	if (dontCheckRoiChange == NO)
 	{
 		ROI *r = [note object];
 		
-		if( [r curView] != nil && [r curView] == [[windowController viewer] imageView])
+		if ([r curView] != nil && [r curView] == [[windowController viewer] imageView])
 			[self detect2DPointInThisSlice];
 	}
 	
@@ -1266,16 +1274,16 @@ unsigned int minimumStep;
 {
 	ROI *r = [note object];
 	
-	if( [r type] == t2DPoint && r.parentROI)
+	if ([r type] == t2DPoint && r.parentROI)
 	{
 		[[windowController viewer] deleteROI: r.parentROI];
 		r.parentROI = nil;
 		
 	}
 	
-	if( dontCheckRoiChange == NO)
+	if (dontCheckRoiChange == NO)
 	{
-		if( [r curView] != nil && [r curView] == [[windowController viewer] imageView])
+		if ([r curView] != nil && [r curView] == [[windowController viewer] imageView])
 			[self detect2DPointInThisSlice];
 	}
 }
@@ -1298,7 +1306,7 @@ unsigned int minimumStep;
     NSPoint r = NSMakePoint( 0, 0);
     
     // One line or no lines : find the middle of the line
-    if( crossLinesB[ 0][ 0] == HUGE_VALF)
+    if (crossLinesB[ 0][ 0] == HUGE_VALF)
     {
         NSPoint a1 = NSMakePoint( crossLinesA[ 0][ 0], crossLinesA[ 0][ 1]);
         NSPoint a2 = NSMakePoint( crossLinesA[ 1][ 0], crossLinesA[ 1][ 1]);
@@ -1310,7 +1318,7 @@ unsigned int minimumStep;
     }
     
     // One line or no lines : find the middle of the line
-    if( crossLinesA[ 0][ 0] == HUGE_VALF)
+    if (crossLinesA[ 0][ 0] == HUGE_VALF)
     {
         NSPoint b1 = NSMakePoint( crossLinesB[ 0][ 0], crossLinesB[ 0][ 1]);
         NSPoint b2 = NSMakePoint( crossLinesB[ 1][ 0], crossLinesB[ 1][ 1]);
@@ -1334,22 +1342,22 @@ unsigned int minimumStep;
 
 - (int) mouseOnLines: (NSPoint) mouseLocation
 {
-	if( [[NSUserDefaults standardUserDefaults] integerForKey: @"ANNOTATIONS"] == annotNone)
+	if ([[NSUserDefaults standardUserDefaults] integerForKey: @"ANNOTATIONS"] == annotNone)
 		return 0;
 	
-	if( displayCrossLines == NO || frameZoomed)
+	if (displayCrossLines == NO || frameZoomed)
 		return 0;
 	
-	if( LOD == 0)
+	if (LOD == 0)
 		return 0;
 	
-	if( curDCM.pixelSpacingX == 0)
+	if (curDCM.pixelSpacingX == 0)
 		return 0;
 	
 	// Intersection of the lines
 	NSPoint r = [self centerLines];
 	
-	if( r.x != 0 || r.y != 0)
+	if (r.x != 0 || r.y != 0)
 	{
 		mouseLocation = [self ConvertFromNSView2GL: mouseLocation];
 		
@@ -1358,7 +1366,7 @@ unsigned int minimumStep;
 		
 		float f = curDCM.pixelSpacingX / LOD * self.window.backingScaleFactor;
 		
-		if( mouseLocation.x > r.x - BS * f && mouseLocation.x < r.x + BS* f && mouseLocation.y > r.y - BS* f && mouseLocation.y < r.y + BS* f)
+		if (mouseLocation.x > r.x - BS * f && mouseLocation.x < r.x + BS* f && mouseLocation.y > r.y - BS* f && mouseLocation.y < r.y + BS* f)
 		{
 			return 2;
 		}
@@ -1366,7 +1374,7 @@ unsigned int minimumStep;
 		{
 			float distance1 = 1000, distance2 = 1000;
 			
-            if( crossLinesA[ 0][ 0] != HUGE_VALF)
+            if (crossLinesA[ 0][ 0] != HUGE_VALF)
             {
                 NSPoint a1 = NSMakePoint( crossLinesA[ 0][ 0], crossLinesA[ 0][ 1]);
                 NSPoint a2 = NSMakePoint( crossLinesA[ 1][ 0], crossLinesA[ 1][ 1]);
@@ -1374,7 +1382,7 @@ unsigned int minimumStep;
                 distance1 /= curDCM.pixelSpacingX;
             }
             
-            if( crossLinesB[ 0][ 0] != HUGE_VALF)
+            if (crossLinesB[ 0][ 0] != HUGE_VALF)
             {
                 NSPoint b1 = NSMakePoint( crossLinesB[ 0][ 0], crossLinesB[ 0][ 1]);
                 NSPoint b2 = NSMakePoint( crossLinesB[ 1][ 0], crossLinesB[ 1][ 1]);
@@ -1383,7 +1391,7 @@ unsigned int minimumStep;
                 distance2 /= curDCM.pixelSpacingX;
 			}
             
-			if( distance1 * scaleValue < 10*self.window.backingScaleFactor || distance2 * scaleValue < 10*self.window.backingScaleFactor)
+			if (distance1 * scaleValue < 10*self.window.backingScaleFactor || distance2 * scaleValue < 10*self.window.backingScaleFactor)
 			{
 				return 1;
 			}
@@ -1397,7 +1405,7 @@ unsigned int minimumStep;
 {
 	[windowController addToUndoQueue:@"mprCamera"];
 	
-	if( [[self window] firstResponder] != self)
+	if ([[self window] firstResponder] != self)
 		[[self window] makeFirstResponder: self];
 	
 	[self restoreCamera];
@@ -1425,7 +1433,7 @@ unsigned int minimumStep;
 
 	[windowController addToUndoQueue:@"mprCamera"];
 	
-	if( [[self window] firstResponder] != self)
+	if ([[self window] firstResponder] != self)
 		[[self window] makeFirstResponder: self];
 	
 	[self magicTrick];
@@ -1474,7 +1482,7 @@ unsigned int minimumStep;
 	
 	[vrView rightMouseUp: theEvent];
 
-	if( vrView.lowResLODFactor > 1)
+	if (vrView.lowResLODFactor > 1)
 	{
 		windowController.mprView1.camera.forceUpdate = YES;
 		windowController.mprView2.camera.forceUpdate = YES;
@@ -1499,7 +1507,7 @@ unsigned int minimumStep;
 
 - (void) mouseDown:(NSEvent *)theEvent
 {
-	if( [[self window] firstResponder] != self)
+	if ([[self window] firstResponder] != self)
 		[[self window] makeFirstResponder: self];
 	
 	dontCheckRoiChange = YES;
@@ -1510,7 +1518,7 @@ unsigned int minimumStep;
 	
 	@try
 	{
-		if( [theEvent type] ==	NSLeftMouseDown || [theEvent type] ==	NSRightMouseDown || [theEvent type] ==	NSLeftMouseUp || [theEvent type] == NSRightMouseUp)
+		if ([theEvent type] ==	NSLeftMouseDown || [theEvent type] ==	NSRightMouseDown || [theEvent type] ==	NSLeftMouseUp || [theEvent type] == NSRightMouseUp)
 			clickCount = [theEvent clickCount];
 	}
 	@catch (NSException * e)
@@ -1518,27 +1526,27 @@ unsigned int minimumStep;
 		clickCount = 1;
 	}
 	
-	if( clickCount == 2 && drawingROI == NO)
+	if (clickCount == 2 && drawingROI == NO)
 	{
 		mouseDownTool = [self getTool: theEvent];
 		
 		NSPoint tempPt = [self convertPoint: [theEvent locationInWindow] fromView: nil];
 		tempPt = [self ConvertFromNSView2GL:tempPt];
 		
-		if( [self roiTool: mouseDownTool] && [self clickInROI: tempPt])
+		if ([self roiTool: mouseDownTool] && [self clickInROI: tempPt])
 		{
 			[[self windowController] roiGetInfo: self];
 		}
 		else
 		{
-			if( frameZoomed == NO)
+			if (frameZoomed == NO)
 			{
-                if( [windowController.horizontalSplit isVertical])
+                if ([windowController.horizontalSplit isVertical])
                     splitPosition[ 0] = [[windowController mprView2] frame].origin.x;
 				else
                     splitPosition[ 0] = [[windowController mprView2] frame].origin.y;
                 
-                if( [windowController.verticalSplit isVertical])
+                if ([windowController.verticalSplit isVertical])
                     splitPosition[ 1] = [[windowController mprView3] frame].origin.x;
 				else
                     splitPosition[ 1] = [[windowController mprView3] frame].origin.y;
@@ -1584,7 +1592,7 @@ unsigned int minimumStep;
 		moveCenter = NO;
 		
 		int mouseOnLines = [self mouseOnLines: [self convertPoint:[theEvent locationInWindow] fromView:nil]];
-		if( mouseOnLines == 2)
+		if (mouseOnLines == 2)
 		{
 			moveCenter = YES;
 			
@@ -1592,7 +1600,7 @@ unsigned int minimumStep;
 			
 			[[NSCursor closedHandCursor] set];
 		}
-		else if( mouseOnLines == 1)
+		else if (mouseOnLines == 1)
 		{
 			rotateLines = YES;
 			
@@ -1608,28 +1616,28 @@ unsigned int minimumStep;
 		{
 			mouseDownTool = [self getTool: theEvent];
 			
-			if( [self roiTool: currentTool])
+			if ([self roiTool: currentTool])
 			{
 				NSPoint tempPt = [self ConvertFromNSView2GL: [self convertPoint: [theEvent locationInWindow] fromView: nil]];
-				if( [self clickInROI: tempPt])
+				if ([self clickInROI: tempPt])
 					mouseDownTool = currentTool;
 			}
 			
 			vrView.keep3DRotateCentered = YES;
-			if( mouseDownTool == tCamera3D)
+			if (mouseDownTool == tCamera3D)
 			{
-				if( displayCrossLines == NO || frameZoomed == YES)
+				if (displayCrossLines == NO || frameZoomed == YES)
 					vrView.keep3DRotateCentered = NO;
 				else
 				{
-					if( [theEvent modifierFlags] & NSEventModifierFlagOption)
+					if ([theEvent modifierFlags] & NSEventModifierFlagOption)
 						vrView.keep3DRotateCentered = NO;
 				}
 			}
 			
 			[self restoreCamera];
 			
-			if([self is2DTool: mouseDownTool])
+			if ([self is2DTool: mouseDownTool])
 			{
 				[super mouseDown: theEvent];
 				[windowController propagateWLWW: self];
@@ -1638,10 +1646,10 @@ unsigned int minimumStep;
 				{
 					int mode;
 					
-					if( [r type] == t2DPoint && r.parentROI)
+					if ([r type] == t2DPoint && r.parentROI)
 					{
 						mode = [r ROImode];
-						if( mode == ROI_selected || mode == ROI_selectedModify || mode == ROI_drawing)
+						if (mode == ROI_selected || mode == ROI_selectedModify || mode == ROI_drawing)
 						{
 							[[windowController viewer] deleteROI: r.parentROI];
 							r.parentROI = nil;
@@ -1653,7 +1661,7 @@ unsigned int minimumStep;
 			{
 				[vrView mouseDown: theEvent];
 				
-				if( [vrView _tool] == tRotate)
+				if ([vrView _tool] == tRotate)
 					[self updateViewMPR: NO];
 				else
 					[self updateViewMPR];
@@ -1672,16 +1680,16 @@ unsigned int minimumStep;
 		
 	[self restoreCamera];
 	
-	if( rotateLines || moveCenter)
+	if (rotateLines || moveCenter)
 	{
-		if( moveCenter)
+		if (moveCenter)
 		{
 			camera.windowCenterX = 0;
 			camera.windowCenterY = 0;
 			camera.forceUpdate = YES;
 		}
 		
-		if( vrView.lowResLODFactor > 1)
+		if (vrView.lowResLODFactor > 1)
 		{
 			windowController.mprView1.camera.forceUpdate = YES;
 			windowController.mprView2.camera.forceUpdate = YES;
@@ -1702,17 +1710,17 @@ unsigned int minimumStep;
 	}
 	else
 	{
-		if([self is2DTool: mouseDownTool])
+		if ([self is2DTool: mouseDownTool])
 		{
 			[super mouseUp: theEvent];
 			[windowController propagateWLWW: self];
 		
-			if( mouseDownTool == tNext)
+			if (mouseDownTool == tNext)
 				[windowController updateViewsAccordingToFrame: self];
 			
 			for( ROI *r in curRoiList)
 			{
-				if( [r type] == t2DPoint && r.parentROI == nil)
+				if ([r type] == t2DPoint && r.parentROI == nil)
 				{
 					float location[ 3];
 					[pix convertPixX: r.rect.origin.x pixY: r.rect.origin.y toDICOMCoords: location pixelCenter: YES];
@@ -1726,7 +1734,7 @@ unsigned int minimumStep;
 		{
 			[vrView mouseUp: theEvent];
 			
-			if( vrView.lowResLODFactor > 1)
+			if (vrView.lowResLODFactor > 1)
 			{
 				windowController.mprView1.camera.forceUpdate = YES;
 				windowController.mprView2.camera.forceUpdate = YES;
@@ -1737,7 +1745,7 @@ unsigned int minimumStep;
 			windowController.mprView2.LOD *= 0.9;
 			windowController.mprView3.LOD *= 0.9;
 			
-			if( [vrView _tool] == tRotate)
+			if ([vrView _tool] == tRotate)
 				[self updateViewMPR: NO];
 			else
 				[self updateViewMPR];
@@ -1758,14 +1766,14 @@ unsigned int minimumStep;
     
     if (scrollMode == MY_SCROLL_MODE_UNDEFINED)
     {
-        if( fabs( start.x - current.x) < fabs( start.y - current.y))
+        if (fabs( start.x - current.x) < fabs( start.y - current.y))
         {
             prev = start.y/2;
             now = current.y/2;
             if (fabs( start.y - current.y) > 3)
                 scrollMode = MY_SCROLL_MODE_VER;
         }
-        else if( fabs( start.x - current.x) >= fabs( start.y - current.y))
+        else if (fabs( start.x - current.x) >= fabs( start.y - current.y))
         {
             prev = start.x/2;
             now = current.x/2;
@@ -1775,15 +1783,15 @@ unsigned int minimumStep;
     }
     
 #if 1 // @@@ TBC
-    if( movie4Dmove == NO)
+    if (movie4Dmove == NO)
     {
         long from, to;
-        if( scrollMode == MY_SCROLL_MODE_HOR)
+        if (scrollMode == MY_SCROLL_MODE_HOR)
         {
             from = current.x;
             to = start.x;
         }
-        else if( scrollMode == MY_SCROLL_MODE_VER)
+        else if (scrollMode == MY_SCROLL_MODE_VER)
         {
             from = start.y;
             to = current.y;
@@ -1797,7 +1805,7 @@ unsigned int minimumStep;
 #else
     float delta;
     
-    if( scrollMode == MY_SCROLL_MODE_VER)
+    if (scrollMode == MY_SCROLL_MODE_VER)
         delta = ((previous.y - current.y) * 512. )/ ([self convertSizeToBacking: self.frame.size].width/2);
     else
         delta = ((current.x - previous.x) * 512. )/ ([self convertSizeToBacking: self.frame.size].width/2);
@@ -1823,7 +1831,7 @@ unsigned int minimumStep;
 {
 	[self restoreCamera];
 	
-	if( rotateLines)
+	if (rotateLines)
 	{
 		[[NSCursor rotateAxisCursor] set];
 		
@@ -1840,7 +1848,7 @@ unsigned int minimumStep;
 		[NSObject cancelPreviousPerformRequestsWithTarget: windowController selector:@selector(delayedFullLODRendering:) object: nil];
 		[windowController performSelector: @selector(delayedFullLODRendering:) withObject: nil afterDelay: 0.4];
 	}
-	else if( moveCenter)
+	else if (moveCenter)
 	{
 		windowController.lowLOD = YES;
         
@@ -1848,10 +1856,10 @@ unsigned int minimumStep;
         
         point = [self convertPointToBacking: point];
         
-        if( yFlipped)
+        if (yFlipped)
             point.y = [self convertSizeToBacking: self.frame.size].height - point.y;
         
-        if( xFlipped)
+        if (xFlipped)
             point.x = [self convertSizeToBacking: self.frame.size].width - point.x;
         
 		[vrView setWindowCenter: point];
@@ -1863,7 +1871,7 @@ unsigned int minimumStep;
 	}
 	else
 	{
-		if( [self is2DTool: mouseDownTool])
+		if ([self is2DTool: mouseDownTool])
 		{
 			[super mouseDragged: theEvent];
 			[windowController propagateWLWW: self];
@@ -1874,19 +1882,19 @@ unsigned int minimumStep;
 			
 			windowController.lowLOD = YES;
 			
-			if( [vrView _tool] == tRotate)
+			if ([vrView _tool] == tRotate)
 				[self.pix orientation: before];
 			
 			[vrView mouseDragged: theEvent];
 			
-			if( [vrView _tool] == tRotate)
+			if ([vrView _tool] == tRotate)
 			{
 				[vrView getCosMatrix: after];
 				angleMPR -= [MPRController angleBetweenVector: after andPlane: before];
 				
 				[self updateViewMPR: NO];
 			}
-			else if( [vrView _tool] == tZoom)
+			else if ([vrView _tool] == tZoom)
                 [self updateViewMPR: NO];
 			else
                 [self updateViewMPR];
@@ -1912,30 +1920,30 @@ unsigned int minimumStep;
 
 - (void) mouseMoved: (NSEvent *) theEvent
 {
-	if( ![[self window] isVisible])
+	if (![[self window] isVisible])
 		return;
 	
-	if( [windowController windowWillClose])
+	if ([windowController windowWillClose])
 		return;
 		
 	NSView* view = [[[theEvent window] contentView] hitTest:[theEvent locationInWindow]];
 	
-	if( view == self)
+	if (view == self)
 	{
-		if( NSPointInRect( [self convertPoint: [theEvent locationInWindow] fromView: nil], [self bounds]) == NO)
+		if (NSPointInRect( [self convertPoint: [theEvent locationInWindow] fromView: nil], [self bounds]) == NO)
 			return;
 		
 		[super mouseMoved: theEvent];
 		
 		int mouseOnLines = [self mouseOnLines: [self convertPoint: [theEvent locationInWindow] fromView:nil]];
-		if( mouseOnLines==2)
+		if (mouseOnLines==2)
 		{
-			if( [theEvent type] == NSLeftMouseDragged)
+			if ([theEvent type] == NSLeftMouseDragged)
                 [[NSCursor closedHandCursor] set];
 			else
                 [[NSCursor openHandCursor] set];
 		}
-		else if( mouseOnLines==1)
+		else if (mouseOnLines==1)
 		{
 			[[NSCursor rotateAxisCursor] set];
 		}
@@ -1961,7 +1969,7 @@ unsigned int minimumStep;
     OSIROI *roi;
     
     cgl_ctx = [[NSOpenGLContext currentContext] CGLContextObj];
-    if( cgl_ctx == nil)
+    if (cgl_ctx == nil)
         return;
     
     if ([self ROIManager] == nil) {

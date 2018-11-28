@@ -1573,16 +1573,12 @@ static NSConditionLock *threadLock = nil;
 
 - (IBAction)selectFilesAndFoldersToAdd: (id)sender
 {
-    NSOpenPanel         *oPanel = [NSOpenPanel openPanel];
-    
 	[self.window makeKeyAndOrderFront:sender];
-	
+
+    NSOpenPanel *oPanel = [NSOpenPanel openPanel];
     [oPanel setAllowsMultipleSelection:YES];
     [oPanel setCanChooseDirectories:YES];
-    
-    int result = [oPanel runModalForDirectory:nil file:nil types:nil];
-    
-    if (result == NSOKButton)
+    if ([oPanel runModal] == NSOKButton)
 	{
 		[self subSelectFilesAndFoldersToAdd: [oPanel filenames]];
 	}
@@ -1889,8 +1885,10 @@ static NSConditionLock *threadLock = nil;
 
 -(IBAction)openDatabase:(id)sender
 {
-	NSOpenPanel* oPanel	= [NSOpenPanel openPanel];
-	if ([oPanel runModalForDirectory:_database.sqlFilePath file:nil types:[NSArray arrayWithObject:@"sql"]] == NSFileHandlingPanelOKButton)
+	NSOpenPanel *oPanel	= [NSOpenPanel openPanel];
+    [oPanel setDirectoryURL: [NSURL URLWithString:_database.sqlFilePath]];
+    [oPanel setAllowedFileTypes: @[@"sql"]];
+	if ([oPanel runModal] == NSFileHandlingPanelOKButton)
     {
 		if ([oPanel filename] && ![_database.sqlFilePath isEqualToString:[oPanel filename]])
         {
@@ -1901,8 +1899,7 @@ static NSConditionLock *threadLock = nil;
 
 -(IBAction) createDatabaseFolder:(id) sender
 {
-	NSOpenPanel		*oPanel		= [NSOpenPanel openPanel];
-	
+	NSOpenPanel *oPanel = [NSOpenPanel openPanel];
 	[oPanel setCanChooseDirectories: YES];
 	[oPanel setCanChooseFiles: NO];
 	
@@ -1917,9 +1914,11 @@ static NSConditionLock *threadLock = nil;
 		[oPanel setTitle: NSLocalizedString(@"Open a Database Folder", nil)];
 	}
 	
-	if ([oPanel runModalForDirectory:[self documentsDirectory] file:nil types:nil] == NSFileHandlingPanelOKButton)
+    [oPanel setDirectoryURL: [NSURL URLWithString:[self documentsDirectory]]];
+    
+	if ([oPanel runModal] == NSFileHandlingPanelOKButton)
 	{
-		NSString	*location = [oPanel filename];
+		NSString *location = [oPanel filename];
 		
 		if ([[location lastPathComponent] isEqualToString:OUR_DATA_LOCATION])
 			location = [location stringByDeletingLastPathComponent];
@@ -2274,24 +2273,24 @@ static NSConditionLock *threadLock = nil;
 				break;
 				
 			case notMainDrive:
-			{
-				NSArray *pathFilesComponent = [[filesInput objectAtIndex:0] pathComponents];
-				
-				if ([[[pathFilesComponent objectAtIndex: 1] uppercaseString] isEqualToString:@"VOLUMES"])
-					NSLog(@"not the main drive!");
-				else
-					copyFiles = NO;
-			}
-			break;
+                {
+                    NSArray *pathFilesComponent = [[filesInput objectAtIndex:0] pathComponents];
+                    
+                    if ([[[pathFilesComponent objectAtIndex: 1] uppercaseString] isEqualToString:@"VOLUMES"])
+                        NSLog(@"not the main drive!");
+                    else
+                        copyFiles = NO;
+                }
+                break;
 				
 			case cdOnly:
-			{
-				NSLog( @"%@", [filesInput objectAtIndex:0]);
-				
-				if ([BrowserController isItCD: [filesInput objectAtIndex:0]] == NO)
-					copyFiles = NO;
-			}
-			break;
+                {
+                    NSLog( @"%@", [filesInput objectAtIndex:0]);
+                    
+                    if ([BrowserController isItCD: [filesInput objectAtIndex:0]] == NO)
+                        copyFiles = NO;
+                }
+                break;
 				
 			case ask:
 				switch (NSRunInformationalAlertPanel(
@@ -2300,20 +2299,20 @@ static NSConditionLock *threadLock = nil;
 													 NSLocalizedString(@"Copy Files", nil),
 													 NSLocalizedString(@"Cancel", nil),
 													 NSLocalizedString(@"Copy Links", nil)))
-													{
-					case NSAlertDefaultReturn:
-					break;
-					
-					case NSAlertOtherReturn:
-						copyFiles = NO;
-					break;
-					
-					case NSAlertAlternateReturn:
-						[filesInput removeAllObjects];		// zero the array before it is returned.
-						return;
-					break;
-				}
-			break;
+                {
+                    case NSAlertDefaultReturn:
+                        break;
+                        
+                    case NSAlertOtherReturn:
+                        copyFiles = NO;
+                        break;
+                        
+                    case NSAlertAlternateReturn:
+                        [filesInput removeAllObjects];		// zero the array before it is returned.
+                        return;
+                        break;
+                }
+                break;
 		}
 	}
 	
@@ -2609,7 +2608,7 @@ static NSConditionLock *threadLock = nil;
                             NSLocalizedString(@"OK",nil),
                             nil,
                             nil,
-                            message);
+                                message);
 }
 
 - (void) autoCleanDatabaseFreeSpace: (id)sender // __deprecated
@@ -5379,72 +5378,72 @@ static NSConditionLock *threadLock = nil;
                                                     NSLocalizedString(@"Cancel",nil),
                                                     nil);
 	
-	if (result == NSAlertDefaultReturn)
-	{
-		NSManagedObjectContext	*context = self.database.managedObjectContext;
+	if (result != NSAlertDefaultReturn)
+        return;
 
-		[context lock];
-		
-		if ([seriesArray count])
-		{
-			// The destination series
-			NSManagedObject	*destSeries = [seriesArray objectAtIndex: 0];
-			
-			for (NSInteger x = 0; x < [seriesArray count] ; x++)
-			{
-				NSManagedObject	*series = [seriesArray objectAtIndex: x];
-				
-				if ([[series valueForKey:@"type"] isEqualToString: @"Series"] == NO)
-					series = [[series valueForKey:@"series"] anyObject];
-				
-				if ([[series valueForKey:@"type"] isEqualToString: @"Series"])
-				{
-					NSManagedObject *image = [[series valueForKey: @"images"] anyObject];
-				
-					if ([[image valueForKey:@"extension"] isEqualToString:@"dcm"])
-						destSeries = series;
-				}
-			}
-			
-			if ([[destSeries valueForKey:@"type"] isEqualToString: @"Series"] == NO)
-                destSeries = [destSeries valueForKey:@"Series"];
-			
-			NSLog(@"MERGING SERIES: %@", destSeries);
-			DicomStudy *study = [destSeries valueForKey:@"study"];
-			
-			for (NSManagedObject *series in seriesArray)
-			{
-				if (series != destSeries)
-				{
-					if ([[series valueForKey:@"type"] isEqualToString:@"Series"])
-					{
-						NSArray *images = [[series valueForKey: @"images"] allObjects];
-				
-						for (id i in images)
-							[i setValue: destSeries forKey: @"series"];
-						
-						[context deleteObject: series];
-					}
-				}
-			}
+    NSManagedObjectContext	*context = self.database.managedObjectContext;
+
+    [context lock];
+    
+    if ([seriesArray count])
+    {
+        // The destination series
+        NSManagedObject	*destSeries = [seriesArray objectAtIndex: 0];
+        
+        for (NSInteger x = 0; x < [seriesArray count] ; x++)
+        {
+            NSManagedObject	*series = [seriesArray objectAtIndex: x];
             
-            // TODO: when...
-            /** @todo When merging multiframe series, we should re-evaluate the instanceNumbers in order to have a well-sorted [DicomSeries sortedImages] array
-             */
-			[destSeries setValue:@0 forKey:@"numberOfImages"];
-			
-			[_database save:NULL];
-			
-			[self outlineViewRefresh];
-			
-			[databaseOutline selectRowIndexes: [NSIndexSet indexSetWithIndex: [databaseOutline rowForItem: study]] byExtendingSelection: NO];
-			[databaseOutline scrollRowToVisible: [databaseOutline selectedRow]];
-			
-			[self refreshMatrix: self];
-		}
-		
-		[context unlock];
-	}
+            if ([[series valueForKey:@"type"] isEqualToString: @"Series"] == NO)
+                series = [[series valueForKey:@"series"] anyObject];
+            
+            if ([[series valueForKey:@"type"] isEqualToString: @"Series"])
+            {
+                NSManagedObject *image = [[series valueForKey: @"images"] anyObject];
+            
+                if ([[image valueForKey:@"extension"] isEqualToString:@"dcm"])
+                    destSeries = series;
+            }
+        }
+        
+        if ([[destSeries valueForKey:@"type"] isEqualToString: @"Series"] == NO)
+            destSeries = [destSeries valueForKey:@"Series"];
+        
+        NSLog(@"MERGING SERIES: %@", destSeries);
+        DicomStudy *study = [destSeries valueForKey:@"study"];
+        
+        for (NSManagedObject *series in seriesArray)
+        {
+            if (series != destSeries)
+            {
+                if ([[series valueForKey:@"type"] isEqualToString:@"Series"])
+                {
+                    NSArray *images = [[series valueForKey: @"images"] allObjects];
+            
+                    for (id i in images)
+                        [i setValue: destSeries forKey: @"series"];
+                    
+                    [context deleteObject: series];
+                }
+            }
+        }
+        
+        // TODO: when...
+        /** @todo When merging multiframe series, we should re-evaluate the instanceNumbers in order to have a well-sorted [DicomSeries sortedImages] array
+         */
+        [destSeries setValue:@0 forKey:@"numberOfImages"];
+        
+        [_database save:NULL];
+        
+        [self outlineViewRefresh];
+        
+        [databaseOutline selectRowIndexes: [NSIndexSet indexSetWithIndex: [databaseOutline rowForItem: study]] byExtendingSelection: NO];
+        [databaseOutline scrollRowToVisible: [databaseOutline selectedRow]];
+        
+        [self refreshMatrix: self];
+    }
+    
+    [context unlock];
 }
 
 - (IBAction) mergeSeries:(id) sender
@@ -5473,150 +5472,175 @@ static NSConditionLock *threadLock = nil;
     DicomStudy *destStudy = [databaseOutline itemAtRow: [databaseOutline selectedRow]];
     if ([[destStudy valueForKey:@"type"] isEqualToString: @"Study"] == NO) destStudy = [destStudy valueForKey:@"study"];
     
-	NSInteger result = NSRunInformationalAlertPanel( [NSString stringWithFormat: NSLocalizedString(@"Unify Patient Identity to: %@", nil), destStudy.name], [NSString stringWithFormat: NSLocalizedString(@"Are you sure you want to unify the patient identity of the selected studies? It cannot be cancelled. You can choose to modify the database fields only, or also change the DICOM files headers with the new values.\r\rWARNING! The Patient Name and ID will be identical for all these studies to the last selected study (%@ - %@).\r\rThe original Patient Name and Patient ID will be saved in the OtherPatientNames and OtherPatientIDs DICOM fields.", nil), destStudy.name, destStudy.patientID], NSLocalizedString(@"Database & DICOM",nil), NSLocalizedString(@"Database only",nil), NSLocalizedString(@"Cancel",nil), nil);
+	NSInteger result = NSRunInformationalAlertPanel([NSString stringWithFormat: NSLocalizedString(@"Unify Patient Identity to: %@", nil), destStudy.name], [NSString stringWithFormat: NSLocalizedString(@"Are you sure you want to unify the patient identity of the selected studies? It cannot be cancelled. You can choose to modify the database fields only, or also change the DICOM files headers with the new values.\r\rWARNING! The Patient Name and ID will be identical for all these studies to the last selected study (%@ - %@).\r\rThe original Patient Name and Patient ID will be saved in the OtherPatientNames and OtherPatientIDs DICOM fields.", nil), destStudy.name, destStudy.patientID],
+                                                    NSLocalizedString(@"Database & DICOM",nil),
+                                                    NSLocalizedString(@"Database only",nil),
+                                                    NSLocalizedString(@"Cancel",nil),
+                                                    nil);
 	
-	if (result == NSAlertDefaultReturn || result == NSAlertAlternateReturn)
-	{
-		NSIndexSet *selectedRows = [databaseOutline selectedRowIndexes];
-		
-        if (result == NSAlertDefaultReturn)
+	if (result != NSAlertDefaultReturn &&
+        result != NSAlertAlternateReturn)
+    {
+        return;
+    }
+
+    NSIndexSet *selectedRows = [databaseOutline selectedRowIndexes];
+    
+    if (result == NSAlertDefaultReturn)
+    {
+        // Now modify the DICOM files
+        for (NSInteger x = 0; x < [selectedRows count] ; x++)
         {
-            // Now modify the DICOM files
-            for (NSInteger x = 0; x < [selectedRows count] ; x++)
-            {
-                NSInteger row = ( x == 0) ? [selectedRows firstIndex] : [selectedRows indexGreaterThanIndex: row];
-                
-                DicomStudy *study = [databaseOutline itemAtRow: row];
-                
-                if ([[study valueForKey:@"type"] isEqualToString: @"Study"] == NO)
-                    study = [study valueForKey:@"study"];
-                
-                if (study != destStudy)
-                {
-                    if ([[study valueForKey:@"type"] isEqualToString: @"Study"])
-                    {
-                        NSInteger confirm = NSRunInformationalAlertPanel(NSLocalizedString(@"Unify Patient Identity", nil), NSLocalizedString(@"Do you confirm to DEFINITIVELY change this patient identity:\r\r%@ / %@ / %@\r\rto this new identity:\r\r%@ / %@ ?", nil), NSLocalizedString(@"OK",nil), NSLocalizedString(@"Cancel",nil), nil, study.name, study.patientID, study.studyName, destStudy.name, destStudy.patientID);
-                        
-                        if (confirm == NSAlertDefaultReturn)
-                        {
-                            WaitRendering *wait = [[[WaitRendering alloc] init: NSLocalizedString(@"Updating files...", nil)] autorelease];
-                            [wait showWindow:self];
-                            
-                            NSMutableArray *params = [NSMutableArray arrayWithObjects:@"dcmodify", @"--ignore-errors", nil];
-                            
-                            DCMObject *dcmObject = [DCMObject objectWithContentsOfFile: [[[destStudy paths] allObjects] objectAtIndex: 0] decodingPixelData: NO];
-                            
-                            NSString *originalPatientName = [dcmObject attributeValueWithName:@"PatientsName"];
-                            NSString *originalBirthDate = [dcmObject attributeValueWithName:@"PatientsBirthDate"];
-                            
-                            NSString *existingOtherPatientNames = [dcmObject attributeValueWithName:@"OtherPatientIDs"];
-                            NSString *existingOtherPatientIDs = [dcmObject attributeValueWithName:@"OtherPatientNames"];
-                            
-                            if (existingOtherPatientNames == nil)
-                                existingOtherPatientNames = @"";
-                            
-                            if (existingOtherPatientIDs == nil)
-                                existingOtherPatientIDs = @"";
-                            
-                            if (existingOtherPatientNames.length)
-                                existingOtherPatientNames = [existingOtherPatientNames stringByAppendingString: @" - "];
-                            
-                            if (existingOtherPatientIDs.length)
-                                existingOtherPatientIDs = [existingOtherPatientIDs stringByAppendingString: @" - "];
-                            
-                            existingOtherPatientNames = [existingOtherPatientNames stringByAppendingString: study.name];
-                            existingOtherPatientIDs = [existingOtherPatientIDs stringByAppendingString: study.patientID];
-                            
-                            if (originalPatientName)
-                            {
-//                                NSString *logLine = [NSString stringWithFormat: @"---- Patient Unify: %@ %@ -> %@ %@", study.name, study.patientID, destStudy.name, destStudy.patientID, nil];
-                                
-                                [params addObjectsFromArray: [NSArray arrayWithObjects: @"-i", [NSString stringWithFormat: @"%@=%@", @"(0010,0020)", destStudy.patientID], @"-i", [NSString stringWithFormat: @"%@=%@", @"(0010,0010)", originalPatientName], @"-i", [NSString stringWithFormat: @"%@=%@", @"(0010,0030)", originalBirthDate], nil]];
-                                [params addObjectsFromArray: [NSArray arrayWithObjects: @"-i", [NSString stringWithFormat: @"%@=%@", @"(0010,1000)", existingOtherPatientIDs], @"-i", [NSString stringWithFormat: @"%@=%@", @"(0010,1001)", existingOtherPatientNames], nil]];
-                                
-                                NSMutableArray *files = [NSMutableArray arrayWithArray: [[study paths] allObjects]];
-                                 
-                                 if (files)
-                                 {
-                                     [files removeDuplicatedStrings];
-                                     
-                                     [params addObjectsFromArray: files];
-                                     
-                                     @try
-                                     {
-                                         NSStringEncoding encoding = [NSString encodingForDICOMCharacterSet: [[DicomFile getEncodingArrayForFile: [files lastObject]] objectAtIndex: 0]];
-                                         
-                                         [XMLController modifyDicom: params encoding: encoding];
-                                         
-                                         for (id loopItem in files)
-                                             [[NSFileManager defaultManager] removeFileAtPath: [loopItem stringByAppendingString:@".bak"] handler:nil];
-                                     }
-                                     @catch (NSException * e)
-                                     {
-                                         NSLog(@"**** DicomStudy setComment: %@", e);
-                                     }
-                                }
-                                
-                                [wait close];
-                            }
-                            else
-                            {
-                                [wait close];
-                                
-                                NSRunCriticalAlertPanel(NSLocalizedString(@"Unify Patient Identity", nil),
-                                                        NSLocalizedString( @"Failed to change the DICOM files", nil),
-                                                        NSLocalizedString(@"OK",nil),
-                                                        nil,
-                                                        nil);
-                            }
-                        }
-                        else
-                            return;
-                    }
-                }
-            }
-        }
-        
-		for (NSInteger x = 0; x < [selectedRows count] ; x++)
-		{
-			NSInteger row = ( x == 0) ? [selectedRows firstIndex] : [selectedRows indexGreaterThanIndex: row];
-			
-			DicomStudy *study = [databaseOutline itemAtRow: row];
-			if ([[study valueForKey:@"type"] isEqualToString: @"Study"] == NO)
+            NSInteger row = ( x == 0) ? [selectedRows firstIndex] : [selectedRows indexGreaterThanIndex: row];
+            
+            DicomStudy *study = [databaseOutline itemAtRow: row];
+            
+            if ([[study valueForKey:@"type"] isEqualToString: @"Study"] == NO)
                 study = [study valueForKey:@"study"];
-			
-			if (study != destStudy)
-			{
-				if ([[study valueForKey:@"type"] isEqualToString: @"Study"])
-				{                    
-                    NSInteger confirm = NSAlertDefaultReturn;
-                    
-                    if (result == NSAlertAlternateReturn)
-                        confirm = NSRunInformationalAlertPanel(NSLocalizedString(@"Unify Patient Identity", nil), NSLocalizedString(@"Do you confirm to DEFINITIVELY change this patient identity:\r\r%@ / %@ / %@\r\rto this new identity:\r\r%@ / %@ ?", nil), NSLocalizedString(@"OK",nil), NSLocalizedString(@"Cancel",nil), nil, study.name, study.patientID, study.studyName, destStudy.name, destStudy.patientID);
+            
+            if (study != destStudy)
+            {
+                if ([[study valueForKey:@"type"] isEqualToString: @"Study"])
+                {
+                    NSInteger confirm = NSRunInformationalAlertPanel(
+                         NSLocalizedString(@"Unify Patient Identity", nil),
+                         NSLocalizedString(@"Do you confirm to DEFINITIVELY change this patient identity:\r\r%@ / %@ / %@\r\rto this new identity:\r\r%@ / %@ ?", nil),
+                         NSLocalizedString(@"OK",nil),
+                         NSLocalizedString(@"Cancel",nil),
+                         nil,
+                             study.name,
+                             study.patientID,
+                             study.studyName,
+                             destStudy.name,
+                             destStudy.patientID);
                     
                     if (confirm == NSAlertDefaultReturn)
                     {
-                        [study setValue: destStudy.patientID forKey: @"patientID"];
-                        [study setValue: [destStudy valueForKey:@"patientUID"]  forKey: @"patientUID"];
-                        [study setValue: destStudy.name  forKey: @"name"];
+                        WaitRendering *wait = [[[WaitRendering alloc] init: NSLocalizedString(@"Updating files...", nil)] autorelease];
+                        [wait showWindow:self];
                         
-                        NSLog( @"---- Patient Unify: %@ %@ -> %@ %@", [study valueForKey:@"accessionNumber"], study.patientID, [destStudy valueForKey:@"accessionNumber"], destStudy.patientID);
+                        NSMutableArray *params = [NSMutableArray arrayWithObjects:@"dcmodify", @"--ignore-errors", nil];
+                        
+                        DCMObject *dcmObject = [DCMObject objectWithContentsOfFile: [[[destStudy paths] allObjects] objectAtIndex: 0] decodingPixelData: NO];
+                        
+                        NSString *originalPatientName = [dcmObject attributeValueWithName:@"PatientsName"];
+                        NSString *originalBirthDate = [dcmObject attributeValueWithName:@"PatientsBirthDate"];
+                        
+                        NSString *existingOtherPatientNames = [dcmObject attributeValueWithName:@"OtherPatientIDs"];
+                        NSString *existingOtherPatientIDs = [dcmObject attributeValueWithName:@"OtherPatientNames"];
+                        
+                        if (existingOtherPatientNames == nil)
+                            existingOtherPatientNames = @"";
+                        
+                        if (existingOtherPatientIDs == nil)
+                            existingOtherPatientIDs = @"";
+                        
+                        if (existingOtherPatientNames.length)
+                            existingOtherPatientNames = [existingOtherPatientNames stringByAppendingString: @" - "];
+                        
+                        if (existingOtherPatientIDs.length)
+                            existingOtherPatientIDs = [existingOtherPatientIDs stringByAppendingString: @" - "];
+                        
+                        existingOtherPatientNames = [existingOtherPatientNames stringByAppendingString: study.name];
+                        existingOtherPatientIDs = [existingOtherPatientIDs stringByAppendingString: study.patientID];
+                        
+                        if (originalPatientName)
+                        {
+//                                NSString *logLine = [NSString stringWithFormat: @"---- Patient Unify: %@ %@ -> %@ %@", study.name, study.patientID, destStudy.name, destStudy.patientID, nil];
+                            
+                            [params addObjectsFromArray: [NSArray arrayWithObjects: @"-i", [NSString stringWithFormat: @"%@=%@", @"(0010,0020)", destStudy.patientID], @"-i", [NSString stringWithFormat: @"%@=%@", @"(0010,0010)", originalPatientName], @"-i", [NSString stringWithFormat: @"%@=%@", @"(0010,0030)", originalBirthDate], nil]];
+                            [params addObjectsFromArray: [NSArray arrayWithObjects: @"-i", [NSString stringWithFormat: @"%@=%@", @"(0010,1000)", existingOtherPatientIDs], @"-i", [NSString stringWithFormat: @"%@=%@", @"(0010,1001)", existingOtherPatientNames], nil]];
+                            
+                            NSMutableArray *files = [NSMutableArray arrayWithArray: [[study paths] allObjects]];
+                            
+                             if (files)
+                             {
+                                 [files removeDuplicatedStrings];
+                                 
+                                 [params addObjectsFromArray: files];
+                                 
+                                 @try
+                                 {
+                                     NSStringEncoding encoding = [NSString encodingForDICOMCharacterSet: [[DicomFile getEncodingArrayForFile: [files lastObject]] objectAtIndex: 0]];
+                                     
+                                     [XMLController modifyDicom: params encoding: encoding];
+                                     
+                                     for (id loopItem in files)
+                                         [[NSFileManager defaultManager] removeFileAtPath: [loopItem stringByAppendingString:@".bak"] handler:nil];
+                                 }
+                                 @catch (NSException * e)
+                                 {
+                                     NSLog(@"**** DicomStudy setComment: %@", e);
+                                 }
+                            }
+                            
+                            [wait close];
+                        }
+                        else
+                        {
+                            [wait close];
+                            
+                            NSRunCriticalAlertPanel(NSLocalizedString(@"Unify Patient Identity", nil),
+                                                    NSLocalizedString( @"Failed to change the DICOM files", nil),
+                                                    NSLocalizedString(@"OK",nil),
+                                                    nil,
+                                                    nil);
+                        }
                     }
-				}
-			}
-		}
-		
-		[_database save: nil];
-		
-		[self outlineViewRefresh];
+                    else
+                        return;
+                }
+            }
+        }
+    }
+    
+    for (NSInteger x = 0; x < [selectedRows count] ; x++)
+    {
+        NSInteger row = ( x == 0) ? [selectedRows firstIndex] : [selectedRows indexGreaterThanIndex: row];
         
-		[databaseOutline selectRowIndexes: [NSIndexSet indexSetWithIndex: [databaseOutline rowForItem: destStudy]] byExtendingSelection: NO];
-		[databaseOutline scrollRowToVisible: [databaseOutline selectedRow]];
-		
-		[self refreshMatrix: self];
-		
-        [self refreshPACSOnDemandResults: self];
-	}
+        DicomStudy *study = [databaseOutline itemAtRow: row];
+        if ([[study valueForKey:@"type"] isEqualToString: @"Study"] == NO)
+            study = [study valueForKey:@"study"];
+        
+        if (study != destStudy)
+        {
+            if ([[study valueForKey:@"type"] isEqualToString: @"Study"])
+            {
+                NSInteger confirm = NSAlertDefaultReturn;
+                
+                if (result == NSAlertAlternateReturn)
+                    confirm = NSRunInformationalAlertPanel(
+                           NSLocalizedString(@"Unify Patient Identity", nil),
+                           NSLocalizedString(@"Do you confirm to DEFINITIVELY change this patient identity:\r\r%@ / %@ / %@\r\rto this new identity:\r\r%@ / %@ ?", nil),
+                           NSLocalizedString(@"OK",nil),
+                           NSLocalizedString(@"Cancel",nil), nil,
+                               study.name,
+                               study.patientID,
+                               study.studyName,
+                               destStudy.name,
+                               destStudy.patientID);
+                
+                if (confirm == NSAlertDefaultReturn)
+                {
+                    [study setValue: destStudy.patientID forKey: @"patientID"];
+                    [study setValue: [destStudy valueForKey:@"patientUID"]  forKey: @"patientUID"];
+                    [study setValue: destStudy.name  forKey: @"name"];
+                    
+                    NSLog( @"---- Patient Unify: %@ %@ -> %@ %@", [study valueForKey:@"accessionNumber"], study.patientID, [destStudy valueForKey:@"accessionNumber"], destStudy.patientID);
+                }
+            }
+        }
+    }
+    
+    [_database save: nil];
+    
+    [self outlineViewRefresh];
+    
+    [databaseOutline selectRowIndexes: [NSIndexSet indexSetWithIndex: [databaseOutline rowForItem: destStudy]] byExtendingSelection: NO];
+    [databaseOutline scrollRowToVisible: [databaseOutline selectedRow]];
+    
+    [self refreshMatrix: self];
+    [self refreshPACSOnDemandResults: self];
 }
 
 - (IBAction) mergeStudies:(id) sender
@@ -5652,11 +5676,16 @@ static NSConditionLock *threadLock = nil;
     
 	NSString *nameAndStudy = [NSString stringWithFormat: @"%@ / %@", destStudy.name, destStudy.studyName];
 	
-	NSInteger result = NSRunInformationalAlertPanel( NSLocalizedString(@"Merge Studies", nil), [NSString stringWithFormat: NSLocalizedString(@"Are you sure you want to merge the selected studies to: \r\r%@\r\rIt cannot be cancelled.\r\rWARNING! If you merge multiple different patients, the Patient Name, ID and Study Description will be identical.\r\rYou can choose to modify the database fields only, or also change the DICOM files headers with the new values.", nil), nameAndStudy], NSLocalizedString(@"Database & DICOM",nil), NSLocalizedString(@"Database only",nil), NSLocalizedString(@"Cancel",nil), nil);
+	NSInteger result = NSRunInformationalAlertPanel(
+        NSLocalizedString(@"Merge Studies", nil),
+        [NSString stringWithFormat: NSLocalizedString(@"Are you sure you want to merge the selected studies to: \r\r%@\r\rIt cannot be cancelled.\r\rWARNING! If you merge multiple different patients, the Patient Name, ID and Study Description will be identical.\r\rYou can choose to modify the database fields only, or also change the DICOM files headers with the new values.", nil), nameAndStudy],
+        NSLocalizedString(@"Database & DICOM",nil),
+        NSLocalizedString(@"Database only",nil),
+        NSLocalizedString(@"Cancel",nil), nil);
 	
 	if (result == NSAlertDefaultReturn || result == NSAlertAlternateReturn)
 	{
-		NSManagedObjectContext	*context = self.database.managedObjectContext;
+		NSManagedObjectContext *context = self.database.managedObjectContext;
 		
 		NSIndexSet *selectedRows = [databaseOutline selectedRowIndexes];
 		
@@ -5675,11 +5704,18 @@ static NSConditionLock *threadLock = nil;
                 {
                     if ([[study valueForKey:@"type"] isEqualToString: @"Study"])
                     {
-                        NSInteger confirm = NSRunInformationalAlertPanel(NSLocalizedString(@"Merge Studies", nil), NSLocalizedString(@"Do you confirm to DEFINITIVELY change this study identity to this new identity:\r\r%@ / %@ ?", nil), NSLocalizedString(@"OK",nil), NSLocalizedString(@"Cancel",nil), nil, destStudy.name, destStudy.studyName);
+                        NSInteger confirm = NSRunInformationalAlertPanel(
+                             NSLocalizedString(@"Merge Studies", nil),
+                             NSLocalizedString(@"Do you confirm to DEFINITIVELY change this study identity to this new identity:\r\r%@ / %@ ?", nil),
+                             NSLocalizedString(@"OK",nil),
+                             NSLocalizedString(@"Cancel",nil),
+                             nil,
+                                destStudy.name,
+                                destStudy.studyName);
                         
                         if (confirm == NSAlertDefaultReturn)
                         {
-                            NSMutableArray	*params = [NSMutableArray arrayWithObjects:@"dcmodify", @"--ignore-errors", nil];
+                            NSMutableArray *params = [NSMutableArray arrayWithObjects:@"dcmodify", @"--ignore-errors", nil];
                             
                             DCMObject *dcmObject = [DCMObject objectWithContentsOfFile: [[[destStudy paths] allObjects] objectAtIndex: 0] decodingPixelData: NO];
                             
@@ -5998,7 +6034,11 @@ static NSConditionLock *threadLock = nil;
         {
             [objectsToDelete removeObjectsInArray: lockedImages];
             
-            NSRunInformationalAlertPanel(NSLocalizedString(@"Locked Studies", nil), NSLocalizedString(@"Some images are stored in locked studies. Only unlocked images will be deleted.", nil), NSLocalizedString(@"OK",nil), nil, nil);
+            NSRunInformationalAlertPanel(NSLocalizedString(@"Locked Studies", nil),
+                                         NSLocalizedString(@"Some images are stored in locked studies. Only unlocked images will be deleted.", nil),
+                                         NSLocalizedString(@"OK",nil),
+                                         nil,
+                                         nil);
         }
         
         // Are some images in albums?
@@ -6010,7 +6050,11 @@ static NSConditionLock *threadLock = nil;
                 
                 if ([albumedImages count])
                 {
-                    result = NSRunInformationalAlertPanel(NSLocalizedString(@"Images in Albums", nil), NSLocalizedString(@"Some or all of these images are stored in albums. Do you really want to delete these images, stored in albums?\r\rDelete all images or only those not stored in an album?", nil), NSLocalizedString(@"All",nil), NSLocalizedString(@"Cancel",nil), NSLocalizedString(@"Only if not stored in an album",nil));
+                    result = NSRunInformationalAlertPanel(NSLocalizedString(@"Images in Albums", nil),
+                                                          NSLocalizedString(@"Some or all of these images are stored in albums. Do you really want to delete these images, stored in albums?\r\rDelete all images or only those not stored in an album?", nil),
+                                                          NSLocalizedString(@"All",nil),
+                                                          NSLocalizedString(@"Cancel",nil),
+                                                          NSLocalizedString(@"Only if not stored in an album",nil));
                     
                     if (result == NSAlertOtherReturn)
                     {
@@ -6048,7 +6092,11 @@ static NSConditionLock *threadLock = nil;
                 
                 NSLog(@"non-local images : %d", (int) [nonLocalImagesPath count]);
                 
-                result = NSRunInformationalAlertPanel(NSLocalizedString(@"Delete/Remove images", nil), NSLocalizedString(@"Some of the selected images are not stored in the Database folder. Do you want to only remove the links of these images from the database or also delete the original files?", nil), NSLocalizedString(@"Remove the links",nil),  NSLocalizedString(@"Cancel",nil), NSLocalizedString(@"Delete the files",nil));
+                result = NSRunInformationalAlertPanel(NSLocalizedString(@"Delete/Remove images", nil),
+                                                      NSLocalizedString(@"Some of the selected images are not stored in the Database folder. Do you want to only remove the links of these images from the database or also delete the original files?", nil),
+                                                      NSLocalizedString(@"Remove the links",nil),
+                                                      NSLocalizedString(@"Cancel",nil),
+                                                      NSLocalizedString(@"Delete the files",nil));
                 
                 [wait.window makeKeyAndOrderFront: self];
             }
@@ -6179,7 +6227,11 @@ static NSConditionLock *threadLock = nil;
         
         if (onlyDistantStudy)
         {
-            NSRunInformationalAlertPanel(NSLocalizedString(@"Delete images", nil), NSLocalizedString(@"These studies are not stored locally, you cannot delete them", nil), NSLocalizedString(@"OK",nil), nil, nil);
+            NSRunInformationalAlertPanel(NSLocalizedString(@"Delete images", nil),
+                                         NSLocalizedString(@"These studies are not stored locally, you cannot delete them", nil),
+                                         NSLocalizedString(@"OK",nil),
+                                         nil,
+                                         nil);
             return;
         }
     }
@@ -6193,15 +6245,29 @@ static NSConditionLock *threadLock = nil;
 		NSManagedObject	*album = [albumArray objectAtIndex: albumTable.selectedRow];
 		
 		if ([[album valueForKey:@"smartAlbum"] boolValue] == NO)
-			result = NSRunInformationalAlertPanel(NSLocalizedString(@"Delete/Remove images", nil), NSLocalizedString(@"Do you want to only remove the selected images from the current album or delete them from the database? (%@)", nil), NSLocalizedString(@"Delete",nil), NSLocalizedString(@"Cancel",nil), NSLocalizedString(@"Remove from current album",nil), level);
+			result = NSRunInformationalAlertPanel(NSLocalizedString(@"Delete/Remove images", nil),
+                                                  NSLocalizedString(@"Do you want to only remove the selected images from the current album or delete them from the database? (%@)", nil),
+                                                  NSLocalizedString(@"Delete",nil),
+                                                  NSLocalizedString(@"Cancel",nil),
+                                                  NSLocalizedString(@"Remove from current album",nil), level);
 		else
 		{
-			result = NSRunInformationalAlertPanel(NSLocalizedString(@"Delete images", nil), NSLocalizedString(@"Are you sure you want to delete the selected images? (%@)", nil), NSLocalizedString(@"OK",nil), NSLocalizedString(@"Cancel",nil), nil, level);
+			result = NSRunInformationalAlertPanel(NSLocalizedString(@"Delete images", nil),
+                                                  NSLocalizedString(@"Are you sure you want to delete the selected images? (%@)", nil),
+                                                  NSLocalizedString(@"OK",nil),
+                                                  NSLocalizedString(@"Cancel",nil),
+                                                  nil,
+                                                    level);
 		}
 	}
 	else
 	{
-		result = NSRunInformationalAlertPanel(NSLocalizedString(@"Delete images", nil), NSLocalizedString(@"Are you sure you want to delete the selected images? (%@)", nil), NSLocalizedString(@"OK",nil), NSLocalizedString(@"Cancel",nil), nil, level);
+		result = NSRunInformationalAlertPanel(NSLocalizedString(@"Delete images", nil),
+                                              NSLocalizedString(@"Are you sure you want to delete the selected images? (%@)", nil),
+                                              NSLocalizedString(@"OK",nil),
+                                              NSLocalizedString(@"Cancel",nil),
+                                              nil,
+                                                level);
 	}
     
     [context retain];
@@ -9023,10 +9089,9 @@ static NSConditionLock *threadLock = nil;
 	NSString *list = [self exportDBListOnlySelected: NO];
 	
 	NSSavePanel *sPanel	= [NSSavePanel savePanel];
-		
-	[sPanel setRequiredFileType:@"txt"];
-	
-	if ([sPanel runModalForDirectory: nil file:NSLocalizedString(@"OsiriX Database List", nil)] == NSFileHandlingPanelOKButton)
+    [sPanel setAllowedFileTypes: @[@"txt"]];
+    [sPanel setNameFieldStringValue: NSLocalizedString(@"OsiriX Database List", nil)];
+	if ([sPanel runModal] == NSFileHandlingPanelOKButton)
 	{
 		[list writeToFile: [sPanel filename] atomically: YES];
 	}
@@ -11023,10 +11088,9 @@ constrainSplitPosition:(CGFloat)proposedPosition
 - (IBAction) saveAlbums:(id) sender
 {	
     NSSavePanel *sPanel	= [NSSavePanel savePanel];
-    
-    [sPanel setRequiredFileType:@"albums"];
-    
-    if ([sPanel runModalForDirectory: nil file:NSLocalizedString(@"DatabaseAlbums.albums", nil)] == NSFileHandlingPanelOKButton)
+    [sPanel setAllowedFileTypes: @[@"albums"]];
+    [sPanel setNameFieldStringValue: NSLocalizedString(@"DatabaseAlbums.albums", nil)];
+    if ([sPanel runModal] == NSFileHandlingPanelOKButton)
     {
         [self.database saveAlbumsToPath: [sPanel filename]];
     }
@@ -11043,9 +11107,9 @@ constrainSplitPosition:(CGFloat)proposedPosition
 
 - (IBAction) addAlbums:(id) sender
 {
-	NSOpenPanel		*oPanel		= [NSOpenPanel openPanel];
-	
-	if ([oPanel runModalForDirectory: nil file:nil types:[NSArray arrayWithObject:@"albums"]] == NSFileHandlingPanelOKButton)
+	NSOpenPanel *oPanel = [NSOpenPanel openPanel];
+    [oPanel setAllowedFileTypes: @[@"albums"]];
+	if ([oPanel runModal] == NSFileHandlingPanelOKButton)
 	{
 		[self addAlbumsFile: [oPanel filename]];
 	}
@@ -12288,7 +12352,11 @@ constrainSplitPosition:(CGFloat)proposedPosition
                 toOpenArray = keyImagesToOpenArray;
 			else
 			{
-				if (NSRunInformationalAlertPanel( NSLocalizedString( @"Key Images", nil), NSLocalizedString(@"No key images in these images.", nil), NSLocalizedString(@"All Images",nil), NSLocalizedString(@"Cancel",nil), nil) == NSAlertAlternateReturn)
+				if (NSRunInformationalAlertPanel(NSLocalizedString( @"Key Images", nil),
+                                                 NSLocalizedString(@"No key images in these images.", nil),
+                                                 NSLocalizedString(@"All Images",nil),
+                                                 NSLocalizedString(@"Cancel",nil),
+                                                 nil) == NSAlertAlternateReturn)
 					return nil;
 			}
 		}
@@ -13772,7 +13840,11 @@ constrainSplitPosition:(CGFloat)proposedPosition
 	}
 	else
 	{
-		NSRunInformationalAlertPanel(NSLocalizedString(@"ROIs Images", nil), NSLocalizedString(@"No images containing ROIs are found in this selection.", nil), NSLocalizedString(@"OK",nil), nil, nil);
+		NSRunInformationalAlertPanel(NSLocalizedString(@"ROIs Images", nil),
+                                     NSLocalizedString(@"No images containing ROIs are found in this selection.", nil),
+                                     NSLocalizedString(@"OK",nil),
+                                     nil,
+                                     nil);
 	}
 	
 #ifndef OSIRIX_LIGHT
@@ -14748,7 +14820,12 @@ static NSArray*	openSubSeriesArray = nil;
             
             NSString *message = [NSString stringWithFormat: NSLocalizedString(@"A problem occured during start-up of OsiriX:\r\r%@\r\r%@",nil), [ne description], [AppController printStackTrace: ne]];
             
-            NSRunCriticalAlertPanel(NSLocalizedString(@"Error",nil), @"%@", NSLocalizedString( @"OK",nil), nil, nil, message);
+            NSRunCriticalAlertPanel(NSLocalizedString(@"Error",nil),
+                                    @"%@",
+                                    NSLocalizedString( @"OK",nil),
+                                    nil,
+                                    nil,
+                                        message);
             
             exit( 0);
         }
@@ -16979,7 +17056,7 @@ static volatile int numberOfThreadsForJPEG = 0;
 	
 	[sPanel setAccessoryView:exportQuicktimeView];
 	
-	if ([sPanel runModalForDirectory:nil file:nil types:nil] == NSFileHandlingPanelOKButton)
+	if ([sPanel runModal] == NSFileHandlingPanelOKButton)
 	{
 		[self exportQuicktimeInt: dicomFiles2Export :[[sPanel filenames] objectAtIndex:0] :[exportHTMLButton state]];
 	}
@@ -17010,7 +17087,7 @@ static volatile int numberOfThreadsForJPEG = 0;
 	[sPanel setTitle: NSLocalizedString(@"Export",nil)];
 	[sPanel setCanCreateDirectories:YES];
 	
-	if ([sPanel runModalForDirectory:nil file:nil types:nil] == NSFileHandlingPanelOKButton)
+	if ([sPanel runModal] == NSFileHandlingPanelOKButton)
 	{
 		NSString *dest, *path = [[sPanel filenames] objectAtIndex:0];
 		Wait *splash = [[Wait alloc] initWithString:NSLocalizedString(@"Export...", nil) :YES];
@@ -17180,7 +17257,11 @@ static volatile int numberOfThreadsForJPEG = 0;
 	{
 		if ([[notificationEmailArrayController selectedObjects] count] == 0)
 		{
-			NSRunCriticalAlertPanel( NSLocalizedString( @"Error", nil), NSLocalizedString( @"No user(s) selected, no studies will be added.", nil), NSLocalizedString( @"OK", nil) , nil, nil);
+			NSRunCriticalAlertPanel(NSLocalizedString( @"Error", nil),
+                                    NSLocalizedString( @"No user(s) selected, no studies will be added.", nil),
+                                    NSLocalizedString( @"OK", nil),
+                                    nil,
+                                    nil);
 		}
 		else
 		{
@@ -17262,7 +17343,11 @@ static volatile int numberOfThreadsForJPEG = 0;
 	{
 		if ([[notificationEmailArrayController selectedObjects] count] == 0 && [temporaryNotificationEmail length] <= 3)
 		{
-			NSRunCriticalAlertPanel( NSLocalizedString( @"Error", nil), NSLocalizedString( @"Select one or more users.", nil), NSLocalizedString( @"OK", nil) , nil, nil);
+			NSRunCriticalAlertPanel(NSLocalizedString( @"Error", nil),
+                                    NSLocalizedString( @"Select one or more users.", nil),
+                                    NSLocalizedString( @"OK", nil),
+                                    nil,
+                                    nil);
 			goto restart;
 		}
 		else
@@ -17277,7 +17362,11 @@ static volatile int numberOfThreadsForJPEG = 0;
 					
 					if ([temporaryNotificationEmail rangeOfString: @"@"].location == NSNotFound)
 					{
-						NSRunCriticalAlertPanel( NSLocalizedString( @"Error", nil), NSLocalizedString( @"Is the user email correct? the @ character is not found.", nil), NSLocalizedString( @"OK", nil) , nil, nil);
+						NSRunCriticalAlertPanel(NSLocalizedString( @"Error", nil),
+                                                NSLocalizedString( @"Is the user email correct? the @ character is not found.", nil),
+                                                NSLocalizedString( @"OK", nil),
+                                                nil,
+                                                nil);
 						goto restart;
 					}
 					else
@@ -17286,7 +17375,11 @@ static volatile int numberOfThreadsForJPEG = 0;
 						
 						if ([name length] < 2)
 						{
-							NSRunCriticalAlertPanel( NSLocalizedString( @"Error", nil), NSLocalizedString( @"Name needs to be at least 2 characters.", nil), NSLocalizedString( @"OK", nil) , nil, nil);
+							NSRunCriticalAlertPanel(NSLocalizedString( @"Error", nil),
+                                                    NSLocalizedString( @"Name needs to be at least 2 characters.", nil),
+                                                    NSLocalizedString( @"OK", nil),
+                                                    nil,
+                                                    nil);
 							goto restart;
 						}
 						else
@@ -17577,7 +17670,12 @@ static volatile int numberOfThreadsForJPEG = 0;
 
 - (void) runInformationAlertPanel:(NSMutableDictionary*) dict
 {
-	int a = NSRunInformationalAlertPanel( [dict objectForKey: @"title"], @"%@", [dict objectForKey: @"button1"], [dict objectForKey: @"button2"], [dict objectForKey: @"button3"], [dict objectForKey: @"message"]);
+	int a = NSRunInformationalAlertPanel([dict objectForKey: @"title"],
+                                         @"%@",
+                                         [dict objectForKey: @"button1"],
+                                         [dict objectForKey: @"button2"],
+                                         [dict objectForKey: @"button3"],
+                                            [dict objectForKey: @"message"]);
 	
 	[dict setObject: [NSNumber numberWithInt: a] forKey: @"result"];
 }
@@ -18255,7 +18353,7 @@ static volatile int numberOfThreadsForJPEG = 0;
 	
 	[compressionMatrix selectCellWithTag: [[NSUserDefaults standardUserDefaults] integerForKey: @"Compression Mode for Export"]];
 	
-	if ([sPanel runModalForDirectory: nil file: nil types: nil] == NSFileHandlingPanelOKButton)
+	if ([sPanel runModal] == NSFileHandlingPanelOKButton)
 	{
 		[sPanel makeFirstResponder: nil];
 		
@@ -18326,7 +18424,11 @@ static volatile int numberOfThreadsForJPEG = 0;
 	{
 		if ([[win windowController] isKindOfClass:[BurnerWindowController class]])
 		{
-			NSRunInformationalAlertPanel( NSLocalizedString(@"Burn", nil), NSLocalizedString(@"A burn session is already opened. Close it to burn a new study.", nil), NSLocalizedString(@"OK", nil), nil, nil);
+			NSRunInformationalAlertPanel(NSLocalizedString(@"Burn", nil),
+                                         NSLocalizedString(@"A burn session is already opened. Close it to burn a new study.", nil),
+                                         NSLocalizedString(@"OK", nil),
+                                         nil,
+                                         nil);
 			[win makeKeyAndOrderFront:self];
 			return;
 		}
@@ -18452,7 +18554,11 @@ static volatile int numberOfThreadsForJPEG = 0;
 	
 	if (attempts == 5)
 	{
-		NSRunCriticalAlertPanel(NSLocalizedString(@"Failed", nil), NSLocalizedString(@"Unable to unmount this disk. This disk is probably in used by another application.", nil), NSLocalizedString(@"OK",nil),nil, nil);
+		NSRunCriticalAlertPanel(NSLocalizedString(@"Failed", nil),
+                                NSLocalizedString(@"Unable to unmount this disk. This disk is probably in used by another application.", nil),
+                                NSLocalizedString(@"OK",nil),
+                                nil,
+                                nil);
 	}
 }
 
@@ -18477,7 +18583,11 @@ static volatile int numberOfThreadsForJPEG = 0;
 	if ([objects count] > 0)
         [SendController sendFiles: objects];
 	else
-        NSRunCriticalAlertPanel(NSLocalizedString(@"DICOM Send",nil),NSLocalizedString( @"No files are selected...",nil),NSLocalizedString( @"OK",nil), nil, nil);
+        NSRunCriticalAlertPanel(NSLocalizedString(@"DICOM Send",nil),
+                                NSLocalizedString( @"No files are selected...",nil),
+                                NSLocalizedString( @"OK",nil),
+                                nil,
+                                nil);
 }
 
 - (void)export2PACS: (id)sender
@@ -18921,41 +19031,38 @@ static volatile int numberOfThreadsForJPEG = 0;
 {
 	NSIndexSet *index = [databaseOutline selectedRowIndexes];
 	NSManagedObject *item = [databaseOutline itemAtRow:[index firstIndex]];
-	
-	if (item)
-	{
-		DicomStudy *studySelected;
-		
-//		[checkBonjourUpToDateThreadLock lock]; // TODO: merge
-		
-		@try 
-		{			
-			if ([[item valueForKey: @"type"] isEqualToString:@"Study"])
-				studySelected = (DicomStudy*) item;
-			else
-				studySelected = [item valueForKey:@"study"];
-			
-            NSSavePanel *panel = [NSSavePanel savePanel];
-            
-            [panel setCanSelectHiddenExtension:YES];
-            [panel setRequiredFileType: @"pdf"];
-            
-            NSString *filename = [NSString stringWithFormat: NSLocalizedString( @"%@-Report.pdf", nil), studySelected.name];
-            
-            if ([panel runModalForDirectory: nil file: filename] == NSFileHandlingPanelOKButton)
-            {
-                [studySelected saveReportAsPdfAtPath: [panel filename]];
-            }
-		}
-		@catch (NSException * e)
-		{
-			NSLog( @"***** exception in %s: %@", __PRETTY_FUNCTION__, e);
-			[AppController printStackTrace: e];
-		}
-		
-//		[checkBonjourUpToDateThreadLock unlock]; // TODO: merge
-		[self performSelector: @selector(updateReportToolbarIcon:) withObject: nil afterDelay: 0.1];
-	}
+	if (!item)
+        return;
+    
+    DicomStudy *studySelected;
+    
+//	[checkBonjourUpToDateThreadLock lock]; // TODO: merge
+    
+    @try
+    {
+        if ([[item valueForKey: @"type"] isEqualToString:@"Study"])
+            studySelected = (DicomStudy*) item;
+        else
+            studySelected = [item valueForKey:@"study"];
+        
+        NSSavePanel *panel = [NSSavePanel savePanel];
+        [panel setCanSelectHiddenExtension:YES];
+        [panel setAllowedFileTypes: @[@"pdf"]];
+        NSString *filename = [NSString stringWithFormat: NSLocalizedString( @"%@-Report.pdf", nil), studySelected.name];
+        [panel setNameFieldStringValue: filename];
+        if ([panel runModal] == NSFileHandlingPanelOKButton)
+        {
+            [studySelected saveReportAsPdfAtPath: [panel filename]];
+        }
+    }
+    @catch (NSException *e)
+    {
+        NSLog( @"***** exception in %s: %@", __PRETTY_FUNCTION__, e);
+        [AppController printStackTrace: e];
+    }
+    
+//	[checkBonjourUpToDateThreadLock unlock]; // TODO: merge
+    [self performSelector: @selector(updateReportToolbarIcon:) withObject: nil afterDelay: 0.1];
 }
 
 - (IBAction)deleteReport: (id)sender
@@ -18976,7 +19083,11 @@ static volatile int numberOfThreadsForJPEG = 0;
 			else
 				studySelected = [item valueForKey:@"study"];
 			
-			long result = NSRunInformationalAlertPanel(NSLocalizedString(@"Delete report", nil), NSLocalizedString(@"Are you sure you want to delete the selected report?", nil), NSLocalizedString(@"OK",nil), NSLocalizedString(@"Cancel",nil), nil);
+			long result = NSRunInformationalAlertPanel(NSLocalizedString(@"Delete report", nil),
+                                                       NSLocalizedString(@"Are you sure you want to delete the selected report?", nil),
+                                                       NSLocalizedString(@"OK",nil),
+                                                       NSLocalizedString(@"Cancel",nil),
+                                                       nil);
 			
 			if (result == NSAlertDefaultReturn)
 			{
@@ -19786,9 +19897,9 @@ static volatile int numberOfThreadsForJPEG = 0;
 	else
 	{
 		// Is it a plugin menu item?
-		if ([[PluginManager pluginsDict] objectForKey: itemIdent] != nil)
+		if ([[PluginManager installedPluginsInfoDict] objectForKey: itemIdent] != nil)
 		{
-			NSBundle *bundle = [[PluginManager pluginsDict] objectForKey: itemIdent];
+			NSBundle *bundle = [[PluginManager installedPluginsInfoDict] objectForKey: itemIdent];
 			NSDictionary *info = [bundle infoDictionary];
 			
 			[toolbarItem setLabel: itemIdent];
@@ -19810,11 +19921,11 @@ static volatile int numberOfThreadsForJPEG = 0;
 			[toolbarItem setAction: @selector(executeFilterFromToolbar:)];
 		}
         
-        for (id key in [PluginManager plugins])
+        for (id key in [PluginManager installedPlugins])
         {
-            if ([[[PluginManager plugins] objectForKey:key] respondsToSelector:@selector(toolbarItemForItemIdentifier:forBrowserController:)])
+            if ([[[PluginManager installedPlugins] objectForKey:key] respondsToSelector:@selector(toolbarItemForItemIdentifier:forBrowserController:)])
             {
-                NSToolbarItem *item = [[[PluginManager plugins] objectForKey:key] toolbarItemForItemIdentifier: itemIdent forBrowserController: self];
+                NSToolbarItem *item = [[[PluginManager installedPlugins] objectForKey:key] toolbarItemForItemIdentifier: itemIdent forBrowserController: self];
                 
                 if (item)
                     toolbarItem = item;
@@ -19824,7 +19935,6 @@ static volatile int numberOfThreadsForJPEG = 0;
     
 	return toolbarItem;
 }
-
 
 - (NSArray *)toolbarDefaultItemIdentifiers: (NSToolbar *)toolbar
 {
@@ -19885,7 +19995,7 @@ static volatile int numberOfThreadsForJPEG = 0;
 			 ToggleDrawerToolbarItemIdentifier,
 			 nil];
 	
-	NSArray*		allPlugins = [[PluginManager pluginsDict] allKeys];
+	NSArray*		allPlugins = [[PluginManager installedPluginsInfoDict] allKeys];
 	NSMutableSet*	pluginsItems = [NSMutableSet setWithCapacity: [allPlugins count]];
 	
 	for (NSString *plugin in allPlugins)
@@ -19893,7 +20003,7 @@ static volatile int numberOfThreadsForJPEG = 0;
         if ([plugin isEqualToString: PINFO_MENU_ITEM_SEPARATOR])
 			continue;
 		
-		NSBundle *bundle = [[PluginManager pluginsDict] objectForKey: plugin];
+		NSBundle *bundle = [[PluginManager installedPluginsInfoDict] objectForKey: plugin];
 		NSDictionary *info = [bundle infoDictionary];
 		
 		if ([[info objectForKey: PINFO_TYPE] isEqualToString: PTYPE_DATABASE])
@@ -19919,10 +20029,10 @@ static volatile int numberOfThreadsForJPEG = 0;
 	if ([pluginsItems count])
 		[array addObjectsFromArray: [pluginsItems allObjects]];
 	
-    for (id key in [PluginManager plugins])
+    for (id key in [PluginManager installedPlugins])
     {
-        if ([[[PluginManager plugins] objectForKey:key] respondsToSelector:@selector(toolbarAllowedIdentifiersForBrowserController:)])
-            [array addObjectsFromArray: [[[PluginManager plugins] objectForKey:key] toolbarAllowedIdentifiersForBrowserController: self]];
+        if ([[[PluginManager installedPlugins] objectForKey:key] respondsToSelector:@selector(toolbarAllowedIdentifiersForBrowserController:)])
+            [array addObjectsFromArray: [[[PluginManager installedPlugins] objectForKey:key] toolbarAllowedIdentifiersForBrowserController: self]];
     }
     
     return array;
@@ -20155,7 +20265,11 @@ static volatile int numberOfThreadsForJPEG = 0;
 	}
 	else
 	{
-		NSRunInformationalAlertPanel(NSLocalizedString(@"ROIs Images", nil), NSLocalizedString(@"No images containing ROIs or Key Images are found in this selection.", nil), NSLocalizedString(@"OK",nil), nil, nil);
+		NSRunInformationalAlertPanel(NSLocalizedString(@"ROIs Images", nil),
+                                     NSLocalizedString(@"No images containing ROIs or Key Images are found in this selection.", nil),
+                                     NSLocalizedString(@"OK",nil),
+                                     nil,
+                                     nil);
 	}
 }
 
@@ -20505,7 +20619,7 @@ static volatile int numberOfThreadsForJPEG = 0;
 
 - (void)executeFilterFromString: (NSString*)name
 {
-    id filter = [[PluginManager plugins] objectForKey:name];
+    id filter = [[PluginManager installedPlugins] objectForKey:name];
 	
 	if (filter == nil)
 	{

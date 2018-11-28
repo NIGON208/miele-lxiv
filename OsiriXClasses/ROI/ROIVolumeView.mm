@@ -193,12 +193,11 @@
 
 - (void) exportJPEG:(id) sender
 {
-    NSSavePanel     *panel = [NSSavePanel savePanel];
-
+    NSSavePanel *panel = [NSSavePanel savePanel];
 	[panel setCanSelectHiddenExtension:YES];
-	[panel setRequiredFileType:@"jpg"];
-	
-	if( [panel runModalForDirectory:nil file:@"Volume Image"] == NSFileHandlingPanelOKButton)
+    [panel setAllowedFileTypes: @[@"jpg"]];
+    [panel setNameFieldStringValue: @"Volume Image"];
+	if ([panel runModal] == NSFileHandlingPanelOKButton)
 	{
 		NSImage *im = [self nsimage:NO];
 		
@@ -212,26 +211,25 @@
 		[bitmapData writeToFile:[panel filename] atomically:YES];
 		
 		NSWorkspace *ws = [NSWorkspace sharedWorkspace];
-		if ([[NSUserDefaults standardUserDefaults] boolForKey: @"OPENVIEWER"]) [ws openFile:[panel filename]];
+		if ([[NSUserDefaults standardUserDefaults] boolForKey: @"OPENVIEWER"])
+            [ws openFile:[panel filename]];
 	}
 }
 
 -(IBAction) copy:(id) sender
 {
     NSPasteboard *pb = [NSPasteboard generalPasteboard];
-
-    NSImage *im;
     
     [pb declareTypes:[NSArray arrayWithObject:NSTIFFPboardType] owner:self];
     
-    im = [self nsimage:NO];
+    NSImage *im = [self nsimage:NO];
     
     [pb setData: [im TIFFRepresentation] forType:NSTIFFPboardType];
 }
 
 - (IBAction) exportDICOMFile:(id) sender
 {
-	long	width, height, spp, bpp;
+	long width, height, spp, bpp;
 	
 	DICOMExport *exportDCM = [[DICOMExport alloc] init];
 	
@@ -378,7 +376,12 @@
         if( error == nil)
             error = NSLocalizedString( @"Not possible to compute a volume!", nil);
         
-        NSRunCriticalAlertPanel( NSLocalizedString( @"ROIs", nil), @"%@", NSLocalizedString( @"OK", nil), nil, nil, error);
+        NSRunCriticalAlertPanel(NSLocalizedString( @"ROIs", nil),
+                                @"%@",
+                                NSLocalizedString( @"OK", nil),
+                                nil,
+                                nil,
+                                    error);
         return nil;
     }
     

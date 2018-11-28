@@ -313,7 +313,7 @@ void signal_EXC(int sig_num)
 		unsigned short *x;
 		x = (unsigned short *)(_ptr + position);
 		position += 2;
-		return ([self isLittleEndian]) ? NSSwapLittleShortToHost(*x) : NSSwapBigShortToHost(*x) ;
+		return ([self isLittleEndian]) ? NSSwapLittleShortToHost(*x) : NSSwapBigShortToHost(*x);
 	}
 	
 	else 
@@ -329,7 +329,7 @@ void signal_EXC(int sig_num)
 		signed short *x;
 		x = (signed short *)(_ptr + position);
 		position += 2;
-		return (signed short)(([self isLittleEndian]) ? NSSwapLittleShortToHost(*x) : NSSwapBigShortToHost(*x)) ;
+		return (signed short)(([self isLittleEndian]) ? NSSwapLittleShortToHost(*x) : NSSwapBigShortToHost(*x));
 	}
 	else 
 		[exception raise];
@@ -343,7 +343,7 @@ void signal_EXC(int sig_num)
 		unsigned int *x;
 		x = (unsigned int *)(_ptr + position);
 		position += size;
-		return (unsigned int)([self isLittleEndian]) ? NSSwapLittleIntToHost(*x) : NSSwapBigIntToHost(*x) ;
+		return (unsigned int)([self isLittleEndian]) ? NSSwapLittleIntToHost(*x) : NSSwapBigIntToHost(*x);
 	}
 	else 
 		[exception raise];
@@ -357,7 +357,7 @@ void signal_EXC(int sig_num)
 		signed int *x;
 		x = (signed int *)(_ptr + position);
 		position += size;
-		return (signed int)([self isLittleEndian]) ? NSSwapLittleIntToHost(*x) : NSSwapBigIntToHost(*x) ;
+		return (signed int)([self isLittleEndian]) ? NSSwapLittleIntToHost(*x) : NSSwapBigIntToHost(*x);
 	}
 	else 
 		[exception raise];
@@ -371,7 +371,7 @@ void signal_EXC(int sig_num)
 		unsigned long long *x;
 		x = (unsigned long long *)(_ptr + position);
 		position += size;
-		return (unsigned  long long)([self isLittleEndian]) ? NSSwapLittleLongLongToHost(*x) : NSSwapBigLongLongToHost(*x) ;
+		return (unsigned  long long)([self isLittleEndian]) ? NSSwapLittleLongLongToHost(*x) : NSSwapBigLongLongToHost(*x);
 	}
 	else 
 		[exception raise];
@@ -853,7 +853,7 @@ void signal_EXC(int sig_num)
 //	int	 i, from, index;
 //	NSMutableData *result = [NSMutableData data];
 //	
-//	for( i = 0, from = 0, index = 0; i < [string length]; i++)
+//	for (i = 0, from = 0, index = 0; i < [string length]; i++)
 //	{
 //		c = [string characterAtIndex: i];
 //		

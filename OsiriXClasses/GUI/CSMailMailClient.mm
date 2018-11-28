@@ -21,7 +21,7 @@ void QuitAndSleep(NSString* bundleIdentifier, float seconds)
 	AppleEvent *quitApplicationAppleEventPtr = (AEDesc*)[ae aeDesc];
 	if (quitApplicationAppleEventPtr)
 	{
-		OSStatus err = AESendMessage(quitApplicationAppleEventPtr, NULL, kAENoReply, kAEDefaultTimeout) ;
+		OSStatus err = AESendMessage(quitApplicationAppleEventPtr, NULL, kAENoReply, kAEDefaultTimeout);
 	}
 	[NSThread sleepForTimeInterval: seconds];
 }

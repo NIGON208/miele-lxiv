@@ -27,7 +27,7 @@ static NSArray *languagesToMoveWhenQuitting = nil;
 + (Class)transformedValueClass { return [NSNumber class]; }
 + (BOOL)allowsReverseTransformation { return NO; }
 - (id)transformedValue:(id)item {
-   if( [item intValue] == 3 || [item intValue] == 4)
+   if ([item intValue] == 3 || [item intValue] == 4)
 		return @YES;
 	else
 		return @NO;
@@ -40,17 +40,17 @@ static NSArray *languagesToMoveWhenQuitting = nil;
 
 - (id) initWithBundle:(NSBundle *)bundle
 {
-	if( self = [super init])
+	if (self = [super init])
 	{
         // Scan for available languages
         self.languages = [NSMutableArray array];
         for( NSString *file in [[NSFileManager defaultManager] contentsOfDirectoryAtPath: [[NSBundle mainBundle] resourcePath] error: nil])
         {
-            if( [[file pathExtension] isEqualToString: @"lproj"])
+            if ([[file pathExtension] isEqualToString: @"lproj"])
             {
                 NSString *name = [[NSLocale currentLocale] displayNameForKey:NSLocaleIdentifier value: [file stringByDeletingPathExtension]];
                 
-                if( name.length == 0)
+                if (name.length == 0)
                     name = [file stringByDeletingPathExtension];
                 
                 [languages addObject: [NSMutableDictionary dictionaryWithObjectsAndKeys:
@@ -63,11 +63,11 @@ static NSArray *languagesToMoveWhenQuitting = nil;
         
         for( NSString *file in [[NSFileManager defaultManager] contentsOfDirectoryAtPath: [[[[NSBundle mainBundle] resourcePath] stringByDeletingLastPathComponent] stringByAppendingPathComponent: @"Resources Disabled"] error: nil])
         {
-            if( [[file pathExtension] isEqualToString: @"lproj"])
+            if ([[file pathExtension] isEqualToString: @"lproj"])
             {
                 NSString *name = [[NSLocale currentLocale] displayNameForKey:NSLocaleIdentifier value: [file stringByDeletingPathExtension]];
                 
-                if( name.length == 0)
+                if (name.length == 0)
                     name = [file stringByDeletingPathExtension];
                 
                 [languages addObject: [NSMutableDictionary dictionaryWithObjectsAndKeys:
@@ -159,7 +159,7 @@ static NSArray *languagesToMoveWhenQuitting = nil;
                                                     NSLocalizedString(@"Cancel",nil),
                                                     NSLocalizedString(@"OK",nil),  nil);
 	
-	if( result == NSAlertAlternateReturn)
+	if (result == NSAlertAlternateReturn)
 	{
 		for( NSString *k in [[[NSUserDefaults standardUserDefaults] dictionaryRepresentation] allKeys])
 			[[NSUserDefaults standardUserDefaults] removeObjectForKey: k];
@@ -177,14 +177,14 @@ static NSArray *languagesToMoveWhenQuitting = nil;
     [save setAllowedFileTypes: [NSArray arrayWithObject: @"plist"]];
     [save setNameFieldStringValue: @"OsiriX-Preferences.plist"];
     
-    if( [save runModal] == NSFileHandlingPanelOKButton)
+    if ([save runModal] == NSFileHandlingPanelOKButton)
 	{
         NSDictionary *defaultsPreferences = [DefaultsOsiriX getDefaults];
         NSMutableDictionary *customizedPreferences = [NSMutableDictionary dictionary];
         
         for( NSString *k in [[[NSUserDefaults standardUserDefaults] dictionaryRepresentation] allKeys])
         {
-            if( [defaultsPreferences objectForKey: k] == nil || [[[NSUserDefaults standardUserDefaults] objectForKey: k] isEqual: [defaultsPreferences objectForKey: k]] == NO)
+            if ([defaultsPreferences objectForKey: k] == nil || [[[NSUserDefaults standardUserDefaults] objectForKey: k] isEqual: [defaultsPreferences objectForKey: k]] == NO)
                 [customizedPreferences setObject: [[NSUserDefaults standardUserDefaults] objectForKey: k] forKey: k];
         }
         
@@ -208,25 +208,25 @@ static NSArray *languagesToMoveWhenQuitting = nil;
     
     BOOL succeed = NO;
     
-    if( url)
+    if (url)
     {
         NSLog( @"--- loading preferences from URL: %@", url);
         
         @try {
             BOOL activated = NO;
-            if( [NSThread isMainThread] == NO)
+            if ([NSThread isMainThread] == NO)
                 activated = [[NSUserDefaults standardUserDefaults] boolForKey: @"SyncPreferencesFromURL"];
             
             NSDictionary *customizedPreferences = [NSDictionary dictionaryWithContentsOfURL: url];
             
-            if( customizedPreferences)
+            if (customizedPreferences)
             {
                 for( NSString *key in customizedPreferences)
                     [[NSUserDefaults standardUserDefaults] setObject: [customizedPreferences objectForKey: key] forKey: key];
                 
                 succeed = YES;
                 
-                if( [NSThread isMainThread] == NO)
+                if ([NSThread isMainThread] == NO)
                 {
                     [[NSUserDefaults standardUserDefaults] setObject: url.absoluteString forKey: @"SyncPreferencesURL"];
                     [[NSUserDefaults standardUserDefaults] setBool: activated forKey: @"SyncPreferencesFromURL"];
@@ -239,7 +239,7 @@ static NSArray *languagesToMoveWhenQuitting = nil;
         NSLog( @"--- loading preferences from URL: %@ - DONE", url);
     }
     
-    if( succeed == NO)
+    if (succeed == NO)
         [[OSIGeneralPreferencePanePref class] performSelectorOnMainThread: @selector( errorMessage:) withObject: url waitUntilDone: NO];
     
     [pool release];
@@ -249,16 +249,20 @@ static NSArray *languagesToMoveWhenQuitting = nil;
 {
     [[[self mainView] window] makeFirstResponder: nil];
     
-    if( [NSURL URLWithString: [[NSUserDefaults standardUserDefaults] stringForKey: @"SyncPreferencesURL"]] == nil)
-        NSRunInformationalAlertPanel( NSLocalizedString(@"Sync Preferences", nil), NSLocalizedString(@"The provided URL doesn't seem correct. Check its validity.", nil), NSLocalizedString(@"OK",nil), nil,  nil);
+    if ([NSURL URLWithString: [[NSUserDefaults standardUserDefaults] stringForKey: @"SyncPreferencesURL"]] == nil)
+        NSRunInformationalAlertPanel(NSLocalizedString(@"Sync Preferences", nil),
+                                     NSLocalizedString(@"The provided URL doesn't seem correct. Check its validity.", nil),
+                                     NSLocalizedString(@"OK",nil),
+                                     nil,
+                                     nil);
     else
     {
-        NSInteger result = NSRunInformationalAlertPanel( NSLocalizedString(@"Sync Preferences", nil),
+        NSInteger result = NSRunInformationalAlertPanel(NSLocalizedString(@"Sync Preferences", nil),
                                                         NSLocalizedString(@"Are you sure you want to replace  current preferences with the preferences stored at this URL? You cannot undo this operation.", nil),
                                                         NSLocalizedString(@"Cancel",nil),
                                                         NSLocalizedString(@"OK",nil),  nil);
         
-        if( result == NSAlertAlternateReturn)
+        if (result == NSAlertAlternateReturn)
             [NSThread detachNewThreadSelector: @selector( addPreferencesFromURL:) toTarget: [OSIGeneralPreferencePanePref class] withObject: [NSURL URLWithString: [[NSUserDefaults standardUserDefaults] stringForKey: @"SyncPreferencesURL"]]];
     }
 }
@@ -275,14 +279,14 @@ static NSArray *languagesToMoveWhenQuitting = nil;
 	open.allowsMultipleSelection = NO;
 	open.message = NSLocalizedString(@"Select the preferences file (plist) to load:", nil);
 	
-    if( [open runModal] == NSFileHandlingPanelOKButton)
+    if ([open runModal] == NSFileHandlingPanelOKButton)
     {
-        NSInteger result = NSRunInformationalAlertPanel( NSLocalizedString(@"Load Preferences", nil),
+        NSInteger result = NSRunInformationalAlertPanel(NSLocalizedString(@"Load Preferences", nil),
                                                         NSLocalizedString(@"Are you sure you want to replace  current preferences with the preferences stored in this file? You cannot undo this operation.", nil),
                                                         NSLocalizedString(@"Cancel",nil),
                                                         NSLocalizedString(@"OK",nil),  nil);
         
-        if( result == NSAlertAlternateReturn)
+        if (result == NSAlertAlternateReturn)
             [OSIGeneralPreferencePanePref addPreferencesFromURL: open.URL];
     }
     
@@ -312,11 +316,11 @@ static NSArray *languagesToMoveWhenQuitting = nil;
     BOOL enabled = NO;
     
     for( NSDictionary *d in languages)
-        if( [[d valueForKey: @"active"] boolValue])
+        if ([[d valueForKey: @"active"] boolValue])
             enabled = YES;
     
     // At least one language must be active !
-    if( enabled == NO)
+    if (enabled == NO)
         [[languages objectAtIndex: 0] setValue: @YES forKey: @"active"];
     
     [languagesToMoveWhenQuitting release];
@@ -328,7 +332,7 @@ static NSArray *languagesToMoveWhenQuitting = nil;
     NSString *activePath = [[NSBundle mainBundle] resourcePath];
     NSString *inactivePath = [[activePath stringByDeletingLastPathComponent] stringByAppendingPathComponent: @"Resources Disabled"];
     
-    if( [[NSFileManager defaultManager] fileExistsAtPath: inactivePath] == NO)
+    if ([[NSFileManager defaultManager] fileExistsAtPath: inactivePath] == NO)
         [[NSFileManager defaultManager] createDirectoryAtPath: inactivePath
                                   withIntermediateDirectories: NO
                                                    attributes: nil
@@ -338,9 +342,9 @@ static NSArray *languagesToMoveWhenQuitting = nil;
     {
         NSString *language = [[d valueForKey: @"foldername"] stringByAppendingPathExtension: @"lproj"];
         
-        if( [[d valueForKey: @"active"] boolValue])
+        if ([[d valueForKey: @"active"] boolValue])
         {
-            if( [[NSFileManager defaultManager] fileExistsAtPath: [inactivePath stringByAppendingPathComponent: language]])
+            if ([[NSFileManager defaultManager] fileExistsAtPath: [inactivePath stringByAppendingPathComponent: language]])
             {
                 [[NSFileManager defaultManager] removeItemAtPath: [activePath stringByAppendingPathComponent: language] error: nil];
                 NSError *error = nil;
@@ -354,7 +358,7 @@ static NSArray *languagesToMoveWhenQuitting = nil;
         }
         else
         {
-            if( [[NSFileManager defaultManager] fileExistsAtPath: [activePath stringByAppendingPathComponent: language]])
+            if ([[NSFileManager defaultManager] fileExistsAtPath: [activePath stringByAppendingPathComponent: language]])
             {
                 [[NSFileManager defaultManager] removeItemAtPath: [inactivePath stringByAppendingPathComponent: language] error: nil];
                 NSError *error = nil;
@@ -377,7 +381,7 @@ static NSArray *languagesToMoveWhenQuitting = nil;
 	[compressionSettingsWindow orderOut:sender];
 	[NSApp endSheet: compressionSettingsWindow returnCode:[sender tag]];
 	
-	if( [sender tag] != 1)
+	if ([sender tag] != 1)
 	{
 		[[NSUserDefaults standardUserDefaults] setObject: compressionSettingsCopy forKey: @"CompressionSettings"];
 		[[NSUserDefaults standardUserDefaults] setObject: compressionSettingsLowResCopy forKey: @"CompressionSettingsLowRes"];
@@ -389,13 +393,13 @@ static NSArray *languagesToMoveWhenQuitting = nil;
 
 - (IBAction) editCompressionSettings:(id) sender
 {
-    if( [[[NSUserDefaults standardUserDefaults] arrayForKey: @"CompressionSettings"] count] < 14)
+    if ([[[NSUserDefaults standardUserDefaults] arrayForKey: @"CompressionSettings"] count] < 14)
     {
         NSLog( @"*** reset compression settings");
         [[NSUserDefaults standardUserDefaults] removeObjectForKey: @"CompressionSettings"];
     }
     
-    if( [[[NSUserDefaults standardUserDefaults] arrayForKey: @"CompressionSettingsLowRes"] count] < 14)
+    if ([[[NSUserDefaults standardUserDefaults] arrayForKey: @"CompressionSettingsLowRes"] count] < 14)
     {
         NSLog( @"*** reset compression settings");
         [[NSUserDefaults standardUserDefaults] removeObjectForKey: @"CompressionSettingsLowRes"];

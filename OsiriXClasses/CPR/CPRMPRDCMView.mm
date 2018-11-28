@@ -106,7 +106,7 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
 	switch( tool)
 	{
 		case tWL:
-			if( vrView.renderingMode == 1 || vrView.renderingMode == 3 || vrView.renderingMode == 2)
+			if (vrView.renderingMode == 1 || vrView.renderingMode == 3 || vrView.renderingMode == 2)
                 return YES; // MIP
 			else
                 return NO; // VR
@@ -182,7 +182,7 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
 
 - (void) drawRect:(NSRect)rect
 {
-	if( rect.size.width > 10)
+	if (rect.size.width > 10)
 	{
 		[super drawRect: rect];
 	}
@@ -192,13 +192,13 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
 {
     NSDisableScreenUpdates();
     
-	if( NSEqualRects( frameRect, [self frame]) == NO)
+	if (NSEqualRects( frameRect, [self frame]) == NO)
 	{
 		[NSObject cancelPreviousPerformRequestsWithTarget: windowController selector:@selector(updateViewsAccordingToFrame:) object: nil];
 		[windowController performSelector: @selector(updateViewsAccordingToFrame:) withObject: nil afterDelay: 0.1];
 	}
 	
-	if( blendingView)
+	if (blendingView)
 	{
 		[blendingView setFrame: frameRect];
 		blendingView.drawingFrameRect = [self convertRectToBacking: frameRect]; // very important to have correct position values with PET-CT
@@ -241,7 +241,7 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
 	NSPoint o = [self convertPoint: NSMakePoint(0, 0) toView:0L];
 	frame.origin = o;
 	
-	if( NSEqualRects( frame, [vrView frame]) == NO)
+	if (NSEqualRects( frame, [vrView frame]) == NO)
 	{
 		[vrView setFrame: frame];
 	}
@@ -249,20 +249,20 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
 //
 //- (BOOL) hasCameraMoved: (Camera*) currentCamera
 //{
-//	if( fabs( currentCamera.position.x - camera.position.x) > 0.1) return YES;
-//	if( fabs( currentCamera.position.y - camera.position.y) > 0.1) return YES;
-//	if( fabs( currentCamera.position.z - camera.position.z) > 0.1) return YES;
+//	if (fabs( currentCamera.position.x - camera.position.x) > 0.1) return YES;
+//	if (fabs( currentCamera.position.y - camera.position.y) > 0.1) return YES;
+//	if (fabs( currentCamera.position.z - camera.position.z) > 0.1) return YES;
 //
-//	if( fabs( currentCamera.focalPoint.x - camera.focalPoint.x) > 0.1) return YES;
-//	if( fabs( currentCamera.focalPoint.y - camera.focalPoint.y) > 0.1) return YES;
-//	if( fabs( currentCamera.focalPoint.z - camera.focalPoint.z) > 0.1) return YES;
+//	if (fabs( currentCamera.focalPoint.x - camera.focalPoint.x) > 0.1) return YES;
+//	if (fabs( currentCamera.focalPoint.y - camera.focalPoint.y) > 0.1) return YES;
+//	if (fabs( currentCamera.focalPoint.z - camera.focalPoint.z) > 0.1) return YES;
 //
-//	if( fabs( currentCamera.viewUp.x - camera.viewUp.x) > 0.1) return YES;
-//	if( fabs( currentCamera.viewUp.y - camera.viewUp.y) > 0.1) return YES;
-//	if( fabs( currentCamera.viewUp.z - camera.viewUp.z) > 0.1) return YES;
+//	if (fabs( currentCamera.viewUp.x - camera.viewUp.x) > 0.1) return YES;
+//	if (fabs( currentCamera.viewUp.y - camera.viewUp.y) > 0.1) return YES;
+//	if (fabs( currentCamera.viewUp.z - camera.viewUp.z) > 0.1) return YES;
 //
-//	if( fabs( currentCamera.viewAngle - camera.viewAngle) > 3) return YES;
-//	if( fabs( currentCamera.eyeAngle - camera.eyeAngle) > 3) return YES;
+//	if (fabs( currentCamera.viewAngle - camera.viewAngle) > 3) return YES;
+//	if (fabs( currentCamera.eyeAngle - camera.eyeAngle) > 3) return YES;
 //	
 //	return NO;
 //
@@ -270,7 +270,7 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
 
 - (BOOL) hasCameraChanged: (Camera*) currentCamera
 {
-	if( camera.forceUpdate)
+	if (camera.forceUpdate)
 	{
 		camera.forceUpdate = NO;
 		return YES;
@@ -278,29 +278,29 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
 	
 #define PRECISION 0.0001
 	
-	if( fabs( currentCamera.position.x - camera.position.x) > PRECISION) return YES;
-	if( fabs( currentCamera.position.y - camera.position.y) > PRECISION) return YES;
-	if( fabs( currentCamera.position.z - camera.position.z) > PRECISION) return YES;
+	if (fabs( currentCamera.position.x - camera.position.x) > PRECISION) return YES;
+	if (fabs( currentCamera.position.y - camera.position.y) > PRECISION) return YES;
+	if (fabs( currentCamera.position.z - camera.position.z) > PRECISION) return YES;
     
-	if( fabs( currentCamera.focalPoint.x - camera.focalPoint.x) > PRECISION) return YES;
-	if( fabs( currentCamera.focalPoint.y - camera.focalPoint.y) > PRECISION) return YES;
-	if( fabs( currentCamera.focalPoint.z - camera.focalPoint.z) > PRECISION) return YES;
+	if (fabs( currentCamera.focalPoint.x - camera.focalPoint.x) > PRECISION) return YES;
+	if (fabs( currentCamera.focalPoint.y - camera.focalPoint.y) > PRECISION) return YES;
+	if (fabs( currentCamera.focalPoint.z - camera.focalPoint.z) > PRECISION) return YES;
     
-	if( fabs( currentCamera.viewUp.x - camera.viewUp.x) > PRECISION) return YES;
-	if( fabs( currentCamera.viewUp.y - camera.viewUp.y) > PRECISION) return YES;
-	if( fabs( currentCamera.viewUp.z - camera.viewUp.z) > PRECISION) return YES;
+	if (fabs( currentCamera.viewUp.x - camera.viewUp.x) > PRECISION) return YES;
+	if (fabs( currentCamera.viewUp.y - camera.viewUp.y) > PRECISION) return YES;
+	if (fabs( currentCamera.viewUp.z - camera.viewUp.z) > PRECISION) return YES;
     
-	if( fabs( currentCamera.viewAngle - camera.viewAngle) > PRECISION) return YES;
-	if( fabs( currentCamera.eyeAngle - camera.eyeAngle) > PRECISION) return YES;
-	if( fabs( currentCamera.parallelScale - camera.parallelScale) > PRECISION) return YES;
+	if (fabs( currentCamera.viewAngle - camera.viewAngle) > PRECISION) return YES;
+	if (fabs( currentCamera.eyeAngle - camera.eyeAngle) > PRECISION) return YES;
+	if (fabs( currentCamera.parallelScale - camera.parallelScale) > PRECISION) return YES;
     
-	if( currentCamera.clippingRangeNear != camera.clippingRangeNear) return YES;
-	if( currentCamera.clippingRangeFar != camera.clippingRangeFar) return YES;
+	if (currentCamera.clippingRangeNear != camera.clippingRangeNear) return YES;
+	if (currentCamera.clippingRangeFar != camera.clippingRangeFar) return YES;
 	
-    //	if( currentCamera.LOD < camera.LOD) return YES;
+    //	if (currentCamera.LOD < camera.LOD) return YES;
 	
-	if( currentCamera.wl != camera.wl) return YES;
-	if( currentCamera.ww != camera.ww) return YES;
+	if (currentCamera.wl != camera.wl) return YES;
+	if (currentCamera.ww != camera.ww) return YES;
 	
 	return NO;
 }
@@ -312,7 +312,7 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
 
 - (void) restoreCameraAndCheckForFrame: (BOOL) v
 {
-	if( v)
+	if (v)
 		[self checkForFrame];
 	[vrView setCamera: camera];
 }
@@ -348,10 +348,10 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
 
 - (void) updateViewMPR:(BOOL) computeCrossReferenceLines
 {
-	if( [self frame].size.width <= 0)
+	if ([self frame].size.width <= 0)
 		return;
 	
-	if( [self frame].size.height <= 0)
+	if ([self frame].size.height <= 0)
 		return;
     
 	long h, w;
@@ -365,43 +365,43 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
 	
     minimumStep = 1;
     
-	if( [self hasCameraChanged: currentCamera] == YES)
+	if ([self hasCameraChanged: currentCamera] == YES)
 	{
 		// AutoLOD
-		if( dontUseAutoLOD == NO && lastRenderingWasMoveCenter == NO)
+		if (dontUseAutoLOD == NO && lastRenderingWasMoveCenter == NO)
 		{
 			DCMPix *o = [windowController originalPix];
 			
 			float minimumResolution = [o pixelSpacingX];
 			
-			if( minimumResolution > [o pixelSpacingY])
+			if (minimumResolution > [o pixelSpacingY])
 				minimumResolution = [o pixelSpacingY];
 			
-			if( minimumResolution > [o sliceInterval])
+			if (minimumResolution > [o sliceInterval])
 				minimumResolution = [o sliceInterval];
 			
-			if( windowController.clippingRangeThickness <= 3)
+			if (windowController.clippingRangeThickness <= 3)
 				minimumResolution *= 0.9;
 			else
 				minimumResolution *= 0.7;
 			
-			if( minimumResolution > previousPixelSpacing && previousPixelSpacing != 0)
+			if (minimumResolution > previousPixelSpacing && previousPixelSpacing != 0)
 				LOD *= ( minimumResolution / previousPixelSpacing);
 			
-			if( previousResolution == 0)
+			if (previousResolution == 0)
 				previousResolution = [vrView getResolution];
 			
 			float currentResolution = [vrView getResolution];
 			
-			if( previousResolution < currentResolution)
+			if (previousResolution < currentResolution)
 				LOD *= (previousResolution / currentResolution);
 			
-			if( LOD < windowController.LOD)
+			if (LOD < windowController.LOD)
 				LOD = windowController.LOD;
 			
-			if( LOD > 4) LOD = 4;
+			if (LOD > 4) LOD = 4;
 			
-			if( windowController.lowLOD)
+			if (windowController.lowLOD)
 				[vrView setLOD: LOD * vrView.lowResLODFactor];
 			else
 				[vrView setLOD: LOD];
@@ -409,12 +409,12 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
 		else
 			[vrView setLOD: LOD];
         
-		if( [self frame].size.width > 0 && [self frame].size.height > 0)
+		if ([self frame].size.width > 0 && [self frame].size.height > 0)
 		{
-			if( windowController.maxMovieIndex > 1 && (windowController.clippingRangeMode == 1 || windowController.clippingRangeMode == 3 || windowController.clippingRangeMode == 2))	//To avoid the wrong pixel value bug...
+			if (windowController.maxMovieIndex > 1 && (windowController.clippingRangeMode == 1 || windowController.clippingRangeMode == 3 || windowController.clippingRangeMode == 2))	//To avoid the wrong pixel value bug...
 				[vrView prepareFullDepthCapture];
 			
-			if( moveCenter)
+			if (moveCenter)
 			{
 				lastRenderingWasMoveCenter = YES;
 				[vrView setLOD: 100];	// We don't need to really compute the image - we just want image origin for the other views.
@@ -427,7 +427,7 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
 		
 		float *imagePtr = nil;
 		
-		if( moveCenter)
+		if (moveCenter)
 		{
 			imagePtr = [pix fImage];
 			w = [pix pwidth];
@@ -445,38 +445,38 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
 		
 		float location[ 3] = {previousOrigin[ 0], previousOrigin[ 1], previousOrigin[ 2]}, orig[ 3] = {currentCamera.position.x, currentCamera.position.y, currentCamera.position.z}, locationTemp[ 3];
 		float distance = [DCMView pbase_Plane: location :orig :&(orientation[ 6]) :locationTemp];
-		if( distance < pix.sliceThickness / 2.)
+		if (distance < pix.sliceThickness / 2.)
 			previousOriginInPlane = YES;
 		else
 			previousOriginInPlane = NO;
 		
 		[self saveCamera];
 		
-		if( imagePtr)
+		if (imagePtr)
 		{
 			BOOL cameraMoved = YES;
 			
-			if( [curRoiList count] > 0)
+			if ([curRoiList count] > 0)
 			{
-				if( previousOriginInPlane == NO || arePlanesParallel( orientation+6, previousOrientation+6) == NO)
+				if (previousOriginInPlane == NO || arePlanesParallel( orientation+6, previousOrientation+6) == NO)
 					cameraMoved = YES;
 				else
 					cameraMoved = NO;
 				
-				if( cameraMoved == YES)
+				if (cameraMoved == YES)
 				{
 					for( int i = (long)[curRoiList count] -1 ; i >= 0; i--)
 					{
 						ROI *r = [curRoiList objectAtIndex: i];
-						if( [r type] != t2DPoint)
+						if ([r type] != t2DPoint)
 							[curRoiList removeObjectAtIndex: i];
 					}
 				}
 			}
 			
-			if( [pix pwidth] == w && [pix pheight] == h && isRGB == [pix isRGB])
+			if ([pix pwidth] == w && [pix pheight] == h && isRGB == [pix isRGB])
 			{
-				if( imagePtr != [pix fImage])
+				if (imagePtr != [pix fImage])
 				{
 					memcpy( [pix fImage], imagePtr, w*h*sizeof( float));
 					free( imagePtr);
@@ -501,7 +501,7 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
 			[pix setOrigin: porigin];
 			
 			float resolution = 0;
-			if( !moveCenter)
+			if (!moveCenter)
 			{
 				resolution = [vrView getResolution] * [vrView imageSampleDistance];
 				[pix setPixelSpacingX: resolution];
@@ -515,16 +515,16 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
 			
 			[self setWLWW: previousWL :previousWW];
 			
-			if( !moveCenter)
+			if (!moveCenter)
 			{
 				[self setScaleValue: [vrView imageSampleDistance]];
 				
 				float rotationPlane = 0;
-				if( cameraMoved == NO && [curRoiList count] > 0)
+				if (cameraMoved == NO && [curRoiList count] > 0)
 				{
-					if( previousOrientation[ 0] != 0 || previousOrientation[ 1] != 0 || previousOrientation[ 2] != 0)
+					if (previousOrientation[ 0] != 0 || previousOrientation[ 1] != 0 || previousOrientation[ 2] != 0)
 						rotationPlane = -[CPRController angleBetweenVector: orientation andPlane: previousOrientation];
-					if( fabs( rotationPlane) < 0.01)
+					if (fabs( rotationPlane) < 0.01)
 						rotationPlane = 0;
 				}
 				
@@ -532,7 +532,7 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
 				
 				for( ROI* r in curRoiList)
 				{
-					if( rotationPlane)
+					if (rotationPlane)
 					{
 						[r setOriginAndSpacing: resolution : resolution : r.imageOrigin :NO];
 						
@@ -557,7 +557,7 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
 			}
 		}
 		
-		if( blendingView)
+		if (blendingView)
 		{
 			[blendingView getWLWW: &previousWL :&previousWW];
 			
@@ -566,7 +566,7 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
 			float *blendedImagePtr = nil;
 			DCMPix *bPix = [blendingView curDCM];
 			
-			if( moveCenter)
+			if (moveCenter)
 			{
 				blendedImagePtr = [bPix fImage];
 				w = [bPix pwidth];
@@ -576,9 +576,9 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
 			else
 				blendedImagePtr = [vrView imageInFullDepthWidth: &w height: &h isRGB: &isRGB blendingView: YES];
 			
-			if( [bPix pwidth] == w && [bPix pheight] == h && isRGB == [bPix isRGB])
+			if ([bPix pwidth] == w && [bPix pheight] == h && isRGB == [bPix isRGB])
 			{
-				if( blendedImagePtr != [bPix fImage])
+				if (blendedImagePtr != [bPix fImage])
 				{
 					memcpy( [bPix fImage], blendedImagePtr, w*h*sizeof( float));
 					free( blendedImagePtr);
@@ -597,7 +597,7 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
 			[vrView getOrigin: porigin windowCentered: YES sliceMiddle: YES blendedView: YES];
 			[bPix setOrigin: porigin];
 			
-			if( !moveCenter)
+			if (!moveCenter)
 			{
 				float resolution = [vrView getResolution] * [vrView blendingImageSampleDistance];
 				[bPix setPixelSpacingX: resolution];
@@ -611,16 +611,16 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
 			
 			[blendingView setWLWW: previousWL :previousWW];
 			
-			if( !moveCenter)
+			if (!moveCenter)
 				[blendingView setScaleValue: [vrView blendingImageSampleDistance]];
 		}
 	}
 	
-	if( dontReenterCrossReferenceLines == NO)
+	if (dontReenterCrossReferenceLines == NO)
 	{
 		dontReenterCrossReferenceLines = YES;
 		
-		if( computeCrossReferenceLines)
+		if (computeCrossReferenceLines)
 			[windowController computeCrossReferenceLines: self];
 		else
 			[windowController computeCrossReferenceLines: nil];
@@ -634,7 +634,7 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
 - (void) colorForView:(int) v
 {
 	CGLContextObj cgl_ctx = [[NSOpenGLContext currentContext] CGLContextObj];
-	if( cgl_ctx == nil)
+	if (cgl_ctx == nil)
         return;
     
 	switch( v)
@@ -659,10 +659,10 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
 - (void) drawLine: (float[2][3]) sft thickness: (float) thickness
 {
 	CGLContextObj cgl_ctx = [[NSOpenGLContext currentContext] CGLContextObj];
-	if( cgl_ctx == nil)
+	if (cgl_ctx == nil)
         return;
     
-	if( thickness > 2)
+	if (thickness > 2)
 	{
 		glLineWidth(2.0 * self.window.backingScaleFactor);
 		[self drawCrossLines: sft ctx: cgl_ctx withShift: 0];
@@ -684,22 +684,22 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
 //	
 //	glLineWidth(1.0 * self.window.backingScaleFactor);
 //    
-//	if( fromIntervalExport > 0)
+//	if (fromIntervalExport > 0)
 //	{
 //		for( int i = 1; i <= fromIntervalExport; i++)
 //			[self drawCrossLines: sft ctx: cgl_ctx withShift: -i * [windowController dcmInterval]];
 //	}
 //	
-//	if( !windowController.dcmBatchReverse)
+//	if (!windowController.dcmBatchReverse)
 //		[self drawCrossLines: sft ctx: cgl_ctx withShift: -fromIntervalExport * [windowController dcmInterval] showPoint: YES];
 //	
-//	if( toIntervalExport > 0)
+//	if (toIntervalExport > 0)
 //	{
 //		for( int i = 1; i <= toIntervalExport; i++)
 //			[self drawCrossLines: sft ctx: cgl_ctx withShift: i * [windowController dcmInterval]];
 //	}
 //	
-//	if( windowController.dcmBatchReverse)
+//	if (windowController.dcmBatchReverse)
 //		[self drawCrossLines: sft ctx: cgl_ctx withShift: toIntervalExport * [windowController dcmInterval] showPoint: YES];
 }
 
@@ -725,16 +725,16 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
 
 - (void) subDrawRect: (NSRect) r
 {
-	if( [stringID isEqualToString: @"export"])
+	if ([stringID isEqualToString: @"export"])
 		return;
 		
-	if( r.size.height < 10 || r.size.width < 10)
+	if (r.size.height < 10 || r.size.width < 10)
 		return;
 	
 	rotation = 0;
 	
 	CGLContextObj cgl_ctx = [[NSOpenGLContext currentContext] CGLContextObj];
-	if( cgl_ctx == nil)
+	if (cgl_ctx == nil)
         return;
     
 	glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
@@ -743,7 +743,7 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
 	glEnable(GL_LINE_SMOOTH);
 	glPointSize( 12 * self.window.backingScaleFactor);
 	
-	if( displayCrossLines && frameZoomed == NO)
+	if (displayCrossLines && frameZoomed == NO)
 	{
 		// All pix have the same thickness
 		float thickness = [pix sliceThickness];
@@ -752,12 +752,12 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
 		{
 			case 1:
 				glColor4f ([windowController.colorAxis2 redComponent], [windowController.colorAxis2 greenComponent], [windowController.colorAxis2 blueComponent], [windowController.colorAxis2 alphaComponent]);
-				if( crossLinesA[ 0][ 0] != HUGE_VALF)
+				if (crossLinesA[ 0][ 0] != HUGE_VALF)
 				{
 					[self drawLine: crossLinesA thickness: thickness];
 				}
 				glColor4f ([windowController.colorAxis3 redComponent], [windowController.colorAxis3 greenComponent], [windowController.colorAxis3 blueComponent], [windowController.colorAxis3 alphaComponent]);
-				if( crossLinesB[ 0][ 0] != HUGE_VALF)
+				if (crossLinesB[ 0][ 0] != HUGE_VALF)
 				{
 					[self drawLine: crossLinesB thickness: thickness];
 				}
@@ -765,13 +765,13 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
                 
 			case 2:
 				glColor4f ([windowController.colorAxis1 redComponent], [windowController.colorAxis1 greenComponent], [windowController.colorAxis1 blueComponent], [windowController.colorAxis1 alphaComponent]);
-				if( crossLinesA[ 0][ 0] != HUGE_VALF)
+				if (crossLinesA[ 0][ 0] != HUGE_VALF)
 				{
 					[self drawLine: crossLinesA thickness: thickness];
 				}
 				
 				glColor4f ([windowController.colorAxis3 redComponent], [windowController.colorAxis3 greenComponent], [windowController.colorAxis3 blueComponent], [windowController.colorAxis3 alphaComponent]);
-				if( crossLinesB[ 0][ 0] != HUGE_VALF)
+				if (crossLinesB[ 0][ 0] != HUGE_VALF)
 				{
 					[self drawLine: crossLinesB thickness: thickness];
 				}
@@ -779,13 +779,13 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
                 
 			case 3:
 				glColor4f ([windowController.colorAxis1 redComponent], [windowController.colorAxis1 greenComponent], [windowController.colorAxis1 blueComponent], [windowController.colorAxis1 alphaComponent]);
-				if( crossLinesA[ 0][ 0] != HUGE_VALF)
+				if (crossLinesA[ 0][ 0] != HUGE_VALF)
 				{
 					[self drawLine: crossLinesA thickness: thickness];
 				}
 				
 				glColor4f ([windowController.colorAxis2 redComponent], [windowController.colorAxis2 greenComponent], [windowController.colorAxis2 blueComponent], [windowController.colorAxis2 alphaComponent]);
-				if( crossLinesB[ 0][ 0] != HUGE_VALF)
+				if (crossLinesB[ 0][ 0] != HUGE_VALF)
 				{
 					[self drawLine: crossLinesB thickness: thickness];
 				}
@@ -799,7 +799,7 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
 	[self colorForView: viewID];
 	
 	// Red Square
-	if( [[self window] firstResponder] == self && stringID == nil && frameZoomed == NO)
+	if ([[self window] firstResponder] == self && stringID == nil && frameZoomed == NO)
 	{
 		glLineWidth(8.0 * self.window.backingScaleFactor);
 		glBegin(GL_LINE_LOOP);
@@ -819,11 +819,11 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
 	glEnd();
 	glLineWidth(1.0 * self.window.backingScaleFactor);
 	
-	if( displayCrossLines && frameZoomed == NO && windowController.displayMousePosition && !windowController.mprView1.rotateLines && !windowController.mprView2.rotateLines && !windowController.mprView3.rotateLines
+	if (displayCrossLines && frameZoomed == NO && windowController.displayMousePosition && !windowController.mprView1.rotateLines && !windowController.mprView2.rotateLines && !windowController.mprView3.rotateLines
        && !windowController.mprView1.moveCenter && !windowController.mprView2.moveCenter && !windowController.mprView3.moveCenter)
 	{
 		// Mouse Position
-		if( viewID == windowController.mouseViewID)
+		if (viewID == windowController.mouseViewID)
 		{
 			DCMPix *pixA, *pixB;
 			int viewIDA, viewIDB;
@@ -889,7 +889,7 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
 			glEnd();
             
 		}
-		if( viewID != windowController.mouseViewID)
+		if (viewID != windowController.mouseViewID)
 		{
 			[self colorForView: viewID];
             //			[self colorForView: windowController.mouseViewID];
@@ -912,7 +912,7 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
 	[self drawCurvedPathInGL];
     [self drawOSIROIs];
 	
-	if( windowController.displayMousePosition)
+	if (windowController.displayMousePosition)
 	{
 		NSString *planeName;
 		for (planeName in [displayInfo planesWithMouseVectors]) {
@@ -957,7 +957,7 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
 
 -(void) setCurrentTool:(ToolMode) i
 {
-	if( i != tRepulsor)
+	if (i != tRepulsor)
 		[super setCurrentTool: i];
 }
 
@@ -966,7 +966,7 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
 	windowController.curvedPathCreationMode = NO;
 	draggedToken = CPRCurvedPathControlTokenNone;
 	
-	if( curvedPath.nodes.count <= 2)
+	if (curvedPath.nodes.count <= 2)
 	{
 		// Delete this curve
 		[self sendWillEditCurvedPath];
@@ -980,7 +980,7 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
 - (void) deleteCurrentCurvedPath
 {
     if (curvedPath.nodes.count > 0) {
-        if( NSRunInformationalAlertPanel(NSLocalizedString(@"Delete the Curve", nil),
+        if (NSRunInformationalAlertPanel(NSLocalizedString(@"Delete the Curve", nil),
                                          NSLocalizedString(@"Are you sure you want to delete the entire curve?", nil),
                                          NSLocalizedString(@"OK",nil),
                                          NSLocalizedString(@"Cancel",nil),
@@ -998,7 +998,7 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
 
 - (void)keyDown:(NSEvent *)theEvent
 {
-    if( [[theEvent characters] length] == 0)
+    if ([[theEvent characters] length] == 0)
         return;
     
     unichar c = [[theEvent characters] characterAtIndex:0];
@@ -1007,14 +1007,14 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
 	
 	if(( c == NSCarriageReturnCharacter || c == NSEnterCharacter || c == NSNewlineCharacter) && tool == tCurvedROI)
 	{
-		if( windowController.curvedPathCreationMode)
+		if (windowController.curvedPathCreationMode)
 			[self stopCurvedPathCreationMode];
 	}
-	else if( c ==  ' ' || c == 27) // 27 : escape
+	else if (c ==  ' ' || c == 27) // 27 : escape
 	{
-		if( c == 27 && tool == tCurvedROI)
+		if (c == 27 && tool == tCurvedROI)
 		{
-			if( windowController.curvedPathCreationMode)
+			if (windowController.curvedPathCreationMode)
 				[self stopCurvedPathCreationMode];
 			else
 				[self deleteCurrentCurvedPath];
@@ -1022,7 +1022,7 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
 		else
             [windowController keyDown:theEvent];
 	}
-	else if( tool == tCurvedROI && (c == NSDeleteCharacter || c == NSDeleteFunctionKey))
+	else if (tool == tCurvedROI && (c == NSDeleteCharacter || c == NSDeleteFunctionKey))
 	{
 		// Delete node
 		if ([CPRCurvedPath controlTokenIsNode:draggedToken])
@@ -1042,7 +1042,7 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
             [[NSNotificationCenter defaultCenter] postNotificationName:OsirixDeletedCurvedPathNotification object:nil];
 		}
 	}
-    else if( c == NSUpArrowFunctionKey || c == NSDownArrowFunctionKey || c == NSRightArrowFunctionKey || c ==  NSLeftArrowFunctionKey)
+    else if (c == NSUpArrowFunctionKey || c == NSDownArrowFunctionKey || c == NSRightArrowFunctionKey || c ==  NSLeftArrowFunctionKey)
     {
         moveCenter = YES;
         
@@ -1060,34 +1060,34 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
         float slopeX = vector.x / length;
         float slopeY = vector.y / length;
         
-        if( xFlipped)
+        if (xFlipped)
         {
-            if( c == NSLeftArrowFunctionKey)
+            if (c == NSLeftArrowFunctionKey)
                 c = NSRightArrowFunctionKey;
             
-            if( c == NSRightArrowFunctionKey)
+            if (c == NSRightArrowFunctionKey)
                 c = NSLeftArrowFunctionKey;
         }
         
-        if( yFlipped)
+        if (yFlipped)
         {
-            if( c == NSUpArrowFunctionKey)
+            if (c == NSUpArrowFunctionKey)
                 c = NSDownArrowFunctionKey;
             
-            if( c == NSDownArrowFunctionKey)
+            if (c == NSDownArrowFunctionKey)
                 c = NSUpArrowFunctionKey;
         }
         
-        if( c == NSDownArrowFunctionKey || c == NSUpArrowFunctionKey)
+        if (c == NSDownArrowFunctionKey || c == NSUpArrowFunctionKey)
         {
-            if( fabs( slopeY) < fabs( slopeX))
+            if (fabs( slopeY) < fabs( slopeX))
             {
                 float c = slopeY;
                 slopeY = -slopeX;
                 slopeX = c;
             }
             
-            if( slopeY < 0)
+            if (slopeY < 0)
             {
                 slopeY = -slopeY;
                 slopeX = -slopeX;
@@ -1095,14 +1095,14 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
         }
         else
         {
-            if( fabs( slopeX) < fabs( slopeY))
+            if (fabs( slopeX) < fabs( slopeY))
             {
                 float c = slopeY;
                 slopeY = -slopeX;
                 slopeX = c;
             }
             
-            if( slopeX < 0)
+            if (slopeX < 0)
             {
                 slopeY = -slopeY;
                 slopeX = -slopeX;
@@ -1111,14 +1111,14 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
         
         float move = 2;
         
-        if( [theEvent modifierFlags] & NSEventModifierFlagOption) move = 6;
-        if( [theEvent modifierFlags] & NSEventModifierFlagCommand) move = 1;
+        if ([theEvent modifierFlags] & NSEventModifierFlagOption) move = 6;
+        if ([theEvent modifierFlags] & NSEventModifierFlagCommand) move = 1;
         
-        if( c == NSDownArrowFunctionKey) { center.y -= move*slopeY; center.x += move*slopeX;}
-        if( c == NSUpArrowFunctionKey) { center.y += move*slopeY; center.x -= move*slopeX;}
+        if (c == NSDownArrowFunctionKey) { center.y -= move*slopeY; center.x += move*slopeX;}
+        if (c == NSUpArrowFunctionKey) { center.y += move*slopeY; center.x -= move*slopeX;}
         
-        if( c == NSRightArrowFunctionKey) { center.y -= move*slopeY; center.x += move*slopeX;}
-        if( c == NSLeftArrowFunctionKey) { center.y += move*slopeY; center.x -= move*slopeX;}
+        if (c == NSRightArrowFunctionKey) { center.y -= move*slopeY; center.x += move*slopeX;}
+        if (c == NSLeftArrowFunctionKey) { center.y += move*slopeY; center.x -= move*slopeX;}
         
         [vrView setWindowCenter: [self convertPointToBacking: center]];
         [self updateViewMPR];
@@ -1160,9 +1160,9 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
 		for( int i = (long)[curRoiList count] -1 ; i >= 0; i--)
 		{
 			ROI *r = [curRoiList objectAtIndex: i];
-			if( [r type] == t2DPoint)
+			if ([r type] == t2DPoint)
 			{
-				if( r.parentROI)
+				if (r.parentROI)
 					[ROIsStateSaved setObject: [NSNumber numberWithInt: [r ROImode]] forKey: [NSValue valueWithPointer: r.parentROI]];
 				[curRoiList removeObjectAtIndex: i];
 			}
@@ -1178,7 +1178,7 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
 			
 			for( ROI *r in pts)
 			{
-				if( [r type] == t2DPoint)
+				if ([r type] == t2DPoint)
 				{
 					float location[ 3];
 					
@@ -1197,7 +1197,7 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
 					
 					distance = [DCMView pbase_Plane: location :orig :&(vectors[ 6]) :locationTemp];
 					
-					if( distance < pix.sliceThickness)
+					if (distance < pix.sliceThickness)
 					{
 						float sc[ 3];
 						
@@ -1215,7 +1215,7 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
 						[curRoiList addObject: new2DPointROI];
 						
 						int mode = [[ROIsStateSaved objectForKey: [NSValue valueWithPointer: r]] intValue];
-						if( mode)
+						if (mode)
 							[new2DPointROI setROIMode: (ROI_mode)mode];
 					}
 				}
@@ -1262,11 +1262,11 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
 
 -(void) roiChange:(NSNotification*)note
 {
-	if( dontCheckRoiChange == NO)
+	if (dontCheckRoiChange == NO)
 	{
 		ROI *r = [note object];
 		
-		if( [r curView] != nil && [r curView] == [[windowController viewer] imageView])
+		if ([r curView] != nil && [r curView] == [[windowController viewer] imageView])
 			[self detect2DPointInThisSlice];
 	}
 	
@@ -1277,16 +1277,16 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
 {
 	ROI *r = [note object];
 	
-	if( [r type] == t2DPoint && r.parentROI)
+	if ([r type] == t2DPoint && r.parentROI)
 	{
 		[[windowController viewer] deleteROI: r.parentROI];
 		r.parentROI = nil;
 		
 	}
 	
-	if( dontCheckRoiChange == NO)
+	if (dontCheckRoiChange == NO)
 	{
-		if( [r curView] != nil && [r curView] == [[windowController viewer] imageView])
+		if ([r curView] != nil && [r curView] == [[windowController viewer] imageView])
 			[self detect2DPointInThisSlice];
 	}
 }
@@ -1319,7 +1319,7 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
     NSPoint r = NSMakePoint( 0, 0);
     
     // One line or no lines : find the middle of the line
-    if( crossLinesB[ 0][ 0] == HUGE_VALF)
+    if (crossLinesB[ 0][ 0] == HUGE_VALF)
     {
         NSPoint a1 = NSMakePoint( crossLinesA[ 0][ 0], crossLinesA[ 0][ 1]);
         NSPoint a2 = NSMakePoint( crossLinesA[ 1][ 0], crossLinesA[ 1][ 1]);
@@ -1331,7 +1331,7 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
     }
     
     // One line or no lines : find the middle of the line
-    if( crossLinesA[ 0][ 0] == HUGE_VALF)
+    if (crossLinesA[ 0][ 0] == HUGE_VALF)
     {
         NSPoint b1 = NSMakePoint( crossLinesB[ 0][ 0], crossLinesB[ 0][ 1]);
         NSPoint b2 = NSMakePoint( crossLinesB[ 1][ 0], crossLinesB[ 1][ 1]);
@@ -1355,22 +1355,22 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
 
 - (int) mouseOnLines: (NSPoint) mouseLocation
 {
-	if( [[NSUserDefaults standardUserDefaults] integerForKey: @"ANNOTATIONS"] == annotNone)
+	if ([[NSUserDefaults standardUserDefaults] integerForKey: @"ANNOTATIONS"] == annotNone)
 		return 0;
 	
-	if( displayCrossLines == NO || frameZoomed)
+	if (displayCrossLines == NO || frameZoomed)
 		return 0;
 	
-	if( LOD == 0)
+	if (LOD == 0)
 		return 0;
 	
-	if( curDCM.pixelSpacingX == 0)
+	if (curDCM.pixelSpacingX == 0)
 		return 0;
 	
 	// Intersection of the lines
 	NSPoint r = [self centerLines];
 	
-	if( r.x != 0 || r.y != 0)
+	if (r.x != 0 || r.y != 0)
 	{
 		mouseLocation = [self ConvertFromNSView2GL: mouseLocation];
 		
@@ -1379,7 +1379,7 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
 		
 		float f = curDCM.pixelSpacingX / LOD * self.window.backingScaleFactor;
 		
-		if( mouseLocation.x > r.x - BS * f && mouseLocation.x < r.x + BS* f && mouseLocation.y > r.y - BS* f && mouseLocation.y < r.y + BS* f)
+		if (mouseLocation.x > r.x - BS * f && mouseLocation.x < r.x + BS* f && mouseLocation.y > r.y - BS* f && mouseLocation.y < r.y + BS* f)
 		{
 			return 2;
 		}
@@ -1387,7 +1387,7 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
 		{
 			float distance1 = 1000, distance2 = 1000;
 			
-            if( crossLinesA[ 0][ 0] != HUGE_VALF)
+            if (crossLinesA[ 0][ 0] != HUGE_VALF)
             {
                 NSPoint a1 = NSMakePoint( crossLinesA[ 0][ 0], crossLinesA[ 0][ 1]);
                 NSPoint a2 = NSMakePoint( crossLinesA[ 1][ 0], crossLinesA[ 1][ 1]);
@@ -1395,7 +1395,7 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
                 distance1 /= curDCM.pixelSpacingX;
             }
             
-            if( crossLinesB[ 0][ 0] != HUGE_VALF)
+            if (crossLinesB[ 0][ 0] != HUGE_VALF)
             {
                 NSPoint b1 = NSMakePoint( crossLinesB[ 0][ 0], crossLinesB[ 0][ 1]);
                 NSPoint b2 = NSMakePoint( crossLinesB[ 1][ 0], crossLinesB[ 1][ 1]);			
@@ -1404,7 +1404,7 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
                 distance2 /= curDCM.pixelSpacingX;
 			}
             
-			if( distance1 * scaleValue < 10*self.window.backingScaleFactor || distance2 * scaleValue < 10*self.window.backingScaleFactor)
+			if (distance1 * scaleValue < 10*self.window.backingScaleFactor || distance2 * scaleValue < 10*self.window.backingScaleFactor)
 			{
 				return 1;
 			}
@@ -1420,7 +1420,7 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
 	
 	[windowController addToUndoQueue:@"mprCamera"];
 	
-	if( [[self window] firstResponder] != self)
+	if ([[self window] firstResponder] != self)
 		[[self window] makeFirstResponder: self];
 	
 	if (draggedToken != CPRCurvedPathControlTokenNone) {
@@ -1459,7 +1459,7 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
     
 	[windowController addToUndoQueue:@"mprCamera"];
 	
-	if( [[self window] firstResponder] != self)
+	if ([[self window] firstResponder] != self)
 		[[self window] makeFirstResponder: self];
 	
 	[self magicTrick];
@@ -1508,7 +1508,7 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
 	
 	[vrView rightMouseUp: theEvent];
     
-	if( vrView.lowResLODFactor > 1)
+	if (vrView.lowResLODFactor > 1)
 	{
 		windowController.mprView1.camera.forceUpdate = YES;
 		windowController.mprView2.camera.forceUpdate = YES;
@@ -1536,7 +1536,7 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
     CGFloat relativePositionOnCurve;
     CGFloat distanceToCurve;
 	
-	if( [[self window] firstResponder] != self)
+	if ([[self window] firstResponder] != self)
 	{
 		[[self window] makeFirstResponder: self];
 		return;
@@ -1550,7 +1550,7 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
 	
 	@try
 	{
-		if( [theEvent type] == NSLeftMouseDown || [theEvent type] == NSRightMouseDown || [theEvent type] == NSLeftMouseUp || [theEvent type] == NSRightMouseUp)
+		if ([theEvent type] == NSLeftMouseDown || [theEvent type] == NSRightMouseDown || [theEvent type] == NSLeftMouseUp || [theEvent type] == NSRightMouseUp)
 			clickCount = [theEvent clickCount];
 	}
 	@catch (NSException * e)
@@ -1558,17 +1558,17 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
 		clickCount = 1;
 	}
 	
-	if( clickCount == 2 && drawingROI == NO)
+	if (clickCount == 2 && drawingROI == NO)
 	{
 		ToolMode tool = [self getTool: theEvent];
 		
-		if( tool == tText)
+		if (tool == tText)
 		{
 			[[self windowController] roiGetInfo: self];
 		}
-		else if( tool == tCurvedROI)
+		else if (tool == tCurvedROI)
 		{
-			if( windowController.curvedPathCreationMode)
+			if (windowController.curvedPathCreationMode)
 				[self stopCurvedPathCreationMode];
 			else
 			{
@@ -1585,7 +1585,7 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
 		}
 		else
 		{
-			if( frameZoomed == NO)
+			if (frameZoomed == NO)
 			{
 				splitPosition[0] = [[windowController mprView1] frame].origin.x + [[windowController mprView1] frame].size.width; // vert
 				splitPosition[1] = [[windowController mprView1] frame].origin.y + [[windowController mprView1] frame].size.height; // hori12
@@ -1647,7 +1647,7 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
 		moveCenter = NO;
 		
 		int mouseOnLines = [self mouseOnLines: [self convertPoint:[theEvent locationInWindow] fromView:nil]];
-		if( mouseOnLines == 2)
+		if (mouseOnLines == 2)
 		{
 			moveCenter = YES;
 			
@@ -1655,7 +1655,7 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
 			
 			[[NSCursor closedHandCursor] set];
 		}
-		else if( mouseOnLines == 1)
+		else if (mouseOnLines == 1)
 		{
 			rotateLines = YES;
 			
@@ -1672,13 +1672,13 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
 			ToolMode tool = [self getTool: theEvent];
 			
 			vrView.keep3DRotateCentered = YES;
-			if( tool == tCamera3D)
+			if (tool == tCamera3D)
 			{
-				if( displayCrossLines == NO || frameZoomed == YES)
+				if (displayCrossLines == NO || frameZoomed == YES)
 					vrView.keep3DRotateCentered = NO;
 				else
 				{
-					if( [theEvent modifierFlags] & NSEventModifierFlagOption)
+					if ([theEvent modifierFlags] & NSEventModifierFlagOption)
 						vrView.keep3DRotateCentered = NO;
 				}
 			}
@@ -1687,7 +1687,7 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
 			
 			if([self is2DTool: tool])
 			{
-				if( tool != tCurvedROI)
+				if (tool != tCurvedROI)
 				{
 					[super mouseDown: theEvent];
 					[windowController propagateWLWW: self];
@@ -1696,10 +1696,10 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
 					{
 						int mode;
 						
-						if( [r type] == t2DPoint && r.parentROI)
+						if ([r type] == t2DPoint && r.parentROI)
 						{
 							mode = [r ROImode];
-							if( mode == ROI_selected || mode == ROI_selectedModify || mode == ROI_drawing)
+							if (mode == ROI_selected || mode == ROI_selectedModify || mode == ROI_drawing)
 							{
 								[[windowController viewer] deleteROI: r.parentROI];
 								r.parentROI = nil;
@@ -1714,20 +1714,20 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
 					
 					NSPoint mouseLocation = [self convertPoint:[theEvent locationInWindow] fromView: nil];
 					
-					if( windowController.curvedPathCreationMode == NO && curvedPath.nodes.count == 0)
+					if (windowController.curvedPathCreationMode == NO && curvedPath.nodes.count == 0)
 						windowController.curvedPathCreationMode = YES;
 					
 					if (windowController.curvedPathCreationMode)
 					{
 						draggedToken = [curvedPath controlTokenNearPoint:mouseLocation transform:N3AffineTransformConcat([self viewToPixTransform], [self pixToDicomTransform])];
 						
-//						if( draggedToken != CPRCurvedPathControlTokenNone && [CPRCurvedPath nodeIndexForToken: draggedToken] > 1) // Two clicks on the last point to close the curved and stop edition
+//						if (draggedToken != CPRCurvedPathControlTokenNone && [CPRCurvedPath nodeIndexForToken: draggedToken] > 1) // Two clicks on the last point to close the curved and stop edition
 //						{
 //							windowController.curvedPathCreationMode = NO;
 //							draggedToken = CPRCurvedPathControlTokenNone;
 //						}
 						
-						if( curvedPath.nodes.count <= 1)
+						if (curvedPath.nodes.count <= 1)
 							draggedToken = CPRCurvedPathControlTokenNone;
 						
 						if ([CPRCurvedPath controlTokenIsNode:draggedToken])
@@ -1817,7 +1817,7 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
 			{
 				[vrView mouseDown: theEvent];
 				
-				if( [vrView _tool] == tRotate)
+				if ([vrView _tool] == tRotate)
 					[self updateViewMPR: NO];
 				else
 					[self updateViewMPR];
@@ -1841,16 +1841,16 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
 		
 	[self restoreCamera];
 	
-	if( rotateLines || moveCenter)
+	if (rotateLines || moveCenter)
 	{
-		if( moveCenter)
+		if (moveCenter)
 		{
 			camera.windowCenterX = 0;
 			camera.windowCenterY = 0;
 			camera.forceUpdate = YES;
 		}
 		
-		if( vrView.lowResLODFactor > 1)
+		if (vrView.lowResLODFactor > 1)
 		{
 			windowController.mprView1.camera.forceUpdate = YES;
 			windowController.mprView2.camera.forceUpdate = YES;
@@ -1878,12 +1878,12 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
 			[super mouseUp: theEvent];
 			[windowController propagateWLWW: self];
             
-			if( tool == tNext)
+			if (tool == tNext)
 				[windowController updateViewsAccordingToFrame: self];
 			
 			for( ROI *r in curRoiList)
 			{
-				if( [r type] == t2DPoint && r.parentROI == nil)
+				if ([r type] == t2DPoint && r.parentROI == nil)
 				{
 					float location[ 3];
 					[pix convertPixX: r.rect.origin.x pixY: r.rect.origin.y toDICOMCoords: location pixelCenter: YES];
@@ -1897,7 +1897,7 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
 		{
 			[vrView mouseUp: theEvent];
 			
-			if( vrView.lowResLODFactor > 1)
+			if (vrView.lowResLODFactor > 1)
 			{
 				windowController.mprView1.camera.forceUpdate = YES;
 				windowController.mprView2.camera.forceUpdate = YES;
@@ -1908,7 +1908,7 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
 			windowController.mprView2.LOD *= 0.9;
 			windowController.mprView3.LOD *= 0.9;
 			
-			if( [vrView _tool] == tRotate)
+			if ([vrView _tool] == tRotate)
 				[self updateViewMPR: NO];
 			else
 				[self updateViewMPR];
@@ -1962,7 +1962,7 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
 			if (fabs( start.y - current.y) > 3)
                 scrollMode = MY_SCROLL_MODE_VER;
 		}
-		else if( fabs( start.x - current.x) >= fabs( start.y - current.y))
+		else if (fabs( start.x - current.x) >= fabs( start.y - current.y))
 		{
 			if (fabs( start.x - current.x) > 3)
                 scrollMode = MY_SCROLL_MODE_HOR;
@@ -1994,7 +1994,7 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
 {
 	[self restoreCamera];
     
-	if( rotateLines)
+	if (rotateLines)
 	{
 		[[NSCursor rotateAxisCursor] set];
 		
@@ -2011,16 +2011,16 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
 		[NSObject cancelPreviousPerformRequestsWithTarget: windowController selector:@selector(delayedFullLODRendering:) object: nil];
 		[windowController performSelector: @selector(delayedFullLODRendering:) withObject: nil afterDelay: 0.4];
 	}
-	else if( moveCenter)
+	else if (moveCenter)
 	{
 		windowController.lowLOD = YES;
         
         NSPoint point = [self convertPoint: [theEvent locationInWindow] fromView: nil];
         
-        if( yFlipped)
+        if (yFlipped)
             point.y = self.frame.size.height - point.y;
         
-        if( xFlipped)
+        if (xFlipped)
             point.x = self.frame.size.width - point.x;
         
 		[vrView setWindowCenter: [self convertPointToBacking: point]];
@@ -2066,19 +2066,19 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
 			
 			windowController.lowLOD = YES;
 			
-			if( [vrView _tool] == tRotate)
+			if ([vrView _tool] == tRotate)
 				[self.pix orientation: before];
 			
 			[vrView mouseDragged: theEvent];
 			
-			if( [vrView _tool] == tRotate)
+			if ([vrView _tool] == tRotate)
 			{
 				[vrView getCosMatrix: after];
 				angleMPR -= [CPRController angleBetweenVector: after andPlane: before];
 				
 				[self updateViewMPR: NO];
 			}
-			else if( [vrView _tool] == tZoom)
+			else if ([vrView _tool] == tZoom)
                 [self updateViewMPR: NO];
 			else
                 [self updateViewMPR];
@@ -2110,23 +2110,23 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
     CPRCurvedPathControlToken curveToken;
     BOOL needToModifyCurve;
     
-	if( [windowController windowWillClose])
+	if ([windowController windowWillClose])
 		return;
     
 	NSView* view = [[[theEvent window] contentView] hitTest:[theEvent locationInWindow]];
 	
 	viewPoint = [self convertPoint:[theEvent locationInWindow] fromView:nil];
     	
-	if( view == self)
+	if (view == self)
 	{
-		if( NSPointInRect( viewPoint, [self bounds]) == NO)
+		if (NSPointInRect( viewPoint, [self bounds]) == NO)
 			return;
 		
 		[super mouseMoved: theEvent];
 		
 		ToolMode tool = [self getTool: theEvent];
 		
-		if( tool == tCurvedROI)
+		if (tool == tCurvedROI)
 		{
 			[cursor release];
 			cursor = [[NSCursor crosshairCursor] retain];
@@ -2166,7 +2166,7 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
 			if ([CPRCurvedPath controlTokenIsNode:curveToken])
 			{
 				[cursor release];
-				if( [theEvent type] == NSLeftMouseDragged || [theEvent type] == NSLeftMouseDown)
+				if ([theEvent type] == NSLeftMouseDragged || [theEvent type] == NSLeftMouseDown)
 					cursor = [[NSCursor closedHandCursor]retain];
 				else
 					cursor = [[NSCursor openHandCursor]retain];
@@ -2177,7 +2177,7 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
 			else if (curveToken != CPRCurvedPathControlTokenNone)
 			{
 				[cursor release];
-				if( [theEvent type] == NSLeftMouseDragged || [theEvent type] == NSLeftMouseDown)
+				if ([theEvent type] == NSLeftMouseDragged || [theEvent type] == NSLeftMouseDown)
 					cursor = [[NSCursor closedHandCursor]retain];
 				else
 					cursor = [[NSCursor openHandCursor]retain];
@@ -2205,14 +2205,14 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
 		}
         
 		int mouseOnLines = [self mouseOnLines:viewPoint];
-		if( mouseOnLines==2)
+		if (mouseOnLines==2)
 		{
-			if( [theEvent type] == NSLeftMouseDragged || [theEvent type] == NSLeftMouseDown)
+			if ([theEvent type] == NSLeftMouseDragged || [theEvent type] == NSLeftMouseDown)
                 [[NSCursor closedHandCursor] set];
 			else
                 [[NSCursor openHandCursor] set];
 		}
-		else if( mouseOnLines==1)
+		else if (mouseOnLines==1)
 		{
 			[[NSCursor rotateAxisCursor] set];
 		}
@@ -2360,7 +2360,7 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
     NSInteger i;
     N3AffineTransform transform;
     CGLContextObj cgl_ctx = [[NSOpenGLContext currentContext] CGLContextObj];
-    if( cgl_ctx == nil)
+    if (cgl_ctx == nil)
         return;
     
     if ([curvedPath.bezierPath elementCount] < 3) {
@@ -2399,7 +2399,7 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
 
 - (void)drawCurvedPathInGL
 {
-	if( curvedPath.nodes.count == 0)
+	if (curvedPath.nodes.count == 0)
 		return;
 	
 	N3AffineTransform transform;
@@ -2412,17 +2412,17 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
     N3Vector cursorVector;
     NSInteger i;
     CGLContextObj cgl_ctx = [[NSOpenGLContext currentContext] CGLContextObj];
-    if( cgl_ctx == nil)
+    if (cgl_ctx == nil)
         return;
     
-	if( isnan( curDCM.pixelSpacingX) || isnan( curDCM.pixelSpacingY) || curDCM.pixelSpacingX <= 0 || curDCM.pixelSpacingY <= 0 || curDCM.pixelSpacingX > 1000 || curDCM.pixelSpacingY > 1000)
+	if (isnan( curDCM.pixelSpacingX) || isnan( curDCM.pixelSpacingY) || curDCM.pixelSpacingX <= 0 || curDCM.pixelSpacingY <= 0 || curDCM.pixelSpacingX > 1000 || curDCM.pixelSpacingY > 1000)
 	{
 		return;
 	}
 	
 	transform = N3AffineTransformConcat(N3AffineTransformInvert([self pixToDicomTransform]), [self pixToSubDrawRectTransform]);
 
-	if( N3AffineTransformIsAffine(transform) == NO) // Is this usefull?
+	if (N3AffineTransformIsAffine(transform) == NO) // Is this usefull?
 	{
 		return;
 	}
@@ -2445,7 +2445,7 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
 	
 	
 	// Just a single point
-	if( curvedPath.nodes.count == 1)
+	if (curvedPath.nodes.count == 1)
 	{
         cursorVector = N3VectorApplyTransform([[curvedPath.nodes objectAtIndex: 0] N3VectorValue], transform);
 		glColor4d(1.0, 0.0, 0.0, 1.0);
@@ -2512,7 +2512,7 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
         outlinePath = nil;
     }
 	
-	if( [[self windowController] exportSlabThickness] > 0)
+	if ([[self windowController] exportSlabThickness] > 0)
 	{
 		glLineWidth(1.0 * self.window.backingScaleFactor);
         if (_CPRType == CPRMPRDCMViewCPRStraightenedType) {
@@ -2556,7 +2556,7 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
     for (i = 0; i < [transformedBezierPath elementCount]; i++) {
         [transformedBezierPath elementAtIndex:i control1:NULL control2:NULL endpoint:&vector];
 		
-		if( fabs( vector.z) <= 0.5)
+		if (fabs( vector.z) <= 0.5)
 			glColor4d( pathRed, pathGreen, pathBlue, 1.0);
 		else
 			glColor4d( pathRed, pathGreen, pathBlue, 0.2);
@@ -2581,7 +2581,7 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
         [self drawCircleAtPoint:NSPointFromN3Vector(cursorVector)];
     }
     
-	if( windowController.curvedPathCreationMode == NO)
+	if (windowController.curvedPathCreationMode == NO)
 	{
 		// draw the transverse positions
 		cursorVector = N3VectorApplyTransform([flattenedNotTransformedBezierPath vectorAtRelativePosition:curvedPath.transverseSectionPosition], transform);
@@ -2620,7 +2620,7 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
     OSIROI *roi;
     
     cgl_ctx = [[NSOpenGLContext currentContext] CGLContextObj];
-    if( cgl_ctx == nil)
+    if (cgl_ctx == nil)
         return;
     
     if ([self ROIManager] == nil) {
@@ -2664,7 +2664,7 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
 - (void)drawCircleAtPoint:(NSPoint)point pointSize:(CGFloat)pointSize
 {
     CGLContextObj cgl_ctx = [[NSOpenGLContext currentContext] CGLContextObj];
-    if( cgl_ctx == nil)
+    if (cgl_ctx == nil)
         return;
     
     glEnable(GL_POINT_SMOOTH);
@@ -2713,10 +2713,10 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
     // Because Dicom uses Center rule and DCMPix uses Top-Left Rule
     pixToDicomTransform = N3AffineTransformConcat(N3AffineTransformMakeTranslation(-.5, -.5, 0), pixToDicomTransform);
 
-	#ifndef NDEBUG
-	if( isnan( pix.pixelSpacingX) || isnan( pix.pixelSpacingY) || pix.pixelSpacingX <= 0 || pix.pixelSpacingY <= 0 || pix.pixelSpacingX > 1000 || pix.pixelSpacingY > 1000)
+#ifndef NDEBUG
+	if (isnan( pix.pixelSpacingX) || isnan( pix.pixelSpacingY) || pix.pixelSpacingX <= 0 || pix.pixelSpacingY <= 0 || pix.pixelSpacingX > 1000 || pix.pixelSpacingY > 1000)
 		NSLog( @"******* CPR pixel spacing incorrect for pixToSubDrawRectTransform");
-	#endif
+#endif
 	
     return pixToDicomTransform;
 }

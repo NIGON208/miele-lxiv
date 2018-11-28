@@ -446,7 +446,9 @@
 	if( error)
 		NSRunCriticalAlertPanel( NSLocalizedString( @"URL download Error", nil), @"%@", NSLocalizedString( @"OK", nil), nil, nil, [error localizedDescription]);
 	else
-		NSRunInformationalAlertPanel( NSLocalizedString( @"URL download Succeeded", nil), NSLocalizedString( @"It works !", nil), NSLocalizedString( @"OK", nil), nil, nil);
+		NSRunInformationalAlertPanel(NSLocalizedString( @"URL download Succeeded", nil),
+                                     NSLocalizedString( @"It works !", nil),
+                                     NSLocalizedString( @"OK", nil), nil, nil);
 }
 
 - (IBAction) editWADO: (id) sender
@@ -494,7 +496,7 @@
 
 - (void) resetTest
 {
-	for( int i = 0 ; i < [[dicomNodes arrangedObjects] count]; i++)
+	for (int i=0 ; i < [[dicomNodes arrangedObjects] count]; i++)
 	{
 		NSMutableDictionary *aServer = [[dicomNodes arrangedObjects] objectAtIndex: i];
 		[aServer removeObjectForKey: @"test"];
@@ -503,19 +505,16 @@
 
 - (IBAction) OsiriXDBsaveAs:(id) sender;
 {
-	NSSavePanel		*sPanel		= [NSSavePanel savePanel];
-
-	[sPanel setRequiredFileType:@"plist"];
-	
-	if ([sPanel runModalForDirectory:0L file:NSLocalizedString(@"OsiriXDB.plist", nil)] == NSFileHandlingPanelOKButton)
-	{
-		[[osiriXServers arrangedObjects] writeToFile:[sPanel filename] atomically: YES];
-	}
+    NSSavePanel *sPanel = [NSSavePanel savePanel];
+    [sPanel setNameFieldStringValue: @"DB.plist"];
+    [sPanel setAllowedFileTypes: @[@"plist"]];
+    if ([sPanel runModal] == NSFileHandlingPanelOKButton)
+        [[osiriXServers arrangedObjects] writeToFile:[sPanel filename] atomically: YES];
 }
 
 - (IBAction) refreshNodesOsiriXDB: (id) sender
 {
-	if( [[NSUserDefaults standardUserDefaults] boolForKey:@"syncOsiriXDB"])
+	if ([[NSUserDefaults standardUserDefaults] boolForKey:@"syncOsiriXDB"])
 	{
 		NSURL *url = [NSURL URLWithString: [[NSUserDefaults standardUserDefaults] valueForKey:@"syncOsiriXDBURL"]];
 		
@@ -529,10 +528,18 @@
 				[osiriXServers addObjects: r];
 			}
 			else
-                NSRunInformationalAlertPanel(NSLocalizedString(@"URL Invalid", 0L), NSLocalizedString( @"Cannot download data from this URL.", 0L), NSLocalizedString( @"OK", nil), nil, nil);
+                NSRunInformationalAlertPanel(NSLocalizedString(@"URL Invalid", 0L),
+                                             NSLocalizedString( @"Cannot download data from this URL.", 0L),
+                                             NSLocalizedString( @"OK", nil),
+                                             nil,
+                                             nil);
 		}
 		else
-            NSRunInformationalAlertPanel(NSLocalizedString(@"URL Invalid", 0L), NSLocalizedString( @"This URL is invalid. Check syntax.", 0L), NSLocalizedString( @"OK", nil), nil, nil);
+            NSRunInformationalAlertPanel(NSLocalizedString(@"URL Invalid", 0L),
+                                         NSLocalizedString( @"This URL is invalid. Check syntax.", 0L),
+                                         NSLocalizedString( @"OK", nil),
+                                         nil,
+                                         nil);
 	}
 }
 
@@ -542,13 +549,12 @@
 	
 	[self resetTest];
 	
-	[sPanel setRequiredFileType:@"plist"];
-	
-	if ([sPanel runModalForDirectory:0L file:nil types:[NSArray arrayWithObject:@"plist"]] == NSFileHandlingPanelOKButton)
+    [sPanel setAllowedFileTypes: @[@"plist"]];
+    
+	if ([sPanel runModal] == NSFileHandlingPanelOKButton)
 	{
 		NSArray	*r = [NSArray arrayWithContentsOfFile: [sPanel filename]];
-		
-		if( r)
+		if (r)
 		{
 			if( NSRunInformationalAlertPanel(NSLocalizedString(@"Load locations", 0L),
                                              NSLocalizedString(@"Should I add or replace this locations list? If you choose 'replace', the current list will be deleted.", 0L),
@@ -593,16 +599,14 @@
 
 - (IBAction) saveAs:(id) sender;
 {
-	NSSavePanel		*sPanel		= [NSSavePanel savePanel];
+    [self resetTest];
 
-	[sPanel setRequiredFileType:@"plist"];
-	
-	[self resetTest];
-	
-	if ([sPanel runModalForDirectory:0L file:NSLocalizedString(@"DICOMNodes.plist", nil)] == NSFileHandlingPanelOKButton)
-	{
-		[[dicomNodes arrangedObjects] writeToFile:[sPanel filename] atomically: YES];
-	}
+    NSSavePanel *sPanel = [NSSavePanel savePanel];
+    [sPanel setAllowsOtherFileTypes: NO ];
+    [sPanel setNameFieldStringValue: @"DICOMNodes.plist"];
+    [sPanel setAllowedFileTypes: @[@"plist"]];
+    if ([sPanel runModal] == NSFileHandlingPanelOKButton)
+        [[dicomNodes arrangedObjects] writeToFile:[sPanel filename] atomically: YES];
 }
 
 - (IBAction) refreshNodesListURL: (id) sender
@@ -626,26 +630,32 @@
 				[dicomNodes addObjects: r];
 			}
 			else
-                NSRunInformationalAlertPanel(NSLocalizedString(@"URL Invalid", 0L), NSLocalizedString(@"Cannot download data from this URL.", 0L), NSLocalizedString(@"OK", nil), nil, nil);
+                NSRunInformationalAlertPanel(NSLocalizedString(@"URL Invalid", 0L),
+                                             NSLocalizedString(@"Cannot download data from this URL.", 0L),
+                                             NSLocalizedString(@"OK", nil),
+                                             nil,
+                                             nil);
 		}
 		else
-            NSRunInformationalAlertPanel(NSLocalizedString(@"URL Invalid", 0L), NSLocalizedString(@"This URL is invalid. Check syntax.", 0L), NSLocalizedString(@"OK", nil), nil, nil);
+            NSRunInformationalAlertPanel(NSLocalizedString(@"URL Invalid", 0L),
+                                         NSLocalizedString(@"This URL is invalid. Check syntax.", 0L),
+                                         NSLocalizedString(@"OK", nil),
+                                         nil,
+                                         nil);
 	}
 }
 
 - (IBAction) loadFrom:(id) sender;
 {
-	NSOpenPanel		*sPanel		= [NSOpenPanel openPanel];
+	NSOpenPanel *sPanel = [NSOpenPanel openPanel];
 	
 	[self resetTest];
 	
-	[sPanel setRequiredFileType:@"plist"];
-	
-	if ([sPanel runModalForDirectory:0L file:nil types:[NSArray arrayWithObject:@"plist"]] == NSFileHandlingPanelOKButton)
+    [sPanel setAllowedFileTypes: @[@"plist"]];
+	if ([sPanel runModal] == NSFileHandlingPanelOKButton)
 	{
 		NSArray	*r = [NSArray arrayWithContentsOfFile: [sPanel filename]];
-		
-		if( r)
+		if (r)
 		{
 			if( NSRunInformationalAlertPanel(NSLocalizedString(@"Load locations", 0L),
                                              NSLocalizedString(@"Should I add or replace this locations list? If you choose 'replace', the current list will be deleted.", 0L),
@@ -782,16 +792,17 @@
 
 - (IBAction) addPath:(id) sender
 {
-	NSOpenPanel		*oPanel		= [NSOpenPanel openPanel];
+	NSOpenPanel *oPanel	= [NSOpenPanel openPanel];
 
     [oPanel setCanChooseFiles:YES];
     [oPanel setCanChooseDirectories:YES];
+    [oPanel setAllowedFileTypes: @[@"sql"]];
 
-	if ([oPanel runModalForDirectory:0L file:nil types:[NSArray arrayWithObject:@"sql"]] == NSFileHandlingPanelOKButton)
+	if ([oPanel runModal] == NSFileHandlingPanelOKButton)
 	{
-		NSString	*location = [oPanel filename];
+		NSString *location = [oPanel filename];
 		
-		if( [[location lastPathComponent] isEqualToString:OUR_DATA_LOCATION])
+		if ([[location lastPathComponent] isEqualToString:OUR_DATA_LOCATION])
 		{
 			location = [location stringByDeletingLastPathComponent];
 		}

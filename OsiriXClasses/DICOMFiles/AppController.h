@@ -188,11 +188,10 @@ extern AppController* OsiriX;
 - (IBAction) about:(id)sender; /**< Display the about window */
 - (IBAction) showPreferencePanel:(id)sender; /**< Show Preferences window */
 #ifndef OSIRIX_LIGHT
-#ifndef MACAPPSTORE
 - (IBAction) checkForUpdates:(id) sender;  /**< Check for update */
-#endif
 - (IBAction) autoQueryRefresh:(id)sender;
 #endif
+
 //===============WINDOW========================
 - (IBAction) setFixedTilingRows: (id) sender;
 - (IBAction) setFixedTilingColumns: (id) sender;
@@ -205,6 +204,7 @@ extern AppController* OsiriX;
 - (void) checkAllWindowsAreVisible:(id) sender;
 - (void) checkAllWindowsAreVisible:(id) sender makeKey: (BOOL) makeKey;
 //- (IBAction)toggleActivityWindow:(id)sender;
+
 //===============HELP==========================
 - (IBAction) sendEmail: (id) sender;   /**< Send email to lead developer */
 - (IBAction) openOsirixWebPage: (id) sender;  /**<  Open OsiriX web page */

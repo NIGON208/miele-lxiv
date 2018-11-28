@@ -52,8 +52,8 @@
 @property(retain,readwrite) NSMutableArray *downloadQueue;
 
 + (int) compareVersion: (NSString *) v1 withVersion: (NSString *) v2;
-+ (NSMutableDictionary*) plugins;
-+ (NSMutableDictionary*) pluginsDict;
++ (NSMutableDictionary*) installedPlugins;
++ (NSMutableDictionary*) installedPluginsInfoDict;
 + (NSMutableDictionary*) fileFormatPlugins;
 + (NSMutableDictionary*) reportPlugins;
 + (NSArray*) preProcessPlugins;
@@ -67,7 +67,7 @@
 #ifdef OSIRIX_VIEWER
 
 + (NSString*) pathResolved:(NSString*) inPath;
-+ (void)discoverPlugins;
++ (void) discoverPlugins;
 + (void) unloadPluginWithName: (NSString*) name;
 + (void) loadPluginAtPath: (NSString*) path;
 + (void) setMenus:(NSMenu*) filtersMenu :(NSMenu*) roisMenu :(NSMenu*) othersMenu :(NSMenu*) dbMenu;
@@ -93,7 +93,7 @@
 + (void)createDirectory:(NSString*)directoryPath;
 + (NSArray*)availabilities;
 
-- (IBAction)checkForUpdates:(id)sender;
+- (IBAction)checkForPluginUpdates:(id)sender;
 - (void)displayUpdateMessage:(NSDictionary*)messageDictionary;
 
 #endif

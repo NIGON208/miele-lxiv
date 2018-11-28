@@ -757,10 +757,10 @@ void checkOGLVersion()
 {
 	BOOL used = NO;
 	
-	for (id key in [PluginManager plugins])
+	for (id key in [PluginManager installedPlugins])
 	{
-		if ([[[PluginManager plugins] objectForKey:key] respondsToSelector:@selector(handleEvent:forViewer:)])
-			if ([[[PluginManager plugins] objectForKey:key] handleEvent:event forViewer:[self windowController]])
+		if ([[[PluginManager installedPlugins] objectForKey:key] respondsToSelector:@selector(handleEvent:forViewer:)])
+			if ([[[PluginManager installedPlugins] objectForKey:key] handleEvent:event forViewer:[self windowController]])
 				used = YES;
 	}
 	
@@ -1697,15 +1697,19 @@ void checkOGLVersion()
 	if ([selectedROIs count] > 0)
 	{
 		[panel setCanSelectHiddenExtension:NO];
-		[panel setRequiredFileType:@"roi"];
-		
-		if ([panel runModalForDirectory:nil file:[[selectedROIs objectAtIndex:0] name]] == NSFileHandlingPanelOKButton)
+        [panel setAllowedFileTypes: @[@"roi"]];
+        [panel setNameFieldStringValue: [[selectedROIs objectAtIndex:0] name]];
+		if ([panel runModal] == NSFileHandlingPanelOKButton)
 		{
 			[NSArchiver archiveRootObject: selectedROIs toFile :[panel filename]];
 		}
 	}
 	else
-		NSRunCriticalAlertPanel(NSLocalizedString(@"ROIs Save Error",nil), NSLocalizedString(@"No ROI(s) selected to save!",nil) , NSLocalizedString(@"OK",nil), nil, nil);
+		NSRunCriticalAlertPanel(NSLocalizedString(@"ROIs Save Error",nil),
+                                NSLocalizedString(@"No ROI(s) selected to save!",nil),
+                                NSLocalizedString(@"OK",nil),
+                                nil,
+                                nil);
 }
 
 - (void) roiLoadFromXML: (NSDictionary *) xml
@@ -5059,7 +5063,11 @@ void checkOGLVersion()
 					
 					if ([roiArray count] == 0 || distance == 0)
 					{
-						NSRunCriticalAlertPanel(NSLocalizedString(@"Repulsor",nil),NSLocalizedString(@"The Repulsor tool works only if ROIs (Length ROI, Opened and Closed Polygon ROI and Pencil ROI) are on the image.",nil), NSLocalizedString(@"OK",nil), nil,nil);
+						NSRunCriticalAlertPanel(NSLocalizedString(@"Repulsor",nil),
+                                                NSLocalizedString(@"The Repulsor tool works only if ROIs (Length ROI, Opened and Closed Polygon ROI and Pencil ROI) are on the image.",nil),
+                                                NSLocalizedString(@"OK",nil),
+                                                nil,
+                                                nil);
 					}
 				}
 			}
@@ -9739,7 +9747,13 @@ void checkOGLVersion()
 				{
 					if (exceptionDisplayed == NO)
 					{
-						NSRunCriticalAlertPanel(NSLocalizedString(@"Annotations Error",nil), @"%@\r\r%@", NSLocalizedString(@"OK",nil), nil, nil, e, annot);
+						NSRunCriticalAlertPanel(NSLocalizedString(@"Annotations Error",nil),
+                                                @"%@\r\r%@",
+                                                NSLocalizedString(@"OK",nil),
+                                                nil,
+                                                nil,
+                                                    e,
+                                                    annot);
 					
 						NSLog( @"draw custom annotation exception: %@\r\r%@", e, annot);
 						exceptionDisplayed = YES;
@@ -15429,7 +15443,11 @@ void checkOGLVersion()
 {
 	if (curDCM.pixelSpacingX == 0 || curDCM.pixelSpacingY == 0)
 	{
-		NSRunCriticalAlertPanel(NSLocalizedString(@"Actual Size Error",nil), NSLocalizedString(@"This image is not calibrated.",nil) , NSLocalizedString( @"OK",nil), nil, nil);
+		NSRunCriticalAlertPanel(NSLocalizedString(@"Actual Size Error",nil),
+                                NSLocalizedString(@"This image is not calibrated.",nil),
+                                NSLocalizedString( @"OK",nil),
+                                nil,
+                                nil);
 	}
 	else
 	{
@@ -15447,11 +15465,19 @@ void checkOGLVersion()
 			}
 			else
 			{
-				NSRunCriticalAlertPanel(NSLocalizedString(@"Actual Size Error",nil), NSLocalizedString(@"Displayed pixels are non-squared pixel. Images cannot be displayed at actual size.",nil) , NSLocalizedString( @"OK",nil), nil, nil);
+				NSRunCriticalAlertPanel(NSLocalizedString(@"Actual Size Error",nil),
+                                        NSLocalizedString(@"Displayed pixels are non-squared pixel. Images cannot be displayed at actual size.",nil),
+                                        NSLocalizedString( @"OK",nil),
+                                        nil,
+                                        nil);
 			}
 		}
 		else
-			NSRunCriticalAlertPanel(NSLocalizedString(@"Actual Size Error",nil), NSLocalizedString(@"This screen doesn't support this function.",nil) , NSLocalizedString( @"OK",nil), nil, nil);
+			NSRunCriticalAlertPanel(NSLocalizedString(@"Actual Size Error",nil),
+                                    NSLocalizedString(@"This screen doesn't support this function.",nil),
+                                    NSLocalizedString( @"OK",nil),
+                                    nil,
+                                    nil);
 	}
 }
 

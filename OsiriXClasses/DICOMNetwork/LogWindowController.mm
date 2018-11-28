@@ -52,9 +52,9 @@
 		line = [NSMutableString string];
 		for( NSString *name in logEntries)
 		{
-			if( [o valueForKey: name])
+			if ([o valueForKey: name])
 			{
-				if( [[o valueForKey: name] isKindOfClass: [NSDate class]])
+				if ([[o valueForKey: name] isKindOfClass: [NSDate class]])
 					[line appendString: [[BrowserController DateTimeFormat: [o valueForKey: name]] stringByReplacingOccurrencesOfString: @"," withString: @" "]];
 				else
 					[line appendString: [[[o valueForKey: name] description] stringByReplacingOccurrencesOfString: @"," withString: @" "]];
@@ -71,10 +71,9 @@
 	}
 	
 	NSSavePanel *savePanel = [NSSavePanel savePanel];
-	
-	[savePanel setRequiredFileType:@"csv"];
-	
-	if([savePanel runModalForDirectory: nil file: filename] == NSFileHandlingPanelOKButton)
+    [savePanel setAllowedFileTypes: @[@"csv"]];
+    [savePanel setNameFieldStringValue: filename];
+    if ([savePanel runModal] == NSFileHandlingPanelOKButton)
 	{
 		[csv writeToURL: [savePanel URL] atomically: YES];
 	}
@@ -101,9 +100,13 @@
 {
 	[super showWindow: sender];
 	
-	if( [[BrowserController currentBrowser] isNetworkLogsActive] == NO)
+	if ([[BrowserController currentBrowser] isNetworkLogsActive] == NO)
 	{
-		if( NSRunInformationalAlertPanel( NSLocalizedString( @"Network Logs", nil), NSLocalizedString( @"Network Logs are currently off. Do you want to activate them?\r\rYou can activate or de-activate them in the Preferences - Listener window.", nil), NSLocalizedString( @"Activate", nil), NSLocalizedString( @"Cancel", nil), nil) == 1)
+		if (NSRunInformationalAlertPanel(NSLocalizedString( @"Network Logs", nil),
+                                         NSLocalizedString( @"Network Logs are currently off. Do you want to activate them?\r\rYou can activate or de-activate them in the Preferences - Listener window.", nil),
+                                         NSLocalizedString( @"Activate", nil),
+                                         NSLocalizedString( @"Cancel", nil),
+                                         nil) == NSAlertDefaultReturn)
 		{
 			[[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"NETWORKLOGS"];
 			[[BrowserController currentBrowser] setNetworkLogs];

@@ -64,7 +64,12 @@ static volatile int sendControllerObjects = 0;
 {
 	NSString *message = [NSString stringWithFormat:@"%@\r\r%@\r%@", NSLocalizedString( @"DICOM StoreSCU operation failed.", nil), [ne name], [ne reason]];
     
-	NSRunCriticalAlertPanel(NSLocalizedString(@"DICOM Send Error",nil), @"%@", NSLocalizedString( @"OK",nil), nil, nil, message);
+	NSRunCriticalAlertPanel(NSLocalizedString(@"DICOM Send Error",nil),
+                            @"%@",
+                            NSLocalizedString( @"OK",nil),
+                            nil,
+                            nil,
+                                message);
 }
 
 - (void) main
@@ -140,7 +145,11 @@ static volatile int sendControllerObjects = 0;
 {
 	if( [[NSUserDefaults standardUserDefaults] boolForKey: @"DICOMSENDALLOWED"] == NO)
 	{
-		NSRunCriticalAlertPanel(NSLocalizedString(@"DICOM Send",nil),NSLocalizedString( @"DICOM Sending is not activated. Contact your PACS manager for more information about DICOM Send.",nil),NSLocalizedString( @"OK",nil), nil, nil);
+		NSRunCriticalAlertPanel(NSLocalizedString(@"DICOM Send",nil),
+                                NSLocalizedString( @"DICOM Sending is not activated. Contact your PACS manager for more information about DICOM Send.",nil),
+                                NSLocalizedString( @"OK",nil),
+                                nil,
+                                nil);
 		return;
 	}
 
@@ -153,12 +162,20 @@ static volatile int sendControllerObjects = 0;
 		}
 		else
 		{
-			NSRunCriticalAlertPanel(NSLocalizedString(@"DICOM Send",nil),NSLocalizedString( @"No DICOM destinations available. See Preferences to add DICOM locations.",nil),NSLocalizedString( @"OK",nil), nil, nil);
+			NSRunCriticalAlertPanel(NSLocalizedString(@"DICOM Send",nil),
+                                    NSLocalizedString( @"No DICOM destinations available. See Preferences to add DICOM locations.",nil),
+                                    NSLocalizedString( @"OK",nil),
+                                    nil,
+                                    nil);
 		}
 	}
 	else
 	{
-		NSRunCriticalAlertPanel(NSLocalizedString(@"DICOM Send",nil),NSLocalizedString( @"No files are selected...",nil),NSLocalizedString( @"OK",nil), nil, nil);
+		NSRunCriticalAlertPanel(NSLocalizedString(@"DICOM Send",nil),
+                                NSLocalizedString( @"No files are selected...",nil),
+                                NSLocalizedString( @"OK",nil),
+                                nil,
+                                nil);
 	}
 }
 

@@ -441,7 +441,12 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
         (maximumValue - minimumValue) > 8192 &&
         computeMinMaxDepth == 1)
 	{
-        NSInteger result = NSRunCriticalAlertPanel( NSLocalizedString( @"High Dynamic Values", nil), NSLocalizedString( @"Voxel values have a very high dynamic range (>8192). Two options are available to use the 3D engine: clip values above 7168 and below -1024 or resample the values.", nil), NSLocalizedString( @"Clip", nil), NSLocalizedString( @"Resample", nil), nil);
+        NSInteger result = NSRunCriticalAlertPanel(
+               NSLocalizedString( @"High Dynamic Values", nil),
+               NSLocalizedString( @"Voxel values have a very high dynamic range (>8192). Two options are available to use the 3D engine: clip values above 7168 and below -1024 or resample the values.", nil),
+               NSLocalizedString( @"Clip", nil),
+               NSLocalizedString( @"Resample", nil),
+               nil);
         
         if (result == NSAlertDefaultReturn)
         {
@@ -2163,11 +2168,11 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
 	else
 		toolbarItem = nil;
 	
-    for (id key in [PluginManager plugins])
+    for (id key in [PluginManager installedPlugins])
     {
-        if ([[[PluginManager plugins] objectForKey:key] respondsToSelector:@selector(toolbarItemForItemIdentifier:forVRViewer:)])
+        if ([[[PluginManager installedPlugins] objectForKey:key] respondsToSelector:@selector(toolbarItemForItemIdentifier:forVRViewer:)])
         {
-            NSToolbarItem *item = [[[PluginManager plugins] objectForKey:key] toolbarItemForItemIdentifier: itemIdent forVRViewer: self];
+            NSToolbarItem *item = [[[PluginManager installedPlugins] objectForKey:key] toolbarItemForItemIdentifier: itemIdent forVRViewer: self];
             
             if (item)
                 toolbarItem = item;
@@ -2260,10 +2265,10 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
 		
         
         
-        for (id key in [PluginManager plugins])
+        for (id key in [PluginManager installedPlugins])
         {
-            if ([[[PluginManager plugins] objectForKey:key] respondsToSelector:@selector(toolbarAllowedIdentifiersForVRViewer:)])
-                [a addObjectsFromArray: [[[PluginManager plugins] objectForKey:key] toolbarAllowedIdentifiersForVRViewer: self]];
+            if ([[[PluginManager installedPlugins] objectForKey:key] respondsToSelector:@selector(toolbarAllowedIdentifiersForVRViewer:)])
+                [a addObjectsFromArray: [[[PluginManager installedPlugins] objectForKey:key] toolbarAllowedIdentifiersForVRViewer: self]];
         }
         
 		return a;
@@ -2329,26 +2334,22 @@ return YES;
 {
     NSSavePanel *panel = [NSSavePanel savePanel];
 	NSImage *im = [view nsimage:NO];
-	
 	[panel setCanSelectHiddenExtension:YES];
-	[panel setRequiredFileType:@"jpg"];
-	
-	if ([panel runModalForDirectory:nil file: NSLocalizedString( @"3D VR Image", nil)] == NSFileHandlingPanelOKButton)
+    [panel setAllowedFileTypes: @[@"jpg"]];
+    [panel setNameFieldStringValue: NSLocalizedString( @"3D VR Image", nil)];
+	if ([panel runModal] == NSFileHandlingPanelOKButton)
 	{
-		NSArray *representations;
-		NSData *bitmapData;
+		NSArray *representations = [im representations];
 		
-		representations = [im representations];
-		
-		bitmapData = [NSBitmapImageRep representationOfImageRepsInArray:representations usingType:NSJPEGFileType properties:[NSDictionary dictionaryWithObject:[NSDecimalNumber numberWithFloat:0.9] forKey:NSImageCompressionFactor]];
+		NSData *bitmapData = [NSBitmapImageRep representationOfImageRepsInArray:representations usingType:NSJPEGFileType properties:[NSDictionary dictionaryWithObject:[NSDecimalNumber numberWithFloat:0.9] forKey:NSImageCompressionFactor]];
 		
 		[bitmapData writeToFile:[panel filename] atomically:YES];
 		
 		NSWorkspace *ws = [NSWorkspace sharedWorkspace];
-		if ([[NSUserDefaults standardUserDefaults] boolForKey: @"OPENVIEWER"]) [ws openFile:[panel filename]];
+		if ([[NSUserDefaults standardUserDefaults] boolForKey: @"OPENVIEWER"])
+            [ws openFile:[panel filename]];
 	}
 }
-
 
 -(void) export2iPhoto:(id) sender
 {
@@ -2374,16 +2375,16 @@ return YES;
 {
     NSSavePanel *panel = [NSSavePanel savePanel];
 	NSImage *im = [view nsimage:NO];
-
 	[panel setCanSelectHiddenExtension:YES];
-	[panel setRequiredFileType:@"tif"];
-	
-	if ([panel runModalForDirectory:nil file: NSLocalizedString( @"3D VR Image", nil)] == NSFileHandlingPanelOKButton)
+    [panel setAllowedFileTypes: @[@"tif"]];
+    [panel setNameFieldStringValue: NSLocalizedString( @"3D VR Image", nil)];
+	if ([panel runModal] == NSFileHandlingPanelOKButton)
 	{
 		[[im TIFFRepresentation] writeToFile:[panel filename] atomically:NO];
 		
 		NSWorkspace *ws = [NSWorkspace sharedWorkspace];
-		if ([[NSUserDefaults standardUserDefaults] boolForKey: @"OPENVIEWER"]) [ws openFile:[panel filename]];
+		if ([[NSUserDefaults standardUserDefaults] boolForKey: @"OPENVIEWER"])
+            [ws openFile:[panel filename]];
 	}
 }
 
