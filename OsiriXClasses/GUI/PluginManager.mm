@@ -50,7 +50,7 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
 {
 //    *(long*)0 = 0xDEADBEEF;
     
-    for( NSBundle *bundle in [pluginsBundleDictionary allValues])
+    for (NSBundle *bundle in [pluginsBundleDictionary allValues])
     {
         if ([NSStringFromClass( [filter class]) isEqualToString: NSStringFromClass( [bundle principalClass])])
         {
@@ -187,7 +187,7 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
     // [CH] Sort the array
     items = [items sortedArrayUsingDescriptors:[NSArray arrayWithObjects:[NSSortDescriptor sortDescriptorWithKey:@"title" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)], nil]];
     // [CH] ok, now set it back.
-    for(NSMenuItem* item in items)
+    for (NSMenuItem* item in items)
     {
         [menu addItem:item];
         /**
@@ -195,7 +195,7 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
          * we sort this list. NSPopUpButton listens to the NSMenu's add notifications
          * and hides the first item. Sorting this blows it up.
          **/
-        if(item.isHidden){
+        if (item.isHidden){
             [item setHidden: false];
         }
     }
@@ -494,7 +494,7 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
 
 + (void) releaseInstanciedObjectsOfClass: (Class) theClass
 {
-    for( int i = 0; i < [preProcessPlugins count]; i++)
+    for (int i = 0; i < [preProcessPlugins count]; i++)
     {
         if ([[preProcessPlugins objectAtIndex: i] class] == theClass)
         {
@@ -508,7 +508,7 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
         }
     }
     
-    for( NSString *key in [installedPlugins allKeys])
+    for (NSString *key in [installedPlugins allKeys])
     {
         if ([[installedPlugins valueForKey: key] class] == theClass)
         {
@@ -548,7 +548,7 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
 //        }
 //        else
 //        {
-//            for( NSString *key in [pluginsBundleDictionary allKeys])
+//            for (NSString *key in [pluginsBundleDictionary allKeys])
 //            {
 //                if ([pluginsBundleDictionary valueForKey: key] == bundle)
 //                {
@@ -566,7 +566,7 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
 
 + (void) unloadPluginWithName: (NSString*) name
 {
-    for( NSBundle *bundle in [pluginsBundleDictionary allValues])
+    for (NSBundle *bundle in [pluginsBundleDictionary allValues])
     {
         if ([[[[bundle bundlePath] lastPathComponent] stringByDeletingPathExtension] isEqualToString: name])
             [PluginManager unloadPlugin: bundle];
@@ -671,7 +671,7 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
                                 
                                 if (toolbarNames)
                                 {
-                                    for( NSString *toolbarName in toolbarNames)
+                                    for (NSString *toolbarName in toolbarNames)
                                     {
                                         [installedPlugins setObject:filter forKey:toolbarName];
                                         [installedPluginsInfoDict setObject:plugin forKey:toolbarName];
@@ -987,7 +987,7 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
 //		NSString *name;
 //		while(name = [e nextObject])
 //		{
-//			if([[name stringByDeletingPathExtension] isEqualToString:pluginName])
+//			if ([[name stringByDeletingPathExtension] isEqualToString:pluginName])
 //			{
 //				return YES;
 //			}
@@ -999,10 +999,10 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
 
 + (void)movePluginFromPath:(NSString*)sourcePath toPath:(NSString*)destinationPath;
 {
-	if([sourcePath isEqualToString:destinationPath])
+	if ([sourcePath isEqualToString:destinationPath])
         return;
 	
-    if(![[NSFileManager defaultManager] fileExistsAtPath:[destinationPath stringByDeletingLastPathComponent]])
+    if (![[NSFileManager defaultManager] fileExistsAtPath:[destinationPath stringByDeletingLastPathComponent]])
     {
         [[NSFileManager defaultManager] createDirectoryAtPath:[destinationPath stringByDeletingLastPathComponent]
                                   withIntermediateDirectories:YES
@@ -1038,14 +1038,14 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
     NSString *activePath;
     NSString *inactivePath;
     
-	for(inactivePath in inactivePaths)
+	for (inactivePath in inactivePaths)
 	{
 		activePath = [activePathEnum nextObject];
 		NSEnumerator *e = [[[NSFileManager defaultManager] directoryContentsAtPath:inactivePath] objectEnumerator];
 		NSString *name;
 		while(name = [e nextObject])
 		{
-			if([[name stringByDeletingPathExtension] isEqualToString:pluginName])
+			if ([[name stringByDeletingPathExtension] isEqualToString:pluginName])
 			{
 				NSString *sourcePath = [NSString stringWithFormat:@"%@/%@", inactivePath, name];
 				NSString *destinationPath = [NSString stringWithFormat:@"%@/%@", activePath, name];
@@ -1074,14 +1074,14 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
 	NSEnumerator *inactivePathEnum = [inactivePaths objectEnumerator];
     NSString *inactivePath;
 	
-	for(activePath in activePaths)
+	for (activePath in activePaths)
 	{
 		inactivePath = [inactivePathEnum nextObject];
 		NSEnumerator *e = [[[NSFileManager defaultManager] directoryContentsAtPath:activePath] objectEnumerator];
 		NSString *name;
 		while(name = [e nextObject])
 		{
-			if([[name stringByDeletingPathExtension] isEqualToString:pluginName])
+			if ([[name stringByDeletingPathExtension] isEqualToString:pluginName])
 			{
 				BOOL isDir = YES;
 				if (![[NSFileManager defaultManager] fileExistsAtPath:inactivePath isDirectory:&isDir] && isDir)
@@ -1108,7 +1108,7 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
     NSArray *availabilities = [PluginManager availabilities];
     
 #if 0 //def MACAPPSTORE
-    if([availability isEqualTo:[availabilities objectAtIndex:0]] == NO)  // not user
+    if ([availability isEqualTo:[availabilities objectAtIndex:0]] == NO)  // not user
     {
         NSRunCriticalAlertPanel(NSLocalizedString(@"Plugin",nil),
                                 NSLocalizedString(@"You cannot move the plugin to another location with this version of OsiriX.", nil),
@@ -1133,7 +1133,7 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
 		NSString *name;
 		while((name = [e nextObject]) && !found)
 		{
-			if([[name stringByDeletingPathExtension] isEqualToString:pluginName])
+			if ([[name stringByDeletingPathExtension] isEqualToString:pluginName])
 			{
 				completePluginPath = [NSString stringWithFormat:@"%@/%@", path, name];
 				found = YES;
@@ -1149,11 +1149,11 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
 	{
 		[newDirectory setString:[PluginManager userActivePluginsDirectoryPath]];
 	}
-	else if(availabilities.count >= 1 && [availability isEqualTo:[availabilities objectAtIndex:1]])  // system
+	else if (availabilities.count >= 1 && [availability isEqualTo:[availabilities objectAtIndex:1]])  // system
 	{
 		[newDirectory setString:[PluginManager systemActivePluginsDirectoryPath]];
 	}
-	else if(availabilities.count >= 2 && [availability isEqualTo:[availabilities objectAtIndex:2]]) // app bundle
+	else if (availabilities.count >= 2 && [availability isEqualTo:[availabilities objectAtIndex:2]]) // app bundle
 	{
 		[newDirectory setString:[PluginManager appActivePluginsDirectoryPath]];
 	}
@@ -1177,7 +1177,7 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
                                                                       attributes: nil
                                                                            error: nil];
 
-	if(!directoryCreated)
+	if (!directoryCreated)
 	{
 	    NSMutableArray *args = [NSMutableArray array];
 		[args addObject:directoryPath];
@@ -1215,28 +1215,28 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
     
     if ([availability isEqualToString:[[PluginManager availabilities] objectAtIndex:0]])  // user
     {
-        if(isActive)
+        if (isActive)
             destinationDirectory = [PluginManager userActivePluginsDirectoryPath];
         else
             destinationDirectory = [PluginManager userInactivePluginsDirectoryPath];
     }
-    else if([availability isEqualToString:[[PluginManager availabilities] objectAtIndex:1]]) //system
+    else if ([availability isEqualToString:[[PluginManager availabilities] objectAtIndex:1]]) //system
     {
-        if(isActive)
+        if (isActive)
             destinationDirectory = [PluginManager systemActivePluginsDirectoryPath];
         else
             destinationDirectory = [PluginManager systemInactivePluginsDirectoryPath];
     }
-    else if([availability isEqualToString:[[PluginManager availabilities] objectAtIndex:2]]) // app bundle
+    else if ([availability isEqualToString:[[PluginManager availabilities] objectAtIndex:2]]) // app bundle
     {
-        if(isActive)
+        if (isActive)
             destinationDirectory = [PluginManager appActivePluginsDirectoryPath];
         else
             destinationDirectory = [PluginManager appInactivePluginsDirectoryPath];
     }
     else
     {
-        if(isActive)
+        if (isActive)
             destinationDirectory = [PluginManager userActivePluginsDirectoryPath];
         else
             destinationDirectory = [PluginManager userInactivePluginsDirectoryPath];
@@ -1285,30 +1285,30 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
 	}
 	else if (availabilities.count >= 1 && [availability isEqualToString:[availabilities objectAtIndex:1]])  // system
 	{
-		if(isActive)
+		if (isActive)
 			directory = [PluginManager systemActivePluginsDirectoryPath];
 		else
 			directory = [PluginManager systemInactivePluginsDirectoryPath];
 	}
 	else if (availabilities.count >= 2 && [availability isEqualToString:[availabilities objectAtIndex:2]])  // app bundle
 	{
-		if(isActive)
+		if (isActive)
 			directory = [PluginManager appActivePluginsDirectoryPath];
 		else
 			directory = [PluginManager appInactivePluginsDirectoryPath];
 	}
 	
-	for(path in pluginsPaths)
+	for (path in pluginsPaths)
 	{
 		NSEnumerator *e = [[[NSFileManager defaultManager] directoryContentsAtPath:path] objectEnumerator];
 		NSString *name;
 		while(name = [e nextObject])
 		{
-			if([[name stringByDeletingPathExtension] isEqualToString: [pluginName stringByDeletingPathExtension]] && (directory == nil || [directory isEqualTo: path]))
+			if ([[name stringByDeletingPathExtension] isEqualToString: [pluginName stringByDeletingPathExtension]] && (directory == nil || [directory isEqualTo: path]))
 			{
 				NSInteger tag = 0;
 				[[NSWorkspace sharedWorkspace] performFileOperation:NSWorkspaceRecycleOperation source:path destination:trashDir files:[NSArray arrayWithObject:name] tag:&tag];
-				if(tag!=0)
+				if (tag!=0)
 				{
 					NSLog( @"performFileOperation:NSWorkspaceRecycleOperation failed, will us mv");
 					
@@ -1324,7 +1324,7 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
 				
 //				// delete
 //				BOOL deleted = [[NSFileManager defaultManager] removeFileAtPath:[NSString stringWithFormat:@"%@/%@", path, name] handler:nil];
-//				if(!deleted)
+//				if (!deleted)
 //				{
 //					NSMutableArray *args = [NSMutableArray array];
 //					[args addObject:@"-r"];
@@ -1373,7 +1373,7 @@ NSInteger sortPluginArray(id plugin1, id plugin2, void *context)
 	
     NSMutableArray *plugins = [NSMutableArray array];
 	
-    for(path in paths)
+    for (path in paths)
 	{
 //		BOOL active = ([path isEqualToString:userActivePath] || [path isEqualToString:sysActivePath]);
 //		BOOL allUsers = ([path isEqualToString:sysActivePath] || [path isEqualToString:sysInactivePath]);
@@ -1441,7 +1441,7 @@ NSInteger sortPluginArray(id plugin1, id plugin2, void *context)
 						
 					[pluginDescription setObject:pluginVersion forKey:@"version"];
 					
-					if(bundleInfoDict != NULL)
+					if (bundleInfoDict != NULL)
 						CFRelease( bundleInfoDict);
 					
 					// plugin description dictionary
@@ -1477,7 +1477,7 @@ NSInteger sortPluginArray(id plugin1, id plugin2, void *context)
 	
 	url = [NSURL URLWithString:URL_PLUGIN_LIST];
 	
-	if(url)
+	if (url)
 	{
 		NSMutableArray *onlinePlugins = [NSMutableArray arrayWithContentsOfURL:url];
 		NSArray *installedPlugins = [PluginManager pluginsList];
@@ -1496,7 +1496,7 @@ NSInteger sortPluginArray(id plugin1, id plugin2, void *context)
 				name = [name stringByDeletingPathExtension]; // removes the .zip extension
 				name = [name stringByDeletingPathExtension]; // removes the .osirixplugin extension
 				
-				if([pluginName isEqualToString:name])
+				if ([pluginName isEqualToString:name])
 				{
 					onlinePlugin = plugin;
 					break;
@@ -1508,7 +1508,7 @@ NSInteger sortPluginArray(id plugin1, id plugin2, void *context)
 				NSString *currVersion = [installedPlugin objectForKey:@"version"];
 				NSString *onlineVersion = [onlinePlugin objectForKey:@"version"];
 				
-				if(currVersion && onlineVersion && [currVersion length] > 0 && [currVersion length] > 0)
+				if (currVersion && onlineVersion && [currVersion length] > 0 && [currVersion length] > 0)
 				{
 					if ([currVersion isEqualToString:onlineVersion] == NO && [PluginManager compareVersion: currVersion withVersion: onlineVersion] < 0)
 					{
@@ -1522,12 +1522,12 @@ NSInteger sortPluginArray(id plugin1, id plugin2, void *context)
 			}
 		}
 		//ici
-		if([pluginsToUpdate count])
+		if ([pluginsToUpdate count])
 		{
 			NSString *title;
 			NSMutableString *message = [NSMutableString string];
 			
-			if([pluginsToUpdate count]==1)
+			if ([pluginsToUpdate count]==1)
 			{
 				title = NSLocalizedString(@"Plugin Update Available", @"");
 				[message appendFormat:NSLocalizedString(@"A new version of the plugin \"%@\" is available.", @""), [[pluginsToUpdate objectAtIndex:0] objectForKey:@"name"]];
@@ -1590,10 +1590,10 @@ NSInteger sortPluginArray(id plugin1, id plugin2, void *context)
 
 -(void)downloadNext:(NSNotification*)notification;
 {
-	if(!startedUpdateProcess)
+	if (!startedUpdateProcess)
         return;
 	
-	if([downloadQueue count]>1)
+	if ([downloadQueue count]>1)
 	{
 		[downloadQueue removeObjectAtIndex:0];
 
