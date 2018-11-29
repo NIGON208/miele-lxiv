@@ -10527,8 +10527,8 @@ constrainSplitPosition:(CGFloat)proposedPosition
                 
                 if ([[self window] screen] == s)
                 {
-                    NSLog( @"[[self window] frame]: %@", NSStringFromRect( [[self window] frame]));
-                    NSLog( @"visibleScreenRect[ %i]: %@", i, NSStringFromRect( visibleScreenRect[ i]));
+                    //NSLog( @"[[self window] frame]: %@", NSStringFromRect( [[self window] frame]));
+                    //NSLog( @"visibleScreenRect[ %i]: %@", i, NSStringFromRect( visibleScreenRect[ i]));
                     
                     dbScreenChanged = YES;
                 }

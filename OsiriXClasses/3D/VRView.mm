@@ -2302,8 +2302,7 @@ public:
     _cocoaRenderWindow->MakeCurrent();
 
 #if 1 // @@@ FIXME: vrView render
-    NSLog(@"Checkpoint VRView.mm:%d %s, aRenderer:%p, volume:%p", __LINE__, __PRETTY_FUNCTION__,
-          aRenderer, volume);
+    //NSLog(@"Checkpoint VRView.mm:%d %s, aRenderer:%p, volume:%p", __LINE__, __PRETTY_FUNCTION__, aRenderer, volume);
 #if 0 //def _VERBOSE
     vtkIndent *indent = vtkIndent::New();
     aRenderer->PrintSelf(std::cout, *indent);

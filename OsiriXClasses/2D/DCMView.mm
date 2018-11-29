@@ -4801,7 +4801,6 @@ void checkOGLVersion()
 
 - (void) mouseDown:(NSEvent *)event
 {
-    NSLog(@"%s %d", __FUNCTION__, __LINE__);
     if (CGCursorIsVisible() == NO && lensTexture == nil)
         return; //For Synergy compatibility
 
@@ -5879,7 +5878,6 @@ void checkOGLVersion()
         
 	[self deleteLens];
 	
-    NSLog(@"DCMView.mm:%d %s", __LINE__, __PRETTY_FUNCTION__);
 	mouseDragging = YES;
 	
 	// if window is not visible do nothing
@@ -5980,7 +5978,6 @@ void checkOGLVersion()
 			
 			previous = current;
 
-            NSLog(@"DCMView.mm:%d %s setNeedsDisplay", __LINE__, __PRETTY_FUNCTION__);
 			[self setNeedsDisplay:YES];
 			
 			if ([self is2DViewer] == YES)
@@ -6414,7 +6411,6 @@ void checkOGLVersion()
 
 - (void)mouseDraggedWindowLevel:(NSEvent *)event
 {
-    NSLog(@"DCMView.mm:%d %s", __LINE__, __PRETTY_FUNCTION__);
 	NSPoint current = [self convertPoint: event.locationInWindow fromView: nil];
 	// Not blending
 	//if (!(blendingView != nil))
@@ -6488,7 +6484,6 @@ void checkOGLVersion()
 		{
 			[curDCM changeWLWW : startWL + (current.y - start.y)*WWAdapter
                                : startWW + (current.x - start.x)*WWAdapter];
-            NSLog(@"DCMView.mm:%d %s", __LINE__, __PRETTY_FUNCTION__);
 		}
 		
 		curWW = curDCM.ww;

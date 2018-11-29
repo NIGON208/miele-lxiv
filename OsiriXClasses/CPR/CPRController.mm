@@ -21,7 +21,7 @@
 #import "DICOMExport.h"
 #import "DicomImage.h"
 #import "ROI.h"
-#import "iPhoto.h"
+#import "Photos.h"
 #import "Notifications.h"
 #import "ROIWindow.h"
 #import "NSUserDefaultsController+OsiriX.h"
@@ -3386,41 +3386,36 @@ static float deg2rad = M_PI / 180.0;
 	{
 		NSImage *im = [[self selectedViewOnlyMPRView: NO] nsimage:NO];
 		
-		NSArray *representations;
-		NSData *bitmapData;
-		
-		representations = [im representations];
+		NSArray *representations = [im representations];
 		
 		if (representations.count)
 		{
-			bitmapData = [NSBitmapImageRep representationOfImageRepsInArray:representations usingType:NSJPEGFileType properties:[NSDictionary dictionaryWithObject:[NSDecimalNumber numberWithFloat:0.9] forKey:NSImageCompressionFactor]];
+			NSData *bitmapData = [NSBitmapImageRep representationOfImageRepsInArray:representations usingType:NSJPEGFileType properties:[NSDictionary dictionaryWithObject:[NSDecimalNumber numberWithFloat:0.9] forKey:NSImageCompressionFactor]];
 		
 			[bitmapData writeToFile:[panel filename] atomically:YES];
 		
 			NSWorkspace *ws = [NSWorkspace sharedWorkspace];
-			if ([[NSUserDefaults standardUserDefaults] boolForKey: @"OPENVIEWER"]) [ws openFile:[panel filename]];
+			if ([[NSUserDefaults standardUserDefaults] boolForKey: @"OPENVIEWER"])
+                [ws openFile:[panel filename]];
 		}
 	}
 }
 
+// TODO: carefully rename it to 'export2Photos'
 -(void) export2iPhoto:(id) sender
 {
-	iPhoto		*ifoto;
-	NSImage		*im = [[self selectedView] nsimage:NO];
+	NSImage *im = [[self selectedView] nsimage:NO];
 	
-	NSArray		*representations;
-	NSData		*bitmapData;
+	NSArray *representations = [im representations];
 	
-	representations = [im representations];
+	NSData *bitmapData = [NSBitmapImageRep representationOfImageRepsInArray:representations usingType:NSJPEGFileType properties:[NSDictionary dictionaryWithObject:[NSDecimalNumber numberWithFloat:0.9] forKey:NSImageCompressionFactor]];
 	
-	bitmapData = [NSBitmapImageRep representationOfImageRepsInArray:representations usingType:NSJPEGFileType properties:[NSDictionary dictionaryWithObject:[NSDecimalNumber numberWithFloat:0.9] forKey:NSImageCompressionFactor]];
+    NSString *path = [[[BrowserController currentBrowser] documentsDirectory] stringByAppendingFormat:@"/TEMP.noindex/%@", OUR_IMAGE_JPG];
+	[bitmapData writeToFile: path  atomically:YES];
 	
-	[bitmapData writeToFile:[[[BrowserController currentBrowser] documentsDirectory] stringByAppendingFormat:@"/TEMP.noindex/%@", OUR_IMAGE_JPG]
-                 atomically:YES];
-	
-	ifoto = [[iPhoto alloc] init];
-	[ifoto importIniPhoto: [NSArray arrayWithObject:[[[BrowserController currentBrowser] documentsDirectory] stringByAppendingFormat:@"/TEMP.noindex/%@", OUR_IMAGE_JPG]]];
-	[ifoto release];
+	Photos *photos = [[Photos alloc] init];
+	[photos importIniPhoto: [NSArray arrayWithObject: path]];
+	[photos release];
 }
 
 - (void) exportTIFF:(id) sender

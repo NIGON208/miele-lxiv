@@ -200,13 +200,10 @@
 	if ([panel runModal] == NSFileHandlingPanelOKButton)
 	{
 		NSImage *im = [self nsimage:NO];
+
+		NSArray *representations = [im representations];
 		
-		NSArray *representations;
-		NSData *bitmapData;
-		
-		representations = [im representations];
-		
-		bitmapData = [NSBitmapImageRep representationOfImageRepsInArray:representations usingType:NSJPEGFileType properties:[NSDictionary dictionaryWithObject:[NSDecimalNumber numberWithFloat:0.9] forKey:NSImageCompressionFactor]];
+		NSData *bitmapData = [NSBitmapImageRep representationOfImageRepsInArray:representations usingType:NSJPEGFileType properties:[NSDictionary dictionaryWithObject:[NSDecimalNumber numberWithFloat:0.9] forKey:NSImageCompressionFactor]];
 		
 		[bitmapData writeToFile:[panel filename] atomically:YES];
 		

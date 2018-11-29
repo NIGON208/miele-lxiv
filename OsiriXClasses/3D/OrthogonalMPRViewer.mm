@@ -35,7 +35,7 @@
 static NSString* 	MPROrthoToolbarIdentifier				= @"MPROrtho Viewer Toolbar Identifier";
 static NSString*	AdjustSplitViewToolbarItemIdentifier	= @"sameSizeSplitView";
 //static NSString*	TurnSplitViewToolbarItemIdentifier		= @"turnSplitView";
-static NSString*	iPhotoToolbarItemIdentifier				= @"iPhoto";
+static NSString*	PhotosToolbarItemIdentifier				= @"Photos";
 static NSString*	ToolsToolbarItemIdentifier				= @"Tools";
 static NSString*	ThickSlabToolbarItemIdentifier			= @"ThickSlab";
 static NSString*	WLWWToolbarItemIdentifier				= @"WLWW";
@@ -1021,11 +1021,11 @@ return YES;
 //	[toolbarItem setTarget: self];
 //	[toolbarItem setAction: @selector(exportQuicktime:)];
 //    }
-//	else if ([itemIdent isEqualToString: iPhotoToolbarItemIdentifier]) {
+//	else if ([itemIdent isEqualToString: PhotosToolbarItemIdentifier]) {
 //        
-//	[toolbarItem setLabel: NSLocalizedString(@"iPhoto",nil)];
-//	[toolbarItem setPaletteLabel: NSLocalizedString(@"iPhoto",nil)];
-//	[toolbarItem setToolTip: NSLocalizedString(@"Export this series to iPhoto",nil)];
+//	[toolbarItem setLabel: NSLocalizedString(@"Photos",nil)];
+//	[toolbarItem setPaletteLabel: NSLocalizedString(@"Photos",nil)];
+//	[toolbarItem setToolTip: NSLocalizedString(@"Export this series to Photos",nil)];
 //	
 //	[toolbarItem setView: iPhotoView];
 //	[toolbarItem setMinSize:NSMakeSize(NSWidth([iPhotoView frame]), NSHeight([iPhotoView frame]))];
@@ -1235,7 +1235,7 @@ return YES;
 										ToolsToolbarItemIdentifier,
 										ExportToolbarItemIdentifier,
                                         SyncSeriesToolbarItemIdentifier,
-										iPhotoToolbarItemIdentifier,
+										PhotosToolbarItemIdentifier,
 										MailToolbarItemIdentifier,
 										AdjustSplitViewToolbarItemIdentifier,
 //										TurnSplitViewToolbarItemIdentifier,
@@ -1341,20 +1341,17 @@ return YES;
 
 -(void) sendMail:(id) sender
 {
-	Mailer		*email;
-	NSImage		*im = [[self keyView] nsimage: NO];
+	NSImage *im = [[self keyView] nsimage: NO];
 
-	NSArray *representations;
-	NSData *bitmapData;
+	NSArray *representations = [im representations];
 
-	representations = [im representations];
+	NSData *bitmapData = [NSBitmapImageRep representationOfImageRepsInArray:representations usingType:NSJPEGFileType properties:[NSDictionary dictionaryWithObject:[NSDecimalNumber numberWithFloat:0.9] forKey:NSImageCompressionFactor]];
 
-	bitmapData = [NSBitmapImageRep representationOfImageRepsInArray:representations usingType:NSJPEGFileType properties:[NSDictionary dictionaryWithObject:[NSDecimalNumber numberWithFloat:0.9] forKey:NSImageCompressionFactor]];
-
-	[bitmapData writeToFile:[[[BrowserController currentBrowser] documentsDirectory] stringByAppendingFormat:@"/TEMP.noindex/%@", OUR_IMAGE_JPG]
+    NSString *path = [[[BrowserController currentBrowser] documentsDirectory] stringByAppendingFormat:@"/TEMP.noindex/%@", OUR_IMAGE_JPG];
+	[bitmapData writeToFile:path
                  atomically:YES];
 				
-	email = [[Mailer alloc] init];
+	Mailer *email = [[Mailer alloc] init];
 	
 	[email sendMail:@"--"
                  to:@"--"
@@ -1362,7 +1359,7 @@ return YES;
              isMIME:YES
                name:@"--"
             sendNow:NO
-              image:[[[BrowserController currentBrowser] documentsDirectory] stringByAppendingFormat:@"/TEMP.noindex/%@", OUR_IMAGE_JPG]];
+              image:path];
 	
 	[email release];
 }
@@ -1432,12 +1429,9 @@ return YES;
 				
 				//[[im TIFFRepresentation] writeToFile:[[[panel filename] stringByDeletingPathExtension] stringByAppendingPathExtension:[NSString stringWithFormat:@"%d.tif", i+1]] atomically:NO];
 				
-				NSArray *representations;
-				NSData *bitmapData;
+				NSArray *representations = [im representations];
 				
-				representations = [im representations];
-				
-				bitmapData = [NSBitmapImageRep representationOfImageRepsInArray:representations usingType:NSJPEGFileType properties:[NSDictionary dictionaryWithObject:[NSDecimalNumber numberWithFloat:0.9] forKey:NSImageCompressionFactor]];
+				NSData *bitmapData = [NSBitmapImageRep representationOfImageRepsInArray:representations usingType:NSJPEGFileType properties:[NSDictionary dictionaryWithObject:[NSDecimalNumber numberWithFloat:0.9] forKey:NSImageCompressionFactor]];
 				
 				[bitmapData writeToFile:[[[panel filename] stringByDeletingPathExtension] stringByAppendingPathExtension:[NSString stringWithFormat:@"%d.jpg", i+1]] atomically:YES];
 			}
@@ -1456,16 +1450,14 @@ return YES;
 			
 			//[[im TIFFRepresentation] writeToFile:[panel filename] atomically:NO];
 			
-			NSArray *representations;
-			NSData *bitmapData;
+			NSArray *representations = [im representations];
 			
-			representations = [im representations];
-			
-			bitmapData = [NSBitmapImageRep representationOfImageRepsInArray:representations usingType:NSJPEGFileType properties:[NSDictionary dictionaryWithObject:[NSDecimalNumber numberWithFloat:0.9] forKey:NSImageCompressionFactor]];
+			NSData *bitmapData = [NSBitmapImageRep representationOfImageRepsInArray:representations usingType:NSJPEGFileType properties:[NSDictionary dictionaryWithObject:[NSDecimalNumber numberWithFloat:0.9] forKey:NSImageCompressionFactor]];
 			
 			[bitmapData writeToFile:[panel filename] atomically:YES];
 			
-			if ([[NSUserDefaults standardUserDefaults] boolForKey: @"OPENVIEWER"]) [ws openFile:[panel filename]];
+			if ([[NSUserDefaults standardUserDefaults] boolForKey: @"OPENVIEWER"])
+                [ws openFile:[panel filename]];
 		}
 	}
 }

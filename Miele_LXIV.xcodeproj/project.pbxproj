@@ -258,6 +258,7 @@
 		436F14BA217A0F7300EFC5CF /* libpng16.16.30.0.dylib in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 436F14B8217A0E0900EFC5CF /* libpng16.16.30.0.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		4373D61E2174A369000F4BE1 /* OPJSupport.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 434B461B1A19F631008CF8CF /* OPJSupport.cpp */; };
 		4373D6222174A8FF000F4BE1 /* libjpeg.9.dylib in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4373D6212174A8FF000F4BE1 /* libjpeg.9.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		43748A9F21B0213000A1446C /* Photos.icns in Resources */ = {isa = PBXBuildFile; fileRef = 43748A9E21B0212E00A1446C /* Photos.icns */; };
 		4378EBB8219F281300135BF5 /* OSIAutoroutingPreferencePanePref.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43A02C08219D865C00E788B6 /* OSIAutoroutingPreferencePanePref.xib */; };
 		4384743021AC842200FA56C2 /* DCM.h in Headers */ = {isa = PBXBuildFile; fileRef = 7E0B3A13067526A600908593 /* DCM.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4399FEC921762EE100011D9E /* libtiff.5.2.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4399FEC821762EE000011D9E /* libtiff.5.2.6.dylib */; };
@@ -823,7 +824,7 @@
 		A987966116DBAD3D00926023 /* NSImage+FrameworkImage.mm in Sources */ = {isa = PBXBuildFile; fileRef = A978DE7E0CB0D4BE00FB2C3D /* NSImage+FrameworkImage.mm */; };
 		A987966216DBAD3D00926023 /* NFHUDPopUpButton.mm in Sources */ = {isa = PBXBuildFile; fileRef = A978DE870CB0D4BE00FB2C3D /* NFHUDPopUpButton.mm */; };
 		A987966316DBAD3D00926023 /* ImageAndTextCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = BF5C0186065320A800BAFCF7 /* ImageAndTextCell.mm */; };
-		A987966416DBAD3D00926023 /* iPhoto.mm in Sources */ = {isa = PBXBuildFile; fileRef = CEA20534073A810100F0DAB7 /* iPhoto.mm */; };
+		A987966416DBAD3D00926023 /* Photos.mm in Sources */ = {isa = PBXBuildFile; fileRef = CEA20534073A810100F0DAB7 /* Photos.mm */; };
 		A987966516DBAD3D00926023 /* JPEGExif.mm in Sources */ = {isa = PBXBuildFile; fileRef = ABB230BA0C2F95DD00B38596 /* JPEGExif.mm */; };
 		A987966616DBAD3D00926023 /* KFSplitView.mm in Sources */ = {isa = PBXBuildFile; fileRef = A9EDB2CE091A473E00EE86AF /* KFSplitView.mm */; };
 		A987966716DBAD3D00926023 /* Mailer.mm in Sources */ = {isa = PBXBuildFile; fileRef = CEF0E60006AEF326001FF9E5 /* Mailer.mm */; };
@@ -1337,7 +1338,6 @@
 		A9FBD2A816DBE2DD003A0E04 /* InArrow.tif in Resources */ = {isa = PBXBuildFile; fileRef = BF398B8A065B124700AD1F25 /* InArrow.tif */; };
 		A9FBD2A916DBE2DD003A0E04 /* iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = CE2BFE56153B177C00037546 /* iPad.png */; };
 		A9FBD2AA16DBE2DD003A0E04 /* iPhone.tif in Resources */ = {isa = PBXBuildFile; fileRef = CE03A3CB0EA2AE0300951EF4 /* iPhone.tif */; };
-		A9FBD2AB16DBE2DD003A0E04 /* iPhoto.icns in Resources */ = {isa = PBXBuildFile; fileRef = CE99E88E073AB4C500725ABC /* iPhoto.icns */; };
 		A9FBD2AC16DBE2DD003A0E04 /* iPod.icns in Resources */ = {isa = PBXBuildFile; fileRef = ABE1E8AE0649F4150028E2E0 /* iPod.icns */; };
 		A9FBD2AD16DBE2DD003A0E04 /* JPEGSmall.tif in Resources */ = {isa = PBXBuildFile; fileRef = CEDEF7D50D020E9100CADB15 /* JPEGSmall.tif */; };
 		A9FBD2AE16DBE2DD003A0E04 /* key.png in Resources */ = {isa = PBXBuildFile; fileRef = AB9E05460B30107A00661F7E /* key.png */; };
@@ -1871,12 +1871,11 @@
 		CE97630008FABDA600E6F8B0 /* ROIManagerController.mm in Sources */ = {isa = PBXBuildFile; fileRef = CE9762FC08FABDA600E6F8B0 /* ROIManagerController.mm */; };
 		CE97630308FABDA600E6F8B0 /* PaletteController.mm in Sources */ = {isa = PBXBuildFile; fileRef = CE9762FF08FABDA600E6F8B0 /* PaletteController.mm */; };
 		CE995076183E05D60087E409 /* PerpendicularLines.pdf in Resources */ = {isa = PBXBuildFile; fileRef = CE995075183E05D60087E409 /* PerpendicularLines.pdf */; };
-		CE99E890073AB4C500725ABC /* iPhoto.icns in Resources */ = {isa = PBXBuildFile; fileRef = CE99E88E073AB4C500725ABC /* iPhoto.icns */; };
 		CE9C734A0B34946B0062FCCC /* echoscu in Resources */ = {isa = PBXBuildFile; fileRef = CE9C73490B34946B0062FCCC /* echoscu */; };
 		CE9DD284086B35050058DD2A /* DicomStudy.mm in Sources */ = {isa = PBXBuildFile; fileRef = CE9DD280086B35050058DD2A /* DicomStudy.mm */; };
 		CE9DD287086B35050058DD2A /* DicomSeries.mm in Sources */ = {isa = PBXBuildFile; fileRef = CE9DD283086B35050058DD2A /* DicomSeries.mm */; };
 		CE9E11D013DBB5DD008B2848 /* OsiriX.sdef in Resources */ = {isa = PBXBuildFile; fileRef = CE9E11CF13DBB5DD008B2848 /* OsiriX.sdef */; };
-		CEA20538073A810100F0DAB7 /* iPhoto.mm in Sources */ = {isa = PBXBuildFile; fileRef = CEA20534073A810100F0DAB7 /* iPhoto.mm */; };
+		CEA20538073A810100F0DAB7 /* Photos.mm in Sources */ = {isa = PBXBuildFile; fileRef = CEA20534073A810100F0DAB7 /* Photos.mm */; };
 		CEA4F07515AEA5FE009584C7 /* Cloud.png in Resources */ = {isa = PBXBuildFile; fileRef = CEA4F07215AEA5FE009584C7 /* Cloud.png */; };
 		CEA4F07715AEA5FE009584C7 /* OSIPACSOnDemandPreferencePane.mm in Sources */ = {isa = PBXBuildFile; fileRef = CEA4F07315AEA5FE009584C7 /* OSIPACSOnDemandPreferencePane.mm */; };
 		CEA6CC7318068CE900F5A748 /* Growl Registration Ticket.growlRegDict in Resources */ = {isa = PBXBuildFile; fileRef = CEA6CC7218068CE900F5A748 /* Growl Registration Ticket.growlRegDict */; };
@@ -3627,6 +3626,7 @@
 		436F14B8217A0E0900EFC5CF /* libpng16.16.30.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libpng16.16.30.0.dylib; path = "../../../../install/miele-201612/libpng-1.6.30/lib/libpng16.16.30.0.dylib"; sourceTree = "<group>"; };
 		4373D6212174A8FF000F4BE1 /* libjpeg.9.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libjpeg.9.dylib; path = "../../../../install/miele-201612/jpeg-9b/lib/libjpeg.9.dylib"; sourceTree = "<group>"; };
 		4373D6262174BC92000F4BE1 /* libopenjp2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libopenjp2.a; path = "../../../../install/miele-201612/openjpeg-2.2.0/lib/libopenjp2.a"; sourceTree = "<group>"; };
+		43748A9E21B0212E00A1446C /* Photos.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Photos.icns; sourceTree = "<group>"; };
 		438718A22067BDA9009575DB /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = ../../../../../../System/Library/Frameworks/AddressBook.framework; sourceTree = "<group>"; };
 		438718A42067BDE1009575DB /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = ../../../../../../System/Library/Frameworks/AVFoundation.framework; sourceTree = "<group>"; };
 		438718A72067BDF4009575DB /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = ../../../../../../System/Library/Frameworks/Carbon.framework; sourceTree = "<group>"; };
@@ -5013,15 +5013,14 @@
 		CE9762FE08FABDA600E6F8B0 /* PaletteController.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PaletteController.h; sourceTree = "<group>"; };
 		CE9762FF08FABDA600E6F8B0 /* PaletteController.mm */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.objcpp; path = PaletteController.mm; sourceTree = "<group>"; };
 		CE995075183E05D60087E409 /* PerpendicularLines.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = PerpendicularLines.pdf; sourceTree = "<group>"; };
-		CE99E88E073AB4C500725ABC /* iPhoto.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = iPhoto.icns; sourceTree = "<group>"; };
 		CE9C73490B34946B0062FCCC /* echoscu */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = echoscu; path = Binaries/DCMTK/bin/echoscu; sourceTree = SOURCE_ROOT; };
 		CE9DD280086B35050058DD2A /* DicomStudy.mm */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.objcpp; path = DicomStudy.mm; sourceTree = "<group>"; };
 		CE9DD281086B35050058DD2A /* DicomStudy.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = DicomStudy.h; sourceTree = "<group>"; };
 		CE9DD282086B35050058DD2A /* DicomSeries.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = DicomSeries.h; sourceTree = "<group>"; };
 		CE9DD283086B35050058DD2A /* DicomSeries.mm */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.objcpp; path = DicomSeries.mm; sourceTree = "<group>"; };
 		CE9E11CF13DBB5DD008B2848 /* OsiriX.sdef */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = OsiriX.sdef; sourceTree = "<group>"; };
-		CEA20533073A810100F0DAB7 /* iPhoto.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = iPhoto.h; sourceTree = "<group>"; };
-		CEA20534073A810100F0DAB7 /* iPhoto.mm */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.objcpp; path = iPhoto.mm; sourceTree = "<group>"; };
+		CEA20533073A810100F0DAB7 /* Photos.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Photos.h; sourceTree = "<group>"; };
+		CEA20534073A810100F0DAB7 /* Photos.mm */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.objcpp; path = Photos.mm; sourceTree = "<group>"; };
 		CEA4F07215AEA5FE009584C7 /* Cloud.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Cloud.png; path = "Preference Panes/OSIPACSOnDemandPreferencePane/Cloud.png"; sourceTree = "<group>"; };
 		CEA4F07315AEA5FE009584C7 /* OSIPACSOnDemandPreferencePane.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = OSIPACSOnDemandPreferencePane.mm; path = "Preference Panes/OSIPACSOnDemandPreferencePane/OSIPACSOnDemandPreferencePane.mm"; sourceTree = "<group>"; };
 		CEA4F07415AEA5FE009584C7 /* OSIPACSOnDemandPreferencePane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OSIPACSOnDemandPreferencePane.h; path = "Preference Panes/OSIPACSOnDemandPreferencePane/OSIPACSOnDemandPreferencePane.h"; sourceTree = "<group>"; };
@@ -7381,8 +7380,8 @@
 				ABC3E5510B330A58006704E3 /* DNDArrayController.h */,
 				BF5C0185065320A800BAFCF7 /* ImageAndTextCell.h */,
 				BF5C0186065320A800BAFCF7 /* ImageAndTextCell.mm */,
-				CEA20533073A810100F0DAB7 /* iPhoto.h */,
-				CEA20534073A810100F0DAB7 /* iPhoto.mm */,
+				CEA20533073A810100F0DAB7 /* Photos.h */,
+				CEA20534073A810100F0DAB7 /* Photos.mm */,
 				ABB230B90C2F95DD00B38596 /* JPEGExif.h */,
 				ABB230BA0C2F95DD00B38596 /* JPEGExif.mm */,
 				A9EDB2CD091A473E00EE86AF /* KFSplitView.h */,
@@ -8342,6 +8341,7 @@
 		ABBB647A063587B200D9531F /* Icons */ = {
 			isa = PBXGroup;
 			children = (
+				43748A9E21B0212E00A1446C /* Photos.icns */,
 				718416061654022400180467 /* DownArrowGreyRev.pdf */,
 				ABBB647B063587B200D9531F /* 2DBlending.tif */,
 				ABB7ADC4148CDDF2007D3C3F /* 2DMPRhorizontalPosition.tif */,
@@ -8432,7 +8432,6 @@
 				BF398B8A065B124700AD1F25 /* InArrow.tif */,
 				CE2BFE56153B177C00037546 /* iPad.png */,
 				CE03A3CB0EA2AE0300951EF4 /* iPhone.tif */,
-				CE99E88E073AB4C500725ABC /* iPhoto.icns */,
 				ABE1E8AE0649F4150028E2E0 /* iPod.icns */,
 				CEDEF7D50D020E9100CADB15 /* JPEGSmall.tif */,
 				AB9E05460B30107A00661F7E /* key.png */,
@@ -9345,7 +9344,6 @@
 				A9FBD2A816DBE2DD003A0E04 /* InArrow.tif in Resources */,
 				A9FBD2A916DBE2DD003A0E04 /* iPad.png in Resources */,
 				A9FBD2AA16DBE2DD003A0E04 /* iPhone.tif in Resources */,
-				A9FBD2AB16DBE2DD003A0E04 /* iPhoto.icns in Resources */,
 				A9FBD2AC16DBE2DD003A0E04 /* iPod.icns in Resources */,
 				A9FBD2AD16DBE2DD003A0E04 /* JPEGSmall.tif in Resources */,
 				A9FBD2AE16DBE2DD003A0E04 /* key.png in Resources */,
@@ -9597,7 +9595,6 @@
 				7E2BE3F50715DBFB0017898A /* Network.tif in Resources */,
 				7E2BE3FE0715DC0D0017898A /* StartupDisk.tif in Resources */,
 				7E2BE4190715E5040017898A /* CD.tif in Resources */,
-				CE99E890073AB4C500725ABC /* iPhoto.icns in Resources */,
 				CE49E2CA0760B93500444203 /* Empty.tif in Resources */,
 				CE16066E0769EFE60036CAD3 /* VR Muscles-Bones.plist in Resources */,
 				CE52264F077C48D900EED851 /* Sync.pdf in Resources */,
@@ -9800,6 +9797,7 @@
 				43A02C54219D883100E788B6 /* ROIDefaults.xib in Resources */,
 				A9D4D0490F738BEA00483A3A /* loupe.png in Resources */,
 				A9D4D06D0F73922500483A3A /* loupeMask.png in Resources */,
+				43748A9F21B0213000A1446C /* Photos.icns in Resources */,
 				CE1C4EF20FDA6F4600185561 /* nameDictionary.plist in Resources */,
 				CE1C4EF30FDA6F5300185561 /* tagDictionary.plist in Resources */,
 				43A02C96219D889700E788B6 /* AnonymizationCustomTagPanel.xib in Resources */,
@@ -10273,7 +10271,7 @@
 				A987966116DBAD3D00926023 /* NSImage+FrameworkImage.mm in Sources */,
 				A987966216DBAD3D00926023 /* NFHUDPopUpButton.mm in Sources */,
 				A987966316DBAD3D00926023 /* ImageAndTextCell.mm in Sources */,
-				A987966416DBAD3D00926023 /* iPhoto.mm in Sources */,
+				A987966416DBAD3D00926023 /* Photos.mm in Sources */,
 				A987966516DBAD3D00926023 /* JPEGExif.mm in Sources */,
 				A987966616DBAD3D00926023 /* KFSplitView.mm in Sources */,
 				A987966716DBAD3D00926023 /* Mailer.mm in Sources */,
@@ -10689,7 +10687,7 @@
 				7ECB4B42072EF9F800C2CFC4 /* DCMCalendarScript.mm in Sources */,
 				4310F7F420692C27000BDDCC /* jquant1.c in Sources */,
 				4310F84520692C27000BDDCC /* jquant2.c in Sources */,
-				CEA20538073A810100F0DAB7 /* iPhoto.mm in Sources */,
+				CEA20538073A810100F0DAB7 /* Photos.mm in Sources */,
 				7EB4AAE8079494CB007AD271 /* QueryArrayController.mm in Sources */,
 				7E54307807A05ED400500ABB /* BurnerWindowController.mm in Sources */,
 				CEDE5B6207F206B5003034B6 /* ROIDefaultsWindow.mm in Sources */,

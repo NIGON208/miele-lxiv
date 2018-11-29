@@ -218,28 +218,24 @@
 
 - (void) sendMailImage: (NSImage*) im
 {
-	Mailer		*email;
-	
-	NSArray *representations;
-	NSData *bitmapData;
+	NSArray *representations = [im representations];
 
-	representations = [im representations];
-
-	bitmapData = [NSBitmapImageRep representationOfImageRepsInArray:representations
+	NSData *bitmapData = [NSBitmapImageRep representationOfImageRepsInArray:representations
                                                           usingType:NSJPEGFileType
                                                          properties:[NSDictionary dictionaryWithObject:[NSDecimalNumber numberWithFloat:0.9]
                                                                                                 forKey:NSImageCompressionFactor]];
 
-	[bitmapData writeToFile:[[[[BrowserController currentBrowser] database] tempDirPath] stringByAppendingPathComponent:OUR_IMAGE_JPG] atomically:YES];
+    NSString *path = [[[[BrowserController currentBrowser] database] tempDirPath] stringByAppendingPathComponent:OUR_IMAGE_JPG];
+	[bitmapData writeToFile:path atomically:YES];
 				
-	email = [[Mailer alloc] init];
+	Mailer *email = [[Mailer alloc] init];
 	[email sendMail:@"--"
                  to:@"--"
             subject:@""
              isMIME:YES
                name:@"--"
             sendNow:NO
-              image:[[[[BrowserController currentBrowser] database] tempDirPath] stringByAppendingPathComponent:OUR_IMAGE_JPG]];
+              image:path];
 	
 	[email release];
 }

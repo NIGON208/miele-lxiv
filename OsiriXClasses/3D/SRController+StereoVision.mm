@@ -13,11 +13,10 @@
 =========================================================================*/
 #ifdef _STEREO_VISION_
 
-
 #import "SRController+StereoVision.h"
 #import "SRController.h"
 #import "DCMView.h"
-#import "iPhoto.h"
+#import "Photos.h"
 #import "SRView.h"
 #import	"SRView+StereoVision.h"
 #import "SRFlyThruAdapter.h"
@@ -29,7 +28,7 @@
 
 static NSString* 	MIPToolbarIdentifier				= @"SR Toolbar Identifier";
 static NSString*	QTExportToolbarItemIdentifier		= @"QTExport.pdf";
-static NSString*	iPhotoToolbarItemIdentifier			= @"iPhoto.icns";
+static NSString*	PhotosToolbarItemIdentifier			= @"Photos.icns";
 static NSString*	StereoIdentifier					= @"Stereo.icns";
 //static NSString*	QTExportVRToolbarItemIdentifier		= @"QTExportVR.icns";
 static NSString*	SRSettingsToolbarItemIdentifier		= @"SRSettings.tif";
@@ -175,12 +174,12 @@ static NSString*	BackgroundColorViewToolbarItemIdentifier		= @"BackgroundColorVi
 		[toolbarItem setTarget: view];
 		[toolbarItem setAction: @selector(exportQuicktime:)];
 	}
-	else if ([itemIdent isEqualToString: iPhotoToolbarItemIdentifier]) {
+	else if ([itemIdent isEqualToString: PhotosToolbarItemIdentifier]) {
 		
-		[toolbarItem setLabel: NSLocalizedString(@"iPhoto",nil)];
-		[toolbarItem setPaletteLabel: NSLocalizedString(@"iPhoto",nil)];
-		[toolbarItem setToolTip: NSLocalizedString(@"Export this series to iPhoto",nil)];
-		[toolbarItem setImage: [NSImage imageNamed: iPhotoToolbarItemIdentifier]];
+		[toolbarItem setLabel: NSLocalizedString(@"Photos",nil)];
+		[toolbarItem setPaletteLabel: NSLocalizedString(@"Photos",nil)];
+		[toolbarItem setToolTip: NSLocalizedString(@"Export this series to Photos",nil)];
+		[toolbarItem setImage: [NSImage imageNamed: PhotosToolbarItemIdentifier]];
 		[toolbarItem setTarget: self];
 		[toolbarItem setAction: @selector(export2iPhoto:)];
 	}

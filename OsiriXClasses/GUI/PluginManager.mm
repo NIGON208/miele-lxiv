@@ -82,7 +82,8 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
                                                error: nil];
 }
 
-+ (int) compareVersion: (NSString *) v1 withVersion: (NSString *) v2
++ (int) compareVersion: (NSString *) v1
+           withVersion: (NSString *) v2
 {
 	@try
 	{
@@ -115,7 +116,8 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
 			
 			if (n1 > n2)
 				return 1;
-			else if (n1 < n2)
+
+            if (n1 < n2)
 				return -1;
 		}
 		
@@ -125,7 +127,8 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
 	{
 		return -1;
 	}
-	return -1;
+
+    return -1;
 }
 
 + (BOOL) isComPACS
@@ -628,8 +631,10 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
                         {
                             [pluginsBundleDictionary setObject: plugin forKey: pathResolved];
                             
+                            // First try CFBundleVersion
                             NSString *version = [[plugin infoDictionary] valueForKey: (NSString*) kCFBundleVersionKey];
                             
+                            // If CFBundleVersion is missing, try CFBundleShortVersionString
                             if (version == nil)
                                 version = [[plugin infoDictionary] valueForKey: @"CFBundleShortVersionString"];
                             
@@ -1425,7 +1430,7 @@ NSInteger sortPluginArray(id plugin1, id plugin2, void *context)
 					CFDictionaryRef bundleInfoDict = CFBundleCopyInfoDictionaryInDirectory((CFURLRef)bundleURL);
 								
 					CFStringRef versionString = nil;
-					if (bundleInfoDict != NULL)
+					if (bundleInfoDict)
 					{
 						versionString = (CFStringRef)CFDictionaryGetValue(bundleInfoDict, CFSTR("CFBundleVersion"));
 					
@@ -1434,14 +1439,14 @@ NSInteger sortPluginArray(id plugin1, id plugin2, void *context)
 					}
 					
 					NSString *pluginVersion;
-					if (versionString != NULL)
+					if (versionString)
 						pluginVersion = (NSString*)versionString;
 					else
 						pluginVersion = @"";
 						
 					[pluginDescription setObject:pluginVersion forKey:@"version"];
 					
-					if (bundleInfoDict != NULL)
+					if (bundleInfoDict)
 						CFRelease( bundleInfoDict);
 					
 					// plugin description dictionary
@@ -1507,10 +1512,15 @@ NSInteger sortPluginArray(id plugin1, id plugin2, void *context)
 			{
 				NSString *currVersion = [installedPlugin objectForKey:@"version"];
 				NSString *onlineVersion = [onlinePlugin objectForKey:@"version"];
+                NSLog(@"currVersion:%@, onlineVersion:%@", currVersion, onlineVersion);
 				
-				if (currVersion && onlineVersion && [currVersion length] > 0 && [currVersion length] > 0)
+				if (currVersion &&
+                    onlineVersion &&
+                    [currVersion length] > 0 &&
+                    [currVersion length] > 0)
 				{
-					if ([currVersion isEqualToString:onlineVersion] == NO && [PluginManager compareVersion: currVersion withVersion: onlineVersion] < 0)
+					if ([currVersion isEqualToString:onlineVersion] == NO &&
+                        [PluginManager compareVersion: currVersion withVersion: onlineVersion] < 0)
 					{
 						NSLog( @"PLUGIN UPDATE NEEDED -------> current vers: %@ versus online vers: %@ - %@", currVersion, onlineVersion, pluginName);
 						NSMutableDictionary *modifiedOnlinePlugin = [NSMutableDictionary dictionaryWithDictionary:onlinePlugin];

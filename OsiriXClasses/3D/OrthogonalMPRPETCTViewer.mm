@@ -2124,20 +2124,17 @@ return YES;
 
 -(void) sendMail:(id) sender
 {
-	Mailer		*email;
-	NSImage		*im = [[self keyView] nsimage:NO];
+	NSImage *im = [[self keyView] nsimage:NO];
 
-	NSArray *representations;
-	NSData *bitmapData;
+	NSArray *representations = [im representations];
 
-	representations = [im representations];
+	NSData *bitmapData = [NSBitmapImageRep representationOfImageRepsInArray:representations usingType:NSJPEGFileType properties:[NSDictionary dictionaryWithObject:[NSDecimalNumber numberWithFloat:0.9] forKey:NSImageCompressionFactor]];
 
-	bitmapData = [NSBitmapImageRep representationOfImageRepsInArray:representations usingType:NSJPEGFileType properties:[NSDictionary dictionaryWithObject:[NSDecimalNumber numberWithFloat:0.9] forKey:NSImageCompressionFactor]];
-
-	[bitmapData writeToFile:[[[BrowserController currentBrowser] documentsDirectory] stringByAppendingFormat:@"/TEMP.noindex/%@", OUR_IMAGE_JPG]
+    NSString *path = [[[BrowserController currentBrowser] documentsDirectory] stringByAppendingFormat:@"/TEMP.noindex/%@", OUR_IMAGE_JPG];
+	[bitmapData writeToFile:path
                  atomically:YES];
 				
-	email = [[Mailer alloc] init];
+	Mailer *email = [[Mailer alloc] init];
 	
 	[email sendMail:@"--"
                  to:@"--"
@@ -2145,7 +2142,7 @@ return YES;
              isMIME:YES
                name:@"--"
             sendNow:NO
-              image:[[[BrowserController currentBrowser] documentsDirectory] stringByAppendingFormat:@"/TEMP.noindex/%@", OUR_IMAGE_JPG]];
+              image:path];
 	
 	[email release];
 }
@@ -2203,7 +2200,7 @@ return YES;
 				max = [[view curDCM] pheight];
 			}
 			
-			for( i = 0; i < max; i++)
+			for (i = 0; i < max; i++)
 			{
 				[view setCrossPosition:x+i*deltaX+0.5 :y+i*deltaY+0.5];
 				[modalitySplitView display];
@@ -2211,13 +2208,10 @@ return YES;
 				NSImage *im = [[self keyView] nsimage:NO];
 				
 				//[[im TIFFRepresentation] writeToFile:[[[panel filename] stringByDeletingPathExtension] stringByAppendingPathExtension:[NSString stringWithFormat:@"%d.tif", i+1]] atomically:NO];
-				
-				NSArray *representations;
-				NSData *bitmapData;
 
-				representations = [im representations];
+                NSArray *representations = [im representations];
 
-				bitmapData = [NSBitmapImageRep representationOfImageRepsInArray:representations usingType:NSJPEGFileType properties:[NSDictionary dictionaryWithObject:[NSDecimalNumber numberWithFloat:0.9] forKey:NSImageCompressionFactor]];
+				NSData *bitmapData = [NSBitmapImageRep representationOfImageRepsInArray:representations usingType:NSJPEGFileType properties:[NSDictionary dictionaryWithObject:[NSDecimalNumber numberWithFloat:0.9] forKey:NSImageCompressionFactor]];
 
 				[bitmapData writeToFile:[[[panel filename] stringByDeletingPathExtension] stringByAppendingPathExtension:[NSString stringWithFormat:@"%d.jpg", i+1]] atomically:YES];
 			}
@@ -2235,17 +2229,15 @@ return YES;
 			NSImage *im = [[self keyView] nsimage:NO];
 			
 			//[[im TIFFRepresentation] writeToFile:[panel filename] atomically:NO];
+
+			NSArray *representations = [im representations];
 			
-			NSArray *representations;
-			NSData *bitmapData;
-			
-			representations = [im representations];
-			
-			bitmapData = [NSBitmapImageRep representationOfImageRepsInArray:representations usingType:NSJPEGFileType properties:[NSDictionary dictionaryWithObject:[NSDecimalNumber numberWithFloat:0.9] forKey:NSImageCompressionFactor]];
+			NSData *bitmapData = [NSBitmapImageRep representationOfImageRepsInArray:representations usingType:NSJPEGFileType properties:[NSDictionary dictionaryWithObject:[NSDecimalNumber numberWithFloat:0.9] forKey:NSImageCompressionFactor]];
 			
 			[bitmapData writeToFile:[panel filename] atomically:YES];
 			
-			if ([[NSUserDefaults standardUserDefaults] boolForKey: @"OPENVIEWER"]) [ws openFile:[panel filename]];
+			if ([[NSUserDefaults standardUserDefaults] boolForKey: @"OPENVIEWER"])
+                [ws openFile:[panel filename]];
 		}
 	}
 }

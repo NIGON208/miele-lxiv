@@ -23,11 +23,9 @@
 #import "DCMPix.h"
 #import "DicomImage.h"
 #import "VRController.h"
-//#import "VRControllerVPRO.h"
 #import "NSSplitViewSave.h"
 #import "SRController.h"
 #import "OsiriXToolbar.h"
-//#import "MPR2DController.h"
 #import "NSFullScreenWindow.h"
 #import "ViewerController.h"
 #import "BrowserController.h"
@@ -50,7 +48,7 @@
 #import "ITKSegmentation3DController.h"
 #import "ITKSegmentation3D.h"
 #import "OSIWindow.h"
-#import "iPhoto.h"
+#import "Photos.h"
 #import "SeriesView.h"
 #import "DICOMExport.h"
 #import "ROIVolumeController.h"
@@ -108,15 +106,26 @@ int delayedTileWindows = NO;
 
 #define MAXSCREENS 10
 
+#define TAG_EXPORT_FORMAT_JPEG                  0
+#define TAG_EXPORT_FORMAT_TIFF                  1
+#define TAG_EXPORT_FORMAT_IPHOTO                2  // TODO: update to Photos
+#define TAG_EXPORT_FORMAT_MAIL                  3
+
+#define TAG_EXPORT_SELECTION_CURRENT_IMAGE      0
+#define TAG_EXPORT_SELECTION_ALL_IMAGES         1
+#define TAG_EXPORT_SELECTION_KEY_IMAGE          2   // key images and ROIs
+
+#define EXIF_USER_COMMENT                       @"Exported from Miele-LXIV"
+
 extern ThumbnailsListPanel *thumbnailsListPanel[ MAXSCREENS];
 
 extern BOOL FULL32BITPIPELINE;
 
-static	BOOL SYNCSERIES = NO, ViewBoundsDidChangeProtect = NO, recursiveCloseWindowsProtected = NO;
+static BOOL SYNCSERIES = NO, ViewBoundsDidChangeProtect = NO, recursiveCloseWindowsProtected = NO;
 
 static NSString* ViewerToolbarIdentifier				= @"Viewer Toolbar Identifier";
 static NSString*	QTSaveToolbarItemIdentifier			= @"QTExport.pdf";
-static NSString*	iPhotoToolbarItemIdentifier			= @"iPhoto2";
+static NSString*	PhotosToolbarItemIdentifier			= @"Photos";
 static NSString*	PlayToolbarItemIdentifier			= @"Play.pdf";
 static NSString*	PauseToolbarItemIdentifier			= @"Pause.pdf";
 static NSString*	XMLToolbarItemIdentifier			= @"XML.icns";
@@ -454,10 +463,6 @@ static NSMutableDictionary *cachedFrontMostDisplayed2DViewerForScreen = nil;
 {
     cachedFrontMostDisplayed2DViewer = nil;
     [cachedFrontMostDisplayed2DViewerForScreen removeAllObjects];
-    
-#ifndef NDEBUG
-    NSLog( @"clearFrontMost2DViewerCache");
-#endif
 }
 
 + (ViewerController*) frontMostDisplayed2DViewerForScreen: (NSScreen*) screen
@@ -6723,13 +6728,13 @@ static ViewerController *draggedController = nil;
 		[toolbarItem setTarget: self];
 		[toolbarItem setAction: @selector(printDICOM:)];
     }
-	else  if ([itemIdent isEqualToString: iPhotoToolbarItemIdentifier]) {
+	else  if ([itemIdent isEqualToString: PhotosToolbarItemIdentifier]) {
         
-	[toolbarItem setLabel: NSLocalizedString(@"iPhoto", nil)];
-	[toolbarItem setPaletteLabel: NSLocalizedString(@"iPhoto", nil)];
-	[toolbarItem setToolTip: NSLocalizedString(@"Export this image to iPhoto", nil)];
+	[toolbarItem setLabel: NSLocalizedString(@"Photos", nil)];
+	[toolbarItem setPaletteLabel: NSLocalizedString(@"Photos", nil)];
+	[toolbarItem setToolTip: NSLocalizedString(@"Export this image to Photos", nil)];
 	
-	[toolbarItem setImage: [NSImage imageNamed: @"iPhoto"]];
+	[toolbarItem setImage: [NSImage imageNamed: @"Photos"]];
 	[toolbarItem setTarget: self];
 	[toolbarItem setAction: @selector(export2iPhoto:)];
     }
@@ -7308,7 +7313,7 @@ static ViewerController *draggedController = nil;
 														Send2PACSToolbarItemIdentifier,
 														PrintToolbarItemIdentifier,
 														ExportToolbarItemIdentifier,
-														iPhotoToolbarItemIdentifier,
+														PhotosToolbarItemIdentifier,
 														QTSaveToolbarItemIdentifier,
 														XMLToolbarItemIdentifier,
 														ReconstructionToolbarItemIdentifier,
@@ -20944,12 +20949,16 @@ static BOOL viewerControllerPlaying = NO;
 	if ([[[NSApplication sharedApplication] currentEvent] modifierFlags] & NSEventModifierFlagOption)
         [self endExportImage: nil];
 	else
-        [NSApp beginSheet: imageExportWindow modalForWindow:[self window] modalDelegate:self didEndSelector:nil contextInfo:nil];
+        [NSApp beginSheet: imageExportWindow
+           modalForWindow: [self window]
+            modalDelegate: self
+           didEndSelector: nil
+              contextInfo: nil];
 }
 
 -(void) sendMail:(id) sender
 {
-	[imageFormat selectCellWithTag: 3];
+	[imageFormat selectCellWithTag: TAG_EXPORT_FORMAT_MAIL];
 	
 	[self exportImage: sender];
 	
@@ -20974,14 +20983,14 @@ static BOOL viewerControllerPlaying = NO;
 
 - (void) exportJPEG:(id) sender
 {
-	[imageFormat selectCellWithTag: 0];
+	[imageFormat selectCellWithTag: TAG_EXPORT_FORMAT_JPEG];
 	
 	[self exportImage: sender];
 }
 
 -(IBAction) export2iPhoto:(id) sender
-{
-	[imageFormat selectCellWithTag: 2];
+{   NSLog(@"%s:%i", __FILE__, __LINE__);
+	[imageFormat selectCellWithTag: TAG_EXPORT_FORMAT_IPHOTO];
 	
 	[self exportImage: sender];
 }
@@ -21212,7 +21221,7 @@ static BOOL viewerControllerPlaying = NO;
 
 - (void) exportTIFF:(id) sender
 {
-	[imageFormat selectCellWithTag: 1];
+	[imageFormat selectCellWithTag: TAG_EXPORT_FORMAT_TIFF];
 	
 	[self exportImage: sender];
 }
@@ -21236,10 +21245,10 @@ static BOOL viewerControllerPlaying = NO;
 		else
 			index = i;
 		
-		if ([[imageSelection selectedCell] tag] == 1)	// All images
+		if ([[imageSelection selectedCell] tag] == TAG_EXPORT_SELECTION_ALL_IMAGES)
 			_export = YES;
 		
-		if ([[imageSelection selectedCell] tag] == 2)	// Keyimages & ROIs only
+		if ([[imageSelection selectedCell] tag] == TAG_EXPORT_SELECTION_KEY_IMAGE)
 		{
 			Dicom_Image *image = [[self fileList] objectAtIndex: index];
 			
@@ -21252,7 +21261,7 @@ static BOOL viewerControllerPlaying = NO;
             }
 		}
 		
-		if ([[imageSelection selectedCell] tag] == 0)	// Current image only
+		if ([[imageSelection selectedCell] tag] == TAG_EXPORT_SELECTION_CURRENT_IMAGE)
 		{
 			if (index == [imageView curImage])
                 _export = YES;
@@ -21264,18 +21273,15 @@ static BOOL viewerControllerPlaying = NO;
 			numberOfExportedImages++;
 	}
 	
-	NSSavePanel     *panel = [NSSavePanel savePanel];
-	long			i;
-	NSWorkspace		*ws = [NSWorkspace sharedWorkspace];
+	NSSavePanel *panel = [NSSavePanel savePanel];
+	NSWorkspace *ws = [NSWorkspace sharedWorkspace];
 	
 	[panel setCanSelectHiddenExtension:YES];
 	
-    if ([[imageFormat selectedCell] tag] == 0) {
-		//[panel setRequiredFileType:@"jpg"];
+    if ([[imageFormat selectedCell] tag] == TAG_EXPORT_FORMAT_JPEG) {
         [panel setAllowedFileTypes: @[@"jpg"]];
     }
     else {
-		//[panel setRequiredFileType:@"tif"];
         [panel setAllowedFileTypes: @[@"tif"]];
     }
 		
@@ -21283,7 +21289,8 @@ static BOOL viewerControllerPlaying = NO;
 	{
 		BOOL pathOK = YES;
 		
-		if ([[imageFormat selectedCell] tag] != 2 && [[imageFormat selectedCell] tag] != 3)		//Mail or iPhoto
+		if ([[imageFormat selectedCell] tag] != TAG_EXPORT_FORMAT_IPHOTO &&
+            [[imageFormat selectedCell] tag] != TAG_EXPORT_FORMAT_MAIL)
 		{
 			NSString *defaultExportName = [[fileList[ curMovieIndex] objectAtIndex:0] valueForKeyPath:@"series.name"];
 			
@@ -21295,17 +21302,17 @@ static BOOL viewerControllerPlaying = NO;
 				pathOK = NO;
 		}
 		
-		if (pathOK == YES)
+		if (pathOK)
 		{
-			[[NSFileManager defaultManager] removeItemAtPath: [[[[BrowserController currentBrowser] database] tempDirPath] stringByAppendingPathComponent:@"EXPORT"] error:nil];
-			[[NSFileManager defaultManager] createDirectoryAtPath:[[[[BrowserController currentBrowser] database] tempDirPath] stringByAppendingPathComponent:@"EXPORT"]
+            NSString *path1 = [[[[BrowserController currentBrowser] database] tempDirPath] stringByAppendingPathComponent:@"EXPORT"];
+			[[NSFileManager defaultManager] removeItemAtPath: path1 error:nil];
+
+            [[NSFileManager defaultManager] createDirectoryAtPath:path1
                                       withIntermediateDirectories:YES
                                                        attributes:nil
                                                             error:nil];
 		
-			int fileIndex;
-			
-			for (i = 0, fileIndex = 1; i < [pixList[ curMovieIndex] count]; i++)
+			for (long i = 0L, fileIndex = 1L; i < [pixList[ curMovieIndex] count]; i++)
 			{
 				BOOL _export = YES;
 				int index;
@@ -21315,12 +21322,12 @@ static BOOL viewerControllerPlaying = NO;
 				else
 					index = i;
 				
-				if ([[imageSelection selectedCell] tag] == 1)	// All images
+				if ([[imageSelection selectedCell] tag] == TAG_EXPORT_SELECTION_ALL_IMAGES)
 				{
 					_export = YES;
 				}
 				
-				if ([[imageSelection selectedCell] tag] == 2)	// Keyimages only
+				if ([[imageSelection selectedCell] tag] == TAG_EXPORT_SELECTION_KEY_IMAGE)
 				{
 					Dicom_Image *image = [[self fileList] objectAtIndex: index];
 					
@@ -21333,7 +21340,7 @@ static BOOL viewerControllerPlaying = NO;
                     }
 				}
 				
-				if ([[imageSelection selectedCell] tag] == 0)	// Current image only
+				if ([[imageSelection selectedCell] tag] == TAG_EXPORT_SELECTION_CURRENT_IMAGE)
 				{
 					if (index == [imageView curImage])
                         _export = YES;
@@ -21349,12 +21356,12 @@ static BOOL viewerControllerPlaying = NO;
 					
 					NSImage *im = [imageView nsimage: NO allViewers:[imageAllViewers state]];
 					
-					NSArray *representations;
 					NSData *bitmapData;
 
-					representations = [im representations];
+					NSArray *representations = [im representations];
 					
-					if ([[imageFormat selectedCell] tag] == 2 || [[imageFormat selectedCell] tag] == 3)		//Mail or iPhoto
+					if ([[imageFormat selectedCell] tag] == TAG_EXPORT_FORMAT_IPHOTO ||
+                        [[imageFormat selectedCell] tag] == TAG_EXPORT_FORMAT_MAIL)
 					{
 //						if ([[NSUserDefaults standardUserDefaults] boolForKey: @"exportImageInGrayColorSpace"] && ) // 8-bit
 //						{
@@ -21364,14 +21371,14 @@ static BOOL viewerControllerPlaying = NO;
 //						else
 							bitmapData = [NSBitmapImageRep representationOfImageRepsInArray:representations usingType:NSJPEGFileType properties:[NSDictionary dictionaryWithObject:[NSDecimalNumber numberWithFloat:0.9] forKey:NSImageCompressionFactor]];
 
-						NSString *jpegFile = [[[[[BrowserController currentBrowser] database] tempDirPath] stringByAppendingPathComponent:@"EXPORT"] stringByAppendingPathComponent:[NSString stringWithFormat:@"%4.4d.jpg", fileIndex++]];
+                        NSString *jpegFile = [[[[[BrowserController currentBrowser] database] tempDirPath] stringByAppendingPathComponent:@"EXPORT"] stringByAppendingPathComponent:[NSString stringWithFormat:@"%4.4ld.jpg", fileIndex++]];
 						
 						[bitmapData writeToFile: jpegFile atomically:YES];
 						
 						Dicom_Image *curImage = [fileList[ 0] objectAtIndex:0];
 						
 						NSDictionary *exifDict = [NSDictionary dictionaryWithObjectsAndKeys:
-                                                  @"Exported from OsiriX", kCGImagePropertyExifUserComment,
+                                                  EXIF_USER_COMMENT, kCGImagePropertyExifUserComment,
                                                   [curImage.series.study.date descriptionWithCalendarFormat:@"%Y:%m:%d %H:%M:%S" timeZone:nil locale: nil] , kCGImagePropertyExifDateTimeOriginal,
                                                   nil];
 						
@@ -21379,12 +21386,12 @@ static BOOL viewerControllerPlaying = NO;
 					}
 					else
 					{
-						if ([[imageFormat selectedCell] tag] == 0)
+						if ([[imageFormat selectedCell] tag] == TAG_EXPORT_FORMAT_JPEG)
 						{
 							NSString *jpegFile;
 							
 							if (numberOfExportedImages > 1)
-								jpegFile = [[[[panel filename] stringByDeletingPathExtension] stringByDeletingPathExtension] stringByAppendingPathExtension:[NSString stringWithFormat:@"%4.4d.jpg", fileIndex++]];
+                                jpegFile = [[[[panel filename] stringByDeletingPathExtension] stringByDeletingPathExtension] stringByAppendingPathExtension:[NSString stringWithFormat:@"%4.4ld.jpg", fileIndex++]];
 							else
 								jpegFile = [panel filename];
 							
@@ -21401,7 +21408,7 @@ static BOOL viewerControllerPlaying = NO;
 							Dicom_Image *curImage = [fileList[0] objectAtIndex:0];
 						
 							NSDictionary *exifDict = [NSDictionary dictionaryWithObjectsAndKeys:
-                                                      @"Exported from OsiriX", kCGImagePropertyExifUserComment,
+                                                      EXIF_USER_COMMENT, kCGImagePropertyExifUserComment,
                                                       [curImage.series.study.date descriptionWithCalendarFormat:@"%Y:%m:%d %H:%M:%S" timeZone:nil locale: nil] , kCGImagePropertyExifDateTimeOriginal,
                                                       nil];
 							
@@ -21412,7 +21419,7 @@ static BOOL viewerControllerPlaying = NO;
 							NSString *tiffFile;
 						
 							if (numberOfExportedImages > 1)
-								tiffFile = [[[[panel filename] stringByDeletingPathExtension] stringByDeletingPathExtension] stringByAppendingPathExtension:[NSString stringWithFormat:@"%4.4d.tif", fileIndex++]];
+                                tiffFile = [[[[panel filename] stringByDeletingPathExtension] stringByDeletingPathExtension] stringByAppendingPathExtension:[NSString stringWithFormat:@"%4.4ld.tif", fileIndex++]];
 							else
 								tiffFile = [panel filename];
 							
@@ -21428,16 +21435,16 @@ static BOOL viewerControllerPlaying = NO;
 				}
 			}
 			
-			NSString *root = [[[[BrowserController currentBrowser] database] tempDirPath] stringByAppendingPathComponent:@"EXPORT"];
+			NSString *rootDir = [[[[BrowserController currentBrowser] database] tempDirPath] stringByAppendingPathComponent:@"EXPORT"];
 			
-			if ([[imageFormat selectedCell] tag] == 2) // iPhoto
+			if ([[imageFormat selectedCell] tag] == TAG_EXPORT_FORMAT_IPHOTO)
 			{
-				iPhoto	*ifoto = [[iPhoto alloc] init];
-				[ifoto importIniPhoto: [NSArray arrayWithObject: root]];
-				[ifoto release];
+				Photos *photos = [[Photos alloc] init];
+				[photos importIniPhoto: [NSArray arrayWithObject: rootDir]];
+				[photos release];
 			}
 			
-			if ([[imageFormat selectedCell] tag] == 3)	// Mail
+			if ([[imageFormat selectedCell] tag] == TAG_EXPORT_FORMAT_MAIL)
 			{
 #define kScriptName (@"Mail")
 #define kScriptType (@"scpt")
@@ -21515,13 +21522,14 @@ static BOOL viewerControllerPlaying = NO;
 				[arguments release];
 			}
 			
-			if ([[imageFormat selectedCell] tag] == 0 || [[imageFormat selectedCell] tag] == 1)
+			if ([[imageFormat selectedCell] tag] == TAG_EXPORT_FORMAT_JPEG ||
+                [[imageFormat selectedCell] tag] == TAG_EXPORT_FORMAT_TIFF)
 			{
 				NSString	*filePath;
 				
 				if (numberOfExportedImages > 1)
 				{
-					if ([[imageFormat selectedCell] tag] == 0)
+					if ([[imageFormat selectedCell] tag] == TAG_EXPORT_FORMAT_JPEG)
 						filePath = [[[[panel filename] stringByDeletingPathExtension] stringByDeletingPathExtension] stringByAppendingPathExtension:[NSString stringWithFormat:@"%4.4d.jpg", 1]];
 					else
 						filePath = [[[[panel filename] stringByDeletingPathExtension] stringByDeletingPathExtension] stringByAppendingPathExtension:[NSString stringWithFormat:@"%4.4d.tif", 1]];
@@ -21551,7 +21559,7 @@ static BOOL viewerControllerPlaying = NO;
 //				
 //				representations = [im representations];
 //				
-//				if ([[imageFormat selectedCell] tag] == 2)	// ifoto
+//				if ([[imageFormat selectedCell] tag] == TAG_EXPORT_FORMAT_IPHOTO)
 //				{
 //					bitmapData = [NSBitmapImageRep representationOfImageRepsInArray:representations usingType:NSJPEGFileType properties:[NSDictionary dictionaryWithObject:[NSDecimalNumber numberWithFloat:0.9] forKey:NSImageCompressionFactor]];
 //					
@@ -21562,19 +21570,19 @@ static BOOL viewerControllerPlaying = NO;
 //					NSManagedObject	*curImage = [fileList[0] objectAtIndex:0];
 //								
 //					NSDictionary *exifDict = [NSDictionary dictionaryWithObjectsAndKeys:
-//													@"Exported from OsiriX", kCGImagePropertyExifUserComment,
+//													EXIF_USER_COMMENT, kCGImagePropertyExifUserComment,
 //													[[curImage valueForKeyPath: @"series.study.date"] descriptionWithCalendarFormat:@"%Y:%m:%d %H:%M:%S" timeZone:nil locale: nil] , kCGImagePropertyExifDateTimeOriginal,
 //													nil];
 //
 //					[JPEGExif addExif: [NSURL fileURLWithPath: jpegFile] properties: exifDict format:@"jpeg"];
 //					
-//					iPhoto	*ifoto = [[iPhoto alloc] init];
-//					[ifoto importIniPhoto: [NSArray arrayWithObject: jpegFile]];
-//					[ifoto release];
+//					Photos	*photos = [[Photos alloc] init];
+//					[photos importIniPhoto: [NSArray arrayWithObject: jpegFile]];
+//					[photos release];
 //				}
 //				else
 //				{
-//					if ([[imageFormat selectedCell] tag] == 0)
+//					if ([[imageFormat selectedCell] tag] == TAG_EXPORT_FORMAT_JPEG)
 //					{
 //						bitmapData = [NSBitmapImageRep representationOfImageRepsInArray:representations usingType:NSJPEGFileType properties:[NSDictionary dictionaryWithObject:[NSDecimalNumber numberWithFloat:0.9] forKey:NSImageCompressionFactor]];
 //						[bitmapData writeToFile:[panel filename] atomically:YES];
@@ -21582,7 +21590,7 @@ static BOOL viewerControllerPlaying = NO;
 //						NSManagedObject	*curImage = [fileList[0] objectAtIndex:0];
 //						
 //						NSDictionary *exifDict = [NSDictionary dictionaryWithObjectsAndKeys:
-//															@"Exported from OsiriX", kCGImagePropertyExifUserComment,
+//															EXIF_USER_COMMENT, kCGImagePropertyExifUserComment,
 //															[[curImage valueForKeyPath: @"series.study.date"] descriptionWithCalendarFormat:@"%Y:%m:%d %H:%M:%S" timeZone:nil locale: nil] , kCGImagePropertyExifDateTimeOriginal,
 //															nil];
 //
@@ -21597,7 +21605,7 @@ static BOOL viewerControllerPlaying = NO;
 //						NSManagedObject	*curImage = [fileList[0] objectAtIndex:0];
 //						
 //						NSDictionary *exifDict = [NSDictionary dictionaryWithObjectsAndKeys:
-//															@"Exported from OsiriX", kCGImagePropertyExifUserComment,
+//															EXIF_USER_COMMENT, kCGImagePropertyExifUserComment,
 //															[[curImage valueForKeyPath: @"series.study.date"] descriptionWithCalendarFormat:@"%Y:%m:%d %H:%M:%S" timeZone:nil locale: nil] , kCGImagePropertyExifDateTimeOriginal,
 //															nil];
 //
