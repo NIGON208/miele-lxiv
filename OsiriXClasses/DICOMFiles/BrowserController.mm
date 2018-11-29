@@ -7164,9 +7164,17 @@ static NSConditionLock *threadLock = nil;
             return NO;
     }
     
-	[pboard declareTypes: [NSArray arrayWithObjects: @"BrowserController.database.context.XIDs", O2AlbumDragType, NSFilesPromisePboardType, NSFilenamesPboardType, NSStringPboardType, nil] owner:self];
+	[pboard declareTypes: [NSArray arrayWithObjects:
+                           @"BrowserController.database.context.XIDs",
+                           O2AlbumDragType,
+                           (__bridge NSString *)kPasteboardTypeFileURLPromise,
+                           NSFilenamesPboardType,
+                           NSPasteboardTypeString,
+                           nil]
+                   owner:self];
 	[pboard setPropertyList:nil forType:O2AlbumDragType];
-    [pboard setPropertyList:[NSArray arrayWithObject:@"dcm"] forType:NSFilesPromisePboardType];
+    [pboard setPropertyList:[NSArray arrayWithObject:@"dcm"]
+                    forType:(__bridge NSString *)kPasteboardTypeFileURLPromise];
 	[pboard setPropertyList:[NSPropertyListSerialization dataFromPropertyList:[pbItems valueForKey:@"XID"] format:NSPropertyListBinaryFormat_v1_0 errorDescription:NULL] forType:@"BrowserController.database.context.XIDs"];
 	
 	return YES;
@@ -8992,9 +9000,9 @@ static NSConditionLock *threadLock = nil;
 - (IBAction) pasteImageForSourceFile: (NSString*) sourceFile
 {
 	// If the clipboard contains an image -> generate a SC DICOM file corresponding to the selected patient
-	if ([[NSPasteboard generalPasteboard] dataForType: NSTIFFPboardType])
+	if ([[NSPasteboard generalPasteboard] dataForType: NSPasteboardTypeTIFF])
 	{
-		NSImage *image = [[[NSImage alloc] initWithData: [[NSPasteboard generalPasteboard] dataForType: NSTIFFPboardType]] autorelease];
+		NSImage *image = [[[NSImage alloc] initWithData: [[NSPasteboard generalPasteboard] dataForType: NSPasteboardTypeTIFF]] autorelease];
 		
 		if (sourceFile)
 		{
@@ -9072,7 +9080,7 @@ static NSConditionLock *threadLock = nil;
 {
     NSPasteboard *pb = [NSPasteboard generalPasteboard];
 	
-	[pb declareTypes:[NSArray arrayWithObject:NSStringPboardType] owner:self];
+	[pb declareTypes:[NSArray arrayWithObject:NSPasteboardTypeString] owner:self];
 	
 	NSString *string;
 	
@@ -9081,7 +9089,7 @@ static NSConditionLock *threadLock = nil;
 	else 
 		string = [self exportDBListOnlySelected: YES];
 	
-	[pb setString: string forType:NSStringPboardType];
+	[pb setString: string forType:NSPasteboardTypeString];
 }
 
 - (IBAction) saveDBListAs:(id) sender

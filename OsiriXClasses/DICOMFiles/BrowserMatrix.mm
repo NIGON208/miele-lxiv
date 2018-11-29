@@ -154,9 +154,17 @@ static NSString *albumDragType = @"Osirix Album drag";
 		
 		NSPasteboard *pboard = [NSPasteboard pasteboardWithName: NSDragPboard]; 
 		
-		[pboard declareTypes:[NSArray arrayWithObjects: @"BrowserController.database.context.XIDs", albumDragType, NSFilesPromisePboardType, NSFilenamesPboardType, NSStringPboardType, nil]  owner:self];
+		[pboard declareTypes:[NSArray arrayWithObjects:
+                              @"BrowserController.database.context.XIDs",
+                              albumDragType,
+                              (__bridge NSString *)kPasteboardTypeFileURLPromise,
+                              NSFilenamesPboardType,
+                              NSPasteboardTypeString,
+                              nil]
+                       owner:self];
 		[pboard setPropertyList:nil forType:albumDragType];
-		[pboard setPropertyList:[NSArray arrayWithObject:@"dcm"] forType:NSFilesPromisePboardType];
+		[pboard setPropertyList:[NSArray arrayWithObject:@"dcm"]
+                        forType:(__bridge NSString *)kPasteboardTypeFileURLPromise];
 
 		NSMutableArray* objects = [NSMutableArray array];
 		for( i = 0; i < [cells count]; i++)

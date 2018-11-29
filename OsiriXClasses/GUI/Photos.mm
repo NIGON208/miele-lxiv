@@ -56,23 +56,24 @@
 
 - (NSString *) scriptBody:(NSArray*) files
 {
-	NSString *albumNameStr = [[NSUserDefaults standardUserDefaults] stringForKey: @"ALBUMNAME"];
+	NSString *albumName = [[NSUserDefaults standardUserDefaults] stringForKey: @"ALBUMNAME"];
 	
-    //NSLog(@"%s:%i albumNameStr:<%@>", __FILE__, __LINE__, albumNameStr);
+    //NSLog(@"%s:%i albumName:<%@>", __FILE__, __LINE__, albumName);
     
 	NSMutableString *s = [NSMutableString stringWithCapacity:1000];
 
     [s appendString:@"tell application \"Photos\"\n"];
-    
-    [s appendString:[NSString stringWithFormat:@"if not (exists album \"%@\") then \n", albumNameStr]];
-    [s appendString:[NSString stringWithFormat:@"make new album named \"%@\" \n", albumNameStr]];
-    [s appendString:@"end if \n"];
-    [s appendString:[NSString stringWithFormat:@"set this_album to album \"%@\" \n", albumNameStr]];
+
+    [s appendString:[NSString stringWithFormat:@"if not (exists album \"%@\") then\n", albumName]];
+    [s appendString:[NSString stringWithFormat:@"make new album named \"%@\"\n", albumName]];
+    [s appendString:@"end if\n"];
+    [s appendString:[NSString stringWithFormat:@"set this_album to album \"%@\"\n", albumName]];
     
     for (id loopItem in files)
-        [s appendString:[NSString stringWithFormat:@"import (POSIX file \"%@\" as alias) into this_album skip check duplicates yes \n", loopItem]];
-	
-	[s appendString:@"end tell \n"];
+        [s appendString:[NSString stringWithFormat:@"import (POSIX file \"%@\" as alias) into this_album skip check duplicates yes\n", loopItem]];
+
+    [s appendString:@"activate\n"];
+	[s appendString:@"end tell\n"];
 	
     //NSLog(@"%s:%i %@", __FILE__, __LINE__, s);
 

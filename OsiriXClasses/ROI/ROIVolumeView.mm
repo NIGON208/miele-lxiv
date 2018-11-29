@@ -217,11 +217,11 @@
 {
     NSPasteboard *pb = [NSPasteboard generalPasteboard];
     
-    [pb declareTypes:[NSArray arrayWithObject:NSTIFFPboardType] owner:self];
+    [pb declareTypes:[NSArray arrayWithObject:NSPasteboardTypeTIFF] owner:self];
     
     NSImage *im = [self nsimage:NO];
     
-    [pb setData: [im TIFFRepresentation] forType:NSTIFFPboardType];
+    [pb setData: [im TIFFRepresentation] forType:NSPasteboardTypeTIFF];
 }
 
 - (IBAction) exportDICOMFile:(id) sender

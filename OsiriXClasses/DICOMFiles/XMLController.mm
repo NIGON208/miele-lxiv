@@ -1518,9 +1518,9 @@ extern int delayedTileWindows;
 	   }
 	}
 	
-	NSPasteboard	*pb = [NSPasteboard generalPasteboard];
-	[pb declareTypes:[NSArray arrayWithObject:NSStringPboardType] owner:self];
-	[pb setString: copyString forType:NSStringPboardType];
+	NSPasteboard *pb = [NSPasteboard generalPasteboard];
+	[pb declareTypes:[NSArray arrayWithObject:NSPasteboardTypeString] owner:self];
+	[pb setString: copyString forType:NSPasteboardTypeString];
 }
 
 // ============================================================

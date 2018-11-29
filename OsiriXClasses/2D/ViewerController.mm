@@ -15788,7 +15788,7 @@ int i,j,l;
     if (!pController)
         pController = [[ROI3DSettingsWindow alloc] initWithWindowNibName:@"ROI3DSettingsWindow"];
     
-    [pController showWindow:nil];
+    [pController showWindow:nil]; //@@@
 }
 
 - (IBAction) roiHistogram:(id) sender
@@ -22549,7 +22549,8 @@ static BOOL viewerControllerPlaying = NO;
 			
 			[viewer load3DState];
 			
-			if ([[self modality] isEqualToString:@"PT"] == YES && [[pixList[0] objectAtIndex: 0] isRGB] == NO)
+			if ([[self modality] isEqualToString:@"PT"] == YES &&
+                [[pixList[0] objectAtIndex: 0] isRGB] == NO)
 			{
 				if ([[[NSUserDefaults standardUserDefaults] stringForKey:@"PET Clut Mode"] isEqualToString: @"B/W Inverse"])
 					[viewer ApplyCLUTString: @"B/W Inverse"];
@@ -22621,7 +22622,7 @@ static BOOL viewerControllerPlaying = NO;
 #ifndef OSIRIX_LIGHT
 - (VRController *)openVRViewerForMode:(NSString *)mode
 {
-    NSLog(@"%s %d", __FUNCTION__, __LINE__);
+    // @@@ VR 3
 	[self checkEverythingLoaded];
 	[self clear8bitRepresentations];	
 	[self MovieStop: self];
@@ -22712,8 +22713,7 @@ static BOOL viewerControllerPlaying = NO;
 #ifndef OSIRIX_LIGHT
 -(IBAction) VRViewer:(id) sender
 {
-    NSLog(@"%s IBAction", __FUNCTION__);
-    
+    // @@@ VR 1
 	[self checkEverythingLoaded];
 	[self clear8bitRepresentations];
 	
@@ -22778,6 +22778,7 @@ static BOOL viewerControllerPlaying = NO;
     
     VRController *viewer = nil;
     
+    // @@@ VR 2
     for (NSWindowController *v in viewers)
     {
         if ([v.windowNibName isEqualToString: @"VR"])
@@ -22824,12 +22825,17 @@ static BOOL viewerControllerPlaying = NO;
         [[viewer window] makeKeyAndOrderFront:self];
         [[viewer window] display];
         [[viewer window] setTitle: [NSString stringWithFormat:@"%@: %@", [[viewer window] title], [[self window] title]]];
+#if 1
+        dispatch_async(dispatch_get_main_queue(), ^(){
+            [viewer showWindow:self];
+            [viewer showWindow:self];
+        });
+#endif
     }
 }
 
 - (SRController *)openSRViewer
 {
-    NSLog(@"%s %d", __FUNCTION__, __LINE__);
 	[self checkEverythingLoaded];
 	[self clear8bitRepresentations];
     SRController *viewer = [[AppController sharedAppController] FindViewer :@"SR" :pixList[0]];
@@ -23318,6 +23324,12 @@ static BOOL viewerControllerPlaying = NO;
 			[self place3DViewerWindow:viewer];
 			[viewer showWindow:self];
 			[[viewer window] setTitle: [NSString stringWithFormat:@"%@: %@", [[viewer window] title], [[self window] title]]];
+#if 0
+            dispatch_async(dispatch_get_main_queue(), ^(){
+                [viewer showWindow:self];
+                [viewer showWindow:self];
+            });
+#endif
 		}
 	}
 }
@@ -23393,12 +23405,22 @@ static BOOL viewerControllerPlaying = NO;
 		}
 		else
 		{
+#if 0
+            id waitWindow = [self startWaitWindow:NSLocalizedString(@"Loading...",nil)];
+#endif
 			viewer = [self openCPRViewer];
 			[self place3DViewerWindow:viewer];
 			[viewer showWindow:self];
 			[[viewer window] setTitle: [NSString stringWithFormat:@"%@: %@",
                                         [[viewer window] title],
                                         [[self window] title]]];
+#if 0
+            dispatch_async(dispatch_get_main_queue(), ^(){
+                [viewer showWindow:self];
+                [viewer showWindow:self];
+                [self endWaitWindow:waitWindow];
+            });
+#endif
 		}
 	}
 }

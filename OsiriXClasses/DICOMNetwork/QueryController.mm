@@ -3601,7 +3601,7 @@ extern "C"
 {
     NSPasteboard *pb = [NSPasteboard generalPasteboard];
 	
-	[pb declareTypes:[NSArray arrayWithObject:NSStringPboardType] owner:self];
+	[pb declareTypes:[NSArray arrayWithObject:NSPasteboardTypeString] owner:self];
 	
 	NSString *string;
 	
@@ -3610,7 +3610,7 @@ extern "C"
 	else 
 		string = [self exportDBListOnlySelected: YES];
 	
-	[pb setString: string forType:NSStringPboardType];
+	[pb setString: string forType:NSPasteboardTypeString];
 }
 
 -(void) retrieve:(id)sender onlyIfNotAvailable:(BOOL) onlyIfNotAvailable forViewing: (BOOL) forViewing items:(NSArray*) items showGUI:(BOOL) showGUI

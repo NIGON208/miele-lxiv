@@ -138,7 +138,7 @@ int intersect3D_SegmentPlane( float *P0, float *P1, float *Pnormal, float *Ppoin
         if (N == 0)                     // segment lies in plane
             return 0;
         else
-            return NO_INTERSECT_3D;     // no intersection
+            return NO_INTERSECT_3D;
     }
 	
     // they are not parallel
@@ -146,7 +146,7 @@ int intersect3D_SegmentPlane( float *P0, float *P1, float *Pnormal, float *Ppoin
 	
     float sI = N / D;
     if (sI < 0 || sI > 1)
-        return NO_INTERSECT_3D;         // no intersection
+        return NO_INTERSECT_3D;
 	
     resultPt[ 0] = P0[ 0] + sI * u[ 0];		// compute segment intersect point
 	resultPt[ 1] = P0[ 1] + sI * u[ 1];
@@ -828,7 +828,7 @@ void checkOGLVersion()
     return (float)sqrt( Vector.x * Vector.x + Vector.y * Vector.y);
 }
 
-+ (int) DistancePointLine: (NSPoint) pt
++ (int) DistancePointLine:(NSPoint) pt
                          :(NSPoint) startPoint
                          :(NSPoint) endPoint
                          :(float*) Distance
@@ -875,7 +875,7 @@ void checkOGLVersion()
 	
 	if (pix)
 	{
-		if (wl == pix.fullwl  && ww == pix.fullww)
+		if (wl == pix.fullwl && ww == pix.fullww)
             return NSLocalizedString(@"Full dynamic", nil);
         
 		if (wl == pix.savedWL && ww == pix.savedWW)
@@ -1618,7 +1618,8 @@ void checkOGLVersion()
 	{
 		for (ROI *r in curRoiList)
 		{
-			if ([r ROImode] == ROI_selected) valid = YES;
+			if ([r ROImode] == ROI_selected)
+				valid = YES;
 		}
     }
     else if ([item action] == @selector(copy:) && [item tag] == 1) // copy all viewers
@@ -1701,7 +1702,7 @@ void checkOGLVersion()
         [panel setNameFieldStringValue: [[selectedROIs objectAtIndex:0] name]];
 		if ([panel runModal] == NSFileHandlingPanelOKButton)
 		{
-			[NSArchiver archiveRootObject: selectedROIs toFile :[panel filename]];
+			[NSArchiver archiveRootObject: selectedROIs toFile: [panel filename]];
 		}
 	}
 	else
@@ -1884,7 +1885,9 @@ void checkOGLVersion()
 	
 	for (ROI *r in curRoiList)
 	{
-		if ((r.ROImode == ROI_selected || r.ROImode == ROI_selectedModify || r.ROImode == ROI_drawing))
+		if ((r.ROImode == ROI_selected ||
+             r.ROImode == ROI_selectedModify ||
+             r.ROImode == ROI_drawing))
 		{
 			roiSelected = YES;
 			
@@ -1896,15 +1899,19 @@ void checkOGLVersion()
 	{
 		NSImage *im;
 		
-		[pb declareTypes:[NSArray arrayWithObject:NSTIFFPboardType] owner:self];
+		[pb declareTypes:[NSArray arrayWithObject:NSPasteboardTypeTIFF] owner:self];
 		
 		im = [self nsimage: NO allViewers: [sender tag]];
 		
-		[pb setData: [[NSBitmapImageRep imageRepWithData: [im TIFFRepresentation]] representationUsingType:NSJPEGFileType properties:[NSDictionary dictionaryWithObject:@0.9F forKey:NSImageCompressionFactor]] forType:NSTIFFPboardType];
+		[pb setData: [[NSBitmapImageRep imageRepWithData: [im TIFFRepresentation]] representationUsingType:NSJPEGFileType properties:[NSDictionary dictionaryWithObject:@0.9F forKey:NSImageCompressionFactor]] forType:NSPasteboardTypeTIFF];
 	}
 	else
 	{
-		[pb declareTypes:[NSArray arrayWithObjects:@"ROIObject", NSStringPboardType, nil] owner:nil];
+		[pb declareTypes:[NSArray arrayWithObjects:
+                          @"ROIObject",
+                          NSPasteboardTypeString,
+                          nil]
+                   owner:nil];
 		[pb setData: [NSArchiver archivedDataWithRootObject: roiSelectedArray] forType:@"ROIObject"];
 		
 		NSMutableString *r = [NSMutableString string];
@@ -1917,7 +1924,7 @@ void checkOGLVersion()
 				[r appendString:@"\r"];
 		}
 		
-		[pb setString: r  forType:NSStringPboardType];
+		[pb setString: r forType:NSPasteboardTypeString];
 	}
 }
 
@@ -1937,7 +1944,9 @@ void checkOGLVersion()
 	{
 		for (ROI *r in curRoiList)
 		{
-			if ((r.ROImode == ROI_selected || r.ROImode == ROI_selectedModify || r.ROImode == ROI_drawing) &&
+			if ((r.ROImode == ROI_selected ||
+                 r.ROImode == ROI_selectedModify ||
+                 r.ROImode == ROI_drawing) &&
                 r.locked == NO)
             {
                 [roisToDelete addObject: r];
@@ -3063,8 +3072,8 @@ void checkOGLVersion()
 {
 	if (currentTool >= tMeasure)
         return NO;  // A ROI TOOL !
-	else
-        return YES;
+
+    return YES;
 }
 
 - (BOOL)acceptsFirstResponder
@@ -3151,7 +3160,7 @@ void checkOGLVersion()
     long val;
 	BOOL Jog = NO;
 	
-	if ([self windowController]  == [BrowserController currentBrowser])
+	if ([self windowController] == [BrowserController currentBrowser])
     {
         [super keyDown:event];
         return;
@@ -4457,7 +4466,6 @@ void checkOGLVersion()
 
 -(void) mouseMoved: (NSEvent*) theEvent
 {
-    //NSLog(@"DCMView.mm:%d %s", __LINE__, __PRETTY_FUNCTION__);
     if (CGCursorIsVisible() == NO && lensTexture == nil)
         return; //For Synergy compatibility
     
@@ -6478,7 +6486,6 @@ void checkOGLVersion()
 			}
 			
 			[curDCM changeWLWW :eWL :eWW];
-            NSLog(@"DCMView.mm:%d %s", __LINE__, __PRETTY_FUNCTION__);
 		}
 		else
 		{
@@ -15949,7 +15956,7 @@ void checkOGLVersion()
         }
         
         [pbTypes addObject: NSFilenamesPboardType];
-        [pbTypes addObject: NSTIFFPboardType];
+        [pbTypes addObject: NSPasteboardTypeTIFF];
         
         if ([self imageObj])
         {
@@ -15963,7 +15970,7 @@ void checkOGLVersion()
         NSData *pDataDCMView = [NSData dataWithBytes:&self length:sizeof(DCMView*)];
         [pboard setData:pDataDCMView forType:pasteBoardOsiriX];
         
-        [pboard setData: [image TIFFRepresentation] forType: NSTIFFPboardType];
+        [pboard setData: [image TIFFRepresentation] forType: NSPasteboardTypeTIFF];
         
         NSString *description = self.seriesObj.name;
         

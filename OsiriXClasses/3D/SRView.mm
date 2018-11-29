@@ -2786,11 +2786,11 @@ typedef struct _xyzArray
 
     NSImage *im;
     
-    [pb declareTypes:[NSArray arrayWithObject:NSTIFFPboardType] owner:self];
+    [pb declareTypes:[NSArray arrayWithObject:NSPasteboardTypeTIFF] owner:self];
     
     im = [self nsimage:NO];
     
-    [pb setData: [im TIFFRepresentation] forType:NSTIFFPboardType];
+    [pb setData: [im TIFFRepresentation] forType:NSPasteboardTypeTIFF];
 }
 
 // joris' modifications for fly thru
@@ -3561,9 +3561,9 @@ typedef struct _xyzArray
         }
         
         if ([event modifierFlags] & NSEventModifierFlagOption)
-            [ pbTypes addObject: NSFilesPromisePboardType];
+            [pbTypes addObject: (__bridge NSString *)kPasteboardTypeFileURLPromise];
         else
-            [pbTypes addObject: NSTIFFPboardType];
+            [pbTypes addObject: NSPasteboardTypeTIFF];
 
         [pboard declareTypes:pbTypes  owner:self];
             
@@ -3572,7 +3572,8 @@ typedef struct _xyzArray
             local_point = [self convertPoint:event_location fromView:nil];
             imageLocation.origin = local_point;
             imageLocation.size = NSMakeSize(32,32);
-            [pboard setData:nil forType:NSFilesPromisePboardType]; 
+            [pboard setData:nil
+                    forType:(__bridge NSString *)kPasteboardTypeFileURLPromise]; 
             
             [destinationImage release];
             destinationImage = [image copy];
@@ -3584,7 +3585,7 @@ typedef struct _xyzArray
                 event:event];
         } 
         else {		
-            [pboard setData: [[NSBitmapImageRep imageRepWithData: [image TIFFRepresentation]] representationUsingType:NSJPEGFileType properties:[NSDictionary dictionaryWithObject:[NSNumber numberWithFloat:0.9] forKey:NSImageCompressionFactor]] forType:NSTIFFPboardType];
+            [pboard setData: [[NSBitmapImageRep imageRepWithData: [image TIFFRepresentation]] representationUsingType:NSJPEGFileType properties:[NSDictionary dictionaryWithObject:[NSNumber numberWithFloat:0.9] forKey:NSImageCompressionFactor]] forType:NSPasteboardTypeTIFF];
             
             [self dragImage:thumbnail
                          at:local_point

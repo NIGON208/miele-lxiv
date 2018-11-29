@@ -7957,11 +7957,11 @@ public:
 
     NSImage *im;
     
-    [pb declareTypes:[NSArray arrayWithObject:NSTIFFPboardType] owner:self];
+    [pb declareTypes:[NSArray arrayWithObject:NSPasteboardTypeTIFF] owner:self];
     
     im = [self nsimage:NO];
     
-    [pb setData: [im TIFFRepresentation] forType:NSTIFFPboardType];
+    [pb setData: [im TIFFRepresentation] forType:NSPasteboardTypeTIFF];
 }
 
 - (void) updateScissorStateButtons
@@ -9295,9 +9295,9 @@ public:
 	}
 	
 	if ([event modifierFlags] & NSEventModifierFlagOption)
-		[ pbTypes addObject: NSFilesPromisePboardType];
+		[ pbTypes addObject: (__bridge NSString *)kPasteboardTypeFileURLPromise];
 	else
-		[pbTypes addObject: NSTIFFPboardType];
+		[pbTypes addObject: NSPasteboardTypeTIFF];
 
 	[pboard declareTypes:pbTypes  owner:self];
 		
@@ -9307,7 +9307,8 @@ public:
 		local_point = [self convertPoint:event_location fromView:nil];
 		imageLocation.origin = local_point;
 		imageLocation.size = NSMakeSize(32,32);
-		[pboard setData:nil forType:NSFilesPromisePboardType]; 
+		[pboard setData:nil
+                forType:(__bridge NSString *)kPasteboardTypeFileURLPromise]; 
 		
 		if (destinationImage)
 			[destinationImage release];
@@ -9322,7 +9323,7 @@ public:
 	} 
 	else
 	{		
-		[pboard setData: [[NSBitmapImageRep imageRepWithData: [image TIFFRepresentation]] representationUsingType:NSJPEGFileType properties:[NSDictionary dictionaryWithObject:[NSNumber numberWithFloat:0.9] forKey:NSImageCompressionFactor]] forType:NSTIFFPboardType];
+		[pboard setData: [[NSBitmapImageRep imageRepWithData: [image TIFFRepresentation]] representationUsingType:NSJPEGFileType properties:[NSDictionary dictionaryWithObject:[NSNumber numberWithFloat:0.9] forKey:NSImageCompressionFactor]] forType:NSPasteboardTypeTIFF];
 		
 		[ self dragImage:thumbnail
 			at:local_point

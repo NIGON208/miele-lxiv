@@ -405,8 +405,6 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
 
 - (void) computeMinMax
 {
-    NSLog(@"%s", __FUNCTION__);
-
     static int computeMinMaxDepth = 0;
     
     if (computeMinMaxDepth > 2)
@@ -527,7 +525,6 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
         }
 #endif
 
-        NSLog(@"%s %d", __FUNCTION__, __LINE__);
         [[NSUserDefaults standardUserDefaults] setFloat: 1125 forKey: @"VRGrowingRegionValue"];
         [[NSUserDefaults standardUserDefaults] setFloat: 1750 forKey: @"VRGrowingRegionInterval"];
         
@@ -560,11 +557,9 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
         style = [m retain];
         _renderingMode = [renderingMode retain];
         
-        NSLog(@"%s %d", __FUNCTION__, __LINE__);
         for (i = 0; i < UNDO_DATA_SIZE; i++)
             undodata[ i] = nil;
         
-        NSLog(@"%s %d", __FUNCTION__, __LINE__);
         curMovieIndex = 0;
         maxMovieIndex = 1;
         
@@ -578,7 +573,6 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
             
         //fabs( [firstObject sliceLocation] - [[pixList objectAtIndex:1] sliceLocation]);
         
-        NSLog(@"%s %d", __FUNCTION__, __LINE__);
         if (sliceThickness == 0)
         {
             sliceThickness = [firstObject sliceThickness];
@@ -598,13 +592,10 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
                                         NSLocalizedString( @"OK",nil),
                                         nil,
                                         nil);
-                NSLog(@"%s %d", __FUNCTION__, __LINE__);
                 return nil;
             }
         }
-        
-        NSLog(@"%s %d, pixList count %lu", __FUNCTION__, __LINE__, (unsigned long)[pixList[0] count]);
-        
+
         err = 0;
         // CHECK IMAGE SIZE
         for (i =0; i < [pixList[0] count]; i++)
@@ -623,7 +614,6 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
                                     NSLocalizedString( @"OK",nil),
                                     nil,
                                     nil);
-            NSLog(@"%s %d", __FUNCTION__, __LINE__);
             return nil;
         }
         
@@ -657,7 +647,6 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
         else
             minimumValue = self.deleteValue = 0;
         
-        NSLog(@"%s initWithWindowNibName", __FUNCTION__);
         self = [super initWithWindowNibName:@"VR"];
         
 //        if ([style isEqualToString:@"standard"] || [style isEqualToString: @"panel"])
@@ -891,7 +880,11 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
             [[self window] setFrameUsingName:@"3D Panel"];
         }
         
-        [shadingsPresetsController setWindowController: self];        
+#if 1 // @@@
+        [shadingsPresetsController setWindowController: self];      
+#else
+		[shadingsPresetsController addObserver:self forKeyPath:@"selectedObjects" options:0 context:VRController.class];
+#endif
         [self setupToolbar];
     }
     @catch ( NSException *e) {
@@ -902,6 +895,15 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
 
     return self;
 }
+
+# if 0
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
+    if (context == VRController.class && object == shadingsPresetsController && [keyPath isEqualToString:@"selectedObjects"]) {
+        [self applyShading:self];
+        return;
+    }
+}
+#endif
 
 + (NSString*) getUniqueFilenameScissorStateFor:(NSManagedObject*) obj
 {
@@ -1199,6 +1201,9 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
 
 -(void) dealloc
 {
+#if 0
+[shadingsPresetsController removeObserver:self forKeyPath:@"selectedObjects" context:VRController.class];
+#endif
 	[style release];
 	
 	// Release Undo system
@@ -2309,7 +2314,7 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
 - (BOOL) validateToolbarItem: (NSToolbarItem *) toolbarItem
 {
 #ifdef EXPORTTOOLBARITEM
-return YES;
+	return YES;
 #endif
 
     BOOL enable = YES;
@@ -2821,7 +2826,7 @@ return YES;
 		int index;
 		for (NSUInteger i=0; i<[roiVolumes[m] count] && !found; i++)
 		{
-			found = changedROIVolume==[roiVolumes[m] objectAtIndex:i];
+			found = (changedROIVolume == [roiVolumes[m] objectAtIndex:i]);
 			index = i;
 		}
 		
@@ -2846,7 +2851,8 @@ return YES;
 {
 	[super showWindow: sender];
 	
-	if ([style isEqualToString:@"panel"] == NO) [view squareView: self];
+	if ([style isEqualToString:@"panel"] == NO)
+		[view squareView: self];
 }
 
 - (DicomStudy *)currentStudy
@@ -2880,7 +2886,9 @@ return YES;
 
 - (void)setCurCLUTMenu:(NSString*)clut;
 {
-	if (curCLUTMenu) [curCLUTMenu release];
+	if (curCLUTMenu)
+		[curCLUTMenu release];
+
 	curCLUTMenu = clut;
 	[curCLUTMenu retain];
 	[[[clutPopup menu] itemAtIndex:0] setTitle:curCLUTMenu];
@@ -3435,18 +3443,15 @@ NSInteger sort3DSettingsDict(id preset1, id preset2, void *context)
 
 - (IBAction)load3DSettings:(id)sender;
 {
-    NSLog(@"%s %d", __FUNCTION__, __LINE__);
-    
 	[[NSUserDefaults standardUserDefaults] setObject:[presetsGroupPopUpButton titleOfSelectedItem] forKey:@"LAST_3D_PRESET"];
 	
-	if ([[sender className] isEqualToString:@"NSMenuItem"] || [[sender className] isEqualToString:@"NSToolbarItem"])
+	if ([[sender className] isEqualToString:@"NSMenuItem"] ||
+        [[sender className] isEqualToString:@"NSToolbarItem"])
 	{
-        NSLog(@"%s %d {A}", __FUNCTION__, __LINE__);
 		[self showPresetsPanel];
 	}
 	else if ([sender isEqualTo:presetsApplyButton])
 	{
-        NSLog(@"%s %d {B}", __FUNCTION__, __LINE__);
 		if ([presetsPanel isVisible])
 			[presetsPanel close];
 		
@@ -3454,7 +3459,6 @@ NSInteger sort3DSettingsDict(id preset1, id preset2, void *context)
 	}
 	else if ([sender isEqualTo:self])
 	{
-        NSLog(@"%s %d {C}", __FUNCTION__, __LINE__);
 		if (firstTimeDisplayed)
 			[presetsPanel close];
 			
@@ -3465,7 +3469,8 @@ NSInteger sort3DSettingsDict(id preset1, id preset2, void *context)
 		
 		@try
 		{
-			if ([selectedPresetPreview index] < 0) NSLog( @" ******** if ([selectedPresetPreview index] < 0)");
+			if ([selectedPresetPreview index] < 0)
+                NSLog( @" ******** if ([selectedPresetPreview index] < 0)");
 			 
 			NSDictionary *preset = [[self find3DSettingsForGroupName:[presetsGroupPopUpButton titleOfSelectedItem]] objectAtIndex:[selectedPresetPreview index]];
 
@@ -3488,7 +3493,8 @@ NSInteger sort3DSettingsDict(id preset1, id preset2, void *context)
 			}
 			else
 			{
-				if ([clut isEqualToString:NSLocalizedString(@"16-bit CLUT", nil)] || [clut isEqualToString: @"16-bit CLUT"])
+				if ([clut isEqualToString:NSLocalizedString(@"16-bit CLUT", nil)] ||
+                    [clut isEqualToString: @"16-bit CLUT"])
 				{
 					NSMutableArray *curves = [CLUTOpacityView convertCurvesFromPlist:[preset objectForKey:@"16bitClutCurves"]];
 					NSMutableArray *colors = [CLUTOpacityView convertPointColorsFromPlist:[preset objectForKey:@"16bitClutColors"]];
@@ -3507,7 +3513,8 @@ NSInteger sort3DSettingsDict(id preset1, id preset2, void *context)
 					[clutOpacityView loadFromFileWithName:clut];
 					[clutOpacityView setCLUTtoVRView:NO];
 					[clutOpacityView updateView];
-					if (curCLUTMenu) [curCLUTMenu release];
+					if (curCLUTMenu)
+                        [curCLUTMenu release];
 					curCLUTMenu = [clut retain];
 					[[[clutPopup menu] itemAtIndex:0] setTitle:clut];
 					[OpacityPopup setEnabled:NO];
