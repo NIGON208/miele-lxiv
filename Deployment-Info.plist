@@ -162,12 +162,12 @@
 		<dict>
 			<key>CFBundleTypeExtensions</key>
 			<array>
-				<string>osirixplugin</string>
+				<string>mieleplugin</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
-			<string>osirixplugin.icns</string>
+			<string>mieleplugin.icns</string>
 			<key>CFBundleTypeName</key>
-			<string>OsiriX plugin</string>
+			<string>Miele-LXIV plugin</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
 			<key>LSTypeIsPackage</key>

@@ -367,7 +367,7 @@ NSInteger sortPluginArrayByName(id plugin1, id plugin2, void *context)
                 NSString *path = [[plugin valueForKey:@"download_url"] valueForKey:@"path"];
                 NSString *name = [[path lastPathComponent] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 				name = [name stringByDeletingPathExtension]; // removes the .zip extension
-				name = [name stringByDeletingPathExtension]; // removes the .osirixplugin extension
+				name = [name stringByDeletingPathExtension]; // removes the .mieleplugin extension
 				sameName = [name isEqualToString:[installedPlugin valueForKey:@"name"]];
 				sameVersion = [[plugin valueForKey:@"version"] isEqualToString:[installedPlugin valueForKey:@"version"]];
 

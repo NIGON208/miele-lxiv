@@ -588,7 +588,7 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
         {
             NSLog( @"***** Multiple plugins: %@", [name lastPathComponent]);
             
-            if ([name.lastPathComponent isEqualToString: @"UserManual.osirixplugin"] == NO)
+            if ([name.lastPathComponent isEqualToString: @"UserManual.mieleplugin"] == NO)
             {
                 NSString *message = NSLocalizedString(@"Warning! Multiple instances of the same plugin have been found. Only one instance will be loaded. Check the Plugin Manager (Plugins menu) for multiple identical plugins.", nil);
                 
@@ -1499,7 +1499,7 @@ NSInteger sortPluginArray(id plugin1, id plugin2, void *context)
                 NSString *path = [[plugin valueForKey:@"download_url"] valueForKey:@"path"];
 				NSString *name = [[path lastPathComponent] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 				name = [name stringByDeletingPathExtension]; // removes the .zip extension
-				name = [name stringByDeletingPathExtension]; // removes the .osirixplugin extension
+				name = [name stringByDeletingPathExtension]; // removes the .mieleplugin extension
 				
 				if ([pluginName isEqualToString:name])
 				{

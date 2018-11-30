@@ -715,7 +715,7 @@
 		A978DEA40CB0D4BE00FB2C3D /* NFHUDPopUpButtonCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = A978DE7B0CB0D4BE00FB2C3D /* NFHUDPopUpButtonCell.mm */; };
 		A978DEA70CB0D4BE00FB2C3D /* NSImage+FrameworkImage.mm in Sources */ = {isa = PBXBuildFile; fileRef = A978DE7E0CB0D4BE00FB2C3D /* NSImage+FrameworkImage.mm */; };
 		A978DEB00CB0D4BE00FB2C3D /* NFHUDPopUpButton.mm in Sources */ = {isa = PBXBuildFile; fileRef = A978DE870CB0D4BE00FB2C3D /* NFHUDPopUpButton.mm */; };
-		A97B73980CB380EF00E5348D /* osirixplugin.icns in Resources */ = {isa = PBXBuildFile; fileRef = A97B73970CB380EF00E5348D /* osirixplugin.icns */; };
+		A97B73980CB380EF00E5348D /* mieleplugin.icns in Resources */ = {isa = PBXBuildFile; fileRef = A97B73970CB380EF00E5348D /* mieleplugin.icns */; };
 		A97D4C620CE3459D003FE2E6 /* PieChartImage.mm in Sources */ = {isa = PBXBuildFile; fileRef = A97D4C600CE3459D003FE2E6 /* PieChartImage.mm */; };
 		A98795D216DB9FD100926023 /* DICOMFilesTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = A98795D116DB9FD100926023 /* DICOMFilesTests.mm */; };
 		A98795D816DBA0CF00926023 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
@@ -1372,7 +1372,7 @@
 		A9FBD2CB16DBE2E9003A0E04 /* orthogonalReslice.tif in Resources */ = {isa = PBXBuildFile; fileRef = A9FEC13F0907EBA600B218BE /* orthogonalReslice.tif */; };
 		A9FBD2CC16DBE2E9003A0E04 /* miele-lxiv.icns in Resources */ = {isa = PBXBuildFile; fileRef = ABBB6495063587B200D9531F /* miele-lxiv.icns */; };
 		A9FBD2CD16DBE2E9003A0E04 /* OsirixDownload.icns in Resources */ = {isa = PBXBuildFile; fileRef = AB10FA670B96C95500D74684 /* OsirixDownload.icns */; };
-		A9FBD2CE16DBE2E9003A0E04 /* osirixplugin.icns in Resources */ = {isa = PBXBuildFile; fileRef = A97B73970CB380EF00E5348D /* osirixplugin.icns */; };
+		A9FBD2CE16DBE2E9003A0E04 /* mieleplugin.icns in Resources */ = {isa = PBXBuildFile; fileRef = A97B73970CB380EF00E5348D /* mieleplugin.icns */; };
 		A9FBD2CF16DBE2E9003A0E04 /* OsiriXTables.pdf in Resources */ = {isa = PBXBuildFile; fileRef = CEAF4ECC089D6E9400DE46AF /* OsiriXTables.pdf */; };
 		A9FBD2D016DBE2E9003A0E04 /* Oval.pdf in Resources */ = {isa = PBXBuildFile; fileRef = A9B23D1215CFE8B3000E47C3 /* Oval.pdf */; };
 		A9FBD2D116DBE2E9003A0E04 /* page.tif in Resources */ = {isa = PBXBuildFile; fileRef = B7CDAD000AB30E7600068D70 /* page.tif */; };
@@ -4341,7 +4341,7 @@
 		A978DE7F0CB0D4BE00FB2C3D /* NSImage+FrameworkImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSImage+FrameworkImage.h"; sourceTree = "<group>"; };
 		A978DE870CB0D4BE00FB2C3D /* NFHUDPopUpButton.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = NFHUDPopUpButton.mm; sourceTree = "<group>"; };
 		A978DE880CB0D4BE00FB2C3D /* NFHUDPopUpButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NFHUDPopUpButton.h; sourceTree = "<group>"; };
-		A97B73970CB380EF00E5348D /* osirixplugin.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = osirixplugin.icns; sourceTree = "<group>"; };
+		A97B73970CB380EF00E5348D /* mieleplugin.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = mieleplugin.icns; sourceTree = "<group>"; };
 		A97D4C5F0CE3459D003FE2E6 /* PieChartImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PieChartImage.h; sourceTree = "<group>"; };
 		A97D4C600CE3459D003FE2E6 /* PieChartImage.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PieChartImage.mm; sourceTree = "<group>"; };
 		A98795C216DB9FD100926023 /* Unit Tests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Unit Tests.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -8465,7 +8465,7 @@
 				CEE619EE0912C73000C31D78 /* OrientationWidget.tif */,
 				A9FEC13F0907EBA600B218BE /* orthogonalReslice.tif */,
 				AB10FA670B96C95500D74684 /* OsirixDownload.icns */,
-				A97B73970CB380EF00E5348D /* osirixplugin.icns */,
+				A97B73970CB380EF00E5348D /* mieleplugin.icns */,
 				CEAF4ECC089D6E9400DE46AF /* OsiriXTables.pdf */,
 				A9B23D1215CFE8B3000E47C3 /* Oval.pdf */,
 				4356C82E1AC2A0D600653B32 /* CircleAngle.pdf */,
@@ -9378,7 +9378,7 @@
 				A9FBD2CB16DBE2E9003A0E04 /* orthogonalReslice.tif in Resources */,
 				A9FBD2CC16DBE2E9003A0E04 /* miele-lxiv.icns in Resources */,
 				A9FBD2CD16DBE2E9003A0E04 /* OsirixDownload.icns in Resources */,
-				A9FBD2CE16DBE2E9003A0E04 /* osirixplugin.icns in Resources */,
+				A9FBD2CE16DBE2E9003A0E04 /* mieleplugin.icns in Resources */,
 				A9FBD2CF16DBE2E9003A0E04 /* OsiriXTables.pdf in Resources */,
 				A9FBD2D016DBE2E9003A0E04 /* Oval.pdf in Resources */,
 				A9FBD2D116DBE2E9003A0E04 /* page.tif in Resources */,
@@ -9747,7 +9747,7 @@
 				43A02BF1219D846F00E788B6 /* OSIHangingPreferencePanePref.xib in Resources */,
 				4310FADB20692C2B000BDDCC /* signcmp.def in Resources */,
 				CECDBE6A0C95467B006B11A5 /* AnnotationsDefault.plist in Resources */,
-				A97B73980CB380EF00E5348D /* osirixplugin.icns in Resources */,
+				A97B73980CB380EF00E5348D /* mieleplugin.icns in Resources */,
 				CEEB5CCC0CCDD161008803E2 /* Centerline.tif in Resources */,
 				A977ECAD0CD1F7E500C418D8 /* QRpartiallyInDatabase.tif in Resources */,
 				A977ECAE0CD1F7E500C418D8 /* QRalreadyInDatabase.tif in Resources */,
