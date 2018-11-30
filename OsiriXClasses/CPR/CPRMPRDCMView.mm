@@ -2739,7 +2739,7 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
 
 - (NSString *)planeName
 {
-	switch( viewID)
+	switch (viewID)
 	{
 		case 1:
 			return @"orange";
@@ -2759,14 +2759,16 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
 
 - (NSColor *)colorForPlaneName:(NSString *)planeName
 {
-	if ([planeName isEqualToString:@"orange"]) {
+	if ([planeName isEqualToString:@"orange"])
 		return windowController.colorAxis1;
-	} else if ([planeName isEqualToString:@"purple"]) {
+
+    if ([planeName isEqualToString:@"purple"])
 		return windowController.colorAxis2;
-	} else if ([planeName isEqualToString:@"blue"]) {
+    
+    if ([planeName isEqualToString:@"blue"])
 		return windowController.colorAxis3;
-	}
-	assert(0);
+
+    assert(0);
 	return nil;
 }
 

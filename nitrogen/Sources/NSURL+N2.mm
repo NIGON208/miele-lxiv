@@ -28,7 +28,8 @@
 
 @implementation NSURL (N2)
 
--(N2URLParts*)parts {
+-(N2URLParts*)parts
+{
 	N2URLParts* parts = [[N2URLParts alloc] init];
 	
 	NSString* url = [self absoluteString];

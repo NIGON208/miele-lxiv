@@ -265,9 +265,9 @@ static float deg2rad = M_PI / 180.0;
         }
         spacing[2]=sliceThickness;
         float resamplesize=spacing[0];
-        if(dim[0]>256 || dim[1]>256)
+        if (dim[0]>256 || dim[1]>256)
         {
-            if(spacing[0]*(float)dim[0]>spacing[1]*(float)dim[1])
+            if (spacing[0]*(float)dim[0]>spacing[1]*(float)dim[1])
                 resamplesize = spacing[0]*(float)dim[0]/256.0;
             else {
                 resamplesize = spacing[1]*(float)dim[1]/256.0;
@@ -436,7 +436,9 @@ static float deg2rad = M_PI / 180.0;
         self.exportRotationSpan = CPR180ExportRotationSpan;
         self.exportReverseSliceOrder = NO;
         
-		float r1, g1, b1, a1, r2, g2, b2, a2, r3, g3, b3, a3;
+        float r1, g1, b1, a1;
+        float r2, g2, b2, a2;
+        float r3, g3, b3, a3;
 		r1 = [[NSUserDefaults standardUserDefaults] floatForKey:@"MPR_AXIS_1_RED"];
 		g1 = [[NSUserDefaults standardUserDefaults] floatForKey:@"MPR_AXIS_1_GREEN"];
 		b1 = [[NSUserDefaults standardUserDefaults] floatForKey:@"MPR_AXIS_1_BLUE"];
@@ -452,7 +454,9 @@ static float deg2rad = M_PI / 180.0;
 		b3 = [[NSUserDefaults standardUserDefaults] floatForKey:@"MPR_AXIS_3_BLUE"];
 		a3 = [[NSUserDefaults standardUserDefaults] floatForKey:@"MPR_AXIS_3_ALPHA"];
 		
-		if(r1==0.0 && g1==0.0 && b1==0.0 && a1==0.0 && r2==0.0 && g2==0.0 && b2==0.0 && a2==0.0 && r3==0.0 && g3==0.0 && b3==0.0 && a3==0.0)
+		if (r1==0.0 && g1==0.0 && b1==0.0 && a1==0.0 &&
+            r2==0.0 && g2==0.0 && b2==0.0 && a2==0.0 &&
+            r3==0.0 && g3==0.0 && b3==0.0 && a3==0.0)
 		{
 			r1 = 1.0; g1 = 0.67; b1 = 0.0; a1 = 0.8;
 			r2 = 0.6; g2 = 0.0; b2 = 1.0; a2 = 0.8;
@@ -749,9 +753,9 @@ static float deg2rad = M_PI / 180.0;
 {
 	int toolIndex = 0;
 	
-	if([sender isKindOfClass:[NSMatrix class]])
+	if ([sender isKindOfClass:[NSMatrix class]])
 		toolIndex = [[sender selectedCell] tag];
-	else if([sender respondsToSelector:@selector(tag)])
+	else if ([sender respondsToSelector:@selector(tag)])
 		toolIndex = [sender tag];
 	
 	[self setToolIndex: (ToolMode)toolIndex];
@@ -1048,7 +1052,7 @@ static float deg2rad = M_PI / 180.0;
 	{
 		[self toogleAxisVisibility: self];
 	}
-	else if(c == 27) // 27 : escape
+	else if (c == 27) // 27 : escape
 	{
 		if (FullScreenOn)
 			[self fullScreenMenu:self];
@@ -1115,7 +1119,7 @@ static float deg2rad = M_PI / 180.0;
             [centerline removeAllObjects];
             
             int err = [assistant createCenterline:centerline FromPointA:pta ToPointB:ptb withSmoothing:NO];
-            if(!err)
+            if (!err)
             {
                 unsigned int lineCount = [centerline count] - 1;
                 for( unsigned int i = 0; i < lineCount ; ++i)
@@ -1127,7 +1131,7 @@ static float deg2rad = M_PI / 180.0;
                     [newCP addPatientNode:N3VectorApplyTransform(node, volumeData2PatientTransform)];
                 }
             }
-            else if(err == ERROR_NOENOUGHMEM)
+            else if (err == ERROR_NOENOUGHMEM)
             {
                 NSRunAlertPanel(@"", //NSLocalizedString(@"32-bit", nil),
                                 NSLocalizedString(@"Path Assistant can not allocate enough memory, try to increase the resample voxel size in the settings.", nil),
@@ -1135,7 +1139,7 @@ static float deg2rad = M_PI / 180.0;
                                 nil,
                                 nil);
             }
-            else if(err == ERROR_CANNOTFINDPATH)
+            else if (err == ERROR_CANNOTFINDPATH)
             {
                 NSRunAlertPanel(NSLocalizedString(@"Can't find path", nil),
                                 NSLocalizedString(@"Path Assistant can not find a path from A to B.", nil),
@@ -1143,7 +1147,7 @@ static float deg2rad = M_PI / 180.0;
                                 nil,
                                 nil);
             }
-            else if(err==ERROR_DISTTRANSNOTFINISH)
+            else if (err==ERROR_DISTTRANSNOTFINISH)
             {
                 [waiting close];
                 waiting = [[[WaitRendering alloc] init:NSLocalizedString(@"Distance Transform...", nil)] autorelease];
@@ -1153,7 +1157,7 @@ static float deg2rad = M_PI / 180.0;
                 {
                     [centerline removeAllObjects];
                     err= [assistant createCenterline:centerline FromPointA:pta ToPointB:ptb withSmoothing:NO];
-                    if(err!=ERROR_DISTTRANSNOTFINISH)
+                    if (err!=ERROR_DISTTRANSNOTFINISH)
                         break;
                     
                     for(unsigned int i=0;i<[centerline count] - 1;i++)
@@ -1175,7 +1179,7 @@ static float deg2rad = M_PI / 180.0;
                     [waiting close];
                     return;
                 }
-                else if(err==ERROR_DISTTRANSNOTFINISH)
+                else if (err==ERROR_DISTTRANSNOTFINISH)
                 {
                     NSRunAlertPanel(NSLocalizedString(@"Unexpected error", nil),
                                     NSLocalizedString(@"Path Assistant failed to initialize!", nil),
@@ -1719,7 +1723,7 @@ static float deg2rad = M_PI / 180.0;
     //	
     //	for (NSUInteger j=0; j<[paths count]; j++)
     //	{
-    //		if([[NSFileManager defaultManager] fileExistsAtPath:[paths objectAtIndex:j] isDirectory:&isDir] && isDir)
+    //		if ([[NSFileManager defaultManager] fileExistsAtPath:[paths objectAtIndex:j] isDirectory:&isDir] && isDir)
     //		{
     //			NSArray *content = [[NSFileManager defaultManager] directoryContentsAtPath:[paths objectAtIndex:j]];
     //			for (NSUInteger i=0; i<[content count]; i++)
@@ -1729,7 +1733,7 @@ static float deg2rad = M_PI / 180.0;
     //					if ([[content objectAtIndex:i] characterAtIndex: 0] != '.')
     //					{
     //						NSDictionary* clut = [CLUTOpacityView presetFromFileWithName:[[content objectAtIndex:i] stringByDeletingPathExtension]];
-    //						if(clut)
+    //						if (clut)
     //						{
     //							[clutArray addObject:[[content objectAtIndex:i] stringByDeletingPathExtension]];
     //						}
@@ -1753,13 +1757,13 @@ static float deg2rad = M_PI / 180.0;
     //		for (NSUInteger i=0; i<[clutArray count]; i++)
     //		{
     //			item = [[clutPopup menu] insertItemWithTitle:[clutArray objectAtIndex:i] action:@selector(loadAdvancedCLUTOpacity:) keyEquivalent:@"" atIndex:[[clutPopup menu] numberOfItems]-2];
-    //			if([mprView1.vrView isRGB])
+    //			if ([mprView1.vrView isRGB])
     //				[item setEnabled:NO];
     //		}
     //	}
     //	
     //    item = [[clutPopup menu] addItemWithTitle:NSLocalizedString(@"16-bit CLUT Editor", nil) action:@selector(showCLUTOpacityPanel:) keyEquivalent:@""];
-    //	if([[pixList[ 0] objectAtIndex:0] isRGB])
+    //	if ([[pixList[ 0] objectAtIndex:0] isRGB])
     //		[item setEnabled:NO];
 }
 
@@ -1806,9 +1810,9 @@ static float deg2rad = M_PI / 180.0;
 		[bottomTransverseView setIndex:[bottomTransverseView curImage]];
 	}
 	
-	if([str isEqualToString:NSLocalizedString(@"No CLUT", nil)])
+	if ([str isEqualToString:NSLocalizedString(@"No CLUT", nil)])
 	{
-		if(clippingRangeMode==0)
+		if (clippingRangeMode==0)
 		{
 			[mprView1.vrView setCLUT: nil :nil :nil];
 			
@@ -1883,7 +1887,7 @@ static float deg2rad = M_PI / 180.0;
 				blue[i] = [[array objectAtIndex: i] longValue];
 			}
 			
-			if(clippingRangeMode==0)
+			if (clippingRangeMode==0)
 			{
 				[mprView1.vrView setCLUT:red :green: blue];
                 
@@ -2838,7 +2842,7 @@ static float deg2rad = M_PI / 180.0;
                                 curvedVolumeData = [CPRGenerator synchronousRequestVolume: requestStretched volumeData:cprView.volumeData];
                             }
                             
-                            if(curvedVolumeData)
+                            if (curvedVolumeData)
                             {
                                 imageRep = [curvedVolumeData unsignedInt16ImageRepForSliceAtIndex:0];
                                 dataPtr = (unsigned char *)[imageRep unsignedInt16Data];
@@ -2903,7 +2907,7 @@ static float deg2rad = M_PI / 180.0;
                 
                 NSLog( @"Export Rotation: %f",  (float) ([NSDate timeIntervalSinceReferenceDate] - start));
 			}
-			else if(self.exportSeriesType == CPRSlabExportSeriesType)
+			else if (self.exportSeriesType == CPRSlabExportSeriesType)
 			{
                 Wait *progress = [[Wait alloc] initWithString:NSLocalizedString(@"Creating series", nil)];
 				[progress showWindow: self];
@@ -2960,7 +2964,7 @@ static float deg2rad = M_PI / 180.0;
                     curvedVolumeData = [CPRGenerator synchronousRequestVolume: requestStretched volumeData:cprView.volumeData];
                 }
                 
-				if(curvedVolumeData)
+				if (curvedVolumeData)
 				{
 					for( int i = 0; i < self.exportSequenceNumberOfFrames; i++)
 					{
@@ -3031,7 +3035,7 @@ static float deg2rad = M_PI / 180.0;
 					
                     @try {
                         curvedVolumeData = [CPRGenerator synchronousRequestVolume: r volumeData:cprView.volumeData];
-                        if(curvedVolumeData)
+                        if (curvedVolumeData)
                         {
                             imageRep = [curvedVolumeData unsignedInt16ImageRepForSliceAtIndex: 0];
                             
@@ -4087,21 +4091,21 @@ static float deg2rad = M_PI / 180.0;
 	NSArray *toolbarItems = [toolbar items];
 	for(NSToolbarItem *item in toolbarItems)
 	{
-		if([[item itemIdentifier] isEqualToString:@"AxisShowHide"])
+		if ([[item itemIdentifier] isEqualToString:@"AxisShowHide"])
 		{
 			if (![[self selectedViewOnlyMPRView: YES] displayCrossLines])
 				[item setImage:[NSImage imageNamed:@"MPRAxisHide"]];
 			else
 				[item setImage:[NSImage imageNamed:@"MPRAxisShow"]];
 		}
-        else if([[item itemIdentifier] isEqualToString:@"CPRAxisShowHide"])
+        else if ([[item itemIdentifier] isEqualToString:@"CPRAxisShowHide"])
 		{
 			if (!cprView.displayCrossLines)
 				[item setImage:[NSImage imageNamed:@"MPRAxisHide"]];
 			else
 				[item setImage:[NSImage imageNamed:@"MPRAxisShow"]];
 		}
-		else if([[item itemIdentifier] isEqualToString:@"MousePositionShowHide"])
+		else if ([[item itemIdentifier] isEqualToString:@"MousePositionShowHide"])
 		{
 			if (!self.displayMousePosition)
 				[item setImage:[NSImage imageNamed:@"MPRMousePositionHide"]];
@@ -4606,7 +4610,7 @@ static float deg2rad = M_PI / 180.0;
 	
 //	NSMutableArray *producedFiles = [NSMutableArray array];
 	
-	if(curvedVolumeData)
+	if (curvedVolumeData)
 	{
         [dicomExport setModalityAsSource:YES];
 		

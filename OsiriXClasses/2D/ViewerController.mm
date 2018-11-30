@@ -9869,7 +9869,9 @@ static int avoidReentryRefreshDatabase = 0;
 + (void) loadImageData:(id) dict
 {
     NSTimeInterval start = [NSDate timeIntervalSinceReferenceDate];
+#ifndef NDEBUG
     NSLog( @"start loading");
+#endif
     
     @autoreleasepool
     {
@@ -10004,7 +10006,9 @@ static int avoidReentryRefreshDatabase = 0;
         }
     }
     
+#ifndef NDEBUG
     NSLog( @"end loading: %f [s]", [NSDate timeIntervalSinceReferenceDate] - start);
+#endif
 }
 
 - (short) getNumberOfImages
@@ -11400,11 +11404,11 @@ static int avoidReentryRefreshDatabase = 0;
 
 - (double) computeOriginalOrientation
 {
-    NSLog(@"%s %d", __FUNCTION__, __LINE__);
     if ([pixList[ curMovieIndex] count] <= 2)
         return 0.0;
     
-    double vectors[ 9], vectorsB[ 9];
+    double vectors[ 9];
+    double vectorsB[ 9];
     BOOL equalVector = YES;
     
     [[pixList[ curMovieIndex] objectAtIndex:1] orientationDouble: vectors];
@@ -22825,7 +22829,7 @@ static BOOL viewerControllerPlaying = NO;
         [[viewer window] makeKeyAndOrderFront:self];
         [[viewer window] display];
         [[viewer window] setTitle: [NSString stringWithFormat:@"%@: %@", [[viewer window] title], [[self window] title]]];
-#if 1
+#if 0 // @@@ idea from Horos, but it doesn't work
         dispatch_async(dispatch_get_main_queue(), ^(){
             [viewer showWindow:self];
             [viewer showWindow:self];
@@ -23324,7 +23328,7 @@ static BOOL viewerControllerPlaying = NO;
 			[self place3DViewerWindow:viewer];
 			[viewer showWindow:self];
 			[[viewer window] setTitle: [NSString stringWithFormat:@"%@: %@", [[viewer window] title], [[self window] title]]];
-#if 0
+#if 1 // Horos
             dispatch_async(dispatch_get_main_queue(), ^(){
                 [viewer showWindow:self];
                 [viewer showWindow:self];
@@ -23405,7 +23409,7 @@ static BOOL viewerControllerPlaying = NO;
 		}
 		else
 		{
-#if 0
+#if 1 // Horos
             id waitWindow = [self startWaitWindow:NSLocalizedString(@"Loading...",nil)];
 #endif
 			viewer = [self openCPRViewer];
@@ -23414,7 +23418,7 @@ static BOOL viewerControllerPlaying = NO;
 			[[viewer window] setTitle: [NSString stringWithFormat:@"%@: %@",
                                         [[viewer window] title],
                                         [[self window] title]]];
-#if 0
+#if 1 // Horos
             dispatch_async(dispatch_get_main_queue(), ^(){
                 [viewer showWindow:self];
                 [viewer showWindow:self];

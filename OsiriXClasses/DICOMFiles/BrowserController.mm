@@ -2669,9 +2669,9 @@ static NSConditionLock *threadLock = nil;
 - (IBAction)setSearchType: (id)sender
 {
 	if (searchType == 0 && [[NSUserDefaults standardUserDefaults] boolForKey: @"HIDEPATIENTNAME"])
-		[searchField setTextColor: [NSColor whiteColor]];
+		[searchField setTextColor: [NSColor windowBackgroundColor]];
 	else
-		[searchField setTextColor: [NSColor blackColor]];
+		[searchField setTextColor: [NSColor textColor]];
 
 	for (long i = 0; i < [[sender menu] numberOfItems]; i++)
         [[[sender menu] itemAtIndex: i] setState: NSOffState];

@@ -96,14 +96,14 @@ extern "C"
 	
     NSCalendarDate *date = [NSCalendarDate dateWithYear: 2013 month: 1 day: 17 hour: 0 minute: 0 second: 1 timeZone: nil];
     
-    for( int i = 0; i < 90; i++)
+    for (int i = 0; i < 90; i++)
     {
         [NSThread sleepForTimeInterval: 0.1];
         
         BOOL succeed = NO;
         while( succeed == NO)
         {
-            for( int h = 8; h < 15; h+=3)
+            for (int h = 8; h < 15; h+=3)
             {
                 @try
                 {
@@ -124,7 +124,7 @@ extern "C"
                     
                     NSMutableDictionary *dictionary = [NSMutableDictionary dictionaryWithDictionary: [qm parameters]];
                     
-                    for( DCMTKStudyQueryNode *object in array)
+                    for (DCMTKStudyQueryNode *object in array)
                     {
                         [object setShowErrorMessage: NO];
                         
@@ -178,7 +178,7 @@ extern "C"
 			array = [qm queries];
 		}
 		
-		for( id a in array)
+		for (id a in array)
 		{
 			if ([a isMemberOfClass:[DCMTKStudyQueryNode class]] == NO)
 				NSLog( @"warning : [item isMemberOfClass:[DCMTKStudyQueryNode class]] == NO");
@@ -221,7 +221,7 @@ extern "C"
 //			NetworkMoveDataHandler *moveDataHandler = [NetworkMoveDataHandler moveDataHandler];
 //			[dictionary setObject:moveDataHandler  forKey:@"receivedDataHandler"];
 			
-			for( DCMTKQueryNode	*object in array)
+			for (DCMTKQueryNode	*object in array)
 			{
 				[object setShowErrorMessage: showErrors];
 				 
@@ -261,7 +261,7 @@ extern "C"
     NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
     
     int i = 0;
-    for( DCMTKQueryNode	*object in studies)
+    for (DCMTKQueryNode	*object in studies)
     {
         [NSThread currentThread].progress = (float) i++ / (float) studies.count;
         if (object.theDescription)
@@ -333,7 +333,7 @@ extern "C"
 	
 	@try
 	{
-        for( NSDictionary *server in serversList)
+        for (NSDictionary *server in serversList)
         {
             [NSThread currentThread].status = [server valueForKey: @"Description"];
             
@@ -410,7 +410,7 @@ extern "C"
             
             // Remove queries with only **** characters
             NSMutableArray *keysToBeRemoved = [NSMutableArray array];
-            for( NSString *key in f)
+            for (NSString *key in f)
             {
                 if ([[f objectForKey: key] isKindOfClass: [NSString class]])
                 {
@@ -452,7 +452,7 @@ extern "C"
                 
                 NSArray *uidArray = [studies valueForKey: @"uid"];
                 
-                for( NSUInteger x = 0 ; x < [studiesForThisNode count] ; x++)
+                for (NSUInteger x = 0 ; x < [studiesForThisNode count] ; x++)
                 {
                     DCMTKStudyQueryNode *s = [studiesForThisNode objectAtIndex: x];
                     
@@ -533,7 +533,7 @@ extern "C"
     
     if (usePatientName)
     {
-        for( int x = (long)[studies count]-1 ; x >= 0 ; x--)
+        for (int x = (long)[studies count]-1 ; x >= 0 ; x--)
         {
             DCMTKStudyQueryNode *s = [studies objectAtIndex: x];
             
@@ -865,7 +865,7 @@ extern "C"
 			return;
 		}
 		
-        for( NSDictionary *instance in autoQRInstances)
+        for (NSDictionary *instance in autoQRInstances)
         {
             if ([[instance objectForKey: @"instanceName"] isEqualToString: [autoQRInstanceName stringValue]])
             {
@@ -913,7 +913,7 @@ extern "C"
 {
     NSMutableArray *array = [NSMutableArray array];
     
-    for( NSDictionary *d in autoQRInstances)
+    for (NSDictionary *d in autoQRInstances)
     {
         [array addObject: [d objectForKey: @"instanceName"]];
     }
@@ -1006,7 +1006,7 @@ extern "C"
 	{
 		NSMutableArray *srcArray = [NSMutableArray array];
         NSMutableArray *srcAETitleArray = [NSMutableArray array];
-		for( id src in sourcesArray)
+		for (id src in sourcesArray)
 		{
 			if ([[src valueForKey: @"activated"] boolValue] == YES)
             {
@@ -1015,7 +1015,8 @@ extern "C"
             }
 		}
 		
-		if ([srcArray count] == 0 && [sourcesTable selectedRow] >= 0)
+		if ([srcArray count] == 0 &&
+            [sourcesTable selectedRow] >= 0)
         {
 			[srcArray addObject: [NSString stringWithString: [[sourcesArray objectAtIndex: [sourcesTable selectedRow]] valueForKey: @"AddressAndPort"]]];
             [srcAETitleArray addObject: [NSString stringWithString: [[sourcesArray objectAtIndex: [sourcesTable selectedRow]] valueForKey: @"AETitle"]]];
@@ -1040,7 +1041,7 @@ extern "C"
 	[presets setValue: [NSNumber numberWithInt: [birthdateFilterMatrix selectedTag]] forKey: @"birthdateFilterMatrix"];
 	
 	NSMutableArray *cellsString = [NSMutableArray array];
-	for( NSCell *cell in [modalityFilterMatrix cells])
+	for (NSCell *cell in [modalityFilterMatrix cells])
 	{
 		if ([cell state] == NSOnState)
 			[cellsString addObject: [cell title]];
@@ -1158,14 +1159,14 @@ extern "C"
 		{
 			[self willChangeValueForKey:@"sourcesArray"];
 			
-			for( id src in sourcesArray)
+			for (id src in sourcesArray)
 			{
 				[src setValue: @NO forKey: @"activated"];
 			}
 			
 //			if ([r count] == 1)
 //			{
-//				for( id src in sourcesArray)
+//				for (id src in sourcesArray)
 //				{
 //					if ([[src valueForKey: @"AddressAndPort"] isEqualToString: [r lastObject]])
 //					{
@@ -1178,7 +1179,7 @@ extern "C"
 //			{
 				BOOL first = YES;
 				
-                for( int i = 0; i < r.count; i++)
+                for (int i = 0; i < r.count; i++)
                 {
                     NSString *v = [r objectAtIndex: i];
                     
@@ -1186,9 +1187,10 @@ extern "C"
                     if (i < rAE.count)
                         ae = [rAE objectAtIndex: i];
                     
-                    for( id src in sourcesArray)
+                    for (id src in sourcesArray)
                     {
-                        if ([[src valueForKey: @"AddressAndPort"] isEqualToString: v] && (ae == nil || [ae isEqualToString: [src valueForKey:@"AETitle"]]))
+                        if ([[src valueForKey: @"AddressAndPort"] isEqualToString: v] &&
+                            (ae == nil || [ae isEqualToString: [src valueForKey:@"AETitle"]]))
                         {
                             [src setValue: @YES forKey: @"activated"];
                             
@@ -1249,7 +1251,7 @@ extern "C"
 	
     if ([presets valueForKey: @"modalityStrings"])
     {
-        for( NSCell *cell in [modalityFilterMatrix cells])
+        for (NSCell *cell in [modalityFilterMatrix cells])
         {
             if ([[presets valueForKey: @"modalityStrings"] containsObject: cell.title])
                 [cell setState: NSOnState];
@@ -1273,7 +1275,7 @@ extern "C"
 			
 			if (more && row < 7 && col < 3)
 			{
-                for( NSCell *cell in [modalityFilterMatrix cells])
+                for (NSCell *cell in [modalityFilterMatrix cells])
                 {
                     if ([cell.title isEqualToString: m[row][col]])
                         [cell setState: NSOnState];
@@ -1374,7 +1376,7 @@ extern "C"
 	}
 	else
 	{
-		for( NSString *key in [[savedPresets allKeys] sortedArrayUsingSelector: @selector(compare:)])
+		for (NSString *key in [[savedPresets allKeys] sortedArrayUsingSelector: @selector(compare:)])
 		{
 			[menu addItemWithTitle: key action:@selector(applyPreset:) keyEquivalent: @""];
 		}
@@ -1395,7 +1397,7 @@ extern "C"
 	
 		NSIndexSet* indices = [outlineView selectedRowIndexes];
 		
-		for( NSUInteger i = [indices firstIndex]; i != [indices lastIndex]+1; i++)
+		for (NSUInteger i = [indices firstIndex]; i != [indices lastIndex]+1; i++)
 		{
 			if ([indices containsIndex: i])
 			{
@@ -1419,7 +1421,7 @@ extern "C"
     NSIndexSet* indices = [outlineView selectedRowIndexes];
     BOOL somethingToDelete = NO;
     
-    for( NSUInteger i = [indices firstIndex]; i != [indices lastIndex]+1; i++)
+    for (NSUInteger i = [indices firstIndex]; i != [indices lastIndex]+1; i++)
     {
         if ([indices containsIndex: i])
         {
@@ -1446,7 +1448,7 @@ extern "C"
         
         @try 
         {
-            for( NSUInteger i = [indices firstIndex]; i != [indices lastIndex]+1; i++)
+            for (NSUInteger i = [indices firstIndex]; i != [indices lastIndex]+1; i++)
             {
                 if ([indices containsIndex: i])
                 {
@@ -1526,10 +1528,15 @@ extern "C"
 
 - (void) executeRefresh: (id) sender
 {
-    if (currentQueryController.DatabaseIsEdited == NO) [currentQueryController.outlineView reloadData];
-	if (currentAutoQueryController.DatabaseIsEdited == NO) [currentAutoQueryController.outlineView reloadData];
+    if (currentQueryController.DatabaseIsEdited == NO)
+        [currentQueryController.outlineView reloadData];
+    
+	if (currentAutoQueryController.DatabaseIsEdited == NO)
+        [currentAutoQueryController.outlineView reloadData];
 	
-    [NSThread detachNewThreadSelector:@selector(computeStudyArrayInstanceUID:) toTarget:self withObject:nil];
+    [NSThread detachNewThreadSelector:@selector(computeStudyArrayInstanceUID:)
+                             toTarget:self
+                           withObject:nil];
 }
 
 - (void) refresh: (id) sender
@@ -1538,7 +1545,9 @@ extern "C"
 	{
 		afterDelayRefresh = YES;
 		
-		[NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(executeRefresh:) object:nil];
+		[NSObject cancelPreviousPerformRequestsWithTarget:self
+                                                 selector:@selector(executeRefresh:)
+                                                   object:nil];
 		
 		int delay;
 		
@@ -1547,7 +1556,9 @@ extern "C"
 		else
 			delay = 10;
 		
-		[self performSelector:@selector(executeRefresh:) withObject:self afterDelay:delay];
+		[self performSelector:@selector(executeRefresh:)
+                   withObject:self
+                   afterDelay:delay];
 	}
 }
 
@@ -1557,7 +1568,7 @@ extern "C"
     
     if (autoQuery)
     {
-        for( int i = 0; i < autoQRInstances.count; i++)
+        for (int i = 0; i < autoQRInstances.count; i++)
             autoQueryRemainingSecs[ i] = 2;
     }
     else
@@ -1943,6 +1954,8 @@ extern "C"
 	}
 }
 
+#pragma mark - NSOutlineViewDelegate
+
 - (void)outlineView:(NSOutlineView *)oV willDisplayCell:(id)cell forTableColumn:(NSTableColumn *)tableColumn item:(id)item
 {
 	@try
@@ -2233,7 +2246,7 @@ extern "C"
 	
 	if ([event modifierFlags] & NSEventModifierFlagCommand)
 	{
-		for( NSCell *c in [modalityFilterMatrix cells])
+		for (NSCell *c in [modalityFilterMatrix cells])
 		{
 			if ([sender selectedCell] != c)
 				[c setState: NSOffState];
@@ -2281,11 +2294,11 @@ extern "C"
 	NSString			*hostname;
 	id					aServer;
 	int					selectedServer;
-	BOOL				atLeastOneSource = NO, noChecked = YES;
+	BOOL				atLeastOneSource = NO;
 	NSArray				*copiedSources = [NSArray arrayWithArray: sourcesArray];
 	
-	noChecked = YES;
-	for( NSUInteger i = 0; i < [copiedSources count]; i++)
+	BOOL noChecked = YES;
+	for (NSUInteger i = 0; i < [copiedSources count]; i++)
 	{
 		if ([[[copiedSources objectAtIndex: i] valueForKey:@"activated"] boolValue] == YES)
 			noChecked = NO;
@@ -2302,7 +2315,7 @@ extern "C"
 	
 	if ([filterValue length] > 0)
 	{
-		for( NSUInteger i = 0; i < [copiedSources count]; i++)
+		for (NSUInteger i = 0; i < [copiedSources count]; i++)
 		{
 			if ([[[copiedSources objectAtIndex: i] valueForKey:@"activated"] boolValue] == YES || selectedServer == i)
 			{
@@ -2345,7 +2358,7 @@ extern "C"
                 {
                     NSArray *uidArray = [temporaryCFindResultArray valueForKey: @"uid"];
                     
-                    for( NSUInteger x = 0 ; x < [curResult count] ; x++)
+                    for (NSUInteger x = 0 ; x < [curResult count] ; x++)
                     {
                         NSUInteger index = [uidArray indexOfObject: [[curResult objectAtIndex: x] valueForKey:@"uid"]];
                         
@@ -2399,7 +2412,7 @@ extern "C"
     
     @synchronized( self)
     {
-        for( NSThread *t in performingQueryThreads)
+        for (NSThread *t in performingQueryThreads)
             [t setIsCancelled: YES];
     }
     
@@ -2419,7 +2432,7 @@ extern "C"
         NSArray *dicomNodes = [instance objectForKey: @"DICOMNodes"];
         NSArray *dicomNodesAE = [instance objectForKey: @"DICOMNodesAETitle"];
         
-		for( int v = 0; v < dicomNodes.count; v++)
+		for (int v = 0; v < dicomNodes.count; v++)
         {
             NSString *s = [dicomNodes objectAtIndex: v];
             NSString *ae = nil;
@@ -2428,10 +2441,13 @@ extern "C"
                 
             NSDictionary *aServer = nil;
             
-            for( id src in sourcesArray)
+            for (id src in sourcesArray)
             {
-                if ([[src valueForKey: @"AddressAndPort"] isEqualToString: s] && (ae == nil || [[src valueForKey: @"AETitle"] isEqualToString: ae]))
+                if ([[src valueForKey: @"AddressAndPort"] isEqualToString: s] &&
+                    (ae == nil || [[src valueForKey: @"AETitle"] isEqualToString: ae]))
+                {
                     aServer = [src valueForKey: @"server"];
+                }
             }
             
             if (aServer == nil)
@@ -2482,7 +2498,7 @@ extern "C"
             
             BOOL queryItem = NO;
             
-            for( int v = fromField; v <= toField; v++)
+            for (int v = fromField; v <= toField; v++)
             {
                 switch( v)
                 {
@@ -2898,7 +2914,7 @@ extern "C"
                 NSArray	*curResult = [queryManager queries];
                 NSArray *uidArray = [tempResultArray valueForKey: @"uid"];
                 
-                for( NSUInteger x = 0 ; x < [curResult count] ; x++)
+                for (NSUInteger x = 0 ; x < [curResult count] ; x++)
                 {
                     NSUInteger index = [uidArray indexOfObject: [[curResult objectAtIndex: x] valueForKey:@"uid"]];
                     
@@ -3019,7 +3035,7 @@ extern "C"
 	NSArray	*descriptions = [[outlineView tableColumns] valueForKey:@"headerCell"];
 	int r;
 	
-	for( NSInteger x = 0; x < rowIndex.count; x++)
+	for (NSInteger x = 0; x < rowIndex.count; x++)
 	{
 		if (x == 0)
             r = rowIndex.firstIndex;
@@ -3035,7 +3051,7 @@ extern "C"
 			else
 			{
 				int i = 0;
-				for( NSCell *s in descriptions)
+				for (NSCell *s in descriptions)
 				{
 					@try
 					{
@@ -3055,7 +3071,7 @@ extern "C"
 			}
 			
 			int i = 0;
-			for( NSString *identifier in columns)
+			for (NSString *identifier in columns)
 			{
 				@try
 				{
@@ -3131,7 +3147,7 @@ extern "C"
     
     @synchronized( self)
     {
-        for( NSThread *t in performingQueryThreads)
+        for (NSThread *t in performingQueryThreads)
             [t setIsCancelled: YES];
         
         if (performingCFind == NO)
@@ -3242,13 +3258,13 @@ extern "C"
         else
             context = [[[BrowserController currentBrowser] database] independentContext];
         
-		for( id item in list)
+		for (id item in list)
 		{
             BOOL addItem = YES;
             
             if ([[NSUserDefaults standardUserDefaults] boolForKey: @"QR_CheckForDuplicateAccessionNumber"])
             {
-                for( id study in selectedItems)
+                for (id study in selectedItems)
                 {
                     if ([[study valueForKey: @"accessionNumber"] isEqualToString: [item valueForKey: @"accessionNumber"]])
                     {
@@ -3267,7 +3283,7 @@ extern "C"
                     if (downloadedStudies == nil)
                         downloadedStudies = [[NSMutableArray alloc] init];
                     
-                    for( NSDictionary *d in [NSArray arrayWithArray: downloadedStudies])
+                    for (NSDictionary *d in [NSArray arrayWithArray: downloadedStudies])
                     {
                         if ([[d valueForKey: @"date"] timeIntervalSinceNow] > -60*60) // 1 hour - don't redownload it !
                         {
@@ -3322,7 +3338,7 @@ extern "C"
                     context = [[[BrowserController currentBrowser] database] independentContext];
                 
 				NSMutableArray *previousStudies = [NSMutableArray array];
-				for( id item in selectedItems)
+				for (id item in selectedItems)
 				{
 					NSArray *studiesOfThisPatient = [self queryPatientIDwithoutGUI: [item valueForKey:@"patientID"]];
 					
@@ -3334,7 +3350,7 @@ extern "C"
 					
 					int numberOfStudiesAssociated = [[instance objectForKey:@"NumberOfPreviousStudyToRetrieve"] intValue];
 					
-					for( id study in studiesOfThisPatient)
+					for (id study in studiesOfThisPatient)
 					{
 						// We don't want current study
 						if ([[study valueForKey:@"uid"] isEqualToString: [item valueForKey:@"uid"]] == NO)
@@ -3348,7 +3364,7 @@ extern "C"
                                     NSArray *modalities = [[item valueForKey:@"modality"] componentsSeparatedByString: @"\\"];
                                     NSArray *relatedStudyModalities = [[study valueForKey:@"modality"] componentsSeparatedByString: @"\\"];
                                     
-                                    for( NSString *modality in modalities)
+                                    for (NSString *modality in modalities)
                                     {
                                         if ([modality isEqualToString: @"SR"] == NO &&
                                             [modality isEqualToString: @"SC"] == NO &&
@@ -3382,7 +3398,7 @@ extern "C"
 				[selectedItems addObjectsFromArray: previousStudies];
 			}
 			
-			for( id item in selectedItems)
+			for (id item in selectedItems)
 				[item setShowErrorMessage: NO];
 			
 			NSThread *t = [[[NSThread alloc] initWithTarget:self selector:@selector(performRetrieve:) object: selectedItems] autorelease];
@@ -3395,7 +3411,7 @@ extern "C"
 			
 			NSLog( @"______________________________________________");
 			NSLog( @"Will auto-retrieve these items:");
-			for( id item in selectedItems)
+			for (id item in selectedItems)
 			{
 				NSLog( @"%@ %@ %@ %@", [item valueForKey:@"theDescription"], [item valueForKey:@"patientID"], [item valueForKey:@"accessionNumber"], [item valueForKey:@"date"]);
 			}
@@ -3479,7 +3495,7 @@ extern "C"
             {
                 int i = 0;
                 
-                for( NSDictionary *QRInstance in autoQRInstances)
+                for (NSDictionary *QRInstance in autoQRInstances)
                 {
                     if ([[QRInstance objectForKey: @"autoRefreshQueryResults"] intValue] != 0)
                     {
@@ -3622,7 +3638,7 @@ extern "C"
     
 	if([items count])
 	{
-		for( id item in items)
+		for (id item in items)
 		{
 			[item setShowErrorMessage: showGUI];
 			
@@ -3667,7 +3683,7 @@ extern "C"
 //						
 //						[self queryWithValues: nil dataset: dataset];
 //						
-//						for( DCMTKImageQueryNode *image in [self children])
+//						for (DCMTKImageQueryNode *image in [self children])
 //						{
 //							if ([image uid])
 //							{
@@ -3898,13 +3914,16 @@ extern "C"
     
     @try
     {
-        for( NSDictionary *source in sourcesArray)
+        for (NSDictionary *source in sourcesArray)
         {
-            for( DCMTKQueryNode *node in array)
+            for (DCMTKQueryNode *node in array)
             {
-                if ([[node _hostname] isEqualToString: [[source valueForKey: @"server"] valueForKey: @"Address"]] && [node _port] == [[[source valueForKey: @"server"] valueForKey: @"Port"] intValue])
+                if ([[node _hostname] isEqualToString: [[source valueForKey: @"server"] valueForKey: @"Address"]] &&
+                    [node _port] == [[[source valueForKey: @"server"] valueForKey: @"Port"] intValue])
+                {
                     if ([reorderedArray containsObject: node] == NO)
                         [reorderedArray addObject: node];
+                }
             }
         }
     }
@@ -3913,7 +3932,7 @@ extern "C"
         N2LogExceptionWithStackTrace( e);
     }
     
-    for( DCMTKQueryNode *node in array)
+    for (DCMTKQueryNode *node in array)
     {
         if ([reorderedArray containsObject: node] == NO)
             [reorderedArray addObject: node];
@@ -3935,7 +3954,7 @@ extern "C"
 		
 		BOOL allowNonCMOVE = YES;
 		
-		for( NSUInteger i = 0; i < [array count] ; i++)
+		for (NSUInteger i = 0; i < [array count] ; i++)
 		{
 			DCMTKQueryNode *object = [[array objectAtIndex: i] retain];
 			
@@ -3988,7 +4007,7 @@ extern "C"
 		[subPool release];
 		
 		int i = 0;
-		for( NSDictionary *d in moveArray)
+		for (NSDictionary *d in moveArray)
 		{
 			DCMTKQueryNode *object = [d objectForKey: @"query"];
 			
@@ -4055,7 +4074,7 @@ extern "C"
 		
 		@synchronized( previousAutoRetrieve)
 		{
-			for( DCMTKQueryNode *object in [moveArray valueForKey: @"query"])
+			for (DCMTKQueryNode *object in [moveArray valueForKey: @"query"])
 			{
 				@try
 				{
@@ -4077,7 +4096,7 @@ extern "C"
 				fclose (pFile);
 			else
 			{
-				for( id item in array)
+				for (id item in array)
 					[item setShowErrorMessage: YES];
 			}
 		}
@@ -4234,7 +4253,7 @@ extern "C"
 - (void)setModalityQuery:(id)sender
 {
     NSMutableString *cellsString = [NSMutableString string];
-	for( NSCell *cell in [modalityFilterMatrix cells])
+	for (NSCell *cell in [modalityFilterMatrix cells])
 	{
 		if ([cell state] == NSOnState)
 		{
@@ -4587,7 +4606,7 @@ extern "C"
 	
 	[self refreshSources];
 	
-	for( NSUInteger i = 0; i < [sourcesArray count]; i++)
+	for (NSUInteger i = 0; i < [sourcesArray count]; i++)
 	{
 		if ([[[sourcesArray objectAtIndex: i] valueForKey:@"activated"] boolValue] == YES)
 		{
@@ -4776,7 +4795,7 @@ extern "C"
 {
 	[self willChangeValueForKey:@"sourcesArray"];
 	
-	for( NSUInteger i = 0; i < [sourcesArray count]; i++)
+	for (NSUInteger i = 0; i < [sourcesArray count]; i++)
 	{
 		NSMutableDictionary		*source = [NSMutableDictionary dictionaryWithDictionary: [sourcesArray objectAtIndex: i]];
 		
@@ -4793,10 +4812,12 @@ extern "C"
 
 - (NSDictionary*) findCorrespondingServer: (NSDictionary*) savedServer inServers : (NSArray*) servers
 {
-	for( NSUInteger i = 0 ; i < [servers count]; i++)
+	for (NSUInteger i = 0 ; i < [servers count]; i++)
 	{
 		if ([[savedServer objectForKey:@"AETitle"] isEqualToString: [[servers objectAtIndex:i] objectForKey:@"AETitle"]] &&
-			[[savedServer objectForKey:@"AddressAndPort"] isEqualToString: [NSString stringWithFormat:@"%@:%@", [[servers objectAtIndex:i] valueForKey:@"Address"], [[servers objectAtIndex:i] valueForKey:@"Port"]]])
+			[[savedServer objectForKey:@"AddressAndPort"] isEqualToString: [NSString stringWithFormat:@"%@:%@",
+                                                                            [[servers objectAtIndex:i] valueForKey:@"Address"],
+                                                                            [[servers objectAtIndex:i] valueForKey:@"Port"]]])
 			{
 				return [servers objectAtIndex:i];
 			}
@@ -4809,14 +4830,14 @@ extern "C"
 {
 	[[NSUserDefaults standardUserDefaults] setObject:sourcesArray forKey: queryArrayPrefs];
 	
-	NSMutableArray		*serversArray		= [[[DCMNetServiceDelegate DICOMServersList] mutableCopy] autorelease];
-	NSArray				*savedArray			= [[NSUserDefaults standardUserDefaults] arrayForKey: queryArrayPrefs];
+	NSMutableArray *serversArray = [[[DCMNetServiceDelegate DICOMServersList] mutableCopy] autorelease];
+	NSArray *savedArray = [[NSUserDefaults standardUserDefaults] arrayForKey: queryArrayPrefs];
 	
 	[self willChangeValueForKey:@"sourcesArray"];
 	 
 	[sourcesArray removeAllObjects];
 	
-	for( NSUInteger i = 0; i < [savedArray count]; i++)
+	for (NSUInteger i = 0; i < [savedArray count]; i++)
 	{
 		NSDictionary *server = [self findCorrespondingServer: [savedArray objectAtIndex:i] inServers: serversArray];
 		
@@ -4834,11 +4855,12 @@ extern "C"
 		}
 	}
 	
-	for( NSUInteger i = 0; i < [serversArray count]; i++)
+	for (NSUInteger i = 0; i < [serversArray count]; i++)
 	{
 		NSDictionary *server = [serversArray objectAtIndex: i];
 		
-		if (([[server valueForKey:@"QR"] boolValue] == YES || [server valueForKey:@"QR"] == nil ))
+		if (([[server valueForKey:@"QR"] boolValue] == YES ||
+              [server valueForKey:@"QR"] == nil ))
 		
 			[sourcesArray addObject: [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                       @NO, @"activated",
@@ -4855,7 +4877,7 @@ extern "C"
 	
 	// *********** Update Send To popup menu
 	
-	NSString	*previousItem = [[[sendToPopup selectedItem] title] retain];
+	NSString *previousItem = [[[sendToPopup selectedItem] title] retain];
 	
 	[sendToPopup removeAllItems];
 	
@@ -4864,22 +4886,30 @@ extern "C"
 		serversArray = [[[DCMNetServiceDelegate DICOMServersList] mutableCopy] autorelease];
 		
 		NSString *ip = [NSString stringWithCString:GetPrivateIP()];
-		[sendToPopup addItemWithTitle: [NSString stringWithFormat: NSLocalizedString( @"This Computer - %@/%@:%d", nil), [NSUserDefaults defaultAETitle], ip, [NSUserDefaults defaultAEPort]]];
+		[sendToPopup addItemWithTitle: [NSString stringWithFormat: NSLocalizedString( @"This Computer - %@/%@:%d", nil),
+                                        [NSUserDefaults defaultAETitle],
+                                        ip,
+                                        [NSUserDefaults defaultAEPort]]];
 
 		[[sendToPopup menu] addItem: [NSMenuItem separatorItem]];
 		
-		for( NSUInteger i = 0; i < [serversArray count]; i++)
+		for (NSUInteger i = 0; i < [serversArray count]; i++)
 		{
 			NSDictionary *server = [serversArray objectAtIndex: i];
 			
-			NSString *title = [NSString stringWithFormat:@"%@ - %@/%@:%@", [server valueForKey:@"Description"], [server valueForKey:@"AETitle"], [server valueForKey:@"Address"], [server valueForKey:@"Port"]];
+			NSString *title = [NSString stringWithFormat:@"%@ - %@/%@:%@",
+                               [server valueForKey:@"Description"],
+                               [server valueForKey:@"AETitle"],
+                               [server valueForKey:@"Address"],
+                               [server valueForKey:@"Port"]];
 			
-			while( [sendToPopup indexOfItemWithTitle: title] != -1)
+			while ([sendToPopup indexOfItemWithTitle: title] != -1)
 				title = [title stringByAppendingString: @" "];
 			
 			[sendToPopup addItemWithTitle: title];
 			
-			if ([title isEqualToString: previousItem]) [sendToPopup selectItemWithTitle: previousItem];
+			if ([title isEqualToString: previousItem])
+                [sendToPopup selectItemWithTitle: previousItem];
 		}
 	}
 	
@@ -4893,7 +4923,7 @@ extern "C"
 	
 	DcmDictEntryList list;
     DcmHashDictIterator iter(globalDataDict.normalBegin());
-    for( int x = 0; x < globalDataDict.numberOfNormalTagEntries(); ++iter, x++)
+    for (int x = 0; x < globalDataDict.numberOfNormalTagEntries(); ++iter, x++)
     {
         if ((*iter)->getPrivateCreator() == NULL) // exclude private tags
         {
@@ -5037,7 +5067,7 @@ extern "C"
             currentAutoQR = -1;
             [self setCurrentAutoQR: 0];
             
-            for( int i = 0; i < autoQRInstances.count; i++)
+            for (int i = 0; i < autoQRInstances.count; i++)
             {
                 if ([[[autoQRInstances objectAtIndex: i] valueForKey: @"autoRefreshQueryResults"] intValue] >= 0)
                     autoQueryRemainingSecs[ i] = 60 * [[[autoQRInstances objectAtIndex: i] valueForKey: @"autoRefreshQueryResults"] intValue]; // minutes
@@ -5055,7 +5085,7 @@ extern "C"
         
         NSMenuItem *item;
         item = [[[NSMenuItem alloc] init] autorelease];
-        for( int i = 0; i < [DICOMFieldsArray count]; i++)
+        for (int i = 0; i < [DICOMFieldsArray count]; i++)
         {
             item = [[[NSMenuItem alloc] init] autorelease];
             [item setTitle:[[DICOMFieldsArray objectAtIndex:i] title]];
@@ -5226,7 +5256,7 @@ extern "C"
                 
                 NSMutableArray *resultsArrays = [NSMutableArray array];
                 
-                for( NSMutableDictionary *instance in autoQRInstances)
+                for (NSMutableDictionary *instance in autoQRInstances)
                 {
                     if ([instance objectForKey: @"resultArray"])
                         [resultsArrays addObject: [instance objectForKey: @"resultArray"]];
@@ -5239,7 +5269,7 @@ extern "C"
                 [[NSUserDefaults standardUserDefaults] setObject: [[autoQRInstances copy] autorelease] forKey: @"savedAutoDICOMQuerySettingsArray"];
                 
                 int i = 0;
-                for( id r in resultsArrays)
+                for (id r in resultsArrays)
                 {
                     if (r != [NSNull null])
                         [[autoQRInstances objectAtIndex: i] setObject: r forKey: @"resultArray"];
@@ -5279,7 +5309,7 @@ extern "C"
 
 - (int) dicomEcho:(NSDictionary*) aServer
 {
-	return [QueryController echoServer:aServer];
+	return [QueryController echoServer:aServer];  // BOOL too int ?
 }
 
 - (IBAction) verify:(id)sender
@@ -5289,13 +5319,14 @@ extern "C"
 //    [NSThread detachNewThreadSelector: @selector( queryTest:) toTarget: [QueryController class] withObject: [[sourcesArray objectAtIndex: selectedRow] valueForKey:@"server"]];
 //    
     
-	int status, selectedRow = [sourcesTable selectedRow];
+    int status;
+    int selectedRow = [sourcesTable selectedRow];
 
 	[progressIndicator startAnimation:nil];
 
 	[self willChangeValueForKey:@"sourcesArray"];
 	
-	for( NSUInteger i = 0 ; i < [sourcesArray count]; i++)
+	for (NSUInteger i = 0 ; i < [sourcesArray count]; i++)
 	{
 		[sourcesTable selectRowIndexes: [NSIndexSet indexSetWithIndex: i] byExtendingSelection: NO];
 		[sourcesTable scrollRowToVisible: i];
@@ -5310,10 +5341,11 @@ extern "C"
 			case -1:	status = -2;		break;
 		}
 		
-		[aServer setObject:[NSNumber numberWithInt: status] forKey:@"test"];
+		[aServer setObject:[NSNumber numberWithInt: status] forKey:@"test"];  // see DNDArrayController
 	}
 	
-	[sourcesTable selectRowIndexes: [NSIndexSet indexSetWithIndex: selectedRow] byExtendingSelection: NO];
+	[sourcesTable selectRowIndexes: [NSIndexSet indexSetWithIndex: selectedRow]
+              byExtendingSelection: NO];
 	
 	[self didChangeValueForKey:@"sourcesArray"];
 	
@@ -5326,19 +5358,19 @@ extern "C"
 	{
 		case 0:		// Query
 			[self query: sender];
-		break;
+            break;
 		
 		case 2:		// Retrieve
 			[self retrieve: sender];
-		break;
+            break;
 		
 		case 3:		// Verify
 			[self verify: sender];
-		break;
+            break;
 		
 		case 1:		// Query Selected Patient
 			[self querySelectedStudy: self];
-		break;
+            break;
 	}
 }
 

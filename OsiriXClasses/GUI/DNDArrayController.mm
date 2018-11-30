@@ -45,8 +45,8 @@ NSString *CopiedRowsType = @"COPIED_ROWS_TYPE";
 
 - (void)tableView:(NSTableView *)aTableView willDisplayCell:(id)aCell forTableColumn:(NSTableColumn *)aTableColumn row:(NSInteger)rowIndex
 {
-	if ([[aTableColumn identifier] isEqualToString:@"AddressAndPort"] ||
-        [[aTableColumn identifier] isEqualToString:@"Address"])		// Warning ! DNDArrayController is used in Query.xib AND in OSILocations.xib
+	if ([[aTableColumn identifier] isEqualToString:@"AddressAndPort"] ||    // as used in Query.xib
+        [[aTableColumn identifier] isEqualToString:@"Address"])		        // as used in OSILocations.xib
 	{
 		NSParameterAssert(rowIndex >= 0 && rowIndex < [[self arrangedObjects] count]);
 		
@@ -58,15 +58,15 @@ NSString *CopiedRowsType = @"COPIED_ROWS_TYPE";
 			{
 				case -1:
 					[aCell setTextColor: [NSColor orangeColor]];
-				break;
+                    break;
 				
 				case -2:
 					[aCell setTextColor: [NSColor redColor]];
-				break;
+                    break;
 				
 				case 0:
-					[aCell setTextColor: [NSColor blackColor]];
-				break;
+					[aCell setTextColor: [NSColor textColor]];
+                    break;
 			}
 		}
 	}

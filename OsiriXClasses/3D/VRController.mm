@@ -880,9 +880,9 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
             [[self window] setFrameUsingName:@"3D Panel"];
         }
         
-#if 1 // @@@
+#if 0 // @@@
         [shadingsPresetsController setWindowController: self];      
-#else
+#else // Horos
 		[shadingsPresetsController addObserver:self forKeyPath:@"selectedObjects" options:0 context:VRController.class];
 #endif
         [self setupToolbar];
@@ -896,9 +896,14 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
     return self;
 }
 
-# if 0
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
-    if (context == VRController.class && object == shadingsPresetsController && [keyPath isEqualToString:@"selectedObjects"]) {
+#if 1 // Horos
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary<NSKeyValueChangeKey,id> *)change
+                       context:(void *)context
+{
+    if (context == VRController.class && object == shadingsPresetsController && [keyPath isEqualToString:@"selectedObjects"])
+    {
         [self applyShading:self];
         return;
     }
@@ -1201,7 +1206,7 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
 
 -(void) dealloc
 {
-#if 0
+#if 1 // Horos
 [shadingsPresetsController removeObserver:self forKeyPath:@"selectedObjects" context:VRController.class];
 #endif
 	[style release];

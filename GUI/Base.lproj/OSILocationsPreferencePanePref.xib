@@ -118,7 +118,7 @@
                                                     </tableColumn>
                                                     <tableColumn identifier="Address" width="90.49609375" minWidth="60" maxWidth="400" id="98">
                                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Address">
-                                                            <font key="font" metaFont="systemMedium" size="11"/>
+                                                            <font key="font" metaFont="smallSystem"/>
                                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" white="0.33333298560000002" alpha="1" colorSpace="calibratedWhite"/>
                                                         </tableHeaderCell>

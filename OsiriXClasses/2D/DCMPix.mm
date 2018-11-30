@@ -10153,8 +10153,6 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 {
 	float iwl, iww;
 	
-    NSLog(@"DCMPix.mm:%d %s", __LINE__, __PRETTY_FUNCTION__);
-
 	if (fixed8bitsWLWW)
 	{
 		iww = 256;

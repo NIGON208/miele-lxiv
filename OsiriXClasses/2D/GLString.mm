@@ -186,8 +186,6 @@
 
 - (void) genTexture; // generates the texture without drawing texture to current context
 {
-    NSLog(@"GLString.mm:%d %s", __LINE__, __PRETTY_FUNCTION__);
-    
 	NSImage * image;
 	
 	if ((NO == staticFrame) &&
@@ -402,7 +400,6 @@
 
 - (void) drawAtPoint: (NSPoint) p view:(NSView*) view
 {
-    NSLog(@"GLString.mm:%d %s", __LINE__, __PRETTY_FUNCTION__);
     NSRect r = NSMakeRect(p.x,
                           p.y,
                           [view convertSizeToBacking: [self frameSize]].width,
