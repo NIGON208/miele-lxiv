@@ -187,7 +187,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>7.1.30</string>
+	<string>7.1.33</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -224,10 +224,12 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>NSAppleEventsUsageDescription</key>
+	<string>Allow access to Photos to export images to it</string>
 	<key>NSAppleScriptEnabled</key>
 	<string>YES</string>
 	<key>NSContactsUsageDescription</key>
-	<string>Your account will be used for the built-in iChat sharing service. If you don&apos;t allow access, you cannot use the iChat functions.</string>
+	<string>Your account will be used for the built-in iChat sharing service. If you don't allow access, you cannot use the iChat functions.</string>
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright © 2014-2018 bettar. All rights reserved.</string>
 	<key>NSMainNibFile</key>
@@ -262,7 +264,5 @@
 			</dict>
 		</dict>
 	</array>
-	<key>NSAppleEventsUsageDescription</key>
-	<string>Allow access to Photos to export images to it</string>
 </dict>
 </plist>

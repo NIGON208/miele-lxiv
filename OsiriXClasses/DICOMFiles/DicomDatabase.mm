@@ -108,7 +108,8 @@ NSString* const O2ScreenCapturesSeriesName = NSLocalizedString(@"OsiriX Screen C
 	return path;
 }
 
-+(NSString*)baseDirPathForMode:(int)mode path:(NSString*)path {
++(NSString*)baseDirPathForMode:(int)mode path:(NSString*)path
+{
 	switch (mode) {
 		case 0:
 			path = [NSFileManager.defaultManager findSystemFolderOfType:kDocumentsFolderType forDomain:kOnAppropriateDisk];

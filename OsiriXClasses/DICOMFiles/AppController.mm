@@ -4311,10 +4311,10 @@ static BOOL initialized = NO;
     if ([AppController hasMacOSX_AfterMojave])
     {
 #ifdef WITH_OS_VALIDATION
-        NSAlert* alert = [[NSAlert new] autorelease];
+        NSAlert *alert = [[NSAlert new] autorelease];
         [alert setMessageText: NSLocalizedString( @"Mac OS Version", nil)];
         
-        [alert setInformativeText: NSLocalizedString( @"This version of OsiriX has not been validated or certified for this version of MacOS. Bugs, errors and instabilities can occur. Upgrade to latest version of OsiriX to solve this problem.", nil)];
+        [alert setInformativeText: NSLocalizedString( @"This version of Miele-LXIV has not been validated or certified for this version of MacOS. Bugs, errors and instabilities can occur. Upgrade to latest version of Miele-LXIV to solve this problem.", nil)];
         
         [alert addButtonWithTitle: NSLocalizedString( @"OK", nil)];
         [alert addButtonWithTitle: NSLocalizedString( @"Upgrade", nil)];
@@ -4333,7 +4333,9 @@ static BOOL initialized = NO;
         NSString* inc = [[DicomDatabase activeLocalDatabase] incomingDirPath];
         for (NSString* path in [NSArray arrayWithObjects: [[DicomDatabase activeLocalDatabase] tempDirPath], [[DicomDatabase activeLocalDatabase] decompressionDirPath], nil])
             for (NSString* f in [[NSFileManager defaultManager] enumeratorAtPath:path filesOnly:NO recursive:NO])
-                [[NSFileManager defaultManager] moveItemAtPath:[path stringByAppendingPathComponent:f] toPath:[inc stringByAppendingPathComponent:f] error:NULL];
+                [[NSFileManager defaultManager] moveItemAtPath:[path stringByAppendingPathComponent:f]
+                                                        toPath:[inc stringByAppendingPathComponent:f]
+                                                         error:NULL];
     }
 	
 //	[self checkForOsirixMimeType];
@@ -4517,7 +4519,7 @@ static BOOL initialized = NO;
 #ifdef OSIRIX_LIGHT
 	wait = [[[WaitRendering alloc] init: NSLocalizedString(@"Starting OsiriX Lite...", nil)] autorelease];
 #else
-    wait = [[[WaitRendering alloc] init: NSLocalizedString(@"Starting OsiriX 64-bit", nil)] autorelease];
+    wait = [[[WaitRendering alloc] init: NSLocalizedString(@"Starting Miele-LXIV", nil)] autorelease];
 #endif
 
 	return wait;

@@ -335,7 +335,6 @@
 		43D7471D21A6C4C80055FA87 /* AsyncSocket.strings in Resources */ = {isa = PBXBuildFile; fileRef = 43D7471B21A6C4C80055FA87 /* AsyncSocket.strings */; };
 		43D7472021A6C4C80055FA87 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 43D7471E21A6C4C80055FA87 /* InfoPlist.strings */; };
 		43E27D2B1AF338FA007B92CA /* ROI3DSettingsWindow.mm in Sources */ = {isa = PBXBuildFile; fileRef = 43E27D291AF338FA007B92CA /* ROI3DSettingsWindow.mm */; };
-		43E6A513216CC2BA005A031A /* odt2pdf.zip in Resources */ = {isa = PBXBuildFile; fileRef = 43E6A512216CC297005A031A /* odt2pdf.zip */; };
 		43F8F9AB1AA7DAA6008F318C /* LoupeController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 43F8F9A51AA7DAA6008F318C /* LoupeController.mm */; };
 		43F8F9AD1AA7DAA6008F318C /* LoupeView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 43F8F9A71AA7DAA6008F318C /* LoupeView.mm */; };
 		43F8F9AF1AA7DAA6008F318C /* LoupeWindow.mm in Sources */ = {isa = PBXBuildFile; fileRef = 43F8F9A91AA7DAA6008F318C /* LoupeWindow.mm */; };
@@ -1973,6 +1972,13 @@
 			remoteGlobalIDString = CEDF6C600B46FE99008B45B8;
 			remoteInfo = DICOMPrint;
 		};
+		43C2612821B6BEB80080E638 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 59BDEC2C117C92B2007F1F2C;
+			remoteInfo = "LXIV Launcher";
+		};
 		43D3A073208347FA008F044B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
@@ -2007,13 +2013,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 7E0B3A3E067526CD00908593;
 			remoteInfo = "DCM Framework";
-		};
-		59BDEE6A117CB393007F1F2C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 59BDEC2C117C92B2007F1F2C;
-			remoteInfo = "OsiriX Launcher";
 		};
 		AB0F3A411046BFB9004129DD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -3581,7 +3580,7 @@
 		4310F69320692C25000BDDCC /* tuplefrd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tuplefrd.h; sourceTree = "<group>"; };
 		4310F69420692C25000BDDCC /* tuplefwd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tuplefwd.h; sourceTree = "<group>"; };
 		4310F69520692C25000BDDCC /* variant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = variant.h; sourceTree = "<group>"; };
-		43254D58216A1A9F003846E3 /* LXIV Launcher.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = "LXIV Launcher.entitlements"; path = "LXIV Launcher/LXIV Launcher.entitlements"; sourceTree = "<group>"; };
+		43254D58216A1A9F003846E3 /* LXIV Launcher-Development.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = "LXIV Launcher-Development.entitlements"; path = "LXIV Launcher/LXIV Launcher-Development.entitlements"; sourceTree = "<group>"; };
 		4333FD351AB3076200E82B49 /* libcharls.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcharls.a; path = Binaries/DCMTK/lib/libcharls.a; sourceTree = "<group>"; };
 		4333FD361AB3076200E82B49 /* libdcmdata.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdcmdata.a; path = Binaries/DCMTK/lib/libdcmdata.a; sourceTree = "<group>"; };
 		4333FD371AB3076200E82B49 /* libdcmdsig.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdcmdsig.a; path = Binaries/DCMTK/lib/libdcmdsig.a; sourceTree = "<group>"; };
@@ -3610,7 +3609,7 @@
 		434B461B1A19F631008CF8CF /* OPJSupport.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OPJSupport.cpp; path = glue/OpenJPEG/OPJSupport.cpp; sourceTree = "<group>"; };
 		434B461C1A19F631008CF8CF /* OPJSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OPJSupport.h; path = glue/OpenJPEG/OPJSupport.h; sourceTree = "<group>"; };
 		434B47A11A1A18D3008CF8CF /* kdu_OsiriX_NO_Support.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = kdu_OsiriX_NO_Support.cpp; path = glue/Kakadu/kdu_OsiriX_NO_Support.cpp; sourceTree = SOURCE_ROOT; };
-		434B69402168BEBC00C35AB6 /* miele-lxiv.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "miele-lxiv.entitlements"; sourceTree = "<group>"; };
+		434B69402168BEBC00C35AB6 /* miele-lxiv-Distribution.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "miele-lxiv-Distribution.entitlements"; sourceTree = "<group>"; };
 		434C54FE1AA5868000218595 /* BioradHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BioradHeader.h; sourceTree = "<group>"; };
 		4352BE4E1AA698F6000B80E1 /* OSIDerivedROI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OSIDerivedROI.h; sourceTree = "<group>"; };
 		4352BE4F1AA698F6000B80E1 /* OSIDerivedROI.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = OSIDerivedROI.mm; sourceTree = "<group>"; };
@@ -3639,6 +3638,10 @@
 		438718BB2067C00F009575DB /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = ../../../../../../usr/local/Cellar/libxml2/2.9.4/lib/libxml2.dylib; sourceTree = "<group>"; };
 		438718BD2067C09E009575DB /* libcrypto.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcrypto.dylib; path = ../../../../../../usr/local/Cellar/openssl/1.0.2/lib/libcrypto.dylib; sourceTree = "<group>"; };
 		438718BF2067C0B3009575DB /* libssl.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libssl.dylib; path = ../../../../../../usr/local/Cellar/openssl/1.0.2/lib/libssl.dylib; sourceTree = "<group>"; };
+		438AE1A921B5177700C5E98F /* miele-lxiv-Deployment.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "miele-lxiv-Deployment.entitlements"; sourceTree = "<group>"; };
+		438AE1AA21B51E1400C5E98F /* miele-lxiv-Development.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "miele-lxiv-Development.entitlements"; sourceTree = "<group>"; };
+		438AE1AB21B5651B00C5E98F /* LXIV Launcher-Deployment.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = "LXIV Launcher-Deployment.entitlements"; path = "LXIV Launcher/LXIV Launcher-Deployment.entitlements"; sourceTree = "<group>"; };
+		438AE1AC21B5651C00C5E98F /* LXIV Launcher-Distribution.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = "LXIV Launcher-Distribution.entitlements"; path = "LXIV Launcher/LXIV Launcher-Distribution.entitlements"; sourceTree = "<group>"; };
 		4399FEC821762EE000011D9E /* libtiff.5.2.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libtiff.5.2.6.dylib; path = "../../../../install/miele-201612/tiff-4.0.8/lib/libtiff.5.2.6.dylib"; sourceTree = "<group>"; };
 		43A02E9F219D94CC00E788B6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = GUI/Base.lproj/3DPosition.xib; sourceTree = "<group>"; };
 		43A02EA0219D94CD00E788B6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = GUI/Base.lproj/AnonymizationCustomTagPanel.xib; sourceTree = "<group>"; };
@@ -5289,9 +5292,11 @@
 		29B97314FDCFA39411CA2CEA /* OsiriX */ = {
 			isa = PBXGroup;
 			children = (
+				438AE1AA21B51E1400C5E98F /* miele-lxiv-Development.entitlements */,
+				438AE1A921B5177700C5E98F /* miele-lxiv-Deployment.entitlements */,
 				43A36C26219B1E4A00C506D3 /* GUI */,
 				4373D6212174A8FF000F4BE1 /* libjpeg.9.dylib */,
-				434B69402168BEBC00C35AB6 /* miele-lxiv.entitlements */,
+				434B69402168BEBC00C35AB6 /* miele-lxiv-Distribution.entitlements */,
 				43E9D2B82167865800CFBD0B /* API framework */,
 				434B461A1A19F4E4008CF8CF /* OpenJPEG */,
 				84A9D44712F7F8BE00DA1F99 /* KDU SDK */,
@@ -7775,7 +7780,9 @@
 		59BDEC17117C927D007F1F2C /* LXIV Launcher */ = {
 			isa = PBXGroup;
 			children = (
-				43254D58216A1A9F003846E3 /* LXIV Launcher.entitlements */,
+				438AE1AB21B5651B00C5E98F /* LXIV Launcher-Deployment.entitlements */,
+				438AE1AC21B5651C00C5E98F /* LXIV Launcher-Distribution.entitlements */,
+				43254D58216A1A9F003846E3 /* LXIV Launcher-Development.entitlements */,
 				43BF296F21662F420022CF3B /* Info.plist */,
 				43BF296C21662E1D0022CF3B /* main.mm */,
 			);
@@ -8941,7 +8948,7 @@
 			buildConfigurationList = 59BDEC33117C92B4007F1F2C /* Build configuration list for PBXNativeTarget "LXIV Launcher" */;
 			buildPhases = (
 				59BDEC29117C92B2007F1F2C /* Resources */,
-				59BDEDC8117CAB86007F1F2C /* Zip OsiriX Lite into Resources */,
+				59BDEDC8117CAB86007F1F2C /* Zip Lite into Resources */,
 				59BDEC2A117C92B2007F1F2C /* Sources */,
 			);
 			buildRules = (
@@ -9016,7 +9023,7 @@
 			buildPhases = (
 				AB28B42B05B7921E00A9906C /* Resources */,
 				7183153F161065BE0098576F /* Replace Weasis ext-config.properties */,
-				59BDEE70117CB3A6007F1F2C /* Zip LXIV Launcher into Resources */,
+				59BDEE70117CB3A6007F1F2C /* Zip Launcher into Resources */,
 				AB28B42C05B7921E00A9906C /* Sources */,
 				AB28B42D05B7921E00A9906C /* Frameworks */,
 				CECA66E306CD8C1500D8750E /* Embed Frameworks */,
@@ -9030,9 +9037,9 @@
 			buildRules = (
 			);
 			dependencies = (
+				43C2612921B6BEB80080E638 /* PBXTargetDependency */,
 				43FFDE9C217EEAA600740465 /* PBXTargetDependency */,
 				4A2ADDFD078D3C6200416F53 /* PBXTargetDependency */,
-				59BDEE6B117CB393007F1F2C /* PBXTargetDependency */,
 				43E9D2BB2167886200CFBD0B /* PBXTargetDependency */,
 				43686BD32178E8C000D3DA57 /* PBXTargetDependency */,
 			);
@@ -9088,9 +9095,10 @@
 						DevelopmentTeam = 57BXF7EQEM;
 					};
 					59BDEC2C117C92B2007F1F2C = {
-						DevelopmentTeam = 57BXF7EQEM;
-						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
+							com.apple.HardenedRuntime = {
+								enabled = 1;
+							};
 							com.apple.Sandbox = {
 								enabled = 1;
 							};
@@ -9111,6 +9119,9 @@
 						DevelopmentTeam = 57BXF7EQEM;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
+							com.apple.HardenedRuntime = {
+								enabled = 0;
+							};
 							com.apple.Sandbox = {
 								enabled = 1;
 							};
@@ -9506,7 +9517,6 @@
 			files = (
 				ABBB63A70635874E00D9531F /* dcmdump in Resources */,
 				AB72503A0ADE6F5D00A212A0 /* Decompress in Resources */,
-				43E6A513216CC2BA005A031A /* odt2pdf.zip in Resources */,
 				CE902EA3181C034E00CC4B88 /* pages2pages09.applescript in Resources */,
 				CE0C4792183139C400D4C50E /* pages092pdf.applescript in Resources */,
 				596D30B21439B9C8004EE9EC /* pages2pdf.applescript in Resources */,
@@ -9965,35 +9975,35 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "if [[ $CONFIGURATION == \"Distribution\" ]] ; then\n$PROJECT_DIR/doc/build-steps/fixup-build-phase.sh\nfi\n";
+			shellScript = "if [[ $CONFIGURATION != \"Development\" ]] ; then\n$PROJECT_DIR/doc/build-steps/fixup-build-phase.sh\nfi\n";
 		};
-		59BDEDC8117CAB86007F1F2C /* Zip OsiriX Lite into Resources */ = {
+		59BDEDC8117CAB86007F1F2C /* Zip Lite into Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Zip OsiriX Lite into Resources";
+			name = "Zip Lite into Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "cd \"${BUILT_PRODUCTS_DIR}\"\n#cd \"${PROJECT_DIR}/build/${CONFIGURATION}\"\nproduct=\"OsiriX Lite.app\"\ndest=\"${UNLOCALIZED_RESOURCES_FOLDER_PATH}/OsiriX Lite.zip\"\nrm -f \"${dest}\"\nzip -qr \"${dest}\" . -i \"${product}\"\n";
+			shellScript = "$PROJECT_DIR/doc/build-steps/zip-lite-into-resources.sh\n";
 		};
-		59BDEE70117CB3A6007F1F2C /* Zip LXIV Launcher into Resources */ = {
+		59BDEE70117CB3A6007F1F2C /* Zip Launcher into Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Zip LXIV Launcher into Resources";
+			name = "Zip Launcher into Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cd \"${BUILT_PRODUCTS_DIR}\"\n#cd \"${PROJECT_DIR}/build/${CONFIGURATION}\"\nproduct=\"LXIV Launcher.app\"\ndest=\"${UNLOCALIZED_RESOURCES_FOLDER_PATH}/LXIV Launcher.zip\"\nrm -f \"$dest\"\nzip -qr \"$dest\" \"$product\"\n\n#product=\"$SRCROOT/Binaries/LXIV Launcher.zip\"\n#cp \"$product\" \"${UNLOCALIZED_RESOURCES_FOLDER_PATH}\"\n";
+			shellScript = "$PROJECT_DIR/doc/build-steps/zip-launcher-into-resources.sh\n";
 		};
 		59F69A4E1056328D008585F5 /* Clean Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -10118,7 +10128,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#test with codesign -vvv\n\nchmod -R 777 \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/\"\n#IDENTITY=\"Mac Developer: Alex Bettarini (L74MX98MKG)\"\nIDENTITY=\"Developer ID Application: Alex Bettarini (57BXF7EQEM)\"\n\nfunction cs {\n  codesign --force --sign \"$IDENTITY\" \"$1\"\n}\n\nfunction cse {\n  codesign --force --sign \"$IDENTITY\" --entitlements \"$PROJECT_DIR/generic.entitlements\" \"$1\"\n}\n\nif [[ ${CONFIGURATION} == \"Distribution\" ]] ; then\n#cs  \"$TARGET_BUILD_DIR/$FRAMEWORKS_FOLDER_PATH/MieleAPI.framework\"\n#cs  \"$TARGET_BUILD_DIR/$FRAMEWORKS_FOLDER_PATH/libpng16.16.30.0\"\ncs  \"$TARGET_BUILD_DIR/$FRAMEWORKS_FOLDER_PATH/libjpeg.9.dylib\"\n\n#cse \"$TARGET_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/odt2pdf\"\ncse \"$TARGET_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/Decompress\"\ncse \"$TARGET_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/dciodvfy\"\ncse \"$TARGET_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/dcmdump\"\ncse \"$TARGET_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/dsr2html\"\ncse \"$TARGET_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/echoscu\"\ncse \"$TARGET_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/DICOMPrint\"\n\n#codesign --resource-rules Rules.plist -f -s \"$IDENTITY\" \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/\"\n  echo \"code signed\"\nfi\n";
+			shellScript = "$PROJECT_DIR/doc/build-steps/codesign-build-phase.sh\n\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -11304,6 +11314,11 @@
 			target = CEDF6C600B46FE99008B45B8 /* DICOMPrint */;
 			targetProxy = 43686BD22178E8C000D3DA57 /* PBXContainerItemProxy */;
 		};
+		43C2612921B6BEB80080E638 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 59BDEC2C117C92B2007F1F2C /* LXIV Launcher */;
+			targetProxy = 43C2612821B6BEB80080E638 /* PBXContainerItemProxy */;
+		};
 		43D3A074208347FA008F044B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 7E0B3A3E067526CD00908593 /* DCM */;
@@ -11328,11 +11343,6 @@
 			isa = PBXTargetDependency;
 			target = 7E0B3A3E067526CD00908593 /* DCM */;
 			targetProxy = 4A2F590C078D124B00C514A2 /* PBXContainerItemProxy */;
-		};
-		59BDEE6B117CB393007F1F2C /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 59BDEC2C117C92B2007F1F2C /* LXIV Launcher */;
-			targetProxy = 59BDEE6A117CB393007F1F2C /* PBXContainerItemProxy */;
 		};
 		AB0F3A421046BFB9004129DD /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -12337,7 +12347,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 20181123;
+				CURRENT_PROJECT_VERSION = 20181204;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 57BXF7EQEM;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -12371,11 +12381,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
-				CODE_SIGN_ENTITLEMENTS = "miele-lxiv.entitlements";
-				CODE_SIGN_IDENTITY = "Mac Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_ENTITLEMENTS = "miele-lxiv-$(CONFIGURATION).entitlements";
+				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application";
+				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
+				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SRCROOT)/Binaries",
 					"$(BUILD_DIR)/$(CONFIGURATION)",
@@ -12728,11 +12739,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_WEAK = YES;
-				CODE_SIGN_ENTITLEMENTS = "LXIV Launcher/LXIV Launcher.entitlements";
-				CODE_SIGN_IDENTITY = "Mac Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_ENTITLEMENTS = "LXIV Launcher/LXIV Launcher-$(CONFIGURATION).entitlements";
+				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application";
+				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = 57BXF7EQEM;
+				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -12906,6 +12919,7 @@
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)";
 				COPY_PHASE_STRIP = YES;
 				DEPLOYMENT_LOCATION = NO;
+				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = " $(BUILD_DIR)/$(CONFIGURATION)";
 				GCC_FAST_MATH = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
@@ -13019,6 +13033,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEPLOYMENT_LOCATION = NO;
 				DEVELOPMENT_TEAM = "";
+				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(FRAMEWORK_SEARCH_PATHS)",
 					"$(SRCROOT)",
@@ -13256,7 +13271,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 20181123;
+				CURRENT_PROJECT_VERSION = 20181204;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 57BXF7EQEM;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -13290,10 +13305,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
-				CODE_SIGN_IDENTITY = "Mac Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_ENTITLEMENTS = "miele-lxiv-$(CONFIGURATION).entitlements";
+				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
+				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SRCROOT)/Binaries",
 					"$(BUILD_DIR)/$(CONFIGURATION)",
@@ -13646,10 +13663,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_WEAK = YES;
-				CODE_SIGN_IDENTITY = "Mac Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_ENTITLEMENTS = "LXIV Launcher/LXIV Launcher-$(CONFIGURATION).entitlements";
+				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = 57BXF7EQEM;
+				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -13824,6 +13844,7 @@
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)";
 				COPY_PHASE_STRIP = YES;
 				DEPLOYMENT_LOCATION = NO;
+				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = " $(BUILD_DIR)/$(CONFIGURATION)";
 				GCC_FAST_MATH = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
@@ -13938,6 +13959,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEPLOYMENT_LOCATION = NO;
 				DEVELOPMENT_TEAM = "";
+				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(FRAMEWORK_SEARCH_PATHS)",
 					"$(SRCROOT)",
@@ -14158,10 +14180,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_ENTITLEMENTS = "LXIV Launcher/LXIV Launcher-$(CONFIGURATION).entitlements";
 				CODE_SIGN_IDENTITY = "Mac Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = 57BXF7EQEM;
+				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -14326,10 +14351,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
+				CODE_SIGN_ENTITLEMENTS = "miele-lxiv-$(CONFIGURATION).entitlements";
 				CODE_SIGN_IDENTITY = "Mac Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
+				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SRCROOT)/Binaries",
 					"$(BUILD_DIR)/$(CONFIGURATION)",
@@ -14697,7 +14724,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "";
-				CURRENT_PROJECT_VERSION = 20181123;
+				CURRENT_PROJECT_VERSION = 20181204;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 57BXF7EQEM;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -14922,6 +14949,7 @@
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)";
 				COPY_PHASE_STRIP = YES;
 				DEPLOYMENT_LOCATION = NO;
+				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = " $(BUILD_DIR)/$(CONFIGURATION)";
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
@@ -15034,6 +15062,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEPLOYMENT_LOCATION = NO;
 				DEVELOPMENT_TEAM = "";
+				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(FRAMEWORK_SEARCH_PATHS)",
 					"$(SRCROOT)",
