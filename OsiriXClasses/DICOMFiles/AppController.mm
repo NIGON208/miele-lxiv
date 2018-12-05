@@ -3783,7 +3783,7 @@ static BOOL initialized = NO;
         NSLog( @"%@", errors);
         
         NSRunCriticalAlertPanel(NSLocalizedString( @"Code signing and Certificate", nil),
-                                NSLocalizedString( @"Invalid code signing or certificate. You should re-download OsiriX from the web site\r\rAre you using an utility such as CleanMyMac or CCleaner? Turn it off for OsiriX.", nil),
+                                NSLocalizedString( @"Invalid code signing or certificate. You should re-download Miele-LXIV from the web site\r\rAre you using an utility such as CleanMyMac or CCleaner? Turn it off for Miele-LXIV.", nil),
                                 NSLocalizedString( @"Continue", nil),
                                 nil,
                                 nil);
