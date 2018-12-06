@@ -7282,9 +7282,12 @@ static NSConditionLock *threadLock = nil;
 				
 				if ([[NSFileManager defaultManager] fileExistsAtPath: htmlpath] == NO)
 				{
-					NSTask *aTask = [[[NSTask alloc] init] autorelease];		
-					[aTask setEnvironment:[NSDictionary dictionaryWithObject:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"/dicom.dic"] forKey:@"DCMDICTPATH"]];
-					[aTask setLaunchPath: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"/dsr2html"]];
+					NSTask *aTask = [[[NSTask alloc] init] autorelease];
+
+                    NSString *dicPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"dicom.dic"];
+                    [aTask setEnvironment:[NSDictionary dictionaryWithObject:dicPath forKey:@"DCMDICTPATH"]];
+
+                    [aTask setLaunchPath: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"dsr2html"]];
 					[aTask setArguments: [NSArray arrayWithObjects:
                                           @"+X1",
                                           @"--unknown-relationship",
@@ -16862,9 +16865,12 @@ static volatile int numberOfThreadsForJPEG = 0;
 				
 				if ([[NSFileManager defaultManager] fileExistsAtPath: htmlpath] == NO)
 				{
-					NSTask *aTask = [[[NSTask alloc] init] autorelease];		
-					[aTask setEnvironment:[NSDictionary dictionaryWithObject:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"/dicom.dic"] forKey:@"DCMDICTPATH"]];
-					[aTask setLaunchPath: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"/dsr2html"]];
+					NSTask *aTask = [[[NSTask alloc] init] autorelease];
+
+                    NSString *dicPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"dicom.dic"];
+                    [aTask setEnvironment:[NSDictionary dictionaryWithObject:dicPath forKey:@"DCMDICTPATH"]];
+
+                    [aTask setLaunchPath: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"dsr2html"]];
 					[aTask setArguments: [NSArray arrayWithObjects:
                                           @"+X1",
                                           @"--unknown-relationship",

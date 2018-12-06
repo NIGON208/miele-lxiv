@@ -6218,8 +6218,11 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
             if ([[NSFileManager defaultManager] fileExistsAtPath: htmlpath] == NO)
             {
                 NSTask *aTask = [[[NSTask alloc] init] autorelease];
-                [aTask setEnvironment:[NSDictionary dictionaryWithObject:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"/dicom.dic"] forKey:@"DCMDICTPATH"]];
-                [aTask setLaunchPath: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"/dsr2html"]];
+
+                NSString *dicPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"dicom.dic"];
+                [aTask setEnvironment:[NSDictionary dictionaryWithObject:dicPath forKey:@"DCMDICTPATH"]];
+
+                [aTask setLaunchPath: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"dsr2html"]];
                 [aTask setArguments: [NSArray arrayWithObjects:
                                       @"+X1",
                                       @"--unknown-relationship",

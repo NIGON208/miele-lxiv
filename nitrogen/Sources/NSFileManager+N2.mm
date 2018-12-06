@@ -124,7 +124,8 @@
     return [self confirmDirectoryAtPath: dirPath subDirectory: NO];
 }
 
--(NSString*)confirmNoIndexDirectoryAtPath:(NSString*)path {
+-(NSString*)confirmNoIndexDirectoryAtPath:(NSString*)path
+{
 	NSString* pathWithExt;
 	NSString* pathWithoutExt;
 	NSString* const ext = @".noindex";

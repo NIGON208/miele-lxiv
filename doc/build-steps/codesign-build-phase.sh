@@ -17,7 +17,7 @@ function cse {
     "$1"
 }
 
-if [[ ${CONFIGURATION} != "Development" ]] ; then
+#if [[ ${CONFIGURATION} != "Development" ]] ; then
 #cs  "$TARGET_BUILD_DIR/$FRAMEWORKS_FOLDER_PATH/MieleAPI.framework"
 #cs  "$TARGET_BUILD_DIR/$FRAMEWORKS_FOLDER_PATH/libpng16.16.30.0"
 cs  "$TARGET_BUILD_DIR/$FRAMEWORKS_FOLDER_PATH/libjpeg.9.dylib"
@@ -36,4 +36,4 @@ cse "$TARGET_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/OsiriX Lite.zip"
 
 #codesign --resource-rules Rules.plist -f -s "$IDENTITY" "${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/"
 echo "code signed"
-fi
+#fi

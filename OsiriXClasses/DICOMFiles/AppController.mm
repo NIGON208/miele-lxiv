@@ -2201,7 +2201,7 @@ static NSDate *lastWarningDate = nil;
 	NSLog(@"restartSTORESCP");
 	
 	// Is called restart because previous instances of storescp might exist and need to be killed before starting
-	// This should be performed only if OsiriX is to handle storescp, depending on what is defined in the preferences
+	// This should be performed only if this app is to handle storescp, depending on what is defined in the preferences
 	// Key:@"STORESCP" is the corresponding switch
 	
 	@try
@@ -2335,7 +2335,6 @@ static NSDate *lastWarningDate = nil;
 -(void) startSTORESCP:(id) sender
 {
 	// this method is always executed as a new thread detached from the NSthread command of RestartSTORESCP method
-    
 #ifndef OSIRIX_LIGHT
 	[STORESCP lock];
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
@@ -3534,15 +3533,15 @@ static BOOL initialized = NO;
 
 - (BOOL) isStoreSCPRunning
 {
-	if ([dcmtkQRSCP running])
-		return YES;
+    if ([dcmtkQRSCP running])
+        return YES;
 		
-	if ([dcmtkQRSCPTLS running])
-		return YES;
+    if ([dcmtkQRSCPTLS running])
+        return YES;
     
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"NinjaSTORESCP"]) // some undefined external entity is linked to us for DICOM communications...
         return YES;
-		
+
 	return NO;
 }
 

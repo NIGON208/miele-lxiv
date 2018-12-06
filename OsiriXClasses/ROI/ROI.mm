@@ -5471,7 +5471,9 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
     
     NSString *s = nil;
     
-	s = [NSString stringWithFormat:@"%@\t%.3f\t%.3f\t%.3f\t%.3f\t%.3f", name, rmean, rmin, rmax, rtotal, rdev];
+    s = [NSString stringWithFormat:@"%@ %p t:%d <%@> mean:%.3f min:%.3fb max:%.3f tot:%.3f dev:%.3f",
+         [self class], self,
+         type, name, rmean, rmin, rmax, rtotal, rdev];
     
     if ([curView blendingView])
     {

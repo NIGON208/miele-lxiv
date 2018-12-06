@@ -168,79 +168,87 @@ static NSString* DefaultWebPortalDatabasePath = nil;
 }
 #endif
 
-+(void)observeValueForKeyPath:(NSString*)keyPath ofObject:(id)object change:(NSDictionary*)change context:(void*)context {
++(void)observeValueForKeyPath:(NSString*)keyPath
+                     ofObject:(id)object
+                       change:(NSDictionary*)change
+                      context:(void*)context
+{
 	if (!context) {
 		if ([keyPath isEqualToString:valuesKeyPath(OsirixWadoServiceEnabledDefaultsKey)])
 			if (!NSUserDefaults.wadoServiceEnabled)
-				[NSUserDefaultsController.sharedUserDefaultsController setBool:NO forKey:OsirixWebPortalUsesWeasisDefaultsKey];
-	} else {
-		WebPortal* webPortal = (id)context;
-		
-		if ([keyPath isEqualToString:valuesKeyPath(OsirixWebPortalEnabledDefaultsKey)])
-			if (NSUserDefaults.webPortalEnabled)
-				[webPortal startAcceptingConnections];
-			else
-                [webPortal stopAcceptingConnections];
-		else if ([keyPath isEqualToString:valuesKeyPath(OsirixWebPortalUsesSSLDefaultsKey)])
-            
-			webPortal.usesSSL = NSUserDefaults.webPortalUsesSSL;
-        
-		else if ([keyPath isEqualToString:valuesKeyPath(OsirixWebPortalPortNumberDefaultsKey)])
-            
-			webPortal.portNumber = NSUserDefaults.webPortalPortNumber;
-        
-		else if ([keyPath isEqualToString:valuesKeyPath(OsirixWebPortalAddressDefaultsKey)])
-            
-			webPortal.address = NSUserDefaults.webPortalAddress;
-        
-		else if ([keyPath isEqualToString:valuesKeyPath(OsirixWebPortalPrefersCustomWebPagesKey)])
-        {
-			NSMutableArray* dirsToScanForFiles = [NSMutableArray arrayWithCapacity:2];
-#ifdef MACAPPSTORE
-            if (NSUserDefaults.webPortalPrefersCustomWebPages) {
-                NSString *bundleName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleName"];
-                NSString *s = [NSString stringWithFormat:@"~/Library/Application Support/%@ App/WebServicesHTML", bundleName];
-                [dirsToScanForFiles addObject: [s stringByExpandingTildeInPath]];
-            }
-#else
-            if (NSUserDefaults.webPortalPrefersCustomWebPages) {
-                NSString *bundleName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleName"];
-                NSString *s = [NSString stringWithFormat:@"~/Library/Application Support/%@/WebServicesHTML", bundleName];
-                [dirsToScanForFiles addObject: [s stringByExpandingTildeInPath]];
-            }
-#endif
-            [dirsToScanForFiles addObject:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"WebServicesHTML"]];
-			webPortal.dirsToScanForFiles = dirsToScanForFiles;
-		}
-        else if ([keyPath isEqualToString:valuesKeyPath(OsirixWebPortalRequiresAuthenticationDefaultsKey)])
-            
-			webPortal.authenticationRequired = NSUserDefaults.webPortalRequiresAuthentication;
-        
-		else if ([keyPath isEqualToString:valuesKeyPath(OsirixWebPortalUsersCanRestorePasswordDefaultsKey)])
-            
-			webPortal.passwordRestoreAllowed = NSUserDefaults.webPortalUsersCanRestorePassword;
-        
-		else if ([keyPath isEqualToString:valuesKeyPath(OsirixWebPortalUsesWeasisDefaultsKey)])
-            
-			webPortal.weasisEnabled = NSUserDefaults.webPortalUsesWeasis;
-        
-		else if ([keyPath isEqualToString:valuesKeyPath(OsirixWebPortalPrefersFlashDefaultsKey)])
-            
-			webPortal.flashEnabled = NSUserDefaults.webPortalPrefersFlash;
-        
-		else if ([keyPath isEqualToString:valuesKeyPath(OsirixWadoServiceEnabledDefaultsKey)])
-            
-			webPortal.wadoEnabled = NSUserDefaults.wadoServiceEnabled;
-        
-		else if ([keyPath isEqualToString:valuesKeyPath(OsirixWebPortalNotificationsIntervalDefaultsKey)])
-            
-			webPortal.notificationsInterval = NSUserDefaults.webPortalNotificationsInterval;
-        
-		else if ([keyPath isEqualToString:valuesKeyPath(OsirixWebPortalNotificationsEnabledDefaultsKey)])
-            
-			webPortal.notificationsEnabled = NSUserDefaults.webPortalNotificationsEnabled;
-					
+				[NSUserDefaultsController.sharedUserDefaultsController setBool:NO
+                                                                        forKey:OsirixWebPortalUsesWeasisDefaultsKey];
+        return;
 	}
+
+    WebPortal* webPortal = (id)context;
+    
+    if ([keyPath isEqualToString:valuesKeyPath(OsirixWebPortalEnabledDefaultsKey)])
+        if (NSUserDefaults.webPortalEnabled)
+            [webPortal startAcceptingConnections];
+        else
+            [webPortal stopAcceptingConnections];
+    else if ([keyPath isEqualToString:valuesKeyPath(OsirixWebPortalUsesSSLDefaultsKey)])
+        
+        webPortal.usesSSL = NSUserDefaults.webPortalUsesSSL;
+    
+    else if ([keyPath isEqualToString:valuesKeyPath(OsirixWebPortalPortNumberDefaultsKey)])
+        
+        webPortal.portNumber = NSUserDefaults.webPortalPortNumber;
+    
+    else if ([keyPath isEqualToString:valuesKeyPath(OsirixWebPortalAddressDefaultsKey)])
+        
+        webPortal.address = NSUserDefaults.webPortalAddress;
+    
+    else if ([keyPath isEqualToString:valuesKeyPath(OsirixWebPortalPrefersCustomWebPagesKey)])
+    {
+        NSMutableArray* dirsToScanForFiles = [NSMutableArray arrayWithCapacity:2];
+#if 0 //def MACAPPSTORE
+        if (NSUserDefaults.webPortalPrefersCustomWebPages) {
+            NSString *bundleName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleName"];
+            NSString *s = [NSString stringWithFormat:@"~/Library/Application Support/%@ App/WebServicesHTML", bundleName];
+            [dirsToScanForFiles addObject: [s stringByExpandingTildeInPath]];
+            NSLog(@"%s line %i, dirsToScanForFiles:%@", __FUNCTION__ , __LINE__, dirsToScanForFiles);
+        }
+#else
+        if (NSUserDefaults.webPortalPrefersCustomWebPages) {
+            NSString *bundleName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleName"];
+            NSString *s = [NSString stringWithFormat:@"~/Library/Application Support/%@/WebServicesHTML", bundleName];
+            [dirsToScanForFiles addObject: [s stringByExpandingTildeInPath]];
+            NSLog(@"%s line %i, dirsToScanForFiles:%@", __FUNCTION__ , __LINE__, dirsToScanForFiles);
+        }
+#endif
+        [dirsToScanForFiles addObject:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"WebServicesHTML"]];
+        webPortal.dirsToScanForFiles = dirsToScanForFiles;
+        NSLog(@"%s line %i, dirsToScanForFiles:%@", __FUNCTION__ , __LINE__, dirsToScanForFiles);
+    }
+    else if ([keyPath isEqualToString:valuesKeyPath(OsirixWebPortalRequiresAuthenticationDefaultsKey)])
+        
+        webPortal.authenticationRequired = NSUserDefaults.webPortalRequiresAuthentication;
+    
+    else if ([keyPath isEqualToString:valuesKeyPath(OsirixWebPortalUsersCanRestorePasswordDefaultsKey)])
+        
+        webPortal.passwordRestoreAllowed = NSUserDefaults.webPortalUsersCanRestorePassword;
+    
+    else if ([keyPath isEqualToString:valuesKeyPath(OsirixWebPortalUsesWeasisDefaultsKey)])
+        
+        webPortal.weasisEnabled = NSUserDefaults.webPortalUsesWeasis;
+    
+    else if ([keyPath isEqualToString:valuesKeyPath(OsirixWebPortalPrefersFlashDefaultsKey)])
+        
+        webPortal.flashEnabled = NSUserDefaults.webPortalPrefersFlash;
+    
+    else if ([keyPath isEqualToString:valuesKeyPath(OsirixWadoServiceEnabledDefaultsKey)])
+        
+        webPortal.wadoEnabled = NSUserDefaults.wadoServiceEnabled;
+    
+    else if ([keyPath isEqualToString:valuesKeyPath(OsirixWebPortalNotificationsIntervalDefaultsKey)])
+        
+        webPortal.notificationsInterval = NSUserDefaults.webPortalNotificationsInterval;
+    
+    else if ([keyPath isEqualToString:valuesKeyPath(OsirixWebPortalNotificationsEnabledDefaultsKey)])
+        
+        webPortal.notificationsEnabled = NSUserDefaults.webPortalNotificationsEnabled;
 }
 
 +(void)finalizeWebPortalClass {

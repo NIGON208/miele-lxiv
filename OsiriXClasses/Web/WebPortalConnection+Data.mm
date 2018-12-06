@@ -2791,10 +2791,14 @@ const NSString* const GenerateMovieDicomImagesParamKey = @"dicomImageArray";
 		NSString* path = [NSFileManager.defaultManager confirmDirectoryAtPath:pathDicomSr];
 		NSString* htmlpath = [path stringByAppendingPathComponent:[[[series.images.anyObject valueForKey:@"completePath"] lastPathComponent] stringByAppendingPathExtension:@"xml"]];
 		
-		if (![NSFileManager.defaultManager fileExistsAtPath:htmlpath]) {
+		if (![NSFileManager.defaultManager fileExistsAtPath:htmlpath])
+        {
 			NSTask* aTask = [[[NSTask alloc] init] autorelease];
-			[aTask setEnvironment:[NSDictionary dictionaryWithObject:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"/dicom.dic"] forKey:@"DCMDICTPATH"]];
-			[aTask setLaunchPath:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"dsr2html"]];
+
+            NSString *dicPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"dicom.dic"];
+            [aTask setEnvironment:[NSDictionary dictionaryWithObject:dicPath forKey:@"DCMDICTPATH"]];
+
+            [aTask setLaunchPath:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"dsr2html"]];
 			[aTask setArguments:[NSArray arrayWithObjects:
                                  @"+X1",
                                  @"--unknown-relationship",

@@ -14118,7 +14118,8 @@ long				x, y;
 
 - (ROI*) newROI: (long) type
 {
-    return [ROI roiWithType: type inView: imageView];
+    return [ROI roiWithType: type
+                     inView: imageView];
 }
 
 - (BOOL) containsROI:(ROI*)roi

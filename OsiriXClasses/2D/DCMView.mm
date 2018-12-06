@@ -10773,153 +10773,15 @@ void checkOGLVersion()
 //				[self DrawNSStringGL:NSLocalizedString(@"iChat Theatre shared view", nil) :fontListGL :iChatTheatreSharedViewLabelPosition.x :iChatTheatreSharedViewLabelPosition.y align:DCMViewTextAlignCenter useStringTexture:YES];
 //			}
 //			#endif
-			// ***********************
+
+            // ***********************
 			// DRAW CLUT BARS ********
 			
 			if (is2DViewer == YES &&
                 annotations != annotNone) // && ctx!=_alternateContext)
 			{
-#if 1
                 [self drawClutBar];
-#else
-				glLoadIdentity (); // reset model view matrix to identity (eliminates rotation basically)
-				glScalef (2.0f /(drawingFrameRect.size.width), -2.0f / (drawingFrameRect.size.height), 1.0f); // scale to port per pixel scale
-
-				if (clutBars == barOrigin || clutBars == barBoth)
-				{
-					float			heighthalf = drawingFrameRect.size.height/2 - 1;
-					float			widthhalf = drawingFrameRect.size.width/2 - 1;
-					NSString		*tempString = nil;
-					
-					//#define BARPOSX1 50.f
-					//#define BARPOSX2 20.f
-					
-					#define BARPOSX1 62.f
-					#define BARPOSX2 32.f
-					
-					heighthalf = 0;
-					
-	//					glLoadIdentity (); // reset model view matrix to identity (eliminates rotation basically)
-	//					glScalef (2.0f /(xFlipped ? -(drawingFrameRect.size.width) : drawingFrameRect.size.width), -2.0f / (yFlipped ? -(drawingFrameRect.size.height) : drawingFrameRect.size.height), 1.0f);
-					
-					glLineWidth(1.0 * sf);
-					glBegin(GL_LINES);
-					for (int i = 0; i < 256; i++ )
-					{
-						glColor3ub ( redTable[ i], greenTable[ i], blueTable[ i]);
-						
-						glVertex2f(  widthhalf - BARPOSX1*sf, heighthalf - (-128.f*sf + i*sf));
-						glVertex2f(  widthhalf - BARPOSX2*sf, heighthalf - (-128.f*sf + i*sf));
-					}
-					glColor3ub ( 128, 128, 128);
-					glVertex2f(  widthhalf - BARPOSX1*sf, heighthalf - -128.f*sf);		glVertex2f(  widthhalf - BARPOSX2*sf , heighthalf - -128.f*sf);
-					glVertex2f(  widthhalf - BARPOSX1*sf, heighthalf - 127.f*sf);			glVertex2f(  widthhalf - BARPOSX2*sf , heighthalf - 127.f*sf);
-					glVertex2f(  widthhalf - BARPOSX1*sf, heighthalf - -128.f*sf);		glVertex2f(  widthhalf - BARPOSX1*sf, heighthalf - 127.f*sf);
-					glVertex2f(  widthhalf - BARPOSX2*sf ,heighthalf -  -128.f*sf);		glVertex2f(  widthhalf - BARPOSX2*sf, heighthalf - 127.f*sf);
-					glEnd();
-					
-					if (curWW < 50 )
-					{
-						tempString = [NSString stringWithFormat: @"%0.4f", curWL - curWW/2];
-						[self DrawNSStringGL: tempString : fontListGL :widthhalf - BARPOSX1*sf: heighthalf - -133*sf rightAlignment: YES useStringTexture: NO];
-						
-						tempString = [NSString stringWithFormat: @"%0.4f", curWL];
-						[self DrawNSStringGL: tempString : fontListGL :widthhalf - BARPOSX1*sf: heighthalf - 0 rightAlignment: YES useStringTexture: NO];
-						
-						tempString = [NSString stringWithFormat: @"%0.4f", curWL + curWW/2];
-						[self DrawNSStringGL: tempString : fontListGL :widthhalf - BARPOSX1*sf: heighthalf - 120*sf rightAlignment: YES useStringTexture: NO];
-					}
-					else
-					{
-						tempString = [NSString stringWithFormat: @"%0.0f", curWL - curWW/2];
-						[self DrawNSStringGL: tempString : fontListGL :widthhalf - BARPOSX1*sf: heighthalf - -133*sf rightAlignment: YES useStringTexture: NO];
-						
-						tempString = [NSString stringWithFormat: @"%0.0f", curWL];
-						[self DrawNSStringGL: tempString : fontListGL :widthhalf - BARPOSX1*sf: heighthalf - 0 rightAlignment: YES useStringTexture: NO];
-						
-						tempString = [NSString stringWithFormat: @"%0.0f", curWL + curWW/2];
-						[self DrawNSStringGL: tempString : fontListGL :widthhalf - BARPOSX1*sf: heighthalf - 120*sf rightAlignment: YES useStringTexture: NO];
-					}
-				} //clutBars == barOrigin || clutBars == barBoth
-				
-				if (blendingView )
-				{
-					if (clutBars == barFused || clutBars == barBoth)
-					{
-						unsigned char	*bred = nil, *bgreen = nil, *bblue = nil;
-						float			heighthalf = drawingFrameRect.size.height/2 - 1;
-						float			widthhalf = drawingFrameRect.size.width/2 - 1;
-						float			bwl, bww;
-						NSString		*tempString = nil;
-						
-						if ([[[NSUserDefaults standardUserDefaults] stringForKey:@"PET Clut Mode"] isEqualToString: @"B/W Inverse"])
-						{
-							if (PETredTable == nil)
-								[DCMView computePETBlendingCLUT];
-							
-							bred = PETredTable;
-							bgreen = PETgreenTable;
-							bblue = PETblueTable;
-						}
-						else
-                            [blendingView getCLUT:&bred :&bgreen :&bblue];
-						
-						#define BBARPOSX1 55.f
-						#define BBARPOSX2 25.f
-						
-						heighthalf = 0;
-						
-						glLineWidth(1.0 * sf);
-						glBegin(GL_LINES);
-						
-						if (bred)
-						{
-							for (int i = 0; i < 256; i++ )
-							{
-								glColor3ub ( bred[ i], bgreen[ i], bblue[ i]);
-								
-								glVertex2f(  -widthhalf + BBARPOSX1*sf, heighthalf - (-128.f*sf + i*sf));
-								glVertex2f(  -widthhalf + BBARPOSX2*sf, heighthalf - (-128.f*sf + i*sf));
-							}
-						}
-						else
-							NSLog( @"bred == nil");
-						
-						glColor3ub ( 128, 128, 128);
-						glVertex2f(  -widthhalf + BBARPOSX1*sf, heighthalf - -128.f*sf);		glVertex2f(  -widthhalf + BBARPOSX2*sf , heighthalf - -128.f*sf);
-						glVertex2f(  -widthhalf + BBARPOSX1*sf, heighthalf - 127.f*sf);         glVertex2f(  -widthhalf + BBARPOSX2*sf , heighthalf - 127.f*sf);
-						glVertex2f(  -widthhalf + BBARPOSX1*sf, heighthalf - -128.f*sf);		glVertex2f(  -widthhalf + BBARPOSX1*sf, heighthalf - 127.f*sf);
-						glVertex2f(  -widthhalf + BBARPOSX2*sf ,heighthalf -  -128.f*sf);		glVertex2f(  -widthhalf + BBARPOSX2*sf, heighthalf - 127.f*sf);
-						glEnd();
-						
-						[blendingView getWLWW: &bwl :&bww];
-						
-						if (curWW < 50)
-						{
-							tempString = [NSString stringWithFormat: @"%0.4f", bwl - bww/2];
-							[self DrawNSStringGL: tempString : fontListGL :-widthhalf + BBARPOSX1*sf + 4*sf: heighthalf - -133*sf];
-							
-							tempString = [NSString stringWithFormat: @"%0.4f", bwl];
-							[self DrawNSStringGL: tempString : fontListGL :-widthhalf + BBARPOSX1*sf + 4*sf: heighthalf - 0];
-							
-							tempString = [NSString stringWithFormat: @"%0.4f", bwl + bww/2];
-							[self DrawNSStringGL: tempString : fontListGL :-widthhalf + BBARPOSX1*sf + 4*sf: heighthalf - 120*sf];
-						}
-						else
-						{
-							tempString = [NSString stringWithFormat: @"%0.0f", bwl - bww/2];
-							[self DrawNSStringGL: tempString : fontListGL :-widthhalf + BBARPOSX1*sf + 4*sf: heighthalf - -133*sf];
-							
-							tempString = [NSString stringWithFormat: @"%0.0f", bwl];
-							[self DrawNSStringGL: tempString : fontListGL :-widthhalf + BBARPOSX1*sf + 4*sf: heighthalf - 0];
-							
-							tempString = [NSString stringWithFormat: @"%0.0f", bwl + bww/2];
-							[self DrawNSStringGL: tempString : fontListGL :-widthhalf + BBARPOSX1*sf + 4*sf: heighthalf - 120*sf];
-						}
-					}
-				} //blendingView
-#endif
-			} //is2DViewer == YES
+			}
 			
 			if (annotations != annotNone)
 			{
@@ -11077,10 +10939,11 @@ void checkOGLVersion()
 					
                     if ([curRoiList count] > 0)
                     {
-                        for (int i = (long)[curRoiList count]-1; i >= 0; i--)
+                        int n = [curRoiList count] - 1;
+                        for (int i = n; i >= 0; i--)
                         {
                             ROI *r = [[curRoiList objectAtIndex:i] retain];	// If we are not in the main thread (iChat), we want to be sure to keep our ROIs
-                            
+
                             if (resetData)
                                 [r recompute];
                             
@@ -11178,7 +11041,6 @@ void checkOGLVersion()
 					
 					if (DISPLAYCROSSREFERENCELINES)
 					{
-                        NSLog(@"DCMView.mm:%d %s", __LINE__, __PRETTY_FUNCTION__);
 //						NSUInteger modifiers = [NSEvent modifierFlags];
 //						if ((modifiers & NSEventModifierFlagControl) && (modifiers & NSEventModifierFlagOption) && (modifiers & NSEventModifierFlagCommand)) // Display all references lines for all images
 //						{ 
@@ -11202,10 +11064,8 @@ void checkOGLVersion()
 //						}
 //						else
 						{
-							NSLog(@"DCMView.mm:%d %s", __LINE__, __PRETTY_FUNCTION__);
 							if (sliceFromTo[ 0][ 0] != HUGE_VALF)
 							{
-                                NSLog(@"DCMView.mm:%d %s", __LINE__, __PRETTY_FUNCTION__);
 								if (sliceFromToS[ 0][ 0] != HUGE_VALF)
 								{
 									glColor3f (1.0f, 0.6f, 0.0f);
