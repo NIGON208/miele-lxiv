@@ -13,7 +13,6 @@
 =========================================================================*/
 
 #import "PluginManagerController.h"
-//#import <Message/NSMailDelivery.h>
 #import "WaitRendering.h"
 #import "Notifications.h"
 #import "PreferencesWindowController.h"
@@ -23,6 +22,10 @@
 
 #import "url.h"
 #import "tmp_locations.h"
+
+#ifdef SUBMIT_PLUGIN_WITH_MAIL_APP
+#import <Message/NSMailDelivery.h>
+#endif
 
 static NSArray *CachedPluginsList = nil;
 static NSDate *CachedPluginsListDate = nil;
@@ -644,14 +647,15 @@ NSInteger sortPluginArrayByName(id plugin1, id plugin2, void *context)
 
 #pragma mark submit plugin
 
+// Show the instructions for submitting a plugin
 - (void)loadSubmitPluginPage;
 {
-//	#if !__LP64__
-//	if([NSMailDelivery hasDeliveryClassBeenConfigured])
-//		[self setURL:PLUGIN_SUBMISSION_URL];
-//	else
-//	#endif
-		[self setURL:PLUGIN_SUBMISSION_NO_MAIL_APP_URL];
+#ifdef SUBMIT_PLUGIN_WITH_MAIL_APP
+    if ([NSMailDelivery hasDeliveryClassBeenConfigured])
+        [self setURL:PLUGIN_SUBMISSION_URL];
+    else
+#endif
+    [self setURL:PLUGIN_SUBMISSION_NO_MAIL_APP_URL];
 }
 
 - (void)sendPluginSubmission:(NSString*)request;
@@ -666,20 +670,23 @@ NSInteger sortPluginArrayByName(id plugin1, id plugin2, void *context)
 		NSArray *param = [loopItem componentsSeparatedByString:@"="];
 		[emailMessage appendFormat:@"%@: %@ \n", [param objectAtIndex:0], [[param objectAtIndex:1] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
 	}
-	
-//	NSString *emailAddress = URL_EMAIL;
-//	NSString *emailSubject = @"OsiriX: New Plugin Submission"; // don't localize this. This is the subject of the email WE will receive.
-	
-//	#if !__LP64__
-//	[NSMailDelivery deliverMessage:emailMessage subject:emailSubject to:emailAddress];
-//	#else
+
+#ifdef SUBMIT_PLUGIN_WITH_MAIL_APP
+	NSString *emailAddress = URL_EMAIL;
+	NSString *emailSubject = @"Miele-LXIV: New Plugin Submission"; // don't localize this. This is the subject of the email WE will receive.
+	[NSMailDelivery deliverMessage:emailMessage subject:emailSubject to:emailAddress];
+#else
 	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"mailto:" URL_EMAIL]];
-//	#endif
+#endif
 }
 
 #pragma mark WebPolicyDelegate Protocol methods
 
-- (void)webView:(WebView *)sender decidePolicyForNavigationAction:(NSDictionary *)actionInformation request:(NSURLRequest *)request frame:(WebFrame *)frame decisionListener:(id<WebPolicyDecisionListener>)listener;
+- (void)webView:(WebView *)sender
+decidePolicyForNavigationAction:(NSDictionary *)actionInformation
+        request:(NSURLRequest *)request
+          frame:(WebFrame *)frame
+decisionListener:(id<WebPolicyDecisionListener>)listener;
 {
 	if (![sender isEqualTo:webView])
         [listener use];

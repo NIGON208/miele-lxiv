@@ -827,7 +827,8 @@ typedef struct _xyzArray
 	{
 		ToolMode tool = [self getTool: event];
 		[self setCursorForView: tool];
-		if (cursorSet) [cursor set];
+		if (cursorSet)
+            [cursor set];
 	}
 	
 	[super flagsChanged: event];

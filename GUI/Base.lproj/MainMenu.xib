@@ -2000,7 +2000,7 @@ CA
                                         <constraints>
                                             <constraint firstAttribute="width" constant="20" id="kcM-vG-Zy6"/>
                                         </constraints>
-                                        <buttonCell key="cell" type="roundTextured" title="Albums, Sources and Activity" bezelStyle="texturedRounded" image="List" imagePosition="only" alignment="center" controlSize="mini" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="14652">
+                                        <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="List" imagePosition="overlaps" alignment="center" controlSize="mini" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="14652">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="miniSystem"/>
                                         </buttonCell>

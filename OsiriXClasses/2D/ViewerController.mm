@@ -10142,7 +10142,6 @@ static int avoidReentryRefreshDatabase = 0;
                         nil,
                         nil);
         [PluginManager endProtectForCrash];
-        
 		return;
 	}
 	
@@ -10152,7 +10151,7 @@ static int avoidReentryRefreshDatabase = 0;
                                                             object: filter
                                                           userInfo: nil];
         
-		result = [filter filterImage: name];
+		result = [filter filterImage: name];  // run the plugin
 		if (result)
 		{
 			NSRunAlertPanel(NSLocalizedString(@"Plugins Error", nil),
@@ -10161,7 +10160,6 @@ static int avoidReentryRefreshDatabase = 0;
                             nil,
                             nil);
             [PluginManager endProtectForCrash];
-            
 			return;
 		}
 	}

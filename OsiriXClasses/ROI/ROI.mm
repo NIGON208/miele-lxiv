@@ -6322,7 +6322,8 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
 				glEnable(GL_BLEND);
 				glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 				
-				if (stringTex == nil ) self.name = name;
+				if (stringTex == nil )
+                    self.name = name;
 				
 				[stringTex setFlippedX: [curView xFlipped] Y:[curView yFlipped]];
 				
