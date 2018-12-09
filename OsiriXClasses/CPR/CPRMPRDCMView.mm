@@ -31,6 +31,7 @@
 
 #include <OpenGL/CGLMacro.h>
 
+#include "N3Geometry.h"
 
 static float deg2rad = M_PI / 180.0; 
 extern unsigned int minimumStep;
@@ -2346,19 +2347,6 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
 
 - (void)_debugDrawDebugPoints
 {
-    // first off find the points like the operation would and draw a point at each of the nodes
-    N3Vector vectors[40];
-    N3Vector normals[40];
-    NSInteger numVectors = 40;
-    N3Vector directionVector;
-    N3Vector projectionDirection;
-    N3Vector baseNormal;
-    N3BezierPath *flattenedBezierPath;
-    N3BezierPath *projectedBezierPath;
-    CGFloat projectedLength;
-    CGFloat sampleSpacing;
-    NSInteger i;
-    N3AffineTransform transform;
     CGLContextObj cgl_ctx = [[NSOpenGLContext currentContext] CGLContextObj];
     if (cgl_ctx == nil)
         return;
@@ -2366,22 +2354,41 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
     if ([curvedPath.bezierPath elementCount] < 3) {
         return;
     }
-    
-    transform = N3AffineTransformConcat(N3AffineTransformInvert([self pixToDicomTransform]), [self pixToSubDrawRectTransform]);
-    
-    directionVector = N3VectorNormalize(N3VectorSubtract([curvedPath.bezierPath vectorAtEnd], [curvedPath.bezierPath vectorAtStart]));
-    baseNormal = N3VectorNormalize(N3VectorCrossProduct(curvedPath.baseDirection, directionVector));
-    projectionDirection = N3VectorApplyTransform(baseNormal, N3AffineTransformMakeRotationAroundVector(curvedPath.angle, directionVector));
 
-    flattenedBezierPath = [curvedPath.bezierPath bezierPathByFlattening:N3BezierDefaultFlatness];
-    projectedBezierPath = [flattenedBezierPath bezierPathByProjectingToPlane:N3PlaneMake(N3VectorZero, projectionDirection)];
+    // First find the points like the operation would and draw a point at each of the nodes
+
+    N3AffineTransform transform =
+    N3AffineTransformConcat(N3AffineTransformInvert([self pixToDicomTransform]),
+                                                    [self pixToSubDrawRectTransform]);
     
-    projectedLength = [projectedBezierPath length];
-    sampleSpacing = projectedLength / numVectors;
+    N3Vector directionVector =
+    N3VectorNormalize(N3VectorSubtract([curvedPath.bezierPath vectorAtEnd],
+                                       [curvedPath.bezierPath vectorAtStart]));
     
+    N3Vector baseNormal =
+    N3VectorNormalize(N3VectorCrossProduct(curvedPath.baseDirection, directionVector));
+
+    N3Vector projectionDirection =
+    N3VectorApplyTransform(baseNormal,
+                           N3AffineTransformMakeRotationAroundVector(curvedPath.angle, directionVector));
+
+    N3BezierPath *flattenedBezierPath = [curvedPath.bezierPath bezierPathByFlattening:N3BezierDefaultFlatness];
+
+    N3BezierPath *projectedBezierPath = [flattenedBezierPath bezierPathByProjectingToPlane:N3PlaneMake(N3VectorZero, projectionDirection)];
+    
+    CGFloat projectedLength = [projectedBezierPath length];
+
+#define MAX_VEC_SIZE    40
+    NSInteger numVectors = MAX_VEC_SIZE;
+    N3Vector vectors[MAX_VEC_SIZE];
+    N3Vector normals[MAX_VEC_SIZE];
+
+    CGFloat sampleSpacing = projectedLength / numVectors;
+
     numVectors = N3BezierCoreGetProjectedVectorInfo([flattenedBezierPath N3BezierCore], sampleSpacing, 0, projectionDirection, vectors, NULL, normals, NULL, numVectors);
 
-    for (i = 0; i < numVectors; i++) {
+
+    for (NSInteger i = 0; i < MIN(numVectors, MAX_VEC_SIZE); i++) {
         normals[i] = N3VectorApplyTransform(N3VectorAdd(vectors[i], N3VectorScalarMultiply(normals[i], 10)), transform);
         vectors[i] = N3VectorApplyTransform(vectors[i], transform);
         
@@ -2422,15 +2429,15 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
 	
 	transform = N3AffineTransformConcat(N3AffineTransformInvert([self pixToDicomTransform]), [self pixToSubDrawRectTransform]);
 
-	if (N3AffineTransformIsAffine(transform) == NO) // Is this usefull?
+	if (N3AffineTransformIsAffine(transform) == NO) // Is this useful ?
 	{
 		return;
 	}
 	
 	bezierPath = curvedPath.bezierPath;
     flattenedBezierPath = [[bezierPath mutableCopy] autorelease];
-	//    [flattenedBezierPath subdivide:N3BezierDefaultSubdivideSegmentLength];
-	//    [flattenedBezierPath flatten:N3BezierDefaultFlatness];
+//    [flattenedBezierPath subdivide:N3BezierDefaultSubdivideSegmentLength];
+//    [flattenedBezierPath flatten:N3BezierDefaultFlatness];
     flattenedNotTransformedBezierPath = [bezierPath bezierPathByFlattening:N3BezierDefaultFlatness];
     
     CGFloat length;
@@ -2442,7 +2449,6 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
     transformedBezierPath = [[bezierPath mutableCopy] autorelease];
     [transformedBezierPath applyAffineTransform:transform];
     [flattenedBezierPath flatten:N3BezierDefaultFlatness];
-	
 	
 	// Just a single point
 	if (curvedPath.nodes.count == 1)
@@ -2639,7 +2645,6 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
     
         glMatrixMode(GL_MODELVIEW);
         glPopMatrix();
-
     }
 }
 
@@ -2799,6 +2804,5 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
     
     return viewToPixTransform;
 }
-
 
 @end

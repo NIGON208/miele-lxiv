@@ -4753,7 +4753,7 @@
 		ABF68A41061DD18600FEED6D /* StringTexture.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = StringTexture.h; sourceTree = "<group>"; };
 		ABFA7CD2056056F300963FF8 /* dicomData.mm */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.objcpp; path = dicomData.mm; sourceTree = "<group>"; };
 		ABFA7CD3056056F300963FF8 /* dicomData.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = dicomData.h; sourceTree = "<group>"; };
-		ABFDE81610A8003100E33E0F /* Deployment-Info OsiriXLite.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Deployment-Info OsiriXLite.plist"; sourceTree = "<group>"; };
+		ABFDE81610A8003100E33E0F /* Lite-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Lite-Info.plist"; sourceTree = "<group>"; };
 		ABFF0A95056D97800066794C /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = /System/Library/Frameworks/ApplicationServices.framework; sourceTree = "<absolute>"; };
 		B78490F90B4BE86400BA93EF /* MenuDictionary.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = MenuDictionary.h; sourceTree = "<group>"; };
 		B78490FA0B4BE86400BA93EF /* MenuDictionary.mm */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.objcpp; path = MenuDictionary.mm; sourceTree = "<group>"; };
@@ -5367,7 +5367,7 @@
 				ABBB647A063587B200D9531F /* Icons */,
 				ABBFDA3F063480490011BD0A /* Deployment-Info.plist */,
 				43D7471B21A6C4C80055FA87 /* AsyncSocket.strings */,
-				ABFDE81610A8003100E33E0F /* Deployment-Info OsiriXLite.plist */,
+				ABFDE81610A8003100E33E0F /* Lite-Info.plist */,
 				CE9E11CF13DBB5DD008B2848 /* OsiriX.sdef */,
 				B7CDAC730AB3003200068D70 /* PAGES */,
 				43CC5BA5216511E200F1B1CA /* Assets.xcassets */,
@@ -9158,10 +9158,10 @@
 				AB28B42E05B7921E00A9906C /* miele-lxiv */,
 				59BDEC2C117C92B2007F1F2C /* LXIV Launcher */,
 				7E0B3A3E067526CD00908593 /* DCM */,
+				AB0F3A2B1046BD2B004129DD /* MieleAPI */,
 				4A2F58D8078D118700C514A2 /* Build All Prerequisites */,
 				AB724F300ADE6ECB00A212A0 /* Decompress */,
 				CEDF6C600B46FE99008B45B8 /* DICOMPrint */,
-				AB0F3A2B1046BD2B004129DD /* MieleAPI */,
 				A98795C116DB9FD100926023 /* Unit Tests */,
 			);
 		};

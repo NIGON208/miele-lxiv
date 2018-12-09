@@ -13647,7 +13647,7 @@ void checkOGLVersion()
     
     return pixToSubDrawRectTransform;
 }
-#endif
+#endif // OSIRIX_LIGHT
 
 -(void) setOriginWithRotationX:(float) x Y:(float) y
 {
