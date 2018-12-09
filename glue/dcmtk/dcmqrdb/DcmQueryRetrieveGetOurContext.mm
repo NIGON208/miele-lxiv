@@ -99,7 +99,7 @@ OFCondition decompressFileFormat(DcmFileFormat fileformat, const char *fname)
         {
             fileformat.loadAllDataIntoMemory();
             cond = fileformat.saveFile( fname, EXS_LittleEndianExplicit);
-            status =  (cond.good()) ? YES : NO;
+            status = (cond.good()) ? YES : NO;
             
             if( status == NO)
                 printf("\n*** decompressFileFormat failed\n");
@@ -247,7 +247,7 @@ OFBool compressFileFormat(DcmFileFormat fileformat, const char *fname, char *out
                 unlink( outfname);
                 
                 cond = fileformat.saveFile(outfname, newXfer);
-                status =  (cond.good()) ? YES : NO;
+                status = (cond.good()) ? YES : NO;
             }
             else
             {

@@ -61,6 +61,24 @@
             ReferencedContainer = "container:Miele_LXIV.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
+      <CommandLineArguments>
+         <CommandLineArgument
+            argument = "first"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "second"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "/var/folders/h9/wb11kmr11f5f8xd9sm01lt680000gn/T/dicomPrint/printjob-20181226-191216.json"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "/var/folders/h9/wb11kmr11f5f8xd9sm01lt680000gn/T/dicomPrint/dcmpstat-20181226-191216.cfg.txt"
+            isEnabled = "YES">
+         </CommandLineArgument>
+      </CommandLineArguments>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>

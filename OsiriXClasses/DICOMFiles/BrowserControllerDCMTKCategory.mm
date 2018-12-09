@@ -147,7 +147,7 @@ static NSString *uniqueSync = @"uniqueSync";
 				fileformat.loadAllDataIntoMemory();
 				
 				cond = fileformat.saveFile( [tmpWADOFile fileSystemRepresentation], xfer.getXfer());
-				status =  (cond.good()) ? YES : NO;
+				status = (cond.good()) ? YES : NO;
 				
 				if( status == NO)
 					NSLog( @"getDICOMFile:(NSString*) file inSyntax:(NSString*) syntax quality: (int) quality failed");

@@ -183,7 +183,7 @@ PURPOSE.
 	
 	if( [[tableColumn identifier] isEqualToString:@"volume"])
 	{
-		#ifndef OSIRIX_LIGHT
+#ifndef OSIRIX_LIGHT
 		float volume = [viewer computeVolume:[curRoiList objectAtIndex:row] points:nil error: nil];
 		
 		if( volume)
@@ -194,7 +194,7 @@ PURPOSE.
 				return [NSString stringWithFormat:@"%2.2f", volume];
 		}
 		else
-		#endif
+#endif
 			return [NSString stringWithString: NSLocalizedString( @"n/a", @"Abbreviation for not available")];
 	}
 	

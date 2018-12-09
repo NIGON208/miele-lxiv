@@ -517,7 +517,9 @@ OFCondition mainStoreSCP(T_ASC_Association * assoc,
 		{
 			DimseCondition::dump(cond);
 			NSString *errMessage = [NSString stringWithFormat: @"DICOM Network Failure (storescp TLS) : ASC_setTransportLayer - %04x:%04x %s. You can turn OFF TLS Listener in Preferences->Listener.", cond.module(), cond.code(), cond.text()];
-			[[AppController sharedAppController] performSelectorOnMainThread: @selector(displayListenerError:) withObject: errMessage waitUntilDone: NO];
+			[[AppController sharedAppController] performSelectorOnMainThread: @selector(displayListenerError:)
+                                                                  withObject: errMessage
+                                                               waitUntilDone: NO];
 			return;
 		}
 	}

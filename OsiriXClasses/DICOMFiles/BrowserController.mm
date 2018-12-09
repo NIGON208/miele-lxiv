@@ -3005,7 +3005,7 @@ static NSConditionLock *threadLock = nil;
 	NSError				*error =nil;
 	NSPredicate			*predicate = nil, *subPredicate = nil;
 	NSString			*description = [NSString string];
-	NSIndexSet			*selectedRowIndexes =  [databaseOutline selectedRowIndexes];
+	NSIndexSet			*selectedRowIndexes = [databaseOutline selectedRowIndexes];
 	NSMutableArray		*previousObjects = [NSMutableArray array];
 	NSArray				*albumArrayContent = nil;
 	BOOL				filtered = NO;
@@ -7307,10 +7307,11 @@ static NSConditionLock *threadLock = nil;
 				
 				if ([[NSFileManager defaultManager] fileExistsAtPath: [htmlpath stringByAppendingPathExtension: @"pdf"]] == NO)
 				{
-                    if ([[NSFileManager defaultManager] fileExistsAtPath: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"/Decompress"]])
+                    NSString *launchPath = [[[NSBundle mainBundle] URLForAuxiliaryExecutable:@"Decompress"] path];
+                    if ([[NSFileManager defaultManager] fileExistsAtPath:launchPath])
                     {
                         NSTask *aTask = [[[NSTask alloc] init] autorelease];
-                        [aTask setLaunchPath: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"/Decompress"]];
+                        [aTask setLaunchPath: launchPath];
                         [aTask setArguments: [NSArray arrayWithObjects: htmlpath, @"pdfFromURL", nil]];		
                         [aTask launch];
                         NSTimeInterval start = [NSDate timeIntervalSinceReferenceDate];
@@ -7890,7 +7891,7 @@ static NSConditionLock *threadLock = nil;
                         
                         [context lock];
                         
-                        NSMutableArray *seriesForThisViewer =  nil;
+                        NSMutableArray *seriesForThisViewer = nil;
                         
                         @try 
                         {
@@ -8740,7 +8741,7 @@ static NSConditionLock *threadLock = nil;
             }
         }
         
-//		NSManagedObject	*series =  [[self childrenArray:nextStudy] objectAtIndex:0];
+//		NSManagedObject	*series = [[self childrenArray:nextStudy] objectAtIndex:0];
 //		
 //		[self openViewerFromImages :[NSArray arrayWithObject: [self childrenArray: series]] movie: NO viewer :viewer keyImagesOnly:keyImages];
 //		
@@ -16283,7 +16284,7 @@ static volatile int numberOfThreadsForJPEG = 0;
 
 - (BOOL) waitForAProcessor
 {
-	int processors =  [[NSProcessInfo processInfo] processorCount];
+	int processors = [[NSProcessInfo processInfo] processorCount];
 	
 //	processors--;
 	if (processors < 1)
@@ -16890,10 +16891,11 @@ static volatile int numberOfThreadsForJPEG = 0;
 				
 				if ([[NSFileManager defaultManager] fileExistsAtPath: [htmlpath stringByAppendingPathExtension: @"pdf"]] == NO)
 				{
-                    if ([[NSFileManager defaultManager] fileExistsAtPath: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"/Decompress"]])
+                    NSString *launchPath = [[[NSBundle mainBundle] URLForAuxiliaryExecutable:@"Decompress"] path];
+                    if ([[NSFileManager defaultManager] fileExistsAtPath: launchPath])
                     {
                         NSTask *aTask = [[[NSTask alloc] init] autorelease];
-                        [aTask setLaunchPath: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"/Decompress"]];
+                        [aTask setLaunchPath: launchPath];
                         [aTask setArguments: [NSArray arrayWithObjects: htmlpath, @"pdfFromURL", nil]];		
                         [aTask launch];
                         NSTimeInterval start = [NSDate timeIntervalSinceReferenceDate];

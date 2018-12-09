@@ -864,8 +864,14 @@ const NSString* const GenerateMovieDicomImagesParamKey = @"dicomImageArray";
                 {
                     NSTask *theTask = [[[NSTask alloc] init] autorelease];
                     
-                    [theTask setArguments: [NSArray arrayWithObjects: outFile, @"writeMovie", [outFile stringByAppendingString: @" dir"], [[NSNumber numberWithInteger:fps] stringValue], nil]];
-                    [theTask setLaunchPath:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"Decompress"]];
+                    [theTask setArguments: [NSArray arrayWithObjects:
+                                            outFile, @"writeMovie",
+                                            [outFile stringByAppendingString: @" dir"],
+                                            [[NSNumber numberWithInteger:fps] stringValue],
+                                            nil]];
+                    
+                    NSString *launchPath = [[[NSBundle mainBundle] URLForAuxiliaryExecutable:@"Decompress"] path];
+                    [theTask setLaunchPath:launchPath];
                     [theTask launch];
                     
                     while( [theTask isRunning]) [NSThread sleepForTimeInterval: 0.01];
@@ -2819,7 +2825,8 @@ const NSString* const GenerateMovieDicomImagesParamKey = @"dicomImageArray";
 		
 		if ([[NSFileManager defaultManager] fileExistsAtPath:pdfpath] == NO) {
 			NSTask* aTask = [[[NSTask alloc] init] autorelease];
-			[aTask setLaunchPath:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"Decompress"]];
+            NSString *launchPath = [[[NSBundle mainBundle] URLForAuxiliaryExecutable:@"Decompress"] path];
+			[aTask setLaunchPath:launchPath];
 			[aTask setArguments:[NSArray arrayWithObjects:htmlpath, @"pdfFromURL", nil]];
 			[aTask launch];
             NSTimeInterval start = [NSDate timeIntervalSinceReferenceDate];

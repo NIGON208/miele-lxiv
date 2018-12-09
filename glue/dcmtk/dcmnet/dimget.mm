@@ -12,10 +12,6 @@
 **
 */
 
-/* 
-** Include Files
-*/
-
 #import "DicomDatabase.h"
 #import "dcmtk/config/osconfig.h"    /* make sure OS specific configuration is included first */
 
@@ -40,9 +36,6 @@
 //#include "dcmtk/dcmqrdb/dcmqrdbi.h"
 #include "dcmqrdbq.h" // glue/dcmqrdb
 #endif
-/*
-**
-*/
 
 static int
 selectReadable(T_ASC_Association *assoc, 

@@ -559,7 +559,7 @@
 
 - (IBAction) OsiriXDBloadFrom:(id) sender;
 {
-	NSOpenPanel		*sPanel		= [NSOpenPanel openPanel];
+	NSOpenPanel *sPanel	= [NSOpenPanel openPanel];
 	
 	[self resetTest];
 	

@@ -611,7 +611,7 @@ static NSString* DefaultWebPortalDatabasePath = nil;
     NSString *add = self.address;
     NSString *protocol = nil;
     
-    //The user can "force" to have a different public address, compared to the 'real' address (usefull for port forwarding)
+    //The user can "force" to have a different public address, compared to the 'real' address (useful for port forwarding)
     //Search if the protocol and port are specified
     
     if( [add hasPrefix: @"http://"])

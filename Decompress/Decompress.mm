@@ -594,7 +594,7 @@ static void action_Decompress(int argc, const char *argv[], NSString *path)
                         myunlink([curFileDest fileSystemRepresentation]);
                         
                         cond = fileformat.saveFile( [tempCurFileDest UTF8String], EXS_LittleEndianExplicit);
-                        status =  (cond.good()) ? YES : NO;
+                        status = (cond.good()) ? YES : NO;
                         
                         [[NSFileManager defaultManager] moveItemAtPath: tempCurFileDest toPath: curFileDest error: nil];
                     }
@@ -670,7 +670,7 @@ int main(int argc, const char *argv[])
     Use_kdu_IfAvailable = [[dict objectForKey:@"UseKDUForJPEG2000"] intValue];
     //[DCMPixelDataAttribute setUse_kdu_IfAvailable: [[dict objectForKey:@"UseKDUForJPEG2000"] intValue]];
 
-#pragma mark SettingsPlist
+#pragma mark - SettingsPlist
     if ([what isEqualToString:@"SettingsPlist"])
     {
         @try
@@ -685,13 +685,12 @@ int main(int argc, const char *argv[])
             NSLog(@"Decompress failed reading settings plist at %s: %@", argv[fileListFirstItemIndex], e);
         }
     }
-		
-    if ([what isEqualToString:@"compress"])
+#pragma mark - compress
+    else if ([what isEqualToString:@"compress"])
     {
         action_Compress(argc, argv, path);
     }
-		
-#pragma mark testDICOMDIR
+#pragma mark - testDICOMDIR
     else if( [what isEqualToString: @"testDICOMDIR"])
     {
         NSLog( @"-- Testing DICOMDIR: %@", @(argv[ 1]));
@@ -712,8 +711,7 @@ int main(int argc, const char *argv[])
               
 //            *(long*) 0x00 = 0xDEADBEEF;
     }
-        
-# pragma mark testFiles
+# pragma mark - testFiles
     else if( [what isEqualToString: @"testFiles"])
     {
         for (NSInteger i = fileListFirstItemIndex; i < argc ; i++)
@@ -734,12 +732,12 @@ int main(int argc, const char *argv[])
                 NSLog( @"dcmPix == nil");
         }
     }
+# pragma mark - decompressList
     else if( [what isEqualToString:@"decompressList"])
     {
         action_Decompress(argc, argv, path);
     }
-		
-# pragma mark writeMovie
+# pragma mark - writeMovie
     else if( [what isEqualToString: @"writeMovie"])
     {
         if( ![path hasSuffix:@".swf"])
@@ -761,13 +759,14 @@ int main(int argc, const char *argv[])
             [[NSFileManager defaultManager] removeItemAtPath: inputDir error: nil];
         }
     }
-				
-# pragma mark pdfFromURL
+# pragma mark - pdfFromURL
     else if( [what isEqualToString: @"pdfFromURL"])
     {
         @try
         {
-            WebView *webView = [[[WebView alloc] initWithFrame: NSMakeRect(0,0,1,1) frameName: @"myFrame" groupName: @"myGroup"] autorelease];
+            WebView *webView = [[[WebView alloc] initWithFrame: NSMakeRect(0,0,1,1)
+                                                     frameName: @"myFrame"
+                                                     groupName: @"myGroup"] autorelease];
             NSWindow *w = [[[NSWindow alloc] initWithContentRect:NSMakeRect(0,0,1,1)
                                                        styleMask:NSWindowStyleMaskBorderless
                                                          backing:NSBackingStoreNonretained
@@ -882,7 +881,7 @@ void createSwfMovie(NSArray* inputFiles, NSString* path, float frameRate)
 	SWFMovie* swf = new SWFMovie(7);
 	swf->setBackground(0x88, 0x88, 0x88);
     
-    if( frameRate < 1)
+    if (frameRate < 1)
         frameRate = 10;
 	swf->setRate(frameRate);
 	

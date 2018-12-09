@@ -1979,10 +1979,11 @@ char* replaceBadCharacter (char* str, NSStringEncoding encoding)
 	
 	if( [[NSFileManager defaultManager] fileExistsAtPath: [htmlpath stringByAppendingPathExtension: @"pdf"]] == NO)
 	{
-        if( [[NSFileManager defaultManager] fileExistsAtPath: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"/Decompress"]])
+        NSString *launchPath = [[[NSBundle mainBundle] URLForAuxiliaryExecutable:@"Decompress"] path];
+        if( [[NSFileManager defaultManager] fileExistsAtPath: launchPath])
         {
             NSTask *aTask = [[[NSTask alloc] init] autorelease];
-            [aTask setLaunchPath: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"/Decompress"]];
+            [aTask setLaunchPath: launchPath];
             [aTask setArguments: [NSArray arrayWithObjects: htmlpath, @"pdfFromURL", nil]];		
             [aTask launch];
             NSTimeInterval start = [NSDate timeIntervalSinceReferenceDate];

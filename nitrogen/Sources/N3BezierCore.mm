@@ -274,7 +274,6 @@ N3MutableBezierCoreRef N3BezierCoreCreateMutableCopy(N3BezierCoreRef bezierCore)
 
 CFDictionaryRef N3BezierCoreCreateDictionaryRepresentation(N3BezierCoreRef bezierCore)
 {
-	NSMutableArray *segments;
 	NSDictionary *segmentDictionary;
 	N3Vector control1;
 	N3Vector control2;
@@ -285,7 +284,7 @@ CFDictionaryRef N3BezierCoreCreateDictionaryRepresentation(N3BezierCoreRef bezie
 	N3BezierCoreSegmentType segmentType;
 	N3BezierCoreIteratorRef bezierCoreIterator;
 	
-	segments = [NSMutableArray array];
+    NSMutableArray *segments = [NSMutableArray array];
 	bezierCoreIterator = N3BezierCoreIteratorCreateWithBezierCore(bezierCore);
 	
 	while (N3BezierCoreIteratorIsAtEnd(bezierCoreIterator) == NO) {

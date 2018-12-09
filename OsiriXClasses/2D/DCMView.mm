@@ -1785,7 +1785,8 @@ void checkOGLVersion()
 	}
 	
 	// Unselect all ROIs
-	for (ROI *r in curRoiList) [r setROIMode: ROI_sleep];
+	for (ROI *r in curRoiList)
+        [r setROIMode: ROI_sleep];
 	
 	for (NSString *filename in filenames)
 	{
@@ -13647,7 +13648,7 @@ void checkOGLVersion()
     
     return pixToSubDrawRectTransform;
 }
-#endif
+#endif // OSIRIX_LIGHT
 
 -(void) setOriginWithRotationX:(float) x Y:(float) y
 {

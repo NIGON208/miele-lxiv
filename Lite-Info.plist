@@ -3,11 +3,11 @@
 <plist version="1.0">
 <dict>
 	<key>LSMinimumSystemVersion</key>
-	<string>10.8</string>
+	<string>$(MACOSX_DEPLOYMENT_TARGET)</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
-	<string>OsiriX Lite</string>
+	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleDocumentTypes</key>
 	<array>
 		<dict>
@@ -178,18 +178,16 @@
 			<true/>
 		</dict>
 	</array>
-	<key>CFBundleGetInfoString</key>
-	<string>OsiriX Lite v.5.9</string>
 	<key>CFBundleIconFile</key>
 	<string></string>
 	<key>CFBundleIdentifier</key>
-	<string>com.bettarini.miele-lxiv-lite</string>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>5.9</string>
+	<string>7.1.39</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -206,13 +204,13 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>20140701</string>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSCanProvideIMVideoDataSource</key>
 	<string>Yes</string>
 	<key>NSAppleScriptEnabled</key>
 	<string>YES</string>
 	<key>NSHumanReadableCopyright</key>
-	<string>Copyright 2003-2014, bettar</string>
+	<string>Copyright © 2014-2018 bettar. All rights reserved.</string>
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>

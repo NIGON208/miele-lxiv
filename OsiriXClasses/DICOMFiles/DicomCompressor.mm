@@ -42,12 +42,14 @@ const NSUInteger MaxFilesPassedToDecompress = 200;
 		NSMutableArray* iargs = [NSMutableArray arrayWithArray:args];
 		[iargs addObjectsFromArray:[filePaths subarrayWithRange:NSMakeRange(i, std::min(MaxFilesPassedToDecompress, (int)filePaths.count-i))]];
 		
-		NSTask* task = [[NSTask alloc] init];
+		NSTask *task = [[NSTask alloc] init];
 		[task setArguments:iargs];
-		[task setLaunchPath:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"Decompress"]];
+        NSString *launchPath = [[[NSBundle mainBundle] URLForAuxiliaryExecutable:@"Decompress"] path];
+		[task setLaunchPath:launchPath];
 		[task launch];
 		
-		while ([task isRunning]) [NSThread sleepForTimeInterval:0.01];
+		while ([task isRunning])
+            [NSThread sleepForTimeInterval:0.01];
 		
 		[task release];
         

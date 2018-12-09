@@ -339,7 +339,7 @@
 
 - (NSDictionary*) setPixSource:(ROI*) r
 {
-    NSLog(@"%s %d", __FUNCTION__, __LINE__);
+    //NSLog(@"%s %d", __FUNCTION__, __LINE__);
 
 	GLint swap = 1;  // LIMIT SPEED TO VBL if swap == 1
 	[self getVTKRenderWindow]->MakeCurrent();
@@ -351,10 +351,15 @@
 	return [self renderVolume];
 }
 
-+ (vtkMapper*) generateMapperForRoi:(ROI*) roi viewerController: (ViewerController*) vc factor: (float) factor statistics: (NSMutableDictionary*) statistics
++ (vtkMapper*) generateMapperForRoi: (ROI*) roi
+                   viewerController: (ViewerController*) vc
+                             factor: (float) factor
+                         statistics: (NSMutableDictionary*) statistics
 {
     vtkMapper *mapper = nil;
     
+#ifndef OSIRIX_LIGHT
+
     NSMutableArray *generatedROIs = [NSMutableArray array];
     NSMutableArray *ptsArray = nil;
     
@@ -572,7 +577,7 @@
             [[vc.roiList objectAtIndex: index] removeObject: c];
         }
     }
-    
+#endif // OSIRIX_LIGHT
     return mapper;
 }
 

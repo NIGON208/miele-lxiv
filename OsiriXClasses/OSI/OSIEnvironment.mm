@@ -188,7 +188,7 @@ static OSIEnvironment *sharedEnvironment = nil;
 
 - (void)drawDCMView:(DCMView *)dcmView
 {
-    ViewerController *viewerController =  (ViewerController *)[dcmView windowController];
+    ViewerController *viewerController = (ViewerController *)[dcmView windowController];
     if (([viewerController isKindOfClass:[ViewerController class]]) ) {
         OSIVolumeWindow *volumeWindow = [self volumeWindowForViewerController:viewerController];
         [volumeWindow drawInDCMView:dcmView];

@@ -15161,7 +15161,7 @@ int i,j,l;
 
 	[splash close];
 }
-#endif
+#endif // OSIRIX_LIGHT
 
 -(IBAction) roiSetPixelsSetup:(id) sender
 {
@@ -22085,7 +22085,7 @@ static BOOL viewerControllerPlaying = NO;
 	{
 		NSLog( @"number of points: %d", (int) [*pts count]);
 		
-		#define MAXPOINTS 7000
+#define MAXPOINTS 7000
 		
 		if ([*pts count] > MAXPOINTS*2)
 		{
@@ -22239,7 +22239,7 @@ static BOOL viewerControllerPlaying = NO;
 	
 	return volume;
 }
-#endif
+#endif // OSIRIX_LIGHT
 
 -(void) updateVolumeData: (NSNotification*) note
 {

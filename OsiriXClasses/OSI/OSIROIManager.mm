@@ -25,6 +25,7 @@
 #import "ViewerController.h"
 #import "OSIVolumeWindow+Private.h"
 
+#include "N3Geometry.h"
 
 NSString* const OSIROIManagerROIsDidUpdateNotification = @"OSIROIManagerROIsDidUpdateNotification";
 
@@ -353,7 +354,7 @@ NSString* const OSIROIAddedROIKey = @"OSIROIAddedROIKey";
     NSArray *watchedROIs;
     
 	// because the OsiriX ROI posts notifications at super weird times (like within dealloc!?!?!) 
-	// we need to make sure we don't renter our ROI rebuilding call while rebuilding the ROIs;
+	// we need to make sure we don't re-enter our ROI rebuilding call while rebuilding the ROIs
 
 	if (_rebuildingROIs) {
 		return;
@@ -377,7 +378,8 @@ NSString* const OSIROIAddedROIKey = @"OSIROIAddedROIKey";
 	} else {
 		[_OSIROIs addObjectsFromArray:[self _ROIListForWatchedOsiriXROIs:&watchedROIs]];
 	}
-	[self didChangeValueForKey:@"ROIs"];
+
+    [self didChangeValueForKey:@"ROIs"];
     
     [_watchedROIs addObjectsFromArray:watchedROIs];
     

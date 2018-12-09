@@ -8823,7 +8823,7 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
     [self computeROIIfNedeed];
     
 	if (_calciumCofactor == 0)
-		_calciumCofactor =  [[self pix] calciumCofactorForROI:self threshold:_calciumThreshold];
+		_calciumCofactor = [[self pix] calciumCofactorForROI:self threshold:_calciumThreshold];
 	//NSLog(@"cofactor: %d", _calciumCofactor);
 	return _calciumCofactor;
 }
