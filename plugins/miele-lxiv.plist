@@ -27,7 +27,7 @@
 			<key>host</key>
 			<string>bettar.github.io</string>
 			<key>path</key>
-			<string>/miele-lxiv/plugins/InvertData/html/CTRFilter.mieleplugin.zip</string>
+			<string>/miele-lxiv/plugins/CTR/html/CTRFilter.mieleplugin.zip</string>
 		</dict>
 		<key>name</key>
 		<string>CTR</string>
