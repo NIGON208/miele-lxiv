@@ -3047,6 +3047,8 @@ static BOOL initialized = NO;
                 NSLog(@"resourcePath___________: %@", [[NSBundle mainBundle] resourcePath]);       // Contents/Resources
                 NSLog(@"sharedSupportPath______: %@", [[NSBundle mainBundle] sharedSupportPath]);  // Contents/SharedSupport
                 NSLog(@"builtInPlugInsPath_____: %@", [[NSBundle mainBundle] builtInPlugInsPath]); // Contents/PlugIns
+                NSLog(@"sharedFrameworksPath___: %@", [[NSBundle mainBundle] sharedFrameworksPath]);
+                NSLog(@"privateFrameworksPath__: %@", [[NSBundle mainBundle] privateFrameworksPath]);
 
                 NSLog(@"MAC_OS_X_VERSION_MIN_REQUIRED: %d", MAC_OS_X_VERSION_MIN_REQUIRED);
                 NSLog(@"MAC_OS_X_VERSION_MAX_ALLOWED: %d",  MAC_OS_X_VERSION_MAX_ALLOWED);
@@ -5146,7 +5148,7 @@ static BOOL initialized = NO;
 - (void) tileWindows:(id)sender windows: (NSMutableArray*) viewersList display2DViewerToolbar: (BOOL) display2DViewerToolbar displayThumbnailsList: (BOOL) displayThumbnailsList
 {
 	BOOL origCopySettings = [[NSUserDefaults standardUserDefaults] boolForKey: @"COPYSETTINGS"];
-	NSRect screenRect =  screenFrame();
+	NSRect screenRect = screenFrame();
 	BOOL keepSameStudyOnSameScreen = [[NSUserDefaults standardUserDefaults] boolForKey: @"KeepStudiesTogetherOnSameScreen"];
 	NSMutableArray *studyList = [NSMutableArray array];
 	ViewerController *keyWindow = nil;
@@ -5670,7 +5672,7 @@ static BOOL initialized = NO;
 		{
 			for (int i = 0; i < viewerCount; i++)
 			{
-				monitorIndex =  i / (columnsPerScreen*rowsPerScreen);
+				monitorIndex = i / (columnsPerScreen*rowsPerScreen);
 				
 				if (monitorIndex == numberOfMonitors)
                     monitorIndex = numberOfMonitors-1;

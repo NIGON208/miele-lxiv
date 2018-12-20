@@ -575,12 +575,16 @@ extern "C"
 		
 		NSString *uniqueStringID = [NSString stringWithFormat:@"%d.%d.%d", getpid(), inc++, (int) random()];
 		
-		NSTask* theTask = [[[NSTask alloc]init]autorelease];
+		NSTask* theTask = [[[NSTask alloc] init] autorelease];
 		
-		if ([[NSFileManager defaultManager] fileExistsAtPath: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"/echoscu"]] == NO)
+        NSString *launchPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"echoscu"];
+        
+        if (![[NSFileManager defaultManager] fileExistsAtPath: launchPath]) {
+            NSLog(@"%s %d file doesn't exist:%@", __FUNCTION__, __LINE__, launchPath);
 			return YES;
+        }
 		
-		[theTask setLaunchPath: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"echoscu"]];
+		[theTask setLaunchPath: launchPath];
 		
         NSString *dicPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"dicom.dic"];
         [theTask setEnvironment:[NSDictionary dictionaryWithObject:dicPath forKey:@"DCMDICTPATH"]];
@@ -710,7 +714,7 @@ extern "C"
         
         [wait end];
         
-		if([[serverParameters objectForKey:@"TLSEnabled"] boolValue])
+		if ([[serverParameters objectForKey:@"TLSEnabled"] boolValue])
 		{
 			//[DDKeychain unlockTmpFiles];
 			[[NSFileManager defaultManager] removeFileAtPath:[DICOMTLS keyPathForServerAddress:address port:[port intValue] AETitle:aet withStringID:uniqueStringID] handler:nil];
@@ -1459,7 +1463,7 @@ extern "C"
                         
                         if ([studyArray count] > 0)
                         {
-                            NSManagedObject	*series =  [[[BrowserController currentBrowser] childrenArray: [studyArray objectAtIndex: 0] onlyImages: NO] objectAtIndex:0];
+                            NSManagedObject	*series = [[[BrowserController currentBrowser] childrenArray: [studyArray objectAtIndex: 0] onlyImages: NO] objectAtIndex:0];
                             [[BrowserController currentBrowser] findAndSelectFile:nil image:[[series valueForKey:@"images"] anyObject] shouldExpand:NO extendingSelection: extendingSelection];
                             extendingSelection = YES;
                         }

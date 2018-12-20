@@ -323,7 +323,7 @@ void* OPJSupport::decompressJPEG2KWithBuffer(void* inputBuffer,
         *decompressedBufferSize = decompressSize;
    
     if (!inputBuffer )
-        inputBuffer =  malloc(decompressSize);
+        inputBuffer = malloc(decompressSize);
 
     if (colorModel)
         *colorModel = 0;

@@ -217,7 +217,6 @@ static int validFilePathDepth = 0;
 {
     @synchronized( singeDcmDump)
     {
-        NSTask *aTask;
         NSMutableArray *theArguments = [NSMutableArray array];
         NSPipe *newPipe = [NSPipe pipe];
         NSData *inData = nil;
@@ -227,27 +226,27 @@ static int validFilePathDepth = 0;
         
         dirpath = [[NSString alloc] initWithFormat: @"%@/", [srcFile stringByDeletingLastPathComponent]];
         
-    //	const char *args[ 4];
-    //	
-    //	args[ 0] = [srcFile UTF8String];
-    //	args[ 1] = "+L";
-    //	args[ 2] = "+P";
-    //	args[ 3] = "0004,1500";
-    //	
-    //	FILE *fp;
-    //	
-    //	if((fp=freopen("/tmp/out.txt", "w", stdout))==NULL)
-    //	{
-    //		printf("Cannot open file.\n");
-    //	}
-    //	
-    //	maindcmdump(4, (char**) args);
-    //	
-    //	fclose(fp);
-    //
+//	const char *args[ 4];
+//	
+//	args[ 0] = [srcFile UTF8String];
+//	args[ 1] = "+L";
+//	args[ 2] = "+P";
+//	args[ 3] = "0004,1500";
+//	
+//	FILE *fp;
+//	
+//	if((fp=freopen("/tmp/out.txt", "w", stdout))==NULL)
+//	{
+//		printf("Cannot open file.\n");
+//	}
+//	
+//	maindcmdump(4, (char**) args);
+//	
+//	fclose(fp);
+//
 
         // create the subprocess
-        aTask = [[NSTask alloc] init];
+        NSTask *aTask = [[NSTask alloc] init];
         
         [aTask setStandardOutput:newPipe];
         

@@ -169,7 +169,7 @@ If you want to fork the project and create your on branding, you should:
 		$ xcodebuild -configuration Development -target "miele-lxiv"
 
 - When you build the scheme `miele-lxiv` you should select the `Development` configuration, otherwise you might have issues with missing certificates for signing the app.
-- before running the built application, make sure your system has JPEG and TIFF shared libraries installed in the system. You might have to install them like this
+- before running the built application, make sure your system has JPEG, TIFF and PNG shared libraries installed in the system. You might have to install them like this
 
-		$ brew install jpeg libtiff
+		$ brew install jpeg libtiff libpng
 

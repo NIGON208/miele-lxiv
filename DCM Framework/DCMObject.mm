@@ -2102,16 +2102,13 @@ PixelRepresentation
 	{
 		DCMAttribute *attr = [attributes objectForKey:key];
 		if (attr)
-		{
 			[rootElement addChild:[attr xmlNode]];
-		}
-		
 	}
 		
 	NSXMLDocument *xmlDocument = [[[NSXMLDocument alloc] initWithRootElement:rootElement] autorelease];
 	NSError *error = nil;
 	if(![xmlDocument validateAndReturnError:&error])
-	NSLog(@"xml Document erorr:\n%@", [error description]);
+        NSLog(@"xml Document erorr:\n%@", [error description]);
 	return xmlDocument;
 }
 

@@ -12,9 +12,7 @@
      PURPOSE.
 =========================================================================*/
 
-
 #import "NSURL+N2.h"
-
 
 @implementation N2URLParts
 @synthesize protocol = _protocol, address = _address, port = _port, path = _path, params = _params;
@@ -22,9 +20,7 @@
 -(NSString*)pathAndParams {
 	return [NSString stringWithFormat:@"%@%@", _path, _params? _params : @""];
 }
-
 @end
-
 
 @implementation NSURL (N2)
 
@@ -42,7 +38,8 @@
 		l = range.location+range.length;
 	}
 	
-	while (l < length && [url characterAtIndex:l] == '/') ++l;
+	while (l < length && [url characterAtIndex:l] == '/')
+        ++l;
 	
 	range = [url rangeOfString:@"/" options:NSLiteralSearch range:NSMakeRange(l,length-l)];
 	if (range.location == NSNotFound)
@@ -72,17 +69,28 @@
 	return [parts autorelease];
 }
 
-+(NSURL*)URLWithParts:(N2URLParts*)parts {
-	NSMutableString* url = [NSMutableString stringWithCapacity:512];
-	
-	if ([parts protocol]) [url appendString:[parts protocol]];
-	[url appendString:@"://"];
-	if ([parts address]) [url appendString:[parts address]];
-	if ([parts port]) [url appendFormat:@":%@", [parts port]];
-	if ([parts path]) [url appendString:[parts path]];
-	if ([parts params]) [url appendFormat:@"?%@", [parts params]];
-	
-	return [NSURL URLWithString:url];
-}
+//+(NSURL*)URLWithParts:(N2URLParts*)parts
+//{
+//    NSMutableString* url = [NSMutableString stringWithCapacity:512];
+//    
+//    if ([parts protocol])
+//        [url appendString:[parts protocol]];
+//    
+//    [url appendString:@"://"];
+//    
+//    if ([parts address])
+//        [url appendString:[parts address]];
+//    
+//    if ([parts port])
+//        [url appendFormat:@":%@", [parts port]];
+//    
+//    if ([parts path])
+//        [url appendString:[parts path]];
+//    
+//    if ([parts params])
+//        [url appendFormat:@"?%@", [parts params]];
+//    
+//    return [NSURL URLWithString:url];
+//}
 
 @end

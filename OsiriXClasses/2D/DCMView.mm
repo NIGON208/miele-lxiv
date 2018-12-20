@@ -1785,7 +1785,8 @@ void checkOGLVersion()
 	}
 	
 	// Unselect all ROIs
-	for (ROI *r in curRoiList) [r setROIMode: ROI_sleep];
+	for (ROI *r in curRoiList)
+        [r setROIMode: ROI_sleep];
 	
 	for (NSString *filename in filenames)
 	{

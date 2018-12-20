@@ -6242,10 +6242,11 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
             
             if ([[NSFileManager defaultManager] fileExistsAtPath: [htmlpath stringByAppendingPathExtension: @"pdf"]] == NO)
             {
-                if ([[NSFileManager defaultManager] fileExistsAtPath: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"/Decompress"]])
+                NSString *launchPath = [[[NSBundle mainBundle] URLForAuxiliaryExecutable:@"Decompress"] path];
+                if ([[NSFileManager defaultManager] fileExistsAtPath: launchPath])
                 {
                     NSTask *aTask = [[[NSTask alloc] init] autorelease];
-                    [aTask setLaunchPath: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"/Decompress"]];
+                    [aTask setLaunchPath: launchPath];
                     [aTask setArguments: [NSArray arrayWithObjects: htmlpath, @"pdfFromURL", nil]];
                     [aTask launch];
                     NSTimeInterval start = [NSDate timeIntervalSinceReferenceDate];

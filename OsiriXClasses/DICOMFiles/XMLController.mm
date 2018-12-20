@@ -89,18 +89,25 @@ extern int delayedTileWindows;
 	{
 		if ([[[parent parent] className] isEqualToString:@"NSXMLElement"])
 		{
-			if ([[parent attributeForName:@"group"] stringValue] && [[parent attributeForName:@"element"] stringValue])
+			if ([[parent attributeForName:@"group"] stringValue] &&
+                [[parent attributeForName:@"element"] stringValue])
 			{
-				NSString *subString = [NSString stringWithFormat:@"(%@,%@)", [[parent attributeForName:@"group"] stringValue], [[parent attributeForName:@"element"] stringValue]];
+				NSString *subString = [NSString stringWithFormat:@"(%@,%@)",
+                                       [[parent attributeForName:@"group"] stringValue],
+                                       [[parent attributeForName:@"element"] stringValue]];
 				
-				if (first == NO && [[child attributeForName:@"group"] stringValue] && [[child attributeForName:@"element"] stringValue])
+				if (first == NO &&
+                    [[child attributeForName:@"group"] stringValue] &&
+                    [[child attributeForName:@"element"] stringValue])
+                {
 					subString = [subString stringByAppendingString:@"."];
+                }
 					
 				[result insertString: subString atIndex: 0];
 			}
 			else
 			{
-				NSString *subString =  [NSString stringWithFormat:@"[%d]", (int) [[[parent parent] children] indexOfObject: parent]];
+				NSString *subString = [NSString stringWithFormat:@"[%d]", (int) [[[parent parent] children] indexOfObject: parent]];
 				
 				if (first == NO)
 					subString = [subString stringByAppendingString:@"."];
@@ -1063,7 +1070,7 @@ extern int delayedTileWindows;
     }
     else if (editingActivated == YES && modifiedValues.count > 0)
     {
-        if (NSRunInformationalAlertPanel(NSLocalizedString( @"Cancel modifications", nil),
+        if (NSRunInformationalAlertPanel(NSLocalizedString(@"Cancel modifications", nil),
                                          NSLocalizedString(@"Are you sure you want to stop editing the fields? The modifications have not been applied. The DICOM files will NOT be modified.", nil),
                                          NSLocalizedString(@"Cancel Modifications", nil),
                                          NSLocalizedString(@"Continue Editing", nil),
@@ -1341,7 +1348,7 @@ extern int delayedTileWindows;
 	
 	if (index > 0 && item && [[item attributeForName:@"group"] objectValue] && [[item attributeForName:@"element"] objectValue])
 	{
-		if (NSRunInformationalAlertPanel(NSLocalizedString( @"Sort Series Images", nil),
+		if (NSRunInformationalAlertPanel(NSLocalizedString(@"Sort Series Images", nil),
                                          NSLocalizedString(@"Are you sure you want to re-sort the series images according to this field?", nil),
                                          NSLocalizedString(@"OK", nil),
                                          NSLocalizedString(@"Cancel", nil),
@@ -1494,10 +1501,19 @@ extern int delayedTileWindows;
 			
 			if ([copyString length]) [copyString appendString:@"\r"];
 			
-			if ([[item attributeForName:@"group"] stringValue] && [[item attributeForName:@"element"] stringValue])
-				[copyString appendFormat:@"%@ (%@,%@) %@", [item valueForKey: @"name"], [[item attributeForName:@"group"] stringValue], [[item attributeForName:@"element"] stringValue], [self stringsSeparatedForNode: item]];
+			if ([[item attributeForName:@"group"] stringValue] &&
+                [[item attributeForName:@"element"] stringValue])
+            {
+				[copyString appendFormat:@"%@ (%@,%@) %@",
+                 [item valueForKey: @"name"],
+                 [[item attributeForName:@"group"] stringValue],
+                 [[item attributeForName:@"element"] stringValue],
+                 [self stringsSeparatedForNode: item]];
+            }
 			else
-				[copyString appendFormat:@"%@ %@", [item valueForKey: @"name"], [self stringsSeparatedForNode: item]];
+				[copyString appendFormat:@"%@ %@",
+                 [item valueForKey: @"name"],
+                 [self stringsSeparatedForNode: item]];
 			
 			NSLog( @"%@", [item description]);
 			
