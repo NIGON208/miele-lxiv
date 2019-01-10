@@ -31,7 +31,7 @@
 	if ( (self = [super init]) ) {
 		_osiriXROI = [roi retain];
 		
-		if ([roi type] == tMesure) {
+		if ([roi type] == tMeasure) {
 			_bezierPath = [[N3MutableBezierPath alloc] init];
 			point = [roi pointAtIndex:0];
 			[_bezierPath moveToVector:N3VectorApplyTransform(N3VectorMakeFromNSPoint(point), pixToDICOMTransfrom)];

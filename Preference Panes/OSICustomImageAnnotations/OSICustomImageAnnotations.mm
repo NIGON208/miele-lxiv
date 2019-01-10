@@ -88,19 +88,18 @@ NSComparisonResult  compareViewTags(id firstView, id secondView, void * context)
 		[self switchModality: modalitiesPopUpButton save: YES];
 		
 		NSDictionary *cur = [layoutController curDictionary];
-		NSSavePanel		*sPanel		= [NSSavePanel savePanel];
-		[sPanel setRequiredFileType:@"plist"];
-		
-		if ([sPanel runModalForDirectory:0L file: [NSString stringWithFormat:@"%@.plist", [[modalitiesPopUpButton selectedItem] title] ]] == NSFileHandlingPanelOKButton)
+		NSSavePanel *sPanel = [NSSavePanel savePanel];
+        [sPanel setAllowedFileTypes: @[@"plist"]];
+        NSString *fileName = [NSString stringWithFormat:@"%@.plist", [[modalitiesPopUpButton selectedItem] title] ];
+        [sPanel setNameFieldStringValue: fileName];
+		if ([sPanel runModal] == NSFileHandlingPanelOKButton)
 			[cur writeToFile: [sPanel filename] atomically: YES];
 	}
-	else						// Load
+	else    // Load
 	{
-		NSOpenPanel		*sPanel		= [NSOpenPanel openPanel];
-	
-		[sPanel setRequiredFileType:@"plist"];
-	
-		if ([sPanel runModalForDirectory:0L file:nil types:[NSArray arrayWithObject:@"plist"]] == NSFileHandlingPanelOKButton)
+		NSOpenPanel *sPanel = [NSOpenPanel openPanel];
+        [sPanel setAllowedFileTypes: @[@"plist"]];
+		if ([sPanel runModal] == NSFileHandlingPanelOKButton)
 		{
 			NSDictionary *cur = [NSDictionary dictionaryWithContentsOfFile: [sPanel filename]];
 			
@@ -126,7 +125,7 @@ NSComparisonResult  compareViewTags(id firstView, id secondView, void * context)
 
 - (IBAction) reset: (id) sender
 {
-	if( NSRunInformationalAlertPanel( NSLocalizedString(@"Settings", nil),
+	if( NSRunInformationalAlertPanel(NSLocalizedString(@"Settings", nil),
                                      NSLocalizedString( @"Are you really sure you want to reset the current default settings? It will delete the current settings.", nil),
                                      NSLocalizedString(@"OK", nil),
                                      NSLocalizedString(@"Cancel", nil),

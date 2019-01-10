@@ -26,7 +26,7 @@
 #import "DCMPix.h"
 #import "ThreadsManager.h"
 #import "DiscMountedAskTheUserDialogController.h"
-#import "DCM Framework/DCMAbstractSyntaxUID.h"
+#import <DCM/DCMAbstractSyntaxUID.h>
 #import "N2Stuff.h"
 #import "DICOMToNSString.h"
 #import "DicomDirParser.h"
@@ -385,16 +385,17 @@ static NSString* _dcmElementKey(DcmElement* element) {
     if( [[NSUserDefaults standardUserDefaults] boolForKey: @"validateFilesBeforeImporting"])
     {
         // Test DICOMDIR validity on a separate process...
-        if( [[NSFileManager defaultManager] fileExistsAtPath: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"/Decompress"]])
+        NSString *launchPath = [[[NSBundle mainBundle] URLForAuxiliaryExecutable:@"Decompress"] path];
+        if( [[NSFileManager defaultManager] fileExistsAtPath: launchPath])
         {
             NSTask *aTask = [[[NSTask alloc] init] autorelease];
-            [aTask setLaunchPath: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"/Decompress"]];
+            [aTask setLaunchPath: launchPath];
             [aTask setArguments: [NSArray arrayWithObjects: path, @"testDICOMDIR", nil]];
             [aTask launch];
             while( [aTask isRunning])
                 [NSThread sleepForTimeInterval: 0.1];
             
-            if( [aTask terminationStatus] != 0)
+            if( [aTask terminationStatus] != EXIT_SUCCESS)
             {
                 NSLog( @"****** failed to read DICOMDIR: %@", path);
                 return nil;
@@ -651,7 +652,7 @@ static NSString* _dcmElementKey(DcmElement* element) {
         mode = 0; //display the source
 #endif
         
-        if (mode == -1 || [[NSApp currentEvent] modifierFlags]&NSCommandKeyMask)
+        if (mode == -1 || [[NSApp currentEvent] modifierFlags] & NSEventModifierFlagCommand)
             [self performSelectorOnMainThread:@selector(_askUserDiscDataCopyOrBrowse:) withObject:[NSArray arrayWithObjects: path, [NSNumber numberWithInteger:dicomImages.count], [NSValue valueWithPointer:&mode], nil] waitUntilDone:YES];
         
         if (mode == 1)

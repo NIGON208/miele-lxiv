@@ -84,8 +84,8 @@
 #include "vtkImageFlip.h"
 #include "vtkAnnotatedCubeActor.h"
 #include "vtkOrientationMarkerWidget.h"
-#include "vtkVolumeTextureMapper2D.h"
-#include "vtkVolumeTextureMapper3D.h"
+//#include "vtkVolumeTextureMapper2D.h"  //@@@ VTK_LEGACY_REMOVE
+//#include "vtkVolumeTextureMapper3D.h"
 #include "OsiriXFixedPointVolumeRayCastMapper.h"
 
 #include "vtkCellArray.h"
@@ -97,7 +97,7 @@
 #import "Window3DController+StereoVision.h"
 #include "vtkCocoaRenderWindowInteractor.h"
 #include "vtkCocoaRenderWindow.h"
-#include "vtkParallelRenderManager.h"
+//#include "vtkParallelRenderManager.h"
 #include "vtkRendererCollection.h"
 #include "vtkCallbackCommand.h"
 // ****************************

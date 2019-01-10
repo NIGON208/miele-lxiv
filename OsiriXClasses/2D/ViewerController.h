@@ -1078,6 +1078,8 @@ enum
 * columns =  (tag % 5) + 1;
 * - (void)setImageRows:(int)rows columns:(int)columns then called
 */
+#define TILING_DIMENSION        5
+#define MAX_TILING_TAG          (TILING_DIMENSION * TILING_DIMENSION)
 - (IBAction)setImageTiling: (id)sender;
 
 #pragma mark-

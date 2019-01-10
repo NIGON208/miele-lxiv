@@ -131,7 +131,7 @@ static const NSSize PopUpWindowBorder = NSMakeSize(10,4);
 
     NSRect viewFrame = [view.window convertRectToScreen:[view convertRect:view.bounds toView:nil]];
 
-    self.window = [[N2PopUpMenuWindow alloc] initWithContentRect:viewFrame styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:NO];
+    self.window = [[N2PopUpMenuWindow alloc] initWithContentRect:viewFrame styleMask:NSWindowStyleMaskBorderless backing:NSBackingStoreBuffered defer:NO];
     [self.window setLevel:NSMainMenuWindowLevel];
     [self.window setOpaque:NO];
     [self.window setBackgroundColor:[[NSColor whiteColor] colorWithAlphaComponent:0]];

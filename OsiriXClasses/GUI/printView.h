@@ -12,10 +12,8 @@
      PURPOSE.
 =========================================================================*/
 
-
-#import <Cocoa/Cocoa.h>
 #import "ViewerController.h"
-
+#import <Cocoa/Cocoa.h>
 
 /** \brief View used for printing from ViewerController */
 @interface printView : NSView

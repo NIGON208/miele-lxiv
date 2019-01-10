@@ -12,11 +12,8 @@
      PURPOSE.
 =========================================================================*/
 
-
-
-
-#import <AppKit/AppKit.h>
 #import "ROI.h"
+#import <AppKit/AppKit.h>
 #import "MyNSTextView.h"
 #import "ViewerController.h"
 

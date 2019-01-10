@@ -123,7 +123,10 @@
             }
             
             if (record == _activeRecord) {
-                frame.origin.x += 1.5; frame.origin.y += 1.5; frame.size.width -= 3; frame.size.height -= 3;
+                frame.origin.x += 1.5;
+                frame.origin.y += 1.5;
+                frame.size.width -= 3;
+                frame.size.height -= 3;
                 path = [NSBezierPath bezierPathWithRect:frame];
                 [[NSColor grayColor] setStroke];
                 [path stroke];

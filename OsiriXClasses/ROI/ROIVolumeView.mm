@@ -20,8 +20,10 @@
 #import "DICOMExport.h"
 #import "ROIVolumeController.h"
 #import "BrowserController.h"
+
 #include <OpenGL/OpenGL.h>
 #include <OpenGL/CGLCurrent.h>
+
 #include "math.h"
 #import "QuicktimeExport.h"
 #import "Notifications.h"
@@ -57,7 +59,9 @@
 	double vn[ 3], center[ 3];
 	aCamera->GetFocalPoint(center);
 	aCamera->GetViewPlaneNormal(vn);
-	aCamera->SetPosition(center[0]+distance*vn[0], center[1]+distance*vn[1], center[2]+distance*vn[2]);
+	aCamera->SetPosition(center[0]+distance*vn[0],
+                         center[1]+distance*vn[1],
+                         center[2]+distance*vn[2]);
 	aCamera->SetParallelScale( pp);
 	aRenderer->ResetCameraClippingRange();
 	
@@ -84,24 +88,24 @@
 		[self getVTKRenderWindow]->MakeCurrent();
 //		[[NSOpenGLContext currentContext] flushBuffer];
 		
-		CGLContextObj cgl_ctx = (CGLContextObj) [[NSOpenGLContext currentContext] CGLContextObj];
+		//CGLContextObj cgl_ctx = (CGLContextObj) [[NSOpenGLContext currentContext] CGLContextObj];
 		
 		glReadBuffer(GL_FRONT);
 		
-		#if __BIG_ENDIAN__
+#if __BIG_ENDIAN__
 			glReadPixels(0, 0, *width, *height, GL_RGB, GL_UNSIGNED_BYTE, buf);
-		#else
+#else
 			glReadPixels(0, 0, *width, *height, GL_RGBA, GL_UNSIGNED_INT_8_8_8_8_REV, buf);
 			i = *width * *height;
 			unsigned char	*t_argb = buf;
 			unsigned char	*t_rgb = buf;
-			while( i-->0)
+			while( i-- > 0)
 			{
 				*((int*) t_rgb) = *((int*) t_argb);
 				t_argb+=4;
 				t_rgb+=3;
 			}
-		#endif
+#endif
 		
 		long rowBytes = *width**spp**bpp/8;
 		
@@ -128,7 +132,7 @@
 			unsigned char	*dstPtr = (buf + (*height - [TIFFRep pixelsHigh] + i)*rowBytes + ((*width-10)*3 - [TIFFRep bytesPerRow]));
 			
 			long x = [TIFFRep bytesPerRow]/3;
-			while( x-->0)
+			while( x-- > 0)
 			{
 				if( srcPtr[ 0] != 0 || srcPtr[ 1] != 0 || srcPtr[ 2] != 0)
 				{
@@ -189,45 +193,40 @@
 
 - (void) exportJPEG:(id) sender
 {
-    NSSavePanel     *panel = [NSSavePanel savePanel];
-
+    NSSavePanel *panel = [NSSavePanel savePanel];
 	[panel setCanSelectHiddenExtension:YES];
-	[panel setRequiredFileType:@"jpg"];
-	
-	if( [panel runModalForDirectory:nil file:@"Volume Image"] == NSFileHandlingPanelOKButton)
+    [panel setAllowedFileTypes: @[@"jpg"]];
+    [panel setNameFieldStringValue: @"Volume Image"];
+	if ([panel runModal] == NSFileHandlingPanelOKButton)
 	{
 		NSImage *im = [self nsimage:NO];
+
+		NSArray *representations = [im representations];
 		
-		NSArray *representations;
-		NSData *bitmapData;
-		
-		representations = [im representations];
-		
-		bitmapData = [NSBitmapImageRep representationOfImageRepsInArray:representations usingType:NSJPEGFileType properties:[NSDictionary dictionaryWithObject:[NSDecimalNumber numberWithFloat:0.9] forKey:NSImageCompressionFactor]];
+		NSData *bitmapData = [NSBitmapImageRep representationOfImageRepsInArray:representations usingType:NSJPEGFileType properties:[NSDictionary dictionaryWithObject:[NSDecimalNumber numberWithFloat:0.9] forKey:NSImageCompressionFactor]];
 		
 		[bitmapData writeToFile:[panel filename] atomically:YES];
 		
 		NSWorkspace *ws = [NSWorkspace sharedWorkspace];
-		if ([[NSUserDefaults standardUserDefaults] boolForKey: @"OPENVIEWER"]) [ws openFile:[panel filename]];
+		if ([[NSUserDefaults standardUserDefaults] boolForKey: @"OPENVIEWER"])
+            [ws openFile:[panel filename]];
 	}
 }
 
 -(IBAction) copy:(id) sender
 {
     NSPasteboard *pb = [NSPasteboard generalPasteboard];
-
-    NSImage *im;
     
-    [pb declareTypes:[NSArray arrayWithObject:NSTIFFPboardType] owner:self];
+    [pb declareTypes:[NSArray arrayWithObject:NSPasteboardTypeTIFF] owner:self];
     
-    im = [self nsimage:NO];
+    NSImage *im = [self nsimage:NO];
     
-    [pb setData: [im TIFFRepresentation] forType:NSTIFFPboardType];
+    [pb setData: [im TIFFRepresentation] forType:NSPasteboardTypeTIFF];
 }
 
 - (IBAction) exportDICOMFile:(id) sender
 {
-	long	width, height, spp, bpp;
+	long width, height, spp, bpp;
 	
 	DICOMExport *exportDCM = [[DICOMExport alloc] init];
 	
@@ -339,7 +338,9 @@
 }
 
 - (NSDictionary*) setPixSource:(ROI*) r
-{    
+{
+    //NSLog(@"%s %d", __FUNCTION__, __LINE__);
+
 	GLint swap = 1;  // LIMIT SPEED TO VBL if swap == 1
 	[self getVTKRenderWindow]->MakeCurrent();
 	[[NSOpenGLContext currentContext] setValues:&swap forParameter:NSOpenGLCPSwapInterval];
@@ -350,10 +351,15 @@
 	return [self renderVolume];
 }
 
-+ (vtkMapper*) generateMapperForRoi:(ROI*) roi viewerController: (ViewerController*) vc factor: (float) factor statistics: (NSMutableDictionary*) statistics
++ (vtkMapper*) generateMapperForRoi: (ROI*) roi
+                   viewerController: (ViewerController*) vc
+                             factor: (float) factor
+                         statistics: (NSMutableDictionary*) statistics
 {
     vtkMapper *mapper = nil;
     
+#ifndef OSIRIX_LIGHT
+
     NSMutableArray *generatedROIs = [NSMutableArray array];
     NSMutableArray *ptsArray = nil;
     
@@ -372,7 +378,12 @@
         if( error == nil)
             error = NSLocalizedString( @"Not possible to compute a volume!", nil);
         
-        NSRunCriticalAlertPanel( NSLocalizedString( @"ROIs", nil), @"%@", NSLocalizedString( @"OK", nil), nil, nil, error);
+        NSRunCriticalAlertPanel(NSLocalizedString( @"ROIs", nil),
+                                @"%@",
+                                NSLocalizedString( @"OK", nil),
+                                nil,
+                                nil,
+                                    error);
         return nil;
     }
     
@@ -566,7 +577,7 @@
             [[vc.roiList objectAtIndex: index] removeObject: c];
         }
     }
-    
+#endif // OSIRIX_LIGHT
     return mapper;
 }
 

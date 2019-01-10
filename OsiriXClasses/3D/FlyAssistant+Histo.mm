@@ -42,10 +42,10 @@
 {
     if (!inputHisto) {
         [self computeHistogram];
-        [self smoothHistogramWith:5]; // \todo{Trouver une meilleure définition ?}
+        [self smoothHistogramWith:5]; /// @todo Find a better definition (2)
     }
     
-    const int delta = 10; // \todo{Trouver une meilleure définition ?}
+    const int delta = 10; /// @todo Find a better definition (3)
     int value;
     if( pixValue == inputMinValue )
         value = delta << 1;

@@ -12,9 +12,8 @@
      PURPOSE.
 =========================================================================*/
 
-
-#import <Cocoa/Cocoa.h>
 #import "VRView.h"
+#import <Cocoa/Cocoa.h>
 #import "SelectionView.h"
 
 @interface VRPresetPreview : VRView {

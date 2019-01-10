@@ -28,7 +28,7 @@ enum
 {
     anyDate = 0,
     today = 1,
-    yesteday = 2,
+    yesterday = 2,
     last7Days = 3,
     lastMonth = 4,
     between = 5,

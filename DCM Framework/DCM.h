@@ -13,34 +13,32 @@
 =========================================================================*/
 
 
-#import "DCM Framework/DCMValueRepresentation.h"
-#import "DCM Framework/DCMAttributeTag.h"
-#import "DCM Framework/DCMAttribute.h"
-#import "DCM Framework/DCMSequenceAttribute.h"
-#import "DCM Framework/DCMDataContainer.h"
-#import "DCM Framework/DCMObject.h"
-#import "DCM Framework/DCMTransferSyntax.h"
-#import "DCM Framework/DCMTagDictionary.h"
-#import "DCM Framework/DCMTagForNameDictionary.h"
-#import "DCM Framework/DCMCharacterSet.h"
-#import "DCM Framework/DCMPixelDataAttribute.h"
-#import "DCM Framework/DCMCalendarDate.h"
-
-#import "DCMLimitedObject.h"
-
-#import "DCM Framework/DCMNetServiceDelegate.h"
-#import "DCM Framework/DCMEncapsulatedPDF.h"
-
+#import <DCM/DCMValueRepresentation.h>
+#import <DCM/DCMAttributeTag.h>
+#import <DCM/DCMAttribute.h>
+#import <DCM/DCMSequenceAttribute.h>
+#import <DCM/DCMDataContainer.h>
+#import <DCM/DCMObject.h>
+#import <DCM/DCMTransferSyntax.h>
+#import <DCM/DCMTagDictionary.h>
+#import <DCM/DCMTagForNameDictionary.h>
+#import <DCM/DCMCharacterSet.h>
+#import <DCM/DCMPixelDataAttribute.h>
+#import <DCM/DCMCalendarDate.h>
+#import <DCM/DCMLimitedObject.h>
+#import <DCM/DCMNetServiceDelegate.h>
+#import <DCM/DCMEncapsulatedPDF.h>
 
 #define DCMDEBUG 0
 #define DCMFramework_compile YES
 
-
 #import <Accelerate/Accelerate.h>
 
-enum DCM_CompressionQuality {DCMLosslessQuality = 0, DCMHighQuality, DCMMediumQuality, DCMLowQuality};
-
-
+enum DCM_CompressionQuality {
+    DCMLosslessQuality = 0,
+    DCMHighQuality,
+    DCMMediumQuality,
+    DCMLowQuality};
 
 @protocol MoveStatusProtocol
 	- (void)setStatus:(unsigned short)moveStatus  numberSent:(int)numberSent numberError:(int)numberErrors;

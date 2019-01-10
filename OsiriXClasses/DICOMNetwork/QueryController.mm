@@ -19,8 +19,10 @@
 #import "QueryFilter.h"
 #import "AppController.h"
 #import "ImageAndTextCell.h"
-#import "DCM Framework/DCMCalendarDate.h"
-#import "DCM Framework/DCMNetServiceDelegate.h"
+
+#import <DCM/DCMCalendarDate.h>
+#import <DCM/DCMNetServiceDelegate.h>
+
 #import "QueryArrayController.h"
 //#import "AdvancedQuerySubview.h"
 #import "DCMTKRootQueryNode.h"
@@ -94,14 +96,14 @@ extern "C"
 	
     NSCalendarDate *date = [NSCalendarDate dateWithYear: 2013 month: 1 day: 17 hour: 0 minute: 0 second: 1 timeZone: nil];
     
-    for( int i = 0; i < 90; i++)
+    for (int i = 0; i < 90; i++)
     {
         [NSThread sleepForTimeInterval: 0.1];
         
         BOOL succeed = NO;
         while( succeed == NO)
         {
-            for( int h = 8; h < 15; h+=3)
+            for (int h = 8; h < 15; h+=3)
             {
                 @try
                 {
@@ -122,7 +124,7 @@ extern "C"
                     
                     NSMutableDictionary *dictionary = [NSMutableDictionary dictionaryWithDictionary: [qm parameters]];
                     
-                    for( DCMTKStudyQueryNode *object in array)
+                    for (DCMTKStudyQueryNode *object in array)
                     {
                         [object setShowErrorMessage: NO];
                         
@@ -131,7 +133,7 @@ extern "C"
                         [dictionary setObject: [object valueForKey:@"port"] forKey:@"port"];
                         [dictionary setObject: [object valueForKey:@"transferSyntax"] forKey:@"transferSyntax"];
                         
-                        if( [[object theDescription] hasPrefix: @"Mg"] == NO && [[object theDescription] hasPrefix: @"Us"] == NO && [[object theDescription] hasPrefix: @"Ct"] == NO && [[object theDescription] hasPrefix: @"Mr"] == NO)
+                        if ([[object theDescription] hasPrefix: @"Mg"] == NO && [[object theDescription] hasPrefix: @"Us"] == NO && [[object theDescription] hasPrefix: @"Ct"] == NO && [[object theDescription] hasPrefix: @"Mr"] == NO)
                             [object move: dictionary];
                     }
                     
@@ -176,9 +178,9 @@ extern "C"
 			array = [qm queries];
 		}
 		
-		for( id a in array)
+		for (id a in array)
 		{
-			if( [a isMemberOfClass:[DCMTKStudyQueryNode class]] == NO)
+			if ([a isMemberOfClass:[DCMTKStudyQueryNode class]] == NO)
 				NSLog( @"warning : [item isMemberOfClass:[DCMTKStudyQueryNode class]] == NO");
 		}
 	}
@@ -219,7 +221,7 @@ extern "C"
 //			NetworkMoveDataHandler *moveDataHandler = [NetworkMoveDataHandler moveDataHandler];
 //			[dictionary setObject:moveDataHandler  forKey:@"receivedDataHandler"];
 			
-			for( DCMTKQueryNode	*object in array)
+			for (DCMTKQueryNode	*object in array)
 			{
 				[object setShowErrorMessage: showErrors];
 				 
@@ -229,13 +231,13 @@ extern "C"
 				[dictionary setObject: [object valueForKey:@"transferSyntax"] forKey:@"transferSyntax"];
 				
 				FILE * pFile = fopen([[NSTemporaryDirectory() stringByAppendingPathComponent:@"kill_all_storescu"] UTF8String], "r");
-				if( pFile)
+				if (pFile)
 					fclose (pFile);
 				else
 					[object move: dictionary];
 			}
 			
-			if( [array count] == 0) error = -3;
+			if ([array count] == 0) error = -3;
 		}
 	}
 	@catch (NSException * e)
@@ -259,19 +261,19 @@ extern "C"
     NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
     
     int i = 0;
-    for( DCMTKQueryNode	*object in studies)
+    for (DCMTKQueryNode	*object in studies)
     {
         [NSThread currentThread].progress = (float) i++ / (float) studies.count;
-        if( object.theDescription)
+        if (object.theDescription)
             [NSThread currentThread].status = [NSString stringWithFormat: @"%@ - %@", object.name, object.theDescription];
         else
             [NSThread currentThread].status = [NSString stringWithFormat: @"%@", object.name];
-        if( [NSThread currentThread].isCancelled)
+        if ([NSThread currentThread].isCancelled)
             break;
         
         BOOL proceedToDownload = YES;
         
-        if( checkForPreviousAutoRetrieve)
+        if (checkForPreviousAutoRetrieve)
         {
             @synchronized( previousAutoRetrieve)
             {
@@ -282,7 +284,7 @@ extern "C"
                 
                 // We only want to re-retrieve the study if they are new files compared to last time... we are maybe currently in the middle of a retrieve...
                 
-                if( [previousNumberOfFiles intValue] != totalFiles)
+                if ([previousNumberOfFiles intValue] != totalFiles)
                 {
                     [previousAutoRetrieve setValue: [NSNumber numberWithInt: totalFiles] forKey: stringID];
                 }
@@ -291,7 +293,7 @@ extern "C"
             }
         }
         
-        if( proceedToDownload)
+        if (proceedToDownload)
         {
             @try
             {
@@ -304,7 +306,7 @@ extern "C"
                 [dictionary setObject: [[object extraParameters] valueForKey: @"retrieveMode"] forKey: @"retrieveMode"];
                 
                 FILE * pFile = fopen([[NSTemporaryDirectory() stringByAppendingPathComponent:@"kill_all_storescu"] UTF8String], "r");
-                if( pFile)
+                if (pFile)
                     fclose (pFile);
                 else
                     [object move: dictionary retrieveMode: [[[object extraParameters] valueForKey: @"retrieveMode"] intValue]];
@@ -313,7 +315,7 @@ extern "C"
                 N2LogExceptionWithStackTrace( e);
             }
             
-            if( checkForPreviousAutoRetrieve)
+            if (checkForPreviousAutoRetrieve)
             {
                 @synchronized( previousAutoRetrieve)
                 {
@@ -331,75 +333,75 @@ extern "C"
 	
 	@try
 	{
-        for( NSDictionary *server in serversList)
+        for (NSDictionary *server in serversList)
         {
             [NSThread currentThread].status = [server valueForKey: @"Description"];
             
             qm = [[QueryArrayController alloc] initWithCallingAET:[NSUserDefaults defaultAETitle] distantServer: server];
             
-            if( [[[NSUserDefaults standardUserDefaults] stringForKey: @"STRINGENCODING"] isEqualToString:@"ISO_IR 100"] == NO)
+            if ([[[NSUserDefaults standardUserDefaults] stringForKey: @"STRINGENCODING"] isEqualToString:@"ISO_IR 100"] == NO)
                 //Specific Character Set
                 [qm addFilter: [[NSUserDefaults standardUserDefaults] stringForKey: @"STRINGENCODING"] forDescription:@"SpecificCharacterSet"];
             
             NSMutableDictionary *f = [NSMutableDictionary dictionary];
             
-            if( [filters valueForKey: @"AccessionNumber"] && [[NSUserDefaults standardUserDefaults] boolForKey: @"allow_qr_accession_number"])
+            if ([filters valueForKey: @"AccessionNumber"] && [[NSUserDefaults standardUserDefaults] boolForKey: @"allow_qr_accession_number"])
                 [f setObject: [filters valueForKey: @"AccessionNumber"] forKey: @"AccessionNumber"];
             
-            if( [filters valueForKey: @"accessionNumber"] && [[NSUserDefaults standardUserDefaults] boolForKey: @"allow_qr_accession_number"])
+            if ([filters valueForKey: @"accessionNumber"] && [[NSUserDefaults standardUserDefaults] boolForKey: @"allow_qr_accession_number"])
                 [f setObject: [filters valueForKey: @"accessionNumber"] forKey: @"AccessionNumber"];
             
-            if( [filters valueForKey: @"StudyDescription"] && [[NSUserDefaults standardUserDefaults] boolForKey: @"allow_qr_description"])
+            if ([filters valueForKey: @"StudyDescription"] && [[NSUserDefaults standardUserDefaults] boolForKey: @"allow_qr_description"])
                 [f setObject: [filters valueForKey: @"StudyDescription"] forKey: @"StudyDescription"];
             
-            if( [filters valueForKey: @"Comments"] && [[NSUserDefaults standardUserDefaults] boolForKey: @"allow_qr_comments"])
+            if ([filters valueForKey: @"Comments"] && [[NSUserDefaults standardUserDefaults] boolForKey: @"allow_qr_comments"])
                 [f setObject: [filters valueForKey: @"Comments"] forKey: StudyComments];
             
-            if( [filters valueForKey: @"StudyID"] && [[NSUserDefaults standardUserDefaults] boolForKey: @"allow_qr_id"])
+            if ([filters valueForKey: @"StudyID"] && [[NSUserDefaults standardUserDefaults] boolForKey: @"allow_qr_id"])
                 [f setObject: [filters valueForKey: @"StudyID"] forKey: @"StudyID"];
             
-            if( [filters valueForKey: @"studyID"] && [[NSUserDefaults standardUserDefaults] boolForKey: @"allow_qr_id"])
+            if ([filters valueForKey: @"studyID"] && [[NSUserDefaults standardUserDefaults] boolForKey: @"allow_qr_id"])
                 [f setObject: [filters valueForKey: @"studyID"] forKey: @"StudyID"];
             
-            if( [filters valueForKey: @"StudyInstanceUID"] && [[NSUserDefaults standardUserDefaults] boolForKey: @"allow_qr_id"])
+            if ([filters valueForKey: @"StudyInstanceUID"] && [[NSUserDefaults standardUserDefaults] boolForKey: @"allow_qr_id"])
                 [f setObject: [filters valueForKey: @"StudyInstanceUID"] forKey: @"StudyInstanceUID"];
             
-            if( [filters valueForKey: @"studyInstanceUID"] && [[NSUserDefaults standardUserDefaults] boolForKey: @"allow_qr_id"])
+            if ([filters valueForKey: @"studyInstanceUID"] && [[NSUserDefaults standardUserDefaults] boolForKey: @"allow_qr_id"])
                 [f setObject: [filters valueForKey: @"studyInstanceUID"] forKey: @"StudyInstanceUID"];
             
-            if( [filters valueForKey: PatientName] && [[NSUserDefaults standardUserDefaults] boolForKey: @"allow_qr_name"])
+            if ([filters valueForKey: PatientName] && [[NSUserDefaults standardUserDefaults] boolForKey: @"allow_qr_name"])
                 [f setObject: [filters valueForKey: PatientName] forKey: PatientName];
             
-            if( [filters valueForKey: @"patientName"] && [[NSUserDefaults standardUserDefaults] boolForKey: @"allow_qr_name"])
+            if ([filters valueForKey: @"patientName"] && [[NSUserDefaults standardUserDefaults] boolForKey: @"allow_qr_name"])
                 [f setObject: [filters valueForKey: @"patientName"] forKey: PatientName];
             
-            if( [filters valueForKey: PatientID] && [[NSUserDefaults standardUserDefaults] boolForKey: @"allow_qr_id"])
+            if ([filters valueForKey: PatientID] && [[NSUserDefaults standardUserDefaults] boolForKey: @"allow_qr_id"])
                 [f setObject: [filters valueForKey: PatientID] forKey: PatientID];
             
-            if( [filters valueForKey: @"patientID"] && [[NSUserDefaults standardUserDefaults] boolForKey: @"allow_qr_id"])
+            if ([filters valueForKey: @"patientID"] && [[NSUserDefaults standardUserDefaults] boolForKey: @"allow_qr_id"])
                 [f setObject: [filters valueForKey: @"patientID"] forKey: PatientID];
             
-            if( [filters valueForKey: PatientBirthDate] && [[NSUserDefaults standardUserDefaults] boolForKey: @"allow_qr_birthdate"])
+            if ([filters valueForKey: PatientBirthDate] && [[NSUserDefaults standardUserDefaults] boolForKey: @"allow_qr_birthdate"])
                 [f setObject: [DCMCalendarDate queryDate: [[filters valueForKey: PatientBirthDate] descriptionWithCalendarFormat:@"%Y%m%d" timeZone: nil locale:nil]] forKey: PatientBirthDate];
             
-            if( [[filters valueForKey: @"date"] intValue] != 0 && [[NSUserDefaults standardUserDefaults] boolForKey: @"allow_qr_study_date"])
+            if ([[filters valueForKey: @"date"] intValue] != 0 && [[NSUserDefaults standardUserDefaults] boolForKey: @"allow_qr_study_date"])
             {
                 QueryFilter *dateQueryFilter = nil, *timeQueryFilter = nil;
                 
                 [QueryController getDateAndTimeQueryFilterWithTag: [[filters valueForKey: @"date"] intValue] fromDate: [filters valueForKey: @"fromDate"] toDate: [filters valueForKey: @"toDate"] date: &dateQueryFilter time: &timeQueryFilter];
                 
-                if( dateQueryFilter)
+                if (dateQueryFilter)
                     [f setObject: [DCMCalendarDate queryDate: dateQueryFilter.filteredValue] forKey: @"StudyDate"];
                 
-                if( timeQueryFilter)
+                if (timeQueryFilter)
                     [f setObject: [DCMCalendarDate queryDate: timeQueryFilter.filteredValue] forKey: @"StudyTime"];
             }
             
-            if( [[filters valueForKey: @"modality"] count] > 0)
+            if ([[filters valueForKey: @"modality"] count] > 0)
             {
-                if( f.count > 0 || [[NSUserDefaults standardUserDefaults] boolForKey: @"allow_qr_modality"])
+                if (f.count > 0 || [[NSUserDefaults standardUserDefaults] boolForKey: @"allow_qr_modality"])
                 {
-                    if( [[NSUserDefaults standardUserDefaults] boolForKey: @"SupportQRModalitiesinStudy"])
+                    if ([[NSUserDefaults standardUserDefaults] boolForKey: @"SupportQRModalitiesinStudy"])
                         [f setObject: [[filters valueForKey: @"modality"] componentsJoinedByString: @"\\"] forKey: @"ModalitiesinStudy"];
                     else
                         [f setObject: [[filters valueForKey: @"modality"] componentsJoinedByString: @"\\"] forKey: @"Modality"];
@@ -408,13 +410,13 @@ extern "C"
             
             // Remove queries with only **** characters
             NSMutableArray *keysToBeRemoved = [NSMutableArray array];
-            for( NSString *key in f)
+            for (NSString *key in f)
             {
-                if( [[f objectForKey: key] isKindOfClass: [NSString class]])
+                if ([[f objectForKey: key] isKindOfClass: [NSString class]])
                 {
                     NSString *s = [f objectForKey: key];
                     
-                    if( [s rangeOfString:@"*"].location != NSNotFound && [s stringByReplacingOccurrencesOfString: @"*" withString:@""].length <= 2)
+                    if ([s rangeOfString:@"*"].location != NSNotFound && [s stringByReplacingOccurrencesOfString: @"*" withString:@""].length <= 2)
                     {
                         [keysToBeRemoved addObject: key];
                         NSLog( @"---- too small query (%@) -> removed: %@", key, s);
@@ -422,7 +424,7 @@ extern "C"
                     
                     s = [s stringByReplacingOccurrencesOfString: @"*" withString:@""];
                     
-                    if( s.length == 0)
+                    if (s.length == 0)
                     {
                         [keysToBeRemoved addObject: key];
                         NSLog( @"---- empty key (%@) -> removed", key);
@@ -433,7 +435,7 @@ extern "C"
             
             [[qm filters] addEntriesFromDictionary: f];
             
-            if( [[qm filters] count] == 0 || f.count == 0)
+            if ([[qm filters] count] == 0 || f.count == 0)
             {
                 NSLog( @"***** no query parameters for queryStudiesForFilters: query not performed.");
             }
@@ -445,26 +447,26 @@ extern "C"
                 
                 NSArray *studiesForThisNode = [qm queries];
                 
-                if( studiesForThisNode == nil)
+                if (studiesForThisNode == nil)
                     NSLog( @"queryStudiesForFilters failed for this node: %@", [server valueForKey: @"Description"]);
                 
                 NSArray *uidArray = [studies valueForKey: @"uid"];
                 
-                for( NSUInteger x = 0 ; x < [studiesForThisNode count] ; x++)
+                for (NSUInteger x = 0 ; x < [studiesForThisNode count] ; x++)
                 {
                     DCMTKStudyQueryNode *s = [studiesForThisNode objectAtIndex: x];
                     
-                    if( s)
+                    if (s)
                     {
                         NSUInteger index = [uidArray indexOfObject: [s valueForKey:@"uid"]];
                         
-                        if( index == NSNotFound) // not found
+                        if (index == NSNotFound) // not found
                             [studies addObject: s];
                         else 
                         {
-                            if( [[studies objectAtIndex: index] valueForKey: @"numberImages"] && [s valueForKey: @"numberImages"])
+                            if ([[studies objectAtIndex: index] valueForKey: @"numberImages"] && [s valueForKey: @"numberImages"])
                             {
-                                if( [[[studies objectAtIndex: index] valueForKey: @"numberImages"] intValue] < [[s valueForKey: @"numberImages"] intValue])
+                                if ([[[studies objectAtIndex: index] valueForKey: @"numberImages"] intValue] < [[s valueForKey: @"numberImages"] intValue])
                                     [studies replaceObjectAtIndex: index withObject: s];
                             }
                         }
@@ -485,31 +487,31 @@ extern "C"
 
 + (NSArray*) queryStudiesForPatient:(DicomStudy*) study usePatientID:(BOOL) usePatientID usePatientName:(BOOL) usePatientName usePatientBirthDate: (BOOL) usePatientBirthDate servers: (NSArray*) serversList showErrors: (BOOL) showErrors
 {
-    if( usePatientID == NO && usePatientName == NO && usePatientBirthDate == NO)
+    if (usePatientID == NO && usePatientName == NO && usePatientBirthDate == NO)
     {
         NSLog( @"****** QR: usePatientID == NO && usePatientName == NO && usePatientBirthDate == NO");
         return 0;
     }
     
-    if( usePatientName && study.name.length == 0)
+    if (usePatientName && study.name.length == 0)
     {
         NSLog( @"****** QR: usePatientName == YES && study.name.length == 0 : %@", study);
         return 0;
     }
     
-    if( usePatientBirthDate && study.dateOfBirth == nil)
+    if (usePatientBirthDate && study.dateOfBirth == nil)
     {
         NSLog( @"****** QR: usePatientBirthDate == YES && study.dateOfBirth == 0 : %@", study);
         return 0;
     }
     
-    if( usePatientID && study.patientID.length == 0)
+    if (usePatientID && study.patientID.length == 0)
     {
         NSLog( @"****** QR: usePatientID && study.patientID.length == 0 : %@", study);
         return 0;
     }
     
-    if( usePatientName && usePatientBirthDate == NO && usePatientID == NO)
+    if (usePatientName && usePatientBirthDate == NO && usePatientID == NO)
     {
         NSLog( @"****** QR: cannot query history on patient's name only, patient birthdate or patient ID required !");
         return 0;
@@ -521,21 +523,21 @@ extern "C"
     
     NSMutableDictionary *filters = [NSMutableDictionary dictionary];
     
-    if( usePatientBirthDate)
+    if (usePatientBirthDate)
         [filters setObject: study.dateOfBirth forKey: PatientBirthDate];
     
-    if( usePatientID)
+    if (usePatientID)
         [filters setObject: study.patientID forKey: PatientID];
     
     NSMutableArray *studies = [QueryController queryStudiesForFilters: filters servers: serversList showErrors: showErrors];
     
-    if( usePatientName)
+    if (usePatientName)
     {
-        for( int x = (long)[studies count]-1 ; x >= 0 ; x--)
+        for (int x = (long)[studies count]-1 ; x >= 0 ; x--)
         {
             DCMTKStudyQueryNode *s = [studies objectAtIndex: x];
             
-            if( [[DicomFile NSreplaceBadCharacter: s.name] isEqualToString: study.name] == NO)
+            if ([[DicomFile NSreplaceBadCharacter: s.name] isEqualToString: study.name] == NO)
                     [studies removeObjectAtIndex: x];
         }
     }
@@ -573,14 +575,19 @@ extern "C"
 		
 		NSString *uniqueStringID = [NSString stringWithFormat:@"%d.%d.%d", getpid(), inc++, (int) random()];
 		
-		NSTask* theTask = [[[NSTask alloc]init]autorelease];
+		NSTask* theTask = [[[NSTask alloc] init] autorelease];
 		
-		if( [[NSFileManager defaultManager] fileExistsAtPath: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"/echoscu"]] == NO)
+        NSString *launchPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"echoscu"];
+        
+        if (![[NSFileManager defaultManager] fileExistsAtPath: launchPath]) {
+            NSLog(@"%s %d file doesn't exist:%@", __FUNCTION__, __LINE__, launchPath);
 			return YES;
+        }
 		
-		[theTask setLaunchPath: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"/echoscu"]];
+		[theTask setLaunchPath: launchPath];
 		
-		[theTask setEnvironment:[NSDictionary dictionaryWithObject:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"/dicom.dic"] forKey:@"DCMDICTPATH"]];
+        NSString *dicPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"dicom.dic"];
+        [theTask setEnvironment:[NSDictionary dictionaryWithObject:dicPath forKey:@"DCMDICTPATH"]];
 		
 //		NSArray *args = [NSArray arrayWithObjects:
 //                         address,
@@ -682,11 +689,11 @@ extern "C"
         
         WaitRendering *wait = nil;
         
-        if( [NSThread isMainThread])
+        if ([NSThread isMainThread])
         {
             NSString *description = [serverParameters objectForKey: @"Description"];
             
-            if( description == nil)
+            if (description == nil)
                 description = @"";
             
             wait = [[[WaitRendering alloc] init: [NSString stringWithFormat: NSLocalizedString( @"DICOM Echo %@...", nil), description]] autorelease];
@@ -701,13 +708,13 @@ extern "C"
             [NSThread sleepForTimeInterval: 0.1];
             
             [wait run];
-            if( [wait aborted])
+            if ([wait aborted])
                 break;
 		}
         
         [wait end];
         
-		if([[serverParameters objectForKey:@"TLSEnabled"] boolValue])
+		if ([[serverParameters objectForKey:@"TLSEnabled"] boolValue])
 		{
 			//[DDKeychain unlockTmpFiles];
 			[[NSFileManager defaultManager] removeFileAtPath:[DICOMTLS keyPathForServerAddress:address port:[port intValue] AETitle:aet withStringID:uniqueStringID] handler:nil];
@@ -715,10 +722,10 @@ extern "C"
 			[[NSFileManager defaultManager] removeFileAtPath:[NSString stringWithFormat:@"%@%@", TLS_TRUSTED_CERTIFICATES_DIR, uniqueStringID] handler:nil];		
 		}
 		
-        if( [wait aborted])
+        if ([wait aborted])
             return NO;
         
-		if( [theTask terminationStatus] == 0)
+		if ([theTask terminationStatus] == EXIT_SUCCESS)
             return YES;
 		else
             return NO;
@@ -733,7 +740,7 @@ extern "C"
 
 - (void) setAutoRefreshQueryResults: (NSInteger) i
 {
-	if( autoQuery)
+	if (autoQuery)
 		[[NSUserDefaults standardUserDefaults] setInteger: i forKey: @"autoRefreshQueryResultsAutoQR"];
 	else
 		[[NSUserDefaults standardUserDefaults] setInteger: i forKey: @"autoRefreshQueryResults"];
@@ -741,7 +748,7 @@ extern "C"
 
 - (NSInteger) autoRefreshQueryResults
 {
-	if( autoQuery)
+	if (autoQuery)
 		return [[NSUserDefaults standardUserDefaults] integerForKey: @"autoRefreshQueryResultsAutoQR"];
 	else
 		return [[NSUserDefaults standardUserDefaults] integerForKey: @"autoRefreshQueryResults"];
@@ -775,28 +782,28 @@ extern "C"
 	
 	[NSApp endSheet: autoRetrieveWindow];
 	
-	if( result != NSRunStoppedResponse) // Cancel
+	if (result != NSRunStoppedResponse) // Cancel
 	{
-        if( NumberOfPreviousStudyToRetrieve)
+        if (NumberOfPreviousStudyToRetrieve)
             [[NSUserDefaults standardUserDefaults] setObject: NumberOfPreviousStudyToRetrieve forKey: @"NumberOfPreviousStudyToRetrieve"];
         
-        if( retrieveSameModality)
+        if (retrieveSameModality)
             [[NSUserDefaults standardUserDefaults] setObject: retrieveSameModality forKey: @"retrieveSameModality"];
         
-        if( retrieveSameDescription)
+        if (retrieveSameDescription)
             [[NSUserDefaults standardUserDefaults] setObject: retrieveSameDescription forKey: @"retrieveSameDescription"];
 	}
     else
     {
         @synchronized( autoQRInstances)
         {
-            if( [[NSUserDefaults standardUserDefaults] objectForKey: @"NumberOfPreviousStudyToRetrieve"])
+            if ([[NSUserDefaults standardUserDefaults] objectForKey: @"NumberOfPreviousStudyToRetrieve"])
                 [[autoQRInstances objectAtIndex: currentAutoQR] setObject:[[NSUserDefaults standardUserDefaults] objectForKey: @"NumberOfPreviousStudyToRetrieve"]  forKey: @"NumberOfPreviousStudyToRetrieve"];
             
-            if( [[NSUserDefaults standardUserDefaults] objectForKey: @"retrieveSameModality"])
+            if ([[NSUserDefaults standardUserDefaults] objectForKey: @"retrieveSameModality"])
                 [[autoQRInstances objectAtIndex: currentAutoQR] setObject: [[NSUserDefaults standardUserDefaults] objectForKey: @"retrieveSameModality"] forKey: @"retrieveSameModality"];
             
-            if( [[NSUserDefaults standardUserDefaults] objectForKey: @"retrieveSameDescription"])
+            if ([[NSUserDefaults standardUserDefaults] objectForKey: @"retrieveSameDescription"])
                 [[autoQRInstances objectAtIndex: currentAutoQR] setObject: [[NSUserDefaults standardUserDefaults] objectForKey: @"retrieveSameDescription"] forKey: @"retrieveSameDescription"];
         }
         
@@ -813,7 +820,7 @@ extern "C"
 		[previousAutoRetrieve removeAllObjects];
 	}
 	
-	if( autoQuery == YES && [[[autoQRInstances objectAtIndex: currentAutoQR] objectForKey: @"autoRetrieving"] boolValue])
+	if (autoQuery == YES && [[[autoQRInstances objectAtIndex: currentAutoQR] objectForKey: @"autoRetrieving"] boolValue])
 	{
 		[self refreshAutoQR: self];
 	}
@@ -851,19 +858,27 @@ extern "C"
 
 - (IBAction) endCreateAutoQRInstance:(id) sender
 {
-	if( [sender tag])
+	if ([sender tag])
 	{
-		if( [[autoQRInstanceName stringValue] isEqualToString: @""])
+		if ([[autoQRInstanceName stringValue] isEqualToString: @""])
 		{
-			NSRunCriticalAlertPanel( NSLocalizedString(@"Create Auto QR Instance", nil),  NSLocalizedString(@"Give a name !", nil), NSLocalizedString(@"OK", nil), nil, nil);
+			NSRunCriticalAlertPanel(NSLocalizedString(@"Create Auto QR Instance", nil),
+                                    NSLocalizedString(@"Give a name !", nil),
+                                    NSLocalizedString(@"OK", nil),
+                                    nil,
+                                    nil);
 			return;
 		}
 		
-        for( NSDictionary *instance in autoQRInstances)
+        for (NSDictionary *instance in autoQRInstances)
         {
-            if( [[instance objectForKey: @"instanceName"] isEqualToString: [autoQRInstanceName stringValue]])
+            if ([[instance objectForKey: @"instanceName"] isEqualToString: [autoQRInstanceName stringValue]])
             {
-                NSRunCriticalAlertPanel( NSLocalizedString(@"Create Auto QR Instance", nil),  NSLocalizedString(@"An Auto QR Instance with the same name already exists.", nil), NSLocalizedString(@"OK", nil), nil, nil);
+                NSRunCriticalAlertPanel(NSLocalizedString(@"Create Auto QR Instance", nil),
+                                        NSLocalizedString(@"An Auto QR Instance with the same name already exists.", nil),
+                                        NSLocalizedString(@"OK", nil),
+                                        nil,
+                                        nil);
                 return;
             }
 		}
@@ -903,7 +918,7 @@ extern "C"
 {
     NSMutableArray *array = [NSMutableArray array];
     
-    for( NSDictionary *d in autoQRInstances)
+    for (NSDictionary *d in autoQRInstances)
     {
         [array addObject: [d objectForKey: @"instanceName"]];
     }
@@ -913,9 +928,13 @@ extern "C"
 
 - (IBAction) createAutoQRInstance:(id)sender
 {
-    if( autoQRInstances.count >= MAXINSTANCE)
+    if (autoQRInstances.count >= MAXINSTANCE)
     {
-        NSRunCriticalAlertPanel( NSLocalizedString( @"Create Auto QR Instance", nil),  NSLocalizedString(@"Too many Auto QR Instances already exist.", nil), NSLocalizedString( @"OK", nil), nil, nil);
+        NSRunCriticalAlertPanel(NSLocalizedString( @"Create Auto QR Instance", nil),
+                                NSLocalizedString(@"Too many Auto QR Instances already exist.", nil),
+                                NSLocalizedString( @"OK", nil),
+                                nil,
+                                nil);
         return;
     }
     
@@ -930,7 +949,7 @@ extern "C"
     
     @synchronized( autoQRInstances)
     {
-        if( autoQRInstances.count == 0)
+        if (autoQRInstances.count == 0)
         {
             index = 0;
             
@@ -944,18 +963,18 @@ extern "C"
             [autoQRInstances addObject: preset];
         }
         
-        if( currentAutoQR >= 0) //During deleteAutoQRInstance:
+        if (currentAutoQR >= 0) //During deleteAutoQRInstance:
         {
-            if( resultArray)
+            if (resultArray)
                 [[autoQRInstances objectAtIndex: currentAutoQR] setObject: [[resultArray copy] autorelease] forKey: @"resultArray"];
             else
                 [[autoQRInstances objectAtIndex: currentAutoQR] removeObjectForKey: @"resultArray"];
         }
         
-        if( index < 0)
+        if (index < 0)
             index = (long)autoQRInstances.count -1;
         
-        if( index >= autoQRInstances.count)
+        if (index >= autoQRInstances.count)
             index = 0;
         
         currentAutoQR = index;
@@ -965,7 +984,7 @@ extern "C"
         
         [self refreshList: [[autoQRInstances objectAtIndex: currentAutoQR] objectForKey: @"resultArray"]];
         
-        if( autoQRInstances.count <= 1)
+        if (autoQRInstances.count <= 1)
             [autoQRNavigationControl setEnabled: NO];
         else
             [autoQRNavigationControl setEnabled: YES];
@@ -976,7 +995,7 @@ extern "C"
 {
     int i = currentAutoQR;
     
-    if( [sender selectedSegment] == 0)
+    if ([sender selectedSegment] == 0)
         i--;
     else
         i++;
@@ -988,20 +1007,21 @@ extern "C"
 {
 	NSMutableDictionary *presets = [NSMutableDictionary dictionary];
 	
-	if( includeDICOMNodes)
+	if (includeDICOMNodes)
 	{
 		NSMutableArray *srcArray = [NSMutableArray array];
         NSMutableArray *srcAETitleArray = [NSMutableArray array];
-		for( id src in sourcesArray)
+		for (id src in sourcesArray)
 		{
-			if( [[src valueForKey: @"activated"] boolValue] == YES)
+			if ([[src valueForKey: @"activated"] boolValue] == YES)
             {
 				[srcArray addObject: [NSString stringWithString: [src valueForKey: @"AddressAndPort"]]];
                 [srcAETitleArray addObject: [NSString stringWithString: [src valueForKey: @"AETitle"]]];
             }
 		}
 		
-		if( [srcArray count] == 0 && [sourcesTable selectedRow] >= 0)
+		if ([srcArray count] == 0 &&
+            [sourcesTable selectedRow] >= 0)
         {
 			[srcArray addObject: [NSString stringWithString: [[sourcesArray objectAtIndex: [sourcesTable selectedRow]] valueForKey: @"AddressAndPort"]]];
             [srcAETitleArray addObject: [NSString stringWithString: [[sourcesArray objectAtIndex: [sourcesTable selectedRow]] valueForKey: @"AETitle"]]];
@@ -1026,9 +1046,9 @@ extern "C"
 	[presets setValue: [NSNumber numberWithInt: [birthdateFilterMatrix selectedTag]] forKey: @"birthdateFilterMatrix"];
 	
 	NSMutableArray *cellsString = [NSMutableArray array];
-	for( NSCell *cell in [modalityFilterMatrix cells])
+	for (NSCell *cell in [modalityFilterMatrix cells])
 	{
-		if( [cell state] == NSOnState)
+		if ([cell state] == NSOnState)
 			[cellsString addObject: [cell title]];
 	}
 	[presets setValue: cellsString forKey: @"modalityStrings"];
@@ -1041,16 +1061,16 @@ extern "C"
 	
 	[presets setValue: [NSNumber numberWithInt: self.autoRefreshQueryResults] forKey: @"autoRefreshQueryResults"];
     
-    if( [[NSUserDefaults standardUserDefaults] objectForKey: @"autoRetrieving"])
+    if ([[NSUserDefaults standardUserDefaults] objectForKey: @"autoRetrieving"])
         [presets setValue: [[NSUserDefaults standardUserDefaults] objectForKey: @"autoRetrieving"] forKey: @"autoRetrieving"];
     
-    if( [[NSUserDefaults standardUserDefaults] objectForKey: @"NumberOfPreviousStudyToRetrieve"])
+    if ([[NSUserDefaults standardUserDefaults] objectForKey: @"NumberOfPreviousStudyToRetrieve"])
         [presets setValue: [[NSUserDefaults standardUserDefaults] objectForKey: @"NumberOfPreviousStudyToRetrieve"] forKey: @"NumberOfPreviousStudyToRetrieve"];
     
-    if( [[NSUserDefaults standardUserDefaults] objectForKey: @"retrieveSameModality"])
+    if ([[NSUserDefaults standardUserDefaults] objectForKey: @"retrieveSameModality"])
         [presets setValue: [[NSUserDefaults standardUserDefaults] objectForKey: @"retrieveSameModality"] forKey: @"retrieveSameModality"];
     
-    if( [[NSUserDefaults standardUserDefaults] objectForKey: @"retrieveSameDescription"])
+    if ([[NSUserDefaults standardUserDefaults] objectForKey: @"retrieveSameDescription"])
         [presets setValue: [[NSUserDefaults standardUserDefaults] objectForKey: @"retrieveSameDescription"] forKey: @"retrieveSameDescription"];
     
 	return presets;
@@ -1058,24 +1078,28 @@ extern "C"
 
 - (IBAction) endAddPreset:(id) sender
 {
-	if( [sender tag])
+	if ([sender tag])
 	{
-		if( [[presetName stringValue] isEqualToString: @""])
+		if ([[presetName stringValue] isEqualToString: @""])
 		{
-			NSRunCriticalAlertPanel( NSLocalizedString(@"Add Preset", nil),  NSLocalizedString(@"Give a name !", nil), NSLocalizedString(@"OK", nil), nil, nil);
+			NSRunCriticalAlertPanel(NSLocalizedString(@"Add Preset", nil),
+                                    NSLocalizedString(@"Give a name !", nil),
+                                    NSLocalizedString(@"OK", nil),
+                                    nil,
+                                    nil);
 			return;
 		}
 		
 		NSDictionary *savedPresets = [[NSUserDefaults standardUserDefaults] dictionaryForKey:@"QRPresets"];
 		
-		if( savedPresets == nil) savedPresets = [NSDictionary dictionary];
+		if (savedPresets == nil) savedPresets = [NSDictionary dictionary];
 		
 		NSString *psName = [presetName stringValue];
 		
-		if( [[NSUserDefaults standardUserDefaults] boolForKey: @"includeDICOMNodes"])
+		if ([[NSUserDefaults standardUserDefaults] boolForKey: @"includeDICOMNodes"])
 			psName = [psName stringByAppendingString: NSLocalizedString( @" & DICOM Nodes", nil)];
 		
-		if( [savedPresets objectForKey: psName])
+		if ([savedPresets objectForKey: psName])
 		{
 			if (NSRunCriticalAlertPanel(NSLocalizedString(@"Add Preset", nil),
                                         NSLocalizedString(@"A Preset with the same name already exists. Should I replace it with the current one?", nil),
@@ -1131,25 +1155,25 @@ extern "C"
 
 - (void) applyPresetDictionary: (NSDictionary *) presets
 {
-	if( [presets valueForKey: @"DICOMNodes"])
+	if ([presets valueForKey: @"DICOMNodes"])
 	{
 		NSArray *r = [presets valueForKey: @"DICOMNodes"];
         NSArray *rAE = [presets valueForKey: @"DICOMNodesAETitle"];
 		
-		if( [r count])
+		if ([r count])
 		{
 			[self willChangeValueForKey:@"sourcesArray"];
 			
-			for( id src in sourcesArray)
+			for (id src in sourcesArray)
 			{
 				[src setValue: @NO forKey: @"activated"];
 			}
 			
-//			if( [r count] == 1)
+//			if ([r count] == 1)
 //			{
-//				for( id src in sourcesArray)
+//				for (id src in sourcesArray)
 //				{
-//					if( [[src valueForKey: @"AddressAndPort"] isEqualToString: [r lastObject]])
+//					if ([[src valueForKey: @"AddressAndPort"] isEqualToString: [r lastObject]])
 //					{
 //						[sourcesTable selectRowIndexes: [NSIndexSet indexSetWithIndex: [sourcesArray indexOfObject: src]] byExtendingSelection: NO];
 //						[sourcesTable scrollRowToVisible: [sourcesArray indexOfObject: src]];
@@ -1160,21 +1184,22 @@ extern "C"
 //			{
 				BOOL first = YES;
 				
-                for( int i = 0; i < r.count; i++)
+                for (int i = 0; i < r.count; i++)
                 {
                     NSString *v = [r objectAtIndex: i];
                     
                     NSString *ae = nil;
-                    if( i < rAE.count)
+                    if (i < rAE.count)
                         ae = [rAE objectAtIndex: i];
                     
-                    for( id src in sourcesArray)
+                    for (id src in sourcesArray)
                     {
-                        if( [[src valueForKey: @"AddressAndPort"] isEqualToString: v] && (ae == nil || [ae isEqualToString: [src valueForKey:@"AETitle"]]))
+                        if ([[src valueForKey: @"AddressAndPort"] isEqualToString: v] &&
+                            (ae == nil || [ae isEqualToString: [src valueForKey:@"AETitle"]]))
                         {
                             [src setValue: @YES forKey: @"activated"];
                             
-                            if( first)
+                            if (first)
                             {
                                 first = NO;
                                 [sourcesTable selectRowIndexes: [NSIndexSet indexSetWithIndex: [sourcesArray indexOfObject: src]] byExtendingSelection: NO];
@@ -1189,39 +1214,39 @@ extern "C"
 		}
 	}
 	
-	if( [presets valueForKey: @"autoRefreshQueryResults"])
+	if ([presets valueForKey: @"autoRefreshQueryResults"])
 	{
 		self.autoRefreshQueryResults = [[presets valueForKey:@"autoRefreshQueryResults"] intValue];
 	}
 	
-	if( [presets valueForKey: @"searchFieldRefPhysician"])
+	if ([presets valueForKey: @"searchFieldRefPhysician"])
 		[searchFieldRefPhysician setStringValue: [presets valueForKey: @"searchFieldRefPhysician"]];
 	
-	if( [presets valueForKey: @"searchInstitutionName"])
+	if ([presets valueForKey: @"searchInstitutionName"])
 		[searchInstitutionName setStringValue: [presets valueForKey: @"searchInstitutionName"]];
     
-    if( [presets valueForKey: @"searchStatus"])
+    if ([presets valueForKey: @"searchStatus"])
         [statusFilterMatrix selectCellWithTag: [[presets valueForKey: @"searchStatus"] intValue]];
     
-	if( [presets valueForKey: @"searchFieldName"])
+	if ([presets valueForKey: @"searchFieldName"])
 		[searchFieldName setStringValue: [presets valueForKey: @"searchFieldName"]];
 	
-	if( [presets valueForKey: @"searchFieldID"])
+	if ([presets valueForKey: @"searchFieldID"])
 		[searchFieldID setStringValue: [presets valueForKey: @"searchFieldID"]];
 	
-	if( [presets valueForKey: @"searchFieldAN"])
+	if ([presets valueForKey: @"searchFieldAN"])
 		[searchFieldAN setStringValue: [presets valueForKey: @"searchFieldAN"]];
 	
-	if( [presets valueForKey: @"searchFieldStudyDescription"])
+	if ([presets valueForKey: @"searchFieldStudyDescription"])
 		[searchFieldStudyDescription setStringValue: [presets valueForKey: @"searchFieldStudyDescription"]];
 	
-	if( [presets valueForKey: @"searchFieldComments"])
+	if ([presets valueForKey: @"searchFieldComments"])
 		[searchFieldComments setStringValue: [presets valueForKey: @"searchFieldComments"]];
 	
-    if( [presets valueForKey: @"searchCustomField"])
+    if ([presets valueForKey: @"searchCustomField"])
 		[searchCustomField setStringValue: [presets valueForKey: @"searchCustomField"]];
 	
-    if( [presets valueForKey: @"searchCustomFieldDICOM"])
+    if ([presets valueForKey: @"searchCustomFieldDICOM"])
         [dicomFieldsMenu selectItemWithTitle: [presets valueForKey: @"searchCustomFieldDICOM"]];
     
 	[dateFilterMatrix selectCellWithTag: [[presets valueForKey: @"dateFilterMatrix"] intValue]];
@@ -1229,15 +1254,15 @@ extern "C"
 	
 	[modalityFilterMatrix deselectAllCells];
 	
-    if( [presets valueForKey: @"modalityStrings"])
+    if ([presets valueForKey: @"modalityStrings"])
     {
-        for( NSCell *cell in [modalityFilterMatrix cells])
+        for (NSCell *cell in [modalityFilterMatrix cells])
         {
-            if( [[presets valueForKey: @"modalityStrings"] containsObject: cell.title])
+            if ([[presets valueForKey: @"modalityStrings"] containsObject: cell.title])
                 [cell setState: NSOnState];
         }
     }
-	else if( [presets valueForKey: @"modalityFilterMatrixString"]) // Backward compatibility
+	else if ([presets valueForKey: @"modalityFilterMatrixString"]) // Backward compatibility
 	{
         NSString *m[7][3] = {{@"SC", @"CR", @"DX"},{@"CT", @"US", @"MG"},{@"MR", @"NM", @"PT"},{@"XA", @"RF", @"SR"},{@"DR", @"OT", @"RG"},{@"ES", @"VL", @"XC"},{@"AU", @"", @""}};
         
@@ -1253,11 +1278,11 @@ extern "C"
 			more = [scan scanInteger: &row];
 			more = [scan scanInteger: &col];
 			
-			if( more && row < 7 && col < 3)
+			if (more && row < 7 && col < 3)
 			{
-                for( NSCell *cell in [modalityFilterMatrix cells])
+                for (NSCell *cell in [modalityFilterMatrix cells])
                 {
-                    if( [cell.title isEqualToString: m[row][col]])
+                    if ([cell.title isEqualToString: m[row][col]])
                         [cell setState: NSOnState];
                 }
             }
@@ -1265,7 +1290,7 @@ extern "C"
 		}
 		while( more);
 	}
-    else if( [presets valueForKey: @"modalityFilterMatrixRow"] && [presets valueForKey: @"modalityFilterMatrixColumn"])  // Backward compatibility
+    else if ([presets valueForKey: @"modalityFilterMatrixRow"] && [presets valueForKey: @"modalityFilterMatrixColumn"])  // Backward compatibility
 		[modalityFilterMatrix selectCellAtRow: [[presets valueForKey: @"modalityFilterMatrixRow"] intValue]  column:[[presets valueForKey: @"modalityFilterMatrixColumn"] intValue]];
 
 	[PatientModeMatrix selectTabViewItemAtIndex: [[presets valueForKey: @"PatientModeMatrix"] intValue]];
@@ -1287,22 +1312,22 @@ extern "C"
         case 8:     [searchCustomField selectText: self];           break;
 	}
     
-    if( [presets objectForKey: @"autoRetrieving"])
+    if ([presets objectForKey: @"autoRetrieving"])
         [[NSUserDefaults standardUserDefaults] setObject: [presets objectForKey: @"autoRetrieving"] forKey: @"autoRetrieving"];
 
-    if( [presets objectForKey: @"NumberOfPreviousStudyToRetrieve"])
+    if ([presets objectForKey: @"NumberOfPreviousStudyToRetrieve"])
         [[NSUserDefaults standardUserDefaults] setObject: [presets objectForKey: @"NumberOfPreviousStudyToRetrieve"] forKey: @"NumberOfPreviousStudyToRetrieve"];
 
-    if( [presets objectForKey: @"retrieveSameModality"])
+    if ([presets objectForKey: @"retrieveSameModality"])
         [[NSUserDefaults standardUserDefaults] setObject: [presets objectForKey: @"retrieveSameModality"] forKey: @"retrieveSameModality"];
 
-    if( [presets objectForKey: @"retrieveSameDescription"])
+    if ([presets objectForKey: @"retrieveSameDescription"])
         [[NSUserDefaults standardUserDefaults] setObject: [presets objectForKey: @"retrieveSameDescription"] forKey: @"retrieveSameDescription"];
 }
 
 - (void) applyPreset:(id) sender
 {
-	if([[[NSApplication sharedApplication] currentEvent] modifierFlags]  & NSShiftKeyMask)
+	if ([[[NSApplication sharedApplication] currentEvent] modifierFlags] & NSEventModifierFlagShift)
 	{
 		// Delete the Preset
 		if (NSRunCriticalAlertPanel(NSLocalizedString( @"Delete Preset", nil),
@@ -1327,7 +1352,7 @@ extern "C"
 	{
 		NSDictionary *savedPresets = [[NSUserDefaults standardUserDefaults] dictionaryForKey:@"QRPresets"];
 		
-		if( [savedPresets objectForKey: [sender title]])
+		if ([savedPresets objectForKey: [sender title]])
 		{
 			NSDictionary *presets = [savedPresets objectForKey: [sender title]];
 			
@@ -1350,13 +1375,13 @@ extern "C"
 	[menu addItemWithTitle: NSLocalizedString( @"Empty Preset", nil) action:@selector(emptyPreset:) keyEquivalent:@""];
 	[menu addItem: [NSMenuItem separatorItem]];
 	
-	if( [savedPresets count] == 0)
+	if ([savedPresets count] == 0)
 	{
 		[[menu addItemWithTitle: NSLocalizedString( @"No Presets Saved", nil) action:nil keyEquivalent: @""] setEnabled: NO];
 	}
 	else
 	{
-		for( NSString *key in [[savedPresets allKeys] sortedArrayUsingSelector: @selector(compare:)])
+		for (NSString *key in [[savedPresets allKeys] sortedArrayUsingSelector: @selector(compare:)])
 		{
 			[menu addItemWithTitle: key action:@selector(applyPreset:) keyEquivalent: @""];
 		}
@@ -1377,13 +1402,13 @@ extern "C"
 	
 		NSIndexSet* indices = [outlineView selectedRowIndexes];
 		
-		for( NSUInteger i = [indices firstIndex]; i != [indices lastIndex]+1; i++)
+		for (NSUInteger i = [indices firstIndex]; i != [indices lastIndex]+1; i++)
 		{
-			if( [indices containsIndex: i])
+			if ([indices containsIndex: i])
 			{
 				NSArray *studyArray = [self localStudy: [outlineView itemAtRow: i] context: nil];
 
-				if( [studyArray count] > 0)
+				if ([studyArray count] > 0)
 				{
 					valid = YES;
 				}
@@ -1401,19 +1426,23 @@ extern "C"
     NSIndexSet* indices = [outlineView selectedRowIndexes];
     BOOL somethingToDelete = NO;
     
-    for( NSUInteger i = [indices firstIndex]; i != [indices lastIndex]+1; i++)
+    for (NSUInteger i = [indices firstIndex]; i != [indices lastIndex]+1; i++)
     {
-        if( [indices containsIndex: i])
+        if ([indices containsIndex: i])
         {
-            if( [[outlineView itemAtRow: i] isMemberOfClass:[DCMTKStudyQueryNode class]])
+            if ([[outlineView itemAtRow: i] isMemberOfClass:[DCMTKStudyQueryNode class]])
                 somethingToDelete = YES;
         } 
     }
     
-    if( somethingToDelete == NO)
+    if (somethingToDelete == NO)
     {
-        if( indices.count > 0)
-            NSRunInformationalAlertPanel(NSLocalizedString(@"Delete images", nil), NSLocalizedString(@"Select a study to delete it. You cannot delete series from this window, go to the Database window to delete series.", nil), NSLocalizedString(@"OK",nil), nil, nil);
+        if (indices.count > 0)
+            NSRunInformationalAlertPanel(NSLocalizedString(@"Delete images", nil),
+                                         NSLocalizedString(@"Select a study to delete it. You cannot delete series from this window, go to the Database window to delete series.", nil),
+                                         NSLocalizedString(@"OK",nil),
+                                         nil,
+                                         nil);
     }
     else
     {
@@ -1424,17 +1453,17 @@ extern "C"
         
         @try 
         {
-            for( NSUInteger i = [indices firstIndex]; i != [indices lastIndex]+1; i++)
+            for (NSUInteger i = [indices firstIndex]; i != [indices lastIndex]+1; i++)
             {
-                if( [indices containsIndex: i])
+                if ([indices containsIndex: i])
                 {
-                    if( [[outlineView itemAtRow: i] isMemberOfClass:[DCMTKStudyQueryNode class]])
+                    if ([[outlineView itemAtRow: i] isMemberOfClass:[DCMTKStudyQueryNode class]])
                     {
                         NSArray *studyArray = [self localStudy: [outlineView itemAtRow: i] context: nil];
                         
-                        if( [studyArray count] > 0)
+                        if ([studyArray count] > 0)
                         {
-                            NSManagedObject	*series =  [[[BrowserController currentBrowser] childrenArray: [studyArray objectAtIndex: 0] onlyImages: NO] objectAtIndex:0];
+                            NSManagedObject	*series = [[[BrowserController currentBrowser] childrenArray: [studyArray objectAtIndex: 0] onlyImages: NO] objectAtIndex:0];
                             [[BrowserController currentBrowser] findAndSelectFile:nil image:[[series valueForKey:@"images"] anyObject] shouldExpand:NO extendingSelection: extendingSelection];
                             extendingSelection = YES;
                         }
@@ -1444,7 +1473,7 @@ extern "C"
                 } 
             }
 
-            if( extendingSelection)
+            if (extendingSelection)
                 [[BrowserController currentBrowser] delItem: nil];
         }
         @catch (NSException * e) 
@@ -1456,26 +1485,26 @@ extern "C"
 
 - (void)keyDown:(NSEvent *)event
 {
-    if( [[event characters] length] == 0)
+    if ([[event characters] length] == 0)
         return;
     
     unichar c = [[event characters] characterAtIndex:0];
 	
-	if( [[self window] firstResponder] == outlineView)
+	if ([[self window] firstResponder] == outlineView)
 	{
 		if(c == NSDeleteFunctionKey || c == NSDeleteCharacter || c == NSBackspaceCharacter || c == NSDeleteCharFunctionKey)
 		{
 			[self deleteSelection: self];
 		}
-		else if( c == ' ')
+		else if (c == ' ')
 		{
 			[self retrieve: self onlyIfNotAvailable: YES];
 		}
-		else if( c == NSNewlineCharacter || c == NSEnterCharacter || c == NSCarriageReturnCharacter)
+		else if (c == NSNewlineCharacter || c == NSEnterCharacter || c == NSCarriageReturnCharacter)
 		{
 			[self retrieveAndView: self];
 		}
-		else if( c == 27) //Escape
+		else if (c == 27) //Escape
 		{
 			DCMTKServiceClassUser *u = [queryManager rootNode];
 			u._abortAssociation = YES;
@@ -1491,7 +1520,7 @@ extern "C"
 			[NSObject cancelPreviousPerformRequestsWithTarget: pressedKeys selector:@selector(setString:) object:@""];
 			[pressedKeys performSelector:@selector(setString:) withObject:@"" afterDelay:0.5];
 			
-			if( [resultFilter count])
+			if ([resultFilter count])
 			{
 				[outlineView selectRowIndexes: [NSIndexSet indexSetWithIndex: [outlineView rowForItem: [resultFilter objectAtIndex: 0]]] byExtendingSelection: NO];
 				[outlineView scrollRowToVisible: [outlineView selectedRow]];
@@ -1504,28 +1533,37 @@ extern "C"
 
 - (void) executeRefresh: (id) sender
 {
-    if (currentQueryController.DatabaseIsEdited == NO) [currentQueryController.outlineView reloadData];
-	if (currentAutoQueryController.DatabaseIsEdited == NO) [currentAutoQueryController.outlineView reloadData];
+    if (currentQueryController.DatabaseIsEdited == NO)
+        [currentQueryController.outlineView reloadData];
+    
+	if (currentAutoQueryController.DatabaseIsEdited == NO)
+        [currentAutoQueryController.outlineView reloadData];
 	
-    [NSThread detachNewThreadSelector:@selector(computeStudyArrayInstanceUID:) toTarget:self withObject:nil];
+    [NSThread detachNewThreadSelector:@selector(computeStudyArrayInstanceUID:)
+                             toTarget:self
+                           withObject:nil];
 }
 
 - (void) refresh: (id) sender
 {
-	if( afterDelayRefresh == NO)
+	if (afterDelayRefresh == NO)
 	{
 		afterDelayRefresh = YES;
 		
-		[NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(executeRefresh:) object:nil];
+		[NSObject cancelPreviousPerformRequestsWithTarget:self
+                                                 selector:@selector(executeRefresh:)
+                                                   object:nil];
 		
 		int delay;
 		
-		if( [currentQueryController.window isKeyWindow] || [currentAutoQueryController.window isKeyWindow])
+		if ([currentQueryController.window isKeyWindow] || [currentAutoQueryController.window isKeyWindow])
 			delay = 1;
 		else
 			delay = 10;
 		
-		[self performSelector:@selector(executeRefresh:) withObject:self afterDelay:delay];
+		[self performSelector:@selector(executeRefresh:)
+                   withObject:self
+                   afterDelay:delay];
 	}
 }
 
@@ -1533,9 +1571,9 @@ extern "C"
 {
 	queryButtonPressed = YES;
     
-    if( autoQuery)
+    if (autoQuery)
     {
-        for( int i = 0; i < autoQRInstances.count; i++)
+        for (int i = 0; i < autoQRInstances.count; i++)
             autoQueryRemainingSecs[ i] = 2;
     }
     else
@@ -1550,9 +1588,9 @@ extern "C"
 	{
         @synchronized( self)
         {
-            if( item == nil)
+            if (item == nil)
             {
-                if( [resultArray count] > index)
+                if ([resultArray count] > index)
                     return [resultArray objectAtIndex:index];
                 else
                     return nil;
@@ -1561,7 +1599,7 @@ extern "C"
             {
                 NSArray *children = [item children];
                 
-                if( children.count > 0 && [[children lastObject] isKindOfClass: [DCMTKStudyQueryNode class]] == NO && [[children lastObject] isKindOfClass: [DCMTKSeriesQueryNode class]] == NO)
+                if (children.count > 0 && [[children lastObject] isKindOfClass: [DCMTKStudyQueryNode class]] == NO && [[children lastObject] isKindOfClass: [DCMTKSeriesQueryNode class]] == NO)
                 {
                     [item purgeChildren];
                     children = [item children];
@@ -1583,7 +1621,7 @@ extern "C"
 {
 	@try
 	{
-//		if( [[tableColumn identifier] isEqualToString:@"comment"])
+//		if ([[tableColumn identifier] isEqualToString:@"comment"])
 //		{
 //			DatabaseIsEdited = YES;
 //			return YES;
@@ -1633,16 +1671,16 @@ extern "C"
 	{
         @synchronized( self)
         {
-            if( item)
+            if (item)
             {
                 NSArray *children = [item children];
                 
-                if( children.count > 0 && [[children lastObject] isKindOfClass: [DCMTKStudyQueryNode class]] == NO && [[children lastObject] isKindOfClass: [DCMTKSeriesQueryNode class]] == NO)
+                if (children.count > 0 && [[children lastObject] isKindOfClass: [DCMTKStudyQueryNode class]] == NO && [[children lastObject] isKindOfClass: [DCMTKSeriesQueryNode class]] == NO)
                     [item purgeChildren];
                 
                 if (![item children])
                 {
-					if( performingCFind == NO)
+					if (performingCFind == NO)
 					{
 						performingCFind = YES; // to avoid re-entries during WaitRendering window, and separate thread for cFind
 						
@@ -1651,7 +1689,7 @@ extern "C"
 						[progressIndicator stopAnimation:nil];
 						performingCFind = NO;
                         
-                        if( [item children] == nil) // It failed... put an empty children...
+                        if ([item children] == nil) // It failed... put an empty children...
                             [item setChildren: [NSMutableArray array]];
 					}
                 }
@@ -1677,14 +1715,14 @@ extern "C"
 	NSArray *seriesArray = nil;
 	NSManagedObject *study = [[self localStudy: [outlineView parentForItem: item] context: context] lastObject];
 	
-	if( study == nil)
+	if (study == nil)
         return seriesArray;
 	
-	if( [item isMemberOfClass:[DCMTKSeriesQueryNode class]] == YES)
+	if ([item isMemberOfClass:[DCMTKSeriesQueryNode class]] == YES)
 	{
-        if( context == nil)
+        if (context == nil)
         {
-            if( [NSThread isMainThread])
+            if ([NSThread isMainThread])
                 context = [[[BrowserController currentBrowser] database] managedObjectContext];
             else
                 context = [[[BrowserController currentBrowser] database] independentContext];
@@ -1713,10 +1751,10 @@ extern "C"
     
 	@synchronized (studyArrayInstanceUID)
 	{
-		if( currentQueryController.DatabaseIsEdited == NO)
+		if (currentQueryController.DatabaseIsEdited == NO)
 			[currentQueryController.outlineView reloadData];
 			
-		if( currentAutoQueryController.DatabaseIsEdited == NO)
+		if (currentAutoQueryController.DatabaseIsEdited == NO)
 			[currentAutoQueryController.outlineView reloadData];
 	}
 	
@@ -1725,7 +1763,7 @@ extern "C"
 
 - (void) computeStudyArrayInstanceUID: (NSNumber*) sender
 {
-    if( [[BrowserController currentBrowser] database] == nil) // During DB rebuild
+    if ([[BrowserController currentBrowser] database] == nil) // During DB rebuild
         return;
         
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
@@ -1739,12 +1777,12 @@ extern "C"
         {
             NSManagedObjectContext *independentContext = nil;
             
-            if( [NSThread isMainThread])
+            if ([NSThread isMainThread])
                 independentContext = [[[BrowserController currentBrowser] database] managedObjectContext];
             else
                 independentContext = [[[BrowserController currentBrowser] database] independentContext];
             
-            if( independentContext)
+            if (independentContext)
             {
                 [independentContext lock];
                 
@@ -1776,7 +1814,7 @@ extern "C"
         }
     }
         
-    if( local_studyArrayID && local_studyArrayInstanceUID)
+    if (local_studyArrayID && local_studyArrayInstanceUID)
     {
         [NSObject cancelPreviousPerformRequestsWithTarget: self selector:@selector(applyNewStudyArray:) object: nil];
         
@@ -1785,14 +1823,14 @@ extern "C"
             [studyArrayInstanceUID removeAllObjects];
             [studyArrayInstanceUID addObjectsFromArray: local_studyArrayInstanceUID];
             
-            if( studyArrayInstanceUID.count == 0) //Add a fake object : to avoid re-compute loop in - (NSArray*) localStudy:(id) item context: (NSManagedObjectContext*) context
+            if (studyArrayInstanceUID.count == 0) //Add a fake object : to avoid re-compute loop in - (NSArray*) localStudy:(id) item context: (NSManagedObjectContext*) context
                 [studyArrayInstanceUID addObject: @"This is not a studyInstanceUID"];
             
             [studyArrayID removeAllObjects];
             [studyArrayID addObjectsFromArray: local_studyArrayID];
         }
         
-        if( [NSThread isMainThread])
+        if ([NSThread isMainThread])
             [self performSelector: @selector(applyNewStudyArray:) withObject: nil afterDelay: 0.001];
         else
             [self performSelectorOnMainThread:@selector(applyNewStudyArray:) withObject: nil waitUntilDone: NO];
@@ -1812,7 +1850,7 @@ extern "C"
 
 - (NSArray*) localStudy:(id) item context: (NSManagedObjectContext*) context
 {
-	if( [item isMemberOfClass:[DCMTKStudyQueryNode class]] == YES)
+	if ([item isMemberOfClass:[DCMTKStudyQueryNode class]] == YES)
 	{
 		@try
 		{
@@ -1825,11 +1863,11 @@ extern "C"
 
                 NSUInteger index = [studyArrayInstanceUID indexOfObject:[item valueForKey: @"uid"]];
                 
-                if( index != NSNotFound)
+                if (index != NSNotFound)
                 {
-                    if( context == nil)
+                    if (context == nil)
                     {
-                        if( [NSThread isMainThread])
+                        if ([NSThread isMainThread])
                             context = [[[BrowserController currentBrowser] database] managedObjectContext];
                         else
                             context = [[[BrowserController currentBrowser] database] independentContext];
@@ -1837,7 +1875,7 @@ extern "C"
                     
                     DicomStudy *s = (DicomStudy*) [context existingObjectWithID:[studyArrayID objectAtIndex: index] error:NULL];
                     
-                    if( s)
+                    if (s)
                         result = [NSArray arrayWithObject: s];
                 }
             }
@@ -1860,41 +1898,41 @@ extern "C"
 {
 	@try
 	{
-		if( [[tableColumn identifier] isEqualToString: @"name"])
+		if ([[tableColumn identifier] isEqualToString: @"name"])
 		{
-			if( [item isMemberOfClass:[DCMTKStudyQueryNode class]] == YES)
+			if ([item isMemberOfClass:[DCMTKStudyQueryNode class]] == YES)
 			{
 				NSArray *studyArray;
 				
 				studyArray = [self localStudy: item context: nil];
 				
-				if( [studyArray count] > 0)
+				if ([studyArray count] > 0)
 				{
 					float localFiles = [[[studyArray objectAtIndex: 0] valueForKey: @"rawNoFiles"] floatValue];
 					float totalFiles = [[item valueForKey:@"numberImages"] floatValue];
 					float percentage = 0;
 					
-					if( totalFiles != 0.0)
+					if (totalFiles != 0.0)
 						percentage = localFiles / totalFiles;
-					if( percentage > 1.0) percentage = 1.0;
+					if (percentage > 1.0) percentage = 1.0;
 					
 					return [NSString stringWithFormat:@"%@\n%d%% (%d/%d)", [cell title], (int)(percentage*100), (int)localFiles, (int)totalFiles];
 				}
 			}
 			
-			if( [item isMemberOfClass:[DCMTKSeriesQueryNode class]] == YES)
+			if ([item isMemberOfClass:[DCMTKSeriesQueryNode class]] == YES)
 			{
 				NSArray *seriesArray;
 				
 				seriesArray = [self localSeries: item context: nil];
 				
-				if( [seriesArray count] > 0)
+				if ([seriesArray count] > 0)
 				{
 					float localFiles = [[[seriesArray objectAtIndex: 0] valueForKey: @"rawNoFiles"] floatValue];
 					float totalFiles = [[item valueForKey:@"numberImages"] floatValue];
 					float percentage = 0;
 					
-					if( totalFiles != 0.0)
+					if (totalFiles != 0.0)
 						percentage = localFiles / totalFiles;
 						
 					if(percentage > 1.0) percentage = 1.0;
@@ -1915,23 +1953,25 @@ extern "C"
 {
 	DCMTKStudyQueryNode *item = [[notification userInfo] valueForKey: @"NSObject"];
 	
-	if( [item children])
+	if ([item children])
 	{
 		[item purgeChildren];
 	}
 }
 
+#pragma mark - NSOutlineViewDelegate
+
 - (void)outlineView:(NSOutlineView *)oV willDisplayCell:(id)cell forTableColumn:(NSTableColumn *)tableColumn item:(id)item
 {
 	@try
 	{
-		if( [[tableColumn identifier] isEqualToString: @"name"])	// Is this study already available in our local database?
+		if ([[tableColumn identifier] isEqualToString: @"name"])	// Is this study already available in our local database?
 		{
-            if( [[NSUserDefaults standardUserDefaults] boolForKey: @"displaySamePatientWithColorBackground"] && [[self window] firstResponder] == outlineView && [outlineView selectedRow] >= 0)
+            if ([[NSUserDefaults standardUserDefaults] boolForKey: @"displaySamePatientWithColorBackground"] && [[self window] firstResponder] == outlineView && [outlineView selectedRow] >= 0)
             {
                 id study = nil;
                 
-                if( [item isMemberOfClass:[DCMTKStudyQueryNode class]] == YES)
+                if ([item isMemberOfClass:[DCMTKStudyQueryNode class]] == YES)
                     study = [outlineView parentForItem: item];
                 else
                     study = item;
@@ -1941,7 +1981,7 @@ extern "C"
                 NSString *curUid = [NSString stringWithFormat: @"%@ %@", [item valueForKey: @"patientID"], [item valueForKey: @"name"]];
                 NSString *selUid = [NSString stringWithFormat: @"%@ %@", [selStudy valueForKey: @"patientID"], [selStudy valueForKey: @"name"]];
                 
-                if( item != selStudy && [curUid length] > 0 && [curUid compare: selUid options: NSCaseInsensitiveSearch | NSDiacriticInsensitiveSearch | NSWidthInsensitiveSearch] == NSOrderedSame)
+                if (item != selStudy && [curUid length] > 0 && [curUid compare: selUid options: NSCaseInsensitiveSearch | NSDiacriticInsensitiveSearch | NSWidthInsensitiveSearch] == NSOrderedSame)
                 {
                     [cell setDrawsBackground: YES];
                     [cell setBackgroundColor: [NSColor lightGrayColor]];
@@ -1950,15 +1990,15 @@ extern "C"
                     [cell setDrawsBackground: NO];
             }
             
-			if( [item isMemberOfClass:[DCMTKStudyQueryNode class]] == YES)
+			if ([item isMemberOfClass:[DCMTKStudyQueryNode class]] == YES)
 			{
 				NSArray	*studyArray = [self localStudy: item context: nil];
 				
-				if( [studyArray count] > 0)
+				if ([studyArray count] > 0)
 				{
 					float percentage = 0;
 					
-					if( [[item valueForKey:@"numberImages"] floatValue] != 0.0)
+					if ([[item valueForKey:@"numberImages"] floatValue] != 0.0)
 						percentage = [[[studyArray objectAtIndex: 0] valueForKey: @"rawNoFiles"] floatValue] / [[item valueForKey:@"numberImages"] floatValue];
 						
 					if(percentage > 1.0) percentage = 1.0;
@@ -1968,17 +2008,17 @@ extern "C"
 				else
                     [(ImageAndTextCell *)cell setImage: nil];
 			}
-			else if( [item isMemberOfClass:[DCMTKSeriesQueryNode class]] == YES)
+			else if ([item isMemberOfClass:[DCMTKSeriesQueryNode class]] == YES)
 			{
 				NSArray	*seriesArray;
 				
 				seriesArray = [self localSeries: item context: nil];
 				
-				if( [seriesArray count] > 0)
+				if ([seriesArray count] > 0)
 				{
 					float percentage = 0;
 					
-					if( [[item valueForKey:@"numberImages"] floatValue] != 0.0)
+					if ([[item valueForKey:@"numberImages"] floatValue] != 0.0)
 						percentage = [[[seriesArray objectAtIndex: 0] valueForKey: @"rawNoFiles"] floatValue] / [[item valueForKey:@"numberImages"] floatValue];
 						
 					if(percentage > 1.0) percentage = 1.0;
@@ -1994,9 +2034,9 @@ extern "C"
 			[cell setFont: [NSFont boldSystemFontOfSize:13]];
 			[cell setLineBreakMode: NSLineBreakByTruncatingMiddle];
 		}
-		else if( [[tableColumn identifier] isEqualToString: @"numberImages"])
+		else if ([[tableColumn identifier] isEqualToString: @"numberImages"])
 		{
-			if( [item valueForKey:@"numberImages"])
+			if ([item valueForKey:@"numberImages"])
                 [cell setIntegerValue: [[item valueForKey:@"numberImages"] intValue]];
 			else
                 [cell setStringValue:@"n/a"];
@@ -2014,26 +2054,26 @@ extern "C"
     {
         @try
         {
-            if( [[tableColumn identifier] isEqualToString: @"stateText"])
+            if ([[tableColumn identifier] isEqualToString: @"stateText"])
             {
-                if( [item isMemberOfClass:[DCMTKStudyQueryNode class]] == YES)
+                if ([item isMemberOfClass:[DCMTKStudyQueryNode class]] == YES)
                 {
                     NSArray *studyArray = [self localStudy: item context: nil];
                     
-                    if( [studyArray count] > 0)
+                    if ([studyArray count] > 0)
                     {
-                        if( [[[studyArray objectAtIndex: 0] valueForKey:@"stateText"] intValue] == 0)
+                        if ([[[studyArray objectAtIndex: 0] valueForKey:@"stateText"] intValue] == 0)
                             return nil;
                         else
                             return [[studyArray objectAtIndex: 0] valueForKey: @"stateText"];
                     }
                 }
-                else if( [item isMemberOfClass:[DCMTKSeriesQueryNode class]])
+                else if ([item isMemberOfClass:[DCMTKSeriesQueryNode class]])
                 {
                     NSArray *seriesArray = [self localSeries: item context: nil];
-                    if( [seriesArray count])
+                    if ([seriesArray count])
                     {
-                        if( [[[seriesArray objectAtIndex: 0] valueForKey:@"stateText"] intValue] == 0)
+                        if ([[[seriesArray objectAtIndex: 0] valueForKey:@"stateText"] intValue] == 0)
                             return nil;
                         else
                             return [[seriesArray objectAtIndex: 0] valueForKey: @"stateText"];
@@ -2042,45 +2082,45 @@ extern "C"
                 else
                     NSLog( @"***** unknown class in QueryController outlineView: %@", [item class]);
             }
-            else if( [[tableColumn identifier] isEqualToString: @"serverStateText"])
+            else if ([[tableColumn identifier] isEqualToString: @"serverStateText"])
             {
-                if( [item isMemberOfClass:[DCMTKStudyQueryNode class]] == YES)
+                if ([item isMemberOfClass:[DCMTKStudyQueryNode class]] == YES)
                 {
-                    if( [[item stateText] intValue] == 0)
+                    if ([[item stateText] intValue] == 0)
                         return nil;
                     else
                         return [item stateText];
                 }
-                else if( [item isMemberOfClass:[DCMTKSeriesQueryNode class]])
+                else if ([item isMemberOfClass:[DCMTKSeriesQueryNode class]])
                     return nil;
                 
                 else
                     NSLog( @"***** unknown class in QueryController outlineView: %@", [item class]);
             }
-            else if( [[tableColumn identifier] isEqualToString: @"comment"])
+            else if ([[tableColumn identifier] isEqualToString: @"comment"])
             {
-                if( [item isMemberOfClass:[DCMTKStudyQueryNode class]] == YES)
+                if ([item isMemberOfClass:[DCMTKStudyQueryNode class]] == YES)
                 {
                     NSArray *studyArray = [self localStudy: item context: nil];
                     
-                    if( [studyArray count] > 0)
+                    if ([studyArray count] > 0)
                         return [[studyArray objectAtIndex: 0] valueForKey: @"comment"];
                 }
-                else if( [item isMemberOfClass:[DCMTKSeriesQueryNode class]])
+                else if ([item isMemberOfClass:[DCMTKSeriesQueryNode class]])
                 {
                     NSArray *seriesArray = [self localSeries: item context: nil];
-                    if( [seriesArray count] > 0)
+                    if ([seriesArray count] > 0)
                         return [[seriesArray objectAtIndex: 0] valueForKey: @"comment"];
                 }
                 else
                     NSLog( @"***** unknown class in QueryController outlineView: %@", [item class]);
             }
-            else if( [[tableColumn identifier] isEqualToString: @"serverComment"])
+            else if ([[tableColumn identifier] isEqualToString: @"serverComment"])
             {
-                if( [item isMemberOfClass:[DCMTKStudyQueryNode class]] == YES)
+                if ([item isMemberOfClass:[DCMTKStudyQueryNode class]] == YES)
                     return [item valueForKey: @"comments"];
                 
-                else if( [item isMemberOfClass:[DCMTKSeriesQueryNode class]])
+                else if ([item isMemberOfClass:[DCMTKSeriesQueryNode class]])
                     return [item valueForKey: @"comments"];
                 
                 else
@@ -2088,9 +2128,9 @@ extern "C"
             }
             else if ( [[tableColumn identifier] isEqualToString: @"Button"] == NO && [tableColumn identifier] != nil)
             {
-                if( [item isMemberOfClass:[DCMTKStudyQueryNode class]] || [item isMemberOfClass:[DCMTKSeriesQueryNode class]])
+                if ([item isMemberOfClass:[DCMTKStudyQueryNode class]] || [item isMemberOfClass:[DCMTKSeriesQueryNode class]])
                 {
-                    if( [[tableColumn identifier] isEqualToString: @"numberImages"])
+                    if ([[tableColumn identifier] isEqualToString: @"numberImages"])
                     {
                         return [NSNumber numberWithInt: [[item valueForKey: [tableColumn identifier]] intValue]];
                     }
@@ -2116,14 +2156,14 @@ extern "C"
 //	
 //	@try
 //	{
-////		if( [[tableColumn identifier] isEqualToString: @"comment"] || [[tableColumn identifier] isEqualToString: @"stateText"])
+////		if ([[tableColumn identifier] isEqualToString: @"comment"] || [[tableColumn identifier] isEqualToString: @"stateText"])
 ////		{
-////			if( [item isMemberOfClass:[DCMTKStudyQueryNode class]] == YES)
+////			if ([item isMemberOfClass:[DCMTKStudyQueryNode class]] == YES)
 ////				array = [self localStudy: item context: nil];
 ////			else
 ////				array = [self localSeries: item context: nil];
 ////			
-////			if( [array count] > 0)
+////			if ([array count] > 0)
 ////			{
 ////				[[BrowserController currentBrowser] setDatabaseValue: object item: [array objectAtIndex: 0] forKey: [tableColumn identifier]];
 ////			}
@@ -2143,15 +2183,15 @@ extern "C"
 {
 	NSArray *s = [outlineView sortDescriptors];
 	
-	if( [s count])
+	if ([s count])
 	{
-		if( [[[s objectAtIndex: 0] key] isEqualToString:@"date"])
+		if ([[[s objectAtIndex: 0] key] isEqualToString:@"date"])
 		{
 			NSMutableArray *sortArray = [NSMutableArray arrayWithObject: [s objectAtIndex: 0]];
 			
 			[sortArray addObject: [[[NSSortDescriptor alloc] initWithKey:@"time" ascending: [[s objectAtIndex: 0] ascending]] autorelease]];
 			
-			if( [s count] > 1)
+			if ([s count] > 1)
 			{
 				NSMutableArray *lastObjects = [NSMutableArray arrayWithArray: s];
 				[lastObjects removeObjectAtIndex: 0];
@@ -2174,9 +2214,9 @@ extern "C"
 	
 	NSArray *s = [outlineView sortDescriptors];
 	
-	if( [s count])
+	if ([s count])
 	{
-		if( [[[s objectAtIndex: 0] key] isEqualToString:@"name"] == NO)
+		if ([[[s objectAtIndex: 0] key] isEqualToString:@"name"] == NO)
 		{
 			[outlineView selectRowIndexes: [NSIndexSet indexSetWithIndex: 0] byExtendingSelection: NO];
 		}
@@ -2194,14 +2234,14 @@ extern "C"
 	NSIndexSet *index = [outlineView selectedRowIndexes];
 	id item = [outlineView itemAtRow:[index firstIndex]];
 	
-	if( item)
+	if (item)
 	{
 		[selectedResultSource setStringValue: [NSString stringWithFormat:@"%@  /  %@:%d", [item valueForKey:@"calledAET"], [item valueForKey:@"hostname"], [[item valueForKey:@"port"] intValue]]];
 	}
 	else
         [selectedResultSource setStringValue:@""];
     
-    if( [[NSUserDefaults standardUserDefaults] boolForKey: @"displaySamePatientWithColorBackground"])
+    if ([[NSUserDefaults standardUserDefaults] boolForKey: @"displaySamePatientWithColorBackground"])
         [outlineView setNeedsDisplay: YES];
 }
 
@@ -2209,11 +2249,11 @@ extern "C"
 {
 	NSEvent *event = [[NSApplication sharedApplication] currentEvent];
 	
-	if( [event modifierFlags] & NSCommandKeyMask)
+	if ([event modifierFlags] & NSEventModifierFlagCommand)
 	{
-		for( NSCell *c in [modalityFilterMatrix cells])
+		for (NSCell *c in [modalityFilterMatrix cells])
 		{
-			if( [sender selectedCell] != c)
+			if ([sender selectedCell] != c)
 				[c setState: NSOffState];
 		}
 	}
@@ -2241,13 +2281,17 @@ extern "C"
 {
 	id item = [outlineView itemAtRow: [outlineView selectedRow]];
 	
-	if( item && [item isMemberOfClass:[DCMTKStudyQueryNode class]])
+	if (item && [item isMemberOfClass:[DCMTKStudyQueryNode class]])
 	{
 		queryButtonPressed = YES;
 		[self queryPatientID: [item valueForKey:@"patientID"]];
 	}
 	else
-        NSRunCriticalAlertPanel( NSLocalizedString(@"No Study Selected", nil), NSLocalizedString(@"Select a study to query all studies of this patient.", nil), NSLocalizedString(@"OK", nil), nil, nil) ;
+        NSRunCriticalAlertPanel(NSLocalizedString(@"No Study Selected", nil),
+                                NSLocalizedString(@"Select a study to query all studies of this patient.", nil),
+                                NSLocalizedString(@"OK", nil),
+                                nil,
+                                nil);
 }
 
 - (NSArray*) queryPatientIDwithoutGUI: (NSString*) patientID
@@ -2255,18 +2299,18 @@ extern "C"
 	NSString			*hostname;
 	id					aServer;
 	int					selectedServer;
-	BOOL				atLeastOneSource = NO, noChecked = YES;
+	BOOL				atLeastOneSource = NO;
 	NSArray				*copiedSources = [NSArray arrayWithArray: sourcesArray];
 	
-	noChecked = YES;
-	for( NSUInteger i = 0; i < [copiedSources count]; i++)
+	BOOL noChecked = YES;
+	for (NSUInteger i = 0; i < [copiedSources count]; i++)
 	{
-		if( [[[copiedSources objectAtIndex: i] valueForKey:@"activated"] boolValue] == YES)
+		if ([[[copiedSources objectAtIndex: i] valueForKey:@"activated"] boolValue] == YES)
 			noChecked = NO;
 	}
 	
 	selectedServer = -1;
-	if( noChecked)
+	if (noChecked)
 		selectedServer = [sourcesTable selectedRow];
 	
 	atLeastOneSource = NO;
@@ -2276,9 +2320,9 @@ extern "C"
 	
 	if ([filterValue length] > 0)
 	{
-		for( NSUInteger i = 0; i < [copiedSources count]; i++)
+		for (NSUInteger i = 0; i < [copiedSources count]; i++)
 		{
-			if( [[[copiedSources objectAtIndex: i] valueForKey:@"activated"] boolValue] == YES || selectedServer == i)
+			if ([[[copiedSources objectAtIndex: i] valueForKey:@"activated"] boolValue] == YES || selectedServer == i)
 			{
 				aServer = [[copiedSources objectAtIndex:i] valueForKey:@"server"];
 				
@@ -2302,34 +2346,34 @@ extern "C"
 
 -(void) realtimeCFindResults: (NSNotification*) notification
 {
-    if( [notification object] == [queryManager rootNode] && temporaryCFindResultArray)
+    if ([notification object] == [queryManager rootNode] && temporaryCFindResultArray)
     {
-        if( [[self window] isVisible] && [[NSDate date] timeIntervalSinceReferenceDate] - lastTemporaryCFindResultUpdate > 1)
+        if ([[self window] isVisible] && [[NSDate date] timeIntervalSinceReferenceDate] - lastTemporaryCFindResultUpdate > 1)
         {            
             NSArray	*curResult = [[notification object] children];
             
             @synchronized( curResult)
             {
-                if( firstServerRealtimeResults)
+                if (firstServerRealtimeResults)
                 {
                     [temporaryCFindResultArray removeAllObjects];
                     [temporaryCFindResultArray addObjectsFromArray: curResult];
                 }
-                else if( [curResult count] < 4000)
+                else if ([curResult count] < 4000)
                 {
                     NSArray *uidArray = [temporaryCFindResultArray valueForKey: @"uid"];
                     
-                    for( NSUInteger x = 0 ; x < [curResult count] ; x++)
+                    for (NSUInteger x = 0 ; x < [curResult count] ; x++)
                     {
                         NSUInteger index = [uidArray indexOfObject: [[curResult objectAtIndex: x] valueForKey:@"uid"]];
                         
-                        if( index == NSNotFound) // not found
+                        if (index == NSNotFound) // not found
                             [temporaryCFindResultArray addObject: [curResult objectAtIndex: x]];
                         else 
                         {
-                            if( [[temporaryCFindResultArray objectAtIndex: index] valueForKey: @"numberImages"] && [[curResult objectAtIndex: x] valueForKey: @"numberImages"])
+                            if ([[temporaryCFindResultArray objectAtIndex: index] valueForKey: @"numberImages"] && [[curResult objectAtIndex: x] valueForKey: @"numberImages"])
                             {
-                                if( [[[temporaryCFindResultArray objectAtIndex: index] valueForKey: @"numberImages"] intValue] < [[[curResult objectAtIndex: x] valueForKey: @"numberImages"] intValue])
+                                if ([[[temporaryCFindResultArray objectAtIndex: index] valueForKey: @"numberImages"] intValue] < [[[curResult objectAtIndex: x] valueForKey: @"numberImages"] intValue])
                                 {
                                     [temporaryCFindResultArray replaceObjectAtIndex: index withObject: [curResult objectAtIndex: x]];
                                 }
@@ -2338,10 +2382,10 @@ extern "C"
                     }
                 }
                 
-                if( [temporaryCFindResultArray count])
+                if ([temporaryCFindResultArray count])
                     [temporaryCFindResultArray sortUsingDescriptors: [self sortArray]];
                 
-                if( [NSThread isMainThread])
+                if ([NSThread isMainThread])
                     [self refreshList: temporaryCFindResultArray];
                 else
                     [self performSelectorOnMainThread:@selector(refreshList:) withObject: temporaryCFindResultArray waitUntilDone: NO];
@@ -2368,12 +2412,12 @@ extern "C"
     
     [temporaryCFindResultArray release];
     temporaryCFindResultArray = nil;
-    if( [NSThread isMainThread])
+    if ([NSThread isMainThread])
         temporaryCFindResultArray = [[NSMutableArray array] retain];
     
     @synchronized( self)
     {
-        for( NSThread *t in performingQueryThreads)
+        for (NSThread *t in performingQueryThreads)
             [t setIsCancelled: YES];
     }
     
@@ -2387,28 +2431,31 @@ extern "C"
 	{
 		firstServerRealtimeResults = YES;
 		
-        if( [NSThread isMainThread])
+        if ([NSThread isMainThread])
             [self refreshList: [NSArray array]]; // Clean the list
         
         NSArray *dicomNodes = [instance objectForKey: @"DICOMNodes"];
         NSArray *dicomNodesAE = [instance objectForKey: @"DICOMNodesAETitle"];
         
-		for( int v = 0; v < dicomNodes.count; v++)
+		for (int v = 0; v < dicomNodes.count; v++)
         {
             NSString *s = [dicomNodes objectAtIndex: v];
             NSString *ae = nil;
-            if( v < dicomNodesAE.count)
+            if (v < dicomNodesAE.count)
                 ae = [dicomNodesAE objectAtIndex: v];
                 
             NSDictionary *aServer = nil;
             
-            for( id src in sourcesArray)
+            for (id src in sourcesArray)
             {
-                if( [[src valueForKey: @"AddressAndPort"] isEqualToString: s] && (ae == nil || [[src valueForKey: @"AETitle"] isEqualToString: ae]))
+                if ([[src valueForKey: @"AddressAndPort"] isEqualToString: s] &&
+                    (ae == nil || [[src valueForKey: @"AETitle"] isEqualToString: ae]))
+                {
                     aServer = [src valueForKey: @"server"];
+                }
             }
             
-            if( aServer == nil)
+            if (aServer == nil)
                 continue;
             
             theirAET = [aServer objectForKey:@"AETitle"];
@@ -2421,7 +2468,7 @@ extern "C"
             queryManager = [[QueryArrayController alloc] initWithCallingAET:[NSUserDefaults defaultAETitle] distantServer:aServer];
             // add filters as needed
             
-            if( [[[NSUserDefaults standardUserDefaults] stringForKey: @"STRINGENCODING"] isEqualToString:@"ISO_IR 100"] == NO)
+            if ([[[NSUserDefaults standardUserDefaults] stringForKey: @"STRINGENCODING"] isEqualToString:@"ISO_IR 100"] == NO)
                 //Specific Character Set
                 [queryManager addFilter: [[NSUserDefaults standardUserDefaults] stringForKey: @"STRINGENCODING"] forDescription:@"SpecificCharacterSet"];
             
@@ -2431,19 +2478,19 @@ extern "C"
             
             atLeastOneSource = YES;
             
-            if( instance)
+            if (instance)
             {
                 fromField = toField = [[instance objectForKey: @"PatientModeMatrix"] intValue];
             }
             else
             {
-                if( [[[NSApplication sharedApplication] currentEvent] modifierFlags] & NSAlternateKeyMask)
+                if ([[[NSApplication sharedApplication] currentEvent] modifierFlags] & NSEventModifierFlagOption)
                 {
                     NSLog( @"--- Query ALL fields");
                     queryAllFields = YES;
                 }
                 
-                if( queryAllFields)
+                if (queryAllFields)
                 {
                     fromField = 0;
                     toField = [PatientModeMatrix numberOfTabViewItems];
@@ -2456,7 +2503,7 @@ extern "C"
             
             BOOL queryItem = NO;
             
-            for( int v = fromField; v <= toField; v++)
+            for (int v = fromField; v <= toField; v++)
             {
                 switch( v)
                 {
@@ -2472,12 +2519,12 @@ extern "C"
                     case 9:     currentQueryKey = InterpretationStatusID;    break;
                 }
                 
-                if( currentQueryKey == customDICOMField && [[NSUserDefaults standardUserDefaults] boolForKey: @"allow_qr_custom_dicom_field"])
+                if (currentQueryKey == customDICOMField && [[NSUserDefaults standardUserDefaults] boolForKey: @"allow_qr_custom_dicom_field"])
                 {
                     CIADICOMField *dicomField = nil;
                     NSString *customValue = nil;
                     
-                    if( instance)
+                    if (instance)
                     {
                         dicomField = [[dicomFieldsMenu itemWithTitle: [instance objectForKey: @"searchCustomFieldDICOM"]] representedObject];
                         customValue = [instance objectForKey: @"searchCustomField"];
@@ -2494,7 +2541,7 @@ extern "C"
                     
                     NSLog( @"DICOM Q&R with custom field: %@ : %@", currentQueryKey, customValue);
                     
-                    if( showError && [customValue cStringUsingEncoding: [NSString encodingForDICOMCharacterSet: [[NSUserDefaults standardUserDefaults] stringForKey: @"STRINGENCODING"]]] == nil)
+                    if (showError && [customValue cStringUsingEncoding: [NSString encodingForDICOMCharacterSet: [[NSUserDefaults standardUserDefaults] stringForKey: @"STRINGENCODING"]]] == nil)
                     {
                         if (NSRunCriticalAlertPanel(NSLocalizedString(@"Query Encoding", nil),
                                                     NSLocalizedString(@"The query cannot be encoded in current character set. Should I switch to UTF-8 (ISO_IR 192) encoding?", nil),
@@ -2516,21 +2563,21 @@ extern "C"
                         queryItem = YES;
                     }
                 }
-                else if( currentQueryKey == PatientName && [[NSUserDefaults standardUserDefaults] boolForKey: @"allow_qr_name"])
+                else if (currentQueryKey == PatientName && [[NSUserDefaults standardUserDefaults] boolForKey: @"allow_qr_name"])
                 {
                     NSString *patientNameValue = nil;
                     
-                    if( instance)
+                    if (instance)
                         patientNameValue = [instance objectForKey: @"searchFieldName"];
                     else
                     {
                         patientNameValue = [searchFieldName stringValue];
                         
-                        if( [patientNameValue length] >= 64)
+                        if ([patientNameValue length] >= 64)
                             [searchFieldName setStringValue: [patientNameValue substringToIndex: 64]];
                     }
                     
-                    if( showError && [patientNameValue cStringUsingEncoding: [NSString encodingForDICOMCharacterSet: [[NSUserDefaults standardUserDefaults] stringForKey: @"STRINGENCODING"]]] == nil)
+                    if (showError && [patientNameValue cStringUsingEncoding: [NSString encodingForDICOMCharacterSet: [[NSUserDefaults standardUserDefaults] stringForKey: @"STRINGENCODING"]]] == nil)
                     {
                         if (NSRunCriticalAlertPanel(NSLocalizedString(@"Query Encoding", nil),
                                                     NSLocalizedString(@"The query cannot be encoded in current character set. Should I switch to UTF-8 (ISO_IR 192) encoding?", nil),
@@ -2552,16 +2599,16 @@ extern "C"
                         queryItem = YES;
                     }
                 }
-                else if( currentQueryKey == ReferringPhysician && [[NSUserDefaults standardUserDefaults] boolForKey: @"allow_qr_referring_physician"])
+                else if (currentQueryKey == ReferringPhysician && [[NSUserDefaults standardUserDefaults] boolForKey: @"allow_qr_referring_physician"])
                 {
                     NSString *refPhysicianValue = nil;
                     
-                    if( instance)
+                    if (instance)
                         refPhysicianValue = [instance objectForKey: @"searchFieldRefPhysician"];
                     else
                         refPhysicianValue = [searchFieldRefPhysician stringValue];
                     
-                    if( showError && [refPhysicianValue cStringUsingEncoding: [NSString encodingForDICOMCharacterSet: [[NSUserDefaults standardUserDefaults] stringForKey: @"STRINGENCODING"]]] == nil)
+                    if (showError && [refPhysicianValue cStringUsingEncoding: [NSString encodingForDICOMCharacterSet: [[NSUserDefaults standardUserDefaults] stringForKey: @"STRINGENCODING"]]] == nil)
                     {
                         if (NSRunCriticalAlertPanel(NSLocalizedString(@"Query Encoding", nil),
                                                     NSLocalizedString(@"The query cannot be encoded in current character set. Should I switch to UTF-8 (ISO_IR 192) encoding?", nil),
@@ -2583,16 +2630,16 @@ extern "C"
                         queryItem = YES;
                     }
                 }
-                else if( currentQueryKey == InstitutionName && [[NSUserDefaults standardUserDefaults] boolForKey: @"allow_qr_institution"])
+                else if (currentQueryKey == InstitutionName && [[NSUserDefaults standardUserDefaults] boolForKey: @"allow_qr_institution"])
                 {
                     NSString *institutionNameValue = nil;
                     
-                    if( instance)
+                    if (instance)
                         institutionNameValue = [instance objectForKey: @"searchInstitutionName"];
                     else
                         institutionNameValue = [searchInstitutionName stringValue];
                     
-                    if( showError && [institutionNameValue cStringUsingEncoding: [NSString encodingForDICOMCharacterSet: [[NSUserDefaults standardUserDefaults] stringForKey: @"STRINGENCODING"]]] == nil)
+                    if (showError && [institutionNameValue cStringUsingEncoding: [NSString encodingForDICOMCharacterSet: [[NSUserDefaults standardUserDefaults] stringForKey: @"STRINGENCODING"]]] == nil)
                     {
                         if (NSRunCriticalAlertPanel(NSLocalizedString(@"Query Encoding", nil),
                                                     NSLocalizedString(@"The query cannot be encoded in current character set. Should I switch to UTF-8 (ISO_IR 192) encoding?", nil),
@@ -2614,16 +2661,16 @@ extern "C"
                         queryItem = YES;
                     }
                 }
-                else if( currentQueryKey == InterpretationStatusID && [[NSUserDefaults standardUserDefaults] boolForKey: @"allow_qr_status"])
+                else if (currentQueryKey == InterpretationStatusID && [[NSUserDefaults standardUserDefaults] boolForKey: @"allow_qr_status"])
                 {
                     NSString *studyStatusValue = nil;
                     
-                    if( instance)
+                    if (instance)
                         studyStatusValue = [NSString stringWithFormat: @"%d", [[instance objectForKey: @"searchStatus"] intValue]];
                     else
                         studyStatusValue = [NSString stringWithFormat: @"%d", (int) [statusFilterMatrix selectedTag]];
                     
-                    if( showError && [studyStatusValue cStringUsingEncoding: [NSString encodingForDICOMCharacterSet: [[NSUserDefaults standardUserDefaults] stringForKey: @"STRINGENCODING"]]] == nil)
+                    if (showError && [studyStatusValue cStringUsingEncoding: [NSString encodingForDICOMCharacterSet: [[NSUserDefaults standardUserDefaults] stringForKey: @"STRINGENCODING"]]] == nil)
                     {
                         if (NSRunCriticalAlertPanel(NSLocalizedString(@"Query Encoding", nil),
                                                     NSLocalizedString(@"The query cannot be encoded in current character set. Should I switch to UTF-8 (ISO_IR 192) encoding?", nil),
@@ -2645,12 +2692,12 @@ extern "C"
                         queryItem = YES;
                     }
                 }
-                else if( currentQueryKey == PatientBirthDate && [[NSUserDefaults standardUserDefaults] boolForKey: @"allow_qr_birthdate"])
+                else if (currentQueryKey == PatientBirthDate && [[NSUserDefaults standardUserDefaults] boolForKey: @"allow_qr_birthdate"])
                 {
                     int tag;
                     NSDate *date;
                     
-                    if( instance)
+                    if (instance)
                     {
                         tag = [[instance objectForKey: @"birthdateFilterMatrix"] intValue];
                         date = [NSDate dateWithTimeIntervalSinceReferenceDate: [[instance objectForKey: @"searchBirth"] doubleValue]];
@@ -2661,22 +2708,22 @@ extern "C"
                         date = [searchBirth dateValue];
                     }
                     
-                    if( tag == 0)
+                    if (tag == 0)
                         [queryManager addFilter: [date descriptionWithCalendarFormat:@"%Y%m%d" timeZone:nil locale:nil] forDescription:currentQueryKey];
                     
-                    if( tag == -1)
+                    if (tag == -1)
                         [queryManager addFilter: [date descriptionWithCalendarFormat:@"-%Y%m%d" timeZone:nil locale:nil] forDescription:currentQueryKey];
                     
-                    if( tag == 1)
+                    if (tag == 1)
                         [queryManager addFilter: [date descriptionWithCalendarFormat:@"%Y%m%d-" timeZone:nil locale:nil] forDescription:currentQueryKey];
                     
                     queryItem = YES;
                 }
-                else if( currentQueryKey == PatientID && [[NSUserDefaults standardUserDefaults] boolForKey: @"allow_qr_id"])
+                else if (currentQueryKey == PatientID && [[NSUserDefaults standardUserDefaults] boolForKey: @"allow_qr_id"])
                 {
                     NSString *patientIDValue = nil;
                     
-                    if( instance)
+                    if (instance)
                         patientIDValue = [instance objectForKey: @"searchFieldID"];
                     else
                         patientIDValue = [searchFieldID stringValue];
@@ -2689,11 +2736,11 @@ extern "C"
                         queryItem = YES;
                     }
                 }
-                else if( currentQueryKey == AccessionNumber && [[NSUserDefaults standardUserDefaults] boolForKey: @"allow_qr_accession_number"])
+                else if (currentQueryKey == AccessionNumber && [[NSUserDefaults standardUserDefaults] boolForKey: @"allow_qr_accession_number"])
                 {
                     NSString *ANValue = nil;
                     
-                    if( instance)
+                    if (instance)
                         ANValue = [instance objectForKey: @"searchFieldAN"];
                     else
                         ANValue = [searchFieldAN stringValue];
@@ -2707,16 +2754,16 @@ extern "C"
                         queryItem = YES;
                     }
                 }
-                else if( currentQueryKey == StudyDescription && [[NSUserDefaults standardUserDefaults] boolForKey: @"allow_qr_description"])
+                else if (currentQueryKey == StudyDescription && [[NSUserDefaults standardUserDefaults] boolForKey: @"allow_qr_description"])
                 {
                     NSString *studyDescriptionValue = nil;
                     
-                    if( instance)
+                    if (instance)
                         studyDescriptionValue = [instance objectForKey: @"searchFieldStudyDescription"];
                     else
                         studyDescriptionValue = [searchFieldStudyDescription stringValue];
                     
-                    if( showError && [studyDescriptionValue cStringUsingEncoding: [NSString encodingForDICOMCharacterSet: [[NSUserDefaults standardUserDefaults] stringForKey: @"STRINGENCODING"]]] == nil)
+                    if (showError && [studyDescriptionValue cStringUsingEncoding: [NSString encodingForDICOMCharacterSet: [[NSUserDefaults standardUserDefaults] stringForKey: @"STRINGENCODING"]]] == nil)
                     {
                         if (NSRunCriticalAlertPanel(NSLocalizedString(@"Query Encoding", nil),
                                                     NSLocalizedString(@"The query cannot be encoded in current character set. Should I switch to UTF-8 (ISO_IR 192) encoding?", nil),
@@ -2738,16 +2785,16 @@ extern "C"
                         queryItem = YES;
                     }
                 }
-                else if( currentQueryKey == StudyComments && [[NSUserDefaults standardUserDefaults] boolForKey: @"allow_qr_comments"])
+                else if (currentQueryKey == StudyComments && [[NSUserDefaults standardUserDefaults] boolForKey: @"allow_qr_comments"])
                 {
                     NSString *commentsValue = nil;
                     
-                    if( instance)
+                    if (instance)
                         commentsValue = [instance objectForKey: @"searchFieldComments"];
                     else
                         commentsValue = [searchFieldComments stringValue];
                     
-                    if( showError && [commentsValue cStringUsingEncoding: [NSString encodingForDICOMCharacterSet: [[NSUserDefaults standardUserDefaults] stringForKey: @"STRINGENCODING"]]] == nil)
+                    if (showError && [commentsValue cStringUsingEncoding: [NSString encodingForDICOMCharacterSet: [[NSUserDefaults standardUserDefaults] stringForKey: @"STRINGENCODING"]]] == nil)
                     {
                         if (NSRunCriticalAlertPanel(NSLocalizedString(@"Query Encoding", nil),
                                                     NSLocalizedString(@"The query cannot be encoded in current character set. Should I switch to UTF-8 (ISO_IR 192) encoding?", nil),
@@ -2789,11 +2836,11 @@ extern "C"
             
             modalityQueryFilter = [self getModalityQueryFilter: [instance objectForKey: @"modalityStrings"]];
             
-            if( [modalityQueryFilter object])
+            if ([modalityQueryFilter object])
             {
-                if( queryItem || [[NSUserDefaults standardUserDefaults] boolForKey: @"allow_qr_modality"])
+                if (queryItem || [[NSUserDefaults standardUserDefaults] boolForKey: @"allow_qr_modality"])
                 {
-                    if( [[NSUserDefaults standardUserDefaults] boolForKey: @"SupportQRModalitiesinStudy"])
+                    if ([[NSUserDefaults standardUserDefaults] boolForKey: @"SupportQRModalitiesinStudy"])
                         [queryManager addFilter:[modalityQueryFilter filteredValue] forDescription:@"ModalitiesinStudy"];
                     else
                         [queryManager addFilter:[modalityQueryFilter filteredValue] forDescription:@"Modality"];
@@ -2811,14 +2858,18 @@ extern "C"
             {
                 BOOL doit = NO;
                 
-                if( [[NSUserDefaults standardUserDefaults] boolForKey: @"allow_qr_blank_query"] == NO)
+                if ([[NSUserDefaults standardUserDefaults] boolForKey: @"allow_qr_blank_query"] == NO)
                 {
-                    if( [NSThread isMainThread])
-                        NSRunCriticalAlertPanel( NSLocalizedString(@"Query Error", nil), NSLocalizedString(@"No query parameters provided. Blank query is not allowed.", nil), NSLocalizedString(@"OK", nil), nil, nil);
+                    if ([NSThread isMainThread])
+                        NSRunCriticalAlertPanel(NSLocalizedString(@"Query Error", nil),
+                                                NSLocalizedString(@"No query parameters provided. Blank query is not allowed.", nil),
+                                                NSLocalizedString(@"OK", nil),
+                                                nil,
+                                                nil);
                 }
                 else
                 {
-                    if( showError && [NSThread isMainThread])
+                    if (showError && [NSThread isMainThread])
                     {
 //                        if ([defaults boolForKey:alertSuppress])
 //                        {
@@ -2833,14 +2884,14 @@ extern "C"
                             [alert addButtonWithTitle: NSLocalizedString(@"Continue", nil)];
                             [alert addButtonWithTitle: NSLocalizedString(@"Cancel", nil)];
                             
-                            if( [alert runModal] == NSAlertFirstButtonReturn) doit = YES;
+                            if ([alert runModal] == NSAlertFirstButtonReturn) doit = YES;
                         }
                     }
                     else
                         doit = YES;
                 }
                 
-                if( doit)
+                if (doit)
                 {
                     [self performQuery: [NSNumber numberWithBool: showError]];
                 }
@@ -2851,13 +2902,13 @@ extern "C"
                 }
             }
             
-            if( [NSThread isMainThread])
+            if ([NSThread isMainThread])
             {
                 lastTemporaryCFindResultUpdate = 0;
                 [self realtimeCFindResults: [NSNotification notificationWithName: @"realtimeCFindResults" object: [queryManager rootNode]]]; // If there are multiple sources
             }
             
-            if( firstServerRealtimeResults)
+            if (firstServerRealtimeResults)
             {
                 firstServerRealtimeResults = NO;
                 [tempResultArray removeAllObjects];
@@ -2868,17 +2919,17 @@ extern "C"
                 NSArray	*curResult = [queryManager queries];
                 NSArray *uidArray = [tempResultArray valueForKey: @"uid"];
                 
-                for( NSUInteger x = 0 ; x < [curResult count] ; x++)
+                for (NSUInteger x = 0 ; x < [curResult count] ; x++)
                 {
                     NSUInteger index = [uidArray indexOfObject: [[curResult objectAtIndex: x] valueForKey:@"uid"]];
                     
-                    if( index == NSNotFound) // not found
+                    if (index == NSNotFound) // not found
                         [tempResultArray addObject: [curResult objectAtIndex: x]];
                     else 
                     {
-                        if( [[tempResultArray objectAtIndex: index] valueForKey: @"numberImages"] && [[curResult objectAtIndex: x] valueForKey: @"numberImages"])
+                        if ([[tempResultArray objectAtIndex: index] valueForKey: @"numberImages"] && [[curResult objectAtIndex: x] valueForKey: @"numberImages"])
                         {
-                            if( [[[tempResultArray objectAtIndex: index] valueForKey: @"numberImages"] intValue] < [[[curResult objectAtIndex: x] valueForKey: @"numberImages"] intValue])
+                            if ([[[tempResultArray objectAtIndex: index] valueForKey: @"numberImages"] intValue] < [[[curResult objectAtIndex: x] valueForKey: @"numberImages"] intValue])
                             {
                                 [tempResultArray replaceObjectAtIndex: index withObject: [curResult objectAtIndex: x]];
                             }
@@ -2898,7 +2949,7 @@ extern "C"
             
         }
 		
-		if( [tempResultArray count])
+		if ([tempResultArray count])
 			[tempResultArray sortUsingDescriptors: [self sortArray]];
         
         firstServerRealtimeResults = YES;
@@ -2911,9 +2962,9 @@ extern "C"
 	
 	[autoQueryLock unlock];
 	
-    if( autoQuery == NO)
+    if (autoQuery == NO)
     {
-        if( [NSThread isMainThread])
+        if ([NSThread isMainThread])
             [self refreshList: tempResultArray];
         else
             [self performSelectorOnMainThread:@selector(refreshList:) withObject: tempResultArray waitUntilDone: NO];
@@ -2922,16 +2973,16 @@ extern "C"
     {
         @synchronized( autoQRInstances)
         {
-            if( index >= 0)
+            if (index >= 0)
             {
-                if( index == currentAutoQR)
+                if (index == currentAutoQR)
                 {
-                    if( [NSThread isMainThread])
+                    if ([NSThread isMainThread])
                         [self refreshList: tempResultArray];
                     else
                         [self performSelectorOnMainThread:@selector(refreshList:) withObject: tempResultArray waitUntilDone: NO];
                 }
-                if( index < [autoQRInstances count])
+                if (index < [autoQRInstances count])
                 {
                     // instance dictionary is a copy of autoQRInstances dictionary !
                     
@@ -2943,10 +2994,14 @@ extern "C"
         }
     }
     
-	if( atLeastOneSource == NO && [NSThread isMainThread])
+	if (atLeastOneSource == NO && [NSThread isMainThread])
 	{
-		if( showError)
-			NSRunCriticalAlertPanel( NSLocalizedString(@"Query", nil), NSLocalizedString( @"Please select a DICOM node (check box).", nil), NSLocalizedString(@"Continue", nil), nil, nil) ;
+		if (showError)
+			NSRunCriticalAlertPanel(NSLocalizedString(@"Query", nil),
+                                    NSLocalizedString( @"Please select a DICOM node (check box).", nil),
+                                    NSLocalizedString(@"Continue", nil),
+                                    nil,
+                                    nil) ;
 	}
 	
     [temporaryCFindResultArray release];
@@ -2959,7 +3014,7 @@ extern "C"
 {
 	[l retain];
 	
-    if( [NSThread isMainThread] == NO)
+    if ([NSThread isMainThread] == NO)
         N2LogStackTrace( @"******* this function should be called in MAIN thread");
     
 	[resultArray removeAllObjects];
@@ -2975,7 +3030,7 @@ extern "C"
 {
 	NSIndexSet *rowIndex;
 	
-	if( onlySelected)
+	if (onlySelected)
         rowIndex = [outlineView selectedRowIndexes];
 	else
         rowIndex = [NSIndexSet indexSetWithIndexesInRange: NSMakeRange( 0, [outlineView numberOfRows])];
@@ -2985,31 +3040,31 @@ extern "C"
 	NSArray	*descriptions = [[outlineView tableColumns] valueForKey:@"headerCell"];
 	int r;
 	
-	for( NSInteger x = 0; x < rowIndex.count; x++)
+	for (NSInteger x = 0; x < rowIndex.count; x++)
 	{
-		if( x == 0)
+		if (x == 0)
             r = rowIndex.firstIndex;
 		else
             r = [rowIndex indexGreaterThanIndex: r];
 		
 		id aFile = [outlineView itemAtRow: r];
 		
-		if( aFile && [aFile isMemberOfClass: [DCMTKStudyQueryNode class]])
+		if (aFile && [aFile isMemberOfClass: [DCMTKStudyQueryNode class]])
 		{
-			if( [string length])
+			if ([string length])
 				[string appendString: @"\r"];
 			else
 			{
 				int i = 0;
-				for( NSCell *s in descriptions)
+				for (NSCell *s in descriptions)
 				{
 					@try
 					{
-						if( [aFile valueForKey: [columns objectAtIndex: [descriptions indexOfObject: s]]])
+						if ([aFile valueForKey: [columns objectAtIndex: [descriptions indexOfObject: s]]])
 						{
 							[string appendString: [s stringValue]];
 							i++;
-							if( i !=  [columns count])
+							if (i != [columns count])
 								[string appendFormat: @"%c", NSTabCharacter];
 						}
 					}
@@ -3021,14 +3076,14 @@ extern "C"
 			}
 			
 			int i = 0;
-			for( NSString *identifier in columns)
+			for (NSString *identifier in columns)
 			{
 				@try
 				{
-					if( [[aFile valueForKey: identifier] description])
+					if ([[aFile valueForKey: identifier] description])
 						[string appendString: [[aFile valueForKey: identifier] description]];
 					i++;
-					if( i !=  [columns count])
+					if (i != [columns count])
 						[string appendFormat: @"%c", NSTabCharacter];
 				}
 				@catch ( NSException *e)
@@ -3046,10 +3101,9 @@ extern "C"
 	NSString *list = [self exportDBListOnlySelected: NO];
 	
 	NSSavePanel *sPanel	= [NSSavePanel savePanel];
-		
-	[sPanel setRequiredFileType:@"txt"];
-	
-	if ([sPanel runModalForDirectory: nil file:NSLocalizedString(@"OsiriX Database List", nil)] == NSFileHandlingPanelOKButton)
+    [sPanel setAllowedFileTypes: @[@"txt"]];
+    [sPanel setNameFieldStringValue: NSLocalizedString(@"OsiriX Database List", nil)];
+    if ([sPanel runModal] == NSFileHandlingPanelOKButton)
 	{
 		[list writeToFile: [sPanel filename] atomically: YES];
 	}
@@ -3063,7 +3117,7 @@ extern "C"
         {
             NSString	*chars = [[NSApp currentEvent] characters];
             
-            if( [chars length])
+            if ([chars length])
             {
                 if ([chars characterAtIndex:0] != 13 &&
                     [chars characterAtIndex:0] != 3)
@@ -3089,7 +3143,7 @@ extern "C"
 {
 	checkAndViewTry = -1;
 	
-    if( [NSThread isMainThread] == NO)
+    if ([NSThread isMainThread] == NO)
         showErrors = @NO;
     
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
@@ -3098,14 +3152,14 @@ extern "C"
     
     @synchronized( self)
     {
-        for( NSThread *t in performingQueryThreads)
+        for (NSThread *t in performingQueryThreads)
             [t setIsCancelled: YES];
         
-        if( performingCFind == NO)
+        if (performingCFind == NO)
         {
             performingCFind = YES;
             
-            if( [NSThread isMainThread] == NO)
+            if ([NSThread isMainThread] == NO)
                 [progressIndicator performSelectorOnMainThread: @selector(startAnimation:) withObject:nil waitUntilDone: NO];
             else
                 [progressIndicator startAnimation:nil];
@@ -3116,13 +3170,13 @@ extern "C"
         }
     }
     
-    if( performQuery)
+    if (performQuery)
     {
         [queryManager performQuery: [showErrors boolValue]];
         
         @synchronized( self)
         {
-            if( [NSThread isMainThread] == NO)
+            if ([NSThread isMainThread] == NO)
                 [progressIndicator performSelectorOnMainThread: @selector(stopAnimation:) withObject:nil waitUntilDone: NO];
             else
                 [progressIndicator stopAnimation:nil];
@@ -3148,17 +3202,17 @@ extern "C"
 	int localFiles = 0;
 	int totalFiles = [[item valueForKey:@"numberImages"] intValue];
 	
-	if( [studyArray count])
+	if ([studyArray count])
 		localFiles = [[[studyArray objectAtIndex: 0] valueForKey: @"rawNoFiles"] intValue];
 	
-	if( [item valueForKey:@"numberImages"] == nil || ([[NSUserDefaults standardUserDefaults] boolForKey: @"SupportPACSWithNoNumberOfImagesField"] && [[item valueForKey:@"numberImages"] intValue] == 0))
+	if ([item valueForKey:@"numberImages"] == nil || ([[NSUserDefaults standardUserDefaults] boolForKey: @"SupportPACSWithNoNumberOfImagesField"] && [[item valueForKey:@"numberImages"] intValue] == 0))
 	{
 		// We don't know how many images are stored on the distant PACS... add it, if we have no images on our side...
-		if( localFiles == 0)
+		if (localFiles == 0)
 			totalFiles = 1;
 	}
 	
-	if( localFiles < totalFiles)
+	if (localFiles < totalFiles)
 	{
 		NSString *stringID = [QueryController stringIDForStudy: item];
 		
@@ -3168,7 +3222,7 @@ extern "C"
 			
 			// We only want to re-retrieve the study if they are new files compared to last time... we are maybe currently in the middle of a retrieve...
 			
-			if( [previousNumberOfFiles intValue] != totalFiles)
+			if ([previousNumberOfFiles intValue] != totalFiles)
 			{
 				[selectedItems addObject: item];
 				[previousAutoRetrieve setValue: [NSNumber numberWithInt: totalFiles] forKey: stringID];
@@ -3185,13 +3239,13 @@ extern "C"
     
     NSArray *list = [[[instance objectForKey: @"resultArray"] copy] autorelease];
     
-	if( autoQuery == NO)
+	if (autoQuery == NO)
 		goto returnFromThread;
 	
-	if( [[BrowserController currentBrowser] database] != [DicomDatabase activeLocalDatabase])
+	if ([[BrowserController currentBrowser] database] != [DicomDatabase activeLocalDatabase])
 		goto returnFromThread;
 	
-	if( numberOfRunningRetrieve > 5)
+	if (numberOfRunningRetrieve > 5)
 	{
 		NSLog( @"**** numberOfRunningRetrieve > 5... wait for next autoretrieve.");
 		goto returnFromThread;
@@ -3204,20 +3258,20 @@ extern "C"
 		NSMutableArray *selectedItems = [NSMutableArray array];
 		NSManagedObjectContext *context = nil;
         
-        if( [NSThread isMainThread])
+        if ([NSThread isMainThread])
             context = [[[BrowserController currentBrowser] database] managedObjectContext];
         else
             context = [[[BrowserController currentBrowser] database] independentContext];
         
-		for( id item in list)
+		for (id item in list)
 		{
             BOOL addItem = YES;
             
-            if( [[NSUserDefaults standardUserDefaults] boolForKey: @"QR_CheckForDuplicateAccessionNumber"])
+            if ([[NSUserDefaults standardUserDefaults] boolForKey: @"QR_CheckForDuplicateAccessionNumber"])
             {
-                for( id study in selectedItems)
+                for (id study in selectedItems)
                 {
-                    if( [[study valueForKey: @"accessionNumber"] isEqualToString: [item valueForKey: @"accessionNumber"]])
+                    if ([[study valueForKey: @"accessionNumber"] isEqualToString: [item valueForKey: @"accessionNumber"]])
                     {
                         NSLog( @"--- Identical AccessionNumber: %@ - %d images", item, [[item valueForKey: @"numberImages"] intValue]);
                         
@@ -3227,26 +3281,26 @@ extern "C"
                 }
             }
             
-            if( [[NSUserDefaults standardUserDefaults] boolForKey: @"QR_DontReDownloadStudies"])
+            if ([[NSUserDefaults standardUserDefaults] boolForKey: @"QR_DontReDownloadStudies"])
             {
                 @synchronized( self)
                 {
-                    if( downloadedStudies == nil)
+                    if (downloadedStudies == nil)
                         downloadedStudies = [[NSMutableArray alloc] init];
                     
-                    for( NSDictionary *d in [NSArray arrayWithArray: downloadedStudies])
+                    for (NSDictionary *d in [NSArray arrayWithArray: downloadedStudies])
                     {
-                        if( [[d valueForKey: @"date"] timeIntervalSinceNow] > -60*60) // 1 hour - don't redownload it !
+                        if ([[d valueForKey: @"date"] timeIntervalSinceNow] > -60*60) // 1 hour - don't redownload it !
                         {
-                            if( [[NSUserDefaults standardUserDefaults] boolForKey: @"QR_DontDownloadMGDescription"])
+                            if ([[NSUserDefaults standardUserDefaults] boolForKey: @"QR_DontDownloadMGDescription"])
                             {
-                                if( [[[item valueForKey: @"theDescription"] lowercaseString] hasPrefix: @"mg "] || [[[item valueForKey: @"theDescription"] lowercaseString] hasPrefix: @"us seins"])
+                                if ([[[item valueForKey: @"theDescription"] lowercaseString] hasPrefix: @"mg "] || [[[item valueForKey: @"theDescription"] lowercaseString] hasPrefix: @"us seins"])
                                 {
                                     addItem = NO;
                                 }
                             }
                             
-                            if( [[d valueForKey: @"accessionNumber"] isEqualToString: [item valueForKey: @"accessionNumber"]] && [[d valueForKey: @"numberImages"] intValue] == [[item valueForKey: @"numberImages"] intValue])
+                            if ([[d valueForKey: @"accessionNumber"] isEqualToString: [item valueForKey: @"accessionNumber"]] && [[d valueForKey: @"numberImages"] intValue] == [[item valueForKey: @"numberImages"] intValue])
                             {
                                 addItem = NO;
                             }
@@ -3257,11 +3311,11 @@ extern "C"
                 }
             }
             
-            if( addItem)
+            if (addItem)
             {
                 [self addStudyIfNotAvailable: item toArray: selectedItems context: context];
                 
-                if( [[NSUserDefaults standardUserDefaults] boolForKey: @"QR_DontReDownloadStudies"])
+                if ([[NSUserDefaults standardUserDefaults] boolForKey: @"QR_DontReDownloadStudies"])
                 {
                     @synchronized( self)
                     {
@@ -3274,22 +3328,22 @@ extern "C"
                 }
             }
                 
-			if( [selectedItems count] >= [[NSUserDefaults standardUserDefaults] integerForKey: @"MaxNumberOfRetrieveForAutoQR"])
+			if ([selectedItems count] >= [[NSUserDefaults standardUserDefaults] integerForKey: @"MaxNumberOfRetrieveForAutoQR"])
                 break;
 		}
 		
-		if( [selectedItems count])
+		if ([selectedItems count])
 		{
-			if( [[instance objectForKey:@"NumberOfPreviousStudyToRetrieve"] intValue])
+			if ([[instance objectForKey:@"NumberOfPreviousStudyToRetrieve"] intValue])
 			{
                 NSManagedObjectContext *context = nil;
-                if( [NSThread isMainThread])
+                if ([NSThread isMainThread])
                     context = [[[BrowserController currentBrowser] database] managedObjectContext];
                 else
                     context = [[[BrowserController currentBrowser] database] independentContext];
                 
 				NSMutableArray *previousStudies = [NSMutableArray array];
-				for( id item in selectedItems)
+				for (id item in selectedItems)
 				{
 					NSArray *studiesOfThisPatient = [self queryPatientIDwithoutGUI: [item valueForKey:@"patientID"]];
 					
@@ -3301,42 +3355,42 @@ extern "C"
 					
 					int numberOfStudiesAssociated = [[instance objectForKey:@"NumberOfPreviousStudyToRetrieve"] intValue];
 					
-					for( id study in studiesOfThisPatient)
+					for (id study in studiesOfThisPatient)
 					{
 						// We don't want current study
-						if( [[study valueForKey:@"uid"] isEqualToString: [item valueForKey:@"uid"]] == NO)
+						if ([[study valueForKey:@"uid"] isEqualToString: [item valueForKey:@"uid"]] == NO)
 						{
 							BOOL found = NO;
 							
-							if( numberOfStudiesAssociated > 0)
+							if (numberOfStudiesAssociated > 0)
 							{
-								if( [[instance objectForKey:@"retrieveSameModality"] boolValue])
+								if ([[instance objectForKey:@"retrieveSameModality"] boolValue])
 								{
                                     NSArray *modalities = [[item valueForKey:@"modality"] componentsSeparatedByString: @"\\"];
                                     NSArray *relatedStudyModalities = [[study valueForKey:@"modality"] componentsSeparatedByString: @"\\"];
                                     
-                                    for( NSString *modality in modalities)
+                                    for (NSString *modality in modalities)
                                     {
-                                        if( [modality isEqualToString: @"SR"] == NO &&
+                                        if ([modality isEqualToString: @"SR"] == NO &&
                                             [modality isEqualToString: @"SC"] == NO &&
                                             [modality isEqualToString: @"PR"] == NO &&
                                             [modality isEqualToString: @"KO"] == NO)
                                         {
-                                            if( [relatedStudyModalities containsObject: modality])
+                                            if ([relatedStudyModalities containsObject: modality])
                                                 found = YES;
                                         }
                                     }
 								}
 								
-								if( [[instance objectForKey:@"retrieveSameDescription"] boolValue])
+								if ([[instance objectForKey:@"retrieveSameDescription"] boolValue])
 								{
-									if( [item valueForKey:@"theDescription"] && [study valueForKey:@"theDescription"])
+									if ([item valueForKey:@"theDescription"] && [study valueForKey:@"theDescription"])
 									{
-										if( [[study valueForKey:@"theDescription"] rangeOfString: [item valueForKey:@"theDescription"]].location != NSNotFound) found = YES;
+										if ([[study valueForKey:@"theDescription"] rangeOfString: [item valueForKey:@"theDescription"]].location != NSNotFound) found = YES;
 									}
 								}
 								
-								if( found)
+								if (found)
 								{
 									[self addStudyIfNotAvailable: study toArray: previousStudies context: context];
 									numberOfStudiesAssociated--;
@@ -3349,7 +3403,7 @@ extern "C"
 				[selectedItems addObjectsFromArray: previousStudies];
 			}
 			
-			for( id item in selectedItems)
+			for (id item in selectedItems)
 				[item setShowErrorMessage: NO];
 			
 			NSThread *t = [[[NSThread alloc] initWithTarget:self selector:@selector(performRetrieve:) object: selectedItems] autorelease];
@@ -3362,14 +3416,14 @@ extern "C"
 			
 			NSLog( @"______________________________________________");
 			NSLog( @"Will auto-retrieve these items:");
-			for( id item in selectedItems)
+			for (id item in selectedItems)
 			{
 				NSLog( @"%@ %@ %@ %@", [item valueForKey:@"theDescription"], [item valueForKey:@"patientID"], [item valueForKey:@"accessionNumber"], [item valueForKey:@"date"]);
 			}
 			NSLog( @"______________________________________________");
 			
 			NSString *desc = nil;			
-			if( [selectedItems count] == 1)
+			if ([selectedItems count] == 1)
                 desc = [NSString stringWithFormat: NSLocalizedString( @"Will auto-retrieve %d study", nil), [selectedItems count]];
 			else
                 desc = [NSString stringWithFormat: NSLocalizedString( @"Will auto-retrieve %d studies", nil), [selectedItems count]];
@@ -3391,7 +3445,7 @@ extern "C"
 
 - (void) displayAndRetrieveQueryResults: (NSMutableDictionary*) instance
 {
-	if( [[instance objectForKey: @"autoRetrieving"] boolValue] && autoQuery == YES)
+	if ([[instance objectForKey: @"autoRetrieving"] boolValue] && autoQuery == YES)
 	{
 		NSThread *t = [[[NSThread alloc] initWithTarget: self selector:@selector(autoRetrieveThread:) object: instance] autorelease];
 		t.name = NSLocalizedString( @"Retrieving images...", nil);
@@ -3403,12 +3457,12 @@ extern "C"
 {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	
-    if( autoQuery)
+    if (autoQuery)
     {
         NSMutableDictionary *instance = [dictionary objectForKey: @"instance"];
         int index = [[dictionary objectForKey: @"index"] intValue];
         
-        if( [self queryWithDisplayingErrors: NO instance: instance index: index] == 0)
+        if ([self queryWithDisplayingErrors: NO instance: instance index: index] == 0)
             [self displayAndRetrieveQueryResults: instance];
         else
         {
@@ -3418,7 +3472,7 @@ extern "C"
     }
     else
     {
-        if( [self queryWithDisplayingErrors: NO] == 0)
+        if ([self queryWithDisplayingErrors: NO] == 0)
             [self displayAndRetrieveQueryResults: nil];
         else
         {
@@ -3432,29 +3486,29 @@ extern "C"
 
 - (void) autoQueryTimerFunction:(NSTimer*) t
 {
-	if( autoQuery == NO) // We will refresh the results only after a valid query, generated by the user
+	if (autoQuery == NO) // We will refresh the results only after a valid query, generated by the user
 	{
-		if( queryButtonPressed == NO)
+		if (queryButtonPressed == NO)
 			return;
 	}
 	
-	if( DatabaseIsEdited == NO)
+	if (DatabaseIsEdited == NO)
 	{
-        if( autoQuery)
+        if (autoQuery)
         {
             @synchronized( autoQRInstances)
             {
                 int i = 0;
                 
-                for( NSDictionary *QRInstance in autoQRInstances)
+                for (NSDictionary *QRInstance in autoQRInstances)
                 {
-                    if( [[QRInstance objectForKey: @"autoRefreshQueryResults"] intValue] != 0)
+                    if ([[QRInstance objectForKey: @"autoRefreshQueryResults"] intValue] != 0)
                     {
-                        if( --autoQueryRemainingSecs[ i] <= 0)
+                        if (--autoQueryRemainingSecs[ i] <= 0)
                         {
-                            if( [autoQueryLock tryLock])
+                            if ([autoQueryLock tryLock])
                             {
-                                if( i == currentAutoQR)
+                                if (i == currentAutoQR)
                                     [self saveSettings];
                                 
                                 [[AppController sharedAppController] growlTitle: NSLocalizedString( @"Q&R Auto-Query", nil)
@@ -3468,7 +3522,7 @@ extern "C"
                                                                                   [NSNumber numberWithInt: i], @"index",
                                                                                   nil]] autorelease];
                                 
-                                if( [[QRInstance objectForKey: @"instanceName"] length] && autoQRInstances.count > 1)
+                                if ([[QRInstance objectForKey: @"instanceName"] length] && autoQRInstances.count > 1)
                                     t.name = [NSString stringWithFormat: NSLocalizedString( @"Auto-Querying images (%@)...", nil), [QRInstance objectForKey: @"instanceName"]];
                                 else
                                     t.name = NSLocalizedString( @"Auto-Querying images...", nil);
@@ -3476,9 +3530,9 @@ extern "C"
                                 t.supportsCancel = YES;
                                 [[ThreadsManager defaultManager] addThreadAndStart: t];
                                 
-                                if( [[QRInstance objectForKey: @"autoRefreshQueryResults"] intValue] >= 0)
+                                if ([[QRInstance objectForKey: @"autoRefreshQueryResults"] intValue] >= 0)
                                     autoQueryRemainingSecs[ i] = 60 * [[QRInstance objectForKey: @"autoRefreshQueryResults"] intValue]; // minutes
-                                else if( [[QRInstance objectForKey: @"autoRefreshQueryResults"] intValue] < 0)
+                                else if ([[QRInstance objectForKey: @"autoRefreshQueryResults"] intValue] < 0)
                                     autoQueryRemainingSecs[ i] = - [[QRInstance objectForKey: @"autoRefreshQueryResults"] intValue]; // seconds
                                 
                                 [autoQueryLock unlock];
@@ -3493,11 +3547,11 @@ extern "C"
         }
         else
         {
-            if( self.autoRefreshQueryResults != 0)
+            if (self.autoRefreshQueryResults != 0)
             {
-                if( --autoQueryRemainingSecs[ currentAutoQR] <= 0)
+                if (--autoQueryRemainingSecs[ currentAutoQR] <= 0)
                 {
-                    if( [autoQueryLock tryLock])
+                    if ([autoQueryLock tryLock])
                     {
                         [[AppController sharedAppController] growlTitle: NSLocalizedString( @"Q&R Auto-Query", nil) description: NSLocalizedString( @"Refreshing...", nil) name: @"autoquery"];
                         
@@ -3508,7 +3562,7 @@ extern "C"
                         t.supportsCancel = YES;
                         [[ThreadsManager defaultManager] addThreadAndStart: t];
                         
-                        if( self.autoRefreshQueryResults >= 0)
+                        if (self.autoRefreshQueryResults >= 0)
                             autoQueryRemainingSecs[ currentAutoQR] = 60 * self.autoRefreshQueryResults; // minutes
                         else
                             autoQueryRemainingSecs[ currentAutoQR] = -self.autoRefreshQueryResults; // seconds
@@ -3522,7 +3576,7 @@ extern "C"
         }
 	}
 	
-    if( self.autoRefreshQueryResults)
+    if (self.autoRefreshQueryResults)
         [autoQueryCounter setStringValue: [NSString stringWithFormat: @"%2.2d:%2.2d", (int) (autoQueryRemainingSecs[ currentAutoQR]/60), (int) (autoQueryRemainingSecs[ currentAutoQR]%60)]];
     else
         [autoQueryCounter setStringValue: @""];
@@ -3534,12 +3588,12 @@ extern "C"
     [QueryTimer release];
     QueryTimer = nil;
     
-    if( self.autoRefreshQueryResults >= 0)
+    if (self.autoRefreshQueryResults >= 0)
         autoQueryRemainingSecs[ currentAutoQR] = 60*self.autoRefreshQueryResults; // minutes
     else
         autoQueryRemainingSecs[ currentAutoQR] = -self.autoRefreshQueryResults; // seconds
     
-    if( self.autoRefreshQueryResults)
+    if (self.autoRefreshQueryResults)
         [autoQueryCounter setStringValue: [NSString stringWithFormat: @"%2.2d:%2.2d", (int) (autoQueryRemainingSecs[ currentAutoQR]/60), (int) (autoQueryRemainingSecs[ currentAutoQR]%60)]];
     else
         [autoQueryCounter setStringValue: @""];
@@ -3568,54 +3622,54 @@ extern "C"
 {
     NSPasteboard *pb = [NSPasteboard generalPasteboard];
 	
-	[pb declareTypes:[NSArray arrayWithObject:NSStringPboardType] owner:self];
+	[pb declareTypes:[NSArray arrayWithObject:NSPasteboardTypeString] owner:self];
 	
 	NSString *string;
 	
-	if( [[outlineView selectedRowIndexes] count] == 1)
+	if ([[outlineView selectedRowIndexes] count] == 1)
 		string = [[outlineView itemAtRow: [outlineView selectedRowIndexes].firstIndex] valueForKey: @"name"];
 	else 
 		string = [self exportDBListOnlySelected: YES];
 	
-	[pb setString: string forType:NSStringPboardType];
+	[pb setString: string forType:NSPasteboardTypeString];
 }
 
 -(void) retrieve:(id)sender onlyIfNotAvailable:(BOOL) onlyIfNotAvailable forViewing: (BOOL) forViewing items:(NSArray*) items showGUI:(BOOL) showGUI
 {
 	NSMutableArray	*selectedItems = [NSMutableArray array];
 	
-    if( [NSThread isMainThread] == NO)
+    if ([NSThread isMainThread] == NO)
         showGUI = NO;
     
 	if([items count])
 	{
-		for( id item in items)
+		for (id item in items)
 		{
 			[item setShowErrorMessage: showGUI];
 			
-			if( onlyIfNotAvailable)
+			if (onlyIfNotAvailable)
 			{
-//				if( [[NSUserDefaults standardUserDefaults] boolForKey: @"RetrieveOnlyMissingUID"])
+//				if ([[NSUserDefaults standardUserDefaults] boolForKey: @"RetrieveOnlyMissingUID"])
 //				{
 //					DicomStudy *localStudy = nil;
 //					
 //					// Local Study
-//					if( [item isMemberOfClass: [DCMTKSeriesQueryNode class]])
+//					if ([item isMemberOfClass: [DCMTKSeriesQueryNode class]])
 //					{
 //						array = [self localSeries: item context: nil];
 //						
-//						if( [array count])
+//						if ([array count])
 //							localStudy = [[array lastObject] valueForKey: @"study"];
 //					}
 //					else
 //					{
 //						array = [self localStudy: item context: nil];
 //						
-//						if( [array count])
+//						if ([array count])
 //							localStudy = [array lastObject];
 //					}
 //					
-//					if( localStudy)
+//					if (localStudy)
 //					{
 //						NSArray *localImagesUIDs = [[localStudy valueForKeyPath: @"series.images.sopInstanceUID"] allObjects];
 //						
@@ -3625,7 +3679,7 @@ extern "C"
 //						dataset-> insertEmptyElement(DCM_SeriesInstanceUID, OFTrue);
 //						dataset-> insertEmptyElement(DCM_SOPInstanceUID, OFTrue);
 //						
-//						if( [item isMemberOfClass:[DCMTKStudyQueryNode class]]) // Study Level
+//						if ([item isMemberOfClass:[DCMTKStudyQueryNode class]]) // Study Level
 //							dataset-> putAndInsertString(DCM_StudyInstanceUID, [[item uid] UTF8String], OFTrue);
 //						else													// Series Level
 //							dataset-> putAndInsertString(DCM_SeriesInstanceUID, [[item uid] UTF8String], OFTrue);
@@ -3634,11 +3688,11 @@ extern "C"
 //						
 //						[self queryWithValues: nil dataset: dataset];
 //						
-//						for( DCMTKImageQueryNode *image in [self children])
+//						for (DCMTKImageQueryNode *image in [self children])
 //						{
-//							if( [image uid])
+//							if ([image uid])
 //							{
-//								if( [localImagesUIDs containsObject: [image uid]])
+//								if ([localImagesUIDs containsObject: [image uid]])
 //								{
 //									// already here
 //								}
@@ -3655,15 +3709,15 @@ extern "C"
 					int localNumber = 0;
 					NSArray *array = 0L;
 					
-					if( [item isMemberOfClass: [DCMTKSeriesQueryNode class]])
+					if ([item isMemberOfClass: [DCMTKSeriesQueryNode class]])
 						array = [self localSeries: item context: nil];
 					else
 						array = [self localStudy: item context: nil];
 					
-					if( [array count])
+					if ([array count])
 						localNumber = [[[array objectAtIndex: 0] valueForKey: @"rawNoFiles"] intValue];
 					
-					if( localNumber < [[item valueForKey:@"numberImages"] intValue] || [[item valueForKey:@"numberImages"] intValue] == 0)
+					if (localNumber < [[item valueForKey:@"numberImages"] intValue] || [[item valueForKey:@"numberImages"] intValue] == 0)
 					{
 						NSString *stringID = [QueryController stringIDForStudy: item];
 			
@@ -3673,7 +3727,7 @@ extern "C"
 				
 							// We only want to re-retrieve the study if they are new files compared to last time... we are maybe currently in the middle of a retrieve...
 							
-							if( [previousNumberOfFiles intValue] != [[item valueForKey:@"numberImages"] intValue] || [[item valueForKey:@"numberImages"] intValue] == 0)
+							if ([previousNumberOfFiles intValue] != [[item valueForKey:@"numberImages"] intValue] || [[item valueForKey:@"numberImages"] intValue] == 0)
 							{
 								[selectedItems addObject: item];
 								[previousAutoRetrieve setValue: [NSNumber numberWithInt: [[item valueForKey:@"numberImages"] intValue]] forKey: stringID];
@@ -3696,7 +3750,7 @@ extern "C"
 					
 					// We only want to re-retrieve the study if they are new files compared to last time... we are maybe currently in the middle of a retrieve...
 					
-					if( [previousNumberOfFiles intValue] != [[item valueForKey:@"numberImages"] intValue] || [[item valueForKey:@"numberImages"] intValue] == 0)
+					if ([previousNumberOfFiles intValue] != [[item valueForKey:@"numberImages"] intValue] || [[item valueForKey:@"numberImages"] intValue] == 0)
 					{
 						[selectedItems addObject: item];
 						[previousAutoRetrieve setValue: [NSNumber numberWithInt: [[item valueForKey:@"numberImages"] intValue]] forKey: stringID];
@@ -3707,18 +3761,22 @@ extern "C"
 			}
 		}
 		
-		if( [selectedItems count] > 0)
+		if ([selectedItems count] > 0)
 		{
-			if( [sendToPopup indexOfSelectedItem] != 0 && forViewing == YES)
+			if ([sendToPopup indexOfSelectedItem] != 0 && forViewing == YES)
 			{
-				if( showGUI)
-					NSRunCriticalAlertPanel(NSLocalizedString( @"DICOM Query & Retrieve",nil), NSLocalizedString( @"If you want to retrieve & view these images, change the destination to this computer ('retrieve to' menu).",nil),NSLocalizedString( @"OK",nil), nil, nil);
+				if (showGUI)
+					NSRunCriticalAlertPanel(NSLocalizedString( @"DICOM Query & Retrieve",nil),
+                                            NSLocalizedString( @"If you want to retrieve & view these images, change the destination to this computer ('retrieve to' menu).",nil),
+                                            NSLocalizedString( @"OK",nil),
+                                            nil,
+                                            nil);
 			}
 			else
 			{
 				WaitRendering *wait = nil;
 				
-				if( showGUI)
+				if (showGUI)
 				{
 					wait = [[WaitRendering alloc] init: NSLocalizedString(@"Starting Retrieving...", nil)];
 					[wait showWindow:self];
@@ -3735,7 +3793,7 @@ extern "C"
 				t.supportsCancel = YES;
 				[[ThreadsManager defaultManager] addThreadAndStart: t];
 				
-				if( showGUI)
+				if (showGUI)
 				{
 					[NSThread sleepForTimeInterval: 0.2];
 				
@@ -3752,7 +3810,7 @@ extern "C"
 	NSMutableArray	*selectedItems = [NSMutableArray array];
 	NSIndexSet		*selectedRowIndexes = [outlineView selectedRowIndexes];
 	
-	if( [selectedRowIndexes count])
+	if ([selectedRowIndexes count])
 	{
 		for (NSUInteger index = [selectedRowIndexes firstIndex]; 1+[selectedRowIndexes lastIndex] != index; ++index)
 		{
@@ -3782,13 +3840,13 @@ extern "C"
 
 - (IBAction) retrieveAndViewClick: (id) sender
 {
-	if( [[outlineView tableColumns] count] > [outlineView clickedColumn] && [outlineView clickedColumn] >= 0)
+	if ([[outlineView tableColumns] count] > [outlineView clickedColumn] && [outlineView clickedColumn] >= 0)
 	{
-		if( [[[[outlineView tableColumns] objectAtIndex: [outlineView clickedColumn]] identifier] isEqualToString: @"comment"])
+		if ([[[[outlineView tableColumns] objectAtIndex: [outlineView clickedColumn]] identifier] isEqualToString: @"comment"])
 			return;
 	}
 	   
-	if( [outlineView clickedRow] >= 0)
+	if ([outlineView clickedRow] >= 0)
 	{
 		[self retrieveAndView: sender];
 	}
@@ -3796,7 +3854,7 @@ extern "C"
 
 - (void) retrieveClick:(id)sender
 {
-	if( [outlineView clickedRow] >= 0)
+	if ([outlineView clickedRow] >= 0)
 	{
 		[self retrieve: sender];
 	}
@@ -3811,13 +3869,13 @@ extern "C"
 	
 	[dateOfBirth years:&years months:&months days:&days hours:NULL minutes:NULL seconds:NULL sinceDate:momsBDay];
 	
-	if( years < 2)
+	if (years < 2)
 	{
-		if( years < 1)
+		if (years < 1)
 		{
-			if( months < 1)
+			if (months < 1)
             {
-                if( days < 0)
+                if (days < 0)
                     yearOld = @"";
                 else
                     yearOld = [NSString stringWithFormat: NSLocalizedString( @"%d d", @"d = day"), days];
@@ -3843,7 +3901,7 @@ extern "C"
 	
     [NSThread currentThread].name = NSLocalizedString( @"Retrieving images...", nil);
     
-	if( [[AppController sharedAppController] isStoreSCPRunning] == NO)
+	if ([[AppController sharedAppController] isStoreSCPRunning] == NO)
 	{
 		NSLog( @"----- isStoreSCPRunning == NO, cannot retrieve");
 		return;
@@ -3861,13 +3919,16 @@ extern "C"
     
     @try
     {
-        for( NSDictionary *source in sourcesArray)
+        for (NSDictionary *source in sourcesArray)
         {
-            for( DCMTKQueryNode *node in array)
+            for (DCMTKQueryNode *node in array)
             {
-                if( [[node _hostname] isEqualToString: [[source valueForKey: @"server"] valueForKey: @"Address"]] && [node _port] == [[[source valueForKey: @"server"] valueForKey: @"Port"] intValue])
-                    if( [reorderedArray containsObject: node] == NO)
+                if ([[node _hostname] isEqualToString: [[source valueForKey: @"server"] valueForKey: @"Address"]] &&
+                    [node _port] == [[[source valueForKey: @"server"] valueForKey: @"Port"] intValue])
+                {
+                    if ([reorderedArray containsObject: node] == NO)
                         [reorderedArray addObject: node];
+                }
             }
         }
     }
@@ -3876,13 +3937,13 @@ extern "C"
         N2LogExceptionWithStackTrace( e);
     }
     
-    for( DCMTKQueryNode *node in array)
+    for (DCMTKQueryNode *node in array)
     {
-        if( [reorderedArray containsObject: node] == NO)
+        if ([reorderedArray containsObject: node] == NO)
             [reorderedArray addObject: node];
     }
     
-    if( array.count == reorderedArray.count)
+    if (array.count == reorderedArray.count)
         array = reorderedArray;
     else
         NSLog( @"------- array.count != reorderedArray.count : QueryController performRetrieve");
@@ -3898,7 +3959,7 @@ extern "C"
 		
 		BOOL allowNonCMOVE = YES;
 		
-		for( NSUInteger i = 0; i < [array count] ; i++)
+		for (NSUInteger i = 0; i < [array count] ; i++)
 		{
 			DCMTKQueryNode *object = [[array objectAtIndex: i] retain];
 			
@@ -3910,7 +3971,7 @@ extern "C"
 			
 			NSDictionary *dstDict = nil;
 			
-			if( [sendToPopup indexOfSelectedItem] != 0)
+			if ([sendToPopup indexOfSelectedItem] != 0)
 			{
 				NSInteger index = [sendToPopup indexOfSelectedItem] -2;
 				
@@ -3921,7 +3982,7 @@ extern "C"
 				allowNonCMOVE = NO;
 			}
 			
-			if( [[dstDict valueForKey:@"Port"] intValue]  == [[dictionary valueForKey:@"port"] intValue] &&
+			if ([[dstDict valueForKey:@"Port"] intValue]  == [[dictionary valueForKey:@"port"] intValue] &&
 				[[dstDict valueForKey:@"Address"] isEqualToString: [dictionary valueForKey:@"hostname"]])
 				{
 					NSLog( @"move source == move destination -> Do Nothing");
@@ -3932,13 +3993,13 @@ extern "C"
 				[d setObject: object forKey: @"query"];
 				[d setObject: [dictionary objectForKey: @"retrieveMode"] forKey: @"retrieveMode"];
 				
-				if( [object isMemberOfClass: [DCMTKSeriesQueryNode class]])
+				if ([object isMemberOfClass: [DCMTKSeriesQueryNode class]])
 				{
-					if( [outlineView parentForItem: object])
+					if ([outlineView parentForItem: object])
 						[d setObject: [outlineView parentForItem: object] forKey:@"study"];	// for WADO retrieve at Series level
 				}
 				
-				if( [dictionary objectForKey: @"moveDestination"])
+				if ([dictionary objectForKey: @"moveDestination"])
 					[d setObject: [dictionary objectForKey: @"moveDestination"] forKey: @"moveDestination"];
 				
 				[moveArray addObject: d];
@@ -3951,28 +4012,28 @@ extern "C"
 		[subPool release];
 		
 		int i = 0;
-		for( NSDictionary *d in moveArray)
+		for (NSDictionary *d in moveArray)
 		{
 			DCMTKQueryNode *object = [d objectForKey: @"query"];
 			
 			NSString *status = nil;
 			
-			if( [object isMemberOfClass:[DCMTKStudyQueryNode class]])
+			if ([object isMemberOfClass:[DCMTKStudyQueryNode class]])
 			{
-				if( [array count] == 1)
+				if ([array count] == 1)
                     status = [NSString stringWithFormat: NSLocalizedString( @"%d study", nil), [array count]];
 				else
                     status = [NSString stringWithFormat: NSLocalizedString( @"%d studies", nil), [array count]];
                 
-                if( [object name])
+                if ([object name])
                     status = [status stringByAppendingFormat:@" - %@", [object name]];
 			}
 			
-			if( [object isMemberOfClass:[DCMTKSeriesQueryNode class]])
+			if ([object isMemberOfClass:[DCMTKSeriesQueryNode class]])
 			{
 				status = [NSString stringWithFormat: NSLocalizedString( @"%d series", nil), [array count]];
                 
-                if( [object theDescription])
+                if ([object theDescription])
                     status = [status stringByAppendingFormat:@" - %@", [object theDescription]];
 			}
 			
@@ -3981,11 +4042,11 @@ extern "C"
 			@try
 			{
 				FILE * pFile = fopen([[NSTemporaryDirectory() stringByAppendingPathComponent:@"kill_all_storescu"] UTF8String], "r");
-				if( pFile)
+				if (pFile)
 					fclose (pFile);
 				else
 				{
-					if( allowNonCMOVE)
+					if (allowNonCMOVE)
 						[object move: d retrieveMode: [[d objectForKey: @"retrieveMode"] intValue]];
 					else
 						[object move: d retrieveMode: CMOVERetrieveMode];
@@ -4004,7 +4065,7 @@ extern "C"
 			}
 			
 			[NSThread currentThread].progress = (float) ++i / (float) [moveArray count];
-			if( [NSThread currentThread].isCancelled)
+			if ([NSThread currentThread].isCancelled)
 			{
                 NSString *pathKillAll = [NSTemporaryDirectory() stringByAppendingPathComponent:@"kill_all_storescu"];
 				[[NSFileManager defaultManager] createFileAtPath: pathKillAll
@@ -4018,7 +4079,7 @@ extern "C"
 		
 		@synchronized( previousAutoRetrieve)
 		{
-			for( DCMTKQueryNode *object in [moveArray valueForKey: @"query"])
+			for (DCMTKQueryNode *object in [moveArray valueForKey: @"query"])
 			{
 				@try
 				{
@@ -4033,14 +4094,14 @@ extern "C"
 		
 		[NSThread sleepForTimeInterval: 0.5];	// To allow errorMessage on the main thread...
 		
-		if( [[self window] isVisible])
+		if ([[self window] isVisible])
 		{
 			FILE * pFile = fopen( [[NSTemporaryDirectory() stringByAppendingPathComponent:@"kill_all_storescu"] UTF8String], "r");
-			if( pFile)
+			if (pFile)
 				fclose (pFile);
 			else
 			{
-				for( id item in array)
+				for (id item in array)
 					[item setShowErrorMessage: YES];
 			}
 		}
@@ -4064,10 +4125,10 @@ extern "C"
 
 - (void) checkAndView:(id) item
 {
-	if( [[self window] isVisible] == NO)
+	if ([[self window] isVisible] == NO)
 		return;
 	
-	if( checkAndViewTry < 0)
+	if (checkAndViewTry < 0)
 		return;
 	
     [[BrowserController currentBrowser] setDatabase: [DicomDatabase activeLocalDatabase]];
@@ -4084,7 +4145,7 @@ extern "C"
 	
 	@try
 	{
-		if( [item isMemberOfClass:[DCMTKStudyQueryNode class]] == YES)
+		if ([item isMemberOfClass:[DCMTKStudyQueryNode class]] == YES)
 		{
 			NSPredicate	*predicate = [NSPredicate predicateWithFormat: @"(studyInstanceUID == %@)", [item valueForKey:@"uid"]];
 			
@@ -4092,40 +4153,40 @@ extern "C"
 			[request setPredicate: predicate];
 			
 			studyArray = [context executeFetchRequest:request error:&error];
-			if( [studyArray count] > 0)
+			if ([studyArray count] > 0)
 			{
 				NSManagedObject	*study = [studyArray objectAtIndex: 0];
 				NSArray *seriesArray = [[BrowserController currentBrowser] childrenArray: study];
 				
-				if( [seriesArray count])
+				if ([seriesArray count])
 				{
-					NSManagedObject	*series =  [seriesArray objectAtIndex: 0];
+					NSManagedObject	*series = [seriesArray objectAtIndex: 0];
 					
-					if( [[BrowserController currentBrowser] findAndSelectFile:nil image:[[series valueForKey:@"images"] anyObject] shouldExpand:NO] == NO)
+					if ([[BrowserController currentBrowser] findAndSelectFile:nil image:[[series valueForKey:@"images"] anyObject] shouldExpand:NO] == NO)
 					{
 						[[BrowserController currentBrowser] showEntireDatabase];
-						if( [[BrowserController currentBrowser] findAndSelectFile:nil image:[[series valueForKey:@"images"] anyObject] shouldExpand:NO]) success = YES;
+						if ([[BrowserController currentBrowser] findAndSelectFile:nil image:[[series valueForKey:@"images"] anyObject] shouldExpand:NO]) success = YES;
 					}
 					else
                         success = YES;
 					
-					if( success)
+					if (success)
                         [[BrowserController currentBrowser] databaseOpenStudy: study];
 				}
 			}
 		}
 		
-		if( [item isMemberOfClass:[DCMTKSeriesQueryNode class]] == YES)
+		if ([item isMemberOfClass:[DCMTKSeriesQueryNode class]] == YES)
 		{
-			NSPredicate	*predicate = [NSPredicate predicateWithFormat:  @"(seriesDICOMUID == %@)", [item valueForKey:@"uid"]];
+			NSPredicate	*predicate = [NSPredicate predicateWithFormat: @"(seriesDICOMUID == %@)", [item valueForKey:@"uid"]];
 			
-			NSLog( @"%@",  [predicate description]);
+			NSLog( @"%@", [predicate description]);
 			
 			[request setEntity: [[BrowserController.currentBrowser.database.managedObjectModel entitiesByName] objectForKey:@"Series"]];
 			[request setPredicate: predicate];
 			
 			seriesArray = [context executeFetchRequest:request error:&error];
-			if( [seriesArray count] > 0)
+			if ([seriesArray count] > 0)
 			{
 				NSLog( @"%@",  [seriesArray description]);
 				
@@ -4133,7 +4194,7 @@ extern "C"
 				
 				[[BrowserController currentBrowser] openViewerFromImages: [NSArray arrayWithObject: [[BrowserController currentBrowser] childrenArray: series]] movie: NO viewer :nil keyImagesOnly:NO];
 				
-				if( [[NSUserDefaults standardUserDefaults] boolForKey: @"AUTOTILING"])
+				if ([[NSUserDefaults standardUserDefaults] boolForKey: @"AUTOTILING"])
 					[NSApp sendAction: @selector(tileWindows:) to:nil from: self];
 				else
 					[[AppController sharedAppController] checkAllWindowsAreVisible: self makeKey: YES];
@@ -4142,11 +4203,11 @@ extern "C"
 			}
 		}
 		
-		if( !success)
+		if (!success)
 		{
 			[[BrowserController currentBrowser] checkIncoming: self];
 			
-			if( checkAndViewTry-- > 0 && [sendToPopup indexOfSelectedItem] == 0)
+			if (checkAndViewTry-- > 0 && [sendToPopup indexOfSelectedItem] == 0)
 				[self performSelector:@selector(checkAndView:) withObject:item afterDelay:1.0];
 			else
 				success = YES;
@@ -4167,7 +4228,7 @@ extern "C"
 	
 	{
 		checkAndViewTry = 20;
-		if( item)
+		if (item)
             [self checkAndView: item];
 	}
 }
@@ -4176,16 +4237,16 @@ extern "C"
 {
     QueryFilter *modalityFilter = nil;
     
-    if( [[NSUserDefaults standardUserDefaults] boolForKey: @"SupportQRModalitiesinStudy"])
+    if ([[NSUserDefaults standardUserDefaults] boolForKey: @"SupportQRModalitiesinStudy"])
     {
-        if( modalityArray.count)
+        if (modalityArray.count)
             modalityFilter = [QueryFilter queryFilterWithObject: [modalityArray componentsJoinedByString:@"\\"] ofSearchType: searchExactMatch forKey:@"ModalitiesinStudy"];
         else
             modalityFilter = [QueryFilter queryFilterWithObject: nil ofSearchType: searchExactMatch forKey:@"ModalitiesinStudy"];
     }
     else
     {
-        if( modalityArray.count)
+        if (modalityArray.count)
             modalityFilter = [QueryFilter queryFilterWithObject: [modalityArray componentsJoinedByString:@"\\"] ofSearchType: searchExactMatch forKey:@"Modality"];
         else
             modalityFilter = [QueryFilter queryFilterWithObject: nil ofSearchType: searchExactMatch forKey:@"Modality"];
@@ -4197,9 +4258,9 @@ extern "C"
 - (void)setModalityQuery:(id)sender
 {
     NSMutableString *cellsString = [NSMutableString string];
-	for( NSCell *cell in [modalityFilterMatrix cells])
+	for (NSCell *cell in [modalityFilterMatrix cells])
 	{
-		if( [cell state] == NSOnState)
+		if ([cell state] == NSOnState)
 		{
 			NSInteger row, col;
 			
@@ -4214,7 +4275,7 @@ extern "C"
     *dateQueryFilter = nil;
 	*timeQueryFilter = nil;
 	
-	if( tag == between)
+	if (tag == between)
 	{
 		NSDate *later = [from laterDate: to];
 		NSDate *earlier = [from earlierDate: to];
@@ -4223,7 +4284,7 @@ extern "C"
 		
 		*dateQueryFilter = [QueryFilter queryFilterWithObject:between ofSearchType:searchExactMatch forKey:@"StudyDate"];
 	}
-    else if( tag == on)
+    else if (tag == on)
 	{
         DCMCalendarDate *date = [DCMCalendarDate dateWithTimeIntervalSinceReferenceDate: [from timeIntervalSinceReferenceDate]];
         
@@ -4238,32 +4299,59 @@ extern "C"
 		
 		switch( tag)
 		{
-			case anyDate: date = nil; break;
-            
-			case today: date = [DCMCalendarDate date]; searchType = searchExactDate; break;
-                
-			case yesteday: date = [DCMCalendarDate dateWithTimeIntervalSinceNow: -60*60*24 -1];	searchType = searchExactDate; break;
-                
-            case dayBeforeYesterday: date = [DCMCalendarDate dateWithTimeIntervalSinceNow: -60*60*48 -1]; searchType = searchExactDate; break;
-            
-            case after: date = [DCMCalendarDate dateWithTimeIntervalSinceNow: [from timeIntervalSinceReferenceDate]];
-                
-            case last2Days: date = [DCMCalendarDate dateWithTimeIntervalSinceNow: -60*60*24*2 -1]; break;
-                
-			case last7Days: date = [DCMCalendarDate dateWithTimeIntervalSinceNow: -60*60*24*7 -1]; break;
-                
-			case lastMonth: date = [DCMCalendarDate dateWithTimeIntervalSinceNow: -60*60*24*31 -1]; break;
-                
-            case last3Months: date = [DCMCalendarDate dateWithTimeIntervalSinceNow: -60*60*24*31*3 -1]; break;
-            case last2Months: date = [DCMCalendarDate dateWithTimeIntervalSinceNow: -60*60*24*31*2 -1]; break;
-            case lastYear: date = [DCMCalendarDate dateWithTimeIntervalSinceNow: -60*60*24*365 -1]; break;
-            
+			case anyDate:
+                date = nil;
+                break;
+
+			case today:
+                date = [DCMCalendarDate date];
+                searchType = searchExactDate;
+                break;
+
+			case yesterday:
+                date = [DCMCalendarDate dateWithTimeIntervalSinceNow: -60*60*24 -1];
+                searchType = searchExactDate;
+                break;
+
+            case dayBeforeYesterday:
+                date = [DCMCalendarDate dateWithTimeIntervalSinceNow: -60*60*48 -1];
+                searchType = searchExactDate;
+                break;
+
+            case after:
+                date = [DCMCalendarDate dateWithTimeIntervalSinceNow: [from timeIntervalSinceReferenceDate]];
+                break;
+
+            case last2Days:
+                date = [DCMCalendarDate dateWithTimeIntervalSinceNow: -60*60*24*2 -1];
+                break;
+
+			case last7Days:
+                date = [DCMCalendarDate dateWithTimeIntervalSinceNow: -60*60*24*7 -1];
+                break;
+
+			case lastMonth:
+                date = [DCMCalendarDate dateWithTimeIntervalSinceNow: -60*60*24*31 -1];
+                break;
+
+            case last3Months:
+                date = [DCMCalendarDate dateWithTimeIntervalSinceNow: -60*60*24*31*3 -1];
+                break;
+
+            case last2Months:
+                date = [DCMCalendarDate dateWithTimeIntervalSinceNow: -60*60*24*31*2 -1];
+                break;
+
+            case lastYear:
+                date = [DCMCalendarDate dateWithTimeIntervalSinceNow: -60*60*24*365 -1];
+                break;
+
             case todayAM:	// AM & PM
 			case todayPM:
 				date = [DCMCalendarDate date];
 				searchType = searchExactDate;
-				
-				if( tag == todayAM)
+
+				if (tag == todayAM)
 					between = @"000000.000-120000.000";
 				else
 					between = @"120000.000-235959.000";
@@ -4272,7 +4360,7 @@ extern "C"
             break;
                 
             default:
-                if( tag >= 100 && tag <= 200)
+                if (tag >= 100 && tag <= 200)
                 {
                     int hours = tag - 100;
                     
@@ -4280,14 +4368,14 @@ extern "C"
                     
                     date = [DCMCalendarDate dateWithTimeIntervalSinceNow: -60*60*hours];
                     
-                    if( [[NSUserDefaults standardUserDefaults] boolForKey: @"DICOMQueryAllowFutureQuery"])
+                    if ([[NSUserDefaults standardUserDefaults] boolForKey: @"DICOMQueryAllowFutureQuery"])
                         between = [NSString stringWithFormat:@"%@.000-", [[NSCalendarDate dateWithTimeIntervalSinceNow: -60*60*hours] descriptionWithCalendarFormat: @"%H%M%S"]];
                     else
                         between = [NSString stringWithFormat:@"%@.000-%@.000", [[NSCalendarDate dateWithTimeIntervalSinceNow: -60*60*hours] descriptionWithCalendarFormat: @"%H%M%S"], [[NSCalendarDate date] descriptionWithCalendarFormat: @"%H%M%S"]];
                     
                     *timeQueryFilter = [QueryFilter queryFilterWithObject:between ofSearchType:searchExactMatch  forKey:@"StudyTime"];
                 }
-                else if( tag >= 200 && tag <= 300)
+                else if (tag >= 200 && tag <= 300)
                 {
                     int min = tag - 200;
                     
@@ -4295,7 +4383,7 @@ extern "C"
                     
                     date = [DCMCalendarDate dateWithTimeIntervalSinceNow: -60*min];
                     
-                    if( [[NSUserDefaults standardUserDefaults] boolForKey: @"DICOMQueryAllowFutureQuery"])
+                    if ([[NSUserDefaults standardUserDefaults] boolForKey: @"DICOMQueryAllowFutureQuery"])
                         between = [NSString stringWithFormat:@"%@.000-", [[NSCalendarDate dateWithTimeIntervalSinceNow: -60*min] descriptionWithCalendarFormat: @"%H%M%S"]];
                     else
                         between = [NSString stringWithFormat:@"%@.000-%@.000", [[NSCalendarDate dateWithTimeIntervalSinceNow: -60*min] descriptionWithCalendarFormat: @"%H%M%S"], [[NSCalendarDate date] descriptionWithCalendarFormat: @"%H%M%S"]];
@@ -4306,18 +4394,20 @@ extern "C"
                     NSLog( @"******* unknown setDateQuery tag: %d", (int) tag);
                 break;
             }
-		*dateQueryFilter = [QueryFilter queryFilterWithObject: date ofSearchType: searchType forKey:@"StudyDate"];
+		*dateQueryFilter = [QueryFilter queryFilterWithObject: date
+                                                 ofSearchType: searchType
+                                                       forKey: @"StudyDate"];
 	}
 } 
 
 - (void)setDateQuery:(id)sender
 {
-	if( [sender selectedTag] == between)
+	if ([sender selectedTag] == between)
 	{
 		[fromDate setEnabled: YES];
 		[toDate setEnabled: YES];
 	}
-    else if( [sender selectedTag] == on)
+    else if ([sender selectedTag] == on)
 	{
 		[fromDate setEnabled: YES];
 		[toDate setEnabled: NO];
@@ -4344,7 +4434,7 @@ extern "C"
         [refreshGroup setFrame:frame];
     }
     
-    if( autoQuery)
+    if (autoQuery)
         [PatientModeMatrix selectTabViewItemAtIndex: [[NSUserDefaults standardUserDefaults] integerForKey: @"AutoQRPatientModeMatrixIndex"]];
     else
         [PatientModeMatrix selectTabViewItemAtIndex: [[NSUserDefaults standardUserDefaults] integerForKey: @"QRPatientModeMatrixIndex"]];
@@ -4521,9 +4611,9 @@ extern "C"
 	
 	[self refreshSources];
 	
-	for( NSUInteger i = 0; i < [sourcesArray count]; i++)
+	for (NSUInteger i = 0; i < [sourcesArray count]; i++)
 	{
-		if( [[[sourcesArray objectAtIndex: i] valueForKey:@"activated"] boolValue] == YES)
+		if ([[[sourcesArray objectAtIndex: i] valueForKey:@"activated"] boolValue] == YES)
 		{
 			[sourcesTable selectRowIndexes: [NSIndexSet indexSetWithIndex: i] byExtendingSelection: NO];
 			[sourcesTable scrollRowToVisible: i];
@@ -4546,11 +4636,11 @@ extern "C"
 	[self setBirthDate: nil];
     
     // build table header context menu
-    if( [[outlineView autosaveName] length] == 0)
+    if ([[outlineView autosaveName] length] == 0)
     {
         NSArray *cols = nil;
         
-        if( autoQuery)
+        if (autoQuery)
             cols = [[NSUserDefaults standardUserDefaults] arrayForKey: @"NewQueryControllerTableColumnsAutoQR"];
         else
             cols = [[NSUserDefaults standardUserDefaults] arrayForKey: @"NewQueryControllerTableColumns"];
@@ -4565,14 +4655,14 @@ extern "C"
         {
             NSString *identifier = [column identifier];        
             NSString *title = [[column headerCell] title];
-            if( [identifier isEqualToString: @"Button"] == NO && [identifier isEqualToString: @"name"] == NO)
+            if ([identifier isEqualToString: @"Button"] == NO && [identifier isEqualToString: @"name"] == NO)
             {
                 NSMenuItem *item = [tableHeaderContextMenu addItemWithTitle:title action:@selector(contextMenuSelected:) keyEquivalent:@""];
                 [item setTarget: self];
                 [item setRepresentedObject: column];
                 [item setState: cols ? NSOffState: NSOnState];
                 
-                if( cols)
+                if (cols)
                     [outlineView removeTableColumn:column]; // initially want to show all columns
             }
         }
@@ -4585,16 +4675,16 @@ extern "C"
             NSMenuItem *item = nil;
             for (NSMenuItem *menuItem in tableHeaderContextMenu.itemArray)
             {
-                if( [[(NSTableColumn*) menuItem.representedObject identifier] isEqualToString: identifier])
+                if ([[(NSTableColumn*) menuItem.representedObject identifier] isEqualToString: identifier])
                 {
                     item = menuItem;
                     break;
                 }
             }
             
-            if( !item)
+            if (!item)
             {
-                if( [identifier isEqualToString: @"Button"] || [identifier isEqualToString: @"name"])
+                if ([identifier isEqualToString: @"Button"] || [identifier isEqualToString: @"name"])
                 {
                     column = [outlineView tableColumnWithIdentifier: identifier];
                     
@@ -4614,16 +4704,16 @@ extern "C"
         }
         
         NSString *prefsSortKey = nil;
-        if( autoQuery)
+        if (autoQuery)
             prefsSortKey = @"QueryControllerTableColumnsSortDescriptorAutoQR";
         else
             prefsSortKey = @"QueryControllerTableColumnsSortDescriptor";
         
-        if( [[NSUserDefaults standardUserDefaults] objectForKey: prefsSortKey])
+        if ([[NSUserDefaults standardUserDefaults] objectForKey: prefsSortKey])
         {
             NSDictionary *sort = [[NSUserDefaults standardUserDefaults] objectForKey: prefsSortKey];
             {
-                if( [outlineView columnWithIdentifier: [sort objectForKey:@"key"]] != -1)
+                if ([outlineView columnWithIdentifier: [sort objectForKey:@"key"]] != -1)
                 {
                     NSSortDescriptor *prototype = [[outlineView tableColumnWithIdentifier: [sort objectForKey:@"key"]] sortDescriptorPrototype];
                     
@@ -4668,7 +4758,7 @@ extern "C"
                          nil]];
     }
     
-    if( autoQuery)
+    if (autoQuery)
     {
         [[NSUserDefaults standardUserDefaults] setObject:cols forKey: @"NewQueryControllerTableColumnsAutoQR"];
         NSDictionary *sort = [NSDictionary	dictionaryWithObjectsAndKeys:
@@ -4695,7 +4785,7 @@ extern "C"
     
     NSTableColumn *column = [sender representedObject];
     
-    if( on)
+    if (on)
         [outlineView removeTableColumn:column];
     else
         [outlineView addTableColumn:column];
@@ -4710,11 +4800,11 @@ extern "C"
 {
 	[self willChangeValueForKey:@"sourcesArray"];
 	
-	for( NSUInteger i = 0; i < [sourcesArray count]; i++)
+	for (NSUInteger i = 0; i < [sourcesArray count]; i++)
 	{
 		NSMutableDictionary		*source = [NSMutableDictionary dictionaryWithDictionary: [sourcesArray objectAtIndex: i]];
 		
-		if( [sender selectedRow] == i)
+		if ([sender selectedRow] == i)
             [source setObject: @YES forKey:@"activated"];
 		else
             [source setObject: @NO forKey:@"activated"];
@@ -4727,10 +4817,12 @@ extern "C"
 
 - (NSDictionary*) findCorrespondingServer: (NSDictionary*) savedServer inServers : (NSArray*) servers
 {
-	for( NSUInteger i = 0 ; i < [servers count]; i++)
+	for (NSUInteger i = 0 ; i < [servers count]; i++)
 	{
-		if( [[savedServer objectForKey:@"AETitle"] isEqualToString: [[servers objectAtIndex:i] objectForKey:@"AETitle"]] && 
-			[[savedServer objectForKey:@"AddressAndPort"] isEqualToString: [NSString stringWithFormat:@"%@:%@", [[servers objectAtIndex:i] valueForKey:@"Address"], [[servers objectAtIndex:i] valueForKey:@"Port"]]])
+		if ([[savedServer objectForKey:@"AETitle"] isEqualToString: [[servers objectAtIndex:i] objectForKey:@"AETitle"]] &&
+			[[savedServer objectForKey:@"AddressAndPort"] isEqualToString: [NSString stringWithFormat:@"%@:%@",
+                                                                            [[servers objectAtIndex:i] valueForKey:@"Address"],
+                                                                            [[servers objectAtIndex:i] valueForKey:@"Port"]]])
 			{
 				return [servers objectAtIndex:i];
 			}
@@ -4743,18 +4835,18 @@ extern "C"
 {
 	[[NSUserDefaults standardUserDefaults] setObject:sourcesArray forKey: queryArrayPrefs];
 	
-	NSMutableArray		*serversArray		= [[[DCMNetServiceDelegate DICOMServersList] mutableCopy] autorelease];
-	NSArray				*savedArray			= [[NSUserDefaults standardUserDefaults] arrayForKey: queryArrayPrefs];
+	NSMutableArray *serversArray = [[[DCMNetServiceDelegate DICOMServersList] mutableCopy] autorelease];
+	NSArray *savedArray = [[NSUserDefaults standardUserDefaults] arrayForKey: queryArrayPrefs];
 	
 	[self willChangeValueForKey:@"sourcesArray"];
 	 
 	[sourcesArray removeAllObjects];
 	
-	for( NSUInteger i = 0; i < [savedArray count]; i++)
+	for (NSUInteger i = 0; i < [savedArray count]; i++)
 	{
 		NSDictionary *server = [self findCorrespondingServer: [savedArray objectAtIndex:i] inServers: serversArray];
 		
-		if( server && ([[server valueForKey:@"QR"] boolValue] == YES || [server valueForKey:@"QR"] == nil ))
+		if (server && ([[server valueForKey:@"QR"] boolValue] == YES || [server valueForKey:@"QR"] == nil ))
 		{
 			[sourcesArray addObject: [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                       [[savedArray objectAtIndex: i] valueForKey:@"activated"], @"activated",
@@ -4768,11 +4860,12 @@ extern "C"
 		}
 	}
 	
-	for( NSUInteger i = 0; i < [serversArray count]; i++)
+	for (NSUInteger i = 0; i < [serversArray count]; i++)
 	{
 		NSDictionary *server = [serversArray objectAtIndex: i];
 		
-		if( ([[server valueForKey:@"QR"] boolValue] == YES || [server valueForKey:@"QR"] == nil ))
+		if (([[server valueForKey:@"QR"] boolValue] == YES ||
+              [server valueForKey:@"QR"] == nil ))
 		
 			[sourcesArray addObject: [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                       @NO, @"activated",
@@ -4789,31 +4882,39 @@ extern "C"
 	
 	// *********** Update Send To popup menu
 	
-	NSString	*previousItem = [[[sendToPopup selectedItem] title] retain];
+	NSString *previousItem = [[[sendToPopup selectedItem] title] retain];
 	
 	[sendToPopup removeAllItems];
 	
-	if( sendToPopup)
+	if (sendToPopup)
 	{
 		serversArray = [[[DCMNetServiceDelegate DICOMServersList] mutableCopy] autorelease];
 		
 		NSString *ip = [NSString stringWithCString:GetPrivateIP()];
-		[sendToPopup addItemWithTitle: [NSString stringWithFormat: NSLocalizedString( @"This Computer - %@/%@:%d", nil), [NSUserDefaults defaultAETitle], ip, [NSUserDefaults defaultAEPort]]];
+		[sendToPopup addItemWithTitle: [NSString stringWithFormat: NSLocalizedString( @"This Computer - %@/%@:%d", nil),
+                                        [NSUserDefaults defaultAETitle],
+                                        ip,
+                                        [NSUserDefaults defaultAEPort]]];
 
 		[[sendToPopup menu] addItem: [NSMenuItem separatorItem]];
 		
-		for( NSUInteger i = 0; i < [serversArray count]; i++)
+		for (NSUInteger i = 0; i < [serversArray count]; i++)
 		{
 			NSDictionary *server = [serversArray objectAtIndex: i];
 			
-			NSString *title = [NSString stringWithFormat:@"%@ - %@/%@:%@", [server valueForKey:@"Description"], [server valueForKey:@"AETitle"], [server valueForKey:@"Address"], [server valueForKey:@"Port"]];
+			NSString *title = [NSString stringWithFormat:@"%@ - %@/%@:%@",
+                               [server valueForKey:@"Description"],
+                               [server valueForKey:@"AETitle"],
+                               [server valueForKey:@"Address"],
+                               [server valueForKey:@"Port"]];
 			
-			while( [sendToPopup indexOfItemWithTitle: title] != -1)
+			while ([sendToPopup indexOfItemWithTitle: title] != -1)
 				title = [title stringByAppendingString: @" "];
 			
 			[sendToPopup addItemWithTitle: title];
 			
-			if( [title isEqualToString: previousItem]) [sendToPopup selectItemWithTitle: previousItem];
+			if ([title isEqualToString: previousItem])
+                [sendToPopup selectItemWithTitle: previousItem];
 		}
 	}
 	
@@ -4827,7 +4928,7 @@ extern "C"
 	
 	DcmDictEntryList list;
     DcmHashDictIterator iter(globalDataDict.normalBegin());
-    for( int x = 0; x < globalDataDict.numberOfNormalTagEntries(); ++iter, x++)
+    for (int x = 0; x < globalDataDict.numberOfNormalTagEntries(); ++iter, x++)
     {
         if ((*iter)->getPrivateCreator() == NULL) // exclude private tags
         {
@@ -4845,7 +4946,7 @@ extern "C"
     {
 		e = *listIter;
 		
-		if( e->getGroup() > 0)
+		if (e->getGroup() > 0)
 		{
 			CIADICOMField *dicomField = [[CIADICOMField alloc] initWithGroup:e->getGroup() element:e->getElement() name:[NSString stringWithFormat:@"%s",e->getTagName()]];
 			[array addObject:dicomField];
@@ -4864,13 +4965,13 @@ extern "C"
     {
         if ([keyPath isEqualToString: @"values.KeepQRWindowOnTop"])
         {
-            if( [[NSUserDefaults standardUserDefaults] boolForKey: @"KeepQRWindowOnTop"])
+            if ([[NSUserDefaults standardUserDefaults] boolForKey: @"KeepQRWindowOnTop"])
                 [[self window] setLevel: NSFloatingWindowLevel];
             else
                 [[self window] setLevel: NSNormalWindowLevel];
         }
         
-        if( [keyPath isEqualToString: @"values.SERVERS"])
+        if ([keyPath isEqualToString: @"values.SERVERS"])
         {
             [self refreshSources];
         }
@@ -4879,11 +4980,15 @@ extern "C"
 
 - (id) initAutoQuery: (BOOL) autoQR
 {
-    if( self = [super initWithWindowNibName:@"Query"])
+    if (self = [super initWithWindowNibName:@"Query"])
 	{
-		if( [[DCMNetServiceDelegate DICOMServersList] count] == 0)
+		if ([[DCMNetServiceDelegate DICOMServersList] count] == 0)
 		{
-			NSRunCriticalAlertPanel(NSLocalizedString(@"DICOM Query & Retrieve",nil),NSLocalizedString( @"No DICOM locations available. See Preferences to add DICOM locations.",nil),NSLocalizedString( @"OK",nil), nil, nil);
+			NSRunCriticalAlertPanel(NSLocalizedString(@"DICOM Query & Retrieve",nil),
+                                    NSLocalizedString( @"No DICOM locations available. See Preferences to add DICOM locations.",nil),
+                                    NSLocalizedString( @"OK",nil),
+                                    nil,
+                                    nil);
 		}
 		
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(observeDatabaseAddNotification:) name:OsirixAddToDBNotification object:nil];
@@ -4898,7 +5003,7 @@ extern "C"
 		autoQueryLock = [[NSRecursiveLock alloc] init];
         performingQueryThreads = [[NSMutableSet alloc] init];
 		
-		if( autoQuery == NO)
+		if (autoQuery == NO)
 			queryArrayPrefs = @"SavedQueryArray";
 		else 
 			queryArrayPrefs = @"SavedQueryArrayAuto";
@@ -4906,13 +5011,13 @@ extern "C"
 		[queryArrayPrefs retain];
 		
 		sourcesArray = [[[NSUserDefaults standardUserDefaults] objectForKey: queryArrayPrefs] mutableCopy];
-		if( sourcesArray == nil) sourcesArray = [[NSMutableArray array] retain];
+		if (sourcesArray == nil) sourcesArray = [[NSMutableArray array] retain];
 		
 		[self refreshSources];
 		
 		[[self window] setDelegate:self];
 		
-		if( autoQuery == NO)
+		if (autoQuery == NO)
 		{
             self.window.toolbar = nil;
             
@@ -4922,10 +5027,14 @@ extern "C"
 			currentQueryController = self;
 			[[self window] setTitle: NSLocalizedString( @"DICOM Query/Retrieve", nil)];
 
-			if( [[AppController sharedAppController] isStoreSCPRunning] == NO)
-				NSRunCriticalAlertPanel(NSLocalizedString( @"DICOM Query & Retrieve",nil), NSLocalizedString( @"Retrieve cannot work if the DICOM Listener is not activated. See Preferences - Listener.",nil),NSLocalizedString( @"OK",nil), nil, nil);
+			if ([[AppController sharedAppController] isStoreSCPRunning] == NO)
+				NSRunCriticalAlertPanel(NSLocalizedString( @"DICOM Query & Retrieve",nil),
+                                        NSLocalizedString( @"Retrieve cannot work if the DICOM Listener is not activated. See Preferences - Listener.",nil),
+                                        NSLocalizedString( @"OK",nil),
+                                        nil,
+                                        nil);
             
-            if( [[NSUserDefaults standardUserDefaults] boolForKey: @"KeepQRWindowOnTop"])
+            if ([[NSUserDefaults standardUserDefaults] boolForKey: @"KeepQRWindowOnTop"])
                 [[self window] setLevel: NSFloatingWindowLevel];
             
             [[NSUserDefaultsController sharedUserDefaultsController] addObserver:self forValuesKey:@"KeepQRWindowOnTop" options:NSKeyValueObservingOptionInitial context:NULL];
@@ -4944,12 +5053,12 @@ extern "C"
             
             autoQRInstances = [[[NSUserDefaults standardUserDefaults] objectForKey: @"savedAutoDICOMQuerySettingsArray"] mutableCopy];
             
-            if( autoQRInstances == nil)
+            if (autoQRInstances == nil)
                 autoQRInstances = [NSMutableArray new];
             
             // retro compatibility
             NSMutableDictionary *d = [[[[NSUserDefaults standardUserDefaults] objectForKey: @"savedAutoDICOMQuerySettings"] mutableCopy] autorelease];
-            if( d)
+            if (d)
             {
                 [[NSUserDefaults standardUserDefaults] removeObjectForKey: @"savedAutoDICOMQuerySettings"];
                 
@@ -4963,9 +5072,9 @@ extern "C"
             currentAutoQR = -1;
             [self setCurrentAutoQR: 0];
             
-            for( int i = 0; i < autoQRInstances.count; i++)
+            for (int i = 0; i < autoQRInstances.count; i++)
             {
-                if( [[[autoQRInstances objectAtIndex: i] valueForKey: @"autoRefreshQueryResults"] intValue] >= 0)
+                if ([[[autoQRInstances objectAtIndex: i] valueForKey: @"autoRefreshQueryResults"] intValue] >= 0)
                     autoQueryRemainingSecs[ i] = 60 * [[[autoQRInstances objectAtIndex: i] valueForKey: @"autoRefreshQueryResults"] intValue]; // minutes
                 else
                     autoQueryRemainingSecs[ i] = -[[[autoQRInstances objectAtIndex: i] valueForKey: @"autoRefreshQueryResults"] intValue]; // seconds
@@ -4981,14 +5090,14 @@ extern "C"
         
         NSMenuItem *item;
         item = [[[NSMenuItem alloc] init] autorelease];
-        for( int i = 0; i < [DICOMFieldsArray count]; i++)
+        for (int i = 0; i < [DICOMFieldsArray count]; i++)
         {
             item = [[[NSMenuItem alloc] init] autorelease];
             [item setTitle:[[DICOMFieldsArray objectAtIndex:i] title]];
             [item setRepresentedObject:[DICOMFieldsArray objectAtIndex:i]];
             [DICOMFieldsMenu addItem:item];
             
-            if( [[DICOMFieldsArray objectAtIndex:i] element] == 0x0080 && [[DICOMFieldsArray objectAtIndex:i] group] == 0x0008)
+            if ([[DICOMFieldsArray objectAtIndex:i] element] == 0x0080 && [[DICOMFieldsArray objectAtIndex:i] group] == 0x0008)
                 [dicomFieldsMenu selectItemWithTitle: [[DICOMFieldsArray objectAtIndex:i] title]];
         }
         [dicomFieldsMenu setMenu: DICOMFieldsMenu];
@@ -4999,7 +5108,7 @@ extern "C"
 
 - (void)dealloc
 {
-	if( avoidQueryControllerDeallocReentry) // This can happen with the cancelPreviousPerformRequestsWithTarget calls
+	if (avoidQueryControllerDeallocReentry) // This can happen with the cancelPreviousPerformRequestsWithTarget calls
 		return;
 	
 	avoidQueryControllerDeallocReentry = YES;
@@ -5040,7 +5149,7 @@ extern "C"
     
 	avoidQueryControllerDeallocReentry = NO;
 
-    if( autoQuery == NO)
+    if (autoQuery == NO)
         currentQueryController = nil;
     else
         currentAutoQueryController = nil;
@@ -5050,7 +5159,7 @@ extern "C"
 
 - (void) windowDidBecomeKey:(NSNotification *)notification
 {
-	if( performingCFind)
+	if (performingCFind)
 		return;
 		
 	[outlineView reloadData];
@@ -5121,7 +5230,7 @@ extern "C"
 //	dateQueryFilter = [[QueryFilter queryFilterWithObject:nil ofSearchType:searchExactMatch forKey:@"StudyDate"] retain];
 //	timeQueryFilter = [[QueryFilter queryFilterWithObject:nil ofSearchType:searchExactMatch forKey:@"StudyTime"] retain];
     
-//    if( [[NSUserDefaults standardUserDefaults] boolForKey: @"SupportQRModalitiesinStudy"])
+//    if ([[NSUserDefaults standardUserDefaults] boolForKey: @"SupportQRModalitiesinStudy"])
 //        modalityQueryFilter = [[QueryFilter queryFilterWithObject:nil ofSearchType:searchExactMatch forKey:@"ModalitiesinStudy"] retain];
 //	else
 //        modalityQueryFilter = [[QueryFilter queryFilterWithObject:nil ofSearchType:searchExactMatch forKey:@"Modality"] retain];
@@ -5142,9 +5251,9 @@ extern "C"
 
 - (void) saveSettings
 {
-	if( autoQuery)
+	if (autoQuery)
     {
-        if( currentAutoQR >= 0 && autoQRInstances)
+        if (currentAutoQR >= 0 && autoQRInstances)
         {
             @synchronized( autoQRInstances)
             {
@@ -5152,9 +5261,9 @@ extern "C"
                 
                 NSMutableArray *resultsArrays = [NSMutableArray array];
                 
-                for( NSMutableDictionary *instance in autoQRInstances)
+                for (NSMutableDictionary *instance in autoQRInstances)
                 {
-                    if( [instance objectForKey: @"resultArray"])
+                    if ([instance objectForKey: @"resultArray"])
                         [resultsArrays addObject: [instance objectForKey: @"resultArray"]];
                     else
                         [resultsArrays addObject: [NSNull null]];
@@ -5165,9 +5274,9 @@ extern "C"
                 [[NSUserDefaults standardUserDefaults] setObject: [[autoQRInstances copy] autorelease] forKey: @"savedAutoDICOMQuerySettingsArray"];
                 
                 int i = 0;
-                for( id r in resultsArrays)
+                for (id r in resultsArrays)
                 {
-                    if( r != [NSNull null])
+                    if (r != [NSNull null])
                         [[autoQRInstances objectAtIndex: i] setObject: r forKey: @"resultArray"];
                     i++;
                 }
@@ -5188,7 +5297,7 @@ extern "C"
     
 	[[self window] setAcceptsMouseMovedEvents: NO];
 	
-    if( autoQuery)
+    if (autoQuery)
         [[NSUserDefaults standardUserDefaults] setInteger: [PatientModeMatrix indexOfTabViewItem: [PatientModeMatrix selectedTabViewItem]] forKey: @"AutoQRPatientModeMatrixIndex"];
     else
     {
@@ -5205,7 +5314,7 @@ extern "C"
 
 - (int) dicomEcho:(NSDictionary*) aServer
 {
-	return [QueryController echoServer:aServer];
+	return [QueryController echoServer:aServer];  // BOOL too int ?
 }
 
 - (IBAction) verify:(id)sender
@@ -5215,13 +5324,14 @@ extern "C"
 //    [NSThread detachNewThreadSelector: @selector( queryTest:) toTarget: [QueryController class] withObject: [[sourcesArray objectAtIndex: selectedRow] valueForKey:@"server"]];
 //    
     
-	int status, selectedRow = [sourcesTable selectedRow];
+    int status;
+    int selectedRow = [sourcesTable selectedRow];
 
 	[progressIndicator startAnimation:nil];
 
 	[self willChangeValueForKey:@"sourcesArray"];
 	
-	for( NSUInteger i = 0 ; i < [sourcesArray count]; i++)
+	for (NSUInteger i = 0 ; i < [sourcesArray count]; i++)
 	{
 		[sourcesTable selectRowIndexes: [NSIndexSet indexSetWithIndex: i] byExtendingSelection: NO];
 		[sourcesTable scrollRowToVisible: i];
@@ -5236,10 +5346,11 @@ extern "C"
 			case -1:	status = -2;		break;
 		}
 		
-		[aServer setObject:[NSNumber numberWithInt: status] forKey:@"test"];
+		[aServer setObject:[NSNumber numberWithInt: status] forKey:@"test"];  // see DNDArrayController
 	}
 	
-	[sourcesTable selectRowIndexes: [NSIndexSet indexSetWithIndex: selectedRow] byExtendingSelection: NO];
+	[sourcesTable selectRowIndexes: [NSIndexSet indexSetWithIndex: selectedRow]
+              byExtendingSelection: NO];
 	
 	[self didChangeValueForKey:@"sourcesArray"];
 	
@@ -5252,19 +5363,19 @@ extern "C"
 	{
 		case 0:		// Query
 			[self query: sender];
-		break;
+            break;
 		
 		case 2:		// Retrieve
 			[self retrieve: sender];
-		break;
+            break;
 		
 		case 3:		// Verify
 			[self verify: sender];
-		break;
+            break;
 		
 		case 1:		// Query Selected Patient
 			[self querySelectedStudy: self];
-		break;
+            break;
 	}
 }
 
@@ -5275,7 +5386,7 @@ extern "C"
 
 - (BOOL)splitView:(NSSplitView *)splitView shouldAdjustSizeOfSubview:(NSView *)subview
 {
-    if( [[splitView subviews] objectAtIndex: 0] == subview)
+    if ([[splitView subviews] objectAtIndex: 0] == subview)
         return NO;
        
     return YES;  
@@ -5283,7 +5394,7 @@ extern "C"
 
 - (CGFloat)splitView:(NSSplitView *)splitView constrainMinCoordinate:(CGFloat)proposedMin ofSubviewAt:(NSInteger)dividerIndex
 {
-    if( dividerIndex == 0)
+    if (dividerIndex == 0)
         return 100;
     
     return proposedMin;
@@ -5291,7 +5402,7 @@ extern "C"
 
 - (CGFloat)splitView:(NSSplitView *)splitView constrainMaxCoordinate:(CGFloat)proposedMax ofSubviewAt:(NSInteger)dividerIndex
 {
-    if( dividerIndex == 0)
+    if (dividerIndex == 0)
         return [splitView bounds].size.height-150;
     
     return proposedMax;
@@ -5363,7 +5474,7 @@ extern "C"
 	for (NSView* subview in view.subviews)
 		[self view:subview recursiveBindEnableToObject:obj withKeyPath:keyPath];
     
-    if( [view isKindOfClass: [NSTabView class]])
+    if ([view isKindOfClass: [NSTabView class]])
     {
         for (NSTabViewItem* tabItem in [(NSTabView*) view tabViewItems])
             [self view: tabItem.view  recursiveBindEnableToObject:obj withKeyPath:keyPath];

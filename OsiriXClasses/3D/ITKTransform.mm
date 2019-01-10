@@ -120,7 +120,7 @@ typedef itk::ResampleImageFilter<ImageType, ImageType> ResampleFilterType;
             
             double outputSpacing[3];
             
-            if( rescale)
+            if (rescale)
             {
                 outputSpacing[0] = [firstObject pixelSpacingX];
                 outputSpacing[1] = [firstObject pixelSpacingY];
@@ -133,7 +133,7 @@ typedef itk::ResampleImageFilter<ImageType, ImageType> ResampleFilterType;
                 outputSpacing[2] = [firstObject sliceInterval];
             }
             
-            if( outputSpacing[2] == 0 || noOfImages == 1)
+            if (outputSpacing[2] == 0 || noOfImages == 1)
                 outputSpacing[2] = 1;
             
             resample->SetOutputSpacing(outputSpacing);
@@ -150,7 +150,7 @@ typedef itk::ResampleImageFilter<ImageType, ImageType> ResampleFilterType;
             
             resample->SetOutputOrigin( outputOriginConverted);
             
-            if( rescale)
+            if (rescale)
             {
                 ImageType::SizeType size;
                 size[0] = [firstObject pwidth];
@@ -168,7 +168,7 @@ typedef itk::ResampleImageFilter<ImageType, ImageType> ResampleFilterType;
                 
                 resample->SetSize(size);
             }
-            if( noOfImages > 2)
+            if (noOfImages > 2)
                 splash = [[WaitRendering alloc] init:NSLocalizedString(@"Resampling...", nil)];
             [splash showWindow:self];
             
@@ -177,13 +177,13 @@ typedef itk::ResampleImageFilter<ImageType, ImageType> ResampleFilterType;
             resultBuff = resample->GetOutput()->GetBufferPointer();
             
             long mem;
-            if( rescale)
+            if (rescale)
                 mem = noOfImages * [firstObject pheight] * [firstObject pwidth] * sizeof(float);
             else
                 mem = noOfImages * [firstObjectOriginal pheight] * [firstObjectOriginal pwidth] * sizeof(float);
             
             fVolumePtr = (float*) malloc( mem);
-            if( fVolumePtr && resultBuff)
+            if (fVolumePtr && resultBuff)
             {
                 memcpy( fVolumePtr, resultBuff, mem);
                 *length = mem;
@@ -212,7 +212,7 @@ typedef itk::ResampleImageFilter<ImageType, ImageType> ResampleFilterType;
 	
 	float *tempPtr = (float*) malloc( size * 2 * sizeof( float));
 	
-	if( tempPtr)
+	if (tempPtr)
 	{
 		memcpy( tempPtr, [firstObjectOriginal fImage], size * sizeof( float));
 		memcpy( tempPtr + size, [firstObjectOriginal fImage], size * sizeof( float));
@@ -277,7 +277,7 @@ typedef itk::ResampleImageFilter<ImageType, ImageType> ResampleFilterType;
 	NSArray	*pixList = [referenceViewer pixList];
 	DCMPix	*curPix;
 
-	if( fVolumePtr)
+	if (fVolumePtr)
 	{
 		// Create a NSData object to control the new pointer
 		NSData	*volumeData = [NSData dataWithBytesNoCopy: fVolumePtr length: length freeWhenDone:YES]; 
@@ -294,7 +294,7 @@ typedef itk::ResampleImageFilter<ImageType, ImageType> ResampleFilterType;
 		{
 			curPix = [[[pixList objectAtIndex: i] copy] autorelease];
 			
-            if( rescale)
+            if (rescale)
                 [curPix setfImage: (float*) (fVolumePtr + [curPix pheight] * [curPix pwidth] * i)];
 			else
             {
@@ -346,7 +346,7 @@ typedef itk::ResampleImageFilter<ImageType, ImageType> ResampleFilterType;
             [curPix reloadAnnotations];
 		}
 		
-		if( [[[NSApplication sharedApplication] currentEvent] modifierFlags]  & NSAlternateKeyMask)
+		if ([[[NSApplication sharedApplication] currentEvent] modifierFlags]  & NSEventModifierFlagOption)
 		{
 			new2DViewer = [ViewerController newWindow:newPixList :newFileList :volumeData];
 		}
@@ -373,7 +373,7 @@ typedef itk::ResampleImageFilter<ImageType, ImageType> ResampleFilterType;
 	else
 	{
         NSString *bundleName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleName"];
-		if( NSRunCriticalAlertPanel(@"", //NSLocalizedString(@"32-bit", nil),
+		if (NSRunCriticalAlertPanel(@"", //NSLocalizedString(@"32-bit", nil),
                                     NSLocalizedString(@"Cannot complete the operation.", nil),
                                     NSLocalizedString(@"OK", nil),
                                     bundleName,

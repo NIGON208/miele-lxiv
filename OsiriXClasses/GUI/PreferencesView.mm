@@ -76,7 +76,10 @@ static const NSInteger labelHeight = 38, labelSeparator = 3;
 	[transform scaleXBy:1 yBy:-1];
 	[transform concat];
 	
-	NSRect imageRect = NSMakeRect(frame.origin.x, frame.origin.y+labelHeight+labelSeparator, frame.size.width, frame.size.height-labelHeight-labelSeparator);
+	NSRect imageRect = NSMakeRect(frame.origin.x,
+                                  frame.origin.y+labelHeight+labelSeparator,
+                                  frame.size.width,
+                                  frame.size.height-labelHeight-labelSeparator);
 	
 	NSImage* image = [self isHighlighted]? self.alternateImage : self.image;
 	NSSize imageSize = [image size];
@@ -89,7 +92,10 @@ static const NSInteger labelHeight = 38, labelSeparator = 3;
 
 	[NSGraphicsContext restoreGraphicsState];
 	
-	NSRect labelRect = NSMakeRect(frame.origin.x, frame.size.height-labelHeight, frame.size.width, labelHeight);
+	NSRect labelRect = NSMakeRect(frame.origin.x,
+                                  frame.size.height-labelHeight,
+                                  frame.size.width,
+                                  labelHeight);
 	
 	NSMutableParagraphStyle* style = [[[NSMutableParagraphStyle defaultParagraphStyle] mutableCopy] autorelease];
 	[style setAlignment:NSCenterTextAlignment];
@@ -97,6 +103,7 @@ static const NSInteger labelHeight = 38, labelSeparator = 3;
 	NSDictionary* attributes = [NSDictionary dictionaryWithObjectsAndKeys:
                                 style, NSParagraphStyleAttributeName,
                                 font, NSFontAttributeName,
+                                [NSColor textColor], NSForegroundColorAttributeName,
 								NULL];
 	[self.title drawInRect:labelRect withAttributes:attributes];
 }
@@ -243,10 +250,11 @@ static const NSUInteger padLeft = 6;
 //	[[self backgroundColor] setFill];
 //	[NSBezierPath fillRect:frame];
 	
-	[[NSColor colorWithCalibratedWhite:230./255 alpha:1] setFill];
+    // Slightly different background for alternate groups (rows)
+    [[NSColor textBackgroundColor] setFill];
 	[[NSColor colorWithCalibratedWhite:207./255 alpha:1] setStroke];
 	[NSBezierPath setDefaultLineWidth:1];
-	for (NSUInteger r = 1; r < groups.count; r += 2) { // darker background for alternate groups
+	for (NSUInteger r = 1; r < groups.count; r += 2) {
         NSRect rect = NSMakeRect(0, frame.size.height-rowHeight*r-rowHeight-padTop, frame.size.width, rowHeight);
 		[NSBezierPath fillRect:rect];
 		[NSBezierPath strokeLineFromPoint:NSMakePoint(rect.origin.x, rect.origin.y+.5)

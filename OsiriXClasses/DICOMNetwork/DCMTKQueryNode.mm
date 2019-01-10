@@ -24,8 +24,10 @@
 #import "DicomStudy.h"
 #import "WaitRendering.h"
 #import "DCMTKQueryNode.h"
-#import "DCM Framework/DCMCalendarDate.h"
-#import "DCM Framework/DCMNetServiceDelegate.h"
+
+#import <DCM/DCMCalendarDate.h>
+#import <DCM/DCMNetServiceDelegate.h>
+
 #import "DICOMToNSString.h"
 #import "MoveManager.h"
 #import "BrowserController.h"
@@ -1794,11 +1796,19 @@ subOpCallback(void * /*subOpCallbackData*/ ,
     
     if( avoidErrorMessageReentry == NO)
     {
-        NSLog( @"*** listener error (not displayed - hideListenerError): %@ %@ %@", [msg objectAtIndex: 0], [msg objectAtIndex: 1], [msg objectAtIndex: 2]);
+        NSLog( @"*** listener error (not displayed - hideListenerError): %@ %@ %@",
+              [msg objectAtIndex: 0],
+              [msg objectAtIndex: 1],
+              [msg objectAtIndex: 2]);
         
         avoidErrorMessageReentry = YES;
         if ([[NSUserDefaults standardUserDefaults] boolForKey: alertSuppress] == NO)
-            NSRunCriticalAlertPanel( [msg objectAtIndex: 0], @"%@", [msg objectAtIndex: 2], nil, nil, [msg objectAtIndex: 1]);
+            NSRunCriticalAlertPanel([msg objectAtIndex: 0],
+                                    @"%@",
+                                    [msg objectAtIndex: 2],
+                                    nil,
+                                    nil,
+                                        [msg objectAtIndex: 1]);
         
         avoidErrorMessageReentry = NO;
     }
@@ -2103,7 +2113,10 @@ static NSString *releaseNetworkVariablesSync = @"releaseNetworkVariablesSync";
 			{
                 if (_verbose)
                     DimseCondition::dump(cond);
-                [[NSException exceptionWithName:@"DICOM Network Failure (query)" reason:[NSString stringWithFormat: @"ASC_initializeNetwork - %04x:%04x %s", cond.module(), cond.code(), cond.text()] userInfo:nil] raise];
+
+                [[NSException exceptionWithName:@"DICOM Network Failure (query)"
+                                         reason:[NSString stringWithFormat: @"ASC_initializeNetwork - %04x:%04x %s", cond.module(), cond.code(), cond.text()]
+                                       userInfo:nil] raise];
 			}
 			
 #ifdef WITH_OPENSSL // joris
@@ -2115,7 +2128,9 @@ static NSString *releaseNetworkVariablesSync = @"releaseNetworkVariablesSync";
 				if (tLayer == NULL)
 				{
 					NSLog(@"unable to create TLS transport layer");
-					[[NSException exceptionWithName:@"DICOM Network Failure (TLS query)" reason:@"unable to create TLS transport layer" userInfo:nil] raise];
+					[[NSException exceptionWithName:@"DICOM Network Failure (TLS query)"
+                                             reason:@"unable to create TLS transport layer"
+                                           userInfo:nil] raise];
 				}
 				
 				if(certVerification==VerifyPeerCertificate || certVerification==RequirePeerCertificate)
@@ -2128,7 +2143,9 @@ static NSString *releaseNetworkVariablesSync = @"releaseNetworkVariablesSync";
 					{
 						if (TCS_ok != tLayer->addTrustedCertificateFile([[trustedCertificatesDir stringByAppendingPathComponent:cert] cStringUsingEncoding:NSUTF8StringEncoding], _keyFileFormat))
 						{
-							[[NSException exceptionWithName:@"DICOM Network Failure (TLS query)" reason:[NSString stringWithFormat:@"Unable to load certificate file %@", [trustedCertificatesDir stringByAppendingPathComponent:cert]] userInfo:nil] raise];
+							[[NSException exceptionWithName:@"DICOM Network Failure (TLS query)"
+                                                     reason:[NSString stringWithFormat:@"Unable to load certificate file %@", [trustedCertificatesDir stringByAppendingPathComponent:cert]]
+                                                   userInfo:nil] raise];
 						}
 					}
 							//--add-cert-dir //// add certificates in d to list of certificates
@@ -2151,7 +2168,9 @@ static NSString *releaseNetworkVariablesSync = @"releaseNetworkVariablesSync";
 				
 				if (_dhparam && ! (tLayer->setTempDHParameters(_dhparam)))
 				{
-					[[NSException exceptionWithName:@"DICOM Network Failure (TLS query)" reason:[NSString stringWithFormat:@"Unable to load temporary DH parameter file %s", _dhparam] userInfo:nil] raise];
+					[[NSException exceptionWithName:@"DICOM Network Failure (TLS query)"
+                                             reason:[NSString stringWithFormat:@"Unable to load temporary DH parameter file %s", _dhparam]
+                                           userInfo:nil] raise];
 				}
 				
 				if (_doAuthenticate)
@@ -2165,23 +2184,31 @@ static NSString *releaseNetworkVariablesSync = @"releaseNetworkVariablesSync";
 					
 					if (TCS_ok != tLayer->setPrivateKeyFile([_privateKeyFile cStringUsingEncoding:NSUTF8StringEncoding], SSL_FILETYPE_PEM))
 					{
-						[[NSException exceptionWithName:@"DICOM Network Failure (TLS query)" reason:[NSString stringWithFormat:@"Unable to load private TLS key from %@", _privateKeyFile] userInfo:nil] raise];
+						[[NSException exceptionWithName:@"DICOM Network Failure (TLS query)"
+                                                 reason:[NSString stringWithFormat:@"Unable to load private TLS key from %@", _privateKeyFile]
+                                               userInfo:nil] raise];
 					}
 					
 					if (TCS_ok != tLayer->setCertificateFile([_certificateFile cStringUsingEncoding:NSUTF8StringEncoding], SSL_FILETYPE_PEM))
 					{
-						[[NSException exceptionWithName:@"DICOM Network Failure (TLS query)" reason:[NSString stringWithFormat:@"Unable to load certificate from %@", _certificateFile] userInfo:nil] raise];
+						[[NSException exceptionWithName:@"DICOM Network Failure (TLS query)"
+                                                 reason:[NSString stringWithFormat:@"Unable to load certificate from %@", _certificateFile]
+                                               userInfo:nil] raise];
 					}
 					
 					if (!tLayer->checkPrivateKeyMatchesCertificate())
 					{
-						[[NSException exceptionWithName:@"DICOM Network Failure (TLS query)" reason:[NSString stringWithFormat:@"private key '%@' and certificate '%@' do not match", _privateKeyFile, _certificateFile] userInfo:nil] raise];
+						[[NSException exceptionWithName:@"DICOM Network Failure (TLS query)"
+                                                 reason:[NSString stringWithFormat:@"private key '%@' and certificate '%@' do not match", _privateKeyFile, _certificateFile]
+                                               userInfo:nil] raise];
 					}
 				}
 				
 				if (TCS_ok != tLayer->setCipherSuites(opt_ciphersuites.c_str()))
 				{
-					[[NSException exceptionWithName:@"DICOM Network Failure (TLS query)" reason:@"Unable to set selected cipher suites" userInfo:nil] raise];
+					[[NSException exceptionWithName:@"DICOM Network Failure (TLS query)"
+                                             reason:@"Unable to set selected cipher suites"
+                                           userInfo:nil] raise];
 				}
 				
 				DcmCertificateVerification _certVerification;
@@ -2200,7 +2227,9 @@ static NSString *releaseNetworkVariablesSync = @"releaseNetworkVariablesSync";
 				{
                     if (_verbose)
                         DimseCondition::dump(cond);
-					[[NSException exceptionWithName:@"DICOM Network Failure (TLS query)" reason:[NSString stringWithFormat: @"ASC_setTransportLayer - %04x:%04x %s", cond.module(), cond.code(), cond.text()] userInfo:nil] raise];
+					[[NSException exceptionWithName:@"DICOM Network Failure (TLS query)"
+                                             reason:[NSString stringWithFormat: @"ASC_setTransportLayer - %04x:%04x %s", cond.module(), cond.code(), cond.text()]
+                                           userInfo:nil] raise];
 				}
 			}
 #endif
@@ -2211,7 +2240,9 @@ static NSString *releaseNetworkVariablesSync = @"releaseNetworkVariablesSync";
 			if (cond.bad()) {
                 if (_verbose)
                     DimseCondition::dump(cond);
-				[[NSException exceptionWithName:@"DICOM Network Failure (query)" reason:[NSString stringWithFormat: @"ASC_createAssociationParameters - %04x:%04x %s", cond.module(), cond.code(), cond.text()] userInfo:nil] raise];
+				[[NSException exceptionWithName:@"DICOM Network Failure (query)"
+                                         reason:[NSString stringWithFormat: @"ASC_createAssociationParameters - %04x:%04x %s", cond.module(), cond.code(), cond.text()]
+                                       userInfo:nil] raise];
 			}
 			
 			/* sets this application's title and the called application's title in the params */
@@ -2225,7 +2256,9 @@ static NSString *releaseNetworkVariablesSync = @"releaseNetworkVariablesSync";
 			if (cond.bad()) {
                 if (_verbose)
                     DimseCondition::dump(cond);
-				[[NSException exceptionWithName:@"DICOM Network Failure (query)" reason:[NSString stringWithFormat: @"ASC_setTransportLayerType - %04x:%04x %s", cond.module(), cond.code(), cond.text()] userInfo:nil] raise];
+				[[NSException exceptionWithName:@"DICOM Network Failure (query)"
+                                         reason:[NSString stringWithFormat: @"ASC_setTransportLayerType - %04x:%04x %s", cond.module(), cond.code(), cond.text()]
+                                       userInfo:nil] raise];
 			}
 			
 			/* Figure out the presentation addresses and copy the */
@@ -2249,15 +2282,17 @@ static NSString *releaseNetworkVariablesSync = @"releaseNetworkVariablesSync";
 			{
                 if (_verbose)
                     DimseCondition::dump(cond);
-				[[NSException exceptionWithName:@"DICOM Network Failure (query)" reason:[NSString stringWithFormat: @"addPresentationContext - %04x:%04x %s", cond.module(), cond.code(), cond.text()] userInfo:nil] raise];
+				[[NSException exceptionWithName:@"DICOM Network Failure (query)"
+                                         reason:[NSString stringWithFormat: @"addPresentationContext - %04x:%04x %s", cond.module(), cond.code(), cond.text()]
+                                       userInfo:nil] raise];
 			}
 
 			/* dump presentation contexts if required */
 			if (_verbose)
 			{
-				if( strcmp(abstractSyntax, UID_GETPatientRootQueryRetrieveInformationModel) == 0 ||
-				strcmp(abstractSyntax, UID_GETStudyRootQueryRetrieveInformationModel) == 0 ||
-				strcmp(abstractSyntax, UID_RETIRED_GETPatientStudyOnlyQueryRetrieveInformationModel) == 0)
+				if (strcmp(abstractSyntax, UID_GETPatientRootQueryRetrieveInformationModel) == 0 ||
+				    strcmp(abstractSyntax, UID_GETStudyRootQueryRetrieveInformationModel) == 0 ||
+				    strcmp(abstractSyntax, UID_RETIRED_GETPatientStudyOnlyQueryRetrieveInformationModel) == 0)
 				{
 				
 				}
@@ -2339,13 +2374,17 @@ static NSString *releaseNetworkVariablesSync = @"releaseNetworkVariablesSync";
                     
                     DCMNET_ERROR("Association Rejected:" << OFendl << ASC_printRejectParameters(temp_str, &rej));
 
-                    [[NSException exceptionWithName:@"DICOM Network Failure (query)" reason:[NSString stringWithFormat: @"Association Rejected : %04x:%04x %s", cond.module(), cond.code(), cond.text()] userInfo:nil] raise];
+                    [[NSException exceptionWithName:@"DICOM Network Failure (query)"
+                                             reason:[NSString stringWithFormat: @"Association Rejected : %04x:%04x %s", cond.module(), cond.code(), cond.text()]
+                                           userInfo:nil] raise];
 				}
 				else
 				{
                     DCMNET_ERROR("Association Request Failed: " << DimseCondition::dump(temp_str, cond));
                     
-					[[NSException exceptionWithName:@"DICOM Network Failure (query)" reason:[NSString stringWithFormat: @"Association Request Failed : %04x:%04x %s", cond.module(), cond.code(), cond.text()] userInfo:nil] raise];
+					[[NSException exceptionWithName:@"DICOM Network Failure (query)"
+                                             reason:[NSString stringWithFormat: @"Association Request Failed : %04x:%04x %s", cond.module(), cond.code(), cond.text()]
+                                           userInfo:nil] raise];
 				}
 			}
 			
@@ -2460,9 +2499,11 @@ static NSString *releaseNetworkVariablesSync = @"releaseNetworkVariablesSync";
 					
 					if (cond.bad())
 					{
-                        DCMNET_ERROR("Association Abort Failed: " <<                           DimseCondition::dump(temp_str, cond));
+                        DCMNET_ERROR("Association Abort Failed: " << DimseCondition::dump(temp_str, cond));
                             
-                        [[NSException exceptionWithName:@"DICOM Network Failure (query)" reason:[NSString stringWithFormat: @"Association Abort Failed %04x:%04x %s", cond.module(), cond.code(), cond.text()] userInfo:nil] raise];
+                        [[NSException exceptionWithName:@"DICOM Network Failure (query)"
+                                                 reason:[NSString stringWithFormat: @"Association Abort Failed %04x:%04x %s", cond.module(), cond.code(), cond.text()]
+                                               userInfo:nil] raise];
 					}
 				}
 				else
@@ -2474,7 +2515,9 @@ static NSString *releaseNetworkVariablesSync = @"releaseNetworkVariablesSync";
 					{
                         DCMNET_ERROR("Association Release Failed:" << DimseCondition::dump(temp_str, cond));
  
-                        [[NSException exceptionWithName:@"DICOM Network Failure (query)" reason:[NSString stringWithFormat: @"Association Release Failed %04x:%04x %s", cond.module(), cond.code(), cond.text()] userInfo:nil] raise];
+                        [[NSException exceptionWithName:@"DICOM Network Failure (query)"
+                                                 reason:[NSString stringWithFormat: @"Association Release Failed %04x:%04x %s", cond.module(), cond.code(), cond.text()]
+                                               userInfo:nil] raise];
 					}
 				}
 			}
@@ -2493,7 +2536,9 @@ static NSString *releaseNetworkVariablesSync = @"releaseNetworkVariablesSync";
 				{
                     DCMNET_ERROR("Association Abort Failed: " << DimseCondition::dump(temp_str, cond));
                     
-                    [[NSException exceptionWithName:@"DICOM Network Failure (query)" reason: reason userInfo:nil] raise];
+                    [[NSException exceptionWithName:@"DICOM Network Failure (query)"
+                                             reason:reason
+                                           userInfo:nil] raise];
 				}
 			}
 			else if (cond == DUL_PEERABORTEDASSOCIATION)
@@ -2515,7 +2560,9 @@ static NSString *releaseNetworkVariablesSync = @"releaseNetworkVariablesSync";
 				{
                     DCMNET_ERROR("Association Abort Failed: " << DimseCondition::dump(temp_str, cond));
                     
-                    [[NSException exceptionWithName: @"DICOM Network Failure (query)" reason: reason userInfo:nil] raise];
+                    [[NSException exceptionWithName:@"DICOM Network Failure (query)"
+                                             reason:reason
+                                           userInfo:nil] raise];
 				}
 			}
 		}
@@ -2526,9 +2573,19 @@ static NSString *releaseNetworkVariablesSync = @"releaseNetworkVariablesSync";
             if (_abortAssociation == NO)
             {
                 if( showErrorMessage == YES)
-                    [DCMTKQueryNode performSelectorOnMainThread:@selector(errorMessage:) withObject:[NSArray arrayWithObjects: NSLocalizedString(@"Query Failed (1)", nil), response, NSLocalizedString(@"Continue", nil), nil] waitUntilDone:NO];
+                {
+                    [DCMTKQueryNode performSelectorOnMainThread:@selector(errorMessage:)
+                                                     withObject:[NSArray arrayWithObjects:
+                                                                 NSLocalizedString(@"Query Failed (1)", nil),
+                                                                 response,
+                                                                 NSLocalizedString(@"Continue", nil),
+                                                                 nil]
+                                                  waitUntilDone:NO];
+                }
                 else
-                    [[AppController sharedAppController] growlTitle: NSLocalizedString(@"Query Failed (1)", nil) description: response name: @"autoquery"];
+                    [[AppController sharedAppController] growlTitle: NSLocalizedString(@"Query Failed (1)", nil)
+                                                        description: response
+                                                               name: @"autoquery"];
 			}
             
             NSLog(@"---- DCMTKQueryNode failed: %@", e);
@@ -2709,10 +2766,20 @@ static NSString *releaseNetworkVariablesSync = @"releaseNetworkVariablesSync";
 				OFSTRINGSTREAM_FREESTR(tmpString)
 			  }
 			
-			if( showErrorMessage == YES && _abortAssociation == NO)
-				[DCMTKQueryNode performSelectorOnMainThread:@selector(errorMessage:) withObject:[NSArray arrayWithObjects: NSLocalizedString(@"Query Failed (2)", nil), response, NSLocalizedString(@"Continue", nil), nil] waitUntilDone:NO];
+			if (showErrorMessage == YES && _abortAssociation == NO)
+            {
+				[DCMTKQueryNode performSelectorOnMainThread:@selector(errorMessage:)
+                                                 withObject:[NSArray arrayWithObjects:
+                                                             NSLocalizedString(@"Query Failed (2)", nil),
+                                                             response,
+                                                             NSLocalizedString(@"Continue", nil),
+                                                             nil]
+                                              waitUntilDone:NO];
+            }
 			else
-				[[AppController sharedAppController] growlTitle: NSLocalizedString(@"Query Failed (2)", nil) description: response name: @"autoquery"];
+				[[AppController sharedAppController] growlTitle: NSLocalizedString(@"Query Failed (2)", nil)
+                                                    description: response
+                                                           name: @"autoquery"];
 				
 		}
 				
@@ -2886,7 +2953,13 @@ static NSString *releaseNetworkVariablesSync = @"releaseNetworkVariablesSync";
 				DIMSE_printCMoveRSP(stdout, &rsp);
 				
                 if( showErrorMessage)
-                    [DCMTKQueryNode performSelectorOnMainThread:@selector(errorMessage:) withObject:[NSArray arrayWithObjects: NSLocalizedString(@"Move Failed", nil), [NSString stringWithCString: DU_cmoveStatusString(rsp.DimseStatus)], NSLocalizedString(@"Continue", nil), nil] waitUntilDone: NO];
+                    [DCMTKQueryNode performSelectorOnMainThread:@selector(errorMessage:)
+                                                     withObject:[NSArray arrayWithObjects:
+                                                                 NSLocalizedString(@"Move Failed", nil),
+                                                                 [NSString stringWithCString: DU_cmoveStatusString(rsp.DimseStatus)],
+                                                                 NSLocalizedString(@"Continue", nil),
+                                                                 nil]
+                                                  waitUntilDone: NO];
 			}
 			
 			if (_verbose)
@@ -2899,7 +2972,13 @@ static NSString *releaseNetworkVariablesSync = @"releaseNetworkVariablesSync";
 		else
 		{
             if (showErrorMessage)
-                [DCMTKQueryNode performSelectorOnMainThread:@selector(errorMessage:) withObject:[NSArray arrayWithObjects: NSLocalizedString(@"Move Failed", nil), [NSString stringWithCString: cond.text()], NSLocalizedString(@"Continue", nil), nil] waitUntilDone: NO];
+                [DCMTKQueryNode performSelectorOnMainThread:@selector(errorMessage:)
+                                                 withObject:[NSArray arrayWithObjects:
+                                                             NSLocalizedString(@"Move Failed", nil),
+                                                             [NSString stringWithCString: cond.text()],
+                                                             NSLocalizedString(@"Continue", nil),
+                                                             nil]
+                                              waitUntilDone: NO];
 
             DCMNET_ERROR("Move Failed: " << DimseCondition::dump(temp_str, cond));
 		}
@@ -2994,7 +3073,13 @@ static NSString *releaseNetworkVariablesSync = @"releaseNetworkVariablesSync";
 			DIMSE_printCGetRSP(stdout, &rsp);
 			
             if( showErrorMessage)
-                [DCMTKQueryNode performSelectorOnMainThread:@selector(errorMessage:) withObject:[NSArray arrayWithObjects: NSLocalizedString(@"Get Failed", nil), [NSString stringWithCString: DU_cmoveStatusString(rsp.DimseStatus)], NSLocalizedString(@"Continue", nil), nil] waitUntilDone:NO];
+                [DCMTKQueryNode performSelectorOnMainThread:@selector(errorMessage:)
+                                                 withObject:[NSArray arrayWithObjects:
+                                                             NSLocalizedString(@"Get Failed", nil),
+                                                             [NSString stringWithCString: DU_cmoveStatusString(rsp.DimseStatus)],
+                                                             NSLocalizedString(@"Continue", nil),
+                                                             nil]
+                                              waitUntilDone:NO];
 		}
 		
         if (_verbose)
@@ -3009,7 +3094,14 @@ static NSString *releaseNetworkVariablesSync = @"releaseNetworkVariablesSync";
 	else
 	{
         if( showErrorMessage)
-            [DCMTKQueryNode performSelectorOnMainThread:@selector(errorMessage:) withObject:[NSArray arrayWithObjects: NSLocalizedString(@"Get Failed", nil), [NSString stringWithCString: cond.text()], NSLocalizedString(@"Continue", nil), nil] waitUntilDone:NO];
+            [DCMTKQueryNode performSelectorOnMainThread:@selector(errorMessage:)
+                                             withObject:[NSArray arrayWithObjects:
+                                                         NSLocalizedString(@"Get Failed", nil),
+                                                         [NSString stringWithCString: cond.text()],
+                                                         NSLocalizedString(@"Continue", nil),
+                                                         nil]
+                                          waitUntilDone:NO];
+
         DCMNET_ERROR("Get Failed: " << DimseCondition::dump(temp_str, cond));
     }
 	

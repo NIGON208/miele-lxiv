@@ -28,8 +28,11 @@
 #import "url.h"
 #import "tmp_locations.h"
 
-static NSMutableDictionary		*plugins = nil, *pluginsDict = nil, *fileFormatPlugins = nil;
-static NSMutableDictionary		*reportPlugins = nil, *pluginsBundleDictionary = nil;
+static NSMutableDictionary *installedPlugins = nil; // the actual plugin objects
+static NSMutableDictionary *installedPluginsInfoDict = nil; // info about plugins: menu titles, toolbar name
+static NSMutableDictionary *fileFormatPlugins = nil;
+static NSMutableDictionary *reportPlugins = nil;
+static NSMutableDictionary *pluginsBundleDictionary = nil;
 
 static NSMutableArray			*preProcessPlugins = nil;
 static NSMenu					*fusionPluginsMenu = nil;
@@ -47,9 +50,9 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
 {
 //    *(long*)0 = 0xDEADBEEF;
     
-    for( NSBundle *bundle in [pluginsBundleDictionary allValues])
+    for (NSBundle *bundle in [pluginsBundleDictionary allValues])
     {
-        if( [NSStringFromClass( [filter class]) isEqualToString: NSStringFromClass( [bundle principalClass])])
+        if ([NSStringFromClass( [filter class]) isEqualToString: NSStringFromClass( [bundle principalClass])])
         {
             [PluginManager startProtectForCrashWithPath: [bundle bundlePath]];
            
@@ -79,7 +82,8 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
                                                error: nil];
 }
 
-+ (int) compareVersion: (NSString *) v1 withVersion: (NSString *) v2
++ (int) compareVersion: (NSString *) v1
+           withVersion: (NSString *) v2
 {
 	@try
 	{
@@ -112,7 +116,8 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
 			
 			if (n1 > n2)
 				return 1;
-			else if (n1 < n2)
+
+            if (n1 < n2)
 				return -1;
 		}
 		
@@ -122,16 +127,17 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
 	{
 		return -1;
 	}
-	return -1;
+
+    return -1;
 }
 
 + (BOOL) isComPACS
 {
-	if( ComPACSTested == NO)
+	if (ComPACSTested == NO)
 	{
 		ComPACSTested = YES;
 		
-		if( [[PluginManager plugins] valueForKey:@"ComPACS"])
+		if ([[PluginManager installedPlugins] valueForKey:@"ComPACS"])
 			isComPACS = YES;
 		else
 			isComPACS = NO;
@@ -139,14 +145,14 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
 	return isComPACS;
 }
 
-+ (NSMutableDictionary*) plugins
++ (NSMutableDictionary*) installedPlugins
 {
-	return plugins;
+	return installedPlugins;
 }
 
-+ (NSMutableDictionary*) pluginsDict
++ (NSMutableDictionary*) installedPluginsInfoDict
 {
-	return pluginsDict;
+	return installedPluginsInfoDict;
 }
 
 + (NSMutableDictionary*) fileFormatPlugins
@@ -184,7 +190,7 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
     // [CH] Sort the array
     items = [items sortedArrayUsingDescriptors:[NSArray arrayWithObjects:[NSSortDescriptor sortDescriptorWithKey:@"title" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)], nil]];
     // [CH] ok, now set it back.
-    for(NSMenuItem* item in items)
+    for (NSMenuItem* item in items)
     {
         [menu addItem:item];
         /**
@@ -192,43 +198,47 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
          * we sort this list. NSPopUpButton listens to the NSMenu's add notifications
          * and hides the first item. Sorting this blows it up.
          **/
-        if(item.isHidden){
+        if (item.isHidden){
             [item setHidden: false];
         }
     }
 }
 
-+ (void) setMenus:(NSMenu*) filtersMenu :(NSMenu*) roisMenu :(NSMenu*) othersMenu :(NSMenu*) dbMenu
++ (void) setMenus:(NSMenu*) filtersMenu
+                 :(NSMenu*) roisMenu
+                 :(NSMenu*) othersMenu
+                 :(NSMenu*) dbMenu
 {
     [filtersMenu removeAllItems];
     [roisMenu removeAllItems];
     [othersMenu removeAllItems];
     [dbMenu removeAllItems];
-	
-	NSEnumerator *enumerator = [pluginsDict objectEnumerator];
+
+    // "pluginsDict"
+
+    NSEnumerator *enumerator = [installedPluginsInfoDict objectEnumerator];
 	NSBundle *plugin;
 	
 	while ((plugin = [enumerator nextObject]))
 	{
-		NSString	*pluginName = [[plugin infoDictionary] objectForKey:@"CFBundleExecutable"];
-		NSString	*pluginType = [[plugin infoDictionary] objectForKey:@"pluginType"];
-		NSArray		*menuTitles = [[plugin infoDictionary] objectForKey:@"MenuTitles"];
+		NSString *pluginName = [[plugin infoDictionary] objectForKey:PINFO_CF_BUNDLE_EXE];
+		NSString *pluginType = [[plugin infoDictionary] objectForKey:PINFO_TYPE];
+		NSArray  *menuTitles = [[plugin infoDictionary] objectForKey:PINFO_MENU_TITLES];
 		
         [PluginManager startProtectForCrashWithPath: [plugin bundlePath]];
         
-		if( menuTitles)
+		if (menuTitles)
 		{
-			if( [menuTitles count] > 1)
+			if ([menuTitles count] > 1)
 			{
 				// Create a sub menu item
-				
 				NSMenu  *subMenu = [[[NSMenu alloc] initWithTitle: pluginName] autorelease];
 				
-				for( NSString *menuTitle in menuTitles)
+				for (NSString *menuTitle in menuTitles)
 				{
 					NSMenuItem *item;
 					
-					if ([menuTitle isEqual:@"(-"])
+					if ([menuTitle isEqual:PINFO_MENU_ITEM_SEPARATOR])
 					{
 						item = [NSMenuItem separatorItem];
 					}
@@ -236,13 +246,14 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
 					{
 						item = [[[NSMenuItem alloc] init] autorelease];
 						[item setTitle:menuTitle];
-						
-						if( [pluginType rangeOfString: @"fusionFilter"].location != NSNotFound)
+
+						if ([pluginType rangeOfString: PTYPE_FUSION_FILTER].location != NSNotFound)
 						{
 							[fusionPlugins addObject:[item title]];
 							[item setAction:@selector(endBlendingType:)];
 						}
-						else if( [pluginType rangeOfString: @"Database"].location != NSNotFound || [pluginType rangeOfString: @"Report"].location != NSNotFound)
+						else if ([pluginType rangeOfString: PTYPE_DATABASE].location != NSNotFound ||
+                                 [pluginType rangeOfString: PTYPE_REPORT].location != NSNotFound)
 						{
 							[item setTarget: [BrowserController currentBrowser]];	//  browserWindow responds to DB plugins
 							[item setAction:@selector(executeFilterDB:)];
@@ -257,35 +268,35 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
 					[subMenu insertItem:item atIndex:[subMenu numberOfItems]];
 				}
 				
-				id  subMenuItem;
+				id subMenuItem;
 				
-				if( [pluginType rangeOfString: @"imageFilter"].location != NSNotFound)
+				if ([pluginType rangeOfString: PTYPE_IMAGE_FILTER].location != NSNotFound)
 				{
-					if( [filtersMenu indexOfItemWithTitle: pluginName] == -1)
+					if ([filtersMenu indexOfItemWithTitle: pluginName] == -1)
 					{
 						subMenuItem = [filtersMenu insertItemWithTitle:pluginName action:nil keyEquivalent:@"" atIndex:[filtersMenu numberOfItems]];
 						[filtersMenu setSubmenu:subMenu forItem:subMenuItem];
 					}
 				}
-				else if( [pluginType rangeOfString: @"roiTool"].location != NSNotFound)
+				else if ([pluginType rangeOfString: PTYPE_ROI_TOOL].location != NSNotFound)
 				{
-					if( [roisMenu indexOfItemWithTitle: pluginName] == -1)
+					if ([roisMenu indexOfItemWithTitle: pluginName] == -1)
 					{
 						subMenuItem = [roisMenu insertItemWithTitle:pluginName action:nil keyEquivalent:@"" atIndex:[roisMenu numberOfItems]];
 						[roisMenu setSubmenu:subMenu forItem:subMenuItem];
 					}
 				}
-				else if( [pluginType rangeOfString: @"fusionFilter"].location != NSNotFound)
+				else if ([pluginType rangeOfString: PTYPE_FUSION_FILTER].location != NSNotFound)
 				{
-					if( [fusionPluginsMenu indexOfItemWithTitle: pluginName] == -1)
+					if ([fusionPluginsMenu indexOfItemWithTitle: pluginName] == -1)
 					{
 						subMenuItem = [fusionPluginsMenu insertItemWithTitle:pluginName action:nil keyEquivalent:@"" atIndex:[fusionPluginsMenu numberOfItems]];
 						[fusionPluginsMenu setSubmenu:subMenu forItem:subMenuItem];
 					}
 				}
-				else if( [pluginType rangeOfString: @"Database"].location != NSNotFound)
+				else if ([pluginType rangeOfString: PTYPE_DATABASE].location != NSNotFound)
 				{
-					if( [dbMenu indexOfItemWithTitle: pluginName] == -1)
+					if ([dbMenu indexOfItemWithTitle: pluginName] == -1)
 					{
 						subMenuItem = [dbMenu insertItemWithTitle:pluginName action:nil keyEquivalent:@"" atIndex:[dbMenu numberOfItems]];
 						[dbMenu setSubmenu:subMenu forItem:subMenuItem];
@@ -293,7 +304,7 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
 				} 
 				else
 				{
-					if( [othersMenu indexOfItemWithTitle: pluginName] == -1)
+					if ([othersMenu indexOfItemWithTitle: pluginName] == -1)
 					{
 						subMenuItem = [othersMenu insertItemWithTitle:pluginName action:nil keyEquivalent:@"" atIndex:[othersMenu numberOfItems]];
 						[othersMenu setSubmenu:subMenu forItem:subMenuItem];
@@ -304,19 +315,19 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
 			}
 			else
 			{
-				// Create a menu item
-				
+				// Create a single menu item
 				NSMenuItem *item = [[[NSMenuItem alloc] init] autorelease];
 				
 				[item setTitle: [menuTitles objectAtIndex: 0]];	//pluginName];
                 [item setRepresentedObject:plugin];
 				
-				if( [pluginType rangeOfString: @"fusionFilter"].location != NSNotFound)
+				if ([pluginType rangeOfString: PTYPE_FUSION_FILTER].location != NSNotFound)
 				{
 					[fusionPlugins addObject:[item title]];
 					[item setAction:@selector(endBlendingType:)];
 				}
-				else if( [pluginType rangeOfString: @"Database"].location != NSNotFound || [pluginType rangeOfString: @"Report"].location != NSNotFound)
+				else if ([pluginType rangeOfString: PTYPE_DATABASE].location != NSNotFound ||
+                         [pluginType rangeOfString: PTYPE_REPORT].location != NSNotFound)
 				{
 					[item setTarget:[BrowserController currentBrowser]];	//  browserWindow responds to DB plugins
 					[item setAction:@selector(executeFilterDB:)];
@@ -327,27 +338,30 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
 					[item setAction:@selector(executeFilter:)];
 				}
 				
-				if( [pluginType rangeOfString: @"imageFilter"].location != NSNotFound)
+                if ([pluginType rangeOfString: PTYPE_IMAGE_FILTER].location != NSNotFound) {
 					[filtersMenu insertItem:item atIndex:[filtersMenu numberOfItems]];
-				
-				else if( [pluginType rangeOfString: @"roiTool"].location != NSNotFound)
+                }
+                else if ([pluginType rangeOfString: PTYPE_ROI_TOOL].location != NSNotFound) {
 					[roisMenu insertItem:item atIndex:[roisMenu numberOfItems]];
-				
-				else if( [pluginType rangeOfString: @"fusionFilter"].location != NSNotFound)
+                }
+                else if ([pluginType rangeOfString: PTYPE_FUSION_FILTER].location != NSNotFound) {
 					[fusionPluginsMenu insertItem:item atIndex:[fusionPluginsMenu numberOfItems]];
-				
-				else if( [pluginType rangeOfString: @"Database"].location != NSNotFound)
+                }
+                else if ([pluginType rangeOfString: PTYPE_DATABASE].location != NSNotFound) {
 					[dbMenu insertItem:item atIndex:[dbMenu numberOfItems]];
-				
-				else
+                }
+                else {
 					[othersMenu insertItem:item atIndex:[othersMenu numberOfItems]];
+                }
 			}
 		}
         
         [PluginManager endProtectForCrash];
-	}
+	} // while
 	
-	if( [filtersMenu numberOfItems] < 1)
+    // Define empty menus if necessary
+
+    if ([filtersMenu numberOfItems] < 1)
 	{
 		NSMenuItem *item = [[[NSMenuItem alloc] init] autorelease];
 		[item setTitle:NSLocalizedString(@"No plugins available for this menu", nil)];
@@ -357,7 +371,7 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
 		[filtersMenu insertItem:item atIndex:0];
 	}
 	
-	if( [roisMenu numberOfItems] < 1)
+	if ([roisMenu numberOfItems] < 1)
 	{
 		NSMenuItem *item = [[[NSMenuItem alloc] init] autorelease];
 		[item setTitle:NSLocalizedString(@"No plugins available for this menu", nil)];
@@ -367,7 +381,7 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
 		[roisMenu insertItem:item atIndex:0];
 	}
 	
-	if( [othersMenu numberOfItems] < 1)
+	if ([othersMenu numberOfItems] < 1)
 	{
 		NSMenuItem *item = [[[NSMenuItem alloc] init] autorelease];
 		[item setTitle:NSLocalizedString(@"No plugins available for this menu", nil)];
@@ -377,7 +391,7 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
 		[othersMenu insertItem:item atIndex:0];
 	}
 	
-	if( [fusionPluginsMenu numberOfItems] <= 1)
+	if ([fusionPluginsMenu numberOfItems] <= 1)
 	{
 		NSMenuItem *item = [[[NSMenuItem alloc] init] autorelease];
 		[item setTitle:NSLocalizedString(@"No plugins available for this menu", nil)];
@@ -388,7 +402,7 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
 		[fusionPluginsMenu insertItem:item atIndex:0];
 	}
 	
-	if( [dbMenu numberOfItems] < 1)
+	if ( [dbMenu numberOfItems] < 1)
 	{
 		NSMenuItem *item = [[[NSMenuItem alloc] init] autorelease];
 		[item setTitle:NSLocalizedString(@"No plugins available for this menu", nil)];
@@ -403,10 +417,13 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
     [PluginManager sortMenu: filtersMenu];
     [PluginManager sortMenu: othersMenu];
     
-	NSEnumerator *pluginEnum = [plugins objectEnumerator];
+    // "plugins"
+    // Call each plugin and give it a chance to setup the Menu
+
+    NSEnumerator *pluginEnum = [installedPlugins objectEnumerator];
 	PluginFilter *pluginFilter;
 	
-	while( pluginFilter = [pluginEnum nextObject])
+	while (pluginFilter = [pluginEnum nextObject])
     {
         [PluginManager startProtectForCrashWithFilter: pluginFilter];
         
@@ -441,7 +458,10 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
 		
 		[PluginManager discoverPlugins];
 		
-		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(downloadNext:) name:OsirixPluginDownloadInstallDidFinishNotification object:nil];
+		[[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(downloadNext:)
+                                                     name:OsirixPluginDownloadInstallDidFinishNotification
+                                                   object:nil];
 	}
 	return self;
 }
@@ -469,7 +489,7 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
 		CFRelease(url);
 	}
 	
-	if( resolvedPath == nil)
+	if (resolvedPath == nil)
         return inPath;
 	else
         return [(NSString *) resolvedPath autorelease];
@@ -477,13 +497,13 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
 
 + (void) releaseInstanciedObjectsOfClass: (Class) theClass
 {
-    for( int i = 0; i < [preProcessPlugins count]; i++)
+    for (int i = 0; i < [preProcessPlugins count]; i++)
     {
-        if( [[preProcessPlugins objectAtIndex: i] class] == theClass)
+        if ([[preProcessPlugins objectAtIndex: i] class] == theClass)
         {
             NSObject *filter = [preProcessPlugins objectAtIndex: i];
             
-            if( [filter respondsToSelector: @selector(willUnload)])
+            if ([filter respondsToSelector: @selector(willUnload)])
                 [filter performSelector: @selector(willUnload)];
             
             [preProcessPlugins removeObjectAtIndex: i];
@@ -491,16 +511,16 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
         }
     }
     
-    for( NSString *key in [plugins allKeys])
+    for (NSString *key in [installedPlugins allKeys])
     {
-        if( [[plugins valueForKey: key] class] == theClass)
+        if ([[installedPlugins valueForKey: key] class] == theClass)
         {
-            NSObject *filter = [plugins valueForKey: key];
+            NSObject *filter = [installedPlugins valueForKey: key];
             
-            if( [filter respondsToSelector: @selector(willUnload)])
+            if ([filter respondsToSelector: @selector(willUnload)])
                 [filter performSelector: @selector(willUnload)];
             
-            [plugins removeObjectForKey: key];
+            [installedPlugins removeObjectForKey: key];
         }
     }
 }
@@ -525,15 +545,15 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
 //        
 //        [PluginManager endProtectForCrash];
 //        
-//        if( [bundle unload] == NO) unload crash, if KVO Bindings is used in a plugin...
+//        if ([bundle unload] == NO) unload crash, if KVO Bindings is used in a plugin...
 //        {
 //            NSLog( @"***** failed to unload plugin: %@", [bundle bundlePath]);
 //        }
 //        else
 //        {
-//            for( NSString *key in [pluginsBundleDictionary allKeys])
+//            for (NSString *key in [pluginsBundleDictionary allKeys])
 //            {
-//                if( [pluginsBundleDictionary valueForKey: key] == bundle)
+//                if ([pluginsBundleDictionary valueForKey: key] == bundle)
 //                {
 //                    [pluginsBundleDictionary removeObjectForKey: key];
 //                    return;
@@ -549,9 +569,9 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
 
 + (void) unloadPluginWithName: (NSString*) name
 {
-    for( NSBundle *bundle in [pluginsBundleDictionary allValues])
+    for (NSBundle *bundle in [pluginsBundleDictionary allValues])
     {
-        if( [[[[bundle bundlePath] lastPathComponent] stringByDeletingPathExtension] isEqualToString: name])
+        if ([[[[bundle bundlePath] lastPathComponent] stringByDeletingPathExtension] isEqualToString: name])
             [PluginManager unloadPlugin: bundle];
     }
 }
@@ -561,24 +581,31 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
     NSString *name = [path lastPathComponent];
     path = [path stringByDeletingLastPathComponent];
     
-    if (([[name pathExtension] isEqualToString:@"plugin"] || [[name pathExtension] isEqualToString:@"osirixplugin"]))
+    if (([[name pathExtension] isEqualToString:@"plugin"] ||
+         [[name pathExtension] isEqualToString:PLUGIN_EXTENSION]))
     {
-        if( [pluginsNames valueForKey: [[name lastPathComponent] stringByDeletingPathExtension]])
+        if ([pluginsNames valueForKey: [[name lastPathComponent] stringByDeletingPathExtension]])
         {
             NSLog( @"***** Multiple plugins: %@", [name lastPathComponent]);
             
-            if( [name.lastPathComponent isEqualToString: @"UserManual.osirixplugin"] == NO)
+            if ([name.lastPathComponent isEqualToString: @"UserManual.mieleplugin"] == NO)
             {
                 NSString *message = NSLocalizedString(@"Warning! Multiple instances of the same plugin have been found. Only one instance will be loaded. Check the Plugin Manager (Plugins menu) for multiple identical plugins.", nil);
                 
                 message = [message stringByAppendingFormat:@"\r\r%@", [name lastPathComponent]];
                 
-                NSRunAlertPanel( NSLocalizedString(@"Plugins", nil), @"%@" , nil, nil, nil, message);
+                NSRunAlertPanel(NSLocalizedString(@"Plugins", nil),
+                                @"%@" ,
+                                nil,
+                                nil,
+                                nil,
+                                message);
             }
         }
         else
         {
-            [pluginsNames setValue: path forKey: [[name lastPathComponent] stringByDeletingPathExtension]];
+            [pluginsNames setValue: path
+                            forKey: [[name lastPathComponent] stringByDeletingPathExtension]];
             
             @try
             {
@@ -588,7 +615,7 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
                 
                 NSBundle *plugin = [NSBundle bundleWithPath: pathResolved];
                 
-                if( plugin == nil)
+                if (plugin == nil)
                     NSLog( @"**** Bundle opening failed for plugin: %@", [path stringByAppendingPathComponent:name]);
                 else
                 {
@@ -600,28 +627,30 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
                     {
                         Class filterClass = [plugin principalClass];
                         
-                        if( filterClass)
+                        if (filterClass)
                         {
                             [pluginsBundleDictionary setObject: plugin forKey: pathResolved];
                             
+                            // First try CFBundleVersion
                             NSString *version = [[plugin infoDictionary] valueForKey: (NSString*) kCFBundleVersionKey];
                             
-                            if( version == nil)
+                            // If CFBundleVersion is missing, try CFBundleShortVersionString
+                            if (version == nil)
                                 version = [[plugin infoDictionary] valueForKey: @"CFBundleShortVersionString"];
                             
                             NSLog( @"Loaded: %@, vers: %@ (%@)", [name stringByDeletingPathExtension], version, path);
                             
-                            if( filterClass == NSClassFromString( @"ARGS"))
+                            if (filterClass == NSClassFromString( @"ARGS"))
                                 return;
                             
-                            if ([[[plugin infoDictionary] objectForKey:@"pluginType"] rangeOfString:@"Pre-Process"].location != NSNotFound) 
+                            if ([[[plugin infoDictionary] objectForKey:PINFO_TYPE] rangeOfString:PTYPE_PRE_PROCESS].location != NSNotFound)
                             {
                                 PluginFilter *filter = [filterClass filter];
                                 [preProcessPlugins addObject: filter];
                             }
-                            else if ([[plugin infoDictionary] objectForKey:@"FileFormats"]) 
+                            else if ([[plugin infoDictionary] objectForKey:PINFO_FILE_FORMATS])
                             {
-                                NSEnumerator *enumerator = [[[plugin infoDictionary] objectForKey:@"FileFormats"] objectEnumerator];
+                                NSEnumerator *enumerator = [[[plugin infoDictionary] objectForKey:PINFO_FILE_FORMATS] objectEnumerator];
                                 NSString *fileFormat;
                                 while (fileFormat = [enumerator nextObject])
                                 {
@@ -631,33 +660,34 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
                             }
                             else if ( [filterClass instancesRespondToSelector:@selector(filterImage:)])
                             {
-                                NSArray *menuTitles = [[plugin infoDictionary] objectForKey:@"MenuTitles"];
+                                NSArray *menuTitles = [[plugin infoDictionary] objectForKey:PINFO_MENU_TITLES];
                                 PluginFilter *filter = [filterClass filter];
                                 
-                                if( menuTitles)
+                                if (menuTitles)
                                 {
-                                    for( NSString *menuTitle in menuTitles)
+                                    for (NSString *menuTitle in menuTitles)
                                     {
-                                        [plugins setObject:filter forKey:menuTitle];
-                                        [pluginsDict setObject:plugin forKey:menuTitle];
+                                        [installedPlugins setObject:filter forKey:menuTitle];
+                                        [installedPluginsInfoDict setObject:plugin forKey:menuTitle];
                                     }
                                 }
                                 
-                                NSArray *toolbarNames = [[plugin infoDictionary] objectForKey:@"ToolbarNames"];
+                                NSArray *toolbarNames = [[plugin infoDictionary] objectForKey:PINFO_TOOLBAR_NAMES];
                                 
-                                if( toolbarNames)
+                                if (toolbarNames)
                                 {
-                                    for( NSString *toolbarName in toolbarNames)
+                                    for (NSString *toolbarName in toolbarNames)
                                     {
-                                        [plugins setObject:filter forKey:toolbarName];
-                                        [pluginsDict setObject:plugin forKey:toolbarName];
+                                        [installedPlugins setObject:filter forKey:toolbarName];
+                                        [installedPluginsInfoDict setObject:plugin forKey:toolbarName];
                                     }
                                 }
                             }
                             
-                            if ([[[plugin infoDictionary] objectForKey:@"pluginType"] rangeOfString: @"Report"].location != NSNotFound) 
+                            if ([[[plugin infoDictionary] objectForKey:PINFO_TYPE] rangeOfString: PTYPE_REPORT].location != NSNotFound)
                             {
-                                [reportPlugins setObject: plugin forKey:[[plugin infoDictionary] objectForKey:@"CFBundleExecutable"]];
+                                [reportPlugins setObject: plugin
+                                                  forKey: [[plugin infoDictionary] objectForKey:PINFO_CF_BUNDLE_EXE]];
                             }
                         }
                         else
@@ -679,15 +709,16 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
 {
 	@try
 	{
-        NSString *bundleName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleName"];
+        NSString *bundleName = [[[NSBundle mainBundle] infoDictionary] objectForKey:PINFO_CF_BUNDLE_NAME];
+
         NSString *appSupport = [NSString stringWithFormat:@"Library/Application Support/%@/", bundleName];
         NSString *appAppStoreSupport = [NSString stringWithFormat:@"Library/Application Support/%@ App/", bundleName];
 		NSString *appPath = [[NSBundle mainBundle] builtInPlugInsPath];
+
         NSString *userAppStorePath = [NSHomeDirectory() stringByAppendingPathComponent:appAppStoreSupport];
 		NSString *userPath = [NSHomeDirectory() stringByAppendingPathComponent:appSupport];
 		NSString *sysPath = [@"/" stringByAppendingPathComponent:appSupport];
 		
-#ifndef MACAPPSTORE
 		if ([[NSFileManager defaultManager] fileExistsAtPath:appPath] == NO)
             [[NSFileManager defaultManager] createDirectoryAtPath: appPath
                                       withIntermediateDirectories: YES
@@ -705,7 +736,6 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
                                       withIntermediateDirectories: YES
                                                        attributes: nil
                                                             error: nil];
-#endif
 		
 		appSupport = [appSupport stringByAppendingPathComponent :@"Plugins/"];
 		appAppStoreSupport = [appAppStoreSupport stringByAppendingPathComponent :@"Plugins/"];
@@ -714,7 +744,6 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
         userAppStorePath = [NSHomeDirectory() stringByAppendingPathComponent:appAppStoreSupport];
 		sysPath = [@"/" stringByAppendingPathComponent:appSupport];
 		
-#ifndef MACAPPSTORE
 		if ([[NSFileManager defaultManager] fileExistsAtPath:userPath] == NO)
             [[NSFileManager defaultManager] createDirectoryAtPath: userPath
                                       withIntermediateDirectories: YES
@@ -726,7 +755,6 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
                                       withIntermediateDirectories: YES
                                                        attributes: nil
                                                             error: nil];
-#endif
 		
 		NSArray* paths = [NSArray arrayWithObjects:
                           [NSNull null],  // [NSNull null] is a placeholder for launch parameters load commands
@@ -735,12 +763,15 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
                           userAppStorePath,
                           sysPath,
                           nil];
-		
+#ifndef NDEBUG
+        NSLog(@"%s %d, discover plugins installed in:<%@>", __FUNCTION__, __LINE__, paths);
+#endif
+
         for (NSBundle *bundle in [pluginsBundleDictionary allValues])
             [PluginManager unloadPlugin: bundle];
         
-		[plugins release];
-		[pluginsDict release];
+		[installedPlugins release];
+		[installedPluginsInfoDict release];
 		[fileFormatPlugins release];
 		[preProcessPlugins release];
 		[reportPlugins release];
@@ -750,8 +781,8 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
         [pluginsBundleDictionary release];
         
         pluginsBundleDictionary = [[NSMutableDictionary alloc] init];
-		plugins = [[NSMutableDictionary alloc] init];
-		pluginsDict = [[NSMutableDictionary alloc] init];
+		installedPlugins = [[NSMutableDictionary alloc] init];
+		installedPluginsInfoDict = [[NSMutableDictionary alloc] init];
 		fileFormatPlugins = [[NSMutableDictionary alloc] init];
 		preProcessPlugins = [[NSMutableArray alloc] initWithCapacity:0];
 		reportPlugins = [[NSMutableDictionary alloc] init];
@@ -769,7 +800,7 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
         {
             NSString *pluginCrashPath = [NSString stringWithContentsOfFile: pluginCrash encoding: NSUTF8StringEncoding error: nil];
             
-            int result = NSRunInformationalAlertPanel(NSLocalizedString(@"OsiriX crashed", nil),
+            int result = NSRunInformationalAlertPanel(NSLocalizedString(@"Miele-LXIV crashed", nil),
                                                       NSLocalizedString(@"Previous crash is maybe related to a plugin.\r\rShould I remove this plugin (%@)?", nil),
                                                       NSLocalizedString(@"Delete Plugin",nil),
                                                       NSLocalizedString(@"Continue",nil),
@@ -789,7 +820,6 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
         }
         
         NSMutableArray* pathsOfPluginsToLoad = [NSMutableArray array];
-        
         for (id path in paths)
             @try {
                 NSArray* doNotLoadNames = nil;
@@ -820,13 +850,11 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
                 
                 NSString* name;
                 while (name = [e nextObject])
-                    if (/*[[name pathExtension] isEqualToString:@"osirixplugin"] &&*/
+                    if ([[name pathExtension] isEqualToString:PLUGIN_EXTENSION] &&
                         [doNotLoadNames containsObject:[name stringByDeletingPathExtension]] == NO)
                     {
-                        BOOL ok;
-                        NSString *s = [NSFileManager.defaultManager destinationOfAliasOrSymlinkAtPath:[path stringByAppendingPathComponent:name] resolved:&ok];
-                        if (ok)
-                            [pathsOfPluginsToLoad addObject:s];
+                        NSString *s = [path stringByAppendingPathComponent:name];
+                        [pathsOfPluginsToLoad addObject:[s stringByStandardizingPath]];
                     }
             } @catch (NSException* e) {
                 N2LogExceptionWithStackTrace(e);
@@ -836,17 +864,17 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
         for (__block NSInteger i = pathsOfPluginsToLoad.count-1; i >= 0; --i)
         {
             NSBundle* bundle = [NSBundle bundleWithPath:[pathsOfPluginsToLoad objectAtIndex:i]];
-            NSString* name = [bundle.infoDictionary objectForKey:@"CFBundleName"];
+            NSString* name = [bundle.infoDictionary objectForKey:PINFO_CF_BUNDLE_NAME];
             if (!name)
                 name = [[[pathsOfPluginsToLoad objectAtIndex:i] lastPathComponent] stringByDeletingPathExtension];
 //            
             
             // list of requirements
-            for (NSString* req in [bundle.infoDictionary objectForKey:@"Requirements"]) {
+            for (NSString* req in [bundle.infoDictionary objectForKey:PINFO_REQUIREMENTS]) {
                 // make sure they're loaded before this plugin
                 NSIndexSet* is = [pathsOfPluginsToLoad indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
                     NSBundle* bundle = [NSBundle bundleWithPath:obj];
-                    NSString* name = [bundle.infoDictionary objectForKey:@"CFBundleName"];
+                    NSString* name = [bundle.infoDictionary objectForKey:PINFO_CF_BUNDLE_NAME];
                     if (!name)
                         name = [[obj lastPathComponent] stringByDeletingPathExtension];
                     
@@ -887,22 +915,14 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
 
 + (NSString*)activePluginsDirectoryPath;
 {
-#ifdef MACAPPSTORE
-	return @"Library/Application Support/OsiriX App/Plugins/";  // TODO
-#else
-    NSString *bundleName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleName"];
+    NSString *bundleName = [[[NSBundle mainBundle] infoDictionary] objectForKey:PINFO_CF_BUNDLE_NAME];
     return [NSString stringWithFormat:@"Library/Application Support/%@/Plugins/", bundleName];
-#endif
 }
 
 + (NSString*)inactivePluginsDirectoryPath;
 {
-#ifdef MACAPPSTORE
-	return @"Library/Application Support/OsiriX App/Plugins Disabled/";  // TODO
-#else
-    NSString *bundleName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleName"];
+    NSString *bundleName = [[[NSBundle mainBundle] infoDictionary] objectForKey:PINFO_CF_BUNDLE_NAME];
     return [NSString stringWithFormat:@"Library/Application Support/%@/Plugins Disabled/", bundleName];
-#endif
 }
 
 + (NSString*)userActivePluginsDirectoryPath;
@@ -941,12 +961,20 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
 
 + (NSArray*)activeDirectories;
 {
-	return [NSArray arrayWithObjects:[PluginManager userActivePluginsDirectoryPath], [PluginManager systemActivePluginsDirectoryPath], [PluginManager appActivePluginsDirectoryPath], nil];
+	return [NSArray arrayWithObjects:
+            [PluginManager userActivePluginsDirectoryPath],
+            [PluginManager systemActivePluginsDirectoryPath],
+            [PluginManager appActivePluginsDirectoryPath],
+            nil];
 }
 
 + (NSArray*)inactiveDirectories;
 {
-	return [NSArray arrayWithObjects:[PluginManager userInactivePluginsDirectoryPath], [PluginManager systemInactivePluginsDirectoryPath], [PluginManager appInactivePluginsDirectoryPath], nil];
+	return [NSArray arrayWithObjects:
+            [PluginManager userInactivePluginsDirectoryPath],
+            [PluginManager systemInactivePluginsDirectoryPath],
+            [PluginManager appInactivePluginsDirectoryPath],
+            nil];
 }
 
 #pragma mark activation
@@ -964,7 +992,7 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
 //		NSString *name;
 //		while(name = [e nextObject])
 //		{
-//			if([[name stringByDeletingPathExtension] isEqualToString:pluginName])
+//			if ([[name stringByDeletingPathExtension] isEqualToString:pluginName])
 //			{
 //				return YES;
 //			}
@@ -976,10 +1004,10 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
 
 + (void)movePluginFromPath:(NSString*)sourcePath toPath:(NSString*)destinationPath;
 {
-	if([sourcePath isEqualToString:destinationPath])
+	if ([sourcePath isEqualToString:destinationPath])
         return;
 	
-    if(![[NSFileManager defaultManager] fileExistsAtPath:[destinationPath stringByDeletingLastPathComponent]])
+    if (![[NSFileManager defaultManager] fileExistsAtPath:[destinationPath stringByDeletingLastPathComponent]])
     {
         [[NSFileManager defaultManager] createDirectoryAtPath:[destinationPath stringByDeletingLastPathComponent]
                                   withIntermediateDirectories:YES
@@ -994,7 +1022,7 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
 
 	[[BLAuthentication sharedInstance] executeCommand:@"/bin/mv" withArgs:args];
     
-    if( [[NSFileManager defaultManager] fileExistsAtPath: destinationPath] == NO)
+    if ([[NSFileManager defaultManager] fileExistsAtPath: destinationPath] == NO)
     {
         NSMutableArray *args = [NSMutableArray array];
         [args addObject:@"-f"];
@@ -1015,14 +1043,14 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
     NSString *activePath;
     NSString *inactivePath;
     
-	for(inactivePath in inactivePaths)
+	for (inactivePath in inactivePaths)
 	{
 		activePath = [activePathEnum nextObject];
 		NSEnumerator *e = [[[NSFileManager defaultManager] directoryContentsAtPath:inactivePath] objectEnumerator];
 		NSString *name;
 		while(name = [e nextObject])
 		{
-			if([[name stringByDeletingPathExtension] isEqualToString:pluginName])
+			if ([[name stringByDeletingPathExtension] isEqualToString:pluginName])
 			{
 				NSString *sourcePath = [NSString stringWithFormat:@"%@/%@", inactivePath, name];
 				NSString *destinationPath = [NSString stringWithFormat:@"%@/%@", activePath, name];
@@ -1031,8 +1059,12 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
 		}
 	}
     
-    if( !gPluginsAlertAlreadyDisplayed)
-        NSRunInformationalAlertPanel(NSLocalizedString(@"Plugins", @""), NSLocalizedString( @"Restart OsiriX to apply the changes to the plugins.", @""), NSLocalizedString(@"OK", @""), nil, nil);
+    if (!gPluginsAlertAlreadyDisplayed)
+        NSRunInformationalAlertPanel(NSLocalizedString(@"Plugins", @""),
+                                     NSLocalizedString( @"Restart OsiriX to apply the changes to the plugins.", @""),
+                                     NSLocalizedString(@"OK", @""),
+                                     nil,
+                                     nil);
     gPluginsAlertAlreadyDisplayed = YES;
 }
 
@@ -1047,14 +1079,14 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
 	NSEnumerator *inactivePathEnum = [inactivePaths objectEnumerator];
     NSString *inactivePath;
 	
-	for(activePath in activePaths)
+	for (activePath in activePaths)
 	{
 		inactivePath = [inactivePathEnum nextObject];
 		NSEnumerator *e = [[[NSFileManager defaultManager] directoryContentsAtPath:activePath] objectEnumerator];
 		NSString *name;
 		while(name = [e nextObject])
 		{
-			if([[name stringByDeletingPathExtension] isEqualToString:pluginName])
+			if ([[name stringByDeletingPathExtension] isEqualToString:pluginName])
 			{
 				BOOL isDir = YES;
 				if (![[NSFileManager defaultManager] fileExistsAtPath:inactivePath isDirectory:&isDir] && isDir)
@@ -1067,8 +1099,12 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
 		}
 	}
     
-    if( !gPluginsAlertAlreadyDisplayed)
-        NSRunInformationalAlertPanel(NSLocalizedString(@"Plugins", @""), NSLocalizedString( @"Restart OsiriX to apply the changes to the plugins.", @""), NSLocalizedString(@"OK", @""), nil, nil);
+    if (!gPluginsAlertAlreadyDisplayed)
+        NSRunInformationalAlertPanel(NSLocalizedString(@"Plugins", @""),
+                                     NSLocalizedString( @"Restart OsiriX to apply the changes to the plugins.", @""),
+                                     NSLocalizedString(@"OK", @""),
+                                     nil,
+                                     nil);
     gPluginsAlertAlreadyDisplayed = YES;
 }
 
@@ -1076,10 +1112,14 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
 {
     NSArray *availabilities = [PluginManager availabilities];
     
-#ifdef MACAPPSTORE
-    if([availability isEqualTo:[availabilities objectAtIndex:0]] == NO)
+#if 0 //def MACAPPSTORE
+    if ([availability isEqualTo:[availabilities objectAtIndex:0]] == NO)  // not user
     {
-        NSRunCriticalAlertPanel( NSLocalizedString(@"Plugin",nil),  NSLocalizedString( @"You cannot move the plugin to another location with this version of OsiriX.", nil), NSLocalizedString(@"OK",nil), nil, nil);
+        NSRunCriticalAlertPanel(NSLocalizedString(@"Plugin",nil),
+                                NSLocalizedString(@"You cannot move the plugin to another location with this version of OsiriX.", nil),
+                                NSLocalizedString(@"OK",nil),
+                                nil,
+                                nil);
     }
 #endif
     
@@ -1098,7 +1138,7 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
 		NSString *name;
 		while((name = [e nextObject]) && !found)
 		{
-			if([[name stringByDeletingPathExtension] isEqualToString:pluginName])
+			if ([[name stringByDeletingPathExtension] isEqualToString:pluginName])
 			{
 				completePluginPath = [NSString stringWithFormat:@"%@/%@", path, name];
 				found = YES;
@@ -1110,19 +1150,20 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
 	NSMutableString *newDirectory = [NSMutableString stringWithString:@""];
 	
 	
-	if([availability isEqualTo:[availabilities objectAtIndex:0]])
+	if ([availability isEqualTo:[availabilities objectAtIndex:0]])  // user
 	{
 		[newDirectory setString:[PluginManager userActivePluginsDirectoryPath]];
 	}
-	else if(availabilities.count >= 1 && [availability isEqualTo:[availabilities objectAtIndex:1]])
+	else if (availabilities.count >= 1 && [availability isEqualTo:[availabilities objectAtIndex:1]])  // system
 	{
 		[newDirectory setString:[PluginManager systemActivePluginsDirectoryPath]];
 	}
-	else if(availabilities.count >= 2 && [availability isEqualTo:[availabilities objectAtIndex:2]])
+	else if (availabilities.count >= 2 && [availability isEqualTo:[availabilities objectAtIndex:2]]) // app bundle
 	{
 		[newDirectory setString:[PluginManager appActivePluginsDirectoryPath]];
 	}
-	[newDirectory setString:[newDirectory stringByDeletingLastPathComponent]]; // remove /Plugins/
+
+    [newDirectory setString:[newDirectory stringByDeletingLastPathComponent]]; // remove /Plugins/
 	[newDirectory setString:[newDirectory stringByAppendingPathComponent:[directory lastPathComponent]]]; // add /Plugins/ or /Plugins (off)/
 	
 	NSMutableString *newPluginPath = [NSMutableString stringWithString:@""];
@@ -1141,7 +1182,7 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
                                                                       attributes: nil
                                                                            error: nil];
 
-	if(!directoryCreated)
+	if (!directoryCreated)
 	{
 	    NSMutableArray *args = [NSMutableArray array];
 		[args addObject:directoryPath];
@@ -1162,9 +1203,9 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
 	
     NSString *pluginBundleName = [[path lastPathComponent] stringByDeletingPathExtension];
     
-    for(NSDictionary *plug in [PluginManager pluginsList])
+    for (NSDictionary *plug in [PluginManager pluginsList])
     {
-        if([pluginBundleName isEqualToString: [plug objectForKey:@"name"]])
+        if ([pluginBundleName isEqualToString: [plug objectForKey:@"name"]])
         {
             [availabilities setObject: [plug objectForKey:@"availability"] forKey:path];
             [active setObject: [plug objectForKey:@"active"] forKey:path];
@@ -1174,35 +1215,33 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
     NSString *availability = [availabilities objectForKey: path];
     BOOL isActive = [[active objectForKey:path] boolValue];
     
-    if(!availability)
+    if (!availability)
         isActive = YES;
     
-    if([availability isEqualToString:[[PluginManager availabilities] objectAtIndex:0]])
+    if ([availability isEqualToString:[[PluginManager availabilities] objectAtIndex:0]])  // user
     {
-        if(isActive)
+        if (isActive)
             destinationDirectory = [PluginManager userActivePluginsDirectoryPath];
         else
             destinationDirectory = [PluginManager userInactivePluginsDirectoryPath];
     }
-#ifndef MACAPPSTORE
-    else if([availability isEqualToString:[[PluginManager availabilities] objectAtIndex:1]])
+    else if ([availability isEqualToString:[[PluginManager availabilities] objectAtIndex:1]]) //system
     {
-        if(isActive)
+        if (isActive)
             destinationDirectory = [PluginManager systemActivePluginsDirectoryPath];
         else
             destinationDirectory = [PluginManager systemInactivePluginsDirectoryPath];
     }
-    else if([availability isEqualToString:[[PluginManager availabilities] objectAtIndex:2]])
+    else if ([availability isEqualToString:[[PluginManager availabilities] objectAtIndex:2]]) // app bundle
     {
-        if(isActive)
+        if (isActive)
             destinationDirectory = [PluginManager appActivePluginsDirectoryPath];
         else
             destinationDirectory = [PluginManager appInactivePluginsDirectoryPath];
     }
     else
-#endif
     {
-        if(isActive)
+        if (isActive)
             destinationDirectory = [PluginManager userActivePluginsDirectoryPath];
         else
             destinationDirectory = [PluginManager userInactivePluginsDirectoryPath];
@@ -1242,39 +1281,39 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
 	
 	NSString *directory = nil;
 	NSArray *availabilities = [PluginManager availabilities];
-	if( [availability isEqualToString:[availabilities objectAtIndex:0]])
+	if ([availability isEqualToString:[availabilities objectAtIndex:0]])  // user
 	{
-		if( isActive)
+		if (isActive)
 			directory = [PluginManager userActivePluginsDirectoryPath];
 		else
 			directory = [PluginManager userInactivePluginsDirectoryPath];
 	}
-	else if( availabilities.count >= 1 && [availability isEqualToString:[availabilities objectAtIndex:1]])
+	else if (availabilities.count >= 1 && [availability isEqualToString:[availabilities objectAtIndex:1]])  // system
 	{
-		if(isActive)
+		if (isActive)
 			directory = [PluginManager systemActivePluginsDirectoryPath];
 		else
 			directory = [PluginManager systemInactivePluginsDirectoryPath];
 	}
-	else if( availabilities.count >= 2 && [availability isEqualToString:[availabilities objectAtIndex:2]])
+	else if (availabilities.count >= 2 && [availability isEqualToString:[availabilities objectAtIndex:2]])  // app bundle
 	{
-		if(isActive)
+		if (isActive)
 			directory = [PluginManager appActivePluginsDirectoryPath];
 		else
 			directory = [PluginManager appInactivePluginsDirectoryPath];
 	}
 	
-	for(path in pluginsPaths)
+	for (path in pluginsPaths)
 	{
 		NSEnumerator *e = [[[NSFileManager defaultManager] directoryContentsAtPath:path] objectEnumerator];
 		NSString *name;
 		while(name = [e nextObject])
 		{
-			if([[name stringByDeletingPathExtension] isEqualToString: [pluginName stringByDeletingPathExtension]] && (directory == nil || [directory isEqualTo: path]))
+			if ([[name stringByDeletingPathExtension] isEqualToString: [pluginName stringByDeletingPathExtension]] && (directory == nil || [directory isEqualTo: path]))
 			{
 				NSInteger tag = 0;
 				[[NSWorkspace sharedWorkspace] performFileOperation:NSWorkspaceRecycleOperation source:path destination:trashDir files:[NSArray arrayWithObject:name] tag:&tag];
-				if(tag!=0)
+				if (tag!=0)
 				{
 					NSLog( @"performFileOperation:NSWorkspaceRecycleOperation failed, will us mv");
 					
@@ -1290,7 +1329,7 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
 				
 //				// delete
 //				BOOL deleted = [[NSFileManager defaultManager] removeFileAtPath:[NSString stringWithFormat:@"%@/%@", path, name] handler:nil];
-//				if(!deleted)
+//				if (!deleted)
 //				{
 //					NSMutableArray *args = [NSMutableArray array];
 //					[args addObject:@"-r"];
@@ -1301,8 +1340,12 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
 		}
 	}
 	
-    if( !gPluginsAlertAlreadyDisplayed)
-        NSRunInformationalAlertPanel(NSLocalizedString(@"Plugins", @""), NSLocalizedString( @"Restart OsiriX to apply the changes to the plugins.", @""), NSLocalizedString(@"OK", @""), nil, nil);
+    if (!gPluginsAlertAlreadyDisplayed)
+        NSRunInformationalAlertPanel(NSLocalizedString(@"Plugins", @""),
+                                     NSLocalizedString( @"Restart OsiriX to apply the changes to the plugins.", @""),
+                                     NSLocalizedString(@"OK", @""),
+                                     nil,
+                                     nil);
     gPluginsAlertAlreadyDisplayed = YES;
     
 	return returnPath;
@@ -1335,27 +1378,39 @@ NSInteger sortPluginArray(id plugin1, id plugin2, void *context)
 	
     NSMutableArray *plugins = [NSMutableArray array];
 	
-    for(path in paths)
+    for (path in paths)
 	{
 //		BOOL active = ([path isEqualToString:userActivePath] || [path isEqualToString:sysActivePath]);
 //		BOOL allUsers = ([path isEqualToString:sysActivePath] || [path isEqualToString:sysInactivePath]);
 		BOOL active = [[PluginManager activeDirectories] containsObject:path];
-		BOOL allUsers = ([path isEqualToString:sysActivePath] || [path isEqualToString:sysInactivePath] || [path isEqualToString:[PluginManager appActivePluginsDirectoryPath]] || [path isEqualToString:[PluginManager appInactivePluginsDirectoryPath]]);
+		BOOL allUsers = ([path isEqualToString:sysActivePath] ||
+                         [path isEqualToString:sysInactivePath] ||
+                         [path isEqualToString:[PluginManager appActivePluginsDirectoryPath]] ||
+                         [path isEqualToString:[PluginManager appInactivePluginsDirectoryPath]]);
 		
 		NSString *availability = nil;
-		if([path isEqualToString:sysActivePath] || [path isEqualToString:sysInactivePath])
-			availability = [[PluginManager availabilities] objectAtIndex:1];
-		else if([path isEqualToString:[PluginManager appActivePluginsDirectoryPath]] || [path isEqualToString:[PluginManager appInactivePluginsDirectoryPath]])
-			availability = [[PluginManager availabilities] objectAtIndex:2];
-		else if([path isEqualToString:userActivePath] || [path isEqualToString:userInactivePath])
-			availability = [[PluginManager availabilities] objectAtIndex:0];
+		if ([path isEqualToString:sysActivePath] ||
+            [path isEqualToString:sysInactivePath])
+        {
+			availability = [[PluginManager availabilities] objectAtIndex:1];    // system
+        }
+		else if ([path isEqualToString:[PluginManager appActivePluginsDirectoryPath]] ||
+                 [path isEqualToString:[PluginManager appInactivePluginsDirectoryPath]])
+        {
+			availability = [[PluginManager availabilities] objectAtIndex:2];    // app bundle
+        }
+		else if ([path isEqualToString:userActivePath] ||
+                 [path isEqualToString:userInactivePath])
+        {
+			availability = [[PluginManager availabilities] objectAtIndex:0];    // user
+        }
 		
 		NSEnumerator *e = [[[NSFileManager defaultManager] directoryContentsAtPath:path] objectEnumerator];
 		NSString *name;
 		while(name = [e nextObject])
 		{
 			if ([[name pathExtension] isEqualToString:@"plugin"] ||
-                [[name pathExtension] isEqualToString:@"osirixplugin"])
+                [[name pathExtension] isEqualToString:PLUGIN_EXTENSION])
 			{
 //				NSBundle *plugin = [NSBundle bundleWithPath:[PluginManager pathResolved:[path stringByAppendingPathComponent:name]]];
 //				if (filterClass = [plugin principalClass])	
@@ -1375,7 +1430,7 @@ NSInteger sortPluginArray(id plugin1, id plugin2, void *context)
 					CFDictionaryRef bundleInfoDict = CFBundleCopyInfoDictionaryInDirectory((CFURLRef)bundleURL);
 								
 					CFStringRef versionString = nil;
-					if (bundleInfoDict != NULL)
+					if (bundleInfoDict)
 					{
 						versionString = (CFStringRef)CFDictionaryGetValue(bundleInfoDict, CFSTR("CFBundleVersion"));
 					
@@ -1384,14 +1439,14 @@ NSInteger sortPluginArray(id plugin1, id plugin2, void *context)
 					}
 					
 					NSString *pluginVersion;
-					if (versionString != NULL)
+					if (versionString)
 						pluginVersion = (NSString*)versionString;
 					else
 						pluginVersion = @"";
 						
 					[pluginDescription setObject:pluginVersion forKey:@"version"];
 					
-					if(bundleInfoDict != NULL)
+					if (bundleInfoDict)
 						CFRelease( bundleInfoDict);
 					
 					// plugin description dictionary
@@ -1406,14 +1461,17 @@ NSInteger sortPluginArray(id plugin1, id plugin2, void *context)
 
 + (NSArray*)availabilities;
 {
-	return [NSArray arrayWithObjects:NSLocalizedString(@"Current user", nil), NSLocalizedString(@"All users", nil), NSLocalizedString(@"OsiriX bundle", nil), nil];
+	return [NSArray arrayWithObjects:
+            NSLocalizedString(@"Current user", nil),
+            NSLocalizedString(@"All users", nil),
+            NSLocalizedString(@"Miele-LXIV bundle", nil), nil];
 }
 
 
 #pragma mark -
 #pragma mark auto update
 
-- (IBAction)checkForUpdates:(id)sender
+- (IBAction)checkForPluginUpdates:(id)sender
 {
 	NSURL				*url;
 	NSAutoreleasePool   *pool = [[NSAutoreleasePool alloc] init];
@@ -1422,9 +1480,9 @@ NSInteger sortPluginArray(id plugin1, id plugin2, void *context)
     
 	[NSThread sleepForTimeInterval: 10];
 	
-	url = [NSURL URLWithString:URL_OSIRIX_VIEWER@"/osirix_plugins/plugins.plist"];
+	url = [NSURL URLWithString:URL_PLUGIN_LIST];
 	
-	if(url)
+	if (url)
 	{
 		NSMutableArray *onlinePlugins = [NSMutableArray arrayWithContentsOfURL:url];
 		NSArray *installedPlugins = [PluginManager pluginsList];
@@ -1438,25 +1496,31 @@ NSInteger sortPluginArray(id plugin1, id plugin2, void *context)
 			NSDictionary *onlinePlugin = nil;
 			for (NSDictionary *plugin in onlinePlugins)
 			{
-				NSString *name = [[[plugin valueForKey:@"download_url"] lastPathComponent] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+                NSString *path = [[plugin valueForKey:@"download_url"] valueForKey:@"path"];
+				NSString *name = [[path lastPathComponent] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 				name = [name stringByDeletingPathExtension]; // removes the .zip extension
-				name = [name stringByDeletingPathExtension]; // removes the .osirixplugin extension
+				name = [name stringByDeletingPathExtension]; // removes the .mieleplugin extension
 				
-				if([pluginName isEqualToString:name])
+				if ([pluginName isEqualToString:name])
 				{
 					onlinePlugin = plugin;
 					break;
 				}
 			}
 			
-			if( onlinePlugin)
+			if (onlinePlugin)
 			{
 				NSString *currVersion = [installedPlugin objectForKey:@"version"];
 				NSString *onlineVersion = [onlinePlugin objectForKey:@"version"];
+                NSLog(@"currVersion:%@, onlineVersion:%@", currVersion, onlineVersion);
 				
-				if(currVersion && onlineVersion && [currVersion length] > 0 && [currVersion length] > 0)
+				if (currVersion &&
+                    onlineVersion &&
+                    [currVersion length] > 0 &&
+                    [currVersion length] > 0)
 				{
-					if( [currVersion isEqualToString:onlineVersion] == NO && [PluginManager compareVersion: currVersion withVersion: onlineVersion] < 0)
+					if ([currVersion isEqualToString:onlineVersion] == NO &&
+                        [PluginManager compareVersion: currVersion withVersion: onlineVersion] < 0)
 					{
 						NSLog( @"PLUGIN UPDATE NEEDED -------> current vers: %@ versus online vers: %@ - %@", currVersion, onlineVersion, pluginName);
 						NSMutableDictionary *modifiedOnlinePlugin = [NSMutableDictionary dictionaryWithDictionary:onlinePlugin];
@@ -1468,12 +1532,12 @@ NSInteger sortPluginArray(id plugin1, id plugin2, void *context)
 			}
 		}
 		//ici
-		if([pluginsToUpdate count])
+		if ([pluginsToUpdate count])
 		{
 			NSString *title;
 			NSMutableString *message = [NSMutableString string];
 			
-			if([pluginsToUpdate count]==1)
+			if ([pluginsToUpdate count]==1)
 			{
 				title = NSLocalizedString(@"Plugin Update Available", @"");
 				[message appendFormat:NSLocalizedString(@"A new version of the plugin \"%@\" is available.", @""), [[pluginsToUpdate objectAtIndex:0] objectForKey:@"name"]];
@@ -1504,20 +1568,25 @@ NSInteger sortPluginArray(id plugin1, id plugin2, void *context)
 
 	NSAutoreleasePool   *pool = [[NSAutoreleasePool alloc] init];
 	
-		int button = NSRunAlertPanel( [messageDictionary objectForKey:@"title"], @"%@", NSLocalizedString(@"Download", @""), NSLocalizedString( @"Cancel", @""), nil, [messageDictionary objectForKey:@"body"]);
+		int button = NSRunAlertPanel([messageDictionary objectForKey:@"title"],
+                                     @"%@",
+                                     NSLocalizedString(@"Download", @""),
+                                     NSLocalizedString( @"Cancel", @""),
+                                     nil,
+                                     [messageDictionary objectForKey:@"body"]);
 			
 		if (NSOKButton == button)
 		{
 			startedUpdateProcess = YES;
 			PluginManagerController *pluginManagerController = [[BrowserController currentBrowser] pluginManagerController];
 
-			if(pluginManagerController)
+			if (pluginManagerController)
 			{
 				NSArray *pluginsToDownload = [messageDictionary objectForKey:@"plugins"];
 				self.downloadQueue = [NSMutableArray arrayWithArray:pluginsToDownload];
 				
 				NSLog(@"Download Plugin : %@", [[pluginsToDownload objectAtIndex:0] objectForKey:@"download_url"]);
-				[pluginManagerController setDownloadURL:[[pluginsToDownload objectAtIndex:0] objectForKey:@"download_url"]];
+				[pluginManagerController setDownloadUrlDict:[[pluginsToDownload objectAtIndex:0] objectForKey:@"download_url"]];
 				[pluginManagerController download:self];
 			}
 		}
@@ -1531,23 +1600,27 @@ NSInteger sortPluginArray(id plugin1, id plugin2, void *context)
 
 -(void)downloadNext:(NSNotification*)notification;
 {
-	if(!startedUpdateProcess)
+	if (!startedUpdateProcess)
         return;
 	
-	if([downloadQueue count]>1)
+	if ([downloadQueue count]>1)
 	{
 		[downloadQueue removeObjectAtIndex:0];
 
 		PluginManagerController *pluginManagerController = [[BrowserController currentBrowser] pluginManagerController];
 
 		NSLog(@"Download Plugin : %@", [[downloadQueue objectAtIndex:0] objectForKey:@"download_url"]);
-		[pluginManagerController setDownloadURL:[[downloadQueue objectAtIndex:0] objectForKey:@"download_url"]];
+		[pluginManagerController setDownloadUrlDict:[[downloadQueue objectAtIndex:0] objectForKey:@"download_url"]];
 		[pluginManagerController download:self];
 	}
 	else
 	{
-        if( !gPluginsAlertAlreadyDisplayed)
-            NSRunInformationalAlertPanel(NSLocalizedString(@"Plugin Update Completed", @""), NSLocalizedString(@"All your plugins are now up to date. Restart OsiriX to use the new or updated plugins.", @""), NSLocalizedString(@"OK", @""), nil, nil);
+        if (!gPluginsAlertAlreadyDisplayed)
+            NSRunInformationalAlertPanel(NSLocalizedString(@"Plugin Update Completed", @""),
+                                         NSLocalizedString(@"All your plugins are now up to date. Restart OsiriX to use the new or updated plugins.", @""),
+                                         NSLocalizedString(@"OK", @""),
+                                         nil,
+                                         nil);
 		gPluginsAlertAlreadyDisplayed = YES;
         
         startedUpdateProcess = NO;

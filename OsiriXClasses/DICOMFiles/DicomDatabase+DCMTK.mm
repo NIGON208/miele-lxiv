@@ -16,10 +16,10 @@
 #include "dcmtk/config/osconfig.h" /* make sure OS specific configuration is included first */
 
 #import "DicomDatabase+DCMTK.h"
-#import "DCM Framework/DCMObject.h"
-#import "DCM Framework/DCM.h"
-#import "DCM Framework/DCMTransferSyntax.h"
-#import "DCM Framework/DCMAbstractSyntaxUID.h"
+#import <DCM/DCMObject.h>
+#import <DCM/DCM.h>
+#import <DCM/DCMTransferSyntax.h>
+#import <DCM/DCMAbstractSyntaxUID.h>
 #import "DCMPix.h"
 #import "AppController.h"
 #import "BrowserController.h"
@@ -150,7 +150,8 @@
 			NSTask *theTask = [[NSTask alloc] init];
 			@try
             {
-				[theTask setLaunchPath:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"Decompress"]];
+                NSString *launchPath = [[[NSBundle mainBundle] URLForAuxiliaryExecutable:@"Decompress"] path];
+				[theTask setLaunchPath:launchPath];
 				[theTask setArguments:[[NSArray arrayWithObjects: dest, @"compress", nil] arrayByAddingObjectsFromArray: subArray]];
 				[theTask launch];
                 
@@ -231,7 +232,7 @@
 //					
 //					[[NSFileManager defaultManager] removeFileAtPath: [path stringByAppendingString: @"cc.dcm"] handler:nil];
 //					cond = fileformat.saveFile( [[path stringByAppendingString: @"cc.dcm"] UTF8String], tSyntax);
-//					BOOL status =  (cond.good()) ? YES : NO;
+//					BOOL status = (cond.good()) ? YES : NO;
 //					
 //					if( status == NO)
 //						NSLog( @"failed to compress file: %@", [paths lastObject]);
@@ -340,13 +341,15 @@
 			NSTask* theTask = [[NSTask alloc] init];
 			@try
             {
-				[theTask setLaunchPath:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"Decompress"]];
+                NSString *launchPath = [[[NSBundle mainBundle] URLForAuxiliaryExecutable:@"Decompress"] path];
+				[theTask setLaunchPath:launchPath];
 				[theTask setArguments:[[NSArray arrayWithObjects: dest, @"decompressList", nil] arrayByAddingObjectsFromArray: subArray]];
 				[theTask launch];
 				
                 NSTimeInterval timeout = TIMEOUT * subArray.count;
-                if( timeout < 600)
+                if (timeout < 600)
                     timeout = 600;
+
                 NSTimeInterval taskStart = [NSDate timeIntervalSinceReferenceDate];
 				while( [theTask isRunning])
                 {
@@ -490,9 +493,10 @@
 	return destPath;
 }
 
-+(BOOL)testFiles:(NSArray*)files {
-    
-    if( [[NSFileManager defaultManager] fileExistsAtPath: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"/Decompress"]] == NO)
++(BOOL)testFiles:(NSArray*)files
+{
+    NSString *launchPath = [[[NSBundle mainBundle] URLForAuxiliaryExecutable:@"Decompress"] path];
+    if ([[NSFileManager defaultManager] fileExistsAtPath: launchPath] == NO)
         return YES;
     
 	WaitRendering *splash = nil;
@@ -543,7 +547,8 @@
 				NSArray *parameters = [[NSArray arrayWithObjects: @"unused", @"testFiles", nil] arrayByAddingObjectsFromArray: subArray];
 				
 				[theTask setArguments: parameters];
-				[theTask setLaunchPath:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"/Decompress"]];
+                NSString *launchPath = [[[NSBundle mainBundle] URLForAuxiliaryExecutable:@"Decompress"] path];
+				[theTask setLaunchPath:launchPath];
 				[theTask launch];
 				
 				free( objs);
@@ -571,7 +576,7 @@
 			if( [splash aborted])
 				break;
 			
-			if( [t terminationStatus] != 0)
+			if( [t terminationStatus] != EXIT_SUCCESS)
 				succeed = NO;
 		}
 		

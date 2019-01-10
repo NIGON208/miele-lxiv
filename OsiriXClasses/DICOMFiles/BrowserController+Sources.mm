@@ -32,7 +32,9 @@
 #import "ThreadsManager.h"
 #import "NSDictionary+N2.h"
 #import "NSFileManager+N2.h"
-#import "DCM Framework/DCMNetServiceDelegate.h"
+
+#import <DCM/DCMNetServiceDelegate.h>
+
 #import "AppController.h"
 #import <netinet/in.h>
 #import <arpa/inet.h>
@@ -1329,7 +1331,7 @@ static void* const SearchDicomNodesContext = @"SearchDicomNodesContext";
         autoSelectSourceCDDVD = YES;
 #endif
         
-        if (mode == -1 || [[NSApp currentEvent] modifierFlags]&NSCommandKeyMask) //The user clicked on the dialog box
+        if (mode == -1 || [[NSApp currentEvent] modifierFlags] & NSEventModifierFlagCommand) //The user clicked on the dialog box
         {
             if( autoselect)
                 selectSource = YES;

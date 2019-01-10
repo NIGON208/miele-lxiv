@@ -14,7 +14,7 @@
 
 #import "SRController.h"
 #import "DCMView.h"
-#import "iPhoto.h"
+#import "Photos.h"
 #import "SRView.h"
 #import "SRFlyThruAdapter.h"
 #import "ROI.h"
@@ -31,7 +31,7 @@
 
 static NSString* 	MIPToolbarIdentifier				= @"SR Toolbar Identifier";
 static NSString*	QTExportToolbarItemIdentifier		= @"QTExport.pdf";
-static NSString*	iPhotoToolbarItemIdentifier			= @"iPhoto.icns";
+static NSString*	PhotosToolbarItemIdentifier			= @"Photos.icns";
 static NSString*	StereoIdentifier					= @"Stereo.icns";
 //static NSString*	QTExportVRToolbarItemIdentifier		= @"QTExportVR.icns";
 static NSString*	SRSettingsToolbarItemIdentifier		= @"SRSettings.tif";
@@ -45,24 +45,34 @@ static NSString*	PerspectiveToolbarItemIdentifier	= @"Perspective";
 static NSString*	ResetToolbarItemIdentifier			= @"Reset.pdf";
 static NSString*	ROIManagerToolbarItemIdentifier		= @"ROIManager.pdf";
 static NSString*	ExportToolbarItemIdentifier			= @"Export.icns";
-static NSString*	OrientationsViewToolbarItemIdentifier		= @"OrientationsView";
-static NSString*	BackgroundColorViewToolbarItemIdentifier		= @"BackgroundColorView";
+static NSString*	OrientationsViewToolbarItemIdentifier = @"OrientationsView";
+static NSString*	BackgroundColorViewToolbarItemIdentifier = @"BackgroundColorView";
 
 @implementation SRController
 
-@synthesize firstSurface = _firstSurface, secondSurface = _secondSurface, resolution = _resolution, firstTransparency = _firstTransparency, secondTransparency = _secondTransparency, decimate = _decimate;
+@synthesize firstSurface = _firstSurface, secondSurface = _secondSurface;
+@synthesize resolution = _resolution;
+@synthesize firstTransparency = _firstTransparency, secondTransparency = _secondTransparency;
+@synthesize decimate = _decimate;
 @synthesize smooth = _smooth;
 @synthesize firstColor = _firstColor, secondColor = _secondColor;
-@synthesize shouldDecimate = _shouldDecimate, shouldSmooth = _shouldSmooth, useFirstSurface = _useFirstSurface, useSecondSurface = _useSecondSurface, shouldRenderFusion = _shouldRenderFusion;
-
-
-@synthesize fusionFirstSurface,  fusionSecondSurface, fusionResolution, fusionFirstTransparency, fusionSecondTransparency, fusionDecimate, fusionSmooth, fusionFirstColor, fusionSecondColor, fusionShouldDecimate, fusionShouldSmooth, fusionUseFirstSurface, fusionUseSecondSurface;
-
+@synthesize shouldDecimate = _shouldDecimate, shouldSmooth = _shouldSmooth;
+@synthesize useFirstSurface = _useFirstSurface, useSecondSurface = _useSecondSurface;
+@synthesize shouldRenderFusion = _shouldRenderFusion;
+@synthesize fusionFirstSurface, fusionSecondSurface;
+@synthesize fusionResolution;
+@synthesize fusionFirstTransparency, fusionSecondTransparency;
+@synthesize fusionDecimate, fusionSmooth;
+@synthesize fusionFirstColor, fusionSecondColor;
+@synthesize fusionShouldDecimate, fusionShouldSmooth;
+@synthesize fusionUseFirstSurface, fusionUseSecondSurface;
 
 - (ViewerController*) viewer
 {
 	return viewer2D;
 }
+
+#pragma mark - IBAction
 
 - (IBAction) roiDeleteAll:(id) sender
 {
@@ -75,24 +85,27 @@ static NSString*	BackgroundColorViewToolbarItemIdentifier		= @"BackgroundColorVi
 	{
 		case 0:
 			[view axView: self];
-		break;
+            break;
 		
 		case 1:
 			[view coView: self];
-		break;
+            break;
 		
 		case 2:
 			[view saView: self];
-		break;
+            break;
 		
 		case 3:
 			[view saViewOpposite: self];
-		break;
+            break;
 	}
 }
 
+#pragma mark -
+
 - (void) windowDidLoad
 {
+    NSLog(@"%s", __FUNCTION__);
     settings = [NSMutableDictionary new];
     blendingSettings = [NSMutableDictionary new];
     
@@ -127,83 +140,120 @@ static NSString*	BackgroundColorViewToolbarItemIdentifier		= @"BackgroundColorVi
 	return fileList;
 }
 
--(id) initWithPix:(NSMutableArray*) pix :(NSArray*) f :(NSData*) vData :(ViewerController*) bC :(ViewerController*) vC
+-(id) initWithPix:(NSMutableArray*) pix
+                 :(NSArray*) f
+                 :(NSData*) vData
+                 :(ViewerController*) bC
+                 :(ViewerController*) vC
 {
-    unsigned long   i;
-    short           err = 0;
-	BOOL			testInterval = YES;
+	BOOL testInterval = YES;
 	
+    NSLog(@"%s %d", __FUNCTION__, __LINE__);
+
     @try
     {
         pixList = pix;
         volumeData = vData;
 
-        DCMPix  *firstObject = [pixList objectAtIndex:0];
+        DCMPix *firstObject = [pixList objectAtIndex:0];
         float sliceThickness = fabs( [firstObject sliceInterval]);  //fabs( [firstObject sliceLocation] - [[pixList objectAtIndex:1] sliceLocation]);
         
-        if( sliceThickness == 0)
+        if (sliceThickness == 0)
         {
             sliceThickness = [firstObject sliceThickness];
-            
             testInterval = NO;
             
-            if( sliceThickness > 0)
-                NSRunCriticalAlertPanel(NSLocalizedString(@"Slice interval",nil), NSLocalizedString(@"I'm not able to find the slice interval. Slice interval will be equal to slice thickness.",nil),NSLocalizedString( @"OK",nil), nil, nil);
+            if (sliceThickness > 0) {
+                NSRunCriticalAlertPanel(NSLocalizedString(@"Slice interval",nil),
+                                        NSLocalizedString(@"I'm not able to find the slice interval. Slice interval will be equal to slice thickness.",nil),
+                                        NSLocalizedString(@"OK",nil),
+                                        nil,
+                                        nil);
+            }
             else
             {
-                NSRunCriticalAlertPanel(NSLocalizedString(@"Slice interval/thickness",nil), NSLocalizedString(@"Problems with slice thickness/interval to do a 3D reconstruction.",nil), NSLocalizedString(@"OK",nil), nil, nil);
+                NSRunCriticalAlertPanel(NSLocalizedString(@"Slice interval/thickness",nil),
+                                        NSLocalizedString(@"Problems with slice thickness/interval to do a 3D reconstruction.",nil),
+                                        NSLocalizedString(@"OK",nil),
+                                        nil,
+                                        nil);
                 [self autorelease];
                 return nil;
             }
         }
         
-        err = 0;
+        NSLog(@"%s %d, pixList count %lu", __FUNCTION__, __LINE__, (unsigned long)[pixList count]);
+        
+        BOOL err = FALSE;
         // CHECK IMAGE SIZE
-        for( i =0 ; i < [pixList count]; i++)
+        for (unsigned long i = 0; i < [pixList count]; i++)
         {
-            if( [firstObject pwidth] != [[pixList objectAtIndex:i] pwidth]) err = -1;
-            if( [firstObject pheight] != [[pixList objectAtIndex:i] pheight]) err = -1;
+            if ([firstObject pwidth] != [[pixList objectAtIndex:i] pwidth]) {
+                err = TRUE;
+                break;
+            }
+            
+            if ([firstObject pheight] != [[pixList objectAtIndex:i] pheight]) {
+                err = TRUE;
+                break;
+            }
         }
-        if( err)
+
+        if (err)
         {
-            NSRunCriticalAlertPanel( NSLocalizedString(@"Images size",nil),  NSLocalizedString(@"These images don't have the same height and width to allow a 3D reconstruction...",nil), NSLocalizedString(@"OK",nil), nil, nil);
+            NSRunCriticalAlertPanel(NSLocalizedString(@"Images size",nil),
+                                    NSLocalizedString(@"These images don't have the same height and width to allow a 3D reconstruction...",nil),
+                                    NSLocalizedString(@"OK",nil),
+                                    nil,
+                                    nil);
             [self autorelease];
             return nil;
         }
         
         // CHECK IMAGE SIZE
-    //	if( testInterval)
-    //	{
-    //		float prevLoc = [firstObject sliceLocation];
-    //		for( i = 1 ; i < [pixList count]; i++)
-    //		{
-    //			if( fabs( sliceThickness - fabs( [[pixList objectAtIndex:i] sliceLocation] - prevLoc)) > 0.1) err = -1;
-    //			prevLoc = [[pixList objectAtIndex:i] sliceLocation];
-    //		}
-    //		if( err)
-    //		{
-    //			if( NSRunCriticalAlertPanel( @"Slices location",  @"Slice thickness/interval is not exactly equal for all images. This could distord the 3D reconstruction...", @"Continue", @"Cancel", nil) != NSAlertDefaultReturn) return nil;
-    //			err = 0;
-    //		}
-    //	}
+//	if (testInterval)
+//	{
+//		float prevLoc = [firstObject sliceLocation];
+//		for (i = 1 ; i < [pixList count]; i++)
+//		{
+//			if (fabs( sliceThickness - fabs( [[pixList objectAtIndex:i] sliceLocation] - prevLoc)) > 0.1) err = -1;
+//			prevLoc = [[pixList objectAtIndex:i] sliceLocation];
+//		}
+//		if (err)
+//		{
+//			if (NSRunCriticalAlertPanel( @"Slices location",  @"Slice thickness/interval is not exactly equal for all images. This could distort the 3D reconstruction...", @"Continue", @"Cancel", nil) != NSAlertDefaultReturn) return nil;
+//			err = 0;
+//		}
+//	}
         fileList = f;
         [fileList retain];
         
         [pixList retain];
         [volumeData retain];
         self = [super initWithWindowNibName:@"SR"];
-        
-        [[self window] setDelegate:self];
-        
-        err = [view setPixSource:pixList :(float*) [volumeData bytes]];
-        if( err != 0)
+        NSLog(@"%s %d, self: %@", __FUNCTION__, __LINE__, self);
+        @try
         {
+            [[self window] setDelegate:self];
+        }
+        @catch (NSException * e)
+        {
+            NSLog(@"%s %d, exception: %@", __FUNCTION__, __LINE__, e);
+            [self autorelease];
+            return nil;
+        }
+        
+        NSLog(@"%s %d, view: %@ %@", __FUNCTION__, __LINE__, view, [view class]);
+        err = [view setPixSource: pixList
+                                : (float*)[volumeData bytes]];
+        if (err) {
+            NSLog(@"%s %d", __FUNCTION__, __LINE__);
             [self autorelease];
             return nil;
         }
         
         blendingController = bC;
-        if( blendingController) // Blending! Activate image fusion
+        if (blendingController) // Blending! Activate image fusion
         {
             [view setBlendingPixSource: blendingController];
         }
@@ -217,29 +267,32 @@ static NSString*	BackgroundColorViewToolbarItemIdentifier		= @"BackgroundColorVi
         viewer2D = [vC retain];
         if (viewer2D)
         {		
-            long i, j;
             float x, y, z;
             NSMutableArray	*curRoiList;
             ROI	*curROI;
             
-            for(i=0; i<[[[viewer2D imageView] dcmPixList] count]; i++)
+            for (long i=0; i<[[[viewer2D imageView] dcmPixList] count]; i++)
             {
                 curRoiList = [[viewer2D roiList] objectAtIndex: i];
-                for(j=0; j<[curRoiList count];j++)
+                for (long j=0; j<[curRoiList count];j++)
                 {
                     curROI = [curRoiList objectAtIndex:j];
                     if ([curROI type] == t2DPoint)
                     {
                         float location[ 3 ];
                         
-                        [[[viewer2D pixList] objectAtIndex: i] convertPixX: [[[curROI points] objectAtIndex:0] x] pixY: [[[curROI points] objectAtIndex:0] y] toDICOMCoords: location pixelCenter: YES];
+                        [[[viewer2D pixList] objectAtIndex: i] convertPixX: [[[curROI points] objectAtIndex:0] x]
+                                                                      pixY: [[[curROI points] objectAtIndex:0] y]
+                                                             toDICOMCoords: location
+                                                               pixelCenter: YES];
                         
-                        x =location[ 0 ];
-                        y =location[ 1 ];
-                        z =location[ 2 ];
+                        x = location[ 0 ];
+                        y = location[ 1 ];
+                        z = location[ 2 ];
 
                         // add the 3D Point to the SR view
-                        [[self view] add3DPoint:  x : y : z];
+                        [[self view] add3DPoint: x : y : z];
+                        
                         // add the 2D Point to our list
                         [roi2DPointsArray addObject:curROI];
                         [sliceNumber2DPointsArray addObject:[NSNumber numberWithLong:i]];
@@ -255,54 +308,57 @@ static NSString*	BackgroundColorViewToolbarItemIdentifier		= @"BackgroundColorVi
         nc = [NSNotificationCenter defaultCenter];
         
         [nc addObserver: self
-            selector: @selector(remove3DPoint:)
-            name: OsirixRemoveROINotification
-            object: nil];
+               selector: @selector(remove3DPoint:)
+                   name: OsirixRemoveROINotification
+                 object: nil];
+        
         [nc addObserver: self
-            selector: @selector(add3DPoint:)
-            //name: OsirixROIChangeNotification
-            name: OsirixROISelectedNotification //OsirixROISelectedNotification
-            object: nil];
+               selector: @selector(add3DPoint:)
+                 //name: OsirixROIChangeNotification
+                   name: OsirixROISelectedNotification //OsirixROISelectedNotification
+                 object: nil];
+        
         [nc	addObserver: self
-                        selector: @selector(CloseViewerNotification:)
-                        name: OsirixCloseViewerNotification
-                        object: nil];
-    //	curWLWWMenu = @"Other";
-    //	
-    //	NSNotificationCenter *nc;
-    //    nc = [NSNotificationCenter defaultCenter];
-    //    [nc addObserver: self
-    //           selector: @selector(UpdateWLWWMenu:)
-    //               name: OsirixUpdateWLWWMenuNotification
-    //             object: nil];
-    //	
-    //	[[NSNotificationCenter defaultCenter] postNotificationName: OsirixUpdateWLWWMenuNotification object: curWLWWMenu userInfo: nil];
-    //	
-    //	curCLUTMenu = NSLocalizedString(@"No CLUT", nil);
-    //	
-    //    [nc addObserver: self
-    //           selector: @selector(UpdateCLUTMenu:)
-    //               name: OsirixUpdateCLUTMenuNotification
-    //             object: nil];
-    //	
-    //	[[NSNotificationCenter defaultCenter] postNotificationName: OsirixUpdateCLUTMenuNotification object: curCLUTMenu userInfo: nil];
+               selector: @selector(CloseViewerNotification:)
+                   name: OsirixCloseViewerNotification
+                 object: nil];
+        
+//	curWLWWMenu = @"Other";
+//	
+//	NSNotificationCenter *nc;
+//    nc = [NSNotificationCenter defaultCenter];
+//    [nc addObserver: self
+//           selector: @selector(UpdateWLWWMenu:)
+//               name: OsirixUpdateWLWWMenuNotification
+//             object: nil];
+//	
+//	[[NSNotificationCenter defaultCenter] postNotificationName: OsirixUpdateWLWWMenuNotification object: curWLWWMenu userInfo: nil];
+//	
+//	curCLUTMenu = NSLocalizedString(@"No CLUT", nil);
+//	
+//    [nc addObserver: self
+//           selector: @selector(UpdateCLUTMenu:)
+//               name: OsirixUpdateCLUTMenuNotification
+//             object: nil];
+//	
+//	[[NSNotificationCenter defaultCenter] postNotificationName: OsirixUpdateCLUTMenuNotification object: curCLUTMenu userInfo: nil];
         
         roiVolumes = [[NSMutableArray alloc] initWithCapacity:0];
-    #ifdef roi3Dvolume
+#ifdef roi3Dvolume
         [self computeROIVolumes];
         [self displayROIVolumes];
-    #endif
+#endif
         //[[self window] performZoom:self];
         
         [self setupToolbar];
-        
         return self;
     }
-    @catch ( NSException *e)
+    @catch (NSException *e)
     {
         N2LogException( e);
         [self autorelease];
     }
+
     return nil;
 }
 
@@ -328,10 +384,8 @@ static NSString*	BackgroundColorViewToolbarItemIdentifier		= @"BackgroundColorVi
 	[z2DPointsArray release];
 	[viewer2D release];
 	[roiVolumes release];
-    
     [_firstColor release];
     [_secondColor release];
-    
     [settings release];
     [blendingSettings release];
     
@@ -340,7 +394,7 @@ static NSString*	BackgroundColorViewToolbarItemIdentifier		= @"BackgroundColorVi
 
 - (void) CloseViewerNotification: (NSNotification*) note
 {
-	if([note object] == viewer2D)
+	if ([note object] == viewer2D)
 	{
 		[self offFullScreen];
 		[[self window] close];
@@ -350,11 +404,10 @@ static NSString*	BackgroundColorViewToolbarItemIdentifier		= @"BackgroundColorVi
 - (void)windowWillClose:(NSNotification *)notification
 {
 	[[self window] setAcceptsMouseMovedEvents: NO];
-	
-	[[NSNotificationCenter defaultCenter] postNotificationName: OsirixWindow3dCloseNotification object: self userInfo: 0];
-	
+	[[NSNotificationCenter defaultCenter] postNotificationName: OsirixWindow3dCloseNotification
+                                                        object: self
+                                                      userInfo: 0];
     [[self window] setDelegate:nil];
-    
     [self autorelease];
 }
 
@@ -363,15 +416,16 @@ static NSString*	BackgroundColorViewToolbarItemIdentifier		= @"BackgroundColorVi
 //	return toolsMatrix;
 //}
 
--(void) setDefaultTool:(id) sender
+#pragma mark - IBAction
+
+- (IBAction) setDefaultTool:(id) sender
 {
     id theCell = [sender selectedCell];
-    
-    if( [theCell tag] >= 0)
+    if ([theCell tag] >= 0)
         [view setCurrentTool: (ToolMode)[theCell tag]];
 }
 
--(IBAction) SettingsPopup:(id) sender
+- (IBAction) SettingsPopup:(id) sender
 {
     switch( [sender tag])
     {
@@ -386,94 +440,97 @@ static NSString*	BackgroundColorViewToolbarItemIdentifier		= @"BackgroundColorVi
     }
 }
 
--(IBAction) ApplySettings:(id) sender
+- (IBAction) ApplySettings:(id) sender
 {
+    NSLog(@"%s (IBAction)", __FUNCTION__);
     [SRSettingsWindow orderOut:sender];
     
     [NSApp endSheet:SRSettingsWindow returnCode:[sender tag]];
     
-    if( [sender tag])
-    {
-        NSMutableDictionary * d = nil;
-        
-        if( fusionSettingsWindow)
-        {
-            d = blendingSettings;
-            
-            [self setShouldRenderFusion:YES];
-            [self renderFusionSurfaces];
-        }
-        else
-        {
-            d = settings;
-            [self renderSurfaces];
-        }
-        
-        [d setObject: @(self.resolution) forKey: @"resolution"];
-        [d setObject: @(self.shouldDecimate) forKey: @"shouldDecimate"];
-        [d setObject: @(self.shouldSmooth) forKey: @"shouldSmooth"];
-        [d setObject: @(self.firstSurface) forKey: @"firstSurface"];
-        [d setObject: @(self.secondSurface) forKey: @"secondSurface"];
-        [d setObject: @(self.firstTransparency) forKey: @"firstTransparency"];
-        [d setObject: @(self.secondTransparency) forKey: @"secondTransparency"];
-        [d setObject: @(self.decimate) forKey: @"decimate"];
-        [d setObject: @(self.smooth) forKey: @"smooth"];
-        [d setObject: self.firstColor forKey: @"firstColor"];
-        [d setObject: self.secondColor forKey: @"secondColor"];
-        [d setObject: @(self.useFirstSurface) forKey: @"useFirstSurface"];
-        [d setObject: @(self.useSecondSurface) forKey: @"useSecondSurface"];
+    if ([sender tag] == 0) // OK: 1, Cancel : 0
+        return;
+
+    NSMutableDictionary *d = nil;
+    
+    if (fusionSettingsWindow) {
+        d = blendingSettings;
+        [self setShouldRenderFusion:YES];
+        [self renderFusionSurfaces];
     }
+    else {
+        d = settings;
+        [self renderSurfaces];
+    }
+    
+    [d setObject: @(self.resolution) forKey: @"resolution"];
+    [d setObject: @(self.shouldDecimate) forKey: @"shouldDecimate"];
+    [d setObject: @(self.shouldSmooth) forKey: @"shouldSmooth"];
+    [d setObject: @(self.firstSurface) forKey: @"firstSurface"];
+    [d setObject: @(self.secondSurface) forKey: @"secondSurface"];
+    [d setObject: @(self.firstTransparency) forKey: @"firstTransparency"];
+    [d setObject: @(self.secondTransparency) forKey: @"secondTransparency"];
+    [d setObject: @(self.decimate) forKey: @"decimate"];
+    [d setObject: @(self.smooth) forKey: @"smooth"];
+    [d setObject: self.firstColor forKey: @"firstColor"];
+    [d setObject: self.secondColor forKey: @"secondColor"];
+    [d setObject: @(self.useFirstSurface) forKey: @"useFirstSurface"];
+    [d setObject: @(self.useSecondSurface) forKey: @"useSecondSurface"];
 }
+
+#pragma mark -
 
 - (void)renderSurfaces
 {
+    NSLog(@"%s", __FUNCTION__);
 	WaitRendering *www = [[WaitRendering alloc] init: NSLocalizedString( @"Preparing 3D Iso Surface...", nil)];
 	[www start];
     
     NSColor *color = [_firstColor colorUsingColorSpaceName: NSCalibratedRGBColorSpace];
     NSColor *sColor = [_secondColor colorUsingColorSpaceName: NSCalibratedRGBColorSpace];
-    
-	// FIRST SURFACE
-	if( _useFirstSurface)
-			[view changeActor   :(long) 0
-								:_resolution
-								:_firstTransparency
-								:[color redComponent]
-								:[color greenComponent]
-								:[color blueComponent]		
-								:_firstSurface
-								:_shouldDecimate
-								:_decimate
-								:_shouldSmooth
-								:_smooth];
-		else
-			[view deleteActor: (long) 0];
+
+    NSLog(@"color 1: %@", color);
+    NSLog(@"color 2: %@", sColor);
+
+    // FIRST SURFACE
+	if (_useFirstSurface)
+        [view changeActor   :(long) 0
+                            :_resolution
+                            :_firstTransparency
+                            :[color redComponent]
+                            :[color greenComponent]
+                            :[color blueComponent]		
+                            :_firstSurface
+                            :_shouldDecimate
+                            :_decimate
+                            :_shouldSmooth
+                            :_smooth];
+    else
+        [view deleteActor: (long) 0];
 		
-		// SECOND SURFACE
-		if( _useSecondSurface)	
-			[view changeActor   :(long) 1
-								:_resolution
-								:_secondTransparency
-								:[sColor redComponent]
-								:[sColor greenComponent]
-								:[sColor blueComponent]
-								:_secondSurface
-								:_shouldDecimate
-								:_decimate
-								:_shouldDecimate
-								:_smooth];
-		else
-			[view deleteActor: (long) 1];
-  
+    // SECOND SURFACE
+    if (_useSecondSurface)	
+        [view changeActor   :(long) 1
+                            :_resolution
+                            :_secondTransparency
+                            :[sColor redComponent]
+                            :[sColor greenComponent]
+                            :[sColor blueComponent]
+                            :_secondSurface
+                            :_shouldDecimate
+                            :_decimate
+                            :_shouldDecimate
+                            :_smooth];
+    else
+        [view deleteActor: (long) 1];
 	
 	[www end];
 	[www close];
 	[www autorelease];
-
 }
 
 - (void) ChangeSettings:(id) sender
 {
+    NSLog(@"%s %d", __FUNCTION__, __LINE__);
     fusionSettingsWindow = NO;
     
     self.resolution = [[settings objectForKey: @"resolution"] floatValue];
@@ -495,25 +552,23 @@ static NSString*	BackgroundColorViewToolbarItemIdentifier		= @"BackgroundColorVi
 
 - (void)renderFusionSurfaces
 {
-	if( _useFirstSurface)
-		
-		[view BchangeActor   :(long) 0
-								: _resolution
-								: _firstTransparency
-								:[_firstColor redComponent]
-								:[_firstColor greenComponent]
-								:[_firstColor blueComponent]
-								: _firstSurface
-								: _shouldDecimate
-								: _decimate
-								: _shouldSmooth
-								: _smooth];
+    if (_useFirstSurface)
+		[view BchangeActor :(long) 0
+                           : _resolution
+                           : _firstTransparency
+                           :[_firstColor redComponent]
+                           :[_firstColor greenComponent]
+                           :[_firstColor blueComponent]
+                           : _firstSurface
+                           : _shouldDecimate
+                           : _decimate
+                           : _shouldSmooth
+                           : _smooth];
 	else
-			[view BdeleteActor: (long) 0];
+        [view BdeleteActor: (long) 0];
 		
-		// SECOND SURFACE
-	if(_useSecondSurface)
-	
+    // SECOND SURFACE
+	if (_useSecondSurface)
 		[view BchangeActor  :(long) 1
 								: _resolution
 								: _secondTransparency
@@ -527,7 +582,6 @@ static NSString*	BackgroundColorViewToolbarItemIdentifier		= @"BackgroundColorVi
 								: _smooth];
 	else
 		[view BdeleteActor: (long) 1];
-
 }
 
 - (void) BChangeSettings:(id) sender
@@ -566,34 +620,31 @@ static NSString*	BackgroundColorViewToolbarItemIdentifier		= @"BackgroundColorVi
     
     // We are the delegate
     [toolbar setDelegate: self];
-    
-    // Attach the toolbar to the document window 
+
+    // Attach the toolbar to the document window
     [[self window] setToolbar: toolbar];
 	[[self window] setShowsToolbarButton:NO];
 	[[[self window] toolbar] setVisible: YES];
     
 //    [window makeKeyAndOrderFront:nil];
 
-	#ifdef EXPORTTOOLBARITEM
+#ifdef EXPORTTOOLBARITEM
 	NSLog(@"************** WARNING EXPORTTOOLBARITEM ACTIVATED");
-	for( id s in [self toolbarAllowedItemIdentifiers: toolbar])
+	for (id s in [self toolbarAllowedItemIdentifiers: toolbar])
 	{
 		@try
 		{
 			id item = [self toolbar: toolbar itemForItemIdentifier: s willBeInsertedIntoToolbar: YES];
-			
-			
 			NSImage *im = [item image];
-			
-			if( im == nil)
+			if (im == nil)
 			{
 				@try
 				{
-					if( [item respondsToSelector:@selector(setRecursiveEnabled:)])
+					if ([item respondsToSelector:@selector(setRecursiveEnabled:)])
 						[item setRecursiveEnabled: YES];
-					else if( [[item view] respondsToSelector:@selector(setRecursiveEnabled:)])
+					else if ([[item view] respondsToSelector:@selector(setRecursiveEnabled:)])
 						[[item view] setRecursiveEnabled: YES];
-					else if( item)
+					else if (item)
 						NSLog( @"%@", item);
 						
 					im = [[item view] screenshotByCreatingPDF];
@@ -604,7 +655,7 @@ static NSString*	BackgroundColorViewToolbarItemIdentifier		= @"BackgroundColorVi
 				}
 			}
 			
-			if( im)
+			if (im)
 			{
 				NSBitmapImageRep *bits = [[[NSBitmapImageRep alloc] initWithData:[im TIFFRepresentation]] autorelease];
 				
@@ -623,14 +674,22 @@ static NSString*	BackgroundColorViewToolbarItemIdentifier		= @"BackgroundColorVi
 			NSLog( @"b");
 		}
 	}
-	#endif
+#endif
 }
 
-- (IBAction)customizeViewerToolBar:(id)sender {
+#pragma mark - IBAction
+
+- (IBAction)customizeViewerToolBar:(id)sender
+{
     [toolbar runCustomizationPalette:sender];
 }
 
-- (NSToolbarItem *) toolbar: (NSToolbar *)toolbar itemForItemIdentifier: (NSString *) itemIdent willBeInsertedIntoToolbar:(BOOL) willBeInserted {
+#pragma mark - NSToolbarDelegate
+
+- (NSToolbarItem *) toolbar: (NSToolbar *)toolbar
+      itemForItemIdentifier: (NSString *) itemIdent
+  willBeInsertedIntoToolbar: (BOOL) willBeInserted
+{
     // Required delegate method:  Given an item identifier, this method returns an item 
     // The toolbar will use this method to obtain toolbar items that can be displayed in the customization sheet, or in the toolbar itself 
     NSToolbarItem *toolbarItem = [[[NSToolbarItem alloc] initWithItemIdentifier: itemIdent] autorelease];
@@ -645,62 +704,63 @@ static NSString*	BackgroundColorViewToolbarItemIdentifier		= @"BackgroundColorVi
 //	[toolbarItem setAction: @selector(exportQuicktime3DVR:)];
 //    }	
 //	else
-        if ([itemIdent isEqualToString: StereoIdentifier]) {
-        
-	[toolbarItem setLabel: NSLocalizedString(@"Stereo",nil)];
-	[toolbarItem setPaletteLabel: NSLocalizedString(@"Stereo",nil)];
+
+    if ([itemIdent isEqualToString: StereoIdentifier])
+    {
+        [toolbarItem setLabel: NSLocalizedString(@"Stereo",nil)];
+        [toolbarItem setPaletteLabel: NSLocalizedString(@"Stereo",nil)];
         [toolbarItem setToolTip: NSLocalizedString(@"Switch Stereo Mode ON/OFF",nil)];
-	[toolbarItem setImage: [NSImage imageNamed: StereoIdentifier]];
-	[toolbarItem setTarget: view];
-	[toolbarItem setAction: @selector(SwitchStereoMode:)];
+        [toolbarItem setImage: [NSImage imageNamed: StereoIdentifier]];
+        [toolbarItem setTarget: view];
+        [toolbarItem setAction: @selector(SwitchStereoMode:)];
     }
-	else if ([itemIdent isEqualToString: QTExportToolbarItemIdentifier]) {
-        
-	[toolbarItem setLabel: NSLocalizedString(@"Movie Export",nil)];
-	[toolbarItem setPaletteLabel: NSLocalizedString(@"Movie Export",nil)];
+	else if ([itemIdent isEqualToString: QTExportToolbarItemIdentifier])
+    {
+        [toolbarItem setLabel: NSLocalizedString(@"Movie Export",nil)];
+        [toolbarItem setPaletteLabel: NSLocalizedString(@"Movie Export",nil)];
         [toolbarItem setToolTip: NSLocalizedString(@"Export this series in a Quicktime file",nil)];
-	[toolbarItem setImage: [NSImage imageNamed: QTExportToolbarItemIdentifier]];
-	[toolbarItem setTarget: view];
-	[toolbarItem setAction: @selector(exportQuicktime:)];
+        [toolbarItem setImage: [NSImage imageNamed: QTExportToolbarItemIdentifier]];
+        [toolbarItem setTarget: view];
+        [toolbarItem setAction: @selector(exportQuicktime:)];
     }
-	else if ([itemIdent isEqualToString: iPhotoToolbarItemIdentifier]) {
-        
-	[toolbarItem setLabel: NSLocalizedString(@"iPhoto",nil)];
-	[toolbarItem setPaletteLabel: NSLocalizedString(@"iPhoto",nil)];
-        [toolbarItem setToolTip: NSLocalizedString(@"Export this series to iPhoto",nil)];
-	[toolbarItem setImage: [NSImage imageNamed: iPhotoToolbarItemIdentifier]];
-	[toolbarItem setTarget: self];
-	[toolbarItem setAction: @selector(export2iPhoto:)];
+	else if ([itemIdent isEqualToString: PhotosToolbarItemIdentifier])
+    {
+        [toolbarItem setLabel: NSLocalizedString(@"Photos",nil)];
+        [toolbarItem setPaletteLabel: NSLocalizedString(@"Photos",nil)];
+        [toolbarItem setToolTip: NSLocalizedString(@"Export this series to Photos",nil)];
+        [toolbarItem setImage: [NSImage imageNamed: PhotosToolbarItemIdentifier]];
+        [toolbarItem setTarget: self];
+        [toolbarItem setAction: @selector(export2iPhoto:)];
     }
-	else if ([itemIdent isEqualToString: Export3DFileFormat]) {
-        
+	else if ([itemIdent isEqualToString: Export3DFileFormat])
+    {
 	[toolbarItem setLabel: NSLocalizedString(@"Export 3D-SR",nil)];
 	[toolbarItem setPaletteLabel:NSLocalizedString( @"Export 3D-SR",nil)];
-        [toolbarItem setToolTip: NSLocalizedString(@"Export this series in a 3D file format",nil)];
+    [toolbarItem setToolTip: NSLocalizedString(@"Export this series in a 3D file format",nil)];
 	[toolbarItem setView: export3DView];
 	[toolbarItem setMinSize:NSMakeSize(NSWidth([export3DView frame]), NSHeight([export3DView frame]))];
 	[toolbarItem setMaxSize:NSMakeSize(NSWidth([export3DView frame]), NSHeight([export3DView frame]))];
     }
-	else if ([itemIdent isEqualToString: SRSettingsToolbarItemIdentifier]) {
-	
+	else if ([itemIdent isEqualToString: SRSettingsToolbarItemIdentifier])
+    {
 	[toolbarItem setLabel: NSLocalizedString(@"Surface Settings",nil)];
 	[toolbarItem setPaletteLabel:NSLocalizedString( @"Surface Settings",nil)];
-        [toolbarItem setToolTip:NSLocalizedString( @"change Surface Settings",nil)];
+    [toolbarItem setToolTip:NSLocalizedString( @"change Surface Settings",nil)];
 	[toolbarItem setImage: [NSImage imageNamed: SRSettingsToolbarItemIdentifier]];
 	[toolbarItem setTarget: self];
 	[toolbarItem setAction: @selector(ChangeSettings:)];
     }
-	else if ([itemIdent isEqualToString: BSRSettingsToolbarItemIdentifier]) {
-	
+	else if ([itemIdent isEqualToString: BSRSettingsToolbarItemIdentifier])
+    {
 	[toolbarItem setLabel: NSLocalizedString(@"Fusion Surface Settings",nil)];
 	[toolbarItem setPaletteLabel: NSLocalizedString(@"Fusion Surface Settings",nil)];
-        [toolbarItem setToolTip: NSLocalizedString(@"change Fusion Surface Settings",nil)];
+    [toolbarItem setToolTip: NSLocalizedString(@"change Fusion Surface Settings",nil)];
 	[toolbarItem setImage: [NSImage imageNamed: BSRSettingsToolbarItemIdentifier]];
 	[toolbarItem setTarget: self];
 	[toolbarItem setAction: @selector(BChangeSettings:)];
     }
-	else if ([itemIdent isEqualToString: OrientationToolbarItemIdentifier]) {
-	
+	else if ([itemIdent isEqualToString: OrientationToolbarItemIdentifier])
+    {
 	[toolbarItem setLabel: NSLocalizedString(@"Orientation",nil)];
 	[toolbarItem setPaletteLabel: NSLocalizedString(@"Orientation Cube",nil)];
 	[toolbarItem setToolTip:NSLocalizedString(@"Show orientation cube",nil)];
@@ -708,7 +768,8 @@ static NSString*	BackgroundColorViewToolbarItemIdentifier		= @"BackgroundColorVi
 	[toolbarItem setTarget: view];
 	[toolbarItem setAction: @selector(switchOrientationWidget:)];
     }
-     else if([itemIdent isEqualToString: ToolsToolbarItemIdentifier]) {
+    else if ([itemIdent isEqualToString: ToolsToolbarItemIdentifier])
+    {
 	// Set up the standard properties 
 	[toolbarItem setLabel:NSLocalizedString( @"Mouse button function",nil)];
 	[toolbarItem setPaletteLabel:NSLocalizedString( @"Mouse button function",nil)];
@@ -717,7 +778,8 @@ static NSString*	BackgroundColorViewToolbarItemIdentifier		= @"BackgroundColorVi
 	[toolbarItem setMinSize:NSMakeSize(NSWidth([toolsView frame]), NSHeight([toolsView frame]))];
 	[toolbarItem setMaxSize:NSMakeSize(NSWidth([toolsView frame]), NSHeight([toolsView frame]))];
     }
-	else if([itemIdent isEqualToString: FlyThruToolbarItemIdentifier]) {
+	else if ([itemIdent isEqualToString: FlyThruToolbarItemIdentifier])
+    {
 	// Set up the standard properties 
 	[toolbarItem setLabel: NSLocalizedString(@"Fly Thru",nil)];
 	[toolbarItem setPaletteLabel: NSLocalizedString(@"Fly Thru",nil)];
@@ -726,9 +788,9 @@ static NSString*	BackgroundColorViewToolbarItemIdentifier		= @"BackgroundColorVi
 	[toolbarItem setImage: [NSImage imageNamed: FlyThruToolbarItemIdentifier]];
 	[toolbarItem setTarget: self];
 	[toolbarItem setAction: @selector(flyThruControllerInit:)];
-	
     }
-	else if([itemIdent isEqualToString: ToggleDisplay3DpointsItemIdentifier]) {
+	else if ([itemIdent isEqualToString: ToggleDisplay3DpointsItemIdentifier])
+    {
 	// Set up the standard properties 
 	[toolbarItem setLabel: NSLocalizedString(@"Show/Hide",nil)];
 	[toolbarItem setPaletteLabel: NSLocalizedString(@"Show/Hide 3D points",nil)];
@@ -738,8 +800,9 @@ static NSString*	BackgroundColorViewToolbarItemIdentifier		= @"BackgroundColorVi
 	[toolbarItem setTarget: [self view]];
 	[toolbarItem setAction: @selector(toggleDisplay3DPoints)];
     }
-	else if ([itemIdent isEqualToString: PerspectiveToolbarItemIdentifier]) {
-     // Set up the standard properties 
+	else if ([itemIdent isEqualToString: PerspectiveToolbarItemIdentifier])
+    {
+    // Set up the standard properties
 	[toolbarItem setLabel: NSLocalizedString(@"Perspective",nil)];
 	[toolbarItem setPaletteLabel: NSLocalizedString(@"Perspective",nil)];
 	[toolbarItem setToolTip: NSLocalizedString(@"Perspective Properties",nil)];
@@ -748,35 +811,37 @@ static NSString*	BackgroundColorViewToolbarItemIdentifier		= @"BackgroundColorVi
 	[toolbarItem setView: perspectiveView];
 	[toolbarItem setMinSize:NSMakeSize(NSWidth([perspectiveView frame]), NSHeight([perspectiveView frame]))];
     }
-	else if ([itemIdent isEqualToString: ROIManagerToolbarItemIdentifier]) {
-        
+	else if ([itemIdent isEqualToString: ROIManagerToolbarItemIdentifier])
+    {
 	[toolbarItem setLabel: NSLocalizedString(@"ROI Manager",nil)];
 	[toolbarItem setPaletteLabel: NSLocalizedString(@"ROI Manager",nil)];
-        [toolbarItem setToolTip: NSLocalizedString(@"ROI Manager",nil)];
+    [toolbarItem setToolTip: NSLocalizedString(@"ROI Manager",nil)];
 	[toolbarItem setImage: [NSImage imageNamed: ROIManagerToolbarItemIdentifier]];
 	[toolbarItem setTarget: self];
 	[toolbarItem setAction: @selector(roiGetManager:)];
     }
-	else if ([itemIdent isEqualToString: ResetToolbarItemIdentifier]) {
-        
+	else if ([itemIdent isEqualToString: ResetToolbarItemIdentifier])
+    {
 	[toolbarItem setLabel: NSLocalizedString(@"Reset",nil)];
 	[toolbarItem setPaletteLabel: NSLocalizedString(@"Reset",nil)];
-        [toolbarItem setToolTip: NSLocalizedString(@"Reset to initial 3D view",nil)];
+    [toolbarItem setToolTip: NSLocalizedString(@"Reset to initial 3D view",nil)];
 	[toolbarItem setImage: [NSImage imageNamed: ResetToolbarItemIdentifier]];
 	[toolbarItem setTarget: view];
 	[toolbarItem setAction: @selector(resetImage:)];
     }
-	else if([itemIdent isEqualToString: BackgroundColorViewToolbarItemIdentifier]) {
-	// Set up the standard properties 
-	[toolbarItem setLabel: NSLocalizedString(@"Color", nil)];
-	[toolbarItem setPaletteLabel: NSLocalizedString(@"Color", nil)];
-	[toolbarItem setToolTip: NSLocalizedString(@"Background Color", nil)];
-	
-	[toolbarItem setView: BackgroundColorView];
-	[toolbarItem setMinSize:NSMakeSize(NSWidth([BackgroundColorView frame]), NSHeight([BackgroundColorView frame]))];
-	[toolbarItem setMaxSize:NSMakeSize(NSWidth([BackgroundColorView frame]), NSHeight([BackgroundColorView frame]))];
+	else if ([itemIdent isEqualToString: BackgroundColorViewToolbarItemIdentifier])
+    {
+        // Set up the standard properties 
+        [toolbarItem setLabel: NSLocalizedString(@"Color", nil)];
+        [toolbarItem setPaletteLabel: NSLocalizedString(@"Color", nil)];
+        [toolbarItem setToolTip: NSLocalizedString(@"Background Color", nil)];
+        
+        [toolbarItem setView: BackgroundColorView];
+        [toolbarItem setMinSize:NSMakeSize(NSWidth([BackgroundColorView frame]), NSHeight([BackgroundColorView frame]))];
+        [toolbarItem setMaxSize:NSMakeSize(NSWidth([BackgroundColorView frame]), NSHeight([BackgroundColorView frame]))];
     }
-	else if([itemIdent isEqualToString: OrientationsViewToolbarItemIdentifier]) {
+	else if ([itemIdent isEqualToString: OrientationsViewToolbarItemIdentifier])
+    {
 	// Set up the standard properties 
 	[toolbarItem setLabel: NSLocalizedString(@"Orientations", nil)];
 	[toolbarItem setPaletteLabel: NSLocalizedString(@"Orientations", nil)];
@@ -787,11 +852,11 @@ static NSString*	BackgroundColorViewToolbarItemIdentifier		= @"BackgroundColorVi
 	[toolbarItem setMinSize:NSMakeSize(NSWidth([OrientationsView frame]), NSHeight([OrientationsView frame]))];
 	[toolbarItem setMaxSize:NSMakeSize(NSWidth([OrientationsView frame]), NSHeight([OrientationsView frame]))];
     }
-	else if ([itemIdent isEqualToString: ExportToolbarItemIdentifier]) {
-        
+	else if ([itemIdent isEqualToString: ExportToolbarItemIdentifier])
+    {
 	[toolbarItem setLabel:NSLocalizedString( @"DICOM File",nil)];
 	[toolbarItem setPaletteLabel:NSLocalizedString(@"Save as DICOM",nil)];
-        [toolbarItem setToolTip:NSLocalizedString(@"Export this image in a DICOM file",nil)];
+    [toolbarItem setToolTip:NSLocalizedString(@"Export this image in a DICOM file",nil)];
 	[toolbarItem setImage: [NSImage imageNamed: ExportToolbarItemIdentifier]];
 	[toolbarItem setTarget: view];
 	[toolbarItem setAction: @selector(exportDICOMFile:)];
@@ -801,13 +866,13 @@ static NSString*	BackgroundColorViewToolbarItemIdentifier		= @"BackgroundColorVi
         toolbarItem = nil;
     }
     
-    for (id key in [PluginManager plugins])
+    for (id key in [PluginManager installedPlugins])
     {
-        if ([[[PluginManager plugins] objectForKey:key] respondsToSelector:@selector(toolbarItemForItemIdentifier:forViewer:)])
+        if ([[[PluginManager installedPlugins] objectForKey:key] respondsToSelector:@selector(toolbarItemForItemIdentifier:forViewer:)])
         {
-            NSToolbarItem *item = [[[PluginManager plugins] objectForKey:key] toolbarItemForItemIdentifier: itemIdent forViewer: self];
+            NSToolbarItem *item = [[[PluginManager installedPlugins] objectForKey:key] toolbarItemForItemIdentifier: itemIdent forViewer: self];
             
-            if( item)
+            if (item)
                 toolbarItem = item;
         }
     }
@@ -852,7 +917,7 @@ static NSString*	BackgroundColorViewToolbarItemIdentifier		= @"BackgroundColorVi
 										StereoIdentifier,
 										OrientationToolbarItemIdentifier,
 										QTExportToolbarItemIdentifier,
-										iPhotoToolbarItemIdentifier,
+										PhotosToolbarItemIdentifier,
 										Export3DFileFormat,
 										OrientationsViewToolbarItemIdentifier,
                                         ToolsToolbarItemIdentifier,
@@ -865,10 +930,10 @@ static NSString*	BackgroundColorViewToolbarItemIdentifier		= @"BackgroundColorVi
 										BackgroundColorViewToolbarItemIdentifier,
                                         nil];
     
-    for (id key in [PluginManager plugins])
+    for (id key in [PluginManager installedPlugins])
     {
-        if ([[[PluginManager plugins] objectForKey:key] respondsToSelector:@selector(toolbarAllowedIdentifiersForViewer:)])
-            [array addObjectsFromArray: [[[PluginManager plugins] objectForKey:key] toolbarAllowedIdentifiersForViewer: self]];
+        if ([[[PluginManager installedPlugins] objectForKey:key] respondsToSelector:@selector(toolbarAllowedIdentifiersForViewer:)])
+            [array addObjectsFromArray: [[[PluginManager installedPlugins] objectForKey:key] toolbarAllowedIdentifiersForViewer: self]];
     }
     
     return array;
@@ -895,6 +960,8 @@ static NSString*	BackgroundColorViewToolbarItemIdentifier		= @"BackgroundColorVi
 //	[removedItem retain];
 }
 
+#pragma mark -
+
 - (BOOL) validateToolbarItem: (NSToolbarItem *) toolbarItem
 {
 #ifdef EXPORTTOOLBARITEM
@@ -905,73 +972,65 @@ return YES;
     // (for example:  of the save items action) 
     BOOL enable = YES;
 	if ([[toolbarItem itemIdentifier] isEqualToString: BSRSettingsToolbarItemIdentifier])
-    {
-        if(blendingController == nil) enable = NO;
-    }
+        if (blendingController == nil)
+            enable = NO;
+
     return enable;
 }
 
-
 -(void) export2iPhoto:(id) sender
 {
-	iPhoto		*ifoto;
-	NSImage		*im = [view nsimage:NO];
+	NSImage *im = [view nsimage:NO];
 	
-	NSArray		*representations;
-	NSData		*bitmapData;
+	NSArray *representations = [im representations];
 	
-	representations = [im representations];
+	NSData *bitmapData = [NSBitmapImageRep representationOfImageRepsInArray:representations usingType:NSJPEGFileType properties:[NSDictionary dictionaryWithObject:[NSDecimalNumber numberWithFloat:0.9] forKey:NSImageCompressionFactor]];
 	
-	bitmapData = [NSBitmapImageRep representationOfImageRepsInArray:representations usingType:NSJPEGFileType properties:[NSDictionary dictionaryWithObject:[NSDecimalNumber numberWithFloat:0.9] forKey:NSImageCompressionFactor]];
+    NSString *path = [[[BrowserController currentBrowser] documentsDirectory] stringByAppendingFormat:@"/TEMP.noindex/%@", OUR_IMAGE_JPG];
+	[bitmapData writeToFile:path atomically:YES];
 	
-	[bitmapData writeToFile:[[[BrowserController currentBrowser] documentsDirectory] stringByAppendingFormat:@"/TEMP.noindex/%@", OUR_IMAGE_JPG]
-                 atomically:YES];
-	
-	ifoto = [[iPhoto alloc] init];
-	[ifoto importIniPhoto: [NSArray arrayWithObject:[[[BrowserController currentBrowser] documentsDirectory] stringByAppendingFormat:@"/TEMP.noindex/%@", OUR_IMAGE_JPG]]];
-	[ifoto release];
+	Photos *photos = [[Photos alloc] init];
+	[photos importIniPhoto: [NSArray arrayWithObject:path]];
+	[photos release];
 }
 
 - (void) exportJPEG:(id) sender
 {
-    NSSavePanel     *panel = [NSSavePanel savePanel];
-
+    NSSavePanel *panel = [NSSavePanel savePanel];
 	[panel setCanSelectHiddenExtension:YES];
-	[panel setRequiredFileType:@"jpg"];
-	
-	if( [panel runModalForDirectory:nil file:@"3D SR Image"] == NSFileHandlingPanelOKButton)
+    [panel setAllowedFileTypes: @[@"jpg"]];
+    [panel setNameFieldStringValue: @"3D SR Image"];
+	if ([panel runModal] == NSFileHandlingPanelOKButton)
 	{
 		NSImage *im = [view nsimage:NO];
 		
-		NSArray *representations;
-		NSData *bitmapData;
+		NSArray *representations = [im representations];
 		
-		representations = [im representations];
-		
-		bitmapData = [NSBitmapImageRep representationOfImageRepsInArray:representations usingType:NSJPEGFileType properties:[NSDictionary dictionaryWithObject:[NSDecimalNumber numberWithFloat:0.9] forKey:NSImageCompressionFactor]];
+		NSData *bitmapData = [NSBitmapImageRep representationOfImageRepsInArray:representations usingType:NSJPEGFileType properties:[NSDictionary dictionaryWithObject:[NSDecimalNumber numberWithFloat:0.9] forKey:NSImageCompressionFactor]];
 		
 		[bitmapData writeToFile:[panel filename] atomically:YES];
 		
 		NSWorkspace *ws = [NSWorkspace sharedWorkspace];
-		if ([[NSUserDefaults standardUserDefaults] boolForKey: @"OPENVIEWER"]) [ws openFile:[panel filename]];
+		if ([[NSUserDefaults standardUserDefaults] boolForKey: @"OPENVIEWER"])
+            [ws openFile:[panel filename]];
 	}
 }
 
 - (void) exportTIFF:(id) sender
 {
-    NSSavePanel     *panel = [NSSavePanel savePanel];
-
+    NSSavePanel *panel = [NSSavePanel savePanel];
 	[panel setCanSelectHiddenExtension:YES];
-	[panel setRequiredFileType:@"tif"];
-	
-	if( [panel runModalForDirectory:nil file:@"3D SR Image"] == NSFileHandlingPanelOKButton)
+    [panel setAllowedFileTypes: @[@"tif"]];
+    [panel setNameFieldStringValue: @"3D SR Image"];
+	if ([panel runModal] == NSFileHandlingPanelOKButton)
 	{
 		NSImage *im = [view nsimage:NO];
 		
 		[[im TIFFRepresentation] writeToFile:[panel filename] atomically:NO];
 		
 		NSWorkspace *ws = [NSWorkspace sharedWorkspace];
-		if ([[NSUserDefaults standardUserDefaults] boolForKey: @"OPENVIEWER"]) [ws openFile:[panel filename]];
+		if ([[NSUserDefaults standardUserDefaults] boolForKey: @"OPENVIEWER"])
+            [ws openFile:[panel filename]];
 	}
 }
 
@@ -984,26 +1043,30 @@ return YES;
 
 - (FlyThruController *) flyThruController
 {
-	for( NSWindow *w in [NSApp windows])
+	for (NSWindow *w in [NSApp windows])
 	{
-		if( [[[w windowController] windowNibName] isEqualToString:@"FlyThru"] && self == [[w windowController] window3DController])
+		if ([[[w windowController] windowNibName] isEqualToString:@"FlyThru"] &&
+            self == [[w windowController] window3DController])
+        {
 			return [w windowController];
+        }
 	}
 	
 	return nil;
 }
 
+#pragma mark - IBAction
+
 - (IBAction) flyThruButtonMenu:(id) sender
 {
 	[self flyThruControllerInit: self];
-
 	[[self flyThruController].stepsArrayController flyThruTag: [sender tag]];
 }
 
 - (IBAction) flyThruControllerInit:(id) sender
 {
 	//Only open 1 fly through controller
-	if( [self flyThruController])
+	if ([self flyThruController])
         return;
 
 	//flythru = [[FlyThru alloc] init];
@@ -1015,10 +1078,12 @@ return YES;
 	[flyThruController setWindow3DController: self];
 }
 
+#pragma mark -
+
 - (void)recordFlyThru;
 {
 	NSTimeInterval now = [NSDate timeIntervalSinceReferenceDate];
-	if(now-flyThruRecordingTimeFrame<1.0)
+	if (now-flyThruRecordingTimeFrame<1.0)
         return;
 	
 	flyThruRecordingTimeFrame = now;
@@ -1077,7 +1142,7 @@ return YES;
 
 		while(!found && cur2DPointIndex<[roi2DPointsArray count])
 		{
-			if(	[[x2DPointsArray objectAtIndex:cur2DPointIndex] floatValue]==x 
+			if (   [[x2DPointsArray objectAtIndex:cur2DPointIndex] floatValue]==x 
 				&& [[y2DPointsArray objectAtIndex:cur2DPointIndex] floatValue]==y
 				&& [[z2DPointsArray objectAtIndex:cur2DPointIndex] floatValue]==z)
 			{
@@ -1109,40 +1174,40 @@ return YES;
 {
 	// First remove all non-available points
 	NSMutableArray *roisToBeRemoved = [NSMutableArray array];
-	for( ROI *r in roi2DPointsArray)
+	for (ROI *r in roi2DPointsArray)
 	{
 		BOOL found = NO;
 		
-		for( NSArray *a in [viewer2D roiList])
+		for (NSArray *a in [viewer2D roiList])
 		{
-			if( [a containsObject: r])
+			if ([a containsObject: r])
 			{
 				found = YES;
 				break;
 			}
 		}
 		
-		if( found == NO)
+		if (found == NO)
 			[roisToBeRemoved addObject: r];
 	}
-	for( ROI *r in roisToBeRemoved)
+	for (ROI *r in roisToBeRemoved)
 		[self remove3DPointROI: r];
 
 	// Add all non-displayed points
-	for( NSArray *a in [viewer2D roiList])
+	for (NSArray *a in [viewer2D roiList])
 	{
-		for( ROI *r in a)
+		for (ROI *r in a)
 		{
-			if( [r type] == t2DPoint)
+			if ([r type] == t2DPoint)
 			{
-				if( [roi2DPointsArray containsObject: r] == NO)
+				if ([roi2DPointsArray containsObject: r] == NO)
 				{
 					float location[ 3];
 					double x, y, z;
 					
 					DCMPix *pix = [r pix];
 					
-					if( pix == nil)
+					if (pix == nil)
 						pix = [[viewer2D pixList] objectAtIndex: [[viewer2D imageView] curImage]];
 					
 					[pix convertPixX: [[[r points] objectAtIndex:0] x] pixY: [[[r points] objectAtIndex:0] y] toDICOMCoords: location pixelCenter: YES];
@@ -1175,7 +1240,7 @@ return YES;
 	// Add the new ROI
 	ROI	*addedROI = [note object];
 	
-	if( [roi2DPointsArray containsObject: addedROI])
+	if ([roi2DPointsArray containsObject: addedROI])
 		[self remove3DPoint: note];
 	
 	if ([addedROI type] == t2DPoint)
@@ -1185,7 +1250,7 @@ return YES;
 		
 		DCMPix *pix = [addedROI pix];
 		
-		if( pix == nil)
+		if (pix == nil)
 			pix = [[viewer2D pixList] objectAtIndex: [[viewer2D imageView] curImage]];
 		
 		[pix convertPixX: [[[addedROI points] objectAtIndex:0] x] pixY: [[[addedROI points] objectAtIndex:0] y] toDICOMCoords: location pixelCenter: YES];
@@ -1212,9 +1277,9 @@ return YES;
 	long cur2DPointIndex = 0;
 	BOOL found = NO;
 
-	while(!found && cur2DPointIndex<[roi2DPointsArray count])
+	while (!found && cur2DPointIndex<[roi2DPointsArray count])
 	{
-		if(	[roi2DPointsArray objectAtIndex:cur2DPointIndex]==removedROI)
+		if ([roi2DPointsArray objectAtIndex:cur2DPointIndex]==removedROI)
 		{
 			found = YES;
 		}
@@ -1243,20 +1308,18 @@ return YES;
 	ROI	*removedROI = [note object];
 	
 	if ([removedROI type] == t2DPoint) // 2D Points
-	{
 		[self remove3DPointROI: removedROI];
-	}
 }
 
 - (void)createContextualMenu
 {
-	NSMenu *contextual =  [[[NSMenu alloc] initWithTitle:NSLocalizedString(@"Tools", nil)] autorelease];
+	NSMenu *contextual = [[[NSMenu alloc] initWithTitle:NSLocalizedString(@"Tools", nil)] autorelease];
 	NSMenuItem *item, *subItem;
 	
 	//tools
 	item = [[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Tools", nil) action: nil  keyEquivalent:@""] autorelease];
 	[contextual addItem:item];
-	NSMenu *toolsSubmenu =  [[[NSMenu alloc] initWithTitle:NSLocalizedString(@"Tools", nil)] autorelease];
+	NSMenu *toolsSubmenu = [[[NSMenu alloc] initWithTitle:NSLocalizedString(@"Tools", nil)] autorelease];
 	[item setSubmenu:toolsSubmenu];
 	
 	
@@ -1303,7 +1366,7 @@ return YES;
 	//View
 	item = [[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"View", nil) action: nil  keyEquivalent:@""] autorelease];
 	[contextual addItem:item];
-	NSMenu *viewSubmenu =  [[[NSMenu alloc] initWithTitle:NSLocalizedString(@"View", nil)] autorelease];
+	NSMenu *viewSubmenu = [[[NSMenu alloc] initWithTitle:NSLocalizedString(@"View", nil)] autorelease];
 	[item setSubmenu:viewSubmenu];
 	
 		subItem = [[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Axial", nil) action: @selector(axView:) keyEquivalent:@""] autorelease];
@@ -1329,7 +1392,7 @@ return YES;
 	//Export
 	item = [[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Export", nil) action: nil  keyEquivalent:@""] autorelease];
 	[contextual addItem:item];
-	NSMenu *exportSubmenu =  [[[NSMenu alloc] initWithTitle:NSLocalizedString(@"Export", nil)] autorelease];
+	NSMenu *exportSubmenu = [[[NSMenu alloc] initWithTitle:NSLocalizedString(@"Export", nil)] autorelease];
 	[item setSubmenu:exportSubmenu];
 		subItem = [[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"QuickTime", nil)  action:@selector(exportQuicktime:) keyEquivalent:@""] autorelease];
 		[subItem setTarget:view];
@@ -1347,7 +1410,7 @@ return YES;
 		[subItem setTarget:self];
 		[exportSubmenu addItem:subItem];
 		
-		subItem = [[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"iPhoto", nil)  action:@selector(export2iPhoto:) keyEquivalent:@""] autorelease];
+		subItem = [[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Photos", nil)  action:@selector(export2iPhoto:) keyEquivalent:@""] autorelease];
 		[subItem setTarget:self];
 		[exportSubmenu addItem:subItem];
 		
@@ -1362,7 +1425,8 @@ return YES;
 	[view setMenu:contextual];								
 }
 
-// ROIs Volumes
+#pragma mark - ROIs Volumes
+
 #ifdef roi3Dvolume
 - (void) computeROIVolumes
 {
@@ -1417,6 +1481,8 @@ return YES;
 	}
 }
 
+#pragma mark IBAction
+
 - (IBAction) roiGetManager:(id) sender
 {
 	BOOL	found = NO;
@@ -1424,7 +1490,7 @@ return YES;
 	
 	for (long i = 0; i < [winList count]; i++)
 	{
-		if([[[[winList objectAtIndex:i] windowController] windowNibName] isEqualToString:@"ROIVolumeManager"])
+		if ([[[[winList objectAtIndex:i] windowController] windowNibName] isEqualToString:@"ROIVolumeManager"])
 		{
 			found = YES;
 			NSLog(@"FOUND!!");
@@ -1434,22 +1500,20 @@ return YES;
 	if (!found)
 	{
 		ROIVolumeManagerController *manager = [[ROIVolumeManagerController alloc] initWithViewer: self];
-		if(manager)
+		if (manager)
 		{
 			[manager showWindow:self];
 			[[manager window] makeKeyAndOrderFront:self];
 		}
 	}
 }
-
-
-
 #endif
+
+#pragma mark -
 
 - (void) showWindow:(id) sender
 {
 	[super showWindow: sender];
-	
 	[view squareView: self];
 }
 

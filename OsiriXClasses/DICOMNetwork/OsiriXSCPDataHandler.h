@@ -13,7 +13,7 @@
 =========================================================================*/
 
 #import <Cocoa/Cocoa.h>
-#import "DCM Framework/DCM.h"
+#import <DCM/DCM.h>
 
 #undef verify
 #include "dcmtk/dcmdata/dcdatset.h"

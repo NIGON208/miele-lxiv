@@ -76,13 +76,12 @@
 
 - (long) filterImage:(NSString*) menuName
 {
-	NSLog( @"Error, you should not be here!: %@", menuName);
+    NSLog(@"%s %d Error, you should not be here!: %@", __FUNCTION__, __LINE__, menuName);
     return -1;
 }
 
 - (long) processFiles: (NSMutableArray*) files
-{
-	
+{	
 	return 0;
 }
 

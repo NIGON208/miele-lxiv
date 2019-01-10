@@ -35,7 +35,7 @@
 #import "NSArray+N2.h"
 #import "DicomDatabase+DCMTK.h"
 #import "NSError+OsiriX.h"
-#import "DCM Framework/DCMAbstractSyntaxUID.h"
+#import <DCM/DCMAbstractSyntaxUID.h>
 #import "DCMTKStudyQueryNode.h"
 #import "N2Debug.h"
 #import "NSUserDefaults+OsiriX.h"
@@ -108,7 +108,8 @@ NSString* const O2ScreenCapturesSeriesName = NSLocalizedString(@"OsiriX Screen C
 	return path;
 }
 
-+(NSString*)baseDirPathForMode:(int)mode path:(NSString*)path {
++(NSString*)baseDirPathForMode:(int)mode path:(NSString*)path
+{
 	switch (mode) {
 		case 0:
 			path = [NSFileManager.defaultManager findSystemFolderOfType:kDocumentsFolderType forDomain:kOnAppropriateDisk];
@@ -162,7 +163,8 @@ NSString* const O2ScreenCapturesSeriesName = NSLocalizedString(@"OsiriX Screen C
             path = [self baseDirPathForMode:[[NSUserDefaults standardUserDefaults] integerForKey:@"DATABASELOCATION"]
                                        path:[[NSUserDefaults standardUserDefaults] stringForKey: @"DATABASELOCATIONURL"]];
 		}
-	} @catch (NSException* e) {
+	}
+    @catch (NSException* e) {
 		N2LogExceptionWithStackTrace(e);
 	}
 	
@@ -527,7 +529,12 @@ static DicomDatabase* activeLocalDatabase = nil;
         N2LogExceptionWithStackTrace( e);
         
         if( [NSThread isMainThread])
-            NSRunAlertPanel( NSLocalizedString( @"Database", nil), @"%@", NSLocalizedString( @"OK", nil), nil, nil, e.reason);
+            NSRunAlertPanel(NSLocalizedString( @"Database", nil),
+                            @"%@",
+                            NSLocalizedString( @"OK", nil),
+                            nil,
+                            nil,
+                                e.reason);
         
         [self autorelease];
         return nil;
@@ -1276,7 +1283,7 @@ NSString* const DicomDatabaseLogEntryEntityName = @"LogEntry";
 	NSTimeInterval currentTime = NSDate.timeIntervalSinceReferenceDate;
 	if (currentTime-_timeOfLastIsFileSystemFreeSizeLimitReachedVerification > 20) {
 		// refresh _isFileSystemFreeSizeLimitReached
-		NSDictionary* dataBasePathAttrs = [[NSFileManager defaultManager] fileSystemAttributesAtPath:self.dataBaseDirPath];
+        NSDictionary* dataBasePathAttrs = [[NSFileManager defaultManager] attributesOfFileSystemForPath:self.dataBaseDirPath error:nil];
 		NSNumber* dataBasePathSize = [dataBasePathAttrs objectForKey:NSFileSystemSize];
 		NSNumber* dataBasePathFreeSize = [dataBasePathAttrs objectForKey:NSFileSystemFreeSize];
 		if (dataBasePathFreeSize && dataBasePathSize) {
@@ -3589,7 +3596,11 @@ static BOOL protectionAgainstReentry = NO;
                 r = NSAlertDefaultReturn;
             }
             else
-                r = NSRunAlertPanel(NSLocalizedString(@"OsiriX Database", nil), NSLocalizedString(@"OsiriX cannot understand the model of current saved database... The database index will be deleted and reconstructed (no images are lost).", nil), NSLocalizedString(@"OK", nil), NSLocalizedString(@"Quit", nil), nil);
+                r = NSRunAlertPanel(NSLocalizedString(@"OsiriX Database", nil),
+                                    NSLocalizedString(@"OsiriX cannot understand the model of current saved database... The database index will be deleted and reconstructed (no images are lost).", nil),
+                                    NSLocalizedString(@"OK", nil),
+                                    NSLocalizedString(@"Quit", nil),
+                                    nil);
             
             if (r == NSAlertAlternateReturn)
             {
@@ -3925,13 +3936,23 @@ static BOOL protectionAgainstReentry = NO;
 		[newAlbumsNames release];		newAlbumsNames = nil;
 		
 		if (upgradeProblems.count)
-			NSRunAlertPanel(NSLocalizedString(@"Database Upgrade", nil), NSLocalizedString(@"The upgrade encountered %d errors. These corrupted studies have been removed: %@", nil), nil, nil, nil, upgradeProblems.count, [upgradeProblems componentsJoinedByString:@", "]);
+			NSRunAlertPanel(NSLocalizedString(@"Database Upgrade", nil),
+                            NSLocalizedString(@"The upgrade encountered %d errors. These corrupted studies have been removed: %@", nil),
+                            nil,
+                            nil,
+                            nil,
+                                upgradeProblems.count,
+                                [upgradeProblems componentsJoinedByString:@", "]);
 		
 		return YES;
 	} @catch (NSException* e) {
 		N2LogExceptionWithStackTrace(e);
 		
-		NSRunAlertPanel( NSLocalizedString(@"Database Update", nil), NSLocalizedString(@"Database updating failed... The database SQL index file is probably corrupted... The database will be reconstructed.", nil), nil, nil, nil);
+		NSRunAlertPanel(NSLocalizedString(@"Database Update", nil),
+                        NSLocalizedString(@"Database updating failed... The database SQL index file is probably corrupted... The database will be reconstructed.", nil),
+                        nil,
+                        nil,
+                        nil);
 		
 		[self rebuild:YES];
 		
@@ -4257,7 +4278,7 @@ static BOOL protectionAgainstReentry = NO;
 		int dumpStatus = [theTask terminationStatus];
 		[theTask release];
 		
-		if (dumpStatus == 0) {
+		if (dumpStatus == EXIT_SUCCESS) {
 			NSString* repairedDBFinalFile = [repairedDBFile stringByAppendingPathExtension: @"sql"];
 			[NSFileManager.defaultManager removeItemAtPath:repairedDBFinalFile error:nil];
 			
@@ -4272,7 +4293,7 @@ static BOOL protectionAgainstReentry = NO;
             
             //[theTask waitUntilExit];		// <- This is VERY DANGEROUS : the main runloop is continuing...
 			
-			if ([theTask terminationStatus] == 0) {
+			if ([theTask terminationStatus] == EXIT_SUCCESS) {
 				NSInteger tag = 0;
 				[[NSWorkspace sharedWorkspace] performFileOperation:NSWorkspaceRecycleOperation source:self.sqlFilePath.stringByDeletingLastPathComponent destination:nil files:[NSArray arrayWithObject:self.sqlFilePath.lastPathComponent] tag:&tag];
 				[NSFileManager.defaultManager moveItemAtPath:repairedDBFinalFile toPath:self.sqlFilePath error:nil];

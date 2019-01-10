@@ -68,7 +68,7 @@
 	
 	//normalizationFactor = 1.0;
 	CGLContextObj cgl_ctx = [[NSOpenGLContext currentContext] CGLContextObj];
-    if( cgl_ctx == nil)
+    if (cgl_ctx == nil)
         return;
     
 	glPushMatrix();
@@ -95,10 +95,10 @@
 	float cfocalShiftX = focalShiftX;
 	float cfocalShiftY = focalShiftY;
 	
-	if( xFlipped)
+	if (xFlipped)
 		cfocalShiftX *= -1.0;
 		
-	if( yFlipped)
+	if (yFlipped)
 		cfocalShiftY *= -1.0;
 	
 	cfocalShiftX = cfocalShiftX;
@@ -180,13 +180,13 @@
 	float sX = focalShiftX;
 	float sY = focalShiftY;
 	
-	if( xFlipped)
+	if (xFlipped)
 		sX *= -1.0;
 		
-	if( yFlipped)
+	if (yFlipped)
 		sY *= -1.0;
 	
-	if( (mouseLocStart.x > crossPositionX+sX*normalizationFactor/scaleFactor-near/scaleFactor && mouseLocStart.x < crossPositionX+sX*normalizationFactor/scaleFactor+near/scaleFactor) &&
+	if ((mouseLocStart.x > crossPositionX+sX*normalizationFactor/scaleFactor-near/scaleFactor && mouseLocStart.x < crossPositionX+sX*normalizationFactor/scaleFactor+near/scaleFactor) &&
 		(mouseLocStart.y > crossPositionY+sY*normalizationFactor/scaleFactor-near/scaleFactor && mouseLocStart.y < crossPositionY+sY*normalizationFactor/scaleFactor+near/scaleFactor) )		//
 	{
 		return YES;
@@ -197,16 +197,16 @@
 //navigator
 - (void) keyDown:(NSEvent *)event
 {
-    if( [[event characters] length] == 0)
+    if ([[event characters] length] == 0)
         return;
     
     unichar c = [[event characters] characterAtIndex:0];
     
-	if( c ==  NSUpArrowFunctionKey)
+	if (c ==  NSUpArrowFunctionKey)
 	{
 		[[NSNotificationCenter defaultCenter] postNotificationName: @"PathAssistantGoForwardNotification" object:nil userInfo: 0L];
 	}
-	else if( c ==  NSDownArrowFunctionKey)
+	else if (c ==  NSDownArrowFunctionKey)
 	{
 		[[NSNotificationCenter defaultCenter] postNotificationName: @"PathAssistantGoBackwardNotification" object:nil userInfo: 0L];
 	}
@@ -217,16 +217,16 @@
 }
 -(void) mouseMoved: (NSEvent*) theEvent
 {
-	if( ![[self window] isVisible])
+	if (![[self window] isVisible])
 		return;
 	
 	NSView* view = [[[theEvent window] contentView] hitTest:[theEvent locationInWindow]];
 	
-	if( view == self)
+	if (view == self)
 	{
 		[super mouseMoved: theEvent];
 
-		if( [self mouseOnFocal: theEvent])
+		if ([self mouseOnFocal: theEvent])
 		{
 			[cursor release];
 			cursor = [[NSCursor rotateAxisCursor] retain];
@@ -260,13 +260,13 @@
 	float sX = focalShiftX;
 	float sY = focalShiftY;
 	
-	if( xFlipped)
+	if (xFlipped)
 		sX *= -1.0;
 		
-	if( yFlipped)
+	if (yFlipped)
 		sY *= -1.0;
 	
-	if( (mouseLocStart.x > crossPositionX+sX*normalizationFactor/scaleFactor-near/scaleFactor && mouseLocStart.x < crossPositionX+sX*normalizationFactor/scaleFactor+near/scaleFactor) &&
+	if ((mouseLocStart.x > crossPositionX+sX*normalizationFactor/scaleFactor-near/scaleFactor && mouseLocStart.x < crossPositionX+sX*normalizationFactor/scaleFactor+near/scaleFactor) &&
 		(mouseLocStart.y > crossPositionY+sY*normalizationFactor/scaleFactor-near/scaleFactor && mouseLocStart.y < crossPositionY+sY*normalizationFactor/scaleFactor+near/scaleFactor) )		//
 	{
 		BOOL keepOn = YES;
@@ -390,7 +390,7 @@
 	focalPointX = x;
 	focalShiftX = focalPointX - crossPositionX;
 	
-	if( xFlipped)
+	if (xFlipped)
 		focalShiftX *= -1.0;
 }
 
@@ -399,7 +399,7 @@
 	focalPointY = y;
 	focalShiftY = focalPointY - crossPositionY;
 	
-	if( yFlipped)
+	if (yFlipped)
 		focalShiftY *= -1.0;
 }
 
@@ -415,7 +415,7 @@
 
 - (void) setFocalShiftX: (long) x
 {
-	if( xFlipped)
+	if (xFlipped)
 		x *= -1.0;
 		
 	focalShiftX = x;
@@ -424,7 +424,7 @@
 
 - (void) setFocalShiftY: (long) y
 {
-	if( yFlipped)
+	if (yFlipped)
 		y *= -1.0;
 		
 	focalShiftY = y;
@@ -433,7 +433,7 @@
 
 - (long) focalShiftX
 {
-	if( xFlipped)
+	if (xFlipped)
 		return -focalShiftX;
 	else
 		return focalShiftX;
@@ -441,7 +441,7 @@
 
 - (long) focalShiftY
 {
-	if( yFlipped)
+	if (yFlipped)
 		return -focalShiftY;
 	else
 		return focalShiftY;
@@ -472,20 +472,17 @@
 
 -(void) sendMail:(id) sender
 {
-	Mailer		*email;
-	NSImage		*im = [self nsimage: NO];
+	NSImage *im = [self nsimage: NO];
 
-	NSArray *representations;
-	NSData *bitmapData;
+	NSArray *representations = [im representations];
 
-	representations = [im representations];
+	NSData *bitmapData = [NSBitmapImageRep representationOfImageRepsInArray:representations usingType:NSJPEGFileType properties:[NSDictionary dictionaryWithObject:[NSDecimalNumber numberWithFloat:0.9] forKey:NSImageCompressionFactor]];
 
-	bitmapData = [NSBitmapImageRep representationOfImageRepsInArray:representations usingType:NSJPEGFileType properties:[NSDictionary dictionaryWithObject:[NSDecimalNumber numberWithFloat:0.9] forKey:NSImageCompressionFactor]];
-
-	[bitmapData writeToFile:[[[BrowserController currentBrowser] documentsDirectory] stringByAppendingFormat:@"/TEMP.noindex/%@", OUR_IMAGE_JPG]
+    NSString *path = [[[BrowserController currentBrowser] documentsDirectory] stringByAppendingFormat:@"/TEMP.noindex/%@", OUR_IMAGE_JPG];
+	[bitmapData writeToFile:path
                  atomically:YES];
 				
-	email = [[Mailer alloc] init];
+	Mailer *email = [[Mailer alloc] init];
 	
 	[email sendMail:@"--"
                  to:@"--"
@@ -493,33 +490,32 @@
              isMIME:YES
                name:@"--"
             sendNow:NO
-              image:[[[BrowserController currentBrowser] documentsDirectory] stringByAppendingFormat:@"/TEMP.noindex/%@", OUR_IMAGE_JPG]];
+              image:path];
 	
 	[email release];
 }
 
 - (void) exportJPEG:(id) sender
 {
-    NSSavePanel     *panel = [NSSavePanel savePanel];
-	NSWorkspace		*ws = [NSWorkspace sharedWorkspace];
-	
+    NSSavePanel *panel = [NSSavePanel savePanel];
 	[panel setCanSelectHiddenExtension:YES];
-	[panel setRequiredFileType:@"jpg"];
-	
-	if( [panel runModalForDirectory:nil file:[[[controller originalDCMFilesList] objectAtIndex:0] valueForKeyPath:@"series.name"]] == NSFileHandlingPanelOKButton)
+    [panel setAllowedFileTypes: @[@"jpg"]];
+    [panel setNameFieldStringValue: [[[controller originalDCMFilesList] objectAtIndex:0] valueForKeyPath:@"series.name"]];
+	if ([panel runModal] == NSFileHandlingPanelOKButton)
 	{		
 			NSImage *im = [self nsimage:NO];
 						
-			NSArray *representations;
-			NSData *bitmapData;
+			NSArray *representations = [im representations];
 			
-			representations = [im representations];
-			
-			bitmapData = [NSBitmapImageRep representationOfImageRepsInArray:representations usingType:NSJPEGFileType properties:[NSDictionary dictionaryWithObject:[NSDecimalNumber numberWithFloat:0.9] forKey:NSImageCompressionFactor]];
+			NSData *bitmapData = [NSBitmapImageRep representationOfImageRepsInArray:representations usingType:NSJPEGFileType properties:[NSDictionary dictionaryWithObject:[NSDecimalNumber numberWithFloat:0.9] forKey:NSImageCompressionFactor]];
 			
 			[bitmapData writeToFile:[panel filename] atomically:YES];
 			
-			if ([[NSUserDefaults standardUserDefaults] boolForKey: @"OPENVIEWER"]) [ws openFile:[panel filename]];
+			if ([[NSUserDefaults standardUserDefaults] boolForKey: @"OPENVIEWER"])
+            {
+                NSWorkspace *ws = [NSWorkspace sharedWorkspace];
+                [ws openFile:[panel filename]];
+            }
 	}
 }
 
@@ -544,7 +540,7 @@
 		
 		unsigned char *data = [self superGetRawPixels:&width :&height :&spp :&bpp :YES :NO :NO];
 		
-		if( data)
+		if (data)
 		{
 			DICOMExport *exportDCM = [[DICOMExport alloc] init];
 			 
@@ -570,10 +566,14 @@
 			[exportDCM setPixelData: data samplesPerPixel:spp bitsPerSample:bpp width: width height: height];
 			
 			NSString *f = [exportDCM writeDCMFile: nil];
-			if( f == nil)
-                NSRunCriticalAlertPanel( NSLocalizedString(@"Error", nil),  NSLocalizedString(@"Error during the creation of the DICOM File!", nil), NSLocalizedString(@"OK", nil), nil, nil);
+			if (f == nil)
+                NSRunCriticalAlertPanel(NSLocalizedString(@"Error", nil),
+                                        NSLocalizedString(@"Error during the creation of the DICOM File!", nil),
+                                        NSLocalizedString(@"OK", nil),
+                                        nil,
+                                        nil);
 			
-			if( f)
+			if (f)
 				[producedFiles addObject: [NSDictionary dictionaryWithObjectsAndKeys: f, @"file", nil]];
 			
 			[exportDCM release];
@@ -584,7 +584,7 @@
 		[[NSUserDefaults standardUserDefaults] setInteger: clutBarsCopy forKey: @"CLUTBARS"];
 		[DCMView setDefaults];
 		
-		if( [producedFiles count])
+		if ([producedFiles count])
 		{
 			NSArray *objects = [BrowserController.currentBrowser.database addFilesAtPaths: [producedFiles valueForKey: @"file"]
                                                                           postNotifications: YES
@@ -594,10 +594,10 @@
 			
             objects = [BrowserController.currentBrowser.database objectsWithIDs: objects];
             
-			if( [[NSUserDefaults standardUserDefaults] boolForKey: @"afterExportSendToDICOMNode"])
+			if ([[NSUserDefaults standardUserDefaults] boolForKey: @"afterExportSendToDICOMNode"])
 				[[BrowserController currentBrowser] selectServer: objects];
 			
-			if( [[NSUserDefaults standardUserDefaults] boolForKey: @"afterExportMarkThemAsKeyImages"])
+			if ([[NSUserDefaults standardUserDefaults] boolForKey: @"afterExportMarkThemAsKeyImages"])
 			{
 				for( NSManagedObject *im in objects)
 					[im setValue: @YES forKey: @"isKeyImage"];

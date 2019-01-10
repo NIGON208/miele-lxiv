@@ -5,7 +5,7 @@ Miele_LXIV.xcodeproj/project.xcworkspace/xcuserdata/
 __MACOSX/
 Binaries/__MACOSX/
 build/
-AYDicomPrint/
+Build/
 AYDicomPrint/xercesc
 AYDicomPrint/libxerces-c.27.dylib
 AYDicomPrint/libdcmprintscu.dylib
@@ -27,11 +27,13 @@ Binaries/Jasper*
 Binaries/KDU SDK/libkdu_v73R.a
 Binaries/libPapyrusToolkit.a
 Binaries/libjpeg
+Binaries/libpng
 Binaries/LibTiff/
 Binaries/libtiff
 Binaries/Ming/
 Binaries/openjpeg
 Binaries/OsiriX Report.template
+Binaries/OsiriX Lite.app.zip
 Binaries/PAGES/
 Binaries/ReportsToPDF/odt2pdf/build/odt2pdf
 Binaries/VTK
@@ -39,12 +41,21 @@ Binaries/VTKHeaders
 Binaries/VTKLibs
 Binaries/weasis/
 Binaries/._OsiriX Report.template
+Index/
 options.h
 url.h
 
-*.xcscheme
+de.lproj/
+es.lproj/
+fr.lproj/
+it.lproj/
+ja.lproj/
+zh-Hans.lproj/
 
 nitrogen/Nitrogen.xcodeproj/xcuserdata/admin.xcuserdatad/xcschemes/xcschememanagement.plist
 CMake*
 CPack*
 doxy/
+doc/Documentation/
+doc/Doxygen/
+

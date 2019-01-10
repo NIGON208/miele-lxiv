@@ -14,15 +14,17 @@
 
 #import "Anonymization.h"
 #import "AnonymizationTagsPopUpButton.h"
-#import "DCM Framework/DCMTagDictionary.h"
-#import "DCM Framework/DCMAttributeTag.h"
+#import <DCM/DCMTagDictionary.h>
+#import <DCM/DCMAttributeTag.h>
+
 #import "N2CustomTitledPopUpButtonCell.h"
 #import "AnonymizationCustomTagPanelController.h"
 #import "AnonymizationViewController.h"
 #import "AnonymizationSavePanelController.h"
 #import "DICOMFiles/dicomFile.h"
-#import "DCM Framework/DCMObject.h"
-#import "DCM Framework/DCMAttribute.h"
+#import <DCM/DCMObject.h>
+#import <DCM/DCMAttribute.h>
+
 #import "N2Debug.h"
 
 @implementation AnonymizationTagsPopUpButton

@@ -15,17 +15,19 @@
 #import "DefaultsOsiriX.h"
 #import "PluginManager.h"
 #import "NSUserDefaults+OsiriX.h"
-#import "DCM Framework/DCMAbstractSyntaxUID.h"
+#import <DCM/DCMAbstractSyntaxUID.h>
 #import <AVFoundation/AVFoundation.h>
 
 #ifdef OSIRIX_VIEWER
-#import "DCM Framework/DCMNetServiceDelegate.h"
+#import <DCM/DCMNetServiceDelegate.h>
 #endif
 
 #include <IOKit/graphics/IOGraphicsLib.h>
 
 #include <CoreFoundation/CoreFoundation.h>
 #include <IOKit/IOKitLib.h>
+
+#import "Reports.h" // for ReportType
 
 #import "url.h"
 
@@ -39,7 +41,7 @@ static NSHost *currentHost = nil;
 {
 	@synchronized( NSApp)
 	{
-		if( currentHost == nil)
+		if (currentHost == nil)
 			currentHost = [[NSHost currentHost] retain];
 	}
 	return currentHost;
@@ -53,7 +55,7 @@ static NSHost *currentHost = nil;
 
 //+ (BOOL) isHUG
 //{
-//	if( testIsHugDone == NO)
+//	if (testIsHugDone == NO)
 //	{
 ////		NSArray	*names = [[DefaultsOsiriX currentHost] names];
 ////		for (int i = 0; i < [names count] && !isHcugeCh; i++)
@@ -62,7 +64,7 @@ static NSHost *currentHost = nil;
 ////			if ( len < 8 ) continue;  // Fixed out of bounds error in following line when domainname is short.
 ////			NSString *domainName = [[names objectAtIndex: i] substringFromIndex: len - 8];
 ////
-////			if([domainName isEqualToString: @"hcuge.ch"])
+////			if ([domainName isEqualToString: @"hcuge.ch"])
 ////			{
 ////				isHcugeCh = YES;
 ////				hostName = [[names objectAtIndex: i] retain];
@@ -73,11 +75,11 @@ static NSHost *currentHost = nil;
 //		gethostname(s,_POSIX_HOST_NAME_MAX);
 //		NSString *c = [NSString stringWithCString:s encoding:NSUTF8StringEncoding];
 //		
-//		if( [c length] > 8 )
+//		if ([c length] > 8 )
 //		{
 //			NSString *domainName = [c substringFromIndex: [c length] - 8];
 //
-//			if([domainName isEqualToString: @"hcuge.ch"])
+//			if ([domainName isEqualToString: @"hcuge.ch"])
 //			{
 //				isHcugeCh = YES;
 //				hostName = [c retain];
@@ -91,16 +93,16 @@ static NSHost *currentHost = nil;
 
 //+ (BOOL) isUniGE
 //{
-//	if( testIsUniDone == NO)
+//	if (testIsUniDone == NO)
 //	{
 ////		NSArray	*names = [[DefaultsOsiriX currentHost] names];
-////		for(int i = 0; i < [names count] && !isUnigeCh; i++)
+////		for (int i = 0; i < [names count] && !isUnigeCh; i++)
 ////		{
 ////			int len = [[names objectAtIndex: i] length];
 ////			if ( len < 8 ) continue;  // Fixed out of bounds error in following line when domainname is short.
 ////			NSString *domainName = [[names objectAtIndex: i] substringFromIndex: len - 8];
 ////
-////			if([domainName isEqualToString: @"unige.ch"])
+////			if ([domainName isEqualToString: @"unige.ch"])
 ////			{
 ////				isUnigeCh = YES;
 ////				hostName = [[names objectAtIndex: i] retain];
@@ -111,11 +113,11 @@ static NSHost *currentHost = nil;
 //		gethostname(s,_POSIX_HOST_NAME_MAX);
 //		NSString *c = [NSString stringWithCString:s encoding:NSUTF8StringEncoding];
 //		
-//		if( [c length] > 8 )
+//		if ([c length] > 8 )
 //		{
 //			NSString *domainName = [c substringFromIndex: [c length] - 8];
 //
-//			if([domainName isEqualToString: @"unige.ch"])
+//			if ([domainName isEqualToString: @"unige.ch"])
 //			{
 //				isUnigeCh = YES;
 //				hostName = [c retain];
@@ -130,16 +132,16 @@ static NSHost *currentHost = nil;
 //+ (BOOL) isLAVIM
 //{
 //	#ifdef OSIRIX_VIEWER
-//	if( [self isHUG])
+//	if ([self isHUG])
 //	{
-//		for(int i = 0; i < [[PluginManager preProcessPlugins] count]; i++)
+//		for (int i = 0; i < [[PluginManager preProcessPlugins] count]; i++)
 //		{
 //			id filter = [[PluginManager preProcessPlugins] objectAtIndex:i];
 //			
-//			if( [[filter className] isEqualToString:@"LavimAnonymize"]) return YES;
+//			if ([[filter className] isEqualToString:@"LavimAnonymize"]) return YES;
 //		}
 //	}
-//	else if([self isUniGE])
+//	else if ([self isUniGE])
 //	{
 //		if ([hostName isEqualToString:@"lavimcmu1.unige.ch"]) return YES;
 //	}
@@ -152,7 +154,7 @@ static NSHost *currentHost = nil;
 {
 	NSDictionary *d = [NSDictionary dictionaryWithContentsOfFile: [[NSBundle mainBundle] pathForResource:filename ofType:@"plist"]];
 	
-	if( d)
+	if (d)
 		[clutValues setObject: d forKey: filename];
 	else
 		NSLog(@"CLUT plist not found: %@", filename);
@@ -167,10 +169,10 @@ static NSHost *currentHost = nil;
 	[aConvFilter setObject:[NSNumber numberWithLong:size] forKey:@"Size"];
 	
 	long norm = 0;
-	for( i = 0; i < size*size; i++) norm += vals[i];
+	for ( i = 0; i < size*size; i++) norm += vals[i];
 	[aConvFilter setObject:[NSNumber numberWithLong:norm] forKey:@"Normalization"];
 	
-	for( i = 0; i < size*size; i++) [valArray addObject:[NSNumber numberWithLong:vals[i]]];
+	for ( i = 0; i < size*size; i++) [valArray addObject:[NSNumber numberWithLong:vals[i]]];
 	[aConvFilter setObject:valArray forKey:@"Matrix"];
 	
 	[convValues setObject:aConvFilter forKey:name];
@@ -250,23 +252,23 @@ static NSHost *currentHost = nil;
 	// First we're going to grab the online displays
 	CGGetOnlineDisplayList(MAXDISPLAYS, displays, &displayCount);
 	
-    if( displayCount <= 0)
+    if (displayCount <= 0)
         return 0;
     
 	// Now we iterate through them
-	for(i = 0; i < displayCount; i++)
+	for (i = 0; i < displayCount; i++)
 		dspPorts[i] = CGDisplayIOServicePort(displays[i]);
 
 	// Ask for the physical size of VRAM of the primary display
 	typeCode = IORegistryEntryCreateCFProperty(dspPorts[0], CFSTR("IOFBMemorySize"), kCFAllocatorDefault, kNilOptions);
 	
 	// Validate our data and make sure we're getting the right type
-	if(typeCode)
+	if (typeCode)
 	{
 		SInt32 vramStorage = 0;
 		// Convert this to a useable number
 		
-		if( CFGetTypeID(typeCode) == CFNumberGetTypeID())
+		if (CFGetTypeID(typeCode) == CFNumberGetTypeID())
 			CFNumberGetValue((CFNumberRef)typeCode, kCFNumberSInt32Type, &vramStorage);
 		
 		CFRelease( typeCode);
@@ -317,7 +319,8 @@ static NSHost *currentHost = nil;
 		
 		[aConvFilter setObject:[NSNumber numberWithLong:3] forKey:@"Size"];
 		[aConvFilter setObject:[NSNumber numberWithLong:1] forKey:@"Normalization"];
-		for( i = 0; i < 9; i++) [valArray addObject: [NSNumber numberWithLong:vals[i]]];
+		for ( i = 0; i < 9; i++)
+            [valArray addObject: [NSNumber numberWithLong:vals[i]]];
 		[aConvFilter setObject:valArray forKey:@"Matrix"];
 		[convValues setObject:aConvFilter forKey:@"Bone Filter 3x3"];
 	}
@@ -326,7 +329,8 @@ static NSHost *currentHost = nil;
 	{
 		NSMutableDictionary *aConvFilter = [NSMutableDictionary dictionary];
 		NSMutableArray		*valArray = [NSMutableArray array];
-		short				vals[25] = {	1, 1, 1, 1, 1,
+		short vals[25] = {
+            1, 1, 1, 1, 1,
 			1, 4, 4, 4, 1,
 			1, 4, 12, 4, 1,
 			1, 4, 4, 4, 1,
@@ -334,7 +338,8 @@ static NSHost *currentHost = nil;
 		
 		[aConvFilter setObject:[NSNumber numberWithLong:5] forKey:@"Size"];
 		[aConvFilter setObject:[NSNumber numberWithLong:60] forKey:@"Normalization"];
-		for( i = 0; i < 25; i++) [valArray addObject:[NSNumber numberWithLong:vals[i]]];
+		for ( i = 0; i < 25; i++)
+            [valArray addObject:[NSNumber numberWithLong:vals[i]]];
 		[aConvFilter setObject:valArray forKey:@"Matrix"];
 		[convValues setObject:aConvFilter forKey:@"Basic Smooth 5x5"];
 	}
@@ -429,7 +434,7 @@ static NSHost *currentHost = nil;
 	NSMutableDictionary *aOpacityFilter = [NSMutableDictionary dictionary];
 	NSMutableArray *points = [NSMutableArray array];
 	
-	for( i = 0; i < 256; i++)
+	for ( i = 0; i < 256; i++)
 	{
 		NSPoint pt;
 		//math.h
@@ -447,7 +452,7 @@ static NSHost *currentHost = nil;
 	aOpacityFilter = [NSMutableDictionary dictionary];
 	points = [NSMutableArray array];
 	
-	for( i = 0; i < 256; i++)
+	for ( i = 0; i < 256; i++)
 	{
 		NSPoint pt;
 		//math.h
@@ -485,21 +490,21 @@ static NSHost *currentHost = nil;
 	{
 	//    NSMutableDictionary *aCLUTFilter = [NSMutableDictionary dictionary];
 	//	NSMutableArray		*rArray = [NSMutableArray array];
-	//	for( i = 0; i < 256; i++)
+	//	for ( i = 0; i < 256; i++)
 	//	{
 	//		[rArray addObject: [NSNumber numberWithLong:i]];
 	//	}
 	//	[aCLUTFilter setObject:rArray forKey:@"Red"];
 	//	
 	//	NSMutableArray		*gArray = [NSMutableArray array];
-	//	for( i = 0; i < 256; i++)
+	//	for ( i = 0; i < 256; i++)
 	//	{
 	//		[gArray addObject: [NSNumber numberWithLong:0L]];
 	//	}
 	//	[aCLUTFilter setObject:gArray forKey:@"Green"];
 	//	
 	//	NSMutableArray		*bArray = [NSMutableArray array];
-	//	for( i = 0; i < 256; i++)
+	//	for ( i = 0; i < 256; i++)
 	//	{
 	//		[bArray addObject: [NSNumber numberWithLong:0L]];
 	//	}
@@ -512,19 +517,19 @@ static NSHost *currentHost = nil;
 	{
 		NSMutableDictionary *aCLUTFilter = [NSMutableDictionary dictionary];
 		NSMutableArray		*rArray = [NSMutableArray array];
-		for( i = 0; i < 128; i++) [rArray addObject: [NSNumber numberWithLong:i*2]];
-		for( i = 128; i < 256; i++) [rArray addObject: [NSNumber numberWithLong:255L]];
+		for ( i = 0; i < 128; i++) [rArray addObject: [NSNumber numberWithLong:i*2]];
+		for ( i = 128; i < 256; i++) [rArray addObject: [NSNumber numberWithLong:255L]];
 		[aCLUTFilter setObject:rArray forKey:@"Red"];
 		
 		NSMutableArray		*gArray = [NSMutableArray array];
-		for( i = 0; i < 128; i++) [gArray addObject: [NSNumber numberWithLong:0L]];
-		for( i = 128; i < 192; i++) [gArray addObject: [NSNumber numberWithLong: (i-128)*4]];
-		for( i = 192; i < 256; i++) [gArray addObject: [NSNumber numberWithLong: 255L]];
+		for ( i = 0; i < 128; i++) [gArray addObject: [NSNumber numberWithLong:0L]];
+		for ( i = 128; i < 192; i++) [gArray addObject: [NSNumber numberWithLong: (i-128)*4]];
+		for ( i = 192; i < 256; i++) [gArray addObject: [NSNumber numberWithLong: 255L]];
 		[aCLUTFilter setObject:gArray forKey:@"Green"];
 		
 		NSMutableArray		*bArray = [NSMutableArray array];
-		for( i = 0; i < 192; i++) [bArray addObject: [NSNumber numberWithLong:0L]];
-		for( i = 192; i < 256; i++) [bArray addObject: [NSNumber numberWithLong:(i-192)*4]];
+		for ( i = 0; i < 192; i++) [bArray addObject: [NSNumber numberWithLong:0L]];
+		for ( i = 192; i < 256; i++) [bArray addObject: [NSNumber numberWithLong:(i-192)*4]];
 		[aCLUTFilter setObject:bArray forKey:@"Blue"];
 		
 		// Points & Colors
@@ -552,15 +557,15 @@ static NSHost *currentHost = nil;
 	{
 		NSMutableDictionary *aCLUTFilter = [NSMutableDictionary dictionary];
 		NSMutableArray		*rArray = [NSMutableArray array];
-		for( i = 0; i < 256; i++) [rArray addObject: [NSNumber numberWithLong:255-i]];
+		for ( i = 0; i < 256; i++) [rArray addObject: [NSNumber numberWithLong:255-i]];
 		[aCLUTFilter setObject:rArray forKey:@"Red"];
 		
 		NSMutableArray		*gArray = [NSMutableArray array];
-		for( i = 0; i < 256; i++) [gArray addObject: [NSNumber numberWithLong:255-i]];
+		for ( i = 0; i < 256; i++) [gArray addObject: [NSNumber numberWithLong:255-i]];
 		[aCLUTFilter setObject:gArray forKey:@"Green"];
 		
 		NSMutableArray		*bArray = [NSMutableArray array];
-		for( i = 0; i < 256; i++) [bArray addObject: [NSNumber numberWithLong:255-i]];
+		for ( i = 0; i < 256; i++) [bArray addObject: [NSNumber numberWithLong:255-i]];
 		[aCLUTFilter setObject:bArray forKey:@"Blue"];
 		
 		// Points & Colors
@@ -583,7 +588,7 @@ static NSHost *currentHost = nil;
 		NSMutableArray		*rArray = [NSMutableArray array];
 		NSMutableArray		*gArray = [NSMutableArray array];
 		NSMutableArray		*bArray = [NSMutableArray array];
-		for( i = 0; i < 256; i++)  {
+		for ( i = 0; i < 256; i++)  {
 			[bArray addObject: [NSNumber numberWithLong:(195 - (i * 0.26))]];
 			[gArray addObject: [NSNumber numberWithLong:(187 - (i *0.26))]];
 			[rArray addObject: [NSNumber numberWithLong:(240 + (i * 0.02))]];
@@ -619,7 +624,7 @@ static NSHost *currentHost = nil;
 		NSMutableArray		*rArray = [NSMutableArray array];
 		NSMutableArray		*gArray = [NSMutableArray array];
 		NSMutableArray		*bArray = [NSMutableArray array];
-		for( i = 0; i < 256; i++)
+		for ( i = 0; i < 256; i++)
         {
 			[bArray addObject: [NSNumber numberWithLong: r[ i]]];
 			[gArray addObject: [NSNumber numberWithLong: g[ i]]];
@@ -656,7 +661,7 @@ static NSHost *currentHost = nil;
 		NSMutableArray		*rArray = [NSMutableArray array];
 		NSMutableArray		*gArray = [NSMutableArray array];
 		NSMutableArray		*bArray = [NSMutableArray array];
-		for( i = 0; i < 256; i++)
+		for ( i = 0; i < 256; i++)
         {
 			[bArray addObject: [NSNumber numberWithLong: r[ i]]];
 			[gArray addObject: [NSNumber numberWithLong: g[ i]]];
@@ -681,7 +686,7 @@ static NSHost *currentHost = nil;
 		[clutValues setObject:aCLUTFilter forKey:@"Perfusion"];
 	}
 	
-	#ifdef OSIRIX_VIEWER
+#ifdef OSIRIX_VIEWER
 	[DefaultsOsiriX addCLUT: @"VR Muscles-Bones" dictionary: clutValues];
 	[DefaultsOsiriX addCLUT: @"VR Bones" dictionary: clutValues];
 	[DefaultsOsiriX addCLUT: @"VR Red Vessels" dictionary: clutValues];
@@ -706,7 +711,7 @@ static NSHost *currentHost = nil;
 	[DefaultsOsiriX addCLUT: @"Jet" dictionary: clutValues];
 	
 	[defaultValues setObject: clutValues forKey: @"CLUT"];
-	#endif
+#endif
 	
 	// ** PREFERENCES - SERVERS
 	
@@ -732,23 +737,23 @@ static NSHost *currentHost = nil;
 	[defaultValues setObject:[NSMutableArray arrayWithObject:@"Osirix"] forKey:@"ROUTING CALENDARS"];
 	
 	// ** AETITLE
-	if( [defaultValues objectForKey:@"AETITLE"] == nil)
+	if ([defaultValues objectForKey:@"AETITLE"] == nil)
 	{
-		#ifdef OSIRIX_VIEWER
+#ifdef OSIRIX_VIEWER
 		char s[_POSIX_HOST_NAME_MAX+1];
 		gethostname(s,_POSIX_HOST_NAME_MAX);
 		NSString *c = [NSString stringWithCString:s encoding:NSUTF8StringEncoding];
 		NSRange range = [c rangeOfString: @"."];
-		if( range.location != NSNotFound) c = [c substringToIndex: range.location];
+		if (range.location != NSNotFound) c = [c substringToIndex: range.location];
 	
-		if( [c length] > 16)
+		if ([c length] > 16)
 			c = [c substringToIndex: 16];
 			
 		[defaultValues setObject: c forKey:@"AETITLE"];
-		#endif
+#endif
 	}
     
-    if( [defaultValues objectForKey:@"AETITLE"] == nil)
+    if ([defaultValues objectForKey:@"AETITLE"] == nil)
         [defaultValues setObject:OUR_IMPLEMENTATION_NAME forKey:@"AETITLE"];
     
 	[defaultValues setObject:@"11112" forKey:@"AEPORT"];
@@ -852,7 +857,7 @@ static NSHost *currentHost = nil;
 	[defaultValues setObject:@"0" forKey:@"CheckForMultipleVolumesInSeries"];
 	[defaultValues setObject:@"3000" forKey:@"MAXWindowSize"];
 	[defaultValues setObject:@"1" forKey:@"ScreenCaptureSmartCropping"];
-	[defaultValues setObject:@"1" forKey:@"checkForUpdatesPlugins"];
+	[defaultValues setObject:@YES forKey:@"checkForUpdatesPlugins"];
     [defaultValues setObject:@"0" forKey:@"DoNotDeleteCrashingPlugins"];
 	[defaultValues setObject:@"1" forKey:@"magnifyingLens"];
 	[defaultValues setObject:@"12" forKey:@"LabelFONTSIZE"];
@@ -879,7 +884,7 @@ static NSHost *currentHost = nil;
     [defaultValues setObject:@"comment" forKey:@"commentFieldForAutoFill"];
     [defaultValues setObject:[NSString stringWithFormat:@"%d", syncroRatio] forKey:@"DefaultModeForNonVolumicSeries"];
 	[defaultValues setObject:@"2" forKey:@"drawerState"]; // NSDrawerOpenState
-	if( [[NSProcessInfo processInfo] processorCount] >= 4)
+	if ([[NSProcessInfo processInfo] processorCount] >= 4)
 		[defaultValues setObject:@"2.0" forKey:@"superSampling"];
 	else
 		[defaultValues setObject:@"1.4" forKey:@"superSampling"];
@@ -899,17 +904,17 @@ static NSHost *currentHost = nil;
 	
 	// ** MAX3DTEXTURE
 	// ** MAX3DTEXTURESHADING
-	if( pVRAM >= 512)
+	if (pVRAM >= 512)
 	{	
 		[defaultValues setObject:@"256" forKey:@"MAX3DTEXTURE"];
 		[defaultValues setObject:@"128" forKey:@"MAX3DTEXTURESHADING"];
 	}
-	else if( pVRAM >= 256)
+	else if (pVRAM >= 256)
 	{
 		[defaultValues setObject:@"128" forKey:@"MAX3DTEXTURE"];
 		[defaultValues setObject:@"64" forKey:@"MAX3DTEXTURESHADING"];
 	}
-	else if( pVRAM >= 128)
+	else if (pVRAM >= 128)
 	{
 		[defaultValues setObject:@"128" forKey:@"MAX3DTEXTURE"];
 		[defaultValues setObject:@"32" forKey:@"MAX3DTEXTURESHADING"];
@@ -957,7 +962,7 @@ static NSHost *currentHost = nil;
     [defaultValues setObject: @"0" forKey: @"TryIMAGELevelDICOMRetrieveIfLocalImages"];
 	[defaultValues setObject: @"1" forKey: @"SingleProcessMultiThreadedListener"];
 	[defaultValues setObject: @"0" forKey: @"AUTHENTICATION"];
-	[defaultValues setObject: @"1" forKey: @"CheckOsiriXUpdates4"];
+	[defaultValues setObject: @"1" forKey: @"Check4Updates"];
 	[defaultValues setObject: @"-1" forKey:@"MOUNT"];
 	[defaultValues setObject: @"1" forKey:@"CDDVDEjectAfterAutoCopy"];
 //	[defaultValues setObject: @"1" forKey:@"UNMOUNT"];
@@ -986,7 +991,7 @@ static NSHost *currentHost = nil;
 	[defaultValues setObject: [dateFormat dateFormat] forKey:@"DBDateFormat2"];
 	
 	NSDictionary *defaultAnnotations = [NSDictionary dictionaryWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"AnnotationsDefault" ofType:@"plist"]];
-	if( defaultAnnotations)
+	if (defaultAnnotations)
 		[defaultValues setObject: defaultAnnotations forKey:@"CUSTOM_IMAGE_ANNOTATIONS"];
 	[defaultValues setObject:@"0" forKey:@"SERIESORDER"];
 	[defaultValues setObject:@"40" forKey:@"DICOMTimeout"];
@@ -1005,8 +1010,8 @@ static NSHost *currentHost = nil;
 	[defaultValues setObject: @"0" forKey: @"AUTOCLEANINGDONTCONTAIN"];
 	[defaultValues setObject: @"0" forKey: @"AUTOCLEANINGDELETEORIGINAL"];
 	[defaultValues setObject: @"0" forKey: @"COMMENTSAUTOFILL"];
-	[defaultValues setObject: @"http://list.dicom.dcm/DICOMNodes.plist" forKey: @"syncDICOMNodesURL"];
-	[defaultValues setObject: @"http://list.dicom.dcm/OsiriXDB.plist" forKey: @"syncOsiriXDBURL"];
+	[defaultValues setObject: SYNC_DICOM_NODES_URL forKey: @"syncDICOMNodesURL"];
+	[defaultValues setObject: SYNC_DB_URL forKey: @"syncOsiriXDBURL"];
 	[defaultValues setObject: @"1" forKey: @"BurnOsirixApplication"];
 	[defaultValues setObject: @"1" forKey: @"BurnHtml"];
 	[defaultValues setObject: @"0" forKey: @"BurnSupplementaryFolder"];
@@ -1028,8 +1033,8 @@ static NSHost *currentHost = nil;
 	[defaultValues setObject: @"Geneva" forKey: @"FONTNAME"];
 	[defaultValues setObject: @"1" forKey: @"DICOMSENDALLOWED"];
 	[defaultValues setObject: @"14.0" forKey: @"FONTSIZE"];
-	[defaultValues setObject: @"2" forKey: @"REPORTSMODE"];
-	[defaultValues setObject: URL_OSIRIX_VIEWER@"/internet.dcm" forKey: @"LASTURL"];
+	[defaultValues setObject: @(REPORT_TYPE_PAGES) forKey: @"REPORTSMODE"];
+	[defaultValues setObject: URL_MIELE_SOURCES@"/internet.dcm" forKey: @"LASTURL"];
 	[defaultValues setObject: @"0" forKey: @"MAPPERMODEVR"];
 	[defaultValues setObject: @"1" forKey: @"STARTCOUNT"];
 	[defaultValues setObject: @"1" forKey: @"editingLevel"];
@@ -1040,7 +1045,7 @@ static NSHost *currentHost = nil;
 	[defaultValues setObject: @"0" forKey: @"Compression Mode for Export"];
 	[defaultValues setObject: @"0" forKey: @"ORIGINALSIZE"];
 	[defaultValues setObject: @"1" forKey: @"Scroll Wheel Reversed"];
-	[defaultValues setObject: @"OsiriX" forKey: @"ALBUMNAME"];
+	[defaultValues setObject: @"Miele-LXIV" forKey: @"ALBUMNAME"];
 	[defaultValues setObject: @"1" forKey: @"DisplayCrossReferenceLines"];
 	[defaultValues setObject: @"0" forKey: @"AlwaysScaleToFit"];
 	[defaultValues setObject:@"0" forKey: @"VRDefaultViewSize"];
@@ -1161,11 +1166,11 @@ static NSHost *currentHost = nil;
     
     [defaultValues setObject:@"1" forKey:@"bringOsiriXToFrontAfterReceivingMessage"];
     
-	#ifdef MACAPPSTORE
+#ifdef MACAPPSTORE
 	[defaultValues setObject:@"1" forKey:@"MACAPPSTORE"];
-	#else
+#else
 	[defaultValues setObject:@"0" forKey:@"MACAPPSTORE"];
-	#endif
+#endif
 	
 	[defaultValues setObject: [NSArray arrayWithObjects: [DCMAbstractSyntaxUID MRSpectroscopyStorage], nil] forKey:@"additionalDisplayedStorageSOPClassUIDArray"];
 	
@@ -1228,7 +1233,7 @@ static NSHost *currentHost = nil;
     {
 		NSMutableDictionary *protocol = [NSMutableDictionary dictionaryWithObjects:[NSArray arrayWithObjects: NSLocalizedString( @"Default", nil), @0, @0, nil] forKeys:[NSArray arrayWithObjects:@"Study Description", @"WindowsTiling", @"ImageTiling", nil]];
         
-        if( [modality isEqualToString: @"MG"])
+        if ([modality isEqualToString: @"MG"])
         {
             [protocol setObject: @5 forKey: @"WindowsTiling"]; // 2 x 2
             [protocol setObject: @"R CC,L CC,R MLO,L MLO" forKey: @"SeriesOrder"];
@@ -1320,7 +1325,7 @@ static NSHost *currentHost = nil;
                       @"dbl-click + cmd",	//SetKeyImageAction
 						nil];						
 	
-	for( int x = 0; x < [array count]; x++)
+	for ( int x = 0; x < [array count]; x++)
 	{
 		stringValue = [array objectAtIndex:x];
 		[hotkeys setObject:[NSNumber numberWithInt:x] forKey:stringValue];

@@ -24,7 +24,7 @@
 
 - (id) initWithBundle:(NSBundle *)bundle
 {
-	if( self = [super init])
+	if (self = [super init])
 	{
 		NSNib *nib = [[[NSNib alloc] initWithNibNamed: @"OSI3DPreferencePanePref" bundle: nil] autorelease];
 		[nib instantiateNibWithOwner:self topLevelObjects: nil];
@@ -44,14 +44,14 @@
     {
 		if ([keyPath isEqualToString: @"values.MAPPERMODEVR"])
         {
-            if( [[NSUserDefaults standardUserDefaults] boolForKey: @"MAPPERMODEVR"])
+            if ([[NSUserDefaults standardUserDefaults] boolForKey: @"MAPPERMODEVR"])
             {
     #ifndef OSIRIX_LIGHT
                 long vramMB = [VTKView VRAMSizeForDisplayID: [[[[mainWindow screen] deviceDescription] objectForKey: @"NSScreenNumber"] intValue]];
                 
                 //vram /= 1024*1024;
                 
-                if( vramMB <= 512)
+                if (vramMB <= 512)
                 {
                     NSRunCriticalAlertPanel(NSLocalizedString(@"GPU Rendering", nil),
                                             NSLocalizedString( @"Your graphic board has only %d MB of VRAM. Performances will be very limited with large dataset.", nil),

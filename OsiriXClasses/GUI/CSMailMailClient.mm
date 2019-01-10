@@ -21,7 +21,7 @@ void QuitAndSleep(NSString* bundleIdentifier, float seconds)
 	AppleEvent *quitApplicationAppleEventPtr = (AEDesc*)[ae aeDesc];
 	if (quitApplicationAppleEventPtr)
 	{
-		OSStatus err = AESendMessage(quitApplicationAppleEventPtr, NULL, kAENoReply, kAEDefaultTimeout) ;
+		OSStatus err = AESendMessage(quitApplicationAppleEventPtr, NULL, kAENoReply, kAEDefaultTimeout);
 	}
 	[NSThread sleepForTimeInterval: seconds];
 }
@@ -746,7 +746,7 @@ void QuitAndSleep(NSString* bundleIdentifier, float seconds)
 //                    
 //                    [task waitUntilExit];
 //                    int status = [task terminationStatus];
-//                    success = (status == 0);
+//                    success = (status == EXIT_SUCCESS);
 //                    if (!success) 
 //                        NSLog(@"*****(MailMe) WARNING: Could not send message using simple-mailer; it returned exit status %d.", status);
 //                    

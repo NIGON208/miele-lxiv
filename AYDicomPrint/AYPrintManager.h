@@ -1,12 +1,21 @@
-#ifndef CAYPRINTMANAGER_H
-#define CAYPRINTMANAGER_H
+//
+//  AYPrintManager.h
+//  DICOMPrint
+//
+//  Created by Alessandro Bettarini on 28 Dec 2018
+//  Copyright © 2018 bettar. All rights reserved.
+//
+//  This file is licensed under GNU - GPL v3 license.
+//  See file LICENCE for details.
+//
 
+#ifndef AYPrintManager_h
+#define AYPrintManager_h
+
+#include "dcmtk/config/osconfig.h"    /* make sure OS specific configuration is included first */
 #include "dcmtk/dcmnet/dimse.h"
-#include "dcmtk/ofstd/ofstring.h"
-//#include "dvpsdef.h"
 
-
-
+#pragma mark - AYPrintManager
 /** 
  * pure abstract event handler class for N-EVENT-REPORT.
  */
@@ -30,6 +39,7 @@ public:
     DcmDataset *statusDetail)=0;
 };
 
+#pragma mark - AYPrintManager
 
 
 /** 
@@ -39,14 +49,9 @@ class AYPrintManager
 {
 public:
 
-  /// default constructor
   AYPrintManager();
 
-
-  /// destructor
   virtual ~AYPrintManager();
-
-
 
   /** 
    *  sends an N-CREATE-RQ message and receives response.
@@ -70,8 +75,6 @@ public:
     Uint16& status,
     DcmDataset* &attributeListOut);
 
-
-
   /** 
    *  sends an N-SET-RQ message and receives response.
    *  Any event report requests incoming before the expected response message are handled.
@@ -92,8 +95,6 @@ public:
     DcmDataset *modificationList,
     Uint16& status,
     DcmDataset* &attributeListOut);
-
-
 
   /** 
    *  sends an N-GET-RQ message and receives response.
@@ -119,8 +120,6 @@ public:
     Uint16& status,
     DcmDataset* &attributeListOut);
 
-
-
   /** 
    *  sends an N-ACTION-RQ message and receives response.
    *  Any event report requests incoming before the expected response message are handled.
@@ -144,8 +143,6 @@ public:
     Uint16& status,
     DcmDataset* &actionReply);
 
-
-
   /** 
    *  sends an N-DELETE-RQ message and receives response.
    *  Any event report requests incoming before the expected response message are handled.
@@ -159,8 +156,6 @@ public:
     const char *sopclassUID,
     const char *sopinstanceUID,
     Uint16& status);
-
-
 
   /** 
    *  opens a DICOM association to a remote printer.
@@ -194,15 +189,11 @@ public:
     OFBool negotiateColorjob,
     OFBool implicitOnly);
 
-
-
   /** 
    *  releases the current association.
    *  @return ASC_NORMAL or ASC_RELEASECONFIRMED upon success, an error code otherwise.
    */
   OFCondition releaseAssociation();
-
-
 
   /** 
    *  aborts the current association.
@@ -210,15 +201,11 @@ public:
    */
   OFCondition abortAssociation();
 
-
-
   /** 
    *  registers an event handler object for incoming N-EVENT-REPORTs.
    *  @param handler pointer to the new handler object. May be NULL.
    */
   void setEventHandler(DVPSPrintEventHandler *handler) { eventHandler = handler; }
-
-
 
   /** 
    *  sets the blocking and timeout mode for receive operations.
@@ -227,8 +214,6 @@ public:
    */
   void setTimeout(T_DIMSE_BlockingMode blocking, int timeOut) { blockMode=blocking; timeout=timeOut; }
 
-
-
   /** 
    *  checks if the remote printer supports the Presentation LUT SOP class.
    *  May only be called if association in place.
@@ -236,16 +221,12 @@ public:
    */
   OFBool printerSupportsPresentationLUT();
 
-
-
   /** 
    *  checks if the remote printer supports the Basic Annotation Box SOP class.
    *  May only be called if association in place.
    *  @return true if presentation context for Basic Annotation Box exists, false otherwise.
    */
   OFBool printerSupportsAnnotationBox();
-
-
 
   /** 
    *  sets an ostream to which all network communication is dumped.
@@ -256,8 +237,6 @@ public:
     dumpStream = stream;
   }
 
-
-
   /** 
    *  sets a new log stream
    *  @param stream new log stream, NULL for default logstream
@@ -266,18 +245,13 @@ public:
    */
   void setLog(OFConsole *stream, OFBool verbMode, OFBool dbgMode);
 
-
-
 private:
 
-  /// private undefined copy constructor
+  // private undefined copy constructor
   AYPrintManager(const AYPrintManager& copy);
 
-
-  /// private undefined assignment operator
+  // private undefined assignment operator
   AYPrintManager& operator=(const AYPrintManager& copy);
-
-
 
   /** 
    *  sends a DIMSE-N request (any type except N-EVENT-REPORT) and waits for a response.
@@ -303,8 +277,6 @@ private:
     DcmDataset* &statusDetail,
     DcmDataset* &rspDataset);
 
-
-
   /** 
    *  looks for an accepted presentation context for the given SOP class.
    *  If the SOP class is one of the Basic Grayscale Print Management Meta classes,
@@ -314,8 +286,6 @@ private:
    */
   T_ASC_PresentationContextID findAcceptedPC(const char *sopclassuid);
 
-
-
   /** 
    *  dumps the given message to the dump stream if it exists.
    *  @param msg message to be dumped, should be DIMSE-N
@@ -324,35 +294,32 @@ private:
    */
   void dumpNMessage(T_DIMSE_Message &msg, DcmItem *dataset, OFBool outgoing);
 
-
-
-  /// the association to be used for message communication. Can be NULL.
+  // the association to be used for message communication. Can be NULL.
   T_ASC_Association *assoc;
 
-  /// the network used for establishing associations. Can be NULL.
+  // the network used for establishing associations. Can be NULL.
   T_ASC_Network *net;
 
-  /// the current event handler. Can be NULL.
+  // the current event handler. Can be NULL.
   DVPSPrintEventHandler *eventHandler;
 
-  /// blocking mode for receive
+  // blocking mode for receive
   T_DIMSE_BlockingMode blockMode;
 
-  /// timeout for receive
+  // timeout for receive
   int timeout;
 
-  /// if not NULL, dump all network communication
+  // TODO: if not NULL, dump all network communication
   std::ostream *dumpStream;
 
-  /// output stream for error messages, never NULL
+  // TODO: output stream for error messages, never NULL
   OFConsole *logstream;
 
-  /// flag indicating whether we're operating in verbose mode
+  // flag indicating whether we're operating in verbose mode
   OFBool verboseMode;
 
-  /// flag indicating whether we're operating in debug mode
+  // flag indicating whether we're operating in debug mode
   OFBool debugMode;
-
 };
 
 #endif

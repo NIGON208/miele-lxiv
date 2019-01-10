@@ -57,7 +57,7 @@
     
     NSRect cwr = NSMakeRect(0, 0, dp.frame.size.width+kBorderThicknessX*2, dp.frame.size.height+kBorderThicknessY*2);
     
-    _helperWindow = [[NSWindow alloc] initWithContentRect:cwr styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:NO];
+    _helperWindow = [[NSWindow alloc] initWithContentRect:cwr styleMask:NSWindowStyleMaskBorderless backing:NSBackingStoreBuffered defer:NO];
     [_helperWindow.contentView addSubview:dp];
     _helperWindow.backgroundColor = [NSColor grayColor];//[NSColor whiteColor];
     _helperWindow.hasShadow = YES;

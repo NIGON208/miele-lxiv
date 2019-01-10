@@ -17,7 +17,9 @@
 #import "DICOMFiles/dicomFile.h"
 #import "DicomDatabase.h"
 #import "DataNodeIdentifier.h"
-#import "DCM Framework/DCMNetServiceDelegate.h"
+
+#import <DCM/DCMNetServiceDelegate.h>
+
 #import "MutableArrayCategory.h"
 #import "ThreadsManager.h"
 #import "RemoteDicomDatabase.h"

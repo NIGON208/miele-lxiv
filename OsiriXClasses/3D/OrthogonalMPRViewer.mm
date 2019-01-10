@@ -35,7 +35,7 @@
 static NSString* 	MPROrthoToolbarIdentifier				= @"MPROrtho Viewer Toolbar Identifier";
 static NSString*	AdjustSplitViewToolbarItemIdentifier	= @"sameSizeSplitView";
 //static NSString*	TurnSplitViewToolbarItemIdentifier		= @"turnSplitView";
-static NSString*	iPhotoToolbarItemIdentifier				= @"iPhoto";
+static NSString*	PhotosToolbarItemIdentifier				= @"Photos";
 static NSString*	ToolsToolbarItemIdentifier				= @"Tools";
 static NSString*	ThickSlabToolbarItemIdentifier			= @"ThickSlab";
 static NSString*	WLWWToolbarItemIdentifier				= @"WLWW";
@@ -84,7 +84,7 @@ static SyncSeriesScope globalSyncSeriesScope;
 {
 	NSMutableArray	*v = [note object];
 	
-	if( v == [viewer pixList])
+	if (v == [viewer pixList])
 	{
 		OrthogonalMPRView *view = [controller originalView];
 		
@@ -100,7 +100,7 @@ static SyncSeriesScope globalSyncSeriesScope;
 {
 	ViewerController	*v = [note object];
 	
-	if( v == viewer)
+	if (v == viewer)
 	{
 		[[self window] performClose: self];
 		return;
@@ -116,7 +116,7 @@ static SyncSeriesScope globalSyncSeriesScope;
 {
 	NSScreen *s = [viewer get3DViewerScreen: viewer];
 	
-	if( [s frame].size.height > [s frame].size.width)
+	if ([s frame].size.height > [s frame].size.width)
 		[splitView setVertical: NO];
 	else
 		[splitView setVertical: YES];
@@ -148,7 +148,7 @@ static SyncSeriesScope globalSyncSeriesScope;
 	// 4D
 	curMovieIndex = 0;
 	maxMovieIndex = [viewer maxMovieIndex];
-	if( maxMovieIndex <= 1)
+	if (maxMovieIndex <= 1)
 	{
 		[movieTextSlide setEnabled: NO];
 		[movieRateSlider setEnabled: NO];
@@ -272,7 +272,7 @@ static SyncSeriesScope globalSyncSeriesScope;
 - (void) ApplyCLUTString:(NSString*) str
 {
 	[controller ApplyCLUTString: str];
-	if( curCLUTMenu != str)
+	if (curCLUTMenu != str)
 	{
 		[curCLUTMenu release];
 		curCLUTMenu = [str retain];
@@ -351,15 +351,15 @@ static SyncSeriesScope globalSyncSeriesScope;
 
 - (void)applyWLWWForString:(NSString *)menuString
 {
-	if( [menuString isEqualToString:NSLocalizedString(@"Other", nil)])
+	if ([menuString isEqualToString:NSLocalizedString(@"Other", nil)])
 	{
 	}
-	else if( [menuString isEqualToString:NSLocalizedString(@"Default WL & WW", nil)])
+	else if ([menuString isEqualToString:NSLocalizedString(@"Default WL & WW", nil)])
 	{
 		id firstResponder = [[self window] firstResponder];
 		[self setWLWW:[[firstResponder curDCM] savedWL] :[[firstResponder curDCM] savedWW]];
 	}
-	else if( [menuString isEqualToString:NSLocalizedString(@"Full dynamic", nil)])
+	else if ([menuString isEqualToString:NSLocalizedString(@"Full dynamic", nil)])
 	{
 		[self setWLWW:0 :0];
 	}
@@ -370,7 +370,7 @@ static SyncSeriesScope globalSyncSeriesScope;
 		[self setWLWW:[[value objectAtIndex: 0] floatValue] :[[value objectAtIndex: 1] floatValue]];
 	}
 	
-	if( curWLWWMenu != menuString)
+	if (curWLWWMenu != menuString)
 	{
 		[curWLWWMenu release];
 		curWLWWMenu = [menuString retain];
@@ -385,13 +385,13 @@ static SyncSeriesScope globalSyncSeriesScope;
 {
 	NSString	*menuString = [sender title];
 	
-	if( [menuString isEqualToString:NSLocalizedString(@"Other", nil)])
+	if ([menuString isEqualToString:NSLocalizedString(@"Other", nil)])
 	{
 	}
-	else if( [menuString isEqualToString:NSLocalizedString(@"Default WL & WW", nil)])
+	else if ([menuString isEqualToString:NSLocalizedString(@"Default WL & WW", nil)])
 	{
 	}
-	else if( [menuString isEqualToString:NSLocalizedString(@"Full dynamic", nil)])
+	else if ([menuString isEqualToString:NSLocalizedString(@"Full dynamic", nil)])
 	{
 	}
 	else
@@ -404,7 +404,7 @@ static SyncSeriesScope globalSyncSeriesScope;
 
 - (void) setCurWLWWMenu: (NSString*) wlww
 {
-	if( curWLWWMenu != wlww)
+	if (curWLWWMenu != wlww)
 	{
 		[curWLWWMenu release];
 		curWLWWMenu = [wlww retain];
@@ -445,9 +445,9 @@ static SyncSeriesScope globalSyncSeriesScope;
 	NSDictionary		*aOpacity;
 //	NSArray				*array;
 	
-	if( [str isEqualToString:NSLocalizedString(@"Linear Table", nil)])
+	if ([str isEqualToString:NSLocalizedString(@"Linear Table", nil)])
 	{
-		if( curOpacityMenu != str)
+		if (curOpacityMenu != str)
 		{
 			[curOpacityMenu release];
 			curOpacityMenu = [str retain];
@@ -465,7 +465,7 @@ static SyncSeriesScope globalSyncSeriesScope;
 		{
 //			array = [aOpacity objectForKey:@"Points"];
 			
-			if( curOpacityMenu != str)
+			if (curOpacityMenu != str)
 			{
 				[curOpacityMenu release];
 				curOpacityMenu = [str retain];
@@ -488,10 +488,10 @@ static SyncSeriesScope globalSyncSeriesScope;
 
 - (void) toggleDisplayResliceAxes
 {
-	if(!isFullWindow)
+	if (!isFullWindow)
 	{
 		displayResliceAxes++;
-		if( displayResliceAxes >= 3) displayResliceAxes = 0;
+		if (displayResliceAxes >= 3) displayResliceAxes = 0;
 		[controller toggleDisplayResliceAxes:self];
 	}
 }
@@ -506,7 +506,7 @@ static SyncSeriesScope globalSyncSeriesScope;
 
 - (IBAction) activateThickSlab : (id) sender
 {
-	if( [thickSlabActivated state] == NSOnState)
+	if ([thickSlabActivated state] == NSOnState)
 	{
 		[self setThickSlabMode: thickSlabPopup];
 	}
@@ -518,7 +518,7 @@ static SyncSeriesScope globalSyncSeriesScope;
 
 -(IBAction) setThickSlabMode : (id) sender
 {
-	if( [thickSlabActivated state] == NSOffState)
+	if ([thickSlabActivated state] == NSOffState)
 	{
 		[thickSlabSlider setEnabled:NO];
 		[controller setThickSlab: 0];
@@ -559,7 +559,7 @@ static SyncSeriesScope globalSyncSeriesScope;
 	
 	[[NSNotificationCenter defaultCenter] removeObserver: self];
 	
-	if( movieTimer)
+	if (movieTimer)
 	{
         [movieTimer invalidate];
         [movieTimer release];
@@ -590,7 +590,7 @@ static SyncSeriesScope globalSyncSeriesScope;
 {
     N2OpenGLViewWithSplitsWindow *window = (N2OpenGLViewWithSplitsWindow*)self.window;
 	
-	if( [window respondsToSelector:@selector(disableUpdatesUntilFlush)])
+	if ([window respondsToSelector:@selector(disableUpdatesUntilFlush)])
 		[window disableUpdatesUntilFlush];
 }
 
@@ -766,7 +766,7 @@ static SyncSeriesScope globalSyncSeriesScope;
 
 - (CGFloat)splitView:(NSSplitView *)sender constrainMinCoordinate:(CGFloat)proposedMin ofSubviewAt:(NSInteger)offset
 {
-	if(offset==0)
+	if (offset==0)
 	{
 		return 150.0;
 	}
@@ -790,7 +790,7 @@ static SyncSeriesScope globalSyncSeriesScope;
 	rect1 = [sender frame];
 	if (![sender isVertical])
 	{
-		if(offset==0)
+		if (offset==0)
 		{
 			NSRect rect2;
 			rect2 = [[[sender subviews] objectAtIndex:2] frame];
@@ -803,7 +803,7 @@ static SyncSeriesScope globalSyncSeriesScope;
 	}
 	else
 	{
-		if(offset==0)
+		if (offset==0)
 		{
 			NSRect rect2;
 			rect2 = [[[sender subviews] objectAtIndex:2] frame];
@@ -827,40 +827,40 @@ return YES;
 
 	BOOL valid = NO;
 		
-	if( [item action] == @selector(changeTool:))
+	if ([item action] == @selector(changeTool:))
 	{
 		valid = YES;
-		if( [item tag] == [controller currentTool])
+		if ([item tag] == [controller currentTool])
             [item setState: NSOnState];
 		else
             [item setState: NSOffState];
 	}
-	else if( [item action] == @selector(ApplyCLUT:))
+	else if ([item action] == @selector(ApplyCLUT:))
 	{
 		valid = YES;
 		
-		if( [[item title] isEqualToString: curCLUTMenu])
+		if ([[item title] isEqualToString: curCLUTMenu])
             [item setState:NSOnState];
 		else
             [item setState:NSOffState];
 	}
-//	else if( [item action] == @selector(ApplyConv:))
+//	else if ([item action] == @selector(ApplyConv:))
 //	{
 //		valid = YES;
 //		
-//		if( [[item title] isEqualToString: curConvMenu]) [item setState:NSOnState];
+//		if ([[item title] isEqualToString: curConvMenu]) [item setState:NSOnState];
 //		else [item setState:NSOffState];
 //	}
-	else if( [item action] == @selector(ApplyOpacity:))
+	else if ([item action] == @selector(ApplyOpacity:))
 	{
 		valid = YES;
 		
-		if( [[item title] isEqualToString: curOpacityMenu])
+		if ([[item title] isEqualToString: curOpacityMenu])
             [item setState:NSOnState];
 		else
             [item setState:NSOffState];
 	}
-	else if( [item action] == @selector(ApplyWLWW:))
+	else if ([item action] == @selector(ApplyWLWW:))
 	{
 		valid = YES;
 		
@@ -873,20 +873,20 @@ return YES;
 		
 		@catch (NSException * e) {}
 		
-		if( [str isEqualToString: curWLWWMenu] || [[item title] isEqualToString: curWLWWMenu])
+		if ([str isEqualToString: curWLWWMenu] || [[item title] isEqualToString: curWLWWMenu])
             [item setState:NSOnState];
 		else
             [item setState:NSOffState];
 	}
-    else if( [item action] == @selector(syncSeriesScopeAction:))    {
+    else if ([item action] == @selector(syncSeriesScopeAction:))    {
         valid = YES;
         [item setState: (globalSyncSeriesScope == [item tag] ? NSOnState : NSOffState)];
     }
-    else if( [item action] == @selector(syncSeriesBehaviorAction:))   {
+    else if ([item action] == @selector(syncSeriesBehaviorAction:))   {
         valid = YES;
         [item setState: (syncSeriesBehavior == [item tag] ? NSOnState : NSOffState)];
     }
-    else if( [item action] == @selector(syncSeriesStateAction:))   {
+    else if ([item action] == @selector(syncSeriesStateAction:))   {
         valid = YES;
         [item setState: (syncSeriesState == [item tag] ? NSOnState : NSOffState)];
     }
@@ -906,9 +906,9 @@ return YES;
 - (IBAction) changeTool:(id) sender
 {
 	int tag = [sender tag];
-	if( tag >= 0)
+	if (tag >= 0)
     {
-		if( [sender isMemberOfClass: [NSMatrix class]])
+		if ([sender isMemberOfClass: [NSMatrix class]])
             [self setCurrentTool: (ToolMode)[[sender selectedCell] tag]];
 		else
             [self setCurrentTool: (ToolMode)tag];
@@ -951,15 +951,15 @@ return YES;
 			
 			NSImage *im = [item image];
 			
-			if( im == nil)
+			if (im == nil)
 			{
 				@try
 				{
-					if( [item respondsToSelector:@selector(setRecursiveEnabled:)])
+					if ([item respondsToSelector:@selector(setRecursiveEnabled:)])
 						[item setRecursiveEnabled: YES];
-					else if( [[item view] respondsToSelector:@selector(setRecursiveEnabled:)])
+					else if ([[item view] respondsToSelector:@selector(setRecursiveEnabled:)])
 						[[item view] setRecursiveEnabled: YES];
-					else if( item)
+					else if (item)
 						NSLog( @"%@", item);
 						
 					im = [[item view] screenshotByCreatingPDF];
@@ -970,7 +970,7 @@ return YES;
 				}
 			}
 			
-			if( im)
+			if (im)
 			{
 				NSBitmapImageRep *bits = [[[NSBitmapImageRep alloc] initWithData:[im TIFFRepresentation]] autorelease];
 				
@@ -1021,11 +1021,11 @@ return YES;
 //	[toolbarItem setTarget: self];
 //	[toolbarItem setAction: @selector(exportQuicktime:)];
 //    }
-//	else if ([itemIdent isEqualToString: iPhotoToolbarItemIdentifier]) {
+//	else if ([itemIdent isEqualToString: PhotosToolbarItemIdentifier]) {
 //        
-//	[toolbarItem setLabel: NSLocalizedString(@"iPhoto",nil)];
-//	[toolbarItem setPaletteLabel: NSLocalizedString(@"iPhoto",nil)];
-//	[toolbarItem setToolTip: NSLocalizedString(@"Export this series to iPhoto",nil)];
+//	[toolbarItem setLabel: NSLocalizedString(@"Photos",nil)];
+//	[toolbarItem setPaletteLabel: NSLocalizedString(@"Photos",nil)];
+//	[toolbarItem setToolTip: NSLocalizedString(@"Export this series to Photos",nil)];
 //	
 //	[toolbarItem setView: iPhotoView];
 //	[toolbarItem setMinSize:NSMakeSize(NSWidth([iPhotoView frame]), NSHeight([iPhotoView frame]))];
@@ -1049,7 +1049,7 @@ return YES;
 	[toolbarItem setTarget: self];
 	[toolbarItem setAction: @selector(exportDICOMFile:)];
     }
-	else if([itemIdent isEqualToString: ToolsToolbarItemIdentifier]) {
+	else if ([itemIdent isEqualToString: ToolsToolbarItemIdentifier]) {
 	// Set up the standard properties 
 	[toolbarItem setLabel: NSLocalizedString(@"Mouse button function",nil)];
 	[toolbarItem setPaletteLabel: NSLocalizedString(@"Mouse button function",nil)];
@@ -1060,7 +1060,7 @@ return YES;
 	[toolbarItem setMaxSize:NSMakeSize(NSWidth([toolsView frame]),NSHeight([toolsView frame]))];
 
     }
-	 else if([itemIdent isEqualToString: ThickSlabToolbarItemIdentifier]) {
+	 else if ([itemIdent isEqualToString: ThickSlabToolbarItemIdentifier]) {
 	// Set up the standard properties 
 	[toolbarItem setLabel: NSLocalizedString(@"Thick Slab", @"Thick Slab")];
 	[toolbarItem setPaletteLabel: NSLocalizedString(@"Thick Slab", @"Thick Slab")];
@@ -1070,7 +1070,7 @@ return YES;
 //	[toolbarItem setMinSize:NSMakeSize(NSWidth([ThickSlabView frame]), NSHeight([ThickSlabView frame]))];
 	[toolbarItem setMinSize:NSMakeSize(NSWidth([ThickSlabView frame]) + 200, NSHeight([ThickSlabView frame]))];
     }
-//	 else if([itemIdent isEqualToString: BlendingToolbarItemIdentifier]) {
+//	 else if ([itemIdent isEqualToString: BlendingToolbarItemIdentifier]) {
 //	// Set up the standard properties 
 //	[toolbarItem setLabel: NSLocalizedString(@"Fusion",nil)];
 //	[toolbarItem setPaletteLabel:NSLocalizedString( @"Fusion",nil)];
@@ -1081,7 +1081,7 @@ return YES;
 //	[toolbarItem setMinSize:NSMakeSize(NSWidth([BlendingView frame]), NSHeight([BlendingView frame]))];
 //	[toolbarItem setMinSize:NSMakeSize(NSWidth([BlendingView frame]), NSHeight([BlendingView frame]))];
 //    }
-//	else if([itemIdent isEqualToString: AxesToolbarItemIdentifier]) {
+//	else if ([itemIdent isEqualToString: AxesToolbarItemIdentifier]) {
 //	// Set up the standard properties 
 //	[toolbarItem setLabel: @"MPR Axes"];
 //	[toolbarItem setPaletteLabel: @"MPR Axes"];
@@ -1155,7 +1155,7 @@ return YES;
 		[toolbarItem setTarget: self];
 		[toolbarItem setAction: @selector(flipVolume)];
     }
-	else if([itemIdent isEqualToString: WLWWToolbarItemIdentifier])
+	else if ([itemIdent isEqualToString: WLWWToolbarItemIdentifier])
 	{
 		// Set up the standard properties 
 		[toolbarItem setLabel: NSLocalizedString(@"WL/WW & CLUT", nil)];
@@ -1169,7 +1169,7 @@ return YES;
 
 		[[wlwwPopup cell] setUsesItemFromMenu:YES];
 	}
-	else if([itemIdent isEqualToString: MovieToolbarItemIdentifier]) {
+	else if ([itemIdent isEqualToString: MovieToolbarItemIdentifier]) {
 	// Set up the standard properties 
 	[toolbarItem setLabel: NSLocalizedString(@"4D Player", nil)];
 	[toolbarItem setPaletteLabel: NSLocalizedString(@"4D Player", nil)];
@@ -1187,13 +1187,13 @@ return YES;
     else
         toolbarItem = nil;
     
-    for (id key in [PluginManager plugins])
+    for (id key in [PluginManager installedPlugins])
     {
-        if ([[[PluginManager plugins] objectForKey:key] respondsToSelector:@selector(toolbarItemForItemIdentifier:forViewer:)])
+        if ([[[PluginManager installedPlugins] objectForKey:key] respondsToSelector:@selector(toolbarItemForItemIdentifier:forViewer:)])
         {
-            NSToolbarItem *item = [[[PluginManager plugins] objectForKey:key] toolbarItemForItemIdentifier: itemIdent forViewer: self];
+            NSToolbarItem *item = [[[PluginManager installedPlugins] objectForKey:key] toolbarItemForItemIdentifier: itemIdent forViewer: self];
             
-            if( item)
+            if (item)
                 toolbarItem = item;
         }
     }
@@ -1235,7 +1235,7 @@ return YES;
 										ToolsToolbarItemIdentifier,
 										ExportToolbarItemIdentifier,
                                         SyncSeriesToolbarItemIdentifier,
-										iPhotoToolbarItemIdentifier,
+										PhotosToolbarItemIdentifier,
 										MailToolbarItemIdentifier,
 										AdjustSplitViewToolbarItemIdentifier,
 //										TurnSplitViewToolbarItemIdentifier,
@@ -1244,10 +1244,10 @@ return YES;
 										VRPanelToolbarItemIdentifier,
 										nil];
     
-    for (id key in [PluginManager plugins])
+    for (id key in [PluginManager installedPlugins])
     {
-        if ([[[PluginManager plugins] objectForKey:key] respondsToSelector:@selector(toolbarAllowedIdentifiersForViewer:)])
-            [array addObjectsFromArray: [[[PluginManager plugins] objectForKey:key] toolbarAllowedIdentifiersForViewer: self]];
+        if ([[[PluginManager installedPlugins] objectForKey:key] respondsToSelector:@selector(toolbarAllowedIdentifiersForViewer:)])
+            [array addObjectsFromArray: [[[PluginManager installedPlugins] objectForKey:key] toolbarAllowedIdentifiersForViewer: self]];
     }
     
     return array;
@@ -1322,10 +1322,10 @@ return YES;
     BOOL enable = YES;
   /*if ([[toolbarItem itemIdentifier] isEqualToString: PlayToolbarItemIdentifier])
     {
-        if([fileList count] == 1) enable = NO;
+        if ([fileList count] == 1) enable = NO;
     }*/
     if ([[toolbarItem itemIdentifier] isEqualToString: SyncSeriesToolbarItemIdentifier])
-        if(![OrthogonalMPRViewer getSyncSeriesToolbarItemActivation])
+        if (![OrthogonalMPRViewer getSyncSeriesToolbarItemActivation])
             enable = NO;
     
     return enable;             
@@ -1341,20 +1341,17 @@ return YES;
 
 -(void) sendMail:(id) sender
 {
-	Mailer		*email;
-	NSImage		*im = [[self keyView] nsimage: NO];
+	NSImage *im = [[self keyView] nsimage: NO];
 
-	NSArray *representations;
-	NSData *bitmapData;
+	NSArray *representations = [im representations];
 
-	representations = [im representations];
+	NSData *bitmapData = [NSBitmapImageRep representationOfImageRepsInArray:representations usingType:NSJPEGFileType properties:[NSDictionary dictionaryWithObject:[NSDecimalNumber numberWithFloat:0.9] forKey:NSImageCompressionFactor]];
 
-	bitmapData = [NSBitmapImageRep representationOfImageRepsInArray:representations usingType:NSJPEGFileType properties:[NSDictionary dictionaryWithObject:[NSDecimalNumber numberWithFloat:0.9] forKey:NSImageCompressionFactor]];
-
-	[bitmapData writeToFile:[[[BrowserController currentBrowser] documentsDirectory] stringByAppendingFormat:@"/TEMP.noindex/%@", OUR_IMAGE_JPG]
+    NSString *path = [[[BrowserController currentBrowser] documentsDirectory] stringByAppendingFormat:@"/TEMP.noindex/%@", OUR_IMAGE_JPG];
+	[bitmapData writeToFile:path
                  atomically:YES];
 				
-	email = [[Mailer alloc] init];
+	Mailer *email = [[Mailer alloc] init];
 	
 	[email sendMail:@"--"
                  to:@"--"
@@ -1362,29 +1359,30 @@ return YES;
              isMIME:YES
                name:@"--"
             sendNow:NO
-              image:[[[BrowserController currentBrowser] documentsDirectory] stringByAppendingFormat:@"/TEMP.noindex/%@", OUR_IMAGE_JPG]];
+              image:path];
 	
 	[email release];
 }
 
 - (void) exportJPEG:(id) sender
 {
-    NSSavePanel     *panel = [NSSavePanel savePanel];
-	BOOL			all = NO;
-	int             i;
-	NSWorkspace		*ws = [NSWorkspace sharedWorkspace];
+	BOOL all = NO;
+	int i;
+	NSWorkspace *ws = [NSWorkspace sharedWorkspace];
 	
 	long deltaX, deltaY, x, y, oldX, oldY, max;
 	OrthogonalMPRView *view;
 	
     deltaX = deltaY = x = y = oldX = oldY = max = 0;
     
+    NSSavePanel *panel = [NSSavePanel savePanel];
 	[panel setCanSelectHiddenExtension:YES];
-	[panel setRequiredFileType:@"jpg"];
-	
-	if( [panel runModalForDirectory:nil file:[[[controller originalDCMFilesList] objectAtIndex:0] valueForKeyPath:@"series.name"]] == NSFileHandlingPanelOKButton)
+    [panel setAllowedFileTypes: @[@"jpg"]];
+    NSString *filename = [[[controller originalDCMFilesList] objectAtIndex:0] valueForKeyPath:@"series.name"];
+    [panel setNameFieldStringValue: filename];
+	if ([panel runModal] == NSFileHandlingPanelOKButton)
 	{		
-		if( all)
+		if (all)
 		{
 			if ([[self keyView] isEqualTo:[[[self keyView] controller] originalView]])
 			{
@@ -1431,12 +1429,9 @@ return YES;
 				
 				//[[im TIFFRepresentation] writeToFile:[[[panel filename] stringByDeletingPathExtension] stringByAppendingPathExtension:[NSString stringWithFormat:@"%d.tif", i+1]] atomically:NO];
 				
-				NSArray *representations;
-				NSData *bitmapData;
+				NSArray *representations = [im representations];
 				
-				representations = [im representations];
-				
-				bitmapData = [NSBitmapImageRep representationOfImageRepsInArray:representations usingType:NSJPEGFileType properties:[NSDictionary dictionaryWithObject:[NSDecimalNumber numberWithFloat:0.9] forKey:NSImageCompressionFactor]];
+				NSData *bitmapData = [NSBitmapImageRep representationOfImageRepsInArray:representations usingType:NSJPEGFileType properties:[NSDictionary dictionaryWithObject:[NSDecimalNumber numberWithFloat:0.9] forKey:NSImageCompressionFactor]];
 				
 				[bitmapData writeToFile:[[[panel filename] stringByDeletingPathExtension] stringByAppendingPathExtension:[NSString stringWithFormat:@"%d.jpg", i+1]] atomically:YES];
 			}
@@ -1455,25 +1450,23 @@ return YES;
 			
 			//[[im TIFFRepresentation] writeToFile:[panel filename] atomically:NO];
 			
-			NSArray *representations;
-			NSData *bitmapData;
+			NSArray *representations = [im representations];
 			
-			representations = [im representations];
-			
-			bitmapData = [NSBitmapImageRep representationOfImageRepsInArray:representations usingType:NSJPEGFileType properties:[NSDictionary dictionaryWithObject:[NSDecimalNumber numberWithFloat:0.9] forKey:NSImageCompressionFactor]];
+			NSData *bitmapData = [NSBitmapImageRep representationOfImageRepsInArray:representations usingType:NSJPEGFileType properties:[NSDictionary dictionaryWithObject:[NSDecimalNumber numberWithFloat:0.9] forKey:NSImageCompressionFactor]];
 			
 			[bitmapData writeToFile:[panel filename] atomically:YES];
 			
-			if ([[NSUserDefaults standardUserDefaults] boolForKey: @"OPENVIEWER"]) [ws openFile:[panel filename]];
+			if ([[NSUserDefaults standardUserDefaults] boolForKey: @"OPENVIEWER"])
+                [ws openFile:[panel filename]];
 		}
 	}
 }
 
 - (void) observeValueForKeyPath:(NSString*)keyPath ofObject:(id)obj change:(NSDictionary*)change context:(void*)context
 {
-	if( [keyPath isEqualToString: @"values.exportDCMIncludeAllViews"])
+	if ([keyPath isEqualToString: @"values.exportDCMIncludeAllViews"])
 		[dcmFormat selectCellWithTag: 1]; // Screen capture
-    else if([keyPath isEqualToString: @"syncSeriesState"])
+    else if ([keyPath isEqualToString: @"syncSeriesState"])
         [OrthogonalMPRViewer updateSyncSeriesToolbarItemUI:self];
 }
 
@@ -1498,7 +1491,7 @@ return YES;
 	
 	unsigned char *data = nil;
 	
-	if( [[NSUserDefaults standardUserDefaults] boolForKey: @"exportDCMIncludeAllViews"])
+	if ([[NSUserDefaults standardUserDefaults] boolForKey: @"exportDCMIncludeAllViews"])
 	{
 		NSMutableArray *views = [NSMutableArray array], *viewsRect = [NSMutableArray array];
 		
@@ -1508,7 +1501,7 @@ return YES;
 		
 		for( int i = (long)views.count-1; i >= 0; i--)
 		{
-			if( NSEqualRects( [[views objectAtIndex: i] visibleRect], NSZeroRect))
+			if (NSEqualRects( [[views objectAtIndex: i] visibleRect], NSZeroRect))
 				[views removeObjectAtIndex: i];
 		}
 		
@@ -1561,16 +1554,16 @@ return YES;
 											isSigned: &isSigned];
 	}
 	
-	if( data)
+	if (data)
 	{
-		if( exportDCM == nil) exportDCM = [[DICOMExport alloc] init];
+		if (exportDCM == nil) exportDCM = [[DICOMExport alloc] init];
 		
 		[exportDCM setSourceFile: [[[controller originalDCMFilesList] objectAtIndex: [[self keyView] curImage]] valueForKey:@"completePath"]];
 		[exportDCM setSeriesDescription: [dcmSeriesName stringValue]];
 		
 		[[self keyView] getWLWW:&cwl :&cww];
 		
-		if( [[viewer modality] isEqualToString: @"PT"])
+		if ([[viewer modality] isEqualToString: @"PT"])
 		{
 			float slope = [[viewer imageView] curDCM].appliedFactorPET2SUV * [[viewer imageView] curDCM].slope;
 			[exportDCM setSlope: slope];
@@ -1579,14 +1572,14 @@ return YES;
 		
 		[exportDCM setPixelSpacing: imSpacing[ 0] :imSpacing[ 1]];
 		
-		if( [[NSUserDefaults standardUserDefaults] boolForKey: @"exportDCMIncludeAllViews"] == NO)
+		if ([[NSUserDefaults standardUserDefaults] boolForKey: @"exportDCMIncludeAllViews"] == NO)
 		{
 			[exportDCM setSliceThickness: [curPix sliceThickness]];
 			[exportDCM setSlicePosition: [curPix sliceLocation]];
 			
 			[[self keyView] orientationCorrectedToView: o];
 			
-	//		if( screenCapture)
+	//		if (screenCapture)
 	//			[[self keyView] orientationCorrectedToView: o];	// <- Because we do screen capture !!!!! We need to apply the rotation of the image
 	//		else
 	//			[curPix orientation: o];
@@ -1602,8 +1595,12 @@ return YES;
 		[exportDCM setModalityAsSource: YES];
 		
 		f = [exportDCM writeDCMFile: nil];
-		if( f == nil)
-            NSRunCriticalAlertPanel( NSLocalizedString(@"Error", nil), NSLocalizedString(@"Error during the creation of the DICOM File!", nil), NSLocalizedString(@"OK", nil), nil, nil);
+		if (f == nil)
+            NSRunCriticalAlertPanel(NSLocalizedString(@"Error", nil),
+                                    NSLocalizedString(@"Error during the creation of the DICOM File!", nil),
+                                    NSLocalizedString(@"OK", nil),
+                                    nil,
+                                    nil);
 		
 		free( data);
 	}
@@ -1611,7 +1608,7 @@ return YES;
 	[[NSUserDefaults standardUserDefaults] setInteger: clutBarsCopy forKey: @"CLUTBARS"];
 	[DCMView setDefaults];
 	
-	if( f)
+	if (f)
 		return [NSDictionary dictionaryWithObjectsAndKeys: f, @"file", nil];
 	else
 		return nil;
@@ -1626,17 +1623,17 @@ return YES;
     
     [NSApp endSheet:dcmExportWindow returnCode:[sender tag]];
     
-    if( [sender tag])   //User clicks OK Button
+    if ([sender tag])   //User clicks OK Button
     {
 		NSMutableArray *producedFiles = [NSMutableArray array];
 	
-		if( [[dcmSelection selectedCell] tag] == 0)
+		if ([[dcmSelection selectedCell] tag] == 0)
 		{
 			[producedFiles addObject: [self exportDICOMFileInt: [[dcmFormat selectedCell] tag]]];
 		}
-		else if( [[dcmSelection selectedCell] tag] == 2) // 4th Dimension
+		else if ([[dcmSelection selectedCell] tag] == 2) // 4th Dimension
 		{
-			if( exportDCM == nil) exportDCM = [[DICOMExport alloc] init];
+			if (exportDCM == nil) exportDCM = [[DICOMExport alloc] init];
 			[exportDCM setSeriesNumber:5600 + [[NSCalendarDate date] minuteOfHour]  + [[NSCalendarDate date] secondOfMinute]];	//Try to create a unique series number... Do you have a better idea??
 			
 			for( int i = 0; i < maxMovieIndex; i ++)
@@ -1693,7 +1690,7 @@ return YES;
 			to = [dcmTo intValue];
 			interval = [dcmInterval intValue];
 			
-			if( to < from)
+			if (to < from)
 			{
 				to = [dcmFrom intValue]-1;
 				from = [dcmTo intValue];
@@ -1706,7 +1703,7 @@ return YES;
 			
 			@try
 			{
-				if( exportDCM == nil) exportDCM = [[DICOMExport alloc] init];
+				if (exportDCM == nil) exportDCM = [[DICOMExport alloc] init];
 				[exportDCM setSeriesNumber:5600 + [[NSCalendarDate date] minuteOfHour]  + [[NSCalendarDate date] secondOfMinute]];	//Try to create a unique series number... Do you have a better idea??
 				
 				for( i = from; i < to; i+=interval)
@@ -1726,7 +1723,7 @@ return YES;
 						
 						[splash incrementBy: 1];
 						
-						if( [splash aborted])
+						if ([splash aborted])
 							break;
 					}
 					@catch (NSException * e) 
@@ -1752,7 +1749,7 @@ return YES;
 			[splash autorelease];
 		}
 		
-		if( [producedFiles count])
+		if ([producedFiles count])
 		{
 			NSArray *objects = [BrowserController.currentBrowser.database addFilesAtPaths: [producedFiles valueForKey: @"file"]
                                                                         postNotifications: YES
@@ -1762,10 +1759,10 @@ return YES;
 			
             objects = [BrowserController.currentBrowser.database objectsWithIDs: objects];
             
-			if( [[NSUserDefaults standardUserDefaults] boolForKey: @"afterExportSendToDICOMNode"])
+			if ([[NSUserDefaults standardUserDefaults] boolForKey: @"afterExportSendToDICOMNode"])
 				[[BrowserController currentBrowser] selectServer: objects];
 			
-			if( [[NSUserDefaults standardUserDefaults] boolForKey: @"afterExportMarkThemAsKeyImages"])
+			if ([[NSUserDefaults standardUserDefaults] boolForKey: @"afterExportMarkThemAsKeyImages"])
 			{
 				for( NSManagedObject *im in objects)
 					[im setValue: @YES forKey: @"isKeyImage"];
@@ -1776,9 +1773,13 @@ return YES;
 
 - (void) exportDICOMFile:(id) sender
 {
-    if( dcmExportWindow == nil)
+    if (dcmExportWindow == nil)
     {
-        NSRunCriticalAlertPanel( NSLocalizedString(@"Error", nil), NSLocalizedString(@"DICOM Files Export not supported", nil), NSLocalizedString(@"OK", nil), nil, nil);
+        NSRunCriticalAlertPanel(NSLocalizedString(@"Error", nil),
+                                NSLocalizedString(@"DICOM Files Export not supported", nil),
+                                NSLocalizedString(@"OK", nil),
+                                nil,
+                                nil);
         return;
     }
     
@@ -1820,16 +1821,16 @@ return YES;
 
 	int count = fabs( [dcmFromTextField intValue] - [dcmToTextField intValue]);
 	count++;
-    if( [dcmIntervalTextField intValue])
+    if ([dcmIntervalTextField intValue])
         count /= [dcmIntervalTextField intValue];
 	[dcmCountTextField setStringValue: [NSString stringWithFormat:@"%d images", count]];
 	
-	if( maxMovieIndex > 1)
+	if (maxMovieIndex > 1)
 		[[dcmSelection cellWithTag: 2] setEnabled: YES];
 	else
 		[[dcmSelection cellWithTag: 2] setEnabled: NO];
 	
-	if( [[dcmSelection selectedCell] isEnabled] == NO)
+	if ([[dcmSelection selectedCell] isEnabled] == NO)
 		[dcmSelection selectCellWithTag: 0];
 	
 	[self checkView: dcmBox :([[dcmSelection selectedCell] tag] == 1)];
@@ -1840,19 +1841,19 @@ return YES;
 
 - (IBAction) changeFromAndToBounds:(id) sender
 {
-	if([sender isEqualTo:dcmFrom]){[dcmFromTextField setIntValue:[sender intValue]];[dcmFromTextField display];}
-	else if([sender isEqualTo:dcmTo]){[dcmToTextField setIntValue:[sender intValue]];[dcmToTextField display];}
-	else if([sender isEqualTo:dcmToTextField]){[dcmTo setIntValue:[sender intValue]];[dcmTo display];}
-	else if([sender isEqualTo:dcmFromTextField]){[dcmFrom setIntValue:[sender intValue]];[dcmFrom display];}
-	else if([sender isEqualTo:dcmIntervalTextField]){[dcmInterval setIntValue:[sender intValue]];[dcmInterval display];}
-	else if([sender isEqualTo:dcmInterval]){[dcmIntervalTextField setIntValue:[sender intValue]];[dcmIntervalTextField display];}
+	if ([sender isEqualTo:dcmFrom]){[dcmFromTextField setIntValue:[sender intValue]];[dcmFromTextField display];}
+	else if ([sender isEqualTo:dcmTo]){[dcmToTextField setIntValue:[sender intValue]];[dcmToTextField display];}
+	else if ([sender isEqualTo:dcmToTextField]){[dcmTo setIntValue:[sender intValue]];[dcmTo display];}
+	else if ([sender isEqualTo:dcmFromTextField]){[dcmFrom setIntValue:[sender intValue]];[dcmFrom display];}
+	else if ([sender isEqualTo:dcmIntervalTextField]){[dcmInterval setIntValue:[sender intValue]];[dcmInterval display];}
+	else if ([sender isEqualTo:dcmInterval]){[dcmIntervalTextField setIntValue:[sender intValue]];[dcmIntervalTextField display];}
 	
 	int count = fabs( [dcmFromTextField intValue] - [dcmToTextField intValue]);
 	count++;
 	count /= [dcmIntervalTextField intValue];
 	[dcmCountTextField setStringValue: [NSString stringWithFormat:@"%d images", count]];
 	
-	if( sender == dcmIntervalTextField || sender == dcmInterval)
+	if (sender == dcmIntervalTextField || sender == dcmInterval)
 	{
 		
 	}
@@ -1881,7 +1882,7 @@ return YES;
 	{
 		max = [[[self keyView] dcmPixList] count];
 		curIndex = [[self keyView] curImage]+1;
-		if( [[controller originalView] flippedData])
+		if ([[controller originalView] flippedData])
 		{
 			curIndex = max-curIndex;
 		}
@@ -1890,7 +1891,7 @@ return YES;
 	{
 		max = [[[controller originalView] curDCM] pwidth];
 		curIndex = [[controller originalView] crossPositionY]+1;
-		if( [[controller originalView] flippedData])
+		if ([[controller originalView] flippedData])
 		{
 			curIndex = max-curIndex;
 		}
@@ -1899,13 +1900,13 @@ return YES;
 	{
 		max = [[[controller originalView] curDCM] pheight];
 		curIndex = [[controller originalView] crossPositionX]+1;
-		if( [[controller originalView] flippedData])
+		if ([[controller originalView] flippedData])
 		{
 			curIndex = max-curIndex;
 		}
 	}
 	
-	if( [sender tag] == 0)
+	if ([sender tag] == 0)
 	{
         [dcmFrom setIntValue:curIndex];
         [dcmFromTextField setIntValue:curIndex];
@@ -1925,7 +1926,7 @@ return YES;
 
 - (IBAction) setCurrentdcmExport:(id) sender
 {
-	if( [[sender selectedCell] tag] == 1)
+	if ([[sender selectedCell] tag] == 1)
         [self checkView: dcmBox :YES];
 	else
         [self checkView: dcmBox :NO];
@@ -1950,25 +1951,25 @@ return YES;
 
 - (void)dcmExportTextFieldDidChange:(NSNotification *)note
 {
-	if([[note object] isEqualTo:dcmIntervalTextField])
+	if ([[note object] isEqualTo:dcmIntervalTextField])
 	{	
-		if([dcmIntervalTextField intValue] > [dcmInterval maxValue])
+		if ([dcmIntervalTextField intValue] > [dcmInterval maxValue])
 		{
 			[dcmIntervalTextField setIntValue:[dcmInterval maxValue]];
 		}
 		[dcmInterval takeIntValueFrom:dcmIntervalTextField];
 	}
-	else if([[note object] isEqualTo:dcmFromTextField])
+	else if ([[note object] isEqualTo:dcmFromTextField])
 	{
-		if([dcmFromTextField intValue] > [dcmFrom maxValue])
+		if ([dcmFromTextField intValue] > [dcmFrom maxValue])
 		{
 			[dcmFromTextField setIntValue:[dcmFrom maxValue]];
 		}
 		[dcmFrom takeIntValueFrom:dcmFromTextField];
 	}
-	else if([[note object] isEqualTo:dcmToTextField])
+	else if ([[note object] isEqualTo:dcmToTextField])
 	{
-		if([dcmToTextField intValue] > [dcmTo maxValue])
+		if ([dcmToTextField intValue] > [dcmTo maxValue])
 		{
 			[dcmToTextField setIntValue:[dcmTo maxValue]];
 		}
@@ -2074,9 +2075,9 @@ return YES;
     SyncSeriesBehavior newBehavior = [viewer syncSeriesBehavior];
     NSUInteger modifierFlags = [[[NSApplication sharedApplication] currentEvent] modifierFlags] ;
     
-    if( modifierFlags & NSAlternateKeyMask)
+    if (modifierFlags & NSEventModifierFlagOption)
         newBehavior = SyncSeriesBehaviorAbsolutePos;
-    else if( modifierFlags & NSShiftKeyMask)
+    else if (modifierFlags & NSEventModifierFlagShift)
         newBehavior = SyncSeriesBehaviorRelativePos;
     
     [OrthogonalMPRViewer updateSyncSeriesProperties:viewer :newState :globalSyncSeriesScope :newBehavior ];
@@ -2086,19 +2087,19 @@ return YES;
 
 + (void) updateSyncSeriesState:(id)viewer :(SyncSeriesState) newState
 {
-    if([viewer syncSeriesState] != newState)
+    if ([viewer syncSeriesState] != newState)
         [OrthogonalMPRViewer updateSyncSeriesProperties:viewer :newState :globalSyncSeriesScope :[viewer syncSeriesBehavior] ];
 }
 
 + (void) updateSyncSeriesScope:(id)viewer :(SyncSeriesScope) newScope {
     
-    if(globalSyncSeriesScope != newScope)
+    if (globalSyncSeriesScope != newScope)
         [OrthogonalMPRViewer updateSyncSeriesProperties:viewer :[viewer syncSeriesState] :newScope :[viewer syncSeriesBehavior] ];
 }
 
 + (void) updateSyncSeriesBehavior:(id)viewer :(SyncSeriesBehavior) newBehavior
 {
-    if([viewer syncSeriesBehavior] != newBehavior)
+    if ([viewer syncSeriesBehavior] != newBehavior)
         [OrthogonalMPRViewer updateSyncSeriesProperties:viewer :[viewer syncSeriesState] :globalSyncSeriesScope :newBehavior ];
 }
 
@@ -2107,7 +2108,7 @@ return YES;
                                    :(SyncSeriesScope) newScope
                                    :(SyncSeriesBehavior) newBehavior  {
     
-    if([viewer syncSeriesState] == newState && [viewer syncSeriesBehavior] == newBehavior && globalSyncSeriesScope == newScope )
+    if ([viewer syncSeriesState] == newState && [viewer syncSeriesBehavior] == newBehavior && globalSyncSeriesScope == newScope )
         return;
     
     NSNotification *syncSeriesNotification =nil;
@@ -2120,7 +2121,7 @@ return YES;
                               [NSNumber numberWithInt:newBehavior],@"syncBehavior",
                               nil ];
     
-    if(newScope != SyncSeriesScopeAllSeries){     // Scope is at least same patient
+    if (newScope != SyncSeriesScopeAllSeries){     // Scope is at least same patient
         [userInfo setValue: [currentStudy valueForKey:@"patientID"] forKey:@"patientID"];       //  NSString
         [userInfo setValue: [currentStudy valueForKey:@"dateOfBirth"] forKey:@"dateOfBirth"];   //  NSDate
     }
@@ -2128,7 +2129,7 @@ return YES;
     if (newScope == SyncSeriesScopeSameStudy || newBehavior == SyncSeriesBehaviorAbsolutePosWithSameStudy)
         [userInfo setValue: [currentStudy valueForKey:@"studyInstanceUID"] forKey:@"studyInstanceUID"]; //  NSString
     
-    if(newState == SyncSeriesStateEnable){
+    if (newState == SyncSeriesStateEnable){
         float currentDicomLocation[3] ;
         [OrthogonalMPRViewer getDICOMCoords:viewer :currentDicomLocation];
         
@@ -2158,7 +2159,7 @@ return YES;
     };
     
     // Fire this event change on the MainThread
-    if (dispatch_get_current_queue() == dispatch_get_main_queue()) { // avoid deadlocks when using dispatch_sync, same as => if(![NSThread isMainThread])
+    if (dispatch_get_current_queue() == dispatch_get_main_queue()) { // avoid deadlocks when using dispatch_sync, same as => if (![NSThread isMainThread])
         syncSeriesBlockOnMainThread();
     } else {
         dispatch_async(dispatch_get_main_queue(), syncSeriesBlockOnMainThread);
@@ -2166,7 +2167,7 @@ return YES;
 }
 
 + (void) positionChange:(id) viewer :(NSArray*) relativePositionChange{
-    if([viewer syncSeriesState] != SyncSeriesStateEnable)
+    if ([viewer syncSeriesState] != SyncSeriesStateEnable)
         return;
 
     DicomStudy *currentStudy = [viewer currentStudy];
@@ -2175,7 +2176,7 @@ return YES;
                               relativePositionChange,@"positionChange",
                               nil ];
     
-    if(globalSyncSeriesScope != SyncSeriesScopeAllSeries){     // Scope is at least same patient
+    if (globalSyncSeriesScope != SyncSeriesScopeAllSeries){     // Scope is at least same patient
         [userInfo setValue: [currentStudy valueForKey:@"patientID"] forKey:@"patientID"];       //  NSString
         [userInfo setValue: [currentStudy valueForKey:@"dateOfBirth"] forKey:@"dateOfBirth"];   //  NSDate
     }
@@ -2194,7 +2195,7 @@ return YES;
     
     [OrthogonalMPRViewer resetSyncOriginPosition:viewer];     // Reset actual position as origin anytime a syncSeries change notification is send anywhere
     
-    if([viewer isEqualTo:[notification object]]  )
+    if ([viewer isEqualTo:[notification object]]  )
         return;
     
     DicomStudy *currentStudy = [viewer currentStudy];
@@ -2203,7 +2204,7 @@ return YES;
     NSString *currentStudyInstanceUID = [currentStudy valueForKey:@"studyInstanceUID"];
 
     // Test if the sync change notification is within the current scope
-    if(globalSyncSeriesScope != SyncSeriesScopeAllSeries){
+    if (globalSyncSeriesScope != SyncSeriesScopeAllSeries){
         
         NSString *senderPatientID = [userInfo valueForKey:@"patientID"];
         NSString *currentPatientID = [currentStudy valueForKey:@"patientID"];
@@ -2211,10 +2212,10 @@ return YES;
         NSDate *senderDateOfBirth = [userInfo valueForKey:@"dateOfBirth"];
         NSDate *currentDateOfBirth = [currentStudy valueForKey:@"dateOfBirth"];
         
-        if([senderPatientID isNotEqualTo: currentPatientID] || [senderDateOfBirth isNotEqualTo: currentDateOfBirth] ) // Not Same patient ??
+        if ([senderPatientID isNotEqualTo: currentPatientID] || [senderDateOfBirth isNotEqualTo: currentDateOfBirth] ) // Not Same patient ??
             return;
         
-        if((globalSyncSeriesScope == SyncSeriesScopeSameStudy) && [senderStudyInstanceUID isNotEqualTo:currentStudyInstanceUID] ) // Not Same Study ??
+        if ((globalSyncSeriesScope == SyncSeriesScopeSameStudy) && [senderStudyInstanceUID isNotEqualTo:currentStudyInstanceUID] ) // Not Same Study ??
             return;
     }
     
@@ -2226,12 +2227,12 @@ return YES;
         
         SyncSeriesState newState = (SyncSeriesState)[[userInfo valueForKey:@"syncState"] intValue];
         
-        if(newState != SyncSeriesStateOff){ // syncOff value state is not propagated
+        if (newState != SyncSeriesStateOff){ // syncOff value state is not propagated
             [viewer setSyncSeriesState: newState];
             
-            if( [viewer syncSeriesState] == SyncSeriesStateEnable) {
+            if ([viewer syncSeriesState] == SyncSeriesStateEnable) {
                 
-                if(([viewer syncSeriesBehavior] == SyncSeriesBehaviorAbsolutePos) ||
+                if (([viewer syncSeriesBehavior] == SyncSeriesBehaviorAbsolutePos) ||
                    (([viewer syncSeriesBehavior] == SyncSeriesBehaviorAbsolutePosWithSameStudy) && [senderStudyInstanceUID isEqualTo:currentStudyInstanceUID ])){
                     
                     NSArray* dicomCoords = [userInfo valueForKey:@"dicomCoords"];
@@ -2245,13 +2246,13 @@ return YES;
 
 + (void) posChangeNotification:(id)viewer :(NSNotification*)notification
 {
-    if([viewer isEqual:[notification object]] || [viewer syncSeriesState] != SyncSeriesStateEnable )
+    if ([viewer isEqual:[notification object]] || [viewer syncSeriesState] != SyncSeriesStateEnable )
         return;
     
      NSDictionary *userInfo = [notification userInfo];
     
     // Test if the pos change notification is within the current scope
-    if(globalSyncSeriesScope != SyncSeriesScopeAllSeries){
+    if (globalSyncSeriesScope != SyncSeriesScopeAllSeries){
     
         DicomStudy *currentStudy = [viewer currentStudy];
         
@@ -2261,13 +2262,13 @@ return YES;
         NSDate *senderDateOfBirth = [userInfo valueForKey:@"dateOfBirth"];
         NSDate *currentDateOfBirth = [currentStudy valueForKey:@"dateOfBirth"];
         
-        if([senderPatientID isNotEqualTo: currentPatientID] || [senderDateOfBirth isNotEqualTo: currentDateOfBirth] ) // Not Same patient ??
+        if ([senderPatientID isNotEqualTo: currentPatientID] || [senderDateOfBirth isNotEqualTo: currentDateOfBirth] ) // Not Same patient ??
             return;
 
         NSString *senderStudyInstanceUID = [userInfo valueForKey:@"studyInstanceUID"];
         NSString *currentStudyInstanceUID = [currentStudy valueForKey:@"studyInstanceUID"];
         
-        if((globalSyncSeriesScope == SyncSeriesScopeSameStudy) && [senderStudyInstanceUID isNotEqualTo:currentStudyInstanceUID] ) // 2 Same Study ??
+        if ((globalSyncSeriesScope == SyncSeriesScopeSameStudy) && [senderStudyInstanceUID isNotEqualTo:currentStudyInstanceUID] ) // 2 Same Study ??
             return;
     }
 
@@ -2295,14 +2296,14 @@ return YES;
     NSMutableArray* sortedViewers = [OrthogonalMPRViewer MPRViewersWithout:currentViewer];
     
     [sortedViewers sortUsingComparator: ^NSComparisonResult(id obj1, id obj2) { // sort is syncSeriesState == SyncSeriesStateEnable first
-        if([obj1 syncSeriesState] > [obj2 syncSeriesState] )
+        if ([obj1 syncSeriesState] > [obj2 syncSeriesState] )
             return NSOrderedAscending;
-        else if([obj1 syncSeriesState] < [obj2 syncSeriesState] )
+        else if ([obj1 syncSeriesState] < [obj2 syncSeriesState] )
             return NSOrderedDescending;
         return NSOrderedSame;
     }];
     
-    if([sortedViewers count] > 0){
+    if ([sortedViewers count] > 0){
         
         DicomStudy *currentStudy = [currentViewer currentStudy];
         NSString *currentPatientID = [currentStudy valueForKey:@"patientID"];
@@ -2314,18 +2315,18 @@ return YES;
         // Test if it's within the scope of any other viewer
         for(id anotherViewer in sortedViewers) {
             
-            if(!isViewerSynchronized){
+            if (!isViewerSynchronized){
 
-                if(globalSyncSeriesScope != SyncSeriesScopeAllSeries){
+                if (globalSyncSeriesScope != SyncSeriesScopeAllSeries){
                     DicomStudy *anotherStudy = [anotherViewer currentStudy];
                     
                     // Same patient ??
-                    if([currentPatientID isNotEqualTo: [anotherStudy valueForKey:@"patientID"]] ||
+                    if ([currentPatientID isNotEqualTo: [anotherStudy valueForKey:@"patientID"]] ||
                        [currentDateOfBirth isNotEqualTo: [anotherStudy valueForKey:@"dateOfBirth"]]  )
                         continue;
                     
                     // Same Study ??
-                    if((globalSyncSeriesScope == SyncSeriesScopeSameStudy) && [currentStudyInstanceUID isNotEqualTo:[anotherStudy valueForKey:@"studyInstanceUID"]] )
+                    if ((globalSyncSeriesScope == SyncSeriesScopeSameStudy) && [currentStudyInstanceUID isNotEqualTo:[anotherStudy valueForKey:@"studyInstanceUID"]] )
                         continue;
                 }
                 
@@ -2336,7 +2337,7 @@ return YES;
                 [currentViewer setSyncSeriesState: newState] ;
                 [currentViewer setSyncSeriesBehavior: newBehavior];
                 
-                if(newState == SyncSeriesStateEnable)
+                if (newState == SyncSeriesStateEnable)
                     [OrthogonalMPRViewer synchronizeViewersPosition:currentViewer];
                 
                 isViewerSynchronized = YES; // OK - within the scope of some viewer, no neeed to iterate more
@@ -2364,10 +2365,10 @@ return YES;
     
     for(id currentViewer in syncEnabledViewers) {
         
-        if([onlyViewerToBeSynchronized isEqualTo:currentViewer])
+        if ([onlyViewerToBeSynchronized isEqualTo:currentViewer])
             continue;
         
-        if([currentViewer syncSeriesBehavior] == SyncSeriesBehaviorRelativePos )
+        if ([currentViewer syncSeriesBehavior] == SyncSeriesBehaviorRelativePos )
             continue;
         
         DicomStudy *currentStudy = [currentViewer currentStudy];
@@ -2378,27 +2379,27 @@ return YES;
         // Test if another enabled syncState viewer is within current viewer's scope and behavior is somehow absolute related
         for(id anotherViewer in syncEnabledViewers) {
             
-            if([currentViewer isEqualTo:anotherViewer] || (onlyViewerToBeSynchronized != nil && [onlyViewerToBeSynchronized isNotEqualTo:anotherViewer]))
+            if ([currentViewer isEqualTo:anotherViewer] || (onlyViewerToBeSynchronized != nil && [onlyViewerToBeSynchronized isNotEqualTo:anotherViewer]))
                 continue;
             
-            if([anotherViewer syncSeriesBehavior]== SyncSeriesBehaviorRelativePos)
+            if ([anotherViewer syncSeriesBehavior]== SyncSeriesBehaviorRelativePos)
                 continue;
             
             DicomStudy *anotherStudy = [anotherViewer currentStudy];
             
-            if(globalSyncSeriesScope != SyncSeriesScopeAllSeries){
+            if (globalSyncSeriesScope != SyncSeriesScopeAllSeries){
                 // Same patient ??
-                if([currentPatientID isNotEqualTo: [anotherStudy valueForKey:@"patientID"]] ||
+                if ([currentPatientID isNotEqualTo: [anotherStudy valueForKey:@"patientID"]] ||
                    [currentDateOfBirth isNotEqualTo: [anotherStudy valueForKey:@"dateOfBirth"]]  )
                     continue;
                 
                 // Same Study ??
-                if((globalSyncSeriesScope == SyncSeriesScopeSameStudy) && [currentStudyInstanceUID isNotEqualTo:[anotherStudy valueForKey:@"studyInstanceUID"]] )
+                if ((globalSyncSeriesScope == SyncSeriesScopeSameStudy) && [currentStudyInstanceUID isNotEqualTo:[anotherStudy valueForKey:@"studyInstanceUID"]] )
                     continue;
             }
             
             // Note that behavior is supposed to be the same for two viewers within the same scope
-            if([anotherViewer syncSeriesBehavior]== SyncSeriesBehaviorAbsolutePosWithSameStudy && [currentStudyInstanceUID isNotEqualTo:[anotherStudy valueForKey:@"studyInstanceUID"]])
+            if ([anotherViewer syncSeriesBehavior]== SyncSeriesBehaviorAbsolutePosWithSameStudy && [currentStudyInstanceUID isNotEqualTo:[anotherStudy valueForKey:@"studyInstanceUID"]])
                 continue;
             
             // Beeing there involves that the two viewers should have the same absolute position
@@ -2408,7 +2409,7 @@ return YES;
             float currentDicomLocation[3] ;	
             [OrthogonalMPRViewer getDICOMCoords:currentViewer :currentDicomLocation];
             
-            if( (currentDicomLocation[0]!=anotherDicomLocation[0]) || (currentDicomLocation[1]!=anotherDicomLocation[1]) || (currentDicomLocation[2]!=anotherDicomLocation[2])){
+            if ((currentDicomLocation[0]!=anotherDicomLocation[0]) || (currentDicomLocation[1]!=anotherDicomLocation[1]) || (currentDicomLocation[2]!=anotherDicomLocation[2])){
 
                 NSArray* dicomCoords = [NSArray arrayWithObjects:
                                         [NSNumber numberWithFloat:currentDicomLocation[0]],
@@ -2419,7 +2420,7 @@ return YES;
                 [OrthogonalMPRViewer resetSyncOriginPosition:anotherViewer];
             }
             
-            if([onlyViewerToBeSynchronized isEqualTo:anotherViewer])
+            if ([onlyViewerToBeSynchronized isEqualTo:anotherViewer])
                 return;
         }
     }
@@ -2448,19 +2449,19 @@ return YES;
         // Test if another enabled syncState MPRviewer is within current SyncScope
         for(id anotherViewer in syncEnabledViewers) {
             
-            if([currentViewer isEqualTo:anotherViewer] )
+            if ([currentViewer isEqualTo:anotherViewer] )
                 continue;
             
             DicomStudy *anotherStudy = [anotherViewer currentStudy];
             
-            if(globalSyncSeriesScope != SyncSeriesScopeAllSeries){
+            if (globalSyncSeriesScope != SyncSeriesScopeAllSeries){
                 // Same patient ??
-                if([currentPatientID isNotEqualTo: [anotherStudy valueForKey:@"patientID"]] ||
+                if ([currentPatientID isNotEqualTo: [anotherStudy valueForKey:@"patientID"]] ||
                    [currentDateOfBirth isNotEqualTo: [anotherStudy valueForKey:@"dateOfBirth"]]  )
                     continue;
                 
                 // Same Study ??
-                if((globalSyncSeriesScope == SyncSeriesScopeSameStudy) && [currentStudyInstanceUID isNotEqualTo:[anotherStudy valueForKey:@"studyInstanceUID"]] )
+                if ((globalSyncSeriesScope == SyncSeriesScopeSameStudy) && [currentStudyInstanceUID isNotEqualTo:[anotherStudy valueForKey:@"studyInstanceUID"]] )
                     continue;
             }
             
@@ -2468,7 +2469,7 @@ return YES;
             break;
         }
         
-        if(currentViewerEnableStateIsValid == false){
+        if (currentViewerEnableStateIsValid == false){
             [currentViewer setSyncSeriesState:SyncSeriesStateDisable];    // no need to send notification since there is abviously no observer
         }
     }
@@ -2478,7 +2479,7 @@ return YES;
 
 + (void) initSyncSeriesToolbarItem:(id)viewer :(NSToolbarItem*) toolbarItem
 {
-    if(![toolbarItem  isMemberOfClass:[KBPopUpToolbarItem class]]){
+    if (![toolbarItem  isMemberOfClass:[KBPopUpToolbarItem class]]){
         NSLog(@"WARN - initSyncSeriesToolbarItem cannot be initialized");
         return;
     }
@@ -2567,7 +2568,7 @@ return YES;
     for(id windowItem in windowsApps) {
         id windowController = [windowItem windowController];
         
-        if(![OrthogonalMPRViewer isMPRViewer:windowController] ||
+        if (![OrthogonalMPRViewer isMPRViewer:windowController] ||
            (currentViewer !=nil && [currentViewer isEqualTo:windowController]) ||
            (syncEnabledOnly && [windowController syncSeriesState] != SyncSeriesStateEnable ))
             continue;
@@ -2604,7 +2605,7 @@ return YES;
 
 - (void) MoviePlayStop:(id) sender
 {
-    if( movieTimer)
+    if (movieTimer)
     {
         [movieTimer invalidate];
         [movieTimer release];
@@ -2633,17 +2634,17 @@ return YES;
     NSTimeInterval  thisTime = [NSDate timeIntervalSinceReferenceDate];
     short           val;
     
-//	if( [self isEverythingLoaded] == NO) return;
+//	if ([self isEverythingLoaded] == NO) return;
 	
-//	if( loadingPercentage < 0.5) return;
+//	if (loadingPercentage < 0.5) return;
 	
-    if( thisTime - lastMovieTime > 1.0 / [movieRateSlider floatValue])
+    if (thisTime - lastMovieTime > 1.0 / [movieRateSlider floatValue])
     {
         val = curMovieIndex;
         val ++;
         
-		if( val < 0) val = 0;
-		if( val >= maxMovieIndex) val = 0;
+		if (val < 0) val = 0;
+		if (val >= maxMovieIndex) val = 0;
 		
 		curMovieIndex = val;
 		
@@ -2663,8 +2664,8 @@ return YES;
 	
 	
 	curMovieIndex = i;
-	if( curMovieIndex < 0) curMovieIndex = maxMovieIndex-1;
-	if( curMovieIndex >= maxMovieIndex) curMovieIndex = 0;
+	if (curMovieIndex < 0) curMovieIndex = maxMovieIndex-1;
+	if (curMovieIndex >= maxMovieIndex) curMovieIndex = 0;
 	
 	[moviePosSlider setIntValue:curMovieIndex];
 	
@@ -2676,7 +2677,7 @@ return YES;
 	
 //	[self setWindowTitle: self];
 	
-//	if( wasDataFlipped) [self flipDataSeries: self];
+//	if (wasDataFlipped) [self flipDataSeries: self];
 	
 	[[controller originalView] setIndex:index];
 	//[[controller originalView] sendSyncMessage: 0];

@@ -21,7 +21,7 @@
 #import "DICOMExport.h"
 #import "DicomImage.h"
 #import "ROI.h"
-#import "iPhoto.h"
+#import "Photos.h"
 #import "Notifications.h"
 #import "ROIWindow.h"
 #import "NSUserDefaultsController+OsiriX.h"
@@ -184,7 +184,7 @@ static float deg2rad = M_PI/180.0;
 		[[hiddenVRController window] orderBack: self];
 		[[hiddenVRController window] orderOut: self];
 		
-        hiddenVRController.view.engine = 0; // CPU Engine !
+        hiddenVRController.view.engine = ENGINE_CPU;
 		[hiddenVRController load3DState];
 		
 		hiddenVRView = [hiddenVRController view];
@@ -1011,7 +1011,7 @@ static float deg2rad = M_PI/180.0;
 	NSString	*filename = nil;
 	switch( i)
 	{
-		case tMesure:		filename = @"Length";			break;
+		case tMeasure:		filename = @"Length";			break;
 		case tAngle:		filename = @"Angle";			break;
 		case tROI:			filename = @"Rectangle";		break;
 		case tOval:			filename = @"Oval";				break;
@@ -1360,7 +1360,7 @@ static float deg2rad = M_PI/180.0;
 	}
 	else
 	{
-		if ([[[NSApplication sharedApplication] currentEvent] modifierFlags]  & NSShiftKeyMask)
+		if ([[[NSApplication sharedApplication] currentEvent] modifierFlags]  & NSEventModifierFlagShift)
 		{
 			NSBeginAlertSheet( NSLocalizedString(@"Delete a WL/WW preset",nil), NSLocalizedString(@"Delete",nil), NSLocalizedString(@"Cancel",nil), nil, [self window], self, @selector(deleteWLWW:returnCode:contextInfo:), NULL, [menuString retain], NSLocalizedString( @"Are you sure you want to delete preset : '%@'?", nil), menuString);
 		}
@@ -2658,64 +2658,58 @@ static float deg2rad = M_PI/180.0;
 
 - (void) exportJPEG:(id) sender
 {
-    NSSavePanel     *panel = [NSSavePanel savePanel];
-
+    NSSavePanel *panel = [NSSavePanel savePanel];
 	[panel setCanSelectHiddenExtension:YES];
-	[panel setRequiredFileType:@"jpg"];
-	
-	if( [panel runModalForDirectory:nil file: NSLocalizedString( @"MPR Image", nil)] == NSFileHandlingPanelOKButton)
+    [panel setAllowedFileTypes: @[@"jpg"]];
+    [panel setNameFieldStringValue: NSLocalizedString( @"MPR Image", nil)];
+	if ([panel runModal] == NSFileHandlingPanelOKButton)
 	{
 		NSImage *im = [[self selectedView] nsimage:NO];
 		
-		NSArray *representations;
-		NSData *bitmapData;
+		NSArray *representations = [im representations];
 		
-		representations = [im representations];
-		
-		bitmapData = [NSBitmapImageRep representationOfImageRepsInArray:representations usingType:NSJPEGFileType properties:[NSDictionary dictionaryWithObject:[NSDecimalNumber numberWithFloat:0.9] forKey:NSImageCompressionFactor]];
+		NSData *bitmapData = [NSBitmapImageRep representationOfImageRepsInArray:representations usingType:NSJPEGFileType properties:[NSDictionary dictionaryWithObject:[NSDecimalNumber numberWithFloat:0.9] forKey:NSImageCompressionFactor]];
 		
 		[bitmapData writeToFile:[panel filename] atomically:YES];
 		
 		NSWorkspace *ws = [NSWorkspace sharedWorkspace];
-		if ([[NSUserDefaults standardUserDefaults] boolForKey: @"OPENVIEWER"]) [ws openFile:[panel filename]];
+		if ([[NSUserDefaults standardUserDefaults] boolForKey: @"OPENVIEWER"])
+            [ws openFile:[panel filename]];
 	}
 }
 
 -(void) export2iPhoto:(id) sender
 {
-	iPhoto		*ifoto;
-	NSImage		*im = [[self selectedView] nsimage:NO];
+	Photos *photos;
+	NSImage *im = [[self selectedView] nsimage:NO];
 	
-	NSArray		*representations;
-	NSData		*bitmapData;
+	NSArray *representations = [im representations];
 	
-	representations = [im representations];
+	NSData *bitmapData = [NSBitmapImageRep representationOfImageRepsInArray:representations usingType:NSJPEGFileType properties:[NSDictionary dictionaryWithObject:[NSDecimalNumber numberWithFloat:0.9] forKey:NSImageCompressionFactor]];
 	
-	bitmapData = [NSBitmapImageRep representationOfImageRepsInArray:representations usingType:NSJPEGFileType properties:[NSDictionary dictionaryWithObject:[NSDecimalNumber numberWithFloat:0.9] forKey:NSImageCompressionFactor]];
+    NSString *path = [[[BrowserController currentBrowser] documentsDirectory] stringByAppendingFormat:@"/TEMP.noindex/%@", OUR_IMAGE_JPG];
+	[bitmapData writeToFile:path atomically:YES];
 	
-	[bitmapData writeToFile:[[[BrowserController currentBrowser] documentsDirectory] stringByAppendingFormat:@"/TEMP.noindex/%@", OUR_IMAGE_JPG]
-                 atomically:YES];
-	
-	ifoto = [[iPhoto alloc] init];
-	[ifoto importIniPhoto: [NSArray arrayWithObject:[[[BrowserController currentBrowser] documentsDirectory] stringByAppendingFormat:@"/TEMP.noindex/%@", OUR_IMAGE_JPG]]];
-	[ifoto release];
+	photos = [[Photos alloc] init];
+	[photos importIniPhoto: [NSArray arrayWithObject:path]];
+	[photos release];
 }
 
 - (void) exportTIFF:(id) sender
 {
-    NSSavePanel     *panel = [NSSavePanel savePanel];
-
+    NSSavePanel *panel = [NSSavePanel savePanel];
 	[panel setCanSelectHiddenExtension:YES];
-	[panel setRequiredFileType:@"tif"];
-	
-	if( [panel runModalForDirectory:nil file:@"3D MPR Image"] == NSFileHandlingPanelOKButton)
+    [panel setAllowedFileTypes: @[@"tif"]];
+    [panel setNameFieldStringValue: @"3D MPR Image"];
+    if ([panel runModal] == NSFileHandlingPanelOKButton)
 	{
 		NSImage *im = [[self selectedView] nsimage:NO];
 		
 		[[im TIFFRepresentation] writeToFile:[panel filename] atomically:NO];
 		
 		NSWorkspace *ws = [NSWorkspace sharedWorkspace];
-		if ([[NSUserDefaults standardUserDefaults] boolForKey: @"OPENVIEWER"]) [ws openFile:[panel filename]];
+		if ([[NSUserDefaults standardUserDefaults] boolForKey: @"OPENVIEWER"])
+            [ws openFile:[panel filename]];
 	}
 }
 
@@ -3057,11 +3051,11 @@ static float deg2rad = M_PI/180.0;
 		toolbarItem = nil;
 	}
 	
-    for (id key in [PluginManager plugins])
+    for (id key in [PluginManager installedPlugins])
     {
-        if ([[[PluginManager plugins] objectForKey:key] respondsToSelector:@selector(toolbarItemForItemIdentifier:forViewer:)])
+        if ([[[PluginManager installedPlugins] objectForKey:key] respondsToSelector:@selector(toolbarItemForItemIdentifier:forViewer:)])
         {
-            NSToolbarItem *item = [[[PluginManager plugins] objectForKey:key] toolbarItemForItemIdentifier: itemIdent forViewer: self];
+            NSToolbarItem *item = [[[PluginManager installedPlugins] objectForKey:key] toolbarItemForItemIdentifier: itemIdent forViewer: self];
             
             if( item)
                 toolbarItem = item;
@@ -3083,10 +3077,10 @@ static float deg2rad = M_PI/180.0;
 											NSToolbarSpaceItemIdentifier,
 											NSToolbarSeparatorItemIdentifier,
 											@"tbTools", @"tbWLWW", @"tbLOD", @"tbThickSlab", @"tbBlending", @"tbShading", @"tbMovie", @"Reset.pdf", @"Export.icns", @"BestRendering.pdf", @"QTExport.pdf", @"AxisColors", @"AxisShowHide", @"MousePositionShowHide", @"syncZoomLevel", @"ViewsPosition", nil];
-    for (id key in [PluginManager plugins])
+    for (id key in [PluginManager installedPlugins])
     {
-        if ([[[PluginManager plugins] objectForKey:key] respondsToSelector:@selector(toolbarAllowedIdentifiersForViewer:)])
-            [array addObjectsFromArray: [[[PluginManager plugins] objectForKey:key] toolbarAllowedIdentifiersForViewer: self]];
+        if ([[[PluginManager installedPlugins] objectForKey:key] respondsToSelector:@selector(toolbarAllowedIdentifiersForViewer:)])
+            [array addObjectsFromArray: [[[PluginManager installedPlugins] objectForKey:key] toolbarAllowedIdentifiersForViewer: self]];
     }
 
     return array;
@@ -3118,7 +3112,7 @@ static float deg2rad = M_PI/180.0;
 
 - (void)toogleAxisVisibility:(id) sender;
 {
-	if ([[[NSApplication sharedApplication] currentEvent] modifierFlags]  & NSShiftKeyMask)
+	if ([[[NSApplication sharedApplication] currentEvent] modifierFlags] & NSEventModifierFlagShift)
 	{
 		if( mprView1 != [self selectedView]) mprView1.displayCrossLines = !mprView1.displayCrossLines;
 		if( mprView2 != [self selectedView]) mprView2.displayCrossLines = !mprView2.displayCrossLines;

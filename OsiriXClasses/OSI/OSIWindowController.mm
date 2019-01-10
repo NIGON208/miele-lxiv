@@ -82,11 +82,11 @@ static BOOL protectedReentryWindowDidResize = NO;
 #ifndef OSIRIX_LIGHT
 - (IBAction) paste:(id) sender;
 {
-	if( [[self pixList] count])
+	if ([[self pixList] count])
 	{
 		DCMPix *pix = [[self pixList] lastObject];
 		
-		if( [pix seriesObj])
+		if ([pix seriesObj])
 			[[BrowserController currentBrowser] selectThisStudy: [[pix seriesObj] valueForKey: @"study"]];
 		
 		[[BrowserController currentBrowser] pasteImageForSourceFile: [pix sourceFile]];
@@ -121,15 +121,15 @@ static BOOL protectedReentryWindowDidResize = NO;
 
 - (void) windowDidResize:(NSNotification *)aNotification
 {
-	if( protectedReentryWindowDidResize)
+	if (protectedReentryWindowDidResize)
         return;
 	
 	protectedReentryWindowDidResize = YES;
-	if( magneticWindowActivated)
+	if (magneticWindowActivated)
 	{
-		if( dontEnterMagneticFunctions == NO && Button() != 0)
+		if (dontEnterMagneticFunctions == NO && Button() != 0)
 		{
-			if( [[NSUserDefaults standardUserDefaults] boolForKey:@"MagneticWindows"])
+			if ([[NSUserDefaults standardUserDefaults] boolForKey:@"MagneticWindows"])
 			{
 				NSEnumerator	*e;
 				NSWindow		*theWindow, *window;
@@ -142,7 +142,7 @@ static BOOL protectedReentryWindowDidResize = NO;
 				float gravityX = 30;
 				float gravityY = 30;
 				
-				if ([[NSApp currentEvent] modifierFlags] & NSAlternateKeyMask)
+				if ([[NSApp currentEvent] modifierFlags] & NSEventModifierFlagOption)
 				{
 					protectedReentryWindowDidResize = NO;
 					return;
@@ -156,7 +156,7 @@ static BOOL protectedReentryWindowDidResize = NO;
 				{
 					if (window != theWindow && [window isVisible] && [[window windowController] isKindOfClass: [OSIWindowController class]] && [window.screen isEqualTo: theWindow.screen])
 					{
-						if( [[window windowController] magnetic])
+						if ([[window windowController] magnetic])
 							[rects addObject: [NSValue valueWithRect: [window frame]]];
 					}
 				}
@@ -218,16 +218,16 @@ static BOOL protectedReentryWindowDidResize = NO;
 				dontEnterMagneticFunctions = NO;
 			}
 			
-			if( [self isKindOfClass: [ViewerController class]])
+			if ([self isKindOfClass: [ViewerController class]])
 			{
-				if( [aNotification object] == [self window])
+				if ([aNotification object] == [self window])
 				{
                     ViewerController *vv = (ViewerController*) self;
 					[vv showCurrentThumbnail: self];
 				}
 			}
 			
-			if ([[NSApp currentEvent] modifierFlags] & NSShiftKeyMask)
+			if ([[NSApp currentEvent] modifierFlags] & NSEventModifierFlagShift)
 			{
 				// Apply the same size to all displayed windows
 				
@@ -235,7 +235,7 @@ static BOOL protectedReentryWindowDidResize = NO;
 				
 				for( id loopItem in viewers)
 				{
-					if( loopItem != self)
+					if (loopItem != self)
 					{
 						NSWindow *theWindow = [loopItem window];
 						
@@ -257,25 +257,25 @@ static BOOL protectedReentryWindowDidResize = NO;
 			NSRect dstFrame = [[self window] frame];
 			NSRect visibleRect = [AppController usefullRectForScreen: self.window.screen];
             
-            if( dstFrame.size.height >= visibleRect.size.height)
+            if (dstFrame.size.height >= visibleRect.size.height)
                 dstFrame.size.height = visibleRect.size.height;
             
-            if( dstFrame.size.width >= visibleRect.size.width)
+            if (dstFrame.size.width >= visibleRect.size.width)
                 dstFrame.size.width = visibleRect.size.width;
 			
-			if( dstFrame.size.height < [[self window] contentMinSize].height) dstFrame.size.height = [[self window] contentMinSize].height;
-			if( dstFrame.size.width < [[self window] contentMinSize].width) dstFrame.size.width = [[self window] contentMinSize].width;
+			if (dstFrame.size.height < [[self window] contentMinSize].height) dstFrame.size.height = [[self window] contentMinSize].height;
+			if (dstFrame.size.width < [[self window] contentMinSize].width) dstFrame.size.width = [[self window] contentMinSize].width;
 			
 			
 			dstFrame = [NavigatorView adjustIfScreenAreaIf4DNavigator: dstFrame];
 			
-			if( NSEqualRects( dstFrame, [[self window] frame]) == NO)
+			if (NSEqualRects( dstFrame, [[self window] frame]) == NO)
 				[[self window] setFrame: dstFrame display:YES];
 		}
 		
-        if( [[NSUserDefaults standardUserDefaults] boolForKey: @"UseFloatingThumbnailsList"] == NO)
+        if ([[NSUserDefaults standardUserDefaults] boolForKey: @"UseFloatingThumbnailsList"] == NO)
         {
-            if( [self isKindOfClass: [ViewerController class]])
+            if ([self isKindOfClass: [ViewerController class]])
                 [(ViewerController*)self showCurrentThumbnail: self];
         }
 	}
@@ -321,22 +321,22 @@ static BOOL protectedReentryWindowDidResize = NO;
 
 - (void)windowWillMove:(NSNotification *)notification
 {
-	if( magneticWindowActivated)
+	if (magneticWindowActivated)
 	{
 		windowIsMovedByTheUserO = NO;
 		
-		if( dontEnterMagneticFunctions == NO)
+		if (dontEnterMagneticFunctions == NO)
 		{
 			savedWindowsFrameO = [[self window] frame];
 			
-			if( Button()) windowIsMovedByTheUserO = YES;
+			if (Button()) windowIsMovedByTheUserO = YES;
 		}
 	}
 }
 
 - (void)windowDidMove:(NSNotification *)notification
 {
-	if( magneticWindowActivated)
+	if (magneticWindowActivated)
 	{
 		if (/*!Button() && */
             windowIsMovedByTheUserO == YES &&
@@ -344,7 +344,8 @@ static BOOL protectedReentryWindowDidResize = NO;
             [[NSUserDefaults standardUserDefaults] boolForKey:@"MagneticWindows"] &&
             NSIsEmptyRect( savedWindowsFrameO) == NO)
 		{
-			if( Button() == 0) windowIsMovedByTheUserO = NO;
+			if (Button() == 0)
+                windowIsMovedByTheUserO = NO;
 			
 			NSEnumerator	*e;
 			NSWindow		*theWindow, *window;
@@ -357,7 +358,7 @@ static BOOL protectedReentryWindowDidResize = NO;
 			float gravityX = myFrame.size.width/4;
 			float gravityY = myFrame.size.height/4;
 			
-			if ([[NSApp currentEvent] modifierFlags] & NSAlternateKeyMask)
+			if ([[NSApp currentEvent] modifierFlags] & NSEventModifierFlagOption)
                 return;
 			
 			NSMutableArray	*rects = [NSMutableArray array];
@@ -368,7 +369,7 @@ static BOOL protectedReentryWindowDidResize = NO;
 			{
 				if (window != theWindow && [window isVisible] && [[window windowController] isKindOfClass: [OSIWindowController class]] && [window.screen isEqualTo: theWindow.screen])
 				{
-					if( [[window windowController] magnetic])
+					if ([[window windowController] magnetic])
 						[rects addObject: [NSValue valueWithRect: [window frame]]];
 				}
 			}
@@ -440,7 +441,7 @@ static BOOL protectedReentryWindowDidResize = NO;
 			[AppController resizeWindowWithAnimation: theWindow newSize: myFrame];
 			dontEnterMagneticFunctions = NO;
 			
-			if( [self isKindOfClass: [ViewerController class]])
+			if ([self isKindOfClass: [ViewerController class]])
 				[(ViewerController*) self updateNavigator];
 			
 			// Is the Origin identical? If yes, switch both windows
@@ -449,11 +450,11 @@ static BOOL protectedReentryWindowDidResize = NO;
 			{
 				if (window != theWindow && [window isVisible] && [[window windowController] isKindOfClass: [OSIWindowController class]])
 				{
-					if( [[window windowController] magnetic])
+					if ([[window windowController] magnetic])
 					{
 						frame = [window frame];
 						
-						if( fabs( frame.origin.x - myFrame.origin.x) < 30 && fabs( NSMaxY( frame) - NSMaxY( myFrame)) < 30)
+						if (fabs( frame.origin.x - myFrame.origin.x) < 30 && fabs( NSMaxY( frame) - NSMaxY( myFrame)) < 30)
 						{
 							dontEnterMagneticFunctions = YES;
 							
@@ -466,7 +467,7 @@ static BOOL protectedReentryWindowDidResize = NO;
 							
 							dontEnterMagneticFunctions = NO;
 							
-                            if( [self isKindOfClass: [ViewerController class]])
+                            if ([self isKindOfClass: [ViewerController class]])
                                 [theWindow.windowController windowDidChangeScreen:nil];
                             
 		//					[window makeKeyAndOrderFront: self];
@@ -496,9 +497,9 @@ static BOOL protectedReentryWindowDidResize = NO;
 
 - (void) windowWillCloseNotification: (NSNotification*) notification
 {
-	if( [notification object] == [self window] && [[NSUserDefaults standardUserDefaults] boolForKey: @"AUTOTILING"] == YES && magneticWindowActivated == YES)
+	if ([notification object] == [self window] && [[NSUserDefaults standardUserDefaults] boolForKey: @"AUTOTILING"] == YES && magneticWindowActivated == YES)
 	{
-		if( delayedTileWindows)
+		if (delayedTileWindows)
 			[NSObject cancelPreviousPerformRequestsWithTarget: [AppController sharedAppController] selector:@selector(tileWindows:) object:nil];
 		delayedTileWindows = YES;
 		[[AppController sharedAppController] performSelector: @selector(tileWindows:) withObject:nil afterDelay: 0.3];

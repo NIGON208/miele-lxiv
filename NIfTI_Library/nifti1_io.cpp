@@ -1014,7 +1014,7 @@ char *nifti_strdup(const char *str)
 
     \sa NIFTI1_DATATYPES group in nifti1.h
 *//*-------------------------------------------------------------------------*/
-char *nifti_datatype_string( int dt )
+const char *nifti_datatype_string( int dt )
 {
    switch( dt ){
      case DT_UNKNOWN:    return "UNKNOWN"    ;
@@ -1081,7 +1081,7 @@ int nifti_is_inttype( int dt )
 
     \sa     NIFTI1_UNITS group in nifti1.h
 *//*-------------------------------------------------------------------------*/
-char *nifti_units_string( int uu )
+const char *nifti_units_string( int uu )
 {
    switch( uu ){
      case NIFTI_UNITS_METER:  return "m" ;
@@ -1109,7 +1109,7 @@ char *nifti_units_string( int uu )
 
     \sa     NIFTI1_XFORM_CODES group in nifti1.h
 *//*-------------------------------------------------------------------------*/
-char *nifti_xform_string( int xx )
+const char *nifti_xform_string( int xx )
 {
    switch( xx ){
      case NIFTI_XFORM_SCANNER_ANAT:  return "Scanner Anat" ;
@@ -1188,7 +1188,7 @@ const char *nifti_intent_string( int ii )
 
     \sa     NIFTI1_SLICE_ORDER group in nifti1.h
 *//*-------------------------------------------------------------------------*/
-char *nifti_slice_string( int ss )
+const char *nifti_slice_string( int ss )
 {
    switch( ss ){
      case NIFTI_SLICE_SEQ_INC:  return "sequential_increasing"    ;
@@ -1213,7 +1213,7 @@ char *nifti_slice_string( int ss )
 
     \sa  NIFTI_L2R in nifti1_io.h
 *//*-------------------------------------------------------------------------*/
-char *nifti_orientation_string( int ii )
+const char *nifti_orientation_string( int ii )
 {
    switch( ii ){
      case NIFTI_L2R: return "Left-to-Right" ;
@@ -1975,9 +1975,9 @@ typedef struct { unsigned char a,b ; } twobytes ;
 *//*--------------------------------------------------------------------*/
 void nifti_swap_2bytes( int n , void *ar )    /* 2 bytes at a time */
 {
-   register int ii ;
-   register twobytes *tb = (twobytes *)ar ;
-   register unsigned char tt ;
+   int ii ;
+   twobytes *tb = (twobytes *)ar ;
+   unsigned char tt ;
 
    for( ii=0 ; ii < n ; ii++ ){
      tt = tb[ii].a ; tb[ii].a = tb[ii].b ; tb[ii].b = tt ;
@@ -1994,9 +1994,9 @@ typedef struct { unsigned char a,b,c,d ; } fourbytes ;
 *//*--------------------------------------------------------------------*/
 void nifti_swap_4bytes( int n , void *ar )    /* 4 bytes at a time */
 {
-   register int ii ;
-   register fourbytes *tb = (fourbytes *)ar ;
-   register unsigned char tt ;
+   int ii ;
+   fourbytes *tb = (fourbytes *)ar ;
+   unsigned char tt ;
 
    for( ii=0 ; ii < n ; ii++ ){
      tt = tb[ii].a ; tb[ii].a = tb[ii].d ; tb[ii].d = tt ;
@@ -2014,9 +2014,9 @@ typedef struct { unsigned char a,b,c,d , D,C,B,A ; } eightbytes ;
 *//*--------------------------------------------------------------------*/
 void nifti_swap_8bytes( int n , void *ar )    /* 8 bytes at a time */
 {
-   register int ii ;
-   register eightbytes *tb = (eightbytes *)ar ;
-   register unsigned char tt ;
+   int ii ;
+   eightbytes *tb = (eightbytes *)ar ;
+   unsigned char tt ;
 
    for( ii=0 ; ii < n ; ii++ ){
      tt = tb[ii].a ; tb[ii].a = tb[ii].A ; tb[ii].A = tt ;

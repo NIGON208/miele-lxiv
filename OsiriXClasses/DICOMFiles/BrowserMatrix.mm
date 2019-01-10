@@ -67,7 +67,7 @@ static NSString *albumDragType = @"Osirix Album drag";
  
 	if( [self getRow: &row column: &column forPoint: [self convertPoint:[theEvent locationInWindow] fromView:nil]])
 	{
-		if( [theEvent modifierFlags] & NSShiftKeyMask )
+		if ([theEvent modifierFlags] & NSEventModifierFlagShift)
 		{
 			NSInteger start = [[self cells] indexOfObject: [[self selectedCells] objectAtIndex: 0]];
 			NSInteger end = [[self cells] indexOfObject: [self cellAtRow:row column:column]];
@@ -75,7 +75,7 @@ static NSString *albumDragType = @"Osirix Album drag";
 			[self setSelectionFrom:start to:end anchor:start highlight: YES];
 			
 		}
-		else if( [theEvent modifierFlags] & NSCommandKeyMask )
+		else if( [theEvent modifierFlags] & NSEventModifierFlagCommand )
 		{
 			NSInteger end = [[self cells] indexOfObject: [self cellAtRow:row column:column]];
 			
@@ -154,9 +154,17 @@ static NSString *albumDragType = @"Osirix Album drag";
 		
 		NSPasteboard *pboard = [NSPasteboard pasteboardWithName: NSDragPboard]; 
 		
-		[pboard declareTypes:[NSArray arrayWithObjects: @"BrowserController.database.context.XIDs", albumDragType, NSFilesPromisePboardType, NSFilenamesPboardType, NSStringPboardType, nil]  owner:self];
+		[pboard declareTypes:[NSArray arrayWithObjects:
+                              @"BrowserController.database.context.XIDs",
+                              albumDragType,
+                              (__bridge NSString *)kPasteboardTypeFileURLPromise,
+                              NSFilenamesPboardType,
+                              NSPasteboardTypeString,
+                              nil]
+                       owner:self];
 		[pboard setPropertyList:nil forType:albumDragType];
-		[pboard setPropertyList:[NSArray arrayWithObject:@"dcm"] forType:NSFilesPromisePboardType];
+		[pboard setPropertyList:[NSArray arrayWithObject:@"dcm"]
+                        forType:(__bridge NSString *)kPasteboardTypeFileURLPromise];
 
 		NSMutableArray* objects = [NSMutableArray array];
 		for( i = 0; i < [cells count]; i++)
@@ -303,11 +311,12 @@ static NSString *albumDragType = @"Osirix Album drag";
 
 - (void) mouseDown:(NSEvent *)event
 {
-	if(([event modifierFlags]  & NSAlternateKeyMask) && ([event modifierFlags] & NSShiftKeyMask))
+	if (([event modifierFlags] & NSEventModifierFlagOption) &&
+        ([event modifierFlags] & NSEventModifierFlagShift))
 	{
 		[self startDragOriginalFrame: event];
 	}
-	else if ([event modifierFlags]  & NSAlternateKeyMask)
+	else if ([event modifierFlags] & NSEventModifierFlagOption)
 	{
 		[self startDrag: event];
 	}

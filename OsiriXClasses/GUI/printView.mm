@@ -167,13 +167,16 @@
 		NSRectFill( NSMakeRect(0, 0, frameSize.width, frameSize.height - headerHeight));
 	}
 	
-	for( y = 0 ; y < rows ; y ++)
+	for( y = 0 ; y < rows ; y++)
 	{
-		for( x = 0 ; x < columns ; x ++)
+		for( x = 0 ; x < columns ; x++)
 		{
 			int index = (page - 1) * ipp + y*columns + x;
 			
-			NSRect rect = NSMakeRect( x * frameSize.width / columns,  (rows-1-y) * (frameSize.height - headerHeight) / rows , frameSize.width / columns, (frameSize.height - headerHeight) / rows);
+			NSRect rect = NSMakeRect(x * frameSize.width / columns,
+                                     (rows-1-y) * (frameSize.height - headerHeight) / rows,
+                                     frameSize.width / columns,
+                                     (frameSize.height - headerHeight) / rows);
 			
 			if( index < [filesToPrint count])
 			{

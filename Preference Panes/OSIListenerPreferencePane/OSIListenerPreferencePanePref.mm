@@ -257,7 +257,11 @@
 		[[NSUserDefaults standardUserDefaults] setObject:self.TLSStoreSCPAETITLE forKey:@"TLSStoreSCPAETITLE"];
 		[[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:self.TLSStoreSCPAETITLEIsDefaultAET] forKey:@"TLSStoreSCPAETITLEIsDefaultAET"];
 		
-		NSRunAlertPanel( NSLocalizedString( @"DICOM Listener", nil), NSLocalizedString( @"Restart OsiriX to apply these changes.", nil), NSLocalizedString( @"OK", nil), nil, nil);
+		NSRunAlertPanel(NSLocalizedString( @"DICOM Listener", nil),
+                        NSLocalizedString( @"Restart OsiriX to apply these changes.", nil),
+                        NSLocalizedString( @"OK", nil),
+                        nil,
+                        nil);
 	}
 }
 
@@ -406,7 +410,13 @@
 			[[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInt:newPort] forKey:@"TLSStoreSCPAEPORT"];
 			
 			NSString *msg = [NSString stringWithFormat:NSLocalizedString( @"The port %d is already use by the standard DICOM Listener. The port %d was automatically chosen instead.", nil), submittedPort, newPort];
-			NSRunAlertPanel(NSLocalizedString(@"Port already in use", nil),  @"%@", NSLocalizedString(@"OK", nil), nil, nil, msg);
+
+            NSRunAlertPanel(NSLocalizedString(@"Port already in use", nil),
+                            @"%@",
+                            NSLocalizedString(@"OK", nil),
+                            nil,
+                            nil,
+                            msg);
 		}
 	}
 }

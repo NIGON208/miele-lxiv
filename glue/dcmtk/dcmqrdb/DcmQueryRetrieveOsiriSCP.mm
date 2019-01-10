@@ -18,17 +18,21 @@
 #include "dcmtk/dcmqrdb/dcmqrcbs.h"    /* for class DcmQueryRetrieveStoreContext */
 #include "dcmtk/dcmdata/dcmetinf.h"
 #include "dcmtk/dcmnet/dul.h"
+
 #ifdef WITH_SQL_DATABASE
 #include "dcmtk/dcmqrdbx/dcmqrdbq.h"
 #else
 //#include "dcmtk/dcmqrdb/dcmqrdbi.h"
 #include "dcmqrdbq.h" // glue/dcmqrdb
 #endif
+
 #include "dcmtk/dcmdata/dcdeftag.h"
 #include "dcmtk/dcmnet/dimse.h"
 
 #include "DcmQueryRetrieveOsiriSCP.h"
 #include "DcmQueryRetrieveGetOurContext.h"
+
+#import "NSThread+N2.h"
 
 #import "tmp_locations.h"
 
@@ -59,7 +63,6 @@ static void getCallback(
 #endif
     context->callbackHandler(cancelled, request, requestIdentifiers, responseCount, response, stDetail, responseIdentifiers);
     
-#if 1 // @@@ TODO Issue #19
     if( forkedProcess == NO)
         [[NSThread currentThread] setProgress:1.0/
                                                  (response->NumberOfCompletedSubOperations+
@@ -70,7 +73,6 @@ static void getCallback(
                                                  (response->NumberOfCompletedSubOperations+
                                                   response->NumberOfFailedSubOperations+
                                                   response->NumberOfWarningSubOperations)];
-#endif
 }
 
 // See DIMSE_StoreProviderCallback in dimse.h
@@ -114,7 +116,7 @@ void DcmQueryRetrieveOsiriSCP::writeErrorMessage( const char *str)
     {
         if( str)
             [[AppController sharedAppController] performSelectorOnMainThread: @selector(displayListenerError:)
-                                                                  withObject: [NSString stringWithUTF8String: str]
+                                                                  withObject: @(str)
                                                                waitUntilDone: NO];
     }
     else
@@ -260,7 +262,8 @@ OFCondition DcmQueryRetrieveOsiriSCP::storeSCP(
     if (assoc && assoc->params)
     {
         const char *aet = assoc->params->DULparams.callingAPTitle;
-        if (aet) dcmff.getMetaInfo()->putAndInsertString(DCM_SourceApplicationEntityTitle, aet);
+        if (aet)
+            dcmff.getMetaInfo()->putAndInsertString(DCM_SourceApplicationEntityTitle, aet);
     }
     
     DcmDataset *dset = dcmff.getDataset();

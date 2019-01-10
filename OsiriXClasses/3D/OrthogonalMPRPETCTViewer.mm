@@ -54,13 +54,13 @@ static NSString*	ThreeDPositionToolbarItemIdentifier			= @"3DPosition";
 {
 	ViewerController	*v = [note object];
 	
-	if( v == [[PETController viewer] viewerController])	//OrthogonalMPRPETCTViewer
+	if (v == [[PETController viewer] viewerController])	//OrthogonalMPRPETCTViewer
 	{
 		[[self window] close];
 		return;
 	}
 	
-    if( v == [[CTController viewer] viewerController])
+    if (v == [[CTController viewer] viewerController])
 	{
 		[[self window] close];
 		return;
@@ -71,7 +71,7 @@ static NSString*	ThreeDPositionToolbarItemIdentifier			= @"3DPosition";
 {
 	NSMutableArray	*v = [note object];
 	
-	if( [blendingViewerController pixList] == v)
+	if ([blendingViewerController pixList] == v)
 	{
 		OrthogonalMPRView *view = [PETController originalView];
 		
@@ -82,7 +82,7 @@ static NSString*	ThreeDPositionToolbarItemIdentifier			= @"3DPosition";
 		[view setCrossPosition: [view crossPositionX] :(long)[[PETController originalDCMPixList] count] -1 - ([[[note userInfo] valueForKey:@"z"] intValue] + fistPETSlice) +0.5];
 	}
 	
-	if( [viewer pixList] == v)
+	if ([viewer pixList] == v)
 	{
 		OrthogonalMPRView *view = [CTController originalView];
 		
@@ -149,14 +149,14 @@ static NSString*	ThreeDPositionToolbarItemIdentifier			= @"3DPosition";
 	sliceRangeCT = abs(higherCTSliceIndex - lowerCTSliceIndex)+1;
 	sliceRangePET = abs(higherPETSliceIndex - lowerPETSliceIndex)+1;
 	
-	if( fistCTSlice < 0) fistCTSlice = 0;
-	if( fistPETSlice < 0) fistPETSlice = 0;
+	if (fistCTSlice < 0) fistCTSlice = 0;
+	if (fistPETSlice < 0) fistPETSlice = 0;
 		
-	if( fistCTSlice + sliceRangeCT > [pixList count])  sliceRangeCT = [pixList count] - fistCTSlice;
-	if( fistPETSlice + sliceRangePET > [[blendingViewerController pixList] count])  sliceRangePET = [[blendingViewerController pixList] count] - fistPETSlice;
+	if (fistCTSlice + sliceRangeCT > [pixList count])  sliceRangeCT = [pixList count] - fistCTSlice;
+	if (fistPETSlice + sliceRangePET > [[blendingViewerController pixList] count])  sliceRangePET = [[blendingViewerController pixList] count] - fistPETSlice;
 	
 	// initialisations
-	if( vData)
+	if (vData)
 	{
 		[CTController initWithPixList: [NSMutableArray arrayWithArray: [pixList subarrayWithRange:NSMakeRange(fistCTSlice,sliceRangeCT)]] : [filesList subarrayWithRange:NSMakeRange(fistCTSlice,sliceRangeCT)] : vData : viewer : nil : self];
 		[PETController initWithPixList: [NSMutableArray arrayWithArray: [[blendingViewerController pixList] subarrayWithRange:NSMakeRange(fistPETSlice,sliceRangePET)]] : [[blendingViewerController fileList] subarrayWithRange:NSMakeRange(fistPETSlice,sliceRangePET)] : vData : blendingViewerController : nil : self];
@@ -251,7 +251,7 @@ static NSString*	ThreeDPositionToolbarItemIdentifier			= @"3DPosition";
 	// 4D
 	curMovieIndex = 0;
 	maxMovieIndex = [viewer maxMovieIndex];
-	if( maxMovieIndex <= 1)
+	if (maxMovieIndex <= 1)
 	{
 		[movieTextSlide setEnabled: NO];
 		[movieRateSlider setEnabled: NO];
@@ -311,12 +311,12 @@ static NSString*	ThreeDPositionToolbarItemIdentifier			= @"3DPosition";
 - (void) ApplyCLUTString:(NSString*) str
 {
 //	if ([[self window] firstResponder])
-	if([CTController containsView: [self keyView]])
+	if ([CTController containsView: [self keyView]])
 	{
 		[CTController ApplyCLUTString: str];
 		[PETCTController ApplyCLUTString: str];
 	}
-	else if([PETController containsView: [self keyView]] || [PETCTController containsView: [self keyView]])
+	else if ([PETController containsView: [self keyView]] || [PETCTController containsView: [self keyView]])
 	{
 		[PETController ApplyCLUTString: str];
 		// refresh PETCT views
@@ -330,7 +330,7 @@ static NSString*	ThreeDPositionToolbarItemIdentifier			= @"3DPosition";
 	[(OrthogonalMPRPETCTView*)[PETCTController xReslicedView] setCurCLUTMenu: [(OrthogonalMPRPETCTView*)[PETController xReslicedView] curCLUTMenu]];
 	[(OrthogonalMPRPETCTView*)[PETCTController yReslicedView] setCurCLUTMenu: [(OrthogonalMPRPETCTView*)[PETController yReslicedView] curCLUTMenu]];	
 	
-	if( str != curCLUTMenu)
+	if (str != curCLUTMenu)
 	{
 		[curCLUTMenu release];
 		curCLUTMenu = [str retain];
@@ -437,7 +437,7 @@ static NSString*	ThreeDPositionToolbarItemIdentifier			= @"3DPosition";
         [[wlwwPopup menu] addItemWithTitle:[NSString stringWithFormat:@"%d - %@", i+1, [sortedKeys objectAtIndex:i]] action:@selector (ApplyWLWW:) keyEquivalent:@""];
     }
 	
-	if([CTController containsView: [self keyView]] 
+	if ([CTController containsView: [self keyView]]
 	|| [PETController containsView: [self keyView]]
 	|| [PETCTController containsView: [self keyView]])
 	{
@@ -456,15 +456,15 @@ static NSString*	ThreeDPositionToolbarItemIdentifier			= @"3DPosition";
 
 - (void)applyWLWWForString:(NSString *)menuString
 {
-	if( [menuString isEqualToString:NSLocalizedString(@"Other", nil)])
+	if ([menuString isEqualToString:NSLocalizedString(@"Other", nil)])
 	{
 		//[imageView setWLWW:0 :0];
 	}
-	else if( [menuString isEqualToString:NSLocalizedString(@"Default WL & WW", nil)])
+	else if ([menuString isEqualToString:NSLocalizedString(@"Default WL & WW", nil)])
 	{
 		[self setWLWW:[[[self keyView] curDCM] savedWL] :[[[self keyView] curDCM] savedWW] : [[self keyView] controller]];
 	}
-	else if( [menuString isEqualToString:NSLocalizedString(@"Full dynamic", nil)])
+	else if ([menuString isEqualToString:NSLocalizedString(@"Full dynamic", nil)])
 	{
 		[self setWLWW:0 :0 : [[self keyView] controller]];
 	}
@@ -477,7 +477,7 @@ static NSString*	ThreeDPositionToolbarItemIdentifier			= @"3DPosition";
 	
 	[[[wlwwPopup menu] itemAtIndex:0] setTitle:menuString];
 		
-	if( curWLWWMenu != menuString)
+	if (curWLWWMenu != menuString)
 	{
 		[curWLWWMenu release];
 		curWLWWMenu = [menuString retain];
@@ -490,13 +490,13 @@ static NSString*	ThreeDPositionToolbarItemIdentifier			= @"3DPosition";
 {
 	NSString *menuString = [sender title];
 	
-	if( [menuString isEqualToString:NSLocalizedString(@"Other", nil)])
+	if ([menuString isEqualToString:NSLocalizedString(@"Other", nil)])
 	{
 	}
-	else if( [menuString isEqualToString:NSLocalizedString(@"Default WL & WW", nil)])
+	else if ([menuString isEqualToString:NSLocalizedString(@"Default WL & WW", nil)])
 	{
 	}
-	else if( [menuString isEqualToString:NSLocalizedString(@"Full dynamic", nil)])
+	else if ([menuString isEqualToString:NSLocalizedString(@"Full dynamic", nil)])
 	{
 	}
 	else
@@ -547,9 +547,9 @@ static NSString*	ThreeDPositionToolbarItemIdentifier			= @"3DPosition";
 	NSArray				*array;
 	
 	
-	if( [str isEqualToString:NSLocalizedString(@"Linear Table", nil)])
+	if ([str isEqualToString:NSLocalizedString(@"Linear Table", nil)])
 	{
-		if( curOpacityMenu != str)
+		if (curOpacityMenu != str)
 		{
 			[curOpacityMenu release];
 			curOpacityMenu = [str retain];
@@ -567,7 +567,7 @@ static NSString*	ThreeDPositionToolbarItemIdentifier			= @"3DPosition";
 		{
 			array = [aOpacity objectForKey:@"Points"];
 			
-			if( curOpacityMenu != str)
+			if (curOpacityMenu != str)
 			{
 				[curOpacityMenu release];
 				curOpacityMenu = [str retain];
@@ -580,11 +580,11 @@ static NSString*	ThreeDPositionToolbarItemIdentifier			= @"3DPosition";
 		}
 	}
 
-	if([CTController containsView: [self keyView]])
+	if ([CTController containsView: [self keyView]])
 	{
 		[CTController ApplyOpacityString: str];
 	}
-	else if([PETController containsView: [self keyView]] || [PETCTController containsView: [self keyView]])
+	else if ([PETController containsView: [self keyView]] || [PETCTController containsView: [self keyView]])
 	{
 		[PETCTController ApplyOpacityString: str];
 		[PETController ApplyOpacityString: str];
@@ -661,10 +661,10 @@ static NSString*	ThreeDPositionToolbarItemIdentifier			= @"3DPosition";
 
 - (void) toggleDisplayResliceAxes
 {
-//	if(!isFullWindow)
+//	if (!isFullWindow)
 //	{
 		displayResliceAxes++;
-		if( displayResliceAxes >= 3) displayResliceAxes = 0;
+		if (displayResliceAxes >= 3) displayResliceAxes = 0;
 		[CTController toggleDisplayResliceAxes:self];
 		[PETController toggleDisplayResliceAxes:self];
 		[PETCTController toggleDisplayResliceAxes:self];
@@ -709,7 +709,7 @@ static NSString*	ThreeDPositionToolbarItemIdentifier			= @"3DPosition";
 	
 	NSArray *controllersArray;
 	
-	if( sender == PETController)
+	if (sender == PETController)
         controllersArray = [NSArray arrayWithObjects: PETController, CTController, PETCTController, nil];
 	else
         controllersArray = [NSArray arrayWithObjects: CTController, PETController, PETCTController, nil];
@@ -839,7 +839,7 @@ static NSString*	ThreeDPositionToolbarItemIdentifier			= @"3DPosition";
 	
 //	[[NSUserDefaults standardUserDefaults] setBool:[modalitySplitView isVertical] forKey: @"orthogonalMPRPETCTVerticalNSSplitView"];
 	
-	if( movieTimer)
+	if (movieTimer)
 	{
         [movieTimer invalidate];
         [movieTimer release];
@@ -862,7 +862,7 @@ static NSString*	ThreeDPositionToolbarItemIdentifier			= @"3DPosition";
 
 -(void) windowDidBecomeKey:(NSNotification *)aNotification
 {
-	if([CTController containsView: [self keyView]] 
+	if ([CTController containsView: [self keyView]]
 	|| [PETController containsView: [self keyView]]
 	|| [PETCTController containsView: [self keyView]])
 	{
@@ -966,15 +966,15 @@ static NSString*	ThreeDPositionToolbarItemIdentifier			= @"3DPosition";
 			
 			NSImage *im = [item image];
 			
-			if( im == nil)
+			if (im == nil)
 			{
 				@try
 				{
-					if( [item respondsToSelector:@selector(setRecursiveEnabled:)])
+					if ([item respondsToSelector:@selector(setRecursiveEnabled:)])
 						[item setRecursiveEnabled: YES];
-					else if( [[item view] respondsToSelector:@selector(setRecursiveEnabled:)])
+					else if ([[item view] respondsToSelector:@selector(setRecursiveEnabled:)])
 						[[item view] setRecursiveEnabled: YES];
-					else if( item)
+					else if (item)
 						NSLog( @"%@", item);
 						
 					im = [[item view] screenshotByCreatingPDF];
@@ -985,7 +985,7 @@ static NSString*	ThreeDPositionToolbarItemIdentifier			= @"3DPosition";
 				}
 			}
 			
-			if( im)
+			if (im)
 			{
 				NSBitmapImageRep *bits = [[[NSBitmapImageRep alloc] initWithData:[im TIFFRepresentation]] autorelease];
 				
@@ -1052,7 +1052,7 @@ static NSString*	ThreeDPositionToolbarItemIdentifier			= @"3DPosition";
 	[toolbarItem setTarget: self];
 	[toolbarItem setAction: @selector(exportDICOMFile:)];
     }
-	else if([itemIdent isEqualToString: ToolsToolbarItemIdentifier])
+	else if ([itemIdent isEqualToString: ToolsToolbarItemIdentifier])
 	{
 	// Set up the standard properties 
 	[toolbarItem setLabel: NSLocalizedString(@"Mouse button function",nil)];
@@ -1064,7 +1064,7 @@ static NSString*	ThreeDPositionToolbarItemIdentifier			= @"3DPosition";
 	[toolbarItem setMaxSize:NSMakeSize(NSWidth([toolsView frame]),NSHeight([toolsView frame]))];
 
     }
-/*	 else if([itemIdent isEqualToString: ThickSlabToolbarItemIdentifier])
+/*	 else if ([itemIdent isEqualToString: ThickSlabToolbarItemIdentifier])
 	{
 	// Set up the standard properties 
 	[toolbarItem setLabel: NSLocalizedString(@"Thick Slab", @"Thick Slab")];
@@ -1075,7 +1075,7 @@ static NSString*	ThreeDPositionToolbarItemIdentifier			= @"3DPosition";
 	[toolbarItem setMinSize:NSMakeSize(NSWidth([ThickSlabView frame]), NSHeight([ThickSlabView frame]))];
 	[toolbarItem setMinSize:NSMakeSize(NSWidth([ThickSlabView frame]) + 100, NSHeight([ThickSlabView frame]))];
     }*/
-	 else if([itemIdent isEqualToString: BlendingToolbarItemIdentifier])
+	 else if ([itemIdent isEqualToString: BlendingToolbarItemIdentifier])
 	{
 	// Set up the standard properties 
 	[toolbarItem setLabel: NSLocalizedString(@"Fusion",nil)];
@@ -1097,7 +1097,7 @@ static NSString*	ThreeDPositionToolbarItemIdentifier			= @"3DPosition";
 		[toolbarItem setTarget: self];
 		[toolbarItem setAction: @selector(Panel3D:)];
     }
-	else if([itemIdent isEqualToString:ThreeDPositionToolbarItemIdentifier])
+	else if ([itemIdent isEqualToString:ThreeDPositionToolbarItemIdentifier])
 	{
 		[toolbarItem setLabel:NSLocalizedString(@"3D Pos", nil)];
 		[toolbarItem setPaletteLabel:NSLocalizedString(@"3D Pos", nil)];
@@ -1163,7 +1163,7 @@ static NSString*	ThreeDPositionToolbarItemIdentifier			= @"3DPosition";
 		[toolbarItem setTarget: self];
 		[toolbarItem setAction: @selector(flipVolume)];
     }
-	else if([itemIdent isEqualToString: WLWWToolbarItemIdentifier])
+	else if ([itemIdent isEqualToString: WLWWToolbarItemIdentifier])
 	{
 		// Set up the standard properties 
 		[toolbarItem setLabel: NSLocalizedString(@"WL/WW & CLUT", nil)];
@@ -1177,7 +1177,7 @@ static NSString*	ThreeDPositionToolbarItemIdentifier			= @"3DPosition";
 
 		[[wlwwPopup cell] setUsesItemFromMenu:YES];
 	}
-	else if([itemIdent isEqualToString: MovieToolbarItemIdentifier])
+	else if ([itemIdent isEqualToString: MovieToolbarItemIdentifier])
 	{
 	// Set up the standard properties 
 	[toolbarItem setLabel: NSLocalizedString(@"4D Player", nil)];
@@ -1198,13 +1198,13 @@ static NSString*	ThreeDPositionToolbarItemIdentifier			= @"3DPosition";
         toolbarItem = nil;
     }
     
-    for (id key in [PluginManager plugins])
+    for (id key in [PluginManager installedPlugins])
     {
-        if ([[[PluginManager plugins] objectForKey:key] respondsToSelector:@selector(toolbarItemForItemIdentifier:forViewer:)])
+        if ([[[PluginManager installedPlugins] objectForKey:key] respondsToSelector:@selector(toolbarItemForItemIdentifier:forViewer:)])
         {
-            NSToolbarItem *item = [[[PluginManager plugins] objectForKey:key] toolbarItemForItemIdentifier: itemIdent forViewer: self];
+            NSToolbarItem *item = [[[PluginManager installedPlugins] objectForKey:key] toolbarItemForItemIdentifier: itemIdent forViewer: self];
             
-            if( item)
+            if (item)
                 toolbarItem = item;
         }
     }
@@ -1256,10 +1256,10 @@ static NSString*	ThreeDPositionToolbarItemIdentifier			= @"3DPosition";
 										ThreeDPositionToolbarItemIdentifier,
 										nil];
     
-    for (id key in [PluginManager plugins])
+    for (id key in [PluginManager installedPlugins])
     {
-        if ([[[PluginManager plugins] objectForKey:key] respondsToSelector:@selector(toolbarAllowedIdentifiersForViewer:)])
-            [array addObjectsFromArray: [[[PluginManager plugins] objectForKey:key] toolbarAllowedIdentifiersForViewer: self]];
+        if ([[[PluginManager installedPlugins] objectForKey:key] respondsToSelector:@selector(toolbarAllowedIdentifiersForViewer:)])
+            [array addObjectsFromArray: [[[PluginManager installedPlugins] objectForKey:key] toolbarAllowedIdentifiersForViewer: self]];
     }
     
     return array;
@@ -1315,15 +1315,15 @@ return YES;
 	
 //	if ([[toolbarItem itemIdentifier] isEqualToString: SameWidthSplitViewToolbarItemIdentifier])
 //    {
-//        if(isFullWindow == YES) enable = NO;
+//        if (isFullWindow == YES) enable = NO;
 //    }
 //	else if ([[toolbarItem itemIdentifier] isEqualToString: SameHeightSplitViewToolbarItemIdentifier])
 //    {
-//        if(isFullWindow == YES) enable = NO;
+//        if (isFullWindow == YES) enable = NO;
 //    }
 //	else if ([[toolbarItem itemIdentifier] isEqualToString: TurnSplitViewToolbarItemIdentifier])
 //    {
-//        if(isFullWindow == YES) enable = NO;
+//        if (isFullWindow == YES) enable = NO;
 //    }
     
     if ([[toolbarItem itemIdentifier] isEqualToString: SyncSeriesToolbarItemIdentifier])
@@ -1482,7 +1482,7 @@ return YES;
 
 - (void) expandAllSplitViews
 {
-	if( [[originalSplitView subviews] count] > 2)
+	if ([[originalSplitView subviews] count] > 2)
 	{
 		[originalSplitView setSubview:[[originalSplitView subviews] objectAtIndex:0] isCollapsed:NO];
 		[originalSplitView setSubview:[[originalSplitView subviews] objectAtIndex:1] isCollapsed:NO];
@@ -1574,7 +1574,7 @@ return YES;
 			[modalitySplitView setSubview:[[modalitySplitView subviews] objectAtIndex:2] isCollapsed:YES];
 			
 		}
-		else if(index==2)
+		else if (index==2)
 		{
 			[modalitySplitView setSubview:[[modalitySplitView subviews] objectAtIndex:0] isCollapsed:YES];
 			[modalitySplitView setSubview:[[modalitySplitView subviews] objectAtIndex:1] isCollapsed:YES];
@@ -1595,7 +1595,7 @@ return YES;
 			[[CTController xReslicedView] scaleToFit];
 			[[CTController xReslicedView] blendingPropagate];
 		}
-		else if(index==2)
+		else if (index==2)
 		{
 			[[CTController yReslicedView] scaleToFit];
 			[[CTController yReslicedView] blendingPropagate];
@@ -1799,7 +1799,7 @@ return YES;
 {
 	N2OpenGLViewWithSplitsWindow *window = (N2OpenGLViewWithSplitsWindow*)self.window;
 	
-	if( [window respondsToSelector:@selector( disableUpdatesUntilFlush)])
+	if ([window respondsToSelector:@selector( disableUpdatesUntilFlush)])
 		[window disableUpdatesUntilFlush];
 }
 
@@ -1817,7 +1817,7 @@ return YES;
 	float min;
 	if (![sender isVertical])
 	{
-		if(offset==0)
+		if (offset==0)
 		{
 			min = minSplitViewsSize;
 			return min;
@@ -1832,7 +1832,7 @@ return YES;
 	}
 	else
 	{
-		if(offset==0)
+		if (offset==0)
 		{
 			min = minSplitViewsSize;
 			return min;
@@ -1855,7 +1855,7 @@ return YES;
 	float max;
 	if (![sender isVertical])
 	{
-		if(offset==0)
+		if (offset==0)
 		{
 			NSRect rect0;
 			rect0 = [[[sender subviews] objectAtIndex:0] frame];
@@ -1884,7 +1884,7 @@ return YES;
 	}
 	else
 	{
-		if(offset==0)
+		if (offset==0)
 		{
 			NSRect rect0;
 			rect0 = [[[sender subviews] objectAtIndex:0] frame];
@@ -1919,7 +1919,7 @@ return YES;
 	NSDisableScreenUpdates();
 	
 	NSSplitView	*currentSplitView = [aNotification object];
-	if(![currentSplitView isEqual:modalitySplitView])
+	if (![currentSplitView isEqual:modalitySplitView])
 	{
 		NSRect	rect1, rect2, rect3, old_rect1, old_rect2, old_rect3;//, new_rect1, new_rect2, new_rect3;
 
@@ -1933,7 +1933,7 @@ return YES;
 		old_rect2 = [[subviews objectAtIndex:1] frame];
 		old_rect3 = [[subviews objectAtIndex:2] frame];
 		
-		if([currentSplitView isVertical])
+		if ([currentSplitView isVertical])
 		{
 			old_rect1.origin.x = rect1.origin.x;
 			old_rect1.size.width = rect1.size.width;
@@ -1963,7 +1963,7 @@ return YES;
 		old_rect2 = [[subviews objectAtIndex:1] frame];
 		old_rect3 = [[subviews objectAtIndex:2] frame];
 		
-		if([currentSplitView isVertical])
+		if ([currentSplitView isVertical])
 		{
 			old_rect1.origin.x = rect1.origin.x;
 			old_rect1.size.width = rect1.size.width;
@@ -1994,7 +1994,7 @@ return YES;
 		old_rect2 = [[subviews objectAtIndex:1] frame];
 		old_rect3 = [[subviews objectAtIndex:2] frame];
 		
-		if([currentSplitView isVertical])
+		if ([currentSplitView isVertical])
 		{
 			old_rect1.origin.x = rect1.origin.x;
 			old_rect1.size.width = rect1.size.width;
@@ -2029,23 +2029,23 @@ return YES;
 	NSDisableScreenUpdates();
 	
 	NSSplitView	*currentSplitView = [notification object];
-	if(![currentSplitView isEqual:modalitySplitView])
+	if (![currentSplitView isEqual:modalitySplitView])
 	{
 		NSView *collapsededView = [[notification userInfo] objectForKey : @"subview"];
 		NSArray	*subviews = [currentSplitView subviews];
-		if([collapsededView isEqualTo:[subviews objectAtIndex:0]])
+		if ([collapsededView isEqualTo:[subviews objectAtIndex:0]])
 		{
 			[originalSplitView setSubview:[[originalSplitView subviews] objectAtIndex:0] isCollapsed:YES];
 			[xReslicedSplitView setSubview:[[xReslicedSplitView subviews] objectAtIndex:0] isCollapsed:YES];
 			[yReslicedSplitView setSubview:[[yReslicedSplitView subviews] objectAtIndex:0] isCollapsed:YES];
 		}
-		else if([collapsededView isEqualTo:[subviews objectAtIndex:1]])
+		else if ([collapsededView isEqualTo:[subviews objectAtIndex:1]])
 		{
 			[originalSplitView setSubview:[[originalSplitView subviews] objectAtIndex:1] isCollapsed:YES];
 			[xReslicedSplitView setSubview:[[xReslicedSplitView subviews] objectAtIndex:1] isCollapsed:YES];
 			[yReslicedSplitView setSubview:[[yReslicedSplitView subviews] objectAtIndex:1] isCollapsed:YES];
 		}
-		else if([collapsededView isEqualTo:[subviews objectAtIndex:2]])
+		else if ([collapsededView isEqualTo:[subviews objectAtIndex:2]])
 		{
 			[originalSplitView setSubview:[[originalSplitView subviews] objectAtIndex:2] isCollapsed:YES];
 			[xReslicedSplitView setSubview:[[xReslicedSplitView subviews] objectAtIndex:2] isCollapsed:YES];
@@ -2061,23 +2061,23 @@ return YES;
 	NSDisableScreenUpdates();
 	
 	NSSplitView	*currentSplitView = [notification object];
-	if(![currentSplitView isEqual:modalitySplitView])
+	if (![currentSplitView isEqual:modalitySplitView])
 	{	
 		NSView *expandedView = [[notification userInfo] objectForKey : @"subview"];
 		NSArray	*subviews = [currentSplitView subviews];
-		if([expandedView isEqualTo:[subviews objectAtIndex:0]])
+		if ([expandedView isEqualTo:[subviews objectAtIndex:0]])
 		{
 			[originalSplitView setSubview:[[originalSplitView subviews] objectAtIndex:0] isCollapsed:NO];
 			[xReslicedSplitView setSubview:[[xReslicedSplitView subviews] objectAtIndex:0] isCollapsed:NO];
 			[yReslicedSplitView setSubview:[[yReslicedSplitView subviews] objectAtIndex:0] isCollapsed:NO];
 		}
-		else if([expandedView isEqualTo:[subviews objectAtIndex:1]])
+		else if ([expandedView isEqualTo:[subviews objectAtIndex:1]])
 		{
 			[originalSplitView setSubview:[[originalSplitView subviews] objectAtIndex:1] isCollapsed:NO];
 			[xReslicedSplitView setSubview:[[xReslicedSplitView subviews] objectAtIndex:1] isCollapsed:NO];
 			[yReslicedSplitView setSubview:[[yReslicedSplitView subviews] objectAtIndex:1] isCollapsed:NO];
 		}
-		else if([expandedView isEqualTo:[subviews objectAtIndex:2]])
+		else if ([expandedView isEqualTo:[subviews objectAtIndex:2]])
 		{
 			[originalSplitView setSubview:[[originalSplitView subviews] objectAtIndex:2] isCollapsed:NO];
 			[xReslicedSplitView setSubview:[[xReslicedSplitView subviews] objectAtIndex:2] isCollapsed:NO];
@@ -2099,13 +2099,13 @@ return YES;
     
 	BOOL valid = YES;
     
-    if( [item action] == @selector( syncSeriesScopeAction:))    {
+    if ([item action] == @selector( syncSeriesScopeAction:))    {
         [item setState: ([OrthogonalMPRViewer syncSeriesScope] == [item tag] ? NSOnState : NSOffState)];
     }
-    else if( [item action] == @selector(syncSeriesBehaviorAction:))   {
+    else if ([item action] == @selector(syncSeriesBehaviorAction:))   {
         [item setState: (syncSeriesBehavior == [item tag] ? NSOnState : NSOffState)];
     }
-    else if( [item action] == @selector(syncSeriesStateAction:))   {
+    else if ([item action] == @selector(syncSeriesStateAction:))   {
         [item setState: (syncSeriesState == [item tag] ? NSOnState : NSOffState)];
     }
     else
@@ -2124,20 +2124,17 @@ return YES;
 
 -(void) sendMail:(id) sender
 {
-	Mailer		*email;
-	NSImage		*im = [[self keyView] nsimage:NO];
+	NSImage *im = [[self keyView] nsimage:NO];
 
-	NSArray *representations;
-	NSData *bitmapData;
+	NSArray *representations = [im representations];
 
-	representations = [im representations];
+	NSData *bitmapData = [NSBitmapImageRep representationOfImageRepsInArray:representations usingType:NSJPEGFileType properties:[NSDictionary dictionaryWithObject:[NSDecimalNumber numberWithFloat:0.9] forKey:NSImageCompressionFactor]];
 
-	bitmapData = [NSBitmapImageRep representationOfImageRepsInArray:representations usingType:NSJPEGFileType properties:[NSDictionary dictionaryWithObject:[NSDecimalNumber numberWithFloat:0.9] forKey:NSImageCompressionFactor]];
-
-	[bitmapData writeToFile:[[[BrowserController currentBrowser] documentsDirectory] stringByAppendingFormat:@"/TEMP.noindex/%@", OUR_IMAGE_JPG]
+    NSString *path = [[[BrowserController currentBrowser] documentsDirectory] stringByAppendingFormat:@"/TEMP.noindex/%@", OUR_IMAGE_JPG];
+	[bitmapData writeToFile:path
                  atomically:YES];
 				
-	email = [[Mailer alloc] init];
+	Mailer *email = [[Mailer alloc] init];
 	
 	[email sendMail:@"--"
                  to:@"--"
@@ -2145,17 +2142,17 @@ return YES;
              isMIME:YES
                name:@"--"
             sendNow:NO
-              image:[[[BrowserController currentBrowser] documentsDirectory] stringByAppendingFormat:@"/TEMP.noindex/%@", OUR_IMAGE_JPG]];
+              image:path];
 	
 	[email release];
 }
 
 - (void) exportJPEG:(id) sender
 {
-    NSSavePanel     *panel = [NSSavePanel savePanel];
-	BOOL			all = YES;
-	int			i;
-	NSWorkspace		*ws = [NSWorkspace sharedWorkspace];
+    NSSavePanel *panel = [NSSavePanel savePanel];
+	BOOL all = YES;
+	int i;
+	NSWorkspace *ws = [NSWorkspace sharedWorkspace];
 	
 	long deltaX, deltaY, x, y, oldX, oldY, max;
     deltaX = deltaY = x = y = oldX = oldY = max = 0;
@@ -2163,11 +2160,11 @@ return YES;
 	OrthogonalMPRView *view = nil;
 	
 	[panel setCanSelectHiddenExtension:YES];
-	[panel setRequiredFileType:@"jpg"];
-	
-	if( [panel runModalForDirectory:nil file:[[filesList objectAtIndex:0] valueForKeyPath:@"series.name"]] == NSFileHandlingPanelOKButton)
+    [panel setAllowedFileTypes: @[@"jpg"]];
+    [panel setNameFieldStringValue: [[filesList objectAtIndex:0] valueForKeyPath:@"series.name"]];
+	if ([panel runModal] == NSFileHandlingPanelOKButton)
 	{		
-		if( all)
+		if (all)
 		{
 			if ([[self keyView] isEqualTo:[[[self keyView] controller] originalView]])
 			{
@@ -2203,7 +2200,7 @@ return YES;
 				max = [[view curDCM] pheight];
 			}
 			
-			for( i = 0; i < max; i++)
+			for (i = 0; i < max; i++)
 			{
 				[view setCrossPosition:x+i*deltaX+0.5 :y+i*deltaY+0.5];
 				[modalitySplitView display];
@@ -2211,13 +2208,10 @@ return YES;
 				NSImage *im = [[self keyView] nsimage:NO];
 				
 				//[[im TIFFRepresentation] writeToFile:[[[panel filename] stringByDeletingPathExtension] stringByAppendingPathExtension:[NSString stringWithFormat:@"%d.tif", i+1]] atomically:NO];
-				
-				NSArray *representations;
-				NSData *bitmapData;
 
-				representations = [im representations];
+                NSArray *representations = [im representations];
 
-				bitmapData = [NSBitmapImageRep representationOfImageRepsInArray:representations usingType:NSJPEGFileType properties:[NSDictionary dictionaryWithObject:[NSDecimalNumber numberWithFloat:0.9] forKey:NSImageCompressionFactor]];
+				NSData *bitmapData = [NSBitmapImageRep representationOfImageRepsInArray:representations usingType:NSJPEGFileType properties:[NSDictionary dictionaryWithObject:[NSDecimalNumber numberWithFloat:0.9] forKey:NSImageCompressionFactor]];
 
 				[bitmapData writeToFile:[[[panel filename] stringByDeletingPathExtension] stringByAppendingPathExtension:[NSString stringWithFormat:@"%d.jpg", i+1]] atomically:YES];
 			}
@@ -2235,17 +2229,15 @@ return YES;
 			NSImage *im = [[self keyView] nsimage:NO];
 			
 			//[[im TIFFRepresentation] writeToFile:[panel filename] atomically:NO];
+
+			NSArray *representations = [im representations];
 			
-			NSArray *representations;
-			NSData *bitmapData;
-			
-			representations = [im representations];
-			
-			bitmapData = [NSBitmapImageRep representationOfImageRepsInArray:representations usingType:NSJPEGFileType properties:[NSDictionary dictionaryWithObject:[NSDecimalNumber numberWithFloat:0.9] forKey:NSImageCompressionFactor]];
+			NSData *bitmapData = [NSBitmapImageRep representationOfImageRepsInArray:representations usingType:NSJPEGFileType properties:[NSDictionary dictionaryWithObject:[NSDecimalNumber numberWithFloat:0.9] forKey:NSImageCompressionFactor]];
 			
 			[bitmapData writeToFile:[panel filename] atomically:YES];
 			
-			if ([[NSUserDefaults standardUserDefaults] boolForKey: @"OPENVIEWER"]) [ws openFile:[panel filename]];
+			if ([[NSUserDefaults standardUserDefaults] boolForKey: @"OPENVIEWER"])
+                [ws openFile:[panel filename]];
 		}
 	}
 }
@@ -2257,9 +2249,9 @@ return YES;
 
 - (void) observeValueForKeyPath:(NSString*)keyPath ofObject:(id)obj change:(NSDictionary*)change context:(void*)context
 {
-	if( [keyPath isEqualToString: @"values.exportDCMIncludeAllViews"])
+	if ([keyPath isEqualToString: @"values.exportDCMIncludeAllViews"])
 		[dcmFormat selectCellWithTag: 1]; // Screen capture
-    else if([keyPath isEqualToString: @"syncSeriesState"])
+    else if ([keyPath isEqualToString: @"syncSeriesState"])
         [OrthogonalMPRViewer updateSyncSeriesToolbarItemUI:self];
 }
 
@@ -2281,7 +2273,7 @@ return YES;
 	
 	unsigned char *data = nil;
 	
-	if( [[NSUserDefaults standardUserDefaults] boolForKey: @"exportDCMIncludeAllViews"])
+	if ([[NSUserDefaults standardUserDefaults] boolForKey: @"exportDCMIncludeAllViews"])
 	{
 		NSMutableArray *views = [NSMutableArray array], *viewsRect = [NSMutableArray array];
 		
@@ -2299,7 +2291,7 @@ return YES;
 		
 		for( int i = (long)views.count-1; i >= 0; i--)
 		{
-			if( NSEqualRects( [[views objectAtIndex: i] visibleRect], NSZeroRect))
+			if (NSEqualRects( [[views objectAtIndex: i] visibleRect], NSZeroRect))
 				[views removeObjectAtIndex: i];
 		}
 		
@@ -2351,16 +2343,16 @@ return YES;
                                    offset: &offset
                                  isSigned: &isSigned];
 	
-	if( data)
+	if (data)
 	{
-		if( exportDCM == nil) exportDCM = [[DICOMExport alloc] init];
+		if (exportDCM == nil) exportDCM = [[DICOMExport alloc] init];
 		
 		[exportDCM setSourceFile: [[[[curView controller] originalDCMFilesList] objectAtIndex: [curView curImage]] valueForKey:@"completePath"]];
 		[exportDCM setSeriesDescription: [dcmSeriesName stringValue]];
 		
 		[curView getWLWW:&cwl :&cww];
 		
-		if( [[[[[curView controller] originalDCMFilesList] objectAtIndex: 0] valueForKeyPath: @"series.modality"] isEqualToString: @"PT"])
+		if ([[[[[curView controller] originalDCMFilesList] objectAtIndex: 0] valueForKeyPath: @"series.modality"] isEqualToString: @"PT"])
 		{
 			float slope = [[curView controller] firtsDCMPixInOriginalDCMPixList].appliedFactorPET2SUV * [[curView controller] firtsDCMPixInOriginalDCMPixList].slope;
 			[exportDCM setSlope: slope];
@@ -2369,14 +2361,14 @@ return YES;
 		
 		[exportDCM setPixelSpacing: imSpacing[ 0] :imSpacing[ 1]];
 		
-		if( [[NSUserDefaults standardUserDefaults] boolForKey: @"exportDCMIncludeAllViews"] == NO)
+		if ([[NSUserDefaults standardUserDefaults] boolForKey: @"exportDCMIncludeAllViews"] == NO)
 		{
 			[exportDCM setSliceThickness: [curPix sliceThickness]];
 			[exportDCM setSlicePosition: [curPix sliceLocation]];
 			
 			[curView orientationCorrectedToView: o];
 			
-	//		if( screenCapture) [curView orientationCorrectedToView: o];	// <- Because we do screen capture !!!!! We need to apply the rotation of the image
+	//		if (screenCapture) [curView orientationCorrectedToView: o];	// <- Because we do screen capture !!!!! We need to apply the rotation of the image
 	//		else [curPix orientation: o];
 			
 			[exportDCM setOrientation: o];
@@ -2389,8 +2381,12 @@ return YES;
 		[exportDCM setModalityAsSource: YES];
 		
 		f = [exportDCM writeDCMFile: nil];
-		if( f == nil)
-			NSRunCriticalAlertPanel( NSLocalizedString(@"Error", nil), NSLocalizedString(@"Error during the creation of the DICOM File!", nil), NSLocalizedString(@"OK", nil), nil, nil);
+		if (f == nil)
+			NSRunCriticalAlertPanel(NSLocalizedString(@"Error", nil),
+                                    NSLocalizedString(@"Error during the creation of the DICOM File!", nil),
+                                    NSLocalizedString(@"OK", nil),
+                                    nil,
+                                    nil);
 		
 		free( data);
 	}
@@ -2399,7 +2395,7 @@ return YES;
 	[[NSUserDefaults standardUserDefaults] setInteger: clutBarsCopy forKey: @"CLUTBARS"];
 	[DCMView setDefaults];
 	
-	if( f)
+	if (f)
 		return [NSDictionary dictionaryWithObjectsAndKeys: f, @"file", nil];
 	else
 		return nil;
@@ -2413,13 +2409,13 @@ return YES;
     
     [NSApp endSheet:dcmExportWindow returnCode:[sender tag]];
     
-    if( [sender tag])   //User clicks OK Button
+    if ([sender tag])   //User clicks OK Button
     {
 		NSMutableArray *producedFiles = [NSMutableArray array];
 		
-		if( [[dcmSelection selectedCell] tag] == 0) // current image only
+		if ([[dcmSelection selectedCell] tag] == 0) // current image only
 		{
-			if( [[NSUserDefaults standardUserDefaults] boolForKey: @"export3modalities"] == NO)
+			if ([[NSUserDefaults standardUserDefaults] boolForKey: @"export3modalities"] == NO)
 			{
 				[producedFiles addObject: [self exportDICOMFileInt: YES]];
 			}
@@ -2516,7 +2512,7 @@ return YES;
 			to = [dcmTo intValue];
 			interval = [dcmInterval intValue];
 			
-			if( to < from)
+			if (to < from)
 			{
 				to = [dcmFrom intValue]-1;
 				from = [dcmTo intValue];
@@ -2528,11 +2524,11 @@ return YES;
 			
 			@try
 			{
-				if( exportDCM == nil) exportDCM = [[DICOMExport alloc] init];
+				if (exportDCM == nil) exportDCM = [[DICOMExport alloc] init];
 				[exportDCM setSeriesNumber:5300 + [[NSCalendarDate date] minuteOfHour]  + [[NSCalendarDate date] secondOfMinute]];	//Try to create a unique series number... Do you have a better idea??
 				[exportDCM setSeriesDescription: [dcmSeriesName stringValue]];
 				
-				if( [[NSUserDefaults standardUserDefaults] boolForKey: @"export3modalities"] == NO)
+				if ([[NSUserDefaults standardUserDefaults] boolForKey: @"export3modalities"] == NO)
 				{
 					[[splash progress] setMaxValue:(int)((to-from)/interval)];
 					
@@ -2560,7 +2556,7 @@ return YES;
 						
 						[splash incrementBy: 1];
 						
-						if( [splash aborted])
+						if ([splash aborted])
 							break;
 					}
 				}
@@ -2599,7 +2595,7 @@ return YES;
 						
 						[splash incrementBy: 1];
 						
-						if( [splash aborted])
+						if ([splash aborted])
 							break;
 					}
 					
@@ -2629,7 +2625,7 @@ return YES;
 						
 						[splash incrementBy: 1];
 						
-						if( [splash aborted])
+						if ([splash aborted])
 							break;
 					}
 					
@@ -2659,7 +2655,7 @@ return YES;
 						
 						[splash incrementBy: 1];
 						
-						if( [splash aborted])
+						if ([splash aborted])
 							break;
 					}
 				}
@@ -2675,7 +2671,7 @@ return YES;
 			[splash autorelease];
 		}
 		
-		if( [producedFiles count])
+		if ([producedFiles count])
 		{
 			NSArray *objects = [BrowserController.currentBrowser.database addFilesAtPaths: [producedFiles valueForKey: @"file"]
                                                                         postNotifications: YES
@@ -2685,10 +2681,10 @@ return YES;
 			
             objects = [BrowserController.currentBrowser.database objectsWithIDs: objects];
             
-			if( [[NSUserDefaults standardUserDefaults] boolForKey: @"afterExportSendToDICOMNode"])
+			if ([[NSUserDefaults standardUserDefaults] boolForKey: @"afterExportSendToDICOMNode"])
 				[[BrowserController currentBrowser] selectServer: objects];
 			
-			if( [[NSUserDefaults standardUserDefaults] boolForKey: @"afterExportMarkThemAsKeyImages"])
+			if ([[NSUserDefaults standardUserDefaults] boolForKey: @"afterExportMarkThemAsKeyImages"])
 			{
 				for( NSManagedObject *im in objects)
 					[im setValue: @YES forKey: @"isKeyImage"];
@@ -2746,19 +2742,19 @@ return YES;
 
 - (IBAction) changeFromAndToBounds:(id) sender
 {
-	if([sender isEqualTo:dcmFrom]){[dcmFromTextField setIntValue:[sender intValue]];[dcmFromTextField display];}
-	else if([sender isEqualTo:dcmTo]){[dcmToTextField setIntValue:[sender intValue]];[dcmToTextField display];}
-	else if([sender isEqualTo:dcmToTextField]){[dcmTo setIntValue:[sender intValue]];[dcmTo display];}
-	else if([sender isEqualTo:dcmFromTextField]){[dcmFrom setIntValue:[sender intValue]];[dcmFrom display];}
-	else if([sender isEqualTo:dcmIntervalTextField]){[dcmInterval setIntValue:[sender intValue]];[dcmInterval display];}
-	else if([sender isEqualTo:dcmInterval]){[dcmIntervalTextField setIntValue:[sender intValue]];[dcmIntervalTextField display];}
+	if ([sender isEqualTo:dcmFrom]){[dcmFromTextField setIntValue:[sender intValue]];[dcmFromTextField display];}
+	else if ([sender isEqualTo:dcmTo]){[dcmToTextField setIntValue:[sender intValue]];[dcmToTextField display];}
+	else if ([sender isEqualTo:dcmToTextField]){[dcmTo setIntValue:[sender intValue]];[dcmTo display];}
+	else if ([sender isEqualTo:dcmFromTextField]){[dcmFrom setIntValue:[sender intValue]];[dcmFrom display];}
+	else if ([sender isEqualTo:dcmIntervalTextField]){[dcmInterval setIntValue:[sender intValue]];[dcmInterval display];}
+	else if ([sender isEqualTo:dcmInterval]){[dcmIntervalTextField setIntValue:[sender intValue]];[dcmIntervalTextField display];}
 
 	int count = fabs( [dcmFromTextField intValue] - [dcmToTextField intValue]);
 	count++;
 	count /= [dcmIntervalTextField intValue];
 	[dcmCountTextField setStringValue: [NSString stringWithFormat: NSLocalizedString( @"%d images", nil), count]];
 	
-	if( sender == dcmIntervalTextField || sender == dcmInterval)
+	if (sender == dcmIntervalTextField || sender == dcmInterval)
 	{
 		
 	}
@@ -2784,7 +2780,7 @@ return YES;
 	{
 		max = [[[self keyView] dcmPixList] count];
 		curIndex = [[self keyView] curImage]+1;
-		if( [[[[self keyView] controller] originalView] flippedData])
+		if ([[[[self keyView] controller] originalView] flippedData])
 		{
 			curIndex = max-curIndex;
 		}
@@ -2793,7 +2789,7 @@ return YES;
 	{
 		max = [[[[[self keyView] controller] originalView] curDCM] pwidth];
 		curIndex = [[[[self keyView] controller] originalView] crossPositionY]+1;
-		if( [[[[self keyView] controller] originalView] flippedData])
+		if ([[[[self keyView] controller] originalView] flippedData])
 		{
 			curIndex = max-curIndex;
 		}
@@ -2802,13 +2798,13 @@ return YES;
 	{
 		max = [[[[[self keyView] controller] originalView] curDCM] pheight];
 		curIndex = [[[[self keyView] controller] originalView] crossPositionX]+1;
-		if( [[[[self keyView] controller] originalView] flippedData])
+		if ([[[[self keyView] controller] originalView] flippedData])
 		{
 			curIndex = max-curIndex;
 		}
 	}
 	
-	if( [sender tag] == 0)
+	if ([sender tag] == 0)
 	{
 			[dcmFrom setIntValue:curIndex];
 			[dcmFromTextField setIntValue:curIndex];
@@ -2828,7 +2824,7 @@ return YES;
 
 - (IBAction) setCurrentdcmExport:(id) sender
 {
-	if( [[sender selectedCell] tag] == 1)
+	if ([[sender selectedCell] tag] == 1)
         [self checkView: dcmBox :YES];
 	else
         [self checkView: dcmBox :NO];
@@ -2854,25 +2850,25 @@ return YES;
 
 - (void)dcmExportTextFieldDidChange:(NSNotification *)note
 {
-	if([[note object] isEqualTo:dcmIntervalTextField])
+	if ([[note object] isEqualTo:dcmIntervalTextField])
 	{
-		if([dcmIntervalTextField intValue] > [dcmInterval maxValue])
+		if ([dcmIntervalTextField intValue] > [dcmInterval maxValue])
 		{
 			[dcmIntervalTextField setIntValue:[dcmInterval maxValue]];
 		}
 		[dcmInterval takeIntValueFrom:dcmIntervalTextField];
 	}
-	else if([[note object] isEqualTo:dcmFromTextField])
+	else if ([[note object] isEqualTo:dcmFromTextField])
 	{
-		if([dcmFromTextField intValue] > [dcmFrom maxValue])
+		if ([dcmFromTextField intValue] > [dcmFrom maxValue])
 		{
 			[dcmFromTextField setIntValue:[dcmFrom maxValue]];
 		}
 		[dcmFrom takeIntValueFrom:dcmFromTextField];
 	}
-	else if([[note object] isEqualTo:dcmToTextField])
+	else if ([[note object] isEqualTo:dcmToTextField])
 	{
-		if([dcmToTextField intValue] > [dcmTo maxValue])
+		if ([dcmToTextField intValue] > [dcmTo maxValue])
 		{
 			[dcmToTextField setIntValue:[dcmTo maxValue]];
 		}
@@ -2927,7 +2923,7 @@ return YES;
 
 - (void) MoviePlayStop:(id) sender
 {
-    if( movieTimer)
+    if (movieTimer)
     {
         [movieTimer invalidate];
         [movieTimer release];
@@ -2956,13 +2952,13 @@ return YES;
     NSTimeInterval  thisTime = [NSDate timeIntervalSinceReferenceDate];
     short           val;
 	
-    if( thisTime - lastMovieTime > 1.0 / [movieRateSlider floatValue])
+    if (thisTime - lastMovieTime > 1.0 / [movieRateSlider floatValue])
     {
         val = curMovieIndex;
         val ++;
         
-		if( val < 0) val = 0;
-		if( val >= maxMovieIndex) val = 0;
+		if (val < 0) val = 0;
+		if (val >= maxMovieIndex) val = 0;
 		
 		curMovieIndex = val;
 		
@@ -2989,8 +2985,8 @@ return YES;
 	[self initPixList: nil];
 	
 	curMovieIndex = i;
-	if( curMovieIndex < 0) curMovieIndex = maxMovieIndex-1;
-	if( curMovieIndex >= maxMovieIndex) curMovieIndex = 0;
+	if (curMovieIndex < 0) curMovieIndex = maxMovieIndex-1;
+	if (curMovieIndex >= maxMovieIndex) curMovieIndex = 0;
 	
 	[moviePosSlider setIntValue:curMovieIndex];
 	
@@ -3001,7 +2997,7 @@ return YES;
 	[[CTController reslicer] setUseYcache:NO];
 	[[CTController originalView] setPixels:subPix files:[[viewer fileList:i] subarrayWithRange:NSMakeRange(fistCTSlice,sliceRangeCT)] rois:[viewer roiList:i] firstImage:0 level:'i' reset:NO];
 	
-//	if( wasDataFlipped) [self flipDataSeries: self];
+//	if (wasDataFlipped) [self flipDataSeries: self];
 	[[CTController originalView] setIndex:index];
 	//[[CTController originalView] sendSyncMessage:0];
 	
@@ -3012,7 +3008,7 @@ return YES;
 	[[PETController reslicer] setOriginalDCMPixList:subPix];
 	[[PETController reslicer] setUseYcache:NO];
 	[[PETController originalView] setPixels:subPix files:[[blendingViewerController fileList:i] subarrayWithRange:NSMakeRange(fistPETSlice,sliceRangePET)] rois:[blendingViewerController roiList:i] firstImage:0 level:'i' reset:NO];
-//	if( wasDataFlipped) [self flipDataSeries: self];
+//	if (wasDataFlipped) [self flipDataSeries: self];
 	[[PETController originalView] setIndex:index];
 	//[[CTController originalView] sendSyncMessage:0];
 //	

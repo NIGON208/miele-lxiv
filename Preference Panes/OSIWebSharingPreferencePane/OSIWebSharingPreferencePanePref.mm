@@ -66,7 +66,12 @@
     WebPortalUser *user = [notification object];
     
     if( user == [[userArrayController selectedObjects] lastObject])
-        NSRunInformationalAlertPanel( NSLocalizedString(@"User's name", nil), NSLocalizedString(@"User's name changed. The password has been reset to a new password: %@", nil), NSLocalizedString(@"OK", nil), nil, nil, user.password);
+        NSRunInformationalAlertPanel(NSLocalizedString(@"User's name", nil),
+                                     NSLocalizedString(@"User's name changed. The password has been reset to a new password: %@", nil),
+                                     NSLocalizedString(@"OK", nil),
+                                     nil,
+                                     nil,
+                                        user.password);
 }
 
 - (id) initWithBundle:(NSBundle *)bundle
@@ -236,11 +241,20 @@
 			[BrowserController currentBrowser].testPredicate = [DicomDatabase predicateForSmartAlbumFilter: [[[userArrayController selectedObjects] lastObject] valueForKey: @"studyPredicate"]];
 			[[BrowserController currentBrowser] outlineViewRefresh];
 			[BrowserController currentBrowser].testPredicate = nil;
-			NSRunInformationalAlertPanel( NSLocalizedString(@"Study Filter", nil), NSLocalizedString(@"The result is now displayed in the Database Window.", nil), NSLocalizedString(@"OK", nil), nil, nil);
+			NSRunInformationalAlertPanel(NSLocalizedString(@"Study Filter", nil),
+                                         NSLocalizedString(@"The result is now displayed in the Database Window.", nil),
+                                         NSLocalizedString(@"OK", nil),
+                                         nil,
+                                         nil);
 		}
 		@catch (NSException * e)
 		{
-			NSRunCriticalAlertPanel( NSLocalizedString(@"Error", nil), NSLocalizedString(@"This filter is NOT working: %@", nil), NSLocalizedString(@"OK", nil), nil, nil, e);
+			NSRunCriticalAlertPanel(NSLocalizedString(@"Error", nil),
+                                    NSLocalizedString(@"This filter is NOT working: %@", nil),
+                                    NSLocalizedString(@"OK", nil),
+                                    nil,
+                                    nil,
+                                        e);
 		}
 	}
 }

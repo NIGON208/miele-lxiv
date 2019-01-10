@@ -19,7 +19,7 @@
 #import "AppController.h"
 #import "DICOMFiles/dicomFile.h"
 #import "DicomImage.h"
-#import "DCM Framework/DCMNetServiceDelegate.h"
+#import <DCM/DCMNetServiceDelegate.h>
 #import "Notifications.h"
 #import "SendController.h"
 #import <sys/socket.h>
@@ -132,15 +132,16 @@ static BonjourBrowser *currentBrowser = nil;
 
 - (void) buildFixedIPList
 {
-	if( [[NSUserDefaults standardUserDefaults] boolForKey:@"syncOsiriXDB"])
+	if ([[NSUserDefaults standardUserDefaults] boolForKey:@"syncOsiriXDB"])
 	{
-		[NSThread detachNewThreadSelector:@selector(syncOsiriXDBList) toTarget:self withObject:nil];
+		[NSThread detachNewThreadSelector:@selector(syncOsiriXDBList)
+                                 toTarget:self
+                               withObject:nil];
 	}
 
-	int			i;
-	NSArray		*osirixServersArray		= [[NSUserDefaults standardUserDefaults] arrayForKey: @"OSIRIXSERVERS"];
+	NSArray *osirixServersArray = [[NSUserDefaults standardUserDefaults] arrayForKey: @"OSIRIXSERVERS"];
 	
-	for( i = 0; i < [services count]; i++)
+	for (int i = 0; i < [services count]; i++)
 	{
 		if( [[[services objectAtIndex: i] valueForKey:@"type"] isEqualToString:@"fixedIP"])
 		{
@@ -149,7 +150,7 @@ static BonjourBrowser *currentBrowser = nil;
 		}
 	}
 	
-	for( i = 0; i < [osirixServersArray count]; i++)
+	for (int i = 0; i < [osirixServersArray count]; i++)
 	{
 		NSMutableDictionary	*dict = [NSMutableDictionary dictionaryWithDictionary: [osirixServersArray objectAtIndex: i]];
 		[dict setValue:@"fixedIP" forKey:@"type"];

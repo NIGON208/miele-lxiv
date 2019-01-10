@@ -18,12 +18,12 @@
 #import "N2Debug.h"
 #import "NSAppleScript+N2.h"
 #import "NSFileManager+N2.h"
-#import "DCM Framework/DCMObject.h"
-#import "DCM Framework/DCMEncapsulatedPDF.h"
+#import <DCM/DCMObject.h>
+#import <DCM/DCMEncapsulatedPDF.h>
 #import "DicomImage.h"
-#import "DCM Framework/DCMCalendarDate.h"
-#import "DCM Framework/DCMTransferSyntax.h"
-#import "DCM Framework/DCM.h"
+#import <DCM/DCMCalendarDate.h>
+#import <DCM/DCMTransferSyntax.h>
+#import <DCM/DCM.h>
 #import "Reports.h"
 
 @implementation DicomStudy (Report)
@@ -57,7 +57,7 @@
             
             BOOL succeeded = NO;
             
-            if ([task terminationStatus] == 0)
+            if ([task terminationStatus] == EXIT_SUCCESS)
                 succeeded = YES;
             
             if( succeeded) {
@@ -87,6 +87,7 @@
         
         NSString* offapiPath = nil;
         for (NSString* subpath in [NSArray arrayWithObjects:
+                                   @"Contents/Resources/types/offapi.rdb",
                                    @"Contents/MacOS/types/offapi.rdb",
                                    @"Contents/basis-link/program/offapi.rdb",
                                    @"Contents/MacOS/oovbaapi.rdb",
@@ -116,12 +117,12 @@
         if (!offapiPath || !urelinklibPath)
             [NSException raise:NSGenericException format:@"can't find necessary items inside %@", [applicationPath lastPathComponent]];
         
-        // launch soffice to make sure it's accepting sdk interactions
+        // Server: launch soffice to make sure it's accepting sdk interactions
         
         NSString* command = [NSString stringWithFormat:@"%@ \"%@\" &", sofficePath, acceptString];
         system(command.UTF8String);
         
-        // wait for a few secs until the port is actually open (soffice can take some time to launch...)
+        // Client: wait for a few secs until the port is actually open (soffice can take some time to launch...)
         
         BOOL succeeded = NO;
         NSException* lastException = nil;
@@ -133,8 +134,18 @@
             @try {
                 NSTask* task = [[[NSTask alloc] init] autorelease];
                 
-                [task setLaunchPath:[[NSBundle mainBundle] pathForAuxiliaryExecutable:@"odt2pdf"]];
-                [task setArguments:[NSArray arrayWithObjects: [NSString stringWithFormat:@"-env:URE_MORE_TYPES=file://%@", offapiPath], odtPath, pdfPath, nil]];
+#if 1 //def MACAPPSTORE
+                NSString *odt2pdfPath = [NSTemporaryDirectory() stringByAppendingPathComponent:@"odt2pdf"];
+                [task setLaunchPath:odt2pdfPath];
+#else
+                NSString *odt2pdfPath = [[NSBundle mainBundle] resourcePath];
+                task.launchPath = [odt2pdfPath stringByAppendingPathComponent:@"odt2pdf"];
+#endif
+                [task setArguments:[NSArray arrayWithObjects:
+                                    [NSString stringWithFormat:@"-env:URE_MORE_TYPES=file://%@", offapiPath],
+                                    odtPath,
+                                    pdfPath,
+                                    nil]];
                 [task setEnvironment:[NSDictionary dictionaryWithObject:urelinklibPath forKey:@"DYLD_LIBRARY_PATH"]];
                 [task setStandardOutput:[NSPipe pipe]];
                 [task launch];
@@ -143,7 +154,7 @@
                 
                 //[aTask waitUntilExit];		// <- This is VERY DANGEROUS : the main runloop is continuing...
                 
-                if ([task terminationStatus] == 0)
+                if ([task terminationStatus] == EXIT_SUCCESS)
                     succeeded = YES;
                 
                 [lastStdOut release];
@@ -286,7 +297,7 @@
     
     DCMObject* output = [DCMObject encapsulatedPDF:[NSFileManager.defaultManager contentsAtPath:pdfPath]];
     if (output == nil) {
-        NSLog(@"DicomStudy+Report.mm:%i PDF not found ?", __LINE__);
+        NSLog(@"%s:%i PDF not found ?", __FUNCTION__, __LINE__);
     }
     
     NSString *reportName = NSLocalizedString( @"Report PDF", nil);

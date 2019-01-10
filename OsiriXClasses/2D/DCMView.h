@@ -15,19 +15,18 @@
 #ifndef DCMVIEW_H_INCLUDED
 #define DCMVIEW_H_INCLUDED
 
-#import <Foundation/Foundation.h>
-#import <Cocoa/Cocoa.h>
+#include "options.h"
 
-#include <OpenGL/gl.h>
-#include <OpenGL/glext.h>
-#include <OpenGL/glu.h>
-#include <OpenGL/CGLMacro.h>
-#include <OpenGL/CGLCurrent.h>
-#include <OpenGL/CGLContext.h>
-#import "N3Geometry.h"
 #import "ROI.h"
 
-#include "options.h"
+#include <OpenGL/CGLCurrent.h>
+#include <OpenGL/CGLContext.h>
+
+#import "N3Geometry.h"
+//#import "ROI.h"
+
+#import <Foundation/Foundation.h>
+#import <Cocoa/Cocoa.h>
 
 #define STAT_UPDATE					0.6f
 #define IMAGE_COUNT					1
@@ -38,7 +37,8 @@
 extern NSString *pasteBoardOsiriX;
 extern NSString *pasteBoardOsiriXPlugin;
 extern NSString *OsirixPluginPboardUTI;
-extern int CLUTBARS, ANNOTATIONS, SOFTWAREINTERPOLATION_MAX, DISPLAYCROSSREFERENCELINES;
+extern int CLUTBARS, ANNOTATIONS, SOFTWAREINTERPOLATION_MAX;
+//extern BOOL DISPLAYCROSSREFERENCELINES;
 
 enum { annotNone = 0, annotGraphics, annotBase, annotFull };
 enum { barHide = 0, barOrigin, barFused, barBoth };
@@ -46,6 +46,12 @@ enum { syncroOFF = 0, syncroABS = 1, syncroREL = 2, syncroLOC = 3, syncroRatio =
 enum { NO_INTERSECT_3D = 0, INTERSECT_3D_ONE_POINT, INTERSECT_3D_SEGMENT_ON_PLANE };
 
 typedef enum {DCMViewTextAlignLeft, DCMViewTextAlignCenter, DCMViewTextAlignRight} DCMViewTextAlign;
+
+typedef NS_ENUM(NSUInteger, MyScrollMode) {
+    MY_SCROLL_MODE_UNDEFINED = 0,
+    MY_SCROLL_MODE_VER = 1,
+    MY_SCROLL_MODE_HOR = 2
+};
 
 @class GLString;
 @class DCMPix;
@@ -151,7 +157,7 @@ typedef enum {DCMViewTextAlignLeft, DCMViewTextAlignCenter, DCMViewTextAlignRigh
 	GLuint          labelFontListGL;
 	float			fontRasterY;
 		
-    NSPoint         mesureA, mesureB;
+    NSPoint         measureA, measureB;
     NSRect          roiRect;
 	NSString		*stringID;
 	NSSize			previousViewSize;
@@ -177,15 +183,20 @@ typedef enum {DCMViewTextAlignLeft, DCMViewTextAlignCenter, DCMViewTextAlignRigh
     long			textureHeight, blendingTextureHeight;
     
 	BOOL			f_ext_texture_rectangle; // is texture rectangle extension supported
+	// GL_ARB_texture_rectangle provides support for non-power of-two textures
 	BOOL			f_arb_texture_rectangle; // is texture rectangle extension supported
+	//* GL_APPLE_client_storage allows you to prevent OpenGL from copying your texture data into the client. Instead, OpenGL keeps the memory pointer you provided when creating the texture. Your application must keep the texture data at that location until the referencing OpenGL texture is deleted.
 	BOOL			f_ext_client_storage; // is client storage extension supported
 	BOOL			f_ext_packed_pixel; // is packed pixel extension supported
 	BOOL			f_ext_texture_edge_clamp; // is SGI texture edge clamp extension supported
 	BOOL			f_gl_texture_edge_clamp; // is OpenGL texture edge clamp support (1.2+)
-	unsigned long	edgeClampParam; // the param that is passed to the texturing parmeteres
+    
+	GLint           edgeClampParam; // the param that is passed to the texturing parameteres
+    GLint           interpolationType;
+
 	long			maxTextureSize; // the minimum max texture size across all GPUs
 	long			maxNOPTDTextureSize; // the minimum max texture size across all GPUs that support non-power of two texture dimensions
-	long			TEXTRECTMODE;
+	GLenum			TEXTRECTMODE;
 	
 	BOOL			isKeyView; //needed for Image View subclass
 	NSCursor		*cursor;
@@ -218,9 +229,11 @@ typedef enum {DCMViewTextAlignLeft, DCMViewTextAlignCenter, DCMViewTextAlignRigh
 #endif
     float           previousScalingFactor;
 	
+#ifdef WITH_ICHAT
 	//Context for rendering to iChat
-//	NSOpenGLContext *_alternateContext;
-	
+	NSOpenGLContext *_alternateContext;
+#endif
+    
 	BOOL			drawing;
 	
 	int				repulsorRadius;
@@ -228,7 +241,7 @@ typedef enum {DCMViewTextAlignLeft, DCMViewTextAlignCenter, DCMViewTextAlignRigh
 	NSTimer			*repulsorColorTimer;
 	float			repulsorAlpha, repulsorAlphaSign;
 	BOOL			repulsorROIEdition;
-	long            scrollMode;
+	MyScrollMode    scrollMode;
 	
 	NSPoint			ROISelectorStartPoint, ROISelectorEndPoint;
 	BOOL			selectorROIEdition;
@@ -237,7 +250,8 @@ typedef enum {DCMViewTextAlignLeft, DCMViewTextAlignCenter, DCMViewTextAlignRigh
 	BOOL			syncOnLocationImpossible, updateNotificationRunning;
 	
 	char			*resampledBaseAddr, *blendingResampledBaseAddr;
-	BOOL			zoomIsSoftwareInterpolated, firstTimeDisplay;
+    BOOL			zoomIsSoftwareInterpolated;
+    BOOL            firstTimeDisplay;
     float           resampledScale;
 	
 	int				resampledBaseAddrSize, blendingResampledBaseAddrSize;
@@ -380,9 +394,9 @@ typedef enum {DCMViewTextAlignLeft, DCMViewTextAlignCenter, DCMViewTextAlignRigh
 - (BOOL) roiTool:(long) tool;
 - (void) prepareToRelease;
 - (void) orientationCorrectedToView:(float*) correctedOrientation;
-#ifndef OSIRIX_LIGHT
+//#ifndef OSIRIX_LIGHT
 - (N3AffineTransform)pixToSubDrawRectTransform; // converst points in DCMPix "Slice Coordinates" to coordinates that need to be passed to GL in subDrawRect
-#endif
+//#endif
 - (NSPoint) ConvertFromNSView2GL:(NSPoint) a;
 - (NSPoint) ConvertFromView2GL:(NSPoint) a;
 - (NSPoint) ConvertFromUpLeftView2GL:(NSPoint) a;
@@ -433,7 +447,7 @@ typedef enum {DCMViewTextAlignLeft, DCMViewTextAlignCenter, DCMViewTextAlignRigh
 - (IBAction) alwaysSyncMenu:(id) sender;
 - (void) getCLUT:( unsigned char**) r : (unsigned char**) g : (unsigned char**) b;
 - (void) sync:(NSNotification*)note;
-- (id)initWithFrame:(NSRect)frame imageRows:(int)rows  imageColumns:(int)columns;
+- (id)initWithFrame:(NSRect)frame imageRows:(int)rows imageColumns:(int)columns;
 - (float)getSUV;
 - (IBAction) roiLoadFromXMLFiles: (NSArray*) filenames;
 - (BOOL)checkHasChanged;
@@ -443,9 +457,10 @@ typedef enum {DCMViewTextAlignLeft, DCMViewTextAlignCenter, DCMViewTextAlignRigh
 - (void)DrawNSStringGL:(NSString*) str     :(GLuint)fontL :(long) x :(long) y rightAlignment: (BOOL) right useStringTexture: (BOOL) stringTex;
 - (void)DrawNSStringGL:(NSString*) str     :(GLuint)fontL :(long) x :(long) y align:(DCMViewTextAlign)align useStringTexture:(BOOL)stringTex;
 
-- (void) DrawCStringGL: ( char *) cstrOut :(GLuint) fontL :(long) x :(long) y;
-- (void) DrawCStringGL: ( char *) cstrOut :(GLuint) fontL :(long) x :(long) y rightAlignment: (BOOL) right useStringTexture: (BOOL) stringTex;
-- (void)DrawCStringGL:(char*)cstrOut :(GLuint)fontL :(long)x :(long)y align:(DCMViewTextAlign)align useStringTexture:(BOOL)stringTex;
+- (void)DrawCStringGL:(char *)cstrOut :(GLuint)fontL :(long)x :(long)y;
+- (void)DrawCStringGL:(char *)cstrOut :(GLuint)fontL :(long)x :(long)y rightAlignment:(BOOL)right useStringTexture:(BOOL)stringTex;
+- (void)DrawCStringGL:(char *)cstrOut :(GLuint)fontL :(long)x :(long)y align:(DCMViewTextAlign)align useStringTexture:(BOOL)stringTex;
+
 - (void) drawTextualData:(NSRect) size :(long) annotations;
 - (void) drawTextualData:(NSRect) size annotationsLevel:(long) annotations fullText: (BOOL) fullText onlyOrientation: (BOOL) onlyOrientation;
 - (void) draw2DPointMarker;

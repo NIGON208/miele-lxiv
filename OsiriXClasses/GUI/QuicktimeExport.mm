@@ -66,11 +66,12 @@
 
 - (IBAction) changeExportType:(id) sender
 {
-	if( [exportTypes count])
+	if ([exportTypes count])
 	{
 		NSInteger indexOfSelectedItem = [type indexOfSelectedItem];
         
-        [panel setRequiredFileType: [[exportTypes objectAtIndex: indexOfSelectedItem] valueForKey:@"extension"]];
+        //[panel setRequiredFileType: [[exportTypes objectAtIndex: indexOfSelectedItem] valueForKey:@"extension"]];
+        [panel setAllowedFileTypes: @[[[exportTypes objectAtIndex: indexOfSelectedItem] valueForKey:@"extension"]]];
         
 		[[NSUserDefaults standardUserDefaults] setObject: [[exportTypes objectAtIndex: indexOfSelectedItem] valueForKey:@"videoCodec"] forKey:@"selectedMenuAVFoundationExport"];
 	}
@@ -148,18 +149,21 @@
                                                     error: nil];
     
     
-    if( produceFiles)
+    if (produceFiles)
     {
         result = NSFileHandlingPanelOKButton;
         
-        [[NSFileManager defaultManager] removeFileAtPath: [[[[BrowserController currentBrowser] database] tempDirPath] stringByAppendingPathComponent:@"IPHOTO"] handler: nil];
-        
-        [[NSFileManager defaultManager] createDirectoryAtPath: [[[[BrowserController currentBrowser] database] tempDirPath] stringByAppendingPathComponent:@"IPHOTO"]
+        NSString *path = [[[[BrowserController currentBrowser] database] tempDirPath] stringByAppendingPathComponent:@"PHOTOS"];
+
+        [[NSFileManager defaultManager] removeFileAtPath: path
+                                                 handler: nil];
+
+        [[NSFileManager defaultManager] createDirectoryAtPath: path
                                   withIntermediateDirectories: YES
                                                    attributes: nil
                                                         error: nil];
         
-        fileName = [[[[BrowserController currentBrowser] database] tempDirPath] stringByAppendingPathComponent:@"OsiriXMovie.mov"];
+        fileName = [[[[BrowserController currentBrowser] database] tempDirPath] stringByAppendingPathComponent:@"Miele-LXIV.mov"];
     }
     else
     {
@@ -172,7 +176,7 @@
         
         int index = 0;
         
-        for( NSDictionary *d in exportTypes)
+        for (NSDictionary *d in exportTypes)
         {
             if( [[d objectForKey: @"videoCodec"] isEqualToString: [[NSUserDefaults standardUserDefaults] objectForKey:@"selectedMenuAVFoundationExport"]])
                 index = [exportTypes indexOfObject: d];
@@ -181,14 +185,16 @@
         [type selectItemAtIndex: index];
         [self changeExportType: self];
         
-        result = [panel runModalForDirectory:nil file:name];
+        [panel setNameFieldStringValue: name];
+        result = [panel runModal];
+        // TODO: check result
         
         fileName = [panel filename];
     }
     
     [[NSFileManager defaultManager] removeItemAtPath: fileName error: nil];
     
-    if( [[NSFileManager defaultManager] fileExistsAtPath: fileName])
+    if ([[NSFileManager defaultManager] fileExistsAtPath: fileName])
         [[NSFileManager defaultManager] moveItemAtPathToTrash: fileName];
     
     @try

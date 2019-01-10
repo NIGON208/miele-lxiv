@@ -12,19 +12,19 @@ unzip -uo 3DconnexionClient.framework.zip
 unzip -uo dciodvfy.zip
 unzip -uo libPapyrusToolkit.a.zip
 unzip -uo Ming.zip
-unzip -uo weasis-portable.zip
-chmod -R 755 weasis
-cd "$SRCROOT/Binaries/weasis"
-if [ -d "weasis-portable" ]; then
-    cd "weasis-portable"
-    for f in *; do
-        rm -Rf "../$f"
-        mv "$f" ..
-    done
-    cd ..
-    rm -Rf weasis-portable
-fi
-find . -name __MACOSX | xargs rm -Rf
+unzip -uo -d weasis weasis-portable.zip
+#chmod -R 755 weasis
+#cd "$SRCROOT/Binaries/weasis"
+#if [ -d "weasis-portable" ]; then
+#    cd "weasis-portable"
+#    for f in *; do
+#        rm -Rf "../$f"
+#        mv "$f" ..
+#    done
+#    cd ..
+#    rm -Rf weasis-portable
+#fi
+#find . -name __MACOSX | xargs rm -Rf
 
 cd "$SRCROOT/Binaries/ReportsToPDF/odt2pdf/build"
 unzip -uo odt2pdf.zip

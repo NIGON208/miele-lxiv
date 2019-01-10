@@ -12,9 +12,6 @@
      PURPOSE.
 =========================================================================*/
 
-
-
-
 #import "ROIWindow.h"
 #import "HistogramWindow.h"
 #import "PlotWindow.h"
@@ -36,13 +33,13 @@
 
 - (NSUInteger)comboBox:(NSComboBox *)aComboBox indexOfItemWithStringValue:(NSString *)aString
 {
-	if( roiNames == nil) roiNames = [curController generateROINamesArray];
+	if (roiNames == nil) roiNames = [curController generateROINamesArray];
 	
 	long i;
 	
 	for(i = 0; i < [roiNames count]; i++)
 	{
-		if( [[roiNames objectAtIndex: i] isEqualToString: aString])
+		if ([[roiNames objectAtIndex: i] isEqualToString: aString])
             return i;
 	}
 	
@@ -51,7 +48,7 @@
 
 - (NSInteger)numberOfItemsInComboBox:(NSComboBox *)aComboBox
 {
-	if( roiNames == nil) roiNames = [curController generateROINamesArray];
+	if (roiNames == nil) roiNames = [curController generateROINamesArray];
 	return [roiNames count];
 }
 
@@ -59,7 +56,7 @@
 {
     if ( index > -1 )
     {
-		if( roiNames == nil) roiNames = [curController generateROINamesArray];
+		if (roiNames == nil) roiNames = [curController generateROINamesArray];
 		return [roiNames objectAtIndex: index];
     }
     
@@ -69,14 +66,14 @@
 
 - (IBAction) roiSaveCurrent: (id) sender
 {
-	NSSavePanel     *panel = [NSSavePanel savePanel];
-	
-	NSMutableArray  *selectedROIs = [NSMutableArray  arrayWithObject:curROI];
-	
+	NSSavePanel *panel = [NSSavePanel savePanel];
 	[panel setCanSelectHiddenExtension:NO];
-	[panel setRequiredFileType:@"roi"];
+    [panel setAllowedFileTypes: @[@"roi"]];
 	
-	if( [panel runModalForDirectory:nil file:[[selectedROIs objectAtIndex:0] name]] == NSFileHandlingPanelOKButton)
+    NSMutableArray *selectedROIs = [NSMutableArray arrayWithObject:curROI];
+    [panel setNameFieldStringValue: [[selectedROIs objectAtIndex:0] name]];
+
+	if ([panel runModal] == NSFileHandlingPanelOKButton)
 	{
 		[NSArchiver archiveRootObject: selectedROIs toFile :[panel filename]];
 	}
@@ -93,7 +90,7 @@
 
 - (void) CloseViewerNotification :(NSNotification*) note
 {
-	if( [note object] == curController)
+	if ([note object] == curController)
 	{
 		[self windowWillClose: nil];
 	}
@@ -101,7 +98,7 @@
 
 - (void) removeROI :(NSNotification*) note
 {
-	if( [note object] == curROI)
+	if ([note object] == curROI)
 	{
 		[self windowWillClose: nil];
 	}
@@ -113,17 +110,17 @@
 	float	pixels;
 	float   newResolution;
 	
-    [NSApp beginSheet:recalibrateWindow 
-            modalForWindow: [self window]
-            modalDelegate:self 
-            didEndSelector:NULL 
-            contextInfo:NULL];
+    [NSApp beginSheet:recalibrateWindow
+       modalForWindow:[self window]
+        modalDelegate:self
+       didEndSelector:NULL
+          contextInfo:NULL];
 	
-	[recalibrateValue setStringValue: [NSString stringWithFormat:@"%0.3f", (float) [curROI MesureLength :&pixels]] ];
+	[recalibrateValue setStringValue: [NSString stringWithFormat:@"%0.3f", (float) [curROI MeasureLength :&pixels]] ];
 	
     modalVal = [NSApp runModalForWindow:recalibrateWindow];
 	
-	if( modalVal)
+	if (modalVal)
 	{
 		newResolution = [recalibrateValue floatValue] / pixels;
 		newResolution *= 10.0;
@@ -134,7 +131,7 @@
 			
 			[pix setPixelSpacingX: newResolution];
 			
-			if( previousX)
+			if (previousX)
 				[pix setPixelSpacingY: [pix pixelSpacingY] * newResolution / previousX];
 			else
 				[pix setPixelSpacingY: newResolution];
@@ -159,7 +156,7 @@
 
 - (void) setROI: (ROI*) iroi :(ViewerController*) c
 {
-	if( curROI == iroi)
+	if (curROI == iroi)
         return;
 	
 	[curROI setComments: [NSString stringWithString: [comments string]]];	// stringWithString is very important - see NSText string !
@@ -182,17 +179,17 @@
 	[name selectText: self];
 	[comments setString:[curROI comments]];
 		
-	if( [curROI type] == tMesure)
+	if ([curROI type] == tMeasure)
         [recalibrate setEnabled: YES];
 	else
         [recalibrate setEnabled: NO];
 	
-	if( [curROI type] == tMesure)
+	if ([curROI type] == tMeasure)
         [xyPlot setEnabled: YES];
 	else
         [xyPlot setEnabled: NO];
 
-	if( [curROI type] == tLayerROI)
+	if ([curROI type] == tLayerROI)
         [exportToXMLButton setEnabled:NO];
 	else
         [exportToXMLButton setEnabled:YES];
@@ -207,7 +204,7 @@
 
 - (void) getName:(NSTimer*)theTimer
 {
-	if( [[name stringValue] isEqualToString: previousName] == NO)
+	if ([[name stringValue] isEqualToString: previousName] == NO)
 	{
 		[self setTextData: name];
 		[previousName release];
@@ -324,7 +321,7 @@
 
 - (IBAction) setColor:(NSColorWell*) sender
 {
-//	if( loaded == NO) return;
+//	if (loaded == NO) return;
 	
 	CGFloat r, g, b;
 	
@@ -346,10 +343,10 @@
 
 + (void) addROIValues: (ROI*) r dictionary: (NSMutableDictionary*) d
 {
-    if( r.name.length)
+    if (r.name.length)
         [d setObject: r.name forKey:@"Name"];
     
-    if( r.comments.length)
+    if (r.comments.length)
         [d setObject: r.comments forKey:@"Comments"];
     
     NSMutableArray *ROIPoints = [NSMutableArray array];
@@ -358,10 +355,10 @@
     
     [d setObject: ROIPoints forKey:@"ROIPoints"];
     
-    if( [r dataString])
+    if ([r dataString])
         [d setObject:[r dataString] forKey:@"DataSummary"];
     
-    if( [r dataValues])
+    if ([r dataValues])
         [d setObject:[r dataValues] forKey:@"DataValues"];
 }
 
@@ -388,15 +385,14 @@
 	}
 	
 	NSSavePanel *panel = [NSSavePanel savePanel];
-	
 	[panel setCanSelectHiddenExtension:NO];
-	[panel setRequiredFileType:@"xml"];
-	
-	if( [panel runModalForDirectory:nil file:[curROI name]] == NSFileHandlingPanelOKButton)
+    [panel setAllowedFileTypes: @[@"xml"]];
+    [panel setNameFieldStringValue: [curROI name]];
+	if ([panel runModal] == NSFileHandlingPanelOKButton)
 	{
 		NSMutableDictionary *xml = [NSMutableDictionary dictionary];
 		
-		if( [self allWithSameName])
+		if ([self allWithSameName])
 		{
 			NSArray *roiSeriesList = [curController roiList];
 			NSMutableArray *roiArray = [NSMutableArray array];
@@ -436,9 +432,9 @@
 	
 	for( id loopItem in winList)
 	{
-		if( [[[loopItem windowController] windowNibName] isEqualToString:@"Histogram"])
+		if ([[[loopItem windowController] windowNibName] isEqualToString:@"Histogram"])
 		{
-			if( [[loopItem windowController] curROI] == curROI)
+			if ([[loopItem windowController] curROI] == curROI)
 			{
 				found = YES;
 				[[[loopItem windowController] window] makeKeyAndOrderFront:self];
@@ -446,15 +442,19 @@
 		}
 	}
 	
-	if( found == NO)
+	if (found == NO)
 	{
-		if( [[curROI points] count] > 0)
+		if ([[curROI points] count] > 0)
 		{
 			HistoWindow* roiWin = [[HistoWindow alloc] initWithROI: curROI];
 			[roiWin showWindow:self];
 		}
 		else
-            NSRunAlertPanel(NSLocalizedString(@"Error", nil), NSLocalizedString(@"Cannot create an histogram from this ROI.", nil), nil, nil, nil);
+            NSRunAlertPanel(NSLocalizedString(@"Error", nil),
+                            NSLocalizedString(@"Cannot create a histogram from this ROI.", nil),
+                            nil,
+                            nil,
+                            nil);
 	}
 }
 
@@ -463,11 +463,11 @@
 	NSArray *winList = [NSApp windows];
 	BOOL	found = NO;
 	
-	for( id loopItem in winList)
+	for (id loopItem in winList)
 	{
-		if( [[[loopItem windowController] windowNibName] isEqualToString:@"Plot"])
+		if ([[[loopItem windowController] windowNibName] isEqualToString:@"Plot"])
 		{
-			if( [[loopItem windowController] curROI] == curROI)
+			if ([[loopItem windowController] curROI] == curROI)
 			{
 				found = YES;
 				[[[loopItem windowController] window] makeKeyAndOrderFront:self];
@@ -475,7 +475,7 @@
 		}
 	}
 	
-	if( found == NO)
+	if (found == NO)
 	{
 		PlotWindow* roiWin = [[PlotWindow alloc] initWithROI: curROI];
 		[roiWin showWindow:self];

@@ -79,7 +79,7 @@ static NSMutableDictionary *prefPanes = nil;
         
 		if( builtinPrefPaneClass)
 		{
-			self.pane = [[[builtinPrefPaneClass alloc] initWithBundle: nil] autorelease];  // TODO
+			self.pane = [[[builtinPrefPaneClass alloc] initWithBundle:[NSBundle mainBundle]] autorelease];
 		}
 		else
 		{
@@ -187,7 +187,7 @@ static const NSMutableArray* pluginPanes = [[NSMutableArray alloc] init];
                                  image: (NSImage*)image
 {
 	if (!image)
-		image = [NSImage imageNamed:@"osirixplugin"];
+		image = [NSImage imageNamed:PLUGIN_EXTENSION];
     
 	[pluginPanes addObject:[NSArray arrayWithObjects:resourceName, parentBundle, title, image, NULL]];
 }
@@ -306,7 +306,7 @@ static const NSMutableArray* pluginPanes = [[NSMutableArray alloc] init];
 	[panesListView setButtonActionTarget:self];
 	[panesListView setButtonActionSelector:@selector(setCurrentContext:)];
 	
-	[scrollView setBackgroundColor:[NSColor colorWithCalibratedWhite:237./255 alpha:1]];
+    [scrollView setBackgroundColor:[NSColor windowBackgroundColor]];
 	[scrollView setDrawsBackground:YES];
 	
 	NSBundle* bundle = [NSBundle mainBundle];

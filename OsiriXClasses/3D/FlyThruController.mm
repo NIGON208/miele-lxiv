@@ -182,13 +182,21 @@
 	
 	if( [flyThru.steps count] < 2)
 	{
-		NSRunAlertPanel(NSLocalizedString(@"Error",nil), NSLocalizedString(@"Add at least 2 frames for a Fly Thru.",nil), nil, nil, nil);
+		NSRunAlertPanel(NSLocalizedString(@"Error",nil),
+                        NSLocalizedString(@"Add at least 2 frames for a Fly Thru.",nil),
+                        nil,
+                        nil,
+                        nil);
 		return;
 	}
 	
 	if ([flyThru interpolationMethod] == 1 && [flyThru.steps count] < minSteps)
 	{
-		userChoice = NSRunAlertPanel(NSLocalizedString(@"Spline Interpolation Error", nil), NSLocalizedString(@"The Spline Interpolation needs at least 3 points to be run.", nil), NSLocalizedString(@"Use Linear Interpollation", nil), NSLocalizedString(@"Cancel", nil), nil);
+		userChoice = NSRunAlertPanel(NSLocalizedString(@"Spline Interpolation Error", nil),
+                                     NSLocalizedString(@"The Spline Interpolation needs at least 3 points to be run.", nil),
+                                     NSLocalizedString(@"Use Linear Interpollation", nil),
+                                     NSLocalizedString(@"Cancel", nil),
+                                     nil);
 		if(userChoice == 1)
 		{
 			flyThru.interpolationMethod = 2; // changing the method

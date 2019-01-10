@@ -15,7 +15,7 @@
 #include "dcmtk/config/osconfig.h"
 
 #import "DicomFileDCMTKCategory.h"
-#import "DCM Framework/DCMAbstractSyntaxUID.h"
+#import <DCM/DCMAbstractSyntaxUID.h>
 #import "DICOMToNSString.h"
 #import "MutableArrayCategory.h"
 #import "DicomStudy.h"
@@ -29,13 +29,13 @@
 #include "dcmtk/dcmdata/dctk.h"
 #include "dcmtk/dcmdata/cmdlnarg.h"
 #include "dcmtk/ofstd/ofconapp.h"
-#include "dcmtk/dcmdata/dcuid.h"       /* for dcmtk version name */
+#include "dcmtk/dcmdata/dcuid.h"
 #include "dcmtk/dcmjpeg/djdecode.h"    /* for dcmjpeg decoders */
 #include "dcmtk/dcmjpeg/dipijpeg.h"    /* for dcmimage JPEG plugin */
 
 #ifdef OSIRIX_VIEWER
 #ifndef OSIRIX_LIGHT
-#include "NrrdIO.h"
+#include "NrrdIO.h"  // ITK nearly raw raster data
 #endif
 #endif
 

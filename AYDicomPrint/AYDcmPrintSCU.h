@@ -1,5 +1,16 @@
-#ifndef AYDCMPRINTSCU_H
-#define AYDCMPRINTSCU_H
+//
+//  AYDcmPrintSCU.cpp
+//  DICOMPrint
+//
+//  Created by Alessandro Bettarini on 28 Dec 2018
+//  Copyright © 2018 bettar. All rights reserved.
+//
+//  This file is licensed under GNU - GPL v3 license.
+//  See file LICENCE for details.
+//
+
+#ifndef AYDcmPrintSCU_h
+#define AYDcmPrintSCU_h
 
 #include "AYPrintManager.h"
 
@@ -7,24 +18,24 @@
 #include <iostream>
 #include <string>
 #include <vector>
-using namespace std;
+#include <list>
+//using namespace std;
 
-#include "dcmtk/dcmdata/dcdatset.h"
-#include "dcmtk/ofstd/ofstd.h"
-#include "dcmtk/dcmdata/dctk.h"
+#include "dcmtk/config/osconfig.h"    /* make sure OS specific configuration is included first */
+#include "dcmtk/oflog/loglevel.h"
 
-#include <xercesc/parsers/XercesDOMParser.hpp>
-#include <xercesc/dom/DOM.hpp>
-#include <xercesc/sax/HandlerBase.hpp>
-#include <xercesc/util/XMLString.hpp>
-XERCES_CPP_NAMESPACE_USE
+#include "dcmtk/dcmdata/dcvrst.h"
+#include "dcmtk/dcmdata/dcvrcs.h"
+#include "dcmtk/dcmpstat/dvpsdef.h"
+#include "dcmtk/dcmpstat/dvpstyp.h"
 
+//#include "dcmtk/dcmdata/dcdatset.h"
+//#include "dcmtk/ofstd/ofstd.h"
+//#include "dcmtk/dcmdata/dctk.h"
 
+//#define EXTRA_ERROR_REPORTING
+#define OFFIS_CONSOLE_APPLICATION "printscu"
 
-
-/**
- * 
- */
 class AYDcmPrintSCU
 {
   public:
@@ -82,8 +93,8 @@ class AYDcmPrintSCU
       LAST_FILMBOX_NOT_PRINTED_YET,              //
       UNKNOWN_DIMSE_STATUS,                      //
 
-			// errors while setting pixel data 
-			// from dicom file to image box
+        // errors while setting pixel data
+        // from dicom file to image box
       INVALID_DICOM_FILE_PATH,
       READ_DICOM_FILE_ERROR,
       IMAGE_BOX_SET_REQUEST_ERROR,
@@ -91,55 +102,27 @@ class AYDcmPrintSCU
       SET_ATTRIBUTE_ERROR
     };
 
-    enum
-    {
-      LOG_INIT,
-      LOG_ERROR,
-      LOG_WARNING,
-      LOG_INFO,
-      LOG_VERBOSE,
-      LOG_DEBUG
-    };
+    AYDcmPrintSCU(const char *hostname, int port, const char *aetitle, const char *aetitleSCU);
 
-
-    /**
-     * Constructor.
-     * @param logpath Directory where the logfiles should be written to. NULL sets logging to stderr.
-     * @param loglevel Loglevel which should be logged (Default is LOG_ERROR).
-     */
-    AYDcmPrintSCU(const char *logpath = NULL, int loglevel = LOG_ERROR, const char *basename = NULL);
-
-
-    /**
-     * Destructor.
-     */
     ~AYDcmPrintSCU();
-
 
     /**
      * This is the main method which has to be called from a program to trigger the
-     * print SCU. The only parameter is the configfile with all information about
-     * the printjob.
-     * @param configfile Absolute path to the configfile.
+     * print SCU.
+     * @param images List of image files to be printed
      * @return Errorstatus
      */
-    int sendPrintjob(const char *configfile);
-
+    OFCondition sendPrintjob(std::list<std::string>& images);
 
   private:
 
-    /**  */
-    XercesDOMParser *m_pParser;
-
-    /**  */
-    AYPrintManager *m_pPrintManager;
-
+    AYPrintManager *printHandler; // was m_pPrintManager
 
     // Association parameters
-    string m_sHostname;
+    std::string m_sHostname;
     int m_nPort;
-    string m_sAETitleSender;
-    string m_sAETitleReceiver;
+    std::string m_sAETitleReceiver;
+    std::string m_sAETitleSender;
     int m_nMaxPDUSize;
     bool m_bUseColorPrinting;
     bool m_bUseAnnotationBoxes;
@@ -147,114 +130,37 @@ class AYDcmPrintSCU
     bool m_bUseFilmSessionActionRequest;
 
     // Printer information
-    string sPrinterStatus;
-    string sPrinterStatusInfo;
-    string sPrinterName;
-    string Manufacturer;
-    string ManufacturersModelName;
-    string DeviceSerialNumber;
-    string SoftwareVersion;
-    string sDateOfLastCalibration;
-    string sTimeOfLastCalibration;
+    std::string sPrinterStatus;
+    std::string sPrinterStatusInfo;
+    std::string sPrinterName;
+    std::string Manufacturer;
+    std::string ManufacturersModelName;
+    std::string DeviceSerialNumber;
+    std::string SoftwareVersion;
+    std::string sDateOfLastCalibration;
+    std::string sTimeOfLastCalibration;
 
     // Logging parameters
-    string m_sLogpath;
-    string m_sLogfileBasename;
+    std::string m_sLogpath;
+    std::string m_sLogfileBasename;
     int m_nLoglevel;
 
-    ostream *stdlogger;
-    ostream *joblogger;
-    ostream *dumplogger;
+    std::ostream *stdlogger;
+    std::ostream *joblogger;
+    std::ostream *dumplogger;
 
-    ofstream *stdlogfile;
-    ofstream *joblogfile;
-    ofstream *dumplogfile;
+    std::ofstream *stdlogfile;
+    std::ofstream *joblogfile;
+    std::ofstream *dumplogfile;
 
-
-    /**
-     * Reads the configfile with printjob information and parses the XML.
-     * @param configfile Absolute path to the configfile.
-     * @return Errorstatus
-     */
-    int parseXMLConfigfile(const char *configfile);
-
-
-    /**
-     *
-     */
-    int openAssociation(DOMNode *pAssociation);
-
-
-    /**
-     *
-     */
     int closeAssociation();
-
-
-    /**
-     *
-     */
-    int processFilmSession(DOMNode *pFilmSession);
-
-
-    /**
-     *
-     */
-    int processFilmBox(DOMNode *pXMLFilmBox, OFString sReferencedFilmSessionInstanceUID, int &nImageCounter);
-
-
-    /**
-     * Reads the association parameters from the XML node
-     * pNode and sets them to the attributes.
-     * @param pNode XML node from the configuration which represents an association.
-     * @return Errorstatus (NO_ERROR if all association parameters are valid.)
-     */
-    int setAssociationParameters(DOMNode *pNode);
-
-
-    /**
-     *
-     */
-    int addFilmSessionParameters(DOMNode *pNode, DcmDataset *pDataset);
-
-
-    /**
-     *
-     */
-    int addFilmBoxParameters(DOMNode *pNode, DcmDataset *pDataset);
-
-
-    /**
-     *
-     */
-    int addImageBoxParameters(DOMNode *pNode, DcmDataset *pDataset);
-
 
     /**
      * Checks if a string value is an integer.
      * @param sValue String value to check.
      * @return true if sValue is an integer. false if not.
      */
-    bool isInteger(string sValue);
-
-
-    /**
-     * Checks if pNode contains an attribute with name sAttrName.
-     * @param pNode XML node to be checked for the attribute.
-     * @param sAttrName Name of the attribute which is searched.
-     * @return true if attribute exists in pNode, false otherwise.
-     */
-    bool isXMLAttributeAvailable(DOMNode *pNode, string sAttrName);
-
-
-    /**
-     * Returns the value of attribute with name sAttrName.
-     * @param pNode XML node to be checked for the attribute.
-     * @param sAttrName Name of the attribute which is searched.
-     * @return String containing the value of the attribute.
-     */
-    string getXMLAttributeValue(DOMNode *pNode, string sAttributeName);
-
+    bool isInteger(std::string sValue);
 
     /**
      * Checks if a DICOM tag with key oKey is available in pDataset.
@@ -264,15 +170,13 @@ class AYDcmPrintSCU
      */
     bool isDicomAttributeAvailable(DcmDataset *pDataset, DcmTagKey oKey);
 
-
     /**
      * Searchs for an attribute with key oKey in pDataset and returns its value as a string.
      * @param pDataset Pointer to a DICOM dataset which contains the attribute.
      * @param oKey Key of the attribute which should be searched.
      * @return String containing the value of the attribute.
      */
-    string getDicomAttributeValue(DcmDataset *pDataset, DcmTagKey oKey);
-
+    std::string getDicomAttributeValue(DcmDataset *pDataset, DcmTagKey oKey);
 
     /**
      * Searchs for an attribute with key oKey in DICOM dataset pDataset and the XML node pNode
@@ -294,21 +198,41 @@ class AYDcmPrintSCU
      *         - MISSING_ATTRIBUTE_ERROR
      *           The attribute was flaged as mandatory but not found in one of the sources
      */
-    int addImageBoxAttribute(DcmDataset *pDataset, DcmTagKey oKey, DOMNode *pNode, string sAttrName, DcmItem *pItem, bool bIsMandatory);
+    //int addImageBoxAttribute(DcmDataset *pDataset, DcmTagKey oKey, DOMNode *pNode, std::string sAttrName, DcmItem *pItem, bool bIsMandatory);
 
 
     /**
      * Returns a formatted string with the current date and time.
      * @return Formatted time string in the form YYYYMMDD.HHMMSS
      */
-    string timestring(bool bAddSeparator=true);
+    std::string timestring(bool bAddSeparator=true);
 
 
     /**
      *
      */
-    int decodeDimseStatus(unsigned int unStatus, string sRequest);
+    int decodeDimseStatus(unsigned int unStatus, std::string sRequest);
 
+public:
+    // dviface.hh 1803
+    unsigned long printerNumberOfCopies;    // (2000,0010)
+    OFString printerPriority;               // (2000,0020)
+    OFString printerMediumType;             // (2000,0030)
+    OFString printerFilmDestination;        // (2000,0040)
+    OFString printerFilmSessionLabel;
+    OFString printerOwnerID;
+    OFString filmSessionInstanceUID;
+    
+    // dvpssp.h 1008
+    DcmShortText imageDisplayFormat;
+    DcmCodeString filmOrientation;      // (2010,0040)
+    DcmCodeString filmSizeID;           // (2010,0050)
+    DcmCodeString magnificationType;    // (2010,0060)
+    DcmCodeString smoothingType;        // (2010,0080)
+    DcmCodeString borderDensity;        // (2010,0100)
+    DcmCodeString emptyImageDensity;    // (2010,0110)
+    DcmCodeString trim;                 // (2010,0140)
+    DcmShortText configurationInformation; // (2010,0150)
 };
 
 #endif

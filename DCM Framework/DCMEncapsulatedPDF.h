@@ -13,7 +13,7 @@
 =========================================================================*/
 
 #import <Cocoa/Cocoa.h>
-#import "DCM Framework/DCMObject.h"
+#import <DCM/DCMObject.h>
 
 /** Category of DCMObject for creating DICOM encapsulated PDFs */
 @interface   DCMObject (DCMEncapsulatedPDF) 

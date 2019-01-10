@@ -137,9 +137,11 @@
     
     [[self window] center];
 	[[self window] setLevel: NSModalPanelWindowLevel];
-	if( str) [text setStringValue:str];
-	
-	startTime = nil;
+
+	if (str)
+        [text setStringValue:str];
+
+    startTime = nil;
 	lastTimeFrame = 0;
 	lastTimeFrameUpdate = 0;
 	session = nil;

@@ -268,7 +268,10 @@
 {
     NSRect frame = [self.view rectOfRow:[self.manager.threads indexOfObject:self.thread]];
 
-    return NSMakeRect(frame.origin.x+3, frame.origin.y + [[BrowserController currentBrowser] fontSize: @"threadCellLineSpace"], frame.size.width-22, frame.size.height- (frame.origin.y + [[BrowserController currentBrowser] fontSize: @"threadCellLineSpace"]));
+    return NSMakeRect(frame.origin.x+3,
+                      frame.origin.y + [[BrowserController currentBrowser] fontSize: @"threadCellLineSpace"],
+                      frame.size.width-22,
+                      frame.size.height - (frame.origin.y + [[BrowserController currentBrowser] fontSize: @"threadCellLineSpace"]));
 }
 
 @end

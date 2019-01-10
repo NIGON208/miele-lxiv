@@ -29,7 +29,8 @@
     short           err = 0;
 	BOOL			testInterval = YES;
 	
-	for( i = 0; i < 100; i++) undodata[ i] = nil;
+	for( i = 0; i < UNDO_DATA_SIZE; i++)
+        undodata[ i] = nil;
 	
 //	[[NSUserDefaults standardUserDefaults] setInteger: 1 forKey: @"MAPPERMODEVR"];	// texture mapping
 	
@@ -58,10 +59,18 @@
 		testInterval = NO;
 		
 		if( sliceThickness > 0)
-            NSRunCriticalAlertPanel( NSLocalizedString(@"Slice interval",nil), NSLocalizedString( @"I'm not able to find the slice interval. Slice interval will be equal to slice thickness.",nil), NSLocalizedString(@"OK",nil), nil, nil);
+            NSRunCriticalAlertPanel(NSLocalizedString(@"Slice interval",nil),
+                                    NSLocalizedString( @"I'm not able to find the slice interval. Slice interval will be equal to slice thickness.",nil),
+                                    NSLocalizedString(@"OK",nil),
+                                    nil,
+                                    nil);
 		else
 		{
-			NSRunCriticalAlertPanel(NSLocalizedString( @"Slice interval/thickness",nil), NSLocalizedString( @"Problems with slice thickness/interval to do a 3D reconstruction.",nil),NSLocalizedString( @"OK",nil), nil, nil);
+			NSRunCriticalAlertPanel(NSLocalizedString( @"Slice interval/thickness",nil),
+                                    NSLocalizedString( @"Problems with slice thickness/interval to do a 3D reconstruction.",nil),
+                                    NSLocalizedString( @"OK",nil),
+                                    nil,
+                                    nil);
             [self autorelease];
 			return nil;
 		}
@@ -76,7 +85,11 @@
     }
     if( err)
     {
-        NSRunCriticalAlertPanel(NSLocalizedString( @"Images size",nil),  NSLocalizedString(@"These images don't have the same height and width to allow a 3D reconstruction...",nil),NSLocalizedString( @"OK",nil), nil, nil);
+        NSRunCriticalAlertPanel(NSLocalizedString( @"Images size",nil),
+                                NSLocalizedString(@"These images don't have the same height and width to allow a 3D reconstruction...",nil),
+                                NSLocalizedString( @"OK",nil),
+                                nil,
+                                nil);
         [self autorelease];
         return nil;
     }

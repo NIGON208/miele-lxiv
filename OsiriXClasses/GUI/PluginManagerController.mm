@@ -13,7 +13,6 @@
 =========================================================================*/
 
 #import "PluginManagerController.h"
-//#import <Message/NSMailDelivery.h>
 #import "WaitRendering.h"
 #import "Notifications.h"
 #import "PreferencesWindowController.h"
@@ -24,6 +23,10 @@
 #import "url.h"
 #import "tmp_locations.h"
 
+#ifdef SUBMIT_PLUGIN_WITH_MAIL_APP
+#import <Message/NSMailDelivery.h>
+#endif
+
 static NSArray *CachedPluginsList = nil;
 static NSDate *CachedPluginsListDate = nil;
 
@@ -31,7 +34,7 @@ static NSDate *CachedPluginsListDate = nil;
 
 - (void)keyDown:(NSEvent *)event
 {
-    if( [[event characters] length] == 0)
+    if ([[event characters] length] == 0)
         return;
     
 	unichar c = [[event characters] characterAtIndex:0];
@@ -69,7 +72,10 @@ static NSDate *CachedPluginsListDate = nil;
     
 	plugins = [[NSMutableArray arrayWithArray:[PluginManager pluginsList]] retain];
 	
-	pluginsListURLs = [[NSArray arrayWithObjects:PLUGIN_LIST_URL, PLUGIN_LIST_ALT_URL, nil] retain];
+	pluginsListURLs = [[NSArray arrayWithObjects:
+                        URL_PLUGIN_LIST,
+                        URL_PLUGIN_LIST_MIRROR1,
+                        nil] retain];
 
 	NSRect windowFrame = [[self window] frame];
 	[[self window] setFrame:NSMakeRect(windowFrame.origin.x,windowFrame.origin.y,800,900) display:YES];
@@ -82,17 +88,24 @@ static NSDate *CachedPluginsListDate = nil;
 	// deactivate the back/forward options in the webView's contextual menu
 	[[webView backForwardList] setCapacity:0];
 	
-    [[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(WebViewProgressStartedNotification:) name: WebViewProgressStartedNotification object: webView];
-    [[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(WebViewProgressFinishedNotification:) name: WebViewProgressFinishedNotification object: webView];
+    [[NSNotificationCenter defaultCenter] addObserver: self
+                                             selector: @selector(WebViewProgressStartedNotification:)
+                                                 name: WebViewProgressStartedNotification
+                                               object: webView];
+
+    [[NSNotificationCenter defaultCenter] addObserver: self
+                                             selector: @selector(WebViewProgressFinishedNotification:)
+                                                 name: WebViewProgressFinishedNotification
+                                               object: webView];
         
 	return self;
 }
 
 - (void)windowDidBecomeMain:(NSNotification *)notification
 {
-    if( [AppController isFDACleared])
+    if ([AppController isFDACleared])
     {
-        NSRunCriticalAlertPanel( NSLocalizedString( @"Important Notice", nil),
+        NSRunCriticalAlertPanel(NSLocalizedString( @"Important Notice", nil),
                                 NSLocalizedString( @"Plugins are not certified for primary diagnosis in medical imaging, unless specifically written by the plugin author(s).", nil),
                                 NSLocalizedString( @"OK", nil),
                                 nil,
@@ -106,7 +119,7 @@ static NSDate *CachedPluginsListDate = nil;
      
 	[plugins release];
 	[pluginsListURLs release];
-	[downloadURL release];
+	[downloadUrlDict release];
     [downloadingPlugins release];
 	
 	[super dealloc];
@@ -131,7 +144,7 @@ static NSDate *CachedPluginsListDate = nil;
 	NSString *pluginName = [[pluginsList objectAtIndex:[pluginTable clickedRow]] objectForKey:@"name"];
 	BOOL pluginIsActive = [[[pluginsList objectAtIndex:[pluginTable clickedRow]] objectForKey:@"active"] boolValue];
 
-	if(!pluginIsActive)
+	if (!pluginIsActive)
 	{
 		[PluginManager deactivatePluginWithName:pluginName];
 	}
@@ -146,7 +159,7 @@ static NSDate *CachedPluginsListDate = nil;
 
 - (IBAction)delete:(id)sender;
 {
-	if( NSRunInformationalAlertPanel(NSLocalizedString(@"Delete a plugin", nil),
+	if (NSRunInformationalAlertPanel(NSLocalizedString(@"Delete a plugin", nil),
                                      NSLocalizedString(@"Are you sure you want to delete the selected plugin?", nil),
                                      NSLocalizedString(@"OK",nil),
                                      NSLocalizedString(@"Cancel",nil),
@@ -158,7 +171,9 @@ static NSDate *CachedPluginsListDate = nil;
 		NSString *availability = [[pluginsList objectAtIndex:[pluginTable selectedRow]] objectForKey:@"availability"];
 		BOOL pluginIsActive = [[[pluginsList objectAtIndex:[pluginTable selectedRow]] objectForKey:@"active"] boolValue];
 		
-		[PluginManager deletePluginWithName:pluginName availability: availability isActive: pluginIsActive];
+		[PluginManager deletePluginWithName: pluginName
+                               availability: availability
+                                   isActive: pluginIsActive];
         
 		[self refreshPluginList];
 	}
@@ -195,24 +210,22 @@ static NSDate *CachedPluginsListDate = nil;
 
 - (IBAction)showWindow:(id)sender;
 {
-#ifdef MACAPPSTORE
-    if( NSRunInformationalAlertPanel(NSLocalizedString(@"Plugin Manager", nil),
-                                     NSLocalizedString(@"This function is not available in the App Store version of OsiriX. If you want to install plug-ins, download the complete OsiriX version on our web site.", nil),
+#if 0 //def MACAPPSTORE
+    if (NSRunInformationalAlertPanel(NSLocalizedString(@"Plugin Manager", nil),
+                                     NSLocalizedString(@"This function is not available in the App Store version of Miele-LXIV. If you want to install plug-ins, download the complete Miele-LXIV version on our web site.", nil),
                                      NSLocalizedString(@"Continue",nil),
-                                     NSLocalizedString(@"OsiriX Web Site",nil),
+                                     NSLocalizedString(@"Miele-LXIV Web Site",nil),
                                      nil
                                      ) == NSAlertDefaultReturn)
     {
         return;
     }
-    else
-    {
-        [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:URL_OSIRIX_VIEWER]];
-        return;
-    }
+
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:URL_MIELE_SOURCES]];
+    return;
 #endif
     
-	if([[self availablePlugins] count]<1)
+	if ([[self availableRemotePlugins] count] < 1)
 	{
 		[pluginsListPopUp removeAllItems];
 		[pluginsListPopUp setEnabled:NO];
@@ -224,8 +237,8 @@ static NSDate *CachedPluginsListDate = nil;
 	else
 	{
 		[self generateAvailablePluginsMenu];
-		[self setURLforPluginWithName:[[[self availablePlugins] objectAtIndex:0] valueForKey:@"name"]];
-		[self setDownloadURL:[[[self availablePlugins] objectAtIndex:0] valueForKey:@"download_url"]];
+		[self setURLforPluginWithName:[[[self availableRemotePlugins] objectAtIndex:0] valueForKey:@"name"]];
+		[self setDownloadUrlDict:[[[self availableRemotePlugins] objectAtIndex:0] valueForKey:@"download_url"]];
 	}
 
 	NSArray *viewers = [ViewerController getDisplayed2DViewers];
@@ -280,15 +293,15 @@ NSInteger sortPluginArrayByName(id plugin1, id plugin2, void *context)
 	return [name1 compare:name2 options: NSCaseInsensitiveSearch];
 }
 
-- (NSArray*) availablePlugins;
+- (NSArray*) availableRemotePlugins;
 {
 	NSString *pluginsListURL = @"";
 	NSArray *pluginsList = nil;
 	
-	if( CachedPluginsListDate == nil || [CachedPluginsListDate timeIntervalSinceNow] < -10*60)
+	if (CachedPluginsListDate == nil || [CachedPluginsListDate timeIntervalSinceNow] < -10*60)
 	{
 	}
-	else if( CachedPluginsList)
+	else if (CachedPluginsList)
 	{
 		return CachedPluginsList;
 	}
@@ -304,8 +317,10 @@ NSInteger sortPluginArrayByName(id plugin1, id plugin2, void *context)
 	
 	[splash close];
 	
-	if (!pluginsList)
+    if (!pluginsList) {
+        //NSLog(@"%s line:%d, no plugin list", __FUNCTION__, __LINE__);
         return nil;
+    }
 	
 	NSArray *sortedPlugins = [pluginsList sortedArrayUsingFunction:sortPluginArrayByName context:NULL];
 	
@@ -322,11 +337,9 @@ NSInteger sortPluginArrayByName(id plugin1, id plugin2, void *context)
 {
 	[pluginsListPopUp removeAllItems];
 	
-	NSArray *availablePlugins = [self availablePlugins];
+	NSArray *availablePlugins = [self availableRemotePlugins];
 	for (id loopItem in availablePlugins)
-	{
 		[pluginsListPopUp addItemWithTitle:[loopItem objectForKey:@"name"]];
-	}
 	
 	[[pluginsListPopUp menu] addItem:[NSMenuItem separatorItem]];
 	[pluginsListPopUp addItemWithTitle:NSLocalizedString(@"Your Plugin here!", nil)];
@@ -341,34 +354,36 @@ NSInteger sortPluginArrayByName(id plugin1, id plugin2, void *context)
 
 - (void)setURLforPluginWithName:(NSString*)name;
 {
-	NSArray* availablePlugins = [self availablePlugins];
-	for(NSDictionary *plugin in availablePlugins)
+	NSArray* availablePlugins = [self availableRemotePlugins];
+	for (NSDictionary *plugin in availablePlugins)
 	{
-		if([[plugin valueForKey:@"name"] isEqualToString:name])
+		if ([[plugin valueForKey:@"name"] isEqualToString:name])
 		{
 			[self setURL:[plugin valueForKey:@"url"]];
-			[self setDownloadURL:[plugin valueForKey:@"download_url"]];
+			[self setDownloadUrlDict:[plugin valueForKey:@"download_url"]];  // dictionary
 			
 			BOOL alreadyInstalled = NO;
 			BOOL sameName = NO;
 			BOOL sameVersion = NO;
-			for(NSDictionary *installedPlugin in plugins)
-			{	
-				NSString *name = [[[plugin valueForKey:@"download_url"] lastPathComponent] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+			for (NSDictionary *installedPlugin in plugins)
+			{
+                NSString *path = [[plugin valueForKey:@"download_url"] valueForKey:@"path"];
+                NSString *name = [[path lastPathComponent] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 				name = [name stringByDeletingPathExtension]; // removes the .zip extension
-				name = [name stringByDeletingPathExtension]; // removes the .osirixplugin extension
+				name = [name stringByDeletingPathExtension]; // removes the .mieleplugin extension
 				sameName = [name isEqualToString:[installedPlugin valueForKey:@"name"]];
 				sameVersion = [[plugin valueForKey:@"version"] isEqualToString:[installedPlugin valueForKey:@"version"]];
 
 				alreadyInstalled = alreadyInstalled || sameName || (sameName && sameVersion);
 				
-				if(alreadyInstalled) break;
-			}
+				if (alreadyInstalled)
+                    break;
+			} // for
 			
-			if(alreadyInstalled)
+			if (alreadyInstalled)
 			{
 				[statusTextField setHidden:NO];
-				if(sameName && sameVersion)
+				if (sameName && sameVersion)
 					[statusTextField setStringValue:NSLocalizedString(@"Plugin already installed", nil)];
 				else
 					[statusTextField setStringValue:NSLocalizedString(@"Download the new version!", nil)];
@@ -385,7 +400,7 @@ NSInteger sortPluginArrayByName(id plugin1, id plugin2, void *context)
 			[self loadSubmitPluginPage];
 			return;
 		}
-	}
+	}  // for
 }
 
 - (IBAction)changeWebView:(id)sender;
@@ -393,16 +408,20 @@ NSInteger sortPluginArrayByName(id plugin1, id plugin2, void *context)
 	[self setURLforPluginWithName:[sender title]];
 }
 
-#pragma mark download
+#pragma mark - download
 
-- (void)setDownloadURL:(NSString*)url;
+- (void)setDownloadUrlDict:(NSDictionary*)urlDic;
 {
-	if(downloadURL) [downloadURL release];
-	downloadURL = url;
-	[downloadURL retain];
-	if([downloadURL isEqualToString:@""])
+	if (downloadUrlDict)
+        [downloadUrlDict release];
+
+    downloadUrlDict = urlDic;
+	[downloadUrlDict retain];
+    
+    NSString *path = [urlDic valueForKey:@"path"];
+    if ([path length] == 0)
 		[downloadButton setHidden:YES];
-	else
+    else
 		[downloadButton setHidden:NO];
 }
 
@@ -411,11 +430,11 @@ NSInteger sortPluginArrayByName(id plugin1, id plugin2, void *context)
     NSAutoreleasePool *pool = [NSAutoreleasePool new];
     
     BOOL downloading = YES;    
-    while( downloading)
+    while (downloading)
     {
         @synchronized( downloadingPlugins)
         {
-            if( [downloadingPlugins objectForKey: downloadedFilePath] == nil)
+            if ([downloadingPlugins objectForKey: downloadedFilePath] == nil)
                 downloading = NO;
             
             [NSThread sleepForTimeInterval: 1];
@@ -427,30 +446,50 @@ NSInteger sortPluginArrayByName(id plugin1, id plugin2, void *context)
 
 - (IBAction)download:(id)sender;
 {
+    NSString *path = [downloadUrlDict valueForKey:@"path"];
+    NSString *lastComponent = [[path lastPathComponent] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSString *downloadedFilePath = [NSString stringWithFormat:@"%@%@",
                                     NSTemporaryDirectory(),
-                                    [[downloadURL lastPathComponent] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-    
+                                    lastComponent];
+
     @synchronized( downloadingPlugins)
     {
-        if( [downloadingPlugins objectForKey: downloadedFilePath])
+        if ([downloadingPlugins objectForKey: downloadedFilePath]) {
             NSLog( @"---- Already downloading...");
-        
+        }
         else
         {
-            NSURLDownload *download = [[[NSURLDownload alloc] initWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:downloadURL]] delegate:self] autorelease];
+            NSURLComponents *urlComponents = [NSURLComponents new];
+            [urlComponents setScheme:[downloadUrlDict valueForKey:@"scheme"]];
+            [urlComponents setHost:[downloadUrlDict valueForKey:@"host"]];
+            [urlComponents setPath:[downloadUrlDict valueForKey:@"path"]];
             
+            NSURL *url = urlComponents.URL;
+            if (!url) {
+                NSLog(@"%s %d, null URL", __FUNCTION__, __LINE__);
+                return;
+            }
+
+            NSURLDownload *download = [[[NSURLDownload alloc] initWithRequest:[NSURLRequest requestWithURL:url] delegate:self] autorelease];
+
+#ifndef NDEBUG
+            NSLog(@"%s %d, downloadedFilePath:<%@>", __FUNCTION__, __LINE__, downloadedFilePath);
+#endif
             [download setDestination: downloadedFilePath allowOverwrite:YES];
             
             [downloadingPlugins setObject: download forKey: downloadedFilePath];
             
-            NSThread *t = [[[NSThread alloc] initWithTarget:self selector: @selector(fakeThread:) object: downloadedFilePath] autorelease];
+            NSThread *t = [[[NSThread alloc] initWithTarget: self
+                                                   selector: @selector(fakeThread:)
+                                                     object: downloadedFilePath] autorelease];
             t.name = NSLocalizedString( @"Plugin download...", nil);
-            t.status = downloadURL;
+            t.status = [downloadUrlDict valueForKey:@"path"];
             [[ThreadsManager defaultManager] addThreadAndStart: t];
         }
     }
 }
+
+#pragma mark - NSURLDownloadDelegate
 
 - (void)downloadDidBegin:(NSURLDownload *)download
 {
@@ -467,12 +506,12 @@ NSInteger sortPluginArrayByName(id plugin1, id plugin2, void *context)
 	[statusProgressIndicator stopAnimation:self];
     
     NSArray *paths = nil;
-    @synchronized( downloadingPlugins)
+    @synchronized(downloadingPlugins)
     {
         paths = [downloadingPlugins allKeysForObject: download];
     }
     
-    if( paths.count == 1)
+    if (paths.count == 1)
     {
         [self installDownloadedPluginAtPath: [paths lastObject]];
         
@@ -492,7 +531,12 @@ NSInteger sortPluginArrayByName(id plugin1, id plugin2, void *context)
 	[statusTextField setHidden:NO];
 	[statusTextField setStringValue:NSLocalizedString(@"Download failed", nil)];
      
-    NSRunCriticalAlertPanel( NSLocalizedString(@"Download failed", nil), @"%@", NSLocalizedString(@"OK", nil), nil, nil, [error localizedDescription]);
+    NSRunCriticalAlertPanel(NSLocalizedString(@"Download failed", nil),
+                            @"%@",
+                            NSLocalizedString(@"OK", nil),
+                            nil,
+                            nil,
+                                [error localizedDescription]);
     
 	[statusProgressIndicator setHidden:YES];
 	[statusProgressIndicator stopAnimation:self];
@@ -503,7 +547,7 @@ NSInteger sortPluginArrayByName(id plugin1, id plugin2, void *context)
         paths = [downloadingPlugins allKeysForObject: download];
     }
     
-    if( paths.count == 1)
+    if (paths.count == 1)
     {
         @synchronized( downloadingPlugins)
         {
@@ -514,7 +558,7 @@ NSInteger sortPluginArrayByName(id plugin1, id plugin2, void *context)
         NSLog( @"***** download didFailWithError path for download?");
 }
 
-#pragma mark install
+#pragma mark - install
 
 - (void)installDownloadedPluginAtPath:(NSString*)path;
 {
@@ -525,7 +569,8 @@ NSInteger sortPluginArrayByName(id plugin1, id plugin2, void *context)
 	
 	NSString *pluginPath = path;
 	
-	if([self isZippedFileAtPath:path] && [self unZipFileAtPath:path])
+	if ([self isZippedFileAtPath:path] &&
+        [self unZipFileAtPath:path])
 	{
 		pluginPath = [path stringByDeletingPathExtension];
         [[NSFileManager defaultManager] removeFileAtPath:path handler:nil];
@@ -543,7 +588,7 @@ NSInteger sortPluginArrayByName(id plugin1, id plugin2, void *context)
 	// determine in which directory to install the plugin (default = user dir, or if the plugin was already installed: in the same dir)	
 	NSString *installDirectoryPath;
 
-	if( oldPath)
+	if (oldPath)
 		installDirectoryPath = oldPath;
 	else
 		installDirectoryPath = [PluginManager userActivePluginsDirectoryPath];
@@ -568,7 +613,7 @@ NSInteger sortPluginArrayByName(id plugin1, id plugin2, void *context)
 
 - (BOOL)unZipFileAtPath:(NSString*)path;
 {
-    if( path.length == 0)
+    if (path.length == 0)
         return NO;
     
     @try
@@ -583,7 +628,7 @@ NSInteger sortPluginArrayByName(id plugin1, id plugin2, void *context)
         [aTask setLaunchPath:@"/usr/bin/unzip"];
         [aTask setArguments:args];
         [aTask launch];
-        while( [aTask isRunning])
+        while ([aTask isRunning])
             [NSThread sleepForTimeInterval: 0.1];
         
         //[aTask waitUntilExit];		// <- This is VERY DANGEROUS : the main runloop is continuing...
@@ -594,22 +639,23 @@ NSInteger sortPluginArrayByName(id plugin1, id plugin2, void *context)
         NSLog( @"***** exception in %s: %@", __PRETTY_FUNCTION__, e);
     }
         
-	if([[NSFileManager defaultManager] fileExistsAtPath:[path stringByDeletingPathExtension]])
+	if ([[NSFileManager defaultManager] fileExistsAtPath:[path stringByDeletingPathExtension]])
 		return YES;
-	else
-        return NO;
+
+    return NO;
 }
 
 #pragma mark submit plugin
 
+// Show the instructions for submitting a plugin
 - (void)loadSubmitPluginPage;
 {
-//	#if !__LP64__
-//	if([NSMailDelivery hasDeliveryClassBeenConfigured])
-//		[self setURL:PLUGIN_SUBMISSION_URL];
-//	else
-//	#endif
-		[self setURL:PLUGIN_SUBMISSION_NO_MAIL_APP_URL];
+#ifdef SUBMIT_PLUGIN_WITH_MAIL_APP
+    if ([NSMailDelivery hasDeliveryClassBeenConfigured])
+        [self setURL:PLUGIN_SUBMISSION_URL];
+    else
+#endif
+    [self setURL:PLUGIN_SUBMISSION_NO_MAIL_APP_URL];
 }
 
 - (void)sendPluginSubmission:(NSString*)request;
@@ -624,24 +670,28 @@ NSInteger sortPluginArrayByName(id plugin1, id plugin2, void *context)
 		NSArray *param = [loopItem componentsSeparatedByString:@"="];
 		[emailMessage appendFormat:@"%@: %@ \n", [param objectAtIndex:0], [[param objectAtIndex:1] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
 	}
-	
-//	NSString *emailAddress = URL_EMAIL;
-//	NSString *emailSubject = @"OsiriX: New Plugin Submission"; // don't localize this. This is the subject of the email WE will receive.
-	
-//	#if !__LP64__
-//	[NSMailDelivery deliverMessage:emailMessage subject:emailSubject to:emailAddress];
-//	#else
+
+#ifdef SUBMIT_PLUGIN_WITH_MAIL_APP
+	NSString *emailAddress = URL_EMAIL;
+	NSString *emailSubject = @"Miele-LXIV: New Plugin Submission"; // don't localize this. This is the subject of the email WE will receive.
+	[NSMailDelivery deliverMessage:emailMessage subject:emailSubject to:emailAddress];
+#else
 	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"mailto:" URL_EMAIL]];
-//	#endif
+#endif
 }
 
 #pragma mark WebPolicyDelegate Protocol methods
 
-- (void)webView:(WebView *)sender decidePolicyForNavigationAction:(NSDictionary *)actionInformation request:(NSURLRequest *)request frame:(WebFrame *)frame decisionListener:(id<WebPolicyDecisionListener>)listener;
+- (void)webView:(WebView *)sender
+decidePolicyForNavigationAction:(NSDictionary *)actionInformation
+        request:(NSURLRequest *)request
+          frame:(WebFrame *)frame
+decisionListener:(id<WebPolicyDecisionListener>)listener;
 {
-	if(![sender isEqualTo:webView]) [listener use];
+	if (![sender isEqualTo:webView])
+        [listener use];
 
-	if([[actionInformation valueForKey:WebActionNavigationTypeKey] intValue]==WebNavigationTypeLinkClicked)
+	if ([[actionInformation valueForKey:WebActionNavigationTypeKey] intValue]==WebNavigationTypeLinkClicked)
 	{
 		[[NSWorkspace sharedWorkspace] openURL:[request URL]];
 	}

@@ -81,7 +81,7 @@ static NSString *dragType = @"Osirix Series Viewer Drag";
             
             NSPasteboard *pboard = [NSPasteboard pasteboardWithName: NSDragPboard];
             
-            [pboard declareTypes:[NSArray arrayWithObjects: @"BrowserController.database.context.XIDs", dragType, nil] owner:self]; //NSFilesPromisePboardType, NSFilenamesPboardType, NSStringPboardType
+            [pboard declareTypes:[NSArray arrayWithObjects: @"BrowserController.database.context.XIDs", dragType, nil] owner:self]; //(__bridge NSString *)kPasteboardTypeFileURLPromise, NSFilenamesPboardType, NSPasteboardTypeString
             [pboard setPropertyList:nil forType:dragType];
             
             NSMutableArray* objects = [NSMutableArray array];

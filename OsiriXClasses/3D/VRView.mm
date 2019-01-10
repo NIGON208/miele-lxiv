@@ -14,7 +14,10 @@
 
 #import "options.h"
 
-#define USE3DCONNEXION 1
+#include <OpenGL/OpenGL.h>
+#include <OpenGL/CGLCurrent.h>
+#include <OpenGL/CGLContext.h>
+#include <OpenGL/CGLMacro.h>
 
 #import "VRView.h"
 
@@ -25,14 +28,10 @@
 #import "DCMPix.h"
 #import "DCMView.h"
 #import "ROI.h"
-#include <OpenGL/OpenGL.h>
-#include <OpenGL/CGLCurrent.h>
-#include <OpenGL/CGLContext.h>
-#include <OpenGL/CGLMacro.h>
+
 #include "math.h"
 #import "Wait.h"
 #import "QuicktimeExport.h"
-#include "vtkImageResample.h"
 #import "VRController.h"
 #import "BrowserController.h"
 #import "DICOMExport.h"
@@ -44,6 +43,7 @@
 #import "N2Debug.h"
 #import "PluginManager.h"
 
+#include "vtkImageResample.h"
 #include "vtkMath.h"
 #include "vtkAbstractPropPicker.h"
 #include "vtkInteractorStyle.h"
@@ -72,8 +72,6 @@
 #import <InstantMessage/IMAVManager.h>
 
 #ifdef _STEREO_VISION_
-// ****************************
-// Added SilvanWidmer 03-08-09
 #import "vtkCocoaGLView.h"
 #include "vtkRenderer.h"
 #include "vtkRenderWindow.h"
@@ -83,7 +81,6 @@
 #include "vtkInteractorStyleTrackballCamera.h"
 #include "vtkParallelRenderManager.h"
 #include "vtkRendererCollection.h"
-// ****************************
 #endif
 
 #if __LP64__
@@ -91,14 +88,6 @@
 #endif
 
 #define MAXDYNAMICVALUE 32000.
-
-#if USE3DCONNEXION
-#include <3DConnexionClient/ConnexionClientAPI.h>
-extern "C" 
-{
-	extern OSErr InstallConnexionHandlers(ConnexionMessageHandlerProc messageHandler, ConnexionAddedHandlerProc addedHandler, ConnexionRemovedHandlerProc removedHandler) __attribute__((weak_import));
-}
-#endif
 
 #define D2R 0.01745329251994329576923690768    // degrees to radians
 #define R2D 57.2957795130823208767981548141    // radians to degrees
@@ -132,10 +121,11 @@ public:
 		blendingVolume = bV;
 	}
 	
-  static vtkMyCallbackVR *New( ) 
+    static vtkMyCallbackVR *New( )
     {
 		return new vtkMyCallbackVR;
 	}
+    
  // void Delete()
 //    { delete this; }
 	
@@ -151,7 +141,7 @@ public:
         vtkVolumeMapper *mapper = (vtkVolumeMapper*) volume->GetMapper();
         mapper->SetClippingPlanes(planes);
     
-        if( blendingVolume)
+        if (blendingVolume)
         {
             mapper = (vtkVolumeMapper*) blendingVolume->GetMapper();
             mapper->SetClippingPlanes(planes);
@@ -164,14 +154,12 @@ public:
 //		
 //		[VRView getCroppingBox: a :blendingVolume :widget];
 //		[VRView setCroppingBox: a :blendingVolume];
-		
-//		if( [[NSUserDefaults standardUserDefaults] boolForKey: @"dontAutoCropScissors"] == NO)
-//			[snVRView autoCroppingBox];
-		
+	
 		widget->SetHandleSize( 0.005);
     }
 };
 
+# pragma mark - VRViewOperation
 
 @interface VRViewOperation: NSOperation
 {
@@ -183,9 +171,12 @@ public:
 
 @end
 
+#pragma mark
+
 @implementation VRViewOperation
 
-- (id) initWithController:(VRController*) c objects:(NSArray *) o
+- (id) initWithController:(VRController*) c
+                  objects:(NSArray *) o
 {
     self = [super init];
     
@@ -212,11 +203,11 @@ public:
 
 @end
 
+#pragma mark -
 
 @implementation VRView
 
 #ifdef _STEREO_VISION_
-//added SilvanWidmer
 @synthesize StereoVisionOn;
 //@synthesize currentTool;
 #endif
@@ -224,15 +215,14 @@ public:
 @synthesize clipRangeActivated, projectionMode, clippingRangeThickness, keep3DRotateCentered, dontResetImage, renderingMode, currentOpacityArray, exportDCM, dcmSeriesString, bestRenderingMode;
 @synthesize lowResLODFactor, engine, lodDisplayed;
 
-
 - (BOOL) eventToPlugins: (NSEvent*) event
 {
 	BOOL used = NO;
 	
-	for (id key in [PluginManager plugins])
+	for (id key in [PluginManager installedPlugins])
 	{
-		if ([[[PluginManager plugins] objectForKey:key] respondsToSelector:@selector(handleEvent:forVRViewer:)])
-			if ([[[PluginManager plugins] objectForKey:key] handleEvent:event forVRViewer: [[self window] windowController]])
+		if ([[[PluginManager installedPlugins] objectForKey:key] respondsToSelector:@selector(handleEvent:forVRViewer:)])
+			if ([[[PluginManager installedPlugins] objectForKey:key] handleEvent:event forVRViewer: [[self window] windowController]])
 				used = YES;
 	}
 	
@@ -245,14 +235,14 @@ public:
 
 	volume->GetBounds( bounds);
 	
-	if( position[ 0] <= bounds[ 0]) return NO;
-	if( position[ 0] >= bounds[ 1]) return NO;
+	if (position[ 0] <= bounds[ 0]) return NO;
+	if (position[ 0] >= bounds[ 1]) return NO;
 	
-	if( position[ 1] <= bounds[ 2]) return NO;
-	if( position[ 1] >= bounds[ 3]) return NO;
+	if (position[ 1] <= bounds[ 2]) return NO;
+	if (position[ 1] >= bounds[ 3]) return NO;
 	
-	if( position[ 2] <= bounds[ 4]) return NO;
-	if( position[ 2] >= bounds[ 5]) return NO;
+	if (position[ 2] <= bounds[ 4]) return NO;
+	if (position[ 2] >= bounds[ 5]) return NO;
 
 	return YES;
 }
@@ -263,12 +253,16 @@ public:
 	
 	volume->GetBounds( bounds);
 	
-	double center[ 3] = { bounds[ 0] + (bounds[ 1] - bounds[ 0])/2., bounds[ 2] + (bounds[ 3] - bounds[ 2])/2., bounds[ 4] + (bounds[ 5] - bounds[ 4])/2.};
+	double center[ 3] = {
+        bounds[ 0] + (bounds[ 1] - bounds[ 0])/2.,
+        bounds[ 2] + (bounds[ 3] - bounds[ 2])/2.,
+        bounds[ 4] + (bounds[ 5] - bounds[ 4])/2.
+    };
 	
 	aCamera->SetPosition( center);
 	
 	center[ 0] = center[ 0] ;
-	center[ 1] = center[ 1] -1.;	// Sag
+	center[ 1] = center[ 1] - 1.;	// Sag
 	center[ 2] = center[ 2] ;
 	
 	aCamera->SetFocalPoint( center);
@@ -279,7 +273,7 @@ public:
 
 - (void) checkInVolume
 {
-	if( clipRangeActivated)
+	if (clipRangeActivated)
 	{
 		double position[ 3], newPosition[ 3], center[ 3];
 		double distance;
@@ -292,14 +286,14 @@ public:
 	
 		volume->GetBounds( bounds);
 		
-		if( newPosition[ 0] <= bounds[ 0]) newPosition[ 0] = bounds[ 0];
-		if( newPosition[ 0] >= bounds[ 1]) newPosition[ 0] = bounds[ 1];
+		if (newPosition[ 0] <= bounds[ 0]) newPosition[ 0] = bounds[ 0];
+		if (newPosition[ 0] >= bounds[ 1]) newPosition[ 0] = bounds[ 1];
 		
-		if( newPosition[ 1] <= bounds[ 2]) newPosition[ 1] = bounds[ 2];
-		if( newPosition[ 1] >= bounds[ 3]) newPosition[ 1] = bounds[ 3];
+		if (newPosition[ 1] <= bounds[ 2]) newPosition[ 1] = bounds[ 2];
+		if (newPosition[ 1] >= bounds[ 3]) newPosition[ 1] = bounds[ 3];
 		
-		if( newPosition[ 2] <= bounds[ 4]) newPosition[ 2] = bounds[ 4];
-		if( newPosition[ 2] >= bounds[ 5]) newPosition[ 2] = bounds[ 5];
+		if (newPosition[ 2] <= bounds[ 4]) newPosition[ 2] = bounds[ 4];
+		if (newPosition[ 2] >= bounds[ 5]) newPosition[ 2] = bounds[ 5];
 		
 		aCamera->SetPosition( newPosition);
 		
@@ -327,16 +321,16 @@ public:
 	
 	clippingRangeThickness = c;
 	
-	if( c == 0)
+	if (c == 0)
 		clipRangeActivated = NO;
 	else
 	{
-		if( c < superSampling)
+		if (c < superSampling)
 			c = superSampling + 0.01;
 		
 		clipRangeActivated = YES;
 		
-		if( projectionMode != 1)	// Parallel
+		if (projectionMode != 1)	// Parallel
 		{
 			[self setProjectionMode: 1];	
 			aCamera->SetFocalPoint( volume->GetCenter());
@@ -347,11 +341,13 @@ public:
 		[self didChangeValueForKey:@"clippingRangeThicknessInMm"];
 	}
 	
-	if( clipRangeActivated) {
+	if (clipRangeActivated)
+    {
         // This will also affect the minimum value of the slab thickness edit box
         // because there is a binding with the variable clippingRangeThicknessInMm
         if (clippingRangeThickness<1.22)
             clippingRangeThickness = 1.22;
+        
 		aCamera->SetClippingRange( 0, clippingRangeThickness);
     }
 	else
@@ -359,46 +355,48 @@ public:
 		aCamera->SetClippingRange( 0, 10000);
 		aRenderer->ResetCameraClippingRange();
 	}
+    
 	[self setNeedsDisplay: YES];
 }
 
 - (void) setClipRangeActivated: (BOOL) c
 {
-	if( c == NO)
+	if (c == NO)
 		[self setClippingRangeThickness: 0];
 	else
 		[self setClippingRangeThickness: 2];
 	
-	if( dontResetImage == NO)
+	if (dontResetImage == NO)
 		[self resetImage: self];
 }
 
 - (double) getClippingRangeThicknessInMm
 {
-	if( volumeMapper)
+	if (volumeMapper)
 	{
-		if( clipRangeActivated)
+		if (clipRangeActivated)
 			return clippingRangeThickness / factor;
 	}
-	return 0;
+
+    return 0.;
 }
 
 - (void) setClippingRangeThicknessInMm:(double) c
 {
-	if( volumeMapper)
+	if (volumeMapper)
 	{
-		if( clipRangeActivated)
+		if (clipRangeActivated)
 			[self setClippingRangeThickness: c * factor / superSampling];
 	}
 }
 
 + (unsigned short*) linearOpacity
 {
-	if( linearOpacity == nil)
+	if (linearOpacity == nil)
 	{
 		linearOpacity = (unsigned short*) malloc( 32767 * sizeof(unsigned short));
 		
-		for( int i = 0; i < 32767; i++)
+		for (int i = 0; i < 32767; i++)
 			linearOpacity[ i] = i;
 	}
 	
@@ -407,14 +405,14 @@ public:
 	
 + (BOOL) getCroppingBox:(double*) a :(vtkVolume *) volume :(vtkBoxWidget*) croppingBox
 {
-	if( volume == nil)
+	if (volume == nil)
         return NO;
     
-	if( croppingBox == nil)
+	if (croppingBox == nil)
         return NO;
 	
 	vtkVolumeMapper *mapper = (vtkVolumeMapper*) volume->GetMapper();
-	if( mapper)
+	if (mapper)
 	{
 		// cropping box
 		vtkPolyData *pd = vtkPolyData::New();
@@ -427,31 +425,32 @@ public:
 		
 		double min[3], max[3], pointA[3];
         
-        for( int i = 0 ; i < 8; i++)
+        for (int i = 0 ; i < 8; i++)
         {
             pd->GetPoint( i, pointA);
 //            NSLog( @"%f %f %f", pointA[ 0], pointA[ 1], pointA[ 2]);
             
             Transform->TransformPoint( pointA, pointA);
             
-            if( i == 0)
+            if (i == 0)
             {
                 min[ 0] = pointA[ 0];
                 min[ 1] = pointA[ 1];
                 min[ 2] = pointA[ 2];
+                
                 max[ 0] = pointA[ 0];
                 max[ 1] = pointA[ 1];
                 max[ 2] = pointA[ 2];
             }
             else
             {
-                if( pointA[ 0] < min[ 0]) min[ 0] = pointA[ 0];
-                if( pointA[ 1] < min[ 1]) min[ 1] = pointA[ 1];
-                if( pointA[ 2] < min[ 2]) min[ 2] = pointA[ 2];
+                if (pointA[ 0] < min[ 0]) min[ 0] = pointA[ 0];
+                if (pointA[ 1] < min[ 1]) min[ 1] = pointA[ 1];
+                if (pointA[ 2] < min[ 2]) min[ 2] = pointA[ 2];
                 
-                if( pointA[ 0] > max[ 0]) max[ 0] = pointA[ 0];
-                if( pointA[ 1] > max[ 1]) max[ 1] = pointA[ 1];
-                if( pointA[ 2] > max[ 2]) max[ 2] = pointA[ 2];
+                if (pointA[ 0] > max[ 0]) max[ 0] = pointA[ 0];
+                if (pointA[ 1] > max[ 1]) max[ 1] = pointA[ 1];
+                if (pointA[ 2] > max[ 2]) max[ 2] = pointA[ 2];
             }
         }
         
@@ -484,13 +483,13 @@ public:
 		a[4] -= origin[2];		a[5] -= origin[2];
 		
 		double temp;
-		if((a[0]) > (a[1]))
+		if ((a[0]) > (a[1]))
 		{temp = a[0]; a[0] = a[1]; a[1] = temp;}
 		
-		if((a[2]) > (a[3]))
+		if ((a[2]) > (a[3]))
 		{temp = a[2]; a[2] = a[3]; a[3] = temp;}
 		
-		if((a[4]) > (a[5]))
+		if ((a[4]) > (a[5]))
 		{temp = a[4]; a[4] = a[5]; a[5] = temp;}
 		
 		pd->Delete();
@@ -506,10 +505,10 @@ public:
 //{
 //	long	i;
 //	
-//	if( volume == nil) return;
+//	if (volume == nil) return;
 //	
 //	vtkVolumeMapper *mapper = (vtkVolumeMapper*) volume->GetMapper();
-//	if( mapper)
+//	if (mapper)
 //	{
 //		mapper->SetCropping(true);
 //
@@ -532,24 +531,24 @@ public:
     float cos[ 9];
     BOOL valid = [self getCosMatrix: cos];
     
-    if( valid)
+    if (valid)
     {
-        if( Oval2DRadius > 0.001)
+        if (Oval2DRadius > 0.001)
         {
             float position[ 3];
             [self getOrigin: position];
             
             BOOL moved = NO;
             
-            for( int i = 0 ; i < 9 ; i++)
-                if( Oval2DCos[ i] != cos[ i])
+            for (int i = 0 ; i < 9 ; i++)
+                if (Oval2DCos[ i] != cos[ i])
                     moved = YES;
             
-            for( int i = 0 ; i < 3 ; i++)
-                if( Oval2DPosition[ i] != position[ i])
+            for (int i = 0 ; i < 3 ; i++)
+                if (Oval2DPosition[ i] != position[ i])
                     moved = YES;
             
-            if( moved)
+            if (moved)
             {
                 [Oval2DPix release];
                 Oval2DPix = nil;
@@ -563,14 +562,15 @@ public:
     }
 }
 
-
-- (void) adaptLine2DToResize:(NSRect) newFrame before: (NSRect) beforeFrame rescale:(BOOL) rescale
+- (void) adaptLine2DToResize: (NSRect) newFrame
+                      before: (NSRect) beforeFrame
+                     rescale: (BOOL) rescale
 {
-	if( Line2DData)
+	if (Line2DData)
 	{
 		vtkPoints *pts = Line2DData->GetPoints();
 
-		if( pts->GetNumberOfPoints() == 2)
+		if (pts->GetNumberOfPoints() == 2)
 		{
 			double pt1[ 3];
 			pts->GetPoint( 0, pt1);
@@ -580,28 +580,49 @@ public:
 			
 			pts = vtkPoints::New();
 			vtkCellArray *rect = vtkCellArray::New();
-			Line2DData-> SetPoints( pts);		pts->Delete();
-			Line2DData-> SetLines( rect);		rect->Delete();
+            
+			Line2DData-> SetPoints( pts);
+            pts->Delete();
+            
+			Line2DData-> SetLines( rect);
+            rect->Delete();
 			
 			pts = Line2DData->GetPoints();
 			
-			if( rescale == NO)
+			if (rescale == NO)
 			{
-				pts->InsertPoint( pts->GetNumberOfPoints(), pt1[0] + (newFrame.size.width - beforeFrame.size.width)/2, pt1[ 1] + (newFrame.size.height - beforeFrame.size.height)/2 , 0);
-				pts->InsertPoint( pts->GetNumberOfPoints(), pt2[0] + (newFrame.size.width - beforeFrame.size.width)/2, pt2[ 1] + (newFrame.size.height - beforeFrame.size.height)/2, 0);
+				pts->InsertPoint(pts->GetNumberOfPoints(),
+                                 pt1[0] + (newFrame.size.width - beforeFrame.size.width)/2,
+                                 pt1[1] + (newFrame.size.height - beforeFrame.size.height)/2,
+                                 0);
+                
+				pts->InsertPoint(pts->GetNumberOfPoints(),
+                                 pt2[0] + (newFrame.size.width - beforeFrame.size.width)/2,
+                                 pt2[1] + (newFrame.size.height - beforeFrame.size.height)/2,
+                                 0);
 			}
 			else
 			{
-				pts->InsertPoint( pts->GetNumberOfPoints(), pt1[0] * (newFrame.size.width/beforeFrame.size.width), pt1[ 1] * (newFrame.size.height / beforeFrame.size.height) , 0);
-				pts->InsertPoint( pts->GetNumberOfPoints(), pt2[0] * (newFrame.size.width/beforeFrame.size.width), pt2[ 1] * (newFrame.size.height / beforeFrame.size.height), 0);
+				pts->InsertPoint(pts->GetNumberOfPoints(),
+                                 pt1[0] * (newFrame.size.width/beforeFrame.size.width),
+                                 pt1[1] * (newFrame.size.height / beforeFrame.size.height),
+                                 0);
+                
+				pts->InsertPoint(pts->GetNumberOfPoints(),
+                                 pt2[0] * (newFrame.size.width/beforeFrame.size.width),
+                                 pt2[1] * (newFrame.size.height / beforeFrame.size.height),
+                                 0);
 			}
 			rect = vtkCellArray::New();
 			rect->InsertNextCell( pts->GetNumberOfPoints()+1);
-			for( int i = 0; i < pts->GetNumberOfPoints(); i++) rect->InsertCellPoint( i);
+			for (int i = 0; i < pts->GetNumberOfPoints(); i++)
+                rect->InsertCellPoint( i);
+            
 			rect->InsertCellPoint( 0);
 			
 			Line2DData->SetVerts( rect);
-			Line2DData->SetLines( rect);		rect->Delete();			
+			Line2DData->SetLines( rect);
+            rect->Delete();
 			
 			Line2DData->SetPoints( pts);
 			
@@ -611,7 +632,7 @@ public:
 			pts->GetPoint( 1, pt2);
 			
 			Line2DText->GetPositionCoordinate()->SetCoordinateSystemToViewport();
-			if( pt1[ 0] > pt2[ 0])
+			if (pt1[ 0] > pt2[ 0])
                 Line2DText->GetPositionCoordinate()->SetValue( pt1[0] + 3, pt1[ 1]);
 			else
                 Line2DText->GetPositionCoordinate()->SetValue( pt2[0], pt2[ 1]);
@@ -619,18 +640,21 @@ public:
 		else
 		{
 			// Delete
-			
 			pts = vtkPoints::New();
 			vtkCellArray *rect = vtkCellArray::New();
-			Line2DData-> SetPoints( pts);		pts->Delete();
-			Line2DData-> SetLines( rect);		rect->Delete();	
+            
+			Line2DData-> SetPoints( pts);
+            pts->Delete();
+            
+			Line2DData-> SetLines( rect);
+            rect->Delete();
 		}
 	}
 }
 
 - (void) setFrame: (NSRect) r rescaleLine: (BOOL) rescale
 {
-	if( [[controller style] isEqualToString:@"noNib"] == NO)
+	if ([[controller style] isEqualToString:@"noNib"] == NO)
 		[self adaptLine2DToResize: r before: [self frame] rescale: rescale];
 	
 	[super setFrame: r];
@@ -650,20 +674,19 @@ public:
 //
 //- (void) setCroppingBox:(double*) a
 //{
-//	if( a && croppingBox)
+//	if (a && croppingBox)
 //		[VRView setCroppingBox: a :volume];
 //}
 //
 //- (void) setBlendingCroppingBox:(double*) a
 //{
-//	if( a && croppingBox)
+//	if (a && croppingBox)
 //		[VRView setCroppingBox: a :blendingVolume];
 //}
 
 - (void) print:(id) sender
 {
 	bestRenderingMode = YES;
-	
 	[controller print: sender];
 }
 
@@ -675,7 +698,7 @@ public:
 
 	NSMutableString *optr = [NSMutableString string];
 	
-	if( inv)
+	if (inv)
 	{
 		orientationX = -vector[ 0] < 0 ? NSLocalizedString( @"R", @"R: Right") : NSLocalizedString( @"L", @"L: Left");
 		orientationY = -vector[ 1] < 0 ? NSLocalizedString( @"A", @"A: Anterior") : NSLocalizedString( @"P", @"P: Posterior");
@@ -717,23 +740,26 @@ public:
 
 - (void) setBlendingMode: (long) modeID
 {
-	if( blendingController == nil)
+	if (blendingController == nil)
         return;
 	
-	switch( modeID)
+	switch (modeID)
 	{
 		case 0:
-			if( blendingVolumeMapper) blendingVolumeMapper->SetBlendModeToComposite();
+			if (blendingVolumeMapper)
+                blendingVolumeMapper->SetBlendModeToComposite();
 			break;
 			
 		case 1:
-			if( blendingVolumeMapper) blendingVolumeMapper->SetBlendModeToMaximumIntensity();
+			if (blendingVolumeMapper)
+                blendingVolumeMapper->SetBlendModeToMaximumIntensity();
 			break;
 		
 		case 2:
 		case 3:
-			if( blendingVolumeMapper) blendingVolumeMapper->SetBlendModeToMinimumIntensity();
-		break;
+			if (blendingVolumeMapper)
+                blendingVolumeMapper->SetBlendModeToMinimumIntensity();
+            break;
 	}
 }
 
@@ -753,46 +779,44 @@ public:
 {
 	renderingMode = modeID;
 	
-	switch( modeID)
+	switch (modeID)
 	{
 		case 0:
-			if( volumeMapper)
+			if (volumeMapper)
 				volumeMapper->SetBlendModeToComposite();
 				
-			if( textureMapper)
+			if (textureMapper)
 				textureMapper->SetBlendModeToComposite();
 		break;
 		
 		case 1:
-			if( volumeMapper)
+			if (volumeMapper)
 				volumeMapper->SetBlendModeToMaximumIntensity();
 				
-			if( textureMapper)
+			if (textureMapper)
 				textureMapper->SetBlendModeToMaximumIntensity();
 		break;
 		
 		case 2:
         case 3: // Mean
-			if( volumeMapper)
+			if (volumeMapper)
 				volumeMapper->SetBlendModeToMinimumIntensity();
 			
-			if( textureMapper)
+			if (textureMapper)
 				textureMapper->SetBlendModeToMinimumIntensity();
 		break;
             
 //        case 4: // Additive mode
-//            if( volumeMapper)
+//            if (volumeMapper)
 //				volumeMapper->SetBlendModeToAdditive();
 //			
-//			if( textureMapper)
+//			if (textureMapper)
 //				textureMapper->SetBlendModeToAdditive();
 //        break;
 	}
 	
 	[self setBlendingFactor: blendingFactor];
-	
 	[self setWLWW: wl : ww];
-	
 	[self setNeedsDisplay:YES];
 }
 
@@ -810,7 +834,7 @@ public:
 {    
     int vramMB = [VTKView VRAMSizeForDisplayID: [[[[NSScreen mainScreen] deviceDescription] objectForKey: @"NSScreenNumber"] intValue]];
         
-    if( [[NSUserDefaults standardUserDefaults] integerForKey: @"VRAMAmount"] != vramMB)
+    if ([[NSUserDefaults standardUserDefaults] integerForKey: @"VRAMAmount"] != vramMB)
     {
         if (vramMB >= 2000)
         {
@@ -831,7 +855,7 @@ public:
 
 - (void) allocateGPUMapper
 {
-    if( textureMapper == nil)
+    if (textureMapper == nil)
     {
         textureMapper = vtkGPUVolumeRayCastMapper::New();
         textureMapper->SetInputConnection(reader->GetOutputPort());
@@ -852,7 +876,7 @@ public:
 
 - (void) allocateCPUMapper
 {
-    if( volumeMapper == nil)
+    if (volumeMapper == nil)
     {
         volumeMapper = OsiriXFixedPointVolumeRayCastMapper::New();
         volumeMapper->SetInputConnection(reader->GetOutputPort());
@@ -869,25 +893,23 @@ public:
 //        double a[ 6];
 //		BOOL validBox = [VRView getCroppingBox: a :volume :croppingBox];
 		
-		switch( e)
+		switch (e)
 		{
 			case 0:		// FIXED RAY CAST
 				[self allocateCPUMapper];
-                
                 LOD = 2.0;
-                
-                if( [[NSProcessInfo processInfo] processorCount] >= 4)
+                if ([[NSProcessInfo processInfo] processorCount] >= 4)
                     lowResLODFactor = 1.5;
                 else
                     lowResLODFactor = 2.5;
-            break;
+                
+                break;
                 
             case 1:     // GPURenderMode
 				[self allocateGPUMapper];
-                
                 LOD = 1.0;
                 lowResLODFactor = 1.2;
-            break;
+                break;
                 
             default:
                 NSLog( @"Unknown Engine");
@@ -897,28 +919,28 @@ public:
         [self setLOD: LOD];
 		[self setMode: renderingMode];	// VR or MIP ?
 		
-		if( firstTime == NO)
+		if (firstTime == NO)
 		{
-            if( cropcallback)
+            if (cropcallback)
                 cropcallback->Execute( croppingBox, 0, nil);
 		}
 		else
 		{
-			if( [[controller style] isEqualToString: @"noNib"] == NO)
+			if ([[controller style] isEqualToString: @"noNib"] == NO)
 			{
 				[self resetImage: self];
 				croppingBox->PlaceWidget();
 			}
 		}
 		
-		if( volumeMapper)
+		if (volumeMapper)
 		{	
 			volumeMapper->SetMinimumImageSampleDistance( LOD);
 			volumeMapper->SetSampleDistance( [[NSUserDefaults standardUserDefaults] floatForKey: @"BESTRENDERING"]);
 			volumeMapper->SetMaximumImageSampleDistance( LOD*lowResLODFactor);
 		}
 		
-        if( textureMapper)
+        if (textureMapper)
 		{
 			textureMapper->SetMinimumImageSampleDistance( LOD);
 			textureMapper->SetSampleDistance( [[NSUserDefaults standardUserDefaults] floatForKey: @"BESTRENDERING"]);
@@ -931,33 +953,24 @@ public:
 	}
 }
 
-- (void) setEngine: (long) newEngine showWait:(BOOL) showWait
+- (void) setEngine: (long) newEngine
+          showWait: (BOOL) showWait
 {
-//    if( newEngine != 0 && [AppController hasMacOSXLion] == NO)
-//    {
-//        NSRunCriticalAlertPanel(NSLocalizedString(@"GPU Rendering", nil),
-//                                NSLocalizedString(@"GPU Rendering requires MacOS 10.7 or higher.", nil),
-//                                NSLocalizedString(@"OK", nil),
-//                                nil,
-//                                nil);
-//        newEngine = 0;
-//    }
-    
-    if( newEngine == 1)
+    if (newEngine == ENGINE_GPU_OPEN_GL)
     {
         unsigned
         long vramMB = [VTKView VRAMSizeForDisplayID: [[[[[self window] screen] deviceDescription] objectForKey: @"NSScreenNumber"] intValue]];
         
         //vramMB /= 1024*1024;
         
-        if( vramMB <= 512)
+        if (vramMB <= 512)
         {
             NSRunCriticalAlertPanel(NSLocalizedString(@"GPU Rendering", nil), // title
                                     NSLocalizedString(@"Your graphic board has only %d MB of VRAM. Performances will be very limited with large dataset.", nil), // msg format
                                     NSLocalizedString(@"OK", nil), // default button
                                     nil,
                                     nil,
-                                    vramMB);
+                                        vramMB);
         }
     }
     
@@ -967,15 +980,21 @@ public:
     
 	WaitRendering *www = nil;
 	
-	if( showWait) www = [[WaitRendering alloc] init: NSLocalizedString( @"Preparing 3D data...", nil)];
+	if (showWait)
+        www = [[WaitRendering alloc] init: NSLocalizedString( @"Preparing 3D data...", nil)];
+    
 	[www start];
 	
 	[self instantiateEngine: engine];
 	
-    switch( engine)
+    switch (engine)
     {
-        case 0: volume->SetMapper( volumeMapper); break;
-        case 1: volume->SetMapper( textureMapper); break;
+        case ENGINE_CPU:
+            volume->SetMapper( volumeMapper);
+            break;
+        case ENGINE_GPU_OPEN_GL:
+            volume->SetMapper( textureMapper);
+            break;
     }
     
     [self display];
@@ -992,70 +1011,67 @@ public:
 
 - (void) setBlendingEngine: (long) engineID showWait:(BOOL) showWait
 {
-	if( blendingController == nil)
+	if (blendingController == nil)
         return;
 	
 	WaitRendering	*www = nil;
 	
-	if( showWait) www = [[WaitRendering alloc] init: NSLocalizedString( @"Preparing 3D data...", nil)];
+	if (showWait)
+        www = [[WaitRendering alloc] init: NSLocalizedString( @"Preparing 3D data...", nil)];
+    
 	[www start];
 	
 //    double a[ 6];
 //	BOOL validBox = [VRView getCroppingBox: a :volume :croppingBox];
 	
-	switch( engineID)
+	switch (engineID)
 	{
-		case 0:		// RAY CAST
-			if( blendingVolumeMapper == nil)
+		case ENGINE_CPU:
+			if (blendingVolumeMapper == nil)
 			{
 				blendingVolumeMapper = OsiriXFixedPointVolumeRayCastMapper::New();
 				blendingVolumeMapper->SetInputConnection(blendingReader->GetOutputPort());
-
 			}
-			blendingVolumeMapper->Update();
-
-			blendingVolume->SetMapper( blendingVolumeMapper);
-		break;
-		
-        case 1:		// GPURenderMode
             
-            if( blendingTextureMapper == nil)
+			blendingVolumeMapper->Update();
+			blendingVolume->SetMapper( blendingVolumeMapper);
+            break;
+		
+        case ENGINE_GPU_OPEN_GL:
+            
+            if (blendingTextureMapper == nil)
             {
                 blendingTextureMapper = vtkGPUVolumeRayCastMapper::New();
                 blendingTextureMapper->SetInputConnection(blendingReader->GetOutputPort());
                 
-                unsigned
-                long memoryMB = [VTKView VRAMSizeForDisplayID: [[[[[self window] screen] deviceDescription] objectForKey: @"NSScreenNumber"] intValue]];
+                unsigned long memoryMB = [VTKView VRAMSizeForDisplayID:
+                                          [[[[[self window] screen] deviceDescription] objectForKey: @"NSScreenNumber"] intValue]];
                 
                 blendingTextureMapper->SetMaxMemoryInBytes( memoryMB*1024*1024);
-                
                 NSLog( @"Graphic Board memory: %ld MiB", memoryMB);
-                
                 blendingTextureMapper->SetMaxMemoryFraction( 0.9);
             }
             
             blendingTextureMapper->Update();
-
             blendingVolume->SetMapper( blendingTextureMapper);
 			break;
 	}
 	
     [self setLOD: LOD];
-    
 	[self setBlendingMode: renderingMode];
 	
-    if( firstTime == NO)
+    if (firstTime == NO)
     {
-        if( cropcallback)
+        if (cropcallback)
             cropcallback->Execute( croppingBox, 0, nil);
     }
     else
     {
-        if( [[controller style] isEqualToString: @"noNib"] == NO)
+        if ([[controller style] isEqualToString: @"noNib"] == NO)
         {
             [self resetImage: self];
             
-            if( croppingBox)
+            if (croppingBox)
                 croppingBox->PlaceWidget();
         }
     }
@@ -1069,16 +1085,16 @@ public:
 
 -(NSImage*) image4DForFrame:(NSNumber*) cur maxFrame:(NSNumber*) max
 {
-	if( [cur intValue] != -1) [controller setMovieFrame: [cur intValue]];
+	if ([cur intValue] != -1)
+        [controller setMovieFrame: [cur intValue]];
 	
 	bestRenderingMode = YES;
-	
 	return [self nsimageQuicktime];
 }
 
 -(NSImage*) imageForFrameVR:(NSNumber*) cur maxFrame:(NSNumber*) max
 {
-	if( [cur intValue] == -1)
+	if ([cur intValue] == -1)
 	{
 		aCamera->GetPosition( camPosition);
 		aCamera->GetViewUp( camFocal);
@@ -1086,19 +1102,17 @@ public:
 		return [self nsimageQuicktime];
 	}
 	
-	if( [max intValue] > 36)
+	if ([max intValue] > 36)
 	{
-		
-		if( [cur intValue] != 0)
+		if ([cur intValue] != 0)
 		{
-			if(verticalAngleForVR!=0 &&verticalAngleForVR!=-90 )
-			{
+			if (verticalAngleForVR!=0 && verticalAngleForVR!=-90 )
 				[self Vertical: -verticalAngleForVR]; // rotate to standard direction ( top of object facing right up)
-			}
-			if( [cur intValue] % numberOfFrames == 0 )//if need increase the vertical rotation angle
+            
+			if ([cur intValue] % numberOfFrames == 0 )//if need increase the vertical rotation angle
 			{
 				// Evaluating beyond 90 or -90 causes problems! Don't know why, seems it is vtk's limit.
-				if(verticalAngleForVR==-90) 
+				if (verticalAngleForVR == -90)
 				{
 					aCamera->Roll(-rotateDirectionForVR * 360 / numberOfFrames);
 					// Evaluation(90)
@@ -1107,13 +1121,11 @@ public:
 					verticalAngleForVR -= 360 / numberOfFrames;
 					verticalAngleForVR+=180;
 					aCamera->Azimuth(-rotateDirectionForVR * 360 / numberOfFrames);
-					
-					
 				}
 				else
 				{
 					verticalAngleForVR -= 360 / numberOfFrames;
-					if(verticalAngleForVR<-90)//to avoid evaluating beyond 90 or -90, rotate the camera 180 vertically
+					if (verticalAngleForVR<-90)//to avoid evaluating beyond 90 or -90, rotate the camera 180 vertically
 					{
 						// Evaluation(180)
 						[self Vertical: 60];
@@ -1122,7 +1134,7 @@ public:
 						verticalAngleForVR+=180;
 						rotateDirectionForVR = -rotateDirectionForVR;
 					}
-					else if(verticalAngleForVR==-90)
+					else if (verticalAngleForVR==-90)
 					{
 						aCamera->Azimuth( rotateDirectionForVR * 360 / numberOfFrames);
 						[self Vertical: -45];
@@ -1131,25 +1143,25 @@ public:
 												
 					}
 				}
-				
-	
 			}
-			if(verticalAngleForVR!=-90)
+            
+			if (verticalAngleForVR!=-90)
 			{
 				aCamera->Azimuth( rotateDirectionForVR * 360 / numberOfFrames);// rotate camera horizontally when the top facing right up
-				if(verticalAngleForVR!=0)
+				if (verticalAngleForVR!=0)
 					aCamera->Elevation(verticalAngleForVR);//rotate camera vertically
 			}
 			else
 			{
-				if( [cur intValue] % numberOfFrames != 0 )
+				if ([cur intValue] % numberOfFrames != 0 )
 					aCamera->Roll(-rotateDirectionForVR * 360 / numberOfFrames);//if on the top or bottom use roll instead of azimuth
 			}
 		}
 	}
 	else
 	{
-		if([cur intValue] != 0) aCamera->Azimuth( 360 / numberOfFrames);
+		if ([cur intValue] != 0)
+            aCamera->Azimuth( 360 / numberOfFrames);
 	}
 	
 	aCamera->SetFocalPoint( volume->GetCenter());
@@ -1161,23 +1173,26 @@ public:
 
 -(NSImage*) imageForFrame:(NSNumber*) cur maxFrame:(NSNumber*) max
 {
-	switch( rotationOrientation)
+	switch (rotationOrientation)
 	{
 		case 0:
 			[self Azimuth: [self rotation] / [max floatValue]];
-		break;
+            break;
 	
 		case 1:
 			[self Vertical: [self rotation] / [max floatValue]];
-		break;
+            break;
 	}
 	
-	if( [[[self window] windowController] movieFrames] > 1)
+	if ([[[self window] windowController] movieFrames] > 1)
 	{	
 		short movieIndex = [cur intValue];
 		
-		while( movieIndex >= [[[self window] windowController] movieFrames]) movieIndex -= [[[self window] windowController] movieFrames];
-		if( movieIndex < 0) movieIndex = 0;
+		while (movieIndex >= [[[self window] windowController] movieFrames])
+            movieIndex -= [[[self window] windowController] movieFrames];
+        
+		if (movieIndex < 0)
+            movieIndex = 0;
 		
 		[[[self window] windowController] setMovieFrame: movieIndex];
 	}
@@ -1200,6 +1215,7 @@ public:
        [(NSControl*) aView setEnabled: OnOff];
 	   return;
     }
+    
     // Recursively check all the subviews in the view
     enumerator = [ [aView subviews] objectEnumerator];
     while (view = [enumerator nextObject]) {
@@ -1209,7 +1225,7 @@ public:
 
 - (IBAction) setCurrentdcmExport:(id) sender
 {
-	if( [[sender selectedCell] tag] == 1)
+	if ([[sender selectedCell] tag] == 1)
         [self checkView: dcmBox :YES];
 	else
         [self checkView: dcmBox :NO];
@@ -1245,13 +1261,20 @@ public:
 	windowFrame.size.width = [[[self window] contentView] frame].size.width;
 	windowFrame.size.height = [[[self window] contentView] frame].size.height - 10;
 	
-	switch( [[NSUserDefaults standardUserDefaults] integerForKey:@"EXPORTMATRIXFOR3D"])
+	switch ([[NSUserDefaults standardUserDefaults] integerForKey:@"EXPORTMATRIXFOR3D"])
 	{
 		case 0:
-		break;
+            break;
 		
-		case 1:		[self setFrame: [self centerRect: NSMakeRect(0,0,512,512) inRect: windowFrame] rescaleLine: YES];		[self display];		break;
-		case 2:		[self setFrame: [self centerRect: NSMakeRect(0,0,768,768) inRect: windowFrame] rescaleLine: YES];		[self display];		break;
+		case 1:
+            [self setFrame: [self centerRect: NSMakeRect(0,0,512,512) inRect: windowFrame] rescaleLine: YES];
+            [self display];
+            break;
+            
+		case 2:
+            [self setFrame: [self centerRect: NSMakeRect(0,0,768,768) inRect: windowFrame] rescaleLine: YES];
+            [self display];
+            break;
 	}
 }
 
@@ -1270,7 +1293,7 @@ public:
 	int offset = 0;
 	BOOL isSigned = NO;
 	
-	if( exportDCM == nil)
+	if (exportDCM == nil)
 	{
 		exportDCM = [[DICOMExport alloc] init];
 		[exportDCM setSeriesNumber:5500];
@@ -1282,9 +1305,9 @@ public:
 	
 	[self endRenderImageWithBestQuality];
 	
-	if( dataPtr)
+	if (dataPtr)
 	{
-		if( fullDepth)
+		if (fullDepth)
             [exportDCM setModalityAsSource: YES];
 		else
             [exportDCM setModalityAsSource: YES];  // TODO: same ?
@@ -1297,24 +1320,25 @@ public:
 		[exportDCM setOffset: offset];
 		[exportDCM setSigned: isSigned];
 		
-		if( [[[controller viewer2D] modality] isEqualToString:@"PT"])
+		if ([[[controller viewer2D] modality] isEqualToString:@"PT"])
 		{
 			float slope = firstObject.appliedFactorPET2SUV * firstObject.slope;
 			[exportDCM setSlope: slope];
 		}
+        
 		[exportDCM setDefaultWWWL: ww :wl];
 		
 		[self getOrientation: o];
-		if( [[NSUserDefaults standardUserDefaults] boolForKey: @"exportOrientationIn3DExport"])
+		if ([[NSUserDefaults standardUserDefaults] boolForKey: @"exportOrientationIn3DExport"])
 			[exportDCM setOrientation: o];
 		
-		if( aCamera->GetParallelProjection())
+		if (aCamera->GetParallelProjection())
 		{
-			if( fullDepth)
+			if (fullDepth)
 			{
                 double r = 1.0;
                 
-                if( volumeMapper)
+                if (volumeMapper)
                     r = volumeMapper->GetRayCastImage()->GetImageSampleDistance();
 				
 				[exportDCM setPixelSpacing: [self getResolution]*r :[self getResolution]*r];
@@ -1322,15 +1346,13 @@ public:
 			else
 				[exportDCM setPixelSpacing: [self getResolution] :[self getResolution]];
 			
-			if( clipRangeActivated)
+			if (clipRangeActivated)
 			{
 				float cos[ 9];
-				
 				[self getCosMatrix: cos];
 				[exportDCM setOrientation: cos];
 				
 				float position[ 3];
-				
 				[self getOrigin: position];
 				[exportDCM setPosition: position];
 				[exportDCM setSliceThickness: [self getClippingRangeThicknessInMm]];
@@ -1338,7 +1360,7 @@ public:
 		}
 		
 		f = [exportDCM writeDCMFile: nil];
-		if( f == nil)
+		if (f == nil)
             NSRunCriticalAlertPanel(NSLocalizedString(@"Error", nil),
                                     NSLocalizedString(@"Error during the creation of the DICOM File!", nil),
                                     NSLocalizedString(@"OK", nil),
@@ -1361,12 +1383,12 @@ public:
 	
 	numberOfFrames = [dcmframesSlider intValue];
 	bestRenderingMode = [[dcmquality selectedCell] tag];
-	if( [[dcmrotation selectedCell] tag] == 1)
+	if ([[dcmrotation selectedCell] tag] == 1)
         rotationValue = 360;
 	else
         rotationValue = 180;
 	
-	if( [[dcmorientation selectedCell] tag] == 1)
+	if ([[dcmorientation selectedCell] tag] == 1)
         rotationOrientation = 1;
 	else
         rotationOrientation = 0;
@@ -1377,48 +1399,56 @@ public:
 	
 	self.dcmSeriesString = [dcmSeriesName stringValue];
 	
-	if( [sender tag])
+	if ([sender tag])
 	{
 		BOOL fullDepthCapture = NO;
 		
-		if( [dcmExportDepth selectedTag] == 1 && [dcmExportDepth isEnabled] && (renderingMode == 1 || renderingMode == 3 || renderingMode == 2))
+		if ([dcmExportDepth selectedTag] == 1 &&
+            [dcmExportDepth isEnabled] &&
+            (renderingMode == 1 || renderingMode == 2 || renderingMode == 3))
+        {
 			fullDepthCapture = YES;
+        }
 		
 		[self setViewSizeToMatrix3DExport];
 		
-		if( fullDepthCapture)
+		if (fullDepthCapture)
 			[self prepareFullDepthCapture];
 		
 		// CURRENT image only
-		if( [[dcmExportMode selectedCell] tag] == 0)
+		if ([[dcmExportMode selectedCell] tag] == 0)
 		{
-			if( exportDCM == nil)
+			if (exportDCM == nil)
 			{
 				exportDCM = [[DICOMExport alloc] init];
-				[exportDCM setSeriesNumber:5220 + [[NSCalendarDate date] minuteOfHour]  + [[NSCalendarDate date] secondOfMinute]];
+				[exportDCM setSeriesNumber: 5220 +  // TODO: define
+                                            [[NSCalendarDate date] minuteOfHour] +
+                                            [[NSCalendarDate date] secondOfMinute]];
 			}
 			
 			[producedFiles addObject: [self exportDCMCurrentImageIn16bit: fullDepthCapture]];
 		}
 		// 4th dimension
-		else if( [[dcmExportMode selectedCell] tag] == 2)
+		else if ([[dcmExportMode selectedCell] tag] == 2)
 		{
 			Wait *progress = [[Wait alloc] initWithString:NSLocalizedString(@"Creating a DICOM series", nil)];
 			[progress showWindow:self];
 			[[progress progress] setMaxValue: [[[self window] windowController] movieFrames]];
 			
-			if( exportDCM) [exportDCM release];
+			if (exportDCM)
+                [exportDCM release];
+            
 			exportDCM = [[DICOMExport alloc] init];
 			[exportDCM setSeriesNumber:5250 + [[NSCalendarDate date] minuteOfHour]  + [[NSCalendarDate date] secondOfMinute]];
 			
-			for( int i = 0; i < [[[self window] windowController] movieFrames]; i++)
+			for (int i = 0; i < [[[self window] windowController] movieFrames]; i++)
 			{
 				[[[self window] windowController] setMovieFrame: i];
 				
 				[producedFiles addObject: [self exportDCMCurrentImageIn16bit: fullDepthCapture]];
 				
 				[progress incrementBy: 1];
-				if( [progress aborted])
+				if ([progress aborted])
 					break;
 				
 				[self resetAutorotate: self];
@@ -1432,7 +1462,7 @@ public:
 		}
 		else // A 3D sequence
 		{
-			if( [[[self window] windowController] movieFrames] > 1)
+			if ([[[self window] windowController] movieFrames] > 1)
 			{
 				numberOfFrames /= [[[self window] windowController] movieFrames];
 				numberOfFrames *= [[[self window] windowController] movieFrames];
@@ -1443,26 +1473,30 @@ public:
 			[[progress progress] setMaxValue: numberOfFrames];
 			[progress setCancel:YES];
 			
-			if( exportDCM) [exportDCM release];
+			if (exportDCM)
+                [exportDCM release];
+            
 			exportDCM = [[DICOMExport alloc] init];
 			[exportDCM setSeriesNumber:5500 + [[NSCalendarDate date] minuteOfHour]  + [[NSCalendarDate date] secondOfMinute]];
 			
-			if( croppingBox)
-			{
-				if( croppingBox->GetEnabled()) croppingBox->Off();
-			}
+			if (croppingBox && croppingBox->GetEnabled())
+                croppingBox->Off();
+            
 			aRenderer->RemoveActor(outlineRect);
-			if( textX)
+			if (textX)
 				aRenderer->RemoveActor(textX);
 			
-			for( int i = 0; i < numberOfFrames; i++)
+			for (int i = 0; i < numberOfFrames; i++)
 			{
-				if( [[[self window] windowController] movieFrames] > 1)
+				if ([[[self window] windowController] movieFrames] > 1)
 				{	
 					short movieIndex = i;
 			
-					while( movieIndex >= [[[self window] windowController] movieFrames]) movieIndex -= [[[self window] windowController] movieFrames];
-					if( movieIndex < 0) movieIndex = 0;
+					while (movieIndex >= [[[self window] windowController] movieFrames])
+                        movieIndex -= [[[self window] windowController] movieFrames];
+                    
+					if (movieIndex < 0)
+                        movieIndex = 0;
 			
 					[[[self window] windowController] setMovieFrame: movieIndex];
 				}
@@ -1471,18 +1505,18 @@ public:
 				
 				[progress incrementBy: 1];
 				
-				if( [progress aborted])
+				if ([progress aborted])
 					break;
 				
-				switch( rotationOrientation)
+				switch (rotationOrientation)
 				{
 					case 0:
 						[self Azimuth: (float) rotationValue / (float) numberOfFrames];
-					break;
+                        break;
 					
 					case 1:
 						[self Vertical: (float) rotationValue / (float) numberOfFrames];
-					break;
+                        break;
 				}
 			}
 			
@@ -1495,10 +1529,10 @@ public:
 			exportDCM = nil;
 		}
 		
-		if( fullDepthCapture)
+		if (fullDepthCapture)
 			[self restoreFullDepthCapture];
 		
-		if( [producedFiles count])
+		if ([producedFiles count])
 		{
 			NSArray *objects = [BrowserController.currentBrowser.database addFilesAtPaths: [producedFiles valueForKey: @"file"]
                                                                         postNotifications: YES
@@ -1508,12 +1542,12 @@ public:
 			
             objects = [BrowserController.currentBrowser.database objectsWithIDs: objects];
             
-			if( [[NSUserDefaults standardUserDefaults] boolForKey: @"afterExportSendToDICOMNode"])
+			if ([[NSUserDefaults standardUserDefaults] boolForKey: @"afterExportSendToDICOMNode"])
 				[[BrowserController currentBrowser] selectServer: objects];
 			
-			if( [[NSUserDefaults standardUserDefaults] boolForKey: @"afterExportMarkThemAsKeyImages"])
+			if ([[NSUserDefaults standardUserDefaults] boolForKey: @"afterExportMarkThemAsKeyImages"])
 			{
-				for( Dicom_Image *im in objects)
+				for (Dicom_Image *im in objects)
 					[im setValue: @YES forKey: @"isKeyImage"];
 			}
 		}
@@ -1530,19 +1564,19 @@ public:
 	numberOfFrames = [framesSlider intValue];
 	bestRenderingMode = [[quality selectedCell] tag];
 	
-	if( [[rotation selectedCell] tag] == 1)
+	if ([[rotation selectedCell] tag] == 1)
         rotationValue = 360;
 	else
         rotationValue = 180;
 	
-	if( [[orientation selectedCell] tag] == 1)
+	if ([[orientation selectedCell] tag] == 1)
         rotationOrientation = 1;
 	else
         rotationOrientation = 0;
 	
-	if( [sender tag])
+	if ([sender tag])
 	{
-		if( [[[self window] windowController] movieFrames] > 1)
+		if ([[[self window] windowController] movieFrames] > 1)
 		{
 			numberOfFrames /= [[[self window] windowController] movieFrames];
 			numberOfFrames *= [[[self window] windowController] movieFrames];
@@ -1550,21 +1584,27 @@ public:
 		
 		[self setViewSizeToMatrix3DExport];
 		
-		QuicktimeExport *mov = [[QuicktimeExport alloc] initWithSelector: self : @selector(imageForFrame: maxFrame:) :numberOfFrames];
+		QuicktimeExport *mov = [[QuicktimeExport alloc] initWithSelector: self
+                                                                        : @selector(imageForFrame: maxFrame:)
+                                                                        : numberOfFrames];
 		
-		[mov createMovieQTKit:YES :NO :[[[controller fileList] objectAtIndex:0] valueForKeyPath:@"series.study.name"]];
-		
+		[mov createMovieQTKit:YES
+                             :NO
+                             :[[[controller fileList] objectAtIndex:0] valueForKeyPath:@"series.study.name"]];
 		[mov release];
-		
 		[self restoreViewSizeAfterMatrix3DExport];
 	}
 }
 
 - (void) exportDICOM
 {
-	if( exportDCMWindow == nil)
+	if (exportDCMWindow == nil)
 	{
-		NSRunAlertPanel(NSLocalizedString(@"Not available", nil), NSLocalizedString(@"This function is not available for this window.", nil), NSLocalizedString(@"OK", nil), nil, nil);
+		NSRunAlertPanel(NSLocalizedString(@"Not available", nil),
+                        NSLocalizedString(@"This function is not available for this window.", nil),
+                        NSLocalizedString(@"OK", nil),
+                        nil,
+                        nil);
 		return;
 	}
 	
@@ -1572,12 +1612,12 @@ public:
 	
 	[self setCurrentdcmExport: dcmExportMode];
 	
-	if( [[[self window] windowController] movieFrames] > 1)
+	if ([[[self window] windowController] movieFrames] > 1)
         [[dcmExportMode cellWithTag:2] setEnabled: YES];
 	else
         [[dcmExportMode cellWithTag:2] setEnabled: NO];
 	
-	if( renderingMode == 1 || renderingMode == 3 || renderingMode == 2)
+	if (renderingMode == 1 || renderingMode == 2 || renderingMode == 3)
 		[dcmExportDepth setEnabled: YES];
 	else
 		[dcmExportDepth setEnabled: NO];
@@ -1600,8 +1640,8 @@ public:
 	aCamera->OrthogonalizeViewUp();
 }
 
-//-(IBAction) endQuicktimeVRSettings:(id) sender
-//{
+-(IBAction) endQuicktimeVRSettings:(id) sender
+{
 //	[export3DVRWindow orderOut:sender];
 //	
 //	[NSApp endSheet:export3DVRWindow returnCode:[sender tag]];
@@ -1611,7 +1651,7 @@ public:
 //	
 //	rotationValue = 360;
 //	
-//	if( [sender tag])
+//	if ([sender tag])
 //	{
 //		NSString			*path, *newpath;
 //		QuicktimeExport		*mov;
@@ -1621,15 +1661,15 @@ public:
 //		verticalAngleForVR = 0;
 //		rotateDirectionForVR = 1;
 //		
-//		if( numberOfFrames == 10 || numberOfFrames == 20 || numberOfFrames == 40)
+//		if (numberOfFrames == 10 || numberOfFrames == 20 || numberOfFrames == 40)
 //			mov = [[QuicktimeExport alloc] initWithSelector: self : @selector(imageForFrameVR: maxFrame:) :numberOfFrames*numberOfFrames];
 //		else
 //			mov = [[QuicktimeExport alloc] initWithSelector: self : @selector(imageForFrameVR: maxFrame:) :numberOfFrames];
 //		
 //		path = [mov createMovieQTKit: NO  :NO :[[[controller fileList] objectAtIndex:0] valueForKeyPath:@"series.study.name"]];
-//		if( path)
+//		if (path)
 //		{
-//			if( numberOfFrames == 10 || numberOfFrames == 20 || numberOfFrames == 40)
+//			if (numberOfFrames == 10 || numberOfFrames == 20 || numberOfFrames == 40)
 //				newpath = [QuicktimeExport generateQTVR: path frames: numberOfFrames*numberOfFrames];
 //			else
 //				newpath = [QuicktimeExport generateQTVR: path frames: numberOfFrames];
@@ -1645,11 +1685,11 @@ public:
 //		
 //		[self restoreViewSizeAfterMatrix3DExport];
 //	}
-//}
+}
 
 - (void) setShadingValues:(float) ambient :(float) diffuse :(float) specular :(float) specularpower
 {
-    if( volumeProperty == nil)
+    if (volumeProperty == nil)
         return;
     
 	volumeProperty->SetAmbient(ambient);
@@ -1660,7 +1700,7 @@ public:
 
 - (void) getShadingValues:(float*) ambient :(float*) diffuse :(float*) specular :(float*) specularpower
 {
-    if( volumeProperty == nil)
+    if (volumeProperty == nil)
         return;
     
 	*ambient = volumeProperty->GetAmbient();
@@ -1671,7 +1711,7 @@ public:
 
 -(long) shading
 {
-    if( volumeProperty == nil)
+    if (volumeProperty == nil)
         return 0;
     
 	return volumeProperty->GetShade();
@@ -1681,31 +1721,32 @@ public:
 {
 	projectionMode = mode;
 	
-	if( aCamera == nil)
+	if (aCamera == nil)
         return;
 	
 	int wasMode = mode;
 	
-	switch( mode)
+	switch (mode)
 	{
 		case 0:
 			aCamera->SetParallelProjection( false);
 			aCamera->SetViewAngle( 30);
-		break;
+            break;
 		
-		case 2:
+		case 2:  // Endoscopy mode
 			aCamera->SetParallelProjection( false);
 			aCamera->SetViewAngle( 60);
-		break;
+            break;
 		
-		case 1:
+		case 1: // Parallel
 			aCamera->SetParallelProjection( true);
 			aCamera->SetViewAngle( 30);
-			
-		break;
+            break;
 	}
 	
-	if( clipRangeActivated == NO && (mode == 0 || mode == 1) && (wasMode == 0 || wasMode == 1))
+	if (clipRangeActivated == NO &&
+        (mode == 0 || mode == 1) &&
+        (wasMode == 0 || wasMode == 1))
 	{
 		
 	}
@@ -1714,13 +1755,13 @@ public:
 		[self resetImage: self];
 	}
 	
-	if( aCamera->GetParallelProjection())
-		[[[controller toolsMatrix] cellWithTag: tMesure] setEnabled: YES];
+	if (aCamera->GetParallelProjection())
+		[[[controller toolsMatrix] cellWithTag: tMeasure] setEnabled: YES];
 	else
 	{
-		[[[controller toolsMatrix] cellWithTag: tMesure] setEnabled: NO];
+		[[[controller toolsMatrix] cellWithTag: tMeasure] setEnabled: NO];
 		
-		if( currentTool == tMesure)
+		if (currentTool == tMeasure)
 		{
 			[self setCurrentTool: t3DRotate];
 			[[controller toolsMatrix] selectCellWithTag: t3DRotate];
@@ -1732,7 +1773,7 @@ public:
 
 -(void)activateShading:(BOOL)on;
 {
-	if(on)
+	if (on)
 		volumeProperty->ShadeOn();
 	else
 		volumeProperty->ShadeOff();
@@ -1740,16 +1781,16 @@ public:
 
 -(IBAction) switchShading:(id) sender
 {
-	if( [sender state] == NSOnState)
+	if ([sender state] == NSOnState)
 	{
 		volumeProperty->ShadeOn();
 		
 		WaitRendering	*www = [[WaitRendering alloc] init: NSLocalizedString( @"Preparing 3D data...", nil)];
 		[www start];
 		
-		if( textureMapper)
+		if (textureMapper)
 		{
-//			if( volumeProperty->GetShade()) textureMapper->SetMaximumNoOfSlices( [[NSUserDefaults standardUserDefaults] integerForKey: @"MAX3DTEXTURESHADING"]);
+//			if (volumeProperty->GetShade()) textureMapper->SetMaximumNoOfSlices( [[NSUserDefaults standardUserDefaults] integerForKey: @"MAX3DTEXTURESHADING"]);
 //			else textureMapper->SetMaximumNoOfSlices( [[NSUserDefaults standardUserDefaults] integerForKey: @"MAX3DTEXTURE"]);
 			reader->GetOutput()->Modified();
 		}
@@ -1763,12 +1804,12 @@ public:
 	{
 		volumeProperty->ShadeOff();
 		
-		WaitRendering	*www = [[WaitRendering alloc] init: NSLocalizedString( @"Preparing 3D data...", nil)];
+		WaitRendering *www = [[WaitRendering alloc] init: NSLocalizedString( @"Preparing 3D data...", nil)];
 		[www start];
 		
-		if( textureMapper)
+		if (textureMapper)
 		{
-//			if( volumeProperty->GetShade()) textureMapper->SetMaximumNoOfSlices( [[NSUserDefaults standardUserDefaults] integerForKey: @"MAX3DTEXTURESHADING"]);
+//			if (volumeProperty->GetShade()) textureMapper->SetMaximumNoOfSlices( [[NSUserDefaults standardUserDefaults] integerForKey: @"MAX3DTEXTURESHADING"]);
 //			else textureMapper->SetMaximumNoOfSlices( [[NSUserDefaults standardUserDefaults] integerForKey: @"MAX3DTEXTURE"]);
 			reader->GetOutput()->Modified();
 		}
@@ -1782,9 +1823,13 @@ public:
 
 -(IBAction) exportQuicktime3DVR:(id) sender
 {
-	if( export3DVRWindow == nil)
+	if (export3DVRWindow == nil)
 	{
-		NSRunAlertPanel(NSLocalizedString(@"Not available", nil), NSLocalizedString(@"This function is not available for this window.", nil), NSLocalizedString(@"OK", nil), nil, nil);
+		NSRunAlertPanel(NSLocalizedString(@"Not available", nil),
+                        NSLocalizedString(@"This function is not available for this window.", nil),
+                        NSLocalizedString(@"OK", nil),
+                        nil,
+                        nil);
 	}
 	
     [[VRquality cellWithTag: 1] setEnabled: YES];
@@ -1794,18 +1839,21 @@ public:
 
 - (IBAction) exportQuicktime:(id) sender
 {
-	
-	if( export3DWindow == nil)
+	if (export3DWindow == nil)
 	{
-		NSRunAlertPanel(NSLocalizedString(@"Not available", nil), NSLocalizedString(@"This function is not available for this window.", nil), NSLocalizedString(@"OK", nil), nil, nil);
+		NSRunAlertPanel(NSLocalizedString(@"Not available", nil),
+                        NSLocalizedString(@"This function is not available for this window.", nil),
+                        NSLocalizedString(@"OK", nil),
+                        nil,
+                        nil);
 	}
 	
     [[quality cellWithTag: 1] setEnabled: YES];
 	
-//	if( [[[self window] windowController] movieFrames] > 1)
-	if( [controller movieFrames] > 1)
+//	if ([[[self window] windowController] movieFrames] > 1)
+	if ([controller movieFrames] > 1)
 	{
-		if( NSRunInformationalAlertPanel(NSLocalizedString(@"Quicktime Export", nil),
+		if (NSRunInformationalAlertPanel(NSLocalizedString(@"Quicktime Export", nil),
                                          NSLocalizedString(@"Should I export the temporal series or the 3D scene?", nil),
                                          NSLocalizedString(@"3D Scene", nil),
                                          NSLocalizedString(@"Temporal Series", nil),
@@ -1832,7 +1880,7 @@ public:
 
 - (void) CloseViewerNotification: (NSNotification*) note
 {
-	if([note object] == blendingController) // our blended serie is closing itself....
+	if ([note object] == blendingController) // our blended serie is closing itself....
 	{
 		[self setBlendingPixSource:nil];
 		[self setNeedsDisplay:YES];
@@ -1841,7 +1889,7 @@ public:
 
 - (void) CLUTChanged: (NSNotification*) note
 {
-	unsigned char   r[256], g[256], b[256];
+	unsigned char r[256], g[256], b[256];
 	
 	[[note object] ConvertCLUT: r :g :b];
 	
@@ -1858,67 +1906,75 @@ public:
 - (ToolMode) getTool: (NSEvent*) event
 {
 	ToolMode tool;
-	if(([event type] == NSRightMouseDown || [event type] == NSRightMouseDragged || [event type] == NSRightMouseUp) && !_contextualMenuActive)
+	if (([event type] == NSRightMouseDown || [event type] == NSRightMouseDragged || [event type] == NSRightMouseUp) && !_contextualMenuActive)
         tool = tZoom;
-	else if( [event type] == NSOtherMouseDown || [event type] == NSOtherMouseDragged || [event type] == NSOtherMouseUp)
+	else if ([event type] == NSOtherMouseDown || [event type] == NSOtherMouseDragged || [event type] == NSOtherMouseUp)
         tool = tTranslate;
 	else
         tool = currentTool;
 	
-	if (([event modifierFlags] & NSControlKeyMask))  tool = tRotate;
-	if (([event modifierFlags] & NSShiftKeyMask))  tool = tZoom;
-	if (([event modifierFlags] & NSCommandKeyMask))  tool = tTranslate;
-	if (([event modifierFlags] & NSAlternateKeyMask))  tool = tWL;
-	if (([event modifierFlags] & NSCommandKeyMask) && ([event modifierFlags] & NSAlternateKeyMask)) tool = tRotate;
-	if (([event modifierFlags] & NSCommandKeyMask) && ([event modifierFlags] & NSControlKeyMask)) tool = tCamera3D;
+	if (([event modifierFlags] & NSEventModifierFlagControl)) tool = tRotate;
+	if (([event modifierFlags] & NSEventModifierFlagShift)) tool = tZoom;
+	if (([event modifierFlags] & NSEventModifierFlagCommand)) tool = tTranslate;
+	if (([event modifierFlags] & NSEventModifierFlagOption)) tool = tWL;
+	if (([event modifierFlags] & NSEventModifierFlagCommand) && ([event modifierFlags] & NSEventModifierFlagOption)) tool = tRotate;
+	if (([event modifierFlags] & NSEventModifierFlagCommand) && ([event modifierFlags] & NSEventModifierFlagControl)) tool = tCamera3D;
 	
 	return tool;
 }
 
 - (void) resetAutorotate:(id) sender
 {
-	if( [[NSUserDefaults standardUserDefaults] boolForKey:@"autorotate3D"] && [[[self window] windowController] isKindOfClass:[VRController class]])
+	if ([[NSUserDefaults standardUserDefaults] boolForKey:@"autorotate3D"] && [[[self window] windowController] isKindOfClass:[VRController class]])
 	{
 		[startAutoRotate invalidate];
 		[startAutoRotate release];
 		
-		startAutoRotate = [[NSTimer scheduledTimerWithTimeInterval:60*3 target:self selector:@selector(startAutoRotate:) userInfo:nil repeats:NO] retain];
+		startAutoRotate = [[NSTimer scheduledTimerWithTimeInterval: 60*3
+                                                            target: self
+                                                          selector: @selector(startAutoRotate:)
+                                                          userInfo: nil
+                                                           repeats: NO] retain];
 	}
 }
 
 - (void) startAutoRotate:(id) sender
 {
-	if( [[NSUserDefaults standardUserDefaults] boolForKey:@"autorotate3D"])
+	if ([[NSUserDefaults standardUserDefaults] boolForKey:@"autorotate3D"])
 		isRotating = YES;
 }
 
 - (void) autoRotate:(id) sender
 {
-	if( isRotating)
+	if (isRotating)
 	{
 		[self Azimuth: 4.];
 		[self mouseMoved: [[NSApplication sharedApplication] currentEvent]];
 		[self setNeedsDisplay: YES];
 	}
 	
-	if( flyto)
-	{
+	if (flyto)
 		[self processFlyTo];
-	}
 }
 
 - (void) flagsChanged:(NSEvent *) event
 {
 	[self setCursorForView: [self getTool: event]];
-	if( cursorSet) [cursor set];
+	if (cursorSet)
+        [cursor set];
+    
 	[super flagsChanged: event];
 }
+
+#pragma mark
 
 -(id)initWithFrame:(NSRect)frame
 {
     if ( self = [super initWithFrame:frame])
     {
-		NSTrackingArea *cursorTracking = [[[NSTrackingArea alloc] initWithRect: [self visibleRect] options: (NSTrackingCursorUpdate | NSTrackingInVisibleRect | NSTrackingMouseEnteredAndExited | NSTrackingActiveInKeyWindow) owner: self userInfo: nil] autorelease];
+		NSTrackingArea *cursorTracking = [[[NSTrackingArea alloc] initWithRect: [self visibleRect]
+                                                                       options: (NSTrackingCursorUpdate | NSTrackingInVisibleRect | NSTrackingMouseEnteredAndExited | NSTrackingActiveInKeyWindow)
+                                                                         owner: self userInfo: nil] autorelease];
 		
 		[self addTrackingArea: cursorTracking];
 	
@@ -1980,9 +2036,9 @@ public:
 		
 		noWaitDialog = NO;
 		
-		NSNotificationCenter *nc;
-		nc = [NSNotificationCenter defaultCenter];
-		[nc addObserver: self
+		NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+
+        [nc addObserver: self
 			   selector: @selector(CloseViewerNotification:)
 				   name: OsirixCloseViewerNotification
 				 object: nil];
@@ -2017,17 +2073,20 @@ public:
 		
 		autoRotate = [[NSTimer scheduledTimerWithTimeInterval:0.15 target:self selector:@selector(autoRotate:) userInfo:nil repeats:YES] retain];
 		
-		if( [[NSUserDefaults standardUserDefaults] boolForKey:@"autorotate3D"] && [[[self window] windowController] isKindOfClass:[VRController class]])
+		if ([[NSUserDefaults standardUserDefaults] boolForKey:@"autorotate3D"] &&
+            [[[self window] windowController] isKindOfClass:[VRController class]])
+        {
 			startAutoRotate = [[NSTimer scheduledTimerWithTimeInterval:60*3 target:self selector:@selector(startAutoRotate:) userInfo:nil repeats:NO] retain];
+        }
 		
-		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windowWillClose:) name: NSWindowWillCloseNotification object: [self window]];
-		
+		[[NSNotificationCenter defaultCenter] addObserver: self
+                                                 selector: @selector(windowWillClose:)
+                                                     name: NSWindowWillCloseNotification
+                                                   object: [self window]];
 		advancedCLUT = NO;
-		
-        
         
 //        [[NSUserDefaults standardUserDefaults] setBool: YES forKey: @"InvertViewsColors"];
-//        if( [[[[NSUserDefaults standardUserDefaults] persistentDomainForName: @"com.apple.CoreGraphics"] objectForKey: @"DisplayUseInvertedPolarity"] boolValue])
+//        if ([[[[NSUserDefaults standardUserDefaults] persistentDomainForName: @"com.apple.CoreGraphics"] objectForKey: @"DisplayUseInvertedPolarity"] boolValue])
 //        {
 //            NSView *v = (NSView*) _cocoaRenderWindow->GetWindowId();
 //            
@@ -2037,7 +2096,6 @@ public:
 //            v.contentFilters = [NSArray arrayWithObject:CIColorInvert];
 //        }
         
-        
 //        [[IMService notificationCenter] addObserver:self selector:@selector(_iChatStateChanged:) name:IMAVManagerStateChangedNotification object:nil];
 	}
     
@@ -2046,9 +2104,10 @@ public:
 
 - (void)windowWillClose:(NSNotification *)notification
 {
-	if( [self window] && [self window] == [notification object])
+	if ([self window] &&
+        [self window] == [notification object])
 	{
-		if( [[[self window] windowController] isKindOfClass:[VRController class]])
+		if ([[[self window] windowController] isKindOfClass:[VRController class]])
 			[[self window] setAcceptsMouseMovedEvents: NO];
 		
 		[startAutoRotate invalidate];
@@ -2071,13 +2130,16 @@ public:
 	aRenderer->ResetCamera();
 	[self saView:self];
 	
-	if( clipRangeActivated)
+	if (clipRangeActivated)
 		[self goToCenter];
 	
 	[self saView:self];
 	
-	if( volumeMapper) volumeMapper->SetMinimumImageSampleDistance( LOD);
-	if( blendingVolumeMapper) blendingVolumeMapper->SetMinimumImageSampleDistance( LOD);
+	if (volumeMapper)
+        volumeMapper->SetMinimumImageSampleDistance( LOD);
+    
+	if (blendingVolumeMapper)
+        blendingVolumeMapper->SetMinimumImageSampleDistance( LOD);
 	
 	[self setCurrentTool: t3DRotate];
 	[[controller toolsMatrix] selectCellWithTag: t3DRotate];
@@ -2089,47 +2151,58 @@ public:
 {
 	NSArray *tempArray;
 	
-	if( dict)
+	if (dict)
 	{
 		tempArray = [dict objectForKey:@"ShadingValues"];
-		if( tempArray)
+		if (tempArray)
 		{
-			[self setShadingValues:[[tempArray objectAtIndex:0] floatValue] :[[tempArray objectAtIndex:1] floatValue] :[[tempArray objectAtIndex:2] floatValue] :[[tempArray objectAtIndex:3] floatValue]];
+			[self setShadingValues:[[tempArray objectAtIndex:0] floatValue]
+                                  :[[tempArray objectAtIndex:1] floatValue]
+                                  :[[tempArray objectAtIndex:2] floatValue]
+                                  :[[tempArray objectAtIndex:3] floatValue]];
 		}
 		
-		if( renderingMode == 0 && volumeProperty)
+		if (renderingMode == 0 && volumeProperty)
 			volumeProperty->SetShade( [[dict objectForKey:@"ShadingFlag"] longValue]);
 		
 		float savedSupersampling = [[dict objectForKey:@"superSampling"] floatValue];
 		float ratio = 1;
 		
-		if( savedSupersampling)
+		if (savedSupersampling)
 			ratio = superSampling / savedSupersampling;
 			
-		if( [[dict objectForKey:@"SUVConverted"] boolValue] == [firstObject SUVConverted])
-			[self setWLWW: [[dict objectForKey:@"WL"] floatValue] :[[dict objectForKey:@"WW"] floatValue]];
+		if ([[dict objectForKey:@"SUVConverted"] boolValue] == [firstObject SUVConverted])
+			[self setWLWW: [[dict objectForKey:@"WL"] floatValue]
+                         : [[dict objectForKey:@"WW"] floatValue]];
 		
 		tempArray = [dict objectForKey:@"CameraPosition"];
-		if( aCamera)
-            aCamera->SetPosition( [[tempArray objectAtIndex:0] floatValue]*ratio, [[tempArray objectAtIndex:1] floatValue]*ratio, [[tempArray objectAtIndex:2] floatValue]*ratio);
+		if (aCamera)
+            aCamera->SetPosition([[tempArray objectAtIndex:0] floatValue]*ratio,
+                                 [[tempArray objectAtIndex:1] floatValue]*ratio,
+                                 [[tempArray objectAtIndex:2] floatValue]*ratio);
 
 		tempArray = [dict objectForKey:@"CameraViewUp"];
-		if( aCamera)
-            aCamera->SetViewUp( [[tempArray objectAtIndex:0] floatValue]*ratio, [[tempArray objectAtIndex:1] floatValue]*ratio, [[tempArray objectAtIndex:2] floatValue]*ratio);
+		if (aCamera)
+            aCamera->SetViewUp([[tempArray objectAtIndex:0] floatValue]*ratio,
+                               [[tempArray objectAtIndex:1] floatValue]*ratio,
+                               [[tempArray objectAtIndex:2] floatValue]*ratio);
 
 		tempArray = [dict objectForKey:@"CameraFocalPoint"];
-		if( aCamera)
-            aCamera->SetFocalPoint( [[tempArray objectAtIndex:0] floatValue]*ratio, [[tempArray objectAtIndex:1] floatValue]*ratio, [[tempArray objectAtIndex:2] floatValue]*ratio);
+		if (aCamera)
+            aCamera->SetFocalPoint([[tempArray objectAtIndex:0] floatValue]*ratio,
+                                   [[tempArray objectAtIndex:1] floatValue]*ratio,
+                                   [[tempArray objectAtIndex:2] floatValue]*ratio);
 		
 		tempArray = [dict objectForKey:@"CameraClipping"];
-		if( aCamera)
-            aCamera->SetClippingRange( [[tempArray objectAtIndex:0] floatValue], [[tempArray objectAtIndex:1] floatValue]);
+		if (aCamera)
+            aCamera->SetClippingRange([[tempArray objectAtIndex:0] floatValue],
+                                      [[tempArray objectAtIndex:1] floatValue]);
 		
-		if( [dict objectForKey:@"Projection"])
+		if ([dict objectForKey:@"Projection"])
 			[self setProjectionMode: [[dict objectForKey:@"Projection"] intValue]];
 		
 		dontResetImage = YES;
-		if( [dict valueForKey: @"clipRangeActivated"])
+		if ([dict valueForKey: @"clipRangeActivated"])
 		{
 			self.clipRangeActivated = [[dict valueForKey: @"clipRangeActivated"] boolValue];
 			self.clippingRangeThickness = [[dict valueForKey: @"clippingRangeThickness"] floatValue];
@@ -2141,11 +2214,11 @@ public:
 	}
 	else
 	{
-		if( renderingMode == 0 && volumeProperty)				// volume rendering
+		if (renderingMode == 0 && volumeProperty) // volume rendering
 			volumeProperty->SetShade( [[NSUserDefaults standardUserDefaults] boolForKey: @"defaultShading"]);
 	}
     
-    if( volume && volume->GetMapper() == nil)
+    if (volume && volume->GetMapper() == nil)
         self.engine = [[NSUserDefaults standardUserDefaults] integerForKey: @"MAPPERMODEVR"];
 }
 
@@ -2154,7 +2227,7 @@ public:
 	double	temp[ 3];
 	float	ambient, diffuse, specular, specularpower;
 	
-	if( aCamera == nil)
+	if (aCamera == nil)
         return nil;
 	
 	NSMutableDictionary *dict = [NSMutableDictionary dictionary];
@@ -2164,16 +2237,46 @@ public:
 	[dict setObject:[NSNumber numberWithBool:[firstObject SUVConverted]] forKey:@"SUVConverted"];
 	
 	aCamera->GetPosition( temp);
-	[dict setObject:[NSArray arrayWithObjects: [NSNumber numberWithFloat:temp[0]],  [NSNumber numberWithFloat:temp[1]],  [NSNumber numberWithFloat:temp[2]], nil] forKey:@"CameraPosition"];
+	[dict setObject:[NSArray arrayWithObjects:
+                     [NSNumber numberWithFloat:temp[0]],
+                     [NSNumber numberWithFloat:temp[1]],
+                     [NSNumber numberWithFloat:temp[2]],
+                     nil]
+             forKey:@"CameraPosition"];
+    
 	aCamera->GetViewUp( temp);
-	[dict setObject:[NSArray arrayWithObjects: [NSNumber numberWithFloat:temp[0]],  [NSNumber numberWithFloat:temp[1]],  [NSNumber numberWithFloat:temp[2]], nil] forKey:@"CameraViewUp"];
+	[dict setObject:[NSArray arrayWithObjects:
+                     [NSNumber numberWithFloat:temp[0]],
+                     [NSNumber numberWithFloat:temp[1]],
+                     [NSNumber numberWithFloat:temp[2]],
+                     nil]
+             forKey:@"CameraViewUp"];
+    
 	aCamera->GetFocalPoint( temp);
-	[dict setObject:[NSArray arrayWithObjects: [NSNumber numberWithFloat:temp[0]],  [NSNumber numberWithFloat:temp[1]],  [NSNumber numberWithFloat:temp[2]], nil] forKey:@"CameraFocalPoint"];
+	[dict setObject:[NSArray arrayWithObjects:
+                     [NSNumber numberWithFloat:temp[0]],
+                     [NSNumber numberWithFloat:temp[1]],
+                     [NSNumber numberWithFloat:temp[2]],
+                     nil]
+             forKey:@"CameraFocalPoint"];
+    
 	aCamera->GetClippingRange( temp);
-	[dict setObject:[NSArray arrayWithObjects: [NSNumber numberWithFloat:temp[0]],  [NSNumber numberWithFloat:temp[1]], nil] forKey:@"CameraClipping"];
+	[dict setObject:[NSArray arrayWithObjects:
+                     [NSNumber numberWithFloat:temp[0]],
+                     [NSNumber numberWithFloat:temp[1]],
+                     nil]
+             forKey:@"CameraClipping"];
 
 	[self getShadingValues:&ambient :&diffuse :&specular :&specularpower];
-	[dict setObject:[NSArray arrayWithObjects: [NSNumber numberWithFloat:ambient],  [NSNumber numberWithFloat:diffuse], [NSNumber numberWithFloat:specular],  [NSNumber numberWithFloat:specularpower], nil] forKey:@"ShadingValues"];
+    
+	[dict setObject:[NSArray arrayWithObjects:
+                     [NSNumber numberWithFloat:ambient],
+                     [NSNumber numberWithFloat:diffuse],
+                     [NSNumber numberWithFloat:specular],
+                     [NSNumber numberWithFloat:specularpower],
+                     nil]
+             forKey:@"ShadingValues"];
+    
 	[dict setObject:[NSNumber numberWithLong:volumeProperty->GetShade()] forKey:@"ShadingFlag"];
 	[dict setObject:[NSNumber numberWithLong:projectionMode] forKey:@"Projection"];
 	
@@ -2187,24 +2290,32 @@ public:
 
 - (void) render
 {
-	if( volumeMapper)
-	{
-		aRenderer->SetDraw( 0);
-		
-		dontRenderVolumeRenderingOsiriX = 0;
-		volumeMapper->SetIntermixIntersectingGeometry( 0);
-		
-		_cocoaRenderWindow->UpdateContext();
-		_cocoaRenderWindow->MakeCurrent();
-		volumeMapper->Render( aRenderer, volume);
-		
-		dontRenderVolumeRenderingOsiriX = 1;
-	}
+    if (!volumeMapper)
+        return;
+
+    aRenderer->SetDraw( 0);
+    
+    dontRenderVolumeRenderingOsiriX = 0;
+    volumeMapper->SetIntermixIntersectingGeometry( 0);
+    
+    _cocoaRenderWindow->UpdateContext();
+    _cocoaRenderWindow->MakeCurrent();
+
+#if 1 // @@@ FIXME: vrView render
+    //NSLog(@"Checkpoint VRView.mm:%d %s, aRenderer:%p, volume:%p", __LINE__, __PRETTY_FUNCTION__, aRenderer, volume);
+#if 0 //def _VERBOSE
+    vtkIndent *indent = vtkIndent::New();
+    aRenderer->PrintSelf(std::cout, *indent);
+#endif
+    volumeMapper->Render( aRenderer, volume);
+#endif
+
+    dontRenderVolumeRenderingOsiriX = 1;
 }
 
 - (void) renderBlendedVolume
 {
-	if( blendingVolumeMapper)
+	if (blendingVolumeMapper)
 	{
 		aRenderer->SetDraw( 0);
 		
@@ -2221,41 +2332,42 @@ public:
 
 - (void) displayVTKError
 {
-    if( alertDisplayed == NO)
+    if (alertDisplayed)
+        return;
+
+    alertDisplayed = YES;
+    
+    NSLog(@"C++ Exception during drawRect... not enough memory?");
+    NSString *bundleName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleName"];
+    if (NSRunAlertPanel(@"", //NSLocalizedString(@"32-bit",nil),
+                        NSLocalizedString(@"Cannot use the 3D engine.",nil),
+                        NSLocalizedString(@"OK", nil),
+                        bundleName,
+                        nil
+                        ) == NSAlertAlternateReturn)
     {
-        alertDisplayed = YES;
-        
-        NSLog( @"C++ Exception during drawRect... not enough memory?");
-        NSString *bundleName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleName"];
-        if (NSRunAlertPanel(@"", //NSLocalizedString(@"32-bit",nil),
-                            NSLocalizedString(@"Cannot use the 3D engine.",nil),
-                            NSLocalizedString(@"OK", nil),
-                            bundleName,
-                            nil
-                            ) == NSAlertAlternateReturn)
-        {
-            //[[AppController sharedAppController] osirix64bit: self];
-        }
-        
-        [[self window] performClose: self];
+        //[[AppController sharedAppController] osirix64bit: self];
     }
+    
+    [[self window] performClose: self];
 }
 
 - (void) drawRect:(NSRect)aRect
 {
-	if( drawLock == nil) drawLock = [[NSRecursiveLock alloc] init];
+	if (drawLock == nil)
+        drawLock = [[NSRecursiveLock alloc] init];
 	
 //	BOOL iChatRunning = [[IChatTheatreDelegate sharedDelegate] isIChatTheatreRunning];
 	
-//	if(iChatRunning) [drawLock lock];
+//	if (iChatRunning) [drawLock lock];
 	
     minimumStep = 0;
     
 	@try
 	{
-		WaitRendering	*www = 0;
+		WaitRendering *www = 0;
 		
-		if( firstTime)
+		if (firstTime)
 		{
 			firstTime = NO;	
 			www = [[WaitRendering alloc] init:NSLocalizedString(@"Preparing 3D data...", nil)];
@@ -2265,25 +2377,23 @@ public:
 		try
 		{
 			[self computeOrientationText];
-            
-			[super drawRect:aRect];
+            [super drawRect:aRect];
 		}
-		
 		catch (...)
 		{
-            if( alertDisplayed == NO)
+            if (alertDisplayed == NO)
                 [self performSelector: @selector( displayVTKError) withObject:nil afterDelay:0.1];
 		}
         
-		if( www)
+		if (www)
 		{
 			[www end];
 			[www close];
 			[www autorelease];
 			
-			if( isRGB == NO)
+			if (isRGB == NO)
 			{
-				if( [[controller viewer2D] maxMovieIndex] > 1)
+				if ([[controller viewer2D] maxMovieIndex] > 1)
 				{
 					*(data+0+[firstObject pwidth]) = firstPixel;
 					*(data+1+[firstObject pwidth]) = secondPixel;
@@ -2292,27 +2402,24 @@ public:
 					[BrowserController multiThreadedImageConvert: @"FTo16U" :&srcf :&dst8 :-OFFSET16 :1./valueFactor];
 				}
 				
-//				if( [[NSUserDefaults standardUserDefaults] boolForKey: @"dontAutoCropScissors"] == NO)
+//				if ([[NSUserDefaults standardUserDefaults] boolForKey: @"dontAutoCropScissors"] == NO)
 //					[self autoCroppingBox];
 			}
 		}
 		
 		_hasChanged = YES;
-		
 	}
 	@catch (NSException * e)
 	{
 		NSLog( @"Exception during drawRect: %@", e);
 	}
 
-//	if(iChatRunning) [drawLock unlock];
+//	if (iChatRunning) [drawLock unlock];
 }
 
 -(void)dealloc
 {
-	long i;
-	
-    NSLog(@"Dealloc VRView");
+    //NSLog(@"Dealloc VRView");
 	
     [NSObject cancelPreviousPerformRequestsWithTarget: [self window]];
     
@@ -2332,78 +2439,95 @@ public:
 	[self setBlendingPixSource: nil];
 	
 //	cbStart->Delete();
-    if( opacityTransferFunction)
+    if (opacityTransferFunction)
         opacityTransferFunction->Delete();
     
-    if( volumeProperty)
+    if (volumeProperty)
         volumeProperty->Delete();
     
-    if( compositeFunction)
+    if (compositeFunction)
         compositeFunction->Delete();
 	
-	if( orientationWidget)
+	if (orientationWidget)
 		orientationWidget->Delete();
 	
-	if( volumeMapper) volumeMapper->Delete();
-	if( textureMapper) textureMapper->Delete();
-//	if( shearWarpMapper) shearWarpMapper->Delete();
+	if (volumeMapper)
+        volumeMapper->Delete();
+    
+	if (textureMapper)
+        textureMapper->Delete();
+    
+//	if (shearWarpMapper) shearWarpMapper->Delete();
 	
-    if( red)
+    if (red)
         red->Delete();
-	if( green)
+    
+	if (green)
         green->Delete();
-	if( blue)
+    
+	if (blue)
         blue->Delete();
-	if( volume)
+    
+	if (volume)
         volume->Delete();
-    if( outlineData)
+    
+    if (outlineData)
         outlineData->Delete();
-	if( mapOutline)
+    
+	if (mapOutline)
         mapOutline->Delete();
-	if( outlineRect)
+    
+	if (outlineRect)
         outlineRect->Delete();
 	
-	if( croppingBox)
+	if (croppingBox)
 	{
 		croppingBox->InvokeEvent(vtkCommand::EndEvent,NULL);
 		croppingBox->RemoveObserver(cropcallback);
 		croppingBox->Delete();
 	}
 	
-	if( cropcallback)
+	if (cropcallback)
 		cropcallback->Delete();
 	
-    if( textWLWW)
+    if (textWLWW)
         textWLWW->Delete();
-	if( textX)
+    
+	if (textX)
 		textX->Delete();
-	for( i = 0; i < 5; i++) if( oText[ i]) oText[ i]->Delete();
-	if( colorTransferFunction) colorTransferFunction->Delete();
-	if( reader) reader->Delete();
-    if( aCamera) aCamera->Delete();
+    
+	for (long i = 0; i < NUM_VR_LABELS; i++)
+        if (oText[ i])
+            oText[ i]->Delete();
+    
+	if (colorTransferFunction) colorTransferFunction->Delete();
+	if (reader) reader->Delete();
+    if (aCamera) aCamera->Delete();
 //	aRenderer->Delete();
 	
-	if( Oval2DData) Oval2DData->Delete();
-	if( Oval2D) Oval2D->Delete();
-	if( Oval2DActor) Oval2DActor->Delete();
-	if( Oval2DText) Oval2DText->Delete();
+	if (Oval2DData) Oval2DData->Delete();
+	if (Oval2D) Oval2D->Delete();
+	if (Oval2DActor) Oval2DActor->Delete();
+	if (Oval2DText) Oval2DText->Delete();
     [Oval2DPix release];
 	
-    if( ROI3DData) ROI3DData->Delete();
-    if( ROI3D) ROI3D->Delete();
-	if( ROI3DActor) ROI3DActor->Delete();
+    if (ROI3DData) ROI3DData->Delete();
+    if (ROI3D) ROI3D->Delete();
+	if (ROI3DActor) ROI3DActor->Delete();
 	
-    if( Line2DData) Line2DData->Delete();
-	if( Line2D) Line2D->Delete();
-	if( Line2DActor) Line2DActor->Delete();
-	if( Line2DText) Line2DText->Delete();
+    if (Line2DData) Line2DData->Delete();
+	if (Line2D) Line2D->Delete();
+	if (Line2DActor) Line2DActor->Delete();
+	if (Line2DText) Line2DText->Delete();
 		
     [pixList release];
     pixList = nil;
 	
-	if( dataFRGB) free( dataFRGB);
+	if (dataFRGB)
+        free(dataFRGB);
 	
-	if( data8) free( data8);
+	if (data8)
+        free(data8);
 	
 	[point3DActorArray release];
 	[point3DPositionsArray release];
@@ -2421,23 +2545,12 @@ public:
 	[destinationImage release];
 	
 	[appliedCurves release];
-
-	// 3D Connexion SpaceNavigator: Make sure the framework is installed
-	#if USE3DCONNEXION
-	if(InstallConnexionHandlers != NULL)
-	{
-		// 3D Connexion SpaceNavigator: Unregister our client and clean up all handlers
-		if(snConnexionClientID) UnregisterConnexionClient(snConnexionClientID);
-		CleanupConnexionHandlers();
-	}
-	#endif
-	
     [super dealloc];
 }
 
 - (void) timerUpdate:(id) sender
 {
-	if( ROIUPDATE == YES)
+	if (ROIUPDATE == YES)
 		[self display];
 		
 	ROIUPDATE = NO;
@@ -2445,7 +2558,7 @@ public:
 
 - (float) blendingImageSampleDistance
 {
-	if( blendingVolumeMapper) 
+	if (blendingVolumeMapper)
 		return blendingVolumeMapper->GetRayCastImage()->GetImageSampleDistance();
 	else
 		return 0;
@@ -2453,10 +2566,11 @@ public:
 
 - (float) imageSampleDistance
 {
-	if( volumeMapper)
+    if (volumeMapper) {
 		return volumeMapper->GetRayCastImage()->GetImageSampleDistance();
-	else
-		return 0;
+    }
+
+    return 0;
 }
 
 - (void) getOrigin: (float *) origin
@@ -2466,17 +2580,25 @@ public:
 
 - (void) getOrigin: (float *) origin windowCentered:(BOOL) wc
 {
-	return [self getOrigin: origin windowCentered: wc sliceMiddle: YES];
+	return [self getOrigin: origin
+            windowCentered: wc
+               sliceMiddle: YES];
 }
 
 - (void) getOrigin: (float *) origin windowCentered:(BOOL) wc sliceMiddle:(BOOL) sliceMiddle
 {
-	return [self getOrigin: origin windowCentered: wc sliceMiddle: sliceMiddle blendedView: NO];
+	return [self getOrigin: origin
+            windowCentered: wc
+               sliceMiddle: sliceMiddle
+               blendedView: NO];
 }
 
-- (void) getOrigin: (float *) origin windowCentered:(BOOL) wc sliceMiddle:(BOOL) sliceMiddle blendedView:(BOOL) blendedView
+- (void) getOrigin: (float *) origin
+    windowCentered: (BOOL) wc
+       sliceMiddle: (BOOL) sliceMiddle
+       blendedView: (BOOL) blendedView
 {
-    if( volumeMapper == nil)
+    if (volumeMapper == nil)
     {
         NSLog( @"****** vrView getOrigin volumeMapper == nil");
         return;
@@ -2493,7 +2615,7 @@ public:
         
         vtkFixedPointRayCastImage *rayCastImage = nil;
         
-        if( blendedView)
+        if (blendedView)
             rayCastImage = blendingVolumeMapper->GetRayCastImage();
         else
             rayCastImage = volumeMapper->GetRayCastImage();
@@ -2506,12 +2628,9 @@ public:
         double *viewport = aRenderer->GetViewport();
         int *renWinSize = aRenderer->GetRenderWindow()->GetSize();
         
-        // Origin
-        int x1, x2, y1, y2;
-        
         double sampleDistance = 0;
         
-        if( blendedView)
+        if (blendedView)
             sampleDistance = blendingVolumeMapper->GetRayCastImage()->GetImageSampleDistance();
         else
             sampleDistance = volumeMapper->GetRayCastImage()->GetImageSampleDistance();
@@ -2520,7 +2639,7 @@ public:
         int imageOrigin[2];
         int imageInUseSize[2];
         
-        if( blendedView)
+        if (blendedView)
         {
             blendingVolumeMapper->GetRayCastImage()->GetImageOrigin( imageOrigin);
             blendingVolumeMapper->GetRayCastImage()->GetImageInUseSize( imageInUseSize);
@@ -2531,8 +2650,10 @@ public:
             volumeMapper->GetRayCastImage()->GetImageInUseSize( imageInUseSize);
         }
         
-        x1 = static_cast<int> ( viewport[0] * static_cast<double>(renWinSize[0]) + static_cast<double>(imageOrigin[0]) * sampleDistance);
-        y1 = static_cast<int> ( viewport[1] * static_cast<double>(renWinSize[1]) + static_cast<double>(imageOrigin[1]) * sampleDistance);
+        // Origin
+
+        int x1 = static_cast<int> ( viewport[0] * static_cast<double>(renWinSize[0]) + static_cast<double>(imageOrigin[0]) * sampleDistance);
+        int y1 = static_cast<int> ( viewport[1] * static_cast<double>(renWinSize[1]) + static_cast<double>(imageOrigin[1]) * sampleDistance);
 
         int zbufferSize[2];
 
@@ -2541,14 +2662,14 @@ public:
         zbufferSize[1] = static_cast<int>( static_cast<double>(imageInUseSize[1]) * sampleDistance);
 
         // Use the size to compute (x2,y2) in window coordinates
-        x2 = x1 + zbufferSize[0] - 1;
-        y2 = y1 + zbufferSize[1] - 1;
+//        int x2 = x1 + zbufferSize[0] - 1;
+//        int y2 = y1 + zbufferSize[1] - 1;
         
         // cameraPosition is in the center of the screen
         double x = ((double) x1 - (double) renWinSize[ 0]/2.);
         double y = ((double) y1 - (double) renWinSize[ 1]/2.);
         
-        if( wc)
+        if (wc)
         {
             NSPoint wC = [self windowCenter];
             x -= wC.x;
@@ -2556,21 +2677,23 @@ public:
         }
         
         float cos[ 9];
-        
         [self getCosMatrix: cos];
-        
         double r = [self getResolution];
-        
+#if 1 // @@@0
+        if (std::isnan(r)) {
+            NSLog(@"Checkpoint VRView.mm:%d %s NaN", __LINE__, __PRETTY_FUNCTION__);
+            return;
+        }
+#endif
         // Upper Left corner
         origin[0] = cameraPosition[ 0] + y*cos[3]*r + x*cos[0]*r;
         origin[1] = cameraPosition[ 1] + y*cos[4]*r + x*cos[1]*r;
         origin[2] = cameraPosition[ 2] + y*cos[5]*r + x*cos[2]*r;
         
         // Take into account the sliceThickness -> Origin is in the middle of the slice thickness
-        if( sliceMiddle)
+        if (sliceMiddle)
         {
             double thickness = clippingRangeThickness / factor;
-            
             thickness /= 2.;
             
             origin[0] = origin[ 0] + thickness*cos[6];
@@ -2589,10 +2712,11 @@ public:
 	double viewUp[ 3];
 	double length;
 	
-    if( aCamera == nil)
+    if (aCamera == nil)
     {
-        for( int i = 0; i < 9; i++)
+        for (int i = 0; i < 9; i++)
             cos[ i] = 0;
+        
         return NO;
     }
     
@@ -2603,7 +2727,7 @@ public:
 	cos[5] = viewUp[ 2] * -1.0;
 
 	length = sqrt(cos[3]*cos[3] + cos[4]*cos[4] + cos[5]*cos[5]);
-	if( length != 0)
+	if (length != 0)
 	{
 		cos[3] = cos[ 3] / length;
 		cos[4] = cos[ 4] / length;
@@ -2621,7 +2745,7 @@ public:
 	cos[ 8] = cos6[ 2];
 
 	length = sqrt(cos[6]*cos[6] + cos[7]*cos[7] + cos[8]*cos[8]);
-	if( length != 0)
+	if (length != 0)
 	{
 		cos[6] = cos[ 6] / length;
 		cos[7] = cos[ 7] / length;
@@ -2637,7 +2761,7 @@ public:
 	cos[2] *= -1.;
 
 	length = sqrt(cos[0]*cos[0] + cos[1]*cos[1] + cos[2]*cos[2]);
-	if( length != 0)
+	if (length != 0)
 	{
 		cos[0] = cos[ 0] / length;
 		cos[1] = cos[ 1] / length;
@@ -2651,9 +2775,12 @@ public:
 
 - (double) getResolution
 {
-	if( aCamera && aCamera->GetParallelProjection() && factor > 0)
+	if (aCamera &&
+        aCamera->GetParallelProjection() &&
+        factor > 0)
 	{
-		double point1[ 4] = { 0, 0, 0, 0}, point2[ 4] = { 1, 0, 0, 0};
+        double point1[ 4] = { 0, 0, 0, 0};
+        double point2[ 4] = { 1, 0, 0, 0};
 		
 		aRenderer->SetDisplayPoint( point1);
 		aRenderer->DisplayToWorld();
@@ -2668,20 +2795,25 @@ public:
 		double zd = point2[ 2]- point1[ 2];
 		double length = sqrt(xd*xd + yd*yd + zd*zd);
         
-        if( std::isnan( length) || length < 0.00001 || length > 1000)
-            NSLog( @"****** vrView getResolution");
+        if (std::isnan(length)) {
+            NSLog( @"****** vrView getResolution NaN");
+            return NAN;
+        }
+
+        if (length < 0.00001 || length > 1000.)
+            NSLog( @"****** vrView getResolution %f", length);
         
 		return (length/factor);
 	}
-	else
-        return 0;
+
+    return 0;
 }
 
 - (void) computeLength
 {
 	vtkPoints *pts = Line2DData->GetPoints();
 	
-	if( pts->GetNumberOfPoints() == 2)
+	if (pts->GetNumberOfPoints() == 2)
 	{
 		double point1[ 4], point2[ 4];
 		
@@ -2701,12 +2833,11 @@ public:
         double zd = point2[ 2]- point1[ 2];
         double length = sqrt(xd*xd + yd*yd + zd*zd);
 		
-		
 		pts->GetPoint( 0, point1);
 		pts->GetPoint( 1, point2);
 		
 		Line2DText->GetPositionCoordinate()->SetCoordinateSystemToViewport();
-		if( point1[ 0] > point2[ 0])
+		if (point1[ 0] > point2[ 0])
             Line2DText->GetPositionCoordinate()->SetValue( point1[0] + 3, point1[ 1]);
 		else
             Line2DText->GetPositionCoordinate()->SetValue( point2[0], point2[ 1]);
@@ -2714,13 +2845,16 @@ public:
         NSString *localizedText = nil;
         
 		if (length/(10.*factor) < .1)
-            localizedText = [NSString stringWithFormat: NSLocalizedString( @"Length: %2.2f mm ", @"ONLY ASCII CHARACTERS ! NO ACCENTS OR HIEROGLYPHS"), (length/(10.*factor)) * 10.0];
+            localizedText = [NSString stringWithFormat:
+                             NSLocalizedString( @"Length: %2.2f mm ", "ONLY ASCII CHARACTERS ! NO ACCENTS OR HIEROGLYPHS"),
+                             (length/(10.*factor)) * 10.0];
 		else
-			localizedText = [NSString stringWithFormat: NSLocalizedString( @"Length: %2.2f cm ", @"ONLY ASCII CHARACTERS ! NO ACCENTS OR HIEROGLYPHS"), length/(10.*factor)];
+			localizedText = [NSString stringWithFormat:
+                             NSLocalizedString( @"Length: %2.2f cm ", "ONLY ASCII CHARACTERS ! NO ACCENTS OR HIEROGLYPHS"),
+                             length/(10.*factor)];
 		
 		Line2DText->SetInput( [localizedText UTF8String]);
 		aRenderer->AddActor(Line2DText);
-		
 		measureLength = length/(10.*factor);
 	}
 	else
@@ -2729,23 +2863,19 @@ public:
 		measureLength = 0;
 	}
     
-    if( Oval2DRadius > 0.001)
+    if (Oval2DRadius > 0.001)
     {
-        if( Oval2DPix == nil)
+        if (Oval2DPix == nil)
         {
-            if( renderingMode == 1 || renderingMode == 3 || renderingMode == 2) // MIP modes - full depth
+            if (renderingMode == 1 || renderingMode == 2 || renderingMode == 3) // MIP modes - full depth
             {
                 dontRenderVolumeRenderingOsiriX = 1;
-                
                 aRenderer->SetDraw( 0);
-                
                 [self prepareFullDepthCapture];
-                
                 [self renderImageWithBestQuality: NO waitDialog: NO display: YES];
                 
                 long width, height;
                 BOOL rgb;
-                
                 float *pixels = [self imageInFullDepthWidth: &width height: &height isRGB: &rgb];
                 
                 Oval2DPixZBufferOrigin[ 0] = Oval2DPixZBufferOrigin[ 1] = 0;
@@ -2754,44 +2884,40 @@ public:
                 Oval2DPixZBufferOrigin[ 0] *= Oval2DSampleDistance;
                 Oval2DPixZBufferOrigin[ 1] *= Oval2DSampleDistance;
                 
-                if( rgb == NO)
+                if (rgb == NO)
                 {
                     [Oval2DPix release];
                      Oval2DPix = [[DCMPix alloc] initWithData: pixels :32 :width :height :1 :1 :0 :0 :0 :NO];
                     
-//                    #ifdef NDEBUG
-//                    #else
+#ifndef NDEBUG
 //                    [[NSFileManager defaultManager] removeItemAtPath: @"/tmp/VR.tiff" error: nil];
 //                    [[[Oval2DPix image] TIFFRepresentation] writeToFile: @"/tmp/VR.tiff" atomically: YES];   
-//                    #endif
+#endif
                 }
                 
-                
                 [self endRenderImageWithBestQuality];
-                
                 [self restoreFullDepthCapture];
-                
                 aRenderer->SetDraw( 1);
-                
                 dontRenderVolumeRenderingOsiriX = 0;
-                
                 free( pixels);
             }
         }
         
-        if( Oval2DPix)
+        if (Oval2DPix)
         {
             ROI *circle = [[ROI alloc] initWithType: tOval :1 :1 :NSMakePoint(0,0)];
             
             NSPoint center = Oval2DCenter;
             float radius = Oval2DRadius;
             
-            center.x -= Oval2DPixZBufferOrigin[0];   center.y -= Oval2DPixZBufferOrigin[1];
-            center.x /= Oval2DSampleDistance; center.y /= Oval2DSampleDistance;
+            center.x -= Oval2DPixZBufferOrigin[0];
+            center.y -= Oval2DPixZBufferOrigin[1];
+            center.x /= Oval2DSampleDistance;
+            center.y /= Oval2DSampleDistance;
             
             radius /= Oval2DSampleDistance;
             
-            [circle setROIRect: NSMakeRect( center.x ,
+            [circle setROIRect: NSMakeRect(center.x,
                                            Oval2DPix.pheight - center.y,
                                            radius,
                                            radius)];
@@ -2809,9 +2935,9 @@ public:
             
             Oval2DText->GetPositionCoordinate()->SetCoordinateSystemToViewport();
             
-            #define OVAL2DTEXTHEIGHT 35
+#define OVAL2DTEXTHEIGHT 35
             
-            if( Oval2DCenter.y/Oval2DSampleDistance > Oval2DPix.pheight/2)
+            if (Oval2DCenter.y/Oval2DSampleDistance > Oval2DPix.pheight/2)
                 Oval2DText->GetPositionCoordinate()->SetValue( Oval2DCenter.x-Oval2DRadius, Oval2DCenter.y-Oval2DRadius - OVAL2DTEXTHEIGHT);
             else
                 Oval2DText->GetPositionCoordinate()->SetValue( Oval2DCenter.x-Oval2DRadius, Oval2DCenter.y+Oval2DRadius + 5);
@@ -2833,20 +2959,16 @@ public:
 
 - (void) getOrientation: (float*) o 
 {
-	long			i, j;
-	vtkMatrix4x4	*matrix;
-	
-    if( aCamera == nil)
+    if (aCamera == nil)
         return;
     
-	matrix = aCamera->GetViewTransformMatrix();
-	
-    if( matrix == nil)
+    vtkMatrix4x4 *matrix = aCamera->GetViewTransformMatrix();
+    if (matrix == nil)
         return;
     
-	for( i = 0; i < 3; i++)
-		for( j = 0; j < 3; j++)
-			o[ 3*i + j] = matrix->GetElement( i , j);
+	for (long i = 0; i < 3; i++)
+		for (long j = 0; j < 3; j++)
+			o[ 3*i + j] = matrix->GetElement( i, j);
 			
 	o[ 3] = -o[ 3];
 	o[ 4] = -o[ 4];
@@ -2870,29 +2992,29 @@ public:
     theta *= R2D;
     psi *= R2D;
     
-    if( phi < 0)
+    if (phi < 0)
         phi += 180;
     else
         phi -= 180;
     
     sprintf( string, "S-I: %2.1f\nL-R: %2.1f\nRoll: %2.1f", theta - 90., psi, phi);
-    if( oText[ 4])
+    if (oText[ 4])
         oText[ 4]->SetInput( string);
 	
 	[self getOrientationText:string vector:vectors inversion:YES];
-	if( oText[ 0])
+	if (oText[ 0])
         oText[ 0]->SetInput( string);
 	
 	[self getOrientationText:string vector:vectors inversion:NO];
-	if( oText[ 1])
+	if (oText[ 1])
         oText[ 1]->SetInput( string);
 	
 	[self getOrientationText:string vector:vectors+3 inversion:NO];
-	if( oText[ 2])
+	if (oText[ 2])
         oText[ 2]->SetInput( string);
 	
 	[self getOrientationText:string vector:vectors+3 inversion:YES];
-	if( oText[ 3])
+	if (oText[ 3])
         oText[ 3]->SetInput( string);
 }
 
@@ -2906,7 +3028,8 @@ public:
 	isRotating = NO;
 	[self resetAutorotate: self];
 	
-	if( projectionMode != 2 && clipRangeActivated == NO)
+	if (projectionMode != 2 &&
+        clipRangeActivated == NO)
 	{
 		[self Azimuth: delta * 2];
 		[self mouseMoved: [[NSApplication sharedApplication] currentEvent]];
@@ -2914,7 +3037,7 @@ public:
 	}
 	else
 	{
-        if( firstObject.pixelSpacingX > 0)
+        if (firstObject.pixelSpacingX > 0)
             delta *= firstObject.pixelSpacingX * 2.;
         
 		double position[ 3], focal[ 3];
@@ -2934,9 +3057,9 @@ public:
 		focal[ 1] = focal[ 1] + cos[ 7] * delta * factor;
 		focal[ 2] = focal[ 2] + cos[ 8] * delta * factor;
 		
-		if( clipRangeActivated)
+		if (clipRangeActivated)
 		{
-			if( [self checkPointInVolume: position])
+			if ([self checkPointInVolume: position])
 			{
 				aCamera->SetPosition( position);
 				aCamera->SetFocalPoint( focal);
@@ -2952,7 +3075,7 @@ public:
 		aCamera->ComputeViewPlaneNormal();
 		aCamera->OrthogonalizeViewUp();
 		
-		if( clipRangeActivated)
+		if (clipRangeActivated)
 			aCamera->SetClippingRange( 0.0, clippingRangeThickness);
 		else
 			aRenderer->ResetCameraClippingRange();
@@ -2967,7 +3090,7 @@ public:
     if ([self eventToPlugins:theEvent])
         return;
     
-	return [self scrollInStack: [theEvent deltaY]];  // @@@ TODO: shouldn't return anything ?
+	[self scrollInStack: [theEvent deltaY]];
 }
 
 - (void)otherMouseDown:(NSEvent *)theEvent
@@ -2991,10 +3114,10 @@ public:
     if ([self eventToPlugins:theEvent])
         return;
     
-	if( ![[self window] isVisible])
+	if (![[self window] isVisible])
 		return;
 	
-	if( [controller windowWillClose])
+	if ([controller windowWillClose])
 		return;
     
 	[drawLock lock];
@@ -3004,46 +3127,58 @@ public:
 	
 	NSPoint mouseLocStart = [self convertPoint: [theEvent locationInWindow] fromView: nil];
 	
-	if( isViewportResizable)
+	if (isViewportResizable)
 	{
-		if( mouseLocStart.x < 20 && mouseLocStart.y < 20 && isViewportResizable)
+		if (mouseLocStart.x < 20 &&
+            mouseLocStart.y < 20 &&
+            isViewportResizable)
+        {
 			[self setCursorForView: tTranslate];
+        }
 		else
             [self setCursorForView: [self getTool: theEvent]];
 		
-		if( cursorSet)
+		if (cursorSet)
             [cursor set];
 	}
 	
-	NSMutableString *s = [NSMutableString stringWithFormat: NSLocalizedString( @"View Size: %d x %d", nil), (int) [self frame].size.width, (int) [self frame].size.height];
+	NSMutableString *s = [NSMutableString stringWithFormat:
+                          NSLocalizedString( @"View Size: %d x %d", nil),
+                          (int) [self frame].size.width,
+                          (int) [self frame].size.height];
 	
-	if( [self get3DPixelUnder2DPositionX:mouseLocStart.x Y:mouseLocStart.y pixel:pix position:pos value:&value])
+	if ([self get3DPixelUnder2DPositionX:mouseLocStart.x Y:mouseLocStart.y pixel:pix position:pos value:&value])
 	{
 		int sliceNo;
-		if( [[[controller viewer2D] imageView] flippedData])
+		if ([[[controller viewer2D] imageView] flippedData])
             sliceNo = pix[ 2];
 		else
             sliceNo = (long)[pixList count] -1 -pix[ 2];
 	
-		NSString	*pixLoc = [[NSString stringWithFormat: @"X:%d Y:%d Z:%d (px)", (int) pix[ 0], (int) pix[ 1], sliceNo] stringByPaddingToLength: 23 withString: @" " startingAtIndex: 0];
-		NSString	*mmLoc = [[NSString stringWithFormat: @"X:%.2f Y:%.2f Z:%.2f (mm)", pos[ 0], pos[ 1], pos[ 2]] stringByPaddingToLength: 38 withString: @" " startingAtIndex: 0];
-		NSString	*val = [[NSString stringWithFormat: @"%.2f", value] stringByPaddingToLength: 9 withString: @" " startingAtIndex:  0];
+		NSString *pixLoc = [[NSString stringWithFormat: @"X:%d Y:%d Z:%d (px)",
+                             (int) pix[ 0], (int) pix[ 1], sliceNo]
+                            stringByPaddingToLength: 23 withString: @" " startingAtIndex: 0];
+        
+		NSString *mmLoc = [[NSString stringWithFormat: @"X:%.2f Y:%.2f Z:%.2f (mm)",
+                            pos[ 0], pos[ 1], pos[ 2]]
+                           stringByPaddingToLength: 38 withString: @" " startingAtIndex: 0];
+        
+		NSString *val = [[NSString stringWithFormat: @"%.2f", value]
+                         stringByPaddingToLength: 9 withString: @" " startingAtIndex: 0];
 		
 		[s appendFormat: NSLocalizedString( @"   Pixel: %@    %@ %@", nil), val, pixLoc, mmLoc];
 	}
 	
-	if( measureLength)
+	if (measureLength)
 	{
-		if( measureLength < .1)
+		if (measureLength < .1)
 			[s appendFormat: NSLocalizedString( @"   Measurement: %2.2f mm ", nil), measureLength * 10.0];
 		else
 			[s appendFormat: NSLocalizedString( @"   Measurement: %2.2f cm ", nil), measureLength];
 	}
 	
-	if( aCamera->GetParallelProjection())
-	{
+	if (aCamera->GetParallelProjection())
 		[s appendFormat: NSLocalizedString( @"   Scale: %2.3f %% ", nil), [self scaleFactor]];
-	}
 	
 	[pixelInformation setStringValue: s];
 	
@@ -3059,7 +3194,7 @@ public:
 
 -(void) squareView:(id) sender
 {
-	if( [[NSUserDefaults standardUserDefaults] integerForKey:@"VRDefaultViewSize"] == 1)
+	if ([[NSUserDefaults standardUserDefaults] integerForKey:@"VRDefaultViewSize"] == 1)
         return;
 	
 	NSRect  selfFrame = [[[self window] contentView] frame];
@@ -3069,12 +3204,16 @@ public:
 	NSRect	newFrame = selfFrame;
 	NSRect	beforeFrame = selfFrame;
 	
-	int		border = selfFrame.size.height-1;
+	int border = selfFrame.size.height-1;
 	
-	if( border > selfFrame.size.width) border = selfFrame.size.width;
+	if (border > selfFrame.size.width)
+        border = selfFrame.size.width;
 	
-	if( [[NSUserDefaults standardUserDefaults] integerForKey:@"VRDefaultViewSize"] == 2) border = 512;
-	if( [[NSUserDefaults standardUserDefaults] integerForKey:@"VRDefaultViewSize"] == 3) border = 768;
+	if ([[NSUserDefaults standardUserDefaults] integerForKey:@"VRDefaultViewSize"] == 2)
+        border = 512;
+    
+	if ([[NSUserDefaults standardUserDefaults] integerForKey:@"VRDefaultViewSize"] == 3)
+        border = 768;
 	
 	newFrame.size.width = (int)border;
 	newFrame.size.height = (int)border;
@@ -3083,7 +3222,6 @@ public:
 	newFrame.origin.y = (int) (10 + (beforeFrame.size.height - border) / 2);
 	
 	[self setFrame: newFrame];
-	
 	[[self window] display];
 }
 
@@ -3091,15 +3229,14 @@ public:
 {
 	vtkPoints *pts = vtkPoints::New();
 	
-	if( [[NSUserDefaults standardUserDefaults] boolForKey:@"SplineForScissors"] && [ROIPoints count] >= 3)		// Spline
+	if ([[NSUserDefaults standardUserDefaults] boolForKey:@"SplineForScissors"] &&
+        [ROIPoints count] >= 3)		// Spline
 	{
-		int nb;
-		
-		nb = [ROIPoints count]+1;
+		int nb = [ROIPoints count]+1;
 		
 		NSPoint nspts[nb];
 
-		for(long i=0; i<[ROIPoints count]; i++)
+		for (long i=0; i<[ROIPoints count]; i++)
 			nspts[i] = [[ROIPoints objectAtIndex:i] pointValue];
 	
 		nspts[[ROIPoints count]] = [[ROIPoints objectAtIndex:0] pointValue]; // we add the first point as the last one to smooth the spline
@@ -3108,25 +3245,32 @@ public:
 		
 		long newNb = spline(nspts, nb, &splinePts, nil, 0.1);
 		
-		for( long i=0; i<newNb; i++)
+		for (long i=0; i<newNb; i++)
 			pts->InsertPoint( pts->GetNumberOfPoints(), splinePts[i].x, splinePts[i].y, 0);
 			
-		if(newNb) free(splinePts);
+		if (newNb)
+            free(splinePts);
 	}
 	else
 	{
-		for( NSValue *pt in ROIPoints)
+		for (NSValue *pt in ROIPoints)
 			pts->InsertPoint( pts->GetNumberOfPoints(), [pt pointValue].x, [pt pointValue].y, 0);
 	}
 	
 	vtkCellArray *rect = vtkCellArray::New();
 	rect->InsertNextCell( pts->GetNumberOfPoints()+1);
-	for( int i = 0; i < pts->GetNumberOfPoints(); i++) rect->InsertCellPoint( i);
+	for (int i = 0; i < pts->GetNumberOfPoints(); i++)
+        rect->InsertCellPoint( i);
+        
 	rect->InsertCellPoint( 0);
 	
 	ROI3DData->SetVerts( rect);
-	ROI3DData->SetLines( rect);		rect->Delete();
-	ROI3DData->SetPoints( pts);		pts->Delete();
+    
+	ROI3DData->SetLines( rect);
+    rect->Delete();
+    
+	ROI3DData->SetPoints( pts);
+    pts->Delete();
 }
 
 -(void) magnifyWithEvent:(NSEvent *)event
@@ -3164,12 +3308,15 @@ public:
 		NSRect	beforeFrame;
 		NSPoint mouseLoc = [theEvent locationInWindow];
 		
-		if( volumeMapper) volumeMapper->SetMinimumImageSampleDistance( LOD * lowResLODFactor);
-		if( blendingVolumeMapper) blendingVolumeMapper->SetMinimumImageSampleDistance( LOD * lowResLODFactor);
+		if (volumeMapper)
+            volumeMapper->SetMinimumImageSampleDistance( LOD * lowResLODFactor);
+        
+		if (blendingVolumeMapper)
+            blendingVolumeMapper->SetMinimumImageSampleDistance( LOD * lowResLODFactor);
 		
 		beforeFrame = [self frame];
 
-		if( [theEvent modifierFlags] & NSShiftKeyMask)
+		if ([theEvent modifierFlags] & NSEventModifierFlagShift)
 		{
 			newFrame.size.width = [[[self window] contentView] frame].size.width - mouseLoc.x*2;
 			newFrame.size.height = newFrame.size.width;
@@ -3179,16 +3326,16 @@ public:
 			mouseLoc.y -= 5;
 		}
 		
-		if( [[[self window] contentView] frame].size.width - mouseLoc.x*2 < 100)
+		if ([[[self window] contentView] frame].size.width - mouseLoc.x*2 < 100)
 			mouseLoc.x = ([[[self window] contentView] frame].size.width - 100) / 2;
 		
-		if( [[[self window] contentView] frame].size.height - mouseLoc.y*2 < 100)
+		if ([[[self window] contentView] frame].size.height - mouseLoc.y*2 < 100)
 			mouseLoc.y = ([[[self window] contentView] frame].size.height - 100) / 2;
 
-		if( mouseLoc.x < 10)
+		if (mouseLoc.x < 10)
 			mouseLoc.x = 10;
 		
-		if( mouseLoc.y < 10)
+		if (mouseLoc.y < 10)
 			mouseLoc.y = 10;
 			
 		newFrame.origin.x = mouseLoc.x;
@@ -3198,7 +3345,6 @@ public:
 		newFrame.size.height = [[[self window] contentView] frame].size.height - 10 - mouseLoc.y*2;
 		
 		[self setFrame: newFrame];
-		
 		[self mouseMoved: theEvent];
 		
 		aCamera->Zoom( beforeFrame.size.height / newFrame.size.height);
@@ -3217,20 +3363,19 @@ public:
             {
                 [self deleteMouseDownTimer];
                 
-                if( bestRenderingWasGenerated)
+                if (bestRenderingWasGenerated)
 				{
 					bestRenderingWasGenerated = NO;
 					[self display];
 				}
+                
                 dontRenderVolumeRenderingOsiriX = 1;
                 
-				double	*pp;
-				
                 // Click point 3D to 2D
                 
                 aRenderer->SetDisplayPoint( mouseLoc.x, mouseLoc.y, 0);
                 aRenderer->DisplayToWorld();
-                pp = aRenderer->GetWorldPoint();
+                double *pp = aRenderer->GetWorldPoint();
                 
                 // Create the 2D Actor
                 
@@ -3257,23 +3402,23 @@ public:
             }
             break;
                 
-			case tMesure:
+			case tMeasure:
 			{
                 [self deleteMouseDownTimer];
                 
-				if( bestRenderingWasGenerated)
+				if (bestRenderingWasGenerated)
 				{
 					bestRenderingWasGenerated = NO;
 					[self display];
 				}
-				dontRenderVolumeRenderingOsiriX = 1;
+
+                dontRenderVolumeRenderingOsiriX = 1;
 			
 				double	*pp;
-				long	i;
 				
 				vtkPoints *pts = Line2DData->GetPoints();
 			
-				if( pts->GetNumberOfPoints() > 0)
+				if (pts->GetNumberOfPoints() > 0)
 				{
 					// Click point 3D to 2D
 					
@@ -3288,20 +3433,21 @@ public:
 					
 					double *tempPoint = aRenderer->GetDisplayPoint();
 					
-					pts->SetPoint( pts->GetNumberOfPoints()-1, tempPoint[0], tempPoint[ 1], 0);
+					pts->SetPoint( pts->GetNumberOfPoints() - 1, tempPoint[0], tempPoint[ 1], 0);
 					
 					vtkCellArray *rect = vtkCellArray::New();
 					rect->InsertNextCell( pts->GetNumberOfPoints()+1);
-					for( i = 0; i < pts->GetNumberOfPoints(); i++) rect->InsertCellPoint( i);
+					for (long i = 0; i < pts->GetNumberOfPoints(); i++)
+                        rect->InsertCellPoint( i);
+                    
 					rect->InsertCellPoint( 0);
 					
 					Line2DData->SetVerts( rect);
-					Line2DData->SetLines( rect);		rect->Delete();
+					Line2DData->SetLines( rect);
+                    rect->Delete();
 					
 					Line2DData->SetPoints( pts);
-					
 					[self computeLength];
-					
 					[self setNeedsDisplay: YES];
 				}
 			}
@@ -3314,53 +3460,64 @@ public:
 				_startMax = blendingWl + blendingWw/2;
 				WWAdapter  = _startWW / 100.0;
 				
-				if( [[[controller blendingController] modality] isEqualToString:@"PT"] || ([[NSUserDefaults standardUserDefaults] boolForKey:@"mouseWindowingNM"] == YES && [[[controller blendingController] modality] isEqualToString:@"NM"]))
+				if ([[[controller blendingController] modality] isEqualToString:@"PT"] || ([[NSUserDefaults standardUserDefaults] boolForKey:@"mouseWindowingNM"] == YES && [[[controller blendingController] modality] isEqualToString:@"NM"]))
 				{
-					switch( [[NSUserDefaults standardUserDefaults] integerForKey: @"PETWindowingMode"])
+					switch ([[NSUserDefaults standardUserDefaults] integerForKey: @"PETWindowingMode"])
 					{
 						case 0:
-							blendingWl =  (_startWL - (long) ([theEvent deltaY])*WWAdapter);
-							blendingWw =  (_startWW + (long) ([theEvent deltaX])*WWAdapter);
+							blendingWl = (_startWL - (long) ([theEvent deltaY])*WWAdapter);
+							blendingWw = (_startWW + (long) ([theEvent deltaX])*WWAdapter);
 							
-							if( blendingWw < 0.1) blendingWw = 0.1;
-						break;
+							if (blendingWw < 0.1)
+                                blendingWw = 0.1;
+                            
+                            break;
 						
 						case 1:
 							endlevel = _startMax + (-[theEvent deltaY]) * WWAdapter ;
 							
-							blendingWl =  (endlevel - _startMin) / 2 + [[NSUserDefaults standardUserDefaults] integerForKey: @"PETMinimumValue"];
+							blendingWl = (endlevel - _startMin) / 2 + [[NSUserDefaults standardUserDefaults] integerForKey: @"PETMinimumValue"];
 							blendingWw = endlevel - _startMin;
 							
-							if( blendingWw < 0.1) blendingWw = 0.1;
-							if( blendingWl - blendingWw/2 < 0) blendingWl = blendingWw/2;
-						break;
+							if (blendingWw < 0.1)
+                                blendingWw = 0.1;
+                            
+							if (blendingWl - blendingWw/2 < 0)
+                                blendingWl = blendingWw/2;
+                            
+                            break;
 						
 						case 2:
 							endlevel = _startMax - ([theEvent deltaY]) * WWAdapter ;
 							startlevel = _startMin + ([theEvent deltaX]) * WWAdapter ;
 							
-							if( startlevel < 0) startlevel = 0;
+							if (startlevel < 0)
+                                startlevel = 0;
 							
 							blendingWl = startlevel + (endlevel - startlevel) / 2;
 							blendingWw = endlevel - startlevel;
 							
-							if( blendingWw < 0.1) blendingWw = 0.1;
-							if( blendingWl - blendingWw/2 < 0) wl = blendingWw/2;
-						break;
+							if (blendingWw < 0.1)
+                                blendingWw = 0.1;
+                            
+							if (blendingWl - blendingWw/2 < 0)
+                                wl = blendingWw/2;
+                            
+                            break;
 					}
 				}
 				else
 				{
-					blendingWl =  (_startWL - (long) ([theEvent deltaY])*WWAdapter);
-					blendingWw =  (_startWW + (long) ([theEvent deltaX])*WWAdapter);
+					blendingWl = (_startWL - (long) ([theEvent deltaY])*WWAdapter);
+					blendingWw = (_startWW + (long) ([theEvent deltaX])*WWAdapter);
 				}
 				
-				if( blendingWw < 0.1) blendingWw = 0.1;
+				if (blendingWw < 0.1)
+                    blendingWw = 0.1;
 				
 				[self setBlendingWLWW: blendingWl :blendingWw];
-
 				[self setNeedsDisplay:YES];
-			break;
+                break;
 
 			case tWL:
 				{
@@ -3370,52 +3527,64 @@ public:
 					_startMax = wl + ww/2;
 					WWAdapter  = _startWW / 100.0;
 					
-					if( [[[controller viewer2D] modality] isEqualToString:@"PT"] || ([[NSUserDefaults standardUserDefaults] boolForKey:@"mouseWindowingNM"] == YES && [[[controller viewer2D] modality] isEqualToString:@"NM"]))
+					if ([[[controller viewer2D] modality] isEqualToString:@"PT"] || ([[NSUserDefaults standardUserDefaults] boolForKey:@"mouseWindowingNM"] == YES && [[[controller viewer2D] modality] isEqualToString:@"NM"]))
 					{
-						switch( [[NSUserDefaults standardUserDefaults] integerForKey: @"PETWindowingMode"])
+						switch ([[NSUserDefaults standardUserDefaults] integerForKey: @"PETWindowingMode"])
 						{
 							case 0:
-								wl =  (_startWL - (long) ([theEvent deltaY])*WWAdapter);
-								ww =  (_startWW + (long) ([theEvent deltaX])*WWAdapter);
+								wl = (_startWL - (long) ([theEvent deltaY])*WWAdapter);
+								ww = (_startWW + (long) ([theEvent deltaX])*WWAdapter);
 								
-								if( ww < 0.1) ww = 0.1;
-							break;
+								if (ww < 0.1)
+                                    ww = 0.1;
+                                
+                                break;
 							
 							case 1:
 								endlevel = _startMax + (-[theEvent deltaY]) * WWAdapter ;
 								
-								wl =  (endlevel - _startMin) / 2 + [[NSUserDefaults standardUserDefaults] integerForKey: @"PETMinimumValue"];
+								wl = (endlevel - _startMin) / 2 + [[NSUserDefaults standardUserDefaults] integerForKey: @"PETMinimumValue"];
 								ww = endlevel - _startMin;
 								
-								if( ww < 0.1) ww = 0.1;
-								if( wl - ww/2 < 0) wl = ww/2;
-							break;
+								if (ww < 0.1)
+                                    ww = 0.1;
+                                
+								if (wl - ww/2 < 0)
+                                    wl = ww/2;
+                                
+                                break;
 							
 							case 2:
 								endlevel = _startMax - ([theEvent deltaY]) * WWAdapter ;
 								startlevel = _startMin + ([theEvent deltaX]) * WWAdapter ;
 								
-								if( startlevel < 0) startlevel = 0;
+								if (startlevel < 0)
+                                    startlevel = 0;
 								
 								wl = startlevel + (endlevel - startlevel) / 2;
 								ww = endlevel - startlevel;
 								
-								if( ww < 0.1) ww = 0.1;
-								if( wl - ww/2 < 0) wl = ww/2;
-							break;
+								if (ww < 0.1)
+                                    ww = 0.1;
+                                
+								if (wl - ww/2 < 0)
+                                    wl = ww/2;
+                                
+                                break;
 						}
 					}
 					else
 					{
-						wl =  (_startWL - (long) ([theEvent deltaY])*WWAdapter);
-						ww =  (_startWW + (long) ([theEvent deltaX])*WWAdapter);
+						wl = (_startWL - (long) ([theEvent deltaY])*WWAdapter);
+						ww = (_startWW + (long) ([theEvent deltaX])*WWAdapter);
 					}
 					
-					if( ww < 0.1) ww = 0.1;
+					if (ww < 0.1)
+                        ww = 0.1;
 					
 					[self setOpacity: currentOpacityArray];
 					
-					if( isRGB)
+					if (isRGB)
 						colorTransferFunction->BuildFunctionFromTable( wl-ww/2, wl+ww/2, 255, (double*) &table);
 					else if (advancedCLUT)
 					{
@@ -3427,38 +3596,36 @@ public:
 					else
 						colorTransferFunction->BuildFunctionFromTable( valueFactor*(OFFSET16 + wl-ww/2), valueFactor*(OFFSET16 + wl+ww/2), 255, (double*) &table);
 					
-					if( [[[controller viewer2D] modality] isEqualToString:@"PT"] || ([[NSUserDefaults standardUserDefaults] boolForKey:@"mouseWindowingNM"] == YES && [[[controller viewer2D] modality] isEqualToString:@"NM"]))
+					if ([[[controller viewer2D] modality] isEqualToString:@"PT"] || ([[NSUserDefaults standardUserDefaults] boolForKey:@"mouseWindowingNM"] == YES && [[[controller viewer2D] modality] isEqualToString:@"NM"]))
 					{
-						if( ww < 50)
+						if (ww < 50)
                             sprintf(WLWWString, "From: %0.4f   To: %0.4f ", wl-ww/2, wl+ww/2);
 						else
                             sprintf(WLWWString, "From: %0.f   To: %0.f ", wl-ww/2, wl+ww/2);
 					}
 					else
 					{
-						if( ww < 50)
+						if (ww < 50)
                             sprintf(WLWWString, "WL: %0.4f WW: %0.4f ", wl, ww);
 						else
                             sprintf(WLWWString, "WL: %0.f WW: %0.f ", wl, ww);
 					}
 					
-//					if( [[NSUserDefaults standardUserDefaults] boolForKey: @"dontAutoCropScissors"] == NO)
+//					if ([[NSUserDefaults standardUserDefaults] boolForKey: @"dontAutoCropScissors"] == NO)
 //						[self autoCroppingBox];
 					
 					textWLWW->SetInput( WLWWString);
 					[self setNeedsDisplay:YES];
 				}
-			break;
+                break;
 				
 			case t3DCut:
 				
-				if( fabs(mouseLoc.x - _previousLoc.x) > 5. || fabs(mouseLoc.y - _previousLoc.y) > 5.)
+				if (fabs(mouseLoc.x - _previousLoc.x) > 5. || fabs(mouseLoc.y - _previousLoc.y) > 5.)
 				{
-					double	*pp;
-					
 					aRenderer->SetDisplayPoint( mouseLoc.x, mouseLoc.y, 0);
 					aRenderer->DisplayToWorld();
-					pp = aRenderer->GetWorldPoint();
+					double *pp = aRenderer->GetWorldPoint();
 					
 					// Create the 2D Actor
 					
@@ -3470,9 +3637,7 @@ public:
 					[ROIPoints addObject: [NSValue valueWithPoint: NSMakePoint( tempPoint[0], tempPoint[ 1])]];
 					
 					[self generateROI];
-					
 					[self setNeedsDisplay: YES];
-					
 					_previousLoc = mouseLoc;
 				}
 				break;
@@ -3484,19 +3649,19 @@ public:
 				[self computeOrientationText];
 				[self getInteractor]->InvokeEvent(vtkCommand::MouseMoveEvent, NULL);
 				[[NSNotificationCenter defaultCenter] postNotificationName: OsirixVRCameraDidChangeNotification object:self  userInfo: nil];
-			break;
+                break;
 				
 			case t3DRotate:
 			case tCamera3D:
 				{
-					if( _tool == tCamera3D || clipRangeActivated == YES)
+					if (_tool == tCamera3D || clipRangeActivated == YES)
 					{
 						aCamera->Yaw( -([theEvent deltaX]) / 5.);
 						aCamera->Pitch( -([theEvent deltaY]) / 5.);
 						aCamera->ComputeViewPlaneNormal();
 						aCamera->OrthogonalizeViewUp();
 						
-						if( clipRangeActivated)
+						if (clipRangeActivated)
 							aCamera->SetClippingRange( 0.0, clippingRangeThickness);
 						else
 							aRenderer->ResetCameraClippingRange();
@@ -3515,29 +3680,31 @@ public:
 						[[NSNotificationCenter defaultCenter] postNotificationName: OsirixVRCameraDidChangeNotification object:self  userInfo: nil];
 					}
 				}
-			break;
+                break;
+                
 			case tTranslate:
                 shiftDown = 1;
                 controlDown = 0;
                 [self getInteractor]->SetEventInformation((int) mouseLoc.x, (int) mouseLoc.y, controlDown, shiftDown);
                 [self getInteractor]->InvokeEvent(vtkCommand::MouseMoveEvent, NULL);					
-                [[NSNotificationCenter defaultCenter] postNotificationName: OsirixVRCameraDidChangeNotification object:self  userInfo: nil];
-			break;
+                [[NSNotificationCenter defaultCenter] postNotificationName: OsirixVRCameraDidChangeNotification
+                                                                    object: self
+                                                                  userInfo: nil];
+                break;
 			
 			case tZoom:
 				[self rightMouseDragged:theEvent];
-			break;
+                break;
 				
 			default:
 				break;
 		}
 	}
 	
-	if( croppingBox)
+	if (croppingBox)
 		croppingBox->SetHandleSize( 0.005);
 	
 	[drawLock unlock];
-	
 	bestRenderingWasGenerated = NO;
 }
 
@@ -3551,19 +3718,20 @@ public:
 	NSPoint mouseLoc = [self convertPoint: [theEvent locationInWindow] fromView:nil];
 	float distance ;
 	
-	if (([theEvent deltaX] != 0 || [theEvent deltaY] != 0))
+	if (([theEvent deltaX] != 0 ||
+         [theEvent deltaY] != 0))
 	{
 		[self deleteRightMouseDownTimer];
 	}
 	
-	if( projectionMode != 2)
+	if (projectionMode != 2)
 	{
 		int shiftDown = 0;
 		int controlDown = 1;
 		[self getInteractor]->SetEventInformation((int) mouseLoc.x, (int) mouseLoc.y, controlDown, shiftDown);
 		[self computeLength];
 		[self getInteractor]->InvokeEvent(vtkCommand::MouseMoveEvent, NULL);
-		[[NSNotificationCenter defaultCenter] postNotificationName: OsirixVRCameraDidChangeNotification object:self  userInfo: nil];
+		[[NSNotificationCenter defaultCenter] postNotificationName: OsirixVRCameraDidChangeNotification object:self userInfo: nil];
 	}
 	else
 	{
@@ -3573,16 +3741,16 @@ public:
 		aCamera->ComputeViewPlaneNormal();
 		aCamera->OrthogonalizeViewUp();
 		
-		if( clipRangeActivated)
+		if (clipRangeActivated)
 			aCamera->SetClippingRange( 0.0, clippingRangeThickness);
 		else
 			aRenderer->ResetCameraClippingRange();
 		
 		[self setNeedsDisplay:YES];
-		[[NSNotificationCenter defaultCenter] postNotificationName: OsirixVRCameraDidChangeNotification object:self  userInfo: nil];
+		[[NSNotificationCenter defaultCenter] postNotificationName: OsirixVRCameraDidChangeNotification object:self userInfo: nil];
 	}
 	
-	if( croppingBox)
+	if (croppingBox)
 		croppingBox->SetHandleSize( 0.005);
 	
 	[drawLock unlock];
@@ -3603,8 +3771,11 @@ public:
 	
 	[drawLock lock];
 	
-	if( volumeMapper) volumeMapper->SetMinimumImageSampleDistance( LOD);
-	if( blendingVolumeMapper) blendingVolumeMapper->SetMinimumImageSampleDistance( LOD);
+	if (volumeMapper)
+        volumeMapper->SetMinimumImageSampleDistance( LOD);
+    
+	if (blendingVolumeMapper)
+        blendingVolumeMapper->SetMinimumImageSampleDistance( LOD);
 	
 	if (_resizeFrame)
 		[self setNeedsDisplay:YES];
@@ -3615,9 +3786,9 @@ public:
 			case t3DRotate:
 			case tCamera3D:
 			{
-				if( _tool == tCamera3D || clipRangeActivated == YES)
+				if (_tool == tCamera3D || clipRangeActivated == YES)
 				{
-					if( keep3DRotateCentered == NO)
+					if (keep3DRotateCentered == NO)
 					{
 						// Reset window center
 						double xx = 0;
@@ -3628,24 +3799,27 @@ public:
 						pWC[ 0] *= ([self frame].size.width/2.);
 						pWC[ 1] *= ([self frame].size.height/2.);
 						
-						if( pWC[ 0] != xx || pWC[ 1] != yy)
+						if (pWC[ 0] != xx || pWC[ 1] != yy)
 						{
 							aCamera->SetWindowCenter( 0, 0);
-							[self panX: ([self frame].size.width/2.) -(pWC[ 0] - xx)*10000. Y: ([self frame].size.height/2.) -(pWC[ 1] - yy) *10000.];
+							[self panX: ([self frame].size.width/2.)  - (pWC[ 0] - xx)*10000.
+                                     Y: ([self frame].size.height/2.) - (pWC[ 1] - yy)*10000.];
 						}
 					}
 					[self setNeedsDisplay:YES];
 				}
 				else
 				{
-					if( volumeMapper)
+					if (volumeMapper)
 						volumeMapper->SetMinimumImageSampleDistance( LOD);
 					
-					if( blendingVolumeMapper)
+					if (blendingVolumeMapper)
 						blendingVolumeMapper->SetMinimumImageSampleDistance( LOD);
 					
 					[self getInteractor]->InvokeEvent(vtkCommand::LeftButtonReleaseEvent, NULL);
-					[[NSNotificationCenter defaultCenter] postNotificationName: OsirixVRCameraDidChangeNotification object:self  userInfo: nil];
+					[[NSNotificationCenter defaultCenter] postNotificationName: OsirixVRCameraDidChangeNotification
+                                                                        object: self
+                                                                      userInfo: nil];
 				}
 			}
 			break;
@@ -3654,28 +3828,35 @@ public:
 			case tWLBlended:
 				[self setNeedsDisplay:YES];
 				break;
+                
 			case tRotate:
 			case tTranslate:
-				if( volumeMapper)
+				if (volumeMapper)
 					volumeMapper->SetMinimumImageSampleDistance( LOD);
 				
-				if( blendingVolumeMapper)
+				if (blendingVolumeMapper)
 					blendingVolumeMapper->SetMinimumImageSampleDistance( LOD);
 				
 				[self getInteractor]->InvokeEvent(vtkCommand::LeftButtonReleaseEvent, NULL);
-				[[NSNotificationCenter defaultCenter] postNotificationName: OsirixVRCameraDidChangeNotification object:self  userInfo: nil];
+				[[NSNotificationCenter defaultCenter] postNotificationName: OsirixVRCameraDidChangeNotification
+                                                                    object: self
+                                                                  userInfo: nil];
 				break;
+                
 			case tZoom:
 				[self zoomMouseUp:(NSEvent *)theEvent];
 				break;
-			case tMesure:
+                
+			case tMeasure:
             case tOval:
 			case t3DCut:
 				[self displayIfNeeded];
 				dontRenderVolumeRenderingOsiriX = 0;
-			break;
+                break;
+                
 			case tBonesRemoval:		// <- DO NOTHING !
-			break;
+                break;
+                
 			default:
 				[self setNeedsDisplay:YES];
 				break;
@@ -3683,7 +3864,6 @@ public:
 	}
 	
 	bestRenderingWasGenerated = NO;
-	
 	[drawLock unlock];
 }
 
@@ -3695,13 +3875,13 @@ public:
 	_hasChanged = YES;
 	if (_tool == tZoom)
 	{
-		if( volumeMapper)
+		if (volumeMapper)
 			volumeMapper->SetMinimumImageSampleDistance( LOD);
 		
-		if( blendingVolumeMapper)
+		if (blendingVolumeMapper)
 			blendingVolumeMapper->SetMinimumImageSampleDistance( LOD);
 		
-		if( projectionMode != 2)
+		if (projectionMode != 2)
 		{
 			[self computeLength];
 			[self getInteractor]->InvokeEvent(vtkCommand::LeftButtonReleaseEvent, NULL);
@@ -3711,12 +3891,16 @@ public:
 			[self setNeedsDisplay:YES];
 		}
 		
-		[[NSNotificationCenter defaultCenter] postNotificationName: OsirixVRCameraDidChangeNotification object:self  userInfo: nil];
+		[[NSNotificationCenter defaultCenter] postNotificationName: OsirixVRCameraDidChangeNotification
+                                                            object: self
+                                                          userInfo: nil];
 	}
 }
 
 - (void)rightMouseDown:(NSEvent *)theEvent
 {
+    NSLog(@"%s %d", __FUNCTION__, __LINE__);
+
     if ([self eventToPlugins:theEvent])
         return;
     
@@ -3727,7 +3911,6 @@ public:
 		[self deleteRightMouseDownTimer];
 	
 	[self mouseDown:theEvent];
-    
 	[drawLock unlock];
 }
 
@@ -3773,15 +3956,18 @@ public:
 	pWC[ 0] *= ([self frame].size.width/2.);
 	pWC[ 1] *= ([self frame].size.height/2.);
 	
-	if( pWC[ 0] != xx || pWC[ 1] != yy)
+	if (pWC[ 0] != xx || pWC[ 1] != yy)
 	{
 		aCamera->SetWindowCenter( xx / ([self frame].size.width/2.), yy / ([self frame].size.height/2.));
-		[self panX: ([self frame].size.width/2.) -(pWC[ 0] - xx)*10000. Y: ([self frame].size.height/2.) -(pWC[ 1] - yy) *10000.];
+        
+		[self panX: ([self frame].size.width/2.)  - (pWC[ 0] - xx)*10000.
+                 Y: ([self frame].size.height/2.) - (pWC[ 1] - yy)*10000.];
 	}
 }
 
 - (void)mouseDown:(NSEvent *)theEvent
 {
+    NSLog(@"%s %d", __FUNCTION__, __LINE__);
     if ([self eventToPlugins:theEvent])
         return;
     
@@ -3790,14 +3976,9 @@ public:
 	
 	_hasChanged = YES;
 	[drawLock lock];
-	
-	if( snCloseEventTimer)
-		[snCloseEventTimer fire];
-	
-	snStopped = YES;
-	
-    NSPoint		mouseLoc, mouseLocPre;
-	ToolMode    tool;
+
+    NSPoint mouseLoc, mouseLocPre;
+	ToolMode tool;
 	
 	[cursor set];
 	
@@ -3811,7 +3992,7 @@ public:
 			[self deleteMouseDownTimer];
 		}
 		
-		if( [[controller style] isEqualToString: @"noNib"] == NO)
+		if ([[controller style] isEqualToString: @"noNib"] == NO)
 			_mouseDownTimer = [[NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(startDrag:) userInfo:theEvent  repeats:NO] retain];
 	}
 	
@@ -3821,22 +4002,29 @@ public:
 	
 	@try
 	{
-		if( [theEvent type] ==	NSLeftMouseDown || [theEvent type] ==	NSRightMouseDown || [theEvent type] ==	NSLeftMouseUp || [theEvent type] == NSRightMouseUp)
+		if ([theEvent type] == NSLeftMouseDown ||
+            [theEvent type] == NSRightMouseDown ||
+            [theEvent type] == NSLeftMouseUp ||
+            [theEvent type] == NSRightMouseUp)
+        {
 			clickCount = [theEvent clickCount];
+        }
 	}
 	@catch (NSException * e)
 	{
 		clickCount = 1;
 	}
 	
-	if( clickCount > 1 && (tool != t3Dpoint))
+	if (clickCount > 1 &&
+        (tool != t3Dpoint))
 	{
-		long	pix[ 3];
-		float	pos[ 3], value;
+		long pix[ 3];
+		float pos[ 3], value;
 		
-		if( clipRangeActivated)
+		if (clipRangeActivated)
 		{
-			float position[ 3], sc[ 3], cos[ 9], r = [self getResolution];
+            float position[ 3], sc[ 3], cos[ 9];
+            float r = [self getResolution];
 			
 			[self getOrigin: position];
 			[self getCosMatrix: cos];
@@ -3860,7 +4048,7 @@ public:
 		}
 		else
 		{
-			if( [self get3DPixelUnder2DPositionX:_mouseLocStart.x Y:_mouseLocStart.y pixel:pix position:pos value:&value])
+			if ([self get3DPixelUnder2DPositionX:_mouseLocStart.x Y:_mouseLocStart.y pixel:pix position:pos value:&value])
 			{
 				NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
                                       [NSNumber numberWithInt: pix[0]], @"x",
@@ -3874,7 +4062,9 @@ public:
 		return;
 	}
 
-	if( _mouseLocStart.x < 20 && _mouseLocStart.y < 20 && isViewportResizable)
+	if (_mouseLocStart.x < 20 &&
+        _mouseLocStart.y < 20 &&
+        isViewportResizable)
 	{
 		_resizeFrame = YES;
 	}
@@ -3885,36 +4075,37 @@ public:
 		_tool = tool;
 		[self setCursorForView: tool];
 		
-		if( tool != tWL && tool != tZoom)
+		if (tool != tWL &&
+            tool != tZoom)
 		{
 			isRotating = NO;
-			
 			[self resetAutorotate: self];
 		}
 		
-		if( tool == tMesure)
+		if (tool == tMeasure)
 		{
             [self deleteMouseDownTimer];
             
-			if( bestRenderingWasGenerated)
+			if (bestRenderingWasGenerated)
 			{
 				bestRenderingWasGenerated = NO;
 				[self display];
 			}
+            
 			dontRenderVolumeRenderingOsiriX = 1;
 			
-			double	*pp;
-			long	i;
-			
-			vtkPoints		*pts = Line2DData->GetPoints();
-		
-			if( pts->GetNumberOfPoints() >= 2)
+			vtkPoints *pts = Line2DData->GetPoints();
+			if (pts->GetNumberOfPoints() >= 2)
 			{
 				// Delete current ROI
 				pts = vtkPoints::New();
 				vtkCellArray *rect = vtkCellArray::New();
-				Line2DData-> SetPoints( pts);		pts->Delete();
-				Line2DData-> SetLines( rect);		rect->Delete();
+                
+				Line2DData-> SetPoints( pts);
+                pts->Delete();
+                
+				Line2DData-> SetLines( rect);
+                rect->Delete();
 				
 				pts = Line2DData->GetPoints();
 			}
@@ -3925,7 +4116,7 @@ public:
 			
 			aRenderer->SetDisplayPoint( _mouseLocStart.x, _mouseLocStart.y, 0);
 			aRenderer->DisplayToWorld();
-			pp = aRenderer->GetWorldPoint();
+			double *pp = aRenderer->GetWorldPoint();
 			
 			// Create the 2D Actor
 			
@@ -3934,7 +4125,7 @@ public:
 			
 			double *tempPoint = aRenderer->GetDisplayPoint();
 			
-			NSLog(@"New pt: %2.2f %2.2f", tempPoint[0] , tempPoint[ 1]);
+			NSLog(@"New pt: %2.2f %2.2f", tempPoint[0], tempPoint[ 1]);
 			
             vtkCellArray *rect;
             
@@ -3942,29 +4133,34 @@ public:
 			
             rect = vtkCellArray::New();
 			rect->InsertNextCell( pts->GetNumberOfPoints()+1);
-			for( i = 0; i < pts->GetNumberOfPoints(); i++) rect->InsertCellPoint( i);
+			for (int i = 0; i < pts->GetNumberOfPoints(); i++)
+                rect->InsertCellPoint( i);
+            
 			rect->InsertCellPoint( 0);
             
             Line2DData->SetVerts( rect);
-			Line2DData->SetLines( rect);		rect->Delete();
+			Line2DData->SetLines( rect);
+            rect->Delete();
             
             pts->InsertPoint( pts->GetNumberOfPoints(), tempPoint[0], tempPoint[ 1], 0);
             
             rect = vtkCellArray::New();
 			rect->InsertNextCell( pts->GetNumberOfPoints()+1);
-			for( i = 0; i < pts->GetNumberOfPoints(); i++) rect->InsertCellPoint( i);
+			for (long i = 0; i < pts->GetNumberOfPoints(); i++)
+                rect->InsertCellPoint( i);
+                
 			rect->InsertCellPoint( 0);
             
 			Line2DData->SetVerts( rect);
-			Line2DData->SetLines( rect);		rect->Delete();
+			Line2DData->SetLines( rect);
+            rect->Delete();
 			
 			Line2DData->SetPoints( pts);
 			
 			[self computeLength];
-			
 			[self setNeedsDisplay: YES];
 		}
-        else if( tool == tOval)
+        else if (tool == tOval)
         {
             [self deleteMouseDownTimer];
             
@@ -3972,11 +4168,12 @@ public:
             aRenderer->RemoveActor2D( Oval2DActor);
             Oval2DRadius = 0;
             
-			if( bestRenderingWasGenerated)
+			if (bestRenderingWasGenerated)
 			{
 				bestRenderingWasGenerated = NO;
 				[self display];
 			}
+            
 			dontRenderVolumeRenderingOsiriX = 1;
 			
 			// Click point 3D to 2D
@@ -3999,14 +4196,11 @@ public:
             Oval2DCenter.y = tempPoint[ 1];
             
 			[self computeLength];
-			
 			[self setNeedsDisplay: YES];
 		}
-		else if( tool == t3DCut)
+		else if (tool == t3DCut)
 		{
-			double	*pp;
-			
-			if( bestRenderingWasGenerated)
+			if (bestRenderingWasGenerated)
 			{
 				bestRenderingWasGenerated = NO;
 				[self display];
@@ -4020,7 +4214,7 @@ public:
 			
 			aRenderer->SetDisplayPoint( _mouseLocStart.x, _mouseLocStart.y, 0);
 			aRenderer->DisplayToWorld();
-			pp = aRenderer->GetWorldPoint();
+			double *pp = aRenderer->GetWorldPoint();
 			
 			// Create the 2D Actor
 			
@@ -4029,12 +4223,12 @@ public:
 			
 			double *tempPoint = aRenderer->GetDisplayPoint();
 			
-			NSLog(@"New pt: %2.2f %2.2f", tempPoint[0] , tempPoint[ 1]);
+			NSLog(@"New pt: %2.2f %2.2f", tempPoint[0], tempPoint[ 1]);
 			
 			[ROIPoints addObject: [NSValue valueWithPoint: NSMakePoint( tempPoint[0], tempPoint[ 1])]];
 			[self generateROI];
 			
-//			if( ROIUPDATE == NO)
+//			if (ROIUPDATE == NO)
 //			{
 //				ROIUPDATE = YES;
 //				[NSTimer scheduledTimerWithTimeInterval:0.05 target:self selector:@selector(timerUpdate:) userInfo:nil repeats:0]; 
@@ -4042,7 +4236,7 @@ public:
 			
 			[self setNeedsDisplay: YES];
 		}
-		else if( tool == tWL)
+		else if (tool == tWL)
 		{
 			_startWW = ww;
 			_startWL = wl;
@@ -4051,13 +4245,13 @@ public:
 			
 			_mouseLocStart = [self convertPoint: [theEvent locationInWindow] fromView:nil];
 			
-            if( volumeMapper)
+            if (volumeMapper)
                 volumeMapper->SetMinimumImageSampleDistance( LOD*lowResLODFactor);
 			
-			if( blendingVolumeMapper) 
+			if (blendingVolumeMapper) 
 				blendingVolumeMapper->SetMinimumImageSampleDistance( LOD*lowResLODFactor);
 		}
-		else if( tool == tWLBlended)
+		else if (tool == tWLBlended)
 		{
 			_startWW = blendingWw;
 			_startWL = blendingWl;
@@ -4066,39 +4260,42 @@ public:
 			
 			_mouseLocStart = [self convertPoint: [theEvent locationInWindow] fromView:nil];
             
-            if( volumeMapper)
+            if (volumeMapper)
                 volumeMapper->SetMinimumImageSampleDistance( LOD*lowResLODFactor);
 			
-			if( blendingVolumeMapper) 
+			if (blendingVolumeMapper)
 				blendingVolumeMapper->SetMinimumImageSampleDistance( LOD*lowResLODFactor);
 		}
-		else if( tool == tRotate)
+		else if (tool == tRotate)
 		{
 			int shiftDown = 0;
 			int controlDown = 1;
 			
-			if( volumeMapper)
+			if (volumeMapper)
 				volumeMapper->SetMinimumImageSampleDistance( LOD*lowResLODFactor);
 			
-			if( blendingVolumeMapper)
+			if (blendingVolumeMapper)
 				blendingVolumeMapper->SetMinimumImageSampleDistance( LOD*lowResLODFactor);
 			
 			mouseLoc = _mouseLocStart = [self convertPoint: [theEvent locationInWindow] fromView:nil];
 			[self getInteractor]->SetEventInformation((int) mouseLoc.x, (int) mouseLoc.y, controlDown, shiftDown);
 			[self getInteractor]->InvokeEvent(vtkCommand::LeftButtonPressEvent,NULL);
 		}
-		else if( tool == t3DRotate || tool == tCamera3D)
+		else if (tool == t3DRotate || tool == tCamera3D)
 		{
-			if( _tool == tCamera3D || clipRangeActivated == YES)
+			if (_tool == tCamera3D || clipRangeActivated == YES)
 			{
 				mouseLocPre = _mouseLocStart = [self convertPoint: [theEvent locationInWindow] fromView:nil];
 				
-				if( volumeMapper) volumeMapper->SetMinimumImageSampleDistance( LOD*lowResLODFactor);
-				if( blendingVolumeMapper) blendingVolumeMapper->SetMinimumImageSampleDistance( LOD*lowResLODFactor);
+				if (volumeMapper)
+                    volumeMapper->SetMinimumImageSampleDistance( LOD*lowResLODFactor);
+                
+				if (blendingVolumeMapper)
+                    blendingVolumeMapper->SetMinimumImageSampleDistance( LOD*lowResLODFactor);
 				
-				if( clipRangeActivated)
+				if (clipRangeActivated)
 				{
-					if( keep3DRotateCentered == NO)
+					if (keep3DRotateCentered == NO)
 					{
 						double xx = -(mouseLocPre.x - [self frame].size.width/2.);
 						double yy = -(mouseLocPre.y - [self frame].size.height/2.);
@@ -4108,23 +4305,24 @@ public:
 						pWC[ 0] *= ([self frame].size.width/2.);
 						pWC[ 1] *= ([self frame].size.height/2.);
 						
-						if( pWC[ 0] != xx || pWC[ 1] != yy)
+						if (pWC[ 0] != xx || pWC[ 1] != yy)
 						{
 							aCamera->SetWindowCenter( xx / ([self frame].size.width/2.), yy / ([self frame].size.height/2.));
-							[self panX: ([self frame].size.width/2.) -(pWC[ 0] - xx)*10000. Y: ([self frame].size.height/2.) -(pWC[ 1] - yy) *10000.];
+							[self panX: ([self frame].size.width/2.)  - (pWC[ 0] - xx)*10000.
+                                     Y: ([self frame].size.height/2.) - (pWC[ 1] - yy)*10000.];
 						}
 					}
 				}
 			}
 			else
 			{
-				int shiftDown = 0;//([theEvent modifierFlags] & NSShiftKeyMask);
-				int controlDown = 0;//([theEvent modifierFlags] & NSControlKeyMask);
+				int shiftDown = 0;//([theEvent modifierFlags] & NSEventModifierFlagShift);
+				int controlDown = 0;//([theEvent modifierFlags] & NSEventModifierFlagControl);
 
-				if( volumeMapper)
+				if (volumeMapper)
 					volumeMapper->SetMinimumImageSampleDistance( LOD*lowResLODFactor);
 				
-				if( blendingVolumeMapper)
+				if (blendingVolumeMapper)
 					blendingVolumeMapper->SetMinimumImageSampleDistance( LOD*lowResLODFactor);
 				
 				mouseLoc = [self convertPoint: [theEvent locationInWindow] fromView:nil];
@@ -4132,36 +4330,36 @@ public:
 				[self getInteractor]->SetEventInformation((int)mouseLoc.x, (int)mouseLoc.y, controlDown, shiftDown);
 				[self getInteractor]->InvokeEvent(vtkCommand::LeftButtonPressEvent,NULL);
 				
-				if( clipRangeActivated)
+				if (clipRangeActivated)
 					aCamera->SetClippingRange( 0.0, clippingRangeThickness);
 				else
 					aRenderer->ResetCameraClippingRange();
 			}
 		}
-		else if( tool == tTranslate)
+		else if (tool == tTranslate)
 		{
 			int shiftDown = 1;
 			int controlDown = 0;
 			
-			if( volumeMapper)
+			if (volumeMapper)
 				volumeMapper->SetMinimumImageSampleDistance( LOD*lowResLODFactor);
 			
-			if( blendingVolumeMapper)
+			if (blendingVolumeMapper)
 				blendingVolumeMapper->SetMinimumImageSampleDistance( LOD*lowResLODFactor);
 			
 			mouseLoc = [self convertPoint: [theEvent locationInWindow] fromView:nil];
 			[self getInteractor]->SetEventInformation((int)mouseLoc.x, (int)mouseLoc.y, controlDown, shiftDown);
 			[self getInteractor]->InvokeEvent(vtkCommand::LeftButtonPressEvent,NULL);
 		}
-		else if( tool == tZoom)
+		else if (tool == tZoom)
 		{
-			if( volumeMapper)
+			if (volumeMapper)
 				volumeMapper->SetMinimumImageSampleDistance( LOD*lowResLODFactor);
 			
-			if( blendingVolumeMapper)
+			if (blendingVolumeMapper)
 				blendingVolumeMapper->SetMinimumImageSampleDistance( LOD*lowResLODFactor);
 			
-			if( projectionMode != 2)
+			if (projectionMode != 2)
 			{
 				int shiftDown = 0;
 				int controlDown = 1;
@@ -4175,26 +4373,28 @@ public:
 				// vtkCamera
 				mouseLocPre = _mouseLocStart = [self convertPoint: [theEvent locationInWindow] fromView:nil];
 				
-				if( volumeMapper) volumeMapper->SetMinimumImageSampleDistance( LOD*lowResLODFactor);
-				if( blendingVolumeMapper) blendingVolumeMapper->SetMinimumImageSampleDistance( LOD*lowResLODFactor);
+				if (volumeMapper)
+                    volumeMapper->SetMinimumImageSampleDistance( LOD*lowResLODFactor);
+                
+				if (blendingVolumeMapper)
+                    blendingVolumeMapper->SetMinimumImageSampleDistance( LOD*lowResLODFactor);
 			}
 		}
-		else if( tool == t3Dpoint)
+		else if (tool == t3Dpoint)
 		{
             [self deleteMouseDownTimer];
             
 			NSEvent *artificialPKeyDown = [NSEvent keyEventWithType:NSKeyDown
-  												location:[theEvent locationInWindow]
-  												modifierFlags:0
-  												timestamp:[theEvent timestamp]
-  												windowNumber:[theEvent windowNumber]
-  												context:[theEvent context]
-  												characters:@"p"
-  												charactersIgnoringModifiers:nil
-  												isARepeat:NO
-  												keyCode:112
-  												];
-  			if( blendingVolume)
+                                                           location:[theEvent locationInWindow]
+                                                      modifierFlags:0
+                                                          timestamp:[theEvent timestamp]
+                                                       windowNumber:[theEvent windowNumber]
+                                                            context:[theEvent context]
+                                                         characters:@"p"
+                                        charactersIgnoringModifiers:nil
+                                                          isARepeat:NO
+                                                            keyCode:112];
+  			if (blendingVolume)
 				blendingVolume->SetPickable( NO);
 			
 			[super keyDown: artificialPKeyDown];
@@ -4214,13 +4414,12 @@ public:
 				{
 					NSPoint mouseLocationOnScreen = [[self window] convertBaseToScreen:[theEvent locationInWindow]];
 					[point3DInfoPanel setAlphaValue:0.8];
-					[point3DInfoPanel	setFrame:	NSMakeRect(	mouseLocationOnScreen.x - [point3DInfoPanel frame].size.width/2.0, 
-																mouseLocationOnScreen.y - [point3DInfoPanel frame].size.height-20.0,
-																[point3DInfoPanel frame].size.width,
-																[point3DInfoPanel frame].size.height)
-										display:YES animate: NO];
+					[point3DInfoPanel setFrame: NSMakeRect(mouseLocationOnScreen.x - [point3DInfoPanel frame].size.width/2.0,
+                                                           mouseLocationOnScreen.y - [point3DInfoPanel frame].size.height-20.0,
+                                                           [point3DInfoPanel frame].size.width,
+                                                           [point3DInfoPanel frame].size.height)
+                                       display:YES animate: NO];
 					[point3DInfoPanel orderFront:self];
-					
 					
 					float pos[3];
 					[[point3DPositionsArray objectAtIndex:[self selected3DPointIndex]] getValue:pos];
@@ -4239,7 +4438,7 @@ public:
 				}
 			}
 		}
-		else if( tool == tBonesRemoval)
+		else if (tool == tBonesRemoval)
 		{
 			[self deleteMouseDownTimer];
 			
@@ -4253,9 +4452,16 @@ public:
 			
 			long pix[ 3];
 			float pos[ 3], value;
-			float minValue = [[NSUserDefaults standardUserDefaults] floatForKey: @"VRGrowingRegionValue"]-[[NSUserDefaults standardUserDefaults] floatForKey: @"VRGrowingRegionInterval"]/3.;
+			float minValue = [[NSUserDefaults standardUserDefaults] floatForKey: @"VRGrowingRegionValue"] -
+                             [[NSUserDefaults standardUserDefaults] floatForKey: @"VRGrowingRegionInterval"]/3.;
 			
-			if( [self get3DPixelUnder2DPositionX:_mouseLocStart.x Y:_mouseLocStart.y pixel:pix position:pos value:&value maxOpacity: BONEOPACITY minValue: minValue])
+			if ([self get3DPixelUnder2DPositionX:_mouseLocStart.x
+                                               Y:_mouseLocStart.y
+                                           pixel:pix
+                                        position:pos
+                                           value:&value
+                                      maxOpacity:BONEOPACITY
+                                        minValue:minValue])
 			{
 				WaitRendering	*waiting = [[WaitRendering alloc] init:NSLocalizedString(@"Applying Bone Removal...", nil)];
 				[waiting showWindow:self];
@@ -4266,7 +4472,7 @@ public:
 				
 				int savedMovieIndex = [[controller viewer2D] curMovieIndex];
 				
-				for ( int m = 0; m < [[controller viewer2D] maxMovieIndex] ; m++)
+				for (int m = 0; m < [[controller viewer2D] maxMovieIndex] ; m++)
 				{
 					[[controller viewer2D] setMovieIndex: m];
 					[[[controller viewer2D] imageView] setIndex: pix[ 2]]; //set the DCMview on the good slice
@@ -4298,7 +4504,7 @@ public:
 					NSArray *rois = [[controller viewer2D] roisWithName:@"BoneRemovalAlgorithmROIUniqueName"];
 					
 					NSMutableArray *d = [NSMutableArray array];
-					for( ROI *r in rois)
+					for (ROI *r in rois)
 					{
 						[d addObject: [NSDictionary dictionaryWithObjectsAndKeys:
                                        r, @"roi",
@@ -4325,7 +4531,7 @@ public:
 					NSNumber		*nsaddition	= [NSNumber numberWithBool: addition];
 					NSMutableArray	*roiToProceed = [NSMutableArray array];
 					
-					for( NSDictionary *rr in roiList)
+					for (NSDictionary *rr in roiList)
 					{
 						[roiToProceed addObject: [NSDictionary dictionaryWithObjectsAndKeys:
                                                   [rr objectForKey:@"roi"], @"roi",
@@ -4344,7 +4550,7 @@ public:
 					NSLog( @"**** Set Pixels");
 					
 					// Update 3D image
-					if( textureMapper) 
+					if (textureMapper)
 					{
 						// Force min/max recomputing
 						[self movieChangeSource: data];
@@ -4352,7 +4558,7 @@ public:
 					}
 					else
 					{
-						if( isRGB == NO)
+						if (isRGB == NO)
 //							vImageConvert_FTo16U( &srcf, &dst8, -OFFSET16, 1./valueFactor, 0);
 							[BrowserController multiThreadedImageConvert: @"FTo16U" :&srcf :&dst8 :-OFFSET16 :1./valueFactor];
 					}
@@ -4366,18 +4572,21 @@ public:
 				[waiting autorelease];
 				
 				[[controller viewer2D] roiIntDeleteAllROIsWithSameName:@"BoneRemovalAlgorithmROIUniqueName"];
-				
 				[[controller viewer2D] needsDisplayUpdate];
 			}
 			else
-                NSRunAlertPanel(NSLocalizedString(@"Bone Removing", nil), NSLocalizedString(@"Failed to detect a high density voxel to start growing region.", nil), NSLocalizedString(@"OK", nil), nil, nil);
+                NSRunAlertPanel(NSLocalizedString(@"Bone Removing", nil),
+                                NSLocalizedString(@"Failed to detect a high density voxel to start growing region.", nil),
+                                NSLocalizedString(@"OK", nil),
+                                nil,
+                                nil);
 
 			NSLog( @"**** Bone Removal End");
 		}
 		else
             [super mouseDown:theEvent];
 		
-		if( croppingBox)
+		if (croppingBox)
 			croppingBox->SetHandleSize( 0.005);
 	}
 	
@@ -4390,7 +4599,7 @@ public:
 //{
 //    return;
 //    
-//	if( croppingBox && isRGB == NO && dontUseAutoCropping == NO)
+//	if (croppingBox && isRGB == NO && dontUseAutoCropping == NO)
 //	{
 //		double a[6], originalPositions[ 6];
 //		int aa[6];
@@ -4401,15 +4610,15 @@ public:
 //		BOOL found;
 //		int width = [firstObject pwidth], height = [firstObject pheight], depth = [pixList count], slice = width * height, x, y, z;
 //		
-//		for( x = 0 ; x < 6; x++)
+//		for (x = 0 ; x < 6; x++)
 //			originalPositions[ x] = a[ x];
 //			
-//		for( x = 0 ; x < 6; x++)
+//		for (x = 0 ; x < 6; x++)
 //			a[ x] /= superSampling;
 //		
 //		float sliceThickness = [firstObject sliceInterval];
 //		
-//		if( sliceThickness == 0)
+//		if (sliceThickness == 0)
 //			sliceThickness = [firstObject sliceThickness];
 //		
 //		a[ 4] *= [firstObject pixelSpacingX];
@@ -4424,14 +4633,14 @@ public:
 //		a[ 2] = a[ 2] >= height ? height-1 : a[ 2];		a[ 3] = a[ 3] >= height ? height-1 : a[ 3];
 //		a[ 4] = a[ 4] >= depth ? depth-1 : a[ 4];		a[ 5] = a[ 5] >= depth ? depth-1 : a[ 5];
 //		
-//		for( x = 0 ; x < 6; x++)
+//		for (x = 0 ; x < 6; x++)
 //			aa[ x] = a[ x];
 //		
 //		aa[ 0] = aa[ 0] < 0 ? 0 : aa[ 0];		aa[ 1] = aa[ 1] < 0 ? 0 : aa[ 1];
 //		aa[ 2] = aa[ 2] < 0 ? 0 : aa[ 2];		aa[ 3] = aa[ 3] < 0 ? 0 : aa[ 3];
 //		aa[ 4] = aa[ 4] < 0 ? 0 : aa[ 4];		aa[ 5] = aa[ 5] < 0 ? 0 : aa[ 5];
 //		
-//        if(aa[ 1] - aa[ 0] > 0 &&
+//        if (aa[ 1] - aa[ 0] > 0 &&
 //           aa[ 3] - aa[ 2] > 0 &&
 //           aa[ 5] - aa[ 4] > 0 )
 //        {
@@ -4443,7 +4652,7 @@ public:
 //            
 //            double *opacityTable = (double*) malloc( opacityTableSize * sizeof( double));
 //            
-//            if( opacityTable)
+//            if (opacityTable)
 //            {
 //                opacityTransferFunction->GetTable(	([controller minimumValue] + OFFSET16) * valueFactor,
 //                                                    ([controller maximumValue] + OFFSET16) * valueFactor,
@@ -4454,14 +4663,14 @@ public:
 //                
 //                #define CHECKINTERVAL 3
 //                
-//                for( found = NO, x = aa[ 0]; x < width && x < aa[ 1]; x+=CHECKINTERVAL)
+//                for (found = NO, x = aa[ 0]; x < width && x < aa[ 1]; x+=CHECKINTERVAL)
 //                {
-//                    for(  y = aa[ 2]; y < height && y < aa[ 3]; y+=CHECKINTERVAL)
+//                    for ( y = aa[ 2]; y < height && y < aa[ 3]; y+=CHECKINTERVAL)
 //                    {
-//                        for(  z = aa[ 4]; z < depth && z < aa[ 5]; z+=CHECKINTERVAL)
+//                        for ( z = aa[ 4]; z < depth && z < aa[ 5]; z+=CHECKINTERVAL)
 //                        {
 //                            short p = *(sdata + x + y * width + z * slice);
-//                            if( p != v && opacityTable[ p] > 0)
+//                            if (p != v && opacityTable[ p] > 0)
 //                            {
 //                                aa[ 0] = x;
 //                                goto A2;
@@ -4472,14 +4681,14 @@ public:
 //                aa[ 0] = a[ 1];
 //                
 //                A2:
-//                for( found = NO, x = aa[ 1]; x >= 0 && x > aa[ 0]; x-=CHECKINTERVAL)
+//                for (found = NO, x = aa[ 1]; x >= 0 && x > aa[ 0]; x-=CHECKINTERVAL)
 //                {
-//                    for(  y = aa[ 2]; y < height && y < aa[ 3]; y+=CHECKINTERVAL)
+//                    for ( y = aa[ 2]; y < height && y < aa[ 3]; y+=CHECKINTERVAL)
 //                    {
-//                        for(  z = aa[ 4]; z < depth && z < aa[ 5]; z+=CHECKINTERVAL)
+//                        for ( z = aa[ 4]; z < depth && z < aa[ 5]; z+=CHECKINTERVAL)
 //                        {
 //                            short p = *(sdata + x + y * width + z * slice);
-//                            if( p != v && opacityTable[ p] > 0)
+//                            if (p != v && opacityTable[ p] > 0)
 //                            {
 //                                aa[ 1] = x;
 //                                goto A3;
@@ -4491,14 +4700,14 @@ public:
 //                
 //                ////////////
 //                A3:
-//                for( found = NO, y = aa[ 2]; y < height && y < aa[ 3]; y+=CHECKINTERVAL)
+//                for (found = NO, y = aa[ 2]; y < height && y < aa[ 3]; y+=CHECKINTERVAL)
 //                {
-//                    for(  x = aa[ 0]; x < width && x < aa[ 1]; x+=CHECKINTERVAL)
+//                    for ( x = aa[ 0]; x < width && x < aa[ 1]; x+=CHECKINTERVAL)
 //                    {
-//                        for(  z = aa[ 4]; z < depth && z < aa[ 5]; z+=CHECKINTERVAL)
+//                        for ( z = aa[ 4]; z < depth && z < aa[ 5]; z+=CHECKINTERVAL)
 //                        {
 //                            short p = *(sdata + x + y * width + z * slice);
-//                            if( p != v && opacityTable[ p] > 0)
+//                            if (p != v && opacityTable[ p] > 0)
 //                            {
 //                                aa[ 2] = y;
 //                                goto A4;
@@ -4509,14 +4718,14 @@ public:
 //                aa[ 2] = aa[ 3];
 //                
 //                A4:
-//                for( found = NO, y = aa[ 3]; y >= 0 && y > aa[ 2]; y-=CHECKINTERVAL)
+//                for (found = NO, y = aa[ 3]; y >= 0 && y > aa[ 2]; y-=CHECKINTERVAL)
 //                {
-//                    for(  x = aa[ 0]; x < width && x < aa[ 1]; x+=CHECKINTERVAL)
+//                    for ( x = aa[ 0]; x < width && x < aa[ 1]; x+=CHECKINTERVAL)
 //                    {
-//                        for(  z = aa[ 4]; z < depth && z < aa[ 5]; z+=CHECKINTERVAL)
+//                        for ( z = aa[ 4]; z < depth && z < aa[ 5]; z+=CHECKINTERVAL)
 //                        {
 //                            short p = *(sdata + x + y * width + z * slice);
-//                            if( p != v && opacityTable[ p] > 0)
+//                            if (p != v && opacityTable[ p] > 0)
 //                            {
 //                                aa[ 3] = y;
 //                                goto A5;
@@ -4528,14 +4737,14 @@ public:
 //                
 //                ////////////
 //                A5:
-//                for( found = NO, z = aa[ 4]; z < depth && z < aa[ 5]; z+=CHECKINTERVAL)
+//                for (found = NO, z = aa[ 4]; z < depth && z < aa[ 5]; z+=CHECKINTERVAL)
 //                {
-//                    for(  x = aa[ 0]; x < width && x < aa[ 1]; x+=CHECKINTERVAL)
+//                    for ( x = aa[ 0]; x < width && x < aa[ 1]; x+=CHECKINTERVAL)
 //                    {
-//                        for(  y = aa[ 2]; y < height && y < aa[ 3]; y+=CHECKINTERVAL)
+//                        for ( y = aa[ 2]; y < height && y < aa[ 3]; y+=CHECKINTERVAL)
 //                        {
 //                            short p = *(sdata + x + y * width + z * slice);
-//                            if( p != v && opacityTable[ p] > 0)
+//                            if (p != v && opacityTable[ p] > 0)
 //                            {
 //                                aa[ 4] = z;
 //                                goto A6;
@@ -4546,14 +4755,14 @@ public:
 //                aa[ 4] = aa[ 5];
 //                
 //                A6:
-//                for( found = NO, z = aa[ 5]; z >= 0 && z > aa[ 4]; z-=CHECKINTERVAL)
+//                for (found = NO, z = aa[ 5]; z >= 0 && z > aa[ 4]; z-=CHECKINTERVAL)
 //                {
-//                    for(  x = aa[ 0]; x < width && x < aa[ 1]; x+=CHECKINTERVAL)
+//                    for ( x = aa[ 0]; x < width && x < aa[ 1]; x+=CHECKINTERVAL)
 //                    {
-//                        for(  y = aa[ 2]; y < height && y < aa[ 3]; y+=CHECKINTERVAL)
+//                        for ( y = aa[ 2]; y < height && y < aa[ 3]; y+=CHECKINTERVAL)
 //                        {
 //                            short p = *(sdata + x + y * width + z * slice);
-//                            if( p != v && opacityTable[ p] > 0)
+//                            if (p != v && opacityTable[ p] > 0)
 //                            {
 //                                aa[ 5] = z;
 //                                goto A7;
@@ -4573,7 +4782,7 @@ public:
 //                aa[ 2] = aa[ 2] < 0 ? 0 : aa[ 2];		aa[ 3] = aa[ 3] < 0 ? 0 : aa[ 3];
 //                aa[ 4] = aa[ 4] < 0 ? 0 : aa[ 4];		aa[ 5] = aa[ 5] < 0 ? 0 : aa[ 5];
 //                
-//                for( x = 0 ; x < 6; x++)
+//                for (x = 0 ; x < 6; x++)
 //                    a[ x] = aa[ x];
 //                
 //                a[ 0] = a[ 0] >= width ? width-1 : a[ 0];		a[ 1] = a[ 1] >= width ? width-1 : a[ 1];
@@ -4595,19 +4804,19 @@ public:
 //                
 //                ////////////
 //                
-//                for( x = 0 ; x < 6; x++)
+//                for (x = 0 ; x < 6; x++)
 //                    a[ x] *= superSampling;
 //                
-//                for( x = 0 ; x < 6; x++)
+//                for (x = 0 ; x < 6; x++)
 //                {
-//                    if( originalPositions[ 0] > a[ 0]) a[ 0] = originalPositions[ 0];
-//                    if( originalPositions[ 1] < a[ 1]) a[ 1] = originalPositions[ 1];
+//                    if (originalPositions[ 0] > a[ 0]) a[ 0] = originalPositions[ 0];
+//                    if (originalPositions[ 1] < a[ 1]) a[ 1] = originalPositions[ 1];
 //                    
-//                    if( originalPositions[ 2] > a[ 2]) a[ 2] = originalPositions[ 2];
-//                    if( originalPositions[ 3] < a[ 3]) a[ 3] = originalPositions[ 3];
+//                    if (originalPositions[ 2] > a[ 2]) a[ 2] = originalPositions[ 2];
+//                    if (originalPositions[ 3] < a[ 3]) a[ 3] = originalPositions[ 3];
 //                    
-//                    if( originalPositions[ 4] > a[ 4]) a[ 4] = originalPositions[ 4];
-//                    if( originalPositions[ 5] < a[ 5]) a[ 5] = originalPositions[ 5];
+//                    if (originalPositions[ 4] > a[ 4]) a[ 4] = originalPositions[ 4];
+//                    if (originalPositions[ 5] < a[ 5]) a[ 5] = originalPositions[ 5];
 //                }
 //                
 //                [VRView setCroppingBox: a :volume];
@@ -4631,7 +4840,7 @@ public:
 	
 	vtkMatrix4x4 *ActorMatrix;
 	
-	if( blendedSeries)
+	if (blendedSeries)
         ActorMatrix = blendingVolume->GetUserMatrix();
 	else
         ActorMatrix = volume->GetUserMatrix();
@@ -4644,7 +4853,7 @@ public:
 	aCamera->GetViewPlaneNormal( cameraProj);
 	aCamera->GetPosition( xyz);
 	
-	if( blendedSeries)
+	if (blendedSeries)
 	{
 		xyz[ 0] /= blendingFactor;
 		xyz[ 1] /= blendingFactor;
@@ -4658,16 +4867,26 @@ public:
 	}
 	[fObject orientation: vector];
 	
-	cameraProjObj[ 0] = cameraProj[ 0] * vector[ 0] + cameraProj[ 1] * vector[ 1] + cameraProj[ 2] * vector[ 2];
-	cameraProjObj[ 1] = cameraProj[ 0] * vector[ 3] + cameraProj[ 1] * vector[ 4] + cameraProj[ 2] * vector[ 5];
-	cameraProjObj[ 2] = cameraProj[ 0] * vector[ 6] + cameraProj[ 1] * vector[ 7] + cameraProj[ 2] * vector[ 8];
+	cameraProjObj[ 0] = cameraProj[ 0] * vector[ 0] +
+                        cameraProj[ 1] * vector[ 1] +
+                        cameraProj[ 2] * vector[ 2];
+    
+	cameraProjObj[ 1] = cameraProj[ 0] * vector[ 3] +
+                        cameraProj[ 1] * vector[ 4] +
+                        cameraProj[ 2] * vector[ 5];
+    
+	cameraProjObj[ 2] = cameraProj[ 0] * vector[ 6] +
+                        cameraProj[ 1] * vector[ 7] +
+                        cameraProj[ 2] * vector[ 8];
 				
-	if( fabs( cameraProjObj[ 0]) > fabs(cameraProjObj[ 1]) && fabs(cameraProjObj[ 0]) > fabs(cameraProjObj[ 2]))
+	if (fabs(cameraProjObj[ 0]) > fabs(cameraProjObj[ 1]) &&
+        fabs(cameraProjObj[ 0]) > fabs(cameraProjObj[ 2]))
 	{
 		NSLog(@"X Stack");
 		stackOrientation = 0;
 	}
-	else if( fabs(cameraProjObj[ 1]) > fabs(cameraProjObj[ 0]) && fabs(cameraProjObj[ 1]) > fabs(cameraProjObj[ 2]))
+	else if (fabs(cameraProjObj[ 1]) > fabs(cameraProjObj[ 0]) &&
+             fabs(cameraProjObj[ 1]) > fabs(cameraProjObj[ 2]))
 	{
 		NSLog(@"Y Stack");
 		stackOrientation = 1;
@@ -4678,15 +4897,18 @@ public:
 		stackOrientation = 2;
 	}
 	
-	switch( stackOrientation)
+	switch (stackOrientation)
 	{
-		case 0:		stackMax = [fObject pwidth];		break;
-		case 1:		stackMax = [fObject pheight];		break;
-		case 2:		stackMax = [pxList count];				break;
+		case 0:	stackMax = [fObject pwidth];	break;
+		case 1:	stackMax = [fObject pheight];	break;
+		case 2:	stackMax = [pxList count];		break;
 	}
 	
-	for( i = 0 ; i < stackMax ; i++)
-		[ROIList addObject: [[[ROI alloc] initWithType: tCPolygon :[fObject pixelSpacingX]*factor :[fObject pixelSpacingY]*factor :[DCMPix originCorrectedAccordingToOrientation: fObject]] autorelease]];
+	for (i = 0 ; i < stackMax ; i++)
+		[ROIList addObject: [[[ROI alloc] initWithType:tCPolygon
+                                                      :[fObject pixelSpacingX]*factor
+                                                      :[fObject pixelSpacingY]*factor
+                                                      :[DCMPix originCorrectedAccordingToOrientation: fObject]] autorelease]];
     
     // Clip the polygons to the crop box?
     NSValue *minClip = [NSValue valueWithPoint: NSMakePoint( 0, 0)];
@@ -4695,16 +4917,16 @@ public:
     double a[ 6];
     BOOL applyInsideCroppBox = NO;
     
-    if( [VRView getCroppingBox: a :volume :croppingBox])
+    if ([VRView getCroppingBox: a :volume :croppingBox])
     {
         int width = [firstObject pwidth], height = [firstObject pheight], depth = [pixList count];
         
-		for( int x = 0 ; x < 6; x++)
+		for (int x = 0 ; x < 6; x++)
 			a[ x] /= superSampling;
         
 		float sliceThickness = [firstObject sliceInterval];
         
-		if( sliceThickness == 0)
+		if (sliceThickness == 0)
 			sliceThickness = [firstObject sliceThickness];
         
 		a[ 4] *= [firstObject pixelSpacingX];
@@ -4715,43 +4937,51 @@ public:
 		a[ 2] *= [firstObject pixelSpacingX] / [firstObject pixelSpacingY];
 		a[ 3] *= [firstObject pixelSpacingX] / [firstObject pixelSpacingY];
         
-        a[ 0] --;   a[ 1] ++;
-        a[ 2] --;   a[ 3] ++;
-        a[ 4] --;   a[ 5] ++;
+        a[ 0]--;   a[ 1]++;
+        a[ 2]--;   a[ 3]++;
+        a[ 4]--;   a[ 5]++;
         
-		a[ 0] = a[ 0] >= width ? width : a[ 0];		a[ 1] = a[ 1] >= width ? width : a[ 1];
-		a[ 2] = a[ 2] >= height ? height : a[ 2];	a[ 3] = a[ 3] >= height ? height : a[ 3];
-		a[ 4] = a[ 4] >= depth ? depth : a[ 4];		a[ 5] = a[ 5] >= depth ? depth : a[ 5];
+		a[ 0] = a[ 0] >= width ? width : a[ 0];
+        a[ 1] = a[ 1] >= width ? width : a[ 1];
         
-		a[ 0] = a[ 0] < 0 ? 0 : a[ 0];		a[ 1] = a[ 1] < 0 ? 0 : a[ 1];
-		a[ 2] = a[ 2] < 0 ? 0 : a[ 2];		a[ 3] = a[ 3] < 0 ? 0 : a[ 3];
-		a[ 4] = a[ 4] < 0 ? 0 : a[ 4];		a[ 5] = a[ 5] < 0 ? 0 : a[ 5];
+		a[ 2] = a[ 2] >= height ? height : a[ 2];
+        a[ 3] = a[ 3] >= height ? height : a[ 3];
+        
+		a[ 4] = a[ 4] >= depth ? depth : a[ 4];
+        a[ 5] = a[ 5] >= depth ? depth : a[ 5];
+        
+		a[ 0] = a[ 0] < 0 ? 0 : a[ 0];
+        a[ 1] = a[ 1] < 0 ? 0 : a[ 1];
+		a[ 2] = a[ 2] < 0 ? 0 : a[ 2];
+        a[ 3] = a[ 3] < 0 ? 0 : a[ 3];
+		a[ 4] = a[ 4] < 0 ? 0 : a[ 4];
+        a[ 5] = a[ 5] < 0 ? 0 : a[ 5];
         
         applyInsideCroppBox = YES;
         
-        switch( stackOrientation)
+        switch (stackOrientation)
         {
             case 0:
                 minClip = [NSValue valueWithPoint: NSMakePoint( floor(a[ 2]), floor( a[ 4]))];
                 maxClip = [NSValue valueWithPoint: NSMakePoint( ceil(a[ 3]), ceil( a[ 5]))];
                 zClip = NSMakePoint( floor( a[ 0]), ceil( a[ 1]));
-            break;
+                break;
                 
             case 1:
                 minClip = [NSValue valueWithPoint: NSMakePoint( floor(a[ 0]), floor( a[ 4]))];
                 maxClip = [NSValue valueWithPoint: NSMakePoint( ceil(a[ 1]), ceil( a[ 5]))];
                 zClip = NSMakePoint( floor( a[ 2]), ceil( a[ 3]));
-            break;
+                break;
                 
             case 2:
                 minClip = [NSValue valueWithPoint: NSMakePoint( floor(a[ 0]), floor( a[ 2]))];
                 maxClip = [NSValue valueWithPoint: NSMakePoint( ceil(a[ 1]), ceil( a[ 3]))];
                 zClip = NSMakePoint( floor( a[ 4]), ceil( a[ 5]));
-            break;
+                break;
         }
     }
     
-	for( tt = 0; tt < roiPts->GetNumberOfPoints(); tt++)
+	for (tt = 0; tt < roiPts->GetNumberOfPoints(); tt++)
 	{
 		float	point1[ 3], point2[ 3];
 		long	x;
@@ -4763,7 +4993,7 @@ public:
 		aRenderer->DisplayToWorld();
 		pp = aRenderer->GetWorldPoint();
 		
-		if( blendedSeries)
+		if (blendedSeries)
 		{
 			pp[ 0] /= blendingFactor;
 			pp[ 1] /= blendingFactor;
@@ -4776,7 +5006,7 @@ public:
 			pp[ 2] /= factor;
 		}
 		
-		if( aCamera->GetParallelProjection())
+		if (aCamera->GetParallelProjection())
 		{
 			aCamera->GetPosition( xyz);
 			
@@ -4812,21 +5042,21 @@ public:
 		}
 		
 		// Intersection between this line and planes in Z direction
-		for( x = 0; x < stackMax; x++)
+		for (x = 0; x < stackMax; x++)
 		{
 			float	planeVector[ 3];
 			float	point[ 3];
 			float	resultPt[ 3];
 			double	vPos[ 3];
 			
-			if( blendedSeries)
+			if (blendedSeries)
                 blendingVolume->GetPosition( vPos);
 			else
                 volume->GetPosition( vPos);
 	
 			 // factor
 			
-			if( blendedSeries)
+			if (blendedSeries)
 			{
 				vPos[ 0] /= blendingFactor;
 				vPos[ 1] /= blendingFactor;
@@ -4839,27 +5069,27 @@ public:
 				vPos[ 2] /= factor;
 			}
 			
-			switch( stackOrientation)
+			switch (stackOrientation)
 			{
 				case 0:
 					point[ 0] = x * [fObject pixelSpacingX];
 					point[ 1] = 0;
 					point[ 2] = 0;
 												
-					planeVector[ 0] =  vector[ 0];
-					planeVector[ 1] =  vector[ 1];
-					planeVector[ 2] =  vector[ 2];
-				break;
+					planeVector[ 0] = vector[ 0];
+					planeVector[ 1] = vector[ 1];
+					planeVector[ 2] = vector[ 2];
+                    break;
 				
 				case 1:
 					point[ 0] = 0;
 					point[ 1] = x * [fObject pixelSpacingY];
 					point[ 2] = 0;
 					
-					planeVector[ 0] =  vector[ 3];
-					planeVector[ 1] =  vector[ 4];
-					planeVector[ 2] =  vector[ 5];
-				break;
+					planeVector[ 0] = vector[ 3];
+					planeVector[ 1] = vector[ 4];
+					planeVector[ 2] = vector[ 5];
+                    break;
 				
 				case 2:
 					point[ 0] = 0;
@@ -4867,10 +5097,10 @@ public:
 			//		point[ 2] = x * fabs( [fObject sliceInterval]);
 					point[ 2] = x * ( [fObject sliceInterval]);
 					
-					planeVector[ 0] =  vector[ 6];
-					planeVector[ 1] =  vector[ 7];
-					planeVector[ 2] =  vector[ 8];
-				break;
+					planeVector[ 0] = vector[ 6];
+					planeVector[ 1] = vector[ 7];
+					planeVector[ 2] = vector[ 8];
+                    break;
 			}
 			
 			point[ 0] += vPos[ 0];
@@ -4902,29 +5132,29 @@ public:
 				ptInt[ 1] = (long) (tempPoint3D[1] + 0.5);
 				ptInt[ 2] = (long) (tempPoint3D[2] + 0.5);
 				
-				if( needToFlip) 
+				if (needToFlip)
 					ptInt[ 2] = [pxList count] - ptInt[ 2] -1;
 				
-                switch( stackOrientation)
+                switch (stackOrientation)
                 {
                     case 0:	
                         roiID = ptInt[0];
                         
-                        if( roiID >= zClip.x && roiID < zClip.y)
+                        if (roiID >= zClip.x && roiID < zClip.y)
                             [[[ROIList objectAtIndex: roiID] points] addObject: [MyPoint point: NSMakePoint(ptInt[1], ptInt[2])]];
                     break;
                     
                     case 1:
                         roiID = ptInt[1];
                         
-                        if( roiID >= zClip.x && roiID < zClip.y)
+                        if (roiID >= zClip.x && roiID < zClip.y)
                             [[[ROIList objectAtIndex: roiID] points] addObject: [MyPoint point: NSMakePoint(ptInt[0], ptInt[2])]];
                     break;
                     
                     case 2:
                         roiID = ptInt[2];
                         
-                        if( roiID >= zClip.x && roiID < zClip.y)
+                        if (roiID >= zClip.x && roiID < zClip.y)
                             [[[ROIList objectAtIndex: roiID] points] addObject: [MyPoint point: NSMakePoint(ptInt[0], ptInt[1])]];
                     break;
                 }
@@ -4937,29 +5167,25 @@ public:
 	BOOL	addition = NO;
 	float	newVal = 0;
 	
-	if( c == NSDeleteFunctionKey || c == NSDeleteCharacter || c == NSBackspaceCharacter || c == NSDeleteCharFunctionKey)
+	if (c == NSDeleteFunctionKey || c == NSDeleteCharacter || c == NSBackspaceCharacter || c == NSDeleteCharFunctionKey)
 	{
-		if( [[NSApp currentEvent] modifierFlags] & NSShiftKeyMask)
+		if ([[NSApp currentEvent] modifierFlags] & NSEventModifierFlagShift)
 		{
 			addition = YES;
 			gDataValuesChanged = YES;
-			
 			newVal = 1024;
 		}
 		
-		if( [[NSApp currentEvent] modifierFlags] & NSAlternateKeyMask)
+		if ([[NSApp currentEvent] modifierFlags] & NSEventModifierFlagOption)
 		{
 			addition = YES;
 			gDataValuesChanged = YES;
-			
 			newVal = -1024;
 		}
 	}
 	
-	if( c == NSTabCharacter)
-	{
+	if (c == NSTabCharacter)
 		gDataValuesChanged = YES;
-	}
 	
 	int savedMovieFrame = [controller curMovieIndex];
 	
@@ -4980,26 +5206,35 @@ public:
         
         for ( i = 0; i < stackMax; i++ )
         {
-            VRViewOperation *op = [[[VRViewOperation alloc] initWithController: controller objects: [NSArray arrayWithObjects: [NSNumber numberWithInt:i], [NSNumber numberWithInt:stackOrientation], [NSNumber numberWithInt: c], [ROIList objectAtIndex: i], [NSNumber numberWithInt: blendedSeries], [NSNumber numberWithBool: addition], [NSNumber numberWithFloat: newVal], minClip, maxClip, nil]] autorelease];
-            
+            VRViewOperation *op = [[[VRViewOperation alloc] initWithController: controller
+                                                                       objects: [NSArray arrayWithObjects:
+                                                                                 [NSNumber numberWithInt:i],
+                                                                                 [NSNumber numberWithInt:stackOrientation],
+                                                                                 [NSNumber numberWithInt: c],
+                                                                                 [ROIList objectAtIndex: i],
+                                                                                 [NSNumber numberWithInt: blendedSeries],
+                                                                                 [NSNumber numberWithBool: addition],
+                                                                                 [NSNumber numberWithFloat: newVal],
+                                                                                 minClip,
+                                                                                 maxClip,
+                                                                                 nil]] autorelease];
             [queue addOperation: op];
         }
         
         [queue waitUntilAllOperationsAreFinished];
-        
-        
-        
 		[[[controller curPixList] objectAtIndex: 0] freeRestore];
 	}
     
     // Update everything..
     ROIUPDATE = NO;
-    [[NSNotificationCenter defaultCenter] postNotificationName: OsirixUpdateVolumeDataNotification object: pixList userInfo: [NSDictionary dictionaryWithObject: self forKey: @"sender"]];
+    [[NSNotificationCenter defaultCenter] postNotificationName: OsirixUpdateVolumeDataNotification
+                                                        object: pixList
+                                                      userInfo: [NSDictionary dictionaryWithObject: self forKey: @"sender"]];
     
-    if( cropcallback)
+    if (cropcallback)
         cropcallback->Execute(croppingBox, 0, nil);
     
-    if( textureMapper || gDataValuesChanged)
+    if (textureMapper || gDataValuesChanged)
     {
         [self computeValueFactor];
         // Force min/max recomputing
@@ -5009,11 +5244,11 @@ public:
     }
     else
     {
-        if( isRGB == NO)
+        if (isRGB == NO)
             [BrowserController multiThreadedImageConvert: @"FTo16U" :&srcf :&dst8 :-OFFSET16 :1./valueFactor];
     }
     
-    if( clutOpacityView)
+    if (clutOpacityView)
     {
         [clutOpacityView callComputeHistogram];
         [clutOpacityView updateView];
@@ -5042,25 +5277,22 @@ public:
 {
 	double flyFrom[3], flyTo[3];
 	double d[3], focalPt[3];
-	int i, j;
 
-	flyTo[0]=x; flyTo[1]=y; flyTo[2]=z;
+	flyTo[0]=x;
+    flyTo[1]=y;
+    flyTo[2]=z;
 	
 	aRenderer->GetActiveCamera()->GetFocalPoint(flyFrom);
 	
-	for (i=0; i<3; i++)
-	{
+	for (int i=0; i<3; i++)
 		d[i] = flyTo[i] - flyFrom[i];
-	}
-	
 	
 	double delta = [firstObject pixelSpacingX]*factor/FLYTO;
-	if( incFlyTo < FLYTO) incFlyTo++;
+	if (incFlyTo < FLYTO)
+        incFlyTo++;
 	
-	for (j=0; j<3; j++)
-	{
+	for (int j=0; j<3; j++)
 		focalPt[j] = flyFrom[j] + d[j]*delta*incFlyTo;
-	}
 	
 	aRenderer->GetActiveCamera()->SetFocalPoint(focalPt);
 	
@@ -5070,7 +5302,7 @@ public:
 	aCamera->SetDistance( distance);
 	aRenderer->GetActiveCamera()->OrthogonalizeViewUp();
 	
-	if( clipRangeActivated)
+	if (clipRangeActivated)
 		aCamera->SetClippingRange( 0.0, clippingRangeThickness);
 	else
 		aRenderer->ResetCameraClippingRange();
@@ -5103,13 +5335,19 @@ public:
 {
 	[self flyTo: flyToDestination[0]*factor :flyToDestination[1]*factor :flyToDestination[2]*factor];
 	
-	if( volumeMapper) volumeMapper->SetMinimumImageSampleDistance( LOD*lowResLODFactor);
-	if( blendingVolumeMapper) blendingVolumeMapper->SetMinimumImageSampleDistance( LOD*lowResLODFactor);
+	if (volumeMapper)
+        volumeMapper->SetMinimumImageSampleDistance( LOD*lowResLODFactor);
+    
+	if (blendingVolumeMapper)
+        blendingVolumeMapper->SetMinimumImageSampleDistance( LOD*lowResLODFactor);
 	
 	[self display];
 	
-	if( volumeMapper) volumeMapper->SetMinimumImageSampleDistance( LOD);
-	if( blendingVolumeMapper) blendingVolumeMapper->SetMinimumImageSampleDistance( LOD);
+	if (volumeMapper)
+        volumeMapper->SetMinimumImageSampleDistance( LOD);
+    
+	if (blendingVolumeMapper)
+        blendingVolumeMapper->SetMinimumImageSampleDistance( LOD);
 	
 	[[NSNotificationCenter defaultCenter] postNotificationName: OsirixVRCameraDidChangeNotification object:self  userInfo: nil];
 }
@@ -5119,12 +5357,12 @@ public:
     if ([self eventToPlugins: event])
         return;
     
-    if( [[event characters] length] == 0)
+    if ([[event characters] length] == 0)
         return;
     
 	unichar c = [[event characters] characterAtIndex:0];
 	
-	if( c ==  'f')
+	if (c == 'f')
 	{
 		flyto = NO;
 		[self setNeedsDisplay: YES];
@@ -5136,20 +5374,20 @@ public:
     if ([self eventToPlugins: event])
         return;
     
-    if( [[event characters] length] == 0)
+    if ([[event characters] length] == 0)
         return;
     
     unichar c = [[event characters] characterAtIndex:0];
     
-	if( c ==  'f')
+	if (c == 'f')
 	{
-		if( aCamera->GetParallelProjection() == NO && flyto == NO)
+		if (aCamera->GetParallelProjection() == NO && flyto == NO)
 		{
 			NSPoint mousePoint = [self convertPoint: [[self window] mouseLocationOutsideOfEventStream] fromView: nil];
 			long	pix[ 3];
 			float	value;
 			
-			if( [self get3DPixelUnder2DPositionX:mousePoint.x Y:mousePoint.y pixel:pix position:flyToDestination value:&value])
+			if ([self get3DPixelUnder2DPositionX:mousePoint.x Y:mousePoint.y pixel:pix position:flyToDestination value:&value])
 			{
 				flyto = YES;
 				incFlyTo = 1;
@@ -5158,12 +5396,12 @@ public:
                 flyto = NO;
 		}
 	}
-	else if( c == ' ')
+	else if (c == ' ')
 	{
-		if( [[[self window] windowController] isKindOfClass:[VRController class]])
+		if ([[[self window] windowController] isKindOfClass:[VRController class]])
 			isRotating = !isRotating;
 	}
-	else if( c == '?')
+	else if (c == '?')
 	{
 		NSDate	*now = [NSDate date];
 		
@@ -5174,16 +5412,19 @@ public:
 			[self Azimuth: 360. / 100.];
 			[self display];
 		}
+        
 		NSLog( @"360 degree rotation - 100 images - END");
 		NSLog( @"360 degree rotation - Result in [s]: %f", -[now timeIntervalSinceNow]);
 		
-		[[AppController sharedAppController] growlTitle: NSLocalizedString( @"Performance Test", nil) description: [NSString stringWithFormat: NSLocalizedString(@"360 degree rotation - 100 images\rResult in [s] : %f", nil), -[now timeIntervalSinceNow]] name:@"result"];
+		[[AppController sharedAppController] growlTitle: NSLocalizedString( @"Performance Test", nil)
+                                            description: [NSString stringWithFormat: NSLocalizedString(@"360 degree rotation - 100 images\rResult in [s] : %f", nil), -[now timeIntervalSinceNow]]
+                                                   name:@"result"];
 	}
-	else if( c == 27 && currentTool == t3DCut)
+	else if (c == 27 && currentTool == t3DCut)
 	{
 		vtkPoints *pts = ROI3DData->GetPoints();
 		
-		if( bestRenderingWasGenerated)
+		if (bestRenderingWasGenerated)
 		{
 			bestRenderingWasGenerated = NO;
 			[self display];
@@ -5191,57 +5432,66 @@ public:
 		
 		dontRenderVolumeRenderingOsiriX = 1;
 		
-		if( pts->GetNumberOfPoints() != 0)
+		if (pts->GetNumberOfPoints() != 0)
 		{
 			// Delete current ROI
 			vtkPoints *pts = vtkPoints::New();
 			vtkCellArray *rect = vtkCellArray::New();
-			ROI3DData-> SetPoints( pts); pts->Delete();
-			ROI3DData-> SetLines( rect); rect->Delete();
+            
+			ROI3DData-> SetPoints( pts);
+            pts->Delete();
+            
+			ROI3DData-> SetLines( rect);
+            rect->Delete();
+            
 			[ROIPoints removeAllObjects];
-			
 			[self display];
 		}
 		
 		dontRenderVolumeRenderingOsiriX = 0;
 	}
-	else if( currentTool == tMesure || currentTool == tOval)
+	else if (currentTool == tMeasure || currentTool == tOval)
 	{
-        if( c == 27 || c == NSDeleteFunctionKey || c == NSDeleteCharacter || c == NSBackspaceCharacter || c == NSDeleteCharFunctionKey)
+        if (c == 27 || c == NSDeleteFunctionKey || c == NSDeleteCharacter || c == NSBackspaceCharacter || c == NSDeleteCharFunctionKey)
         {
-            if(currentTool == tMesure)
+            if (currentTool == tMeasure)
             {
                 vtkPoints *pts = Line2DData->GetPoints();
                 
-                if( bestRenderingWasGenerated)
+                if (bestRenderingWasGenerated)
                 {
                     bestRenderingWasGenerated = NO;
                     [self display];
                 }
+                
                 dontRenderVolumeRenderingOsiriX = 1;
 
-                if( pts->GetNumberOfPoints() != 0)
+                if (pts->GetNumberOfPoints() != 0)
                 {
                     // Delete current ROI
                     vtkPoints *pts = vtkPoints::New();
                     vtkCellArray *rect = vtkCellArray::New();
-                    Line2DData-> SetPoints( pts); pts->Delete();
-                    Line2DData-> SetLines( rect); rect->Delete();
+                    
+                    Line2DData-> SetPoints( pts);
+                    pts->Delete();
+                    
+                    Line2DData-> SetLines( rect);
+                    rect->Delete();
                     
                     [self computeLength];
-                    
                     [self display];
                 }
                 
                 dontRenderVolumeRenderingOsiriX = 0;
             }
-            else if( currentTool == tOval)
+            else if (currentTool == tOval)
             {
-                if( bestRenderingWasGenerated)
+                if (bestRenderingWasGenerated)
                 {
                     bestRenderingWasGenerated = NO;
                     [self display];
                 }
+                
                 dontRenderVolumeRenderingOsiriX = 1;
                 
                 // Delete current ROI
@@ -5256,31 +5506,39 @@ public:
             }
         }
 	}
-	else if( (c == NSCarriageReturnCharacter || c == NSEnterCharacter || c == NSTabCharacter || c == NSDeleteFunctionKey || c == NSDeleteCharacter || c == NSBackspaceCharacter || c == NSDeleteCharFunctionKey) && currentTool == t3DCut)
+	else if ((c == NSCarriageReturnCharacter || c == NSEnterCharacter || c == NSTabCharacter || c == NSDeleteFunctionKey || c == NSDeleteCharacter || c == NSBackspaceCharacter || c == NSDeleteCharFunctionKey) && currentTool == t3DCut)
 	{
 		vtkPoints *roiPts = ROI3DData->GetPoints();
 		
-		if( roiPts->GetNumberOfPoints() < 3)
+		if (roiPts->GetNumberOfPoints() < 3)
 		{
-			NSRunAlertPanel(NSLocalizedString(@"3D Cut", nil), NSLocalizedString(@"Draw an ROI on the 3D image and then press Return (include) or Delete (exclude) keys.", nil), NSLocalizedString(@"OK", nil), nil, nil);
+			NSRunAlertPanel(NSLocalizedString(@"3D Cut", nil),
+                            NSLocalizedString(@"Draw an ROI on the 3D image and then press Return (include) or Delete (exclude) keys.", nil),
+                            NSLocalizedString(@"OK", nil),
+                            nil,
+                            nil);
 		}
-		else if( c == NSTabCharacter && [[controller viewer2D] postprocessed] == YES)
+		else if (c == NSTabCharacter &&
+                 [[controller viewer2D] postprocessed] == YES)
 		{
-			NSRunAlertPanel(NSLocalizedString(@"Restore", nil), NSLocalizedString(@"This dataset has been post processed (reslicing, MPR, ...). You cannot restore it.", nil), NSLocalizedString(@"OK", nil), nil, nil);
+			NSRunAlertPanel(NSLocalizedString(@"Restore", nil),
+                            NSLocalizedString(@"This dataset has been post processed (reslicing, MPR, ...). You cannot restore it.", nil),
+                            NSLocalizedString(@"OK", nil),
+                            nil,
+                            nil);
 		}
 		else
 		{
 			WaitRendering	*waiting = [[WaitRendering alloc] init:NSLocalizedString(@"Applying Scissor...", nil)];
 			[waiting showWindow:self];
 			
-			if( [deleteRegion tryLock])
+			if ([deleteRegion tryLock])
 			{
 				[self deleteRegion: c :pixList :NO];
-                
                 [deleteRegion unlock];
 			}
 			
-//			if( blendingController)
+//			if (blendingController)
 //			{
 //				[self deleteRegion: c :blendingPixList :YES];
 //			}
@@ -5289,26 +5547,24 @@ public:
 			[waiting autorelease];
 		}
 	}
-	else if((c == NSDeleteFunctionKey || c == NSDeleteCharacter || c == NSBackspaceCharacter || c == NSDeleteCharFunctionKey) && currentTool == t3Dpoint)
+	else if ((c == NSDeleteFunctionKey || c == NSDeleteCharacter || c == NSBackspaceCharacter || c == NSDeleteCharFunctionKey) && currentTool == t3Dpoint)
 	{
-		if([self isAny3DPointSelected])
-		{
+		if ([self isAny3DPointSelected])
 			[self removeSelected3DPoint];
-		}
 	}
-	else if( c == 27)
+	else if (c == 27)
 	{
 		[controller offFullScreen];
 	}
-	else if( [self actionForHotKey:[event characters]] == NO) [super keyDown:event];
-	
+	else if ([self actionForHotKey:[event characters]] == NO)
+        [super keyDown:event];
 }
 
 //- (void) resetCroppingBox
 //{
-//	if( [[NSUserDefaults standardUserDefaults] boolForKey: @"dontAutoCropScissors"] == NO)
+//	if ([[NSUserDefaults standardUserDefaults] boolForKey: @"dontAutoCropScissors"] == NO)
 //	{
-//		if( croppingBox)
+//		if (croppingBox)
 //		{
 //			croppingBox->SetProp3D( volume);
 //			croppingBox->PlaceWidget();
@@ -5325,7 +5581,6 @@ public:
 //		}
 //	}	
 //}
-
 
 - (IBAction) undo:(id) sender
 {
@@ -5348,30 +5603,32 @@ public:
 	
     currentTool = i;
 	
-	if( currentTool != t3DRotate)
-	{
-		if( croppingBox)
-			if( croppingBox->GetEnabled()) croppingBox->Off();
-	}
+	if (currentTool != t3DRotate)
+		if (croppingBox)
+			if (croppingBox->GetEnabled())
+                croppingBox->Off();
 	
-    if( currentTool == tOval || previousTool == tOval)
+    if (currentTool == tOval || previousTool == tOval)
 	{
-		if( bestRenderingWasGenerated)
+		if (bestRenderingWasGenerated)
 		{
 			bestRenderingWasGenerated = NO;
 			[self display];
 		}
+        
 		dontRenderVolumeRenderingOsiriX = 1;
 		
 //		vtkPoints *pts = Oval2DData->GetPoints();
 //		
-//		if( pts->GetNumberOfPoints() != 0)
+//		if (pts->GetNumberOfPoints() != 0)
 //		{
 //			// Delete current ROI
 //			vtkPoints *pts = vtkPoints::New();
 //			vtkCellArray *rect = vtkCellArray::New();
-//			Oval2DData-> SetPoints( pts);		pts->Delete();
-//			Oval2DData-> SetLines( rect);		rect->Delete();
+//			Oval2DData-> SetPoints( pts);
+//          pts->Delete();
+//			Oval2DData-> SetLines( rect);
+//          rect->Delete();
 //			aRenderer->RemoveActor( Oval2DText);
 //			measureLength = 0;
 //			
@@ -5381,24 +5638,30 @@ public:
 		dontRenderVolumeRenderingOsiriX = 0;
 	}
     
-	if( currentTool == tMesure || previousTool == tMesure)
+	if (currentTool == tMeasure || previousTool == tMeasure)
 	{
-		if( bestRenderingWasGenerated)
+		if (bestRenderingWasGenerated)
 		{
 			bestRenderingWasGenerated = NO;
 			[self display];
 		}
+        
 		dontRenderVolumeRenderingOsiriX = 1;
 		
 		vtkPoints *pts = Line2DData->GetPoints();
 		
-		if( pts->GetNumberOfPoints() != 0)
+		if (pts->GetNumberOfPoints() != 0)
 		{
 			// Delete current ROI
 			vtkPoints *pts = vtkPoints::New();
 			vtkCellArray *rect = vtkCellArray::New();
-			Line2DData-> SetPoints( pts);		pts->Delete();
-			Line2DData-> SetLines( rect);		rect->Delete();
+            
+			Line2DData-> SetPoints( pts);
+            pts->Delete();
+            
+			Line2DData-> SetLines( rect);
+            rect->Delete();
+            
 			aRenderer->RemoveActor( Line2DText);
 			measureLength = 0;
 			
@@ -5408,23 +5671,29 @@ public:
 		dontRenderVolumeRenderingOsiriX = 0;
 	}
 	
-	if( (currentTool == t3DCut && previousTool == t3DCut) || currentTool != t3DCut)
+	if ((currentTool == t3DCut && previousTool == t3DCut) || currentTool != t3DCut)
 	{
-		if( bestRenderingWasGenerated)
+		if (bestRenderingWasGenerated)
 		{
 			bestRenderingWasGenerated = NO;
 			[self display];
 		}
+        
 		dontRenderVolumeRenderingOsiriX = 1;
 		vtkPoints		*roiPts = ROI3DData->GetPoints();
 		
-		if( roiPts->GetNumberOfPoints() != 0)
+		if (roiPts->GetNumberOfPoints() != 0)
 		{
 			// Delete current ROI
 			vtkPoints *pts = vtkPoints::New();
 			vtkCellArray *rect = vtkCellArray::New();
-			ROI3DData-> SetPoints( pts);		pts->Delete();
-			ROI3DData-> SetLines( rect);		rect->Delete();
+            
+			ROI3DData-> SetPoints( pts);
+            pts->Delete();
+            
+			ROI3DData-> SetLines( rect);
+            rect->Delete();
+            
 			[ROIPoints removeAllObjects];
 			
 			[self display];
@@ -5433,10 +5702,12 @@ public:
 		dontRenderVolumeRenderingOsiriX = 0;
 	}
 	
-	if(currentTool!=t3Dpoint && previousTool==t3Dpoint)
+	if (currentTool!=t3Dpoint && previousTool==t3Dpoint)
 	{
 		[self unselectAllActors];
-		if ([point3DInfoPanel isVisible]) [point3DInfoPanel performClose:self];
+		if ([point3DInfoPanel isVisible])
+            [point3DInfoPanel performClose:self];
+        
 		[self setNeedsDisplay:YES];
 	}
 	
@@ -5457,17 +5728,24 @@ public:
 
 -(void) setBlendingWLWW:(float) iwl :(float) iww
 {
-	if( blendingController == nil)
+	if (blendingController == nil)
         return;
 	
-	if( fullDepthMode)
+	if (fullDepthMode)
         return;
 	
 	blendingWl = iwl;
 	blendingWw = iww;
 	
-	blendingOpacityTransferFunction->BuildFunctionFromTable( blendingValueFactor*(blendingOFFSET16 + blendingWl-blendingWw/2), blendingValueFactor*(blendingOFFSET16 + blendingWl+blendingWw/2), 255, (double*) &alpha);
-	blendingColorTransferFunction->BuildFunctionFromTable( blendingValueFactor*(blendingOFFSET16 + blendingWl-blendingWw/2), blendingValueFactor*(blendingOFFSET16 + blendingWl+blendingWw/2), 255, (double*) &blendingtable);
+	blendingOpacityTransferFunction->BuildFunctionFromTable(blendingValueFactor*(blendingOFFSET16 + blendingWl-blendingWw/2),
+                                                            blendingValueFactor*(blendingOFFSET16 + blendingWl+blendingWw/2),
+                                                            255,
+                                                            (double*) &alpha);
+    
+	blendingColorTransferFunction->BuildFunctionFromTable(blendingValueFactor*(blendingOFFSET16 + blendingWl-blendingWw/2),
+                                                          blendingValueFactor*(blendingOFFSET16 + blendingWl+blendingWw/2),
+                                                          255,
+                                                          (double*) &blendingtable);
 	
     [self setNeedsDisplay:YES];
 }
@@ -5477,27 +5755,33 @@ public:
 	long	i, blendMode;
 	float   val, ii;
 	
-	if( fullDepthMode)
+	if (fullDepthMode)
         return;
 	
-	if( blendingController)
+	if (blendingController)
 	{
-		if( volumeMapper) blendMode = volumeMapper->GetBlendMode();
-		if( textureMapper) blendMode = textureMapper->GetBlendMode();
+		if (volumeMapper)
+            blendMode = volumeMapper->GetBlendMode();
+        
+		if (textureMapper)
+            blendMode = textureMapper->GetBlendMode();
 		
 		blendingFactor = a;
 		
-		if( blendMode == vtkVolumeMapper::MAXIMUM_INTENSITY_BLEND)
+		if (blendMode == vtkVolumeMapper::MAXIMUM_INTENSITY_BLEND)
 		{
 			a *= 2;
 			
-			for(i=0; i < 256; i++) 
+			for (i=0; i < 256; i++)
 			{
 				ii = i;
 				val = (a * ii) / 256.;
 				
-				if( val > 255) val = 255;
-				if( val < 0) val = 0;
+				if (val > 255)
+                    val = 255;
+                
+				if (val < 0)
+                    val = 0;
 				
 				alpha[ i] = val / 255.0;
 			}
@@ -5506,14 +5790,14 @@ public:
 		{
 			a /= 3;
 			
-			for(i=0; i < 256; i++) 
+			for (i=0; i < 256; i++)
 			{
 				ii = i;
 				val = (a * ii) / 256.;
 				val -= 8.;
 				
-				if( val > 255) val = 255;
-				if( val < 0) val = 0;
+				if (val > 255) val = 255;
+				if (val < 0) val = 0;
 				
 				alpha[ i] = val / 255.;
 			}
@@ -5531,33 +5815,41 @@ public:
 {
 	long i;
 	
-	if( fullDepthMode)
+	if (fullDepthMode)
         return;
 	
-    if( r == nil || g == nil || b == nil)
+    if (r == nil || g == nil || b == nil)
         return;
     
-	if( blendingController)
+	if (blendingController)
 	{
-		if( r)
+		if (r)
 		{
-			for( i = 0; i < 256; i++)
+			for (i = 0; i < 256; i++)
 			{
 				blendingtable[i][0] = r[i] / 255.;
 				blendingtable[i][1] = g[i] / 255.;
 				blendingtable[i][2] = b[i] / 255.;
 			}
-			blendingColorTransferFunction->BuildFunctionFromTable( blendingValueFactor*(blendingOFFSET16 + blendingWl-blendingWw/2), blendingValueFactor*(blendingOFFSET16 + blendingWl+blendingWw/2), 255, (double*) &blendingtable);
+            
+			blendingColorTransferFunction->BuildFunctionFromTable(blendingValueFactor*(blendingOFFSET16 + blendingWl-blendingWw/2),
+                                                                  blendingValueFactor*(blendingOFFSET16 + blendingWl+blendingWw/2),
+                                                                  255,
+                                                                  (double*) &blendingtable);
 		}
 		else
 		{
-			for( i = 0; i < 256; i++)
+			for (i = 0; i < 256; i++)
 			{
 				blendingtable[i][0] = i / 255.;
 				blendingtable[i][1] = i / 255.;
 				blendingtable[i][2] = i / 255.;
 			}
-			blendingColorTransferFunction->BuildFunctionFromTable( blendingValueFactor*(blendingOFFSET16 + blendingWl-blendingWw/2), blendingValueFactor*(blendingOFFSET16 + blendingWl+blendingWw/2), 255, (double*) &blendingtable);
+            
+			blendingColorTransferFunction->BuildFunctionFromTable(blendingValueFactor*(blendingOFFSET16 + blendingWl-blendingWw/2),
+                                                                  blendingValueFactor*(blendingOFFSET16 + blendingWl+blendingWw/2),
+                                                                  255,
+                                                                  (double*) &blendingtable);
 		}
 		
 		[self setNeedsDisplay:YES];
@@ -5566,10 +5858,10 @@ public:
 
 -(void) setOpacity:(NSArray*) array
 {
-	if( fullDepthMode)
+	if (fullDepthMode)
         return;
     
-    if( opacityTransferFunction == nil)
+    if (opacityTransferFunction == nil)
         return;
     
 	long		i;
@@ -5577,10 +5869,10 @@ public:
 	float		start, end;
 	float		opacityAdapter = 1;
 	
-	if( renderingMode == 0) // VR
+	if (renderingMode == 0) // VR
 		opacityAdapter = superSampling;
 		
-	if( isRGB)
+	if (isRGB)
 	{
 		start = wl - ww/2;
 		end = wl + ww/2;
@@ -5591,7 +5883,7 @@ public:
 		end = valueFactor*(OFFSET16 + wl + ww/2);
 	}
 	
-	if( currentOpacityArray != array)
+	if (currentOpacityArray != array)
 	{
 		[currentOpacityArray release];
 		currentOpacityArray = [array retain];
@@ -5599,51 +5891,54 @@ public:
 	
 	opacityTransferFunction->RemoveAllPoints();
 	
-	if( [array count] > 0)
+	if ([array count] > 0)
 	{
 		pt = NSPointFromString( [array objectAtIndex: 0]);
 		pt.x -=1000;
-		if(pt.x != 0) opacityTransferFunction->AddPoint(0 +start, 0);
+		if (pt.x != 0)
+            opacityTransferFunction->AddPoint(0 +start, 0);
 	}
 	else
         opacityTransferFunction->AddPoint(0 +start, 0);
 	
-	for( i = 0; i < [array count]; i++)
+	for (i = 0; i < [array count]; i++)
 	{
 		pt = NSPointFromString( [array objectAtIndex: i]);
 		pt.x -= 1000;
 		opacityTransferFunction->AddPoint(start + (pt.x / 256.0) * (end - start), pt.y / opacityAdapter);
 	}
 	
-	if( [array count] == 0 || pt.x != 256)
+	if ([array count] == 0 || pt.x != 256)
 		opacityTransferFunction->AddPoint(end, 1. / opacityAdapter);
 	else
-	{
 		opacityTransferFunction->AddPoint(end, pt.y / opacityAdapter);
-	}
-	[self setNeedsDisplay:YES];
+
+    [self setNeedsDisplay:YES];
 }
 
 -(void) setCLUT:( unsigned char*) r : (unsigned char*) g : (unsigned char*) b
 {
-	if( fullDepthMode) return;
-	if( colorTransferFunction == nil) return;
-    if( volumeProperty == nil) return;
+	if (fullDepthMode)
+        return;
+    
+	if (colorTransferFunction == nil)
+        return;
+    
+    if (volumeProperty == nil)
+        return;
     
 	advancedCLUT = NO;
-	if(appliedCurves)
+	if (appliedCurves)
 	{
 		[appliedCurves release];
 		appliedCurves = nil;
 	}
 	
-	//int i;
-    
     unsigned char rr[ 256], rg[ 256], rb[ 256];
     
-    if( [[[[NSUserDefaults standardUserDefaults] persistentDomainForName: @"com.apple.CoreGraphics"] objectForKey: @"DisplayUseInvertedPolarity"] boolValue])
+    if ([[[[NSUserDefaults standardUserDefaults] persistentDomainForName: @"com.apple.CoreGraphics"] objectForKey: @"DisplayUseInvertedPolarity"] boolValue])
     {
-        if( r)
+        if (r)
         {
             for (int i = 0; i < 256; i++)
             {
@@ -5657,9 +5952,9 @@ public:
         }
     }
     
-	if( isRGB)
+	if (isRGB)
 	{
-		if( r)
+		if (r)
 		{
 			for (int i = 0; i < 256; i++)
 			{
@@ -5683,7 +5978,7 @@ public:
 	}
 	else
 	{
-		if( r)
+		if (r)
 		{
 			for (int i = 0; i < 256; i++)
 			{
@@ -5696,7 +5991,7 @@ public:
 		}
 		else
 		{
-            if( [[[[NSUserDefaults standardUserDefaults] persistentDomainForName: @"com.apple.CoreGraphics"] objectForKey: @"DisplayUseInvertedPolarity"] boolValue])
+            if ([[[[NSUserDefaults standardUserDefaults] persistentDomainForName: @"com.apple.CoreGraphics"] objectForKey: @"DisplayUseInvertedPolarity"] boolValue])
             {
                 for (int i = 0; i < 256; i++)
                 {
@@ -5724,14 +6019,14 @@ public:
 
 - (void) setWLWW:(float) iwl :(float) iww
 {
-    if( colorTransferFunction == nil)
+    if (colorTransferFunction == nil)
         return;
     
-	if( iwl == 0 && iww == 0)
+	if (iwl == 0 && iww == 0)
 	{
 		iwl = [[pixList objectAtIndex:0] fullwl];
 		
-		if( [controller maximumValue])
+		if ([controller maximumValue])
 		{
 			iwl = [controller maximumValue] /2;
 			iww = [controller maximumValue];
@@ -5743,10 +6038,10 @@ public:
 	wl = iwl;
 	ww = iww;
 	
-	if( fullDepthMode)
+	if (fullDepthMode)
         return;
 	
-	if(advancedCLUT)
+	if (advancedCLUT)
 	{
 		[clutOpacityView setWL:wl ww:ww];
 		[clutOpacityView setCLUTtoVRView:YES];
@@ -5754,28 +6049,28 @@ public:
 	else
 		[self setOpacity: currentOpacityArray];
 	
-	if( isRGB)
+	if (isRGB)
 		colorTransferFunction->BuildFunctionFromTable( wl-ww/2, wl+ww/2, 255, (double*) &table);
-	else if(!advancedCLUT)
+	else if (!advancedCLUT)
 		colorTransferFunction->BuildFunctionFromTable( valueFactor*(OFFSET16 + wl-ww/2), valueFactor*(OFFSET16 + wl+ww/2), 255, (double*) &table);
 	
-	if( [[[controller viewer2D] modality] isEqualToString:@"PT"] || ([[NSUserDefaults standardUserDefaults] boolForKey:@"mouseWindowingNM"] == YES && [[[controller viewer2D] modality] isEqualToString:@"NM"]))
+	if ([[[controller viewer2D] modality] isEqualToString:@"PT"] || ([[NSUserDefaults standardUserDefaults] boolForKey:@"mouseWindowingNM"] == YES && [[[controller viewer2D] modality] isEqualToString:@"NM"]))
 	{
-		if( ww < 50)
+		if (ww < 50)
             sprintf(WLWWString, "From: %0.4f   To: %0.4f ", wl-ww/2, wl+ww/2);
 		else
             sprintf(WLWWString, "From: %0.f   To: %0.f ", wl-ww/2, wl+ww/2);
 	}
 	else
 	{
-		if( ww < 50)
+		if (ww < 50)
             sprintf(WLWWString, "WL: %0.4f WW: %0.4f ", wl, ww);
 		else
             sprintf(WLWWString, "WL: %0.f WW: %0.f ", wl, ww);
 	}
 	textWLWW->SetInput( WLWWString);
 	
-//	if( [[NSUserDefaults standardUserDefaults] boolForKey: @"dontAutoCropScissors"] == NO)
+//	if ([[NSUserDefaults standardUserDefaults] boolForKey: @"dontAutoCropScissors"] == NO)
 //		[self autoCroppingBox];
 	
 	[self setNeedsDisplay:YES];
@@ -5785,33 +6080,34 @@ public:
 {
 	// Standard Rendering...
 	
-	if( volumeMapper)
+	if (volumeMapper)
     {
         volumeMapper->SetMinimumImageSampleDistance( LOD);
         volumeMapper->SetSampleDistance( [[NSUserDefaults standardUserDefaults] floatForKey: @"BESTRENDERING"]);
     }
     
-    if( textureMapper)
+    if (textureMapper)
     {
         textureMapper->SetMinimumImageSampleDistance( LOD);
         textureMapper->SetSampleDistance( [[NSUserDefaults standardUserDefaults] floatForKey: @"BESTRENDERING"]);
     }
     
-	if( blendingController)
+	if (blendingController)
 	{
-		if( blendingVolumeMapper)
+		if (blendingVolumeMapper)
         {
             blendingVolumeMapper->SetMinimumImageSampleDistance( LOD);
             blendingVolumeMapper->SetSampleDistance( [[NSUserDefaults standardUserDefaults] floatForKey: @"BESTRENDERING"]);
         }
 	}
 	
-	if( textX)
+	if (textX)
 		aRenderer->AddActor(textX);
 	
 	[splash setCancel:NO];
 	
-	if( [splash aborted]) [self display];
+	if ([splash aborted])
+        [self display];
 }
 
 - (void) renderImageWithBestQuality: (BOOL) best waitDialog: (BOOL) wait
@@ -5825,33 +6121,33 @@ public:
 		
 	// REMOVE CROPPING BOX
 	
-	if( croppingBox)
-		if( croppingBox->GetEnabled()) croppingBox->Off();
+	if (croppingBox)
+		if (croppingBox->GetEnabled()) croppingBox->Off();
 	
 	aRenderer->RemoveActor(outlineRect);
-	if( textX)
+	if (textX)
 		aRenderer->RemoveActor(textX);
 	
 	// RAY CASTING SETTINGS
-	if( best)
+	if (best)
 	{
-		if( [[NSApp currentEvent] modifierFlags] & NSShiftKeyMask || projectionMode == 2)
+		if ([[NSApp currentEvent] modifierFlags] & NSEventModifierFlagShift || projectionMode == 2)
 		{
-			if( volumeMapper)
+			if (volumeMapper)
             {
                 volumeMapper->SetMinimumImageSampleDistance( 1.0);
                 volumeMapper->SetSampleDistance( 1.0);
             }
             
-            if( textureMapper)
+            if (textureMapper)
             {
                 textureMapper->SetMinimumImageSampleDistance( 0.8);
                 textureMapper->SetSampleDistance( 0.8);
             }
 			
-			if( blendingController)
+			if (blendingController)
 			{
-				if( blendingVolumeMapper)
+				if (blendingVolumeMapper)
                 {
                     blendingVolumeMapper->SetMinimumImageSampleDistance( 1.0);
                     blendingVolumeMapper->SetSampleDistance( 1.0);
@@ -5862,21 +6158,21 @@ public:
 		}
 		else
 		{
-			if( volumeMapper)
+			if (volumeMapper)
             {
                 volumeMapper->SetMinimumImageSampleDistance( [[NSUserDefaults standardUserDefaults] floatForKey: @"BESTRENDERING"]);
                 volumeMapper->SetSampleDistance( [[NSUserDefaults standardUserDefaults] floatForKey: @"BESTRENDERING"]);
 			}
             
-            if( textureMapper)
+            if (textureMapper)
             {
                 textureMapper->SetMinimumImageSampleDistance( 1.0);
                 textureMapper->SetSampleDistance( 1.0);
 			}
             
-			if( blendingController)
+			if (blendingController)
 			{
-				if( blendingVolumeMapper)
+				if (blendingVolumeMapper)
                 {
                     blendingVolumeMapper->SetMinimumImageSampleDistance( [[NSUserDefaults standardUserDefaults] floatForKey: @"BESTRENDERING"]);
                     blendingVolumeMapper->SetSampleDistance( [[NSUserDefaults standardUserDefaults] floatForKey: @"BESTRENDERING"]);
@@ -5885,20 +6181,18 @@ public:
 		}
 	}
 	
-	if( display)
+	if (display)
 	{
-		if( wait == NO) noWaitDialog = YES;
+		if (wait == NO)
+            noWaitDialog = YES;
 		
-		if( dontRenderVolumeRenderingOsiriX)
-		{
+		if (dontRenderVolumeRenderingOsiriX)
 			[self render];
-		}
 		else
-		{
 			[self display];
-		}
 		
-		if( wait == NO) noWaitDialog = NO;
+		if (wait == NO)
+            noWaitDialog = NO;
 	}
 	
 	bestRenderingWasGenerated = YES;
@@ -5906,10 +6200,10 @@ public:
 
 -(void) bestRendering:(id) sender
 {
-	NSLog( @"start Best");
+	//NSLog( @"start Best");
 	[self renderImageWithBestQuality: YES waitDialog: YES];
 	[self endRenderImageWithBestQuality];
-	NSLog( @"end Best");
+	//NSLog( @"end Best");
 }
 
 -(void) axView:(id) sender
@@ -5929,17 +6223,19 @@ public:
 	double vn[ 3], center[ 3];
 	aCamera->GetFocalPoint(center);
 	aCamera->GetViewPlaneNormal(vn);
-	aCamera->SetPosition(center[0]+distance*vn[0], center[1]+distance*vn[1], center[2]+distance*vn[2]);
+	aCamera->SetPosition(center[0]+distance*vn[0],
+                         center[1]+distance*vn[1],
+                         center[2]+distance*vn[2]);
 	[self checkInVolume];
 	aCamera->SetParallelScale( pp);
 	
 	
-	if( clipRangeActivated)
+	if (clipRangeActivated)
 		aCamera->SetClippingRange( 0.0, clippingRangeThickness);
 	else
 		aRenderer->ResetCameraClippingRange();
 
-	if( croppingBox)
+	if (croppingBox)
 		croppingBox->SetHandleSize( 0.005);
     
 	[self setNeedsDisplay:YES];
@@ -5964,16 +6260,18 @@ public:
 	double vn[ 3], center[ 3];
 	aCamera->GetFocalPoint(center);
 	aCamera->GetViewPlaneNormal(vn);
-	aCamera->SetPosition(center[0]+distance*vn[0], center[1]+distance*vn[1], center[2]+distance*vn[2]);
+	aCamera->SetPosition(center[0]+distance*vn[0],
+                         center[1]+distance*vn[1],
+                         center[2]+distance*vn[2]);
 	[self checkInVolume];
 	aCamera->SetParallelScale( pp);
 	
-	if( clipRangeActivated)
+	if (clipRangeActivated)
 		aCamera->SetClippingRange( 0.0, clippingRangeThickness);
 	else
 		aRenderer->ResetCameraClippingRange();
 	
-	if( croppingBox)
+	if (croppingBox)
 		croppingBox->SetHandleSize( 0.005);
     
 	[self setNeedsDisplay:YES];
@@ -5997,16 +6295,18 @@ public:
 	double vn[ 3], center[ 3];
 	aCamera->GetFocalPoint(center);
 	aCamera->GetViewPlaneNormal(vn);
-	aCamera->SetPosition(center[0]+distance*vn[0], center[1]+distance*vn[1], center[2]+distance*vn[2]);
+	aCamera->SetPosition(center[0]+distance*vn[0],
+                         center[1]+distance*vn[1],
+                         center[2]+distance*vn[2]);
 	[self checkInVolume];
 	aCamera->SetParallelScale( pp);
 	
-	if( clipRangeActivated)
+	if (clipRangeActivated)
 		aCamera->SetClippingRange( 0.0, clippingRangeThickness);
 	else
 		aRenderer->ResetCameraClippingRange();
 	
-	if( croppingBox)
+	if (croppingBox)
 		croppingBox->SetHandleSize( 0.005);
     
 	[self setNeedsDisplay:YES];
@@ -6029,16 +6329,18 @@ public:
 	double vn[ 3], center[ 3];
 	aCamera->GetFocalPoint(center);
 	aCamera->GetViewPlaneNormal(vn);
-	aCamera->SetPosition(center[0]+distance*vn[0], center[1]+distance*vn[1], center[2]+distance*vn[2]);
+	aCamera->SetPosition(center[0]+distance*vn[0],
+                         center[1]+distance*vn[1],
+                         center[2]+distance*vn[2]);
 	[self checkInVolume];
 	aCamera->SetParallelScale( pp);
 	
-	if( clipRangeActivated)
+	if (clipRangeActivated)
 		aCamera->SetClippingRange( 0.0, clippingRangeThickness);
 	else
 		aRenderer->ResetCameraClippingRange();
 
-	if( croppingBox)
+	if (croppingBox)
 		croppingBox->SetHandleSize( 0.005);
     
 	[self setNeedsDisplay:YES];
@@ -6057,7 +6359,7 @@ public:
     
     LOD = f;
     
-    if( textureMapper)
+    if (textureMapper)
     {
         textureMapper->SetAutoAdjustSampleDistances( 1);
         textureMapper->SetMinimumImageSampleDistance( LOD);
@@ -6065,7 +6367,7 @@ public:
         textureMapper->SetMaximumImageSampleDistance( LOD*lowResLODFactor);
     }
     
-    if( blendingTextureMapper)
+    if (blendingTextureMapper)
     {
         blendingTextureMapper->SetAutoAdjustSampleDistances( 1);
         blendingTextureMapper->SetMinimumImageSampleDistance( LOD);
@@ -6073,21 +6375,21 @@ public:
         blendingTextureMapper->SetMaximumImageSampleDistance( LOD*lowResLODFactor);
     }
     
-    if( engine == 0)
+    if (engine == ENGINE_CPU)
     {
-        if( [[controller style] isEqualToString: @"noNib"])
+        if ([[controller style] isEqualToString: @"noNib"])
         {
-            if( LOD < 1.0)
+            if (LOD < 1.0)
                 LOD = 1.0;
         }
         else
         {
-            if( LOD < 1.3)
+            if (LOD < 1.3)
                 LOD = 1.3;
         }
     }
     
-    if( volumeMapper)
+    if (volumeMapper)
     {
         volumeMapper->SetAutoAdjustSampleDistances( 1);
         volumeMapper->SetMinimumImageSampleDistance( LOD);
@@ -6095,7 +6397,7 @@ public:
         volumeMapper->SetMaximumImageSampleDistance( LOD*lowResLODFactor);
     }
     
-    if( blendingVolumeMapper)
+    if (blendingVolumeMapper)
     {
         blendingVolumeMapper->SetAutoAdjustSampleDistances( 1);
         blendingVolumeMapper->SetMinimumImageSampleDistance( LOD);
@@ -6108,17 +6410,17 @@ public:
 
 - (void) setLODLow:(BOOL) l
 {
-	if( volumeMapper)
+	if (volumeMapper)
 	{
-		if( l)
+		if (l)
 			volumeMapper->SetMinimumImageSampleDistance( LOD*lowResLODFactor);
 		else
 			volumeMapper->SetMinimumImageSampleDistance( LOD);
 	}
 	
-	if( blendingVolumeMapper)
+	if (blendingVolumeMapper)
 	{
-		if( l)
+		if (l)
             blendingVolumeMapper->SetMinimumImageSampleDistance( LOD*lowResLODFactor);
 		else
             blendingVolumeMapper->SetMinimumImageSampleDistance( LOD);
@@ -6132,7 +6434,7 @@ public:
 {
 	blendingController = bC;
 	
-	if( blendingController)
+	if (blendingController)
 	{
 		blendingPixList = [bC pixList];
 		[blendingPixList retain];
@@ -6143,7 +6445,7 @@ public:
 
 		float blendingSliceThickness = [blendingFirstObject sliceInterval];
 		
-		if( blendingSliceThickness == 0)
+		if (blendingSliceThickness == 0)
 		{
 			NSLog(@"Blending slice interval = slice thickness!");
 			blendingSliceThickness = [blendingFirstObject sliceThickness];
@@ -6152,7 +6454,7 @@ public:
 		[blendingFirstObject orientation:blendingcosines];
 		
 		isBlendingRGB = NO;
-		if( [blendingFirstObject isRGB])
+		if ([blendingFirstObject isRGB])
 		{
 			isBlendingRGB = YES;
 		}
@@ -6168,7 +6470,7 @@ public:
 			blendingDst8.rowBytes = [blendingFirstObject pwidth] * sizeof(short);
 			
 			blendingData8 = (char*) malloc( blendingDst8.height * blendingDst8.width * sizeof(short));
-			if( blendingData8 == nil)
+			if (blendingData8 == nil)
 			{
 				[blendingPixList release];
 				blendingController = nil;
@@ -6178,7 +6480,7 @@ public:
 			blendingDst8.data = blendingData8;
 			blendingSrcf.data = blendingData;
 			
-			if( [blendingFirstObject SUVConverted])
+			if ([blendingFirstObject SUVConverted])
 			{
 				blendingValueFactor = MAXDYNAMICVALUE / [controller blendingMaximumValue];
 				blendingOFFSET16 = 0;
@@ -6188,7 +6490,7 @@ public:
 			}
 			else
 			{
-				if( [controller blendingMaximumValue] - [controller blendingMinimumValue] > MAXDYNAMICVALUE ||  [controller blendingMaximumValue] - [controller blendingMinimumValue] < 50)
+				if ([controller blendingMaximumValue] - [controller blendingMinimumValue] > MAXDYNAMICVALUE ||  [controller blendingMaximumValue] - [controller blendingMinimumValue] < 50)
 				{
 					blendingValueFactor = MAXDYNAMICVALUE / ( [controller blendingMaximumValue] - [controller blendingMinimumValue]);
 					blendingOFFSET16 = -[controller blendingMinimumValue];
@@ -6213,7 +6515,7 @@ public:
 		blendingReader->SetWholeExtent(0, [blendingFirstObject pwidth]-1, 0, [blendingFirstObject pheight]-1, 1, [blendingPixList count]-2);
 		blendingReader->SetDataExtentToWholeExtent();
 		
-		if( isBlendingRGB)
+		if (isBlendingRGB)
 		{
 			blendingReader->SetDataScalarTypeToUnsignedChar();
 			blendingReader->SetNumberOfScalarComponents( 4);
@@ -6229,12 +6531,14 @@ public:
         blendingReader->Update();
 
 		blendingNeedToFlip = NO;
-		if( blendingSliceThickness < 0 )
+		if (blendingSliceThickness < 0 )
 		{
 			NSLog(@"ERROR : NEED TO FLIP....");
 		}
 		
-		blendingReader->SetDataSpacing( factor*[blendingFirstObject pixelSpacingX], factor*[blendingFirstObject pixelSpacingY], factor*blendingSliceThickness);
+		blendingReader->SetDataSpacing(factor*[blendingFirstObject pixelSpacingX],
+                                       factor*[blendingFirstObject pixelSpacingY],
+                                       factor*blendingSliceThickness);
 		
 		blendingColorTransferFunction = vtkColorTransferFunction::New();
 		
@@ -6244,7 +6548,7 @@ public:
 		
 		blendingVolumeProperty = vtkVolumeProperty::New();
 		
-		if( isBlendingRGB)
+		if (isBlendingRGB)
 		{
 			blendingVolumeProperty->IndependentComponentsOn();
 			
@@ -6269,41 +6573,68 @@ public:
 
 		blendingVolumeProperty->SetInterpolationTypeToLinear();
 		
-		blendingCompositeFunction = vtkVolumeRayCastCompositeFunction::New();
+		blendingCompositeFunction = vtkVolumeRayCastCompositeFunction::New();  // @@@ VTK_LEGACY_REMOVE (deprecated for VTK 7.0)
 		
 		blendingVolume = vtkVolume::New();
 		blendingVolume->SetProperty( blendingVolumeProperty);
 		
 		[self setBlendingEngine: self.engine];
 		
-		vtkMatrix4x4	*matrice = vtkMatrix4x4::New();
-		matrice->Element[0][0] = blendingcosines[0];			matrice->Element[1][0] = blendingcosines[1];			matrice->Element[2][0] = blendingcosines[2];			matrice->Element[3][0] = 0;
-		matrice->Element[0][1] = blendingcosines[3];			matrice->Element[1][1] = blendingcosines[4];			matrice->Element[2][1] = blendingcosines[5];			matrice->Element[3][1] = 0;
-		matrice->Element[0][2] = blendingcosines[6];			matrice->Element[1][2] = blendingcosines[7];			matrice->Element[2][2] = blendingcosines[8];			matrice->Element[3][2] = 0;
-		matrice->Element[0][3] = 0;								matrice->Element[1][3] = 0;								matrice->Element[2][3] = 0;								matrice->Element[3][3] = 1;
+		vtkMatrix4x4 *matrice = vtkMatrix4x4::New();
+		matrice->Element[0][0] = blendingcosines[0];
+        matrice->Element[1][0] = blendingcosines[1];
+        matrice->Element[2][0] = blendingcosines[2];
+        matrice->Element[3][0] = 0;
+        
+		matrice->Element[0][1] = blendingcosines[3];
+        matrice->Element[1][1] = blendingcosines[4];
+        matrice->Element[2][1] = blendingcosines[5];
+        matrice->Element[3][1] = 0;
+        
+		matrice->Element[0][2] = blendingcosines[6];
+        matrice->Element[1][2] = blendingcosines[7];
+        matrice->Element[2][2] = blendingcosines[8];
+        matrice->Element[3][2] = 0;
+        
+		matrice->Element[0][3] = 0;
+        matrice->Element[1][3] = 0;
+		matrice->Element[2][3] = 0;
+		matrice->Element[3][3] = 1;
 		
-		blendingVolume->SetPosition(	factor*[blendingFirstObject originX] * (matrice->Element[0][0]) + factor*[blendingFirstObject originY] * (matrice->Element[1][0]) + factor*[blendingFirstObject originZ]*(matrice->Element[2][0]),
-										factor*[blendingFirstObject originX] * (matrice->Element[0][1]) + factor*[blendingFirstObject originY] * (matrice->Element[1][1]) + factor*[blendingFirstObject originZ]*(matrice->Element[2][1]),
-										factor*[blendingFirstObject originX] * (matrice->Element[0][2]) + factor*[blendingFirstObject originY] * (matrice->Element[1][2]) + factor*[blendingFirstObject originZ]*(matrice->Element[2][2]));
-		blendingVolume->SetUserMatrix( matrice);
+		blendingVolume->SetPosition(factor*[blendingFirstObject originX] * (matrice->Element[0][0]) +
+                                    factor*[blendingFirstObject originY] * (matrice->Element[1][0]) +
+                                    factor*[blendingFirstObject originZ] * (matrice->Element[2][0]),
+                                    
+                                    factor*[blendingFirstObject originX] * (matrice->Element[0][1]) +
+                                    factor*[blendingFirstObject originY] * (matrice->Element[1][1]) +
+                                    factor*[blendingFirstObject originZ] * (matrice->Element[2][1]),
+                                    
+                                    factor*[blendingFirstObject originX] * (matrice->Element[0][2]) +
+                                    factor*[blendingFirstObject originY] * (matrice->Element[1][2]) +
+                                    factor*[blendingFirstObject originZ] * (matrice->Element[2][2]));
+
+        blendingVolume->SetUserMatrix( matrice);
 		matrice->Delete();
 		
-		if( cropcallback)
+		if (cropcallback)
 			cropcallback->setBlendingVolume( blendingVolume);
 		
 	    aRenderer->AddVolume( blendingVolume);
 	}
 	else
 	{
-		if( blendingVolume)
+		if (blendingVolume)
 		{
 			aRenderer->RemoveVolume( blendingVolume);
 			
 			blendingVolume->Delete();
 			blendingVolume = nil;
 			
-			if( blendingVolumeMapper) blendingVolumeMapper->Delete();
-			if( blendingTextureMapper) blendingTextureMapper->Delete();
+			if (blendingVolumeMapper)
+                blendingVolumeMapper->Delete();
+            
+			if (blendingTextureMapper)
+                blendingTextureMapper->Delete();
 			
 			blendingVolumeMapper = nil;
 			blendingTextureMapper = nil;
@@ -6314,7 +6645,9 @@ public:
 			blendingColorTransferFunction->Delete();
 			blendingReader->Delete();
 			
-			if(blendingData8) free(blendingData8);
+			if (blendingData8)
+                free(blendingData8);
+            
 			blendingData8 = nil;
 			
 			[blendingPixList release];
@@ -6325,7 +6658,7 @@ public:
 
 -(void) movieBlendingChangeSource:(long) index
 {
-	if( blendingController)
+	if (blendingController)
 	{
 		[blendingPixList release];
 		blendingPixList = [blendingController pixList: index];
@@ -6337,7 +6670,9 @@ public:
 		blendingReader->Update();
 		
 		// Force min/max recomputing
-		if( blendingVolumeMapper) blendingVolumeMapper->Delete();
+		if (blendingVolumeMapper)
+            blendingVolumeMapper->Delete();
+        
 		blendingVolumeMapper = OsiriXFixedPointVolumeRayCastMapper::New();
 		blendingVolumeMapper->SetInputConnection(blendingReader->GetOutputPort());
 		blendingVolumeMapper->SetMinimumImageSampleDistance( LOD);
@@ -6350,21 +6685,21 @@ public:
 
 -(void) movieChangeSource:(float*) volumeData showWait :(BOOL) showWait
 {
-	WaitRendering	*www;
+	WaitRendering *www;
 	
-	if( showWait)
+	if (showWait)
 	{
 		www = [[WaitRendering alloc] init: NSLocalizedString( @"Preparing 3D data...", nil)];
 		[www start];
         
-        if( engine == 1)
+        if (engine == ENGINE_GPU_OPEN_GL)
         {
             unsigned long memory = [VTKView VRAMSizeForDisplayID: [[[[NSScreen mainScreen] deviceDescription] objectForKey: @"NSScreenNumber"] intValue]] * 1024 * 1024;
-            if( 0.9 * memory < dst8.rowBytes * dst8.height)
+            if (0.9 * memory < dst8.rowBytes * dst8.height)
             {
                 [[AppController sharedAppController] growlTitle: NSLocalizedString( @"Warning!", nil) description: NSLocalizedString( @"3D Dataset volume is larger than the amount of graphic board VRAM: GPU Rendering could be slower than CPU Rendering.", nil)  name: @"result"];
                 
-                if( [[NSUserDefaults standardUserDefaults] boolForKey: @"hideVRAMAlert"] == NO)
+                if ([[NSUserDefaults standardUserDefaults] boolForKey: @"hideVRAMAlert"] == NO)
                 {
                     NSAlert* alert = [[NSAlert new] autorelease];
                     [alert setMessageText: NSLocalizedString( @"Warning!", nil)];
@@ -6383,7 +6718,7 @@ public:
 	{	
 		data = volumeData;
 		
-		if( isRGB)
+		if (isRGB)
 		{
 			reader->SetImportVoidPointer( data);
 			reader->GetOutput()->Modified();
@@ -6398,7 +6733,7 @@ public:
 			reader->GetOutput()->Modified();
 		}
 		reader->Update();
-		if( volumeMapper)
+		if (volumeMapper)
         {
             volumeMapper->Delete();
             volumeMapper = nil;
@@ -6406,7 +6741,7 @@ public:
             [self instantiateEngine: 0];
         }
         
-        if( textureMapper)
+        if (textureMapper)
         {
             textureMapper->ReleaseGraphicsResources( aRenderer->GetRenderWindow());
             textureMapper->Delete();
@@ -6415,19 +6750,19 @@ public:
             [self instantiateEngine: 1];
         }
 		
-        if( engine == 0)
+        if (engine == ENGINE_CPU)
             volume->SetMapper( volumeMapper);
         
-        if( engine == 1)
+        if (engine == ENGINE_GPU_OPEN_GL)
             volume->SetMapper( textureMapper);
         
-		if( blendingController)
+		if (blendingController)
 		{
-			if( blendingData != [blendingController volumePtr])
+			if (blendingData != [blendingController volumePtr])
 			{
 				blendingData = [blendingController volumePtr];
 				
-				if( isRGB)
+				if (isRGB)
 				{
 					blendingReader->SetImportVoidPointer( blendingData);
 					blendingReader->GetOutput()->Modified();
@@ -6436,22 +6771,28 @@ public:
 				{
 					blendingSrcf.data = blendingData;
 					//vImageConvert_FTo16U( &blendingSrcf, &blendingDst8, -blendingOFFSET16, 1./blendingValueFactor, 0);
-					[BrowserController multiThreadedImageConvert: @"FTo16U" :&blendingSrcf :&blendingDst8 :-blendingOFFSET16 :1./blendingValueFactor];
+					[BrowserController multiThreadedImageConvert: @"FTo16U"
+                                                                : &blendingSrcf
+                                                                : &blendingDst8
+                                                                : -blendingOFFSET16
+                                                                : 1./blendingValueFactor];
 					
 					blendingReader->SetImportVoidPointer( blendingData8);
 					blendingReader->GetOutput()->Modified();
 				}
 
 				blendingReader->Update();
-				if( blendingVolumeMapper) blendingVolumeMapper->Delete();
+				if (blendingVolumeMapper)
+                    blendingVolumeMapper->Delete();
+                
 				blendingVolumeMapper = nil;
-				if( blendingTextureMapper)
+				if (blendingTextureMapper)
                 {
                     blendingTextureMapper->ReleaseGraphicsResources( aRenderer->GetRenderWindow());
                     blendingTextureMapper->Delete();
                 }
-				blendingTextureMapper = nil;
-				
+                
+				blendingTextureMapper = nil;				
 				[self setBlendingEngine: self.engine showWait: NO];
 			}
 		}
@@ -6461,7 +6802,7 @@ public:
 		NSLog( @"movieChangeSource exception: %@", e);
 	}
 	
-	if( showWait)
+	if (showWait)
 	{
 		[www end];
 		[www close];
@@ -6476,7 +6817,7 @@ public:
 
 - (void) ViewFrameDidChangeNotification:(NSNotification*) note
 {
-	if( textWLWW)
+	if (textWLWW)
 	{
 		int *wsize = [self renderWindow]->GetSize();
 		textWLWW->GetPositionCoordinate()->SetValue( 2., wsize[ 1]-15);
@@ -6485,16 +6826,16 @@ public:
 
 - (void) computeValueFactor
 {
-	if( firstObject)
+	if (firstObject)
 	{
-		if( [firstObject SUVConverted])
+		if ([firstObject SUVConverted])
 		{
 			valueFactor = MAXDYNAMICVALUE / [controller maximumValue];
 			OFFSET16 = 0;
 		}
 		else
 		{
-			if([controller maximumValue] - [controller minimumValue] > MAXDYNAMICVALUE || [controller maximumValue] - [controller minimumValue] < 50)
+			if ([controller maximumValue] - [controller minimumValue] > MAXDYNAMICVALUE || [controller maximumValue] - [controller minimumValue] < 50)
 			{
 				valueFactor = MAXDYNAMICVALUE / ([controller maximumValue] - [controller minimumValue]);
 //				OFFSET16 = -[controller minimumValue];
@@ -6511,6 +6852,7 @@ public:
 - (void) initAnnotatedCubeActor
 {
 	vtkAnnotatedCubeActor* cube = vtkAnnotatedCubeActor::New();
+    // TODO: handle Kanji
 	cube->SetXPlusFaceText ( [NSLocalizedString( @"L", @"L: Left") UTF8String]);		
 	cube->SetXMinusFaceText( [NSLocalizedString( @"R", @"R: Right") UTF8String]);
 	cube->SetYPlusFaceText ( [NSLocalizedString( @"P", @"P: Posterior") UTF8String]);
@@ -6557,13 +6899,19 @@ public:
 	short   error = 0;
 	long	i;
     
-	if( [[[self window] windowController] isKindOfClass:[VRController class]])
+#if 0 //ndef NDEBUG
+    CGLContextObj cgl_ctx = [[NSOpenGLContext currentContext] CGLContextObj];
+    NSLog(@"VRView.mm:%d class:%@, OpenGL context:%p, version %s", __LINE__,
+          [self class], cgl_ctx, glGetString(GL_VERSION)); // version 2.1 APPLE-12.1.0
+#endif
+    
+	if ([[[self window] windowController] isKindOfClass:[VRController class]])
 		[[self window] setAcceptsMouseMovedEvents: YES];
 	
     [pix retain];
     pixList = pix;
 	
-	[self setProjectionMode: 1];
+	[self setProjectionMode: 1];  // Parallel
 	
 	data = volumeData;
 	
@@ -6571,7 +6919,7 @@ public:
 	firstObject = [pixList objectAtIndex:0];
 	float sliceThickness = [firstObject sliceInterval];
 	
-	if( sliceThickness == 0)
+	if (sliceThickness == 0)
 	{
 		NSLog(@"slice interval = slice thickness!");
 		sliceThickness = [firstObject sliceThickness];
@@ -6583,7 +6931,7 @@ public:
 	ww = [firstObject ww];
 	
 	isRGB = NO;
-	if( [firstObject isRGB])
+	if ([firstObject isRGB])
 		isRGB = YES;
 	else
 	{
@@ -6597,19 +6945,19 @@ public:
 		dst8.rowBytes = [firstObject pwidth] * sizeof(short);
 		
 		data8 = (char *)malloc( dst8.height * dst8.width * sizeof(short));
-		if( data8 == nil)
+		if (data8 == nil)
             return -1;
 		
 		dst8.data = data8;
 		srcf.data = data;
 		
-		NSLog( @"maxValueOfSeries = %f", [controller maximumValue]);
+		NSLog( @"maxValueOfSeries = %f", [controller maximumValue]); // VRController
 		NSLog( @"minValueOfSeries = %f", [controller minimumValue]);
 		
 		firstPixel = *(data+0+[firstObject pwidth]);
 		secondPixel = *(data+1+[firstObject pwidth]);
 		
-		if( [[controller viewer2D] maxMovieIndex] > 1)
+		if ([[controller viewer2D] maxMovieIndex] > 1)
 		{
 			*(data+0+[firstObject pwidth]) = [controller minimumValue];		// To avoid the min/max saturation problem with 4D data...
 			*(data+1+[firstObject pwidth]) = [controller maximumValue];		// To avoid the min/max saturation problem with 4D data...
@@ -6624,7 +6972,7 @@ public:
 	{
 		reader = vtkImageImport::New();
 		
-		if( isRGB)
+		if (isRGB)
 		{
 			reader->SetImportVoidPointer(data);
 			reader->SetWholeExtent(0, [firstObject pwidth]-1, 0, [firstObject pheight]-1, 1, [pixList count]-2);	//AVOID VTK BUG
@@ -6651,7 +6999,7 @@ public:
 		factor = 1.0;
 		
 		needToFlip = NO;
-		if( sliceThickness < 0 )
+		if (sliceThickness < 0 )
 		{
 			sliceThickness = fabs( sliceThickness);
 			NSLog(@"We should not be here....");
@@ -6661,7 +7009,7 @@ public:
 		
 		factor = superSampling / [firstObject pixelSpacingX];
 		
-		if( [firstObject pixelSpacingX] == 0 || [firstObject pixelSpacingY] == 0)
+		if ([firstObject pixelSpacingX] == 0 || [firstObject pixelSpacingY] == 0)
             reader->SetDataSpacing( 1, 1, sliceThickness);
 		else
             reader->SetDataSpacing(factor*[firstObject pixelSpacingX],
@@ -6673,14 +7021,14 @@ public:
 		
 		float opacityAdapter = 1;
 		
-		if( renderingMode == 0) // VR
+		if (renderingMode == 0) // VR
 			opacityAdapter = superSampling;
 		
 		opacityTransferFunction->AddPoint(255., 1. / opacityAdapter);
 		
 		colorTransferFunction = vtkColorTransferFunction::New();
 		
-        if( [[[[NSUserDefaults standardUserDefaults] persistentDomainForName: @"com.apple.CoreGraphics"] objectForKey: @"DisplayUseInvertedPolarity"] boolValue])
+        if ([[[[NSUserDefaults standardUserDefaults] persistentDomainForName: @"com.apple.CoreGraphics"] objectForKey: @"DisplayUseInvertedPolarity"] boolValue])
         {
             red = vtkColorTransferFunction::New();
             red->AddRGBPoint( 255, 1, 0, 0 );
@@ -6710,7 +7058,7 @@ public:
 		}
         
 		volumeProperty = vtkVolumeProperty::New();
-		if( isRGB)
+		if (isRGB)
 		{
 			volumeProperty->IndependentComponentsOn();
 			
@@ -6726,39 +7074,62 @@ public:
 		}
 		else
 		{
-			volumeProperty->SetColor( colorTransferFunction);	//	if( isRGB == NO) 
+			volumeProperty->SetColor( colorTransferFunction);	//	if (isRGB == NO)
 			volumeProperty->SetScalarOpacity( opacityTransferFunction);
 		}
 		
 		[self setCLUT:nil :nil :nil];
-		
 		[self setShadingValues:0.15 :0.9 :0.3 :15];
 		
-		if( [[NSApp currentEvent] modifierFlags] & NSAlternateKeyMask)
+		if ([[NSApp currentEvent] modifierFlags] & NSEventModifierFlagOption)
             volumeProperty->SetInterpolationTypeToNearest();
 		else
             volumeProperty->SetInterpolationTypeToLinear();//SetInterpolationTypeToNearest();	//SetInterpolationTypeToLinear
 			
-		compositeFunction = vtkVolumeRayCastCompositeFunction::New();
+		compositeFunction = vtkVolumeRayCastCompositeFunction::New();  // @@@ VTK_LEGACY_REMOVE (deprecated for VTK 7.0)
 		
 		LOD = 2.0;
-		#if __ppc__
+#if __ppc__
 		LOD += 0.5;
-		#endif
+#endif
 		
 		volume = vtkVolume::New();
 		volume->SetProperty( volumeProperty);
 		
 		vtkMatrix4x4	*matrice = vtkMatrix4x4::New();
-		matrice->Element[0][0] = cosines[0];		matrice->Element[1][0] = cosines[1];		matrice->Element[2][0] = cosines[2];		matrice->Element[3][0] = 0;
-		matrice->Element[0][1] = cosines[3];		matrice->Element[1][1] = cosines[4];		matrice->Element[2][1] = cosines[5];		matrice->Element[3][1] = 0;
-		matrice->Element[0][2] = cosines[6];		matrice->Element[1][2] = cosines[7];		matrice->Element[2][2] = cosines[8];		matrice->Element[3][2] = 0;
-		matrice->Element[0][3] = 0;					matrice->Element[1][3] = 0;					matrice->Element[2][3] = 0;					matrice->Element[3][3] = 1;
+		matrice->Element[0][0] = cosines[0];
+        matrice->Element[1][0] = cosines[1];
+        matrice->Element[2][0] = cosines[2];
+        matrice->Element[3][0] = 0;
+        
+		matrice->Element[0][1] = cosines[3];
+        matrice->Element[1][1] = cosines[4];
+        matrice->Element[2][1] = cosines[5];
+        matrice->Element[3][1] = 0;
+        
+		matrice->Element[0][2] = cosines[6];
+        matrice->Element[1][2] = cosines[7];
+        matrice->Element[2][2] = cosines[8];
+        matrice->Element[3][2] = 0;
+        
+		matrice->Element[0][3] = 0;
+        matrice->Element[1][3] = 0;
+        matrice->Element[2][3] = 0;
+        matrice->Element[3][3] = 1;
 		
-		volume->SetPosition(	factor*[firstObject originX] * matrice->Element[0][0] + factor*[firstObject originY] * matrice->Element[1][0] + factor*[firstObject originZ]*matrice->Element[2][0],
-								factor*[firstObject originX] * matrice->Element[0][1] + factor*[firstObject originY] * matrice->Element[1][1] + factor*[firstObject originZ]*matrice->Element[2][1],
-								factor*[firstObject originX] * matrice->Element[0][2] + factor*[firstObject originY] * matrice->Element[1][2] + factor*[firstObject originZ]*matrice->Element[2][2]);
-		volume->SetUserMatrix( matrice);
+		volume->SetPosition(factor*[firstObject originX] * matrice->Element[0][0] +
+                            factor*[firstObject originY] * matrice->Element[1][0] +
+                            factor*[firstObject originZ] * matrice->Element[2][0],
+                            
+							factor*[firstObject originX] * matrice->Element[0][1] +
+                            factor*[firstObject originY] * matrice->Element[1][1] +
+                            factor*[firstObject originZ] * matrice->Element[2][1],
+                            
+							factor*[firstObject originX] * matrice->Element[0][2] +
+                            factor*[firstObject originY] * matrice->Element[1][2] +
+                            factor*[firstObject originZ] * matrice->Element[2][2]);
+
+        volume->SetUserMatrix( matrice);
 		matrice->Delete();
 		
 		volume->PickableOff();
@@ -6776,14 +7147,22 @@ public:
 		outlineRect->GetProperty()->SetColor(0,1,0);
 		outlineRect->GetProperty()->SetOpacity(0.5);
 		outlineRect->SetUserMatrix( matrice);
-		outlineRect->SetPosition(	factor*[firstObject originX] * matrice->Element[0][0] + factor*[firstObject originY] * matrice->Element[1][0] + factor*[firstObject originZ]*matrice->Element[2][0],
-									factor*[firstObject originX] * matrice->Element[0][1] + factor*[firstObject originY] * matrice->Element[1][1] + factor*[firstObject originZ]*matrice->Element[2][1],
-									factor*[firstObject originX] * matrice->Element[0][2] + factor*[firstObject originY] * matrice->Element[1][2] + factor*[firstObject originZ]*matrice->Element[2][2]);
+		outlineRect->SetPosition(factor*[firstObject originX] * matrice->Element[0][0] +
+                                 factor*[firstObject originY] * matrice->Element[1][0] +
+                                 factor*[firstObject originZ] * matrice->Element[2][0],
+                                 
+								 factor*[firstObject originX] * matrice->Element[0][1] +
+                                 factor*[firstObject originY] * matrice->Element[1][1] +
+                                 factor*[firstObject originZ] * matrice->Element[2][1],
+                                 
+								 factor*[firstObject originX] * matrice->Element[0][2] +
+                                 factor*[firstObject originY] * matrice->Element[1][2] +
+                                 factor*[firstObject originZ] * matrice->Element[2][2]);
 		outlineRect->PickableOff();
 		
 		cropcallback = nil;
 		croppingBox = nil;
-		if( [[controller style] isEqualToString: @"noNib"] == NO)
+		if ([[controller style] isEqualToString: @"noNib"] == NO)
 		{
 			croppingBox = vtkBoxWidget::New();
 			
@@ -6806,12 +7185,13 @@ public:
 		}
 		
 		textWLWW = vtkTextActor::New();
-		if( ww < 50)
+		if (ww < 50)
             sprintf(WLWWString, "WL: %0.4f WW: %0.4f ", wl, ww);
 		else
             sprintf(WLWWString, "WL: %0.f WW: %0.f ", wl, ww);
+        
 		textWLWW->SetInput( WLWWString);
-		textWLWW->SetTextScaleModeToNone();												//vtkviewPort
+		textWLWW->SetTextScaleModeToNone();									//vtkviewPort
 		textWLWW->GetPositionCoordinate()->SetCoordinateSystemToDisplay();
 		int *wsize = [self renderWindow]->GetSize();
 		textWLWW->GetPositionCoordinate()->SetValue( 2., wsize[ 1]-15);
@@ -6833,7 +7213,7 @@ public:
 			aRenderer->AddActor2D(textX);
 		}
 		
-		for( i = 0; i < 5; i++)
+		for (i = 0; i < NUM_VR_LABELS; i++)
 		{
 			oText[ i] = vtkTextActor::New();
 			oText[ i]->SetInput( "X ");
@@ -6845,6 +7225,7 @@ public:
 			
 			aRenderer->AddActor2D( oText[ i]);
 		}
+        
 		oText[ 0]->GetPositionCoordinate()->SetValue( 0.01, 0.5);
 		oText[ 1]->GetPositionCoordinate()->SetValue( 0.99, 0.5);
 		oText[ 1]->GetTextProperty()->SetJustificationToRight();
@@ -6876,8 +7257,10 @@ public:
 		vtkCellArray *rect = vtkCellArray::New();
 		
 		ROI3DData = vtkPolyData::New();
+        
 		ROI3DData-> SetPoints( pts);
 		pts->Delete();
+        
 		ROI3DData-> SetLines( rect);
 		rect->Delete();
 		
@@ -6928,8 +7311,10 @@ public:
 		rect = vtkCellArray::New();
 		
 		Line2DData = vtkPolyData::New();
+        
 		Line2DData-> SetPoints( pts);
 		pts->Delete();
+        
 		Line2DData-> SetLines( rect);
 		rect->Delete();
 		
@@ -6961,13 +7346,16 @@ public:
 		[self getVTKRenderWindow]->MakeCurrent();
 		[[NSOpenGLContext currentContext] setValues:&swap forParameter:NSOpenGLCPSwapInterval];
 		
+#if 1
+        CGLContextObj cgl_ctx = [[NSOpenGLContext currentContext] CGLContextObj];
+        printf("VRView.mm:%d OpenGL context:%p, version %s\n", __LINE__, cgl_ctx, glGetString(GL_VERSION)); // version 2.1 APPLE-12.1.0
+#endif
 		[self setNeedsDisplay:YES];
 		
-//		if( [[NSUserDefaults standardUserDefaults] boolForKey: @"dontShow3DCubeOrientation"] == NO)
+//		if ([[NSUserDefaults standardUserDefaults] boolForKey: @"dontShow3DCubeOrientation"] == NO)
 			[self initAnnotatedCubeActor];
         
-        
-        if( [[[[NSUserDefaults standardUserDefaults] persistentDomainForName: @"com.apple.CoreGraphics"] objectForKey: @"DisplayUseInvertedPolarity"] boolValue])
+        if ([[[[NSUserDefaults standardUserDefaults] persistentDomainForName: @"com.apple.CoreGraphics"] objectForKey: @"DisplayUseInvertedPolarity"] boolValue])
             [self changeColorWith: [NSColor colorWithCalibratedRed: 1 green: 1 blue: 1  alpha:1]];
 	}
 	
@@ -6983,7 +7371,7 @@ public:
 
 -(IBAction) SwitchStereoMode :(id) sender
 {
-	if( [self renderWindow]->GetStereoRender() == false)
+	if ([self renderWindow]->GetStereoRender() == false)
 	{
 		[self renderWindow]->StereoRenderOn();
 		[self renderWindow]->SetStereoTypeToRedBlue();
@@ -7001,7 +7389,7 @@ public:
 	NSRect sourceRect = NSMakeRect(0.0, 0.0, [currentImage size].width, [currentImage size].height);
 	NSRect imageRect;
 	
-	if( [currentImage size].width > [currentImage size].height)
+	if ([currentImage size].width > [currentImage size].height)
 	{
 		float ratio = [currentImage size].width / matrixsize;
 		imageRect = NSMakeRect(0.0, 0.0, (int) ([currentImage size].width/ratio), (int) ([currentImage size].height/ratio));
@@ -7018,7 +7406,7 @@ public:
 	[currentImage setScalesWhenResized:YES];
 	
 	NSImage *compositingImage = [[NSImage alloc] initWithSize: imageRect.size];
-	if( [compositingImage size].width > 0 && [compositingImage size].height > 0)
+	if ([compositingImage size].width > 0 && [compositingImage size].height > 0)
 	{
 		[compositingImage lockFocus];
 		[currentImage drawInRect: imageRect fromRect: sourceRect operation: NSCompositeCopy fraction: 1.0];
@@ -7051,13 +7439,13 @@ public:
 {
     fullDepthEngineCopy = engine;
     
-    if( engine != 0)
-        self.engine = 0; // Switch to CPU !
+    if (engine != ENGINE_CPU)
+        self.engine = ENGINE_CPU; // Switch to CPU !
     
-    if( firstObject.isRGB)
+    if (firstObject.isRGB)
         return;
     
-	if( volumeMapper)
+	if (volumeMapper)
 	{
 		volumeMapper->SetIntermixIntersectingGeometry( 0);
 		
@@ -7080,7 +7468,7 @@ public:
 		fullDepthMode = 1;
 	}
 	
-	if( blendingVolumeMapper)
+	if (blendingVolumeMapper)
 	{
 		blendingVolumeMapper->SetIntermixIntersectingGeometry( 0);
 		
@@ -7104,7 +7492,7 @@ public:
 
 - (void) restoreFullDepthCapture
 {
-	if( volumeMapper)
+	if (volumeMapper)
 	{
 		volumeMapper->SetIntermixIntersectingGeometry( 1);
 		
@@ -7114,7 +7502,7 @@ public:
 		fullDepthMode = 0;
 	}
 	
-	if( blendingVolumeMapper)
+	if (blendingVolumeMapper)
 	{
 		blendingVolumeMapper->SetIntermixIntersectingGeometry( 1);
 		
@@ -7122,7 +7510,7 @@ public:
 		blendingVolumeMapper->PerVolumeInitialization( aRenderer, blendingVolume);
 	}
 	
-    if( engine != fullDepthEngineCopy)
+    if (engine != fullDepthEngineCopy)
         self.engine = fullDepthEngineCopy; // Restore !
     
     minimumStep = 0;
@@ -7145,7 +7533,7 @@ public:
         OsiriXFixedPointVolumeRayCastMapper *mapper = nil;
         DCMPix *firstObj = nil;
         
-        if( blendingView)
+        if (blendingView)
         {
             firstObj = blendingFirstObject;
             mapper = blendingVolumeMapper;
@@ -7156,7 +7544,7 @@ public:
             mapper = volumeMapper;
         }
         
-        if( mapper)
+        if (mapper)
         {
             vtkFixedPointRayCastImage *rayCastImage = mapper->GetRayCastImage();
             
@@ -7171,12 +7559,12 @@ public:
             *w = size[0];
             *h = size[1];
             
-            if( firstObject.isRGB == NO && ( renderingMode == 1 || renderingMode == 3 || renderingMode == 2))		// MIP
+            if (firstObject.isRGB == NO && ( renderingMode == 1 || renderingMode == 2 || renderingMode == 3))		// MIP
             {
                 unsigned short *destPtr, *destFixedPtr;
                 
                 destPtr = destFixedPtr = (unsigned short*) malloc( (*w+1) * (*h+1) * sizeof( unsigned short));
-                if( destFixedPtr)
+                if (destFixedPtr)
                 {
                     unsigned short *iptr;
                     
@@ -7184,11 +7572,11 @@ public:
                     vImage_Buffer src, dst;
                     
                     int j = *h, rowBytes = 4*fullSize[0];
-                    while( j-- > 0)
+                    while (j-- > 0)
                     {
                         unsigned short *iptrTemp = iptr;
                         int i = *w;
-                        while( i-- > 0)
+                        while (i-- > 0)
                         {
                             *destPtr++ = *iptrTemp;
                             iptrTemp += 4;
@@ -7200,12 +7588,12 @@ public:
                     float mul;
                     float add;
                     
-                    if( blendingView)
+                    if (blendingView)
                     {
                         mul = 1./blendingValueFactor;
                         add = -blendingOFFSET16;
                         
-                        if( blendingValueFactor != 1)
+                        if (blendingValueFactor != 1)
                             mul = mul;
                         else
                             mul = 1;
@@ -7215,7 +7603,7 @@ public:
                         mul = 1./valueFactor;
                         add = -OFFSET16;
                         
-                        if( valueFactor != 1)
+                        if (valueFactor != 1)
                             mul = mul;
                         else
                             mul = 1;
@@ -7227,7 +7615,7 @@ public:
                     src.rowBytes = *w * 2;
                     
                     dst.data = malloc( (*w+1) * (*h+1) * sizeof( float));
-                    if( dst.data)
+                    if (dst.data)
                     {
                         dst.height = *h;
                         dst.width = *w;
@@ -7248,16 +7636,16 @@ public:
                 unsigned char *destPtr, *destFixedPtr;
                 
                 destPtr = destFixedPtr = (unsigned char*) malloc( (*w+1) * (*h+1) * 4 * sizeof( unsigned char));
-                if( destFixedPtr)
+                if (destFixedPtr)
                 {
                     unsigned short *iptr = im + 3 + 4*(*h-1)*fullSize[0];
                     
                     int j = *h, rowBytes = 4*fullSize[0];
-                    while( j-- > 0)
+                    while (j-- > 0)
                     {
                         unsigned short *iptrTemp = iptr;
                         int i = *w;
-                        while( i-- > 0)
+                        while (i-- > 0)
                         {
                             *destPtr = 255;
                             destPtr++;
@@ -7301,19 +7689,19 @@ public:
 	
 	@try 
 	{
-		if( force8bits == NO)
+		if (force8bits == NO)
 			fullDepthCapture = YES;
 		
-		if( fullDepthCapture)
+		if (fullDepthCapture)
 		{
 			vImage_Buffer sf, d8;
 			BOOL rgb;
 			
 			sf.data = [self imageInFullDepthWidth: width height:height isRGB: &rgb];
 			
-			if( sf.data) 
+			if (sf.data)
 			{
-				if( rgb)
+				if (rgb)
 				{
 					*spp = 3;
 					*bpp = 8;
@@ -7323,7 +7711,7 @@ public:
 					int i = *width * *height;
 					unsigned char *t_argb = buf+1;
 					unsigned char *t_rgb = buf;
-					while( i-->0)
+					while (i-- > 0)
 					{
 						*((int*) t_rgb) = *((int*) t_argb);
 						t_argb+=4;
@@ -7339,39 +7727,47 @@ public:
 					sf.width = *width;
 					sf.rowBytes = *width * sizeof( float);
 					
-					d8.height =  *height;
+					d8.height = *height;
 					d8.width = *width;
 					d8.rowBytes = *width * sizeof( short);
 					
 					float slope = 1;
 					
-					if( [[[controller viewer2D] modality] isEqualToString:@"PT"])
+					if ([[[controller viewer2D] modality] isEqualToString:@"PT"])
 						slope = firstObject.appliedFactorPET2SUV * firstObject.slope;
 					
 					buf = (unsigned char*) malloc( *width * *height * *spp * *bpp / 8);
-					if( buf)
+					if (buf)
 					{
 						d8.data = buf;
 						
-						if( [controller minimumValue] < -1024)
+						if ([controller minimumValue] < -1024)
 						{
-							if( isSigned) *isSigned = YES;
-							if( offset) *offset = 0;
+							if (isSigned)
+                                *isSigned = YES;
+                            
+							if (offset)
+                                *offset = 0;
 							
 							vImageConvert_FTo16S( &sf, &d8, 0, slope, 0);
 						}
 						else
 						{
-							if( isSigned) *isSigned = NO;
+							if (isSigned)
+                                *isSigned = NO;
 							
-							if( [controller minimumValue] >= 0)
+							if ([controller minimumValue] >= 0)
 							{
-								if( offset) *offset = 0;
+								if (offset)
+                                    *offset = 0;
+                                
 								vImageConvert_FTo16U( &sf, &d8, 0, slope, 0);
 							}
 							else
 							{
-								if( offset) *offset = -1024;
+								if (offset)
+                                    *offset = -1024;
+                                
 								vImageConvert_FTo16U( &sf, &d8, -1024, slope, 0);
 							}
 						}
@@ -7397,35 +7793,35 @@ public:
 			[self getVTKRenderWindow]->MakeCurrent();
 			
 			buf = (unsigned char*) malloc( *width * *height * 4 * *bpp/8);
-			if( buf)
+			if (buf)
 			{
 				CGLContextObj cgl_ctx = (CGLContextObj) [[NSOpenGLContext currentContext] CGLContextObj];
 				
 				glReadBuffer(GL_FRONT);
 				
-				#if __BIG_ENDIAN__
+#if __BIG_ENDIAN__
 					glReadPixels(0, 0, *width, *height, GL_RGB, GL_UNSIGNED_BYTE, buf);
-				#else
+#else
 					glReadPixels(0, 0, *width, *height, GL_RGBA, GL_UNSIGNED_INT_8_8_8_8_REV, buf);
 					i = *width * *height;
 					unsigned char	*t_argb = buf;
 					unsigned char	*t_rgb = buf;
-					while( i-->0)
+					while (i-- > 0)
 					{
 						*((int*) t_rgb) = *((int*) t_argb);
 						t_argb+=4;
 						t_rgb+=3;
 					}
-				#endif
+#endif
 				
 				long rowBytes = *width**spp**bpp/8;
 				
 				{
 					unsigned char	*tempBuf = (unsigned char*) malloc( rowBytes);
 					
-					if( tempBuf)
+					if (tempBuf)
 					{
-						for( i = 0; i < *height/2; i++)
+						for (i = 0; i < *height/2; i++)
 						{
 							memcpy( tempBuf, buf + (*height - 1 - i)*rowBytes, rowBytes);
 							memcpy( buf + (*height - 1 - i)*rowBytes, buf + i*rowBytes, rowBytes);
@@ -7440,17 +7836,17 @@ public:
 				NSImage	 *logo = [NSImage imageNamed:@"SmallLogo.tif"];
 				NSBitmapImageRep *TIFFRep = [[NSBitmapImageRep alloc] initWithData: [logo TIFFRepresentation]];
 				
-				if( TIFFRep)
+				if (TIFFRep)
 				{
-					for( i = 0; i < [TIFFRep pixelsHigh]; i++)
+					for (i = 0; i < [TIFFRep pixelsHigh]; i++)
 					{
-						unsigned char	*srcPtr = ([TIFFRep bitmapData] + i*[TIFFRep bytesPerRow]);
-						unsigned char	*dstPtr = (buf + (*height - [TIFFRep pixelsHigh] + i)*rowBytes + 2*3);
+						unsigned char *srcPtr = ([TIFFRep bitmapData] + i*[TIFFRep bytesPerRow]);
+						unsigned char *dstPtr = (buf + (*height - [TIFFRep pixelsHigh] + i)*rowBytes + 2*3);
 						
 						long x = [TIFFRep bytesPerRow]/3;
-						while( x-->0)
+						while (x-- > 0)
 						{
-							if( srcPtr[ 0] != 0 || srcPtr[ 1] != 0 || srcPtr[ 2] != 0)
+							if (srcPtr[ 0] != 0 || srcPtr[ 1] != 0 || srcPtr[ 2] != 0)
 							{
 								dstPtr[ 0] = srcPtr[ 0];
 								dstPtr[ 1] = srcPtr[ 1];
@@ -7489,7 +7885,7 @@ public:
 	
 	dataPtr = [self getRawPixels :&width :&height :&spp :&bpp :!originalSize : YES];
 
-	if( spp == 3)
+	if (spp == 3)
         colorSpace = NSCalibratedRGBColorSpace;
 	else
         colorSpace = NSCalibratedWhiteColorSpace;
@@ -7518,19 +7914,19 @@ public:
 
 -(void) switchOrientationWidget:(id) sender
 {
-	long i;
-	
-	if( orientationWidget)
+	if (orientationWidget)
 	{
-		if( orientationWidget->GetEnabled())
+		if (orientationWidget->GetEnabled())
 		{
 			orientationWidget->Off();
-			for( i = 0; i < 5; i++) aRenderer->RemoveActor2D( oText[ i]);
+			for (long i = 0; i < NUM_VR_LABELS; i++)
+                aRenderer->RemoveActor2D( oText[ i]);
 		}
 		else
 		{
 			orientationWidget->On();
-			for( i = 0; i < 5; i++) aRenderer->AddActor2D( oText[ i]);
+			for (long i = 0; i < NUM_VR_LABELS; i++)
+                aRenderer->AddActor2D( oText[ i]);
 		}
 	}
 	
@@ -7539,9 +7935,10 @@ public:
 
 -(void) showCropCube:(id) sender
 {
-	if( croppingBox)
+	if (croppingBox)
 	{
-		if( croppingBox->GetEnabled()) croppingBox->Off();
+		if (croppingBox->GetEnabled())
+            croppingBox->Off();
 		else
 		{
 			croppingBox->On();
@@ -7560,18 +7957,18 @@ public:
 
     NSImage *im;
     
-    [pb declareTypes:[NSArray arrayWithObject:NSTIFFPboardType] owner:self];
+    [pb declareTypes:[NSArray arrayWithObject:NSPasteboardTypeTIFF] owner:self];
     
     im = [self nsimage:NO];
     
-    [pb setData: [im TIFFRepresentation] forType:NSTIFFPboardType];
+    [pb setData: [im TIFFRepresentation] forType:NSPasteboardTypeTIFF];
 }
 
 - (void) updateScissorStateButtons
 {
 	NSString *str = [VRController getUniqueFilenameScissorStateFor: [firstObject imageObj]];
 	
-	if( [[NSFileManager defaultManager] fileExistsAtPath: str] == NO)
+	if ([[NSFileManager defaultManager] fileExistsAtPath: str] == NO)
 	{
 		[[scissorStateMatrix cellWithTag: 1] setEnabled: NO];
 		[[scissorStateMatrix cellWithTag: 2] setEnabled: NO];
@@ -7585,22 +7982,22 @@ public:
 
 - (BOOL)validateMenuItem:(NSMenuItem *)menuItem
 {
-    if( [menuItem action] == @selector( scissorStateButtons:))
+    if ([menuItem action] == @selector( scissorStateButtons:))
     {
-        if( menuItem.tag == 2) // Delete
+        if (menuItem.tag == 2) // Delete
         {
             NSString *str = [VRController getUniqueFilenameScissorStateFor: [firstObject imageObj]];
             
-            if( [[NSFileManager defaultManager] fileExistsAtPath: str] == NO)
+            if ([[NSFileManager defaultManager] fileExistsAtPath: str] == NO)
                 return NO;
             else
                 return YES;
         }
-        else if( menuItem.tag == 1) // Load
+        else if (menuItem.tag == 1) // Load
         {
             NSString *str = [VRController getUniqueFilenameScissorStateFor: [firstObject imageObj]];
             
-            if( [[NSFileManager defaultManager] fileExistsAtPath: str] == NO)
+            if ([[NSFileManager defaultManager] fileExistsAtPath: str] == NO)
                 return NO;
             else
                 return YES;
@@ -7624,10 +8021,10 @@ public:
 	else
 		tag = [sender tag];
 	
-	switch( tag)
+	switch (tag)
 	{
 		case 2:
-            if( NSRunAlertPanel(NSLocalizedString(@"3D Scissor State", nil),
+            if (NSRunAlertPanel(NSLocalizedString(@"3D Scissor State", nil),
                                 NSLocalizedString(@"Are you sure you want to delete this 3D state? You cannot undo this operation.", nil),
                                 NSLocalizedString(@"OK", nil),
                                 NSLocalizedString(@"Cancel", nil),
@@ -7642,35 +8039,54 @@ public:
 			waiting = [[WaitRendering alloc] init:NSLocalizedString(@"Loading 3D object...", nil)];
 			[waiting showWindow:self];
 			
-            if( [[NSFileManager defaultManager] fileExistsAtPath: str])
+            if ([[NSFileManager defaultManager] fileExistsAtPath: str])
             {
                 volumeData = [[NSData alloc] initWithContentsOfFile:str];
                 
-                if( volumeData)
+                if (volumeData)
                 {
-                    if( [volumeData length] == volumeSize)
+                    if ([volumeData length] == volumeSize)
                     {
                         memcpy( data, [volumeData bytes], volumeSize);
                         [[NSNotificationCenter defaultCenter] postNotificationName: OsirixUpdateVolumeDataNotification object: pixList userInfo: 0];
                         
-                        if( croppingBox)
+                        if (croppingBox)
                             cropcallback->Execute(croppingBox, 0, nil);
                     }
                     else
-                        NSRunAlertPanel(NSLocalizedString(@"3D Scissor State", nil), NSLocalizedString(@"No saved data are available.", nil), NSLocalizedString(@"OK", nil), nil, nil);
+                        NSRunAlertPanel(NSLocalizedString(@"3D Scissor State", nil),
+                                        NSLocalizedString(@"No saved data are available.", nil),
+                                        NSLocalizedString(@"OK", nil),
+                                        nil,
+                                        nil);
                     
                     [volumeData release];
                 }
                 else
-                    NSRunAlertPanel(NSLocalizedString(@"3D Scissor State", nil), NSLocalizedString(@"No saved data are available.", nil), NSLocalizedString(@"OK", nil), nil, nil);
+                    NSRunAlertPanel(NSLocalizedString(@"3D Scissor State", nil),
+                                    NSLocalizedString(@"No saved data are available.", nil),
+                                    NSLocalizedString(@"OK", nil),
+                                    nil,
+                                    nil);
             }
 			else
-                NSRunAlertPanel(NSLocalizedString(@"3D Scissor State", nil), NSLocalizedString(@"No saved data are available.", nil), NSLocalizedString(@"OK", nil), nil, nil);
+                NSRunAlertPanel(NSLocalizedString(@"3D Scissor State", nil),
+                                NSLocalizedString(@"No saved data are available.", nil),
+                                NSLocalizedString(@"OK", nil),
+                                nil,
+                                nil);
 		break;
 		
 		case 0:	// Save
             
-            if( ([[NSFileManager defaultManager] fileExistsAtPath: str] && NSRunAlertPanel(NSLocalizedString(@"3D Scissor State", nil), NSLocalizedString(@"A 3D Scissor State already exists. Do you want to replace it with curent state?", nil), NSLocalizedString(@"OK", nil), NSLocalizedString(@"Cancel", nil), nil) == NSAlertDefaultReturn) || [[NSFileManager defaultManager] fileExistsAtPath: str] == NO)
+            if (([[NSFileManager defaultManager] fileExistsAtPath: str] &&
+                 NSRunAlertPanel(NSLocalizedString(@"3D Scissor State", nil),
+                                 NSLocalizedString(@"A 3D Scissor State already exists. Do you want to replace it with curent state?", nil),
+                                 NSLocalizedString(@"OK", nil),
+                                 NSLocalizedString(@"Cancel", nil),
+                                 nil
+                                 ) == NSAlertDefaultReturn) ||
+                [[NSFileManager defaultManager] fileExistsAtPath: str] == NO)
             {
                 waiting = [[WaitRendering alloc] init:NSLocalizedString(@"Saving 3D object...", nil)];
                 [waiting showWindow:self];
@@ -7698,7 +8114,7 @@ public:
 
 - (void) setVtkCamera:(vtkCamera*)aVtkCamera;
 {
-    if( aCamera == nil)
+    if (aCamera == nil)
         return;
     
 	double pos[3], focal[3], vUp[3], parallelScale;
@@ -7713,11 +8129,22 @@ public:
 	aCamera->GetViewUp(currentVUp);
 	currentParallelScale = aCamera->GetParallelScale();
 	
-	if(currentPos[0]==pos[0] && currentPos[1]==pos[1] && currentPos[2]==pos[2]
-		&& currentFocal[0]==focal[0] && currentFocal[1]==focal[1] && currentFocal[2]==focal[2]
-		&& currentVUp[0]==vUp[0] && currentVUp[1]==vUp[1] && currentVUp[2]==vUp[2]
-		&& currentParallelScale==parallelScale)
+	if (currentPos[0]==pos[0] &&
+        currentPos[1]==pos[1] &&
+        currentPos[2]==pos[2] &&
+        
+        currentFocal[0]==focal[0] &&
+        currentFocal[1]==focal[1] &&
+        currentFocal[2]==focal[2] &&
+        
+        currentVUp[0]==vUp[0] &&
+        currentVUp[1]==vUp[1] &&
+        currentVUp[2]==vUp[2] &&
+        
+        currentParallelScale==parallelScale)
+    {
 		return;
+    }
 
 	double clippingRange[2];
 	aVtkCamera->GetClippingRange(clippingRange);
@@ -7745,6 +8172,7 @@ public:
 	double pos[3], focal[3], vUp[3];
 	double pWC[ 2];
 	
+    NSLog(@"VRView.mm:%d %s", __LINE__, __PRETTY_FUNCTION__);
 	aCamera->GetWindowCenter( pWC);
 	aCamera->GetPosition(pos);
 	aCamera->GetFocalPoint(focal);
@@ -7765,7 +8193,7 @@ public:
 	cam.windowCenterX = pWC[ 0];
 	cam.windowCenterY = pWC[ 1];
 	
-    if( volumeMapper)
+    if (volumeMapper)
         cam.LOD = volumeMapper->GetMinimumImageSampleDistance();
 	
 	[cam setPosition: pt];
@@ -7780,16 +8208,16 @@ public:
 	// window level
 	[cam setWLWW: wl : ww];
 	
-    if( croppingBox)
+    if (croppingBox)
     {
         vtkPlanes *planes = vtkPlanes::New();
         croppingBox->GetPlanes(planes);
         
         // cropping box
-        if( planes->GetNumberOfPlanes() != 6)
+        if (planes->GetNumberOfPlanes() != 6)
             NSLog( @"****** planes->GetNumberOfPlanes() != 6");
         
-        for( int i = 0; i < planes->GetNumberOfPlanes(); i++)
+        for (int i = 0; i < planes->GetNumberOfPlanes(); i++)
         {
             N3Vector p;
             N3Vector n;
@@ -7818,7 +8246,7 @@ public:
 	[cam setMovieIndexIn4D: [controller curMovieIndex]];
 	
 	// thumbnail
-	if( produceThumbnail)
+	if (produceThumbnail)
 		[cam setPreviewImage: [self nsimage:TRUE]];
 	
 	return [cam autorelease];
@@ -7851,7 +8279,7 @@ public:
 	aCamera->ComputeViewPlaneNormal();
 	aCamera->OrthogonalizeViewUp();
 	
-	if( clipRangeActivated)
+	if (clipRangeActivated)
 		aCamera->SetClippingRange( 0.0, clippingRangeThickness);
 	else
 		aRenderer->ResetCameraClippingRange();
@@ -7861,7 +8289,7 @@ public:
 
 - (void) setCamera: (Camera*) cam
 {
-	if( cam == nil)
+	if (cam == nil)
         return;
 	
 	double pos[3], focal[3], vUp[3], pWC[ 2];
@@ -7885,11 +8313,9 @@ public:
 	parallelScale = [cam parallelScale];
 	
 	// window level
-	if( !advancedCLUT)
-	{
-		if( [cam ww] > 1)
+	if (!advancedCLUT)
+		if ([cam ww] > 1)
 			[self setWLWW:[cam wl] :[cam ww]];
-	}
 	
 	// cropping box
     vtkPlanes *planes = vtkPlanes::New();
@@ -7919,7 +8345,7 @@ public:
     vtkVolumeMapper *mapper = (vtkVolumeMapper*) volume->GetMapper();
     mapper->SetClippingPlanes( planes);
     
-    if( blendingVolume)
+    if (blendingVolume)
     {
         mapper = (vtkVolumeMapper*) blendingVolume->GetMapper();
         mapper->SetClippingPlanes( planes);
@@ -7927,16 +8353,16 @@ public:
     
     planes->Delete();
     
-    if( croppingBox && croppingBox->GetEnabled())
+    if (croppingBox && croppingBox->GetEnabled())
         croppingBox->Off();
     
 	// fusion percentage
 	[self setBlendingFactor:[cam fusionPercentage]];
 
 	// 4D
-	if([controller is4D])
+	if ([controller is4D])
 	{
-		if( [cam movieIndexIn4D] != [controller curMovieIndex])
+		if ([cam movieIndexIn4D] != [controller curMovieIndex])
 			[controller setMovieFrame: [cam movieIndexIn4D]];
 	}
 	//vtkCamera
@@ -7954,7 +8380,7 @@ public:
 	
 	aRenderer->UpdateLightsGeometryToFollowCamera();
 	
-	if( clipRangeActivated)
+	if (clipRangeActivated)
 	{
 		aCamera->SetDistance( 40.);
 		aCamera->SetClippingRange( 0.0, clippingRangeThickness);
@@ -7967,48 +8393,60 @@ public:
 
 - (void) setLowResolutionCamera: (Camera*) cam
 {
-	if( volumeMapper) volumeMapper->SetMinimumImageSampleDistance( LOD*lowResLODFactor);
-	if( blendingVolumeMapper) blendingVolumeMapper->SetMinimumImageSampleDistance( LOD*lowResLODFactor);
+	if (volumeMapper)
+        volumeMapper->SetMinimumImageSampleDistance( LOD*lowResLODFactor);
+    
+	if (blendingVolumeMapper)
+        blendingVolumeMapper->SetMinimumImageSampleDistance( LOD*lowResLODFactor);
 	
 	[self setCamera: cam];
 	
 	[[self window] display];
 	
-	if( volumeMapper) volumeMapper->SetMinimumImageSampleDistance( LOD);
-	if( blendingVolumeMapper) blendingVolumeMapper->SetMinimumImageSampleDistance( LOD);
+	if (volumeMapper)
+        volumeMapper->SetMinimumImageSampleDistance( LOD);
+    
+	if (blendingVolumeMapper)
+        blendingVolumeMapper->SetMinimumImageSampleDistance( LOD);
 }
 
 - (void)changeColorWith:(NSColor*) color
 {
-	if( color && aRenderer)
+	if (color && aRenderer)
 	{
 		//change background color
 		aRenderer->SetBackground([color redComponent],[color greenComponent],[ color blueComponent]);
 		
-		if( [color redComponent]+[color greenComponent]+[ color blueComponent] < 1.5)
+		if ([color redComponent]+[color greenComponent]+[ color blueComponent] < 1.5)
 		{
 			textWLWW->GetTextProperty()->SetColor(1,1,1);
-			for( int i = 0 ; i < 5 ; i++) oText[ i]->GetTextProperty()->SetColor(1,1,1);
-			if( textX)
+			for (int i = 0 ; i < NUM_VR_LABELS ; i++)
+                oText[ i]->GetTextProperty()->SetColor(1,1,1);
+
+            if (textX)
 				textX->GetTextProperty()->SetColor(1,1,1);
 		}
 		else
 		{
 			textWLWW->GetTextProperty()->SetColor(0,0,0);
-			for( int i = 0 ; i < 5 ; i++) oText[ i]->GetTextProperty()->SetColor(0,0,0);
-			if( textX)
+			for (int i = 0 ; i < NUM_VR_LABELS ; i++)
+                oText[ i]->GetTextProperty()->SetColor(0,0,0);
+
+            if (textX)
 				textX->GetTextProperty()->SetColor(0,0,0);
 		}
-		[backgroundColor setColor: [NSColor colorWithDeviceRed:[color redComponent] green:[color greenComponent] blue:[ color blueComponent] alpha:1.0]];
-		
+		[backgroundColor setColor: [NSColor colorWithDeviceRed:[color redComponent]
+                                                         green:[color greenComponent]
+                                                          blue:[color blueComponent]
+                                                         alpha:1.0]];
 		[self setNeedsDisplay:YES];
 	}
 }
 
 - (void)changeColor:(id)sender
 {
-	if( [backgroundColor isActive])
-		[self changeColorWith: [[(NSColorPanel*)sender color]  colorUsingColorSpaceName: NSCalibratedRGBColorSpace]];
+	if ([backgroundColor isActive])
+		[self changeColorWith: [[(NSColorPanel*)sender color] colorUsingColorSpaceName: NSCalibratedRGBColorSpace]];
 }
 
 - (NSColor*)backgroundColor;
@@ -8018,23 +8456,19 @@ public:
 
 - (void) convert3Dto2Dpoint:(double*) pt3D :(double*) pt2D
 {
-    if( pt3D == nil) return;
-    if( pt2D == nil) return;
-    if( volume == nil) return;
+    if (pt3D == nil) return;
+    if (pt2D == nil) return;
+    if (volume == nil) return;
     
 	vtkTransform *Transform = vtkTransform::New();
     
-    if( Transform)
+    if (Transform)
     {
         Transform->SetMatrix( volume->GetUserMatrix());
         Transform->Push();
-        
         Transform->Inverse();
-        
         Transform->TransformPoint( pt3D, pt2D);
-        
         double vPos[ 3];
-        
         volume->GetPosition( vPos);
         
         pt2D[ 0] -= vPos[ 0];
@@ -8151,7 +8585,7 @@ public:
 	
 	long i;
 	// add some random points
-	for(i=0; i<n ; i++)
+	for (i=0; i<n ; i++)
 	{
 		[self add3DPoint: ((double)(random()/(pow(2.,31.)-1))*2.0-1.0)*(double)r+origin[0]/2.0 // x coordinate
 						: ((double)(random()/(pow(2.,31.)-1))*2.0-1.0)*(double)r+origin[1]/2.0 // y
@@ -8215,12 +8649,12 @@ public:
 						+ cameraViewPlaneNormal[2] * o[8];
 	
 	long stackOrientation, stackMax;
-	if( fabs(cameraProjObj[0]) > fabs(cameraProjObj[1]) && fabs(cameraProjObj[0]) > fabs(cameraProjObj[2]))
+	if (fabs(cameraProjObj[0]) > fabs(cameraProjObj[1]) && fabs(cameraProjObj[0]) > fabs(cameraProjObj[2]))
 	{
 		stackOrientation = 0; //NSLog(@"X Stack");
 		stackMax = [firstObject pwidth];
 	}
-	else if( fabs(cameraProjObj[1]) > fabs(cameraProjObj[0]) && fabs(cameraProjObj[1]) > fabs(cameraProjObj[2]))
+	else if (fabs(cameraProjObj[1]) > fabs(cameraProjObj[0]) && fabs(cameraProjObj[1]) > fabs(cameraProjObj[2]))
 	{
 		stackOrientation = 1; //NSLog(@"Y Stack");
 		stackMax = [firstObject pheight];
@@ -8231,7 +8665,7 @@ public:
 		stackMax = [curPixList count];
 	}
 	
-	if(aCamera->GetParallelProjection())
+	if (aCamera->GetParallelProjection())
 	{				
 		cameraPosition[0] = worldPointClicked[0] + cameraViewPlaneNormal[0];
 		cameraPosition[1] = worldPointClicked[1] + cameraViewPlaneNormal[1];
@@ -8258,28 +8692,31 @@ public:
 	
 	BOOL direction;
 	
-	switch(stackOrientation)
+	switch (stackOrientation)
 	{
 		case 0:
-			if( point1[0] - point2[0] < 0)
+			if (point1[0] - point2[0] < 0)
                 direction = YES;
 			else
                 direction = NO;
-		break;
+            
+            break;
 		
 		case 1:
-			if( point1[1] - point2[1] < 0)
+			if (point1[1] - point2[1] < 0)
                 direction = YES;
 			else
                 direction = NO;
-		break;
+            
+            break;
 		
 		case 2:
-			if( point1[2] - point2[2] < 0)
+			if (point1[2] - point2[2] < 0)
                 direction = YES;
 			else
                 direction = NO;
-		break;
+            
+            break;
 	}
 	
 	long p, n;
@@ -8287,15 +8724,18 @@ public:
 	float opacitySum = 0.0;
 	float maxValue = -FLT_MAX;
 	int blendMode;
-	if( volumeMapper) blendMode = volumeMapper->GetBlendMode();
-	if( textureMapper) blendMode = textureMapper->GetBlendMode();
+	if (volumeMapper)
+        blendMode = volumeMapper->GetBlendMode();
+    
+	if (textureMapper)
+        blendMode = textureMapper->GetBlendMode();
 				
-	for( p = 0; p < stackMax; p++)
+	for (p = 0; p < stackMax; p++)
 	{
 		n = (direction)? p : (stackMax-1)-p;
 		
 		float currentPoint[3], planeVector[3];
-		switch(stackOrientation)
+		switch (stackOrientation)
 		{
 			case 0:
 				currentPoint[0] = n * [firstObject pixelSpacingX];
@@ -8359,10 +8799,8 @@ public:
 			ptInt[1] = (long) (tempPoint3D[1] + 0.5);
 			ptInt[2] = (long) (tempPoint3D[2] + 0.5);
 
-			if(needToFlip) 
-			{
-				ptInt[2] = [curPixList count] - ptInt[2] -1;
-			}
+			if (needToFlip) 
+				ptInt[2] = [curPixList count] - ptInt[2] - 1;
 			
 			long currentSliceNumber, xPosition, yPosition;
 			DCMPix *currentDCMPix;
@@ -8384,13 +8822,13 @@ public:
 				
 				currentPointValue = imageBuffer[xPosition+yPosition*[currentDCMPix pwidth]];
 				
-				if( blendMode != vtkVolumeMapper::MAXIMUM_INTENSITY_BLEND)
+				if (blendMode != vtkVolumeMapper::MAXIMUM_INTENSITY_BLEND)
 				{
 					// Volume Rendering Mode
 				
 					opacitySum += opacityTransferFunction->GetValue( (currentPointValue + OFFSET16) * valueFactor) * superSampling;
 					
-					if( minValue)
+					if (minValue)
 					{
 						pointFound = currentPointValue >= minValue;
 						pointFound = pointFound && opacitySum >= maxOpacity;
@@ -8398,7 +8836,7 @@ public:
 					else
 						pointFound = opacitySum >= maxOpacity;
 					
-					if( pointFound)
+					if (pointFound)
 					{
 						*val = currentPointValue;
 						
@@ -8415,9 +8853,9 @@ public:
 				}
 				else
 				{
-					if( currentPointValue > maxValue)
+					if (currentPointValue > maxValue)
 					{
-						if( minValue)
+						if (minValue)
 							pointFound = currentPointValue >= minValue;
 						else
                             pointFound = YES;
@@ -8448,7 +8886,7 @@ public:
 	long	pix[ 3];
 	float	pos[ 3], value;
 
-	if( [self get3DPixelUnder2DPositionX:x Y:y pixel:pix position:pos value:&value])
+	if ([self get3DPixelUnder2DPositionX:x Y:y pixel:pix position:pos value:&value])
 	{
 		[self add3DPoint: pos[0] : pos[1] : pos[2]];
 		
@@ -8466,22 +8904,17 @@ public:
 - (void) setDisplay3DPoints: (BOOL) on
 {
 	display3DPoints = on;
-	
-	//id object;
 	vtkActor *actor;
 		
-	for  (id object in point3DActorArray)
+	for (id object in point3DActorArray)
 	{
 		actor = (vtkActor*)[object pointerValue];
-		if(on)
-		{
+		if (on)
 			aRenderer->AddActor(actor);
-		}
 		else
-		{
 			aRenderer->RemoveActor(actor);
-		}	
 	}
+    
 	[self unselectAllActors];
 	[self setNeedsDisplay:YES];
 }
@@ -8496,10 +8929,10 @@ public:
 {
 	BOOL boo = NO;
 	
-	if(((vtkAbstractPropPicker*)aRenderer->GetRenderWindow()->GetInteractor()->GetPicker())->GetViewProp() != NULL)
+	if (((vtkAbstractPropPicker*)aRenderer->GetRenderWindow()->GetInteractor()->GetPicker())->GetViewProp() != NULL)
 	{
 		// a vtkObject is selected, let's check if it is one of our 3D Points
-		if([self selected3DPointIndex] < [point3DActorArray count])
+		if ([self selected3DPointIndex] < [point3DActorArray count])
 		{
 			boo = YES;
 		}
@@ -8522,12 +8955,12 @@ public:
 	while (object = [enumerator nextObject])
 	{
 		actorPointer = [object pointerValue];
-		if(pickedPropPointer==actorPointer)
-		{
+		if (pickedPropPointer==actorPointer)
 			return i;
-		}
-		i++;
+
+        i++;
 	}
+    
 	return i; // if no point is selected, returns [point3DActorArray count], i.e. out of bounds...
 }
 
@@ -8558,7 +8991,7 @@ public:
 
 - (void) removeSelected3DPoint
 {
-	if([self isAny3DPointSelected])
+	if ([self isAny3DPointSelected])
 	{
 		// remove 2D Point
 		float position[3];
@@ -8575,7 +9008,7 @@ public:
 
 - (IBAction) IBSetSelected3DPointColor: (id) sender
 {
-	if([point3DPropagateToAll state])
+	if ([point3DPropagateToAll state])
 	{
 		[self setAll3DPointsColor: [sender color]];
 		[self setAll3DPointsRadius: [point3DRadiusSlider floatValue]];
@@ -8584,12 +9017,13 @@ public:
 	{
 		[self setSelected3DPointColor: [sender color]];
 	}
+    
 	[self setNeedsDisplay:YES];
 }
 
 - (IBAction) IBSetSelected3DPointRadius: (id) sender
 {
-	if([point3DPropagateToAll state])
+	if ([point3DPropagateToAll state])
 	{
 		[self setAll3DPointsRadius: [sender floatValue]];
 		[self setAll3DPointsColor: [[point3DColorWell color] colorUsingColorSpaceName: NSCalibratedRGBColorSpace]];
@@ -8598,12 +9032,13 @@ public:
 	{
 		[self setSelected3DPointRadius: [sender floatValue]];
 	}
+    
 	[self setNeedsDisplay:YES];
 }
 
 - (IBAction) IBPropagate3DPointsSettings: (id) sender
 {
-	if([sender state]==NSOnState)
+	if ([sender state]==NSOnState)
 	{
 		[self setAll3DPointsRadius: [point3DRadiusSlider floatValue]];
 		[self setAll3DPointsColor: [[point3DColorWell color] colorUsingColorSpaceName: NSCalibratedRGBColorSpace]];
@@ -8613,16 +9048,14 @@ public:
 
 - (void) setSelected3DPointColor: (NSColor*) color
 {
-	if([self isAny3DPointSelected])[self set3DPointAtIndex:[self selected3DPointIndex] Color: color];
+	if ([self isAny3DPointSelected])
+        [self set3DPointAtIndex:[self selected3DPointIndex] Color: color];
 }
 
 - (void) setAll3DPointsColor: (NSColor*) color
 {
-	unsigned int i = 0;	
-	for(i=0 ; i<[point3DColorsArray count] ; i++)
-	{
+	for (unsigned int i=0 ; i<[point3DColorsArray count] ; i++)
 		[self set3DPointAtIndex:i Color: color];
-	}
 }
 
 - (void) set3DPointAtIndex:(unsigned int) index Color: (NSColor*) color
@@ -8636,16 +9069,14 @@ public:
 
 - (void) setSelected3DPointRadius: (float) radius
 {
-	if([self isAny3DPointSelected])[self set3DPointAtIndex:[self selected3DPointIndex] Radius: radius];
+	if ([self isAny3DPointSelected])
+        [self set3DPointAtIndex:[self selected3DPointIndex] Radius: radius];
 }
 
 - (void) setAll3DPointsRadius: (float) radius
 {
-	unsigned int i = 0;	
-	for(i=0 ; i<[point3DRadiusArray count] ; i++)
-	{
+	for (unsigned int i=0 ; i<[point3DRadiusArray count] ; i++)
 		[self set3DPointAtIndex:i Radius: radius];
-	}
 }
 
 - (void) set3DPointAtIndex:(unsigned int) index Radius: (float) radius
@@ -8698,7 +9129,7 @@ public:
 	point3DDefaultColorBlue = [[NSUserDefaults standardUserDefaults] floatForKey:@"points3DcolorBlue"];
 	point3DDefaultColorAlpha = [[NSUserDefaults standardUserDefaults] floatForKey:@"points3DcolorAlpha"];
 	
-	if(point3DDefaultColorAlpha==0.0)
+	if (point3DDefaultColorAlpha==0.0)
 	{
 		point3DDefaultColorRed = 0.0;
 		point3DDefaultColorGreen = 1.0;
@@ -8779,16 +9210,17 @@ public:
 
 - (void) checkCursor
 {
-	if(cursorSet) [cursor set];
+	if (cursorSet)
+        [cursor set];
 }
 
 -(void) setCursorForView: (ToolMode) tool
 {
 	NSCursor	*c;
 	
-	if (tool == tMesure || tool == t3Dpoint)
+	if (tool == tMeasure || tool == t3Dpoint)
 		c = [NSCursor crosshairCursor];
-	else if( tool == t3DCut)
+	else if (tool == t3DCut)
 		c = [NSCursor crosshairCursor];
 	else if (tool == t3DRotate)
 		c = [NSCursor rotate3DCursor];
@@ -8815,15 +9247,14 @@ public:
 	else	
 		c = [NSCursor arrowCursor];
 		
-	if( c != cursor)
+	if (c != cursor)
 	{
 		[cursor release];
-		
 		cursor = [c retain];
 	}
 }
 
-#pragma mark-  Drag and Drop
+#pragma mark - Drag and Drop
 
 - (void) startDrag:(NSTimer*)theTimer
 {
@@ -8836,7 +9267,7 @@ public:
 	NSMutableArray *pbTypes = [NSMutableArray array];
 	// The image we will drag 
 	NSImage *image;
-	if ([event modifierFlags] & NSShiftKeyMask)
+	if ([event modifierFlags] & NSEventModifierFlagShift)
 		image = [self nsimage: YES];
 	else
 		image = [self nsimage: NO];
@@ -8853,32 +9284,35 @@ public:
 	
 	NSImage *thumbnail = [[[NSImage alloc] initWithSize: NSMakeSize(100, 100/ratio)] autorelease];
 
-	if( [thumbnail size].width > 0 && [thumbnail size].height > 0)
+	if ([thumbnail size].width > 0 && [thumbnail size].height > 0)
 	{
 		[thumbnail lockFocus];
-		[image drawInRect: NSMakeRect(0, 0, 100, 100/ratio) fromRect: NSMakeRect(0, 0, originalSize.width, originalSize.height) operation: NSCompositeSourceOver fraction: 1.0];
+		[image drawInRect: NSMakeRect(0, 0, 100, 100/ratio)
+                 fromRect: NSMakeRect(0, 0, originalSize.width, originalSize.height)
+                operation: NSCompositeSourceOver
+                 fraction: 1.0];
 		[thumbnail unlockFocus];
 	}
 	
-	if ([event modifierFlags] & NSAlternateKeyMask)
-		[ pbTypes addObject: NSFilesPromisePboardType];
+	if ([event modifierFlags] & NSEventModifierFlagOption)
+		[ pbTypes addObject: (__bridge NSString *)kPasteboardTypeFileURLPromise];
 	else
-		[pbTypes addObject: NSTIFFPboardType];	
-	
+		[pbTypes addObject: NSPasteboardTypeTIFF];
 
 	[pboard declareTypes:pbTypes  owner:self];
-
 		
-	if ([event modifierFlags] & NSAlternateKeyMask)
+	if ([event modifierFlags] & NSEventModifierFlagOption)
 	{
 		NSRect imageLocation;
 		local_point = [self convertPoint:event_location fromView:nil];
-		imageLocation.origin =  local_point;
+		imageLocation.origin = local_point;
 		imageLocation.size = NSMakeSize(32,32);
-		[pboard setData:nil forType:NSFilesPromisePboardType]; 
+		[pboard setData:nil
+                forType:(__bridge NSString *)kPasteboardTypeFileURLPromise]; 
 		
 		if (destinationImage)
 			[destinationImage release];
+        
 		destinationImage = [image copy];
 		
 		[self dragPromisedFilesOfTypes:[NSArray arrayWithObject:@"jpg"]
@@ -8889,7 +9323,7 @@ public:
 	} 
 	else
 	{		
-		[pboard setData: [[NSBitmapImageRep imageRepWithData: [image TIFFRepresentation]] representationUsingType:NSJPEGFileType properties:[NSDictionary dictionaryWithObject:[NSNumber numberWithFloat:0.9] forKey:NSImageCompressionFactor]] forType:NSTIFFPboardType];
+		[pboard setData: [[NSBitmapImageRep imageRepWithData: [image TIFFRepresentation]] representationUsingType:NSJPEGFileType properties:[NSDictionary dictionaryWithObject:[NSNumber numberWithFloat:0.9] forKey:NSImageCompressionFactor]] forType:NSPasteboardTypeTIFF];
 		
 		[ self dragImage:thumbnail
 			at:local_point
@@ -8970,7 +9404,7 @@ public:
 		hotKey = [hotKey lowercaseString];
 		unichar key = [hotKey characterAtIndex:0];
 		
-		if( [[DCMView hotKeyDictionary] objectForKey:hotKey])
+		if ([[DCMView hotKeyDictionary] objectForKey:hotKey])
 		{
 			key = [[[DCMView hotKeyDictionary] objectForKey:hotKey] intValue];
 			id windowController = [[self window] windowController];
@@ -8998,7 +9432,7 @@ public:
 				case Preset7WWWLHotKeyAction:
 				case Preset8WWWLHotKeyAction:
 				case Preset9WWWLHotKeyAction:
-					if([wwwlValues count] > key-Preset1WWWLHotKeyAction)
+					if ([wwwlValues count] > key-Preset1WWWLHotKeyAction)
 					{
                         wwwlMenuString = [wwwlValues objectAtIndex:key-Preset1WWWLHotKeyAction];
                         [windowController applyWLWWForString:wwwlMenuString];
@@ -9015,13 +9449,13 @@ public:
 				case Preset7OpacityHotKeyAction:
 				case Preset8OpacityHotKeyAction:
 				case Preset9OpacityHotKeyAction:
-					if([opacityValues count] >= key-Preset1OpacityHotKeyAction)
+					if ([opacityValues count] >= key-Preset1OpacityHotKeyAction)
 					{
                         int index = key-Preset1OpacityHotKeyAction-1;
                         
                         NSString *opacityMenuString;
                         
-                        if( index < 0)
+                        if (index < 0)
                             opacityMenuString = NSLocalizedString(@"Linear Table", nil);
 						else
                             opacityMenuString = [opacityValues objectAtIndex: index];
@@ -9047,11 +9481,11 @@ public:
 				case ThreeDPointHotKeyAction:
 				case PlainToolHotKeyAction:
 				case BoneRemovalHotKeyAction:
-					if( [ViewerController getToolEquivalentToHotKey: key] >= 0)
+					if ([ViewerController getToolEquivalentToHotKey: key] >= 0)
 					{
                         ToolMode tool = [ViewerController getToolEquivalentToHotKey: key];
                         
-                        if( tool == t2DPoint)
+                        if (tool == t2DPoint)
                             tool = t3Dpoint;
                         
 						[windowController setCurrentTool: tool];
@@ -9077,7 +9511,7 @@ public:
 
 - (void)setAdvancedCLUT:(NSMutableDictionary*)clut lowResolution:(BOOL)lowRes;
 {
-    if( [controller windowWillClose])
+    if ([controller windowWillClose])
         return;
     
 	advancedCLUT = YES;
@@ -9085,25 +9519,24 @@ public:
 	NSArray *curves = [clut objectForKey:@"curves"];
 	NSArray *pointColors = [clut objectForKey:@"colors"];
 	
-	
-	if( [[NSArchiver archivedDataWithRootObject: clut] isEqualToData: appliedCurves] == NO || (appliedResolution == YES && lowRes == NO))
+	if ([[NSArchiver archivedDataWithRootObject: clut] isEqualToData: appliedCurves] == NO || (appliedResolution == YES && lowRes == NO))
 	{	
 		colorTransferFunction->RemoveAllPoints();
 		opacityTransferFunction->RemoveAllPoints();
 	
 		opacityTransferFunction->AddSegment([controller minimumValue], 0.0, [controller maximumValue], 0.0);
 		
-		for(int i=0; i<[curves count]; i++)
+		for (int i=0; i<[curves count]; i++)
 		{
 			NSMutableArray *aCurve = [NSMutableArray arrayWithArray:[curves objectAtIndex:i]];
 			NSMutableArray *someColors = [NSMutableArray arrayWithArray:[pointColors objectAtIndex:i]];
-			for(int j=0; j<[aCurve count]; j++)
+			for (int j=0; j<[aCurve count]; j++)
 			{
 				colorTransferFunction->AddRGBPoint( (OFFSET16 + [[aCurve objectAtIndex:j] pointValue].x) * valueFactor, [[someColors objectAtIndex:j] redComponent], [[someColors objectAtIndex:j] greenComponent], [[someColors objectAtIndex:j] blueComponent]);
 				
 				float opacityAdapter = 1;
 				
-				if( renderingMode == 0) // VR
+				if (renderingMode == 0) // VR
 					opacityAdapter = superSampling;
 				
 				float o = [[aCurve objectAtIndex:j] pointValue].y * [[aCurve objectAtIndex:j] pointValue].y / opacityAdapter;
@@ -9116,17 +9549,17 @@ public:
 		appliedCurves = [[NSArchiver archivedDataWithRootObject: clut] retain];
 		appliedResolution = lowRes;
 		
-		if( volumeMapper)
+		if (volumeMapper)
 		{
-			if(lowRes)
+			if (lowRes)
 				volumeMapper->SetMinimumImageSampleDistance(LOD*lowResLODFactor*2); // was LOD*5
  			else
 				volumeMapper->SetMinimumImageSampleDistance(LOD);
 		}
 		
-		if( blendingVolumeMapper)
+		if (blendingVolumeMapper)
 		{
-			if(lowRes)
+			if (lowRes)
 				blendingVolumeMapper->SetMinimumImageSampleDistance(LOD*lowResLODFactor*2); // was LOD*5
  			else
 				blendingVolumeMapper->SetMinimumImageSampleDistance(LOD);
@@ -9162,7 +9595,7 @@ public:
 
 - (vtkVolumeMapper*) mapper;
 {
-	if( volumeMapper == nil)
+	if (volumeMapper == nil)
     {
         volumeMapper = OsiriXFixedPointVolumeRayCastMapper::New();
         volumeMapper->SetInputConnection(reader->GetOutputPort());
@@ -9174,9 +9607,9 @@ public:
 
 - (void)setMapper:(vtkVolumeMapper*) mapper;
 {
-    if( mapper && mapper != volumeMapper)
+    if (mapper && mapper != volumeMapper)
     {
-        if( volumeMapper)
+        if (volumeMapper)
             volumeMapper->Delete();
         
         volumeMapper = (OsiriXFixedPointVolumeRayCastMapper*) mapper;
@@ -9191,7 +9624,9 @@ public:
 
 - (void)setVolume:(vtkVolume*)aVolume;
 {
-	if(volume) volume->Delete();
+	if (volume)
+        volume->Delete();
+    
 	volume = aVolume;
 }
 
@@ -9202,10 +9637,11 @@ public:
 
 - (void)setData8:(char*)someData;
 {
-	if(data8) free(data8);
+	if (data8)
+        free(data8);
+    
 	data8 = someData;
 }
-
 
 #pragma mark -
 #pragma mark IMAVManager delegate methods.
@@ -9237,7 +9673,7 @@ public:
 	
 	
     // Lock the pixel buffer's base address so that we can draw into it.
-	if((err = CVPixelBufferLockBaseAddress(buffer, 0)) != kCVReturnSuccess) {
+	if ((err = CVPixelBufferLockBaseAddress(buffer, 0)) != kCVReturnSuccess) {
         // This should not happen.  If it does, the safe thing to do is return 
         // 'NO'.
 		NSLog(@"Warning, could not lock pixel buffer base address in %s - error %ld", __func__, (long)err);
@@ -9267,7 +9703,7 @@ public:
 	//get NSImage and draw in the rect
 	NSImage *image = [self nsimage:NO];
 	
-	if(image) //if([image size].width>0 && [image size].height>0)
+	if (image) //if ([image size].width>0 && [image size].height>0)
 		[self drawImage:image inBounds:NSMakeRect(0.0, 0.0, iChatWidth, iChatHeight)];
 	else
 		[self drawImage:[[NSWorkspace sharedWorkspace] iconForFile:[[NSBundle mainBundle] bundlePath]] inBounds:NSMakeRect(0.0, 0.0, iChatWidth, iChatHeight)];
@@ -9335,21 +9771,20 @@ public:
 
 - (void)setIChatFrame:(BOOL)set;
 {
-	if([[[self controller] style] isEqualToString:@"panel"])
+	if ([[[self controller] style] isEqualToString:@"panel"])
         return;
 
 	//NSLog(@"setIChatFrame");
-	if(set)
+	if (set)
 	{
-		if(iChatFrameIsSet)
+		if (iChatFrameIsSet)
             return;
         
-		//NSLog(@"iChatWidth : %f , iChatHeight : %f", iChatWidth, iChatHeight);
-		if(iChatWidth==0 || iChatHeight==0)
+		//NSLog(@"iChatWidth : %f, iChatHeight : %f", iChatWidth, iChatHeight);
+		if (iChatWidth==0 || iChatHeight==0)
             return;
 
 		iChatFrameIsSet = YES;
-		
 		savedViewSizeFrame = [self frame];
 		
 		NSRect frame;
@@ -9362,7 +9797,7 @@ public:
 	else
 	{
 		iChatFrameIsSet = NO;
-		if(savedViewSizeFrame.size.width>0 && savedViewSizeFrame.size.height>0)
+		if (savedViewSizeFrame.size.width>0 && savedViewSizeFrame.size.height>0)
 			[self setFrame:savedViewSizeFrame];
 	}
 }
@@ -9375,27 +9810,33 @@ public:
 - (BOOL)becomeFirstResponder
 {
 	[[NSNotificationCenter defaultCenter] postNotificationName:OsirixVRViewDidBecomeFirstResponderNotification object:self];
-	[self connect2SpaceNavigator];
+
 	return [super becomeFirstResponder];
 }
 
 - (void) displayLowRes
 {
-	if( volumeMapper) volumeMapper->SetMinimumImageSampleDistance( LOD * lowResLODFactor);
-	if( blendingVolumeMapper) blendingVolumeMapper->SetMinimumImageSampleDistance( LOD * lowResLODFactor);
+	if (volumeMapper)
+        volumeMapper->SetMinimumImageSampleDistance( LOD * lowResLODFactor);
+    
+	if (blendingVolumeMapper)
+        blendingVolumeMapper->SetMinimumImageSampleDistance( LOD * lowResLODFactor);
 	
-	if( [self needsDisplay])
+	if ([self needsDisplay])
 		[self display];
 	
-	if( volumeMapper) volumeMapper->SetMinimumImageSampleDistance( LOD);
-	if( blendingVolumeMapper) blendingVolumeMapper->SetMinimumImageSampleDistance( LOD);
+	if (volumeMapper)
+        volumeMapper->SetMinimumImageSampleDistance( LOD);
+    
+	if (blendingVolumeMapper)
+        blendingVolumeMapper->SetMinimumImageSampleDistance( LOD);
 }
 
 - (void)yaw:(float)degrees;
 {
 	aCamera->Yaw( degrees);
 	
-	if( clipRangeActivated)
+	if (clipRangeActivated)
 		aCamera->SetClippingRange( 0.0, clippingRangeThickness);
 	else
 		aRenderer->ResetCameraClippingRange();
@@ -9403,7 +9844,8 @@ public:
 	[self setNeedsDisplay:YES];
 }
 
-- (void)panX:(double)x Y:(double)y;
+- (void)panX:(double)x
+           Y:(double)y;
 {
 	vtkRenderWindowInteractor *rwi = [self getInteractor];
 
@@ -9449,232 +9891,4 @@ public:
 	[controller recordFlyThru];
 }
 
-#pragma mark-
-#pragma mark  3DConnexion SpaceNavigator
-
-- (void) closeEvent:(id) sender
-{	
-	VRView *vV = (VRView*) snVRView;
-	if( volumeMapper)
-		volumeMapper->SetMinimumImageSampleDistance( LOD);
-	
-	if( blendingVolumeMapper)
-		blendingVolumeMapper->SetMinimumImageSampleDistance( LOD);
-	
-	[vV getInteractor]->InvokeEvent(vtkCommand::LeftButtonReleaseEvent,NULL);
-
-	snStopped = YES;
-	
-	[snCloseEventTimer release];
-	snCloseEventTimer = nil;
-}
-
-#if USE3DCONNEXION
-- (void)connect2SpaceNavigator;
-{
-	snVRView = self;
-	snStopped = YES;
-	OSErr	error;
-	if(InstallConnexionHandlers != NULL)
-	{
-		// Install message handler and register our client
-		error = InstallConnexionHandlers(VRSpaceNavigatorMessageHandler, nil, nil);
-
-		// This takes over in our application only
-		snConnexionClientID = RegisterConnexionClient('OsiX', (UInt8*) "\pOsiriX", kConnexionClientModeTakeOver, kConnexionMaskAll);
-	}
-}
-
-void VRSpaceNavigatorMessageHandler(io_connect_t connection, natural_t messageType, void *messageArgument)
-{
-	static ConnexionDeviceState	lastState;
-	ConnexionDeviceState		*state;
-	VRView *vV = (VRView*) snVRView;
-	
-	SInt16 tx, ty, tz, rx, ry, rz, xPos, yPos;
-	float axis_max, speed, rot;
-	
-	BOOL record = NO;
-	
-	switch(messageType)
-	{
-		case kConnexionMsgDeviceState:
-			state = (ConnexionDeviceState*)messageArgument;
-			
-			AbsoluteTime theTime = UpTime();
-			uint64_t t = ((uint64_t*) &theTime)[0];
-
-			if(t - state->time > 2*1000*1000)
-			{
-				break;
-			}
-
-			if(state->client == snVRView->snConnexionClientID)
-			{
-                // decipher what command/event is being reported by the driver
-                switch (state->command)
-                {
-                    case kConnexionCmdHandleAxis:
-						// get the axis movement (names are taken from the SDK documentation)
-						tx = state->axis[0];
-						ty = state->axis[1];
-						tz = state->axis[2];
-						rx = state->axis[3];
-						ry = state->axis[4];
-						rz = state->axis[5];
-						
-						// normalization
-						axis_max = 500.0; // typical value according to the SDK
-						
-						// if shift is pressed -> faster movement
-						BOOL faster;
-						if([[[NSApplication sharedApplication] currentEvent] modifierFlags] & NSShiftKeyMask)
-							faster = YES;
-						else
-                            faster = NO;
-
-						// if ctrl is pressed -> record
-						if([[[NSApplication sharedApplication] currentEvent] modifierFlags] & NSControlKeyMask)
-							record = YES;
-						else
-                            record = NO;
-						
-						if( vV->snCloseEventTimer)
-						{
-							[vV->snCloseEventTimer invalidate];
-							[vV->snCloseEventTimer release];
-							vV->snCloseEventTimer = nil;
-						}
-						
-						// *** zoom ***					
-						if( vV->projectionMode != 2)
-						{
-							speed = 0.2; // zoom speed 0.2 is slow 1.0 is fast
-							float zoom = ((float)tz/axis_max)*speed +1.0;
-
-							if( zoom < 0.98 || zoom > 1.02)
-							{
-								[vV vtkCamera]->Zoom(zoom);
-								[vV setNeedsDisplay:YES];
-							}
-						}
-						else // endosocpy
-						{
-							float distance = [vV vtkCamera]->GetDistance();
-							float dolly = ((float)tz/axis_max) / 60.;
-							if(faster)
-                                dolly*=3.;
-							if( dolly < -0.9)
-                                dolly = -0.9;
-							
-							[vV vtkCamera]->Dolly( 1.0 + dolly); 
-							[vV vtkCamera]->SetDistance( distance);
-							[vV vtkCamera]->ComputeViewPlaneNormal();
-							[vV vtkCamera]->OrthogonalizeViewUp();
-							[vV vtkRenderer]->ResetCameraClippingRange();
-							[vV setNeedsDisplay:YES];
-						}
-
-						// *** rotation ***
-						rot = -(float)rz;
-						if( vV->projectionMode == 2)
-                            rot = (float)rz;
-						
-						float rotX, rotY;
-						rotX = [vV frame].size.width/2.0 + cos(rot/axis_max)*50.0;
-						rotY = [vV frame].size.height/2.0 + sin(rot/axis_max)*50.0;
-						[vV vtkCamera]->Roll(rot/axis_max*10.0);
-						[vV setNeedsDisplay:YES];
-						
-						// *** pan ***
-						if( vV->projectionMode != 2)
-						{
-							[vV panX:[vV frame].size.width/2.0+tx*1000.0 Y:[vV frame].size.height/2.0-ty*1000.0];
-							[vV setNeedsDisplay:YES];
-						}
-						// no pan for endoscopy mode
-												
-						// *** 3D rotation ***
-						if( vV->projectionMode != 2)
-						{
-							xPos = lastState.axis[4]-(float)ry/axis_max*50.0;
-							yPos = lastState.axis[3]-(float)rx/axis_max*50.0;
-							[vV getInteractor]->SetEventInformation((int)xPos, (int)yPos, 0, 0);						
-							if( vV->snStopped)
-							{
-								[vV getInteractor]->InvokeEvent(vtkCommand::LeftButtonPressEvent,NULL);
-								vV->snStopped = NO;
-							}
-							else
-								[vV getInteractor]->InvokeEvent(vtkCommand::MouseMoveEvent, NULL);						
-							state->axis[3] = yPos;
-							state->axis[4] = xPos;
-						}
-						else // endoscopy
-						{
-							if( vV->snStopped)
-							{
-								[vV getInteractor]->InvokeEvent(vtkCommand::LeftButtonPressEvent,NULL);
-								vV->snStopped = NO;
-							}
-						
-							[vV vtkCamera]->Yaw((float)ry/axis_max*8.0);
-							[vV vtkCamera]->Pitch((float)rx/axis_max*8.0);
-							[vV vtkCamera]->ComputeViewPlaneNormal();
-							[vV vtkCamera]->OrthogonalizeViewUp();
-							[vV vtkRenderer]->ResetCameraClippingRange();
-							[vV computeOrientationText];
-							[vV setNeedsDisplay:YES];
-						}
-												
-						[[NSNotificationCenter defaultCenter] postNotificationName:OsirixVRCameraDidChangeNotification object:vV userInfo:nil];
-						[vV computeOrientationText];
-						
-						[vV displayLowRes];
-						
-						vV->snCloseEventTimer = [[NSTimer scheduledTimerWithTimeInterval:0.1 target:vV selector:@selector(closeEvent:) userInfo:nil repeats:0] retain];
-                        break;
-                        
-                    case kConnexionCmdHandleButtons:
-						if(state->buttons==0) // buttons released
-						{
-							[vV closeEvent:nil];
-						}
-						else if(state->buttons==1) // left button pressed
-						{
-							if( vV->projectionMode != 2)
-                                [vV coView:nil];
-							else
-                                [vV yaw:180.0];
-                            
-							[[NSNotificationCenter defaultCenter] postNotificationName:OsirixVRCameraDidChangeNotification object:vV userInfo:nil];
-						}
-						else if(state->buttons==2) // right button pressed
-						{
-							if( vV->projectionMode != 2)
-                                [vV saView:nil];
-							else
-                                [vV yaw:90.0];
-                            
-							[[NSNotificationCenter defaultCenter] postNotificationName:OsirixVRCameraDidChangeNotification object:vV userInfo:nil];
-						}
-						else if(state->buttons==3) // both button are presed
-						{
-							if( vV->projectionMode != 2) [vV saViewOpposite:nil];
-							[[NSNotificationCenter defaultCenter] postNotificationName:OsirixVRCameraDidChangeNotification object:vV userInfo:nil];
-						}
-                        break;
-                }
-				
-				memcpy( &lastState, state, (long)sizeof(ConnexionDeviceState));
-			}
-		break;
-	}
-	if(record) [vV recordFlyThru];
-}
-#else
-- (void)connect2SpaceNavigator
-{
-}
-#endif
 @end

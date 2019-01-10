@@ -30,10 +30,13 @@
 #import "DicomImage.h"
 #import "DCMTKStoreSCU.h"
 #import "DCMPix.h"
-#import "DCM Framework/DCMNetServiceDelegate.h"
+
+#import <DCM/DCMNetServiceDelegate.h>
+#import <DCM/DCM.h>
+#import <DCM/DCMAbstractSyntaxUID.h>
+
 #import "AppController.h"
 #import "BrowserControllerDCMTKCategory.h"
-#import "DCM Framework/DCM.h"
 #import "HTTPResponse.h"
 #import "HTTPAuthenticationRequest.h"
 #import "CSMailMailClient.h"
@@ -42,7 +45,6 @@
 #import "N2Debug.h"
 #import "NSString+N2.h"
 #import "NSUserDefaultsController+N2.h"
-#import "DCM Framework/DCMAbstractSyntaxUID.h"
 #import "NSString+N2.h"
 #import "DDData.h"
 #import "NSData+N2.h"
@@ -299,9 +301,9 @@ NSString* const SessionDicomCStorePortKey = @"DicomCStorePort"; // NSNumber (int
     || [path isEqualToString: @"/testdbalive"])
 		return NO;
     
-    for (id key in [PluginManager plugins])
+    for (id key in [PluginManager installedPlugins])
     {
-        id plugin = [[PluginManager plugins] objectForKey:key];
+        id plugin = [[PluginManager installedPlugins] objectForKey:key];
         
         if ([plugin respondsToSelector:@selector(isPasswordProtected:forConnection:)])
         {
@@ -488,9 +490,9 @@ NSString* const SessionDicomCStorePortKey = @"DicomCStorePort"; // NSNumber (int
             if( pluginWithHTTPResponses == nil)
             {
                 pluginWithHTTPResponses = [[NSMutableArray alloc] init];
-                for( id key in [PluginManager plugins])
+                for( id key in [PluginManager installedPlugins])
                 {
-                    id plugin = [[PluginManager plugins] objectForKey:key];
+                    id plugin = [[PluginManager installedPlugins] objectForKey:key];
                     
                     if( [plugin respondsToSelector:@selector(httpResponseForPath:forConnection:)])
                         [pluginWithHTTPResponses addObject: plugin];
@@ -1112,9 +1114,9 @@ NSString* const SessionDicomCStorePortKey = @"DicomCStorePort"; // NSNumber (int
             
             if( [[NSUserDefaults standardUserDefaults] boolForKey: @"AllowPluginAuthenticationForWebPortal"]) // Authentication through a plugin? For example, add an LDAP plugin...
             {
-                for (id key in [PluginManager plugins])
+                for (id key in [PluginManager installedPlugins])
                 {
-                    id plugin = [[PluginManager plugins] objectForKey:key];
+                    id plugin = [[PluginManager installedPlugins] objectForKey:key];
                     
                     if ([plugin respondsToSelector:@selector(authenticateConnection: parameters:)])
                     {

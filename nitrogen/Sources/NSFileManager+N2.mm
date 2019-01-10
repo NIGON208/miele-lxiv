@@ -64,7 +64,7 @@
                         (long) [NSThread currentThread]];
     
 	char* path = tempnam(dirPath.UTF8String, prefix.UTF8String);
-	NSString* nsPath = [NSString stringWithUTF8String:path];
+	NSString* nsPath = @(path);
 	free(path);
 	return nsPath;
 }
@@ -124,7 +124,8 @@
     return [self confirmDirectoryAtPath: dirPath subDirectory: NO];
 }
 
--(NSString*)confirmNoIndexDirectoryAtPath:(NSString*)path {
+-(NSString*)confirmNoIndexDirectoryAtPath:(NSString*)path
+{
 	NSString* pathWithExt;
 	NSString* pathWithoutExt;
 	NSString* const ext = @".noindex";

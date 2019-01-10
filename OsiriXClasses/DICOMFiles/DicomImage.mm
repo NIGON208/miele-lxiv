@@ -16,8 +16,8 @@
 #import "DicomSeries.h"
 #import "DicomStudy.h"
 #import "DicomFileDCMTKCategory.h"
-#import "DCM Framework/DCM.h"
-#import "DCM Framework/DCMAbstractSyntaxUID.h"
+#import <DCM/DCM.h>
+#import <DCM/DCMAbstractSyntaxUID.h>
 #import "DCMObjectPixelDataImport.h"
 #import "DCMView.h"
 #import "MutableArrayCategory.h"
@@ -262,16 +262,16 @@ NSString* sopInstanceUIDDecode( unsigned char *r, int length)
             return sopInstanceUID;
     
 //	char *ss = sopInstanceUIDEncode( @"1.3.6.1.4.1.19291.2.1.3.4214185015613178564241742949672953387242");
-//	NSString* uid =  sopInstanceUIDDecode( [[NSData dataWithBytes: ss length: strlen( ss)+1] bytes]);
+//	NSString* uid = sopInstanceUIDDecode( [[NSData dataWithBytes: ss length: strlen( ss)+1] bytes]);
 //	free( ss);
 	
         NSData *data = [self primitiveValueForKey:@"compressedSopInstanceUID"];
         
-        unsigned char* src =  (unsigned char*) [data bytes];
+        unsigned char* src = (unsigned char*) [data bytes];
         
         if( src)
         {
-            NSString* uid =  sopInstanceUIDDecode( src, [data length]);
+            NSString* uid = sopInstanceUIDDecode( src, [data length]);
             
             [sopInstanceUID release];
             sopInstanceUID = [uid retain];
@@ -817,7 +817,8 @@ NSString* sopInstanceUIDDecode( unsigned char *r, int length)
         
         NSString *f = [self primitiveValueForKey:@"storedFileType"];
         
-        if( f == 0 || [f isEqualToString:@""]) f =  @"DICOM";
+        if( f == 0 || [f isEqualToString:@""])
+            f = @"DICOM";
         
         [fileType release];
         fileType = [f retain];
@@ -839,6 +840,7 @@ NSString* sopInstanceUIDDecode( unsigned char *r, int length)
             [self setPrimitiveValue: nil forKey:@"storedFileType"];
         else
             [self setPrimitiveValue: f forKey:@"storedFileType"];
+
         [self didChangeValueForKey:@"storedFileType"];
     }
 }
@@ -1199,7 +1201,7 @@ NSString* sopInstanceUIDDecode( unsigned char *r, int length)
         
         [pix CheckLoad];
         
-        NSWindow* win = [[NSWindow alloc] initWithContentRect:frame styleMask:NSTitledWindowMask backing:NSBackingStoreBuffered defer:NO];
+        NSWindow* win = [[NSWindow alloc] initWithContentRect:frame styleMask:NSWindowStyleMaskTitled backing:NSBackingStoreBuffered defer:NO];
         
         Dicom_Image* roisImage = [self.series.study roiForImage:self inArray:nil];
         NSArray* rois = roisImage? [NSUnarchiver unarchiveObjectWithData:[SRAnnotation roiFromDICOM:[roisImage completePath]]] : nil;
@@ -1255,7 +1257,7 @@ NSString* sopInstanceUIDDecode( unsigned char *r, int length)
             frame.size.height = MIN( frame.size.height, viewerRect.size.height);
             frame.size.width = MIN( frame.size.width, viewerRect.size.width);
             
-            NSWindow* win = [[NSWindow alloc] initWithContentRect:frame styleMask:NSTitledWindowMask backing:NSBackingStoreBuffered defer:NO];
+            NSWindow* win = [[NSWindow alloc] initWithContentRect:frame styleMask:NSWindowStyleMaskTitled backing:NSBackingStoreBuffered defer:NO];
             
             Dicom_Image* roisImage = [self.series.study roiForImage:self inArray:nil];
             NSArray* rois = roisImage? [NSUnarchiver unarchiveObjectWithData:[SRAnnotation roiFromDICOM:[roisImage completePath]]] : nil;

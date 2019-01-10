@@ -49,7 +49,7 @@
 
 - (id) initWithBundle:(NSBundle *)bundle
 {
-	if( self = [super init])
+	if (self = [super init])
 	{
 		NSNib *nib = [[[NSNib alloc] initWithNibNamed: @"OSILocationsPreferencePanePref" bundle: nil] autorelease];
 		[nib instantiateNibWithOwner:self topLevelObjects: nil];
@@ -66,24 +66,24 @@
 {
 	NSArray *serverList = [dicomNodes arrangedObjects];
 	
-	for( int x = 0; x < [serverList count]; x++)
+	for (int x = 0; x < [serverList count]; x++)
 	{
 		int value = [[[serverList objectAtIndex: x] valueForKey:@"Port"] intValue];
-		if( value < 1) value = 1;
-		if( value > 65535) value = 65535;
+		if (value < 1) value = 1;
+		if (value > 65535) value = 65535;
 		[[serverList objectAtIndex: x] setValue: [NSNumber numberWithInt: value] forKey: @"Port"];		
 		[[serverList objectAtIndex: x] setValue: [[serverList objectAtIndex: x] valueForKey:@"AETitle"] forKey:@"AETitle"];
 		
-        if( [[serverList objectAtIndex: x] valueForKey:@"Activated"] == nil)
+        if ([[serverList objectAtIndex: x] valueForKey:@"Activated"] == nil)
             [[serverList objectAtIndex: x] setValue: @YES forKey: @"Activated"];
         
 		NSString *currentAETitle = [[serverList objectAtIndex: x] valueForKey: @"AETitle"];
 		
-		for( int i = 0; i < [serverList count]; i++)
+		for (int i = 0; i < [serverList count]; i++)
 		{
-			if( i != x)
+			if (i != x)
 			{
-				if( [currentAETitle isEqualToString: [[serverList objectAtIndex: i] valueForKey: @"AETitle"]])
+				if ([currentAETitle isEqualToString: [[serverList objectAtIndex: i] valueForKey: @"AETitle"]])
 				{
 					if ([[NSUserDefaults standardUserDefaults] boolForKey: @"HideSameAETitleAlert"] == NO)
 					{
@@ -106,15 +106,15 @@
 		}
     }    
         // Check for unique description
-    for( int x = 0; x < [serverList count]; x++)
+    for (int x = 0; x < [serverList count]; x++)
     {
         NSString *description = [[serverList objectAtIndex: x] valueForKey: @"Description"];
         
-        for( int i = 0; i < [serverList count]; i++)
+        for (int i = 0; i < [serverList count]; i++)
 		{
-			if( i != x)
+			if (i != x)
 			{
-                if( [description isEqualToString: [[serverList objectAtIndex: i] valueForKey: @"Description"]])
+                if ([description isEqualToString: [[serverList objectAtIndex: i] valueForKey: @"Description"]])
 				{
                     if ([[NSUserDefaults standardUserDefaults] boolForKey: @"HideSameNameAlert"] == NO)
                     {
@@ -142,12 +142,20 @@
 {
 	NSTask* theTask = [[[NSTask alloc]init]autorelease];
 	
-	[theTask setLaunchPath: [[[NSBundle mainBundle] resourcePath] stringByAppendingString:@"/echoscu"]];
+	[theTask setLaunchPath:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"echoscu"]];
 
-	[theTask setEnvironment:[NSDictionary dictionaryWithObject:[[[NSBundle mainBundle] resourcePath] stringByAppendingString:@"/dicom.dic"] forKey:@"DCMDICTPATH"]];
-	[theTask setLaunchPath:[[[NSBundle mainBundle] resourcePath] stringByAppendingString:@"/echoscu"]];
+    NSString *dicPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"dicom.dic"];
+    [theTask setEnvironment:[NSDictionary dictionaryWithObject:dicPath forKey:@"DCMDICTPATH"]];
 
-	NSArray *args = [NSArray arrayWithObjects: address, [NSString stringWithFormat:@"%d", port], @"-aet", [[NSUserDefaults standardUserDefaults] stringForKey: @"AETITLE"], @"-aec", aet, @"-to", [[NSUserDefaults standardUserDefaults] stringForKey:@"DICOMTimeout"], @"-ta", [[NSUserDefaults standardUserDefaults] stringForKey:@"DICOMTimeout"], @"-td", [[NSUserDefaults standardUserDefaults] stringForKey:@"DICOMTimeout"], @"-d", nil];
+	NSArray *args = [NSArray arrayWithObjects:
+                     address,
+                     [NSString stringWithFormat:@"%d", port],
+                     @"-aet", [[NSUserDefaults standardUserDefaults] stringForKey: @"AETITLE"],
+                     @"-aec", aet,
+                     @"-to", [[NSUserDefaults standardUserDefaults] stringForKey:@"DICOMTimeout"],
+                     @"-ta", [[NSUserDefaults standardUserDefaults] stringForKey:@"DICOMTimeout"],
+                     @"-td", [[NSUserDefaults standardUserDefaults] stringForKey:@"DICOMTimeout"],
+                     @"-d", nil];
 	
 	NSLog( @"%@", [args description]);
 	
@@ -168,11 +176,11 @@
         
         NSTask* theTask = [[[NSTask alloc] init] autorelease];
         
-        [theTask setLaunchPath:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"/echoscu"]];
+        [theTask setLaunchPath:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"echoscu"]];
         
-        [theTask setEnvironment:[NSDictionary dictionaryWithObject:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"/dicom.dic"] forKey:@"DCMDICTPATH"]];
-        [theTask setLaunchPath:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"/echoscu"]];
-            
+        NSString *dicPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"dicom.dic"];
+        [theTask setEnvironment:[NSDictionary dictionaryWithObject:dicPath forKey:@"DCMDICTPATH"]];
+        
         NSMutableArray *args = [NSMutableArray array];
         [args addObject:address];
         [args addObject:[NSString stringWithFormat:@"%d", [port intValue]]];
@@ -189,11 +197,11 @@
         
         [DDKeychain lockTmpFiles];
         
-        if([[serverParameters objectForKey:@"TLSEnabled"] boolValue])
+        if ([[serverParameters objectForKey:@"TLSEnabled"] boolValue])
         {
             // TLS support. Options listed here http://support.dcmtk.org/docs/echoscu.html
             
-            if([[serverParameters objectForKey:@"TLSAuthenticated"] boolValue])
+            if ([[serverParameters objectForKey:@"TLSAuthenticated"] boolValue])
             {
                 [args addObject:@"--enable-tls"]; // use authenticated secure TLS connection
 
@@ -220,7 +228,7 @@
                 }
             }
 
-            if([[serverParameters objectForKey:@"TLSUseDHParameterFileURL"] boolValue])
+            if ([[serverParameters objectForKey:@"TLSUseDHParameterFileURL"] boolValue])
             {
                 [args addObject:@"--dhparam"]; // read DH parameters for DH/DSS ciphersuites
                 [args addObject:[serverParameters objectForKey:@"TLSDHParameterFileURL"]];
@@ -228,15 +236,15 @@
 
             // peer authentication options:
             TLSCertificateVerificationType verification = (TLSCertificateVerificationType)[[serverParameters objectForKey:@"TLSCertificateVerification"] intValue];
-            if(verification==RequirePeerCertificate)
+            if (verification==RequirePeerCertificate)
                 [args addObject:@"--require-peer-cert"]; //verify peer certificate, fail if absent (default)
-            else if(verification==VerifyPeerCertificate)
+            else if (verification==VerifyPeerCertificate)
                 [args addObject:@"--verify-peer-cert"]; //verify peer certificate if present
             else //IgnorePeerCertificate
                 [args addObject:@"--ignore-peer-cert"]; //don't verify peer certificate	
             
             // certification authority options:
-            if(verification==RequirePeerCertificate || verification==VerifyPeerCertificate)
+            if (verification==RequirePeerCertificate || verification==VerifyPeerCertificate)
             {
                 [DDKeychain KeychainAccessExportTrustedCertificatesToDirectory:TLS_TRUSTED_CERTIFICATES_DIR];
                 NSArray *trustedCertificates = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:TLS_TRUSTED_CERTIFICATES_DIR error:nil];
@@ -262,10 +270,10 @@
 
         [DDKeychain unlockTmpFiles];
         
-        if( [theTask terminationStatus] == 0)
+        if ([theTask terminationStatus] == EXIT_SUCCESS)
             return YES;
-        else
-            return NO;
+
+        return NO;
     }
     @catch (NSException *exception) {
         N2LogException( exception);
@@ -286,35 +294,35 @@
 	
 	stringEncoding = [[defaults stringForKey:@"STRINGENCODING"] retain];
 	int tag = 0;
-	 if( [stringEncoding isEqualToString: @"ISO_IR 192"])	//UTF8
+	 if ([stringEncoding isEqualToString: @"ISO_IR 192"])	//UTF8
 		tag = 0;
 	else if ( [stringEncoding isEqualToString: @"ISO_IR 100"])
 		tag = 1;
-	else if( [stringEncoding isEqualToString: @"ISO_IR 101"])
+	else if ([stringEncoding isEqualToString: @"ISO_IR 101"])
 		tag =  2;
-	else if( [stringEncoding isEqualToString: @"ISO_IR 109"])	
+	else if ([stringEncoding isEqualToString: @"ISO_IR 109"])
 		tag =  3;
-	else if( [stringEncoding isEqualToString: @"ISO_IR 110"])
+	else if ([stringEncoding isEqualToString: @"ISO_IR 110"])
 		tag =  4;
-	else if( [stringEncoding isEqualToString: @"ISO_IR 127"])	
+	else if ([stringEncoding isEqualToString: @"ISO_IR 127"])
 		tag =  5 ;
-	else if( [stringEncoding isEqualToString: @"ISO_IR 144"])		
+	else if ([stringEncoding isEqualToString: @"ISO_IR 144"])
 		tag =  6;
-	else if( [stringEncoding isEqualToString: @"ISO_IR 126"])	
+	else if ([stringEncoding isEqualToString: @"ISO_IR 126"])
 		tag =  7;
-	else if( [stringEncoding isEqualToString: @"ISO_IR 138"])		
+	else if ([stringEncoding isEqualToString: @"ISO_IR 138"])
 		tag =  8 ;
-	else if( [stringEncoding isEqualToString: @"GB18030"])	
+	else if ([stringEncoding isEqualToString: @"GB18030"])
 		tag =  9;
-	else if( [stringEncoding isEqualToString: @"ISO 2022 IR 149"])
+	else if ([stringEncoding isEqualToString: @"ISO 2022 IR 149"])
 		tag =  10;
-	else if( [stringEncoding isEqualToString: @"ISO 2022 IR 13"])	
+	else if ([stringEncoding isEqualToString: @"ISO 2022 IR 13"])
 		tag =  11;
-	else if( [stringEncoding isEqualToString: @"ISO_IR 13"])	
+	else if ([stringEncoding isEqualToString: @"ISO_IR 13"])
 		tag =  12 ;
-	else if( [stringEncoding isEqualToString: @"ISO 2022 IR 87"])	
+	else if ([stringEncoding isEqualToString: @"ISO 2022 IR 87"])
 		tag =  13 ;
-	else if( [stringEncoding isEqualToString: @"ISO_IR 1166"])
+	else if ([stringEncoding isEqualToString: @"ISO_IR 1166"])
 		tag =  14 ;
 	else
 	{
@@ -325,10 +333,10 @@
 	[characterSetPopup selectItemAtIndex:-1];
 	[characterSetPopup selectItemAtIndex:tag];
 	
-	for( int i = 0 ; i < [[dicomNodes arrangedObjects] count]; i++)
+	for (int i = 0 ; i < [[dicomNodes arrangedObjects] count]; i++)
 	{
 		NSMutableDictionary *aServer = [[dicomNodes arrangedObjects] objectAtIndex: i];
-		if( [aServer valueForKey:@"Send"] == 0L)
+		if ([aServer valueForKey:@"Send"] == 0L)
 			[aServer setValue:@YES forKey:@"Send"];
 	}
 }
@@ -419,7 +427,12 @@
     if ([WADOUsername length] && [WADOPassword length])
         lpbit = [NSString stringWithFormat:@"%@:%@@", WADOUsername, WADOPassword];
 
-	NSString *baseURL = [NSString stringWithFormat: @"%@://%@%@:%d/%@?requestType=WADO", protocol, lpbit, [aServer valueForKey: @"Address"], WADOPort, WADOUrl];
+	NSString *baseURL = [NSString stringWithFormat: @"%@://%@%@:%d/%@?requestType=WADO",
+                         protocol,
+                         lpbit,
+                         [aServer valueForKey: @"Address"],
+                         WADOPort,
+                         WADOUrl];
 	
 	NSURL *url = [NSURL URLWithString: [baseURL stringByAppendingFormat:@"&studyUID=%@&seriesUID=%@&objectUID=%@&contentType=application/dicom%@", @"1", @"1", @"1", @"&useOrig=true"]];
 	
@@ -437,10 +450,19 @@
 	NSError *error = nil;
 	[NSData dataWithContentsOfURL: url options: 0 error: &error];
 	
-	if( error)
-		NSRunCriticalAlertPanel( NSLocalizedString( @"URL download Error", nil), @"%@", NSLocalizedString( @"OK", nil), nil, nil, [error localizedDescription]);
+	if (error)
+		NSRunCriticalAlertPanel(NSLocalizedString( @"URL download Error", nil),
+                                @"%@",
+                                NSLocalizedString( @"OK", nil),
+                                nil,
+                                nil,
+                                    [error localizedDescription]);
 	else
-		NSRunInformationalAlertPanel( NSLocalizedString( @"URL download Succeeded", nil), NSLocalizedString( @"It works !", nil), NSLocalizedString( @"OK", nil), nil, nil);
+		NSRunInformationalAlertPanel(NSLocalizedString( @"URL download Succeeded", nil),
+                                     NSLocalizedString( @"It works !", nil),
+                                     NSLocalizedString( @"OK", nil),
+                                     nil,
+                                     nil);
 }
 
 - (IBAction) editWADO: (id) sender
@@ -466,17 +488,17 @@
 	[NSApp endSheet: WADOSettings];
 	[WADOSettings orderOut: self];
 	
-	if( result == NSRunStoppedResponse)
+	if (result == NSRunStoppedResponse)
 	{
 		[aServer setObject: @2 forKey: @"retrieveMode"]; // WADORetrieveMode
 		[aServer setObject: [NSNumber numberWithInt: WADOPort] forKey: @"WADOPort"];
 		[aServer setObject: [NSNumber numberWithInt: WADOTransferSyntax] forKey: @"WADOTransferSyntax"];
 		[aServer setObject: [NSNumber numberWithInt: WADOhttps] forKey: @"WADOhttps"];
-        if( WADOUrl)
+        if (WADOUrl)
             [aServer setObject: WADOUrl forKey: @"WADOUrl"];
-        if( WADOUsername)
+        if (WADOUsername)
             [aServer setObject: WADOUsername forKey: @"WADOUsername"];
-        if( WADOPassword)
+        if (WADOPassword)
             [aServer setObject: WADOPassword forKey: @"WADOPassword"];
 		
 		// disable TLS
@@ -488,63 +510,67 @@
 
 - (void) resetTest
 {
-	for( int i = 0 ; i < [[dicomNodes arrangedObjects] count]; i++)
+	for (int i=0 ; i < [[dicomNodes arrangedObjects] count]; i++)
 	{
 		NSMutableDictionary *aServer = [[dicomNodes arrangedObjects] objectAtIndex: i];
-		[aServer removeObjectForKey: @"test"];
+		[aServer removeObjectForKey: @"test"];  // see DNDArrayController
 	}
 }
 
 - (IBAction) OsiriXDBsaveAs:(id) sender;
 {
-	NSSavePanel		*sPanel		= [NSSavePanel savePanel];
-
-	[sPanel setRequiredFileType:@"plist"];
-	
-	if ([sPanel runModalForDirectory:0L file:NSLocalizedString(@"OsiriXDB.plist", nil)] == NSFileHandlingPanelOKButton)
-	{
-		[[osiriXServers arrangedObjects] writeToFile:[sPanel filename] atomically: YES];
-	}
+    NSSavePanel *sPanel = [NSSavePanel savePanel];
+    [sPanel setNameFieldStringValue: @"DB.plist"];
+    [sPanel setAllowedFileTypes: @[@"plist"]];
+    if ([sPanel runModal] == NSFileHandlingPanelOKButton)
+        [[osiriXServers arrangedObjects] writeToFile:[sPanel filename] atomically: YES];
 }
 
 - (IBAction) refreshNodesOsiriXDB: (id) sender
 {
-	if( [[NSUserDefaults standardUserDefaults] boolForKey:@"syncOsiriXDB"])
+	if ([[NSUserDefaults standardUserDefaults] boolForKey:@"syncOsiriXDB"])
 	{
 		NSURL *url = [NSURL URLWithString: [[NSUserDefaults standardUserDefaults] valueForKey:@"syncOsiriXDBURL"]];
 		
-		if( url)
+		if (url)
 		{
 			NSArray	*r = [NSArray arrayWithContentsOfURL: url];
 			
-			if( r)
+			if (r)
 			{
 				[osiriXServers removeObjects: [osiriXServers arrangedObjects]];
 				[osiriXServers addObjects: r];
 			}
 			else
-                NSRunInformationalAlertPanel(NSLocalizedString(@"URL Invalid", 0L), NSLocalizedString( @"Cannot download data from this URL.", 0L), NSLocalizedString( @"OK", nil), nil, nil);
+                NSRunInformationalAlertPanel(NSLocalizedString(@"URL Invalid", 0L),
+                                             NSLocalizedString( @"Cannot download data from this URL.", 0L),
+                                             NSLocalizedString( @"OK", nil),
+                                             nil,
+                                             nil);
 		}
 		else
-            NSRunInformationalAlertPanel(NSLocalizedString(@"URL Invalid", 0L), NSLocalizedString( @"This URL is invalid. Check syntax.", 0L), NSLocalizedString( @"OK", nil), nil, nil);
+            NSRunInformationalAlertPanel(NSLocalizedString(@"URL Invalid", 0L),
+                                         NSLocalizedString( @"This URL is invalid. Check syntax.", 0L),
+                                         NSLocalizedString( @"OK", nil),
+                                         nil,
+                                         nil);
 	}
 }
 
 - (IBAction) OsiriXDBloadFrom:(id) sender;
 {
-	NSOpenPanel		*sPanel		= [NSOpenPanel openPanel];
+	NSOpenPanel *sPanel	= [NSOpenPanel openPanel];
 	
 	[self resetTest];
 	
-	[sPanel setRequiredFileType:@"plist"];
-	
-	if ([sPanel runModalForDirectory:0L file:nil types:[NSArray arrayWithObject:@"plist"]] == NSFileHandlingPanelOKButton)
+    [sPanel setAllowedFileTypes: @[@"plist"]];
+    
+	if ([sPanel runModal] == NSFileHandlingPanelOKButton)
 	{
 		NSArray	*r = [NSArray arrayWithContentsOfFile: [sPanel filename]];
-		
-		if( r)
+		if (r)
 		{
-			if( NSRunInformationalAlertPanel(NSLocalizedString(@"Load locations", 0L),
+			if (NSRunInformationalAlertPanel(NSLocalizedString(@"Load locations", 0L),
                                              NSLocalizedString(@"Should I add or replace this locations list? If you choose 'replace', the current list will be deleted.", 0L),
                                              NSLocalizedString(@"Add", nil),
                                              NSLocalizedString(@"Replace", nil),
@@ -560,17 +586,17 @@
 			
 			int i, x;
 			
-			for( i = 0; i < [[osiriXServers arrangedObjects] count]; i++)
+			for (i = 0; i < [[osiriXServers arrangedObjects] count]; i++)
 			{
 				NSDictionary	*server = [[osiriXServers arrangedObjects] objectAtIndex: i];
 				
-				for( x = 0; x < [[osiriXServers arrangedObjects] count]; x++)
+				for (x = 0; x < [[osiriXServers arrangedObjects] count]; x++)
 				{
 					NSDictionary	*c = [[osiriXServers arrangedObjects] objectAtIndex: x];
 					
-					if( c != server)
+					if (c != server)
 					{
-						if( [[server valueForKey:@"Address"] isEqualToString: [c valueForKey:@"Address"]] &&
+						if ([[server valueForKey:@"Address"] isEqualToString: [c valueForKey:@"Address"]] &&
 							[[server valueForKey:@"Description"] isEqualToString: [c valueForKey:@"Description"]])
 							{
 								[osiriXServers removeObjectAtArrangedObjectIndex: i];
@@ -587,25 +613,23 @@
 
 - (IBAction) saveAs:(id) sender;
 {
-	NSSavePanel		*sPanel		= [NSSavePanel savePanel];
+    [self resetTest];
 
-	[sPanel setRequiredFileType:@"plist"];
-	
-	[self resetTest];
-	
-	if ([sPanel runModalForDirectory:0L file:NSLocalizedString(@"DICOMNodes.plist", nil)] == NSFileHandlingPanelOKButton)
-	{
-		[[dicomNodes arrangedObjects] writeToFile:[sPanel filename] atomically: YES];
-	}
+    NSSavePanel *sPanel = [NSSavePanel savePanel];
+    [sPanel setAllowsOtherFileTypes: NO ];
+    [sPanel setNameFieldStringValue: @"DICOMNodes.plist"];
+    [sPanel setAllowedFileTypes: @[@"plist"]];
+    if ([sPanel runModal] == NSFileHandlingPanelOKButton)
+        [[dicomNodes arrangedObjects] writeToFile:[sPanel filename] atomically: YES];
 }
 
 - (IBAction) refreshNodesListURL: (id) sender
 {
-	if( [[NSUserDefaults standardUserDefaults] boolForKey:@"syncDICOMNodes"])
+	if ([[NSUserDefaults standardUserDefaults] boolForKey:@"syncDICOMNodes"])
 	{
 		NSURL *url = [NSURL URLWithString: [[NSUserDefaults standardUserDefaults] valueForKey:@"syncDICOMNodesURL"]];
 		
-		if( url)
+		if (url)
 		{
 			/*NSString* err = nil;
 			NSData* data = [NSData dataWithContentsOfURL:url];
@@ -614,34 +638,40 @@
 			
 			NSArray	*r = [NSArray arrayWithContentsOfURL: url];
 			
-			if( r)
+			if (r)
 			{
 				[dicomNodes removeObjects: [dicomNodes arrangedObjects]];
 				[dicomNodes addObjects: r];
 			}
 			else
-                NSRunInformationalAlertPanel(NSLocalizedString(@"URL Invalid", 0L), NSLocalizedString(@"Cannot download data from this URL.", 0L), NSLocalizedString(@"OK", nil), nil, nil);
+                NSRunInformationalAlertPanel(NSLocalizedString(@"URL Invalid", 0L),
+                                             NSLocalizedString(@"Cannot download data from this URL.", 0L),
+                                             NSLocalizedString(@"OK", nil),
+                                             nil,
+                                             nil);
 		}
 		else
-            NSRunInformationalAlertPanel(NSLocalizedString(@"URL Invalid", 0L), NSLocalizedString(@"This URL is invalid. Check syntax.", 0L), NSLocalizedString(@"OK", nil), nil, nil);
+            NSRunInformationalAlertPanel(NSLocalizedString(@"URL Invalid", 0L),
+                                         NSLocalizedString(@"This URL is invalid. Check syntax.", 0L),
+                                         NSLocalizedString(@"OK", nil),
+                                         nil,
+                                         nil);
 	}
 }
 
 - (IBAction) loadFrom:(id) sender;
 {
-	NSOpenPanel		*sPanel		= [NSOpenPanel openPanel];
+	NSOpenPanel *sPanel = [NSOpenPanel openPanel];
 	
 	[self resetTest];
 	
-	[sPanel setRequiredFileType:@"plist"];
-	
-	if ([sPanel runModalForDirectory:0L file:nil types:[NSArray arrayWithObject:@"plist"]] == NSFileHandlingPanelOKButton)
+    [sPanel setAllowedFileTypes: @[@"plist"]];
+	if ([sPanel runModal] == NSFileHandlingPanelOKButton)
 	{
 		NSArray	*r = [NSArray arrayWithContentsOfFile: [sPanel filename]];
-		
-		if( r)
+		if (r)
 		{
-			if( NSRunInformationalAlertPanel(NSLocalizedString(@"Load locations", 0L),
+			if (NSRunInformationalAlertPanel(NSLocalizedString(@"Load locations", 0L),
                                              NSLocalizedString(@"Should I add or replace this locations list? If you choose 'replace', the current list will be deleted.", 0L),
                                              NSLocalizedString(@"Add", nil),
                                              NSLocalizedString(@"Replace", nil),
@@ -657,17 +687,17 @@
 			
 			int i, x;
 			
-			for( i = 0; i < [[dicomNodes arrangedObjects] count]; i++)
+			for (i = 0; i < [[dicomNodes arrangedObjects] count]; i++)
 			{
 				NSDictionary	*server = [[dicomNodes arrangedObjects] objectAtIndex: i];
 				
-				for( x = 0; x < [[dicomNodes arrangedObjects] count]; x++)
+				for (x = 0; x < [[dicomNodes arrangedObjects] count]; x++)
 				{
 					NSDictionary	*c = [[dicomNodes arrangedObjects] objectAtIndex: x];
 					
-					if( c != server)
+					if (c != server)
 					{
-						if( [[server valueForKey:@"AETitle"] isEqualToString: [c valueForKey:@"AETitle"]] &&
+						if ([[server valueForKey:@"AETitle"] isEqualToString: [c valueForKey:@"AETitle"]] &&
 							[[server valueForKey:@"Address"] isEqualToString: [c valueForKey:@"Address"]] &&
 							[[server valueForKey:@"Port"] intValue] == [[c valueForKey:@"Port"] intValue])
 							{
@@ -690,18 +720,21 @@
     {
         self.testingNodes = YES;
         
-        for( NSMutableDictionary *aServer in [NSArray arrayWithArray: serverList])
+        for (NSMutableDictionary *aServer in [NSArray arrayWithArray: serverList])
         {
             int status;
             
-            if( [[aServer objectForKey: @"Activated"] boolValue] && [OSILocationsPreferencePanePref echoServer:aServer])
+            if ([[aServer objectForKey: @"Activated"] boolValue] &&
+                [OSILocationsPreferencePanePref echoServer:aServer])
                 status = 0;
             else
                 status = -1;
             
-            [aServer setObject:[NSNumber numberWithInt: status] forKey:@"test"];
+            [aServer setObject:[NSNumber numberWithInt: status] forKey:@"test"];  // see DNDArrayController
             
-            [[dicomNodes tableView] performSelectorOnMainThread: @selector( display) withObject:nil waitUntilDone:NO];
+            [[dicomNodes tableView] performSelectorOnMainThread:@selector(display)
+                                                     withObject:nil
+                                                  waitUntilDone:NO];
         }
         
         self.testingNodes = NO;
@@ -710,23 +743,26 @@
 
 - (IBAction) test:(id) sender
 {
-    if( self.testingNodes)
+    if (self.testingNodes)
         return;
     
-    for( NSMutableDictionary *server in [dicomNodes arrangedObjects])
-        [server setObject: @0 forKey:@"test"];
+    for (NSMutableDictionary *server in [dicomNodes arrangedObjects])
+        [server setObject: @0 forKey:@"test"];  // see DNDArrayController
     
     [[dicomNodes tableView] display];
     
-    [NSThread detachNewThreadSelector: @selector( testThread:) toTarget: self withObject: [dicomNodes arrangedObjects]];
+    [NSThread detachNewThreadSelector: @selector( testThread:)
+                             toTarget: self
+                           withObject: [dicomNodes arrangedObjects]];
 }
 
 - (IBAction) activateAllNone:(id) sender
 {
-	for( NSMutableDictionary *aServer in [dicomNodes arrangedObjects])
+	for (NSMutableDictionary *aServer in [dicomNodes arrangedObjects])
     {
         [aServer setObject: [NSNumber numberWithBool: [sender tag]] forKey: @"Activated"];
     }
+
     [[NSUserDefaults standardUserDefaults] setObject:[dicomNodes arrangedObjects] forKey:@"SERVERS"];
 }
 
@@ -776,16 +812,17 @@
 
 - (IBAction) addPath:(id) sender
 {
-	NSOpenPanel		*oPanel		= [NSOpenPanel openPanel];
+	NSOpenPanel *oPanel	= [NSOpenPanel openPanel];
 
     [oPanel setCanChooseFiles:YES];
     [oPanel setCanChooseDirectories:YES];
+    [oPanel setAllowedFileTypes: @[@"sql"]];
 
-	if ([oPanel runModalForDirectory:0L file:nil types:[NSArray arrayWithObject:@"sql"]] == NSFileHandlingPanelOKButton)
+	if ([oPanel runModal] == NSFileHandlingPanelOKButton)
 	{
-		NSString	*location = [oPanel filename];
+		NSString *location = [oPanel filename];
 		
-		if( [[location lastPathComponent] isEqualToString:OUR_DATA_LOCATION])
+		if ([[location lastPathComponent] isEqualToString:OUR_DATA_LOCATION])
 		{
 			location = [location stringByDeletingLastPathComponent];
 		}
@@ -798,11 +835,11 @@
 		
 		BOOL isDirectory;
 		
-		if( [[NSFileManager defaultManager] fileExistsAtPath: location isDirectory: &isDirectory])
+		if ([[NSFileManager defaultManager] fileExistsAtPath: location isDirectory: &isDirectory])
 		{
 			NSDictionary *dict = nil;
 			
-			if( isDirectory)
+			if (isDirectory)
 			{
 				dict = [NSDictionary dictionaryWithObjectsAndKeys:
                         location, @"Path",
@@ -843,7 +880,7 @@
     
 	self.TLSDHParameterFileURL = [NSURL fileURLWithPath:dhParameterFileURL];
 	
-	if([aServer valueForKey:@"TLSCertificateVerification"])
+	if ([aServer valueForKey:@"TLSCertificateVerification"])
 		self.TLSCertificateVerification = (TLSCertificateVerificationType)[[aServer valueForKey:@"TLSCertificateVerification"] intValue];
 	else
 		self.TLSCertificateVerification = IgnorePeerCertificate;
@@ -860,7 +897,7 @@
 	[NSApp endSheet: TLSSettings];
 	[TLSSettings orderOut: self];
 	
-	if( result == NSRunStoppedResponse)
+	if (result == NSRunStoppedResponse)
 	{
 		[aServer setObject:[NSNumber numberWithBool:self.TLSEnabled] forKey:@"TLSEnabled"];
 		
@@ -884,15 +921,15 @@
 {
 	NSArray *certificates = [DDKeychain KeychainAccessCertificatesList];
 	
-	if([certificates count])
+	if ([certificates count])
 	{
 		[[SFChooseIdentityPanel sharedChooseIdentityPanel] setAlternateButtonTitle:NSLocalizedString(@"Cancel", @"Cancel")];
 		NSInteger clickedButton = [[SFChooseIdentityPanel sharedChooseIdentityPanel] runModalForIdentities:certificates message:NSLocalizedString(@"Choose a certificate from the following list.", nil)];
 		
-		if(clickedButton==NSOKButton)
+		if (clickedButton==NSOKButton)
 		{
 			SecIdentityRef identity = [[SFChooseIdentityPanel sharedChooseIdentityPanel] identity];
-			if(identity)
+			if (identity)
 			{
 				[DDKeychain KeychainAccessSetPreferredIdentity:identity
                                                        forName:[self DICOMTLSUniqueLabelForSelectedServer]
@@ -900,7 +937,7 @@
 				[self getTLSCertificate];
 			}
 		}
-		else if(clickedButton==NSCancelButton)
+		else if (clickedButton==NSCancelButton)
 			return;
 	}
 	else
@@ -911,7 +948,7 @@
                                                           NSLocalizedString( @"Cancel", nil),
                                                           nil);
 		
-		if(clickedButton==NSOKButton)
+		if (clickedButton==NSOKButton)
 		{
 			[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:URL_OSIRIX_DOC_SECURITY]];
 		}
@@ -932,7 +969,7 @@
 	NSString *name = [DDKeychain certificateNameForLabel:label];
 	NSImage *icon = [DDKeychain certificateIconForLabel:label];
 	
-	if(!name)
+	if (!name)
 	{
 		name = NSLocalizedString(@"No certificate selected.", nil);	
 		[TLSCertificateButton setHidden:YES];
@@ -958,13 +995,13 @@
 
 - (IBAction)selectAllSuites:(id)sender;
 {
-	for( NSMutableDictionary *suite in self.TLSSupportedCipherSuite)
+	for (NSMutableDictionary *suite in self.TLSSupportedCipherSuite)
 		[suite setObject: @YES forKey: @"Supported"];
 }
 
 - (IBAction)deselectAllSuites:(id)sender;
 {
-	for( NSMutableDictionary *suite in self.TLSSupportedCipherSuite)
+	for (NSMutableDictionary *suite in self.TLSSupportedCipherSuite)
 		[suite setObject: @NO forKey: @"Supported"];
 }
 

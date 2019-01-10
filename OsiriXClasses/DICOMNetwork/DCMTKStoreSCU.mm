@@ -85,9 +85,9 @@ END_EXTERN_C
 #endif
 
 #import "DICOMToNSString.h"
-#import "DCM Framework/DCMObject.h"
-#import "DCM Framework/DCM.h"
-#import "DCM Framework/DCMTransferSyntax.h"
+#import <DCM/DCMObject.h>
+#import <DCM/DCM.h>
+#import <DCM/DCMTransferSyntax.h>
 #import "SendController.h"
 
 #import "OpenGLScreenReader.h"
@@ -486,11 +486,14 @@ progressCallback(void * /*callbackData*/,
     if (progressLogger.getChainedLogLevel() == OFLogger::INFO_LOG_LEVEL) {
         switch (progress->state) {
         case DIMSE_StoreBegin:
-            COUT << "XMIT: "; break;
+                COUT << "XMIT: ";
+                break;
         case DIMSE_StoreEnd:
-            COUT << OFendl; break;
+                COUT << OFendl;
+                break;
         default:
-            COUT << "."; break;
+                COUT << ".";
+                break;
         }
         COUT.flush();
     }
@@ -540,7 +543,7 @@ static OFBool decompressFile(DcmFileFormat fileformat, const char *fname, char *
                 fileformat.loadAllDataIntoMemory();
                 unlink( outfname);
                 cond = fileformat.saveFile( outfname, EXS_LittleEndianExplicit);
-                status =  (cond.good()) ? YES : NO;
+                status = (cond.good()) ? YES : NO;
               }
               else
                 status = NO;
@@ -564,7 +567,7 @@ static OFBool compressFile(DcmFileFormat fileformat, const char *fname, char *ou
     {
         DcmXfer filexfer( dataset->getOriginalXfer());
         
-        #ifndef OSIRIX_LIGHT
+#ifndef OSIRIX_LIGHT
         BOOL useDCMTKForJP2K = [[NSUserDefaults standardUserDefaults] boolForKey: @"useDCMTKForJP2K"]; // deprecated
         
         if( useDCMTKForJP2K == NO && opt_networkTransferSyntax == EXS_JPEG2000)
@@ -619,11 +622,11 @@ static OFBool compressFile(DcmFileFormat fileformat, const char *fname, char *ou
             [dcmObject release];
         }
         else
-        #endif
+#endif
         {
             try
             {
-                #ifndef OSIRIX_LIGHT
+#ifndef OSIRIX_LIGHT
                 NSLog(@"SEND - Compress DCMTK JPEG: %s", fname);
                 
 //                DcmItem *metaInfo = fileformat.getMetaInfo();
@@ -668,11 +671,11 @@ static OFBool compressFile(DcmFileFormat fileformat, const char *fname, char *ou
                     unlink( outfname);
                     
                     cond = fileformat.saveFile( outfname, opt_networkTransferSyntax);
-                    status =  (cond.good()) ? YES : NO;
+                    status = (cond.good()) ? YES : NO;
                 }
                 else
                     status = NO;
-                #endif
+#endif
             }
             catch(...)
             {
@@ -945,13 +948,13 @@ static OFCondition cstore(T_ASC_Association * assoc, const OFString& fname)
 {
 	switch( listenerSyntax)
 	{
-		case EXS_LittleEndianExplicit:		return SendExplicitLittleEndian;	break;
+		case EXS_LittleEndianExplicit:		return SendExplicitLittleEndian; break;
 		case EXS_JPEG2000:					return SendJPEG2000Lossless;	break;
 		case EXS_JPEGProcess14SV1:          return SendJPEGLossless;	break;
 		case EXS_JPEGProcess1:              return SendJPEGLossless;	break;
 		case EXS_JPEGProcess2_4:            return SendJPEGLossless;	break;
-		case EXS_RLELossless:				return SendRLE;	break;
-		case EXS_LittleEndianImplicit:		return SendImplicitLittleEndian;	break;
+		case EXS_RLELossless:				return SendRLE;	            break;
+		case EXS_LittleEndianImplicit:		return SendImplicitLittleEndian; break;
 		case EXS_JPEG2000LosslessOnly:		return SendJPEG2000Lossless;	break;
         case EXS_JPEGLSLossless:            return SendJPEGLSLossless;	break;
         case EXS_JPEGLSLossy:               return SendJPEGLSLossless;	break;
@@ -1045,29 +1048,35 @@ static OFCondition cstore(T_ASC_Association * assoc, const OFString& fname)
 			if (status.good())
 			{
 				const char *string = NULL;
-				NSStringEncoding encoding[ 10];
-				for( int i = 0; i < 10; i++) encoding[ i] = 0;
+                const int NUM_ENCODINGS = 10;
+				NSStringEncoding encoding[ NUM_ENCODINGS];
+				for( int i = 0; i < NUM_ENCODINGS; i++)
+                    encoding[ i] = 0;
 				encoding[ 0] = NSISOLatin1StringEncoding;
 				
 				if (fileformat.getDataset()->findAndGetString(DCM_SpecificCharacterSet, string, OFFalse).good() && string != nil)
 				{
 					NSArray	*c = [[NSString stringWithCString:string] componentsSeparatedByString:@"\\"];
 
-					if( [c count] >= 10) NSLog( @"Encoding number >= 10 ???");
+					if( [c count] >= NUM_ENCODINGS)
+                        NSLog( @"Encoding number >= %d ???", NUM_ENCODINGS);
 
-					if( [c count] < 10)
+					if( [c count] < NUM_ENCODINGS)
 					{
-						for( int i = 0; i < [c count]; i++) encoding[ i] = [NSString encodingForDICOMCharacterSet: [c objectAtIndex: i]];
+						for( int i = 0; i < [c count]; i++)
+                            encoding[ i] = [NSString encodingForDICOMCharacterSet: [c objectAtIndex: i]];
 					}
 				}
 
 				if (fileformat.getDataset()->findAndGetString(DCM_PatientName, string, OFFalse).good() && string != nil)
 					_patientName = [[DicomFile stringWithBytes: (char*) string encodings:encoding] retain];
-				else _patientName = [@"Unnamed" retain];
+				else
+                    _patientName = [@"Unnamed" retain];
 				
 				if (fileformat.getDataset()->findAndGetString(DCM_StudyDescription, string, OFFalse).good() && string != nil)
 					_studyDescription = [[DicomFile stringWithBytes: (char*) string encodings:encoding] retain];
-				else _studyDescription = [@"Unnamed" retain];
+				else
+                    _studyDescription = [@"Unnamed" retain];
 			}
 		}
 	}
@@ -1416,13 +1425,15 @@ static OFCondition cstore(T_ASC_Association * assoc, const OFString& fname)
 		if (cond.bad())
 		{
 			DimseCondition::dump(cond);
-			localException = [[NSException exceptionWithName:@"DICOM Network Failure (STORE-SCU)" reason:[NSString stringWithFormat: @"ASC_initializeNetwork %04x:%04x %s", cond.module(), cond.code(), cond.text()] userInfo:nil] retain];
+			localException = [[NSException exceptionWithName:@"DICOM Network Failure (STORE-SCU)"
+                                                      reason:[NSString stringWithFormat: @"ASC_initializeNetwork %04x:%04x %s", cond.module(), cond.code(), cond.text()]
+                                                    userInfo:nil] retain];
 			[localException raise];
 			//return;
 		}
 	
-	#ifndef OSIRIX_LIGHT
-	#ifdef WITH_OPENSSL // joris
+#ifndef OSIRIX_LIGHT
+#ifdef WITH_OPENSSL // joris
 		
 		if( _secureConnection)
         {
@@ -1523,20 +1534,24 @@ static OFCondition cstore(T_ASC_Association * assoc, const OFString& fname)
                 if (cond.bad())
                 {
                     DimseCondition::dump(cond);
-                    localException = [[NSException exceptionWithName:@"DICOM Network Failure (STORE-SCU TLS)" reason:[NSString stringWithFormat: @"ASC_setTransportLayer - %04x:%04x %s", cond.module(), cond.code(), cond.text()] userInfo:nil] retain];
+                    localException = [[NSException exceptionWithName:@"DICOM Network Failure (STORE-SCU TLS)"
+                                                              reason:[NSString stringWithFormat: @"ASC_setTransportLayer - %04x:%04x %s", cond.module(), cond.code(), cond.text()]
+                                                            userInfo:nil] retain];
                     [localException raise];
                 }
             }
         }
-        #endif
-        #endif
+#endif
+#endif
             
-         /* initialize asscociation parameters, i.e. create an instance of T_ASC_Parameters*. */
+         /* initialize association parameters, i.e. create an instance of T_ASC_Parameters*. */
         cond = ASC_createAssociationParameters(&params, opt_maxReceivePDULength);
         if (cond.bad())
         {
             DimseCondition::dump(cond);
-            localException = [[NSException exceptionWithName:@"DICOM Network Failure (STORE-SCU)" reason:[NSString stringWithFormat: @"ASC_createAssociationParameters %04x:%04x %s", cond.module(), cond.code(), cond.text()] userInfo:nil] retain];
+            localException = [[NSException exceptionWithName:@"DICOM Network Failure (STORE-SCU)"
+                                                      reason:[NSString stringWithFormat: @"ASC_createAssociationParameters %04x:%04x %s", cond.module(), cond.code(), cond.text()]
+                                                    userInfo:nil] retain];
             [localException raise];
             //return;
         }
@@ -1552,7 +1567,9 @@ static OFCondition cstore(T_ASC_Association * assoc, const OFString& fname)
         if (cond.bad())
         {
             DimseCondition::dump(cond);
-            localException = [[NSException exceptionWithName:@"DICOM Network Failure (STORE-SCU)" reason:[NSString stringWithFormat: @"ASC_setTransportLayerType %04x:%04x %s", cond.module(), cond.code(), cond.text()] userInfo:nil] retain];
+            localException = [[NSException exceptionWithName:@"DICOM Network Failure (STORE-SCU)"
+                                                      reason:[NSString stringWithFormat: @"ASC_setTransportLayerType %04x:%04x %s", cond.module(), cond.code(), cond.text()]
+                                                    userInfo:nil] retain];
             [localException raise];
             //return;
         }
@@ -1571,7 +1588,9 @@ static OFCondition cstore(T_ASC_Association * assoc, const OFString& fname)
         if (cond.bad())
         {
             DimseCondition::dump(cond);
-            localException = [[NSException exceptionWithName:@"DICOM Network Failure (STORE-SCU)" reason:[NSString stringWithFormat: @"addStoragePresentationContexts %04x:%04x %s", cond.module(), cond.code(), cond.text()] userInfo:nil] retain];
+            localException = [[NSException exceptionWithName:@"DICOM Network Failure (STORE-SCU)"
+                                                      reason:[NSString stringWithFormat: @"addStoragePresentationContexts %04x:%04x %s", cond.module(), cond.code(), cond.text()]
+                                                    userInfo:nil] retain];
             [localException raise];
             //return;
         }

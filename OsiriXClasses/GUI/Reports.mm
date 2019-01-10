@@ -14,7 +14,7 @@
 
 #import "Reports.h"
 #import "DICOMFiles/dicomFile.h"
-#import "DCM Framework/DCM.h"
+#import <DCM/DCM.h>
 #import "BrowserController.h"
 #import "NSString+N2.h"
 #import "NSFileManager+N2.h"
@@ -180,16 +180,16 @@
 	
 	switch( type)
 	{
-		case 0:
+		case REPORT_TYPE_MS_WORD:
 		{
 			NSString *destinationFile = [NSString stringWithFormat:@"%@%@.%@", path, uniqueFilename, @"doc"];
 			[[NSFileManager defaultManager] removeItemAtPath: destinationFile error: nil];
 			
             [self createNewWordReportForStudy:study toDestinationPath:destinationFile];
         }
-		break;
+            break;
 		
-		case 1:
+		case REPORT_TYPE_RTF:
 		{
 			NSString *destinationFile = [NSString stringWithFormat:@"%@%@.%@", path, uniqueFilename, @"rtf"];
 			[[NSFileManager defaultManager] removeItemAtPath: destinationFile error: nil];
@@ -290,29 +290,36 @@
 			[[NSWorkspace sharedWorkspace] openFile:destinationFile withApplication:@"TextEdit" andDeactivate: YES];
 			[NSThread sleepForTimeInterval: 1];
 		}
-		break;
+            break;
 		
-		case 2:
+		case REPORT_TYPE_PAGES:
 		{
 			NSString *destinationFile = [NSString stringWithFormat:@"%@%@.%@", path, uniqueFilename, @"pages"];
 			[[NSFileManager defaultManager] removeItemAtPath: destinationFile error: nil];
 			
 			[self createNewPagesReportForStudy:study toDestinationPath:destinationFile];
 		}
-		break;
+            break;
 		
-		case 5:
+		case REPORT_TYPE_LIBRE_OFFICE:
 		{
 			NSString *destinationFile = [NSString stringWithFormat:@"%@%@.%@", path, uniqueFilename, @"odt"];
 			[[NSFileManager defaultManager] removeItemAtPath: destinationFile error: nil];
 			
+#if 1
 			[[NSFileManager defaultManager] copyPath:[BrowserController.currentBrowser.database.baseDirPath stringByAppendingFormat:@"/ReportTemplate.odt"] toPath:destinationFile handler: nil];
+#else
+            // TODO
+            [[NSFileManager defaultManager] copyItemAtPath:[BrowserController.currentBrowser.database.baseDirPath stringByAppendingPathComponent:@"ReportTemplate.odt"] toPath:destinationFile error:NULL];
+            
+#endif
 			[self createNewOpenDocumentReportForStudy:study toDestinationPath:destinationFile];
 			
 		}
-		break;
+            break;
 	}
-	return YES;
+
+    return YES;
 }
 
 // initialize it in your init method:
@@ -351,13 +358,16 @@
 {
     NSDictionary* errs = nil;
     
-    if (!source) [NSException raise:NSGenericException format:@"Couldn't read script source"];
+    if (!source)
+        [NSException raise:NSGenericException format:@"Couldn't read script source"];
     
     NSAppleScript* script = [[[NSAppleScript alloc] initWithSource:source] autorelease];
-    if (!script) [NSException raise:NSGenericException format:@"Invalid script source"];
+    if (!script)
+        [NSException raise:NSGenericException format:@"Invalid script source"];
     
     id r = [script runWithArguments:args error:&errs];
-    if (errs) [NSException raise:NSGenericException format:@"%@", errs];
+    if (errs)
+        [NSException raise:NSGenericException format:@"%@", errs];
     
     return r;
 }
@@ -366,7 +376,7 @@
 
 - (void)searchAndReplaceFieldsFromStudy:(NSManagedObject*)aStudy inString:(NSMutableString*)aString;
 {
-	if( aString == nil)
+	if (aString == nil)
 		return;
 		
 	NSManagedObjectModel *model = [[[aStudy managedObjectContext] persistentStoreCoordinator] managedObjectModel];
@@ -382,12 +392,12 @@
 	{
 		NSString *propertyValue;
 		
-		if( [[aStudy valueForKey:propertyName] isKindOfClass:[NSDate class]])
+		if ([[aStudy valueForKey:propertyName] isKindOfClass:[NSDate class]])
 			propertyValue = [date stringFromDate: [aStudy valueForKey:propertyName]];
 		else
 			propertyValue = [[aStudy valueForKey:propertyName] description];
 			
-		if(!propertyValue)
+		if (!propertyValue)
 			propertyValue = @"";
 			
 		//		« is encoded as &#xAB;
@@ -471,7 +481,6 @@
 
 +(void)checkForWordTemplates
 {
-#ifndef MACAPPSTORE
 #ifndef OSIRIX_LIGHT
     @try {
         NSString *path = BrowserController.currentBrowser.database.baseDirPath;
@@ -510,7 +519,6 @@
     @catch (NSException *exception) {
         N2LogException( exception);
     }
-#endif
 #endif
 }
 
@@ -561,13 +569,13 @@
 {
 	long x;
 	
-	NSManagedObjectModel	*model = [[[study managedObjectContext] persistentStoreCoordinator] managedObjectModel];
+	NSManagedObjectModel *model = [[[study managedObjectContext] persistentStoreCoordinator] managedObjectModel];
     
 	NSArray *properties = [[[[model entitiesByName] objectForKey:@"Study"] attributesByName] allKeys];
 	
 	NSMutableString	*file = [NSMutableString stringWithString:@""];
 	
-	for( x = 0; x < [properties count]; x++)
+	for (x = 0; x < [properties count]; x++)
 	{
 		NSString	*name = [properties objectAtIndex: x];
 		[file appendString:name];
@@ -576,10 +584,10 @@
 	
 	[file appendString:@"\r"];
 	
-	NSDateFormatter		*date = [[[NSDateFormatter alloc] init] autorelease];
+	NSDateFormatter *date = [[[NSDateFormatter alloc] init] autorelease];
 	[date setDateStyle: NSDateFormatterShortStyle];
 	
-	for( x = 0; x < [properties count]; x++)
+	for (x = 0; x < [properties count]; x++)
 	{
 		NSString	*name = [properties objectAtIndex: x];
 		NSString	*string;
@@ -603,7 +611,7 @@
 	
 	NSMutableAttributedString	*rtf = [[[NSMutableAttributedString alloc] initWithString: file] autorelease];
 	
-	[[rtf RTFFromRange:rtf.range documentAttributes: nil] writeToFile: path atomically:YES]; // To support full encoding in MicroSoft Word
+    [[rtf RTFFromRange:rtf.range documentAttributes:@{}] writeToFile: path atomically:YES]; // To support full encoding in MicroSoft Word
 	
 	return path;
 }
@@ -637,7 +645,11 @@
     
     if( templatePath == nil || ![[NSFileManager defaultManager] fileExistsAtPath:templatePath])
     {
-        NSRunCriticalAlertPanel( NSLocalizedString( @"Microsoft Word", nil),  NSLocalizedString(@"I cannot find the OsiriX Word Template doc file.", nil), NSLocalizedString(@"OK", nil), nil, nil);
+        NSRunCriticalAlertPanel(NSLocalizedString( @"Microsoft Word", nil),
+                                NSLocalizedString(@"I cannot find the OsiriX Word Template doc file.", nil),
+                                NSLocalizedString(@"OK", nil),
+                                nil,
+                                nil);
         return NO;
     }
     
@@ -697,15 +709,16 @@
     //[aTask waitUntilExit];		// <- This is VERY DANGEROUS : the main runloop is continuing...
 	int status = [unzip terminationStatus];
  
-	if (status == 0)
-		NSLog(@"OO Report creation. unzip -d succeeded.");
-	else
-	{
-		NSLog(@"OO Report creation  failed. Cause: unzip -d failed.");
+	if (status != EXIT_SUCCESS)	{
+        NSLog(@"OO Report creation. Error: unzip -d failed.");
 		return NO;
 	}
-	
-	// read the xml file and find & replace templated string with patient's datas
+
+#ifndef NDEBUG
+    NSLog(@"OO Report creation. unzip -d succeeded.");
+#endif
+
+    // read the xml file and find & replace templated string with patient's datas
 	NSString *indexFilePath = [NSString stringWithFormat:@"%@/OOOsiriX/content.xml", [aPath stringByDeletingLastPathComponent]];
 	NSError *xmlError = nil;
 	NSStringEncoding xmlFileEncoding = NSUTF8StringEncoding;
@@ -729,11 +742,11 @@
     //[aTask waitUntilExit];		// <- This is VERY DANGEROUS : the main runloop is continuing...
 	status = [unzip terminationStatus];
  
-	if (status == 0)
+	if (status == EXIT_SUCCESS)
 		NSLog(@"OO Report creation. zip succeeded.");
 	else
 	{
-		NSLog(@"OO Report creation  failed. Cause: zip failed.");
+		NSLog(@"OO Report creation. Error: zip failed.");
 		// we don't need to return NO, because the xml has been modified. Thus, even if the file is not compressed, the report is valid...
 	}
 	
@@ -768,13 +781,17 @@ static BOOL Pages5orHigher = FALSE;
     return [path stringByAppendingPathComponent:@"PAGES TEMPLATES"];
 }
 
+// Called from AppController initialize
+// Called again from DicomDatabase initiWithPath
 + (void)checkForPagesTemplate;
 {
-#ifndef MACAPPSTORE
 #ifndef OSIRIX_LIGHT
-    
 	NSString* templatesDirPath = [Reports databasePagesTemplatesDirPath];
-	
+
+#ifndef NDEBUG
+    NSLog(@"%s templatesDirPath:%@", __FUNCTION__, templatesDirPath);
+#endif
+
     if ([[NSFileManager defaultManager] fileExistsAtPath:templatesDirPath] == NO)
         [[NSFileManager defaultManager] createDirectoryAtPath:templatesDirPath
                                   withIntermediateDirectories:NO
@@ -787,7 +804,6 @@ static BOOL Pages5orHigher = FALSE;
 		[[NSFileManager defaultManager] copyPath: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"/Report.pages"]
                                           toPath: defaultReport handler:nil];
 	
-#endif
 #endif
 }
 
@@ -811,6 +827,10 @@ static BOOL Pages5orHigher = FALSE;
 
 - (void) decompressPagesFileIfNecessary: (NSString*) aPath
 {
+#ifndef NDEBUG
+    NSLog(@"%s:%d path:%@", __FUNCTION__, __LINE__, aPath);
+#endif
+
     BOOL isDirectory = NO;
     if( [[NSFileManager defaultManager] fileExistsAtPath: aPath isDirectory: &isDirectory] && isDirectory == NO)
     {
@@ -829,14 +849,15 @@ static BOOL Pages5orHigher = FALSE;
         //[aTask waitUntilExit];		// <- This is VERY DANGEROUS : the main runloop is continuing...
         int status = [unzip terminationStatus];
         
-        if (status == 0)
-            NSLog(@"Pages Report creation. unzip -d succeeded.");
-        else
-        {
-            NSLog(@"Pages Report creation  failed. Cause: unzip -d failed.");
+        if (status != EXIT_SUCCESS) {
+            NSLog(@"Pages Report creation. Error: unzip -d failed.");
             return;
         }
-        
+
+#ifndef NDEBUG
+        NSLog(@"Pages Report creation. unzip -d succeeded.");
+#endif
+
         [[NSFileManager defaultManager] removeItemAtPath: aPath error: nil];
         [[NSFileManager defaultManager] moveItemAtPath: [aPath.stringByDeletingLastPathComponent stringByAppendingPathComponent: UNZIPPEDNAME] toPath: aPath error: nil];
     }
@@ -849,11 +870,16 @@ static BOOL Pages5orHigher = FALSE;
 	[[NSFileManager defaultManager] removeItemAtPath:aPath error:NULL];
     
     NSString* templatePath = [[self class] pathForPagesTemplate: templateName];
-    if( templatePath)
+
+#ifndef NDEBUG
+    NSLog(@"%s:%d templatePath:%@", __FUNCTION__, __LINE__, templatePath);
+#endif
+    if (templatePath) {
         [[NSFileManager defaultManager] copyItemAtPath: templatePath
                                                 toPath: aPath
                                    byReplacingExisting: YES
                                                  error: nil];
+    }
     else {
 		NSRunCriticalAlertPanel(NSLocalizedString(@"Pages", nil),
                                 NSLocalizedString(@"Failed to create the report with Pages.", nil),
@@ -872,17 +898,24 @@ static BOOL Pages5orHigher = FALSE;
         return NO;
 	}
     
+#ifndef NDEBUG
+    NSLog(@"%s:%d aPath:%@", __FUNCTION__, __LINE__, aPath);
+#endif
     [self decompressPagesFileIfNecessary: aPath];
     
 	// read the xml file and find & replace templated string with patient's datas
 	NSString *indexFilePath = [aPath stringByAppendingPathComponent:@"index.xml"];
     if( [[NSFileManager defaultManager] fileExistsAtPath:indexFilePath] == NO)
     {
+#if 1
         NSString* path = [[NSBundle mainBundle] pathForResource:@"pages2pages09" ofType:@"applescript"];
+#ifndef NDEBUG
+        NSLog(@"%s:%d path:%@", __FUNCTION__, __LINE__, path);
+#endif
         [[self class] _runAppleScript: [NSString stringWithContentsOfFile: path encoding:NSUTF8StringEncoding error:nil] withArguments:[NSArray arrayWithObjects: templatePath, [templatePath stringByAppendingString: @"09.pages"], nil]];
-        
         NSLog( @"-- Try to convert to Pages 09: %@", templateName);
-        
+#endif
+
         if( [[NSFileManager defaultManager] fileExistsAtPath: [templatePath stringByAppendingString: @"09.pages"]])
         {
             [[NSFileManager defaultManager] removeItemAtPath: templatePath error: nil];

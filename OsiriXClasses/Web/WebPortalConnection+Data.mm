@@ -32,12 +32,14 @@
 #import "DicomStudy+Report.h"
 #import "WebPortalStudy.h"
 #import "DicomImage.h"
-#import "DCM Framework/DCM.h"
+
+#import <DCM/DCM.h>
+#import <DCM/DCMAbstractSyntaxUID.h>
+
 #import "DCMPix.h"
 #import "DCMTKStoreSCU.h"
 #import "NSFileManager+N2.h"
 #import "N2Alignment.h"
-#import "DCM Framework/DCMAbstractSyntaxUID.h"
 #import "NSFileManager+N2.h"
 #import "CSMailMailClient.h"
 #import "NSObject+SBJSON.h"
@@ -862,8 +864,14 @@ const NSString* const GenerateMovieDicomImagesParamKey = @"dicomImageArray";
                 {
                     NSTask *theTask = [[[NSTask alloc] init] autorelease];
                     
-                    [theTask setArguments: [NSArray arrayWithObjects: outFile, @"writeMovie", [outFile stringByAppendingString: @" dir"], [[NSNumber numberWithInteger:fps] stringValue], nil]];
-                    [theTask setLaunchPath:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"Decompress"]];
+                    [theTask setArguments: [NSArray arrayWithObjects:
+                                            outFile, @"writeMovie",
+                                            [outFile stringByAppendingString: @" dir"],
+                                            [[NSNumber numberWithInteger:fps] stringValue],
+                                            nil]];
+                    
+                    NSString *launchPath = [[[NSBundle mainBundle] URLForAuxiliaryExecutable:@"Decompress"] path];
+                    [theTask setLaunchPath:launchPath];
                     [theTask launch];
                     
                     while( [theTask isRunning]) [NSThread sleepForTimeInterval: 0.01];
@@ -2697,7 +2705,7 @@ const NSString* const GenerateMovieDicomImagesParamKey = @"dicomImageArray";
     //		int result = [zipTask terminationStatus];
     //		[zipTask release];
     //
-    //		if (result==0)
+    //		if (result==EXIT_SUCCESS)
     //			reportFilePath = [[reportFilePath stringByDeletingLastPathComponent] stringByAppendingPathComponent:zipFileName];
     //
     //		response.data = [NSData dataWithContentsOfFile: reportFilePath];
@@ -2746,7 +2754,7 @@ const NSString* const GenerateMovieDicomImagesParamKey = @"dicomImageArray";
 		return;
 	
 	if ([object isKindOfClass:[DicomSeries class]]) {
-		NSBitmapImageRep* imageRep = [NSBitmapImageRep imageRepWithData:[object thumbnail]];
+		NSBitmapImageRep* imageRep = [NSBitmapImageRep imageRepWithData:(NSData *)[object thumbnail]];
 		NSDictionary* imageProps = [NSDictionary dictionaryWithObject:@1.0F forKey:NSImageCompressionFactor];
 		response.data = data = [imageRep representationUsingType:NSPNGFileType properties:imageProps];
 	} else if ([object isKindOfClass: [Dicom_Image class]]) {
@@ -2789,10 +2797,14 @@ const NSString* const GenerateMovieDicomImagesParamKey = @"dicomImageArray";
 		NSString* path = [NSFileManager.defaultManager confirmDirectoryAtPath:pathDicomSr];
 		NSString* htmlpath = [path stringByAppendingPathComponent:[[[series.images.anyObject valueForKey:@"completePath"] lastPathComponent] stringByAppendingPathExtension:@"xml"]];
 		
-		if (![NSFileManager.defaultManager fileExistsAtPath:htmlpath]) {
+		if (![NSFileManager.defaultManager fileExistsAtPath:htmlpath])
+        {
 			NSTask* aTask = [[[NSTask alloc] init] autorelease];
-			[aTask setEnvironment:[NSDictionary dictionaryWithObject:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"/dicom.dic"] forKey:@"DCMDICTPATH"]];
-			[aTask setLaunchPath:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"dsr2html"]];
+
+            NSString *dicPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"dicom.dic"];
+            [aTask setEnvironment:[NSDictionary dictionaryWithObject:dicPath forKey:@"DCMDICTPATH"]];
+
+            [aTask setLaunchPath:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"dsr2html"]];
 			[aTask setArguments:[NSArray arrayWithObjects:
                                  @"+X1",
                                  @"--unknown-relationship",
@@ -2813,7 +2825,8 @@ const NSString* const GenerateMovieDicomImagesParamKey = @"dicomImageArray";
 		
 		if ([[NSFileManager defaultManager] fileExistsAtPath:pdfpath] == NO) {
 			NSTask* aTask = [[[NSTask alloc] init] autorelease];
-			[aTask setLaunchPath:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"Decompress"]];
+            NSString *launchPath = [[[NSBundle mainBundle] URLForAuxiliaryExecutable:@"Decompress"] path];
+			[aTask setLaunchPath:launchPath];
 			[aTask setArguments:[NSArray arrayWithObjects:htmlpath, @"pdfFromURL", nil]];
 			[aTask launch];
             NSTimeInterval start = [NSDate timeIntervalSinceReferenceDate];

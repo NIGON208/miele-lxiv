@@ -4,7 +4,7 @@
 #include "vtkRenderWindow.h"
 #include "vtkRenderer.h"
 #include "vtkTimerLog.h"
-
+#include "vtkOpenGLRenderWindow.h"
 #include <math.h>
 
 int dontRenderVolumeRenderingOsiriX = 0;
@@ -16,6 +16,7 @@ OsiriXFixedPointVolumeRayCastMapper::OsiriXFixedPointVolumeRayCastMapper()
 
 }
 
+// See VTK's vtkFixedPointVolumeRayCastMapper.cxx
 void OsiriXFixedPointVolumeRayCastMapper::Render( vtkRenderer *ren, vtkVolume *vol )
 {
   this->Timer->StartTimer();
@@ -38,28 +39,48 @@ void OsiriXFixedPointVolumeRayCastMapper::Render( vtkRenderer *ren, vtkVolume *v
 
   vtkRenderWindow *renWin=ren->GetRenderWindow();
 
+#if 1
+    vtkOpenGLRenderWindow *rw = (vtkOpenGLRenderWindow *)renWin;
+    //if (!rw->Initialized)
+        rw->OpenGLInit();
+#endif
+    
   if ( renWin && renWin->CheckAbortStatus() )
-    {
+  {
     this->AbortRender();
     return;
-    }
+  }
 
   this->PerSubVolumeInitialization( ren, vol, 0 );
   if ( renWin && renWin->CheckAbortStatus() )
-    {
+  {
     this->AbortRender();
     return;
-    }
+  }
 
-  if( dontRenderVolumeRenderingOsiriX == 0)
+  if (dontRenderVolumeRenderingOsiriX == 0)  // Our addition
 	this->RenderSubVolume();
 
   if ( renWin && renWin->CheckAbortStatus() )
-    {
+  {
     this->AbortRender();
     return;
-    }
+  }
 
+#ifndef NDEBUG
+    this->DebugOn();
+    vtkIndent *indent = vtkIndent::New();
+    std::cerr << this->GetClassName() << std::endl;
+    this->PrintSelf(std::cout, *indent);
+    //this->ImageDisplayHelper->PrintSelf(std::cout, *indent);
+    //int dataType;
+    //this->ImageDisplayHelper->TextureObject->GetDataType(dataType);
+#endif  
+    
+#if 1 // @@@ debug
+    //this->ImageDisplayHelper->RenderTexture(0,0,0,0);;
+#endif
+    
   this->DisplayRenderedImage( ren, vol );
 
   this->Timer->StopTimer();

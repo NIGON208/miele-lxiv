@@ -12,11 +12,12 @@
      PURPOSE.
 =========================================================================*/
 
-
 #import <Cocoa/Cocoa.h>
 #define INCLUDE_CTIME
 #include "dcmtk/dcmnet/dcompat.h"    /* compatibility routines */
 #import <Accelerate/Accelerate.h>
+
+////////////////////////////////////////////////////////////////////////////////
 
 @class DicomDatabase;
 
@@ -597,7 +598,7 @@ extern NSString* O2AlbumDragType;
 - (void)writeMovie:(NSArray*)imagesArray name:(NSString*)fileName;
 - (void) buildThumbnail:(NSManagedObject*) series;
 
-/******Notifactions posted by browserController***********
+/******Notifications posted by browserController***********
 OsirixNewStudySelectedNotification with userinfo key @"Selected Study" posted when a newStudy is selected in the browser
 @"Close All Viewers" posted when close open windows if option key pressed.	
 @"DCMImageTilingHasChanged" when image tiling has changed

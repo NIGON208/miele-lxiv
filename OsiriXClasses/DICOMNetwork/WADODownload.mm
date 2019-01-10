@@ -38,7 +38,12 @@
     NSString *alertSuppress = @"hideListenerError";
     
     if ([[NSUserDefaults standardUserDefaults] boolForKey: alertSuppress] == NO)
-        NSRunCriticalAlertPanel( [msg objectAtIndex: 0], @"%@", [msg objectAtIndex: 2], nil, nil, [msg objectAtIndex: 1]);
+        NSRunCriticalAlertPanel([msg objectAtIndex: 0],
+                                @"%@",
+                                [msg objectAtIndex: 2],
+                                nil,
+                                nil,
+                                    [msg objectAtIndex: 1]);
     else
         NSLog( @"*** listener error (not displayed - hideListenerError): %@ %@ %@", [msg objectAtIndex: 0], [msg objectAtIndex: 1], [msg objectAtIndex: 2]);
 }
@@ -47,15 +52,15 @@
 {
 	NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
 	
-	if( [httpResponse statusCode] >= 300)
+	if ([httpResponse statusCode] >= 300)
 	{
 		NSLog( @"***** WADO http status code error: %d", (int) [httpResponse statusCode]);
 		NSLog( @"***** WADO URL : %@", response.URL);
 		
-		if( firstWadoErrorDisplayed == NO)
+		if (firstWadoErrorDisplayed == NO)
 		{
 			firstWadoErrorDisplayed = YES;
-            if( showErrorMessage)
+            if (showErrorMessage)
                 [WADODownload performSelectorOnMainThread :@selector(errorMessage:) withObject: [NSArray arrayWithObjects: NSLocalizedString(@"WADO Retrieve Failed", nil), [NSString stringWithFormat: @"WADO http status code error: %d", (int) [httpResponse statusCode]], NSLocalizedString(@"Continue", nil), nil] waitUntilDone:NO];
 		}
 		
@@ -67,7 +72,7 @@
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
 {
-	if( connection)
+	if (connection)
 	{
 		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 		
@@ -76,15 +81,15 @@
 		
         receivedData += data.length;
         
-        if( WADOTotal == 1) // Only one file: display progress in bytes
+        if (WADOTotal == 1) // Only one file: display progress in bytes
         {
-            if( totalData > 0)
+            if (totalData > 0)
                 [[NSThread currentThread] setProgress: (double) receivedData / (double) totalData];
             
-            if( firstReceivedTime == 0)
+            if (firstReceivedTime == 0)
                 firstReceivedTime = [NSDate timeIntervalSinceReferenceDate];
             
-            if( [NSDate timeIntervalSinceReferenceDate] - lastStatusUpdate > 1 && [NSDate timeIntervalSinceReferenceDate] - firstReceivedTime > 2)
+            if ([NSDate timeIntervalSinceReferenceDate] - lastStatusUpdate > 1 && [NSDate timeIntervalSinceReferenceDate] - firstReceivedTime > 2)
             {
                 lastStatusUpdate = [NSDate timeIntervalSinceReferenceDate];
                 [NSThread currentThread].status = [NSString stringWithFormat: @"%@ - %@/s", self.baseStatus, [NSString sizeString: (double) receivedData / ([NSDate timeIntervalSinceReferenceDate] - firstReceivedTime)]];
@@ -97,17 +102,17 @@
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
-	if( connection)
+	if (connection)
 	{
 		[WADODownloadDictionary removeObjectForKey: [NSString stringWithFormat:@"%ld", (long) connection]];
 		
 		NSLog(@"***** WADO Retrieve error: %@", error);
 		
-		if( firstWadoErrorDisplayed == NO)
+		if (firstWadoErrorDisplayed == NO)
 		{
 			firstWadoErrorDisplayed = YES;
             
-            if( showErrorMessage)
+            if (showErrorMessage)
                 [WADODownload performSelectorOnMainThread :@selector(errorMessage:) withObject: [NSArray arrayWithObjects: NSLocalizedString(@"WADO Retrieve Failed", nil), [NSString stringWithFormat: @"%@", [error localizedDescription]], NSLocalizedString(@"Continue", nil), nil] waitUntilDone:NO];
 		}
 		
@@ -158,7 +163,7 @@
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
-	if( connection)
+	if (connection)
 	{
 		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
         
@@ -170,21 +175,21 @@
 		
 		NSString *extension = @"dcm";
 		
-		if( [d length] > 2)
+		if ([d length] > 2)
 		{
             countOfSuccesses++;
             
             NSString *s = [[NSString alloc] initWithBytes:[d bytes]
                                                    length:2
                                                  encoding:NSASCIIStringEncoding];
-            if( [s isEqualToString: @"PK"])
+            if ([s isEqualToString: @"PK"])
                 extension = @"osirixzip";
             
             NSString *filename = [[NSString stringWithFormat:@".WADO-%d-%ld", WADOThreads, (long) self] stringByAppendingPathExtension: extension];
         
             [d writeToFile: [path stringByAppendingPathComponent: filename] atomically: YES];
                         
-            if( WADOThreads == WADOTotal) // The first file !
+            if (WADOThreads == WADOTotal) // The first file !
             {
                 [[DicomDatabase activeLocalDatabase] initiateImportFilesFromIncomingDirUnlessAlreadyImporting];
                 
@@ -229,9 +234,9 @@
             
             [[LogManager currentLogManager] addLogLine: logEntry];
             
-            if( WADOGrandTotal)
+            if (WADOGrandTotal)
                 [[NSThread currentThread] setProgress: (float) ((WADOTotal - WADOThreads) + WADOBaseTotal) / (float) WADOGrandTotal];
-            else if( WADOTotal)
+            else if (WADOTotal)
                 [[NSThread currentThread] setProgress: 1.0 - (float) WADOThreads / (float) WADOTotal];
             
             // To remove the '.'
@@ -251,7 +256,7 @@
 
 - (void) WADODownload: (NSArray*) urlToDownload
 {
-    if( urlToDownload.count == 0)
+    if (urlToDownload.count == 0)
     {
         NSLog( @"**** urlToDownload.count == 0 in WADODownload");
         return;
@@ -265,10 +270,10 @@
     
     @try
     {
-        if( [urlToDownload count])
+        if ([urlToDownload count])
             urlToDownload = [[NSSet setWithArray: urlToDownload] allObjects]; // UNIQUE OBJECTS !
         
-        if( [urlToDownload count])
+        if ([urlToDownload count])
         {
             NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 #ifndef NDEBUG
@@ -276,18 +281,18 @@
 #endif
             firstWadoErrorDisplayed = NO;
             
-            if( showErrorMessage == NO)
+            if (showErrorMessage == NO)
                 firstWadoErrorDisplayed = YES; // don't show errors
             
             [WADODownloadDictionary release];
             WADODownloadDictionary = [[NSMutableDictionary dictionary] retain];
             
             int WADOMaximumConcurrentDownloads = [[NSUserDefaults standardUserDefaults] integerForKey: @"WADOMaximumConcurrentDownloads"];
-            if( WADOMaximumConcurrentDownloads < 1)
+            if (WADOMaximumConcurrentDownloads < 1)
                 WADOMaximumConcurrentDownloads = 1;
             
             float timeout = [[NSUserDefaults standardUserDefaults] floatForKey: @"WADOTimeout"];
-            if( timeout < 240) timeout = 240;
+            if (timeout < 240) timeout = 240;
             
 #ifndef NDEBUG
             NSLog( @"------ WADO parameters: timeout:%2.2f [secs] / WADOMaximumConcurrentDownloads:%d [URLRequests]", timeout, WADOMaximumConcurrentDownloads);
@@ -316,7 +321,7 @@
                 
                 @try
                 {
-                    if( [[url scheme] isEqualToString: @"https"])
+                    if ([[url scheme] isEqualToString: @"https"])
                         [NSURLRequest setAllowsAnyHTTPSCertificate:YES forHost:[url host]];
                 }
                 @catch (NSException *e)
@@ -326,7 +331,7 @@
                 
                 NSURLConnection *downloadConnection = [NSURLConnection connectionWithRequest: [NSURLRequest requestWithURL: url cachePolicy: NSURLRequestReloadIgnoringLocalCacheData timeoutInterval: timeout] delegate: self];
                 
-                if( downloadConnection)
+                if (downloadConnection)
                 {
                     [WADODownloadDictionary setObject: [NSDictionary dictionaryWithObjectsAndKeys:
                                                         url, @"url",
@@ -337,7 +342,7 @@
                     [connectionsArray addObject: downloadConnection];
                 }
                 
-                if( downloadConnection == nil)
+                if (downloadConnection == nil)
                     WADOThreads--;
                 
                 if (_abortAssociation ||
@@ -350,7 +355,7 @@
                 }
             }
             
-            if( aborted == NO)
+            if (aborted == NO)
             {
                 while( WADOThreads > 0)
                 {
@@ -366,20 +371,20 @@
                     }
                 }
                 
-                if( aborted == NO && [[WADODownloadDictionary allKeys] count] > 0)
+                if (aborted == NO && [[WADODownloadDictionary allKeys] count] > 0)
                     NSLog( @"**** [[WADODownloadDictionary allKeys] count] > 0");
                 
                 [[DicomDatabase activeLocalDatabase] initiateImportFilesFromIncomingDirUnlessAlreadyImporting];
             }
             
-            if( aborted)
+            if (aborted)
                 [logEntry setValue:@"Incomplete" forKey:@"logMessage"];
             else
                 [logEntry setValue:@"Complete" forKey:@"logMessage"];
             
             [[LogManager currentLogManager] addLogLine: logEntry];
             
-            if( aborted)
+            if (aborted)
             {
                 for( NSURLConnection *connection in connectionsArray)
                     [connection cancel];
@@ -394,7 +399,7 @@
             [pool release];
             
 #ifndef NDEBUG
-            if( aborted)
+            if (aborted)
                 NSLog( @"------ WADO downloading ABORTED");
             else
                 NSLog( @"------ WADO downloading : %d files - finished (errors: %d / total: %d)", (int) [urlToDownload count], (int) (urlToDownload.count - countOfSuccesses), (int) urlToDownload.count);

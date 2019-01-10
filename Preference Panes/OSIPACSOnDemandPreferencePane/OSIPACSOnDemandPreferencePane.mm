@@ -13,7 +13,7 @@
 =========================================================================*/
 
 #import "OSIPACSOnDemandPreferencePane.h"
-#import "DCM Framework/DCMNetServiceDelegate.h"
+#import <DCM/DCMNetServiceDelegate.h>
 #import "DicomDatabase.h"
 #import "DicomAlbum.h"
 #import "N2Debug.h"
@@ -35,10 +35,10 @@ static NSMatrix *gDateMatrix = nil;
 
 - (id)transformedValue:(NSArray*) array {
     NSMutableString *string = [NSMutableString string];
-    for( NSString *modality in array)
+    for (NSString *modality in array)
     {
         [string appendString: modality];
-        if( modality != array.lastObject)
+        if (modality != array.lastObject)
             [string appendString:@", "];
     }
     return string;
@@ -71,11 +71,11 @@ static NSMatrix *gDateMatrix = nil;
 {
 	[self willChangeValueForKey:@"sourcesArray"];
 	
-	for( NSUInteger i = 0; i < [sourcesArray count]; i++)
+	for (NSUInteger i = 0; i < [sourcesArray count]; i++)
 	{
 		NSMutableDictionary	*source = [NSMutableDictionary dictionaryWithDictionary: [sourcesArray objectAtIndex: i]];
 		
-		if( [sender selectedRow] == i)
+		if ([sender selectedRow] == i)
             [source setObject: @YES forKey:@"activated"];
 		else
             [source setObject: @NO forKey:@"activated"];
@@ -88,11 +88,11 @@ static NSMatrix *gDateMatrix = nil;
 
 - (NSDictionary*) findCorrespondingServer: (NSDictionary*) savedServer inServers : (NSArray*) servers
 {
-	for( NSUInteger i = 0 ; i < [servers count]; i++)
+	for (NSUInteger i = 0 ; i < [servers count]; i++)
 	{
         @try
         {
-            if( [[savedServer objectForKey:@"AETitle"] isEqualToString: [[servers objectAtIndex:i] objectForKey:@"AETitle"]] &&
+            if ([[savedServer objectForKey:@"AETitle"] isEqualToString: [[servers objectAtIndex:i] objectForKey:@"AETitle"]] &&
                [[savedServer objectForKey:@"name"] isEqualToString: [[servers objectAtIndex:i] objectForKey:@"Description"]] &&
                [[savedServer objectForKey:@"AddressAndPort"] isEqualToString: [NSString stringWithFormat:@"%@:%@", [[servers objectAtIndex:i] valueForKey:@"Address"], [[servers objectAtIndex:i] valueForKey:@"Port"]]])
             {
@@ -118,11 +118,11 @@ static NSMatrix *gDateMatrix = nil;
     
 	[sourcesArray removeAllObjects];
 	
-	for( NSUInteger i = 0; i < [savedArray count]; i++)
+	for (NSUInteger i = 0; i < [savedArray count]; i++)
 	{
 		NSDictionary *server = [self findCorrespondingServer: [savedArray objectAtIndex:i] inServers: serversArray];
 		
-		//if( server && ([[server valueForKey:@"QR"] boolValue] == YES || [server valueForKey:@"QR"] == nil ))
+		//if (server && ([[server valueForKey:@"QR"] boolValue] == YES || [server valueForKey:@"QR"] == nil ))
 		{
 			[sourcesArray addObject: [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                       [[savedArray objectAtIndex: i] valueForKey:@"activated"], @"activated",
@@ -136,11 +136,11 @@ static NSMatrix *gDateMatrix = nil;
 		}
 	}
 	
-	for( NSUInteger i = 0; i < [serversArray count]; i++)
+	for (NSUInteger i = 0; i < [serversArray count]; i++)
 	{
 		NSDictionary *server = [serversArray objectAtIndex: i];
 		
-		//if( ([[server valueForKey:@"QR"] boolValue] == YES || [server valueForKey:@"QR"] == nil ))
+		//if (([[server valueForKey:@"QR"] boolValue] == YES || [server valueForKey:@"QR"] == nil ))
             
 			[sourcesArray addObject: [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                       @NO, @"activated",
@@ -158,7 +158,7 @@ static NSMatrix *gDateMatrix = nil;
 
 - (id) initWithBundle:(NSBundle *)bundle
 {
-	if( self = [super init])
+	if (self = [super init])
 	{
 		NSNib *nib = [[[NSNib alloc] initWithNibNamed: @"OSIPACSOnDemand" bundle: nil] autorelease];
 		[nib instantiateNibWithOwner:self topLevelObjects: nil];
@@ -176,13 +176,19 @@ static NSMatrix *gDateMatrix = nil;
 - (IBAction) setActivated:(id) sender
 {
     // Check that activated smart albums have at least date or modality filters
-    for( NSMutableDictionary *d in smartAlbumsArray)
+    for (NSMutableDictionary *d in smartAlbumsArray)
     {
-        if( [[d objectForKey: @"activated"] boolValue])
+        if ([[d objectForKey: @"activated"] boolValue])
         {
-            if( [[d objectForKey: @"date"] intValue] == 0 && [[d objectForKey: @"modality"] count] == 0)
+            if ([[d objectForKey: @"date"] intValue] == 0 &&
+                [[d objectForKey: @"modality"] count] == 0)
             {
-                NSRunInformationalAlertPanel( NSLocalizedString( @"Filter", nil), NSLocalizedString( @"The Smart Album filter (%@) needs to have at least one parameter defined to be activated: date or modality.", nil), NSLocalizedString( @"OK", nil), nil, nil, [d objectForKey: @"name"]);
+                NSRunInformationalAlertPanel(NSLocalizedString( @"Filter", nil),
+                                             NSLocalizedString( @"The Smart Album filter (%@) needs to have at least one parameter defined to be activated: date or modality.", nil),
+                                             NSLocalizedString( @"OK", nil),
+                                             nil,
+                                             nil,
+                                                [d objectForKey: @"name"]);
                 
                 [self willChangeValueForKey: @"smartAlbumsArray"];
                 [d setValue: @NO forKey: @"activated"];
@@ -199,12 +205,12 @@ static NSMatrix *gDateMatrix = nil;
     // Save DICOM Nodes
     
     NSMutableArray *srcArray = [NSMutableArray array];
-    for( id src in sourcesArray)
+    for (id src in sourcesArray)
     {
-        if( [[src valueForKey: @"activated"] boolValue] == YES)
+        if ([[src valueForKey: @"activated"] boolValue] == YES)
             [srcArray addObject: src];
     }
-    if( srcArray.count == 0)
+    if (srcArray.count == 0)
         [[NSUserDefaults standardUserDefaults] setBool: NO forKey: @"searchForComparativeStudiesOnDICOMNodes"];
     
     [[NSUserDefaults standardUserDefaults] setValue: srcArray forKey: @"comparativeSearchDICOMNodes"];
@@ -236,7 +242,7 @@ static NSMatrix *gDateMatrix = nil;
     NSMutableArray *savedSmartAlbums = [NSMutableArray array];
     
     // Create mutable version...
-    for( NSDictionary *d in [[NSUserDefaults standardUserDefaults] objectForKey: @"smartAlbumStudiesDICOMNodes"])
+    for (NSDictionary *d in [[NSUserDefaults standardUserDefaults] objectForKey: @"smartAlbumStudiesDICOMNodes"])
         [savedSmartAlbums addObject: [NSMutableDictionary dictionaryWithDictionary: d]];
     
     [self willChangeValueForKey: @"smartAlbumsArray"];
@@ -258,43 +264,43 @@ static NSMatrix *gDateMatrix = nil;
         [albumDBArray retain];
         
         // Add mising smart albums
-        for( DicomAlbum *album in albumDBArray)
+        for (DicomAlbum *album in albumDBArray)
         {
-            if( [[self.smartAlbumsArray valueForKey: @"name"] containsObject: album.name] == NO)
+            if ([[self.smartAlbumsArray valueForKey: @"name"] containsObject: album.name] == NO)
             {
                 // Is it a 'known' album : pre-fill it
                 
-                if( [album.name isEqualToString: NSLocalizedString( @"Just Acquired (last hour)", nil)])
+                if ([album.name isEqualToString: NSLocalizedString( @"Just Acquired (last hour)", nil)])
                     [self.smartAlbumsArray addObject: [NSMutableDictionary dictionaryWithObjectsAndKeys:@YES, @"activated", album.name, @"name", @"101", @"date", [NSArray array], @"modality", nil]];
                 
-                else if( [album.name isEqualToString: NSLocalizedString( @"Today MR", nil)])
+                else if ([album.name isEqualToString: NSLocalizedString( @"Today MR", nil)])
                     [self.smartAlbumsArray addObject: [NSMutableDictionary dictionaryWithObjectsAndKeys:@YES, @"activated", album.name, @"name", @"1", @"date", [NSArray arrayWithObject:@"MR"], @"modality", nil]];
-                else if( [album.name isEqualToString: NSLocalizedString( @"Today CT", nil)])
+                else if ([album.name isEqualToString: NSLocalizedString( @"Today CT", nil)])
                     [self.smartAlbumsArray addObject: [NSMutableDictionary dictionaryWithObjectsAndKeys:@YES, @"activated", album.name, @"name", @"1", @"date", [NSArray arrayWithObject:@"CT"], @"modality", nil]];
-                else if( [album.name isEqualToString: NSLocalizedString( @"Today US", nil)])
+                else if ([album.name isEqualToString: NSLocalizedString( @"Today US", nil)])
                     [self.smartAlbumsArray addObject: [NSMutableDictionary dictionaryWithObjectsAndKeys:@YES, @"activated", album.name, @"name", @"1", @"date", [NSArray arrayWithObject:@"US"], @"modality", nil]];
-                else if( [album.name isEqualToString: NSLocalizedString( @"Today MG", nil)])
+                else if ([album.name isEqualToString: NSLocalizedString( @"Today MG", nil)])
                     [self.smartAlbumsArray addObject: [NSMutableDictionary dictionaryWithObjectsAndKeys:@YES, @"activated", album.name, @"name", @"1", @"date", [NSArray arrayWithObject:@"MG"], @"modality", nil]];
-                else if( [album.name isEqualToString: NSLocalizedString( @"Today CR", nil)])
+                else if ([album.name isEqualToString: NSLocalizedString( @"Today CR", nil)])
                     [self.smartAlbumsArray addObject: [NSMutableDictionary dictionaryWithObjectsAndKeys:@YES, @"activated", album.name, @"name", @"1", @"date", [NSArray arrayWithObject:@"CR"], @"modality", nil]];
-                else if( [album.name isEqualToString: NSLocalizedString( @"Today XA", nil)])
+                else if ([album.name isEqualToString: NSLocalizedString( @"Today XA", nil)])
                     [self.smartAlbumsArray addObject: [NSMutableDictionary dictionaryWithObjectsAndKeys:@YES, @"activated", album.name, @"name", @"1", @"date", [NSArray arrayWithObject:@"XA"], @"modality", nil]];
-                else if( [album.name isEqualToString: NSLocalizedString( @"Today RF", nil)])
+                else if ([album.name isEqualToString: NSLocalizedString( @"Today RF", nil)])
                     [self.smartAlbumsArray addObject: [NSMutableDictionary dictionaryWithObjectsAndKeys:@YES, @"activated", album.name, @"name", @"1", @"date", [NSArray arrayWithObject:@"RF"], @"modality", nil]];
                 
-                else if( [album.name isEqualToString: NSLocalizedString( @"Yesterday MR", nil)])
+                else if ([album.name isEqualToString: NSLocalizedString( @"Yesterday MR", nil)])
                     [self.smartAlbumsArray addObject: [NSMutableDictionary dictionaryWithObjectsAndKeys:@YES, @"activated", album.name, @"name", @"2", @"date", [NSArray arrayWithObject:@"MR"], @"modality", nil]];
-                else if( [album.name isEqualToString: NSLocalizedString( @"Yesterday CT", nil)])
+                else if ([album.name isEqualToString: NSLocalizedString( @"Yesterday CT", nil)])
                     [self.smartAlbumsArray addObject: [NSMutableDictionary dictionaryWithObjectsAndKeys:@YES, @"activated", album.name, @"name", @"2", @"date", [NSArray arrayWithObject:@"CT"], @"modality", nil]];
-                else if( [album.name isEqualToString: NSLocalizedString( @"Yesterday US", nil)])
+                else if ([album.name isEqualToString: NSLocalizedString( @"Yesterday US", nil)])
                     [self.smartAlbumsArray addObject: [NSMutableDictionary dictionaryWithObjectsAndKeys:@YES, @"activated", album.name, @"name", @"2", @"date", [NSArray arrayWithObject:@"US"], @"modality", nil]];
-                else if( [album.name isEqualToString: NSLocalizedString( @"Yesterday MG", nil)])
+                else if ([album.name isEqualToString: NSLocalizedString( @"Yesterday MG", nil)])
                     [self.smartAlbumsArray addObject: [NSMutableDictionary dictionaryWithObjectsAndKeys:@YES, @"activated", album.name, @"name", @"2", @"date", [NSArray arrayWithObject:@"MG"], @"modality", nil]];
-                else if( [album.name isEqualToString: NSLocalizedString( @"Yesterday CR", nil)])
+                else if ([album.name isEqualToString: NSLocalizedString( @"Yesterday CR", nil)])
                     [self.smartAlbumsArray addObject: [NSMutableDictionary dictionaryWithObjectsAndKeys:@YES, @"activated", album.name, @"name", @"2", @"date", [NSArray arrayWithObject:@"CR"], @"modality", nil]];
-                else if( [album.name isEqualToString: NSLocalizedString( @"Yesterday XA", nil)])
+                else if ([album.name isEqualToString: NSLocalizedString( @"Yesterday XA", nil)])
                     [self.smartAlbumsArray addObject: [NSMutableDictionary dictionaryWithObjectsAndKeys:@YES, @"activated", album.name, @"name", @"2", @"date", [NSArray arrayWithObject:@"XA"], @"modality", nil]];
-                else if( [album.name isEqualToString: NSLocalizedString( @"Yesterday RF", nil)])
+                else if ([album.name isEqualToString: NSLocalizedString( @"Yesterday RF", nil)])
                     [self.smartAlbumsArray addObject: [NSMutableDictionary dictionaryWithObjectsAndKeys:@YES, @"activated", album.name, @"name", @"2", @"date", [NSArray arrayWithObject:@"RF"], @"modality", nil]];
                 
                 else
@@ -304,9 +310,9 @@ static NSMatrix *gDateMatrix = nil;
         
         // Delete unavailble smart albums preferences
         NSMutableArray *toBeRemoved = [NSMutableArray array];
-        for( NSDictionary *album in smartAlbumsArray)
+        for (NSDictionary *album in smartAlbumsArray)
         {
-            if( [[albumDBArray valueForKey: @"name"] containsObject: [album objectForKey: @"name"]] == NO)
+            if ([[albumDBArray valueForKey: @"name"] containsObject: [album objectForKey: @"name"]] == NO)
                 [toBeRemoved addObject: album];
         }
         
@@ -321,7 +327,7 @@ static NSMatrix *gDateMatrix = nil;
     // History
     [sourcesArray release];
     sourcesArray = [[[NSUserDefaults standardUserDefaults] objectForKey: @"comparativeSearchDICOMNodes"] mutableCopy];
-    if( sourcesArray == nil)
+    if (sourcesArray == nil)
         sourcesArray = [[NSMutableArray array] retain];
     
     [self refreshSources];
@@ -334,9 +340,9 @@ static NSMatrix *gDateMatrix = nil;
     
     [sourcesTable setDoubleAction: @selector(selectUniqueSource:)];
     
-	for( NSUInteger i = 0; i < [sourcesArray count]; i++)
+	for (NSUInteger i = 0; i < [sourcesArray count]; i++)
 	{
-		if( [[[sourcesArray objectAtIndex: i] valueForKey:@"activated"] boolValue] == YES)
+		if ([[[sourcesArray objectAtIndex: i] valueForKey:@"activated"] boolValue] == YES)
 		{
 			[sourcesTable selectRowIndexes: [NSIndexSet indexSetWithIndex: i] byExtendingSelection: NO];
 			[sourcesTable scrollRowToVisible: i];
@@ -347,7 +353,7 @@ static NSMatrix *gDateMatrix = nil;
 
 - (IBAction) endEditSmartAlbumFilter:(id) sender
 {
-	if( [sender tag] == 1) // OK
+	if ([sender tag] == 1) // OK
 	{
         [self willChangeValueForKey: @"smartAlbumsArray"];
         
@@ -355,7 +361,7 @@ static NSMatrix *gDateMatrix = nil;
         
         [dict setObject: [NSNumber numberWithInt: self.smartAlbumDate] forKey: @"date"];
         
-        if( self.smartAlbumModality)
+        if (self.smartAlbumModality)
             [dict setObject: self.smartAlbumModality forKey: @"modality"];
         else
             [dict setObject: [NSArray array] forKey: @"modality"];
@@ -372,15 +378,19 @@ static NSMatrix *gDateMatrix = nil;
 
 - (IBAction) editSmartAlbumFilter:(id) sender
 {
-    if( [smartAlbumsArray count] == 0)
+    if ([smartAlbumsArray count] == 0)
     {
-        NSRunCriticalAlertPanel(NSLocalizedString(@"New Route", nil),NSLocalizedString( @"No smart album exists.", nil),NSLocalizedString( @"OK", nil), nil, nil);
+        NSRunCriticalAlertPanel(NSLocalizedString(@"New Route", nil),
+                                NSLocalizedString(@"No smart album exists.", nil),
+                                NSLocalizedString(@"OK", nil),
+                                nil,
+                                nil);
     }
     else
     {
         NSDictionary *selectedAlbum = [smartAlbumsArray objectAtIndex: [smartAlbumsTable selectedRow]];
         
-        if( selectedAlbum)
+        if (selectedAlbum)
         {
             self.smartAlbumModality = [selectedAlbum objectForKey: @"modality"];
             self.smartAlbumDate = [[selectedAlbum objectForKey: @"date"] intValue];

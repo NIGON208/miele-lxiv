@@ -12,17 +12,17 @@
      PURPOSE.
 =========================================================================*/
 
-// This will be added to the main inded page of the Doxygen documentation
-/** \mainpage OsiriX index page
-*  <img src= "../../../osirix/Binaries/Icons/SmallLogo.tif">
-* \section Intro OsiriX DICOM workstation
-*  Osirix is a free open source DICOM workstation with full 64 bit support.
+// This will be added to the main index page of the Doxygen documentation
+/** \mainpage Miele-LXIV index page
+*  <img src= "../../../../Assets.xcassets/AppIcon.appiconset/icon_32x32.png">
+* \section Intro Miele-LXIV DICOM workstation
+*  Miele-LXIV is a free open source DICOM workstation with full 64 bit support.
 *
-*  We extend out thanks to other in the open source community.
+*  We extend our thanks to others in the open source community.
 *
-*  VTK, ITK, and DCMTK open source projects are extensively used in OsiriX.
+*  VTK, ITK, and DCMTK open source projects are extensively used in Miele-LXIV.
 *
-*  The OsiriX team.
+*  The Miele-LXIV team.
 */
 
 #ifdef OSIRIX_VIEWER
@@ -65,6 +65,14 @@ enum
 	notMainDrive = 2,
 	ask = 3
 };
+
+typedef NS_ENUM(NSUInteger, MultipleScreenType) {
+    MULTIPLE_SCREEN_TYPE_MAIN_ONLY = 0, // use main screen only
+    MULTIPLE_SCREEN_TYPE_2ND_ONLY = 1,  // use second screen only
+    MULTIPLE_SCREEN_TYPE_ALL = 2        // use all screens
+};
+
+#pragma mark -
 
 @class PluginFilter;
 
@@ -157,7 +165,7 @@ extern AppController* OsiriX;
 + (void) resizeWindowWithAnimation:(NSWindow*) window newSize: (NSRect) newWindowFrame;
 + (void) pause __deprecated;
 + (ThumbnailsListPanel*)thumbnailsListPanelForScreen:(NSScreen*)screen;
-+ (NSString*)printStackTrace:(NSException*)e __deprecated; // use -[NSException printStackTrace] form NSException+N2
++ (NSString*)printStackTrace:(NSException*)e __deprecated; // use -[NSException printStackTrace] from NSException+N2
 + (BOOL) isKDUEngineAvailable;
 
 #pragma mark-
@@ -180,11 +188,10 @@ extern AppController* OsiriX;
 - (IBAction) about:(id)sender; /**< Display the about window */
 - (IBAction) showPreferencePanel:(id)sender; /**< Show Preferences window */
 #ifndef OSIRIX_LIGHT
-#ifndef MACAPPSTORE
 - (IBAction) checkForUpdates:(id) sender;  /**< Check for update */
-#endif
 - (IBAction) autoQueryRefresh:(id)sender;
 #endif
+
 //===============WINDOW========================
 - (IBAction) setFixedTilingRows: (id) sender;
 - (IBAction) setFixedTilingColumns: (id) sender;
@@ -197,11 +204,12 @@ extern AppController* OsiriX;
 - (void) checkAllWindowsAreVisible:(id) sender;
 - (void) checkAllWindowsAreVisible:(id) sender makeKey: (BOOL) makeKey;
 //- (IBAction)toggleActivityWindow:(id)sender;
+
 //===============HELP==========================
 - (IBAction) sendEmail: (id) sender;   /**< Send email to lead developer */
 - (IBAction) openOsirixWebPage: (id) sender;  /**<  Open OsiriX web page */
 - (IBAction) openOsirixDiscussion: (id) sender; /**< Open OsiriX discussion web page */
-- (IBAction) osirix64bit: (id) sender;
+//- (IBAction) osirix64bit: (id) sender;
 - (IBAction) userManual: (id) sender;
 //---------------------------------------------
 - (IBAction) help: (id) sender;  /**< Open help window */

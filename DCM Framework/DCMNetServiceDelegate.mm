@@ -12,7 +12,7 @@
      PURPOSE.
 =========================================================================*/
 
-#import "DCM Framework/DCMNetServiceDelegate.h"
+#import <DCM/DCMNetServiceDelegate.h>
 #import "SendController.h"
 #import "N2Debug.h"
 
@@ -59,7 +59,7 @@ static DCMNetServiceDelegate *_netServiceDelegate = nil;
 
 - (void)update
 {
-	if( [[NSUserDefaults standardUserDefaults] boolForKey:@"searchDICOMBonjour"])
+	if ([[NSUserDefaults standardUserDefaults] boolForKey:@"searchDICOMBonjour"])
 	{
 		NSLog(@"searchDICOMBonjour - searchForServicesOfType : _dicom._tcp");
 		[_dicomNetBrowser searchForServicesOfType:@"_dicom._tcp." inDomain:@""];
@@ -68,7 +68,7 @@ static DCMNetServiceDelegate *_netServiceDelegate = nil;
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-    if( [keyPath isEqualToString:@"values.searchDICOMBonjour"])
+    if ([keyPath isEqualToString:@"values.searchDICOMBonjour"])
         [self update];
 }
 
@@ -93,10 +93,10 @@ static DCMNetServiceDelegate *_netServiceDelegate = nil;
 	NSLog( @"portForNetService addresses:%d", (int) [addresses count]);
 	struct sockaddr *addr = ( struct sockaddr *) [[addresses objectAtIndex:0]  bytes];
 	int aPort = -1;
-	if(addr->sa_family == AF_INET)		
+	if (addr->sa_family == AF_INET)
 		aPort = ((struct sockaddr_in *)addr)->sin_port;
 	
-	else if(addr->sa_family == AF_INET6)		
+	else if (addr->sa_family == AF_INET6)
 		aPort = ((struct sockaddr_in6 *)addr)->sin6_port;
 			
 	return NSSwapBigShortToHost(aPort);
@@ -108,11 +108,11 @@ static DCMNetServiceDelegate *_netServiceDelegate = nil;
 
 - (void)netServiceBrowser:(NSNetServiceBrowser *)aNetServiceBrowser didFindService:(NSNetService *)aNetService moreComing:(BOOL)moreComing
 {
-	if( aNetService == publisher || [[aNetService name] isEqualToString: [publisher name]])
+	if (aNetService == publisher || [[aNetService name] isEqualToString: [publisher name]])
 	{
 	
 	}
-	else if( [[NSUserDefaults standardUserDefaults] boolForKey:@"searchDICOMBonjour"])
+	else if ([[NSUserDefaults standardUserDefaults] boolForKey:@"searchDICOMBonjour"])
     {    
         [_dicomServices addObject: aNetService];
         [aNetService resolveWithTimeout: 5];
@@ -130,7 +130,7 @@ static DCMNetServiceDelegate *_netServiceDelegate = nil;
 {
 	[aNetService stop];
 	
-	if( [_dicomServices containsObject: aNetService])
+	if ([_dicomServices containsObject: aNetService])
 	{
 		[_dicomServices removeObject: aNetService];
 		[[NSNotificationCenter defaultCenter] postNotificationName:@"DCMNetServicesDidChange" object:nil];
@@ -187,34 +187,34 @@ static DCMNetServiceDelegate *_netServiceDelegate = nil;
 	NSDictionary *dict = [NSNetService dictionaryFromTXTRecordData: data];
 	NSString *description = nil;
 	
-	if( [dict valueForKey: @"serverDescription"])
+	if ([dict valueForKey: @"serverDescription"])
 		description = [[[NSString alloc] initWithData: [dict valueForKey: @"serverDescription"] encoding:NSUTF8StringEncoding] autorelease];
 	
 	int transferSyntax = 2;
 	
-	if( [dict valueForKey: @"preferredSyntax"])
+	if ([dict valueForKey: @"preferredSyntax"])
 	{
 		NSString *ts = [[[NSString alloc] initWithData: [dict valueForKey: @"preferredSyntax"] encoding:NSUTF8StringEncoding] autorelease];
 		
-		if( [ts isEqualToString: @"LittleEndianImplicit"])
+		if ([ts isEqualToString: @"LittleEndianImplicit"])
 			transferSyntax = 0;
 		
-		if( [ts isEqualToString: @"JPEGProcess14SV1TransferSyntax"])
+		if ([ts isEqualToString: @"JPEGProcess14SV1TransferSyntax"])
 			transferSyntax = SendJPEGLossless;
 		
-		if( [ts isEqualToString: @"JPEG2000LosslessOnly"])
+		if ([ts isEqualToString: @"JPEG2000LosslessOnly"])
 			transferSyntax = SendJPEG2000Lossless;
 		
-		if( [ts isEqualToString: @"JPEG2000"])
+		if ([ts isEqualToString: @"JPEG2000"])
 			transferSyntax = SendJPEG2000Lossy10;
 		
-		if( [ts isEqualToString: @"RLELossless"])
+		if ([ts isEqualToString: @"RLELossless"])
 			transferSyntax = SendRLE;
 	}
 	
 	BOOL retrieveMode = CMOVERetrieveMode;
 	
-	if( [dict valueForKey: @"CGET"])
+	if ([dict valueForKey: @"CGET"])
 		retrieveMode = CGETRetrieveMode;
 	
 	NSMutableDictionary* s = [NSMutableDictionary dictionaryWithObjectsAndKeys:
@@ -226,7 +226,7 @@ static DCMNetServiceDelegate *_netServiceDelegate = nil;
 	if (description)
 		[s setObject:description forKey:@"Description"];
 	
-	if( [dict valueForKey: @"icon"])
+	if ([dict valueForKey: @"icon"])
 	{
 		NSString *icon = [[[NSString alloc] initWithData: [dict valueForKey: @"icon"] encoding:NSUTF8StringEncoding] autorelease];
 		[s setObject: icon forKey: @"icon"];
@@ -245,7 +245,7 @@ static DCMNetServiceDelegate *_netServiceDelegate = nil;
 	{
 		@try
 		{
-            if( [[NSUserDefaults standardUserDefaults] boolForKey:@"syncDICOMNodes"])
+            if ([[NSUserDefaults standardUserDefaults] boolForKey:@"syncDICOMNodes"])
             {
                 [NSThread detachNewThreadSelector:@selector(syncDICOMNodes) toTarget:self withObject:nil];
             }
@@ -255,11 +255,11 @@ static DCMNetServiceDelegate *_netServiceDelegate = nil;
             // Check if we have the new/old format
             
             BOOL toBeSaved = NO;
-            for( int i = 0 ; i < [serversArray count] ; i++)
+            for (int i = 0 ; i < [serversArray count] ; i++)
             {
                 NSDictionary *d = [serversArray objectAtIndex: i];
                 
-                if( [d objectForKey: @"Activated"] == nil)
+                if ([d objectForKey: @"Activated"] == nil)
                 {
                     NSMutableDictionary *mdict = [NSMutableDictionary dictionaryWithDictionary: d];
                     
@@ -271,11 +271,11 @@ static DCMNetServiceDelegate *_netServiceDelegate = nil;
                     toBeSaved = YES;
                 }
                 
-                if( [d objectForKey: @"retrieveMode"] == nil)
+                if ([d objectForKey: @"retrieveMode"] == nil)
                 {
                     NSMutableDictionary *mdict = [NSMutableDictionary dictionaryWithDictionary: d];
                     
-                    if( [[d objectForKey: @"CGET"] boolValue] == YES)
+                    if ([[d objectForKey: @"CGET"] boolValue] == YES)
                         [mdict setObject: [NSNumber numberWithInt: CGETRetrieveMode] forKey: @"retrieveMode"];
                     else
                         [mdict setObject: [NSNumber numberWithInt: CMOVERetrieveMode] forKey: @"retrieveMode"];
@@ -291,64 +291,64 @@ static DCMNetServiceDelegate *_netServiceDelegate = nil;
                 }
             }
             
-            if( toBeSaved)
+            if (toBeSaved)
             {
                 [[NSUserDefaults standardUserDefaults] setObject: serversArray forKey: @"SERVERS"];
             }
             
-            if( [[NSUserDefaults standardUserDefaults] boolForKey:@"searchDICOMBonjour"])
+            if ([[NSUserDefaults standardUserDefaults] boolForKey:@"searchDICOMBonjour"])
             {
-                for( NSNetService* aServer in [[DCMNetServiceDelegate sharedNetServiceDelegate] dicomServices])
+                for (NSNetService* aServer in [[DCMNetServiceDelegate sharedNetServiceDelegate] dicomServices])
                 {
                     NSString *hostname;
                     int port;
                     
                     hostname = [DCMNetServiceDelegate gethostnameAndPort:&port forService: aServer];
                     
-                    if( hostname)
+                    if (hostname)
                     {
                         NSDictionary *dict = [NSNetService dictionaryFromTXTRecordData: [aServer TXTRecordData]];
                         NSString *description = nil;
                         
-                        if( [dict valueForKey: @"serverDescription"])
+                        if ([dict valueForKey: @"serverDescription"])
                             description = [[[NSString alloc] initWithData: [dict valueForKey: @"serverDescription"] encoding:NSUTF8StringEncoding] autorelease];
                         else
                             description = [NSString stringWithFormat:@"%@ (Bonjour)", [aServer hostName]];
                         
                         int transferSyntax = SendExplicitLittleEndian;
                         
-                        if( [dict valueForKey: @"preferredSyntax"])
+                        if ([dict valueForKey: @"preferredSyntax"])
                         {
                             NSString *ts = [[[NSString alloc] initWithData: [dict valueForKey: @"preferredSyntax"] encoding:NSUTF8StringEncoding] autorelease];
                             
-                            if( [ts isEqualToString: @"LittleEndianImplicit"])
+                            if ([ts isEqualToString: @"LittleEndianImplicit"])
                                 transferSyntax = SendImplicitLittleEndian;
                             
-                            if( [ts isEqualToString: @"LittleEndianExplicit"])
+                            if ([ts isEqualToString: @"LittleEndianExplicit"])
                                 transferSyntax = SendExplicitLittleEndian;
                             
-                            if( [ts isEqualToString: @"JPEGProcess14SV1TransferSyntax"])
+                            if ([ts isEqualToString: @"JPEGProcess14SV1TransferSyntax"])
                                 transferSyntax = SendJPEGLossless;
                                 
-                            if( [ts isEqualToString: @"JPEG2000LosslessOnly"])
+                            if ([ts isEqualToString: @"JPEG2000LosslessOnly"])
                                 transferSyntax = SendJPEG2000Lossless;
                                 
-                            if( [ts isEqualToString: @"JPEG2000"])
+                            if ([ts isEqualToString: @"JPEG2000"])
                                 transferSyntax = SendJPEG2000Lossy10;
                                 
-                            if( [ts isEqualToString: @"RLELossless"])
+                            if ([ts isEqualToString: @"RLELossless"])
                                 transferSyntax = SendRLE;
                             
-                            if( [ts isEqualToString: @"JPEGLSLossy"])
+                            if ([ts isEqualToString: @"JPEGLSLossy"])
                                 transferSyntax = SendJPEGLSLossy10;
                             
-                            if( [ts isEqualToString: @"JPEGLSLossless"])
+                            if ([ts isEqualToString: @"JPEGLSLossless"])
                                 transferSyntax = SendJPEGLSLossless;
                         }
                         
                         BOOL retrieveMode = CMOVERetrieveMode;
                         
-                        if( [dict valueForKey: @"CGET"])
+                        if ([dict valueForKey: @"CGET"])
                         {
 //								NSString *cg = [[[NSString alloc] initWithData: [dict valueForKey: @"CGET"] encoding:NSUTF8StringEncoding] autorelease];
                             retrieveMode = CGETRetrieveMode;
@@ -364,31 +364,31 @@ static DCMNetServiceDelegate *_netServiceDelegate = nil;
                                                                                                     [NSNumber numberWithInt: transferSyntax], @"TransferSyntax",
                                                                                                     nil];
                         
-                        if( [dict valueForKey: @"icon"])
+                        if ([dict valueForKey: @"icon"])
                         {
                             NSString *icon = [[[NSString alloc] initWithData: [dict valueForKey: @"icon"] encoding:NSUTF8StringEncoding] autorelease];
                             [s setObject: icon forKey: @"icon"];
                             
-//                                if( [icon isEqualToString: @"iPad"] || [icon isEqualToString: @"iPhone"])
+//                                if ([icon isEqualToString: @"iPad"] || [icon isEqualToString: @"iPhone"])
 //                                    [s setObject: @1 forKey: @"SendControllerConcurrentThreads"];
                         }
                         
-                        [s setObject: @1 forKey: @"Activated"];
+                        [s setObject: @YES forKey: @"Activated"];
                         
                         // Don't add duplicate addresses
                         BOOL alreadyHere = NO;
-                        for( int v = 0; v < [serversArray count]; v++)
+                        for (int v = 0; v < [serversArray count]; v++)
                         {
                             NSDictionary *d = [serversArray objectAtIndex: v];
                             
-                            if( [[d valueForKey: @"Port"] intValue] == [[s valueForKey: @"Port"] intValue])
+                            if ([[d valueForKey: @"Port"] intValue] == [[s valueForKey: @"Port"] intValue])
                             {
-                                if( [[d valueForKey: @"Address"] isEqualToString: [s valueForKey: @"Address"]])
+                                if ([[d valueForKey: @"Address"] isEqualToString: [s valueForKey: @"Address"]])
                                     alreadyHere = YES;
-                                else if( [[DCMNetServiceDelegate getIPAddress: [d valueForKey: @"Address"]] isEqualToString: [DCMNetServiceDelegate getIPAddress: [s valueForKey: @"Address"]]])
+                                else if ([[DCMNetServiceDelegate getIPAddress: [d valueForKey: @"Address"]] isEqualToString: [DCMNetServiceDelegate getIPAddress: [s valueForKey: @"Address"]]])
                                 {
                                     // If one of these addresses is numeric -> keep the dns name
-                                    if( [[NSCharacterSet decimalDigitCharacterSet] characterIsMember: [[d valueForKey: @"Address"] characterAtIndex: 0]])
+                                    if ([[NSCharacterSet decimalDigitCharacterSet] characterIsMember: [[d valueForKey: @"Address"] characterAtIndex: 0]])
                                     {
                                         [serversArray objectAtIndex: v];
                                         v--;
@@ -399,26 +399,28 @@ static DCMNetServiceDelegate *_netServiceDelegate = nil;
                             }
                         }
                         
-                        if( alreadyHere == NO)
+                        if (alreadyHere == NO)
                             [serversArray addObject: s];
                     }
                 }
             }
 			
-            for( int i = 0 ; i < [serversArray count] ; i++)
+            for (int i = 0 ; i < [serversArray count] ; i++)
             {
-                if( [[serversArray objectAtIndex: i] valueForKey:@"Activated"] != nil && [[[serversArray objectAtIndex: i] valueForKey:@"Activated"] boolValue] == NO)
+                if ( [[serversArray objectAtIndex: i] valueForKey:@"Activated"] != nil &&
+                    [[[serversArray objectAtIndex: i] valueForKey:@"Activated"] boolValue] == NO)
                 {
                     [serversArray removeObjectAtIndex: i];
                     i--;
                 }
             }
             
-			if( send)
+			if (send)
 			{
-				for( int i = 0 ; i < [serversArray count] ; i++)
+				for (int i = 0 ; i < [serversArray count] ; i++)
 				{
-					if( [[serversArray objectAtIndex: i] valueForKey:@"Send"] != nil && [[[serversArray objectAtIndex: i] valueForKey:@"Send"] boolValue] == NO)
+					if ( [[serversArray objectAtIndex: i] valueForKey:@"Send"] != nil &&
+                        [[[serversArray objectAtIndex: i] valueForKey:@"Send"] boolValue] == NO)
 					{
 						[serversArray removeObjectAtIndex: i];
 						i--;
@@ -426,11 +428,12 @@ static DCMNetServiceDelegate *_netServiceDelegate = nil;
 				}
 			}
 			
-			if( QR)
+			if (QR)
 			{
-				for( int i = 0 ; i < [serversArray count] ; i++ )
+				for (int i = 0 ; i < [serversArray count] ; i++ )
 				{
-					if( [[serversArray objectAtIndex: i] valueForKey:@"QR"] != nil && [[[serversArray objectAtIndex: i] valueForKey:@"QR"] boolValue] == NO)
+					if ( [[serversArray objectAtIndex: i] valueForKey:@"QR"] != nil &&
+                        [[[serversArray objectAtIndex: i] valueForKey:@"QR"] boolValue] == NO)
 					{
 						[serversArray removeObjectAtIndex: i];
 						i--;
@@ -454,7 +457,7 @@ static DCMNetServiceDelegate *_netServiceDelegate = nil;
 
 + (NSString*) getIPAddress: (NSString*) address
 {
-    if( [address isKindOfClass: [NSString class]] == NO)
+    if ([address isKindOfClass: [NSString class]] == NO)
     {
 #ifdef OSIRIX_VIEWER
         N2LogStackTrace( @"[address isKindOfClass: [NSString class]] == NO");
@@ -462,7 +465,7 @@ static DCMNetServiceDelegate *_netServiceDelegate = nil;
         return nil;
     }
     
-    if( address.length == 0)
+    if (address.length == 0)
         return nil;
     
 	struct sockaddr_in service;
@@ -471,14 +474,14 @@ static DCMNetServiceDelegate *_netServiceDelegate = nil;
 	bzero((char *) &service, sizeof(service));
 	service.sin_family = AF_INET;
 	
-	if( host_name)
+	if (host_name)
 	{
 		if (isalpha(host_name[0]))
 		{
 			struct hostent *hp;
 			
 			hp = gethostbyname( host_name);
-			if( hp)
+			if (hp)
                 bcopy(hp->h_addr, (char *) &service.sin_addr, hp->h_length);
 			else
                 service.sin_addr.s_addr = inet_addr( host_name);
@@ -489,7 +492,7 @@ static DCMNetServiceDelegate *_netServiceDelegate = nil;
 		char buffer[256] = "";
 		NSString *result = nil;
 		
-		if( inet_ntop(AF_INET, &service.sin_addr, buffer, sizeof(buffer)))
+		if (inet_ntop(AF_INET, &service.sin_addr, buffer, sizeof(buffer)))
 			result = [NSString stringWithCString:buffer encoding: NSISOLatin1StringEncoding];
 		
 		return result;
@@ -506,7 +509,7 @@ static DCMNetServiceDelegate *_netServiceDelegate = nil;
 	NSString			*portString = nil;
 	
     // IPv4
-	for( NSData *addr in [sender addresses])
+	for (NSData *addr in [sender addresses])
 	{
 		result = (struct sockaddr *)[addr bytes];
 	
@@ -518,17 +521,17 @@ static DCMNetServiceDelegate *_netServiceDelegate = nil;
 				hostname = [NSString stringWithCString:buffer encoding: NSISOLatin1StringEncoding];
 				portString = [NSString stringWithFormat:@"%d", ntohs(((struct sockaddr_in *)result)->sin_port)];
 				
-				if(port) *port = [portString intValue];
+				if (port) *port = [portString intValue];
                 
                 break;
 			}
 		}
     }
     
-    if( hostname == nil)
+    if (hostname == nil)
     {
         // IPv6
-        for( NSData *addr in [sender addresses])
+        for (NSData *addr in [sender addresses])
         {
             result = (struct sockaddr *)[addr bytes];
             
@@ -541,7 +544,7 @@ static DCMNetServiceDelegate *_netServiceDelegate = nil;
                     hostname = [NSString stringWithCString:buffer encoding: NSISOLatin1StringEncoding];
                     portString = [NSString stringWithFormat:@"%d", ntohs(((struct sockaddr_in6 *)result)->sin6_port)];
                     
-                    if(port) *port = [portString intValue];
+                    if (port) *port = [portString intValue];
                     
                     break;
                 }

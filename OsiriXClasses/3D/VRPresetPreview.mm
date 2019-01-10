@@ -35,16 +35,17 @@
 
 - (void) computeValueFactor
 {
-	if( firstObject && presetController)
+	if (firstObject && presetController)
 	{
-		if( [firstObject SUVConverted])
+		if ([firstObject SUVConverted])
 		{
 			valueFactor = 4095. / [presetController maximumValue];
 			OFFSET16 = 0;
 		}
 		else
 		{
-			if( [presetController maximumValue] - [presetController minimumValue] > 4095 || [presetController maximumValue] - [presetController minimumValue] < 50)
+			if ([presetController maximumValue] - [presetController minimumValue] > 4095 ||
+                [presetController maximumValue] - [presetController minimumValue] < 50)
 			{
 				valueFactor = 4095. / ([presetController maximumValue] - [presetController minimumValue]);
 				OFFSET16 = -[presetController minimumValue];
@@ -58,10 +59,10 @@
 	}
 }
 
--(short) setPixSource:(NSMutableArray*)pix :(float*) volumeData
+-(short) setPixSource:(NSMutableArray*) pix
+                     :(float*) volumeData
 {
-	short   error = 0;
-	long	i;
+	short error = 0;
     
 	[[self window] setAcceptsMouseMovedEvents: YES];
 	
@@ -85,7 +86,7 @@
 	firstObject = [pixList objectAtIndex:0];
 	float sliceThickness = [firstObject sliceInterval];  //[[pixList objectAtIndex:1] sliceLocation] - [firstObject sliceLocation];
 	
-	if( sliceThickness == 0)
+	if (sliceThickness == 0)
 	{
 		NSLog(@"slice interval = slice thickness!");
 		sliceThickness = [firstObject sliceThickness];
@@ -97,7 +98,7 @@
 	ww = [firstObject ww];
 	
 	isRGB = NO;
-	if( [firstObject isRGB])
+	if ([firstObject isRGB])
 	{
 		isRGB = YES;
 		
@@ -114,7 +115,7 @@
 //		size /= 4;
 //		
 //		dstPtr = dataFRGB;
-//		for( i = 0 ; i < size; i++)
+//		for (i = 0 ; i < size; i++)
 //		{
 //			srcPtr++;
 //			val = *srcPtr++;
@@ -175,7 +176,7 @@
 //		dst8.rowBytes = [firstObject pwidth] * sizeof(short);
 //		
 //		data8 = (char*) malloc( dst8.height * dst8.width * sizeof(short));
-//		if( data8 == nil) return -1;
+//		if (data8 == nil) return -1;
 //		
 //		dst8.data = data8;
 //		srcf.data = data;
@@ -199,7 +200,7 @@
 	reader->SetWholeExtent(0, [firstObject pwidth]-1, 0, [firstObject pheight]-1, 0, (long)[pixList count]-1);	//AVOID VTK BUG
 	reader->SetDataExtentToWholeExtent();
 	
-	if( isRGB)
+	if (isRGB)
 	{
 		reader->SetDataScalarTypeToUnsignedChar();
 		reader->SetNumberOfScalarComponents( 4);
@@ -213,19 +214,20 @@
 	//	reader->SetImportVoidPointer(data);
 		reader->SetImportVoidPointer(data8);
 	}
+    
 	reader->Update();
 	[firstObject orientation:cosines];
 	
 //	float invThick;
 	
-//	if( cosines[6] + cosines[7] + cosines[8] < 0) invThick = -1;
+//	if (cosines[6] + cosines[7] + cosines[8] < 0) invThick = -1;
 //	else invThick = 1;
 	
 	factor = 1.0;
-//	if( [firstObject pixelSpacingX] < 0.5 || [firstObject pixelSpacingY] < 0.5 || fabs( sliceThickness) < 0.3) factor = 10;
+//	if ([firstObject pixelSpacingX] < 0.5 || [firstObject pixelSpacingY] < 0.5 || fabs( sliceThickness) < 0.3) factor = 10;
 	
 	needToFlip = NO;
-	if( sliceThickness < 0 )
+	if (sliceThickness < 0)
 	{
 		sliceThickness = fabs( sliceThickness);
 		NSLog(@"We should not be here....");
@@ -233,11 +235,11 @@
 		NSLog(@"Flip !!");
 	}
 	//
-//	if( needToFlip)
+//	if (needToFlip)
 //	{
 //		[self flipData: (char*) volumeData :[pixList count] :[firstObject pheight] * [firstObject pwidth]];
 //		
-//		for(  i = 0 ; i < [pixList count]; i++)
+//		for ( i = 0 ; i < [pixList count]; i++)
 //		{
 //			[[pixList objectAtIndex: i] setfImage: volumeData + ([pixList count]-1-i)*[firstObject pheight] * [firstObject pwidth]];
 //			[[pixList objectAtIndex: i] setSliceInterval: sliceThickness];
@@ -245,7 +247,7 @@
 //		
 //		id tempObj;
 //		
-//		for( i = 0; i < [pixList count]/2 ; i++)
+//		for (i = 0; i < [pixList count]/2 ; i++)
 //		{
 //			tempObj = [[pixList objectAtIndex: i] retain];
 //			
@@ -258,17 +260,19 @@
 //		firstObject = [pixList objectAtIndex: 0];
 //	}
 //	
-//	if( [firstObject flipData])
+//	if ([firstObject flipData])
 //	{
 //		NSLog(@"firstObject = [pixList lastObject]");
 //		firstObject = [pixList lastObject];
 //	}
 	
 	factor = [[NSUserDefaults standardUserDefaults] floatForKey: @"superSampling"] / [firstObject pixelSpacingX];
-	if( [firstObject pixelSpacingX] == 0 || [firstObject pixelSpacingY] == 0)
+	if ([firstObject pixelSpacingX] == 0 || [firstObject pixelSpacingY] == 0)
         reader->SetDataSpacing( 1, 1, sliceThickness);
 	else
-        reader->SetDataSpacing( factor*[firstObject pixelSpacingX], factor*[firstObject pixelSpacingY], factor * sliceThickness);
+        reader->SetDataSpacing(factor*[firstObject pixelSpacingX],
+                               factor*[firstObject pixelSpacingY],
+                               factor * sliceThickness);
 	
 		
 //	reader->SetDataOrigin(  [firstObject originX],
@@ -279,7 +283,6 @@
 //	vtkPlane *aplane = vtkPlane::New();
 //	aplane->SetNormal( normalv[0], normalv[1], normalv[2]);
 //	aplane->SetOrigin( [firstObject originX], [firstObject originY], [firstObject originZ]);
-	
 	
 //	vtkPlaneWidget  *aplaneWidget = vtkPlaneWidget::New();
 //	aplaneWidget->SetOrigin( [firstObject originX], [firstObject originY], [firstObject originZ]);
@@ -313,7 +316,7 @@
 	blue->AddRGBPoint( 255, 0, 0, 1 );
 	
 	volumeProperty = vtkVolumeProperty::New();
-	if( isRGB)
+	if (isRGB)
 	{
 		volumeProperty->IndependentComponentsOn();
 		
@@ -338,30 +341,28 @@
 	}
 	else
 	{
-		volumeProperty->SetColor( colorTransferFunction);	//	if( isRGB == NO) 
+		volumeProperty->SetColor( colorTransferFunction);	//	if (isRGB == NO) 
 		volumeProperty->SetScalarOpacity( opacityTransferFunction);
 	}
 	
-	
 	[self setCLUT:nil :nil :nil];
-	
 	[self setShadingValues:0.15 :0.9 :0.3 :15];
 
 //	volumeProperty->ShadeOn();
 
-	if( [[NSApp currentEvent] modifierFlags] & NSAlternateKeyMask)
+	if ([[NSApp currentEvent] modifierFlags] & NSEventModifierFlagOption)
         volumeProperty->SetInterpolationTypeToNearest();
     else
         volumeProperty->SetInterpolationTypeToLinear();//SetInterpolationTypeToNearest();	//SetInterpolationTypeToLinear
 		
-	compositeFunction = vtkVolumeRayCastCompositeFunction::New();
+	compositeFunction = vtkVolumeRayCastCompositeFunction::New();  // @@@ VTK_LEGACY_REMOVE (deprecated for VTK 7.0)
 //	compositeFunction->SetCompositeMethodToClassifyFirst();
 //	compositeFunction = vtkVolumeRayCastMIPFunction::New();
 	
 	LOD = 1.0;
-	#if __ppc__
+#if __ppc__
 	LOD += 0.5;
-	#endif
+#endif
 	
 	volume = vtkVolume::New();
     volume->SetProperty( volumeProperty);
@@ -369,15 +370,39 @@
 //	[self setEngine: [[NSUserDefaults standardUserDefaults] integerForKey: @"MAPPERMODEVR"]];
 	
 	vtkMatrix4x4	*matrice = vtkMatrix4x4::New();
-	matrice->Element[0][0] = cosines[0];		matrice->Element[1][0] = cosines[1];		matrice->Element[2][0] = cosines[2];		matrice->Element[3][0] = 0;
-	matrice->Element[0][1] = cosines[3];		matrice->Element[1][1] = cosines[4];		matrice->Element[2][1] = cosines[5];		matrice->Element[3][1] = 0;
-	matrice->Element[0][2] = cosines[6];		matrice->Element[1][2] = cosines[7];		matrice->Element[2][2] = cosines[8];		matrice->Element[3][2] = 0;
-	matrice->Element[0][3] = 0;					matrice->Element[1][3] = 0;					matrice->Element[2][3] = 0;					matrice->Element[3][3] = 1;
+	matrice->Element[0][0] = cosines[0];
+    matrice->Element[1][0] = cosines[1];
+    matrice->Element[2][0] = cosines[2];
+    matrice->Element[3][0] = 0;
+    
+	matrice->Element[0][1] = cosines[3];
+    matrice->Element[1][1] = cosines[4];
+    matrice->Element[2][1] = cosines[5];
+    matrice->Element[3][1] = 0;
+    
+	matrice->Element[0][2] = cosines[6];
+    matrice->Element[1][2] = cosines[7];
+    matrice->Element[2][2] = cosines[8];
+    matrice->Element[3][2] = 0;
+    
+	matrice->Element[0][3] = 0;
+    matrice->Element[1][3] = 0;
+    matrice->Element[2][3] = 0;
+    matrice->Element[3][3] = 1;
 
 //	volume->SetOrigin( [firstObject originX], [firstObject originY], [firstObject originZ]);
-	volume->SetPosition(	factor*[firstObject originX] * matrice->Element[0][0] + factor*[firstObject originY] * matrice->Element[1][0] + factor*[firstObject originZ]*matrice->Element[2][0],
-							factor*[firstObject originX] * matrice->Element[0][1] + factor*[firstObject originY] * matrice->Element[1][1] + factor*[firstObject originZ]*matrice->Element[2][1],
-							factor*[firstObject originX] * matrice->Element[0][2] + factor*[firstObject originY] * matrice->Element[1][2] + factor*[firstObject originZ]*matrice->Element[2][2]);
+	volume->SetPosition(factor*[firstObject originX] * matrice->Element[0][0] +
+                        factor*[firstObject originY] * matrice->Element[1][0] +
+                        factor*[firstObject originZ] * matrice->Element[2][0],
+                        
+						factor*[firstObject originX] * matrice->Element[0][1] +
+                        factor*[firstObject originY] * matrice->Element[1][1] +
+                        factor*[firstObject originZ] * matrice->Element[2][1],
+                        
+						factor*[firstObject originX] * matrice->Element[0][2] +
+                        factor*[firstObject originY] * matrice->Element[1][2] +
+                        factor*[firstObject originZ] * matrice->Element[2][2]);
+
 //	volume->SetPosition(	[firstObject originX],// * matrice->Element[0][0] + [firstObject originY] * matrice->Element[1][0] + [firstObject originZ]*matrice->Element[2][0],
 //							[firstObject originY],// * matrice->Element[0][1] + [firstObject originY] * matrice->Element[1][1] + [firstObject originZ]*matrice->Element[2][1],
 //							[firstObject originZ]);// * matrice->Element[0][2] + [firstObject originY] * matrice->Element[1][2] + [firstObject originZ]*matrice->Element[2][2]);
@@ -455,7 +480,7 @@
 //	croppingBox->AddObserver(vtkCommand::InteractionEvent, cropcallback);
 //		
 	textWLWW = vtkTextActor::New();
-	if( ww < 50)
+	if (ww < 50)
         sprintf(WLWWString, "WL: %0.4f WW: %0.4f", wl, ww);
 	else
         sprintf(WLWWString, "WL: %0.f WW: %0.f", wl, ww);
@@ -476,7 +501,7 @@
 //	textX->GetPositionCoordinate()->SetValue( 2., 2.);
 //	aRenderer->AddActor2D(textX);
 	
-	for( i = 0; i < 5; i++)
+	for (long i = 0; i < NUM_VR_LABELS; i++)
 	{
 		oText[ i]= vtkTextActor::New();
 		oText[ i]->SetInput( "X");
@@ -520,7 +545,6 @@
 	
 //	[self renderWindow]->StereoRenderOn();
 //	[self renderWindow]->SetStereoTypeToRedBlue();
-	
 	
 	// 3D Cut ROI
 	vtkPoints *pts = vtkPoints::New();
@@ -596,7 +620,6 @@
 - (void) setEngine: (int) newEngine
 {
     engine = newEngine;
-    
 	[self setEngine: engine showWait:NO];
 }
 
@@ -610,13 +633,16 @@
 
 - (void)setIsEmpty:(BOOL)empty;
 {
-	if( isEmpty != empty)
+	if (isEmpty != empty)
 	{
-	isEmpty = empty;
-	
-	if( isEmpty)  aRenderer->RemoveVolume( volume);
-	else	 aRenderer->AddVolume( volume);
-	[self setNeedsDisplay:YES];
+        isEmpty = empty;
+        
+        if (isEmpty)
+            aRenderer->RemoveVolume( volume);
+        else
+            aRenderer->AddVolume( volume);
+            
+        [self setNeedsDisplay:YES];
 	}
 }
 
@@ -627,19 +653,20 @@
 
 - (void) drawRect:(NSRect)aRect
 {
-	if(isEmpty)
+	if (isEmpty)
 	{
 		[[NSColor blackColor] set];
 		NSRectFill(aRect);
 		[self changeColorWith:[NSColor colorWithDeviceRed:0.0 green:0.0 blue:0.0 alpha:1.0]];
 	}
 
-	if(volumeMapper) volumeMapper->SetMinimumImageSampleDistance(LOD);
+	if (volumeMapper)
+        volumeMapper->SetMinimumImageSampleDistance(LOD);
 
-//	if(isEmpty)
+//	if (isEmpty)
 //	{
 //		// trick to "hide" content of the vr view
-//		if(![self shading])
+//		if (![self shading])
 //			[self activateShading:YES];
 //		[self setShadingValues: 0.0 :0.0 :0.0 :0.0];
 //		[self changeColorWith:[NSColor colorWithDeviceRed:0.0 green:0.0 blue:0.0 alpha:1.0]];
@@ -650,7 +677,7 @@
 
 - (void)setSelected;
 {
-	if(isEmpty)
+	if (isEmpty)
         return;
 	
 	// hides the old selection frame location
@@ -658,20 +685,21 @@
 	[selectionView display];
 
 	// set the selection frame around self
-	[selectionView setFrame:NSMakeRect([self frame].origin.x-2,[self frame].origin.y-2,[self frame].size.width+4,[self frame].size.height+4)];
+	[selectionView setFrame:NSMakeRect([self frame].origin.x-2,
+                                       [self frame].origin.y-2,
+                                       [self frame].size.width+4,
+                                       [self frame].size.height+4)];
 	[selectionView setHidden:NO];
-	
 	[presetController setSelectedPresetPreview:self];
-	
 	[selectionView display];
 }
 
 - (void)mouseDown:(NSEvent *)theEvent
 {
-	if(isEmpty)
+	if (isEmpty)
         return;
 		
-	if([theEvent clickCount]>=2)
+	if ([theEvent clickCount] >= 2)
 	{
 		[self setSelected];
 		[presetController load3DSettings];
@@ -685,7 +713,7 @@
 
 - (void)mouseDragged:(NSEvent *)theEvent
 {
-	if(isEmpty)
+	if (isEmpty)
         return;
     
 	[super mouseDragged:theEvent];
@@ -693,34 +721,30 @@
 
 - (void)mouseUp:(NSEvent *)theEvent
 {
-	if(isEmpty)
+	if (isEmpty)
         return;
     
 	[self setSelected];
 	[super mouseUp:theEvent];
-	
 	[presetController setVtkCameraForAllPresetPreview:[self vtkCamera]];
 }
 
 - (void) rightMouseUp:(NSEvent *)event
 {
-	if(isEmpty)
+	if (isEmpty)
         return;
     
 	[self setSelected];
 	[super rightMouseUp: event];
-	
 	[presetController setVtkCameraForAllPresetPreview:[self vtkCamera]];
 }
 
 -(void) setCursorForView: (ToolMode) tool
 {
-	if(isEmpty)
+	if (isEmpty)
 	{
-		NSCursor *c;
-		c = [NSCursor arrowCursor];
-		
-		if( c != cursor)
+		NSCursor *c = [NSCursor arrowCursor];
+		if (c != cursor)
 		{
 			[cursor release];
 			cursor = [c retain];
@@ -747,10 +771,10 @@
 
 - (void) setVtkCamera:(vtkCamera*)aVtkCamera;
 {
-	if(isEmpty)
+	if (isEmpty)
 		return;
-	else
-		[super setVtkCamera:aVtkCamera];
+
+    [super setVtkCamera:aVtkCamera];
 }
 
 - (void)setIChatFrame:(BOOL)set;
@@ -763,6 +787,5 @@
 	[[NSNotificationCenter defaultCenter] postNotificationName:OsirixVRViewDidBecomeFirstResponderNotification object:self];
 	return YES;
 }
-
 
 @end

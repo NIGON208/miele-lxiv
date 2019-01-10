@@ -17,8 +17,8 @@
 #import "DicomSeries.h"
 #import "DicomImage.h"
 #import "DicomAlbum.h"
-#import "DCM Framework/DCMAbstractSyntaxUID.h"
-#import "DCM Framework/DCM.h"
+#import <DCM/DCMAbstractSyntaxUID.h>
+#import <DCM/DCM.h>
 #import "MutableArrayCategory.h"
 #import "SRAnnotation.h"
 #import "DicomDatabase.h"
@@ -1613,10 +1613,17 @@ static NSRecursiveLock *dbModifyLock = nil;
     }
     else
     {
-        if (uid == nil || [DCMAbstractSyntaxUID isImageStorage: uid] || [DCMAbstractSyntaxUID isRadiotherapy:uid] || [DCMAbstractSyntaxUID isWaveform:uid])
+        if (uid == nil ||
+            [DCMAbstractSyntaxUID isImageStorage: uid] ||
+            [DCMAbstractSyntaxUID isRadiotherapy:uid] ||
+            [DCMAbstractSyntaxUID isWaveform:uid])
             return YES;
         
-        if ([DCMAbstractSyntaxUID isStructuredReport:uid] && [description hasPrefix: @"OsiriX ROI SR"] == NO && [description hasPrefix: @"OsiriX Annotations SR"] == NO && [description hasPrefix: @"OsiriX Report SR"] == NO && [description hasPrefix: @"OsiriX WindowsState SR"] == NO)
+        if ([DCMAbstractSyntaxUID isStructuredReport:uid] &&
+            [description hasPrefix: @"OsiriX ROI SR"] == NO &&
+            [description hasPrefix: @"OsiriX Annotations SR"] == NO &&
+            [description hasPrefix: @"OsiriX Report SR"] == NO &&
+            [description hasPrefix: @"OsiriX WindowsState SR"] == NO)
             return YES;
 	}
     

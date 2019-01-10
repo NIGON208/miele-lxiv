@@ -163,7 +163,7 @@ enum algorithmTypes { intervalSegmentationType, thresholdSegmentationType, neigh
 	{
 		if( startingPoint.x != 0 && startingPoint.y != 0)
 		{
-			NSDictionary	*userInfo = [note userInfo];
+			NSDictionary *userInfo = [note userInfo];
 			
 			CGLContextObj cgl_ctx = [[NSOpenGLContext currentContext] CGLContextObj];
             if( cgl_ctx == nil)
@@ -179,9 +179,9 @@ enum algorithmTypes { intervalSegmentationType, thresholdSegmentationType, neigh
 			crossy = startingPoint.y - [[userInfo valueForKey:@"offsety"] floatValue];
 			
 			glVertex2f( scaleValue * (crossx - 40), scaleValue*(crossy));
-			glVertex2f( scaleValue * (crossx - 5), scaleValue*(crossy));
+			glVertex2f( scaleValue * (crossx -  5), scaleValue*(crossy));
 			glVertex2f( scaleValue * (crossx + 40), scaleValue*(crossy));
-			glVertex2f( scaleValue * (crossx + 5), scaleValue*(crossy));
+			glVertex2f( scaleValue * (crossx +  5), scaleValue*(crossy));
 			
 			glVertex2f( scaleValue * (crossx), scaleValue*(crossy-40));
 			glVertex2f( scaleValue * (crossx), scaleValue*(crossy-5));
@@ -327,13 +327,21 @@ enum algorithmTypes { intervalSegmentationType, thresholdSegmentationType, neigh
 	
 	if (!parametersProvided)
 	{
-		NSRunCriticalAlertPanel(NSLocalizedString(@"Segmentation Error", nil), NSLocalizedString(@"Please provide a value for each parameter.", nil) , NSLocalizedString(@"OK", nil), nil, nil);
+		NSRunCriticalAlertPanel(NSLocalizedString(@"Segmentation Error", nil),
+                                NSLocalizedString(@"Please provide a value for each parameter.", nil),
+                                NSLocalizedString(@"OK", nil),
+                                nil,
+                                nil);
 		return;
 	}
 	
 	if ( startingPoint.x == 0 && startingPoint.y == 0)
 	{
-		NSRunCriticalAlertPanel(NSLocalizedString(@"Segmentation Error", nil), NSLocalizedString(@"Select a starting point by clicking in the image.", nil) , NSLocalizedString(@"OK", nil), nil, nil);
+		NSRunCriticalAlertPanel(NSLocalizedString(@"Segmentation Error", nil),
+                                NSLocalizedString(@"Select a starting point by clicking in the image.", nil),
+                                NSLocalizedString(@"OK", nil),
+                                nil,
+                                nil);
 		return;
 	}
 	

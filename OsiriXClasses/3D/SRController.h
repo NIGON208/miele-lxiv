@@ -33,7 +33,13 @@
 /** \brief Window Controller for Surface Rendering */
 @interface SRController : Window3DController <NSWindowDelegate, NSToolbarDelegate>
 {
-    IBOutlet NSView         *toolsView, *LODView, *BlendingView, *export3DView, *perspectiveView, *OrientationsView, *BackgroundColorView;
+    IBOutlet NSView         *toolsView;
+    IBOutlet NSView         *LODView;
+    IBOutlet NSView         *BlendingView;
+    IBOutlet NSView         *export3DView;
+    IBOutlet NSView         *perspectiveView;
+    IBOutlet NSView         *OrientationsView;
+    IBOutlet NSView         *BackgroundColorView;
 	IBOutlet SRView			*view;
 	IBOutlet NSWindow       *SRSettingsWindow;
     
@@ -47,6 +53,22 @@
 	NSData					*blendingVolumeData;
     NSMutableArray			*blendingPixList;
 	ViewerController		*blendingController;
+
+    IBOutlet NSTextField    *blendingPercentage;
+    IBOutlet NSSlider       *blendingSlider;
+    IBOutlet NSSlider       *LODSlider;
+    IBOutlet NSButton       *checkFirst;
+    IBOutlet NSButton       *checkSecond;
+    IBOutlet NSPopUpButton  *firstPopup;
+    IBOutlet NSSlider       *firstTrans;
+    IBOutlet NSTextField    *firstValue;
+    IBOutlet NSMatrix       *preprocessMatrix;
+    IBOutlet NSSlider       *resolSlide;
+    IBOutlet NSPopUpButton  *secondPopup;
+    IBOutlet NSSlider       *secondTrans;
+    IBOutlet NSTextField    *secondValue;
+    IBOutlet NSTextField    *decimate;
+    IBOutlet NSTextField    *smooth;
 	
 	NSData					*volumeData;
 	
@@ -66,21 +88,15 @@
 	BOOL					_shouldDecimate, _shouldSmooth, _useFirstSurface, _useSecondSurface, _shouldRenderFusion;
 	
     NSMutableDictionary     *settings, *blendingSettings;
-    
 	NSTimeInterval			flyThruRecordingTimeFrame;
-	
     
-    
-    
-    // Backward compatibility for older xibs, to be delete in next release : not used !
+    // TODO: Backward compatibility for older xibs, to be delete in next release : not used !
     float                   fusionFirstSurface,  fusionSecondSurface, fusionResolution, fusionFirstTransparency, fusionSecondTransparency, fusionDecimate;
     int                     fusionSmooth;
     NSColor                 *fusionFirstColor, *fusionSecondColor;
     BOOL                    fusionShouldDecimate, fusionShouldSmooth, fusionUseFirstSurface, fusionUseSecondSurface;
     
-#ifdef _STEREO_VISION_
-	//Added SilvanWidmer 26-08-09
-	
+#if 1 //def _STEREO_VISION_
 	IBOutlet NSWindow       *SRGeometrieSettingsWindow;
 	double _screenDistance;
 	double _screenHeight;
@@ -89,11 +105,10 @@
 	IBOutlet NSTextField    *distanceValue;
 	IBOutlet NSTextField	*heightValue;
 	IBOutlet NSTextField    *eyeDistance;
-	IBOutlet NSTextField	*camFocalValue;
-	IBOutlet NSButton		*parallelFlag;
-	IBOutlet NSView        *stereoIconView;
+	//IBOutlet NSTextField	*camFocalValue;
+	//IBOutlet NSButton		*parallelFlag;
+	IBOutlet NSView         *stereoIconView;
 #endif
-
 }
 
 @property float firstSurface, secondSurface, resolution, firstTransparency, secondTransparency, decimate;
@@ -102,24 +117,26 @@
 @property BOOL shouldDecimate, shouldSmooth, useFirstSurface, useSecondSurface, shouldRenderFusion;
 
 // Backward compatibility for older xibs, to be delete in next release : not used !
-@property float                   fusionFirstSurface,  fusionSecondSurface, fusionResolution, fusionFirstTransparency, fusionSecondTransparency, fusionDecimate;
-@property int                     fusionSmooth;
-@property (retain) NSColor        *fusionFirstColor, *fusionSecondColor;
-@property BOOL                    fusionShouldDecimate, fusionShouldSmooth, fusionUseFirstSurface, fusionUseSecondSurface;
-
+@property float               fusionFirstSurface,  fusionSecondSurface, fusionResolution, fusionFirstTransparency, fusionSecondTransparency, fusionDecimate;
+@property int                 fusionSmooth;
+@property (retain) NSColor    *fusionFirstColor, *fusionSecondColor;
+@property BOOL                fusionShouldDecimate, fusionShouldSmooth, fusionUseFirstSurface, fusionUseSecondSurface;
 
 - (IBAction) setOrientation:(id) sender;
+- (IBAction) setDefaultTool:(id) sender;
+- (IBAction) ApplySettings:(id) sender;
+- (IBAction) SettingsPopup:(id) sender;
+- (IBAction) flyThruButtonMenu:(id)sender;
+- (IBAction) flyThruControllerInit:(id)sender;
+- (IBAction) customizeViewerToolBar:(id)sender;
+- (IBAction) roiDeleteAll:(id) sender;
+
 - (ViewerController*) blendingController;
 - (id) initWithPix:(NSMutableArray*) pix :(NSArray*) f :(NSData*) vData :(ViewerController*) bC :(ViewerController*) vC;
 - (void) setupToolbar;
-- (void) setDefaultTool:(id) sender;
-- (IBAction) ApplySettings:(id) sender;
 - (void) ChangeSettings:(id) sender;
-- (IBAction) SettingsPopup:(id) sender;
 - (NSArray*) fileList;
 
-- (IBAction)flyThruButtonMenu:(id)sender;
-- (IBAction)flyThruControllerInit:(id)sender;
 - (void)recordFlyThru;
 
 // 3D Points

@@ -16,7 +16,7 @@
 #import "tmp_locations.h"
 
 #import "DICOMExport.h"
-#import "DCM Framework/DCM.h"
+#import <DCM/DCM.h>
 #import "BrowserController.h"
 #import "DICOMFiles/dicomFile.h"
 #import "DCMView.h"
@@ -783,7 +783,7 @@ static float deg2rad = M_PI / 180.0f;
                     if( [DicomFile isDICOMFile: dcmSourcePath])
                     {
                         OFCondition cond = dcmtkFileFormat->loadFile( [dcmSourcePath UTF8String], EXS_Unknown, EGL_noChange);
-                        succeed =  (cond.good()) ? YES : NO;
+                        succeed = (cond.good()) ? YES : NO;
                     }
                     else
                     {
@@ -814,7 +814,8 @@ static float deg2rad = M_PI / 180.0f;
                 if( succeed)
                 {
                     NSStringEncoding encoding[ 10];
-                    for( int i = 0; i < 10; i++) encoding[ i] = 0;
+                    for( int i = 0; i < 10; i++)
+                        encoding[ i] = 0;
                     encoding[ 0] = NSISOLatin1StringEncoding;
                     
                     dcmtkFileFormat->loadAllDataIntoMemory();
@@ -1005,7 +1006,7 @@ static float deg2rad = M_PI / 180.0f;
                             dstPath = [[[BrowserController currentBrowser] database] uniquePathForNewDataFileWithExtension: @"dcm"];
                         
                         OFCondition cond = dcmtkFileFormat->saveFile( [dstPath UTF8String], EXS_LittleEndianExplicit, EET_ExplicitLength, EGL_recalcGL, EPD_withoutPadding);
-                        OFBool fileWriteSucceeded =  (cond.good()) ? YES : NO;
+                        OFBool fileWriteSucceeded = (cond.good()) ? YES : NO;
                         
                         if( fileWriteSucceeded == NO)
                             NSLog( @"******* dcmtkFileFormat->saveFile failed");

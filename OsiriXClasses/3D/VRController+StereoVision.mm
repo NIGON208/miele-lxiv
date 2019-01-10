@@ -23,7 +23,7 @@
 #import "NSFullScreenWindow.h"
 #import "BrowserController.h"
 #include <Accelerate/Accelerate.h>
-#import "iPhoto.h"
+#import "Photos.h"
 #import "DICOMExport.h"
 #import "VRFlyThruAdapter.h"
 #import "DicomImage.h"
@@ -43,7 +43,7 @@ static NSString* 	VRStandardToolbarIdentifier = @"VR Toolbar Identifier";
 static NSString* 	VRPanelToolbarIdentifier = @"VRPanel Toolbar Identifier";
 
 static NSString*	QTExportToolbarItemIdentifier = @"QTExport.pdf";
-static NSString*	iPhotoToolbarItemIdentifier = @"iPhoto.icns";
+static NSString*	PhotosToolbarItemIdentifier = @"Photos.icns";
 //static NSString*	QTExportVRToolbarItemIdentifier = @"QTExportVR.icns";
 static NSString*	StereoIdentifier = @"Stereo.icns";
 static NSString*	CaptureToolbarItemIdentifier = @"BestRendering.pdf";
@@ -72,28 +72,23 @@ static NSString*	PresetsPanelToolbarItemIdentifier = @"3DPresetsPanel.tif";
 static NSString*	ClippingRangeViewToolbarItemIdentifier = @"ClippingRange";
 static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
 
-#include <3DConnexionClient/ConnexionClientAPI.h>
-
-
 @implementation  VRController (StereoVision)
 
 - (void)windowDidResize:(NSNotification *)notification
 {
-	if([view StereoVisionOn])
-	{
+	if ([view StereoVisionOn])
 		[view adjustWindowContent:[[view window]frame].size];
-	}
 }
 
 //Added SilvanWidmer 04-03-10
 // Overrides the Fullscreen function of Window3DController
 - (IBAction) fullScreenMenu: (id) sender
 {
-	if (FullScreenOn == -1){
+	if (FullScreenOn == -1)
+    {
 		NSLog(@"FullScreen Mode Disabled");
 	}
-	
-    else if( FullScreenOn == YES )									// we need to go back to non-full screen
+    else if( FullScreenOn == YES )					// we need to go back to non-full screen
     {
         [StartingWindow setContentView: contentView];
 		//		[FullScreenWindow setContentView: nil];
@@ -101,23 +96,22 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
         [FullScreenWindow setDelegate:nil];
         [FullScreenWindow close];
         [FullScreenWindow release];
-		// Added SilvanWidmer 04-03
-        if([view StereoVisionOn])
+
+        if ([view StereoVisionOn])
 			[view adjustWindowContent:[StartingWindow frame].size];
 		
         [StartingWindow makeKeyAndOrderFront: self];
         FullScreenOn = NO;
     }
-    else														// FullScreenOn == NO
+    else											// FullScreenOn == NO
     {
-        unsigned int windowStyle;
-        NSRect       contentRect;
-		
         StartingWindow = [self window];
-        windowStyle    = NSBorderlessWindowMask; 
-        contentRect    = [[NSScreen mainScreen] frame];
-        FullScreenWindow = [[NSFullScreenWindow alloc] initWithContentRect:contentRect styleMask: windowStyle backing:NSBackingStoreBuffered defer: NO];
-        if(FullScreenWindow != nil)
+        NSRect contentRect = [[NSScreen mainScreen] frame];
+        FullScreenWindow = [[NSFullScreenWindow alloc] initWithContentRect: contentRect
+                                                                 styleMask: NSWindowStyleMaskBorderless
+                                                                   backing: NSBackingStoreBuffered
+                                                                     defer: NO];
+        if (FullScreenWindow != nil)
         {
             [FullScreenWindow setTitle: @"myWindow"];			
             [FullScreenWindow setReleasedWhenClosed: NO];
@@ -127,7 +121,7 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
             contentView = [[self window] contentView];
             [FullScreenWindow setContentView: contentView];
 			
-			if([view StereoVisionOn])
+			if ([view StereoVisionOn])
 				[view adjustWindowContent:[contentView frame].size];
             
             [FullScreenWindow makeKeyAndOrderFront: self];
@@ -141,10 +135,9 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
     }
 }
 
-
 - (IBAction) ApplyGeometrieSettings: (id) sender
 {
-	[VRGeometrieSettingsWindow orderOut:sender];
+    [VRGeometrieSettingsWindow orderOut:sender];
 	[NSApp endSheet:VRGeometrieSettingsWindow returnCode:[sender tag]];
 	
 	double height = [heightValue doubleValue];
@@ -153,10 +146,11 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
 	
 	if (height < 0.01)
 		height=0.01;
+    
 	if (distance < 0.01)
 		distance=0.01;
 	
-	if([sender tag])
+	if ([sender tag])
 	{
 		[[NSUserDefaults standardUserDefaults] setDouble: [distanceValue doubleValue] forKey: @"DISTANCETOSCREEN"];
 		[[NSUserDefaults standardUserDefaults] setDouble: [heightValue doubleValue] forKey: @"SCREENHEIGHT"];
@@ -267,12 +261,12 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
 		[toolbarItem setTarget: view];
 		[toolbarItem setAction: @selector(exportQuicktime:)];
     }
-	else if ([itemIdent isEqualToString: iPhotoToolbarItemIdentifier]) {
+	else if ([itemIdent isEqualToString: PhotosToolbarItemIdentifier]) {
         
-		[toolbarItem setLabel: NSLocalizedString(@"iPhoto",nil)];
-		[toolbarItem setPaletteLabel:NSLocalizedString(@"iPhoto",nil)];
-		[toolbarItem setToolTip:NSLocalizedString(@"Export this image to iPhoto",nil)];
-		[toolbarItem setImage: [NSImage imageNamed: iPhotoToolbarItemIdentifier]];
+		[toolbarItem setLabel: NSLocalizedString(@"Photos",nil)];
+		[toolbarItem setPaletteLabel:NSLocalizedString(@"Photos",nil)];
+		[toolbarItem setToolTip:NSLocalizedString(@"Export this image to Photos",nil)];
+		[toolbarItem setImage: [NSImage imageNamed: PhotosToolbarItemIdentifier]];
 		[toolbarItem setTarget: self];
 		[toolbarItem setAction: @selector(export2iPhoto:)];
     }
@@ -559,7 +553,7 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
 											MovieToolbarItemIdentifier,
 											StereoIdentifier,						// <- added with respect to "VRController.mm" (P. Thevenaz)
 											QTExportToolbarItemIdentifier,
-											iPhotoToolbarItemIdentifier,
+											PhotosToolbarItemIdentifier,
 											//QTExportVRToolbarItemIdentifier,
 											MailToolbarItemIdentifier,
 											ResetToolbarItemIdentifier,
@@ -591,7 +585,7 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
 											OrientationToolbarItemIdentifier,
 											OrientationsViewToolbarItemIdentifier,
 											QTExportToolbarItemIdentifier,
-											iPhotoToolbarItemIdentifier,
+											PhotosToolbarItemIdentifier,
 											MailToolbarItemIdentifier,
 											ResetToolbarItemIdentifier,
 											RevertToolbarItemIdentifier,
@@ -602,4 +596,4 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
 // end addition by P. Thevenaz on June 11, 2010}
 
 @end
-#endif
+#endif // _STEREO_VISION_

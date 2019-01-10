@@ -152,7 +152,7 @@ OFCondition mainStoreSCP(T_ASC_Association * assoc,
         OFLog::configure(OFLogger::ERROR_LOG_LEVEL);
     }
 
-	if( scp || [[NSUserDefaults standardUserDefaults] boolForKey:@"NinjaSTORESCP"]) // some undefined external entity is running a DICOM listener...
+	if (scp || [[NSUserDefaults standardUserDefaults] boolForKey:@"NinjaSTORESCP"]) // some undefined external entity is running a DICOM listener...
 		return YES;
 	else
 		return NO;
@@ -224,7 +224,7 @@ OFCondition mainStoreSCP(T_ASC_Association * assoc,
 //	options.networkTransferSyntax_ = EXS_LittleEndianImplicit;		// See dcmqrsrv.mm
 //	else options.networkTransferSyntax_ = EXS_LittleEndianExplicit;	// See dcmqrsrv.mm
 	
-	options.networkTransferSyntaxOut_ =  EXS_LittleEndianExplicit;	// EXS_JPEG2000		// See dcmqrcbm.mm - NOT USED
+	options.networkTransferSyntaxOut_ = EXS_LittleEndianExplicit;	// EXS_JPEG2000		// See dcmqrcbm.mm - NOT USED
 	/*
 	options.networkTransferSyntaxOut_ = EXS_LittleEndianExplicit;
 	options.networkTransferSyntaxOut_ = EXS_BigEndianExplicit;
@@ -305,32 +305,36 @@ OFCondition mainStoreSCP(T_ASC_Association * assoc,
 	
 	//max PDU size
 	options.maxPDU_ = ASC_DEFAULTMAXPDU;
-	if (overrideMaxPDU > 0) options.maxPDU_ = overrideMaxPDU;	//;
+    
+    if (overrideMaxPDU > 0)
+        options.maxPDU_ = overrideMaxPDU;
 
-    /* make sure data dictionary is loaded */
+#if 0
+    // It turns out that at this point the DICOM dictionary:
+    //      is already loaded for the "non sandboxed" build
+    //      is not loaded for the "sandboxed" build
+    // in either case DCMDICTPATH is null
+    NSLog(@"%s line %i, isDictionaryLoaded:%d", __FUNCTION__ , __LINE__, dcmDataDict.isDictionaryLoaded());
+    const char* env = NULL;
+    env = getenv(DCM_DICT_ENVIRONMENT_VARIABLE);
+    fprintf(stderr, "DCM_DICT_ENVIRONMENT_VARIABLE: %s=%s\n", DCM_DICT_ENVIRONMENT_VARIABLE, env);
+#endif
+
+    /* Make sure the DICOM data dictionary is loaded */
     if (!dcmDataDict.isDictionaryLoaded())
 	{
-#if 1 // original
-		fprintf(stderr, "Warning: data dictionary not loaded, check environment variable: %s\n", DCM_DICT_ENVIRONMENT_VARIABLE);
-        return;
-#else
-//        const char* env = NULL;
-//        env = getenv(DCM_DICT_ENVIRONMENT_VARIABLE);
-//        fprintf(stderr, "DCM_DICT_ENVIRONMENT_VARIABLE: %s\n", env);
-        
-        NSString *dicPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"/dicom.dic"];
+        NSString *dicPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"dicom.dic"];
         DcmDataDictionary& globalDataDict = dcmDataDict.wrlock();
         globalDataDict.clear();        // clear out any preloaded dictionary
         globalDataDict.loadDictionary([dicPath UTF8String], OFFalse);
         dcmDataDict.unlock();
-        if (dcmDataDict.isDictionaryLoaded()) {
+        if (dcmDataDict.isDictionaryLoaded()) {  // Check again
             fprintf(stderr, "Data dictionary loaded from resources\n");
         }
         else {
             fprintf(stderr, "Warning: data dictionary not loaded from resources\n");
             return;
         }
-#endif
     }
 
 	//init the network
@@ -513,7 +517,9 @@ OFCondition mainStoreSCP(T_ASC_Association * assoc,
 		{
 			DimseCondition::dump(cond);
 			NSString *errMessage = [NSString stringWithFormat: @"DICOM Network Failure (storescp TLS) : ASC_setTransportLayer - %04x:%04x %s. You can turn OFF TLS Listener in Preferences->Listener.", cond.module(), cond.code(), cond.text()];
-			[[AppController sharedAppController] performSelectorOnMainThread: @selector(displayListenerError:) withObject: errMessage waitUntilDone: NO];
+			[[AppController sharedAppController] performSelectorOnMainThread: @selector(displayListenerError:)
+                                                                  withObject: errMessage
+                                                               waitUntilDone: NO];
 			return;
 		}
 	}
@@ -607,7 +613,6 @@ DcmQueryRetrieveConfig config;
         [[NSFileManager defaultManager] removeFileAtPath:[DICOMTLS certificatePathForLabel:TLS_KEYCHAIN_IDENTITY_NAME_SERVER withStringID:@"StoreSCPTLS"] handler:nil];
         [[NSFileManager defaultManager] removeFileAtPath:[NSString stringWithFormat:@"%@%@", TLS_TRUSTED_CERTIFICATES_DIR, @"StoreSCPTLS"] handler:nil];
     }
-	return;
 }
 
 -(void)abort

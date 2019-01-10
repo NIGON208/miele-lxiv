@@ -75,15 +75,12 @@
 
 -(id)initWithFrame:(NSRect)frame;
 {
-    if ( self = [super initWithFrame:frame] )
-    {
-		[self connect2SpaceNavigator];
-		
+    if ( self = [super initWithFrame:frame] ) {
 //		dontUseAutoCropping = YES;
-		
 		superSampling = 4.0;
 	}
-	return self;
+
+    return self;
 }
 
 -(unsigned char*) superGetRawPixels:(long*) width :(long*) height :(long*) spp :(long*) bpp :(BOOL) screenCapture :(BOOL) force8bits

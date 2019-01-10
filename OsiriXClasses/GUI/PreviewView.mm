@@ -12,8 +12,9 @@
      PURPOSE.
 =========================================================================*/
 
-#import "PreviewView.h"
+#include "options.h"
 #import "NSFont_OpenGL/NSFont_OpenGL.h"
+#import "PreviewView.h"
 
 @implementation PreviewView
 
@@ -27,8 +28,9 @@
         if( cgl_ctx == nil)
             return;
         
-		if( fontListGL)
+		if (fontListGL)
 			glDeleteLists (fontListGL, 150);
+        
 		fontListGL = glGenLists (150);
 		
 		[fontGL release];
@@ -44,7 +46,6 @@
 		[self setNeedsDisplay:YES];
 	}
 }
-
 
 - (BOOL)is2DViewer
 {

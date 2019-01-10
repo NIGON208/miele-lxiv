@@ -17,8 +17,6 @@
 
 #import "VRView+StereoVision.h"
 
-#define USE3DCONNEXION 1
-
 #import "VRView.h"
 #import "DCMCursor.h"
 #import "AppController.h"
@@ -45,7 +43,7 @@
 #include "vtkAbstractPropPicker.h"
 #include "vtkInteractorStyle.h"
 #include "vtkWorldPointPicker.h"
-#include "vtkOpenGLVolumeTextureMapper3D.h"
+//#include "vtkOpenGLVolumeTextureMapper3D.h"
 #include "vtkPropAssembly.h"
 #include "vtkFixedPointRayCastImage.h"
 
@@ -62,7 +60,7 @@
 #include "vtkCocoaRenderWindowInteractor.h"
 #include "vtkCocoaRenderWindow.h"
 #include "vtkInteractorStyleTrackballCamera.h"
-#include "vtkParallelRenderManager.h"
+//#include "vtkParallelRenderManager.h"
 #include "vtkRendererCollection.h"
 #import "VRController+StereoVision.h"
 #import "Window3DController+StereoVision.h"
@@ -75,15 +73,6 @@
 
 //#import <InstantMessage/IMService.h>
 //#import <InstantMessage/IMAVManager.h>
-
-
-#if USE3DCONNEXION
-#include <3DConnexionClient/ConnexionClientAPI.h>
-extern "C" 
-{
-	extern OSErr InstallConnexionHandlers(ConnexionMessageHandlerProc messageHandler, ConnexionAddedHandlerProc addedHandler, ConnexionRemovedHandlerProc removedHandler) __attribute__((weak_import));
-}
-#endif
 
 extern "C" 
 {
@@ -100,7 +89,6 @@ extern int dontRenderVolumeRenderingOsiriX;	// See OsiriXFixedPointVolumeRayCast
 
 static NSRecursiveLock *drawLock = nil;
 static unsigned short *linearOpacity = nil;
-static VRView	*snVRView = nil;
 
 static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *calldata)
 {
@@ -223,20 +211,21 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 		
 		advancedCLUT = NO;
 		
-		if( [[NSProcessInfo processInfo] processorCount]ors() >= 4)
+		if( [[NSProcessInfo processInfo] processorCount] >= 4)
 			lowResLODFactor = 1.5;
 		else
 			lowResLODFactor = 2.5;
 		
-		[[IMService notificationCenter] addObserver:self selector:@selector(_iChatStateChanged:) name:IMAVManagerStateChangedNotification object:nil];
+		[[IMService notificationCenter] addObserver:self
+                                           selector:@selector(_iChatStateChanged:)
+                                               name:IMAVManagerStateChangedNotification
+                                             object:nil];
 	}
     
     return self;
 }
 
 #pragma mark Initialisation of Left-Right-Side-View
-
-
 
 - (void) setNeedsDisplay: (BOOL) flag
 {
@@ -405,7 +394,7 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 		orientationWidget->Off();
 	for(int i = 0; i < 4; i++) aRenderer->RemoveActor2D( oText[ i]);
 	
-	unsigned int windowStyle    = NSBorderlessWindowMask;		
+	unsigned int windowStyle = NSWindowStyleMaskBorderless;
 	NSRect contentRectLeftScreen;
 	NSRect contentRectRightScreen;
 	
@@ -610,7 +599,7 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 		orientationWidget->Off();
 	for(int i = 0; i < 4; i++) aRenderer->RemoveActor2D( oText[ i]);
 	
-	unsigned int windowStyle    = NSBorderlessWindowMask;
+	unsigned int windowStyle = NSWindowStyleMaskBorderless;
 	NSRect contentRectLeftScreen;
 	NSRect contentRectRightScreen;
 	
@@ -957,8 +946,6 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 #pragma mark Mouse mouvements
 - (void)mouseDragged:(NSEvent *)theEvent
 {
-	//snVRView = self;
-	
 	//NSLog(@"Mouse dragged!!");
 	
 	_hasChanged = YES;
@@ -984,7 +971,7 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 		
 		beforeFrame = [self frame];
 		
-		if( [theEvent modifierFlags] & NSShiftKeyMask)
+		if( [theEvent modifierFlags] & NSEventModifierFlagShift)
 		{
 			newFrame.size.width = [[[self window] contentView] frame].size.width - mouseLoc.x*2;
 			newFrame.size.height = newFrame.size.width;
@@ -1028,7 +1015,7 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 		int controlDown;
 		switch (_tool)
 		{
-			case tMesure:
+			case tMeasure:
 			{
 				if( bestRenderingWasGenerated)
 				{
@@ -1458,7 +1445,7 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 			case tZoom:
 				[self zoomMouseUp:(NSEvent *)theEvent];
 				break;
-			case tMesure:
+			case tMeasure:
 			case t3DCut:
 				[self displayIfNeeded];
 				dontRenderVolumeRenderingOsiriX = 0;
@@ -1626,7 +1613,6 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 			[rightView renderer]->RemoveActor(textWLWW);
 		}
 	}
-
 	
 	// RAY CASTING SETTINGS
 	if( best)
@@ -1650,23 +1636,33 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 			}
 		}
 		
-		if( [[NSApp currentEvent] modifierFlags] & NSShiftKeyMask || projectionMode == 2)
+		if ([[NSApp currentEvent] modifierFlags] & NSEventModifierFlagShift ||
+            projectionMode == 2)
 		{
-			if( volumeMapper) volumeMapper->SetMinimumImageSampleDistance( 1.0);
-			if( volumeMapper) volumeMapper->SetSampleDistance( 1.0);
+			if (volumeMapper)
+                volumeMapper->SetMinimumImageSampleDistance( 1.0);
+
+            if (volumeMapper)
+                volumeMapper->SetSampleDistance( 1.0);
 			
 			if( blendingController)
 			{
-				if( blendingVolumeMapper) blendingVolumeMapper->SetMinimumImageSampleDistance( 1.0);
-				if( blendingVolumeMapper) blendingVolumeMapper->SetSampleDistance( 1.0);
+				if( blendingVolumeMapper)
+                    blendingVolumeMapper->SetMinimumImageSampleDistance( 1.0);
+
+                if( blendingVolumeMapper)
+                    blendingVolumeMapper->SetSampleDistance( 1.0);
 			}
 			
 			NSLog(@"resol = 1.0");
 		}
 		else
 		{
-			if( volumeMapper) volumeMapper->SetMinimumImageSampleDistance( [[NSUserDefaults standardUserDefaults] floatForKey: @"BESTRENDERING"]);
-			if( volumeMapper) volumeMapper->SetSampleDistance( [[NSUserDefaults standardUserDefaults] floatForKey: @"BESTRENDERING"]);
+			if( volumeMapper)
+                volumeMapper->SetMinimumImageSampleDistance( [[NSUserDefaults standardUserDefaults] floatForKey: @"BESTRENDERING"]);
+
+            if( volumeMapper)
+                volumeMapper->SetSampleDistance( [[NSUserDefaults standardUserDefaults] floatForKey: @"BESTRENDERING"]);
 			
 			if( blendingController)
 			{

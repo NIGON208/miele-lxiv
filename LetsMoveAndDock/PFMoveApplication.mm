@@ -11,8 +11,6 @@
 #import <Security/Security.h>
 #import <dlfcn.h>
 #import "NSApplication-Dock.h"
-#import <ILCrashReporter/ILCrashReporter.h>
-
 
 // Needs to be defined for compiling under 10.4 SDK
 #ifndef NSAppKitVersionNumber10_4
@@ -147,7 +145,7 @@ void PFMoveToApplicationsFolderIfNecessary() {
 
 					// If the task terminated with status 0, it means that the final grep produced 1 or more lines of output.
 					// Which means that the app is already running
-					destinationIsRunning = ([task terminationStatus] == 0);
+					destinationIsRunning = ([task terminationStatus] == EXIT_SUCCESS);
 				}
 				// Use the new API on 10.6 or higher
 				else {
@@ -363,7 +361,9 @@ static BOOL AuthorizedInstall(NSString *srcPath, NSString *dstPath, BOOL *cancel
 
 	// Delete the destination
 	{
-		char *args[] = {(char *)"-rf", (char *)[dstPath fileSystemRepresentation], NULL};
+		char *args[] = {(char *)"-rf",
+                        (char *)[dstPath fileSystemRepresentation],
+                        NULL};
 		err = security_AuthorizationExecuteWithPrivileges(myAuthorizationRef, "/bin/rm", kAuthorizationFlagDefaults, args, NULL);
 		if (err != errAuthorizationSuccess) goto fail;
 
@@ -374,7 +374,10 @@ static BOOL AuthorizedInstall(NSString *srcPath, NSString *dstPath, BOOL *cancel
 
 	// Copy
 	{
-		char *args[] = {"-pR", (char *)[srcPath fileSystemRepresentation], (char *)[dstPath fileSystemRepresentation], NULL};
+		char *args[] = {(char *)"-pR",
+                        (char *)[srcPath fileSystemRepresentation],
+                        (char *)[dstPath fileSystemRepresentation],
+                        NULL};
 		err = security_AuthorizationExecuteWithPrivileges(myAuthorizationRef, "/bin/cp", kAuthorizationFlagDefaults, args, NULL);
 		if (err != errAuthorizationSuccess) goto fail;
 
@@ -419,8 +422,6 @@ static BOOL CopyBundle(NSString *srcPath, NSString *dstPath) {
 
 static void Relaunch(NSString *destinationPath)
 {
-    [[ILCrashReporter defaultReporter] terminate];
-    
     if( [NSApp applicationExistsInDock: destinationPath] == NO)
         [NSApp addApplicationToDock: destinationPath];
     

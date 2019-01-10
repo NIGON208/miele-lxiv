@@ -12,10 +12,9 @@
      PURPOSE.
 =========================================================================*/
 
-#import "DCMPresentationState.h"
-#import "DCM Framework/DCMAbstractSyntaxUID.h"
-#import "DCM Framework/DCM.h"
-
+#import <DCM/DCMPresentationState.h>
+#import <DCM/DCMAbstractSyntaxUID.h>
+#import "DCM.h"
 
 @implementation  DCMObject (DCMPresentationState) 
 

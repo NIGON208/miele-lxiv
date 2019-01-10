@@ -909,11 +909,6 @@ OFCondition DcmQueryRetrieveOsiriXDatabaseHandle::nextMoveResponse(
                     cond = EC_IllegalParameter;
 			}
 		}
-		
-		if (cond.good())
-		{
-			
-		}
 	}
 	
     return cond;

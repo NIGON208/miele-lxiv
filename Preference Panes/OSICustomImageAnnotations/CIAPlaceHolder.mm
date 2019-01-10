@@ -68,8 +68,8 @@
 		[[[NSColor controlHighlightColor] colorWithAlphaComponent:0.5] set];
 	else
 		[[[NSColor whiteColor] colorWithAlphaComponent:0.5] set];
-	[borderFrame fill];
-	
+
+    [borderFrame fill];
 	[borderFrame setLineWidth:2.0];
 	[[NSColor grayColor] set];
 	[borderFrame stroke];

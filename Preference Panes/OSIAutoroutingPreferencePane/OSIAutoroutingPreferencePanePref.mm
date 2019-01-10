@@ -12,7 +12,7 @@
      PURPOSE.
 =========================================================================*/
 
-#import "DCM Framework/DCMObject.h"
+#import <DCM/DCMObject.h>
 #import "OSIAutoroutingPreferencePanePref.h"
 #import <NSPreferencePane+OsiriX.h>
 #import <AppController.h>
@@ -27,7 +27,7 @@
 
 - (id) initWithBundle:(NSBundle *)bundle
 {
-	if( self = [super init])
+	if (self = [super init])
 	{
 		NSNib *nib = [[[NSNib alloc] initWithNibNamed: @"OSIAutoroutingPreferencePanePref" bundle: nil] autorelease];
 		[nib instantiateNibWithOwner:self topLevelObjects: nil];
@@ -50,18 +50,18 @@
 	{
 		NSMutableDictionary	*newDict = [NSMutableDictionary dictionaryWithDictionary: [routesArray objectAtIndex: i]];
 		
-		if( [newDict valueForKey:@"activated"] == 0)
+		if ([newDict valueForKey:@"activated"] == 0)
 			[newDict setValue: @YES forKey:@"activated"];
         
-        if( [[newDict valueForKey: @"version"] intValue] < 1)
+        if ([[newDict valueForKey: @"version"] intValue] < 1)
         {
-            if( [[newDict valueForKey: @"filterType"] intValue] != 0)
+            if ([[newDict valueForKey: @"filterType"] intValue] != 0)
                 [newDict setValue: @"" forKey: @"filter"];
             
             [newDict setValue: @CURRENTVERSION forKey: @"version"];
         }
         
-        if( [newDict valueForKey:@"imagesOnly"] == nil)
+        if ([newDict valueForKey:@"imagesOnly"] == nil)
 			[newDict setValue: @NO forKey:@"imagesOnly"];
         
         [routesArray replaceObjectAtIndex: i withObject:newDict];
@@ -86,14 +86,14 @@
 		BOOL found = NO;
 		for( int x = 0; x < [serversArray count]; x++)
 		{
-			if( [[[serversArray objectAtIndex: x] valueForKey:@"Activated"] boolValue] &&
+			if ([[[serversArray objectAtIndex: x] valueForKey:@"Activated"] boolValue] &&
                 [[[serversArray objectAtIndex: x] valueForKey:@"Description"] isEqualToString: [[routesArray objectAtIndex:i] valueForKey:@"server"]])
             {
                 found = YES;
             }
 		}
 		
-		if( found == NO)
+		if (found == NO)
 			NSRunCriticalAlertPanel(NSLocalizedString(@"Unknown Server", nil),
                                     NSLocalizedString(@"This server doesn't exist in the Locations list: %@", nil),
                                     NSLocalizedString(@"OK", nil),
@@ -122,7 +122,7 @@
 
 - (IBAction) syntaxHelpButtons:(id) sender
 {
-	if( [sender tag] == 0)
+	if ([sender tag] == 0)
 	{
         NSString *tablesFile = [NSTemporaryDirectory() stringByAppendingPathComponent:@"OsiriXTables.pdf"];
 
@@ -132,7 +132,7 @@
 		[[NSWorkspace sharedWorkspace] openFile: tablesFile];
 	}
 	
-	if( [sender tag] == 1)
+	if ([sender tag] == 1)
 	{
 		[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://developer.apple.com/documentation/Cocoa/Conceptual/Predicates/Articles/pSyntax.html#//apple_ref/doc/uid/TP40001795"]];
 	}
@@ -142,7 +142,7 @@ static BOOL newRouteMode = NO;
 
 - (IBAction) endNewRoute:(id) sender
 {
-	if( [sender tag] == 1)
+	if ([sender tag] == 1)
 	{
 		[routesArray replaceObjectAtIndex: [routesTable selectedRow]
                                withObject: [NSMutableDictionary dictionaryWithObjectsAndKeys:
@@ -163,7 +163,7 @@ static BOOL newRouteMode = NO;
 	}
 	else
 	{
-		if( newRouteMode)
+		if (newRouteMode)
 		{
 			[routesArray removeObjectAtIndex: [routesTable selectedRow]];
 		}
@@ -176,7 +176,7 @@ static BOOL newRouteMode = NO;
 
 - (IBAction) selectPrevious:(id) sender
 {
-	if( [sender selectedTag])
+	if ([sender selectedTag])
 	{
 		[previousModality setEnabled: YES];
 		[previousDescription setEnabled: YES];
@@ -199,15 +199,19 @@ static BOOL newRouteMode = NO;
 {
     newRouteMode = NO;
     
-    if( [serversArray count] == 0)
+    if ([serversArray count] == 0)
     {
-        NSRunCriticalAlertPanel(NSLocalizedString(@"New Route", nil),NSLocalizedString( @"No destination servers exist. Create at least one destination in the Locations preferences.", nil),NSLocalizedString( @"OK", nil), nil, nil);
+        NSRunCriticalAlertPanel(NSLocalizedString(@"New Route", nil),
+                                NSLocalizedString( @"No destination servers exist. Create at least one destination in the Locations preferences.", nil),
+                                NSLocalizedString( @"OK", nil),
+                                nil,
+                                nil);
     }
     else
     {
         NSDictionary *selectedRoute = [routesArray objectAtIndex: [routesTable selectedRow]];
         
-        if( selectedRoute)
+        if (selectedRoute)
         {
             [serverPopup removeAllItems];
             for (int i = 0; i < [serversArray count]; i++)
@@ -282,7 +286,7 @@ static BOOL newRouteMode = NO;
 
 - (void) deleteSelectedRow:(id)sender
 {
-    if( [sender tag] == 0)
+    if ([sender tag] == 0)
     {
         [routesArray removeObjectAtIndex:[routesTable selectedRow]];
         [routesTable reloadData];
@@ -292,14 +296,14 @@ static BOOL newRouteMode = NO;
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)aTableView
 {
-	if( [aTableView tag] == 0)	return [routesArray count];
+	if ([aTableView tag] == 0)	return [routesArray count];
 	
 	return 0;
 }
 
 - (void)tableView:(NSTableView *)tableView didClickTableColumn:(NSTableColumn *)tableColumn
 {
-	if( [tableView tag] == 0)
+	if ([tableView tag] == 0)
 	{
 		[routesArray sortUsingDescriptors: [routesTable sortDescriptors]];
 		[routesTable reloadData];
@@ -312,7 +316,7 @@ static BOOL newRouteMode = NO;
 {
 	NSMutableDictionary *theRecord;
 	
-	if( [aTableView tag] == 0)
+	if ([aTableView tag] == 0)
 	{
 		NSParameterAssert(rowIndex >= 0 && rowIndex < [routesArray count]);
 		
@@ -326,7 +330,7 @@ static BOOL newRouteMode = NO;
 
 - (void)tableView:(NSTableView *)aTableView setObjectValue:(id)anObject forTableColumn:(NSTableColumn *)aTableColumn row:(NSInteger)rowIndex
 {
-    if( [[aTableColumn identifier] isEqualToString:@"activated"])
+    if ([[aTableColumn identifier] isEqualToString:@"activated"])
         [[routesArray objectAtIndex:rowIndex] setValue:anObject forKey: [aTableColumn identifier]];
 }
 

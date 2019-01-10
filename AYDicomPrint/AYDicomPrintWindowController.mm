@@ -34,7 +34,7 @@ NSString *filmSizeTag[] = {@"8 IN x 10 IN", @"8.5 IN x 11 IN", @"10 IN x 12 IN",
 NSString *magnificationTypeTag[] = {@"NONE", @"BILINEAR", @"CUBIC", @"REPLICATE"};
 NSString *trimTag[] = {@"NO", @"YES"};
 NSString *imageDisplayFormatTag[] = {@"Standard 1,1",@"Standard 1,2",@"Standard 2,1",@"Standard 2,2",@"Standard 2,3",@"Standard 2,4",@"Standard 3,3",@"Standard 3,4",@"Standard 3,5",@"Standard 4,4",@"Standard 4,5",@"Standard 4,6",@"Standard 5,6",@"Standard 5,7"};
-int imageDisplayFormatNumbers[] = {1,2,2,4,6,8,9,12,15,16,20,24,30,35};
+int imageDisplayFormatNumbers[] = {1,2,2,4,6,8,9,12,15,16,20,24,30,35};  // elements cannot have value 0
 int imageDisplayFormatRows[] =    {1,1,2,2,2,2,3, 3, 3, 4, 4, 4, 5, 5};
 int imageDisplayFormatColumns[] = {1,2,1,2,3,4,3, 4, 5, 4, 5, 6, 6, 7};
 NSString *borderDensityTag[] = {@"BLACK", @"WHITE"};
@@ -42,14 +42,14 @@ NSString *emptyImageDensityTag[] = {@"BLACK", @"WHITE"};
 NSString *priorityTag[] = {@"HIGH", @"MED", @"LOW"};
 NSString *mediumTag[] = {@"Blue Film", @"Clear Film", @"Paper"};
 
-
 @interface AYDicomPrintWindowController (Private)
 - (void) _createPrintjob: (id) object;
-- (void) _sendPrintjob: (NSString *) xmlPath;
+- (void) _sendPrintjob: (NSString *) jsonPath;
 - (BOOL) _verifyConnection: (NSDictionary *) dict;
 - (void) _verifyConnections: (id) object;
 - (void) _setProgressMessage: (NSString *) message;
 - (ViewerController *) _currentViewer;
+- (NSString *) currentTime;
 @end
 
 @implementation AYDicomPrintWindowController
@@ -60,7 +60,7 @@ NSString *mediumTag[] = {@"Blue Film", @"Clear Film", @"Paper"};
 {
 	for( int i = 0 ; i < size; i++)
 	{
-		if( [array[ i] isEqualToString: v])
+		if ([array[ i] isEqualToString: v])
 			return [NSString stringWithFormat: @"%d", i];
 	}
 	
@@ -78,7 +78,7 @@ NSString *mediumTag[] = {@"Blue Film", @"Clear Film", @"Paper"};
 	{
 		NSDictionary *dict = [printers objectAtIndex: i];
 		
-		if( [dict valueForKey: @"imageDisplayFormatTag"] == nil)
+		if ([dict valueForKey: @"imageDisplayFormatTag"] == nil)
 		{
 			NSMutableDictionary *mDict = [NSMutableDictionary dictionaryWithDictionary: dict];
 			
@@ -100,7 +100,7 @@ NSString *mediumTag[] = {@"Blue Film", @"Clear Film", @"Paper"};
 		}
 	}
 	
-	if( updated)
+	if (updated)
 	{
 		[[NSUserDefaults standardUserDefaults] setObject: printers forKey: @"AYDicomPrinter"];
 	}
@@ -124,7 +124,7 @@ NSString *mediumTag[] = {@"Blue Film", @"Clear Film", @"Paper"};
         windowFrameToRestore = NSMakeRect(0, 0, 0, 0);
         scaleFitToRestore = m_CurrentViewer.imageView.isScaledFit;
         
-        if( [[NSUserDefaults standardUserDefaults] boolForKey: @"SquareWindowForPrinting"])
+        if ([[NSUserDefaults standardUserDefaults] boolForKey: @"SquareWindowForPrinting"])
         {
             int AlwaysScaleToFit = [[NSUserDefaults standardUserDefaults] integerForKey: @"AlwaysScaleToFit"];
             [[NSUserDefaults standardUserDefaults] setInteger: 0 forKey: @"AlwaysScaleToFit"];
@@ -132,20 +132,20 @@ NSString *mediumTag[] = {@"Blue Film", @"Clear Film", @"Paper"};
             windowFrameToRestore = m_CurrentViewer.window.frame;
             NSRect newFrame = [AppController usefullRectForScreen: m_CurrentViewer.window.screen];
             
-            if( newFrame.size.width < newFrame.size.height)
+            if (newFrame.size.width < newFrame.size.height)
                 newFrame.size.height = newFrame.size.width;
             else
                 newFrame.size.width = newFrame.size.height;
             
             [AppController resizeWindowWithAnimation: m_CurrentViewer.window newSize: newFrame];
-            if( scaleFitToRestore) [m_CurrentViewer.imageView scaleToFit];
+            if (scaleFitToRestore) [m_CurrentViewer.imageView scaleToFit];
             
             [[NSUserDefaults standardUserDefaults] setInteger: AlwaysScaleToFit forKey: @"AlwaysScaleToFit"];
         }
         
         for( ViewerController *v in [ViewerController getDisplayed2DViewers])
         {
-            if( v != m_CurrentViewer)
+            if (v != m_CurrentViewer)
                 [v.window orderOut: self];
         }
         
@@ -154,10 +154,10 @@ NSString *mediumTag[] = {@"Blue Film", @"Clear Film", @"Paper"};
 
 	return self;
 }
-//
+
 //- (void) windowWillClose: (NSNotification*) n
 //{
-//    if( NSIsEmptyRect( windowFrameToRestore) == NO)
+//    if (NSIsEmptyRect( windowFrameToRestore) == NO)
 //        [AppController resizeWindowWithAnimation: m_CurrentViewer.window newSize: windowFrameToRestore];
 //}
 
@@ -206,7 +206,9 @@ NSString *mediumTag[] = {@"Blue Film", @"Clear Film", @"Paper"};
 	[m_ProgressIndicator startAnimation: self];
 	[m_VersionNumberTextField setStringValue: VERSIONNUMBERSTRING];
     
-	[NSThread detachNewThreadSelector: @selector(_verifyConnections:) toTarget: self withObject: [m_PrinterController arrangedObjects]];
+	[NSThread detachNewThreadSelector: @selector(_verifyConnections:)
+                             toTarget: self
+                           withObject: [m_PrinterController arrangedObjects]];
 	
 	[entireSeriesFrom setMaxValue: [[m_CurrentViewer pixList] count]];
 	[entireSeriesTo setMaxValue: [[m_CurrentViewer pixList] count]];
@@ -214,7 +216,7 @@ NSString *mediumTag[] = {@"Blue Film", @"Clear Film", @"Paper"};
 	[entireSeriesFrom setNumberOfTickMarks: [[m_CurrentViewer pixList] count]];
 	[entireSeriesTo setNumberOfTickMarks: [[m_CurrentViewer pixList] count]];
 	
-	if( [[m_CurrentViewer pixList] count] < 20)
+	if ([[m_CurrentViewer pixList] count] < 20)
 	{
 		[entireSeriesFrom setIntValue: 1];
 		[entireSeriesTo setIntValue: [[m_CurrentViewer pixList] count]];
@@ -222,7 +224,7 @@ NSString *mediumTag[] = {@"Blue Film", @"Clear Film", @"Paper"};
 	}
 	else
 	{
-		if( [[m_CurrentViewer imageView] flippedData]) [entireSeriesFrom setIntValue: [[m_CurrentViewer pixList] count] - [[m_CurrentViewer imageView] curImage]];
+		if ([[m_CurrentViewer imageView] flippedData]) [entireSeriesFrom setIntValue: [[m_CurrentViewer pixList] count] - [[m_CurrentViewer imageView] curImage]];
 		else
             [entireSeriesFrom setIntValue: 1+ [[m_CurrentViewer imageView] curImage]];
         
@@ -238,19 +240,31 @@ NSString *mediumTag[] = {@"Blue Film", @"Clear Film", @"Paper"};
 	[NSApp runModalForWindow: [self window]];
 }
 
+#pragma mark -
+
+- (NSString *) currentTime
+{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.dateFormat = @"yyyyMMdd-HHmmss";
+    [dateFormatter setTimeZone:[NSTimeZone systemTimeZone]];
+    return [dateFormatter stringFromDate:[NSDate date]];
+}
+
+#pragma mark - Actions
+
 - (IBAction) cancel: (id) sender
 {
 	[NSApp stopModal];
 	
     
-    if( [[NSUserDefaults standardUserDefaults] boolForKey: @"SquareWindowForPrinting"] && NSIsEmptyRect( windowFrameToRestore) == NO)
+    if ([[NSUserDefaults standardUserDefaults] boolForKey: @"SquareWindowForPrinting"] && NSIsEmptyRect( windowFrameToRestore) == NO)
     {
         int AlwaysScaleToFit = [[NSUserDefaults standardUserDefaults] integerForKey: @"AlwaysScaleToFit"];
         [[NSUserDefaults standardUserDefaults] setInteger: 0 forKey: @"AlwaysScaleToFit"];
         
         [AppController resizeWindowWithAnimation: m_CurrentViewer.window newSize: windowFrameToRestore];
         
-        if( scaleFitToRestore) [m_CurrentViewer.imageView scaleToFit];
+        if (scaleFitToRestore) [m_CurrentViewer.imageView scaleToFit];
         
         [[NSUserDefaults standardUserDefaults] setInteger: AlwaysScaleToFit forKey: @"AlwaysScaleToFit"];
     }
@@ -265,9 +279,10 @@ NSString *mediumTag[] = {@"Blue Film", @"Clear Film", @"Paper"};
 
 - (IBAction) printImages: (id) sender
 {
-	if( [m_pages intValue] > 10 && [[m_ImageSelection selectedCell] tag] == eAllImages)
+	if ([m_pages intValue] > 10 &&
+        [[m_ImageSelection selectedCell] tag] == eAllImages)
 	{
-		if( NSRunInformationalAlertPanel(NSLocalizedString(@"DICOM Print", nil),
+		if (NSRunInformationalAlertPanel(NSLocalizedString(@"DICOM Print", nil),
                                          NSLocalizedString(@"Are you really sure you want to print %d pages?", nil),
                                          NSLocalizedString(@"OK", nil),
                                          NSLocalizedString(@"Cancel", nil),
@@ -280,15 +295,15 @@ NSString *mediumTag[] = {@"Blue Film", @"Clear Film", @"Paper"};
 	}
 	
 	[sender setEnabled: NO];
-	
-	[self _createPrintjob: nil];
-	
+	[self _createPrintjob: nil];	
 	[self cancel: self];
 }
 
 - (IBAction) verifyConnection: (id) sender
 {
-	[NSThread detachNewThreadSelector: @selector(_verifyConnections:) toTarget: self withObject: [m_PrinterController selectedObjects]];
+	[NSThread detachNewThreadSelector: @selector(_verifyConnections:)
+                             toTarget: self
+                           withObject: [m_PrinterController selectedObjects]];
 }
 
 - (IBAction) closeSheet: (id) sender
@@ -320,12 +335,12 @@ NSString *mediumTag[] = {@"Blue Film", @"Clear Film", @"Paper"};
 
 - (IBAction) exportDICOMSlider:(id) sender
 {
-	if( [[m_ImageSelection selectedCell] tag] == eAllImages)
+	if ([[m_ImageSelection selectedCell] tag] == eAllImages)
 	{
 		[entireSeriesFromText takeIntValueFrom: entireSeriesFrom];
 		[entireSeriesToText takeIntValueFrom: entireSeriesTo];
 		
-		if( [[m_CurrentViewer imageView] flippedData]) [[m_CurrentViewer imageView] setIndex: [[m_CurrentViewer pixList] count] - [sender intValue]];
+		if ([[m_CurrentViewer imageView] flippedData]) [[m_CurrentViewer imageView] setIndex: [[m_CurrentViewer pixList] count] - [sender intValue]];
 		else
             [[m_CurrentViewer imageView] setIndex:  [sender intValue]-1];
 		
@@ -348,18 +363,18 @@ NSString *mediumTag[] = {@"Blue Film", @"Clear Film", @"Paper"};
 	
 	int ipp = imageDisplayFormatNumbers[[[dict valueForKey: @"imageDisplayFormatTag"] intValue]];
 	
-	if( [[m_ImageSelection selectedCell] tag] == eAllImages)
+	if ([[m_ImageSelection selectedCell] tag] == eAllImages)
 	{
-		if( sender == entireSeriesTo) [entireSeriesToText setIntValue: [entireSeriesTo intValue]];
-		if( sender == entireSeriesFrom) [entireSeriesFromText setIntValue: [entireSeriesFrom intValue]];
+		if (sender == entireSeriesTo) [entireSeriesToText setIntValue: [entireSeriesTo intValue]];
+		if (sender == entireSeriesFrom) [entireSeriesFromText setIntValue: [entireSeriesFrom intValue]];
 		
-		if( sender == entireSeriesToText) [entireSeriesTo setIntValue: [entireSeriesToText intValue]];
-		if( sender == entireSeriesFromText) [entireSeriesFrom setIntValue: [entireSeriesFromText intValue]];
+		if (sender == entireSeriesToText) [entireSeriesTo setIntValue: [entireSeriesToText intValue]];
+		if (sender == entireSeriesFromText) [entireSeriesFrom setIntValue: [entireSeriesFromText intValue]];
 		
 		int from = [entireSeriesFrom intValue]-1;
 		int to = [entireSeriesTo intValue];
 		
-		if( from >= to)
+		if (from >= to)
 		{
 			to = [entireSeriesFrom intValue];
 			from = [entireSeriesTo intValue]-1;
@@ -372,8 +387,8 @@ NSString *mediumTag[] = {@"Blue Film", @"Clear Film", @"Paper"};
 		
 //		no_of_images = (to - from) / [entireSeriesInterval intValue];
 	}
-	else if( [[m_ImageSelection selectedCell] tag] == eCurrentImage) no_of_images = 1;
-	else if( [[m_ImageSelection selectedCell] tag] == eKeyImages)
+	else if ([[m_ImageSelection selectedCell] tag] == eCurrentImage) no_of_images = 1;
+	else if ([[m_ImageSelection selectedCell] tag] == eKeyImages)
 	{
 		NSArray *fileList = [m_CurrentViewer fileList];
         NSArray *roiList = [m_CurrentViewer roiList];
@@ -384,7 +399,7 @@ NSString *mediumTag[] = {@"Blue Film", @"Clear Film", @"Paper"};
 		}
 	}
 	
-	if( [[NSUserDefaults standardUserDefaults] boolForKey: @"autoAdjustPrintingFormat"])
+	if ([[NSUserDefaults standardUserDefaults] boolForKey: @"autoAdjustPrintingFormat"])
 	{
 		NSInteger index = 0, no;
 		do
@@ -396,9 +411,9 @@ NSString *mediumTag[] = {@"Blue Film", @"Clear Film", @"Paper"};
 		
 		NSMutableDictionary *currentPrinter = [[m_PrinterController selectedObjects] objectAtIndex: 0];
 		
-		if( no == 2)
+		if (no == 2)
 		{
-			if( [[filmOrientationTag[[[dict valueForKey: @"filmOrientationTag"] intValue]] uppercaseString] isEqualToString: @"PORTRAIT"])
+			if ([[filmOrientationTag[[[dict valueForKey: @"filmOrientationTag"] intValue]] uppercaseString] isEqualToString: @"PORTRAIT"])
 				[currentPrinter setObject: @"1" forKey:@"imageDisplayFormatTag"];
 			else
 				[currentPrinter setObject: @"2" forKey:@"imageDisplayFormatTag"];
@@ -410,9 +425,9 @@ NSString *mediumTag[] = {@"Blue Film", @"Clear Film", @"Paper"};
 		}
 	}
 	
-	if( no_of_images == 0)
+	if (no_of_images == 0)
         [m_pages setIntValue: 1];
-	else if( no_of_images % ipp == 0)
+	else if (no_of_images % ipp == 0)
         [m_pages setIntValue: no_of_images / ipp];
 	else
         [m_pages setIntValue: 1 + (no_of_images / ipp)];
@@ -420,7 +435,7 @@ NSString *mediumTag[] = {@"Blue Film", @"Clear Film", @"Paper"};
 
 - (IBAction) setExportMode:(id) sender
 {
-	if( [[sender selectedCell] tag] == eAllImages)
+	if ([[sender selectedCell] tag] == eAllImages)
         [self checkView: entireSeriesBox :YES];
 	else
         [self checkView: entireSeriesBox :NO];
@@ -448,149 +463,185 @@ NSString *mediumTag[] = {@"Blue Film", @"Clear Film", @"Paper"};
 {
     // show progress sheet
 	[self _setProgressMessage: nil];
-	[NSApp beginSheet: m_ProgressSheet modalForWindow: [self window] modalDelegate: self didEndSelector: nil contextInfo: nil];
+	[NSApp beginSheet: m_ProgressSheet
+       modalForWindow: [self window]
+        modalDelegate: self
+       didEndSelector: nil
+          contextInfo: nil];
 
 	// dictionary for selected printer
 	NSDictionary *dict = [[m_PrinterController selectedObjects] objectAtIndex: 0];
-
+    //NSLog(@"%s %d, dict:%@", __FUNCTION__, __LINE__, dict);
+    
+    //--------------------------------------------------------------------------
 	// printjob
-	NSXMLElement *printjob = [NSXMLElement elementWithName: @"printjob"];
-	NSXMLDocument *document = [NSXMLDocument documentWithRootElement: printjob];
-	[document setVersion: @"1.0"];
-	[document setCharacterEncoding: @"ISO-8859-1"];
-	[document setStandalone: YES];
+    NSMutableDictionary *printjobDict = [[NSMutableDictionary alloc] init];
 
+    //--------------------------------------------------------------------------
 	// association
-	NSXMLElement *association = [NSXMLElement elementWithName: @"association"];
-	[association addAttribute: [NSXMLNode attributeWithName: @"host" stringValue: [dict valueForKey: @"host"]]];
-	[association addAttribute: [NSXMLNode attributeWithName: @"port" stringValue: [dict valueForKey: @"port"]]];
-	NSString *aeTitle = [NSUserDefaults defaultAETitle];
-	if (!aeTitle)
-		aeTitle = @"OSIRIX_DICOM_PRINT";
-	[association addAttribute: [NSXMLNode attributeWithName: @"aetitle_sender" stringValue: aeTitle]];
-	[association addAttribute: [NSXMLNode attributeWithName: @"aetitle_receiver" stringValue: [dict valueForKey: @"aeTitle"]]];
-	if ([[dict valueForKey: @"colorPrint"] boolValue])
-		[association addAttribute: [NSXMLNode attributeWithName: @"colorprint" stringValue: @"YES"]];
-	[printjob addChild: association];
+    NSString *aeTitle = [NSUserDefaults defaultAETitle];
+    if (!aeTitle)
+        aeTitle = @"MIELE_LXIV_DICOM_PRINT";
 
+    NSMutableDictionary *associationDict = [[NSMutableDictionary alloc] init];
+    [associationDict setObject:[dict valueForKey: @"host"] forKey:@"host"];
+    [associationDict setObject:[dict valueForKey: @"port"] forKey:@"port"];
+    [associationDict setObject:aeTitle forKey:@"aetitle_sender"];
+    [associationDict setObject:[dict valueForKey: @"aeTitle"] forKey:@"aetitle_receiver"];
+    if ([[dict valueForKey: @"colorPrint"] boolValue])
+        [associationDict setObject:@"YES" forKey:@"colorprint"];
+    
+    //--------------------------------------------------------------------------
 	// filmsession
-	NSXMLElement *filmsession = [NSXMLElement elementWithName: @"filmsession"];
-	NSString *copies = [NSString stringWithFormat: @"%d", [[dict valueForKey: @"copies"] intValue]];
-	[filmsession addAttribute: [NSXMLNode attributeWithName: @"number_of_copies" stringValue: copies]];
-	[filmsession addAttribute: [NSXMLNode attributeWithName: @"print_priority" stringValue: priorityTag[ [[dict valueForKey: @"priorityTag"] intValue]]]];
-	[filmsession addAttribute: [NSXMLNode attributeWithName: @"medium_type" stringValue: [mediumTag[ [[dict valueForKey: @"mediumTag"] intValue]] uppercaseString]]];
-	[filmsession addAttribute: [NSXMLNode attributeWithName: @"film_destination" stringValue: [filmDestinationTag[[[dict valueForKey: @"filmDestinationTag"] intValue]] uppercaseString]]];
-	[association addChild: filmsession];
+    NSString *copies = [NSString stringWithFormat: @"%d", [[dict valueForKey: @"copies"] intValue]];
+    NSMutableDictionary *filmsessionDict = [[NSMutableDictionary alloc] init];
+    [filmsessionDict setObject:copies forKey:@"number_of_copies"];
+    [filmsessionDict setObject:priorityTag[ [[dict valueForKey: @"priorityTag"] intValue]] forKey:@"print_priority"];
+    [filmsessionDict setObject:[mediumTag[ [[dict valueForKey: @"mediumTag"] intValue]] uppercaseString] forKey:@"medium_type"];
+    [filmsessionDict setObject:[filmDestinationTag[[[dict valueForKey: @"filmDestinationTag"] intValue]] uppercaseString] forKey:@"film_destination"];
 
+    NSMutableArray *filmboxArray = [[NSMutableArray alloc] init];
+
+    //--------------------------------------------------------------------------
 	// filmbox
 	
 	// show alert, if displayFormat is invalid
-	if ([[formatPopUp menu] itemWithTag: [[dict valueForKey: @"imageDisplayFormatTag"] intValue]] == nil)
+    if ([[formatPopUp menu] itemWithTag: [[dict valueForKey: @"imageDisplayFormatTag"] intValue]] == nil) {
 		[self _setProgressMessage: NSLocalizedString( @"The Format you selected is not valid.", nil)];
-	else
-    {
-        NSMutableString *imageDisplayFormat = [NSMutableString stringWithString: imageDisplayFormatTag[[[dict valueForKey: @"imageDisplayFormatTag"] intValue]]];
-        [imageDisplayFormat replaceOccurrencesOfString: @" " withString: @"\\" options: 0 range: NSMakeRange(0, [imageDisplayFormat length])];
-        
-        int ipp = imageDisplayFormatNumbers[[[dict valueForKey: @"imageDisplayFormatTag"] intValue]];
-        int rows = imageDisplayFormatRows[[[dict valueForKey: @"imageDisplayFormatTag"] intValue]];
-        int columns = imageDisplayFormatColumns[[[dict valueForKey: @"imageDisplayFormatTag"] intValue]];
-        
-        NSString *pathDicomPrint = [NSTemporaryDirectory() stringByAppendingPathComponent:@"dicomPrint/"];
-        NSFileManager *fileManager = [NSFileManager defaultManager];
-        
-        // remove destination directory
-        if ([fileManager fileExistsAtPath: pathDicomPrint])
-            [fileManager removeFileAtPath: pathDicomPrint handler: nil];
-        
-        // create destination directory
-        if ([fileManager fileExistsAtPath: pathDicomPrint] ||
-            ![fileManager createDirectoryAtPath:pathDicomPrint withIntermediateDirectories:YES attributes:nil error:nil])
-        {
-            [self _setProgressMessage: NSLocalizedString( @"Can't write to temporary directory.", nil)];
-        }
-        else
-        {
-            int from = [entireSeriesFrom intValue]-1;
-            int to = [entireSeriesTo intValue];
-
-            if( to < from)
-            {
-                to = [entireSeriesFrom intValue];
-                from = [entireSeriesTo intValue]-1;
-            }
-
-            if( from < 0) from = 0;
-            if( to == from) to = from+1;
-
-            NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:
-                                     [NSNumber numberWithInt: columns], @"columns",
-                                     [NSNumber numberWithInt: rows], @"rows",
-                                     [NSNumber numberWithInt: [[m_ImageSelection selectedCell] tag]], @"mode",
-                                     [NSNumber numberWithInt: from], @"from",
-                                     [NSNumber numberWithInt: to], @"to",
-                                     [NSNumber numberWithInt: [entireSeriesInterval intValue]], @"interval",
-                                     nil];
-            
-            // collect images for printing
-            AYNSImageToDicom *dicomConverter = [[[AYNSImageToDicom alloc] init] autorelease];
-            NSArray *images = [dicomConverter dicomFileListForViewer: m_CurrentViewer destinationPath: pathDicomPrint options: options asColorPrint: [[dict valueForKey: @"colorPrint"] intValue] withAnnotations: NO];
-            
-            // check, if images were collected
-            if ([images count] == 0)
-                [self _setProgressMessage: NSLocalizedString( @"There are no images selected.", nil)];
-            else
-            {
-                for( int i = 0; i <= ([images count] - 1) / ipp; i++)
-                {
-                    NSXMLElement *filmbox = [NSXMLElement elementWithName: @"filmbox"];
-                    
-                    NSMutableString *filmSize = [NSMutableString stringWithString: filmSizeTag[[[dict valueForKey: @"filmSizeTag"] intValue]]];
-                    [filmSize replaceOccurrencesOfString: @" " withString: @"" options: 0 range: NSMakeRange(0, [filmSize length])];
-                    [filmSize replaceOccurrencesOfString: @"." withString: @"_" options: 0 range: NSMakeRange(0, [filmSize length])];
-
-                    [filmbox addAttribute: [NSXMLNode attributeWithName: @"image_display_format" stringValue: [imageDisplayFormat uppercaseString]]];
-                    [filmbox addAttribute: [NSXMLNode attributeWithName: @"film_orientation" stringValue: [filmOrientationTag[[[dict valueForKey: @"filmOrientationTag"] intValue]] uppercaseString]]];
-                    [filmbox addAttribute: [NSXMLNode attributeWithName: @"film_size_id" stringValue: [filmSize uppercaseString]]];
-
-                    [filmbox addAttribute: [NSXMLNode attributeWithName: @"border_density" stringValue: borderDensityTag[ [[dict valueForKey: @"borderDensityTag"] intValue]]]];
-                    [filmbox addAttribute: [NSXMLNode attributeWithName: @"empty_image_density" stringValue: emptyImageDensityTag[ [[dict valueForKey: @"emptyImageDensityTag"] intValue]]]];
-                    [filmbox addAttribute: [NSXMLNode attributeWithName: @"requested_resolution_id" stringValue: [dict valueForKey: @"requestedResolution"]]];
-                    [filmbox addAttribute: [NSXMLNode attributeWithName: @"magnification_type" stringValue: magnificationTypeTag[[[dict valueForKey: @"magnificationTypeTag"] intValue]]]];
-                    [filmbox addAttribute: [NSXMLNode attributeWithName: @"trim" stringValue: trimTag[[[dict valueForKey: @"trimTag"] intValue]]]];
-                    [filmbox addAttribute: [NSXMLNode attributeWithName: @"configuration_information" stringValue: [dict valueForKey: @"configurationInformation"]]];
-
-                    // imagebox
-                    int j, k = 1;
-                    for (j = i * ipp; j < MIN(i * ipp + ipp, [images count]); j++)
-                    {
-                        NSXMLElement *imagebox = [NSXMLElement elementWithName: @"imagebox"];
-                        
-                        [imagebox addAttribute: [NSXMLNode attributeWithName: @"image_file" stringValue: [images objectAtIndex: j]]];
-                        [imagebox addAttribute: [NSXMLNode attributeWithName: @"image_position" stringValue: [NSString stringWithFormat: @"%d", k++]]];
-                        
-                        if( [[images objectAtIndex: j] length] > 0)
-                            [filmbox addChild: imagebox];
-                    }
-
-                    [filmsession addChild: filmbox];
-                }
-
-                NSString *xmlPath = [NSString stringWithFormat: @"%@/printjob-%@.xml", pathDicomPrint, [[NSDate date] description]];
-                
-                if (![[document XMLData] writeToFile: xmlPath atomically: YES])
-                    [self _setProgressMessage: NSLocalizedString( @"Can't write to temporary directory.", nil)];
-                else
-                {
-                    // send printjob
-                    
-                    NSThread* t = [[[NSThread alloc] initWithTarget:self selector:@selector(_sendPrintjob:) object: xmlPath] autorelease];
-                    t.name = NSLocalizedString( @"DICOM Printing...", nil);
-                    [[ThreadsManager defaultManager] addThreadAndStart: t];
-                }
-            }
-        }
+        [self closeSheet: self];
+        return; ////////////////////////////////////////////////////////////////
     }
+
+    NSMutableString *imageDisplayFormat = [NSMutableString stringWithString: imageDisplayFormatTag[[[dict valueForKey: @"imageDisplayFormatTag"] intValue]]];
+    [imageDisplayFormat replaceOccurrencesOfString: @" " withString: @"\\" options: 0 range: NSMakeRange(0, [imageDisplayFormat length])];
+    
+    int ipp = imageDisplayFormatNumbers[[[dict valueForKey: @"imageDisplayFormatTag"] intValue]];
+    int rows = imageDisplayFormatRows[[[dict valueForKey: @"imageDisplayFormatTag"] intValue]];
+    int columns = imageDisplayFormatColumns[[[dict valueForKey: @"imageDisplayFormatTag"] intValue]];
+
+    NSString *pathDicomPrint = [NSTemporaryDirectory() stringByAppendingPathComponent:@"dicomPrint/"];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+
+    // remove destination directory
+    if ([fileManager fileExistsAtPath: pathDicomPrint])
+        [fileManager removeFileAtPath: pathDicomPrint handler: nil];
+
+    // create destination directory
+    if ([fileManager fileExistsAtPath: pathDicomPrint] ||
+        ![fileManager createDirectoryAtPath:pathDicomPrint withIntermediateDirectories:YES attributes:nil error:nil])
+    {
+        [self _setProgressMessage: NSLocalizedString( @"Can't write to temporary directory.", nil)];
+        [self closeSheet: self];
+        return; ////////////////////////////////////////////////////////////////
+    }
+
+    int from = [entireSeriesFrom intValue]-1;
+    int to = [entireSeriesTo intValue];
+
+    if (to < from)
+    {
+        to = [entireSeriesFrom intValue];
+        from = [entireSeriesTo intValue]-1;
+    }
+
+    if (from < 0) from = 0;
+    if (to == from) to = from+1;
+
+    NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:
+                             [NSNumber numberWithInt: columns], @"columns",
+                             [NSNumber numberWithInt: rows], @"rows",
+                             [NSNumber numberWithInt: [[m_ImageSelection selectedCell] tag]], @"mode",
+                             [NSNumber numberWithInt: from], @"from",
+                             [NSNumber numberWithInt: to], @"to",
+                             [NSNumber numberWithInt: [entireSeriesInterval intValue]], @"interval",
+                             nil];
+
+    // collect images for printing
+    AYNSImageToDicom *dicomConverter = [[[AYNSImageToDicom alloc] init] autorelease];
+    NSArray *images = [dicomConverter dicomFileListForViewer: m_CurrentViewer
+                                             destinationPath: pathDicomPrint
+                                                     options: options
+                                                asColorPrint: [[dict valueForKey: @"colorPrint"] intValue]
+                                             withAnnotations: NO];
+
+    // check, if images were collected
+    if ([images count] == 0) {
+        [self _setProgressMessage: NSLocalizedString( @"There are no images selected.", nil)];
+        [self closeSheet: self];
+        return; ////////////////////////////////////////////////////////////////
+    }
+
+    for (int i = 0; i <= ([images count] - 1) / ipp; i++)
+    {
+        NSMutableString *filmSize = [NSMutableString stringWithString: filmSizeTag[[[dict valueForKey: @"filmSizeTag"] intValue]]];
+        [filmSize replaceOccurrencesOfString: @" " withString: @"" options: 0 range: NSMakeRange(0, [filmSize length])];
+        [filmSize replaceOccurrencesOfString: @"." withString: @"_" options: 0 range: NSMakeRange(0, [filmSize length])];
+
+        NSMutableDictionary *filmboxDict = [[NSMutableDictionary alloc] init];
+        [filmboxDict setObject:[imageDisplayFormat uppercaseString] forKey:@"image_display_format"];
+        [filmboxDict setObject:[filmOrientationTag[[[dict valueForKey: @"filmOrientationTag"] intValue]] uppercaseString] forKey:@"film_orientation"];
+        [filmboxDict setObject:[filmSize uppercaseString] forKey:@"film_size_id"];
+        [filmboxDict setObject:borderDensityTag[[[dict valueForKey: @"borderDensityTag"] intValue]] forKey:@"border_density"];
+        [filmboxDict setObject:emptyImageDensityTag[[[dict valueForKey: @"emptyImageDensityTag"] intValue]] forKey:@"empty_image_density"];
+        if ([dict valueForKey: @"requestedResolution"])
+            [filmboxDict setObject:[dict valueForKey: @"requestedResolution"] forKey:@"requested_resolution_id"];
+        [filmboxDict setObject:magnificationTypeTag[[[dict valueForKey: @"magnificationTypeTag"] intValue]] forKey:@"magnification_type"];
+        [filmboxDict setObject:trimTag[[[dict valueForKey: @"trimTag"] intValue]] forKey:@"trim"];
+        if ([dict valueForKey: @"configurationInformation"])
+            [filmboxDict setObject:[dict valueForKey: @"configurationInformation"] forKey:@"configuration_information"];
+
+        NSMutableArray *imageboxArray = [NSMutableArray new];
+
+        //--------------------------------------------------------------------------
+        // imagebox
+        int k = 1;
+        for (int j = i * ipp; j < MIN(i * ipp + ipp, [images count]); j++)
+        {
+            NSMutableDictionary *imageboxDict = [[NSMutableDictionary alloc] init];
+            [imageboxDict setObject:[images objectAtIndex: j] forKey:@"image_file"];
+            [imageboxDict setObject:[NSString stringWithFormat: @"%d", k++] forKey:@"image_position"];
+            
+            if ([[images objectAtIndex: j] length] > 0) {
+//                [filmboxDict setObject:imageboxDict forKey:@"imagebox"];
+                [imageboxArray addObject:imageboxDict];
+            }
+        }
+
+        [filmboxDict setObject:imageboxArray forKey:@"imagebox"];
+        [filmboxArray addObject: filmboxDict];
+    }
+
+    [filmsessionDict setObject:filmboxArray forKey:@"filmbox"];
+    [associationDict setObject:filmsessionDict forKey:@"filmsession"];
+    [printjobDict setObject:associationDict forKey:@"association"];
+
+    NSString *timeStamp = [self currentTime];
+    NSError *error = nil;
+    NSData *jsonObject = [NSJSONSerialization dataWithJSONObject:printjobDict
+                                                         options:NSJSONWritingPrettyPrinted
+                                                           error:&error];
+    NSString *jsonStr = [[NSString alloc] initWithData:jsonObject encoding:NSUTF8StringEncoding];
+
+    NSString *jsonPath = [NSString stringWithFormat: @"%@/printjob-%@.json", pathDicomPrint, timeStamp];
+
+    BOOL success = [jsonStr writeToFile: jsonPath
+                             atomically: YES
+                               encoding: NSUTF8StringEncoding
+                                  error: &error];
+    if (!success) {
+        NSLog(@"Line %d Error: %@", __LINE__, [error userInfo]);
+        [self _setProgressMessage: NSLocalizedString( @"Can't write to temporary directory.", nil)];
+        [self closeSheet: self];
+        return; ////////////////////////////////////////////////////////////////
+    }
+
+    // send printjob
+    NSThread* t = [[[NSThread alloc] initWithTarget:self
+                                           selector:@selector(_sendPrintjob:)
+                                             object:jsonPath] autorelease];
+
+    t.name = NSLocalizedString( @"DICOM Printing...", nil);
+    [[ThreadsManager defaultManager] addThreadAndStart: t];
     
     [self closeSheet: self];
 }
@@ -605,47 +656,64 @@ NSString *mediumTag[] = {@"Blue Film", @"Clear Film", @"Paper"};
                             [msg objectAtIndex: 1]) ;
 }
 
-- (void) _sendPrintjob: (NSString *) xmlPath
+// It runs in a separate thread
+- (void) _sendPrintjob: (NSString *) jsonPath;
 {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	
-	[xmlPath retain];
 	
 	[printing lock];
 	
 	@try 
 	{
-		// dicom log path & basename
 		NSString *logPath = [NSHomeDirectory() stringByAppendingPathComponent:@"Library/Logs/AYDicomPrint"];
 		NSString *baseName = @"AYDicomPrint";
 
 		// create log directory, if it does not exist
 		NSFileManager *fileManager = [NSFileManager defaultManager];
 		if (![fileManager fileExistsAtPath: logPath])
+        {
 			[fileManager createDirectoryAtPath: logPath
-                   withIntermediateDirectories:YES
-                                    attributes:nil
-                                         error:nil];
+                   withIntermediateDirectories: YES
+                                    attributes: nil
+                                         error: nil];
+        }
 		
 		NSTask *theTask = [[NSTask alloc] init];
 		
-		[theTask setArguments: [NSArray arrayWithObjects: logPath, baseName, xmlPath, nil]];
-		[theTask setLaunchPath:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"/DICOMPrint"]];
+		[theTask setArguments: [NSArray arrayWithObjects: logPath, baseName, jsonPath, nil]];
+        NSString *launchPath = [[[NSBundle mainBundle] URLForAuxiliaryExecutable:@"DICOMPrint"] path];
+        //NSLog(@"%s %d, launchPath: %@", __FUNCTION__, __LINE__, launchPath);
+        [theTask setLaunchPath:launchPath];
 		[theTask launch];
-		while( [theTask isRunning]) [NSThread sleepForTimeInterval: 0.01];
-	//	[theTask waitUntilExit];	<- The problem with this: it calls the current running loop.... problems with current Lock !
+
+        while ([theTask isRunning])
+            [NSThread sleepForTimeInterval: 0.01];
+
+        //	[theTask waitUntilExit];	<- The problem with this: it calls the current running loop.... problems with current Lock !
 		
 		int status = [theTask terminationStatus];
 		[theTask release];
 
-		if (status != 0)
+		if (status != EXIT_SUCCESS)
 		{
-			[self performSelectorOnMainThread:@selector(errorMessage:) withObject:[NSArray arrayWithObjects: NSLocalizedString(@"Print failed", nil), NSLocalizedString(@"Couldn't print images.", nil), NSLocalizedString(@"OK", nil), nil] waitUntilDone:NO];
+            NSLog(@"%s %d, task termination status: %d", __FUNCTION__, __LINE__, status);
+			[self performSelectorOnMainThread:@selector(errorMessage:)
+                                   withObject:[NSArray arrayWithObjects:
+                                               NSLocalizedString(@"Print failed", nil),
+                                               NSLocalizedString(@"Couldn't print images.", nil),
+                                               NSLocalizedString(@"OK", nil),
+                                               nil]
+                                waitUntilDone:NO];
 		}
 
-		// remove temporary files
-		[[NSFileManager defaultManager] removeFileAtPath: [xmlPath stringByDeletingLastPathComponent] handler: nil];
-		
+#ifdef NDEBUG
+        // remove temporary files
+        [[NSFileManager defaultManager] removeFileAtPath: [jsonPath stringByDeletingLastPathComponent] handler: nil];
+#else
+        NSLog(@"%s %d, TODO: removeFileAtPath: %@", __FUNCTION__, __LINE__, [jsonPath stringByDeletingLastPathComponent]);
+        [[NSWorkspace sharedWorkspace] openFile: jsonPath];
+#endif
+
 	}
 	@catch (NSException * e) 
 	{
@@ -653,9 +721,6 @@ NSString *mediumTag[] = {@"Blue Film", @"Clear Film", @"Paper"};
 	}
 	
 	[printing unlock];
-	
-	[xmlPath release];
-	
 	[pool release];
 }
 
@@ -701,20 +766,29 @@ NSString *mediumTag[] = {@"Blue Film", @"Clear Film", @"Paper"};
         
         @try
         {
-            [self performSelectorOnMainThread: @selector( setVerifyButton:) withObject: @NO waitUntilDone: YES];
+            [self performSelectorOnMainThread: @selector( setVerifyButton:)
+                                   withObject: @NO
+                                waitUntilDone: YES];
             
-            for( NSMutableDictionary *printer in printers)
+            for (NSMutableDictionary *printer in printers)
             {
-                if( [self _verifyConnection: printer])
-                    [self performSelectorOnMainThread: @selector( setPrinterStateOn:) withObject: printer waitUntilDone: NO];
+                if ([self _verifyConnection: printer])
+                    [self performSelectorOnMainThread: @selector( setPrinterStateOn:)
+                                           withObject: printer
+                                        waitUntilDone: NO];
                 else
-                    [self performSelectorOnMainThread: @selector( setPrinterStateOff:) withObject: printer waitUntilDone: NO];
+                    [self performSelectorOnMainThread: @selector( setPrinterStateOff:)
+                                           withObject: printer
+                                        waitUntilDone: NO];
             }
         }
         @catch (NSException *exception) {
             N2LogException( exception);
         }
-        [self performSelectorOnMainThread: @selector( setVerifyButton:) withObject: @YES waitUntilDone: YES];
+
+        [self performSelectorOnMainThread: @selector( setVerifyButton:)
+                               withObject: @YES
+                            waitUntilDone: YES];
         
         [NSThread sleepForTimeInterval: 5];
         

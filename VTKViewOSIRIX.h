@@ -10,7 +10,7 @@
 
 #import "options.h"
 
-#include <vtkAutoInit.h>
+#include "vtkAutoInit.h"
 VTK_MODULE_INIT(vtkRenderingOpenGL2);
 VTK_MODULE_INIT(vtkRenderingVolumeOpenGL2);
 VTK_MODULE_INIT(vtkRenderingFreeType);
@@ -27,14 +27,15 @@ VTK_MODULE_INIT(vtkRenderingFreeType);
 #include "vtkCocoaRenderWindow.h"
 #undef id
 #else
+/*
 typedef char* vtkCocoaWindow;
 typedef char* vtkRenderer;
 typedef char* vtkRenderWindow;
 typedef char* vtkRenderWindowInteractor;
 typedef char* vtkCocoaRenderWindowInteractor;
 typedef char* vtkCocoaRenderWindow;
+ */
 #endif
-
 
 /** \brief View for using VTK */
 @interface VTKView : vtkCocoaGLView

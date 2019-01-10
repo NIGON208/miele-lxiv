@@ -17,7 +17,7 @@
 #include "options.h"
 #include "url.h"
 #import "tmp_locations.h"
-#import "DCM Framework/DCMUIDs.h"
+#import <DCM/DCMUIDs.h>
 
 #ifndef OSIRIX_LIGHT
 #include "FVTiff.h"
@@ -28,9 +28,9 @@
 #import "DICOMFiles/dicomFile.h"
 #import "ViewerController.h"
 #import "PluginFileFormatDecoder.h"
-#import "DCM Framework/DCMCalendarDate.h"
-#import "DCM Framework/DCMAbstractSyntaxUID.h"
-#import "DCM Framework/DCMSequenceAttribute.h"
+#import <DCM/DCMCalendarDate.h>
+#import <DCM/DCMAbstractSyntaxUID.h>
+#import <DCM/DCMSequenceAttribute.h>
 #import "DICOMToNSString.h"
 #import "DefaultsOsiriX.h"
 
@@ -1954,9 +1954,12 @@ char* replaceBadCharacter (char* str, NSStringEncoding encoding)
 	
 	if( [[NSFileManager defaultManager] fileExistsAtPath: htmlpath] == NO)
 	{
-		NSTask *aTask = [[[NSTask alloc] init] autorelease];		
-		[aTask setEnvironment:[NSDictionary dictionaryWithObject:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"/dicom.dic"] forKey:@"DCMDICTPATH"]];
-		[aTask setLaunchPath: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"/dsr2html"]];
+		NSTask *aTask = [[[NSTask alloc] init] autorelease];
+
+        NSString *dicPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"dicom.dic"];
+        [aTask setEnvironment:[NSDictionary dictionaryWithObject:dicPath forKey:@"DCMDICTPATH"]];
+
+        [aTask setLaunchPath: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"dsr2html"]];
 		[aTask setArguments: [NSArray arrayWithObjects:
                               @"+X1",
                               @"--unknown-relationship",
@@ -1976,10 +1979,11 @@ char* replaceBadCharacter (char* str, NSStringEncoding encoding)
 	
 	if( [[NSFileManager defaultManager] fileExistsAtPath: [htmlpath stringByAppendingPathExtension: @"pdf"]] == NO)
 	{
-        if( [[NSFileManager defaultManager] fileExistsAtPath: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"/Decompress"]])
+        NSString *launchPath = [[[NSBundle mainBundle] URLForAuxiliaryExecutable:@"Decompress"] path];
+        if( [[NSFileManager defaultManager] fileExistsAtPath: launchPath])
         {
             NSTask *aTask = [[[NSTask alloc] init] autorelease];
-            [aTask setLaunchPath: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"/Decompress"]];
+            [aTask setLaunchPath: launchPath];
             [aTask setArguments: [NSArray arrayWithObjects: htmlpath, @"pdfFromURL", nil]];		
             [aTask launch];
             NSTimeInterval start = [NSDate timeIntervalSinceReferenceDate];

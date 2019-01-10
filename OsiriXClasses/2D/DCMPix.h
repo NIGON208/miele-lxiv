@@ -23,6 +23,14 @@
 
 #define ORIENTATION_SENSIBILITY 0.001
 
+typedef NS_ENUM(NSUInteger, StackType) {
+    STACK_MODE_MEAN = 1,
+    STACK_MODE_MAXIMUM_IP = 2,
+    STACK_MODE_MINIMUM_IP = 3,
+    STACK_MODE_VOLUME_RENDERING = 4,
+    STACK_MODE_TBD = 5   // what mode is this, another volume rendering ?
+};
+
 typedef struct {
    double x,y,z;
 } XYZ;
@@ -42,7 +50,6 @@ extern XYZ ArbitraryRotate(XYZ p,double theta,XYZ r);
 #ifdef __cplusplus
 }
 #endif /*cplusplus*/
-
 
 @class ROI;
 @class ThickSlabController;
@@ -67,7 +74,9 @@ extern XYZ ArbitraryRotate(XYZ p,double theta,XYZ r);
     
 	NSArray				*pixArray;
     NSManagedObjectID	*imageObjectID;	/**< Core data object ID for image */
-	float				*fImage /**< float buffer of image Data */, *fExternalOwnedImage;  /**< float buffer of image Data - provided by another source, not owned by this object, not release by this object */
+    
+	float				*fImage /**< float buffer of image Data */;
+    float               *fExternalOwnedImage;  /**< float buffer of image Data - provided by another source, not owned by this object, not release by this object */
 	
 //DICOM TAGS
 
@@ -665,7 +674,6 @@ Note setter is different to not break existing usage. :-( */
 
 /** Creates a DCMPix with the original values and places it in the restore cache*/
 - (void) prepareRestore;
-
 
 /** Releases the restored DCMPix from the restoreCache */
 - (void) freeRestore;

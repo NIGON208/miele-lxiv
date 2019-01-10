@@ -28,6 +28,6 @@
 @interface NSURL (N2)
 
 -(N2URLParts*)parts;
-+(NSURL*)URLWithParts:(N2URLParts*)parts;
+//+(NSURL*)URLWithParts:(N2URLParts*)parts;
 
 @end

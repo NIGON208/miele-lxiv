@@ -162,7 +162,7 @@ static NSString*	PathAssistantToolbarItemIdentifier		= @"PathAssistant";
 
 - (void) setCameraRepresentation: (NSNotification*) note
 {
-	if([note object]==[vrController view])
+	if ([note object]==[vrController view])
 	{
 		[self setCameraRepresentation];
 	}
@@ -378,21 +378,21 @@ static NSString*	PathAssistantToolbarItemIdentifier		= @"PathAssistant";
 - (void) changeFocalPoint: (NSNotification*) note
 {
 	EndoscopyMPRView *sender = [note object];
-	if([sender isEqualTo:[mprController originalView]])
+	if ([sender isEqualTo:[mprController originalView]])
 	{
 		[(EndoscopyMPRView*)[mprController xReslicedView] setFocalShiftX:[sender focalShiftX]];
 		[(EndoscopyMPRView*)[mprController yReslicedView] setFocalShiftX:[sender focalShiftY]];
 		[[mprController xReslicedView] setNeedsDisplay:YES];
 		[[mprController yReslicedView] setNeedsDisplay:YES];
 	}
-	else if([sender isEqualTo:[mprController xReslicedView]])
+	else if ([sender isEqualTo:[mprController xReslicedView]])
 	{
 		[(EndoscopyMPRView*)[mprController originalView] setFocalShiftX:[sender focalShiftX]];
 		[(EndoscopyMPRView*)[mprController yReslicedView] setFocalShiftY:[sender focalShiftY]];
 		[[mprController originalView] setNeedsDisplay:YES];
 		[[mprController yReslicedView] setNeedsDisplay:YES];
 	}
-	else if([sender isEqualTo:[mprController yReslicedView]])
+	else if ([sender isEqualTo:[mprController yReslicedView]])
 	{
 		[(EndoscopyMPRView*)[mprController originalView] setFocalShiftY:[sender focalShiftX]];
 		[(EndoscopyMPRView*)[mprController xReslicedView] setFocalShiftY:[sender focalShiftY]];
@@ -505,7 +505,7 @@ static NSString*	PathAssistantToolbarItemIdentifier		= @"PathAssistant";
 
 - (IBAction) change2DTool:(id) sender
 {
-	if( [sender tag] >= 0)
+	if ([sender tag] >= 0)
     {
 		[tools2DMatrix selectCellWithTag: [[sender selectedCell] tag]];
 		[mprController setCurrentTool: (ToolMode)[[sender selectedCell] tag]];
@@ -519,7 +519,7 @@ static NSString*	PathAssistantToolbarItemIdentifier		= @"PathAssistant";
 
 - (IBAction) change3DTool:(id) sender
 {
-	if( [sender tag] >= 0)
+	if ([sender tag] >= 0)
     {
 		[tools3DMatrix selectCellWithTag: [[sender selectedCell] tag]];
 		[vrController setCurrentTool: (ToolMode)[[sender selectedCell] tag]];
@@ -600,11 +600,11 @@ static NSString*	PathAssistantToolbarItemIdentifier		= @"PathAssistant";
 
 - (void) ApplyWLWW:(id) sender
 {
-	if([[sender menu] isEqualTo: [[vrController wlwwPopup] menu]])
+	if ([[sender menu] isEqualTo: [[vrController wlwwPopup] menu]])
 	{
 		[vrController ApplyWLWW:sender];
 	}
-	else if([[sender menu] isEqualTo: [wlww2DPopup menu]])
+	else if ([[sender menu] isEqualTo: [wlww2DPopup menu]])
 	{
 //		[mprController ApplyWLWW:sender];
 	}
@@ -612,11 +612,11 @@ static NSString*	PathAssistantToolbarItemIdentifier		= @"PathAssistant";
 
 - (void) ApplyCLUT:(id) sender
 {
-	if([[sender menu] isEqualTo: [[vrController clutPopup] menu]])
+	if ([[sender menu] isEqualTo: [[vrController clutPopup] menu]])
 	{
 		[vrController ApplyCLUT:sender];
 	}
-	else if([[sender menu] isEqualTo: [clut2DPopup menu]])
+	else if ([[sender menu] isEqualTo: [clut2DPopup menu]])
 	{
 		[self Apply2DCLUT:sender];
 	}
@@ -624,7 +624,7 @@ static NSString*	PathAssistantToolbarItemIdentifier		= @"PathAssistant";
 
 - (void) ApplyOpacity:(id) sender
 {
-	if([[sender menu] isEqualTo: [[vrController OpacityPopup] menu]])
+	if ([[sender menu] isEqualTo: [[vrController OpacityPopup] menu]])
 	{
 		[vrController ApplyOpacity:sender];
 	}
@@ -704,15 +704,15 @@ static NSString*	PathAssistantToolbarItemIdentifier		= @"PathAssistant";
 {
 	cur2DWLWWMenu = [sender title];
 
-	if( [[sender title] isEqualToString:NSLocalizedString(@"Other", nil)])
+	if ([[sender title] isEqualToString:NSLocalizedString(@"Other", nil)])
 	{
 		//[imageView setWLWW:0 :0];
 	}
-	else if( [[sender title] isEqualToString:NSLocalizedString(@"Default WL & WW", nil)])
+	else if ([[sender title] isEqualToString:NSLocalizedString(@"Default WL & WW", nil)])
 	{
 		[self set2DWLWW:[[[mprController originalView] curDCM] savedWL] :[[[mprController originalView] curDCM] savedWW]];
 	}
-	else if( [[sender title] isEqualToString:NSLocalizedString(@"Full dynamic", nil)])
+	else if ([[sender title] isEqualToString:NSLocalizedString(@"Full dynamic", nil)])
 	{
 		[self set2DWLWW:0 :0];
 	}
@@ -747,7 +747,7 @@ static NSString*	PathAssistantToolbarItemIdentifier		= @"PathAssistant";
 	
 //	for( i = 0; i < maxMovieIndex; i++)
 	{
-		if( [v pixList] == pixList)
+		if ([v pixList] == pixList)
 		{
 			[[self window] close];
 			return;
@@ -784,14 +784,14 @@ static NSString*	PathAssistantToolbarItemIdentifier		= @"PathAssistant";
 	NSSplitView	*currentSplitView = [aNotification object];
 	NSArray	*subviews = [currentSplitView subviews];
 	
-	if( [subviews count] > 1)
+	if ([subviews count] > 1)
 	{
 		NSRect	rect1, rect2, old_rect1, old_rect2;
 		
 		rect1 = [[subviews objectAtIndex:0] frame];
 		rect2 = [[subviews objectAtIndex:1] frame];
 		
-		if([currentSplitView isEqual:bottomSplitView])
+		if ([currentSplitView isEqual:bottomSplitView])
 		{
 			subviews = [topSplitView subviews];
 			old_rect1 = [[subviews objectAtIndex:0] frame];
@@ -855,15 +855,15 @@ static NSString*	PathAssistantToolbarItemIdentifier		= @"PathAssistant";
 			
 			NSImage *im = [item image];
 			
-			if( im == nil)
+			if (im == nil)
 			{
 				@try
 				{
-					if( [item respondsToSelector:@selector(setRecursiveEnabled:)])
+					if ([item respondsToSelector:@selector(setRecursiveEnabled:)])
 						[item setRecursiveEnabled: YES];
-					else if( [[item view] respondsToSelector:@selector(setRecursiveEnabled:)])
+					else if ([[item view] respondsToSelector:@selector(setRecursiveEnabled:)])
 						[[item view] setRecursiveEnabled: YES];
-					else if( item)
+					else if (item)
 						NSLog( @"%@", item);
 						
 					im = [[item view] screenshotByCreatingPDF];
@@ -874,7 +874,7 @@ static NSString*	PathAssistantToolbarItemIdentifier		= @"PathAssistant";
 				}
 			}
 			
-			if( im)
+			if (im)
 			{
 				NSBitmapImageRep *bits = [[[NSBitmapImageRep alloc] initWithData:[im TIFFRepresentation]] autorelease];
 				
@@ -906,7 +906,7 @@ static NSString*	PathAssistantToolbarItemIdentifier		= @"PathAssistant";
     // The toolbar will use this method to obtain toolbar items that can be displayed in the customization sheet, or in the toolbar itself 
     NSToolbarItem *toolbarItem = [[[NSToolbarItem alloc] initWithItemIdentifier: itemIdent] autorelease];
  
-	if([itemIdent isEqualToString: endo3DToolsToolbarItemIdentifier])
+	if ([itemIdent isEqualToString: endo3DToolsToolbarItemIdentifier])
 	{
 		// Set up the standard properties 
 		[toolbarItem setLabel: NSLocalizedString(@"3D Mouse button function",nil)];
@@ -917,7 +917,7 @@ static NSString*	PathAssistantToolbarItemIdentifier		= @"PathAssistant";
 		[toolbarItem setMinSize:NSMakeSize(NSWidth([tools3DView frame]), NSHeight([tools3DView frame]))];
 		[toolbarItem setMaxSize:NSMakeSize(NSWidth([tools3DView frame]),NSHeight([tools3DView frame]))];
     }
-	else if([itemIdent isEqualToString: endoMPRToolsToolbarItemIdentifier])
+	else if ([itemIdent isEqualToString: endoMPRToolsToolbarItemIdentifier])
 	{
 		// Set up the standard properties 
 		[toolbarItem setLabel: NSLocalizedString(@"MPR Mouse button function",nil)];
@@ -928,7 +928,7 @@ static NSString*	PathAssistantToolbarItemIdentifier		= @"PathAssistant";
 		[toolbarItem setMinSize:NSMakeSize(NSWidth([tools2DView frame]), NSHeight([tools2DView frame]))];
 		[toolbarItem setMaxSize:NSMakeSize(NSWidth([tools2DView frame]),NSHeight([tools2DView frame]))];
     }
-	else if([itemIdent isEqualToString: FlyThruToolbarItemIdentifier])
+	else if ([itemIdent isEqualToString: FlyThruToolbarItemIdentifier])
 	{
 		// Set up the standard properties 
 		[toolbarItem setLabel: NSLocalizedString(@"Fly Thru",nil)];
@@ -960,7 +960,7 @@ static NSString*	PathAssistantToolbarItemIdentifier		= @"PathAssistant";
 		[toolbarItem setTarget: [vrController view]];
 		[toolbarItem setAction: @selector(showCropCube:)];
     }
-	else if([itemIdent isEqualToString: WLWW3DToolbarItemIdentifier])
+	else if ([itemIdent isEqualToString: WLWW3DToolbarItemIdentifier])
 	{
 		// Set up the standard properties 
 		[toolbarItem setLabel: NSLocalizedString(@"3D WL/WW & CLUT & Opacity",nil)];
@@ -974,7 +974,7 @@ static NSString*	PathAssistantToolbarItemIdentifier		= @"PathAssistant";
 		
         [[[vrController wlwwPopup] cell] setUsesItemFromMenu:YES];
     }
-	else if([itemIdent isEqualToString: WLWW2DToolbarItemIdentifier])
+	else if ([itemIdent isEqualToString: WLWW2DToolbarItemIdentifier])
 	{
 		// Set up the standard properties 
 		[toolbarItem setLabel: NSLocalizedString(@"MPR WL/WW & CLUT & Opacity",nil)];
@@ -1009,7 +1009,7 @@ static NSString*	PathAssistantToolbarItemIdentifier		= @"PathAssistant";
 		[toolbarItem setView: shadingView];
 		[toolbarItem setMinSize:NSMakeSize(NSWidth([shadingView frame]), NSHeight([shadingView frame]))];
     }
-//	else if([itemIdent isEqualToString: CenterlineToolbarItemIdentifier])
+//	else if ([itemIdent isEqualToString: CenterlineToolbarItemIdentifier])
 //	{
 //		// Set up the standard properties 
 //		[toolbarItem setLabel: NSLocalizedString(@"Centerline",nil)];
@@ -1020,7 +1020,7 @@ static NSString*	PathAssistantToolbarItemIdentifier		= @"PathAssistant";
 //		[toolbarItem setTarget: self];
 //		[toolbarItem setAction: @selector(centerline:)];	
 //    }
-	else if([itemIdent isEqualToString: LODToolbarItemIdentifier])
+	else if ([itemIdent isEqualToString: LODToolbarItemIdentifier])
 	{
 		// Set up the standard properties 
 		[toolbarItem setLabel: NSLocalizedString(@"Level of Detail",nil)];
@@ -1052,13 +1052,13 @@ static NSString*	PathAssistantToolbarItemIdentifier		= @"PathAssistant";
 			toolbarItem = nil;
 		}
     
-    for (id key in [PluginManager plugins])
+    for (id key in [PluginManager installedPlugins])
     {
-        if ([[[PluginManager plugins] objectForKey:key] respondsToSelector:@selector(toolbarItemForItemIdentifier:forViewer:)])
+        if ([[[PluginManager installedPlugins] objectForKey:key] respondsToSelector:@selector(toolbarItemForItemIdentifier:forViewer:)])
         {
-            NSToolbarItem *item = [[[PluginManager plugins] objectForKey:key] toolbarItemForItemIdentifier: itemIdent forViewer: self];
+            NSToolbarItem *item = [[[PluginManager installedPlugins] objectForKey:key] toolbarItemForItemIdentifier: itemIdent forViewer: self];
             
-            if( item)
+            if (item)
                 toolbarItem = item;
         }
     }
@@ -1103,10 +1103,10 @@ static NSString*	PathAssistantToolbarItemIdentifier		= @"PathAssistant";
 											PathAssistantToolbarItemIdentifier,
 											nil];
     
-    for (id key in [PluginManager plugins])
+    for (id key in [PluginManager installedPlugins])
     {
-        if ([[[PluginManager plugins] objectForKey:key] respondsToSelector:@selector(toolbarAllowedIdentifiersForViewer:)])
-            [array addObjectsFromArray: [[[PluginManager plugins] objectForKey:key] toolbarAllowedIdentifiersForViewer: self]];
+        if ([[[PluginManager installedPlugins] objectForKey:key] respondsToSelector:@selector(toolbarAllowedIdentifiersForViewer:)])
+            [array addObjectsFromArray: [[[PluginManager installedPlugins] objectForKey:key] toolbarAllowedIdentifiersForViewer: self]];
     }
     
     return array;
@@ -1150,7 +1150,7 @@ return YES;
 
 - (IBAction) setExportAllViews: (id) sender
 {
-	if([[sender class] isEqual:[NSButton class]])
+	if ([[sender class] isEqual:[NSButton class]])
 		exportAllViews = ([sender state] == NSOnState); // for the fly thru: it's a check box
 	else
 		exportAllViews = ([sender selectedTag] == 0); // for the DICOM export sheet: it's a matrix with 2 radio buttons
@@ -1179,7 +1179,7 @@ return YES;
 				
 		// let's write the file on the disk
 		
-		if(dataPtr)
+		if (dataPtr)
 		{
 			[exportDCM setSourceFile: [[[mprController originalView] curDCM] sourceFile]];
 			[exportDCM setSeriesDescription: [exportDCMSeriesName stringValue]];
@@ -1187,9 +1187,13 @@ return YES;
 			[exportDCM setPixelData: dataPtr samplesPerPixel:spp bitsPerSample:bpp width: width height: height];
 			
 			NSString *f = [exportDCM writeDCMFile: nil];
-			if( f == nil)
-                NSRunCriticalAlertPanel( NSLocalizedString(@"Error", nil),  NSLocalizedString( @"Error during the creation of the DICOM File!", nil), NSLocalizedString(@"OK", nil), nil, nil);
-			if( f)
+			if (f == nil)
+                NSRunCriticalAlertPanel(NSLocalizedString(@"Error", nil),
+                                        NSLocalizedString( @"Error during the creation of the DICOM File!", nil),
+                                        NSLocalizedString(@"OK", nil),
+                                        nil,
+                                        nil);
+			if (f)
 				[producedFiles addObject: [NSDictionary dictionaryWithObjectsAndKeys: f, @"file", nil]];
 			
 			free(dataPtr);
@@ -1205,7 +1209,7 @@ return YES;
         [producedFiles addObject: [view exportDCMCurrentImageIn16bit: NO]];
 	}
 	
-	if( [producedFiles count])
+	if ([producedFiles count])
 	{
 		NSArray *objects = [BrowserController.currentBrowser.database addFilesAtPaths: [producedFiles valueForKey: @"file"]
                                                                     postNotifications: YES
@@ -1215,10 +1219,10 @@ return YES;
 		
         objects = [BrowserController.currentBrowser.database objectsWithIDs: objects];
         
-		if( [[NSUserDefaults standardUserDefaults] boolForKey: @"afterExportSendToDICOMNode"])
+		if ([[NSUserDefaults standardUserDefaults] boolForKey: @"afterExportSendToDICOMNode"])
 			[[BrowserController currentBrowser] selectServer: objects];
 		
-		if( [[NSUserDefaults standardUserDefaults] boolForKey: @"afterExportMarkThemAsKeyImages"])
+		if ([[NSUserDefaults standardUserDefaults] boolForKey: @"afterExportMarkThemAsKeyImages"])
 		{
 			for( NSManagedObject *im in objects)
 				[im setValue: @YES forKey: @"isKeyImage"];
@@ -1261,7 +1265,7 @@ return YES;
 	// append the 4 views into one memory block
 	//long	width, height, spp, bpp;
 	
-	if( widthSag+width3D > widthAx+widthCor) *width = widthSag+width3D;
+	if (widthSag+width3D > widthAx+widthCor) *width = widthSag+width3D;
 	else *width = widthAx+widthCor;
 	
 	*height = heightAx+heightSag;
@@ -1337,7 +1341,7 @@ return YES;
 	[pathAssistantSetPointBButton setEnabled:YES];
 	[pathAssistantExportToFlyThruButton setEnabled:NO];
 	
-	if(!pointA)
+	if (!pointA)
 		pointA = [[Point3D alloc] init];
 	pointA.x = [(EndoscopyMPRView*)[mprController originalView] crossPositionX];
 	pointA.y = [(EndoscopyMPRView*)[mprController originalView] crossPositionY];
@@ -1350,7 +1354,7 @@ return YES;
 	[pathAssistantLookBackButton setState:NSOffState];
 	[pathAssistantExportToFlyThruButton setEnabled:YES];
 	
-	if(!pointB)
+	if (!pointB)
 		pointB = [[Point3D alloc] init];
 	pointB.x = [(EndoscopyMPRView*)[mprController originalView] crossPositionX];
 	pointB.y = [(EndoscopyMPRView*)[mprController originalView] crossPositionY];
@@ -1372,7 +1376,7 @@ return YES;
 		OSIVoxel * fpos = [centerline objectAtIndex:4];
 		[self setCameraPosition:cpos focalPoint:fpos];
 	}
-	else if(err == ERROR_NOENOUGHMEM)
+	else if (err == ERROR_NOENOUGHMEM)
 	{
 		NSRunAlertPanel(@"", //NSLocalizedString(@"32-bit", nil),
                         NSLocalizedString(@"Path Assistant can not allocate enough memory, try to increase the resample voxel size in the settings.", nil),
@@ -1380,11 +1384,15 @@ return YES;
                         nil,
                         nil);
 	}
-	else if(err == ERROR_CANNOTFINDPATH)
+	else if (err == ERROR_CANNOTFINDPATH)
 	{
-		NSRunAlertPanel(NSLocalizedString(@"Can't find path", nil), NSLocalizedString(@"Path Assistant can not find a path from A to B.", nil), NSLocalizedString(@"OK", nil), nil, nil);
+		NSRunAlertPanel(NSLocalizedString(@"Can't find path", nil),
+                        NSLocalizedString(@"Path Assistant can not find a path from A to B.", nil),
+                        NSLocalizedString(@"OK", nil),
+                        nil,
+                        nil);
 	}
-	else if(err==ERROR_DISTTRANSNOTFINISH)
+	else if (err==ERROR_DISTTRANSNOTFINISH)
 	{
 		waiting = [[WaitRendering alloc] init:NSLocalizedString(@"Distance Transform...", nil)];
 		[waiting showWindow:self];
@@ -1398,14 +1406,22 @@ return YES;
 		}
 		[waiting close];
 		[waiting autorelease];
-		if(err==ERROR_CANNOTFINDPATH)
+		if (err==ERROR_CANNOTFINDPATH)
 		{
-			NSRunAlertPanel(NSLocalizedString(@"Can't find path", nil), NSLocalizedString(@"Path Assistant can not find a path from current location.", nil), NSLocalizedString(@"OK", nil), nil, nil);
+			NSRunAlertPanel(NSLocalizedString(@"Can't find path", nil),
+                            NSLocalizedString(@"Path Assistant can not find a path from current location.", nil),
+                            NSLocalizedString(@"OK", nil),
+                            nil,
+                            nil);
 			return;
 		}
-		else if(err==ERROR_DISTTRANSNOTFINISH)
+		else if (err==ERROR_DISTTRANSNOTFINISH)
 		{
-			NSRunAlertPanel(NSLocalizedString(@"Unexpected error", nil), NSLocalizedString(@"Path Assistant failed to initialize!", nil), NSLocalizedString(@"OK", nil), nil, nil);
+			NSRunAlertPanel(NSLocalizedString(@"Unexpected error", nil),
+                            NSLocalizedString(@"Path Assistant failed to initialize!", nil),
+                            NSLocalizedString(@"OK", nil),
+                            nil,
+                            nil);
 			return;
 		}
 	}
@@ -1454,7 +1470,7 @@ return YES;
 
 - (IBAction)pathAssistantChangeMode:(id)sender;
 {
-	if([sender selectedRow]==0)
+	if ([sender selectedRow]==0)
 	{
 		isFlyPathLocked = NO;
 		[pathAssistantBasicModeButton setEnabled:YES];
@@ -1462,13 +1478,13 @@ return YES;
 		[pathAssistantSetPointAButton setEnabled:NO];
 		[pathAssistantSetPointBButton setEnabled:NO];
 		[pathAssistantExportToFlyThruButton setEnabled:NO];
-		if([centerline count])
+		if ([centerline count])
 		{
 			[self flyThruAssistantGoBackward:nil];
 		}
 		flyAssistantMode = NAVIGATORMODE_BASIC;
 	}
-	else if([sender selectedRow]==1){
+	else if ([sender selectedRow]==1){
 		[pathAssistantBasicModeButton setEnabled:NO];
 		[pathAssistantBasicModeButton setTitle:@"Lock Path"];
 		[pathAssistantSetPointAButton setEnabled:YES];
@@ -1483,16 +1499,16 @@ return YES;
 {
 	[self flyThruControllerInit:sender];	
 	
-	if(flyAssistantMode == NAVIGATORMODE_2POINT || isFlyPathLocked)
+	if (flyAssistantMode == NAVIGATORMODE_2POINT || isFlyPathLocked)
 	{
 		int numberOfPointsInCenterline = [centerline count];
 		int increment = 1;
 		
-		if(numberOfPointsInCenterline<=30)
+		if (numberOfPointsInCenterline<=30)
 		{
 			increment = 1;
 		}
-		else if(numberOfPointsInCenterline<=100)
+		else if (numberOfPointsInCenterline<=100)
 		{
 			increment = 2;
 		}
@@ -1531,9 +1547,9 @@ return YES;
 
 - (void)windowWillCloseNotificationSelector:(NSNotification*)notification
 {
-	if([notification object]==pathAssistantPanel)
+	if ([notification object]==pathAssistantPanel)
 	{
-		if(assistantSettingPanel)
+		if (assistantSettingPanel)
 		{
 			[assistantSettingPanel close];
 		}
@@ -1560,16 +1576,16 @@ return YES;
 	spacing[0]=[firstObject pixelSpacingX];
 	spacing[1]=[firstObject pixelSpacingY];
 	float sliceThickness = [firstObject sliceInterval];   
-	if( sliceThickness == 0)
+	if (sliceThickness == 0)
 	{
 		NSLog(@"Slice interval = slice thickness!");
 		sliceThickness = [firstObject sliceThickness];
 	}
 	spacing[2]=sliceThickness;
 	float resamplesize=spacing[0];
-	if(dim[0]>256 || dim[1]>256)
+	if (dim[0]>256 || dim[1]>256)
 	{
-		if(spacing[0]*(float)dim[0]>spacing[1]*(float)dim[1])
+		if (spacing[0]*(float)dim[0]>spacing[1]*(float)dim[1])
 			resamplesize = spacing[0]*(float)dim[0]/256.0;
 		else {
 			resamplesize = spacing[1]*(float)dim[1]/256.0;
@@ -1579,7 +1595,7 @@ return YES;
 	
 	assistant = [[FlyAssistant alloc] initWithVolume:assistantInputData WidthDimension:dim Spacing:spacing ResampleVoxelSize:resamplesize];
 	centerlineResampleStepLength = 3.0; //mm
-	if(assistant)
+	if (assistant)
 	{
 		//[assistant setThreshold:-600.0 Asynchronous:YES];
 		
@@ -1629,9 +1645,10 @@ return YES;
 }
 - (IBAction) applyNewSettingForFlyAssistant:(id) sender
 {
-	if(assistant)
+	if (assistant)
 		[assistant release];
-	int dim[3];
+
+    int dim[3];
 	DCMPix* firstObject = [pixList objectAtIndex:0];
 	dim[0] = [firstObject pwidth];
 	dim[1] = [firstObject pheight];
@@ -1640,7 +1657,7 @@ return YES;
 	spacing[0]=[firstObject pixelSpacingX];
 	spacing[1]=[firstObject pixelSpacingY];
 	float sliceThickness = [firstObject sliceInterval];   
-	if( sliceThickness == 0)
+	if (sliceThickness == 0)
 	{
 		NSLog(@"Slice interval = slice thickness!");
 		sliceThickness = [firstObject sliceThickness];
@@ -1650,7 +1667,7 @@ return YES;
 	assistant = [[FlyAssistant alloc] initWithVolume:assistantInputData WidthDimension:dim Spacing:spacing ResampleVoxelSize:resamplesize];
 	float threshold = [assistantPanelTextThreshold floatValue];
 	centerlineResampleStepLength = [assistantPanelTextStepLength floatValue];
-	if(assistant)
+	if (assistant)
 	{
 		WaitRendering* waiting = [[WaitRendering alloc] init:NSLocalizedString(@"Distance Transform...", nil)];
 		[waiting showWindow:self];
@@ -1669,9 +1686,9 @@ return YES;
 }
 - (void) flyThruAssistantGoForward: (NSNotification*)note
 {
-	if(flyAssistantMode == NAVIGATORMODE_2POINT || isFlyPathLocked)
+	if (flyAssistantMode == NAVIGATORMODE_2POINT || isFlyPathLocked)
 	{
-		if(flyAssistantPositionIndex + 1 < [centerline count])
+		if (flyAssistantPositionIndex + 1 < [centerline count])
 		{
 			OSIVoxel* cpos = [centerline objectAtIndex:flyAssistantPositionIndex];
 			OSIVoxel * fpos = [centerline objectAtIndex:flyAssistantPositionIndex+1];
@@ -1680,7 +1697,7 @@ return YES;
 		}
 		
 	}
-	else if(flyAssistantMode == NAVIGATORMODE_BASIC && isFlyPathLocked==NO)
+	else if (flyAssistantMode == NAVIGATORMODE_BASIC && isFlyPathLocked==NO)
 	{
 		Point3D* pt = [Point3D point];
 		Point3D* dir = [Point3D point];
@@ -1693,7 +1710,7 @@ return YES;
 		dir.z = -[(EndoscopyMPRView*)[mprController xReslicedView] focalShiftY];
 		
 		int err= [assistant caculateNextPositionFrom:pt Towards:dir];
-		if(err==ERROR_NOENOUGHMEM)
+		if (err==ERROR_NOENOUGHMEM)
 		{
 			NSRunAlertPanel(@"",
                             NSLocalizedString(@"32-bit", nil),
@@ -1703,7 +1720,7 @@ return YES;
                             nil);
 			return;
 		}		
-		else if(err==ERROR_CANNOTFINDPATH)
+		else if (err==ERROR_CANNOTFINDPATH)
 		{
 			NSRunAlertPanel(NSLocalizedString(@"Can't find path", nil),
                             NSLocalizedString(@"Path Assistant can not find a path from current location.", nil),
@@ -1712,7 +1729,7 @@ return YES;
                             nil);
 			return;
 		}
-		else if(err==ERROR_DISTTRANSNOTFINISH)
+		else if (err==ERROR_DISTTRANSNOTFINISH)
 		{
 			WaitRendering* waiting = [[WaitRendering alloc] init:NSLocalizedString(@"Distance Transform...", nil)];
 			[waiting showWindow:self];
@@ -1721,7 +1738,7 @@ return YES;
 			{
 				sleep(2);
 				err= [assistant caculateNextPositionFrom:pt Towards:dir];
-				if(err!=ERROR_DISTTRANSNOTFINISH)
+				if (err!=ERROR_DISTTRANSNOTFINISH)
 					break;
 			}
 			[waiting close];
@@ -1736,7 +1753,7 @@ return YES;
 				return;
 			}
             
-			if(err==ERROR_DISTTRANSNOTFINISH)
+			if (err==ERROR_DISTTRANSNOTFINISH)
 			{
 				NSRunAlertPanel(NSLocalizedString(@"Unexpected error", nil),
                                 NSLocalizedString(@"Path Assistant failed to initialize!", nil),
@@ -1751,10 +1768,10 @@ return YES;
 		float foclength=30;
 		if (dir.z>0)
 			foclength = ((long)[pixList count] -1 - pt.z)/dir.z;
-		else if(dir.z<0)
+		else if (dir.z<0)
 			foclength = (1 - pt.z)/dir.z;
         
-		if(foclength>30)
+		if (foclength>30)
 			foclength = 30;
 
 		dir.x=pt.x+dir.x*foclength;dir.y=pt.y+dir.y*foclength;dir.z=pt.z+dir.z*foclength;
@@ -1773,7 +1790,7 @@ return YES;
 {
 	if (flyAssistantMode == NAVIGATORMODE_BASIC && isFlyPathLocked==NO )
 	{
-		if([centerline count]<2)
+		if ([centerline count]<2)
 			return;
 		OSIVoxel* cpos = [centerline objectAtIndex:[centerline count]-2];
 		OSIVoxel * fpos = [centerline objectAtIndex:(long)[centerline count]-1];
@@ -1782,8 +1799,8 @@ return YES;
 		flyAssistantPositionIndex = (long)[centerline count]-1;
 		[self updateCenterlineInMPRViews];
 	}
-	else if(flyAssistantMode == NAVIGATORMODE_2POINT || isFlyPathLocked){
-		if(flyAssistantPositionIndex > 0)
+	else if (flyAssistantMode == NAVIGATORMODE_2POINT || isFlyPathLocked){
+		if (flyAssistantPositionIndex > 0)
 		{
 			OSIVoxel* cpos = [centerline objectAtIndex:flyAssistantPositionIndex-1];
 			OSIVoxel * fpos = [centerline objectAtIndex:flyAssistantPositionIndex];
@@ -1850,7 +1867,7 @@ return YES;
 		dir.y = dir.y/len;
 		dir.z = dir.z/len;
 	}
-	if(isLookingBackwards)
+	if (isLookingBackwards)
 	{
 		dir.x = -dir.x;
 		dir.y = -dir.y;
@@ -1858,25 +1875,25 @@ return YES;
 	}
 	
 	float localradius = [assistant radiusAtPoint:cpos];
-	if(localradius < centerlineResampleStepLength )
+	if (localradius < centerlineResampleStepLength )
 		localradius = centerlineResampleStepLength;
 	int neighborrange = localradius*4.0/centerlineResampleStepLength;
 	localradius = [assistant averageRadiusAt:flyAssistantPositionIndex On:centerline InRange:neighborrange];
 	//float localradius = 30;
-	if(localradius < centerlineResampleStepLength )
+	if (localradius < centerlineResampleStepLength )
 		localradius = centerlineResampleStepLength;
 	float foclength=localradius*2.0;
-	if(foclength<1.0)
+	if (foclength<1.0)
 		foclength=1.0;
-	if(dir.z>0)
+	if (dir.z>0)
 		foclength = ((long)[pixList count] -1 - cpos.z)/dir.z;
-	else if(dir.z<0){
+	else if (dir.z<0){
 		foclength = (1 - cpos.z)/dir.z;
 	}
-	if(foclength>localradius*2.0)
+	if (foclength>localradius*2.0)
 		foclength = localradius*2.0;
 	
-	if(lockCameraFocusOnPath)
+	if (lockCameraFocusOnPath)
 	{
 		dir.x = -dir.x*foclength + cpos.x;
 		dir.y = -dir.y*foclength + cpos.y;
@@ -1893,7 +1910,7 @@ return YES;
 
 - (IBAction) showOrHideCenterlines:(id) sender
 {
-	if([sender state]==NSOnState)
+	if ([sender state]==NSOnState)
 		isShowCenterLine=YES;
 	else {
 		isShowCenterLine=NO;
@@ -1904,7 +1921,7 @@ return YES;
 }
 - (IBAction)lookBackwards:(id)sender
 {
-	if([sender state]==NSOnState)
+	if ([sender state]==NSOnState)
 		isLookingBackwards=YES;
 	else {
 		isLookingBackwards=NO;
@@ -1914,7 +1931,7 @@ return YES;
 
 - (IBAction)lockCameraOrFocusOnPath:(id)sender
 {
-	if([sender selectedRow]==0)
+	if ([sender selectedRow]==0)
 	{
 		lockCameraFocusOnPath=NO;
 	}

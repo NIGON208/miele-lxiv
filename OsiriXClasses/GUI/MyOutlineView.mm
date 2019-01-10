@@ -208,54 +208,52 @@
 - (BOOL)prepareForDragOperation:(id <NSDraggingInfo>)sender
 {
     
-    if ([[[BrowserController currentBrowser] database] isReadOnly]) {
+    if ([[[BrowserController currentBrowser] database] isReadOnly])
 		return NO;
-    }
     
     return YES;
 }
 
 - (BOOL)performDragOperation:(id <NSDraggingInfo>)sender
 {
-    
-    if ([[[BrowserController currentBrowser] database] isReadOnly]) {
+    BOOL ret;
+
+    if ([[[BrowserController currentBrowser] database] isReadOnly])
 		return NO;
-    }
     
-    if (![[sender draggingSource] isEqual:self])
-	{
-		NSPasteboard *paste = [sender draggingPasteboard];
-		
-		NSArray *types = [NSArray arrayWithObjects:NSFilenamesPboardType, nil];
-		
-		NSString *desiredType = [paste availableTypeFromArray:types];
-		NSData *carriedData = [paste dataForType:desiredType];
-	
-		if (nil == carriedData)
-		{
+    if ([[sender draggingSource] isEqual:self])
+        return NO;
+    
+    NSPasteboard *paste = [sender draggingPasteboard];
+    
+    NSArray *types = [NSArray arrayWithObjects:NSFilenamesPboardType, nil];
+    
+    NSString *desiredType = [paste availableTypeFromArray:types];
+    NSData *carriedData = [paste dataForType:desiredType];
+
+    if (nil == carriedData)
+    {
 //			NSRunAlertPanel(NSLocalizedString(@"Drag Error",nil), NSLocalizedString(@"Sorry, but the past operation failed",nil), 
 //            nil, nil, nil);
-			return NO;
-		}
-		else
-		{
-        //the pasteboard was able to give us some meaningful data
-			if ([desiredType isEqualToString:NSFilenamesPboardType])
-			{
-                return YES;
-			}
-			else
-			{
-                //this can't happen
-				NSAssert(NO, @"This can't happen");
-				return NO;
-			}
-		}
+        ret = NO;
+    }
+    else
+    {
+    //the pasteboard was able to give us some meaningful data
+        if ([desiredType isEqualToString:NSFilenamesPboardType])
+        {
+            ret = YES;
+        }
+        else
+        {
+            //this can't happen
+            NSAssert(NO, @"This can't happen");
+            ret = NO;
+        }
+    }
 
-        [self setNeedsDisplay:YES];    //redraw us with the new image
-		return YES;
-	}
-	return NO;
+    [self setNeedsDisplay:YES];    //redraw us with the new image
+    return ret;
 }
 
 - (void) terminateDrag:(NSArray*) fileArray
@@ -377,7 +375,7 @@
 {
 	self = [super init];
 	
-	[self registerForDraggedTypes:[NSArray arrayWithObjects:NSTIFFPboardType, NSFilenamesPboardType, nil]];
+	[self registerForDraggedTypes:[NSArray arrayWithObjects:NSPasteboardTypeTIFF, NSFilenamesPboardType, nil]];
 	
 	return self;
 }*/

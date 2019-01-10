@@ -4,8 +4,8 @@
 #include <stdio.h>
 #include "dcmtk/config/osconfig.h"    /* make sure OS specific configuration is included first */
 
-#import "DCM Framework/DCMObject.h"
-#import "DCM Framework/DCM.h"
+#import <DCM/DCMObject.h>
+#import <DCM/DCM.h>
 
 #import "BrowserController.h"
 //#import "AppController.h"
@@ -99,7 +99,7 @@ OFCondition decompressFileFormat(DcmFileFormat fileformat, const char *fname)
         {
             fileformat.loadAllDataIntoMemory();
             cond = fileformat.saveFile( fname, EXS_LittleEndianExplicit);
-            status =  (cond.good()) ? YES : NO;
+            status = (cond.good()) ? YES : NO;
             
             if( status == NO)
                 printf("\n*** decompressFileFormat failed\n");
@@ -197,9 +197,9 @@ OFBool compressFileFormat(DcmFileFormat fileformat, const char *fname, char *out
         
 #if 1
         if (newXfer == EXS_JPEGProcess14SV1)
-            printf("\n--- compressFileFormat EXS_JPEGProcess14SV1TransferSyntax\n");
+            printf("\n--- compressFileFormat EXS_JPEGProcess14SV1\n");
         else if (newXfer == EXS_JPEGProcess2_4)
-            printf("\n--- compressFileFormat EXS_JPEGProcess2_4TransferSyntax\n");
+            printf("\n--- compressFileFormat EXS_JPEGProcess2_4\n");
         else if (newXfer == EXS_RLELossless)
             printf("\n--- compressFileFormat EXS_RLELossless\n");
         else if (newXfer == EXS_JPEG2000LosslessOnly)
@@ -247,7 +247,7 @@ OFBool compressFileFormat(DcmFileFormat fileformat, const char *fname, char *out
                 unlink( outfname);
                 
                 cond = fileformat.saveFile(outfname, newXfer);
-                status =  (cond.good()) ? YES : NO;
+                status = (cond.good()) ? YES : NO;
             }
             else
             {

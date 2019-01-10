@@ -74,7 +74,6 @@
 	{
 		[self remove:self];
 	}
-
 }
 
 - (void) flyThruTag:(int) x
@@ -110,9 +109,8 @@
 			NSOpenPanel	*oPanel = [NSOpenPanel openPanel];
 			[oPanel setAllowsMultipleSelection:NO];
 			[oPanel setCanChooseDirectories:NO];
-			int result = [oPanel runModalForDirectory:nil file:nil types:[NSArray arrayWithObject:@"xml"]];
-
-			if (result == NSOKButton) 
+            [oPanel setAllowedFileTypes: @[@"xml"]];
+			if ([oPanel runModal] == NSOKButton)
 			{	
 				[self resetCameras:self];
 				NSDictionary* stepsDictionary = [[NSDictionary alloc] initWithContentsOfFile: [[oPanel filenames] objectAtIndex:0]];
@@ -134,12 +132,11 @@
 		
 		case 4: //SAVE
 		{
-			NSSavePanel     *panel = [NSSavePanel savePanel];
-
+			NSSavePanel *panel = [NSSavePanel savePanel];
 			[panel setCanSelectHiddenExtension:NO];
-			[panel setRequiredFileType:@"xml"];
-
-			if( [panel runModalForDirectory:nil file:@"OsiriX Fly Through"] == NSFileHandlingPanelOKButton)
+            [panel setAllowedFileTypes: @[@"xml"]];
+            [panel setNameFieldStringValue: @"OsiriX Fly Through"];
+            if ([panel runModal] == NSFileHandlingPanelOKButton)
 			{
 				NSMutableDictionary *xml;
 				xml = [flyThruController.flyThru exportToXML];

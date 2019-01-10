@@ -360,7 +360,7 @@ static BOOL _showingCleanForFreeSpaceWarning = NO;
         
         if( [NSUserDefaults.standardUserDefaults boolForKey:@"AUTOCLEANINGSPACE"])
 		{
-            NSDictionary* fsattrs = [[NSFileManager defaultManager] fileSystemAttributesAtPath:self.dataBaseDirPath];
+            NSDictionary* fsattrs = [[NSFileManager defaultManager] attributesOfFileSystemForPath:self.dataBaseDirPath error:nil];
             if (![fsattrs objectForKey:NSFileSystemSize]) {
                 NSLog(@"Error: database cleaning mechanism couldn't obtain filesystem size information for %@", self.dataBaseDirPath);
                 return;
@@ -460,7 +460,7 @@ static BOOL _cleanForFreeSpaceLimitSoonReachedDisplayed = NO;
     [thread enterOperation];
     
 	@try {
-		NSDictionary* fsattrs = [[NSFileManager defaultManager] fileSystemAttributesAtPath:self.dataBaseDirPath];
+        NSDictionary* fsattrs = [[NSFileManager defaultManager] attributesOfFileSystemForPath:self.dataBaseDirPath error:nil];
 		if ([fsattrs objectForKey:NSFileSystemFreeSize] == nil) {
 			NSLog(@"Error: database cleaning mechanism couldn't obtain filesystem space information for %@", self.dataBaseDirPath);
 			return;
@@ -610,8 +610,9 @@ static BOOL _cleanForFreeSpaceLimitSoonReachedDisplayed = NO;
                 } @catch (...) { }
                 
                 // did we free up enough space?
-                
-                NSDictionary* fsattrs = [[NSFileManager defaultManager] fileSystemAttributesAtPath:self.dataBaseDirPath];
+
+                NSDictionary* fsattrs = [[NSFileManager defaultManager] attributesOfFileSystemForPath:self.dataBaseDirPath
+                                                                                                error:nil];
                 free = [[fsattrs objectForKey:NSFileSystemFreeSize] unsignedLongLongValue]/1024/1024;
                 if (free >= freeMemoryRequested) // if so, stop deleting studies
                     break;

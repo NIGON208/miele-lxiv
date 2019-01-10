@@ -25,7 +25,8 @@
 	[super dealloc];
 }
 
--(NSRect)drawTitle:(NSAttributedString*)title withFrame:(NSRect)frame inView:(NSView*)controlView {
+-(NSRect)drawTitle:(NSAttributedString*)title withFrame:(NSRect)frame inView:(NSView*)controlView
+{
 	NSString* t = displayedTitle? displayedTitle : @"";
 	
 	[t drawInRect:frame withAttributes:[title attributesAtIndex:0 effectiveRange:NULL]];

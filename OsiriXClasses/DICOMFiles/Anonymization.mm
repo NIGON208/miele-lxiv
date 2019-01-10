@@ -13,14 +13,16 @@
 =========================================================================*/
 
 #import "Anonymization.h"
-#import "DCM Framework/DCMAttributeTag.h"
+
+#import <DCM/DCMAttributeTag.h>
+#import <DCM/DCMObject.h>
+#import <DCM/DCMCalendarDate.h>
+
 #import "AnonymizationViewController.h"
 #import "AnonymizationSavePanelController.h"
 #import "NSFileManager+N2.h"
 #import "NSDictionary+N2.h"
-#import "DCM Framework/DCMObject.h"
 #import "DicomImage.h"
-#import "DCM Framework/DCMCalendarDate.h"
 #import "DicomStudy.h"
 #import "DicomSeries.h"
 #import "BrowserController.h"
@@ -290,7 +292,7 @@ static NSString *templateDicomFile = nil;
 
 +(NSDictionary*)anonymizeFiles:(NSArray*)files dicomImages: (NSArray*) dicomImages toPath:(NSString*)dirPath withTags:(NSArray*)intags
 {
-	if( [files count] != [dicomImages count])
+	if ([files count] != [dicomImages count])
 	{
 		NSLog( @"***** anonymizeFiles [files count] != [dicomImages count]");
 		return nil;
@@ -334,7 +336,7 @@ static NSString *templateDicomFile = nil;
     }
 	
     Wait *splash = nil;
-    if( [NSThread isMainThread])
+    if ([NSThread isMainThread])
     {
         splash = [[[Wait alloc] initWithString: NSLocalizedString( @"Processing...", nil)] autorelease];
         [[splash progress] setMaxValue: [files count] * 2];
@@ -344,7 +346,7 @@ static NSString *templateDicomFile = nil;
     
 	NSMutableArray* producedFiles = [NSMutableArray arrayWithCapacity: files.count];
 	
-	if( [[NSUserDefaults standardUserDefaults] boolForKey: @"useDCMTKForAnonymization"])
+	if ([[NSUserDefaults standardUserDefaults] boolForKey: @"useDCMTKForAnonymization"])
 	{
 		NSInteger fileIndex = 0;
 		for( NSString* filePath in files)
@@ -374,7 +376,7 @@ static NSString *templateDicomFile = nil;
 			
 			[pool release];
 			
-			if( [splash aborted]) break;
+			if ([splash aborted]) break;
 		}
 		
 		// Prepare the parameters
@@ -384,7 +386,7 @@ static NSString *templateDicomFile = nil;
 			DCMAttributeTag* tag = [intag objectAtIndex:0];
 			id val = intag.count>1? [intag objectAtIndex:1] : NULL;
 			
-			if( val == nil || [[val description] length] == 0)
+			if (val == nil || [[val description] length] == 0)
 				[params addObjectsFromArray: [NSArray arrayWithObjects: @"-e", [NSString stringWithFormat: @"(%@)", tag.stringValue], nil]];
 			else
 				[params addObjectsFromArray: [NSArray arrayWithObjects: @"-i", [NSString stringWithFormat: @"(%@)=%@", tag.stringValue, [val description]], nil]];
@@ -434,11 +436,11 @@ static NSString *templateDicomFile = nil;
 			
 			[pool release];
 			
-			if( [splash aborted]) break;
+			if ([splash aborted]) break;
 		}
 	}
 	
-	if( [producedFiles count] != [dicomImages count])
+	if ([producedFiles count] != [dicomImages count])
 	{
 		NSLog( @"***** anonymizeFiles [producedFiles count] != [dicomImages count]");
         
@@ -460,7 +462,7 @@ static NSString *templateDicomFile = nil;
                 NSString* ext = [tempFilePath pathExtension];
                 NSString* fileDirPath = nil;
                 
-                if( [image.series.study.patientID length] > 0)
+                if ([image.series.study.patientID length] > 0)
                     fileDirPath = [dirPath stringByAppendingPathComponent: [NSString stringWithFormat: NSLocalizedString( @"Anonymized - %@", nil), [Anonymization cleanStringForFile:image.series.study.patientID]]];
                 else
                     fileDirPath = [dirPath stringByAppendingPathComponent: NSLocalizedString( @"Anonymized", nil)];
@@ -504,7 +506,7 @@ static NSString *templateDicomFile = nil;
             [splash incrementBy: 1];
         }
         
-        if( tempDirPath)
+        if (tempDirPath)
             [[NSFileManager defaultManager] removeItemAtPath:tempDirPath error:NULL];
 	}
     

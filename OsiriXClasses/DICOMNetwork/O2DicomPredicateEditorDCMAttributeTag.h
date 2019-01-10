@@ -12,8 +12,7 @@
  PURPOSE.
  =========================================================================*/
 
-#import "DCM Framework/DCMAttributeTag.h"
-
+#import <DCM/DCMAttributeTag.h>
 
 @interface O2DicomPredicateEditorDCMAttributeTag : DCMAttributeTag {
     NSString* _description;

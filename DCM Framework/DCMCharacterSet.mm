@@ -12,7 +12,7 @@
      PURPOSE.
 =========================================================================*/
 
-#import "DCMCharacterSet.h"
+#import <DCM/DCMCharacterSet.h>
 
 char* DCMreplaceInvalidCharacter( char* str ) {
 	long i = strlen( str);

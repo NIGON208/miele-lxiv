@@ -24,9 +24,9 @@ NSString *CopiedRowsType = @"COPIED_ROWS_TYPE";
 
 - (void) deleteSelectedRow:(id)sender
 {
-	if( _authView == nil || [_authView authorizationState] == SFAuthorizationViewUnlockedState)
+	if (_authView == nil || [_authView authorizationState] == SFAuthorizationViewUnlockedState)
 	{
-		if( NSRunInformationalAlertPanel(NSLocalizedString(@"Delete", nil),
+		if (NSRunInformationalAlertPanel(NSLocalizedString(@"Delete", nil),
                                          NSLocalizedString(@"Are you sure you want to delete the selected item?", nil),
                                          NSLocalizedString(@"OK",nil),
                                          NSLocalizedString(@"Cancel",nil),
@@ -45,28 +45,28 @@ NSString *CopiedRowsType = @"COPIED_ROWS_TYPE";
 
 - (void)tableView:(NSTableView *)aTableView willDisplayCell:(id)aCell forTableColumn:(NSTableColumn *)aTableColumn row:(NSInteger)rowIndex
 {
-	if( [[aTableColumn identifier] isEqualToString:@"AddressAndPort"] ||
-        [[aTableColumn identifier] isEqualToString:@"Address"])		// Warning ! DNDArrayController is used in Query.xib AND in OSILocations.xib
+	if ([[aTableColumn identifier] isEqualToString:@"AddressAndPort"] ||    // as used in Query.xib
+        [[aTableColumn identifier] isEqualToString:@"Address"])		        // as used in OSILocations.xib
 	{
 		NSParameterAssert(rowIndex >= 0 && rowIndex < [[self arrangedObjects] count]);
 		
 		NSMutableDictionary *theRecord = [[self arrangedObjects] objectAtIndex:rowIndex];
 		
-		if( [theRecord objectForKey:@"test"])
+		if ([theRecord objectForKey:@"test"])
 		{
 			switch( [[theRecord objectForKey:@"test"] intValue])
 			{
 				case -1:
 					[aCell setTextColor: [NSColor orangeColor]];
-				break;
+                    break;
 				
 				case -2:
 					[aCell setTextColor: [NSColor redColor]];
-				break;
+                    break;
 				
 				case 0:
-					[aCell setTextColor: [NSColor blackColor]];
-				break;
+					[aCell setTextColor: [NSColor textColor]];
+                    break;
 			}
 		}
 	}
@@ -86,9 +86,9 @@ NSString *CopiedRowsType = @"COPIED_ROWS_TYPE";
 		writeRows:(NSArray*)rows
 	 toPasteboard:(NSPasteboard*)pboard
 {
-	if( _authView != nil)
+	if (_authView != nil)
 	{
-		if( [_authView authorizationState] != SFAuthorizationViewUnlockedState)
+		if ([_authView authorizationState] != SFAuthorizationViewUnlockedState)
 			return NO;
 	}
 
@@ -123,9 +123,9 @@ NSString *CopiedRowsType = @"COPIED_ROWS_TYPE";
 	   proposedDropOperation:(NSTableViewDropOperation)op
 {
 
-	if( _authView != nil)
+	if (_authView != nil)
 	{
-		if( [_authView authorizationState] != SFAuthorizationViewUnlockedState)
+		if ([_authView authorizationState] != SFAuthorizationViewUnlockedState)
 			return NSDragOperationNone;
 	}
 	
@@ -144,9 +144,9 @@ NSString *CopiedRowsType = @"COPIED_ROWS_TYPE";
 
 - (BOOL)tableView:(NSTableView *)aTableView shouldEditTableColumn:(NSTableColumn *)aTableColumn row:(NSInteger)rowIndex
 {
-	if( _authView)
+	if (_authView)
 	{
-		if( [_authView authorizationState] != SFAuthorizationViewUnlockedState)
+		if ([_authView authorizationState] != SFAuthorizationViewUnlockedState)
             return NO;
 	}
 	
@@ -155,9 +155,9 @@ NSString *CopiedRowsType = @"COPIED_ROWS_TYPE";
 
 - (void)tableView:(NSTableView *)tb didClickTableColumn:(NSTableColumn *)tableColumn
 {
-	if( _authView)
+	if (_authView)
 	{
-		if( [_authView authorizationState] != SFAuthorizationViewUnlockedState)
+		if ([_authView authorizationState] != SFAuthorizationViewUnlockedState)
             return;
 	}
 	
@@ -176,9 +176,9 @@ NSString *CopiedRowsType = @"COPIED_ROWS_TYPE";
 			  row:(NSInteger)row
 	dropOperation:(NSTableViewDropOperation)op
 {
-	if( _authView != nil)
+	if (_authView != nil)
 	{
-		if( [_authView authorizationState] != SFAuthorizationViewUnlockedState)
+		if ([_authView authorizationState] != SFAuthorizationViewUnlockedState)
 			return NO;
 	}
 	

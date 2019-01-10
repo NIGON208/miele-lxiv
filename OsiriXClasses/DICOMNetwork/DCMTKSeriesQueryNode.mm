@@ -13,7 +13,7 @@
 =========================================================================*/
 
 #import "DCMTKSeriesQueryNode.h"
-#import "DCM Framework/DCMCalendarDate.h"
+#import <DCM/DCMCalendarDate.h>
 #import "DCMTKImageQueryNode.h"
 #import "DICOMToNSString.h"
 #import "DICOMFiles/dicomFile.h"

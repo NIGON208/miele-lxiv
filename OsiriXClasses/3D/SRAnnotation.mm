@@ -21,7 +21,7 @@
 #import "DCMPix.h"
 #import "BrowserController.h"
 #import "DICOMFiles/dicomFile.h"
-#import "DCM Framework/DCMCalendarDate.h"
+#import <DCM/DCMCalendarDate.h>
 #import "DicomStudy.h"
 #import "DicomSeries.h"
 #import "N2Debug.h"
@@ -296,7 +296,7 @@
 	if (self = [super init])
 	{
 		_seriesInstanceUID = nil;
-		_DICOMSRDescription =  @"OsiriX Report SR";
+		_DICOMSRDescription = @"OsiriX Report SR";
 		_DICOMSeriesNumber = @"5003";
 		
 		if( file)
@@ -464,7 +464,7 @@
 	if (self = [super init])
 	{
 		_seriesInstanceUID = nil;
-		_DICOMSRDescription =  @"OsiriX Report SR";
+		_DICOMSRDescription = @"OsiriX Report SR";
 		_DICOMSeriesNumber = @"5003";
 		
 		[_DICOMSRDescription retain];
@@ -718,7 +718,7 @@
 		//This adds the data to the SR
 		if( _dataEncapsulated)
 		{
-			const Uint8 *buffer =  (const Uint8 *) [_dataEncapsulated bytes];
+			const Uint8 *buffer = (const Uint8 *) [_dataEncapsulated bytes];
 			
 			if( buffer)
 				status = dataset->putAndInsertUint8Array(DCM_EncapsulatedDocument , buffer, [_dataEncapsulated length] , OFTrue);
@@ -731,11 +731,7 @@
 				status = dataset->putAndInsertString(DCM_SeriesInstanceUID, [_seriesInstanceUID UTF8String], OFTrue);
 				
 			OFCondition cond = fileformat->saveFile( path.fileSystemRepresentation, EXS_LittleEndianExplicit);
-            if( cond.good())
-            {
-                
-            }
-            else
+            if (cond.bad())
                 NSLog( @"failed to write file : %@ : %s", path, cond.text());
 		}
 	}

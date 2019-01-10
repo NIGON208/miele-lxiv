@@ -32,12 +32,11 @@
 
 static NSRecursiveLock *drawLock = nil;
 
-
 @implementation VTKStereoVRView
 
--(id)initWithFrame:(NSRect)frame: (VRView*) aView
+-(id)initWithFrame:(NSRect)aFrame: (VRView*) aView
 {
-	if (self = [super initWithFrame:frame])
+	if (self = [super initWithFrame:aFrame])
 	{
 		
 		superVRView = aView;
@@ -72,8 +71,6 @@ static NSRecursiveLock *drawLock = nil;
 	superVRView = nil;
 	[superVRView release];
 
-//	snVRView = nil;
-//	[snVRView release];
 	/*	
 	 [cursor release];
 	 [_mouseDownTimer invalidate];
@@ -113,7 +110,7 @@ static NSRecursiveLock *drawLock = nil;
 }
 
 - (void)rightMouseDown:(NSEvent *)theEvent
-{ssss
+{
 	[superVRView rightMouseDown:theEvent];
 }
 
