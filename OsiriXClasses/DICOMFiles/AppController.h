@@ -211,6 +211,7 @@ extern AppController* OsiriX;
 - (IBAction) openOsirixDiscussion: (id) sender; /**< Open OsiriX discussion web page */
 //- (IBAction) osirix64bit: (id) sender;
 - (IBAction) userManual: (id) sender;
+- (IBAction) conformanceStatement: (id) sender;
 //---------------------------------------------
 - (IBAction) help: (id) sender;  /**< Open help window */
 //=============================================

@@ -18,7 +18,6 @@
 //    argv[ 1] : logPath
 //    argv[ 2] : baseName
 //    argv[ 3] : jsonPath
-//    argv[ 4] : printer configuration
 int main(int argc, const char *argv[])
 {
 	int status = EXIT_SUCCESS;

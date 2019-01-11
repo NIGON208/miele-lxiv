@@ -18,7 +18,7 @@ If you want to fork the project and create your on branding, you should:
 - First time (you need to do this only once)
 
 		$ cd $PROJECT_DIR/doc/build-steps
-		$ unzip-binaries-sh
+		$ ./unzip-binaries-sh
 
 ---
 ## Step 2
@@ -167,6 +167,8 @@ If you want to fork the project and create your on branding, you should:
 - Now you should be able to launch the Xcode project and build the application, or if you prefer build it directly from the command line:
 
 		$ xcodebuild -configuration Development -target "miele-lxiv"
+		
+- if you get some errors relating to missing localization files, go into the Xcode PROJECT settings, Info, Localizations, and remove all Languages except for "English".
 
 - When you build the scheme `miele-lxiv` you should select the `Development` configuration, otherwise you might have issues with missing certificates for signing the app.
 - before running the built application, make sure your system has JPEG, TIFF and PNG shared libraries installed in the system. You might have to install them like this

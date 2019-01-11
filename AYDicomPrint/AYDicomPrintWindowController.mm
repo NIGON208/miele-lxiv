@@ -680,6 +680,9 @@ NSString *mediumTag[] = {@"Blue Film", @"Clear Film", @"Paper"};
 		
 		NSTask *theTask = [[NSTask alloc] init];
 		
+        NSString *dicPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"dicom.dic"];
+        [theTask setEnvironment:[NSDictionary dictionaryWithObject:dicPath forKey:@"DCMDICTPATH"]];
+
 		[theTask setArguments: [NSArray arrayWithObjects: logPath, baseName, jsonPath, nil]];
         NSString *launchPath = [[[NSBundle mainBundle] URLForAuxiliaryExecutable:@"DICOMPrint"] path];
         //NSLog(@"%s %d, launchPath: %@", __FUNCTION__, __LINE__, launchPath);

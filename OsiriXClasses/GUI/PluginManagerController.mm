@@ -221,7 +221,7 @@ static NSDate *CachedPluginsListDate = nil;
         return;
     }
 
-    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:URL_MIELE_SOURCES]];
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:URL_MIELE_WEB_PAGE]];
     return;
 #endif
     

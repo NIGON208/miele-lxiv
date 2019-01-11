@@ -15700,6 +15700,10 @@ static NSArray*	openSubSeriesArray = nil;
                         action: @selector(userManual:)
                  keyEquivalent: @""];
     
+    [helpMenu addItemWithTitle: NSLocalizedString(@"DICOM Conformance Statement", nil)
+                        action: @selector(conformanceStatement:)
+                 keyEquivalent: @""];
+
 	[helpMenu release];
 }
 

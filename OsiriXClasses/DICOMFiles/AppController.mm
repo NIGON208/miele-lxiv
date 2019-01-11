@@ -1115,10 +1115,10 @@ static NSDate *lastWarningDate = nil;
 //-(IBAction) osirix64bit:(id)sender
 //{
 //    if (sender)
-//        [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:URL_MIELE_SOURCES@"/OsiriX-64bit.html"]];
+//        [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:URL_MIELE_WEB_PAGE@"/OsiriX-64bit.html"]];
 //    else
 //    {
-//        NSArray* urls = [NSArray arrayWithObject: [NSURL URLWithString:URL_MIELE_SOURCES@"/OsiriX-64bit.html"]];
+//        NSArray* urls = [NSArray arrayWithObject: [NSURL URLWithString:URL_MIELE_WEB_PAGE@"/OsiriX-64bit.html"]];
 //
 //        [[NSWorkspace sharedWorkspace] openURLs: urls
 //                        withAppBundleIdentifier: nil
@@ -1135,7 +1135,7 @@ static NSDate *lastWarningDate = nil;
 
 -(IBAction)openOsirixWebPage:(id)sender
 {
-	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:URL_MIELE_WEB_PAGE]];
+	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:URL_MIELE_SOURCES]];
 }
 
 -(IBAction)help:(id)sender
@@ -1152,6 +1152,12 @@ static NSDate *lastWarningDate = nil;
 {
 	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:URL_VENDOR_USER_MANUAL]];
 }
+
+-(IBAction)conformanceStatement:(id)sender
+{
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:URL_MIELE_WEB_PAGE@"/ConformanceStatementMiele.pdf"]];
+}
+
 
 ////////////////////////////////////////////////////////////////////////////////
 #pragma mark-
@@ -3642,7 +3648,7 @@ static BOOL initialized = NO;
                                      nil);
 	
 		if (NSCancelButton == button)
-			[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:URL_MIELE_SOURCES]];
+			[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:URL_MIELE_WEB_PAGE]];
 	}
 	@catch (NSException * e)
 	{
@@ -4323,7 +4329,7 @@ static BOOL initialized = NO;
         NSInteger button = [alert runModal];
         
         if (button == NSAlertSecondButtonReturn)
-            [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:URL_MIELE_SOURCES]];
+            [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:URL_MIELE_WEB_PAGE]];
 #endif
     }
 	

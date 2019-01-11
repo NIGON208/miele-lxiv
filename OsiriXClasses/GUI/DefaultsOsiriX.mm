@@ -1034,7 +1034,7 @@ static NSHost *currentHost = nil;
 	[defaultValues setObject: @"1" forKey: @"DICOMSENDALLOWED"];
 	[defaultValues setObject: @"14.0" forKey: @"FONTSIZE"];
 	[defaultValues setObject: @(REPORT_TYPE_PAGES) forKey: @"REPORTSMODE"];
-	[defaultValues setObject: URL_MIELE_SOURCES@"/internet.dcm" forKey: @"LASTURL"];
+	[defaultValues setObject: URL_MIELE_WEB_PAGE@"/internet.dcm" forKey: @"LASTURL"];
 	[defaultValues setObject: @"0" forKey: @"MAPPERMODEVR"];
 	[defaultValues setObject: @"1" forKey: @"STARTCOUNT"];
 	[defaultValues setObject: @"1" forKey: @"editingLevel"];
