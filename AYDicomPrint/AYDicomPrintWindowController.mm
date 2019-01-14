@@ -524,7 +524,7 @@ NSString *mediumTag[] = {@"Blue Film", @"Clear Film", @"Paper"};
 
     // remove destination directory
     if ([fileManager fileExistsAtPath: pathDicomPrint])
-        [fileManager removeFileAtPath: pathDicomPrint handler: nil];
+        [fileManager removeItemAtPath: pathDicomPrint error: nil];
 
     // create destination directory
     if ([fileManager fileExistsAtPath: pathDicomPrint] ||
@@ -711,9 +711,9 @@ NSString *mediumTag[] = {@"Blue Film", @"Clear Film", @"Paper"};
 
 #ifdef NDEBUG
         // remove temporary files
-        [[NSFileManager defaultManager] removeFileAtPath: [jsonPath stringByDeletingLastPathComponent] handler: nil];
+        [[NSFileManager defaultManager] removeItemAtPath: [jsonPath stringByDeletingLastPathComponent] error: nil];
 #else
-        NSLog(@"%s %d, TODO: removeFileAtPath: %@", __FUNCTION__, __LINE__, [jsonPath stringByDeletingLastPathComponent]);
+        NSLog(@"%s %d, TODO: removeItemAtPath: %@", __FUNCTION__, __LINE__, [jsonPath stringByDeletingLastPathComponent]);
         [[NSWorkspace sharedWorkspace] openFile: jsonPath];
 #endif
 

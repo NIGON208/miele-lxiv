@@ -1091,7 +1091,8 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
 				BOOL isDir = YES;
 				if (![[NSFileManager defaultManager] fileExistsAtPath:inactivePath isDirectory:&isDir] && isDir)
 					[PluginManager createDirectory:inactivePath];
-				//	[[NSFileManager defaultManager] createDirectoryAtPath:inactivePath attributes:nil];
+
+                //	[[NSFileManager defaultManager] createDirectoryAtPath:inactivePath withIntermediateDirectories:YES attributes:nil error:nil];
 				NSString *sourcePath = [NSString stringWithFormat:@"%@/%@", activePath, name];
 				NSString *destinationPath = [NSString stringWithFormat:@"%@/%@", inactivePath, name];
 				[PluginManager movePluginFromPath:sourcePath toPath:destinationPath];
@@ -1328,7 +1329,7 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
 				returnPath = path;
 				
 //				// delete
-//				BOOL deleted = [[NSFileManager defaultManager] removeFileAtPath:[NSString stringWithFormat:@"%@/%@", path, name] handler:nil];
+//				BOOL deleted = [[NSFileManager defaultManager] removeItemAtPath:[NSString stringWithFormat:@"%@/%@", path, name] error:nil];
 //				if (!deleted)
 //				{
 //					NSMutableArray *args = [NSMutableArray array];

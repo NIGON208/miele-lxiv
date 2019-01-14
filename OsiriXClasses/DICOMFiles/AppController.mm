@@ -3407,9 +3407,9 @@ static BOOL initialized = NO;
 				
 				// CHECK FOR THE HTML TEMPLATES DIRECTORY
 //				
-//				NSString *htmlTemplatesDirectory = [[DicomDatabase defaultBaseDirPath] stringByAppendingPathComponent:@"/HTML_TEMPLATES/"];
+//				NSString *htmlTemplatesDirectory = [[DicomDatabase defaultBaseDirPath] stringByAppendingPathComponent:@"HTML_TEMPLATES/"];
 //				if ([[NSFileManager defaultManager] fileExistsAtPath:htmlTemplatesDirectory] == NO)
-//					[[NSFileManager defaultManager] createDirectoryAtPath:htmlTemplatesDirectory attributes:nil];
+//					[[NSFileManager defaultManager] createDirectoryAtPath:htmlTemplatesDirectory withIntermediateDirectories:YES attributes:nil error:nil];
 //				
 //				// CHECK FOR THE HTML TEMPLATES
 //				
@@ -3418,23 +3418,23 @@ static BOOL initialized = NO;
 //				templateFile = [htmlTemplatesDirectory stringByAppendingPathComponent:@"QTExportPatientsTemplate.html"];
 //				NSLog(templateFile);
 //				if ([[NSFileManager defaultManager] fileExistsAtPath:templateFile] == NO)
-//					[[NSFileManager defaultManager] copyPath:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"/QTExportPatientsTemplate.html"] toPath:templateFile handler:nil];
+//					[[NSFileManager defaultManager] copyItemAtPath:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"QTExportPatientsTemplate.html"] toPath:templateFile error:nil];
 //
 //				templateFile = [htmlTemplatesDirectory stringByAppendingPathComponent:@"QTExportStudiesTemplate.html"];
 //				NSLog(templateFile);
 //				if ([[NSFileManager defaultManager] fileExistsAtPath:templateFile] == NO)
-//					[[NSFileManager defaultManager] copyPath:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"/QTExportStudiesTemplate.html"] toPath:templateFile handler:nil];
+//					[[NSFileManager defaultManager] copyItemAtPath:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"QTExportStudiesTemplate.html"] toPath:templateFile error:nil];
 //					
 //				// CHECK FOR THE HTML EXTRA DIRECTORY
 //				
 //				NSString *htmlExtraDirectory = [htmlTemplatesDirectory stringByAppendingPathComponent:@"html-extra/"];
 //				if ([[NSFileManager defaultManager] fileExistsAtPath:htmlExtraDirectory] == NO)
-//					[[NSFileManager defaultManager] createDirectoryAtPath:htmlExtraDirectory attributes:nil];
+//					[[NSFileManager defaultManager] createDirectoryAtPath:htmlExtraDirectory withIntermediateDirectories:YES attributes:nil error:nil];
 //					
 //				// CSS file
 //				NSString *cssFile = [htmlExtraDirectory stringByAppendingPathComponent:@"style.css"];
 //				if ([[NSFileManager defaultManager] fileExistsAtPath:cssFile] == NO)
-//					[[NSFileManager defaultManager] copyPath:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"/QTExportStyle.css"] toPath:cssFile handler:nil];				
+//					[[NSFileManager defaultManager] copyItemAtPath:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"QTExportStyle.css"] toPath:cssFile error:nil];				
 			}
 		}
 	}
@@ -3657,7 +3657,7 @@ static BOOL initialized = NO;
 	}
 #endif
 	
-//	NSString *source = [NSString stringWithContentsOfFile: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"/dicom.dic"]];
+//	NSString *source = [NSString stringWithContentsOfFile: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"dicom.dic"]];
 //	
 //	NSArray *lines = [source componentsSeparatedByString: @"\n"];
 //	
@@ -5872,7 +5872,7 @@ static BOOL initialized = NO;
     if (fakeContext == nil)
     {
         fakeContext  = [[NSManagedObjectContext alloc] init];
-        NSManagedObjectModel *model = [[[NSManagedObjectModel alloc] initWithContentsOfURL: [NSURL fileURLWithPath: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"/WebPortalDB.momd"]]] autorelease];
+        NSManagedObjectModel *model = [[[NSManagedObjectModel alloc] initWithContentsOfURL: [NSURL fileURLWithPath: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"WebPortalDB.momd"]]] autorelease];
         NSPersistentStoreCoordinator *psc = [[[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel: model] autorelease];
         [fakeContext setPersistentStoreCoordinator: psc];
     }

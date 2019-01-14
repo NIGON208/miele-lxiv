@@ -1674,8 +1674,8 @@ public:
 //			else
 //				newpath = [QuicktimeExport generateQTVR: path frames: numberOfFrames];
 //			
-//			[[NSFileManager defaultManager] removeFileAtPath:path handler:nil];
-//			[[NSFileManager defaultManager] movePath: newpath  toPath: path handler: nil];
+//			[[NSFileManager defaultManager] removeItemAtPath:path error:nil];
+//			[[NSFileManager defaultManager] moveItemAtPath: newpath  toPath: path error: nil];
 //			
 //			[[NSWorkspace sharedWorkspace] openFile: path withApplication: nil andDeactivate: YES];
 //			[NSThread sleepForTimeInterval: 1];
@@ -8031,7 +8031,7 @@ public:
                                 nil
                                 ) == NSAlertDefaultReturn)
             {
-                [[NSFileManager defaultManager] removeFileAtPath: str handler: nil];
+                [[NSFileManager defaultManager] removeItemAtPath: str error: nil];
             }
 		break;
 		

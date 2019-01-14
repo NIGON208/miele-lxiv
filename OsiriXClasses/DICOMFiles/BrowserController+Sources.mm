@@ -1390,7 +1390,7 @@ static void* const SearchDicomNodesContext = @"SearchDicomNodesContext";
 	bs.devicePath = devicePath;
     bs.mountType = type;
 	[[NSFileManager defaultManager] createDirectoryAtPath:path
-                                               withIntermediateDirectories:YES
+                              withIntermediateDirectories:YES
                                                attributes:nil
                                                     error:nil];
 	

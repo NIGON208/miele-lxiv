@@ -2196,7 +2196,7 @@ static NSConditionLock *threadLock = nil;
 				
 				NSString *dstPath = [self getNewFileDatabasePath:extension];
 				
-				if ([[NSFileManager defaultManager] copyPath:srcPath toPath:dstPath handler:nil])
+				if ([[NSFileManager defaultManager] copyItemAtPath:srcPath toPath:dstPath error:nil])
 				{
 					[[im valueForKey:@"series"] setValue: @NO forKey:@"mountedVolume"];
 					
@@ -2381,14 +2381,16 @@ static NSConditionLock *threadLock = nil;
 							
 							NSString *dstPath = [self getNewFileDatabasePath:extension];
 							
-							if ([[NSFileManager defaultManager] copyPath:srcPath toPath:dstPath handler:nil] == YES)
+							if ([[NSFileManager defaultManager] copyItemAtPath:srcPath toPath:dstPath error:nil])
 							{
 								[filesOutput addObject:dstPath];
 							}
 							
 							if ([extension isEqualToString:@"hdr"])		// ANALYZE -> COPY IMG
 							{
-								[[NSFileManager defaultManager] copyPath:[[srcPath stringByDeletingPathExtension] stringByAppendingPathExtension:@"img"] toPath:[[dstPath stringByDeletingPathExtension] stringByAppendingPathExtension:@"img"] handler:nil];
+								[[NSFileManager defaultManager] copyItemAtPath:[[srcPath stringByDeletingPathExtension] stringByAppendingPathExtension:@"img"]
+                                                                        toPath:[[dstPath stringByDeletingPathExtension] stringByAppendingPathExtension:@"img"]
+                                                                       error:nil];
 							}
                             
                             [curFile release];
@@ -5566,7 +5568,8 @@ static NSConditionLock *threadLock = nil;
                                      [XMLController modifyDicom: params encoding: encoding];
                                      
                                      for (id loopItem in files)
-                                         [[NSFileManager defaultManager] removeFileAtPath: [loopItem stringByAppendingString:@".bak"] handler:nil];
+                                         [[NSFileManager defaultManager] removeItemAtPath:[loopItem stringByAppendingString:@".bak"]
+                                                                                    error:nil];
                                  }
                                  @catch (NSException * e)
                                  {
@@ -5770,7 +5773,7 @@ static NSConditionLock *threadLock = nil;
                                         [XMLController modifyDicom: params encoding: encoding];
                                         
                                         for (id loopItem in files)
-                                            [[NSFileManager defaultManager] removeFileAtPath: [loopItem stringByAppendingString:@".bak"] handler:nil];
+                                            [[NSFileManager defaultManager] removeItemAtPath: [loopItem stringByAppendingString:@".bak"] error:nil];
                                     }
                                     @catch (NSException * e)
                                     {
@@ -6118,11 +6121,11 @@ static NSConditionLock *threadLock = nil;
                     {
                         for (NSString *path in nonLocalImagesPath)
                         {
-                            [[NSFileManager defaultManager] removeFileAtPath: path handler:nil];
+                            [[NSFileManager defaultManager] removeItemAtPath: path error:nil];
                             
                             if ([[path pathExtension] isEqualToString:@"hdr"])		// ANALYZE -> DELETE IMG
                             {
-                                [[NSFileManager defaultManager] removeFileAtPath:[[path stringByDeletingPathExtension] stringByAppendingPathExtension:@"img"] handler:nil];
+                                [[NSFileManager defaultManager] removeItemAtPath:[[path stringByDeletingPathExtension] stringByAppendingPathExtension:@"img"] error:nil];
                             }
                             
                             NSString *currentDirectory = [[path stringByDeletingLastPathComponent] stringByAppendingString:@"/"];
@@ -6131,12 +6134,12 @@ static NSConditionLock *threadLock = nil;
                             //Is this directory empty?? If yes, delete it!
                             
                             if ([dirContent count] == 0)
-                                [[NSFileManager defaultManager] removeFileAtPath:currentDirectory handler:nil];
+                                [[NSFileManager defaultManager] removeItemAtPath:currentDirectory error:nil];
                             
                             if ([dirContent count] == 1)
                             {
                                 if ([[[dirContent objectAtIndex: 0] uppercaseString] hasSuffix:@".DS_STORE"])
-                                    [[NSFileManager defaultManager] removeFileAtPath:currentDirectory handler:nil];
+                                    [[NSFileManager defaultManager] removeItemAtPath:currentDirectory error:nil];
                             }
                         }
                     }
@@ -7268,7 +7271,7 @@ static NSConditionLock *threadLock = nil;
 					if ([[[filename pathExtension] lowercaseString] isEqualToString: @"pdf"] == NO)
 						filename = [filename stringByAppendingPathExtension: @"pdf"];
 					
-					path = [[[self documentsDirectory] stringByAppendingPathComponent: @"/TEMP.noindex/"] stringByAppendingPathComponent: filename];
+					path = [[[self documentsDirectory] stringByAppendingPathComponent: @"TEMP.noindex/"] stringByAppendingPathComponent: filename];
 					[[NSFileManager defaultManager] removeItemAtPath: path error: nil];
 					[pdfData writeToFile: path atomically: YES];
 				}
@@ -7287,7 +7290,9 @@ static NSConditionLock *threadLock = nil;
                     NSString *dicPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"dicom.dic"];
                     [aTask setEnvironment:[NSDictionary dictionaryWithObject:dicPath forKey:@"DCMDICTPATH"]];
 
-                    [aTask setLaunchPath: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"dsr2html"]];
+                    NSString *launchPath = [[[NSBundle mainBundle] URLForAuxiliaryExecutable:@"dsr2html"] path];
+                    [aTask setLaunchPath:launchPath];
+
 					[aTask setArguments: [NSArray arrayWithObjects:
                                           @"+X1",
                                           @"--unknown-relationship",
@@ -8905,7 +8910,10 @@ static NSConditionLock *threadLock = nil;
 	}
 }
 
-- (ViewerController*) loadSeries:(NSManagedObject *) series :(ViewerController*) viewer :(BOOL) firstViewer keyImagesOnly:(BOOL) keyImages
+- (ViewerController*) loadSeries:(NSManagedObject *)
+                          series:(ViewerController*)
+                          viewer:(BOOL) firstViewer
+                   keyImagesOnly:(BOOL) keyImages
 {
     BOOL movie4D = NO;
     
@@ -9895,7 +9903,7 @@ static BOOL withReset = NO;
 	
 	NSLog(@"open pdf with Preview");
 	//check if the folder PDF exists in OsiriX document folder
-	NSString *pathToPDF = [[self documentsDirectory] stringByAppendingPathComponent:@"/PDF/"];
+	NSString *pathToPDF = [[self documentsDirectory] stringByAppendingPathComponent:@"PDF/"];
 	if (!([[NSFileManager defaultManager] fileExistsAtPath:pathToPDF]))
 		[[NSFileManager defaultManager] createDirectoryAtPath: pathToPDF
                                   withIntermediateDirectories: YES
@@ -10028,7 +10036,7 @@ static BOOL withReset = NO;
 	NSManagedObjectContext *context = self.database.managedObjectContext;
 	NSManagedObjectModel *model = self.database.managedObjectModel;
 	
-	NSString *recoveryPath = [[self documentsDirectory] stringByAppendingPathComponent:@"/ThumbnailPath"];
+	NSString *recoveryPath = [[self documentsDirectory] stringByAppendingPathComponent:@"ThumbnailPath"];
 	if ([[NSFileManager defaultManager] fileExistsAtPath: recoveryPath])
 	{
 	//	displayEmptyDatabase = YES;
@@ -10036,7 +10044,7 @@ static BOOL withReset = NO;
 		[self refreshMatrix: self];
 		NSString *uri = [NSString stringWithContentsOfFile: recoveryPath];
 		
-		[[NSFileManager defaultManager] removeFileAtPath: recoveryPath handler: nil];
+		[[NSFileManager defaultManager] removeItemAtPath: recoveryPath error: nil];
 		
 		NSManagedObject *studyObject = nil;
 		
@@ -15125,8 +15133,8 @@ static NSArray*	openSubSeriesArray = nil;
     NSString *pathTempDb  = [NSTemporaryDirectory() stringByAppendingPathComponent:@"OsiriXTemporaryDatabase"];
     NSString *pathDicomSr = [NSTemporaryDirectory() stringByAppendingPathComponent:@"dicomsr_osirix"];
 
-	[[NSFileManager defaultManager] removeFileAtPath: pathTempDb handler: nil];
-	[[NSFileManager defaultManager] removeFileAtPath: pathDicomSr handler: nil];
+	[[NSFileManager defaultManager] removeItemAtPath: pathTempDb error: nil];
+	[[NSFileManager defaultManager] removeItemAtPath: pathDicomSr error: nil];
 }
 
 -(void)shouldTerminateCallback:(NSTimer*) tt
@@ -15290,10 +15298,9 @@ static NSArray*	openSubSeriesArray = nil;
 
 - (BOOL) validateMenuItem: (NSMenuItem*) menuItem
 {
-	#ifdef EXPORTTOOLBARITEM
+#ifdef EXPORTTOOLBARITEM
 	return YES;
-	#endif
-    
+#else
     BOOL containsDistantStudy = NO;
     
     if ([[databaseOutline selectedRowIndexes] count] > 0)
@@ -15319,7 +15326,7 @@ static NSArray*	openSubSeriesArray = nil;
         if (containsDistantStudy == YES && [menuItem action] == @selector(querySelectedStudy:))
             return YES;
         
-		if (	[menuItem action] == @selector(rebuildThumbnails:) ||
+		if ([menuItem action] == @selector(rebuildThumbnails:) ||
 			[menuItem action] == @selector(searchForCurrentPatient:) || 
 			[menuItem action] == @selector(viewerDICOM:) || 
 			[menuItem action] == @selector(MovieViewerDICOM:) || 
@@ -15356,7 +15363,7 @@ static NSArray*	openSubSeriesArray = nil;
     
     if ([[databaseOutline selectedRowIndexes] count] < 1 || containsDistantStudy == NO)
     {
-        if (	[menuItem action] == @selector(retrieveSelectedPODStudies:))
+        if ([menuItem action] == @selector(retrieveSelectedPODStudies:))
             return NO;
     }
     
@@ -15659,6 +15666,7 @@ static NSArray*	openSubSeriesArray = nil;
             [menuItem setState: NSOffState];
 	}
 	return YES;
+#endif // EXPORTTOOLBARITEM
 }
 
 - (BOOL)is2DViewer
@@ -15838,7 +15846,7 @@ static NSArray*	openSubSeriesArray = nil;
 						if (numberOfValidFiles == 0 && [[f lastPathComponent] isEqualToString: @"ROIs"] == NO)
 						{
 							NSLog( @"delete Queue: delete folder: %@", f);
-							[[NSFileManager defaultManager] removeFileAtPath: f handler: nil];
+							[[NSFileManager defaultManager] removeItemAtPath: f error: nil];
 							
 						}
 					}
@@ -15883,7 +15891,7 @@ static NSArray*	openSubSeriesArray = nil;
 	NSString *str = [NSString stringWithContentsOfFile: pathErrorMsg];
 	if (str)
 	{
-		[[NSFileManager defaultManager] removeFileAtPath: pathErrorMsg handler: nil];
+		[[NSFileManager defaultManager] removeItemAtPath: pathErrorMsg error: nil];
 		
 		NSString *alertSuppress = @"hideListenerError";
 		if ([[NSUserDefaults standardUserDefaults] boolForKey: alertSuppress] == NO)
@@ -15985,7 +15993,7 @@ static NSArray*	openSubSeriesArray = nil;
 
 + (BOOL) unzipFile: (NSString*) file withPassword: (NSString*) pass destination: (NSString*) destination showGUI: (BOOL) showGUI
 {
-	[[NSFileManager defaultManager] removeFileAtPath: destination handler: nil];
+	[[NSFileManager defaultManager] removeItemAtPath: destination error: nil];
 	
 	NSTask *t;
 	NSArray *args;
@@ -16199,8 +16207,8 @@ static NSArray*	openSubSeriesArray = nil;
 //            N2LogExceptionWithStackTrace(e);
 //		}
 //		
-//		[[NSFileManager defaultManager] removeFileAtPath: file handler: nil];
-//		[[NSFileManager defaultManager] movePath:destPath toPath: file handler: nil];
+//		[[NSFileManager defaultManager] removeItemAtPath: file error: nil];
+//		[[NSFileManager defaultManager] moveItemAtPath:destPath toPath: file error: nil];
 //	}
 //#endif
 //}
@@ -16493,7 +16501,9 @@ static volatile int numberOfThreadsForJPEG = 0;
 	[[DicomDatabase activeLocalDatabase] initiateImportFilesFromIncomingDirUnlessAlreadyImporting];
 }
 
-+ (void)writeMovieToPath:(NSString*)fileName images:(NSArray*)imagesArray framesPerSecond:(NSInteger)fps
++ (void)writeMovieToPath:(NSString*)fileName
+                  images:(NSArray*)imagesArray
+         framesPerSecond:(NSInteger)fps
 {
 	NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
     
@@ -16501,6 +16511,7 @@ static volatile int numberOfThreadsForJPEG = 0;
 	{
         if (fps <= 0)
             fps = [[NSUserDefaults standardUserDefaults] integerForKey: @"quicktimeExportRateValue"];
+
         if (fps <= 0)
             fps = 10;
         
@@ -16508,8 +16519,9 @@ static volatile int numberOfThreadsForJPEG = 0;
         CMTime frameDuration = CMTimeMake( timeValue, 600);
         
         NSError *error = nil;
-        AVAssetWriter *writer = [[AVAssetWriter alloc] initWithURL:[NSURL fileURLWithPath: fileName] fileType: AVFileTypeQuickTimeMovie error:&error];
-        
+        AVAssetWriter *writer = [[AVAssetWriter alloc] initWithURL:[NSURL fileURLWithPath: fileName]
+                                                          fileType:AVFileTypeQuickTimeMovie
+                                                             error:&error];
         if (!error)
         {
             NSImage *im = [imagesArray lastObject];
@@ -16527,17 +16539,19 @@ static volatile int numberOfThreadsForJPEG = 0;
                                                [NSNumber numberWithInt: im.size.width], AVVideoWidthKey, 
                                                [NSNumber numberWithInt: im.size.height], AVVideoHeightKey, nil];
                 
-                // Instanciate the AVAssetWriterInput
+                // Instantiate the AVAssetWriterInput
                 AVAssetWriterInput *writerInput = [AVAssetWriterInput assetWriterInputWithMediaType:AVMediaTypeVideo outputSettings:videoSettings];
                 
                 if (writerInput == nil)
                     N2LogStackTrace( @"**** writerInput == nil : %@", videoSettings);
                 
-                // Instanciate the AVAssetWriterInputPixelBufferAdaptor to be connected to the writer input
+                // Instantiate the AVAssetWriterInputPixelBufferAdaptor to be connected to the writer input
                 AVAssetWriterInputPixelBufferAdaptor *pixelBufferAdaptor = [AVAssetWriterInputPixelBufferAdaptor assetWriterInputPixelBufferAdaptorWithAssetWriterInput:writerInput sourcePixelBufferAttributes:nil];
                 // Add the writer input to the writer and begin writing
                 [writer addInput:writerInput];
-                [writer startWriting];
+                bool success = [writer startWriting];
+                if (!success)
+                    NSLog(@"Couldn't start writing");
                 
                 CMTime nextPresentationTimeStamp;
                 
@@ -16548,7 +16562,7 @@ static volatile int numberOfThreadsForJPEG = 0;
                 for (NSImage *im in imagesArray)
                 {
                     NSAutoreleasePool *pool = [NSAutoreleasePool new];
-                    
+
                     CVPixelBufferRef buffer = nil;
                     
                     buffer = [QuicktimeExport CVPixelBufferFromNSImage: im];
@@ -16560,6 +16574,7 @@ static volatile int numberOfThreadsForJPEG = 0;
                         CVPixelBufferLockBaseAddress(buffer, 0);
                         while (writerInput && [writerInput isReadyForMoreMediaData] == NO)
                             [NSThread sleepForTimeInterval: 0.1];
+
                         [pixelBufferAdaptor appendPixelBuffer:buffer withPresentationTime:nextPresentationTimeStamp];
                         CVPixelBufferUnlockBaseAddress(buffer, 0);
                         CVPixelBufferRelease(buffer);
@@ -16574,8 +16589,9 @@ static volatile int numberOfThreadsForJPEG = 0;
             }
             else
                 N2LogStackTrace( @"********** bitsPerSecond == 0");
-            
-            [writer finishWriting];
+
+            if (![writer finishWriting])
+                NSLog(@"Couldn't finish writing");
         }
 	}
 	@catch( NSException *e)
@@ -16622,7 +16638,11 @@ static volatile int numberOfThreadsForJPEG = 0;
 	}
 }
 
-+(void) exportQuicktime:(NSArray*)dicomFiles2Export :(NSString*)path :(BOOL)html :(BrowserController*)browser :(NSMutableDictionary*)seriesPaths
++(void) exportQuicktime:(NSArray*)dicomFiles2Export
+                       :(NSString*)path
+                       :(BOOL)html
+                       :(BrowserController*)browser
+                       :(NSMutableDictionary*)seriesPaths
 {
 	Wait                *splash = nil;
 	NSMutableArray		*imagesArray = [NSMutableArray array], *imagesArrayObjects = [NSMutableArray array];
@@ -16641,7 +16661,7 @@ static volatile int numberOfThreadsForJPEG = 0;
 	[[splash progress] setMaxValue:[dicomFiles2Export count]];
 	
 	NSManagedObjectContext* managedObjectContext = NULL;
-	if (dicomFiles2Export.count)
+	if (dicomFiles2Export.count > 0)
 		managedObjectContext = [[dicomFiles2Export objectAtIndex:0] managedObjectContext];
 	
 	@try
@@ -16672,7 +16692,11 @@ static volatile int numberOfThreadsForJPEG = 0;
 			}
 			
 			// Find the PATIENT folder
-			if (![[NSFileManager defaultManager] fileExistsAtPath:tempPath]) [[NSFileManager defaultManager] createDirectoryAtPath:tempPath attributes:nil];
+            if (![[NSFileManager defaultManager] fileExistsAtPath:tempPath])
+                [[NSFileManager defaultManager] createDirectoryAtPath:tempPath
+                                          withIntermediateDirectories:YES
+                                                           attributes:nil
+                                                                error:nil];
 			else
 			{
 				if (first)
@@ -16685,7 +16709,7 @@ static volatile int numberOfThreadsForJPEG = 0;
                                                         [tempPath lastPathComponent]
                                                      ) == NSAlertDefaultReturn)
 					{
-						[[NSFileManager defaultManager] removeFileAtPath:tempPath handler:nil];
+						[[NSFileManager defaultManager] removeItemAtPath:tempPath error:nil];
 						[[NSFileManager defaultManager] createDirectoryAtPath: tempPath
                                                   withIntermediateDirectories: YES
                                                                    attributes: nil
@@ -16813,7 +16837,7 @@ static volatile int numberOfThreadsForJPEG = 0;
 					}
 					
 					if (!thumbnail)
-						thumbnail = [[[NSImage alloc] initWithContentsOfFile:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"/Empty.tif"]] autorelease];
+						thumbnail = [[[NSImage alloc] initWithContentsOfFile:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"Empty.tif"]] autorelease];
 					
 					if (thumbnail)
 					{
@@ -16834,7 +16858,7 @@ static volatile int numberOfThreadsForJPEG = 0;
 			tempPath = [tempPath stringByAppendingFormat: @"_%d", uniqueSeriesID];
 			previousPath = [NSString stringWithString: tempPath];
 			
-			#ifndef OSIRIX_LIGHT
+#ifndef OSIRIX_LIGHT
 			if ([DCMAbstractSyntaxUID isPDF: [curImage valueForKeyPath: @"series.seriesSOPClassUID"]])
 			{
 				DCMObject *dcmObject = [DCMObject objectWithContentsOfFile: [curImage valueForKey: @"completePath"] decodingPixelData:NO];
@@ -16875,7 +16899,9 @@ static volatile int numberOfThreadsForJPEG = 0;
                     NSString *dicPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"dicom.dic"];
                     [aTask setEnvironment:[NSDictionary dictionaryWithObject:dicPath forKey:@"DCMDICTPATH"]];
 
-                    [aTask setLaunchPath: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"dsr2html"]];
+                    NSString *launchPath = [[[NSBundle mainBundle] URLForAuxiliaryExecutable:@"dsr2html"] path];
+                    [aTask setLaunchPath:launchPath];
+
 					[aTask setArguments: [NSArray arrayWithObjects:
                                           @"+X1",
                                           @"--unknown-relationship",
@@ -16920,7 +16946,7 @@ static volatile int numberOfThreadsForJPEG = 0;
 				}
 			}
 			else
-			#endif
+#endif
 			{
 				@autoreleasepool
                 {
@@ -16974,8 +17000,9 @@ static volatile int numberOfThreadsForJPEG = 0;
 			
 			[splash incrementBy:1];
 			
-			if ([splash aborted]) break;
-		}
+			if ([splash aborted])
+                break;
+		} // for Dicom_Image
 		
 		if ([imagesArray count])
 		{
@@ -17002,7 +17029,8 @@ static volatile int numberOfThreadsForJPEG = 0;
 				
 				if (width != 0 && height != 0)
 				{
-					if ((int) [im size].width != width || height != (int) [im size].height)
+					if ((int) [im size].width != width ||
+                        (int) [im size].height != height)
 					{
                         @autoreleasepool
                         {
@@ -17016,8 +17044,16 @@ static volatile int numberOfThreadsForJPEG = 0;
 			}
 			
 			NSString* fullPath = [previousPath stringByAppendingPathExtension:@"mp4"];
-			[BrowserController writeMovieToPath:fullPath images:imagesArray framesPerSecond:fps];
-			[BrowserController setPath:fullPath relativeTo:path forSeriesId:previousSeries kind:@"mp4" toSeriesPaths:seriesPaths];
+
+			[BrowserController writeMovieToPath:fullPath
+                                         images:imagesArray
+                                framesPerSecond:fps];
+
+            [BrowserController setPath:fullPath
+                            relativeTo:path
+                           forSeriesId:previousSeries
+                                  kind:@"mp4"
+                         toSeriesPaths:seriesPaths];
 		}
 		else if ([imagesArray count] == 1)
 		{
@@ -17141,7 +17177,7 @@ static volatile int numberOfThreadsForJPEG = 0;
                                                         [tempPath lastPathComponent]
                                                      ) == NSAlertDefaultReturn)
 					{
-						[[NSFileManager defaultManager] removeFileAtPath:tempPath handler:nil];
+						[[NSFileManager defaultManager] removeItemAtPath:tempPath error:nil];
 						[[NSFileManager defaultManager] createDirectoryAtPath: tempPath
                                                   withIntermediateDirectories: YES
                                                                    attributes: nil
@@ -17663,8 +17699,8 @@ static volatile int numberOfThreadsForJPEG = 0;
 				else
 					reportURL = [NSString stringWithFormat: @"%@/%@", [self.database reportsDirPath], [Reports getUniqueFilename: s]];
 					
-				[[NSFileManager defaultManager] removeFileAtPath: reportURL handler: nil];
-				[[NSFileManager defaultManager] copyPath: path toPath: reportURL handler: nil];
+				[[NSFileManager defaultManager] removeItemAtPath: reportURL error: nil];
+				[[NSFileManager defaultManager] copyItemAtPath: path toPath: reportURL error: nil];
 				[s setValue: reportURL forKey: @"reportURL"];
 			}
 		}
@@ -17823,7 +17859,7 @@ static volatile int numberOfThreadsForJPEG = 0;
 						
 						if (a == NSAlertDefaultReturn)
 						{
-							[[NSFileManager defaultManager] removeFileAtPath:tempPath handler:nil];
+							[[NSFileManager defaultManager] removeItemAtPath:tempPath error:nil];
 							[[NSFileManager defaultManager] createDirectoryAtPath: tempPath
                                                       withIntermediateDirectories: YES
                                                                        attributes: nil
@@ -18001,7 +18037,9 @@ static volatile int numberOfThreadsForJPEG = 0;
 				
 				if ([extension isEqualToString:@"hdr"])		// ANALYZE -> COPY IMG
 				{
-					[[NSFileManager defaultManager] copyPath:[[[filesToExport objectAtIndex:i] stringByDeletingPathExtension] stringByAppendingPathExtension:@"img"] toPath:[[dest stringByDeletingPathExtension] stringByAppendingPathExtension:@"img"] handler:nil];
+					[[NSFileManager defaultManager] copyItemAtPath:[[[filesToExport objectAtIndex:i] stringByDeletingPathExtension] stringByAppendingPathExtension:@"img"]
+                                                            toPath:[[dest stringByDeletingPathExtension] stringByAppendingPathExtension:@"img"]
+                                                             error:nil];
 				}
 				
 				[splash incrementBy:1];
@@ -19142,7 +19180,7 @@ static volatile int numberOfThreadsForJPEG = 0;
 					
 					
 					if ([studySelected valueForKey:@"reportURL"] && [[NSFileManager defaultManager] fileExistsAtPath: [studySelected valueForKey:@"reportURL"]])
-						[[NSFileManager defaultManager] removeFileAtPath: [studySelected valueForKey:@"reportURL"] handler: nil];
+						[[NSFileManager defaultManager] removeItemAtPath: [studySelected valueForKey:@"reportURL"] error: nil];
 					
 					if (![_database isLocal])
 						[(RemoteDicomDatabase*)_database object:studySelected setValue:nil forKey:@"reportURL"];
@@ -19642,7 +19680,7 @@ static volatile int numberOfThreadsForJPEG = 0;
     
 	//    [self.window makeKeyAndOrderFront:nil];
 	
-	#ifdef EXPORTTOOLBARITEM
+#ifdef EXPORTTOOLBARITEM
 	NSLog(@"************** WARNING EXPORTTOOLBARITEM ACTIVATED");
 	for (id s in [self toolbarAllowedItemIdentifiers: toolbar])
 	{
@@ -19691,7 +19729,7 @@ static volatile int numberOfThreadsForJPEG = 0;
             N2LogExceptionWithStackTrace(e);
 		}
 	}
-	#endif
+#endif
 }
 
 - (NSToolbarItem *) toolbar: (NSToolbar *)toolbar itemForItemIdentifier: (NSString *) itemIdent willBeInsertedIntoToolbar:(BOOL) willBeInserted
@@ -20400,10 +20438,9 @@ static volatile int numberOfThreadsForJPEG = 0;
 
 - (BOOL)validateToolbarItem: (NSToolbarItem *)toolbarItem
 {
-	#ifdef EXPORTTOOLBARITEM
+#ifdef EXPORTTOOLBARITEM
 	return YES;
-	#endif
-	
+#else
     BOOL containsDistantStudy = NO;
     
     if ([[databaseOutline selectedRowIndexes] count] > 0)
@@ -20457,7 +20494,7 @@ static volatile int numberOfThreadsForJPEG = 0;
         if (containsDistantStudy == YES && [toolbarItem action] == @selector(querySelectedStudy:))
             return YES;
         
-		if (	[toolbarItem action] == @selector(rebuildThumbnails:) ||
+		if ([toolbarItem action] == @selector(rebuildThumbnails:) ||
 			[toolbarItem action] == @selector(searchForCurrentPatient:) || 
 			[toolbarItem action] == @selector(viewerDICOM:) || 
 		    [toolbarItem action] == @selector(viewerSubSeriesDICOM:) || 
@@ -20542,6 +20579,7 @@ static volatile int numberOfThreadsForJPEG = 0;
 	}
 	
     return YES;
+#endif // EXPORTTOOLBARITEM
 }
 
 ////////////////////////////////////////////////////////////////////////////////

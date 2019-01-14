@@ -160,7 +160,7 @@
     }
 	
     NSString *tmpFolder = [NSTemporaryDirectory() stringByAppendingPathComponent:@"print"];
-	[[NSFileManager defaultManager] removeFileAtPath: tmpFolder handler:nil];
+	[[NSFileManager defaultManager] removeItemAtPath: tmpFolder error:nil];
 }
 
 - (void) print:(id) sender
@@ -175,7 +175,7 @@
     NSString *tmpFolder = [NSTemporaryDirectory() stringByAppendingPathComponent:@"print"];
 	NSMutableArray *files = [NSMutableArray array];
 
-	[[NSFileManager defaultManager] removeFileAtPath: tmpFolder handler:nil];
+	[[NSFileManager defaultManager] removeItemAtPath: tmpFolder error:nil];
 	[[NSFileManager defaultManager] createDirectoryAtPath: tmpFolder
                               withIntermediateDirectories: YES
                                                attributes: nil

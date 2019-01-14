@@ -576,8 +576,8 @@ extern "C"
 		NSString *uniqueStringID = [NSString stringWithFormat:@"%d.%d.%d", getpid(), inc++, (int) random()];
 		
 		NSTask* theTask = [[[NSTask alloc] init] autorelease];
-		
-        NSString *launchPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"echoscu"];
+
+        NSString *launchPath = [[[NSBundle mainBundle] URLForAuxiliaryExecutable:@"echoscu"] path];
         
         if (![[NSFileManager defaultManager] fileExistsAtPath: launchPath]) {
             NSLog(@"%s %d file doesn't exist:%@", __FUNCTION__, __LINE__, launchPath);
@@ -717,9 +717,9 @@ extern "C"
 		if ([[serverParameters objectForKey:@"TLSEnabled"] boolValue])
 		{
 			//[DDKeychain unlockTmpFiles];
-			[[NSFileManager defaultManager] removeFileAtPath:[DICOMTLS keyPathForServerAddress:address port:[port intValue] AETitle:aet withStringID:uniqueStringID] handler:nil];
-			[[NSFileManager defaultManager] removeFileAtPath:[DICOMTLS certificatePathForServerAddress:address port:[port intValue] AETitle:aet withStringID:uniqueStringID] handler:nil];
-			[[NSFileManager defaultManager] removeFileAtPath:[NSString stringWithFormat:@"%@%@", TLS_TRUSTED_CERTIFICATES_DIR, uniqueStringID] handler:nil];		
+			[[NSFileManager defaultManager] removeItemAtPath:[DICOMTLS keyPathForServerAddress:address port:[port intValue] AETitle:aet withStringID:uniqueStringID] error:nil];
+			[[NSFileManager defaultManager] removeItemAtPath:[DICOMTLS certificatePathForServerAddress:address port:[port intValue] AETitle:aet withStringID:uniqueStringID] error:nil];
+			[[NSFileManager defaultManager] removeItemAtPath:[NSString stringWithFormat:@"%@%@", TLS_TRUSTED_CERTIFICATES_DIR, uniqueStringID] error:nil];		
 		}
 		
         if ([wait aborted])

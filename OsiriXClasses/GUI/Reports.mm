@@ -194,7 +194,9 @@
 			NSString *destinationFile = [NSString stringWithFormat:@"%@%@.%@", path, uniqueFilename, @"rtf"];
 			[[NSFileManager defaultManager] removeItemAtPath: destinationFile error: nil];
 			
-			[[NSFileManager defaultManager] copyPath:[BrowserController.currentBrowser.database.baseDirPath stringByAppendingFormat:@"/ReportTemplate.rtf"] toPath:destinationFile handler: nil];
+			[[NSFileManager defaultManager] copyItemAtPath:[BrowserController.currentBrowser.database.baseDirPath stringByAppendingFormat:@"/ReportTemplate.rtf"]
+                                                    toPath:destinationFile
+                                                   error: nil];
 			
 			NSDictionary                *attr;
 			NSMutableAttributedString	*rtf = [[NSMutableAttributedString alloc] initWithRTF: [NSData dataWithContentsOfFile:destinationFile] documentAttributes:&attr];
@@ -306,13 +308,8 @@
 			NSString *destinationFile = [NSString stringWithFormat:@"%@%@.%@", path, uniqueFilename, @"odt"];
 			[[NSFileManager defaultManager] removeItemAtPath: destinationFile error: nil];
 			
-#if 1
-			[[NSFileManager defaultManager] copyPath:[BrowserController.currentBrowser.database.baseDirPath stringByAppendingFormat:@"/ReportTemplate.odt"] toPath:destinationFile handler: nil];
-#else
-            // TODO
             [[NSFileManager defaultManager] copyItemAtPath:[BrowserController.currentBrowser.database.baseDirPath stringByAppendingPathComponent:@"ReportTemplate.odt"] toPath:destinationFile error:NULL];
-            
-#endif
+
 			[self createNewOpenDocumentReportForStudy:study toDestinationPath:destinationFile];
 			
 		}
@@ -607,9 +604,9 @@
 	
 	NSString *path = [BrowserController.currentBrowser.database.baseDirPath stringByAppendingFormat:@"/TEMP.noindex/Report.rtf"];
 	
-	[[NSFileManager defaultManager] removeFileAtPath:path handler:nil];
+	[[NSFileManager defaultManager] removeItemAtPath:path error:nil];
 	
-	NSMutableAttributedString	*rtf = [[[NSMutableAttributedString alloc] initWithString: file] autorelease];
+	NSMutableAttributedString *rtf = [[[NSMutableAttributedString alloc] initWithString: file] autorelease];
 	
     [[rtf RTFFromRange:rtf.range documentAttributes:@{}] writeToFile: path atomically:YES]; // To support full encoding in MicroSoft Word
 	
@@ -799,10 +796,11 @@ static BOOL Pages5orHigher = FALSE;
                                                         error:nil];
     
 	// Pages template
-    NSString *defaultReport = [templatesDirPath stringByAppendingPathComponent:@"/Basic Report.pages"];
+    NSString *defaultReport = [templatesDirPath stringByAppendingPathComponent:@"Basic Report.pages"];
 	if ([[NSFileManager defaultManager] fileExistsAtPath: defaultReport] == NO)
-		[[NSFileManager defaultManager] copyPath: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"/Report.pages"]
-                                          toPath: defaultReport handler:nil];
+		[[NSFileManager defaultManager] copyItemAtPath: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"Report.pages"]
+                                                toPath: defaultReport
+                                                 error:nil];
 	
 #endif
 }

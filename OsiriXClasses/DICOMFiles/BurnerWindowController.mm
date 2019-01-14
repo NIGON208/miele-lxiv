@@ -47,7 +47,7 @@
 
 - (void) createDMG:(NSString*) imagePath withSource:(NSString*) directoryPath
 {
-	[[NSFileManager defaultManager] removeFileAtPath:imagePath handler:nil];
+	[[NSFileManager defaultManager] removeItemAtPath:imagePath error:nil];
 	
 	NSTask* makeImageTask = [[[NSTask alloc] init] autorelease];
 
@@ -75,7 +75,7 @@
 {
     if (self = [super initWithWindowNibName:@"BurnViewer"])
     {
-		[[NSFileManager defaultManager] removeFileAtPath:[self folderToBurn] handler:nil];
+		[[NSFileManager defaultManager] removeItemAtPath:[self folderToBurn] error:nil];
 		
 		files = [theFiles mutableCopy];
 		burning = NO;
@@ -91,7 +91,7 @@
 {
 	if (self = [super initWithWindowNibName:@"BurnViewer"])
 	{
-		[[NSFileManager defaultManager] removeFileAtPath:[self folderToBurn] handler:nil];
+		[[NSFileManager defaultManager] removeItemAtPath:[self folderToBurn] error:nil];
 		
 		files = [theFiles mutableCopy]; // file paths
 		dbObjectsID = [managedObjects mutableCopy];
@@ -238,9 +238,9 @@
             cdName = [@"UNTITLED" retain];
         }
         
-        [[NSFileManager defaultManager] removeFileAtPath:[self folderToBurn] handler:nil];
+        [[NSFileManager defaultManager] removeItemAtPath:[self folderToBurn] error:nil];
         NSString *pathBurnAnonymized = [NSTemporaryDirectory() stringByAppendingPathComponent:@"burnAnonymized"];
-        [[NSFileManager defaultManager] removeFileAtPath:pathBurnAnonymized handler:nil];
+        [[NSFileManager defaultManager] removeItemAtPath:pathBurnAnonymized error:nil];
         
         [writeVolumePath release];
         writeVolumePath = nil;
@@ -723,8 +723,8 @@
 		return NO;
 
     NSString *pathBurnAnonymized = [NSTemporaryDirectory() stringByAppendingPathComponent:@"burnAnonymized"];
-    [[NSFileManager defaultManager] removeFileAtPath: [self folderToBurn] handler:nil];
-    [[NSFileManager defaultManager] removeFileAtPath: [NSString stringWithFormat:pathBurnAnonymized] handler:nil];
+    [[NSFileManager defaultManager] removeItemAtPath: [self folderToBurn] error:nil];
+    [[NSFileManager defaultManager] removeItemAtPath: [NSString stringWithFormat:pathBurnAnonymized] error:nil];
     
     [filesToBurn release];
     filesToBurn = nil;
@@ -948,7 +948,9 @@
                                      error: nil];
         
         if (![manager fileExistsAtPath:dicomdirPath])
-            [manager copyPath:[[NSBundle mainBundle] pathForResource:@"DICOMDIR" ofType:nil] toPath:dicomdirPath handler:nil];
+            [manager copyItemAtPath:[[NSBundle mainBundle] pathForResource:@"DICOMDIR" ofType:nil]
+                             toPath:dicomdirPath
+                              error:nil];
             
         NSMutableArray *newFiles = [NSMutableArray array];
         NSMutableArray *compressedArray = [NSMutableArray array];
@@ -959,7 +961,7 @@
             @autoreleasepool {
                 NSString *newPath = [NSString stringWithFormat:@"%@/%05d", subFolder, i++];
                 
-                [manager copyPath: file toPath: newPath handler:nil];
+                [manager copyItemAtPath: file toPath: newPath error:nil];
                 
                 if ([DicomFile isDICOMFile: newPath])
                 {
@@ -1099,7 +1101,9 @@
                         NSEnumerator *enumerator = [manager enumeratorAtPath: supplementaryBurnPath];
                         while (file=[enumerator nextObject])
                         {
-                            [manager copyPath: [NSString stringWithFormat:@"%@/%@", supplementaryBurnPath,file] toPath: [NSString stringWithFormat:@"%@/%@", burnFolder,file] handler:nil]; 
+                            [manager copyItemAtPath: [NSString stringWithFormat:@"%@/%@", supplementaryBurnPath,file]
+                                             toPath: [NSString stringWithFormat:@"%@/%@", burnFolder,file]
+                                              error: nil];
                         }
                     }
                     else
@@ -1138,9 +1142,20 @@
                         NSString *pdfPath = [study saveReportAsPdfInTmp];
                         
                         if ([manager fileExistsAtPath: pdfPath] == NO)
-                            [manager copyPath: [study valueForKey:@"reportURL"] toPath: [NSString stringWithFormat:@"%@/Report-%@ %@.%@", burnFolder, [self cleanStringForFile: [study valueForKey:@"modality"]], [self cleanStringForFile: [BrowserController DateTimeWithSecondsFormat: [study valueForKey:@"date"]]], [self cleanStringForFile: [[study valueForKey:@"reportURL"] pathExtension]]] handler:nil]; 
+                            [manager copyItemAtPath: [study valueForKey:@"reportURL"]
+                                       toPath: [NSString stringWithFormat:@"%@/Report-%@ %@.%@",
+                                                burnFolder,
+                                                [self cleanStringForFile: [study valueForKey:@"modality"]],
+                                                [self cleanStringForFile: [BrowserController DateTimeWithSecondsFormat: [study valueForKey:@"date"]]],
+                                                [self cleanStringForFile: [[study valueForKey:@"reportURL"] pathExtension]]]
+                                      error:nil];
                         else
-                            [manager copyPath: pdfPath toPath: [NSString stringWithFormat:@"%@/Report-%@ %@.pdf", burnFolder, [self cleanStringForFile: [study valueForKey:@"modality"]], [self cleanStringForFile: [BrowserController DateTimeWithSecondsFormat: [study valueForKey:@"date"]]]] handler: nil];
+                            [manager copyItemAtPath: pdfPath
+                                       toPath: [NSString stringWithFormat:@"%@/Report-%@ %@.pdf",
+                                                burnFolder,
+                                                [self cleanStringForFile: [study valueForKey:@"modality"]],
+                                                [self cleanStringForFile: [BrowserController DateTimeWithSecondsFormat: [study valueForKey:@"date"]]]]
+                                      error: nil];
                     }
                     
                     if (cancelled)

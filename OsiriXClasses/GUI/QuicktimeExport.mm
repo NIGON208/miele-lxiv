@@ -155,8 +155,8 @@
         
         NSString *path = [[[[BrowserController currentBrowser] database] tempDirPath] stringByAppendingPathComponent:@"PHOTOS"];
 
-        [[NSFileManager defaultManager] removeFileAtPath: path
-                                                 handler: nil];
+        [[NSFileManager defaultManager] removeItemAtPath: path
+                                                 error: nil];
 
         [[NSFileManager defaultManager] createDirectoryAtPath: path
                                   withIntermediateDirectories: YES

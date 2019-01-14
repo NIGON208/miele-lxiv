@@ -1959,7 +1959,9 @@ char* replaceBadCharacter (char* str, NSStringEncoding encoding)
         NSString *dicPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"dicom.dic"];
         [aTask setEnvironment:[NSDictionary dictionaryWithObject:dicPath forKey:@"DCMDICTPATH"]];
 
-        [aTask setLaunchPath: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"dsr2html"]];
+        NSString *launchPath = [[[NSBundle mainBundle] URLForAuxiliaryExecutable:@"dsr2html"] path];
+        [aTask setLaunchPath:launchPath];
+
 		[aTask setArguments: [NSArray arrayWithObjects:
                               @"+X1",
                               @"--unknown-relationship",
