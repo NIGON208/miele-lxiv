@@ -91,7 +91,6 @@
     size_t height = [image size].height;
     size_t bitsPerComponent = 8;
     CGColorSpaceRef cs = CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB);
-    CGBitmapInfo bi = kCGBitmapByteOrderDefault;
     NSDictionary *d = [NSDictionary dictionaryWithObjectsAndKeys:
                        @YES, kCVPixelBufferCGImageCompatibilityKey,
                        @YES, kCVPixelBufferCGBitmapContextCompatibilityKey,
@@ -104,7 +103,13 @@
     size_t bytesPerRow = CVPixelBufferGetBytesPerRow(buffer);
     
     // context to draw in, set to pixel buffer's address
-    CGContextRef ctxt = CGBitmapContextCreate(rasterData, width, height, bitsPerComponent, bytesPerRow, cs, bi);
+    CGContextRef ctxt = CGBitmapContextCreate(rasterData,
+                                              width,
+                                              height,
+                                              bitsPerComponent,
+                                              bytesPerRow,
+                                              cs,
+                                              kCGImageAlphaNoneSkipFirst);
     if(ctxt == NULL)
     {
         NSLog(@"******** CVPixelBufferFromNSImage : could not create context");
@@ -314,21 +319,21 @@
                     }
                     [pool release];
                 }
+
                 [writerInput markAsFinished];
-                [writer finishWriting];
+                [writer finishWritingWithCompletionHandler:^{ }];
                 
-                [object performSelector: selector withObject: [NSNumber numberWithLong: 0] withObject:[NSNumber numberWithLong: numberOfFrames]];
+                [object performSelector: selector
+                             withObject: [NSNumber numberWithLong: 0]
+                             withObject: [NSNumber numberWithLong: numberOfFrames]];
                 
                 [wait close];
                 
                 [writerInput release];
                 [pixelBufferAdaptor release];
                 
-                if( openIt && aborted == NO)
-                {
-                    NSWorkspace *ws = [NSWorkspace sharedWorkspace];
-                    [ws openFile:fileName];
-                }
+                if (openIt && !aborted)
+                    [[NSWorkspace sharedWorkspace] openFile:fileName];
             }
             
             [writer release];

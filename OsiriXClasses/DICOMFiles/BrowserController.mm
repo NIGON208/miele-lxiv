@@ -16590,8 +16590,7 @@ static volatile int numberOfThreadsForJPEG = 0;
             else
                 N2LogStackTrace( @"********** bitsPerSecond == 0");
 
-            if (![writer finishWriting])
-                NSLog(@"Couldn't finish writing");
+            [writer finishWritingWithCompletionHandler:^{ }];
         }
 	}
 	@catch( NSException *e)

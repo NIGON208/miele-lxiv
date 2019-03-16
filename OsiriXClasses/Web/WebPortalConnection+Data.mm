@@ -972,10 +972,10 @@ const NSString* const GenerateMovieDicomImagesParamKey = @"dicomImageArray";
                         else
                             N2LogStackTrace( @"********** bitsPerSecond == 0");
                         
-                        [writer finishWriting];
+                        [writer finishWritingWithCompletionHandler:^{ }];
                     }
+
                     [[NSFileManager defaultManager] removeItemAtPath: root error: nil];
-                    
                     [writer release];
                 }
                 @catch (NSException *e)
