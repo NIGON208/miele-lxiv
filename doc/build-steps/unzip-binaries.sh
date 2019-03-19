@@ -1,6 +1,6 @@
 #!/bin/bash
 
-SRCROOT=$(pwd)/../
+SRCROOT="$(pwd)/../.."
 
 cd "$SRCROOT/Binaries"
 unzip -uo DB_Previous_Models.zip
@@ -35,10 +35,10 @@ unzip -uo Logo.tif.zip
 cd "$SRCROOT/Binaries/PAGES"
 rm ._*
 
-cd "$SRCROOT/AYDicomPrint"
-unzip -uo libdcmprintscu.dylib.zip
-unzip -uo libxerces-c.27.dylib.zip
-unzip -uo xercesc.zip
+#cd "$SRCROOT/AYDicomPrint"
+#unzip -uo libdcmprintscu.dylib.zip
+#unzip -uo libxerces-c.27.dylib.zip
+#unzip -uo xercesc.zip
 
 # Don't overwrite customized files
 cd "$SRCROOT"
