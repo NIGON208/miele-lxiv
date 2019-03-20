@@ -527,8 +527,8 @@ extern int delayedTileWindows;
 //        
 //        NSPipe *thePipe = [NSPipe pipe];
 //        
-//        [theTask setLaunchPath: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"/dcm2xml"]];
-//        [theTask setEnvironment:[NSDictionary dictionaryWithObject:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"/dicom.dic"] forKey:@"DCMDICTPATH"]];
+//        [theTask setLaunchPath: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"dcm2xml"]];
+//        [theTask setEnvironment:[NSDictionary dictionaryWithObject:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"dicom.dic"] forKey:@"DCMDICTPATH"]];
 //        [theTask setArguments: [NSMutableArray arrayWithObject: srcFile]];
 //        [theTask setStandardOutput: thePipe];
 //        [theTask launch];
@@ -1213,7 +1213,7 @@ extern int delayedTileWindows;
 				[XMLController modifyDicom: params encoding: encoding];
 				
 				for( id loopItem in files)
-					[[NSFileManager defaultManager] removeFileAtPath:[loopItem stringByAppendingString:@".bak"] handler:nil];
+					[[NSFileManager defaultManager] removeItemAtPath:[loopItem stringByAppendingString:@".bak"] error:nil];
 				
 				[self updateDB: files objects: objects];
 			}
@@ -1303,8 +1303,10 @@ extern int delayedTileWindows;
 	NSTask *theTask = [[NSTask alloc] init];
 
 	NSPipe *thePipe = [NSPipe pipe];
-	
-	[theTask setLaunchPath:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"/dciodvfy"]];
+
+    NSString *launchPath = [[[NSBundle mainBundle] URLForAuxiliaryExecutable:@"dciodvfy"] path];
+    [theTask setLaunchPath:launchPath];
+
 	[theTask setArguments: [NSMutableArray arrayWithObject: srcFile]];
 	[theTask setStandardError: thePipe];
 	[theTask launch];

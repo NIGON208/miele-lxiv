@@ -806,7 +806,7 @@ static NSString* const O2NotEnoughData = @"O2NotEnoughData";
                 {
                     if( value == nil)
                     {
-                        [[NSFileManager defaultManager] removeFileAtPath:[item valueForKeyPath: key] handler:nil];
+                        [[NSFileManager defaultManager] removeItemAtPath:[item valueForKeyPath: key] error:nil];
                     }
                     else if( [[key pathComponents] count] == 1)
                     {
@@ -924,7 +924,7 @@ static NSString* const O2NotEnoughData = @"O2NotEnoughData";
                     //It's a ROI !
                     NSString	*local = [[[DicomDatabase defaultDatabase] sqlFilePath] stringByDeletingLastPathComponent];
                     
-                    path = [[local stringByAppendingPathComponent:@"/ROIs/"] stringByAppendingPathComponent: [path lastPathComponent]];
+                    path = [[local stringByAppendingPathComponent:@"ROIs/"] stringByAppendingPathComponent: [path lastPathComponent]];
                 }
                 else
                 {
@@ -937,7 +937,7 @@ static NSString* const O2NotEnoughData = @"O2NotEnoughData";
                     
                     NSString	*local = [[[DicomDatabase defaultDatabase] sqlFilePath] stringByDeletingLastPathComponent];
                     
-                    path = [[[local stringByAppendingPathComponent:@"/DATABASE.noindex/"] stringByAppendingPathComponent: [NSString stringWithFormat:@"%d", val]] stringByAppendingPathComponent: path];
+                    path = [[[local stringByAppendingPathComponent:@"DATABASE.noindex/"] stringByAppendingPathComponent: [NSString stringWithFormat:@"%d", val]] stringByAppendingPathComponent: path];
                 }
             }
             

@@ -6222,7 +6222,9 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
                 NSString *dicPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"dicom.dic"];
                 [aTask setEnvironment:[NSDictionary dictionaryWithObject:dicPath forKey:@"DCMDICTPATH"]];
 
-                [aTask setLaunchPath: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"dsr2html"]];
+                NSString *launchPath = [[[NSBundle mainBundle] URLForAuxiliaryExecutable:@"dsr2html"] path];
+                [aTask setLaunchPath:launchPath];
+
                 [aTask setArguments: [NSArray arrayWithObjects:
                                       @"+X1",
                                       @"--unknown-relationship",
@@ -7391,7 +7393,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
                         // It failed with Papyrus : potential crash with DCMFramework with a corrupted file
                         // Only do it, if it failed: writing a file takes time... and slow down reading performances
                         
-                        NSString *recoveryPath = [[[BrowserController currentBrowser] documentsDirectory] stringByAppendingPathComponent:@"/ThumbnailPath"];
+                        NSString *recoveryPath = [[[BrowserController currentBrowser] documentsDirectory] stringByAppendingPathComponent:@"ThumbnailPath"];
                         
                         [[NSFileManager defaultManager] removeItemAtPath: recoveryPath error: nil];
                         

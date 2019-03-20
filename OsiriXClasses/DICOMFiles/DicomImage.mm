@@ -582,7 +582,7 @@ NSString* sopInstanceUIDDecode( unsigned char *r, int length)
 				[XMLController modifyDicom: params encoding: encoding];
 				
 				for( id loopItem in files)
-					[[NSFileManager defaultManager] removeFileAtPath: [loopItem stringByAppendingString:@".bak"] handler:nil];
+					[[NSFileManager defaultManager] removeItemAtPath: [loopItem stringByAppendingString:@".bak"] error:nil];
 			}
 			@catch (NSException * e)
 			{

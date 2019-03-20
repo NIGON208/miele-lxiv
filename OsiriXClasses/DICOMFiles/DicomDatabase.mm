@@ -1328,8 +1328,8 @@ NSString* const DicomDatabaseLogEntryEntityName = @"LogEntry";
 //          N2LogExceptionWithStackTrace(e);
 //		}
 //		
-//		[[NSFileManager defaultManager] removeFileAtPath: file handler: nil];
-//		[[NSFileManager defaultManager] movePath:destPath toPath: file handler: nil];
+//		[[NSFileManager defaultManager] removeItemAtPath: file error: nil];
+//		[[NSFileManager defaultManager] moveItemAtPath:destPath toPath: file error: nil];
 //	}
 //#endif
 //}
@@ -1627,14 +1627,14 @@ NSString* const DicomDatabaseLogEntryEntityName = @"LogEntry";
 							
 							if ( DELETEFILELISTENER)
 							{
-								[[NSFileManager defaultManager] removeFileAtPath: newFile handler:nil];
+								[[NSFileManager defaultManager] removeItemAtPath: newFile error:nil];
 							}
 							else
 							{
 								NSLog(@"**** This file in the DATABASE folder: move it to the unreadable folder");
 								
 								if ([[NSFileManager defaultManager] moveItemAtPath:newFile toPath:[errorsDirPath stringByAppendingPathComponent:[newFile lastPathComponent]] error:NULL] == NO)
-									[[NSFileManager defaultManager] removeFileAtPath: newFile handler:nil];
+									[[NSFileManager defaultManager] removeItemAtPath: newFile error:nil];
 							}
 						}
 					}
@@ -1686,7 +1686,7 @@ NSString* const DicomDatabaseLogEntryEntityName = @"LogEntry";
 		
 		[DicomFile setFilesAreFromCDMedia: NO];
 		
-	//	[[NSFileManager defaultManager] removeFileAtPath: @"/tmp/dicomsr_osirix" handler: nil]; // nooooooo because other threads may be using it
+	//	[[NSFileManager defaultManager] removeItemAtPath: @"/tmp/dicomsr_osirix" error: nil]; // nooooooo because other threads may be using it
 
 		if (addFailed)
 		{
@@ -2188,7 +2188,7 @@ static BOOL protectionAgainstReentry = NO;
                                         if (local)	// Delete this file, it's already in the DB folder
                                         {
                                             if ([[image valueForKey:@"path"] isEqualToString: [newFile lastPathComponent]] == NO)
-                                                [[NSFileManager defaultManager] removeFileAtPath: newFile handler:nil];
+                                                [[NSFileManager defaultManager] removeItemAtPath: newFile error:nil];
                                         }
                                         
                                         newObject = NO;
@@ -2202,7 +2202,7 @@ static BOOL protectionAgainstReentry = NO;
                                         if ([[image valueForKey:@"inDatabaseFolder"] boolValue] && [imPath isEqualToString: newFile] == NO)
                                         {
                                             if ([[NSFileManager defaultManager] fileExistsAtPath: imPath])
-                                                [[NSFileManager defaultManager] removeFileAtPath: imPath handler:nil];
+                                                [[NSFileManager defaultManager] removeItemAtPath: imPath error:nil];
                                         }
                                     }
                                 }
@@ -2529,12 +2529,12 @@ static BOOL protectionAgainstReentry = NO;
                             
                             if ( DELETEFILELISTENER)
                             {
-                                [[NSFileManager defaultManager] removeFileAtPath: newFile handler:nil];
+                                [[NSFileManager defaultManager] removeItemAtPath: newFile error:nil];
                             }
                             else
                             {
                                 if ([[NSFileManager defaultManager] moveItemAtPath: newFile toPath:[errorsDirPath stringByAppendingPathComponent: [newFile lastPathComponent]]  error:NULL] == NO)
-                                    [[NSFileManager defaultManager] removeFileAtPath: newFile handler:nil];
+                                    [[NSFileManager defaultManager] removeItemAtPath: newFile error:nil];
                             }
                         }
                     }
@@ -3062,7 +3062,7 @@ static BOOL protectionAgainstReentry = NO;
                         }
                         
                         if (!dirContainsStuff)
-                            [[NSFileManager defaultManager] removeFileAtPath:srcPath handler:nil];
+                            [[NSFileManager defaultManager] removeItemAtPath:srcPath error:nil];
                     }
 				}
 				else if ([[fattrs objectForKey:NSFileSize] longLongValue] > 0)
@@ -3163,7 +3163,7 @@ static BOOL protectionAgainstReentry = NO;
                             }
                         }
                         [file closeFile];
-                        if (dicomFileCreated)[[NSFileManager defaultManager] removeFileAtPath:srcPath handler:nil];
+                        if (dicomFileCreated)[[NSFileManager defaultManager] removeItemAtPath:srcPath error:nil];
                         
                     }
                     //===========================
@@ -3218,8 +3218,8 @@ static BOOL protectionAgainstReentry = NO;
 							
 							if (isAlias)
 							{
-									result = [[NSFileManager defaultManager] copyPath:srcPath toPath: dstPath handler:nil];
-									[[NSFileManager defaultManager] removeFileAtPath:originalPath handler:nil];
+									result = [[NSFileManager defaultManager] copyItemAtPath:srcPath toPath: dstPath error:nil];
+									[[NSFileManager defaultManager] removeItemAtPath:originalPath error:nil];
 							}
 							else
 							{
@@ -3237,7 +3237,7 @@ static BOOL protectionAgainstReentry = NO;
 								[[NSFileManager defaultManager] removeItemAtPath:srcPath error:NULL];
 							else {
 								if (![NSFileManager.defaultManager moveItemAtPath:srcPath toPath:[self.errorsDirPath stringByAppendingPathComponent:lastPathComponent] error:NULL])
-									[NSFileManager.defaultManager removeFileAtPath:srcPath handler:nil];
+									[NSFileManager.defaultManager removeItemAtPath:srcPath error:nil];
 							}
 						}
 					}
@@ -4342,17 +4342,23 @@ static BOOL protectionAgainstReentry = NO;
 	templateFile = [htmlTemplatesDirectory stringByAppendingPathComponent:@"QTExportPatientsTemplate.html"];
 //	NSLog( @"%@", templateFile);
 	if ([[NSFileManager defaultManager] fileExistsAtPath:templateFile] == NO)
-		[[NSFileManager defaultManager] copyPath:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"QTExportPatientsTemplate.html"] toPath:templateFile handler:nil];
+		[[NSFileManager defaultManager] copyItemAtPath:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"QTExportPatientsTemplate.html"]
+                                                toPath:templateFile
+                                                 error:nil];
 	
 	templateFile = [htmlTemplatesDirectory stringByAppendingPathComponent:@"QTExportStudiesTemplate.html"];
 //	NSLog( @"%@", templateFile);
 	if ([[NSFileManager defaultManager] fileExistsAtPath:templateFile] == NO)
-		[[NSFileManager defaultManager] copyPath:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"QTExportStudiesTemplate.html"] toPath:templateFile handler:nil];
+		[[NSFileManager defaultManager] copyItemAtPath:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"QTExportStudiesTemplate.html"]
+                                                toPath:templateFile
+                                                 error:nil];
 	
 	templateFile = [htmlTemplatesDirectory stringByAppendingPathComponent:@"QTExportSeriesTemplate.html"];
 //	NSLog( @"%@", templateFile);
 	if ([[NSFileManager defaultManager] fileExistsAtPath:templateFile] == NO)
-		[[NSFileManager defaultManager] copyPath:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"QTExportSeriesTemplate.html"] toPath:templateFile handler:nil];
+		[[NSFileManager defaultManager] copyItemAtPath:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"QTExportSeriesTemplate.html"]
+                                                toPath:templateFile
+                                                 error:nil];
 	
 	// HTML-extra directory
 	NSString *htmlExtraDirectory = [htmlTemplatesDirectory stringByAppendingPathComponent:@"html-extra/"];
@@ -4365,7 +4371,9 @@ static BOOL protectionAgainstReentry = NO;
 	// CSS file
 	NSString *cssFile = [htmlExtraDirectory stringByAppendingPathComponent:@"style.css"];
 	if ([[NSFileManager defaultManager] fileExistsAtPath:cssFile] == NO)
-		[[NSFileManager defaultManager] copyPath:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"QTExportStyle.css"] toPath:cssFile handler:nil];
+		[[NSFileManager defaultManager] copyItemAtPath:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"QTExportStyle.css"]
+                                                toPath:cssFile
+                                                 error:nil];
 	
 }
 

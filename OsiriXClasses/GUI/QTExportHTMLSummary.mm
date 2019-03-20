@@ -105,7 +105,7 @@
 	while (series = [enumerator nextObject])
 	{
 		tempListItemTemplate = [NSMutableString stringWithString:listItemTemplate];
-		//linkToPatientPage = [[[[series objectAtIndex:0] valueForKeyPath:@"study.name"] filenameString] stringByAppendingPathComponent:@"/index.html"];
+		//linkToPatientPage = [[[[series objectAtIndex:0] valueForKeyPath:@"study.name"] filenameString] stringByAppendingPathComponent:@"index.html"];
 		linkToPatientPage = [NSString stringWithFormat:@"./%@/%@", [[[series objectAtIndex:0] valueForKeyPath:@"study.name"] filenameString], @"index.html"];
 		
 		[tempListItemTemplate replaceOccurrencesOfString:@"%patient_i_page%" withString:[QTExportHTMLSummary nonNilString:linkToPatientPage] options:NSLiteralSearch range:tempListItemTemplate.range];
@@ -421,7 +421,7 @@
 	NSFileManager *fileManager = [NSFileManager defaultManager];
 
 	NSString *htmlContent = [self fillPatientsListTemplates];
-	[fileManager createFileAtPath:[rootPath stringByAppendingPathComponent:@"/index.html"] contents:[htmlContent dataUsingEncoding:NSUTF8StringEncoding] attributes:nil];
+	[fileManager createFileAtPath:[rootPath stringByAppendingPathComponent:@"index.html"] contents:[htmlContent dataUsingEncoding:NSUTF8StringEncoding] attributes:nil];
 }
 
 - (void)createHTMLStudiesList;
@@ -446,9 +446,11 @@
 - (void)createHTMLExtraDirectory;
 {
 	NSFileManager *fileManager = [NSFileManager defaultManager];
-	NSString *htmlExtraDirectory = [[[BrowserController currentBrowser] documentsDirectory] stringByAppendingPathComponent:@"/HTML_TEMPLATES/html-extra/"];
+	NSString *htmlExtraDirectory = [[[BrowserController currentBrowser] documentsDirectory] stringByAppendingPathComponent:@"HTML_TEMPLATES/html-extra/"];
 	//if([directoryContent count])
-	[fileManager copyPath:htmlExtraDirectory toPath:[rootPath stringByAppendingPathComponent:@"/html-extra/"] handler:nil];
+	[fileManager copyItemAtPath:htmlExtraDirectory
+                         toPath:[rootPath stringByAppendingPathComponent:@"html-extra/"]
+                        error:nil];
 }
 
 - (void)createHTMLSeriesPage:(NSManagedObject*)series numberOfImages:(int)imagesCount outPutFileName:(NSString*)fileName;

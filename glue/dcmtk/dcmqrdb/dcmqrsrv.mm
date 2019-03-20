@@ -165,7 +165,7 @@ static int numberOfActiveAssociations = 0;
 	if( [[NSFileManager defaultManager] fileExistsAtPath: pathKillAll] == NO)
 	{
 		NSString *str = [NSString stringWithContentsOfFile: pathErrorMsg];
-		[[NSFileManager defaultManager] removeFileAtPath: pathErrorMsg handler: nil];
+		[[NSFileManager defaultManager] removeItemAtPath: pathErrorMsg error: nil];
 		
 		if( str && [str length] > 0)
 			[[AppController sharedAppController] performSelectorOnMainThread: @selector(displayListenerError:) withObject: str waitUntilDone: NO];

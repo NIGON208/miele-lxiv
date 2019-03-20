@@ -1198,7 +1198,7 @@ return YES;
             return;	//We will save the states ONLY if we can save the state of ALL DISPLAYED windows !:!:!:
         
     //	NSString	*tmp = [NSString stringWithFormat:@"/tmp/windowsState"];
-    //	[[NSFileManager defaultManager] removeFileAtPath: tmp handler:nil];
+    //	[[NSFileManager defaultManager] removeItemAtPath: tmp error:nil];
     //	[state writeToFile: tmp atomically: YES];
         
         NSData *windowsState = [NSPropertyListSerialization dataFromPropertyList: state  format: NSPropertyListXMLFormat_v1_0 errorDescription: nil];
@@ -19391,7 +19391,7 @@ static BOOL viewerControllerPlaying = NO;
     }
 	
     NSString *tmpFolder = [NSTemporaryDirectory() stringByAppendingPathComponent:@"print"];
-	[[NSFileManager defaultManager] removeFileAtPath: tmpFolder handler:nil];
+	[[NSFileManager defaultManager] removeItemAtPath: tmpFolder error:nil];
     [self restoreWindowsAfterPrint];
 }
 
@@ -19511,7 +19511,7 @@ static BOOL viewerControllerPlaying = NO;
 		NSMutableArray *files = [NSMutableArray array];
         NSString *tmpFolder = [NSTemporaryDirectory() stringByAppendingPathComponent:@"print"];
 
-		[[NSFileManager defaultManager] removeFileAtPath: tmpFolder handler:nil];
+		[[NSFileManager defaultManager] removeItemAtPath: tmpFolder error:nil];
 		[[NSFileManager defaultManager] createDirectoryAtPath: tmpFolder
                                   withIntermediateDirectories: YES
                                                    attributes: nil
@@ -21022,12 +21022,11 @@ static BOOL viewerControllerPlaying = NO;
 		pathToTemplate = [pathToTemplate stringByAppendingPathExtension:@"template"];	
 		
 		//copy file pathToTemplate to pathToPAGES
-		if ([fileManager copyPath:pathToTemplate toPath:[pathToPAGES stringByAppendingPathExtension:@"pages"] handler:nil])
+		if ([fileManager copyItemAtPath:pathToTemplate toPath:[pathToPAGES stringByAppendingPathExtension:@"pages"] error:nil])
 			NSLog( @"%@", [NSString stringWithFormat:@"%@ is a copy of %@",[pathToPAGES stringByAppendingPathExtension:@"pages"], pathToTemplate]);
 		else
 			NSLog(@"template not available");
 	}
-
 	
 	//create pathToPages/timeStamp.cfg, sibling of pathToPages (allows for use of dcm4che lib to reinject the pdf produced into OsiriX)
 	//init and DICOM dateFormatter AAAAMMDD

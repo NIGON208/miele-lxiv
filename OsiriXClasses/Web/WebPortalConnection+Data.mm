@@ -921,13 +921,13 @@ const NSString* const GenerateMovieDicomImagesParamKey = @"dicomImageArray";
                                                  [NSNumber numberWithInt: height], AVVideoHeightKey, nil];
                             }
                             
-                            // Instanciate the AVAssetWriterInput
+                            // Instantiate the AVAssetWriterInput
                             AVAssetWriterInput *writerInput = [AVAssetWriterInput assetWriterInputWithMediaType:AVMediaTypeVideo outputSettings:videoSettings];
                             
                             if( writerInput == nil)
                                 N2LogStackTrace( @"**** writerInput == nil : %@", videoSettings);
                             
-                            // Instanciate the AVAssetWriterInputPixelBufferAdaptor to be connected to the writer input
+                            // Instantiate the AVAssetWriterInputPixelBufferAdaptor to be connected to the writer input
                             AVAssetWriterInputPixelBufferAdaptor *pixelBufferAdaptor = [AVAssetWriterInputPixelBufferAdaptor assetWriterInputPixelBufferAdaptorWithAssetWriterInput:writerInput sourcePixelBufferAttributes:nil];
                             // Add the writer input to the writer and begin writing
                             [writer addInput:writerInput];
@@ -972,10 +972,10 @@ const NSString* const GenerateMovieDicomImagesParamKey = @"dicomImageArray";
                         else
                             N2LogStackTrace( @"********** bitsPerSecond == 0");
                         
-                        [writer finishWriting];
+                        [writer finishWritingWithCompletionHandler:^{ }];
                     }
+
                     [[NSFileManager defaultManager] removeItemAtPath: root error: nil];
-                    
                     [writer release];
                 }
                 @catch (NSException *e)
@@ -2685,37 +2685,37 @@ const NSString* const GenerateMovieDicomImagesParamKey = @"dicomImageArray";
     
     response.data = [NSData dataWithContentsOfFile: tmpFile];
     
-    [[NSFileManager defaultManager] removeFileAtPath: tmpFile handler:nil];
+    [[NSFileManager defaultManager] removeItemAtPath: tmpFile error:nil];
     
-    //	NSString *reportType = [reportFilePath pathExtension];
-    //
-    //	if ([reportType isEqualToString: @"pages"])
-    //	{
-    //		NSString* zipFileName = [NSString stringWithFormat:@"%@.zip", [reportFilePath lastPathComponent]];
-    //		// zip the directory into a single archive file
-    //		NSTask *zipTask   = [[NSTask alloc] init];
-    //		[zipTask setLaunchPath:@"/usr/bin/zip"];
-    //		[zipTask setCurrentDirectoryPath:[[reportFilePath stringByDeletingLastPathComponent] stringByAppendingString:@"/"]];
-    //		if ([reportType isEqualToString:@"pages"])
-    //			[zipTask setArguments:[NSArray arrayWithObjects: @"-q", @"-r" , zipFileName, [reportFilePath lastPathComponent], nil]];
-    //		else
-    //			[zipTask setArguments:[NSArray arrayWithObjects: zipFileName, [reportFilePath lastPathComponent], nil]];
-    //		[zipTask launch];
-    //		while( [zipTask isRunning]) [NSThread sleepForTimeInterval: 0.01];
-    //		int result = [zipTask terminationStatus];
-    //		[zipTask release];
-    //
-    //		if (result==EXIT_SUCCESS)
-    //			reportFilePath = [[reportFilePath stringByDeletingLastPathComponent] stringByAppendingPathComponent:zipFileName];
-    //
-    //		response.data = [NSData dataWithContentsOfFile: reportFilePath];
-    //
-    //		[[NSFileManager defaultManager] removeFileAtPath:reportFilePath handler:nil];
-    //	}
-    //	else
-    //	{
-    //		response.data = [NSData dataWithContentsOfFile: reportFilePath];
-    //	}
+//	NSString *reportType = [reportFilePath pathExtension];
+//
+//	if ([reportType isEqualToString: @"pages"])
+//	{
+//		NSString* zipFileName = [NSString stringWithFormat:@"%@.zip", [reportFilePath lastPathComponent]];
+//		// zip the directory into a single archive file
+//		NSTask *zipTask   = [[NSTask alloc] init];
+//		[zipTask setLaunchPath:@"/usr/bin/zip"];
+//		[zipTask setCurrentDirectoryPath:[[reportFilePath stringByDeletingLastPathComponent] stringByAppendingString:@"/"]];
+//		if ([reportType isEqualToString:@"pages"])
+//			[zipTask setArguments:[NSArray arrayWithObjects: @"-q", @"-r" , zipFileName, [reportFilePath lastPathComponent], nil]];
+//		else
+//			[zipTask setArguments:[NSArray arrayWithObjects: zipFileName, [reportFilePath lastPathComponent], nil]];
+//		[zipTask launch];
+//		while( [zipTask isRunning]) [NSThread sleepForTimeInterval: 0.01];
+//		int result = [zipTask terminationStatus];
+//		[zipTask release];
+//
+//		if (result==EXIT_SUCCESS)
+//			reportFilePath = [[reportFilePath stringByDeletingLastPathComponent] stringByAppendingPathComponent:zipFileName];
+//
+//		response.data = [NSData dataWithContentsOfFile: reportFilePath];
+//
+//		[[NSFileManager defaultManager] removeItemAtPath:reportFilePath error:nil];
+//	}
+//	else
+//	{
+//		response.data = [NSData dataWithContentsOfFile: reportFilePath];
+//	}
 }
 
 -(NSMutableDictionary*)thumbnailsCache {
@@ -2804,7 +2804,9 @@ const NSString* const GenerateMovieDicomImagesParamKey = @"dicomImageArray";
             NSString *dicPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"dicom.dic"];
             [aTask setEnvironment:[NSDictionary dictionaryWithObject:dicPath forKey:@"DCMDICTPATH"]];
 
-            [aTask setLaunchPath:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"dsr2html"]];
+            NSString *launchPath = [[[NSBundle mainBundle] URLForAuxiliaryExecutable:@"dsr2html"] path];
+            [aTask setLaunchPath:launchPath];
+
 			[aTask setArguments:[NSArray arrayWithObjects:
                                  @"+X1",
                                  @"--unknown-relationship",
