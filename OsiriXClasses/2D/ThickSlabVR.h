@@ -54,22 +54,21 @@
 #include "vtkVolumeProperty.h"
 
 #include "vtkImageFlip.h"
+#include "vtkFixedPointVolumeRayCastMapper.h"
 #undef id
 
 #include <Accelerate/Accelerate.h>
 
-
 /** \brief View for Thick Slab Volume Rendering */
-@interface ThickSlabVR : NSView {
-	float								*imageBlendingPtr, *imagePtr;
-	long								width, height, count;
-	float								spaceX, spaceY, thickness, ww, wl;
-	
-	BOOL								flipData, lowQuality;
-
-	float								tableFloatR[256], tableFloatG[256], tableFloatB[256];
-	float								tableBlendingFloatR[256], tableBlendingFloatG[256], tableBlendingFloatB[256];
-	float								opacityTable[ 256];
+@interface ThickSlabVR : NSView
+{
+	float *imageBlendingPtr, *imagePtr;
+	long width, height, count;
+	float spaceX, spaceY, thickness, ww, wl;
+	BOOL flipData, lowQuality;
+	float tableFloatR[256], tableFloatG[256], tableFloatB[256];
+	float tableBlendingFloatR[256], tableBlendingFloatG[256], tableBlendingFloatB[256];
+	float opacityTable[ 256];
 	
     vtkFixedPointVolumeRayCastMapper    *volumeMapper;
 	vtkVolume							*volume;
@@ -93,6 +92,7 @@
 	NSLock								*processorsLock;
 	volatile int						numberOfThreadsForCompute;
 }
+
 -(void) setImageData:(long) w :(long) h :(long) c :(float) sX :(float) sY :(float) t :(BOOL) flip;
 -(void) setWLWW: (float) l :(float) w;
 -(void) setBlendingWLWW: (float) l :(float) w;
