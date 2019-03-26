@@ -64,7 +64,6 @@
 		//ImportFilterType3::IndexType start;
 		//ImportFilterType3::RegionType region;
 		
-		
 		float	*data;
 		NSArray *pixList = pix;
 		

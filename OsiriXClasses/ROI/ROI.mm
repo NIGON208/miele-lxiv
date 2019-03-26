@@ -2674,17 +2674,19 @@ int spline( NSPoint *Pt, int tot, NSPoint **newPt, long **correspondingSegmentPt
 		return tempArray;
 	}
 	
-	#ifndef OSIRIX_LIGHT
+#ifndef OSIRIX_LIGHT
 	if (type == tPlain)
 	{
-		NSMutableArray  *tempArray = [ITKSegmentation3D extractContour:textureBuffer width:textureWidth height:textureHeight];
+		NSMutableArray  *tempArray = [ITKSegmentation3D extractContour:textureBuffer
+                                                                 width:textureWidth
+                                                                height:textureHeight];
 		
 		for (MyPoint *pt in tempArray)
 			[pt move: textureUpLeftCornerX :textureUpLeftCornerY];
 		
 		return tempArray;
 	}
-	#endif
+#endif
 	
 	return points;
 }

@@ -12527,7 +12527,7 @@
 				STRIP_STYLE = debugging;
 				SYSTEM_HEADER_SEARCH_PATHS = (
 					/usr/local/opt/openssl/include,
-					"$(SRCROOT)/Binaries/ITK/include/ITK-4.11",
+					"$(SRCROOT)/Binaries/ITK/include/ITK-4.13",
 					"$(SRCROOT)/Binaries/VTK/include/vtk-8.2",
 					"$(SRCROOT)/Binaries/ITK/include",
 				);
@@ -13155,7 +13155,7 @@
 				STRIP_STYLE = debugging;
 				SYSTEM_HEADER_SEARCH_PATHS = (
 					/usr/local/opt/openssl/include,
-					"$(SRCROOT)/Binaries/ITK/include/ITK-4.11",
+					"$(SRCROOT)/Binaries/ITK/include/ITK-4.13",
 					"$(SRCROOT)/Binaries/VTK/include/vtk-8.2",
 					"$(SRCROOT)/Binaries/ITK/include",
 				);
@@ -13877,7 +13877,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SYSTEM_HEADER_SEARCH_PATHS = (
 					/usr/local/opt/openssl/include,
-					"$(SRCROOT)/Binaries/ITK/include/ITK-4.11",
+					"$(SRCROOT)/Binaries/ITK/include/ITK-4.13",
 					"$(SRCROOT)/Binaries/VTK/include/vtk-8.2",
 					"$(SRCROOT)/Binaries/ITK/include",
 				);
