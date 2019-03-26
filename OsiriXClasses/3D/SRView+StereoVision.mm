@@ -65,8 +65,18 @@
 
 #define D2R 0.01745329251994329576923690768    // degrees to radians
 #define R2D 57.2957795130823208767981548141    // radians to degrees
-// ****************************
-static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *calldata)
+
+// They must match sender tags
+typedef NS_ENUM(NSUInteger, MyStereoMode) {
+    STEREO_MODE_OFF = 0,
+    STEREO_MODE_ANAGLYPH = 1,   // VTK_STEREO_ANAGLYPH is 7
+    STEREO_MODE_RED_BLUE = 2,   // VTK_STEREO_RED_BLUE is 2
+    STEREO_MODE_INTERLACED = 3, // VTK_STEREO_INTERLACED is 3
+    STEREO_MODE_LR_DUAL_SCREEN = 4,
+    STEREO_MODE_LR_SINGLE_SCREEN = 5
+};
+
+static void updateRight(vtkObject*, unsigned long eid, void* clientdata, void *calldata)
 {
 	SRView* mipv = (SRView*) clientdata;
 	[mipv setNeedsDisplay:YES];
@@ -78,14 +88,18 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 {		
     if ( self = [super initWithFrame:frame] )
     {
-		NSTrackingArea *cursorTracking = [[[NSTrackingArea alloc] initWithRect: [self visibleRect] options: (NSTrackingCursorUpdate | NSTrackingInVisibleRect | NSTrackingMouseEnteredAndExited | NSTrackingActiveInKeyWindow) owner: self userInfo: nil] autorelease];
+		NSTrackingArea *cursorTracking =
+        [[[NSTrackingArea alloc] initWithRect: [self visibleRect]
+                                      options: (NSTrackingCursorUpdate | NSTrackingInVisibleRect | NSTrackingMouseEnteredAndExited | NSTrackingActiveInKeyWindow)
+                                        owner: self
+                                     userInfo: nil] autorelease];
 		[self addTrackingArea: cursorTracking];
 		
-		//Added SilvanWidmer 10-08-09
+		// Added SilvanWidmer 10-08-09
 		StereoVisionOn = NO;	
 		
 		splash = [[WaitRendering alloc] init: NSLocalizedString( @"Rendering...", nil)];
-		//		[[splash window] makeKeyAndOrderFront:self];
+		//[[splash window] makeKeyAndOrderFront:self];
 		
 		cursor = nil;
 		isoExtractor[ 0] = isoExtractor[ 1] = nil;
@@ -100,7 +114,7 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 		blendingController = nil;
 		blendingFactor = 0.5;
 		blendingReader = nil;
-		//		cbStart = nil;
+		//cbStart = nil;
 		
 		exportDCM = nil;
 		
@@ -135,12 +149,10 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 
 - (void) changeActor:(long) actor :(float) resolution :(float) transparency :(float) r :(float) g :(float) b :(float) isocontour :(BOOL) useDecimate :(float) decimateVal :(BOOL) useSmooth :(long) smoothVal
 {	
-	//	[splash setCancel:YES];
+	//[splash setCancel:YES];
 
-	
 	try
 	{
-		
 		NSLog(@"ChangeActor IN");
 		
 		// RESAMPLE IMAGE ?
@@ -203,10 +215,10 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 			isoDeci[ actor]->SetTargetReduction(decimateVal);
 			isoDeci[ actor]->SetPreserveTopology( TRUE);
 			
-			//		isoDeci[ actor]->SetFeatureAngle(60);
-			//		isoDeci[ actor]->SplittingOff();
-			//		isoDeci[ actor]->AccumulateErrorOn();
-			//		isoDeci[ actor]->SetMaximumError(0.3);
+			//isoDeci[ actor]->SetFeatureAngle(60);
+			//isoDeci[ actor]->SplittingOff();
+			//isoDeci[ actor]->AccumulateErrorOn();
+			//isoDeci[ actor]->SetMaximumError(0.3);
 			
 			isoDeci[ actor]->Update();
 			
@@ -228,8 +240,7 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 			
 			NSLog(@"Use Smooth: %d", smoothVal);
 		}
-		
-		
+
 		isoNormals[ actor] = vtkPolyDataNormals::New();
 		isoNormals[ actor]->SetInput( previousOutput);
 		isoNormals[ actor]->SetFeatureAngle(120);
@@ -250,15 +261,25 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 		iso[ actor]->GetProperty()->SetSpecularPower( 20);
 		iso[ actor]->GetProperty()->SetOpacity( transparency);
 		
-		iso[ actor]->SetOrigin(		[firstObject originX], [firstObject originY], [firstObject originZ]);
-		iso[ actor]->SetPosition(	[firstObject originX] * matrice->Element[0][0] + [firstObject originY] * matrice->Element[1][0] + [firstObject originZ]*matrice->Element[2][0],
-								 [firstObject originX] * matrice->Element[0][1] + [firstObject originY] * matrice->Element[1][1] + [firstObject originZ]*matrice->Element[2][1],
-								 [firstObject originX] * matrice->Element[0][2] + [firstObject originY] * matrice->Element[1][2] + [firstObject originZ]*matrice->Element[2][2]);
-		iso[ actor]->SetUserMatrix( matrice);
+		iso[ actor]->SetOrigin(	[firstObject originX], [firstObject originY], [firstObject originZ]);
+
+        iso[ actor]->SetPosition([firstObject originX] * matrice->Element[0][0] +
+                                 [firstObject originY] * matrice->Element[1][0] +
+                                 [firstObject originZ] * matrice->Element[2][0],
+
+                                 [firstObject originX] * matrice->Element[0][1] +
+                                 [firstObject originY] * matrice->Element[1][1] +
+                                 [firstObject originZ] * matrice->Element[2][1],
+
+                                 [firstObject originX] * matrice->Element[0][2] +
+                                 [firstObject originY] * matrice->Element[1][2] +
+                                 [firstObject originZ] * matrice->Element[2][2]);
+
+        iso[ actor]->SetUserMatrix( matrice);
 		
 		iso[ actor]->PickableOff();
 		
-		//Added SilvanWidmer 12-08-09
+		// Added SilvanWidmer 12-08-09
 		if (actor == (long) 0)
 		{
 			first.actor = actor;
@@ -289,7 +310,7 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 			second.smoothVal = smoothVal;
 		}
 
-		//	std::cout << "address of the actor " << &iso[actor] << std::endl;
+		//std::cout << "address of the actor " << &iso[actor] << std::endl;
 		aRenderer->AddActor( iso[ actor]);
 		
 		[self setNeedsDisplay:YES];
@@ -333,18 +354,21 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 		[self BdeleteActor:i];
 	}
 	NSLog(@"Should close the Stereo Window");
-	// Added SilvanWidmer 12-08-09
+
+    // Added SilvanWidmer 12-08-09
 	if (StereoVisionOn)
-	{
 		[self disableStereoModeLeftRight];
-	}
 	
-	if( flip) flip->Delete();
+	if (flip)
+        flip->Delete();
 	
-	if( isoResample) isoResample->Delete();
-	if( BisoResample) BisoResample->Delete();
+	if (isoResample)
+        isoResample->Delete();
+
+    if (BisoResample)
+        BisoResample->Delete();
 	
-	//	cbStart->Delete();
+	//cbStart->Delete();
 	matrice->Delete();
 	
 	outlineData->Delete();
@@ -354,10 +378,13 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 	reader->Delete();
     aCamera->Delete();
 	textX->Delete();
-	if( orientationWidget)
+	if (orientationWidget)
 		orientationWidget->Delete();
-	for( i = 0; i < 4; i++) oText[ i]->Delete();
-	//	aRenderer->Delete();
+
+    for( i = 0; i < 4; i++)
+        oText[ i]->Delete();
+
+    //aRenderer->Delete();
 	
     [pixList release];
     pixList = nil;
@@ -383,9 +410,7 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
     [super dealloc];
 }
 
-#pragma mark Initialisation of Left-Right-Side-View
-
-
+#pragma mark - Initialisation of Left-Right-Side-View
 
 - (void) setNeedsDisplay: (BOOL) flag
 {
@@ -396,23 +421,22 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 }
 
 -(IBAction) SwitchStereoMode :(id) sender
-{	
-	
+{
 	for (int i = 0; i <6; i++)
-	{
 		[[[sender menu]itemWithTag: i] setState: false];
-	}
-	[sender setState:true];
+
+    [sender setState:true];
 	
-	switch( [sender tag])
+	switch ([sender tag])
 	{
-		case 0: //Turning off Stereo
+		case STEREO_MODE_OFF:
 		{
-			if([self renderWindow]->GetStereoRender() == true)
+			if ([self renderWindow]->GetStereoRender() == true)
 			{
-				if (StereoVisionOn)
-					[self disableStereoModeLeftRight];	
-				else{
+                if (StereoVisionOn) {
+					[self disableStereoModeLeftRight];
+                }
+				else {
 					[self renderWindow]->StereoRenderOff();
 					[self setNeedsDisplay:YES];
 				}
@@ -420,60 +444,68 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 		}
 			break;
 			
-		case 1: // Anaglyph
+		case STEREO_MODE_ANAGLYPH:
 		{
 			if (StereoVisionOn)
 				[self disableStereoModeLeftRight];
-			[self renderWindow]->StereoRenderOn();
+
+            [self renderWindow]->StereoRenderOn();
 			[self renderWindow]->SetStereoTypeToAnaglyph();
-			if( orientationWidget)
+			if (orientationWidget)
 				orientationWidget->Off();
-			for(int i = 0; i < 4; i++) aRenderer->RemoveActor2D( oText[ i]);
-			[self setNeedsDisplay:YES];
+
+            for (int i = 0; i < 4; i++)
+                aRenderer->RemoveActor2D( oText[ i]);
+
+            [self setNeedsDisplay:YES];
 		}
 			break;
 			
-		case 2: //RedBlue
+		case STEREO_MODE_RED_BLUE:
 		{
 			if (StereoVisionOn)
 				[self disableStereoModeLeftRight];
-			[self renderWindow]->StereoRenderOn();
+
+            [self renderWindow]->StereoRenderOn();
 			[self renderWindow]->SetStereoTypeToRedBlue();
-			if( orientationWidget)
+			if ( orientationWidget)
 				orientationWidget->Off();
-			for(int i = 0; i < 4; i++) aRenderer->RemoveActor2D( oText[ i]);
-			[self setNeedsDisplay:YES];
+
+            for (int i = 0; i < 4; i++)
+                aRenderer->RemoveActor2D( oText[ i]);
+
+            [self setNeedsDisplay:YES];
 		}
 			break;
 			
-		case 3: //Interlaced
+		case STEREO_MODE_INTERLACED:
 		{
 			if (StereoVisionOn)
 				[self disableStereoModeLeftRight];
-			[self renderWindow]->StereoRenderOn();
+
+            [self renderWindow]->StereoRenderOn();
 			[self renderWindow]->SetStereoTypeToInterlaced();
-			if( orientationWidget)
+			if ( orientationWidget)
 				orientationWidget->Off();
-			for(int i = 0; i < 4; i++) aRenderer->RemoveActor2D( oText[ i]);
-			[self setNeedsDisplay:YES];
+
+            for (int i = 0; i < 4; i++)
+                aRenderer->RemoveActor2D( oText[ i]);
+
+            [self setNeedsDisplay:YES];
 		}
 			break;
 			
-		case 4: //LeftRight Dual Screens
-		{
+		case STEREO_MODE_LR_DUAL_SCREEN:
 			[self LeftRightDualScreen];
-		}
 			break;
 			
-		case 5: // LeftRight Single Screen
-		{
+		case STEREO_MODE_LR_SINGLE_SCREEN:
 			if (StereoVisionOn)
 				[self disableStereoModeLeftRight];
-			[self LeftRightSingleScreen];
-		}
+
+            [self LeftRightSingleScreen];
 			break;
 	}
-
 }
 
 -(void) updateStereoLeftRight
@@ -488,7 +520,17 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 	if( aRenderer->GetActors()->IsItemPresent( iso[0]))
 	{
 		[rightView renderer]->AddActor(iso[0]);
-		[self changeActor:(long) 0 :first.resolution : first.transparency : first.r : first.g :first.b :first.isocontour :first.useDecimate :first.decimateVal :first.useSmooth :first.smoothVal];
+		[self changeActor:(long) 0
+                         :first.resolution
+                         :first.transparency
+                         :first.r
+                         :first.g
+                         :first.b
+                         :first.isocontour
+                         :first.useDecimate
+                         :first.decimateVal
+                         :first.useSmooth
+                         :first.smoothVal];
 	}
 	else{
 		[rightView renderer] -> RemoveActor(iso[0]);
@@ -498,12 +540,23 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 	if( aRenderer->GetActors()->IsItemPresent( iso[1]))
 	{
 		[rightView renderer]->AddActor(iso[1]);
-		[self changeActor:(long) 1 :second.resolution : second.transparency : second.r : second.g :second.b :second.isocontour :second.useDecimate :second.decimateVal :second.useSmooth :second.smoothVal];
+		[self changeActor:(long) 1
+                         :second.resolution
+                         :second.transparency
+                         :second.r
+                         :second.g
+                         :second.b
+                         :second.isocontour
+                         :second.useDecimate
+                         :second.decimateVal
+                         :second.useSmooth
+                         :second.smoothVal];
 	}
 	else{
 		[rightView renderer] -> RemoveActor(iso[1]);
 	}
-	[self setNeedsDisplay:YES];
+
+    [self setNeedsDisplay:YES];
 }
 
 -(void) initStereoLeftRight
@@ -511,21 +564,39 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 
 	[rightView renderer]->SetActiveCamera(aCamera);
 	[self setDisplayStereo3DPoints: [rightView renderer]: YES];
-
 	
-	if( aRenderer->GetActors()->IsItemPresent( outlineRect))
-	{
+	if ( aRenderer->GetActors()->IsItemPresent( outlineRect))
 		[rightView renderer]->AddActor(outlineRect);
-	}
-	if( aRenderer->GetActors()->IsItemPresent( iso[0]))
+
+    if ( aRenderer->GetActors()->IsItemPresent( iso[0]))
 	{
 		[rightView renderer]->AddActor(iso[0]);
-		[self changeActor:(long) 0 :first.resolution : first.transparency : first.r : first.g :first.b :first.isocontour :first.useDecimate :first.decimateVal :first.useSmooth :first.smoothVal];
+		[self changeActor:(long) 0
+                         :first.resolution
+                         :first.transparency
+                         :first.r
+                         :first.g
+                         :first.b
+                         :first.isocontour
+                         :first.useDecimate
+                         :first.decimateVal
+                         :first.useSmooth
+                         :first.smoothVal];
 	}
-	if( aRenderer->GetActors()->IsItemPresent( iso[1]))
+	if ( aRenderer->GetActors()->IsItemPresent( iso[1]))
 	{
 		[rightView renderer]->AddActor(iso[1]);
-		[self changeActor:(long) 1 :second.resolution : second.transparency : second.r : second.g :second.b :second.isocontour :second.useDecimate :second.decimateVal :second.useSmooth :second.smoothVal];
+		[self changeActor:(long) 1
+                         :second.resolution
+                         :second.transparency
+                         :second.r
+                         :second.g
+                         :second.b
+                         :second.isocontour
+                         :second.useDecimate
+                         :second.decimateVal
+                         :second.useSmooth
+                         :second.smoothVal];
 	}
 	
 	//taking the same colors as the left renderer
@@ -539,7 +610,6 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 	[rightView getInteractor]->AddObserver( vtkCommand::AnyEvent,  rightResponder);
 	[self getInteractor]->AddObserver(vtkCommand::MouseWheelForwardEvent, rightResponder);
 	[self getInteractor]->AddObserver(vtkCommand::MouseWheelBackwardEvent, rightResponder);
-
 
 	[self renderWindow]->StereoRenderOn();
 	[self renderWindow]->SetStereoTypeToLeft();
@@ -566,9 +636,11 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 		rootBorder.height = [[self window] frame].size.height - rootSize.origin.y- rootSize.size.height;
 	}
 	
-	if( orientationWidget)
+	if ( orientationWidget)
 		orientationWidget->Off();
-	for(int i = 0; i < 4; i++) aRenderer->RemoveActor2D( oText[ i]);
+
+    for (int i = 0; i < 4; i++)
+        aRenderer->RemoveActor2D( oText[ i]);
 	
 	NSRect contentRectLeftScreen;
 	NSRect contentRectRightScreen;
@@ -618,7 +690,9 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 	
 	if( orientationWidget)
 		orientationWidget->Off();
-	for(int i = 0; i < 4; i++) aRenderer->RemoveActor2D( oText[ i]);
+    
+	for(int i = 0; i < 4; i++)
+        aRenderer->RemoveActor2D( oText[ i]);
 	
 	unsigned int windowStyle = NSWindowStyleMaskBorderless;
 	NSRect contentRectLeftScreen;
@@ -738,18 +812,22 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 	NSRect winRect ;
 	winRect.origin= rootSize.origin;
 	
-	winRect.size.height =  [[self window] frame].size.height - winRect.origin.y - rootBorder.height;
-	winRect.size.width = 	[[self window] frame].size.width - winRect.origin.x - rootBorder.width;
+	winRect.size.height = [[self window] frame].size.height - winRect.origin.y - rootBorder.height;
+	winRect.size.width =  [[self window] frame].size.width  - winRect.origin.x - rootBorder.width;
 
 	[self setFrame: winRect];
 	
 	[self renderWindow]->StereoRenderOff();
 	if( orientationWidget)
 		orientationWidget->On();
-	for(int i = 0; i < 4; i++) aRenderer->AddActor2D( oText[ i]);
+
+	for(int i = 0; i < 4; i++)
+        aRenderer->AddActor2D( oText[ i]);
+
 	[self setNeedsDisplay:YES];
 	
-	[rightView getInteractor]->RemoveObserver(vtkCommand::AnyEvent);	rightView = nil;
+	[rightView getInteractor]->RemoveObserver(vtkCommand::AnyEvent);
+    rightView = nil;
 	leftView = nil;
 	[rightView release];
 	[leftView release];
@@ -767,12 +845,12 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 	aRenderer->ResetCamera();
 	
 	double viewAngle = 2*atan(screenHeight/(2*screenDistance));
-	viewAngle= viewAngle*57.2957795130823208767981548141;
+	viewAngle= viewAngle * R2D;
 	NSLog(@"The new ViewAngle is: %.2f", viewAngle);
 	aCamera->SetViewAngle(viewAngle);
 	
 	double eyeAngle =  2*atan(eyeDistance/(2*screenDistance));
-	eyeAngle = eyeAngle*57.2957795130823208767981548141;
+	eyeAngle = eyeAngle * R2D;
 	NSLog(@"The new EyeAngle is: %.2f", eyeAngle);
 	aCamera->SetEyeAngle(eyeAngle);
 	

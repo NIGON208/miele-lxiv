@@ -165,7 +165,7 @@ void SwitchFloat (float *theFloat)
 //	return time.i * 1e-9;
 //}
 
-unsigned char* CreateIconFrom16 (float* image,  unsigned char*icon,  int height, int width, int iconWidth, long wl, long ww, BOOL isRGB)
+unsigned char* CreateIconFrom16 (float* image, unsigned char* icon,  int height, int width, int iconWidth, long wl, long ww, BOOL isRGB)
 // create an icon from an 12 or 16 bit image
 {
 	float				ratio;

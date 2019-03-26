@@ -20428,16 +20428,13 @@ static BOOL viewerControllerPlaying = NO;
                                     NSLocalizedString(@"OK", nil),
                                     nil,
                                     nil);
-		
 		free( data);
 	}
 	else
         NSLog( @"No Data");
 	
 	if (screenCapture || allViewers)
-	{
 		[DCMView setCLUTBARS: clutBarsCopy ANNOTATIONS: annotCopy];
-	}
 	
 	return [NSDictionary dictionaryWithObjectsAndKeys: f, @"file", nil];
 }
@@ -20445,7 +20442,6 @@ static BOOL viewerControllerPlaying = NO;
 
 -(id) findPlayStopButton
 {
-	
 	NSArray *items = [toolbar items];
 	
 	for (id loopItem in items)
@@ -20455,7 +20451,8 @@ static BOOL viewerControllerPlaying = NO;
 			return loopItem;
 		}
 	}
-	return nil;
+
+    return nil;
 }
 
 #ifndef OSIRIX_LIGHT

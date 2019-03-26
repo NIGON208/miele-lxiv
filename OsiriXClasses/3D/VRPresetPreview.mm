@@ -354,11 +354,7 @@
         volumeProperty->SetInterpolationTypeToNearest();
     else
         volumeProperty->SetInterpolationTypeToLinear();//SetInterpolationTypeToNearest();	//SetInterpolationTypeToLinear
-		
-	compositeFunction = vtkVolumeRayCastCompositeFunction::New();  // @@@ VTK_LEGACY_REMOVE (deprecated for VTK 7.0)
-//	compositeFunction->SetCompositeMethodToClassifyFirst();
-//	compositeFunction = vtkVolumeRayCastMIPFunction::New();
-	
+
 	LOD = 1.0;
 #if __ppc__
 	LOD += 0.5;

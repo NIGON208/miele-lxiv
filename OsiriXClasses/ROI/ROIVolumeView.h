@@ -56,6 +56,7 @@
 
 #include "vtkTIFFReader.h"
 
+#include "vtkTexture.h"
 #include "vtkTextureMapToSphere.h"
 
 #include "vtkPowerCrustSurfaceReconstruction.h"
@@ -93,7 +94,15 @@ class vtkMyCallback;
 
 - (NSDictionary*) setPixSource: (ROI*) r;
 - (void) setROIActorVolume:(NSValue*)roiActorPointer;
-- (void) setOpacity: (float) opacity showPoints: (BOOL) sp showSurface: (BOOL) sS showWireframe:(BOOL) w texture:(BOOL) tex useColor:(BOOL) usecol color:(NSColor*) col;
+
+- (void) setOpacity: (float) opacity
+         showPoints: (BOOL) sp
+        showSurface: (BOOL) sS
+      showWireframe: (BOOL) w
+            texture: (BOOL) tex
+           useColor: (BOOL) usecol
+              color: (NSColor*) col;
+
 - (IBAction) exportDICOMFile:(id) sender;
 - (NSDictionary*) renderVolume;
 + (vtkMapper*) generateMapperForRoi:(ROI*) roi viewerController: (ViewerController*) vc factor: (float) factor statistics: (NSMutableDictionary*) statistics;

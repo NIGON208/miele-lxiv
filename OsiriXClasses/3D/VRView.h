@@ -50,7 +50,6 @@
 #include "vtkPiecewiseFunction.h"
 #include "vtkColorTransferFunction.h"
 #include "vtkVolumeProperty.h"
-#include "vtkVolumeRayCastCompositeFunction.h"  // @@@ VTK_LEGACY_REMOVE (deprecated for VTK 7.0)
 
 //#ifdef TRY_NEW_VTK_API
 //#include "vtkGPUVolumeRayCastMapper.h"
@@ -59,27 +58,8 @@
 //#endif
 
 //#include "vtkVolumeRayCastMIPFunction.h"
-//#include "vtkFixedPointVolumeRayCastMapper.h"
 #include "vtkTransform.h"
-//#include "vtkSphere.h"
-//#include "vtkImplicitBoolean.h"
-//#include "vtkExtractGeometry.h"
-//#include "vtkDataSetMapper.h"
-//#include "vtkPicker.h"
-//#include "vtkCellPicker.h"
-//#include "vtkPointPicker.h"
-//#include "vtkLineSource.h"
 #include "vtkPolyDataMapper2D.h"
-//#include "vtkActor2D.h"
-//#include "vtkExtractPolyDataGeometry.h"
-//#include "vtkProbeFilter.h"
-//#include "vtkCutter.h"
-//#include "vtkTransformPolyDataFilter.h"
-//#include "vtkXYPlotActor.h"
-//#include "vtkClipPolyData.h"
-//#include "vtkBox.h"
-
-//#include "vtkCallbackCommand.h"
 #include "vtkTextActor.h"
 #include "vtkTextProperty.h"
 #include "vtkImageFlip.h"
@@ -91,7 +71,6 @@
 
 #include "OsiriXFixedPointVolumeRayCastMapper.h"
 
-//#include "vtkCellArray.h"
 #include "vtkProperty2D.h"
 #include "vtkRegularPolygonSource.h"
 
@@ -220,11 +199,11 @@ typedef NS_ENUM(NSUInteger, EngineType) {
 	OsiriXFixedPointVolumeRayCastMapper *blendingVolumeMapper;
 	vtkGPUVolumeRayCastMapper	*blendingTextureMapper;
 	
-	vtkVolume					*blendingVolume;
+	vtkVolume					*blendingVolume; // OsiriXFixedPointVolumeRayCastMapper ?
 	vtkVolumeProperty			*blendingVolumeProperty;
 	vtkColorTransferFunction	*blendingColorTransferFunction;
-	vtkVolumeRayCastCompositeFunction *blendingCompositeFunction;  // @@@ VTK_LEGACY_REMOVE (deprecated for VTK 7.0)
-	vtkPiecewiseFunction		*blendingOpacityTransferFunction;
+
+    vtkPiecewiseFunction		*blendingOpacityTransferFunction;
 	double						blendingtable[257][3];
 	
 	BOOL						needToFlip, blendingNeedToFlip, firstTime, alertDisplayed;
@@ -306,8 +285,8 @@ typedef NS_ENUM(NSUInteger, EngineType) {
 	vtkTextActor				*oText[NUM_VR_LABELS];
 	char						WLWWString[ 200];
 	vtkImageImport				*reader;
-	vtkVolumeRayCastCompositeFunction  *compositeFunction;  // @@@ VTK_LEGACY_REMOVE (deprecated for VTK 7.0)
-	vtkPiecewiseFunction		*opacityTransferFunction;
+
+    vtkPiecewiseFunction		*opacityTransferFunction;
 	
 	vtkColorTransferFunction	*red, *green, *blue;
 	BOOL						noWaitDialog, isRGB, isBlendingRGB, ROIUPDATE;

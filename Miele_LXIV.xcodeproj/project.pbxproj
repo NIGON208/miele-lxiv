@@ -268,8 +268,6 @@
 		4384743021AC842200FA56C2 /* DCM.h in Headers */ = {isa = PBXBuildFile; fileRef = 7E0B3A13067526A600908593 /* DCM.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		43879B7721D64C7600DEF6A9 /* AYDcmPrintSCU.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 43879B7621D64C7600DEF6A9 /* AYDcmPrintSCU.cpp */; };
 		43879B7921D64CB500DEF6A9 /* AYPrintManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 43879B7821D64CB500DEF6A9 /* AYPrintManager.cpp */; };
-		4399FEC921762EE100011D9E /* libtiff.5.2.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4399FEC821762EE000011D9E /* libtiff.5.2.6.dylib */; };
-		4399FECB21762F3900011D9E /* libtiff.5.2.6.dylib in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4399FEC821762EE000011D9E /* libtiff.5.2.6.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		43A02BCA219D7F1B00E788B6 /* OSIPACSOnDemand.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43A02BC8219D7F1B00E788B6 /* OSIPACSOnDemand.xib */; };
 		43A02BD3219D809500E788B6 /* OSIWebSharingPreferencePanePref.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43A02BD1219D809400E788B6 /* OSIWebSharingPreferencePanePref.xib */; };
 		43A02BD8219D812700E788B6 /* OSIViewerPreferencePanePref.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43A02BD6219D812600E788B6 /* OSIViewerPreferencePanePref.xib */; };
@@ -335,6 +333,8 @@
 		43A02CAA219D889700E788B6 /* CPR.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43A02C91219D889700E788B6 /* CPR.xib */; };
 		43A02EE1219D9B5400E788B6 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 43A02EDF219D9B5300E788B6 /* Localizable.strings */; };
 		43A4038C1DFA32F300ADA719 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43A4038B1DFA32F300ADA719 /* XCTest.framework */; };
+		43B6B5A92249257A00C3C751 /* libtiff.5.3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43B6B5A7224920F000C3C751 /* libtiff.5.3.0.dylib */; };
+		43B6B5AA2249285200C3C751 /* libtiff.5.3.0.dylib in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 43B6B5A7224920F000C3C751 /* libtiff.5.3.0.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		43BF296D21662E1D0022CF3B /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = 43BF296C21662E1D0022CF3B /* main.mm */; };
 		43BF296E21662F100022CF3B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 43CC5BA5216511E200F1B1CA /* Assets.xcassets */; };
 		43CC5BA6216511E200F1B1CA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 43CC5BA5216511E200F1B1CA /* Assets.xcassets */; };
@@ -2075,9 +2075,9 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				43B6B5AA2249285200C3C751 /* libtiff.5.3.0.dylib in Embed Frameworks */,
 				436F14BA217A0F7300EFC5CF /* libpng16.16.30.0.dylib in Embed Frameworks */,
 				4373D6222174A8FF000F4BE1 /* libjpeg.9.dylib in Embed Frameworks */,
-				4399FECB21762F3900011D9E /* libtiff.5.2.6.dylib in Embed Frameworks */,
 				43110BEB21679E5B00B0405B /* DCM.framework in Embed Frameworks */,
 				59F1A515104BA8AE009E3215 /* MieleAPI.framework in Embed Frameworks */,
 			);
@@ -3663,7 +3663,6 @@
 		438AE1AA21B51E1400C5E98F /* miele-lxiv-Development.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "miele-lxiv-Development.entitlements"; sourceTree = "<group>"; };
 		438AE1AB21B5651B00C5E98F /* LXIV Launcher-Deployment.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = "LXIV Launcher-Deployment.entitlements"; path = "LXIV Launcher/LXIV Launcher-Deployment.entitlements"; sourceTree = "<group>"; };
 		438AE1AC21B5651C00C5E98F /* LXIV Launcher-Distribution.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = "LXIV Launcher-Distribution.entitlements"; path = "LXIV Launcher/LXIV Launcher-Distribution.entitlements"; sourceTree = "<group>"; };
-		4399FEC821762EE000011D9E /* libtiff.5.2.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libtiff.5.2.6.dylib; path = "../../../../install/miele-201612/tiff-4.0.8/lib/libtiff.5.2.6.dylib"; sourceTree = "<group>"; };
 		43A02E9F219D94CC00E788B6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = GUI/Base.lproj/3DPosition.xib; sourceTree = "<group>"; };
 		43A02EA0219D94CD00E788B6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = GUI/Base.lproj/AnonymizationCustomTagPanel.xib; sourceTree = "<group>"; };
 		43A02EA1219D94CD00E788B6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = GUI/Base.lproj/AnonymizationPanel.xib; sourceTree = "<group>"; };
@@ -3730,6 +3729,7 @@
 		43A02EDE219D94E700E788B6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = GUI/Base.lproj/AYDicomPrintPref.xib; sourceTree = "<group>"; };
 		43A02EE0219D9B5300E788B6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = GUI/Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		43A4038B1DFA32F300ADA719 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/MacOSX.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		43B6B5A7224920F000C3C751 /* libtiff.5.3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libtiff.5.3.0.dylib; path = "../../../../install/miele-201612/tiff-4.0.9/lib/libtiff.5.3.0.dylib"; sourceTree = "<group>"; };
 		43BF296C21662E1D0022CF3B /* main.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = main.mm; path = "LXIV Launcher/main.mm"; sourceTree = "<group>"; };
 		43BF296F21662F420022CF3B /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = "LXIV Launcher/Info.plist"; sourceTree = "<group>"; };
 		43CC5BA5216511E200F1B1CA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -5206,7 +5206,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4399FEC921762EE100011D9E /* libtiff.5.2.6.dylib in Frameworks */,
+				43B6B5A92249257A00C3C751 /* libtiff.5.3.0.dylib in Frameworks */,
 				430D9F102199FB37006EA1B1 /* OpenGL.framework in Frameworks */,
 				436B5889217261DF009F42D3 /* libjpeg.9.dylib in Frameworks */,
 				436F14B9217A0E0A00EFC5CF /* libpng16.16.30.0.dylib in Frameworks */,
@@ -5394,10 +5394,10 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				43B6B5A7224920F000C3C751 /* libtiff.5.3.0.dylib */,
 				437B656421ED030600A9A548 /* libjpeg.9.dylib */,
 				436B5888217261DF009F42D3 /* libjpeg.9.dylib */,
 				436F14B8217A0E0900EFC5CF /* libpng16.16.30.0.dylib */,
-				4399FEC821762EE000011D9E /* libtiff.5.2.6.dylib */,
 				59FB64331230EE2F00EBA136 /* Ming */,
 				1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */,
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
@@ -12430,7 +12430,7 @@
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)/Binaries/libpng/include",
 					"$(SRCROOT)/Binaries/libtiff/include",
-					"$(SRCROOT)/Binaries/VTK/include/vtk-7.1",
+					"$(SRCROOT)/Binaries/VTK/include/vtk-8.2",
 					"$(SRCROOT)/Binaries/DCMTK/include",
 					"$(SRCROOT)/Binaries/openjpeg/include/**",
 					"$(SRCROOT)",
@@ -13057,7 +13057,7 @@
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)/Binaries/libpng/include",
 					"$(SRCROOT)/Binaries/libtiff/include",
-					"$(SRCROOT)/Binaries/VTK/include/vtk-7.1",
+					"$(SRCROOT)/Binaries/VTK/include/vtk-8.2",
 					"$(SRCROOT)/Binaries/DCMTK/include",
 					"$(SRCROOT)/Binaries/openjpeg/include/**",
 					"$(SRCROOT)",
@@ -13782,7 +13782,7 @@
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)/Binaries/libpng/include",
 					"$(SRCROOT)/Binaries/libtiff/include",
-					"$(SRCROOT)/Binaries/VTK/include/vtk-7.1",
+					"$(SRCROOT)/Binaries/VTK/include/vtk-8.2",
 					"$(SRCROOT)/Binaries/DCMTK/include",
 					"$(SRCROOT)/Binaries/openjpeg/include/**",
 					"$(SRCROOT)",

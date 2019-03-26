@@ -16,11 +16,12 @@
 #import <Cocoa/Cocoa.h>
 #import "SelectionView.h"
 
-@interface VRPresetPreview : VRView {
+@interface VRPresetPreview : VRView
+{
 	BOOL isEmpty, isSelected;
-	IBOutlet SelectionView	*selectionView;
+	IBOutlet SelectionView *selectionView;
 	
-	IBOutlet VRController	*presetController;
+	IBOutlet VRController *presetController;
 	int presetIndex;
 }
 

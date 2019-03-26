@@ -60,9 +60,6 @@
 #include "vtkPiecewiseFunction.h"
 #include "vtkColorTransferFunction.h"
 #include "vtkVolumeProperty.h"
-#include "vtkVolumeRayCastCompositeFunction.h"
-#include "vtkVolumeRayCastMapper.h"
-#include "vtkVolumeRayCastMIPFunction.h"
 
 #include "vtkTransform.h"
 #include "vtkSphere.h"
@@ -116,7 +113,6 @@ class vtkMyCallback;
 @class SRController;
 @class DICOMExport;
 
-
 @interface SRView ( StereoVision )
 
 - (id) initWithFrame:(NSRect)frame;
@@ -146,7 +142,6 @@ class vtkMyCallback;
 - (IBAction) invertedSides :(id) sender;
 - (void) updateStereoLeftRight;
 - (void) setNewGeometry: (double) screenHeight: (double) screenDistance: (double) eyeDistance;
-
 
 @end
 

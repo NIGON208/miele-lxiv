@@ -56,7 +56,6 @@
 //#include "vtkPiecewiseFunction.h"
 //#include "vtkColorTransferFunction.h"
 //#include "vtkVolumeProperty.h"
-//#include "vtkVolumeRayCastCompositeFunction.h"  // VTK_LEGACY_REMOVE (deprecated for VTK 7.0)
 
 //#ifdef TRY_NEW_VTK_API
 //#include "vtkGPUVolumeRayCastMapper.h"
@@ -68,24 +67,6 @@
 
 #include "vtkMatrix4x4.h"
 #include "vtkTransform.h"
-//#include "vtkSphere.h"
-//#include "vtkImplicitBoolean.h"
-//#include "vtkExtractGeometry.h"
-//#include "vtkDataSetMapper.h"
-//#include "vtkPicker.h"
-//#include "vtkCellPicker.h"
-//#include "vtkPointPicker.h"
-//#include "vtkLineSource.h"
-//#include "vtkPolyDataMapper2D.h"
-//#include "vtkActor2D.h"
-//#include "vtkExtractPolyDataGeometry.h"
-//#include "vtkProbeFilter.h"
-//#include "vtkCutter.h"
-//#include "vtkTransformPolyDataFilter.h"
-//#include "vtkXYPlotActor.h"
-//#include "vtkClipPolyData.h"
-//#include "vtkBox.h"
-//#include "vtkCallbackCommand.h"
 
 #include "vtkImageResample.h"
 #include "vtkDecimatePro.h"

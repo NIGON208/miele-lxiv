@@ -2120,11 +2120,11 @@ typedef struct _xyzArray
         
 	iso[ actor]->SetUserMatrix( matrice);
  	iso[ actor]->PickableOff();
-     aRenderer->AddActor( iso[ actor]);
-	 [self setNeedsDisplay:YES];
+
+    aRenderer->AddActor( iso[ actor]);
+    [self setNeedsDisplay:YES];
 	
 	//NSLog(@"ChangeActor OUT");
-	
 	}
 	catch (...)
 	{

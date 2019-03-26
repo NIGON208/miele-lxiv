@@ -30,6 +30,7 @@ enum N3BezierCoreSegmentType {
     N3CloseBezierCoreSegmentType,
     N3EndBezierCoreSegmentType = 0xFFFFFFFF
 };
+
 typedef enum N3BezierCoreSegmentType N3BezierCoreSegmentType;
 
 extern const CFDictionaryValueCallBacks kN3BezierCoreDictionaryValueCallBacks;

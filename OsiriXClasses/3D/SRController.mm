@@ -605,9 +605,7 @@ static NSString*	BackgroundColorViewToolbarItemIdentifier = @"BackgroundColorVie
     [NSApp beginSheet: SRSettingsWindow modalForWindow:[self window] modalDelegate:self didEndSelector:nil contextInfo: nil];
 }
 
-// ============================================================
-// NSToolbar Related Methods
-// ============================================================
+#pragma mark - NSToolbar Related Methods
 
 - (void) setupToolbar {
     // Create a new toolbar instance, and attach it to our document window 

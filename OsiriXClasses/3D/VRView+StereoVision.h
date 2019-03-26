@@ -56,10 +56,7 @@
 #include "vtkPiecewiseFunction.h"
 #include "vtkColorTransferFunction.h"
 #include "vtkVolumeProperty.h"
-#include "vtkVolumeRayCastCompositeFunction.h"
-#include "vtkVolumeRayCastMapper.h"
-#include "vtkVolumeRayCastMIPFunction.h"
-#include "vtkFixedPointVolumeRayCastMapper.h"
+
 #include "vtkTransform.h"
 #include "vtkSphere.h"
 #include "vtkImplicitBoolean.h"
@@ -84,8 +81,6 @@
 #include "vtkImageFlip.h"
 #include "vtkAnnotatedCubeActor.h"
 #include "vtkOrientationMarkerWidget.h"
-//#include "vtkVolumeTextureMapper2D.h"  //@@@ VTK_LEGACY_REMOVE
-//#include "vtkVolumeTextureMapper3D.h"
 #include "OsiriXFixedPointVolumeRayCastMapper.h"
 
 #include "vtkCellArray.h"
@@ -168,7 +163,6 @@ typedef char* vtkMyCallbackVR;*/
 #define VTKView NSView
 #endif
 
-
 @interface VRView ( StereoVision )
 
 - (short) LeftRightDualScreen;
@@ -182,7 +176,6 @@ typedef char* vtkMyCallbackVR;*/
 - (short) LeftRightMovieScreen;
 - (void) setDisplayStereo3DPoints: (vtkRenderer*) theRenderer: (BOOL) on;
 - (void) setNewGeometry: (double) screenHeight: (double) screenDistance: (double) eyeDistance;
-
 
 @end
 

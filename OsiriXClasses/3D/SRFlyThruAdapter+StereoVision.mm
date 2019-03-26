@@ -22,12 +22,10 @@
 #import "SRView.h"
 #import "SRView+StereoVision.h"
 
-
-
 @implementation SRFlyThruAdapter (StereoVision)
 
 - (void) endMovieGenerating
-{	//Added SilvanWidmer 20-08-09
+{	// Added SilvanWidmer 20-08-09
 	
 	if([[(SRController*)controller view] StereoVisionOn])
 		[[(SRController*)controller view] disableStereoModeLeftRight];

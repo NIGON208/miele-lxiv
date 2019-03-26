@@ -52,9 +52,7 @@
 #include "vtkPiecewiseFunction.h"
 #include "vtkColorTransferFunction.h"
 #include "vtkVolumeProperty.h"
-#include "vtkVolumeRayCastCompositeFunction.h"
-#include "vtkVolumeRayCastMapper.h"
-#include "vtkVolumeRayCastMIPFunction.h"
+
 #include "vtkImageFlip.h"
 #undef id
 
@@ -73,13 +71,13 @@
 	float								tableBlendingFloatR[256], tableBlendingFloatG[256], tableBlendingFloatB[256];
 	float								opacityTable[ 256];
 	
-	vtkVolumeRayCastMapper				*volumeMapper;
+    vtkFixedPointVolumeRayCastMapper    *volumeMapper;
 	vtkVolume							*volume;
 	vtkVolumeProperty					*volumeProperty;
 	vtkColorTransferFunction			*colorTransferFunction;
 	vtkImageImport						*reader;
-	vtkVolumeRayCastCompositeFunction   *compositeFunction;
-	vtkPiecewiseFunction				*opacityTransferFunction;
+
+    vtkPiecewiseFunction				*opacityTransferFunction;
 	vtkImageFlip						*flipReader;
 	
 	vImage_Buffer						srcf, dst8;
@@ -103,7 +101,7 @@
 -(unsigned char*) renderSlab;
 -(void) setImageSource: (float*) i :(long) c;
 -(void) setFlip: (BOOL) f;
-- (void) setLowQuality:(BOOL) q;
+-(void) setLowQuality:(BOOL) q;
 -(void) setOpacity:(NSArray*) array;
 -(void) setImageBlendingSource: (float*) i;
 @end

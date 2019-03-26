@@ -7,7 +7,7 @@
 #include "vtkOpenGLRenderWindow.h"
 #include <math.h>
 
-int dontRenderVolumeRenderingOsiriX = 0;
+bool dontRenderVolumeRenderingOsiriX = false;
 
 vtkStandardNewMacro(OsiriXFixedPointVolumeRayCastMapper);
 
@@ -39,7 +39,7 @@ void OsiriXFixedPointVolumeRayCastMapper::Render( vtkRenderer *ren, vtkVolume *v
 
   vtkRenderWindow *renWin=ren->GetRenderWindow();
 
-#if 1
+#if 0 /// @@@ TBC
     vtkOpenGLRenderWindow *rw = (vtkOpenGLRenderWindow *)renWin;
     //if (!rw->Initialized)
         rw->OpenGLInit();
@@ -58,7 +58,7 @@ void OsiriXFixedPointVolumeRayCastMapper::Render( vtkRenderer *ren, vtkVolume *v
     return;
   }
 
-  if (dontRenderVolumeRenderingOsiriX == 0)  // Our addition
+  if (!dontRenderVolumeRenderingOsiriX)  // Our addition
 	this->RenderSubVolume();
 
   if ( renWin && renWin->CheckAbortStatus() )

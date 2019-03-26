@@ -321,16 +321,16 @@
 		
     [[NSNotificationCenter defaultCenter] removeObserver: self];
 	
-    if( roiVolumeActor)
+    if (roiVolumeActor)
     {
         aRenderer->RemoveActor( roiVolumeActor);
         roiVolumeActor->Delete();
     }
 	
-    if( texture)
-        texture->Delete();
+    if (self->texture)
+        self->texture->Delete();
 	
-    if( orientationWidget)
+    if (orientationWidget)
 		orientationWidget->Delete();
     
     [roi release];
@@ -635,18 +635,18 @@
 			
 			bmpread->SetFileName( [location UTF8String]);
 
-			if( !texture)
+            if (!self->texture)
 			{
-				texture = vtkTexture::New();
-				texture->InterpolateOn();
-                texture->SetRepeat( 1);
+				self->texture = vtkTexture::New();
+				self->texture->InterpolateOn();
+                self->texture->SetRepeat( 1);
 			}
-			texture->SetInputData( bmpread->GetOutput());
-			texture->Update();
+			self->texture->SetInputData( bmpread->GetOutput());
+			self->texture->Update();
 			   
 			bmpread->Delete();
 
-			roiVolumeActor->SetTexture( texture);
+			roiVolumeActor->SetTexture( self->texture);
 
 			// The balls
 //			
@@ -814,7 +814,13 @@
 	aCamera->Delete();
 }
 
-- (void) setOpacity: (float) opacity showPoints: (BOOL) sp showSurface: (BOOL) sS showWireframe:(BOOL) w texture:(BOOL) tex useColor:(BOOL) usecol color:(NSColor*) col
+- (void) setOpacity: (float) opacity
+         showPoints: (BOOL) sp
+        showSurface: (BOOL) sS
+      showWireframe: (BOOL) w
+            texture: (BOOL) tex
+           useColor: (BOOL) usecol
+              color: (NSColor*) col
 {
 	if( roiVolumeActor)
 	{
