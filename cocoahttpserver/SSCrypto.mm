@@ -841,7 +841,8 @@
                 NSLog(@"cannot get cipher with name %@", cipherName);
                 return nil;
             }
-        } else {
+        }
+        else {
             cipher = EVP_bf_cbc();
             if (!cipher){
                 NSLog(@"cannot get cipher with name %@", @"EVP_bf_cbc");
@@ -1074,7 +1075,8 @@
             NSLog(@"cannot get digest with name %@",digestName);
             return nil;
         }
-    } else {
+    }
+    else {
         digest=EVP_md5();
         if(!digest) {
             NSLog(@"cannot get digest with name %@",@"MD5");

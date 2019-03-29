@@ -1755,7 +1755,8 @@ const NSString* const GenerateMovieDicomImagesParamKey = @"dicomImageArray";
 		if (!webUser) {
 			[response.tokens addError:[NSString stringWithFormat:NSLocalizedString(@"Couldn't save changes for user <b>%@</b> because he doesn't exist.", @"Web Portal, admin, user edition, save error (%@ is user.name)"), originalName]];
 			userRecycleParams = YES;
-		} else {
+		}
+        else {
 			// NSLog(@"SAVE params: %@", parameters.description);
 			
 			NSString* name = [[parameters objectForKey:@"name"] stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];

@@ -411,9 +411,11 @@ NSArray *OSIROIMaskIndexesInRun(OSIROIMaskRun maskRun)
                 maskRun.heightIndex == sortedRun.heightIndex &&
                 maskRun.depthIndex == sortedRun.depthIndex) {
                 maskRun.widthRange.length++;
-            } else if (OSIROIMaskRunsOverlap(maskRun, sortedRun)) {
+            }
+            else if (OSIROIMaskRunsOverlap(maskRun, sortedRun)) {
                 NSLog(@"overlap?");
-            } else {
+            }
+            else {
                 [newSortedRuns addObject:[NSValue valueWithOSIROIMaskRun:maskRun]];
                 maskRun = sortedRun;
             }
@@ -462,7 +464,8 @@ NSArray *OSIROIMaskIndexesInRun(OSIROIMaskRun maskRun)
                 maskRun.heightIndex == indexes[1].y &&
                 maskRun.depthIndex == indexes[1].z) {
                 maskRun.widthRange.length++;
-            } else {
+            }
+            else {
                 [maskRuns addObject:[NSValue valueWithOSIROIMaskRun:maskRun]];
                 maskRun.widthRange.location = indexes[i].x;
                 maskRun.widthRange.length = 1;
@@ -529,7 +532,8 @@ NSArray *OSIROIMaskIndexesInRun(OSIROIMaskRun maskRun)
             if ((NSInteger)OSIROIMaskRunFirstWidthIndex(newMaskRuns[newMaskRunsIndex]) < -x) {
                 newMaskRuns[newMaskRunsIndex].widthRange.length += x + (NSInteger)OSIROIMaskRunFirstWidthIndex(newMaskRuns[newMaskRunsIndex]);
                 newMaskRuns[newMaskRunsIndex].widthRange.location = 0;
-            } else {
+            }
+            else {
                 newMaskRuns[newMaskRunsIndex].widthRange.location += x;
             }
 
@@ -573,25 +577,30 @@ NSArray *OSIROIMaskIndexesInRun(OSIROIMaskRun maskRun)
             if (OSIROIMaskCompareRun(maskRunArray1[index1], maskRunArray2[index2]) == NSOrderedAscending) {
                 runToAdd = maskRunArray1[index1];
                 index1++;
-            } else {
+            }
+            else {
                 runToAdd = maskRunArray2[index2];
                 index2++;
             }
-        } else if (index1 < [self maskRunCount]) {
+        }
+        else if (index1 < [self maskRunCount]) {
             runToAdd = maskRunArray1[index1];
             index1++;
-        } else {
+        }
+        else {
             runToAdd = maskRunArray2[index2];
             index2++;
         }
         
         if (accumulatedRun.widthRange.length == 0) {
             accumulatedRun = runToAdd;
-        } else if (OSIROIMaskRunsOverlap(runToAdd, accumulatedRun) || OSIROIMaskRunsAbut(runToAdd, accumulatedRun)) {
+        }
+        else if (OSIROIMaskRunsOverlap(runToAdd, accumulatedRun) || OSIROIMaskRunsAbut(runToAdd, accumulatedRun)) {
             if (NSMaxRange(runToAdd.widthRange) > NSMaxRange(accumulatedRun.widthRange)) {
                 accumulatedRun.widthRange.length = NSMaxRange(runToAdd.widthRange) - accumulatedRun.widthRange.location;
             }
-        } else {
+        }
+        else {
             [resultMaskRuns appendBytes:&accumulatedRun length:sizeof(OSIROIMaskRun)];
             accumulatedRun = runToAdd;
         }
@@ -665,16 +674,19 @@ NSArray *OSIROIMaskIndexesInRun(OSIROIMaskRun maskRun)
                 tempMaskRun = [templateRunStack currentMaskRun];
                 [resultMaskRuns appendBytes:&tempMaskRun length:sizeof(OSIROIMaskRun)];
                 [templateRunStack popMaskRun];
-            } else {
+            }
+            else {
                 subtractIndex++;
             }
-        } else {
+        }
+        else {
             // run the 4 cases
             if (NSLocationInRange([templateRunStack currentMaskRun].widthRange.location, subtractRunArray[subtractIndex].widthRange)) {
                 if (NSLocationInRange(NSMaxRange([templateRunStack currentMaskRun].widthRange) - 1, subtractRunArray[subtractIndex].widthRange)) {
                     // 1.
                     [templateRunStack popMaskRun];
-                } else {
+                }
+                else {
                     // 2.
                     newMaskRun = [templateRunStack currentMaskRun];
                     length = NSIntersectionRange([templateRunStack currentMaskRun].widthRange, subtractRunArray[subtractIndex].widthRange).length;
@@ -684,7 +696,8 @@ NSArray *OSIROIMaskIndexesInRun(OSIROIMaskRun maskRun)
                     [templateRunStack pushMaskRun:newMaskRun];
                     assert(newMaskRun.widthRange.length > 0);
                 }
-            } else {
+            }
+            else {
                 if (NSLocationInRange(NSMaxRange([templateRunStack currentMaskRun].widthRange) - 1, subtractRunArray[subtractIndex].widthRange)) {
                     // 4.
                     newMaskRun = [templateRunStack currentMaskRun];
@@ -693,7 +706,8 @@ NSArray *OSIROIMaskIndexesInRun(OSIROIMaskRun maskRun)
                     [templateRunStack popMaskRun];
                     [templateRunStack pushMaskRun:newMaskRun];
                     assert(newMaskRun.widthRange.length > 0);
-                } else {
+                }
+                else {
                     // 3.
                     OSIROIMaskRun originalMaskRun = [templateRunStack currentMaskRun];
                     [templateRunStack popMaskRun];
@@ -816,7 +830,8 @@ NSArray *OSIROIMaskIndexesInRun(OSIROIMaskRun maskRun)
             if ([predicate evaluateWithObject:standIn]) {
                 if (isMaskRunActive) {
                     activeMaskRun.widthRange.length++;
-                } else {
+                }
+                else {
                     activeMaskRun.widthRange.location = maskIndex.x;
                     activeMaskRun.widthRange.length = 1;
                     activeMaskRun.heightIndex = maskIndex.y;
@@ -824,7 +839,8 @@ NSArray *OSIROIMaskIndexesInRun(OSIROIMaskRun maskRun)
                     activeMaskRun.intensity = maskRun.intensity;
                     isMaskRunActive = YES;
                 }
-            } else {
+            }
+            else {
                 if (isMaskRunActive) {
                     [newMaskArray addObject:[NSValue valueWithOSIROIMaskRun:activeMaskRun]];
                     isMaskRunActive = NO;

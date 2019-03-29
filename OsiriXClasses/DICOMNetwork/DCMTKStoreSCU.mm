@@ -243,11 +243,13 @@ addStoragePresentationContexts(T_ASC_Parameters *params, OFList<OFString>& sopCl
         if (gLocalByteOrder == EBO_LittleEndian) {
             /* we are on a little endian machine */
             preferredTransferSyntax = UID_LittleEndianExplicitTransferSyntax;
-        } else {
+        }
+        else {
             /* we are on a big endian machine */
             preferredTransferSyntax = UID_BigEndianExplicitTransferSyntax;
         }
-    } else {
+    }
+    else {
         DcmXfer xfer(opt_networkTransferSyntax);
         preferredTransferSyntax = xfer.getXferID();
     }
@@ -313,7 +315,8 @@ addStoragePresentationContexts(T_ASC_Parameters *params, OFList<OFString>& sopCl
         if (opt_combineProposedTransferSyntaxes) {
             cond = addPresentationContext(params, pid, *s_cur, combinedSyntaxes);
             pid += 2;   /* only odd presentation context id's */
-        } else {
+        }
+        else {
 
             // SOP class with preferred transfer syntax
             cond = addPresentationContext(params, pid, *s_cur, preferredTransferSyntax);
@@ -1666,7 +1669,8 @@ static OFCondition cstore(T_ASC_Association * assoc, const OFString& fname)
                 localException = [[NSException exceptionWithName:@"DICOM Network Failure (STORE-SCU)" reason:[NSString stringWithFormat: @"Association Rejected %04x:%04x %s", cond.module(), cond.code(), cond.text()] userInfo:nil] retain];
                 [localException raise];
 
-            } else {
+            }
+            else {
                 OFLOG_FATAL(storescuLogger, "Association Request Failed: " << DimseCondition::dump(temp_str, cond));
 
                 localException = [[NSException exceptionWithName:@"DICOM Network Failure (STORE-SCU)" reason:[NSString stringWithFormat: @"Association Request Failed %04x:%04x %s", cond.module(), cond.code(), cond.text()] userInfo:nil] retain];

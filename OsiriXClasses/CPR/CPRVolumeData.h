@@ -147,14 +147,13 @@ CF_INLINE float CPRVolumeDataGetFloatAtPixelCoordinate(CPRVolumeDataInlineBuffer
         outside |= y >= inlineBuffer->pixelsHigh;
         outside |= z >= inlineBuffer->pixelsDeep;
         
-        if (!outside) {
+        if (!outside)
             return (inlineBuffer->floatBytes)[x + y*inlineBuffer->pixelsWide + z*inlineBuffer->pixelsWideTimesPixelsHigh];
-        } else {
-            return inlineBuffer->outOfBoundsValue;
-        }
-    } else {
-        return 0;
+
+        return inlineBuffer->outOfBoundsValue;
     }
+
+    return 0;
 }
 
 CF_INLINE float CPRVolumeDataLinearInterpolatedFloatAtVolumeCoordinate(CPRVolumeDataInlineBuffer *inlineBuffer, CGFloat x, CGFloat y, CGFloat z) // coordinate in the pixel space
@@ -178,7 +177,8 @@ CF_INLINE float CPRVolumeDataLinearInterpolatedFloatAtVolumeCoordinate(CPRVolume
     
     if (outside || !inlineBuffer->floatBytes) {
         returnValue = inlineBuffer->outOfBoundsValue;
-    } else {
+    }
+    else {
         float xd = x - floorX;
         float yd = y - floorY;
         float zd = z - floorZ;
@@ -284,7 +284,8 @@ CF_INLINE void CPRVolumeDataGetCubicIndexes(NSInteger cubicIndexes[64], NSIntege
                 }
             }
         }
-    } else {
+    }
+    else {
         for (int i = 0; i < 4; ++i) {
             for (int j = 0; j < 4; ++j) {
                 for (int k = 0; k < 4; ++k) {

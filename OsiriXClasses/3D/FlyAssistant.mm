@@ -1211,7 +1211,8 @@ typedef GreaterPathNodeOnF NodeCompare;
         vyAxis.x = 0;
         vyAxis.y = -currentDir.getZ()/currentDir.getY();
         vyAxis.z = 1;
-    } else {
+    }
+    else {
         vxAxis.x = 1;
         vxAxis.y = 0;
         vxAxis.z = -currentDir.getX()/currentDir.getZ();

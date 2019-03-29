@@ -56,7 +56,8 @@
 			_bezierPath = [[N3MutableBezierPath alloc] initWithNodeArray:nodes style:N3BezierNodeOpenEndsStyle];
 			[_bezierPath close];
 			[nodes release];
-		} else {
+		}
+        else {
 			[self autorelease];
 			self = nil;
 		}

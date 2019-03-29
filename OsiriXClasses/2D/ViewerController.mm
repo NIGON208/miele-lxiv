@@ -5696,7 +5696,8 @@ static volatile int numberOfThreadsForRelisce = 0;
                             [cell setImagePosition:NSImageOverlaps];
                             [cell setImageScaling:NSImageScaleNone];
 
-                        } else {
+                        }
+                        else {
     #endif
                             if ([curStudy isHidden])
                                 action = NSLocalizedString(@"Show Series", nil);

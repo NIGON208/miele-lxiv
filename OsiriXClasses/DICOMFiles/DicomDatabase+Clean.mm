@@ -36,10 +36,12 @@
 
 @implementation DicomDatabase (Clean)
 
--(void)initClean {
+-(void)initClean
+{
 	if (self.isMainDatabase) {
         _cleanLock = [[NSRecursiveLock alloc] init];
-    } else {
+    }
+    else {
         _cleanLock = [[self.mainDatabase cleanLock] retain];
     }
 	[DicomDatabase _syncCleanTimer];
@@ -54,7 +56,8 @@
         _cleanLock = nil;
         [temp unlock];
         [temp release];
-    } else {
+    }
+    else {
         [_cleanLock release];
     }
 }

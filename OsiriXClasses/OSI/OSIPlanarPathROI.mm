@@ -118,7 +118,8 @@
                 [_bezierPath close];
             }
             [_bezierPath applyAffineTransform:pixToDICOMTransfrom];
-		} else {
+		}
+        else {
 			[self autorelease];
 			self = nil;
 		}

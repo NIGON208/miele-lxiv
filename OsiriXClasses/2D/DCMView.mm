@@ -16191,7 +16191,8 @@ void checkOGLVersion()
             float horizMargin = NSWidth(rect) - scaledWidth / NSHeight(imageBounds);
             rect.origin.x += horizMargin / 2.0;
             rect.size.width -= horizMargin;
-        } else {
+        }
+        else {
             // rect is taller than image: fit width
             float vertMargin = NSHeight(rect) - scaledHeight / NSWidth(imageBounds);
             rect.origin.y += vertMargin / 2.0;

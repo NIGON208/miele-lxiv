@@ -268,7 +268,8 @@ extern int splitPosition[ 3];
 			if (N3VectorDistanceToLine(N3VectorMakeFromNSPoint(viewPoint), line) < 20.0) {
 				newMouseTransverseSectionType = _sectionType;
 				newMouseTransverseSectionDistance = (pixVector.y - (CGFloat)curDCM.pheight/2.0) / pixelsPerMm;
-			} else {
+			}
+            else {
 				newMouseTransverseSectionType = CPRTransverseViewNoneSectionType;
 				newMouseTransverseSectionDistance = 0;
 			}

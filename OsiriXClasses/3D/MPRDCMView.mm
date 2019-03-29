@@ -2020,11 +2020,10 @@ unsigned int minimumStep;
     plane.point = N3VectorApplyTransform(N3VectorMake((CGFloat)curDCM.pwidth/2.0, (CGFloat)curDCM.pheight/2.0, 0.0), pixToDicomTransform);
     plane.normal = N3VectorNormalize(N3VectorApplyTransformToDirectionalVector(N3VectorMake(0.0, 0.0, 1.0), pixToDicomTransform));
     
-	if (N3PlaneIsValid(plane)) {
+	if (N3PlaneIsValid(plane))
 		return plane;
-	} else {
-		return N3PlaneInvalid;
-	}
+
+    return N3PlaneInvalid;
 }
 
 @end

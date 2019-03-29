@@ -261,15 +261,17 @@ extern int splitPosition[ 3];
             [self _buildVerticalLinesAndPlaneRunsForPlaneFullName:planeFullName];
         }
         return [_verticalLines objectForKey:planeFullName];    
-    } else if ([key hasSuffix:@"PlaneRuns"]) {
+    }
+    else if ([key hasSuffix:@"PlaneRuns"]) {
         planeFullName = [key substringToIndex:[key length] - 9];
         if ([_planeRuns valueForKey:planeFullName] == nil) {
             [self _buildVerticalLinesAndPlaneRunsForPlaneFullName:planeFullName];
         }
         return [_planeRuns valueForKey:planeFullName];
-    } else {
-        return [super valueForKey:key];
     }
+
+    return [super valueForKey:key];
+
 }
 
 - (void)mouseDraggedWindowLevel:(NSEvent *)event
@@ -690,10 +692,10 @@ extern int splitPosition[ 3];
             if (_displayInfo.hoverNodeHidden == NO && _displayInfo.hoverNodeIndex == i)
 			{
                 glColor4d(1.0, 0.5, 0.0, 1.0);
-            } else {
+            }
+            else {
                 glColor4d(1.0, 0.0, 0.0, 1.0);
             }
-
             
             glEnable(GL_POINT_SMOOTH);
             glPointSize(8 * self.window.backingScaleFactor);
@@ -815,7 +817,8 @@ extern int splitPosition[ 3];
 			
 			if (N3VectorDistanceToLine(N3VectorMakeFromNSPoint(viewPoint), line) < 20.0) {
 				self.drawAllNodes = YES;
-			} else {
+			}
+            else {
 				self.drawAllNodes = NO;
 			}
 			
@@ -838,7 +841,8 @@ extern int splitPosition[ 3];
 						_displayInfo.hoverNodeHidden = NO;
 						_displayInfo.hoverNodeIndex = hoverNodeIndex;
 					}
-				} else {
+				}
+                else {
 					if (_displayInfo.hoverNodeHidden == NO) {
 						_displayInfo.hoverNodeHidden = YES;
 						_displayInfo.hoverNodeIndex = 0;
@@ -1307,9 +1311,11 @@ extern int splitPosition[ 3];
 				
 				[_generator runUntilAllRequestsAreFinished];
 				[self generator:nil didGenerateVolume:curvedVolume request:request];
-			} else {
+			}
+            else {
 				[_generator requestVolume:request];
 			}
+
 			self.lastRequest = request;
         }
         
@@ -1500,7 +1506,8 @@ extern int splitPosition[ 3];
 	if (verticalLinesHandle) {
 		verticalLines = [NSMutableArray array];
 		*verticalLinesHandle = verticalLines;
-	} else {
+	}
+    else {
 		verticalLines = nil;
 	}
 	
@@ -1517,9 +1524,11 @@ extern int splitPosition[ 3];
 
 		if (!bottomPointAbove && !topPointAbove) {
 			aboveOrBelow = -1;
-		} else if (bottomPointAbove && topPointAbove) {
+		}
+        else if (bottomPointAbove && topPointAbove) {
 			aboveOrBelow = 1;
-		} else {
+		}
+        else {
 			aboveOrBelow = 0;
 		}
 		
@@ -1536,7 +1545,8 @@ extern int splitPosition[ 3];
 					range.length = 1;
 					if (prevBottomPointAbove != bottomPointAbove) {
 						[planeRun.distances addObject:[NSNumber numberWithDouble:-halfHeight]];
-					} else {
+					}
+                    else {
 						[planeRun.distances addObject:[NSNumber numberWithDouble:halfHeight]];
 					}
 				}
@@ -1544,13 +1554,15 @@ extern int splitPosition[ 3];
 			distance = N3VectorDotProduct(N3VectorSubtract(N3LineIntersectionWithPlane(N3LineMakeFromPoints(bottom, top), plane), points[i]), normals[i]);
 			[planeRun.distances addObject:[NSNumber numberWithDouble:distance]];
 			range.length++;
-		} else {
+		}
+        else {
 			if (planeRun != nil) { // finish up and save the last run
 				if (NSMaxRange(range) < numVectors) {
 					range.length++;
 					if (prevBottomPointAbove != bottomPointAbove) {
 						[planeRun.distances addObject:[NSNumber numberWithDouble:-halfHeight]];
-					} else {
+					}
+                    else {
 						[planeRun.distances addObject:[NSNumber numberWithDouble:halfHeight]];
 					}
 				}
@@ -1609,7 +1621,8 @@ extern int splitPosition[ 3];
             if (lineDistance < runDistance) {
                 [_mousePlanePointsInPix setObject:[NSValue valueWithN3Vector:linePixVector] forKey:planeName];
                 [_displayInfo setMouseVector:lineVolumeVector forPlane:planeName];
-            } else {
+            }
+            else {
                 [_mousePlanePointsInPix setObject:[NSValue valueWithN3Vector:runPixVector] forKey:planeName];
                 [_displayInfo setMouseVector:runVolumeVector forPlane:planeName];
             }
@@ -1725,7 +1738,8 @@ extern int splitPosition[ 3];
         if (slabThickness == 0) {
             return;
         }        
-    } else {
+    }
+    else {
         planeName = planeFullName;
         slabThickness = 0;
     }
@@ -1843,7 +1857,8 @@ extern int splitPosition[ 3];
 	for (i = planeRun.range.location; i < NSMaxRange(planeRun.range); i++) {
 		if (i == planeRun.range.location) {
 			[mutableBezierPath moveToVector:N3VectorMake(i, [[planeRun.distances objectAtIndex:i - planeRun.range.location] doubleValue] * pixelsPerMm, 0)];
-		} else {
+		}
+        else {
 			[mutableBezierPath lineToVector:N3VectorMake(i, [[planeRun.distances objectAtIndex:i - planeRun.range.location] doubleValue] * pixelsPerMm, 0)];
 		}
 	}

@@ -71,7 +71,8 @@
     if (!self.window) {
         [self hideHelper];
         [NSNotificationCenter.defaultCenter removeObserver:self name:NSViewFrameDidChangeNotification object:nil];
-    } else {
+    }
+    else {
         for (NSView* view = self; view; view = view.superview) {
             [view setPostsFrameChangedNotifications:YES];
             [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(observeViewRectDidChangeNotification:) name:NSViewFrameDidChangeNotification object:view];

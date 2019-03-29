@@ -6240,23 +6240,29 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
                             NSString * unitsY;
                             if ((physicalUnitsXDirection < 0) || (physicalUnitsXDirection > 12)) {
                                 unitsX = NSLocalizedString( @"unknown", nil);
-                            } else if ((physicalUnitsYDirection < 0) || (physicalUnitsYDirection > 12)) {
+                            }
+                            else if ((physicalUnitsYDirection < 0) || (physicalUnitsYDirection > 12)) {
                                 unitsY = NSLocalizedString( @"unknown", nil);
-                            } else {
+                            }
+                            else {
                                 unitsX = [self.physicalUnitsXYDirection objectAtIndex:physicalUnitsXDirection];
                                 unitsY = [self.physicalUnitsXYDirection objectAtIndex:physicalUnitsYDirection];
                             }
                             
                             if ((!isReferencePixelX0Present) && (isReferencePixelY0Present)) {
                                 self.textualBoxLine4 = [NSString stringWithFormat: NSLocalizedString( @"2D Pos: X:n/a %@ Y:%0.3f %@", nil), unitsX, roiPosYValue, unitsY];
-                            } else if ((isReferencePixelX0Present) && (!isReferencePixelY0Present)) {
+                            }
+                            else if ((isReferencePixelX0Present) && (!isReferencePixelY0Present)) {
                                 self.textualBoxLine4 = [NSString stringWithFormat: NSLocalizedString( @"2D Pos: X:%0.3f %@ Y:n/a %@", nil), roiPosXValue, unitsX, unitsY];
-                            } else if ((!isReferencePixelX0Present) && (!isReferencePixelY0Present)) {
+                            }
+                            else if ((!isReferencePixelX0Present) && (!isReferencePixelY0Present)) {
                                 self.textualBoxLine4 = [NSString stringWithFormat: NSLocalizedString( @"2D Pos: X:n/a %@ Y:n/a %@", nil), unitsX, unitsY];
-                            } else
+                            }
+                            else
                                 self.textualBoxLine4 = [NSString stringWithFormat: NSLocalizedString( @"2D Pos: X:%0.3f %@ Y:%0.3f %@", nil), roiPosXValue, unitsX, roiPosYValue, unitsY];
                             
-                        } else {
+                        }
+                        else {
                         // <--- US Regions (Point)
                             self.textualBoxLine4 = [NSString stringWithFormat: NSLocalizedString( @"2D Pos: X:%0.3f px Y:%0.3f px", nil), rect.origin.x, rect.origin.y];
                         } // US Regions (Point)

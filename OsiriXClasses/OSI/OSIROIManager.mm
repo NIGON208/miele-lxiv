@@ -128,15 +128,12 @@ NSString* const OSIROIAddedROIKey = @"OSIROIAddedROIKey";
 
 - (OSIROI *)firstROIWithName:(NSString *)name // convenience method to get the first ROI with
 {
-	NSArray *rois;
-	
-	rois = [self ROIsWithName:name];
-	
-	if ([rois count] > 0) {
+	NSArray *rois = [self ROIsWithName:name];
+
+	if ([rois count] > 0)
 		return [rois objectAtIndex:0];
-	} else {
-		return nil;
-	}
+
+    return nil;
 }
 
 - (NSArray *)ROIsWithName:(NSString *)name
@@ -223,12 +220,14 @@ NSString* const OSIROIAddedROIKey = @"OSIROIAddedROIKey";
 {
     if ([keyPath isEqualToString:@"OSIROIs"] && object == _volumeWindow) {
         [self _rebuildOSIROIs];
-    } else if ([keyPath isEqualToString:@"dataLoaded"] && object == _volumeWindow) {
+    }
+    else if ([keyPath isEqualToString:@"dataLoaded"] && object == _volumeWindow) {
         [self willChangeValueForKey:@"allROIsLoaded"];
         _allROIsLoaded = [_volumeWindow isDataLoaded];
         [self didChangeValueForKey:@"allROIsLoaded"];
         [self _rebuildOSIROIs];
-    } else {
+    }
+    else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
 }
@@ -316,7 +315,8 @@ NSString* const OSIROIAddedROIKey = @"OSIROIAddedROIKey";
 	if (N3AffineTransformDeterminant(pixToDicomTransform) != 0.0) {
 		dicomToPixTransform = N3AffineTransformInvert(pixToDicomTransform);
 		plane = N3PlaneApplyTransform(N3PlaneZZero, pixToDicomTransform);
-	} else {
+	}
+    else {
 		dicomToPixTransform = N3AffineTransformIdentity;
 		plane = N3PlaneZZero;
 	}
@@ -375,7 +375,8 @@ NSString* const OSIROIAddedROIKey = @"OSIROIAddedROIKey";
     [_watchedROIs removeAllObjects];
 	if (_coalesceROIs) {
 		[_OSIROIs addObjectsFromArray:[self _coalescedROIListForWatchedOsiriXROIs:&watchedROIs]];
-	} else {
+	}
+    else {
 		[_OSIROIs addObjectsFromArray:[self _ROIListForWatchedOsiriXROIs:&watchedROIs]];
 	}
 

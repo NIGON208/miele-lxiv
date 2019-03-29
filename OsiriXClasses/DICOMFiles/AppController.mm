@@ -5914,7 +5914,8 @@ static NSMutableDictionary* _receivingDict = nil;
 				[_receivingDict setObject: setCount = [N2MutableUInteger mutableUIntegerWithUInteger:1] forKey:threadValue];
 			else
                 [setCount increment];
-		} else {
+		}
+        else {
 			if (setCount) {
                 if (setCount.unsignedIntegerValue > 0)
                     [setCount decrement];

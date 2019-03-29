@@ -221,7 +221,8 @@ static DcmItem* getItemFromPath(DcmItem &dataset,
       if (stack.top()->ident() == EVR_SQ)
       {
         sq = OFstatic_cast(DcmSequenceOfItems *, stack.top());
-      } else {
+      }
+      else {
         message=message + "Error: attribute is not a sequence (path is '" + location + "')";
         return NULL;
       }
@@ -696,7 +697,8 @@ OFCondition MdfDatasetManager::saveFile(const char *file_name,
                                  OFstatic_cast(Uint32, opt_itempad),
                                  (opt_dataset) ? EWM_dataset : EWM_fileformat);
 
-    } else {
+    }
+    else {
         OFLOG_DEBUG(mdfdsmanLogger, "no conversion to transfer syntax " << DcmXfer(opt_xfer).getXferName() << " possible!");
         result = EC_CannotChangeRepresentation;
     }

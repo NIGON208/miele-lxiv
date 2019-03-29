@@ -136,7 +136,8 @@
                 if (pka.count == 1) {
                     np = [pka lastObject];
                     [a replaceObjectAtIndex:i withObject:np];
-                } else {
+                }
+                else {
                     np = [NSCompoundPredicate andPredicateWithSubpredicates:pka];
                     if ([_dpert matchForPredicate:np])
                         [a replaceObjectAtIndex:i withObject:np];

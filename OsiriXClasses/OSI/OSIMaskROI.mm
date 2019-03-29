@@ -56,13 +56,15 @@
             _mask = [mask retain];
             _volumeTransform = volumeTransform;
             _name = [name retain];
-        } else {
+        }
+        else {
             OSIROIMask *mappedMask = [self.mask ROIMaskByResamplingFromVolumeTransform:volumeTransform toVolumeTransform:floatVolumeData.volumeTransform interpolationMode:CPRInterpolationModeNearestNeighbor];
             _mask = [[mappedMask ROIMaskCroppedToWidth:floatVolumeData.pixelsWide height:floatVolumeData.pixelsHigh depth:floatVolumeData.pixelsDeep] retain];
             _volumeTransform = floatVolumeData.volumeTransform;
             _name = [name retain];
         }
 	}
+
     return self;
 }
 
@@ -182,7 +184,8 @@
         _mask = [newMask retain];
         [[NSNotificationCenter defaultCenter] postNotificationName:OsirixVolumetricROIDidUpdateNotification object:self userInfo:nil];
         [self didChangeValueForKey:@"mask"];
-    } else {
+    }
+    else {
         self.mask = [self.mask ROIMaskByUnioningWithMask:mask];
     }
 }
@@ -230,7 +233,8 @@
         _mask = [newMask retain];
         [[NSNotificationCenter defaultCenter] postNotificationName:OsirixVolumetricROIDidUpdateNotification object:self userInfo:nil];
         [self didChangeValueForKey:@"mask"];
-    } else {
+    }
+    else {
         self.mask = [self.mask ROIMaskBySubtractingMask:mask];
     }
 }
@@ -504,9 +508,9 @@
     if (cachedMinWidth <= minWidth && cachedMinHeight <= minHeight && cachedMinDepth <= minDepth &&
         cachedMaxWidth >= maxWidth && cachedMaxHeight >= maxHeight && cachedMaxDepth >= maxDepth) {
         return YES;
-    } else {
-        return NO;
     }
+
+    return NO;
 }
 
 - (OSIROIMask *)ROIMaskWithSphereDiameter:(CGFloat)diameter atDicomVector:(N3Vector)position

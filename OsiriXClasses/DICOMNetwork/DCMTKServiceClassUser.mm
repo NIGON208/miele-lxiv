@@ -159,7 +159,8 @@
         {
             transferSyntaxes[0] = UID_LittleEndianExplicitTransferSyntax;
             transferSyntaxes[1] = UID_BigEndianExplicitTransferSyntax;
-        } else {
+        }
+        else {
             transferSyntaxes[0] = UID_BigEndianExplicitTransferSyntax;
             transferSyntaxes[1] = UID_LittleEndianExplicitTransferSyntax;
         }

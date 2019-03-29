@@ -36,11 +36,13 @@
 
 @implementation DicomDatabase (Routing)
 
--(void)initRouting {
+-(void)initRouting
+{
     if (self.isMainDatabase) {
         _routingSendQueues = [[NSMutableArray alloc] init];
         _routingLock = [[NSRecursiveLock alloc] init];
-    } else {
+    }
+    else {
         _routingSendQueues = [[self.mainDatabase routingSendQueues] retain];
         _routingLock = [[self.mainDatabase routingLock] retain];
     }
@@ -57,7 +59,8 @@
         _routingLock = nil;
         [temp unlock];
         [temp release];
-    } else {
+    }
+    else {
         [_routingLock release];
     }
 	
@@ -290,7 +293,8 @@
 					} @catch (NSException* e) {
 						N2LogExceptionWithStackTrace(e);
 					}
-				} else {
+				}
+                else {
 					N2LogError(@"Server not found for autorouting: %@", serverName);
 				}
 				

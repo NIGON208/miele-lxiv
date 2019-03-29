@@ -593,7 +593,8 @@ static DicomDatabase* activeLocalDatabase = nil;
         _processFilesLock = nil;
         [temp unlock];
         [temp release];
-    } else {
+    }
+    else {
         [_importFilesFromIncomingDirLock release];
         [_processFilesLock release];
         [NSNotificationCenter.defaultCenter removeObserver:self.mainDatabase name:nil object:self];
@@ -3379,7 +3380,8 @@ static BOOL protectionAgainstReentry = NO;
             if (!mdb.compressDecompressThread) {
                 mdb.compressDecompressThread = [[[NSThread alloc] initWithTarget:self selector:@selector(_threadCompressDecompress) object:nil] autorelease];
                 [mdb.compressDecompressThread start];
-            } else {
+            }
+            else {
                 mdb.compressDecompressThread.status = [NSString stringWithFormat:NSLocalizedString(@"%d additional files queued", nil), _compressQueue.count+_decompressQueue.count];
             }
         }

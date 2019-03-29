@@ -296,7 +296,8 @@ static NSString *WebPortalResponseLock = @"WebPortalResponseLock";
 							if ([op isEqualToString:@"<="])
 								satisfied = cr!=NSOrderedDescending;
 						}
-				} else {
+				}
+                else {
 					id o = [self object:dict valueForKeyPath:condition context:context];
 					
 					if ([o isKindOfClass:[NSNumber class]])
@@ -321,7 +322,8 @@ static NSString *WebPortalResponseLock = @"WebPortalResponseLock";
 		if (elseRange.length) {
 			bodyYes = [body substringToIndex:elseRange.location];
 			bodyNo = [body substringFromIndex:elseRange.location+elseRange.length];
-		} else {
+		}
+        else {
 			bodyYes = body;
 			bodyNo = @"";
 		}
@@ -1036,13 +1038,15 @@ static NSMutableDictionary *otherStudiesForThisPatientCache = nil;
 					if (!wpc.requestIsIOS)
 						size.height += 15; // controller height (quicktime, flash)
 				}
-			} else {
+			}
+            else {
 				[wpc getWidth:&size.width height:&size.height fromImagesArray:images];
 			}
-
 		}
-		if ([key isEqualToString:@"width"])
+
+        if ([key isEqualToString:@"width"])
 			return [NSNumber numberWithInt:size.width];
+
 		if ([key isEqualToString:@"height"])
 			return [NSNumber numberWithInt:size.height];
 	}

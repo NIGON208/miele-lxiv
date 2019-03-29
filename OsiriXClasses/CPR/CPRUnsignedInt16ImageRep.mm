@@ -37,7 +37,8 @@
                 [self autorelease];
                 return nil;
             }
-        } else {
+        }
+        else {
             _unsignedInt16Data = data;
         }
         

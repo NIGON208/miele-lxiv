@@ -282,7 +282,8 @@ extern int splitPosition[ 3];
             [self _buildVerticalLinesAndPlaneRunsForPlaneFullName:planeFullName];
         }
         return [_planeRuns valueForKey:planeFullName];
-    } else {
+    }
+    else {
         return [super valueForKey:key];
     }
 }
@@ -970,7 +971,8 @@ extern int splitPosition[ 3];
             distanceFromCenterline = N3VectorDistanceToLine(vector, N3LineMake(pixVector, N3VectorMake(0, 0, 1)));
 			if (distanceFromCenterline < 20.0) {
 				self.drawAllNodes = YES;
-			} else {
+			}
+            else {
 				self.drawAllNodes = NO;
 			}
             			
@@ -1121,7 +1123,8 @@ extern int splitPosition[ 3];
                     _draggedNode = -1;
                     _isDraggingNode = YES;
                     break;
-                } else {
+                }
+                else {
                     _draggedNode = i;
                     _isDraggingNode = YES;
                     [self _sendWillEditCurvedPath];
@@ -1483,7 +1486,8 @@ extern int splitPosition[ 3];
 				
 				[_generator runUntilAllRequestsAreFinished];
 				[self generator:nil didGenerateVolume:curvedVolume request:request];
-			} else {
+			}
+            else {
 				[_generator requestVolume:request];
 			}
 			self.lastRequest = request;
@@ -1565,7 +1569,8 @@ extern int splitPosition[ 3];
             relativePositions[numVectors] = relativePositions[numVectors - 1];
             numVectors++;
         }
-    } else { // there are no vectors at all to copy from, so just zero out everthing
+    }
+    else { // there are no vectors at all to copy from, so just zero out everthing
         while (numVectors < pixelsWide) { // make sure that the full array is filled and that there is not a vector that did not get filled due to roundoff error
             vectors[numVectors] = N3VectorZero;
             relativePositions[numVectors] = 0;
@@ -1762,7 +1767,8 @@ extern int splitPosition[ 3];
             relativePositions[numVectors] = relativePositions[numVectors - 1];
             numVectors++;
         }
-    } else { // there are no vectors, bail!
+    }
+    else { // there are no vectors, bail!
         free(vectors);
         free(relativePositions);
         return [[[_CPRStretchedViewPlaneRun alloc] init] autorelease];
@@ -1818,10 +1824,12 @@ extern int splitPosition[ 3];
             // figure out if we just walked up or down
             if (prevBottomPointAbove != bottomPointAbove) {
                 distance = -(halfHeight*1e10);
-            } else {
+            }
+            else {
                 distance = halfHeight*1e10;
             }
-        } else {
+        }
+        else {
             distance = N3VectorDotProduct(N3VectorSubtract(N3LineIntersectionWithPlane(N3LineMakeFromPoints(bottom, top), transversePlane), midHeightPoint), projectionNormal);
         }
         
@@ -1829,7 +1837,8 @@ extern int splitPosition[ 3];
         if (N3VectorDistance(distanceVector, lastDistanceVector) + traveledDistance > length) { // we can't make the whole segment
             distanceVector = N3VectorAdd(lastDistanceVector, N3VectorScalarMultiply(N3VectorNormalize(N3VectorSubtract(distanceVector, lastDistanceVector)), length - traveledDistance));
             traveledDistance = length;
-        } else {
+        }
+        else {
             traveledDistance += N3VectorDistance(distanceVector, lastDistanceVector);
         }
         
@@ -1865,10 +1874,12 @@ extern int splitPosition[ 3];
             // figure out if we just walked up or down
             if (prevBottomPointAbove != bottomPointAbove) {
                 distance = -(halfHeight*1e10);
-            } else {
+            }
+            else {
                 distance = halfHeight*1e10;
             }
-        } else {
+        }
+        else {
             distance = N3VectorDotProduct(N3VectorSubtract(N3LineIntersectionWithPlane(N3LineMakeFromPoints(bottom, top), transversePlane), midHeightPoint), projectionNormal);
         }
         
@@ -1876,7 +1887,8 @@ extern int splitPosition[ 3];
         if (N3VectorDistance(distanceVector, lastDistanceVector) + traveledDistance > length) { // we can't make the whole segment
             distanceVector = N3VectorAdd(lastDistanceVector, N3VectorScalarMultiply(N3VectorNormalize(N3VectorSubtract(distanceVector, lastDistanceVector)), length - traveledDistance));
             traveledDistance = length;
-        } else {
+        }
+        else {
             traveledDistance += N3VectorDistance(distanceVector, lastDistanceVector);
         }
         
@@ -1936,7 +1948,8 @@ extern int splitPosition[ 3];
 	if (verticalLinesHandle) {
 		verticalLines = [NSMutableArray array];
 		*verticalLinesHandle = verticalLines;
-	} else {
+	}
+    else {
 		verticalLines = nil;
 	}
 	
@@ -1965,7 +1978,8 @@ extern int splitPosition[ 3];
             vectors[numVectors] = vectors[numVectors - 1];
             numVectors++;
         }
-    } else { // there are no vectors at all to copy from, so just zero out everthing
+    }
+    else { // there are no vectors at all to copy from, so just zero out everthing
         while (numVectors < pixelsWide) { // make sure that the full array is filled and that there is not a vector that did not get filled due to roundoff error
             vectors[numVectors] = N3VectorZero;
             numVectors++;
@@ -1981,9 +1995,11 @@ extern int splitPosition[ 3];
         
 		if (!bottomPointAbove && !topPointAbove) {
 			aboveOrBelow = -1;
-		} else if (bottomPointAbove && topPointAbove) {
+		}
+        else if (bottomPointAbove && topPointAbove) {
 			aboveOrBelow = 1;
-		} else {
+		}
+        else {
 			aboveOrBelow = 0;
 		}
 		
@@ -2000,7 +2016,8 @@ extern int splitPosition[ 3];
 					range.length = 1;
 					if (prevBottomPointAbove != bottomPointAbove) {
 						[planeRun.distances addObject:[NSNumber numberWithDouble:-halfHeight]];
-					} else {
+					}
+                    else {
 						[planeRun.distances addObject:[NSNumber numberWithDouble:halfHeight]];
 					}
 				}
@@ -2009,13 +2026,15 @@ extern int splitPosition[ 3];
             distance = N3VectorDotProduct(N3VectorSubtract(N3LineIntersectionWithPlane(N3LineMakeFromPoints(bottom, top), plane), midHeightPoint), projectionNormal);
 			[planeRun.distances addObject:[NSNumber numberWithDouble:distance]];
 			range.length++;
-		} else {
+		}
+        else {
 			if (planeRun != nil) { // finish up and save the last run
 				if (NSMaxRange(range) < numVectors) {
 					range.length++;
 					if (prevBottomPointAbove != bottomPointAbove) {
 						[planeRun.distances addObject:[NSNumber numberWithDouble:-halfHeight]];
-					} else {
+					}
+                    else {
 						[planeRun.distances addObject:[NSNumber numberWithDouble:halfHeight]];
 					}
 				}
@@ -2074,7 +2093,8 @@ extern int splitPosition[ 3];
             if (lineDistance < runDistance) {
                 [_mousePlanePointsInPix setObject:[NSValue valueWithN3Vector:linePixVector] forKey:planeName];
                 [_displayInfo setMouseVector:lineVolumeVector forPlane:planeName];
-            } else {
+            }
+            else {
                 [_mousePlanePointsInPix setObject:[NSValue valueWithN3Vector:runPixVector] forKey:planeName];
                 [_displayInfo setMouseVector:runVolumeVector forPlane:planeName];
             }
@@ -2189,7 +2209,8 @@ extern int splitPosition[ 3];
         if (slabThickness == 0) {
             return;
         }        
-    } else {
+    }
+    else {
         planeName = planeFullName;
         slabThickness = 0;
     }
@@ -2300,21 +2321,24 @@ extern int splitPosition[ 3];
     planeRun = [self _limitedRunForRelativePosition:[_curvedPath transverseSectionPosition] verticalLineIndex:&verticalLine lengthFromCenterline: transverseWidth];
     if (planeRun) {
         [_transversePlaneRuns setObject:[NSArray arrayWithObject:planeRun] forKey:@"center"];
-    } else {
+    }
+    else {
         [_transverseVerticalLines setObject:[NSArray arrayWithObject:[NSNumber numberWithUnsignedInteger:verticalLine]] forKey:@"center"];
     }
     
     planeRun = [self _limitedRunForRelativePosition:[_curvedPath leftTransverseSectionPosition] verticalLineIndex:&verticalLine lengthFromCenterline: transverseWidth];
     if (planeRun) {
         [_transversePlaneRuns setObject:[NSArray arrayWithObject:planeRun] forKey:@"left"];
-    } else {
+    }
+    else {
         [_transverseVerticalLines setObject:[NSArray arrayWithObject:[NSNumber numberWithUnsignedInteger:verticalLine]] forKey:@"left"];
     }
     
     planeRun = [self _limitedRunForRelativePosition:[_curvedPath rightTransverseSectionPosition] verticalLineIndex:&verticalLine lengthFromCenterline: transverseWidth];
     if (planeRun) {
         [_transversePlaneRuns setObject:[NSArray arrayWithObject:planeRun] forKey:@"right"];
-    } else {
+    }
+    else {
         [_transverseVerticalLines setObject:[NSArray arrayWithObject:[NSNumber numberWithUnsignedInteger:verticalLine]] forKey:@"right"];
     }
     
@@ -2364,7 +2388,8 @@ extern int splitPosition[ 3];
         relativePositionIntersection = [self.centerlinePath vectorAtStart];
     } else if (relativePosition == 1) {
         relativePositionIntersection = [self.centerlinePath vectorAtEnd];
-    } else {
+    }
+    else {
         relativePositionPlane = N3PlaneMake(N3VectorMake(0, 0, relativePosition), N3VectorMake(0, 0, 1));
         intersections = [self.centerlinePath intersectionsWithPlane:relativePositionPlane]; // TODO make this O(log(n)) not O(n)
         
@@ -2477,7 +2502,8 @@ extern int splitPosition[ 3];
 	for (i = planeRun.range.location; i < NSMaxRange(planeRun.range); i++) {
 		if (i == planeRun.range.location) {
 			[mutableBezierPath moveToVector:N3VectorMake(i, [[planeRun.distances objectAtIndex:i - planeRun.range.location] doubleValue] * pixelsPerMm, 0)];
-		} else {
+		}
+        else {
 			[mutableBezierPath lineToVector:N3VectorMake(i, [[planeRun.distances objectAtIndex:i - planeRun.range.location] doubleValue] * pixelsPerMm, 0)];
 		}
 	}
