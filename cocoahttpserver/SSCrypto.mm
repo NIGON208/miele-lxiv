@@ -36,6 +36,8 @@
 
 #import "SSCrypto.h"
 
+#include "openssl/opensslv.h"       // for OPENSSL_VERSION_NUMBER
+
 @implementation NSData (HexDump)
 
 /**
@@ -329,9 +331,7 @@
     ERR_free_strings();
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-#pragma mark Getter, Setter Methods:
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+#pragma mark - Getter, Setter Methods
 
 /**
  * Returns whether or not symmetric encryption is to be used.
@@ -484,9 +484,7 @@
     cipherText = c;
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-#pragma mark Decryption methods:
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+#pragma mark - Decryption methods
 
 /**
  * Peforms decryption, and returns resulting clear text data.
@@ -495,11 +493,11 @@
 **/
 - (NSData *)decrypt
 {
-    if([self isSymmetric] && [self symmetricKey])
+    if ([self isSymmetric] && [self symmetricKey])
 	{
         return [self decrypt:@"aes128"];
     }
-	else if([self privateKey])
+	else if ([self privateKey])
 	{
         return [self decrypt:nil];
     }
@@ -537,7 +535,12 @@
 		// Use symmetric decryption...
 		
         unsigned char evp_key[EVP_MAX_KEY_LENGTH] = {"\0"};
+#if OPENSSL_VERSION_NUMBER < 0x10100000L
         EVP_CIPHER_CTX cCtx;
+#else
+        // We can no longer initialize on the stack
+        EVP_CIPHER_CTX *cCtx;
+#endif
         const EVP_CIPHER *cipher;
 
         if(cipherName)
@@ -584,43 +587,48 @@
                        evp_key,
                        iv);
 		
+#if OPENSSL_VERSION_NUMBER < 0x10100000L
         EVP_CIPHER_CTX_init(&cCtx);
+#else
+        cCtx = EVP_CIPHER_CTX_new();
+        EVP_CIPHER_CTX_init(cCtx);
+#endif
 
-        if (!EVP_DecryptInit(&cCtx, cipher, evp_key, iv))
+        if (!EVP_DecryptInit(cCtx, cipher, evp_key, iv))
 		{
             NSLog(@"EVP_DecryptInit() failed!");
-            EVP_CIPHER_CTX_cleanup(&cCtx);
+            EVP_CIPHER_CTX_cleanup(cCtx);
             return nil;
         }
-        EVP_CIPHER_CTX_set_key_length(&cCtx, EVP_MAX_KEY_LENGTH);
+        EVP_CIPHER_CTX_set_key_length(cCtx, EVP_MAX_KEY_LENGTH);
 		
         // The data buffer passed to EVP_DecryptUpdate() should have sufficient room for
 		// (input_length + cipher_block_size) bytes unless the cipher block size is 1 in which
 		// case input_length bytes is sufficient.
 		
-		if(EVP_CIPHER_CTX_block_size(&cCtx) > 1)
-			outbuf = (unsigned char *)calloc(inlen + EVP_CIPHER_CTX_block_size(&cCtx), sizeof(unsigned char));
+		if(EVP_CIPHER_CTX_block_size(cCtx) > 1)
+			outbuf = (unsigned char *)calloc(inlen + EVP_CIPHER_CTX_block_size(cCtx), sizeof(unsigned char));
 		else
 			outbuf = (unsigned char *)calloc(inlen, sizeof(unsigned char));
 			
         NSAssert(outbuf, @"Cannot allocate memory for buffer!");
         
-        if (!EVP_DecryptUpdate(&cCtx, outbuf, &outlen, input, inlen))
+        if (!EVP_DecryptUpdate(cCtx, outbuf, &outlen, input, inlen))
 		{
 			NSLog(@"EVP_DecryptUpdate() failed!");
-			EVP_CIPHER_CTX_cleanup(&cCtx);
+			EVP_CIPHER_CTX_cleanup(cCtx);
 			return nil;
         }
         
-        if (!EVP_DecryptFinal(&cCtx, outbuf + outlen, &templen))
+        if (!EVP_DecryptFinal(cCtx, outbuf + outlen, &templen))
 		{
 			NSLog(@"EVP_DecryptFinal() failed!");
-			EVP_CIPHER_CTX_cleanup(&cCtx);
+			EVP_CIPHER_CTX_cleanup(cCtx);
 			return nil;
         }
         
         outlen += templen;
-        EVP_CIPHER_CTX_cleanup(&cCtx);
+        EVP_CIPHER_CTX_cleanup(cCtx);
     }
 	else
 	{
@@ -661,13 +669,13 @@
 		
 		outbuf = (unsigned char *)malloc(RSA_size(privateRSA));
         
-        if(!(outlen = RSA_private_decrypt(inlen, input, outbuf, privateRSA, RSA_PKCS1_PADDING)))
+        if (!(outlen = RSA_private_decrypt(inlen, input, outbuf, privateRSA, RSA_PKCS1_PADDING)))
 		{
             NSLog(@"RSA_private_decrypt() failed!");
             return nil;
         }
         
-        if(outlen == -1)
+        if (outlen == -1)
 		{
             NSLog(@"Decrypt error: %s (%s)",
                   ERR_error_string(ERR_get_error(), NULL),
@@ -675,17 +683,19 @@
             return nil;
         }
 		
-		if (privateBIO) BIO_free(privateBIO);
-		if (privateRSA) RSA_free(privateRSA);
+		if (privateBIO)
+            BIO_free(privateBIO);
+
+        if (privateRSA)
+            RSA_free(privateRSA);
     }
 	
 	// Store the decrypted data as the clear text
     [self setClearTextWithData:[NSData dataWithBytes:outbuf length:outlen]];
     
 	// Release the outbuf, since it was malloc'd
-    if (outbuf) {
+    if (outbuf)
         free(outbuf);
-    }
     
     return [self clearTextAsData];
 }
@@ -736,37 +746,38 @@
 	
 	outbuf = (unsigned char *)malloc(RSA_size(publicRSA));
 	
-	if(!(outlen = RSA_public_decrypt(inlen, input, outbuf, publicRSA, RSA_PKCS1_PADDING)))
+	if (!(outlen = RSA_public_decrypt(inlen, input, outbuf, publicRSA, RSA_PKCS1_PADDING)))
 	{
 		NSLog(@"RSA_public_decrypt() failed!");
 		return nil;
 	}
 	
-	if(outlen == -1)
+	if (outlen == -1)
 	{
 		NSLog(@"Decrypt error: %s (%s)",
 			  ERR_error_string(ERR_get_error(), NULL),
 			  ERR_reason_error_string(ERR_get_error()));
-		return nil;
+
+        return nil;
 	}
 	
-	if (publicBIO) BIO_free(publicBIO);
-	if (publicRSA) RSA_free(publicRSA);
+	if (publicBIO)
+        BIO_free(publicBIO);
+
+	if (publicRSA)
+        RSA_free(publicRSA);
 	
 	// Store the decrypted data as the clear text
     [self setClearTextWithData:[NSData dataWithBytes:outbuf length:outlen]];
     
 	// Release the outbuf, since it was malloc'd
-    if (outbuf) {
+    if (outbuf)
         free(outbuf);
-    }
     
     return [self clearTextAsData];
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-#pragma mark Encryption methods:
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+#pragma mark - Encryption methods
 
 /**
  * Peforms encryption, and returns resulting ciper text data.
@@ -817,7 +828,11 @@
 		// Perform symmetric encryption...
 		
         unsigned char evp_key[EVP_MAX_KEY_LENGTH] = {"\0"};
+#if OPENSSL_VERSION_NUMBER < 0x10100000L
         EVP_CIPHER_CTX cCtx;
+#else
+        EVP_CIPHER_CTX *cCtx;
+#endif
         const EVP_CIPHER *cipher;
         
         if (cipherName){
@@ -842,35 +857,40 @@
                        1,
                        evp_key,
                        iv);
+#if OPENSSL_VERSION_NUMBER < 0x10100000L
         EVP_CIPHER_CTX_init(&cCtx);
+#else
+        cCtx = EVP_CIPHER_CTX_new();
+        EVP_CIPHER_CTX_init(cCtx);
+#endif
 
-        if (!EVP_EncryptInit(&cCtx, cipher, evp_key, iv)) {
+        if (!EVP_EncryptInit(cCtx, cipher, evp_key, iv)) {
             NSLog(@"EVP_EncryptInit() failed!");
-            EVP_CIPHER_CTX_cleanup(&cCtx);
+            EVP_CIPHER_CTX_cleanup(cCtx);
             return nil;
         }
-        EVP_CIPHER_CTX_set_key_length(&cCtx, EVP_MAX_KEY_LENGTH);
+        EVP_CIPHER_CTX_set_key_length(cCtx, EVP_MAX_KEY_LENGTH);
 		
 		// The data buffer passed to EVP_EncryptUpdate() should have sufficient room for
 		// (input_length + cipher_block_size - 1)
 		
-        outbuf = (unsigned char *)calloc(inlen + EVP_CIPHER_CTX_block_size(&cCtx) - 1, sizeof(unsigned char));
+        outbuf = (unsigned char *)calloc(inlen + EVP_CIPHER_CTX_block_size(cCtx) - 1, sizeof(unsigned char));
         NSAssert(outbuf, @"Cannot allocate memory for buffer!");
         
-        if (!EVP_EncryptUpdate(&cCtx, outbuf, &outlen, input, inlen))
+        if (!EVP_EncryptUpdate(cCtx, outbuf, &outlen, input, inlen))
 		{
 			NSLog(@"EVP_EncryptUpdate() failed!");
-			EVP_CIPHER_CTX_cleanup(&cCtx);
+			EVP_CIPHER_CTX_cleanup(cCtx);
 			return nil;
         }
-        if (!EVP_EncryptFinal(&cCtx, outbuf + outlen, &templen))
+        if (!EVP_EncryptFinal(cCtx, outbuf + outlen, &templen))
 		{
 			NSLog(@"EVP_EncryptFinal() failed!");
-			EVP_CIPHER_CTX_cleanup(&cCtx);
+			EVP_CIPHER_CTX_cleanup(cCtx);
 			return nil;
         }
         outlen += templen;
-        EVP_CIPHER_CTX_cleanup(&cCtx);
+        EVP_CIPHER_CTX_cleanup(cCtx);
         
     }
 	else
@@ -903,22 +923,26 @@
 		
         outbuf = (unsigned char *)malloc(RSA_size(publicRSA));
         
-        if(!(outlen = RSA_public_encrypt(inlen, input, (unsigned char*)outbuf, publicRSA, RSA_PKCS1_PADDING)))
+        if (!(outlen = RSA_public_encrypt(inlen, input, (unsigned char*)outbuf, publicRSA, RSA_PKCS1_PADDING)))
 		{
             NSLog(@"RSA_public_encrypt failed!");
             return nil;
         }
         
-        if(outlen == -1)
+        if (outlen == -1)
 		{
             NSLog(@"Encrypt error: %s (%s)",
 				  ERR_error_string(ERR_get_error(), NULL),
 				  ERR_reason_error_string(ERR_get_error()));
+
             return nil;
         }
 		
-		if (publicBIO) BIO_free(publicBIO);
-		if (publicRSA) RSA_free(publicRSA);
+		if (publicBIO)
+            BIO_free(publicBIO);
+
+		if (publicRSA)
+            RSA_free(publicRSA);
     }
 	
 	// Store the encrypted data as the cipher text
@@ -987,13 +1011,13 @@
 	
 	outbuf = (unsigned char *)malloc(RSA_size(privateRSA));
 	
-	if(!(outlen = RSA_private_encrypt(inlen, input, (unsigned char*)outbuf, privateRSA, RSA_PKCS1_PADDING)))
+	if (!(outlen = RSA_private_encrypt(inlen, input, (unsigned char*)outbuf, privateRSA, RSA_PKCS1_PADDING)))
 	{
 		NSLog(@"RSA_private_encrypt failed!");
 		return nil;
 	}
 	
-	if(outlen == -1)
+	if (outlen == -1)
 	{
 		NSLog(@"Encrypt error: %s (%s)",
 			  ERR_error_string(ERR_get_error(), NULL),
@@ -1001,8 +1025,11 @@
 		return nil;
 	}
 	
-	if (privateBIO) BIO_free(privateBIO);
-	if (privateRSA) RSA_free(privateRSA);
+	if (privateBIO)
+        BIO_free(privateBIO);
+
+    if (privateRSA)
+        RSA_free(privateRSA);
 	
 	// Store the encrypted data as the cipher text
     [self setCipherText:[NSData dataWithBytes:outbuf length:outlen]];
@@ -1015,9 +1042,7 @@
     return [self cipherTextAsData];
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-#pragma mark Other methods:
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+#pragma mark - Other methods
 
 /**
  * Description forthcoming...
@@ -1031,14 +1056,19 @@
     unsigned char outbuf[EVP_MAX_MD_SIZE];
     unsigned int templen, inlen;
     unsigned char *input=(unsigned char*)[clearText bytes];
+#if OPENSSL_VERSION_NUMBER < 0x10100000L
     EVP_MD_CTX ctx;
+#else
+    EVP_MD_CTX *ctx;
+#endif
     const EVP_MD *digest = NULL;
     
     inlen = [clearText length];
     
-    if(inlen==0)
+    if (inlen==0)
         return nil;
-    if(digestName) {
+
+    if (digestName) {
         digest = EVP_get_digestbyname((const char*)[digestName UTF8String]);        
         if (!digest) {
             NSLog(@"cannot get digest with name %@",digestName);
@@ -1052,19 +1082,38 @@
         }
     }
 
+#if OPENSSL_VERSION_NUMBER < 0x10100000L
     EVP_MD_CTX_init(&ctx);
-    EVP_DigestInit(&ctx,digest);
-    if(!EVP_DigestUpdate(&ctx,input,inlen)) {
+#else
+    ctx = EVP_MD_CTX_new();
+    EVP_MD_CTX_init(ctx);
+#endif
+    EVP_DigestInit(ctx,digest);
+    if(!EVP_DigestUpdate(ctx,input,inlen)) {
         NSLog(@"EVP_DigestUpdate() failed!");
+#if OPENSSL_VERSION_NUMBER < 0x10100000L
         EVP_MD_CTX_cleanup(&ctx);
+#else
+        EVP_MD_CTX_destroy(ctx);
+#endif
         return nil;			
     }
-    if (!EVP_DigestFinal(&ctx, outbuf, &templen)) {
+
+    if (!EVP_DigestFinal(ctx, outbuf, &templen)) {
         NSLog(@"EVP_DigesttFinal() failed!");
-        EVP_MD_CTX_cleanup(&ctx);
+#if OPENSSL_VERSION_NUMBER < 0x10100000L
+        EVP_MD_CTX_cleanup(ctx);
+#else
+        EVP_MD_CTX_destroy(ctx);
+#endif
         return nil;
     }
+
+#if OPENSSL_VERSION_NUMBER < 0x10100000L
     EVP_MD_CTX_cleanup(&ctx);
+#else
+    EVP_MD_CTX_destroy(ctx);
+#endif
     
     return [NSData dataWithBytes:outbuf length:templen];
 }
@@ -1077,9 +1126,7 @@
     return desc;
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-#pragma mark Class methods:
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+#pragma mark - Class methods
 
 + (NSData *)generateRSAPrivateKeyWithLength:(int)length
 {
@@ -1095,7 +1142,9 @@
         NSLog(@"cannot write private key to memory");
         return nil;
     }
-    if (key) RSA_free(key);
+
+    if (key)
+        RSA_free(key);
 
     char *pbio_data = NULL;
     int data_len = BIO_get_mem_data(bio, &pbio_data);
@@ -1140,7 +1189,9 @@
         NSLog(@"cannot write public key to memory");
         return nil;
     }
-    if (privateRSA) RSA_free(privateRSA);
+
+    if (privateRSA)
+        RSA_free(privateRSA);
 
     char *pbio_data = NULL;
     int data_len = BIO_get_mem_data(bio, &pbio_data);
@@ -1185,7 +1236,7 @@
 	const char *password = [pass UTF8String];
     const char *saltVal = [salt UTF8String];
 
-	if(!PKCS5_PBKDF2_HMAC_SHA1(password, [pass length], (unsigned char *)saltVal, [salt length], count, length, buffer)) {
+	if (!PKCS5_PBKDF2_HMAC_SHA1(password, [pass length], (unsigned char *)saltVal, [salt length], count, length, buffer)) {
 		return nil;
 	}
 

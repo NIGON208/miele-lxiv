@@ -81,7 +81,7 @@ extern NSRecursiveLock *PapyrusLock;
 	 else
          result = -1;
 	 
-     dcmDataDict.unlock();
+     dcmDataDict.rdunlock();
     
 	return result;
 }
@@ -111,12 +111,12 @@ extern NSRecursiveLock *PapyrusLock;
 		
 		if( e->getGroup() > 0)
 		{
-			NSString	*s = [NSString stringWithFormat:@"(0x%04x,0x%04x) %s", e->getGroup(), e->getElement(), e->getTagName()];
+			NSString *s = [NSString stringWithFormat:@"(0x%04x,0x%04x) %s", e->getGroup(), e->getElement(), e->getTagName()];
 		
 			[dictionaryArray addObject: s];
 		}
     }
 	
-	dcmDataDict.unlock();
+	dcmDataDict.rdunlock();
 }
 @end

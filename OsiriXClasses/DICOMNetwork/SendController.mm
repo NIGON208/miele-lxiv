@@ -98,7 +98,9 @@ static volatile int sendControllerObjects = 0;
         
         @catch( NSException *ne)
         {
-            [self performSelectorOnMainThread:@selector(showErrorMessage:) withObject:ne waitUntilDone: NO];
+            [self performSelectorOnMainThread:@selector(showErrorMessage:)
+                                   withObject:ne
+                                waitUntilDone:NO];
         }
         
         [storeSCU release];

@@ -4954,7 +4954,7 @@ extern "C"
 		}
     }
 	
-	dcmDataDict.unlock();
+	dcmDataDict.rdunlock();
 	
 	return array;
 }

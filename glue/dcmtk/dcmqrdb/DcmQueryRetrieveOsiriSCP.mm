@@ -140,6 +140,7 @@ OFCondition DcmQueryRetrieveOsiriSCP::handleAssociation(T_ASC_Association * asso
     return DcmQueryRetrieveSCP::handleAssociation(assoc, correctUIDPadding);
 }
 
+// See DCMTK sources: dcmqrsrv.cc
 OFCondition DcmQueryRetrieveOsiriSCP::getSCP(T_ASC_Association * assoc,
                                              T_DIMSE_C_GetRQ * request,
                                              T_ASC_PresentationContextID presID,
@@ -155,7 +156,7 @@ OFCondition DcmQueryRetrieveOsiriSCP::getSCP(T_ASC_Association * assoc,
     
     DIC_AE aeTitle;
     aeTitle[0] = '\0';
-    ASC_getAPTitles(assoc->params, NULL, aeTitle, NULL);
+    ASC_getAPTitles(assoc->params, NULL, 0, aeTitle, sizeof(aeTitle), NULL, 0);
     context.setOurAETitle(aeTitle);
     
     OFString temp_str;
@@ -169,12 +170,13 @@ OFCondition DcmQueryRetrieveOsiriSCP::getSCP(T_ASC_Association * assoc,
     return cond;
 }
 
+// see DCMTK source: dcmqrsrv.cc
 OFCondition DcmQueryRetrieveOsiriSCP::storeSCP(
-                                                T_ASC_Association * assoc,
-                                                T_DIMSE_C_StoreRQ * request,
-                                                T_ASC_PresentationContextID presId,
-                                                DcmQueryRetrieveDatabaseHandle& dbHandle,
-                                                OFBool correctUIDPadding)
+                T_ASC_Association * assoc,
+                T_DIMSE_C_StoreRQ * request,
+                T_ASC_PresentationContextID presId,
+                DcmQueryRetrieveDatabaseHandle& dbHandle,
+                OFBool correctUIDPadding)
 {
 #if 0
     // TODO: call base class instead of repeating this block of code (need to resolve imageFileName)
@@ -209,14 +211,18 @@ OFCondition DcmQueryRetrieveOsiriSCP::storeSCP(
         /* callback will send back SOP class not supported status */
         context.setStatus(STATUS_STORE_Refused_SOPClassNotSupported);
         /* must still receive data */
+        //strcpy(imageFileName, NULL_DEVICE_NAME);
+        OFStandard::strlcpy(imageFileName, NULL_DEVICE_NAME, sizeof(imageFileName));
+    }
+    else if (options_.ignoreStoreData_) {
         strcpy(imageFileName, NULL_DEVICE_NAME);
-    } else if (options_.ignoreStoreData_) {
-        strcpy(imageFileName, NULL_DEVICE_NAME);
-    } else {
-        dbcond = dbHandle.makeNewStoreFileName(
-                                               request->AffectedSOPClassUID,
+        OFStandard::strlcpy(imageFileName, NULL_DEVICE_NAME, sizeof(imageFileName));
+    }
+    else {
+        dbcond = dbHandle.makeNewStoreFileName(request->AffectedSOPClassUID,
                                                request->AffectedSOPInstanceUID,
-                                               imageFileName);
+                                               imageFileName,
+                                               sizeof(imageFileName));
         
         if (dbcond.bad())
         {

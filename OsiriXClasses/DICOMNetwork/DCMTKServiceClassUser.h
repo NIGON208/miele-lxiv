@@ -57,7 +57,7 @@ typedef char* T_ASC_Network;
 	int _transferSyntax;
 	float _compression;
 	
-	//network parameters
+	// Network parameters
 	BOOL _verbose;
 	BOOL _debug;
 	BOOL _abortAssociation;
@@ -66,14 +66,14 @@ typedef char* T_ASC_Network;
 	int _repeatCount ;
 	int _cancelAfterNResponses;
 	E_TransferSyntax _networkTransferSyntax;
-	T_DIMSE_BlockingMode    _blockMode;
+	T_DIMSE_BlockingMode _blockMode;
 	int  _dimse_timeout;
 	int  _acse_timeout;
 	
-	//TLS settings
+	// TLS settings
 	BOOL _secureConnection;
 	BOOL _doAuthenticate;
-	int  _keyFileFormat;
+	//int  _keyFileFormat;
 	NSArray *_cipherSuites;
 	const char *_readSeedFile;
 	const char *_writeSeedFile;

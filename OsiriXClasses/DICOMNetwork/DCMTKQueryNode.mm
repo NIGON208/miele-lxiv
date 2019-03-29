@@ -58,13 +58,15 @@
 #include "dcmtk/dcmdata/dcdeftag.h"
 #include "dcmtk/ofstd/ofconapp.h"
 #include "dcmtk/dcmdata/dcuid.h"     /* for dcmtk version name */
-#include "dcmtk/dcmnet/dicom.h"     /* for DICOM_APPLICATION_REQUESTOR */
+#include "dcmtk/dcmnet/dicom.h"      /* for DICOM_APPLICATION_REQUESTOR */
 #include "dcmtk/dcmdata/dcostrmz.h"  /* for dcmZlibCompressionLevel */
 #include "dcmtk/dcmqrdb/dcmqrcnf.h"  /* for DCMQRDB_INFO */
 
 #ifdef WITH_OPENSSL
 #include "dcmtk/dcmtls/tlstrans.h"
 #include "dcmtk/dcmtls/tlslayer.h"
+#include "openssl/opensslv.h"       // for OPENSSL_VERSION_NUMBER
+#include "openssl/ssl.h"
 #endif
 
 #define OFFIS_CONSOLE_APPLICATION "DCMTKQueryNode"
@@ -2030,13 +2032,12 @@ static NSString *releaseNetworkVariablesSync = @"releaseNetworkVariablesSync";
 		opt_port = _port;
 		_abortAssociation = NO;
 		
-	//
-	//	
-	//	//debug code activated for now
-	//	_debug = OFTrue;
-	//	DUL_Debug(OFTrue);
-	//	DIMSE_debug(OFTrue);
-	//	SetDebugLevel(3);
+
+//	//debug code activated for now
+//	_debug = OFTrue;
+//	DUL_Debug(OFTrue);
+//	DIMSE_debug(OFTrue);
+//	SetDebugLevel(3);
 		
 		if( strcmp(abstractSyntax, UID_GETPatientRootQueryRetrieveInformationModel) == 0 ||
 			strcmp(abstractSyntax, UID_GETStudyRootQueryRetrieveInformationModel) == 0 ||
@@ -2058,18 +2059,24 @@ static NSString *releaseNetworkVariablesSync = @"releaseNetworkVariablesSync";
 		
 #ifdef WITH_OPENSSL
         DcmTLSTransportLayer *tLayer = NULL;
-#endif
 		NSString *uniqueStringID = [NSString stringWithFormat:@"%d.%d.%d", getpid(), inc++, (int) random()];
-		
+  #if OFFIS_DCMTK_VERSION_NUMBER < 364
+        int keyFileFormat = SSL_FILETYPE_PEM;
+  #else
+        DcmKeyFileFormat keyFileFormat = DCF_Filetype_PEM;
+  #endif
+#endif
+
 	//	if (_secureConnection)
 	//		[DDKeychain lockTmpFiles];
         
 		@try
 		{
-			#ifdef WITH_OPENSSL		
-			if(_cipherSuites)
+#ifdef WITH_OPENSSL
+			if (_cipherSuites)
 			{
 				const char *current = NULL;
+    #if OFFIS_DCMTK_VERSION_NUMBER < 364
 				const char *currentOpenSSL;
 				
 				opt_ciphersuites.clear();
@@ -2092,14 +2099,23 @@ static NSString *releaseNetworkVariablesSync = @"releaseNetworkVariablesSync";
 					}
 					else
 					{
-						if (opt_ciphersuites.length() > 0) opt_ciphersuites += ":";
-						opt_ciphersuites += currentOpenSSL;
+						if (opt_ciphersuites.length() > 0)
+                            opt_ciphersuites += ":";
+
+                        opt_ciphersuites += currentOpenSSL;
 					}
-					
-				}
+				} // for
+    #else
+                for (NSString *suite in _cipherSuites)
+                {
+                    current = [suite cStringUsingEncoding:NSUTF8StringEncoding];
+                    
+                    if (TCS_ok != tLayer->addCipherSuite(current))
+                        NSLog(@"ciphersuite '%s' is unknown.", current);// DCMTLS_EC_UnknownCiphersuite( current );
+                }
+    #endif
 			}
-			
-			#endif
+#endif
 
 			/* make sure data dictionary is loaded */
 			if (!dcmDataDict.isDictionaryLoaded()) {
@@ -2119,12 +2135,15 @@ static NSString *releaseNetworkVariablesSync = @"releaseNetworkVariablesSync";
                                        userInfo:nil] raise];
 			}
 			
-#ifdef WITH_OPENSSL // joris
-				
+#ifdef WITH_OPENSSL
 			if (_secureConnection)
 			{
 				[DDKeychain generatePseudoRandomFileToPath:TLS_SEED_FILE];
+    #if OFFIS_DCMTK_VERSION_NUMBER < 364
 				tLayer = new DcmTLSTransportLayer(DICOM_APPLICATION_REQUESTOR, _readSeedFile);
+    #else
+                tLayer = new DcmTLSTransportLayer(NET_REQUESTOR, _readSeedFile, OFTrue);
+    #endif
 				if (tLayer == NULL)
 				{
 					NSLog(@"unable to create TLS transport layer");
@@ -2133,7 +2152,8 @@ static NSString *releaseNetworkVariablesSync = @"releaseNetworkVariablesSync";
                                            userInfo:nil] raise];
 				}
 				
-				if(certVerification==VerifyPeerCertificate || certVerification==RequirePeerCertificate)
+				if (certVerification==VerifyPeerCertificate ||
+                    certVerification==RequirePeerCertificate)
 				{
 					NSString *trustedCertificatesDir = [NSString stringWithFormat:@"%@%@", TLS_TRUSTED_CERTIFICATES_DIR, uniqueStringID];
 					[DDKeychain KeychainAccessExportTrustedCertificatesToDirectory:trustedCertificatesDir];
@@ -2141,29 +2161,29 @@ static NSString *releaseNetworkVariablesSync = @"releaseNetworkVariablesSync";
 					
 					for (NSString *cert in trustedCertificates)
 					{
-						if (TCS_ok != tLayer->addTrustedCertificateFile([[trustedCertificatesDir stringByAppendingPathComponent:cert] cStringUsingEncoding:NSUTF8StringEncoding], _keyFileFormat))
+						if (TCS_ok != tLayer->addTrustedCertificateFile([[trustedCertificatesDir stringByAppendingPathComponent:cert] cStringUsingEncoding:NSUTF8StringEncoding], keyFileFormat))
 						{
 							[[NSException exceptionWithName:@"DICOM Network Failure (TLS query)"
                                                      reason:[NSString stringWithFormat:@"Unable to load certificate file %@", [trustedCertificatesDir stringByAppendingPathComponent:cert]]
                                                    userInfo:nil] raise];
 						}
 					}
-							//--add-cert-dir //// add certificates in d to list of certificates
-							//.... needs to use OpenSSL & rename files (see http://forum.dicom-cd.de/viewtopic.php?p=3237&sid=bd17bd76876a8fd9e7fdf841b90cf639 )
-							
-							//			if (cmd.findOption("--add-cert-dir", 0, OFCommandLine::FOM_First))
-							//			{
-							//				const char *current = NULL;
-							//				do
-							//				{
-							//					app.checkValue(cmd.getValue(current));
-							//					if (TCS_ok != tLayer->addTrustedCertificateDir(current, opt_keyFileFormat))
-							//					{
-                            //                        DCMQRDB_ERROR("warning unable to load certificates from directory '" << current << "', ignoring");
+//--add-cert-dir //// add certificates in d to list of certificates
+//.... needs to use OpenSSL & rename files (see http://forum.dicom-cd.de/viewtopic.php?p=3237&sid=bd17bd76876a8fd9e7fdf841b90cf639 )
 
-							//					}
-							//				} while (cmd.findOption("--add-cert-dir", 0, OFCommandLine::FOM_Next));
-							//			}
+//			if (cmd.findOption("--add-cert-dir", 0, OFCommandLine::FOM_First))
+//			{
+//				const char *current = NULL;
+//				do
+//				{
+//					app.checkValue(cmd.getValue(current));
+//					if (TCS_ok != tLayer->addTrustedCertificateDir(current, opt_keyFileFormat))
+//					{
+//                        DCMQRDB_ERROR("warning unable to load certificates from directory '" << current << "', ignoring");
+
+//					}
+//				} while (cmd.findOption("--add-cert-dir", 0, OFCommandLine::FOM_Next));
+//			}
 				}		
 				
 				if (_dhparam && ! (tLayer->setTempDHParameters(_dhparam)))
@@ -2182,14 +2202,14 @@ static NSString *releaseNetworkVariablesSync = @"releaseNetworkVariablesSync";
 					NSString *_privateKeyFile = [DICOMTLS keyPathForServerAddress:_hostname port:_port AETitle:_calledAET withStringID:uniqueStringID]; // generates the PEM file for the private key
 					NSString *_certificateFile = [DICOMTLS certificatePathForServerAddress:_hostname port:_port AETitle:_calledAET withStringID:uniqueStringID]; // generates the PEM file for the certificate
 					
-					if (TCS_ok != tLayer->setPrivateKeyFile([_privateKeyFile cStringUsingEncoding:NSUTF8StringEncoding], SSL_FILETYPE_PEM))
+					if (TCS_ok != tLayer->setPrivateKeyFile([_privateKeyFile cStringUsingEncoding:NSUTF8StringEncoding], keyFileFormat))
 					{
 						[[NSException exceptionWithName:@"DICOM Network Failure (TLS query)"
                                                  reason:[NSString stringWithFormat:@"Unable to load private TLS key from %@", _privateKeyFile]
                                                userInfo:nil] raise];
 					}
 					
-					if (TCS_ok != tLayer->setCertificateFile([_certificateFile cStringUsingEncoding:NSUTF8StringEncoding], SSL_FILETYPE_PEM))
+					if (TCS_ok != tLayer->setCertificateFile([_certificateFile cStringUsingEncoding:NSUTF8StringEncoding], keyFileFormat))
 					{
 						[[NSException exceptionWithName:@"DICOM Network Failure (TLS query)"
                                                  reason:[NSString stringWithFormat:@"Unable to load certificate from %@", _certificateFile]
@@ -2204,12 +2224,21 @@ static NSString *releaseNetworkVariablesSync = @"releaseNetworkVariablesSync";
 					}
 				}
 				
+    #if OFFIS_DCMTK_VERSION_NUMBER < 364
 				if (TCS_ok != tLayer->setCipherSuites(opt_ciphersuites.c_str()))
 				{
 					[[NSException exceptionWithName:@"DICOM Network Failure (TLS query)"
                                              reason:@"Unable to set selected cipher suites"
                                            userInfo:nil] raise];
 				}
+    #else
+                if (TCS_ok != tLayer->activateCipherSuites())
+                {
+                    [[NSException exceptionWithName:@"DICOM Network Failure (TLS query)"
+                                             reason:@"Unable to set selected cipher suites"
+                                           userInfo:nil] raise];
+                }
+    #endif
 				
 				DcmCertificateVerification _certVerification;
 				
@@ -2227,7 +2256,8 @@ static NSString *releaseNetworkVariablesSync = @"releaseNetworkVariablesSync";
 				{
                     if (_verbose)
                         DimseCondition::dump(cond);
-					[[NSException exceptionWithName:@"DICOM Network Failure (TLS query)"
+
+                    [[NSException exceptionWithName:@"DICOM Network Failure (TLS query)"
                                              reason:[NSString stringWithFormat: @"ASC_setTransportLayer - %04x:%04x %s", cond.module(), cond.code(), cond.text()]
                                            userInfo:nil] raise];
 				}
@@ -2688,7 +2718,9 @@ static NSString *releaseNetworkVariablesSync = @"releaseNetworkVariablesSync";
 	return succeed;
 }
 
-- (OFCondition)findSCU:(T_ASC_Association *)assoc dataset:( DcmDataset *)dataset 
+/// See DCMTK sources: dfindscu.cc
+- (OFCondition)findSCU:(T_ASC_Association *)assoc
+               dataset:( DcmDataset *)dataset
     /*
      * This function will read all the information from the given file
      * (this information specifies a search mask), figure out a corresponding
@@ -2710,21 +2742,20 @@ static NSString *releaseNetworkVariablesSync = @"releaseNetworkVariablesSync";
     OFString temp_str;
     
     /* figure out which of the accepted presentation contexts should be used */
-    presId = ASC_findAcceptedPresentationContextID(
-        assoc, UID_FINDStudyRootQueryRetrieveInformationModel);
-    if (presId == 0)
-	{
+    presId = ASC_findAcceptedPresentationContextID(assoc, UID_FINDStudyRootQueryRetrieveInformationModel);
+    if (presId == 0) {
         DCMNET_ERROR("No presentation context");
-
         return DIMSE_NOVALIDPRESENTATIONCONTEXTID;
     }
 	
-    /* prepare the transmission of data */
-    bzero((char*)&req, sizeof(req));
+    /* prepare C-FIND-RQ message */
+    bzero(OFreinterpret_cast(char*, &req), sizeof(req));
     req.MessageID = msgId;
-    strcpy(req.AffectedSOPClassUID, UID_FINDStudyRootQueryRetrieveInformationModel);
+    OFStandard::strlcpy(req.AffectedSOPClassUID,
+                        UID_FINDStudyRootQueryRetrieveInformationModel,
+                        sizeof(req.AffectedSOPClassUID));
     req.DataSetType = DIMSE_DATASET_PRESENT;
-    req.Priority = DIMSE_PRIORITY_LOW;
+    req.Priority = DIMSE_PRIORITY_MEDIUM;
 
     /* prepare the callback data */
     callbackData.assoc = assoc;
@@ -2741,9 +2772,11 @@ static NSString *releaseNetworkVariablesSync = @"releaseNetworkVariablesSync";
     }
 
     /* finally conduct transmission of data */
+    int responseCount;
     OFCondition cond = DIMSE_findUser(assoc, presId, &req, dataset,
-                          progressCallback, &callbackData,
-                          DIMSE_NONBLOCKING, _dimse_timeout,	// DIMSE_BLOCKING - _blockMode ANR 2009
+                          responseCount, progressCallback, &callbackData,
+                          DIMSE_NONBLOCKING,    // DIMSE_BLOCKING - _blockMode ANR 2009
+                          _dimse_timeout,
                           &rsp, &statusDetail);
 
 
@@ -2752,7 +2785,7 @@ static NSString *releaseNetworkVariablesSync = @"releaseNetworkVariablesSync";
 	{
 		if( rsp.DimseStatus != STATUS_Success && rsp.DimseStatus != STATUS_Pending)
 		{
-			NSString	*response = [NSString stringWithFormat: @"%@  /  %@:%d\r\r", _calledAET, _hostname, _port];
+			NSString *response = [NSString stringWithFormat: @"%@  /  %@:%d\r\r", _calledAET, _hostname, _port];
 			
 			response = [response stringByAppendingString: [NSString stringWithCString: DU_cfindStatusString(rsp.DimseStatus)]];
 			
@@ -2766,7 +2799,7 @@ static NSString *releaseNetworkVariablesSync = @"releaseNetworkVariablesSync";
 				OFSTRINGSTREAM_FREESTR(tmpString)
 			  }
 			
-			if (showErrorMessage == YES && _abortAssociation == NO)
+			if (showErrorMessage && !_abortAssociation)
             {
 				[DCMTKQueryNode performSelectorOnMainThread:@selector(errorMessage:)
                                                  withObject:[NSArray arrayWithObjects:
@@ -2882,6 +2915,7 @@ static NSString *releaseNetworkVariablesSync = @"releaseNetworkVariablesSync";
 	return [self moveSCU:(T_ASC_Association *)assoc  network:(T_ASC_Network *)net dataset:( DcmDataset *)dataset destination: nil];
 }
 
+// See DCMTK sources: dcmnet/apps/movescu.cc
 - (OFCondition)moveSCU:(T_ASC_Association *)assoc
                network:(T_ASC_Network *)net
                dataset:(DcmDataset *)dataset
@@ -2895,7 +2929,7 @@ static NSString *releaseNetworkVariablesSync = @"releaseNetworkVariablesSync";
     DcmDataset          *statusDetail = NULL;
     MyCallbackInfo      callbackData;
 	OFCondition			cond = EC_Normal;
-    OFString temp_str;
+    OFString            temp_str;
 	
    // sopClass = querySyntax[opt_queryModel].moveSyntax;
 
@@ -2904,7 +2938,7 @@ static NSString *releaseNetworkVariablesSync = @"releaseNetworkVariablesSync";
     if (presId == 0)
         return DIMSE_NOVALIDPRESENTATIONCONTEXTID;
 
-	//add self to list of moves. Prevents deallocating the move if a new query is done
+	// Add self to list of moves. Prevents deallocating the move if a new query is done
 	[[MoveManager sharedManager] addMove:self];
 	
 	@try
@@ -2918,24 +2952,33 @@ static NSString *releaseNetworkVariablesSync = @"releaseNetworkVariablesSync";
 		callbackData.node = self;
 
 		req.MessageID = msgId;
-		strcpy(req.AffectedSOPClassUID, UID_MOVEStudyRootQueryRetrieveInformationModel);
+        OFStandard::strlcpy(req.AffectedSOPClassUID,
+                            UID_MOVEStudyRootQueryRetrieveInformationModel,
+                            sizeof(req.AffectedSOPClassUID));
 		req.Priority = DIMSE_PRIORITY_MEDIUM;
 		req.DataSetType = DIMSE_DATASET_PRESENT;
 	 
-		if( destination)
-			strcpy(req.MoveDestination, destination);
-		else
-		{
-			/* set the destination to be me */
-			ASC_getAPTitles(assoc->params, req.MoveDestination, NULL, NULL);
-		}
-		
+        if (destination == NULL) {
+            /* set the destination to be me */
+            ASC_getAPTitles(assoc->params,
+                            req.MoveDestination, sizeof(req.MoveDestination),
+                            NULL, 0,
+                            NULL, 0);
+        }
+		else {
+            OFStandard::strlcpy(req.MoveDestination, destination, sizeof(req.MoveDestination));
+        }
+
 		cond = DIMSE_moveUser(assoc, presId, &req, dataset,
-			moveCallback, &callbackData, _blockMode, _dimse_timeout, //  _blockMode
-			net, subOpCallback, NULL,
-			&rsp, &statusDetail, &rspIds , OFTrue);
+			moveCallback, &callbackData, _blockMode, _dimse_timeout, net, subOpCallback,
+            NULL, &rsp, &statusDetail, &rspIds , OFTrue);
 		
-        self.countOfSuboperations = rsp.NumberOfCompletedSubOperations+rsp.NumberOfFailedSubOperations+rsp.NumberOfWarningSubOperations+rsp.NumberOfRemainingSubOperations;
+        self.countOfSuboperations =
+            rsp.NumberOfCompletedSubOperations +
+            rsp.NumberOfFailedSubOperations +
+            rsp.NumberOfWarningSubOperations +
+            rsp.NumberOfRemainingSubOperations;
+
         self.countOfSuccessfulSuboperations = rsp.NumberOfCompletedSubOperations;
         
 		if (cond == EC_Normal)
@@ -2997,7 +3040,8 @@ static NSString *releaseNetworkVariablesSync = @"releaseNetworkVariablesSync";
             delete statusDetail;
         }
         
-        if (rspIds != NULL) delete rspIds;
+        if (rspIds != NULL)
+            delete rspIds;
         
         [[MoveManager sharedManager] removeMove:self];
     }
@@ -3005,7 +3049,9 @@ static NSString *releaseNetworkVariablesSync = @"releaseNetworkVariablesSync";
     return cond;
 }
 
-- (OFCondition)getSCU:(T_ASC_Association *)assoc  network:(T_ASC_Network *)net dataset:( DcmDataset *)dataset
+- (OFCondition)getSCU:(T_ASC_Association *)assoc
+              network:(T_ASC_Network *)net
+              dataset:( DcmDataset *)dataset
 {
 	//add self to list of moves. Prevents deallocating  the move if a new query is done
 	[[MoveManager sharedManager] addMove:self];

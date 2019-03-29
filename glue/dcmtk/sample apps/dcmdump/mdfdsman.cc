@@ -103,10 +103,9 @@ static DcmTagKey getTagKeyFromDictionary(OFString tag)
     const DcmDictEntry *dicent = globalDataDict.findEntry(tag.c_str());
     // successfull lookup in dictionary -> translate to tag and return
     if (dicent)
-    {
         key = dicent->getKey();
-    }
-    dcmDataDict.unlock();
+
+    dcmDataDict.rdunlock();
     return key;
 }
 
@@ -767,7 +766,7 @@ OFBool MdfDatasetManager::isTagInDictionary(const DcmTagKey &search_key)
     const DcmDataDictionary& globalDataDict = dcmDataDict.rdlock();
     const DcmDictEntry *dicent = globalDataDict.findEntry(search_key,NULL);
     // successfull lookup in dictionary -> translate to tag and return
-    dcmDataDict.unlock();
+    dcmDataDict.rdunlock();
     if (dicent)
         return OFTrue;
     

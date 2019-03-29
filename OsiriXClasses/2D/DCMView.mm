@@ -8192,81 +8192,81 @@ void checkOGLVersion()
     maxNOPTDTextureSize = 0x7FFFFFFF;
     
 	CGLContextObj cgl_ctx = [[NSOpenGLContext currentContext] CGLContextObj];
-	if (cgl_ctx)
+	if (!cgl_ctx)
+        return;
+
+    // get strings
+    enum { kShortVersionLength = 32 };
+    const GLubyte * strVersion = glGetString (GL_VERSION); // get version string
+    const GLubyte * strExtension = glGetString (GL_EXTENSIONS);	// get extension string
+    
+    // get just the non-vendor specific part of version string
+    GLubyte strShortVersion [kShortVersionLength];
+    short i = 0;
+    while ((((strVersion[i] <= '9') && (strVersion[i] >= '0')) || (strVersion[i] == '.')) && (i < kShortVersionLength)) // get only basic version info (until first space)
     {
-        // get strings
-        enum { kShortVersionLength = 32 };
-        const GLubyte * strVersion = glGetString (GL_VERSION); // get version string
-        const GLubyte * strExtension = glGetString (GL_EXTENSIONS);	// get extension string
-        
-        // get just the non-vendor specific part of version string
-        GLubyte strShortVersion [kShortVersionLength];
-        short i = 0;
-        while ((((strVersion[i] <= '9') && (strVersion[i] >= '0')) || (strVersion[i] == '.')) && (i < kShortVersionLength)) // get only basic version info (until first space)
-        {
-            strShortVersion[i] = strVersion[i];
-            i++;
-        }
-        strShortVersion [i] = 0; //truncate string
-        
-        // compare capabilities based on extension string and GL version
-        f_ext_texture_rectangle = 
-                f_ext_texture_rectangle && strstr ((const char *) strExtension, "GL_EXT_texture_rectangle");
-        f_arb_texture_rectangle = 
-                f_arb_texture_rectangle && strstr ((const char *) strExtension, "GL_ARB_texture_rectangle");
-        f_ext_client_storage = 
-                f_ext_client_storage && strstr ((const char *) strExtension, "GL_APPLE_client_storage");
-        f_ext_packed_pixel = 
-                f_ext_packed_pixel && strstr ((const char *) strExtension, "GL_APPLE_packed_pixel");
-        f_ext_texture_edge_clamp = 
-                f_ext_texture_edge_clamp && strstr ((const char *) strExtension, "GL_SGIS_texture_edge_clamp");
-        f_gl_texture_edge_clamp = 
-                f_gl_texture_edge_clamp && (!strstr ((const char *) strShortVersion, "1.0") && !strstr ((const char *) strShortVersion, "1.1")); // if not 1.0 and not 1.1 must be 1.2 or greater
-        
-        // get device max texture size
-        glGetIntegerv (GL_MAX_TEXTURE_SIZE, &deviceMaxTextureSize);
-        if (deviceMaxTextureSize < maxTextureSize)
-                maxTextureSize = deviceMaxTextureSize;
-        // Get max size of non-power of two texture on devices which support
-        if (NULL != strstr ((const char *) strExtension, "GL_EXT_texture_rectangle"))
-        {
+        strShortVersion[i] = strVersion[i];
+        i++;
+    }
+    strShortVersion [i] = 0; //truncate string
+    
+    // compare capabilities based on extension string and GL version
+    f_ext_texture_rectangle =
+            f_ext_texture_rectangle && strstr ((const char *) strExtension, "GL_EXT_texture_rectangle");
+    f_arb_texture_rectangle =
+            f_arb_texture_rectangle && strstr ((const char *) strExtension, "GL_ARB_texture_rectangle");
+    f_ext_client_storage =
+            f_ext_client_storage && strstr ((const char *) strExtension, "GL_APPLE_client_storage");
+    f_ext_packed_pixel =
+            f_ext_packed_pixel && strstr ((const char *) strExtension, "GL_APPLE_packed_pixel");
+    f_ext_texture_edge_clamp =
+            f_ext_texture_edge_clamp && strstr ((const char *) strExtension, "GL_SGIS_texture_edge_clamp");
+    f_gl_texture_edge_clamp =
+            f_gl_texture_edge_clamp && (!strstr ((const char *) strShortVersion, "1.0") && !strstr ((const char *) strShortVersion, "1.1")); // if not 1.0 and not 1.1 must be 1.2 or greater
+    
+    // get device max texture size
+    glGetIntegerv (GL_MAX_TEXTURE_SIZE, &deviceMaxTextureSize);
+    if (deviceMaxTextureSize < maxTextureSize)
+            maxTextureSize = deviceMaxTextureSize;
+    // Get max size of non-power of two texture on devices which support
+    if (NULL != strstr ((const char *) strExtension, "GL_EXT_texture_rectangle"))
+    {
 #ifdef GL_MAX_RECTANGLE_TEXTURE_SIZE_EXT
-            glGetIntegerv (GL_MAX_RECTANGLE_TEXTURE_SIZE_EXT, &NPOTDMaxTextureSize);
-            if (NPOTDMaxTextureSize < maxNOPTDTextureSize)
-            maxNOPTDTextureSize = NPOTDMaxTextureSize;
+        glGetIntegerv (GL_MAX_RECTANGLE_TEXTURE_SIZE_EXT, &NPOTDMaxTextureSize);
+        if (NPOTDMaxTextureSize < maxNOPTDTextureSize)
+        maxNOPTDTextureSize = NPOTDMaxTextureSize;
 #endif
-        }
+    }
+    
+//			maxTextureSize = 500;
+    
+    // Set clamp param based on retrieved capabilities
+    if (f_gl_texture_edge_clamp) // If OpenGL 1.2 or later and texture edge clamp is supported natively
+        edgeClampParam = GL_CLAMP_TO_EDGE;  // use 1.2+ constant to clamp texture coords so as to not sample the border color
+    else if (f_ext_texture_edge_clamp) // If GL_SGIS_texture_edge_clamp extension supported
+        edgeClampParam = GL_CLAMP_TO_EDGE_SGIS; // use extension to clamp texture coords so as to not sample the border color
+    else
+        edgeClampParam = GL_CLAMP; // clamp texture coords to [0, 1]
         
-    //			maxTextureSize = 500;
-        
-        // Set clamp param based on retrieved capabilities
-        if (f_gl_texture_edge_clamp) // If OpenGL 1.2 or later and texture edge clamp is supported natively
-            edgeClampParam = GL_CLAMP_TO_EDGE;  // use 1.2+ constant to clamp texture coords so as to not sample the border color
-        else if (f_ext_texture_edge_clamp) // If GL_SGIS_texture_edge_clamp extension supported
-            edgeClampParam = GL_CLAMP_TO_EDGE_SGIS; // use extension to clamp texture coords so as to not sample the border color
-        else
-            edgeClampParam = GL_CLAMP; // clamp texture coords to [0, 1]
-                
-        if (f_arb_texture_rectangle && f_ext_texture_rectangle)
-        {
-    //		NSLog(@"ARB Rectangular Texturing!");
-			// Allow texture targets for textures of any dimensions
-            TEXTRECTMODE = GL_TEXTURE_RECTANGLE_ARB;
-            maxTextureSize = maxNOPTDTextureSize;
-        }
-        else
-        if (f_ext_texture_rectangle)
-        {
-    //		NSLog(@"Rectangular Texturing!");
-            TEXTRECTMODE = GL_TEXTURE_RECTANGLE_EXT;
-            maxTextureSize = maxNOPTDTextureSize;
-        }
-        else
-        {
-            NSLog(@"Normal Texturing!");
-        	// Note that OpenGL does not use DMA for a power-of-two texture target. So, unlike the rectangular texture, the power-of-two texture will incur one additional copy and performance won't be quite as fast.
-        	TEXTRECTMODE = GL_TEXTURE_2D;
-        }
+    if (f_arb_texture_rectangle && f_ext_texture_rectangle)
+    {
+//		NSLog(@"ARB Rectangular Texturing!");
+        // Allow texture targets for textures of any dimensions
+        TEXTRECTMODE = GL_TEXTURE_RECTANGLE_ARB;
+        maxTextureSize = maxNOPTDTextureSize;
+    }
+    else
+    if (f_ext_texture_rectangle)
+    {
+//		NSLog(@"Rectangular Texturing!");
+        TEXTRECTMODE = GL_TEXTURE_RECTANGLE_EXT;
+        maxTextureSize = maxNOPTDTextureSize;
+    }
+    else
+    {
+        NSLog(@"Normal Texturing!");
+        // Note that OpenGL does not use DMA for a power-of-two texture target. So, unlike the rectangular texture, the power-of-two texture will incur one additional copy and performance won't be quite as fast.
+        TEXTRECTMODE = GL_TEXTURE_2D;
     }
 }
 

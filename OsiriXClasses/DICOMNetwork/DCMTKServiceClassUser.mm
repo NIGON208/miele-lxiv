@@ -12,13 +12,15 @@
      PURPOSE.
 =========================================================================*/
 
-
 #import "DCMTKServiceClassUser.h"
 
 #include "dcmtk/dcmtls/tlstrans.h"
 #include "dcmtk/dcmtls/tlslayer.h"
 #include "dcmtk/ofstd/ofstring.h"
 
+#ifdef WITH_OPENSSL
+#include "openssl/ssl.h"
+#endif
 
 @implementation DCMTKServiceClassUser
 
@@ -67,7 +69,6 @@
         if (_secureConnection)
 		{
 			_doAuthenticate = [[extraParameters objectForKey:@"TLSAuthenticated"] boolValue];
-			_keyFileFormat = SSL_FILETYPE_PEM;
 			certVerification = (TLSCertificateVerificationType)[[extraParameters objectForKey:@"TLSCertificateVerification"] intValue];
 			
 			NSArray *suites = [extraParameters objectForKey:@"TLSCipherSuites"];

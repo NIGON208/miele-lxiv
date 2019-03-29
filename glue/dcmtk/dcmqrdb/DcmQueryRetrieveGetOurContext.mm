@@ -284,6 +284,7 @@ DcmQueryRetrieveGetOurContext::DcmQueryRetrieveGetOurContext(DcmQueryRetrieveDat
 {
 }
 
+// See DCMTK sources: dcmqrcbg.cc
 void DcmQueryRetrieveGetOurContext::getNextImage(DcmQueryRetrieveDatabaseStatus * dbStatus)
 {
     OFCondition cond = EC_Normal;
@@ -298,8 +299,11 @@ void DcmQueryRetrieveGetOurContext::getNextImage(DcmQueryRetrieveDatabaseStatus 
     bzero(subImgSOPInstance, sizeof(subImgSOPInstance));
     
     /* get DB response */
-    dbcond = dbHandle.nextMoveResponse(
-                                       subImgSOPClass, subImgSOPInstance, subImgFileName, &nRemaining, dbStatus);
+    dbcond = dbHandle.nextMoveResponse(subImgSOPClass, sizeof(subImgSOPClass),
+                                       subImgSOPInstance, sizeof(subImgSOPInstance),
+                                       subImgFileName, sizeof(subImgFileName),
+                                       &nRemaining,
+                                       dbStatus);
     if (dbcond.bad()) {
         DCMQRDB_ERROR("getSCP: Database: nextMoveResponse Failed ("
                       << DU_cmoveStatusString(dbStatus->status()) << "):");
