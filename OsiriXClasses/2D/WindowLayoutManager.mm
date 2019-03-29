@@ -139,8 +139,7 @@ static WindowLayoutManager *sharedLayoutManager = nil;
     return [WindowLayoutManager imagesColumnsForHangingProtocol: self.currentHangingProtocol];
 }
 
-#pragma mark-
-#pragma mark hanging protocol setters and getters
+#pragma mark - hanging protocol setters and getters
 
 + (NSArray*) hangingProtocolsForModality: (NSString*) modality
 {

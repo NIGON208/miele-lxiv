@@ -40,8 +40,7 @@ It is a shared class.
 - (int) imagesRows;
 - (int) imagesColumns;
 
-#pragma mark-
-#pragma mark hanging protocol setters and getters
+#pragma mark - hanging protocol setters and getters
 
 + (NSArray*) hangingProtocolsForModality: (NSString*) modality;
 + (NSDictionary*) hangingProtocolForModality: (NSString*) modalities description: (NSString *) description;

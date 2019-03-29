@@ -471,10 +471,7 @@
         ;
 }
 
-
-
-#pragma mark -
-#pragma mark Word
+#pragma mark - Word
 
 +(void)checkForWordTemplates
 {
@@ -686,8 +683,7 @@
     return YES;
 }
 
-#pragma mark -
-#pragma mark OpenDocument
+#pragma mark - OpenDocument
 
 - (BOOL) createNewOpenDocumentReportForStudy:(NSManagedObject*)aStudy toDestinationPath:(NSString*)aPath;
 {
@@ -763,8 +759,7 @@
 	return YES;
 }
 
-#pragma mark -
-#pragma mark Pages.app
+#pragma mark - Pages.app
 
 static BOOL Pages5orHigher = FALSE;
 

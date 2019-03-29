@@ -310,8 +310,7 @@ static float deg2rad = M_PI/180.0;
 	[[self enclosingScrollView] setVerticalLineScroll:thumbnailHeight];
 }
 
-#pragma mark-
-#pragma mark Drawing
+#pragma mark - Drawing
 
 - (void) reshape
 {
@@ -653,8 +652,7 @@ static float deg2rad = M_PI/180.0;
 	[[self openGLContext] flushBuffer];
 }
 
-#pragma mark-
-#pragma mark Mouse functions
+#pragma mark - Mouse functions
 
 - (BOOL)acceptsFirstMouse:(NSEvent *)theEvent
 {
@@ -965,8 +963,7 @@ static float deg2rad = M_PI/180.0;
 		[self setNeedsDisplay:YES];
 }
 
-#pragma mark-
-#pragma mark Scroll functions
+#pragma mark - Scroll functions
 
 - (BOOL)isMouseOnLeftLateralScrollBar:(NSPoint)mousePos;
 {
@@ -1114,8 +1111,7 @@ static float deg2rad = M_PI/180.0;
 	return [[[self viewer] pixList] count]*thumbnailWidth > [[[self enclosingScrollView] contentView] frame].size.width;
 }
 
-#pragma mark-
-#pragma mark New Viewers
+#pragma mark - New Viewers
 
 // current selected viewer
 - (ViewerController*)viewer;
@@ -1266,16 +1262,14 @@ static float deg2rad = M_PI/180.0;
 	[newViewer checkEverythingLoaded];
 }
 
-#pragma mark-
-#pragma mark Keyboard
+#pragma mark - Keyboard
 
 - (void) keyDown:(NSEvent *)event
 {
 	[[[self viewer] imageView] keyDown:event];
 }
 
-#pragma mark-
-#pragma mark Saving Transformation Values
+#pragma mark - Saving Transformation Values
 
 - (void)saveTransformForCurrentViewer;
 {

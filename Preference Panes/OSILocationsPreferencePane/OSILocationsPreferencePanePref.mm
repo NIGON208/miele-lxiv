@@ -855,7 +855,7 @@
 	[[[self mainView] window] makeKeyAndOrderFront: self];
 }
 
-#pragma mark DICOM TLS Support
+#pragma mark - DICOM TLS Support
 
 - (IBAction) editTLS: (id) sender
 {	

@@ -8512,10 +8512,9 @@ public:
 }
 
 // 3D points
-#pragma mark-
-#pragma mark 3D Points
+#pragma mark - 3D Points
 
-#pragma mark add
+#pragma mark - add
 - (void) add3DPoint: (double) x : (double) y : (double) z : (float) radius : (float) r : (float) g : (float) b
 {
 	x *= factor;
@@ -8885,7 +8884,8 @@ public:
 	}
 }
 
-#pragma mark display
+#pragma mark - display
+
 - (void) setDisplay3DPoints: (BOOL) on
 {
 	display3DPoints = on;
@@ -8909,7 +8909,8 @@ public:
 	[self setDisplay3DPoints:!display3DPoints];
 }
 
-#pragma mark selection
+#pragma mark - selection
+
 - (BOOL) isAny3DPointSelected
 {
 	BOOL boo = NO;
@@ -8954,7 +8955,8 @@ public:
 	((vtkInteractorStyle*)aRenderer->GetRenderWindow()->GetInteractor()->GetInteractorStyle())->HighlightProp3D(NULL);
 }
 
-#pragma mark remove
+#pragma mark - remove
+
 - (void) remove3DPointAtIndex: (unsigned int) index
 {
 	// point to remove
@@ -8989,7 +8991,7 @@ public:
 	}
 }
 
-#pragma mark modify 3D point appearence
+#pragma mark - modify 3D point appearence
 
 - (IBAction) IBSetSelected3DPointColor: (id) sender
 {
@@ -9132,8 +9134,7 @@ public:
 	return factor;
 }
 
-#pragma mark-
-#pragma mark Export mode
+#pragma mark - Export mode
 
 - (void) sendMail:(id) sender
 {
@@ -9163,8 +9164,7 @@ public:
 	aRenderer->SetDraw( 1);
 }
 
-#pragma mark-
-#pragma mark Cursors
+#pragma mark - Cursors
 
 //cursor methods
 
@@ -9370,8 +9370,7 @@ public:
 	return NSDragOperationEvery;
 }
 
-#pragma mark -
-#pragma mark Hot Keys.
+#pragma mark - Hot Keys.
 //Hot key action
 -(BOOL)actionForHotKey:(NSString *)hotKey
 {
@@ -9491,8 +9490,7 @@ public:
 	return returnedVal;
 }
 
-#pragma mark -
-#pragma mark Advanced CLUT / Opacity
+#pragma mark - Advanced CLUT / Opacity
 
 - (void)setAdvancedCLUT:(NSMutableDictionary*)clut lowResolution:(BOOL)lowRes;
 {
@@ -9628,8 +9626,7 @@ public:
 	data8 = someData;
 }
 
-#pragma mark -
-#pragma mark IMAVManager delegate methods.
+#pragma mark - IMAVManager delegate methods.
 
 // Callback from IMAVManager asking what pixel format we'll be providing frames in.
 - (void)getPixelBufferPixelFormat:(OSType *)pixelFormatOut {

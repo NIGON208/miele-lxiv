@@ -231,7 +231,7 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
     return self;
 }
 
-#pragma mark Initialisation of Left-Right-Side-View
+#pragma mark - Initialisation of Left-Right-Side-View
 
 - (void) setNeedsDisplay: (BOOL) flag
 {
@@ -731,7 +731,8 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 	[self setNeedsDisplay:YES];
 }
 
-#pragma mark User Commands
+#pragma mark - User Commands
+
 - (void) keyDown:(NSEvent *)event
 {
     if( [[event characters] length] == 0)
@@ -868,7 +869,7 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
         [super keyDown:event];
 }
 
-#pragma mark Service Routines
+#pragma mark - Service Routines
 
 -(void) adjustWindowContent: (NSSize) proposedFrameSize
 {
@@ -943,8 +944,8 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 	[self setNeedsDisplay:	YES];
 }
 
+#pragma mark - Mouse mouvements
 
-#pragma mark Mouse mouvements
 - (void)mouseDragged:(NSEvent *)theEvent
 {
 	//NSLog(@"Mouse dragged!!");
@@ -1516,7 +1517,8 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 	[drawLock unlock];
 }
 
-#pragma mark Movie-Export 
+#pragma mark - Movie-Export
+
 -(IBAction) endQuicktimeSettings:(id) sender
 {
 	[export3DWindow orderOut:sender];
@@ -2235,7 +2237,7 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 	return nil;
 }
 
-#pragma mark Generating 3D Points
+#pragma mark - Generating 3D Points
 
 //Added SilvanWidmer
 - (void) setDisplayStereo3DPoints: (vtkRenderer*) theRenderer: (BOOL) on

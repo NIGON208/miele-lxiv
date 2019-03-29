@@ -3182,7 +3182,7 @@ static NSString *releaseNetworkVariablesSync = @"releaseNetworkVariablesSync";
     return [NSString stringWithFormat: @"QueryNode: %@ %@ %@ %@", _name, _accessionNumber, _modality, _calledAET];
 }
 
-#pragma mark Max simultaneous auto-retrieve requests
+#pragma mark - Max simultaneous auto-retrieve requests
 
 static NSMutableDictionary* semaphores = [[NSMutableDictionary alloc] init];
 static const MPSemaphoreCount virtualLimit = 1000; // this value must higher that the maximum possible number of allowed simultaneous retrieves... the GUI limit is currently 9

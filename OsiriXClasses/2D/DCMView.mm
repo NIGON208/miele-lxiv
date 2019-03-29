@@ -5872,8 +5872,8 @@ void checkOGLVersion()
 	[self display];
 }
 
-#pragma mark-
-#pragma mark Mouse dragging methods	
+#pragma mark - Mouse dragging methods
+
 - (void)mouseDragged:(NSEvent *)event
 {
     if (curImage < 0)
@@ -6845,8 +6845,7 @@ void checkOGLVersion()
 	}
 }
 
-#pragma mark-
-#pragma mark ww/wl
+#pragma mark - ww/wl
 
 - (void) getWLWW:(float*) wl :(float*) ww
 {
@@ -9296,19 +9295,20 @@ void checkOGLVersion()
 					tempString4 = [NSMutableString stringWithString:@""];
 					for (NSString *a in annot)
 					{
-#pragma mark Image Size
+#pragma mark - Image Size
 						if ([a isEqualToString:@"Image Size"] && fullText)
 						{
 							[tempString appendFormat: NSLocalizedString( @"Image size: %ld x %ld", nil), (long) curDCM.pwidth, (long) curDCM.pheight];
 							useStringTexture = YES;
 						}
-#pragma mark View Size
+#pragma mark - View Size
 						else if ([a isEqualToString:@"View Size"] && fullText)
 						{
 							[tempString appendFormat: NSLocalizedString( @"View size: %ld x %ld", nil), (long) size.size.width, (long) size.size.height];
 							useStringTexture = YES;
 						}
-#pragma mark Mouse Position (px)
+#pragma mark - Mouse Position (px)
+
 						else if ([a isEqualToString:@"Mouse Position (px)"])
 						{
 							useStringTexture = NO;
@@ -9394,13 +9394,13 @@ void checkOGLVersion()
                                 }
                             }
 						}
-#pragma mark Zoom
+#pragma mark - Zoom
 						else if ([a isEqualToString:@"Zoom"] && fullText)
 						{
 							[tempString appendFormat: NSLocalizedString( @"Zoom: %0.0f%%", @"No special characters for this string, only ASCII characters."), (float) [self displayedScaleValue]*100.0];
 							useStringTexture = NO;
 						}
-#pragma mark Image Position
+#pragma mark - Image Position
 						else if ([a isEqualToString:@"Image Position"] && fullText)
 						{
 							NSString *orientationStack = @"";
@@ -9511,7 +9511,7 @@ void checkOGLVersion()
 
 							useStringTexture = NO;
 						}
-#pragma mark Mouse Position (mm)
+#pragma mark - Mouse Position (mm)
 						else if ([a isEqualToString:@"Mouse Position (mm)"])
 						{
 							useStringTexture = NO;
@@ -9565,7 +9565,7 @@ void checkOGLVersion()
 								}
 							}
 						}
-#pragma mark Window Level / Window Width
+#pragma mark - Window Level / Window Width
 						else if ([a isEqualToString:@"Window Level / Window Width"])
 						{
 							useStringTexture = NO;
@@ -9593,7 +9593,7 @@ void checkOGLVersion()
 								}
 							}
 						}
-#pragma mark Plugin
+#pragma mark - Plugin
 						else if ([a isEqualToString:@"Plugin"] )
 						{
                             NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -9607,14 +9607,14 @@ void checkOGLVersion()
 																			  userInfo: userInfo];
 							yRaster += increment;
 						}
-#pragma mark Orientation
+#pragma mark - Orientation
 						else if ([a isEqualToString:@"Orientation"])
 						{
 							if (!orientationDrawn) [self drawOrientation: size];
 							orientationDrawn = YES;
 							useStringTexture = YES;
 						}
-#pragma mark Thickness / Location / Position
+#pragma mark - Thickness / Location / Position
 						else if ([a isEqualToString:@"Thickness / Location / Position"])
 						{
 							useStringTexture = YES;
@@ -9664,7 +9664,7 @@ void checkOGLVersion()
 								 }	 
 							}
 						}
-#pragma mark PatientName
+#pragma mark - PatientName
 						else if ([a isEqualToString: @"PatientName"])
 						{
 							if (annotFull == annotationType && self.studyObj.name)
@@ -9844,8 +9844,7 @@ void checkOGLVersion()
           onlyOrientation: NO];
 }
 
-#pragma mark-
-#pragma mark image transformation
+#pragma mark - image transformation
 
 - (void) loadOpenGLIdentityForDrawingFrame: (NSRect) r
 {
@@ -15877,8 +15876,7 @@ void checkOGLVersion()
 	return NSDragOperationEvery;
 }
 
-#pragma mark -
-#pragma mark Hot Keys
+#pragma mark - Hot Keys
 
 +(NSDictionary*) hotKeyModifiersDictionary
 {
@@ -16053,8 +16051,7 @@ void checkOGLVersion()
 	return returnedVal;
 }
 
-//#pragma mark -
-//#pragma mark IMAVManager delegate methods.
+//#pragma mark - IMAVManager delegate methods.
 //// The IMAVManager will call this to ask for the context we'll be providing frames with.
 //- (void)getOpenGLBufferContext:(CGLContextObj *)contextOut pixelFormat:(CGLPixelFormatObj *)pixelFormatOut
 //{
@@ -16227,8 +16224,8 @@ void checkOGLVersion()
     return [self _checkHasChanged:NO];
 }
 
-#pragma mark -
-#pragma mark Window Controler methods.
+#pragma mark - Window Controler methods
+
 - (id) windowController
 {
 	return self.window.windowController;
@@ -16270,8 +16267,7 @@ void checkOGLVersion()
     return is12Bit;
 }
 
-#pragma mark -
-#pragma mark Loupe
+#pragma mark - Loupe
 //
 //- (void)displayLoupeWithCenter:(NSPoint)center;
 //{

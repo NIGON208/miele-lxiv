@@ -3095,7 +3095,7 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
 
 #pragma mark - 3D presets
 
-#pragma mark save current
+#pragma mark - save current
 
 - (NSMutableDictionary*)getCurrent3DSettings;
 {
@@ -3314,7 +3314,7 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
 	[settings writeToFile:path atomically:YES];
 }
 
-#pragma mark presets generic methods
+#pragma mark - presets generic methods
 
 - (NSArray*)find3DSettingsGroups;
 {
@@ -3410,7 +3410,7 @@ NSInteger sort3DSettingsDict(id preset1, id preset2, void *context)
 	return [settingsList sortedArrayUsingFunction:sort3DSettingsDict context:NULL];
 }
 
-#pragma mark load preset
+#pragma mark - load preset
 
 - (void)updatePresetsGroupPopUpButton;
 {
@@ -3932,7 +3932,7 @@ NSInteger sort3DSettingsDict(id preset1, id preset2, void *context)
 	needToMovePresetsPanelToUserDefinedPosition = YES;
 }
 
-#pragma mark info preset
+#pragma mark - info preset
 
 - (void)updatePresetInfoPanel;
 {	

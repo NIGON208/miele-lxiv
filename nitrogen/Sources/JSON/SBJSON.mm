@@ -48,8 +48,7 @@
     [super dealloc];
 }
 
-#pragma mark Writer 
-
+#pragma mark - Writer
 
 - (NSString *)stringWithObject:(id)obj {
     NSString *repr = [jsonWriter stringWithObject:obj];
@@ -113,7 +112,7 @@
                             error:error];
 }
 
-#pragma mark Parsing
+#pragma mark - Parsing
 
 - (id)objectWithString:(NSString *)repr {
     id obj = [jsonParser objectWithString:repr];
@@ -178,9 +177,7 @@
                             error:error];
 }
 
-
-
-#pragma mark Properties - parsing
+#pragma mark - Properties - parsing
 
 - (NSUInteger)maxDepth {
     return jsonParser.maxDepth;
@@ -190,8 +187,7 @@
      jsonWriter.maxDepth = jsonParser.maxDepth = d;
 }
 
-
-#pragma mark Properties - writing
+#pragma mark - Properties - writing
 
 - (BOOL)humanReadable {
     return jsonWriter.humanReadable;

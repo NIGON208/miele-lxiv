@@ -197,7 +197,7 @@ static NSString *templateDicomFile = nil;
 	return YES;
 }
 
-#pragma mark Panel
+#pragma mark - Panel
 
 +(NSString*) templateDicomFile
 {
@@ -270,7 +270,7 @@ static NSString *templateDicomFile = nil;
 	[panelController release];
 }
 
-#pragma mark Anonymization
+#pragma mark - Anonymization
 
 + (NSString*) cleanStringForFile: (NSString*) s
 {

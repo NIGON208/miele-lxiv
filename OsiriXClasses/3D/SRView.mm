@@ -2910,10 +2910,9 @@ typedef struct _xyzArray
 }
 
 // 3D points
-#pragma mark-
-#pragma mark 3D Points
+#pragma mark - 3D Points
 
-#pragma mark add
+#pragma mark - add
 - (void) add3DPoint: (double) x
                    : (double) y
                    : (double) z
@@ -3036,7 +3035,8 @@ typedef struct _xyzArray
 	picker->Delete();
 }
 
-#pragma mark display
+#pragma mark - display
+
 - (void) setDisplay3DPoints: (BOOL) on
 {
 	display3DPoints = on;
@@ -3072,7 +3072,8 @@ typedef struct _xyzArray
 	[self setDisplay3DPoints:!display3DPoints];
 }
 
-#pragma mark selection
+#pragma mark - selection
+
 - (BOOL) isAny3DPointSelected
 {
 	BOOL boo = NO;
@@ -3117,7 +3118,8 @@ typedef struct _xyzArray
 	((vtkInteractorStyle*)aRenderer->GetRenderWindow()->GetInteractor()->GetInteractorStyle())->HighlightProp3D(NULL);
 }
 
-#pragma mark remove
+#pragma mark - remove
+
 - (void) remove3DPointAtIndex: (unsigned int) index
 {
 	// point to remove
@@ -3159,7 +3161,7 @@ typedef struct _xyzArray
 	}
 }
 
-#pragma mark modify 3D point appearence
+#pragma mark - modify 3D point appearence
 
 - (IBAction) IBSetSelected3DPointColor: (id) sender
 {
@@ -3298,7 +3300,7 @@ typedef struct _xyzArray
         point3DDefaultRadius = 1.0;
 }
 
-#pragma mark annotation
+#pragma mark - annotation
 
 - (IBAction) IBSetSelected3DPointAnnotation: (id) sender
 {
@@ -3456,8 +3458,7 @@ typedef struct _xyzArray
 	}
 }
 
-#pragma mark-
-#pragma mark Cursors
+#pragma mark - Cursors
 
 //cursor methods
 

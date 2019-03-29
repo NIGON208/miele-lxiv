@@ -54,7 +54,7 @@
 	[super dealloc];
 }
 
-#pragma mark Panel
+#pragma mark - Panel
 
 -(IBAction)actionOk:(NSView*)sender {
 	end = AnonymizationPanelOk;

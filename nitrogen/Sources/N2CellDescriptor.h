@@ -51,8 +51,10 @@
 -(NSSize)optimalSizeForWidth:(CGFloat)width;
 -(NSRect)sizeAdjust;
 
-#pragma mark Deprecated
--(N2CellDescriptor*)initWithWidthConstraints:(const N2MinMax&)widthConstraints alignment:(N2Alignment)alignment DEPRECATED_ATTRIBUTE;
+#pragma mark - Deprecated
+
+-(N2CellDescriptor*)initWithWidthConstraints:(const N2MinMax&)widthConstraints
+                                   alignment:(N2Alignment)alignment DEPRECATED_ATTRIBUTE;
 
 @end
 

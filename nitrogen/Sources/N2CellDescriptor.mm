@@ -115,7 +115,7 @@
 	return [_view sizeAdjust];
 }
 
-#pragma mark Deprecated
+#pragma mark - Deprecated
 
 -(N2CellDescriptor*)initWithWidthConstraints:(const N2MinMax&)widthConstraints alignment:(N2Alignment)alignment {
 	self = [super init];

@@ -15,7 +15,6 @@
 #import "SMTPClient.h"
 #import "NSData+N2.h"
 #import "N2Debug.h"
-//#import <iconv.h>
 #include <CommonCrypto/CommonDigest.h>
 
 NSString* const SMTPServerAddressKey = @"SMTPServerAddress";
@@ -472,7 +471,7 @@ enum {
 	[super dealloc];
 }
 
-#pragma mark SMTP
+#pragma mark - SMTP
 
 enum SMTPStatuses {
 	InitialStatus = 0,

@@ -893,8 +893,7 @@ enum
 - (NSView*) previewRootView;
 - (NSMatrix*) buttonToolMatrix;
 
-#pragma mark-
-#pragma mark Brush ROI Filters
+#pragma mark - Brush ROI Filters
 
 /** Applies the selected Brush ROI morpho filter
 * @param  rois  ROI array to filter
@@ -940,8 +939,7 @@ enum
 */
 - (ROI*) convertBrushROItoPolygon:(ROI*) selectedROI numPoints: (int) numPoints;
 
-#pragma mark-
-#pragma mark Registration
+#pragma mark - Registration
 
 /** Returns an NSArray of all t2DPoint type ROI*/
 - (NSMutableArray*) point2DList;
@@ -966,8 +964,7 @@ enum
 - (ViewerController*) resampleSeries:(ViewerController*) movingViewer;
 #endif
 
-#pragma mark-
-#pragma mark Key Objects
+#pragma mark - Key Objects
 
 ///** Creates a Key Object note for the current key Images */
 //- (IBAction)createKeyObjectNote:(id)sender;
@@ -987,11 +984,8 @@ enum
 */
 - (BOOL)isKeyImage:(int)index;
 
+#pragma mark - Convience methods for accessing values in the current imageView
 
-
-
-#pragma mark-
-#pragma mark Convience methods for accessing values in the current imageView
 /** Current ImageView window width */
 -(float)curWW;
 
@@ -1082,8 +1076,7 @@ enum
 #define MAX_TILING_TAG          (TILING_DIMENSION * TILING_DIMENSION)
 - (IBAction)setImageTiling: (id)sender;
 
-#pragma mark-
-#pragma mark Calcium scoring
+#pragma mark - Calcium scoring
 /** Deprecated
 * Calcium Scoring moved to a plugin
 */
@@ -1091,15 +1084,14 @@ enum
 - (IBAction)calciumScoring:(id)sender;
 #endif
 
-#pragma mark-
-#pragma mark Centerline
+#pragma mark - Centerline
 /** Nonfunctional
 * Centerline only works in Endoscopy Mode 
 */
 //- (IBAction)centerline: (id)sender;
 
-#pragma mark-
-#pragma mark ROI Grouping
+#pragma mark - ROI Grouping
+
 /**  Group selected ROI together */
 - (IBAction)groupSelectedROIs:(id)sender;
 /** Ungroup ROI */
@@ -1120,18 +1112,16 @@ enum
 - (NSDictionary*) exportDICOMFileInt:(int)screenCapture withName:(NSString*)name allViewers: (BOOL) allViewers;
 #endif
 
-#pragma mark-
-#pragma mark 12 Bit
+#pragma mark - 12 Bit
 - (IBAction)enable12Bit:(id)sender;
 
-#pragma mark-
-#pragma mark Navigator
+#pragma mark - Navigator
 - (IBAction)navigator:(id)sender;
 - (void)updateNavigator;
 
 - (IBAction)threeDPanel:(id)sender;
 
-#pragma mark-
+#pragma mark -
 
 - (IBAction)toggleComparativesVisibility:(id)sender;
 

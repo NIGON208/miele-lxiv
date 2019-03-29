@@ -340,7 +340,7 @@ static DicomDatabase* activeLocalDatabase = nil;
 	}
 }
 
-#pragma mark Instance
+#pragma mark - Instance
 
 @synthesize baseDirPath = _baseDirPath, dataBaseDirPath = _dataBaseDirPath, dataFileIndex = _dataFileIndex, name = _name, timeOfLastModification = _timeOfLastModification;
 @synthesize isReadOnly = _isReadOnly;
@@ -991,7 +991,7 @@ NSString* const DicomDatabaseLogEntryEntityName = @"LogEntry";
 	return path;
 }
 
-#pragma mark Albums
+#pragma mark - Albums
 
 - (void) loadAlbumsFromPath:(NSString*) path
 {
@@ -1277,7 +1277,7 @@ NSString* const DicomDatabaseLogEntryEntityName = @"LogEntry";
         [dicomAlbum addStudiesObject:study];
 }
 
-#pragma mark Lifecycle
+#pragma mark - Lifecycle
 
 -(BOOL)isFileSystemFreeSizeLimitReached {
 	NSTimeInterval currentTime = NSDate.timeIntervalSinceReferenceDate;
@@ -3556,7 +3556,7 @@ static BOOL protectionAgainstReentry = NO;
 	}
 }
 
-#pragma mark Other
+#pragma mark - Other
 
 -(BOOL)rebuildAllowed
 {

@@ -66,8 +66,7 @@
 	[super dealloc];
 }
 
-#pragma mark-
-#pragma mark HTML template
+#pragma mark - HTML template
 
 - (void)readTemplates;
 {
@@ -406,8 +405,7 @@
 	return filledTemplate;
 }
 
-#pragma mark-
-#pragma mark HTML file creation
+#pragma mark - HTML file creation
 
 - (void)createHTMLfiles;
 {
@@ -462,8 +460,7 @@
                          contents:[htmlContent dataUsingEncoding:NSUTF8StringEncoding] attributes:nil];
 }
 
-#pragma mark-
-#pragma mark setters
+#pragma mark - setters
 
 - (void)setPath:(NSString*)path
 {

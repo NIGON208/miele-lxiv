@@ -65,16 +65,14 @@
 - (void)cleanup;
 - (void)createContextualMenu;
 
-#pragma mark -
-#pragma mark Histogram
+#pragma mark - Histogram
 - (void)setVolumePointer:(float*)ptr width:(int)width height:(int)height numberOfSlices:(int)n;
 - (void)setHUmin:(float)min HUmax:(float)max;
 - (void)computeHistogram;
 - (void)callComputeHistogram;
 - (void)drawHistogramInRect:(NSRect)rect;
 
-#pragma mark -
-#pragma mark Curves
+#pragma mark - Curves
 - (void)newCurve;
 - (void)fillCurvesInRect:(NSRect)rect;
 - (void)drawCurvesInRect:(NSRect)rect;
@@ -90,16 +88,13 @@
 - (void)setCurves:(NSMutableArray*)newCurves;
 - (void)setPointColors:(NSMutableArray*)newPointColors;
 
-#pragma mark -
-#pragma mark Coordinate to NSView Transform
+#pragma mark - Coordinate to NSView Transform
 - (NSAffineTransform*)transform;
 
-#pragma mark -
-#pragma mark Global draw method
+#pragma mark - Global draw method
 - (void)updateView;
 
-#pragma mark -
-#pragma mark Points selection
+#pragma mark - Points selection
 - (BOOL)selectPointAtPosition:(NSPoint)position;
 - (void)unselectPoints;
 - (BOOL)isAnyPointSelected;
@@ -111,17 +106,14 @@
 - (void)removePointAtIndex:(int)ip inCurveAtIndex:(int)ic;
 - (void)replacePointAtIndex:(int)ip inCurveAtIndex:(int)ic withPoint:(NSPoint)point;
 
-#pragma mark -
-#pragma mark Control Point
+#pragma mark - Control Point
 - (NSPoint)controlPointForCurveAtIndex:(int)i;
 - (BOOL)selectControlPointAtPosition:(NSPoint)position;
 
-#pragma mark -
-#pragma mark Lines selection
+#pragma mark - Lines selection
 - (BOOL)clickOnLineAtPosition:(NSPoint)position;
 
-#pragma mark -
-#pragma mark GUI
+#pragma mark - GUI
 - (IBAction)computeHistogram:(id)sender;
 - (IBAction)setHistogramOpacity:(id)sender;
 - (IBAction)newCurve:(id)sender;
@@ -134,7 +126,8 @@
 - (IBAction)scroll:(id)sender;
 - (IBAction)removeAllCurves:(id)sender;
 - (void)addCurveIfNeeded;
-#pragma mark Custom GUI
+
+#pragma mark - Custom GUI
 - (void)drawSideBar:(NSRect)rect;
 - (void)drawAddCurveButton:(NSRect)rect;
 - (void)drawCloseButton:(NSRect)rect;
@@ -147,8 +140,7 @@
 - (BOOL)clickInCloseButtonAtPosition:(NSPoint)position;
 - (void)simplifyHistogram;
 
-#pragma mark -
-#pragma mark Copy / Paste
+#pragma mark - Copy / Paste
 - (IBAction)copy:(id)sender;
 - (IBAction)paste:(id)sender;
 - (IBAction)delete:(id)sender;
@@ -156,30 +148,27 @@
 - (IBAction)undo:(id)sender;
 - (IBAction)redo:(id)sender;
 
-#pragma mark -
-#pragma mark Saving (as plist)
+#pragma mark - Saving (as plist)
 - (void)chooseNameAndSave:(id)sender;
 - (IBAction)save:(id)sender;
 - (void)saveWithName:(NSString*)name;
 + (NSDictionary*)presetFromFileWithName:(NSString*)name;
 - (void)loadFromFileWithName:(NSString*)name;
-#pragma mark conversion to plist-compatible types
+#pragma mark - conversion to plist-compatible types
 - (NSArray*)convertPointColorsForPlist;
 - (NSArray*)convertCurvesForPlist;
 - (NSDictionary*)convertColorToDict:(NSColor*)color;
 - (NSDictionary*)convertPointToDict:(NSPoint)point;
-#pragma mark conversion from plist
+#pragma mark - conversion from plist
 + (NSMutableArray*)convertPointColorsFromPlist:(NSArray*)plistPointColor;
 + (NSMutableArray*)convertCurvesFromPlist:(NSArray*)plistCurves;
 
-#pragma mark -
-#pragma mark Connection to VRView
+#pragma mark - Connection to VRView
 - (void)setCLUTtoVRView;
 - (void)setCLUTtoVRView:(BOOL)lowRes;
 - (void)setWL:(float)wl ww:(float)ww;
 
-#pragma mark -
-#pragma mark Cursor
+#pragma mark - Cursor
 - (void)setCursorLabelWithText:(NSString*)text;
 
 @end

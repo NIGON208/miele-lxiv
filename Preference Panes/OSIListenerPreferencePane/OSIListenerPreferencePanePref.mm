@@ -183,7 +183,7 @@
     [as runWithArguments:nil error:NULL];
 }
 
-#pragma mark TLS
+#pragma mark - TLS
 
 - (IBAction)editTLS:(id)sender;
 {
@@ -383,7 +383,7 @@
 	}	
 }
 
-#pragma mark NSControl Delegate Methods
+#pragma mark - NSControl Delegate Methods
 
 - (void)controlTextDidEndEditing:(NSNotification *)aNotification
 {

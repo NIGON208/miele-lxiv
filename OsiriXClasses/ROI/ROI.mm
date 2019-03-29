@@ -5666,7 +5666,7 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
 		
 		switch( type)
 		{
-#pragma mark tLayerROI
+#pragma mark - tLayerROI
 			case tLayerROI:
 			{
 				if (layerImage)
@@ -5779,7 +5779,7 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
 				}
 			}
 			break;
-#pragma mark tPlain
+#pragma mark - tPlain
 			case tPlain:
 			//	if (mode == ROI_selected | mode == ROI_selectedModify | mode == ROI_drawing)
 			{
@@ -6113,7 +6113,7 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
 				}
 			}
 			break;
-#pragma mark t2DPoint
+#pragma mark - t2DPoint
 			case t2DPoint:
 			{
 				float angle;
@@ -6270,7 +6270,7 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
 				}
 			}
 			break;
-#pragma mark tText
+#pragma mark - tText
 			case tText:
 			{
 				glPushMatrix();
@@ -6343,7 +6343,7 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
 				glPopMatrix();
 			}
 			break;
-#pragma mark tMeasure / tArrow
+#pragma mark - tMeasure / tArrow
 			case tMeasure:
 			case tArrow:
 			{
@@ -6837,7 +6837,7 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
 				}
 			}
 			break;
-#pragma mark tROI
+#pragma mark - tROI
 			case tROI:
 			{
 				glColor4f (color.red / 65535., color.green / 65535., color.blue / 65535., opacity);
@@ -6979,7 +6979,7 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
 			}
 			break;
                 
-#pragma mark tOval + tOvalAngle
+#pragma mark - tOval + tOvalAngle
             case tOvalAngle:
             case tOval:
 			{
@@ -7190,7 +7190,7 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
 			}
 			break;
 
-#pragma mark tBall
+#pragma mark - tBall
             case tBall:
             {
                 float angle;
@@ -7413,7 +7413,7 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
             }
                 break;
                 
-#pragma mark tAxis
+#pragma mark - tAxis
 			case tAxis:
                 {
                     glColor4f (color.red / 65535., color.green / 65535., color.blue / 65535., opacity);
@@ -7618,7 +7618,7 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
                 }
                 break;
                 
-#pragma mark tTAGT
+#pragma mark - tTAGT
             case tTAGT:
             if ([points count] == 6 || [points count] == 2)
             {
@@ -7805,7 +7805,7 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
 			}
             break;
                 
-#pragma mark tDynAngle
+#pragma mark - tDynAngle
 			case tDynAngle:
 			{
                 glColor4f (color.red / 65535., color.green / 65535., color.blue / 65535., opacity);
@@ -7925,7 +7925,7 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
 				glColor3f (1.0f, 1.0f, 1.0f);
 			}
 			break;
-#pragma mark tCPolygon, tOPolygon, tAngle, tPencil
+#pragma mark - tCPolygon, tOPolygon, tAngle, tPencil
 			case tCPolygon:
 			case tOPolygon:
 			case tAngle:

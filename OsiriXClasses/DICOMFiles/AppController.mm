@@ -3031,9 +3031,10 @@ static BOOL initialized = NO;
                     NSLog(@"OpenGL version:%s, extension:%s", strVersion, strExtension);
                 }
                 
-                NSArray *components = [[[NSBundle mainBundle] pathForResource: @"Localizable" ofType: @"strings"] pathComponents];
-                if (components.count > 3)
-                    NSLog(@"Localization: %@", [components objectAtIndex: components.count -2]);
+                NSMutableArray *components = [[[NSBundle mainBundle] localizations] mutableCopy];
+                if ([components containsObject:@"Base"])
+                    [components removeObject:@"Base"];
+                NSLog(@"Localizations (%u): %@", (unsigned)([components count]), [components componentsJoinedByString:@", "]);
 #ifndef NDEBUG
                 NSLog(@"NSTemporaryDirectory()_: %@", NSTemporaryDirectory());
                 NSLog(@"NSHomeDirectory()______: %@", NSHomeDirectory());
@@ -3443,8 +3444,7 @@ static BOOL initialized = NO;
 	}	
 }
 
-#pragma mark-
-#pragma mark growl
+#pragma mark - growl
 
 - (void) growlTitle:(NSString*) title
         description:(NSString*) description
@@ -3466,7 +3466,7 @@ static BOOL initialized = NO;
 #endif
 }
 
-#pragma mark-
+#pragma mark -
 
 - (void) killDICOMListenerWait: (BOOL) wait
 {
@@ -5810,16 +5810,12 @@ static BOOL initialized = NO;
 	[ViewerController closeAllWindows];
 }
 
-////////////////////////////////////////////////////////////////////////////////
-
-#pragma mark-
-#pragma mark HTML Templates
+#pragma mark - HTML Templates
 + (void)checkForHTMLTemplates { // __deprecated
 	[[[BrowserController currentBrowser] database] checkForHtmlTemplates];
 }
 
-#pragma mark-
-#pragma mark 12 Bit Display support.
+#pragma mark - 12 Bit Display support.
 
 + (BOOL)canDisplay12Bit;
 {

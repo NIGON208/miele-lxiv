@@ -76,8 +76,7 @@ static BOOL protectedReentryWindowDidResize = NO;
 	[self close];
 }
 
-#pragma mark-
-#pragma mark Magnetic Windows & Tiling
+#pragma mark - Magnetic Windows & Tiling
 
 #ifndef OSIRIX_LIGHT
 - (IBAction) paste:(id) sender;
@@ -506,8 +505,7 @@ static BOOL protectedReentryWindowDidResize = NO;
 	}
 }
 
-#pragma mark-
-#pragma mark Misc
+#pragma mark - Misc
 
 - (short) orthogonalOrientation
 {
@@ -590,8 +588,7 @@ static BOOL protectedReentryWindowDidResize = NO;
     N2LogStackTrace( @"ApplyOpacityString - CALL SUPER ??");
 }
 
-#pragma mark-
-#pragma mark current Core Data Objects
+#pragma mark - current Core Data Objects
 
 - (DicomStudy *)currentStudy
 {

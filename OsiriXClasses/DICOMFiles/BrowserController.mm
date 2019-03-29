@@ -647,10 +647,7 @@ static NSConditionLock *threadLock = nil;
 	[threadLock unlock];
 }
 
-////////////////////////////////////////////////////////////////////////////////
-
-#pragma mark-
-#pragma mark Add DICOM Database functions
+#pragma mark - Add DICOM Database functions
 
 - (NSString*)getNewFileDatabasePath:(NSString*)extension // __deprecated
 {
@@ -1013,10 +1010,7 @@ static NSConditionLock *threadLock = nil;
                                           nil]];
 }
 
-////////////////////////////////////////////////////////////////////////////////
-
-#pragma mark-
-#pragma mark Autorouting functions
+#pragma mark - Autorouting functions
 
 - (void) testAutorouting
 {
@@ -1125,8 +1119,7 @@ static NSConditionLock *threadLock = nil;
 	[_database addImages:images toSendQueueForRoutingRule:routingRule];
 }
 
-#pragma mark-
-#pragma mark Database functions
+#pragma mark - Database functions
 
 - (void) regenerateAutoCommentsThread: (NSDictionary*) arrays
 {
@@ -2618,8 +2611,7 @@ static NSConditionLock *threadLock = nil;
 	[_database initiateCleanUnlessAlreadyCleaning];
 }
 
-#pragma mark-
-#pragma mark Web Portal Database // deprecated, use WebPortal.defaultWebPortal
+#pragma mark - Web Portal Database // deprecated, use WebPortal.defaultWebPortal
 
 -(long)saveUserDatabase // __deprecated
 {
@@ -2656,11 +2648,7 @@ static NSConditionLock *threadLock = nil;
 #endif
 }
 
-
-////////////////////////////////////////////////////////////////////////////////
-
-#pragma mark-
-#pragma mark OutlineView Search & Time Interval Functions
+#pragma mark - OutlineView Search & Time Interval Functions
 
 - (IBAction)search: (id)sender
 {
@@ -2869,10 +2857,7 @@ static NSConditionLock *threadLock = nil;
     [self outlineViewRefresh];
 }
 
-////////////////////////////////////////////////////////////////////////////////
-
-#pragma mark-
-#pragma mark OutlineView functions
+#pragma mark - OutlineView functions
 
 - (NSPredicate*) smartAlbumPredicateString:(NSString*) string
 {
@@ -9117,10 +9102,7 @@ static NSConditionLock *threadLock = nil;
 	}
 }
 
-////////////////////////////////////////////////////////////////////////////////
-
-#pragma mark-
-#pragma mark Thumbnails Matrix & Preview functions
+#pragma mark - Thumbnails Matrix & Preview functions
 
 static BOOL withReset = NO;
 
@@ -11225,10 +11207,7 @@ constrainSplitPosition:(CGFloat)proposedPosition
 	[imageView annotMenu: sender];
 }
 
-////////////////////////////////////////////////////////////////////////////////
-
-#pragma mark-
-#pragma mark Albums functions
+#pragma mark - Albums functions
 
 - (IBAction) addSmartAlbum: (id)sender
 {
@@ -14128,10 +14107,7 @@ static NSArray*	openSubSeriesArray = nil;
     return nil;
 }
 
-////////////////////////////////////////////////////////////////////////////////
-
-#pragma mark-
-#pragma mark GUI functions
+#pragma mark - GUI functions
 
 + (unsigned int)_currentModifierFlags
 {
@@ -15715,10 +15691,7 @@ static NSArray*	openSubSeriesArray = nil;
 	[helpMenu release];
 }
 
-////////////////////////////////////////////////////////////////////////////////
-
-#pragma mark-
-#pragma mark DICOM Network & Files functions
+#pragma mark - DICOM Network & Files functions
 
 - (void) resetListenerTimer // __deprecated
 {
@@ -18943,10 +18916,7 @@ static volatile int numberOfThreadsForJPEG = 0;
 }
 #endif
 
-////////////////////////////////////////////////////////////////////////////////
-
-#pragma mark -
-#pragma mark RTSTRUCT
+#pragma mark - RTSTRUCT
 
 #ifndef OSIRIX_LIGHT
 - (void)createROIsFromRTSTRUCT: (id)sender
@@ -18973,10 +18943,7 @@ static volatile int numberOfThreadsForJPEG = 0;
 }
 #endif
 
-////////////////////////////////////////////////////////////////////////////////
-
-#pragma mark -
-#pragma mark Report functions
+#pragma mark - Report functions
 
 //- (IBAction)srReports: (id)sende
 //{
@@ -19561,12 +19528,7 @@ static volatile int numberOfThreadsForJPEG = 0;
 	#endif
 }
 
-#pragma mark-
-#pragma mark Toolbar functions
-
-// ============================================================
-// NSToolbar Related Methods
-// ============================================================
+#pragma mark - Toolbar functions
 
 - (void)windowDidResignKey:(NSNotification *)notification
 {
@@ -20581,10 +20543,7 @@ static volatile int numberOfThreadsForJPEG = 0;
 #endif // EXPORTTOOLBARITEM
 }
 
-////////////////////////////////////////////////////////////////////////////////
-
-#pragma mark-
-#pragma mark Bonjour
+#pragma mark - Bonjour
 
 - (void)setBonjourDatabaseValue:(NSManagedObject*) obj value:(id) value forKey:(NSString*) key // __deprecated
 {
@@ -20669,10 +20628,7 @@ static volatile int numberOfThreadsForJPEG = 0;
 	return [[DicomDatabase activeLocalDatabase] sqlFilePath];
 }
 
-////////////////////////////////////////////////////////////////////////////////
-
-#pragma mark-
-#pragma mark Plugins
+#pragma mark - Plugins
 
 - (void)executeFilterFromString: (NSString*)name
 {

@@ -18,7 +18,7 @@
 
 @implementation DICOMTLS
 
-#pragma mark Cipher Suites
+#pragma mark - Cipher Suites
 
 + (NSArray*)availableCipherSuites;
 {
@@ -92,7 +92,7 @@
 	return [NSArray arrayWithArray:cipherSuites];
 }
 
-#pragma mark Keychain Access
+#pragma mark - Keychain Access
 
 static NSMutableString *TLS_PRIVATE_KEY_PASSWORD = nil;
 

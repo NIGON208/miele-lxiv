@@ -33,23 +33,20 @@
 
 +(NSString*)kindOfPath:(NSString*)path forSeriesId:(int)seriesId inSeriesPaths:(NSDictionary*)seriesPaths;
 
-#pragma mark-
-#pragma mark HTML template
+#pragma mark - HTML template
 - (void)readTemplates;
 - (NSString*)fillPatientsListTemplates;
 - (NSString*)fillStudiesListTemplatesForSeries:(NSArray*) series;
 - (NSString*)fillSeriesTemplatesForSeries:(NSManagedObject*)series numberOfImages:(int)imagesCount;
 
-#pragma mark-
-#pragma mark HTML file creation
+#pragma mark - HTML file creation
 - (void)createHTMLfiles;
 - (void)createHTMLPatientsList;
 - (void)createHTMLStudiesList;
 - (void)createHTMLExtraDirectory;
 - (void)createHTMLSeriesPage:(NSManagedObject*)series numberOfImages:(int)imagesCount outPutFileName:(NSString*)fileName;
 
-#pragma mark-
-#pragma mark setters
+#pragma mark - setters
 - (void)setPath:(NSString*)path;
 - (void)setPatientsDictionary:(NSDictionary*)dictionary;
 

@@ -467,8 +467,7 @@
 	return viewUpY;
 }
 
-#pragma mark-
-#pragma mark Export
+#pragma mark - Export
 
 -(void) sendMail:(id) sender
 {

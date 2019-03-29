@@ -109,8 +109,7 @@
 	[super dealloc];
 }
 
-#pragma mark -
-#pragma mark Contextual menu
+#pragma mark - Contextual menu
 
 - (void)createContextualMenu;
 {
@@ -122,8 +121,7 @@
 	[contextualMenu addItemWithTitle:NSLocalizedString(@"Save...", nil) action:@selector(chooseNameAndSave:) keyEquivalent:@""];
 }
 
-#pragma mark -
-#pragma mark Histogram
+#pragma mark - Histogram
 
 - (void)setVolumePointer:(float*)ptr width:(int)width height:(int)height numberOfSlices:(int)n;
 {
@@ -305,8 +303,7 @@
 	[line stroke];
 }
 
-#pragma mark -
-#pragma mark Curves
+#pragma mark - Curves
 
 - (void)newCurve;
 {
@@ -696,8 +693,7 @@
 	pointColors = [newPointColors retain];
 }
 
-#pragma mark -
-#pragma mark Coordinate to NSView Transform
+#pragma mark - Coordinate to NSView Transform
 
 - (NSAffineTransform*) transform;
 {
@@ -712,8 +708,7 @@
 	return transform;
 }
 
-#pragma mark -
-#pragma mark Global draw method
+#pragma mark - Global draw method
 
 - (void)drawRect:(NSRect)rect
 {
@@ -755,8 +750,7 @@
 	updateView = NO;
 }
 
-#pragma mark -
-#pragma mark Points
+#pragma mark - Points
 
 - (BOOL)selectPointAtPosition:(NSPoint)position;
 {
@@ -930,8 +924,7 @@ NSRect rect = drawingRect;
 	[[curves objectAtIndex:ic] replaceObjectAtIndex:ip withObject:[NSValue valueWithPoint:point]];
 }
 
-#pragma mark -
-#pragma mark Control Point
+#pragma mark - Control Point
 
 - (NSPoint)controlPointForCurveAtIndex:(int)i;
 {
@@ -976,8 +969,7 @@ NSRect rect = drawingRect;
 	return NO;
 }
 
-#pragma mark -
-#pragma mark Lines selection
+#pragma mark - Lines selection
 
 - (BOOL)clickOnLineAtPosition:(NSPoint)position;
 {
@@ -1037,8 +1029,7 @@ NSRect rect = drawingRect;
 	return addPoint;
 }
 
-#pragma mark -
-#pragma mark Mouse
+#pragma mark - Mouse
 
 - (void)mouseDown:(NSEvent *)theEvent
 {
@@ -1413,8 +1404,7 @@ NSRect rect = drawingRect;
 	[self updateView];
 }
 
-#pragma mark -
-#pragma mark Keyboard
+#pragma mark - Keyboard
 
 - (void)keyDown:(NSEvent *)theEvent
 {
@@ -1438,8 +1428,7 @@ NSRect rect = drawingRect;
 	return YES;
 }
 
-#pragma mark -
-#pragma mark GUI
+#pragma mark - GUI
 
 - (IBAction)computeHistogram:(id)sender;
 {
@@ -1561,7 +1550,7 @@ zoomFixedPoint = [sender floatValue] / [sender maxValue] * drawingRect.size.widt
 	}
 }
 
-#pragma mark Custom GUI
+#pragma mark - Custom GUI
 
 - (void)drawSideBar:(NSRect)rect;
 {
@@ -1780,8 +1769,7 @@ zoomFixedPoint = [sender floatValue] / [sender maxValue] * drawingRect.size.widt
 	}
 }
 
-#pragma mark -
-#pragma mark Copy / Paste
+#pragma mark - Copy / Paste
 
 - (IBAction)copy:(id)sender;
 {
@@ -1950,8 +1938,7 @@ zoomFixedPoint = [sender floatValue] / [sender maxValue] * drawingRect.size.widt
 	}
 }
 
-#pragma mark -
-#pragma mark Saving (as plist)
+#pragma mark - Saving (as plist)
 
 #define CLUTDATABASE @"/CLUTs/"
 
@@ -2083,7 +2070,7 @@ zoomFixedPoint = [sender floatValue] / [sender maxValue] * drawingRect.size.widt
 	}
 }
 
-#pragma mark conversion to plist-compatible types
+#pragma mark - conversion to plist-compatible types
 
 - (NSArray*)convertPointColorsForPlist;
 {
@@ -2139,7 +2126,7 @@ zoomFixedPoint = [sender floatValue] / [sender maxValue] * drawingRect.size.widt
 	return dict;
 }
 
-#pragma mark conversion from plist
+#pragma mark - conversion from plist
 
 + (NSMutableArray*)convertPointColorsFromPlist:(NSArray*)plistPointColor;
 {
@@ -2179,8 +2166,7 @@ zoomFixedPoint = [sender floatValue] / [sender maxValue] * drawingRect.size.widt
 	return convertedCurves;
 }
 
-#pragma mark -
-#pragma mark Connection to VRView
+#pragma mark - Connection to VRView
 
 - (void)setCLUTtoVRView;
 {
@@ -2292,8 +2278,7 @@ zoomFixedPoint = [sender floatValue] / [sender maxValue] * drawingRect.size.widt
 	[self updateView];
 }
 
-#pragma mark -
-#pragma mark Cursor
+#pragma mark - Cursor
 
 - (void)setCursorLabelWithText:(NSString*)text;
 {
@@ -2339,9 +2324,7 @@ zoomFixedPoint = [sender floatValue] / [sender maxValue] * drawingRect.size.widt
 	[cursor release];
 }
 
-
-#pragma mark -
-#pragma mark Overlapping curves
+#pragma mark - Overlapping curves
 
 - (BOOL)doesCurve:(NSArray*)curveA overlapCurve:(NSArray*)curveB;
 {

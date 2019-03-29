@@ -43,7 +43,7 @@ typedef enum
 
 }
 
-#pragma mark Cipher Suites
+#pragma mark - Cipher Suites
 /**
 	Returns the list of available Ciphersuites.
 	These are basically the one available through DCMTK.
@@ -54,7 +54,7 @@ typedef enum
 + (NSString*) TLS_PRIVATE_KEY_PASSWORD;
 + (void) eraseKeys;
 
-#pragma mark Keychain Access
+#pragma mark - Keychain Access
 + (void)generateCertificateAndKeyForLabel:(NSString*)label withStringID:(NSString*)stringID;
 + (void)generateCertificateAndKeyForLabel:(NSString*)label;
 + (void)generateCertificateAndKeyForServerAddress:(NSString*)address port:(int)port AETitle:(NSString*)aetitle withStringID:(NSString*)stringID;

@@ -12,9 +12,7 @@
      PURPOSE.
 =========================================================================*/
 
-
 #import "N2Layout.h"
-
 
 @interface N2ColumnLayout : N2Layout {
 	NSArray* _columnDescriptors;
@@ -29,7 +27,7 @@
 -(void)removeRowAtIndex:(NSUInteger)index;
 -(void)removeAllRows;
 
-#pragma mark Deprecated
+#pragma mark - Deprecated
 
 -(NSArray*)lineAtIndex:(NSUInteger)index DEPRECATED_ATTRIBUTE;
 -(NSUInteger)appendLine:(NSArray*)line DEPRECATED_ATTRIBUTE;

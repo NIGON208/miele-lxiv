@@ -151,9 +151,7 @@
 	[super dealloc];
 }
 
-#pragma mark-
-#pragma mark Orthogonal reslice methods
-
+#pragma mark - Orthogonal reslice methods
 
 - (void) reslice: (long) x : (long) y : (OrthogonalMPRView*) sender
 {
@@ -357,8 +355,7 @@
 	[yReslicedView setNeedsDisplay:YES];
 }
 
-#pragma mark-
-#pragma mark DCMView methods
+#pragma mark - DCMView methods
 
 - (void) blendingPropagateOriginal:(OrthogonalMPRView*) sender
 {
@@ -800,8 +797,7 @@
 	[self reslice:originalCrossPositionX :originalCrossPositionY :originalView];
 }
 
-#pragma mark-
-#pragma mark Thick Slab
+#pragma mark - Thick Slab
 
 -(short) thickSlabMode
 {
@@ -863,8 +859,7 @@
 	[[NSUserDefaults standardUserDefaults] setInteger:thickSlab forKey:@"stackThicknessOrthoMPR"];
 }
 
-#pragma mark-
-#pragma mark NSWindow related methods
+#pragma mark - NSWindow related methods
 
 - (void) showViews:(id)sender
 {
@@ -887,9 +882,7 @@
 	[self reslice:x:y:originalView];
 }
 
-
-#pragma mark-
-#pragma mark accessors
+#pragma mark - accessors
 
 - (OrthogonalReslice*) reslicer
 {
@@ -943,8 +936,7 @@
 	return sign;
 }
 
-#pragma mark-
-#pragma mark Tools Selection
+#pragma mark - Tools Selection
 
 - (void) setCurrentTool:(ToolMode) newTool
 {
@@ -958,8 +950,7 @@
 	return [originalView currentTool];
 }
 
-#pragma mark-
-#pragma mark ROIs
+#pragma mark - ROIs
 
 - (NSMutableArray*) pointsROIAtX: (long) x
 {

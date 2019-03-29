@@ -923,8 +923,7 @@
 	return NO;
 }
 
-#pragma mark -
-#pragma mark Hot Keys.
+#pragma mark - Hot Keys.
 //Hot key action
 -(BOOL)actionForHotKey:(NSString *)hotKey
 {

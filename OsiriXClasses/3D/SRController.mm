@@ -1479,7 +1479,7 @@ return YES;
 	}
 }
 
-#pragma mark IBAction
+#pragma mark - IBAction
 
 - (IBAction) roiGetManager:(id) sender
 {

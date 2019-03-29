@@ -28,15 +28,14 @@
 
 #import "KFSplitView.h"
 
-#pragma mark File-level and global vars:
-
+#pragma mark - File-level and global vars
 
 const NSPoint KFOffScreenPoint = {1000000.0,1000000.0};
 
 static NSMutableSet *kfInUsePositionNames;
 
 
-#pragma mark Utility:
+#pragma mark - Utility
 
 // these are macros (instead of inlines) so that we can use the instance variable kfIsVertical
 // they're undef'd at the bottom of the file
@@ -134,7 +133,7 @@ static BOOL kfScaleUInts(unsigned *integers, int numInts, unsigned targetTotal)
 /*****************
  * Initialization
  *****************/
-#pragma mark Setup/teardown:
+#pragma mark - Setup/teardown:
 
 + (void)initialize
 {
@@ -232,10 +231,7 @@ static BOOL kfScaleUInts(unsigned *integers, int numInts, unsigned targetTotal)
     [super dealloc];
 }
 
-/******************
- * Main processing
- ******************/
-#pragma mark Main processing:
+#pragma mark - Main processing:
 
 - (void)mouseDown:(NSEvent *)theEvent
 {
@@ -941,11 +937,7 @@ static BOOL kfScaleUInts(unsigned *integers, int numInts, unsigned targetTotal)
     }
 }
 
-
-/**********************
- * Position saving
- **********************/
-#pragma mark Position saving:
+#pragma mark - Position saving:
 
 // FOR DOCUMENTATION OF POSITION SAVING METHODS SEE APPLE'S NSWINDOW DOCS
 

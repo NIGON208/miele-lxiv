@@ -64,7 +64,7 @@
     }
 }
 
-#pragma mark Interface
+#pragma mark - Interface
 
 -(NSArray*)threads {
 	@synchronized (_threadsController) {

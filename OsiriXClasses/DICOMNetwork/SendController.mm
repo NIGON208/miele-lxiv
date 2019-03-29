@@ -340,8 +340,7 @@ static volatile int sendControllerObjects = 0;
 	return [self serverAtIndex:_serverIndex];
 }
 
-
-#pragma mark Accessors functions
+#pragma mark - Accessors functions
 
 - (id)serverAtIndex:(int)index
 {
@@ -384,7 +383,7 @@ static volatile int sendControllerObjects = 0;
 	[[NSUserDefaults standardUserDefaults] setInteger:index forKey:@"lastSendWhat"];
 }
 
-#pragma mark sheet functions
+#pragma mark - sheet functions
 
 - (void)sheetDidEnd:(NSWindow *)sheet returnCode:(int)returnCode  contextInfo:(void  *)contextInfo
 {
@@ -552,7 +551,7 @@ static volatile int sendControllerObjects = 0;
     }
 }
 
-#pragma mark Sending functions
+#pragma mark - Sending functions
 
 - (void) executeSend:(NSArray*) files patientName: (NSString*) patientName
 {
@@ -667,7 +666,7 @@ static int globalDCMTKSCUCounter = 0;
     [pool release];
 }
 
-#pragma mark serversArray functions
+#pragma mark - serversArray functions
 
 - (void) updateDestinationPopup: (NSNotification *)note
 {

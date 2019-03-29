@@ -51,7 +51,7 @@ unichar ISO8601DefaultTimeSeparatorCharacter = DEFAULT_TIME_SEPARATOR;
 
 //The following properties are only here because GCC doesn't like @synthesize in category implementations.
 
-#pragma mark Parsing
+#pragma mark - Parsing
 
 @synthesize parsesStrictly;
 
@@ -597,7 +597,7 @@ static BOOL is_leap_year(unsigned year);
 	return (date != nil);
 }
 
-#pragma mark Unparsing
+#pragma mark - Unparsing
 
 @synthesize format;
 @synthesize includeTime;

@@ -1115,7 +1115,7 @@ SecPolicySearchCreate:
 	}
 }
 
-#pragma mark Other Utilities
+#pragma mark - Other Utilities
 
 + (void)generatePseudoRandomFileToPath:(NSString*)path;
 {

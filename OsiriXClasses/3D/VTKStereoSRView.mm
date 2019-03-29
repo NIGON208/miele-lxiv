@@ -75,8 +75,7 @@
 	[super dealloc];
 }
 
-#pragma mark-
-#pragma mark Cursors
+#pragma mark - Cursors
 
 //cursor methods
 

@@ -6172,7 +6172,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
     short maxFrame = 1;
     short imageNb = frameNo;
     
-#pragma mark *pdf
+#pragma mark - pdf
     if ([SOPClassUID isEqualToString:[DCMAbstractSyntaxUID pdfStorageClassUID]])
     {
         NSData *pdfData = [dcmObject attributeValueWithName:@"EncapsulatedDocument"];
@@ -6331,7 +6331,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
         [self dcmFrameworkLoad0x0020: dcmObject];
         [self dcmFrameworkLoad0x0028: dcmObject];
         
-#pragma mark *MR/CT/US functional multiframe
+#pragma mark - MR/CT/US functional multiframe
         
         // Is it a new MR/CT/US multi-frame exam?
         DCMSequenceAttribute *sharedFunctionalGroupsSequence = (DCMSequenceAttribute *)[dcmObject attributeWithName:@"SharedFunctionalGroupsSequence"];
@@ -6369,7 +6369,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
             }
         }
         
-#pragma mark *per frame
+#pragma mark - per frame
         
         // ****** ****** ****** ************************************************************************
         // PER FRAME
@@ -6447,7 +6447,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
             }
         }
         
-#pragma mark *tag group 6000
+#pragma mark - tag group 6000
         
         if ([dcmObject attributeValueWithName: @"OverlayRows"])
         {
@@ -6503,7 +6503,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
             }
         }
         
-#pragma mark *SUV
+#pragma mark - SUV
         
         // Get values needed for SUV calcs:
         if ([dcmObject attributeValueWithName:@"PatientsWeight"])
@@ -6644,7 +6644,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
         
         // End SUV
         
-#pragma mark *compute normal vector
+#pragma mark - compute normal vector
         // Compute normal vector
         
         orientation[6] = orientation[1]*orientation[5] - orientation[2]*orientation[4];
@@ -6653,7 +6653,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
         
         [self computeSliceLocation];
         
-#pragma mark READ PIXEL DATA
+#pragma mark - READ PIXEL DATA
         
         maxFrame = [[dcmObject attributeValueWithName:@"NumberofFrames"] intValue];
         if (maxFrame == 0) maxFrame = 1;
@@ -6665,7 +6665,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
             
             //=====================================================================
             
-#pragma mark *loading a frame
+#pragma mark - loading a frame
             
             if ( [[dcmObject attributeValueWithName:@"Modality"] isEqualToString: @"RTDOSE"])
             {  // Set Z value for each frame
@@ -7030,7 +7030,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
                 ww = savedWW;
             }
             
-#pragma mark *after loading a frame
+#pragma mark - after loading a frame
             
         }//end of if ([dcmObject attributeValueWithName:@"PixelData"])
         
@@ -9450,8 +9450,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 	return val;
 }
 
-#pragma mark-
-#pragma mark subtraction and changeWLWW
+#pragma mark - subtraction and changeWLWW
 
 -(void) imageArithmeticMultiplication:(DCMPix*) sub
 {
@@ -10780,9 +10779,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
     [super dealloc];
 }
 
-// SUV stuff
-#pragma mark-
-#pragma mark SUV
+#pragma mark - SUV
 
 - (float) appliedFactorPET2SUV
 {
@@ -10855,8 +10852,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 	hasSUV = YES;
 }
 
-#pragma mark -
-#pragma mark Database links
+#pragma mark - Database links
 
 - (NSString *)description
 {
@@ -10873,9 +10869,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 	return description;
 }
 
-#pragma mark -
-#pragma mark Image Annotations
-
+#pragma mark - Image Annotations
 
 #ifdef OSIRIX_VIEWER
 

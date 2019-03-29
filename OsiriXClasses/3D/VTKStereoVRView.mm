@@ -79,10 +79,7 @@ static NSRecursiveLock *drawLock = nil;
 	[super dealloc];
 }
 
-#pragma mark-
-#pragma mark Cursors
-
-//cursor methods
+#pragma mark - Cursors
 
 - (void)mouseEntered:(NSEvent *)theEvent
 {

@@ -173,9 +173,7 @@
 	return result;
 }
 
-
-#pragma mark -
-#pragma mark basics
+#pragma mark - basics
 
 - (id)init
 {
@@ -522,8 +520,7 @@
 	return _dataEncapsulated;
 }
 
-#pragma mark -
-#pragma mark ROIs
+#pragma mark - ROIs
 
 - (void) addROIs: (NSArray *) someROIs;
 {
@@ -558,8 +555,7 @@
 	return [NSUnarchiver unarchiveObjectWithData: _dataEncapsulated];
 }
 
-#pragma mark -
-#pragma mark DICOM write
+#pragma mark - DICOM write
 
 - (BOOL)writeToFileAtPath:(NSString *)path
 {

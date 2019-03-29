@@ -81,7 +81,7 @@
 }
 
 
-#pragma mark DCMView-like methods
+#pragma mark - DCMView-like methods
 
 - (void)setWLWW:(float)wl :(float) ww
 {
@@ -182,7 +182,7 @@
     }
 }
 
-#pragma mark standard CPRView Methods
+#pragma mark - standard CPRView Methods
 
 - (id<CPRViewDelegate>)delegate
 {
@@ -306,7 +306,6 @@
     [_straightenedView setBlueSlabThickness:blueSlabThickness];
     [_stretchedView setBlueSlabThickness:blueSlabThickness];
 }
-
 
 - (NSColor *)orangePlaneColor
 {

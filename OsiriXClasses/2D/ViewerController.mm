@@ -9780,7 +9780,7 @@ static int avoidReentryRefreshDatabase = 0;
     NSArray *pixListArray = [dict objectForKey: @"pixListArray"];
     DCMPix *firstPix = [[pixListArray objectAtIndex: 0] objectAtIndex: 0];
     
-    #pragma mark modality dependant code, once images are already displayed in 2D viewer
+#pragma mark - modality dependant code, once images are already displayed in 2D viewer
     
     for (NSArray *pList in pixListArray)
     {
@@ -9791,7 +9791,7 @@ static int avoidReentryRefreshDatabase = 0;
         }
     }
     
-    #pragma mark XA
+#pragma mark - XA
     enableSubtraction = FALSE;
     subCtrlMinMaxComputed = NO;
     if ([[firstPix modalityString] isEqualToString:@"XA"])
@@ -9814,7 +9814,7 @@ static int avoidReentryRefreshDatabase = 0;
     
     [self enableSubtraction];
     
-#pragma mark PET
+#pragma mark - PET
     
     BOOL isPET = NO;
     
@@ -10193,7 +10193,7 @@ static int avoidReentryRefreshDatabase = 0;
 	[self executeFilterFromString: [sender label]];
 }
 
-#pragma mark resample image
+#pragma mark - resample image
 
 - (IBAction)resampleDataBy2:(id)sender;
 {
@@ -12163,7 +12163,7 @@ static float oldsetww, oldsetwl;
 	return curOpacityMenu;
 }
 
-#pragma mark convolution
+#pragma mark - convolution
 
 - (void) applyConvolutionXYThread:(id) dict
 {
@@ -13339,7 +13339,8 @@ long				x, y;
 	
 	[imageView sendSyncMessage: 0];
 }
-#pragma mark blending
+
+#pragma mark - blending
 
 -(IBAction) blendWindows:(id) sender
 {
@@ -13870,9 +13871,8 @@ long				x, y;
 	return blendingController;
 }
 
-#pragma mark-
-#pragma mark 4.1.3 Anchored graphical layer
-#pragma mark ROI
+#pragma mark - 4.1.3 Anchored graphical layer
+#pragma mark - ROI
 
 //class setter and getter
 // of ViewerController class field   static NSArray*	DefaultROINames;
@@ -16671,7 +16671,7 @@ int i,j,l;
 	}
 }
 
-#pragma mark BrushTool and ROI filters
+#pragma mark - BrushTool and ROI filters
 
 -(void) brushTool:(id) sender
 {
@@ -16998,7 +16998,7 @@ int i,j,l;
 	[imageView setIndex: imageView.curImage];
 }
 
-#pragma mark SUV
+#pragma mark - SUV
 
 - (IBAction) cancel:(id)sender
 {
@@ -17960,7 +17960,7 @@ int i,j,l;
 #endif
 }
 
-#pragma mark Registration
+#pragma mark - Registration
 
 - (ViewerController*) registeredViewer
 {
@@ -18381,7 +18381,7 @@ int i,j,l;
 }
 #endif
 
-#pragma mark segmentation
+#pragma mark - segmentation
 //
 //-(IBAction) startMSRGWithAutomaticBounding:(id) sender
 //{
@@ -23660,7 +23660,7 @@ static BOOL viewerControllerPlaying = NO;
 			[self revertSeries:self];
 }
 
-#pragma mark key image
+#pragma mark - key image
 
 - (IBAction) keyImageCheckBox:(id) sender
 {
@@ -24176,8 +24176,7 @@ static BOOL viewerControllerPlaying = NO;
 	standardRect = rect;
 }
 
-#pragma mark-
-#pragma mark Key Objects
+#pragma mark - Key Objects
 //- (IBAction)createKeyObjectNote:(id)sender
 //{
 //	id study = [[imageView seriesObj] valueForKey:@"study"];
@@ -24196,8 +24195,7 @@ static BOOL viewerControllerPlaying = NO;
 	return displayOnlyKeyImages;
 }
 
-#pragma mark-
-#pragma mark report
+#pragma mark - report
 
 - (IBAction)deleteReport:(id)sender;
 {
@@ -24303,9 +24301,7 @@ static BOOL viewerControllerPlaying = NO;
 #endif
 }
 
-
-#pragma mark-
-#pragma mark current Core Data Objects
+#pragma mark - current Core Data Objects
 - (DicomStudy *)currentStudy
 {
 	return imageView.studyObj;
@@ -24319,9 +24315,7 @@ static BOOL viewerControllerPlaying = NO;
 	return imageView.imageObj;
 }
 
-
-#pragma mark-
-#pragma mark Convience methods for accessing values in the current imageView
+#pragma mark - Convience methods for accessing values in the current imageView
 -(float)curWW
 {
 	return [imageView curWW];
@@ -24488,8 +24482,7 @@ static BOOL viewerControllerPlaying = NO;
         [display12bitToolbarItemMatrix selectCellWithTag:1];
 }
 
-#pragma mark-
-#pragma mark Navigator
+#pragma mark - Navigator
 
 - (IBAction)navigator:(id)sender;
 {
@@ -24580,7 +24573,7 @@ static BOOL viewerControllerPlaying = NO;
 	[[[NavigatorWindowController navigatorWindowController] window] setFrame:navigatorFrame display:YES];
 }
 
-#pragma mark Comparatives GUI
+#pragma mark - Comparatives GUI
 
 - (IBAction)toggleComparativesVisibility:(id)sender
 {

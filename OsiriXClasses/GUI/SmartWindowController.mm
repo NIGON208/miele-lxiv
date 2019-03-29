@@ -98,8 +98,7 @@
     }
 }
 
-
-#pragma mark Actions
+#pragma mark - Actions
 
 - (IBAction)cancelAction:(id)sender {
     [NSApp endSheet:self.window returnCode:NSRunAbortedResponse];

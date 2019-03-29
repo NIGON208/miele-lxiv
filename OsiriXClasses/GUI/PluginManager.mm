@@ -908,10 +908,9 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
 	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:URL_OSIRIX_PLUGINS]];
 }
 
-#pragma mark -
-#pragma mark Plugin user management
+#pragma mark - Plugin user management
 
-#pragma mark directories
+#pragma mark - directories
 
 + (NSString*)activePluginsDirectoryPath;
 {
@@ -977,7 +976,7 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
             nil];
 }
 
-#pragma mark activation
+#pragma mark - activation
 
 //- (BOOL)pluginIsActiveForName:(NSString*)pluginName;
 //{
@@ -1191,7 +1190,7 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
 	}
 }
 
-#pragma mark Instalation
+#pragma mark - Instalation
 
 + (void) installPluginFromPath: (NSString*) path
 {
@@ -1260,7 +1259,7 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
 //    [PluginManager loadPluginAtPath: destinationPath];
 }
 
-#pragma mark Deletion
+#pragma mark - Deletion
 
 + (NSString*) deletePluginWithName:(NSString*)pluginName;
 {
@@ -1352,7 +1351,7 @@ BOOL gPluginsAlertAlreadyDisplayed = NO;
 	return returnPath;
 }
 
-#pragma mark plugins
+#pragma mark - plugins
 
 NSInteger sortPluginArray(id plugin1, id plugin2, void *context)
 {
@@ -1468,9 +1467,7 @@ NSInteger sortPluginArray(id plugin1, id plugin2, void *context)
             NSLocalizedString(@"Miele-LXIV bundle", nil), nil];
 }
 
-
-#pragma mark -
-#pragma mark auto update
+#pragma mark - auto update
 
 - (IBAction)checkForPluginUpdates:(id)sender
 {

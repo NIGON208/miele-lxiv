@@ -1002,8 +1002,8 @@ static void updateRight(vtkObject*, unsigned long eid, void* clientdata, void *c
 	
 }
 
+#pragma mark - Movie-Export
 
-#pragma mark Movie-Export 
 -(IBAction) endQuicktimeSettings:(id) sender
 {
 	
@@ -1277,7 +1277,7 @@ static void updateRight(vtkObject*, unsigned long eid, void* clientdata, void *c
 	
 }
 
-#pragma mark Service Routines
+#pragma mark - Service Routines
 
 
 -(void) adjustWindowContent: (NSSize) proposedFrameSize
@@ -1313,7 +1313,8 @@ static void updateRight(vtkObject*, unsigned long eid, void* clientdata, void *c
 	}
 }
 
-#pragma mark User Commands
+#pragma mark - User Commands
+
 - (void) keyDown:(NSEvent *)event
 {
     if( [[event characters] length] == 0)
@@ -1929,8 +1930,7 @@ static void updateRight(vtkObject*, unsigned long eid, void* clientdata, void *c
 	[self setCursorForView: currentTool];
 }
 
-
-#pragma mark Generating 3D Points
+#pragma mark - Generating 3D Points
 //Added SilvanWidmer
 - (void) setDisplayStereo3DPoints: (vtkRenderer*) theRenderer: (BOOL) on
 {

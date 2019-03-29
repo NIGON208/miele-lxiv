@@ -19,7 +19,7 @@
 #import <CFNetwork/CFNetwork.h>
 #endif
 
-#pragma mark Declarations
+#pragma mark - Declarations
 
 #define DEFAULT_PREBUFFERING YES        // Whether pre-buffering is enabled by default
 

@@ -435,7 +435,7 @@ typedef struct ConstrainedFloat {
 	return [self optimalSizeForWidth:CGFLOAT_MAX];
 }
 
-#pragma mark Deprecated
+#pragma mark - Deprecated
 
 -(NSArray*)lineAtIndex:(NSUInteger)index {
 	return [self rowAtIndex:index];

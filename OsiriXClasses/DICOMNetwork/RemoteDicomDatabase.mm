@@ -69,7 +69,7 @@
 	return db;
 }
 
-#pragma mark Instance
+#pragma mark - Instance
 
 @synthesize address = _address, port = _port, host = _host;
 
@@ -237,7 +237,7 @@
     }
 }
 
-#pragma mark Communication
+#pragma mark - Communication
 
 -(NSData*)synchronousRequest:(NSData*)request urgent:(BOOL)urgent dataHandlerTarget:(id)target selector:(SEL)sel context:(void*)context {
     OSStatus waitOnSemaphoreStatus = 0;
@@ -903,8 +903,7 @@ enum RemoteDicomDatabaseStudiesAlbumAction { RemoteDicomDatabaseStudiesAlbumActi
 -(void)initiateCleanUnlessAlreadyCleaning {
 }
 
-
-#pragma mark Special
+#pragma mark - Special
 
 -(BOOL)rebuildAllowed {
 	return NO;

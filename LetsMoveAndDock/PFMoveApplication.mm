@@ -213,8 +213,7 @@ fail:
 	}
 }
 
-#pragma mark -
-#pragma mark Helper Functions
+#pragma mark - Helper Functions
 
 static NSString *PreferredInstallLocation(BOOL *isUserDirectory) {
 	// Return the preferred install location.

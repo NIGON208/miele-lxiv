@@ -607,15 +607,13 @@ OsirixAddToDBNotification posted when files are added to the DB
 
 +(NSInteger)_scrollerStyle:(NSScroller*)scroller;
 
-#pragma mark Deprecated
+#pragma mark - Deprecated
 
 @property(readonly) NSManagedObjectContext *userManagedObjectContext __deprecated;
 @property(readonly) NSManagedObjectModel *userManagedObjectModel __deprecated;
 
 -(long)saveUserDatabase __deprecated;
 -(WebPortalUser*)userWithName:(NSString*)name __deprecated;
-
-
 
 @end
 

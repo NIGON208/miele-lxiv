@@ -229,8 +229,7 @@ static SyncSeriesScope globalSyncSeriesScope;
 	return controller;
 }
 
-#pragma mark-
-#pragma mark DCMView methods
+#pragma mark - DCMView methods
 
 - (BOOL) is2DViewer
 {
@@ -253,7 +252,8 @@ static SyncSeriesScope globalSyncSeriesScope;
 	
 	[[controller originalView] setIndex: [[controller originalView] curImage]];
 	[[controller originalView] setNeedsDisplay:YES];
-	[controller loadROIonReslicedViews: [[controller originalView] crossPositionX] : [[controller originalView] crossPositionY]];
+	[controller loadROIonReslicedViews: [[controller originalView] crossPositionX]
+                                      : [[controller originalView] crossPositionY]];
 	[[controller xReslicedView] setNeedsDisplay:YES];
 	[[controller yReslicedView] setNeedsDisplay:YES];
 }
@@ -264,7 +264,8 @@ static SyncSeriesScope globalSyncSeriesScope;
 	
 	[[controller originalView] setIndex: [[controller originalView] curImage]];
 	[[controller originalView] setNeedsDisplay:YES];
-	[controller loadROIonReslicedViews: [[controller originalView] crossPositionX] : [[controller originalView] crossPositionY]];
+	[controller loadROIonReslicedViews: [[controller originalView] crossPositionX]
+                                      : [[controller originalView] crossPositionY]];
 	[[controller xReslicedView] setNeedsDisplay:YES];
 	[[controller yReslicedView] setNeedsDisplay:YES];
 }
@@ -277,16 +278,17 @@ static SyncSeriesScope globalSyncSeriesScope;
 		[curCLUTMenu release];
 		curCLUTMenu = [str retain];
 	}
-	[[NSNotificationCenter defaultCenter] postNotificationName: OsirixUpdateCLUTMenuNotification object: curCLUTMenu userInfo: nil];		
+	[[NSNotificationCenter defaultCenter] postNotificationName: OsirixUpdateCLUTMenuNotification
+                                                        object: curCLUTMenu
+                                                      userInfo: nil];
 	[[[clutPopup menu] itemAtIndex:0] setTitle:str];
 }
 
 -(void) UpdateCLUTMenu: (NSNotification*) note
 {
     //*** Build the menu
-    short       i;
-    NSArray     *keys;
-    NSArray     *sortedKeys;
+    NSArray *keys;
+    NSArray *sortedKeys;
 
     // Presets VIEWER Menu
 	
@@ -299,9 +301,11 @@ static SyncSeriesScope globalSyncSeriesScope;
     [[clutPopup menu] addItemWithTitle: NSLocalizedString(@"No CLUT", nil) action:@selector(ApplyCLUT:) keyEquivalent:@""];
 	[[clutPopup menu] addItem: [NSMenuItem separatorItem]];
 	
-    for( i = 0; i < [sortedKeys count]; i++)
+    for (short i = 0; i < [sortedKeys count]; i++)
     {
-        [[clutPopup menu] addItemWithTitle:[sortedKeys objectAtIndex:i] action:@selector(ApplyCLUT:) keyEquivalent:@""];
+        [[clutPopup menu] addItemWithTitle:[sortedKeys objectAtIndex:i]
+                                    action:@selector(ApplyCLUT:)
+                             keyEquivalent:@""];
     }
 	
 	[[[clutPopup menu] itemAtIndex:0] setTitle:curCLUTMenu];
@@ -325,7 +329,6 @@ static SyncSeriesScope globalSyncSeriesScope;
 -(void) UpdateWLWWMenu: (NSNotification*) note
 {
     //*** Build the menu
-    short       i;
     NSArray     *keys;
     NSArray     *sortedKeys;
 
@@ -341,7 +344,7 @@ static SyncSeriesScope globalSyncSeriesScope;
 	[[wlwwPopup menu] addItemWithTitle: NSLocalizedString(@"Full dynamic", nil) action:@selector (ApplyWLWW:) keyEquivalent:@""];
 	[[wlwwPopup menu] addItem: [NSMenuItem separatorItem]];
     
-    for( i = 0; i < [sortedKeys count]; i++)
+    for (short i = 0; i < [sortedKeys count]; i++)
     {
         [[wlwwPopup menu] addItemWithTitle:[NSString stringWithFormat:@"%d - %@", i+1, [sortedKeys objectAtIndex:i]] action:@selector (ApplyWLWW:) keyEquivalent:@""];
     }
@@ -378,7 +381,9 @@ static SyncSeriesScope globalSyncSeriesScope;
 	
 	[[[wlwwPopup menu] itemAtIndex:0] setTitle:menuString];
 
-	[[NSNotificationCenter defaultCenter] postNotificationName: OsirixUpdateWLWWMenuNotification object: curWLWWMenu userInfo: nil];
+	[[NSNotificationCenter defaultCenter] postNotificationName: OsirixUpdateWLWWMenuNotification
+                                                        object: curWLWWMenu
+                                                      userInfo: nil];
 }
 
 - (void) ApplyWLWW:(id) sender
@@ -419,7 +424,6 @@ static SyncSeriesScope globalSyncSeriesScope;
 -(void) UpdateOpacityMenu: (NSNotification*) note
 {
     //*** Build the menu
-    short       i;
     NSArray     *keys;
     NSArray     *sortedKeys;
 
@@ -432,7 +436,8 @@ static SyncSeriesScope globalSyncSeriesScope;
 	
     [[OpacityPopup menu] addItemWithTitle:NSLocalizedString(@"Linear Table", nil) action:@selector (ApplyOpacity:) keyEquivalent:@""];
 	[[OpacityPopup menu] addItemWithTitle:NSLocalizedString(@"Linear Table", nil) action:@selector (ApplyOpacity:) keyEquivalent:@""];
-    for( i = 0; i < [sortedKeys count]; i++)
+
+    for (short i = 0; i < [sortedKeys count]; i++)
     {
         [[OpacityPopup menu] addItemWithTitle:[sortedKeys objectAtIndex:i] action:@selector (ApplyOpacity:) keyEquivalent:@""];
     }
@@ -501,8 +506,7 @@ static SyncSeriesScope globalSyncSeriesScope;
 	[controller flipVolume];
 }
 
-#pragma mark-
-#pragma mark Thick Slab
+#pragma mark - Thick Slab
 
 - (IBAction) activateThickSlab : (id) sender
 {
@@ -538,8 +542,7 @@ static SyncSeriesScope globalSyncSeriesScope;
 	[controller setThickSlab:[sender intValue]];
 }
 
-#pragma mark-
-#pragma mark NSWindow related methods
+#pragma mark - NSWindow related methods
 
 - (IBAction) showWindow:(id)sender
 {
@@ -583,8 +586,7 @@ static SyncSeriesScope globalSyncSeriesScope;
 	//[[NSNotificationCenter defaultCenter] postNotificationName: OsirixUpdateConvolutionMenuNotification object: curConvMenu userInfo: nil];
 }
 
-#pragma mark-
-#pragma mark NSSplitView Control
+#pragma mark - NSSplitView Control
 
 -(void)splitViewWillResizeSubviews:(NSNotification *)notification
 {
@@ -644,7 +646,7 @@ static SyncSeriesScope globalSyncSeriesScope;
 {
 	NSToolbarItem *item;
 	NSArray *toolbarItems = [toolbar items];
-	for(item in toolbarItems)
+	for (item in toolbarItems)
 	{
 //		if ([[item itemIdentifier] isEqualToString:TurnSplitViewToolbarItemIdentifier])
 //		{
@@ -751,13 +753,14 @@ static SyncSeriesScope globalSyncSeriesScope;
 			
 			[[controller yReslicedView] scaleToFit];
 		}
-		[splitView setNeedsDisplay:YES];
+
+        [splitView setNeedsDisplay:YES];
 	}
-	isFullWindow = !isFullWindow;
+
+    isFullWindow = !isFullWindow;
 }
 
-#pragma mark-
-#pragma mark NSSplitview's delegate methods
+#pragma mark - NSSplitview's delegate methods
 
 - (BOOL)splitView:(NSSplitView *)sender canCollapseSubview:(NSView *)subview
 {
@@ -816,8 +819,7 @@ static SyncSeriesScope globalSyncSeriesScope;
 	}
 }
 
-#pragma mark-
-#pragma mark Tools Selection
+#pragma mark - Tools Selection
 
 - (BOOL)validateMenuItem:(NSMenuItem *)item
 {
@@ -920,8 +922,7 @@ return YES;
 	[controller resetImage];
 }
 
-#pragma mark-
-#pragma mark NSToolbar Related Methods
+#pragma mark - NSToolbar Related Methods
 
 - (void) setupToolbar
 {
@@ -940,7 +941,7 @@ return YES;
 	[[self window] setShowsToolbarButton:NO];
 	[[[self window] toolbar] setVisible: YES];
 	
-	#ifdef EXPORTTOOLBARITEM
+#ifdef EXPORTTOOLBARITEM
 	NSLog(@"************** WARNING EXPORTTOOLBARITEM ACTIVATED");
 	for( id s in [self toolbarAllowedItemIdentifiers: toolbar])
 	{
@@ -989,7 +990,7 @@ return YES;
 			NSLog( @"b");
 		}
 	}
-	#endif
+#endif
 }
 
 - (IBAction) customizeViewerToolBar:(id)sender {
@@ -1331,8 +1332,7 @@ return YES;
     return enable;             
 }
 
-#pragma mark-
-#pragma mark export
+#pragma mark - export
 
 - (DCMView*) keyView
 {
@@ -1977,8 +1977,7 @@ return YES;
 	}
 }
 
-#pragma mark-
-#pragma mark Multi MPR viewport synchronization
+#pragma mark - Multi MPR viewport synchronization
 
 // Actions linked to popupToolbarMenuItems linked to SyncSeriesToolbarItemIdentifier
 - (void) syncSeriesScopeAction:(id) sender
@@ -2587,9 +2586,7 @@ return YES;
     ;
 }
 
-
-#pragma mark-
-#pragma mark ROIs
+#pragma mark - ROIs
 
 - (IBAction) roiDeleteAll:(id) sender
 {
@@ -2600,8 +2597,7 @@ return YES;
 	[[controller yReslicedView] setNeedsDisplay:YES];
 }
 
-#pragma mark-
-#pragma mark 4D
+#pragma mark - 4D
 
 - (void) MoviePlayStop:(id) sender
 {

@@ -18,7 +18,7 @@ NSTypesetterBehavior gNSStringGeometricsTypesetterBehavior = NSTypesetterLatestB
 
 @implementation NSAttributedString (Geometrics) 
 
-#pragma mark Measure Attributed String
+#pragma mark - Measure Attributed String
 
 - (NSSize)sizeForWidth:(float)width 
 				height:(float)height {
@@ -67,7 +67,7 @@ NSTypesetterBehavior gNSStringGeometricsTypesetterBehavior = NSTypesetterLatestB
 
 @implementation NSString (Geometrics)
 
-#pragma mark Given String with Attributes
+#pragma mark - Given String with Attributes
 
 - (NSSize)sizeForWidth:(float)width 
 				height:(float)height
@@ -97,7 +97,7 @@ NSTypesetterBehavior gNSStringGeometricsTypesetterBehavior = NSTypesetterLatestB
 				   attributes:attributes].width ;
 }
 
-#pragma mark Given String with Font
+#pragma mark - Given String with Font
 
 - (NSSize)sizeForWidth:(float)width 
 				height:(float)height

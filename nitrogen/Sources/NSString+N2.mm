@@ -234,7 +234,7 @@
 	return NSMakeRange(0, self.length);
 }
 
-#pragma mark SymLinksAndAliases
+#pragma mark - SymLinksAndAliases
 // from http://cocoawithlove.com/2010/02/resolving-path-containing-mixture-of.html
 
 - (NSString *)stringByConditionallyResolvingSymlink

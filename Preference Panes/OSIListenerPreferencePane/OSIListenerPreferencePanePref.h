@@ -57,7 +57,8 @@
 -(IBAction)editAddresses:(id)sender;
 -(IBAction)editHostname:(id)sender;
 
-#pragma mark TLS
+#pragma mark - TLS
+
 - (IBAction)editTLS:(id)sender;
 - (IBAction)cancel:(id)sender;
 - (IBAction)ok:(id)sender;

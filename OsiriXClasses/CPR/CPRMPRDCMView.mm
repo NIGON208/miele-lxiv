@@ -1292,8 +1292,7 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
 	}
 }
 
-#pragma mark-
-#pragma mark Mouse Events	
+#pragma mark - Mouse Events
 
 //- (BOOL)acceptsFirstResponder
 //{

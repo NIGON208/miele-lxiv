@@ -16,8 +16,7 @@
 #import "NSApplication-Dock.h"
 @implementation NSApplication (Dock)
 
-
-#pragma mark Application Assumed
+#pragma mark - Application Assumed
 
 ////////////////////////////////////////////
 //
@@ -47,11 +46,7 @@
 	return [self applicationExistsInDock:[[NSBundle mainBundle] bundlePath]];
 }
 
-
-
-
-
-#pragma mark Application Specified
+#pragma mark - Application Specified
 
 ////////////////////////////////////////////
 //

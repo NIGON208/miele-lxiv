@@ -1071,7 +1071,7 @@ const NSString* const GenerateMovieDicomImagesParamKey = @"dicomImageArray";
 	return data;
 }
 
-#pragma mark HTML
+#pragma mark - HTML
 
 -(void)processLoginHtml {
 	response.templateString = [self.portal stringForPath:@"login.html"];
@@ -1704,7 +1704,7 @@ const NSString* const GenerateMovieDicomImagesParamKey = @"dicomImageArray";
 	response.mimeType = @"text/html";
 }
 
-#pragma mark Administration HTML
+#pragma mark - Administration HTML
 
 -(void)processAdminIndexHtml {
 	if (!user.isAdmin.boolValue) {
@@ -1879,7 +1879,7 @@ const NSString* const GenerateMovieDicomImagesParamKey = @"dicomImageArray";
 	response.mimeType = @"text/html";
 }
 
-#pragma mark JSON
+#pragma mark - JSON
 
 -(void)processStudyListJson {
 	NSArray* studies = [self studyList_requestedStudies:NULL];
@@ -1995,8 +1995,7 @@ const NSString* const GenerateMovieDicomImagesParamKey = @"dicomImageArray";
 	[response setDataWithString:[jsonSeriesArray JSONRepresentation]];
 }
 
-
-#pragma mark WADO
+#pragma mark - WADO
 
 #ifdef __LP64__
 #define WadoCacheSize 1000
@@ -2466,7 +2465,7 @@ const NSString* const GenerateMovieDicomImagesParamKey = @"dicomImageArray";
 	}
 }
 
-#pragma mark Weasis
+#pragma mark - Weasis
 
 -(void)processWeasisJnlp {
 	if (!self.portal.weasisEnabled) {
@@ -2670,7 +2669,7 @@ const NSString* const GenerateMovieDicomImagesParamKey = @"dicomImageArray";
 	response.mimeType = @"text/xml";
 }
 
-#pragma mark Other
+#pragma mark - Other
 
 -(void)processReport {
 	DicomStudy* study = [self objectWithXID:[parameters objectForKey:@"xid"]];

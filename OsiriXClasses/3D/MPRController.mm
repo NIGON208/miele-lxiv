@@ -964,7 +964,7 @@ static float deg2rad = M_PI/180.0;
 	}
 }
 
-#pragma mark ROI
+#pragma mark - ROI
 
 - (IBAction) roiGetInfo:(id) sender
 {
@@ -1076,7 +1076,7 @@ static float deg2rad = M_PI/180.0;
 	[mprView3 detect2DPointInThisSlice];
 }
 
-#pragma mark Undo
+#pragma mark - Undo
 
 - (id) prepareObjectForUndo:(NSString*) string
 {
@@ -1241,7 +1241,7 @@ static float deg2rad = M_PI/180.0;
 	}
 }
 
-#pragma mark LOD
+#pragma mark - LOD
 
 - (void) bestRendering:(id) sender
 {
@@ -1280,7 +1280,7 @@ static float deg2rad = M_PI/180.0;
 	[mprView3 updateViewMPR];
 }
 
-#pragma mark Window Level / Window width
+#pragma mark - Window Level / Window width
 
 - (void)createWLWWMenuItems;
 {
@@ -1385,7 +1385,7 @@ static float deg2rad = M_PI/180.0;
 	}	
 }
 
-#pragma mark CLUTs
+#pragma mark - CLUTs
 
 - (void)UpdateCLUTMenu:(NSNotification*)note
 {
@@ -1607,7 +1607,7 @@ static float deg2rad = M_PI/180.0;
 	}
 }
 
-#pragma mark Opacity
+#pragma mark - Opacity
 
 -(void) UpdateOpacityMenu: (NSNotification*) note
 {
@@ -1774,7 +1774,7 @@ static float deg2rad = M_PI/180.0;
 	}
 }
 
-#pragma mark GUI ObjectController - Cocoa Bindings
+#pragma mark - GUI ObjectController - Cocoa Bindings
 
 - (float) getClippingRangeThicknessInMm
 {
@@ -1943,7 +1943,7 @@ static float deg2rad = M_PI/180.0;
 	[mprView3 updateViewMPR];
 }
 
-#pragma mark Export	
+#pragma mark - Export	
 
 - (void) setDcmBatchReverse: (BOOL) v
 {
@@ -2713,7 +2713,7 @@ static float deg2rad = M_PI/180.0;
 	}
 }
 
-#pragma mark NSWindow Notifications action
+#pragma mark - NSWindow Notifications action
 
 - (ViewerController*) viewer
 {
@@ -2753,7 +2753,7 @@ static float deg2rad = M_PI/180.0;
 	}
 }
 
-#pragma mark Shadings
+#pragma mark - Shadings
 
 - (IBAction)switchShading:(id)sender;
 {
@@ -2833,7 +2833,7 @@ static float deg2rad = M_PI/180.0;
 	[self findShadingPreset: self];
 }
 
-#pragma mark Toolbar
+#pragma mark - Toolbar
 
 - (void) setupToolbar
 {
@@ -3108,7 +3108,7 @@ static float deg2rad = M_PI/180.0;
 	}
 }
 
-#pragma mark Axis / Mouse Position : Show / Hide
+#pragma mark - Axis / Mouse Position : Show / Hide
 
 - (void)toogleAxisVisibility:(id) sender;
 {
@@ -3144,7 +3144,7 @@ static float deg2rad = M_PI/180.0;
 	[self updateToolbarItems];
 }
 
-#pragma mark Blending
+#pragma mark - Blending
 
 - (void) changeWLWW: (NSNotification*) note
 {
@@ -3328,7 +3328,7 @@ static float deg2rad = M_PI/180.0;
 	[self didChangeValueForKey: @"playStopButtonString"];
 }
 
-#pragma mark Axis Colors
+#pragma mark - Axis Colors
 
 - (void)setColorAxis1:(NSColor*)color;
 {

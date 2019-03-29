@@ -1288,8 +1288,7 @@ unsigned int minimumStep;
 	}
 }
 
-#pragma mark-
-#pragma mark Mouse Events	
+#pragma mark - Mouse Events
 
 #define BS 10.
 
@@ -1960,8 +1959,8 @@ unsigned int minimumStep;
 	}
 }
 
-#pragma mark-
-#pragma mark Private Methods
+#pragma mark - Private Methods
+
 - (void)drawOSIROIs
 {
     double pixToSubdrawRectOpenGLTransform[16];

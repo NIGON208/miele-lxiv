@@ -301,9 +301,7 @@
 	return nil;
 }
 
-//==============================================================================
-#pragma mark-
-#pragma mark Common WL/WW Functions
+#pragma mark - Common WL/WW Functions
 
 - (void) setWLWW: (float) wl : (float) ww
 {
@@ -441,9 +439,7 @@ static float oldsetww, oldsetwl;
 	return wlwwPopup;
 }
 
-//==============================================================================
-#pragma mark-
-#pragma mark Common CLUT Functions
+#pragma mark - Common CLUT Functions
 
 - (IBAction) AddCLUT: (id) sender
 {
@@ -648,10 +644,7 @@ static float oldsetww, oldsetwl;
 	return clutPopup;
 }
 
-//==============================================================================
-#pragma mark-
-#pragma mark Common Opacity Functions
-
+#pragma mark - Common Opacity Functions
 
 - (void) ApplyOpacity: (id) sender
 {
@@ -767,9 +760,7 @@ static float oldsetww, oldsetwl;
 	return OpacityPopup;
 }
 
-//==============================================================================
-#pragma mark-
-#pragma mark Common Full Screen Functions
+#pragma mark - Common Full Screen Functions
 
 - (void) fullWindowView: (id) sender
 {

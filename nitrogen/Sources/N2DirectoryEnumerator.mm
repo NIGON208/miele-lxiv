@@ -68,7 +68,7 @@
 	[super dealloc];
 }
 
-#pragma mark NSEnumerator API
+#pragma mark - NSEnumerator API
 
 -(NSArray*)allObjects
 {
@@ -130,7 +130,7 @@
 	return nil;
 }
 
-#pragma mark NSDirectoryEnumerator API
+#pragma mark - NSDirectoryEnumerator API
 
 -(NSDictionary*)fileAttributes {
 	NSDictionary* d = [NSFileManager.defaultManager attributesOfItemAtPath:[basepath stringByAppendingPathComponent:currpath] error:NULL];
@@ -161,7 +161,7 @@
 	return c? c-1 : c;
 }
 
-#pragma mark Private API
+#pragma mark - Private API
 
 -(void)pushDIR:(DIR*)dir subpath:(NSString*)p {
 	[DIRs addObject:[NSArray arrayWithObjects:[NSValue valueWithPointer:dir], p, NULL]];

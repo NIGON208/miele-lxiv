@@ -612,7 +612,7 @@ enum /*typedef NS_ENUM(NSUInteger, O2ValueRepresentation)*/ {
     return nil;
 }
 
-//#pragma mark Tags
+//#pragma mark - Tags
 
 + (NSString*)_transformTagName:(NSString*)name {
     if ([name hasPrefix:@"RETIRED_"])
@@ -800,7 +800,7 @@ enum /*typedef NS_ENUM(NSUInteger, O2ValueRepresentation)*/ {
     }
 }*/
 
-//#pragma mark Operators
+//#pragma mark - Operators
 
 - (void)setAvailableOperators:(NSNumber*)first, ... NS_REQUIRES_NIL_TERMINATION {
     NSMutableSet* oops = [NSMutableSet set];

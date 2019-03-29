@@ -41,7 +41,7 @@
 
 NSString* const NSThreadNameKey = @"name";
 
-#pragma mark Id
+#pragma mark - Id
 
 NSString* const NSThreadUniqueIdKey = @"uniqueId";
 
@@ -94,7 +94,7 @@ NSString* const NSThreadIsCancelledKey = @"isCancelled";
 	}
 }
 
-#pragma mark Stack
+#pragma mark - Stack
 
 static NSString* const NSThreadStackArrayKey = @"NSThreadStackArrayKey";
 
@@ -192,7 +192,7 @@ static NSString* const SuperThreadNameKey = @"SuperThreadName";
 	[self exitOperation];
 }
 
-#pragma mark Properties
+#pragma mark - Properties
 
 NSString* const NSThreadSupportsCancelKey = @"supportsCancel";
 
