@@ -517,10 +517,10 @@ static BOOL protectedReentryWindowDidResize = NO;
 	return YES;
 }
 
-- (void) updateAutoAdjustPrinting: (id) sender
-{
-
-}
+//- (IBAction) updateAutoAdjustPrinting: (id) sender
+//{
+//
+//}
 
 - (ViewerController*) registeredViewer
 {

@@ -2154,7 +2154,6 @@ return YES;
         // Following messages need to be excuted sequentialy with postNotification in the main thread in order to keep in sync and propagate appropriate state values
         [OrthogonalMPRViewer validateViewersSyncSeriesState];
         [OrthogonalMPRViewer synchronizeViewersPosition:nil];
-
     };
     
     // Fire this event change on the MainThread
@@ -2600,7 +2599,7 @@ return YES;
 
 #pragma mark - 4D
 
-- (void) MoviePlayStop:(id) sender
+- (IBAction) MoviePlayStop:(id) sender
 {
     if (movieTimer)
     {
@@ -2683,12 +2682,12 @@ return YES;
 	[controller refreshViews];
 }
 
-- (void) movieRateSliderAction:(id) sender
+- (IBAction) movieRateSliderAction:(id) sender
 {
 	[movieTextSlide setStringValue:[NSString stringWithFormat: NSLocalizedString( @"%0.0f im/s", @"im/s = images per second"), (float) [movieRateSlider floatValue]]];
 }
 
-- (void) moviePosSliderAction:(id) sender
+- (IBAction) moviePosSliderAction:(id) sender
 {
 	[self setMovieIndex: [moviePosSlider intValue]];
 //	[self propagateSettings];

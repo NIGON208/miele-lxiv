@@ -8456,7 +8456,7 @@ static NSMutableArray *poolOf2DViewers = nil;
 
 -(void)awakeFromNib
 {
-    awakeFromNib = YES;
+    flagAwakeFromNib = YES;
     
     DisplayUseInvertedPolarity = [[[[NSUserDefaults standardUserDefaults] persistentDomainForName: @"com.apple.CoreGraphics"] objectForKey: @"DisplayUseInvertedPolarity"] boolValue];
     
@@ -8682,10 +8682,12 @@ static int avoidReentryRefreshDatabase = 0;
 
 - (void) dealloc
 {
+    NSLog(@"ViewerController.mm:%d %@ dealloc %p", __LINE__, NSStringFromClass([self class]), self);
+
     if (cachedFrontMostDisplayed2DViewer == self)
         [ViewerController clearFrontMost2DViewerCache];
     
-    if (awakeFromNib == NO) // poolOf2DViewers !
+    if (flagAwakeFromNib == NO) // poolOf2DViewers !
     {
         [super dealloc];
         return;
@@ -8779,8 +8781,6 @@ static int avoidReentryRefreshDatabase = 0;
     toolbarPanel = nil;
     
 	[super dealloc];
-	
-	NSLog(@"ViewController dealloc");
 }
 
 - (void) selectFirstTilingView
@@ -13450,7 +13450,7 @@ long				x, y;
             if (orientB[ 6] == 0 && orientB[ 7] == 0 && orientB[ 8] == 0) proceed = YES;
             if (orientA[ 6] == 0 && orientA[ 7] == 0 && orientA[ 8] == 0) proceed = YES;
             
-            if ([DCMView angleBetweenVector: orientA+6 andVector:orientB+6] > [[NSUserDefaults standardUserDefaults] floatForKey: @"PARALLELPLANETOLERANCE"])  // Planes are not paralel!
+            if ([DCMView angleBetweenVector: orientA+6 andVector:orientB+6] > [[NSUserDefaults standardUserDefaults] floatForKey: @"PARALLELPLANETOLERANCE"])  // Planes are not parallel
             {
                 // FROM SAME STUDY
                 
@@ -15070,6 +15070,9 @@ int i,j,l;
 
 #ifndef OSIRIX_LIGHT
 
+// Sender tag:
+//      0: ROI Volume, Compute Volume...
+//      1: ROI Volume, Generate Missing ROI
 - (IBAction) roiVolume:(id) sender
 {
 	float preLocation, interval;
@@ -18530,7 +18533,7 @@ int i,j,l;
     return [speedSlider floatValue];
 }
 
-- (void) speedSliderAction:(id) sender
+- (IBAction) speedSliderAction:(id) sender
 {
 	[speedText setStringValue:[NSString stringWithFormat: NSLocalizedString( @"%0.1f im/s", @"im/s = images per second"), (float) [self frameRate] * direction]];
 	
@@ -18554,7 +18557,7 @@ int i,j,l;
 	}
 }
 
-- (void) movieRateSliderAction:(id) sender
+- (IBAction) movieRateSliderAction:(id) sender
 {
 	[movieTextSlide setStringValue:[NSString stringWithFormat: NSLocalizedString( @"%0.0f im/s", @"im/s = images per second"), (float) [movieRateSlider floatValue]]];
 }
@@ -18610,7 +18613,7 @@ int i,j,l;
     [self showCurrentThumbnail:self];
 }
 
-- (void) moviePosSliderAction:(id) sender
+- (IBAction) moviePosSliderAction:(id) sender
 {
 	[self setMovieIndex: [moviePosSlider intValue]];
 	[self propagateSettings];
@@ -18802,7 +18805,7 @@ int i,j,l;
 	}
 }
 
-- (void) MoviePlayStop:(id) sender
+- (IBAction) MoviePlayStop:(id) sender
 {
     if (movieTimer)
     {
@@ -21725,6 +21728,9 @@ static BOOL viewerControllerPlaying = NO;
 
 - (void) clear8bitRepresentations
 {
+#ifdef DEBUG_3D_MPR
+    NSLog(@"%s %d %@, maxMovieIndex: %d", __FUNCTION__, __LINE__, NSStringFromClass([self class]), maxMovieIndex);
+#endif
 	// This function will free about 1/4 of the data
 	
 	for (int i = 0; i < maxMovieIndex; i++)
@@ -22511,7 +22517,7 @@ static BOOL viewerControllerPlaying = NO;
         {
             if ([v.windowNibName isEqualToString: @"VR"])
             {
-                VRController *vv = (VRController*) v;
+                VRController *vv = (VRController *) v;
                 
                 if ([vv.style isEqualToString: @"panel"])
                     viewer = vv;
@@ -22635,10 +22641,12 @@ static BOOL viewerControllerPlaying = NO;
     {
         if ([v.windowNibName isEqualToString: @"VR"])
         {
-            VRController *vv = (VRController*) v;
+            VRController *vv = (VRController *) v;
             
             if ([vv.style isEqualToString: @"standard"] && ([vv.renderingMode isEqualToString:@"VR"] || [vv.renderingMode isEqualToString:@"MIP"]))
+            {
                 viewer = vv;
+            }
         }
     }
 	
@@ -22783,7 +22791,7 @@ static BOOL viewerControllerPlaying = NO;
     {
         if ([v.windowNibName isEqualToString: @"VR"])
         {
-            VRController *vv = (VRController*) v;
+            VRController *vv = (VRController *) v;
             
             if ([vv.style isEqualToString: @"standard"])
                 viewer = vv;
@@ -22816,7 +22824,8 @@ static BOOL viewerControllerPlaying = NO;
             c = curCLUTMenu;
         
         [viewer ApplyCLUTString: c];
-        float   iwl, iww;
+        
+        float iwl, iww;
         [imageView getWLWW:&iwl :&iww];
         [viewer setWLWW:iwl :iww];
         [self place3DViewerWindow: viewer];
@@ -22825,12 +22834,6 @@ static BOOL viewerControllerPlaying = NO;
         [[viewer window] makeKeyAndOrderFront:self];
         [[viewer window] display];
         [[viewer window] setTitle: [NSString stringWithFormat:@"%@: %@", [[viewer window] title], [[self window] title]]];
-#if 0 // @@@ idea from Horos, but it doesn't work
-        dispatch_async(dispatch_get_main_queue(), ^(){
-            [viewer showWindow:self];
-            [viewer showWindow:self];
-        });
-#endif
     }
 }
 
@@ -22840,7 +22843,7 @@ static BOOL viewerControllerPlaying = NO;
 	[self clear8bitRepresentations];
     SRController *viewer = [[AppController sharedAppController] FindViewer :@"SR" :pixList[0]];
     if (viewer) {
-        NSLog(@"%s %d already allocated", __FUNCTION__, __LINE__);
+        NSLog(@"%s %d SR viewer already allocated", __FUNCTION__, __LINE__);
 		return viewer;
     }
     
@@ -22850,9 +22853,9 @@ static BOOL viewerControllerPlaying = NO;
                                               :volumeData[curMovieIndex]
                                               :blendingController
                                               :self];
-    if (!viewer) {
+    if (!viewer)
         NSLog(@"%s %d, nil SR viewer", __FUNCTION__, __LINE__);
-    }
+
 	return viewer;
 }
 
@@ -22898,9 +22901,7 @@ static BOOL viewerControllerPlaying = NO;
         return;
 	}
 
-    NSLog(@"%s %d", __FUNCTION__, __LINE__); // here
-
-    [self displayAWarningIfNonTrueVolumicData];  // here
+    [self displayAWarningIfNonTrueVolumicData];
     [self displayWarningIfGantryTitled];
     [self MovieStop: self];
     
@@ -22911,7 +22912,7 @@ static BOOL viewerControllerPlaying = NO;
         return;
     }
 
-    viewer = [self openSRViewer];  // here
+    viewer = [self openSRViewer];
     if (!viewer) {
         NSLog(@"%s %d, nil SR viewer", __FUNCTION__, __LINE__);
         return;
@@ -22939,8 +22940,9 @@ static BOOL viewerControllerPlaying = NO;
 	else
 		viewer = [[AppController sharedAppController] FindViewer :@"OrthogonalMPR" :pixList[0]];
 
-    if (viewer)
+    if (viewer) {
 		return viewer;
+    }
 		
 	viewer = [[OrthogonalMPRViewer alloc] initWithPixList:pixList[0] :fileList[0] :volumeData[0] :self :nil];
 	
@@ -22981,8 +22983,10 @@ static BOOL viewerControllerPlaying = NO;
 	[self clear8bitRepresentations];
 	
     OrthogonalMPRPETCTViewer  *viewer;
-	if ((viewer = [[AppController sharedAppController] FindViewer :@"PETCT" :pixList[0]]))
+    viewer = [[AppController sharedAppController] FindViewer :@"PETCT" :pixList[0]];
+    if (viewer) {
 		return viewer;
+    }
 		
 	if (blendingController)
 	{
@@ -22991,7 +22995,7 @@ static BOOL viewerControllerPlaying = NO;
         [[[self imageView] curDCM] orientation:orientA];
 		[[[blendingController imageView] curDCM] orientation:orientB];
 		
-		if ([DCMView angleBetweenVector: orientA+6 andVector:orientB+6] > [[NSUserDefaults standardUserDefaults] floatForKey: @"PARALLELPLANETOLERANCE"])  // Planes are not paralel!
+		if ([DCMView angleBetweenVector: orientA+6 andVector:orientB+6] > [[NSUserDefaults standardUserDefaults] floatForKey: @"PARALLELPLANETOLERANCE"])  // Planes are not parallel
 		{
             NSRunCriticalAlertPanel(NSLocalizedString(@"2D Planes",nil),
                                     NSLocalizedString(@"These 2D planes are not parallel, you cannot use the 2D Orthogonal MPR viewer. Instead, try the 3D MPR viewer.",nil),
@@ -23046,7 +23050,6 @@ static BOOL viewerControllerPlaying = NO;
 
 -(IBAction) orthogonalMPRViewer:(id) sender
 {
-	
 	[self checkEverythingLoaded];
 	[self clear8bitRepresentations];
 			
@@ -23056,79 +23059,77 @@ static BOOL viewerControllerPlaying = NO;
 		([[[NSApplication sharedApplication] currentEvent] modifierFlags] & NSEventModifierFlagShift))
 	{
 		[self SetThicknessInterval:sender];
+        return;
 	}
-	else
-	{
-		if ([self isDataVolumicIn4D: YES checkEverythingLoaded: YES tryToCorrect: YES checkForSliceInterval: YES] == NO) // || [[imageView curDCM] isRGB] == YES)
-		{
-            if ([self isDataVolumicIn4D: YES checkEverythingLoaded: YES tryToCorrect: YES checkForSliceInterval: NO])
+	
+    if ([self isDataVolumicIn4D: YES checkEverythingLoaded: YES tryToCorrect: YES checkForSliceInterval: YES] == NO) // || [[imageView curDCM] isRGB] == YES)
+    {
+        if ([self isDataVolumicIn4D: YES checkEverythingLoaded: YES tryToCorrect: YES checkForSliceInterval: NO])
+        {
+            if (NSRunAlertPanel(NSLocalizedString(@"Data Error", nil),
+                                NSLocalizedString(@"Warning! Slice interval/thickness is varying, it can create distortion in 3D.", nil),
+                                NSLocalizedString(@"Cancel", nil),
+                                NSLocalizedString(@"Continue", nil),
+                                nil
+                                ) == NSAlertDefaultReturn)
             {
-                if (NSRunAlertPanel(NSLocalizedString(@"Data Error", nil),
-                                    NSLocalizedString(@"Warning! Slice interval/thickness is varying, it can create distortion in 3D.", nil),
-                                    NSLocalizedString(@"Cancel", nil),
-                                    NSLocalizedString(@"Continue", nil),
-                                    nil
-                                    ) == NSAlertDefaultReturn)
-                {
-                    return;
-                }
-            }
-            else
-            {
-                NSRunAlertPanel(NSLocalizedString(@"MPR", nil),
-                                NSLocalizedString(@"MPR requires volumic data.", nil),
-                                nil,
-                                nil,
-                                nil);
                 return;
             }
-		}
-		
-		[self displayAWarningIfNonTrueVolumicData];
-		[self displayWarningIfGantryTitled];
-		
-		[blendingController displayAWarningIfNonTrueVolumicData];
-		[blendingController displayWarningIfGantryTitled];
-		
-		[self MovieStop: self];
-		
-		OrthogonalMPRViewer *viewer;
-		
-		if (blendingController)
-			viewer = [[AppController sharedAppController] FindViewer :@"PETCT" :pixList[0]];
-		else
-			viewer = [[AppController sharedAppController] FindViewer :@"OrthogonalMPR" :pixList[0]];
-		
-		if (viewer)
-		{
-			[[viewer window] makeKeyAndOrderFront:self];
-		}
-		else
-		{
+        }
+        else
+        {
+            NSRunAlertPanel(NSLocalizedString(@"MPR", nil),
+                            NSLocalizedString(@"MPR requires volumic data.", nil),
+                            nil,
+                            nil,
+                            nil);
+            return;
+        }
+    }
+    
+    [self displayAWarningIfNonTrueVolumicData];
+    [self displayWarningIfGantryTitled];
+    
+    [blendingController displayAWarningIfNonTrueVolumicData];
+    [blendingController displayWarningIfGantryTitled];
+    
+    [self MovieStop: self];
+    
+    OrthogonalMPRViewer *viewer;
+    
+    if (blendingController)
+        viewer = [[AppController sharedAppController] FindViewer :@"PETCT" :pixList[0]];
+    else
+        viewer = [[AppController sharedAppController] FindViewer :@"OrthogonalMPR" :pixList[0]];
+    
+    if (viewer)
+    {
+        [[viewer window] makeKeyAndOrderFront:self];
+        return;
+    }
+    
 #ifndef OSIRIX_LIGHT
-			if (blendingController)
-			{
-				OrthogonalMPRPETCTViewer *pcviewer = [self openOrthogonalMPRPETCTViewer];
-				NSDate *studyDate = [[fileList[curMovieIndex] objectAtIndex:0] valueForKeyPath:@"series.study.date"];
-				
-				[[pcviewer window] setTitle: [NSString stringWithFormat:@"%@: %@ - %@", [[pcviewer window] title], [BrowserController DateTimeFormat: studyDate], [[self window] title]]];
-			}
-			else
+    if (blendingController)
+    {
+        OrthogonalMPRPETCTViewer *pcviewer = [self openOrthogonalMPRPETCTViewer];
+        NSDate *studyDate = [[fileList[curMovieIndex] objectAtIndex:0] valueForKeyPath:@"series.study.date"];
+        
+        [[pcviewer window] setTitle: [NSString stringWithFormat:@"%@: %@ - %@", [[pcviewer window] title], [BrowserController DateTimeFormat: studyDate], [[self window] title]]];
+    }
+    else
 #endif
-			{
-				viewer = [self openOrthogonalMPRViewer];
-				
-				[self place3DViewerWindow: viewer];
-				[viewer showWindow:self];
-				
-				float   iwl, iww;
-				[imageView getWLWW:&iwl :&iww];
-				[viewer setWLWW:iwl :iww];
-				
-				[[viewer window] setTitle: [NSString stringWithFormat:@"%@: %@ - %@", [[viewer window] title], [NSUserDefaults formatDateTime: [[fileList[0] objectAtIndex:0]  valueForKeyPath:@"series.study.date"]], [[self window] title]]];
-			}
-		}
-	}
+    {
+        viewer = [self openOrthogonalMPRViewer];
+        
+        [self place3DViewerWindow: viewer];
+        [viewer showWindow:self];
+        
+        float iwl, iww;
+        [imageView getWLWW:&iwl :&iww];
+        [viewer setWLWW:iwl :iww];
+        
+        [[viewer window] setTitle: [NSString stringWithFormat:@"%@: %@ - %@", [[viewer window] title], [NSUserDefaults formatDateTime: [[fileList[0] objectAtIndex:0]  valueForKeyPath:@"series.study.date"]], [[self window] title]]];
+    }
 }
 
 #ifndef OSIRIX_LIGHT
@@ -23139,8 +23140,10 @@ static BOOL viewerControllerPlaying = NO;
 	EndoscopyViewer *viewer;
 		
 	viewer = [[AppController sharedAppController] FindViewer :@"Endoscopy" :pixList[0]];
-	if (viewer)
+    if (viewer) {
+        NSLog(@"%s %d, Found viewer: Endoscopy", __FUNCTION__, __LINE__);
 		return viewer;
+    }
 	
 	viewer = [[EndoscopyViewer alloc] initWithPixList:pixList[0] :fileList[0] :volumeData[0] :blendingController : self];
 	return viewer;
@@ -23157,55 +23160,53 @@ static BOOL viewerControllerPlaying = NO;
 		([[[NSApplication sharedApplication] currentEvent] modifierFlags] & NSEventModifierFlagShift))
 	{
 		[self SetThicknessInterval:sender];
+        return;
 	}
-	else
-	{
-        if ([self isDataVolumicIn4D: YES checkEverythingLoaded: YES tryToCorrect: YES checkForSliceInterval: YES] == NO)
+	
+    if ([self isDataVolumicIn4D: YES checkEverythingLoaded: YES tryToCorrect: YES checkForSliceInterval: YES] == NO)
+    {
+        if ([self isDataVolumicIn4D: YES checkEverythingLoaded: YES tryToCorrect: YES checkForSliceInterval: NO])
         {
-            if ([self isDataVolumicIn4D: YES checkEverythingLoaded: YES tryToCorrect: YES checkForSliceInterval: NO])
+            if (NSRunAlertPanel(NSLocalizedString(@"Data Error", nil),
+                                NSLocalizedString(@"Warning! Slice interval/thickness is varying, it can create distortion in 3D.", nil),
+                                NSLocalizedString(@"Cancel", nil),
+                                NSLocalizedString(@"Continue", nil),
+                                nil
+                                ) == NSAlertDefaultReturn)
             {
-                if (NSRunAlertPanel(NSLocalizedString(@"Data Error", nil),
-                                    NSLocalizedString(@"Warning! Slice interval/thickness is varying, it can create distortion in 3D.", nil),
-                                    NSLocalizedString(@"Cancel", nil),
-                                    NSLocalizedString(@"Continue", nil),
-                                    nil
-                                    ) == NSAlertDefaultReturn)
-                {
-                    return;
-                }
-            }
-            else
-            {
-                NSRunAlertPanel(NSLocalizedString(@"Endoscopy", nil),
-                                NSLocalizedString(@"Endoscopy requires volumic data.", nil),
-                                nil,
-                                nil,
-                                nil);
                 return;
             }
         }
-        
-		[self displayAWarningIfNonTrueVolumicData];
-		[self displayWarningIfGantryTitled];
-		
-		[self MovieStop: self];
-		
-		EndoscopyViewer *viewer;
-		
-		viewer = [[AppController sharedAppController] FindViewer :@"Endoscopy" :pixList[0]];
-		
-		if (viewer)
-		{
-			[[viewer window] makeKeyAndOrderFront:self];
-		}
-		else
-		{
-			viewer = [self openEndoscopyViewer];
-			[self place3DViewerWindow: viewer];
-			[viewer showWindow:self];
-			[[viewer window] setTitle: [NSString stringWithFormat:@"%@: %@", [[viewer window] title], [[self window] title]]];
-		}
-	}
+        else
+        {
+            NSRunAlertPanel(NSLocalizedString(@"Endoscopy", nil),
+                            NSLocalizedString(@"Endoscopy requires volumic data.", nil),
+                            nil,
+                            nil,
+                            nil);
+            return;
+        }
+    }
+    
+    [self displayAWarningIfNonTrueVolumicData];
+    [self displayWarningIfGantryTitled];
+    
+    [self MovieStop: self];
+    
+    EndoscopyViewer *viewer;
+    
+    viewer = [[AppController sharedAppController] FindViewer :@"Endoscopy" :pixList[0]];
+    if (viewer)
+    {
+        NSLog(@"%s %d, found viewer: Endoscopy", __FUNCTION__, __LINE__);
+        [[viewer window] makeKeyAndOrderFront:self];
+        return;
+    }
+
+    viewer = [self openEndoscopyViewer];
+    [self place3DViewerWindow: viewer];
+    [viewer showWindow:self];
+    [[viewer window] setTitle: [NSString stringWithFormat:@"%@: %@", [[viewer window] title], [[self window] title]]];
 }
 #endif
 
@@ -23253,13 +23254,21 @@ static BOOL viewerControllerPlaying = NO;
 #ifndef OSIRIX_LIGHT
 - (MPRController *)openMPRViewer
 {
+#ifdef DEBUG_3D_MPR
+    NSLog(@"%s %d %@", __FUNCTION__, __LINE__, NSStringFromClass([self class]));
+#endif
 	[self checkEverythingLoaded];
 	[self clear8bitRepresentations];
 	
 	MPRController *viewer = [[AppController sharedAppController] FindViewer:@"MPR" :pixList[0]];
-	if (viewer)
+    if (viewer) {
+#ifdef DEBUG_3D_MPR
+        NSLog(@"%s %d, found viewer: MPR", __FUNCTION__, __LINE__);
+#endif
 		return viewer;
+    }
 	
+#ifndef DEBUG_3D_MPR
 	viewer = [[MPRController alloc] initWithDCMPixList: pixList[0]
                                              filesList: fileList[0]
                                             volumeData: volumeData[0]
@@ -23268,73 +23277,86 @@ static BOOL viewerControllerPlaying = NO;
     
 	for (int i = 1; i < maxMovieIndex; i++)
 		[viewer addMoviePixList:pixList[ i] :volumeData[ i]];
+#endif
 	
 	return viewer;
 }
 
 - (IBAction) mprViewer:(id) sender
 {
+#ifdef DEBUG_3D_MPR
+    NSLog(@"%s %d %@", __FUNCTION__, __LINE__, NSStringFromClass([self class]));
+#endif
 	[self checkEverythingLoaded];
 	[self clear8bitRepresentations];
 	
+#if 1 //def DEBUG_3D_MPR
+    NSLog(@"%s %d %@, pixList[0] count: %lu", __FUNCTION__, __LINE__, NSStringFromClass([self class]), (unsigned long)[pixList[0] count]);
+#endif
 	if ([self computeInterval] == 0 ||
 	   [[pixList[0] objectAtIndex:0] pixelSpacingX] == 0 ||
 	   [[pixList[0] objectAtIndex:0] pixelSpacingY] == 0 ||
 	   ([[[NSApplication sharedApplication] currentEvent] modifierFlags] & NSEventModifierFlagShift))
 	{
 		[self SetThicknessInterval:sender];
+        return;
 	}
-	else
-	{
-        if ([self isDataVolumicIn4D: YES checkEverythingLoaded: YES tryToCorrect: YES checkForSliceInterval: YES] == NO)
+
+    if ([self isDataVolumicIn4D: YES checkEverythingLoaded: YES tryToCorrect: YES checkForSliceInterval: YES] == NO)
+    {
+        if ([self isDataVolumicIn4D: YES checkEverythingLoaded: YES tryToCorrect: YES checkForSliceInterval: NO])
         {
-            if ([self isDataVolumicIn4D: YES checkEverythingLoaded: YES tryToCorrect: YES checkForSliceInterval: NO])
-            {
-                if (NSRunAlertPanel(NSLocalizedString(@"Data Error", nil),
-                                    NSLocalizedString(@"Warning! Slice interval/thickness is varying, it can create distortion in 3D.", nil),
-                                    NSLocalizedString(@"Cancel", nil),
-                                    NSLocalizedString(@"Continue", nil),
-                                    nil) == NSAlertDefaultReturn)
-                    return;
-            }
-            else
-            {
-                NSRunAlertPanel(NSLocalizedString(@"MPR", nil),
-                                NSLocalizedString(@"MPR requires volumic data.", nil),
-                                nil,
-                                nil,
-                                nil);
+            if (NSRunAlertPanel(NSLocalizedString(@"Data Error", nil),
+                                NSLocalizedString(@"Warning! Slice interval/thickness is varying, it can create distortion in 3D.", nil),
+                                NSLocalizedString(@"Cancel", nil),
+                                NSLocalizedString(@"Continue", nil),
+                                nil) == NSAlertDefaultReturn)
                 return;
-            }
         }
-		
-		[self displayAWarningIfNonTrueVolumicData];
-		[self displayWarningIfGantryTitled];
-		
-		[self MovieStop: self];
-		
-		MPRController *viewer = [[AppController sharedAppController] FindViewer :@"MPR" :pixList[0]];		
-		if (viewer)
-		{
-			[[viewer window] makeKeyAndOrderFront:self];
-		}
-		else
-		{
-			viewer = [self openMPRViewer];
-			[self place3DViewerWindow:viewer];
-			[viewer showWindow:self];
-			[[viewer window] setTitle: [NSString stringWithFormat:@"%@: %@", [[viewer window] title], [[self window] title]]];
-#if 1 // Horos
-            dispatch_async(dispatch_get_main_queue(), ^(){
-                [viewer showWindow:self];
-                [viewer showWindow:self];
-            });
+        else
+        {
+            NSRunAlertPanel(NSLocalizedString(@"MPR", nil),
+                            NSLocalizedString(@"MPR requires volumic data.", nil),
+                            nil,
+                            nil,
+                            nil);
+            return;
+        }
+    }
+    
+    [self displayAWarningIfNonTrueVolumicData];
+    [self displayWarningIfGantryTitled];
+    
+    [self MovieStop: self];
+    
+#ifdef DEBUG_3D_MPR
+    NSLog(@"%s %d %@, pixList count: %lu", __FUNCTION__, __LINE__, NSStringFromClass([self class]), (unsigned long)[*pixList count]);
 #endif
-		}
-	}
+    MPRController *viewer = [[AppController sharedAppController] FindViewer :@"MPR" :pixList[0]];
+    if (viewer)
+    {
+#ifdef DEBUG_3D_MPR
+        NSLog(@"%s %d %@", __FUNCTION__, __LINE__, NSStringFromClass([self class]));
+#endif
+        [[viewer window] makeKeyAndOrderFront:self];
+        return;
+    }
+    
+#ifdef DEBUG_3D_MPR
+    NSLog(@"%s %d %@", __FUNCTION__, __LINE__, NSStringFromClass([self class]));
+#endif
+    viewer = [self openMPRViewer];
+    [self place3DViewerWindow:viewer];
+    [viewer showWindow:self];
+    [[viewer window] setTitle: [NSString stringWithFormat:@"%@: %@", [[viewer window] title], [[self window] title]]];
+#if 1 // Horos
+    dispatch_async(dispatch_get_main_queue(), ^(){
+        [viewer showWindow:self];
+        [viewer showWindow:self];
+    });
+#endif
 }
 
-// Handler to open the CPRViewer
 - (CPRController *)openCPRViewer
 {
     [self checkEverythingLoaded];
@@ -23342,8 +23364,12 @@ static BOOL viewerControllerPlaying = NO;
 	
 	CPRController *viewer;
 	viewer = [[AppController sharedAppController] FindViewer:@"CPR" :pixList[0]];
-	if (viewer)
+    if (viewer) {
+#ifdef DEBUG_3D_CPR
+        NSLog(@"%s %d, found viewer: CPR", __FUNCTION__, __LINE__);
+#endif
 		return viewer;
+    }
 	
 	viewer = [[CPRController alloc] initWithDCMPixList: pixList[0]
                                              filesList: fileList[0]
@@ -23369,60 +23395,58 @@ static BOOL viewerControllerPlaying = NO;
 	   ([[[NSApplication sharedApplication] currentEvent] modifierFlags] & NSEventModifierFlagShift))
 	{
 		[self SetThicknessInterval:sender];
+        return;
 	}
-	else
-	{
-        if ([self isDataVolumicIn4D: YES checkEverythingLoaded: YES tryToCorrect: YES checkForSliceInterval: YES] == NO)
+
+    if ([self isDataVolumicIn4D: YES checkEverythingLoaded: YES tryToCorrect: YES checkForSliceInterval: YES] == NO)
+    {
+        if ([self isDataVolumicIn4D: YES checkEverythingLoaded: YES tryToCorrect: YES checkForSliceInterval: NO])
         {
-            if ([self isDataVolumicIn4D: YES checkEverythingLoaded: YES tryToCorrect: YES checkForSliceInterval: NO])
-            {
-                if (NSRunAlertPanel(NSLocalizedString(@"Data Error", nil),
-                                    NSLocalizedString(@"Warning! Slice interval/thickness is varying, it can create distortion in 3D.", nil),
-                                    NSLocalizedString(@"Cancel", nil),
-                                    NSLocalizedString(@"Continue", nil),
-                                    nil) == NSAlertDefaultReturn)
-                    return;
-            }
-            else
-            {
-                NSRunAlertPanel(NSLocalizedString(@"CPR", nil),
-                                NSLocalizedString(@"CPR requires volumic data and BW images.", nil),
-                                nil,
-                                nil,
-                                nil);
+            if (NSRunAlertPanel(NSLocalizedString(@"Data Error", nil),
+                                NSLocalizedString(@"Warning! Slice interval/thickness is varying, it can create distortion in 3D.", nil),
+                                NSLocalizedString(@"Cancel", nil),
+                                NSLocalizedString(@"Continue", nil),
+                                nil) == NSAlertDefaultReturn)
                 return;
-            }
         }
-        
-		[self displayAWarningIfNonTrueVolumicData];
-		[self displayWarningIfGantryTitled];
-		[self MovieStop: self];
-		
-		CPRController *viewer = [[AppController sharedAppController] FindViewer:@"CPR" :pixList[0]];
-		if (viewer)
-		{
-			[[viewer window] makeKeyAndOrderFront:self];
-		}
-		else
-		{
+        else
+        {
+            NSRunAlertPanel(NSLocalizedString(@"CPR", nil),
+                            NSLocalizedString(@"CPR requires volumic data and BW images.", nil),
+                            nil,
+                            nil,
+                            nil);
+            return;
+        }
+    }
+    
+    [self displayAWarningIfNonTrueVolumicData];
+    [self displayWarningIfGantryTitled];
+    [self MovieStop: self];
+    
+    CPRController *viewer = [[AppController sharedAppController] FindViewer:@"CPR" :pixList[0]];
+    if (viewer)
+    {
+        [[viewer window] makeKeyAndOrderFront:self];
+        return;
+    }
+
 #if 1 // Horos
-            id waitWindow = [self startWaitWindow:NSLocalizedString(@"Loading...",nil)];
+    id waitWindow = [self startWaitWindow:NSLocalizedString(@"Loading...",nil)];
 #endif
-			viewer = [self openCPRViewer];
-			[self place3DViewerWindow:viewer];
-			[viewer showWindow:self];
-			[[viewer window] setTitle: [NSString stringWithFormat:@"%@: %@",
-                                        [[viewer window] title],
-                                        [[self window] title]]];
+    viewer = [self openCPRViewer];
+    [self place3DViewerWindow:viewer];
+    [viewer showWindow:self];
+    [[viewer window] setTitle: [NSString stringWithFormat:@"%@: %@",
+                                [[viewer window] title],
+                                [[self window] title]]];
 #if 1 // Horos
-            dispatch_async(dispatch_get_main_queue(), ^(){
-                [viewer showWindow:self];
-                [viewer showWindow:self];
-                [self endWaitWindow:waitWindow];
-            });
+    dispatch_async(dispatch_get_main_queue(), ^(){
+        [viewer showWindow:self];
+        [viewer showWindow:self];
+        [self endWaitWindow:waitWindow];
+    });
 #endif
-		}
-	}
 }
 #endif
 
@@ -23560,6 +23584,9 @@ static BOOL viewerControllerPlaying = NO;
 
 -(void) checkEverythingLoaded
 {
+#ifdef DEBUG_3D_MPR
+    NSLog(@"%s %d %@ %p", __FUNCTION__, __LINE__, NSStringFromClass([self class]), self);
+#endif
     BOOL isExecuting;
     
     @synchronized( loadingThread)
@@ -24316,7 +24343,7 @@ static BOOL viewerControllerPlaying = NO;
 	return imageView.imageObj;
 }
 
-#pragma mark - Convience methods for accessing values in the current imageView
+#pragma mark - Convenience methods for accessing values in the current imageView
 -(float)curWW
 {
 	return [imageView curWW];

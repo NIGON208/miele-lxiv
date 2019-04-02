@@ -38,7 +38,7 @@
 		43110BEB21679E5B00B0405B /* DCM.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 844719AF0FD8EF50003BFDF8 /* DCM.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4333FD721AB3082C00E82B49 /* DcmQueryRetrieveOsiriSCP.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4333FD711AB3082C00E82B49 /* DcmQueryRetrieveOsiriSCP.mm */; };
 		433DA138215A5B2600D5A70B /* BrowserController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 433DA136215A5B2500D5A70B /* BrowserController.mm */; };
-		433F9A801A1B18A500E52C6C /* VTKView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 433F9A7E1A1B18A500E52C6C /* VTKView.mm */; };
+		433F9A801A1B18A500E52C6C /* vtkMieleView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 433F9A7E1A1B18A500E52C6C /* vtkMieleView.mm */; };
 		433F9A891A1B7C1C00E52C6C /* OsiriXFixedPointVolumeRayCastMapper.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 433F9A871A1B7C1C00E52C6C /* OsiriXFixedPointVolumeRayCastMapper.cxx */; };
 		434499B21A1D70840047F0F2 /* options.h in Headers */ = {isa = PBXBuildFile; fileRef = 434B46151A19F2A3008CF8CF /* options.h */; };
 		434B46191A19F322008CF8CF /* options.h in Headers */ = {isa = PBXBuildFile; fileRef = 434B46151A19F2A3008CF8CF /* options.h */; };
@@ -2252,8 +2252,8 @@
 		433DA137215A5B2500D5A70B /* BrowserController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrowserController.h; sourceTree = "<group>"; };
 		433E5B87223B873600AD47B6 /* AYDcmPrintSCU.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AYDcmPrintSCU.h; path = DICOMPrint/AYDcmPrintSCU.h; sourceTree = "<group>"; };
 		433E5B88223B876700AD47B6 /* AYPrintManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AYPrintManager.h; path = DICOMPrint/AYPrintManager.h; sourceTree = "<group>"; };
-		433F9A7E1A1B18A500E52C6C /* VTKView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VTKView.mm; sourceTree = "<group>"; };
-		433F9A7F1A1B18A500E52C6C /* VTKViewOSIRIX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VTKViewOSIRIX.h; sourceTree = "<group>"; };
+		433F9A7E1A1B18A500E52C6C /* vtkMieleView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = vtkMieleView.mm; sourceTree = "<group>"; };
+		433F9A7F1A1B18A500E52C6C /* vtkMieleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vtkMieleView.h; sourceTree = "<group>"; };
 		433F9A871A1B7C1C00E52C6C /* OsiriXFixedPointVolumeRayCastMapper.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OsiriXFixedPointVolumeRayCastMapper.cxx; sourceTree = "<group>"; };
 		433F9A881A1B7C1C00E52C6C /* OsiriXFixedPointVolumeRayCastMapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OsiriXFixedPointVolumeRayCastMapper.h; sourceTree = "<group>"; };
 		434B46151A19F2A3008CF8CF /* options.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = options.h; sourceTree = "<group>"; };
@@ -3866,8 +3866,8 @@
 				8417219210D8D707001A833F /* HTTP-HTTPS Server */,
 				433F9A871A1B7C1C00E52C6C /* OsiriXFixedPointVolumeRayCastMapper.cxx */,
 				433F9A881A1B7C1C00E52C6C /* OsiriXFixedPointVolumeRayCastMapper.h */,
-				433F9A7E1A1B18A500E52C6C /* VTKView.mm */,
-				433F9A7F1A1B18A500E52C6C /* VTKViewOSIRIX.h */,
+				433F9A7E1A1B18A500E52C6C /* vtkMieleView.mm */,
+				433F9A7F1A1B18A500E52C6C /* vtkMieleView.h */,
 				CE96D0F20BEE71E800C4E397 /* mdfconen.cc */,
 				CE96D0F30BEE71E800C4E397 /* mdfconen.h */,
 				CE96D1160BEE732900C4E397 /* mdfdsman.h */,
@@ -8122,7 +8122,7 @@
 				5909DF94130C3D1900788195 /* NSException+N2.mm in Sources */,
 				4F2446B21320F1B500D55426 /* CPRObliqueSliceOperation.mm in Sources */,
 				CEB98990133500D30083F3FD /* OSIWebSharingPreferencePanePref.mm in Sources */,
-				433F9A801A1B18A500E52C6C /* VTKView.mm in Sources */,
+				433F9A801A1B18A500E52C6C /* vtkMieleView.mm in Sources */,
 				CEB98A04133507AC0083F3FD /* OSIViewerPreferencePanePref.mm in Sources */,
 				CEB98A0E133507BB0083F3FD /* OSIPETPreferencePane.mm in Sources */,
 				CEB98A1A133507C80083F3FD /* OSILocationsPreferencePanePref.mm in Sources */,

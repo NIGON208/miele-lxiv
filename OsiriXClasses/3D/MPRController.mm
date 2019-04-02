@@ -83,6 +83,9 @@ static float deg2rad = M_PI/180.0;
         viewerController:(ViewerController*)viewer
    fusedViewerController:(ViewerController*)fusedViewer;
 {
+#ifdef DEBUG_3D_MPR
+    NSLog(@"%s %d %@", __FUNCTION__, __LINE__, NSStringFromClass([self class]));
+#endif
 	@try
 	{
 		if( [[NSUserDefaults standardUserDefaults] integerForKey: @"ANNOTATIONS"] == annotNone)

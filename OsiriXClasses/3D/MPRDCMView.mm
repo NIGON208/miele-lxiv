@@ -24,23 +24,19 @@
 #import "OSIROI.h"
 #import "OSIVolumeWindow.h"
 #import "OSIGeometry.h"
+#import "vtkMath.h"
 
-static float deg2rad = M_PI/180.0; 
-
-#define CROSS(dest,v1,v2) \
-          dest[0]=v1[1]*v2[2]-v1[2]*v2[1]; \
-          dest[1]=v1[2]*v2[0]-v1[0]*v2[2]; \
-          dest[2]=v1[0]*v2[1]-v1[1]*v2[0];
+static float deg2rad = M_PI/180.0;
 		  
 BOOL arePlanesParallel( float *Pn1, float *Pn2)
 {
 	float u[ 3];
+
+    vtkMath::Cross(Pn1, Pn2, u);
 	
-	CROSS(u, Pn1, Pn2);
-	
-	float    ax = (u[0] >= 0 ? u[0] : -u[0]);
-    float    ay = (u[1] >= 0 ? u[1] : -u[1]);
-    float    az = (u[2] >= 0 ? u[2] : -u[2]);
+	float ax = (u[0] >= 0 ? u[0] : -u[0]);
+    float ay = (u[1] >= 0 ? u[1] : -u[1]);
+    float az = (u[2] >= 0 ? u[2] : -u[2]);
 	
     if ((ax+ay+az) < 0.001)
 		return YES;
@@ -54,11 +50,15 @@ static	int splitPosition[ 2];
 static	BOOL frameZoomed = NO;
 unsigned int minimumStep;
 
+#pragma mark -
+
 @interface MPRDCMView ()
 - (void)drawOSIROIs;
 - (OSIROIManager *)ROIManager;
 - (N3Plane)plane;
 @end
+
+#pragma mark -
 
 @implementation MPRDCMView
 
@@ -224,7 +224,7 @@ unsigned int minimumStep;
 		return YES;
 	}
 	
-	#define PRECISION 0.0001
+#define PRECISION 0.0001
 	
 	if (fabs( currentCamera.position.x - camera.position.x) > PRECISION) return YES;
 	if (fabs( currentCamera.position.y - camera.position.y) > PRECISION) return YES;
@@ -399,7 +399,8 @@ unsigned int minimumStep;
 		else
 			[vrView setLOD: LOD];
 				
-        if ([self frame].size.width > 0 && [self frame].size.height > 0)
+        if ([self frame].size.width > 0 &&
+            [self frame].size.height > 0)
         {
             if (windowController.maxMovieIndex > 1 &&
                (windowController.clippingRangeMode == 1 ||
@@ -416,8 +417,9 @@ unsigned int minimumStep;
             }
             else
                 lastRenderingWasMoveCenter = NO;
-            
+#ifdef NDEBUG // DEBUG_3D_MPR
             [vrView render];
+#endif
         }
 		
 		float *imagePtr = nil;
@@ -727,14 +729,26 @@ unsigned int minimumStep;
 
 - (void) subDrawRect: (NSRect) r
 {
-	if ([stringID isEqualToString: @"export"] && [[NSUserDefaults standardUserDefaults] boolForKey: @"exportDCMIncludeAllViews"] == NO)
+#if 0 //def DEBUG_3D_MPR
+    NSLog(@"%s %d, class: %@, %p, %d, rect: %@", __FUNCTION__, __LINE__,
+          NSStringFromClass([self class]), self,
+          viewID,
+          NSStringFromRect(r));
+#endif
+	if ([stringID isEqualToString: @"export"] &&
+        [[NSUserDefaults standardUserDefaults] boolForKey: @"exportDCMIncludeAllViews"] == NO)
+    {
+        NSLog(@"%s %d, class: %@, %p early return", __FUNCTION__, __LINE__, NSStringFromClass([self class]), self);
 		return;
+    }
 	
 	rotation = 0;
 	
 	CGLContextObj cgl_ctx = [[NSOpenGLContext currentContext] CGLContextObj];
-    if (cgl_ctx == nil)
+    if (cgl_ctx == nil) {
+        NSLog(@"%s %d, %@, %p %d early return", __FUNCTION__, __LINE__, NSStringFromClass([self class]), self, viewID);
         return;
+    }
     
 	glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
 	glEnable(GL_BLEND);
@@ -742,15 +756,21 @@ unsigned int minimumStep;
 	glEnable(GL_LINE_SMOOTH);
 	glPointSize( 12 * self.window.backingScaleFactor);
 	
+    //NSLog(@"%s %d, %@, %p, ID:%d", __FUNCTION__, __LINE__, NSStringFromClass([self class]), self, viewID);
+
 	if (displayCrossLines && frameZoomed == NO)
 	{
 		// All pix have the same thickness
 		float thickness = [pix sliceThickness];
+        //NSLog(@"%s %d, %@, %p, ID:%d", __FUNCTION__, __LINE__, NSStringFromClass([self class]), self, viewID);
 		
 		switch( viewID)
 		{
 			case 1:
-				glColor4f ([windowController.colorAxis2 redComponent], [windowController.colorAxis2 greenComponent], [windowController.colorAxis2 blueComponent], [windowController.colorAxis2 alphaComponent]);
+				glColor4f([windowController.colorAxis2 redComponent],
+                          [windowController.colorAxis2 greenComponent],
+                          [windowController.colorAxis2 blueComponent],
+                          [windowController.colorAxis2 alphaComponent]);
 				if (crossLinesA[ 0][ 0] != HUGE_VALF)
 				{
 					[self drawLine: crossLinesA thickness: thickness];
@@ -761,7 +781,7 @@ unsigned int minimumStep;
 					if (viewExport == 0 && windowController.dcmMode == 0 && windowController.dcmSeriesMode == 1) // Rotation
 						[self drawRotationLines: crossLinesA];
 				}
-				glColor4f ([windowController.colorAxis3 redComponent], [windowController.colorAxis3 greenComponent], [windowController.colorAxis3 blueComponent], [windowController.colorAxis3 alphaComponent]);
+				glColor4f([windowController.colorAxis3 redComponent], [windowController.colorAxis3 greenComponent], [windowController.colorAxis3 blueComponent], [windowController.colorAxis3 alphaComponent]);
 				if (crossLinesB[ 0][ 0] != HUGE_VALF)
 				{
 					[self drawLine: crossLinesB thickness: thickness];
@@ -775,7 +795,7 @@ unsigned int minimumStep;
 			break;
 			
 			case 2:
-				glColor4f ([windowController.colorAxis1 redComponent], [windowController.colorAxis1 greenComponent], [windowController.colorAxis1 blueComponent], [windowController.colorAxis1 alphaComponent]);
+				glColor4f([windowController.colorAxis1 redComponent], [windowController.colorAxis1 greenComponent], [windowController.colorAxis1 blueComponent], [windowController.colorAxis1 alphaComponent]);
 				if (crossLinesA[ 0][ 0] != HUGE_VALF)
 				{
 					[self drawLine: crossLinesA thickness: thickness];
@@ -824,13 +844,18 @@ unsigned int minimumStep;
 					if (viewExport == 1 && windowController.dcmMode == 0 && windowController.dcmSeriesMode == 1) // Rotation
 						[self drawRotationLines: crossLinesB];
 				}
-			break;
+			
+                break;
 		}
 	}
 	
-	if ([stringID isEqualToString: @"export"])
+    if ([stringID isEqualToString: @"export"]) {
+        NSLog(@"%s %d, %@, %p, ID:%d early return", __FUNCTION__, __LINE__, NSStringFromClass([self class]), self, viewID);
 		return;
+    }
 	
+    //NSLog(@"%s %d, %@, %p, ID:%d", __FUNCTION__, __LINE__, NSStringFromClass([self class]), self, viewID);
+
 	float heighthalf = [self convertSizeToBacking: self.frame.size].height/2;
 	float widthhalf = [self convertSizeToBacking: self.frame.size].width/2;
 	
@@ -905,7 +930,6 @@ unsigned int minimumStep;
 			sc[1] -= curDCM.pheight * 0.5f;
 			glVertex2f( scaleValue*sc[ 0], scaleValue*sc[ 1]);
 			glEnd();
-
 			
 			[self colorForView:viewIDB];
 			pt = windowController.mousePosition;
@@ -926,7 +950,8 @@ unsigned int minimumStep;
 			glEnd();
 
 		}
-		if (viewID != windowController.mouseViewID)
+
+        if (viewID != windowController.mouseViewID)
 		{
 			[self colorForView: viewID];
 //			[self colorForView: windowController.mouseViewID];
@@ -1133,16 +1158,21 @@ unsigned int minimumStep;
     pixToDicomTransform.m33 = orientation[8];
     
 #ifndef NDEBUG
-	if (isnan( pix.pixelSpacingX) || isnan( pix.pixelSpacingY) || pix.pixelSpacingX <= 0 || pix.pixelSpacingY <= 0 || pix.pixelSpacingX > 1000 || pix.pixelSpacingY > 1000)
+	if (isnan( pix.pixelSpacingX) ||
+        isnan( pix.pixelSpacingY) ||
+        pix.pixelSpacingX <= 0 ||
+        pix.pixelSpacingY <= 0 ||
+        pix.pixelSpacingX > 1000 ||
+        pix.pixelSpacingY > 1000)
+    {
 		NSLog( @"******* CPR pixel spacing incorrect for pixToSubDrawRectTransform");
+    }
 #endif
 	
     return pixToDicomTransform;
 }
 
-
-#pragma mark-
-#pragma mark 3D ROI Point	
+#pragma mark - 3D ROI Point
 
 - (void) detect2DPointInThisSlice
 {
@@ -1154,7 +1184,7 @@ unsigned int minimumStep;
 		
 		NSMutableDictionary *ROIsStateSaved = [NSMutableDictionary dictionary];
 		
-		for( int i = (long)[curRoiList count] -1 ; i >= 0; i--)
+		for (int i = (long)[curRoiList count] -1 ; i >= 0; i--)
 		{
 			ROI *r = [curRoiList objectAtIndex: i];
 			if ([r type] == t2DPoint)
@@ -1168,7 +1198,7 @@ unsigned int minimumStep;
 		NSArray *roiList = [viewer2D roiList: [windowController curMovieIndex]];
 		NSArray *pixList = [viewer2D pixList: [windowController curMovieIndex]];
 		
-		for( int i = 0; i < [roiList count]; i++)
+		for (int i = 0; i < [roiList count]; i++)
 		{
 			NSArray *pts = [roiList objectAtIndex: i];
 			DCMPix *p = [pixList objectAtIndex: i];
@@ -1183,8 +1213,8 @@ unsigned int minimumStep;
 					
 					// Is this point in our plane?
 					
-					float	vectors[ 9], orig[ 3], locationTemp[ 3];
-					float	distance = 999999;
+					float vectors[ 9], orig[ 3], locationTemp[ 3];
+					float distance = 999999;
 					
 					orig[ 0] = [pix originX];
 					orig[ 1] = [pix originY];

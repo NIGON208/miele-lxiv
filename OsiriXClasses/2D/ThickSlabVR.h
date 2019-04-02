@@ -12,12 +12,10 @@
      PURPOSE.
 =========================================================================*/
 
-
-
-
 #import <Foundation/Foundation.h>
 
-#import "VTKViewOSIRIX.h"
+#import "vtkMieleView.h"
+
 #define id Id
 #include "vtkCommand.h"
 #include "vtkProperty.h"

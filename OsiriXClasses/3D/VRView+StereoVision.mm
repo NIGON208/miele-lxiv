@@ -49,6 +49,7 @@
 
 #include "vtkSphereSource.h"
 #include "vtkAssemblyPath.h"
+#import "vtkMath.h"
 
 // ****************************
 // Added SilvanWidmer 03-08-09
@@ -62,6 +63,7 @@
 #include "vtkInteractorStyleTrackballCamera.h"
 //#include "vtkParallelRenderManager.h"
 #include "vtkRendererCollection.h"
+
 #import "VRController+StereoVision.h"
 #import "Window3DController+StereoVision.h"
 #import "VRFlyThruAdapter+StereoVision.h"
@@ -821,9 +823,9 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 		std::cout<< "Eye Angle: " << aCamera->GetEyeAngle() << std::endl;
 		double eyeAngle = aCamera->GetEyeAngle();
 		
-		eyeAngle = eyeAngle* D2R;
+		eyeAngle = vtkMath::RadiansFromDegrees(eyeAngle);
 		double newViewAngle = 2.0 * atan((focalDist/newFocalDist)*(tan(eyeAngle/2.0)));
-		newViewAngle = newViewAngle* R2D;
+		newViewAngle = vtkMath::DegreesFromRadians(newViewAngle);
 		aCamera->SetEyeAngle(newViewAngle);
 		std::cout<< "Eye Angle: " << aCamera->GetEyeAngle() << std::endl;
 		
@@ -849,9 +851,9 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 		std::cout<< "Eye Angle: " << aCamera->GetEyeAngle() << std::endl;
 		double eyeAngle = aCamera->GetEyeAngle();
 		
-		eyeAngle = eyeAngle* D2R;
+		eyeAngle = vtkMath::RadiansFromDegrees(eyeAngle);
 		double newViewAngle = 2.0 * atan((focalDist/newFocalDist)*(tan(eyeAngle/2.0)));
-		newViewAngle = newViewAngle* R2D;
+		newViewAngle = vtkMath::DegreesFromRadians(newViewAngle);
 		aCamera->SetEyeAngle(newViewAngle);
 		std::cout<< "Eye Angle: " << aCamera->GetEyeAngle() << std::endl;
 		
@@ -930,12 +932,12 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 	aRenderer->ResetCamera();
 	
 	double viewAngle = 2*atan(screenHeight/(2*screenDistance));
-	viewAngle= viewAngle * R2D;
+	viewAngle = vtkMath::DegreesFromRadians(viewAngle);
 	NSLog(@"The new ViewAngle is: %.2f", viewAngle);
 	aCamera->SetViewAngle(viewAngle);
 	
 	double eyeAngle = 2*atan(eyeDistance/(2*screenDistance));
-	eyeAngle = eyeAngle * R2D;
+	eyeAngle = vtkMath::DegreesFromRadians(eyeAngle);
 	NSLog(@"The new EyeAngle is: %.2f", eyeAngle);
 	aCamera->SetEyeAngle(eyeAngle);
 	

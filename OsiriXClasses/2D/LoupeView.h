@@ -19,7 +19,8 @@
 #include <OpenGL/CGLCurrent.h>
 #include <OpenGL/CGLContext.h>
 
-@interface LoupeView : NSOpenGLView {
+@interface LoupeView : NSOpenGLView
+{
 	NSImage *loupeImage, *loupeMaskImage;
 	
 	GLuint loupeTextureID, loupeTextureWidth, loupeTextureHeight;

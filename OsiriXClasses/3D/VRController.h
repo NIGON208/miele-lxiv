@@ -168,8 +168,10 @@
 - (void) load3DState;
 - (void) updateBlendingImage;
 - (ViewerController*) blendingController;
-- (id) initWithPix:(NSMutableArray*) pix :(NSArray*) f :(NSData*) vData :(ViewerController*) bC :(ViewerController*) vC;
-- (id) initWithPix:(NSMutableArray*) pix :(NSArray*) f :(NSData*) vData :(ViewerController*) bC :(ViewerController*) vC style:(NSString*) m mode:(NSString*) renderingMode;
+
+- (instancetype) initWithPix:(NSMutableArray*) pix :(NSArray*) f :(NSData*) vData :(ViewerController*) bC :(ViewerController*) vC;
+- (instancetype) initWithPix:(NSMutableArray*) pix :(NSArray*) f :(NSData*) vData :(ViewerController*) bC :(ViewerController*) vC style:(NSString*) m mode:(NSString*) renderingMode;
+
 - (void) setupToolbar;
 - (IBAction) setDefaultTool:(id) sender;
 - (void) setCurrentTool:(ToolMode) newTool;
@@ -178,12 +180,12 @@
 - (void) getWLWW:(float*) iwl :(float*) iww;
 - (void) ApplyWLWW:(id) sender;
 - (void)applyWLWWForString:(NSString *)menuString;
-- (void) blendingSlider:(id) sender;
+- (IBAction) blendingSlider:(id) sender;
 - (void) ApplyCLUTString:(NSString*) str;
 - (void) ApplyOpacityString:(NSString*) str;
-- (void) MoviePlayStop:(id) sender;
-- (void) movieRateSliderAction:(id) sender;
-- (void) moviePosSliderAction:(id) sender;
+- (IBAction) MoviePlayStop:(id) sender;
+- (IBAction) movieRateSliderAction:(id) sender;
+- (IBAction) moviePosSliderAction:(id) sender;
 - (long) movieFrames;
 - (void) setMovieFrame: (long) l;
 - (void) addMoviePixList:(NSMutableArray*) pix :(NSData*) vData;

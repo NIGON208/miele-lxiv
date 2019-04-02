@@ -10,6 +10,10 @@
 #import "N3Geometry.h"
 #import "CPRMPRDCMView.h"
 
+#if 0 //def DEBUG_3D_CPR
+#import "vtkMieleView.h"
+#endif
+
 @class CPRStraightenedView;
 @class CPRStretchedView;
 @class CPRVolumeData;
@@ -24,7 +28,6 @@ enum _CPRViewReformationType {
     CPRViewStretchedReformationType = 1,
 };
 typedef NSInteger CPRViewReformationType;
-
 
 @interface CPRView : NSView
 {

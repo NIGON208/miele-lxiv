@@ -17,7 +17,7 @@
 #import "DCMPix.h"
 
 #ifdef __cplusplus
-#import "VTKViewOSIRIX.h"
+#import "vtkMieleView.h"
 
 #define id Id
 //#include "vtkCommand.h"
@@ -162,7 +162,7 @@ typedef char* VTKStereoVRView;
 */
 #ifdef __cplusplus
 #else
-#define VTKView NSView
+#define vtkMieleView    NSView
 #endif
 
 typedef NS_ENUM(NSUInteger, EngineType) {
@@ -176,7 +176,7 @@ typedef NS_ENUM(NSUInteger, EngineType) {
 ////////////////////////////////////////////////////////////////////////////////
 #pragma mark - VRView
 
-@interface VRView : VTKView
+@interface VRView : vtkMieleView
 {
 	NSTimer						*autoRotate, *startAutoRotate;
 	BOOL						isRotating, flyto;
@@ -196,10 +196,14 @@ typedef NS_ENUM(NSUInteger, EngineType) {
 	float						blendingWl, blendingWw, measureLength;
 	vtkImageImport				*blendingReader;
 	
-	OsiriXFixedPointVolumeRayCastMapper *blendingVolumeMapper;
+#if 0 // TODO
+    vtkFixedPointVolumeRayCastMapper *blendingVolumeMapper;
+#else
+    OsiriXFixedPointVolumeRayCastMapper *blendingVolumeMapper;
+#endif
 	vtkGPUVolumeRayCastMapper	*blendingTextureMapper;
 	
-	vtkVolume					*blendingVolume; // OsiriXFixedPointVolumeRayCastMapper ?
+	vtkVolume					*blendingVolume;
 	vtkVolumeProperty			*blendingVolumeProperty;
 	vtkColorTransferFunction	*blendingColorTransferFunction;
 
@@ -270,7 +274,6 @@ typedef NS_ENUM(NSUInteger, EngineType) {
 	vtkBoxWidget				*croppingBox;
 //	double						initialCroppingBoxBounds[6];
 //	BOOL						dontUseAutoCropping;
-	
 	
 	// MAPPERS
 	
@@ -454,8 +457,8 @@ typedef NS_ENUM(NSUInteger, EngineType) {
 - (ToolMode) currentTool;
 - (ToolMode) _tool;
 //- (void) resetCroppingBox;
--(id)initWithFrame:(NSRect)frame;
--(short)setPixSource:(NSMutableArray*)pix :(float*) volumeData;
+-(instancetype)initWithFrame:(NSRect)frame;
+-(BOOL)setPixSource:(NSMutableArray*)pix :(float*) volumeData;
 -(void)dealloc;
 //Fly to point in world coordinates;
 - (void) flyTo:(float) x :(float) y :(float) z;
@@ -592,8 +595,8 @@ typedef NS_ENUM(NSUInteger, EngineType) {
 - (void)setAdvancedCLUT:(NSMutableDictionary*)clut lowResolution:(BOOL)lowRes;
 - (void)setAdvancedCLUTWithName:(NSString*)name;
 - (BOOL)advancedCLUT;
-- (VRController*)controller;
-- (void)setController:(VRController*)aController;
+- (VRController *)controller;
+- (void)setController:(VRController *)aController;
 - (BOOL)isRGB;
 
 - (vtkVolumeMapper*) mapper;

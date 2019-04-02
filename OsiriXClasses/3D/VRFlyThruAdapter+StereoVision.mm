@@ -27,10 +27,10 @@
 - (void) endMovieGenerating
 {	//Added SilvanWidmer 20-08-09
 	
-	if([[(VRController*)controller view] StereoVisionOn])
-		[[(VRController*)controller view] disableStereoModeLeftRight];
+	if ([[(VRController *)controller view] StereoVisionOn])
+		[[(VRController *)controller view] disableStereoModeLeftRight];
 	else
-        [[(VRController*)controller view] restoreViewSizeAfterMatrix3DExport];
+        [[(VRController *)controller view] restoreViewSizeAfterMatrix3DExport];
 }
 
 @end

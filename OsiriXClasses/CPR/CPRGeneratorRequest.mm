@@ -273,7 +273,11 @@
     return self;
 }
 
-- (id)initWithCenter:(N3Vector)center pixelsWide:(NSUInteger)pixelsWide pixelsHigh:(NSUInteger)pixelsHigh xBasis:(N3Vector)xBasis yBasis:(N3Vector)yBasis
+- (id)initWithCenter:(N3Vector)center
+          pixelsWide:(NSUInteger)pixelsWide
+          pixelsHigh:(NSUInteger)pixelsHigh
+              xBasis:(N3Vector)xBasis
+              yBasis:(N3Vector)yBasis
 {
     if ( (self = [super init]) ) {
         self.pixelsWide = pixelsWide;

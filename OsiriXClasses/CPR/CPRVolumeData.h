@@ -53,7 +53,6 @@ typedef struct { // build one of these on the stack and then use -[CPRVolumeData
     N3AffineTransform _volumeTransform; // volumeTransform is the transform from Dicom (patient) space to pixel data
 }
 
-
 - (instancetype)initWithFloatBytesNoCopy:(const float *)floatBytes pixelsWide:(NSUInteger)pixelsWide pixelsHigh:(NSUInteger)pixelsHigh pixelsDeep:(NSUInteger)pixelsDeep
                volumeTransform:(N3AffineTransform)volumeTransform outOfBoundsValue:(float)outOfBoundsValue freeWhenDone:(BOOL)freeWhenDone; // volumeTransform is the transform from Dicom (patient) space to pixel data
 

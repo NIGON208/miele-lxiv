@@ -3,7 +3,7 @@
 
 #include "vtkFixedPointVolumeRayCastMapper.h"
 
-class  VTKRENDERINGVOLUME_EXPORT OsiriXFixedPointVolumeRayCastMapper : public vtkFixedPointVolumeRayCastMapper
+class VTKRENDERINGVOLUME_EXPORT OsiriXFixedPointVolumeRayCastMapper : public vtkFixedPointVolumeRayCastMapper
 {
     virtual const char* GetClassNameInternal() const { return "OsiriXFixedPointVolumeRayCastMapper"; }
 

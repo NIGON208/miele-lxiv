@@ -30,7 +30,6 @@
 @class SRView;
 @class ROIVolume;
 
-
 /** \brief Window Controller for Surface Rendering */
 @interface SRController ( StereoVision )
 

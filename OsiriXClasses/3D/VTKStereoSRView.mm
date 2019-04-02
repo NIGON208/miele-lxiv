@@ -14,7 +14,7 @@
 =========================================================================*/
 
 #import "VTKStereoSRView.h"
-#import "VTKViewOSIRIX.h"
+#import "vtkMieleView.h"
 #import "DCMView.h"
 #import "DCMCursor.h"
 #import "Notifications.h"

@@ -32,8 +32,12 @@
 #import "NSColor+N2.h"
 #import <objc/runtime.h>
 
+#define _extraWidthFactor       1.2
+
 extern BOOL frameZoomed;
 extern int splitPosition[ 3];
+
+#pragma mark -
 
 @interface _CPRStraightenedViewPlaneRun : NSObject
 {
@@ -46,10 +50,13 @@ extern int splitPosition[ 3];
 
 @end
 
+#pragma mark -
+
 @interface N3BezierPath (CPRStraightenedViewPlaneRunAdditions)
 - (id)initWithCPRStraightenedViewPlaneRun:(_CPRStraightenedViewPlaneRun *)planeRun heightPixelsPerMm:(CGFloat)pixelsPerMm;
 @end
 
+#pragma mark -
 
 @implementation _CPRStraightenedViewPlaneRun
 
@@ -73,6 +80,7 @@ extern int splitPosition[ 3];
 
 @end
 
+#pragma mark -
 
 @interface CPRStraightenedView ()
 
@@ -118,6 +126,7 @@ extern int splitPosition[ 3];
 
 @end
 
+#pragma mark -
 
 @implementation CPRStraightenedView
 
@@ -192,7 +201,8 @@ extern int splitPosition[ 3];
     }
 }
 
-- (id)initWithFrame:(NSRect)frame {
+- (id)initWithFrame:(NSRect)frame
+{
     self = [super initWithFrame:frame];
     if (self) {
         _planes = [[NSMutableDictionary alloc] init];
@@ -339,7 +349,7 @@ extern int splitPosition[ 3];
     BOOL needsUpdate;
     
     needsUpdate = NO;
-	if( NSEqualRects( frameRect, [self frame]) == NO) {
+	if ( NSEqualRects( frameRect, [self frame]) == NO) {
         needsUpdate = YES;
     }
 
@@ -381,23 +391,26 @@ extern int splitPosition[ 3];
 
 - (void) drawRect:(NSRect)rect
 {
-	if( rect.size.width > 10)
+#ifdef DEBUG_3D_CPR
+    NSLog(@"%s %d %@ %p %d", __FUNCTION__, __LINE__, NSStringFromClass([self class]), self, curImage);
+#endif
+	if (rect.size.width > 10)
 	{
 		_processingRequest = YES;
 		[self _sendNewRequestIfNeeded];
 		_processingRequest = NO;    
 		
+#if 0 //ndef DEBUG_3D_CPR // @@@ continue debugging by setting it to 1
 		[self _adjustROIs];
-		
-		[super drawRect: rect];
+#endif
+        [super drawRect: rect];
 	}
 }
 
 - (void)setNeedsDisplay:(BOOL)flag
 {
-    if (_processingRequest == NO) {
+    if (_processingRequest == NO)
         [super setNeedsDisplay:flag];
-    }
 }
 
 - (void)subDrawRect:(NSRect)rect
@@ -1288,13 +1301,13 @@ extern int splitPosition[ 3];
         
         if( [[self windowController] viewsPosition] == VerticalPosition)
         {
-            request.pixelsWide = [self bounds].size.height*1.2;
-            request.pixelsHigh = [self bounds].size.width*1.2;
+            request.pixelsWide = [self bounds].size.height * _extraWidthFactor;
+            request.pixelsHigh = [self bounds].size.width * _extraWidthFactor;
 		}
         else
         {
-            request.pixelsWide = [self bounds].size.width*1.2;
-            request.pixelsHigh = [self bounds].size.height*1.2;
+            request.pixelsWide = [self bounds].size.width * _extraWidthFactor;
+            request.pixelsHigh = [self bounds].size.height * _extraWidthFactor;
 		}
         request.slabWidth = _curvedPath.thickness;
 
@@ -1362,9 +1375,10 @@ extern int splitPosition[ 3];
 
 - (void)_adjustROIs
 {
-	if([self.curvedPath isPlaneMeasurable] == NO)
+	if ([self.curvedPath isPlaneMeasurable] == NO)
 	{
-		for( int i = 0; i < curRoiList.count; i++ )
+        NSLog(@"%s %d %@ %p", __FUNCTION__, __LINE__, NSStringFromClass([self class]), self);
+		for ( int i = 0; i < curRoiList.count; i++ )
 		{
 			ROI *r = [curRoiList objectAtIndex:i];
 			if( r.type != tMeasure && r.type != tText && r.type != tArrow)
@@ -1377,18 +1391,20 @@ extern int splitPosition[ 3];
 				r.displayCMOrPixels = YES; // We don't want the value in pixels
 		}
 		
-		for( ROI *c in curRoiList)
+		for ( ROI *c in curRoiList)
 		{
-			if( c.type == tMeasure)
+			if ( c.type == tMeasure)
 			{
 				NSMutableArray *points = c.points;
 				
 				NSPoint A = [[points objectAtIndex: 0] point];
 				NSPoint B = [[points objectAtIndex: 1] point];
 				
-				if( fabs( A.x - B.x) > 4 || fabs( A.y - B.y) > 4)
+				if (fabs( A.x - B.x) > 4 ||
+                    fabs( A.y - B.y) > 4)
 				{
-					if( fabs( A.x - B.x) > fabs( A.y - B.y) || A.y == [curDCM pheight] / 2)
+					if (fabs( A.x - B.x) > fabs( A.y - B.y) ||
+                        A.y == [curDCM pheight] / 2)
 					{
 						// Horizontal length -> centered in y, and horizontal
 						
@@ -1413,7 +1429,8 @@ extern int splitPosition[ 3];
 	}
 	else
 	{
-		for( ROI *r in curRoiList)
+        NSLog(@"%s %d %@ %p", __FUNCTION__, __LINE__, NSStringFromClass([self class]), self);
+		for ( ROI *r in curRoiList)
 			r.displayCMOrPixels = YES;
 	}
 	

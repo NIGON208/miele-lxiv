@@ -764,7 +764,7 @@ extern "C"
 	[NSApp stopModal];
 }
 
-- (void) autoRetrieveSettings: (id) sender
+- (IBAction) autoRetrieveSettings: (id) sender
 {
 	NSNumber *NumberOfPreviousStudyToRetrieve = [[NSUserDefaults standardUserDefaults] objectForKey: @"NumberOfPreviousStudyToRetrieve"];
 	NSNumber *retrieveSameModality = [[NSUserDefaults standardUserDefaults] objectForKey: @"retrieveSameModality"];
@@ -1567,7 +1567,7 @@ extern "C"
 	}
 }
 
-- (void) refreshAutoQR: (id) sender
+- (IBAction) refreshAutoQR: (id) sender
 {
 	queryButtonPressed = YES;
     

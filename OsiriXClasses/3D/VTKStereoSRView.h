@@ -19,7 +19,7 @@
 
 #ifdef __cplusplus
 #import "vtkCocoaGLView.h"
-#import "VTKViewOSIRIX.h"
+#import "vtkMieleView.h"
 
 //#import "vtkCocoaWindow.h"
 #define id Id
@@ -43,7 +43,7 @@ typedef char* vtkCamera;
 
 @class SRView;
 
-@interface VTKStereoSRView : VTKView {
+@interface VTKStereoSRView : vtkMieleView {
 	
 	NSCursor					*cursor;
 	

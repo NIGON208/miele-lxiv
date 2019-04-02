@@ -924,7 +924,7 @@
 }
 
 #pragma mark - Hot Keys.
-//Hot key action
+
 -(BOOL)actionForHotKey:(NSString *)hotKey
 {
 	BOOL returnedVal = YES;
@@ -1043,15 +1043,17 @@
 
 - (void)mouseDraggedCrosshair:(NSEvent *)event
 {
-	NSPoint   eventLocation = [event locationInWindow];
-	if ( [event type] != NSRightMouseDown)
+	NSPoint eventLocation = [event locationInWindow];
+
+    if ( [event type] != NSRightMouseDown)
 	{
 		eventLocation = [self convertPoint:eventLocation fromView: nil];
 		eventLocation = [self ConvertFromNSView2GL:eventLocation];
 		
 		if ( [self isKindOfClass: [OrthogonalMPRView class]])
 		{
-			[(OrthogonalMPRView*)self setCrossPosition:(float)eventLocation.x : (float)eventLocation.y];
+			[(OrthogonalMPRView*)self setCrossPosition:(float)eventLocation.x
+                                                      :(float)eventLocation.y];
 		}
 		
 		[self setNeedsDisplay:YES];
@@ -1059,13 +1061,13 @@
 }
 
 - (void)mouseDraggedImageScroll:(NSEvent *) event {
-	short   now, prev;
-	BOOL	movie4Dmove = NO;
+	short now, prev;
+	BOOL movie4Dmove = NO;
     NSPoint current = [self convertPoint: event.locationInWindow fromView: nil];
     
     if (scrollMode == MY_SCROLL_MODE_UNDEFINED)
     {
-        if( fabs( start.x - current.x) < fabs( start.y - current.y))
+        if (fabs( start.x - current.x) < fabs( start.y - current.y))
         {
             prev = start.y/2;
             now = current.y/2;
@@ -1083,7 +1085,7 @@
         //	NSLog(@"scrollMode : %d", scrollMode);
     }
 
-    if( movie4Dmove == NO)
+    if (movie4Dmove == NO)
     {
         long from, to;
         if( scrollMode == MY_SCROLL_MODE_HOR)

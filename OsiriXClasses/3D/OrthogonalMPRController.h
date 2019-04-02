@@ -20,29 +20,35 @@
 
 /** \brief  Controller for Orthogonal MPR */
 
-@interface OrthogonalMPRController : NSObject { //NSWindowController {
-	NSMutableArray				*originalDCMPixList, *xReslicedDCMPixList, *yReslicedDCMPixList, *originalDCMFilesList, *originalROIList;
-	OrthogonalReslice			*reslicer;
-	float						sign;
-	
-	float						originalCrossPositionX, originalCrossPositionY, xReslicedCrossPositionX, xReslicedCrossPositionY, yReslicedCrossPositionX, yReslicedCrossPositionY;
-	long						orientationVector;
+@interface OrthogonalMPRController : NSObject //NSWindowController
+{
+	NSMutableArray *originalDCMPixList, *xReslicedDCMPixList, *yReslicedDCMPixList, *originalDCMFilesList, *originalROIList;
     
-	IBOutlet OrthogonalMPRView	*originalView, *xReslicedView, *yReslicedView;
+	OrthogonalReslice *reslicer;
+	float sign;
+    float originalCrossPositionX, originalCrossPositionY;
+    float xReslicedCrossPositionX, xReslicedCrossPositionY;
+    float yReslicedCrossPositionX, yReslicedCrossPositionY;
+	long orientationVector;
+    
+	IBOutlet OrthogonalMPRView *originalView, *xReslicedView, *yReslicedView;
 
-	id							viewer;
-	NSRect						originalViewFrame, xReslicedViewFrame, yReslicedViewFrame;
-	
-	short						thickSlabMode, thickSlab;
-	
-	NSData						*transferFunction;
-	
-	ViewerController			*viewerController;
+	id viewer;
+	NSRect originalViewFrame, xReslicedViewFrame, yReslicedViewFrame;
+	short thickSlabMode, thickSlab;
+	NSData *transferFunction;
+	ViewerController *viewerController;
 }
 
 @property long orientationVector;
  
-- (id) initWithPixList: (NSArray*) pixList :(NSArray*) filesList :(NSData*) vData :(ViewerController*) vC :(ViewerController*) bC :(id) newViewer;
+- (instancetype) initWithPixList:(NSArray*) pixList
+                                :(NSArray*) filesList
+                                :(NSData*) vData
+                                :(ViewerController*) vC
+                                :(ViewerController*) bC
+                                :(id) newViewer;
+
 - (void) setPixList: (NSArray*)pix :(NSArray*)files :(ViewerController*)vC;
 
 - (void) reslice: (long) x : (long) y : (OrthogonalMPRView*) sender;

@@ -621,7 +621,10 @@
 
 - (void) dealloc
 {
-	NSLog(@"VRPresetPreview dealloc");
+#ifndef NDEBUG
+    NSLog(@"VRPresetPreview.mm:%d %@ dealloc %p", __LINE__, NSStringFromClass([self class]), self);
+#endif
+
 	volumeMapper = nil;
 	data8 = nil;
 	[super dealloc];

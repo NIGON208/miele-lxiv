@@ -59,7 +59,7 @@ enum OsiriXBlendingTypes {BlendingPlugin = -1, BlendingFusion = 1, BlendingSubtr
 - (IBAction) undo:(id) sender;
 
 - (IBAction) applyShading:(id) sender;
-- (void) updateAutoAdjustPrinting: (id) sender;
+//- (IBAction) updateAutoAdjustPrinting: (id) sender;
 
 #pragma mark - current Core Data Objects
 - (DicomStudy *)currentStudy;

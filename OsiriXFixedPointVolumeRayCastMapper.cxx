@@ -5,7 +5,7 @@
 #include "vtkRenderer.h"
 #include "vtkTimerLog.h"
 #include "vtkOpenGLRenderWindow.h"
-#include <math.h>
+#include <cmath>
 
 bool dontRenderVolumeRenderingOsiriX = false;
 
@@ -13,7 +13,7 @@ vtkStandardNewMacro(OsiriXFixedPointVolumeRayCastMapper);
 
 OsiriXFixedPointVolumeRayCastMapper::OsiriXFixedPointVolumeRayCastMapper()
 {
-
+    //this->MIPHelper = vtkMieleFixedPointVolumeRayCastHelper::New();
 }
 
 // See VTK's vtkFixedPointVolumeRayCastMapper.cxx
@@ -37,7 +37,7 @@ void OsiriXFixedPointVolumeRayCastMapper::Render( vtkRenderer *ren, vtkVolume *v
 
   this->PerVolumeInitialization( ren, vol );
 
-  vtkRenderWindow *renWin=ren->GetRenderWindow();
+  vtkRenderWindow *renWin = ren->GetRenderWindow();
 
 #if 0 /// @@@ TBC
     vtkOpenGLRenderWindow *rw = (vtkOpenGLRenderWindow *)renWin;
@@ -58,8 +58,12 @@ void OsiriXFixedPointVolumeRayCastMapper::Render( vtkRenderer *ren, vtkVolume *v
     return;
   }
 
+#ifdef DEBUG_3D_CPR // @@@
+    printf("%s %d", __FUNCTION__, __LINE__);
+#else
   if (!dontRenderVolumeRenderingOsiriX)  // Our addition
 	this->RenderSubVolume();
+#endif
 
   if ( renWin && renWin->CheckAbortStatus() )
   {
@@ -67,7 +71,7 @@ void OsiriXFixedPointVolumeRayCastMapper::Render( vtkRenderer *ren, vtkVolume *v
     return;
   }
 
-#ifndef NDEBUG
+#if 0 //ndef NDEBUG // @@@
     this->DebugOn();
     vtkIndent *indent = vtkIndent::New();
     std::cerr << this->GetClassName() << std::endl;

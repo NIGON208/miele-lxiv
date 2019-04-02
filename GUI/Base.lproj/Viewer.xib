@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -397,7 +397,7 @@
                     <constraints>
                         <constraint firstAttribute="width" constant="16" id="jLE-c3-Gf4"/>
                     </constraints>
-                    <popUpButtonCell key="cell" type="bevel" bezelStyle="regularSquare" alignment="left" borderStyle="bezel" inset="2" pullsDown="YES" preferredEdge="maxY" selectedItem="odG-BV-hTy" id="2113">
+                    <popUpButtonCell key="cell" type="bevel" bezelStyle="regularSquare" imagePosition="only" alignment="left" borderStyle="bezel" inset="2" pullsDown="YES" preferredEdge="maxY" selectedItem="odG-BV-hTy" id="2113">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="menu"/>
                         <menu key="menu" title="OtherViews" id="577">
@@ -527,31 +527,31 @@
                     </buttonCell>
                     <cells>
                         <column>
-                            <buttonCell type="bevel" title="Levels" bezelStyle="regularSquare" image="WLWW" imagePosition="only" alignment="center" state="on" borderStyle="border" toolTip="Window Level (Option + click)" imageScaling="proportionallyUpOrDown" inset="2" id="591">
+                            <buttonCell type="bevel" bezelStyle="regularSquare" image="WLWW" imagePosition="overlaps" alignment="center" state="on" borderStyle="border" toolTip="Window Level (Option + click)" imageScaling="proportionallyUpOrDown" inset="2" id="591" userLabel="Levels">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                                 <font key="font" metaFont="system" size="10"/>
                             </buttonCell>
                         </column>
                         <column>
-                            <buttonCell type="bevel" title="Move" bezelStyle="regularSquare" image="Move" imagePosition="only" alignment="center" borderStyle="border" toolTip="Move (Apple + click)" tag="1" imageScaling="proportionallyUpOrDown" inset="2" id="592">
+                            <buttonCell type="bevel" bezelStyle="regularSquare" image="Move" imagePosition="overlaps" alignment="center" borderStyle="border" toolTip="Move (Apple + click)" tag="1" imageScaling="proportionallyUpOrDown" inset="2" id="592" userLabel="Move">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                                 <font key="font" metaFont="system" size="10"/>
                             </buttonCell>
                         </column>
                         <column>
-                            <buttonCell type="bevel" title="Zoom" bezelStyle="regularSquare" image="Zoom" imagePosition="only" alignment="center" borderStyle="border" toolTip="Zoom (Shift + click)" tag="2" imageScaling="proportionallyUpOrDown" inset="2" id="593">
+                            <buttonCell type="bevel" bezelStyle="regularSquare" image="Zoom" imagePosition="overlaps" alignment="center" borderStyle="border" toolTip="Zoom (Shift + click)" tag="2" imageScaling="proportionallyUpOrDown" inset="2" id="593" userLabel="Zoom">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                                 <font key="font" metaFont="system" size="10"/>
                             </buttonCell>
                         </column>
                         <column>
-                            <buttonCell type="bevel" title="Rotate" bezelStyle="regularSquare" image="Rotate" imagePosition="only" alignment="center" borderStyle="border" toolTip="Rotate (Apple + Option + click)" tag="3" imageScaling="proportionallyUpOrDown" inset="2" id="594">
+                            <buttonCell type="bevel" bezelStyle="regularSquare" image="Rotate" imagePosition="overlaps" alignment="center" borderStyle="border" toolTip="Rotate (Apple + Option + click)" tag="3" imageScaling="proportionallyUpOrDown" inset="2" id="594" userLabel="Rotate">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                                 <font key="font" metaFont="system" size="10"/>
                             </buttonCell>
                         </column>
                         <column>
-                            <buttonCell type="bevel" title="Next" bezelStyle="regularSquare" image="Stack" imagePosition="only" alignment="center" borderStyle="border" toolTip="Animate" tag="4" imageScaling="proportionallyUpOrDown" inset="2" id="595">
+                            <buttonCell type="bevel" bezelStyle="regularSquare" image="Stack" imagePosition="overlaps" alignment="center" borderStyle="border" toolTip="Animate" tag="4" imageScaling="proportionallyUpOrDown" inset="2" id="595" userLabel="Next">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                                 <font key="font" metaFont="system" size="10"/>
                             </buttonCell>
@@ -5888,7 +5888,7 @@ Gw
                         </connections>
                     </button>
                     <datePicker verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2515">
-                        <rect key="frame" x="81" y="131" width="161" height="27"/>
+                        <rect key="frame" x="79" y="131" width="165" height="27"/>
                         <datePickerCell key="cell" borderStyle="bezel" alignment="left" id="2516">
                             <font key="font" metaFont="system"/>
                             <date key="date" timeIntervalSinceReferenceDate="-595929600">

@@ -184,10 +184,10 @@ typedef enum {SyncSeriesBehaviorAbsolutePosWithSameStudy, SyncSeriesBehaviorRela
 - (IBAction) roiDeleteAll:(id) sender;
 
 // 4D
-- (void) MoviePlayStop:(id) sender;
+- (IBAction) MoviePlayStop:(id) sender;
 - (void) setMovieIndex: (short) i;
-- (void) movieRateSliderAction:(id) sender;
-- (void) moviePosSliderAction:(id) sender;
+- (IBAction) movieRateSliderAction:(id) sender;
+- (IBAction) moviePosSliderAction:(id) sender;
 
 - (ViewerController *)viewerController;
 - (void)setCurrentTool:(ToolMode)currentTool;

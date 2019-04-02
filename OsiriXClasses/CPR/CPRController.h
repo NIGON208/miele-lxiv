@@ -83,6 +83,7 @@ typedef NSInteger CPRExportRotationSpan;
 	IBOutlet CPRMPRDCMView *mprView1, *mprView2, *mprView3;
     IBOutlet CPRView *cprView;
     IBOutlet CPRTransverseView *topTransverseView, *middleTransverseView, *bottomTransverseView;
+
 	IBOutlet NSSplitView *horizontalSplit1, *horizontalSplit2, *verticalSplit;
     IBOutlet NSView *tbStraightenedCPRAngle;
     double straightenedCPRAngle; // this is in degrees, the CPRView uses radians
@@ -222,7 +223,12 @@ typedef NSInteger CPRExportRotationSpan;
 
 + (double) angleBetweenVector:(float*) a andPlane:(float*) orientation;
 
-- (id)initWithDCMPixList:(NSMutableArray*)pix filesList:(NSMutableArray*)files volumeData:(NSData*)volume viewerController:(ViewerController*)viewer fusedViewerController:(ViewerController*)fusedViewer;
+- (instancetype)initWithDCMPixList:(NSMutableArray*)pix
+                         filesList:(NSMutableArray*)files
+                        volumeData:(NSData*)volume
+                  viewerController:(ViewerController*)viewer
+             fusedViewerController:(ViewerController*)fusedViewer;
+
 - (DCMPix*) emptyPix: (DCMPix*) originalPix width: (long) w height: (long) h;
 - (CPRMPRDCMView*) selectedView;
 - (id) selectedViewOnlyMPRView: (BOOL) onlyMPRView;

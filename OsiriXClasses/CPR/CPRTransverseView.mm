@@ -83,12 +83,16 @@ extern int splitPosition[ 3];
 {
     [_volumeData release];
     _volumeData = nil;
+    
     [_generatedVolumeData release];
     _generatedVolumeData = nil;
+    
     [_curvedPath release];
     _curvedPath = nil;
+    
     [_displayInfo release];
     _displayInfo = nil;
+    
     [_lastRequest release];
     _lastRequest = nil;
     
@@ -105,6 +109,7 @@ extern int splitPosition[ 3];
             displayInfo.mouseTransverseSectionDistance != _displayInfo.mouseTransverseSectionDistance) {
             [self setNeedsDisplay:YES];
         }
+        
         [_displayInfo release];
         _displayInfo = [displayInfo retain];
     }
@@ -115,7 +120,9 @@ extern int splitPosition[ 3];
     _processingRequest = YES;
 	[self _sendNewRequestIfNeeded];
     _processingRequest = NO;
+#ifndef DEBUG_3D_CPR
     [super drawRect:r];
+#endif
 }
 
 - (void)setNeedsDisplay:(BOOL)flag
@@ -181,15 +188,20 @@ extern int splitPosition[ 3];
 			
 	@try
 	{
-		if( [event type] ==	NSLeftMouseDown || [event type] ==	NSRightMouseDown || [event type] ==	NSLeftMouseUp || [event type] == NSRightMouseUp)
+		if ([event type] == NSLeftMouseDown ||
+            [event type] == NSRightMouseDown ||
+            [event type] ==	NSLeftMouseUp ||
+            [event type] == NSRightMouseUp)
+        {
 			clickCount = [event clickCount];
+        }
 	}
 	@catch (NSException * e)
 	{
 		clickCount = 1;
 	}
 	
-	if( clickCount == 2)
+	if (clickCount == 2)
 	{
 		NSPoint tempPt = [self convertPoint: [event locationInWindow] fromView: nil];
 		tempPt = [self ConvertFromNSView2GL:tempPt];
@@ -198,7 +210,8 @@ extern int splitPosition[ 3];
 		
 		ToolMode tool = [self getTool: event];
 		
-		if( [self roiTool: tool] && [self clickInROI: tempPt])
+		if ([self roiTool: tool] &&
+            [self clickInROI: tempPt])
 		{
 			[[self windowController] roiGetInfo: self];
 		}
@@ -327,6 +340,7 @@ extern int splitPosition[ 3];
 
 - (void)setVolumeData:(CPRVolumeData *)volumeData
 {
+    NSLog(@"%s %d %@ %p", __FUNCTION__, __LINE__, NSStringFromClass([self class]), self);
     if (volumeData != _volumeData) {
         [_volumeData release];
         _volumeData = [volumeData retain];

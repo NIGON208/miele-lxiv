@@ -396,7 +396,10 @@ extern int splitPosition[ 3];
 
 - (void)drawRect:(NSRect)rect
 {
-	if( rect.size.width > 10)
+#if 1 //def DEBUG_3D_CPR
+    NSLog(@"%s %d %@ %p %d", __FUNCTION__, __LINE__, NSStringFromClass([self class]), self, curImage);
+#endif
+	if (rect.size.width > 10)
 	{
 		_processingRequest = YES;
 		[self _sendNewRequestIfNeeded];
@@ -1616,9 +1619,7 @@ extern int splitPosition[ 3];
 	N3Vector lineStart;
 	N3Vector lineEnd;
     double pixToSubdrawRectOpenGLTransform[16];
-	CGLContextObj cgl_ctx;
-    
-    cgl_ctx = [[NSOpenGLContext currentContext] CGLContextObj];    	
+	CGLContextObj cgl_ctx = [[NSOpenGLContext currentContext] CGLContextObj];
     if( cgl_ctx == nil)
         return;
     
@@ -1676,10 +1677,9 @@ extern int splitPosition[ 3];
 	N3Vector planePointVector;
 	_CPRStretchedViewPlaneRun *planeRun;
     double pixToSubdrawRectOpenGLTransform[16];
-	CGLContextObj cgl_ctx;
     CGFloat pheight_2;
     
-    cgl_ctx = [[NSOpenGLContext currentContext] CGLContextObj];
+    CGLContextObj cgl_ctx = [[NSOpenGLContext currentContext] CGLContextObj];
   	if( cgl_ctx == nil)
         return;
     

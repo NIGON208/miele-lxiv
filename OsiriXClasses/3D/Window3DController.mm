@@ -268,11 +268,11 @@
 
 - (void) dealloc
 {
+    NSLog(@"Window3DController.mm:%d %@ dealloc %p", __LINE__, NSStringFromClass([self class]), self);
+
     [NSObject cancelPreviousPerformRequestsWithTarget: self];
     
 	windowWillClose = YES;
-	
-	NSLog(@"Window3DController dealloc");
 	
 	[curCLUTMenu release];
 	[curWLWWMenu release];
@@ -794,7 +794,7 @@ static float oldsetww, oldsetwl;
     else						// FullScreenOn == NO
     {
         unsigned int windowStyle;
-        NSRect       contentRect;
+        NSRect contentRect;
         
         StartingWindow = [self window];
         windowStyle    = NSWindowStyleMaskBorderless; 
@@ -803,7 +803,7 @@ static float oldsetww, oldsetwl;
                                                                  styleMask:windowStyle
                                                                    backing:NSBackingStoreBuffered
                                                                      defer:NO];
-        if(FullScreenWindow != nil)
+        if (FullScreenWindow != nil)
         {
             NSLog(@"Window was created");			
             [FullScreenWindow setTitle: @"myWindow"];			

@@ -201,7 +201,7 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
 	return blendingController;
 }
 
-- (void) blendingSlider:(id) sender
+- (IBAction) blendingSlider:(id) sender
 {
 	[view setBlendingFactor: [sender floatValue]];
 	
@@ -283,12 +283,12 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
 	}    
 }
 
-- (void) movieRateSliderAction:(id) sender
+- (IBAction) movieRateSliderAction:(id) sender
 {
 	[movieTextSlide setStringValue:[NSString stringWithFormat: NSLocalizedString( @"%0.0f im/s", @"im/s = images per second"), (float) [movieRateSlider floatValue]]];
 }
 
-- (void) moviePosSliderAction:(id) sender
+- (IBAction) moviePosSliderAction:(id) sender
 {
 	[self setMovieFrame: [moviePosSlider intValue] ];
 }
@@ -312,7 +312,7 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
     }
 }
 
-- (void) MoviePlayStop:(id) sender
+- (IBAction) MoviePlayStop:(id) sender
 {
     if (movieTimer)
     {
@@ -398,7 +398,11 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
 	return style;
 }
 
--(id) initWithPix:(NSMutableArray*) pix :(NSArray*) f :(NSData*) vData :(ViewerController*) bC :(ViewerController*) vC
+-(instancetype) initWithPix:(NSMutableArray*) pix
+                           :(NSArray*) f
+                           :(NSData*) vData
+                           :(ViewerController*) bC
+                           :(ViewerController*) vC
 {
 	return [self initWithPix:(NSMutableArray*) pix :(NSArray*) f :(NSData*) vData :(ViewerController*) bC :(ViewerController*) vC style:@"standard" mode:@"VR"];
 }
@@ -479,16 +483,15 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
     computeMinMaxDepth--;
 }
 
--(id) initWithPix:(NSMutableArray*) pix
-                 :(NSArray*) f
-                 :(NSData*) vData
-                 :(ViewerController*) bC
-                 :(ViewerController*) vC
-            style:(NSString*) m
-             mode:(NSString*) renderingMode
+-(instancetype) initWithPix:(NSMutableArray*) pix
+                           :(NSArray*) f
+                           :(NSData*) vData
+                           :(ViewerController*) bC
+                           :(ViewerController*) vC
+                      style:(NSString*) m
+                       mode:(NSString*) renderingMode
 {
     unsigned long   i;
-    short           err = 0;
 	BOOL			testInterval = YES;
 	DCMPix			*firstObject = [pix objectAtIndex: 0];
 
@@ -596,22 +599,22 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
             }
         }
 
-        err = 0;
+        BOOL invalidSize = false;
         // CHECK IMAGE SIZE
         for (i =0; i < [pixList[0] count]; i++)
         {
             if ([firstObject pwidth] != [[pixList[0] objectAtIndex:i] pwidth])
-                err = -1;
+                invalidSize = true;
             
             if ([firstObject pheight] != [[pixList[0] objectAtIndex:i] pheight])
-                err = -1;
+                invalidSize = true;
         }
         
-        if (err)
+        if (invalidSize)
         {
-            NSRunCriticalAlertPanel(NSLocalizedString( @"Images size",nil),
+            NSRunCriticalAlertPanel(NSLocalizedString(@"Images size",nil),
                                     NSLocalizedString(@"These images don't have the same height and width to allow a 3D reconstruction...",nil),
-                                    NSLocalizedString( @"OK",nil),
+                                    NSLocalizedString(@"OK",nil),
                                     nil,
                                     nil);
             return nil;
@@ -667,9 +670,9 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
         if ([style isEqualToString: @"panel"])
             [self.window setLevel: NSFloatingWindowLevel];
         
-        err = [view setPixSource: pixList[0]
-                                : (float*)[volumeData[0] bytes]];
-        if (err != 0)
+        BOOL err = [view setPixSource: pixList[0]
+                                     : (float*)[volumeData[0] bytes]];
+        if (err)
         {
             NSString *bundleName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleName"];
             if (NSRunAlertPanel(@"", //NSLocalizedString(@"32-bit",nil),
@@ -1556,14 +1559,14 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
 
 -(void) ApplyCLUTString:(NSString*) str
 {
-	NSString	*previousColorName = [NSString stringWithString: curCLUTMenu];
+	NSString *previousColorName = [NSString stringWithString: curCLUTMenu];
 	
 	if (str == nil)
         return;
 	
 	[OpacityPopup setEnabled:YES];
 	[clutOpacityView cleanup];
-	if ([clutOpacityDrawer state]==NSDrawerOpenState)
+	if ([clutOpacityDrawer state] == NSDrawerOpenState)
 	{
 		[clutOpacityDrawer close];
 	}
@@ -1583,11 +1586,14 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
 	{
 		[view setCLUT: nil :nil :nil];
 		
-		if ([previousColorName isEqualToString: NSLocalizedString( @"B/W Inverse", nil)] || [previousColorName isEqualToString:( @"B/W Inverse")])
+		if ([previousColorName isEqualToString: NSLocalizedString( @"B/W Inverse", nil)] ||
+            [previousColorName isEqualToString: @"B/W Inverse"])
+        {
 			[view changeColorWith: [NSColor colorWithDeviceRed:0.0
                                                          green:0.0
                                                           blue:0.0
                                                          alpha:1.0]];
+        }
 		
 		[[NSNotificationCenter defaultCenter] postNotificationName: OsirixUpdateCLUTMenuNotification
                                                             object: curCLUTMenu
@@ -2904,7 +2910,7 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
 	return clutOpacityDrawer;
 }
 
-- (void)showCLUTOpacityPanel:(id)sender;
+- (IBAction)showCLUTOpacityPanel:(id)sender;
 {
 	[clutOpacityView setVolumePointer:[[pixList[0] objectAtIndex: 0] fImage]
                                 width:[[pixList[0] objectAtIndex: 0] pwidth]
@@ -2915,7 +2921,7 @@ static NSString*	CLUTEditorsViewToolbarItemIdentifier = @"CLUTEditors";
 
 	[[clutOpacityView window] setBackgroundColor:[NSColor blackColor]];
 	[clutOpacityDrawer setTrailingOffset:[clutOpacityDrawer leadingOffset]];
-	if ([clutOpacityDrawer state]==NSDrawerClosedState)
+	if ([clutOpacityDrawer state] == NSDrawerClosedState)
 		[clutOpacityDrawer openOnEdge:NSMinYEdge];
 	else
 		[clutOpacityDrawer close];
@@ -3894,6 +3900,8 @@ NSInteger sort3DSettingsDict(id preset1, id preset2, void *context)
 
 - (void)showPresetsPanel;
 {
+    NSLog(@"%s %d, view class: %@", __FUNCTION__, __LINE__, NSStringFromClass([view class]));
+
     if (panelInstantiated == NO)
     {
         panelInstantiated = YES;

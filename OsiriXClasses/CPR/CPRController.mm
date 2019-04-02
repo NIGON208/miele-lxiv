@@ -197,12 +197,13 @@ static float deg2rad = M_PI / 180.0;
     self.straightenedCPRAngle = self.straightenedCPRAngle + 0.1; // To force the update...
 }
 
-- (id)initWithDCMPixList:(NSMutableArray*)pix
-               filesList:(NSMutableArray*)files
-              volumeData:(NSData*)volume
-        viewerController:(ViewerController*)viewer
-   fusedViewerController:(ViewerController*)fusedViewer;
+- (instancetype)initWithDCMPixList:(NSMutableArray*)pix
+                         filesList:(NSMutableArray*)files
+                        volumeData:(NSData*)volume
+                  viewerController:(ViewerController*)viewer
+             fusedViewerController:(ViewerController*)fusedViewer
 {
+    NSLog(@"%s %d %@ %p, pix count: %lu", __FUNCTION__, __LINE__, NSStringFromClass([self class]), self, (unsigned long)pix.count);
 	@try
 	{
 		if ([[NSUserDefaults standardUserDefaults] integerForKey: @"ANNOTATIONS"] == annotNone)
@@ -236,7 +237,8 @@ static float deg2rad = M_PI / 180.0;
 		fusedViewer2D = fusedViewer;
 		clippingRangeMode = 1;
 		LOD = 1;
-		if (LOD < 1) LOD = 1;
+		if (LOD < 1)
+            LOD = 1;
 		
 		if (fusedViewer2D)
 			self.blendingModeAvailable = YES;
@@ -246,7 +248,7 @@ static float deg2rad = M_PI / 180.0;
 		
 		[self updateToolbarItems];
 		
-		for( int i = 0; i < [popupRoi numberOfItems]; i++)
+		for (int i = 0; i < [popupRoi numberOfItems]; i++)
 			[[popupRoi itemAtIndex: i] setImage: [self imageForROI: (ToolMode)[[popupRoi itemAtIndex: i] tag]]];
 		
         int dim[3];
@@ -255,27 +257,34 @@ static float deg2rad = M_PI / 180.0;
         dim[1] = [firstObject pheight];
         dim[2] = [pix count];
         float spacing[3];
-        spacing[0]=[firstObject pixelSpacingX];
-        spacing[1]=[firstObject pixelSpacingY];
+        spacing[0] = [firstObject pixelSpacingX];
+        spacing[1] = [firstObject pixelSpacingY];
         float sliceThickness = [firstObject sliceInterval];   
         if (sliceThickness == 0)
         {
             NSLog(@"Slice interval = slice thickness!");
             sliceThickness = [firstObject sliceThickness];
         }
+
         spacing[2]=sliceThickness;
         float resamplesize=spacing[0];
-        if (dim[0]>256 || dim[1]>256)
+        if (dim[0]>256 ||
+            dim[1]>256)
         {
-            if (spacing[0]*(float)dim[0]>spacing[1]*(float)dim[1])
+            if (spacing[0] * (float)dim[0] > spacing[1] * (float)dim[1]) {
                 resamplesize = spacing[0]*(float)dim[0]/256.0;
+            }
             else {
                 resamplesize = spacing[1]*(float)dim[1]/256.0;
             }
-            
         }
-        assistant = [[FlyAssistant alloc] initWithVolume:(float*)[volume bytes] WidthDimension:dim Spacing:spacing ResampleVoxelSize:resamplesize];
+
+        assistant = [[FlyAssistant alloc] initWithVolume:(float*)[volume bytes]
+                                          WidthDimension:dim
+                                                 Spacing:spacing
+                                       ResampleVoxelSize:resamplesize];
         [assistant setCenterlineResampleStepLength:3.0];
+
         centerline = [[NSMutableArray alloc] init];
         nodeRemovalCost = [[NSMutableArray alloc] init];
         delHistory = [[NSMutableArray alloc] init];
@@ -287,35 +296,46 @@ static float deg2rad = M_PI / 180.0;
                                                                                                            @1.0F, @"CPRColorG",
                                                                                                            @0.0F, @"CPRColorB", nil]];
 		self.curvedPathCreationMode = YES;
+        
+        NSLog(@"%s %d %@ %p", __FUNCTION__, __LINE__, NSStringFromClass([self class]), self);
         cprVolumeData = [[CPRVolumeData alloc] initWithWithPixList:pix volume:volume];
         cprView.volumeData = cprVolumeData;
+
         mprView1.delegate = self;
         mprView2.delegate = self;
         mprView3.delegate = self;
         cprView.delegate = self;
+
         mprView1.curvedPath = curvedPath;
         mprView2.curvedPath = curvedPath;
         mprView3.curvedPath = curvedPath;
 		cprView.curvedPath = curvedPath;
+
         mprView1.displayInfo = displayInfo;
         mprView2.displayInfo = displayInfo;
         mprView3.displayInfo = displayInfo;
+        cprView.displayInfo = displayInfo;
         topTransverseView.displayInfo = displayInfo;
         middleTransverseView.displayInfo = displayInfo;
         bottomTransverseView.displayInfo = displayInfo;
-		cprView.displayInfo = displayInfo;
+        
         topTransverseView.delegate = self;
         topTransverseView.curvedPath = curvedPath;
         topTransverseView.sectionType = CPRTransverseViewLeftSectionType;
+        
         middleTransverseView.delegate = self;
         middleTransverseView.curvedPath = curvedPath;
         middleTransverseView.sectionType = CPRTransverseViewCenterSectionType;
+        
         bottomTransverseView.delegate = self;
         bottomTransverseView.curvedPath = curvedPath;
         bottomTransverseView.sectionType = CPRTransverseViewRightSectionType;
+        
         topTransverseView.sectionWidth = cprView.generatedHeight;
         middleTransverseView.sectionWidth = cprView.generatedHeight;
         bottomTransverseView.sectionWidth = cprView.generatedHeight;
+        
+        NSLog(@"%s %d %@ %p", __FUNCTION__, __LINE__, NSStringFromClass([self class]), self);
         topTransverseView.volumeData = cprView.volumeData;
         middleTransverseView.volumeData = cprView.volumeData;
         bottomTransverseView.volumeData = cprView.volumeData;
@@ -549,6 +569,9 @@ static float deg2rad = M_PI / 180.0;
 
 - (void) showWindow:(id) sender
 {
+#ifdef DEBUG_3D_CPR
+    NSLog(@"%s %d %@", __FUNCTION__, __LINE__, NSStringFromClass([self class]));
+#endif
 	mprView1.dontUseAutoLOD = YES;
 	mprView2.dontUseAutoLOD = YES;
 	mprView3.dontUseAutoLOD = YES;
@@ -628,6 +651,9 @@ static float deg2rad = M_PI / 180.0;
 
 -(void) awakeFromNib
 {
+#ifdef DEBUG_3D_CPR
+    NSLog(@"%s %d %@", __FUNCTION__, __LINE__, NSStringFromClass([self class]));
+#endif
 	NSScreen *s = [viewer2D get3DViewerScreen: viewer2D];
 	
     [horizontalSplit1 setDelegate: self];

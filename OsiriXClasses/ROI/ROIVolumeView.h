@@ -17,7 +17,7 @@
 
 #import <AppKit/AppKit.h>
 #import "options.h"
-#import "VTKViewOSIRIX.h"
+#import "vtkMieleView.h"
 #import "DCMPix.h"
 #import "Camera.h"
 
@@ -73,7 +73,7 @@ class vtkMyCallback;
 
 /** \brief  View for ROI Volume */
 
-@interface ROIVolumeView : VTKView
+@interface ROIVolumeView : vtkMieleView
 {
     vtkRenderer					*aRenderer;
     vtkCamera					*aCamera;

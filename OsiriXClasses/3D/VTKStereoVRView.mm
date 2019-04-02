@@ -13,9 +13,8 @@
      PURPOSE.
 =========================================================================*/
 
-
 #import "VTKStereoVRView.h"
-#import "VTKViewOSIRIX.h"
+#import "vtkMieleView.h"
 #import "DCMView.h"
 #import "DCMCursor.h"
 #import "Notifications.h"

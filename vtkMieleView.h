@@ -38,10 +38,10 @@ typedef char* vtkCocoaRenderWindow;
 #endif
 
 /** \brief View for using VTK */
-@interface VTKView : vtkCocoaGLView
+@interface vtkMieleView : vtkCocoaGLView
 {
-    vtkCocoaRenderWindow			*_cocoaRenderWindow;
-    vtkRenderer						*_renderer;
+    vtkCocoaRenderWindow *_cocoaRenderWindow;
+    vtkRenderer *_renderer;
 }
 
 + (unsigned long) VRAMSizeForDisplayID: (CGDirectDisplayID) displayID;

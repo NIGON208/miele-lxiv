@@ -17,7 +17,7 @@
 #import "OSI3DPreferencePane.h"
 
 #ifndef OSIRIX_LIGHT
-#import "VTKViewOSIRIX.h"
+#import "vtkMieleView.h"
 #endif
 
 @implementation OSI3DPreferencePanePref
@@ -47,7 +47,7 @@
             if ([[NSUserDefaults standardUserDefaults] boolForKey: @"MAPPERMODEVR"])
             {
     #ifndef OSIRIX_LIGHT
-                long vramMB = [VTKView VRAMSizeForDisplayID: [[[[mainWindow screen] deviceDescription] objectForKey: @"NSScreenNumber"] intValue]];
+                long vramMB = [vtkMieleView VRAMSizeForDisplayID: [[[[mainWindow screen] deviceDescription] objectForKey: @"NSScreenNumber"] intValue]];
                 
                 //vram /= 1024*1024;
                 

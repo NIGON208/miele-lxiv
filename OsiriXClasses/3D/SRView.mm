@@ -46,6 +46,7 @@
 
 #include "vtkVectorText.h"
 #include "vtkFollower.h"
+#import "vtkMath.h"
 
 #ifdef _STEREO_VISION_
 #import "vtkCocoaGLView.h"
@@ -58,9 +59,6 @@
 #include "vtkParallelRenderManager.h"
 #include "vtkRendererCollection.h"
 #endif
-
-#define D2R 0.01745329251994329576923690768    // degrees to radians
-#define R2D 57.2957795130823208767981548141    // radians to degrees
 
 static SRView	*snSRView = nil;
 

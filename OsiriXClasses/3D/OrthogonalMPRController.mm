@@ -27,9 +27,13 @@
 
 @synthesize orientationVector;
 
-- (void) setCrossPosition: (float) x : (float) y : (id) sender
+- (void) setCrossPosition: (float) x
+                         : (float) y
+                         : (id) sender
 {
-    [self reslice: x:  y: sender];
+    [self reslice: x
+                 : y
+                 : sender];
 }
 
 -(void) setBlendingFactor:(float) f
@@ -74,18 +78,18 @@
 
 - (void) setPixList: (NSArray*)pix :(NSArray*)files :(ViewerController*)vC
 {
-	if( originalDCMPixList)
+	if ( originalDCMPixList)
         [originalDCMPixList removeAllObjects];
 	else
         originalDCMPixList = [[NSMutableArray alloc] initWithCapacity: [pix count]];
 	
-	for( DCMPix *p in pix)
+	for ( DCMPix *p in pix)
 		[originalDCMPixList addObject:  [[p copy] autorelease]];
 	
 	[originalDCMFilesList release];
 	originalDCMFilesList = [[NSMutableArray alloc] initWithArray:files];
 
-	if( [vC blendingController] == nil)
+	if ( [vC blendingController] == nil)
 	{
 		[originalROIList release];
 		originalROIList = [[[vC imageView] dcmRoiList] retain];
@@ -99,7 +103,12 @@
 	reslicer = [[OrthogonalReslice alloc] initWithOriginalDCMPixList: originalDCMPixList];
 }
 
-- (id) initWithPixList: (NSArray*)pix :(NSArray*)files :(NSData*)vData :(ViewerController*)vC :(ViewerController*)bC :(id)newViewer
+- (instancetype) initWithPixList:(NSArray*)pix
+                                :(NSArray*)files
+                                :(NSData*)vData
+                                :(ViewerController*)vC
+                                :(ViewerController*)bC
+                                :(id)newViewer
 {
 	if (self = [super init])
 	{
@@ -163,7 +172,7 @@
 	
 	NSPoint originalOrigin, xOrigin, yOrigin;
 	
-	BOOL	originalOldValues, xOldValues, yOldValues;
+	BOOL originalOldValues, xOldValues, yOldValues;
 	originalOldValues = xOldValues = yOldValues = NO;
 
 	if ([originalView dcmPixList] != nil)
@@ -205,7 +214,7 @@
 		float wl = 0, ww = 0;
         [originalView getWLWW:&wl :&ww];
         
-        if( wl != 0 && ww != 0)
+        if (wl != 0 && ww != 0)
         { 
             [xReslicedView adjustWLWW:wl :ww];
             [yReslicedView adjustWLWW:wl :ww];
@@ -232,8 +241,12 @@
 		
 		sliceIndex = sliceIndex - thickSlab/2;
 		
-		if( sliceIndex < 0) sliceIndex = 0;
-		if( sliceIndex >= stackCount) sliceIndex = stackCount-1;
+		if( sliceIndex < 0)
+            sliceIndex = 0;
+        
+		if( sliceIndex >= stackCount)
+            sliceIndex = stackCount-1;
+        
 		// update axial view
 		[originalView setIndex:sliceIndex];
 		
@@ -279,7 +292,7 @@
 		}
 	}
 
-	if(originalOldValues) 
+	if (originalOldValues)
 	{
 		// scale
 		[originalView setScaleValue:originalScaleValue];
@@ -290,7 +303,7 @@
 		[originalView setOrigin:originalOrigin];
 	}
 		
-	if(xOldValues)
+	if (xOldValues)
 	{
 		// scale
 		[xReslicedView setScaleValue:xScaleValue];
@@ -300,7 +313,7 @@
 		[xReslicedView setOrigin:xOrigin];
 	}
 	
-	if(yOldValues)
+	if (yOldValues)
 	{
 		// scale
 		[yReslicedView setScaleValue:yScaleValue];
@@ -314,15 +327,13 @@
 	
 	[self applyOrientation];
 	
-	int i;
-	
-	for( i = 0 ; i < [yReslicedDCMPixList count]; i++)
+	for (int i = 0 ; i < [yReslicedDCMPixList count]; i++)
 		[[yReslicedDCMPixList objectAtIndex: i] setTransferFunction: transferFunction];
 
-	for( i = 0 ; i < [originalDCMPixList count]; i++)
+	for (int i = 0 ; i < [originalDCMPixList count]; i++)
 		[[originalDCMPixList objectAtIndex: i] setTransferFunction: transferFunction];
 
-	for( i = 0 ; i < [xReslicedDCMPixList count]; i++)
+	for (int i = 0 ; i < [xReslicedDCMPixList count]; i++)
 		[[xReslicedDCMPixList objectAtIndex: i] setTransferFunction: transferFunction];
 	
 	[originalView updateImage];
@@ -337,7 +348,7 @@
 
 - (void) setTransferFunction:(NSData*) tf
 {
-	if( tf != transferFunction)
+	if (tf != transferFunction)
 	{
 		[transferFunction release];
 		transferFunction = [tf retain];
@@ -369,7 +380,7 @@
 	delta.y *= [sender scaleValue];
 	[originalView setOrigin: NSMakePoint( pan.x + delta.x, pan.y - delta.y)];
 	
-	NSPoint		pt;
+	NSPoint pt;
 	
 	// X - Views
 	pt.y = [xReslicedView origin].y;
@@ -395,7 +406,7 @@
 	delta.y = 0;
 	[xReslicedView setOrigin: NSMakePoint( pan.x + delta.x, pan.y - delta.y)];
 	
-	NSPoint		pt;
+	NSPoint pt;
 	
 	// X - Views
 	pt.y = [originalView origin].y;
@@ -421,7 +432,7 @@
 	delta.y = 0;
 	[yReslicedView setOrigin: NSMakePoint( pan.x + delta.x, pan.y - delta.y)];
 	
-	NSPoint		pt;
+	NSPoint pt;
 	
 	// X - Views
 	pt.x = [originalView origin].x;
@@ -455,9 +466,9 @@
 
 -(void) ApplyOpacityString:(NSString*) str
 {
-	NSDictionary		*aOpacity;
+	NSDictionary *aOpacity;
 	
-	if( [str isEqualToString:NSLocalizedString(@"Linear Table", nil)])
+	if ([str isEqualToString:NSLocalizedString(@"Linear Table", nil)])
 	{
 		[self setTransferFunction: nil];
 	}
@@ -475,49 +486,47 @@
 
 -(void) ApplyCLUTString:(NSString*) str
 {
-	if( [str isEqualToString:NSLocalizedString(@"No CLUT", nil)])
+	if ([str isEqualToString:NSLocalizedString(@"No CLUT", nil)])
 	{
 		[originalView setCLUT: nil :nil :nil];
 		[xReslicedView setCLUT: nil :nil :nil];
 		[yReslicedView setCLUT: nil :nil :nil];
+        return;
 	}
-	else
-	{
-		NSDictionary		*aCLUT;
-		NSArray				*array;
-		long				i;
-		unsigned char		red[256], green[256], blue[256];
-		
-		aCLUT = [[[NSUserDefaults standardUserDefaults] dictionaryForKey: @"CLUT"] objectForKey: str];
-		if (aCLUT)
-		{
-			array = [aCLUT objectForKey:@"Red"];
-			for( i = 0; i < 256; i++)
-			{
-				red[i] = [[array objectAtIndex: i] longValue];
-			}
-			
-			array = [aCLUT objectForKey:@"Green"];
-			for( i = 0; i < 256; i++)
-			{
-				green[i] = [[array objectAtIndex: i] longValue];
-			}
-			
-			array = [aCLUT objectForKey:@"Blue"];
-			for( i = 0; i < 256; i++)
-			{
-				blue[i] = [[array objectAtIndex: i] longValue];
-			}
-			
-			[originalView setCLUT:red :green: blue];
-			[xReslicedView setCLUT:red :green: blue];
-			[yReslicedView setCLUT:red :green: blue];
+	
+    NSDictionary *aCLUT;
+    NSArray *array;
+    unsigned char red[256], green[256], blue[256];
+    
+    aCLUT = [[[NSUserDefaults standardUserDefaults] dictionaryForKey: @"CLUT"] objectForKey: str];
+    if (aCLUT)
+    {
+        array = [aCLUT objectForKey:@"Red"];
+        for (long i = 0; i < 256; i++)
+        {
+            red[i] = [[array objectAtIndex: i] longValue];
+        }
+        
+        array = [aCLUT objectForKey:@"Green"];
+        for (long i = 0; i < 256; i++)
+        {
+            green[i] = [[array objectAtIndex: i] longValue];
+        }
+        
+        array = [aCLUT objectForKey:@"Blue"];
+        for (long i = 0; i < 256; i++)
+        {
+            blue[i] = [[array objectAtIndex: i] longValue];
+        }
+        
+        [originalView setCLUT:red :green: blue];
+        [xReslicedView setCLUT:red :green: blue];
+        [yReslicedView setCLUT:red :green: blue];
 
-			[originalView setNeedsDisplay:YES];
-			[xReslicedView setNeedsDisplay:YES];
-			[yReslicedView setNeedsDisplay:YES];
-		}
-	}
+        [originalView setNeedsDisplay:YES];
+        [xReslicedView setNeedsDisplay:YES];
+        [yReslicedView setNeedsDisplay:YES];
+    }
 }
 
 - (void) changeWLWW: (NSNotification*) note

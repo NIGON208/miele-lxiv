@@ -20,7 +20,7 @@
 //#import	"VRView+StereoVision.h"
 #ifdef __cplusplus
 #import "vtkCocoaGLView.h"
-#import "VTKViewOSIRIX.h"
+#import "vtkMieleView.h"
 
 
 //#import "vtkCocoaWindow.h"
@@ -47,13 +47,11 @@ typedef char* vtkCamera;
 
 @class VRView;
 
-@interface VTKStereoVRView : VTKView {
-	
-	NSCursor					*cursor;
-	BOOL						cursorSet;
-
-	VRView						*superVRView;
-	
+@interface VTKStereoVRView : vtkMieleView
+{
+	NSCursor *cursor;
+	BOOL cursorSet;
+	VRView *superVRView;
 }
 
 //-(id)initWithFrame:(NSRect)frame;

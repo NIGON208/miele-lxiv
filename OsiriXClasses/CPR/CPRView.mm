@@ -16,10 +16,12 @@
 
 - (id)initWithFrame:(NSRect)frame
 {
+    NSLog(@"%s %d, frame: %@", __FUNCTION__, __LINE__, NSStringFromRect(frame));
+
     self = [super initWithFrame:frame];
     if (self) {
         _straightenedView = [[CPRStraightenedView alloc] initWithFrame:[self bounds]];
-        _stretchedView = [[CPRStretchedView alloc] initWithFrame:[self bounds]];
+        _stretchedView    = [[CPRStretchedView    alloc] initWithFrame:[self bounds]];
 
         [self addSubview:_straightenedView];
     }
@@ -31,6 +33,7 @@
 {
     [_straightenedView release];
     _straightenedView = nil;
+
     [_stretchedView release];
     _stretchedView = nil;
     
@@ -39,6 +42,9 @@
 
 - (void)setFrame:(NSRect)frameRect
 {
+#ifdef DEBUG_3D_CPR
+    NSLog(@"%s %d %@ %@", __FUNCTION__, __LINE__, NSStringFromClass([self class]), NSStringFromRect(frameRect));
+#endif
     [super setFrame:frameRect];
     
     NSDisableScreenUpdates();
@@ -52,21 +58,23 @@
 {
     assert(reformationType == CPRViewStraightenedReformationType || reformationType == CPRViewStretchedReformationType);
     
-    if (reformationType != _reformationType) {
-        if (_reformationType == CPRViewStraightenedReformationType) { // going from straightened to stretched
-            [_straightenedView removeFromSuperview];
-            _stretchedView.curvedPath = _straightenedView.curvedPath;
-            _stretchedView.displayInfo = _straightenedView.displayInfo;
-            [self addSubview:_stretchedView];
-        }
-        else {
-            [_stretchedView removeFromSuperview];
-            _straightenedView.curvedPath = _stretchedView.curvedPath;
-            _straightenedView.displayInfo = _stretchedView.displayInfo;
-            [self addSubview:_straightenedView];
-        }
-        _reformationType = reformationType;
+    if (reformationType == _reformationType)
+        return;
+
+    if (_reformationType == CPRViewStraightenedReformationType) { // going from straightened to stretched
+        [_straightenedView removeFromSuperview];
+        _stretchedView.curvedPath = _straightenedView.curvedPath;
+        _stretchedView.displayInfo = _straightenedView.displayInfo;
+        [self addSubview:_stretchedView];
     }
+    else {
+        [_stretchedView removeFromSuperview];
+        _straightenedView.curvedPath = _stretchedView.curvedPath;
+        _straightenedView.displayInfo = _stretchedView.displayInfo;
+        [self addSubview:_straightenedView];
+    }
+
+    _reformationType = reformationType;
 }
 
 // returns the actual view that does the reformation.
@@ -196,6 +204,7 @@
 
 - (CPRVolumeData *)volumeData
 {
+    //NSLog(@"%s %d %@ %p, data size: %d", __FUNCTION__, __LINE__, NSStringFromClass([self class]), self, [[self reformationView] volumeData]._floatData.size());
     return [(CPRStraightenedView *)[self reformationView] volumeData]; // cast to make sure the compiler picks the right return type for the method
 }
 
@@ -271,7 +280,6 @@
     [_straightenedView setBluePlane:bluePlane];
     [_stretchedView setBluePlane:bluePlane];
 }
-
 
 - (CGFloat)orangeSlabThickness
 {

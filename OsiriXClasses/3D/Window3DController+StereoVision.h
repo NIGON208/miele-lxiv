@@ -25,19 +25,15 @@
 #import "NSFullScreenWindow.h"
 #import "OSIWindowController.h"
 
-
 #define DATABASEPATH				@"/DATABASE.noindex/"
 #define STATEDATABASE				@"/3DSTATE/"
-
 
 @class ROIVolume;
 @class ViewerController;
 @class DCMPix;
-@class VTKView;
-
+@class vtkMieleView;
 
 @interface Window3DController (StereoVision)
-
 
 - (void) disableFullScreen;
 - (void) enableFullScreen;

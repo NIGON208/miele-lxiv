@@ -21,7 +21,7 @@
 #import "DCMPix.h"
 
 #ifdef __cplusplus
-#import "VTKViewOSIRIX.h"
+#import "vtkMieleView.h"
 
 #define id Id
 #include "vtkCommand.h"
@@ -160,7 +160,7 @@ typedef char* vtkMyCallbackVR;*/
  */
 #ifdef __cplusplus
 #else
-#define VTKView NSView
+#define vtkMieleView    NSView
 #endif
 
 @interface VRView ( StereoVision )

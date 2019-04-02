@@ -14,10 +14,36 @@
 
 #include "options.h"
 
+#ifdef WITH_OPENGL_32
+#import <OpenGL/gl3.h>
+#import <OpenGL/gl3ext.h>
+#define GL_INTENSITY8               0x804B
+#define GL_LUMINANCE                0x1909
+#define GL_LUMINANCE_FLOAT32_APPLE  0x8818
+#endif // WITH_OPENGL_32
+
+#if defined(WITH_OPENGL_32)
+//#define WITH_SWIZZLE_MASK
+#define PLACE_1 // CCM when defining the texture
+//#define PLACE_2 // CCM when drawing
+//#define WITH_GLM
+
+#ifdef WITH_GLM
+#include "glm/glm.hpp"
+#include "glm/gtc/matrix_transform.hpp"
+#include "glm/gtc/type_ptr.hpp"
+//#define APPLY_TRANS_ROT_SCALE  // TODO: comment it in
+#endif
+#endif // WITH_OPENGL_32
+
+#if !defined(WITH_OPENGL_32)
 #include <OpenGL/glu.h> // it includes gl.h
 #include <OpenGL/gl.h>
 #include <OpenGL/glext.h>
+#ifndef WITH_GLEW
 #include <OpenGL/CGLMacro.h>
+#endif
+#endif // WITH_OPENGL_32
 
 #import <DCM/DCMAbstractSyntaxUID.h>
 #import "DCMView.h"
@@ -67,6 +93,12 @@ const char *stringCRSpaces = "\n                                                
 #define WITH_DRAW_OVERFLOW_FUNCTION
 
 @class MPRDCMView;
+#if defined(DEBUG_3D_CPR) || defined(DEBUG_3D_MPR) // @@@
+@class CPRMPRDCMView;
+//@class CPRStraightenedView;
+#import "CPRStraightenedView.h"
+#import "CPRStretchedView.h"
+#endif
 
 // kvImageHighQualityResampling
 #define QUALITY     kvImageNoFlags
@@ -115,6 +147,9 @@ dest[2]=v1[0]*v2[1]-v1[1]*v2[0];
 //#define SUB(dest,v1,v2) dest[0]=v1[0]-v2[0]; \
 //dest[1]=v1[1]-v2[1]; \
 //dest[2]=v1[2]-v2[2];
+
+int checkOpenGLErrors(int lineNo);
+int checkExtension(const char* ext);
 
 #pragma mark -
 
@@ -356,11 +391,98 @@ static void DrawGLImageTile (unsigned long drawType,
 			endYTexCoord = 1.0f - 2.0f * startYTexCoord; // for the last texture in odd size images there are two texels of padding so step in 2
 	}
 	
+#ifndef WITH_OPENGL_32
 	CGLContextObj cgl_ctx = [[NSOpenGLContext currentContext] CGLContextObj];
     if (cgl_ctx == nil)
         return;
+#endif
     
+#ifdef WITH_OPENGL_32
+    // Draw the triangles
+    const GLfloat vertex_buffer_data[] = {
+#if 1
+        -1, 1, 0,
+         1, 1, 0,
+        -1,-1, 0,
+         1,-1, 0,
+#else
+        startXDraw, startYDraw, 0.0f,
+        endXDraw, startYDraw, 0.0f,
+        startXDraw, endYDraw, 0.0f,
+        endXDraw, endYDraw, 0.0f
+#endif
+    };
+    GLsizei n = (sizeof(vertex_buffer_data) / sizeof(vertex_buffer_data[0])) / 3;
+    const GLfloat uv_buffer_data[] = {
+        startXTexCoord, startYTexCoord,
+        endXTexCoord, startYTexCoord,
+        startXTexCoord, endYTexCoord,
+        endXTexCoord, endYTexCoord
+    };
 
+    GLuint vao = 0;
+    glGenVertexArrays(1, &vao);
+    glBindVertexArray(vao);
+    NSLog(@"DCMView.mm:%d DrawGLImageTile() [4] GL_APPLE_vertex_array_object:%d vao:%u", __LINE__,
+          checkExtension("GL_APPLE_vertex_array_object"), vao);
+#if 0 //ndef NDEBUG
+    NSLog(@"Line:%d vertex_buffer_data", __LINE__);
+    for (int i=0; i<n*3; i++) {
+        if (!(i%3)) printf("%s", stringCRSpaces);
+        printf("[%2d]:%7.2f, ", i, vertex_buffer_data[i]);
+    }
+    printf("\n");
+
+    NSLog(@"Line:%d uv_buffer_data", __LINE__);
+    GLsizei m = (sizeof(uv_buffer_data) / sizeof(uv_buffer_data[0])) / 2;
+    for (int i=0; i<m*2; i++) {
+        if (!(i%2)) printf("%s", stringCRSpaces);
+        printf("[%d]:%.2f, ", i, uv_buffer_data[i]);
+    }
+    printf("\n");
+#endif
+    checkOpenGLErrors(__LINE__);
+    
+    GLuint vbo[2];
+    glGenBuffers(2, vbo);
+    
+    // glEnableVertexAttribArray and glVertexAttribPointer are "modern" replacement for glEnableClientState/glVertexPointer.
+    glEnableVertexAttribArray(0);           checkOpenGLErrors(__LINE__);
+    glEnableVertexAttribArray(1);           checkOpenGLErrors(__LINE__);
+
+    glBindBuffer(GL_ARRAY_BUFFER, vbo[0]);
+    glBufferData(GL_ARRAY_BUFFER,
+                 sizeof(vertex_buffer_data),
+                 vertex_buffer_data,
+                 GL_STATIC_DRAW);           checkOpenGLErrors(__LINE__);
+    glVertexAttribPointer(0,
+                          3,
+                          GL_FLOAT,
+                          GL_FALSE,
+                          0,
+                          (GLvoid*) 0);     checkOpenGLErrors(__LINE__);
+    
+    glBindBuffer(GL_ARRAY_BUFFER, vbo[1]);  checkOpenGLErrors(__LINE__);
+    glBufferData(GL_ARRAY_BUFFER,
+                 sizeof(uv_buffer_data),
+                 uv_buffer_data,
+                 GL_STATIC_DRAW);           checkOpenGLErrors(__LINE__);
+    glVertexAttribPointer(1,
+                          2,
+                          GL_FLOAT,
+                          GL_FALSE,
+                          0,
+                          (GLvoid*) 0);     checkOpenGLErrors(__LINE__);
+    
+    glDrawArrays(GL_TRIANGLE_STRIP, 0, n);  checkOpenGLErrors(__LINE__);
+    
+    glBindBuffer(GL_ARRAY_BUFFER, 0); checkOpenGLErrors(__LINE__); // unbind
+    glDeleteBuffers(2, vbo);
+    glDisableVertexAttribArray(0);    checkOpenGLErrors(__LINE__);  // TBC
+    glDisableVertexAttribArray(1);    checkOpenGLErrors(__LINE__);
+    glBindVertexArray(0);
+    glDeleteVertexArrays(1, &vao);    checkOpenGLErrors(__LINE__);
+#else  // WITH_OPENGL_32
     // draw either tri strips of line strips (so this will draw either 2 tris or 3 lines)
 	glBegin (drawType);
 		glTexCoord2f (startXTexCoord, startYTexCoord); // draw upper left in world coordinates
@@ -375,6 +497,7 @@ static void DrawGLImageTile (unsigned long drawType,
 		glTexCoord2f (endXTexCoord, endYTexCoord); // draw lower right in world coordinates
 		glVertex3d (endXDraw, endYDraw, 0.0);
 	glEnd();
+#endif // WITH_OPENGL_32
 	
 	// finish strips
 /*	if (drawType == GL_LINE_STRIP) // draw top and bottom lines which were not draw with above
@@ -533,8 +656,7 @@ int checkOpenGLErrors(int lineNo)
     while ((err = glGetError()) != GL_NO_ERROR) {
         NSLog(@"DCMView.mm:%5d OpenGL error 0x%04X, ctx:%p", lineNo, err, cgl_ctx);
         errorCount++;
-        [NSException raise:NSGenericException
-                    format:@"OpenGL error 0x%04X, ctx:%p", err, cgl_ctx];
+        //[NSException raise:NSGenericException format:@"OpenGL error 0x%04X, ctx:%p", err, cgl_ctx];
     }
 #endif
     return errorCount;
@@ -543,8 +665,10 @@ int checkOpenGLErrors(int lineNo)
 // Check extensions without using GLEW
 int checkExtension(const char* ext)
 {
+#ifndef WITH_OPENGL_32
     CGLContextObj cgl_ctx = [[NSOpenGLContext currentContext] CGLContextObj];
-    
+#endif
+
     const GLubyte *v = glGetString(GL_VERSION);
     if (!ext)
         NSLog(@"DCMView.mm:%d OpenGL version<%s>", __LINE__, v);
@@ -558,6 +682,34 @@ int checkExtension(const char* ext)
         printf("%s\n", strExtension); // the whole list
         return -4;
     }
+    
+#ifdef WITH_OPENGL_32
+    // New API since OpenGL 3.0
+    GLint nExt = 2000;
+    glGetIntegerv(GL_NUM_EXTENSIONS, &nExt); checkOpenGLErrors(__LINE__);
+    
+    for (GLint i = 0; i < nExt; i++)
+    {
+        const char *s = (const char *)glGetStringi(GL_EXTENSIONS, i);
+        if (glGetError() == GL_INVALID_VALUE)
+            break;
+
+        if (!s)
+            break;  // not found
+
+        if (ext)
+        {
+            if (!strcmp(s, ext))
+                return 1;  // found
+        }
+        else
+        {
+            printf("ext:%d, %s\n", i, s);
+        }
+    } // for
+
+    return 0;  // not found
+#endif
 
     return -5;  // invalid
 }
@@ -584,7 +736,9 @@ void checkOGLVersion()
 
 //void checkShader(GLuint shader)
 //{
+#ifndef WITH_OPENGL_32
 //    CGLContextObj cgl_ctx = [[NSOpenGLContext currentContext] CGLContextObj];
+#endif
 //    GLint success;
 //    glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
 //    if ( !success )
@@ -645,7 +799,7 @@ void checkOGLVersion()
 //    auto programId = glCreateProgram();
 //
 //    // checkPoint[3] = 1;
-//    NSLog(@"Checkpoint DCMView.mm:%d loadShader() [2] vertex:%u fragment:%u program:%u", __LINE__, vs, fs, programId);
+//    NSLog(@"DCMView.mm:%d loadShader() [2] vertex:%u fragment:%u program:%u", __LINE__, vs, fs, programId);
 //
 //    glAttachShader(programId, vs);
 //    glAttachShader(programId, fs);
@@ -673,7 +827,7 @@ void checkOGLVersion()
 
 //GLuint getShaderProgram(NSString *shaderName)
 //{
-//    NSLog(@"Checkpoint DCMView.mm:%d %s", __LINE__, __PRETTY_FUNCTION__);
+//    NSLog(@"DCMView.mm:%d %s", __LINE__, __PRETTY_FUNCTION__);
 //
 //    //static
 //    GLuint shaderProgram = GL_ZERO;
@@ -1355,7 +1509,10 @@ void checkOGLVersion()
         {
 			float crossx = display2DPoint.x - curDCM.pwidth/2.;
             float crossy = display2DPoint.y - curDCM.pheight/2.;
-			CGLContextObj cgl_ctx = [[NSOpenGLContext currentContext] CGLContextObj];
+
+#ifdef WITH_OPENGL_32
+#else
+            CGLContextObj cgl_ctx = [[NSOpenGLContext currentContext] CGLContextObj];
             if (cgl_ctx == nil)
                 return;
 
@@ -1373,6 +1530,7 @@ void checkOGLVersion()
             glVertex2f( scaleValue * (crossx), scaleValue*(crossy+5));
             glVertex2f( scaleValue * (crossx), scaleValue*(crossy+40));
             glEnd();
+#endif
         }
         else
         {
@@ -1385,7 +1543,9 @@ void checkOGLVersion()
 // Draw a yellow filled circle with opacity varying over time
 - (void)drawRepulsorToolArea;
 {
-	CGLContextObj cgl_ctx = [[NSOpenGLContext currentContext] CGLContextObj];
+#ifdef WITH_OPENGL_32
+#else // WITH_OPENGL_32
+CGLContextObj cgl_ctx = [[NSOpenGLContext currentContext] CGLContextObj];
 	if (cgl_ctx == nil)
         return;
     
@@ -1416,6 +1576,7 @@ void checkOGLVersion()
 	}
 	glEnd();
 	glDisable(GL_BLEND);
+#endif // WITH_OPENGL_32
 }
 
 - (void)setAlphaRepulsor:(NSTimer*)theTimer
@@ -1432,13 +1593,17 @@ void checkOGLVersion()
 
 - (void)drawROISelectorRegion;
 {
+#ifndef WITH_OPENGL_32
 	CGLContextObj cgl_ctx = [[NSOpenGLContext currentContext] CGLContextObj];
 	if (cgl_ctx == nil)
         return;
+#endif
     
 	glEnable(GL_BLEND);
 	glDisable(GL_POLYGON_SMOOTH);
+#ifndef WITH_OPENGL_32
 	glDisable(GL_POINT_SMOOTH);
+#endif
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	
 	glLineWidth( 1 * self.window.backingScaleFactor);
@@ -2103,8 +2268,12 @@ void checkOGLVersion()
 		else
             x -= 5 * self.window.backingScaleFactor;
 		
+#ifdef WITH_OPENGL_32
+        checkOpenGLErrors(__LINE__);
+#else
 		CGLContextObj cgl_ctx = [[NSOpenGLContext currentContext] CGLContextObj];
 		if (cgl_ctx)
+#endif
         {
             long xc = x+2;
             long yc = y+1-[stringTex texSize].height;
@@ -2452,6 +2621,9 @@ void checkOGLVersion()
 
 - (void) setIndexWithReset:(short) index :(BOOL) sizeToFit
 {
+#ifdef DEBUG_3D_CPR
+    NSLog(@"%s %d %@ %p", __FUNCTION__, __LINE__, NSStringFromClass([self class]), self);
+#endif
 	TextureComputed32bitPipeline = NO;
 
     if (index >= (int) dcmPixList.count)
@@ -2472,6 +2644,9 @@ void checkOGLVersion()
 		if (curImage < 0)
             curImage = 0;
 		
+#ifdef DEBUG_3D_CPR
+        NSLog(@"%s %d %@", __FUNCTION__, __LINE__, NSStringFromClass([self class]));
+#endif
 		[curDCM release];
 		curDCM = [[dcmPixList objectAtIndex: curImage] retain];
 		
@@ -2515,8 +2690,7 @@ void checkOGLVersion()
 		[self setNeedsDisplay:YES];
 		
 		[yearOld release];
-		
-		
+
 //		if ([[[dcmFilesList objectAtIndex: curImage] valueForKeyPath:@"series.study.yearOld"] isEqualToString: [[dcmFilesList objectAtIndex: curImage] valueForKeyPath:@"series.study.yearOldAcquisition"]])
 //			yearOld = [[[dcmFilesList objectAtIndex: curImage] valueForKeyPath:@"series.study.yearOld"] retain];
 //		else
@@ -2577,7 +2751,7 @@ void checkOGLVersion()
 			dcmPixList = [pixels retain];
 
 			curWW = curWL = 0;
-            Dicom_Image *imageObj = [files lastObject]; // Unused ?
+            //Dicom_Image *imageObj = [files lastObject]; // Unused ?
             
             BOOL a = ![DCMView noPropagateSettingsInSeriesForModality: [files objectAtIndex: dcmPixList.count/2]];
             
@@ -2628,7 +2802,7 @@ void checkOGLVersion()
 
 - (void) dealloc
 {
-	NSLog(@"DCMView released");
+	//NSLog(@"DCMView released");
     
     @try
     {
@@ -2927,6 +3101,9 @@ void checkOGLVersion()
 
 - (void) setIndex:(short) index
 {
+#ifdef DEBUG_3D_CPR
+    NSLog(@"%s %d %@", __FUNCTION__, __LINE__, NSStringFromClass([self class]));
+#endif
 	[self delete3DROIsAliases];
 	[drawLock lock];
 	
@@ -2941,7 +3118,8 @@ void checkOGLVersion()
         if (index >= (int) dcmPixList.count)
             index = 0;
 
-        if (dcmPixList && index >= 0 &&
+        if (dcmPixList &&
+            index >= 0 &&
             index < [dcmPixList count] &&
             [[dcmFilesList objectAtIndex: index] isDistant] == NO)
 		{
@@ -2999,7 +3177,9 @@ void checkOGLVersion()
 			{
 				if (curImage >= 0 && COPYSETTINGSINSERIES == NO)
 				{
-					if (curWW != curDCM.ww || curWL != curDCM.wl || [curDCM updateToApply] == YES)
+					if (curWW != curDCM.ww ||
+                        curWL != curDCM.wl ||
+                        [curDCM updateToApply])
 					{
 						[self reapplyWindowLevel];
 					}
@@ -3043,6 +3223,9 @@ void checkOGLVersion()
 		}
 		else
 		{
+#ifdef DEBUG_3D_CPR
+            NSLog(@"%s %d %@, dcmPixList: %@", __FUNCTION__, __LINE__, NSStringFromClass([self class]), dcmPixList);
+#endif
 			[curDCM autorelease];
 			curDCM = nil;
 			curImage = -1;
@@ -3141,8 +3324,11 @@ void checkOGLVersion()
             }
         }
         
-        if (curImage < 0) curImage = 0;
-        if (curImage >= [dcmPixList count]) curImage = (long)[dcmPixList count]-1;
+        if (curImage < 0)
+            curImage = 0;
+        
+        if (curImage >= [dcmPixList count])
+            curImage = (long)[dcmPixList count]-1;
     }
     
     return switchSeries;
@@ -3173,10 +3359,10 @@ void checkOGLVersion()
 		
 		if (flippedData)
 		{
-			if (c == NSLeftArrowFunctionKey) c = NSRightArrowFunctionKey;
+			if      (c == NSLeftArrowFunctionKey)  c = NSRightArrowFunctionKey;
 			else if (c == NSRightArrowFunctionKey) c = NSLeftArrowFunctionKey;
-			else if (c == NSPageUpFunctionKey) c = NSPageDownFunctionKey;
-			else if (c == NSPageDownFunctionKey) c = NSPageUpFunctionKey;
+			else if (c == NSPageUpFunctionKey)     c = NSPageDownFunctionKey;
+			else if (c == NSPageDownFunctionKey)   c = NSPageUpFunctionKey;
 		}
 		
 		if (c == NSDeleteFunctionKey ||
@@ -4193,8 +4379,10 @@ void checkOGLVersion()
         
         @try
         {
+#if 1
             [[self openGLContext] makeCurrentContext];	// Important for iChat compatibility
             checkOpenGLErrors(__LINE__);  // error GL_INVALID_OPERATION 0x0502
+#endif
             
             NSPoint imageLocation = [self ConvertFromNSView2GL: eventLocationInView];
             
@@ -8177,57 +8365,92 @@ void checkOGLVersion()
 
 -(void) FindMinimumOpenGLCapabilities
 {
+#ifdef WITH_GLEW
+    [[self openGLContext] makeCurrentContext];
+#endif
     GLint deviceMaxTextureSize = 0;
 	GLint NPOTDMaxTextureSize = 0;
-    
-    // init desired caps to max values
+
+  #ifdef WITH_OPENGL_32
+    f_ext_texture_rectangle = NO;
+    f_arb_texture_rectangle = NO;
+    f_ext_client_storage = NO;
+    f_ext_packed_pixel = NO;
+    f_ext_texture_edge_clamp = NO;
+    f_gl_texture_edge_clamp = NO;
+  #else
     f_ext_texture_rectangle = YES;
     f_arb_texture_rectangle = YES;
     f_ext_client_storage = YES;
     f_ext_packed_pixel = YES;
     f_ext_texture_edge_clamp = YES;
     f_gl_texture_edge_clamp = YES;
+  #endif
+
+    // init desired caps to max values
     maxTextureSize = 0x7FFFFFFF;
     maxNOPTDTextureSize = 0x7FFFFFFF;
-    
+
+#ifndef WITH_OPENGL_32
 	CGLContextObj cgl_ctx = [[NSOpenGLContext currentContext] CGLContextObj];
-	if (!cgl_ctx)
+    if (!cgl_ctx) {
+        NSLog(@"%s %d", __FUNCTION__, __LINE__);
         return;
+#endif
+    }
 
     // get strings
-    enum { kShortVersionLength = 32 };
-    const GLubyte * strVersion = glGetString (GL_VERSION); // get version string
-    const GLubyte * strExtension = glGetString (GL_EXTENSIONS);	// get extension string
+
+#ifndef WITH_OPENGL_32
+    const GLubyte *strExtension = glGetString(GL_EXTENSIONS);    // get extension string
+
+    // Compare capabilities based on extension string and GL version
+    // Turn them off if absent
+    if (strExtension) {
+        f_ext_texture_rectangle =
+            f_ext_texture_rectangle && strstr((const char *) strExtension, "GL_EXT_texture_rectangle");
+        f_arb_texture_rectangle =
+            f_arb_texture_rectangle && strstr((const char *) strExtension, "GL_ARB_texture_rectangle");
+        f_ext_client_storage =
+            f_ext_client_storage && strstr((const char *) strExtension, "GL_APPLE_client_storage");
+        f_ext_packed_pixel =
+            f_ext_packed_pixel && strstr((const char *) strExtension, "GL_APPLE_packed_pixel");
+        f_ext_texture_edge_clamp =
+            f_ext_texture_edge_clamp && strstr((const char *) strExtension, "GL_SGIS_texture_edge_clamp");
+    }
+#endif // WITH_OPENGL_32
+
+    const GLubyte *strVersion = glGetString(GL_VERSION); // get version string
     
-    // get just the non-vendor specific part of version string
-    GLubyte strShortVersion [kShortVersionLength];
+    // Get just the non-vendor specific part of version string
+    enum { kShortVersionLength = 32 };
+    GLubyte strShortVersion[kShortVersionLength];
+
     short i = 0;
-    while ((((strVersion[i] <= '9') && (strVersion[i] >= '0')) || (strVersion[i] == '.')) && (i < kShortVersionLength)) // get only basic version info (until first space)
+    while ((((strVersion[i] <= '9') && (strVersion[i] >= '0')) || (strVersion[i] == '.')) &&
+           (i < kShortVersionLength)) // get only basic version info (until first space)
     {
         strShortVersion[i] = strVersion[i];
         i++;
     }
-    strShortVersion [i] = 0; //truncate string
-    
-    // compare capabilities based on extension string and GL version
-    f_ext_texture_rectangle =
-            f_ext_texture_rectangle && strstr ((const char *) strExtension, "GL_EXT_texture_rectangle");
-    f_arb_texture_rectangle =
-            f_arb_texture_rectangle && strstr ((const char *) strExtension, "GL_ARB_texture_rectangle");
-    f_ext_client_storage =
-            f_ext_client_storage && strstr ((const char *) strExtension, "GL_APPLE_client_storage");
-    f_ext_packed_pixel =
-            f_ext_packed_pixel && strstr ((const char *) strExtension, "GL_APPLE_packed_pixel");
-    f_ext_texture_edge_clamp =
-            f_ext_texture_edge_clamp && strstr ((const char *) strExtension, "GL_SGIS_texture_edge_clamp");
+    strShortVersion[i] = 0; // Truncate string
+
     f_gl_texture_edge_clamp =
-            f_gl_texture_edge_clamp && (!strstr ((const char *) strShortVersion, "1.0") && !strstr ((const char *) strShortVersion, "1.1")); // if not 1.0 and not 1.1 must be 1.2 or greater
+            f_gl_texture_edge_clamp &&
+            !strstr((const char *) strShortVersion, "1.0") &&
+            !strstr((const char *) strShortVersion, "1.1"); // if not 1.0 and not 1.1 must be 1.2 or greater
     
+    NSLog(@"%s %d OpenGL %s, f_gl_texture_edge_clamp:%d", __FUNCTION__, __LINE__, strShortVersion, f_gl_texture_edge_clamp);
+
     // get device max texture size
-    glGetIntegerv (GL_MAX_TEXTURE_SIZE, &deviceMaxTextureSize);
+    glGetIntegerv(GL_MAX_TEXTURE_SIZE, &deviceMaxTextureSize);
     if (deviceMaxTextureSize < maxTextureSize)
-            maxTextureSize = deviceMaxTextureSize;
+        maxTextureSize = deviceMaxTextureSize;
+
     // Get max size of non-power of two texture on devices which support
+
+#ifndef WITH_OPENGL_32
+    if (strExtension)
     if (NULL != strstr ((const char *) strExtension, "GL_EXT_texture_rectangle"))
     {
 #ifdef GL_MAX_RECTANGLE_TEXTURE_SIZE_EXT
@@ -8236,6 +8459,7 @@ void checkOGLVersion()
         maxNOPTDTextureSize = NPOTDMaxTextureSize;
 #endif
     }
+#endif
     
 //			maxTextureSize = 500;
     
@@ -8249,21 +8473,26 @@ void checkOGLVersion()
         
     if (f_arb_texture_rectangle && f_ext_texture_rectangle)
     {
-//		NSLog(@"ARB Rectangular Texturing!");
+#ifndef NDEBUG
+		NSLog(@"ARB Rectangular Texturing!");
+#endif
         // Allow texture targets for textures of any dimensions
         TEXTRECTMODE = GL_TEXTURE_RECTANGLE_ARB;
         maxTextureSize = maxNOPTDTextureSize;
     }
-    else
-    if (f_ext_texture_rectangle)
+    else if (f_ext_texture_rectangle)
     {
-//		NSLog(@"Rectangular Texturing!");
+#ifndef NDEBUG
+		NSLog(@"Rectangular Texturing!");
+#endif
         TEXTRECTMODE = GL_TEXTURE_RECTANGLE_EXT;
         maxTextureSize = maxNOPTDTextureSize;
     }
     else
     {
+#ifndef NDEBUG
         NSLog(@"Normal Texturing!");
+#endif
         // Note that OpenGL does not use DMA for a power-of-two texture target. So, unlike the rectangular texture, the power-of-two texture will incur one additional copy and performance won't be quite as fast.
         TEXTRECTMODE = GL_TEXTURE_2D;
     }
@@ -8443,15 +8672,19 @@ void checkOGLVersion()
                    :(NSPoint) offset
                    :(long) tX :(long) tY :(long) tW :(long) tH
 {
-    if (texture == nil)
+    if (texture == nil) {
+        NSLog(@"%s %d early return for %@ %p", __FUNCTION__, __LINE__, NSStringFromClass([self class]), self);
         return;
+    }
 	
 	long effectiveTextureMod = 0; // texture size modification (inset) to account for borders
-	long k = 0, offsetY, offsetX = 0, currTextureWidth, currTextureHeight;
+    long offsetY, offsetX = 0, currTextureWidth, currTextureHeight;
 	
 	CGLContextObj cgl_ctx = [[NSOpenGLContext currentContext] CGLContextObj];
-    if (cgl_ctx == nil)
+    if (cgl_ctx == nil) {
+        NSLog(@"%s %d early return for %@ %p", __FUNCTION__, __LINE__, NSStringFromClass([self class]), self);
         return;
+    }
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
@@ -8481,6 +8714,7 @@ void checkOGLVersion()
     
 //    float sf = self.window.backingScaleFactor;
     
+    long k = 0;
 	for (long x = 0; x < tX; x++) // for all horizontal textures
 	{
         // Use remaining to determine next texture size.
@@ -8496,7 +8730,8 @@ void checkOGLVersion()
             // Work through textures in same order as stored, setting each texture name as current in turn
             glBindTexture(TEXTRECTMODE, texture[k++]);
             
-            DrawGLImageTile (GL_TRIANGLE_STRIP, curDCM.pwidth, curDCM.pheight, scaleValue,		//
+            //NSLog(@"%s %d DrawGLImageTile %@ %p", __FUNCTION__, __LINE__, NSStringFromClass([self class]), self);
+            DrawGLImageTile(GL_TRIANGLE_STRIP, curDCM.pwidth, curDCM.pheight, scaleValue,		//
                                 currTextureWidth, currTextureHeight, // draw this single texture on two tris
                                 offsetX,  offsetY,
                                 currTextureWidth + offsetX,
@@ -9880,12 +10115,17 @@ void checkOGLVersion()
 }
 
 #pragma mark -
+
 - (void) drawRect:(NSRect) r
 {
 	if (drawing == NO)
         return;
 	
-	@synchronized (self)
+#ifdef DEBUG_3D_MPR
+    NSLog(@"%s %d class:%@ %p", __FUNCTION__, __LINE__, NSStringFromClass([self class]), self);
+#endif
+
+    @synchronized (self)
 	{
         NSRect backingBounds = [self convertRectToBacking: [self frame]]; // Retina
        
@@ -9918,6 +10158,17 @@ void checkOGLVersion()
         
         checkOpenGLErrors(__LINE__);
 
+#if defined(DEBUG_3D_CPR) || defined(DEBUG_3D_MPR) // @@@
+        if ([self class] != [DCMView class] &&
+            [self class] != [PreviewView class] &&
+            [self class] != [CPRMPRDCMView class] &&
+            [self class] != [CPRStraightenedView class] &&
+            [self class] != [CPRStretchedView class]) {
+            NSLog(@"%s %d early return for %@ %p", __FUNCTION__, __LINE__, NSStringFromClass([self class]), self);
+            return;
+        }
+        NSLog(@"%s %d %@ %p", __FUNCTION__, __LINE__, NSStringFromClass([self class]), self);
+#endif
 		[self drawRect: backingBounds
            withContext: [self openGLContext]];
 	}
@@ -10550,6 +10801,17 @@ void checkOGLVersion()
 
 - (void) drawRect:(NSRect)aRect withContext:(NSOpenGLContext *)ctx
 {
+#if defined(DEBUG_3D_CPR) || defined(DEBUG_3D_MPR)// @@@
+    if ([self class] != [DCMView class] &&
+        [self class] != [PreviewView class] &&
+        [self class] != [CPRMPRDCMView class] &&
+        [self class] != [CPRStraightenedView class] &&
+        [self class] != [CPRStretchedView class]) {
+        NSLog(@"%s %d early return for %@ %p", __FUNCTION__, __LINE__, NSStringFromClass([self class]), self);
+        return;
+    }
+#endif
+    //NSLog(@"%s %d %@ %p", __FUNCTION__, __LINE__, NSStringFromClass([self class]), self);
     long annotations = annotationType;
     BOOL frontMost = NO;
     BOOL is2DViewer = [self is2DViewer];
@@ -10583,12 +10845,23 @@ void checkOGLVersion()
 		drawLock = nil;
 	}
 	
+#if 0 // @@@
 	[ctx makeCurrentContext];
 	if (!ctx)
         return;
+#else
+    [[self openGLContext] makeCurrentContext];
+    
+    CGLContextObj cgl_ctx = [[NSOpenGLContext currentContext] CGLContextObj];
+    if (!cgl_ctx)
+        return;
+#endif
     
 	@try 
 	{
+//        if ([self class] == [MPRDCMView class])
+//            NSLog(@"%s %d, %p needToLoadTexture:%d", __FUNCTION__, __LINE__, self, needToLoadTexture);
+
 		if (needToLoadTexture)// || iChatRunning)
 			[self loadTexturesCompute];
 		
@@ -10612,7 +10885,7 @@ void checkOGLVersion()
 		drawingFrameRect = aRect;
 
 		CGLContextObj cgl_ctx = [[NSOpenGLContext currentContext] CGLContextObj];
-		if (cgl_ctx == nil)
+		if (!cgl_ctx)
             return;
 
         // Set the viewport to cover entire window
@@ -10790,8 +11063,8 @@ void checkOGLVersion()
 
 				// FRAME RECT IF MORE THAN 1 WINDOW and IF THIS WINDOW IS THE FRONTMOST : BORDER AROUND THE IMAGE
 				if ([ViewerController numberOf2DViewer] > 1 &&
-                    is2DViewer == YES &&
-                    stringID == nil)
+                    is2DViewer &&
+                    [stringID length] > 0)
 				{
 					// draw line around key View - RED BOX
 					
@@ -10878,43 +11151,10 @@ void checkOGLVersion()
                 }
                     
 				if ((_imageColumns > 1 || _imageRows > 1) &&
-                    is2DViewer == YES &&
-                    stringID == nil )
+                    is2DViewer &&
+                    [stringID length] > 0 )
 				{
-#if 1
                     [self drawKeyViewBox];
-#else
-					float heighthalf = drawingFrameRect.size.height/2 - 1;
-					float widthhalf = drawingFrameRect.size.width/2 - 1;
-					
-					glColor3f (0.5f, 0.5f, 0.5f);
-					glLineWidth(1.0 * sf);
-					glBegin(GL_LINE_LOOP);
-						glVertex2f(  -widthhalf, -heighthalf);
-						glVertex2f(  -widthhalf, heighthalf);
-						glVertex2f(  widthhalf, heighthalf);
-						glVertex2f(  widthhalf, -heighthalf);
-					glEnd();
-					glLineWidth(1.0 * sf);
-					
-                    // KEY VIEW - RED BOX
-                    
-					if (isKeyView && [ViewerController frontMostDisplayed2DViewerForScreen: self.window.screen] == self.windowController)
-					{
-						float heighthalf = drawingFrameRect.size.height/2 - 1;
-						float widthhalf = drawingFrameRect.size.width/2 - 1;
-						
-						glColor3f (1.0f, 0.0f, 0.0f);
-						glLineWidth(2.0 * sf);
-						glBegin(GL_LINE_LOOP);
-							glVertex2f(  -widthhalf, -heighthalf);
-							glVertex2f(  -widthhalf, heighthalf);
-							glVertex2f(  widthhalf, heighthalf);
-							glVertex2f(  widthhalf, -heighthalf);
-						glEnd();
-						glLineWidth(1.0 * sf);
-					}
-#endif
 				}
 				
 				glRotatef(rotation, 0.0f, 0.0f, 1.0f); // rotate matrix for image rotation
@@ -11027,6 +11267,8 @@ void checkOGLVersion()
 				[self subDrawRect: aRect];
 				self.scaleValue = scaleValue;
 				
+                //NSLog(@"%s %d, %@, %p, Xref lines: %d", __FUNCTION__, __LINE__, NSStringFromClass([self class]), self, DISPLAYCROSSREFERENCELINES);
+
 				//** SLICE CUT BETWEEN SERIES - CROSS REFERENCE LINES
 				
 				if (is2DViewer &&
@@ -11093,7 +11335,6 @@ void checkOGLVersion()
 					if (slicePoint3D[ 0] != HUGE_VALF)
 					{
 						float tempPoint3D[2];
-						
 						
 						tempPoint3D[0] = slicePoint3D[ 0] / curDCM.pixelSpacingX;
 						tempPoint3D[1] = slicePoint3D[ 1] / curDCM.pixelSpacingY;
@@ -11164,77 +11405,8 @@ void checkOGLVersion()
 				
 				 if (annotations >= annotBase)
 				 {
-#if 1
                      [self drawRuler];
-#else
-					//** PIXELSPACING LINES - RULER
-					float yOffset = 24*sf;
-					float xOffset = 32*sf;
-					glLineWidth( 1.0 * sf);
-					glBegin(GL_LINES);
-					
-                     NSRect rr = drawingFrameRect;
-                     
-                     if (NSIsEmptyRect( screenCaptureRect) == NO)
-                     {
-                         rr = screenCaptureRect;
-                         
-                         // We didn't used glTranslate, after glScalef...
-                         rr.origin.x -= drawingFrameRect.size.width/2.;
-                         rr.origin.y -= drawingFrameRect.size.height/2.;
-                         
-                         rr.origin.x += rr.size.width/2.;
-                         rr.origin.y += rr.size.height/2.;
-                     }
-                     else
-                         rr.origin = NSMakePoint( 0, 0);
-                     
-					if (curDCM.pixelSpacingX != 0 && curDCM.pixelSpacingX * 1000.0 < 1)
-					{
-						glVertex2f( rr.origin.x + scaleValue  * (-0.02/curDCM.pixelSpacingX), rr.origin.y + rr.size.height/2 - yOffset);
-						glVertex2f( rr.origin.x + scaleValue  * (0.02/curDCM.pixelSpacingX), rr.origin.y + rr.size.height/2 - yOffset);
-
-						glVertex2f( rr.origin.x + -rr.size.width/2 + xOffset , rr.origin.y + scaleValue  * (-0.02/curDCM.pixelSpacingY*curDCM.pixelRatio));
-						glVertex2f( rr.origin.x + -rr.size.width/2 + xOffset , rr.origin.y + scaleValue  * (0.02/curDCM.pixelSpacingY*curDCM.pixelRatio));
-						
-						for ( short i = -20; i<=20; i++ )
-						{
-							short length = ( i % 10 == 0 )? 10 : 5;
-							
-                            length *= sf;
-                            
-							glVertex2f( rr.origin.x + i*scaleValue *0.001/curDCM.pixelSpacingX, rr.origin.y + rr.size.height/2 - yOffset);
-							glVertex2f( rr.origin.x + i*scaleValue *0.001/curDCM.pixelSpacingX, rr.origin.y + rr.size.height/2 - yOffset - length);
-							
-							glVertex2f( rr.origin.x + -rr.size.width/2 + xOffset + length, rr.origin.y + i* scaleValue *0.001/curDCM.pixelSpacingY*curDCM.pixelRatio);
-							glVertex2f( rr.origin.x + -rr.size.width/2 + xOffset, rr.origin.y + i* scaleValue * 0.001/curDCM.pixelSpacingY*curDCM.pixelRatio);
-						}
-					}
-					else if (curDCM.pixelSpacingX != 0 && curDCM.pixelSpacingY != 0)
-					{
-						glVertex2f( rr.origin.x + scaleValue  * (-50/curDCM.pixelSpacingX), rr.origin.y + rr.size.height/2 - yOffset);
-						glVertex2f( rr.origin.x + scaleValue  * (50/curDCM.pixelSpacingX), rr.origin.y + rr.size.height/2 - yOffset);
-						
-						glVertex2f( rr.origin.x + -rr.size.width/2 + xOffset , rr.origin.y + scaleValue  * (-50/curDCM.pixelSpacingY*curDCM.pixelRatio));
-						glVertex2f( rr.origin.x + -rr.size.width/2 + xOffset , rr.origin.y + scaleValue  * (50/curDCM.pixelSpacingY*curDCM.pixelRatio));
-
-						for ( short i = -5; i<=5; i++ )
-						{
-							short length = (i % 5 == 0) ? 10 : 5;
-						
-                            length *= sf;
-                            
-							glVertex2f( rr.origin.x + i*scaleValue *10/curDCM.pixelSpacingX, rr.origin.y + rr.size.height/2 - yOffset);
-							glVertex2f( rr.origin.x + i*scaleValue *10/curDCM.pixelSpacingX, rr.origin.y + rr.size.height/2 - yOffset - length);
-							
-							glVertex2f( rr.origin.x + -rr.size.width/2 + xOffset + length,  rr.origin.y + i* scaleValue *10/curDCM.pixelSpacingY*curDCM.pixelRatio);
-							glVertex2f( rr.origin.x + -rr.size.width/2 + xOffset,  rr.origin.y + i* scaleValue * 10/curDCM.pixelSpacingY*curDCM.pixelRatio);
-						}
-					}
-					glEnd();
-#endif
-				}
-			
+                 }
 			} //Annotation  != None
 			
             @try
@@ -11242,7 +11414,6 @@ void checkOGLVersion()
                 [self drawTextualData: drawingFrameRect
                                      : annotations];
             }
-            
             @catch (NSException * e)
             {
                 NSLog( @"drawTextualData Annotations Exception : %@", e);
@@ -11373,13 +11544,13 @@ void checkOGLVersion()
 		}  
 		else
 		{
-			//no valid image ie curImage = -1
-			NSLog(@"****** No Image, %d %@", curImage, [self class]);
+            // No valid image, i.e.: curImage = -1
+			//NSLog(@"****** No Image, %s %d, %d %@", __FUNCTION__, __LINE__, curImage, NSStringFromClass([self class]));
 			glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 			glClear (GL_COLOR_BUFFER_BIT);
 		}
 		
-	#ifndef new_loupe
+#ifndef new_loupe
 		if (lensTexture)
 		{
 			/* creating Loupe textures (mask and border) */
@@ -11614,10 +11785,8 @@ void checkOGLVersion()
 	//		glDisable(GL_LINE_SMOOTH);
 	//		glDisable(GL_POLYGON_SMOOTH);
 	//		glDisable(GL_POINT_SMOOTH);
-			
-			
 		}
-    #endif
+#endif
         
         [self drawRectAnyway:aRect];
         
@@ -13758,6 +13927,7 @@ void checkOGLVersion()
          resampledBaseAddr: (char**) rAddr
      resampledBaseAddrSize: (int*) rBAddrSize
 {
+    //NSLog(@"DCmView.mm %d loadTextureIn %@ %p", __LINE__, NSStringFromClass([self class]), self);
 	// *tX, *tY, *tW, *tH are output parameters ?
     checkOpenGLErrors(__LINE__);
 
@@ -13799,8 +13969,10 @@ void checkOGLVersion()
 		[curDCM changeWLWW :127.0 : 256.0];
 	
 	CGLContextObj cgl_ctx = [[NSOpenGLContext currentContext] CGLContextObj];
-    if (cgl_ctx == nil)
+    if (cgl_ctx == nil) {
+        NSLog(@"%s %d early return for %@ %p", __FUNCTION__, __LINE__, NSStringFromClass([self class]), self);
         return nil;
+    }
     
     if (texture)
 	{
@@ -13810,7 +13982,7 @@ void checkOGLVersion()
 	}
 	
     if (curDCM == nil) {	// No image
-        NSLog(@"Checkpoint DCMView.mm:%d loadTextureIn: !curDCM early return", __LINE__);
+        NSLog(@"DCMView.mm:%d loadTextureIn: !curDCM, %@ %p", __LINE__, NSStringFromClass([self class]), self);
 		return texture;	// == nil
     }
 	
@@ -14562,6 +14734,14 @@ void checkOGLVersion()
                              textureHeight:&textureHeight
                          resampledBaseAddr:&resampledBaseAddr
                      resampledBaseAddrSize:&resampledBaseAddrSize];
+        
+#ifndef NDEBUG
+        if (pTextureName)
+            NSLog(@"%s %d %@ %p, pTextureName: %p %u", __FUNCTION__, __LINE__, NSStringFromClass([self class]), self, pTextureName, *pTextureName);
+        else
+            NSLog(@"%s %d %@ %p, pTextureName is NULL", __FUNCTION__, __LINE__, NSStringFromClass([self class]), self);
+#endif
+
 
 		if (blendingView)
 		{
@@ -14690,12 +14870,15 @@ void checkOGLVersion()
 
 - (id)initWithFrame:(NSRect)frame
 {
+#if 1 //def DEBUG_3D_MPR
+    NSLog(@"%s %d %@", __FUNCTION__, __LINE__, NSStringFromClass([self class]));
+#endif
 #ifndef NDEBUG
     if ([self isKindOfClass: [PreviewView class]])
-        NSLog(@"Checkpoint DCMView.mm:%d %s", __LINE__, __PRETTY_FUNCTION__);
+        NSLog(@"DCMView.mm:%d %s", __LINE__, __PRETTY_FUNCTION__);
     
     if (self == [PreviewView class])
-        NSLog(@"Checkpoint DCMView.mm:%d %s", __LINE__, __PRETTY_FUNCTION__);
+        NSLog(@"DCMView.mm:%d %s", __LINE__, __PRETTY_FUNCTION__);
 #endif
     
 	[AppController initialize];
@@ -14705,10 +14888,12 @@ void checkOGLVersion()
 
 // ** TILING SUPPORT
 
-- (id)initWithFrame:(NSRect)frame
-          imageRows:(int)rows
-       imageColumns:(int)columns
+- (instancetype)initWithFrame:(NSRect)frame
+                    imageRows:(int)rows
+                 imageColumns:(int)columns
 {
+    NSLog(@"%s %d %@ %p", __FUNCTION__, __LINE__, NSStringFromClass([self class]), self);
+
 	self = [self initWithFrameInternal:frame];
     if (self)
 	{
@@ -14729,22 +14914,27 @@ void checkOGLVersion()
 		NSNotificationCenter *nc;
 		nc = [NSNotificationCenter defaultCenter];
 		[nc addObserver: self
-           selector: @selector(updateCurrentImage:)
-               name: OsirixDCMUpdateCurrentImageNotification
-             object: nil];
+               selector: @selector(updateCurrentImage:)
+                   name: OsirixDCMUpdateCurrentImageNotification
+                 object: nil];
         
         [self.window makeFirstResponder: self];
         [self.window setAcceptsMouseMovedEvents: YES];
     }
 
+#ifndef NDEBUG
     for (NSLayoutConstraint *c in [self constraints])
         NSLog(@"%@", c);
+#endif
 
     return self;
 }
 
 - (id)initWithFrameInternal:(NSRect)frameRect
 {
+#ifdef DEBUG_3D_CPR
+    NSLog(@"%s %d %@", __FUNCTION__, __LINE__, NSStringFromClass([self class]));
+#endif
     if (PETredTable == nil)
         [DCMView computePETBlendingCLUT];
     
@@ -14793,7 +14983,8 @@ void checkOGLVersion()
                                                options:NSKeyValueObservingOptionNew
                                                context:nil];
 
-    NSOpenGLPixelFormatAttribute attrs32[] =
+#if 0 // @@@
+    NSOpenGLPixelFormatAttribute attrs[] =
     {
 #if MAC_OS_X_VERSION_MIN_REQUIRED >= MAC_OS_X_VERSION_10_10
         NSOpenGLPFAOpenGLProfile, NSOpenGLProfileVersion4_1Core,
@@ -14807,7 +14998,7 @@ void checkOGLVersion()
         //NSOpenGLPFAColorFloat, // +GL_EXT_depth_bounds_test, +GL_EXT_texture_mirror_clamp, -GL_APPLE_object_purgeable
         0
     };
-    
+#else // @@@
     NSOpenGLPixelFormatAttribute attrs[] =
     {
 #ifdef WITH_OPENGL_32
@@ -14831,18 +15022,12 @@ void checkOGLVersion()
         NSOpenGLPFAMinimumPolicy,
         0
     };
-    
-    NSOpenGLPixelFormat *pixFmt;
-    if ([self isKindOfClass:[MPRDCMView class]]) {  // MPRDCMView
-        NSLog(@"DCMView.mm:%@", [self class]);  // TODO: latest VTK requires OpenGL 3.2 profile
-        pixFmt = [[[NSOpenGLPixelFormat alloc] initWithAttributes:attrs32] autorelease];
-    }
-    else
-        pixFmt = [[[NSOpenGLPixelFormat alloc] initWithAttributes:attrs] autorelease];
+#endif // @@@
 
+    NSOpenGLPixelFormat *pixFmt = [[[NSOpenGLPixelFormat alloc] initWithAttributes:attrs] autorelease];
     if ( !pixFmt )
     {
-        NSLog(@"DCMView.mm:%d %s OPENGL ERROR", __LINE__, __PRETTY_FUNCTION__);
+        NSLog(@"DCMView.mm:%d %s OPENGL ERROR %@", __LINE__, __PRETTY_FUNCTION__, NSStringFromClass([self class]));
         [NSException raise:NSGenericException
                     format:NSLocalizedString(@"Not able to run Quartz Extreme: OpenGL+Quartz. Update your video hardware!",nil)];
 //        NSRunCriticalAlertPanel(NSLocalizedString(@"OPENGL ERROR",nil),
@@ -15076,6 +15261,9 @@ void checkOGLVersion()
 
 -(void)setImageParamatersFromView:(DCMView *)aView
 {
+#ifdef DEBUG_3D_CPR
+    NSLog(@"%s %d %@", __FUNCTION__, __LINE__, NSStringFromClass([self class]));
+#endif
 	if (aView != self &&
         dcmPixList != nil)
 	{

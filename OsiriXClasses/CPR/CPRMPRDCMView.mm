@@ -32,24 +32,20 @@
 #include <OpenGL/CGLMacro.h>
 
 #include "N3Geometry.h"
+#import "vtkMath.h"
 
 static float deg2rad = M_PI / 180.0; 
 extern unsigned int minimumStep;
-
-#define CROSS(dest,v1,v2) \
-dest[0]=v1[1]*v2[2]-v1[2]*v2[1]; \
-dest[1]=v1[2]*v2[0]-v1[0]*v2[2]; \
-dest[2]=v1[0]*v2[1]-v1[1]*v2[0];
 
 static BOOL arePlanesParallel( float *Pn1, float *Pn2)
 {
 	float u[ 3];
 	
-	CROSS(u, Pn1, Pn2);
+    vtkMath::Cross(Pn1, Pn2, u);
 	
-	float    ax = (u[0] >= 0 ? u[0] : -u[0]);
-    float    ay = (u[1] >= 0 ? u[1] : -u[1]);
-    float    az = (u[2] >= 0 ? u[2] : -u[2]);
+	float ax = (u[0] >= 0 ? u[0] : -u[0]);
+    float ay = (u[1] >= 0 ? u[1] : -u[1]);
+    float az = (u[2] >= 0 ? u[2] : -u[2]);
 	
     if ((ax+ay+az) < 0.001)
 		return YES;
@@ -183,10 +179,10 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
 
 - (void) drawRect:(NSRect)rect
 {
+#if 1 //ndef DEBUG_3D_CPR
 	if (rect.size.width > 10)
-	{
 		[super drawRect: rect];
-	}
+#endif
 }
 
 - (void) setFrame:(NSRect)frameRect

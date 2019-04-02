@@ -69,10 +69,11 @@ enum
 	NSRecursiveLock	*roiLock;
 	NSConditionLock *flipDataThread, *convThread;
 	NSThread *loadingThread;
-    BOOL awakeFromNib, firstBuildMatrix;
+    BOOL flagAwakeFromNib;
+    BOOL firstBuildMatrix;
 	
     ToolbarPanelController *toolbarPanel;
-    
+    IBOutlet NSView         *viewerView;  // unused ?
 	IBOutlet StudyView		*studyView;
 			SeriesView		*seriesView;
 
@@ -527,7 +528,7 @@ enum
 /** Change fusion status
 * Called by an action.
 */
-- (void) activateFusion:(id) sender;
+- (IBAction) activateFusion:(id) sender;
 
 /** Action to Propagte current settings */
 - (void) copySettingsToOthers: (id)sender;
@@ -634,7 +635,7 @@ enum
 - (IBAction)setKeyImage:(id)sender;
 - (IBAction) roiSelectDeselectAll:(id) sender;
 - (BOOL) FullScreenON;
-- (void) setROITool:(id) sender;
+- (IBAction) setROITool:(id) sender;
 - (void) setROIToolTag:(ToolMode) roitype;
 - (void) changeImageData:(NSMutableArray*)f :(NSMutableArray*)d :(NSData*) v :(BOOL) applyTransition;
 - (ViewerController*) copyViewerWindow;
@@ -658,18 +659,18 @@ enum
 - (IBAction) endCLUT:(id) sender;
 - (IBAction) endBlendingType:(id) sender;
 - (IBAction) endQuicktime:(id) sender;
-- (void) setDefaultTool:(id) sender;
+- (IBAction) setDefaultTool:(id) sender;
 - (id) viewCinit:(NSMutableArray*)f :(NSMutableArray*) d :(NSData*) v;
 - (id) initWithPix:(NSMutableArray*)f withFiles:(NSMutableArray*) d withVolume:(NSData*) v;
-- (void) speedSliderAction:(id) sender;
+- (IBAction) speedSliderAction:(id) sender;
 - (void) setupToolbar;
 - (NSToolbar*) toolbar;
 - (void) PlayStop:(id) sender;
 - (short) getNumberOfImages;
 - (float) frameRate;
 - (void) adjustSlider;
-- (void) sliderFusionAction:(id) sender;
-- (void) popFusionAction:(id) sender;
+- (IBAction) sliderFusionAction:(id) sender;
+- (IBAction) popFusionAction:(id) sender;
 - (void) propagateSettings;
 - (void) setCurWLWWMenu:(NSString*)s ;
 - (float) highLighted;
@@ -699,8 +700,8 @@ enum
 
 - (void) ApplyCLUTString:(NSString*) str;
 - (NSSlider*) blendingSlider;
-- (void) blendingSlider:(id) sender;
-- (void) blendingMode:(id) sender;
+- (IBAction) blendingSlider:(id) sender;
+- (IBAction) blendingMode:(id) sender;
 - (ViewerController*) blendingController;
 - (void)blendWithViewer:(ViewerController *)bc blendingType:(int)blendingType;
 - (void)blendingSheetDidEnd:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo;
@@ -713,9 +714,9 @@ enum
 - (NSString*) studyInstanceUID;
 - (void) addMovieSerie:(NSMutableArray*)f :(NSMutableArray*)d :(NSData*) v;
 - (void) startLoadImageThread;
-- (void) moviePosSliderAction:(id) sender;
-- (void) movieRateSliderAction:(id) sender;
-- (void) MoviePlayStop:(id) sender;
+- (IBAction) moviePosSliderAction:(id) sender;
+- (IBAction) movieRateSliderAction:(id) sender;
+- (IBAction) MoviePlayStop:(id) sender;
 - (void) MovieStop:(id) sender;
 - (BOOL)isPlaying4D;
 - (void) checkEverythingLoaded;
@@ -739,7 +740,6 @@ enum
 - (void) SetThicknessInterval:(id) constructionType;
 - (IBAction) blendWindows:(id) sender;
 
-/** Action to open the OrthogonalMPRViewer */
 - (IBAction) orthogonalMPRViewer:(id) sender;
 
 - (void) showCurrentThumbnail:(id) sender;
@@ -984,7 +984,7 @@ enum
 */
 - (BOOL)isKeyImage:(int)index;
 
-#pragma mark - Convience methods for accessing values in the current imageView
+#pragma mark - Convenience methods for accessing values in the current imageView
 
 /** Current ImageView window width */
 -(float)curWW;

@@ -139,7 +139,7 @@ enum
 + (NSArray*) queryStudiesForPatient:(DicomStudy*) study usePatientID:(BOOL) usePatientID usePatientName:(BOOL) usePatientName usePatientBirthDate: (BOOL) usePatientBirthDate servers: (NSArray*) serversList showErrors: (BOOL) showErrors;
 + (NSArray*) queryStudyInstanceUID:(NSString*) an server: (NSDictionary*) aServer;
 + (NSArray*) queryStudyInstanceUID:(NSString*) an server: (NSDictionary*) aServer showErrors: (BOOL) showErrors;
-- (void) autoRetrieveSettings: (id) sender;
+- (IBAction) autoRetrieveSettings: (id) sender;
 - (void) saveSettings;
 + (void) getDateAndTimeQueryFilterWithTag: (int) tag fromDate:(NSDate*) from toDate:(NSDate*) to date: (QueryFilter**) dateQueryFilter time: (QueryFilter**) timeQueryFilter;
 - (void) applyPresetDictionary: (NSDictionary *) presets;
@@ -148,7 +148,7 @@ enum
 - (id) initAutoQuery: (BOOL) autoQuery;
 - (IBAction) cancel:(id)sender;
 - (IBAction) ok:sender;
-- (void) refreshAutoQR: (id) sender;
+- (IBAction) refreshAutoQR: (id) sender;
 - (void) refreshList: (NSArray*) l;
 - (void) setCurrentAutoQR: (int) index;
 - (BOOL) queryWithDisplayingErrors:(BOOL) showError;

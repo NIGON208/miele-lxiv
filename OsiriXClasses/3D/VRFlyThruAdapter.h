@@ -28,7 +28,7 @@
 @interface VRFlyThruAdapter : FlyThruAdapter {
 }
 
-- (id) initWithVRController: (VRController*) aVRController;
+- (id) initWithVRController: (VRController *) aVRController;
 - (NSImage*) getCurrentCameraImage: (BOOL) highQuality;
 
 @end

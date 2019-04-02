@@ -58,8 +58,8 @@ static WindowLayoutManager *sharedLayoutManager = nil;
         if( tag == 1000)
             return 1000; // All windows
         
-        if (tag < 16)
-            return (tag / 4) + 1; // See SetImageTiling ViewerController.m
+        if (tag < MAX_TILING_TAG)
+            return (tag / TILING_DIMENSION) + 1; // See SetImageTiling ViewerController.m
     }
     
 	if( [[protocol objectForKey: @"Rows"] intValue] > 0)
@@ -77,8 +77,8 @@ static WindowLayoutManager *sharedLayoutManager = nil;
         if( tag == 1000)
             return 1000;  // All windows
         
-        if (tag < 16)
-            return (tag %  4) + 1; // See SetImageTiling ViewerController.m
+        if (tag < MAX_TILING_TAG)
+            return (tag %  TILING_DIMENSION) + 1; // See SetImageTiling ViewerController.m
     }
     
 	if( [[protocol objectForKey: @"Columns"] intValue] > 0)
@@ -103,8 +103,8 @@ static WindowLayoutManager *sharedLayoutManager = nil;
     {
         int tag = [[protocol objectForKey: @"ImageTiling"] intValue];
         
-        if (tag < 16)
-            return (tag / 4) + 1; // See SetImageTiling ViewerController.m
+        if (tag < MAX_TILING_TAG)
+            return (tag / TILING_DIMENSION) + 1; // See SetImageTiling ViewerController.m
     }
     
 	if( [[protocol objectForKey: @"Image Rows"] intValue] > 0)
@@ -119,8 +119,8 @@ static WindowLayoutManager *sharedLayoutManager = nil;
     {
         int tag = [[protocol objectForKey: @"ImageTiling"] intValue];
         
-        if (tag < 16)
-            return (tag %  4) + 1; // See SetImageTiling ViewerController.m
+        if (tag < MAX_TILING_TAG)
+            return (tag %  TILING_DIMENSION) + 1; // See SetImageTiling ViewerController.m
     }
     
 	if( [[protocol objectForKey: @"Image Columns"] intValue] > 0)

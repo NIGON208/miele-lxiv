@@ -18,7 +18,7 @@
 
 @implementation VRFlyThruAdapter
 
-- (id) initWithVRController: (VRController*) aVRController
+- (id) initWithVRController: (VRController *) aVRController
 {
 	self = [super initWithWindow3DController: aVRController];
 		
@@ -34,13 +34,13 @@
 
 - (void) setCurrentViewToCamera:(Camera*) cam
 {
-	[[(VRController*)controller view] setCamera: cam];
-	[[(VRController*)controller view] setNeedsDisplay:YES];
+	[[(VRController *)controller view] setCamera: cam];
+	[[(VRController *)controller view] setNeedsDisplay:YES];
 }
 
 - (void) setCurrentViewToLowResolutionCamera:(Camera*) cam
 {
-	[[(VRController*)controller view] setLowResolutionCamera: cam];
+	[[(VRController *)controller view] setLowResolutionCamera: cam];
 }
 
 - (NSImage*) getCurrentCameraImage: (BOOL) highQuality
@@ -50,12 +50,12 @@
 
 - (void) prepareMovieGenerating
 {
-	[[(VRController*)controller view] setViewSizeToMatrix3DExport];
+	[[(VRController *)controller view] setViewSizeToMatrix3DExport];
 }
 
 - (void) endMovieGenerating
 {
-	[[(VRController*)controller view] restoreViewSizeAfterMatrix3DExport];
+	[[(VRController *)controller view] restoreViewSizeAfterMatrix3DExport];
 }
 
 @end

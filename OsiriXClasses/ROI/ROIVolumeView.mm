@@ -32,12 +32,8 @@
 #import "DicomDatabase.h"
 #import "ROI.h"
 
-#if __LP64__
 #import "vtkConfigure.h"
-#endif
-
-#define D2R 0.01745329251994329576923690768    // degrees to radians
-#define R2D 57.2957795130823208767981548141    // radians to degrees
+#import "vtkMath.h"
 
 @implementation ROIVolumeView
 
@@ -400,7 +396,7 @@
         points->Delete();
     }
     
-    switch( [[NSUserDefaults standardUserDefaults] integerForKey: @"UseDelaunayFor3DRoi"])
+    switch ( [[NSUserDefaults standardUserDefaults] integerForKey: @"UseDelaunayFor3DRoi"])
     {
         // IsoContour
         case 2:
@@ -409,10 +405,10 @@
             NSMutableArray *copyPixList = nil;
             [vc copyVolumeData: &vD andDCMPix: &copyPixList forMovieIndex: vc.curMovieIndex];
             
-            for( DCMPix *p in copyPixList)
+            for ( DCMPix *p in copyPixList)
                 memset( p.fImage, 0, p.pheight*p.pwidth*sizeof( float));
             
-            for( int z = 1; z < [copyPixList count]-1; z++) // Black 3D Frame
+            for ( int z = 1; z < [copyPixList count]-1; z++) // Black 3D Frame
             {
                 for( int i = 0; i < [[vc.roiList objectAtIndex: z] count]; i++)
                 {
@@ -438,7 +434,7 @@
             vtkContourFilter *isoExtractor = vtkContourFilter::New();
             isoExtractor->SetInputConnection( reader->GetOutputPort());
             isoExtractor->SetValue(0, 500);
-		isoExtractor->Update();
+            isoExtractor->Update();
             
             reader->Delete();
             
@@ -583,6 +579,7 @@
 
 - (NSDictionary*) renderVolume
 {
+    NSLog(@"%s %d %@ %p", __FUNCTION__, __LINE__, NSStringFromClass([self class]), self);
 	WaitRendering *splash = [[[WaitRendering alloc] init: NSLocalizedString( @"Rendering 3D Object...", nil)] autorelease];
 	[splash showWindow:self];
 	

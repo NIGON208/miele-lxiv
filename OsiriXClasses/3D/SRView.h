@@ -20,7 +20,7 @@
 #import "Camera.h"
 
 #ifdef __cplusplus
-#import "VTKViewOSIRIX.h"
+#import "vtkMieleView.h"
 #define id Id
 
 //#include "vtkCommand.h"
@@ -173,13 +173,13 @@ typedef struct renderSurface
 
 #ifdef __cplusplus
 #else
-#define VTKView NSView
+#define vtkMieleView    NSView
 #endif
 
 #define NUM_SR_LABELS   4
 
 /** \brief Surface Rendering View */
-@interface SRView : VTKView
+@interface SRView : vtkMieleView
 {
 	int							projectionMode;
     NSMutableArray				*blendingPixList;
