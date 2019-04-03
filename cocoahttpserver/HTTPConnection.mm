@@ -1,3 +1,10 @@
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original version of this file had no header
+
 #import "AsyncSocket.h"
 #import "HTTPServer.h"
 #import "HTTPConnection.h"
@@ -8,7 +15,6 @@
 #import "DDData.h"
 #import "HTTPAsyncFileResponse.h"
 #import "WebPortal.h"
-
 
 // Define chunk size used to read in data for responses
 // This is how much data will be read from disk into RAM at a time

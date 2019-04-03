@@ -1,4 +1,10 @@
-#ifdef _STEREO_VISION_
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
+
 /*=========================================================================
   Program:   OsiriX
 
@@ -12,6 +18,7 @@
      the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
      PURPOSE.
 =========================================================================*/
+#ifdef _STEREO_VISION_
 
 #import "VTKStereoSRView.h"
 #import "vtkMieleView.h"

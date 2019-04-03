@@ -1,6 +1,9 @@
 //
-/* Alex Bettarini
-    at first removed, then modified
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//  Created by Alex Bettarini on 16 Jan 2019
+//
+/*  At first removed, then modified
     the second part of this file which is C++ code that is in the DCMTK sources
  */
 

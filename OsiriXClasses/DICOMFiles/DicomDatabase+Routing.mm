@@ -1,3 +1,9 @@
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
 /*=========================================================================
  Program:   OsiriX
  
@@ -12,7 +18,6 @@
  PURPOSE.
  =========================================================================*/
 
-
 #import "DicomDatabase+Routing.h"
 #import "DicomImage.h"
 #import "QueryController.h"
@@ -23,7 +28,6 @@
 #import "DCMTKStudyQueryNode.h"
 #import "ThreadsManager.h"
 #import "N2Stuff.h"
-
 
 @interface DicomDatabase (RoutingPrivate)
 

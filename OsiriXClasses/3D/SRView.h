@@ -1,3 +1,9 @@
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
 /*=========================================================================
   Program:   OsiriX
 
@@ -322,7 +328,9 @@ typedef struct renderSurface
 -(void) stopRendering;
 -(void) setViewSizeToMatrix3DExport;
 -(void) setCurrentTool:(ToolMode) i;
--(id) initWithFrame:(NSRect)frame;
+
+-(instancetype) initWithFrame:(NSRect)frame;
+
 -(BOOL) setPixSource:(NSMutableArray*)pix :(float*) volumeData;
 -(void) dealloc;
 -(void) setBlendingPixSource:(ViewerController*) bC;

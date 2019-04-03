@@ -1,3 +1,9 @@
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
 /*=========================================================================
   Program:   OsiriX
 
@@ -22862,7 +22868,9 @@ static BOOL viewerControllerPlaying = NO;
 // Action to open SRViewer (Surface Rendering)
 -(IBAction) SRViewer:(id) sender
 {
+#ifndef NDEBUG
     NSLog(@"%s (IBAction)", __FUNCTION__);
+#endif
 	[self checkEverythingLoaded];
 	[self clear8bitRepresentations];
 	

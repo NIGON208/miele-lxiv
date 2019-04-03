@@ -41,6 +41,8 @@
 		433F9A801A1B18A500E52C6C /* vtkMieleView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 433F9A7E1A1B18A500E52C6C /* vtkMieleView.mm */; };
 		433F9A891A1B7C1C00E52C6C /* OsiriXFixedPointVolumeRayCastMapper.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 433F9A871A1B7C1C00E52C6C /* OsiriXFixedPointVolumeRayCastMapper.cxx */; };
 		434499B21A1D70840047F0F2 /* options.h in Headers */ = {isa = PBXBuildFile; fileRef = 434B46151A19F2A3008CF8CF /* options.h */; };
+		434930B622549CA600C30B21 /* libpng16.16.35.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4357DF12224BE09000D4A467 /* libpng16.16.35.0.dylib */; };
+		434930B722549D2B00C30B21 /* libtiff.5.4.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4357DF0E224BDFD000D4A467 /* libtiff.5.4.0.dylib */; };
 		434B46191A19F322008CF8CF /* options.h in Headers */ = {isa = PBXBuildFile; fileRef = 434B46151A19F2A3008CF8CF /* options.h */; };
 		434B461D1A19F631008CF8CF /* OPJSupport.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 434B461B1A19F631008CF8CF /* OPJSupport.cpp */; };
 		434B46201A19F642008CF8CF /* OPJSupport.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 434B461B1A19F631008CF8CF /* OPJSupport.cpp */; };
@@ -522,7 +524,6 @@
 		A978DEB00CB0D4BE00FB2C3D /* NFHUDPopUpButton.mm in Sources */ = {isa = PBXBuildFile; fileRef = A978DE870CB0D4BE00FB2C3D /* NFHUDPopUpButton.mm */; };
 		A97B73980CB380EF00E5348D /* mieleplugin.icns in Resources */ = {isa = PBXBuildFile; fileRef = A97B73970CB380EF00E5348D /* mieleplugin.icns */; };
 		A97D4C620CE3459D003FE2E6 /* PieChartImage.mm in Sources */ = {isa = PBXBuildFile; fileRef = A97D4C600CE3459D003FE2E6 /* PieChartImage.mm */; };
-		A98795D216DB9FD100926023 /* DICOMFilesTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = A98795D116DB9FD100926023 /* DICOMFilesTests.mm */; };
 		A98795D816DBA0CF00926023 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		A98795DF16DBA5DB00926023 /* N2Debug.mm in Sources */ = {isa = PBXBuildFile; fileRef = AB10FAA011293378009EB238 /* N2Debug.mm */; };
 		A98795E016DBA62400926023 /* N2Operators.mm in Sources */ = {isa = PBXBuildFile; fileRef = AB10FAA211293378009EB238 /* N2Operators.mm */; };
@@ -3800,6 +3801,15 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		434930B522549C9800C30B21 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				434930B722549D2B00C30B21 /* libtiff.5.4.0.dylib in Frameworks */,
+				434930B622549CA600C30B21 /* libpng16.16.35.0.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A98795BE16DB9FD100926023 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -3962,7 +3972,6 @@
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
-				4A2F58D9078D119600C514A2 /* Dependencies */,
 				A98795CA16DB9FD100926023 /* Unit Tests */,
 			);
 			name = OsiriX;
@@ -4838,13 +4847,6 @@
 				59F1A4C7104BA5BE009E3215 /* OsiriXHeaders.mm */,
 			);
 			path = "API framework";
-			sourceTree = "<group>";
-		};
-		4A2F58D9078D119600C514A2 /* Dependencies */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Dependencies;
 			sourceTree = "<group>";
 		};
 		4F8A1A791302C6E100A022D9 /* 3DGeometry */ = {
@@ -6156,6 +6158,7 @@
 				A98795C016DB9FD100926023 /* ShellScript */,
 				A9FBD38216DBE65D003A0E04 /* Copy Files */,
 				A99F039916E49274008A3657 /* CopyFiles */,
+				434930B822550E0D00C30B21 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -6223,6 +6226,7 @@
 			buildConfigurationList = AB724FF30ADE6ECB00A212A0 /* Build configuration list for PBXNativeTarget "Decompress" */;
 			buildPhases = (
 				AB724F310ADE6ECB00A212A0 /* Sources */,
+				434930B522549C9800C30B21 /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -7112,6 +7116,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		434930B822550E0D00C30B21 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "";
+		};
 		437636D02173BB7800C331D0 /* Fixup */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -7328,7 +7349,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A98795D216DB9FD100926023 /* DICOMFilesTests.mm in Sources */,
 				A98795DF16DBA5DB00926023 /* N2Debug.mm in Sources */,
 				A98795E016DBA62400926023 /* N2Operators.mm in Sources */,
 				A98795E116DBA62400926023 /* N2MinMax.mm in Sources */,
@@ -9657,7 +9677,7 @@
 					"$(SRCROOT)/Binaries/openjpeg/include/**",
 					"$(SRCROOT)/OsiriXClasses/**",
 				);
-				LD_RUNPATH_SEARCH_PATHS = "$(BUILD_DIR)/$(CONFIGURATION)";
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(SRCROOT)/Binaries/libtiff/lib",
 					"$(SRCROOT)/Binaries/libjpeg/lib",
@@ -10279,7 +10299,7 @@
 					"$(SRCROOT)/Binaries/openjpeg/include/**",
 					"$(SRCROOT)/OsiriXClasses/**",
 				);
-				LD_RUNPATH_SEARCH_PATHS = "$(BUILD_DIR)/$(CONFIGURATION)";
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(SRCROOT)/Binaries/libtiff/lib",
 					"$(SRCROOT)/Binaries/libjpeg/lib",
@@ -11043,7 +11063,7 @@
 					"$(SRCROOT)/Binaries/openjpeg/include/**",
 					"$(SRCROOT)/OsiriXClasses/**",
 				);
-				LD_RUNPATH_SEARCH_PATHS = "$(BUILD_DIR)/$(CONFIGURATION)";
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(SRCROOT)/Binaries/libtiff/lib",
 					"$(SRCROOT)/Binaries/libjpeg/lib",

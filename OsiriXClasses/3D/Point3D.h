@@ -1,3 +1,9 @@
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
 /*=========================================================================
   Program:   OsiriX
 
@@ -12,8 +18,6 @@
      PURPOSE.
 =========================================================================*/
 
-
-
 #import <Cocoa/Cocoa.h>
 #import "N3Geometry.h"
 
@@ -22,7 +26,6 @@
 *  Represents a 3D Point
 *  Has x, y, and z positions as float
 */
-
 
 @interface Point3D : NSObject {
 	float x, y, z;

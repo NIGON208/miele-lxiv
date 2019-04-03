@@ -1,3 +1,9 @@
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
 /*=========================================================================
   Program:   OsiriX
 
@@ -12,14 +18,12 @@
      PURPOSE.
 =========================================================================*/
 
-
 /*************
 The networking code of the DCMFramework is predominantly a port of the 11/4/04 version of the java pixelmed toolkit by David Clunie.
 htt://www.pixelmed.com   
 **************/
 
 #import <Cocoa/Cocoa.h>
-
 
 @interface DCMAbstractSyntaxUID : NSObject {
 	NSString *_uid;

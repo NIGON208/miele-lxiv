@@ -1,3 +1,9 @@
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
 /*=========================================================================
  Program:   OsiriX
  
@@ -203,7 +209,10 @@ static float deg2rad = M_PI / 180.0;
                   viewerController:(ViewerController*)viewer
              fusedViewerController:(ViewerController*)fusedViewer
 {
-    NSLog(@"%s %d %@ %p, pix count: %lu", __FUNCTION__, __LINE__, NSStringFromClass([self class]), self, (unsigned long)pix.count);
+#ifndef NDEBUG
+    NSLog(@"%s %d %@ %p, pix count: %lu", __FUNCTION__, __LINE__,
+          NSStringFromClass([self class]), self, (unsigned long)pix.count);
+#endif
 	@try
 	{
 		if ([[NSUserDefaults standardUserDefaults] integerForKey: @"ANNOTATIONS"] == annotNone)
@@ -335,7 +344,7 @@ static float deg2rad = M_PI / 180.0;
         middleTransverseView.sectionWidth = cprView.generatedHeight;
         bottomTransverseView.sectionWidth = cprView.generatedHeight;
         
-        NSLog(@"%s %d %@ %p", __FUNCTION__, __LINE__, NSStringFromClass([self class]), self);
+        //NSLog(@"%s %d %@ %p", __FUNCTION__, __LINE__, NSStringFromClass([self class]), self);
         topTransverseView.volumeData = cprView.volumeData;
         middleTransverseView.volumeData = cprView.volumeData;
         bottomTransverseView.volumeData = cprView.volumeData;

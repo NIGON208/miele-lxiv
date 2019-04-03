@@ -1,3 +1,9 @@
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
 /*=========================================================================
  Program:   OsiriX
  
@@ -110,7 +116,8 @@ NSString* N2ConnectionStatusDidChangeNotification = @"N2ConnectionStatusDidChang
 			void* dataHandlerContext = [[io objectAtIndex:8] pointerValue];
 			c = [[N2ConnectionWithDelegateHandler alloc] initWithAddress:address port:port tls:tlsFlag dataHandlerTarget:dataHandlerTarget selector:dataHandlerSelector context:dataHandlerContext];
 			//			[io addObject:((N2ConnectionWithDelegateHandler*)c).invocation];
-		} else {
+		}
+        else {
 			c = [[N2Connection alloc] initWithAddress:address port:port tls:tlsFlag];
 		}
 		

@@ -1,5 +1,12 @@
+//
+//  Â©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
+
 /*
- * This program is Copyright © 2002 Bryan L Blackburn.  All rights reserved.
+ * This program is Copyright ï¿½ 2002 Bryan L Blackburn.  All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:

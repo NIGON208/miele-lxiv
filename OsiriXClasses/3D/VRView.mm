@@ -1,3 +1,9 @@
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
 /*=========================================================================
   Program:   OsiriX
 
@@ -2295,7 +2301,7 @@ public:
     }
 
 #ifndef NDEBUG // DEBUG_3D_CPR
-    NSLog(@"%s %d %@", __FUNCTION__, __LINE__, NSStringFromClass([self class]));
+    //NSLog(@"%s %d %@", __FUNCTION__, __LINE__, NSStringFromClass([self class]));
 #endif
 
     aRenderer->SetDraw( 0);

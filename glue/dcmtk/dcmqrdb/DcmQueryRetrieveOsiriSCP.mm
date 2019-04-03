@@ -1,5 +1,8 @@
-/* Alex Bettarini - 12 Mar 2015
- */
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//  Created by Alex Bettarini on 12 May 2015
+//
 
 #include <stdio.h>
 #include "dcmtk/config/osconfig.h"    /* make sure OS specific configuration is included first */

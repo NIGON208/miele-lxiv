@@ -1,3 +1,9 @@
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
 /*=========================================================================
  Program:   OsiriX
  
@@ -3892,7 +3898,7 @@ static BOOL protectionAgainstReentry = NO;
 	//		[splash incrementBy:1];
 			counter++;
 			
-			NSLog(@"%d", counter);
+            NSLog(@"%s %d, counter:%d", __FUNCTION__, __LINE__, (int) counter);
 			
 			if (counter % 100 == 0)
 			{
