@@ -11825,21 +11825,25 @@ constrainSplitPosition:(CGFloat)proposedPosition
 - (NSDragOperation)tableView:(NSTableView *)tableView validateDrop:(id <NSDraggingInfo>)info proposedRow:(NSInteger)row proposedDropOperation:(NSTableViewDropOperation)operation
 {
     if (operation != NSTableViewDropOn)
-        return NSDragOperationNone;
+        return NSDragOperationNone; // No drag operations are allowed.
     
 	if ([tableView isEqual:albumTable])
 	{
 		NSArray* array = self.albumArray;
 		
-		if ((row >= [array count]) || [[[array objectAtIndex:row] valueForKey:@"smartAlbum"] boolValue] || row == 0)
-            return NSDragOperationNone;
+		if ((row >= [array count]) ||
+            [[[array objectAtIndex:row] valueForKey:@"smartAlbum"] boolValue] ||
+            row == 0)
+        {
+            return NSDragOperationNone; // No drag operations are allowed.
+        }
 		
 		[albumTable setDropRow:row dropOperation:NSTableViewDropOn];
 		
-		return NSDragOperationLink;
+		return NSDragOperationLink; // The data can be shared.
 	}
 	
-	return NSDragOperationNone;
+	return NSDragOperationNone; // No drag operations are allowed.
 }
 
 - (NSString *)tableView:(NSTableView *)tv

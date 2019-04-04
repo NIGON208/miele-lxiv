@@ -122,26 +122,24 @@ NSString *CopiedRowsType = @"COPIED_ROWS_TYPE";
     return YES;
 }
 
-
 - (NSDragOperation)tableView:(NSTableView*)tv
 				validateDrop:(id <NSDraggingInfo>)info
 				 proposedRow:(NSInteger)row
 	   proposedDropOperation:(NSTableViewDropOperation)op
 {
-
 	if (_authView != nil)
 	{
 		if ([_authView authorizationState] != SFAuthorizationViewUnlockedState)
-			return NSDragOperationNone;
+			return NSDragOperationNone;  // No drag operations are allowed.
 	}
 	
     NSDragOperation dragOp = NSDragOperationCopy;
     
-    // if drag source is self, it's a move
+    // If drag source is self, it's a move
     if ([info draggingSource] == tableView)
-		dragOp =  NSDragOperationMove;
+		dragOp =  NSDragOperationMove;  // The data can be moved.
 
-    // we want to put the object at, not over,
+    // We want to put the object at, not over,
     // the current row (contrast NSTableViewDropOn) 
     [tv setDropRow:row dropOperation:NSTableViewDropAbove];
 	

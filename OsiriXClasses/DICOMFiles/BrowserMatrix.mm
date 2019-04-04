@@ -252,9 +252,9 @@ static NSString *albumDragType = @"Osirix Album drag";
 	return r;
 }
 
-- (NSDragOperation) draggingSourceOperationMaskForLocal:(BOOL)isLocal
+- (NSDragOperation)draggingSession:(NSDraggingSession *)session sourceOperationMaskForDraggingContext:(NSDraggingContext)context
 {
-	return NSDragOperationEvery;
+    return NSDragOperationEvery; // All: Copy Link Generic Private Move Delete
 }
 
 - (void) startDragOriginalFrame:(NSEvent *) event

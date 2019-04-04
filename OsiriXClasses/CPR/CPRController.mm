@@ -3503,40 +3503,36 @@ static float deg2rad = M_PI / 180.0;
 //    return 0;
 //}
 
-#pragma mark - Path Loading And Saving
+#pragma mark - NSDraggingDestination
 
 - (NSDragOperation)draggingEntered:(id <NSDraggingInfo>)sender
 {
     if ((NSDragOperationGeneric & [sender draggingSourceOperationMask]) == NSDragOperationGeneric)
     {
-        //this means that the sender is offering the type of operation we want
-        //return that we want the NSDragOperationGeneric operation that they 
-        //are offering
-        return NSDragOperationGeneric;
+        // This means that the sender is offering the type of operation we want
+        // return that we want the NSDragOperationGeneric operation that they
+        // are offering
+        return NSDragOperationGeneric; // The operation can be defined by the destination.
     }
-    else
-    {
-        //since they aren't offering the type of operation we want, we have 
-        //to tell them we aren't interested
-        return NSDragOperationNone;
-    }
+
+    // Since they aren't offering the type of operation we want, we have
+    // to tell them we aren't interested
+    return NSDragOperationNone; // No drag operations are allowed.
 }
 
 - (NSDragOperation)draggingUpdated:(id <NSDraggingInfo>)sender
 {
     if ((NSDragOperationGeneric & [sender draggingSourceOperationMask]) == NSDragOperationGeneric)
     {
-        //this means that the sender is offering the type of operation we want
-        //return that we want the NSDragOperationGeneric operation that they 
-        //are offering
-        return NSDragOperationGeneric;
+        // This means that the sender is offering the type of operation we want
+        // return that we want the NSDragOperationGeneric operation that they
+        // are offering
+        return NSDragOperationGeneric; // The operation can be defined by the destination.
     }
-    else
-    {
-        //since they aren't offering the type of operation we want, we have 
-        //to tell them we aren't interested
-        return NSDragOperationNone;
-    }
+
+    // Since they aren't offering the type of operation we want, we have
+    // to tell them we aren't interested
+    return NSDragOperationNone; // No drag operations are allowed.
 }
 
 - (BOOL)prepareForDragOperation:(id <NSDraggingInfo>)sender
@@ -3567,6 +3563,8 @@ static float deg2rad = M_PI / 180.0;
     
     return NO;
 }
+
+#pragma mark - Path Loading And Saving
 
 - (IBAction) saveBezierPath: (id) sender
 {

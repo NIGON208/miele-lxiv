@@ -7,17 +7,16 @@
 
 #import "sourcesTableView.h"
 
-
 @implementation sourcesTableView
 
-
-- (NSDragOperation)draggingSourceOperationMaskForLocal:(BOOL)flag
+- (NSDragOperation)draggingSession:(NSDraggingSession *)session sourceOperationMaskForDraggingContext:(NSDraggingContext)context
 {
-	if (!flag) {
-		// link for external dragged URLs
-		return NSDragOperationLink;
-	}
-	return [super draggingSourceOperationMaskForLocal:flag];
+    if (context == NSDraggingContextOutsideApplication) {
+        // link for external dragged URLs
+        return NSDragOperationLink; // The data can be shared.
+    }
+
+    return [super draggingSession:session sourceOperationMaskForDraggingContext:context];
 }
 
 @end

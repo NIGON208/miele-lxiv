@@ -3640,9 +3640,10 @@ typedef struct _xyzArray
 	_dragInProgress = NO;
 }
 
-//part of Dragging Source Protocol
-- (NSDragOperation)draggingSourceOperationMaskForLocal:(BOOL)isLocal{
-	return NSDragOperationEvery;
+// Part of Dragging Source Protocol
+- (NSDragOperation)draggingSession:(NSDraggingSession *)session sourceOperationMaskForDraggingContext:(NSDraggingContext)context
+{
+    return NSDragOperationEvery; // All: Copy Link Generic Private Move Delete
 }
 
 -(void) squareView:(id) sender
@@ -3652,8 +3653,8 @@ typedef struct _xyzArray
 	if ([[NSUserDefaults standardUserDefaults] integerForKey:@"VRDefaultViewSize"] == 1)
         return;
 	
-	NSRect	newFrame = [self frame];
-	NSRect	beforeFrame = [self frame];
+	NSRect newFrame = [self frame];
+	NSRect beforeFrame = [self frame];
 	
 	int border = [self frame].size.height-1;
 	

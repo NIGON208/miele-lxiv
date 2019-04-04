@@ -16065,9 +16065,10 @@ CGLContextObj cgl_ctx = [[NSOpenGLContext currentContext] CGLContextObj];
 	_dragInProgress = NO;
 }
 
-//part of Dragging Source Protocol
-- (NSDragOperation)draggingSourceOperationMaskForLocal:(BOOL)isLocal{
-	return NSDragOperationEvery;
+// Part of Dragging Source Protocol
+- (NSDragOperation)draggingSession:(NSDraggingSession *)session sourceOperationMaskForDraggingContext:(NSDraggingContext)context
+{
+    return NSDragOperationEvery; // All: Copy Link Generic Private Move Delete
 }
 
 #pragma mark - Hot Keys

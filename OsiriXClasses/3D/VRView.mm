@@ -9379,13 +9379,14 @@ public:
 //	[NSMenu popUpContextMenu:[self defaultMenu] withEvent:event forView:self];
 //}
 
-//part of Dragging Source Protocol
-- (NSDragOperation)draggingSourceOperationMaskForLocal:(BOOL)isLocal{
-	return NSDragOperationEvery;
+// Part of Dragging Source Protocol
+- (NSDragOperation)draggingSession:(NSDraggingSession *)session sourceOperationMaskForDraggingContext:(NSDraggingContext)context
+{
+    return NSDragOperationEvery; // All: Copy Link Generic Private Move Delete
 }
 
-#pragma mark - Hot Keys.
-//Hot key action
+#pragma mark - Hot Keys
+
 -(BOOL)actionForHotKey:(NSString *)hotKey
 {
 	BOOL returnedVal = YES;

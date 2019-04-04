@@ -167,18 +167,23 @@
     return YES;
 }
 
-- (NSDragOperation)tableView:(NSTableView*)tv validateDrop:(id <NSDraggingInfo>)info proposedRow:(NSInteger)row proposedDropOperation:(NSTableViewDropOperation)op
+- (NSDragOperation)tableView:(NSTableView*)tv
+                validateDrop:(id <NSDraggingInfo>)info
+                 proposedRow:(NSInteger)row
+       proposedDropOperation:(NSTableViewDropOperation)op
 {
-  
-	// only allow drops within the table
-
-   if ([tv isEqual:tableview])
-		return NSDragOperationMove;
+    // Only allow drops within the table
+   
+    if ([tv isEqual:tableview])
+		return NSDragOperationMove;  // The data can be moved.
 		
-	return NSDragOperationNone;
+	return NSDragOperationNone; // No drag operations are allowed.
 }
 
-- (BOOL)tableView:(NSTableView *)aTableView acceptDrop:(id <NSDraggingInfo>)info row:(NSInteger)row dropOperation:(NSTableViewDropOperation)operation
+- (BOOL)tableView:(NSTableView *)aTableView
+       acceptDrop:(id <NSDraggingInfo>)info
+              row:(NSInteger)row
+    dropOperation:(NSTableViewDropOperation)operation
 {
 
     NSPasteboard* pboard = [info draggingPasteboard];
