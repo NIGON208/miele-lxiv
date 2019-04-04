@@ -397,16 +397,13 @@ extern int splitPosition[ 3];
 
 - (void) drawRect:(NSRect)rect
 {
-#ifdef DEBUG_3D_CPR
-    NSLog(@"%s %d %@ %p %d", __FUNCTION__, __LINE__, NSStringFromClass([self class]), self, curImage);
-#endif
 	if (rect.size.width > 10)
 	{
 		_processingRequest = YES;
 		[self _sendNewRequestIfNeeded];
 		_processingRequest = NO;    
 		
-#if 0 //ndef DEBUG_3D_CPR // @@@ continue debugging by setting it to 1
+#if 0 // @@@ FIXME: issue #39
 		[self _adjustROIs];
 #endif
         [super drawRect: rect];
@@ -432,10 +429,9 @@ extern int splitPosition[ 3];
     CGFloat rightTransverseSectionPosition;
     CGFloat pixelsPerMm;
 	NSColor *planeColor;
-    NSInteger i;
 	NSString *planeName;
     CGLContextObj cgl_ctx = [[NSOpenGLContext currentContext] CGLContextObj];
-    if( cgl_ctx == nil)
+    if (!cgl_ctx)
         return;
     
 	glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
@@ -480,7 +476,8 @@ extern int splitPosition[ 3];
 	
 	glColor4d(0.0, 1.0, 0.0, 0.8);
     
-    if ( [[self windowController] displayMousePosition] == YES && _displayInfo.mouseCursorHidden == NO)
+    if ([[self windowController] displayMousePosition] == YES &&
+        _displayInfo.mouseCursorHidden == NO)
 	{
         cursorVector = N3VectorMake(curDCM.pwidth * _displayInfo.mouseCursorPosition, (CGFloat)curDCM.pheight/2.0, 0);
         cursorVector = N3VectorApplyTransform(cursorVector, pixToSubDrawRectTransform);
@@ -508,10 +505,13 @@ extern int splitPosition[ 3];
     
 	float exportTransverseSliceInterval = 0;
 	
-	if( [[self windowController] exportSequenceType] == CPRSeriesExportSequenceType && [[self windowController] exportSeriesType] == CPRTransverseViewsExportSeriesType)
+	if ([[self windowController] exportSequenceType] == CPRSeriesExportSequenceType &&
+        [[self windowController] exportSeriesType] == CPRTransverseViewsExportSeriesType)
+    {
 	   exportTransverseSliceInterval = [[self windowController] exportTransverseSliceInterval];
+    }
 	   
-	if( exportTransverseSliceInterval > 0)
+	if (exportTransverseSliceInterval > 0)
 	{
 		glColor4d(1.0, 1.0, 0.0, 1.0);
 		
@@ -530,7 +530,7 @@ extern int splitPosition[ 3];
         CGFloat transverseWidth = (float)t.curDCM.pwidth/t.pixelsPerMm;
         transverseWidth /= self.pixelSpacingY;
         
-		for( int i = 0; i < noOfFrames; i++)
+		for (int i = 0; i < noOfFrames; i++)
 		{
 			transverseSectionPosition = (startingDistance + ((float) i * exportTransverseSliceInterval)) / (float) _curvedPath.bezierPath.length;
 			lineStart = N3VectorApplyTransform(N3VectorMake((CGFloat)curDCM.pwidth*transverseSectionPosition, curDCM.pheight/2. - transverseWidth/2., 0), pixToSubDrawRectTransform);
@@ -550,11 +550,15 @@ extern int splitPosition[ 3];
         CGFloat transverseWidth = (float)t.curDCM.pwidth/t.pixelsPerMm;
         transverseWidth /= self.pixelSpacingY;
         
-		// draw the transverse section lines
+		// Draw the transverse section lines
 		glColor4d(1.0, 1.0, 0.0, 1.0);
+
 		transverseSectionPosition = _curvedPath.transverseSectionPosition;
+
 		lineBStart = N3VectorApplyTransform(N3VectorMake((CGFloat)curDCM.pwidth*transverseSectionPosition, curDCM.pheight/2. - transverseWidth/2., 0), pixToSubDrawRectTransform);
+
 		lineBEnd = N3VectorApplyTransform(N3VectorMake((CGFloat)curDCM.pwidth*transverseSectionPosition, curDCM.pheight/2. + transverseWidth/2., 0), pixToSubDrawRectTransform);
+
 		glLineWidth(2.0 * self.window.backingScaleFactor);
 		glBegin(GL_LINE_STRIP);
 		glVertex2f(lineBStart.x, lineBStart.y);
@@ -562,8 +566,11 @@ extern int splitPosition[ 3];
 		glEnd();
 				
 		leftTransverseSectionPosition = _curvedPath.leftTransverseSectionPosition;
+
 		lineAStart = N3VectorApplyTransform(N3VectorMake((CGFloat)curDCM.pwidth*leftTransverseSectionPosition, curDCM.pheight/2. - transverseWidth/2., 0), pixToSubDrawRectTransform);
+
 		lineAEnd = N3VectorApplyTransform(N3VectorMake((CGFloat)curDCM.pwidth*leftTransverseSectionPosition, curDCM.pheight/2. + transverseWidth/2., 0), pixToSubDrawRectTransform);
+
 		glLineWidth(1.0 * self.window.backingScaleFactor);
 		glBegin(GL_LINE_STRIP);
 		glVertex2f(lineAStart.x, lineAStart.y);
@@ -571,8 +578,11 @@ extern int splitPosition[ 3];
 		glEnd();
 		
 		rightTransverseSectionPosition = _curvedPath.rightTransverseSectionPosition;
+
 		lineCStart = N3VectorApplyTransform(N3VectorMake((CGFloat)curDCM.pwidth*rightTransverseSectionPosition, curDCM.pheight/2. - transverseWidth/2., 0), pixToSubDrawRectTransform);
+
 		lineCEnd = N3VectorApplyTransform(N3VectorMake((CGFloat)curDCM.pwidth*rightTransverseSectionPosition, curDCM.pheight/2. + transverseWidth/2., 0), pixToSubDrawRectTransform);
+
 		glBegin(GL_LINE_STRIP);
 		glVertex2f(lineCStart.x, lineCStart.y);
 		glVertex2f(lineCEnd.x, lineCEnd.y);
@@ -589,28 +599,28 @@ extern int splitPosition[ 3];
 		if( stringTexA == nil)
 		{
 			stringTexA = [[StringTexture alloc] initWithString: @"A"
-														  withAttributes:stanStringAttrib
-														   withTextColor:[NSColor colorWithDeviceRed: 1 green: 1 blue: 0 alpha:1.0f]
-															withBoxColor:[NSColor colorWithDeviceRed:0.0f green:0.0f blue:0.0f alpha:0.0f]
-														 withBorderColor:[NSColor colorWithDeviceRed:0.0f green:0.0f blue:0.0f alpha:0.0f]];
+                                                withAttributes:stanStringAttrib
+                                                 withTextColor:[NSColor colorWithDeviceRed: 1 green: 1 blue: 0 alpha:1.0f]
+                                                  withBoxColor:[NSColor colorWithDeviceRed:0.0f green:0.0f blue:0.0f alpha:0.0f]
+                                               withBorderColor:[NSColor colorWithDeviceRed:0.0f green:0.0f blue:0.0f alpha:0.0f]];
 			[stringTexA setAntiAliasing: YES];
 		}
 		if( stringTexB == nil)
 		{
 			stringTexB = [[StringTexture alloc] initWithString: @"B"
-														  withAttributes:stanStringAttrib
-														   withTextColor:[NSColor colorWithDeviceRed: 1 green: 1 blue: 0 alpha:1.0f]
-															withBoxColor:[NSColor colorWithDeviceRed:0.0f green:0.0f blue:0.0f alpha:0.0f]
-														 withBorderColor:[NSColor colorWithDeviceRed:0.0f green:0.0f blue:0.0f alpha:0.0f]];
+                                                withAttributes:stanStringAttrib
+                                                 withTextColor:[NSColor colorWithDeviceRed: 1 green: 1 blue: 0 alpha:1.0f]
+                                                  withBoxColor:[NSColor colorWithDeviceRed:0.0f green:0.0f blue:0.0f alpha:0.0f]
+                                               withBorderColor:[NSColor colorWithDeviceRed:0.0f green:0.0f blue:0.0f alpha:0.0f]];
 			[stringTexB setAntiAliasing: YES];
 		}
 		if( stringTexC == nil)
 		{
 			stringTexC = [[StringTexture alloc] initWithString: @"C"
-														  withAttributes:stanStringAttrib
-														   withTextColor:[NSColor colorWithDeviceRed: 1 green: 1 blue: 0 alpha:1.0f]
-															withBoxColor:[NSColor colorWithDeviceRed:0.0f green:0.0f blue:0.0f alpha:0.0f]
-														 withBorderColor:[NSColor colorWithDeviceRed:0.0f green:0.0f blue:0.0f alpha:0.0f]];
+                                                withAttributes:stanStringAttrib
+                                                 withTextColor:[NSColor colorWithDeviceRed: 1 green: 1 blue: 0 alpha:1.0f]
+                                                  withBoxColor:[NSColor colorWithDeviceRed:0.0f green:0.0f blue:0.0f alpha:0.0f]
+                                               withBorderColor:[NSColor colorWithDeviceRed:0.0f green:0.0f blue:0.0f alpha:0.0f]];
 			[stringTexC setAntiAliasing: YES];
 		}
 		
@@ -623,8 +633,11 @@ extern int splitPosition[ 3];
             
             float ratio = 1;
             
-            if( self.pixelSpacingX != 0 && self.pixelSpacingY != 0)
+            if (self.pixelSpacingX != 0 &&
+                self.pixelSpacingY != 0)
+            {
                 ratio = self.pixelSpacingX / self.pixelSpacingY;
+            }
             
             glLoadIdentity (); // reset model view matrix to identity (eliminates rotation basically)
             glScalef (2.0f /([self xFlipped] ? -([self drawingFrameRect].size.width) : [self drawingFrameRect].size.width), -2.0f / ([self yFlipped] ? -([self drawingFrameRect].size.height) : [self drawingFrameRect].size.height), 1.0f); // scale to port per pixel scale
@@ -657,9 +670,9 @@ extern int splitPosition[ 3];
 		glDisable (GL_TEXTURE_RECTANGLE_EXT);
 	}
 	
-	if( [[self windowController] displayMousePosition] == YES)
+	if ([[self windowController] displayMousePosition] == YES)
 	{
-		// draw the point on the plane lines
+		// Draw the point on the plane lines
 		for (planeName in _mousePlanePointsInPix) 
 		{
 			planeColor = [self valueForKey:[NSString stringWithFormat:@"%@PlaneColor", planeName]];
@@ -702,7 +715,7 @@ extern int splitPosition[ 3];
 	
     if (_drawAllNodes)
 	{
-        for (i = 0; i < [_curvedPath.nodes count]; i++)
+        for (int i = 0; i < [_curvedPath.nodes count]; i++)
 		{
             relativePosition = [_curvedPath relativePositionForNodeAtIndex:i];
             cursorVector = N3VectorMake(curDCM.pwidth * relativePosition, (CGFloat)curDCM.pheight/2.0, 0);
@@ -728,7 +741,8 @@ extern int splitPosition[ 3];
 	glLineWidth(1.0 * self.window.backingScaleFactor);
 	
 	// Red Square
-	if( [[self window] firstResponder] == self && stringID == nil)
+	if ([[self window] firstResponder] == self &&
+        stringID == nil)
 	{
 		glLoadIdentity (); // reset model view matrix to identity (eliminates rotation basically)
 		glScalef (2.0f /(xFlipped ? -(drawingFrameRect.size.width) : drawingFrameRect.size.width), -2.0f / (yFlipped ? -(drawingFrameRect.size.height) : drawingFrameRect.size.height), 1.0f); // scale to port per pixel scale

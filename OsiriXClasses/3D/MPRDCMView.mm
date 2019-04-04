@@ -423,9 +423,8 @@ unsigned int minimumStep;
             }
             else
                 lastRenderingWasMoveCenter = NO;
-#ifdef NDEBUG // DEBUG_3D_MPR
+
             [vrView render];
-#endif
         }
 		
 		float *imagePtr = nil;
@@ -735,12 +734,6 @@ unsigned int minimumStep;
 
 - (void) subDrawRect: (NSRect) r
 {
-#if 0 //def DEBUG_3D_MPR
-    NSLog(@"%s %d, class: %@, %p, %d, rect: %@", __FUNCTION__, __LINE__,
-          NSStringFromClass([self class]), self,
-          viewID,
-          NSStringFromRect(r));
-#endif
 	if ([stringID isEqualToString: @"export"] &&
         [[NSUserDefaults standardUserDefaults] boolForKey: @"exportDCMIncludeAllViews"] == NO)
     {
@@ -787,7 +780,10 @@ unsigned int minimumStep;
 					if (viewExport == 0 && windowController.dcmMode == 0 && windowController.dcmSeriesMode == 1) // Rotation
 						[self drawRotationLines: crossLinesA];
 				}
-				glColor4f([windowController.colorAxis3 redComponent], [windowController.colorAxis3 greenComponent], [windowController.colorAxis3 blueComponent], [windowController.colorAxis3 alphaComponent]);
+				glColor4f([windowController.colorAxis3 redComponent],
+                          [windowController.colorAxis3 greenComponent],
+                          [windowController.colorAxis3 blueComponent],
+                          [windowController.colorAxis3 alphaComponent]);
 				if (crossLinesB[ 0][ 0] != HUGE_VALF)
 				{
 					[self drawLine: crossLinesB thickness: thickness];
@@ -801,7 +797,10 @@ unsigned int minimumStep;
 			break;
 			
 			case 2:
-				glColor4f([windowController.colorAxis1 redComponent], [windowController.colorAxis1 greenComponent], [windowController.colorAxis1 blueComponent], [windowController.colorAxis1 alphaComponent]);
+				glColor4f([windowController.colorAxis1 redComponent],
+                          [windowController.colorAxis1 greenComponent],
+                          [windowController.colorAxis1 blueComponent],
+                          [windowController.colorAxis1 alphaComponent]);
 				if (crossLinesA[ 0][ 0] != HUGE_VALF)
 				{
 					[self drawLine: crossLinesA thickness: thickness];
@@ -813,7 +812,10 @@ unsigned int minimumStep;
 						[self drawRotationLines: crossLinesA];
 				}
 				
-				glColor4f ([windowController.colorAxis3 redComponent], [windowController.colorAxis3 greenComponent], [windowController.colorAxis3 blueComponent], [windowController.colorAxis3 alphaComponent]);
+				glColor4f([windowController.colorAxis3 redComponent],
+                          [windowController.colorAxis3 greenComponent],
+                          [windowController.colorAxis3 blueComponent],
+                          [windowController.colorAxis3 alphaComponent]);
 				if (crossLinesB[ 0][ 0] != HUGE_VALF)
 				{
 					[self drawLine: crossLinesB thickness: thickness];
@@ -827,7 +829,10 @@ unsigned int minimumStep;
 			break;
 			
 			case 3:
-				glColor4f ([windowController.colorAxis1 redComponent], [windowController.colorAxis1 greenComponent], [windowController.colorAxis1 blueComponent], [windowController.colorAxis1 alphaComponent]);
+				glColor4f([windowController.colorAxis1 redComponent],
+                          [windowController.colorAxis1 greenComponent],
+                          [windowController.colorAxis1 blueComponent],
+                          [windowController.colorAxis1 alphaComponent]);
 				if (crossLinesA[ 0][ 0] != HUGE_VALF)
 				{
 					[self drawLine: crossLinesA thickness: thickness];
@@ -839,7 +844,10 @@ unsigned int minimumStep;
 						[self drawRotationLines: crossLinesA];
 				}
 				
-				glColor4f ([windowController.colorAxis2 redComponent], [windowController.colorAxis2 greenComponent], [windowController.colorAxis2 blueComponent], [windowController.colorAxis2 alphaComponent]);
+				glColor4f([windowController.colorAxis2 redComponent],
+                          [windowController.colorAxis2 greenComponent],
+                          [windowController.colorAxis2 blueComponent],
+                          [windowController.colorAxis2 alphaComponent]);
 				if (crossLinesB[ 0][ 0] != HUGE_VALF)
 				{
 					[self drawLine: crossLinesB thickness: thickness];
@@ -888,8 +896,15 @@ unsigned int minimumStep;
 	glEnd();
 	glLineWidth(1.0 * self.window.backingScaleFactor);
 	
-	if (displayCrossLines && frameZoomed == NO && windowController.displayMousePosition && !windowController.mprView1.rotateLines && !windowController.mprView2.rotateLines && !windowController.mprView3.rotateLines
-																					&& !windowController.mprView1.moveCenter && !windowController.mprView2.moveCenter && !windowController.mprView3.moveCenter)
+	if (displayCrossLines &&
+        frameZoomed == NO &&
+        windowController.displayMousePosition &&
+        !windowController.mprView1.rotateLines &&
+        !windowController.mprView2.rotateLines &&
+        !windowController.mprView3.rotateLines &&
+        !windowController.mprView1.moveCenter &&
+        !windowController.mprView2.moveCenter &&
+        !windowController.mprView3.moveCenter)
 	{
 		// Mouse Position
 		if (viewID == windowController.mouseViewID)

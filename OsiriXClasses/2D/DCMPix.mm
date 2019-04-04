@@ -3661,7 +3661,7 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
                     :(float) oZ
                     :(BOOL) volSize
 {
-    NSLog(@"DCMPix.mm:%d %s", __LINE__, __PRETTY_FUNCTION__);
+    //NSLog(@"DCMPix.mm:%d %s", __LINE__, __PRETTY_FUNCTION__);
     
 	//if (pixelSize != 32)
     //  NSLog( @"Only floating images are supported...");
@@ -3681,10 +3681,10 @@ void erase_outside_circle(char *buf, int width, int height, int cx, int cy, int 
 		pixelSpacingY = ySpace;
         
         if (isnan( pixelSpacingX) || pixelSpacingX < 0.00001 || pixelSpacingX > 1000)
-            NSLog( @"****** DCMPix initWithData");
+            NSLog( @"****** DCMPix initWithData pixelSpacingX");
         
         if (isnan( pixelSpacingY) || pixelSpacingY < 0.00001 || pixelSpacingY > 1000)
-            NSLog( @"****** DCMPix initWithData");
+            NSLog( @"****** DCMPix initWithData pixelSpacingY");
         
 		if (pixelSpacingY != 0 && pixelSpacingX != 0)
             pixelRatio = pixelSpacingY / pixelSpacingX;

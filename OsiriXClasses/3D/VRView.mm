@@ -2293,16 +2293,8 @@ public:
 
 - (void) render
 {
-    if (!volumeMapper) {
-#if 1 //def DEBUG_3D_CPR
-        NSLog(@"%s %d %@ no Volume mapper, early return", __FUNCTION__, __LINE__, NSStringFromClass([self class]));
-#endif
+    if (!volumeMapper)
         return;
-    }
-
-#ifndef NDEBUG // DEBUG_3D_CPR
-    //NSLog(@"%s %d %@", __FUNCTION__, __LINE__, NSStringFromClass([self class]));
-#endif
 
     aRenderer->SetDraw( 0);
     
@@ -2312,9 +2304,7 @@ public:
     _cocoaRenderWindow->UpdateContext();
     _cocoaRenderWindow->MakeCurrent();
 
-#if 1 //def NDEBUG //DEBUG_3D_CPR @@@
     volumeMapper->Render( aRenderer, volume);
-#endif
     dontRenderVolumeRenderingOsiriX = true;
 }
 
@@ -2359,9 +2349,6 @@ public:
 
 - (void) drawRect:(NSRect)aRect
 {
-#ifdef DEBUG_3D_CPR
-    NSLog(@"%s %d %@", __FUNCTION__, __LINE__, NSStringFromClass([self class]));
-#endif
 	if (drawLock == nil)
         drawLock = [[NSRecursiveLock alloc] init];
 	

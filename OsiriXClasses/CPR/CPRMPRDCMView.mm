@@ -185,10 +185,8 @@ static CGFloat CPRMPRDCMViewCurveMouseTrackingDistance = 20.0;
 
 - (void) drawRect:(NSRect)rect
 {
-#if 1 //ndef DEBUG_3D_CPR
 	if (rect.size.width > 10)
 		[super drawRect: rect];
-#endif
 }
 
 - (void) setFrame:(NSRect)frameRect

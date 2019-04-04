@@ -21713,9 +21713,6 @@ static BOOL viewerControllerPlaying = NO;
 
 - (void) clear8bitRepresentations
 {
-#ifdef DEBUG_3D_MPR
-    NSLog(@"%s %d %@, maxMovieIndex: %d", __FUNCTION__, __LINE__, NSStringFromClass([self class]), maxMovieIndex);
-#endif
 	// This function will free about 1/4 of the data
 	
 	for (int i = 0; i < maxMovieIndex; i++)
@@ -23241,21 +23238,13 @@ static BOOL viewerControllerPlaying = NO;
 #ifndef OSIRIX_LIGHT
 - (MPRController *)openMPRViewer
 {
-#ifdef DEBUG_3D_MPR
-    NSLog(@"%s %d %@", __FUNCTION__, __LINE__, NSStringFromClass([self class]));
-#endif
 	[self checkEverythingLoaded];
 	[self clear8bitRepresentations];
 	
 	MPRController *viewer = [[AppController sharedAppController] FindViewer:@"MPR" :pixList[0]];
-    if (viewer) {
-#ifdef DEBUG_3D_MPR
-        NSLog(@"%s %d, found viewer: MPR", __FUNCTION__, __LINE__);
-#endif
+    if (viewer)
 		return viewer;
-    }
 	
-#ifndef DEBUG_3D_MPR
 	viewer = [[MPRController alloc] initWithDCMPixList: pixList[0]
                                              filesList: fileList[0]
                                             volumeData: volumeData[0]
@@ -23264,22 +23253,15 @@ static BOOL viewerControllerPlaying = NO;
     
 	for (int i = 1; i < maxMovieIndex; i++)
 		[viewer addMoviePixList:pixList[ i] :volumeData[ i]];
-#endif
 	
 	return viewer;
 }
 
 - (IBAction) mprViewer:(id) sender
 {
-#ifdef DEBUG_3D_MPR
-    NSLog(@"%s %d %@", __FUNCTION__, __LINE__, NSStringFromClass([self class]));
-#endif
 	[self checkEverythingLoaded];
 	[self clear8bitRepresentations];
-	
-#if 1 //def DEBUG_3D_MPR
-    NSLog(@"%s %d %@, pixList[0] count: %lu", __FUNCTION__, __LINE__, NSStringFromClass([self class]), (unsigned long)[pixList[0] count]);
-#endif
+
 	if ([self computeInterval] == 0 ||
 	   [[pixList[0] objectAtIndex:0] pixelSpacingX] == 0 ||
 	   [[pixList[0] objectAtIndex:0] pixelSpacingY] == 0 ||
@@ -23315,23 +23297,14 @@ static BOOL viewerControllerPlaying = NO;
     [self displayWarningIfGantryTitled];
     
     [self MovieStop: self];
-    
-#ifdef DEBUG_3D_MPR
-    NSLog(@"%s %d %@, pixList count: %lu", __FUNCTION__, __LINE__, NSStringFromClass([self class]), (unsigned long)[*pixList count]);
-#endif
+
     MPRController *viewer = [[AppController sharedAppController] FindViewer :@"MPR" :pixList[0]];
     if (viewer)
     {
-#ifdef DEBUG_3D_MPR
-        NSLog(@"%s %d %@", __FUNCTION__, __LINE__, NSStringFromClass([self class]));
-#endif
         [[viewer window] makeKeyAndOrderFront:self];
         return;
     }
-    
-#ifdef DEBUG_3D_MPR
-    NSLog(@"%s %d %@", __FUNCTION__, __LINE__, NSStringFromClass([self class]));
-#endif
+
     viewer = [self openMPRViewer];
     [self place3DViewerWindow:viewer];
     [viewer showWindow:self];
@@ -23351,12 +23324,8 @@ static BOOL viewerControllerPlaying = NO;
 	
 	CPRController *viewer;
 	viewer = [[AppController sharedAppController] FindViewer:@"CPR" :pixList[0]];
-    if (viewer) {
-#ifdef DEBUG_3D_CPR
-        NSLog(@"%s %d, found viewer: CPR", __FUNCTION__, __LINE__);
-#endif
+    if (viewer)
 		return viewer;
-    }
 	
 	viewer = [[CPRController alloc] initWithDCMPixList: pixList[0]
                                              filesList: fileList[0]
@@ -23570,9 +23539,6 @@ static BOOL viewerControllerPlaying = NO;
 
 -(void) checkEverythingLoaded
 {
-#ifdef DEBUG_3D_MPR
-    NSLog(@"%s %d %@ %p", __FUNCTION__, __LINE__, NSStringFromClass([self class]), self);
-#endif
     BOOL isExecuting;
     
     @synchronized( loadingThread)

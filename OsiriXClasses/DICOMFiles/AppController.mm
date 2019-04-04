@@ -4649,9 +4649,6 @@ static BOOL initialized = NO;
 
 - (id) FindViewer:(NSString*) nibName :(NSArray*) pixList
 {
-#ifdef DEBUG_3D_MPR
-    NSLog(@"%s %d %@, nibName: %@", __FUNCTION__, __LINE__, NSStringFromClass([self class]), nibName);
-#endif
 	for (id loopItem in [NSApp windows])
 	{
 		if ([[[loopItem windowController] windowNibName] isEqualToString: nibName])

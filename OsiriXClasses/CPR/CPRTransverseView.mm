@@ -126,9 +126,8 @@ extern int splitPosition[ 3];
     _processingRequest = YES;
 	[self _sendNewRequestIfNeeded];
     _processingRequest = NO;
-#ifndef DEBUG_3D_CPR
+
     [super drawRect:r];
-#endif
 }
 
 - (void)setNeedsDisplay:(BOOL)flag

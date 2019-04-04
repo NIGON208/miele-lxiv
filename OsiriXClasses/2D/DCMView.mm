@@ -99,12 +99,6 @@ const char *stringCRSpaces = "\n                                                
 #define WITH_DRAW_OVERFLOW_FUNCTION
 
 @class MPRDCMView;
-#if defined(DEBUG_3D_CPR) || defined(DEBUG_3D_MPR) // @@@
-@class CPRMPRDCMView;
-//@class CPRStraightenedView;
-#import "CPRStraightenedView.h"
-#import "CPRStretchedView.h"
-#endif
 
 // kvImageHighQualityResampling
 #define QUALITY     kvImageNoFlags
@@ -2627,9 +2621,6 @@ CGLContextObj cgl_ctx = [[NSOpenGLContext currentContext] CGLContextObj];
 
 - (void) setIndexWithReset:(short) index :(BOOL) sizeToFit
 {
-#ifdef DEBUG_3D_CPR
-    NSLog(@"%s %d %@ %p", __FUNCTION__, __LINE__, NSStringFromClass([self class]), self);
-#endif
 	TextureComputed32bitPipeline = NO;
 
     if (index >= (int) dcmPixList.count)
@@ -2650,9 +2641,6 @@ CGLContextObj cgl_ctx = [[NSOpenGLContext currentContext] CGLContextObj];
 		if (curImage < 0)
             curImage = 0;
 		
-#ifdef DEBUG_3D_CPR
-        NSLog(@"%s %d %@", __FUNCTION__, __LINE__, NSStringFromClass([self class]));
-#endif
 		[curDCM release];
 		curDCM = [[dcmPixList objectAtIndex: curImage] retain];
 		
@@ -3107,9 +3095,6 @@ CGLContextObj cgl_ctx = [[NSOpenGLContext currentContext] CGLContextObj];
 
 - (void) setIndex:(short) index
 {
-#ifdef DEBUG_3D_CPR
-    NSLog(@"%s %d %@", __FUNCTION__, __LINE__, NSStringFromClass([self class]));
-#endif
 	[self delete3DROIsAliases];
 	[drawLock lock];
 	
@@ -3229,9 +3214,6 @@ CGLContextObj cgl_ctx = [[NSOpenGLContext currentContext] CGLContextObj];
 		}
 		else
 		{
-#ifdef DEBUG_3D_CPR
-            NSLog(@"%s %d %@, dcmPixList: %@", __FUNCTION__, __LINE__, NSStringFromClass([self class]), dcmPixList);
-#endif
 			[curDCM autorelease];
 			curDCM = nil;
 			curImage = -1;
@@ -8446,9 +8428,9 @@ CGLContextObj cgl_ctx = [[NSOpenGLContext currentContext] CGLContextObj];
             !strstr((const char *) strShortVersion, "1.0") &&
             !strstr((const char *) strShortVersion, "1.1"); // if not 1.0 and not 1.1 must be 1.2 or greater
     
-    NSLog(@"%s %d OpenGL %s, f_gl_texture_edge_clamp:%d", __FUNCTION__, __LINE__, strShortVersion, f_gl_texture_edge_clamp);
+    //NSLog(@"%s %d OpenGL %s, f_gl_texture_edge_clamp:%d", __FUNCTION__, __LINE__, strShortVersion, f_gl_texture_edge_clamp);
 
-    // get device max texture size
+    // Get device max texture size
     glGetIntegerv(GL_MAX_TEXTURE_SIZE, &deviceMaxTextureSize);
     if (deviceMaxTextureSize < maxTextureSize)
         maxTextureSize = deviceMaxTextureSize;
@@ -10126,10 +10108,6 @@ CGLContextObj cgl_ctx = [[NSOpenGLContext currentContext] CGLContextObj];
 {
 	if (drawing == NO)
         return;
-	
-#ifdef DEBUG_3D_MPR
-    NSLog(@"%s %d class:%@ %p", __FUNCTION__, __LINE__, NSStringFromClass([self class]), self);
-#endif
 
     @synchronized (self)
 	{
@@ -10164,17 +10142,6 @@ CGLContextObj cgl_ctx = [[NSOpenGLContext currentContext] CGLContextObj];
         
         checkOpenGLErrors(__LINE__);
 
-#if defined(DEBUG_3D_CPR) || defined(DEBUG_3D_MPR) // @@@
-        if ([self class] != [DCMView class] &&
-            [self class] != [PreviewView class] &&
-            [self class] != [CPRMPRDCMView class] &&
-            [self class] != [CPRStraightenedView class] &&
-            [self class] != [CPRStretchedView class]) {
-            NSLog(@"%s %d early return for %@ %p", __FUNCTION__, __LINE__, NSStringFromClass([self class]), self);
-            return;
-        }
-        NSLog(@"%s %d %@ %p", __FUNCTION__, __LINE__, NSStringFromClass([self class]), self);
-#endif
 		[self drawRect: backingBounds
            withContext: [self openGLContext]];
 	}
@@ -10807,17 +10774,6 @@ CGLContextObj cgl_ctx = [[NSOpenGLContext currentContext] CGLContextObj];
 
 - (void) drawRect:(NSRect)aRect withContext:(NSOpenGLContext *)ctx
 {
-#if defined(DEBUG_3D_CPR) || defined(DEBUG_3D_MPR)// @@@
-    if ([self class] != [DCMView class] &&
-        [self class] != [PreviewView class] &&
-        [self class] != [CPRMPRDCMView class] &&
-        [self class] != [CPRStraightenedView class] &&
-        [self class] != [CPRStretchedView class]) {
-        NSLog(@"%s %d early return for %@ %p", __FUNCTION__, __LINE__, NSStringFromClass([self class]), self);
-        return;
-    }
-#endif
-    //NSLog(@"%s %d %@ %p", __FUNCTION__, __LINE__, NSStringFromClass([self class]), self);
     long annotations = annotationType;
     BOOL frontMost = NO;
     BOOL is2DViewer = [self is2DViewer];
@@ -14876,15 +14832,8 @@ CGLContextObj cgl_ctx = [[NSOpenGLContext currentContext] CGLContextObj];
 
 - (id)initWithFrame:(NSRect)frame
 {
-#if 1 //def DEBUG_3D_MPR
-    NSLog(@"%s %d %@", __FUNCTION__, __LINE__, NSStringFromClass([self class]));
-#endif
 #ifndef NDEBUG
-    if ([self isKindOfClass: [PreviewView class]])
-        NSLog(@"DCMView.mm:%d %s", __LINE__, __PRETTY_FUNCTION__);
-    
-    if (self == [PreviewView class])
-        NSLog(@"DCMView.mm:%d %s", __LINE__, __PRETTY_FUNCTION__);
+    NSLog(@"%s %d %@", __FUNCTION__, __LINE__, NSStringFromClass([self class]));
 #endif
     
 	[AppController initialize];
@@ -14898,7 +14847,7 @@ CGLContextObj cgl_ctx = [[NSOpenGLContext currentContext] CGLContextObj];
                     imageRows:(int)rows
                  imageColumns:(int)columns
 {
-    NSLog(@"%s %d %@ %p", __FUNCTION__, __LINE__, NSStringFromClass([self class]), self);
+    //NSLog(@"%s %d %@ %p", __FUNCTION__, __LINE__, NSStringFromClass([self class]), self);
 
 	self = [self initWithFrameInternal:frame];
     if (self)
@@ -14938,9 +14887,6 @@ CGLContextObj cgl_ctx = [[NSOpenGLContext currentContext] CGLContextObj];
 
 - (id)initWithFrameInternal:(NSRect)frameRect
 {
-#ifdef DEBUG_3D_CPR
-    NSLog(@"%s %d %@", __FUNCTION__, __LINE__, NSStringFromClass([self class]));
-#endif
     if (PETredTable == nil)
         [DCMView computePETBlendingCLUT];
     
@@ -15267,9 +15213,6 @@ CGLContextObj cgl_ctx = [[NSOpenGLContext currentContext] CGLContextObj];
 
 -(void)setImageParamatersFromView:(DCMView *)aView
 {
-#ifdef DEBUG_3D_CPR
-    NSLog(@"%s %d %@", __FUNCTION__, __LINE__, NSStringFromClass([self class]));
-#endif
 	if (aView != self &&
         dcmPixList != nil)
 	{

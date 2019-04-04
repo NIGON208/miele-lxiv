@@ -403,9 +403,6 @@ extern int splitPosition[ 3];
 
 - (void)drawRect:(NSRect)rect
 {
-#if 1 //def DEBUG_3D_CPR
-    NSLog(@"%s %d %@ %p %d", __FUNCTION__, __LINE__, NSStringFromClass([self class]), self, curImage);
-#endif
 	if (rect.size.width > 10)
 	{
 		_processingRequest = YES;

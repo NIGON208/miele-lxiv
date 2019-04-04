@@ -65,12 +65,8 @@ void OsiriXFixedPointVolumeRayCastMapper::Render( vtkRenderer *ren, vtkVolume *v
     return;
   }
 
-#ifdef DEBUG_3D_CPR // @@@
-    printf("%s %d", __FUNCTION__, __LINE__);
-#else
   if (!dontRenderVolumeRenderingOsiriX)  // Our addition
 	this->RenderSubVolume();
-#endif
 
   if ( renWin && renWin->CheckAbortStatus() )
   {

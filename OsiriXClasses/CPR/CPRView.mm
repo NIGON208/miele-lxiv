@@ -49,9 +49,6 @@
 
 - (void)setFrame:(NSRect)frameRect
 {
-#ifdef DEBUG_3D_CPR
-    NSLog(@"%s %d %@ %@", __FUNCTION__, __LINE__, NSStringFromClass([self class]), NSStringFromRect(frameRect));
-#endif
     [super setFrame:frameRect];
     
     NSDisableScreenUpdates();

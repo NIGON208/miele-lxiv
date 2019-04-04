@@ -306,7 +306,7 @@ static float deg2rad = M_PI / 180.0;
                                                                                                            @0.0F, @"CPRColorB", nil]];
 		self.curvedPathCreationMode = YES;
         
-        NSLog(@"%s %d %@ %p", __FUNCTION__, __LINE__, NSStringFromClass([self class]), self);
+        //NSLog(@"%s %d %@ %p", __FUNCTION__, __LINE__, NSStringFromClass([self class]), self);
         cprVolumeData = [[CPRVolumeData alloc] initWithWithPixList:pix volume:volume];
         cprView.volumeData = cprVolumeData;
 
@@ -578,9 +578,6 @@ static float deg2rad = M_PI / 180.0;
 
 - (void) showWindow:(id) sender
 {
-#ifdef DEBUG_3D_CPR
-    NSLog(@"%s %d %@", __FUNCTION__, __LINE__, NSStringFromClass([self class]));
-#endif
 	mprView1.dontUseAutoLOD = YES;
 	mprView2.dontUseAutoLOD = YES;
 	mprView3.dontUseAutoLOD = YES;
@@ -660,9 +657,6 @@ static float deg2rad = M_PI / 180.0;
 
 -(void) awakeFromNib
 {
-#ifdef DEBUG_3D_CPR
-    NSLog(@"%s %d %@", __FUNCTION__, __LINE__, NSStringFromClass([self class]));
-#endif
 	NSScreen *s = [viewer2D get3DViewerScreen: viewer2D];
 	
     [horizontalSplit1 setDelegate: self];

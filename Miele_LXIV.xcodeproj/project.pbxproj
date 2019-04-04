@@ -7996,7 +7996,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 20190328;
+				CURRENT_PROJECT_VERSION = 20190404;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 57BXF7EQEM;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -8087,6 +8087,7 @@
 					"$(SRCROOT)/Binaries/libtiff/lib",
 					"$(SRCROOT)/Binaries/openjpeg/lib",
 					"$(SRCROOT)/Binaries/openssl/lib",
+					"$(SRCROOT)/Binaries/libiconv/lib",
 				);
 				OTHER_CFLAGS = "";
 				OTHER_CPLUSPLUSFLAGS = (
@@ -8155,7 +8156,8 @@
 					"$(SRCROOT)/Binaries/DCMTK/lib/libDCMTK.a",
 					"$(SRCROOT)/Binaries/ITK/lib/libITK.a",
 					"$(SRCROOT)/Binaries/VTK/lib/libVTK.a",
-					"$(SRCROOT)/Binaries/libiconv/lib/libiconv.la",
+					"$(SRCROOT)/Binaries/libiconv/lib/libiconv.a",
+					"$(SRCROOT)/Binaries/libiconv/lib/libcharset.a",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.bettarini.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "miele-lxiv";
@@ -8263,8 +8265,8 @@
 					"-lpthread",
 					/usr/lib/libz.dylib,
 					"-lm",
-					"$(SRCROOT)/Binaries/libiconv/lib/libiconv.dylib",
-					"$(SRCROOT)/Binaries/libiconv/lib/libcharset.dylib",
+					"$(SRCROOT)/Binaries/libiconv/lib/libiconv.a",
+					"$(SRCROOT)/Binaries/libiconv/lib/libcharset.a",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.bettarini.dcmframework;
 				PRODUCT_NAME = DCM;
@@ -8438,8 +8440,8 @@
 					AppKit,
 					"$(SRCROOT)/Binaries/DCMTK/lib/libDCMTK.a",
 					/usr/lib/libxml2.dylib,
-					"$(SRCROOT)/Binaries/libiconv/lib/libiconv.dylib",
-					"$(SRCROOT)/Binaries/libiconv/lib/libcharset.dylib",
+					"$(SRCROOT)/Binaries/libiconv/lib/libiconv.a",
+					"$(SRCROOT)/Binaries/libiconv/lib/libcharset.a",
 				);
 				PRODUCT_NAME = DICOMPrint;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -8524,7 +8526,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 20190328;
+				CURRENT_PROJECT_VERSION = 20190404;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 57BXF7EQEM;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -8615,6 +8617,7 @@
 					"$(SRCROOT)/Binaries/libtiff/lib",
 					"$(SRCROOT)/Binaries/openjpeg/lib",
 					"$(SRCROOT)/Binaries/openssl/lib",
+					"$(SRCROOT)/Binaries/libiconv/lib",
 				);
 				OTHER_CFLAGS = "";
 				OTHER_CPLUSPLUSFLAGS = (
@@ -8684,7 +8687,8 @@
 					"$(SRCROOT)/Binaries/DCMTK/lib/libDCMTK.a",
 					"$(SRCROOT)/Binaries/ITK/lib/libITK.a",
 					"$(SRCROOT)/Binaries/VTK/lib/libVTK.a",
-					"$(SRCROOT)/Binaries/libiconv/lib/libiconv.la",
+					"$(SRCROOT)/Binaries/libiconv/lib/libiconv.a",
+					"$(SRCROOT)/Binaries/libiconv/lib/libcharset.a",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.bettarini.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "miele-lxiv";
@@ -8793,8 +8797,8 @@
 					"-lpthread",
 					/usr/lib/libz.dylib,
 					"-lm",
-					"$(SRCROOT)/Binaries/libiconv/lib/libiconv.dylib",
-					"$(SRCROOT)/Binaries/libiconv/lib/libcharset.dylib",
+					"$(SRCROOT)/Binaries/libiconv/lib/libiconv.a",
+					"$(SRCROOT)/Binaries/libiconv/lib/libcharset.a",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.github-bettar.dcmframework";
 				PRODUCT_NAME = DCM;
@@ -8969,8 +8973,8 @@
 					AppKit,
 					"$(SRCROOT)/Binaries/DCMTK/lib/libDCMTK.a",
 					/usr/lib/libxml2.dylib,
-					"$(SRCROOT)/Binaries/libiconv/lib/libiconv.dylib",
-					"$(SRCROOT)/Binaries/libiconv/lib/libcharset.dylib",
+					"$(SRCROOT)/Binaries/libiconv/lib/libiconv.a",
+					"$(SRCROOT)/Binaries/libiconv/lib/libcharset.a",
 				);
 				PRODUCT_NAME = DICOMPrint;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -9123,8 +9127,8 @@
 					"-lpthread",
 					/usr/lib/libz.dylib,
 					"-lm",
-					"$(SRCROOT)/Binaries/libiconv/lib/libiconv.dylib",
-					"$(SRCROOT)/Binaries/libiconv/lib/libcharset.dylib",
+					"$(SRCROOT)/Binaries/libiconv/lib/libiconv.a",
+					"$(SRCROOT)/Binaries/libiconv/lib/libcharset.a",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.bettarini.dcmframework;
 				PRODUCT_NAME = DCM;
@@ -9231,6 +9235,7 @@
 					"$(SRCROOT)/Binaries/libtiff/lib",
 					"$(SRCROOT)/Binaries/openjpeg/lib",
 					"$(SRCROOT)/Binaries/openssl/lib",
+					"$(SRCROOT)/Binaries/libiconv/lib",
 				);
 				OTHER_CFLAGS = "";
 				OTHER_CPLUSPLUSFLAGS = (
@@ -9299,7 +9304,8 @@
 					"$(SRCROOT)/Binaries/DCMTK/lib/libDCMTK.a",
 					"$(SRCROOT)/Binaries/ITK/lib/libITK.a",
 					"$(SRCROOT)/Binaries/VTK/lib/libVTK.a",
-					"$(SRCROOT)/Binaries/libiconv/lib/libiconv.la",
+					"$(SRCROOT)/Binaries/libiconv/lib/libiconv.a",
+					"$(SRCROOT)/Binaries/libiconv/lib/libcharset.a",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.bettarini.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "miele-lxiv";
@@ -9336,7 +9342,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "";
-				CURRENT_PROJECT_VERSION = 20190328;
+				CURRENT_PROJECT_VERSION = 20190404;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 57BXF7EQEM;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -9551,8 +9557,8 @@
 					AppKit,
 					"$(SRCROOT)/Binaries/DCMTK/lib/libDCMTK.a",
 					/usr/lib/libxml2.dylib,
-					"$(SRCROOT)/Binaries/libiconv/lib/libiconv.dylib",
-					"$(SRCROOT)/Binaries/libiconv/lib/libcharset.dylib",
+					"$(SRCROOT)/Binaries/libiconv/lib/libiconv.a",
+					"$(SRCROOT)/Binaries/libiconv/lib/libcharset.a",
 				);
 				PRODUCT_NAME = DICOMPrint;
 				PROVISIONING_PROFILE_SPECIFIER = "";

@@ -64,9 +64,6 @@
 // that contains our NSView subclass is actually on screen and ready to be drawn.
 - (void)drawRect:(NSRect)theRect
 {
-#if 0 //def DEBUG_3D_CPR
-    NSLog(@"%s line %d, %@ %p", __FUNCTION__, __LINE__, NSStringFromClass([self class]), self);
-#endif
     // Check for a valid vtkWindowInteractor and then initialize it. Technically we
     // do not need to do this, but what happens is that the window that contains
     // this object will not immediately render it so you end up with a big empty
@@ -81,9 +78,7 @@
     }
 
     // Let the vtkCocoaGLView do its regular drawing
-#if 1 //def NDEBUG // DEBUG_3D_MPR
     [super drawRect:theRect];
-#endif
 }
 
 - (void)initializeVTKSupport
