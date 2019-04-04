@@ -18,8 +18,8 @@
  PURPOSE.
  =========================================================================*/
 
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 
-@interface DICOMFilesTests : SenTestCase
+@interface DICOMFilesTests : XCTestCase
 
 @end

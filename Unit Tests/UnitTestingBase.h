@@ -18,11 +18,8 @@
      PURPOSE.
 =========================================================================*/
 
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 
-@interface UnitTestingBase : SenTestCase
-{
-
-}
+@interface UnitTestingBase : XCTestCase
 
 @end
