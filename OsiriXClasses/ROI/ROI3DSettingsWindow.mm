@@ -2,9 +2,9 @@
 //  ROI3DSettingsWindow.m
 //  Miele_LXIV
 //
-//  Created by Alex Bettarini on 4/6/15.
-//  Copyright (c) 2015 OsiriX Team. All rights reserved.
-//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//  Created by Alex Bettarini on 4/6/15
 
 #import "ROI3DSettingsWindow.h"
 

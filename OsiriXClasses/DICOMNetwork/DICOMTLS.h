@@ -1,3 +1,9 @@
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
 /*=========================================================================
  Program:   OsiriX
  
@@ -43,7 +49,7 @@ typedef enum
 
 }
 
-#pragma mark Cipher Suites
+#pragma mark - Cipher Suites
 /**
 	Returns the list of available Ciphersuites.
 	These are basically the one available through DCMTK.
@@ -54,7 +60,7 @@ typedef enum
 + (NSString*) TLS_PRIVATE_KEY_PASSWORD;
 + (void) eraseKeys;
 
-#pragma mark Keychain Access
+#pragma mark - Keychain Access
 + (void)generateCertificateAndKeyForLabel:(NSString*)label withStringID:(NSString*)stringID;
 + (void)generateCertificateAndKeyForLabel:(NSString*)label;
 + (void)generateCertificateAndKeyForServerAddress:(NSString*)address port:(int)port AETitle:(NSString*)aetitle withStringID:(NSString*)stringID;

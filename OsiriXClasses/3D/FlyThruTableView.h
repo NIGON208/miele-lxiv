@@ -1,3 +1,9 @@
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
 /*=========================================================================
   Program:   OsiriX
 
@@ -12,8 +18,6 @@
      PURPOSE.
 =========================================================================*/
 
-
-
 #import <Cocoa/Cocoa.h>
 
 /** \brief TableView for FlyThru steps
@@ -21,7 +25,6 @@
 * TableView subclass to manage drag and drop ofsteps
 * for Flythrus
 */
-
 
 @interface FlyThruTableView : NSTableView {
 

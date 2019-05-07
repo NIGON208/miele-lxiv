@@ -1,3 +1,9 @@
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
 /*=========================================================================
   Program:   OsiriX
 
@@ -300,8 +306,7 @@ static NSString*	ThreeDPositionToolbarItemIdentifier			= @"3DPosition";
 	[super dealloc];
 }
 
-#pragma mark-
-#pragma mark DCMView methods
+#pragma mark - DCMView methods
 
 - (BOOL) is2DViewer
 {
@@ -678,8 +683,7 @@ static NSString*	ThreeDPositionToolbarItemIdentifier			= @"3DPosition";
 	[PETCTController flipVolume];
 }
 
-#pragma mark-
-#pragma mark reslice
+#pragma mark - reslice
 
 - (void) resliceFromView: (SEL) view : (NSInvocation*) invoc : (float) x :(float) y :(id) sender
 {
@@ -779,8 +783,7 @@ static NSString*	ThreeDPositionToolbarItemIdentifier			= @"3DPosition";
 	[self resliceFromView: @selector(yReslicedView) : invoc : x: y: sender];
 }
 
-#pragma mark-
-#pragma mark accessors
+#pragma mark - accessors
 
 - (OrthogonalMPRPETCTController*) CTController
 {
@@ -803,8 +806,7 @@ static NSString*	ThreeDPositionToolbarItemIdentifier			= @"3DPosition";
     return CTController;
 }
 
-#pragma mark-
-#pragma mark NSWindow related methods
+#pragma mark - NSWindow related methods
 
 - (IBAction) showWindow:(id)sender
 {
@@ -872,8 +874,7 @@ static NSString*	ThreeDPositionToolbarItemIdentifier			= @"3DPosition";
 	}
 }
 
-#pragma mark-
-#pragma mark Tools
+#pragma mark - Tools
 
 - (IBAction) Panel3D:(id) sender
 {
@@ -936,8 +937,7 @@ static NSString*	ThreeDPositionToolbarItemIdentifier			= @"3DPosition";
 	[PETCTController resetImage];
 }
 
-#pragma mark-
-#pragma mark NSToolbar Related Methods
+#pragma mark - NSToolbar Related Methods
 
 - (void) setupToolbar {
     // Create a new toolbar instance, and attach it to our document window 
@@ -1335,8 +1335,7 @@ return YES;
     return enable;
 }
 
-#pragma mark-
-#pragma mark NSSplitView Control
+#pragma mark - NSSplitView Control
 
 - (void) adjustHeightSplitView
 {
@@ -1792,8 +1791,7 @@ return YES;
 	[modalitySplitView setNeedsDisplay:YES];
 }
 
-#pragma mark-
-#pragma mark NSSplitview's delegate methods
+#pragma mark - NSSplitview's delegate methods
 
 -(void)splitViewWillResizeSubviews:(NSNotification *)notification
 {
@@ -2088,8 +2086,7 @@ return YES;
 	NSEnableScreenUpdates();
 }
 
-#pragma mark-
-#pragma mark Tools Selection
+#pragma mark - Tools Selection
 
 - (BOOL)validateMenuItem:(NSMenuItem *)item
 {
@@ -2114,8 +2111,7 @@ return YES;
     return valid;
 }
 
-#pragma mark-
-#pragma mark export
+#pragma mark - export
 
 - (DCMView*) keyView
 {
@@ -2876,8 +2872,7 @@ return YES;
 	}
 }
 
-#pragma mark-
-#pragma mark Multi MPR viewport synchronization
+#pragma mark - Multi MPR viewport synchronization
 
 // Actions linked to popupToolbarMenuItems linked to SyncSeriesToolbarItemIdentifier
 - (void) syncSeriesScopeAction:(id) sender
@@ -2901,7 +2896,7 @@ return YES;
     [OrthogonalMPRViewer syncSeriesAction:sender :self] ;
 }
 
-#pragma mark-
+#pragma mark -
 
 - (float*) syncOriginPosition
 {
@@ -2918,10 +2913,9 @@ return YES;
     [OrthogonalMPRViewer posChangeNotification:self :notification];
 }
 
-#pragma mark-
-#pragma mark 4D
+#pragma mark - 4D
 
-- (void) MoviePlayStop:(id) sender
+- (IBAction) MoviePlayStop:(id) sender
 {
     if (movieTimer)
     {
@@ -3027,12 +3021,12 @@ return YES;
 	[self setMovieIndex: curMovieIndex];
 }
 
-- (void) movieRateSliderAction:(id) sender
+- (IBAction) movieRateSliderAction:(id) sender
 {
 	[movieTextSlide setStringValue:[NSString stringWithFormat: NSLocalizedString( @"%0.0f im/s", @"im/s = images per second"), (float) [movieRateSlider floatValue]]];
 }
 
-- (void) moviePosSliderAction:(id) sender
+- (IBAction) moviePosSliderAction:(id) sender
 {
 	[self setMovieIndex: [moviePosSlider intValue]];
 //	[self propagateSettings];

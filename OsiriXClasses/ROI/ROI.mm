@@ -1,3 +1,9 @@
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
 /*=========================================================================
   Program:   OsiriX
 
@@ -2674,17 +2680,19 @@ int spline( NSPoint *Pt, int tot, NSPoint **newPt, long **correspondingSegmentPt
 		return tempArray;
 	}
 	
-	#ifndef OSIRIX_LIGHT
+#ifndef OSIRIX_LIGHT
 	if (type == tPlain)
 	{
-		NSMutableArray  *tempArray = [ITKSegmentation3D extractContour:textureBuffer width:textureWidth height:textureHeight];
+		NSMutableArray  *tempArray = [ITKSegmentation3D extractContour:textureBuffer
+                                                                 width:textureWidth
+                                                                height:textureHeight];
 		
 		for (MyPoint *pt in tempArray)
 			[pt move: textureUpLeftCornerX :textureUpLeftCornerY];
 		
 		return tempArray;
 	}
-	#endif
+#endif
 	
 	return points;
 }
@@ -5664,7 +5672,7 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
 		
 		switch( type)
 		{
-#pragma mark tLayerROI
+#pragma mark - tLayerROI
 			case tLayerROI:
 			{
 				if (layerImage)
@@ -5777,7 +5785,7 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
 				}
 			}
 			break;
-#pragma mark tPlain
+#pragma mark - tPlain
 			case tPlain:
 			//	if (mode == ROI_selected | mode == ROI_selectedModify | mode == ROI_drawing)
 			{
@@ -6111,7 +6119,7 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
 				}
 			}
 			break;
-#pragma mark t2DPoint
+#pragma mark - t2DPoint
 			case t2DPoint:
 			{
 				float angle;
@@ -6238,23 +6246,29 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
                             NSString * unitsY;
                             if ((physicalUnitsXDirection < 0) || (physicalUnitsXDirection > 12)) {
                                 unitsX = NSLocalizedString( @"unknown", nil);
-                            } else if ((physicalUnitsYDirection < 0) || (physicalUnitsYDirection > 12)) {
+                            }
+                            else if ((physicalUnitsYDirection < 0) || (physicalUnitsYDirection > 12)) {
                                 unitsY = NSLocalizedString( @"unknown", nil);
-                            } else {
+                            }
+                            else {
                                 unitsX = [self.physicalUnitsXYDirection objectAtIndex:physicalUnitsXDirection];
                                 unitsY = [self.physicalUnitsXYDirection objectAtIndex:physicalUnitsYDirection];
                             }
                             
                             if ((!isReferencePixelX0Present) && (isReferencePixelY0Present)) {
                                 self.textualBoxLine4 = [NSString stringWithFormat: NSLocalizedString( @"2D Pos: X:n/a %@ Y:%0.3f %@", nil), unitsX, roiPosYValue, unitsY];
-                            } else if ((isReferencePixelX0Present) && (!isReferencePixelY0Present)) {
+                            }
+                            else if ((isReferencePixelX0Present) && (!isReferencePixelY0Present)) {
                                 self.textualBoxLine4 = [NSString stringWithFormat: NSLocalizedString( @"2D Pos: X:%0.3f %@ Y:n/a %@", nil), roiPosXValue, unitsX, unitsY];
-                            } else if ((!isReferencePixelX0Present) && (!isReferencePixelY0Present)) {
+                            }
+                            else if ((!isReferencePixelX0Present) && (!isReferencePixelY0Present)) {
                                 self.textualBoxLine4 = [NSString stringWithFormat: NSLocalizedString( @"2D Pos: X:n/a %@ Y:n/a %@", nil), unitsX, unitsY];
-                            } else
+                            }
+                            else
                                 self.textualBoxLine4 = [NSString stringWithFormat: NSLocalizedString( @"2D Pos: X:%0.3f %@ Y:%0.3f %@", nil), roiPosXValue, unitsX, roiPosYValue, unitsY];
                             
-                        } else {
+                        }
+                        else {
                         // <--- US Regions (Point)
                             self.textualBoxLine4 = [NSString stringWithFormat: NSLocalizedString( @"2D Pos: X:%0.3f px Y:%0.3f px", nil), rect.origin.x, rect.origin.y];
                         } // US Regions (Point)
@@ -6268,7 +6282,7 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
 				}
 			}
 			break;
-#pragma mark tText
+#pragma mark - tText
 			case tText:
 			{
 				glPushMatrix();
@@ -6341,7 +6355,7 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
 				glPopMatrix();
 			}
 			break;
-#pragma mark tMeasure / tArrow
+#pragma mark - tMeasure / tArrow
 			case tMeasure:
 			case tArrow:
 			{
@@ -6835,7 +6849,7 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
 				}
 			}
 			break;
-#pragma mark tROI
+#pragma mark - tROI
 			case tROI:
 			{
 				glColor4f (color.red / 65535., color.green / 65535., color.blue / 65535., opacity);
@@ -6977,7 +6991,7 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
 			}
 			break;
                 
-#pragma mark tOval + tOvalAngle
+#pragma mark - tOval + tOvalAngle
             case tOvalAngle:
             case tOval:
 			{
@@ -7188,7 +7202,7 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
 			}
 			break;
 
-#pragma mark tBall
+#pragma mark - tBall
             case tBall:
             {
                 float angle;
@@ -7411,7 +7425,7 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
             }
                 break;
                 
-#pragma mark tAxis
+#pragma mark - tAxis
 			case tAxis:
                 {
                     glColor4f (color.red / 65535., color.green / 65535., color.blue / 65535., opacity);
@@ -7616,7 +7630,7 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
                 }
                 break;
                 
-#pragma mark tTAGT
+#pragma mark - tTAGT
             case tTAGT:
             if ([points count] == 6 || [points count] == 2)
             {
@@ -7803,7 +7817,7 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
 			}
             break;
                 
-#pragma mark tDynAngle
+#pragma mark - tDynAngle
 			case tDynAngle:
 			{
                 glColor4f (color.red / 65535., color.green / 65535., color.blue / 65535., opacity);
@@ -7923,7 +7937,7 @@ void gl_round_box(int mode, float minx, float miny, float maxx, float maxy, floa
 				glColor3f (1.0f, 1.0f, 1.0f);
 			}
 			break;
-#pragma mark tCPolygon, tOPolygon, tAngle, tPencil
+#pragma mark - tCPolygon, tOPolygon, tAngle, tPencil
 			case tCPolygon:
 			case tOPolygon:
 			case tAngle:

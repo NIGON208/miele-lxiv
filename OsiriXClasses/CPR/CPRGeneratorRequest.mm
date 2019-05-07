@@ -1,3 +1,9 @@
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
 /*=========================================================================
   Program:   OsiriX
 
@@ -273,7 +279,11 @@
     return self;
 }
 
-- (id)initWithCenter:(N3Vector)center pixelsWide:(NSUInteger)pixelsWide pixelsHigh:(NSUInteger)pixelsHigh xBasis:(N3Vector)xBasis yBasis:(N3Vector)yBasis
+- (id)initWithCenter:(N3Vector)center
+          pixelsWide:(NSUInteger)pixelsWide
+          pixelsHigh:(NSUInteger)pixelsHigh
+              xBasis:(N3Vector)xBasis
+              yBasis:(N3Vector)yBasis
 {
     if ( (self = [super init]) ) {
         self.pixelsWide = pixelsWide;

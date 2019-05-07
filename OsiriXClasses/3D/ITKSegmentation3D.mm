@@ -1,3 +1,9 @@
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
 /*=========================================================================
   Program:   OsiriX
 
@@ -295,7 +301,8 @@ void ConnectPipelines(ITK_Exporter exporter, VTK_Importer* importer)
 			
 			if( found)
 			{
-				nminZ	=	minZ;		nmaxZ	=	maxZ;
+				nminZ	=	minZ;
+                nmaxZ	=	maxZ;
 
 				// Z plane
 				rPtrZ = rPtr + minZ*s + minY*w;
@@ -324,7 +331,8 @@ void ConnectPipelines(ITK_Exporter exporter, VTK_Importer* importer)
 					}
 				}
 				
-				minZ	=	nminZ;		maxZ	=	nmaxZ;
+				minZ	=	nminZ;
+                maxZ	=	nmaxZ;
 			}
 		}
 
@@ -386,14 +394,14 @@ void ConnectPipelines(ITK_Exporter exporter, VTK_Importer* importer)
 	NSMutableArray	*tempArray = [NSMutableArray array];
 	int				dataExtent[ 6];
 	
-	vtkImageImport*	image2D = vtkImageImport::New();
+	vtkImageImport *image2D = vtkImageImport::New();
 	image2D->SetWholeExtent(0, width-1, 0, height-1, 0, 0);
 	image2D->SetDataExtentToWholeExtent();
 	image2D->SetDataScalarTypeToUnsignedChar();
 	image2D->SetImportVoidPointer(map);
     image2D->Update();
 	
-	vtkMarchingSquares*		isoContour = vtkMarchingSquares::New();
+	vtkMarchingSquares*	isoContour = vtkMarchingSquares::New();
 	
 	isoContour->SetValue(0, 1);
 	isoContour->SetInputConnection( image2D->GetOutputPort());
@@ -401,7 +409,7 @@ void ConnectPipelines(ITK_Exporter exporter, VTK_Importer* importer)
 
 	image2D->GetDataExtent( dataExtent);
 				
-	vtkPolyDataConnectivityFilter	*filter = vtkPolyDataConnectivityFilter::New();
+	vtkPolyDataConnectivityFilter *filter = vtkPolyDataConnectivityFilter::New();
 	filter->SetColorRegions( 1);
 	if( largestRegion)
         filter->SetExtractionModeToLargestRegion();
@@ -427,7 +435,7 @@ void ConnectPipelines(ITK_Exporter exporter, VTK_Importer* importer)
 	
 	if( output->GetNumberOfLines() > 3)
 	{
-		long	ii;
+		long ii;
 		
 		//NSLog( @"points: %d", output->GetNumberOfLines());
 		
@@ -440,7 +448,8 @@ void ConnectPipelines(ITK_Exporter exporter, VTK_Importer* importer)
 		
 		ii--;
 		
-		if(ii>= output->GetNumberOfLines()) ii-=2;
+		if (ii >= output->GetNumberOfLines())
+            ii-=2;
 		
 		for( ; ii >= 0; ii-=2)
 		{
@@ -457,7 +466,8 @@ void ConnectPipelines(ITK_Exporter exporter, VTK_Importer* importer)
 			
 			newroiResolution++;
 			
-			if( newroiResolution >  roiResolution) roiResolution = newroiResolution;
+			if( newroiResolution >  roiResolution)
+                roiResolution = newroiResolution;
 		}
 		
 		if( roiResolution != 1)
@@ -469,7 +479,8 @@ void ConnectPipelines(ITK_Exporter exporter, VTK_Importer* importer)
 			{
 				for( zz = 0; zz < roiResolution-1; zz++)
 				{
-					if( [tempArray count] > 3 && ii-zz >= 0) [tempArray removeObjectAtIndex: ii-zz];
+					if( [tempArray count] > 3 && ii-zz >= 0)
+                        [tempArray removeObjectAtIndex: ii-zz];
 				}
 			}
 		}
@@ -494,14 +505,18 @@ void ConnectPipelines(ITK_Exporter exporter, VTK_Importer* importer)
 	[super dealloc];
 }
 
-- (id) initWith :(NSMutableArray*) pix :(float*) volumeData :(long) slice {
+- (id) initWith :(NSMutableArray*) pix :(float*) volumeData :(long) slice
+{
 	return [self initWithPix:(NSMutableArray*) pix
                       volume:(float*) volumeData
                        slice:(long) slice
                 resampleData:NO];
 }
 
-- (id) initWithPix :(NSMutableArray*) pix volume:(float*) volumeData  slice:(long) slice resampleData:(BOOL)resampleData
+- (id) initWithPix :(NSMutableArray*) pix
+             volume:(float*) volumeData
+              slice:(long) slice
+       resampleData:(BOOL)resampleData
 {
     if (self = [super init])
 	{
@@ -548,8 +563,10 @@ void ConnectPipelines(ITK_Exporter exporter, VTK_Importer* importer)
 	InternalImageType::IndexType  index;
 	index[0] = (long) startingPoint.x;
 	index[1] = (long) startingPoint.y;
-	if( slice == -1) index[2] = [[srcViewer imageView] curImage];
-	else index[2] = 0;
+	if( slice == -1)
+        index[2] = [[srcViewer imageView] curImage];
+	else
+        index[2] = 0;
 
 	//FILTERS
 	typedef itk::ConnectedThresholdImageFilter< InternalImageType, InternalImageType > ConnectedThresholdFilterType;
@@ -642,7 +659,9 @@ void ConnectPipelines(ITK_Exporter exporter, VTK_Importer* importer)
 
 	WaitRendering	*wait = nil;
 	
-	if( slice == -1) wait = [[WaitRendering alloc] init: NSLocalizedString(@"Propagating Region...", nil)];
+	if( slice == -1)
+        wait = [[WaitRendering alloc] init: NSLocalizedString(@"Propagating Region...", nil)];
+
 	[wait showWindow:self];
 	
 	NSLog(@"RegionGrowing starts...");
@@ -663,17 +682,18 @@ void ConnectPipelines(ITK_Exporter exporter, VTK_Importer* importer)
 
 	caster->Update();
 	
-    if( succeed && caster->GetOutput() && caster->GetOutput()->GetBufferPointer())
+    if (succeed &&
+        caster->GetOutput() &&
+        caster->GetOutput()->GetBufferPointer())
     { 
-        [wait setString: NSLocalizedString(@"Preparing Results...",@"Preparing Results...")];
+        [wait setString: NSLocalizedString(@"Preparing Results...", @"Preparing Results...")];
         // PRODUCE A NEW SERIES
         if( destViewer)
         {
-            long	i, x, y;
-            float	*dstImage, *srcImage;
-            long	startSlice, endSlice;
+            float *dstImage, *srcImage;
+            long startSlice, endSlice;
             
-            if( slice == -1)
+            if ( slice == -1)
             {
                 startSlice = 0;
                 endSlice = [[destViewer pixList] count];
@@ -684,28 +704,28 @@ void ConnectPipelines(ITK_Exporter exporter, VTK_Importer* importer)
                 endSlice = startSlice+1;
             }
             
-            for( i = startSlice; i < endSlice; i++)
+            for (long i = startSlice; i < endSlice; i++)
             {
                 ImageType::IndexType pixelIndex; 
-                DCMPix	*curPix = [[destViewer pixList] objectAtIndex: i];
+                DCMPix *curPix = [[destViewer pixList] objectAtIndex: i];
                 dstImage = [curPix fImage];
                 srcImage = [[[srcViewer pixList] objectAtIndex: i] fImage];
                 
-                if(slice == -1)
+                if (slice == -1)
                     pixelIndex[2] = i; // z position
                 else
                     pixelIndex[2] = 0; // z position
                 
-                for( y = 0; y < [curPix pheight]; y++) 
+                for (long y = 0; y < [curPix pheight]; y++)
                 {
                     pixelIndex[1] = y; // y position
-                    for( x = 0; x < [curPix pwidth]; x++) 
+                    for (long x = 0; x < [curPix pwidth]; x++)
                     {
                         pixelIndex[0] = x; // x position
                         
-                        if( caster->GetOutput()->GetPixel( pixelIndex) == 255)
+                        if ( caster->GetOutput()->GetPixel( pixelIndex) == 255)
                         {
-                            if( setIn)
+                            if ( setIn)
                             {
                                 *dstImage = inValue;
                             }
@@ -864,14 +884,13 @@ void ConnectPipelines(ITK_Exporter exporter, VTK_Importer* importer)
         // ROI type = tPolygon
         else
         {
-            long	i, x;
-            long	startSlice, endSlice;
+            long i, x;
+            long startSlice, endSlice;
             OutputImageType::Pointer frameImage = caster->GetOutput();
-            
             
             frameImage->Update();
             
-            if( slice == -1)
+            if ( slice == -1)
             {
                 startSlice = 0;
                 endSlice = [[srcViewer pixList] count];
@@ -909,7 +928,7 @@ void ConnectPipelines(ITK_Exporter exporter, VTK_Importer* importer)
                 vtkImageImport	*image2D;
                 DCMPix			*curPix = [[srcViewer pixList] objectAtIndex: i];
                 
-                if( slice == -1)
+                if ( slice == -1)
                     memcpy( image2Ddata, ((unsigned char*) vtkImporter->GetOutput()->GetScalarPointer()) + (i * imageSize), imageSize);
                 else
                     memcpy( image2Ddata, ((unsigned char*) vtkImporter->GetOutput()->GetScalarPointer()), imageSize);
@@ -921,23 +940,26 @@ void ConnectPipelines(ITK_Exporter exporter, VTK_Importer* importer)
                 image2D->SetImportVoidPointer(image2Ddata);		
                 
                 tempPtr = image2Ddata;
-                for( x = 0; x < [curPix pwidth]; x++) 
+                for ( x = 0; x < [curPix pwidth]; x++)
                 {
                     tempPtr[ x] = 0;
                 }
+
                 tempPtr = image2Ddata + ([curPix pwidth]) * ([curPix pheight]-1);
-                for( x = 0; x < [curPix pwidth]; x++) 
+                for ( x = 0; x < [curPix pwidth]; x++)
                 {
                     tempPtr[ x] = 0;
                 }
+
                 tempPtr = image2Ddata;
-                for( x = 0; x < [curPix pheight]; x++) 
+                for ( x = 0; x < [curPix pheight]; x++)
                 {
                     *tempPtr = 0;
                     tempPtr += [curPix pwidth];
                 }
+
                 tempPtr = image2Ddata + [curPix pwidth]-1;
-                for( x = 0; x < [curPix pheight]; x++) 
+                for ( x = 0; x < [curPix pheight]; x++)
                 {
                     *tempPtr = 0;
                     tempPtr += [curPix pwidth];
@@ -967,12 +989,12 @@ void ConnectPipelines(ITK_Exporter exporter, VTK_Importer* importer)
                     image2D->GetDataExtent( dataExtent);
                     NSLog(@"%d, %d, %d, %d, %d, %d", dataExtent[0], dataExtent[1], dataExtent[2], dataExtent[3], dataExtent[4], dataExtent[5]);
                     
-                    vtkPolyDataConnectivityFilter	*filter = vtkPolyDataConnectivityFilter::New();
+                    vtkPolyDataConnectivityFilter *filter = vtkPolyDataConnectivityFilter::New();
                     filter->SetColorRegions( 1);
                     filter->SetExtractionModeToLargestRegion();
                     filter->SetInputConnection( isoContour->GetOutputPort());
                     
-                    vtkPolyDataConnectivityFilter	*filter2 = vtkPolyDataConnectivityFilter::New();
+                    vtkPolyDataConnectivityFilter *filter2 = vtkPolyDataConnectivityFilter::New();
                     filter2->SetColorRegions( 1);
                     filter2->SetExtractionModeToLargestRegion();
                     filter2->SetInputConnection( filter->GetOutputPort());
@@ -1004,26 +1026,29 @@ void ConnectPipelines(ITK_Exporter exporter, VTK_Importer* importer)
                     
                     if( output->GetNumberOfLines() > 3)
                     {
-                        long			ii;
-                        ROI				*newROI = [srcViewer newROI: tCPolygon];
-                        NSMutableArray  *points = [newROI points];
+                        long ii;
+                        ROI *newROI = [srcViewer newROI: tCPolygon];
+                        NSMutableArray *points = [newROI points];
                         
-                        for( ii = 0; ii < output->GetNumberOfLines(); ii+=2)
+                        for ( ii = 0; ii < output->GetNumberOfLines(); ii+=2)
                         {
                             double p[ 3];
                             output->GetPoint(ii, p);
                             [points addObject: [srcViewer newPoint: p[0]  : p[1] ]];
                         }
+
                         ii--;
-                        if(ii>= output->GetNumberOfLines()) ii-=2;
-                        for( ; ii >= 0; ii-=2)
+                        if (ii>= output->GetNumberOfLines())
+                            ii-=2;
+
+                        for ( ; ii >= 0; ii-=2)
                         {
                             double p[ 3];
                             output->GetPoint(ii, p);
                             [points addObject: [srcViewer newPoint: p[0]  : p[1] ]];
                         }
                         
-                        #define MAXPOINTS 200
+#define MAXPOINTS 200
                         
                         if( [points count] > MAXPOINTS)
                         {
@@ -1054,7 +1079,7 @@ void ConnectPipelines(ITK_Exporter exporter, VTK_Importer* importer)
 
                             roiSeriesList = [srcViewer roiList];
                             
-                            if( slice == -1)
+                            if ( slice == -1)
                                 roiImageList = [roiSeriesList objectAtIndex: i];
                             else
                                 roiImageList = [roiSeriesList objectAtIndex: [[srcViewer imageView] curImage]];

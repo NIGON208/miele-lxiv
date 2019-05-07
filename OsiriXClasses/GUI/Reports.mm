@@ -1,3 +1,9 @@
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
 /*=========================================================================
   Program:   OsiriX
 
@@ -471,10 +477,7 @@
         ;
 }
 
-
-
-#pragma mark -
-#pragma mark Word
+#pragma mark - Word
 
 +(void)checkForWordTemplates
 {
@@ -686,8 +689,7 @@
     return YES;
 }
 
-#pragma mark -
-#pragma mark OpenDocument
+#pragma mark - OpenDocument
 
 - (BOOL) createNewOpenDocumentReportForStudy:(NSManagedObject*)aStudy toDestinationPath:(NSString*)aPath;
 {
@@ -763,8 +765,7 @@
 	return YES;
 }
 
-#pragma mark -
-#pragma mark Pages.app
+#pragma mark - Pages.app
 
 static BOOL Pages5orHigher = FALSE;
 

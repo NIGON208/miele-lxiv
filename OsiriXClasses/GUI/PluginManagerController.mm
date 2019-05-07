@@ -1,3 +1,9 @@
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
 /*=========================================================================
   Program:   OsiriX
 
@@ -125,8 +131,7 @@ static NSDate *CachedPluginsListDate = nil;
 	[super dealloc];
 }
 
-#pragma mark -
-#pragma mark installed
+#pragma mark - installed
 
 - (NSMutableArray*)plugins;
 {
@@ -272,7 +277,7 @@ static NSDate *CachedPluginsListDate = nil;
 	[pluginTable selectRowIndexes:selectedIndexes byExtendingSelection:NO];
 }
 
-#pragma mark NSTabView Delegate methods
+#pragma mark - NSTabView Delegate methods
 
 - (void)tabView:(NSTabView *)tabView willSelectTabViewItem:(NSTabViewItem *)tabViewItem
 {
@@ -280,10 +285,9 @@ static NSDate *CachedPluginsListDate = nil;
 		[self refreshPluginList];
 }
 
-#pragma mark -
-#pragma mark web view
+#pragma mark - web view
 
-#pragma mark pop up menu
+#pragma mark - pop up menu
 
 NSInteger sortPluginArrayByName(id plugin1, id plugin2, void *context)
 {
@@ -345,7 +349,7 @@ NSInteger sortPluginArrayByName(id plugin1, id plugin2, void *context)
 	[pluginsListPopUp addItemWithTitle:NSLocalizedString(@"Your Plugin here!", nil)];
 }
 
-#pragma mark web page
+#pragma mark - web page
 
 - (void)setURL:(NSString*)url;
 {
@@ -645,7 +649,7 @@ NSInteger sortPluginArrayByName(id plugin1, id plugin2, void *context)
     return NO;
 }
 
-#pragma mark submit plugin
+#pragma mark - submit plugin
 
 // Show the instructions for submitting a plugin
 - (void)loadSubmitPluginPage;
@@ -680,7 +684,7 @@ NSInteger sortPluginArrayByName(id plugin1, id plugin2, void *context)
 #endif
 }
 
-#pragma mark WebPolicyDelegate Protocol methods
+#pragma mark - WebPolicyDelegate Protocol methods
 
 - (void)webView:(WebView *)sender
 decidePolicyForNavigationAction:(NSDictionary *)actionInformation

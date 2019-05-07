@@ -1,3 +1,9 @@
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
 /*=========================================================================
   Program:   OsiriX
 
@@ -69,10 +75,11 @@ enum
 	NSRecursiveLock	*roiLock;
 	NSConditionLock *flipDataThread, *convThread;
 	NSThread *loadingThread;
-    BOOL awakeFromNib, firstBuildMatrix;
+    BOOL flagAwakeFromNib;
+    BOOL firstBuildMatrix;
 	
     ToolbarPanelController *toolbarPanel;
-    
+    IBOutlet NSView         *viewerView;  // unused ?
 	IBOutlet StudyView		*studyView;
 			SeriesView		*seriesView;
 
@@ -527,7 +534,7 @@ enum
 /** Change fusion status
 * Called by an action.
 */
-- (void) activateFusion:(id) sender;
+- (IBAction) activateFusion:(id) sender;
 
 /** Action to Propagte current settings */
 - (void) copySettingsToOthers: (id)sender;
@@ -634,7 +641,7 @@ enum
 - (IBAction)setKeyImage:(id)sender;
 - (IBAction) roiSelectDeselectAll:(id) sender;
 - (BOOL) FullScreenON;
-- (void) setROITool:(id) sender;
+- (IBAction) setROITool:(id) sender;
 - (void) setROIToolTag:(ToolMode) roitype;
 - (void) changeImageData:(NSMutableArray*)f :(NSMutableArray*)d :(NSData*) v :(BOOL) applyTransition;
 - (ViewerController*) copyViewerWindow;
@@ -658,18 +665,18 @@ enum
 - (IBAction) endCLUT:(id) sender;
 - (IBAction) endBlendingType:(id) sender;
 - (IBAction) endQuicktime:(id) sender;
-- (void) setDefaultTool:(id) sender;
+- (IBAction) setDefaultTool:(id) sender;
 - (id) viewCinit:(NSMutableArray*)f :(NSMutableArray*) d :(NSData*) v;
 - (id) initWithPix:(NSMutableArray*)f withFiles:(NSMutableArray*) d withVolume:(NSData*) v;
-- (void) speedSliderAction:(id) sender;
+- (IBAction) speedSliderAction:(id) sender;
 - (void) setupToolbar;
 - (NSToolbar*) toolbar;
 - (void) PlayStop:(id) sender;
 - (short) getNumberOfImages;
 - (float) frameRate;
 - (void) adjustSlider;
-- (void) sliderFusionAction:(id) sender;
-- (void) popFusionAction:(id) sender;
+- (IBAction) sliderFusionAction:(id) sender;
+- (IBAction) popFusionAction:(id) sender;
 - (void) propagateSettings;
 - (void) setCurWLWWMenu:(NSString*)s ;
 - (float) highLighted;
@@ -699,8 +706,8 @@ enum
 
 - (void) ApplyCLUTString:(NSString*) str;
 - (NSSlider*) blendingSlider;
-- (void) blendingSlider:(id) sender;
-- (void) blendingMode:(id) sender;
+- (IBAction) blendingSlider:(id) sender;
+- (IBAction) blendingMode:(id) sender;
 - (ViewerController*) blendingController;
 - (void)blendWithViewer:(ViewerController *)bc blendingType:(int)blendingType;
 - (void)blendingSheetDidEnd:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo;
@@ -713,9 +720,9 @@ enum
 - (NSString*) studyInstanceUID;
 - (void) addMovieSerie:(NSMutableArray*)f :(NSMutableArray*)d :(NSData*) v;
 - (void) startLoadImageThread;
-- (void) moviePosSliderAction:(id) sender;
-- (void) movieRateSliderAction:(id) sender;
-- (void) MoviePlayStop:(id) sender;
+- (IBAction) moviePosSliderAction:(id) sender;
+- (IBAction) movieRateSliderAction:(id) sender;
+- (IBAction) MoviePlayStop:(id) sender;
 - (void) MovieStop:(id) sender;
 - (BOOL)isPlaying4D;
 - (void) checkEverythingLoaded;
@@ -739,7 +746,6 @@ enum
 - (void) SetThicknessInterval:(id) constructionType;
 - (IBAction) blendWindows:(id) sender;
 
-/** Action to open the OrthogonalMPRViewer */
 - (IBAction) orthogonalMPRViewer:(id) sender;
 
 - (void) showCurrentThumbnail:(id) sender;
@@ -893,8 +899,7 @@ enum
 - (NSView*) previewRootView;
 - (NSMatrix*) buttonToolMatrix;
 
-#pragma mark-
-#pragma mark Brush ROI Filters
+#pragma mark - Brush ROI Filters
 
 /** Applies the selected Brush ROI morpho filter
 * @param  rois  ROI array to filter
@@ -940,8 +945,7 @@ enum
 */
 - (ROI*) convertBrushROItoPolygon:(ROI*) selectedROI numPoints: (int) numPoints;
 
-#pragma mark-
-#pragma mark Registration
+#pragma mark - Registration
 
 /** Returns an NSArray of all t2DPoint type ROI*/
 - (NSMutableArray*) point2DList;
@@ -966,8 +970,7 @@ enum
 - (ViewerController*) resampleSeries:(ViewerController*) movingViewer;
 #endif
 
-#pragma mark-
-#pragma mark Key Objects
+#pragma mark - Key Objects
 
 ///** Creates a Key Object note for the current key Images */
 //- (IBAction)createKeyObjectNote:(id)sender;
@@ -987,11 +990,8 @@ enum
 */
 - (BOOL)isKeyImage:(int)index;
 
+#pragma mark - Convenience methods for accessing values in the current imageView
 
-
-
-#pragma mark-
-#pragma mark Convience methods for accessing values in the current imageView
 /** Current ImageView window width */
 -(float)curWW;
 
@@ -1082,8 +1082,7 @@ enum
 #define MAX_TILING_TAG          (TILING_DIMENSION * TILING_DIMENSION)
 - (IBAction)setImageTiling: (id)sender;
 
-#pragma mark-
-#pragma mark Calcium scoring
+#pragma mark - Calcium scoring
 /** Deprecated
 * Calcium Scoring moved to a plugin
 */
@@ -1091,15 +1090,14 @@ enum
 - (IBAction)calciumScoring:(id)sender;
 #endif
 
-#pragma mark-
-#pragma mark Centerline
+#pragma mark - Centerline
 /** Nonfunctional
 * Centerline only works in Endoscopy Mode 
 */
 //- (IBAction)centerline: (id)sender;
 
-#pragma mark-
-#pragma mark ROI Grouping
+#pragma mark - ROI Grouping
+
 /**  Group selected ROI together */
 - (IBAction)groupSelectedROIs:(id)sender;
 /** Ungroup ROI */
@@ -1120,18 +1118,16 @@ enum
 - (NSDictionary*) exportDICOMFileInt:(int)screenCapture withName:(NSString*)name allViewers: (BOOL) allViewers;
 #endif
 
-#pragma mark-
-#pragma mark 12 Bit
+#pragma mark - 12 Bit
 - (IBAction)enable12Bit:(id)sender;
 
-#pragma mark-
-#pragma mark Navigator
+#pragma mark - Navigator
 - (IBAction)navigator:(id)sender;
 - (void)updateNavigator;
 
 - (IBAction)threeDPanel:(id)sender;
 
-#pragma mark-
+#pragma mark -
 
 - (IBAction)toggleComparativesVisibility:(id)sender;
 

@@ -1,3 +1,9 @@
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
 /*=========================================================================
   Program:   OsiriX
 
@@ -607,15 +613,13 @@ OsirixAddToDBNotification posted when files are added to the DB
 
 +(NSInteger)_scrollerStyle:(NSScroller*)scroller;
 
-#pragma mark Deprecated
+#pragma mark - Deprecated
 
 @property(readonly) NSManagedObjectContext *userManagedObjectContext __deprecated;
 @property(readonly) NSManagedObjectModel *userManagedObjectModel __deprecated;
 
 -(long)saveUserDatabase __deprecated;
 -(WebPortalUser*)userWithName:(NSString*)name __deprecated;
-
-
 
 @end
 

@@ -1,3 +1,9 @@
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
 /*=========================================================================
   Program:   OsiriX
 
@@ -13,17 +19,24 @@
 =========================================================================*/
 
 
-/*    ANALYZE  Header File Format  *  *  (c) Copyright, 1986-1995  *  Biomedical Imaging Resource  *  Mayo Foundation  *  *  dbh.h  *  *  databse sub-definitions  */
+/*    ANALYZE  Header File Format  *
+ *  (c) Copyright, 1986-1995
+ *  Biomedical Imaging Resource
+ *  Mayo Foundation  *
+ *  dbh.h  *
+ *  databse sub-definitions
+ */
 
 struct header_key    /* header key     */         
-{                                  /* off + size  */        
-int sizeof_hdr;    /* 0 + 4             */        
-char data_type[10];   /* 4 + 10            */        
-char db_name[18];   /* 14 + 18           */        
-int extents;     /* 32 + 4            */        
-short int session_error;  /* 36 + 2            */       
- char regular;     /* 38 + 1            */        
- char hkey_un0;                   /* 39 + 1    */    } __attribute__((__packed__));                               
+{                               /* off + size  */
+int sizeof_hdr;                 /* 0 + 4             */
+char data_type[10];             /* 4 + 10            */
+char db_name[18];               /* 14 + 18           */
+int extents;                    /* 32 + 4            */
+short int session_error;        /* 36 + 2            */
+ char regular;                  /* 38 + 1            */
+ char hkey_un0;                 /* 39 + 1            */
+} __attribute__((__packed__));
  /* total=40 bytes  */ 
  
  struct image_dimension         {
@@ -59,13 +72,13 @@ char descrip[80];                  /* 0 + 80            */
 char aux_file[24];                 /* 80 + 24          */        
 char orient;                       /* 104 + 1           */        
 char originator[10];               /* 105 + 10          */        
-char generated[10];               /* 115 + 10          */        
-char scannum[10];     /* 125 + 10         */        
-char patient_id[10];              /* 135 + 10          */        
-char exp_date[10];     /* 145 + 10         */        
-char exp_time[10];     /* 155 + 10         */        
-char hist_un0[3];      /* 165 + 3           */        
-int views;                          /* 168 + 4           */        
+char generated[10];                /* 115 + 10          */
+char scannum[10];                  /* 125 + 10         */
+char patient_id[10];               /* 135 + 10          */
+char exp_date[10];                 /* 145 + 10         */
+char exp_time[10];                 /* 155 + 10         */
+char hist_un0[3];                  /* 165 + 3           */
+int views;                         /* 168 + 4           */
 int vols_added;                    /* 172 + 4           */        
 int start_field;                   /* 176 + 4           */        
 int field_skip;                    /* 180 + 4          */        
@@ -75,16 +88,16 @@ int smax, smin;                    /* 192 + 8          */
 
 struct dsr        {         
 struct header_key hk;                /* 0 + 40              */        
-struct image_dimension dime;       /* 40 + 108            */        
+struct image_dimension dime;         /* 40 + 108            */
 struct data_history hist;            /* 148 + 200          */        } __attribute__((__packed__));                                     
 /* total= 348 bytes  */    /* Acceptable values for datatype */    
 
 #define DT_NONE                      0  
-#define DT_UNKNOWN                  0  
+#define DT_UNKNOWN                   0  
 #define DT_BINARY                    1  
-#define DT_UNSIGNED_CHAR           2  
-#define DT_SIGNED_SHORT            4  
-#define DT_SIGNED_INT               8  
+#define DT_UNSIGNED_CHAR             2
+#define DT_SIGNED_SHORT              4
+#define DT_SIGNED_INT                8
 #define DT_FLOAT                     16  
 #define DT_COMPLEX                   32  
 #define DT_DOUBLE                    64  

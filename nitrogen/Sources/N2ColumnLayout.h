@@ -1,3 +1,9 @@
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
 /*=========================================================================
   Program:   OsiriX
 
@@ -12,9 +18,7 @@
      PURPOSE.
 =========================================================================*/
 
-
 #import "N2Layout.h"
-
 
 @interface N2ColumnLayout : N2Layout {
 	NSArray* _columnDescriptors;
@@ -29,7 +33,7 @@
 -(void)removeRowAtIndex:(NSUInteger)index;
 -(void)removeAllRows;
 
-#pragma mark Deprecated
+#pragma mark - Deprecated
 
 -(NSArray*)lineAtIndex:(NSUInteger)index DEPRECATED_ATTRIBUTE;
 -(NSUInteger)appendLine:(NSArray*)line DEPRECATED_ATTRIBUTE;

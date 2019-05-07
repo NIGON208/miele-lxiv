@@ -1,3 +1,9 @@
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
 /*=========================================================================
  Program:   OsiriX
  
@@ -340,7 +346,7 @@ static DicomDatabase* activeLocalDatabase = nil;
 	}
 }
 
-#pragma mark Instance
+#pragma mark - Instance
 
 @synthesize baseDirPath = _baseDirPath, dataBaseDirPath = _dataBaseDirPath, dataFileIndex = _dataFileIndex, name = _name, timeOfLastModification = _timeOfLastModification;
 @synthesize isReadOnly = _isReadOnly;
@@ -593,7 +599,8 @@ static DicomDatabase* activeLocalDatabase = nil;
         _processFilesLock = nil;
         [temp unlock];
         [temp release];
-    } else {
+    }
+    else {
         [_importFilesFromIncomingDirLock release];
         [_processFilesLock release];
         [NSNotificationCenter.defaultCenter removeObserver:self.mainDatabase name:nil object:self];
@@ -991,7 +998,7 @@ NSString* const DicomDatabaseLogEntryEntityName = @"LogEntry";
 	return path;
 }
 
-#pragma mark Albums
+#pragma mark - Albums
 
 - (void) loadAlbumsFromPath:(NSString*) path
 {
@@ -1277,7 +1284,7 @@ NSString* const DicomDatabaseLogEntryEntityName = @"LogEntry";
         [dicomAlbum addStudiesObject:study];
 }
 
-#pragma mark Lifecycle
+#pragma mark - Lifecycle
 
 -(BOOL)isFileSystemFreeSizeLimitReached {
 	NSTimeInterval currentTime = NSDate.timeIntervalSinceReferenceDate;
@@ -3379,7 +3386,8 @@ static BOOL protectionAgainstReentry = NO;
             if (!mdb.compressDecompressThread) {
                 mdb.compressDecompressThread = [[[NSThread alloc] initWithTarget:self selector:@selector(_threadCompressDecompress) object:nil] autorelease];
                 [mdb.compressDecompressThread start];
-            } else {
+            }
+            else {
                 mdb.compressDecompressThread.status = [NSString stringWithFormat:NSLocalizedString(@"%d additional files queued", nil), _compressQueue.count+_decompressQueue.count];
             }
         }
@@ -3556,7 +3564,7 @@ static BOOL protectionAgainstReentry = NO;
 	}
 }
 
-#pragma mark Other
+#pragma mark - Other
 
 -(BOOL)rebuildAllowed
 {
@@ -3890,7 +3898,7 @@ static BOOL protectionAgainstReentry = NO;
 	//		[splash incrementBy:1];
 			counter++;
 			
-			NSLog(@"%d", counter);
+            NSLog(@"%s %d, counter:%d", __FUNCTION__, __LINE__, (int) counter);
 			
 			if (counter % 100 == 0)
 			{

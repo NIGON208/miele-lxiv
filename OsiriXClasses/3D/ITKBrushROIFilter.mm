@@ -1,3 +1,9 @@
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
 /*=========================================================================
  Program:   OsiriX
  
@@ -140,7 +146,8 @@ ImageType::Pointer CreateImagePointerFromBuffer(unsigned char *buffer, int buffe
 		dstBuf.width = srcbuf.width = bufferWidth;
 		dstBuf.rowBytes = srcbuf.rowBytes = bufferWidth;
 		err = vImageErode_Planar8( &srcbuf, &dstBuf, 0, 0, kernelErode, structuringElementRadius, structuringElementRadius, kvImageDoNotTile); //	
-		if( err) NSLog(@"%d", (int) err);
+		if (err)
+            NSLog(@"%s %d, err:%d", __FUNCTION__, __LINE__, (int) err);
 		
 		memcpy(buff, dstBuf.data, bufferWidth*bufferHeight);
 		free( dstBuf.data);
@@ -205,7 +212,8 @@ ImageType::Pointer CreateImagePointerFromBuffer(unsigned char *buffer, int buffe
 		dstBuf.width = srcbuf.width = bufferWidth;
 		dstBuf.rowBytes = srcbuf.rowBytes = bufferWidth;
 		err = vImageDilate_Planar8( &srcbuf, &dstBuf, 0, 0, kernelDilate, structuringElementRadius, structuringElementRadius, kvImageDoNotTile);	//kvImageDoNotTile
-		if( err) NSLog(@"%d", (int) err);
+		if (err)
+            NSLog(@"%s %d, err:%d", __FUNCTION__, __LINE__, (int) err);
 		
 		memcpy(buff,dstBuf.data,bufferWidth*bufferHeight);
 		free( dstBuf.data);

@@ -1,4 +1,11 @@
 //
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
+
+//
 // Program:   OsiriX
 // 
 // Created by Silvan Widmer on 8/25/09.
@@ -13,6 +20,7 @@
 // the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
 // PURPOSE.
 // =========================================================================
+
 #ifdef _STEREO_VISION_
 
 #import "VRView+StereoVision.h"
@@ -49,6 +57,7 @@
 
 #include "vtkSphereSource.h"
 #include "vtkAssemblyPath.h"
+#import "vtkMath.h"
 
 // ****************************
 // Added SilvanWidmer 03-08-09
@@ -62,6 +71,7 @@
 #include "vtkInteractorStyleTrackballCamera.h"
 //#include "vtkParallelRenderManager.h"
 #include "vtkRendererCollection.h"
+
 #import "VRController+StereoVision.h"
 #import "Window3DController+StereoVision.h"
 #import "VRFlyThruAdapter+StereoVision.h"
@@ -79,40 +89,46 @@ extern "C"
 	extern int spline(NSPoint *Pt, int tot, NSPoint **newPt, double scale);
 }
 
-#define D2R 0.01745329251994329576923690768    // degrees to radians
-#define R2D 57.2957795130823208767981548141    // radians to degrees
-
 //#define BONEVALUE 250
 #define BONEOPACITY 1.1
 
-extern int dontRenderVolumeRenderingOsiriX;	// See OsiriXFixedPointVolumeRayCastMapper.cxx
+// They must match sender tags
+typedef NS_ENUM(NSUInteger, MyStereoMode) {
+    STEREO_MODE_OFF = 0,
+    STEREO_MODE_ANAGLYPH = 1,
+    STEREO_MODE_RED_BLUE = 2,
+    STEREO_MODE_INTERLACED = 3,
+    STEREO_MODE_LR_DUAL_SCREEN = 4,
+    STEREO_MODE_LR_SINGLE_SCREEN = 5
+};
+
+extern bool dontRenderVolumeRenderingOsiriX;	// See OsiriXFixedPointVolumeRayCastMapper.cxx
 
 static NSRecursiveLock *drawLock = nil;
 static unsigned short *linearOpacity = nil;
 
 static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *calldata)
 {
-	
 	VRView* mipv = (VRView*) clientdata;
-	
 	[mipv setNeedsDisplay:YES];
 }
 
-
 @implementation VRView (StereoVision)
 
-//Same Function as before, but added flag for stereo-vision
+// Same Function as before, but added flag for stereo-vision
 -(id)initWithFrame:(NSRect)frame
 {
     if ( self = [super initWithFrame:frame] )
     {
-		NSTrackingArea *cursorTracking = [[[NSTrackingArea alloc] initWithRect: [self visibleRect] options: (NSTrackingCursorUpdate | NSTrackingInVisibleRect | NSTrackingMouseEnteredAndExited | NSTrackingActiveInKeyWindow) owner: self userInfo: nil] autorelease];
+		NSTrackingArea *cursorTracking =
+        [[[NSTrackingArea alloc] initWithRect: [self visibleRect]
+                                      options: (NSTrackingCursorUpdate | NSTrackingInVisibleRect | NSTrackingMouseEnteredAndExited | NSTrackingActiveInKeyWindow)
+                                        owner: self userInfo: nil] autorelease];
 		
 		[self addTrackingArea: cursorTracking];
 		
 		rotate = NO;
-		
-		
+
 		//Added SilvanWidmer 04-03-10
 		StereoVisionOn = NO;
 		
@@ -147,7 +163,7 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 		
 		opacityTransferFunction = nil;
 		volumeProperty = nil;
-		compositeFunction = nil;
+
 		red = nil;
 		green = nil;
 		blue = nil;
@@ -225,38 +241,34 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
     return self;
 }
 
-#pragma mark Initialisation of Left-Right-Side-View
+#pragma mark - Initialisation of Left-Right-Side-View
 
 - (void) setNeedsDisplay: (BOOL) flag
 {
 	[super setNeedsDisplay:flag];
-	if(StereoVisionOn){
+	if (StereoVisionOn)
 		[rightView setNeedsDisplay:flag];
-	}
 }
 
 - (void) displayIfNeeded
 {
 	[super displayIfNeeded];
-	if(StereoVisionOn){
+	if (StereoVisionOn)
 		[rightView displayIfNeeded];
-	}
-	
 }
 
 -(IBAction) SwitchStereoMode :(id) sender
 {	
 	for (int i = 0; i <6; i++)
-	{
 		[[[sender menu]itemWithTag: i] setState: false];
-	}
-	[sender setState:true];
+
+    [sender setState:true];
 	
 	switch( [sender tag])
 	{
-		case 0: //Turni Stereo off 
+		case STEREO_MODE_OFF:
 		{
-			if([self renderWindow]->GetStereoRender() == true)
+			if ([self renderWindow]->GetStereoRender() == true)
 			{
 				if (StereoVisionOn)
 					[self disableStereoModeLeftRight];	
@@ -268,7 +280,7 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 		}
 			break;
 			
-		case 1: // Anaglyph
+		case STEREO_MODE_ANAGLYPH:
 		{
 			if (StereoVisionOn)
 				[self disableStereoModeLeftRight];
@@ -276,12 +288,13 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 			[self renderWindow]->SetStereoTypeToAnaglyph();
 			if( orientationWidget)
 				orientationWidget->Off();
-			for(int i = 0; i < 4; i++) aRenderer->RemoveActor2D( oText[ i]);
+			for(int i = 0; i < 4; i++)
+                aRenderer->RemoveActor2D( oText[ i]);
 			[self setNeedsDisplay:YES];
 		}
 			break;
 			
-		case 2: //RedBlue
+		case STEREO_MODE_RED_BLUE:
 		{
 			if (StereoVisionOn)
 				[self disableStereoModeLeftRight];
@@ -289,12 +302,13 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 			[self renderWindow]->SetStereoTypeToRedBlue();
 			if( orientationWidget)
 				orientationWidget->Off();
-			for(int i = 0; i < 4; i++) aRenderer->RemoveActor2D( oText[ i]);
+			for(int i = 0; i < 4; i++)
+                aRenderer->RemoveActor2D( oText[ i]);
 			[self setNeedsDisplay:YES];
 		}
 			break;
 			
-		case 3: //Interlaced
+		case STEREO_MODE_INTERLACED:
 		{
 			if (StereoVisionOn)
 				[self disableStereoModeLeftRight];
@@ -302,23 +316,21 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 			[self renderWindow]->SetStereoTypeToInterlaced();
 			if( orientationWidget)
 				orientationWidget->Off();
-			for(int i = 0; i < 4; i++) aRenderer->RemoveActor2D( oText[ i]);
+			for (int i = 0; i < 4; i++)
+                aRenderer->RemoveActor2D( oText[ i]);
 			[self setNeedsDisplay:YES];
 		}
 			break;
 			
-		case 4: //LeftRight Dual Screens
-		{
+		case STEREO_MODE_LR_DUAL_SCREEN:
 			[self LeftRightDualScreen];
-		}
 			break;
 			
-		case 5: // LeftRight Single Screen
-		{
+		case STEREO_MODE_LR_SINGLE_SCREEN:
 			if (StereoVisionOn)
 				[self disableStereoModeLeftRight];
-			[self LeftRightSingleScreen];
-		}
+
+            [self LeftRightSingleScreen];
 			break;
 	}
 	
@@ -371,7 +383,6 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 	[self setNeedsDisplay:YES];
 }
 
-
 - (short) LeftRightDualScreen
 {
 	NSLog(@"--- Dual Stereo Vision ON ---");
@@ -392,7 +403,8 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 	
 	if( orientationWidget)
 		orientationWidget->Off();
-	for(int i = 0; i < 4; i++) aRenderer->RemoveActor2D( oText[ i]);
+	for (int i = 0; i < 4; i++)
+        aRenderer->RemoveActor2D( oText[ i]);
 	
 	unsigned int windowStyle = NSWindowStyleMaskBorderless;
 	NSRect contentRectLeftScreen;
@@ -439,7 +451,7 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 															defer:NO
 														   screen:rightScreen];
 	
-	if(LeftFullScreenWindow != nil)
+	if (LeftFullScreenWindow != nil)
 	{
 		[LeftFullScreenWindow setTitle: @"myLeftWindow"];			
 		[LeftFullScreenWindow setReleasedWhenClosed: NO];
@@ -451,7 +463,7 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 	else
         return -1;
 	
-	if(RightFullScreenWindow != nil)
+	if (RightFullScreenWindow != nil)
 	{
 		[RightFullScreenWindow setTitle: @"myRightWindow"];			
 		[RightFullScreenWindow setReleasedWhenClosed: NO];
@@ -462,7 +474,6 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 	}	
 	else
         return -1;
-	
 
 	[self initStereoLeftRight];
 	
@@ -730,7 +741,8 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 	[self setNeedsDisplay:YES];
 }
 
-#pragma mark User Commands
+#pragma mark - User Commands
+
 - (void) keyDown:(NSEvent *)event
 {
     if( [[event characters] length] == 0)
@@ -819,9 +831,9 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 		std::cout<< "Eye Angle: " << aCamera->GetEyeAngle() << std::endl;
 		double eyeAngle = aCamera->GetEyeAngle();
 		
-		eyeAngle = eyeAngle* D2R;
+		eyeAngle = vtkMath::RadiansFromDegrees(eyeAngle);
 		double newViewAngle = 2.0 * atan((focalDist/newFocalDist)*(tan(eyeAngle/2.0)));
-		newViewAngle = newViewAngle* R2D;
+		newViewAngle = vtkMath::DegreesFromRadians(newViewAngle);
 		aCamera->SetEyeAngle(newViewAngle);
 		std::cout<< "Eye Angle: " << aCamera->GetEyeAngle() << std::endl;
 		
@@ -847,9 +859,9 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 		std::cout<< "Eye Angle: " << aCamera->GetEyeAngle() << std::endl;
 		double eyeAngle = aCamera->GetEyeAngle();
 		
-		eyeAngle = eyeAngle* D2R;
+		eyeAngle = vtkMath::RadiansFromDegrees(eyeAngle);
 		double newViewAngle = 2.0 * atan((focalDist/newFocalDist)*(tan(eyeAngle/2.0)));
-		newViewAngle = newViewAngle* R2D;
+		newViewAngle = vtkMath::DegreesFromRadians(newViewAngle);
 		aCamera->SetEyeAngle(newViewAngle);
 		std::cout<< "Eye Angle: " << aCamera->GetEyeAngle() << std::endl;
 		
@@ -867,7 +879,7 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
         [super keyDown:event];
 }
 
-#pragma mark Service Routines
+#pragma mark - Service Routines
 
 -(void) adjustWindowContent: (NSSize) proposedFrameSize
 {
@@ -928,12 +940,12 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 	aRenderer->ResetCamera();
 	
 	double viewAngle = 2*atan(screenHeight/(2*screenDistance));
-	viewAngle= viewAngle*57.2957795130823208767981548141;
+	viewAngle = vtkMath::DegreesFromRadians(viewAngle);
 	NSLog(@"The new ViewAngle is: %.2f", viewAngle);
 	aCamera->SetViewAngle(viewAngle);
 	
-	double eyeAngle =  2*atan(eyeDistance/(2*screenDistance));
-	eyeAngle = eyeAngle*57.2957795130823208767981548141;
+	double eyeAngle = 2*atan(eyeDistance/(2*screenDistance));
+	eyeAngle = vtkMath::DegreesFromRadians(eyeAngle);
 	NSLog(@"The new EyeAngle is: %.2f", eyeAngle);
 	aCamera->SetEyeAngle(eyeAngle);
 	
@@ -942,8 +954,8 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 	[self setNeedsDisplay:	YES];
 }
 
+#pragma mark - Mouse mouvements
 
-#pragma mark Mouse mouvements
 - (void)mouseDragged:(NSEvent *)theEvent
 {
 	//NSLog(@"Mouse dragged!!");
@@ -1022,7 +1034,7 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 					bestRenderingWasGenerated = NO;
 					[self display];
 				}
-				dontRenderVolumeRenderingOsiriX = 1;
+				dontRenderVolumeRenderingOsiriX = true;
 				
 				double	*pp;
 				long	i;
@@ -1448,7 +1460,7 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 			case tMeasure:
 			case t3DCut:
 				[self displayIfNeeded];
-				dontRenderVolumeRenderingOsiriX = 0;
+				dontRenderVolumeRenderingOsiriX = false;
 				break;
 			case tBonesRemoval:		// <- DO NOTHING !
 				break;
@@ -1515,7 +1527,8 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 	[drawLock unlock];
 }
 
-#pragma mark Movie-Export 
+#pragma mark - Movie-Export
+
 -(IBAction) endQuicktimeSettings:(id) sender
 {
 	[export3DWindow orderOut:sender];
@@ -1674,7 +1687,8 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 	
 	if( display)
 	{
-		if( wait == NO) noWaitDialog = YES;
+		if( wait == NO)
+            noWaitDialog = YES;
 		
 		if( dontRenderVolumeRenderingOsiriX)
 		{
@@ -1687,7 +1701,8 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 				[rightView display];
 		}
 		
-		if( wait == NO) noWaitDialog = NO;
+		if( wait == NO)
+            noWaitDialog = NO;
 	}
 	
 	bestRenderingWasGenerated = YES;
@@ -2232,7 +2247,7 @@ static void  updateRight(vtkObject*, unsigned long eid, void* clientdata, void *
 	return nil;
 }
 
-#pragma mark Generating 3D Points
+#pragma mark - Generating 3D Points
 
 //Added SilvanWidmer
 - (void) setDisplayStereo3DPoints: (vtkRenderer*) theRenderer: (BOOL) on

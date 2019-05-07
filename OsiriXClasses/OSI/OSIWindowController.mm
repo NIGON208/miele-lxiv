@@ -1,3 +1,9 @@
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
 /*=========================================================================
   Program:   OsiriX
 
@@ -76,8 +82,7 @@ static BOOL protectedReentryWindowDidResize = NO;
 	[self close];
 }
 
-#pragma mark-
-#pragma mark Magnetic Windows & Tiling
+#pragma mark - Magnetic Windows & Tiling
 
 #ifndef OSIRIX_LIGHT
 - (IBAction) paste:(id) sender;
@@ -484,7 +489,9 @@ static BOOL protectedReentryWindowDidResize = NO;
 
 - (void) dealloc
 {
-    NSLog(@"OSIWindowController released");
+#ifndef NDEBUG
+    NSLog(@"OSIWindowController.mm:%d %@ dealloc %p", __LINE__, NSStringFromClass([self class]), self);
+#endif
     
     self.database = nil;
     
@@ -506,8 +513,7 @@ static BOOL protectedReentryWindowDidResize = NO;
 	}
 }
 
-#pragma mark-
-#pragma mark Misc
+#pragma mark - Misc
 
 - (short) orthogonalOrientation
 {
@@ -519,10 +525,10 @@ static BOOL protectedReentryWindowDidResize = NO;
 	return YES;
 }
 
-- (void) updateAutoAdjustPrinting: (id) sender
-{
-
-}
+//- (IBAction) updateAutoAdjustPrinting: (id) sender
+//{
+//
+//}
 
 - (ViewerController*) registeredViewer
 {
@@ -590,8 +596,7 @@ static BOOL protectedReentryWindowDidResize = NO;
     N2LogStackTrace( @"ApplyOpacityString - CALL SUPER ??");
 }
 
-#pragma mark-
-#pragma mark current Core Data Objects
+#pragma mark - current Core Data Objects
 
 - (DicomStudy *)currentStudy
 {

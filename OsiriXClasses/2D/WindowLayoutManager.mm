@@ -1,3 +1,9 @@
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
 /*=========================================================================
   Program:   OsiriX
 
@@ -58,8 +64,8 @@ static WindowLayoutManager *sharedLayoutManager = nil;
         if( tag == 1000)
             return 1000; // All windows
         
-        if (tag < 16)
-            return (tag / 4) + 1; // See SetImageTiling ViewerController.m
+        if (tag < MAX_TILING_TAG)
+            return (tag / TILING_DIMENSION) + 1; // See SetImageTiling ViewerController.m
     }
     
 	if( [[protocol objectForKey: @"Rows"] intValue] > 0)
@@ -77,8 +83,8 @@ static WindowLayoutManager *sharedLayoutManager = nil;
         if( tag == 1000)
             return 1000;  // All windows
         
-        if (tag < 16)
-            return (tag %  4) + 1; // See SetImageTiling ViewerController.m
+        if (tag < MAX_TILING_TAG)
+            return (tag %  TILING_DIMENSION) + 1; // See SetImageTiling ViewerController.m
     }
     
 	if( [[protocol objectForKey: @"Columns"] intValue] > 0)
@@ -103,8 +109,8 @@ static WindowLayoutManager *sharedLayoutManager = nil;
     {
         int tag = [[protocol objectForKey: @"ImageTiling"] intValue];
         
-        if (tag < 16)
-            return (tag / 4) + 1; // See SetImageTiling ViewerController.m
+        if (tag < MAX_TILING_TAG)
+            return (tag / TILING_DIMENSION) + 1; // See SetImageTiling ViewerController.m
     }
     
 	if( [[protocol objectForKey: @"Image Rows"] intValue] > 0)
@@ -119,8 +125,8 @@ static WindowLayoutManager *sharedLayoutManager = nil;
     {
         int tag = [[protocol objectForKey: @"ImageTiling"] intValue];
         
-        if (tag < 16)
-            return (tag %  4) + 1; // See SetImageTiling ViewerController.m
+        if (tag < MAX_TILING_TAG)
+            return (tag %  TILING_DIMENSION) + 1; // See SetImageTiling ViewerController.m
     }
     
 	if( [[protocol objectForKey: @"Image Columns"] intValue] > 0)
@@ -139,8 +145,7 @@ static WindowLayoutManager *sharedLayoutManager = nil;
     return [WindowLayoutManager imagesColumnsForHangingProtocol: self.currentHangingProtocol];
 }
 
-#pragma mark-
-#pragma mark hanging protocol setters and getters
+#pragma mark - hanging protocol setters and getters
 
 + (NSArray*) hangingProtocolsForModality: (NSString*) modality
 {

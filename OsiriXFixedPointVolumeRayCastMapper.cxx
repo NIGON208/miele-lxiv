@@ -1,3 +1,10 @@
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original version of this file had no header
+
 #include "OsiriXFixedPointVolumeRayCastMapper.h"
 
 #include "vtkObjectFactory.h"
@@ -5,15 +12,15 @@
 #include "vtkRenderer.h"
 #include "vtkTimerLog.h"
 #include "vtkOpenGLRenderWindow.h"
-#include <math.h>
+#include <cmath>
 
-int dontRenderVolumeRenderingOsiriX = 0;
+bool dontRenderVolumeRenderingOsiriX = false;
 
 vtkStandardNewMacro(OsiriXFixedPointVolumeRayCastMapper);
 
 OsiriXFixedPointVolumeRayCastMapper::OsiriXFixedPointVolumeRayCastMapper()
 {
-
+    //this->MIPHelper = vtkMieleFixedPointVolumeRayCastHelper::New();
 }
 
 // See VTK's vtkFixedPointVolumeRayCastMapper.cxx
@@ -37,9 +44,9 @@ void OsiriXFixedPointVolumeRayCastMapper::Render( vtkRenderer *ren, vtkVolume *v
 
   this->PerVolumeInitialization( ren, vol );
 
-  vtkRenderWindow *renWin=ren->GetRenderWindow();
+  vtkRenderWindow *renWin = ren->GetRenderWindow();
 
-#if 1
+#if 0 /// @@@ TBC
     vtkOpenGLRenderWindow *rw = (vtkOpenGLRenderWindow *)renWin;
     //if (!rw->Initialized)
         rw->OpenGLInit();
@@ -58,7 +65,7 @@ void OsiriXFixedPointVolumeRayCastMapper::Render( vtkRenderer *ren, vtkVolume *v
     return;
   }
 
-  if (dontRenderVolumeRenderingOsiriX == 0)  // Our addition
+  if (!dontRenderVolumeRenderingOsiriX)  // Our addition
 	this->RenderSubVolume();
 
   if ( renWin && renWin->CheckAbortStatus() )
@@ -67,7 +74,7 @@ void OsiriXFixedPointVolumeRayCastMapper::Render( vtkRenderer *ren, vtkVolume *v
     return;
   }
 
-#ifndef NDEBUG
+#if 0 //ndef NDEBUG // @@@
     this->DebugOn();
     vtkIndent *indent = vtkIndent::New();
     std::cerr << this->GetClassName() << std::endl;

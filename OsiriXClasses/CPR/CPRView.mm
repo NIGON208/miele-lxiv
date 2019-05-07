@@ -1,4 +1,11 @@
 //
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
+
+//
 //  CPRView.m
 //  OsiriX
 //
@@ -14,14 +21,18 @@
 
 @synthesize reformationType = _reformationType;
 
-- (id)initWithFrame:(NSRect)frame {
+- (id)initWithFrame:(NSRect)frame
+{
+    NSLog(@"%s %d, frame: %@", __FUNCTION__, __LINE__, NSStringFromRect(frame));
+
     self = [super initWithFrame:frame];
     if (self) {
         _straightenedView = [[CPRStraightenedView alloc] initWithFrame:[self bounds]];
-        _stretchedView = [[CPRStretchedView alloc] initWithFrame:[self bounds]];
+        _stretchedView    = [[CPRStretchedView    alloc] initWithFrame:[self bounds]];
 
         [self addSubview:_straightenedView];
     }
+
     return self;
 }
 
@@ -29,6 +40,7 @@
 {
     [_straightenedView release];
     _straightenedView = nil;
+
     [_stretchedView release];
     _stretchedView = nil;
     
@@ -50,38 +62,42 @@
 {
     assert(reformationType == CPRViewStraightenedReformationType || reformationType == CPRViewStretchedReformationType);
     
-    if (reformationType != _reformationType) {
-        if (_reformationType == CPRViewStraightenedReformationType) { // going from straightened to stretched
-            [_straightenedView removeFromSuperview];
-            _stretchedView.curvedPath = _straightenedView.curvedPath;
-            _stretchedView.displayInfo = _straightenedView.displayInfo;
-            [self addSubview:_stretchedView];
-        } else {
-            [_stretchedView removeFromSuperview];
-            _straightenedView.curvedPath = _stretchedView.curvedPath;
-            _straightenedView.displayInfo = _stretchedView.displayInfo;
-            [self addSubview:_straightenedView];
-        }
-        _reformationType = reformationType;
+    if (reformationType == _reformationType)
+        return;
+
+    if (_reformationType == CPRViewStraightenedReformationType) { // going from straightened to stretched
+        [_straightenedView removeFromSuperview];
+        _stretchedView.curvedPath = _straightenedView.curvedPath;
+        _stretchedView.displayInfo = _straightenedView.displayInfo;
+        [self addSubview:_stretchedView];
     }
+    else {
+        [_stretchedView removeFromSuperview];
+        _straightenedView.curvedPath = _stretchedView.curvedPath;
+        _straightenedView.displayInfo = _stretchedView.displayInfo;
+        [self addSubview:_straightenedView];
+    }
+
+    _reformationType = reformationType;
 }
 
-- (id)reformationView // returns the actual view that does the reformation. I expect hacky calls that do and do screen grabs and such will need this
+// returns the actual view that does the reformation.
+// I expect hacky calls that do and do screen grabs and such will need this
+- (id)reformationView
 {
-    if (_reformationType == CPRViewStraightenedReformationType) {
+    if (_reformationType == CPRViewStraightenedReformationType)
         return _straightenedView;
-    } else {
-        return _stretchedView;
-    }
+
+    return _stretchedView;
 }
 
-- (void)waitUntilPixUpdate // returns once the reformation view's DCM pix object has been updated to reflect any changes made to the view.
+// returns once the reformation view's DCM pix object has been updated to reflect any changes made to the view.
+- (void)waitUntilPixUpdate
 {
     [[self reformationView] waitUntilPixUpdate];
 }
 
-
-#pragma mark DCMView-like methods
+#pragma mark - DCMView-like methods
 
 - (void)setWLWW:(float)wl :(float) ww
 {
@@ -125,41 +141,34 @@
 -(NSImage*) nsimage
 {
     if (_reformationType == CPRViewStraightenedReformationType)
-    {
         return [_straightenedView nsimage];
-    } else {
-        return [_stretchedView nsimage];
-    }
+
+    return [_stretchedView nsimage];
 }
 
 -(NSImage*) nsimage:(BOOL) bo
 {
     if (_reformationType == CPRViewStraightenedReformationType)
-    {
         return [_straightenedView nsimage: bo];
-    } else {
-        return [_stretchedView nsimage: bo];
-    }
+
+    return [_stretchedView nsimage: bo];
 }
 
 -(NSImage*) nsimage:(BOOL) bo allViewers: (BOOL) all
 {
     if (_reformationType == CPRViewStraightenedReformationType)
-    {
         return [_straightenedView nsimage: bo allViewers: all];
-    } else {
-        return [_stretchedView nsimage: bo allViewers: all];
-    }
+
+    return [_stretchedView nsimage: bo allViewers: all];
 }
 
--(unsigned char*) getRawPixels:(long*) width :(long*) height :(long*) spp :(long*) bpp :(BOOL) screenCapture :(BOOL) force8bits
+- (unsigned char*) getRawPixels:(long*) width :(long*) height :(long*) spp :(long*) bpp :(BOOL) screenCapture :(BOOL) force8bits
 {
     if (_reformationType == CPRViewStraightenedReformationType)
-    {
         return [_straightenedView getRawPixels: width : height : spp : bpp : screenCapture : force8bits];
-    } else {
-        return [_stretchedView getRawPixels: width : height : spp : bpp : screenCapture : force8bits];
-    }
+
+    return [_stretchedView getRawPixels: width : height : spp : bpp : screenCapture : force8bits];
+
 }
 
 - (unsigned char*) getRawPixelsWidth:(long*) width height:(long*) height spp:(long*) spp bpp:(long*) bpp screenCapture:(BOOL) screenCapture force8bits:(BOOL) force8bits removeGraphical:(BOOL) removeGraphical squarePixels:(BOOL) squarePixels allTiles:(BOOL) allTiles allowSmartCropping:(BOOL) allowSmartCropping origin:(float*) imOrigin spacing:(float*) imSpacing
@@ -167,7 +176,8 @@
     if (_reformationType == CPRViewStraightenedReformationType)
     {
         return [_straightenedView getRawPixelsWidth: width height: height spp: spp bpp: bpp screenCapture: screenCapture force8bits: force8bits removeGraphical: removeGraphical squarePixels: squarePixels allTiles: allTiles allowSmartCropping: allowSmartCropping origin: imOrigin spacing: imSpacing];
-    } else {
+    }
+    else {
         return [_stretchedView getRawPixelsWidth: width height: height spp: spp bpp: bpp screenCapture: screenCapture force8bits: force8bits removeGraphical: removeGraphical squarePixels: squarePixels allTiles: allTiles allowSmartCropping: allowSmartCropping origin: imOrigin spacing: imSpacing];
     }
 }
@@ -177,12 +187,13 @@
     if (_reformationType == CPRViewStraightenedReformationType)
     {
         return [_straightenedView getRawPixelsWidth: width height: height spp: spp bpp: bpp screenCapture: screenCapture force8bits: force8bits removeGraphical: removeGraphical squarePixels: squarePixels allTiles: allTiles allowSmartCropping: allowSmartCropping origin: imOrigin spacing: imSpacing offset: offset isSigned: isSigned];
-    } else {
+    }
+    else {
         return [_stretchedView getRawPixelsWidth: width height: height spp: spp bpp: bpp screenCapture: screenCapture force8bits: force8bits removeGraphical: removeGraphical squarePixels: squarePixels allTiles: allTiles allowSmartCropping: allowSmartCropping origin: imOrigin spacing: imSpacing offset: offset isSigned: isSigned];
     }
 }
 
-#pragma mark standard CPRView Methods
+#pragma mark - standard CPRView Methods
 
 - (id<CPRViewDelegate>)delegate
 {
@@ -197,6 +208,7 @@
 
 - (CPRVolumeData *)volumeData
 {
+    //NSLog(@"%s %d %@ %p, data size: %d", __FUNCTION__, __LINE__, NSStringFromClass([self class]), self, [[self reformationView] volumeData]._floatData.size());
     return [(CPRStraightenedView *)[self reformationView] volumeData]; // cast to make sure the compiler picks the right return type for the method
 }
 
@@ -273,7 +285,6 @@
     [_stretchedView setBluePlane:bluePlane];
 }
 
-
 - (CGFloat)orangeSlabThickness
 {
     return [[self reformationView] orangeSlabThickness];
@@ -306,7 +317,6 @@
     [_straightenedView setBlueSlabThickness:blueSlabThickness];
     [_stretchedView setBlueSlabThickness:blueSlabThickness];
 }
-
 
 - (NSColor *)orangePlaneColor
 {

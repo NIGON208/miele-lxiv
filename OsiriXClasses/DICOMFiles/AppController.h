@@ -1,3 +1,9 @@
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
 /*=========================================================================
   Program:   OsiriX
 
@@ -154,8 +160,7 @@ extern AppController* OsiriX;
 
 +(NSString*)UID;
 
-#pragma mark-
-#pragma mark initialization of the main event loop singleton
+#pragma mark - initialization of the main event loop singleton
 
 + (void) createNoIndexDirectoryIfNecessary:(NSString*) path __deprecated;
 #ifdef WITH_IMPORTANT_NOTICE
@@ -168,13 +173,10 @@ extern AppController* OsiriX;
 + (NSString*)printStackTrace:(NSException*)e __deprecated; // use -[NSException printStackTrace] from NSException+N2
 + (BOOL) isKDUEngineAvailable;
 
-#pragma mark-
-#pragma mark HTML Templates
+#pragma mark - HTML Templates
 + (void)checkForHTMLTemplates __deprecated;
 
-
-#pragma mark-
-#pragma mark  Server management
+#pragma mark - Server management
 - (void) terminate :(id) sender; /**< Terminate listener (Q/R SCP) */
 - (void) restartSTORESCP; /**< Restart listener (Q/R SCP) */
 - (void) startSTORESCP:(id) sender; /**< Start listener (Q/R SCP) */
@@ -182,8 +184,7 @@ extern AppController* OsiriX;
 - (void) installPlugins: (NSArray*) pluginsArray;
 - (BOOL) isStoreSCPRunning;
 
-#pragma mark-
-#pragma mark static menu items
+#pragma mark - static menu items
 //===============OSIRIX========================
 - (IBAction) about:(id)sender; /**< Display the about window */
 - (IBAction) showPreferencePanel:(id)sender; /**< Show Preferences window */
@@ -220,8 +221,8 @@ extern AppController* OsiriX;
 
 - (id) splashScreen;
 
-#pragma mark-
-#pragma mark window routines
+#pragma mark - window routines
+
 - (IBAction) updateViews:(id) sender;  /**< Update Viewers */
 - (NSScreen *)dbScreen;  /**< Return monitor with DB */
 - (NSArray *)viewerScreens; /**< Return array of monitors for displaying viewers */
@@ -233,7 +234,8 @@ extern AppController* OsiriX;
  * Each 3D Viewer has its own distinctly named nib as does the ViewerController.
  * The pixList is the Array of DCMPix that the viewer uses.  It should uniquely identify related viewers
 */
-- (id) FindViewer:(NSString*) nib :(NSArray*) pixList;
+- (id) FindViewer:(NSString*) nibName :(NSArray*) pixList;
+
 - (NSArray*) FindRelatedViewers:(NSArray*) pixList; /**< Return an array of all WindowControllers using the pixList */
 - (IBAction) cancelModal: (id) sender;
 - (IBAction) okModal: (id) sender;
@@ -260,17 +262,14 @@ extern AppController* OsiriX;
 - (NSMenu*) clutMenu;
 - (NSMenu*) workspaceMenu;
 
-#pragma mark-
-#pragma mark growl
+#pragma mark - growl
 - (void) growlTitle:(NSString*) title description:(NSString*) description name:(NSString*) name;
 //- (NSDictionary *) registrationDictionaryForGrowl;
 
-//#pragma mark-
-//#pragma mark display setters and getters
+//#pragma mark - display setters and getters
 //- (IBAction) saveLayout: (id)sender;
 
-#pragma mark-
-#pragma mark 12 Bit Display support.
+#pragma mark - 12 Bit Display support.
 + (BOOL)canDisplay12Bit;
 + (void)setCanDisplay12Bit:(BOOL)boo;
 + (void)setLUT12toRGB:(unsigned char*)lut;

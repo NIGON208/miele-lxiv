@@ -1,3 +1,10 @@
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
+
 /*ISO8601DateFormatter.h
  *
  *Created by Peter Hosey on 2009-04-11.
@@ -45,7 +52,7 @@ extern unichar ISO8601DefaultTimeSeparatorCharacter;
 
 @property(retain) NSTimeZone *defaultTimeZone;
 
-#pragma mark Parsing
+#pragma mark - Parsing
 
 //As a formatter, this object converts strings to dates.
 
@@ -59,7 +66,7 @@ extern unichar ISO8601DefaultTimeSeparatorCharacter;
 - (NSDate *) dateFromString:(NSString *)string timeZone:(out NSTimeZone **)outTimeZone;
 - (NSDate *) dateFromString:(NSString *)string timeZone:(out NSTimeZone **)outTimeZone range:(out NSRange *)outRange;
 
-#pragma mark Unparsing
+#pragma mark - Unparsing
 
 @property ISO8601DateFormat format;
 @property BOOL includeTime;

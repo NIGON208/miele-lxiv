@@ -1,3 +1,9 @@
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
 /*=========================================================================
  Program:   OsiriX
  
@@ -15,7 +21,6 @@
 #import "SMTPClient.h"
 #import "NSData+N2.h"
 #import "N2Debug.h"
-//#import <iconv.h>
 #include <CommonCrypto/CommonDigest.h>
 
 NSString* const SMTPServerAddressKey = @"SMTPServerAddress";
@@ -472,7 +477,7 @@ enum {
 	[super dealloc];
 }
 
-#pragma mark SMTP
+#pragma mark - SMTP
 
 enum SMTPStatuses {
 	InitialStatus = 0,
@@ -612,13 +617,16 @@ enum SMTPSubstatuses {
 					if ((!_isTLS && self.client.tlsMode) || (self.client.username && self.client.password)) {
 						[self _ehlo];
 						return;
-					} else {
+					}
+                    else {
 						[self writeLine:[@"HELO " stringByAppendingString:[[self class] _hostname]]];
 						self.smtpStatus = StatusHELO;
 						return;
 					}
 			}
-		} break;
+		}
+            break;
+            
 		case StatusHELO:
 		case StatusEHLO: {
 			switch (code) {
@@ -811,7 +819,8 @@ enum SMTPSubstatuses {
 		if (part1) *part1 = [self substringToIndex:i];
 		if (separator) *separator = [self characterAtIndex:i];
 		if (part2) *part2 = [self substringFromIndex:i+1];
-	} else {
+	}
+    else {
 		if (part1) *part1 = self;
 		if (separator) *separator = 0;
 		if (part2) *part2 = nil;
@@ -826,6 +835,7 @@ enum SMTPSubstatuses {
 	id obj = [self objectForKey:key];
 	if (obj && ![obj isKindOfClass:cl])
 		return nil;
+
 	return obj;
 }
 

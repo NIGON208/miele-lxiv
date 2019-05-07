@@ -1,3 +1,9 @@
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
 /*=========================================================================
   Program:   OsiriX
 
@@ -173,9 +179,7 @@
 	return result;
 }
 
-
-#pragma mark -
-#pragma mark basics
+#pragma mark - basics
 
 - (id)init
 {
@@ -522,8 +526,7 @@
 	return _dataEncapsulated;
 }
 
-#pragma mark -
-#pragma mark ROIs
+#pragma mark - ROIs
 
 - (void) addROIs: (NSArray *) someROIs;
 {
@@ -558,8 +561,7 @@
 	return [NSUnarchiver unarchiveObjectWithData: _dataEncapsulated];
 }
 
-#pragma mark -
-#pragma mark DICOM write
+#pragma mark - DICOM write
 
 - (BOOL)writeToFileAtPath:(NSString *)path
 {

@@ -1,3 +1,9 @@
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
 /*=========================================================================
   Program:   OsiriX
 
@@ -14,10 +20,11 @@
 
 #import "DICOMTLS.h"
 #import "tmp_locations.h"
+#include "openssl/opensslv.h"       // for OPENSSL_VERSION_NUMBER
 
 @implementation DICOMTLS
 
-#pragma mark Cipher Suites
+#pragma mark - Cipher Suites
 
 + (NSArray*)availableCipherSuites;
 {
@@ -91,7 +98,7 @@
 	return [NSArray arrayWithArray:cipherSuites];
 }
 
-#pragma mark Keychain Access
+#pragma mark - Keychain Access
 
 static NSMutableString *TLS_PRIVATE_KEY_PASSWORD = nil;
 

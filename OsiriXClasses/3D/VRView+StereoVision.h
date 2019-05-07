@@ -1,4 +1,10 @@
-#ifdef _STEREO_VISION_
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
+
 //
 // Program:   OsiriX
 // 
@@ -15,13 +21,14 @@
 // PURPOSE.
 // =========================================================================
 
+#ifdef _STEREO_VISION_
 #import <Cocoa/Cocoa.h>
 #import "VRView.h"
 #import <AppKit/AppKit.h>
 #import "DCMPix.h"
 
 #ifdef __cplusplus
-#import "VTKViewOSIRIX.h"
+#import "vtkMieleView.h"
 
 #define id Id
 #include "vtkCommand.h"
@@ -56,10 +63,7 @@
 #include "vtkPiecewiseFunction.h"
 #include "vtkColorTransferFunction.h"
 #include "vtkVolumeProperty.h"
-#include "vtkVolumeRayCastCompositeFunction.h"
-#include "vtkVolumeRayCastMapper.h"
-#include "vtkVolumeRayCastMIPFunction.h"
-#include "vtkFixedPointVolumeRayCastMapper.h"
+
 #include "vtkTransform.h"
 #include "vtkSphere.h"
 #include "vtkImplicitBoolean.h"
@@ -84,8 +88,6 @@
 #include "vtkImageFlip.h"
 #include "vtkAnnotatedCubeActor.h"
 #include "vtkOrientationMarkerWidget.h"
-//#include "vtkVolumeTextureMapper2D.h"  //@@@ VTK_LEGACY_REMOVE
-//#include "vtkVolumeTextureMapper3D.h"
 #include "OsiriXFixedPointVolumeRayCastMapper.h"
 
 #include "vtkCellArray.h"
@@ -165,9 +167,8 @@ typedef char* vtkMyCallbackVR;*/
  */
 #ifdef __cplusplus
 #else
-#define VTKView NSView
+#define vtkMieleView    NSView
 #endif
-
 
 @interface VRView ( StereoVision )
 
@@ -182,7 +183,6 @@ typedef char* vtkMyCallbackVR;*/
 - (short) LeftRightMovieScreen;
 - (void) setDisplayStereo3DPoints: (vtkRenderer*) theRenderer: (BOOL) on;
 - (void) setNewGeometry: (double) screenHeight: (double) screenDistance: (double) eyeDistance;
-
 
 @end
 

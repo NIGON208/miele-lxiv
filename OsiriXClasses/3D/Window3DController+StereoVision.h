@@ -1,4 +1,11 @@
 //
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
+
+//
 // Program:   OsiriX
 // 
 // Created by Silvan Widmer on 8/25/09.
@@ -25,19 +32,15 @@
 #import "NSFullScreenWindow.h"
 #import "OSIWindowController.h"
 
-
 #define DATABASEPATH				@"/DATABASE.noindex/"
 #define STATEDATABASE				@"/3DSTATE/"
-
 
 @class ROIVolume;
 @class ViewerController;
 @class DCMPix;
-@class VTKView;
-
+@class vtkMieleView;
 
 @interface Window3DController (StereoVision)
-
 
 - (void) disableFullScreen;
 - (void) enableFullScreen;

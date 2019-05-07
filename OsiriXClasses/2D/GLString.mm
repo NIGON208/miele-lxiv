@@ -1,4 +1,11 @@
 //
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
+
+//
 // File:		GLString.m
 //				(Originally StringTexture.m)
 //
@@ -95,8 +102,7 @@
 
 @implementation GLString
 
-#pragma mark -
-#pragma mark Deallocs
+#pragma mark - Deallocs
 
 - (void) deleteTexture
 {
@@ -123,8 +129,7 @@
 	[super dealloc];
 }
 
-#pragma mark -
-#pragma mark Initializers
+#pragma mark - Initializers
 
 // designated initializer
 - (id) initWithAttributedString:(NSAttributedString *)attributedString
@@ -271,8 +276,7 @@
 	requiresUpdate = NO;
 }
 
-#pragma mark -
-#pragma mark Accessors
+#pragma mark - Accessors
 
 - (GLuint) texName
 {
@@ -284,7 +288,7 @@
 	return texSize;
 }
 
-#pragma mark Text Color
+#pragma mark - Text Color
 
 - (void) setTextColor:(NSColor *)color // set default text color
 {
@@ -299,7 +303,7 @@
 	return textColor;
 }
 
-#pragma mark Box Color
+#pragma mark - Box Color
 
 - (void) setBoxColor:(NSColor *)color // set default text color
 {
@@ -314,7 +318,7 @@
 	return boxColor;
 }
 
-#pragma mark Border Color
+#pragma mark - Border Color
 
 - (void) setBorderColor:(NSColor *)color // set default text color
 {
@@ -329,14 +333,14 @@
 	return borderColor;
 }
 
-#pragma mark Margin Size
+#pragma mark - Margin Size
 
 - (NSSize) marginSize
 {
 	return marginSize;
 }
 
-#pragma mark Antialiasing
+#pragma mark - Antialiasing
 - (BOOL) antialias
 {
 	return antialias;
@@ -348,7 +352,7 @@
 	requiresUpdate = YES;
 }
 
-#pragma mark Frame
+#pragma mark - Frame
 
 - (NSSize) frameSize
 {
@@ -372,7 +376,7 @@
 	return staticFrame;
 }
 
-#pragma mark String
+#pragma mark - String
 
 - (void) setString:(NSAttributedString *)attributedString // set string after initial creation
 {
@@ -394,9 +398,7 @@
 	[self setString:[[[NSAttributedString alloc] initWithString:aString attributes:attribs] autorelease]];
 }
 
-
-#pragma mark -
-#pragma mark Drawing
+#pragma mark - Drawing
 
 - (void) drawAtPoint: (NSPoint) p view:(NSView*) view
 {

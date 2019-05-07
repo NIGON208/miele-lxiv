@@ -1,3 +1,9 @@
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
 /*=========================================================================
   Program:   OsiriX
 
@@ -130,7 +136,9 @@
 
 - (void) dealloc
 {
-	NSLog(@"FlyThruController released");
+#ifndef NDEBUG
+    NSLog(@"FlyThruController.mm:%d %@ dealloc %p", __LINE__, NSStringFromClass([self class]), self);
+#endif
 	
 	[[NSNotificationCenter defaultCenter] removeObserver: self];
 	

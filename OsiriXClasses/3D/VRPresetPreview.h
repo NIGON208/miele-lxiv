@@ -1,3 +1,9 @@
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
 /*=========================================================================
   Program:   OsiriX
 
@@ -16,11 +22,12 @@
 #import <Cocoa/Cocoa.h>
 #import "SelectionView.h"
 
-@interface VRPresetPreview : VRView {
+@interface VRPresetPreview : VRView
+{
 	BOOL isEmpty, isSelected;
-	IBOutlet SelectionView	*selectionView;
+	IBOutlet SelectionView *selectionView;
 	
-	IBOutlet VRController	*presetController;
+	IBOutlet VRController *presetController;
 	int presetIndex;
 }
 

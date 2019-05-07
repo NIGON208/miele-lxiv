@@ -1,3 +1,9 @@
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
 /*=========================================================================
   Program:   OsiriX
 
@@ -20,7 +26,7 @@
 #import "Camera.h"
 
 #ifdef __cplusplus
-#import "VTKViewOSIRIX.h"
+#import "vtkMieleView.h"
 #define id Id
 
 //#include "vtkCommand.h"
@@ -56,7 +62,6 @@
 //#include "vtkPiecewiseFunction.h"
 //#include "vtkColorTransferFunction.h"
 //#include "vtkVolumeProperty.h"
-//#include "vtkVolumeRayCastCompositeFunction.h"  // VTK_LEGACY_REMOVE (deprecated for VTK 7.0)
 
 //#ifdef TRY_NEW_VTK_API
 //#include "vtkGPUVolumeRayCastMapper.h"
@@ -68,24 +73,6 @@
 
 #include "vtkMatrix4x4.h"
 #include "vtkTransform.h"
-//#include "vtkSphere.h"
-//#include "vtkImplicitBoolean.h"
-//#include "vtkExtractGeometry.h"
-//#include "vtkDataSetMapper.h"
-//#include "vtkPicker.h"
-//#include "vtkCellPicker.h"
-//#include "vtkPointPicker.h"
-//#include "vtkLineSource.h"
-//#include "vtkPolyDataMapper2D.h"
-//#include "vtkActor2D.h"
-//#include "vtkExtractPolyDataGeometry.h"
-//#include "vtkProbeFilter.h"
-//#include "vtkCutter.h"
-//#include "vtkTransformPolyDataFilter.h"
-//#include "vtkXYPlotActor.h"
-//#include "vtkClipPolyData.h"
-//#include "vtkBox.h"
-//#include "vtkCallbackCommand.h"
 
 #include "vtkImageResample.h"
 #include "vtkDecimatePro.h"
@@ -192,13 +179,13 @@ typedef struct renderSurface
 
 #ifdef __cplusplus
 #else
-#define VTKView NSView
+#define vtkMieleView    NSView
 #endif
 
 #define NUM_SR_LABELS   4
 
 /** \brief Surface Rendering View */
-@interface SRView : VTKView
+@interface SRView : vtkMieleView
 {
 	int							projectionMode;
     NSMutableArray				*blendingPixList;
@@ -341,7 +328,9 @@ typedef struct renderSurface
 -(void) stopRendering;
 -(void) setViewSizeToMatrix3DExport;
 -(void) setCurrentTool:(ToolMode) i;
--(id) initWithFrame:(NSRect)frame;
+
+-(instancetype) initWithFrame:(NSRect)frame;
+
 -(BOOL) setPixSource:(NSMutableArray*)pix :(float*) volumeData;
 -(void) dealloc;
 -(void) setBlendingPixSource:(ViewerController*) bC;

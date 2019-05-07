@@ -1,3 +1,9 @@
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
 /*=========================================================================
  Program:   OsiriX
  
@@ -280,7 +286,7 @@ static NSString* DefaultWebPortalDatabasePath = nil;
 	return wadoOnlyWebPortal;
 }
 
-#pragma mark Instance
+#pragma mark - Instance
 
 @synthesize database, dicomDatabase, cache, locks;
 @synthesize isAcceptingConnections;
@@ -673,7 +679,7 @@ static NSString* DefaultWebPortalDatabasePath = nil;
 	return [NSString stringWithFormat: @"%@://%@", protocol, add];
 }*/
 
-#pragma mark Sessions
+#pragma mark - Sessions
 
 -(id)sessionForId:(NSString*)sid {
 	[sessionsArrayLock lock];
@@ -749,7 +755,7 @@ static NSString* DefaultWebPortalDatabasePath = nil;
 	return session;
 }
 
-#pragma mark Notifications
+#pragma mark - Notifications
 
 -(void)setNotificationsEnabled:(BOOL)flag
 {

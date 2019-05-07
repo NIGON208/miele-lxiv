@@ -1,4 +1,10 @@
-#ifdef _STEREO_VISION_
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
+
 //
 // Program:   OsiriX
 // 
@@ -15,6 +21,7 @@
 // PURPOSE.
 // =========================================================================
 
+#ifdef _STEREO_VISION_
 #import <Cocoa/Cocoa.h>
 #import "SRView.h"
 
@@ -24,7 +31,7 @@
 #import "Camera.h"
 
 #ifdef __cplusplus
-#import "VTKViewOSIRIX.h"
+#import "vtkMieleView.h"
 #define id Id
 #include "vtkCommand.h"
 #include "vtkProperty.h"
@@ -60,9 +67,6 @@
 #include "vtkPiecewiseFunction.h"
 #include "vtkColorTransferFunction.h"
 #include "vtkVolumeProperty.h"
-#include "vtkVolumeRayCastCompositeFunction.h"
-#include "vtkVolumeRayCastMapper.h"
-#include "vtkVolumeRayCastMIPFunction.h"
 
 #include "vtkTransform.h"
 #include "vtkSphere.h"
@@ -116,7 +120,6 @@ class vtkMyCallback;
 @class SRController;
 @class DICOMExport;
 
-
 @interface SRView ( StereoVision )
 
 - (id) initWithFrame:(NSRect)frame;
@@ -146,7 +149,6 @@ class vtkMyCallback;
 - (IBAction) invertedSides :(id) sender;
 - (void) updateStereoLeftRight;
 - (void) setNewGeometry: (double) screenHeight: (double) screenDistance: (double) eyeDistance;
-
 
 @end
 

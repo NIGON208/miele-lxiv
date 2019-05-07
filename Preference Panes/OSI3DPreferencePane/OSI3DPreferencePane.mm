@@ -1,3 +1,9 @@
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
 /*=========================================================================
   Program:   OsiriX
 
@@ -17,7 +23,7 @@
 #import "OSI3DPreferencePane.h"
 
 #ifndef OSIRIX_LIGHT
-#import "VTKViewOSIRIX.h"
+#import "vtkMieleView.h"
 #endif
 
 @implementation OSI3DPreferencePanePref
@@ -47,7 +53,7 @@
             if ([[NSUserDefaults standardUserDefaults] boolForKey: @"MAPPERMODEVR"])
             {
     #ifndef OSIRIX_LIGHT
-                long vramMB = [VTKView VRAMSizeForDisplayID: [[[[mainWindow screen] deviceDescription] objectForKey: @"NSScreenNumber"] intValue]];
+                long vramMB = [vtkMieleView VRAMSizeForDisplayID: [[[[mainWindow screen] deviceDescription] objectForKey: @"NSScreenNumber"] intValue]];
                 
                 //vram /= 1024*1024;
                 

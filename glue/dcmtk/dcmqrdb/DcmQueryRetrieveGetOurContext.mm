@@ -1,5 +1,8 @@
-/* Alex Bettarini - 12 May 2015
- */
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//  Created by Alex Bettarini on 12 May 2015
+//
 
 #include <stdio.h>
 #include "dcmtk/config/osconfig.h"    /* make sure OS specific configuration is included first */
@@ -284,6 +287,7 @@ DcmQueryRetrieveGetOurContext::DcmQueryRetrieveGetOurContext(DcmQueryRetrieveDat
 {
 }
 
+// See DCMTK sources: dcmqrcbg.cc
 void DcmQueryRetrieveGetOurContext::getNextImage(DcmQueryRetrieveDatabaseStatus * dbStatus)
 {
     OFCondition cond = EC_Normal;
@@ -298,8 +302,11 @@ void DcmQueryRetrieveGetOurContext::getNextImage(DcmQueryRetrieveDatabaseStatus 
     bzero(subImgSOPInstance, sizeof(subImgSOPInstance));
     
     /* get DB response */
-    dbcond = dbHandle.nextMoveResponse(
-                                       subImgSOPClass, subImgSOPInstance, subImgFileName, &nRemaining, dbStatus);
+    dbcond = dbHandle.nextMoveResponse(subImgSOPClass, sizeof(subImgSOPClass),
+                                       subImgSOPInstance, sizeof(subImgSOPInstance),
+                                       subImgFileName, sizeof(subImgFileName),
+                                       &nRemaining,
+                                       dbStatus);
     if (dbcond.bad()) {
         DCMQRDB_ERROR("getSCP: Database: nextMoveResponse Failed ("
                       << DU_cmoveStatusString(dbStatus->status()) << "):");

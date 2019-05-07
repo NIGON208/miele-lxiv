@@ -1,3 +1,9 @@
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
 /*=========================================================================
   Program:   OsiriX
 
@@ -17,15 +23,14 @@
 #import "OrthogonalMPRPETCTController.h"
 #import "Notifications.h"
 
-
 @implementation OrthogonalMPRPETCTView
 
-- (void) drawTextualData:(NSRect) size annotationsLevel:(long) annotations fullText: (BOOL) fullText onlyOrientation: (BOOL) onlyOrientation
+- (void) drawTextualData: (NSRect) size
+        annotationsLevel: (long) annotations
+                fullText: (BOOL) fullText
+         onlyOrientation: (BOOL) onlyOrientation
 {
-	if( isKeyView == NO)
-		[super drawTextualData: size annotationsLevel: annotations fullText: NO onlyOrientation: YES];
-	else
-		[super drawTextualData: size annotationsLevel: annotations fullText: NO onlyOrientation: NO];
+    [super drawTextualData: size annotationsLevel: annotations fullText: NO onlyOrientation: !isKeyView];
 }
 
 - (void) dealloc
@@ -72,9 +77,17 @@
 
 - (BOOL) becomeFirstResponder
 {
-	[[NSNotificationCenter defaultCenter] postNotificationName: OsirixUpdateCLUTMenuNotification object: curCLUTMenu userInfo: nil];
-	[[NSNotificationCenter defaultCenter] postNotificationName: OsirixUpdateWLWWMenuNotification object: curWLWWMenu userInfo: nil];
-	[[NSNotificationCenter defaultCenter] postNotificationName: OsirixUpdateOpacityMenuNotification object: curOpacityMenu userInfo: nil];
+	[[NSNotificationCenter defaultCenter] postNotificationName: OsirixUpdateCLUTMenuNotification
+                                                        object: curCLUTMenu
+                                                      userInfo: nil];
+
+	[[NSNotificationCenter defaultCenter] postNotificationName: OsirixUpdateWLWWMenuNotification
+                                                        object: curWLWWMenu
+                                                      userInfo: nil];
+
+	[[NSNotificationCenter defaultCenter] postNotificationName: OsirixUpdateOpacityMenuNotification
+                                                        object: curOpacityMenu
+                                                      userInfo: nil];
 	
 	return [super becomeFirstResponder];
 }
@@ -94,7 +107,7 @@
     [self.windowController exportJPEG: sender];
 }
 
-- (void) MoviePlayStop:(id) sender
+- (IBAction) MoviePlayStop:(id) sender
 {
     [self.windowController MoviePlayStop: sender];
 }
@@ -163,6 +176,5 @@
 {
     [self.windowController resetImage: sender];
 }
-
 
 @end

@@ -1,3 +1,9 @@
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
 /*=========================================================================
   Program:   OsiriX
 
@@ -234,7 +240,7 @@
 	return NSMakeRange(0, self.length);
 }
 
-#pragma mark SymLinksAndAliases
+#pragma mark - SymLinksAndAliases
 // from http://cocoawithlove.com/2010/02/resolving-path-containing-mixture-of.html
 
 - (NSString *)stringByConditionallyResolvingSymlink

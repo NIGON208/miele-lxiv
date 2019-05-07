@@ -1,3 +1,9 @@
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
 /*=========================================================================
  Program:   OsiriX
  
@@ -36,10 +42,12 @@
 
 @implementation DicomDatabase (Clean)
 
--(void)initClean {
+-(void)initClean
+{
 	if (self.isMainDatabase) {
         _cleanLock = [[NSRecursiveLock alloc] init];
-    } else {
+    }
+    else {
         _cleanLock = [[self.mainDatabase cleanLock] retain];
     }
 	[DicomDatabase _syncCleanTimer];
@@ -54,7 +62,8 @@
         _cleanLock = nil;
         [temp unlock];
         [temp release];
-    } else {
+    }
+    else {
         [_cleanLock release];
     }
 }

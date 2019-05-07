@@ -1,3 +1,9 @@
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
 /*=========================================================================
   Program:   OsiriX
 
@@ -11,7 +17,6 @@
      the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
      PURPOSE.
 =========================================================================*/
-
 
 #import "EndoscopyMPRView.h"
 #import "EndoscopyViewer.h"
@@ -467,8 +472,7 @@
 	return viewUpY;
 }
 
-#pragma mark-
-#pragma mark Export
+#pragma mark - Export
 
 -(void) sendMail:(id) sender
 {

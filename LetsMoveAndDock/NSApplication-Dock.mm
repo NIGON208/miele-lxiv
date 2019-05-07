@@ -1,3 +1,9 @@
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
 
 ////////////////////////////////////////////
 //
@@ -16,8 +22,7 @@
 #import "NSApplication-Dock.h"
 @implementation NSApplication (Dock)
 
-
-#pragma mark Application Assumed
+#pragma mark - Application Assumed
 
 ////////////////////////////////////////////
 //
@@ -36,7 +41,6 @@
 	
 }
 
-
 ////////////////////////////////////////////
 //
 //	YES/NO if current application is in Dock
@@ -47,11 +51,7 @@
 	return [self applicationExistsInDock:[[NSBundle mainBundle] bundlePath]];
 }
 
-
-
-
-
-#pragma mark Application Specified
+#pragma mark - Application Specified
 
 ////////////////////////////////////////////
 //

@@ -1,3 +1,9 @@
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
 /*=========================================================================
   Program:   OsiriX
 
@@ -18,9 +24,7 @@
 /** Category of DCMObject for creating DICOM encapsulated PDFs */
 @interface   DCMObject (DCMEncapsulatedPDF) 
 
-
 /** Encapsulates a pdf in a DICOM file */
 + (DCMObject*) encapsulatedPDF:(NSData *)pdf;
-
 
 @end

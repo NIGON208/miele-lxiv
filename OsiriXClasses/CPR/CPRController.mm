@@ -1,3 +1,9 @@
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
 /*=========================================================================
  Program:   OsiriX
  
@@ -197,12 +203,16 @@ static float deg2rad = M_PI / 180.0;
     self.straightenedCPRAngle = self.straightenedCPRAngle + 0.1; // To force the update...
 }
 
-- (id)initWithDCMPixList:(NSMutableArray*)pix
-               filesList:(NSMutableArray*)files
-              volumeData:(NSData*)volume
-        viewerController:(ViewerController*)viewer
-   fusedViewerController:(ViewerController*)fusedViewer;
+- (instancetype)initWithDCMPixList:(NSMutableArray*)pix
+                         filesList:(NSMutableArray*)files
+                        volumeData:(NSData*)volume
+                  viewerController:(ViewerController*)viewer
+             fusedViewerController:(ViewerController*)fusedViewer
 {
+#ifndef NDEBUG
+    NSLog(@"%s %d %@ %p, pix count: %lu", __FUNCTION__, __LINE__,
+          NSStringFromClass([self class]), self, (unsigned long)pix.count);
+#endif
 	@try
 	{
 		if ([[NSUserDefaults standardUserDefaults] integerForKey: @"ANNOTATIONS"] == annotNone)
@@ -236,7 +246,8 @@ static float deg2rad = M_PI / 180.0;
 		fusedViewer2D = fusedViewer;
 		clippingRangeMode = 1;
 		LOD = 1;
-		if (LOD < 1) LOD = 1;
+		if (LOD < 1)
+            LOD = 1;
 		
 		if (fusedViewer2D)
 			self.blendingModeAvailable = YES;
@@ -246,7 +257,7 @@ static float deg2rad = M_PI / 180.0;
 		
 		[self updateToolbarItems];
 		
-		for( int i = 0; i < [popupRoi numberOfItems]; i++)
+		for (int i = 0; i < [popupRoi numberOfItems]; i++)
 			[[popupRoi itemAtIndex: i] setImage: [self imageForROI: (ToolMode)[[popupRoi itemAtIndex: i] tag]]];
 		
         int dim[3];
@@ -255,27 +266,34 @@ static float deg2rad = M_PI / 180.0;
         dim[1] = [firstObject pheight];
         dim[2] = [pix count];
         float spacing[3];
-        spacing[0]=[firstObject pixelSpacingX];
-        spacing[1]=[firstObject pixelSpacingY];
+        spacing[0] = [firstObject pixelSpacingX];
+        spacing[1] = [firstObject pixelSpacingY];
         float sliceThickness = [firstObject sliceInterval];   
         if (sliceThickness == 0)
         {
             NSLog(@"Slice interval = slice thickness!");
             sliceThickness = [firstObject sliceThickness];
         }
+
         spacing[2]=sliceThickness;
         float resamplesize=spacing[0];
-        if (dim[0]>256 || dim[1]>256)
+        if (dim[0]>256 ||
+            dim[1]>256)
         {
-            if (spacing[0]*(float)dim[0]>spacing[1]*(float)dim[1])
+            if (spacing[0] * (float)dim[0] > spacing[1] * (float)dim[1]) {
                 resamplesize = spacing[0]*(float)dim[0]/256.0;
+            }
             else {
                 resamplesize = spacing[1]*(float)dim[1]/256.0;
             }
-            
         }
-        assistant = [[FlyAssistant alloc] initWithVolume:(float*)[volume bytes] WidthDimension:dim Spacing:spacing ResampleVoxelSize:resamplesize];
+
+        assistant = [[FlyAssistant alloc] initWithVolume:(float*)[volume bytes]
+                                          WidthDimension:dim
+                                                 Spacing:spacing
+                                       ResampleVoxelSize:resamplesize];
         [assistant setCenterlineResampleStepLength:3.0];
+
         centerline = [[NSMutableArray alloc] init];
         nodeRemovalCost = [[NSMutableArray alloc] init];
         delHistory = [[NSMutableArray alloc] init];
@@ -287,35 +305,46 @@ static float deg2rad = M_PI / 180.0;
                                                                                                            @1.0F, @"CPRColorG",
                                                                                                            @0.0F, @"CPRColorB", nil]];
 		self.curvedPathCreationMode = YES;
+        
+        //NSLog(@"%s %d %@ %p", __FUNCTION__, __LINE__, NSStringFromClass([self class]), self);
         cprVolumeData = [[CPRVolumeData alloc] initWithWithPixList:pix volume:volume];
         cprView.volumeData = cprVolumeData;
+
         mprView1.delegate = self;
         mprView2.delegate = self;
         mprView3.delegate = self;
         cprView.delegate = self;
+
         mprView1.curvedPath = curvedPath;
         mprView2.curvedPath = curvedPath;
         mprView3.curvedPath = curvedPath;
 		cprView.curvedPath = curvedPath;
+
         mprView1.displayInfo = displayInfo;
         mprView2.displayInfo = displayInfo;
         mprView3.displayInfo = displayInfo;
+        cprView.displayInfo = displayInfo;
         topTransverseView.displayInfo = displayInfo;
         middleTransverseView.displayInfo = displayInfo;
         bottomTransverseView.displayInfo = displayInfo;
-		cprView.displayInfo = displayInfo;
+        
         topTransverseView.delegate = self;
         topTransverseView.curvedPath = curvedPath;
         topTransverseView.sectionType = CPRTransverseViewLeftSectionType;
+        
         middleTransverseView.delegate = self;
         middleTransverseView.curvedPath = curvedPath;
         middleTransverseView.sectionType = CPRTransverseViewCenterSectionType;
+        
         bottomTransverseView.delegate = self;
         bottomTransverseView.curvedPath = curvedPath;
         bottomTransverseView.sectionType = CPRTransverseViewRightSectionType;
+        
         topTransverseView.sectionWidth = cprView.generatedHeight;
         middleTransverseView.sectionWidth = cprView.generatedHeight;
         bottomTransverseView.sectionWidth = cprView.generatedHeight;
+        
+        //NSLog(@"%s %d %@ %p", __FUNCTION__, __LINE__, NSStringFromClass([self class]), self);
         topTransverseView.volumeData = cprView.volumeData;
         middleTransverseView.volumeData = cprView.volumeData;
         bottomTransverseView.volumeData = cprView.volumeData;
@@ -1217,7 +1246,7 @@ static float deg2rad = M_PI / 180.0;
     }    
 }
 
-#pragma mark ROI
+#pragma mark - ROI
 
 - (IBAction) roiGetInfo:(id) sender
 {
@@ -1341,7 +1370,7 @@ static float deg2rad = M_PI / 180.0;
 	[mprView3 detect2DPointInThisSlice];
 }
 
-#pragma mark Undo
+#pragma mark - Undo
 
 - (id) prepareObjectForUndo:(NSString*) string
 {
@@ -1522,7 +1551,7 @@ static float deg2rad = M_PI / 180.0;
 	}
 }
 
-#pragma mark LOD
+#pragma mark - LOD
 
 - (void) bestRendering:(id) sender
 {
@@ -1561,7 +1590,7 @@ static float deg2rad = M_PI / 180.0;
 	[mprView3 updateViewMPR];
 }
 
-#pragma mark Window Level / Window width
+#pragma mark - Window Level / Window width
 
 - (void)createWLWWMenuItems;
 {
@@ -1683,7 +1712,7 @@ static float deg2rad = M_PI / 180.0;
 	}	
 }
 
-#pragma mark CLUTs
+#pragma mark - CLUTs
 
 - (void)UpdateCLUTMenu:(NSNotification*)note
 {
@@ -1937,7 +1966,7 @@ static float deg2rad = M_PI / 180.0;
 	}
 }
 
-#pragma mark Opacity
+#pragma mark - Opacity
 
 -(void) UpdateOpacityMenu: (NSNotification*) note
 {
@@ -2122,7 +2151,7 @@ static float deg2rad = M_PI / 180.0;
 	}
 }
 
-#pragma mark GUI ObjectController - Cocoa Bindings
+#pragma mark - GUI ObjectController - Cocoa Bindings
 
 - (float) getClippingRangeThicknessInMm
 {
@@ -2311,7 +2340,7 @@ static float deg2rad = M_PI / 180.0;
     [cprView setClippingRangeMode:clippingRangeMode];
 }
 
-#pragma mark Export	
+#pragma mark - Export	
 
 // KVC methods for export
 
@@ -3468,40 +3497,36 @@ static float deg2rad = M_PI / 180.0;
 //    return 0;
 //}
 
-#pragma mark Path Loading And Saving
+#pragma mark - NSDraggingDestination
 
 - (NSDragOperation)draggingEntered:(id <NSDraggingInfo>)sender
 {
     if ((NSDragOperationGeneric & [sender draggingSourceOperationMask]) == NSDragOperationGeneric)
     {
-        //this means that the sender is offering the type of operation we want
-        //return that we want the NSDragOperationGeneric operation that they 
-        //are offering
-        return NSDragOperationGeneric;
+        // This means that the sender is offering the type of operation we want
+        // return that we want the NSDragOperationGeneric operation that they
+        // are offering
+        return NSDragOperationGeneric; // The operation can be defined by the destination.
     }
-    else
-    {
-        //since they aren't offering the type of operation we want, we have 
-        //to tell them we aren't interested
-        return NSDragOperationNone;
-    }
+
+    // Since they aren't offering the type of operation we want, we have
+    // to tell them we aren't interested
+    return NSDragOperationNone; // No drag operations are allowed.
 }
 
 - (NSDragOperation)draggingUpdated:(id <NSDraggingInfo>)sender
 {
     if ((NSDragOperationGeneric & [sender draggingSourceOperationMask]) == NSDragOperationGeneric)
     {
-        //this means that the sender is offering the type of operation we want
-        //return that we want the NSDragOperationGeneric operation that they 
-        //are offering
-        return NSDragOperationGeneric;
+        // This means that the sender is offering the type of operation we want
+        // return that we want the NSDragOperationGeneric operation that they
+        // are offering
+        return NSDragOperationGeneric; // The operation can be defined by the destination.
     }
-    else
-    {
-        //since they aren't offering the type of operation we want, we have 
-        //to tell them we aren't interested
-        return NSDragOperationNone;
-    }
+
+    // Since they aren't offering the type of operation we want, we have
+    // to tell them we aren't interested
+    return NSDragOperationNone; // No drag operations are allowed.
 }
 
 - (BOOL)prepareForDragOperation:(id <NSDraggingInfo>)sender
@@ -3532,6 +3557,8 @@ static float deg2rad = M_PI / 180.0;
     
     return NO;
 }
+
+#pragma mark - Path Loading And Saving
 
 - (IBAction) saveBezierPath: (id) sender
 {
@@ -3586,7 +3613,7 @@ static float deg2rad = M_PI / 180.0;
     }
 }
 
-#pragma mark NSWindow Notifications action
+#pragma mark - NSWindow Notifications action
 
 - (ViewerController*) viewer
 {
@@ -3645,7 +3672,7 @@ static float deg2rad = M_PI / 180.0;
 	}
 }
 
-#pragma mark Shadings
+#pragma mark - Shadings
 
 - (IBAction)switchShading:(id)sender;
 {
@@ -3725,7 +3752,7 @@ static float deg2rad = M_PI / 180.0;
 	[self findShadingPreset: self];
 }
 
-#pragma mark Toolbar
+#pragma mark - Toolbar
 
 - (void) setupToolbar
 {
@@ -4115,7 +4142,7 @@ static float deg2rad = M_PI / 180.0;
 	}
 }
 
-#pragma mark Axis / Mouse Position : Show / Hide
+#pragma mark - Axis / Mouse Position : Show / Hide
 
 - (void)toogleCPRAxisVisibility:(id) sender;
 {
@@ -4169,7 +4196,7 @@ static float deg2rad = M_PI / 180.0;
 	[self updateToolbarItems];
 }
 
-#pragma mark Blending
+#pragma mark - Blending
 
 - (void) changeWLWW: (NSNotification*) note
 {
@@ -4345,7 +4372,7 @@ static float deg2rad = M_PI / 180.0;
 	[self didChangeValueForKey: @"playStopButtonString"];
 }
 
-#pragma mark Axis Colors
+#pragma mark - Axis Colors
 
 - (void)setColorAxis1:(NSColor*)color;
 {
@@ -4392,7 +4419,7 @@ static float deg2rad = M_PI / 180.0;
 	[[NSUserDefaults standardUserDefaults] setFloat:[colorAxis3 alphaComponent] forKey:@"MPR_AXIS_3_ALPHA"];
 }
 
-#pragma mark CPR
+#pragma mark - CPR
 
 - (void) setCurvedPathCreationMode: (BOOL) m
 {
@@ -4822,7 +4849,7 @@ static float deg2rad = M_PI / 180.0;
     [pathSimplificationSlider setDoubleValue:[pathSimplificationSlider maxValue]];
 }
 
-#pragma mark CPRViewDelegate Methods
+#pragma mark - CPRViewDelegate Methods
 
 - (NSMutableArray *)_delegateCurveViewDebugging
 {

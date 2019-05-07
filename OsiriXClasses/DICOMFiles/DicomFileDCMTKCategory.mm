@@ -1,3 +1,9 @@
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
 /*=========================================================================
   Program:   OsiriX
 
@@ -134,20 +140,24 @@ extern NSRecursiveLock *PapyrusLock;
     //successfull lookup in dictionary -> translate to tag and return
     if (dicent)
         dcmkey = dicent->getKey();
-	dcmDataDict.unlock();
+
+    dcmDataDict.rdunlock();
 	
-	if( dcmkey.getGroup() != 0xffff && dcmkey.getElement() != 0xffff)
+	if (dcmkey.getGroup() != 0xffff &&
+        dcmkey.getElement() != 0xffff)
 	{
         [PapyrusLock lock];
         
         DcmFileFormat fileformat;
         
-        OFCondition status = fileformat.loadFile( [path UTF8String],  EXS_Unknown, EGL_noChange, DCM_MaxReadLength, ERM_autoDetect);
+        OFCondition status = fileformat.loadFile( [path UTF8String], EXS_Unknown, EGL_noChange, DCM_MaxReadLength, ERM_autoDetect);
         
         [PapyrusLock unlock];
         
         if (status.good())
-            return [DicomFile getDicomFieldForGroup: dcmkey.getGroup()  element:dcmkey.getElement() forDcmFileFormat: &fileformat];
+            return [DicomFile getDicomFieldForGroup: dcmkey.getGroup()
+                                            element: dcmkey.getElement()
+                                   forDcmFileFormat: &fileformat];
 	}
 	
 	return nil;

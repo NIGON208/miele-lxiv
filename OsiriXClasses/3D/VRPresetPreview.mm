@@ -1,3 +1,9 @@
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
 /*=========================================================================
   Program:   OsiriX
 
@@ -354,11 +360,7 @@
         volumeProperty->SetInterpolationTypeToNearest();
     else
         volumeProperty->SetInterpolationTypeToLinear();//SetInterpolationTypeToNearest();	//SetInterpolationTypeToLinear
-		
-	compositeFunction = vtkVolumeRayCastCompositeFunction::New();  // @@@ VTK_LEGACY_REMOVE (deprecated for VTK 7.0)
-//	compositeFunction->SetCompositeMethodToClassifyFirst();
-//	compositeFunction = vtkVolumeRayCastMIPFunction::New();
-	
+
 	LOD = 1.0;
 #if __ppc__
 	LOD += 0.5;
@@ -625,7 +627,10 @@
 
 - (void) dealloc
 {
-	NSLog(@"VRPresetPreview dealloc");
+#ifndef NDEBUG
+    NSLog(@"VRPresetPreview.mm:%d %@ dealloc %p", __LINE__, NSStringFromClass([self class]), self);
+#endif
+
 	volumeMapper = nil;
 	data8 = nil;
 	[super dealloc];

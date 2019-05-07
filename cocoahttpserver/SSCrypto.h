@@ -1,3 +1,10 @@
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
+
 /*
  Copyright (c) 2003-2006, Septicus Software All rights reserved.
  
@@ -35,16 +42,17 @@
 
 
 #import <Foundation/Foundation.h>
-#import <openssl/evp.h>
-#import <openssl/rand.h>
-#import <openssl/rsa.h>
-#import <openssl/engine.h>
-#import <openssl/sha.h>
-#import <openssl/pem.h>
-#import <openssl/bio.h>
-#import <openssl/err.h>
-#import <openssl/ssl.h>
-#import <openssl/md5.h>
+
+#import "openssl/evp.h"
+#import "openssl/rand.h"
+#import "openssl/rsa.h"
+#import "openssl/engine.h"
+#import "openssl/sha.h"
+#import "openssl/pem.h"
+#import "openssl/bio.h"
+#import "openssl/err.h"
+#import "openssl/ssl.h"
+#import "openssl/md5.h"
 
 @interface NSData (HexDump)
 - (NSString *)encodeBase64;

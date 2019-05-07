@@ -1,3 +1,9 @@
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
 /*=========================================================================
   Program:   OsiriX
 
@@ -157,8 +163,8 @@ static NSString*	PathAssistantToolbarItemIdentifier		= @"PathAssistant";
 	[toolbar release];
 	[super dealloc];
 }
-#pragma mark-
-#pragma mark Endoscopy Viewer methods
+
+#pragma mark - Endoscopy Viewer methods
 
 - (void) setCameraRepresentation: (NSNotification*) note
 {
@@ -496,8 +502,7 @@ static NSString*	PathAssistantToolbarItemIdentifier		= @"PathAssistant";
 	return pixList;
 }
 
-#pragma mark-
-#pragma mark Tools Selection
+#pragma mark - Tools Selection
 
 - (void)bringToFrontROI:(ROI*)roi;{}
 
@@ -526,8 +531,7 @@ static NSString*	PathAssistantToolbarItemIdentifier		= @"PathAssistant";
     }
 }
 
-#pragma mark-
-#pragma mark Orthogonal MPR Viewer methods
+#pragma mark - Orthogonal MPR Viewer methods
 
 - (void) blendingPropagateOriginal:(OrthogonalMPRView*) sender
 {
@@ -554,8 +558,7 @@ static NSString*	PathAssistantToolbarItemIdentifier		= @"PathAssistant";
 	[mprController toggleDisplayResliceAxes:self];
 }
 
-#pragma mark-
-#pragma mark VR Viewer methods
+#pragma mark - VR Viewer methods
 
 - (int) engine
 {
@@ -738,8 +741,7 @@ static NSString*	PathAssistantToolbarItemIdentifier		= @"PathAssistant";
 	return [vrController movieFrames];
 }
 
-#pragma mark-
-#pragma mark NSWindow related methods
+#pragma mark - NSWindow related methods
 
 - (void) CloseViewerNotification: (NSNotification*) note
 {
@@ -771,8 +773,7 @@ static NSString*	PathAssistantToolbarItemIdentifier		= @"PathAssistant";
 	[self autorelease];
 }
 
-#pragma mark-
-#pragma mark NSSplitview's delegate methods
+#pragma mark - NSSplitview's delegate methods
 
 - (BOOL)splitView:(NSSplitView *)sender canCollapseSubview:(NSView *)subview
 {
@@ -825,8 +826,7 @@ static NSString*	PathAssistantToolbarItemIdentifier		= @"PathAssistant";
 	}
 }
 
-#pragma mark-
-#pragma mark NSToolbar Related Methods
+#pragma mark - NSToolbar Related Methods
 
 - (void) setupToolbar {
     // Create a new toolbar instance, and attach it to our document window 
@@ -844,7 +844,7 @@ static NSString*	PathAssistantToolbarItemIdentifier		= @"PathAssistant";
 	[[self window] setShowsToolbarButton:NO];
 	[[[self window] toolbar] setVisible: YES];
 	
-	#ifdef EXPORTTOOLBARITEM
+#ifdef EXPORTTOOLBARITEM
 	NSLog(@"************** WARNING EXPORTTOOLBARITEM ACTIVATED");
 	for( id s in [self toolbarAllowedItemIdentifiers: toolbar])
 	{
@@ -893,7 +893,7 @@ static NSString*	PathAssistantToolbarItemIdentifier		= @"PathAssistant";
 			NSLog( @"b");
 		}
 	}
-	#endif
+#endif
 }
 
 - (IBAction) customizeViewerToolBar:(id)sender {
@@ -1144,9 +1144,7 @@ return YES;
     return enable;
 }
 
-
-#pragma mark-
-#pragma mark export
+#pragma mark - export
 
 - (IBAction) setExportAllViews: (id) sender
 {
@@ -1326,8 +1324,7 @@ return YES;
 	return [vrController curCLUTMenu];
 }
 
-#pragma mark-
-#pragma mark Path Assistant
+#pragma mark - Path Assistant
 
 - (IBAction)showPathAssistantPanel:(id)sender;
 {
@@ -1557,10 +1554,8 @@ return YES;
 	}
 }
 
-#pragma mark-
-#pragma mark Fly Assistant
-//assistant
-//
+#pragma mark - Fly Assistant
+
 - (void) initFlyAssistant:(NSData*) vData
 {
 	//init assistant

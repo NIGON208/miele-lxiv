@@ -1,3 +1,9 @@
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
 /*=========================================================================
  Program:   OsiriX
  
@@ -11,7 +17,6 @@
  the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
  PURPOSE.
  =========================================================================*/
-
 
 #import "O2DicomPredicateEditor.h"
 #import "O2DicomPredicateEditorView.h"
@@ -136,7 +141,8 @@
                 if (pka.count == 1) {
                     np = [pka lastObject];
                     [a replaceObjectAtIndex:i withObject:np];
-                } else {
+                }
+                else {
                     np = [NSCompoundPredicate andPredicateWithSubpredicates:pka];
                     if ([_dpert matchForPredicate:np])
                         [a replaceObjectAtIndex:i withObject:np];

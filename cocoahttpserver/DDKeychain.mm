@@ -1,3 +1,10 @@
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original version of this file had no header
+
 #include "url.h"
 #import "DDKeychain.h"
 #import "DICOMTLS.h"
@@ -37,12 +44,9 @@ SecPolicySearchCreate:
 	return (status);
 }
 
-
 @implementation DDKeychain
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-#pragma mark Server:
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+#pragma mark - Server
 
 /**
  * Retrieves the password stored in the keychain for the HTTP server.
@@ -140,9 +144,7 @@ SecPolicySearchCreate:
 	return (status == noErr);
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-#pragma mark Identity:
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+#pragma mark - Identity
 
 /**
  * This method creates a new identity, and adds it to the keychain.
@@ -517,9 +519,7 @@ SecPolicySearchCreate:
 	return result;
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-#pragma mark Utilities:
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+#pragma mark - Utilities
 
 /**
  * Creates (if necessary) and returns a temporary directory for the application.
@@ -1122,7 +1122,7 @@ SecPolicySearchCreate:
 	}
 }
 
-#pragma mark Other Utilities
+#pragma mark - Other Utilities
 
 + (void)generatePseudoRandomFileToPath:(NSString*)path;
 {

@@ -1,3 +1,9 @@
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
 /*
  Copyright (C) 2007-2009 Stig Brautaset. All rights reserved.
  
@@ -48,8 +54,7 @@
     [super dealloc];
 }
 
-#pragma mark Writer 
-
+#pragma mark - Writer
 
 - (NSString *)stringWithObject:(id)obj {
     NSString *repr = [jsonWriter stringWithObject:obj];
@@ -113,7 +118,7 @@
                             error:error];
 }
 
-#pragma mark Parsing
+#pragma mark - Parsing
 
 - (id)objectWithString:(NSString *)repr {
     id obj = [jsonParser objectWithString:repr];
@@ -178,9 +183,7 @@
                             error:error];
 }
 
-
-
-#pragma mark Properties - parsing
+#pragma mark - Properties - parsing
 
 - (NSUInteger)maxDepth {
     return jsonParser.maxDepth;
@@ -190,8 +193,7 @@
      jsonWriter.maxDepth = jsonParser.maxDepth = d;
 }
 
-
-#pragma mark Properties - writing
+#pragma mark - Properties - writing
 
 - (BOOL)humanReadable {
     return jsonWriter.humanReadable;

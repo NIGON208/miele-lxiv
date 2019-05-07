@@ -1,3 +1,9 @@
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
 /*=========================================================================
  Program:   OsiriX
  
@@ -272,9 +278,11 @@ NSString* const OSIPasteboardTypeCodingROI = @BUNDLE_IDENTIFIER@".codingROI";
     if ([self conformsToProtocol:@protocol(NSCoding)]) {
         [types addObject:OSIPasteboardTypeCodingROI];
     }
+    
     if ([self maskROIRepresention] != nil) {
         [types addObject:OSIPasteboardTypeMaskROI];
     }
+    
     return types;
 }
 
@@ -283,15 +291,18 @@ NSString* const OSIPasteboardTypeCodingROI = @BUNDLE_IDENTIFIER@".codingROI";
     if ([type isEqualToString:OSIPasteboardTypeMaskROI] && [self isKindOfClass:[OSIMaskROI class]] == NO) {
         OSIMaskROI *maskROI = [self maskROIRepresention];
         return [NSKeyedArchiver archivedDataWithRootObject:maskROI];
-    } if ([self conformsToProtocol:@protocol(NSCoding)]) {
-        return [NSKeyedArchiver archivedDataWithRootObject:(id<NSCoding>)self];
-    } else {
-        return nil;
     }
+    
+    if ([self conformsToProtocol:@protocol(NSCoding)]) {
+        return [NSKeyedArchiver archivedDataWithRootObject:(id<NSCoding>)self];
+    }
+
+    return nil;
 }
 
-
 @end
+
+#pragma mark -
 
 @implementation OSIROI (Private)
 

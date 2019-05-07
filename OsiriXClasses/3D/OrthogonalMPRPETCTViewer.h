@@ -1,3 +1,9 @@
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
 /*=========================================================================
   Program:   OsiriX
 
@@ -165,12 +171,12 @@
 - (void)dcmExportTextFieldDidChange:(NSNotification *)note;
 
 // 4D
-- (void) MoviePlayStop:(id) sender;
+- (IBAction) MoviePlayStop:(id) sender;
 - (short) curMovieIndex;
 - (short) maxMovieIndex;
 - (void) setMovieIndex: (short) i;
-- (void) movieRateSliderAction:(id) sender;
-- (void) moviePosSliderAction:(id) sender;
+- (IBAction) movieRateSliderAction:(id) sender;
+- (IBAction) moviePosSliderAction:(id) sender;
 
 - (void)bringToFrontROI:(ROI*)roi;
 - (void)setMode:(long)mode toROIGroupWithID:(NSTimeInterval)groupID;

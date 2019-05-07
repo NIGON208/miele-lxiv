@@ -1,6 +1,14 @@
 //
 //  OSIMaskROI.m
 //  Miele_LXIV
+
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
+
 //
 //  Created by Joël Spaltenstein on 9/26/12.
 //  Copyright (c) 2012 OsiriX Team. All rights reserved.
@@ -56,13 +64,15 @@
             _mask = [mask retain];
             _volumeTransform = volumeTransform;
             _name = [name retain];
-        } else {
+        }
+        else {
             OSIROIMask *mappedMask = [self.mask ROIMaskByResamplingFromVolumeTransform:volumeTransform toVolumeTransform:floatVolumeData.volumeTransform interpolationMode:CPRInterpolationModeNearestNeighbor];
             _mask = [[mappedMask ROIMaskCroppedToWidth:floatVolumeData.pixelsWide height:floatVolumeData.pixelsHigh depth:floatVolumeData.pixelsDeep] retain];
             _volumeTransform = floatVolumeData.volumeTransform;
             _name = [name retain];
         }
 	}
+
     return self;
 }
 
@@ -182,7 +192,8 @@
         _mask = [newMask retain];
         [[NSNotificationCenter defaultCenter] postNotificationName:OsirixVolumetricROIDidUpdateNotification object:self userInfo:nil];
         [self didChangeValueForKey:@"mask"];
-    } else {
+    }
+    else {
         self.mask = [self.mask ROIMaskByUnioningWithMask:mask];
     }
 }
@@ -230,7 +241,8 @@
         _mask = [newMask retain];
         [[NSNotificationCenter defaultCenter] postNotificationName:OsirixVolumetricROIDidUpdateNotification object:self userInfo:nil];
         [self didChangeValueForKey:@"mask"];
-    } else {
+    }
+    else {
         self.mask = [self.mask ROIMaskBySubtractingMask:mask];
     }
 }
@@ -504,9 +516,9 @@
     if (cachedMinWidth <= minWidth && cachedMinHeight <= minHeight && cachedMinDepth <= minDepth &&
         cachedMaxWidth >= maxWidth && cachedMaxHeight >= maxHeight && cachedMaxDepth >= maxDepth) {
         return YES;
-    } else {
-        return NO;
     }
+
+    return NO;
 }
 
 - (OSIROIMask *)ROIMaskWithSphereDiameter:(CGFloat)diameter atDicomVector:(N3Vector)position

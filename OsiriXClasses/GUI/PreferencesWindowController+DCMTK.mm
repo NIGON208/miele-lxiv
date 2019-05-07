@@ -1,3 +1,9 @@
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
 /*=========================================================================
   Program:   OsiriX
 
@@ -29,7 +35,6 @@
 #define INCLUDE_CTIME
 #include "dcmtk/ofstd/ofstdinc.h"
 
-
 @implementation PreferencesWindowController (DCMTK)
 
 - (NSArray*) prepareDICOMFieldsArrays
@@ -39,7 +44,7 @@
 	
 	DcmDictEntryList list;
     DcmHashDictIterator iter(globalDataDict.normalBegin());
-    for( int x = 0; x < globalDataDict.numberOfNormalTagEntries(); ++iter, x++)
+    for ( int x = 0; x < globalDataDict.numberOfNormalTagEntries(); ++iter, x++)
     {
         if ((*iter)->getPrivateCreator() == NULL) // exclude private tags
         {
@@ -57,7 +62,7 @@
     {
 		e = *listIter;
 		
-		if( e->getGroup() > 0)
+		if ( e->getGroup() > 0)
 		{
 //			NSString	*s = [NSString stringWithFormat:@"(0x%04x,0x%04x) %s", e->getGroup(), e->getElement(), e->getTagName()];
 					
@@ -72,7 +77,7 @@
 		}
     }
 	
-	dcmDataDict.unlock();
+	dcmDataDict.rdunlock();
 	
 	return DICOMFieldsArray;
 }

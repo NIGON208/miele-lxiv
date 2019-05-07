@@ -1,3 +1,9 @@
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
 /*=========================================================================
  Program:   OsiriX
 
@@ -24,11 +30,11 @@
 //#include "vtkOpenGLRenderer.h"
 #undef id
 
-#import "VTKViewOSIRIX.h"
+#import "vtkMieleView.h"
 
 #import "DefaultsOsiriX.h"
 
-@implementation VTKView
+@implementation vtkMieleView
 
 -(id)initWithFrame:(NSRect)frame
 {
@@ -42,7 +48,9 @@
 
 -(void)dealloc
 {
-	NSLog( @"VTKView dealloc");
+#ifndef NDEBUG
+    NSLog(@"vtkMieleView.mm:%d %@ dealloc %p", __LINE__, NSStringFromClass([self class]), self);
+#endif
     [self cleanUpVTKSupport];
     [super dealloc];
 }

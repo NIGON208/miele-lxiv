@@ -1,3 +1,9 @@
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
 /*=========================================================================
  Program:   OsiriX
  
@@ -78,7 +84,7 @@ extern NSString* const O2ScreenCapturesSeriesName;
 
 -(DataNodeIdentifier*)dataNodeIdentifier;
 
-#pragma mark Entities
+#pragma mark - Entities
 extern NSString* const DicomDatabaseImageEntityName;
 extern NSString* const DicomDatabaseSeriesEntityName;
 extern NSString* const DicomDatabaseStudyEntityName;
@@ -90,7 +96,7 @@ extern NSString* const DicomDatabaseLogEntryEntityName;
 -(NSEntityDescription*)albumEntity;
 -(NSEntityDescription*)logEntryEntity;
 
-#pragma mark Paths
+#pragma mark - Paths
 // these paths are inside baseDirPath
 // -(NSString*)sqlFilePath; // this is already defined in N2ManagedDatabase
 -(NSString*)modelVersionFilePath; // this should become private
@@ -114,7 +120,7 @@ extern NSString* const DicomDatabaseLogEntryEntityName;
 -(NSUInteger)computeDataFileIndex; // this method should be private, but is declared because called from deprecated api
 -(NSString*)uniquePathForNewDataFileWithExtension:(NSString*)ext;
 
-#pragma mark Albums
+#pragma mark - Albums
 -(void)addDefaultAlbums;
 -(NSArray*)albums;
 +(NSPredicate*)predicateForSmartAlbumFilter:(NSString*)string;
@@ -122,7 +128,7 @@ extern NSString* const DicomDatabaseLogEntryEntityName;
 -(void) loadAlbumsFromPath:(NSString*) path;
 -(void)addStudies:(NSArray*)dicomStudies toAlbum:(DicomAlbum*)dicomAlbum;
 
-#pragma mark Add files
+#pragma mark - Add files
 -(NSArray*)addFilesAtPaths:(NSArray*)paths;
 -(NSArray*)addFilesAtPaths:(NSArray*)paths postNotifications:(BOOL)postNotifications;	
 -(NSArray*)addFilesAtPaths:(NSArray*)paths postNotifications:(BOOL)postNotifications dicomOnly:(BOOL)dicomOnly rereadExistingItems:(BOOL)rereadExistingItems;	
@@ -134,7 +140,7 @@ extern NSString* const DicomDatabaseLogEntryEntityName;
 -(NSArray*)addFilesDescribedInDictionaries:(NSArray*)dicomFilesArray postNotifications:(BOOL)postNotifications rereadExistingItems:(BOOL)rereadExistingItems generatedByOsiriX:(BOOL)generatedByOsiriX returnArray: (BOOL) returnArray;
 -(NSArray*)addFilesDescribedInDictionaries:(NSArray*)dicomFilesArray postNotifications:(BOOL)postNotifications rereadExistingItems:(BOOL)rereadExistingItems generatedByOsiriX:(BOOL)generatedByOsiriX importedFiles: (BOOL) importedFiles returnArray: (BOOL) returnArray;
 
-#pragma mark Incoming
+#pragma mark - Incoming
 -(BOOL)isFileSystemFreeSizeLimitReached;
 -(BOOL) hasFilesToImport;
 -(NSInteger)importFilesFromIncomingDir;
@@ -145,7 +151,7 @@ extern NSString* const DicomDatabaseLogEntryEntityName;
 -(void)importFilesFromIncomingDirThread;
 +(void)syncImportFilesFromIncomingDirTimerWithUserDefaults; // called from deprecated API
 
-#pragma mark Compress/decompress
+#pragma mark - Compress/decompress
 -(BOOL)compressFilesAtPaths:(NSArray*)paths;
 -(BOOL)compressFilesAtPaths:(NSArray*)paths intoDirAtPath:(NSString*)destDir;
 -(BOOL)decompressFilesAtPaths:(NSArray*)paths;
@@ -156,7 +162,8 @@ extern NSString* const DicomDatabaseLogEntryEntityName;
 -(void)initiateDecompressFilesAtPaths:(NSArray*)paths intoDirAtPath:(NSString*)destDir;
 -(void)processFilesAtPaths:(NSArray*)paths intoDirAtPath:(NSString*)destDir mode:(int)mode;
 
-#pragma mark Other
+#pragma mark - Other
+
 -(BOOL)rebuildAllowed;
 // some of these methods should be private, but is declared because called from deprecated api
 -(void)rebuild;

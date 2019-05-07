@@ -1,3 +1,9 @@
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
 /*=========================================================================
   Program:   OsiriX
 
@@ -93,16 +99,22 @@
 #import "url.h"
 #import "tmp_locations.h"
 
-#import "vtkVersionMacros.h"    // for VTK version
-#import "itkVersion.h"          // for ITK version
-#import "dcmtk/dcmdata/dcuid.h" // for DCMTK version
-#import "dcmtk/dcmjpls/djdecode.h" // for JPEG-LS version
+#import "vtkVersionMacros.h"        // for VTK version
+#import "itkVersion.h"              // for ITK version
+#import "dcmtk/config/osconfig.h"   // for WITH_ZLIB, WITH_OPENSSL
+#import "dcmtk/dcmdata/dcuid.h"     // for DCMTK version
+#import "dcmtk/dcmjpls/djdecode.h"  // for JPEG-LS version
 #import "opj_config.h"
 //#include "openjpeg-2.2/opj_config.h"
+
+#ifdef WITH_OPENSSL
+#include "openssl/crypto.h"             // for OpenSSL_version()
+#endif
 
 #ifdef WITH_ZLIB
 #include <zlib.h>               // for zlibVersion()
 #endif
+
 #ifdef VTK_USE_SYSTEM_TIFF
 #include <tiffio.h>
 #else
@@ -676,24 +688,14 @@ void exceptionHandler(NSException *exception)
 
 ////////////////////////////////////////////////////////////////////////////////
 
+#ifdef WITH_IMPORTANT_NOTICE
 static NSDate *lastWarningDate = nil;
-
+#endif
 
 @implementation AppController
 
 @synthesize checkAllWindowsAreVisibleIsOff, filtersMenu, windowsTilingMenuRows, recentStudiesMenu, windowsTilingMenuColumns, isSessionInactive, dicomBonjourPublisher = BonjourDICOMService, XMLRPCServer;
 @synthesize bonjourPublisher = _bonjourPublisher;
-
-//+(BOOL) hasMacOSX1083
-//{
-//    NSOperatingSystemVersion version = [[NSProcessInfo processInfo] operatingSystemVersion];
-//    if (version.majorVersion == 10 &&
-//        version.minorVersion == 8 &&
-//        version.patchVersion == 3)
-//        return YES;
-//
-//    return NO;
-//}
 
 +(BOOL) hasMacOSX_AfterMojave
 {
@@ -3018,6 +3020,9 @@ static BOOL initialized = NO;
                 NSLog(@"DCMTK %s %s", OFFIS_DCMTK_VERSION, OFFIS_DCMTK_RELEASEDATE);
                 NSLog(@"JPEG-LS %s", DJLSDecoderRegistration::getLibraryVersionString().c_str());
                 NSLog(@"OpenJPEG %d.%d.%d", OPJ_VERSION_MAJOR, OPJ_VERSION_MINOR, OPJ_VERSION_BUILD);
+#ifdef WITH_OPENSSL
+                NSLog(@"%s", OpenSSL_version(OPENSSL_VERSION));
+#endif
 #ifdef WITH_ZLIB
                 NSLog(@"ZLIB %s", zlibVersion());
 #endif
@@ -3032,9 +3037,10 @@ static BOOL initialized = NO;
                     NSLog(@"OpenGL version:%s, extension:%s", strVersion, strExtension);
                 }
                 
-                NSArray *components = [[[NSBundle mainBundle] pathForResource: @"Localizable" ofType: @"strings"] pathComponents];
-                if (components.count > 3)
-                    NSLog(@"Localization: %@", [components objectAtIndex: components.count -2]);
+                NSMutableArray *components = [[[NSBundle mainBundle] localizations] mutableCopy];
+                if ([components containsObject:@"Base"])
+                    [components removeObject:@"Base"];
+                NSLog(@"Localizations (%u): %@", (unsigned)([components count]), [components componentsJoinedByString:@", "]);
 #ifndef NDEBUG
                 NSLog(@"NSTemporaryDirectory()_: %@", NSTemporaryDirectory());
                 NSLog(@"NSHomeDirectory()______: %@", NSHomeDirectory());
@@ -3444,8 +3450,7 @@ static BOOL initialized = NO;
 	}	
 }
 
-#pragma mark-
-#pragma mark growl
+#pragma mark - growl
 
 - (void) growlTitle:(NSString*) title
         description:(NSString*) description
@@ -3467,7 +3472,7 @@ static BOOL initialized = NO;
 #endif
 }
 
-#pragma mark-
+#pragma mark -
 
 - (void) killDICOMListenerWait: (BOOL) wait
 {
@@ -4642,11 +4647,11 @@ static BOOL initialized = NO;
 
 ////////////////////////////////////////////////////////////////////////////////
 
-- (id) FindViewer:(NSString*) nib :(NSArray*) pixList
+- (id) FindViewer:(NSString*) nibName :(NSArray*) pixList
 {
 	for (id loopItem in [NSApp windows])
 	{
-		if ([[[loopItem windowController] windowNibName] isEqualToString: nib])
+		if ([[[loopItem windowController] windowNibName] isEqualToString: nibName])
 		{
 			if ([[loopItem windowController] pixList] == pixList)
 				return [loopItem windowController];
@@ -5811,16 +5816,12 @@ static BOOL initialized = NO;
 	[ViewerController closeAllWindows];
 }
 
-////////////////////////////////////////////////////////////////////////////////
-
-#pragma mark-
-#pragma mark HTML Templates
+#pragma mark - HTML Templates
 + (void)checkForHTMLTemplates { // __deprecated
 	[[[BrowserController currentBrowser] database] checkForHtmlTemplates];
 }
 
-#pragma mark-
-#pragma mark 12 Bit Display support.
+#pragma mark - 12 Bit Display support.
 
 + (BOOL)canDisplay12Bit;
 {
@@ -5919,7 +5920,8 @@ static NSMutableDictionary* _receivingDict = nil;
 				[_receivingDict setObject: setCount = [N2MutableUInteger mutableUIntegerWithUInteger:1] forKey:threadValue];
 			else
                 [setCount increment];
-		} else {
+		}
+        else {
 			if (setCount) {
                 if (setCount.unsignedIntegerValue > 0)
                     [setCount decrement];

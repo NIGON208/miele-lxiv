@@ -1,3 +1,9 @@
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
 /*=========================================================================
   Program:   OsiriX
 
@@ -447,7 +453,11 @@ typedef NS_ENUM(NSUInteger, MyScrollMode) {
 - (IBAction) alwaysSyncMenu:(id) sender;
 - (void) getCLUT:( unsigned char**) r : (unsigned char**) g : (unsigned char**) b;
 - (void) sync:(NSNotification*)note;
-- (id)initWithFrame:(NSRect)frame imageRows:(int)rows imageColumns:(int)columns;
+
+- (instancetype)initWithFrame:(NSRect)frame
+                    imageRows:(int)rows
+                 imageColumns:(int)columns;
+
 - (float)getSUV;
 - (IBAction) roiLoadFromXMLFiles: (NSArray*) filenames;
 - (BOOL)checkHasChanged;

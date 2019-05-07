@@ -1,6 +1,14 @@
 //
 //  OSIPlanarBrushROI.m
 //  Miele_LXIV
+
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
+
 //
 //  Created by Joël Spaltenstein on 9/26/11.
 //  Copyright 2011 OsiriX Team. All rights reserved.

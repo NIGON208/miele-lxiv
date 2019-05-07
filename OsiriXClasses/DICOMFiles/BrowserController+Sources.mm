@@ -1,3 +1,9 @@
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
 /*=========================================================================
  Program:   OsiriX
  
@@ -1150,30 +1156,34 @@ static void* const SearchDicomNodesContext = @"SearchDicomNodesContext";
 }
 
 
--(NSDragOperation)tableView:(NSTableView*)tableView validateDrop:(id<NSDraggingInfo>)info proposedRow:(NSInteger)row proposedDropOperation:(NSTableViewDropOperation)operation
+-(NSDragOperation)tableView:(NSTableView*)tableView
+               validateDrop:(id<NSDraggingInfo>)info
+                proposedRow:(NSInteger)row
+      proposedDropOperation:(NSTableViewDropOperation)operation
 {
     if( operation != NSTableViewDropOn)
-        return NSDragOperationNone;
+        return NSDragOperationNone; // No drag operations are allowed.
     
 	NSInteger selectedDatabaseIndex = [_browser rowForDatabase:_browser.database];
 	if (row == selectedDatabaseIndex)
-		return NSDragOperationNone;
+		return NSDragOperationNone; // No drag operations are allowed.
 	
 	if (row >= _browser.sourcesCount && _browser.database != DicomDatabase.defaultDatabase)
     {
 		[tableView setDropRow:[_browser rowForDatabase:DicomDatabase.defaultDatabase] dropOperation:NSTableViewDropOn];
-		return NSDragOperationCopy;
+		return NSDragOperationCopy; // The data can be copied.
 	}
 	
 	if (row < [_browser sourcesCount])
     {
 		if ([[_browser sourceIdentifierAtRow:row] isReadOnly])
-			return NSDragOperationNone;
+			return NSDragOperationNone; // No drag operations are allowed.
+
 		[tableView setDropRow:row dropOperation:NSTableViewDropOn];
-		return NSDragOperationCopy;
+		return NSDragOperationCopy; // The data can be copied.
 	}
 	
-	return NSDragOperationNone;
+	return NSDragOperationNone; // No drag operations are allowed.
 }
 
 -(BOOL)tableView:(NSTableView*)tableView acceptDrop:(id<NSDraggingInfo>)info row:(NSInteger)row dropOperation:(NSTableViewDropOperation)operation

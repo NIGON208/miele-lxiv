@@ -1,3 +1,9 @@
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
 /*=========================================================================
  Program:   OsiriX
  
@@ -110,45 +116,43 @@ static NSString *dragType = @"Osirix Series Viewer Drag";
 
 - (void)draggingSession:(NSDraggingSession *)session endedAtPoint:(NSPoint)screenPoint operation:(NSDragOperation)operation
 {
-    if( operation == NSDragOperationNone)
+    if (operation != NSDragOperationNone)
+        return;
+
+    NSWindow *w = [[NSApplication sharedApplication] windowWithWindowNumber: [NSWindow windowNumberAtPoint: screenPoint belowWindowWithWindowNumber:0]];
+    
+    NSScreen *screen = nil;
+    
+    for (NSScreen *s in [[AppController sharedAppController] viewerScreens])
     {
-        NSWindow *w = [[NSApplication sharedApplication] windowWithWindowNumber: [NSWindow windowNumberAtPoint: screenPoint belowWindowWithWindowNumber:0]];
+        if (NSPointInRect(screenPoint, s.frame))
+            screen = s;
+    }
+    
+    NSRect usefulRect = NSMakeRect(0, 0, 0, 0);
+    
+    if (screen)
+        usefulRect = [AppController usefullRectForScreen: screen];
+    
+    if (fabs(screenPoint.x - draggingStartingPoint.x) > 50 &&
+        [w.windowController isKindOfClass: [ThumbnailsListPanel class]] == NO &&
+        screen &&
+        NSPointInRect( screenPoint, usefulRect))
+    {
+        ViewerController *newViewer = [[BrowserController currentBrowser] loadSeries :[[[self selectedCell] representedObject] object] :nil :YES keyImagesOnly: NO];
+        [newViewer setHighLighted: 1.0];
+        if ( [[NSUserDefaults standardUserDefaults] boolForKey: @"AUTOTILING"])
+            [NSApp sendAction: @selector(tileWindows:) to:nil from: self];
+        else
+            [[AppController sharedAppController] checkAllWindowsAreVisible: self makeKey: YES];
         
-        NSScreen *screen = nil;
-        
-        for( NSScreen *s in [[AppController sharedAppController] viewerScreens])
-        {
-            if( NSPointInRect(screenPoint, s.frame))
-                screen = s;
-        }
-        
-        NSRect usefulRect = NSMakeRect(0, 0, 0, 0);
-        
-        if( screen)
-            usefulRect = [AppController usefullRectForScreen: screen];
-        
-        if( fabs( screenPoint.x - draggingStartingPoint.x) > 50 && [w.windowController isKindOfClass: [ThumbnailsListPanel class]] == NO && screen && NSPointInRect( screenPoint, usefulRect))
-        {
-            ViewerController *newViewer = [[BrowserController currentBrowser] loadSeries :[[[self selectedCell] representedObject] object] :nil :YES keyImagesOnly: NO];
-            [newViewer setHighLighted: 1.0];
-            if( [[NSUserDefaults standardUserDefaults] boolForKey: @"AUTOTILING"])
-                [NSApp sendAction: @selector(tileWindows:) to:nil from: self];
-            else
-                [[AppController sharedAppController] checkAllWindowsAreVisible: self makeKey: YES];
-            
-            [newViewer.window makeKeyAndOrderFront: self];
-        }
+        [newViewer.window makeKeyAndOrderFront: self];
     }
 }
 
 - (NSDragOperation)draggingSession:(NSDraggingSession *)session sourceOperationMaskForDraggingContext:(NSDraggingContext)context
 {
-    return NSDragOperationEvery;
-}
-
-- (NSDragOperation) draggingSourceOperationMaskForLocal:(BOOL)isLocal
-{
-	return NSDragOperationEvery;
+    return NSDragOperationEvery; // All: Copy Link Generic Private Move Delete
 }
 
 - (void) actionAndFullscreen: (id) cell
@@ -166,7 +170,6 @@ static NSString *dragType = @"Osirix Series Viewer Drag";
     @catch (NSException *exception) {
         N2LogException( exception);
     }
-    
 }
 
 - (void)mouseDown:(NSEvent*)event
@@ -295,6 +298,8 @@ static NSString *dragType = @"Osirix Series Viewer Drag";
 }
 
 @end
+
+#pragma mark -
 
 @implementation O2ViewerThumbnailsMatrixRepresentedObject
 

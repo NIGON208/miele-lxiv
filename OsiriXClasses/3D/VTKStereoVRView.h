@@ -1,4 +1,9 @@
-#ifdef _STEREO_VISION_
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
 
 /*=========================================================================
   Program:   OsiriX
@@ -13,6 +18,7 @@
      the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
      PURPOSE.
 =========================================================================*/
+#ifdef _STEREO_VISION_
 
 #import <Cocoa/Cocoa.h>
 #import <AppKit/AppKit.h>
@@ -20,7 +26,7 @@
 //#import	"VRView+StereoVision.h"
 #ifdef __cplusplus
 #import "vtkCocoaGLView.h"
-#import "VTKViewOSIRIX.h"
+#import "vtkMieleView.h"
 
 
 //#import "vtkCocoaWindow.h"
@@ -47,13 +53,11 @@ typedef char* vtkCamera;
 
 @class VRView;
 
-@interface VTKStereoVRView : VTKView {
-	
-	NSCursor					*cursor;
-	BOOL						cursorSet;
-
-	VRView						*superVRView;
-	
+@interface VTKStereoVRView : vtkMieleView
+{
+	NSCursor *cursor;
+	BOOL cursorSet;
+	VRView *superVRView;
 }
 
 //-(id)initWithFrame:(NSRect)frame;

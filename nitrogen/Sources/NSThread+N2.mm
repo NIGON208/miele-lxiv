@@ -1,3 +1,9 @@
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
 /*=========================================================================
  Program:   OsiriX
  
@@ -41,7 +47,7 @@
 
 NSString* const NSThreadNameKey = @"name";
 
-#pragma mark Id
+#pragma mark - Id
 
 NSString* const NSThreadUniqueIdKey = @"uniqueId";
 
@@ -94,7 +100,7 @@ NSString* const NSThreadIsCancelledKey = @"isCancelled";
 	}
 }
 
-#pragma mark Stack
+#pragma mark - Stack
 
 static NSString* const NSThreadStackArrayKey = @"NSThreadStackArrayKey";
 
@@ -192,7 +198,7 @@ static NSString* const SuperThreadNameKey = @"SuperThreadName";
 	[self exitOperation];
 }
 
-#pragma mark Properties
+#pragma mark - Properties
 
 NSString* const NSThreadSupportsCancelKey = @"supportsCancel";
 

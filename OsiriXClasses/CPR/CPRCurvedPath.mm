@@ -1,3 +1,9 @@
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
 /*=========================================================================
  Program:   OsiriX
  
@@ -541,13 +547,14 @@ static CPRCurvedPathControlToken _controlTokenForElement(NSInteger element)
 {
 	N3Plane plane;
 	
-	if( [self.bezierPath isPlanar]) {
+	if ([self.bezierPath isPlanar]) {
 		plane = [self.bezierPath leastSquaresPlane];
 		if (ABS(N3VectorDotProduct(N3VectorNormalize(self.initialNormal), N3VectorNormalize(plane.normal))) > 0.9999 /*~cos(1deg)*/) {
 			return YES;
 		}
 	}
-	return NO;
+
+    return NO;
 }
 
 - (CGFloat)leftTransverseSectionPosition

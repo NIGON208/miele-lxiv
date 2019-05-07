@@ -1,3 +1,9 @@
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
 /*=========================================================================
   Program:   OsiriX
 
@@ -12,8 +18,6 @@
      PURPOSE.
 =========================================================================*/
 
-
-
 #import <Cocoa/Cocoa.h>
 #import "OrthogonalMPRController.h"
 #import "VRController.h"
@@ -26,7 +30,6 @@
 
 /** \brief   Window Controller for Endoscopy
 */
-
 
 @interface EndoscopyViewer : Window3DController <NSToolbarDelegate, NSWindowDelegate, NSSplitViewDelegate>
 {
@@ -106,36 +109,31 @@
 - (void) Apply2DCLUT:(id) sender;
 - (void) setCameraPosition:(OSIVoxel *)position  focalPoint:(OSIVoxel *)focalPoint;
 
-
-#pragma mark-
-#pragma mark VR Viewer methods
+#pragma mark - VR Viewer methods
 - (void) ApplyWLWW:(id) sender;
 
-#pragma mark-
-#pragma mark Tools Selection
+#pragma mark - Tools Selection
 - (IBAction) change2DTool:(id) sender;
 - (IBAction) change3DTool:(id) sender;
-#pragma mark-
-#pragma mark NSSplitview's delegate methods
+
+#pragma mark - NSSplitview's delegate methods
 - (void)splitViewDidResizeSubviews:(NSNotification *)aNotification;
 
-#pragma mark-
-#pragma mark export
+#pragma mark - export
 - (IBAction) setExportAllViews: (id) sender;
 - (BOOL) exportAllViews;
 - (IBAction) endDCMExportSettings:(id) sender;
 - (unsigned char*) getRawPixels:(long*) width :(long*) height :(long*) spp :(long*) bpp;
-#pragma mark-
-#pragma mark path assistant
+
+#pragma mark - path assistant
 - (IBAction)showPathAssistantPanel:(id)sender;
 - (IBAction)pathAssistantSetPointA:(id)sender;
 - (IBAction)pathAssistantSetPointB:(id)sender;
 - (IBAction)pathAssistantBasicModeButtonAction:(id)sender;
 - (IBAction)pathAssistantChangeMode:(id)sender;
 - (IBAction)pathAssistantExportToFlyThru:(id)sender;
-#pragma mark-
-#pragma mark fly assistant
-//assistant
+
+#pragma mark - fly assistant
 - (void) initFlyAssistant:(NSData*) vData;
 - (void) flyThruAssistantGoForward: (NSNotification*)note;
 - (void) flyThruAssistantGoBackward: (NSNotification*)note;

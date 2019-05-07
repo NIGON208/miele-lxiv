@@ -1,3 +1,9 @@
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
 /*=========================================================================
   Program:   OsiriX
 
@@ -12,11 +18,9 @@
      PURPOSE.
 =========================================================================*/
 
-
 #import "AnonymizationPanelController.h"
 #import "AnonymizationViewController.h"
 #import "NSFileManager+N2.h"
-
 
 @interface AnonymizationPanelController ()
 
@@ -54,7 +58,7 @@
 	[super dealloc];
 }
 
-#pragma mark Panel
+#pragma mark - Panel
 
 -(IBAction)actionOk:(NSView*)sender {
 	end = AnonymizationPanelOk;

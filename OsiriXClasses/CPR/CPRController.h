@@ -1,3 +1,9 @@
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
 /*=========================================================================
  Program:   OsiriX
  
@@ -83,6 +89,7 @@ typedef NSInteger CPRExportRotationSpan;
 	IBOutlet CPRMPRDCMView *mprView1, *mprView2, *mprView3;
     IBOutlet CPRView *cprView;
     IBOutlet CPRTransverseView *topTransverseView, *middleTransverseView, *bottomTransverseView;
+
 	IBOutlet NSSplitView *horizontalSplit1, *horizontalSplit2, *verticalSplit;
     IBOutlet NSView *tbStraightenedCPRAngle;
     double straightenedCPRAngle; // this is in degrees, the CPRView uses radians
@@ -222,7 +229,12 @@ typedef NSInteger CPRExportRotationSpan;
 
 + (double) angleBetweenVector:(float*) a andPlane:(float*) orientation;
 
-- (id)initWithDCMPixList:(NSMutableArray*)pix filesList:(NSMutableArray*)files volumeData:(NSData*)volume viewerController:(ViewerController*)viewer fusedViewerController:(ViewerController*)fusedViewer;
+- (instancetype)initWithDCMPixList:(NSMutableArray*)pix
+                         filesList:(NSMutableArray*)files
+                        volumeData:(NSData*)volume
+                  viewerController:(ViewerController*)viewer
+             fusedViewerController:(ViewerController*)fusedViewer;
+
 - (DCMPix*) emptyPix: (DCMPix*) originalPix width: (long) w height: (long) h;
 - (CPRMPRDCMView*) selectedView;
 - (id) selectedViewOnlyMPRView: (BOOL) onlyMPRView;

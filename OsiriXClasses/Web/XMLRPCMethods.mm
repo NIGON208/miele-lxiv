@@ -1,3 +1,9 @@
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
 /*=========================================================================
   Program:   OsiriX
 
@@ -76,7 +82,7 @@
     }
 }
 
-#pragma mark N2XMLRPCConnectionDelegate
+#pragma mark - N2XMLRPCConnectionDelegate
 
 // this method is implemented because the original XMLRPC interface wasn't case-sensitive with XMLRPC method names; anyway we'd still need to implement isSelectorAvailableToXMLRPC:
 -(NSString*)selectorStringForXMLRPCRequestMethodName:(NSString*)selName {
@@ -120,7 +126,7 @@
     return nil;
 }
 
-#pragma mark Utilities for exposed methods
+#pragma mark - Utilities for exposed methods
 
 -(DicomDatabase*)database {
     return [[BrowserController currentBrowser] database];
@@ -154,7 +160,7 @@
 #define ReturnWithErrorValueAndObjectForKey(code, object, key) { return [NSDictionary dictionaryWithObjectsAndKeys: [NSString stringWithFormat:@"%d", (int)code], @"error", object, key, nil]; }
 #define ReturnWithErrorValue(code) { return [NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"%d", (int)code] forKey:@"error"]; }
 
-#pragma mark Exposed Methods
+#pragma mark - Exposed Methods
 
 /**
  Method: KillOsiriX
@@ -1087,7 +1093,7 @@
     }
 }
 
-#pragma mark New
+#pragma mark - New
 
 -(id)methodCall:(NSString*)methodName parameters:(NSDictionary*)parameters error:(NSError**)error {
     XMLRPCInterfaceConnection* conn = [[[XMLRPCInterfaceConnection alloc] init] autorelease];

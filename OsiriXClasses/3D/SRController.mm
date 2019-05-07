@@ -1,3 +1,9 @@
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
 /*=========================================================================
   Program:   OsiriX
 
@@ -105,7 +111,9 @@ static NSString*	BackgroundColorViewToolbarItemIdentifier = @"BackgroundColorVie
 
 - (void) windowDidLoad
 {
+#ifndef NDEBUG
     NSLog(@"%s", __FUNCTION__);
+#endif
     settings = [NSMutableDictionary new];
     blendingSettings = [NSMutableDictionary new];
     
@@ -148,7 +156,9 @@ static NSString*	BackgroundColorViewToolbarItemIdentifier = @"BackgroundColorVie
 {
 	BOOL testInterval = YES;
 	
+#ifndef NDEBUG
     NSLog(@"%s %d", __FUNCTION__, __LINE__);
+#endif
 
     @try
     {
@@ -442,7 +452,9 @@ static NSString*	BackgroundColorViewToolbarItemIdentifier = @"BackgroundColorVie
 
 - (IBAction) ApplySettings:(id) sender
 {
+#ifndef NDEBUG
     NSLog(@"%s (IBAction)", __FUNCTION__);
+#endif
     [SRSettingsWindow orderOut:sender];
     
     [NSApp endSheet:SRSettingsWindow returnCode:[sender tag]];
@@ -481,15 +493,16 @@ static NSString*	BackgroundColorViewToolbarItemIdentifier = @"BackgroundColorVie
 
 - (void)renderSurfaces
 {
-    NSLog(@"%s", __FUNCTION__);
 	WaitRendering *www = [[WaitRendering alloc] init: NSLocalizedString( @"Preparing 3D Iso Surface...", nil)];
 	[www start];
     
     NSColor *color = [_firstColor colorUsingColorSpaceName: NSCalibratedRGBColorSpace];
     NSColor *sColor = [_secondColor colorUsingColorSpaceName: NSCalibratedRGBColorSpace];
 
+#ifndef NDEBUG
     NSLog(@"color 1: %@", color);
     NSLog(@"color 2: %@", sColor);
+#endif
 
     // FIRST SURFACE
 	if (_useFirstSurface)
@@ -530,7 +543,9 @@ static NSString*	BackgroundColorViewToolbarItemIdentifier = @"BackgroundColorVie
 
 - (void) ChangeSettings:(id) sender
 {
+#ifndef NDEBUG
     NSLog(@"%s %d", __FUNCTION__, __LINE__);
+#endif
     fusionSettingsWindow = NO;
     
     self.resolution = [[settings objectForKey: @"resolution"] floatValue];
@@ -605,9 +620,7 @@ static NSString*	BackgroundColorViewToolbarItemIdentifier = @"BackgroundColorVie
     [NSApp beginSheet: SRSettingsWindow modalForWindow:[self window] modalDelegate:self didEndSelector:nil contextInfo: nil];
 }
 
-// ============================================================
-// NSToolbar Related Methods
-// ============================================================
+#pragma mark - NSToolbar Related Methods
 
 - (void) setupToolbar {
     // Create a new toolbar instance, and attach it to our document window 
@@ -1481,7 +1494,7 @@ return YES;
 	}
 }
 
-#pragma mark IBAction
+#pragma mark - IBAction
 
 - (IBAction) roiGetManager:(id) sender
 {

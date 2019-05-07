@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14109" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14109"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -25,7 +25,7 @@
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="18">
-                        <rect key="frame" x="11" y="48" width="137" height="19"/>
+                        <rect key="frame" x="10" y="49" width="137" height="19"/>
                         <buttonCell key="cell" type="squareTextured" title="Visit Miele-LXIV web site" bezelStyle="texturedSquare" alignment="center" controlSize="small" borderStyle="border" inset="2" id="30">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="smallSystem"/>
@@ -53,7 +53,7 @@
                         </connections>
                     </button>
                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="33">
-                        <rect key="frame" x="160" y="13" width="217" height="28"/>
+                        <rect key="frame" x="160" y="15" width="217" height="28"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" id="34">
                             <font key="font" metaFont="smallSystem"/>
                             <string key="title">This is not the Pixmeo version of OsiriX.
@@ -66,6 +66,7 @@ This is a 64-bit free version.</string>
                 <constraints>
                     <constraint firstItem="22" firstAttribute="top" secondItem="8" secondAttribute="top" constant="6" id="Mo9-63-pOR"/>
                     <constraint firstAttribute="centerX" secondItem="33" secondAttribute="centerX" constant="-2" id="VB8-OQ-qPN"/>
+                    <constraint firstItem="26" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="18" secondAttribute="trailing" constant="8" symbolic="YES" id="dik-BG-P7h"/>
                     <constraint firstItem="33" firstAttribute="top" secondItem="18" secondAttribute="bottom" constant="8" symbolic="YES" id="eM4-ph-9i2"/>
                     <constraint firstItem="18" firstAttribute="leading" secondItem="22" secondAttribute="leading" id="ecC-Av-zoi"/>
                     <constraint firstItem="26" firstAttribute="top" secondItem="22" secondAttribute="bottom" constant="2" id="hEo-Uk-XsO"/>
@@ -79,6 +80,6 @@ This is a 64-bit free version.</string>
         </window>
     </objects>
     <resources>
-        <image name="Logo" width="513" height="681"/>
+        <image name="Logo" width="586.28570556640625" height="825.14288330078125"/>
     </resources>
 </document>

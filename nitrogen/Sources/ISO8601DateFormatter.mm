@@ -1,3 +1,10 @@
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
+
 /*ISO8601DateFormatter.m
  *
  *Created by Peter Hosey on 2009-04-11.
@@ -51,7 +58,7 @@ unichar ISO8601DefaultTimeSeparatorCharacter = DEFAULT_TIME_SEPARATOR;
 
 //The following properties are only here because GCC doesn't like @synthesize in category implementations.
 
-#pragma mark Parsing
+#pragma mark - Parsing
 
 @synthesize parsesStrictly;
 
@@ -597,7 +604,7 @@ static BOOL is_leap_year(unsigned year);
 	return (date != nil);
 }
 
-#pragma mark Unparsing
+#pragma mark - Unparsing
 
 @synthesize format;
 @synthesize includeTime;

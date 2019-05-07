@@ -1,3 +1,9 @@
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
 /*=========================================================================
  Program:   OsiriX
 
@@ -38,10 +44,10 @@ typedef char* vtkCocoaRenderWindow;
 #endif
 
 /** \brief View for using VTK */
-@interface VTKView : vtkCocoaGLView
+@interface vtkMieleView : vtkCocoaGLView
 {
-    vtkCocoaRenderWindow			*_cocoaRenderWindow;
-    vtkRenderer						*_renderer;
+    vtkCocoaRenderWindow *_cocoaRenderWindow;
+    vtkRenderer *_renderer;
 }
 
 + (unsigned long) VRAMSizeForDisplayID: (CGDirectDisplayID) displayID;

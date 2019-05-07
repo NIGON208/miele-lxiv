@@ -1,3 +1,9 @@
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
 /*=========================================================================
   Program:   OsiriX
 
@@ -17,7 +23,7 @@
 
 #import <AppKit/AppKit.h>
 #import "options.h"
-#import "VTKViewOSIRIX.h"
+#import "vtkMieleView.h"
 #import "DCMPix.h"
 #import "Camera.h"
 
@@ -56,6 +62,7 @@
 
 #include "vtkTIFFReader.h"
 
+#include "vtkTexture.h"
 #include "vtkTextureMapToSphere.h"
 
 #include "vtkPowerCrustSurfaceReconstruction.h"
@@ -72,7 +79,7 @@ class vtkMyCallback;
 
 /** \brief  View for ROI Volume */
 
-@interface ROIVolumeView : VTKView
+@interface ROIVolumeView : vtkMieleView
 {
     vtkRenderer					*aRenderer;
     vtkCamera					*aCamera;
@@ -93,7 +100,15 @@ class vtkMyCallback;
 
 - (NSDictionary*) setPixSource: (ROI*) r;
 - (void) setROIActorVolume:(NSValue*)roiActorPointer;
-- (void) setOpacity: (float) opacity showPoints: (BOOL) sp showSurface: (BOOL) sS showWireframe:(BOOL) w texture:(BOOL) tex useColor:(BOOL) usecol color:(NSColor*) col;
+
+- (void) setOpacity: (float) opacity
+         showPoints: (BOOL) sp
+        showSurface: (BOOL) sS
+      showWireframe: (BOOL) w
+            texture: (BOOL) tex
+           useColor: (BOOL) usecol
+              color: (NSColor*) col;
+
 - (IBAction) exportDICOMFile:(id) sender;
 - (NSDictionary*) renderVolume;
 + (vtkMapper*) generateMapperForRoi:(ROI*) roi viewerController: (ViewerController*) vc factor: (float) factor statistics: (NSMutableDictionary*) statistics;

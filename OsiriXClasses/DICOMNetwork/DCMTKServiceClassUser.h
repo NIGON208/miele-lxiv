@@ -1,3 +1,9 @@
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
 /*=========================================================================
   Program:   OsiriX
 
@@ -11,8 +17,6 @@
      the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
      PURPOSE.
 =========================================================================*/
-
-
 
 /********** 
 Super Class for SCU classes such as verifySCU, storeSCU, moveSCU, findSCU
@@ -57,7 +61,7 @@ typedef char* T_ASC_Network;
 	int _transferSyntax;
 	float _compression;
 	
-	//network parameters
+	// Network parameters
 	BOOL _verbose;
 	BOOL _debug;
 	BOOL _abortAssociation;
@@ -66,14 +70,14 @@ typedef char* T_ASC_Network;
 	int _repeatCount ;
 	int _cancelAfterNResponses;
 	E_TransferSyntax _networkTransferSyntax;
-	T_DIMSE_BlockingMode    _blockMode;
+	T_DIMSE_BlockingMode _blockMode;
 	int  _dimse_timeout;
 	int  _acse_timeout;
 	
-	//TLS settings
+	// TLS settings
 	BOOL _secureConnection;
 	BOOL _doAuthenticate;
-	int  _keyFileFormat;
+	//int  _keyFileFormat;
 	NSArray *_cipherSuites;
 	const char *_readSeedFile;
 	const char *_writeSeedFile;

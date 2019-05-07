@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -1447,31 +1447,31 @@ Gw
                         </buttonCell>
                         <cells>
                             <column>
-                                <buttonCell type="bevel" title="Levels" bezelStyle="regularSquare" image="WLWW" imagePosition="only" alignment="center" state="on" borderStyle="border" toolTip="Window Level (Option + click)" imageScaling="proportionallyUpOrDown" inset="2" id="702">
+                                <buttonCell type="bevel" bezelStyle="regularSquare" image="WLWW" imagePosition="overlaps" alignment="center" state="on" borderStyle="border" toolTip="Window Level (Option + click)" imageScaling="proportionallyUpOrDown" inset="2" id="702" userLabel="Levels">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                                     <font key="font" metaFont="label"/>
                                 </buttonCell>
                             </column>
                             <column>
-                                <buttonCell type="bevel" title="Move" bezelStyle="regularSquare" image="Move" imagePosition="only" alignment="center" borderStyle="border" toolTip="Move (Apple + click)" tag="1" imageScaling="proportionallyUpOrDown" inset="2" id="703">
+                                <buttonCell type="bevel" bezelStyle="regularSquare" image="Move" imagePosition="overlaps" alignment="center" borderStyle="border" toolTip="Move (Apple + click)" tag="1" imageScaling="proportionallyUpOrDown" inset="2" id="703" userLabel="Move">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                                     <font key="font" metaFont="label"/>
                                 </buttonCell>
                             </column>
                             <column>
-                                <buttonCell type="bevel" title="Zoom" bezelStyle="regularSquare" image="Zoom" imagePosition="only" alignment="center" borderStyle="border" toolTip="Zoom (Shift + click)" tag="2" imageScaling="proportionallyUpOrDown" inset="2" id="704">
+                                <buttonCell type="bevel" bezelStyle="regularSquare" image="Zoom" imagePosition="overlaps" alignment="center" borderStyle="border" toolTip="Zoom (Shift + click)" tag="2" imageScaling="proportionallyUpOrDown" inset="2" id="704" userLabel="Zoom">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                                     <font key="font" metaFont="label"/>
                                 </buttonCell>
                             </column>
                             <column>
-                                <buttonCell type="bevel" title="Rotate" bezelStyle="regularSquare" image="Rotate" imagePosition="only" alignment="center" borderStyle="border" toolTip="Rotate (Apple + Option + click)" tag="3" imageScaling="proportionallyUpOrDown" inset="2" id="705">
+                                <buttonCell type="bevel" bezelStyle="regularSquare" image="Rotate" imagePosition="overlaps" alignment="center" borderStyle="border" toolTip="Rotate (Apple + Option + click)" tag="3" imageScaling="proportionallyUpOrDown" inset="2" id="705" userLabel="Rotate">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                                     <font key="font" metaFont="label"/>
                                 </buttonCell>
                             </column>
                             <column>
-                                <buttonCell type="bevel" title="Next" bezelStyle="regularSquare" image="Stack" imagePosition="only" alignment="center" borderStyle="border" toolTip="Animate" tag="4" imageScaling="proportionallyUpOrDown" inset="2" id="706">
+                                <buttonCell type="bevel" bezelStyle="regularSquare" image="Stack" imagePosition="overlaps" alignment="center" borderStyle="border" toolTip="Animate" tag="4" imageScaling="proportionallyUpOrDown" inset="2" id="706" userLabel="Next">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                                     <font key="font" metaFont="label"/>
                                 </buttonCell>
@@ -1584,6 +1584,7 @@ Gw
                 <constraint firstItem="698" firstAttribute="top" secondItem="697" secondAttribute="top" constant="28" id="m2a-b5-zfq"/>
                 <constraint firstAttribute="bottom" secondItem="698" secondAttribute="bottom" constant="-2" id="nA8-vQ-Cpy"/>
             </constraints>
+            <point key="canvasLocation" x="334" y="20"/>
         </box>
         <box autoresizesSubviews="NO" borderType="none" title="Box" titlePosition="noTitle" id="731" userLabel="tb Shading">
             <rect key="frame" x="0.0" y="0.0" width="169" height="36"/>

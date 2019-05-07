@@ -1,3 +1,9 @@
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
 /*=========================================================================
   Program:   OsiriX
 
@@ -12,17 +18,11 @@
      PURPOSE.
 =========================================================================*/
 
-
-
-
-
 #import <Foundation/Foundation.h>
-
 
 @interface PMDICOMStoreSCU : NSObject {
 
 }
-
 
 //-(id)initWithCalledAET:(NSString *) callingAET:(NSString *)  hostName:(NSString *) port:(int);
 -(BOOL)sendFile:(NSString *)fileName :(int)compressionLevel;

@@ -1,3 +1,9 @@
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
 /*=========================================================================
   Program:   OsiriX
 
@@ -46,6 +52,7 @@
 
 #include "vtkVectorText.h"
 #include "vtkFollower.h"
+#import "vtkMath.h"
 
 #ifdef _STEREO_VISION_
 #import "vtkCocoaGLView.h"
@@ -58,9 +65,6 @@
 #include "vtkParallelRenderManager.h"
 #include "vtkRendererCollection.h"
 #endif
-
-#define D2R 0.01745329251994329576923690768    // degrees to radians
-#define R2D 57.2957795130823208767981548141    // radians to degrees
 
 static SRView	*snSRView = nil;
 
@@ -834,7 +838,7 @@ typedef struct _xyzArray
 	[super flagsChanged: event];
 }
 
--(id)initWithFrame:(NSRect)frame
+-(instancetype)initWithFrame:(NSRect)frame
 {
 	NSLog(@"SRView initWithFrame");
     if ( self = [super initWithFrame:frame] )
@@ -912,7 +916,9 @@ typedef struct _xyzArray
 
 -(void)dealloc
 {
-    NSLog(@"Dealloc SRView");
+#ifndef NDEBUG
+    NSLog(@"SRView.mm:%d %@ dealloc %p", __LINE__, NSStringFromClass([self class]), self);
+#endif
 	
     [NSObject cancelPreviousPerformRequestsWithTarget: [self window]];
     
@@ -1926,24 +1932,31 @@ typedef struct _xyzArray
 {
 	if (isoExtractor[ actor])
 	{
-        if (iso[ actor]) aRenderer->RemoveActor( iso[ actor]);
+        if (iso[ actor])
+            aRenderer->RemoveActor( iso[ actor]);
         
-		if (isoExtractor[ actor]) isoExtractor[ actor]->Delete();
+		if (isoExtractor[ actor])
+            isoExtractor[ actor]->Delete();
         isoExtractor[ actor] = nil;
         
-        if (isoNormals[ actor]) isoNormals[ actor]->Delete();
+        if (isoNormals[ actor])
+            isoNormals[ actor]->Delete();
 		isoNormals[ actor] = nil;
         
-        if (isoMapper[ actor]) isoMapper[ actor]->Delete();
+        if (isoMapper[ actor])
+            isoMapper[ actor]->Delete();
 		isoMapper[ actor] = nil;
         
-        if (iso[ actor])  iso[ actor]->Delete();
+        if (iso[ actor])
+            iso[ actor]->Delete();
 		iso[ actor] = nil;
         
-		if (isoSmoother[ actor]) isoSmoother[ actor]->Delete();
+		if (isoSmoother[ actor])
+            isoSmoother[ actor]->Delete();
 		isoSmoother[ actor] = nil;
 		
-		if (isoDeci[ actor]) isoDeci[ actor]->Delete();
+		if (isoDeci[ actor])
+            isoDeci[ actor]->Delete();
 		isoDeci[ actor] = nil;
 	}
 	
@@ -1956,22 +1969,28 @@ typedef struct _xyzArray
 	{
 		aRenderer->RemoveActor( Biso[ actor]);
 		
-		if (BisoExtractor[ actor]) BisoExtractor[ actor]->Delete();
+		if (BisoExtractor[ actor])
+            BisoExtractor[ actor]->Delete();
         BisoExtractor[ actor] = nil;
         
-		if (BisoNormals[ actor]) BisoNormals[ actor]->Delete();
+		if (BisoNormals[ actor])
+            BisoNormals[ actor]->Delete();
         BisoNormals[ actor] = nil;
         
-		if (BisoMapper[ actor]) BisoMapper[ actor]->Delete();
+		if (BisoMapper[ actor])
+            BisoMapper[ actor]->Delete();
 		BisoMapper[ actor] = nil;
         
-        if (Biso[ actor]) Biso[ actor]->Delete();
+        if (Biso[ actor])
+            Biso[ actor]->Delete();
         Biso[ actor] = nil;
         
-		if (BisoSmoother[ actor]) BisoSmoother[ actor]->Delete();
+		if (BisoSmoother[ actor])
+            BisoSmoother[ actor]->Delete();
 		BisoSmoother[ actor] = nil;
 		
-		if (BisoDeci[ actor]) BisoDeci[ actor]->Delete();
+		if (BisoDeci[ actor])
+            BisoDeci[ actor]->Delete();
 		BisoDeci[ actor] = nil;
 	}
 	
@@ -1994,7 +2013,6 @@ typedef struct _xyzArray
 	
 	try
 	{
-	
 	NSLog(@"ChangeActor IN");
 		
 	// RESAMPLE IMAGE ?
@@ -2104,7 +2122,7 @@ typedef struct _xyzArray
     iso[ actor]->GetProperty()->SetSpecularPower( 20);
     iso[ actor]->GetProperty()->SetOpacity( transparency);
 	
-	iso[ actor]->SetOrigin(		[firstObject originX], [firstObject originY], [firstObject originZ]);
+	iso[ actor]->SetOrigin( [firstObject originX], [firstObject originY], [firstObject originZ]);
         
 	iso[ actor]->SetPosition([firstObject originX] * matrice->Element[0][0] +
                              [firstObject originY] * matrice->Element[1][0] +
@@ -2120,11 +2138,11 @@ typedef struct _xyzArray
         
 	iso[ actor]->SetUserMatrix( matrice);
  	iso[ actor]->PickableOff();
-     aRenderer->AddActor( iso[ actor]);
-	 [self setNeedsDisplay:YES];
+
+    aRenderer->AddActor( iso[ actor]);
+    [self setNeedsDisplay:YES];
 	
 	//NSLog(@"ChangeActor OUT");
-	
 	}
 	catch (...)
 	{
@@ -2252,7 +2270,7 @@ typedef struct _xyzArray
     Biso[ actor]->GetProperty()->SetSpecularPower( 20);
     Biso[ actor]->GetProperty()->SetOpacity( transparency);
 	
-	Biso[ actor]->SetOrigin(	[blendingFirstObject originX], [blendingFirstObject originY], [blendingFirstObject originZ]);
+	Biso[ actor]->SetOrigin( [blendingFirstObject originX], [blendingFirstObject originY], [blendingFirstObject originZ]);
 	
 	Biso[ actor]->SetPosition([blendingFirstObject originX] * matriceBlending->Element[0][0] +
                               [blendingFirstObject originY] * matriceBlending->Element[1][0] +
@@ -2309,36 +2327,31 @@ typedef struct _xyzArray
 		if ([firstObject isRGB])
 		{
 			// Convert RGB to BW... We could add support for RGB later if needed by users....
-			
-			long	size, val;
-			unsigned char	*srcPtr = (unsigned char*) data;
-			float   *dstPtr;
-			
-			size = [firstObject pheight] * [pix count];
+
+			long size = [firstObject pheight] * [pix count];
 			size *= [firstObject pwidth];
 			size *= sizeof( float);
 			
-			dataFRGB = (float*) malloc( size);
-			if (dataFRGB)
-            {
-                size /= 4;
-                dstPtr = dataFRGB;
-                for (long i = 0 ; i < size; i++)
-                {
-                    srcPtr++;
-                    val = *srcPtr++;
-                    val += *srcPtr++;
-                    val += *srcPtr++;
-                    *dstPtr++ = val/3;
-                }
-                
-                data = dataFRGB;
-            }
-            else
-            {
+			dataFRGB = (float *)malloc(size);
+			if (!dataFRGB) {
                 NSLog( @"***** not enough memory error dataFRGB = nil");
                 return TRUE;  // error
             }
+
+            size /= 4;
+            unsigned char *srcPtr = (unsigned char*) data;
+            float *dstPtr = dataFRGB;
+            long val;
+            for (long i=0; i < size; i++)
+            {
+                srcPtr++;
+                val = *srcPtr++;
+                val += *srcPtr++;
+                val += *srcPtr++;
+                *dstPtr++ = val/3;
+            }
+            
+            data = dataFRGB;
 		}
 		
 		reader = vtkImageImport::New();
@@ -2910,10 +2923,9 @@ typedef struct _xyzArray
 }
 
 // 3D points
-#pragma mark-
-#pragma mark 3D Points
+#pragma mark - 3D Points
 
-#pragma mark add
+#pragma mark - add
 - (void) add3DPoint: (double) x
                    : (double) y
                    : (double) z
@@ -3036,7 +3048,8 @@ typedef struct _xyzArray
 	picker->Delete();
 }
 
-#pragma mark display
+#pragma mark - display
+
 - (void) setDisplay3DPoints: (BOOL) on
 {
 	display3DPoints = on;
@@ -3072,7 +3085,8 @@ typedef struct _xyzArray
 	[self setDisplay3DPoints:!display3DPoints];
 }
 
-#pragma mark selection
+#pragma mark - selection
+
 - (BOOL) isAny3DPointSelected
 {
 	BOOL boo = NO;
@@ -3117,7 +3131,8 @@ typedef struct _xyzArray
 	((vtkInteractorStyle*)aRenderer->GetRenderWindow()->GetInteractor()->GetInteractorStyle())->HighlightProp3D(NULL);
 }
 
-#pragma mark remove
+#pragma mark - remove
+
 - (void) remove3DPointAtIndex: (unsigned int) index
 {
 	// point to remove
@@ -3159,7 +3174,7 @@ typedef struct _xyzArray
 	}
 }
 
-#pragma mark modify 3D point appearence
+#pragma mark - modify 3D point appearence
 
 - (IBAction) IBSetSelected3DPointColor: (id) sender
 {
@@ -3298,7 +3313,7 @@ typedef struct _xyzArray
         point3DDefaultRadius = 1.0;
 }
 
-#pragma mark annotation
+#pragma mark - annotation
 
 - (IBAction) IBSetSelected3DPointAnnotation: (id) sender
 {
@@ -3456,8 +3471,7 @@ typedef struct _xyzArray
 	}
 }
 
-#pragma mark-
-#pragma mark Cursors
+#pragma mark - Cursors
 
 //cursor methods
 
@@ -3626,20 +3640,21 @@ typedef struct _xyzArray
 	_dragInProgress = NO;
 }
 
-//part of Dragging Source Protocol
-- (NSDragOperation)draggingSourceOperationMaskForLocal:(BOOL)isLocal{
-	return NSDragOperationEvery;
+// Part of Dragging Source Protocol
+- (NSDragOperation)draggingSession:(NSDraggingSession *)session sourceOperationMaskForDraggingContext:(NSDraggingContext)context
+{
+    return NSDragOperationEvery; // All: Copy Link Generic Private Move Delete
 }
 
 -(void) squareView:(id) sender
 {
-	NSLog(@"%d", (int) [[NSUserDefaults standardUserDefaults] integerForKey:@"VRDefaultViewSize"]);
+    NSLog(@"%s %d VRDefaultViewSize:%d", __FUNCTION__, __LINE__, (int) [[NSUserDefaults standardUserDefaults] integerForKey:@"VRDefaultViewSize"]);
 	
 	if ([[NSUserDefaults standardUserDefaults] integerForKey:@"VRDefaultViewSize"] == 1)
         return;
 	
-	NSRect	newFrame = [self frame];
-	NSRect	beforeFrame = [self frame];
+	NSRect newFrame = [self frame];
+	NSRect beforeFrame = [self frame];
 	
 	int border = [self frame].size.height-1;
 	

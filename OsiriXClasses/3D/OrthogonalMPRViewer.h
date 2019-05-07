@@ -1,3 +1,9 @@
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
 /*=========================================================================
   Program:   OsiriX
 
@@ -184,10 +190,10 @@ typedef enum {SyncSeriesBehaviorAbsolutePosWithSameStudy, SyncSeriesBehaviorRela
 - (IBAction) roiDeleteAll:(id) sender;
 
 // 4D
-- (void) MoviePlayStop:(id) sender;
+- (IBAction) MoviePlayStop:(id) sender;
 - (void) setMovieIndex: (short) i;
-- (void) movieRateSliderAction:(id) sender;
-- (void) moviePosSliderAction:(id) sender;
+- (IBAction) movieRateSliderAction:(id) sender;
+- (IBAction) moviePosSliderAction:(id) sender;
 
 - (ViewerController *)viewerController;
 - (void)setCurrentTool:(ToolMode)currentTool;

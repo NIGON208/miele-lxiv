@@ -1,3 +1,9 @@
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
 /*=========================================================================
   Program:   OsiriX
 
@@ -15,23 +21,19 @@
 /** \brief  SuperClass for 3D WindowControllers
 */
 
-
 #import <Foundation/Foundation.h>
 #import "ColorTransferView.h"
 #import "OpacityTransferView.h"
 #import "NSFullScreenWindow.h"
 #import "OSIWindowController.h"
 
-
 #define DATABASEPATH				@"/DATABASE.noindex/"
 #define STATEDATABASE				@"/3DSTATE/"
-
 
 @class ROIVolume;
 @class ViewerController;
 @class DCMPix;
-@class VTKView;
-
+@class vtkMieleView;
 
 /** \brief Base Window Controller for 3D viewers */
 
@@ -70,7 +72,6 @@
 	NSView							*contentView;
 	
 	BOOL							windowWillClose;
-
 }
 
 - (BOOL) windowWillClose;

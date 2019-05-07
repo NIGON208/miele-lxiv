@@ -1,3 +1,9 @@
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
 /*=========================================================================
  Program:   OsiriX
  
@@ -93,7 +99,8 @@
         }
         
         return [[[OSIROIMask alloc] initWithMaskRuns:maskRuns] autorelease];
-    } else { // we need to create a 
+    }
+    else { // we need to create a
         coalescedROIMaskVolume = self.coalescedROIMaskVolumeData;
         
         sliceRequest = [[[CPRObliqueSliceGeneratorRequest alloc] init] autorelease];
@@ -145,7 +152,8 @@
     if (_cachedMaskRunsData && OSISlabEqualTo(slab, _cachedSlab) && N3AffineTransformEqualToTransform(dicomToPixTransform, _cachedDicomToPixTransform)) {
         maskRunsData = _cachedMaskRunsData;
         minCorner = _cachedMinCorner;
-    } else {
+    }
+    else {
         [_cachedMaskRunsData release];
         _cachedMaskRunsData = [[self _maskRunsDataForSlab:slab dicomToPixTransform:dicomToPixTransform minCorner:&_cachedMinCorner] retain];
         _cachedSlab = slab;

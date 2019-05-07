@@ -1,3 +1,9 @@
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
 /*=========================================================================
   Program:   OsiriX
 
@@ -97,7 +103,7 @@ static NSString*	BackgroundColorViewToolbarItemIdentifier		= @"BackgroundColorVi
 
 -(IBAction) ApplySettings:(id) sender
 {
-    NSLog(@"%s (IBAction)", __FUNCTION__);
+    //NSLog(@"%s (IBAction)", __FUNCTION__);
     [SRSettingsWindow orderOut:sender];
     
     [NSApp endSheet:SRSettingsWindow returnCode:[sender tag]];
@@ -105,8 +111,9 @@ static NSString*	BackgroundColorViewToolbarItemIdentifier		= @"BackgroundColorVi
     if( [sender tag])   //User clicks OK Button
     {
 		[self renderSurfaces];
-		//Added SilvanWidmer 18-08-09
-		if([view StereoVisionOn])
+
+        //Added SilvanWidmer 18-08-09
+		if ([view StereoVisionOn])
 			[view updateStereoLeftRight];
 		
 		[view setNeedsDisplay:YES];
@@ -324,7 +331,7 @@ static NSString*	BackgroundColorViewToolbarItemIdentifier		= @"BackgroundColorVi
 	}
 }
 
-//Added SilvanWidmer 21-08-09
+// Added SilvanWidmer 21-08-09
 // Overrides the Fullscreen function of Window3DController
 - (IBAction) fullScreenMenu: (id) sender
 {
@@ -332,31 +339,35 @@ static NSString*	BackgroundColorViewToolbarItemIdentifier		= @"BackgroundColorVi
 		NSLog(@"FullScreen Mode Disabled");
 	}
 	
-    else if( FullScreenOn == YES )									// we need to go back to non-full screen
+    else if ( FullScreenOn == YES ) // we need to go back to non-full screen
     {
         [StartingWindow setContentView: contentView];
-		//		[FullScreenWindow setContentView: nil];
+		//[FullScreenWindow setContentView: nil];
 		
         [FullScreenWindow setDelegate:nil];
         [FullScreenWindow close];
         [FullScreenWindow release];
-		// Added SilvanWidmer 21-08
-        if([view StereoVisionOn])
+
+        // Added SilvanWidmer 21-08
+        if ([view StereoVisionOn])
 			[view adjustWindowContent:[StartingWindow frame].size];
 		
         [StartingWindow makeKeyAndOrderFront: self];
         FullScreenOn = NO;
     }
-    else														// FullScreenOn == NO
+    else  // FullScreenOn == NO
     {
         unsigned int windowStyle;
-        NSRect       contentRect;
+        NSRect contentRect;
 		
         StartingWindow = [self window];
-        windowStyle    = NSWindowStyleMaskBorderless; 
-        contentRect    = [[NSScreen mainScreen] frame];
-        FullScreenWindow = [[NSFullScreenWindow alloc] initWithContentRect:contentRect styleMask: windowStyle backing:NSBackingStoreBuffered defer: NO];
-        if(FullScreenWindow != nil)
+        windowStyle = NSWindowStyleMaskBorderless;
+        contentRect = [[NSScreen mainScreen] frame];
+        FullScreenWindow = [[NSFullScreenWindow alloc] initWithContentRect: contentRect
+                                                                 styleMask: windowStyle
+                                                                   backing: NSBackingStoreBuffered
+                                                                     defer: NO];
+        if (FullScreenWindow != nil)
         {
             [FullScreenWindow setTitle: @"myWindow"];			
             [FullScreenWindow setReleasedWhenClosed: NO];
@@ -380,7 +391,5 @@ static NSString*	BackgroundColorViewToolbarItemIdentifier		= @"BackgroundColorVi
     }
 }
 
-
 @end
-
 #endif

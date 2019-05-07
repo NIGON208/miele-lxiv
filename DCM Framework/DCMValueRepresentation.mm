@@ -1,3 +1,9 @@
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
 /*=========================================================================
   Program:   OsiriX
 
@@ -15,7 +21,6 @@
 #import "DCMValueRepresentation.h"
 
 //static char AE[2] = { 'A', 'E' };
-
 
 @implementation DCMValueRepresentation
 /*

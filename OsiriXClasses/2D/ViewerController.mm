@@ -1,3 +1,9 @@
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
 /*=========================================================================
   Program:   OsiriX
 
@@ -313,6 +319,7 @@ enum
 
 @end
 
+#pragma mark -
 
 @implementation NSString (Truncate)
 
@@ -372,6 +379,8 @@ enum
 + (NSColor*)_fusionedItemColor;
 + (NSColor*)_openItemColor;
 @end
+
+#pragma mark -
 
 @implementation ViewerController
 
@@ -1358,8 +1367,7 @@ return YES;
 		[undoQueue removeObjectAtIndex: 0];
 }
 
-#pragma mark-
-#pragma mark 1. window and workplace
+#pragma mark - 1. window and workplace
 
 + (void) correctGangtryTilt: (ViewerController*) viewerController
 {
@@ -4167,8 +4175,7 @@ static volatile int numberOfThreadsForRelisce = 0;
 }
 #endif
 
-#pragma mark-
-#pragma mark 2. window subdivision
+#pragma mark - 2. window subdivision
 
 #define SERIESPOPUPSIZE 35
 
@@ -5192,7 +5199,7 @@ static volatile int numberOfThreadsForRelisce = 0;
 //    }
 }
 
-#pragma mark
+#pragma mark -
 
 -(BOOL) matrixIsVisible
 {
@@ -5696,7 +5703,8 @@ static volatile int numberOfThreadsForRelisce = 0;
                             [cell setImagePosition:NSImageOverlaps];
                             [cell setImageScaling:NSImageScaleNone];
 
-                        } else {
+                        }
+                        else {
     #endif
                             if ([curStudy isHidden])
                                 action = NSLocalizedString(@"Show Series", nil);
@@ -6201,8 +6209,7 @@ static volatile int numberOfThreadsForRelisce = 0;
 }
 #endif
 
-#pragma mark-
-#pragma mark 3. mouse management
+#pragma mark - 3. mouse management
 
 static ViewerController *draggedController = nil;
 
@@ -6457,49 +6464,45 @@ static ViewerController *draggedController = nil;
 	
     if ((NSDragOperationGeneric & [sender draggingSourceOperationMask]) == NSDragOperationGeneric)
     {
-        //this means that the sender is offering the type of operation we want
-        //return that we want the NSDragOperationGeneric operation that they 
-            //are offering
-        return NSDragOperationGeneric;
+        // This means that the sender is offering the type of operation we want
+        // return that we want the NSDragOperationGeneric operation that they
+        // are offering
+        return NSDragOperationGeneric; // The operation can be defined by the destination.
     }
-    else
-    {
-        //since they aren't offering the type of operation we want, we have 
-            //to tell them we aren't interested
-        return NSDragOperationNone;
-    }
+
+    // Since they aren't offering the type of operation we want, we have
+    // to tell them we aren't interested
+    return NSDragOperationNone; // No drag operations are allowed.
 }
 
 - (void)draggingExited:(id <NSDraggingInfo>)sender
 {
 	NSLog(@"exited");
 	
-    //we aren't particularily interested in this so we will do nothing
-    //this is one of the methods that we do not have to implement
+    // we aren't particularily interested in this so we will do nothing
+    // this is one of the methods that we do not have to implement
 }
 
 - (NSDragOperation)draggingUpdated:(id <NSDraggingInfo>)sender
 {
     if ((NSDragOperationGeneric & [sender draggingSourceOperationMask]) == NSDragOperationGeneric)
     {
-        //this means that the sender is offering the type of operation we want
-        //return that we want the NSDragOperationGeneric operation that they 
-            //are offering
-        return NSDragOperationGeneric;
+        // This means that the sender is offering the type of operation we want
+        // return that we want the NSDragOperationGeneric operation that they
+        // are offering
+        return NSDragOperationGeneric; // The operation can be defined by the destination.
     }
-    else
-    {
-        //since they aren't offering the type of operation we want, we have 
-            //to tell them we aren't interested
-        return NSDragOperationNone;
-    }
+
+    // Since they aren't offering the type of operation we want, we have
+    // to tell them we aren't interested
+    return NSDragOperationNone; // No drag operations are allowed.
 }
 
 - (void)draggingEnded:(id <NSDraggingInfo>)sender
 {
-    //we don't do anything in our implementation
-    //this could be ommitted since NSDraggingDestination is an infomal
-        //protocol and returns nothing
+    // We don't do anything in our implementation
+    // this could be ommitted since NSDraggingDestination is an infomal
+    // protocol and returns nothing
 	NSLog(@"draggingEnded");
 }
 
@@ -6522,11 +6525,13 @@ static ViewerController *draggedController = nil;
     }
 	else if ((c >='1' && c <= '7') | (c >='a' && c <= 'g'))		// SHUTTLE PRO
 	{
-		if (!timer)  [self PlayStop:[self findPlayStopButton]];  // PLAY
+		if (!timer)
+            [self PlayStop:[self findPlayStopButton]];  // PLAY
 		
 		NSLog( @"%@", [event characters]);
 		
 		if ((c >='a' && c <= 'g')) {c -= 'a' -1;	direction = -1;}
+        
 		if ((c >='1' && c <= '7')) {c -= '1' -1;	direction = 1;}
 		
 		switch (c)
@@ -6598,7 +6603,7 @@ static ViewerController *draggedController = nil;
  {
 	highLighted -= 0.08;
 	for (DCMView * v in [seriesView imageViews])
-			[v setNeedsDisplay: YES];
+        [v setNeedsDisplay: YES];
 	
 	if (highLighted <= 0.0)
 	{
@@ -6677,7 +6682,7 @@ static ViewerController *draggedController = nil;
 	[quicktimeInterval performClick: self];	// Will update the text field
 }
 
-// functions s that plugins can also play with globals
+// functions that plugins can also play with globals
 + (ViewerController *) draggedController
 {
 	return draggedController;
@@ -6688,8 +6693,7 @@ static ViewerController *draggedController = nil;
 	draggedController = controller;
 }
 
-#pragma mark-
-#pragma mark 4. toolbox space
+#pragma mark - 4. toolbox space
 
 - (IBAction)customizeViewerToolBar:(id)sender
 {
@@ -6700,11 +6704,16 @@ static ViewerController *draggedController = nil;
 {
 	[[NSUserDefaults standardUserDefaults] setBool: ![[NSUserDefaults standardUserDefaults] boolForKey: @"displayCobbAngle"] forKey: @"displayCobbAngle"];
     
-    if ([[NSUserDefaults standardUserDefaults] boolForKey: @"ROITEXTIFSELECTED"] == YES && [[NSUserDefaults standardUserDefaults] boolForKey: @"displayCobbAngle"] == YES)
+    if ([[NSUserDefaults standardUserDefaults] boolForKey: @"ROITEXTIFSELECTED"] == YES &&
+        [[NSUserDefaults standardUserDefaults] boolForKey: @"displayCobbAngle"] == YES)
+    {
         [[NSUserDefaults standardUserDefaults] setBool: NO forKey: @"ROITEXTIFSELECTED"]; // To display the Cobbs value -> show all ROIs information
+    }
 }
 
-- (NSToolbarItem *) toolbar: (NSToolbar *)toolbar itemForItemIdentifier: (NSString *) itemIdent willBeInsertedIntoToolbar:(BOOL) willBeInserted
+- (NSToolbarItem *) toolbar: (NSToolbar *) toolbar
+      itemForItemIdentifier: (NSString *) itemIdent
+  willBeInsertedIntoToolbar: (BOOL) willBeInserted
 {
     // Required delegate method:  Given an item identifier, this method returns an item 
     // The toolbar will use this method to obtain toolbar items that can be displayed in the customization sheet, or in the toolbar itself 
@@ -6719,8 +6728,8 @@ static ViewerController *draggedController = nil;
 		[toolbarItem setTarget: self];
 		[toolbarItem setAction: @selector(exportQuicktime:)];
     }
-	else if ([itemIdent isEqualToString: PrintToolbarItemIdentifier]) {
-		
+	else if ([itemIdent isEqualToString: PrintToolbarItemIdentifier])
+    {
 		[toolbarItem setLabel: NSLocalizedString(@"Print",nil)];
 		[toolbarItem setPaletteLabel: NSLocalizedString(@"Print",nil)];
         [toolbarItem setToolTip: NSLocalizedString(@"Print selected study/series to a DICOM printer",nil)];
@@ -6728,15 +6737,15 @@ static ViewerController *draggedController = nil;
 		[toolbarItem setTarget: self];
 		[toolbarItem setAction: @selector(printDICOM:)];
     }
-	else  if ([itemIdent isEqualToString: PhotosToolbarItemIdentifier]) {
+	else if ([itemIdent isEqualToString: PhotosToolbarItemIdentifier])
+    {
+        [toolbarItem setLabel: NSLocalizedString(@"Photos", nil)];
+        [toolbarItem setPaletteLabel: NSLocalizedString(@"Photos", nil)];
+        [toolbarItem setToolTip: NSLocalizedString(@"Export this image to Photos", nil)];
         
-	[toolbarItem setLabel: NSLocalizedString(@"Photos", nil)];
-	[toolbarItem setPaletteLabel: NSLocalizedString(@"Photos", nil)];
-	[toolbarItem setToolTip: NSLocalizedString(@"Export this image to Photos", nil)];
-	
-	[toolbarItem setImage: [NSImage imageNamed: @"Photos"]];
-	[toolbarItem setTarget: self];
-	[toolbarItem setAction: @selector(export2iPhoto:)];
+        [toolbarItem setImage: [NSImage imageNamed: @"Photos"]];
+        [toolbarItem setTarget: self];
+        [toolbarItem setAction: @selector(export2iPhoto:)];
     }
 	else if ([itemIdent isEqualToString: MailToolbarItemIdentifier])
 	{
@@ -6756,71 +6765,71 @@ static ViewerController *draggedController = nil;
 //		[toolbarItem setTarget: self];
 //		[toolbarItem setAction: @selector(brushTool:)];
 //    }	
-	else if ([itemIdent isEqualToString: ExportToolbarItemIdentifier]) {
-        
-	[toolbarItem setLabel: NSLocalizedString(@"DICOM File", nil)];
-	[toolbarItem setPaletteLabel: NSLocalizedString(@"Export as DICOM File", nil)];
-	[toolbarItem setToolTip: NSLocalizedString(@"Export this image/series in a DICOM file", nil)];
-	[toolbarItem setImage: [NSImage imageNamed: ExportToolbarItemIdentifier]];
-	[toolbarItem setTarget: self];
-	[toolbarItem setAction: @selector(exportDICOMFile:)];
+	else if ([itemIdent isEqualToString: ExportToolbarItemIdentifier])
+    {
+        [toolbarItem setLabel: NSLocalizedString(@"DICOM File", nil)];
+        [toolbarItem setPaletteLabel: NSLocalizedString(@"Export as DICOM File", nil)];
+        [toolbarItem setToolTip: NSLocalizedString(@"Export this image/series in a DICOM file", nil)];
+        [toolbarItem setImage: [NSImage imageNamed: ExportToolbarItemIdentifier]];
+        [toolbarItem setTarget: self];
+        [toolbarItem setAction: @selector(exportDICOMFile:)];
     }
-	else if ([itemIdent isEqualToString: Send2PACSToolbarItemIdentifier]) {
-        
-	[toolbarItem setLabel: NSLocalizedString(@"Send", nil)];
-	[toolbarItem setPaletteLabel: NSLocalizedString(@"Send", nil)];
-        [toolbarItem setToolTip: NSLocalizedString(@"Send this series to a DICOM node", nil)];
-	[toolbarItem setImage: [NSImage imageNamed: Send2PACSToolbarItemIdentifier]];
-	[toolbarItem setTarget: self];
-	[toolbarItem setAction: @selector(export2PACS:)];
+	else if ([itemIdent isEqualToString: Send2PACSToolbarItemIdentifier])
+    {
+        [toolbarItem setLabel: NSLocalizedString(@"Send", nil)];
+        [toolbarItem setPaletteLabel: NSLocalizedString(@"Send", nil)];
+            [toolbarItem setToolTip: NSLocalizedString(@"Send this series to a DICOM node", nil)];
+        [toolbarItem setImage: [NSImage imageNamed: Send2PACSToolbarItemIdentifier]];
+        [toolbarItem setTarget: self];
+        [toolbarItem setAction: @selector(export2PACS:)];
     }
-    else if ([itemIdent isEqualToString: XMLToolbarItemIdentifier]) {
-        
-	[toolbarItem setLabel: NSLocalizedString(@"Meta-Data", nil)];
-	[toolbarItem setPaletteLabel: NSLocalizedString(@"Meta-Data", nil)];
-        [toolbarItem setToolTip: NSLocalizedString(@"View meta-data of this image", nil)];
-	[toolbarItem setImage: [NSImage imageNamed: XMLToolbarItemIdentifier]];
-	[toolbarItem setTarget: self];
-	[toolbarItem setAction: @selector(viewXML:)];
+    else if ([itemIdent isEqualToString: XMLToolbarItemIdentifier])
+    {
+        [toolbarItem setLabel: NSLocalizedString(@"Meta-Data", nil)];
+        [toolbarItem setPaletteLabel: NSLocalizedString(@"Meta-Data", nil)];
+            [toolbarItem setToolTip: NSLocalizedString(@"View meta-data of this image", nil)];
+        [toolbarItem setImage: [NSImage imageNamed: XMLToolbarItemIdentifier]];
+        [toolbarItem setTarget: self];
+        [toolbarItem setAction: @selector(viewXML:)];
     }
-    else if ([itemIdent isEqualToString: PlayToolbarItemIdentifier]) {
-	
-	[toolbarItem setLabel: NSLocalizedString(@"Browse", nil)];
-	[toolbarItem setPaletteLabel: NSLocalizedString(@"Browse", nil)];
-	[toolbarItem setToolTip: NSLocalizedString(@"Browse this series", nil)];
-	[toolbarItem setImage: [NSImage imageNamed: PlayToolbarItemIdentifier]];
-	[toolbarItem setTarget: self];
-	[toolbarItem setAction: @selector(PlayStop:)];
+    else if ([itemIdent isEqualToString: PlayToolbarItemIdentifier])
+    {
+        [toolbarItem setLabel: NSLocalizedString(@"Browse", nil)];
+        [toolbarItem setPaletteLabel: NSLocalizedString(@"Browse", nil)];
+        [toolbarItem setToolTip: NSLocalizedString(@"Browse this series", nil)];
+        [toolbarItem setImage: [NSImage imageNamed: PlayToolbarItemIdentifier]];
+        [toolbarItem setTarget: self];
+        [toolbarItem setAction: @selector(PlayStop:)];
     } 
-	else if ([itemIdent isEqualToString: SyncSeriesToolbarItemIdentifier]) {
-	
-	[toolbarItem setTarget: self];
-	[toolbarItem setAction: @selector(SyncSeries:)];
-	[toolbarItem setToolTip: NSLocalizedString(@"Syncronize slice position", nil)];
-	if (SYNCSERIES)
-	{
-		[toolbarItem setLabel: NSLocalizedString(@"Sync", nil)];
-		[toolbarItem setPaletteLabel: NSLocalizedString(@"Sync", nil)];
-		[toolbarItem setImage: [NSImage imageNamed: @"SyncLock.pdf"]];
-	}
-	else
-	{
-		[toolbarItem setLabel: NSLocalizedString(@"Sync", nil)];
-		[toolbarItem setPaletteLabel: NSLocalizedString(@"Sync", nil)];
-		[toolbarItem setImage: [NSImage imageNamed: SyncSeriesToolbarItemIdentifier]];
-	}
+	else if ([itemIdent isEqualToString: SyncSeriesToolbarItemIdentifier])
+    {
+        [toolbarItem setTarget: self];
+        [toolbarItem setAction: @selector(SyncSeries:)];
+        [toolbarItem setToolTip: NSLocalizedString(@"Syncronize slice position", nil)];
+        if (SYNCSERIES)
+        {
+            [toolbarItem setLabel: NSLocalizedString(@"Sync", nil)];
+            [toolbarItem setPaletteLabel: NSLocalizedString(@"Sync", nil)];
+            [toolbarItem setImage: [NSImage imageNamed: @"SyncLock.pdf"]];
+        }
+        else
+        {
+            [toolbarItem setLabel: NSLocalizedString(@"Sync", nil)];
+            [toolbarItem setPaletteLabel: NSLocalizedString(@"Sync", nil)];
+            [toolbarItem setImage: [NSImage imageNamed: SyncSeriesToolbarItemIdentifier]];
+        }
     } 
-	else if ([itemIdent isEqualToString: ResetToolbarItemIdentifier]) {
-	
-	[toolbarItem setLabel: NSLocalizedString(@"Reset", nil)];
-	[toolbarItem setPaletteLabel: NSLocalizedString(@"Reset", nil)];
-	[toolbarItem setToolTip: NSLocalizedString(@"Reset image to original view", nil)];
-	[toolbarItem setImage: [NSImage imageNamed: ResetToolbarItemIdentifier]];
-	[toolbarItem setTarget: self];
-	[toolbarItem setAction: @selector(resetImage:)];
+	else if ([itemIdent isEqualToString: ResetToolbarItemIdentifier])
+    {
+        [toolbarItem setLabel: NSLocalizedString(@"Reset", nil)];
+        [toolbarItem setPaletteLabel: NSLocalizedString(@"Reset", nil)];
+        [toolbarItem setToolTip: NSLocalizedString(@"Reset image to original view", nil)];
+        [toolbarItem setImage: [NSImage imageNamed: ResetToolbarItemIdentifier]];
+        [toolbarItem setTarget: self];
+        [toolbarItem setAction: @selector(resetImage:)];
     } 
-	else if ([itemIdent isEqualToString: RevertToolbarItemIdentifier]) {
-		
+	else if ([itemIdent isEqualToString: RevertToolbarItemIdentifier])
+    {
 		[toolbarItem setLabel: NSLocalizedString(@"Revert", nil)];
 		[toolbarItem setPaletteLabel: NSLocalizedString(@"Revert", nil)];
 		[toolbarItem setToolTip: NSLocalizedString(@"Revert series by re-loading images from disk", nil)];
@@ -6837,51 +6846,49 @@ static ViewerController *draggedController = nil;
 		[toolbarItem setTarget: self];
 		[toolbarItem setAction: @selector(flipDataSeries:)];
     } 
-	else if ([itemIdent isEqualToString: DatabaseWindowToolbarItemIdentifier]) {
-	
-	[toolbarItem setLabel: NSLocalizedString(@"Database", nil)];
-	[toolbarItem setPaletteLabel: NSLocalizedString(@"Database", nil)];
-	[toolbarItem setToolTip: NSLocalizedString(@"Close viewers and open Database window", nil)];
-	[toolbarItem setImage: [NSImage imageNamed: DatabaseWindowToolbarItemIdentifier]];
-	[toolbarItem setTarget: self];
-	[toolbarItem setAction: @selector(databaseWindow:)];
+	else if ([itemIdent isEqualToString: DatabaseWindowToolbarItemIdentifier])
+    {
+        [toolbarItem setLabel: NSLocalizedString(@"Database", nil)];
+        [toolbarItem setPaletteLabel: NSLocalizedString(@"Database", nil)];
+        [toolbarItem setToolTip: NSLocalizedString(@"Close viewers and open Database window", nil)];
+        [toolbarItem setImage: [NSImage imageNamed: DatabaseWindowToolbarItemIdentifier]];
+        [toolbarItem setTarget: self];
+        [toolbarItem setAction: @selector(databaseWindow:)];
     }
 	else if ([itemIdent isEqualToString: ROIManagerToolbarItemIdentifier])
 	{
-	[toolbarItem setLabel: NSLocalizedString(@"ROI Manager", nil)];
-	[toolbarItem setPaletteLabel: NSLocalizedString(@"ROI Manager", nil)];
-	[toolbarItem setImage: [NSImage imageNamed: ROIManagerToolbarItemIdentifier]];
-	[toolbarItem setTarget: self];
-	[toolbarItem setAction: @selector(roiGetManager:)];
+        [toolbarItem setLabel: NSLocalizedString(@"ROI Manager", nil)];
+        [toolbarItem setPaletteLabel: NSLocalizedString(@"ROI Manager", nil)];
+        [toolbarItem setImage: [NSImage imageNamed: ROIManagerToolbarItemIdentifier]];
+        [toolbarItem setTarget: self];
+        [toolbarItem setAction: @selector(roiGetManager:)];
 	}
 	else if ([itemIdent isEqualToString: SUVToolbarItemIdentifier])
 	{
-	[toolbarItem setLabel: NSLocalizedString(@"SUV", nil)];
-	[toolbarItem setPaletteLabel: NSLocalizedString(@"SUV", nil)];
-	[toolbarItem setToolTip: NSLocalizedString(@"Display SUVbw values", nil)];
-	[toolbarItem setImage: [NSImage imageNamed: SUVToolbarItemIdentifier]];
-	[toolbarItem setTarget: self];
-	[toolbarItem setAction: @selector(displaySUV:)];
+        [toolbarItem setLabel: NSLocalizedString(@"SUV", nil)];
+        [toolbarItem setPaletteLabel: NSLocalizedString(@"SUV", nil)];
+        [toolbarItem setToolTip: NSLocalizedString(@"Display SUVbw values", nil)];
+        [toolbarItem setImage: [NSImage imageNamed: SUVToolbarItemIdentifier]];
+        [toolbarItem setTarget: self];
+        [toolbarItem setAction: @selector(displaySUV:)];
 	}
-	
 	else if ( [itemIdent isEqualToString: ReportToolbarItemIdentifier])
 	{
-	[toolbarItem setLabel: NSLocalizedString(@"Report", nil)];
-	[toolbarItem setPaletteLabel: NSLocalizedString(@"Report", nil)];
-	[toolbarItem setToolTip: NSLocalizedString(@"Create/Open a report for selected study", nil)];
-	[self setToolbarReportIconForItem:toolbarItem];
-	[toolbarItem setTarget: self];
-	[toolbarItem setAction: @selector(generateReport:)];
+        [toolbarItem setLabel: NSLocalizedString(@"Report", nil)];
+        [toolbarItem setPaletteLabel: NSLocalizedString(@"Report", nil)];
+        [toolbarItem setToolTip: NSLocalizedString(@"Create/Open a report for selected study", nil)];
+        [self setToolbarReportIconForItem:toolbarItem];
+        [toolbarItem setTarget: self];
+        [toolbarItem setAction: @selector(generateReport:)];
     }
-	
-	else if ([itemIdent isEqualToString: TileWindowsToolbarItemIdentifier]) {
-	
-	[toolbarItem setLabel: NSLocalizedString(@"Tile", nil)];
-	[toolbarItem setPaletteLabel: NSLocalizedString(@"Tile", nil)];
-	[toolbarItem setToolTip: NSLocalizedString(@"Tile Windows", nil)];
-	[toolbarItem setImage: [NSImage imageNamed: TileWindowsToolbarItemIdentifier]];
-	[toolbarItem setTarget: [AppController sharedAppController]];
-	[toolbarItem setAction: @selector(tileWindows:)];
+	else if ([itemIdent isEqualToString: TileWindowsToolbarItemIdentifier])
+    {
+        [toolbarItem setLabel: NSLocalizedString(@"Tile", nil)];
+        [toolbarItem setPaletteLabel: NSLocalizedString(@"Tile", nil)];
+        [toolbarItem setToolTip: NSLocalizedString(@"Tile Windows", nil)];
+        [toolbarItem setImage: [NSImage imageNamed: TileWindowsToolbarItemIdentifier]];
+        [toolbarItem setTarget: [AppController sharedAppController]];
+        [toolbarItem setAction: @selector(tileWindows:)];
     } 
 //	else if ([itemIdent isEqualToString: iChatBroadCastToolbarItemIdentifier]) {
 //	
@@ -6895,173 +6902,178 @@ static ViewerController *draggedController = nil;
 //	[toolbarItem setTarget: self];
 //	[toolbarItem setAction: @selector(iChatBroadcast:)];
 //    } 
-    else if ([itemIdent isEqualToString: SpeedToolbarItemIdentifier]) {
-//	NSMenu *submenu = nil;
-//	NSMenuItem *submenuItem = nil, *menuFormRep = nil;
-	
-	// Set up the standard properties 
-	[toolbarItem setLabel: NSLocalizedString(@"Rate", nil)];
-	[toolbarItem setPaletteLabel: NSLocalizedString(@"Rate", nil)];
-	[toolbarItem setToolTip: NSLocalizedString(@"Change the frame rate", nil)];
-	
-	// Use a custom view, a text field, for the search item 
-	[toolbarItem setView: speedView];
-	[toolbarItem setMinSize:NSMakeSize(100, NSHeight([speedView frame]))];
-	[toolbarItem setMaxSize:NSMakeSize(200,NSHeight([speedView frame]))];
+    else if ([itemIdent isEqualToString: SpeedToolbarItemIdentifier])
+    {
+    //	NSMenu *submenu = nil;
+    //	NSMenuItem *submenuItem = nil, *menuFormRep = nil;
+        
+        // Set up the standard properties
+        [toolbarItem setLabel: NSLocalizedString(@"Rate", nil)];
+        [toolbarItem setPaletteLabel: NSLocalizedString(@"Rate", nil)];
+        [toolbarItem setToolTip: NSLocalizedString(@"Change the frame rate", nil)];
+        
+        // Use a custom view, a text field, for the search item
+        [toolbarItem setView: speedView];
+        [toolbarItem setMinSize:NSMakeSize(100, NSHeight([speedView frame]))];
+        [toolbarItem setMaxSize:NSMakeSize(200,NSHeight([speedView frame]))];
 
-	// By default, in text only mode, a custom items label will be shown as disabled text, but you can provide a 
-	// custom menu of your own by using <item> setMenuFormRepresentation] 
-	/*submenu = [[[NSMenu alloc] init] autorelease];
-	submenuItem = [[[NSMenuItem alloc] initWithTitle: @"Search Panel" action: @selector(searchUsingSearchPanel:) keyEquivalent: @""] autorelease];
-	menuFormRep = [[[NSMenuItem alloc] init] autorelease];
+        // By default, in text only mode, a custom items label will be shown as disabled text, but you can provide a
+        // custom menu of your own by using <item> setMenuFormRepresentation]
+        /*submenu = [[[NSMenu alloc] init] autorelease];
+        submenuItem = [[[NSMenuItem alloc] initWithTitle: @"Search Panel" action: @selector(searchUsingSearchPanel:) keyEquivalent: @""] autorelease];
+        menuFormRep = [[[NSMenuItem alloc] init] autorelease];
 
-	[submenu addItem: submenuItem];
-	[submenuItem setTarget: self];
-	[menuFormRep setSubmenu: submenu];
-	[menuFormRep setTitle: [toolbarItem label]];
-	[toolbarItem setMenuFormRepresentation: menuFormRep];*/
+        [submenu addItem: submenuItem];
+        [submenuItem setTarget: self];
+        [menuFormRep setSubmenu: submenu];
+        [menuFormRep setTitle: [toolbarItem label]];
+        [toolbarItem setMenuFormRepresentation: menuFormRep];*/
     }
-	else if ([itemIdent isEqualToString: MovieToolbarItemIdentifier]) {
-	// Set up the standard properties 
-	[toolbarItem setLabel: NSLocalizedString(@"4D Player", nil)];
-	[toolbarItem setPaletteLabel: NSLocalizedString(@"4D Player", nil)];
-	[toolbarItem setToolTip: NSLocalizedString(@"4D Series Controller", nil)];
-	
-	// Use a custom view, a text field, for the search item 
-	[toolbarItem setView: movieView];
-	[toolbarItem setMinSize:NSMakeSize(NSWidth([movieView frame]), NSHeight([movieView frame]))];
-	[toolbarItem setMaxSize:NSMakeSize(NSWidth([movieView frame]),NSHeight([movieView frame]))];
+	else if ([itemIdent isEqualToString: MovieToolbarItemIdentifier])
+    {
+        // Set up the standard properties
+        [toolbarItem setLabel: NSLocalizedString(@"4D Player", nil)];
+        [toolbarItem setPaletteLabel: NSLocalizedString(@"4D Player", nil)];
+        [toolbarItem setToolTip: NSLocalizedString(@"4D Series Controller", nil)];
+        
+        // Use a custom view, a text field, for the search item
+        [toolbarItem setView: movieView];
+        [toolbarItem setMinSize:NSMakeSize(NSWidth([movieView frame]), NSHeight([movieView frame]))];
+        [toolbarItem setMaxSize:NSMakeSize(NSWidth([movieView frame]),NSHeight([movieView frame]))];
     }
-	else if ([itemIdent isEqualToString: SerieToolbarItemIdentifier]) {
-	// Set up the standard properties 
-	[toolbarItem setLabel: NSLocalizedString(@"Series", nil)];
-	[toolbarItem setPaletteLabel: NSLocalizedString(@"Series", nil)];
-	[toolbarItem setToolTip: NSLocalizedString(@"Next/Previous Series", nil)];
-	
-	// Use a custom view, a text field, for the search item 
-	[toolbarItem setView: serieView];
-	[toolbarItem setMinSize:NSMakeSize(NSWidth([serieView frame]), NSHeight([serieView frame]))];
-	[toolbarItem setMaxSize:NSMakeSize(NSWidth([serieView frame]),NSHeight([serieView frame]))];
+	else if ([itemIdent isEqualToString: SerieToolbarItemIdentifier])
+    {
+        // Set up the standard properties
+        [toolbarItem setLabel: NSLocalizedString(@"Series", nil)];
+        [toolbarItem setPaletteLabel: NSLocalizedString(@"Series", nil)];
+        [toolbarItem setToolTip: NSLocalizedString(@"Next/Previous Series", nil)];
+        
+        // Use a custom view, a text field, for the search item
+        [toolbarItem setView: serieView];
+        [toolbarItem setMinSize:NSMakeSize(NSWidth([serieView frame]), NSHeight([serieView frame]))];
+        [toolbarItem setMaxSize:NSMakeSize(NSWidth([serieView frame]),NSHeight([serieView frame]))];
     }
-	else if ([itemIdent isEqualToString: PatientToolbarItemIdentifier]) {
-	// Set up the standard properties 
-	[toolbarItem setLabel: NSLocalizedString(@"Patient", nil)];
-	[toolbarItem setPaletteLabel: NSLocalizedString(@"Patient", nil)];
-	[toolbarItem setToolTip: NSLocalizedString(@"Next/Previous Patient", nil)];
-	
-	// Use a custom view, a text field, for the search item 
-	[toolbarItem setView: patientView];
-	[toolbarItem setMinSize:NSMakeSize(NSWidth([patientView frame]), NSHeight([patientView frame]))];
-	[toolbarItem setMaxSize:NSMakeSize(NSWidth([patientView frame]), NSHeight([patientView frame]))];
+	else if ([itemIdent isEqualToString: PatientToolbarItemIdentifier])
+    {
+        // Set up the standard properties
+        [toolbarItem setLabel: NSLocalizedString(@"Patient", nil)];
+        [toolbarItem setPaletteLabel: NSLocalizedString(@"Patient", nil)];
+        [toolbarItem setToolTip: NSLocalizedString(@"Next/Previous Patient", nil)];
+        
+        // Use a custom view, a text field, for the search item
+        [toolbarItem setView: patientView];
+        [toolbarItem setMinSize:NSMakeSize(NSWidth([patientView frame]), NSHeight([patientView frame]))];
+        [toolbarItem setMaxSize:NSMakeSize(NSWidth([patientView frame]), NSHeight([patientView frame]))];
     }
 	else if ([itemIdent isEqualToString: SubtractionToolbarItemIdentifier])
 	{
-	// Set up the standard properties 
-	[toolbarItem setLabel: NSLocalizedString(@"Subtraction", nil)];
-	[toolbarItem setPaletteLabel: NSLocalizedString(@"Subtraction", nil)];
-	[toolbarItem setToolTip: NSLocalizedString(@"Subtraction module", nil)];
-	
-	// Use a custom view, a text field, for the search item 
-	[toolbarItem setView: subCtrlView];
-	[toolbarItem setMinSize:NSMakeSize(NSWidth([subCtrlView frame]), NSHeight([subCtrlView frame]))];
-	[toolbarItem setMaxSize:NSMakeSize(NSWidth([subCtrlView frame]),NSHeight([subCtrlView frame]))];
-    }
-	else if ([itemIdent isEqualToString: WLWWToolbarItemIdentifier]) {
-//	NSMenu *submenu = nil;
-//	NSMenuItem *submenuItem = nil, *menuFormRep = nil;
-	
-	// Set up the standard properties 
-	[toolbarItem setLabel: NSLocalizedString(@"WL/WW & CLUT", nil)];
-	[toolbarItem setPaletteLabel: NSLocalizedString(@"WL/WW & CLUT", nil)];
-	[toolbarItem setToolTip: NSLocalizedString(@"Modify WL/WW & CLUT", nil)];
-	
-	// Use a custom view, a text field, for the search item 
-	[toolbarItem setView: WLWWView];
-	[toolbarItem setMinSize:NSMakeSize(NSWidth([WLWWView frame]), NSHeight([WLWWView frame]))];
-	[toolbarItem setMaxSize:NSMakeSize(NSWidth([WLWWView frame]), NSHeight([WLWWView frame]))];
+        // Set up the standard properties
+        [toolbarItem setLabel: NSLocalizedString(@"Subtraction", nil)];
+        [toolbarItem setPaletteLabel: NSLocalizedString(@"Subtraction", nil)];
+        [toolbarItem setToolTip: NSLocalizedString(@"Subtraction module", nil)];
         
-        // Pulldown that doesnt change item
-//        [[wlwwPopup cell] setBezelStyle:NSSmallIconButtonBezelStyle];
-//        [[wlwwPopup cell] setArrowPosition:NSPopUpArrowAtBottom];
+        // Use a custom view, a text field, for the search item
+        [toolbarItem setView: subCtrlView];
+        [toolbarItem setMinSize:NSMakeSize(NSWidth([subCtrlView frame]), NSHeight([subCtrlView frame]))];
+        [toolbarItem setMaxSize:NSMakeSize(NSWidth([subCtrlView frame]),NSHeight([subCtrlView frame]))];
+    }
+	else if ([itemIdent isEqualToString: WLWWToolbarItemIdentifier])
+    {
+    //	NSMenu *submenu = nil;
+    //	NSMenuItem *submenuItem = nil, *menuFormRep = nil;
         
-        [[wlwwPopup cell] setUsesItemFromMenu:YES];
-//        [wlwwPopup setMenu: presetsViewMenu];
-//        [wlwwPopup setPreferredEdge:NSMinXEdge];
-//        [[[wlwwPopup menu] menuRepresentation] setHorizontalEdgePadding:0.0];
+        // Set up the standard properties
+        [toolbarItem setLabel: NSLocalizedString(@"WL/WW & CLUT", nil)];
+        [toolbarItem setPaletteLabel: NSLocalizedString(@"WL/WW & CLUT", nil)];
+        [toolbarItem setToolTip: NSLocalizedString(@"Modify WL/WW & CLUT", nil)];
+        
+        // Use a custom view, a text field, for the search item
+        [toolbarItem setView: WLWWView];
+        [toolbarItem setMinSize:NSMakeSize(NSWidth([WLWWView frame]), NSHeight([WLWWView frame]))];
+        [toolbarItem setMaxSize:NSMakeSize(NSWidth([WLWWView frame]), NSHeight([WLWWView frame]))];
+        
+            // Pulldown that doesnt change item
+    //        [[wlwwPopup cell] setBezelStyle:NSSmallIconButtonBezelStyle];
+    //        [[wlwwPopup cell] setArrowPosition:NSPopUpArrowAtBottom];
+        
+            [[wlwwPopup cell] setUsesItemFromMenu:YES];
+    //        [wlwwPopup setMenu: presetsViewMenu];
+    //        [wlwwPopup setPreferredEdge:NSMinXEdge];
+    //        [[[wlwwPopup menu] menuRepresentation] setHorizontalEdgePadding:0.0];
     }
-	    else if ([itemIdent isEqualToString: FilterToolbarItemIdentifier]) {
-	// Set up the standard properties 
-	[toolbarItem setLabel: NSLocalizedString(@"Convolution Filters", nil)];
-	[toolbarItem setPaletteLabel: NSLocalizedString(@"Convolution Filters", nil)];
-	[toolbarItem setToolTip: NSLocalizedString(@"Apply a convolution filter", nil)];
-	
-	// Use a custom view, a text field, for the search item 
-	[toolbarItem setView: ConvView];
-	[toolbarItem setMinSize:NSMakeSize(NSWidth([ConvView frame]), NSHeight([ConvView frame]))];
-	[toolbarItem setMaxSize:NSMakeSize(NSWidth([ConvView frame]), NSHeight([ConvView frame]))];
-	
-	[[convPopup cell] setUsesItemFromMenu:YES];
-//	[convPopup setMenu: convViewMenu];
-//        [wlwwPopup setPreferredEdge:NSMinXEdge];
-//        [[[wlwwPopup menu] menuRepresentation] setHorizontalEdgePadding:0.0];
-
+    else if ([itemIdent isEqualToString: FilterToolbarItemIdentifier])
+    {
+        // Set up the standard properties
+        [toolbarItem setLabel: NSLocalizedString(@"Convolution Filters", nil)];
+        [toolbarItem setPaletteLabel: NSLocalizedString(@"Convolution Filters", nil)];
+        [toolbarItem setToolTip: NSLocalizedString(@"Apply a convolution filter", nil)];
+        
+        // Use a custom view, a text field, for the search item
+        [toolbarItem setView: ConvView];
+        [toolbarItem setMinSize:NSMakeSize(NSWidth([ConvView frame]), NSHeight([ConvView frame]))];
+        [toolbarItem setMaxSize:NSMakeSize(NSWidth([ConvView frame]), NSHeight([ConvView frame]))];
+        
+        [[convPopup cell] setUsesItemFromMenu:YES];
+    //	[convPopup setMenu: convViewMenu];
+    //        [wlwwPopup setPreferredEdge:NSMinXEdge];
+    //        [[[wlwwPopup menu] menuRepresentation] setHorizontalEdgePadding:0.0];
     }
-	 else if ([itemIdent isEqualToString: FusionToolbarItemIdentifier])
-	 {
-	// Set up the standard properties 
-	[toolbarItem setLabel: NSLocalizedString(@"Thick Slab", nil)];
-	[toolbarItem setPaletteLabel: NSLocalizedString(@"Thick Slab", nil)];
-	[toolbarItem setToolTip: NSLocalizedString(@"Change Thick Slab mode and number", nil)];
-	
-	// Use a custom view, a text field, for the search item 
-	[toolbarItem setView: FusionView];
-	[toolbarItem setMinSize:NSMakeSize(NSWidth([FusionView frame]), NSHeight([FusionView frame]))];
-	[toolbarItem setMaxSize:NSMakeSize(NSWidth([FusionView frame]) + 200, NSHeight([FusionView frame]))];
+    else if ([itemIdent isEqualToString: FusionToolbarItemIdentifier])
+    {
+        // Set up the standard properties
+        [toolbarItem setLabel: NSLocalizedString(@"Thick Slab", nil)];
+        [toolbarItem setPaletteLabel: NSLocalizedString(@"Thick Slab", nil)];
+        [toolbarItem setToolTip: NSLocalizedString(@"Change Thick Slab mode and number", nil)];
+        
+        // Use a custom view, a text field, for the search item
+        [toolbarItem setView: FusionView];
+        [toolbarItem setMinSize:NSMakeSize(NSWidth([FusionView frame]), NSHeight([FusionView frame]))];
+        [toolbarItem setMaxSize:NSMakeSize(NSWidth([FusionView frame]) + 200, NSHeight([FusionView frame]))];
 	}
 	else if ([itemIdent isEqualToString: StatusToolbarItemIdentifier])
-	 {
-	// Set up the standard properties 
-	[toolbarItem setLabel: NSLocalizedString(@"Status & Comments", nil)];
-	[toolbarItem setPaletteLabel: NSLocalizedString(@"Status & Comments", nil)];
-	
-	// Use a custom view, a text field, for the search item 
-	[toolbarItem setView: StatusView];
-	[toolbarItem setMinSize:NSMakeSize(NSWidth([StatusView frame]), NSHeight([FusionView frame]))];
-	[toolbarItem setMaxSize:NSMakeSize(NSWidth([StatusView frame]), NSHeight([FusionView frame]))];
+    {
+        // Set up the standard properties
+        [toolbarItem setLabel: NSLocalizedString(@"Status & Comments", nil)];
+        [toolbarItem setPaletteLabel: NSLocalizedString(@"Status & Comments", nil)];
+        
+        // Use a custom view, a text field, for the search item
+        [toolbarItem setView: StatusView];
+        [toolbarItem setMinSize:NSMakeSize(NSWidth([StatusView frame]), NSHeight([FusionView frame]))];
+        [toolbarItem setMaxSize:NSMakeSize(NSWidth([StatusView frame]), NSHeight([FusionView frame]))];
 	}
-	 else if ([itemIdent isEqualToString: BlendingToolbarItemIdentifier])
-	 {
-	// Set up the standard properties 
-	[toolbarItem setLabel: NSLocalizedString(@"Fusion", nil)];
-	[toolbarItem setPaletteLabel: NSLocalizedString(@"Fusion", nil)];
-	[toolbarItem setToolTip: NSLocalizedString(@"Fusion Mode and Percentage", nil)];
-	
-	// Use a custom view, a text field, for the search item 
-	[toolbarItem setView: BlendingView];
-	[toolbarItem setMinSize:NSMakeSize(NSWidth([BlendingView frame]), NSHeight([BlendingView frame]))];
-	[toolbarItem setMaxSize:NSMakeSize(NSWidth([BlendingView frame]), NSHeight([BlendingView frame]))];
+    else if ([itemIdent isEqualToString: BlendingToolbarItemIdentifier])
+    {
+        // Set up the standard properties
+        [toolbarItem setLabel: NSLocalizedString(@"Fusion", nil)];
+        [toolbarItem setPaletteLabel: NSLocalizedString(@"Fusion", nil)];
+        [toolbarItem setToolTip: NSLocalizedString(@"Fusion Mode and Percentage", nil)];
+        
+        // Use a custom view, a text field, for the search item
+        [toolbarItem setView: BlendingView];
+        [toolbarItem setMinSize:NSMakeSize(NSWidth([BlendingView frame]), NSHeight([BlendingView frame]))];
+        [toolbarItem setMaxSize:NSMakeSize(NSWidth([BlendingView frame]), NSHeight([BlendingView frame]))];
 	}
 	else if ([itemIdent isEqualToString: RGBFactorToolbarItemIdentifier])
-	 {
-	// Set up the standard properties 
-	[toolbarItem setLabel: NSLocalizedString(@"RGB Factors", nil)];
-	[toolbarItem setPaletteLabel: NSLocalizedString(@"RGB Factors", nil)];
-	
-	// Use a custom view, a text field, for the search item 
-	[toolbarItem setView: RGBFactorsView];
-	[toolbarItem setMinSize:NSMakeSize(NSWidth([RGBFactorsView frame]), NSHeight([RGBFactorsView frame]))];
-	[toolbarItem setMaxSize:NSMakeSize(NSWidth([RGBFactorsView frame]), NSHeight([RGBFactorsView frame]))];
+    {
+        // Set up the standard properties
+        [toolbarItem setLabel: NSLocalizedString(@"RGB Factors", nil)];
+        [toolbarItem setPaletteLabel: NSLocalizedString(@"RGB Factors", nil)];
+        
+        // Use a custom view, a text field, for the search item
+        [toolbarItem setView: RGBFactorsView];
+        [toolbarItem setMinSize:NSMakeSize(NSWidth([RGBFactorsView frame]), NSHeight([RGBFactorsView frame]))];
+        [toolbarItem setMaxSize:NSMakeSize(NSWidth([RGBFactorsView frame]), NSHeight([RGBFactorsView frame]))];
 	}
 	else if ([itemIdent isEqualToString: OrientationToolbarItemIdentifier])
-	 {
-	// Set up the standard properties 
-	[toolbarItem setLabel: NSLocalizedString(@"Orientation", nil)];
-	[toolbarItem setPaletteLabel: NSLocalizedString(@"Orientation", nil)];
-	
-	// Use a custom view, a text field, for the search item 
-	[toolbarItem setView: orientationView];
-	[toolbarItem setMinSize:NSMakeSize(NSWidth([orientationView frame]), NSHeight([orientationView frame]))];
-	[toolbarItem setMaxSize:NSMakeSize(NSWidth([orientationView frame]), NSHeight([orientationView frame]))];
+    {
+        // Set up the standard properties
+        [toolbarItem setLabel: NSLocalizedString(@"Orientation", nil)];
+        [toolbarItem setPaletteLabel: NSLocalizedString(@"Orientation", nil)];
+        
+        // Use a custom view, a text field, for the search item
+        [toolbarItem setView: orientationView];
+        [toolbarItem setMinSize:NSMakeSize(NSWidth([orientationView frame]), NSHeight([orientationView frame]))];
+        [toolbarItem setMaxSize:NSMakeSize(NSWidth([orientationView frame]), NSHeight([orientationView frame]))];
 	}
     else if ([itemIdent isEqualToString: SeriesPopupToolbarItemIdentifier])
     {
@@ -7096,96 +7108,96 @@ static ViewerController *draggedController = nil;
         [toolbarItem setMaxSize:NSMakeSize(NSWidth([annotations frame]), NSHeight([annotations frame]))];
 	}
 	else if ([itemIdent isEqualToString: ShutterToolbarItemIdentifier])
-	 {
-	// Set up the standard properties 
-	[toolbarItem setLabel: NSLocalizedString(@"Shutter", nil)];
-	[toolbarItem setPaletteLabel: NSLocalizedString(@"Shutter", nil)];
-	
-	// Use a custom view, a text field, for the search item 
-	[toolbarItem setView: shutterView];
-	[toolbarItem setMinSize:NSMakeSize(NSWidth([shutterView frame]), NSHeight([shutterView frame]))];
-	[toolbarItem setMaxSize:NSMakeSize(NSWidth([shutterView frame]), NSHeight([shutterView frame]))];
+    {
+        // Set up the standard properties
+        [toolbarItem setLabel: NSLocalizedString(@"Shutter", nil)];
+        [toolbarItem setPaletteLabel: NSLocalizedString(@"Shutter", nil)];
+        
+        // Use a custom view, a text field, for the search item
+        [toolbarItem setView: shutterView];
+        [toolbarItem setMinSize:NSMakeSize(NSWidth([shutterView frame]), NSHeight([shutterView frame]))];
+        [toolbarItem setMaxSize:NSMakeSize(NSWidth([shutterView frame]), NSHeight([shutterView frame]))];
 	}
 	else if ([itemIdent isEqualToString: PropagateSettingsToolbarItemIdentifier])
-	 {
-	// Set up the standard properties 
-	[toolbarItem setLabel: NSLocalizedString(@"Propagate", nil)];
-	[toolbarItem setPaletteLabel: NSLocalizedString(@"Propagate", nil)];
-	[toolbarItem setToolTip: NSLocalizedString(@"Propagate settings (WL/WW, zoom, ...)", nil)];
-	
-	[toolbarItem setView: propagateSettingsView];
-	[toolbarItem setMinSize:NSMakeSize(NSWidth([propagateSettingsView frame]), NSHeight([propagateSettingsView frame]))];
-	[toolbarItem setMaxSize:NSMakeSize(NSWidth([propagateSettingsView frame]), NSHeight([propagateSettingsView frame]))];
+    {
+        // Set up the standard properties
+        [toolbarItem setLabel: NSLocalizedString(@"Propagate", nil)];
+        [toolbarItem setPaletteLabel: NSLocalizedString(@"Propagate", nil)];
+        [toolbarItem setToolTip: NSLocalizedString(@"Propagate settings (WL/WW, zoom, ...)", nil)];
+        
+        [toolbarItem setView: propagateSettingsView];
+        [toolbarItem setMinSize:NSMakeSize(NSWidth([propagateSettingsView frame]), NSHeight([propagateSettingsView frame]))];
+        [toolbarItem setMaxSize:NSMakeSize(NSWidth([propagateSettingsView frame]), NSHeight([propagateSettingsView frame]))];
 	}
 	else if ([itemIdent isEqualToString: ReconstructionToolbarItemIdentifier])
-	 {
-	// Set up the standard properties 
-	[toolbarItem setLabel: NSLocalizedString(@"2D/3D", nil)];
-	[toolbarItem setPaletteLabel: NSLocalizedString(@"2D/3D", nil)];
-	[toolbarItem setToolTip: NSLocalizedString(@"2D/3D Reconstruction Tools", nil)];
-	
-	// Use a custom view, a text field, for the search item 
-	[toolbarItem setView: ReconstructionView];
-	[toolbarItem setMinSize:NSMakeSize(NSWidth([ReconstructionView frame]), NSHeight([ReconstructionView frame]))];
-	[toolbarItem setMaxSize:NSMakeSize(NSWidth([ReconstructionView frame]), NSHeight([ReconstructionView frame]))];
+    {
+        // Set up the standard properties
+        [toolbarItem setLabel: NSLocalizedString(@"2D/3D", nil)];
+        [toolbarItem setPaletteLabel: NSLocalizedString(@"2D/3D", nil)];
+        [toolbarItem setToolTip: NSLocalizedString(@"2D/3D Reconstruction Tools", nil)];
+        
+        // Use a custom view, a text field, for the search item
+        [toolbarItem setView: ReconstructionView];
+        [toolbarItem setMinSize:NSMakeSize(NSWidth([ReconstructionView frame]), NSHeight([ReconstructionView frame]))];
+        [toolbarItem setMaxSize:NSMakeSize(NSWidth([ReconstructionView frame]), NSHeight([ReconstructionView frame]))];
 	}
 	else if ([itemIdent isEqualToString: KeyImagesToolbarItemIdentifier])
-	 {
-	// Set up the standard properties 
-	[toolbarItem setLabel: NSLocalizedString(@"Key Images", nil)];
-	[toolbarItem setPaletteLabel: NSLocalizedString(@"Key Images", nil)];
-	
-	// Use a custom view, a text field, for the search item 
-	[toolbarItem setView: keyImages];
-	[toolbarItem setMinSize:NSMakeSize(NSWidth([keyImages frame]), NSHeight([keyImages frame]))];
-	[toolbarItem setMaxSize:NSMakeSize(NSWidth([keyImages frame]), NSHeight([keyImages frame]))];
+    {
+        // Set up the standard properties
+        [toolbarItem setLabel: NSLocalizedString(@"Key Images", nil)];
+        [toolbarItem setPaletteLabel: NSLocalizedString(@"Key Images", nil)];
+        
+        // Use a custom view, a text field, for the search item
+        [toolbarItem setView: keyImages];
+        [toolbarItem setMinSize:NSMakeSize(NSWidth([keyImages frame]), NSHeight([keyImages frame]))];
+        [toolbarItem setMaxSize:NSMakeSize(NSWidth([keyImages frame]), NSHeight([keyImages frame]))];
 	}
-     else if ([itemIdent isEqualToString: ToolsToolbarItemIdentifier]) {
-	// Set up the standard properties 
-	[toolbarItem setLabel: NSLocalizedString(@"Mouse button function", nil)];
-	[toolbarItem setPaletteLabel: NSLocalizedString(@"Mouse button function", nil)];
-	[toolbarItem setToolTip: NSLocalizedString(@"Change the mouse button function", nil)];
-	
-	// Use a custom view, a text field, for the search item 
-	[toolbarItem setView: toolsView];
-	[toolbarItem setMinSize:NSMakeSize(NSWidth([toolsView frame]), NSHeight([toolsView frame]))];
-	[toolbarItem setMaxSize:NSMakeSize(NSWidth([toolsView frame]),NSHeight([toolsView frame]))];
-
+    else if ([itemIdent isEqualToString: ToolsToolbarItemIdentifier])
+    {
+        // Set up the standard properties
+        [toolbarItem setLabel: NSLocalizedString(@"Mouse button function", nil)];
+        [toolbarItem setPaletteLabel: NSLocalizedString(@"Mouse button function", nil)];
+        [toolbarItem setToolTip: NSLocalizedString(@"Change the mouse button function", nil)];
+        
+        // Use a custom view, a text field, for the search item
+        [toolbarItem setView: toolsView];
+        [toolbarItem setMinSize:NSMakeSize(NSWidth([toolsView frame]), NSHeight([toolsView frame]))];
+        [toolbarItem setMaxSize:NSMakeSize(NSWidth([toolsView frame]),NSHeight([toolsView frame]))];
     }
-	else if ([itemIdent isEqualToString: FlipVerticalToolbarItemIdentifier]) {
-	
-	[toolbarItem setLabel: NSLocalizedString(@"Flip Vertical", nil)];
-	[toolbarItem setPaletteLabel: NSLocalizedString(@"Flip Vertical", nil)];
-	[toolbarItem setToolTip: NSLocalizedString(@"Flip image vertically", nil)];
-	[toolbarItem setImage: [NSImage imageNamed: FlipVerticalToolbarItemIdentifier]];
-	[toolbarItem setTarget: nil];
-	[toolbarItem setAction: @selector(flipVertical:)];
+	else if ([itemIdent isEqualToString: FlipVerticalToolbarItemIdentifier])
+    {
+        [toolbarItem setLabel: NSLocalizedString(@"Flip Vertical", nil)];
+        [toolbarItem setPaletteLabel: NSLocalizedString(@"Flip Vertical", nil)];
+        [toolbarItem setToolTip: NSLocalizedString(@"Flip image vertically", nil)];
+        [toolbarItem setImage: [NSImage imageNamed: FlipVerticalToolbarItemIdentifier]];
+        [toolbarItem setTarget: nil];
+        [toolbarItem setAction: @selector(flipVertical:)];
 	}
-	else if ([itemIdent isEqualToString: SetPixelValueItemIdentifier]) {
-	
-	[toolbarItem setLabel: NSLocalizedString(@"Set Pixels", nil)];
-	[toolbarItem setPaletteLabel: NSLocalizedString(@"Set Pixels", nil)];
-	[toolbarItem setToolTip: NSLocalizedString(@"Set Pixels Values to...", nil)];
-	[toolbarItem setImage: [NSImage imageNamed: SetPixelValueItemIdentifier]];
-	[toolbarItem setTarget: nil];
-	[toolbarItem setAction: @selector(roiSetPixelsSetup:)];
+	else if ([itemIdent isEqualToString: SetPixelValueItemIdentifier])
+    {
+        [toolbarItem setLabel: NSLocalizedString(@"Set Pixels", nil)];
+        [toolbarItem setPaletteLabel: NSLocalizedString(@"Set Pixels", nil)];
+        [toolbarItem setToolTip: NSLocalizedString(@"Set Pixels Values to...", nil)];
+        [toolbarItem setImage: [NSImage imageNamed: SetPixelValueItemIdentifier]];
+        [toolbarItem setTarget: nil];
+        [toolbarItem setAction: @selector(roiSetPixelsSetup:)];
 	}
-	else if ([itemIdent isEqualToString: GrowingRegionItemIdentifier]) {
-	
-	[toolbarItem setLabel: NSLocalizedString(@"Growing", nil)];
-	[toolbarItem setPaletteLabel: NSLocalizedString(@"Growing", nil)];
-	[toolbarItem setToolTip: NSLocalizedString(@"Growing Region", nil)];
-	[toolbarItem setImage: [NSImage imageNamed: GrowingRegionItemIdentifier]];
-	[toolbarItem setTarget: nil];
-	[toolbarItem setAction: @selector(segmentationTest:)];
+	else if ([itemIdent isEqualToString: GrowingRegionItemIdentifier])
+    {
+        [toolbarItem setLabel: NSLocalizedString(@"Growing", nil)];
+        [toolbarItem setPaletteLabel: NSLocalizedString(@"Growing", nil)];
+        [toolbarItem setToolTip: NSLocalizedString(@"Growing Region", nil)];
+        [toolbarItem setImage: [NSImage imageNamed: GrowingRegionItemIdentifier]];
+        [toolbarItem setTarget: nil];
+        [toolbarItem setAction: @selector(segmentationTest:)];
 	}
-   	else if ([itemIdent isEqualToString: VRPanelToolbarItemIdentifier]) {
-
- 	[toolbarItem setLabel: NSLocalizedString(@"3D Panel", nil)];
- 	[toolbarItem setPaletteLabel: NSLocalizedString(@"3D Panel", nil)];
- 	[toolbarItem setImage: [NSImage imageNamed: VRPanelToolbarItemIdentifier]];
- 	[toolbarItem setTarget: nil];
- 	[toolbarItem setAction: @selector(Panel3D:)];
+   	else if ([itemIdent isEqualToString: VRPanelToolbarItemIdentifier])
+    {
+        [toolbarItem setLabel: NSLocalizedString(@"3D Panel", nil)];
+        [toolbarItem setPaletteLabel: NSLocalizedString(@"3D Panel", nil)];
+        [toolbarItem setImage: [NSImage imageNamed: VRPanelToolbarItemIdentifier]];
+        [toolbarItem setTarget: nil];
+        [toolbarItem setAction: @selector(Panel3D:)];
     } 
 	else if ([itemIdent isEqualToString: FlipHorizontalToolbarItemIdentifier])
     {
@@ -7900,8 +7912,7 @@ return YES;
 	#endif
 }
 
-#pragma mark-
-#pragma mark 4.1. single viewport
+#pragma mark - 4.1. single viewport
 
 - (BOOL) isDataVolumic
 {
@@ -8455,7 +8466,7 @@ static NSMutableArray *poolOf2DViewers = nil;
 
 -(void)awakeFromNib
 {
-    awakeFromNib = YES;
+    flagAwakeFromNib = YES;
     
     DisplayUseInvertedPolarity = [[[[NSUserDefaults standardUserDefaults] persistentDomainForName: @"com.apple.CoreGraphics"] objectForKey: @"DisplayUseInvertedPolarity"] boolValue];
     
@@ -8681,10 +8692,12 @@ static int avoidReentryRefreshDatabase = 0;
 
 - (void) dealloc
 {
+    NSLog(@"ViewerController.mm:%d %@ dealloc %p", __LINE__, NSStringFromClass([self class]), self);
+
     if (cachedFrontMostDisplayed2DViewer == self)
         [ViewerController clearFrontMost2DViewerCache];
     
-    if (awakeFromNib == NO) // poolOf2DViewers !
+    if (flagAwakeFromNib == NO) // poolOf2DViewers !
     {
         [super dealloc];
         return;
@@ -8778,8 +8791,6 @@ static int avoidReentryRefreshDatabase = 0;
     toolbarPanel = nil;
     
 	[super dealloc];
-	
-	NSLog(@"ViewController dealloc");
 }
 
 - (void) selectFirstTilingView
@@ -9780,7 +9791,7 @@ static int avoidReentryRefreshDatabase = 0;
     NSArray *pixListArray = [dict objectForKey: @"pixListArray"];
     DCMPix *firstPix = [[pixListArray objectAtIndex: 0] objectAtIndex: 0];
     
-    #pragma mark modality dependant code, once images are already displayed in 2D viewer
+#pragma mark - modality dependant code, once images are already displayed in 2D viewer
     
     for (NSArray *pList in pixListArray)
     {
@@ -9791,7 +9802,7 @@ static int avoidReentryRefreshDatabase = 0;
         }
     }
     
-    #pragma mark XA
+#pragma mark - XA
     enableSubtraction = FALSE;
     subCtrlMinMaxComputed = NO;
     if ([[firstPix modalityString] isEqualToString:@"XA"])
@@ -9814,7 +9825,7 @@ static int avoidReentryRefreshDatabase = 0;
     
     [self enableSubtraction];
     
-#pragma mark PET
+#pragma mark - PET
     
     BOOL isPET = NO;
     
@@ -10079,9 +10090,9 @@ static int avoidReentryRefreshDatabase = 0;
     }
 }
 
-#pragma mark 4.1.1. DICOM pipeline
+#pragma mark - 4.1.1. DICOM pipeline
 
-#pragma mark 4.1.1.1 Filters
+#pragma mark - 4.1.1.1 Filters
 
 // filter from plugin
 - (void)executeFilterFromString:(NSString*)name {
@@ -10193,7 +10204,7 @@ static int avoidReentryRefreshDatabase = 0;
 	[self executeFilterFromString: [sender label]];
 }
 
-#pragma mark resample image
+#pragma mark - resample image
 
 - (IBAction)resampleDataBy2:(id)sender;
 {
@@ -10561,9 +10572,7 @@ static int avoidReentryRefreshDatabase = 0;
 	return NO;
 }
 
-//xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-
-#pragma mark 4.1.1.2. Mask Subtraction
+#pragma mark - 4.1.1.2. Mask Subtraction
 // These methods are enabled only if enableSubtraction
 //(which is calculated in ViewerController -(void) loadImageData:(id) sender)
 // is set to TRUE
@@ -10986,8 +10995,7 @@ static int avoidReentryRefreshDatabase = 0;
         [self ApplyConvString:NSLocalizedString(@"No Filter", nil)];
 }
 
-#pragma mark-
-#pragma mark 4.1.1.3. VOI LUT transformation
+#pragma mark - 4.1.1.3. VOI LUT transformation
 
 - (void) setCurWLWWMenu:(NSString*) s
 {
@@ -12163,7 +12171,7 @@ static float oldsetww, oldsetwl;
 	return curOpacityMenu;
 }
 
-#pragma mark convolution
+#pragma mark - convolution
 
 - (void) applyConvolutionXYThread:(id) dict
 {
@@ -12711,11 +12719,9 @@ long				x, y;
     [NSApp beginSheet: addConvWindow modalForWindow:[self window] modalDelegate:self didEndSelector:nil contextInfo:nil];
 }
 
-#pragma mark-
-#pragma mark 4.1.1.4.a Presentation LUT
+#pragma mark - 4.1.1.4.a Presentation LUT
 
-#pragma mark-
-#pragma mark 4.1.1.4.b Pseudo Color
+#pragma mark - 4.1.1.4.b Pseudo Color
 
 - (void)deleteCLUT:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo
 {
@@ -13187,17 +13193,13 @@ long				x, y;
 		return curCLUTMenu;
 }
 
-#pragma mark-
-#pragma mark 4.1.1.4.c True Color
+#pragma mark - 4.1.1.4.c True Color
 
-#pragma mark-
-#pragma mark 4.1.1.4.d Indexed Color
+#pragma mark - 4.1.1.4.d Indexed Color
 
-#pragma mark-
-#pragma mark 4.1.1.5 ICC input Profile
+#pragma mark - 4.1.1.5 ICC input Profile
 
-#pragma mark-
-#pragma mark 4.1.2 Composition of various images
+#pragma mark - 4.1.2 Composition of various images
 
 -(NSSlider*) sliderFusion { return sliderFusion;}
 
@@ -13339,7 +13341,8 @@ long				x, y;
 	
 	[imageView sendSyncMessage: 0];
 }
-#pragma mark blending
+
+#pragma mark - blending
 
 -(IBAction) blendWindows:(id) sender
 {
@@ -13448,7 +13451,7 @@ long				x, y;
             if (orientB[ 6] == 0 && orientB[ 7] == 0 && orientB[ 8] == 0) proceed = YES;
             if (orientA[ 6] == 0 && orientA[ 7] == 0 && orientA[ 8] == 0) proceed = YES;
             
-            if ([DCMView angleBetweenVector: orientA+6 andVector:orientB+6] > [[NSUserDefaults standardUserDefaults] floatForKey: @"PARALLELPLANETOLERANCE"])  // Planes are not paralel!
+            if ([DCMView angleBetweenVector: orientA+6 andVector:orientB+6] > [[NSUserDefaults standardUserDefaults] floatForKey: @"PARALLELPLANETOLERANCE"])  // Planes are not parallel
             {
                 // FROM SAME STUDY
                 
@@ -13870,9 +13873,8 @@ long				x, y;
 	return blendingController;
 }
 
-#pragma mark-
-#pragma mark 4.1.3 Anchored graphical layer
-#pragma mark ROI
+#pragma mark - 4.1.3 Anchored graphical layer
+#pragma mark - ROI
 
 //class setter and getter
 // of ViewerController class field   static NSArray*	DefaultROINames;
@@ -15069,6 +15071,9 @@ int i,j,l;
 
 #ifndef OSIRIX_LIGHT
 
+// Sender tag:
+//      0: ROI Volume, Compute Volume...
+//      1: ROI Volume, Generate Missing ROI
 - (IBAction) roiVolume:(id) sender
 {
 	float preLocation, interval;
@@ -16671,7 +16676,7 @@ int i,j,l;
 	}
 }
 
-#pragma mark BrushTool and ROI filters
+#pragma mark - BrushTool and ROI filters
 
 -(void) brushTool:(id) sender
 {
@@ -16998,7 +17003,7 @@ int i,j,l;
 	[imageView setIndex: imageView.curImage];
 }
 
-#pragma mark SUV
+#pragma mark - SUV
 
 - (IBAction) cancel:(id)sender
 {
@@ -17351,9 +17356,7 @@ int i,j,l;
 	}
 }
 
-
-#pragma mark-
-#pragma mark 4.1.4 Anchored textual layer
+#pragma mark - 4.1.4 Anchored textual layer
 
 - (void) contextualMenuEvent:(id)sender
 {
@@ -17401,9 +17404,7 @@ int i,j,l;
 	}
 }
 
-#pragma mark-
-#pragma mark 4.1.5 Presentation in viewport
-
+#pragma mark - 4.1.5 Presentation in viewport
 
 - (void) flipVertical:(id) sender
 {
@@ -17459,18 +17460,13 @@ int i,j,l;
 	[self performSelector:@selector(applyLUT:) withObject: self afterDelay:0.2];
 }
 
+#pragma mark - 4.1.6 Fixed graphical layer
 
-#pragma mark-
-#pragma mark 4.1.6 Fixed graphical layer
+#pragma mark - 4.1.7 Fixed textual layer
 
-#pragma mark-
-#pragma mark 4.1.7 Fixed textual layer
+#pragma mark - 4.2 Tiling
 
-#pragma mark-
-#pragma mark 4.2 Tiling
-
-#pragma mark-
-#pragma mark 4.3 Multi viewport series synchronization
+#pragma mark - 4.3 Multi viewport series synchronization
 
 -(id) findSyncSeriesButton
 {
@@ -17960,7 +17956,7 @@ int i,j,l;
 #endif
 }
 
-#pragma mark Registration
+#pragma mark - Registration
 
 - (ViewerController*) registeredViewer
 {
@@ -18381,7 +18377,7 @@ int i,j,l;
 }
 #endif
 
-#pragma mark segmentation
+#pragma mark - segmentation
 //
 //-(IBAction) startMSRGWithAutomaticBounding:(id) sender
 //{
@@ -18438,10 +18434,8 @@ int i,j,l;
 //	*/
 //}
 
-
-#pragma mark-
-#pragma mark 4.4 Navigation
-#pragma mark 4.4.1 Series navigation
+#pragma mark - 4.4 Navigation
+#pragma mark - 4.4.1 Series navigation
 
 - (NSMutableArray*) pixList: (long) i
 {
@@ -18529,7 +18523,7 @@ int i,j,l;
     return [speedSlider floatValue];
 }
 
-- (void) speedSliderAction:(id) sender
+- (IBAction) speedSliderAction:(id) sender
 {
 	[speedText setStringValue:[NSString stringWithFormat: NSLocalizedString( @"%0.1f im/s", @"im/s = images per second"), (float) [self frameRate] * direction]];
 	
@@ -18553,7 +18547,7 @@ int i,j,l;
 	}
 }
 
-- (void) movieRateSliderAction:(id) sender
+- (IBAction) movieRateSliderAction:(id) sender
 {
 	[movieTextSlide setStringValue:[NSString stringWithFormat: NSLocalizedString( @"%0.0f im/s", @"im/s = images per second"), (float) [movieRateSlider floatValue]]];
 }
@@ -18609,7 +18603,7 @@ int i,j,l;
     [self showCurrentThumbnail:self];
 }
 
-- (void) moviePosSliderAction:(id) sender
+- (IBAction) moviePosSliderAction:(id) sender
 {
 	[self setMovieIndex: [moviePosSlider intValue]];
 	[self propagateSettings];
@@ -18801,7 +18795,7 @@ int i,j,l;
 	}
 }
 
-- (void) MoviePlayStop:(id) sender
+- (IBAction) MoviePlayStop:(id) sender
 {
     if (movieTimer)
     {
@@ -18895,19 +18889,17 @@ static BOOL viewerControllerPlaying = NO;
     }
 }
 
-#pragma mark-
-#pragma mark 4.4.2 4D navigation
+#pragma mark - 4.4.2 4D navigation
 
 - (float) frame4DRate
 {
     return [movieRateSlider floatValue];
 }
 
-#pragma mark-
+#pragma mark -
 #pragma mark 4.5 External functions
 #pragma mark 4.5.1 Exportation of image
 #pragma mark 4.5.1.1 Exportation of image produced
-
 
 #define DATABASEPATH @"/DATABASE.noindex/"
 
@@ -20428,16 +20420,13 @@ static BOOL viewerControllerPlaying = NO;
                                     NSLocalizedString(@"OK", nil),
                                     nil,
                                     nil);
-		
 		free( data);
 	}
 	else
         NSLog( @"No Data");
 	
 	if (screenCapture || allViewers)
-	{
 		[DCMView setCLUTBARS: clutBarsCopy ANNOTATIONS: annotCopy];
-	}
 	
 	return [NSDictionary dictionaryWithObjectsAndKeys: f, @"file", nil];
 }
@@ -20445,7 +20434,6 @@ static BOOL viewerControllerPlaying = NO;
 
 -(id) findPlayStopButton
 {
-	
 	NSArray *items = [toolbar items];
 	
 	for (id loopItem in items)
@@ -20455,7 +20443,8 @@ static BOOL viewerControllerPlaying = NO;
 			return loopItem;
 		}
 	}
-	return nil;
+
+    return nil;
 }
 
 #ifndef OSIRIX_LIGHT
@@ -21716,14 +21705,11 @@ static BOOL viewerControllerPlaying = NO;
 	}
 }
 
-#pragma mark-
-#pragma mark 4.5.1.2 Export raw image
+#pragma mark - 4.5.1.2 Export raw image
 
-#pragma mark-
-#pragma mark 4.5.2 Import
+#pragma mark - 4.5.2 Import
 
-#pragma mark-
-#pragma mark 4.5.3 3D
+#pragma mark - 4.5.3 3D
 
 - (void) clear8bitRepresentations
 {
@@ -22513,7 +22499,7 @@ static BOOL viewerControllerPlaying = NO;
         {
             if ([v.windowNibName isEqualToString: @"VR"])
             {
-                VRController *vv = (VRController*) v;
+                VRController *vv = (VRController *) v;
                 
                 if ([vv.style isEqualToString: @"panel"])
                     viewer = vv;
@@ -22637,10 +22623,12 @@ static BOOL viewerControllerPlaying = NO;
     {
         if ([v.windowNibName isEqualToString: @"VR"])
         {
-            VRController *vv = (VRController*) v;
+            VRController *vv = (VRController *) v;
             
             if ([vv.style isEqualToString: @"standard"] && ([vv.renderingMode isEqualToString:@"VR"] || [vv.renderingMode isEqualToString:@"MIP"]))
+            {
                 viewer = vv;
+            }
         }
     }
 	
@@ -22785,7 +22773,7 @@ static BOOL viewerControllerPlaying = NO;
     {
         if ([v.windowNibName isEqualToString: @"VR"])
         {
-            VRController *vv = (VRController*) v;
+            VRController *vv = (VRController *) v;
             
             if ([vv.style isEqualToString: @"standard"])
                 viewer = vv;
@@ -22818,7 +22806,8 @@ static BOOL viewerControllerPlaying = NO;
             c = curCLUTMenu;
         
         [viewer ApplyCLUTString: c];
-        float   iwl, iww;
+        
+        float iwl, iww;
         [imageView getWLWW:&iwl :&iww];
         [viewer setWLWW:iwl :iww];
         [self place3DViewerWindow: viewer];
@@ -22827,12 +22816,6 @@ static BOOL viewerControllerPlaying = NO;
         [[viewer window] makeKeyAndOrderFront:self];
         [[viewer window] display];
         [[viewer window] setTitle: [NSString stringWithFormat:@"%@: %@", [[viewer window] title], [[self window] title]]];
-#if 0 // @@@ idea from Horos, but it doesn't work
-        dispatch_async(dispatch_get_main_queue(), ^(){
-            [viewer showWindow:self];
-            [viewer showWindow:self];
-        });
-#endif
     }
 }
 
@@ -22842,7 +22825,7 @@ static BOOL viewerControllerPlaying = NO;
 	[self clear8bitRepresentations];
     SRController *viewer = [[AppController sharedAppController] FindViewer :@"SR" :pixList[0]];
     if (viewer) {
-        NSLog(@"%s %d already allocated", __FUNCTION__, __LINE__);
+        NSLog(@"%s %d SR viewer already allocated", __FUNCTION__, __LINE__);
 		return viewer;
     }
     
@@ -22852,16 +22835,18 @@ static BOOL viewerControllerPlaying = NO;
                                               :volumeData[curMovieIndex]
                                               :blendingController
                                               :self];
-    if (!viewer) {
+    if (!viewer)
         NSLog(@"%s %d, nil SR viewer", __FUNCTION__, __LINE__);
-    }
+
 	return viewer;
 }
 
 // Action to open SRViewer (Surface Rendering)
 -(IBAction) SRViewer:(id) sender
 {
+#ifndef NDEBUG
     NSLog(@"%s (IBAction)", __FUNCTION__);
+#endif
 	[self checkEverythingLoaded];
 	[self clear8bitRepresentations];
 	
@@ -22900,9 +22885,7 @@ static BOOL viewerControllerPlaying = NO;
         return;
 	}
 
-    NSLog(@"%s %d", __FUNCTION__, __LINE__); // here
-
-    [self displayAWarningIfNonTrueVolumicData];  // here
+    [self displayAWarningIfNonTrueVolumicData];
     [self displayWarningIfGantryTitled];
     [self MovieStop: self];
     
@@ -22913,7 +22896,7 @@ static BOOL viewerControllerPlaying = NO;
         return;
     }
 
-    viewer = [self openSRViewer];  // here
+    viewer = [self openSRViewer];
     if (!viewer) {
         NSLog(@"%s %d, nil SR viewer", __FUNCTION__, __LINE__);
         return;
@@ -22941,8 +22924,9 @@ static BOOL viewerControllerPlaying = NO;
 	else
 		viewer = [[AppController sharedAppController] FindViewer :@"OrthogonalMPR" :pixList[0]];
 
-    if (viewer)
+    if (viewer) {
 		return viewer;
+    }
 		
 	viewer = [[OrthogonalMPRViewer alloc] initWithPixList:pixList[0] :fileList[0] :volumeData[0] :self :nil];
 	
@@ -22983,8 +22967,10 @@ static BOOL viewerControllerPlaying = NO;
 	[self clear8bitRepresentations];
 	
     OrthogonalMPRPETCTViewer  *viewer;
-	if ((viewer = [[AppController sharedAppController] FindViewer :@"PETCT" :pixList[0]]))
+    viewer = [[AppController sharedAppController] FindViewer :@"PETCT" :pixList[0]];
+    if (viewer) {
 		return viewer;
+    }
 		
 	if (blendingController)
 	{
@@ -22993,7 +22979,7 @@ static BOOL viewerControllerPlaying = NO;
         [[[self imageView] curDCM] orientation:orientA];
 		[[[blendingController imageView] curDCM] orientation:orientB];
 		
-		if ([DCMView angleBetweenVector: orientA+6 andVector:orientB+6] > [[NSUserDefaults standardUserDefaults] floatForKey: @"PARALLELPLANETOLERANCE"])  // Planes are not paralel!
+		if ([DCMView angleBetweenVector: orientA+6 andVector:orientB+6] > [[NSUserDefaults standardUserDefaults] floatForKey: @"PARALLELPLANETOLERANCE"])  // Planes are not parallel
 		{
             NSRunCriticalAlertPanel(NSLocalizedString(@"2D Planes",nil),
                                     NSLocalizedString(@"These 2D planes are not parallel, you cannot use the 2D Orthogonal MPR viewer. Instead, try the 3D MPR viewer.",nil),
@@ -23048,7 +23034,6 @@ static BOOL viewerControllerPlaying = NO;
 
 -(IBAction) orthogonalMPRViewer:(id) sender
 {
-	
 	[self checkEverythingLoaded];
 	[self clear8bitRepresentations];
 			
@@ -23058,79 +23043,77 @@ static BOOL viewerControllerPlaying = NO;
 		([[[NSApplication sharedApplication] currentEvent] modifierFlags] & NSEventModifierFlagShift))
 	{
 		[self SetThicknessInterval:sender];
+        return;
 	}
-	else
-	{
-		if ([self isDataVolumicIn4D: YES checkEverythingLoaded: YES tryToCorrect: YES checkForSliceInterval: YES] == NO) // || [[imageView curDCM] isRGB] == YES)
-		{
-            if ([self isDataVolumicIn4D: YES checkEverythingLoaded: YES tryToCorrect: YES checkForSliceInterval: NO])
+	
+    if ([self isDataVolumicIn4D: YES checkEverythingLoaded: YES tryToCorrect: YES checkForSliceInterval: YES] == NO) // || [[imageView curDCM] isRGB] == YES)
+    {
+        if ([self isDataVolumicIn4D: YES checkEverythingLoaded: YES tryToCorrect: YES checkForSliceInterval: NO])
+        {
+            if (NSRunAlertPanel(NSLocalizedString(@"Data Error", nil),
+                                NSLocalizedString(@"Warning! Slice interval/thickness is varying, it can create distortion in 3D.", nil),
+                                NSLocalizedString(@"Cancel", nil),
+                                NSLocalizedString(@"Continue", nil),
+                                nil
+                                ) == NSAlertDefaultReturn)
             {
-                if (NSRunAlertPanel(NSLocalizedString(@"Data Error", nil),
-                                    NSLocalizedString(@"Warning! Slice interval/thickness is varying, it can create distortion in 3D.", nil),
-                                    NSLocalizedString(@"Cancel", nil),
-                                    NSLocalizedString(@"Continue", nil),
-                                    nil
-                                    ) == NSAlertDefaultReturn)
-                {
-                    return;
-                }
-            }
-            else
-            {
-                NSRunAlertPanel(NSLocalizedString(@"MPR", nil),
-                                NSLocalizedString(@"MPR requires volumic data.", nil),
-                                nil,
-                                nil,
-                                nil);
                 return;
             }
-		}
-		
-		[self displayAWarningIfNonTrueVolumicData];
-		[self displayWarningIfGantryTitled];
-		
-		[blendingController displayAWarningIfNonTrueVolumicData];
-		[blendingController displayWarningIfGantryTitled];
-		
-		[self MovieStop: self];
-		
-		OrthogonalMPRViewer *viewer;
-		
-		if (blendingController)
-			viewer = [[AppController sharedAppController] FindViewer :@"PETCT" :pixList[0]];
-		else
-			viewer = [[AppController sharedAppController] FindViewer :@"OrthogonalMPR" :pixList[0]];
-		
-		if (viewer)
-		{
-			[[viewer window] makeKeyAndOrderFront:self];
-		}
-		else
-		{
+        }
+        else
+        {
+            NSRunAlertPanel(NSLocalizedString(@"MPR", nil),
+                            NSLocalizedString(@"MPR requires volumic data.", nil),
+                            nil,
+                            nil,
+                            nil);
+            return;
+        }
+    }
+    
+    [self displayAWarningIfNonTrueVolumicData];
+    [self displayWarningIfGantryTitled];
+    
+    [blendingController displayAWarningIfNonTrueVolumicData];
+    [blendingController displayWarningIfGantryTitled];
+    
+    [self MovieStop: self];
+    
+    OrthogonalMPRViewer *viewer;
+    
+    if (blendingController)
+        viewer = [[AppController sharedAppController] FindViewer :@"PETCT" :pixList[0]];
+    else
+        viewer = [[AppController sharedAppController] FindViewer :@"OrthogonalMPR" :pixList[0]];
+    
+    if (viewer)
+    {
+        [[viewer window] makeKeyAndOrderFront:self];
+        return;
+    }
+    
 #ifndef OSIRIX_LIGHT
-			if (blendingController)
-			{
-				OrthogonalMPRPETCTViewer *pcviewer = [self openOrthogonalMPRPETCTViewer];
-				NSDate *studyDate = [[fileList[curMovieIndex] objectAtIndex:0] valueForKeyPath:@"series.study.date"];
-				
-				[[pcviewer window] setTitle: [NSString stringWithFormat:@"%@: %@ - %@", [[pcviewer window] title], [BrowserController DateTimeFormat: studyDate], [[self window] title]]];
-			}
-			else
+    if (blendingController)
+    {
+        OrthogonalMPRPETCTViewer *pcviewer = [self openOrthogonalMPRPETCTViewer];
+        NSDate *studyDate = [[fileList[curMovieIndex] objectAtIndex:0] valueForKeyPath:@"series.study.date"];
+        
+        [[pcviewer window] setTitle: [NSString stringWithFormat:@"%@: %@ - %@", [[pcviewer window] title], [BrowserController DateTimeFormat: studyDate], [[self window] title]]];
+    }
+    else
 #endif
-			{
-				viewer = [self openOrthogonalMPRViewer];
-				
-				[self place3DViewerWindow: viewer];
-				[viewer showWindow:self];
-				
-				float   iwl, iww;
-				[imageView getWLWW:&iwl :&iww];
-				[viewer setWLWW:iwl :iww];
-				
-				[[viewer window] setTitle: [NSString stringWithFormat:@"%@: %@ - %@", [[viewer window] title], [NSUserDefaults formatDateTime: [[fileList[0] objectAtIndex:0]  valueForKeyPath:@"series.study.date"]], [[self window] title]]];
-			}
-		}
-	}
+    {
+        viewer = [self openOrthogonalMPRViewer];
+        
+        [self place3DViewerWindow: viewer];
+        [viewer showWindow:self];
+        
+        float iwl, iww;
+        [imageView getWLWW:&iwl :&iww];
+        [viewer setWLWW:iwl :iww];
+        
+        [[viewer window] setTitle: [NSString stringWithFormat:@"%@: %@ - %@", [[viewer window] title], [NSUserDefaults formatDateTime: [[fileList[0] objectAtIndex:0]  valueForKeyPath:@"series.study.date"]], [[self window] title]]];
+    }
 }
 
 #ifndef OSIRIX_LIGHT
@@ -23141,8 +23124,10 @@ static BOOL viewerControllerPlaying = NO;
 	EndoscopyViewer *viewer;
 		
 	viewer = [[AppController sharedAppController] FindViewer :@"Endoscopy" :pixList[0]];
-	if (viewer)
+    if (viewer) {
+        NSLog(@"%s %d, Found viewer: Endoscopy", __FUNCTION__, __LINE__);
 		return viewer;
+    }
 	
 	viewer = [[EndoscopyViewer alloc] initWithPixList:pixList[0] :fileList[0] :volumeData[0] :blendingController : self];
 	return viewer;
@@ -23159,55 +23144,53 @@ static BOOL viewerControllerPlaying = NO;
 		([[[NSApplication sharedApplication] currentEvent] modifierFlags] & NSEventModifierFlagShift))
 	{
 		[self SetThicknessInterval:sender];
+        return;
 	}
-	else
-	{
-        if ([self isDataVolumicIn4D: YES checkEverythingLoaded: YES tryToCorrect: YES checkForSliceInterval: YES] == NO)
+	
+    if ([self isDataVolumicIn4D: YES checkEverythingLoaded: YES tryToCorrect: YES checkForSliceInterval: YES] == NO)
+    {
+        if ([self isDataVolumicIn4D: YES checkEverythingLoaded: YES tryToCorrect: YES checkForSliceInterval: NO])
         {
-            if ([self isDataVolumicIn4D: YES checkEverythingLoaded: YES tryToCorrect: YES checkForSliceInterval: NO])
+            if (NSRunAlertPanel(NSLocalizedString(@"Data Error", nil),
+                                NSLocalizedString(@"Warning! Slice interval/thickness is varying, it can create distortion in 3D.", nil),
+                                NSLocalizedString(@"Cancel", nil),
+                                NSLocalizedString(@"Continue", nil),
+                                nil
+                                ) == NSAlertDefaultReturn)
             {
-                if (NSRunAlertPanel(NSLocalizedString(@"Data Error", nil),
-                                    NSLocalizedString(@"Warning! Slice interval/thickness is varying, it can create distortion in 3D.", nil),
-                                    NSLocalizedString(@"Cancel", nil),
-                                    NSLocalizedString(@"Continue", nil),
-                                    nil
-                                    ) == NSAlertDefaultReturn)
-                {
-                    return;
-                }
-            }
-            else
-            {
-                NSRunAlertPanel(NSLocalizedString(@"Endoscopy", nil),
-                                NSLocalizedString(@"Endoscopy requires volumic data.", nil),
-                                nil,
-                                nil,
-                                nil);
                 return;
             }
         }
-        
-		[self displayAWarningIfNonTrueVolumicData];
-		[self displayWarningIfGantryTitled];
-		
-		[self MovieStop: self];
-		
-		EndoscopyViewer *viewer;
-		
-		viewer = [[AppController sharedAppController] FindViewer :@"Endoscopy" :pixList[0]];
-		
-		if (viewer)
-		{
-			[[viewer window] makeKeyAndOrderFront:self];
-		}
-		else
-		{
-			viewer = [self openEndoscopyViewer];
-			[self place3DViewerWindow: viewer];
-			[viewer showWindow:self];
-			[[viewer window] setTitle: [NSString stringWithFormat:@"%@: %@", [[viewer window] title], [[self window] title]]];
-		}
-	}
+        else
+        {
+            NSRunAlertPanel(NSLocalizedString(@"Endoscopy", nil),
+                            NSLocalizedString(@"Endoscopy requires volumic data.", nil),
+                            nil,
+                            nil,
+                            nil);
+            return;
+        }
+    }
+    
+    [self displayAWarningIfNonTrueVolumicData];
+    [self displayWarningIfGantryTitled];
+    
+    [self MovieStop: self];
+    
+    EndoscopyViewer *viewer;
+    
+    viewer = [[AppController sharedAppController] FindViewer :@"Endoscopy" :pixList[0]];
+    if (viewer)
+    {
+        NSLog(@"%s %d, found viewer: Endoscopy", __FUNCTION__, __LINE__);
+        [[viewer window] makeKeyAndOrderFront:self];
+        return;
+    }
+
+    viewer = [self openEndoscopyViewer];
+    [self place3DViewerWindow: viewer];
+    [viewer showWindow:self];
+    [[viewer window] setTitle: [NSString stringWithFormat:@"%@: %@", [[viewer window] title], [[self window] title]]];
 }
 #endif
 
@@ -23259,7 +23242,7 @@ static BOOL viewerControllerPlaying = NO;
 	[self clear8bitRepresentations];
 	
 	MPRController *viewer = [[AppController sharedAppController] FindViewer:@"MPR" :pixList[0]];
-	if (viewer)
+    if (viewer)
 		return viewer;
 	
 	viewer = [[MPRController alloc] initWithDCMPixList: pixList[0]
@@ -23278,65 +23261,62 @@ static BOOL viewerControllerPlaying = NO;
 {
 	[self checkEverythingLoaded];
 	[self clear8bitRepresentations];
-	
+
 	if ([self computeInterval] == 0 ||
 	   [[pixList[0] objectAtIndex:0] pixelSpacingX] == 0 ||
 	   [[pixList[0] objectAtIndex:0] pixelSpacingY] == 0 ||
 	   ([[[NSApplication sharedApplication] currentEvent] modifierFlags] & NSEventModifierFlagShift))
 	{
 		[self SetThicknessInterval:sender];
+        return;
 	}
-	else
-	{
-        if ([self isDataVolumicIn4D: YES checkEverythingLoaded: YES tryToCorrect: YES checkForSliceInterval: YES] == NO)
+
+    if ([self isDataVolumicIn4D: YES checkEverythingLoaded: YES tryToCorrect: YES checkForSliceInterval: YES] == NO)
+    {
+        if ([self isDataVolumicIn4D: YES checkEverythingLoaded: YES tryToCorrect: YES checkForSliceInterval: NO])
         {
-            if ([self isDataVolumicIn4D: YES checkEverythingLoaded: YES tryToCorrect: YES checkForSliceInterval: NO])
-            {
-                if (NSRunAlertPanel(NSLocalizedString(@"Data Error", nil),
-                                    NSLocalizedString(@"Warning! Slice interval/thickness is varying, it can create distortion in 3D.", nil),
-                                    NSLocalizedString(@"Cancel", nil),
-                                    NSLocalizedString(@"Continue", nil),
-                                    nil) == NSAlertDefaultReturn)
-                    return;
-            }
-            else
-            {
-                NSRunAlertPanel(NSLocalizedString(@"MPR", nil),
-                                NSLocalizedString(@"MPR requires volumic data.", nil),
-                                nil,
-                                nil,
-                                nil);
+            if (NSRunAlertPanel(NSLocalizedString(@"Data Error", nil),
+                                NSLocalizedString(@"Warning! Slice interval/thickness is varying, it can create distortion in 3D.", nil),
+                                NSLocalizedString(@"Cancel", nil),
+                                NSLocalizedString(@"Continue", nil),
+                                nil) == NSAlertDefaultReturn)
                 return;
-            }
         }
-		
-		[self displayAWarningIfNonTrueVolumicData];
-		[self displayWarningIfGantryTitled];
-		
-		[self MovieStop: self];
-		
-		MPRController *viewer = [[AppController sharedAppController] FindViewer :@"MPR" :pixList[0]];		
-		if (viewer)
-		{
-			[[viewer window] makeKeyAndOrderFront:self];
-		}
-		else
-		{
-			viewer = [self openMPRViewer];
-			[self place3DViewerWindow:viewer];
-			[viewer showWindow:self];
-			[[viewer window] setTitle: [NSString stringWithFormat:@"%@: %@", [[viewer window] title], [[self window] title]]];
+        else
+        {
+            NSRunAlertPanel(NSLocalizedString(@"MPR", nil),
+                            NSLocalizedString(@"MPR requires volumic data.", nil),
+                            nil,
+                            nil,
+                            nil);
+            return;
+        }
+    }
+    
+    [self displayAWarningIfNonTrueVolumicData];
+    [self displayWarningIfGantryTitled];
+    
+    [self MovieStop: self];
+
+    MPRController *viewer = [[AppController sharedAppController] FindViewer :@"MPR" :pixList[0]];
+    if (viewer)
+    {
+        [[viewer window] makeKeyAndOrderFront:self];
+        return;
+    }
+
+    viewer = [self openMPRViewer];
+    [self place3DViewerWindow:viewer];
+    [viewer showWindow:self];
+    [[viewer window] setTitle: [NSString stringWithFormat:@"%@: %@", [[viewer window] title], [[self window] title]]];
 #if 1 // Horos
-            dispatch_async(dispatch_get_main_queue(), ^(){
-                [viewer showWindow:self];
-                [viewer showWindow:self];
-            });
+    dispatch_async(dispatch_get_main_queue(), ^(){
+        [viewer showWindow:self];
+        [viewer showWindow:self];
+    });
 #endif
-		}
-	}
 }
 
-// Handler to open the CPRViewer
 - (CPRController *)openCPRViewer
 {
     [self checkEverythingLoaded];
@@ -23344,7 +23324,7 @@ static BOOL viewerControllerPlaying = NO;
 	
 	CPRController *viewer;
 	viewer = [[AppController sharedAppController] FindViewer:@"CPR" :pixList[0]];
-	if (viewer)
+    if (viewer)
 		return viewer;
 	
 	viewer = [[CPRController alloc] initWithDCMPixList: pixList[0]
@@ -23371,65 +23351,62 @@ static BOOL viewerControllerPlaying = NO;
 	   ([[[NSApplication sharedApplication] currentEvent] modifierFlags] & NSEventModifierFlagShift))
 	{
 		[self SetThicknessInterval:sender];
+        return;
 	}
-	else
-	{
-        if ([self isDataVolumicIn4D: YES checkEverythingLoaded: YES tryToCorrect: YES checkForSliceInterval: YES] == NO)
+
+    if ([self isDataVolumicIn4D: YES checkEverythingLoaded: YES tryToCorrect: YES checkForSliceInterval: YES] == NO)
+    {
+        if ([self isDataVolumicIn4D: YES checkEverythingLoaded: YES tryToCorrect: YES checkForSliceInterval: NO])
         {
-            if ([self isDataVolumicIn4D: YES checkEverythingLoaded: YES tryToCorrect: YES checkForSliceInterval: NO])
-            {
-                if (NSRunAlertPanel(NSLocalizedString(@"Data Error", nil),
-                                    NSLocalizedString(@"Warning! Slice interval/thickness is varying, it can create distortion in 3D.", nil),
-                                    NSLocalizedString(@"Cancel", nil),
-                                    NSLocalizedString(@"Continue", nil),
-                                    nil) == NSAlertDefaultReturn)
-                    return;
-            }
-            else
-            {
-                NSRunAlertPanel(NSLocalizedString(@"CPR", nil),
-                                NSLocalizedString(@"CPR requires volumic data and BW images.", nil),
-                                nil,
-                                nil,
-                                nil);
+            if (NSRunAlertPanel(NSLocalizedString(@"Data Error", nil),
+                                NSLocalizedString(@"Warning! Slice interval/thickness is varying, it can create distortion in 3D.", nil),
+                                NSLocalizedString(@"Cancel", nil),
+                                NSLocalizedString(@"Continue", nil),
+                                nil) == NSAlertDefaultReturn)
                 return;
-            }
         }
-        
-		[self displayAWarningIfNonTrueVolumicData];
-		[self displayWarningIfGantryTitled];
-		[self MovieStop: self];
-		
-		CPRController *viewer = [[AppController sharedAppController] FindViewer:@"CPR" :pixList[0]];
-		if (viewer)
-		{
-			[[viewer window] makeKeyAndOrderFront:self];
-		}
-		else
-		{
+        else
+        {
+            NSRunAlertPanel(NSLocalizedString(@"CPR", nil),
+                            NSLocalizedString(@"CPR requires volumic data and BW images.", nil),
+                            nil,
+                            nil,
+                            nil);
+            return;
+        }
+    }
+    
+    [self displayAWarningIfNonTrueVolumicData];
+    [self displayWarningIfGantryTitled];
+    [self MovieStop: self];
+    
+    CPRController *viewer = [[AppController sharedAppController] FindViewer:@"CPR" :pixList[0]];
+    if (viewer)
+    {
+        [[viewer window] makeKeyAndOrderFront:self];
+        return;
+    }
+
 #if 1 // Horos
-            id waitWindow = [self startWaitWindow:NSLocalizedString(@"Loading...",nil)];
+    id waitWindow = [self startWaitWindow:NSLocalizedString(@"Loading...",nil)];
 #endif
-			viewer = [self openCPRViewer];
-			[self place3DViewerWindow:viewer];
-			[viewer showWindow:self];
-			[[viewer window] setTitle: [NSString stringWithFormat:@"%@: %@",
-                                        [[viewer window] title],
-                                        [[self window] title]]];
+    viewer = [self openCPRViewer];
+    [self place3DViewerWindow:viewer];
+    [viewer showWindow:self];
+    [[viewer window] setTitle: [NSString stringWithFormat:@"%@: %@",
+                                [[viewer window] title],
+                                [[self window] title]]];
 #if 1 // Horos
-            dispatch_async(dispatch_get_main_queue(), ^(){
-                [viewer showWindow:self];
-                [viewer showWindow:self];
-                [self endWaitWindow:waitWindow];
-            });
+    dispatch_async(dispatch_get_main_queue(), ^(){
+        [viewer showWindow:self];
+        [viewer showWindow:self];
+        [self endWaitWindow:waitWindow];
+    });
 #endif
-		}
-	}
 }
 #endif
 
-#pragma mark-
-#pragma mark 4.5.4 Study navigation
+#pragma mark - 4.5.4 Study navigation
 
 -(IBAction) loadPatient:(id) sender
 {
@@ -23663,7 +23640,7 @@ static BOOL viewerControllerPlaying = NO;
 			[self revertSeries:self];
 }
 
-#pragma mark key image
+#pragma mark - key image
 
 - (IBAction) keyImageCheckBox:(id) sender
 {
@@ -24060,7 +24037,7 @@ static BOOL viewerControllerPlaying = NO;
 	return [[[fileList[curMovieIndex] objectAtIndex:index] valueForKey:@"isKeyImage"] boolValue];
 }
 
-#pragma mark-
+#pragma mark -
 
 - (OSErr)getFSRefAtPath:(NSString*)sourceItem ref:(FSRef*)sourceRef
 {
@@ -24179,8 +24156,7 @@ static BOOL viewerControllerPlaying = NO;
 	standardRect = rect;
 }
 
-#pragma mark-
-#pragma mark Key Objects
+#pragma mark - Key Objects
 //- (IBAction)createKeyObjectNote:(id)sender
 //{
 //	id study = [[imageView seriesObj] valueForKey:@"study"];
@@ -24199,8 +24175,7 @@ static BOOL viewerControllerPlaying = NO;
 	return displayOnlyKeyImages;
 }
 
-#pragma mark-
-#pragma mark report
+#pragma mark - report
 
 - (IBAction)deleteReport:(id)sender;
 {
@@ -24306,9 +24281,8 @@ static BOOL viewerControllerPlaying = NO;
 #endif
 }
 
+#pragma mark - current Core Data Objects
 
-#pragma mark-
-#pragma mark current Core Data Objects
 - (DicomStudy *)currentStudy
 {
 	return imageView.studyObj;
@@ -24322,9 +24296,8 @@ static BOOL viewerControllerPlaying = NO;
 	return imageView.imageObj;
 }
 
+#pragma mark - Convenience methods for accessing values in the current imageView
 
-#pragma mark-
-#pragma mark Convience methods for accessing values in the current imageView
 -(float)curWW
 {
 	return [imageView curWW];
@@ -24472,8 +24445,7 @@ static BOOL viewerControllerPlaying = NO;
 //	}
 //}
 
-#pragma mark-
-#pragma mark 12 Bit
+#pragma mark - 12 Bit
 
 -(IBAction)enable12Bit:(id)sender;
 {
@@ -24491,8 +24463,7 @@ static BOOL viewerControllerPlaying = NO;
         [display12bitToolbarItemMatrix selectCellWithTag:1];
 }
 
-#pragma mark-
-#pragma mark Navigator
+#pragma mark - Navigator
 
 - (IBAction)navigator:(id)sender;
 {
@@ -24583,7 +24554,7 @@ static BOOL viewerControllerPlaying = NO;
 	[[[NavigatorWindowController navigatorWindowController] window] setFrame:navigatorFrame display:YES];
 }
 
-#pragma mark Comparatives GUI
+#pragma mark - Comparatives GUI
 
 - (IBAction)toggleComparativesVisibility:(id)sender
 {
@@ -24593,6 +24564,4 @@ static BOOL viewerControllerPlaying = NO;
         [vc buildMatrixPreview:YES];
 }
 
-
 @end
-

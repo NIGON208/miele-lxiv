@@ -1,3 +1,9 @@
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
 /*=========================================================================
   Program:   OsiriX
 
@@ -59,10 +65,9 @@ enum OsiriXBlendingTypes {BlendingPlugin = -1, BlendingFusion = 1, BlendingSubtr
 - (IBAction) undo:(id) sender;
 
 - (IBAction) applyShading:(id) sender;
-- (void) updateAutoAdjustPrinting: (id) sender;
+//- (IBAction) updateAutoAdjustPrinting: (id) sender;
 
-#pragma mark-
-#pragma mark current Core Data Objects
+#pragma mark - current Core Data Objects
 - (DicomStudy *)currentStudy;
 - (DicomSeries *)currentSeries;
 - (Dicom_Image *)currentImage;

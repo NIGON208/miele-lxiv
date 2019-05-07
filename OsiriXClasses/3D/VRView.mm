@@ -1,3 +1,9 @@
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
 /*=========================================================================
   Program:   OsiriX
 
@@ -55,7 +61,7 @@
 #include "vtkSphereSource.h"
 #include "vtkAssemblyPath.h"
 #include "vtkDoubleArray.h"
-//#include "VTKViewOSIRIX.h"  // @@@
+//#include "vtkMieleView.h"  // @@@
 
 #define id Id
 #include "itkImage.h"
@@ -83,19 +89,15 @@
 #include "vtkRendererCollection.h"
 #endif
 
-#if __LP64__
 #import "vtkConfigure.h"
-#endif
+#import "vtkMath.h"
 
 #define MAXDYNAMICVALUE 32000.
-
-#define D2R 0.01745329251994329576923690768    // degrees to radians
-#define R2D 57.2957795130823208767981548141    // radians to degrees
 
 //#define BONEVALUE 250
 #define BONEOPACITY 1.1
 
-extern int dontRenderVolumeRenderingOsiriX;	// See OsiriXFixedPointVolumeRayCastMapper.cxx
+extern bool dontRenderVolumeRenderingOsiriX;	// See OsiriXFixedPointVolumeRayCastMapper.cxx
 extern unsigned int minimumStep;
 
 static NSRecursiveLock *drawLock = nil;
@@ -167,7 +169,8 @@ public:
     NSArray *objects;
 }
 
-- (id) initWithController:(VRController*) c objects: (NSArray*) objects;
+- (instancetype) initWithController:(VRController *) c
+                            objects:(NSArray*) objects;
 
 @end
 
@@ -175,8 +178,8 @@ public:
 
 @implementation VRViewOperation
 
-- (id) initWithController:(VRController*) c
-                  objects:(NSArray *) o
+- (instancetype) initWithController:(VRController *) c
+                            objects:(NSArray *) o
 {
     self = [super init];
     
@@ -581,10 +584,10 @@ public:
 			pts = vtkPoints::New();
 			vtkCellArray *rect = vtkCellArray::New();
             
-			Line2DData-> SetPoints( pts);
+			Line2DData->SetPoints( pts);
             pts->Delete();
             
-			Line2DData-> SetLines( rect);
+			Line2DData->SetLines( rect);
             rect->Delete();
 			
 			pts = Line2DData->GetPoints();
@@ -643,10 +646,10 @@ public:
 			pts = vtkPoints::New();
 			vtkCellArray *rect = vtkCellArray::New();
             
-			Line2DData-> SetPoints( pts);
+			Line2DData->SetPoints( pts);
             pts->Delete();
             
-			Line2DData-> SetLines( rect);
+			Line2DData->SetLines( rect);
             rect->Delete();
 		}
 	}
@@ -832,7 +835,7 @@ public:
 
 + (void) testGraphicBoard
 {    
-    int vramMB = [VTKView VRAMSizeForDisplayID: [[[[NSScreen mainScreen] deviceDescription] objectForKey: @"NSScreenNumber"] intValue]];
+    int vramMB = [vtkMieleView VRAMSizeForDisplayID: [[[[NSScreen mainScreen] deviceDescription] objectForKey: @"NSScreenNumber"] intValue]];
         
     if ([[NSUserDefaults standardUserDefaults] integerForKey: @"VRAMAmount"] != vramMB)
     {
@@ -862,7 +865,7 @@ public:
         textureMapper->Update();
         
         unsigned
-        long memoryMB = [VTKView VRAMSizeForDisplayID: [[[[[self window] screen] deviceDescription] objectForKey: @"NSScreenNumber"] intValue]];
+        long memoryMB = [vtkMieleView VRAMSizeForDisplayID: [[[[[self window] screen] deviceDescription] objectForKey: @"NSScreenNumber"] intValue]];
         
         textureMapper->SetMaxMemoryInBytes( memoryMB*1024*1024);
         
@@ -959,7 +962,7 @@ public:
     if (newEngine == ENGINE_GPU_OPEN_GL)
     {
         unsigned
-        long vramMB = [VTKView VRAMSizeForDisplayID: [[[[[self window] screen] deviceDescription] objectForKey: @"NSScreenNumber"] intValue]];
+        long vramMB = [vtkMieleView VRAMSizeForDisplayID: [[[[[self window] screen] deviceDescription] objectForKey: @"NSScreenNumber"] intValue]];
         
         //vramMB /= 1024*1024;
         
@@ -1044,7 +1047,7 @@ public:
                 blendingTextureMapper = vtkGPUVolumeRayCastMapper::New();
                 blendingTextureMapper->SetInputConnection(blendingReader->GetOutputPort());
                 
-                unsigned long memoryMB = [VTKView VRAMSizeForDisplayID:
+                unsigned long memoryMB = [vtkMieleView VRAMSizeForDisplayID:
                                           [[[[[self window] screen] deviceDescription] objectForKey: @"NSScreenNumber"] intValue]];
                 
                 blendingTextureMapper->SetMaxMemoryInBytes( memoryMB*1024*1024);
@@ -1966,9 +1969,9 @@ public:
 	[super flagsChanged: event];
 }
 
-#pragma mark
+#pragma mark -
 
--(id)initWithFrame:(NSRect)frame
+-(instancetype)initWithFrame:(NSRect)frame
 {
     if ( self = [super initWithFrame:frame])
     {
@@ -2011,7 +2014,7 @@ public:
 		
 		opacityTransferFunction = nil;
 		volumeProperty = nil;
-		compositeFunction = nil;
+
 		red = nil;
 		green = nil;
 		blue = nil;
@@ -2295,22 +2298,14 @@ public:
 
     aRenderer->SetDraw( 0);
     
-    dontRenderVolumeRenderingOsiriX = 0;
+    dontRenderVolumeRenderingOsiriX = false;
     volumeMapper->SetIntermixIntersectingGeometry( 0);
     
     _cocoaRenderWindow->UpdateContext();
     _cocoaRenderWindow->MakeCurrent();
 
-#if 1 // @@@ FIXME: vrView render
-    //NSLog(@"Checkpoint VRView.mm:%d %s, aRenderer:%p, volume:%p", __LINE__, __PRETTY_FUNCTION__, aRenderer, volume);
-#if 0 //def _VERBOSE
-    vtkIndent *indent = vtkIndent::New();
-    aRenderer->PrintSelf(std::cout, *indent);
-#endif
     volumeMapper->Render( aRenderer, volume);
-#endif
-
-    dontRenderVolumeRenderingOsiriX = 1;
+    dontRenderVolumeRenderingOsiriX = true;
 }
 
 - (void) renderBlendedVolume
@@ -2319,14 +2314,14 @@ public:
 	{
 		aRenderer->SetDraw( 0);
 		
-		dontRenderVolumeRenderingOsiriX = 0;
+		dontRenderVolumeRenderingOsiriX = false;
 		blendingVolumeMapper->SetIntermixIntersectingGeometry( 0);
 		
 		_cocoaRenderWindow->UpdateContext();
 		_cocoaRenderWindow->MakeCurrent();
 		blendingVolumeMapper->Render( aRenderer, blendingVolume);
 		
-		dontRenderVolumeRenderingOsiriX = 1;
+		dontRenderVolumeRenderingOsiriX = true;
 	}
 }
 
@@ -2444,9 +2439,6 @@ public:
     
     if (volumeProperty)
         volumeProperty->Delete();
-    
-    if (compositeFunction)
-        compositeFunction->Delete();
 	
 	if (orientationWidget)
 		orientationWidget->Delete();
@@ -2598,9 +2590,9 @@ public:
        sliceMiddle: (BOOL) sliceMiddle
        blendedView: (BOOL) blendedView
 {
-    if (volumeMapper == nil)
+    if (!volumeMapper)
     {
-        NSLog( @"****** vrView getOrigin volumeMapper == nil");
+        NSLog( @"****** VRView.mm %s volumeMapper == nil", __FUNCTION__);
         return;
     }
     
@@ -2679,12 +2671,11 @@ public:
         float cos[ 9];
         [self getCosMatrix: cos];
         double r = [self getResolution];
-#if 1 // @@@0
         if (std::isnan(r)) {
-            NSLog(@"Checkpoint VRView.mm:%d %s NaN", __LINE__, __PRETTY_FUNCTION__);
+            NSLog(@"VRView.mm:%d %s NaN", __LINE__, __PRETTY_FUNCTION__);
             return;
         }
-#endif
+
         // Upper Left corner
         origin[0] = cameraPosition[ 0] + y*cos[3]*r + x*cos[0]*r;
         origin[1] = cameraPosition[ 1] + y*cos[4]*r + x*cos[1]*r;
@@ -2790,13 +2781,15 @@ public:
 		aRenderer->DisplayToWorld();
 		aRenderer->GetWorldPoint( point2);
 		
-		double xd = point2[ 0]- point1[ 0];
-		double yd = point2[ 1]- point1[ 1];
-		double zd = point2[ 2]- point1[ 2];
+		double xd = point2[ 0] - point1[ 0];
+		double yd = point2[ 1] - point1[ 1];
+		double zd = point2[ 2] - point1[ 2];
 		double length = sqrt(xd*xd + yd*yd + zd*zd);
         
         if (std::isnan(length)) {
-            NSLog( @"****** vrView getResolution NaN");
+            NSLog( @"****** vrView getResolution NaN. %@", NSStringFromClass([self class]));
+            NSLog( @"   point 1: %f %f %f", point1[0], point1[1], point1[2]);
+            NSLog( @"   point 2: %f %f %f", point2[0], point2[1], point2[2]);
             return NAN;
         }
 
@@ -2806,7 +2799,7 @@ public:
 		return (length/factor);
 	}
 
-    return 0;
+    return 0.;
 }
 
 - (void) computeLength
@@ -2869,7 +2862,7 @@ public:
         {
             if (renderingMode == 1 || renderingMode == 2 || renderingMode == 3) // MIP modes - full depth
             {
-                dontRenderVolumeRenderingOsiriX = 1;
+                dontRenderVolumeRenderingOsiriX = true;
                 aRenderer->SetDraw( 0);
                 [self prepareFullDepthCapture];
                 [self renderImageWithBestQuality: NO waitDialog: NO display: YES];
@@ -2898,7 +2891,7 @@ public:
                 [self endRenderImageWithBestQuality];
                 [self restoreFullDepthCapture];
                 aRenderer->SetDraw( 1);
-                dontRenderVolumeRenderingOsiriX = 0;
+                dontRenderVolumeRenderingOsiriX = false;
                 free( pixels);
             }
         }
@@ -2988,9 +2981,9 @@ public:
     float psi = -atan2( cos[ 6], cos[ 7]);
     float phi = atan2( cos[ 2], cos[ 5]);
     
-    phi *= R2D;
-    theta *= R2D;
-    psi *= R2D;
+    phi = vtkMath::DegreesFromRadians(phi);
+    theta = vtkMath::DegreesFromRadians(theta);
+    psi = vtkMath::DegreesFromRadians(psi);
     
     if (phi < 0)
         phi += 180;
@@ -3369,7 +3362,7 @@ public:
 					[self display];
 				}
                 
-                dontRenderVolumeRenderingOsiriX = 1;
+                dontRenderVolumeRenderingOsiriX = true;
                 
                 // Click point 3D to 2D
                 
@@ -3412,7 +3405,7 @@ public:
 					[self display];
 				}
 
-                dontRenderVolumeRenderingOsiriX = 1;
+                dontRenderVolumeRenderingOsiriX = true;
 			
 				double	*pp;
 				
@@ -3822,7 +3815,7 @@ public:
                                                                       userInfo: nil];
 				}
 			}
-			break;
+                break;
 			
 			case tWL:
 			case tWLBlended:
@@ -3851,7 +3844,7 @@ public:
             case tOval:
 			case t3DCut:
 				[self displayIfNeeded];
-				dontRenderVolumeRenderingOsiriX = 0;
+				dontRenderVolumeRenderingOsiriX = false;
                 break;
                 
 			case tBonesRemoval:		// <- DO NOTHING !
@@ -3972,7 +3965,7 @@ public:
         return;
     
 	snVRView = self;
-	dontRenderVolumeRenderingOsiriX = 0;
+	dontRenderVolumeRenderingOsiriX = false;
 	
 	_hasChanged = YES;
 	[drawLock lock];
@@ -4092,7 +4085,7 @@ public:
 				[self display];
 			}
             
-			dontRenderVolumeRenderingOsiriX = 1;
+			dontRenderVolumeRenderingOsiriX = true;
 			
 			vtkPoints *pts = Line2DData->GetPoints();
 			if (pts->GetNumberOfPoints() >= 2)
@@ -4101,10 +4094,10 @@ public:
 				pts = vtkPoints::New();
 				vtkCellArray *rect = vtkCellArray::New();
                 
-				Line2DData-> SetPoints( pts);
+				Line2DData->SetPoints( pts);
                 pts->Delete();
                 
-				Line2DData-> SetLines( rect);
+				Line2DData->SetLines( rect);
                 rect->Delete();
 				
 				pts = Line2DData->GetPoints();
@@ -4174,7 +4167,7 @@ public:
 				[self display];
 			}
             
-			dontRenderVolumeRenderingOsiriX = 1;
+			dontRenderVolumeRenderingOsiriX = true;
 			
 			// Click point 3D to 2D
 			_mouseLocStart = [self convertPoint: [theEvent locationInWindow] fromView: nil];
@@ -4206,7 +4199,7 @@ public:
 				[self display];
 			}
 			
-			dontRenderVolumeRenderingOsiriX = 1;
+			dontRenderVolumeRenderingOsiriX = true;
 			
 			// Click point 3D to 2D
 			
@@ -5191,7 +5184,7 @@ public:
 	
     [self display];
     
-    dontRenderVolumeRenderingOsiriX = 1;
+    dontRenderVolumeRenderingOsiriX = true;
     aRenderer->SetDraw( 0);
     
 	for ( int m = 0; m < [[controller viewer2D] maxMovieIndex] ; m++)
@@ -5256,7 +5249,7 @@ public:
     
     [self setNeedsDisplay:YES];
     
-    dontRenderVolumeRenderingOsiriX = 0;
+    dontRenderVolumeRenderingOsiriX = false;
     aRenderer->SetDraw( 1);
 	
 	[controller setMovieFrame: savedMovieFrame];
@@ -5264,8 +5257,8 @@ public:
 	// Delete current ROI
 	vtkPoints *pts = vtkPoints::New();
 	vtkCellArray *rect = vtkCellArray::New();
-	ROI3DData-> SetPoints( pts);		pts->Delete();
-	ROI3DData-> SetLines( rect);		rect->Delete();
+	ROI3DData->SetPoints( pts);		pts->Delete();
+	ROI3DData->SetLines( rect);		rect->Delete();
 	[ROIPoints removeAllObjects];
     
     NSLog(@"Scissor End");
@@ -5430,7 +5423,7 @@ public:
 			[self display];
 		}
 		
-		dontRenderVolumeRenderingOsiriX = 1;
+		dontRenderVolumeRenderingOsiriX = true;
 		
 		if (pts->GetNumberOfPoints() != 0)
 		{
@@ -5438,17 +5431,17 @@ public:
 			vtkPoints *pts = vtkPoints::New();
 			vtkCellArray *rect = vtkCellArray::New();
             
-			ROI3DData-> SetPoints( pts);
+			ROI3DData->SetPoints( pts);
             pts->Delete();
             
-			ROI3DData-> SetLines( rect);
+			ROI3DData->SetLines( rect);
             rect->Delete();
             
 			[ROIPoints removeAllObjects];
 			[self display];
 		}
 		
-		dontRenderVolumeRenderingOsiriX = 0;
+		dontRenderVolumeRenderingOsiriX = false;
 	}
 	else if (currentTool == tMeasure || currentTool == tOval)
 	{
@@ -5464,7 +5457,7 @@ public:
                     [self display];
                 }
                 
-                dontRenderVolumeRenderingOsiriX = 1;
+                dontRenderVolumeRenderingOsiriX = true;
 
                 if (pts->GetNumberOfPoints() != 0)
                 {
@@ -5472,17 +5465,17 @@ public:
                     vtkPoints *pts = vtkPoints::New();
                     vtkCellArray *rect = vtkCellArray::New();
                     
-                    Line2DData-> SetPoints( pts);
+                    Line2DData->SetPoints( pts);
                     pts->Delete();
                     
-                    Line2DData-> SetLines( rect);
+                    Line2DData->SetLines( rect);
                     rect->Delete();
                     
                     [self computeLength];
                     [self display];
                 }
                 
-                dontRenderVolumeRenderingOsiriX = 0;
+                dontRenderVolumeRenderingOsiriX = false;
             }
             else if (currentTool == tOval)
             {
@@ -5492,7 +5485,7 @@ public:
                     [self display];
                 }
                 
-                dontRenderVolumeRenderingOsiriX = 1;
+                dontRenderVolumeRenderingOsiriX = true;
                 
                 // Delete current ROI
                 aRenderer->RemoveActor( Oval2DText);
@@ -5502,7 +5495,7 @@ public:
                 [self computeLength];
                 [self display];
                 
-                dontRenderVolumeRenderingOsiriX = 0;
+                dontRenderVolumeRenderingOsiriX = false;
             }
         }
 	}
@@ -5616,7 +5609,7 @@ public:
 			[self display];
 		}
         
-		dontRenderVolumeRenderingOsiriX = 1;
+		dontRenderVolumeRenderingOsiriX = true;
 		
 //		vtkPoints *pts = Oval2DData->GetPoints();
 //		
@@ -5625,9 +5618,9 @@ public:
 //			// Delete current ROI
 //			vtkPoints *pts = vtkPoints::New();
 //			vtkCellArray *rect = vtkCellArray::New();
-//			Oval2DData-> SetPoints( pts);
+//			Oval2DData->SetPoints( pts);
 //          pts->Delete();
-//			Oval2DData-> SetLines( rect);
+//			Oval2DData->SetLines( rect);
 //          rect->Delete();
 //			aRenderer->RemoveActor( Oval2DText);
 //			measureLength = 0;
@@ -5635,7 +5628,7 @@ public:
 //			[self display];
 //		}
 		
-		dontRenderVolumeRenderingOsiriX = 0;
+		dontRenderVolumeRenderingOsiriX = false;
 	}
     
 	if (currentTool == tMeasure || previousTool == tMeasure)
@@ -5646,7 +5639,7 @@ public:
 			[self display];
 		}
         
-		dontRenderVolumeRenderingOsiriX = 1;
+		dontRenderVolumeRenderingOsiriX = true;
 		
 		vtkPoints *pts = Line2DData->GetPoints();
 		
@@ -5656,10 +5649,10 @@ public:
 			vtkPoints *pts = vtkPoints::New();
 			vtkCellArray *rect = vtkCellArray::New();
             
-			Line2DData-> SetPoints( pts);
+			Line2DData->SetPoints( pts);
             pts->Delete();
             
-			Line2DData-> SetLines( rect);
+			Line2DData->SetLines( rect);
             rect->Delete();
             
 			aRenderer->RemoveActor( Line2DText);
@@ -5668,7 +5661,7 @@ public:
 			[self display];
 		}
 		
-		dontRenderVolumeRenderingOsiriX = 0;
+		dontRenderVolumeRenderingOsiriX = false;
 	}
 	
 	if ((currentTool == t3DCut && previousTool == t3DCut) || currentTool != t3DCut)
@@ -5679,8 +5672,8 @@ public:
 			[self display];
 		}
         
-		dontRenderVolumeRenderingOsiriX = 1;
-		vtkPoints		*roiPts = ROI3DData->GetPoints();
+		dontRenderVolumeRenderingOsiriX = true;
+		vtkPoints *roiPts = ROI3DData->GetPoints();
 		
 		if (roiPts->GetNumberOfPoints() != 0)
 		{
@@ -5688,10 +5681,10 @@ public:
 			vtkPoints *pts = vtkPoints::New();
 			vtkCellArray *rect = vtkCellArray::New();
             
-			ROI3DData-> SetPoints( pts);
+			ROI3DData->SetPoints( pts);
             pts->Delete();
             
-			ROI3DData-> SetLines( rect);
+			ROI3DData->SetLines( rect);
             rect->Delete();
             
 			[ROIPoints removeAllObjects];
@@ -5699,7 +5692,7 @@ public:
 			[self display];
 		}
 		
-		dontRenderVolumeRenderingOsiriX = 0;
+		dontRenderVolumeRenderingOsiriX = false;
 	}
 	
 	if (currentTool!=t3Dpoint && previousTool==t3Dpoint)
@@ -6573,8 +6566,6 @@ public:
 
 		blendingVolumeProperty->SetInterpolationTypeToLinear();
 		
-		blendingCompositeFunction = vtkVolumeRayCastCompositeFunction::New();  // @@@ VTK_LEGACY_REMOVE (deprecated for VTK 7.0)
-		
 		blendingVolume = vtkVolume::New();
 		blendingVolume->SetProperty( blendingVolumeProperty);
 		
@@ -6640,7 +6631,7 @@ public:
 			blendingTextureMapper = nil;
 			
 			blendingOpacityTransferFunction->Delete();
-			blendingCompositeFunction->Delete();
+			//blendingCompositeFunction->Delete();
 			blendingVolumeProperty->Delete();
 			blendingColorTransferFunction->Delete();
 			blendingReader->Delete();
@@ -6694,7 +6685,7 @@ public:
         
         if (engine == ENGINE_GPU_OPEN_GL)
         {
-            unsigned long memory = [VTKView VRAMSizeForDisplayID: [[[[NSScreen mainScreen] deviceDescription] objectForKey: @"NSScreenNumber"] intValue]] * 1024 * 1024;
+            unsigned long memory = [vtkMieleView VRAMSizeForDisplayID: [[[[NSScreen mainScreen] deviceDescription] objectForKey: @"NSScreenNumber"] intValue]] * 1024 * 1024;
             if (0.9 * memory < dst8.rowBytes * dst8.height)
             {
                 [[AppController sharedAppController] growlTitle: NSLocalizedString( @"Warning!", nil) description: NSLocalizedString( @"3D Dataset volume is larger than the amount of graphic board VRAM: GPU Rendering could be slower than CPU Rendering.", nil)  name: @"result"];
@@ -6894,15 +6885,14 @@ public:
 	assembly->Delete();
 }
 
--(short) setPixSource:(NSMutableArray*)pix :(float*) volumeData
+// Return error flag
+- (BOOL) setPixSource:(NSMutableArray*) pix
+                     :(float*) volumeData
 {
-	short   error = 0;
-	long	i;
-    
-#if 0 //ndef NDEBUG
+#if 0 //ndef NDEBUG // CRASH with 3d MIP
     CGLContextObj cgl_ctx = [[NSOpenGLContext currentContext] CGLContextObj];
-    NSLog(@"VRView.mm:%d class:%@, OpenGL context:%p, version %s", __LINE__,
-          [self class], cgl_ctx, glGetString(GL_VERSION)); // version 2.1 APPLE-12.1.0
+    NSLog(@"VRView.mm:%d %s class:%@, OpenGL context:%p, version %s", __LINE__, __FUNCTION__,
+          NSStringFromClass([self class]), cgl_ctx, glGetString(GL_VERSION)); // version 2.1 APPLE-12.1.0
 #endif
     
 	if ([[[self window] windowController] isKindOfClass:[VRController class]])
@@ -6946,7 +6936,7 @@ public:
 		
 		data8 = (char *)malloc( dst8.height * dst8.width * sizeof(short));
 		if (data8 == nil)
-            return -1;
+            return true;  // Error
 		
 		dst8.data = data8;
 		srcf.data = data;
@@ -6979,7 +6969,6 @@ public:
 			reader->SetDataExtentToWholeExtent();
 			reader->SetDataScalarTypeToUnsignedChar();
 			reader->SetNumberOfScalarComponents( 4);
-			
 		}
 		else 
 		{
@@ -6990,7 +6979,6 @@ public:
 			reader->SetDataScalarTypeToUnsignedShort();
 			reader->SetNumberOfScalarComponents( 1);
 		//	reader->SetImportVoidPointer(data);
-			
 		}
 		
 		reader->Update();
@@ -7086,17 +7074,12 @@ public:
 		else
             volumeProperty->SetInterpolationTypeToLinear();//SetInterpolationTypeToNearest();	//SetInterpolationTypeToLinear
 			
-		compositeFunction = vtkVolumeRayCastCompositeFunction::New();  // @@@ VTK_LEGACY_REMOVE (deprecated for VTK 7.0)
-		
 		LOD = 2.0;
-#if __ppc__
-		LOD += 0.5;
-#endif
 		
 		volume = vtkVolume::New();
 		volume->SetProperty( volumeProperty);
 		
-		vtkMatrix4x4	*matrice = vtkMatrix4x4::New();
+		vtkMatrix4x4 *matrice = vtkMatrix4x4::New();
 		matrice->Element[0][0] = cosines[0];
         matrice->Element[1][0] = cosines[1];
         matrice->Element[2][0] = cosines[2];
@@ -7213,7 +7196,7 @@ public:
 			aRenderer->AddActor2D(textX);
 		}
 		
-		for (i = 0; i < NUM_VR_LABELS; i++)
+		for (long i = 0; i < NUM_VR_LABELS; i++)
 		{
 			oText[ i] = vtkTextActor::New();
 			oText[ i]->SetInput( "X ");
@@ -7227,11 +7210,13 @@ public:
 		}
         
 		oText[ 0]->GetPositionCoordinate()->SetValue( 0.01, 0.5);
+        
 		oText[ 1]->GetPositionCoordinate()->SetValue( 0.99, 0.5);
 		oText[ 1]->GetTextProperty()->SetJustificationToRight();
 		
 		oText[ 2]->GetPositionCoordinate()->SetValue( 0.5, 0.03);
 		oText[ 2]->GetTextProperty()->SetVerticalJustificationToTop();
+        
 		oText[ 3]->GetPositionCoordinate()->SetValue( 0.5, 0.97);
         
         oText[ 4]->GetPositionCoordinate()->SetValue( 0.99, 0.01);
@@ -7247,6 +7232,7 @@ public:
 		
 		aCamera->Dolly(1.5);
 		
+        // Note: it also affects "3D MPR" because of the "hidden" VR object
 		aRenderer->AddVolume( volume);
 
 		aRenderer->SetActiveCamera(aCamera);
@@ -7258,10 +7244,10 @@ public:
 		
 		ROI3DData = vtkPolyData::New();
         
-		ROI3DData-> SetPoints( pts);
+		ROI3DData->SetPoints( pts);
 		pts->Delete();
         
-		ROI3DData-> SetLines( rect);
+		ROI3DData->SetLines( rect);
 		rect->Delete();
 		
 		ROI3D = vtkPolyDataMapper2D::New();
@@ -7272,7 +7258,7 @@ public:
 		ROI3DActor->SetMapper( ROI3D);
 		ROI3DActor->GetProperty()->SetPointSize( 1);	//vtkProperty2D
 		ROI3DActor->GetProperty()->SetLineWidth( 2);
-		ROI3DActor->GetProperty()->SetColor(0.3,1,0);
+		ROI3DActor->GetProperty()->SetColor(0.3, 1, 0);
 		
 		aRenderer->AddActor2D( ROI3DActor);
 		
@@ -7285,7 +7271,7 @@ public:
         
         Oval2D = vtkPolyDataMapper2D::New();
         Oval2D->SetInputConnection( Oval2DData->GetOutputPort());
-	Oval2D->Update();
+        Oval2D->Update();
         
         Oval2DActor = vtkActor2D::New();
 		Oval2DActor->GetPositionCoordinate()->SetCoordinateSystemToDisplay();
@@ -7312,10 +7298,10 @@ public:
 		
 		Line2DData = vtkPolyData::New();
         
-		Line2DData-> SetPoints( pts);
+		Line2DData->SetPoints( pts);
 		pts->Delete();
         
-		Line2DData-> SetLines( rect);
+		Line2DData->SetLines( rect);
 		rect->Delete();
 		
 		Line2D = vtkPolyDataMapper2D::New();
@@ -7346,7 +7332,7 @@ public:
 		[self getVTKRenderWindow]->MakeCurrent();
 		[[NSOpenGLContext currentContext] setValues:&swap forParameter:NSOpenGLCPSwapInterval];
 		
-#if 1
+#if 0 // @@@ TBC
         CGLContextObj cgl_ctx = [[NSOpenGLContext currentContext] CGLContextObj];
         printf("VRView.mm:%d OpenGL context:%p, version %s\n", __LINE__, cgl_ctx, glGetString(GL_VERSION)); // version 2.1 APPLE-12.1.0
 #endif
@@ -7362,11 +7348,10 @@ public:
 	catch (...)
 	{
 		NSLog( @"setPixSource VRView C++ exception");
-		return -1;
+		return true; // Error
 	}
-
 	
-    return error;
+    return false; // No error
 }
 
 -(IBAction) SwitchStereoMode :(id) sender
@@ -8161,7 +8146,9 @@ public:
 	aCamera->SetParallelScale(parallelScale);
 	
 	aCamera->SetParallelProjection(aVtkCamera->GetParallelProjection());
-	[[NSNotificationCenter defaultCenter] postNotificationName: OsirixVRCameraDidChangeNotification object:self  userInfo: nil];
+	[[NSNotificationCenter defaultCenter] postNotificationName: OsirixVRCameraDidChangeNotification
+                                                        object: self
+                                                      userInfo: nil];
 	[self setNeedsDisplay:YES];
 }
 
@@ -8172,7 +8159,6 @@ public:
 	double pos[3], focal[3], vUp[3];
 	double pWC[ 2];
 	
-    NSLog(@"VRView.mm:%d %s", __LINE__, __PRETTY_FUNCTION__);
 	aCamera->GetWindowCenter( pWC);
 	aCamera->GetPosition(pos);
 	aCamera->GetFocalPoint(focal);
@@ -8527,10 +8513,9 @@ public:
 }
 
 // 3D points
-#pragma mark-
-#pragma mark 3D Points
+#pragma mark - 3D Points
 
-#pragma mark add
+#pragma mark - add
 - (void) add3DPoint: (double) x : (double) y : (double) z : (float) radius : (float) r : (float) g : (float) b
 {
 	x *= factor;
@@ -8900,7 +8885,8 @@ public:
 	}
 }
 
-#pragma mark display
+#pragma mark - display
+
 - (void) setDisplay3DPoints: (BOOL) on
 {
 	display3DPoints = on;
@@ -8924,7 +8910,8 @@ public:
 	[self setDisplay3DPoints:!display3DPoints];
 }
 
-#pragma mark selection
+#pragma mark - selection
+
 - (BOOL) isAny3DPointSelected
 {
 	BOOL boo = NO;
@@ -8969,7 +8956,8 @@ public:
 	((vtkInteractorStyle*)aRenderer->GetRenderWindow()->GetInteractor()->GetInteractorStyle())->HighlightProp3D(NULL);
 }
 
-#pragma mark remove
+#pragma mark - remove
+
 - (void) remove3DPointAtIndex: (unsigned int) index
 {
 	// point to remove
@@ -9004,7 +8992,7 @@ public:
 	}
 }
 
-#pragma mark modify 3D point appearence
+#pragma mark - modify 3D point appearence
 
 - (IBAction) IBSetSelected3DPointColor: (id) sender
 {
@@ -9147,8 +9135,7 @@ public:
 	return factor;
 }
 
-#pragma mark-
-#pragma mark Export mode
+#pragma mark - Export mode
 
 - (void) sendMail:(id) sender
 {
@@ -9178,8 +9165,7 @@ public:
 	aRenderer->SetDraw( 1);
 }
 
-#pragma mark-
-#pragma mark Cursors
+#pragma mark - Cursors
 
 //cursor methods
 
@@ -9380,14 +9366,14 @@ public:
 //	[NSMenu popUpContextMenu:[self defaultMenu] withEvent:event forView:self];
 //}
 
-//part of Dragging Source Protocol
-- (NSDragOperation)draggingSourceOperationMaskForLocal:(BOOL)isLocal{
-	return NSDragOperationEvery;
+// Part of Dragging Source Protocol
+- (NSDragOperation)draggingSession:(NSDraggingSession *)session sourceOperationMaskForDraggingContext:(NSDraggingContext)context
+{
+    return NSDragOperationEvery; // All: Copy Link Generic Private Move Delete
 }
 
-#pragma mark -
-#pragma mark Hot Keys.
-//Hot key action
+#pragma mark - Hot Keys
+
 -(BOOL)actionForHotKey:(NSString *)hotKey
 {
 	BOOL returnedVal = YES;
@@ -9506,8 +9492,7 @@ public:
 	return returnedVal;
 }
 
-#pragma mark -
-#pragma mark Advanced CLUT / Opacity
+#pragma mark - Advanced CLUT / Opacity
 
 - (void)setAdvancedCLUT:(NSMutableDictionary*)clut lowResolution:(BOOL)lowRes;
 {
@@ -9583,7 +9568,7 @@ public:
 	return controller;
 }
 
-- (void)setController:(VRController*)aController;
+- (void)setController:(VRController *)aController;
 {
 	controller = aController;
 }
@@ -9605,14 +9590,15 @@ public:
     return volumeMapper;
 }
 
-- (void)setMapper:(vtkVolumeMapper*) mapper;
+- (void)setMapper:(vtkVolumeMapper*) mapper;  // TODO @@@
 {
+    NSLog(@"%s %d, mapper class: %s", __FUNCTION__, __LINE__, typeid(mapper).name());
     if (mapper && mapper != volumeMapper)
     {
         if (volumeMapper)
             volumeMapper->Delete();
         
-        volumeMapper = (OsiriXFixedPointVolumeRayCastMapper*) mapper;
+        volumeMapper = (OsiriXFixedPointVolumeRayCastMapper*) mapper; // TODO
         volume->SetMapper( volumeMapper);
     }
 }
@@ -9643,8 +9629,7 @@ public:
 	data8 = someData;
 }
 
-#pragma mark -
-#pragma mark IMAVManager delegate methods.
+#pragma mark - IMAVManager delegate methods.
 
 // Callback from IMAVManager asking what pixel format we'll be providing frames in.
 - (void)getPixelBufferPixelFormat:(OSType *)pixelFormatOut {
@@ -9735,7 +9720,8 @@ public:
 				float horizMargin = NSWidth(rect) - scaledWidth / NSHeight(imageBounds);
 				rect.origin.x += horizMargin / 2.0;
 				rect.size.width -= horizMargin;
-			} else {
+			}
+            else {
 				// rect is taller than image: fit width
 				float vertMargin = NSHeight(rect) - scaledHeight / NSWidth(imageBounds);
 				rect.origin.y += vertMargin / 2.0;

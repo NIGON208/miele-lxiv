@@ -15,7 +15,7 @@
  *
  *  Author:  Michael Onken
  *
- *  Purpose: Class for modifying DICOM files from comandline
+ *  Purpose: Class for modifying DICOM files from commandline
  *
  */
 
@@ -552,7 +552,7 @@ int MdfConsoleEngine::startProvidingService()
                     }
                 }
             }
-            // errors occured and user doesn't want to ignore them:
+            // errors occurred and user doesn't want to ignore them:
             else if (!no_backup_option && !was_created)
             {
                 result = restoreFile(filename);

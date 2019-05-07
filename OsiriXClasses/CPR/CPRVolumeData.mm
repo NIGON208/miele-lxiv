@@ -1,3 +1,9 @@
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
 /*=========================================================================
   Program:   OsiriX
 
@@ -94,7 +100,8 @@
 
     if (self.rectilinear) {
         return 1.0/_volumeTransform.m11;
-    } else {
+    }
+    else {
         inverseTransform = N3AffineTransformInvert(_volumeTransform);
         zero = N3VectorApplyTransform(N3VectorZero, inverseTransform);
         return N3VectorDistance(zero, N3VectorApplyTransform(N3VectorMake(1.0, 0.0, 0.0), inverseTransform));
@@ -108,7 +115,8 @@
 
     if (self.rectilinear) {
         return 1.0/_volumeTransform.m22;
-    } else {
+    }
+    else {
         inverseTransform = N3AffineTransformInvert(_volumeTransform);
         zero = N3VectorApplyTransform(N3VectorZero, inverseTransform);
         return N3VectorDistance(zero, N3VectorApplyTransform(N3VectorMake(0.0, 1.0, 0.0), inverseTransform));
@@ -120,13 +128,12 @@
     N3Vector zero;
     N3AffineTransform inverseTransform;
 
-    if (self.rectilinear) {
+    if (self.rectilinear)
         return 1.0/_volumeTransform.m33;
-    } else {
-        inverseTransform = N3AffineTransformInvert(_volumeTransform);
-        zero = N3VectorApplyTransform(N3VectorZero, inverseTransform);
-        return N3VectorDistance(zero, N3VectorApplyTransform(N3VectorMake(0.0, 0.0, 1.0), inverseTransform));
-    }
+
+    inverseTransform = N3AffineTransformInvert(_volumeTransform);
+    zero = N3VectorApplyTransform(N3VectorZero, inverseTransform);
+    return N3VectorDistance(zero, N3VectorApplyTransform(N3VectorMake(0.0, 0.0, 1.0), inverseTransform));
 }
 
 - (BOOL)isDataValid __deprecated

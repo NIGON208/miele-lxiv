@@ -1,3 +1,9 @@
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
 /*=========================================================================
  Program:   OsiriX
  
@@ -18,10 +24,9 @@
 #import "BrowserController.h"
 #import "NSScreen+N2.h"
 
-
 @implementation NSUserDefaults (OsiriX)
 
-#pragma mark General
+#pragma mark - General
 
 NSString* const OsirixDateTimeFormatDefaultsKey = @"DBDateFormat2";
 
@@ -139,11 +144,9 @@ NSString* const O2NonViewerScreensDefaultsKey = @"NonViewerScreens";
 
     [self setObject:a forKey:O2NonViewerScreensDefaultsKey];
 }
-
-
 #endif
 
-#pragma mark Bonjour Sharing
+#pragma mark - Bonjour Sharing
 
 NSString* const OsirixBonjourSharingIsActiveDefaultsKey = @"bonjourSharing";
 +(BOOL)bonjourSharingIsActive {
@@ -179,7 +182,7 @@ NSString* const OsirixBonjourSharingPasswordDefaultsKey = @"bonjourPassword";
 	return self.bonjourSharingIsPasswordProtected? [NSUserDefaultsController.sharedUserDefaultsController stringForKey:OsirixBonjourSharingPasswordDefaultsKey] : NULL;
 }
 
-#pragma mark Web Portal
+#pragma mark - Web Portal
 
 NSString* const OsirixWebPortalEnabledDefaultsKey = @"httpWebServer";
 +(BOOL)webPortalEnabled {

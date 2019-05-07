@@ -1,3 +1,9 @@
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
 /*=========================================================================
   Program:   OsiriX
 
@@ -197,7 +203,7 @@ static NSString *templateDicomFile = nil;
 	return YES;
 }
 
-#pragma mark Panel
+#pragma mark - Panel
 
 +(NSString*) templateDicomFile
 {
@@ -270,7 +276,7 @@ static NSString *templateDicomFile = nil;
 	[panelController release];
 }
 
-#pragma mark Anonymization
+#pragma mark - Anonymization
 
 + (NSString*) cleanStringForFile: (NSString*) s
 {

@@ -1,4 +1,11 @@
 //
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
+
+//
 //  PFMoveApplication.m, version 1.7.2
 //  LetsMove
 //
@@ -213,8 +220,7 @@ fail:
 	}
 }
 
-#pragma mark -
-#pragma mark Helper Functions
+#pragma mark - Helper Functions
 
 static NSString *PreferredInstallLocation(BOOL *isUserDirectory) {
 	// Return the preferred install location.

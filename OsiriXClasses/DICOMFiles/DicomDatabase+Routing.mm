@@ -1,3 +1,9 @@
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
 /*=========================================================================
  Program:   OsiriX
  
@@ -12,7 +18,6 @@
  PURPOSE.
  =========================================================================*/
 
-
 #import "DicomDatabase+Routing.h"
 #import "DicomImage.h"
 #import "QueryController.h"
@@ -23,7 +28,6 @@
 #import "DCMTKStudyQueryNode.h"
 #import "ThreadsManager.h"
 #import "N2Stuff.h"
-
 
 @interface DicomDatabase (RoutingPrivate)
 
@@ -36,11 +40,13 @@
 
 @implementation DicomDatabase (Routing)
 
--(void)initRouting {
+-(void)initRouting
+{
     if (self.isMainDatabase) {
         _routingSendQueues = [[NSMutableArray alloc] init];
         _routingLock = [[NSRecursiveLock alloc] init];
-    } else {
+    }
+    else {
         _routingSendQueues = [[self.mainDatabase routingSendQueues] retain];
         _routingLock = [[self.mainDatabase routingLock] retain];
     }
@@ -57,7 +63,8 @@
         _routingLock = nil;
         [temp unlock];
         [temp release];
-    } else {
+    }
+    else {
         [_routingLock release];
     }
 	
@@ -290,7 +297,8 @@
 					} @catch (NSException* e) {
 						N2LogExceptionWithStackTrace(e);
 					}
-				} else {
+				}
+                else {
 					N2LogError(@"Server not found for autorouting: %@", serverName);
 				}
 				

@@ -1,3 +1,9 @@
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
 /*=========================================================================
   Program:   OsiriX
 
@@ -11,7 +17,6 @@
      the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
      PURPOSE.
 =========================================================================*/
-
 
 #import "MyOutlineView.h"
 #import "BrowserController.h"
@@ -144,60 +149,53 @@
     //allColumns = [[NSArray arrayWithArray:[self tableColumns]] retain];
 }
 
+#pragma mark - NSDraggingDestination
+
 - (NSDragOperation)draggingEntered:(id <NSDraggingInfo>)sender
 {
-	if ([[sender draggingSource] isEqual:self]) {
-		return NSDragOperationNone;
-	}
+	if ([[sender draggingSource] isEqual:self])
+		return NSDragOperationNone; // No drag operations are allowed.
     
-    if ([[[BrowserController currentBrowser] database] isReadOnly]) {
-		return NSDragOperationNone;
-    }
+    if ([[[BrowserController currentBrowser] database] isReadOnly])
+		return NSDragOperationNone; // No drag operations are allowed.
     
     if ((NSDragOperationGeneric & [sender draggingSourceOperationMask]) == NSDragOperationGeneric)
     {
-        //this means that the sender is offering the type of operation we want
-        //return that we want the NSDragOperationGeneric operation that they 
-            //are offering
-        return NSDragOperationGeneric;
+        // This means that the sender is offering the type of operation we want
+        // return that we want the NSDragOperationGeneric operation that they
+        // are offering
+        return NSDragOperationGeneric; // The operation can be defined by the destination.
     }
-    else
-    {
-        //since they aren't offering the type of operation we want, we have 
-            //to tell them we aren't interested
-        
-    }
-	
-	return NSDragOperationNone;
+
+    // Since they aren't offering the type of operation we want, we have
+    // to tell them we aren't interested
+	return NSDragOperationNone; // No drag operations are allowed.
 }
 
 - (void)draggingExited:(id <NSDraggingInfo>)sender
 {
-    //we aren't particularily interested in this so we will do nothing
-    //this is one of the methods that we do not have to implement
+    // We aren't particularily interested in this so we will do nothing
+    // this is one of the methods that we do not have to implement
 }
 
 - (NSDragOperation)draggingUpdated:(id <NSDraggingInfo>)sender
 {
     
-    if ([[[BrowserController currentBrowser] database] isReadOnly]) {
-		return NSDragOperationNone;
-    }
+    if ([[[BrowserController currentBrowser] database] isReadOnly])
+		return NSDragOperationNone; // No drag operations are allowed.
     
     if ((NSDragOperationGeneric & [sender draggingSourceOperationMask]) 
                     == NSDragOperationGeneric)
     {
-        //this means that the sender is offering the type of operation we want
-        //return that we want the NSDragOperationGeneric operation that they 
-            //are offering
-        return NSDragOperationGeneric;
+        // This means that the sender is offering the type of operation we want
+        // return that we want the NSDragOperationGeneric operation that they
+        // are offering
+        return NSDragOperationGeneric; // The operation can be defined by the destination.
     }
-    else
-    {
-        //since they aren't offering the type of operation we want, we have 
-            //to tell them we aren't interested
-        return NSDragOperationNone;
-    }
+
+    // Since they aren't offering the type of operation we want, we have
+    // to tell them we aren't interested
+    return NSDragOperationNone;  // No drag operations are allowed.
 }
 
 - (void)draggingEnded:(id <NSDraggingInfo>)sender
@@ -297,49 +295,50 @@
 		return;
     
     NSPasteboard *paste = [sender draggingPasteboard];
-        //gets the dragging-specific pasteboard from the sender
+    // gets the dragging-specific pasteboard from the sender
     NSArray *types = [NSArray arrayWithObjects:NSFilenamesPboardType, nil];
-	//a list of types that we can accept
+	// a list of types that we can accept
     NSString *desiredType = [paste availableTypeFromArray:types];
     NSData *carriedData = [paste dataForType:desiredType];
 	
     if (nil == carriedData)
     {
-//        //the operation failed for some reason
+//        // the operation failed for some reason
 //        NSRunAlertPanel(NSLocalizedString(@"Drag Error",nil), NSLocalizedString(@"Sorry, but the past operation failed",nil), 
 //            nil, nil, nil);
         return;
     }
     else
     {
-        //the pasteboard was able to give us some meaningful data
+        // the pasteboard was able to give us some meaningful data
         if ([desiredType isEqualToString:NSFilenamesPboardType])
         {	
-			//we have a list of file names in an NSData object
+			// we have a list of file names in an NSData object
             NSArray *fileArray = [paste propertyListForType:@"NSFilenamesPboardType"];
 			
 			[self performSelector:@selector(terminateDrag:) withObject:fileArray afterDelay:0.1];
 		}
         else
         {
-            //this can't happen
+            // This can't happen
             NSAssert(NO, @"This can't happen");
         }
     }
+
     [self setNeedsDisplay:YES];
 }
 
-- (NSDragOperation)draggingSourceOperationMaskForLocal:(BOOL)isLocal
+- (NSDragOperation)draggingSession:(NSDraggingSession *)session sourceOperationMaskForDraggingContext:(NSDraggingContext)context
 {
-    if (isLocal)
-        return NSDragOperationEvery;
-    else
-        return NSDragOperationCopy;
+    if (context == NSDraggingContextWithinApplication)
+        return NSDragOperationEvery; // All: Copy Link Generic Private Move Delete
+
+    return NSDragOperationCopy; // The data can be copied.
 }
 
 -(NSMenu*)menuForEvent:(NSEvent*)event
 {
-	//Find which row is under the cursor
+	// Find which row is under the cursor
 	[[self window] makeFirstResponder:self];
 	NSPoint menuPoint = [self convertPoint:[event locationInWindow] fromView:nil];
 	int row = [self rowAtPoint:menuPoint];
@@ -353,7 +352,7 @@
 	
 	if ([self numberOfSelectedRows] <=0)
 	{
-        //No rows are selected, so the table should be displayed with all items disabled
+        // No rows are selected, so the table should be displayed with all items disabled
 		NSMenu* tableViewMenu = [[self menu] copy];
 		for (int i=0;i<[tableViewMenu numberOfItems];i++)
 			[[tableViewMenu itemAtIndex:i] setEnabled:NO];

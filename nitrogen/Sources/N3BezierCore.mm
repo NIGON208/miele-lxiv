@@ -1,3 +1,9 @@
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
 /*=========================================================================
  Program:   OsiriX
  
@@ -98,9 +104,7 @@ static void _N3BezierCoreElementDivide(N3BezierCoreElementRef element);
 static bool _N3BezierCoreElementEqualToElement(N3BezierCoreElementRef element1, N3BezierCoreElementRef element2);
 static N3Vector _N3BezierCoreLastMoveTo(N3BezierCoreRef bezierCore);
 
-#pragma mark -
-#pragma mark N3BezierCore
-
+#pragma mark - N3BezierCore
 
 N3BezierCoreRef N3BezierCoreCreate()
 {
@@ -675,9 +679,7 @@ N3BezierCoreSegmentType N3BezierCoreGetSegmentAtIndex(N3BezierCoreRef bezierCore
     return element->segmentType;
 }
 
-#pragma mark -
-#pragma mark DEBUG
-
+#pragma mark - DEBUG
 
 void N3BezierCoreCheckDebug(N3BezierCoreRef bezierCore)
 {
@@ -738,9 +740,7 @@ void N3BezierCoreCheckDebug(N3BezierCoreRef bezierCore)
 #endif
 }
 
-
-#pragma mark -
-#pragma mark N3BezierCoreIterator
+#pragma mark - N3BezierCoreIterator
 
 N3BezierCoreIteratorRef N3BezierCoreIteratorCreateWithBezierCore(N3BezierCoreRef bezierCore)
 {
@@ -848,8 +848,7 @@ CFIndex N3BezierCoreIteratorSegmentCount(N3BezierCoreIteratorRef bezierCoreItera
     return bezierCoreIterator->bezierCore->elementCount;
 }
 
-#pragma mark -
-#pragma mark N3BezierCoreRandomAccessor
+#pragma mark - N3BezierCoreRandomAccessor
 
 N3BezierCoreRandomAccessorRef N3BezierCoreRandomAccessorCreateWithBezierCore(N3BezierCoreRef bezierCore)
 {
@@ -981,9 +980,7 @@ CFIndex N3BezierCoreRandomAccessorSegmentCount(N3BezierCoreRandomAccessorRef bez
     return bezierCoreRandomAccessor->bezierCore->elementCount;
 }
 
-
-#pragma mark -
-#pragma mark Private Methods
+#pragma mark - Private Methods
 
 static CGFloat _N3BezierCoreElementLength(N3BezierCoreElementRef element) // only gives a very rough approximation for curved paths
 {

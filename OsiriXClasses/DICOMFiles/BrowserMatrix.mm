@@ -1,3 +1,9 @@
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
 /*=========================================================================
 Program:   OsiriX
 
@@ -246,9 +252,9 @@ static NSString *albumDragType = @"Osirix Album drag";
 	return r;
 }
 
-- (NSDragOperation) draggingSourceOperationMaskForLocal:(BOOL)isLocal
+- (NSDragOperation)draggingSession:(NSDraggingSession *)session sourceOperationMaskForDraggingContext:(NSDraggingContext)context
 {
-	return NSDragOperationEvery;
+    return NSDragOperationEvery; // All: Copy Link Generic Private Move Delete
 }
 
 - (void) startDragOriginalFrame:(NSEvent *) event

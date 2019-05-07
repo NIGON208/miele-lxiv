@@ -1,3 +1,9 @@
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
 /*=========================================================================
   Program:   OsiriX
 
@@ -764,7 +770,7 @@ extern "C"
 	[NSApp stopModal];
 }
 
-- (void) autoRetrieveSettings: (id) sender
+- (IBAction) autoRetrieveSettings: (id) sender
 {
 	NSNumber *NumberOfPreviousStudyToRetrieve = [[NSUserDefaults standardUserDefaults] objectForKey: @"NumberOfPreviousStudyToRetrieve"];
 	NSNumber *retrieveSameModality = [[NSUserDefaults standardUserDefaults] objectForKey: @"retrieveSameModality"];
@@ -1567,7 +1573,7 @@ extern "C"
 	}
 }
 
-- (void) refreshAutoQR: (id) sender
+- (IBAction) refreshAutoQR: (id) sender
 {
 	queryButtonPressed = YES;
     
@@ -4954,7 +4960,7 @@ extern "C"
 		}
     }
 	
-	dcmDataDict.unlock();
+	dcmDataDict.rdunlock();
 	
 	return array;
 }

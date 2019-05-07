@@ -1,3 +1,9 @@
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
 /*=========================================================================
   Program:   OsiriX
 
@@ -14,7 +20,6 @@
 
 #import "N2AdaptiveBox.h"
 #import "N2Operators.h"
-
 
 @implementation N2AdaptiveBox
 
@@ -90,7 +95,8 @@
             [parentScrollView.documentView setFrame:df];
 		
 		ret = [self.window.windowController synchronizeSizeWithContent];
-	} else {
+	}
+    else {
 		NSRect wf = self.window.frame;
 		wf.size += sizeDelta;
 		wf.origin.y -= sizeDelta.height;

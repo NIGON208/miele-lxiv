@@ -1,3 +1,9 @@
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
 /*=========================================================================
   Program:   OsiriX
 
@@ -46,7 +52,7 @@ int runStoreSCU(const char *myAET, const char*peerAET, const char*hostname, int 
 	//TLS settings
 	BOOL _secureConnection;
 	BOOL _doAuthenticate;
-	int  _keyFileFormat;
+	//int  _keyFileFormat;
 	NSArray *_cipherSuites;
 	const char *_readSeedFile;
 	const char *_writeSeedFile;

@@ -1,3 +1,9 @@
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
 /*=========================================================================
   Program:   OsiriX
 
@@ -106,7 +112,8 @@ public:
   OFCondition makeNewStoreFileName(
       const char *SOPClassUID,
       const char *SOPInstanceUID,
-      char *newImageFileName);
+      char *newImageFileName,
+      size_t newImageFileNameLen);
   
   /** register the given DICOM object, which has been received through a C-STORE 
    *  operation and stored in a file, in the database.
@@ -186,7 +193,7 @@ public:
       DcmDataset *moveRequestIdentifiers,
       DcmQueryRetrieveDatabaseStatus *status);
   
-  /** Constructs the information required for the next available C-MOVE 
+  /** Constructs the information required for the next available C-MOVE
    *  sub-operation (the image SOP class UID, SOP Instance UID and an
    *  imageFileName containing the requested data). 
    *  @param SOPClassUID pointer to string of at least 65 characters into 
@@ -211,14 +218,37 @@ public:
       char *imageFileName,
       unsigned short *numberOfRemainingSubOperations,
       DcmQueryRetrieveDatabaseStatus *status);
-	  
-OFCondition nextMoveResponse(
-      char *SOPClassUID,
-      char *SOPInstanceUID,
-      char *imageFileName,
-	  E_TransferSyntax preferredTS,
-      unsigned short *numberOfRemainingSubOperations,
-      DcmQueryRetrieveDatabaseStatus *status);
+
+    /** Constructs the information required for the next available C-MOVE
+     *  sub-operation (the image SOP class UID, SOP Instance UID and an
+     *  imageFileName containing the requested data).
+     *  @param SOPClassUID pointer to string of at least 65 characters into
+     *    which the SOP class UID for the next DICOM object to be transferred is copied.
+     *  @param SOPClassUIDSize size of SOPClassUID element
+     *  @param SOPInstanceUID pointer to string of at least 65 characters into
+     *    which the SOP instance UID for the next DICOM object to be transferred is copied.
+     *  @param SOPInstanceUIDSize size of SOPInstanceUID element
+     *  @param imageFileName pointer to string of at least MAXPATHLEN+1 characters into
+     *    which the file path for the next DICOM object to be transferred is copied.
+     *  @param imageFileNameSize size of imageFileName element
+     *  @param numberOfRemainingSubOperations On return, this parameter will contain
+     *     the number of suboperations still remaining for the request
+     *     (this number is needed by move responses with PENDING status).
+     *  @param status pointer to DB status object in which a DIMSE status code
+     *    suitable for use with the C-MOVE-RSP message is set. Status will be
+     *    PENDING if more MOVE responses will be generated or SUCCESS if no more
+     *    MOVE responses will be generated (SUCCESS indicates the completion of
+     *    a operation), or another status code upon failure.
+     *  @return EC_Normal upon normal completion, or some other OFCondition code upon failure.
+     */
+    virtual OFCondition nextMoveResponse(char *SOPClassUID,
+                                         size_t SOPClassUIDSize,
+                                         char *SOPInstanceUID,
+                                         size_t SOPInstanceUIDSize,
+                                         char *imageFileName,
+                                         size_t imageFileNameSize,
+                                         unsigned short *numberOfRemainingSubOperations,
+                                         DcmQueryRetrieveDatabaseStatus *status);
 
   
   /** cancel the ongoing MOVE request, stop and reset every running operation
@@ -261,11 +291,11 @@ OFCondition nextMoveResponse(
    *  @param exclusive exclusive/shared lock flag
    *  @return EC_Normal upon success, an error code otherwise
    */
-  OFCondition DB_lock(OFBool exclusive);
+  //OFCondition DB_lock(OFBool exclusive);
 
   /** release lock on database
    */
-  OFCondition DB_unlock();
+  //OFCondition DB_unlock();
 
   /** Get next Index record that is in use (i.e. references a non-empty a filename)
    *  @param idx pointer to index number, updated upon successful return
@@ -355,7 +385,7 @@ private:
       DB_LEVEL        lowestLevel);
 
   /// database handle
-  DB_OsiriX_Handle *handle;
+  DB_OsiriX_Handle *handle_;
 
   /// flag indicating whether or not the quota system is enabled
   OFBool quotaSystemEnabled;

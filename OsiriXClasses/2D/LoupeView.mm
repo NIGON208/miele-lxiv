@@ -1,3 +1,9 @@
+//
+//  ©Alex Bettarini -- all rights reserved
+//  License GPLv3.0 -- see License File
+//
+//  At the end of 2014 the project was forked from OsiriX to become Miele-LXIV
+//  The original header follows:
 /*=========================================================================
  Program:   OsiriX
  
@@ -13,7 +19,6 @@
  =========================================================================*/
 
 #import "LoupeView.h"
-
 
 @implementation LoupeView
 
@@ -76,13 +81,18 @@
 	[self setNeedsDisplay:YES];
 }
 
-- (id)initWithFrame:(NSRect)frameRect
+- (instancetype)initWithFrame:(NSRect)frameRect
 {
 	NSOpenGLPixelFormatAttribute attrs[] = { NSOpenGLPFADoubleBuffer, NSOpenGLPFADepthSize, (NSOpenGLPixelFormatAttribute)32, 0};
     NSOpenGLPixelFormat* pixFmt = [[[NSOpenGLPixelFormat alloc] initWithAttributes:attrs] autorelease];
+#ifndef NDEBUG
+    CGLContextObj cgl_ctx = [[NSOpenGLContext currentContext] CGLContextObj];
+    const GLubyte *strVersion = glGetString(GL_VERSION);
+    NSLog(@"LoupeView.mm %s %d OpenGL %s, ctx:%p, class:%@", __FUNCTION__, __LINE__, strVersion, cgl_ctx, NSStringFromClass([self class]));
+#endif
 
 	self = [super initWithFrame:frameRect pixelFormat:pixFmt];
-    if(self)
+    if (self)
 	{
 		NSBundle *bundle = [NSBundle bundleForClass: [LoupeView class]];
 		loupeImage = [[NSImage alloc] initWithContentsOfFile:[bundle pathForImageResource:@"loupe.png"]];

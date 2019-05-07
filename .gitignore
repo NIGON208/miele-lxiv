@@ -26,12 +26,14 @@ Binaries/ITKLibs
 Binaries/Jasper*
 Binaries/KDU SDK/libkdu_v73R.a
 Binaries/libPapyrusToolkit.a
+Binaries/libiconv
 Binaries/libjpeg
 Binaries/libpng
 Binaries/LibTiff/
 Binaries/libtiff
 Binaries/Ming/
 Binaries/openjpeg
+Binaries/openssl
 Binaries/OsiriX Report.template
 Binaries/OsiriX Lite.app.zip
 Binaries/PAGES/
