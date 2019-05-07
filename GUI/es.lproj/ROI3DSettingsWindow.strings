@@ -1,0 +1,36 @@
+/* Class = "NSButtonCell"; title = "Maximum:"; ObjectID = "a7A-EJ-yFz"; */
+"a7A-EJ-yFz.title" = "Máximo:";
+
+/* Class = "NSTextFieldCell"; title = "Minimum:"; ObjectID = "a9S-3M-ahE"; */
+"a9S-3M-ahE.title" = "Mínimo:";
+
+/* Class = "NSTabViewItem"; label = "Percentages"; ObjectID = "bqt-4C-bKL"; */
+"bqt-4C-bKL.label" = "Porcentajes";
+
+/* Class = "NSTextFieldCell"; title = "Definition: In the displayed sphere, find the voxel with the highest value. Around this voxel, define a new sphere with a diameter defined below, and compute the mean value of all the voxels contained in this sphere as the peak value. If there are several voxels with the same highest value, the highest peak value will be displayed."; ObjectID = "eeD-CZ-NXB"; */
+"eeD-CZ-NXB.title" = "Definición: En la esfera mostrada, busque el vóxel con el valor más alto. Alrededor de este vóxel, defina una nueva esfera con un diámetro definido a continuación, y calcule el valor medio de todos los vóxeles contenidos en esta esfera como el valor máximo. Si hay varios vóxeles con el mismo valor más alto, se mostrará el valor de pico más alto.";
+
+/* Class = "NSTextFieldCell"; title = "Minimum:"; ObjectID = "jcq-1o-qeP"; */
+"jcq-1o-qeP.title" = "Mínimo:";
+
+/* Class = "NSTextFieldCell"; title = "Diameter (mm):"; ObjectID = "Op2-pf-hYq"; */
+"Op2-pf-hYq.title" = "Diámetro (mm):";
+
+/* Class = "NSTabViewItem"; label = "Absolute Values"; ObjectID = "p4Y-Er-rBE"; */
+"p4Y-Er-rBE.label" = "Valores absolutos";
+
+/* Class = "NSButtonCell"; title = "Maximum:"; ObjectID = "Suh-cb-BYM"; */
+"Suh-cb-BYM.title" = "Máximo:";
+
+/* Class = "NSTextFieldCell"; title = "Definition: In the displayed sphere, keep only the voxels with a value in the range defined below. Compute the volume of all these voxels, and the mean of these voxels values."; ObjectID = "TIW-j6-jCn"; */
+"TIW-j6-jCn.title" = "Definición: En la esfera mostrada, mantenga sólo los vóxeles con un valor en el rango definido a continuación. Calcula el volumen de todos estos vóxeles y la media de sus valores.";
+
+/* Class = "NSWindow"; title = "3D ROI Settings"; ObjectID = "vH6-DM-CiR"; */
+"vH6-DM-CiR.title" = "Configuración del ROI 3D";
+
+/* Class = "NSButtonCell"; title = "Peak Value:"; ObjectID = "vXZ-nQ-fCl"; */
+"vXZ-nQ-fCl.title" = "Valor Pico:";
+
+/* Class = "NSButtonCell"; title = "Iso Contour:"; ObjectID = "Xzj-ie-72Q"; */
+"Xzj-ie-72Q.title" = "Iso Contour:";
+

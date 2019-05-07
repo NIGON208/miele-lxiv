@@ -1,0 +1,102 @@
+/* Class = "NSWindow"; title = "DICOM Burner"; ObjectID = "6"; */
+"6.title" = "DICOMバーナー";
+
+/* Class = "NSButtonCell"; title = "Decompress all DICOM files"; ObjectID = "26"; */
+"26.title" = "すべてのDICOMファイルを解凍する";
+
+/* Class = "NSButtonCell"; title = "Don't modify the files"; ObjectID = "27"; */
+"27.title" = "ファイルを変更しないでください";
+
+/* Class = "NSButtonCell"; title = "Compress all DICOM files in JPEG"; ObjectID = "28"; */
+"28.title" = "JPEGのすべてのDICOMファイルを圧縮する";
+
+/* Class = "NSTextFieldCell"; title = "Name:"; ObjectID = "58"; */
+"58.title" = "名前:";
+
+/* Class = "NSTextFieldCell"; title = "DICOMCD"; ObjectID = "59"; */
+"59.title" = "DICOMCD";
+
+/* Class = "NSButtonCell"; title = "Burn"; ObjectID = "61"; */
+"61.title" = "書き込み";
+
+/* Class = "NSTextFieldCell"; title = "Compression:"; ObjectID = "62"; */
+"62.title" = "圧縮:";
+
+/* Class = "NSTextFieldCell"; title = "asdasdasdqq"; ObjectID = "63"; */
+"63.title" = "asdasdasdqq";
+
+/* Class = "NSTextFieldCell"; title = "Anonymize:"; ObjectID = "65"; */
+"65.title" = "匿名化:";
+
+/* Class = "NSButtonCell"; title = "Anonymize the DICOM files before burning"; ObjectID = "66"; */
+"66.title" = "書き込み前にDICOMファイルを匿名化する";
+
+/* Class = "NSTextFieldCell"; title = "Misc:"; ObjectID = "67"; */
+"67.title" = "その他:";
+
+/* Class = "NSButtonCell"; title = "Include Weasis viewer (multi-platform, about 17MB)"; ObjectID = "68"; */
+"68.title" = "Weasisビューア(マルチプラットフォーム、約17MB)";
+
+/* Class = "NSButtonCell"; title = "Copy an html/Quicktime version of the images"; ObjectID = "69"; */
+"69.title" = "イメージのhtml / Quicktime版をコピーする";
+
+/* Class = "NSButtonCell"; title = "Copy the auxiliary folder (see CD/DVD Preferences) :"; ObjectID = "70"; */
+"70.title" = "補助フォルダをコピーします (CD/DVDの設定を参照):";
+
+/* Class = "NSTextFieldCell"; title = "Mini System Font Text"; ObjectID = "71"; */
+"71.title" = "ミニシステムフォントのテキスト";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "72"; */
+"72.title" = "Radio";
+
+/* Class = "NSButtonCell"; title = "Copy the associated Report(s), if available"; ObjectID = "74"; */
+"74.title" = "可能であれば、関連するレポートをコピーする";
+
+/* Class = "NSButtonCell"; title = "Encrypt Data in ZIP file, password protected"; ObjectID = "91"; */
+"91.title" = "パスワードで保護されたZIPファイルのデータを暗号化する";
+
+/* Class = "NSWindow"; title = "Window"; ObjectID = "95"; */
+"95.title" = "Window";
+
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "105"; */
+"105.title" = "OK";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "106"; */
+"106.title" = "キャンセル";
+
+/* Class = "NSTextFieldCell"; title = "Password:"; ObjectID = "108"; */
+"108.title" = "パスワード:";
+
+/* Class = "NSTextFieldCell"; title = "(8 or more characters)"; ObjectID = "144"; */
+"144.title" = "(8文字以上)";
+
+/* Class = "NSButtonCell"; title = "Include OsiriX Lite viewer (mac only, about 8MB)"; ObjectID = "147"; */
+"147.title" = "Miele-LXIV Liteビューアを含む(Macのみ、約8MB)";
+
+/* Class = "NSTextFieldCell"; title = "Destination:"; ObjectID = "158"; */
+"158.title" = "先:";
+
+/* Class = "NSButtonCell"; title = "Save as DMG file"; ObjectID = "161"; */
+"161.title" = "DMGファイルとして保存";
+
+/* Class = "NSButtonCell"; title = "CD/DVD Media"; ObjectID = "162"; */
+"162.title" = "CD/DVDメディア";
+
+/* Class = "NSButtonCell"; title = "USB Key:"; ObjectID = "163"; */
+"163.title" = "USBキー:";
+
+/* Class = "NSButtonCell"; title = "Save as DMG file"; ObjectID = "169"; */
+"169.title" = "DMGファイルとして保存";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "172"; */
+"172.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Item 1"; ObjectID = "173"; */
+"173.title" = "Item 1";
+
+/* Class = "NSMenuItem"; title = "Item 2"; ObjectID = "174"; */
+"174.title" = "Item 2";
+
+/* Class = "NSMenuItem"; title = "Item 3"; ObjectID = "175"; */
+"175.title" = "Item 3";
+

@@ -1,0 +1,348 @@
+/* Class = "NSWindow"; title = "Network Logs"; ObjectID = "5"; */
+"5.title" = "网络日志";
+
+/* Class = "NSTableColumn"; headerCell.title = "Type"; ObjectID = "9"; */
+"9.headerCell.title" = "类型";
+
+/* Class = "NSTableColumn"; headerCell.title = "Patient"; ObjectID = "10"; */
+"10.headerCell.title" = "产品";
+
+/* Class = "NSTableColumn"; headerCell.title = "Study"; ObjectID = "20"; */
+"20.headerCell.title" = "研究";
+
+/* Class = "NSTableColumn"; headerCell.title = "To"; ObjectID = "21"; */
+"21.headerCell.title" = "到";
+
+/* Class = "NSTableColumn"; headerCell.title = "Start"; ObjectID = "22"; */
+"22.headerCell.title" = "开始";
+
+/* Class = "NSTableColumn"; headerCell.title = "End"; ObjectID = "23"; */
+"23.headerCell.title" = "结束";
+
+/* Class = "NSTableColumn"; headerCell.title = "Sent"; ObjectID = "24"; */
+"24.headerCell.title" = "发送";
+
+/* Class = "NSTableColumn"; headerCell.title = "Error"; ObjectID = "25"; */
+"25.headerCell.title" = "错误";
+
+/* Class = "NSTableColumn"; headerCell.title = "Total"; ObjectID = "26"; */
+"26.headerCell.title" = "总计";
+
+/* Class = "NSTableColumn"; headerCell.title = "Status"; ObjectID = "58"; */
+"58.headerCell.title" = "状态";
+
+/* Class = "NSTableColumn"; headerCell.title = "Status"; ObjectID = "70"; */
+"70.headerCell.title" = "状态";
+
+/* Class = "NSTableColumn"; headerCell.title = "Start"; ObjectID = "71"; */
+"71.headerCell.title" = "开始";
+
+/* Class = "NSTableColumn"; headerCell.title = "Type"; ObjectID = "72"; */
+"72.headerCell.title" = "类型";
+
+/* Class = "NSTableColumn"; headerCell.title = "Patient"; ObjectID = "73"; */
+"73.headerCell.title" = "产品";
+
+/* Class = "NSTableColumn"; headerCell.title = "End"; ObjectID = "74"; */
+"74.headerCell.title" = "结束";
+
+/* Class = "NSTableColumn"; headerCell.title = "Total"; ObjectID = "75"; */
+"75.headerCell.title" = "总计";
+
+/* Class = "NSTableColumn"; headerCell.title = "Sent"; ObjectID = "76"; */
+"76.headerCell.title" = "发送";
+
+/* Class = "NSTableColumn"; headerCell.title = "Error"; ObjectID = "77"; */
+"77.headerCell.title" = "错误";
+
+/* Class = "NSTableColumn"; headerCell.title = "From"; ObjectID = "78"; */
+"78.headerCell.title" = "从";
+
+/* Class = "NSTableColumn"; headerCell.title = "Study"; ObjectID = "79"; */
+"79.headerCell.title" = "研究";
+
+/* Class = "NSTableColumn"; headerCell.title = "Status"; ObjectID = "82"; */
+"82.headerCell.title" = "状态";
+
+/* Class = "NSTableColumn"; headerCell.title = "Start"; ObjectID = "83"; */
+"83.headerCell.title" = "开始";
+
+/* Class = "NSTableColumn"; headerCell.title = "Type"; ObjectID = "84"; */
+"84.headerCell.title" = "类型";
+
+/* Class = "NSTableColumn"; headerCell.title = "Sent"; ObjectID = "87"; */
+"87.headerCell.title" = "发送";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedIsNilPlaceholder = "Empty"; ObjectID = "127"; */
+"127.ibShadowedIsNilPlaceholder" = "空";
+
+/* Class = "NSDateFormatter"; ibShadowedDateFormat = "%b %d/%y - %H:%M"; ObjectID = "155"; */
+"155.ibShadowedDateFormat" = "%b %d/%y - %H:%M";
+
+/* Class = "NSDateFormatter"; ibShadowedDateFormat = "%b %d/%y - %H:%M"; ObjectID = "156"; */
+"156.ibShadowedDateFormat" = "%b %d/%y - %H:%M";
+
+/* Class = "NSDateFormatter"; ibShadowedDateFormat = "%b %d/%y - %H:%M"; ObjectID = "157"; */
+"157.ibShadowedDateFormat" = "%b %d/%y - %H:%M";
+
+/* Class = "NSDateFormatter"; ibShadowedDateFormat = "%b %d/%y - %H:%M"; ObjectID = "158"; */
+"158.ibShadowedDateFormat" = "%b %d/%y - %H:%M";
+
+/* Class = "NSDateFormatter"; ibShadowedDateFormat = "%b %d/%y - %H:%M"; ObjectID = "159"; */
+"159.ibShadowedDateFormat" = "%b %d/%y - %H:%M";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "188"; */
+"188.title" = "Text Cell";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "189"; */
+"189.title" = "Text Cell";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "190"; */
+"190.title" = "Text Cell";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "191"; */
+"191.title" = "Text Cell";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "194"; */
+"194.title" = "Text Cell";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "195"; */
+"195.title" = "Text Cell";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "196"; */
+"196.title" = "Text Cell";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "197"; */
+"197.title" = "Text Cell";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "198"; */
+"198.title" = "Text Cell";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "200"; */
+"200.title" = "Text Cell";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "201"; */
+"201.title" = "Text Cell";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "203"; */
+"203.title" = "Text Cell";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "204"; */
+"204.title" = "Text Cell";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "205"; */
+"205.title" = "Text Cell";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "206"; */
+"206.title" = "Text Cell";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "207"; */
+"207.title" = "Text Cell";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "208"; */
+"208.title" = "Text Cell";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "210"; */
+"210.title" = "Text Cell";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "212"; */
+"212.title" = "Text Cell";
+
+/* Class = "NSTableColumn"; headerCell.title = "Patient"; ObjectID = "225"; */
+"225.headerCell.title" = "产品";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "226"; */
+"226.title" = "Text Cell";
+
+/* Class = "NSTableColumn"; headerCell.title = "Study"; ObjectID = "227"; */
+"227.headerCell.title" = "研究";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "228"; */
+"228.title" = "Text Cell";
+
+/* Class = "NSTableColumn"; headerCell.title = "To"; ObjectID = "229"; */
+"229.headerCell.title" = "到";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "230"; */
+"230.title" = "Text Cell";
+
+/* Class = "NSTableColumn"; headerCell.title = "Total"; ObjectID = "240"; */
+"240.headerCell.title" = "总计";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "241"; */
+"241.title" = "Text Cell";
+
+/* Class = "NSTableColumn"; headerCell.title = "End"; ObjectID = "242"; */
+"242.headerCell.title" = "结束";
+
+/* Class = "NSDateFormatter"; ibShadowedDateFormat = "%b %d/%y - %H:%M"; ObjectID = "244"; */
+"244.ibShadowedDateFormat" = "%b %d/%y - %H:%M";
+
+/* Class = "NSTableColumn"; headerCell.title = "What"; ObjectID = "280"; */
+"280.headerCell.title" = "什么";
+
+/* Class = "NSTableColumn"; headerCell.title = "When"; ObjectID = "281"; */
+"281.headerCell.title" = "时间";
+
+/* Class = "NSTableColumn"; headerCell.title = "Type"; ObjectID = "282"; */
+"282.headerCell.title" = "类型";
+
+/* Class = "NSTableColumn"; headerCell.title = "Patient"; ObjectID = "284"; */
+"284.headerCell.title" = "产品";
+
+/* Class = "NSTableColumn"; headerCell.title = "Study"; ObjectID = "285"; */
+"285.headerCell.title" = "研究";
+
+/* Class = "NSTableColumn"; headerCell.title = "Hostname"; ObjectID = "286"; */
+"286.headerCell.title" = "主机名";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "292"; */
+"292.title" = "Text Cell";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "293"; */
+"293.title" = "Text Cell";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "294"; */
+"294.title" = "Text Cell";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "296"; */
+"296.title" = "Text Cell";
+
+/* Class = "NSDateFormatter"; ibShadowedDateFormat = "%b %d/%y - %H:%M"; ObjectID = "298"; */
+"298.ibShadowedDateFormat" = "%b %d/%y - %H:%M";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "299"; */
+"299.title" = "Text Cell";
+
+/* Class = "NSTextFieldCell"; title = "# out of #"; ObjectID = "325"; */
+"325.title" = "# 离开 #";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedDisplayPattern = "%{value1}@ out of %{value2}@"; ObjectID = "329"; */
+"329.ibShadowedDisplayPattern" = "% {价值 1} @ 从% {价值 2} @";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedDisplayPattern = "%{value1}@ out of %{value2}@"; ObjectID = "330"; */
+"330.ibShadowedDisplayPattern" = "% {价值 1} @ 从% {价值 2} @";
+
+/* Class = "NSTabViewItem"; label = "Receive"; ObjectID = "334"; */
+"334.label" = "接收";
+
+/* Class = "NSTabViewItem"; label = "Send"; ObjectID = "335"; */
+"335.label" = "发送";
+
+/* Class = "NSTabViewItem"; label = "Move"; ObjectID = "338"; */
+"338.label" = "移动";
+
+/* Class = "NSTabViewItem"; label = "Web Server"; ObjectID = "340"; */
+"340.label" = "Web 服务器";
+
+/* Class = "NSTextFieldCell"; title = "# out of #"; ObjectID = "344"; */
+"344.title" = "# 离开 #";
+
+/* Class = "NSTextFieldCell"; title = "# out of #"; ObjectID = "350"; */
+"350.title" = "# 离开 #";
+
+/* Class = "NSTextFieldCell"; title = "# out of #"; ObjectID = "356"; */
+"356.title" = "# 离开 #";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedDisplayPattern = "%{value1}@ out of %{value2}@"; ObjectID = "360"; */
+"360.ibShadowedDisplayPattern" = "% {价值 1} @ 从% {价值 2} @";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedDisplayPattern = "%{value1}@ out of %{value2}@"; ObjectID = "362"; */
+"362.ibShadowedDisplayPattern" = "% {价值 1} @ 从% {价值 2} @";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedDisplayPattern = "%{value1}@ out of %{value2}@"; ObjectID = "363"; */
+"363.ibShadowedDisplayPattern" = "% {价值 1} @ 从% {价值 2} @";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedDisplayPattern = "%{value1}@ out of %{value2}@"; ObjectID = "365"; */
+"365.ibShadowedDisplayPattern" = "% {价值 1} @ 从% {价值 2} @";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedDisplayPattern = "%{value1}@ out of %{value2}@"; ObjectID = "366"; */
+"366.ibShadowedDisplayPattern" = "% {价值 1} @ 从% {价值 2} @";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedDisplayPattern = "%{value1}@ out of %{value2}@"; ObjectID = "368"; */
+"368.ibShadowedDisplayPattern" = "% {价值 1} @ 从% {价值 2} @";
+
+/* Class = "NSSearchFieldCell"; placeholderString = "All"; ObjectID = "438"; */
+"438.placeholderString" = "所有";
+
+/* Class = "NSSearchFieldCell"; placeholderString = "All"; ObjectID = "629"; */
+"629.placeholderString" = "所有";
+
+/* Class = "NSSearchFieldCell"; placeholderString = "All"; ObjectID = "820"; */
+"820.placeholderString" = "所有";
+
+/* Class = "NSSearchFieldCell"; placeholderString = "All"; ObjectID = "840"; */
+"840.placeholderString" = "所有";
+
+/* Class = "NSButtonCell"; title = "Export"; ObjectID = "1202"; */
+"1202.title" = "导出";
+
+/* Class = "NSButtonCell"; title = "Export"; ObjectID = "1204"; */
+"1204.title" = "导出";
+
+/* Class = "NSButtonCell"; title = "Export"; ObjectID = "1206"; */
+"1206.title" = "导出";
+
+/* Class = "NSButtonCell"; title = "Export"; ObjectID = "1208"; */
+"1208.title" = "导出";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedDisplayName = "All"; ObjectID = "1790"; */
+"1790.ibShadowedDisplayName" = "所有";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedDisplayName = "From"; ObjectID = "1791"; */
+"1791.ibShadowedDisplayName" = "从";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedDisplayName = "Status"; ObjectID = "1792"; */
+"1792.ibShadowedDisplayName" = "状态";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedDisplayName = "Study Name"; ObjectID = "1793"; */
+"1793.ibShadowedDisplayName" = "学习名称";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedDisplayName = "Patient Name"; ObjectID = "1794"; */
+"1794.ibShadowedDisplayName" = "产品名称";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedDisplayName = "All"; ObjectID = "1823"; */
+"1823.ibShadowedDisplayName" = "所有";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedDisplayName = "To"; ObjectID = "1824"; */
+"1824.ibShadowedDisplayName" = "到";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedDisplayName = "Status"; ObjectID = "1825"; */
+"1825.ibShadowedDisplayName" = "状态";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedDisplayName = "Study Name"; ObjectID = "1826"; */
+"1826.ibShadowedDisplayName" = "学习名称";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedDisplayName = "Patient Name"; ObjectID = "1827"; */
+"1827.ibShadowedDisplayName" = "产品名称";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedDisplayName = "All"; ObjectID = "1854"; */
+"1854.ibShadowedDisplayName" = "所有";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedDisplayName = "Hostname"; ObjectID = "1855"; */
+"1855.ibShadowedDisplayName" = "主机名";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedDisplayName = "Study Name"; ObjectID = "1856"; */
+"1856.ibShadowedDisplayName" = "学习名称";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedDisplayName = "Patient Name"; ObjectID = "1857"; */
+"1857.ibShadowedDisplayName" = "产品名称";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedDisplayName = "What"; ObjectID = "1858"; */
+"1858.ibShadowedDisplayName" = "什么";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedDisplayName = "All"; ObjectID = "1859"; */
+"1859.ibShadowedDisplayName" = "所有";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedDisplayName = "To"; ObjectID = "1860"; */
+"1860.ibShadowedDisplayName" = "到";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedDisplayName = "Status"; ObjectID = "1861"; */
+"1861.ibShadowedDisplayName" = "状态";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedDisplayName = "Study Name"; ObjectID = "1862"; */
+"1862.ibShadowedDisplayName" = "学习名称";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedDisplayName = "Patient Name"; ObjectID = "1863"; */
+"1863.ibShadowedDisplayName" = "产品名称";
+

@@ -1,0 +1,240 @@
+/* Class = "NSWindow"; title = "<< do not localize >>"; ObjectID = "12"; */
+"12.title" = "<< do not localize >>";
+
+/* Class = "NSButtonCell"; title = "Activate PACS On Demand"; ObjectID = "427"; */
+"427.title" = "PACSオンデマンドを有効にする";
+
+/* Class = "NSButtonCell"; title = "Activate search for following Smart Albums, with Q&R Date & Modality filters:"; ObjectID = "477"; */
+"477.title" = "照会・取得の日付とモダリティのフィルタを使用して、次のSmart Albumの検索を有効にします。";
+
+/* Class = "NSTextFieldCell"; title = "Drag sources into the priority order for retrieving"; ObjectID = "482"; */
+"482.title" = "取得のためにソースを優先順位にドラッグ";
+
+/* Class = "NSTableColumn"; headerCell.title = "Name"; ObjectID = "486"; */
+"486.headerCell.title" = "名前";
+
+/* Class = "NSTableColumn"; headerCell.title = "Address"; ObjectID = "488"; */
+"488.headerCell.title" = "住所";
+
+/* Class = "NSTableColumn"; headerCell.title = "AETitle"; ObjectID = "489"; */
+"489.headerCell.title" = "AETitle";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "490"; */
+"490.title" = "Text Cell";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "491"; */
+"491.title" = "Text Cell";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "493"; */
+"493.title" = "Text Cell";
+
+/* Class = "NSTextFieldCell"; title = "See Locations Preferences for editing these DICOM Nodes"; ObjectID = "496"; */
+"496.title" = "これらのDICOMノードを編集するには、「場所 設定」を参照してください";
+
+/* Class = "NSTableColumn"; headerCell.title = "Date"; ObjectID = "539"; */
+"539.headerCell.title" = "日付";
+
+/* Class = "NSTableColumn"; headerCell.title = "Modality"; ObjectID = "540"; */
+"540.headerCell.title" = "モダリティ";
+
+/* Class = "NSTableColumn"; headerCell.title = "Smart Album Name"; ObjectID = "542"; */
+"542.headerCell.title" = "スマートアルバム名";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "543"; */
+"543.title" = "Text Cell";
+
+/* Class = "NSWindow"; title = "Window"; ObjectID = "582"; */
+"582.title" = "Window";
+
+/* Class = "NSBox"; title = "Title"; ObjectID = "584"; */
+"584.title" = "Title";
+
+/* Class = "NSButtonCell"; title = "Last 3 hours"; ObjectID = "591"; */
+"591.title" = "過去3時間";
+
+/* Class = "NSButtonCell"; title = "Last 1 hour"; ObjectID = "592"; */
+"592.title" = "過去1時間";
+
+/* Class = "NSButtonCell"; title = "Last 8 hours"; ObjectID = "593"; */
+"593.title" = "過去8時間";
+
+/* Class = "NSButtonCell"; title = "Last 6 hours"; ObjectID = "594"; */
+"594.title" = "過去6時間";
+
+/* Class = "NSButtonCell"; title = "Last 30 min"; ObjectID = "595"; */
+"595.title" = "過去30分";
+
+/* Class = "NSButtonCell"; title = "Last 2 hours"; ObjectID = "596"; */
+"596.title" = "過去2時間";
+
+/* Class = "NSButtonCell"; title = "Day Before Yesterday"; ObjectID = "597"; */
+"597.title" = "おととい";
+
+/* Class = "NSButtonCell"; title = "Today PM"; ObjectID = "598"; */
+"598.title" = "今日のPM";
+
+/* Class = "NSButtonCell"; title = "Any date"; ObjectID = "599"; */
+"599.title" = "任意の日付";
+
+/* Class = "NSButtonCell"; title = "Last month"; ObjectID = "600"; */
+"600.title" = "先月";
+
+/* Class = "NSButtonCell"; title = "Today AM"; ObjectID = "601"; */
+"601.title" = "今日のAM";
+
+/* Class = "NSButtonCell"; title = "Last 3 months"; ObjectID = "602"; */
+"602.title" = "過去3ヶ月";
+
+/* Class = "NSButtonCell"; title = "Today PM"; ObjectID = "603"; */
+"603.title" = "今日のPM";
+
+/* Class = "NSButtonCell"; title = "On:"; ObjectID = "604"; */
+"604.title" = "に:";
+
+/* Class = "NSButtonCell"; title = "Today"; ObjectID = "605"; */
+"605.title" = "今日";
+
+/* Class = "NSButtonCell"; title = "Between:"; ObjectID = "606"; */
+"606.title" = "の間に:";
+
+/* Class = "NSButtonCell"; title = "Yesterday"; ObjectID = "607"; */
+"607.title" = "昨日";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "608"; */
+"608.title" = "Radio";
+
+/* Class = "NSButtonCell"; title = "Last 12 hours"; ObjectID = "609"; */
+"609.title" = "過去12時間";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "610"; */
+"610.title" = "Radio";
+
+/* Class = "NSButtonCell"; title = "Last 2 days"; ObjectID = "611"; */
+"611.title" = "過去2日間";
+
+/* Class = "NSButtonCell"; title = "Last 7 days"; ObjectID = "612"; */
+"612.title" = "過去1週間";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "613"; */
+"613.title" = "Radio";
+
+/* Class = "NSButtonCell"; title = "Last 24 hours"; ObjectID = "614"; */
+"614.title" = "過去24時間";
+
+/* Class = "NSButtonCell"; title = "Last 3 hours"; ObjectID = "615"; */
+"615.title" = "過去3時間";
+
+/* Class = "NSButtonCell"; title = "AU"; ObjectID = "617"; */
+"617.title" = "AU";
+
+/* Class = "NSButtonCell"; title = "CR"; ObjectID = "618"; */
+"618.title" = "CR";
+
+/* Class = "NSButtonCell"; title = "ES"; ObjectID = "619"; */
+"619.title" = "ES";
+
+/* Class = "NSButtonCell"; title = "VL"; ObjectID = "620"; */
+"620.title" = "VL";
+
+/* Class = "NSButtonCell"; title = "CT"; ObjectID = "621"; */
+"621.title" = "CT";
+
+/* Class = "NSButtonCell"; title = "US"; ObjectID = "622"; */
+"622.title" = "US";
+
+/* Class = "NSButtonCell"; title = "MR"; ObjectID = "623"; */
+"623.title" = "MR";
+
+/* Class = "NSButtonCell"; title = "NM"; ObjectID = "624"; */
+"624.title" = "NM";
+
+/* Class = "NSButtonCell"; title = "XA"; ObjectID = "625"; */
+"625.title" = "XA";
+
+/* Class = "NSButtonCell"; title = "RF"; ObjectID = "626"; */
+"626.title" = "RF";
+
+/* Class = "NSButtonCell"; title = "DR"; ObjectID = "627"; */
+"627.title" = "DR";
+
+/* Class = "NSButtonCell"; title = "OT"; ObjectID = "628"; */
+"628.title" = "OT";
+
+/* Class = "NSButtonCell"; title = "SR"; ObjectID = "630"; */
+"630.title" = "SR";
+
+/* Class = "NSButtonCell"; title = "VL"; ObjectID = "631"; */
+"631.title" = "VL";
+
+/* Class = "NSButtonCell"; title = "XC"; ObjectID = "632"; */
+"632.title" = "XC";
+
+/* Class = "NSButtonCell"; title = "PT"; ObjectID = "633"; */
+"633.title" = "PT";
+
+/* Class = "NSButtonCell"; title = "MG"; ObjectID = "634"; */
+"634.title" = "MG";
+
+/* Class = "NSButtonCell"; title = "RG"; ObjectID = "635"; */
+"635.title" = "RG";
+
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "637"; */
+"637.title" = "OK";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "639"; */
+"639.title" = "キャンセル";
+
+/* Class = "NSTextFieldCell"; title = "SQL Filter:"; ObjectID = "641"; */
+"641.title" = "SQLフィルタ:";
+
+/* Class = "NSTextFieldCell"; title = "Text"; ObjectID = "644"; */
+"644.title" = "Text";
+
+/* Class = "NSTextFieldCell"; title = "Text"; ObjectID = "645"; */
+"645.title" = "Text";
+
+/* Class = "NSTextFieldCell"; title = "Double-Click on a line to edit the Date & Modality Filters"; ObjectID = "647"; */
+"647.title" = "行をダブルクリックして日付とモダリティのフィルタを編集する";
+
+/* Class = "NSButtonCell"; title = "CT"; ObjectID = "660"; */
+"660.title" = "CT";
+
+/* Class = "NSButtonCell"; title = "If a distant study has more images than a local study, display the distant study"; ObjectID = "675"; */
+"675.title" = "遠隔スタディが現地スタディよりも多くの画像を持っている場合、遠隔スタディを表示する";
+
+/* Class = "NSTextFieldCell"; title = "DICOM Nodes for PACS On Demand matching and retrieving:"; ObjectID = "685"; */
+"685.title" = "PACSオンデマンド照合と取得のためのDICOMノード:";
+
+/* Class = "NSTableColumn"; headerCell.title = "Auto-retrieve"; ObjectID = "686"; */
+"686.headerCell.title" = "自動取得";
+
+/* Class = "NSTextFieldCell"; title = "2"; ObjectID = "696"; */
+"696.title" = "2";
+
+/* Class = "NSButtonCell"; title = "SC"; ObjectID = "712"; */
+"712.title" = "SC";
+
+/* Class = "NSButtonCell"; title = "DX"; ObjectID = "713"; */
+"713.title" = "DX";
+
+/* Class = "NSButtonCell"; title = "Comparative Studies, displayed at Study level"; ObjectID = "715"; */
+"715.title" = "比較スタディ、スタディレベルで表示";
+
+/* Class = "NSButtonCell"; title = "Search function (requires access to entire database: empty Study Filter for Web User)"; ObjectID = "719"; */
+"719.title" = "検索機能(データベース全体へのアクセスが必要:Webユーザー向けの空のStudy Filter)";
+
+/* Class = "NSButtonCell"; title = "Albums (requires access to entire database: empty Study Filter for Web User)"; ObjectID = "722"; */
+"722.title" = "アルバム(データベース全体へのアクセスが必要:Webユーザー向けの空のスタディフィルタ)";
+
+/* Class = "NSBox"; title = "Activate PACS On Demand for following Web Server functions"; ObjectID = "724"; */
+"724.title" = "次のWebサーバー機能のためのPACSオンデマンドのアクティブ化";
+
+/* Class = "NSButtonCell"; title = "Automatically retrieve studies that have already some local images"; ObjectID = "731"; */
+"731.title" = "既にいくつかのローカルイメージを持つスタディを自動的に取得する";
+
+/* Class = "NSButtonCell"; title = "Use PACS On Demand, when using the toolbar search fields"; ObjectID = "735"; */
+"735.title" = "PACSオンデマンドを使用すると、ツールバーの検索フィールドを使用するとき";
+
+/* Class = "NSTextFieldCell"; title = "Maximum number of background auto-retrieve requests per server:"; ObjectID = "YAw-Tn-D5O"; */
+"YAw-Tn-D5O.title" = "サーバーあたりのバックグラウンド自動取得要求の最大数:";
+

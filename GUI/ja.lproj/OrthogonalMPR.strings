@@ -1,0 +1,195 @@
+/* Class = "NSWindow"; title = "Orthogonal MPR"; ObjectID = "5"; */
+"5.title" = "直交MPR";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "148"; */
+"148.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "MIP - Max Intensity Projection"; ObjectID = "149"; */
+"149.title" = "MIP  - 最大強度プロジェクション";
+
+/* Class = "NSMenuItem"; title = "MinIP - Min Intensity Projection"; ObjectID = "150"; */
+"150.title" = "MinIP  - 最小輝度プロジェクション";
+
+/* Class = "NSMenuItem"; title = "Mean"; ObjectID = "153"; */
+"153.title" = "平均";
+
+/* Class = "NSWindow"; title = "Window"; ObjectID = "161"; */
+"161.title" = "Window";
+
+/* Class = "NSButtonCell"; title = "As displayed (screen capture)"; ObjectID = "167"; */
+"167.title" = "表示される(画面キャプチャ)";
+
+/* Class = "NSButtonCell"; title = "As stored in memory (16-bit BW)"; ObjectID = "168"; */
+"168.title" = "メモリ(16ビットBW)に格納されているように、";
+
+/* Class = "NSButtonCell"; title = "Current image only"; ObjectID = "171"; */
+"171.title" = "現在の画像のみ";
+
+/* Class = "NSButtonCell"; title = "4th Dimension"; ObjectID = "172"; */
+"172.title" = "4次元";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "189"; */
+"189.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Item2"; ObjectID = "190"; */
+"190.title" = "Item2";
+
+/* Class = "NSMenuItem"; title = "Item3"; ObjectID = "191"; */
+"191.title" = "Item3";
+
+/* Class = "NSMenuItem"; title = "Opacity"; ObjectID = "192"; */
+"192.title" = "不透明度";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "194"; */
+"194.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Item2"; ObjectID = "195"; */
+"195.title" = "Item2";
+
+/* Class = "NSMenuItem"; title = "Item3"; ObjectID = "196"; */
+"196.title" = "Item3";
+
+/* Class = "NSMenuItem"; title = "CLUT"; ObjectID = "197"; */
+"197.title" = "CLUT";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "202"; */
+"202.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Item2"; ObjectID = "203"; */
+"203.title" = "Item2";
+
+/* Class = "NSMenuItem"; title = "WL/WW"; ObjectID = "204"; */
+"204.title" = "WL/WW";
+
+/* Class = "NSMenuItem"; title = "Item3"; ObjectID = "205"; */
+"205.title" = "Item3";
+
+/* Class = "NSButtonCell"; ibShadowedToolTip = "Window Level (Option + click)"; ObjectID = "231"; */
+"231.ibShadowedToolTip" = "ウィンドウレベル(Option +クリック)";
+
+/* Class = "NSButtonCell"; title = "Levels"; ObjectID = "231"; */
+"231.title" = "レベル";
+
+/* Class = "NSButtonCell"; ibShadowedToolTip = "Move (Apple + click)"; ObjectID = "232"; */
+"232.ibShadowedToolTip" = "移動(Apple +クリック)";
+
+/* Class = "NSButtonCell"; title = "Move"; ObjectID = "232"; */
+"232.title" = "移動";
+
+/* Class = "NSButtonCell"; ibShadowedToolTip = "Zoom (Right button or shift + click)"; ObjectID = "233"; */
+"233.ibShadowedToolTip" = "ズーム(右ボタンまたはシフト+クリック)";
+
+/* Class = "NSButtonCell"; title = "Zoom"; ObjectID = "233"; */
+"233.title" = "ズーム";
+
+/* Class = "NSButtonCell"; ibShadowedToolTip = "Rotate (Ctrl + click)"; ObjectID = "234"; */
+"234.ibShadowedToolTip" = "回転(Ctrl +クリック)";
+
+/* Class = "NSButtonCell"; title = "Rotate"; ObjectID = "234"; */
+"234.title" = "回転";
+
+/* Class = "NSButtonCell"; ibShadowedToolTip = "Navigate in the serie"; ObjectID = "235"; */
+"235.ibShadowedToolTip" = "シリーズでナビゲートする";
+
+/* Class = "NSButtonCell"; title = "Next"; ObjectID = "235"; */
+"235.title" = "次";
+
+/* Class = "NSButtonCell"; ibShadowedToolTip = "Move the planes (hide/show planes with Space key)"; ObjectID = "239"; */
+"239.ibShadowedToolTip" = "プレーンを移動する(スペースキーでプレーンを隠す/表示する)";
+
+/* Class = "NSBox"; title = "Box"; ObjectID = "247"; */
+"247.title" = "Box";
+
+/* Class = "NSTextFieldCell"; title = "0"; ObjectID = "298"; */
+"298.title" = "0";
+
+/* Class = "NSButtonCell"; title = "Mode:"; ObjectID = "301"; */
+"301.title" = "モード:";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "302"; */
+"302.title" = "キャンセル";
+
+/* Class = "NSTextFieldCell"; title = "Image format:"; ObjectID = "303"; */
+"303.title" = "画像形式:";
+
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "304"; */
+"304.title" = "OK";
+
+/* Class = "NSTextFieldCell"; title = "Export to DICOM files:"; ObjectID = "305"; */
+"305.title" = "DICOMファイルへのエクスポート:";
+
+/* Class = "NSTextFieldCell"; title = "MPR"; ObjectID = "306"; */
+"306.title" = "MPR";
+
+/* Class = "NSTextFieldCell"; title = "Series name:"; ObjectID = "307"; */
+"307.title" = "シリーズ名:";
+
+/* Class = "NSTextFieldCell"; title = "From:"; ObjectID = "308"; */
+"308.title" = "から:";
+
+/* Class = "NSTextFieldCell"; title = "1234"; ObjectID = "309"; */
+"309.title" = "1234";
+
+/* Class = "NSButtonCell"; title = "Current"; ObjectID = "310"; */
+"310.title" = "現在";
+
+/* Class = "NSTextFieldCell"; title = "Interval:"; ObjectID = "312"; */
+"312.title" = "間隔:";
+
+/* Class = "NSTextFieldCell"; title = "1234"; ObjectID = "314"; */
+"314.title" = "1234";
+
+/* Class = "NSTextFieldCell"; title = "To:"; ObjectID = "315"; */
+"315.title" = "宛先:";
+
+/* Class = "NSTextFieldCell"; title = "0"; ObjectID = "317"; */
+"317.title" = "0";
+
+/* Class = "NSButtonCell"; title = "Current"; ObjectID = "318"; */
+"318.title" = "現在";
+
+/* Class = "NSTextFieldCell"; title = "WL/WW:"; ObjectID = "321"; */
+"321.title" = "WL/WW:";
+
+/* Class = "NSTextFieldCell"; title = "Opacity:"; ObjectID = "322"; */
+"322.title" = "不透明度:";
+
+/* Class = "NSTextFieldCell"; title = "CLUT:"; ObjectID = "323"; */
+"323.title" = "CLUT:";
+
+/* Class = "NSTextFieldCell"; title = "10 im/s"; ObjectID = "326"; */
+"326.title" = "10 im/s";
+
+/* Class = "NSButtonCell"; title = "Play"; ObjectID = "328"; */
+"328.title" = "再生";
+
+/* Class = "NSTextFieldCell"; title = "Rate:"; ObjectID = "329"; */
+"329.title" = "レート:";
+
+/* Class = "NSTextFieldCell"; title = "Pos:"; ObjectID = "330"; */
+"330.title" = "Pos:";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "332"; */
+"332.title" = "Radio";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "333"; */
+"333.title" = "Radio";
+
+/* Class = "NSTextFieldCell"; title = "40 images"; ObjectID = "336"; */
+"336.title" = "40枚の画像";
+
+/* Class = "NSTextFieldCell"; title = "Images:"; ObjectID = "337"; */
+"337.title" = "画像";
+
+/* Class = "NSButtonCell"; title = "Mark them as Key Images"; ObjectID = "343"; */
+"343.title" = "キー画像としてマークする";
+
+/* Class = "NSButtonCell"; title = "After export, send them to a DICOM Node"; ObjectID = "344"; */
+"344.title" = "エクスポート後、それらをDICOMノードに送信します";
+
+/* Class = "NSButtonCell"; title = "All images of the series, including:"; ObjectID = "348"; */
+"348.title" = "シリーズを含むすべての画像:";
+
+/* Class = "NSButtonCell"; title = "Include all views"; ObjectID = "350"; */
+"350.title" = "すべてのビューを含める";
+

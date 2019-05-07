@@ -1,0 +1,18 @@
+/* Class = "NSWindow"; title = "Plot"; ObjectID = "637"; */
+"637.title" = "Tracciare";
+
+/* Class = "NSTextFieldCell"; title = "XX"; ObjectID = "767"; */
+"767.title" = "XX";
+
+/* Class = "NSTextFieldCell"; title = "0"; ObjectID = "768"; */
+"768.title" = "0";
+
+/* Class = "NSTextFieldCell"; title = "YY"; ObjectID = "769"; */
+"769.title" = "YY";
+
+/* Class = "NSTextFieldCell"; title = "YY"; ObjectID = "770"; */
+"770.title" = "YY";
+
+/* Class = "NSTextFieldCell"; title = "Range:"; ObjectID = "771"; */
+"771.title" = "Gamma:";
+

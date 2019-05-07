@@ -1,0 +1,66 @@
+/* Class = "NSWindow"; title = "Smart Album"; ObjectID = "8"; */
+"8.title" = "智能相册";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "19"; */
+"19.title" = "取消";
+
+/* Class = "NSButtonCell"; title = "Create"; ObjectID = "20"; */
+"20.title" = "创建";
+
+/* Class = "NSTextFieldCell"; title = "Album Name:"; ObjectID = "58"; */
+"58.title" = "相册名称:";
+
+/* Class = "NSMenuItem"; title = "contains"; ObjectID = "67"; */
+"67.title" = "contains";
+
+/* Class = "NSMenuItem"; title = "begins with"; ObjectID = "68"; */
+"68.title" = "begins with";
+
+/* Class = "NSMenuItem"; title = "ends with"; ObjectID = "69"; */
+"69.title" = "ends with";
+
+/* Class = "NSMenuItem"; title = "is"; ObjectID = "70"; */
+"70.title" = "是";
+
+/* Class = "NSMenuItem"; title = "is not"; ObjectID = "71"; */
+"71.title" = "不是";
+
+/* Class = "NSMenuItem"; title = "name"; ObjectID = "72"; */
+"72.title" = "名称";
+
+/* Class = "NSMenuItem"; title = "address"; ObjectID = "73"; */
+"73.title" = "地址";
+
+/* Class = "NSMenuItem"; title = "sign"; ObjectID = "74"; */
+"74.title" = "标志";
+
+/* Class = "NSMenuItem"; title = "of the following are true"; ObjectID = "77"; */
+"77.title" = "以下是正确的";
+
+/* Class = "NSMenuItem"; title = "Any"; ObjectID = "78"; */
+"78.title" = "任何";
+
+/* Class = "NSMenuItem"; title = "All"; ObjectID = "79"; */
+"79.title" = "所有";
+
+/* Class = "NSSegmentedCell"; 102.ibShadowedLabels[0] = "Predicate"; ObjectID = "102"; */
+"102.ibShadowedLabels[0]" = "断定";
+
+/* Class = "NSSegmentedCell"; 102.ibShadowedLabels[1] = "SQL"; ObjectID = "102"; */
+"102.ibShadowedLabels[1]" = "SQL";
+
+/* Class = "NSTextView"; ibShadowedToolTip = "Study level predicate SQL"; ObjectID = "116"; */
+"116.ibShadowedToolTip" = "学习级别谓词 SQL";
+
+/* Class = "NSButtonCell"; title = "Test"; ObjectID = "131"; */
+"131.title" = "测试";
+
+/* Class = "NSSegmentedCell"; 135.ibShadowedLabels[0] = "Schema"; ObjectID = "135"; */
+"135.ibShadowedLabels[0]" = "Schema架构";
+
+/* Class = "NSSegmentedCell"; 135.ibShadowedLabels[1] = "Syntax"; ObjectID = "135"; */
+"135.ibShadowedLabels[1]" = "语法";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedIsNilPlaceholder = "TRUEPREDICATE"; ObjectID = "146"; */
+"146.ibShadowedIsNilPlaceholder" = "TRUEPREDICATE";
+

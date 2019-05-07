@@ -1,0 +1,199 @@
+/* Class = "NSWindow"; title = "<< do not localize >>"; ObjectID = "12"; */
+"12.title" = "<< do not localize >>";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Connect to OsiriX and check for latest version."; ObjectID = "101"; */
+"101.ibShadowedToolTip" = "Verbinden Sie sich mit Miele-LXIV und überprüfen Sie die neueste Version.";
+
+/* Class = "NSBox"; title = "Check version"; ObjectID = "129"; */
+"129.title" = "Checkversion";
+
+/* Class = "NSBox"; title = "DICOM Toolkits"; ObjectID = "133"; */
+"133.title" = "DICOM Werkzeuge";
+
+/* Class = "NSBox"; title = "Global"; ObjectID = "157"; */
+"157.title" = "Global";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Connect to OsiriX and check for latest version."; ObjectID = "159"; */
+"159.ibShadowedToolTip" = "Verbinden Sie sich mit Miele-LXIV und überprüfen Sie die neueste Version.";
+
+/* Class = "NSButtonCell"; title = "Papyrus"; ObjectID = "163"; */
+"163.title" = "Papyrus";
+
+/* Class = "NSButtonCell"; title = "DCMTK (Recommended)"; ObjectID = "164"; */
+"164.title" = "DCMTK (empfohlen)";
+
+/* Class = "NSBox"; title = "DICOM Editing"; ObjectID = "169"; */
+"169.title" = "DICOM Editieren";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Connect to OsiriX and check for latest version."; ObjectID = "171"; */
+"171.ibShadowedToolTip" = "Verbinden Sie sich mit Miele-LXIV und überprüfen Sie die neueste Version.";
+
+/* Class = "NSButtonCell"; title = "Automatically check for Miele-LXIV application updates at startup time"; ObjectID = "178"; */
+"178.title" = "Automatisiert prüfen Sie die Miele-LXIV-Anwendungs-Updates zum Start";
+
+/* Class = "NSButtonCell"; title = "For Color JPEG DICOMs, use JPEG photometric value, instead of DICOM photometric value"; ObjectID = "181"; */
+"181.title" = "Für farbige JPEG-DICOMs verwenden Sie den JPEG photometrischen Wert statt den DICOM photometrischen Wert";
+
+/* Class = "NSButtonCell"; title = "For CD/DVD Media, always use Papyrus Toolkit (faster reading)"; ObjectID = "182"; */
+"182.title" = "Für CD/DVD Media immer Papyrus Toolkit (schnelleres Lesen) verwenden";
+
+/* Class = "NSButtonCell"; title = "Require an 'Administrator' authentication to modify preferences settings"; ObjectID = "183"; */
+"183.title" = "Authentifizierung beim Administrator anfragen, um die Einstellungen zu ändern";
+
+/* Class = "NSButtonCell"; title = "Allow DICOM Editing. See Meta-Data Window."; ObjectID = "184"; */
+"184.title" = "DICOM Editierung zulassen. Siehe Meta-Data Fenster.";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "185"; */
+"185.title" = "Radio";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Connect to OsiriX and check for latest version."; ObjectID = "191"; */
+"191.ibShadowedToolTip" = "Verbinden Sie sich mit Miele-LXIV und überprüfen Sie die neueste Version.";
+
+/* Class = "NSButtonCell"; title = "Automatically check for installed Plugins updates at startup time"; ObjectID = "192"; */
+"192.title" = "Prüfen Sie automatisch die installierten Plugins-Updates zum Start";
+
+/* Class = "NSWindow"; title = "Window"; ObjectID = "209"; */
+"209.title" = "Fenster";
+
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "212"; */
+"212.title" = "OK";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "214"; */
+"214.title" = "Abbrechen";
+
+/* Class = "NSTableColumn"; headerCell.title = "Modality"; ObjectID = "220"; */
+"220.headerCell.title" = "Modalität";
+
+/* Class = "NSTableColumn"; headerCell.title = "Compression"; ObjectID = "221"; */
+"221.headerCell.title" = "Kompression";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "223"; */
+"223.title" = "Text Cell";
+
+/* Class = "NSTableColumn"; headerCell.title = "Quality (Lossless to Poor)"; ObjectID = "224"; */
+"224.headerCell.title" = "Qualität (unruhig bis arm)";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "228"; */
+"228.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Same As Default"; ObjectID = "229"; */
+"229.title" = "Wie Standard";
+
+/* Class = "NSMenuItem"; title = "JPEG2000 Lossless/Lossy"; ObjectID = "231"; */
+"231.title" = "JPEG2000 Lossless/Lossy";
+
+/* Class = "NSMenuItem"; title = "No Compression"; ObjectID = "232"; */
+"232.title" = "Keine Kompression";
+
+/* Class = "NSTableColumn"; headerCell.title = "Quality (Lossless to Poor)"; ObjectID = "293"; */
+"293.headerCell.title" = "Qualität (unruhig bis arm)";
+
+/* Class = "NSTableColumn"; headerCell.title = "Compression"; ObjectID = "294"; */
+"294.headerCell.title" = "Kompression";
+
+/* Class = "NSTableColumn"; headerCell.title = "Modality"; ObjectID = "295"; */
+"295.headerCell.title" = "Modalität";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "296"; */
+"296.title" = "Text Cell";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "298"; */
+"298.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "No Compression"; ObjectID = "300"; */
+"300.title" = "Keine Kompression";
+
+/* Class = "NSMenuItem"; title = "JPEG2000 Lossless/Lossy"; ObjectID = "301"; */
+"301.title" = "JPEG2000 Lossless/Lossy";
+
+/* Class = "NSMenuItem"; title = "Same As Default"; ObjectID = "303"; */
+"303.title" = "Wie Standard";
+
+/* Class = "NSTextFieldCell"; title = "If matrix size is smaller than:"; ObjectID = "306"; */
+"306.title" = "Wenn die Matrixgröße kleiner ist als:";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "309"; */
+"309.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "128"; ObjectID = "310"; */
+"310.title" = "128";
+
+/* Class = "NSMenuItem"; title = "256"; ObjectID = "311"; */
+"311.title" = "256";
+
+/* Class = "NSMenuItem"; title = "320"; ObjectID = "312"; */
+"312.title" = "320";
+
+/* Class = "NSMenuItem"; title = "512"; ObjectID = "313"; */
+"313.title" = "512";
+
+/* Class = "NSMenuItem"; title = "640"; ObjectID = "314"; */
+"314.title" = "640";
+
+/* Class = "NSMenuItem"; title = "1024"; ObjectID = "315"; */
+"315.title" = "1024";
+
+/* Class = "NSMenuItem"; title = "2048"; ObjectID = "316"; */
+"316.title" = "2048";
+
+/* Class = "NSTextFieldCell"; title = "Else:"; ObjectID = "319"; */
+"319.title" = "Anderes:";
+
+/* Class = "NSButtonCell"; title = "Reset Preferences"; ObjectID = "342"; */
+"342.title" = "Reset-Vorlieben";
+
+/* Class = "NSBox"; title = "JPEG Compression"; ObjectID = "357"; */
+"357.title" = "JPEG-Kompression";
+
+/* Class = "NSButtonCell"; title = "Configure"; ObjectID = "372"; */
+"372.title" = "Konfigurieren";
+
+/* Class = "NSTextFieldCell"; title = "Compression Levels:"; ObjectID = "374"; */
+"374.title" = "Kompressionsstufen:";
+
+/* Class = "NSMenuItem"; title = "JPEG-LS Lossless/Lossy"; ObjectID = "395"; */
+"395.title" = "JPEG-LS Lossless/Lossy";
+
+/* Class = "NSMenuItem"; title = "JPEG-LS Lossless/Lossy"; ObjectID = "396"; */
+"396.title" = "JPEG-LS Lossless/Lossy";
+
+/* Class = "NSBox"; title = "Languages"; ObjectID = "397"; */
+"397.title" = "Sprachen";
+
+/* Class = "NSTableColumn"; headerCell.title = "Enabled"; ObjectID = "522"; */
+"522.headerCell.title" = "Aktiviert";
+
+/* Class = "NSTableColumn"; headerCell.title = "Language"; ObjectID = "523"; */
+"523.headerCell.title" = "Sprache";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "524"; */
+"524.title" = "Text Cell";
+
+/* Class = "NSTextFieldCell"; title = "Restart Miele-LXIV to apply the changes.\nIf multiple languages are enabled, the used language will be chosen according to MacOS settings."; ObjectID = "534"; */
+"534.title" = "Starten Sie Miele-LXIV neu, um die Änderungen anzuwenden.\n
+Wenn mehrere Sprachen aktiviert sind, wird die verwendete Sprache nach den MacOS-Einstellungen gewählt.";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Connect to OsiriX and check for latest version."; ObjectID = "535"; */
+"535.ibShadowedToolTip" = "Verbinden Sie sich mit Miele-LXIV und überprüfen Sie die neueste Version.";
+
+/* Class = "NSButtonCell"; title = "Synchronize preferences at startup with this url :"; ObjectID = "536"; */
+"536.title" = "Synchronisieren Sie die Einstellungen beim Start mit dieser URL:";
+
+/* Class = "NSButtonCell"; title = "Save Preferences..."; ObjectID = "540"; */
+"540.title" = "Einstellungen Speichern ...";
+
+/* Class = "NSButtonCell"; title = "Load Preferences..."; ObjectID = "543"; */
+"543.title" = "Einstellungen laden ...";
+
+/* Class = "NSButtonCell"; title = "Button"; ObjectID = "547"; */
+"547.title" = "Button";
+
+/* Class = "NSTextFieldCell"; title = "http://www.preferences-server.com/preferences.plist"; ObjectID = "548"; */
+"548.title" = "http://www.preferences-server.com/preferences.plist";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Connect to OsiriX and check for latest version."; ObjectID = "BXs-xj-ZZ5"; */
+"BXs-xj-ZZ5.ibShadowedToolTip" = "Verbinden Sie sich mit Miele-LXIV und überprüfen Sie die neueste Version.";
+
+/* Class = "NSButtonCell"; title = "Display Notifications (Growl required)"; ObjectID = "eOV-F7-aFg"; */
+"eOV-F7-aFg.title" = "Benachrichtigungen anzeigen (Growl erforderlich)";
+

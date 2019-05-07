@@ -1,0 +1,111 @@
+/* Class = "NSWindow"; title = "DICOM Meta-Data"; ObjectID = "5"; */
+"5.title" = "DICOM Meta-Data";
+
+/* Class = "NSTableColumn"; headerCell.title = "Tag"; ObjectID = "9"; */
+"9.headerCell.title" = "Schlagwort";
+
+/* Class = "NSTableColumn"; headerCell.title = "Field Name"; ObjectID = "10"; */
+"10.headerCell.title" = "Feldname";
+
+/* Class = "NSTableColumn"; headerCell.title = "Content"; ObjectID = "11"; */
+"11.headerCell.title" = "Inhalt";
+
+/* Class = "NSMenu"; title = "Menu"; ObjectID = "32"; */
+"32.title" = "Menü";
+
+/* Class = "NSMenuItem"; title = "Recent Searches"; ObjectID = "33"; */
+"33.title" = "Aktuelle Suchanfragen";
+
+/* Class = "NSMenuItem"; title = "Recents"; ObjectID = "34"; */
+"34.title" = "Recents";
+
+/* Class = "NSMenuItem"; title = "Clear Recent Searchs"; ObjectID = "35"; */
+"35.title" = "Klare jüngste Suche";
+
+/* Class = "NSWindow"; title = "Window"; ObjectID = "39"; */
+"39.title" = "Fenster";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Activate the edition"; ObjectID = "54"; */
+"54.ibShadowedToolTip" = "Die Ausgabe aktivieren";
+
+/* Class = "NSButtonCell"; title = "Image"; ObjectID = "58"; */
+"58.title" = "Bild";
+
+/* Class = "NSButtonCell"; title = "Series"; ObjectID = "59"; */
+"59.title" = "Serien";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Add a new group/element"; ObjectID = "61"; */
+"61.ibShadowedToolTip" = "Ein neues Gruppen/Element hinzufügen";
+
+/* Class = "NSSearchFieldCell"; placeholderString = "search string"; ObjectID = "113"; */
+"113.placeholderString" = "Suchstring";
+
+/* Class = "NSTextFieldCell"; title = "Group:"; ObjectID = "114"; */
+"114.title" = "Gruppe:";
+
+/* Class = "NSTextFieldCell"; title = "Element:"; ObjectID = "115"; */
+"115.title" = "Element:";
+
+/* Class = "NSTextFieldCell"; title = "0x0010"; ObjectID = "116"; */
+"116.title" = "0x0010";
+
+/* Class = "NSTextFieldCell"; title = "0x0010"; ObjectID = "117"; */
+"117.title" = "0x0010";
+
+/* Class = "NSTextFieldCell"; title = "Add a new DICOM field:"; ObjectID = "118"; */
+"118.title" = "Ein neues DICOM-Feld:";
+
+/* Class = "NSTextFieldCell"; title = "Name:"; ObjectID = "119"; */
+"119.title" = "Name:";
+
+/* Class = "NSButtonCell"; title = "Add"; ObjectID = "121"; */
+"121.title" = "Hinzufügen";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "122"; */
+"122.title" = "Abbrechen";
+
+/* Class = "NSTextFieldCell"; title = "Value:"; ObjectID = "123"; */
+"123.title" = "Wert:";
+
+/* Class = "NSTextFieldCell"; title = "(If the field exists already, the old one will be replaced)"; ObjectID = "125"; */
+"125.title" = "(Wenn das Feld bereits existiert, wird das alte ersetzt)";
+
+/* Class = "NSTextFieldCell"; title = "Add"; ObjectID = "128"; */
+"128.title" = "Hinzufügen";
+
+/* Class = "NSTextFieldCell"; title = "Edit"; ObjectID = "129"; */
+"129.title" = "Bearbeiten";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "130"; */
+"130.title" = "Radio";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "131"; */
+"131.title" = "Text Cell";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "132"; */
+"132.title" = "Text Cell";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "133"; */
+"133.title" = "Text Cell";
+
+/* Class = "NSWindow"; title = "DICOM Validator"; ObjectID = "137"; */
+"137.title" = "DICOM-Validierer";
+
+/* Class = "NSTextFieldCell"; title = "Based on DICOM Validator - dciodvfy, by David A. Clunie :"; ObjectID = "144"; */
+"144.title" = "Basierend auf DICOM Validator-dciodvfy, von David A. Clunie:";
+
+/* Class = "NSButtonCell"; title = "Web Site"; ObjectID = "148"; */
+"148.title" = "Website";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Save the modifications to the file"; ObjectID = "162"; */
+"162.ibShadowedToolTip" = "Speichern Sie die Änderungen an der Datei";
+
+/* Class = "NSTextFieldCell"; title = "Apply"; ObjectID = "169"; */
+"169.title" = "Anwenden";
+
+/* Class = "NSButtonCell"; title = "Patient"; ObjectID = "by7-D4-bt6"; */
+"by7-D4-bt6.title" = "Patient";
+
+/* Class = "NSButtonCell"; title = "Study"; ObjectID = "Xjs-YY-1YQ"; */
+"Xjs-YY-1YQ.title" = "Arbeitszimmer";
+

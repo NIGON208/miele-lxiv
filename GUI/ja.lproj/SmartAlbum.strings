@@ -1,0 +1,66 @@
+/* Class = "NSWindow"; title = "Smart Album"; ObjectID = "8"; */
+"8.title" = "スマートアルバム";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "19"; */
+"19.title" = "キャンセル";
+
+/* Class = "NSButtonCell"; title = "Create"; ObjectID = "20"; */
+"20.title" = "作成";
+
+/* Class = "NSTextFieldCell"; title = "Album Name:"; ObjectID = "58"; */
+"58.title" = "アルバム名:";
+
+/* Class = "NSMenuItem"; title = "contains"; ObjectID = "67"; */
+"67.title" = "含む";
+
+/* Class = "NSMenuItem"; title = "begins with"; ObjectID = "68"; */
+"68.title" = "begins with";
+
+/* Class = "NSMenuItem"; title = "ends with"; ObjectID = "69"; */
+"69.title" = "終わる";
+
+/* Class = "NSMenuItem"; title = "is"; ObjectID = "70"; */
+"70.title" = "一致";
+
+/* Class = "NSMenuItem"; title = "is not"; ObjectID = "71"; */
+"71.title" = "一致しない";
+
+/* Class = "NSMenuItem"; title = "name"; ObjectID = "72"; */
+"72.title" = "名前";
+
+/* Class = "NSMenuItem"; title = "address"; ObjectID = "73"; */
+"73.title" = "住所";
+
+/* Class = "NSMenuItem"; title = "sign"; ObjectID = "74"; */
+"74.title" = "しるし，標識";
+
+/* Class = "NSMenuItem"; title = "of the following are true"; ObjectID = "77"; */
+"77.title" = "以下のことが真実です";
+
+/* Class = "NSMenuItem"; title = "Any"; ObjectID = "78"; */
+"78.title" = "任意";
+
+/* Class = "NSMenuItem"; title = "All"; ObjectID = "79"; */
+"79.title" = "すべて";
+
+/* Class = "NSSegmentedCell"; 102.ibShadowedLabels[0] = "Predicate"; ObjectID = "102"; */
+"102.ibShadowedLabels[0]" = "述語";
+
+/* Class = "NSSegmentedCell"; 102.ibShadowedLabels[1] = "SQL"; ObjectID = "102"; */
+"102.ibShadowedLabels[1]" = "SQL";
+
+/* Class = "NSTextView"; ibShadowedToolTip = "Study level predicate SQL"; ObjectID = "116"; */
+"116.ibShadowedToolTip" = "SQLの調査レベル述語";
+
+/* Class = "NSButtonCell"; title = "Test"; ObjectID = "131"; */
+"131.title" = "テスト";
+
+/* Class = "NSSegmentedCell"; 135.ibShadowedLabels[0] = "Schema"; ObjectID = "135"; */
+"135.ibShadowedLabels[0]" = "スキーマ";
+
+/* Class = "NSSegmentedCell"; 135.ibShadowedLabels[1] = "Syntax"; ObjectID = "135"; */
+"135.ibShadowedLabels[1]" = "シンタックス";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedIsNilPlaceholder = "TRUEPREDICATE"; ObjectID = "146"; */
+"146.ibShadowedIsNilPlaceholder" = "TRUEPREDICATE";
+

@@ -1,0 +1,246 @@
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "3N3-Wh-vx1"; */
+"3N3-Wh-vx1.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "US"; ObjectID = "5Jf-1n-5Bm"; */
+"5Jf-1n-5Bm.title" = "US";
+
+/* Class = "NSMenuItem"; title = "MG"; ObjectID = "6kW-Wr-Cu0"; */
+"6kW-Wr-Cu0.title" = "MG";
+
+/* Class = "NSMenuItem"; title = "CT"; ObjectID = "7zl-Dg-jTQ"; */
+"7zl-Dg-jTQ.title" = "CT";
+
+/* Class = "NSMenuItem"; title = "CR"; ObjectID = "8uS-Ii-xSk"; */
+"8uS-Ii-xSk.title" = "CR";
+
+/* Class = "NSWindow"; title = "<< do not localize >>"; ObjectID = "12"; */
+"12.title" = "<< do not localize >>";
+
+/* Class = "NSBox"; title = "Miscellaneous"; ObjectID = "100"; */
+"100.title" = "その他";
+
+/* Class = "NSBox"; title = "TIFF, JPEG, Quicktime, DICOM Export"; ObjectID = "110"; */
+"110.title" = "TIFF、JPEG、Quicktime、DICOMエクスポート";
+
+/* Class = "NSBox"; title = "Screens & Window size"; ObjectID = "149"; */
+"149.title" = "画面とウィンドウのサイズ";
+
+/* Class = "NSButtonCell"; title = "Fullscreen"; ObjectID = "253"; */
+"253.title" = "Fullscreen";
+
+/* Class = "NSButtonCell"; title = "At 150% of resolution"; ObjectID = "254"; */
+"254.title" = "150％の解像度で";
+
+/* Class = "NSButtonCell"; title = "At 100% of resolution"; ObjectID = "255"; */
+"255.title" = "100％の解像度で";
+
+/* Class = "NSButtonCell"; title = "At 200% of resolution"; ObjectID = "256"; */
+"256.title" = "200％の解像度で";
+
+/* Class = "NSButtonCell"; title = "Save left button mouse tool"; ObjectID = "342"; */
+"342.title" = "左側ボタンマウスツールを保存する";
+
+/* Class = "NSButtonCell"; title = "Reverse scroll wheel direction"; ObjectID = "343"; */
+"343.title" = "スクロールホイールの逆方向";
+
+/* Class = "NSButtonCell"; title = "No interpolation for zoom"; ObjectID = "345"; */
+"345.title" = "ズームの補間なし";
+
+/* Class = "NSTextFieldCell"; title = "Photos Album:"; ObjectID = "347"; */
+"347.title" = "Photosアルバム:";
+
+/* Class = "NSButtonCell"; title = "Zoom with horizontal scrollwheel"; ObjectID = "348"; */
+"348.title" = "水平スクロールホイールでズーム";
+
+/* Class = "NSButtonCell"; title = "No 'Propagate settings in series' for:"; ObjectID = "349"; */
+"349.title" = "「次の設定を順番に伝播する」なし:";
+
+/* Class = "NSButtonCell"; title = "Apply Next/Previous Series button to all opened viewers"; ObjectID = "350"; */
+"350.title" = "開いているすべての視聴者に次/前のシリーズボタンを適用する";
+
+/* Class = "NSButtonCell"; title = "High Quality Zoom (Lanczos 5)"; ObjectID = "351"; */
+"351.title" = "高画質ズーム(Lanczos 5)";
+
+/* Class = "NSButtonCell"; title = "Automatically open the exported images after exporting with Preview or Quicktime Player"; ObjectID = "352"; */
+"352.title" = "プレビューまたはQuicktime Playerで書き出した後に、書き出された画像を自動的に開きます";
+
+/* Class = "NSButtonCell"; title = "If there are tiled views, export all tiled views, not only the selected view"; ObjectID = "353"; */
+"353.title" = "タイル表示がある場合は、選択したビューだけでなく、すべてのタイル表示をエクスポートします";
+
+/* Class = "NSButtonCell"; title = "Automatically Tile Windows when closing or opening a new series"; ObjectID = "358"; */
+"358.title" = "新しいシリーズを閉じるときや開いたときに自動的にWindowsを並べ替える";
+
+/* Class = "NSButtonCell"; title = "Group series of same study on same screen"; ObjectID = "359"; */
+"359.title" = "同じ画面で同じ研究のグループシリーズ";
+
+/* Class = "NSButtonCell"; title = "Magnetic Windows for move & resize"; ObjectID = "360"; */
+"360.title" = "移動＆サイズ変更のための磁気ウィンドウ";
+
+/* Class = "NSButtonCell"; title = "Automatically save Workspace State when closing all viewers"; ObjectID = "362"; */
+"362.title" = "すべてのビューアを閉じるときにワークスペースの状態を自動的に保存する";
+
+/* Class = "NSButtonCell"; title = "Automatically load Workspace State when opening a study"; ObjectID = "363"; */
+"363.title" = "スタディを開いたときにワークスペースの状態を自動的に読み込む";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "366"; */
+"366.title" = "Radio";
+
+/* Class = "NSButtonCell"; title = "Stretch last windows to fill the entire screen"; ObjectID = "369"; */
+"369.title" = "最後のウィンドウを伸ばして画面全体を埋める";
+
+/* Class = "NSButtonCell"; title = "Spline Rendering for polygons and pencils ROIs"; ObjectID = "373"; */
+"373.title" = "ポリゴンと鉛筆のROIのスプラインレンダリング";
+
+/* Class = "NSButtonCell"; title = "Use VOI LUT if available"; ObjectID = "376"; */
+"376.title" = "可能であれば、VOI LUTを使用する";
+
+/* Class = "NSButtonCell"; title = "Automatically enable 12 Bit Totoku Display support for CR, MG, DX, DR, XA and RF"; ObjectID = "391"; */
+"391.title" = "CR、MG、DX、DR、XA、RFの12ビットトトクディスプレイを自動的に有効にする";
+
+/* Class = "NSButtonCell"; title = "Always 'scale to fit' when displaying or resizing windows"; ObjectID = "402"; */
+"402.title" = "ウィンドウを表示またはサイズ変更するときは、常に「サイズに合わせて調整する」";
+
+/* Class = "NSButtonCell"; title = "Automatically crop the view to the image area"; ObjectID = "406"; */
+"406.title" = "ビューをイメージ領域に自動的にトリミングする";
+
+/* Class = "NSButtonCell"; title = "Open PDF with Preview application"; ObjectID = "413"; */
+"413.title" = "プレビューアプリケーションでPDFを開く";
+
+/* Class = "NSButtonCell"; title = "Show Magnifying Lens with 'shift' key"; ObjectID = "416"; */
+"416.title" = "'shift'キーで拡大レンズを表示する";
+
+/* Class = "NSButtonCell"; title = "New ROIs are unnamed"; ObjectID = "419"; */
+"419.title" = "新しいROIには名前は付けられません";
+
+/* Class = "NSButtonCell"; title = "Mark ROI image as Key image"; ObjectID = "422"; */
+"422.title" = "キーイメージとしてROIイメージをマーク";
+
+/* Class = "NSButtonCell"; title = "Loop in the series with mouse scroll wheel"; ObjectID = "426"; */
+"426.title" = "マウスのスクロールホイールでシリーズのループ";
+
+/* Class = "NSButtonCell"; title = "Scroll through image and series for:"; ObjectID = "432"; */
+"432.title" = "画像とシリーズをスクロールします:";
+
+/* Class = "NSButtonCell"; title = "Full 32-bit OpenGL pipeline"; ObjectID = "435"; */
+"435.title" = "フル32ビットOpenGLパイプライン";
+
+/* Class = "NSButtonCell"; title = "Only display images of the same patient"; ObjectID = "438"; */
+"438.title" = "同じ患者の画像のみを表示する";
+
+/* Class = "NSButtonCell"; title = "Keep CLUT Bars when exporting Screen Captures"; ObjectID = "455"; */
+"455.title" = "スクリーンキャプチャのエクスポート時にCLUTバーを保持する";
+
+/* Class = "NSButtonCell"; title = "Select window when using scroll wheel"; ObjectID = "459"; */
+"459.title" = "スクロールホイールを使用する場合はウィンドウを選択";
+
+/* Class = "NSButtonCell"; title = "Zoom centered around mouse position"; ObjectID = "464"; */
+"464.title" = "マウスの位置を中心としたズーム";
+
+/* Class = "NSButtonCell"; title = "Use FrameofReferenceUID for cross reference lines"; ObjectID = "473"; */
+"473.title" = "相互参照行にFrameofReferenceUIDを使用する";
+
+/* Class = "NSButtonCell"; title = "Switch to 1x1 Tiling in Fullscreen mode"; ObjectID = "481"; */
+"481.title" = "フルスクリーンモードで 1x1 のタイリングに切り替える";
+
+/* Class = "NSButtonCell"; title = "Reserve the database screen for the database"; ObjectID = "498"; */
+"498.title" = "データベースのデータベース画面を予約する";
+
+/* Class = "NSTextFieldCell"; title = "Screens:"; ObjectID = "504"; */
+"504.title" = "画面:";
+
+/* Class = "NSTextFieldCell"; title = "Window Size:"; ObjectID = "506"; */
+"506.title" = "ウィンドウサイズ:";
+
+/* Class = "NSTextFieldCell"; title = "Tiling:"; ObjectID = "510"; */
+"510.title" = "タイリング:";
+
+/* Class = "NSTextFieldCell"; title = "Workspace State:"; ObjectID = "512"; */
+"512.title" = "ワークスペースの状態:";
+
+/* Class = "NSTextFieldCell"; title = "12bit Display:"; ObjectID = "516"; */
+"516.title" = "12ビット表示:";
+
+/* Class = "NSTextFieldCell"; title = "Scale:"; ObjectID = "518"; */
+"518.title" = "スケール:";
+
+/* Class = "NSButtonCell"; title = "Use database screen in the last"; ObjectID = "523"; */
+"523.title" = "最後にデータベース画面を使用する";
+
+/* Class = "NSButtonCell"; title = "Order windows from most recent to oldest studies"; ObjectID = "529"; */
+"529.title" = "最新のものから最も古いものまでのウィンドウを注文する";
+
+/* Class = "NSButtonCell"; title = "Compute Skewness and Kurtosis for ROI"; ObjectID = "541"; */
+"541.title" = "ROIの歪度と尖度の計算";
+
+/* Class = "NSButtonCell"; title = "Display Overflow Lines"; ObjectID = "545"; */
+"545.title" = "オーバーフローラインを表示する";
+
+/* Class = "NSButtonCell"; title = "Reversed order"; ObjectID = "549"; */
+"549.title" = "逆順";
+
+/* Class = "NSButtonCell"; title = "Don't switch series if already displayed"; ObjectID = "556"; */
+"556.title" = "既に表示されている場合はシリーズを切り替えないでください";
+
+/* Class = "NSMenuItem"; title = "DX"; ObjectID = "ai8-gB-ewz"; */
+"ai8-gB-ewz.title" = "DX";
+
+/* Class = "NSMenuItem"; title = "XA"; ObjectID = "bs8-nn-AfS"; */
+"bs8-nn-AfS.title" = "XA";
+
+/* Class = "NSButtonCell"; title = "Display the Center of Circle ROIs"; ObjectID = "cnn-XX-QeR"; */
+"cnn-XX-QeR.title" = "円ROIの中心を表示する";
+
+/* Class = "NSMenuItem"; title = "DR"; ObjectID = "cza-Ci-dMD"; */
+"cza-Ci-dMD.title" = "DR";
+
+/* Class = "NSMenuItem"; title = "CR"; ObjectID = "FOf-lv-Yw4"; */
+"FOf-lv-Yw4.title" = "CR";
+
+/* Class = "NSButtonCell"; title = "Automatically show/hide the list"; ObjectID = "G7b-Qw-REH"; */
+"G7b-Qw-REH.title" = "リストの自動表示/非表示";
+
+/* Class = "NSMenuItem"; title = "DX"; ObjectID = "jbC-CP-MNd"; */
+"jbC-CP-MNd.title" = "DX";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "jDc-fg-eC3"; */
+"jDc-fg-eC3.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Modalities"; ObjectID = "M0C-0c-XXi"; */
+"M0C-0c-XXi.title" = "モダリティ";
+
+/* Class = "NSMenuItem"; title = "MR"; ObjectID = "Mb4-tf-Nb8"; */
+"Mb4-tf-Nb8.title" = "MR";
+
+/* Class = "NSMenuItem"; title = "MG"; ObjectID = "n0T-TJ-mPS"; */
+"n0T-TJ-mPS.title" = "MG";
+
+/* Class = "NSMenuItem"; title = "OT"; ObjectID = "pDt-aZ-dzv"; */
+"pDt-aZ-dzv.title" = "OT";
+
+/* Class = "NSMenuItem"; title = "XA"; ObjectID = "pNw-K4-kef"; */
+"pNw-K4-kef.title" = "XA";
+
+/* Class = "NSMenuItem"; title = "Modalities"; ObjectID = "rUf-a6-mNm"; */
+"rUf-a6-mNm.title" = "モダリティ";
+
+/* Class = "NSMenuItem"; title = "US"; ObjectID = "Sdk-1a-N7y"; */
+"Sdk-1a-N7y.title" = "US";
+
+/* Class = "NSMenuItem"; title = "RF"; ObjectID = "seo-e0-Zo4"; */
+"seo-e0-Zo4.title" = "RF";
+
+/* Class = "NSTextFieldCell"; title = "Series List:"; ObjectID = "uep-14-VL5"; */
+"uep-14-VL5.title" = "シリーズリスト:";
+
+/* Class = "NSMenuItem"; title = "RF"; ObjectID = "uMP-Y0-V9I"; */
+"uMP-Y0-V9I.title" = "RF";
+
+/* Class = "NSButtonCell"; title = "Single Series List per screen"; ObjectID = "Uq0-8g-c6d"; */
+"Uq0-8g-c6d.title" = "1つの画面につき1つのシリーズリスト";
+
+/* Class = "NSMenuItem"; title = "DR"; ObjectID = "WGV-vh-73b"; */
+"WGV-vh-73b.title" = "DR";
+
+/* Class = "NSButtonCell"; title = "Convert RTSTRUCT ROIs to Brush ROIs"; ObjectID = "zMF-Em-hzR"; */
+"zMF-Em-hzR.title" = "RTSTRUCT ROIをブラシROIに変換する";
+

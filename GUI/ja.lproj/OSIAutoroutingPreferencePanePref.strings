@@ -1,0 +1,156 @@
+
+/* Class = "NSWindow"; title = "<< do not localize >>"; ObjectID = "12"; */
+"12.title" = "<< do not localize >>";
+
+/* Class = "NSTableColumn"; headerCell.title = "Routes"; ObjectID = "125"; */
+"125.headerCell.title" = "Routes";
+
+/* Class = "NSTableColumn"; headerCell.title = "Destination"; ObjectID = "231"; */
+"231.headerCell.title" = "Destination";
+
+/* Class = "NSTableColumn"; headerCell.title = "Comments"; ObjectID = "232"; */
+"232.headerCell.title" = "Comments";
+
+/* Class = "NSWindow"; title = "Window"; ObjectID = "238"; */
+"238.title" = "Window";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "244"; */
+"244.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Item3"; ObjectID = "247"; */
+"247.title" = "Item3";
+
+/* Class = "NSTableColumn"; headerCell.title = "Activated"; ObjectID = "288"; */
+"288.headerCell.title" = "Activated";
+
+/* Class = "NSButtonCell"; title = "Activate AutoRouting"; ObjectID = "291"; */
+"291.title" = "Activate AutoRouting";
+
+/* Class = "NSButtonCell"; title = "Add new route"; ObjectID = "292"; */
+"292.title" = "Add new route";
+
+/* Class = "NSTextFieldCell"; title = "Double-Click on a route to edit filter parameters\nPress Delete key to delete a route"; ObjectID = "293"; */
+"293.title" = "Double-Click on a route to edit filter parameters\nPress Delete key to delete a route";
+
+/* Class = "NSTextFieldCell"; title = "Name:"; ObjectID = "295"; */
+"295.title" = "Name:";
+
+/* Class = "NSTextFieldCell"; title = "Destination Server:"; ObjectID = "296"; */
+"296.title" = "Destination Server:";
+
+/* Class = "NSTextFieldCell"; title = "Comments:"; ObjectID = "297"; */
+"297.title" = "Comments:";
+
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "303"; */
+"303.title" = "OK";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "304"; */
+"304.title" = "Cancel";
+
+/* Class = "NSButtonCell"; title = "OsiriX Tables"; ObjectID = "305"; */
+"305.title" = "OsiriX Tables";
+
+/* Class = "NSButtonCell"; title = "SQL Syntax"; ObjectID = "306"; */
+"306.title" = "SQL Syntax";
+
+/* Class = "NSTextFieldCell"; title = "System Font Text"; ObjectID = "307"; */
+"307.title" = "System Font Text";
+
+/* Class = "NSTextFieldCell"; title = "(Image Table Level)"; ObjectID = "308"; */
+"308.title" = "(Image Table Level)";
+
+/* Class = "NSTextFieldCell"; title = "Empty filter will route ALL images"; ObjectID = "309"; */
+"309.title" = "Empty filter will route ALL images";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "310"; */
+"310.title" = "Text Cell";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "311"; */
+"311.title" = "Text Cell";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "312"; */
+"312.title" = "Text Cell";
+
+/* Class = "NSButtonCell"; title = "Display an error if an autorouting rule failed"; ObjectID = "317"; */
+"317.title" = "Display an error if an autorouting rule failed";
+
+/* Class = "NSTextFieldCell"; title = "Previous Studies:"; ObjectID = "321"; */
+"321.title" = "Previous Studies:";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "327"; */
+"327.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Don't send previous study"; ObjectID = "329"; */
+"329.title" = "Don't send previous study";
+
+/* Class = "NSMenuItem"; title = "The last 3 previous studies"; ObjectID = "330"; */
+"330.title" = "The last 3 previous studies";
+
+/* Class = "NSMenuItem"; title = "The last 2 previous studies"; ObjectID = "331"; */
+"331.title" = "The last 2 previous studies";
+
+/* Class = "NSMenuItem"; title = "The previous study"; ObjectID = "332"; */
+"332.title" = "The previous study";
+
+/* Class = "NSButtonCell"; title = "with same Study Description"; ObjectID = "333"; */
+"333.title" = "with same Study Description";
+
+/* Class = "NSTextFieldCell"; title = "For each study, also send, if available in the Database :"; ObjectID = "334"; */
+"334.title" = "For each study, also send, if available in the Database :";
+
+/* Class = "NSButtonCell"; title = "of same modality"; ObjectID = "335"; */
+"335.title" = "of same modality";
+
+/* Class = "NSTextFieldCell"; title = "Failure:"; ObjectID = "340"; */
+"340.title" = "Failure:";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "343"; */
+"343.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Try 5 times each 30 secs"; ObjectID = "344"; */
+"344.title" = "Try 5 times each 30 secs";
+
+/* Class = "NSMenuItem"; title = "Try 20 times each 30 secs"; ObjectID = "345"; */
+"345.title" = "Try 20 times each 30 secs";
+
+/* Class = "NSMenuItem"; title = "Try 100 times each 30 secs"; ObjectID = "346"; */
+"346.title" = "Try 100 times each 30 secs";
+
+/* Class = "NSMenuItem"; title = "Don't try to re-send"; ObjectID = "347"; */
+"347.title" = "Don't try to re-send";
+
+/* Class = "NSMenuItem"; title = "Try 1400 times each 30 secs"; ObjectID = "349"; */
+"349.title" = "Try 1400 times each 30 secs";
+
+/* Class = "NSTextFieldCell"; title = "Check :"; ObjectID = "353"; */
+"353.title" = "Check :";
+
+/* Class = "NSButtonCell"; title = "Send C-FIND to check if the study exists on the destination"; ObjectID = "355"; */
+"355.title" = "Send C-FIND to check if the study exists on the destination";
+
+/* Class = "NSButtonCell"; title = "Data Generated (Status, Comments, Reports, Key Images, Secondary Captures, ...)"; ObjectID = "358"; */
+"358.title" = "Data Generated (Status, Comments, Reports, Key Images, Secondary Captures, ...)";
+
+/* Class = "NSButtonCell"; title = "Imported studies from files, including CD/DVD"; ObjectID = "359"; */
+"359.title" = "Imported studies from files, including CD/DVD";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "360"; */
+"360.title" = "Radio";
+
+/* Class = "NSTextFieldCell"; title = "Database Filter:"; ObjectID = "Dof-zb-xan"; */
+"Dof-zb-xan.title" = "Database Filter:";
+
+/* Class = "NSTextFieldCell"; title = "Images Only:"; ObjectID = "JGf-Uo-XMf"; */
+"JGf-Uo-XMf.title" = "Images Only:";
+
+/* Class = "NSTextFieldCell"; title = "Apply to:"; ObjectID = "ZRV-u9-2jb"; */
+"ZRV-u9-2jb.title" = "Apply to:";
+
+/* Class = "NSTextFieldCell"; title = "Miele-LXIV will automatically send data added in the database according to the following routes:"; ObjectID = "kJ4-4a-AWM"; */
+"kJ4-4a-AWM.title" = "Miele-LXIV will automatically send data added in the database according to the following routes:";
+
+/* Class = "NSButtonCell"; title = "Send only DICOM objects containing Pixel Data (Images)"; ObjectID = "kJb-vd-Pan"; */
+"kJb-vd-Pan.title" = "Send only DICOM objects containing Pixel Data (Images)";
+
+/* Class = "NSButtonCell"; title = "All new received files"; ObjectID = "rf1-c6-pB5"; */
+"rf1-c6-pB5.title" = "All new received files";

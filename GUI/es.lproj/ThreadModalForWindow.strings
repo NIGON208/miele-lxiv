@@ -1,0 +1,12 @@
+/* Class = "NSWindow"; title = "Task Progress"; ObjectID = "1"; */
+"1.title" = "Progreso de la tarea";
+
+/* Class = "NSTextFieldCell"; title = "Title"; ObjectID = "4"; */
+"4.title" = "Título";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "11"; */
+"11.title" = "Cancelar";
+
+/* Class = "NSButtonCell"; title = "Background"; ObjectID = "27"; */
+"27.title" = "Fondo";
+

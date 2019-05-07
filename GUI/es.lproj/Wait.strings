@@ -1,0 +1,9 @@
+/* Class = "NSTextFieldCell"; title = "Please wait..."; ObjectID = "29"; */
+"29.title" = "Por favor espera...";
+
+/* Class = "NSTextFieldCell"; title = "Estimating remaining time..."; ObjectID = "30"; */
+"30.title" = "Estimando el tiempo restante...";
+
+/* Class = "NSButtonCell"; title = "Abort"; ObjectID = "31"; */
+"31.title" = "Interrumpe";
+

@@ -1,0 +1,166 @@
+/* Class = "NSMenuItem"; title = "Display 4 series per previous study"; ObjectID = "4wi-zY-TKa"; */
+"4wi-zY-TKa.title" = "Afficher 4 séries par étude précédente";
+
+/* Class = "NSMenuItem"; title = "Display 2 series per previous study"; ObjectID = "8RF-iU-gXo"; */
+"8RF-iU-gXo.title" = "Afficher 2 séries par étude précédente";
+
+/* Class = "NSWindow"; title = "<< do not localize >>"; ObjectID = "12"; */
+"12.title" = "<< do not localize >>";
+
+/* Class = "NSTableColumn"; headerCell.title = "Study Description (0008,1030)"; ObjectID = "101"; */
+"101.headerCell.title" = "Description de l'étude (0008,1030)";
+
+/* Class = "NSTableColumn"; headerCell.title = "Windows Tiling"; ObjectID = "102"; */
+"102.headerCell.title" = "Carrelage pour fenêtres";
+
+/* Class = "NSTableColumn"; headerCell.title = "Image Tiling"; ObjectID = "104"; */
+"104.headerCell.title" = "Carrelage d'image";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "105"; */
+"105.title" = "AutresVues";
+
+/* Class = "NSButtonCell"; title = "New"; ObjectID = "249"; */
+"249.title" = "Nouveau";
+
+/* Class = "NSTextFieldCell"; title = "Modality:"; ObjectID = "250"; */
+"250.title" = "Modalité:";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "254"; */
+"254.title" = "Text Cell";
+
+/* Class = "NSMenuItem"; title = "CR"; ObjectID = "274"; */
+"274.title" = "CR";
+
+/* Class = "NSMenuItem"; title = "CT"; ObjectID = "275"; */
+"275.title" = "CT";
+
+/* Class = "NSMenuItem"; title = "DX"; ObjectID = "276"; */
+"276.title" = "DX";
+
+/* Class = "NSMenuItem"; title = "ES"; ObjectID = "277"; */
+"277.title" = "ES";
+
+/* Class = "NSMenuItem"; title = "MG"; ObjectID = "278"; */
+"278.title" = "MG";
+
+/* Class = "NSMenuItem"; title = "MR"; ObjectID = "279"; */
+"279.title" = "MR";
+
+/* Class = "NSMenuItem"; title = "NM"; ObjectID = "280"; */
+"280.title" = "NM";
+
+/* Class = "NSMenuItem"; title = "OT"; ObjectID = "281"; */
+"281.title" = "OT";
+
+/* Class = "NSMenuItem"; title = "PT"; ObjectID = "282"; */
+"282.title" = "PT";
+
+/* Class = "NSMenuItem"; title = "RF"; ObjectID = "283"; */
+"283.title" = "RF";
+
+/* Class = "NSMenuItem"; title = "SC"; ObjectID = "284"; */
+"284.title" = "SC";
+
+/* Class = "NSMenuItem"; title = "US"; ObjectID = "285"; */
+"285.title" = "US";
+
+/* Class = "NSMenuItem"; title = "XA"; ObjectID = "286"; */
+"286.title" = "XA";
+
+/* Class = "NSTableColumn"; headerCell.title = "Previous Study"; ObjectID = "291"; */
+"291.headerCell.title" = "Étude précédente";
+
+/* Class = "NSTextFieldCell"; title = "Previous Study:"; ObjectID = "295"; */
+"295.title" = "Étude précédente:";
+
+/* Class = "NSButtonCell"; title = "Same Modality"; ObjectID = "297"; */
+"297.title" = "Même modalité";
+
+/* Class = "NSButtonCell"; title = "Same Description"; ObjectID = "299"; */
+"299.title" = "Même description";
+
+/* Class = "NSTableColumn"; headerCell.title = "WL/WW"; ObjectID = "301"; */
+"301.headerCell.title" = "WL/WW";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "304"; */
+"304.title" = "AutresVues";
+
+/* Class = "NSMenuItem"; title = "Pop Up"; ObjectID = "305"; */
+"305.title" = "Pop up";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "307"; */
+"307.title" = "AutresVues";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "310"; */
+"310.title" = "AutresVues";
+
+/* Class = "NSMenuItem"; title = "Pop Up"; ObjectID = "311"; */
+"311.title" = "Pop up";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "382"; */
+"382.title" = "AutresVues";
+
+/* Class = "NSMenuItem"; title = "Display last study, if possible"; ObjectID = "383"; */
+"383.title" = "Afficher la dernière étude, si possible";
+
+/* Class = "NSMenuItem"; title = "Display last two studies, if possible"; ObjectID = "384"; */
+"384.title" = "Afficher les deux dernières études, si possible";
+
+/* Class = "NSMenuItem"; title = "Display last three studies, if possible"; ObjectID = "385"; */
+"385.title" = "Afficher les trois dernières études, si possible";
+
+/* Class = "NSWindow"; title = "Window"; ObjectID = "403"; */
+"403.title" = "Window";
+
+/* Class = "NSTextFieldCell"; title = "Window Level:"; ObjectID = "417"; */
+"417.title" = "Niveau de la fenêtre:";
+
+/* Class = "NSTextFieldCell"; title = "Window Width:"; ObjectID = "418"; */
+"418.title" = "Largeur de la fenêtre:";
+
+/* Class = "NSTextFieldCell"; title = "WL"; ObjectID = "421"; */
+"421.title" = "WL";
+
+/* Class = "NSTextFieldCell"; title = "WW"; ObjectID = "422"; */
+"422.title" = "WW";
+
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "423"; */
+"423.title" = "OK";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "424"; */
+"424.title" = "Annuler";
+
+/* Class = "NSTextFieldCell"; title = "To remove a preset from the menu: simply select it while holding down the shift key."; ObjectID = "425"; */
+"425.title" = "Pour supprimer un préréglage du menu: il suffit de le sélectionner tout en maintenant la touche Maj enfoncée.";
+
+/* Class = "NSTextFieldCell"; title = "Give a name for this WL/WW:"; ObjectID = "426"; */
+"426.title" = "Donnez un nom à ce WL/WW:";
+
+/* Class = "NSTableColumn"; headerCell.title = "Sync"; ObjectID = "445"; */
+"445.headerCell.title" = "Synchroniser";
+
+/* Class = "NSTableColumn"; headerCell.title = "Propagate"; ObjectID = "448"; */
+"448.headerCell.title" = "Propager";
+
+/* Class = "NSMenuItem"; title = "Display 1 series per previous study"; ObjectID = "ew2-hP-L3n"; */
+"ew2-hP-L3n.title" = "Afficher 1 série par étude précédente";
+
+/* Class = "NSButtonCell"; title = "If not enough series for number of windows, repeat series"; ObjectID = "F3i-NS-cfp"; */
+"F3i-NS-cfp.title" = "Si le nombre de séries n'est pas suffisant pour le nombre de fenêtres, répéter la série.";
+
+/* Class = "NSTextFieldCell"; title = "Sort series according to their Series Description field.\nUse commas to separate terms."; ObjectID = "Ije-5a-hxH"; */
+"Ije-5a-hxH.title" = "Trier les séries en fonction de leur champ Description de série.
+Utilisez des virgules pour séparer les termes.";
+
+/* Class = "NSTextFieldCell"; title = "Series Order:"; ObjectID = "k9Q-Hb-NOa"; */
+"k9Q-Hb-NOa.title" = "Commande en série:";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "Rgq-3j-bmV"; */
+"Rgq-3j-bmV.title" = "AutresVues";
+
+/* Class = "NSTextFieldCell"; title = "Windows:"; ObjectID = "T9W-wp-PJS"; */
+"T9W-wp-PJS.title" = "Fenêtres:";
+
+/* Class = "NSMenuItem"; title = "Display 3 series per previous study"; ObjectID = "vJg-Hv-ZyY"; */
+"vJg-Hv-ZyY.title" = "Afficher 3 séries par étude précédente";
+

@@ -1,0 +1,12 @@
+/* Bundle name */
+//"CFBundleName" = "$(PRODUCT_NAME)";
+
+/* (No Comment) */
+"DICOM" = "DICOM";
+
+/* Privacy - Contacts Usage Description */
+"NSContactsUsageDescription" = "您的帐户将用于内置的 iChat 共享服务。如果不允许访问, 则无法使用 iChat 功能。";
+
+/* Copyright (human-readable) */
+"NSHumanReadableCopyright" = "版权所有 © 2014-2018年 bettar。保留所有权利。";
+

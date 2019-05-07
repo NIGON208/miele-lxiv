@@ -1,0 +1,27 @@
+/* Class = "NSWindow"; title = "Miele-LXIV Preferences"; ObjectID = "19"; */
+"19.title" = "Preferenze Miele-LXIV";
+
+/* Class = "NSToolbarItem"; label = "Navigation"; ObjectID = "622"; */
+"622.label" = "Navigazione";
+
+/* Class = "NSToolbarItem"; paletteLabel = "Navigation"; ObjectID = "622"; */
+"622.paletteLabel" = "Navigazione";
+
+/* Class = "NSButtonCell"; title = "Show All"; ObjectID = "624"; */
+"624.title" = "Mostra tutto";
+
+/* Class = "NSToolbarItem"; label = "Show All"; ObjectID = "626"; */
+"626.label" = "Mostra tutto";
+
+/* Class = "NSToolbarItem"; paletteLabel = "Show All"; ObjectID = "626"; */
+"626.paletteLabel" = "Mostra tutto";
+
+/* Class = "NSButtonCell"; title = "Lock"; ObjectID = "744"; */
+"744.title" = "Blocca";
+
+/* Class = "NSToolbarItem"; label = "Authentication"; ObjectID = "745"; */
+"745.label" = "Autenticazione";
+
+/* Class = "NSToolbarItem"; paletteLabel = "Authentication"; ObjectID = "745"; */
+"745.paletteLabel" = "Autenticazione";
+

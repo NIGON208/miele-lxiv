@@ -1,0 +1,49 @@
+/* Class = "NSButtonCell"; title = "Iso Contour"; ObjectID = "8oL-6d-Q4I"; */
+"8oL-6d-Q4I.title" = "Iso Contour";
+
+/* Class = "NSWindow"; title = "ROI Volume"; ObjectID = "717"; */
+"717.title" = "ROIのボリューム";
+
+/* Class = "NSTextFieldCell"; title = "Volume: XXX cm3\nA\nB\nC\nD"; ObjectID = "765"; */
+"765.title" = "ボリューム: XXX cm3
+A
+B
+C
+D";
+
+/* Class = "NSTextFieldCell"; title = "Opacity:"; ObjectID = "767"; */
+"767.title" = "不透明度:";
+
+/* Class = "NSButtonCell"; title = "Show Wireframe"; ObjectID = "770"; */
+"770.title" = "ワイヤフレームを表示する";
+
+/* Class = "NSButtonCell"; title = "Color:"; ObjectID = "771"; */
+"771.title" = "色:";
+
+/* Class = "NSButtonCell"; title = "Textured"; ObjectID = "772"; */
+"772.title" = "質感";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "778"; */
+"778.title" = "Radio";
+
+/* Class = "NSButtonCell"; title = "Power Crust"; ObjectID = "779"; */
+"779.title" = "パワークラスト";
+
+/* Class = "NSButtonCell"; title = "Delaunay"; ObjectID = "780"; */
+"780.title" = "ドローネイ";
+
+/* Class = "NSTextFieldCell"; title = "Reconstruction Filter:"; ObjectID = "787"; */
+"787.title" = "再構成フィルタ:";
+
+/* Class = "NSButtonCell"; title = "Save  as DICOM"; ObjectID = "791"; */
+"791.title" = "DICOMとして保存";
+
+/* Class = "NSTextFieldCell"; title = "Series Name:"; ObjectID = "796"; */
+"796.title" = "シリーズ名:";
+
+/* Class = "NSTextFieldCell"; title = "Statistics:"; ObjectID = "F5N-ig-Zdi"; */
+"F5N-ig-Zdi.title" = "通信統計:";
+
+/* Class = "NSTextFieldCell"; title = "Options:"; ObjectID = "PYB-P0-JoL"; */
+"PYB-P0-JoL.title" = "オプション:";
+

@@ -1,0 +1,12 @@
+/* Class = "NSTextFieldCell"; title = "Rendering in progress..."; ObjectID = "41"; */
+"41.title" = "正在渲染...";
+
+/* Class = "NSButtonCell"; title = "Abort"; ObjectID = "42"; */
+"42.title" = "中止";
+
+/* Class = "NSTextFieldCell"; title = "Last Duration\n00:00:00"; ObjectID = "43"; */
+"43.title" = "最后时间 00:00";
+
+/* Class = "NSTextFieldCell"; title = "Elapsed Time\n00:00:00"; ObjectID = "44"; */
+"44.title" = "流逝时间 00:00";
+

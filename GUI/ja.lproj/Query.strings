@@ -1,0 +1,593 @@
+/* Class = "NSButtonCell"; title = "Validated"; ObjectID = "6EI-T6-COt"; */
+"6EI-T6-COt.title" = "検証済み";
+
+/* Class = "NSWindow"; title = "DICOM Query/Retrieve"; ObjectID = "144"; */
+"144.title" = "DICOM照会・取得";
+
+/* Class = "NSTableColumn"; headerCell.title = "Patient ID"; ObjectID = "318"; */
+"318.headerCell.title" = "患者ID";
+
+/* Class = "NSTableColumn"; headerCell.title = "Patient Name"; ObjectID = "320"; */
+"320.headerCell.title" = "患者名";
+
+/* Class = "NSTableColumn"; headerCell.title = "Date"; ObjectID = "349"; */
+"349.headerCell.title" = "日付";
+
+/* Class = "NSTableColumn"; headerCell.title = "Modality"; ObjectID = "350"; */
+"350.headerCell.title" = "モダリティ";
+
+/* Class = "NSTableColumn"; headerCell.title = "Description"; ObjectID = "354"; */
+"354.headerCell.title" = "説明";
+
+/* Class = "NSMenuItem"; title = "Verify"; ObjectID = "443"; */
+"443.title" = "確認";
+
+/* Class = "NSMenu"; title = "Menu"; ObjectID = "445"; */
+"445.title" = "メニュー";
+
+/* Class = "NSTableColumn"; headerCell.title = "Time"; ObjectID = "492"; */
+"492.headerCell.title" = "時間";
+
+/* Class = "NSTableColumn"; headerCell.title = "# im"; ObjectID = "495"; */
+"495.headerCell.title" = "# im";
+
+/* Class = "NSBox"; title = "Title"; ObjectID = "549"; */
+"549.title" = "Title";
+
+/* Class = "NSButtonCell"; title = "Any date"; ObjectID = "603"; */
+"603.title" = "任意の日付";
+
+/* Class = "NSButtonCell"; title = "Last month"; ObjectID = "604"; */
+"604.title" = "先月";
+
+/* Class = "NSButtonCell"; title = "Today AM"; ObjectID = "605"; */
+"605.title" = "今日のAM";
+
+/* Class = "NSButtonCell"; title = "Last 3 months"; ObjectID = "606"; */
+"606.title" = "過去3ヶ月";
+
+/* Class = "NSButtonCell"; title = "Today PM"; ObjectID = "607"; */
+"607.title" = "今日のPM";
+
+/* Class = "NSButtonCell"; title = "On:"; ObjectID = "608"; */
+"608.title" = "に:";
+
+/* Class = "NSButtonCell"; title = "Today"; ObjectID = "609"; */
+"609.title" = "今日";
+
+/* Class = "NSButtonCell"; title = "Between:"; ObjectID = "610"; */
+"610.title" = "の間に:";
+
+/* Class = "NSButtonCell"; title = "Yesterday"; ObjectID = "611"; */
+"611.title" = "昨日";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "612"; */
+"612.title" = "Radio";
+
+/* Class = "NSButtonCell"; title = "XA"; ObjectID = "615"; */
+"615.title" = "XA";
+
+/* Class = "NSButtonCell"; title = "OT"; ObjectID = "616"; */
+"616.title" = "OT";
+
+/* Class = "NSButtonCell"; title = "RF"; ObjectID = "617"; */
+"617.title" = "RF";
+
+/* Class = "NSButtonCell"; title = "RG"; ObjectID = "618"; */
+"618.title" = "RG";
+
+/* Class = "NSButtonCell"; title = "NM"; ObjectID = "619"; */
+"619.title" = "NM";
+
+/* Class = "NSButtonCell"; title = "DR"; ObjectID = "620"; */
+"620.title" = "DR";
+
+/* Class = "NSButtonCell"; title = "DX"; ObjectID = "621"; */
+"621.title" = "DX";
+
+/* Class = "NSButtonCell"; title = "XC"; ObjectID = "622"; */
+"622.title" = "XC";
+
+/* Class = "NSTableColumn"; headerCell.title = "Date of Birth"; ObjectID = "646"; */
+"646.headerCell.title" = "生年月日";
+
+/* Class = "NSTabViewItem"; label = "Patient ID"; ObjectID = "658"; */
+"658.label" = "患者ID";
+
+/* Class = "NSTabViewItem"; label = "Name"; ObjectID = "660"; */
+"660.label" = "名前";
+
+/* Class = "NSTabViewItem"; label = "Birthdate"; ObjectID = "662"; */
+"662.label" = "誕生日";
+
+/* Class = "NSTableColumn"; headerCell.title = "Name"; ObjectID = "692"; */
+"692.headerCell.title" = "名前";
+
+/* Class = "NSTableColumn"; headerCell.title = "Address"; ObjectID = "701"; */
+"701.headerCell.title" = "住所";
+
+/* Class = "NSTableColumn"; headerCell.title = "AETitle"; ObjectID = "709"; */
+"709.headerCell.title" = "AETitle";
+
+/* Class = "NSBox"; title = "Title"; ObjectID = "717"; */
+"717.title" = "Title";
+
+/* Class = "NSTabViewItem"; label = "Accession Number"; ObjectID = "730"; */
+"730.label" = "受入番号";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "737"; */
+"737.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "This computer - drdd"; ObjectID = "738"; */
+"738.title" = "このコンピュータ -  drdd";
+
+/* Class = "NSMenuItem"; title = "Miele-LXIV CT - 129"; ObjectID = "739"; */
+"739.title" = "Miele-LXIV CT - 129";
+
+/* Class = "NSMenuItem"; title = "Item3"; ObjectID = "740"; */
+"740.title" = "Item3";
+
+/* Class = "NSTableColumn"; headerCell.title = "Source"; ObjectID = "743"; */
+"743.headerCell.title" = "ソース";
+
+/* Class = "NSSearchFieldCell"; placeholderString = "Patient ID"; ObjectID = "748"; */
+"748.placeholderString" = "患者ID";
+
+/* Class = "NSSearchFieldCell"; placeholderString = "Patient Name"; ObjectID = "749"; */
+"749.placeholderString" = "患者名";
+
+/* Class = "NSSearchFieldCell"; placeholderString = "Accession Number"; ObjectID = "751"; */
+"751.placeholderString" = "受入番号";
+
+/* Class = "NSTextFieldCell"; title = "XX studies found"; ObjectID = "752"; */
+"752.title" = "XXの研究が見つかりました";
+
+/* Class = "NSTextFieldCell"; title = "DICOM Nodes:"; ObjectID = "753"; */
+"753.title" = "DICOMノード:";
+
+/* Class = "NSTextFieldCell"; title = "Drag sources into the priority order for retrieving"; ObjectID = "754"; */
+"754.title" = "取得のためにソースを優先順位にドラッグ";
+
+/* Class = "NSTextFieldCell"; title = "127.0.0.1:00"; ObjectID = "755"; */
+"755.title" = "127.0.0.1:00";
+
+/* Class = "NSSegmentedCell"; 760.ibShadowedLabels[0] = "Query"; ObjectID = "760"; */
+"760.ibShadowedLabels[0]" = "照会";
+
+/* Class = "NSSegmentedCell"; 760.ibShadowedLabels[1] = "Query Patient"; ObjectID = "760"; */
+"760.ibShadowedLabels[1]" = "照会患者";
+
+/* Class = "NSSegmentedCell"; 760.ibShadowedLabels[2] = "Retrieve"; ObjectID = "760"; */
+"760.ibShadowedLabels[2]" = "取得";
+
+/* Class = "NSSegmentedCell"; 760.ibShadowedLabels[3] = "Verify"; ObjectID = "760"; */
+"760.ibShadowedLabels[3]" = "確認";
+
+/* Class = "NSTextFieldCell"; title = "Retrieve to:"; ObjectID = "761"; */
+"761.title" = "取得先:";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "763"; */
+"763.title" = "Radio";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "765"; */
+"765.title" = "Text Cell";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "766"; */
+"766.title" = "Text Cell";
+
+/* Class = "NSTextFieldCell"; title = "1/4/76"; ObjectID = "767"; */
+"767.title" = "1/4/76";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "768"; */
+"768.title" = "Text Cell";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "769"; */
+"769.title" = "Text Cell";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "770"; */
+"770.title" = "Text Cell";
+
+/* Class = "NSTextFieldCell"; title = "21:00:00"; ObjectID = "771"; */
+"771.title" = "21:00:00";
+
+/* Class = "NSTextFieldCell"; title = "123.457"; ObjectID = "772"; */
+"772.title" = "123.457";
+
+/* Class = "NSTextFieldCell"; title = "1/4/76"; ObjectID = "773"; */
+"773.title" = "1/4/76";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "774"; */
+"774.title" = "Text Cell";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "775"; */
+"775.title" = "Text Cell";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "776"; */
+"776.title" = "Text Cell";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "777"; */
+"777.title" = "Text Cell";
+
+/* Class = "NSTableColumn"; headerCell.title = "Accession #"; ObjectID = "784"; */
+"784.headerCell.title" = "受入番号";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "785"; */
+"785.title" = "Text Cell";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "790"; */
+"790.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Item 2"; ObjectID = "792"; */
+"792.title" = "Item 2";
+
+/* Class = "NSMenuItem"; title = "Item 3"; ObjectID = "793"; */
+"793.title" = "Item 3";
+
+/* Class = "NSWindow"; title = "Window"; ObjectID = "795"; */
+"795.title" = "Window";
+
+/* Class = "NSTextFieldCell"; title = "Give a name for this Preset:"; ObjectID = "802"; */
+"802.title" = "このプリセットの名前をつける:";
+
+/* Class = "NSTextFieldCell"; title = "To remove a preset from the menu: simply select it while holding down the shift key."; ObjectID = "803"; */
+"803.title" = "メニューからプリセットを削除するには、シフトキーを押しながらプリセットを選択するだけです。";
+
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "804"; */
+"804.title" = "OK";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "806"; */
+"806.title" = "キャンセル";
+
+/* Class = "NSButtonCell"; title = "Today PM"; ObjectID = "816"; */
+"816.title" = "今日のPM";
+
+/* Class = "NSButtonCell"; title = "Day Before Yesterday"; ObjectID = "817"; */
+"817.title" = "おととい";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "824"; */
+"824.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Don't refresh"; ObjectID = "825"; */
+"825.title" = "リフレッシュしない";
+
+/* Class = "NSMenuItem"; title = "Refresh every 5 sec"; ObjectID = "826"; */
+"826.title" = "5秒ごとにリフレッシュ";
+
+/* Class = "NSMenuItem"; title = "Refresh every 5 min"; ObjectID = "827"; */
+"827.title" = "5分ごとにリフレッシュ";
+
+/* Class = "NSMenuItem"; title = "Refresh every 10 min"; ObjectID = "828"; */
+"828.title" = "10分ごとにリフレッシュ";
+
+/* Class = "NSMenuItem"; title = "Refresh every 30 min"; ObjectID = "829"; */
+"829.title" = "30分ごとにリフレッシュ";
+
+/* Class = "NSTextFieldCell"; title = "00:00"; ObjectID = "837"; */
+"837.title" = "00:00";
+
+/* Class = "NSButtonCell"; title = "Auto-Retrieve"; ObjectID = "840"; */
+"840.title" = "自動取得";
+
+/* Class = "NSWindow"; title = "Auto-Retrieving"; ObjectID = "844"; */
+"844.title" = "自動取得";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "851"; */
+"851.title" = "キャンセル";
+
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "853"; */
+"853.title" = "OK";
+
+/* Class = "NSTextFieldCell"; title = "Each study displayed in the Query & Retrieve list will be automatically retrieved to destination computer.\n\nOnly 10 studies are retrieved each time. Next 10 studies will be retrieved during next 'refresh'."; ObjectID = "855"; */
+"855.title" = "照会・取得リストに表示された各スタディは、自動的に宛先コンピュータに取得されます。
+
+毎回10件のスタディのみが検索されます。次の10回のスタディは、次回の「リフレッシュ」中に行われます。";
+
+/* Class = "NSButtonCell"; title = "of same modality"; ObjectID = "861"; */
+"861.title" = "同じモダリティの";
+
+/* Class = "NSTextFieldCell"; title = "For each retrieved study, also retrieve, if needed and available :"; ObjectID = "863"; */
+"863.title" = "検索された各調査について、必要に応じて利用可能な場合も検索します。";
+
+/* Class = "NSButtonCell"; title = "with same Study Description"; ObjectID = "865"; */
+"865.title" = "同じ研究の説明付き";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "868"; */
+"868.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "The previous study"; ObjectID = "869"; */
+"869.title" = "以前のスタディ";
+
+/* Class = "NSMenuItem"; title = "The last 2 previous studies"; ObjectID = "870"; */
+"870.title" = "最後の2つの前のスタディ";
+
+/* Class = "NSMenuItem"; title = "The last 3 previous studies"; ObjectID = "871"; */
+"871.title" = "最後の3つの前のスタディ";
+
+/* Class = "NSTextFieldCell"; title = "Auto-Retrieving"; ObjectID = "877"; */
+"877.title" = "自動取得";
+
+/* Class = "NSMenuItem"; title = "Don't retrieve previous study"; ObjectID = "878"; */
+"878.title" = "以前のスタディを検索しない";
+
+/* Class = "NSTableColumn"; headerCell.title = "Local Comments"; ObjectID = "897"; */
+"897.headerCell.title" = "ローカルコメント";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "898"; */
+"898.title" = "Text Cell";
+
+/* Class = "NSTableColumn"; headerCell.title = "Local Status"; ObjectID = "899"; */
+"899.headerCell.title" = "ローカルステータス";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "900"; */
+"900.title" = "Text Cell";
+
+/* Class = "NSTabViewItem"; label = "Description"; ObjectID = "901"; */
+"901.label" = "説明";
+
+/* Class = "NSSearchFieldCell"; placeholderString = "Study Description"; ObjectID = "904"; */
+"904.placeholderString" = "ABテストの説明";
+
+/* Class = "NSButtonCell"; title = "Include DICOM Nodes selection"; ObjectID = "914"; */
+"914.title" = "DICOMノードの選択を含める";
+
+/* Class = "NSTabViewItem"; label = "Referring Physician"; ObjectID = "928"; */
+"928.label" = "参照医師";
+
+/* Class = "NSSearchFieldCell"; placeholderString = "Referring Physician"; ObjectID = "931"; */
+"931.placeholderString" = "参照医師";
+
+/* Class = "NSButtonCell"; title = "Settings"; ObjectID = "939"; */
+"939.title" = "設定";
+
+/* Class = "NSButtonCell"; title = "VL"; ObjectID = "975"; */
+"975.title" = "VL";
+
+/* Class = "NSButtonCell"; title = "ES"; ObjectID = "976"; */
+"976.title" = "ES";
+
+/* Class = "NSTabViewItem"; label = "Comments"; ObjectID = "978"; */
+"978.label" = "コメント";
+
+/* Class = "NSSearchFieldCell"; placeholderString = "Comments"; ObjectID = "981"; */
+"981.placeholderString" = "コメント";
+
+/* Class = "NSTabViewItem"; label = "Institution"; ObjectID = "984"; */
+"984.label" = "機関";
+
+/* Class = "NSSearchFieldCell"; placeholderString = "Institution Name"; ObjectID = "987"; */
+"987.placeholderString" = "機関名";
+
+/* Class = "NSButtonCell"; title = "Exactly"; ObjectID = "991"; */
+"991.title" = "正確に";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "993"; */
+"993.title" = "Radio";
+
+/* Class = "NSButtonCell"; title = "Before"; ObjectID = "994"; */
+"994.title" = "前";
+
+/* Class = "NSButtonCell"; title = "After"; ObjectID = "995"; */
+"995.title" = "後";
+
+/* Class = "NSTextFieldCell"; title = "XX Years"; ObjectID = "998"; */
+"998.title" = "XX年";
+
+/* Class = "NSButtonCell"; title = "US"; ObjectID = "1001"; */
+"1001.title" = "US";
+
+/* Class = "NSButtonCell"; title = "PT"; ObjectID = "1003"; */
+"1003.title" = "PT";
+
+/* Class = "NSButtonCell"; title = "Last 2 hours"; ObjectID = "1007"; */
+"1007.title" = "過去2時間";
+
+/* Class = "NSButtonCell"; title = "Last 30 min"; ObjectID = "1008"; */
+"1008.title" = "過去30分";
+
+/* Class = "NSButtonCell"; title = "Last 6 hours"; ObjectID = "1010"; */
+"1010.title" = "過去6時間";
+
+/* Class = "NSButtonCell"; title = "Last 8 hours"; ObjectID = "1011"; */
+"1011.title" = "過去8時間";
+
+/* Class = "NSButtonCell"; title = "Last 1 hour"; ObjectID = "1013"; */
+"1013.title" = "過去1時間";
+
+/* Class = "NSButtonCell"; title = "Last 3 hours"; ObjectID = "1014"; */
+"1014.title" = "過去3時間";
+
+/* Class = "NSButtonCell"; title = "retrieve if number of images is null on distant DICOM node"; ObjectID = "1016"; */
+"1016.title" = "遠隔のDICOMノード上で画像の数がヌルであるかどうかを検索する";
+
+/* Class = "NSTabViewItem"; label = "Custom DICOM field"; ObjectID = "1020"; */
+"1020.label" = "カスタムDICOMフィールド";
+
+/* Class = "NSSearchFieldCell"; placeholderString = "Custom Field"; ObjectID = "1023"; */
+"1023.placeholderString" = "カスタムフィールド";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "1041"; */
+"1041.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Item 3"; ObjectID = "1042"; */
+"1042.title" = "Item 3";
+
+/* Class = "NSMenuItem"; title = "Item 2"; ObjectID = "1043"; */
+"1043.title" = "Item 2";
+
+/* Class = "NSMenuItem"; title = "DICOM Fields"; ObjectID = "1044"; */
+"1044.title" = "DICOMフィールド";
+
+/* Class = "NSTableColumn"; headerCell.title = "Modality"; ObjectID = "1063"; */
+"1063.headerCell.title" = "モダリティ";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "1064"; */
+"1064.title" = "Text Cell";
+
+/* Class = "NSTableColumn"; headerCell.title = "Institution"; ObjectID = "1067"; */
+"1067.headerCell.title" = "機関";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "1068"; */
+"1068.title" = "Text Cell";
+
+/* Class = "NSButtonCell"; title = "Last 12 hours"; ObjectID = "1083"; */
+"1083.title" = "過去12時間";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "1084"; */
+"1084.title" = "Radio";
+
+/* Class = "NSButtonCell"; title = "Last 2 days"; ObjectID = "1085"; */
+"1085.title" = "過去2日間";
+
+/* Class = "NSButtonCell"; title = "MG"; ObjectID = "1087"; */
+"1087.title" = "MG";
+
+/* Class = "NSButtonCell"; title = "AU"; ObjectID = "1088"; */
+"1088.title" = "AU";
+
+/* Class = "NSButtonCell"; title = "MR"; ObjectID = "1089"; */
+"1089.title" = "MR";
+
+/* Class = "NSButtonCell"; title = "CT"; ObjectID = "1091"; */
+"1091.title" = "CT";
+
+/* Class = "NSButtonCell"; title = "CR"; ObjectID = "1092"; */
+"1092.title" = "CR";
+
+/* Class = "NSButtonCell"; title = "SC"; ObjectID = "1094"; */
+"1094.title" = "SC";
+
+/* Class = "NSButtonCell"; title = "Last 7 days"; ObjectID = "1095"; */
+"1095.title" = "過去1週間";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "1096"; */
+"1096.title" = "Radio";
+
+/* Class = "NSButtonCell"; title = "Last 24 hours"; ObjectID = "1097"; */
+"1097.title" = "過去24時間";
+
+/* Class = "NSButtonCell"; title = "Last 3 hours"; ObjectID = "1099"; */
+"1099.title" = "過去3時間";
+
+/* Class = "NSToolbarItem"; label = "Authentication"; ObjectID = "1103"; */
+"1103.label" = "認証";
+
+/* Class = "NSToolbarItem"; paletteLabel = "Authentication"; ObjectID = "1103"; */
+"1103.paletteLabel" = "認証";
+
+/* Class = "NSToolbarItem"; label = "Navigation"; ObjectID = "1105"; */
+"1105.label" = "ナビゲーション";
+
+/* Class = "NSToolbarItem"; paletteLabel = "Navigation"; ObjectID = "1105"; */
+"1105.paletteLabel" = "ナビゲーション";
+
+/* Class = "NSButtonCell"; title = "Lock"; ObjectID = "1112"; */
+"1112.title" = "ロック";
+
+/* Class = "NSToolbarItem"; label = "Delete"; ObjectID = "1114"; */
+"1114.label" = "削除";
+
+/* Class = "NSToolbarItem"; paletteLabel = "Delete"; ObjectID = "1114"; */
+"1114.paletteLabel" = "削除";
+
+/* Class = "NSButtonCell"; title = "Lock"; ObjectID = "1116"; */
+"1116.title" = "ロック";
+
+/* Class = "NSToolbarItem"; label = "Create"; ObjectID = "1122"; */
+"1122.label" = "作成";
+
+/* Class = "NSToolbarItem"; paletteLabel = "Create"; ObjectID = "1122"; */
+"1122.paletteLabel" = "作成";
+
+/* Class = "NSButtonCell"; title = "Lock"; ObjectID = "1124"; */
+"1124.title" = "ロック";
+
+/* Class = "NSWindow"; title = "Window"; ObjectID = "1127"; */
+"1127.title" = "Window";
+
+/* Class = "NSTextFieldCell"; title = "Give a name for this Auto Query / Retrieve Instance:"; ObjectID = "1137"; */
+"1137.title" = "この自動照会/取得インスタンスの名前を指定します:";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "1138"; */
+"1138.title" = "キャンセル";
+
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "1139"; */
+"1139.title" = "OK";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "1161"; */
+"1161.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Item 1"; ObjectID = "1162"; */
+"1162.title" = "Item 1";
+
+/* Class = "NSMenuItem"; title = "Item 2"; ObjectID = "1163"; */
+"1163.title" = "Item 2";
+
+/* Class = "NSMenuItem"; title = "Item 3"; ObjectID = "1164"; */
+"1164.title" = "Item 3";
+
+/* Class = "NSToolbarItem"; label = "Instances List"; ObjectID = "1165"; */
+"1165.label" = "インスタンス一覧";
+
+/* Class = "NSToolbarItem"; paletteLabel = "Instances List"; ObjectID = "1165"; */
+"1165.paletteLabel" = "インスタンス一覧";
+
+/* Class = "NSButtonCell"; title = "SR"; ObjectID = "1178"; */
+"1178.title" = "SR";
+
+/* Class = "NSTableColumn"; headerCell.title = "Performing"; ObjectID = "1181"; */
+"1181.headerCell.title" = "実行中";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "1182"; */
+"1182.title" = "Text Cell";
+
+/* Class = "NSTableColumn"; headerCell.title = "Referring"; ObjectID = "1183"; */
+"1183.headerCell.title" = "参照";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "1184"; */
+"1184.title" = "Text Cell";
+
+/* Class = "NSButtonCell"; title = "Keep this window on top of all other windows"; ObjectID = "1186"; */
+"1186.title" = "このウィンドウを他のすべてのウィンドウの上に置いてください";
+
+/* Class = "NSTableColumn"; headerCell.title = "Server Comments"; ObjectID = "1195"; */
+"1195.headerCell.title" = "サーバーのコメント";
+
+/* Class = "NSTableColumn"; headerCell.title = "Server Status"; ObjectID = "1196"; */
+"1196.headerCell.title" = "サーバーの状態";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "1197"; */
+"1197.title" = "Text Cell";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "1198"; */
+"1198.title" = "Text Cell";
+
+/* Class = "NSMenuItem"; title = "Refresh every 1 min"; ObjectID = "1199"; */
+"1199.title" = "1分ごとにリフレッシュ";
+
+/* Class = "NSMenuItem"; title = "Refresh every 30 sec"; ObjectID = "1200"; */
+"1200.title" = "30秒ごとにリフレッシュ";
+
+/* Class = "NSMenuItem"; title = "Refresh every 10 s"; ObjectID = "1201"; */
+"1201.title" = "10秒ごとにリフレッシュ";
+
+/* Class = "NSMenuItem"; title = "Refresh every 10 sec"; ObjectID = "1202"; */
+"1202.title" = "10秒ごとにリフレッシュ";
+
+/* Class = "NSButtonCell"; title = "Reviewed"; ObjectID = "gf0-Wl-OKO"; */
+"gf0-Wl-OKO.title" = "レビュー済";
+
+/* Class = "NSButtonCell"; title = "Dictated"; ObjectID = "HGm-N3-vvN"; */
+"HGm-N3-vvN.title" = "指示された";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "ln8-pj-dKo"; */
+"ln8-pj-dKo.title" = "Radio";
+
+/* Class = "NSButtonCell"; title = "Empty"; ObjectID = "M0x-W9-9Pj"; */
+"M0x-W9-9Pj.title" = "空";
+
+/* Class = "NSButtonCell"; title = "Unread"; ObjectID = "W8y-EC-U1k"; */
+"W8y-EC-U1k.title" = "未読";
+
+/* Class = "NSTabViewItem"; label = "Status"; ObjectID = "wkC-34-4da"; */
+"wkC-34-4da.label" = "ステータス";
+

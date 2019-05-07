@@ -1,0 +1,18 @@
+/* No comment provided by engineer. */
+"AsyncSocketCanceledError" = "Verbindung abgebrochen";
+
+/* No comment provided by engineer. */
+"AsyncSocketCFSocketError" = "Allgemeiner CFSocket-Fehler";
+
+/* No comment provided by engineer. */
+"AsyncSocketConnectTimeoutError" = "Versuch, sich mit dem ausgeschaltete Host zu verbinden";
+
+/* No comment provided by engineer. */
+"AsyncSocketReadMaxedOutError" = "Lesebetrieb erreicht, die maximale Länge erreicht";
+
+/* No comment provided by engineer. */
+"AsyncSocketReadTimeoutError" = "Operation vorgelesen";
+
+/* No comment provided by engineer. */
+"AsyncSocketWriteTimeoutError" = "Operation ausschreiben";
+

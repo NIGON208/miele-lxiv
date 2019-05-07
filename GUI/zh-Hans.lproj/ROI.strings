@@ -1,0 +1,51 @@
+/* Class = "NSWindow"; title = "ROI Info"; ObjectID = "637"; */
+"637.title" = "投资回报率信息";
+
+/* Class = "NSWindow"; title = "Recalibrate"; ObjectID = "735"; */
+"735.title" = "校准";
+
+/* Class = "NSComboBoxCell"; title = "ROI 1"; ObjectID = "779"; */
+"779.title" = "ROI 1";
+
+/* Class = "NSTextFieldCell"; title = "Name:"; ObjectID = "780"; */
+"780.title" = "名称:";
+
+/* Class = "NSTextFieldCell"; title = "Color:"; ObjectID = "781"; */
+"781.title" = "颜色:";
+
+/* Class = "NSButtonCell"; title = "Export to XML"; ObjectID = "782"; */
+"782.title" = "导出到XML";
+
+/* Class = "NSButtonCell"; title = "Histogram"; ObjectID = "783"; */
+"783.title" = "直方图";
+
+/* Class = "NSTextFieldCell"; title = "Thickness:"; ObjectID = "784"; */
+"784.title" = "厚度:";
+
+/* Class = "NSTextFieldCell"; title = "Comments:"; ObjectID = "786"; */
+"786.title" = "评论:";
+
+/* Class = "NSButtonCell"; title = "Save as file"; ObjectID = "787"; */
+"787.title" = "另存为";
+
+/* Class = "NSButtonCell"; title = "Recalibrate"; ObjectID = "788"; */
+"788.title" = "校准";
+
+/* Class = "NSButtonCell"; title = "X-Y Plot"; ObjectID = "789"; */
+"789.title" = "X-Y绘图";
+
+/* Class = "NSButtonCell"; title = "All with same name"; ObjectID = "790"; */
+"790.title" = "所有名称相同";
+
+/* Class = "NSTextFieldCell"; title = "Opacity:"; ObjectID = "791"; */
+"791.title" = "不透明度:";
+
+/* Class = "NSTextFieldCell"; title = "Distance in cm:"; ObjectID = "794"; */
+"794.title" = "距离 (厘米):";
+
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "795"; */
+"795.title" = "确定";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "796"; */
+"796.title" = "取消";
+

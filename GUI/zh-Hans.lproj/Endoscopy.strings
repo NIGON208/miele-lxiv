@@ -1,0 +1,354 @@
+/* Class = "NSWindow"; title = "Endoscopy"; ObjectID = "5"; */
+"5.title" = "内 镜";
+
+/* Class = "NSButtonCell"; ibShadowedToolTip = "Zoom (Right button or shift + click)"; ObjectID = "60"; */
+"60.ibShadowedToolTip" = "缩放 (右按钮或移位 + 点击)";
+
+/* Class = "NSButtonCell"; title = "Zoom"; ObjectID = "60"; */
+"60.title" = "缩放";
+
+/* Class = "NSButtonCell"; ibShadowedToolTip = "Navigate in the serie"; ObjectID = "63"; */
+"63.ibShadowedToolTip" = "在系列中导航";
+
+/* Class = "NSButtonCell"; title = "Next"; ObjectID = "63"; */
+"63.title" = "下一个";
+
+/* Class = "NSButtonCell"; ibShadowedToolTip = "Window Level (Option + click)"; ObjectID = "64"; */
+"64.ibShadowedToolTip" = "窗口级别 (选项 + 点击)";
+
+/* Class = "NSButtonCell"; title = "Levels"; ObjectID = "64"; */
+"64.title" = "等级";
+
+/* Class = "NSButtonCell"; ibShadowedToolTip = "Rotate (Ctrl + click)"; ObjectID = "66"; */
+"66.ibShadowedToolTip" = "旋转 (Ctrl + click)";
+
+/* Class = "NSButtonCell"; title = "Rotate"; ObjectID = "66"; */
+"66.title" = "旋转";
+
+/* Class = "NSButtonCell"; ibShadowedToolTip = "Move (Apple + click)"; ObjectID = "67"; */
+"67.ibShadowedToolTip" = "移动（Apple +点击）";
+
+/* Class = "NSButtonCell"; title = "Move"; ObjectID = "67"; */
+"67.title" = "移动";
+
+/* Class = "NSButtonCell"; ibShadowedToolTip = "Move the planes (hide/show planes with Space key)"; ObjectID = "68"; */
+"68.ibShadowedToolTip" = "移动飞机 (带有 space 键的隐藏显示平面)";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "108"; */
+"108.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "WL/WW"; ObjectID = "109"; */
+"109.title" = "WL/WW";
+
+/* Class = "NSMenuItem"; title = "Item3"; ObjectID = "110"; */
+"110.title" = "Item3";
+
+/* Class = "NSMenuItem"; title = "Item2"; ObjectID = "111"; */
+"111.title" = "Item2";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "113"; */
+"113.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Item2"; ObjectID = "114"; */
+"114.title" = "Item2";
+
+/* Class = "NSMenuItem"; title = "Item3"; ObjectID = "115"; */
+"115.title" = "Item3";
+
+/* Class = "NSMenuItem"; title = "CLUT"; ObjectID = "116"; */
+"116.title" = "CLUT";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "120"; */
+"120.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Item2"; ObjectID = "121"; */
+"121.title" = "Item2";
+
+/* Class = "NSMenuItem"; title = "Item3"; ObjectID = "122"; */
+"122.title" = "Item3";
+
+/* Class = "NSMenuItem"; title = "Opacity"; ObjectID = "123"; */
+"123.title" = "不透明度";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "165"; */
+"165.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Item2"; ObjectID = "166"; */
+"166.title" = "Item2";
+
+/* Class = "NSMenuItem"; title = "Item3"; ObjectID = "167"; */
+"167.title" = "Item3";
+
+/* Class = "NSMenuItem"; title = "CLUT"; ObjectID = "168"; */
+"168.title" = "CLUT";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "170"; */
+"170.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Item2"; ObjectID = "171"; */
+"171.title" = "Item2";
+
+/* Class = "NSMenuItem"; title = "Item3"; ObjectID = "172"; */
+"172.title" = "Item3";
+
+/* Class = "NSMenuItem"; title = "WL/WW"; ObjectID = "173"; */
+"173.title" = "WL/WW";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "175"; */
+"175.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Item3"; ObjectID = "176"; */
+"176.title" = "Item3";
+
+/* Class = "NSMenuItem"; title = "Item2"; ObjectID = "177"; */
+"177.title" = "Item2";
+
+/* Class = "NSMenuItem"; title = "Opacity"; ObjectID = "178"; */
+"178.title" = "不透明度";
+
+/* Class = "NSButtonCell"; ibShadowedToolTip = "Window Level (Option + click)"; ObjectID = "182"; */
+"182.ibShadowedToolTip" = "窗口级别 (选项 + 点击)";
+
+/* Class = "NSButtonCell"; title = "Levels"; ObjectID = "182"; */
+"182.title" = "等级";
+
+/* Class = "NSButtonCell"; ibShadowedToolTip = "Move (Apple + click)"; ObjectID = "183"; */
+"183.ibShadowedToolTip" = "移动（Apple +点击）";
+
+/* Class = "NSButtonCell"; title = "Move"; ObjectID = "183"; */
+"183.title" = "移动";
+
+/* Class = "NSButtonCell"; ibShadowedToolTip = "Zoom (Right button or shift + click)"; ObjectID = "184"; */
+"184.ibShadowedToolTip" = "缩放 (右按钮或移位 + 点击)";
+
+/* Class = "NSButtonCell"; title = "Zoom"; ObjectID = "184"; */
+"184.title" = "缩放";
+
+/* Class = "NSButtonCell"; ibShadowedToolTip = "Rotate (Apple + Option + click)"; ObjectID = "185"; */
+"185.ibShadowedToolTip" = "旋转 (Apple + Option + click)";
+
+/* Class = "NSButtonCell"; title = "Rotate"; ObjectID = "185"; */
+"185.title" = "旋转";
+
+/* Class = "NSButtonCell"; ibShadowedToolTip = "Rotate around the focal point"; ObjectID = "186"; */
+"186.ibShadowedToolTip" = "围绕焦点旋转";
+
+/* Class = "NSButtonCell"; ibShadowedToolTip = "Rotate the camera"; ObjectID = "187"; */
+"187.ibShadowedToolTip" = "旋转相机";
+
+/* Class = "NSButtonCell"; ibShadowedToolTip = "Measurement"; ObjectID = "188"; */
+"188.ibShadowedToolTip" = "测量";
+
+/* Class = "NSWindow"; title = "Point Info"; ObjectID = "199"; */
+"199.title" = "点信息";
+
+/* Class = "NSWindow"; title = "Window"; ObjectID = "213"; */
+"213.title" = "Window";
+
+/* Class = "NSButtonCell"; title = "All four views"; ObjectID = "325"; */
+"325.title" = "所有四个视图";
+
+/* Class = "NSButtonCell"; title = "3D Endoscopy view"; ObjectID = "326"; */
+"326.title" = "3D 内窥镜视图";
+
+/* Class = "NSWindow"; title = "Shading"; ObjectID = "399"; */
+"399.title" = "渲染";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "405"; */
+"405.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Item1"; ObjectID = "406"; */
+"406.title" = "Item1";
+
+/* Class = "NSMenuItem"; title = "Item2"; ObjectID = "407"; */
+"407.title" = "Item2";
+
+/* Class = "NSMenuItem"; title = "Item3"; ObjectID = "408"; */
+"408.title" = "Item3";
+
+/* Class = "NSWindow"; title = "Window"; ObjectID = "498"; */
+"498.title" = "Window";
+
+/* Class = "NSTextFieldCell"; title = "CLUT:"; ObjectID = "516"; */
+"516.title" = "CLUT:";
+
+/* Class = "NSTextFieldCell"; title = "WL/WW:"; ObjectID = "517"; */
+"517.title" = "WL/WW:";
+
+/* Class = "NSTextFieldCell"; title = "Opacity:"; ObjectID = "519"; */
+"519.title" = "不透明度:";
+
+/* Class = "NSTextFieldCell"; title = "WL/WW:"; ObjectID = "526"; */
+"526.title" = "WL/WW:";
+
+/* Class = "NSTextFieldCell"; title = "Opacity:"; ObjectID = "527"; */
+"527.title" = "不透明度:";
+
+/* Class = "NSTextFieldCell"; title = "CLUT:"; ObjectID = "528"; */
+"528.title" = "CLUT:";
+
+/* Class = "NSButtonCell"; title = "Set Default"; ObjectID = "532"; */
+"532.title" = "设为默认";
+
+/* Class = "NSTextFieldCell"; title = "Point Radius:"; ObjectID = "534"; */
+"534.title" = "点半径:";
+
+/* Class = "NSButtonCell"; title = "All Points"; ObjectID = "535"; */
+"535.title" = "所有积分";
+
+/* Class = "NSTextFieldCell"; title = "Point Color:"; ObjectID = "536"; */
+"536.title" = "点颜色:";
+
+/* Class = "NSTextFieldCell"; title = "Export to DICOM files:"; ObjectID = "537"; */
+"537.title" = "导出到 DICOM 文件:";
+
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "538"; */
+"538.title" = "确定";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "539"; */
+"539.title" = "取消";
+
+/* Class = "NSTextFieldCell"; title = "Endoscopy"; ObjectID = "540"; */
+"540.title" = "内 镜";
+
+/* Class = "NSTextFieldCell"; title = "Series name:"; ObjectID = "541"; */
+"541.title" = "系列名称:";
+
+/* Class = "NSButtonCell"; title = "Edit"; ObjectID = "542"; */
+"542.title" = "编辑";
+
+/* Class = "NSButtonCell"; title = "Shading"; ObjectID = "543"; */
+"543.title" = "渲染";
+
+/* Class = "NSTextFieldCell"; title = "Ambiant: 0.5\nDiffuse: 0.6\nSpecular: 0.6, 2.0"; ObjectID = "544"; */
+"544.title" = "环境: 0.5 扩散: 0.6 镜面: 0.6, 2。0";
+
+/* Class = "NSTextFieldCell"; title = "Fine"; ObjectID = "545"; */
+"545.title" = "好";
+
+/* Class = "NSTextFieldCell"; title = "Coarse"; ObjectID = "546"; */
+"546.title" = "粗糙";
+
+/* Class = "NSButtonCell"; title = "+"; ObjectID = "548"; */
+"548.title" = "+";
+
+/* Class = "NSTextFieldCell"; title = "Presets:"; ObjectID = "554"; */
+"554.title" = "预设:";
+
+/* Class = "NSTextFieldCell"; title = "Name:"; ObjectID = "555"; */
+"555.title" = "名称:";
+
+/* Class = "NSButtonCell"; title = "-"; ObjectID = "557"; */
+"557.title" = "-";
+
+/* Class = "NSTextFieldCell"; title = "Name"; ObjectID = "560"; */
+"560.title" = "名称";
+
+/* Class = "NSButtonCell"; title = "Save"; ObjectID = "561"; */
+"561.title" = "保存";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "562"; */
+"562.title" = "取消";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "565"; */
+"565.title" = "Radio";
+
+/* Class = "NSTextFieldCell"; title = "Specular Power:"; ObjectID = "575"; */
+"575.title" = "镜面功率:";
+
+/* Class = "NSTextFieldCell"; title = "Diffuse Coefficient:"; ObjectID = "582"; */
+"582.title" = "漫反射系数:";
+
+/* Class = "NSTextFieldCell"; title = "Ambient Coefficent:"; ObjectID = "583"; */
+"583.title" = "环境系数:";
+
+/* Class = "NSTextFieldCell"; title = "Specular Coefficient:"; ObjectID = "586"; */
+"586.title" = "镜面系数:";
+
+/* Class = "NSButtonCell"; title = "edit"; ObjectID = "604"; */
+"604.title" = "编辑";
+
+/* Class = "NSWindow"; title = "Path Assistant Parameters"; ObjectID = "672"; */
+"672.title" = "路径助手参数";
+
+/* Class = "NSButtonCell"; title = "Apply"; ObjectID = "675"; */
+"675.title" = "应用";
+
+/* Class = "NSTextFieldCell"; title = "-600"; ObjectID = "744"; */
+"744.title" = "-600";
+
+/* Class = "NSTextFieldCell"; title = "1.5"; ObjectID = "749"; */
+"749.title" = "1.5";
+
+/* Class = "NSTextFieldCell"; title = "2.0"; ObjectID = "752"; */
+"752.title" = "2.0";
+
+/* Class = "NSWindow"; title = "Path Assistant"; ObjectID = "765"; */
+"765.title" = "路径助手";
+
+/* Class = "NSBox"; title = "Mode"; ObjectID = "767"; */
+"767.title" = "模式";
+
+/* Class = "NSButtonCell"; title = "Basic Mode"; ObjectID = "769"; */
+"769.title" = "基本模式";
+
+/* Class = "NSButtonCell"; title = "A to B"; ObjectID = "770"; */
+"770.title" = "A 至 B";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "771"; */
+"771.title" = "Radio";
+
+/* Class = "NSButtonCell"; title = "Lock Path"; ObjectID = "773"; */
+"773.title" = "加锁路径";
+
+/* Class = "NSButtonCell"; title = "B"; ObjectID = "775"; */
+"775.title" = "B";
+
+/* Class = "NSButtonCell"; title = "A"; ObjectID = "777"; */
+"777.title" = "A";
+
+/* Class = "NSBox"; title = "Settings"; ObjectID = "778"; */
+"778.title" = "设置";
+
+/* Class = "NSButtonCell"; title = "Camera position on Path"; ObjectID = "782"; */
+"782.title" = "摄像机在路径上的位置";
+
+/* Class = "NSButtonCell"; title = "Focal point on Path"; ObjectID = "783"; */
+"783.title" = "路径上的焦点";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "784"; */
+"784.title" = "Radio";
+
+/* Class = "NSButtonCell"; title = "Look back"; ObjectID = "785"; */
+"785.title" = "回头看";
+
+/* Class = "NSButtonCell"; title = "Show Path on MPR"; ObjectID = "786"; */
+"786.title" = "在MPR上显示路径";
+
+/* Class = "NSButtonCell"; title = "Parameters..."; ObjectID = "791"; */
+"791.title" = "参数...";
+
+/* Class = "NSTextFieldCell"; title = "Threshold [Hu]"; ObjectID = "805"; */
+"805.title" = "门槛 [Hu]";
+
+/* Class = "NSTextFieldCell"; title = "Resample Size [mm]"; ObjectID = "807"; */
+"807.title" = "重新拔尺寸 [毫米]";
+
+/* Class = "NSTextFieldCell"; title = "Path Step Length [mm]"; ObjectID = "809"; */
+"809.title" = "路径步长 [毫米]";
+
+/* Class = "NSButtonCell"; title = "Fly Thru"; ObjectID = "811"; */
+"811.title" = "飞行";
+
+/* Class = "NSButtonCell"; title = "Enable scroll wheel"; ObjectID = "819"; */
+"819.title" = "启用滚轮";
+
+/* Class = "NSButtonCell"; title = "CPU"; ObjectID = "826"; */
+"826.title" = "CPU";
+
+/* Class = "NSButtonCell"; title = "GPU"; ObjectID = "827"; */
+"827.title" = "GPU";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "828"; */
+"828.title" = "Radio";
+

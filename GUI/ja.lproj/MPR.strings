@@ -1,0 +1,509 @@
+/* Class = "NSWindow"; title = "MPR"; ObjectID = "1"; */
+"1.title" = "MPR";
+
+/* Class = "NSWindow"; title = "DICOM Export"; ObjectID = "413"; */
+"413.title" = "DICOM輸出";
+
+/* Class = "NSBox"; title = "Title"; ObjectID = "426"; */
+"426.title" = "Title";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "429"; */
+"429.title" = "Radio";
+
+/* Class = "NSButtonCell"; title = "4th Dimension"; ObjectID = "430"; */
+"430.title" = "4次元";
+
+/* Class = "NSButtonCell"; title = "A series, with following settings:"; ObjectID = "431"; */
+"431.title" = "次の設定を持つシリーズ:";
+
+/* Class = "NSButtonCell"; title = "Current image only"; ObjectID = "432"; */
+"432.title" = "現在の画像のみ";
+
+/* Class = "NSTextFieldCell"; title = "Number of frames:"; ObjectID = "443"; */
+"443.title" = "フレーム数:";
+
+/* Class = "NSTextFieldCell"; title = "40"; ObjectID = "444"; */
+"444.title" = "40";
+
+/* Class = "NSButtonCell"; title = "180 degrees"; ObjectID = "445"; */
+"445.title" = "180度";
+
+/* Class = "NSButtonCell"; title = "360 degrees"; ObjectID = "446"; */
+"446.title" = "360度";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "447"; */
+"447.title" = "Radio";
+
+/* Class = "NSTextFieldCell"; title = "Rotation:"; ObjectID = "448"; */
+"448.title" = "ローテーション:";
+
+/* Class = "NSTextFieldCell"; title = "Quality:"; ObjectID = "449"; */
+"449.title" = "品質:";
+
+/* Class = "NSButtonCell"; title = "Current Quality"; ObjectID = "450"; */
+"450.title" = "現在の品質";
+
+/* Class = "NSButtonCell"; title = "Best rendering"; ObjectID = "451"; */
+"451.title" = "最高のレンダリング";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "452"; */
+"452.title" = "Radio";
+
+/* Class = "NSTextFieldCell"; title = "3D MPR"; ObjectID = "456"; */
+"456.title" = "3D MPR";
+
+/* Class = "NSTextFieldCell"; title = "Series name:"; ObjectID = "457"; */
+"457.title" = "シリーズ名:";
+
+/* Class = "NSTextFieldCell"; title = "Sequence:"; ObjectID = "458"; */
+"458.title" = "シーケンス:";
+
+/* Class = "NSTextFieldCell"; title = "Size:"; ObjectID = "459"; */
+"459.title" = "サイズ:";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "461"; */
+"461.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "768x768"; ObjectID = "462"; */
+"462.title" = "768x768";
+
+/* Class = "NSMenuItem"; title = "Current"; ObjectID = "463"; */
+"463.title" = "現在";
+
+/* Class = "NSMenuItem"; title = "512x512"; ObjectID = "464"; */
+"464.title" = "512x512";
+
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "465"; */
+"465.title" = "OK";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "466"; */
+"466.title" = "キャンセル";
+
+/* Class = "NSButtonCell"; title = "After export, send them to a DICOM Node"; ObjectID = "467"; */
+"467.title" = "エクスポート後、それらをDICOMノードに送信します";
+
+/* Class = "NSButtonCell"; title = "Mark them as Key Images"; ObjectID = "468"; */
+"468.title" = "キー画像としてマークする";
+
+/* Class = "NSButtonCell"; title = "Rotation:"; ObjectID = "477"; */
+"477.title" = "ローテーション:";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "479"; */
+"479.title" = "Radio";
+
+/* Class = "NSTextFieldCell"; title = "From:"; ObjectID = "484"; */
+"484.title" = "から:";
+
+/* Class = "NSTextFieldCell"; title = "Interval (mm):"; ObjectID = "488"; */
+"488.title" = "間隔 (mm):";
+
+/* Class = "NSButtonCell"; title = "Same as thickness"; ObjectID = "494"; */
+"494.title" = "厚さと同じ";
+
+/* Class = "NSTextFieldCell"; title = "40"; ObjectID = "498"; */
+"498.title" = "40";
+
+/* Class = "NSTextFieldCell"; title = "To:"; ObjectID = "503"; */
+"503.title" = "宛先:";
+
+/* Class = "NSTextFieldCell"; title = "Number of frames:"; ObjectID = "506"; */
+"506.title" = "フレーム数:";
+
+/* Class = "NSTextFieldCell"; title = "40"; ObjectID = "508"; */
+"508.title" = "40";
+
+/* Class = "NSButtonCell"; title = "Batch:"; ObjectID = "509"; */
+"509.title" = "バッチ:";
+
+/* Class = "NSWindow"; title = "Shading"; ObjectID = "525"; */
+"525.title" = "シェーディング";
+
+/* Class = "NSTextFieldCell"; title = "Presets:"; ObjectID = "551"; */
+"551.title" = "プリセット:";
+
+/* Class = "NSTextFieldCell"; title = "Name:"; ObjectID = "555"; */
+"555.title" = "名前:";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "558"; */
+"558.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Item2"; ObjectID = "559"; */
+"559.title" = "Item2";
+
+/* Class = "NSMenuItem"; title = "Item1"; ObjectID = "560"; */
+"560.title" = "Item1";
+
+/* Class = "NSMenuItem"; title = "Item3"; ObjectID = "561"; */
+"561.title" = "Item3";
+
+/* Class = "NSTextFieldCell"; title = "Ambient Coefficent:"; ObjectID = "562"; */
+"562.title" = "アンビエント係数:";
+
+/* Class = "NSTextFieldCell"; title = "Diffuse Coefficient:"; ObjectID = "563"; */
+"563.title" = "拡散係数:";
+
+/* Class = "NSTextFieldCell"; title = "Specular Coefficient:"; ObjectID = "564"; */
+"564.title" = "鏡面反射係数:";
+
+/* Class = "NSTextFieldCell"; title = "Specular Power:"; ObjectID = "565"; */
+"565.title" = "スペキュラパワー:";
+
+/* Class = "NSButtonCell"; title = "edit"; ObjectID = "574"; */
+"574.title" = "編集";
+
+/* Class = "NSTextFieldCell"; title = "Direction:"; ObjectID = "643"; */
+"643.title" = "方向:";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "644"; */
+"644.title" = "Radio";
+
+/* Class = "NSButtonCell"; title = "Vertical"; ObjectID = "645"; */
+"645.title" = "垂直";
+
+/* Class = "NSButtonCell"; title = "Horizontal"; ObjectID = "646"; */
+"646.title" = "水平";
+
+/* Class = "NSBox"; title = "Box"; ObjectID = "652"; */
+"652.title" = "Box";
+
+/* Class = "NSTextFieldCell"; title = "Fine"; ObjectID = "656"; */
+"656.title" = "ファイン";
+
+/* Class = "NSTextFieldCell"; title = "Coarse"; ObjectID = "657"; */
+"657.title" = "粗いです";
+
+/* Class = "NSBox"; title = "Box"; ObjectID = "659"; */
+"659.title" = "Box";
+
+/* Class = "NSTextField"; ibShadowedToolTip = "Thickness in mm"; ObjectID = "662"; */
+"662.ibShadowedToolTip" = "厚さ(mm)";
+
+/* Class = "NSSlider"; ibShadowedToolTip = "Thickness in mm"; ObjectID = "663"; */
+"663.ibShadowedToolTip" = "厚さ(mm)";
+
+/* Class = "NSTextFieldCell"; title = "128"; ObjectID = "665"; */
+"665.title" = "128";
+
+/* Class = "NSTextFieldCell"; title = "Mode:"; ObjectID = "666"; */
+"666.title" = "モード:";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "668"; */
+"668.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Mean"; ObjectID = "669"; */
+"669.title" = "平均";
+
+/* Class = "NSMenuItem"; title = "Volume Rendering "; ObjectID = "670"; */
+"670.title" = "ボリュームレンダリング ";
+
+/* Class = "NSMenuItem"; title = "MIP - Max Intensity Projection"; ObjectID = "671"; */
+"671.title" = "MIP  - 最大強度プロジェクション";
+
+/* Class = "NSBox"; title = "Box"; ObjectID = "672"; */
+"672.title" = "Box";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "680"; */
+"680.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "WL/WW"; ObjectID = "681"; */
+"681.title" = "WL/WW";
+
+/* Class = "NSMenuItem"; title = "Item2"; ObjectID = "682"; */
+"682.title" = "Item2";
+
+/* Class = "NSMenuItem"; title = "Item3"; ObjectID = "683"; */
+"683.title" = "Item3";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "685"; */
+"685.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "CLUT"; ObjectID = "686"; */
+"686.title" = "CLUT";
+
+/* Class = "NSMenuItem"; title = "Item3"; ObjectID = "687"; */
+"687.title" = "Item3";
+
+/* Class = "NSMenuItem"; title = "Item2"; ObjectID = "688"; */
+"688.title" = "Item2";
+
+/* Class = "NSTextFieldCell"; title = "WL/WW:"; ObjectID = "689"; */
+"689.title" = "WL/WW:";
+
+/* Class = "NSTextFieldCell"; title = "CLUT:"; ObjectID = "690"; */
+"690.title" = "CLUT:";
+
+/* Class = "NSTextFieldCell"; title = "Opacity:"; ObjectID = "691"; */
+"691.title" = "不透明度:";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "693"; */
+"693.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Opacity"; ObjectID = "694"; */
+"694.title" = "不透明度";
+
+/* Class = "NSMenuItem"; title = "Item2"; ObjectID = "695"; */
+"695.title" = "Item2";
+
+/* Class = "NSMenuItem"; title = "Item3"; ObjectID = "696"; */
+"696.title" = "Item3";
+
+/* Class = "NSBox"; title = "Box"; ObjectID = "697"; */
+"697.title" = "Box";
+
+/* Class = "NSButtonCell"; ibShadowedToolTip = "Window Level (Option + click)"; ObjectID = "702"; */
+"702.ibShadowedToolTip" = "ウィンドウレベル(Option +クリック)";
+
+/* Class = "NSButtonCell"; title = "Levels"; ObjectID = "702"; */
+"702.title" = "レベル";
+
+/* Class = "NSButtonCell"; ibShadowedToolTip = "Move (Apple + click)"; ObjectID = "703"; */
+"703.ibShadowedToolTip" = "移動(Apple +クリック)";
+
+/* Class = "NSButtonCell"; title = "Move"; ObjectID = "703"; */
+"703.title" = "移動";
+
+/* Class = "NSButtonCell"; ibShadowedToolTip = "Zoom (Shift + click)"; ObjectID = "704"; */
+"704.ibShadowedToolTip" = "ズーム(Shift +クリック)";
+
+/* Class = "NSButtonCell"; title = "Zoom"; ObjectID = "704"; */
+"704.title" = "ズーム";
+
+/* Class = "NSButtonCell"; ibShadowedToolTip = "Rotate (Apple + Option + click)"; ObjectID = "705"; */
+"705.ibShadowedToolTip" = "回転(Apple + Option +クリック)";
+
+/* Class = "NSButtonCell"; title = "Rotate"; ObjectID = "705"; */
+"705.title" = "回転";
+
+/* Class = "NSButtonCell"; ibShadowedToolTip = "Animate"; ObjectID = "706"; */
+"706.ibShadowedToolTip" = "アニメーション指定";
+
+/* Class = "NSButtonCell"; title = "Next"; ObjectID = "706"; */
+"706.title" = "次";
+
+/* Class = "NSButtonCell"; ibShadowedToolTip = "ROI Tool - Click on small arrow to see others"; ObjectID = "707"; */
+"707.ibShadowedToolTip" = "ROIツール - 小さな矢印をクリックすると他のものを見ることができます";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "713"; */
+"713.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Length"; ObjectID = "714"; */
+"714.title" = "長さ";
+
+/* Class = "NSMenuItem"; title = "Rectangle"; ObjectID = "715"; */
+"715.title" = "四角";
+
+/* Class = "NSMenuItem"; title = "Oval"; ObjectID = "716"; */
+"716.title" = "楕円形";
+
+/* Class = "NSMenuItem"; title = "Opened Polygon"; ObjectID = "717"; */
+"717.title" = "開いたポリゴン";
+
+/* Class = "NSMenuItem"; title = "Closed Polygon"; ObjectID = "718"; */
+"718.title" = "閉じた多角形";
+
+/* Class = "NSMenuItem"; title = "Angle"; ObjectID = "720"; */
+"720.title" = "角度";
+
+/* Class = "NSMenuItem"; title = "Arrow"; ObjectID = "722"; */
+"722.title" = "矢印";
+
+/* Class = "NSMenuItem"; title = "Pencil"; ObjectID = "723"; */
+"723.title" = "鉛筆";
+
+/* Class = "NSMenuItem"; title = "Point"; ObjectID = "724"; */
+"724.title" = "点";
+
+/* Class = "NSMenuItem"; title = "Brush"; ObjectID = "725"; */
+"725.title" = "ブラシ";
+
+/* Class = "NSBox"; title = "Box"; ObjectID = "731"; */
+"731.title" = "Box";
+
+/* Class = "NSButtonCell"; title = "Edit"; ObjectID = "735"; */
+"735.title" = "編集";
+
+/* Class = "NSTextFieldCell"; title = "Ambiant: 0.5\nDiffuse: 0.6\nSpecular: 0.6, 2.0"; ObjectID = "736"; */
+"736.title" = "アンビエント:0.5
+拡散:0.6
+鏡面:0.6、2.0";
+
+/* Class = "NSButtonCell"; title = "Shading"; ObjectID = "737"; */
+"737.title" = "シェーディング";
+
+/* Class = "NSButtonCell"; title = "Play"; ObjectID = "850"; */
+"850.title" = "再生";
+
+/* Class = "NSTextFieldCell"; title = "Rate:"; ObjectID = "851"; */
+"851.title" = "レート:";
+
+/* Class = "NSTextFieldCell"; title = "Pos:"; ObjectID = "854"; */
+"854.title" = "Pos:";
+
+/* Class = "NSTextFieldCell"; title = "10 im/s"; ObjectID = "855"; */
+"855.title" = "10 im/s";
+
+/* Class = "NSTextFieldCell"; title = "-"; ObjectID = "861"; */
+"861.title" = "-";
+
+/* Class = "NSTextFieldCell"; title = "Mode:"; ObjectID = "863"; */
+"863.title" = "モード:";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "865"; */
+"865.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Log"; ObjectID = "866"; */
+"866.title" = "ログ";
+
+/* Class = "NSMenuItem"; title = "High-Low-High"; ObjectID = "867"; */
+"867.title" = "高 - 低 - 高";
+
+/* Class = "NSMenuItem"; title = "Low-High-Low"; ObjectID = "868"; */
+"868.title" = "低 - 高 - 低";
+
+/* Class = "NSMenuItem"; title = "Linear"; ObjectID = "869"; */
+"869.title" = "リニア";
+
+/* Class = "NSMenuItem"; title = "Inverse Log"; ObjectID = "870"; */
+"870.title" = "逆ログ";
+
+/* Class = "NSMenuItem"; title = "Flat"; ObjectID = "871"; */
+"871.title" = "フラット";
+
+/* Class = "NSTextFieldCell"; title = "Format:"; ObjectID = "895"; */
+"895.title" = "形式:";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "897"; */
+"897.title" = "Radio";
+
+/* Class = "NSButtonCell"; title = "Full 16-bit BW"; ObjectID = "898"; */
+"898.title" = "完全な16ビットBW";
+
+/* Class = "NSButtonCell"; title = "Screen Capture in 8-bit RGB"; ObjectID = "899"; */
+"899.title" = "8ビットRGBでのスクリーンキャプチャ";
+
+/* Class = "NSWindow"; title = "Quicktime Export"; ObjectID = "910"; */
+"910.title" = "Quicktime Export";
+
+/* Class = "NSBox"; title = "Title"; ObjectID = "926"; */
+"926.title" = "Title";
+
+/* Class = "NSTextFieldCell"; title = "Interval:"; ObjectID = "947"; */
+"947.title" = "間隔:";
+
+/* Class = "NSTextFieldCell"; title = "To:"; ObjectID = "948"; */
+"948.title" = "宛先:";
+
+/* Class = "NSTextFieldCell"; title = "From:"; ObjectID = "949"; */
+"949.title" = "から:";
+
+/* Class = "NSTextFieldCell"; title = "Number of frames:"; ObjectID = "951"; */
+"951.title" = "フレーム数:";
+
+/* Class = "NSTextFieldCell"; title = "40"; ObjectID = "952"; */
+"952.title" = "40";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "953"; */
+"953.title" = "Radio";
+
+/* Class = "NSButtonCell"; title = "360 degrees"; ObjectID = "954"; */
+"954.title" = "360度";
+
+/* Class = "NSButtonCell"; title = "180 degrees"; ObjectID = "955"; */
+"955.title" = "180度";
+
+/* Class = "NSButtonCell"; title = "Batch:"; ObjectID = "956"; */
+"956.title" = "バッチ:";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "957"; */
+"957.title" = "Radio";
+
+/* Class = "NSButtonCell"; title = "Rotation:"; ObjectID = "958"; */
+"958.title" = "ローテーション:";
+
+/* Class = "NSButtonCell"; title = "Same as thickness"; ObjectID = "959"; */
+"959.title" = "厚さと同じ";
+
+/* Class = "NSTextFieldCell"; title = "Number of frames:"; ObjectID = "960"; */
+"960.title" = "フレーム数:";
+
+/* Class = "NSButtonCell"; title = "Horizontal"; ObjectID = "961"; */
+"961.title" = "水平";
+
+/* Class = "NSButtonCell"; title = "Vertical"; ObjectID = "962"; */
+"962.title" = "垂直";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "963"; */
+"963.title" = "Radio";
+
+/* Class = "NSTextFieldCell"; title = "Direction:"; ObjectID = "964"; */
+"964.title" = "方向:";
+
+/* Class = "NSTextFieldCell"; title = "Rotation:"; ObjectID = "965"; */
+"965.title" = "ローテーション:";
+
+/* Class = "NSTextFieldCell"; title = "40"; ObjectID = "966"; */
+"966.title" = "40";
+
+/* Class = "NSTextFieldCell"; title = "40 mm"; ObjectID = "968"; */
+"968.title" = "40 mm";
+
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "973"; */
+"973.title" = "OK";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "974"; */
+"974.title" = "キャンセル";
+
+/* Class = "NSTextFieldCell"; title = "Size:"; ObjectID = "979"; */
+"979.title" = "サイズ:";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "981"; */
+"981.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "512x512"; ObjectID = "982"; */
+"982.title" = "512x512";
+
+/* Class = "NSMenuItem"; title = "Current"; ObjectID = "983"; */
+"983.title" = "現在";
+
+/* Class = "NSMenuItem"; title = "768x768"; ObjectID = "984"; */
+"984.title" = "768x768";
+
+/* Class = "NSButtonCell"; title = "A series, with following settings:"; ObjectID = "986"; */
+"986.title" = "次の設定を持つシリーズ:";
+
+/* Class = "NSButtonCell"; title = "4th Dimension"; ObjectID = "987"; */
+"987.title" = "4次元";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "988"; */
+"988.title" = "Radio";
+
+/* Class = "NSTextFieldCell"; title = "Sequence:"; ObjectID = "989"; */
+"989.title" = "シーケンス:";
+
+/* Class = "NSTextFieldCell"; title = "Quality:"; ObjectID = "990"; */
+"990.title" = "品質:";
+
+/* Class = "NSButtonCell"; title = "Current Quality"; ObjectID = "991"; */
+"991.title" = "現在の品質";
+
+/* Class = "NSButtonCell"; title = "Best rendering"; ObjectID = "992"; */
+"992.title" = "最高のレンダリング";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "993"; */
+"993.title" = "Radio";
+
+/* Class = "NSBox"; title = "Box"; ObjectID = "1105"; */
+"1105.title" = "Box";
+
+/* Class = "NSMenuItem"; title = "minIP - Min Intensity Projection"; ObjectID = "1147"; */
+"1147.title" = "minIP  - 最小輝度プロジェクション";
+
+/* Class = "NSMenuItem"; title = "Text"; ObjectID = "1148"; */
+"1148.title" = "Text";
+
+/* Class = "NSButtonCell"; title = "Include all views"; ObjectID = "1151"; */
+"1151.title" = "すべてのビューを含める";
+
+/* Class = "NSBox"; title = "Box"; ObjectID = "1157"; */
+"1157.title" = "Box";
+

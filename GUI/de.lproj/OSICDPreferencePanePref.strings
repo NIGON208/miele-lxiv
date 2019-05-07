@@ -1,0 +1,69 @@
+/* Class = "NSWindow"; title = "<< do not localize >>"; ObjectID = "12"; */
+"12.title" = "<< do not localize >>";
+
+/* Class = "NSBox"; title = "Reading CD/DVDs"; ObjectID = "98"; */
+"98.title" = "CD/DVDs lesen";
+
+/* Class = "NSButtonCell"; ibShadowedToolTip = "Use DICOMDIR on the media to load the images."; ObjectID = "99"; */
+"99.ibShadowedToolTip" = "Verwenden Sie DICOMDIR auf den Medien, um die Bilder zu laden.";
+
+/* Class = "NSButtonCell"; title = "All DICOM files available on the disk (Scan Mode), ignoring the DICOMDIR file (Slower)"; ObjectID = "99"; */
+"99.title" = "Alle DICOM-Dateien, die auf der Festplatte verfügbar sind (Scan-Modus), die DICOMDIR-Datei ignorieren (langsamer)";
+
+/* Class = "NSButtonCell"; ibShadowedToolTip = "Scan the media to find all DICOM images."; ObjectID = "110"; */
+"110.ibShadowedToolTip" = "Scannen Sie die Medien, um alle DICOM-Bilder zu finden.";
+
+/* Class = "NSButtonCell"; title = "Files indexed in the DICOMDIR file (Faster)"; ObjectID = "110"; */
+"110.title" = "Dateien in der DICOMDIR-Datei (Faster)";
+
+/* Class = "NSBox"; title = "Writing CD/DVDs"; ObjectID = "132"; */
+"132.title" = "CD/DVDs schreiben";
+
+/* Class = "NSButtonCell"; title = "Include contents of this folder:"; ObjectID = "163"; */
+"163.title" = "Inhalt dieses Ordners:";
+
+/* Class = "NSButtonCell"; title = "Prefer standard JPEG instead of JPEG2000 / JPEG LS compression for DICOM files"; ObjectID = "184"; */
+"184.title" = "Bevorzugen Sie die Standard-JPEG statt der JPEG2000/JPEG LS-Kompression für DICOM-Dateien";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Once an inserted disk is successfully indexed, it is automatically selected"; ObjectID = "196"; */
+"196.ibShadowedToolTip" = "Sobald eine eingefügte Platte erfolgreich indiziert ist, wird sie automatisch ausgewählt";
+
+/* Class = "NSButtonCell"; title = "Eject the disk when done copying"; ObjectID = "197"; */
+"197.title" = "Werfen Sie die Festplatte aus, wenn Sie die Platte kopieren";
+
+/* Class = "NSButtonCell"; title = "If no DICOM files are found, switch to Scan Mode"; ObjectID = "200"; */
+"200.title" = "Wenn keine DICOM-Dateien gefunden werden, wechseln Sie in den Scan-Modus";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Once an inserted disk is successfully indexed, it is automatically selected"; ObjectID = "210"; */
+"210.ibShadowedToolTip" = "Sobald eine eingefügte Platte erfolgreich indiziert ist, wird sie automatisch ausgewählt";
+
+/* Class = "NSButtonCell"; title = "Automatically select the source when ready"; ObjectID = "211"; */
+"211.title" = "Wählen Sie automatisch die Quelle aus, wenn Sie bereit sind";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "217"; */
+"217.title" = "Radio";
+
+/* Class = "NSButtonCell"; title = "Copy all its contents into the database"; ObjectID = "218"; */
+"218.title" = "Alle Inhalte in die Datenbank kopieren";
+
+/* Class = "NSButtonCell"; title = "Show disc content as a separate source"; ObjectID = "219"; */
+"219.title" = "Disc-Inhalts als separate Quelle anzeigen";
+
+/* Class = "NSTextFieldCell"; title = "When a disc is inserted:"; ObjectID = "221"; */
+"221.title" = "Wenn eine Scheibe eingelegt wird:";
+
+/* Class = "NSButtonCell"; title = "Ask the user"; ObjectID = "222"; */
+"222.title" = "Fragen Sie den Nutzer";
+
+/* Class = "NSTextFieldCell"; title = "Determine disc content by considering:"; ObjectID = "226"; */
+"226.title" = "Legen Sie den Inhalt der Disc fest, indem Sie bedenken:";
+
+/* Class = "NSButtonCell"; title = "Ignore it"; ObjectID = "229"; */
+"229.title" = "Ignoriere es";
+
+/* Class = "NSButtonCell"; ibShadowedToolTip = "Use DICOMDIR on the media to load the images."; ObjectID = "gZ3-mY-LlL"; */
+"gZ3-mY-LlL.ibShadowedToolTip" = "Verwenden Sie DICOMDIR auf den Medien, um die Bilder zu laden.";
+
+/* Class = "NSButtonCell"; title = "Files indexed in the DICOMDIR file"; ObjectID = "gZ3-mY-LlL"; */
+"gZ3-mY-LlL.title" = "Dateien in der DICOMDIR Datei indiziert";
+

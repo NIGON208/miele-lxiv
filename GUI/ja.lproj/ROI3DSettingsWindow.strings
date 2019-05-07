@@ -1,0 +1,36 @@
+/* Class = "NSButtonCell"; title = "Maximum:"; ObjectID = "a7A-EJ-yFz"; */
+"a7A-EJ-yFz.title" = "最大:";
+
+/* Class = "NSTextFieldCell"; title = "Minimum:"; ObjectID = "a9S-3M-ahE"; */
+"a9S-3M-ahE.title" = "最小:";
+
+/* Class = "NSTabViewItem"; label = "Percentages"; ObjectID = "bqt-4C-bKL"; */
+"bqt-4C-bKL.label" = "パーセンテージ";
+
+/* Class = "NSTextFieldCell"; title = "Definition: In the displayed sphere, find the voxel with the highest value. Around this voxel, define a new sphere with a diameter defined below, and compute the mean value of all the voxels contained in this sphere as the peak value. If there are several voxels with the same highest value, the highest peak value will be displayed."; ObjectID = "eeD-CZ-NXB"; */
+"eeD-CZ-NXB.title" = "定義:表示された球で、最も高い値を持つボクセルを見つけます。このボクセルの周りに、下に定義された直径を持つ新しい球を定義し、この球に含まれるすべてのボクセルの平均値をピーク値として計算します。同じ最高値を持つ複数のボクセルがある場合、最高のピーク値が表示されます。";
+
+/* Class = "NSTextFieldCell"; title = "Minimum:"; ObjectID = "jcq-1o-qeP"; */
+"jcq-1o-qeP.title" = "最小:";
+
+/* Class = "NSTextFieldCell"; title = "Diameter (mm):"; ObjectID = "Op2-pf-hYq"; */
+"Op2-pf-hYq.title" = "直径 (mm):";
+
+/* Class = "NSTabViewItem"; label = "Absolute Values"; ObjectID = "p4Y-Er-rBE"; */
+"p4Y-Er-rBE.label" = "絶対値";
+
+/* Class = "NSButtonCell"; title = "Maximum:"; ObjectID = "Suh-cb-BYM"; */
+"Suh-cb-BYM.title" = "最大:";
+
+/* Class = "NSTextFieldCell"; title = "Definition: In the displayed sphere, keep only the voxels with a value in the range defined below. Compute the volume of all these voxels, and the mean of these voxels values."; ObjectID = "TIW-j6-jCn"; */
+"TIW-j6-jCn.title" = "定義:表示された球では、ボクセルだけを下に定義された範囲の値で保つ。これらすべてのボクセルの体積、およびこれらのボクセル値の平均を計算する。";
+
+/* Class = "NSWindow"; title = "3D ROI Settings"; ObjectID = "vH6-DM-CiR"; */
+"vH6-DM-CiR.title" = "3D ROI設定";
+
+/* Class = "NSButtonCell"; title = "Peak Value:"; ObjectID = "vXZ-nQ-fCl"; */
+"vXZ-nQ-fCl.title" = "ピーク値:";
+
+/* Class = "NSButtonCell"; title = "Iso Contour:"; ObjectID = "Xzj-ie-72Q"; */
+"Xzj-ie-72Q.title" = "Iso Contour:";
+

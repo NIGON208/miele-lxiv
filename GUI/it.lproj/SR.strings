@@ -1,0 +1,449 @@
+/* Class = "NSWindow"; title = "Surface Rendering"; ObjectID = "144"; */
+"144.title" = "Rendering delle superfici 3D";
+
+/* Class = "NSWindow"; title = "Surface Rendering Settings"; ObjectID = "435"; */
+"435.title" = "Impostazioni di rendering di superficie";
+
+/* Class = "NSBox"; title = "First Iso-Contour"; ObjectID = "437"; */
+"437.title" = "Primo Iso-Contour";
+
+/* Class = "NSBox"; title = "Second Iso-Contour"; ObjectID = "439"; */
+"439.title" = "Secondo Iso-Contour";
+
+/* Class = "NSMenuItem"; title = "CT - Skin"; ObjectID = "446"; */
+"446.title" = "TAC -pelle";
+
+/* Class = "NSMenuItem"; title = "Predefined values"; ObjectID = "447"; */
+"447.title" = "Valori predefiniti";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "448"; */
+"448.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "CT - Bone"; ObjectID = "449"; */
+"449.title" = "TAC - ossa";
+
+/* Class = "NSMenuItem"; title = "CT - Metal"; ObjectID = "451"; */
+"451.title" = "TAC - metallo";
+
+/* Class = "NSMenuItem"; title = "CT - Bone"; ObjectID = "482"; */
+"482.title" = "TAC - ossa";
+
+/* Class = "NSMenuItem"; title = "CT - Metal"; ObjectID = "483"; */
+"483.title" = "TAC - metallo";
+
+/* Class = "NSMenuItem"; title = "CT - Skin"; ObjectID = "485"; */
+"485.title" = "TAC -pelle";
+
+/* Class = "NSMenuItem"; title = "Predefined values"; ObjectID = "488"; */
+"488.title" = "Valori predefiniti";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "489"; */
+"489.title" = "OtherViews";
+
+/* Class = "NSWindow"; title = "Window"; ObjectID = "585"; */
+"585.title" = "Finestra";
+
+/* Class = "NSButtonCell"; title = "180 degrees"; ObjectID = "587"; */
+"587.title" = "180 gradi";
+
+/* Class = "NSButtonCell"; title = "360 degrees"; ObjectID = "588"; */
+"588.title" = "360 gradi";
+
+/* Class = "NSMenuItem"; title = "Export as VRML (.vrml)"; ObjectID = "606"; */
+"606.title" = "Esportazione come VRML (.vrml)";
+
+/* Class = "NSMenuItem"; title = "Export as Renderman (.rib)"; ObjectID = "608"; */
+"608.title" = "Esportazione come Renderman (.rib)";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "609"; */
+"609.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Export as Inventor (.iv)"; ObjectID = "610"; */
+"610.title" = "Esportazione come Inventor (.iv)";
+
+/* Class = "NSMenuItem"; title = "Export as Wavefront (.obj)"; ObjectID = "611"; */
+"611.title" = "Esportazione come Wavefront (.obj)";
+
+/* Class = "NSButtonCell"; title = "3D Rotation - 100 frames"; ObjectID = "617"; */
+"617.title" = "Rotazione 3D - 100 fotogrammi";
+
+/* Class = "NSButtonCell"; title = "3D Rotation - 400 frames"; ObjectID = "618"; */
+"618.title" = "Rotazione 3D - 400 fotogrammi";
+
+/* Class = "NSButtonCell"; title = "X only Axis Rotation - 18 frames"; ObjectID = "619"; */
+"619.title" = "Rotazione solo asse X - 18 fotogrammi";
+
+/* Class = "NSButtonCell"; title = "X only Axis Rotation - 36 frames"; ObjectID = "627"; */
+"627.title" = "Rotazione solo asse X - 36 fotogrammi";
+
+/* Class = "NSWindow"; title = "Window"; ObjectID = "629"; */
+"629.title" = "Finestra";
+
+/* Class = "NSMenuItem"; title = "Export as STL (.stl)"; ObjectID = "637"; */
+"637.title" = "Esportazione come STL (.stl)";
+
+/* Class = "NSWindow"; title = "Point Info"; ObjectID = "639"; */
+"639.title" = "Punto Info";
+
+/* Class = "NSButtonCell"; title = "Perspective"; ObjectID = "678"; */
+"678.title" = "Prospettiva";
+
+/* Class = "NSButtonCell"; ibShadowedToolTip = "Zoom (Right button or shift + click)"; ObjectID = "682"; */
+"682.ibShadowedToolTip" = "Zoom (mouse destro o Maiusc + click)";
+
+/* Class = "NSButtonCell"; title = "Zoom"; ObjectID = "682"; */
+"682.title" = "Zoom";
+
+/* Class = "NSButtonCell"; ibShadowedToolTip = "Rotate (Apple + Option + click)"; ObjectID = "683"; */
+"683.ibShadowedToolTip" = "Ruota (Apple + Option + clic)";
+
+/* Class = "NSButtonCell"; title = "Rotate"; ObjectID = "683"; */
+"683.title" = "Ruotare";
+
+/* Class = "NSButtonCell"; ibShadowedToolTip = "Move (Apple + click)"; ObjectID = "684"; */
+"684.ibShadowedToolTip" = "Sposta (Apple + clic)";
+
+/* Class = "NSButtonCell"; title = "Move"; ObjectID = "684"; */
+"684.title" = "Sposta";
+
+/* Class = "NSButtonCell"; ibShadowedToolTip = "3DRotate"; ObjectID = "685"; */
+"685.ibShadowedToolTip" = "3DRotate";
+
+/* Class = "NSButtonCell"; title = "3DRotateCamera"; ObjectID = "686"; */
+"686.title" = "3DRotateCamera";
+
+/* Class = "NSButtonCell"; title = "Point"; ObjectID = "687"; */
+"687.title" = "Punto";
+
+/* Class = "NSButtonCell"; title = "Decimate - Resolution:"; ObjectID = "698"; */
+"698.title" = "Decimare - Risoluzione:";
+
+/* Class = "NSButtonCell"; title = "Smooth - Iterations:"; ObjectID = "700"; */
+"700.title" = "Liscio - Iterazioni:";
+
+/* Class = "NSBox"; title = "Quality"; ObjectID = "703"; */
+"703.title" = "Qualità";
+
+/* Class = "NSBox"; title = "Appearance"; ObjectID = "737"; */
+"737.title" = "Aspetto";
+
+/* Class = "NSBox"; title = "Coordinates"; ObjectID = "739"; */
+"739.title" = "Coordinate";
+
+/* Class = "NSWindow"; title = "Window"; ObjectID = "762"; */
+"762.title" = "Finestra";
+
+/* Class = "NSBox"; title = "Title"; ObjectID = "768"; */
+"768.title" = "Titolo";
+
+/* Class = "NSButtonCell"; title = "Horizontal"; ObjectID = "774"; */
+"774.title" = "Orizzontale";
+
+/* Class = "NSButtonCell"; title = "Vertical"; ObjectID = "775"; */
+"775.title" = "Verticale";
+
+/* Class = "NSButtonCell"; title = "360 degrees"; ObjectID = "777"; */
+"777.title" = "360 gradi";
+
+/* Class = "NSButtonCell"; title = "180 degrees"; ObjectID = "778"; */
+"778.title" = "180 gradi";
+
+/* Class = "NSButtonCell"; title = "Current image only"; ObjectID = "801"; */
+"801.title" = "Solo immagine attuale";
+
+/* Class = "NSButtonCell"; title = "An animated series, with following settings:"; ObjectID = "802"; */
+"802.title" = "Una serie animata, con le seguenti impostazioni:";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "814"; */
+"814.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Current"; ObjectID = "815"; */
+"815.title" = "Attuale";
+
+/* Class = "NSMenuItem"; title = "512x512"; ObjectID = "816"; */
+"816.title" = "512x512";
+
+/* Class = "NSMenuItem"; title = "768x768"; ObjectID = "817"; */
+"817.title" = "768x768";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "823"; */
+"823.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "512x512"; ObjectID = "824"; */
+"824.title" = "512x512";
+
+/* Class = "NSMenuItem"; title = "768x768"; ObjectID = "825"; */
+"825.title" = "768x768";
+
+/* Class = "NSMenuItem"; title = "Current"; ObjectID = "826"; */
+"826.title" = "Attuale";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "830"; */
+"830.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "512x512"; ObjectID = "831"; */
+"831.title" = "512x512";
+
+/* Class = "NSMenuItem"; title = "768x768"; ObjectID = "832"; */
+"832.title" = "768x768";
+
+/* Class = "NSMenuItem"; title = "Current"; ObjectID = "833"; */
+"833.title" = "Attuale";
+
+/* Class = "NSTextFieldCell"; title = "Level of Detail:"; ObjectID = "908"; */
+"908.title" = "Livello di dettaglio:";
+
+/* Class = "NSTextFieldCell"; title = "-"; ObjectID = "910"; */
+"910.title" = "-";
+
+/* Class = "NSTextFieldCell"; title = "Percentage:"; ObjectID = "912"; */
+"912.title" = "Percentuale:";
+
+/* Class = "NSTextFieldCell"; title = "300"; ObjectID = "914"; */
+"914.title" = "300";
+
+/* Class = "NSTextFieldCell"; title = "Pixel value:"; ObjectID = "915"; */
+"915.title" = "Valore del pixel:";
+
+/* Class = "NSTextFieldCell"; title = "Transparency:"; ObjectID = "917"; */
+"917.title" = "Trasparenza:";
+
+/* Class = "NSTextFieldCell"; title = "Color:"; ObjectID = "918"; */
+"918.title" = "Colore:";
+
+/* Class = "NSTextFieldCell"; title = "Transparency:"; ObjectID = "919"; */
+"919.title" = "Trasparenza:";
+
+/* Class = "NSTextFieldCell"; title = "Pixel value:"; ObjectID = "920"; */
+"920.title" = "Valore del pixel:";
+
+/* Class = "NSTextFieldCell"; title = "Color:"; ObjectID = "921"; */
+"921.title" = "Colore:";
+
+/* Class = "NSTextFieldCell"; title = "-500"; ObjectID = "924"; */
+"924.title" = "-500";
+
+/* Class = "NSButtonCell"; title = "First Surface:"; ObjectID = "925"; */
+"925.title" = "Prima Superficie:";
+
+/* Class = "NSButtonCell"; title = "Second Surface:"; ObjectID = "926"; */
+"926.title" = "Seconda Superficie:";
+
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "927"; */
+"927.title" = "OK";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "928"; */
+"928.title" = "Annulla";
+
+/* Class = "NSTextFieldCell"; title = "Resolution:"; ObjectID = "929"; */
+"929.title" = "Risoluzione:";
+
+/* Class = "NSTextFieldCell"; title = "low"; ObjectID = "931"; */
+"931.title" = "basso";
+
+/* Class = "NSTextFieldCell"; title = "high"; ObjectID = "932"; */
+"932.title" = "alta";
+
+/* Class = "NSTextFieldCell"; title = "20"; ObjectID = "933"; */
+"933.title" = "20";
+
+/* Class = "NSTextFieldCell"; title = "0.50"; ObjectID = "934"; */
+"934.title" = "0,50";
+
+/* Class = "NSTextFieldCell"; title = "(0.1 ... 1.0)"; ObjectID = "935"; */
+"935.title" = "(0,1... 1,0)";
+
+/* Class = "NSTextFieldCell"; title = "(1 ... 100)"; ObjectID = "936"; */
+"936.title" = "(1 ... 100)";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "961"; */
+"961.title" = "Annulla";
+
+/* Class = "NSTextFieldCell"; title = "40"; ObjectID = "962"; */
+"962.title" = "40";
+
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "963"; */
+"963.title" = "OK";
+
+/* Class = "NSTextFieldCell"; title = "Rotation:"; ObjectID = "964"; */
+"964.title" = "Rotazione:";
+
+/* Class = "NSTextFieldCell"; title = "Number of frames:"; ObjectID = "966"; */
+"966.title" = "Numero di fotogrammi:";
+
+/* Class = "NSTextFieldCell"; title = "Size:"; ObjectID = "967"; */
+"967.title" = "Size:";
+
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "970"; */
+"970.title" = "OK";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "971"; */
+"971.title" = "Annulla";
+
+/* Class = "NSTextFieldCell"; title = "Type:"; ObjectID = "972"; */
+"972.title" = "Tipo:";
+
+/* Class = "NSTextFieldCell"; title = "Size:"; ObjectID = "973"; */
+"973.title" = "Size:";
+
+/* Class = "NSButtonCell"; title = "All Points"; ObjectID = "975"; */
+"975.title" = "Tutti i punti";
+
+/* Class = "NSButtonCell"; title = "Set Default"; ObjectID = "976"; */
+"976.title" = "Ripristina impostazioni iniziali";
+
+/* Class = "NSTextFieldCell"; title = "Color:"; ObjectID = "978"; */
+"978.title" = "Colore:";
+
+/* Class = "NSTextFieldCell"; title = "Radius:"; ObjectID = "979"; */
+"979.title" = "Raggio:";
+
+/* Class = "NSTextFieldCell"; title = "Size:"; ObjectID = "980"; */
+"980.title" = "Size:";
+
+/* Class = "NSTextFieldCell"; title = "Color:"; ObjectID = "981"; */
+"981.title" = "Colore:";
+
+/* Class = "NSButtonCell"; title = "Display"; ObjectID = "983"; */
+"983.title" = "Display";
+
+/* Class = "NSTextFieldCell"; title = "x\ny\nz"; ObjectID = "984"; */
+"984.title" = "x
+y
+z";
+
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "985"; */
+"985.title" = "OK";
+
+/* Class = "NSTextFieldCell"; title = "3D SR"; ObjectID = "986"; */
+"986.title" = "3D SR";
+
+/* Class = "NSTextFieldCell"; title = "Series name:"; ObjectID = "987"; */
+"987.title" = "Nome della serie:";
+
+/* Class = "NSTextFieldCell"; title = "Export to DICOM files:"; ObjectID = "988"; */
+"988.title" = "Esportazione in file DICOM:";
+
+/* Class = "NSTextFieldCell"; title = "Rotation:"; ObjectID = "990"; */
+"990.title" = "Rotazione:";
+
+/* Class = "NSTextFieldCell"; title = "Number of frames:"; ObjectID = "991"; */
+"991.title" = "Numero di fotogrammi:";
+
+/* Class = "NSTextFieldCell"; title = "40"; ObjectID = "992"; */
+"992.title" = "40";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "993"; */
+"993.title" = "Annulla";
+
+/* Class = "NSTextFieldCell"; title = "Sequence:"; ObjectID = "994"; */
+"994.title" = "Sequenza:";
+
+/* Class = "NSTextFieldCell"; title = "Size:"; ObjectID = "995"; */
+"995.title" = "Size:";
+
+/* Class = "NSButtonCell"; title = "Switch"; ObjectID = "998"; */
+"998.title" = "Scambia";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "1000"; */
+"1000.title" = "Radio";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "1001"; */
+"1001.title" = "Radio";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "1002"; */
+"1002.title" = "Radio";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "1003"; */
+"1003.title" = "Radio";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "1004"; */
+"1004.title" = "Radio";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "1005"; */
+"1005.title" = "Radio";
+
+/* Class = "NSButtonCell"; title = "Mark them as Key Images"; ObjectID = "1009"; */
+"1009.title" = "Segnala come immagini chiave";
+
+/* Class = "NSButtonCell"; title = "After export, send them to a DICOM Node"; ObjectID = "1010"; */
+"1010.title" = "Dopo l'esportazione, inviarli a un nodo DICOM";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "1016"; */
+"1016.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Set Red-Blue"; ObjectID = "1017"; */
+"1017.title" = "Imposta Rosso-Blu";
+
+/* Class = "NSMenuItem"; title = "Set Anaglyph"; ObjectID = "1018"; */
+"1018.title" = "Imposta Anaglifi";
+
+/* Class = "NSMenuItem"; title = "Set Interlaced"; ObjectID = "1019"; */
+"1019.title" = "Imposta Interlacciato";
+
+/* Class = "NSMenuItem"; title = "Set LeftRight Dualscreen"; ObjectID = "1020"; */
+"1020.title" = "Impostare LeftRight Dualscreen";
+
+/* Class = "NSMenuItem"; title = "Turned Off"; ObjectID = "1021"; */
+"1021.title" = "Spento";
+
+/* Class = "NSMenuItem"; title = "Set LeftRight Uniquescreen"; ObjectID = "1022"; */
+"1022.title" = "Imposta LeftRight Uniquescreen";
+
+/* Class = "NSMenuItem"; title = "Inverted Sides"; ObjectID = "1024"; */
+"1024.title" = "Lati rovesciati";
+
+/* Class = "NSMenuItem"; title = "Changing 3D Settings..."; ObjectID = "1026"; */
+"1026.title" = "Modifica delle impostazioni 3D...";
+
+/* Class = "NSWindow"; title = "Setup Geometry"; ObjectID = "1027"; */
+"1027.title" = "Geometria di installazione";
+
+/* Class = "NSBox"; title = "Geometry"; ObjectID = "1029"; */
+"1029.title" = "Geometria";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "1032"; */
+"1032.title" = "Annulla";
+
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "1033"; */
+"1033.title" = "OK";
+
+/* Class = "NSTextFieldCell"; title = "Distance: "; ObjectID = "1044"; */
+"1044.title" = "Distanza: ";
+
+/* Class = "NSTextFieldCell"; title = "480"; ObjectID = "1045"; */
+"1045.title" = "480";
+
+/* Class = "NSTextFieldCell"; title = "5"; ObjectID = "1047"; */
+"1047.title" = "5";
+
+/* Class = "NSTextFieldCell"; title = "Screen Height:"; ObjectID = "1049"; */
+"1049.title" = "Altezza dello schermo:";
+
+/* Class = "NSTextFieldCell"; title = "To Screen:"; ObjectID = "1050"; */
+"1050.title" = "A schermo:";
+
+/* Class = "NSTextFieldCell"; title = "in mm"; ObjectID = "1051"; */
+"1051.title" = "in mm";
+
+/* Class = "NSTextFieldCell"; title = "in mm"; ObjectID = "1052"; */
+"1052.title" = "in mm";
+
+/* Class = "NSTextFieldCell"; title = "Between Eyes:"; ObjectID = "1053"; */
+"1053.title" = "Tra gli occhi:";
+
+/* Class = "NSTextFieldCell"; title = "5"; ObjectID = "1054"; */
+"1054.title" = "5";
+
+/* Class = "NSTextFieldCell"; title = "in mm"; ObjectID = "1056"; */
+"1056.title" = "in mm";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "GKo-ea-6Xj"; */
+"GKo-ea-6Xj.title" = "Radio";
+
+/* Class = "NSButtonCell"; title = "Endoscopy"; ObjectID = "nnv-Mg-hUU"; */
+"nnv-Mg-hUU.title" = "Endoscopia";
+
+/* Class = "NSButtonCell"; title = "Parallel"; ObjectID = "qHL-xY-yID"; */
+"qHL-xY-yID.title" = "Parallelo";
+

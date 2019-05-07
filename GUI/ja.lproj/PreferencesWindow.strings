@@ -1,0 +1,27 @@
+/* Class = "NSWindow"; title = "Miele-LXIV Preferences"; ObjectID = "19"; */
+"19.title" = "Miele-LXIV環境設定";
+
+/* Class = "NSToolbarItem"; label = "Navigation"; ObjectID = "622"; */
+"622.label" = "ナビゲーション";
+
+/* Class = "NSToolbarItem"; paletteLabel = "Navigation"; ObjectID = "622"; */
+"622.paletteLabel" = "ナビゲーション";
+
+/* Class = "NSButtonCell"; title = "Show All"; ObjectID = "624"; */
+"624.title" = "すべて表示";
+
+/* Class = "NSToolbarItem"; label = "Show All"; ObjectID = "626"; */
+"626.label" = "すべて表示";
+
+/* Class = "NSToolbarItem"; paletteLabel = "Show All"; ObjectID = "626"; */
+"626.paletteLabel" = "すべて表示";
+
+/* Class = "NSButtonCell"; title = "Lock"; ObjectID = "744"; */
+"744.title" = "ロック";
+
+/* Class = "NSToolbarItem"; label = "Authentication"; ObjectID = "745"; */
+"745.label" = "認証";
+
+/* Class = "NSToolbarItem"; paletteLabel = "Authentication"; ObjectID = "745"; */
+"745.paletteLabel" = "認証";
+

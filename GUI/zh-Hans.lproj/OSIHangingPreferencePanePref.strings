@@ -1,0 +1,166 @@
+/* Class = "NSMenuItem"; title = "Display 4 series per previous study"; ObjectID = "4wi-zY-TKa"; */
+"4wi-zY-TKa.title" = "显示每个以前的研究4个系列";
+
+/* Class = "NSMenuItem"; title = "Display 2 series per previous study"; ObjectID = "8RF-iU-gXo"; */
+"8RF-iU-gXo.title" = "显示每个以前的研究2个系列";
+
+/* Class = "NSWindow"; title = "<< do not localize >>"; ObjectID = "12"; */
+"12.title" = "<< do not localize >>";
+
+/* Class = "NSTableColumn"; headerCell.title = "Study Description (0008,1030)"; ObjectID = "101"; */
+"101.headerCell.title" = "Study Description (0008,1030)";
+
+/* Class = "NSTableColumn"; headerCell.title = "Windows Tiling"; ObjectID = "102"; */
+"102.headerCell.title" = "视窗平铺";
+
+/* Class = "NSTableColumn"; headerCell.title = "Image Tiling"; ObjectID = "104"; */
+"104.headerCell.title" = "图像平铺";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "105"; */
+"105.title" = "OtherViews";
+
+/* Class = "NSButtonCell"; title = "New"; ObjectID = "249"; */
+"249.title" = "新";
+
+/* Class = "NSTextFieldCell"; title = "Modality:"; ObjectID = "250"; */
+"250.title" = "形态:";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "254"; */
+"254.title" = "Text Cell";
+
+/* Class = "NSMenuItem"; title = "CR"; ObjectID = "274"; */
+"274.title" = "CR";
+
+/* Class = "NSMenuItem"; title = "CT"; ObjectID = "275"; */
+"275.title" = "CT";
+
+/* Class = "NSMenuItem"; title = "DX"; ObjectID = "276"; */
+"276.title" = "DX";
+
+/* Class = "NSMenuItem"; title = "ES"; ObjectID = "277"; */
+"277.title" = "ES";
+
+/* Class = "NSMenuItem"; title = "MG"; ObjectID = "278"; */
+"278.title" = "MG";
+
+/* Class = "NSMenuItem"; title = "MR"; ObjectID = "279"; */
+"279.title" = "MR";
+
+/* Class = "NSMenuItem"; title = "NM"; ObjectID = "280"; */
+"280.title" = "NM";
+
+/* Class = "NSMenuItem"; title = "OT"; ObjectID = "281"; */
+"281.title" = "OT";
+
+/* Class = "NSMenuItem"; title = "PT"; ObjectID = "282"; */
+"282.title" = "PT";
+
+/* Class = "NSMenuItem"; title = "RF"; ObjectID = "283"; */
+"283.title" = "RF";
+
+/* Class = "NSMenuItem"; title = "SC"; ObjectID = "284"; */
+"284.title" = "SC";
+
+/* Class = "NSMenuItem"; title = "US"; ObjectID = "285"; */
+"285.title" = "US";
+
+/* Class = "NSMenuItem"; title = "XA"; ObjectID = "286"; */
+"286.title" = "XA";
+
+/* Class = "NSTableColumn"; headerCell.title = "Previous Study"; ObjectID = "291"; */
+"291.headerCell.title" = "以前的研究";
+
+/* Class = "NSTextFieldCell"; title = "Previous Study:"; ObjectID = "295"; */
+"295.title" = "以前的研究:";
+
+/* Class = "NSButtonCell"; title = "Same Modality"; ObjectID = "297"; */
+"297.title" = "相同的模式";
+
+/* Class = "NSButtonCell"; title = "Same Description"; ObjectID = "299"; */
+"299.title" = "相同的描述";
+
+/* Class = "NSTableColumn"; headerCell.title = "WL/WW"; ObjectID = "301"; */
+"301.headerCell.title" = "WL/WW";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "304"; */
+"304.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Pop Up"; ObjectID = "305"; */
+"305.title" = "弹出";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "307"; */
+"307.title" = "OtherViews";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "310"; */
+"310.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Pop Up"; ObjectID = "311"; */
+"311.title" = "弹出";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "382"; */
+"382.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Display last study, if possible"; ObjectID = "383"; */
+"383.title" = "显示上一次研究, 如果可能";
+
+/* Class = "NSMenuItem"; title = "Display last two studies, if possible"; ObjectID = "384"; */
+"384.title" = "如果可能, 显示最后两项研究";
+
+/* Class = "NSMenuItem"; title = "Display last three studies, if possible"; ObjectID = "385"; */
+"385.title" = "如果可能, 显示最后三项研究";
+
+/* Class = "NSWindow"; title = "Window"; ObjectID = "403"; */
+"403.title" = "Window";
+
+/* Class = "NSTextFieldCell"; title = "Window Level:"; ObjectID = "417"; */
+"417.title" = "窗口级别:";
+
+/* Class = "NSTextFieldCell"; title = "Window Width:"; ObjectID = "418"; */
+"418.title" = "窗口宽度:";
+
+/* Class = "NSTextFieldCell"; title = "WL"; ObjectID = "421"; */
+"421.title" = "WL";
+
+/* Class = "NSTextFieldCell"; title = "WW"; ObjectID = "422"; */
+"422.title" = "WW";
+
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "423"; */
+"423.title" = "确定";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "424"; */
+"424.title" = "取消";
+
+/* Class = "NSTextFieldCell"; title = "To remove a preset from the menu: simply select it while holding down the shift key."; ObjectID = "425"; */
+"425.title" = "要从菜单中删除预设: 只需在按住移位键的同时选择它。";
+
+/* Class = "NSTextFieldCell"; title = "Give a name for this WL/WW:"; ObjectID = "426"; */
+"426.title" = "为此 wl/ww 的名称:";
+
+/* Class = "NSTableColumn"; headerCell.title = "Sync"; ObjectID = "445"; */
+"445.headerCell.title" = "同步";
+
+/* Class = "NSTableColumn"; headerCell.title = "Propagate"; ObjectID = "448"; */
+"448.headerCell.title" = "沿用";
+
+/* Class = "NSMenuItem"; title = "Display 1 series per previous study"; ObjectID = "ew2-hP-L3n"; */
+"ew2-hP-L3n.title" = "显示以前研究的1个系列";
+
+/* Class = "NSButtonCell"; title = "If not enough series for number of windows, repeat series"; ObjectID = "F3i-NS-cfp"; */
+"F3i-NS-cfp.title" = "如果没有足够的系列窗口数, 请重复系列";
+
+/* Class = "NSTextFieldCell"; title = "Sort series according to their Series Description field.\nUse commas to separate terms."; ObjectID = "Ije-5a-hxH"; */
+"Ije-5a-hxH.title" = "排序系列根据他们的系列描述字段。
+使用逗号分隔术语。";
+
+/* Class = "NSTextFieldCell"; title = "Series Order:"; ObjectID = "k9Q-Hb-NOa"; */
+"k9Q-Hb-NOa.title" = "系列订购:";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "Rgq-3j-bmV"; */
+"Rgq-3j-bmV.title" = "OtherViews";
+
+/* Class = "NSTextFieldCell"; title = "Windows:"; ObjectID = "T9W-wp-PJS"; */
+"T9W-wp-PJS.title" = "窗户:";
+
+/* Class = "NSMenuItem"; title = "Display 3 series per previous study"; ObjectID = "vJg-Hv-ZyY"; */
+"vJg-Hv-ZyY.title" = "显示每个以前的研究3个系列";
+

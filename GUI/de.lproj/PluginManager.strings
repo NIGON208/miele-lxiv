@@ -1,0 +1,49 @@
+/* Class = "NSWindow"; title = "Plugins Manager"; ObjectID = "5"; */
+"5.title" = "Plugins Manager";
+
+/* Class = "NSTabViewItem"; label = "Download..."; ObjectID = "12"; */
+"12.label" = "Herunterladen...";
+
+/* Class = "NSTabViewItem"; label = "Installed Plugins"; ObjectID = "14"; */
+"14.label" = "Installierte Plugins";
+
+/* Class = "NSTableColumn"; headerCell.title = "Name"; ObjectID = "19"; */
+"19.headerCell.title" = "Name";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "49"; */
+"49.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Item2"; ObjectID = "50"; */
+"50.title" = "Item2";
+
+/* Class = "NSMenuItem"; title = "Item1"; ObjectID = "51"; */
+"51.title" = "Item1";
+
+/* Class = "NSMenuItem"; title = "Item3"; ObjectID = "52"; */
+"52.title" = "Item3";
+
+/* Class = "NSTableColumn"; headerCell.title = "Availability"; ObjectID = "92"; */
+"92.headerCell.title" = "Verfügbarkeit";
+
+/* Class = "NSTextFieldCell"; title = "Available plugins:"; ObjectID = "111"; */
+"111.title" = "Verfügbare Plugins:";
+
+/* Class = "NSButtonCell"; title = "Download & Install"; ObjectID = "112"; */
+"112.title" = "Herunterladen und installieren";
+
+/* Class = "NSTextFieldCell"; title = "downloading..."; ObjectID = "113"; */
+"113.title" = "herunterladen...";
+
+/* Class = "NSTextFieldCell"; title = "Close this window to apply the changes.\nSelect  a plugin and press the Delete key to delete a plugin."; ObjectID = "116"; */
+"116.title" = "Schließen Sie dieses Fenster, um die Änderungen anzuwenden.
+Wählen Sie ein Plugin aus und drücken Sie die Taste Löschen, um ein Plugin zu löschen.";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "117"; */
+"117.title" = "Text Cell";
+
+/* Class = "NSTableColumn"; headerCell.title = "Version"; ObjectID = "122"; */
+"122.headerCell.title" = "Version";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "123"; */
+"123.title" = "Text Cell";
+

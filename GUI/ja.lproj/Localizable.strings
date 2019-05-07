@@ -1,0 +1,5529 @@
+/* No comment provided by engineer. */
+"   Measurement: %2.2f cm " = "   測定: %2.2f cm ";
+
+/* No comment provided by engineer. */
+"   Measurement: %2.2f mm " = "   測定値:%2.2f mm ";
+
+/* No comment provided by engineer. */
+"   Pixel: %@    %@ %@" = "   ピクセル: %1$@    %2$@ %3$@";
+
+/* No comment provided by engineer. */
+"   Scale: %2.3f %% " = "   スケール: %2.3f %% ";
+
+/* No comment provided by engineer. */
+" - %@" = " - %@";
+
+/* No comment provided by engineer. */
+" - %2.f%%" = " - %2.f%%";
+
+/* No comment provided by engineer. */
+" (retired)" = " (退職)";
+
+/* No comment provided by engineer. */
+" (SUV Converted)" = " (SUV 改造)";
+
+/* don't remove leading space */
+" (TLS)" = " (TLS)";
+
+/* No comment provided by engineer. */
+" / Modality: %@" = " / モダリティ: %@";
+
+/* No comment provided by engineer. */
+" / Result = %@ studies (%@ images)" = " / 結果 = %1$@ スタディ (%2$@ 画像)";
+
+/* No comment provided by engineer. */
+" / Search: Accession Number = %@" = " / 検索: 受託番号 = %@";
+
+/* No comment provided by engineer. */
+" / Search: All fields = %@" = " / 検索: すべてのフィールド = %@";
+
+/* No comment provided by engineer. */
+" / Search: Comments = %@" = " / 検索: コメント = %@";
+
+/* No comment provided by engineer. */
+" / Search: Comments 2 = %@" = " / 検索:コメント2 = %@";
+
+/* No comment provided by engineer. */
+" / Search: Comments 3 = %@" = " / 検索:コメント3 = %@";
+
+/* No comment provided by engineer. */
+" / Search: Comments 4 = %@" = " / 検索:コメント4 = %@";
+
+/* No comment provided by engineer. */
+" / Search: Modality = %@" = " / 検索:モダリティ= %@";
+
+/* No comment provided by engineer. */
+" / Search: Patient's name = %@" = " / 検索:患者の名前= %@";
+
+/* No comment provided by engineer. */
+" / Search: Study Description = %@" = " / 検索:スタディの説明= %@";
+
+/* No comment provided by engineer. */
+" / Time Interval: from: %@ to: %@" = " / 時間間隔: from: %1$@ to:%2$@";
+
+/* No comment provided by engineer. */
+" / Time Interval: since: %@" = " / 時間間隔:以来:%@";
+
+/* No comment provided by engineer. */
+" & DICOM Nodes" = " & DICOM ノード";
+
+/* No comment provided by engineer. */
+" and " = " と ";
+
+/* No special characters for this string, only ASCII characters. */
+" Angle: %0.0f" = " 角度:%0.0f";
+
+/* DB = DataBase */
+" DB" = " DB";
+
+/* m = month */
+" m" = " m";
+
+/* No comment provided by engineer. */
+" version " = " バージョン ";
+
+/* No comment provided by engineer. */
+" will be replaced by " = " に置き換えられます ";
+
+/* y = year */
+" y" = " y";
+
+/* Semicolon with space prefix and suffix (example: english ': ', french ' : ') */
+": " = ": ";
+
+/* No comment provided by engineer. */
+"(none)." = "(無し)。";
+
+/* W = width, H = height */
+"(W: %0.3f %@ H: %0.3f %@)" = "(W: %1$.3f %2$@ H: %3$.3f %4$@)";
+
+/* No comment provided by engineer. */
+"(W: %0.3f cm H: %0.3f cm)" = "(W: %1$.3f cm H: %2$.3f cm)";
+
+/* No comment provided by engineer. */
+"(W: %0.3f mm H: %0.3f mm)" = "(W: %1$.3f mm H: %2$.3f mm)";
+
+/* No comment provided by engineer. */
+"(W:a %0.1f %cm H: %0.1f %cm)" = "(W:a %1$.1f %2$cm H: %3$.1f %4$cm)";
+
+/* Web Portal, study, title format (1st %@ is study.name, 2nd is study.studyName, 3rd date) */
+"%@ - %@ - %@" = "%1$@ - %2$@ - %3$@";
+
+/* No comment provided by engineer. */
+"%@ (%d series)" = "%1$@ (%2$d series)";
+
+/* No comment provided by engineer. */
+"%@ (to be deleted)" = "%@(削除対象)";
+
+/* No comment provided by engineer. */
+"%@ database at %@" = "%1$@ データベース %2$@";
+
+/* No comment provided by engineer. */
+"%@ is configured to use the database located at %@. This volume is currently not available, most likely because it hasn't yet been mounted by the system, or because it is not plugged in or is turned off, or because you don't have write permissions for this location. %@ will wait for a few minutes, then give up and switch to a database in the current user's home directory." = "%1$@は、%2$@にあるデータベースを使用するように構成されています。このボリュームは現在使用できません。これは、システムによってまだマウントされていないか、プラグが差し込まれていない、または電源がオフになっているか、この場所に書き込み権限がないためです。 %3$@は数分間待ってから、あきらめて、現在のユーザーのホームディレクトリにあるデータベースに切り替えます。";
+
+/* No comment provided by engineer. */
+"%@ is configured to use the database with data located at %@. This volume is currently not available, most likely because it hasn't yet been mounted by the system, or because it is not plugged in or is turned off, or because you don't have write permissions for this location. %@ will wait for a few minutes, then give up and ignore this highly dangerous situation." = "%1$@は、%2$@にあるデータを持つデータベースを使用するように構成されています。このボリュームは現在使用できません。これは、システムによってまだマウントされていないか、プラグが差し込まれていない、または電源がオフになっているか、この場所に書き込み権限がないためです。 %3$@は数分間待ってから、この非常に危険な状況をあきらめて無視します。";
+
+/* No comment provided by engineer. */
+"%@ is not an email address." = "%@はメールアドレスではありません。";
+
+/* No comment provided by engineer. */
+"%@ Preferences" = "%@ 環境設定";
+
+/* No comment provided by engineer. */
+"%@ Storage Error" = "%@ストレージエラー";
+
+/* No comment provided by engineer. */
+"%@ the following plugins : %@ ?" = "%1$@次のプラグイン:%2$@？";
+
+/* No comment provided by engineer. */
+"%@ the plugin named : %@ ?" = "%1$@という名前のプラグイン:%2$@？";
+
+/* No comment provided by engineer. */
+"%@-Report.pdf" = "%@-Report.pdf";
+
+/* No comment provided by engineer. */
+"%@, %@" = "%1$@, %2$@";
+
+/* semicolon separator for spacing */
+"%@: %@" = "%1$@: %2$@";
+
+/* No comment provided by engineer. */
+"%@: %@ / " = "%1$@: %2$@ / ";
+
+/* No comment provided by engineer. */
+"%@%@" = "%1$@%2$@";
+
+/* im/s = images per second */
+"%0.0f im/s" = "%0.0f im/s";
+
+/* No comment provided by engineer. */
+"%0.1f %cm" = "%1$.1f %2$cm";
+
+/* im/s = images per second */
+"%0.1f im/s" = "%0.1f im/s";
+
+/* No comment provided by engineer. */
+"%0.2f cm" = "%0.2f cm";
+
+/* No comment provided by engineer. */
+"%0.2f mm" = "%0.2f mm";
+
+/* GB = giga bytes */
+"%1.2f GB" = "%1.2f GB";
+
+/* KB = kilo bytes */
+"%1.2f KB" = "%1.2f KB";
+
+/* MB = mega bytes */
+"%1.2f MB" = "%1.2f MB";
+
+/* No comment provided by engineer. */
+"%d additional files queued" = "%d個の追加ファイルがキューに入れられました";
+
+/* d = day */
+"%d d" = "%d d";
+
+/* No comment provided by engineer. */
+"%d images" = "%d個の画像";
+
+/* No comment provided by engineer. */
+"%d pages" = "%d ページ";
+
+/* No comment provided by engineer. */
+"%d pixels" = "%dピクセル";
+
+/* No comment provided by engineer. */
+"%d series" = "%dシリーズ";
+
+/* No comment provided by engineer. */
+"%d studies" = "%d スタディ";
+
+/* No comment provided by engineer. */
+"%d study" = "%d スタディ";
+
+/* No comment provided by engineer. */
+"%d/%d Images" = "%1$d/%2$d 画像";
+
+/* No comment provided by engineer. */
+"%i bytes" = "%i bytes";
+
+/* No comment provided by engineer. */
+"1st Opacity preset" = "第1不透明度プリセット";
+
+/* No comment provided by engineer. */
+"1st WW/WL preset" = "1番目のWW/WLプリセット";
+
+/* No comment provided by engineer. */
+"2D Planes" = "2D平面";
+
+/* No comment provided by engineer. */
+"2D Pos: X:%0.3f %@ Y:%0.3f %@" = "2D Pos: X:%1$.3f %2$@ Y:%3$.3f %4$@";
+
+/* No comment provided by engineer. */
+"2D Pos: X:%0.3f %@ Y:n/a %@" = "2D Pos: X:%1$.3f %2$@ Y:該当なし %3$@";
+
+/* No comment provided by engineer. */
+"2D Pos: X:%0.3f px Y:%0.3f px" = "2D Pos: X:%1$.3f px Y:%2$.3f px";
+
+/* No comment provided by engineer. */
+"2D Pos: X:n/a %@ Y:%0.3f %@" = "2D Pos: X:該当なし %1$@ Y:%2$.3f %3$@";
+
+/* No comment provided by engineer. */
+"2D Pos: X:n/a %@ Y:n/a %@" = "2D Pos: X:該当なし %1$@ Y:該当なし %2$@";
+
+/* No comment provided by engineer. */
+"2D Viewer" = "2Dビューア";
+
+/* No comment provided by engineer. */
+"2D/3D" = "2D/3D";
+
+/* No comment provided by engineer. */
+"2D/3D Reconstruction Tools" = "2D / 3D再構成ツール";
+
+/* No comment provided by engineer. */
+"2nd Opacity preset" = "第2不透明度プリセット";
+
+/* No comment provided by engineer. */
+"2nd WW/WL preset" = "2番目のWW/WLプリセット";
+
+/* Panel in preferences window */
+"3D" = "3D";
+
+/* No comment provided by engineer. */
+"3D Cut" = "3Dカット";
+
+/* No comment provided by engineer. */
+"3D Dataset volume is larger than the amount of graphic board VRAM: GPU Rendering could be slower than CPU Rendering." = "3DデータセットのボリュームがグラフィックボードのVRAMよりも大きい:GPUレンダリングはCPUレンダリングよりも遅くなる可能性があります。";
+
+/* No comment provided by engineer. */
+"3D Length: %0.1f %cm" = "3D長さ:%1$.1f %2$cm";
+
+/* No comment provided by engineer. */
+"3D Length: %0.3f cm" = "3D長さ:%0.3f cm";
+
+/* No comment provided by engineer. */
+"3D Length: %0.3f mm" = "3D長さ:%0.3f mm";
+
+/* No comment provided by engineer. */
+"3D Mouse button function" = "3Dマウスボタン機能";
+
+/* No comment provided by engineer. */
+"3D Panel" = "3Dパネル";
+
+/* No comment provided by engineer. */
+"3D Point Tool" = "3Dポイントツール";
+
+/* No comment provided by engineer. */
+"3D Pos" = "3D Pos";
+
+/* No comment provided by engineer. */
+"3D Pos: X:%0.3f mm Y:%0.3f mm Z:%0.3f mm" = "3D Pos: X:%1$.3f mm Y:%2$.3f mm Z:%3$.3f mm";
+
+/* No comment provided by engineer. */
+"3D Position" = "3D位置";
+
+/* No comment provided by engineer. */
+"3D Presets" = "3Dプリセット";
+
+/* No comment provided by engineer. */
+"3D Resampling requires volumic data." = "3D再サンプリングにはボリュームデータが必要です。";
+
+/* No comment provided by engineer. */
+"3D ROI Settings..." = "3D ROI設定...";
+
+/* No comment provided by engineer. */
+"3D Rotate Tool" = "3D回転ツール";
+
+/* No comment provided by engineer. */
+"3D Scene" = "3Dシーン";
+
+/* No comment provided by engineer. */
+"3D Scissor State" = "3Dはさみの状態";
+
+/* No comment provided by engineer. */
+"3D VR Image" = "3D VRイメージ";
+
+/* No comment provided by engineer. */
+"3D WL/WW & CLUT & Opacity" = "3D WL/WW＆CLUT＆不透明度";
+
+/* No comment provided by engineer. */
+"3DCut" = "3DCut";
+
+/* No comment provided by engineer. */
+"3DRotate" = "3DRotate";
+
+/* No comment provided by engineer. */
+"3DRotateCamera" = "3DRotateCamera";
+
+/* No comment provided by engineer. */
+"3rd Opacity preset" = "3番目の不透明度のプリセット";
+
+/* No comment provided by engineer. */
+"3rd WW/WL preset" = "3番目のWW/WLプリセット";
+
+/* No comment provided by engineer. */
+"4D (%d/%d)" = "4D (%1$d/%2$d)";
+
+/* 4D Player */
+"4D Player" = "4Dプレイヤー";
+
+/* No comment provided by engineer. */
+"4D Player is limited to a maximum number of %d series." = "4D Playerは%dシリーズの最大数に制限されています。";
+
+/* No comment provided by engineer. */
+"4D Series Controller" = "4Dシリーズコントローラ";
+
+/* No comment provided by engineer. */
+"4D Viewer" = "4Dビューア";
+
+/* No comment provided by engineer. */
+"4th Opacity preset" = "4番目の不透明度のプリセット";
+
+/* No comment provided by engineer. */
+"4th WW/WL preset" = "4番目のWW/WLプリセット";
+
+/* No comment provided by engineer. */
+"5th Opacity preset" = "5番目の不透明度のプリセット";
+
+/* No comment provided by engineer. */
+"5th WW/WL preset" = "5番目のWW/WLプリセット";
+
+/* No comment provided by engineer. */
+"6th Opacity preset" = "6番目の不透明度のプリセット";
+
+/* No comment provided by engineer. */
+"6th WW/WL preset" = "6番目のWW/WLプリセット";
+
+/* No comment provided by engineer. */
+"7th Opacity preset" = "7番目の不透明度プリセット";
+
+/* No comment provided by engineer. */
+"7th WW/WL preset" = "7番目のWW/WLプリセット";
+
+/* No comment provided by engineer. */
+"8-bit CLUT Editor" = "8ビットCLUTエディタ";
+
+/* No comment provided by engineer. */
+"8-bit CLUTs" = "8-bit CLUTs";
+
+/* No comment provided by engineer. */
+"8th Opacity preset" = "8番目の不透明度のプリセット";
+
+/* No comment provided by engineer. */
+"8th WW/WL preset" = "8番目のWW/WLプリセット";
+
+/* No comment provided by engineer. */
+"9th Opacity preset" = "9番目の不透明度のプリセット";
+
+/* No comment provided by engineer. */
+"9th WW/WL preset" = "9番目のWW/WLプリセット";
+
+/* No comment provided by engineer. */
+"16-bit CLUT" = "16ビットCLUT";
+
+/* No comment provided by engineer. */
+"16-bit CLUT Editor" = "16ビットCLUTエディタ";
+
+/* No comment provided by engineer. */
+"16-bit CLUTs" = "16ビットCLUT";
+
+/* No comment provided by engineer. */
+"32-bit" = "32-bit";
+
+/* No comment provided by engineer. */
+"64-bit" = "64-bit";
+
+/* A: Anterior */
+"A" = "A";
+
+/* No comment provided by engineer. */
+"A 3D Scissor State already exists. Do you want to replace it with curent state?" = "3Dはさみ状態は既に存在します。現在の状態に置き換えますか？";
+
+/* No comment provided by engineer. */
+"A burn session is already opened. Close it to burn a new study." = "書き込みセッションは既に開かれています。それを閉じて新しいスタディを燃やす。";
+
+/* No comment provided by engineer. */
+"A disc named %@, containing %d DICOM files, was mounted. What do you want to do with these files?" = "%2$d個のDICOMファイルを含む%1$@という名前のディスクがマウントされました。これらのファイルで何をしたいですか？";
+
+/* No comment provided by engineer. */
+"A folder already exists. Should I replace it? It will delete the entire content of this folder (%@)" = "フォルダが既に存在します。私はそれを交換する必要がありますか？このフォルダの内容全体(%@)が削除されます";
+
+/* No comment provided by engineer. */
+"A folder already exists. Should I replace it? It will delete the entire content of this folder (%@), or merge the existing content with the new files?" = "フォルダが既に存在します。私はそれを交換する必要がありますか？このフォルダ(%@)の内容全体を削除するか、既存のコンテンツを新しいファイルとマージしますか？";
+
+/* No comment provided by engineer. */
+"A new radiology exam is available for you" = "新しい放射線検査が利用可能です";
+
+/* No comment provided by engineer. */
+"A new version of the application is available. Would you like to download it now?" = "Miele-LXIVの新しいバージョンが利用可能です。今すぐダウンロードしますか？";
+
+/* No comment provided by engineer. */
+"A new version of the plugin \"%@\" is available." = "プラグイン”%@“の新しいバージョンが利用可能です。";
+
+/* No comment provided by engineer. */
+"A Preset with the same name already exists. Should I replace it with the current one?" = "同じ名前のプリセットがすでに存在します。私はそれを現在のものと取り替えるべきですか？";
+
+/* No comment provided by engineer. */
+"A user with email %@ already exists." = "電子メール%@のユーザーが既に存在します。";
+
+/* No comment provided by engineer. */
+"A user with that name already exists. Two users cannot have the same name." = "その名前のユーザーが既に存在します。 2人のユーザーが同じ名前を持つことはできません。";
+
+/* No comment provided by engineer. */
+"A-B : %2.2f cm" = "A-B : %2.2f cm";
+
+/* No comment provided by engineer. */
+"A-C : %2.2f cm" = "A-C : %2.2f cm";
+
+/* No comment provided by engineer. */
+"A: %@" = "A: %@";
+
+/* No comment provided by engineer. */
+"ABD" = "ABD";
+
+/* No comment provided by engineer. */
+"ABDOMEN" = "腹部";
+
+/* No comment provided by engineer. */
+"Abort Incoming DICOM processes..." = "着信DICOMプロセスを中止...";
+
+/* No comment provided by engineer. */
+"Absolute positioning for same study" = "同じスタディのための絶対配置";
+
+/* No comment provided by engineer. */
+"AC JOINT" = "ACジョイント";
+
+/* No comment provided by engineer. */
+"Access to address book is required to start an iChat session. See Privacy tab in System Preferences." = "iChatセッションを開始するには、アドレス帳へのアクセスが必要です。 「システム環境設定」の「プライバシー」タブを参照してください。";
+
+/* No comment provided by engineer. */
+"AccessionNumber" = "受入番号";
+
+/* Web portal, account, title format (%@ is user.name) */
+"Account information for: %@" = "アカウント情報:%@";
+
+/* No comment provided by engineer. */
+"Acquired today" = "今日買収";
+
+/* No comment provided by engineer. */
+"Acquired within the last 4 hours" = "過去4時間以内に取得された";
+
+/* No comment provided by engineer. */
+"Acquired within the last 10 minutes" = "過去10分以内に取得された";
+
+/* No comment provided by engineer. */
+"Acquired within the last hour" = "1時間以内に取得された";
+
+/* No comment provided by engineer. */
+"ACROMIAL" = "ACROMIAL";
+
+/* No comment provided by engineer. */
+"Activate" = "有効化";
+
+/* No comment provided by engineer. */
+"Activate & Restart" = "アクティブ化＆再起動";
+
+/* No comment provided by engineer. */
+"Activate DICOM editing to change the values." = "DICOM編集を有効にして値を変更します。";
+
+/* No comment provided by engineer. */
+"Actual size" = "実際のサイズ";
+
+/* No comment provided by engineer. */
+"Actual Size Error" = "実際のサイズエラー";
+
+/* No comment provided by engineer. */
+"Add" = "追加";
+
+/* No comment provided by engineer. */
+"Add a CLUT" = "CLUTを追加する";
+
+/* No comment provided by engineer. */
+"Add a comment" = "コメントを追加";
+
+/* No comment provided by engineer. */
+"Add a Filter" = "フィルターを追加";
+
+/* No comment provided by engineer. */
+"Add Album" = "アルバムを追加";
+
+/* No comment provided by engineer. */
+"Add an Opacity Table" = "不透明度表を追加する";
+
+/* No comment provided by engineer. */
+"Add at least 2 frames for a Fly Thru." = "フライスルーのために少なくとも2つのフレームを追加してください。";
+
+/* No comment provided by engineer. */
+"Add current settings as a new Preset" = "現在の設定を新しいプリセットとして追加する";
+
+/* No comment provided by engineer. */
+"Add Current WL/WW" = "現在のWL/WWを追加する";
+
+/* No comment provided by engineer. */
+"Add DICOM Field" = "DICOMフィールドを追加する";
+
+/* No comment provided by engineer. */
+"Add Key Images" = "キー画像を追加";
+
+/* No comment provided by engineer. */
+"Add Key Images Button" = "キー画像を追加ボタン";
+
+/* No comment provided by engineer. */
+"Add Preset" = "プリセットを追加";
+
+/* No comment provided by engineer. */
+"Add selected study(s) to user(s)" = "選択したスタディをユーザーに追加する";
+
+/* No comment provided by engineer. */
+"Add Smart Album" = "スマートアルバムを追加";
+
+/* No comment provided by engineer. */
+"Add Studies" = "スタディを追加する";
+
+/* No comment provided by engineer. */
+"Added within the last 60 seconds" = "過去60秒以内に追加されました";
+
+/* No comment provided by engineer. */
+"Adding %@" = "%@を追加する";
+
+/* rebuild database thread status: Adding %@ (%@ = '120 files') */
+"Adding %@..." = "%@を追加...";
+
+/* No comment provided by engineer. */
+"Adding files..." = "ファイルを追加しています...";
+
+/* No comment provided by engineer. */
+"Adding HTML pages..." = "HTMLページの追加...";
+
+/* No comment provided by engineer. */
+"Adding incoming files..." = "受信ファイルの追加...";
+
+/* No comment provided by engineer. */
+"Adding OsiriX Lite..." = "Miele-LXIV Liteの追加...";
+
+/* No comment provided by engineer. */
+"Adding Reports..." = "レポートの追加...";
+
+/* No comment provided by engineer. */
+"Adding Supplementary folder..." = "補足フォルダの追加...";
+
+/* No comment provided by engineer. */
+"Adding Weasis..." = "Weasisを追加...";
+
+/* No comment provided by engineer. */
+"Address Book" = "住所録";
+
+/* Web Portal, admin, index, title */
+"Administration" = "行政";
+
+/* No comment provided by engineer. */
+"ADRENAL" = "妊娠";
+
+/* No comment provided by engineer. */
+"Album selected: %@" = "選択したアルバム:%@";
+
+/* Web portal, study list, title format (%@ is album name) */
+"Album: %@" = "アルバム:%@";
+
+/* No comment provided by engineer. */
+"Albums & Sources" = "アルバムとソース";
+
+/* No comment provided by engineer. */
+"All" = "すべて";
+
+/* No comment provided by engineer. */
+"All Images" = "すべての画像";
+
+/* No comment provided by engineer. */
+"All routing rules" = "すべてのルーティングルール";
+
+/* No comment provided by engineer. */
+"All series" = "全シリーズ";
+
+/* No comment provided by engineer. */
+"All users" = "すべてのユーザー";
+
+/* No comment provided by engineer. */
+"All your plugins are now up to date. Restart OsiriX to use the new or updated plugins." = "すべてのプラグインが最新の状態になりました。新しいプラグインまたは更新されたプラグインを使用するには、Miele-LXIVを再起動します。";
+
+/* No comment provided by engineer. */
+"alpha : %1.3f" = "アルファ:%1.3f";
+
+/* No comment provided by engineer. */
+"Ambient: %2.1f\nDiffuse: %2.1f\nSpecular :%2.1f-%2.1f" = "周囲:%1$.1f\n拡散:%2$.1f\n鏡面反射:%3$.1f-%4$.1f";
+
+/* No comment provided by engineer. */
+"Ambient: %2.2f\nDiffuse: %2.2f\nSpecular :%2.2f, %2.2f" = "周囲:%1$.2f\n拡散:%2$.2f\n鏡面反射:%3$.2f、%4$.2f";
+
+/* No comment provided by engineer. */
+"An Auto QR Instance with the same name already exists." = "同じ名前の自動QRインスタンスが既に存在します。";
+
+/* No comment provided by engineer. */
+"Angle" = "角度";
+
+/* keep the space at the end of the string */
+"Angle " = "角度";
+
+/* No comment provided by engineer. */
+"Angle 2: %0.2f%@" = "角度2:%1$.2f%2$@";
+
+/* No comment provided by engineer. */
+"Angle: %0.2f%@" = "角度:%1$.2f%2$@";
+
+/* No comment provided by engineer. */
+"Angle: %0.2f%@ / %0.2f%@" = "角度:%1$.2f%2$@ / %3$.2f%4$@";
+
+/* No comment provided by engineer. */
+"Angle: %0.2f%@ with: %@" = "%3 $ @との角度:%1$.2f%2$@";
+
+/* No comment provided by engineer. */
+"ANKLE" = "足首";
+
+/* No comment provided by engineer. */
+"Annotation Content" = "注釈の内容";
+
+/* Panel in preferences window */
+"Annotations" = "注釈";
+
+/* No comment provided by engineer. */
+"Annotations Error" = "注釈エラー";
+
+/* No comment provided by engineer. */
+"Anonymize" = "匿名化する";
+
+/* No comment provided by engineer. */
+"Anonymize Error" = "匿名化エラー";
+
+/* No comment provided by engineer. */
+"Anonymize selected study/series to a DICOM folder" = "選択したスタディ/シリーズをDICOMフォルダに匿名化する";
+
+/* No comment provided by engineer. */
+"Anonymized" = "匿名化された";
+
+/* No comment provided by engineer. */
+"Anonymized - %@" = "匿名化された - %@";
+
+/* No comment provided by engineer. */
+"Another WL/WW setting with this name already exists. Are you sure you want to replace it with this one?" = "この名前の別のWL/WW設定は既に存在します。あなたは本当にこれと交換してもよろしいですか？";
+
+/* No comment provided by engineer. */
+"Any Annotation left outside the place holders will be lost." = "プレースホルダーの外に残った注釈は失われます。";
+
+/* No comment provided by engineer. */
+"APPENDIX" = "付録";
+
+/* No comment provided by engineer. */
+"Apply a convolution filter" = "畳み込みフィルタを適用する";
+
+/* No comment provided by engineer. */
+"Apply a filter" = "フィルタを適用する";
+
+/* No comment provided by engineer. */
+"Apply this Routing Rule to Selection" = "選択にこのルーティングルールを適用する";
+
+/* No comment provided by engineer. */
+"Applying 3D Preset..." = "3Dプリセットの適用...";
+
+/* No comment provided by engineer. */
+"Applying Bone Removal..." = "骨除去を適用する...";
+
+/* No comment provided by engineer. */
+"Applying Scissor..." = "はさみをかける...";
+
+/* Month */
+"April" = "4月";
+
+/* No comment provided by engineer. */
+"archived" = "アーカイブされた(7)";
+
+/* No comment provided by engineer. */
+"Are you really sure you want to print %d pages?" = "%dページを印刷してもよろしいですか？";
+
+/* No comment provided by engineer. */
+"Are you really sure you want to replace current settings with the default settings? It will delete the current settings." = "現在の設定をデフォルト設定に置き換えることは本当に確実ですか？現在の設定が削除されます。";
+
+/* No comment provided by engineer. */
+"Are you really sure you want to replace current settings? It will delete the current settings." = "あなたは本当に現在の設定を置き換えたいですか？現在の設定が削除されます。";
+
+/* No comment provided by engineer. */
+"Are you really sure you want to reset the current default settings? It will delete the current settings." = "あなたは本当に現在のデフォルト設定をリセットしたいですか？現在の設定が削除されます。";
+
+/* No comment provided by engineer. */
+"Are you sure you want to close the window? The modifications to DICOM fields have not been applied. The DICOM files will NOT be modified." = "ウィンドウを閉じてもよろしいですか？ DICOMフィールドの変更は適用されていません。 DICOMファイルは変更されません。";
+
+/* No comment provided by engineer. */
+"Are you sure you want to delete preset : '%@'?" = "プリセット: ‘%@‘を削除してもよろしいですか？";
+
+/* No comment provided by engineer. */
+"Are you sure you want to delete selected field(s)?" = "選択したフィールドを削除してもよろしいですか？";
+
+/* No comment provided by engineer. */
+"Are you sure you want to delete the album named %@?" = "%@というアルバムを削除してもよろしいですか？";
+
+/* No comment provided by engineer. */
+"Are you sure you want to delete the current Auto QR Instance (%@)?" = "現在の自動QRインスタンス(%@)を削除してもよろしいですか？";
+
+/* No comment provided by engineer. */
+"Are you sure you want to delete the entire curve?" = "カーブ全体を削除してもよろしいですか？";
+
+/* No comment provided by engineer. */
+"Are you sure you want to delete the selected images? (%@)" = "選択した画像を削除してもよろしいですか？ (%@)";
+
+/* No comment provided by engineer. */
+"Are you sure you want to delete the selected item?" = "選択したアイテムを削除してもよろしいですか？";
+
+/* No comment provided by engineer. */
+"Are you sure you want to delete the selected plugin?" = "選択したプラグインを削除してもよろしいですか？";
+
+/* No comment provided by engineer. */
+"Are you sure you want to delete the selected Preset (%@)?" = "選択したプリセット(%@)を削除してもよろしいですか？";
+
+/* No comment provided by engineer. */
+"Are you sure you want to delete the selected protocol?" = "選択したプロトコルを削除してもよろしいですか？";
+
+/* No comment provided by engineer. */
+"Are you sure you want to delete the selected report?" = "選択したレポートを削除してもよろしいですか？";
+
+/* No comment provided by engineer. */
+"Are you sure you want to delete the selected route?" = "選択したルートを削除してもよろしいですか？";
+
+/* No comment provided by engineer. */
+"Are you sure you want to delete this 3D state? You cannot undo this operation." = "この3D状態を削除してもよろしいですか？この操作は元に戻すことはできません。";
+
+/* No comment provided by engineer. */
+"Are you sure you want to delete this CLUT : '%@'" = "‘%@‘ CLUTを削除してもよろしいですか？";
+
+/* No comment provided by engineer. */
+"Are you sure you want to delete this convolution filter : '%@'" = "‘%@‘畳み込みフィルタを削除してもよろしいですか？";
+
+/* No comment provided by engineer. */
+"Are you sure you want to delete this Opacity Table : '%@'" = "‘%@‘不透明度表を削除してもよろしいですか？";
+
+/* No comment provided by engineer. */
+"Are you sure you want to delete this Opacity Table : '%@'?" = "‘%@‘不透明度表を削除してもよろしいですか？";
+
+/* No comment provided by engineer. */
+"Are you sure you want to install" = "インストールしてもよろしいですか？";
+
+/* No comment provided by engineer. */
+"Are you sure you want to open %d windows? It's a lot of windows for this screen..." = "%d個のウィンドウを開きますか？この画面ではたくさんのウィンドウがあります...";
+
+/* No comment provided by engineer. */
+"Are you sure you want to re-sort the series images according to this field?" = "このフィールドに基づいてシリーズ画像を並べ替えてもよろしいですか？";
+
+/* No comment provided by engineer. */
+"Are you sure you want to rebuild this database's SQL index? This operation can take several minutes." = "このデータベースのSQLインデックスを再構築してもよろしいですか？この操作には数分かかることがあります。";
+
+/* No comment provided by engineer. */
+"Are you sure you want to regenerate the comments field? It will delete the existing comments of studies and series." = "コメントフィールドを再生成してもよろしいですか？それはスタディとシリーズの既存のコメントを削除します。";
+
+/* No comment provided by engineer. */
+"Are you sure you want to replace  current preferences with the preferences stored at this URL? You cannot undo this operation." = "現在の設定をこのURLに保存されている設定に置き換えてもよろしいですか？この操作は元に戻すことはできません。";
+
+/* No comment provided by engineer. */
+"Are you sure you want to replace  current preferences with the preferences stored in this file? You cannot undo this operation." = "現在の設定をこのファイルに保存されている設定に置き換えてもよろしいですか？この操作は元に戻すことはできません。";
+
+/* No comment provided by engineer. */
+"Are you sure you want to reset ALL preferences of OsiriX? All the preferences will be reset to their default values." = "Miele-LXIVのすべての設定をリセットしてもよろしいですか？すべての設定がデフォルト値にリセットされます。";
+
+/* No comment provided by engineer. */
+"Are you sure you want to reset the entire CLUT list to the default list?" = "CLUTリスト全体をデフォルトのリストにリセットしてもよろしいですか？";
+
+/* No comment provided by engineer. */
+"Are you sure you want to stop editing the fields? The modifications have not been applied. The DICOM files will NOT be modified." = "フィールドの編集を中止してもよろしいですか？変更は適用されていません。 DICOMファイルは変更されません。";
+
+/* No comment provided by engineer. */
+"Area: %0.1f %cm²" = "面積:%1$.1f %2$cm²";
+
+/* W = Width, H = Height */
+"Area: %0.1f %cm² (W: %0.1f %cm H: %0.1f %cm)" = "面積:%1$.1f %2$cm²(W:%3$.1f %4$ cm H:%5$.1f %6$cm)";
+
+/* No comment provided by engineer. */
+"Area: %0.3f %@²" = "面積:%1$.3f %2$@²";
+
+/* No comment provided by engineer. */
+"Area: %0.3f cm²" = "面積:%0.3f cm²";
+
+/* W = Width, H = Height */
+"Area: %0.3f cm² (W: %0.3f cm H: %0.3f cm)" = "面積:%1$.3f cm²(W:%2$.3f cm H:%3$.3f cm)";
+
+/* No comment provided by engineer. */
+"Area: %0.3f mm²" = "面積:%0.3f mm²";
+
+/* W = Width, H = Height */
+"Area: %0.3f mm² (W: %0.3f mm H: %0.3f mm)" = "面積:%1$.3f mm²(W:%2$.3f mm H:%3$.3f mm)";
+
+/* No comment provided by engineer. */
+"Area: %0.3f pix2" = "面積:%0.3f pix²";
+
+/* W = Width, H = Height */
+"Area: %0.3f pix2 (W: %0.3f pix H: %0.3f pix)" = "面積:%1$.3f pix²(W:%2$.3f pix H:%3$.3f pix)";
+
+/* No comment provided by engineer. */
+"Area: %0.3f pix²" = "面積:%0.3f pix²";
+
+/* W = Width, H = Height */
+"Area: %0.3f pix² (W: %0.3f pix H: %0.3f pix)" = "面積:%1$.3f pix²(W:%2$.3f pix H:%3$.3f pix)";
+
+/* No comment provided by engineer. */
+"Arranging Points" = "アレンジポイント";
+
+/* keep the space at the end of the string */
+"Arrow " = "矢印";
+
+/* No comment provided by engineer. */
+"Arrow Tool" = "矢印ツール";
+
+/* No comment provided by engineer. */
+"At least one parameter has to be selected to generate a valid Patient UID. Patient ID will be used." = "有効なPatient UIDを生成するには、少なくとも1つのパラメータを選択する必要があります。患者IDが使用されます。";
+
+/* Month */
+"August" = "8月";
+
+/* No comment provided by engineer. */
+"Auto-Query" = "自動照会";
+
+/* No comment provided by engineer. */
+"Auto-Querying images (%@)..." = "画像の自動照会(%@)...";
+
+/* No comment provided by engineer. */
+"Auto-Querying images..." = "画像の自動照会...";
+
+/* No comment provided by engineer. */
+"Auto-Retrieving Album..." = "アルバムの自動取得...";
+
+/* No comment provided by engineer. */
+"Auto-Retrieving..." = "自動取得中...";
+
+/* No comment provided by engineer. */
+"Automatically finds a path between two points" = "自動的に2つのポイント間のパスを見つける";
+
+/* No comment provided by engineer. */
+"Autorouting Error" = "自動ルーティングエラー";
+
+/* No comment provided by engineer. */
+"Axial" = "アキシャル";
+
+/* No comment provided by engineer. */
+"Axis" = "軸";
+
+/* No comment provided by engineer. */
+"Axis Colors" = "軸の色";
+
+/* No comment provided by engineer. */
+"B-C : %2.2f cm" = "B-C : %2.2f cm";
+
+/* No comment provided by engineer. */
+"B-C: %@" = "B-C: %@";
+
+/* No comment provided by engineer. */
+"B: %@" = "B: %@";
+
+/* No comment provided by engineer. */
+"B/W Inverse" = "B/W反転";
+
+/* No comment provided by engineer. */
+"Background" = "背景";
+
+/* No comment provided by engineer. */
+"Background Color" = "背景色";
+
+/* No comment provided by engineer. */
+"Background Threads" = "背景スレッド";
+
+/* No comment provided by engineer. */
+"Background threads are currently running. Are you sure you want to quit now? These threads will be cancelled." = "バックグラウンドスレッドは現在実行中です。あなたは今終了してもよろしいですか？これらのスレッドはキャンセルされます。";
+
+/* No comment provided by engineer. */
+"Background: red:%.0f%%, green:%.0f%%, blue:%.0f%%" = "背景:赤:%1$.0f%%、緑:%2$.0f%%、青:%3$.0f%%";
+
+/* Section in preferences window */
+"Basics" = "基本";
+
+/* No comment provided by engineer. */
+"begins with" = "begins with";
+
+/* No comment provided by engineer. */
+"Best" = "最高";
+
+/* No comment provided by engineer. */
+"Best Rendering" = "最高のレンダリング";
+
+/* No comment provided by engineer. */
+"BICEPS" = "BICEPS";
+
+/* No comment provided by engineer. */
+"BLADDER" = "膀胱";
+
+/* keep the space at the end of the string */
+"Bone Axis " = "骨軸 ";
+
+/* No comment provided by engineer. */
+"Bone Removal Tool" = "骨除去ツール";
+
+/* No comment provided by engineer. */
+"Bone Removing" = "骨の除去";
+
+/* No comment provided by engineer. */
+"BRACHIAL" = "ブラッチャリ";
+
+/* No comment provided by engineer. */
+"BRAIN" = "脳";
+
+/* No comment provided by engineer. */
+"Bring Viewers windows to the front" = "ビューアウィンドウを前面に表示";
+
+/* No comment provided by engineer. */
+"Browse" = "参照";
+
+/* No comment provided by engineer. */
+"Browse this series" = "このシリーズを参照";
+
+/* No comment provided by engineer. */
+"Brush ROI Error" = "ブラシROIエラー";
+
+/* No comment provided by engineer. */
+"Brush Tool" = "ブラシツール";
+
+/* No comment provided by engineer. */
+"Burn" = "書き込み";
+
+/* Burn a DICOM-compatible CD or DVD */
+"Burn a DICOM-compatible CD or DVD" = "DICOM互換のCDまたはDVDを作成する";
+
+/* No comment provided by engineer. */
+"Burn Warning" = "書き込み・ワーニング";
+
+/* No comment provided by engineer. */
+"Burning failed" = "書き込みに失敗しました";
+
+/* No comment provided by engineer. */
+"Burning is finished !" = "書き込み終了!";
+
+/* No comment provided by engineer. */
+"Burning..." = "書き込み中…";
+
+/* No comment provided by engineer. */
+"BW" = "BW";
+
+/* No comment provided by engineer. */
+"C SPINE" = "C SPINE";
+
+/* No comment provided by engineer. */
+"C: %@" = "C: %@";
+
+/* No comment provided by engineer. */
+"CALCANEUS" = "カルカヌー";
+
+/* No comment provided by engineer. */
+"Calcium Mass: %0.1f" = "カルシウム質量:%0.1f";
+
+/* No comment provided by engineer. */
+"Calcium Score: %0.1f" = "カルシウムスコア:%0.1f";
+
+/* No comment provided by engineer. */
+"Calcium Volume: %0.1f" = "カルシウムの容量:%0.1f";
+
+/* No comment provided by engineer. */
+"Camera Tool" = "カメラツール";
+
+/* No comment provided by engineer. */
+"Can't find path" = "パスが見つかりません";
+
+/* No comment provided by engineer. */
+"Can't write to temporary directory." = "一時ディレクトリに書き込めません。";
+
+/* Cancel */
+"Cancel" = "キャンセル";
+
+/* No comment provided by engineer. */
+"Cancel modifications" = "変更をキャンセルする";
+
+/* No comment provided by engineer. */
+"Cancel Modifications" = "変更をキャンセルする";
+
+/* No comment provided by engineer. */
+"Cancelling..." = "キャンセル中...";
+
+/* No comment provided by engineer. */
+"Cannot complete the operation." = "操作を完了できません。";
+
+/* No comment provided by engineer. */
+"Cannot complete the resampling." = "リサンプリングを完了できません";
+
+/* No comment provided by engineer. */
+"Cannot compress images in a distant database." = "離れたデータベースの画像を圧縮することはできません。";
+
+/* No comment provided by engineer. */
+"Cannot compute SUV on these data." = "これらのデータでSUVを計算することはできません。";
+
+/* No comment provided by engineer. */
+"Cannot compute the high resolution data." = "高解像度データを計算できません。";
+
+/* No comment provided by engineer. */
+"Cannot create a histogram from this ROI." = "このROIからヒストグラムを作成することはできません。";
+
+/* No comment provided by engineer. */
+"Cannot decompress images in a distant database." = "離れたデータベースのイメージを解凍することはできません。";
+
+/* No comment provided by engineer. */
+"Cannot download data from this URL." = "このURLからデータをダウンロードできません。";
+
+/* No comment provided by engineer. */
+"Cannot execute this reslicing.\r\r%@" = "この再スライスを実行できません。\r\r%@";
+
+/* No comment provided by engineer. */
+"Cannot load !" = "ロードすることはできません !";
+
+/* No comment provided by engineer. */
+"Cannot load this series" = "このシリーズを読み込めません";
+
+/* No comment provided by engineer. */
+"Cannot locate Database path." = "データベースパスを見つけることができません。";
+
+/* No comment provided by engineer. */
+"Cannot start DICOM Listener. Another thread is already running. Restart OsiriX." = "DICOMリスナを起動できません。別のスレッドがすでに実行中です。 Miele-LXIVを再起動します。";
+
+/* No comment provided by engineer. */
+"Cannot start DICOM TLS Listener. Another thread is already running. Restart OsiriX." = "DICOM TLS リスナーを開始できません。別のスレッドがすでに実行中です。 Miele-LXIVを再起動します。";
+
+/* No comment provided by engineer. */
+"Cannot start Web Server. TCP/IP port is probably already used by another process." = "Web Serverを起動できません。 TCP / IPポートはおそらくすでに別のプロセスで使用されています。";
+
+/* No comment provided by engineer. */
+"Cannot use the 3D engine." = "3Dエンジンは使用できません。";
+
+/* No comment provided by engineer. */
+"CARDIAC" = "カルディック";
+
+/* No comment provided by engineer. */
+"CAROTID" = "頚動脈";
+
+/* No comment provided by engineer. */
+"CARPAL" = "カーパル";
+
+/* No comment provided by engineer. */
+"Cases with comments" = "コメント付きのケース";
+
+/* No comment provided by engineer. */
+"CD-Rom" = "CD-Rom";
+
+/* Panel in preferences window */
+"CD/DVD" = "CD/DVD";
+
+/* No comment provided by engineer. */
+"Centerline" = "センターライン";
+
+/* No comment provided by engineer. */
+"CERVICAL" = "CERVICAL";
+
+/* Change */
+"Change" = "変更";
+
+/* No comment provided by engineer. */
+"change Fusion Surface Settings" = "フュージョンサーフェイスの設定を変更する";
+
+/* No comment provided by engineer. */
+"Change Level of Detail" = "詳細レベルを変更する";
+
+/* No comment provided by engineer. */
+"change Surface Settings" = "サーフェス設定を変更する";
+
+/* No comment provided by engineer. */
+"Change the frame rate" = "フレームレートの変更";
+
+/* No comment provided by engineer. */
+"Change the mouse button function" = "マウスボタンの機能を変更する";
+
+/* No comment provided by engineer. */
+"Change the mouse function" = "マウス機能を変更する";
+
+/* No comment provided by engineer. */
+"Change the WL/WW & CLUT & Opacity" = "WL/WW＆CLUT＆不透明度を変更する";
+
+/* No comment provided by engineer. */
+"Change the WL/WW & CLUT & Opacity in the 3D view" = "3DビューでWL/WW＆CLUT＆Opacityを変更する";
+
+/* No comment provided by engineer. */
+"Change the WL/WW & CLUT & Opacity in the MPR views" = "MPRビューのWL/WW＆CLUT＆Opacityを変更する";
+
+/* No comment provided by engineer. */
+"Change Thick Slab mode and number" = "厚いスラブモードと番号を変更する";
+
+/* No comment provided by engineer. */
+"Change View from Horizontal to Vertical" = "ビューを水平から垂直に変更する";
+
+/* No comment provided by engineer. */
+"Change View from Vertical to Horizontal" = "ビューを縦から横に変更";
+
+/* No comment provided by engineer. */
+"Changes for user <b>%@</b> successfully saved." = "ユーザー<b>%@</b>の変更が保存されました。";
+
+/* No comment provided by engineer. */
+"Character String" = "文字列";
+
+/* No comment provided by engineer. */
+"Check Plugins..." = "プラグインのチェック...";
+
+/* No comment provided by engineer. */
+"Checking for empty studies..." = "空のスタディをチェック中...";
+
+/* No comment provided by engineer. */
+"Checking for missing files..." = "不足しているファイルを確認しています...";
+
+/* No comment provided by engineer. */
+"Checking reports consistency..." = "レポートの一貫性の確認...";
+
+/* No comment provided by engineer. */
+"CHEST" = "胸";
+
+/* Choose */
+"Choose" = "選択";
+
+/* Choose a certificate from the following list. */
+"Choose a certificate from the following list." = "次のリストから証明書を選択します。";
+
+/* No comment provided by engineer. */
+"Choose file containing raw data:" = "生データを含むファイルを選択する:";
+
+/* No comment provided by engineer. */
+"CLAVICLE" = "CLAVICLE";
+
+/* No comment provided by engineer. */
+"Cleaning database folders..." = "データベースフォルダのクリーニング中...";
+
+/* No comment provided by engineer. */
+"Cleaning database..." = "データベースのクリーニング中...";
+
+/* No comment provided by engineer. */
+"Cleaning..." = "クリーニングしています…";
+
+/* No comment provided by engineer. */
+"Clear" = "クリア";
+
+/* No comment provided by engineer. */
+"Click here to hide them" = "それらを非表示にするにはここをクリック";
+
+/* No comment provided by engineer. */
+"Click here to show them" = "それらを表示するにはここをクリック";
+
+/* No comment provided by engineer. */
+"Click on every screen's thumbnail to enable or disable its usage" = "すべての画面のサムネイルをクリックすると、その使用を有効または無効にできます";
+
+/* No comment provided by engineer. */
+"Clip" = "クリップ";
+
+/* No comment provided by engineer. */
+"Clipboard - %@" = "クリップボード - %@";
+
+/* No comment provided by engineer. */
+"Clipping" = "クリッピング";
+
+/* No comment provided by engineer. */
+"Close" = "閉じる";
+
+/* No comment provided by engineer. */
+"Close viewers and open Database window" = "ビューアを閉じてデータベースウィンドウを開く";
+
+/* No comment provided by engineer. */
+"Close Window" = "ウィンドウを閉じる";
+
+/* No comment provided by engineer. */
+"Closed Polygon Tool" = "閉じたポリゴンツール";
+
+/* No comment provided by engineer. */
+"CLUT Editor" = "CLUTエディタ";
+
+/* No comment provided by engineer. */
+"CLUT: %@ (8-bit)" = "CLUT: %@ (8-bit)";
+
+/* No comment provided by engineer. */
+"CLUT: %@ (16-bit)" = "CLUT: %@ (16-bit)";
+
+/* No comment provided by engineer. */
+"cm" = "cm";
+
+/* No comment provided by engineer. */
+"cm/sec" = "cm/s";
+
+/* cm2 */
+"cm²" = "cm²";
+
+/* cm2/sec */
+"cm²/sec" = "cm²/s";
+
+/* cm3 */
+"cm³" = "cm³";
+
+/* cm3/sec */
+"cm³/sec" = "cm³/s";
+
+/* No comment provided by engineer. */
+"Cobb" = "コブ";
+
+/* No comment provided by engineer. */
+"Cobb's Angle" = "コブの角度";
+
+/* No comment provided by engineer. */
+"Code signing and Certificate" = "コード署名と証明書";
+
+/* No comment provided by engineer. */
+"Collapse All" = "すべて閉じる";
+
+/* No comment provided by engineer. */
+"Collapse All Items" = "すべての項目を折りたたむ";
+
+/* No comment provided by engineer. */
+"Color" = "色";
+
+/* No comment provided by engineer. */
+"Color Look Up Table" = "カラールックアップテーブル";
+
+/* No comment provided by engineer. */
+"Comments" = "コメント";
+
+/* No comment provided by engineer. */
+"Comments 2" = "コメント2";
+
+/* No comment provided by engineer. */
+"Comments 3" = "コメント3";
+
+/* No comment provided by engineer. */
+"Comments 4" = "コメント4";
+
+/* No comment provided by engineer. */
+"Comparatives" = "比較";
+
+/* No comment provided by engineer. */
+"Compress DICOM files" = "DICOMファイルを圧縮する";
+
+/* No comment provided by engineer. */
+"Compressing %@" = "%@を圧縮する";
+
+/* No comment provided by engineer. */
+"Compressing %d %@" = "%1$d %2$@ を圧縮する";
+
+/* No comment provided by engineer. */
+"Compressing the files..." = "ファイルを圧縮する...";
+
+/* No comment provided by engineer. */
+"Compute Albums..." = "アルバムを計算する...";
+
+/* No comment provided by engineer. */
+"Compute Centerline" = "中心線の計算";
+
+/* No comment provided by engineer. */
+"Computing High Resolution data..." = "高解像度データの計算...";
+
+/* No comment provided by engineer. */
+"Confidence" = "信頼";
+
+/* No comment provided by engineer. */
+"Connecting to %@..." = "%@に接続しています...";
+
+/* No comment provided by engineer. */
+"Connection failed to this DICOM node (c-echo failed)" = "このDICOMノードに接続できませんでした(c-echoに失敗しました)";
+
+/* No comment provided by engineer. */
+"contains" = "含む";
+
+/* No comment provided by engineer. */
+"Continue" = "続ける";
+
+/* No comment provided by engineer. */
+"Continue Editing" = "編集を続行する";
+
+/* No comment provided by engineer. */
+"Continue normally" = "正常に続行する";
+
+/* No comment provided by engineer. */
+"Contrast" = "コントラスト";
+
+/* No comment provided by engineer. */
+"Control Camera" = "制御カメラ";
+
+/* No comment provided by engineer. */
+"Control Model" = "コントロールモデル";
+
+/* No comment provided by engineer. */
+"Convert Report to DICOM PDF" = "レポートをDICOM PDFに変換する";
+
+/* No comment provided by engineer. */
+"Convert Report to PDF..." = "PDFへのレポートの変換...";
+
+/* No comment provided by engineer. */
+"Converting RTSTRUCT in ROIs..." = "ROIでのRTSTRUCTの変換...";
+
+/* No comment provided by engineer. */
+"Convolution" = "畳み込み";
+
+/* No comment provided by engineer. */
+"Convolution Filters" = "畳み込みフィルタ";
+
+/* No comment provided by engineer. */
+"Copy Files" = "ファイルのコピー";
+
+/* No comment provided by engineer. */
+"Copy Linked Files to Database Folder" = "リンクされたファイルをデータベースフォルダにコピーする";
+
+/* No comment provided by engineer. */
+"Copy Links" = "リンクのコピー";
+
+/* No comment provided by engineer. */
+"Copy ROIs between series..." = "シリーズ間のROIをコピー...";
+
+/* No comment provided by engineer. */
+"Copying %@ %@..." = "%1$@ %2$@のコピー中...";
+
+/* No comment provided by engineer. */
+"Copying and indexing files from CD/DVD..." = "CD/DVDからのファイルのコピーとインデックス作成...";
+
+/* No comment provided by engineer. */
+"Copying and indexing files..." = "ファイルのコピーとインデックス作成...";
+
+/* No comment provided by engineer. */
+"Copying images..." = "イメージのコピー中...";
+
+/* No comment provided by engineer. */
+"Copying into Database..." = "データベースへのコピー中...";
+
+/* No comment provided by engineer. */
+"Copying linked files into Database..." = "リンクされたファイルをデータベースにコピー...";
+
+/* No comment provided by engineer. */
+"Coronal" = "コロナル";
+
+/* No comment provided by engineer. */
+"Corrupted files" = "破損したファイル";
+
+/* No comment provided by engineer. */
+"Could not move OsiriX to Applications folder." = "Miele-LXIVをアプリケーションフォルダに移動できませんでした。";
+
+/* No comment provided by engineer. */
+"Couldn't create temporary user: %@" = "一時的なユーザーを作成できませんでした:%@";
+
+/* Web Portal, admin, user edition, delete error (%@ is user.name) */
+"Couldn't delete user <b>%@</b> because he doesn't exist." = "ユーザー<b>%@</b>が存在しないため、削除できませんでした。";
+
+/* No comment provided by engineer. */
+"Couldn't find user with name <b>%@</b>." = "名前<b>%@</b>のユーザーを見つけることができませんでした。";
+
+/* No comment provided by engineer. */
+"Couldn't print images." = "画像を印刷できませんでした。";
+
+/* Web Portal, admin, user edition, save error (%@ is user.name) */
+"Couldn't save changes for user <b>%@</b> because he doesn't exist." = "ユーザー<b>%@</b>が存在しないため、変更を保存できませんでした。";
+
+/* No comment provided by engineer. */
+"CPR" = "CPR";
+
+/* No comment provided by engineer. */
+"CPR Axis" = "CPR軸";
+
+/* No comment provided by engineer. */
+"CPR requires volumic data and BW images." = "CPRには、ボリュームデータとBWイメージが必要です。";
+
+/* No comment provided by engineer. */
+"CR" = "CR";
+
+/* No comment provided by engineer. */
+"Create" = "作成";
+
+/* No comment provided by engineer. */
+"Create a Database Folder" = "データベースフォルダを作成する";
+
+/* No comment provided by engineer. */
+"Create Auto QR Instance" = "自動QRインスタンスを作成する";
+
+/* No comment provided by engineer. */
+"Create Default Albums" = "デフォルトのアルバムを作成する";
+
+/* No comment provided by engineer. */
+"Create ROIs from RTSTRUCT" = "RTSTRUCTからROIを作成する";
+
+/* No comment provided by engineer. */
+"Create/Open a report for selected study" = "選択したスタディのレポートを作成/開く";
+
+/* No comment provided by engineer. */
+"Create/Open Report" = "レポートの作成/開く";
+
+/* No comment provided by engineer. */
+"Creating a DICOM series" = "DICOMシリーズの作成";
+
+/* No comment provided by engineer. */
+"Creating series" = "シリーズの作成";
+
+/* No comment provided by engineer. */
+"Crop" = "トリミング";
+
+/* No comment provided by engineer. */
+"Cropping Cube" = "キューブを切り取る";
+
+/* No comment provided by engineer. */
+"Cross" = "十字形";
+
+/* No comment provided by engineer. */
+"CT" = "CT";
+
+/* No comment provided by engineer. */
+"Current" = "現在";
+
+/* No comment provided by engineer. */
+"Current Image" = "現在の画像";
+
+/* No comment provided by engineer. */
+"Current user" = "現在のユーザー";
+
+/* No comment provided by engineer. */
+"Curved MPR Angle" = "湾曲したMPR角度";
+
+/* No comment provided by engineer. */
+"Curved MPR Image" = "湾曲したMPR画像";
+
+/* No comment provided by engineer. */
+"Curved Path" = "曲線パス";
+
+/* No comment provided by engineer. */
+"Custom" = "カスタム";
+
+/* No comment provided by engineer. */
+"Custom DICOM Field" = "カスタムDICOMフィールド";
+
+/* Title of menu item allowing the user to specify a custom anonymization dicom tag */
+"Custom..." = "改造...";
+
+/* No comment provided by engineer. */
+"Data Error" = "データエラー";
+
+/* No comment provided by engineer. */
+"Data loading..." = "データの読み込み中...";
+
+/* No comment provided by engineer. */
+"Data to burn: %d MB (Media size: %d MB), representing %2.2f %%." = "書き込むデータ:%1$d MB(メディアサイズ:%2$d MB)、%3$.2f %%を表します。";
+
+/* Panel in preferences window */
+"Database" = "データベース";
+
+/* No comment provided by engineer. */
+"Database & DICOM" = "データベース＆DICOM";
+
+/* No comment provided by engineer. */
+"Database Location Error" = "データベースの場所のエラー";
+
+/* No comment provided by engineer. */
+"Database only" = "データベースのみ";
+
+/* No comment provided by engineer. */
+"Database Update" = "データベースの更新";
+
+/* No comment provided by engineer. */
+"Database updating failed... The database SQL index file is probably corrupted... The database will be reconstructed." = "データベースの更新に失敗しました... データベースのSQLインデックスファイルが破損している可能性があります… データベースが再構築されます。";
+
+/* No comment provided by engineer. */
+"Database Upgrade" = "データベースのアップグレード";
+
+/* No comment provided by engineer. */
+"DatabaseAlbums.albums" = "DatabaseAlbums.albums";
+
+/* No comment provided by engineer. */
+"Date Added" = "追加日";
+
+/* No comment provided by engineer. */
+"Date Opened" = "オープン日";
+
+/* Day */
+"Day" = "日";
+
+/* decibel */
+"dB" = "dB";
+
+/* decibel per second */
+"dB/sec" = "dB/s";
+
+/* keep it short ! */
+"dbl-click" = "ダブルクリック";
+
+/* keep it short ! dbl-click + alt = double-click + alternate key */
+"dbl-click + alt" = "ダブルクリック+ alt";
+
+/* keep it short ! double-click + command key */
+"dbl-click + cmd" = "ダブルクリック+ cmd";
+
+/* No comment provided by engineer. */
+"DCM Framework is selected as the DICOM reader/parser. The performances of this toolkit are slower." = "DCMフレームワークがDICOMリーダー/パーサーとして選択されています。このツールキットのパフォーマンスは遅くなります。";
+
+/* Month */
+"December" = "12月";
+
+/* No comment provided by engineer. */
+"Decompress DICOM files" = "DICOMファイルを解凍する";
+
+/* No comment provided by engineer. */
+"Decompressing %@" = "%@を解凍する";
+
+/* No comment provided by engineer. */
+"Decompressing %d %@" = "解凍%1$d %2$@";
+
+/* No comment provided by engineer. */
+"Decompressing the files..." = "ファイルの解凍...";
+
+/* No comment provided by engineer. */
+"default" = "デフォルト";
+
+/* No comment provided by engineer. */
+"Default" = "デフォルト";
+
+/* No comment provided by engineer. */
+"Default Instance" = "デフォルトのインスタンス";
+
+/* No comment provided by engineer. */
+"Default Protocol" = "デフォルトプロトコル";
+
+/* No comment provided by engineer. */
+"Default protocol cannot be renamed" = "デフォルトのプロトコルの名前を変更することはできません";
+
+/* No comment provided by engineer. */
+"Default WL & WW" = "デフォルトのWL＆WW";
+
+/* No comment provided by engineer. */
+"Default WW/WL" = "デフォルトのWW/WL";
+
+/* No comment provided by engineer. */
+"Delete" = "削除";
+
+/* No comment provided by engineer. */
+"Delete a plugin" = "プラグインを削除する";
+
+/* No comment provided by engineer. */
+"Delete a WL/WW preset" = "WL/WWプリセットを削除する";
+
+/* No comment provided by engineer. */
+"Delete Album" = "アルバムを削除する";
+
+/* No comment provided by engineer. */
+"Delete All With Same Name" = "すべて同じ名前で削除する";
+
+/* No comment provided by engineer. */
+"Delete Auto QR Instance" = "自動QRインスタンスの削除";
+
+/* No comment provided by engineer. */
+"Delete images" = "画像マネージャーをアップロード、編集またはギャラリーから画像を削除することができますを開くイメージの管理ボタンをクリックします。設定を編集することができますここでもあらゆる特定のイメージの alt、リンク、説明テキストを定義します。";
+
+/* No comment provided by engineer. */
+"Delete Plugin" = "プラグインの削除";
+
+/* No comment provided by engineer. */
+"Delete Preset" = "プリセットを削除";
+
+/* No comment provided by engineer. */
+"Delete Protocol" = "プロトコルの削除";
+
+/* No comment provided by engineer. */
+"Delete report" = "レポートを削除";
+
+/* No comment provided by engineer. */
+"Delete Route" = "ルートを削除";
+
+/* No comment provided by engineer. */
+"Delete selected images from the database" = "選択したイメージをデータベースから削除する";
+
+/* No comment provided by engineer. */
+"Delete Selected Lines" = "選択した行を削除";
+
+/* No comment provided by engineer. */
+"Delete Selected Series Thumbnails" = "選択したシリーズのサムネイルを削除";
+
+/* No comment provided by engineer. */
+"Delete the Curve" = "曲線を削除する";
+
+/* No comment provided by engineer. */
+"Delete the files" = "ファイルを削除する";
+
+/* No comment provided by engineer. */
+"Delete the local images" = "ローカルイメージを削除する";
+
+/* No comment provided by engineer. */
+"Delete the SQL index" = "SQLインデックスを削除する";
+
+/* No comment provided by engineer. */
+"Delete ZIP file" = "ZIPファイルを削除する";
+
+/* No comment provided by engineer. */
+"Delete/Remove images" = "画像の削除";
+
+/* No comment provided by engineer. */
+"Deleting files..." = "ファイルを削除しています...";
+
+/* No comment provided by engineer. */
+"Deleting..." = "削除中･･･";
+
+/* No comment provided by engineer. */
+"DICOM" = "DICOM";
+
+/* No comment provided by engineer. */
+"DICOM Auto Query/Retrieve" = "DICOM自動照会・取得";
+
+/* No comment provided by engineer. */
+"DICOM Auto-Query is restarting..." = "DICOM自動照会が再起動しています...";
+
+/* No comment provided by engineer. */
+"DICOM Compression..." = "DICOM圧縮...";
+
+/* No comment provided by engineer. */
+"DICOM Conformance Statement" = "DICOM Conformance Statement";
+
+/* No comment provided by engineer. */
+"DICOM Decompression..." = "DICOM解凍...";
+
+/* No comment provided by engineer. */
+"DICOM Echo %@..." = "DICOMエコー%@ ...";
+
+/* No comment provided by engineer. */
+"DICOM Editing" = "DICOM編集";
+
+/* No comment provided by engineer. */
+"DICOM editing is allowed only on DICOM files." = "DICOM編集はDICOMファイルでのみ許可されます。";
+
+/* No comment provided by engineer. */
+"DICOM editing not possible for this file." = "このファイルはDICOM編集できません。";
+
+/* No comment provided by engineer. */
+"DICOM Export" = "DICOM輸出";
+
+/* No comment provided by engineer. */
+"DICOM Fields" = "DICOMフィールド";
+
+/* No comment provided by engineer. */
+"DICOM File" = "DICOMファイル";
+
+/* No comment provided by engineer. */
+"DICOM File CLUT" = "DICOMファイルCLUT";
+
+/* No comment provided by engineer. */
+"DICOM Files Export not supported" = "DICOMファイルエクスポートはサポートされていません";
+
+/* No comment provided by engineer. */
+"DICOM Listener" = "DICOMリスナー";
+
+/* No comment provided by engineer. */
+"DICOM Listener Error" = "DICOMリスナーエラー";
+
+/* No comment provided by engineer. */
+"DICOM Listener is multi-processes mode." = "DICOMリスナーはマルチプロセスモードです。";
+
+/* No comment provided by engineer. */
+"DICOM Listener is not activated" = "DICOMリスナーはアクティブ化されていません";
+
+/* No comment provided by engineer. */
+"DICOM Network Error" = "DICOMネットワークエラー";
+
+/* Panel in preferences window */
+"DICOM Print" = "DICOMプリント";
+
+/* No comment provided by engineer. */
+"DICOM Printing..." = "DICOM印刷中...";
+
+/* No comment provided by engineer. */
+"DICOM Query & Retrieve" = "DICOM照会・取得";
+
+/* No comment provided by engineer. */
+"DICOM Query/Retrieve" = "DICOM照会・取得";
+
+/* No comment provided by engineer. */
+"DICOM Send" = "DICOM送信";
+
+/* No comment provided by engineer. */
+"DICOM Send Error" = "DICOM送信エラー";
+
+/* Web Portal, study, dicom send, error */
+"Dicom send failed: cannot identify node." = "DICOM send failed:ノードを識別できません。";
+
+/* Web Portal, study, dicom send, error */
+"Dicom send failed: no images selected. Select one or more series." = "DICOM 送信に失敗: 画像が選択されていません。 1つまたは複数のシリーズを選択します。";
+
+/* Web Portal, study, dicom send, success */
+"Dicom send to node %@ initiated." = "DICOMがノード%@に送信開始。";
+
+/* No comment provided by engineer. */
+"DICOM Sending - STORE" = "DICOM送信 - STORE";
+
+/* No comment provided by engineer. */
+"DICOM Sending is not activated. Contact your PACS manager for more information about DICOM Send." = "DICOM送信はアクティブ化されません。 DICOM送信の詳細については、PACSマネージャにお問い合わせください。";
+
+/* No comment provided by engineer. */
+"DICOM StoreSCU operation failed." = "DICOM StoreSCU操作が失敗しました。";
+
+/* No comment provided by engineer. */
+"DICOM TLS Listener Error" = "DICOM TLSリスナーエラー";
+
+/* No comment provided by engineer. */
+"DICOM Validator" = "DICOM検証ツール";
+
+/* No comment provided by engineer. */
+"DICOM Validator requires a DICOM file." = "DICOM ValidatorにはDICOMファイルが必要です。";
+
+/* No comment provided by engineer. */
+"DICOMPrinters.plist" = "DICOMPrinters.plist";
+
+/* No comment provided by engineer. */
+"dictated" = "指示された(3)";
+
+/* Section in preferences window */
+"Display" = "表示";
+
+/* No comment provided by engineer. */
+"Display only this patient" = "この患者のみを表示する";
+
+/* No comment provided by engineer. */
+"Display SUVbw values" = "SUVbw値を表示する";
+
+/* No comment provided by engineer. */
+"Display type" = "ディスプレイタイプ";
+
+/* No comment provided by engineer. */
+"Displayed pixels are non-squared pixel. Images cannot be displayed at actual size." = "表示されるピクセルは非平方ピクセルです。画像を実際のサイズで表示することはできません。";
+
+/* No comment provided by engineer. */
+"Displayed SOP Class UIDs" = "表示されるSOPクラスUID";
+
+/* No comment provided by engineer. */
+"Distance Transform..." = "距離変換...";
+
+/* No comment provided by engineer. */
+"Distant Database" = "遠隔データベース";
+
+/* No comment provided by engineer. */
+"Distant Database: " = "遠隔データベース:";
+
+/* No comment provided by engineer. */
+"distributed" = "分散型(6)";
+
+/* No comment provided by engineer. */
+"Do Not Move" = "移動しない";
+
+/* No comment provided by engineer. */
+"Do you confirm to delete this index file? This operation cannot be undone." = "このインデックスファイルを削除することを確認しますか？この操作は元に戻すことはできません。";
+
+/* No comment provided by engineer. */
+"Do you want to only remove the selected images from the current album or delete them from the database? (%@)" = "選択した画像を現在のアルバムから削除するか、データベースから削除するだけですか？ (%@)";
+
+/* No comment provided by engineer. */
+"Done." = "完了。";
+
+/* No comment provided by engineer. */
+"Double-click on the Study line to retrieve the images" = "Study線をダブルクリックして画像を取得する";
+
+/* No comment provided by engineer. */
+"Double-Click to edit" = "ダブルクリックで編集";
+
+/* No comment provided by engineer. */
+"Double-Click to retrieve" = "ダブルクリックして取得する";
+
+/* No comment provided by engineer. */
+"Download" = "ダウンロード";
+
+/* No comment provided by engineer. */
+"Download failed" = "ダウンロードに失敗しました";
+
+/* No comment provided by engineer. */
+"Download the new version!" = "新しいバージョンをダウンロードしてください!";
+
+/* No comment provided by engineer. */
+"Downloading files..." = "ファイルをダウンロード中...";
+
+/* No comment provided by engineer. */
+"Downloading index..." = "インデックスをダウンロード中...";
+
+/* No comment provided by engineer. */
+"Downloading..." = "ダウンロード中...";
+
+/* No comment provided by engineer. */
+"Drag Annotations in the place holders" = "プレースホルダの注釈をドラッグする";
+
+/* No comment provided by engineer. */
+"Drag Error" = "ドラッグエラー";
+
+/* No comment provided by engineer. */
+"Draw an ROI on the 3D image and then press Return (include) or Delete (exclude) keys." = "3D画像にROIを描画し、Return(インクルード)キーまたはDelete(除外)キーを押します。";
+
+/* No comment provided by engineer. */
+"Dumping SQL Index file..." = "ダンプSQLインデックスファイル...";
+
+/* No comment provided by engineer. */
+"DX" = "DX";
+
+/* keep the space at the end of the string */
+"Dynamic Angle " = "動的角度";
+
+/* No comment provided by engineer. */
+"Edit Album" = "アルバムを編集";
+
+/* No comment provided by engineer. */
+"Ejecting..." = "取り出し中...";
+
+/* No comment provided by engineer. */
+"ELBOW" = "肘";
+
+/* No comment provided by engineer. */
+"Email" = "電子メール";
+
+/* No comment provided by engineer. */
+"Email this image" = "この画像を電子メールで送信";
+
+/* No comment provided by engineer. */
+"empty" = "空(0)";
+
+/* No comment provided by engineer. */
+"Empty Preset" = "空のプリセット";
+
+/* No comment provided by engineer. */
+"Encrypting..." = "暗号化中...";
+
+/* No comment provided by engineer. */
+"Endoscopy" = "内視鏡検査";
+
+/* No comment provided by engineer. */
+"Endoscopy requires volumic data." = "内視鏡にはボリュームデータが必要です。";
+
+/* No comment provided by engineer. */
+"ends with" = "終わる";
+
+/* No comment provided by engineer. */
+"Engine" = "エンジン";
+
+/* No comment provided by engineer. */
+"Engine Properties" = "エンジンのプロパティ";
+
+/* No comment provided by engineer. */
+"Erase Entire Database" = "データベース全体を消去する";
+
+/* No comment provided by engineer. */
+"Erase Entire Database..." = "データベース全体を消去します...";
+
+/* No comment provided by engineer. */
+"Error" = "エラー";
+
+/* No comment provided by engineer. */
+"Error during the creation of the DICOM File!" = "DICOMファイルの作成中にエラーが発生しました。";
+
+/* No comment provided by engineer. */
+"Error: %@" = "エラー:%@";
+
+/* No comment provided by engineer. */
+"Error: bad zip file" = "エラー:不正なzipファイル";
+
+/* No comment provided by engineer. */
+"Error: destination is unavailable" = "エラー:宛先は使用できません";
+
+/* No comment provided by engineer. */
+"Error!" = "エラー!";
+
+/* No comment provided by engineer. */
+"Errors ! %@ of %@ generated errors." = "エラー! %2$@ のうち %1$@ がエラーを生成しました。";
+
+/* No comment provided by engineer. */
+"ES" = "ES";
+
+/* No comment provided by engineer. */
+"Estimated remaining time: %2.2d:%2.2d:%2.2d" = "推定残り時間: %1$.2d:%2$.2d:%3$.2d";
+
+/* No comment provided by engineer. */
+"Evaluating amount of memory needed..." = "必要なメモリの量を評価する...";
+
+/* No comment provided by engineer. */
+"Expand All" = "すべて展開";
+
+/* No comment provided by engineer. */
+"Expand All Items" = "すべてのアイテムを展開";
+
+/* No comment provided by engineer. */
+"Export" = "エクスポート";
+
+/* No comment provided by engineer. */
+"Export 3D-SR" = "3D-SRをエクスポートする";
+
+/* No comment provided by engineer. */
+"Export as DICOM File" = "DICOMファイルとしてエクスポート";
+
+/* No comment provided by engineer. */
+"Export Key images of selected study/series as a DICOM Series" = "DICOMシリーズとして選択されたスタディ/シリーズの主要な画像をエクスポートする";
+
+/* No comment provided by engineer. */
+"Export Keys" = "エクスポートキー";
+
+/* No comment provided by engineer. */
+"Export QTVR" = "QTVRをエクスポートする";
+
+/* No comment provided by engineer. */
+"Export Report" = "レポートのエクスポート";
+
+/* No comment provided by engineer. */
+"Export ROI and Key Images as a DICOM Series" = "DICOMシリーズとしてのROIとキーイメージのエクスポート";
+
+/* No comment provided by engineer. */
+"Export ROI and Key images of selected study/series as a DICOM Series" = "選択したスタディ/シリーズのROIと主要画像をDICOMシリーズとしてエクスポート";
+
+/* No comment provided by engineer. */
+"Export ROI images of selected study/series as a DICOM Series" = "選択したスタディ/シリーズのROIイメージをDICOMシリーズとしてエクスポート";
+
+/* No comment provided by engineer. */
+"Export ROIs" = "ROIのエクスポート";
+
+/* No comment provided by engineer. */
+"Export ROIs & Keys" = "ROIとキーエクスポート";
+
+/* No comment provided by engineer. */
+"Export selected study/series to a DICOM folder" = "選択したスタディ/シリーズをDICOMフォルダにエクスポート";
+
+/* No comment provided by engineer. */
+"Export Text" = "テキストのエクスポート";
+
+/* No comment provided by engineer. */
+"Export these XML Data in a Text File" = "これらのXMLデータをテキストファイルにエクスポート";
+
+/* No comment provided by engineer. */
+"Export these XML Data in a XML File" = "これらのXMLデータをXMLファイルにエクスポート";
+
+/* No comment provided by engineer. */
+"Export this curved path in a file" = "このカーブしたパスをファイルにエクスポート";
+
+/* No comment provided by engineer. */
+"Export this image in a DICOM file" = "このイメージをDICOMファイルにエクスポート";
+
+/* No comment provided by engineer. */
+"Export this image in a Movie file" = "この画像をMovieファイルにエクスポート";
+
+/* No comment provided by engineer. */
+"Export this image in a Quicktime file" = "このイメージをQuicktimeファイルにエクスポート";
+
+/* No comment provided by engineer. */
+"Export this image in a Quicktime VR file" = "このイメージをQuicktime VRファイルにエクスポート";
+
+/* No comment provided by engineer. */
+"Export this image to Photos" = "この画像をPhotosにエクスポート";
+
+/* No comment provided by engineer. */
+"Export this image/series in a DICOM file" = "この画像/シリーズをDICOMファイルにエクスポート";
+
+/* No comment provided by engineer. */
+"Export this series in a 3D file format" = "このシリーズを3Dファイル形式でエクスポート";
+
+/* No comment provided by engineer. */
+"Export this series in a Movie file" = "このシリーズをMovieファイルでエクスポート";
+
+/* No comment provided by engineer. */
+"Export this series in a Quicktime file" = "このシリーズをQuicktimeファイルにエクスポート";
+
+/* No comment provided by engineer. */
+"Export this series in a Quicktime VR file" = "このシリーズをQuicktime VRファイルにエクスポート";
+
+/* No comment provided by engineer. */
+"Export this series to Photos" = "このシリーズをPhotosにエクスポート";
+
+/* No comment provided by engineer. */
+"Export to DICOM File(s)" = "DICOMファイルへのエクスポート";
+
+/* No comment provided by engineer. */
+"Export to DICOM Network Node" = "DICOMネットワークノードへのエクスポート";
+
+/* No comment provided by engineer. */
+"Export to Email" = "電子メールにエクスポート";
+
+/* No comment provided by engineer. */
+"Export to JPEG" = "JPEGにエクスポート";
+
+/* No comment provided by engineer. */
+"Export to Movie" = "Movieにエクスポート";
+
+/* No comment provided by engineer. */
+"Export to TIFF" = "TIFFへのエクスポート";
+
+/* No comment provided by engineer. */
+"Export to XML" = "XML 形式でエクスポート";
+
+/* No comment provided by engineer. */
+"Export VR" = "VRエクスポート";
+
+/* No comment provided by engineer. */
+"Export XML" = "XMLエクスポート";
+
+/* No comment provided by engineer. */
+"Export..." = "エクスポート…";
+
+/* No comment provided by engineer. */
+"Exporting this kind of ROI to XML will only export the contour line." = "このようなROIをXMLにエクスポートすると、等高線のみがエクスポートされます。";
+
+/* No comment provided by engineer. */
+"Exporting..." = "エクスポート中...";
+
+/* No comment provided by engineer. */
+"FACE" = "面";
+
+/* No comment provided by engineer. */
+"Failed" = "失敗";
+
+/* No comment provided by engineer. */
+"Failed to change the DICOM files" = "DICOMファイルの変更に失敗しました";
+
+/* No comment provided by engineer. */
+"Failed to connect to the remote host. Is database sharing activated on the distant computer?" = "リモートホストに接続できませんでした。離れたコンピュータでデータベース共有が有効になっていますか？";
+
+/* No comment provided by engineer. */
+"Failed to create the report with Pages." = "Pagesを使用してレポートを作成できませんでした。";
+
+/* No comment provided by engineer. */
+"Failed to detect a high density voxel to start growing region." = "高密度ボクセルを検出することができず、成長領域を開始できませんでした。";
+
+/* No comment provided by engineer. */
+"Failed to download and synchronize preferences from this URL: %@" = "次のURLから設定をダウンロードして同期化できませんでした:%@";
+
+/* No comment provided by engineer. */
+"Failed to export this file." = "このファイルのエクスポートに失敗しました。";
+
+/* No comment provided by engineer. */
+"Failed to load the series." = "シリーズの読み込みに失敗しました。";
+
+/* Month */
+"February" = "2月";
+
+/* No comment provided by engineer. */
+"FEMUR" = "フェミュー";
+
+/* No comment provided by engineer. */
+"Fetching %@ %@..." = "%1$@ %2$@ を取得しています...";
+
+/* No comment provided by engineer. */
+"Fetching destination information..." = "宛先情報を取得しています...";
+
+/* No comment provided by engineer. */
+"FIBULA" = "腓骨";
+
+/* No comment provided by engineer. */
+"file" = "ファイル";
+
+/* No comment provided by engineer. */
+"File" = "ファイル";
+
+/* No comment provided by engineer. */
+"File Conversion" = "ファイル変換";
+
+/* No comment provided by engineer. */
+"file left" = "ファイルが残っている";
+
+/* No comment provided by engineer. */
+"File not readable" = "ファイルが読めない";
+
+/* No comment provided by engineer. */
+"File: %@" = "ファイル:%@";
+
+/* No comment provided by engineer. */
+"File(s) tags" = "ファイルタグ";
+
+/* No comment provided by engineer. */
+"files" = "ファイル";
+
+/* No comment provided by engineer. */
+"Files are currently being sent to a DICOM node. Are you sure you want to quit now? The sending will be stopped." = "ファイルは現在DICOMノードに送信されています。あなたは今終了してもよろしいですか？送信が停止されます。";
+
+/* No comment provided by engineer. */
+"files left" = "ファイルが残っている";
+
+/* No comment provided by engineer. */
+"Files not available (readable)" = "利用できないファイル(可読性)";
+
+/* No comment provided by engineer. */
+"Files size (without compression):" = "ファイルサイズ(圧縮なし):";
+
+/* No comment provided by engineer. */
+"Filter" = "フィルター";
+
+/* No comment provided by engineer. */
+"Filtering..." = "フィルタリング...";
+
+/* No comment provided by engineer. */
+"Filters" = "フィルター";
+
+/* No comment provided by engineer. */
+"Final files size to burn: %3.2fMB" = "書き込む最終ファイルのサイズ:%3.2fMB";
+
+/* No comment provided by engineer. */
+"Finding Centerline Points" = "センターラインポイントの検索";
+
+/* No comment provided by engineer. */
+"Finding Path..." = "パスを見つける...";
+
+/* No comment provided by engineer. */
+"FINGER" = "指";
+
+/* No comment provided by engineer. */
+"Finishing..." = "仕上げ...";
+
+/* No comment provided by engineer. */
+"First, apply a convolution filter..." = "まず、畳み込みフィルタを適用します...";
+
+/* No comment provided by engineer. */
+"Flip" = "フリップ";
+
+/* No comment provided by engineer. */
+"Flip Horizontal" = "フリップ・水平";
+
+/* No comment provided by engineer. */
+"Flip image horizontallly" = "フリップイメージ水平";
+
+/* No comment provided by engineer. */
+"Flip image vertically" = "フリップイメージ垂直";
+
+/* No comment provided by engineer. */
+"Flip series" = "フリップシリーズ";
+
+/* No comment provided by engineer. */
+"Flip Vertical" = "フリップ・垂直";
+
+/* No comment provided by engineer. */
+"Flip Volume" = "フリップボリューム";
+
+/* No comment provided by engineer. */
+"Fly Thru" = "フライスルー";
+
+/* No comment provided by engineer. */
+"Fly Thru Set up" = "フライスルー設定";
+
+/* No comment provided by engineer. */
+"FlyThru" = "FlyThru";
+
+/* No comment provided by engineer. */
+"FOOT" = "足";
+
+/* No comment provided by engineer. */
+"Force absolute positioning" = "絶対位置を強制する";
+
+/* No comment provided by engineer. */
+"Force relative positioning" = "力の相対的な位置決め";
+
+/* No comment provided by engineer. */
+"FOREARM" = "前腕部";
+
+/* Web portal, password forgotten, title */
+"Forgotten Password" = "パスワードの再設定";
+
+/* No comment provided by engineer. */
+"Forwarding %@ to %@" = "%1$@ から %2$@への転送";
+
+/* No comment provided by engineer. */
+"Frame" = "フレーム";
+
+/* Frames: for example, 50 Frames in a series */
+"Frames" = "フレーム";
+
+/* No comment provided by engineer. */
+"Free space limit will be soon reached for your hard disk storing the database. Some studies will be deleted according to the rules specified in Preferences Database window (Database Auto-Cleaning)." = "データベースを格納しているハードディスクの空き容量の上限に達するでしょう。一部のスタディは、[環境設定データベース]ウィンドウ(データベース自動クリーニング)で指定されたルールに従って削除されます。";
+
+/* No comment provided by engineer. */
+"From:" = "から:";
+
+/* No special characters for this string, only ASCII characters. */
+"From: %d %% (%0.2f) to: %d %% (%0.2f)" = "%1$d %%(%2$.2f)から、%3$d %%(%4$.2f)まで";
+
+/* No comment provided by engineer. */
+"Full dynamic" = "フルダイナミック";
+
+/* No comment provided by engineer. */
+"Full Dynamic WW/WL" = "フルダイナミックWW/WL";
+
+/* No comment provided by engineer. */
+"Full screen" = "全画面";
+
+/* No special characters for this string, only ASCII characters. */
+"Fused Image : X: %d px Y: %d px" = "融合した画像:X:%1$d px Y:%2$d px";
+
+/* No comment provided by engineer. */
+"Fused Image Mean: %0.3f%@ SDev: %0.3f%@ Sum: %@%@" = "融合画像平均:%1$.3f%2$@ SDev:%3$.3f%4$@ 合計:%5$@%6$@";
+
+/* No comment provided by engineer. */
+"Fused Image Min: %0.3f%@ Max: %0.3f%@" = "融合画像最小:%1$.3f%2$@ 最大:%3$.3f%4$@";
+
+/* No comment provided by engineer. */
+"Fused Image Min: %0.3f%@ Max: %0.3f%@ Skewness: %0.3f Kurtosis: %0.3f" = "融合画像最小:%1$.3f%2$@ 最大:%3$.3f%4$@ 歪度:%5$.3f 尖度:%6$.3f";
+
+/* No comment provided by engineer. */
+"Fused Image Value: %0.3f%@" = "融合画像値:%1$.3f%2$@";
+
+/* No comment provided by engineer. */
+"Fusion" = "融合";
+
+/* No comment provided by engineer. */
+"Fusion Mode and Percentage" = "融合モードとパーセンテージ";
+
+/* No comment provided by engineer. */
+"Fusion Surface Settings" = "フュージョンサーフェイスの設定";
+
+/* No comment provided by engineer. */
+"Gantry Tilt Correction" = "ガントリ傾斜補正";
+
+/* Panel in preferences window */
+"General" = "一般";
+
+/* No comment provided by engineer. */
+"Generating series thumbnails..." = "シリーズサムネイルの生成...";
+
+/* No comment provided by engineer. */
+"Generating the DICOM files..." = "DICOMファイルの生成...";
+
+/* No comment provided by engineer. */
+"Get Failed" = "Get失敗した";
+
+/* No comment provided by engineer. */
+"Give a name !" = "名前をつけろ!";
+
+/* No comment provided by engineer. */
+"GPU Rendering" = "GPUレンダリング";
+
+/* No comment provided by engineer. */
+"Growing" = "成長";
+
+/* No comment provided by engineer. */
+"Growing Region" = "成長地域";
+
+/* No comment provided by engineer. */
+"HALLUX" = "ハラス";
+
+/* No comment provided by engineer. */
+"HAND" = "ハンド";
+
+/* No comment provided by engineer. */
+"HEAD" = "頭";
+
+/* No comment provided by engineer. */
+"HEART" = "心臓";
+
+/* No comment provided by engineer. */
+"HEEL" = "ヒール";
+
+/* No comment provided by engineer. */
+"Help" = "ヘルプ";
+
+/* No comment provided by engineer. */
+"hertz" = "ヘルツ";
+
+/* No comment provided by engineer. */
+"Hide Printers..." = "プリンタを隠す...";
+
+/* No comment provided by engineer. */
+"Hide Series" = "シリーズを隠す";
+
+/* No comment provided by engineer. */
+"High Dynamic Values" = "高い動的値";
+
+/* No comment provided by engineer. */
+"HIP" = "HIP";
+
+/* No comment provided by engineer. */
+"HIPS" = "ヒップ";
+
+/* No comment provided by engineer. */
+"Histogram of '%@' ROI" = "‘%@‘ ROIのヒストグラム";
+
+/* No comment provided by engineer. */
+"History" = "履歴";
+
+/* No comment provided by engineer. */
+"Home" = "ホーム";
+
+/* No comment provided by engineer. */
+"Horizontal" = "水平";
+
+/* No comment provided by engineer. */
+"Horizontally & Vertically Flipped" = "水平方向と垂直方向に反転";
+
+/* No comment provided by engineer. */
+"Horizontally Flipped" = "水平方向に反転";
+
+/* Panel in preferences window */
+"Hot Keys" = "ホットキー";
+
+/* No comment provided by engineer. */
+"hour" = "時間";
+
+/* No comment provided by engineer. */
+"hours" = "時間";
+
+/* No comment provided by engineer. */
+"HUMERUS" = "ヒト";
+
+/* I: Inferior */
+"I" = "I";
+
+/* No comment provided by engineer. */
+"I agree" = "同意する";
+
+/* No comment provided by engineer. */
+"I cannot find the OsiriX Word Template doc file." = "Miele-LXIV Word Templateのdocファイルが見つかりません。";
+
+/* No comment provided by engineer. */
+"I could delete the SQL index file to reset it." = "私はそれをリセットするSQLインデックスファイルを削除することができます。";
+
+/* No comment provided by engineer. */
+"I found only ONE ROI : not possible to compute a volume!" = "私は1つのROIしか見つけませんでした:ボリュームを計算することはできません!";
+
+/* No comment provided by engineer. */
+"I'm not able to download this file." = "私はこのファイルをダウンロードできません。";
+
+/* No comment provided by engineer. */
+"I'm not able to find the slice interval. Slice interval will be equal to slice thickness." = "私はスライス間隔を見つけることができません。スライス間隔は、スライスの厚みと同じになります。";
+
+/* No comment provided by engineer. */
+"IAC" = "IAC";
+
+/* No comment provided by engineer. */
+"iChat" = "iChat";
+
+/* No comment provided by engineer. */
+"iChat Theatre shared view" = "iChatシアターの共有ビュー";
+
+/* No comment provided by engineer. */
+"If it is stored on an external drive? If so, please make sure the device in connected and on." = "それが外付けドライブに保存されていれば？その場合は、デバイスが接続されていることを確認してください。";
+
+/* No comment provided by engineer. */
+"If you want to retrieve & view these images, change the destination to this computer ('retrieve to' menu)." = "これらのイメージを取得して表示するには、このコンピュータに宛先を変更します( ‘retrieve to’メニュー)。";
+
+/* No comment provided by engineer. */
+"Illegal group / element values" = "不正なグループ/要素値";
+
+/* No special characters for this string, only ASCII characters. */
+"Im: %ld-%ld/%ld %@" = "Im: %1$ld-%2$ld/%3$ld %4$@";
+
+/* No special characters for this string, only ASCII characters. */
+"Im: %ld/%ld %@" = "Im: %1$ld/%2$ld %3$@";
+
+/* No comment provided by engineer. */
+"image" = "画像";
+
+/* No comment provided by engineer. */
+"Image" = "画像";
+
+/* No comment provided by engineer. */
+"Image %d" = "画像%d";
+
+/* No comment provided by engineer. */
+"image added" = "画像が追加された";
+
+/* No comment provided by engineer. */
+"Image level" = "画像レベル";
+
+/* No comment provided by engineer. */
+"Image Position" = "画像の位置";
+
+/* No comment provided by engineer. */
+"Image Size" = "画像サイズ";
+
+/* No comment provided by engineer. */
+"Image size: %ld x %ld" = "画像サイズ:%1$ld x %2$ld";
+
+/* No comment provided by engineer. */
+"Image Tiling" = "画像タイリング";
+
+/* No comment provided by engineer. */
+"images" = "画像";
+
+/* No comment provided by engineer. */
+"Images" = "画像";
+
+/* No comment provided by engineer. */
+"images added" = "追加された画像";
+
+/* No comment provided by engineer. */
+"Images in Albums" = "アルバムの画像";
+
+/* No comment provided by engineer. */
+"Images size" = "画像サイズ";
+
+/* No comment provided by engineer. */
+"Images successfully deleted." = "画像が正常に削除されました。";
+
+/* No comment provided by engineer. */
+"Import" = "インポート";
+
+/* Import a DICOM file or folder */
+"Import a DICOM file or folder" = "DICOMファイルまたはフォルダをインポートする";
+
+/* No comment provided by engineer. */
+"Import Albums" = "アルバムをインポートする";
+
+/* No comment provided by engineer. */
+"Import Raw Data" = "未加工データをインポートする";
+
+/* No comment provided by engineer. */
+"Important Notice" = "重要なお知らせ";
+
+/* No comment provided by engineer. */
+"Importing %@..." = "%@をインポート中...";
+
+/* No comment provided by engineer. */
+"Importing images from media..." = "メディアから画像を取り込む...";
+
+/* In the current version, all series must contain the same number of images. */
+"In the current version, all series must contain the same number of images." = "現在のバージョンでは、すべてのシリーズに同じ数のイメージが含まれている必要があります。";
+
+/* No comment provided by engineer. */
+"Incoming Files" = "着信ファイル";
+
+/* No comment provided by engineer. */
+"Indexing %@ %@..." = "インデックス%1$@ %2$@...";
+
+/* No comment provided by engineer. */
+"Indexing files from CD/DVD..." = "CD/DVDからのファイルのインデックス作成...";
+
+/* No comment provided by engineer. */
+"Indexing files..." = "ファイルのインデックス作成中...";
+
+/* No comment provided by engineer. */
+"Indexing the files..." = "ファイルのインデックス作成中...";
+
+/* No comment provided by engineer. */
+"Initial Radius (pix.)" = "初期半径 (pix.)";
+
+/* No comment provided by engineer. */
+"Initiating image transfer..." = "画像転送を開始しています...";
+
+/* No comment provided by engineer. */
+"Injection time CANNOT be after acquisition time !" = "注入時間は取得時間の後にすることはできません!";
+
+/* No comment provided by engineer. */
+"Installing..." = "インストール中...";
+
+/* No comment provided by engineer. */
+"Institution" = "機関";
+
+/* No comment provided by engineer. */
+"Interesting Cases" = "面白いケース";
+
+/* No comment provided by engineer. */
+"Internal database error." = "内部データベースエラー。";
+
+/* No comment provided by engineer. */
+"Interval" = "間隔";
+
+/* No comment provided by engineer. */
+"Invalid code signing or certificate. You should re-download Miele-LXIV from the web site\r\rAre you using an utility such as CleanMyMac or CCleaner? Turn it off for Miele-LXIV." = "コード署名または証明書が無効です。 WebサイトからMiele-LXIVを再ダウンロードする必要があります\r\rAre you using an utility such as CleanMyMac or CCleaner? Turn it off for Miele-LXIV.";
+
+/* No comment provided by engineer. */
+"Invalid NSPredicate SQL syntax" = "無効なNSPredicate SQL構文";
+
+/* No comment provided by engineer. */
+"Invalid remote database model %@. When sharing databases, make sure both ends are running the same version of OsiriX." = "無効なリモートデータベースモデル%@データベースを共有するときは、両方の端末が同じバージョンのMiele-LXIVを実行していることを確認してください。";
+
+/* No comment provided by engineer. */
+"Invalid response data from remote host." = "リモートホストからの応答データが無効です。";
+
+/* No comment provided by engineer. */
+"Photos" = "Photos";
+
+/* No comment provided by engineer. */
+"is" = "一致";
+
+/* No comment provided by engineer. */
+"is after" = "後である";
+
+/* No comment provided by engineer. */
+"is before" = "より前";
+
+/* No comment provided by engineer. */
+"is day before yesterday" = "昨日の前日です";
+
+/* No comment provided by engineer. */
+"is not" = "一致しない";
+
+/* No comment provided by engineer. */
+"Is the user email correct? the @ character is not found." = "ユーザーのメールは正しいですか？ @文字は見つかりません。";
+
+/* No comment provided by engineer. */
+"is today" = "は今日です";
+
+/* No comment provided by engineer. */
+"is within" = "内にある";
+
+/* No comment provided by engineer. */
+"is yesterday" = "昨日です";
+
+/* No comment provided by engineer. */
+"It works !" = "できます!";
+
+/* No comment provided by engineer. */
+"It works!" = "できます!";
+
+/* No comment provided by engineer. */
+"IVP" = "IVP";
+
+/* Month */
+"January" = "1月";
+
+/* No comment provided by engineer. */
+"JPEG" = "JPEG";
+
+/* Month */
+"July" = "7月";
+
+/* Month */
+"June" = "6月";
+
+/* No comment provided by engineer. */
+"Just Acquired (last hour)" = "ちょうど得られた(最後の1時間)";
+
+/* No comment provided by engineer. */
+"Just Added (last hour)" = "ちょうど追加された(最後の1時間)";
+
+/* No comment provided by engineer. */
+"Just Opened" = "ちょうど開いた";
+
+/* No comment provided by engineer. */
+"Key Images" = "キーイメージ";
+
+/* No comment provided by engineer. */
+"Key Images and ROI Images" = "キーイメージとROIイメージ";
+
+/* No comment provided by engineer. */
+"Key Images Button" = "キー画像ボタン";
+
+/* No comment provided by engineer. */
+"KeyObjects for %@" = "%@のKeyObjects";
+
+/* No comment provided by engineer. */
+"Keys" = "キー";
+
+/* No comment provided by engineer. */
+"KIDNEY" = "腎臓";
+
+/* No comment provided by engineer. */
+"KNEE" = "膝";
+
+/* L: Left */
+"L" = "L";
+
+/* No comment provided by engineer. */
+"L SPINE" = "Lスパイン";
+
+/* Web portal, study list, title */
+"Last 6 Hours" = "過去6時間";
+
+/* No comment provided by engineer. */
+"Layer" = "レイヤー";
+
+/* No comment provided by engineer. */
+"Left Anterior Descending Artery" = "左前下行枝";
+
+/* No comment provided by engineer. */
+"Left Circumflex Artery" = "左回旋動脈";
+
+/* No comment provided by engineer. */
+"Left Coronary Artery" = "左冠状動脈";
+
+/* No comment provided by engineer. */
+"Length" = "長さ";
+
+/* No comment provided by engineer. */
+"Length: %0.1f %cm" = "長さ:%1$.1f %2$cm";
+
+/* No comment provided by engineer. */
+"Length: %0.3f cm" = "長さ:%0.3f cm";
+
+/* No comment provided by engineer. */
+"Length: %0.3f mm" = "長さ:%0.3f mm";
+
+/* No comment provided by engineer. */
+"Length: %0.3f pix" = "長さ:%0.3f pix";
+
+/* ONLY ASCII CHARACTERS ! NO ACCENTS OR HIEROGLYPHS */
+"Length: %2.2f cm " = "長さ:%2.2f cm";
+
+/* ONLY ASCII CHARACTERS ! NO ACCENTS OR HIEROGLYPHS */
+"Length: %2.2f mm " = "長さ:%2.2f mm";
+
+/* No comment provided by engineer. */
+"Level of Detail" = "詳細度";
+
+/* No comment provided by engineer. */
+"Linear Table" = "リニアテーブル";
+
+/* Panel in preferences window */
+"Listener" = "リスナー";
+
+/* No comment provided by engineer. */
+"LIVER" = "肝";
+
+/* No comment provided by engineer. */
+"Load images from current DICOM CD-Rom" = "現在のDICOM CD-ROMからイメージをロードする";
+
+/* No comment provided by engineer. */
+"Load locations" = "ロード位置";
+
+/* No comment provided by engineer. */
+"Load multiple series into an animated 4D series" = "複数のシリーズをアニメーション4Dシリーズにロードする";
+
+/* No comment provided by engineer. */
+"Load Preferences" = "設定を読み込む";
+
+/* No comment provided by engineer. */
+"Load printers" = "プリンタをロードする";
+
+/* No comment provided by engineer. */
+"Load Workspace State DICOM SR" = "作業領域の状態をロードするDICOM SR";
+
+/* No comment provided by engineer. */
+"Loading" = "読み込み中";
+
+/* No comment provided by engineer. */
+"Loading 3D object..." = "3Dオブジェクトの読み込み中...";
+
+/* No comment provided by engineer. */
+"Loading OsiriX database..." = "Miele-LXIVデータベースの読み込み中...";
+
+/* No comment provided by engineer. */
+"Loading remote OsiriX database..." = "リモートMiele-LXIVデータベースの読み込み中...";
+
+/* No comment provided by engineer. */
+"Loading series data..." = "シリーズデータを読み込んでいます...";
+
+/* No comment provided by engineer. */
+"loading..." = "しばらくお待ちください...";
+
+/* No comment provided by engineer. */
+"Local Database (%@)" = "ローカルデータベース(%@)";
+
+/* No comment provided by engineer. */
+"Local Database: " = "ローカルデータベース: ";
+
+/* No comment provided by engineer. */
+"Locating the image in the database..." = "データベース内の画像の検索...";
+
+/* Panel in preferences window */
+"Locations" = "場所";
+
+/* No comment provided by engineer. */
+"Lock Studies" = "ロック研究";
+
+/* No comment provided by engineer. */
+"Locked Studies" = "ロックされた研究";
+
+/* No comment provided by engineer. */
+"Locking database..." = "データベースのロック中...";
+
+/* No comment provided by engineer. */
+"LOD" = "詳細度";
+
+/* No comment provided by engineer. */
+"Logarithmic Inverse Table" = "対数逆テーブル";
+
+/* No comment provided by engineer. */
+"Login here:<br>" = "ここでログイン:<br>";
+
+/* No comment provided by engineer. */
+"Logs" = "ログ";
+
+/* No comment provided by engineer. */
+"Logs - External IPs" = "ログ - 外部IP";
+
+/* No comment provided by engineer. */
+"Looking for DICOM files..." = "DICOMファイルを探しています...";
+
+/* No comment provided by engineer. */
+"Looking for DICOMDIR..." = "DICOMDIRを探しています...";
+
+/* No comment provided by engineer. */
+"LOWER LEG" = "下肢";
+
+/* No comment provided by engineer. */
+"Lower Threshold" = "下限値";
+
+/* No comment provided by engineer. */
+"LUNG" = "肺";
+
+/* No comment provided by engineer. */
+"m/sec" = "m/秒";
+
+/* No comment provided by engineer. */
+"Mac OS Version" = "Mac OSバージョン";
+
+/* No comment provided by engineer. */
+"macOS version" = "macOSバージョン";
+
+/* No comment provided by engineer. */
+"Made with <a href='http://www.osirix-viewer.com' target='_blank'>OsiriX</a><br />Requires <a href='http://www.apple.com/quicktime/' target='_blank'>QuickTime</a> to display some of the images" = "<a href='http://www.osirix-viewer.com' target='_blank'>Miele-LXIV</a>で作った<br />いくつかの画像を表示するには<a href='http://www.apple.com/quicktime/' target='_blank'>QuickTime</a>が必要です";
+
+/* No comment provided by engineer. */
+"Magnify" = "拡大する";
+
+/* No comment provided by engineer. */
+"MANDIBLE" = "手持ち";
+
+/* Month */
+"March" = "3月";
+
+/* No comment provided by engineer. */
+"Mark as Key image" = "マークキー画像";
+
+/* No comment provided by engineer. */
+"Mark Status as Dictated" = "指示されたステータスをマークする";
+
+/* No comment provided by engineer. */
+"Mark Status as Empty" = "ステータスを空白としてマークする";
+
+/* No comment provided by engineer. */
+"Mark Status as Reviewed" = "レビュー済みのステータスをマークする";
+
+/* No comment provided by engineer. */
+"Mark Status as Unread" = "ステータスを未読としてマークする";
+
+/* No comment provided by engineer. */
+"Mark Status as Validated" = "ステータスを検証済としてマークする";
+
+/* No comment provided by engineer. */
+"Max. 2 points with the same name." = "マックス同じ名前の2点。";
+
+/* No comment provided by engineer. */
+"MAXILLOFACIAL" = "MAXILLOFACIAL";
+
+/* Month */
+"May" = "5月";
+
+/* No comment provided by engineer. */
+"Mean: %0.3f%@ SDev: %0.3f%@ Sum: %@%@" = "平均: %1$.3f%2$@ SDev: %3$.3f%4$@ 合計: %5$@%6$@";
+
+/* ONLY ASCII CHARACTERS ! NO ACCENTS OR HIEROGLYPHS */
+"Mean: %2.2f SDev: %2.2f\nMin: %2.2f Max: %2.2f" = "平均: %$.2f SDev: %2$.2f\n最小: %3$.2f 最大: %4$.2f";
+
+/* No comment provided by engineer. */
+"Measure Angle Tool" = "測定角度ツール";
+
+/* No comment provided by engineer. */
+"Measure Length Tool" = "測長ツール";
+
+/* keep the space at the end of the string */
+"Measurement " = "測定 ";
+
+/* No comment provided by engineer. */
+"MEDIASTINUM" = "MEDIASTINUM";
+
+/* No comment provided by engineer. */
+"Memory Error" = "メモリエラー";
+
+/* No comment provided by engineer. */
+"Merge" = "統合";
+
+/* No comment provided by engineer. */
+"Merge Selected Series" = "選択したシリーズをマージする";
+
+/* No comment provided by engineer. */
+"Merge Selected Studies" = "選択したスタディをマージする";
+
+/* No comment provided by engineer. */
+"Merge Series" = "マージシリーズ";
+
+/* No comment provided by engineer. */
+"Merge Studies" = "マージ研究";
+
+/* No comment provided by engineer. */
+"Meta-Data" = "メタデータ";
+
+/* No comment provided by engineer. */
+"Meta-Data: %@" = "メタデータ:%@";
+
+/* No comment provided by engineer. */
+"Meta-Data: %@ (%d KB)" = "メタデータ:%1$@(%2$d KB)";
+
+/* No comment provided by engineer. */
+"MG" = "MG";
+
+/* No comment provided by engineer. */
+"Microsoft Word" = "Microsoft Word";
+
+/* No comment provided by engineer. */
+"Microsoft Word is required to open/generate '.doc' reports. You can change it to TextEdit in the Preferences." = "‘.doc’レポートを開く/生成するには、Microsoft Wordが必要です。環境設定でテキストエディットに変更することができます。";
+
+/* No comment provided by engineer. */
+"Miele-LXIV bundle" = "Miele-LXIVバンドル";
+
+/* No comment provided by engineer. */
+"Miele-LXIV crashed" = "Miele-LXIVがクラッシュ";
+
+/* No comment provided by engineer. */
+"Miele-LXIV Web Site" = "Miele-LXIV Webサイト";
+
+/* No comment provided by engineer. */
+"Min: %0.3f%@ Max: %0.3f%@" = "最小: %1$.3f%2$@ 最大: %3$.3f%4$@";
+
+/* No comment provided by engineer. */
+"Min: %0.3f%@ Max: %0.3f%@ Skewness: %0.3f Kurtosis: %0.3f" = "最小: %1$.3f%2$@ 最大: %3$.3f%4$@ 歪度: %5$.3f 尖度: %6$.3f";
+
+
+/* No comment provided by engineer. */
+"minute" = "分";
+
+/* No comment provided by engineer. */
+"minutes" = "分";
+
+/* No comment provided by engineer. */
+"MIP" = "MIP";
+
+/* No comment provided by engineer. */
+"Modality" = "モダリティ";
+
+/* No comment provided by engineer. */
+"Modality in column" = "列のモダリティ";
+
+/* No comment provided by engineer. */
+"Modality in row" = "行のモダリティ";
+
+/* No comment provided by engineer. */
+"Mode" = "モード";
+
+/* No comment provided by engineer. */
+"Modify WL/WW & CLUT" = "WL/WW＆CLUTの変更";
+
+/* Month */
+"Month" = "月";
+
+/* No comment provided by engineer. */
+"Mouse button function" = "マウスボタン機能";
+
+/* No comment provided by engineer. */
+"Mouse Position" = "マウスの位置";
+
+/* No comment provided by engineer. */
+"Mouse Position (mm)" = "マウスの位置 (mm)";
+
+/* No comment provided by engineer. */
+"Mouse Position (px)" = "マウスの位置 (px)";
+
+/* No comment provided by engineer. */
+"Move" = "移動";
+
+/* No comment provided by engineer. */
+"Move Failed" = "移動に失敗しました";
+
+/* No comment provided by engineer. */
+"Move OsiriX to Applications Folder" = "Miele-LXIVをアプリケーションフォルダに移動する";
+
+/* No comment provided by engineer. */
+"Move OsiriX to Applications folder in your Home folder?" = "HomeフォルダのMiele-LXIVをアプリケーションフォルダに移動しますか？";
+
+/* No comment provided by engineer. */
+"Move OsiriX to Applications folder?" = "Miele-LXIVをアプリケーションフォルダに移動しますか？";
+
+/* No comment provided by engineer. */
+"Move to an axial view" = "軸方向のビューに移動";
+
+/* No comment provided by engineer. */
+"Move to an coronal view" = "コロナルビューに移動";
+
+/* No comment provided by engineer. */
+"Move to an sagittal view" = "サジタルビューに移動";
+
+/* No comment provided by engineer. */
+"Move Tool" = "移動ツール";
+
+/* No comment provided by engineer. */
+"Movie Export" = "映画の輸出";
+
+/* No comment provided by engineer. */
+"MPEG-2 DICOM files require the VLC application. Available for free here: http://www.videolan.org/vlc/" = "MPEG-2 DICOMファイルには、VLCアプリケーションが必要です。ここで無料で利用できます:http://www.videolan.org/vlc/";
+
+/* No comment provided by engineer. */
+"MPEG-2 File" = "MPEG-2ファイル";
+
+/* No comment provided by engineer. */
+"MPR" = "MPR";
+
+/* No comment provided by engineer. */
+"MPR Image" = "MPR画像";
+
+/* No comment provided by engineer. */
+"MPR Mouse button function" = "MPRマウスボタン機能";
+
+/* No comment provided by engineer. */
+"MPR requires volumic data." = "MPRにはボリュームデータが必要です。";
+
+/* No comment provided by engineer. */
+"MPR WL/WW & CLUT & Opacity" = "MPR WL/WW＆CLUT＆Opacity";
+
+/* No comment provided by engineer. */
+"MR" = "MR";
+
+/* No comment provided by engineer. */
+"Multiples Servers" = "複数のサーバー";
+
+/* No comment provided by engineer. */
+"Multiplier" = "マルチプレイヤー";
+
+/* Abbreviation for not available */
+"n/a" = "該当なし";
+
+/* No comment provided by engineer. */
+"N2Connection timeout." = "N2Connectionタイムアウト。";
+
+/* No comment provided by engineer. */
+"Name hidden" = "名前が非表示";
+
+/* No comment provided by engineer. */
+"Name needs to be at least 2 characters long." = "名前は2文字以上必要です。";
+
+/* No comment provided by engineer. */
+"Name needs to be at least 2 characters." = "名前は2文字以上でなければなりません。";
+
+/* No comment provided by engineer. */
+"Name: %@" = "名前:%@";
+
+/* No comment provided by engineer. */
+"NAVICULAR" = "航海";
+
+/* No comment provided by engineer. */
+"Navigator" = "ナビゲータ";
+
+/* No comment provided by engineer. */
+"NECK" = "ネック";
+
+/* No comment provided by engineer. */
+"Needs at least 3 points on both viewers." = "両方の視聴者に少なくとも3点必要です。";
+
+/* No comment provided by engineer. */
+"Needs same number of points on both viewers." = "両方の視聴者に同じ数のポイントが必要です。";
+
+/* No comment provided by engineer. */
+"Negotiating with remote OsiriX..." = "リモートMiele-LXIVとの交渉...";
+
+/* No comment provided by engineer. */
+"Neighborhood" = "学区";
+
+/* No comment provided by engineer. */
+"Network Error" = "ネットワーク接続の問題";
+
+/* No comment provided by engineer. */
+"Network Logs" = "ネットワークログ";
+
+/* No comment provided by engineer. */
+"New Curve" = "新しい曲線";
+
+/* No comment provided by engineer. */
+"New group" = "新規グループ";
+
+/* No comment provided by engineer. */
+"New Route" = "新しいルート";
+
+/* Web portal, study list, title */
+"New Studies" = "新しい研究";
+
+/* No comment provided by engineer. */
+"New Study" = "新しい研究";
+
+/* No comment provided by engineer. */
+"New Version Available" = "新しいバージョンが利用可能";
+
+/* No comment provided by engineer. */
+"New versions of the following plugins are available:\n" = "次のプラグインの新しいバージョンが利用可能です:\n";
+
+/* No comment provided by engineer. */
+"Next/Previous Patient" = "次回/前回の患者";
+
+/* No comment provided by engineer. */
+"Next/Previous Series" = "次/前シリーズ";
+
+/* No comment provided by engineer. */
+"NM" = "NM";
+
+/* No comment provided by engineer. */
+"No" = "No";
+
+/* No comment provided by engineer. */
+"No album selected" = "アルバムが選択されていません";
+
+/* No certificate selected. */
+"No certificate selected." = "選択した証明書がありません。";
+
+/* No comment provided by engineer. */
+"No CLUT" = "CLUTなし";
+
+/* No comment provided by engineer. */
+"No connection available" = "利用可能な接続がないです。";
+
+/* No comment provided by engineer. */
+"No destination selected." = "選択された宛先はありません。";
+
+/* No comment provided by engineer. */
+"No destination servers exist. Create at least one destination in the Locations preferences." = "送信先サーバーは存在しません。「場所・設定」で少なくとも1つの宛先を作成します。";
+
+/* No comment provided by engineer. */
+"No DICOM destinations available. See Preferences to add DICOM locations." = "DICOMの宛先はありません。 DICOMの場所を追加するには、「設定」を参照してください。";
+
+/* No comment provided by engineer. */
+"No DICOM files in this selection." = "この選択項目にはDICOMファイルはありません。";
+
+/* No comment provided by engineer. */
+"No DICOM locations available. See Preferences to add DICOM locations." = "DICOMの場所はありません。 DICOMの場所を追加するには、環境設定を参照してください。";
+
+/* No comment provided by engineer. */
+"No DICOM printers were found, please add a dicom printer in the preferences." = "DICOMプリンタが見つかりませんでした。環境設定にdicomプリンタを追加してください。";
+
+/* No comment provided by engineer. */
+"No files are selected..." = "ファイルが選択されていません...";
+
+/* No comment provided by engineer. */
+"No files available (readable) in this series." = "このシリーズでは利用可能なファイルがありません(可読性)。";
+
+/* No comment provided by engineer. */
+"No Filter" = "フィルターなし";
+
+/* No comment provided by engineer. */
+"No Groups" = "グループなし";
+
+/* No comment provided by engineer. */
+"No images" = "画像";
+
+/* No comment provided by engineer. */
+"No images containing ROIs are found in this selection." = "この選択項目にはROIを含む画像はありません。";
+
+/* No comment provided by engineer. */
+"No images containing ROIs or Key Images are found in this selection." = "この選択項目には、ROIまたはキー画像を含む画像はありません。";
+
+/* No comment provided by engineer. */
+"No Internet connection" = "インターネットに接続していない";
+
+/* No comment provided by engineer. */
+"No key images have been selected in this series." = "このシリーズではキー画像は選択されていません。";
+
+/* No comment provided by engineer. */
+"No key images in these images." = "これらの画像にはキー画像はありません。";
+
+/* No comment provided by engineer. */
+"No key Images to display." = "キーは表示されません。";
+
+/* No comment provided by engineer. */
+"No of files:" = "ファイル数:";
+
+/* No comment provided by engineer. */
+"No plugin server available." = "利用可能なプラグインサーバーはありません。";
+
+/* No comment provided by engineer. */
+"No plugins available for this menu" = "このメニューに使用できるプラグインはありません";
+
+/* No comment provided by engineer. */
+"No Presets Saved" = "プリセットが保存されていない";
+
+/* No comment provided by engineer. */
+"No query parameters provided. Blank query is not allowed." = "照会パラメータは提供されません。空の照会は許可されません。";
+
+/* No comment provided by engineer. */
+"No query parameters provided. The query may take a long time." = "照会パラメータは提供されません。照会に時間がかかることがあります。";
+
+/* No comment provided by engineer. */
+"No Rescale Size (100%)" = "サイズ変更なし (100%)";
+
+/* No comment provided by engineer. */
+"No ROI(s) selected to propagate on the series!" = "シリーズに盛り込むために選択されたROIはありません!";
+
+/* No comment provided by engineer. */
+"No ROI(s) selected to save!" = "保存するROIが選択されていません!";
+
+/* No comment provided by engineer. */
+"No ROIs in this series!" = "このシリーズのROIはありません!";
+
+/* No comment provided by engineer. */
+"No saved data are available." = "保存されたデータはありません。";
+
+/* No comment provided by engineer. */
+"No saved state" = "保存されていない状態";
+
+/* No comment provided by engineer. */
+"No smart album exists." = "スマートアルバムは存在しません。";
+
+/* No comment provided by engineer. */
+"No Study Selected" = "研究が選択されていない";
+
+/* No comment provided by engineer. */
+"No synchronization for this window" = "このウィンドウの同期がありません";
+
+/* No comment provided by engineer. */
+"No user(s) selected, no studies will be added." = "ユーザーが選択されていないため、調査は追加されません。";
+
+/* No comment provided by engineer. */
+"No Valid Certificate" = "有効な証明書がありません";
+
+/* No comment provided by engineer. */
+"Non-Local Database" = "非ローカルデータベース";
+
+/* No comment provided by engineer. */
+"none" = "なし";
+
+/* No comment provided by engineer. */
+"Not able to run Quartz Extreme: OpenGL+Quartz. Update your video hardware!" = "Quartz Extreme:OpenGL + Quartzを実行できません。ビデオハードウェアをアップデートしてください!";
+
+/* No comment provided by engineer. */
+"Not all files available (readable)" = "すべてのファイルが利用可能なわけではありません。";
+
+/* No comment provided by engineer. */
+"Not available" = "利用不可";
+
+/* Not enough memory */
+"Not enough memory" = "メモリーが充分ではありません";
+
+/* No comment provided by engineer. */
+"Not Enough Memory" = "メモリーが充分ではありません";
+
+/* No comment provided by engineer. */
+"Not enough memory (RAM) to use the 3D engine." = "3Dエンジンを使用するのに十分なメモリ(RAM)がありません。";
+
+/* No comment provided by engineer. */
+"NOT FOR MEDICAL USAGE" = "医療用途ではない";
+
+/* No comment provided by engineer. */
+"Not possible to compute a volume!" = "ボリュームを計算することはできません!";
+
+/* No comment provided by engineer. */
+"Note that this will require an administrator password." = "これには管理者パスワードが必要です。";
+
+/* No comment provided by engineer. */
+"Notification" = "通知";
+
+/* Month */
+"November" = "11月";
+
+/* No comment provided by engineer. */
+"Num. of Iterations" = "Num。反復の数";
+
+/* No comment provided by engineer. */
+"Number of Presets: %d" = "プリセット数: %d";
+
+/* No comment provided by engineer. */
+"Object" = "オブジェクト";
+
+/* No comment provided by engineer. */
+"Objects" = "道具とイメージ";
+
+/* Month */
+"October" = "10月";
+
+/* No comment provided by engineer. */
+"OK" = "OK";
+
+/* No comment provided by engineer. */
+"OK !" = "OK !";
+
+/* No comment provided by engineer. */
+"On component %d: %@" = "コンポーネント%1 $ d:%2 $ @";
+
+/* Panel in preferences window */
+"On-Demand" = "オンデマンド";
+
+/* No comment provided by engineer. */
+"One ROI has an area equal to ZERO!" = "1つのROIにはゼロと等しい面積があります!";
+
+/* No comment provided by engineer. */
+"Only CLUT created in OsiriX 1.3.1 or higher can be edited..." = "Miele-LXIV 1.3.1以降で作成されたCLUTのみを編集できます...";
+
+/* No comment provided by engineer. */
+"Only if not stored in an album" = "アルバムに保存されていない場合のみ";
+
+/* No comment provided by engineer. */
+"Only ONE ROI per image supported! (im: %d)" = "1つの画像につき1つのROIだけがサポートされます! (im:%d)";
+
+/* No comment provided by engineer. */
+"Only use the current main screen for viewers" = "視聴者には現在のメイン画面のみを使用してください";
+
+/* No comment provided by engineer. */
+"Only useful if image fusion is activated." = "画像融合が有効になっている場合にのみ有効です。";
+
+/* No comment provided by engineer. */
+"Only useful if propagate settings is OFF." = "伝播設定がOFFの場合にのみ有効です。";
+
+/* No comment provided by engineer. */
+"Opacity" = "不透明度";
+
+/* No comment provided by engineer. */
+"Opacity: (defined in the CLUT)" = "不透明度: (CLUTで定義されている)";
+
+/* No comment provided by engineer. */
+"Opacity: %@" = "不透明度:%@";
+
+/* No comment provided by engineer. */
+"Open" = "開く";
+
+/* No comment provided by engineer. */
+"Open a Database Folder" = "データベースフォルダを開く";
+
+/* No comment provided by engineer. */
+"Open Images" = "画像を開く";
+
+/* No comment provided by engineer. */
+"Open Images in 4D" = "4Dで画像を開く";
+
+/* No comment provided by engineer. */
+"Open Key Images" = "キーイメージを開く";
+
+/* No comment provided by engineer. */
+"Open Merged Selection" = "統合された選択項目を開く";
+
+/* No comment provided by engineer. */
+"Open Polygon Tool" = "ポリゴンツールを開く";
+
+/* No comment provided by engineer. */
+"Open Reparsed series" = "オープンリパルスシリーズ";
+
+/* No comment provided by engineer. */
+"Open Reparsed Series" = "オープン改訂シリーズ";
+
+/* No comment provided by engineer. */
+"Open ROIs and Key Images" = "オープンROIとキーイメージ";
+
+/* No comment provided by engineer. */
+"Open ROIs Images" = "オープンROIイメージ";
+
+/* No comment provided by engineer. */
+"Open Sub-Selection" = "サブセレクションを開く";
+
+/* No comment provided by engineer. */
+"OPENGL ERROR" = "OPENGL ERROR";
+
+/* No comment provided by engineer. */
+"Opening database..." = "データベースを開く...";
+
+/* No comment provided by engineer. */
+"Opening Error" = "オープニングエラー";
+
+/* No comment provided by engineer. */
+"Opening..." = "オープニング...";
+
+/* No comment provided by engineer. */
+"ORBIT" = "軌道";
+
+/* No comment provided by engineer. */
+"ORBITS" = "ORBITS";
+
+/* No comment provided by engineer. */
+"Orientation" = "方向";
+
+/* No comment provided by engineer. */
+"Orientation Cube" = "オリエンテーションキューブ";
+
+/* No comment provided by engineer. */
+"Orientations" = "オリエンテーション";
+
+/* No comment provided by engineer. */
+"Ortho MPR Cross Tool" = "オルトMPRクロスツール";
+
+/* No comment provided by engineer. */
+"OS CALCIS" = "OS CALCIS";
+
+/* No comment provided by engineer. */
+"OsiriX cannot apply the selected plugin." = "Miele-LXIVは選択したプラグインを適用できません。";
+
+/* No comment provided by engineer. */
+"OsiriX cannot fulfill your request because the WADO service is disabled." = "WIZOサービスが無効になっているため、Miele-LXIVはお客様の要求を満たすことができません。";
+
+/* No comment provided by engineer. */
+"OsiriX cannot generate a DICOM query on itself." = "Miele-LXIVはDICOM照会を生成することはできません。";
+
+/* No comment provided by engineer. */
+"OsiriX cannot launch the selected plugin." = "Miele-LXIVは選択したプラグインを起動できません。";
+
+/* No comment provided by engineer. */
+"OsiriX cannot read/create this file/folder. Permissions error?" = "Miele-LXIVはこのファイル/フォルダを読み書きできません。権限エラー？";
+
+/* No comment provided by engineer. */
+"OsiriX cannot understand the model of current saved database... The database index will be deleted and reconstructed (no images are lost)." = "Miele-LXIVは現在保存されているデータベースのモデルを理解できません...データベースインデックスは削除され、再構築されます(画像は失われません)。";
+
+/* No comment provided by engineer. */
+"OsiriX CD/DVD" = "Miele-LXIV CD/DVD";
+
+/* No comment provided by engineer. */
+"OsiriX crashed during last startup" = "前回の起動時にMiele-LXIVがクラッシュしました";
+
+/* No comment provided by engineer. */
+"OsiriX crashed... You are running an outdated version of Miele-LXIV ! This bug is probably corrected in the last version !" = "Miele-LXIVがクラッシュしました...あなたはMiele-LXIVの古いバージョンを実行しています!このバグはおそらく最新バージョンで修正されています!";
+
+/* No comment provided by engineer. */
+"OsiriX crashed... You are running an outdated version of OsiriX ! This bug is probably corrected in the last version !" = "Miele-LXIVがクラッシュしました...あなたはMiele-LXIVの古いバージョンを実行しています!このバグはおそらく最新バージョンで修正されています!";
+
+/* No comment provided by engineer. */
+"OsiriX Database" = "Miele-LXIVデータベース";
+
+/* No comment provided by engineer. */
+"OsiriX Database List" = "Miele-LXIVデータベースリスト";
+
+/* No comment provided by engineer. */
+"OsiriX Discussion Group" = "Miele-LXIVディスカッショングループ";
+
+/* No comment provided by engineer. */
+"OsiriX Help Web Site" = "Miele-LXIVヘルプWebサイト";
+
+/* No comment provided by engineer. */
+"OsiriX is currently not in the Applications folder. It is recommended to run OsiriX from the Applications folder. I can move it now, add an icon to the dock and restart, if you agree? (recommended)" = "Miele-LXIVは現在、アプリケーションフォルダにありません。 アプリケーションフォルダからMiele-LXIVを実行することをお勧めします。私は今それを移動することができます、ドックにアイコンを追加し、同意する場合は、再起動？ (推奨)";
+
+/* No comment provided by engineer. */
+"OsiriX is now running in Protected Mode (shift + option keys at startup): no images are displayed, allowing you to delete crashing or corrupted images/studies." = "Miele-LXIVは現在保護モード(起動時にシフト+オプションキー)で動作しています。画像が表示されず、クラッシュまたは破損した画像/スタンプを削除できます。";
+
+/* No comment provided by engineer. */
+"OsiriX is running in read-only mode, from a CD/DVD." = "Miele-LXIVはCD/DVDから読み取り専用モードで動作しています。";
+
+/* No comment provided by engineer. */
+"OsiriX is up-to-date" = "Miele-LXIVは最新のものです";
+
+/* No comment provided by engineer. */
+"OsiriX Light" = "Miele-LXIV Light";
+
+/* No comment provided by engineer. */
+"OsiriX Lite" = "Miele-LXIV Lite";
+
+/* No comment provided by engineer. */
+"OsiriX requires templates files in Pages '09 format. Open your template in Pages, select File menu and Export to Pages '09 format." = "Miele-LXIVでは、Pages ‘09形式のテンプレートファイルが必要です。 Pagesでテンプレートを開き、ファイルメニューを選択し、Pages '09形式にエクスポートします。";
+
+/* No comment provided by engineer. */
+"OsiriX Screen Captures" = "Miele-LXIVスクリーンキャプチャ";
+
+/* No comment provided by engineer. */
+"OsiriX Updates" = "Miele-LXIVのアップデート";
+
+/* Web Portal, general default title */
+"OsiriX Web Portal" = "Miele-LXIV Webポータル";
+
+/* No comment provided by engineer. */
+"OT" = "OT";
+
+/* No comment provided by engineer. */
+"Other" = "その他";
+
+/* No comment provided by engineer. */
+"Outdated Version" = "古くなったバージョン";
+
+/* No comment provided by engineer. */
+"Oval" = "楕円形";
+
+/* keep the space at the end of the string */
+"Oval " = "楕円形";
+
+/* No comment provided by engineer. */
+"Oval ROI Tool" = "楕円ROIツール";
+
+/* No comment provided by engineer. */
+"OVARIES" = "OVARIES";
+
+/* No comment provided by engineer. */
+"OVARY" = "卵巣";
+
+/* P: Posterior */
+"P" = "P";
+
+/* No comment provided by engineer. */
+"Page" = "ページ";
+
+/* No comment provided by engineer. */
+"Page %d" = "ページ %d";
+
+/* No comment provided by engineer. */
+"Pages" = "ページ";
+
+/* No comment provided by engineer. */
+"PANCREAS" = "膵臓";
+
+/* No comment provided by engineer. */
+"Parallel" = "並列実行";
+
+/* No comment provided by engineer. */
+"Parameters" = "パラメータ";
+
+/* No comment provided by engineer. */
+"Password cannot contain only '*' characters." = "パスワードには「*」文字しか使用できません。";
+
+/* No comment provided by engineer. */
+"Password cannot contain only numbers: add letters." = "パスワードは数字だけを含むことはできません:文字を追加してください。";
+
+/* No comment provided by engineer. */
+"Password cannot contain only the same character." = "パスワードには同じ文字しか使用できません。";
+
+/* No comment provided by engineer. */
+"Password needs to be at least 4 characters long." = "パスワードは4文字以上必要です。";
+
+/* No comment provided by engineer. */
+"Password needs to be different from the user name." = "パスワードはユーザー名と異なる必要があります。";
+
+/* No comment provided by engineer. */
+"Password needs to have at least 3 different characters." = "パスワードには少なくとも3つの異なる文字が必要です。";
+
+/* No comment provided by engineer. */
+"Password updated successfully!" = "パスワードは正常に更新されました!";
+
+/* No comment provided by engineer. */
+"Password:<br><br>" = "パスワード::<br><br>";
+
+/* No comment provided by engineer. */
+"Passwords are not identical." = "パスワードは同一ではありません。";
+
+/* No comment provided by engineer. */
+"Paste Error" = "貼り付けエラー";
+
+/* No comment provided by engineer. */
+"Path Assistant" = "パスアシスタント";
+
+/* No comment provided by engineer. */
+"Path Assistant can not allocate enough memory, try to increase the resample voxel size in the settings." = "Path Assistantで十分なメモリを割り当てることができません。設定でリサンプルボクセルのサイズを増やしてみてください。";
+
+/* No comment provided by engineer. */
+"Path Assistant can not find a path from A to B." = "パスアシスタントがAからBへのパスを見つけることができません。";
+
+/* No comment provided by engineer. */
+"Path Assistant can not find a path from current location." = "パスアシスタントは現在の場所からパスを見つけることができません。";
+
+/* No comment provided by engineer. */
+"Path Assistant error" = "パスアシスタントエラー";
+
+/* No comment provided by engineer. */
+"Path Assistant failed to initialize!" = "パスアシスタントの初期化に失敗しました!";
+
+/* No comment provided by engineer. */
+"Path Assistant requires at least 2 points, and no more than 5 points. Use the Curved Path tool to define at least two points." = "パスアシスタントには最低2ポイント、最大5ポイントが必要です。 Curved Pathツールを使用して、少なくとも2つのポイントを定義します。";
+
+/* No comment provided by engineer. */
+"Path Mode" = "パスモード";
+
+/* No comment provided by engineer. */
+"Patient" = "患者";
+
+/* No comment provided by engineer. */
+"Patient ID" = "患者ID";
+
+/* No comment provided by engineer. */
+"Patient Name" = "患者名";
+
+/* No comment provided by engineer. */
+"Patient UID" = "患者UID";
+
+/* No comment provided by engineer. */
+"Patient's Actual Age" = "患者の実際の年齢";
+
+/* No comment provided by engineer. */
+"Patient's Age At Acquisition" = "取得時の患者の年齢";
+
+/* No comment provided by engineer. */
+"Patients list" = "患者リスト";
+
+/* No comment provided by engineer. */
+"PELVIC" = "PELVIC";
+
+/* No comment provided by engineer. */
+"PELVIS" = "骨盤";
+
+/* No comment provided by engineer. */
+"Pencil Tool" = "塗りつぶしツール";
+
+/* No comment provided by engineer. */
+"Performance Test" = "性能テスト";
+
+/* No comment provided by engineer. */
+"Performing Physician" = "医師を務める";
+
+/* keep the space at the end of the string */
+"Perpendicular Distance " = "垂直距離 ";
+
+/* No comment provided by engineer. */
+"Personal information updated successfully!" = "個人情報が正常に更新されました!";
+
+/* No comment provided by engineer. */
+"Perspective" = "Perspectives";
+
+/* No comment provided by engineer. */
+"Perspective Properties" = "パースペクティブプロパティ";
+
+/* Panel in preferences window */
+"PET" = "PET";
+
+/* No comment provided by engineer. */
+"PET-CT Fusion" = "PET-CT融合";
+
+/* No comment provided by engineer. */
+"PITUITARY" = "刑事";
+
+/* No comment provided by engineer. */
+"Pixmeo Web site" = "Miele-LXIVウェブサイト";
+
+/* No comment provided by engineer. */
+"Play" = "再生";
+
+/* No comment provided by engineer. */
+"Please add CD name" = "CDの名前を追加してください";
+
+/* No comment provided by engineer. */
+"Please first define a rectangle with a rectangular ROI." = "最初に長方形のROIを定義してください。";
+
+/* No comment provided by engineer. */
+"Please provide a value for both \"Group\" and \"Element\" fields." = "「グループ」と「要素」の両方のフィールドに値を入力してください。";
+
+/* No comment provided by engineer. */
+"Please provide a value for each parameter." = "各パラメータの値を入力してください。";
+
+/* No comment provided by engineer. */
+"Please select a DICOM node (check box)." = "DICOMノード(チェックボックス)を選択してください。";
+
+/* No comment provided by engineer. */
+"Please update your application. Available on the web site." = "あなたのアプリケーションを更新してください。ウェブサイトで利用可能です。";
+
+/* No comment provided by engineer. */
+"Plot of '%@' line" = "'%@' 行のプロット";
+
+/* No comment provided by engineer. */
+"Plugin" = "プラグイン";
+
+/* No comment provided by engineer. */
+"Plugin already installed" = "既にインストールされているプラ​​グイン";
+
+/* No comment provided by engineer. */
+"Plugin download..." = "プラグインのダウンロード...";
+
+/* No comment provided by engineer. */
+"Plugin downloaded" = "ダウンロードしたプラグイン";
+
+/* No comment provided by engineer. */
+"Plugin Installed" = "インストールされたプラグイン";
+
+/* No comment provided by engineer. */
+"Plugin Manager" = "プラグインマネージャー";
+
+/* No comment provided by engineer. */
+"Plugin Update Available" = "プラグインの更新があります";
+
+/* No comment provided by engineer. */
+"Plugin Update Completed" = "プラグインの更新が完了しました";
+
+/* No comment provided by engineer. */
+"Plugin Updates Available" = "利用可能なプラグインアップデート";
+
+/* Title of Plugins section in preferences window */
+"Plugins" = "プラグイン";
+
+/* No comment provided by engineer. */
+"Plugins are not certified for primary diagnosis in medical imaging, unless specifically written by the plugin author(s)." = "プラグインの作者によって特別に書かれていない限り、プラグインは医用イメージングの一次診断のために認定されていません。";
+
+/* No comment provided by engineer. */
+"Plugins Error" = "プラグインのエラー";
+
+/* No comment provided by engineer. */
+"Plugins Installation" = "プラグインのインストール";
+
+/* No comment provided by engineer. */
+"Point" = "点";
+
+/* keep the space at the end of the string */
+"Point " = "3Dポイント ";
+
+/* No comment provided by engineer. */
+"Point-Based Registration Error" = "点ベースの登録エラー";
+
+/* No comment provided by engineer. */
+"Points names must match 2 by 2." = "点名は2で2に一致する必要があります。";
+
+/* keep the space at the end of the string */
+"Polygon " = "ポリゴン ";
+
+/* No comment provided by engineer. */
+"Port already in use" = "既に使用されているポート";
+
+/* No comment provided by engineer. */
+"Position: %@ " = "ポジション: %@ ";
+
+/* No comment provided by engineer. */
+"Preferences" = "設定";
+
+/* No comment provided by engineer. */
+"Preparing 3D data..." = "3Dデータを準備中...";
+
+/* No comment provided by engineer. */
+"Preparing 3D Iso Surface..." = "3D Isoサーフェスの準備...";
+
+/* No comment provided by engineer. */
+"Preparing 3D Object..." = "3Dオブジェクトの準備中...";
+
+/* No comment provided by engineer. */
+"Preparing data..." = "データの準備中...";
+
+/* No comment provided by engineer. */
+"Preparing printing..." = "印刷の準備中...";
+
+/* Preparing Results... */
+"Preparing Results..." = "結果を準備中...";
+
+/* No comment provided by engineer. */
+"Preparing the files..." = "ファイルの準備中...";
+
+/* No comment provided by engineer. */
+"Preprocessing %d files with %d plugins..." = "%2$d個のプラグインで%1$d個のファイルを前処理中です...";
+
+/* No comment provided by engineer. */
+"Preset" = "プリセット";
+
+/* No comment provided by engineer. */
+"Print" = "印刷";
+
+/* No comment provided by engineer. */
+"Print failed" = "印刷に失敗しました";
+
+/* No comment provided by engineer. */
+"Print selected study/series to a DICOM printer" = "選択したスタディ/シリーズをDICOMプリンタに印刷する";
+
+/* No comment provided by engineer. */
+"printed" = "印刷された(5)";
+
+/* No comment provided by engineer. */
+"Printing images..." = "画像の印刷...";
+
+/* No comment provided by engineer. */
+"Problems with slice thickness/interval to do a 3D reconstruction." = "3D再構成を行うスライス厚さ/間隔の問題。";
+
+/* No comment provided by engineer. */
+"Processing %@..." = "%@処理中...";
+
+/* No comment provided by engineer. */
+"Processing curved-MPR..." = "湾曲処理MPR ...";
+
+/* No comment provided by engineer. */
+"Processing ZIP file..." = "ZIPファイルの処理中...";
+
+/* No comment provided by engineer. */
+"Processing..." = "処理中...";
+
+/* No comment provided by engineer. */
+"Projection: %@" = "投影: %@";
+
+/* No comment provided by engineer. */
+"Propagate" = "伝播する";
+
+/* No comment provided by engineer. */
+"Propagate settings (WL/WW, zoom, ...)" = "設定を伝播する(WL/WW、ズームなど)";
+
+/* No comment provided by engineer. */
+"Propagating Region..." = "伝播領域...";
+
+/* No comment provided by engineer. */
+"PROSTATE" = "前立腺";
+
+/* No comment provided by engineer. */
+"Protected Mode" = "保護モード";
+
+/* Panel in preferences window */
+"Protocols" = "プロトコル";
+
+/* No comment provided by engineer. */
+"Provide a name for this setting." = "この設定の名前を指定します。";
+
+/* No comment provided by engineer. */
+"Provide values for WL and WW." = "WLとWWの値を入力します。";
+
+/* No comment provided by engineer. */
+"PT" = "PT";
+
+/* No comment provided by engineer. */
+"Public account not editable!" = "パブリックアカウントは編集できません!";
+
+/* No comment provided by engineer. */
+"PULMONARY" = "パルモナリ";
+
+/* No comment provided by engineer. */
+"Q&R Auto-Query" = "自動照会";
+
+/* No comment provided by engineer. */
+"Q&R Auto-Retrieve" = "自動取得";
+
+/* No comment provided by engineer. */
+"Query" = "照会";
+
+/* No comment provided by engineer. */
+"Query all studies of this patient" = "この患者のすべてのスタディを照会する";
+
+/* No comment provided by engineer. */
+"Query Encoding" = "照会エンコーディング";
+
+/* No comment provided by engineer. */
+"Query Error" = "照会エラー";
+
+/* No comment provided by engineer. */
+"Query Failed (1)" = "照会が失敗しました(1)";
+
+/* No comment provided by engineer. */
+"Query Failed (2)" = "照会が失敗しました(2)";
+
+/* No comment provided by engineer. */
+"Query Selected Patient from Q&R Window..." = "照会・取得ウィンドウから選択した患者に質問する…";
+
+/* No comment provided by engineer. */
+"QuickTime" = "QuickTime";
+
+/* No comment provided by engineer. */
+"Quicktime Export" = "Quicktime Export";
+
+/* No comment provided by engineer. */
+"QuickTime VR" = "QuickTime VR";
+
+/* No comment provided by engineer. */
+"Quit" = "終了";
+
+/* R: Right */
+"R" = "R";
+
+/* No comment provided by engineer. */
+"r:%.0f%%, g:%.0f%%, b:%.0f%%" = "r:%1$.0f%%, g:%2$.0f%%, b:%3$.0f%%";
+
+/* No comment provided by engineer. */
+"RADIUS" = "RADIUS";
+
+/* No comment provided by engineer. */
+"Radius (pix.)" = "半径 (pix.)";
+
+/* No comment provided by engineer. */
+"Rate" = "レート";
+
+/* No comment provided by engineer. */
+"Reading data..." = "データの読み込み中...";
+
+/* No comment provided by engineer. */
+"Reading DICOMDIR..." = "DICOMDIRを読む...";
+
+/* No comment provided by engineer. */
+"Reading..." = "読む...";
+
+/* No comment provided by engineer. */
+"Rebuild Database" = "データベースの再構築";
+
+/* No comment provided by engineer. */
+"Rebuild Selected Thumbnails" = "選択したサムネイルを再構築する";
+
+/* No comment provided by engineer. */
+"Rebuilding database index..." = "データベースインデックスの再構築中...";
+
+/* No comment provided by engineer. */
+"Rebuilding database..." = "データベースの再構築中...";
+
+/* No comment provided by engineer. */
+"Rebuilding default OsiriX database..." = "デフォルトのMiele-LXIVデータベースの再構築...";
+
+/* No comment provided by engineer. */
+"Received %d of %d bytes" = "%2$d バイト中 %1$d を受信しました";
+
+/* No comment provided by engineer. */
+"Recent Searches" = "最近の検索";
+
+/* No comment provided by engineer. */
+"Recents" = "過去";
+
+/* No comment provided by engineer. */
+"Recomputing Patient UIDs..." = "患者のUIDを再計算する...";
+
+/* keep the space at the end of the string */
+"Rectangle " = "四角";
+
+/* No comment provided by engineer. */
+"Rectangle ROI Tool" = "長方形ROIツール";
+
+/* No comment provided by engineer. */
+"Referring Physician" = "参照医師";
+
+/* No comment provided by engineer. */
+"Reformation Type" = "改革のタイプ";
+
+/* No comment provided by engineer. */
+"Refreshing..." = "再読み込み中…";
+
+/* No comment provided by engineer. */
+"Regenerate Auto Comments" = "自動コメントを再生成する";
+
+/* No comment provided by engineer. */
+"Regenerate Auto Comments..." = "自動コメントを再生成...";
+
+/* No comment provided by engineer. */
+"Regenerate Auto-Fill Comment field" = "自動入力コメントフィールドを再生成する";
+
+/* No comment provided by engineer. */
+"Region" = "都道府県";
+
+/* No comment provided by engineer. */
+"Registration Error" = "登録エラー";
+
+/* No comment provided by engineer. */
+"Registration Key" = "登録キー";
+
+/* name of thread that sends dicom files to the remote database after local addFiles */
+"Remote DICOM add..." = "リモートDICOM追加...";
+
+/* No comment provided by engineer. */
+"Remove" = "削除";
+
+/* No comment provided by engineer. */
+"Remove a Color Look Up Table" = "色ルックアップテーブルを削除する";
+
+/* No comment provided by engineer. */
+"Remove a Convolution Filter" = "畳み込みフィルタを削除する";
+
+/* No comment provided by engineer. */
+"Remove a WL/WW preset" = "WL/WWプリセットを削除する";
+
+/* No comment provided by engineer. */
+"Remove All Curves" = "すべての曲線を削除";
+
+/* No comment provided by engineer. */
+"Remove an Opacity Table" = "不透明度表を削除する";
+
+/* No comment provided by engineer. */
+"Remove current settings" = "現在の設定を削除する";
+
+/* No comment provided by engineer. */
+"Remove from current album" = "現在のアルバムから削除";
+
+/* No comment provided by engineer. */
+"Remove the links" = "リンクを削除する";
+
+/* No comment provided by engineer. */
+"RENAL" = "腎臓";
+
+/* No comment provided by engineer. */
+"Render Mode" = "レンダリングモード";
+
+/* No comment provided by engineer. */
+"Render this image at the best resolution" = "最高の解像度でこの画像をレンダリングする";
+
+/* No comment provided by engineer. */
+"Rendering 3D Object..." = "レンダリング3Dオブジェクト...";
+
+/* No comment provided by engineer. */
+"Rendering Mode" = "レンダリングモード";
+
+/* No comment provided by engineer. */
+"Rendering..." = "レンダリング...";
+
+/* No comment provided by engineer. */
+"Reorient & Fusion" = "Reorient＆Fusion";
+
+/* No comment provided by engineer. */
+"Replace" = "置換";
+
+/* No comment provided by engineer. */
+"Replace Images with current Key Images?" = "イメージを現在のキーイメージに置き換えますか？";
+
+/* No comment provided by engineer. */
+"Report" = "報告";
+
+/* No comment provided by engineer. */
+"Report Error" = "報告エラー";
+
+/* No comment provided by engineer. */
+"Report file is not found... Should I create a new one?" = "報告ファイルが見つかりません... 新しいファイルを作成する必要がありますか？";
+
+/* No comment provided by engineer. */
+"Report PDF" = "報告PDF";
+
+/* No comment provided by engineer. */
+"Report Plugin not available." = "報告プラグインは利用できません。";
+
+/* No comment provided by engineer. */
+"Report Style" = "報告スタイル";
+
+/* No comment provided by engineer. */
+"Repulsor" = "リパルサー";
+
+/* No comment provided by engineer. */
+"Repulsor Tool" = "リパルサーツール";
+
+/* No comment provided by engineer. */
+"Required format: %@" = "必要なフォーマット: %@";
+
+/* No comment provided by engineer. */
+"Required format: floating point number" = "必要なフォーマット:浮動小数点数";
+
+/* No comment provided by engineer. */
+"Required format: integer number" = "必要なフォーマット:整数";
+
+/* No comment provided by engineer. */
+"Resample" = "リサンプル";
+
+/* No comment provided by engineer. */
+"Resampling 3D data..." = "3Dデータのリサンプリング...";
+
+/* No comment provided by engineer. */
+"Resampling data..." = "データの再サンプリング中...";
+
+/* No comment provided by engineer. */
+"Resampling Error" = "リサンプリングエラー";
+
+/* No comment provided by engineer. */
+"Resampling is only available for series in the SAME study." = "再サンプリングは、同じスタディのシリーズでのみ使用できます。";
+
+/* No comment provided by engineer. */
+"Resampling..." = "再サンプリング中...";
+
+/* Placeholder string for Anonymization Tag cells */
+"Reset" = "リセット";
+
+/* No comment provided by engineer. */
+"Reset CLUT List" = "CLUTリストをリセットする";
+
+/* No comment provided by engineer. */
+"Reset image to original view" = "イメージを元のビューにリセットする";
+
+/* No comment provided by engineer. */
+"Reset Preferences" = "設定のリセット";
+
+/* No comment provided by engineer. */
+"Reset to initial 3D view" = "初期3Dビューにリセット";
+
+/* No comment provided by engineer. */
+"Reset Workspace State" = "ワークスペースの状態をリセットする";
+
+/* No comment provided by engineer. */
+"Resize window" = "サイズ変更ウィンドウ";
+
+/* No comment provided by engineer. */
+"Reslicing..." = "再接続しています...";
+
+/* No comment provided by engineer. */
+"Resolution" = "解像度";
+
+/* No comment provided by engineer. */
+"Restart" = "再開";
+
+/* No comment provided by engineer. */
+"Restart OsiriX to apply the changes to the plugins." = "Miele-LXIVを再起動して、プラグインに変更を適用します。";
+
+/* No comment provided by engineer. */
+"Restart OsiriX to apply these changes." = "これらの変更を適用するには、Miele-LXIVを再起動してください。";
+
+/* No comment provided by engineer. */
+"Restart OsiriX to apply this change." = "この変更を適用するには、Miele-LXIVを再起動します。";
+
+/* No comment provided by engineer. */
+"Restarting Auto Query/Retrieve..." = "自動照会/取得を再開する...";
+
+/* No comment provided by engineer. */
+"Restore" = "復元";
+
+/* Try to keep this string **short** */
+"result in entire DB" = "DB全体の結果";
+
+/* Try to keep this string **short** */
+"results in entire DB" = "DB全体の結果";
+
+/* No comment provided by engineer. */
+"Retrieve and display the images" = "画像の取得と表示";
+
+/* No comment provided by engineer. */
+"Retrieve cannot work if the DICOM Listener is not activated. See Preferences - Listener." = "DICOMリスナーがアクティブ化されていない場合、Retrieveは機能しません。 「環境設定 - リスナー」を参照してください。";
+
+/* No comment provided by engineer. */
+"Retrieve the images" = "画像を取得する";
+
+/* No comment provided by engineer. */
+"Retrieving images..." = "画像の取得中...";
+
+/* No comment provided by engineer. */
+"Retrieving..." = "取得中...";
+
+/* No comment provided by engineer. */
+"Reveal In Finder" = "Finderで明らかにする";
+
+/* No comment provided by engineer. */
+"Revert" = "戻す";
+
+/* No comment provided by engineer. */
+"Revert series by re-loading images from disk" = "ディスクからイメージを再読み込みしてシリーズを元に戻す";
+
+/* No comment provided by engineer. */
+"reviewed" = "レビュー済(2)";
+
+/* No comment provided by engineer. */
+"RF" = "RF";
+
+/* No comment provided by engineer. */
+"RGB" = "RGB";
+
+/* No comment provided by engineer. */
+"RGB Factors" = "RGB要因";
+
+/* No comment provided by engineer. */
+"RGB images are not supported." = "RGB画像はサポートされていません。";
+
+/* No comment provided by engineer. */
+"Right Coronary Artery" = "右冠動脈";
+
+/* No comment provided by engineer. */
+"ROI" = "ROI";
+
+/* ROI = Region of Interest, keep the space at the end of the string */
+"ROI " = "ROI ";
+
+/* No comment provided by engineer. */
+"ROI Histogram" = "ROIヒストグラム";
+
+/* No comment provided by engineer. */
+"ROI Info" = "ROI情報";
+
+/* No comment provided by engineer. */
+"ROI Manager" = "ROIマネージャー";
+
+/* No comment provided by engineer. */
+"ROI: %@" = "ROI: %@";
+
+/* No comment provided by engineer. */
+"ROIs" = "ROI";
+
+/* No comment provided by engineer. */
+"ROIs & Keys" = "ROIとキー";
+
+/* No comment provided by engineer. */
+"ROIs and Key Images" = "ROIとキーイメージ";
+
+/* No comment provided by engineer. */
+"ROIs Error" = "ROIのエラー";
+
+/* No comment provided by engineer. */
+"ROIs Images" = "ROIイメージ";
+
+/* No comment provided by engineer. */
+"ROIs Propagate Error" = "ROIがエラーを伝播する";
+
+/* No comment provided by engineer. */
+"ROIs Save Error" = "ROIの保存エラー";
+
+/* No comment provided by engineer. */
+"ROIs Volume Error" = "ROIボリュームエラー";
+
+/* No comment provided by engineer. */
+"Rotate" = "回転";
+
+/* No comment provided by engineer. */
+"Rotate Tool" = "回転ツール";
+
+/* No comment provided by engineer. */
+"Rotation Angle" = "回転角度";
+
+/* No comment provided by engineer. */
+"ROTATOR CUFF" = "ロータリーカフ";
+
+/* Panel in preferences window */
+"Routing" = "ルーティング";
+
+/* No comment provided by engineer. */
+"Routing Filter Error" = "ルーティングフィルタエラー";
+
+/* No comment provided by engineer. */
+"Routing..." = "ルーティング...";
+
+/* No comment provided by engineer. */
+"RTSTRUCT" = "RTSTRUCT";
+
+/* S: Superior */
+"S" = "S";
+
+/* No comment provided by engineer. */
+"Sagittal" = "矢状";
+
+/* No comment provided by engineer. */
+"Sagittal Left" = "サジタル左";
+
+/* No comment provided by engineer. */
+"Sagittal Right" = "サジタル右";
+
+/* No comment provided by engineer. */
+"Same AETitle" = "同じAETitle";
+
+/* No comment provided by engineer. */
+"Same as Default Settings..." = "デフォルト設定と同じ...";
+
+/* No comment provided by engineer. */
+"Same Heights" = "同じ高さ";
+
+/* No comment provided by engineer. */
+"Same heights for the 3 rows" = "3行の同じ高さ";
+
+/* No comment provided by engineer. */
+"Same name" = "同名";
+
+/* No comment provided by engineer. */
+"Same Patient" = "同患者";
+
+/* No comment provided by engineer. */
+"Same Study" = "同じ研究";
+
+/* No comment provided by engineer. */
+"Same Widths" = "同じ幅";
+
+/* No comment provided by engineer. */
+"Same widths for the 3 columns" = "3列の同じ幅";
+
+/* No comment provided by engineer. */
+"Save" = "保存";
+
+/* No comment provided by engineer. */
+"Save Albums" = "アルバムを保存";
+
+/* No comment provided by engineer. */
+"Save as DICOM" = "DICOMとして保存";
+
+/* No comment provided by engineer. */
+"Save Workspace State" = "ワークスペースの状態を保存する";
+
+/* No comment provided by engineer. */
+"Save Workspace State as DICOM SR" = "ワークスペースの状態をDICOM SRとして保存する";
+
+/* No comment provided by engineer. */
+"Save..." = "保存する...";
+
+/* No comment provided by engineer. */
+"Saving 3D object..." = "3Dオブジェクトを保存中...";
+
+/* No comment provided by engineer. */
+"Saving Annotations" = "注釈の保存";
+
+/* No comment provided by engineer. */
+"Saving reconstruction to %@..." = "%@に再構築を保存しています...";
+
+/* No comment provided by engineer. */
+"SC" = "SC";
+
+/* No comment provided by engineer. */
+"Scale To Fit" = "大きさを合わせる";
+
+/* No comment provided by engineer. */
+"Scanning %@" = "スキャン %@";
+
+/* No comment provided by engineer. */
+"Scanning database directory..." = "データベースディレクトリのスキャン中...";
+
+/* No comment provided by engineer. */
+"Scanning directories..." = "ディレクトリのスキャン中...";
+
+/* No comment provided by engineer. */
+"Scanning disc..." = "ディスクのスキャン中...";
+
+/* No comment provided by engineer. */
+"SCAPHOID" = "SCAPHOID";
+
+/* No comment provided by engineer. */
+"SCAPULA" = "スカプラ";
+
+/* No comment provided by engineer. */
+"Scissor State" = "はさみの状態";
+
+/* No comment provided by engineer. */
+"Scissors Tool" = "はさみツール";
+
+/* Title on script failure window. */
+"Script Failure" = "スクリプトの失敗";
+
+/* No comment provided by engineer. */
+"Scroll" = "スクロール";
+
+/* No comment provided by engineer. */
+"Scroll Tool" = "スクロールツール";
+
+/* No comment provided by engineer. */
+"Search" = "検索";
+
+/* No comment provided by engineer. */
+"Search %@: %@" = "検索 %1$@: %2$@";
+
+/* No comment provided by engineer. */
+"Search by %@" = "で検索する %@";
+
+/* No comment provided by engineer. */
+"Search by All Fields" = "すべてのフィールドで検索";
+
+/* No comment provided by engineer. */
+"Search For Search Field..." = "検索フィールドを検索...";
+
+/* No comment provided by engineer. */
+"Search History: %@" = "検索履歴: %@";
+
+/* Web portal, study list, title */
+"Search Results" = "検索結果";
+
+/* No comment provided by engineer. */
+"Search results for: %@" = "の検索結果: %@";
+
+/* No comment provided by engineer. */
+"Search Smart Album..." = "スマートアルバムを検索...";
+
+/* No comment provided by engineer. */
+"Search Time Interval..." = "検索時間間隔...";
+
+/* second */
+"sec" = "秒";
+
+/* No comment provided by engineer. */
+"second" = "秒";
+
+/* No comment provided by engineer. */
+"seconds" = "秒";
+
+/* No comment provided by engineer. */
+"See Preferences" = "設定を参照してください";
+
+/* No comment provided by engineer. */
+"Segmentation Error" = "セグメンテーションエラー";
+
+/* No comment provided by engineer. */
+"Segmentation Preview" = "セグメンテーションプレビュー";
+
+/* No comment provided by engineer. */
+"Select a Brush ROI before to run the filter." = "フィルタを実行する前にBrush ROIを選択します。";
+
+/* No comment provided by engineer. */
+"Select a DICOM tag..." = "DICOMタグを選択...";
+
+/* No comment provided by engineer. */
+"Select a fusion plug-in" = "フュージョンプラグインを選択する";
+
+/* No comment provided by engineer. */
+"Select a ROI to compute volume of all ROIs with the same name." = "ROIを選択して、同じ名前のすべてのROIのボリュームを計算します。";
+
+/* No comment provided by engineer. */
+"Select a ROI to delete all ROIs with the same name." = "ROIを選択すると、同じ名前のすべてのROIが削除されます。";
+
+/* No comment provided by engineer. */
+"Select a ROI." = "ROIを選択します。";
+
+/* No comment provided by engineer. */
+"Select a starting point by clicking in the image." = "画像をクリックして開始点を選択します。";
+
+/* No comment provided by engineer. */
+"Select a study to delete it. You cannot delete series from this window, go to the Database window to delete series." = "調査を選択して削除します。このウィンドウからシリーズを削除することはできません。シリーズを削除するには、データベースウィンドウに移動してください。";
+
+/* No comment provided by engineer. */
+"Select a study to query all studies of this patient." = "この患者のすべての検査を照会する検査を選択します。";
+
+/* No comment provided by engineer. */
+"Select a Tag..." = "タグを選択...";
+
+/* No comment provided by engineer. */
+"Select an element to use to sort the images of the series." = "シリーズの画像を並べ替えるために使用する要素を選択します。";
+
+/* No comment provided by engineer. */
+"Select one or more users." = "1人または複数のユーザーを選択します。";
+
+/* No comment provided by engineer. */
+"Select the location where to export the DICOM files:" = "DICOMファイルをエクスポートする場所を選択します:";
+
+/* No comment provided by engineer. */
+"Select the location where to export the image files:" = "イメージファイルをエクスポートする場所を選択します:";
+
+/* No comment provided by engineer. */
+"Select the location where to export the Movie files:" = "ムービーファイルを書き出す場所を選択します:";
+
+/* No comment provided by engineer. */
+"Select the preferences file (plist) to load:" = "読み込む設定ファイル(plist)を選択します:";
+
+/* No comment provided by engineer. */
+"Selected Lines" = "選択されたライン";
+
+/* No comment provided by engineer. */
+"Selected Thumbnails" = "選択されたサムネイル";
+
+/* No comment provided by engineer. */
+"Selector Tool" = "セレクタツール";
+
+/* No comment provided by engineer. */
+"Send" = "送信";
+
+/* No comment provided by engineer. */
+"Send an email notification to user(s)" = "ユーザーに電子メール通知を送信する";
+
+/* No comment provided by engineer. */
+"Send an email to OsiriX support" = "Miele-LXIVサポートにメールを送る";
+
+/* Send selected study/series to a DICOM node */
+"Send selected study/series to a DICOM node" = "選択したスタディ/シリーズをDICOMノードに送信する";
+
+/* No comment provided by engineer. */
+"Send this series to a DICOM node" = "このシリーズをDICOMノードに送る";
+
+/* No comment provided by engineer. */
+"Send to back" = "返信する";
+
+/* No comment provided by engineer. */
+"Send to DICOM node" = "DICOMノードに送信";
+
+/* No comment provided by engineer. */
+"Sending %@ %@..." = "%1$@ %2$@ を送信しています...";
+
+/* No comment provided by engineer. */
+"Sending data..." = "データを送信しています…";
+
+/* No comment provided by engineer. */
+"Sending failed. Will re-try later..." = "送信に失敗しました。後で再試行します...";
+
+/* No comment provided by engineer. */
+"Sending images..." = "画像を送信中...";
+
+/* No comment provided by engineer. */
+"Sending SCU request..." = "SCUリクエストを送信中...";
+
+/* No comment provided by engineer. */
+"Sending..." = "送信中……";
+
+/* Month */
+"September" = "9月";
+
+/* can be plural or singular */
+"series" = "シリーズ";
+
+/* No comment provided by engineer. */
+"Series" = "シリーズ";
+
+/* No comment provided by engineer. */
+"Series level" = "シリーズレベル";
+
+/* No comment provided by engineer. */
+"Series Opening" = "シリーズオープニング";
+
+/* No comment provided by engineer. */
+"Series Selection" = "シリーズ選択";
+
+/* No comment provided by engineer. */
+"Set Key Image" = "キーイメージの設定";
+
+/* No comment provided by engineer. */
+"Set Pixels" = "ピクセルを設定する";
+
+/* No comment provided by engineer. */
+"Set Pixels Values to..." = "ピクセル値を設定する...";
+
+/* No comment provided by engineer. */
+"Set the three views to the same height" = "3つのビューを同じ高さに設定する";
+
+/* No comment provided by engineer. */
+"Set the three views to the same width" = "3つのビューを同じ幅に設定する";
+
+/* No comment provided by engineer. */
+"Set WL/WW manually" = "WL/WWを手動で設定する";
+
+/* No comment provided by engineer. */
+"Set WL/WW Manually" = "WL/WWを手動で設定する";
+
+/* No comment provided by engineer. */
+"Settings" = "設定";
+
+/* No comment provided by engineer. */
+"Shading" = "シェーディング";
+
+/* No comment provided by engineer. */
+"Shading Properties" = "シェーディング設定";
+
+/* No comment provided by engineer. */
+"Shadings" = "陰影";
+
+/* No comment provided by engineer. */
+"Shadings: %@" = "陰影: %@";
+
+/* No comment provided by engineer. */
+"Shadings: Off" = "シェーディング:オフ";
+
+/* Section in preferences window */
+"Sharing" = "カスタム共有・ スケジュール";
+
+/* No comment provided by engineer. */
+"Should I add or replace the printer list? If you choose 'replace', the current list will be deleted." = "プリンタリストを追加または交換する必要がありますか？ 「置換」を選択すると、現在のリストが削除されます。";
+
+/* No comment provided by engineer. */
+"Should I add or replace this locations list? If you choose 'replace', the current list will be deleted." = "この場所のリストを追加または交換する必要がありますか？ 「置換」を選択すると、現在のリストが削除されます。";
+
+/* No comment provided by engineer. */
+"Should I apply current convolution filter on raw data? 2D/3D post-processing viewers can only display raw data." = "生データに現在の畳み込みフィルタを適用する必要がありますか？ 2D / 3D後処理ビューアは生データのみを表示できます。";
+
+/* No comment provided by engineer. */
+"Should I copy these files in OsiriX Database folder, or only copy links to these files?" = "これらのファイルをMiele-LXIV Databaseフォルダにコピーするか、これらのファイルへのリンクのみをコピーする必要がありますか？";
+
+/* No comment provided by engineer. */
+"Should I export the temporal series or only the current image?" = "時系列または現在の画像のみを書き出すべきですか？";
+
+/* No comment provided by engineer. */
+"Should I export the temporal series or the 3D scene?" = "時系列や3Dシーンをエクスポートする必要がありますか？";
+
+/* No comment provided by engineer. */
+"Should I send only current image or all images of current series?" = "現在の画像のみ、または現在のシリーズのすべての画像を送信する必要がありますか？";
+
+/* No comment provided by engineer. */
+"SHOULDER" = "ショルダー";
+
+/* No comment provided by engineer. */
+"Show 3D Presets Panel" = "3Dプリセットパネルを表示する";
+
+/* No comment provided by engineer. */
+"Show and manipulate cropping cube" = "クロップキューブの表示と操作";
+
+/* No comment provided by engineer. */
+"Show orientation cube" = "オリエンテーションキューブを表示する";
+
+/* No comment provided by engineer. */
+"Show Printers..." = "プリンタを表示する...";
+
+/* No comment provided by engineer. */
+"Show Series" = "ショーシリーズ";
+
+/* No comment provided by engineer. */
+"Show/Hide" = "子テーマ属性の表示/非表示";
+
+/* No comment provided by engineer. */
+"Show/Hide 3D points" = "3Dポイントの表示/非表示";
+
+/* No comment provided by engineer. */
+"Shutter" = "シャッタ";
+
+/* No comment provided by engineer. */
+"SINUS" = "シヌス";
+
+/* No comment provided by engineer. */
+"Slice interval" = "スライス間隔";
+
+/* No comment provided by engineer. */
+"Slice Interval is not constant!" = "スライス間隔は一定ではありません!";
+
+/* No comment provided by engineer. */
+"Slice interval/thickness" = "スライス間隔/厚さ";
+
+/* No comment provided by engineer. */
+"Slice Locations not available to compute a volume." = "ボリュームを計算するためにスライス場所が利用できません。";
+
+/* No comment provided by engineer. */
+"Smart Album" = "スマートアルバム";
+
+/* No comment provided by engineer. */
+"Smart Album selected: %@" = "選択されたスマートアルバム: %@";
+
+/* No comment provided by engineer. */
+"Some images are stored in locked studies. Only unlocked images will be deleted." = "一部の画像は、ロックされたスタディに保存されます。ロックされていない画像のみが削除されます。";
+
+/* No comment provided by engineer. */
+"Some of the selected images are not stored in the Database folder. Do you want to only remove the links of these images from the database or also delete the original files?" = "選択した画像の一部は、[データベース]フォルダに保存されません。これらのイメージのリンクをデータベースから削除するか、元のファイルを削除するだけですか？";
+
+/* No comment provided by engineer. */
+"Some token have no content. Token such as 'DICOM_', 'DB_', 'Special_' will not be displayed." = "トークンによっては内容がありません。 'DICOM_'、 'DB_'、 'Special_'などのトークンは表示されません。";
+
+/* No comment provided by engineer. */
+"Sorry, but the past operation failed" = "申し訳ありませんが、過去の操作は失敗しました";
+
+/* No comment provided by engineer. */
+"Sorry, but there is not enough memory" = "申し訳ありませんが、十分なメモリがありません";
+
+/* No comment provided by engineer. */
+"Sorry, these images are already in BW mode" = "申し訳ありませんが、これらの画像は既にBWモードです";
+
+/* No comment provided by engineer. */
+"Sorry, these images are already in RGB mode" = "申し訳ありませんが、これらの画像は既にRGBモードです";
+
+/* No comment provided by engineer. */
+"Sort by Description" = "ソート順の説明";
+
+/* No comment provided by engineer. */
+"Sort by Tag" = "タグで並べ替え";
+
+/* No comment provided by engineer. */
+"Sort Images" = "画像を並べ替える";
+
+/* No comment provided by engineer. */
+"Sort Series Images" = "シリーズ画像を並べ替える";
+
+/* No comment provided by engineer. */
+"Sort Series Images by selected element" = "選択した要素でシリーズイメージをソートする";
+
+/* No comment provided by engineer. */
+"Sorted by Name" = "名前でソート";
+
+/* No comment provided by engineer. */
+"Sorted by Value" = "値でソート";
+
+/* No comment provided by engineer. */
+"Sources" = "ソース";
+
+/* No comment provided by engineer. */
+"Spline Interpolation Error" = "スプライン補間誤差";
+
+/* No comment provided by engineer. */
+"Starting Miele-LXIV" = "Miele-LXIVの起動";
+
+/* No comment provided by engineer. */
+"Starting OsiriX Lite..." = "Miele-LXIV Liteの起動...";
+
+/* No comment provided by engineer. */
+"Starting Retrieving..." = "取得開始中...";
+
+/* No comment provided by engineer. */
+"State" = "都道府県";
+
+/* No comment provided by engineer. */
+"Status & Comments" = "ステータスとコメント";
+
+/* No comment provided by engineer. */
+"Stereo" = "ステレオ";
+
+/* No comment provided by engineer. */
+"STERNUM" = "胸骨";
+
+/* No comment provided by engineer. */
+"Stop" = "停止";
+
+/* No comment provided by engineer. */
+"Store Configuration Failure: %@" = "ストア構成の失敗: %@";
+
+/* No comment provided by engineer. */
+"Stored SOP Class UIDs" = "格納されたSOPクラスUID";
+
+/* No comment provided by engineer. */
+"studies" = "研究";
+
+/* No comment provided by engineer. */
+"studies found" = "研究が見つかりました";
+
+/* No comment provided by engineer. */
+"study" = "スタディ";
+
+/* No comment provided by engineer. */
+"Study Date" = "スタディの日付";
+
+/* No comment provided by engineer. */
+"Study Deleted" = "スタディが削除されました";
+
+/* No comment provided by engineer. */
+"Study Description" = "ABテストの説明";
+
+/* No comment provided by engineer. */
+"Study Filter" = "スタディフィルター";
+
+/* No comment provided by engineer. */
+"study found" = "研究が見つかりました";
+
+/* No comment provided by engineer. */
+"Study ID" = "スタディID";
+
+/* No comment provided by engineer. */
+"Study level" = "学習レベル";
+
+/* No comment provided by engineer. */
+"Study list" = "研究リスト";
+
+/* Web portal, study list, title */
+"Study List" = "研究リスト";
+
+/* No comment provided by engineer. */
+"Study not available" = "研究は利用できません";
+
+/* No comment provided by engineer. */
+"Study not found" = "研究が見つかりません";
+
+/* Web Portal, study, share, error */
+"Study share failed: cannot identify user." = "学習共有に失敗しました:ユーザーを特定できません。";
+
+/* Web Portal, study, share, error */
+"Study share failed: not authorized." = "研究のシェアは失敗しました。";
+
+/* No comment provided by engineer. */
+"Study Status" = "研究状況";
+
+/* No comment provided by engineer. */
+"Subtraction" = "減算";
+
+/* No comment provided by engineer. */
+"Subtraction module" = "減算モジュール";
+
+/* No comment provided by engineer. */
+"Subtraction works only for XA modality." = "減算は、XAモダリティに対してのみ機能します。";
+
+/* No comment provided by engineer. */
+"Surface Rendering" = "サーフェスレンダリング";
+
+/* No comment provided by engineer. */
+"Surface Rendering requires volumic data." = "Surface Renderingにはボリュームデータが必要です。";
+
+/* No comment provided by engineer. */
+"Surface Settings" = "サーフェス設定";
+
+/* SUV = Standard Uptake Value */
+"SUV" = "SUV";
+
+/* SUV: Standard Uptake Value - No special characters for this string, only ASCII characters. */
+"SUV (fused image): %.2f" = "SUV(融合画像): %.2f";
+
+/* No comment provided by engineer. */
+"SUV Converted" = "SUVをコンバートした";
+
+/* No comment provided by engineer. */
+"SUV Error" = "SUVエラー";
+
+/* SUV: Standard Uptake Value - No special characters for this string, only ASCII characters. */
+"SUV: %.2f" = "SUV: %.2f";
+
+/* No comment provided by engineer. */
+"Switch Stereo Mode ON/OFF" = "スイッチステレオモードのオン/オフ";
+
+/* No comment provided by engineer. */
+"Switch Stereo Modes" = "ステレオモードを切り替える";
+
+/* No comment provided by engineer. */
+"Switch to Full" = "フルに切り替える";
+
+/* No comment provided by engineer. */
+"Switch to Full without names" = "名前なしでフルに切り替える";
+
+/* No comment provided by engineer. */
+"Switch to Graphic Only" = "グラフィックのみに切り替え";
+
+/* No comment provided by engineer. */
+"Sync" = "同期";
+
+/* No comment provided by engineer. */
+"Sync Preferences" = "同期設定";
+
+/* No comment provided by engineer. */
+"Sync Zoom" = "同期ズーム";
+
+/* No comment provided by engineer. */
+"Synchronize 3D position" = "3D位置を同期させる";
+
+/* No comment provided by engineer. */
+"Synchronizing database..." = "データベースの同期中...";
+
+/* No comment provided by engineer. */
+"Syncronize slice position" = "スライス位置を同期させる";
+
+/* No comment provided by engineer. */
+"Syntax error in study predicate filter: %@" = "調査述語フィルタの構文エラー: %@";
+
+/* No comment provided by engineer. */
+"T SPINE" = "T SPINE";
+
+/* No comment provided by engineer. */
+"TALUS" = "タラス";
+
+/* No comment provided by engineer. */
+"Task Progress" = "タスクの進捗状況";
+
+/* No comment provided by engineer. */
+"TEMPORAL BONE" = "側頭骨";
+
+/* No comment provided by engineer. */
+"Temporal Series" = "時系列シリーズ";
+
+/* No comment provided by engineer. */
+"Temporary account on %@" = "%@ の一時的なアカウント";
+
+/* No comment provided by engineer. */
+"Test very small thread..." = "非常に小さなスレッドをテストする...";
+
+/* No comment provided by engineer. */
+"Text Tool" = "テキストツール";
+
+/* No comment provided by engineer. */
+"The current auto-cleaning rules cannot find studies to delete. Check the parameters in Preferences Database window (Database Auto-Cleaning), or delete other files from your hard disk." = "現在の自動クリーニングルールでは削除する調査を見つけることができません。環境設定データベースウィンドウ(データベース自動クリーニング)のパラメータをチェックするか、ハードディスクから他のファイルを削除してください。";
+
+/* No comment provided by engineer. */
+"The data to burn is larger than a media size (%d MB), you need a DVD to burn this amount of data (%d MB)." = "書き込むデータがメディアサイズ(%1$d MB)より大きい場合、この量のデータを書き込むにはDVDが必要です(%2$d MB)。";
+
+/* No comment provided by engineer. */
+"The database volume is full! Incoming files are ignored." = "データベースのボリュームがいっぱいです!着信ファイルは無視されます。";
+
+/* No comment provided by engineer. */
+"The ENTIRE content of the selected media (%@) will be deleted, before writing the new data. Do you confirm?" = "新しいデータを書き込む前に、選択したメディアの全コンテンツ (%@) が削除されます。あなたは確認しますか？";
+
+/* No comment provided by engineer. */
+"The Format you selected is not valid." = "選択したフォーマットは無効です。";
+
+/* No comment provided by engineer. */
+"The images are encrypted with a password in this ZIP file: first, unzip this file to read the content. Use an Unzip application to extract the files." = "画像は、このZIPファイルのパスワードで暗号化されています。まず、このファイルを解凍してコンテンツを読み取ります。 Unzipアプリケーションを使用してファイルを抽出します。";
+
+/* No comment provided by engineer. */
+"the last 2 days" = "最後の2日間";
+
+/* No comment provided by engineer. */
+"the last 2 months" = "過去2ヶ月";
+
+/* No comment provided by engineer. */
+"the last 3 months" = "過去3ヶ月";
+
+/* No comment provided by engineer. */
+"the last 6 hours" = "最後の6時間";
+
+/* No comment provided by engineer. */
+"the last 7 days" = "過去7日間";
+
+/* No comment provided by engineer. */
+"the last 12 hours" = "最後の12時間";
+
+/* No comment provided by engineer. */
+"the last 31 days" = "過去31日間";
+
+/* No comment provided by engineer. */
+"the last day" = "最終日";
+
+/* No comment provided by engineer. */
+"the last hour" = "最後の1時間";
+
+/* No comment provided by engineer. */
+"the last year" = "去年";
+
+/* No comment provided by engineer. */
+"The missing ROIs were not created : this feature does not work with ROIs that don't contain an area." = "欠落しているROIは作成されませんでした。この機能は、領域を含まないROIでは機能しません。";
+
+/* No comment provided by engineer. */
+"The new password wasn't repeated correctly." = "新しいパスワードが正しく繰り返されませんでした。";
+
+/* No comment provided by engineer. */
+"The numeric value in this field must be between 0 and 999." = "このフィールドの数値は、0〜999の間でなければなりません。";
+
+/* No comment provided by engineer. */
+"The port %d is already use by the standard DICOM Listener. The port %d was automatically chosen instead." = "ポート%1$d はすでに標準のDICOMリスナーによって使用されています。代わりにポート%2$d が自動的に選択されました。";
+
+/* No comment provided by engineer. */
+"The postfixed letter must be either Y, M, W or D." = "後置文字は、Y、M、WまたはDのいずれかでなければなりません。";
+
+/* No comment provided by engineer. */
+"The provided URL doesn't seem correct. Check its validity." = "提供されたURLが正しくないようです。その妥当性をチェックしてください。";
+
+/* No comment provided by engineer. */
+"The query cannot be encoded in current character set. Should I switch to UTF-8 (ISO_IR 192) encoding?" = "現在の文字セットでクエリをエンコードすることはできません。 UTF-8(ISO_IR 192)エンコーディングに切り替える必要がありますか？";
+
+/* No comment provided by engineer. */
+"The Repulsor tool works only if ROIs (Length ROI, Opened and Closed Polygon ROI and Pencil ROI) are on the image." = "Repulsorツールは、ROI(長さROI、開いたおよび閉じたポリゴンROIおよび鉛筆のROI)が画像上にある場合にのみ機能します。";
+
+/* No comment provided by engineer. */
+"The result is now displayed in the Database Window." = "結果はデー​​タベースウィンドウに表示されます。";
+
+/* Message on script failure window. */
+"The script failed:" = "スクリプトは失敗しました:";
+
+/* No comment provided by engineer. */
+"The search field is currently not displayed in the toolbar. Customize your toolbar to add it." = "現在、検索フィールドはツールバーに表示されません。ツールバーをカスタマイズして追加します。";
+
+/* No comment provided by engineer. */
+"The selected database's data was not found on your computer." = "選択したデータベースのデータがコンピュータ上に見つかりませんでした。";
+
+/* No comment provided by engineer. */
+"The Smart Album filter (%@) needs to have at least one parameter defined to be activated: date or modality." = "スマートアルバムフィルタ(%@)には、有効にするために定義された少なくとも1つのパラメータ(日付またはモダリティ)が必要です。";
+
+/* No comment provided by engineer. */
+"The Spline Interpolation needs at least 3 points to be run." = "スプライン補間には少なくとも3点の実行が必要です。";
+
+/* No comment provided by engineer. */
+"The study is not available in the local Database, you cannot modify or set the comments/status fields." = "調査はローカルのデータベースでは利用できません。コメント/ステータスフィールドを変更または設定することはできません。";
+
+/* No comment provided by engineer. */
+"The upgrade encountered %d errors. These corrupted studies have been removed: %@" = "アップグレードで %1$d 個のエラーが発生しました。これらの破損した研究は削除されました: %2$@";
+
+/* No comment provided by engineer. */
+"The ZIP file was successfully decompressed and the images successfully incorporated in OsiriX database. Should I delete the ZIP file?" = "ZIPファイルは正常に解凍され、画像はMiele-LXIVデータベースに正常に組み込まれました。 ZIPファイルを削除する必要がありますか？";
+
+/* No comment provided by engineer. */
+"There are more recent PACS On-Demand comparatives" = "より最近のPACSオンデマンド比較があります";
+
+/* No comment provided by engineer. */
+"There are no files of selected type to send." = "送信する選択された種類のファイルはありません。";
+
+/* No comment provided by engineer. */
+"There are no images selected." = "画像が選択されていません。";
+
+/* No comment provided by engineer. */
+"There are PACS On-Demand comparatives" = "PACSオンデマンド比較があります";
+
+/* No comment provided by engineer. */
+"There is only one image in this series. Nothing to propagate!" = "このシリーズには1つの画像しかありません。伝播するものはありません!";
+
+/* No comment provided by engineer. */
+"These 2D planes are not parallel, you cannot use the 2D Orthogonal MPR viewer. Instead, try the 3D MPR viewer." = "これらの2次元平面は平行ではありません.2次元直交MPRビューアを使用することはできません。代わりに、3D MPRビューアを試してください。";
+
+/* No comment provided by engineer. */
+"These 2D planes are not parallel. If you continue the result will be distorted. You can instead 'Reorient' the series to have the same origin/orientation." = "これらの2D平面は平行ではありません。続けると結果が歪んでしまいます。代わりに、シリーズの向きを変えて同じ方向/向きにすることができます。";
+
+/* No comment provided by engineer. */
+"These 2D planes are not parallel. If you continue the result will be distorted. You can instead perform a 'Point-based registration' to have correct alignment/orientation." = "これらの2D平面は平行ではありません。続けると結果が歪んでしまいます。代わりに、正しい位置合わせ/向きを持つために「ポイントベースの登録」を実行することができます。";
+
+/* No comment provided by engineer. */
+"These images are stored in locked studies. First, unlock these studies to delete them." = "これらの画像は、ロックされた研究に保存されています。まず、これらの研究のロックを解除して削除します。";
+
+/* No comment provided by engineer. */
+"These images don't have the same height and width to allow a 3D reconstruction..." = "これらの画像は3D再構成を可能にするために同じ高さと幅を持っていません...";
+
+/* No comment provided by engineer. */
+"These images were acquired with a gantry tilt: %0.2f°. This gantry tilt will produce a distortion in 3D post-processing. Should I convert these images to a real 3D dataset." = "これらの画像は、ガントリ傾斜: %0.2f° で取得した。このガントリの傾きは3D後処理で歪みを生成します。これらの画像を実際の3Dデータセットに変換する必要があります。";
+
+/* No comment provided by engineer. */
+"These images were acquired with a gantry tilt: %0.2f°. This gantry tilt will produce a distortion in 3D post-processing. You can use the plugin 'Gantry Tilt Correction' to convert these images." = "これらの画像は、ガントリ傾斜: %0.2f° で取得した。このガントリの傾きは3D後処理で歪みを生成します。これらの画像を変換するには、プラグイン 'Gantry Tilt Correction'を使用します。";
+
+/* No comment provided by engineer. */
+"These slices doesn't represent a true 3D volumic data. This will produce distortion in 3D representations, and in measurements." = "これらのスライスは、真の3Dボリュームデータを表すものではありません。これにより、3D表現や測定に歪みが生じます。";
+
+/* No comment provided by engineer. */
+"These slices have a non regular slice interval, varying from %.3f mm to %.3f mm. This will produce distortion in 3D representations, and in measurements." = "これらのスライスは、%1$.3f mm から%2$.3f mm まで変化する非規則的なスライス間隔を持ちます。これにより、3D表現や測定に歪みが生じます。";
+
+/* No comment provided by engineer. */
+"These slices have not the same orientation. Gantry Tilt Correction cannot be applied to this dataset." = "これらのスライスは同じ向きではありません。 Gantry Tilt Correctionはこのデータセットに適用できません。";
+
+/* No comment provided by engineer. */
+"These studies are not stored locally, you cannot delete them" = "これらの研究は局所的には保存されず、削除することはできません";
+
+/* No comment provided by engineer. */
+"These values (weight and dose) are not correct." = "これらの値(体重および線量)は正しくありません。";
+
+/* No comment provided by engineer. */
+"These values CANNOT be equal to ZERO!" = "これらの値はゼロにはなりません!";
+
+/* Thick Slab */
+"Thick Slab" = "厚いスラブ";
+
+/* No comment provided by engineer. */
+"Thickness / Location / Position" = "厚さ/場所/位置";
+
+/* Warning %cm is NOT 'centimeter', it's micro-meter : only convert the m, not the '%c', which is the greek letter Mu */
+"Thickness: %0.2f %cm Location: %0.2f %cm" = "厚さ: %1$0.2f %2$cm 場所: %3$0.2f %4$cm";
+
+/* No comment provided by engineer. */
+"Thickness: %0.2f %cm Location: %0.2f mm" = "厚さ: %1$0.2f %2$cm 場所: %3$0.2f mm";
+
+/* No comment provided by engineer. */
+"Thickness: %0.2f mm Location: %0.2f mm" = "厚さ: %1$.2f mm 場所: %2$.2f mm";
+
+/* No comment provided by engineer. */
+"THIGH" = "大腿";
+
+/* No comment provided by engineer. */
+"This 32-bit version cannot load this series, but I can load a subset of the series: 1 on %d images." = "このシリーズを読み込むことはできませんが、シリーズの一部を読み込むことができます(%d画像毎1枚)。";
+
+/* No comment provided by engineer. */
+"This AETitle is not unique: %@. AETitles should be unique, otherwise Q&R (C-Move SCP/SCU) can fail." = "このAETitleはユニークではありません:%@。 AETitlesは一意でなければなりません。それ以外の場合、照会・取得(C-Move SCP / SCU)は失敗する可能性があります。";
+
+/* No comment provided by engineer. */
+"This app requires macOS %@.%@ or higher. Please update your OS: Apple Menu - Software Update..." = "このアプリはmacOS %1$@.%2$@ 以上が必要です。お使いのOSをアップデートしてください:アップルメニュー - ソフトウェアアップデート...";
+
+/* No comment provided by engineer. */
+"This Computer - %@/%@:%d" = "このコンピュータ - %1$@/%2$@:%3$d";
+
+/* No comment provided by engineer. */
+"This Computer [%@:%@]" = "このコンピュータ [%1$@:%2$@]";
+
+/* No comment provided by engineer. */
+"This convolution filter cannot be loaded." = "この畳み込みフィルタはロードできません。";
+
+/* No comment provided by engineer. */
+"This dataset has been post processed (reslicing, MPR, ...). You cannot create/modify/search key images. Revert to the original series or create a secondary capture series to do this." = "このデータセットは後処理されています(再スライス、MPR、...)。キー画像の作成/変更/検索はできません。これを行うには、元のシリーズに戻すか、セカンダリのキャプチャシリーズを作成します。";
+
+/* No comment provided by engineer. */
+"This dataset has been post processed (reslicing, MPR, ...). You cannot restore it." = "このデータセットは後処理されています(再スライス、MPR、...)。復元できません。";
+
+/* No comment provided by engineer. */
+"This dataset has been post processed (reslicing, MPR, ...). You cannot revert it." = "このデータセットは後処理されています(再スライス、MPR、...)。元に戻すことはできません。";
+
+/* No comment provided by engineer. */
+"This Device" = "この装置";
+
+/* No comment provided by engineer. */
+"This disk is being processed. It is currently not available." = "このディスクは処理中です。現在利用できません。";
+
+/* No comment provided by engineer. */
+"This field must contain a numeric value." = "このフィールドには数値が含まれている必要があります。";
+
+/* No comment provided by engineer. */
+"This file is not editable. It is a read-only file." = "このファイルは編集できません。これは読み取り専用ファイルです。";
+
+/* No comment provided by engineer. */
+"This filter is NOT working: %@" = "このフィルタは動作していません: %@";
+
+/* No comment provided by engineer. */
+"This filter works: the result is now displayed in the Database Window." = "このフィルターは機能し、結果はデー​​タベースウィンドウに表示されます。";
+
+/* No comment provided by engineer. */
+"This function is not available for this window." = "この機能はこのウィンドウでは使用できません。";
+
+/* No comment provided by engineer. */
+"This function is not available in OsiriX Light. Download the complete version of OsiriX to solve this issue." = "この機能は、Miele-LXIV Lightでは使用できません。この問題を解決するには、Miele-LXIVの完全版をダウンロードしてください。";
+
+/* No comment provided by engineer. */
+"This function is not available in the App Store version of Miele-LXIV. If you want to install plug-ins, download the complete Miele-LXIV version on our web site." = "この機能はMiele-LXIVのApp Storeバージョンでは利用できません。プラグインをインストールする場合は、当社のWebサイトでMiele-LXIVの完全版をダウンロードしてください。";
+
+/* No comment provided by engineer. */
+"This function is only useful if you use Thick Slab!" = "この機能は、厚いスラブを使用する場合にのみ便利です!";
+
+/* No comment provided by engineer. */
+"This function requires a VolumePRO board, the VLI.framework, and the VolumePRO.kext files" = "この機能には、VolumePROボード、VLI.framework、およびVolumePRO.kextファイルが必要です";
+
+/* No comment provided by engineer. */
+"This function requires two parallel series: a PT/NM series and a CT series in the same study." = "この機能には、PT/NMシリーズとCTシリーズの2つの平行シリーズが必要です。";
+
+/* No comment provided by engineer. */
+"This image is not calibrated." = "この画像は校正されていません。";
+
+/* No comment provided by engineer. */
+"This is a DICOM destination node: you cannot browse its content. You can only drag & drop studies on them." = "これはDICOM宛先ノードです。コンテンツを参照することはできません。あなたは研究をドラッグ＆ドロップすることしかできません。";
+
+/* No comment provided by engineer. */
+"This is an example" = "これは例です";
+
+/* No comment provided by engineer. */
+"This is the Lite version of OsiriX: many functions are not available. You can download the full version of OsiriX on the Internet." = "これはMiele-LXIVのLiteバージョンです。多くの機能は利用できません。 Miele-LXIVのフルバージョンはインターネット上でダウンロードできます。";
+
+/* No comment provided by engineer. */
+"This kind of ROI can not be exported to XML." = "このようなROIはXMLにエクスポートできません。";
+
+/* No comment provided by engineer. */
+"This remote database is unaccessible because its address could not be resolved." = "このリモートデータベースは、そのアドレスを解決できなかったためアクセスできません。";
+
+/* No comment provided by engineer. */
+"This screen doesn't support this function." = "この画面はこの機能をサポートしていません。";
+
+/* No comment provided by engineer. */
+"This series contains RTSTRUCT ROIs. Should I generate the corresponding ROIs on the images series?" = "このシリーズにはRTSTRUCT ROIが含まれています。画像シリーズに対応するROIを生成する必要がありますか？";
+
+/* No comment provided by engineer. */
+"This server doesn't exist in the Locations list: %@" = "このサーバーは「場所」リストに存在しません。%@";
+
+/* No comment provided by engineer. */
+"This server name is not unique: %@. Server names should be unique, otherwise autorouting rules can fail." = "このサーバー名は一意ではありません:%@。サーバ名は一意である必要があります。そうしないと、自動ルーティングルールが失敗する可能性があります。";
+
+/* Web Portal, study, share, ok (%@ is destUser.name) */
+"This study is now shared with <b>%@</b>." = "この調査は<b>%@</b>と共有されました。";
+
+/* Web Portal, study, share, ok (%@ is destUser.name) */
+"This study is shared with <b>%@</b>." = "この調査は<b>%@</b>と共有されています。";
+
+/* No comment provided by engineer. */
+"This tool currently does not work with RGB data series." = "このツールは現在、RGBデータシリーズでは機能しません。";
+
+/* No comment provided by engineer. */
+"This tool works only with 3D data series with identical matrix sizes." = "このツールは、同じマトリックスサイズの3Dデータシリーズでのみ機能します。";
+
+/* No comment provided by engineer. */
+"This tool works only with 3D data series." = "このツールは3Dデータシリーズでのみ動作します。";
+
+/* No comment provided by engineer. */
+"This URL is invalid. Check syntax." = "このURLは無効です。構文を確認してください。";
+
+/* No comment provided by engineer. */
+"This username doesn't exist in our database." = "このユーザー名はデータベースに存在しません。";
+
+/* No comment provided by engineer. */
+"This version of OsiriX can run in 64-bit, but it is set to run in 32-bit. You can change this setting, by selecting the OsiriX icon in Applications folder, select 'Get Info' in Finder File menu and UNCHECK 'run in 32-bit mode'." = "このバージョンのMiele-LXIVは64ビットで動作しますが、32ビットで動作するように設定されています。アプリケーションフォルダ内のMiele-LXIVアイコンを選択し、Finderのファイルメニューで「情報を見る」を選択し、「32ビットモードで実行」を解除することで、この設定を変更できます。";
+
+/* No comment provided by engineer. */
+"This version of Miele-LXIV has not been validated or certified for this version of MacOS. Bugs, errors and instabilities can occur. Upgrade to latest version of Miele-LXIV to solve this problem." = "このバージョンのMiele-LXIVは、このバージョンのMacOSでは有効性が確認されていません。バグ、エラー、不安定性が発生する可能性があります。この問題を解決するには、Miele-LXIVの最新バージョンにアップグレードしてください。";
+
+/* No comment provided by engineer. */
+"This version of OsiriX, being a free open-source software (FOSS), is not certified as a commercial medical device for primary diagnostic imaging." = "無料のオープンソースソフトウェア(FOSS)であるこのバージョンのMiele-LXIVは、一次診断画像の商用医療機器として認定されていません。";
+
+/* No comment provided by engineer. */
+"This will keep your Downloads folder uncluttered." = "これにより、ダウンロードフォルダが整理された状態に保たれます。";
+
+/* No comment provided by engineer. */
+"THORACIC" = "トライアック";
+
+/* No comment provided by engineer. */
+"THORAX" = "胸郭";
+
+/* No comment provided by engineer. */
+"Threshold (interval)" = "しきい値(間隔)";
+
+/* No comment provided by engineer. */
+"Threshold (lower/upper bounds)" = "しきい値(下限/上限)";
+
+/* No comment provided by engineer. */
+"THUMB" = "親指";
+
+/* No comment provided by engineer. */
+"THYROID" = "THYROID";
+
+/* No comment provided by engineer. */
+"TIBIA" = "脛骨";
+
+/* No comment provided by engineer. */
+"TIFF" = "TIFF";
+
+/* No comment provided by engineer. */
+"Tile" = "タイル";
+
+/* No comment provided by engineer. */
+"Tile Windows" = "タイルウィンドウ";
+
+/* No comment provided by engineer. */
+"Time Interval" = "時間の区切り";
+
+/* No comment provided by engineer. */
+"To see an animated series, you have to select multiple series of the same area at different times: e.g. a cardiac CT" = "アニメーションシリーズを見るには、異なる時間に同じエリアの複数のシリーズを選択する必要があります:例えば、心臓CT";
+
+/* No comment provided by engineer. */
+"To:" = "宛先:";
+
+/* Web portal, study list, title */
+"Today" = "今日";
+
+/* No comment provided by engineer. */
+"Today CR" = "今日のCR";
+
+/* No comment provided by engineer. */
+"Today CT" = "今日のCT";
+
+/* No comment provided by engineer. */
+"Today MG" = "今日のMG";
+
+/* No comment provided by engineer. */
+"Today MR" = "今日のMR";
+
+/* No comment provided by engineer. */
+"Today RF" = "今日のRF";
+
+/* No comment provided by engineer. */
+"Today US" = "今日のUS";
+
+/* No comment provided by engineer. */
+"Today XA" = "今日のXA";
+
+/* No comment provided by engineer. */
+"TOE" = "TOE";
+
+/* No comment provided by engineer. */
+"TOES" = "TOES";
+
+/* No comment provided by engineer. */
+"Toggle Albums & Sources drawer" = "アルバムとソースの切り替え";
+
+/* No comment provided by engineer. */
+"Toggle Images/Series Displaying" = "画像の切り替え/シリーズの表示";
+
+/* No comment provided by engineer. */
+"Too many Auto QR Instances already exist." = "あまりにも多くの自動QRインスタンスが既に存在します。";
+
+/* No comment provided by engineer. */
+"Tools" = "ツール";
+
+/* No comment provided by engineer. */
+"Total" = "合計";
+
+/* No comment provided by engineer. */
+"Total Pixels: %d" = "合計ピクセル数: %d";
+
+/* No comment provided by engineer. */
+"Total Pixels: %d\n\nRange:%d/%d\n\nPixels for\nthis range:%d" = "合計ピクセル: %1$d\n\n範囲:%2$d/%3$d\n\nこの範囲の\nピクセル:%4$d";
+
+/* No comment provided by engineer. */
+"Transferring database index..." = "データベースインデックスの転送中...";
+
+/* No comment provided by engineer. */
+"Turn Off Annotations" = "注釈をオフにする";
+
+/* No comment provided by engineer. */
+"ULNA" = "ULNA";
+
+/* No comment provided by engineer. */
+"Unable to check latest version available." = "利用可能な最新バージョンを確認できません。";
+
+/* No comment provided by engineer. */
+"Unable to unmount this disk. This disk is probably in used by another application." = "このディスクをアンマウントできません。このディスクはおそらく別のアプリケーションで使用されています。";
+
+/* No comment provided by engineer. */
+"Unauthorized WADO access - no valid token or incomplete request" = "許可されていないWADOアクセス - 有効なトークンまたは不完全な要求";
+
+/* No comment provided by engineer. */
+"Uncompressed" = "非圧縮";
+
+/* No comment provided by engineer. */
+"Uncompressed BigEndian" = "非圧縮BigEndian";
+
+/* No comment provided by engineer. */
+"Unexpected error" = "エラー2999:予期しないエラーが発生しました";
+
+/* No comment provided by engineer. */
+"Unify patient identity" = "患者のアイデンティティを統一する";
+
+/* No comment provided by engineer. */
+"Unify Patient Identity" = "患者のアイデンティティを統一する";
+
+/* No comment provided by engineer. */
+"Unify Patient Identity to: %@" = "患者アイデンティティを次のものに統一する: %@";
+
+/* No comment provided by engineer. */
+"Unify Study Identity" = "スタディアイデンティティを統一する";
+
+/* No comment provided by engineer. */
+"unknown" = "不明";
+
+/* No comment provided by engineer. */
+"Unknown Error" = "未知のエラー";
+
+/* No comment provided by engineer. */
+"Unknown Server" = "不明なサーバー";
+
+/* No comment provided by engineer. */
+"Unknown UID" = "未知のUID";
+
+/* No comment provided by engineer. */
+"Unlock Studies" = "研究のロックを解除する";
+
+/* No comment provided by engineer. */
+"Unnamed" = "無題";
+
+/* No comment provided by engineer. */
+"unread" = "未読 (1)";
+
+/* No comment provided by engineer. */
+"Unspecified Task" = "不特定のタスク";
+
+/* No comment provided by engineer. */
+"Updating database..." = "データベースの更新中...";
+
+/* No comment provided by engineer. */
+"Updating DICOM files..." = "DICOMファイルの更新中...";
+
+/* No comment provided by engineer. */
+"Updating files..." = "ファイルの更新中...";
+
+/* No comment provided by engineer. */
+"Updating Files..." = "ファイルの更新中...";
+
+/* No comment provided by engineer. */
+"Updating remote database..." = "リモートデータベースの更新中...";
+
+/* No comment provided by engineer. */
+"Upgrade" = "アップグレード";
+
+/* No comment provided by engineer. */
+"Upgrade to OsiriX 64-bit to solve this issue." = "この問題を解決するには、Miele-LXIVにアップグレードしてください。";
+
+/* No comment provided by engineer. */
+"Upgrading %d %@..." = "%1$d %2$@をアップグレードしています...";
+
+/* No comment provided by engineer. */
+"Upgrading database..." = "データベースのアップグレード中...";
+
+/* No comment provided by engineer. */
+"Uploaded by " = "アップロード者 ";
+
+/* No comment provided by engineer. */
+"UPPER ARM" = "上腕";
+
+/* No comment provided by engineer. */
+"Upper Threshold" = "上限しきい値";
+
+/* No comment provided by engineer. */
+"URL download Error" = "URLダウンロードエラー";
+
+/* No comment provided by engineer. */
+"URL download Succeeded" = "URLダウンロードが成功しました";
+
+/* No comment provided by engineer. */
+"URL Error" = "URLエラー";
+
+/* No comment provided by engineer. */
+"URL Invalid" = "URLが無効です";
+
+/* No comment provided by engineer. */
+"URL scheme" = "URLスキーム";
+
+/* No comment provided by engineer. */
+"US" = "US";
+
+/* No comment provided by engineer. */
+"USB Writing" = "USB書き込み";
+
+/* No comment provided by engineer. */
+"Use all screens for viewers" = "視聴者にすべての画面を使用する";
+
+/* No comment provided by engineer. */
+"Use Linear Interpollation" = "線形補間を使用する";
+
+/* No comment provided by engineer. */
+"Use this screen for viewers" = "この画面を視聴者に使用する";
+
+/* Web Portal, admin, user edition, delete ok (%@ is user.name) */
+"User <b>%@</b> successfully deleted." = "ユーザー<b>%@</b> は削除されました。";
+
+/* No comment provided by engineer. */
+"User Administration: %@" = "ユーザー管理: %@";
+
+/* No comment provided by engineer. */
+"User Manual" = "ユーザーマニュアル";
+
+/* No comment provided by engineer. */
+"user-defined" = "ユーザー定義の";
+
+/* No comment provided by engineer. */
+"User's name" = "ユーザーの名前";
+
+/* No comment provided by engineer. */
+"User's name changed. The password has been reset to a new password: %@" = "ユーザーの名前が変更されました。パスワードは新しいパスワードにリセットされました: %@";
+
+/* No comment provided by engineer. */
+"User's name has changed. The password has been reset to a new password: %@" = "ユーザーの名前が変更されました。パスワードは新しいパスワードにリセットされました: %@";
+
+/* No comment provided by engineer. */
+"Username:<br><br>" = "ユーザー名: <br><br>";
+
+/* No comment provided by engineer. */
+"UTERUS" = "子宮";
+
+/* No comment provided by engineer. */
+"Validate the DICOM format" = "DICOMフォーマットを検証する";
+
+/* No comment provided by engineer. */
+"validated" = "検証済み (4)";
+
+/* No comment provided by engineer. */
+"Validating files..." = "ファイルの検証中...";
+
+/* No comment provided by engineer. */
+"Validating the files..." = "ファイルの検証中...";
+
+/* No comment provided by engineer. */
+"Validator" = "バリデーター";
+
+/* No comment provided by engineer. */
+"value : %.0f" = "値 : %.0f";
+
+/* don't translate the 'backslash n' before 'alpha', it is a new line symbol! */
+"value : %.0f
+alpha : %1.3f" = "値 : %1$.0f
+アルファ : %2$.3f";
+
+/* No comment provided by engineer. */
+"Value: %0.3f%@" = "値: %1$.3f %2$@";
+
+/* No special characters for this string, only ASCII characters. */
+"Value: %2.2f %@" = "値: %1$.2 f%2$@";
+
+/* No special characters for this string, only ASCII characters. */
+"Value: R:%ld G:%ld B:%ld" = "値: R:%1$ld G:%2$ld B:%3$ld";
+
+/* No comment provided by engineer. */
+"Vertical" = "垂直";
+
+/* No comment provided by engineer. */
+"Vertically Flipped" = "垂直反転";
+
+/* No comment provided by engineer. */
+"View" = "表示";
+
+/* No comment provided by engineer. */
+"View all Key Images" = "すべてのキー画像を表示";
+
+/* No comment provided by engineer. */
+"View all Key Images and ROIs" = "キーイメージとROIをすべて表示";
+
+/* No comment provided by engineer. */
+"View all ROIs Images" = "すべての投資収益率イメージを表示";
+
+/* No comment provided by engineer. */
+"View Key Images" = "キーイメージを表示する";
+
+/* No comment provided by engineer. */
+"View meta-data of this image" = "この画像のメタデータを見る";
+
+/* No comment provided by engineer. */
+"View Report" = "レポートを見る";
+
+/* No comment provided by engineer. */
+"View Report as html, xml, DICOM" = "レポートをHTML、XML、DICOMとして表示";
+
+/* No comment provided by engineer. */
+"View selected study/series" = "選択したスタディ/シリーズを見る";
+
+/* No comment provided by engineer. */
+"View Size" = "サイズを表示";
+
+/* No comment provided by engineer. */
+"View Size: %d x %d" = "表示サイズ: %1$dx %2$d";
+
+/* No comment provided by engineer. */
+"View size: %ld x %ld" = "表示サイズ: %1$ld x %2$ld";
+
+/* Panel in preferences window */
+"Viewers" = "ビューア";
+
+/* No comment provided by engineer. */
+"Views" = "閲覧数";
+
+/* cm³ == mm3 */
+"Volume : %2.4f cm³" = "容積 : %2.4f cm³";
+
+/* mm³ == mm3 */
+"Volume : %2.4f mm³" = "容積 : %2.4f mm³";
+
+/* No comment provided by engineer. */
+"Volume Render" = "ボリュームレンダリング";
+
+/* No comment provided by engineer. */
+"Volume Rendering" = "ボリュームレンダリング";
+
+/* No comment provided by engineer. */
+"Volume Rendering requires volumic data." = "ボリュームレンダリングにはボリュームデータが必要です。";
+
+/* No comment provided by engineer. */
+"VolumePRO Error" = "VolumePROエラー";
+
+/* No comment provided by engineer. */
+"Voxel values have a very high dynamic range (>8192). Two options are available to use the 3D engine: clip values above 7168 and below -1024 or resample the values." = "ボクセル値は、非常に高いダイナミックレンジ(&gt; 8192)を有する。 3Dエンジンを使用するには、クリップの値が7168より大きく-1024より小さいか、値を再サンプリングするかの2つのオプションがあります。";
+
+/* No comment provided by engineer. */
+"WADO Retrieve Failed" = "WADOの取得に失敗しました";
+
+/* No comment provided by engineer. */
+"WADO Retrieve..." = "WADOの取得…";
+
+/* Web Portal, study, dicom send, error */
+"WADO URL Retrieve failed: no images selected. Select one or more series." = "WADO URL取得に失敗しました:画像が選択されていません。 1つまたは複数のシリーズを選択します。";
+
+/* No comment provided by engineer. */
+"Wait for running processes..." = "プロセスの実行を待つ...";
+
+/* No comment provided by engineer. */
+"Waiting for processing files..." = "ファイルの処理を待っています...";
+
+/* No comment provided by engineer. */
+"Waiting for similar threads to complete..." = "類似のスレッドが完了するのを待っています...";
+
+/* No comment provided by engineer. */
+"Waiting for subtasks to complete..." = "サブタスクが完了するのを待っています...";
+
+/* No comment provided by engineer. */
+"Warning" = "警告";
+
+/* No comment provided by engineer. */
+"Warning - Free Space" = "警告 - 空き領域";
+
+/* No comment provided by engineer. */
+"Warning !" = "警告";
+
+/* No comment provided by engineer. */
+"Warning, multiples destination servers have the same name: %@. Each destination should have a unique name." = "警告、複数の送信先サーバーの名前は %@と同じです。各目的地は一意の名前を持つ必要があります。";
+
+/* No comment provided by engineer. */
+"Warning!" = "警告!";
+
+/* No comment provided by engineer. */
+"Warning! Multiple instances of the same plugin have been found. Only one instance will be loaded. Check the Plugin Manager (Plugins menu) for multiple identical plugins." = "警告!同じプラグインの複数のインスタンスが見つかりました。インスタンスは1つだけロードされます。プラグインマネージャ(プラグインメニュー)で複数の同一のプラグインがあるかどうか確認してください。";
+
+/* No comment provided by engineer. */
+"Warning! Slice interval/thickness is varying, it can create distortion in 3D." = "警告!スライス間隔/厚さが変化すると、3Dで歪みが生じることがあります。";
+
+/* No comment provided by engineer. */
+"Warning! With this option, each time OsiriX is restarted, the entire database will be erased. All studies will be deleted. This cannot be undone." = "警告!このオプションを使用すると、Miele-LXIVを再起動するたびにデータベース全体が消去されます。すべての研究が削除されます。これは、元に戻すことはできません。";
+
+/* Panel in preferences window */
+"Web Server" = "Web サーバー";
+
+/* No comment provided by engineer. */
+"Will auto-retrieve %d studies" = "%d件のスタディを自動検索します";
+
+/* No comment provided by engineer. */
+"Will auto-retrieve %d study" = "%d件の調査を自動的に取得します";
+
+/* No comment provided by engineer. */
+"Window Level / Window Width" = "ウィンドウレベル/ウィンドウ幅";
+
+/* No comment provided by engineer. */
+"Window Width & Level" = "ウィンドウの幅とレベル";
+
+/* No comment provided by engineer. */
+"Windows" = "Windows";
+
+/* No comment provided by engineer. */
+"Windows Tiling" = "Windowsのタイリング";
+
+/* No comment provided by engineer. */
+"Windows Tiling - Columns" = "Windowsのタイリング - 列";
+
+/* No comment provided by engineer. */
+"Windows Tiling - Rows" = "Windowsの並べ替え - 行";
+
+/* No comment provided by engineer. */
+"WL / WW" = "WL/WW";
+
+/* No comment provided by engineer. */
+"WL / WW Error" = "WL/WWエラー";
+
+/* No comment provided by engineer. */
+"WL & WW" = "WL & WW";
+
+/* No comment provided by engineer. */
+"WL: %.0f WW: %.0f" = "WL: %1$.0f WW: %2$.0f";
+
+/* WW: window width, WL: window level */
+"WL: %0.4f WW: %0.4f" = "WL: %1$.4f WW: %2$.4f";
+
+/* WW: window width, WL: window level */
+"WL: %d WW: %d" = "WL: %1$d WW: %2$d";
+
+/* No comment provided by engineer. */
+"WL/WW & CLUT" = "WL/WW & CLUT";
+
+/* No comment provided by engineer. */
+"WL/WW & CLUT & Opacity" = "WL/WW＆CLUT＆不透明";
+
+/* No comment provided by engineer. */
+"WLWW" = "WLWW";
+
+/* No comment provided by engineer. */
+"Would you like to activate automatic checking for updates?" = "アップデートの自動チェックを有効にしますか？";
+
+/* No comment provided by engineer. */
+"WRIST" = "手首";
+
+/* No comment provided by engineer. */
+"Writing %3.2fMB..." = "%3.2fMBを書いています...";
+
+/* No comment provided by engineer. */
+"Writing DICOMDIR..." = "DICOMDIRを書く...";
+
+/* No comment provided by engineer. */
+"Wrong current password." = "現在のパスワードが間違っています。";
+
+/* No comment provided by engineer. */
+"Wrong password for remote database." = "リモートデータベースのパスワードが間違っています。";
+
+/* No comment provided by engineer. */
+"WW/WL Tool" = "WW/WLツール";
+
+/* No comment provided by engineer. */
+"X: %2.2f %cm Y: %2.2f %cm" = "X: %1$.2f %2$cm Y: %3$.2f %4$cm";
+
+/* No comment provided by engineer. */
+"X: %2.2f %cm Y: %2.2f %cm Z: %2.2f %cm" = "X: %1$.2f %2$cm Y: %3$.2f %4$cm Z: %5$.2f %6$cm";
+
+/* No comment provided by engineer. */
+"X: %2.2f mm Y: %2.2f mm" = "X: %1$.2f mm Y: %2$.2f mm";
+
+/* No comment provided by engineer. */
+"X: %2.2f mm Y: %2.2f mm Z: %2.2f mm" = "X: %1$.2f mm Y: %2$.2f mm Z: %3$.2f mm";
+
+/* No special characters for this string, only ASCII characters. */
+"X: %d px Y: %d px" = "X: %1$d px Y: %2$d px";
+
+/* No comment provided by engineer. */
+"XA" = "XA";
+
+/* No comment provided by engineer. */
+"Yes" = "はい";
+
+/* No comment provided by engineer. */
+"Yesterday CR" = "昨日のCR";
+
+/* No comment provided by engineer. */
+"Yesterday CT" = "昨日のCT";
+
+/* No comment provided by engineer. */
+"Yesterday MG" = "昨日のMG";
+
+/* No comment provided by engineer. */
+"Yesterday MR" = "昨日のMR";
+
+/* No comment provided by engineer. */
+"Yesterday RF" = "昨日のRF";
+
+/* No comment provided by engineer. */
+"Yesterday US" = "昨日のUS";
+
+/* No comment provided by engineer. */
+"Yesterday XA" = "昨日のXA";
+
+/* No comment provided by engineer. */
+"You can only edit the 'Content' column." = "「コンテンツ」列のみを編集できます。";
+
+/* No comment provided by engineer. */
+"You cannot delete the default protocol" = "デフォルトのプロトコルを削除することはできません";
+
+/* No comment provided by engineer. */
+"You cannot modify a Distant Database." = "遠隔データベースを変更することはできません。";
+
+/* No comment provided by engineer. */
+"You cannot move the plugin to another location with this version of OsiriX." = "このバージョンのMiele-LXIVでは、プラグインを別の場所に移動することはできません。";
+
+/* No comment provided by engineer. */
+"You have the most recent version of OsiriX." = "Miele-LXIVの最新バージョンがあります。";
+
+/* No comment provided by engineer. */
+"You will shortly receive an email with your new password." = "間もなく、新しいパスワードを記載したメールが届きます。";
+
+/* Your computer doesn't have enough RAM to load this series */
+"Your computer doesn't have enough RAM to load this series" = "お使いのコンピュータには、このシリーズをロードするのに十分なRAMがありません";
+
+/* No comment provided by engineer. */
+"Your graphic board has only %d MB of VRAM. Performances will be very limited with large dataset." = "グラフィックボードには%d MBのVRAMしかありません。パフォーマンスは大きなデータセットでは非常に制限されます。";
+
+/* No comment provided by engineer. */
+"Your hard disk is FULL! Major risks of failure! Clean your database!!" = "あなたのハードディスクはFULLです!失敗の主なリスク!あなたのデータベースをきれいに!";
+
+/* No comment provided by engineer. */
+"Your Keychain does not contain any valid certificate." = "キーチェーンに有効な証明書が含まれていません。";
+
+/* No comment provided by engineer. */
+"Your password has been reset." = "パスワードをリセットしました。";
+
+/* No comment provided by engineer. */
+"Your Plugin here!" = "ここにあなたのプラグイン!";
+
+/* No comment provided by engineer. */
+"Zoom" = "ズーム";
+
+/* No comment provided by engineer. */
+"Zoom Tool" = "ズームツール";
+
+/* No comment provided by engineer. */
+"zoom x %.1f" = "ズーム x %.1f";
+
+/* No special characters for this string, only ASCII characters. */
+"Zoom: %0.0f%%" = "ズーム: %0.0f%%";
+

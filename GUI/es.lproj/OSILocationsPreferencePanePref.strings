@@ -1,0 +1,396 @@
+/* Class = "NSWindow"; title = "<< do not localize >>"; ObjectID = "12"; */
+"12.title" = "<< do not localize >>";
+
+/* Class = "NSTableColumn"; headerCell.title = "Address"; ObjectID = "98"; */
+"98.headerCell.title" = "Dirección";
+
+/* Class = "NSTableColumn"; headerCell.title = "Name"; ObjectID = "100"; */
+"100.headerCell.title" = "Nombre";
+
+/* Class = "NSTableColumn"; headerCell.title = "AETitle"; ObjectID = "102"; */
+"102.headerCell.title" = "AETitle";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "103"; */
+"103.title" = "OtherViews";
+
+/* Class = "NSTableColumn"; headerCell.title = "Port"; ObjectID = "105"; */
+"105.headerCell.title" = "Puerto";
+
+/* Class = "NSMenuItem"; title = "Western European: ISO_IR 101"; ObjectID = "108"; */
+"108.title" = "Western European: ISO_IR 101";
+
+/* Class = "NSMenuItem"; title = "Western European: ISO_IR 109"; ObjectID = "109"; */
+"109.title" = "Western European: ISO_IR 109";
+
+/* Class = "NSMenuItem"; title = "Western European: ISO_IR 100"; ObjectID = "110"; */
+"110.title" = "Western European: ISO_IR 100";
+
+/* Class = "NSBox"; title = "DICOM Nodes for DICOM Query/Retrieve and DICOM Send"; ObjectID = "112"; */
+"112.title" = "Nodos DICOM para DICOM Query/Retrieve y DICOM Send";
+
+/* Class = "NSMenuItem"; title = "Central European: ISO_IR 110"; ObjectID = "136"; */
+"136.title" = "Central European: ISO_IR 110";
+
+/* Class = "NSMenuItem"; title = "Thai: ISO_IR 166"; ObjectID = "137"; */
+"137.title" = "Thai: ISO_IR 166";
+
+/* Class = "NSMenuItem"; title = "Japanese: ISO 2022 IR 13"; ObjectID = "138"; */
+"138.title" = "Japanese: ISO 2022 IR 13";
+
+/* Class = "NSMenuItem"; title = "Arabic: ISO_IR 127"; ObjectID = "139"; */
+"139.title" = "Arabic: ISO_IR 127";
+
+/* Class = "NSMenuItem"; title = "Greek: ISO_IR 126"; ObjectID = "140"; */
+"140.title" = "Greek: ISO_IR 126";
+
+/* Class = "NSMenuItem"; title = "Cyrillic: ISO_IR 144"; ObjectID = "141"; */
+"141.title" = "Cyrillic: ISO_IR 144";
+
+/* Class = "NSMenuItem"; title = "Japanese: ISO_IR 13"; ObjectID = "142"; */
+"142.title" = "Japanese: ISO_IR 13";
+
+/* Class = "NSMenuItem"; title = "UTF8 (Unicode): ISO_IR 192"; ObjectID = "143"; */
+"143.title" = "UTF8 (Unicode): ISO_IR 192";
+
+/* Class = "NSMenuItem"; title = "Hebrew: ISO_IR 138"; ObjectID = "144"; */
+"144.title" = "Hebrew: ISO_IR 138";
+
+/* Class = "NSMenuItem"; title = "Chinese: GB18030"; ObjectID = "145"; */
+"145.title" = "Chinese: GB18030";
+
+/* Class = "NSMenuItem"; title = "Japanese: ISO 2022 IR 87"; ObjectID = "146"; */
+"146.title" = "Japanese: ISO 2022 IR 87";
+
+/* Class = "NSMenuItem"; title = "Korean: ISO 2022 IR 149"; ObjectID = "147"; */
+"147.title" = "Korean: ISO 2022 IR 149";
+
+/* Class = "NSBox"; title = "Network - Miele-LXIV Databases with Fixed Addresses (tcp/ip port 8780):"; ObjectID = "175"; */
+"175.title" = "Red - Bases de datos Miele-LXIV con direcciones fijas (puerto tcp/ip 8780):";
+
+/* Class = "NSTableColumn"; headerCell.title = "Description"; ObjectID = "198"; */
+"198.headerCell.title" = "Descripción";
+
+/* Class = "NSTableColumn"; headerCell.title = "Address"; ObjectID = "201"; */
+"201.headerCell.title" = "Dirección";
+
+/* Class = "NSTableColumn"; headerCell.title = "Send Transfer Syntax"; ObjectID = "209"; */
+"209.headerCell.title" = "Sintaxis de transferencia de envío";
+
+/* Class = "NSTableColumn"; headerCell.title = "Q&R"; ObjectID = "232"; */
+"232.headerCell.title" = "Q&R";
+
+/* Class = "NSBox"; title = "Local - Miele-LXIV Databases files / folder:"; ObjectID = "252"; */
+"252.title" = "Local - Archivos/carpeta de bases de datos Miele-LXIV:";
+
+/* Class = "NSTableColumn"; headerCell.title = "Description"; ObjectID = "257"; */
+"257.headerCell.title" = "Descripción";
+
+/* Class = "NSTableColumn"; headerCell.title = "Local Path"; ObjectID = "258"; */
+"258.headerCell.title" = "Sendero Local";
+
+/* Class = "NSTableColumn"; headerCell.title = "Send"; ObjectID = "322"; */
+"322.headerCell.title" = "Enviar";
+
+/* Class = "NSButtonCell"; title = "Add new node"; ObjectID = "327"; */
+"327.title" = "Añadir un nuevo nodo";
+
+/* Class = "NSButtonCell"; title = "Verify"; ObjectID = "330"; */
+"330.title" = "Verificar";
+
+/* Class = "NSButtonCell"; title = "Search for other DICOM Nodes through Bonjour protocol"; ObjectID = "333"; */
+"333.title" = "Búsqueda de otros nodos DICOM a través del protocolo Bonjour";
+
+/* Class = "NSButtonCell"; title = "Save..."; ObjectID = "334"; */
+"334.title" = "保存...";
+
+/* Class = "NSButtonCell"; title = "Load..."; ObjectID = "335"; */
+"335.title" = "Carga...";
+
+/* Class = "NSButtonCell"; title = "Add new server"; ObjectID = "336"; */
+"336.title" = "Neuen Server hinzufügen";
+
+/* Class = "NSButtonCell"; title = "Add a local path"; ObjectID = "338"; */
+"338.title" = "Añadir una ruta local";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "339"; */
+"339.title" = "Text Cell";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "340"; */
+"340.title" = "Text Cell";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "341"; */
+"341.title" = "Text Cell";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "342"; */
+"342.title" = "Text Cell";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "343"; */
+"343.title" = "Text Cell";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "344"; */
+"344.title" = "Text Cell";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "345"; */
+"345.title" = "Text Cell";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "346"; */
+"346.title" = "Text Cell";
+
+/* Class = "NSButtonCell"; title = "Turn Off Bonjour searching protocol - Do not search for Bonjour Miele-LXIV Databases"; ObjectID = "361"; */
+"361.title" = "Desactivar el protocolo de búsqueda Bonjour - No buscar bases de datos de Bonjour Miele-LXIV";
+
+/* Class = "NSButtonCell"; title = "Automatically sync the DICOM Nodes list from this URL:"; ObjectID = "364"; */
+"364.title" = "Sincronice automáticamente la lista de nodos DICOM desde esta URL:";
+
+/* Class = "NSTextFieldCell"; title = "http://www.dicom.dcm/dicomNodes.plist"; ObjectID = "366"; */
+"366.title" = "http://www.dicom.dcm/dicomNodes.plist";
+
+/* Class = "NSButtonCell"; title = "Button"; ObjectID = "378"; */
+"378.title" = "Button";
+
+/* Class = "NSButtonCell"; title = "Automatically sync this list from this URL:"; ObjectID = "394"; */
+"394.title" = "Sincronizar automáticamente esta lista desde esta URL:";
+
+/* Class = "NSTextFieldCell"; title = "http://www.dicom.dcm/DB.plist"; ObjectID = "395"; */
+"395.title" = "http://www.dicom.dcm/DB.plist";
+
+/* Class = "NSButtonCell"; title = "Button"; ObjectID = "396"; */
+"396.title" = "Button";
+
+/* Class = "NSButtonCell"; title = "Save as..."; ObjectID = "399"; */
+"399.title" = "Guardar como...";
+
+/* Class = "NSButtonCell"; title = "Load from..."; ObjectID = "400"; */
+"400.title" = "Carga desde...";
+
+/* Class = "NSMenuItem"; title = "Explicit Little Endian"; ObjectID = "441"; */
+"441.title" = "Explicit Little Endian";
+
+/* Class = "NSMenuItem"; title = "JPEG 2000 Lossless"; ObjectID = "442"; */
+"442.title" = "JPEG 2000 sin pérdidas";
+
+/* Class = "NSMenuItem"; title = "JPEG 2000 Lossy - Good Quality"; ObjectID = "443"; */
+"443.title" = "JPEG 2000 Lossy - Buena calidad";
+
+/* Class = "NSMenuItem"; title = "JPEG 2000 Lossy - Medium Quality"; ObjectID = "444"; */
+"444.title" = "JPEG 2000 Lossy - Calidad Media";
+
+/* Class = "NSMenuItem"; title = "JPEG 2000 Lossy - Low Quality"; ObjectID = "445"; */
+"445.title" = "JPEG 2000 Lossy - Baja calidad";
+
+/* Class = "NSMenuItem"; title = "JPEG Lossless"; ObjectID = "446"; */
+"446.title" = "JPEG sin pérdidas";
+
+/* Class = "NSMenuItem"; title = "Implicit Little Endian"; ObjectID = "450"; */
+"450.title" = "Implícito Little Endian";
+
+/* Class = "NSTableColumn"; headerCell.title = "Retrieve"; ObjectID = "452"; */
+"452.headerCell.title" = "Recuperar";
+
+/* Class = "NSButtonCell"; title = "Restart DICOM Auto Query & Retrieve settings, at launch"; ObjectID = "463"; */
+"463.title" = "Reinicie la configuración de Auto Query & Retrieve de DICOM, en el momento del lanzamiento.";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "472"; */
+"472.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "C-GET"; ObjectID = "474"; */
+"474.title" = "C-GET";
+
+/* Class = "NSMenuItem"; title = "WADO"; ObjectID = "475"; */
+"475.title" = "WADO";
+
+/* Class = "NSMenuItem"; title = "C-MOVE"; ObjectID = "487"; */
+"487.title" = "C-MOVE";
+
+/* Class = "NSWindow"; title = "Window"; ObjectID = "537"; */
+"537.title" = "Window";
+
+/* Class = "NSTextFieldCell"; title = "WADO Port:"; ObjectID = "540"; */
+"540.title" = "Puerto WADO:";
+
+/* Class = "NSTextFieldCell"; title = "8080"; ObjectID = "542"; */
+"542.title" = "8080";
+
+/* Class = "NSTextFieldCell"; title = "Retrieve Syntax:"; ObjectID = "548"; */
+"548.title" = "Recuperar sintaxis:";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "552"; */
+"552.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Explicit Little Endian"; ObjectID = "556"; */
+"556.title" = "Explicit Little Endian";
+
+/* Class = "NSMenuItem"; title = "Implicit Little Endian"; ObjectID = "557"; */
+"557.title" = "Implícito Little Endian";
+
+/* Class = "NSMenuItem"; title = "JPEG 2000 Lossless"; ObjectID = "559"; */
+"559.title" = "JPEG 2000 sin pérdidas";
+
+/* Class = "NSMenuItem"; title = "JPEG 2000 Lossy - Good Quality"; ObjectID = "560"; */
+"560.title" = "JPEG 2000 Lossy - Buena calidad";
+
+/* Class = "NSMenuItem"; title = "JPEG 2000 Lossy - Medium Quality"; ObjectID = "561"; */
+"561.title" = "JPEG 2000 Lossy - Calidad Media";
+
+/* Class = "NSMenuItem"; title = "JPEG 2000 Lossy - Low Quality"; ObjectID = "562"; */
+"562.title" = "JPEG 2000 Lossy - Baja calidad";
+
+/* Class = "NSMenuItem"; title = "JPEG Lossless"; ObjectID = "564"; */
+"564.title" = "JPEG sin pérdidas";
+
+/* Class = "NSMenuItem"; title = "Original Syntax"; ObjectID = "565"; */
+"565.title" = "Sintaxis original";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "571"; */
+"571.title" = "Cancelar";
+
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "572"; */
+"572.title" = "OK";
+
+/* Class = "NSTextFieldCell"; title = "From 1 to 65535"; ObjectID = "574"; */
+"574.title" = "De 1 a 65535";
+
+/* Class = "NSTextFieldCell"; title = "WADO Path:"; ObjectID = "584"; */
+"584.title" = "Sendero WADO:";
+
+/* Class = "NSTextFieldCell"; title = "wado"; ObjectID = "586"; */
+"586.title" = "wado";
+
+/* Class = "NSWindow"; title = "Window"; ObjectID = "589"; */
+"589.title" = "Window";
+
+/* Class = "NSButtonCell"; title = "Anonymous"; ObjectID = "592"; */
+"592.title" = "Anónimo";
+
+/* Class = "NSButtonCell"; title = "Authenticated, with the following certificate:"; ObjectID = "593"; */
+"593.title" = "Autenticado, con el siguiente certificado:";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "594"; */
+"594.title" = "Radio";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "628"; */
+"628.title" = "Cancelar";
+
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "629"; */
+"629.title" = "OK";
+
+/* Class = "NSTableColumn"; headerCell.title = "TLS"; ObjectID = "632"; */
+"632.headerCell.title" = "TLS";
+
+/* Class = "NSTableColumn"; headerCell.title = "Cipher"; ObjectID = "667"; */
+"667.headerCell.title" = "Cifra";
+
+/* Class = "NSButtonCell"; title = "Enable TLS communications"; ObjectID = "707"; */
+"707.title" = "Habilitar las comunicaciones TLS";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "729"; */
+"729.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "No"; ObjectID = "730"; */
+"730.title" = "No";
+
+/* Class = "NSMenuItem"; title = "Yes"; ObjectID = "731"; */
+"731.title" = "Si";
+
+/* Class = "NSBox"; title = "Type of communications"; ObjectID = "736"; */
+"736.title" = "Tipo de comunicaciones";
+
+/* Class = "NSBox"; title = "Cipher Suites"; ObjectID = "787"; */
+"787.title" = "Suites de cifrado";
+
+/* Class = "NSButtonCell"; title = "DH Parameter file"; ObjectID = "789"; */
+"789.title" = "DH Fichero de parámetros";
+
+/* Class = "NSBox"; title = "Peer Authentication"; ObjectID = "894"; */
+"894.title" = "Autenticación por pares";
+
+/* Class = "NSTextFieldCell"; title = "Peer Certificate:"; ObjectID = "904"; */
+"904.title" = "Certificado de Pares:";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "909"; */
+"909.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Verify"; ObjectID = "911"; */
+"911.title" = "Verificar";
+
+/* Class = "NSMenuItem"; title = "Ignore"; ObjectID = "912"; */
+"912.title" = "Ignorar";
+
+/* Class = "NSButtonCell"; title = "Choose"; ObjectID = "997"; */
+"997.title" = "Elegir";
+
+/* Class = "NSButtonCell"; title = "Label"; ObjectID = "1036"; */
+"1036.title" = "Label";
+
+/* Class = "NSTextFieldCell"; title = "When choosing \"Verify\" or \"Require\", the peer certificate is tested against all trusted certificates of the Keychain."; ObjectID = "1070"; */
+"1070.title" = "Al elegir \"Verificar\" o \"Requerir\", el certificado de par se comprueba con todos los certificados de confianza del llavero.";
+
+/* Class = "NSTextFieldCell"; title = "Encryption:"; ObjectID = "1072"; */
+"1072.title" = "Encriptación:";
+
+/* Class = "NSButtonCell"; title = "HTTPS"; ObjectID = "1074"; */
+"1074.title" = "HTTPS";
+
+/* Class = "NSButtonCell"; title = "Deselect All"; ObjectID = "1096"; */
+"1096.title" = "Deseleccionar todo";
+
+/* Class = "NSButtonCell"; title = "Select All"; ObjectID = "1097"; */
+"1097.title" = "Seleccionar todo";
+
+/* Class = "NSMenuItem"; title = "JPEG LS Lossy - Good Quality"; ObjectID = "1101"; */
+"1101.title" = "JPEG LS Lossy - Buena calidad";
+
+/* Class = "NSMenuItem"; title = "JPEG LS Lossy - Medium Quality"; ObjectID = "1102"; */
+"1102.title" = "JPEG LS Lossy - Calidad Media";
+
+/* Class = "NSMenuItem"; title = "JPEG LS Lossless"; ObjectID = "1104"; */
+"1104.title" = "JPEG LS sin pérdidas";
+
+/* Class = "NSMenuItem"; title = "JPEG LS Lossy - Low Quality"; ObjectID = "1105"; */
+"1105.title" = "JPEG LS Pérdida - Baja calidad";
+
+/* Class = "NSTextFieldCell"; title = "HTTP Username:"; ObjectID = "1114"; */
+"1114.title" = "Nombre de usuario HTTP:";
+
+/* Class = "NSTextFieldCell"; title = "HTTP Password:"; ObjectID = "1115"; */
+"1115.title" = "Contraseña HTTP:";
+
+/* Class = "NSButtonCell"; title = "For C-GET and C-MOVE, try to retrieve images, at IMAGE level (instead of STUDY or SERIES level)"; ObjectID = "1122"; */
+"1122.title" = "Para C-GET y C-MOVE, intente recuperar imágenes, a nivel IMAGEN (en lugar de a nivel ESTUDIO o SERIE).";
+
+/* Class = "NSTextFieldCell"; title = "Press Delete key to remove a database"; ObjectID = "1128"; */
+"1128.title" = "Presione la tecla Suprimir para eliminar una base de datos";
+
+/* Class = "NSTextFieldCell"; title = "Press Delete key to remove a database"; ObjectID = "1130"; */
+"1130.title" = "Presione la tecla Suprimir para eliminar una base de datos";
+
+/* Class = "NSTextFieldCell"; title = "Press Delete key to remove a node"; ObjectID = "1132"; */
+"1132.title" = "Presione la tecla Suprimir para eliminar un nodo";
+
+/* Class = "NSTableColumn"; headerCell.title = "☉"; ObjectID = "1161"; */
+"1161.headerCell.title" = "☉";
+
+/* Class = "NSButtonCell"; title = "All"; ObjectID = "1178"; */
+"1178.title" = "Todo";
+
+/* Class = "NSButtonCell"; title = "None"; ObjectID = "1181"; */
+"1181.title" = "Ninguno";
+
+/* Class = "NSTextFieldCell"; title = "Text encoding:"; ObjectID = "1189"; */
+"1189.title" = "Codificación de texto:";
+
+/* Class = "NSButtonCell"; title = "For C-FIND, support status (0x4008,0x0212) and comments (0x0032,0x4000; 0x0020,0x4000) fields"; ObjectID = "1191"; */
+"1191.title" = "Para C-FIND, campos de estado de soporte (0x4008,0x0212) y comentarios (0x0032,0x4000; 0x0020,0x4000)";
+
+/* Class = "NSMenuItem"; title = "JPEG LS Lossy - Low Quality"; ObjectID = "d0T-gv-rUv"; */
+"d0T-gv-rUv.title" = "JPEG LS Pérdida - Baja calidad";
+
+/* Class = "NSMenuItem"; title = "JPEG LS Lossless"; ObjectID = "ppX-DQ-T9z"; */
+"ppX-DQ-T9z.title" = "JPEG LS sin pérdidas";
+
+/* Class = "NSMenuItem"; title = "JPEG LS Lossy - Good Quality"; ObjectID = "u1L-5l-6Xv"; */
+"u1L-5l-6Xv.title" = "JPEG LS Lossy - Buena calidad";
+
+/* Class = "NSMenuItem"; title = "JPEG LS Lossy - Medium Quality"; ObjectID = "Xwd-aD-c8t"; */
+"Xwd-aD-c8t.title" = "JPEG LS Lossy - Calidad Media";
+

@@ -1,0 +1,1926 @@
+/* Class = "NSMenu"; title = "Load Workspace State DICOM SR"; ObjectID = "0DA-9z-DyX"; */
+"0DA-9z-DyX.title" = "Charger l'état de l'espace de travail DICOM SR";
+
+/* Class = "NSMenuItem"; title = "Bring All to Front"; ObjectID = "5"; */
+"5.title" = "Tout mettre au premier plan";
+
+/* Class = "NSMenuItem"; title = "Flip Vertically"; ObjectID = "7UZ-Cj-EK7"; */
+"7UZ-Cj-EK7.title" = "Flip Verticalement";
+
+/* Class = "NSMenuItem"; title = "Flip Horizontally"; ObjectID = "8yc-RG-u6S"; */
+"8yc-RG-u6S.title" = "Flip Horizontal";
+
+/* Class = "NSMenuItem"; title = "Window"; ObjectID = "19"; */
+"19.title" = "Window";
+
+/* Class = "NSMenuItem"; title = "Minimize"; ObjectID = "23"; */
+"23.title" = "Réduire";
+
+/* Class = "NSMenu"; title = "Window"; ObjectID = "24"; */
+"24.title" = "Window";
+
+/* Class = "NSMenu"; title = "MainMenu"; ObjectID = "29"; */
+"29.title" = "Menu principal";
+
+/* Class = "NSMenuItem"; title = "OsiriX"; ObjectID = "56"; */
+"56.title" = "Miele-LXIV";
+
+/* Class = "NSMenu"; title = "OsiriX"; ObjectID = "57"; */
+"57.title" = "Miele-LXIV";
+
+/* Class = "NSMenuItem"; title = "About Miele-LXIV"; ObjectID = "58"; */
+"58.title" = "À propos de Miele-LXIV";
+
+/* Class = "NSMenuItem"; title = "Recent Studies"; ObjectID = "62R-VA-Hjt"; */
+"62R-VA-Hjt.title" = "Études récentes";
+
+/* Class = "NSMenuItem"; title = "Hide Miele-LXIV"; ObjectID = "134"; */
+"134.title" = "Masquer Miele-LXIV";
+
+/* Class = "NSMenuItem"; title = "Quit Miele-LXIV"; ObjectID = "136"; */
+"136.title" = "Quitter Miele-LXIV";
+
+/* Class = "NSMenuItem"; title = "Hide Others"; ObjectID = "145"; */
+"145.title" = "Masquer les autres";
+
+/* Class = "NSMenuItem"; title = "Show All"; ObjectID = "150"; */
+"150.title" = "Afficher tout";
+
+/* Class = "NSMenuItem"; title = "Copy"; ObjectID = "157"; */
+"157.title" = "Copier";
+
+/* Class = "NSMenuItem"; title = "Cut"; ObjectID = "160"; */
+"160.title" = "Couper";
+
+/* Class = "NSMenuItem"; title = "Edit"; ObjectID = "163"; */
+"163.title" = "Modifier";
+
+/* Class = "NSMenu"; title = "Edit"; ObjectID = "169"; */
+"169.title" = "Modifier";
+
+/* Class = "NSMenuItem"; title = "Paste"; ObjectID = "171"; */
+"171.title" = "Coller";
+
+/* Class = "NSMenuItem"; title = "Select All"; ObjectID = "172"; */
+"172.title" = "Tout sélectionner";
+
+/* Class = "NSMenuItem"; title = "Preferences..."; ObjectID = "695"; */
+"695.title" = "Préférences...";
+
+/* Class = "NSMenuItem"; title = "Close Window"; ObjectID = "841"; */
+"841.title" = "Fermer la fenêtre";
+
+/* Class = "NSMenuItem"; title = "File"; ObjectID = "848"; */
+"848.title" = "Fichier";
+
+/* Class = "NSMenu"; title = "File"; ObjectID = "849"; */
+"849.title" = "Fichier";
+
+/* Class = "NSMenuItem"; title = "Show Database Window"; ObjectID = "854"; */
+"854.title" = "Afficher la fenêtre de la base de données";
+
+/* Class = "NSWindow"; title = "Local DICOM Database"; ObjectID = "885"; */
+"885.title" = "Base de données DICOM locale";
+
+/* Class = "NSTableColumn"; headerCell.title = "Patient name"; ObjectID = "958"; */
+"958.headerCell.title" = "Nom du patient";
+
+/* Class = "NSTableColumn"; headerCell.title = "Date Acquired"; ObjectID = "960"; */
+"960.headerCell.title" = "Date d'acquisition";
+
+/* Class = "NSTableColumn"; headerCell.title = "# im"; ObjectID = "967"; */
+"967.headerCell.title" = "# im";
+
+/* Class = "NSMenuItem"; title = "Rebuild Entire Database..."; ObjectID = "1112"; */
+"1112.title" = "Reconstruction complète de la base de données...";
+
+/* Class = "NSTableColumn"; headerCell.title = "Modality"; ObjectID = "1226"; */
+"1226.headerCell.title" = "Modalité";
+
+/* Class = "NSMenu"; title = "3D Viewer"; ObjectID = "1281"; */
+"1281.title" = "Visor 3D";
+
+/* Class = "NSMenuItem"; title = "Coronal View"; ObjectID = "1282"; */
+"1282.title" = "Vue coronale";
+
+/* Class = "NSMenuItem"; title = "3D Viewer"; ObjectID = "1283"; */
+"1283.title" = "Visor 3D";
+
+/* Class = "NSMenuItem"; title = "Left Sagittal View"; ObjectID = "1284"; */
+"1284.title" = "Vue Sagittale Gauche";
+
+/* Class = "NSMenuItem"; title = "Axial View"; ObjectID = "1285"; */
+"1285.title" = "Vue axiale";
+
+/* Class = "NSTableColumn"; headerCell.title = "Date Added"; ObjectID = "1291"; */
+"1291.headerCell.title" = "Fecha de adición";
+
+/* Class = "NSMenuItem"; title = "Check for Updates"; ObjectID = "1327"; */
+"1327.title" = "Comprobar si hay actualizaciones";
+
+/* Class = "NSTableColumn"; headerCell.title = "∆"; ObjectID = "1351"; */
+"1351.headerCell.title" = "∆";
+
+/* Class = "NSMenu"; title = "ROI"; ObjectID = "1400"; */
+"1400.title" = "ROI";
+
+/* Class = "NSMenuItem"; title = "ROI"; ObjectID = "1401"; */
+"1401.title" = "ROI";
+
+/* Class = "NSMenuItem"; title = "Propagate Selected ROI..."; ObjectID = "1408"; */
+"1408.title" = "Propager le ROI sélectionné...";
+
+/* Class = "NSMenuItem"; title = "Delete All ROIs in this Series"; ObjectID = "1409"; */
+"1409.title" = "Supprimer tous les ROI de cette série";
+
+/* Class = "NSMenuItem"; title = "Save Selected ROI(s)..."; ObjectID = "1438"; */
+"1438.title" = "Sauvegarder le(s) ROI(s) sélectionné(s)...";
+
+/* Class = "NSMenuItem"; title = "Import ROI(s)..."; ObjectID = "1439"; */
+"1439.title" = "Importer ROI(s)...";
+
+/* Class = "NSMenuItem"; title = "ROI Info..."; ObjectID = "1443"; */
+"1443.title" = "Info ROI...";
+
+/* Class = "NSMenuItem"; title = "Histogram of Selected ROI..."; ObjectID = "1445"; */
+"1445.title" = "Histogramme du ROI sélectionné...";
+
+/* Class = "NSTableColumn"; headerCell.title = "Albums"; ObjectID = "1463"; */
+"1463.headerCell.title" = "Albums";
+
+/* Class = "NSMenuItem"; title = "Burn..."; ObjectID = "1470"; */
+"1470.title" = "Graver...";
+
+/* Class = "NSMenuItem"; title = "Format"; ObjectID = "1474"; */
+"1474.title" = "Format";
+
+/* Class = "NSMenuItem"; title = "Bigger"; ObjectID = "1481"; */
+"1481.title" = "Plus gros";
+
+/* Class = "NSMenuItem"; title = "Font"; ObjectID = "1482"; */
+"1482.title" = "Police";
+
+/* Class = "NSMenuItem"; title = "Show Fonts"; ObjectID = "1483"; */
+"1483.title" = "Afficher les polices";
+
+/* Class = "NSMenuItem"; title = "Smaller"; ObjectID = "1487"; */
+"1487.title" = "Plus petit";
+
+/* Class = "NSMenuItem"; title = "Show Colors"; ObjectID = "1488"; */
+"1488.title" = "Afficher les couleurs";
+
+/* Class = "NSMenu"; title = "Format"; ObjectID = "1489"; */
+"1489.title" = "Format";
+
+/* Class = "NSMenu"; title = "Font"; ObjectID = "1493"; */
+"1493.title" = "Police";
+
+/* Class = "NSMenuItem"; title = "Bold"; ObjectID = "1501"; */
+"1501.title" = "Gras";
+
+/* Class = "NSMenuItem"; title = "Italic"; ObjectID = "1515"; */
+"1515.title" = "Italique";
+
+/* Class = "NSMenuItem"; title = "Print..."; ObjectID = "1550"; */
+"1550.title" = "Imprimer...";
+
+/* Class = "NSMenuItem"; title = "Page Setup..."; ObjectID = "1551"; */
+"1551.title" = "Mise en page...";
+
+/* Class = "NSTableColumn"; headerCell.title = "Date Opened"; ObjectID = "1592"; */
+"1592.headerCell.title" = "Date d’ouverture";
+
+/* Class = "NSMenuItem"; title = "Propagate Selected ROI to Current Thick Slab"; ObjectID = "1644"; */
+"1644.title" = "Propager le retour sur investissement sélectionné à la dalle épaisse actuelle";
+
+/* Class = "NSMenuItem"; title = "Plugins"; ObjectID = "1701"; */
+"1701.title" = "Extensions";
+
+/* Class = "NSMenu"; title = "Plugins"; ObjectID = "1703"; */
+"1703.title" = "Extensions";
+
+/* Class = "NSMenuItem"; title = "Image Filters"; ObjectID = "1704"; */
+"1704.title" = "Filtres d'image";
+
+/* Class = "NSMenu"; title = "Image Filters"; ObjectID = "1705"; */
+"1705.title" = "Filtres d'image";
+
+/* Class = "NSMenuItem"; title = "ROI Tools"; ObjectID = "1708"; */
+"1708.title" = "Outils de retour sur investissement";
+
+/* Class = "NSMenu"; title = "ROI Tools"; ObjectID = "1709"; */
+"1709.title" = "Outils de retour sur investissement";
+
+/* Class = "NSMenu"; title = "Others"; ObjectID = "1710"; */
+"1710.title" = "Autres";
+
+/* Class = "NSMenuItem"; title = "Others"; ObjectID = "1711"; */
+"1711.title" = "Autres";
+
+/* Class = "NSMenuItem"; title = "Anonymize..."; ObjectID = "1723"; */
+"1723.title" = "Anonymiser...";
+
+/* Class = "NSMenuItem"; title = "Open Database Folder..."; ObjectID = "1725"; */
+"1725.title" = "Ouvrir le dossier de base de données...";
+
+/* Class = "NSMenuItem"; title = "Search"; ObjectID = "11171"; */
+"11171.title" = "Rechercher";
+
+/* Class = "NSMenuItem"; title = "Customize Toolbar..."; ObjectID = "11219"; */
+"11219.title" = "Personnaliser la barre d'outils...";
+
+/* Class = "NSMenuItem"; title = "Set Pixel Values to..."; ObjectID = "11232"; */
+"11232.title" = "Réglez les valeurs de pixels sur...";
+
+/* Class = "NSMenuItem"; title = "Grow Region (2D/3D Segmentation)..."; ObjectID = "11234"; */
+"11234.title" = "Région de croissance (Segmentation 2D/3D)...";
+
+/* Class = "NSWindow"; title = "Window"; ObjectID = "11237"; */
+"11237.title" = "Window";
+
+/* Class = "NSTableColumn"; headerCell.title = "Comments"; ObjectID = "11258"; */
+"11258.headerCell.title" = "Commentaires";
+
+/* Class = "NSTableColumn"; headerCell.title = "Status"; ObjectID = "11259"; */
+"11259.headerCell.title" = "Statut";
+
+/* Class = "NSFormCell"; title = "Patient's Name:"; ObjectID = "11379"; */
+"11379.title" = "Nom du patient:";
+
+/* Class = "NSFormCell"; title = "Patient ID:"; ObjectID = "11380"; */
+"11380.title" = "Identification du patient:";
+
+/* Class = "NSFormCell"; title = "Study Description:"; ObjectID = "11381"; */
+"11381.title" = "Description de l'étude:";
+
+/* Class = "NSFormCell"; title = "Rows:"; ObjectID = "11387"; */
+"11387.title" = "Rangées:";
+
+/* Class = "NSFormCell"; title = "Columns:"; ObjectID = "11388"; */
+"11388.title" = "Colonnes:";
+
+/* Class = "NSFormCell"; title = "Slices:"; ObjectID = "11389"; */
+"11389.title" = "Des tranches:";
+
+/* Class = "NSFormCell"; title = "Pixel Height:"; ObjectID = "11391"; */
+"11391.title" = "Hauteur des pixels:";
+
+/* Class = "NSFormCell"; title = "Slice Thickness:"; ObjectID = "11392"; */
+"11392.title" = "Épaisseur de la tranche:";
+
+/* Class = "NSFormCell"; title = "Pixel Width:"; ObjectID = "11393"; */
+"11393.title" = "Largeur du pixel:";
+
+/* Class = "NSFormCell"; title = "Offset:"; ObjectID = "11411"; */
+"11411.title" = "Décalage:";
+
+/* Class = "NSButtonCell"; title = "8 bit color RGB"; ObjectID = "11457"; */
+"11457.title" = "8 bits couleur RVB";
+
+/* Class = "NSButtonCell"; title = "8 bit grayscale"; ObjectID = "11458"; */
+"11458.title" = "Echelle de gris 8 bits";
+
+/* Class = "NSButtonCell"; title = "16 bit unsigned grayscale little Endian"; ObjectID = "11459"; */
+"11459.title" = "16 bits non signé en niveaux de gris petit Endian";
+
+/* Class = "NSButtonCell"; title = "16 bit signed grayscale little Endian"; ObjectID = "11460"; */
+"11460.title" = "16 bits signé en niveaux de gris petit Endian";
+
+/* Class = "NSButtonCell"; title = "16 bit unsigned grayscale big endian"; ObjectID = "11461"; */
+"11461.title" = "16 bit unsigned greycale big endian en niveaux de gris non signé";
+
+/* Class = "NSButtonCell"; title = "16 bit signed grayscale big endian"; ObjectID = "11462"; */
+"11462.title" = "Gros endian 16 bits en niveaux de gris signé";
+
+/* Class = "NSMenuItem"; title = "Import Raw Data..."; ObjectID = "11465"; */
+"11465.title" = "Importer des données brutes...";
+
+/* Class = "NSMenuItem"; title = "Import"; ObjectID = "11466"; */
+"11466.title" = "Importer";
+
+/* Class = "NSMenu"; title = "Import"; ObjectID = "11467"; */
+"11467.title" = "Importer";
+
+/* Class = "NSMenuItem"; title = "Import Files..."; ObjectID = "11468"; */
+"11468.title" = "Importer des fichiers...";
+
+/* Class = "NSMenuItem"; title = "Import Image from URL..."; ObjectID = "11470"; */
+"11470.title" = "Importer une image à partir de l'URL...";
+
+/* Class = "NSMenuItem"; title = "Close All Viewers"; ObjectID = "11473"; */
+"11473.title" = "Fermer tous les visionneuses";
+
+/* Class = "NSMenuItem"; title = "Reset to Initial View"; ObjectID = "11477"; */
+"11477.title" = "Réinitialiser à la vue initiale";
+
+/* Class = "NSMenuItem"; title = "Set Default ROI Name..."; ObjectID = "11478"; */
+"11478.title" = "Définir le nom ROI par défaut...";
+
+/* Class = "NSMenuItem"; title = "Undo"; ObjectID = "11528"; */
+"11528.title" = "Annuler";
+
+/* Class = "NSMenuItem"; title = "Redo"; ObjectID = "11529"; */
+"11529.title" = "Refaire";
+
+/* Class = "NSMenuItem"; title = "Revert Series"; ObjectID = "11536"; */
+"11536.title" = "Série Revert";
+
+/* Class = "NSMenuItem"; title = "Export"; ObjectID = "11542"; */
+"11542.title" = "Exporter";
+
+/* Class = "NSMenu"; title = "Export"; ObjectID = "11543"; */
+"11543.title" = "Exporter";
+
+/* Class = "NSMenuItem"; title = "Export to Movie"; ObjectID = "11544"; */
+"11544.title" = "Exporter vers Movie";
+
+/* Class = "NSMenuItem"; title = "Export to JPEG"; ObjectID = "11545"; */
+"11545.title" = "Exporter au format JPEG";
+
+/* Class = "NSMenuItem"; title = "Export to Raw"; ObjectID = "11546"; */
+"11546.title" = "Exportation vers Raw";
+
+/* Class = "NSMenuItem"; title = "Export to TIFF"; ObjectID = "11547"; */
+"11547.title" = "Exportation au format TIFF";
+
+/* Class = "NSMenuItem"; title = "Export to DICOM file(s)"; ObjectID = "11548"; */
+"11548.title" = "Exportation vers fichier(s) DICOM";
+
+/* Class = "NSMenuItem"; title = "Export to Email"; ObjectID = "11549"; */
+"11549.title" = "Exporter vers Email";
+
+/* Class = "NSMenuItem"; title = "Export to Photos"; ObjectID = "11550"; */
+"11550.title" = "Exporter vers Photos";
+
+/* Class = "NSTableColumn"; headerCell.title = "Study Description"; ObjectID = "11576"; */
+"11576.headerCell.title" = "Description de l'étude";
+
+/* Class = "NSTableColumn"; headerCell.title = "ID"; ObjectID = "11577"; */
+"11577.headerCell.title" = "ID";
+
+/* Class = "NSMenu"; title = "Menu"; ObjectID = "11583"; */
+"11583.title" = "Menu";
+
+/* Class = "NSMenuItem"; title = "Patient Name"; ObjectID = "11584"; */
+"11584.title" = "Nom du patient";
+
+/* Class = "NSMenuItem"; title = "Patient ID"; ObjectID = "11585"; */
+"11585.title" = "ID patient";
+
+/* Class = "NSMenuItem"; title = "Comments"; ObjectID = "11587"; */
+"11587.title" = "Commentaires";
+
+/* Class = "NSMenuItem"; title = "Study Description"; ObjectID = "11588"; */
+"11588.title" = "Description de l'étude";
+
+/* Class = "NSMenuItem"; title = "Modality"; ObjectID = "11597"; */
+"11597.title" = "Modalité";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "11620"; */
+"11620.title" = "AutresVues";
+
+/* Class = "NSMenuItem"; title = "None"; ObjectID = "11621"; */
+"11621.title" = "Aucun";
+
+/* Class = "NSMenuItem"; title = "1 hour"; ObjectID = "11622"; */
+"11622.title" = "1 heure";
+
+/* Class = "NSMenuItem"; title = "Last 7 days"; ObjectID = "11623"; */
+"11623.title" = "7 derniers jours";
+
+/* Class = "NSMenuItem"; title = "One month"; ObjectID = "11624"; */
+"11624.title" = "Un mois";
+
+/* Class = "NSMenuItem"; title = "Custom"; ObjectID = "11627"; */
+"11627.title" = "Personnalisé";
+
+/* Class = "NSMenuItem"; title = "Today"; ObjectID = "11628"; */
+"11628.title" = "Aujourd’hui";
+
+/* Class = "NSMenuItem"; title = "6 hours"; ObjectID = "11629"; */
+"11629.title" = "6 heures";
+
+/* Class = "NSMenuItem"; title = "12 hours"; ObjectID = "11630"; */
+"11630.title" = "12 heures";
+
+/* Class = "NSWindow"; title = "Window"; ObjectID = "11675"; */
+"11675.title" = "Window";
+
+/* Class = "NSTableColumn"; headerCell.title = "Sources"; ObjectID = "11694"; */
+"11694.headerCell.title" = "Sources";
+
+/* Class = "NSBox"; title = "Albums"; ObjectID = "11696"; */
+"11696.title" = "Albums";
+
+/* Class = "NSBox"; title = "Sources"; ObjectID = "11698"; */
+"11698.title" = "Sources";
+
+/* Class = "NSTableColumn"; headerCell.title = "Referring Physician"; ObjectID = "11708"; */
+"11708.headerCell.title" = "Médecin référant";
+
+/* Class = "NSTableColumn"; headerCell.title = "Performing Physician"; ObjectID = "11709"; */
+"11709.headerCell.title" = "Médecin en exercice";
+
+/* Class = "NSTableColumn"; headerCell.title = "Institution"; ObjectID = "11710"; */
+"11710.headerCell.title" = "Nom de l’Institution";
+
+/* Class = "NSTableColumn"; headerCell.title = "Date of Birth"; ObjectID = "11711"; */
+"11711.headerCell.title" = "Date de naissance";
+
+/* Class = "NSMenuItem"; title = "Database"; ObjectID = "11712"; */
+"11712.title" = "Base de données";
+
+/* Class = "NSMenu"; title = "Database"; ObjectID = "11713"; */
+"11713.title" = "Base de données";
+
+/* Class = "NSMenuItem"; title = "Add FlyThru Point"; ObjectID = "11752"; */
+"11752.title" = "Ajouter un point FlyThru";
+
+/* Class = "NSMenuItem"; title = "Remove FlyThru Point"; ObjectID = "11754"; */
+"11754.title" = "Supprimer le point FlyThru";
+
+/* Class = "NSMenuItem"; title = "Reset FlyThru Path"; ObjectID = "11756"; */
+"11756.title" = "Réinitialiser la trajectoire FlyThru";
+
+/* Class = "NSWindow"; title = "Password"; ObjectID = "11804"; */
+"11804.title" = "Mot de passe";
+
+/* Class = "NSMenuItem"; title = "Fullscreen"; ObjectID = "11923"; */
+"11923.title" = "Plein écran";
+
+/* Class = "NSTableColumn"; headerCell.title = "Patient ID"; ObjectID = "11994"; */
+"11994.headerCell.title" = "ID patient";
+
+/* Class = "NSMenuItem"; title = "Study ID"; ObjectID = "11995"; */
+"11995.title" = "ID de l'étude";
+
+/* Class = "NSTableColumn"; headerCell.title = "Age"; ObjectID = "12004"; */
+"12004.headerCell.title" = "Age";
+
+/* Class = "NSTableColumn"; headerCell.title = "Accession Number"; ObjectID = "12005"; */
+"12005.headerCell.title" = "Numéro d'accession";
+
+/* Class = "NSMenuItem"; title = "ROI Manager..."; ObjectID = "12006"; */
+"12006.title" = "ROI Manager...";
+
+/* Class = "NSMenuItem"; title = "24 hours"; ObjectID = "12025"; */
+"12025.title" = "24 heures";
+
+/* Class = "NSMenuItem"; title = "48 hours"; ObjectID = "12026"; */
+"12026.title" = "48 heures";
+
+/* Class = "NSMenuItem"; title = "Display Info Only when ROI Selected"; ObjectID = "12213"; */
+"12213.title" = "Afficher les informations uniquement lorsque le retour sur investissement est sélectionné";
+
+/* Class = "NSMenuItem"; title = "Resize Window"; ObjectID = "12249"; */
+"12249.title" = "Redimensionner la fenêtre";
+
+/* Class = "NSMenu"; title = "Resize Window"; ObjectID = "12250"; */
+"12250.title" = "Redimensionner la fenêtre";
+
+/* Class = "NSMenuItem"; title = "300%"; ObjectID = "12251"; */
+"12251.title" = "300%";
+
+/* Class = "NSMenuItem"; title = "200%"; ObjectID = "12252"; */
+"12252.title" = "200%";
+
+/* Class = "NSMenuItem"; title = "100%"; ObjectID = "12253"; */
+"12253.title" = "100%";
+
+/* Class = "NSMenuItem"; title = "iPod Video"; ObjectID = "12254"; */
+"12254.title" = "Vidéo iPod";
+
+/* Class = "NSMenuItem"; title = "50%"; ObjectID = "12255"; */
+"12255.title" = "50%";
+
+/* Class = "NSMenuItem"; title = "25%"; ObjectID = "12256"; */
+"12256.title" = "25%";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedNoSelectionPlaceholder = "Search"; ObjectID = "12308"; */
+"12308.ibShadowedNoSelectionPlaceholder" = "Rechercher";
+
+/* Class = "NSMenuItem"; title = "ROI Rename..."; ObjectID = "12313"; */
+"12313.title" = "ROI Renommer...";
+
+/* Class = "NSMenuItem"; title = "Scissor Editing"; ObjectID = "12332"; */
+"12332.title" = "Montage en ciseaux";
+
+/* Class = "NSMenu"; title = "Scissor Editing"; ObjectID = "12333"; */
+"12333.title" = "Montage en ciseaux";
+
+/* Class = "NSMenuItem"; title = "Save"; ObjectID = "12334"; */
+"12334.title" = "Sauvegarder";
+
+/* Class = "NSMenuItem"; title = "Load"; ObjectID = "12336"; */
+"12336.title" = "Charger";
+
+/* Class = "NSMenuItem"; title = "Delete"; ObjectID = "12337"; */
+"12337.title" = "Supprimer";
+
+/* Class = "NSMenuItem"; title = "Right Sagittal View"; ObjectID = "12341"; */
+"12341.title" = "Vue sagittale droite";
+
+/* Class = "NSMenuItem"; title = "Report"; ObjectID = "12353"; */
+"12353.title" = "Rapport";
+
+/* Class = "NSMenu"; title = "Report"; ObjectID = "12354"; */
+"12354.title" = "Rapport";
+
+/* Class = "NSMenuItem"; title = "Open report"; ObjectID = "12355"; */
+"12355.title" = "Ouvrir le rapport";
+
+/* Class = "NSMenuItem"; title = "Delete report"; ObjectID = "12356"; */
+"12356.title" = "Supprimer le rapport";
+
+/* Class = "NSTableColumn"; headerCell.title = "Report"; ObjectID = "12364"; */
+"12364.headerCell.title" = "Rapport";
+
+/* Class = "NSWindow"; title = "Window"; ObjectID = "12366"; */
+"12366.title" = "Window";
+
+/* Class = "NSMenuItem"; title = "Brush ROIs"; ObjectID = "12388"; */
+"12388.title" = "ROI des brosses";
+
+/* Class = "NSMenu"; title = "Brush ROIs"; ObjectID = "12389"; */
+"12389.title" = "ROI des brosses";
+
+/* Class = "NSMenuItem"; title = "Convert Between Polygon / Brush ROIs"; ObjectID = "12390"; */
+"12390.title" = "Conversion entre les ROI Polygone / Brosse";
+
+/* Class = "NSMenuItem"; title = "Dilatation"; ObjectID = "12391"; */
+"12391.title" = "Dilatation";
+
+/* Class = "NSMenuItem"; title = "Closing"; ObjectID = "12403"; */
+"12403.title" = "Clôture";
+
+/* Class = "NSMenuItem"; title = "Opening"; ObjectID = "12405"; */
+"12405.title" = "Ouverture";
+
+/* Class = "NSButtonCell"; title = "Button"; ObjectID = "12451"; */
+"12451.title" = "Button";
+
+/* Class = "NSButtonCell"; title = "Button"; ObjectID = "12452"; */
+"12452.title" = "Button";
+
+/* Class = "NSButtonCell"; title = "Button"; ObjectID = "12453"; */
+"12453.title" = "Button";
+
+/* Class = "NSButtonCell"; title = "Button"; ObjectID = "12454"; */
+"12454.title" = "Button";
+
+/* Class = "NSButtonCell"; title = "Button"; ObjectID = "12455"; */
+"12455.title" = "Button";
+
+/* Class = "NSButtonCell"; title = "Button"; ObjectID = "12456"; */
+"12456.title" = "Button";
+
+/* Class = "NSButtonCell"; title = "Button"; ObjectID = "12457"; */
+"12457.title" = "Button";
+
+/* Class = "NSButtonCell"; title = "Button"; ObjectID = "12458"; */
+"12458.title" = "Button";
+
+/* Class = "NSButtonCell"; title = "Button"; ObjectID = "12459"; */
+"12459.title" = "Button";
+
+/* Class = "NSButtonCell"; title = "Button"; ObjectID = "12460"; */
+"12460.title" = "Button";
+
+/* Class = "NSButtonCell"; title = "Button"; ObjectID = "12461"; */
+"12461.title" = "Button";
+
+/* Class = "NSButtonCell"; title = "Button"; ObjectID = "12462"; */
+"12462.title" = "Button";
+
+/* Class = "NSButtonCell"; title = "Button"; ObjectID = "12463"; */
+"12463.title" = "Button";
+
+/* Class = "NSButtonCell"; title = "Button"; ObjectID = "12464"; */
+"12464.title" = "Button";
+
+/* Class = "NSButtonCell"; title = "Button"; ObjectID = "12465"; */
+"12465.title" = "Button";
+
+/* Class = "NSButtonCell"; title = "Button"; ObjectID = "12466"; */
+"12466.title" = "Button";
+
+/* Class = "NSMenuItem"; title = "Display Name Only"; ObjectID = "12467"; */
+"12467.title" = "Afficher Uniquement le Nom";
+
+/* Class = "NSMenuItem"; title = "All fields"; ObjectID = "12522"; */
+"12522.title" = "Tous les champs";
+
+/* Class = "NSMenuItem"; title = "Accession Number"; ObjectID = "12524"; */
+"12524.title" = "Numéro d'accession";
+
+/* Class = "NSMenuItem"; title = "Rebuild Selected Thumbnails"; ObjectID = "12643"; */
+"12643.title" = "Reconstruire les vignettes sélectionnées";
+
+/* Class = "NSMenuItem"; title = "Copy Linked Files to Database Folder"; ObjectID = "12648"; */
+"12648.title" = "Copier les fichiers liés dans le dossier de la base de données";
+
+/* Class = "NSMenuItem"; title = "Decompress selected DICOM files"; ObjectID = "12649"; */
+"12649.title" = "Décompresser les fichiers DICOM sélectionnés";
+
+/* Class = "NSButtonCell"; title = "Compress all DICOM files in JPEG"; ObjectID = "12658"; */
+"12658.title" = "Compression de tous les fichiers DICOM en JPEG";
+
+/* Class = "NSButtonCell"; title = "Decompress all DICOM files"; ObjectID = "12659"; */
+"12659.title" = "Décompresser tous les fichiers DICOM";
+
+/* Class = "NSButtonCell"; title = "Don't modify the files"; ObjectID = "12660"; */
+"12660.title" = "Ne modifiez pas les fichiers";
+
+/* Class = "NSButtonCell"; title = "Hierarchical"; ObjectID = "12670"; */
+"12670.title" = "Hiérachique";
+
+/* Class = "NSButtonCell"; title = "Flat"; ObjectID = "12671"; */
+"12671.title" = "Plat";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "12682"; */
+"12682.title" = "AutresVues";
+
+/* Class = "NSMenuItem"; title = "DICOM Print..."; ObjectID = "12762"; */
+"12762.title" = "DICOM Imprimer...";
+
+/* Class = "NSWindow"; title = "Window"; ObjectID = "12799"; */
+"12799.title" = "Window";
+
+/* Class = "NSButtonCell"; title = "All Images"; ObjectID = "12850"; */
+"12850.title" = "Toutes les Images";
+
+/* Class = "NSButtonCell"; title = "4D Viewer"; ObjectID = "12851"; */
+"12851.title" = "4D Viewer";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "12852"; */
+"12852.title" = "Annuler";
+
+/* Class = "NSButtonCell"; title = "Button"; ObjectID = "12853"; */
+"12853.title" = "Button";
+
+/* Class = "NSButtonCell"; title = "Button"; ObjectID = "12938"; */
+"12938.title" = "Button";
+
+/* Class = "NSMenuItem"; title = "Group Selected ROIs"; ObjectID = "12946"; */
+"12946.title" = "ROI sélectionnés par groupe";
+
+/* Class = "NSMenuItem"; title = "Ungroup Selected ROIs"; ObjectID = "12947"; */
+"12947.title" = "Dégrouper les ROI sélectionnés";
+
+/* Class = "NSMenuItem"; title = "Save Current State as 3D Preset..."; ObjectID = "12965"; */
+"12965.title" = "Enregistrer l'état actuel sous forme de préréglage 3D...";
+
+/* Class = "NSMenuItem"; title = "Select 3D Preset..."; ObjectID = "12974"; */
+"12974.title" = "Sélectionner 3D Preset...";
+
+/* Class = "NSMenuItem"; title = "Export to DICOM Network Node"; ObjectID = "12980"; */
+"12980.title" = "Exportation vers le nœud de réseau DICOM";
+
+/* Class = "NSMenuItem"; title = "New Database Folder..."; ObjectID = "12982"; */
+"12982.title" = "Nouveau dossier de base de données...";
+
+/* Class = "NSMenuItem"; title = "Plugins Manager..."; ObjectID = "12989"; */
+"12989.title" = "Gestionnaire de plugins...";
+
+/* Class = "NSMenuItem"; title = "Create Layer from Selected ROI"; ObjectID = "12992"; */
+"12992.title" = "Créer un calque à partir d'un retour sur investissement sélectionné";
+
+/* Class = "NSMenuItem"; title = "Erosion"; ObjectID = "13002"; */
+"13002.title" = "Érosion";
+
+/* Class = "NSMenuItem"; title = "ROI Volume"; ObjectID = "13007"; */
+"13007.title" = "ROI Volume";
+
+/* Class = "NSMenu"; title = "ROI Volume"; ObjectID = "13008"; */
+"13008.title" = "ROI Volume";
+
+/* Class = "NSMenuItem"; title = "Compute Volume..."; ObjectID = "13010"; */
+"13010.title" = "Calculer le volume...";
+
+/* Class = "NSMenuItem"; title = "Generate Missing ROIs"; ObjectID = "13012"; */
+"13012.title" = "Générer des ROI manquants";
+
+/* Class = "NSMenuItem"; title = "Delete Generated ROIs"; ObjectID = "13014"; */
+"13014.title" = "Supprimer les ROI générés";
+
+/* Class = "NSMenuItem"; title = "Select All ROIs in this Series"; ObjectID = "13018"; */
+"13018.title" = "Sélectionner tous les ROI de cette série";
+
+/* Class = "NSMenuItem"; title = "Deselect All ROIs in this Series"; ObjectID = "13020"; */
+"13020.title" = "Désélectionner tous les ROI de cette série";
+
+/* Class = "NSMenuItem"; title = "Erase Content"; ObjectID = "13025"; */
+"13025.title" = "Effacer le contenu";
+
+/* Class = "NSMenuItem"; title = "Restore Content"; ObjectID = "13026"; */
+"13026.title" = "Restaurer le contenu";
+
+/* Class = "NSMenuItem"; title = "Delete All ROIs with Same Name as Selected ROI"; ObjectID = "13030"; */
+"13030.title" = "Supprimer tous les ROI avec le même nom que le ROI sélectionné";
+
+/* Class = "NSMenuItem"; title = "Merge Selected Studies"; ObjectID = "13044"; */
+"13044.title" = "Fusionner des études sélectionnées";
+
+/* Class = "NSTableColumn"; headerCell.title = "Lock"; ObjectID = "13047"; */
+"13047.headerCell.title" = "Verrouiller";
+
+/* Class = "NSMenuItem"; title = "2D Viewer"; ObjectID = "13064"; */
+"13064.title" = "Visor 3D";
+
+/* Class = "NSMenu"; title = "2D Viewer"; ObjectID = "13065"; */
+"13065.title" = "Visor 3D";
+
+/* Class = "NSMenuItem"; title = "Convolution Filters"; ObjectID = "13068"; */
+"13068.title" = "Filtres à convection";
+
+/* Class = "NSMenu"; title = "Convolution Filters"; ObjectID = "13069"; */
+"13069.title" = "Filtres à convection";
+
+/* Class = "NSMenuItem"; title = "Propagate Settings Between Series"; ObjectID = "13070"; */
+"13070.title" = "Propagation des réglages entre les séries";
+
+/* Class = "NSMenuItem"; title = "Propagate Settings in Current Series"; ObjectID = "13071"; */
+"13071.title" = "Propagation des réglages dans la série actuelle";
+
+/* Class = "NSMenuItem"; title = "Sync Series (Same Study)"; ObjectID = "13072"; */
+"13072.title" = "Série Sync (même étude)";
+
+/* Class = "NSMenu"; title = "Sync Series (Same Study)"; ObjectID = "13073"; */
+"13073.title" = "Série Sync (même étude)";
+
+/* Class = "NSMenuItem"; title = "Off"; ObjectID = "13074"; */
+"13074.title" = "Off";
+
+/* Class = "NSMenuItem"; title = "Slice Position - Absolute"; ObjectID = "13075"; */
+"13075.title" = "Position de coupe - Absolue";
+
+/* Class = "NSMenuItem"; title = "Slice ID - Absolute"; ObjectID = "13077"; */
+"13077.title" = "Slice ID - Absolu";
+
+/* Class = "NSMenuItem"; title = "Limit to Same Study"; ObjectID = "13079"; */
+"13079.title" = "Limite à la même étude";
+
+/* Class = "NSMenuItem"; title = "Slice ID - Relative"; ObjectID = "13080"; */
+"13080.title" = "ID de tranche - Relative";
+
+/* Class = "NSMenuItem"; title = "Apply Convolution Filter on raw data"; ObjectID = "13081"; */
+"13081.title" = "Appliquer Convolution Filter sur les données brutes";
+
+/* Class = "NSMenuItem"; title = "Image Tiling"; ObjectID = "13084"; */
+"13084.title" = "Carrelage d'image";
+
+/* Class = "NSMenuItem"; title = "Subtraction"; ObjectID = "13105"; */
+"13105.title" = "Soustraction";
+
+/* Class = "NSMenu"; title = "Subtraction"; ObjectID = "13106"; */
+"13106.title" = "Soustraction";
+
+/* Class = "NSMenuItem"; title = "Sum Less"; ObjectID = "13107"; */
+"13107.title" = "Somme Moins";
+
+/* Class = "NSMenuItem"; title = "Subtract"; ObjectID = "13108"; */
+"13108.title" = "Soustraire";
+
+/* Class = "NSMenuItem"; title = "New Mask"; ObjectID = "13109"; */
+"13109.title" = "Nouveau masque";
+
+/* Class = "NSMenuItem"; title = "Sharpen"; ObjectID = "13110"; */
+"13110.title" = "Aiguiser";
+
+/* Class = "NSMenuItem"; title = "Pixel Shift NE"; ObjectID = "13112"; */
+"13112.title" = "Décalage de pixels NE";
+
+/* Class = "NSMenuItem"; title = "Pixel Shift N"; ObjectID = "13113"; */
+"13113.title" = "Décalage de pixels N";
+
+/* Class = "NSMenuItem"; title = "Pixel Shift NW"; ObjectID = "13114"; */
+"13114.title" = "Décalage de pixels NO";
+
+/* Class = "NSMenuItem"; title = "Pixel Shift W"; ObjectID = "13115"; */
+"13115.title" = "Décalage des pixels O";
+
+/* Class = "NSMenuItem"; title = "No Pixel Shift"; ObjectID = "13116"; */
+"13116.title" = "Pas de décalage de pixels";
+
+/* Class = "NSMenuItem"; title = "Pixel Shift E"; ObjectID = "13117"; */
+"13117.title" = "Décalage de pixels E";
+
+/* Class = "NSMenuItem"; title = "Pixel Shift SW"; ObjectID = "13118"; */
+"13118.title" = "Décalage de pixels SO";
+
+/* Class = "NSMenuItem"; title = "Pixel Shift S"; ObjectID = "13119"; */
+"13119.title" = "Décalage de pixels S";
+
+/* Class = "NSMenuItem"; title = "Pixel Shift SE"; ObjectID = "13120"; */
+"13120.title" = "Décalage de pixels SE";
+
+/* Class = "NSMenuItem"; title = "Contrast Down"; ObjectID = "13122"; */
+"13122.title" = "Contraste vers le bas";
+
+/* Class = "NSMenuItem"; title = "Contrast Default"; ObjectID = "13123"; */
+"13123.title" = "Contraste Par défaut";
+
+/* Class = "NSMenuItem"; title = "Contrast Up"; ObjectID = "13124"; */
+"13124.title" = "Contraste vers le haut";
+
+/* Class = "NSMenuItem"; title = "Brightness Down"; ObjectID = "13125"; */
+"13125.title" = "Luminosité vers le bas";
+
+/* Class = "NSMenuItem"; title = "Brightness Default"; ObjectID = "13126"; */
+"13126.title" = "Luminosité Valeur par défaut";
+
+/* Class = "NSMenuItem"; title = "Brightness Up"; ObjectID = "13127"; */
+"13127.title" = "Luminosité vers le haut";
+
+/* Class = "NSMenuItem"; title = "No Sum"; ObjectID = "13128"; */
+"13128.title" = "Non Somme";
+
+/* Class = "NSMenuItem"; title = "Sum More"; ObjectID = "13129"; */
+"13129.title" = "Somme Plus";
+
+/* Class = "NSMenuItem"; title = "Save Workspace State"; ObjectID = "13131"; */
+"13131.title" = "Enregistrer l'état de l'espace de travail";
+
+/* Class = "NSMenuItem"; title = "Load Workspace State"; ObjectID = "13132"; */
+"13132.title" = "Charger l'état de l'espace de travail";
+
+/* Class = "NSMenuItem"; title = "Reset Workspace State"; ObjectID = "13133"; */
+"13133.title" = "Réinitialiser l'état de l'espace de travail";
+
+/* Class = "NSMenuItem"; title = "Annotations"; ObjectID = "13150"; */
+"13150.title" = "Annotations";
+
+/* Class = "NSMenu"; title = "Annotations"; ObjectID = "13151"; */
+"13151.title" = "Annotations";
+
+/* Class = "NSMenuItem"; title = "None"; ObjectID = "13152"; */
+"13152.title" = "Aucun";
+
+/* Class = "NSMenuItem"; title = "Graphics Only"; ObjectID = "13153"; */
+"13153.title" = "Graphiques seulement";
+
+/* Class = "NSMenuItem"; title = "Basic (No Name)"; ObjectID = "13154"; */
+"13154.title" = "De base (sans nom)";
+
+/* Class = "NSMenuItem"; title = "Full (Patient Name)"; ObjectID = "13155"; */
+"13155.title" = "Plein (nom du patient)";
+
+/* Class = "NSMenuItem"; title = "Plugin Only"; ObjectID = "13156"; */
+"13156.title" = "Plugin uniquement";
+
+/* Class = "NSMenuItem"; title = "Sync Series (Different Studies) at Current Position"; ObjectID = "13157"; */
+"13157.title" = "Série Sync (différentes études) à la position actuelle";
+
+/* Class = "NSMenuItem"; title = "Window Width & Level"; ObjectID = "13159"; */
+"13159.title" = "Largeur et niveau de la fenêtre";
+
+/* Class = "NSMenu"; title = "Window Width & Level"; ObjectID = "13160"; */
+"13160.title" = "Largeur et niveau de la fenêtre";
+
+/* Class = "NSMenuItem"; title = "Reset Image View"; ObjectID = "13162"; */
+"13162.title" = "Réinitialiser l'affichage de l'image";
+
+/* Class = "NSMenuItem"; title = "Revert series"; ObjectID = "13163"; */
+"13163.title" = "Série réversible";
+
+/* Class = "NSMenuItem"; title = "Orientation"; ObjectID = "13164"; */
+"13164.title" = "Orientation";
+
+/* Class = "NSMenuItem"; title = "Previous Series"; ObjectID = "13178"; */
+"13178.title" = "Série précédente";
+
+/* Class = "NSMenuItem"; title = "Color Look Up Table"; ObjectID = "13180"; */
+"13180.title" = "Table de consultation des couleurs";
+
+/* Class = "NSMenuItem"; title = "Convert between BW / RGB"; ObjectID = "13182"; */
+"13182.title" = "Convertir entre NB / RVB";
+
+/* Class = "NSMenu"; title = "Convert between BW / RGB"; ObjectID = "13183"; */
+"13183.title" = "Convertir entre NB / RVB";
+
+/* Class = "NSMenuItem"; title = "Red ->BW"; ObjectID = "13184"; */
+"13184.title" = "Rouge ->N/B";
+
+/* Class = "NSMenuItem"; title = "Green ->BW"; ObjectID = "13185"; */
+"13185.title" = "Vert ->N/B";
+
+/* Class = "NSMenuItem"; title = "Blue ->BW"; ObjectID = "13186"; */
+"13186.title" = "Bleu ->NB";
+
+/* Class = "NSMenuItem"; title = "RGB ->BW"; ObjectID = "13187"; */
+"13187.title" = "RVB ->N/B";
+
+/* Class = "NSMenuItem"; title = "Calibrate Resolution"; ObjectID = "13188"; */
+"13188.title" = "Calibrer la résolution";
+
+/* Class = "NSMenuItem"; title = "Next Series"; ObjectID = "13189"; */
+"13189.title" = "Série suivante";
+
+/* Class = "NSMenuItem"; title = "Flip Series"; ObjectID = "13190"; */
+"13190.title" = "Série Flip";
+
+/* Class = "NSMenuItem"; title = "Key Image"; ObjectID = "13191"; */
+"13191.title" = "Image clé";
+
+/* Class = "NSMenuItem"; title = "Use VOI LUT"; ObjectID = "13192"; */
+"13192.title" = "Utiliser VOI LUT";
+
+/* Class = "NSMenuItem"; title = "Display DICOM Overlays"; ObjectID = "13193"; */
+"13193.title" = "Affichage des superpositions DICOM";
+
+/* Class = "NSMenuItem"; title = "Color Look Up Table Bar"; ObjectID = "13194"; */
+"13194.title" = "Couleur Look Up Table Bar Bar";
+
+/* Class = "NSMenu"; title = "Color Look Up Table Bar"; ObjectID = "13195"; */
+"13195.title" = "Couleur Look Up Table Bar Bar";
+
+/* Class = "NSMenuItem"; title = "Original Series Only"; ObjectID = "13196"; */
+"13196.title" = "Série originale seulement";
+
+/* Class = "NSMenuItem"; title = "Fused Series Only"; ObjectID = "13197"; */
+"13197.title" = "Série avec fusible seulement";
+
+/* Class = "NSMenuItem"; title = "Both Series"; ObjectID = "13198"; */
+"13198.title" = "Les deux séries";
+
+/* Class = "NSMenuItem"; title = "Hide All"; ObjectID = "13199"; */
+"13199.title" = "Tout masquer";
+
+/* Class = "NSMenuItem"; title = "DICOM Meta-Data"; ObjectID = "13200"; */
+"13200.title" = "Métadonnées DICOM";
+
+/* Class = "NSMenuItem"; title = "Fuse/De-Fuse PET/SPECT - CT"; ObjectID = "13201"; */
+"13201.title" = "Fondre/Séparé TEP/SPECT - CT";
+
+/* Class = "NSMenuItem"; title = "BW -> Red"; ObjectID = "13313"; */
+"13313.title" = "NB -> Rouge";
+
+/* Class = "NSMenuItem"; title = "BW -> Green"; ObjectID = "13314"; */
+"13314.title" = "NB -> Vert";
+
+/* Class = "NSMenuItem"; title = "BW -> Blue"; ObjectID = "13315"; */
+"13315.title" = "NB -> Bleu";
+
+/* Class = "NSMenuItem"; title = "BW -> RGB"; ObjectID = "13316"; */
+"13316.title" = "NB -> RVB";
+
+/* Class = "NSButtonCell"; title = "Play"; ObjectID = "13341"; */
+"13341.title" = "Lire";
+
+/* Class = "NSButtonCell"; title = "Download"; ObjectID = "13357"; */
+"13357.title" = "Télécharger";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "13358"; */
+"13358.title" = "Annuler";
+
+/* Class = "NSTextFieldCell"; title = "URL:"; ObjectID = "13360"; */
+"13360.title" = "URL:";
+
+/* Class = "NSTextFieldCell"; title = "Example: http://www.osirix-viewer.com/internet.dcm"; ObjectID = "13361"; */
+"13361.title" = "Exemple: http://www.dicom-viewer.com/internet.dcm";
+
+/* Class = "NSSearchFieldCell"; placeholderString = "Search"; ObjectID = "13362"; */
+"13362.placeholderString" = "Rechercher";
+
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "13375"; */
+"13375.title" = "OK";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "13376"; */
+"13376.title" = "Annuler";
+
+/* Class = "NSTextFieldCell"; title = "Give a name for this album:"; ObjectID = "13377"; */
+"13377.title" = "Donnez un nom à cet album:";
+
+/* Class = "NSTextFieldCell"; title = "This database is protected by a password."; ObjectID = "13386"; */
+"13386.title" = "Cette base de données est protégée par un mot de passe.";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "13387"; */
+"13387.title" = "Annuler";
+
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "13388"; */
+"13388.title" = "OK";
+
+/* Class = "NSTextFieldCell"; title = "Password:"; ObjectID = "13390"; */
+"13390.title" = "Mot de passe:";
+
+/* Class = "NSButtonCell"; title = "Add DICOMDIR"; ObjectID = "13391"; */
+"13391.title" = "Ajouter DICOMDIR";
+
+/* Class = "NSTextFieldCell"; title = "DICOMDIR:"; ObjectID = "13392"; */
+"13392.title" = "DICOMDIR:";
+
+/* Class = "NSTextFieldCell"; title = "Compression:"; ObjectID = "13393"; */
+"13393.title" = "Compression:";
+
+/* Class = "NSTextFieldCell"; title = "Folder tree:"; ObjectID = "13394"; */
+"13394.title" = "Arborescence des dossiers:";
+
+/* Class = "NSButtonCell"; title = "Create HTML pages"; ObjectID = "13424"; */
+"13424.title" = "Créer des pages HTML";
+
+/* Class = "NSTextFieldCell"; title = "Multiple 3D series are contained in this series. Which series to open?"; ObjectID = "13427"; */
+"13427.title" = "Plusieurs séries 3D sont contenues dans cette série. Quelle série ouvrir ?";
+
+/* Class = "NSTextFieldCell"; title = "3D"; ObjectID = "13428"; */
+"13428.title" = "3D";
+
+/* Class = "NSTextFieldCell"; title = "4D"; ObjectID = "13429"; */
+"13429.title" = "4D";
+
+/* Class = "NSButtonCell"; title = "Open all 4D Series"; ObjectID = "13430"; */
+"13430.title" = "Ouvrir toutes les séries 4D";
+
+/* Class = "NSButtonCell"; title = "Open all 3D Series"; ObjectID = "13431"; */
+"13431.title" = "Ouvrez toutes les séries 3D";
+
+/* Class = "NSButtonCell"; title = "Button"; ObjectID = "13433"; */
+"13433.title" = "Button";
+
+/* Class = "NSFormCell"; title = "Field:"; ObjectID = "13434"; */
+"13434.title" = "Field:";
+
+/* Class = "NSFormCell"; title = "Field:"; ObjectID = "13435"; */
+"13435.title" = "Field:";
+
+/* Class = "NSFormCell"; title = "Field:"; ObjectID = "13436"; */
+"13436.title" = "Field:";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "13437"; */
+"13437.title" = "Radio";
+
+/* Class = "NSFormCell"; title = "Field:"; ObjectID = "13438"; */
+"13438.title" = "Field:";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "13439"; */
+"13439.title" = "Radio";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "13440"; */
+"13440.title" = "Radio";
+
+/* Class = "NSButtonCell"; title = "Button"; ObjectID = "13442"; */
+"13442.title" = "Button";
+
+/* Class = "NSButtonCell"; title = "Entire"; ObjectID = "13443"; */
+"13443.title" = "Entièrement";
+
+/* Class = "NSButtonCell"; title = "Button"; ObjectID = "13444"; */
+"13444.title" = "Button";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "13445"; */
+"13445.title" = "Text Cell";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "13448"; */
+"13448.title" = "Text Cell";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "13452"; */
+"13452.title" = "Text Cell";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "13453"; */
+"13453.title" = "Text Cell";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "13454"; */
+"13454.title" = "Text Cell";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "13455"; */
+"13455.title" = "Text Cell";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "13460"; */
+"13460.title" = "Text Cell";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "13461"; */
+"13461.title" = "Text Cell";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "13462"; */
+"13462.title" = "Text Cell";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "13463"; */
+"13463.title" = "Text Cell";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "13464"; */
+"13464.title" = "Text Cell";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "13466"; */
+"13466.title" = "Text Cell";
+
+/* Class = "NSMenuItem"; title = "Rebuild SQL Index File..."; ObjectID = "13527"; */
+"13527.title" = "Reconstruire le fichier d'index SQL...";
+
+/* Class = "NSMenuItem"; title = "Delete Selected Exam"; ObjectID = "13533"; */
+"13533.title" = "Supprimer l'examen sélectionné";
+
+/* Class = "NSMenuItem"; title = "Merge Selected Brush ROIs"; ObjectID = "13547"; */
+"13547.title" = "Fusionner les ROI des brosses sélectionnées";
+
+/* Class = "NSMenuItem"; title = "3D Position Panel"; ObjectID = "13551"; */
+"13551.title" = "Panneau de position 3D";
+
+/* Class = "NSMenuItem"; title = "Navigator Panel"; ObjectID = "13553"; */
+"13553.title" = "Panneau de navigation";
+
+/* Class = "NSMenuItem"; title = "Display Cross Reference Lines"; ObjectID = "13556"; */
+"13556.title" = "Affichage des lignes de référence croisées";
+
+/* Class = "NSMenuItem"; title = "Find Next Key Image"; ObjectID = "13558"; */
+"13558.title" = "Trouver l'image clé suivante";
+
+/* Class = "NSMenuItem"; title = "Find Previous Key Image"; ObjectID = "13559"; */
+"13559.title" = "Trouver l'image clé précédente";
+
+/* Class = "NSMenuItem"; title = "Flatten Fused Image"; ObjectID = "13563"; */
+"13563.title" = "Aplatir l'image fusionnée";
+
+/* Class = "NSMenuItem"; title = "Compress selected DICOM files"; ObjectID = "13565"; */
+"13565.title" = "Compresser les fichiers DICOM sélectionnés";
+
+/* Class = "NSMenuItem"; title = "Don't Propagate WL&WW Between Series"; ObjectID = "13571"; */
+"13571.title" = "Ne pas propager WL&WW entre les séries";
+
+/* Class = "NSMenuItem"; title = "Mark All Images as Key Images"; ObjectID = "13652"; */
+"13652.title" = "Marquer toutes les images comme images clés";
+
+/* Class = "NSMenuItem"; title = "Mark All ROIs Images as Key Images"; ObjectID = "13654"; */
+"13654.title" = "Marquer toutes les images de retour sur investissement comme images clés";
+
+/* Class = "NSMenuItem"; title = "Unmark All Images as Key Images"; ObjectID = "13656"; */
+"13656.title" = "Démarquer toutes les images comme images clés";
+
+/* Class = "NSMenuItem"; title = "Save All ROIs of this Series..."; ObjectID = "13658"; */
+"13658.title" = "Sauvegarder tous les ROI de cette série...";
+
+/* Class = "NSTableColumn"; headerCell.title = "Albums"; ObjectID = "13662"; */
+"13662.headerCell.title" = "Albums";
+
+/* Class = "NSMenuItem"; title = "Increase Thickness"; ObjectID = "13665"; */
+"13665.title" = "Augmenter l'épaisseur";
+
+/* Class = "NSMenuItem"; title = "Decrease Thickness"; ObjectID = "13666"; */
+"13666.title" = "Diminuer l'épaisseur";
+
+/* Class = "NSMenuItem"; title = "Increase Font Size"; ObjectID = "13667"; */
+"13667.title" = "Augmenter la taille de la police";
+
+/* Class = "NSMenuItem"; title = "Decrease Font Size"; ObjectID = "13668"; */
+"13668.title" = "Diminuer la taille de la police";
+
+/* Class = "NSMenuItem"; title = "Lock Selected ROIs"; ObjectID = "13740"; */
+"13740.title" = "Bloquer les ROI sélectionnés";
+
+/* Class = "NSMenuItem"; title = "Unlock Selected ROIs"; ObjectID = "13741"; */
+"13741.title" = "Déverrouiller les ROI sélectionnés";
+
+/* Class = "NSMenuItem"; title = "Make Selected ROIs Unselectable"; ObjectID = "13745"; */
+"13745.title" = "Rendre les ROI sélectionnés non sélectionnables";
+
+/* Class = "NSMenuItem"; title = "Make All ROIs Selectable"; ObjectID = "13746"; */
+"13746.title" = "Rendre tous les ROI sélectionnables";
+
+/* Class = "NSMenu"; title = "Color Look Up Table"; ObjectID = "13750"; */
+"13750.title" = "Table de consultation des couleurs";
+
+/* Class = "NSMenuItem"; title = "Opacity"; ObjectID = "13751"; */
+"13751.title" = "Opacité";
+
+/* Class = "NSMenu"; title = "Opacity"; ObjectID = "13752"; */
+"13752.title" = "Opacité";
+
+/* Class = "NSMenuItem"; title = "3D MPR"; ObjectID = "13753"; */
+"13753.title" = "3D MPR";
+
+/* Class = "NSMenuItem"; title = "3D Curved-MPR"; ObjectID = "13754"; */
+"13754.title" = "3D courbé-MPR";
+
+/* Class = "NSMenuItem"; title = "2D Orthogonal MPR"; ObjectID = "13755"; */
+"13755.title" = "2D Orthogonal MPR";
+
+/* Class = "NSMenuItem"; title = "3D MIP"; ObjectID = "13757"; */
+"13757.title" = "3D MIP";
+
+/* Class = "NSMenuItem"; title = "3D Volume Rendering"; ObjectID = "13758"; */
+"13758.title" = "Rendu de volume 3D";
+
+/* Class = "NSMenuItem"; title = "3D Surface Rendering"; ObjectID = "13759"; */
+"13759.title" = "Rendu de surface 3D";
+
+/* Class = "NSMenuItem"; title = "3D Endoscopy"; ObjectID = "13760"; */
+"13760.title" = "Endoscopie 3D";
+
+/* Class = "NSMenuItem"; title = "Export Displayed Database List as..."; ObjectID = "13772"; */
+"13772.title" = "Exporter la liste des bases de données affichées au format...";
+
+/* Class = "NSMenuItem"; title = "Network"; ObjectID = "13787"; */
+"13787.title" = "Réseau";
+
+/* Class = "NSMenu"; title = "Network"; ObjectID = "13788"; */
+"13788.title" = "Réseau";
+
+/* Class = "NSMenuItem"; title = "Query / Retrieve Window..."; ObjectID = "13790"; */
+"13790.title" = "Fenêtre d'interrogation / Récupération...";
+
+/* Class = "NSMenuItem"; title = "Query Selected Patient from Q&R Window..."; ObjectID = "13791"; */
+"13791.title" = "Demander le patient sélectionné dans la fenêtre Q&R...";
+
+/* Class = "NSMenuItem"; title = "Abort Incoming DICOM Processes (Store-SCU)"; ObjectID = "13793"; */
+"13793.title" = "Annuler les processus DICOM entrants (Store-SCU)";
+
+/* Class = "NSMenuItem"; title = "Network Logs"; ObjectID = "13794"; */
+"13794.title" = "Journaux de réseau";
+
+/* Class = "NSMenuItem"; title = "Export to DICOM Network Node"; ObjectID = "13801"; */
+"13801.title" = "Exportation vers le nœud de réseau DICOM";
+
+/* Class = "NSWindow"; title = "CD/DVD Password"; ObjectID = "13805"; */
+"13805.title" = "Mot de passe CD/DVD";
+
+/* Class = "NSTextFieldCell"; title = "This file is password protected. Enter password to read the images."; ObjectID = "13808"; */
+"13808.title" = "Ce fichier est protégé par mot de passe. Entrez le mot de passe pour lire les images.";
+
+/* Class = "NSTextFieldCell"; title = "Password:"; ObjectID = "13810"; */
+"13810.title" = "Mot de passe:";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "13815"; */
+"13815.title" = "Annuler";
+
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "13816"; */
+"13816.title" = "OK";
+
+/* Class = "NSButtonCell"; title = "Soundex"; ObjectID = "13825"; */
+"13825.title" = "Soundex";
+
+/* Class = "NSTextFieldCell"; title = "ZIP Package:"; ObjectID = "13832"; */
+"13832.title" = "Paquet ZIP:";
+
+/* Class = "NSButtonCell"; title = "Save as ZIP file with password (optional):"; ObjectID = "13834"; */
+"13834.title" = "Enregistrer sous forme de fichier ZIP avec mot de passe (facultatif):";
+
+/* Class = "NSWindow"; title = "CD/DVD Password"; ObjectID = "13843"; */
+"13843.title" = "Mot de passe CD/DVD";
+
+/* Class = "NSTextFieldCell"; title = "Password:"; ObjectID = "13851"; */
+"13851.title" = "Mot de passe:";
+
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "13853"; */
+"13853.title" = "OK";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "13854"; */
+"13854.title" = "Annuler";
+
+/* Class = "NSTextFieldCell"; title = "Enter a password to encrypt the files for email sending (at least 8 characters):"; ObjectID = "13855"; */
+"13855.title" = "Entrez un mot de passe pour crypter les fichiers à envoyer par courriel (au moins 8 caractères):";
+
+/* Class = "NSWindow"; title = "Window"; ObjectID = "13869"; */
+"13869.title" = "Window";
+
+/* Class = "NSBox"; title = "Users"; ObjectID = "13873"; */
+"13873.title" = "Utilisateurs";
+
+/* Class = "NSTextFieldCell"; title = "# out of #"; ObjectID = "13875"; */
+"13875.title" = "# sur #";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedDisplayPattern = "%{value1}@ out of %{value2}@"; ObjectID = "13876"; */
+"13876.ibShadowedDisplayPattern" = "%{value1}@ sur %{value2}@";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedDisplayPattern = "%{value1}@ out of %{value2}@"; ObjectID = "13877"; */
+"13877.ibShadowedDisplayPattern" = "%{value1}@ sur %{value2}@";
+
+/* Class = "NSTableColumn"; headerCell.title = "Phone"; ObjectID = "13883"; */
+"13883.headerCell.title" = "Téléphone";
+
+/* Class = "NSTextFieldCell"; title = "Field"; ObjectID = "13884"; */
+"13884.title" = "Field";
+
+/* Class = "NSTableColumn"; headerCell.title = "Address"; ObjectID = "13886"; */
+"13886.headerCell.title" = "Adresse";
+
+/* Class = "NSTextFieldCell"; title = "Field"; ObjectID = "13887"; */
+"13887.title" = "Field";
+
+/* Class = "NSTableColumn"; headerCell.title = "Email"; ObjectID = "13889"; */
+"13889.headerCell.title" = "Email";
+
+/* Class = "NSTextFieldCell"; title = "Field"; ObjectID = "13890"; */
+"13890.title" = "Field";
+
+/* Class = "NSTableColumn"; headerCell.title = "Name"; ObjectID = "13892"; */
+"13892.headerCell.title" = "Nom";
+
+/* Class = "NSTextFieldCell"; title = "Field"; ObjectID = "13893"; */
+"13893.title" = "Field";
+
+/* Class = "NSSearchFieldCell"; placeholderString = "All"; ObjectID = "13896"; */
+"13896.placeholderString" = "Tout";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedDisplayName = "All"; ObjectID = "13897"; */
+"13897.ibShadowedDisplayName" = "Tout";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedDisplayName = "Phone"; ObjectID = "13898"; */
+"13898.ibShadowedDisplayName" = "Téléphone";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedDisplayName = "Address"; ObjectID = "13899"; */
+"13899.ibShadowedDisplayName" = "Adresse";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedDisplayName = "Email"; ObjectID = "13900"; */
+"13900.ibShadowedDisplayName" = "Email";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedDisplayName = "Name"; ObjectID = "13901"; */
+"13901.ibShadowedDisplayName" = "Nom";
+
+/* Class = "NSTextFieldCell"; title = "Select the user(s) to which you want to send a notification email about the selected study/studies:"; ObjectID = "13903"; */
+"13903.title" = "Sélectionnez le(s) utilisateur(s) auquel(s) vous souhaitez envoyer un e-mail de notification concernant l'étude/les études sélectionnée(s):";
+
+/* Class = "NSTextFieldCell"; title = "And/Or to a temporary user, with this email:"; ObjectID = "13905"; */
+"13905.title" = "Et/Ou à un utilisateur temporaire, avec cet email:";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "13910"; */
+"13910.title" = "Annuler";
+
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "13911"; */
+"13911.title" = "OK";
+
+/* Class = "NSTextFieldCell"; title = "This user account will be automatically deleted after: %{value1}@ days"; ObjectID = "13917"; */
+"13917.title" = "Ce compte utilisateur sera automatiquement supprimé après: %{value1}@ jours";
+
+/* Class = "NSWindow"; title = "Window"; ObjectID = "13928"; */
+"13928.title" = "Window";
+
+/* Class = "NSBox"; title = "Users"; ObjectID = "13938"; */
+"13938.title" = "Utilisateurs";
+
+/* Class = "NSTableColumn"; headerCell.title = "Email"; ObjectID = "13946"; */
+"13946.headerCell.title" = "Email";
+
+/* Class = "NSTableColumn"; headerCell.title = "Name"; ObjectID = "13947"; */
+"13947.headerCell.title" = "Nom";
+
+/* Class = "NSTableColumn"; headerCell.title = "Address"; ObjectID = "13948"; */
+"13948.headerCell.title" = "Adresse";
+
+/* Class = "NSTableColumn"; headerCell.title = "Phone"; ObjectID = "13949"; */
+"13949.headerCell.title" = "Téléphone";
+
+/* Class = "NSTextFieldCell"; title = "Field"; ObjectID = "13950"; */
+"13950.title" = "Field";
+
+/* Class = "NSTextFieldCell"; title = "Field"; ObjectID = "13951"; */
+"13951.title" = "Field";
+
+/* Class = "NSTextFieldCell"; title = "Field"; ObjectID = "13952"; */
+"13952.title" = "Field";
+
+/* Class = "NSTextFieldCell"; title = "Field"; ObjectID = "13953"; */
+"13953.title" = "Field";
+
+/* Class = "NSSearchFieldCell"; placeholderString = "All"; ObjectID = "13954"; */
+"13954.placeholderString" = "Tout";
+
+/* Class = "NSTextFieldCell"; title = "# out of #"; ObjectID = "13955"; */
+"13955.title" = "# sur #";
+
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "13958"; */
+"13958.title" = "OK";
+
+/* Class = "NSTextFieldCell"; title = "Select the user(s) to which you want to authorize to view the selected study(s):"; ObjectID = "13962"; */
+"13962.title" = "Sélectionnez le(s) utilisateur(s) auquel(s) vous voulez autoriser l'accès à l'étude sélectionnée(s):";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "13963"; */
+"13963.title" = "Annuler";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedDisplayPattern = "%{value1}@ out of %{value2}@"; ObjectID = "13965"; */
+"13965.ibShadowedDisplayPattern" = "%{value1}@ sur %{value2}@";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedDisplayPattern = "%{value1}@ out of %{value2}@"; ObjectID = "13966"; */
+"13966.ibShadowedDisplayPattern" = "%{value1}@ sur %{value2}@";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedDisplayName = "All"; ObjectID = "13968"; */
+"13968.ibShadowedDisplayName" = "Tout";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedDisplayName = "Phone"; ObjectID = "13969"; */
+"13969.ibShadowedDisplayName" = "Téléphone";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedDisplayName = "Address"; ObjectID = "13970"; */
+"13970.ibShadowedDisplayName" = "Adresse";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedDisplayName = "Email"; ObjectID = "13971"; */
+"13971.ibShadowedDisplayName" = "Email";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedDisplayName = "Name"; ObjectID = "13972"; */
+"13972.ibShadowedDisplayName" = "Nom";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedDisplayPattern = "This user account will be automatically deleted after: %{value1}@ days"; ObjectID = "13983"; */
+"13983.ibShadowedDisplayPattern" = "Ce compte utilisateur sera automatiquement supprimé après: %{value1}@ jours";
+
+/* Class = "NSTextFieldCell"; title = "Add this text in the email, about these study/studies:"; ObjectID = "13990"; */
+"13990.title" = "Ajoutez ce texte dans l'email, à propos de ces études/études:";
+
+/* Class = "NSTextFieldCell"; title = "asdasd"; ObjectID = "13992"; */
+"13992.title" = "asdasd";
+
+/* Class = "NSMenuItem"; title = "Item 1"; ObjectID = "13999"; */
+"13999.title" = "Item 1";
+
+/* Class = "NSMenuItem"; title = "Item 2"; ObjectID = "14000"; */
+"14000.title" = "Item 2";
+
+/* Class = "NSMenuItem"; title = "Item 3"; ObjectID = "14001"; */
+"14001.title" = "Item 3";
+
+/* Class = "NSMenuItem"; title = "Windows Tiling - Rows"; ObjectID = "14002"; */
+"14002.title" = "Carrelage pour fenêtres - rangées";
+
+/* Class = "NSMenu"; title = "Windows Tiling - Rows"; ObjectID = "14015"; */
+"14015.title" = "Carrelage pour fenêtres - rangées";
+
+/* Class = "NSMenuItem"; title = "1"; ObjectID = "14016"; */
+"14016.title" = "1";
+
+/* Class = "NSMenuItem"; title = "Windows Tiling - Columns"; ObjectID = "14017"; */
+"14017.title" = "Carrelage pour fenêtres - Colonnes";
+
+/* Class = "NSMenu"; title = "Windows Tiling - Columns"; ObjectID = "14018"; */
+"14018.title" = "Carrelage pour fenêtres - Colonnes";
+
+/* Class = "NSMenuItem"; title = "1"; ObjectID = "14019"; */
+"14019.title" = "1";
+
+/* Class = "NSMenuItem"; title = "2"; ObjectID = "14020"; */
+"14020.title" = "2";
+
+/* Class = "NSMenuItem"; title = "3"; ObjectID = "14021"; */
+"14021.title" = "3";
+
+/* Class = "NSMenuItem"; title = "4"; ObjectID = "14022"; */
+"14022.title" = "4";
+
+/* Class = "NSMenuItem"; title = "5"; ObjectID = "14023"; */
+"14023.title" = "5";
+
+/* Class = "NSMenuItem"; title = "6"; ObjectID = "14024"; */
+"14024.title" = "6";
+
+/* Class = "NSMenuItem"; title = "2"; ObjectID = "14025"; */
+"14025.title" = "2";
+
+/* Class = "NSMenuItem"; title = "3"; ObjectID = "14026"; */
+"14026.title" = "3";
+
+/* Class = "NSMenuItem"; title = "4"; ObjectID = "14027"; */
+"14027.title" = "4";
+
+/* Class = "NSMenuItem"; title = "5"; ObjectID = "14028"; */
+"14028.title" = "5";
+
+/* Class = "NSMenuItem"; title = "6"; ObjectID = "14029"; */
+"14029.title" = "6";
+
+/* Class = "NSMenuItem"; title = "1 X 1"; ObjectID = "14038"; */
+"14038.title" = "1 X 1";
+
+/* Class = "NSMenuItem"; title = "1 X 2"; ObjectID = "14039"; */
+"14039.title" = "1 X 2";
+
+/* Class = "NSMenuItem"; title = "1 X 3"; ObjectID = "14040"; */
+"14040.title" = "1 X 3";
+
+/* Class = "NSMenuItem"; title = "1 X 4"; ObjectID = "14041"; */
+"14041.title" = "1 X 4";
+
+/* Class = "NSMenuItem"; title = "2 X 1"; ObjectID = "14043"; */
+"14043.title" = "2 X 1";
+
+/* Class = "NSMenuItem"; title = "2 X 2"; ObjectID = "14044"; */
+"14044.title" = "2 X 2";
+
+/* Class = "NSMenuItem"; title = "2 X 3"; ObjectID = "14045"; */
+"14045.title" = "2 X 3";
+
+/* Class = "NSMenuItem"; title = "2 X 4"; ObjectID = "14046"; */
+"14046.title" = "2 X 4";
+
+/* Class = "NSMenuItem"; title = "3 X 1"; ObjectID = "14048"; */
+"14048.title" = "3 X 1";
+
+/* Class = "NSMenuItem"; title = "3 X 2"; ObjectID = "14049"; */
+"14049.title" = "3 X 2";
+
+/* Class = "NSMenuItem"; title = "3 X 3"; ObjectID = "14050"; */
+"14050.title" = "3 X 3";
+
+/* Class = "NSMenuItem"; title = "3 X 4"; ObjectID = "14051"; */
+"14051.title" = "3 X 4";
+
+/* Class = "NSMenuItem"; title = "4 X 1"; ObjectID = "14053"; */
+"14053.title" = "4 X 1";
+
+/* Class = "NSMenuItem"; title = "4 X 2"; ObjectID = "14054"; */
+"14054.title" = "4 X 2";
+
+/* Class = "NSMenuItem"; title = "4 X 3"; ObjectID = "14055"; */
+"14055.title" = "4 X 3";
+
+/* Class = "NSMenuItem"; title = "4 X 4"; ObjectID = "14056"; */
+"14056.title" = "4 X 4";
+
+/* Class = "NSMenuItem"; title = "7"; ObjectID = "14074"; */
+"14074.title" = "7";
+
+/* Class = "NSMenuItem"; title = "8"; ObjectID = "14075"; */
+"14075.title" = "8";
+
+/* Class = "NSMenuItem"; title = "9"; ObjectID = "14076"; */
+"14076.title" = "9";
+
+/* Class = "NSMenuItem"; title = "7"; ObjectID = "14077"; */
+"14077.title" = "7";
+
+/* Class = "NSMenuItem"; title = "8"; ObjectID = "14078"; */
+"14078.title" = "8";
+
+/* Class = "NSMenuItem"; title = "9"; ObjectID = "14079"; */
+"14079.title" = "9";
+
+/* Class = "NSButtonCell"; title = "Re-Index in 3D in DB"; ObjectID = "14081"; */
+"14081.title" = "Re-Index en 3D dans DB";
+
+/* Class = "NSButtonCell"; title = "Re-Index in 4D in DB"; ObjectID = "14084"; */
+"14084.title" = "Re-Index en 4D en DB";
+
+/* Class = "NSButtonCell"; title = "Include ROIs, Comments, Reports, ..."; ObjectID = "14090"; */
+"14090.title" = "Inclure les ROI, commentaires, rapports, ...";
+
+/* Class = "NSTextFieldCell"; title = "ROIs:"; ObjectID = "14091"; */
+"14091.title" = "ROI:";
+
+/* Class = "NSMenu"; title = "Orientation"; ObjectID = "14106"; */
+"14106.title" = "Orientation";
+
+/* Class = "NSMenuItem"; title = "Flip Image Horizontal"; ObjectID = "14107"; */
+"14107.title" = "Flip Image Horizontal";
+
+/* Class = "NSMenuItem"; title = "Flip Image Vertical"; ObjectID = "14108"; */
+"14108.title" = "Retourner l'image verticalement";
+
+/* Class = "NSMenuItem"; title = "Rotation 0 Degrees"; ObjectID = "14110"; */
+"14110.title" = "Rotation 0 Degrés";
+
+/* Class = "NSMenuItem"; title = "Rotation 90 Degrees"; ObjectID = "14111"; */
+"14111.title" = "Rotation 90 degrés";
+
+/* Class = "NSMenuItem"; title = "Rotation 180 Degrees"; ObjectID = "14112"; */
+"14112.title" = "Rotation à 180 degrés";
+
+/* Class = "NSMenuItem"; title = "Sort By"; ObjectID = "14118"; */
+"14118.title" = "Trier par";
+
+/* Class = "NSMenu"; title = "Sort By"; ObjectID = "14119"; */
+"14119.title" = "Trier par";
+
+/* Class = "NSMenuItem"; title = "Instance Number - Ascending"; ObjectID = "14120"; */
+"14120.title" = "Numéro d'instance - Croissant";
+
+/* Class = "NSMenuItem"; title = "Instance Number - Descending"; ObjectID = "14121"; */
+"14121.title" = "Numéro d'instance - Décroissant";
+
+/* Class = "NSMenuItem"; title = "Slice Location - Ascending"; ObjectID = "14122"; */
+"14122.title" = "Emplacement de la tranche - Montée";
+
+/* Class = "NSMenuItem"; title = "Slice Location - Descending"; ObjectID = "14123"; */
+"14123.title" = "Emplacement de la tranche - Descente";
+
+/* Class = "NSTableColumn"; headerCell.title = "Comments 2"; ObjectID = "14132"; */
+"14132.headerCell.title" = "Remarque 2";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "14133"; */
+"14133.title" = "Text Cell";
+
+/* Class = "NSTableColumn"; headerCell.title = "Comments 3"; ObjectID = "14134"; */
+"14134.headerCell.title" = "Remarques 3";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "14135"; */
+"14135.title" = "Text Cell";
+
+/* Class = "NSTableColumn"; headerCell.title = "Comments 4"; ObjectID = "14136"; */
+"14136.headerCell.title" = "Remarques 4";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "14137"; */
+"14137.title" = "Text Cell";
+
+/* Class = "NSMenuItem"; title = "Comments 2"; ObjectID = "14138"; */
+"14138.title" = "Remarques 2";
+
+/* Class = "NSMenuItem"; title = "Comments 3"; ObjectID = "14140"; */
+"14140.title" = "Remarques 3";
+
+/* Class = "NSMenuItem"; title = "Comments 4"; ObjectID = "14142"; */
+"14142.title" = "Remarques 4";
+
+/* Class = "NSTableColumn"; headerCell.title = "Activity"; ObjectID = "14156"; */
+"14156.headerCell.title" = "Activité";
+
+/* Class = "NSBox"; title = "Threads"; ObjectID = "14167"; */
+"14167.title" = "Fils de discussion";
+
+/* Class = "NSTextFieldCell"; title = "Database Info"; ObjectID = "14358"; */
+"14358.title" = "Informations sur la base de données";
+
+/* Class = "NSWindow"; title = "Window"; ObjectID = "14365"; */
+"14365.title" = "Window";
+
+/* Class = "NSTextFieldCell"; title = "This function will re-import all DICOM files in the database, removing unavailable items and optimizing the SQL index file located in the OsiriX Data folder."; ObjectID = "14378"; */
+"14378.title" = "Cette fonction réimporte tous les fichiers DICOM de la base de données, supprime les éléments indisponibles et optimise le fichier d'index SQL situé dans le dossier Miele-LXIV Data.";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "14383"; */
+"14383.title" = "Radio";
+
+/* Class = "NSButtonCell"; ibShadowedToolTip = "OsiriX will re-import all files available in the DATABASE folder. OsiriX will then check if all images of the studies are available. If not, OsiriX will remove those studies without associated DICOM files."; ObjectID = "14384"; */
+"14384.ibShadowedToolTip" = "Miele-LXIV réimporte tous les fichiers disponibles dans le dossier DATABASE. Miele-LXIV vérifiera alors si toutes les images des études sont disponibles. Sinon, Miele-LXIV supprimera ces études sans fichiers DICOM associés.";
+
+/* Class = "NSButtonCell"; title = "Re-import DICOM files and clean"; ObjectID = "14384"; */
+"14384.title" = "Réimporter les fichiers DICOM et nettoyer";
+
+/* Class = "NSButtonCell"; ibShadowedToolTip = "The SQL index will be deleted. OsiriX will then import all files available in the DATABASE folder. All 'linked' files, that were not in the DATABASE folder, will NOT be re-imported."; ObjectID = "14385"; */
+"14385.ibShadowedToolTip" = "L'index SQL sera supprimé. Miele-LXIV importera alors tous les fichiers disponibles dans le dossier DATABASE. Tous les fichiers'liés', qui n'étaient pas dans le dossier DATABASE, ne seront PAS réimportés.";
+
+/* Class = "NSButtonCell"; title = "Complete rebuild"; ObjectID = "14385"; */
+"14385.title" = "Reconstruction complète";
+
+/* Class = "NSTextFieldCell"; title = "Number of files in your database folder:"; ObjectID = "14387"; */
+"14387.title" = "Nombre de fichiers dans votre dossier de base de données:";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "14389"; */
+"14389.title" = "Annuler";
+
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "14390"; */
+"14390.title" = "OK";
+
+/* Class = "NSTextFieldCell"; title = "Estimated time to rebuild your database:"; ObjectID = "14391"; */
+"14391.title" = "Temps estimé pour reconstruire votre base de données:";
+
+/* Class = "NSTextFieldCell"; title = "100'000"; ObjectID = "14392"; */
+"14392.title" = "100'000";
+
+/* Class = "NSTextFieldCell"; title = "5 hours 32 minutes"; ObjectID = "14394"; */
+"14394.title" = "5 heures 32 minutes";
+
+/* Class = "NSMenuItem"; title = "Scale"; ObjectID = "14455"; */
+"14455.title" = "Échelle";
+
+/* Class = "NSMenu"; title = "Scale"; ObjectID = "14456"; */
+"14456.title" = "Échelle";
+
+/* Class = "NSMenuItem"; title = "Scale To Fit"; ObjectID = "14457"; */
+"14457.title" = "Échelle à ajuster";
+
+/* Class = "NSMenuItem"; title = "Actual Size"; ObjectID = "14458"; */
+"14458.title" = "Taille réelle";
+
+/* Class = "NSMenuItem"; title = "No Rescale Size (100%)"; ObjectID = "14459"; */
+"14459.title" = "Pas de rééchelle Taille (100%)";
+
+/* Class = "NSMenuItem"; title = "3D Curved Path"; ObjectID = "14464"; */
+"14464.title" = "Trajectoire courbe 3D";
+
+/* Class = "NSMenu"; title = "3D Curved Path"; ObjectID = "14465"; */
+"14465.title" = "Trajectoire courbe 3D";
+
+/* Class = "NSMenuItem"; title = "Save to file..."; ObjectID = "14466"; */
+"14466.title" = "Enregistrer dans le fichier...";
+
+/* Class = "NSMenuItem"; title = "Load from file..."; ObjectID = "14467"; */
+"14467.title" = "Charger à partir du fichier...";
+
+/* Class = "NSBox"; title = "Not enough memory"; ObjectID = "14472"; */
+"14472.title" = "Pas assez de mémoire";
+
+/* Class = "NSButtonCell"; title = "Descending Date"; ObjectID = "14484"; */
+"14484.title" = "Date descendante";
+
+/* Class = "NSButtonCell"; title = "Ascending Date"; ObjectID = "14486"; */
+"14486.title" = "Date ascendante";
+
+/* Class = "NSButtonCell"; title = "Instance Number"; ObjectID = "14487"; */
+"14487.title" = "Numéro d'instance";
+
+/* Class = "NSButtonCell"; title = "Ascending Slice Location"; ObjectID = "14488"; */
+"14488.title" = "Emplacement de la tranche ascendante";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "14489"; */
+"14489.title" = "Radio";
+
+/* Class = "NSButtonCell"; title = "Descending Slice Location"; ObjectID = "14490"; */
+"14490.title" = "Emplacement de la tranche descendante";
+
+/* Class = "NSTextFieldCell"; title = "0"; ObjectID = "14491"; */
+"14491.title" = "0";
+
+/* Class = "NSTextFieldCell"; title = "To:"; ObjectID = "14492"; */
+"14492.title" = "À:";
+
+/* Class = "NSTextFieldCell"; title = "0"; ObjectID = "14493"; */
+"14493.title" = "0";
+
+/* Class = "NSTextFieldCell"; title = "1234"; ObjectID = "14494"; */
+"14494.title" = "1234";
+
+/* Class = "NSTextFieldCell"; title = "Sort By:"; ObjectID = "14496"; */
+"14496.title" = "Trier par:";
+
+/* Class = "NSTextFieldCell"; title = "From:"; ObjectID = "14497"; */
+"14497.title" = "De:";
+
+/* Class = "NSTextFieldCell"; title = "Interval:"; ObjectID = "14499"; */
+"14499.title" = "Intervalle:";
+
+/* Class = "NSTextFieldCell"; title = "This version of OsiriX cannot open large series"; ObjectID = "14508"; */
+"14508.title" = "Cette version de Miele-LXIV ne peut pas ouvrir de grandes séries";
+
+/* Class = "NSTextFieldCell"; title = "OK !"; ObjectID = "14510"; */
+"14510.title" = "OK !";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "14511"; */
+"14511.title" = "Annuler";
+
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "14512"; */
+"14512.title" = "OK";
+
+/* Class = "NSMenuItem"; title = "Tile 2D Viewer Windows"; ObjectID = "14587"; */
+"14587.title" = "Fenêtres de visualisation 2D pour carrelage";
+
+/* Class = "NSMenuItem"; title = "Tile 3D Viewer Windows"; ObjectID = "14588"; */
+"14588.title" = "Fenêtres de visualisation 3D de tuiles";
+
+/* Class = "NSMenuItem"; title = "Toggle Albums & Sources drawer"; ObjectID = "14591"; */
+"14591.title" = "Basculer le tiroir Albums & Sources";
+
+/* Class = "NSMenuItem"; title = "Albums"; ObjectID = "14593"; */
+"14593.title" = "Albums";
+
+/* Class = "NSMenu"; title = "Albums"; ObjectID = "14594"; */
+"14594.title" = "Albums";
+
+/* Class = "NSMenuItem"; title = "Create default albums..."; ObjectID = "14597"; */
+"14597.title" = "Créer des albums par défaut...";
+
+/* Class = "NSMenuItem"; title = "Import albums..."; ObjectID = "14598"; */
+"14598.title" = "Importer des albums...";
+
+/* Class = "NSMenuItem"; title = "Save albums..."; ObjectID = "14599"; */
+"14599.title" = "Enregistrer des albums...";
+
+/* Class = "NSMenuItem"; title = "Delete selected album"; ObjectID = "14600"; */
+"14600.title" = "Supprimer l'album sélectionné";
+
+/* Class = "NSMenuItem"; title = "Add a smart album..."; ObjectID = "14601"; */
+"14601.title" = "Ajouter un album intelligent...";
+
+/* Class = "NSMenuItem"; title = "Add an album..."; ObjectID = "14602"; */
+"14602.title" = "Ajouter un album...";
+
+/* Class = "NSMenuItem"; title = "Convert to PDF..."; ObjectID = "14610"; */
+"14610.title" = "Convertir en PDF...";
+
+/* Class = "NSMenuItem"; title = "Convert to DICOM PDF"; ObjectID = "14611"; */
+"14611.title" = "Convertir en DICOM PDF";
+
+/* Class = "NSMenuItem"; title = "Next Patient"; ObjectID = "14615"; */
+"14615.title" = "Patient suivant";
+
+/* Class = "NSMenuItem"; title = "Previous Patient"; ObjectID = "14616"; */
+"14616.title" = "Patient précédent";
+
+/* Class = "NSMenuItem"; title = "Series List"; ObjectID = "14617"; */
+"14617.title" = "Liste des séries";
+
+/* Class = "NSMenuItem"; title = "Auto Query / Retrieve Window..."; ObjectID = "14646"; */
+"14646.title" = "Fenêtre Auto Demander / Récupérer…";
+
+/* Class = "NSMenuItem"; title = "Auto Query / Retrieve Refresh"; ObjectID = "14648"; */
+"14648.title" = "Actualiser Auto Demander / Récupérer";
+
+/* Class = "NSButtonCell"; title = "Albums, Sources and Activity"; ObjectID = "14652"; */
+"14652.title" = "";
+
+/* Class = "NSMenuItem"; title = "Slice ID - Absolute Ratio"; ObjectID = "14686"; */
+"14686.title" = "ID de tranche - Ratio absolu";
+
+/* Class = "NSTableColumn"; headerCell.title = "History"; ObjectID = "14725"; */
+"14725.headerCell.title" = "Historique";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "14726"; */
+"14726.title" = "Text Cell";
+
+/* Class = "NSMenuItem"; title = "Toggle History drawer"; ObjectID = "14744"; */
+"14744.title" = "Basculer Tiroir d'historique";
+
+/* Class = "NSTextFieldCell"; title = "Multiline Label"; ObjectID = "14752"; */
+"14752.title" = "Étiquette multiligne";
+
+/* Class = "NSMenuItem"; title = "Retrieve selected PACS On-Demand studies"; ObjectID = "14754"; */
+"14754.title" = "Récupération d'études PACS à la demande sélectionnées";
+
+/* Class = "NSTableColumn"; headerCell.title = "# series"; ObjectID = "14758"; */
+"14758.headerCell.title" = "# series";
+
+/* Class = "NSMenuItem"; title = "Display Cobb angle"; ObjectID = "14760"; */
+"14760.title" = "Affichage Angle Cobb";
+
+/* Class = "NSMenu"; title = "ModalitiesFilter"; ObjectID = "14784"; */
+"14784.title" = "ModalitiesFilter";
+
+/* Class = "NSMenuItem"; title = "All modalities"; ObjectID = "14785"; */
+"14785.title" = "Toutes les modalités";
+
+/* Class = "NSMenuItem"; title = "XA"; ObjectID = "14787"; */
+"14787.title" = "XA";
+
+/* Class = "NSMenuItem"; title = "OT"; ObjectID = "14788"; */
+"14788.title" = "OT";
+
+/* Class = "NSMenuItem"; title = "RF"; ObjectID = "14790"; */
+"14790.title" = "RF";
+
+/* Class = "NSMenuItem"; title = "AU"; ObjectID = "14791"; */
+"14791.title" = "AU";
+
+/* Class = "NSMenuItem"; title = "SC"; ObjectID = "14792"; */
+"14792.title" = "SC";
+
+/* Class = "NSMenuItem"; title = "CT"; ObjectID = "14793"; */
+"14793.title" = "CT";
+
+/* Class = "NSMenuItem"; title = "MR"; ObjectID = "14794"; */
+"14794.title" = "MR";
+
+/* Class = "NSMenuItem"; title = "MG"; ObjectID = "14795"; */
+"14795.title" = "MG";
+
+/* Class = "NSMenuItem"; title = "RG"; ObjectID = "14797"; */
+"14797.title" = "RG";
+
+/* Class = "NSMenuItem"; title = "NM"; ObjectID = "14798"; */
+"14798.title" = "NM";
+
+/* Class = "NSMenuItem"; title = "DR"; ObjectID = "14799"; */
+"14799.title" = "DR";
+
+/* Class = "NSMenuItem"; title = "DX"; ObjectID = "14800"; */
+"14800.title" = "DX";
+
+/* Class = "NSMenuItem"; title = "XC"; ObjectID = "14801"; */
+"14801.title" = "XC";
+
+/* Class = "NSMenuItem"; title = "ES"; ObjectID = "14802"; */
+"14802.title" = "ES";
+
+/* Class = "NSMenuItem"; title = "VL"; ObjectID = "14803"; */
+"14803.title" = "VL";
+
+/* Class = "NSMenuItem"; title = "US"; ObjectID = "14804"; */
+"14804.title" = "US";
+
+/* Class = "NSMenuItem"; title = "SR"; ObjectID = "14805"; */
+"14805.title" = "SR";
+
+/* Class = "NSMenuItem"; title = "PT"; ObjectID = "14806"; */
+"14806.title" = "PT";
+
+/* Class = "NSMenuItem"; title = "CR"; ObjectID = "14808"; */
+"14808.title" = "CR";
+
+/* Class = "NSButtonCell"; title = "45 results in entire DB"; ObjectID = "14822"; */
+"14822.title" = "45 résultats dans la base de données complète";
+
+/* Class = "NSMenuItem"; title = "Display Info when mouse is over"; ObjectID = "14830"; */
+"14830.title" = "Afficher les informations lorsque la souris se trouve au-dessus de l'écran";
+
+/* Class = "NSMenuItem"; title = "Save as DICOM SC and mark as Key Image"; ObjectID = "14836"; */
+"14836.title" = "Enregistrer sous DICOM SC et marquer comme image clé";
+
+/* Class = "NSMenuItem"; title = "Meta-Data..."; ObjectID = "14838"; */
+"14838.title" = "Métadonnées...";
+
+/* Class = "NSMenuItem"; title = "Refresh PACS On-Demand results"; ObjectID = "14841"; */
+"14841.title" = "Actualiser les résultats PACS à la demande";
+
+/* Class = "NSMenuItem"; title = "Convert from/to SUV"; ObjectID = "14844"; */
+"14844.title" = "Conversion de/en SUV";
+
+/* Class = "NSMenuItem"; title = "Propagate Zoom Level Only if Planes are Parallel"; ObjectID = "14847"; */
+"14847.title" = "Propagation du niveau de zoom uniquement si les plans sont parallèles";
+
+/* Class = "NSMenu"; title = "Recent Studies"; ObjectID = "a5x-qR-mZL"; */
+"a5x-qR-mZL.title" = "Études récentes";
+
+/* Class = "NSMenuItem"; title = "Empty"; ObjectID = "jhM-yg-NvV"; */
+"jhM-yg-NvV.title" = "Vide";
+
+/* Class = "NSTableColumn"; headerCell.title = "Database"; ObjectID = "SNx-WQ-5cH"; */
+"SNx-WQ-5cH.headerCell.title" = "Base de données";
+
+/* Class = "NSMenuItem"; title = "Load Workspace State DICOM SR"; ObjectID = "URm-XW-3AR"; */
+"URm-XW-3AR.title" = "Charger l'état de l'espace de travail DICOM SR";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "Xie-B3-wnB"; */
+"Xie-B3-wnB.title" = "Text Cell";
+
+/* Class = "NSMenuItem"; title = "Save Workspace State as DICOM SR"; ObjectID = "za0-zz-olt"; */
+"za0-zz-olt.title" = "Enregistrer l'état de l'espace de travail sous DICOM SR";
+

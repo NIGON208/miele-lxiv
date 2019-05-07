@@ -1,0 +1,69 @@
+/* Class = "NSWindow"; title = "<< do not localize >>"; ObjectID = "12"; */
+"12.title" = "<< do not localize >>";
+
+/* Class = "NSBox"; title = "Reading CD/DVDs"; ObjectID = "98"; */
+"98.title" = "读CD / DVD";
+
+/* Class = "NSButtonCell"; ibShadowedToolTip = "Use DICOMDIR on the media to load the images."; ObjectID = "99"; */
+"99.ibShadowedToolTip" = "在介质上使用 di科维迪利加载图像。";
+
+/* Class = "NSButtonCell"; title = "All DICOM files available on the disk (Scan Mode), ignoring the DICOMDIR file (Slower)"; ObjectID = "99"; */
+"99.title" = "磁盘上可用的所有DICOM文件（扫描模式），忽略DICOMDIR文件（较慢）";
+
+/* Class = "NSButtonCell"; ibShadowedToolTip = "Scan the media to find all DICOM images."; ObjectID = "110"; */
+"110.ibShadowedToolTip" = "扫描媒体以查找所有 DICOM 图像。";
+
+/* Class = "NSButtonCell"; title = "Files indexed in the DICOMDIR file (Faster)"; ObjectID = "110"; */
+"110.title" = "在 dikomdir 文件中索引的文件 (更快)";
+
+/* Class = "NSBox"; title = "Writing CD/DVDs"; ObjectID = "132"; */
+"132.title" = "写CD / DVD";
+
+/* Class = "NSButtonCell"; title = "Include contents of this folder:"; ObjectID = "163"; */
+"163.title" = "包括此文件夹的内容:";
+
+/* Class = "NSButtonCell"; title = "Prefer standard JPEG instead of JPEG2000 / JPEG LS compression for DICOM files"; ObjectID = "184"; */
+"184.title" = "更喜欢标准 JPEG, 而不是用于 DICOM 文件的 JPEG2000/JPEG ls 压缩";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Once an inserted disk is successfully indexed, it is automatically selected"; ObjectID = "196"; */
+"196.ibShadowedToolTip" = "插入的磁盘成功编制索引后, 将自动选择该磁盘";
+
+/* Class = "NSButtonCell"; title = "Eject the disk when done copying"; ObjectID = "197"; */
+"197.title" = "复制完成后弹出磁盘";
+
+/* Class = "NSButtonCell"; title = "If no DICOM files are found, switch to Scan Mode"; ObjectID = "200"; */
+"200.title" = "如果找不到 DICOM 文件, 请切换到 \"扫描模式\"";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Once an inserted disk is successfully indexed, it is automatically selected"; ObjectID = "210"; */
+"210.ibShadowedToolTip" = "插入的磁盘成功编制索引后, 将自动选择该磁盘";
+
+/* Class = "NSButtonCell"; title = "Automatically select the source when ready"; ObjectID = "211"; */
+"211.title" = "准备就绪时自动选择源";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "217"; */
+"217.title" = "Radio";
+
+/* Class = "NSButtonCell"; title = "Copy all its contents into the database"; ObjectID = "218"; */
+"218.title" = "将其所有内容复制到数据库中";
+
+/* Class = "NSButtonCell"; title = "Show disc content as a separate source"; ObjectID = "219"; */
+"219.title" = "将光盘内容显示为单独的源";
+
+/* Class = "NSTextFieldCell"; title = "When a disc is inserted:"; ObjectID = "221"; */
+"221.title" = "插入光盘时:";
+
+/* Class = "NSButtonCell"; title = "Ask the user"; ObjectID = "222"; */
+"222.title" = "询问用户";
+
+/* Class = "NSTextFieldCell"; title = "Determine disc content by considering:"; ObjectID = "226"; */
+"226.title" = "通过考虑以下因素确定光盘内容:";
+
+/* Class = "NSButtonCell"; title = "Ignore it"; ObjectID = "229"; */
+"229.title" = "忽略它";
+
+/* Class = "NSButtonCell"; ibShadowedToolTip = "Use DICOMDIR on the media to load the images."; ObjectID = "gZ3-mY-LlL"; */
+"gZ3-mY-LlL.ibShadowedToolTip" = "在介质上使用 di科维迪利加载图像。";
+
+/* Class = "NSButtonCell"; title = "Files indexed in the DICOMDIR file"; ObjectID = "gZ3-mY-LlL"; */
+"gZ3-mY-LlL.title" = "在 dikomdir 文件中索引的文件";
+

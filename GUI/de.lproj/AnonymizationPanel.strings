@@ -1,0 +1,9 @@
+/* Class = "NSWindow"; title = "Anonymization"; ObjectID = "3"; */
+"3.title" = "Anonymisierung";
+
+/* Class = "NSButtonCell"; title = "Ok"; ObjectID = "10"; */
+"10.title" = "Ok";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "13"; */
+"13.title" = "Abbrechen";
+

@@ -1,0 +1,246 @@
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "3N3-Wh-vx1"; */
+"3N3-Wh-vx1.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "US"; ObjectID = "5Jf-1n-5Bm"; */
+"5Jf-1n-5Bm.title" = "US";
+
+/* Class = "NSMenuItem"; title = "MG"; ObjectID = "6kW-Wr-Cu0"; */
+"6kW-Wr-Cu0.title" = "MG";
+
+/* Class = "NSMenuItem"; title = "CT"; ObjectID = "7zl-Dg-jTQ"; */
+"7zl-Dg-jTQ.title" = "CT";
+
+/* Class = "NSMenuItem"; title = "CR"; ObjectID = "8uS-Ii-xSk"; */
+"8uS-Ii-xSk.title" = "CR";
+
+/* Class = "NSWindow"; title = "<< do not localize >>"; ObjectID = "12"; */
+"12.title" = "<< do not localize >>";
+
+/* Class = "NSBox"; title = "Miscellaneous"; ObjectID = "100"; */
+"100.title" = "杂项";
+
+/* Class = "NSBox"; title = "TIFF, JPEG, Quicktime, DICOM Export"; ObjectID = "110"; */
+"110.title" = "TIFF, JPEG, 快速时间, DICOM 导出";
+
+/* Class = "NSBox"; title = "Screens & Window size"; ObjectID = "149"; */
+"149.title" = "屏幕和窗口大小";
+
+/* Class = "NSButtonCell"; title = "Fullscreen"; ObjectID = "253"; */
+"253.title" = "全屏";
+
+/* Class = "NSButtonCell"; title = "At 150% of resolution"; ObjectID = "254"; */
+"254.title" = "分辨率为150%";
+
+/* Class = "NSButtonCell"; title = "At 100% of resolution"; ObjectID = "255"; */
+"255.title" = "分辨率为100%";
+
+/* Class = "NSButtonCell"; title = "At 200% of resolution"; ObjectID = "256"; */
+"256.title" = "分辨率为200%";
+
+/* Class = "NSButtonCell"; title = "Save left button mouse tool"; ObjectID = "342"; */
+"342.title" = "保存鼠标左键工具";
+
+/* Class = "NSButtonCell"; title = "Reverse scroll wheel direction"; ObjectID = "343"; */
+"343.title" = "反向滚轮方向";
+
+/* Class = "NSButtonCell"; title = "No interpolation for zoom"; ObjectID = "345"; */
+"345.title" = "无缩放插值";
+
+/* Class = "NSTextFieldCell"; title = "Photos Album:"; ObjectID = "347"; */
+"347.title" = "Photos 相册:";
+
+/* Class = "NSButtonCell"; title = "Zoom with horizontal scrollwheel"; ObjectID = "348"; */
+"348.title" = "使用水平滚轮进行缩放";
+
+/* Class = "NSButtonCell"; title = "No 'Propagate settings in series' for:"; ObjectID = "349"; */
+"349.title" = "没有 \"系列中的传播设置\", 用于:";
+
+/* Class = "NSButtonCell"; title = "Apply Next/Previous Series button to all opened viewers"; ObjectID = "350"; */
+"350.title" = "将 \"上一系列\" 按钮应用于所有打开的查看器";
+
+/* Class = "NSButtonCell"; title = "High Quality Zoom (Lanczos 5)"; ObjectID = "351"; */
+"351.title" = "高品质变焦 (兰索斯 5)";
+
+/* Class = "NSButtonCell"; title = "Automatically open the exported images after exporting with Preview or Quicktime Player"; ObjectID = "352"; */
+"352.title" = "使用 \"预览\" 或 \"快速播放机\" 导出后自动打开导出的图像";
+
+/* Class = "NSButtonCell"; title = "If there are tiled views, export all tiled views, not only the selected view"; ObjectID = "353"; */
+"353.title" = "如果有平铺视图, 请导出所有平铺视图, 而不仅仅是选定的视图";
+
+/* Class = "NSButtonCell"; title = "Automatically Tile Windows when closing or opening a new series"; ObjectID = "358"; */
+"358.title" = "关闭或打开新系列时自动平铺 windows";
+
+/* Class = "NSButtonCell"; title = "Group series of same study on same screen"; ObjectID = "359"; */
+"359.title" = "同一屏幕上的同组研究组系列";
+
+/* Class = "NSButtonCell"; title = "Magnetic Windows for move & resize"; ObjectID = "360"; */
+"360.title" = "用于移动和调整大小的磁窗";
+
+/* Class = "NSButtonCell"; title = "Automatically save Workspace State when closing all viewers"; ObjectID = "362"; */
+"362.title" = "关闭所有查看器时自动保存工作区状态";
+
+/* Class = "NSButtonCell"; title = "Automatically load Workspace State when opening a study"; ObjectID = "363"; */
+"363.title" = "打开研究时自动加载工作区状态";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "366"; */
+"366.title" = "Radio";
+
+/* Class = "NSButtonCell"; title = "Stretch last windows to fill the entire screen"; ObjectID = "369"; */
+"369.title" = "拉伸最后一个窗口以填充整个屏幕";
+
+/* Class = "NSButtonCell"; title = "Spline Rendering for polygons and pencils ROIs"; ObjectID = "373"; */
+"373.title" = "多边形和铅笔 ROI 的样条线渲染";
+
+/* Class = "NSButtonCell"; title = "Use VOI LUT if available"; ObjectID = "376"; */
+"376.title" = "使用 voi lut (如果有)";
+
+/* Class = "NSButtonCell"; title = "Automatically enable 12 Bit Totoku Display support for CR, MG, DX, DR, XA and RF"; ObjectID = "391"; */
+"391.title" = "自动为CR，MG，DX，DR，XA和RF启用12位Totoku Display支持";
+
+/* Class = "NSButtonCell"; title = "Always 'scale to fit' when displaying or resizing windows"; ObjectID = "402"; */
+"402.title" = "在显示或调整窗口大小时, 始终 \"缩放以适应\"";
+
+/* Class = "NSButtonCell"; title = "Automatically crop the view to the image area"; ObjectID = "406"; */
+"406.title" = "自动将视图裁剪到图像区域";
+
+/* Class = "NSButtonCell"; title = "Open PDF with Preview application"; ObjectID = "413"; */
+"413.title" = "使用预览应用程序打开PDF";
+
+/* Class = "NSButtonCell"; title = "Show Magnifying Lens with 'shift' key"; ObjectID = "416"; */
+"416.title" = "使用“shift”键显示放大镜";
+
+/* Class = "NSButtonCell"; title = "New ROIs are unnamed"; ObjectID = "419"; */
+"419.title" = "新的 ROI 未命名";
+
+/* Class = "NSButtonCell"; title = "Mark ROI image as Key image"; ObjectID = "422"; */
+"422.title" = "将投资回报率标记为关键映像";
+
+/* Class = "NSButtonCell"; title = "Loop in the series with mouse scroll wheel"; ObjectID = "426"; */
+"426.title" = "使用鼠标滚轮在系列中循环";
+
+/* Class = "NSButtonCell"; title = "Scroll through image and series for:"; ObjectID = "432"; */
+"432.title" = "滚动图像和系列, 用于:";
+
+/* Class = "NSButtonCell"; title = "Full 32-bit OpenGL pipeline"; ObjectID = "435"; */
+"435.title" = "完整的 32位 opgl 管道";
+
+/* Class = "NSButtonCell"; title = "Only display images of the same patient"; ObjectID = "438"; */
+"438.title" = "仅显示同一患者的图像";
+
+/* Class = "NSButtonCell"; title = "Keep CLUT Bars when exporting Screen Captures"; ObjectID = "455"; */
+"455.title" = "导出屏幕捕获时保留 CLUT 栏";
+
+/* Class = "NSButtonCell"; title = "Select window when using scroll wheel"; ObjectID = "459"; */
+"459.title" = "使用滚轮时选择窗口";
+
+/* Class = "NSButtonCell"; title = "Zoom centered around mouse position"; ObjectID = "464"; */
+"464.title" = "以鼠标位置为中心进行缩放";
+
+/* Class = "NSButtonCell"; title = "Use FrameofReferenceUID for cross reference lines"; ObjectID = "473"; */
+"473.title" = "对交叉引用行使用参考的框架";
+
+/* Class = "NSButtonCell"; title = "Switch to 1x1 Tiling in Fullscreen mode"; ObjectID = "481"; */
+"481.title" = "在全屏模式下切换到1x1 平铺";
+
+/* Class = "NSButtonCell"; title = "Reserve the database screen for the database"; ObjectID = "498"; */
+"498.title" = "为数据库保留数据库屏幕";
+
+/* Class = "NSTextFieldCell"; title = "Screens:"; ObjectID = "504"; */
+"504.title" = "屏幕:";
+
+/* Class = "NSTextFieldCell"; title = "Window Size:"; ObjectID = "506"; */
+"506.title" = "窗口大小:";
+
+/* Class = "NSTextFieldCell"; title = "Tiling:"; ObjectID = "510"; */
+"510.title" = "平铺:";
+
+/* Class = "NSTextFieldCell"; title = "Workspace State:"; ObjectID = "512"; */
+"512.title" = "工作区状态:";
+
+/* Class = "NSTextFieldCell"; title = "12bit Display:"; ObjectID = "516"; */
+"516.title" = "12位显示:";
+
+/* Class = "NSTextFieldCell"; title = "Scale:"; ObjectID = "518"; */
+"518.title" = "缩放:";
+
+/* Class = "NSButtonCell"; title = "Use database screen in the last"; ObjectID = "523"; */
+"523.title" = "在最后一个屏幕中使用数据库屏幕";
+
+/* Class = "NSButtonCell"; title = "Order windows from most recent to oldest studies"; ObjectID = "529"; */
+"529.title" = "订购最新到最古老的研究窗口";
+
+/* Class = "NSButtonCell"; title = "Compute Skewness and Kurtosis for ROI"; ObjectID = "541"; */
+"541.title" = "投资回报率的计算";
+
+/* Class = "NSButtonCell"; title = "Display Overflow Lines"; ObjectID = "545"; */
+"545.title" = "显示溢出线";
+
+/* Class = "NSButtonCell"; title = "Reversed order"; ObjectID = "549"; */
+"549.title" = "反转顺序";
+
+/* Class = "NSButtonCell"; title = "Don't switch series if already displayed"; ObjectID = "556"; */
+"556.title" = "如果已显示, 则不要切换系列";
+
+/* Class = "NSMenuItem"; title = "DX"; ObjectID = "ai8-gB-ewz"; */
+"ai8-gB-ewz.title" = "DX";
+
+/* Class = "NSMenuItem"; title = "XA"; ObjectID = "bs8-nn-AfS"; */
+"bs8-nn-AfS.title" = "XA";
+
+/* Class = "NSButtonCell"; title = "Display the Center of Circle ROIs"; ObjectID = "cnn-XX-QeR"; */
+"cnn-XX-QeR.title" = "显示圆的 ROI 中心";
+
+/* Class = "NSMenuItem"; title = "DR"; ObjectID = "cza-Ci-dMD"; */
+"cza-Ci-dMD.title" = "DR";
+
+/* Class = "NSMenuItem"; title = "CR"; ObjectID = "FOf-lv-Yw4"; */
+"FOf-lv-Yw4.title" = "CR";
+
+/* Class = "NSButtonCell"; title = "Automatically show/hide the list"; ObjectID = "G7b-Qw-REH"; */
+"G7b-Qw-REH.title" = "自动显示/隐藏列表";
+
+/* Class = "NSMenuItem"; title = "DX"; ObjectID = "jbC-CP-MNd"; */
+"jbC-CP-MNd.title" = "DX";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "jDc-fg-eC3"; */
+"jDc-fg-eC3.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Modalities"; ObjectID = "M0C-0c-XXi"; */
+"M0C-0c-XXi.title" = "方式";
+
+/* Class = "NSMenuItem"; title = "MR"; ObjectID = "Mb4-tf-Nb8"; */
+"Mb4-tf-Nb8.title" = "MR";
+
+/* Class = "NSMenuItem"; title = "MG"; ObjectID = "n0T-TJ-mPS"; */
+"n0T-TJ-mPS.title" = "MG";
+
+/* Class = "NSMenuItem"; title = "OT"; ObjectID = "pDt-aZ-dzv"; */
+"pDt-aZ-dzv.title" = "OT";
+
+/* Class = "NSMenuItem"; title = "XA"; ObjectID = "pNw-K4-kef"; */
+"pNw-K4-kef.title" = "XA";
+
+/* Class = "NSMenuItem"; title = "Modalities"; ObjectID = "rUf-a6-mNm"; */
+"rUf-a6-mNm.title" = "方式";
+
+/* Class = "NSMenuItem"; title = "US"; ObjectID = "Sdk-1a-N7y"; */
+"Sdk-1a-N7y.title" = "US";
+
+/* Class = "NSMenuItem"; title = "RF"; ObjectID = "seo-e0-Zo4"; */
+"seo-e0-Zo4.title" = "RF";
+
+/* Class = "NSTextFieldCell"; title = "Series List:"; ObjectID = "uep-14-VL5"; */
+"uep-14-VL5.title" = "系列列表:";
+
+/* Class = "NSMenuItem"; title = "RF"; ObjectID = "uMP-Y0-V9I"; */
+"uMP-Y0-V9I.title" = "RF";
+
+/* Class = "NSButtonCell"; title = "Single Series List per screen"; ObjectID = "Uq0-8g-c6d"; */
+"Uq0-8g-c6d.title" = "每个屏幕的单个系列列表";
+
+/* Class = "NSMenuItem"; title = "DR"; ObjectID = "WGV-vh-73b"; */
+"WGV-vh-73b.title" = "DR";
+
+/* Class = "NSButtonCell"; title = "Convert RTSTRUCT ROIs to Brush ROIs"; ObjectID = "zMF-Em-hzR"; */
+"zMF-Em-hzR.title" = "将 rtrstr研罗转换为画笔 ROI";
+

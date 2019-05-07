@@ -1,0 +1,181 @@
+/* Class = "NSWindow"; title = "<< do not localize >>"; ObjectID = "12"; */
+"12.title" = "<< do not localize >>";
+
+/* Class = "NSButtonCell"; title = "Use \"B/W Inverse\" CLUT with this CLUT for blending:"; ObjectID = "292"; */
+"292.title" = "Verwenden Sie \"B/Inverse\" CLUT mit diesem CLUT für die Mischung:";
+
+/* Class = "NSButtonCell"; title = "Use this CLUT for PET, including for blending:"; ObjectID = "296"; */
+"296.title" = "Verwenden Sie dieses CLUT für PET, auch für die Mischung:";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "299"; */
+"299.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Item3"; ObjectID = "300"; */
+"300.title" = "Item3";
+
+/* Class = "NSMenuItem"; title = "Item1"; ObjectID = "301"; */
+"301.title" = "Item1";
+
+/* Class = "NSMenuItem"; title = "Item2"; ObjectID = "302"; */
+"302.title" = "Item2";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "304"; */
+"304.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Item3"; ObjectID = "305"; */
+"305.title" = "Item3";
+
+/* Class = "NSMenuItem"; title = "Item2"; ObjectID = "306"; */
+"306.title" = "Item2";
+
+/* Class = "NSMenuItem"; title = "Item1"; ObjectID = "307"; */
+"307.title" = "Item1";
+
+/* Class = "NSBox"; title = "CLUT (Color Look-Up Tables) :"; ObjectID = "314"; */
+"314.title" = "CLUT (Color Look-Up Tische):";
+
+/* Class = "NSButtonCell"; title = "Classic ( X: Window Width Y: Window Level )"; ObjectID = "319"; */
+"319.title" = "Klassik (X: Fensterbreite Y: Fensterstufe)";
+
+/* Class = "NSButtonCell"; title = "Fixed Minimum (X: nothing Y: maximum)   with minimum at:"; ObjectID = "320"; */
+"320.title" = "Minimal (X: Nichts Y: Maximal) mit Minimum bei:";
+
+/* Class = "NSButtonCell"; title = "Maximum - Minimum ( X: Minimum Y: Maximum)"; ObjectID = "321"; */
+"321.title" = "Maximum-Minimum (X: Minimum Y: Maximum)";
+
+/* Class = "NSBox"; title = "Mouse Windowing mode:"; ObjectID = "322"; */
+"322.title" = "MausenWindowing-Modus:";
+
+/* Class = "NSBox"; title = "Window Level & Width"; ObjectID = "336"; */
+"336.title" = "Fensterstufe und-breite";
+
+/* Class = "NSBox"; title = "Fusion"; ObjectID = "355"; */
+"355.title" = "Fusion";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "365"; */
+"365.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Linear"; ObjectID = "378"; */
+"378.title" = "Linear";
+
+/* Class = "NSMenuItem"; title = "High-Low-High"; ObjectID = "379"; */
+"379.title" = "Hochschrank";
+
+/* Class = "NSMenuItem"; title = "Low-High-Low"; ObjectID = "380"; */
+"380.title" = "Niedereschach";
+
+/* Class = "NSMenuItem"; title = "Log"; ObjectID = "381"; */
+"381.title" = "Protokoll";
+
+/* Class = "NSMenuItem"; title = "Inverse Log"; ObjectID = "382"; */
+"382.title" = "Inverse Log";
+
+/* Class = "NSMenuItem"; title = "Flat"; ObjectID = "383"; */
+"383.title" = "Flat";
+
+/* Class = "NSButtonCell"; title = "Use stored WL & WW"; ObjectID = "387"; */
+"387.title" = "Nutzung gespeicherte WL & WW";
+
+/* Class = "NSButtonCell"; title = "Use fixed levels, in percentages:"; ObjectID = "388"; */
+"388.title" = "Verwenden Sie feste Niveaus, in Prozent:";
+
+/* Class = "NSButtonCell"; title = "Use fixed levels, in SUV:"; ObjectID = "389"; */
+"389.title" = "Verwenden Sie feste Stufen, im SUV:";
+
+/* Class = "NSBox"; title = "Opacity Table (Transfer Function)"; ObjectID = "403"; */
+"403.title" = "Opazität (Transferfunktion)";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "414"; */
+"414.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Item3"; ObjectID = "415"; */
+"415.title" = "Item3";
+
+/* Class = "NSMenuItem"; title = "Item1"; ObjectID = "416"; */
+"416.title" = "Item1";
+
+/* Class = "NSMenuItem"; title = "Item2"; ObjectID = "417"; */
+"417.title" = "Item2";
+
+/* Class = "NSButtonCell"; title = "Apply this behavior also to NM modality"; ObjectID = "427"; */
+"427.title" = "Dieses Verhalten auch auf die NM-Modalität anwenden";
+
+/* Class = "NSTextFieldCell"; title = "0"; ObjectID = "428"; */
+"428.title" = "0";
+
+/* Class = "NSButtonCell"; title = "Apply this behavior also to NM modality"; ObjectID = "429"; */
+"429.title" = "Dieses Verhalten auch auf die NM-Modalität anwenden";
+
+/* Class = "NSTextFieldCell"; title = "0"; ObjectID = "430"; */
+"430.title" = "0";
+
+/* Class = "NSTextFieldCell"; title = "from:"; ObjectID = "431"; */
+"431.title" = "von:";
+
+/* Class = "NSTextFieldCell"; title = "0"; ObjectID = "432"; */
+"432.title" = "0";
+
+/* Class = "NSTextFieldCell"; title = "to:"; ObjectID = "433"; */
+"433.title" = "bis:";
+
+/* Class = "NSTextFieldCell"; title = "0"; ObjectID = "434"; */
+"434.title" = "0";
+
+/* Class = "NSTextFieldCell"; title = "from:"; ObjectID = "435"; */
+"435.title" = "von:";
+
+/* Class = "NSTextFieldCell"; title = "0"; ObjectID = "436"; */
+"436.title" = "0";
+
+/* Class = "NSTextFieldCell"; title = "to:"; ObjectID = "437"; */
+"437.title" = "bis:";
+
+/* Class = "NSTextFieldCell"; title = "Default fusion type:"; ObjectID = "438"; */
+"438.title" = "Default Fusion Typ:";
+
+/* Class = "NSButtonCell"; title = "Apply this behavior also to NM modality"; ObjectID = "442"; */
+"442.title" = "Dieses Verhalten auch auf die NM-Modalität anwenden";
+
+/* Class = "NSButtonCell"; title = "Apply this Opacity Table when viewing a PET:"; ObjectID = "443"; */
+"443.title" = "Wenden Sie diese Deckungstabelle beim Betrachten eines PET an:";
+
+/* Class = "NSButtonCell"; title = "Prefer \"B/W Inverse\" CLUT with this CLUT for blending:"; ObjectID = "444"; */
+"444.title" = "Bevorzugen Sie \"B/W Inverse\" CLUT mit diesem CLUT für die Mischung:";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "445"; */
+"445.title" = "Radio";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "446"; */
+"446.title" = "Radio";
+
+/* Class = "NSBox"; title = "SUV Computation"; ObjectID = "448"; */
+"448.title" = "SUV-Komputation";
+
+/* Class = "NSTextFieldCell"; title = "Use for Acquisition Time parameter:"; ObjectID = "451"; */
+"451.title" = "Verwendung für den Parameter \"Akquisition Zeit\":";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "463"; */
+"463.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "StudyTime (0008,0030)"; ObjectID = "466"; */
+"466.title" = "StudyTime (0008,0030)";
+
+/* Class = "NSMenuItem"; title = "ContentTime (0008,0033)"; ObjectID = "467"; */
+"467.title" = "ContentTime (0008,0033)";
+
+/* Class = "NSMenuItem"; title = "AcquisitionTime (0008,0032)"; ObjectID = "468"; */
+"468.title" = "AcquisitionTime (0008, 0032)";
+
+/* Class = "NSMenuItem"; title = "SeriesTime (0008,0031)"; ObjectID = "469"; */
+"469.title" = "SeriesTime (0008, 0031)";
+
+/* Class = "NSTextFieldCell"; title = "Dose is corrected by the half-life, in relation to the Acquisition Time and the Injection Time.\nCorrected dose = Dose * exp ( ln(2) / Half-life). Check with the PET modality manufacturer, which field should be used."; ObjectID = "475"; */
+"475.title" = "Die Dosis wird um die Halbwertszeit in Bezug auf die Erfassungszeit und die Injektionszeit korrigiert.
+Korrigierte Dosis = Dosis * exp ((ln(2) / Halbwertszeit). Erkundigen Sie sich beim Hersteller der PET-Modalität, welches Feld verwendet werden soll.";
+
+/* Class = "NSButtonCell"; title = "Automatically convert PET in SUV when loading, if possible. "; ObjectID = "478"; */
+"478.title" = "PET beim Laden automatisch in SUV umwandeln, wenn möglich. ";
+
+/* Class = "NSButtonCell"; title = "Automatically fuse PET and CT series for PET-CT study."; ObjectID = "481"; */
+"481.title" = "PET und CT-Serie für die PET-CT-Studie automatisch verschmelzen.";
+
