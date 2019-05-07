@@ -47,13 +47,6 @@ Index/
 options.h
 url.h
 
-de.lproj/
-es.lproj/
-fr.lproj/
-it.lproj/
-ja.lproj/
-zh-Hans.lproj/
-
 nitrogen/Nitrogen.xcodeproj/xcuserdata/admin.xcuserdatad/xcschemes/xcschememanagement.plist
 CMake*
 CPack*
