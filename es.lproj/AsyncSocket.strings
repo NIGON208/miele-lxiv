@@ -1,0 +1,18 @@
+/* No comment provided by engineer. */
+"AsyncSocketCanceledError" = "Conexión cancelada";
+
+/* No comment provided by engineer. */
+"AsyncSocketCFSocketError" = "Error general de CFSocket";
+
+/* No comment provided by engineer. */
+"AsyncSocketConnectTimeoutError" = "Intento de conexión al host con tiempo de espera agotado";
+
+/* No comment provided by engineer. */
+"AsyncSocketReadMaxedOutError" = "Operación de lectura alcanzada Longitud máxima establecida";
+
+/* No comment provided by engineer. */
+"AsyncSocketReadTimeoutError" = "Operación de lectura con tiempo de espera agotado";
+
+/* No comment provided by engineer. */
+"AsyncSocketWriteTimeoutError" = "Operación de escritura con tiempo agotado";
+

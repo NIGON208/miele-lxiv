@@ -1,0 +1,18 @@
+/* Class = "NSWindow"; title = "3D Position"; ObjectID = "1"; */
+"1.title" = "3D 位置";
+
+/* Class = "NSButtonCell"; title = "Axial"; ObjectID = "52"; */
+"52.title" = "轴向";
+
+/* Class = "NSButtonCell"; title = "Coronal"; ObjectID = "53"; */
+"53.title" = "冠 状";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "54"; */
+"54.title" = "Radio";
+
+/* Class = "NSButtonCell"; title = "Sagittal"; ObjectID = "55"; */
+"55.title" = "矢 状";
+
+/* Class = "NSButtonCell"; title = "Reset"; ObjectID = "75"; */
+"75.title" = "重置";
+

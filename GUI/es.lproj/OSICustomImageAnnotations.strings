@@ -1,0 +1,96 @@
+/* Class = "NSWindow"; title = "<< do not localize >>"; ObjectID = "227"; */
+"227.title" = "<< do not localize >>";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "262"; */
+"262.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "DICOM 1"; ObjectID = "263"; */
+"263.title" = "DICOM 1";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "267"; */
+"267.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "DB 1"; ObjectID = "269"; */
+"269.title" = "DB 1";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "272"; */
+"272.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Special 1"; ObjectID = "275"; */
+"275.title" = "Especial 1";
+
+/* Class = "NSBox"; title = "Title"; ObjectID = "379"; */
+"379.title" = "Título";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "430"; */
+"430.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Item1"; ObjectID = "431"; */
+"431.title" = "Item1";
+
+/* Class = "NSButtonCell"; title = "+"; ObjectID = "557"; */
+"557.title" = "+";
+
+/* Class = "NSButtonCell"; title = "-"; ObjectID = "558"; */
+"558.title" = "-";
+
+/* Class = "NSTextFieldCell"; title = "Selected Annotation Title:"; ObjectID = "559"; */
+"559.title" = "Título de la anotación seleccionada:";
+
+/* Class = "NSTextFieldCell"; title = "Content :"; ObjectID = "561"; */
+"561.title" = "Contenido:";
+
+/* Class = "NSTextFieldCell"; title = "DICOM fields"; ObjectID = "565"; */
+"565.title" = "Campos DICOM";
+
+/* Class = "NSTextFieldCell"; title = "Database fields"; ObjectID = "566"; */
+"566.title" = "Campos de base de datos";
+
+/* Class = "NSTextFieldCell"; title = "Other infos"; ObjectID = "567"; */
+"567.title" = "Otras informaciones";
+
+/* Class = "NSTextFieldCell"; title = "Group"; ObjectID = "568"; */
+"568.title" = "Grupo";
+
+/* Class = "NSTextFieldCell"; title = "Element"; ObjectID = "569"; */
+"569.title" = "Elemento";
+
+/* Class = "NSTextFieldCell"; title = "Name"; ObjectID = "570"; */
+"570.title" = "Nombre";
+
+/* Class = "NSTextFieldCell"; title = "Custom DICOM field"; ObjectID = "574"; */
+"574.title" = "Campo DICOM personalizado";
+
+/* Class = "NSButtonCell"; title = "+"; ObjectID = "575"; */
+"575.title" = "+";
+
+/* Class = "NSButtonCell"; title = "+"; ObjectID = "576"; */
+"576.title" = "+";
+
+/* Class = "NSButtonCell"; title = "+"; ObjectID = "577"; */
+"577.title" = "+";
+
+/* Class = "NSButtonCell"; title = "+"; ObjectID = "578"; */
+"578.title" = "+";
+
+/* Class = "NSTextFieldCell"; title = "Add/Remove Annotation"; ObjectID = "579"; */
+"579.title" = "Agregar o quitar anotación";
+
+/* Class = "NSTextFieldCell"; title = "Modality:"; ObjectID = "581"; */
+"581.title" = "Modalidad:";
+
+/* Class = "NSButtonCell"; title = "Same as Default"; ObjectID = "582"; */
+"582.title" = "Igual que por defecto";
+
+/* Class = "NSButtonCell"; title = "Orientation"; ObjectID = "583"; */
+"583.title" = "Orientación";
+
+/* Class = "NSButtonCell"; title = "Reset"; ObjectID = "587"; */
+"587.title" = "Reiniciar";
+
+/* Class = "NSSegmentedCell"; 589.ibShadowedLabels[0] = "Save"; ObjectID = "589"; */
+"589.ibShadowedLabels[0]" = "Guardar";
+
+/* Class = "NSSegmentedCell"; 589.ibShadowedLabels[1] = "Load"; ObjectID = "589"; */
+"589.ibShadowedLabels[1]" = "Cargar";
+

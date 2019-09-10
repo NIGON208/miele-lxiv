@@ -1,0 +1,12 @@
+/* Class = "NSWindow"; title = "About Miele-LXIV..."; ObjectID = "6"; */
+"6.title" = "Miele-LXIVについて...";
+
+/* Class = "NSButtonCell"; title = "Visit Miele-LXIV web site"; ObjectID = "30"; */
+"30.title" = "Miele-LXIVのウェブサイトをご覧ください";
+
+/* Class = "NSButtonCell"; title = "Version Number"; ObjectID = "32"; */
+"32.title" = "バージョンナンバー";
+
+/* Class = "NSTextFieldCell"; title = "This is not the Pixmeo version of OsiriX.\nThis is a 64-bit free version."; ObjectID = "34"; */
+"34.title" = "これはPixmeoのOsiriXバージョンではありません。これは64ビットの無料版です。";
+

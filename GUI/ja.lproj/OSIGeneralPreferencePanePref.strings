@@ -1,0 +1,198 @@
+/* Class = "NSWindow"; title = "<< do not localize >>"; ObjectID = "12"; */
+"12.title" = "<< do not localize >>";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Connect to OsiriX and check for latest version."; ObjectID = "101"; */
+"101.ibShadowedToolTip" = "Miele-LXIVに接続し、最新バージョンを確認してください。";
+
+/* Class = "NSBox"; title = "Check version"; ObjectID = "129"; */
+"129.title" = "バージョンを確認する";
+
+/* Class = "NSBox"; title = "DICOM Toolkits"; ObjectID = "133"; */
+"133.title" = "DICOMツールキット";
+
+/* Class = "NSBox"; title = "Global"; ObjectID = "157"; */
+"157.title" = "グローバル";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Connect to OsiriX and check for latest version."; ObjectID = "159"; */
+"159.ibShadowedToolTip" = "Miele-LXIVに接続し、最新バージョンを確認してください。";
+
+/* Class = "NSButtonCell"; title = "Papyrus"; ObjectID = "163"; */
+"163.title" = "パピルス";
+
+/* Class = "NSButtonCell"; title = "DCMTK (Recommended)"; ObjectID = "164"; */
+"164.title" = "DCMTK(推奨)";
+
+/* Class = "NSBox"; title = "DICOM Editing"; ObjectID = "169"; */
+"169.title" = "DICOM編集";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Connect to OsiriX and check for latest version."; ObjectID = "171"; */
+"171.ibShadowedToolTip" = "Miele-LXIVに接続し、最新バージョンを確認してください。";
+
+/* Class = "NSButtonCell"; title = "Automatically check for Miele-LXIV application updates at startup time"; ObjectID = "178"; */
+"178.title" = "起動時にMiele-LXIVアプリケーションの更新を自動的にチェックする";
+
+/* Class = "NSButtonCell"; title = "For Color JPEG DICOMs, use JPEG photometric value, instead of DICOM photometric value"; ObjectID = "181"; */
+"181.title" = "カラーJPEG DICOMの場合、DICOM測光値の代わりにJPEG測光値を使用します";
+
+/* Class = "NSButtonCell"; title = "For CD/DVD Media, always use Papyrus Toolkit (faster reading)"; ObjectID = "182"; */
+"182.title" = "CD/DVDメディアの場合は、常にPapyrus Toolkitを使用してください(より速い読み込み)";
+
+/* Class = "NSButtonCell"; title = "Require an 'Administrator' authentication to modify preferences settings"; ObjectID = "183"; */
+"183.title" = "設定を変更するには 「管理者」認証が必要";
+
+/* Class = "NSButtonCell"; title = "Allow DICOM Editing. See Meta-Data Window."; ObjectID = "184"; */
+"184.title" = "DICOM編集を許可する。 「メタデータウィンドウ」を参照してください。";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "185"; */
+"185.title" = "Radio";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Connect to OsiriX and check for latest version."; ObjectID = "191"; */
+"191.ibShadowedToolTip" = "Miele-LXIVに接続し、最新バージョンを確認してください。";
+
+/* Class = "NSButtonCell"; title = "Automatically check for installed Plugins updates at startup time"; ObjectID = "192"; */
+"192.title" = "起動時にインストールされたプラグインのアップデートを自動的にチェックする";
+
+/* Class = "NSWindow"; title = "Window"; ObjectID = "209"; */
+"209.title" = "Window";
+
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "212"; */
+"212.title" = "OK";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "214"; */
+"214.title" = "キャンセル";
+
+/* Class = "NSTableColumn"; headerCell.title = "Modality"; ObjectID = "220"; */
+"220.headerCell.title" = "モダリティ";
+
+/* Class = "NSTableColumn"; headerCell.title = "Compression"; ObjectID = "221"; */
+"221.headerCell.title" = "圧縮";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "223"; */
+"223.title" = "Text Cell";
+
+/* Class = "NSTableColumn"; headerCell.title = "Quality (Lossless to Poor)"; ObjectID = "224"; */
+"224.headerCell.title" = "品質(無損失から無損失)";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "228"; */
+"228.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Same As Default"; ObjectID = "229"; */
+"229.title" = "デフォルトと同じ";
+
+/* Class = "NSMenuItem"; title = "JPEG2000 Lossless/Lossy"; ObjectID = "231"; */
+"231.title" = "JPEG2000ロスレス/ロス";
+
+/* Class = "NSMenuItem"; title = "No Compression"; ObjectID = "232"; */
+"232.title" = "圧縮なし";
+
+/* Class = "NSTableColumn"; headerCell.title = "Quality (Lossless to Poor)"; ObjectID = "293"; */
+"293.headerCell.title" = "品質(無損失から無損失)";
+
+/* Class = "NSTableColumn"; headerCell.title = "Compression"; ObjectID = "294"; */
+"294.headerCell.title" = "圧縮";
+
+/* Class = "NSTableColumn"; headerCell.title = "Modality"; ObjectID = "295"; */
+"295.headerCell.title" = "モダリティ";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "296"; */
+"296.title" = "Text Cell";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "298"; */
+"298.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "No Compression"; ObjectID = "300"; */
+"300.title" = "圧縮なし";
+
+/* Class = "NSMenuItem"; title = "JPEG2000 Lossless/Lossy"; ObjectID = "301"; */
+"301.title" = "JPEG2000ロスレス/ロス";
+
+/* Class = "NSMenuItem"; title = "Same As Default"; ObjectID = "303"; */
+"303.title" = "デフォルトと同じ";
+
+/* Class = "NSTextFieldCell"; title = "If matrix size is smaller than:"; ObjectID = "306"; */
+"306.title" = "行列のサイズが以下の場合:";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "309"; */
+"309.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "128"; ObjectID = "310"; */
+"310.title" = "128";
+
+/* Class = "NSMenuItem"; title = "256"; ObjectID = "311"; */
+"311.title" = "256";
+
+/* Class = "NSMenuItem"; title = "320"; ObjectID = "312"; */
+"312.title" = "320";
+
+/* Class = "NSMenuItem"; title = "512"; ObjectID = "313"; */
+"313.title" = "512";
+
+/* Class = "NSMenuItem"; title = "640"; ObjectID = "314"; */
+"314.title" = "640";
+
+/* Class = "NSMenuItem"; title = "1024"; ObjectID = "315"; */
+"315.title" = "1024";
+
+/* Class = "NSMenuItem"; title = "2048"; ObjectID = "316"; */
+"316.title" = "2048";
+
+/* Class = "NSTextFieldCell"; title = "Else:"; ObjectID = "319"; */
+"319.title" = "その他:";
+
+/* Class = "NSButtonCell"; title = "Reset Preferences"; ObjectID = "342"; */
+"342.title" = "設定のリセット";
+
+/* Class = "NSBox"; title = "JPEG Compression"; ObjectID = "357"; */
+"357.title" = "JPEG圧縮";
+
+/* Class = "NSButtonCell"; title = "Configure"; ObjectID = "372"; */
+"372.title" = "設定";
+
+/* Class = "NSTextFieldCell"; title = "Compression Levels:"; ObjectID = "374"; */
+"374.title" = "圧縮レベル:";
+
+/* Class = "NSMenuItem"; title = "JPEG-LS Lossless/Lossy"; ObjectID = "395"; */
+"395.title" = "JPEG-LSロスレス/ロス";
+
+/* Class = "NSMenuItem"; title = "JPEG-LS Lossless/Lossy"; ObjectID = "396"; */
+"396.title" = "JPEG-LSロスレス/ロス";
+
+/* Class = "NSBox"; title = "Languages"; ObjectID = "397"; */
+"397.title" = "言語";
+
+/* Class = "NSTableColumn"; headerCell.title = "Enabled"; ObjectID = "522"; */
+"522.headerCell.title" = "有効";
+
+/* Class = "NSTableColumn"; headerCell.title = "Language"; ObjectID = "523"; */
+"523.headerCell.title" = "言語";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "524"; */
+"524.title" = "Text Cell";
+
+/* Class = "NSTextFieldCell"; title = "Restart Miele-LXIV to apply the changes.\nIf multiple languages are enabled, the used language will be chosen according to MacOS settings."; ObjectID = "534"; */
+"534.title" = "Miele-LXIVを再起動して変更を適用します。\n複数の言語が有効な場合、使用される言語はMacOSの設定に従って選択されます。";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Connect to OsiriX and check for latest version."; ObjectID = "535"; */
+"535.ibShadowedToolTip" = "Miele-LXIVに接続し、最新バージョンを確認してください。";
+
+/* Class = "NSButtonCell"; title = "Synchronize preferences at startup with this url :"; ObjectID = "536"; */
+"536.title" = "起動時の設定をこのURLに同期させる:";
+
+/* Class = "NSButtonCell"; title = "Save Preferences..."; ObjectID = "540"; */
+"540.title" = "設定を保存...";
+
+/* Class = "NSButtonCell"; title = "Load Preferences..."; ObjectID = "543"; */
+"543.title" = "読み込み設定...";
+
+/* Class = "NSButtonCell"; title = "Button"; ObjectID = "547"; */
+"547.title" = "Button";
+
+/* Class = "NSTextFieldCell"; title = "http://www.preferences-server.com/preferences.plist"; ObjectID = "548"; */
+"548.title" = "http://www.preferences-server.com/preferences.plist";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Connect to OsiriX and check for latest version."; ObjectID = "BXs-xj-ZZ5"; */
+"BXs-xj-ZZ5.ibShadowedToolTip" = "Miele-LXIVに接続し、最新バージョンを確認してください。";
+
+/* Class = "NSButtonCell"; title = "Display Notifications (Growl required)"; ObjectID = "eOV-F7-aFg"; */
+"eOV-F7-aFg.title" = "通知を表示する(Growlが必要)";
+

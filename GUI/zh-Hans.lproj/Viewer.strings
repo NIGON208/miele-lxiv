@@ -1,0 +1,1376 @@
+/* Class = "NSWindow"; title = "Viewer"; ObjectID = "5"; */
+"5.title" = "查看器";
+
+/* Class = "NSMenuItem"; title = "Oval & Angle"; ObjectID = "99I-xj-ohE"; */
+"99I-xj-ohE.title" = "椭圆形和角度";
+
+/* Class = "NSWindow"; title = "Window"; ObjectID = "103"; */
+"103.title" = "Window";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "140"; */
+"140.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "WL/WW"; ObjectID = "142"; */
+"142.title" = "WL/WW";
+
+/* Class = "NSWindow"; title = "Window"; ObjectID = "149"; */
+"149.title" = "Window";
+
+/* Class = "NSBox"; title = "Matrix Size"; ObjectID = "312"; */
+"312.title" = "矩阵大小";
+
+/* Class = "NSButtonCell"; title = "5x5"; ObjectID = "314"; */
+"314.title" = "5x5";
+
+/* Class = "NSButtonCell"; title = "3x3"; ObjectID = "315"; */
+"315.title" = "3x3";
+
+/* Class = "NSBox"; title = "Matrix"; ObjectID = "321"; */
+"321.title" = "矩阵";
+
+/* Class = "NSBox"; title = "Matrix Normalization"; ObjectID = "351"; */
+"351.title" = "矩阵归一化";
+
+/* Class = "NSButtonCell"; title = "3x3"; ObjectID = "352"; */
+"352.title" = "3x3";
+
+/* Class = "NSButtonCell"; title = "5x5"; ObjectID = "353"; */
+"353.title" = "5x5";
+
+/* Class = "NSMenuItem"; title = "Mean"; ObjectID = "376"; */
+"376.title" = "平均数";
+
+/* Class = "NSMenuItem"; title = "MIP - Max Intensity Projection"; ObjectID = "377"; */
+"377.title" = "MIP-最大强度投影";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "378"; */
+"378.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "MinIP - Min Intensity Projection"; ObjectID = "381"; */
+"381.title" = "最小-最小强度投影";
+
+/* Class = "NSMenuItem"; title = "No Filters"; ObjectID = "383"; */
+"383.title" = "无筛选条件";
+
+/* Class = "NSMenuItem"; title = "Item3"; ObjectID = "384"; */
+"384.title" = "Item3";
+
+/* Class = "NSMenuItem"; title = "Item2"; ObjectID = "385"; */
+"385.title" = "Item2";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "386"; */
+"386.title" = "OtherViews";
+
+/* Class = "NSWindow"; title = "Window"; ObjectID = "423"; */
+"423.title" = "Window";
+
+/* Class = "NSMenuItem"; title = "CLUT"; ObjectID = "497"; */
+"497.title" = "CLUT";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "498"; */
+"498.title" = "OtherViews";
+
+/* Class = "NSWindow"; title = "Quicktime Export"; ObjectID = "523"; */
+"523.title" = "快速导出";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Previous Series (Apple + left arrow)"; ObjectID = "538"; */
+"538.ibShadowedToolTip" = "上一个系列 (苹果 + 左箭头)";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Next Series (Apple + right arrow)"; ObjectID = "539"; */
+"539.ibShadowedToolTip" = "下一个系列 (苹果 + 右箭头)";
+
+/* Class = "NSMenuItem"; title = "Length"; ObjectID = "576"; */
+"576.title" = "长度";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "577"; */
+"577.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Rectangle"; ObjectID = "578"; */
+"578.title" = "矩形";
+
+/* Class = "NSMenuItem"; title = "Oval"; ObjectID = "579"; */
+"579.title" = "椭圆";
+
+/* Class = "NSMenuItem"; title = "Opened Polygon"; ObjectID = "581"; */
+"581.title" = "打开的多边形";
+
+/* Class = "NSMenuItem"; title = "Closed Polygon"; ObjectID = "585"; */
+"585.title" = "闭合多边形";
+
+/* Class = "NSButtonCell"; ibShadowedToolTip = "Window Level (Option + click)"; ObjectID = "591"; */
+"591.ibShadowedToolTip" = "窗口级别 (选项 + 点击)";
+
+/* Class = "NSButtonCell"; title = "Levels"; ObjectID = "591"; */
+"591.title" = "等级";
+
+/* Class = "NSButtonCell"; ibShadowedToolTip = "Move (Apple + click)"; ObjectID = "592"; */
+"592.ibShadowedToolTip" = "移动（Apple +点击）";
+
+/* Class = "NSButtonCell"; title = "Move"; ObjectID = "592"; */
+"592.title" = "移动";
+
+/* Class = "NSButtonCell"; ibShadowedToolTip = "Zoom (Shift + click)"; ObjectID = "593"; */
+"593.ibShadowedToolTip" = "缩放 (移位 + 点击)";
+
+/* Class = "NSButtonCell"; title = "Zoom"; ObjectID = "593"; */
+"593.title" = "缩放";
+
+/* Class = "NSButtonCell"; ibShadowedToolTip = "Rotate (Apple + Option + click)"; ObjectID = "594"; */
+"594.ibShadowedToolTip" = "旋转 (Apple + Option + click)";
+
+/* Class = "NSButtonCell"; title = "Rotate"; ObjectID = "594"; */
+"594.title" = "旋转";
+
+/* Class = "NSButtonCell"; ibShadowedToolTip = "Animate"; ObjectID = "595"; */
+"595.ibShadowedToolTip" = "动画";
+
+/* Class = "NSButtonCell"; title = "Next"; ObjectID = "595"; */
+"595.title" = "下一个";
+
+/* Class = "NSButtonCell"; ibShadowedToolTip = "ROI Tool - Click on small arrow to see others"; ObjectID = "596"; */
+"596.ibShadowedToolTip" = "投资回报率工具-点击小箭头查看其他";
+
+/* Class = "NSMenuItem"; title = "Angle"; ObjectID = "605"; */
+"605.title" = "角度";
+
+/* Class = "NSMenuItem"; title = "Text"; ObjectID = "637"; */
+"637.title" = "文本";
+
+/* Class = "NSMenuItem"; title = "Arrow"; ObjectID = "638"; */
+"638.title" = "箭头";
+
+/* Class = "NSButtonCell"; title = "Outside ROIs"; ObjectID = "662"; */
+"662.title" = "外部 ROI";
+
+/* Class = "NSWindow"; title = "Modify pixels value"; ObjectID = "665"; */
+"665.title" = "修改像素值";
+
+/* Class = "NSButtonCell"; title = "Inside ROIs"; ObjectID = "670"; */
+"670.title" = "内部 ROI";
+
+/* Class = "NSWindow"; title = "Propagate selected ROI(s)"; ObjectID = "721"; */
+"721.title" = "传播选定的投资回报率";
+
+/* Class = "NSButtonCell"; title = "up to image number:"; ObjectID = "726"; */
+"726.title" = "高达图像编号:";
+
+/* Class = "NSButtonCell"; title = "the entire series"; ObjectID = "730"; */
+"730.title" = "整个系列";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "742"; */
+"742.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "3D MIP"; ObjectID = "743"; */
+"743.title" = "3D MIP";
+
+/* Class = "NSMenuItem"; title = "3D Volume Rendering"; ObjectID = "744"; */
+"744.title" = "3D 卷渲染";
+
+/* Class = "NSMenuItem"; title = "3D Surface Rendering"; ObjectID = "745"; */
+"745.title" = "3D 曲面渲染";
+
+/* Class = "NSWindow"; title = "Window"; ObjectID = "761"; */
+"761.title" = "Window";
+
+/* Class = "NSButton"; ibShadowedToolTip = "[]+[*]    choose the current image as mask"; ObjectID = "790"; */
+"790.ibShadowedToolTip" = "[] + [*]   选择当前图像作为遮罩";
+
+/* Class = "NSMenuItem"; title = "Pencil"; ObjectID = "812"; */
+"812.title" = "铅笔";
+
+/* Class = "NSMenuItem"; title = "Log"; ObjectID = "814"; */
+"814.title" = "日志";
+
+/* Class = "NSMenuItem"; title = "High-Low-High"; ObjectID = "815"; */
+"815.title" = "高低-高";
+
+/* Class = "NSMenuItem"; title = "Low-High-Low"; ObjectID = "816"; */
+"816.title" = "低-低";
+
+/* Class = "NSMenuItem"; title = "Linear"; ObjectID = "817"; */
+"817.title" = "线性";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "818"; */
+"818.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Inverse Log"; ObjectID = "821"; */
+"821.title" = "反向日志";
+
+/* Class = "NSWindow"; title = "Window"; ObjectID = "828"; */
+"828.title" = "Window";
+
+/* Class = "NSMenuItem"; title = "Select the plug-in method"; ObjectID = "874"; */
+"874.title" = "选择插件方法";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "876"; */
+"876.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Empty"; ObjectID = "877"; */
+"877.title" = "空";
+
+/* Class = "NSButtonCell"; title = "4D Series"; ObjectID = "879"; */
+"879.title" = "4d 系列";
+
+/* Class = "NSButtonCell"; title = "3D Series"; ObjectID = "880"; */
+"880.title" = "3D 系列";
+
+/* Class = "NSMenuItem"; title = "Volume Rendering - Up"; ObjectID = "885"; */
+"885.title" = "卷渲染-向上";
+
+/* Class = "NSMenuItem"; title = "Volume Rendering - Down"; ObjectID = "886"; */
+"886.title" = "卷渲染-向下";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "893"; */
+"893.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Opacity"; ObjectID = "894"; */
+"894.title" = "不透明度";
+
+/* Class = "NSWindow"; title = "Window"; ObjectID = "901"; */
+"901.title" = "Window";
+
+/* Class = "NSButtonCell"; title = "ROIs with same name as the selected ROI"; ObjectID = "945"; */
+"945.title" = "与所选投资回报率同名的 ROI";
+
+/* Class = "NSButtonCell"; title = "All ROIs"; ObjectID = "947"; */
+"947.title" = "所有 ROI";
+
+/* Class = "NSWindow"; title = "Window"; ObjectID = "958"; */
+"958.title" = "Window";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Perform a 3D registration from the dragged series to the destination series, according to the 3D points."; ObjectID = "987"; */
+"987.ibShadowedToolTip" = "根据3D点，从拖动的系列到目标系列执行3D注册。";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "1054"; */
+"1054.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "reviewed"; ObjectID = "1055"; */
+"1055.title" = "回顧";
+
+/* Class = "NSMenuItem"; title = "unread"; ObjectID = "1056"; */
+"1056.title" = "未读";
+
+/* Class = "NSMenuItem"; title = "empty"; ObjectID = "1057"; */
+"1057.title" = "空";
+
+/* Class = "NSMenuItem"; title = "dictated"; ObjectID = "1058"; */
+"1058.title" = "听写";
+
+/* Class = "NSWindow"; title = "Window"; ObjectID = "1071"; */
+"1071.title" = "Window";
+
+/* Class = "NSButton"; ibShadowedToolTip = "return"; ObjectID = "1075"; */
+"1075.ibShadowedToolTip" = "返回";
+
+/* Class = "NSMenuItem"; title = "3D Curved-MPR"; ObjectID = "1090"; */
+"1090.title" = "3D 卷曲 MPR";
+
+/* Class = "NSButtonCell"; title = "Duplicate ROIs (independent ROIs)"; ObjectID = "1116"; */
+"1116.title" = "重复的 ROI (独立 ROI)";
+
+/* Class = "NSButtonCell"; title = "Create Aliases (modify one will modify all)"; ObjectID = "1117"; */
+"1117.title" = "创建别名 (修改一个将修改所有)";
+
+/* Class = "NSWindow"; title = "Window"; ObjectID = "1139"; */
+"1139.title" = "Window";
+
+/* Class = "NSButtonCell"; title = "As displayed in 8-bit RGB with ROIs"; ObjectID = "1158"; */
+"1158.title" = "如 8位 RGB 中显示的 ROI";
+
+/* Class = "NSButtonCell"; title = "As displayed in 16-bit BW"; ObjectID = "1159"; */
+"1159.title" = "如 16位 bw 所示";
+
+/* Class = "NSTextFieldCell"; title = "0"; ObjectID = "1200"; */
+"1200.title" = "0";
+
+/* Class = "NSTextFieldCell"; title = "0"; ObjectID = "1201"; */
+"1201.title" = "0";
+
+/* Class = "NSTextFieldCell"; title = "0"; ObjectID = "1202"; */
+"1202.title" = "0";
+
+/* Class = "NSButtonCell"; title = "Left Button"; ObjectID = "1245"; */
+"1245.title" = "左键";
+
+/* Class = "NSButtonCell"; title = "Right Button"; ObjectID = "1246"; */
+"1246.title" = "右键";
+
+/* Class = "NSMenuItem"; title = "2D Orthogonal MPR"; ObjectID = "1251"; */
+"1251.title" = "二维正交 MPR";
+
+/* Class = "NSButtonCell"; title = "All pixels"; ObjectID = "1253"; */
+"1253.title" = "所有像素";
+
+/* Class = "NSButtonCell"; title = "Current image only"; ObjectID = "1258"; */
+"1258.title" = "仅限当前图像";
+
+/* Class = "NSButtonCell"; title = "4th Dimension"; ObjectID = "1259"; */
+"1259.title" = "第4尺寸";
+
+/* Class = "NSButtonCell"; title = "ROIs & Key images only"; ObjectID = "1260"; */
+"1260.title" = "仅限 ROI 和关键图像";
+
+/* Class = "NSWindow"; title = "Window"; ObjectID = "1261"; */
+"1261.title" = "Window";
+
+/* Class = "NSButtonCell"; title = "Key images only"; ObjectID = "1268"; */
+"1268.title" = "仅限关键图像";
+
+/* Class = "NSButtonCell"; title = "Current image only"; ObjectID = "1269"; */
+"1269.title" = "仅限当前图像";
+
+/* Class = "NSButtonCell"; title = "All images of the series"; ObjectID = "1270"; */
+"1270.title" = "该系列的所有图像";
+
+/* Class = "NSMenuItem"; title = "Point"; ObjectID = "1288"; */
+"1288.title" = "点";
+
+/* Class = "NSMenuItem"; title = "Flat"; ObjectID = "1291"; */
+"1291.title" = "扁平";
+
+/* Class = "NSMenuItem"; title = "3D Endoscopy"; ObjectID = "1312"; */
+"1312.title" = "3D 内窥镜";
+
+/* Class = "NSBox"; title = "Box"; ObjectID = "1349"; */
+"1349.title" = "Box";
+
+/* Class = "NSButtonCell"; title = "Fusion : from 0% to 100% (in 20 images)"; ObjectID = "1375"; */
+"1375.title" = "融合: 从0% 到 100% (在20张图片中)";
+
+/* Class = "NSButtonCell"; title = "4D Series : from first to last series"; ObjectID = "1376"; */
+"1376.title" = "4d 系列: 从第一个系列到最后一个系列";
+
+/* Class = "NSButtonCell"; title = "2D Series, including:"; ObjectID = "1377"; */
+"1377.title" = "2D 系列, 包括:";
+
+/* Class = "NSButtonCell"; title = "2D Series - Only Key Images"; ObjectID = "1378"; */
+"1378.title" = "2D 系列-仅限关键图像";
+
+/* Class = "NSBox"; title = "Box"; ObjectID = "1379"; */
+"1379.title" = "Box";
+
+/* Class = "NSWindow"; title = "Window"; ObjectID = "1408"; */
+"1408.title" = "Window";
+
+/* Class = "NSBox"; title = "Warning"; ObjectID = "1422"; */
+"1422.title" = "警告";
+
+/* Class = "NSButtonCell"; title = "Convert all pixels to SUV"; ObjectID = "1447"; */
+"1447.title" = "将所有像素转换为 SUV";
+
+/* Class = "NSButtonCell"; title = "Display SUV for pixel under the mouse"; ObjectID = "1448"; */
+"1448.title" = "显示鼠标下像素的 SUV";
+
+/* Class = "NSButtonCell"; title = "Do nothing: don't convert values and don't display SUV"; ObjectID = "1449"; */
+"1449.title" = "不执行任何操作: 不转换值, 也不显示 SUV";
+
+/* Class = "NSWindow"; title = "Window"; ObjectID = "1450"; */
+"1450.title" = "Window";
+
+/* Class = "NSButtonCell"; title = "All ROIs in this image"; ObjectID = "1454"; */
+"1454.title" = "此图像中的所有 ROI";
+
+/* Class = "NSButtonCell"; title = "All selected ROIs"; ObjectID = "1455"; */
+"1455.title" = "所有选定的 ROI";
+
+/* Class = "NSButtonCell"; title = "All ROIs in this series"; ObjectID = "1456"; */
+"1456.title" = "本系列中的所有 ROI";
+
+/* Class = "NSMenuItem"; title = "Brush"; ObjectID = "1470"; */
+"1470.title" = "刷子";
+
+/* Class = "NSWindow"; title = "Window"; ObjectID = "1493"; */
+"1493.title" = "Window";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "1526"; */
+"1526.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Key Images"; ObjectID = "1527"; */
+"1527.title" = "关键图像";
+
+/* Class = "NSMenuItem"; title = "All Images"; ObjectID = "1528"; */
+"1528.title" = "所有图片";
+
+/* Class = "NSButton"; ibShadowedToolTip = "[]+[7]    pixel shift NW"; ObjectID = "1543"; */
+"1543.ibShadowedToolTip" = "[] + [7]    像素移位NW";
+
+/* Class = "NSButton"; ibShadowedToolTip = "[]+[8]    pixel shift N"; ObjectID = "1544"; */
+"1544.ibShadowedToolTip" = "[] + [8]    像素移位N";
+
+/* Class = "NSButton"; ibShadowedToolTip = "[]+[9]    pixel shift NE"; ObjectID = "1545"; */
+"1545.ibShadowedToolTip" = "[] + [9]    像素移位NE";
+
+/* Class = "NSButton"; ibShadowedToolTip = "[]+[4]    pixel shift W"; ObjectID = "1546"; */
+"1546.ibShadowedToolTip" = "[] + [4]    像素移位W";
+
+/* Class = "NSButton"; ibShadowedToolTip = "[]+[5]    back to centered subtraction"; ObjectID = "1547"; */
+"1547.ibShadowedToolTip" = "[] + [5]    回到居中减法";
+
+/* Class = "NSButton"; ibShadowedToolTip = "[]+[6]    pixel shift E"; ObjectID = "1548"; */
+"1548.ibShadowedToolTip" = "[] + [6]    像素移位E";
+
+/* Class = "NSButton"; ibShadowedToolTip = "[]+[1]    pixel shift SW"; ObjectID = "1549"; */
+"1549.ibShadowedToolTip" = "[] + [1]    像素移位SW";
+
+/* Class = "NSButton"; ibShadowedToolTip = "[]+[2]    pixel shift S"; ObjectID = "1550"; */
+"1550.ibShadowedToolTip" = "[] + [2]    像素移位S";
+
+/* Class = "NSButton"; ibShadowedToolTip = "[]+[3]    pixel shift SE"; ObjectID = "1551"; */
+"1551.ibShadowedToolTip" = "[] + [3]    像素移位SE";
+
+/* Class = "NSButton"; ibShadowedToolTip = "[]+[/]     On/Off Digital Subtraction Angiography"; ObjectID = "1583"; */
+"1583.ibShadowedToolTip" = "[] + [/]    开/关数字减影血管造影";
+
+/* Class = "NSSlider"; ibShadowedToolTip = "% subtraction [0.80 ... 1.00] (default 1.00 %)"; ObjectID = "1621"; */
+"1621.ibShadowedToolTip" = "% 减法 [0.80 … 1.00] (默认值 1.00 %)";
+
+/* Class = "NSSlider"; ibShadowedToolTip = "sum up next frames [alt 1] [alt 2] [alt 3]"; ObjectID = "1656"; */
+"1656.ibShadowedToolTip" = "总结下一个框架 [alt 1] [alt 2] [alt 3]";
+
+/* Class = "NSButton"; ibShadowedToolTip = "sharpen"; ObjectID = "1663"; */
+"1663.ibShadowedToolTip" = "提高";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "1711"; */
+"1711.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "F2x2"; ObjectID = "1713"; */
+"1713.title" = "F2x2";
+
+/* Class = "NSMenuItem"; title = "F2x3"; ObjectID = "1715"; */
+"1715.title" = "F2x3";
+
+/* Class = "NSMenuItem"; title = "F3x3"; ObjectID = "1716"; */
+"1716.title" = "F3x3";
+
+/* Class = "NSMenuItem"; title = "F3x4"; ObjectID = "1717"; */
+"1717.title" = "F3x4";
+
+/* Class = "NSMenuItem"; title = "F3x5"; ObjectID = "1718"; */
+"1718.title" = "F3x5";
+
+/* Class = "NSMenuItem"; title = "F4x6"; ObjectID = "1719"; */
+"1719.title" = "F4x6";
+
+/* Class = "NSMenuItem"; title = "P2x2"; ObjectID = "1720"; */
+"1720.title" = "P2x2";
+
+/* Class = "NSMenuItem"; title = "P2x3"; ObjectID = "1721"; */
+"1721.title" = "P2x3";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Shutter blacking out the outside of a selected ROI rectangle"; ObjectID = "1740"; */
+"1740.ibShadowedToolTip" = "快门在选定的 ROI 矩形的外部碎片";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "1753"; */
+"1753.title" = "OtherViews";
+
+/* Class = "NSFormCell"; title = "Patient's weight (Kg):"; ObjectID = "1759"; */
+"1759.title" = "患者体重 (公斤):";
+
+/* Class = "NSFormCell"; title = "Injected Dose (MBq):"; ObjectID = "1760"; */
+"1760.title" = "注入剂量 (mbq):";
+
+/* Class = "NSFormCell"; title = "Injection Time:"; ObjectID = "1761"; */
+"1761.title" = "注射时间:";
+
+/* Class = "NSFormCell"; title = "Acquisition Time:"; ObjectID = "1762"; */
+"1762.title" = "采集时间:";
+
+/* Class = "NSFormCell"; title = "Half-Life (min.):"; ObjectID = "1763"; */
+"1763.title" = "半衰期 (最少):";
+
+/* Class = "NSFormCell"; title = "Corrected Dose (MBq):"; ObjectID = "1764"; */
+"1764.title" = "修正剂量 (mbq):";
+
+/* Class = "NSMenuItem"; title = "SCAN"; ObjectID = "1795"; */
+"1795.title" = "扫描";
+
+/* Class = "NSWindow"; title = "Print"; ObjectID = "1845"; */
+"1845.title" = "打印";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "1848"; */
+"1848.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "5x6 (30 per pages)"; ObjectID = "1849"; */
+"1849.title" = "5x6 (每页30页)";
+
+/* Class = "NSMenuItem"; title = "1x1 (1 per pages)"; ObjectID = "1850"; */
+"1850.title" = "1x1 (每页 1个)";
+
+/* Class = "NSMenuItem"; title = "2x1 (2 per pages)"; ObjectID = "1851"; */
+"1851.title" = "2x1 (每页 2个)";
+
+/* Class = "NSMenuItem"; title = "3x4 (12 per pages)"; ObjectID = "1852"; */
+"1852.title" = "3x4 (每页 12个)";
+
+/* Class = "NSMenuItem"; title = "4x6 (24 per pages)"; ObjectID = "1853"; */
+"1853.title" = "4x6 (每页 24)";
+
+/* Class = "NSMenuItem"; title = "5x5 (25 per pages)"; ObjectID = "1854"; */
+"1854.title" = "5x5 (每页25页)";
+
+/* Class = "NSMenuItem"; title = "5x7 (35 per pages)"; ObjectID = "1855"; */
+"1855.title" = "5x7 (每页35页)";
+
+/* Class = "NSButtonCell"; title = "Only ROIs & Key images"; ObjectID = "1864"; */
+"1864.title" = "仅 ROI 和关键图像";
+
+/* Class = "NSButtonCell"; title = "Current image"; ObjectID = "1865"; */
+"1865.title" = "当前图像";
+
+/* Class = "NSButtonCell"; title = "Entire series, including:"; ObjectID = "1866"; */
+"1866.title" = "整个系列, 包括:";
+
+/* Class = "NSBox"; title = "Box"; ObjectID = "1868"; */
+"1868.title" = "Box";
+
+/* Class = "NSButtonCell"; title = "Custom string:"; ObjectID = "1886"; */
+"1886.title" = "自定义字符串:";
+
+/* Class = "NSButtonCell"; title = "Patient info"; ObjectID = "1887"; */
+"1887.title" = "患者信息";
+
+/* Class = "NSButtonCell"; title = "Study info"; ObjectID = "1888"; */
+"1888.title" = "学习信息";
+
+/* Class = "NSButtonCell"; title = "White background"; ObjectID = "1889"; */
+"1889.title" = "白色背景";
+
+/* Class = "NSButtonCell"; title = "As displayed, screen capture"; ObjectID = "1915"; */
+"1915.title" = "如图所示, 屏幕捕获";
+
+/* Class = "NSButtonCell"; title = "As stored, original resolution, without annotations"; ObjectID = "1916"; */
+"1916.title" = "存储的原始分辨率, 不带批注";
+
+/* Class = "NSButton"; ibShadowedToolTip = "option return"; ObjectID = "1957"; */
+"1957.ibShadowedToolTip" = "选项返回";
+
+/* Class = "NSMenuItem"; title = "Repulsor"; ObjectID = "1967"; */
+"1967.title" = "雷普索尔";
+
+/* Class = "NSMenuItem"; title = "Selector"; ObjectID = "1997"; */
+"1997.title" = "选择";
+
+/* Class = "NSMenuItem"; title = "Axis"; ObjectID = "2002"; */
+"2002.title" = "轴";
+
+/* Class = "NSMenuItem"; title = "Dynamic Angle"; ObjectID = "2003"; */
+"2003.title" = "动态角度";
+
+/* Class = "NSMenuItem"; title = "Dynamic Angle"; ObjectID = "2006"; */
+"2006.title" = "动态角度";
+
+/* Class = "NSWindow"; title = "Window"; ObjectID = "2019"; */
+"2019.title" = "Window";
+
+/* Class = "NSButtonCell"; title = "All ROIs of the image"; ObjectID = "2044"; */
+"2044.title" = "图像的所有 ROI";
+
+/* Class = "NSButtonCell"; title = "All ROIs of the series"; ObjectID = "2045"; */
+"2045.title" = "该系列的所有 ROI";
+
+/* Class = "NSButtonCell"; title = "All selected ROIs"; ObjectID = "2046"; */
+"2046.title" = "所有选定的 ROI";
+
+/* Class = "NSButtonCell"; title = "All ROIs with same name"; ObjectID = "2047"; */
+"2047.title" = "所有同名的 ROI";
+
+/* Class = "NSButtonCell"; title = "To original value"; ObjectID = "2050"; */
+"2050.title" = "到原始值";
+
+/* Class = "NSButtonCell"; title = "To this new value:"; ObjectID = "2051"; */
+"2051.title" = "对于此新值:";
+
+/* Class = "NSMenuItem"; title = "2x2 (4 per pages)"; ObjectID = "2067"; */
+"2067.title" = "2x2 (每页 4个)";
+
+/* Class = "NSMenuItem"; title = "2x3 (6 per pages)"; ObjectID = "2068"; */
+"2068.title" = "2x3 (每页 6个)";
+
+/* Class = "NSMenuItem"; title = "3x2 (6 per pages)"; ObjectID = "2069"; */
+"2069.title" = "3x2 (每页 6个)";
+
+/* Class = "NSMenuItem"; title = "3x3 (9 per pages)"; ObjectID = "2070"; */
+"2070.title" = "3x3 (每页 9个)";
+
+/* Class = "NSMenuItem"; title = "4x3 (12 per pages)"; ObjectID = "2071"; */
+"2071.title" = "4x3 (每页 12)";
+
+/* Class = "NSMenuItem"; title = "4x4 (16 per pages)"; ObjectID = "2072"; */
+"2072.title" = "4x4 (每页 16)";
+
+/* Class = "NSMenuItem"; title = "4x5 (20 per pages)"; ObjectID = "2073"; */
+"2073.title" = "4x5 (每页 20)";
+
+/* Class = "NSTextFieldCell"; title = "0"; ObjectID = "2082"; */
+"2082.title" = "0";
+
+/* Class = "NSTextFieldCell"; title = "0"; ObjectID = "2083"; */
+"2083.title" = "0";
+
+/* Class = "NSTextFieldCell"; title = "0"; ObjectID = "2084"; */
+"2084.title" = "0";
+
+/* Class = "NSTextFieldCell"; title = "0"; ObjectID = "2085"; */
+"2085.title" = "0";
+
+/* Class = "NSTextFieldCell"; title = "0"; ObjectID = "2086"; */
+"2086.title" = "0";
+
+/* Class = "NSTextFieldCell"; title = "0"; ObjectID = "2087"; */
+"2087.title" = "0";
+
+/* Class = "NSTextFieldCell"; title = "0"; ObjectID = "2088"; */
+"2088.title" = "0";
+
+/* Class = "NSTextFieldCell"; title = "0"; ObjectID = "2089"; */
+"2089.title" = "0";
+
+/* Class = "NSTextFieldCell"; title = "0"; ObjectID = "2090"; */
+"2090.title" = "0";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Resample (resolution, origin and orientation) the dragged series, according to the destination series."; ObjectID = "2099"; */
+"2099.ibShadowedToolTip" = "根据目的地系列, 重新采样 (分辨率、原点和方向) 拖动系列。";
+
+/* Class = "NSTextFieldCell"; title = "60 im/s"; ObjectID = "2111"; */
+"2111.title" = "60 im/s";
+
+/* Class = "NSButtonCell"; title = "Loop"; ObjectID = "2112"; */
+"2112.title" = "循环";
+
+/* Class = "NSTextFieldCell"; title = "WL/WW:"; ObjectID = "2116"; */
+"2116.title" = "WL/WW:";
+
+/* Class = "NSTextFieldCell"; title = "CLUT:"; ObjectID = "2117"; */
+"2117.title" = "CLUT:";
+
+/* Class = "NSTextFieldCell"; title = "Opacity:"; ObjectID = "2118"; */
+"2118.title" = "不透明度:";
+
+/* Class = "NSTextFieldCell"; title = "Give a name for this WL/WW:"; ObjectID = "2121"; */
+"2121.title" = "为此 wl/ww 的名称:";
+
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "2122"; */
+"2122.title" = "确定";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "2123"; */
+"2123.title" = "取消";
+
+/* Class = "NSTextFieldCell"; title = "Window Level:"; ObjectID = "2124"; */
+"2124.title" = "窗口级别:";
+
+/* Class = "NSTextFieldCell"; title = "Window Width:"; ObjectID = "2125"; */
+"2125.title" = "窗口宽度:";
+
+/* Class = "NSTextFieldCell"; title = "To remove a preset from the menu: simply select it while holding down the shift key."; ObjectID = "2128"; */
+"2128.title" = "要从菜单中删除预设: 只需在按住移位键的同时选择它。";
+
+/* Class = "NSTextFieldCell"; title = "WL"; ObjectID = "2129"; */
+"2129.title" = "WL";
+
+/* Class = "NSTextFieldCell"; title = "WW"; ObjectID = "2130"; */
+"2130.title" = "WW";
+
+/* Class = "NSTextFieldCell"; title = "To remove a filter from the menu: select it with the shift key down.\nTo modify a filter from the menu: select it with the option key down."; ObjectID = "2131"; */
+"2131.title" = "要从菜单中删除筛选器: 请选中并向下按住 shift 键。
+要从菜单中修改筛选器: 请使用向下的选项键选择它。";
+
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "2132"; */
+"2132.title" = "确定";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "2133"; */
+"2133.title" = "取消";
+
+/* Class = "NSTextFieldCell"; title = "0"; ObjectID = "2134"; */
+"2134.title" = "0";
+
+/* Class = "NSTextFieldCell"; title = "Value:"; ObjectID = "2135"; */
+"2135.title" = "明度:";
+
+/* Class = "NSButtonCell"; title = "Sum"; ObjectID = "2136"; */
+"2136.title" = "求和";
+
+/* Class = "NSTextFieldCell"; title = "This value is normally the sum of matrix values."; ObjectID = "2137"; */
+"2137.title" = "此值通常是矩阵值的总和。";
+
+/* Class = "NSTextFieldCell"; title = "Give a name for this convolution filter:"; ObjectID = "2138"; */
+"2138.title" = "为此卷积筛选器命名:";
+
+/* Class = "NSTextFieldCell"; title = "128"; ObjectID = "2142"; */
+"2142.title" = "128";
+
+/* Class = "NSButtonCell"; title = "Mode:"; ObjectID = "2143"; */
+"2143.title" = "模式:";
+
+/* Class = "NSTextFieldCell"; title = "Give a name for this Color Look Up Table:"; ObjectID = "2145"; */
+"2145.title" = "为此颜色查找表命名:";
+
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "2147"; */
+"2147.title" = "确定";
+
+/* Class = "NSTextFieldCell"; title = "To remove a Color Look Up Table from the menu: select it while holding down the shift key.\nTo edit a Color Look Up Table from the menu: select it while holding down the alt/option key."; ObjectID = "2148"; */
+"2148.title" = "要从菜单中删除 \"颜色查找表\": 按住移位键选择它。
+要从菜单中编辑 \"颜色查找表\": 按住 \"alt/\" 选项键时选择它。";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "2149"; */
+"2149.title" = "取消";
+
+/* Class = "NSTextFieldCell"; title = "Current Color:"; ObjectID = "2150"; */
+"2150.title" = "当前颜色:";
+
+/* Class = "NSTextFieldCell"; title = "Current Position:"; ObjectID = "2151"; */
+"2151.title" = "目前职位:";
+
+/* Class = "NSButtonCell"; title = "Update"; ObjectID = "2153"; */
+"2153.title" = "更新";
+
+/* Class = "NSTextFieldCell"; title = "-"; ObjectID = "2154"; */
+"2154.title" = "-";
+
+/* Class = "NSTextFieldCell"; title = "Mode:"; ObjectID = "2156"; */
+"2156.title" = "模式:";
+
+/* Class = "NSTextFieldCell"; title = "10 im/s"; ObjectID = "2159"; */
+"2159.title" = "10 im/s";
+
+/* Class = "NSButtonCell"; title = "Play"; ObjectID = "2161"; */
+"2161.title" = "播放";
+
+/* Class = "NSTextFieldCell"; title = "Rate:"; ObjectID = "2162"; */
+"2162.title" = "评分:";
+
+/* Class = "NSTextFieldCell"; title = "Pos:"; ObjectID = "2163"; */
+"2163.title" = "Pos:";
+
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "2164"; */
+"2164.title" = "确定";
+
+/* Class = "NSTextFieldCell"; title = "Which dimension you want to export in this new series?"; ObjectID = "2165"; */
+"2165.title" = "您要在这个新系列中导出哪个维度？";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "2166"; */
+"2166.title" = "取消";
+
+/* Class = "NSTextFieldCell"; title = "1234"; ObjectID = "2167"; */
+"2167.title" = "1234";
+
+/* Class = "NSTextFieldCell"; title = "From:"; ObjectID = "2169"; */
+"2169.title" = "从:";
+
+/* Class = "NSTextFieldCell"; title = "Interval:"; ObjectID = "2172"; */
+"2172.title" = "区间:";
+
+/* Class = "NSTextFieldCell"; title = "To:"; ObjectID = "2173"; */
+"2173.title" = "至:";
+
+/* Class = "NSTextFieldCell"; title = "0"; ObjectID = "2174"; */
+"2174.title" = "0";
+
+/* Class = "NSTextFieldCell"; title = "1234"; ObjectID = "2175"; */
+"2175.title" = "1234";
+
+/* Class = "NSTextFieldCell"; title = "Images:"; ObjectID = "2176"; */
+"2176.title" = "图像:";
+
+/* Class = "NSTextFieldCell"; title = "40 images"; ObjectID = "2177"; */
+"2177.title" = "40张图片";
+
+/* Class = "NSButtonCell"; title = "Include all displayed 2D viewers"; ObjectID = "2178"; */
+"2178.title" = "包括所有显示的2d 查看器";
+
+/* Class = "NSButtonCell"; title = "If current value is larger than:"; ObjectID = "2181"; */
+"2181.title" = "如果当前值大于:";
+
+/* Class = "NSTextFieldCell"; title = "1000"; ObjectID = "2182"; */
+"2182.title" = "1000";
+
+/* Class = "NSTextFieldCell"; title = "-1000"; ObjectID = "2183"; */
+"2183.title" = "-1000";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "2184"; */
+"2184.title" = "取消";
+
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "2185"; */
+"2185.title" = "确定";
+
+/* Class = "NSTextFieldCell"; title = "Apply to :"; ObjectID = "2186"; */
+"2186.title" = "适用于:";
+
+/* Class = "NSButtonCell"; title = "If current value is smaller than:"; ObjectID = "2187"; */
+"2187.title" = "如果当前值小于:";
+
+/* Class = "NSTextFieldCell"; title = "-1000"; ObjectID = "2188"; */
+"2188.title" = "-1000";
+
+/* Class = "NSTextFieldCell"; title = "Set pixels that are:"; ObjectID = "2189"; */
+"2189.title" = "设置像素, 这些像素是:";
+
+/* Class = "NSButtonCell"; title = "Propagate to 4D series"; ObjectID = "2190"; */
+"2190.title" = "传播到4D系列";
+
+/* Class = "NSTextFieldCell"; title = "4D data:"; ObjectID = "2191"; */
+"2191.title" = "4d 数据:";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "2192"; */
+"2192.title" = "取消";
+
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "2193"; */
+"2193.title" = "确定";
+
+/* Class = "NSTextFieldCell"; title = "10"; ObjectID = "2194"; */
+"2194.title" = "10";
+
+/* Class = "NSTextFieldCell"; title = "Propagate current selected ROI(s) to:"; ObjectID = "2195"; */
+"2195.title" = "将当前选定的 ROI 传播到:";
+
+/* Class = "NSTextFieldCell"; title = "Copy method:"; ObjectID = "2196"; */
+"2196.title" = "复制方法:";
+
+/* Class = "NSTextFieldCell"; title = "0"; ObjectID = "2198"; */
+"2198.title" = "0";
+
+/* Class = "NSTextFieldCell"; title = "Slice interval:"; ObjectID = "2199"; */
+"2199.title" = "切片间隔:";
+
+/* Class = "NSTextFieldCell"; title = "Calibrate the dataset:"; ObjectID = "2200"; */
+"2200.title" = "校准数据集:";
+
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "2201"; */
+"2201.title" = "确定";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "2202"; */
+"2202.title" = "取消";
+
+/* Class = "NSTextFieldCell"; title = "mm"; ObjectID = "2203"; */
+"2203.title" = "毫米";
+
+/* Class = "NSTextFieldCell"; title = "Force display of this window by selecting a 3D reconstruction + shift key"; ObjectID = "2204"; */
+"2204.title" = "通过选择3d 重建 + 移位键强制显示此窗口";
+
+/* Class = "NSTextFieldCell"; title = "Pixel X resolution:"; ObjectID = "2205"; */
+"2205.title" = "像素 x 分辨率:";
+
+/* Class = "NSTextFieldCell"; title = "mm"; ObjectID = "2206"; */
+"2206.title" = "毫米";
+
+/* Class = "NSTextFieldCell"; title = "0"; ObjectID = "2207"; */
+"2207.title" = "0";
+
+/* Class = "NSTextFieldCell"; title = "Pixel Y resolution:"; ObjectID = "2208"; */
+"2208.title" = "像素 y 分辨率:";
+
+/* Class = "NSTextFieldCell"; title = "mm"; ObjectID = "2209"; */
+"2209.title" = "毫米";
+
+/* Class = "NSTextFieldCell"; title = "0"; ObjectID = "2210"; */
+"2210.title" = "0";
+
+/* Class = "NSTextFieldCell"; title = "X-Vector:"; ObjectID = "2211"; */
+"2211.title" = "X 向量:";
+
+/* Class = "NSTextFieldCell"; title = "Y-Vector:"; ObjectID = "2212"; */
+"2212.title" = "Y 向量:";
+
+/* Class = "NSTextFieldCell"; title = "Origin:"; ObjectID = "2213"; */
+"2213.title" = "起源:";
+
+/* Class = "NSButtonCell"; title = "Axial"; ObjectID = "2214"; */
+"2214.title" = "轴向";
+
+/* Class = "NSTextFieldCell"; title = "Z-Vector:"; ObjectID = "2215"; */
+"2215.title" = "Z 向量:";
+
+/* Class = "NSButtonCell"; title = "Mask"; ObjectID = "2216"; */
+"2216.title" = "面具";
+
+/* Class = "NSTextFieldCell"; title = "2"; ObjectID = "2217"; */
+"2217.title" = "2";
+
+/* Class = "NSTextFieldCell"; title = "%"; ObjectID = "2229"; */
+"2229.title" = "%";
+
+/* Class = "NSButtonCell"; title = "Sharp"; ObjectID = "2231"; */
+"2231.title" = "尖锐";
+
+/* Class = "NSTextFieldCell"; title = "+"; ObjectID = "2232"; */
+"2232.title" = "+";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "2233"; */
+"2233.title" = "取消";
+
+/* Class = "NSButtonCell"; title = "Image Fusion"; ObjectID = "2234"; */
+"2234.title" = "图像融合";
+
+/* Class = "NSButtonCell"; title = "Subtraction"; ObjectID = "2235"; */
+"2235.title" = "减法";
+
+/* Class = "NSButtonCell"; title = "Multiplication"; ObjectID = "2236"; */
+"2236.title" = "乘法";
+
+/* Class = "NSTextFieldCell"; title = "Plug-in:"; ObjectID = "2237"; */
+"2237.title" = "插件:";
+
+/* Class = "NSButtonCell"; title = "Registration"; ObjectID = "2239"; */
+"2239.title" = "注册";
+
+/* Class = "NSButtonCell"; title = "Copy ROIs"; ObjectID = "2241"; */
+"2241.title" = "复制 ROI";
+
+/* Class = "NSButtonCell"; title = "Resample"; ObjectID = "2242"; */
+"2242.title" = "重新采样";
+
+/* Class = "NSSegmentedCell"; 2243.ibShadowedLabels[0] = "Add as Red"; ObjectID = "2243"; */
+"2243.ibShadowedLabels[0]" = "添加为红色";
+
+/* Class = "NSSegmentedCell"; 2243.ibShadowedLabels[1] = "Add as Green"; ObjectID = "2243"; */
+"2243.ibShadowedLabels[1]" = "添加为绿色";
+
+/* Class = "NSSegmentedCell"; 2243.ibShadowedLabels[2] = "Add as Blue"; ObjectID = "2243"; */
+"2243.ibShadowedLabels[2]" = "添加为蓝色";
+
+/* Class = "NSTextFieldCell"; title = "Red:"; ObjectID = "2247"; */
+"2247.title" = "红色:";
+
+/* Class = "NSTextFieldCell"; title = "Green:"; ObjectID = "2248"; */
+"2248.title" = "绿色:";
+
+/* Class = "NSTextFieldCell"; title = "Blue:"; ObjectID = "2249"; */
+"2249.title" = "蓝色:";
+
+/* Class = "NSTextFieldCell"; title = "Name:"; ObjectID = "2250"; */
+"2250.title" = "名称:";
+
+/* Class = "NSTextFieldCell"; title = "To remove an Opacity Table from the menu: select it while holding down the shift key.\nTo modify an Opacity Table from the menu: select it while holding down the alt/option key."; ObjectID = "2251"; */
+"2251.title" = "要从菜单中删除不透明度表: 请在按住移位键的同时选择它。
+要从菜单中修改不透明度表: 按住 alt/选项键时选择它。";
+
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "2253"; */
+"2253.title" = "确定";
+
+/* Class = "NSTextFieldCell"; title = "Current Position:"; ObjectID = "2254"; */
+"2254.title" = "目前职位:";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "2256"; */
+"2256.title" = "取消";
+
+/* Class = "NSButtonCell"; title = "Update"; ObjectID = "2257"; */
+"2257.title" = "更新";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "2259"; */
+"2259.title" = "取消";
+
+/* Class = "NSTextFieldCell"; title = "WW"; ObjectID = "2260"; */
+"2260.title" = "WW";
+
+/* Class = "NSTextFieldCell"; title = "Window Width:"; ObjectID = "2261"; */
+"2261.title" = "窗口宽度:";
+
+/* Class = "NSTextFieldCell"; title = "WL"; ObjectID = "2263"; */
+"2263.title" = "WL";
+
+/* Class = "NSTextFieldCell"; title = "Window Level:"; ObjectID = "2264"; */
+"2264.title" = "窗口级别:";
+
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "2265"; */
+"2265.title" = "确定";
+
+/* Class = "NSTextFieldCell"; title = "To:"; ObjectID = "2266"; */
+"2266.title" = "至:";
+
+/* Class = "NSTextFieldCell"; title = "From:"; ObjectID = "2268"; */
+"2268.title" = "从:";
+
+/* Class = "NSTextFieldCell"; title = "Comments:"; ObjectID = "2277"; */
+"2277.title" = "评论:";
+
+/* Class = "NSButtonCell"; title = "series"; ObjectID = "2278"; */
+"2278.title" = "序列";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "2279"; */
+"2279.title" = "取消";
+
+/* Class = "NSButtonCell"; title = "study"; ObjectID = "2280"; */
+"2280.title" = "研究";
+
+/* Class = "NSTextFieldCell"; title = "Export to DICOM files:"; ObjectID = "2294"; */
+"2294.title" = "导出到 DICOM 文件:";
+
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "2295"; */
+"2295.title" = "确定";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "2296"; */
+"2296.title" = "取消";
+
+/* Class = "NSTextFieldCell"; title = "Image format:"; ObjectID = "2297"; */
+"2297.title" = "图片格式:";
+
+/* Class = "NSTextFieldCell"; title = "Interval:"; ObjectID = "2299"; */
+"2299.title" = "区间:";
+
+/* Class = "NSTextFieldCell"; title = "From:"; ObjectID = "2301"; */
+"2301.title" = "从:";
+
+/* Class = "NSTextFieldCell"; title = "To:"; ObjectID = "2303"; */
+"2303.title" = "至:";
+
+/* Class = "NSTextFieldCell"; title = "1234"; ObjectID = "2304"; */
+"2304.title" = "1234";
+
+/* Class = "NSTextFieldCell"; title = "0"; ObjectID = "2305"; */
+"2305.title" = "0";
+
+/* Class = "NSTextFieldCell"; title = "1234"; ObjectID = "2306"; */
+"2306.title" = "1234";
+
+/* Class = "NSTextFieldCell"; title = "Images:"; ObjectID = "2307"; */
+"2307.title" = "图像:";
+
+/* Class = "NSTextFieldCell"; title = "40 images"; ObjectID = "2308"; */
+"2308.title" = "40张图片";
+
+/* Class = "NSTextFieldCell"; title = "2D series"; ObjectID = "2309"; */
+"2309.title" = "2D 系列";
+
+/* Class = "NSTextFieldCell"; title = "Series name:"; ObjectID = "2310"; */
+"2310.title" = "系列名称:";
+
+/* Class = "NSButtonCell"; title = "Include all displayed 2D viewers"; ObjectID = "2311"; */
+"2311.title" = "包括所有显示的2d 查看器";
+
+/* Class = "NSButtonCell"; title = "Key Image"; ObjectID = "2312"; */
+"2312.title" = "密钥图像";
+
+/* Class = "NSTextFieldCell"; title = "Selection:"; ObjectID = "2314"; */
+"2314.title" = "选择:";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "2315"; */
+"2315.title" = "取消";
+
+/* Class = "NSTextFieldCell"; title = "Export to:"; ObjectID = "2316"; */
+"2316.title" = "导出到:";
+
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "2317"; */
+"2317.title" = "确定";
+
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "2318"; */
+"2318.title" = "确定";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "2319"; */
+"2319.title" = "取消";
+
+/* Class = "NSTextFieldCell"; title = "Following formula is used:\n\nSUV (g/ml) = Pixel value (Bq/ml) * Weight (kg) / Dose (Bq) * 1000 (g/kg)\n\nDose is corrected by the half-life, in relation to the Acquisition Time and the Injection Time. Corrected dose = Dose * exp ( ln(2) / Half-life)\n\nDepending on the constructor of the PET modality, the result can vary. Compare these SUV values with the values obtained directly on the PET modality, before using them.\n\nDO NOT USE THESE VALUES FOR CLINICAL DECISIONS !"; ObjectID = "2322"; */
+"2322.title" = "以下公式使用: SUV (g/ml) = 像素值 (bqml) * 重量 (公斤)/剂量 (bq) * 1000 (g/kg) 剂量被校正的半衰期, 关于采集时间和注射时间。修正剂量 = 剂量 * exp (ln(2)/半衰期) 根据 PET 模式的构造函数, 结果可能会有所不同。在使用这些 SUV 值之前, 将它们与直接在 PET 模式上获得的值进行比较。
+
+不要将这些值用于临床决策!";
+
+/* Class = "NSTextFieldCell"; title = "Modifying this value WILL change the SUV values!"; ObjectID = "2323"; */
+"2323.title" = "修改此值将更改 SUV 值!";
+
+/* Class = "NSTextFieldCell"; title = "Values stored in the DICOM file for this study:"; ObjectID = "2324"; */
+"2324.title" = "存储在本研究的 DICOM 文件中的值:";
+
+/* Class = "NSTextFieldCell"; title = "New name:"; ObjectID = "2325"; */
+"2325.title" = "新名称:";
+
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "2326"; */
+"2326.title" = "确定";
+
+/* Class = "NSTextFieldCell"; title = "Rename:"; ObjectID = "2327"; */
+"2327.title" = "重 命名:";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "2329"; */
+"2329.title" = "取消";
+
+/* Class = "NSTextFieldCell"; title = "10"; ObjectID = "2330"; */
+"2330.title" = "10";
+
+/* Class = "NSTextFieldCell"; title = "Structuring Element Radius:"; ObjectID = "2331"; */
+"2331.title" = "结构元素半径:";
+
+/* Class = "NSTextFieldCell"; title = "1"; ObjectID = "2332"; */
+"2332.title" = "1";
+
+/* Class = "NSTextFieldCell"; title = "20"; ObjectID = "2334"; */
+"2334.title" = "20";
+
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "2335"; */
+"2335.title" = "确定";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "2336"; */
+"2336.title" = "取消";
+
+/* Class = "NSButtonCell"; title = "Apply to all ROIs with the same name"; ObjectID = "2337"; */
+"2337.title" = "适用于所有同名的 ROI";
+
+/* Class = "NSTextFieldCell"; title = "Layout:"; ObjectID = "2343"; */
+"2343.title" = "布局:";
+
+/* Class = "NSTextFieldCell"; title = "Header:"; ObjectID = "2344"; */
+"2344.title" = "页眉:";
+
+/* Class = "NSTextFieldCell"; title = "Printed by Miele-LXIV, free DICOM Viewer"; ObjectID = "2345"; */
+"2345.title" = "由 Miele-LXIV、免费的 DICOM 查看器打印";
+
+/* Class = "NSTextFieldCell"; title = "Selection:"; ObjectID = "2346"; */
+"2346.title" = "选择:";
+
+/* Class = "NSTextFieldCell"; title = "Interval:"; ObjectID = "2347"; */
+"2347.title" = "区间:";
+
+/* Class = "NSTextFieldCell"; title = "From:"; ObjectID = "2348"; */
+"2348.title" = "从:";
+
+/* Class = "NSTextFieldCell"; title = "To:"; ObjectID = "2350"; */
+"2350.title" = "至:";
+
+/* Class = "NSTextFieldCell"; title = "1234"; ObjectID = "2351"; */
+"2351.title" = "1234";
+
+/* Class = "NSTextFieldCell"; title = "0"; ObjectID = "2352"; */
+"2352.title" = "0";
+
+/* Class = "NSTextFieldCell"; title = "1234"; ObjectID = "2353"; */
+"2353.title" = "1234";
+
+/* Class = "NSTextFieldCell"; title = "Pages:"; ObjectID = "2356"; */
+"2356.title" = "页面:";
+
+/* Class = "NSTextFieldCell"; title = "40 pages"; ObjectID = "2357"; */
+"2357.title" = "40页";
+
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "2358"; */
+"2358.title" = "确定";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "2359"; */
+"2359.title" = "取消";
+
+/* Class = "NSTextFieldCell"; title = "Format:"; ObjectID = "2360"; */
+"2360.title" = "格式:";
+
+/* Class = "NSButtonCell"; title = "Page Setup..."; ObjectID = "2361"; */
+"2361.title" = "页面设置...";
+
+/* Class = "NSTextFieldCell"; title = "Apply to:"; ObjectID = "2363"; */
+"2363.title" = "适用于:";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "2364"; */
+"2364.title" = "取消";
+
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "2365"; */
+"2365.title" = "确定";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "2368"; */
+"2368.title" = "Radio";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "2369"; */
+"2369.title" = "Radio";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "2371"; */
+"2371.title" = "Radio";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "2372"; */
+"2372.title" = "Radio";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "2373"; */
+"2373.title" = "Radio";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "2374"; */
+"2374.title" = "Radio";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "2375"; */
+"2375.title" = "Radio";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "2376"; */
+"2376.title" = "Radio";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "2377"; */
+"2377.title" = "Radio";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "2378"; */
+"2378.title" = "Radio";
+
+/* Class = "NSTextFieldCell"; title = "0"; ObjectID = "2379"; */
+"2379.title" = "0";
+
+/* Class = "NSTextFieldCell"; title = "0"; ObjectID = "2380"; */
+"2380.title" = "0";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "2382"; */
+"2382.title" = "Radio";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "2383"; */
+"2383.title" = "Radio";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "2385"; */
+"2385.title" = "Radio";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "2386"; */
+"2386.title" = "Radio";
+
+/* Class = "NSFormCell"; title = "Field:"; ObjectID = "2387"; */
+"2387.title" = "Field:";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "2388"; */
+"2388.title" = "Radio";
+
+/* Class = "NSButtonCell"; title = "Switch"; ObjectID = "2390"; */
+"2390.title" = "开关";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "2391"; */
+"2391.title" = "Radio";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "2392"; */
+"2392.title" = "Radio";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "2393"; */
+"2393.title" = "Radio";
+
+/* Class = "NSButtonCell"; title = "Include all displayed 2D viewers"; ObjectID = "2397"; */
+"2397.title" = "包括所有显示的2d 查看器";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "2405"; */
+"2405.title" = "Radio";
+
+/* Class = "NSButtonCell"; title = "Photos"; ObjectID = "2418"; */
+"2418.title" = "Photos";
+
+/* Class = "NSButtonCell"; title = "Mail"; ObjectID = "2420"; */
+"2420.title" = "邮件";
+
+/* Class = "NSButtonCell"; title = "JPEG Files"; ObjectID = "2421"; */
+"2421.title" = "JPEG 文件";
+
+/* Class = "NSButtonCell"; title = "TIFF Files"; ObjectID = "2422"; */
+"2422.title" = "TIFF 文件";
+
+/* Class = "NSButtonCell"; title = "As stored in memory in 16-bit BW"; ObjectID = "2440"; */
+"2440.title" = "存储在 16位 bw 的内存中";
+
+/* Class = "NSButtonCell"; title = "8 Bit"; ObjectID = "2443"; */
+"2443.title" = "8位";
+
+/* Class = "NSButtonCell"; title = "12 Bit"; ObjectID = "2444"; */
+"2444.title" = "12 Bit";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "2445"; */
+"2445.title" = "Radio";
+
+/* Class = "NSButtonCell"; title = "After export, send them to a DICOM Node"; ObjectID = "2453"; */
+"2453.title" = "导出后，将它们发送到DICOM节点";
+
+/* Class = "NSTextFieldCell"; title = "0"; ObjectID = "2456"; */
+"2456.title" = "0";
+
+/* Class = "NSButtonCell"; title = "Mark them as Key Images"; ObjectID = "2460"; */
+"2460.title" = "将它们标记为 \"关键图像\"";
+
+/* Class = "NSButtonCell"; title = "Automatically adjusted"; ObjectID = "2463"; */
+"2463.title" = "自动调整";
+
+/* Class = "NSMenuItem"; title = "1x2 (2 per pages)"; ObjectID = "2467"; */
+"2467.title" = "1x2 (每页 2个)";
+
+/* Class = "NSMenuItem"; title = "3D MPR"; ObjectID = "2470"; */
+"2470.title" = "3D MPR";
+
+/* Class = "NSTextFieldCell"; title = "and"; ObjectID = "2474"; */
+"2474.title" = "和";
+
+/* Class = "NSMenuItem"; title = "2x4 (8 per pages)"; ObjectID = "2476"; */
+"2476.title" = "2x4 (每页 8个)";
+
+/* Class = "NSMenuItem"; title = "3x5 (15 per pages)"; ObjectID = "2477"; */
+"2477.title" = "3x5 (每页 15个)";
+
+/* Class = "NSMenuItem"; title = "4x7 (28 per pages)"; ObjectID = "2479"; */
+"2479.title" = "4x7 (每页 28)";
+
+/* Class = "NSMenuItem"; title = "4x6 (30 per pages)"; ObjectID = "2481"; */
+"2481.title" = "4x6 (每页 30)";
+
+/* Class = "NSButtonCell"; title = "All images of the series, including:"; ObjectID = "2495"; */
+"2495.title" = "该系列的所有图像, 包括:";
+
+/* Class = "NSButtonCell"; title = "Edit"; ObjectID = "2498"; */
+"2498.title" = "编辑";
+
+/* Class = "NSWindow"; title = "Injection Date and Time"; ObjectID = "2499"; */
+"2499.title" = "注射日期和时间";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "2505"; */
+"2505.title" = "取消";
+
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "2506"; */
+"2506.title" = "确定";
+
+/* Class = "NSBox"; title = "Warning"; ObjectID = "2519"; */
+"2519.title" = "警告";
+
+/* Class = "NSTextFieldCell"; title = "Modifying Acquisition Time and/or Injection Time will MODIFY SUV values !"; ObjectID = "2525"; */
+"2525.title" = "修改采集时间和/或注射时间将修改 SUV 值!";
+
+/* Class = "NSButtonCell"; title = "Edit"; ObjectID = "2527"; */
+"2527.title" = "编辑";
+
+/* Class = "NSMenuItem"; title = "validated"; ObjectID = "2535"; */
+"2535.title" = "已验证";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "2554"; */
+"2554.title" = "OtherViews";
+
+/* Class = "NSButtonCell"; title = "None"; ObjectID = "2596"; */
+"2596.title" = "无";
+
+/* Class = "NSButtonCell"; title = "Graphic"; ObjectID = "2597"; */
+"2597.title" = "图像";
+
+/* Class = "NSTextFieldCell"; title = "88.8 mm"; ObjectID = "2620"; */
+"2620.title" = "88.8毫米";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "2625"; */
+"2625.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Item"; ObjectID = "2641"; */
+"2641.title" = "Item";
+
+/* Class = "NSWindow"; title = "Save Workspace State"; ObjectID = "aob-Jz-PIZ"; */
+"aob-Jz-PIZ.title" = "保存工作区状态";
+
+/* Class = "NSButtonCell"; title = "Full"; ObjectID = "cWS-F4-Ju1"; */
+"cWS-F4-Ju1.title" = "全部";
+
+/* Class = "NSButtonCell"; title = "Button"; ObjectID = "d8Q-li-8PJ"; */
+"d8Q-li-8PJ.title" = "Button";
+
+/* Class = "NSButtonCell"; title = "Basic"; ObjectID = "dWN-WZ-oyP"; */
+"dWN-WZ-oyP.title" = "基本";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Reorient (origin and orientation) the dragged series, according to the destination series."; ObjectID = "G8w-oS-Z7f"; */
+"G8w-oS-Z7f.ibShadowedToolTip" = "根据目标系列, 对拖动序列进行重新定向 (原点和方向)。";
+
+/* Class = "NSButton"; ibShadowedToolTip = "option return"; ObjectID = "jAv-BO-Ihr"; */
+"jAv-BO-Ihr.ibShadowedToolTip" = "选项返回";
+
+/* Class = "NSButtonCell"; title = "Save"; ObjectID = "kWi-zY-8hw"; */
+"kWi-zY-8hw.title" = "保存";
+
+/* Class = "NSMenuItem"; title = "Perpendicular Lines"; ObjectID = "odG-BV-hTy"; */
+"odG-BV-hTy.title" = "垂直线";
+
+/* Class = "NSButtonCell"; title = "Basic"; ObjectID = "Qa3-cE-a5m"; */
+"Qa3-cE-a5m.title" = "基本";
+
+/* Class = "NSButtonCell"; title = "Reorient"; ObjectID = "qqC-vq-Xbs"; */
+"qqC-vq-Xbs.title" = "调整";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "uc4-tS-Lij"; */
+"uc4-tS-Lij.title" = "取消";
+
+/* Class = "NSButtonCell"; title = "Comparatives"; ObjectID = "yic-wi-c3R"; */
+"yic-wi-c3R.title" = "相当";
+
+/* Class = "NSMenuItem"; title = "3D Ball"; ObjectID = "ypW-lR-5Dt"; */
+"ypW-lR-5Dt.title" = "3D 球";
+
+/* Class = "NSTextFieldCell"; title = "Name:"; ObjectID = "zOV-Vf-eEI"; */
+"zOV-Vf-eEI.title" = "名称:";
+

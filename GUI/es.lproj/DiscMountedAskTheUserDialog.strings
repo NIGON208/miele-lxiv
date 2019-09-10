@@ -1,0 +1,15 @@
+/* Class = "NSWindow"; title = "CD/DVD"; ObjectID = "1"; */
+"1.title" = "CD/DVD";
+
+/* Class = "NSTextFieldCell"; title = "<<A disc named %@ and containing %d DICOM files was mounted. THIS STRING IS JUST A PLACEHOLDER, no need to localize it.>>"; ObjectID = "8"; */
+"8.title" = "<<A disc named %@ and containing %d DICOM files was mounted. THIS STRING IS JUST A PLACEHOLDER, no need to localize it.>>";
+
+/* Class = "NSButtonCell"; title = "Copy"; ObjectID = "16"; */
+"16.title" = "Copiar";
+
+/* Class = "NSButtonCell"; title = "Browse"; ObjectID = "24"; */
+"24.title" = "Buscar";
+
+/* Class = "NSButtonCell"; title = "Ignore"; ObjectID = "62"; */
+"62.title" = "Ignorar";
+

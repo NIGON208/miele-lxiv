@@ -1,0 +1,21 @@
+/* Class = "NSButtonCell"; title = "Now"; ObjectID = "246"; */
+"246.title" = "今";
+
+/* Class = "NSButtonCell"; title = "Now"; ObjectID = "248"; */
+"248.title" = "今";
+
+/* Class = "NSTextFieldCell"; title = "To:"; ObjectID = "254"; */
+"254.title" = "宛先:";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "874"; */
+"874.title" = "Radio";
+
+/* Class = "NSButtonCell"; title = "On a specific date"; ObjectID = "875"; */
+"875.title" = "日付を指定して公開";
+
+/* Class = "NSButtonCell"; title = "Between two dates"; ObjectID = "876"; */
+"876.title" = "2つの日付の間";
+
+/* Class = "NSButtonCell"; title = "Hours & Minutes"; ObjectID = "915"; */
+"915.title" = "時間と分";
+

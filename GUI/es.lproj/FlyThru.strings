@@ -1,0 +1,120 @@
+/* Class = "NSWindow"; title = "Fly Through"; ObjectID = "7"; */
+"7.title" = "Vuela a través de";
+
+/* Class = "NSTabViewItem"; label = "Steps"; ObjectID = "30"; */
+"30.label" = "Pasos";
+
+/* Class = "NSTabViewItem"; label = "Movie"; ObjectID = "31"; */
+"31.label" = "Película";
+
+/* Class = "NSBox"; title = "Interpolation"; ObjectID = "177"; */
+"177.title" = "Interpolación";
+
+/* Class = "NSBox"; title = "Frame"; ObjectID = "179"; */
+"179.title" = "Marco";
+
+/* Class = "NSTableColumn"; headerCell.title = "Index"; ObjectID = "213"; */
+"213.headerCell.title" = "Índice";
+
+/* Class = "NSBox"; title = "Export"; ObjectID = "225"; */
+"225.title" = "Exportar";
+
+/* Class = "NSTableColumn"; headerCell.title = "Preview"; ObjectID = "255"; */
+"255.headerCell.title" = "Vista previa";
+
+/* Class = "NSButtonCell"; title = "Spline"; ObjectID = "283"; */
+"283.title" = "Spline";
+
+/* Class = "NSButtonCell"; title = "Linear"; ObjectID = "284"; */
+"284.title" = "Lineal";
+
+/* Class = "NSButtonCell"; title = "Current Rendering Quality"; ObjectID = "292"; */
+"292.title" = "Calidad de renderizado actual";
+
+/* Class = "NSButtonCell"; title = "Best rendering"; ObjectID = "293"; */
+"293.title" = "Mejor renderizado";
+
+/* Class = "NSButtonCell"; title = "Quicktime"; ObjectID = "317"; */
+"317.title" = "Quicktime";
+
+/* Class = "NSButtonCell"; title = "DICOM, Series name:"; ObjectID = "318"; */
+"318.title" = "DICOM, nombre de la serie:";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "327"; */
+"327.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "768x768"; ObjectID = "328"; */
+"328.title" = "768x768";
+
+/* Class = "NSMenuItem"; title = "512x512"; ObjectID = "329"; */
+"329.title" = "512x512";
+
+/* Class = "NSMenuItem"; title = "Current"; ObjectID = "330"; */
+"330.title" = "Actual";
+
+/* Class = "NSSegmentedCell"; 336.ibShadowedLabels[2] = "Reset"; ObjectID = "336"; */
+"336.ibShadowedLabels[2]" = "Reiniciar";
+
+/* Class = "NSSegmentedCell"; 336.ibShadowedLabels[3] = "Import..."; ObjectID = "336"; */
+"336.ibShadowedLabels[3]" = "Importar...";
+
+/* Class = "NSSegmentedCell"; 336.ibShadowedLabels[4] = "Export..."; ObjectID = "336"; */
+"336.ibShadowedLabels[4]" = "Exportar a un archivo";
+
+/* Class = "NSTextFieldCell"; title = "Number of Frames:"; ObjectID = "338"; */
+"338.title" = "Número de fotogramas:";
+
+/* Class = "NSButtonCell"; title = "Compute"; ObjectID = "339"; */
+"339.title" = "Calcula";
+
+/* Class = "NSButtonCell"; title = "Loop"; ObjectID = "340"; */
+"340.title" = "Loop";
+
+/* Class = "NSTextFieldCell"; title = "Method:"; ObjectID = "341"; */
+"341.title" = "Método:";
+
+/* Class = "NSButtonCell"; title = "Play"; ObjectID = "343"; */
+"343.title" = "Reproducir";
+
+/* Class = "NSButtonCell"; title = "Save"; ObjectID = "344"; */
+"344.title" = "Guardar";
+
+/* Class = "NSTextFieldCell"; title = "Quality:"; ObjectID = "345"; */
+"345.title" = "Formato:";
+
+/* Class = "NSTextFieldCell"; title = "FlyThru"; ObjectID = "347"; */
+"347.title" = "FlyThru";
+
+/* Class = "NSButtonCell"; title = "inclu. MPR views"; ObjectID = "348"; */
+"348.title" = "incluido Vistas de MPR";
+
+/* Class = "NSTextFieldCell"; title = "Size:"; ObjectID = "349"; */
+"349.title" = "Tamaño:";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "351"; */
+"351.title" = "Radio";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "352"; */
+"352.title" = "Radio";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "353"; */
+"353.title" = "Radio";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "354"; */
+"354.title" = "Text Cell";
+
+/* Class = "NSMenuItem"; title = "Add"; ObjectID = "438"; */
+"438.title" = "Añadir";
+
+/* Class = "NSMenuItem"; title = "Delete"; ObjectID = "439"; */
+"439.title" = "Borrar";
+
+/* Class = "NSMenuItem"; title = "Update"; ObjectID = "440"; */
+"440.title" = "Actualizar";
+
+/* Class = "NSMenuItem"; title = "Reset"; ObjectID = "442"; */
+"442.title" = "Reiniciar";
+
+/* Class = "NSTextFieldCell"; title = "50"; ObjectID = "460"; */
+"460.title" = "50";
+

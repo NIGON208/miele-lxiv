@@ -1,0 +1,111 @@
+/* Class = "NSWindow"; title = "DICOM Meta-Data"; ObjectID = "5"; */
+"5.title" = "DICOM 元数据";
+
+/* Class = "NSTableColumn"; headerCell.title = "Tag"; ObjectID = "9"; */
+"9.headerCell.title" = "标签";
+
+/* Class = "NSTableColumn"; headerCell.title = "Field Name"; ObjectID = "10"; */
+"10.headerCell.title" = "Field Name";
+
+/* Class = "NSTableColumn"; headerCell.title = "Content"; ObjectID = "11"; */
+"11.headerCell.title" = "内容";
+
+/* Class = "NSMenu"; title = "Menu"; ObjectID = "32"; */
+"32.title" = "菜单";
+
+/* Class = "NSMenuItem"; title = "Recent Searches"; ObjectID = "33"; */
+"33.title" = "最近搜索";
+
+/* Class = "NSMenuItem"; title = "Recents"; ObjectID = "34"; */
+"34.title" = "接待员";
+
+/* Class = "NSMenuItem"; title = "Clear Recent Searchs"; ObjectID = "35"; */
+"35.title" = "清除最近的搜索";
+
+/* Class = "NSWindow"; title = "Window"; ObjectID = "39"; */
+"39.title" = "Window";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Activate the edition"; ObjectID = "54"; */
+"54.ibShadowedToolTip" = "激活版本";
+
+/* Class = "NSButtonCell"; title = "Image"; ObjectID = "58"; */
+"58.title" = "图片";
+
+/* Class = "NSButtonCell"; title = "Series"; ObjectID = "59"; */
+"59.title" = "系列";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Add a new group/element"; ObjectID = "61"; */
+"61.ibShadowedToolTip" = "添加新的组/元素";
+
+/* Class = "NSSearchFieldCell"; placeholderString = "search string"; ObjectID = "113"; */
+"113.placeholderString" = "搜索字符";
+
+/* Class = "NSTextFieldCell"; title = "Group:"; ObjectID = "114"; */
+"114.title" = "群组:";
+
+/* Class = "NSTextFieldCell"; title = "Element:"; ObjectID = "115"; */
+"115.title" = "元素:";
+
+/* Class = "NSTextFieldCell"; title = "0x0010"; ObjectID = "116"; */
+"116.title" = "0x0010";
+
+/* Class = "NSTextFieldCell"; title = "0x0010"; ObjectID = "117"; */
+"117.title" = "0x0010";
+
+/* Class = "NSTextFieldCell"; title = "Add a new DICOM field:"; ObjectID = "118"; */
+"118.title" = "添加新的 \"多克协\" 字段:";
+
+/* Class = "NSTextFieldCell"; title = "Name:"; ObjectID = "119"; */
+"119.title" = "名称:";
+
+/* Class = "NSButtonCell"; title = "Add"; ObjectID = "121"; */
+"121.title" = "添加";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "122"; */
+"122.title" = "取消";
+
+/* Class = "NSTextFieldCell"; title = "Value:"; ObjectID = "123"; */
+"123.title" = "明度:";
+
+/* Class = "NSTextFieldCell"; title = "(If the field exists already, the old one will be replaced)"; ObjectID = "125"; */
+"125.title" = "(如果字段已存在, 则旧字段将被替换)";
+
+/* Class = "NSTextFieldCell"; title = "Add"; ObjectID = "128"; */
+"128.title" = "添加";
+
+/* Class = "NSTextFieldCell"; title = "Edit"; ObjectID = "129"; */
+"129.title" = "编辑";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "130"; */
+"130.title" = "Radio";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "131"; */
+"131.title" = "Text Cell";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "132"; */
+"132.title" = "Text Cell";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "133"; */
+"133.title" = "Text Cell";
+
+/* Class = "NSWindow"; title = "DICOM Validator"; ObjectID = "137"; */
+"137.title" = "DICOM 验证程序";
+
+/* Class = "NSTextFieldCell"; title = "Based on DICOM Validator - dciodvfy, by David A. Clunie :"; ObjectID = "144"; */
+"144.title" = "根据 DICOM valid保体内-dciodvfy, david a. clunie:";
+
+/* Class = "NSButtonCell"; title = "Web Site"; ObjectID = "148"; */
+"148.title" = "站点";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Save the modifications to the file"; ObjectID = "162"; */
+"162.ibShadowedToolTip" = "保存对文件的修改";
+
+/* Class = "NSTextFieldCell"; title = "Apply"; ObjectID = "169"; */
+"169.title" = "应用";
+
+/* Class = "NSButtonCell"; title = "Patient"; ObjectID = "by7-D4-bt6"; */
+"by7-D4-bt6.title" = "产品";
+
+/* Class = "NSButtonCell"; title = "Study"; ObjectID = "Xjs-YY-1YQ"; */
+"Xjs-YY-1YQ.title" = "研究";
+

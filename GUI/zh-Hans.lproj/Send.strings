@@ -1,0 +1,108 @@
+/* Class = "NSWindow"; title = "DICOM Send"; ObjectID = "5"; */
+"5.title" = "DICOM发送";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "12"; */
+"12.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Implicit Little Endian only"; ObjectID = "13"; */
+"13.title" = "仅隐式小恩迪安";
+
+/* Class = "NSMenuItem"; title = "Explicit Little Endian"; ObjectID = "14"; */
+"14.title" = "Explicit Little Endian";
+
+/* Class = "NSMenuItem"; title = "JPEG Lossless"; ObjectID = "16"; */
+"16.title" = "JPEG 无损";
+
+/* Class = "NSButtonCell"; title = "All images"; ObjectID = "32"; */
+"32.title" = "所有图片";
+
+/* Class = "NSButtonCell"; title = "Only Secondary Captures (SC)"; ObjectID = "33"; */
+"33.title" = "仅二次捕获 (sc)";
+
+/* Class = "NSButtonCell"; title = "Only key images"; ObjectID = "34"; */
+"34.title" = "仅关键图像";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedIsNilPlaceholder = "No Files"; ObjectID = "49"; */
+"49.ibShadowedIsNilPlaceholder" = "无文件";
+
+/* Class = "NSMenuItem"; title = "JPEG 2000 Lossless"; ObjectID = "67"; */
+"67.title" = "JPEG 2000 无损";
+
+/* Class = "NSMenuItem"; title = "JPEG 2000 Lossy - Good Quality"; ObjectID = "71"; */
+"71.title" = "JPEG 2000 亏损-良好的质量";
+
+/* Class = "NSMenuItem"; title = "JPEG 2000 Lossy - Medium Quality"; ObjectID = "72"; */
+"72.title" = "JPEG 2000 损耗-中等质量";
+
+/* Class = "NSMenuItem"; title = "JPEG 2000 Lossy - Low Quality"; ObjectID = "73"; */
+"73.title" = "JPEG 2000 亏损-低质量";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "95"; */
+"95.title" = "取消";
+
+/* Class = "NSTextFieldCell"; title = "Transfer Syntax:"; ObjectID = "98"; */
+"98.title" = "转账语法:";
+
+/* Class = "NSTextFieldCell"; title = "Number of files:"; ObjectID = "99"; */
+"99.title" = "文件数:";
+
+/* Class = "NSTextFieldCell"; title = "Send:"; ObjectID = "101"; */
+"101.title" = "发送:";
+
+/* Class = "NSButtonCell"; title = "Send"; ObjectID = "102"; */
+"102.title" = "发送";
+
+/* Class = "NSTextFieldCell"; title = "Select destination:"; ObjectID = "103"; */
+"103.title" = "选择目的地:";
+
+/* Class = "NSTextFieldCell"; title = "129.195.163.200 : 4096"; ObjectID = "104"; */
+"104.title" = "129.195.163.200 : 4096";
+
+/* Class = "NSButtonCell"; title = "Include ROIs, Comments, Reports, ..."; ObjectID = "105"; */
+"105.title" = "包括 ROI, 注释, 报告,...";
+
+/* Class = "NSTextFieldCell"; title = "ROIs:"; ObjectID = "106"; */
+"106.title" = "ROI:";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "107"; */
+"107.title" = "Radio";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "110"; */
+"110.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Item 1"; ObjectID = "111"; */
+"111.title" = "Item 1";
+
+/* Class = "NSMenuItem"; title = "Item 2"; ObjectID = "112"; */
+"112.title" = "Item 2";
+
+/* Class = "NSMenuItem"; title = "Item 3"; ObjectID = "113"; */
+"113.title" = "Item 3";
+
+/* Class = "NSMenuItem"; title = "JPEG LS Lossless"; ObjectID = "148"; */
+"148.title" = "JPEG ls 无损";
+
+/* Class = "NSMenuItem"; title = "JPEG LS Lossy - Good Quality"; ObjectID = "149"; */
+"149.title" = "JPEG ls 亏损-良好的质量";
+
+/* Class = "NSMenuItem"; title = "JPEG LS Lossy - Medium Quality"; ObjectID = "150"; */
+"150.title" = "JPEG ls 损耗-中等质量";
+
+/* Class = "NSMenuItem"; title = "JPEG LS Lossy - Low Quality"; ObjectID = "151"; */
+"151.title" = "JPEG ls 损耗-低质量";
+
+/* Class = "NSTextFieldCell"; title = "Number of associations:"; ObjectID = "153"; */
+"153.title" = "关联数量:";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "156"; */
+"156.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Single association"; ObjectID = "157"; */
+"157.title" = "单一关联";
+
+/* Class = "NSMenuItem"; title = "2 simultaneous associations"; ObjectID = "158"; */
+"158.title" = "2个同时关联";
+
+/* Class = "NSMenuItem"; title = "4 simultaneous associations"; ObjectID = "159"; */
+"159.title" = "4个同时关联";
+

@@ -1,0 +1,27 @@
+/* Class = "NSButtonCell"; title = "Double-Click + Alt"; ObjectID = "4zn-Z1-N6D"; */
+"4zn-Z1-N6D.title" = "双击 + alt";
+
+/* Class = "NSWindow"; title = "<< do not localize >>"; ObjectID = "12"; */
+"12.title" = "<< do not localize >>";
+
+/* Class = "NSTableColumn"; headerCell.title = "Action"; ObjectID = "100"; */
+"100.headerCell.title" = "动作";
+
+/* Class = "NSTableColumn"; headerCell.title = "Key"; ObjectID = "101"; */
+"101.headerCell.title" = "键";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "110"; */
+"110.title" = "Text Cell";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "118"; */
+"118.title" = "Text Cell";
+
+/* Class = "NSTextFieldCell"; title = "Special Keys:"; ObjectID = "bWF-P5-4N0"; */
+"bWF-P5-4N0.title" = "特殊键:";
+
+/* Class = "NSButtonCell"; title = "Double-Click"; ObjectID = "pIb-dz-dhK"; */
+"pIb-dz-dhK.title" = "双击";
+
+/* Class = "NSButtonCell"; title = "Double-Click + Cmd"; ObjectID = "y9J-z5-cFp"; */
+"y9J-z5-cFp.title" = "双击 + cmd";
+

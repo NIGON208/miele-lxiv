@@ -1,0 +1,21 @@
+/* Class = "NSButtonCell"; title = "Now"; ObjectID = "246"; */
+"246.title" = "Jetzt";
+
+/* Class = "NSButtonCell"; title = "Now"; ObjectID = "248"; */
+"248.title" = "Jetzt";
+
+/* Class = "NSTextFieldCell"; title = "To:"; ObjectID = "254"; */
+"254.title" = "An:";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "874"; */
+"874.title" = "Radio";
+
+/* Class = "NSButtonCell"; title = "On a specific date"; ObjectID = "875"; */
+"875.title" = "Zum festgelegtem Datum";
+
+/* Class = "NSButtonCell"; title = "Between two dates"; ObjectID = "876"; */
+"876.title" = "Zwischen zwei Daten";
+
+/* Class = "NSButtonCell"; title = "Hours & Minutes"; ObjectID = "915"; */
+"915.title" = "Stunden & Minuten";
+

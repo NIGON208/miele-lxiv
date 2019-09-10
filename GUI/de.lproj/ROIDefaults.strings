@@ -1,0 +1,12 @@
+/* Class = "NSWindow"; title = "ROI Defaults"; ObjectID = "6"; */
+"6.title" = "ROI-Ausfälle";
+
+/* Class = "NSTextFieldCell"; title = "Default Name:"; ObjectID = "26"; */
+"26.title" = "Standard Name:";
+
+/* Class = "NSButtonCell"; title = "Set"; ObjectID = "27"; */
+"27.title" = "Einstellen";
+
+/* Class = "NSButtonCell"; title = "Unset"; ObjectID = "28"; */
+"28.title" = "Zuordnung entfernen";
+

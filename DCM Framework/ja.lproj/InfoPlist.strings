@@ -1,0 +1,6 @@
+/* Bundle name */
+//"CFBundleName" = "$(PRODUCT_NAME)";
+
+/* Copyright (human-readable) */
+"NSHumanReadableCopyright" = "著作権© 2018 bettar。すべての権利予約。";
+

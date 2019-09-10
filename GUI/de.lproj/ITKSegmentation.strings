@@ -1,0 +1,123 @@
+/* Class = "NSWindow"; title = "Segmentation Parameters"; ObjectID = "6"; */
+"6.title" = "Segmentierationsparameter";
+
+/* Class = "NSBox"; title = "Results"; ObjectID = "9"; */
+"9.title" = "Ergebnisse";
+
+/* Class = "NSButtonCell"; title = "Set Inside Pixels to:"; ObjectID = "14"; */
+"14.title" = "Set Inside Pixels to:";
+
+/* Class = "NSButtonCell"; title = "Set Outside Pixels to:"; ObjectID = "16"; */
+"16.title" = "Set Outside Pixels to:";
+
+/* Class = "NSTextFieldCell"; title = "1000"; ObjectID = "19"; */
+"19.title" = "1000";
+
+/* Class = "NSTextFieldCell"; title = "0"; ObjectID = "21"; */
+"21.title" = "0";
+
+/* Class = "NSButtonCell"; title = "Create ROI(s) in the original series"; ObjectID = "64"; */
+"64.title" = "Erstellen Sie ROI (s) in der Originalserie";
+
+/* Class = "NSButtonCell"; title = "Generate a new series with:"; ObjectID = "65"; */
+"65.title" = "Eine neue Serie mit:";
+
+/* Class = "NSButtonCell"; title = "Brush ROI"; ObjectID = "80"; */
+"80.title" = "Pinsel ROI";
+
+/* Class = "NSButtonCell"; title = "Polygon"; ObjectID = "81"; */
+"81.title" = "Polygon";
+
+/* Class = "NSButtonCell"; title = "3D Growing Region (entire series)"; ObjectID = "114"; */
+"114.title" = "3D-Anbaugebiet (ganze Serie)";
+
+/* Class = "NSButtonCell"; title = "2D Growing Region (current image only)"; ObjectID = "115"; */
+"115.title" = "2D Anbaugebiet (nur aktuelles Bild)";
+
+/* Class = "NSBox"; title = "Parameters"; ObjectID = "122"; */
+"122.title" = "Parameter";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "125"; */
+"125.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Interval"; ObjectID = "126"; */
+"126.title" = "Intervall";
+
+/* Class = "NSMenuItem"; title = "Threshold"; ObjectID = "128"; */
+"128.title" = "Triggerschwelle";
+
+/* Class = "NSFormCell"; stringValue = "20000"; ObjectID = "131"; */
+"131.stringValue" = "20000";
+
+/* Class = "NSFormCell"; title = "Interval:"; ObjectID = "131"; */
+"131.title" = "Intervall:";
+
+/* Class = "NSTextFieldCell"; title = "# of points:"; ObjectID = "174"; */
+"174.title" = "# der Punkte:";
+
+/* Class = "NSTextFieldCell"; title = "High"; ObjectID = "175"; */
+"175.title" = "Hoch";
+
+/* Class = "NSTextFieldCell"; title = "Low"; ObjectID = "176"; */
+"176.title" = "Niedrig";
+
+/* Class = "NSTextFieldCell"; title = "ROI name:"; ObjectID = "177"; */
+"177.title" = "ROI Name:";
+
+/* Class = "NSTextFieldCell"; title = "GrowingRegion"; ObjectID = "178"; */
+"178.title" = "Die Region GrowingRegion";
+
+/* Class = "NSButtonCell"; title = "Preview Result when clicking"; ObjectID = "179"; */
+"179.title" = "Vorschau-Ergebnis beim Klick";
+
+/* Class = "NSButtonCell"; title = "Compute"; ObjectID = "180"; */
+"180.title" = "Berechnen";
+
+/* Class = "NSTextFieldCell"; title = "(Click in the image)"; ObjectID = "181"; */
+"181.title" = "(Klicken Sie auf das Bild)";
+
+/* Class = "NSTextFieldCell"; title = "Starting Point:"; ObjectID = "182"; */
+"182.title" = "Ausgangspunkt:";
+
+/* Class = "NSTextFieldCell"; title = "mm:\t\tx:0 y:0 z:0"; ObjectID = "183"; */
+"183.title" = "mm:		x:0 y:0 z:0";
+
+/* Class = "NSTextFieldCell"; title = "px:\t\tx:0 y:0 z:0"; ObjectID = "184"; */
+"184.title" = "px:		x:0 y:0 z:0";
+
+/* Class = "NSTextFieldCell"; title = "value:\t0"; ObjectID = "185"; */
+"185.title" = "Wert:	0";
+
+/* Class = "NSTextFieldCell"; title = "Algorithm:"; ObjectID = "187"; */
+"187.title" = "Algorithmus:";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "189"; */
+"189.title" = "Radio";
+
+/* Class = "NSButtonCell"; title = "Switch"; ObjectID = "190"; */
+"190.title" = "Wechseln";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "192"; */
+"192.title" = "Radio";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "193"; */
+"193.title" = "Radio";
+
+/* Class = "NSFormCell"; title = "Field:"; ObjectID = "194"; */
+"194.title" = "Feld:";
+
+/* Class = "NSButtonCell"; title = "Directly generate ROI when clicking"; ObjectID = "196"; */
+"196.title" = "Generieren Sie ROI direkt, wenn Sie klicken";
+
+/* Class = "NSButtonCell"; title = "Merge with existing Brush ROIs"; ObjectID = "198"; */
+"198.title" = "Fusion mit bestehenden PinselROIs";
+
+/* Class = "NSButtonCell"; title = "Propagate result in 4D"; ObjectID = "229"; */
+"229.title" = "Propagatenergebnis in 4D";
+
+/* Class = "NSFormCell"; title = "Field:"; ObjectID = "fk7-ml-aID"; */
+"fk7-ml-aID.title" = "Feld:";
+
+/* Class = "NSFormCell"; title = "Field:"; ObjectID = "hlp-LC-t2Z"; */
+"hlp-LC-t2Z.title" = "Feld:";
+

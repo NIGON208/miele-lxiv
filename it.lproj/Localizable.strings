@@ -1,0 +1,306 @@
+/* No comment provided by engineer. */
+"ABD" = "ABD";
+
+/* No comment provided by engineer. */
+"ABDOMEN" = "Addome";
+
+/* No comment provided by engineer. */
+"AC JOINT" = "AC JOINT";
+
+/* No comment provided by engineer. */
+"ACROMIAL" = "ACROMIALE";
+
+/* No comment provided by engineer. */
+"ADRENAL" = "ADRENAL";
+
+/* No comment provided by engineer. */
+"ANKLE" = "Caviglia";
+
+/* No comment provided by engineer. */
+"APPENDIX" = "APPENDICE";
+
+/* No comment provided by engineer. */
+"BICEPS" = "Bicipiti";
+
+/* No comment provided by engineer. */
+"BLADDER" = "Vescica";
+
+/* No comment provided by engineer. */
+"BRACHIAL" = "Brachiale";
+
+/* No comment provided by engineer. */
+"BRAIN" = "Cervello";
+
+/* No comment provided by engineer. */
+"C SPINE" = "C SPINE";
+
+/* No comment provided by engineer. */
+"CALCANEUS" = "CALCANEUS";
+
+/* No comment provided by engineer. */
+"CARDIAC" = "Cardiaca";
+
+/* No comment provided by engineer. */
+"CAROTID" = "Carotica";
+
+/* No comment provided by engineer. */
+"CARPAL" = "Carpale";
+
+/* No comment provided by engineer. */
+"CERVICAL" = "Cervicale";
+
+/* No comment provided by engineer. */
+"CHEST" = "Petto";
+
+/* No comment provided by engineer. */
+"CLAVICLE" = "Clavicola";
+
+/* No comment provided by engineer. */
+"Converting RTSTRUCT in ROIs..." = "Conversione di RTSTRUCT in ROI...";
+
+/* No comment provided by engineer. */
+"CR" = "CR";
+
+/* No comment provided by engineer. */
+"CT" = "TAC";
+
+/* No comment provided by engineer. */
+"default" = "predefinito";
+
+/* No comment provided by engineer. */
+"Default" = "Predefinito";
+
+/* No comment provided by engineer. */
+"DX" = "DX";
+
+/* No comment provided by engineer. */
+"ELBOW" = "ELBOW";
+
+/* No comment provided by engineer. */
+"ES" = "ES";
+
+/* No comment provided by engineer. */
+"FACE" = "Faccia";
+
+/* No comment provided by engineer. */
+"FEMUR" = "Femore";
+
+/* No comment provided by engineer. */
+"FIBULA" = "Perone";
+
+/* No comment provided by engineer. */
+"FINGER" = "Dito";
+
+/* No comment provided by engineer. */
+"FOOT" = "PIEDE";
+
+/* No comment provided by engineer. */
+"FOREARM" = "Avambraccio";
+
+/* No comment provided by engineer. */
+"Growing Region" = "Regione crescita";
+
+/* No comment provided by engineer. */
+"HALLUX" = "Alluce";
+
+/* No comment provided by engineer. */
+"HAND" = "Mano";
+
+/* No comment provided by engineer. */
+"HEAD" = "Testa";
+
+/* No comment provided by engineer. */
+"HEART" = "Cuore";
+
+/* No comment provided by engineer. */
+"HEEL" = "Tacco";
+
+/* No comment provided by engineer. */
+"HIP" = "ANCA";
+
+/* No comment provided by engineer. */
+"HIPS" = "FIANCHI";
+
+/* No comment provided by engineer. */
+"HUMERUS" = "Omero";
+
+/* No comment provided by engineer. */
+"IAC" = "IAC";
+
+/* No comment provided by engineer. */
+"IVP" = "IVP";
+
+/* No comment provided by engineer. */
+"KIDNEY" = "Rene";
+
+/* No comment provided by engineer. */
+"KNEE" = "Ginocchio";
+
+/* No comment provided by engineer. */
+"L SPINE" = "L SPINE";
+
+/* No comment provided by engineer. */
+"LIVER" = "Fegato";
+
+/* No comment provided by engineer. */
+"LOWER LEG" = "LOWER LEG";
+
+/* No comment provided by engineer. */
+"LUNG" = "Polmone";
+
+/* No comment provided by engineer. */
+"MANDIBLE" = "Mandibola";
+
+/* No comment provided by engineer. */
+"MAXILLOFACIAL" = "MAXILLOFACIALE";
+
+/* No comment provided by engineer. */
+"MEDIASTINUM" = "MEDIASTINUM";
+
+/* No comment provided by engineer. */
+"MG" = "MG";
+
+/* No comment provided by engineer. */
+"MR" = "RM";
+
+/* No comment provided by engineer. */
+"NAVICULAR" = "NAVICOLARE";
+
+/* No comment provided by engineer. */
+"NECK" = "COLLO";
+
+/* No comment provided by engineer. */
+"NM" = "NM";
+
+/* No comment provided by engineer. */
+"ORBIT" = "ORBIT";
+
+/* No comment provided by engineer. */
+"ORBITS" = "ORBITS";
+
+/* No comment provided by engineer. */
+"OS CALCIS" = "OS CALCIS";
+
+/* No comment provided by engineer. */
+"OT" = "OT";
+
+/* No comment provided by engineer. */
+"OVARIES" = "OVARIES";
+
+/* No comment provided by engineer. */
+"OVARY" = "OVARY";
+
+/* No comment provided by engineer. */
+"PANCREAS" = "PANCREAS";
+
+/* No comment provided by engineer. */
+"Patient's Actual Age" = "Età reale del paziente";
+
+/* No comment provided by engineer. */
+"Patient's Age At Acquisition" = "Età del paziente all'acquisizione";
+
+/* No comment provided by engineer. */
+"PELVIC" = "Pelvico";
+
+/* No comment provided by engineer. */
+"PELVIS" = "Bacino";
+
+/* No comment provided by engineer. */
+"PITUITARY" = "PITUITARIO";
+
+/* No comment provided by engineer. */
+"PROSTATE" = "PROSTATE";
+
+/* No comment provided by engineer. */
+"PT" = "PT";
+
+/* No comment provided by engineer. */
+"PULMONARY" = "Polmonare";
+
+/* No comment provided by engineer. */
+"RADIUS" = "RADIO";
+
+/* No comment provided by engineer. */
+"Reading..." = "Lettura...";
+
+/* No comment provided by engineer. */
+"RENAL" = "Renale";
+
+/* No comment provided by engineer. */
+"RF" = "RF";
+
+/* No comment provided by engineer. */
+"ROTATOR CUFF" = "ROTATOR CUFF";
+
+/* No comment provided by engineer. */
+"SC" = "SC";
+
+/* No comment provided by engineer. */
+"SCAPHOID" = "SCAFOIDE";
+
+/* No comment provided by engineer. */
+"SCAPULA" = "Scapola";
+
+/* No comment provided by engineer. */
+"SHOULDER" = "SPALLA";
+
+/* No comment provided by engineer. */
+"SINUS" = "SINUS";
+
+/* No comment provided by engineer. */
+"STERNUM" = "STERNO";
+
+/* No comment provided by engineer. */
+"T SPINE" = "T SPINE";
+
+/* No comment provided by engineer. */
+"TALUS" = "TALUS";
+
+/* No comment provided by engineer. */
+"TEMPORAL BONE" = "OSSO TEMPORALE";
+
+/* No comment provided by engineer. */
+"THIGH" = "Coscia";
+
+/* No comment provided by engineer. */
+"This is an example" = "Questo è un esempio";
+
+/* No comment provided by engineer. */
+"THORACIC" = "Toracica";
+
+/* No comment provided by engineer. */
+"THORAX" = "Torace";
+
+/* No comment provided by engineer. */
+"THUMB" = "POLLICE";
+
+/* No comment provided by engineer. */
+"THYROID" = "TIROIDE";
+
+/* No comment provided by engineer. */
+"TIBIA" = "TIBIA";
+
+/* No comment provided by engineer. */
+"TOE" = "TOE";
+
+/* No comment provided by engineer. */
+"TOES" = "DITA DEI PIEDI";
+
+/* No comment provided by engineer. */
+"ULNA" = "ULNA";
+
+/* No comment provided by engineer. */
+"UPPER ARM" = "BRACCIO SUPERIORE";
+
+/* No comment provided by engineer. */
+"US" = "US";
+
+/* No comment provided by engineer. */
+"UTERUS" = "UTERO";
+
+/* No comment provided by engineer. */
+"WRIST" = "POLSO";
+
+/* No comment provided by engineer. */
+"XA" = "XA";
+

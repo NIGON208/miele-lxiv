@@ -1,0 +1,279 @@
+/* Class = "NSTextFieldCell"; title = "pixels"; ObjectID = "4dc-Cs-Z9J"; */
+"4dc-Cs-Z9J.title" = "ピクセル";
+
+/* Class = "NSWindow"; title = "<< do not localize >>"; ObjectID = "12"; */
+"12.title" = "<< do not localize >>";
+
+/* Class = "NSButtonCell"; title = "Secure (HTTPS) connections with certificate:"; ObjectID = "459"; */
+"459.title" = "証明書によるセキュア(HTTPS)接続:";
+
+/* Class = "NSTextFieldCell"; title = "Address:"; ObjectID = "486"; */
+"486.title" = "住所:";
+
+/* Class = "NSTextFieldCell"; title = "Password:"; ObjectID = "491"; */
+"491.title" = "パスワード:";
+
+/* Class = "NSTextFieldCell"; title = "Phone:"; ObjectID = "496"; */
+"496.title" = "電話番号:";
+
+/* Class = "NSButtonCell"; title = "Encrypt ZIP files, with user password"; ObjectID = "501"; */
+"501.title" = "ユーザーのパスワードでZIPファイルを暗号化する";
+
+/* Class = "NSTextFieldCell"; title = "Email:"; ObjectID = "504"; */
+"504.title" = "電子メール:";
+
+/* Class = "NSTextFieldCell"; title = "Filter (Study Table Level):"; ObjectID = "509"; */
+"509.title" = "フィルタ(スタディテーブルレベル):";
+
+/* Class = "NSTextFieldCell"; placeholderString = "An empty filter allows the user to see ALL studies"; ObjectID = "511"; */
+"511.placeholderString" = "空のフィルタを使用すると、すべてのスタディを見ることができます";
+
+/* Class = "NSTextFieldCell"; title = "Name:"; ObjectID = "514"; */
+"514.title" = "名前:";
+
+/* Class = "NSButtonCell"; title = "Remove"; ObjectID = "532"; */
+"532.title" = "削除";
+
+/* Class = "NSButtonCell"; title = "Add"; ObjectID = "536"; */
+"536.title" = "追加";
+
+/* Class = "NSTableColumn"; headerCell.title = "Name"; ObjectID = "562"; */
+"562.headerCell.title" = "名前";
+
+/* Class = "NSTextFieldCell"; title = "Field"; ObjectID = "563"; */
+"563.title" = "Field";
+
+/* Class = "NSSearchFieldCell"; placeholderString = "All"; ObjectID = "570"; */
+"570.placeholderString" = "すべて";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedDisplayName = "All"; ObjectID = "571"; */
+"571.ibShadowedDisplayName" = "すべて";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedDisplayName = "Address"; ObjectID = "572"; */
+"572.ibShadowedDisplayName" = "住所";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedDisplayName = "Password"; ObjectID = "573"; */
+"573.ibShadowedDisplayName" = "パスワード";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedDisplayName = "Phone"; ObjectID = "574"; */
+"574.ibShadowedDisplayName" = "電話番号";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedDisplayName = "Email"; ObjectID = "575"; */
+"575.ibShadowedDisplayName" = "電子メール";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedDisplayName = "Study Predicate"; ObjectID = "576"; */
+"576.ibShadowedDisplayName" = "研究の述語";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedDisplayName = "Name"; ObjectID = "577"; */
+"577.ibShadowedDisplayName" = "名前";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedDisplayName = "Password Creation Date"; ObjectID = "578"; */
+"578.ibShadowedDisplayName" = "パスワード作成日";
+
+/* Class = "NSButtonCell"; title = "Automatic Notifications Emails"; ObjectID = "610"; */
+"610.title" = "自動通知メール";
+
+/* Class = "NSButtonCell"; title = "Authorized to upload DICOM files"; ObjectID = "613"; */
+"613.title" = "DICOMファイルをアップロードする権限があります";
+
+/* Class = "NSButtonCell"; title = "⟳"; ObjectID = "622"; */
+"622.title" = "⟳";
+
+/* Class = "NSTextFieldCell"; title = "The syntax is similar to smart albums. For example:\n(referringPhysician CONTAINS[cd] 'Prof. ROSSET')\n(YES == NO) for an empty list."; ObjectID = "644"; */
+"644.title" = "シンタックスはスマートアルバムに似ています。たとえば、空のリストの場合((referPhysician CONTAINS [cd] 'Prof. SAKAMOTO’)(YES == NO)";
+
+/* Class = "NSButtonCell"; title = "SQL Syntax"; ObjectID = "647"; */
+"647.title" = "SQL構文";
+
+/* Class = "NSButtonCell"; title = "OsiriX Tables"; ObjectID = "648"; */
+"648.title" = "Miele-LXIVテーブル";
+
+/* Class = "NSButtonCell"; title = "Authorized to download DICOM ZIP files"; ObjectID = "653"; */
+"653.title" = "DICOM ZIPファイルをダウンロードする権限があります";
+
+/* Class = "NSButtonCell"; title = "Authorized to transfer DICOM files to himself"; ObjectID = "659"; */
+"659.title" = "DICOMファイルを自分自身に転送する権限を与えられた";
+
+/* Class = "NSButtonCell"; title = "Authorized to transfer DICOM files to anyone"; ObjectID = "663"; */
+"663.title" = "DICOMファイルを誰にでも転送する権限を与えられた";
+
+/* Class = "NSButtonCell"; title = "Delete this user after:"; ObjectID = "693"; */
+"693.title" = "次の後にこのユーザーを削除します。";
+
+/* Class = "NSTextFieldCell"; title = "Duration for temporary user:"; ObjectID = "729"; */
+"729.title" = "一時ユーザーの所要時間:";
+
+/* Class = "NSTextFieldCell"; title = "days"; ObjectID = "735"; */
+"735.title" = "日";
+
+/* Class = "NSButtonCell"; title = "Test"; ObjectID = "739"; */
+"739.title" = "テスト";
+
+/* Class = "NSTextFieldCell"; title = "List of specific studies:"; ObjectID = "742"; */
+"742.title" = "特定の研究のリスト:";
+
+/* Class = "NSTextFieldCell"; title = "Study Instance UIDs & Patient UIDs"; ObjectID = "765"; */
+"765.title" = "調査インスタンスUIDと患者UID";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "776"; */
+"776.title" = "Text Cell";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "777"; */
+"777.title" = "Text Cell";
+
+/* Class = "NSButtonCell"; title = "Remove"; ObjectID = "779"; */
+"779.title" = "削除";
+
+/* Class = "NSButtonCell"; title = "Authorized to share a study with another user"; ObjectID = "837"; */
+"837.title" = "別のユーザーとスタディを共有する権限を与えられました";
+
+/* Class = "NSButtonCell"; title = "Label"; ObjectID = "874"; */
+"874.title" = "ラベル";
+
+/* Class = "NSButtonCell"; title = "Choose"; ObjectID = "875"; */
+"875.title" = "選択";
+
+/* Class = "NSButtonCell"; title = "Add uploaded files to list of specific studies"; ObjectID = "925"; */
+"925.title" = "特定のスタディのリストにアップロードされたファイルを追加する";
+
+/* Class = "NSTextFieldCell"; title = "Local port:"; ObjectID = "948"; */
+"948.title" = "ローカルポート:";
+
+/* Class = "NSButtonCell"; title = "Authorized to edit users through the Web interface (admin account)"; ObjectID = "955"; */
+"955.title" = "Webインターフェイス(管理者アカウント)を使用してユーザーを編集する権限があります。";
+
+/* Class = "NSButtonCell"; title = "Authorized to access all studies of already partially accessible patients"; ObjectID = "970"; */
+"970.title" = "すでに部分的にアクセス可能な患者のすべてのスタディにアクセスする権限";
+
+/* Class = "NSButtonCell"; title = "Require user authentication"; ObjectID = "976"; */
+"976.title" = "ユーザー認証を要求する";
+
+/* Class = "NSTextFieldCell"; title = "Public address:"; ObjectID = "1027"; */
+"1027.title" = "パブリックアドレス:";
+
+/* Class = "NSButtonCell"; title = "Activate the built-in Web Server"; ObjectID = "1036"; */
+"1036.title" = "組み込みのWebサーバーを有効にする";
+
+/* Class = "NSBox"; title = "Options"; ObjectID = "1057"; */
+"1057.title" = "オプション";
+
+/* Class = "NSBox"; title = "Emails (requires the Mail application to be correctly configured on this computer)"; ObjectID = "1065"; */
+"1065.title" = "電子メール(このコンピュータでMailアプリケーションを正しく構成する必要があります)";
+
+/* Class = "NSButtonCell"; title = "Activate WADO Server at /wado"; ObjectID = "1073"; */
+"1073.title" = "/wadoでWADOサーバーを有効にする";
+
+/* Class = "NSTextField"; ibShadowedToolTip = "OsiriX Web Server address, as displayed in the email sent to the users."; ObjectID = "1081"; */
+"1081.ibShadowedToolTip" = "ユーザーに送信される電子メールに表示されるMiele-LXIV Web Serverアドレス。";
+
+/* Class = "NSButtonCell"; title = "Issue automatic notifications when adding studies, send them every:"; ObjectID = "1085"; */
+"1085.title" = "スタディを追加するときに自動通知を発行し、毎週送信します:";
+
+/* Class = "NSTextFieldCell"; title = "Email Address:"; ObjectID = "1086"; */
+"1086.title" = "電子メールアドレス:";
+
+/* Class = "NSTextFieldCell"; placeholderString = "for example: pixmeo@pixmeo.com"; ObjectID = "1087"; */
+"1087.placeholderString" = "たとえば:you@gmail.com";
+
+/* Class = "NSTextFieldCell"; title = "minutes"; ObjectID = "1090"; */
+"1090.title" = "分";
+
+/* Class = "NSButtonCell"; title = "Authorize Weasis & OsiriX as web viewer"; ObjectID = "1091"; */
+"1091.title" = "WebビューアとしてWeasis＆Miele-LXIVを承認する";
+
+/* Class = "NSButtonCell"; title = "Authorize users to restore password by email (see below)"; ObjectID = "1092"; */
+"1092.title" = "ユーザーに電子メールでパスワードを復元する権限を与える(下記参照)";
+
+/* Class = "NSButtonCell"; title = "Prefer Flash over QuickTime movies for series viewing"; ObjectID = "1093"; */
+"1093.title" = "シリーズ視聴のためのQuickTimeムービー以上のFlashを推奨";
+
+/* Class = "NSButtonCell"; title = "Use templates at ~/Library/Application Support/miele-lxiv/WebServicesHTML/"; ObjectID = "1094"; */
+"1094.title" = "~/ライブラリ/Application Support/miele-lxiv/WebServicesHTML/";
+
+/* Class = "NSButtonCell"; title = "Create missing files"; ObjectID = "1095"; */
+"1095.title" = "見つからないファイルを作成する";
+
+/* Class = "NSButtonCell"; title = "Generate Log Events (see network menu)"; ObjectID = "1096"; */
+"1096.title" = "ログイベントを生成する(ネットワークメニューを参照)";
+
+/* Class = "NSButtonCell"; title = "Edit users"; ObjectID = "1133"; */
+"1133.title" = "ユーザーの編集";
+
+/* Class = "NSWindow"; title = "Users"; ObjectID = "1135"; */
+"1135.title" = "ユーザー";
+
+/* Class = "NSButtonCell"; title = "Ok"; ObjectID = "1138"; */
+"1138.title" = "OK";
+
+/* Class = "NSButtonCell"; title = "Authorized to navigate albums"; ObjectID = "1157"; */
+"1157.title" = "アルバムをナビゲートする権限を与えられた";
+
+/* Class = "NSButtonCell"; title = "Authorized to view reports as PDF"; ObjectID = "1179"; */
+"1179.title" = "レポートをPDFとして表示する権限";
+
+/* Class = "NSTextFieldCell"; title = "10'000"; ObjectID = "1183"; */
+"1183.title" = "10'000";
+
+/* Class = "NSTextFieldCell"; title = "Maximum number of frames for movies (Quicktime or Flash):"; ObjectID = "1187"; */
+"1187.title" = "ムービーの最大フレーム数(QuicktimeまたはFlash):";
+
+/* Class = "NSTextFieldCell"; title = "frames"; ObjectID = "1189"; */
+"1189.title" = "フレーム";
+
+/* Class = "NSButtonCell"; title = "Authorized to share a study by creating a temporary user (email)"; ObjectID = "1205"; */
+"1205.title" = "一時的なユーザー(電子メール)を作成してスタディを共有する権限を与えられました";
+
+/* Class = "NSButtonCell"; title = "Built-in SMTP"; ObjectID = "1214"; */
+"1214.title" = "内蔵SMTP";
+
+/* Class = "NSButtonCell"; title = "Mail.app"; ObjectID = "1215"; */
+"1215.title" = "Mail.app";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "1216"; */
+"1216.title" = "Radio";
+
+/* Class = "NSTextFieldCell"; title = "Email Engine:"; ObjectID = "1217"; */
+"1217.title" = "電子メールエンジン:";
+
+/* Class = "NSButtonCell"; title = "Only accept WADO request from identified user"; ObjectID = "1220"; */
+"1220.title" = "特定されたユーザーからのWADO要求のみを受け入れる";
+
+/* Class = "NSButtonCell"; title = "Admin users can delete studies or series"; ObjectID = "1226"; */
+"1226.title" = "管理ユーザーはスタディやシリーズを削除できます";
+
+/* Class = "NSButtonCell"; title = "Display a list of recently viewed patients"; ObjectID = "1230"; */
+"1230.title" = "最近視聴した患者のリストを表示する";
+
+/* Class = "NSTextFieldCell"; title = "Timeout:"; ObjectID = "Bjh-1p-cdf"; */
+"Bjh-1p-cdf.title" = "タイムアウト:";
+
+/* Class = "NSTextFieldCell"; title = "10'000"; ObjectID = "BvQ-RH-Tp7"; */
+"BvQ-RH-Tp7.title" = "10'000";
+
+/* Class = "NSTextFieldCell"; title = "pixels"; ObjectID = "dUl-kg-I4i"; */
+"dUl-kg-I4i.title" = "ピクセル";
+
+/* Class = "NSTextFieldCell"; title = "minutes"; ObjectID = "f4W-NN-Urd"; */
+"f4W-NN-Urd.title" = "分";
+
+/* Class = "NSTextFieldCell"; title = "1'000"; ObjectID = "H9A-IL-kU0"; */
+"H9A-IL-kU0.title" = "1'000";
+
+/* Class = "NSTextFieldCell"; title = "Maximum width for movies:"; ObjectID = "KUm-MU-nK0"; */
+"KUm-MU-nK0.title" = "ムービーの最大幅:";
+
+/* Class = "NSTextFieldCell"; title = "Minimum width for movies / still images:"; ObjectID = "PFi-Zg-jho"; */
+"PFi-Zg-jho.title" = "動画/静止画の最小幅:";
+
+/* Class = "NSTextFieldCell"; title = "10'000"; ObjectID = "pvz-76-qnV"; */
+"pvz-76-qnV.title" = "10'000";
+
+/* Class = "NSTextFieldCell"; title = "Maximum width for still images:"; ObjectID = "vgP-48-4dq"; */
+"vgP-48-4dq.title" = "静止画の最大幅:";
+
+/* Class = "NSTextFieldCell"; title = "pixels"; ObjectID = "vQM-I4-sFl"; */
+"vQM-I4-sFl.title" = "ピクセル";
+
+/* Class = "NSTextFieldCell"; title = "10'000"; ObjectID = "yUL-wL-W2j"; */
+"yUL-wL-W2j.title" = "10'000";
+

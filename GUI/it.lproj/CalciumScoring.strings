@@ -1,0 +1,143 @@
+/* Class = "NSWindow"; title = "Calcium Scoring"; ObjectID = "5"; */
+"5.title" = "Calcio coronarico";
+
+/* Class = "NSButtonCell"; title = "Multislice (Threshold: 90HU)"; ObjectID = "8"; */
+"8.title" = "Multislice (Soglia: 90HU)";
+
+/* Class = "NSButtonCell"; title = "Electron Beam (Threshold: 130HU)"; ObjectID = "9"; */
+"9.title" = "Fascio di elettroni (soglia: 130HU)";
+
+/* Class = "NSBox"; title = "CT"; ObjectID = "12"; */
+"12.title" = "TAC";
+
+/* Class = "NSTableColumn"; headerCell.title = "Vessel"; ObjectID = "52"; */
+"52.headerCell.title" = "Vascello";
+
+/* Class = "NSTableColumn"; headerCell.title = "Score"; ObjectID = "53"; */
+"53.headerCell.title" = "Punteggio";
+
+/* Class = "NSTableColumn"; headerCell.title = "Volume"; ObjectID = "54"; */
+"54.headerCell.title" = "Volume";
+
+/* Class = "NSTableColumn"; headerCell.title = "Mass"; ObjectID = "55"; */
+"55.headerCell.title" = "Massa";
+
+/* Class = "NSFormCell"; title = "Institution:"; ObjectID = "85"; */
+"85.title" = "Istituto:";
+
+/* Class = "NSFormCell"; title = "Patient's Name:"; ObjectID = "86"; */
+"86.title" = "Nome del paziente:";
+
+/* Class = "NSFormCell"; title = "Patient ID:"; ObjectID = "87"; */
+"87.title" = "ID paziente:";
+
+/* Class = "NSFormCell"; title = "Patient's DOB:"; ObjectID = "88"; */
+"88.title" = "Data nascita paziente:";
+
+/* Class = "NSFormCell"; title = "Patient's Age:"; ObjectID = "89"; */
+"89.title" = "Età del paziente:";
+
+/* Class = "NSFormCell"; title = "Patient's Sex:"; ObjectID = "90"; */
+"90.title" = "Sesso del paziente:";
+
+/* Class = "NSFormCell"; title = "Exam Date:"; ObjectID = "91"; */
+"91.title" = "Data dell'esame:";
+
+/* Class = "NSTableColumn"; headerCell.title = "Mass"; ObjectID = "94"; */
+"94.headerCell.title" = "Massa";
+
+/* Class = "NSTableColumn"; headerCell.title = "Volume"; ObjectID = "96"; */
+"96.headerCell.title" = "Volume";
+
+/* Class = "NSTableColumn"; headerCell.title = "Score"; ObjectID = "98"; */
+"98.headerCell.title" = "Punteggio";
+
+/* Class = "NSTableColumn"; headerCell.title = "Vessel"; ObjectID = "100"; */
+"100.headerCell.title" = "Vascello";
+
+/* Class = "NSDateFormatter"; ibShadowedDateFormat = "%d %b %Y"; ObjectID = "130"; */
+"130.ibShadowedDateFormat" = "%d %b %Y";
+
+/* Class = "NSComboBoxCell"; 139.ibShadowedObjectValues[0] = "Left Anterior Descending Artery"; ObjectID = "139"; */
+"139.ibShadowedObjectValues[0]" = "Arteria discendente anteriore sinistra discendente";
+
+/* Class = "NSComboBoxCell"; 139.ibShadowedObjectValues[1] = "Left Coronary Artery"; ObjectID = "139"; */
+"139.ibShadowedObjectValues[1]" = "Arteria coronarica sinistra";
+
+/* Class = "NSComboBoxCell"; 139.ibShadowedObjectValues[2] = "Left Circumflex Artery"; ObjectID = "139"; */
+"139.ibShadowedObjectValues[2]" = "Arteria Circumflex sinistra";
+
+/* Class = "NSComboBoxCell"; 139.ibShadowedObjectValues[3] = "Right Coronary Artery"; ObjectID = "139"; */
+"139.ibShadowedObjectValues[3]" = "Arteria coronarica di destra";
+
+/* Class = "NSComboBoxCell"; title = "Left Anterior Descending Artery"; ObjectID = "139"; */
+"139.title" = "Arteria discendente anteriore sinistra discendente";
+
+/* Class = "NSTextFieldCell"; title = "(Click in the image)"; ObjectID = "140"; */
+"140.title" = "(Clicca nell'immagine)";
+
+/* Class = "NSTextFieldCell"; title = "Starting Point:"; ObjectID = "141"; */
+"141.title" = "Punto di partenza:";
+
+/* Class = "NSTextFieldCell"; title = "px:\t\tx:0 y:0 z:0"; ObjectID = "142"; */
+"142.title" = "px:		x:0 y:0 z:0";
+
+/* Class = "NSTextFieldCell"; title = "value:\t0"; ObjectID = "143"; */
+"143.title" = "valore:	0";
+
+/* Class = "NSTextFieldCell"; title = "mm:\t\tx:0 y:0 z:0"; ObjectID = "144"; */
+"144.title" = "mm:		x:0 y:0 z:0";
+
+/* Class = "NSButtonCell"; title = "Print"; ObjectID = "146"; */
+"146.title" = "Stampa";
+
+/* Class = "NSButtonCell"; title = "Save"; ObjectID = "147"; */
+"147.title" = "Salva";
+
+/* Class = "NSTextFieldCell"; title = "Calcium Score"; ObjectID = "149"; */
+"149.title" = "Calcio coronarico";
+
+/* Class = "NSTextFieldCell"; title = "Calcium Threshold:"; ObjectID = "150"; */
+"150.title" = "Soglia di calcio:";
+
+/* Class = "NSTextFieldCell"; title = "-100 HU"; ObjectID = "151"; */
+"151.title" = "-100 HU";
+
+/* Class = "NSTextFieldCell"; title = "Calcium Score: Risk of Coronary Disease\n0: No identifiable plaque. Very low risk, generally less than 5%\n1-10: Minimal identifiable plaque. Low risk.\n11-100: Definite plaque.  Moderate risk.\n101-400: Definite plaque. Moderately High risk.\n401+: Extensive atherosclerotic. High likelihood of at least one stenosis."; ObjectID = "152"; */
+"152.title" = "Calcio coronarico: Rischio di malattia coronarica
+0: nessuna placca identificabile. Rischio molto basso, generalmente inferiore al 5%.
+1-10: Placca minimamente identificabile. Basso rischio.
+11-100: Placca definita.  Rischio moderato.
+101-400: Placca definitiva. Rischio moderatamente elevato.
+401+: Estesa aterosclerotica. Elevata probabilità di almeno una stenosi.";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "158"; */
+"158.title" = "Radio";
+
+/* Class = "NSFormCell"; title = "Field:"; ObjectID = "159"; */
+"159.title" = "Campo:";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "160"; */
+"160.title" = "Text Cell";
+
+/* Class = "NSTextFieldCell"; title = "123"; ObjectID = "161"; */
+"161.title" = "123";
+
+/* Class = "NSTextFieldCell"; title = "123"; ObjectID = "162"; */
+"162.title" = "123";
+
+/* Class = "NSTextFieldCell"; title = "123"; ObjectID = "163"; */
+"163.title" = "123";
+
+/* Class = "NSTextFieldCell"; title = "123"; ObjectID = "164"; */
+"164.title" = "123";
+
+/* Class = "NSTextFieldCell"; title = "123"; ObjectID = "165"; */
+"165.title" = "123";
+
+/* Class = "NSTextFieldCell"; title = "123"; ObjectID = "166"; */
+"166.title" = "123";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "167"; */
+"167.title" = "Text Cell";
+

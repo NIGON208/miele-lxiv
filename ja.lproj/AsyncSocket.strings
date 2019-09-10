@@ -1,0 +1,18 @@
+/* No comment provided by engineer. */
+"AsyncSocketCanceledError" = "接続のキャンセル";
+
+/* No comment provided by engineer. */
+"AsyncSocketCFSocketError" = "一般的なCFSocketエラー";
+
+/* No comment provided by engineer. */
+"AsyncSocketConnectTimeoutError" = "ホストへの接続試行がタイムアウトしました";
+
+/* No comment provided by engineer. */
+"AsyncSocketReadMaxedOutError" = "読み取り操作が設定された最大長に達しました";
+
+/* No comment provided by engineer. */
+"AsyncSocketReadTimeoutError" = "読み取り操作がタイムアウトしました";
+
+/* No comment provided by engineer. */
+"AsyncSocketWriteTimeoutError" = "書き込み操作がタイムアウトしました";
+

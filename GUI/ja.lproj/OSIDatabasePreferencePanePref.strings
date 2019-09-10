@@ -1,0 +1,482 @@
+/* Class = "NSMenuItem"; title = "30 %"; ObjectID = "0lJ-d1-nP8"; */
+"0lJ-d1-nP8.title" = "30 %";
+
+/* Class = "NSWindow"; title = "<< do not localize >>"; ObjectID = "12"; */
+"12.title" = "<< do not localize >>";
+
+/* Class = "NSButtonCell"; ibShadowedToolTip = "Default Location is your home Documents folder."; ObjectID = "99"; */
+"99.ibShadowedToolTip" = "デフォルトの場所はホームのDocumentsフォルダです。";
+
+/* Class = "NSButtonCell"; title = "Recommended"; ObjectID = "99"; */
+"99.title" = "推奨";
+
+/* Class = "NSButtonCell"; ibShadowedToolTip = "Put Data folder where you want."; ObjectID = "101"; */
+"101.ibShadowedToolTip" = "あなたが望む場所にデータフォルダを置く。";
+
+/* Class = "NSButtonCell"; title = "Other:"; ObjectID = "101"; */
+"101.title" = "その他:";
+
+/* Class = "NSBox"; title = "File Management"; ObjectID = "107"; */
+"107.title" = "ファイル管理";
+
+/* Class = "NSBox"; title = "Database Display"; ObjectID = "145"; */
+"145.title" = "データベース表示";
+
+/* Class = "NSBox"; title = "Database Auto-Cleaning"; ObjectID = "262"; */
+"262.title" = "データベース自動クリーニング";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "272"; */
+"272.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Three months"; ObjectID = "273"; */
+"273.title" = "3ヶ月";
+
+/* Class = "NSMenuItem"; title = "One week"; ObjectID = "274"; */
+"274.title" = "1週間";
+
+/* Class = "NSMenuItem"; title = "One month"; ObjectID = "275"; */
+"275.title" = "1ヶ月";
+
+/* Class = "NSMenuItem"; title = "Six months"; ObjectID = "286"; */
+"286.title" = "六ヶ月";
+
+/* Class = "NSMenuItem"; title = "One year"; ObjectID = "287"; */
+"287.title" = "1年";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "289"; */
+"289.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Three months"; ObjectID = "290"; */
+"290.title" = "3ヶ月";
+
+/* Class = "NSMenuItem"; title = "One week"; ObjectID = "291"; */
+"291.title" = "1週間";
+
+/* Class = "NSMenuItem"; title = "Six months"; ObjectID = "292"; */
+"292.title" = "六ヶ月";
+
+/* Class = "NSMenuItem"; title = "One month"; ObjectID = "293"; */
+"293.title" = "1ヶ月";
+
+/* Class = "NSMenuItem"; title = "One year"; ObjectID = "294"; */
+"294.title" = "1年";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "297"; */
+"297.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "1 GB"; ObjectID = "298"; */
+"298.title" = "1 GB";
+
+/* Class = "NSMenuItem"; title = "20 MB"; ObjectID = "299"; */
+"299.title" = "20 MB";
+
+/* Class = "NSMenuItem"; title = "100 MB"; ObjectID = "300"; */
+"300.title" = "100 MB";
+
+/* Class = "NSMenuItem"; title = "5 GB"; ObjectID = "305"; */
+"305.title" = "5 GB";
+
+/* Class = "NSBox"; title = "Sort Series by"; ObjectID = "321"; */
+"321.title" = "シリーズを並べ替える";
+
+/* Class = "NSBox"; title = "Comments & Status fields"; ObjectID = "350"; */
+"350.title" = "コメントとステータスフィールド";
+
+/* Class = "NSBox"; title = "Series Parsing"; ObjectID = "369"; */
+"369.title" = "シリーズ解析";
+
+/* Class = "NSBox"; title = "Reports"; ObjectID = "381"; */
+"381.title" = "報告";
+
+/* Class = "NSButtonCell"; title = "Acquisition date is older than :"; ObjectID = "495"; */
+"495.title" = "取得日が次より古い:";
+
+/* Class = "NSButtonCell"; title = "Not opened during last:"; ObjectID = "496"; */
+"496.title" = "最後に開いていない:";
+
+/* Class = "NSButtonCell"; title = "Only if 'comments' field:"; ObjectID = "497"; */
+"497.title" = "「コメント」フィールドの場合のみ:";
+
+/* Class = "NSButtonCell"; title = "contains:"; ObjectID = "499"; */
+"499.title" = "含まれるもの:";
+
+/* Class = "NSButtonCell"; title = "doesn't contain:"; ObjectID = "500"; */
+"500.title" = "doesn't contain:";
+
+/* Class = "NSButtonCell"; title = "Series ID"; ObjectID = "510"; */
+"510.title" = "シリーズID";
+
+/* Class = "NSButtonCell"; title = "Series Acquisition Time"; ObjectID = "511"; */
+"511.title" = "シリーズ取得時間";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "536"; */
+"536.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Pages (.pages)"; ObjectID = "537"; */
+"537.title" = "Pages (.pages)";
+
+/* Class = "NSMenuItem"; title = "TextEdit (.rtf)"; ObjectID = "538"; */
+"538.title" = "TextEdit (.rtf)";
+
+/* Class = "NSMenuItem"; title = "Microsoft Word (.doc)"; ObjectID = "539"; */
+"539.title" = "Microsoft Word (.doc)";
+
+/* Class = "NSMenuItem"; title = "Plugins"; ObjectID = "541"; */
+"541.title" = "プラグイン";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Using the 0018,0022 (ScanOptions) field"; ObjectID = "547"; */
+"547.ibShadowedToolTip" = "0018,0022(ScanOptions)フィールドの使用";
+
+/* Class = "NSButtonCell"; title = "Always"; ObjectID = "601"; */
+"601.title" = "常に";
+
+/* Class = "NSButtonCell"; title = "Combine"; ObjectID = "609"; */
+"609.title" = "結合";
+
+/* Class = "NSButtonCell"; title = "Split"; ObjectID = "610"; */
+"610.title" = "分割";
+
+/* Class = "NSMenuItem"; title = "10 GB"; ObjectID = "633"; */
+"633.title" = "10 GB";
+
+/* Class = "NSMenuItem"; title = "40 GB"; ObjectID = "634"; */
+"634.title" = "40 GB";
+
+/* Class = "NSMenuItem"; title = "20 GB"; ObjectID = "635"; */
+"635.title" = "20 GB";
+
+/* Class = "NSTextFieldCell"; title = "Default Database Location:"; ObjectID = "754"; */
+"754.title" = "デフォルトのデータベースの場所:";
+
+/* Class = "NSButtonCell"; title = "Copy files to Data folder if:"; ObjectID = "755"; */
+"755.title" = "次の場合、ファイルをデータフォルダにコピーします:";
+
+/* Class = "NSButtonCell"; title = "Select"; ObjectID = "756"; */
+"756.title" = "選択";
+
+/* Class = "NSButtonCell"; title = "Import DICOM file format only (ignore JPEG, TIFF, LSM, Analyze...)"; ObjectID = "757"; */
+"757.title" = "DICOMファイル形式のみをインポートする(JPEG、TIFF、LSM、Analyze 無視する)";
+
+/* Class = "NSTextFieldCell"; title = "(Current user Documents folder)"; ObjectID = "759"; */
+"759.title" = "(現在のユーザーのドキュメントフォルダ)";
+
+/* Class = "NSTextFieldCell"; title = "Date & Time Format:"; ObjectID = "761"; */
+"761.title" = "日付と時刻の形式:";
+
+/* Class = "NSTextFieldCell"; title = "dd/bb/cc"; ObjectID = "762"; */
+"762.title" = "dd/bb/cc";
+
+/* Class = "NSButtonCell"; title = "Reset"; ObjectID = "763"; */
+"763.title" = "リセット";
+
+/* Class = "NSTextFieldCell"; title = "Date Only Format:"; ObjectID = "764"; */
+"764.title" = "日付のみフォーマット:";
+
+/* Class = "NSTextFieldCell"; title = "dd/bb/cc"; ObjectID = "765"; */
+"765.title" = "dd/bb/cc";
+
+/* Class = "NSButtonCell"; title = "Reset"; ObjectID = "766"; */
+"766.title" = "リセット";
+
+/* Class = "NSButtonCell"; title = "Always display all studies of each patient"; ObjectID = "767"; */
+"767.title" = "各患者のすべてのスタディを常に表示する";
+
+/* Class = "NSButtonCell"; title = "Delete studies at these conditions:"; ObjectID = "768"; */
+"768.title" = "以下の条件で試験を削除する:";
+
+/* Class = "NSButtonCell"; title = "If HD free space is less than:"; ObjectID = "771"; */
+"771.title" = "HDの空き容量が以下の場合:";
+
+/* Class = "NSTextFieldCell"; title = "delete:"; ObjectID = "773"; */
+"773.title" = "削除:";
+
+/* Class = "NSButtonCell"; title = "If image files are linked files (not stored in the Database folder), also delete the original file"; ObjectID = "775"; */
+"775.title" = "イメージファイルがリンクされたファイル(データベースフォルダに格納されていない)である場合は、元のファイルも削除します";
+
+/* Class = "NSTextFieldCell"; title = "If all checked conditions are true.\nIf a study is in an album, it will NOT be deleted."; ObjectID = "776"; */
+"776.title" = "すべてのチェックされた条件が真である場合
+スタディがアルバム内にある場合、そのスタディは削除されません。";
+
+/* Class = "NSButtonCell"; title = "DICOM Field(s) to fill:"; ObjectID = "777"; */
+"777.title" = "DICOM記入項目:";
+
+/* Class = "NSTextFieldCell"; title = "Group:"; ObjectID = "778"; */
+"778.title" = "グループ:";
+
+/* Class = "NSTextFieldCell"; title = "Element:"; ObjectID = "779"; */
+"779.title" = "項目";
+
+/* Class = "NSTextFieldCell"; title = "0x0000"; ObjectID = "780"; */
+"780.title" = "0x0000";
+
+/* Class = "NSButtonCell"; title = "Split Multi-echo MR"; ObjectID = "782"; */
+"782.title" = "スプリットマルチエコーMR";
+
+/* Class = "NSButtonCell"; title = "For CR, DR, DX, MG and RF:"; ObjectID = "783"; */
+"783.title" = "CR、DR、DX、MG、RFの場合:";
+
+/* Class = "NSButtonCell"; title = "Use Series Description"; ObjectID = "784"; */
+"784.title" = "シリーズ説明を使用";
+
+/* Class = "NSButtonCell"; title = "Split 4D Cardiac CT"; ObjectID = "785"; */
+"785.title" = "スプリット4D心臓CT";
+
+/* Class = "NSTextFieldCell"; title = "Create reports using:"; ObjectID = "787"; */
+"787.title" = "次の方法でレポートを作成します。";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "788"; */
+"788.title" = "Radio";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "789"; */
+"789.title" = "Radio";
+
+/* Class = "NSButtonCell"; title = "Older than :"; ObjectID = "791"; */
+"791.title" = "より古い :";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "793"; */
+"793.title" = "Radio";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "794"; */
+"794.title" = "Radio";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "795"; */
+"795.title" = "Radio";
+
+/* Class = "NSButtonCell"; title = "For US : one series per file"; ObjectID = "797"; */
+"797.title" = "USの場合:1ファイルにつき1シリーズ";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "802"; */
+"802.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "DICOM Fields"; ObjectID = "803"; */
+"803.title" = "DICOMフィールド";
+
+/* Class = "NSMenuItem"; title = "Item 2"; ObjectID = "804"; */
+"804.title" = "Item 2";
+
+/* Class = "NSMenuItem"; title = "Item 3"; ObjectID = "805"; */
+"805.title" = "Item 3";
+
+/* Class = "NSButtonCell"; title = "Gather localizer images with Series Description:"; ObjectID = "814"; */
+"814.title" = "Seriesでローカライザー画像を収集する説明:";
+
+/* Class = "NSButtonCell"; title = "Regenerate"; ObjectID = "817"; */
+"817.title" = "再生成";
+
+/* Class = "NSButtonCell"; title = "Don't delete a study, if there are comments (Comment Field of the Database)"; ObjectID = "822"; */
+"822.title" = "スタディを削除しないでください。コメントがあれば(データベースのコメントフィールド)";
+
+/* Class = "NSMenuItem"; title = "LibreOffice (.odt)"; ObjectID = "828"; */
+"828.title" = "LibreOffice (.odt)";
+
+/* Class = "NSButtonCell"; title = "Validate files before importing files from CD/DVD or external files (crash test)"; ObjectID = "830"; */
+"830.title" = "CD/DVDまたは外部ファイルからファイルをインポートする前にファイルを検証する(クラッシュテスト)";
+
+/* Class = "NSBox"; title = "Sort Images by"; ObjectID = "847"; */
+"847.title" = "画像を並べ替える";
+
+/* Class = "NSButtonCell"; title = "Instance Number"; ObjectID = "849"; */
+"849.title" = "インスタンス番号";
+
+/* Class = "NSButtonCell"; title = "Ascending Slice Location"; ObjectID = "850"; */
+"850.title" = "上昇するスライスの位置";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "851"; */
+"851.title" = "Radio";
+
+/* Class = "NSButtonCell"; title = "Descending Slice Location"; ObjectID = "853"; */
+"853.title" = "下降スライスの位置";
+
+/* Class = "NSButtonCell"; title = "Store them in DICOM files fields"; ObjectID = "856"; */
+"856.title" = "それらをDICOMファイルフィールドに格納する";
+
+/* Class = "NSTextFieldCell"; title = "List of SOP Class UIDs displayed: "; ObjectID = "859"; */
+"859.title" = "表示されるSOPクラスUIDのリスト: ";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "870"; */
+"870.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Item 1"; ObjectID = "871"; */
+"871.title" = "Item 1";
+
+/* Class = "NSMenuItem"; title = "Item 2"; ObjectID = "872"; */
+"872.title" = "Item 2";
+
+/* Class = "NSMenuItem"; title = "Item 3"; ObjectID = "873"; */
+"873.title" = "Item 3";
+
+/* Class = "NSButtonCell"; title = "Load them from DICOM files fields"; ObjectID = "876"; */
+"876.title" = "DICOMファイルフィールドからそれらをロードする";
+
+/* Class = "NSTextFieldCell"; title = "localizer, scout"; ObjectID = "881"; */
+"881.title" = "ローカライザー、スカウト";
+
+/* Class = "NSButtonCell"; title = "Ascending Date"; ObjectID = "883"; */
+"883.title" = "昇順の日付";
+
+/* Class = "NSButtonCell"; title = "Descending Date"; ObjectID = "884"; */
+"884.title" = "下降日";
+
+/* Class = "NSMenuItem"; title = "5 %"; ObjectID = "887"; */
+"887.title" = "5 %";
+
+/* Class = "NSMenuItem"; title = "10 %"; ObjectID = "889"; */
+"889.title" = "10 %";
+
+/* Class = "NSMenuItem"; title = "20 %"; ObjectID = "890"; */
+"890.title" = "20 %";
+
+/* Class = "NSMenuItem"; title = "15 %"; ObjectID = "891"; */
+"891.title" = "15 %";
+
+/* Class = "NSButtonCell"; title = "If files aren't located on the HD"; ObjectID = "896"; */
+"896.title" = "ファイルがHD上にない場合";
+
+/* Class = "NSButtonCell"; title = "Ask the user"; ObjectID = "898"; */
+"898.title" = "ユーザーに尋ねる";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "907"; */
+"907.title" = "Radio";
+
+/* Class = "NSButtonCell"; title = "Least recently created"; ObjectID = "908"; */
+"908.title" = "少なくとも最近作成された";
+
+/* Class = "NSButtonCell"; title = "Least recently added"; ObjectID = "909"; */
+"909.title" = "少なくとも最近追加された";
+
+/* Class = "NSButtonCell"; title = "Least recently opened"; ObjectID = "910"; */
+"910.title" = "少なくとも最近オープンした";
+
+/* Class = "NSButtonCell"; title = "Automatically create a DICOM PDF file of the report, when status is changed to \"validated\""; ObjectID = "920"; */
+"920.title" = "ステータスが「有効」に変更されると、レポートのDICOM PDFファイルが自動的に作成されます。";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "926"; */
+"926.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Item 1"; ObjectID = "927"; */
+"927.title" = "Item 1";
+
+/* Class = "NSMenuItem"; title = "Item 2"; ObjectID = "928"; */
+"928.title" = "Item 2";
+
+/* Class = "NSMenuItem"; title = "Item 3"; ObjectID = "929"; */
+"929.title" = "Item 3";
+
+/* Class = "NSTextFieldCell"; title = "List of SOP Class UIDs stored: "; ObjectID = "930"; */
+"930.title" = "格納されているSOPクラスUIDのリスト: ";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "935"; */
+"935.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "DICOM Field 1 :"; ObjectID = "936"; */
+"936.title" = "DICOMフィールド1:";
+
+/* Class = "NSMenuItem"; title = "DICOM Field 2 :"; ObjectID = "937"; */
+"937.title" = "DICOMフィールド2:";
+
+/* Class = "NSMenuItem"; title = "DICOM Field 3 :"; ObjectID = "938"; */
+"938.title" = "DICOMフィールド3:";
+
+/* Class = "NSMenuItem"; title = "DICOM Field 4 :"; ObjectID = "939"; */
+"939.title" = "DICOMフィールド4:";
+
+/* Class = "NSButtonCell"; title = "Display patient's names and descriptions with Capitalized Words"; ObjectID = "946"; */
+"946.title" = "患者の名前と説明を大文字で表示する";
+
+/* Class = "NSButtonCell"; title = "Clear Search field (in the toolbar), when changing current album"; ObjectID = "952"; */
+"952.title" = "現在のアルバムを変更するときに、ツールバーの検索フィールドをクリアする";
+
+/* Class = "NSBox"; title = "Patient Unique Identifier"; ObjectID = "955"; */
+"955.title" = "患者固有の識別子";
+
+/* Class = "NSButtonCell"; title = "Patient ID"; ObjectID = "971"; */
+"971.title" = "患者ID";
+
+/* Class = "NSButtonCell"; title = "Patient BirthDate"; ObjectID = "972"; */
+"972.title" = "患者の生年月日";
+
+/* Class = "NSButtonCell"; title = "Patient's Name"; ObjectID = "973"; */
+"973.title" = "患者の名前";
+
+/* Class = "NSTextFieldCell"; title = "Use following fields to generate Patient UID:"; ObjectID = "982"; */
+"982.title" = "次のフィールドを使用してPatient UIDを生成します:";
+
+/* Class = "NSTextFieldCell"; title = "Changing these settings will recompute all database patientUIDs.\nIt can require several minutes on large database."; ObjectID = "984"; */
+"984.title" = "これらの設定を変更すると、すべてのデータベースのpatientUIDが再計算されます。
+大規模データベースでは数分かかることがあります。";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "1004"; */
+"1004.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Comments 4"; ObjectID = "1005"; */
+"1005.title" = "コメント4";
+
+/* Class = "NSMenuItem"; title = "Comments 3"; ObjectID = "1006"; */
+"1006.title" = "コメント3";
+
+/* Class = "NSMenuItem"; title = "Comments 2"; ObjectID = "1007"; */
+"1007.title" = "コメント2";
+
+/* Class = "NSMenuItem"; title = "Comments"; ObjectID = "1008"; */
+"1008.title" = "コメント";
+
+/* Class = "NSTextFieldCell"; title = "Patient's age:"; ObjectID = "1012"; */
+"1012.title" = "患者の年齢:";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "1015"; */
+"1015.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Current Age"; ObjectID = "1016"; */
+"1016.title" = "現在の年齢";
+
+/* Class = "NSMenuItem"; title = "Age at acquisition time"; ObjectID = "1017"; */
+"1017.title" = "取得時の年齢";
+
+/* Class = "NSMenuItem"; title = "Both, if different"; ObjectID = "1018"; */
+"1018.title" = "両方とも、異なる場合";
+
+/* Class = "NSButtonCell"; title = "Study"; ObjectID = "1021"; */
+"1021.title" = "スタディ";
+
+/* Class = "NSButtonCell"; title = "Series"; ObjectID = "1025"; */
+"1025.title" = "シリーズ";
+
+/* Class = "NSTextFieldCell"; title = "Level:"; ObjectID = "1029"; */
+"1029.title" = "レベル:";
+
+/* Class = "NSButtonCell"; title = "Automatically delete the ENTIRE default database, at each startup: all studies will be deleted."; ObjectID = "1033"; */
+"1033.title" = "起動時に自動的に全デフォルトデータベースを自動的に削除する:すべてのスタディが削除されます。";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "1039"; */
+"1039.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Large"; ObjectID = "1040"; */
+"1040.title" = "大";
+
+/* Class = "NSMenuItem"; title = "Regular"; ObjectID = "1041"; */
+"1041.title" = "レギュラー";
+
+/* Class = "NSMenuItem"; title = "Small"; ObjectID = "1042"; */
+"1042.title" = "小";
+
+/* Class = "NSTextFieldCell"; title = "Font Size:"; ObjectID = "1043"; */
+"1043.title" = "フォントサイズ:";
+
+/* Class = "NSButtonCell"; title = "Don't delete a study, if it is stored in an album (smart albums are not considered)"; ObjectID = "ENc-og-Jds"; */
+"ENc-og-Jds.title" = "スタディがアルバムに保存されている場合は削除しないでください(スマートアルバムは考慮されません)";
+
+/* Class = "NSMenuItem"; title = "Two weeks"; ObjectID = "k9l-Sm-hVU"; */
+"k9l-Sm-hVU.title" = "2週間";
+
+/* Class = "NSMenuItem"; title = "40 %"; ObjectID = "pC2-mw-D6N"; */
+"pC2-mw-D6N.title" = "40 %";
+
+/* Class = "NSButtonCell"; title = "Display the History Drawer horizontally"; ObjectID = "pPT-1s-tm1"; */
+"pPT-1s-tm1.title" = "ヒストリードロワーを水平に表示する";
+
+/* Class = "NSMenuItem"; title = "Two weeks"; ObjectID = "r3S-NM-Xdy"; */
+"r3S-NM-Xdy.title" = "2週間";
+
+/* Class = "NSMenuItem"; title = "50 %"; ObjectID = "ztl-T2-ykc"; */
+"ztl-T2-ykc.title" = "50 %";
+

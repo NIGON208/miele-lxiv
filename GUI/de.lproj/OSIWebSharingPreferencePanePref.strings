@@ -1,0 +1,279 @@
+/* Class = "NSTextFieldCell"; title = "pixels"; ObjectID = "4dc-Cs-Z9J"; */
+"4dc-Cs-Z9J.title" = "Pixel";
+
+/* Class = "NSWindow"; title = "<< do not localize >>"; ObjectID = "12"; */
+"12.title" = "<< do not localize >>";
+
+/* Class = "NSButtonCell"; title = "Secure (HTTPS) connections with certificate:"; ObjectID = "459"; */
+"459.title" = "Sichere (HTTPS) Verbindungen mit Zertifikat:";
+
+/* Class = "NSTextFieldCell"; title = "Address:"; ObjectID = "486"; */
+"486.title" = "Adresse:";
+
+/* Class = "NSTextFieldCell"; title = "Password:"; ObjectID = "491"; */
+"491.title" = "Passwort:";
+
+/* Class = "NSTextFieldCell"; title = "Phone:"; ObjectID = "496"; */
+"496.title" = "Telefon:";
+
+/* Class = "NSButtonCell"; title = "Encrypt ZIP files, with user password"; ObjectID = "501"; */
+"501.title" = "ZIP-Dateien verschlüsseln, mit Benutzer-Passwort";
+
+/* Class = "NSTextFieldCell"; title = "Email:"; ObjectID = "504"; */
+"504.title" = "E-Mail:";
+
+/* Class = "NSTextFieldCell"; title = "Filter (Study Table Level):"; ObjectID = "509"; */
+"509.title" = "Filter (Studie Tabellen Ebene):";
+
+/* Class = "NSTextFieldCell"; placeholderString = "An empty filter allows the user to see ALL studies"; ObjectID = "511"; */
+"511.placeholderString" = "Ein leerer Filter ermöglicht es dem Benutzer ALLE Studien zu sehen";
+
+/* Class = "NSTextFieldCell"; title = "Name:"; ObjectID = "514"; */
+"514.title" = "Name:";
+
+/* Class = "NSButtonCell"; title = "Remove"; ObjectID = "532"; */
+"532.title" = "Entfernen";
+
+/* Class = "NSButtonCell"; title = "Add"; ObjectID = "536"; */
+"536.title" = "Hinzufügen";
+
+/* Class = "NSTableColumn"; headerCell.title = "Name"; ObjectID = "562"; */
+"562.headerCell.title" = "Name";
+
+/* Class = "NSTextFieldCell"; title = "Field"; ObjectID = "563"; */
+"563.title" = "Feld";
+
+/* Class = "NSSearchFieldCell"; placeholderString = "All"; ObjectID = "570"; */
+"570.placeholderString" = "Alle";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedDisplayName = "All"; ObjectID = "571"; */
+"571.ibShadowedDisplayName" = "Alle";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedDisplayName = "Address"; ObjectID = "572"; */
+"572.ibShadowedDisplayName" = "Adresse";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedDisplayName = "Password"; ObjectID = "573"; */
+"573.ibShadowedDisplayName" = "Passwort";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedDisplayName = "Phone"; ObjectID = "574"; */
+"574.ibShadowedDisplayName" = "Telefon";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedDisplayName = "Email"; ObjectID = "575"; */
+"575.ibShadowedDisplayName" = "E-Mail";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedDisplayName = "Study Predicate"; ObjectID = "576"; */
+"576.ibShadowedDisplayName" = "Studienprädikat";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedDisplayName = "Name"; ObjectID = "577"; */
+"577.ibShadowedDisplayName" = "Name";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedDisplayName = "Password Creation Date"; ObjectID = "578"; */
+"578.ibShadowedDisplayName" = "Kennwort Schöpfung Datum";
+
+/* Class = "NSButtonCell"; title = "Automatic Notifications Emails"; ObjectID = "610"; */
+"610.title" = "Automatische Benachrichtigungen E-Mails";
+
+/* Class = "NSButtonCell"; title = "Authorized to upload DICOM files"; ObjectID = "613"; */
+"613.title" = "Ermächtigt, DICOM-Dateien hochzuladen";
+
+/* Class = "NSButtonCell"; title = "⟳"; ObjectID = "622"; */
+"622.title" = "⟳";
+
+/* Class = "NSTextFieldCell"; title = "The syntax is similar to smart albums. For example:\n(referringPhysician CONTAINS[cd] 'Prof. ROSSET')\n(YES == NO) for an empty list."; ObjectID = "644"; */
+"644.title" = "Die Syntax ähnelt den intelligenten Alben. Zum Beispiel: (referringPhysician CONTAINS [cd] ' Prof. Bettarini ') (YES = = NO) für eine leere Liste.";
+
+/* Class = "NSButtonCell"; title = "SQL Syntax"; ObjectID = "647"; */
+"647.title" = "SQL-Syntax";
+
+/* Class = "NSButtonCell"; title = "OsiriX Tables"; ObjectID = "648"; */
+"648.title" = "Miele-LXIV Tabellen";
+
+/* Class = "NSButtonCell"; title = "Authorized to download DICOM ZIP files"; ObjectID = "653"; */
+"653.title" = "Berechtigt zum Download von DICOM-ZIP-Dateien";
+
+/* Class = "NSButtonCell"; title = "Authorized to transfer DICOM files to himself"; ObjectID = "659"; */
+"659.title" = "Autorisiert DICOM-Dateien an sich selbst zu übertragen";
+
+/* Class = "NSButtonCell"; title = "Authorized to transfer DICOM files to anyone"; ObjectID = "663"; */
+"663.title" = "Berechtigt, DICOM-Dateien an jeden zu übertragen";
+
+/* Class = "NSButtonCell"; title = "Delete this user after:"; ObjectID = "693"; */
+"693.title" = "Löschen Sie diesen Benutzer nach:";
+
+/* Class = "NSTextFieldCell"; title = "Duration for temporary user:"; ObjectID = "729"; */
+"729.title" = "Dauer für temporäre Benutzer:";
+
+/* Class = "NSTextFieldCell"; title = "days"; ObjectID = "735"; */
+"735.title" = "Tage";
+
+/* Class = "NSButtonCell"; title = "Test"; ObjectID = "739"; */
+"739.title" = "Test";
+
+/* Class = "NSTextFieldCell"; title = "List of specific studies:"; ObjectID = "742"; */
+"742.title" = "Liste der spezifischen Studien:";
+
+/* Class = "NSTextFieldCell"; title = "Study Instance UIDs & Patient UIDs"; ObjectID = "765"; */
+"765.title" = "Studie Instance UIDs & Patient UIDs";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "776"; */
+"776.title" = "Text Cell";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "777"; */
+"777.title" = "Text Cell";
+
+/* Class = "NSButtonCell"; title = "Remove"; ObjectID = "779"; */
+"779.title" = "Entfernen";
+
+/* Class = "NSButtonCell"; title = "Authorized to share a study with another user"; ObjectID = "837"; */
+"837.title" = "Autorisiert, eine Studie mit einem anderen Nutzer zu teilen";
+
+/* Class = "NSButtonCell"; title = "Label"; ObjectID = "874"; */
+"874.title" = "Label";
+
+/* Class = "NSButtonCell"; title = "Choose"; ObjectID = "875"; */
+"875.title" = "Auswählen";
+
+/* Class = "NSButtonCell"; title = "Add uploaded files to list of specific studies"; ObjectID = "925"; */
+"925.title" = "Fügen Sie hochgeladene Dateien in die Liste der spezifischen Studien ein";
+
+/* Class = "NSTextFieldCell"; title = "Local port:"; ObjectID = "948"; */
+"948.title" = "Örtlicher Hafen:";
+
+/* Class = "NSButtonCell"; title = "Authorized to edit users through the Web interface (admin account)"; ObjectID = "955"; */
+"955.title" = "Autorisiert, Benutzer über die Web-Schnittstelle zu bearbeiten (Admin-Konto)";
+
+/* Class = "NSButtonCell"; title = "Authorized to access all studies of already partially accessible patients"; ObjectID = "970"; */
+"970.title" = "Autorisiert auf alle Studien von bereits teilweise zugänglichen Patienten";
+
+/* Class = "NSButtonCell"; title = "Require user authentication"; ObjectID = "976"; */
+"976.title" = "Benaire Authentifizierung";
+
+/* Class = "NSTextFieldCell"; title = "Public address:"; ObjectID = "1027"; */
+"1027.title" = "Öffentliche Adresse:";
+
+/* Class = "NSButtonCell"; title = "Activate the built-in Web Server"; ObjectID = "1036"; */
+"1036.title" = "Aktivieren Sie den eingebauten Web-Server";
+
+/* Class = "NSBox"; title = "Options"; ObjectID = "1057"; */
+"1057.title" = "Optionen";
+
+/* Class = "NSBox"; title = "Emails (requires the Mail application to be correctly configured on this computer)"; ObjectID = "1065"; */
+"1065.title" = "E-Mails (erfordert, dass die Mail-Anwendung auf diesem Computer korrekt konfiguriert wird)";
+
+/* Class = "NSButtonCell"; title = "Activate WADO Server at /wado"; ObjectID = "1073"; */
+"1073.title" = "WADO-Server unter/wado aktivieren";
+
+/* Class = "NSTextField"; ibShadowedToolTip = "OsiriX Web Server address, as displayed in the email sent to the users."; ObjectID = "1081"; */
+"1081.ibShadowedToolTip" = "Miele-LXIV Web Server Adresse, wie in der E-Mail an die Nutzer gesendet angezeigt.";
+
+/* Class = "NSButtonCell"; title = "Issue automatic notifications when adding studies, send them every:"; ObjectID = "1085"; */
+"1085.title" = "Automatische Benachrichtigung senden, wenn Studien hinzufügt werden, Benachrichtigung senden alle:";
+
+/* Class = "NSTextFieldCell"; title = "Email Address:"; ObjectID = "1086"; */
+"1086.title" = "E-Mail-Adresse:";
+
+/* Class = "NSTextFieldCell"; placeholderString = "for example: pixmeo@pixmeo.com"; ObjectID = "1087"; */
+"1087.placeholderString" = "Zum Beispiel: gpl3@bettar.com";
+
+/* Class = "NSTextFieldCell"; title = "minutes"; ObjectID = "1090"; */
+"1090.title" = "Minuten";
+
+/* Class = "NSButtonCell"; title = "Authorize Weasis & OsiriX as web viewer"; ObjectID = "1091"; */
+"1091.title" = "Autorisieren Sie Weasis & Miele-LXIV als Web-Viewer";
+
+/* Class = "NSButtonCell"; title = "Authorize users to restore password by email (see below)"; ObjectID = "1092"; */
+"1092.title" = "Ermächtigen Sie die Wiederherstellung des Passworts per E-Mail (siehe unten)";
+
+/* Class = "NSButtonCell"; title = "Prefer Flash over QuickTime movies for series viewing"; ObjectID = "1093"; */
+"1093.title" = "Flash über QuickTime-Filme für Serienbetrachtung bevorzugen";
+
+/* Class = "NSButtonCell"; title = "Use templates at ~/Library/Application Support/miele-lxiv/WebServicesHTML/"; ObjectID = "1094"; */
+"1094.title" = "Verwenden Sie Vorlagen bei ~/Library/Application Support/miele-lxiv/WebServicesHTML/";
+
+/* Class = "NSButtonCell"; title = "Create missing files"; ObjectID = "1095"; */
+"1095.title" = "Fehlende Dateien erstellen";
+
+/* Class = "NSButtonCell"; title = "Generate Log Events (see network menu)"; ObjectID = "1096"; */
+"1096.title" = "Log-Events generieren (siehe Netzwerkmenü)";
+
+/* Class = "NSButtonCell"; title = "Edit users"; ObjectID = "1133"; */
+"1133.title" = "Nutzer bearbeiten";
+
+/* Class = "NSWindow"; title = "Users"; ObjectID = "1135"; */
+"1135.title" = "Benutzer";
+
+/* Class = "NSButtonCell"; title = "Ok"; ObjectID = "1138"; */
+"1138.title" = "Ok";
+
+/* Class = "NSButtonCell"; title = "Authorized to navigate albums"; ObjectID = "1157"; */
+"1157.title" = "Autorisiert, Alben zu navigieren";
+
+/* Class = "NSButtonCell"; title = "Authorized to view reports as PDF"; ObjectID = "1179"; */
+"1179.title" = "Berechtigt, Berichte als PDF anzuzeigen";
+
+/* Class = "NSTextFieldCell"; title = "10'000"; ObjectID = "1183"; */
+"1183.title" = "10'000";
+
+/* Class = "NSTextFieldCell"; title = "Maximum number of frames for movies (Quicktime or Flash):"; ObjectID = "1187"; */
+"1187.title" = "Maximale Anzahl von Bildern für Filme (Quicktime oder Flash):";
+
+/* Class = "NSTextFieldCell"; title = "frames"; ObjectID = "1189"; */
+"1189.title" = "Frames";
+
+/* Class = "NSButtonCell"; title = "Authorized to share a study by creating a temporary user (email)"; ObjectID = "1205"; */
+"1205.title" = "Ermächtigt, eine Studie zu teilen, indem ein temporärer Benutzer erstellt wird (E-Mail)";
+
+/* Class = "NSButtonCell"; title = "Built-in SMTP"; ObjectID = "1214"; */
+"1214.title" = "Eingebaute SMTP";
+
+/* Class = "NSButtonCell"; title = "Mail.app"; ObjectID = "1215"; */
+"1215.title" = "Mail.app";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "1216"; */
+"1216.title" = "Radio";
+
+/* Class = "NSTextFieldCell"; title = "Email Engine:"; ObjectID = "1217"; */
+"1217.title" = "E-Mail Engine:";
+
+/* Class = "NSButtonCell"; title = "Only accept WADO request from identified user"; ObjectID = "1220"; */
+"1220.title" = "WADO-Anfrage nur von identifizierten Nutzern akzeptieren";
+
+/* Class = "NSButtonCell"; title = "Admin users can delete studies or series"; ObjectID = "1226"; */
+"1226.title" = "Admin-Nutzer können Studien oder Serien löschen";
+
+/* Class = "NSButtonCell"; title = "Display a list of recently viewed patients"; ObjectID = "1230"; */
+"1230.title" = "Eine Liste der kürzlich betrachteten Patienten anzeigen";
+
+/* Class = "NSTextFieldCell"; title = "Timeout:"; ObjectID = "Bjh-1p-cdf"; */
+"Bjh-1p-cdf.title" = "Timeout:";
+
+/* Class = "NSTextFieldCell"; title = "10'000"; ObjectID = "BvQ-RH-Tp7"; */
+"BvQ-RH-Tp7.title" = "10'000";
+
+/* Class = "NSTextFieldCell"; title = "pixels"; ObjectID = "dUl-kg-I4i"; */
+"dUl-kg-I4i.title" = "Pixel";
+
+/* Class = "NSTextFieldCell"; title = "minutes"; ObjectID = "f4W-NN-Urd"; */
+"f4W-NN-Urd.title" = "Minuten";
+
+/* Class = "NSTextFieldCell"; title = "1'000"; ObjectID = "H9A-IL-kU0"; */
+"H9A-IL-kU0.title" = "1'000";
+
+/* Class = "NSTextFieldCell"; title = "Maximum width for movies:"; ObjectID = "KUm-MU-nK0"; */
+"KUm-MU-nK0.title" = "Maximale Breite für Filme:";
+
+/* Class = "NSTextFieldCell"; title = "Minimum width for movies / still images:"; ObjectID = "PFi-Zg-jho"; */
+"PFi-Zg-jho.title" = "Mindestbreite für Filme/Standbilder:";
+
+/* Class = "NSTextFieldCell"; title = "10'000"; ObjectID = "pvz-76-qnV"; */
+"pvz-76-qnV.title" = "10'000";
+
+/* Class = "NSTextFieldCell"; title = "Maximum width for still images:"; ObjectID = "vgP-48-4dq"; */
+"vgP-48-4dq.title" = "Maximale Breite für Standbilder:";
+
+/* Class = "NSTextFieldCell"; title = "pixels"; ObjectID = "vQM-I4-sFl"; */
+"vQM-I4-sFl.title" = "Pixel";
+
+/* Class = "NSTextFieldCell"; title = "10'000"; ObjectID = "yUL-wL-W2j"; */
+"yUL-wL-W2j.title" = "10'000";
+

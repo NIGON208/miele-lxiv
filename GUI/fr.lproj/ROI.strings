@@ -1,0 +1,51 @@
+/* Class = "NSWindow"; title = "ROI Info"; ObjectID = "637"; */
+"637.title" = "Info ROI";
+
+/* Class = "NSWindow"; title = "Recalibrate"; ObjectID = "735"; */
+"735.title" = "Recalibrer";
+
+/* Class = "NSComboBoxCell"; title = "ROI 1"; ObjectID = "779"; */
+"779.title" = "ROI 1";
+
+/* Class = "NSTextFieldCell"; title = "Name:"; ObjectID = "780"; */
+"780.title" = "Nom:";
+
+/* Class = "NSTextFieldCell"; title = "Color:"; ObjectID = "781"; */
+"781.title" = "Couleur:";
+
+/* Class = "NSButtonCell"; title = "Export to XML"; ObjectID = "782"; */
+"782.title" = "Exporter au format XML";
+
+/* Class = "NSButtonCell"; title = "Histogram"; ObjectID = "783"; */
+"783.title" = "Histogramme";
+
+/* Class = "NSTextFieldCell"; title = "Thickness:"; ObjectID = "784"; */
+"784.title" = "Épaisseur:";
+
+/* Class = "NSTextFieldCell"; title = "Comments:"; ObjectID = "786"; */
+"786.title" = "Commentaires:";
+
+/* Class = "NSButtonCell"; title = "Save as file"; ObjectID = "787"; */
+"787.title" = "Enregistrer fichier sous";
+
+/* Class = "NSButtonCell"; title = "Recalibrate"; ObjectID = "788"; */
+"788.title" = "Recalibrer";
+
+/* Class = "NSButtonCell"; title = "X-Y Plot"; ObjectID = "789"; */
+"789.title" = "Graphe X-Y";
+
+/* Class = "NSButtonCell"; title = "All with same name"; ObjectID = "790"; */
+"790.title" = "Tous du même nom";
+
+/* Class = "NSTextFieldCell"; title = "Opacity:"; ObjectID = "791"; */
+"791.title" = "Opacité:";
+
+/* Class = "NSTextFieldCell"; title = "Distance in cm:"; ObjectID = "794"; */
+"794.title" = "Distance en cm:";
+
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "795"; */
+"795.title" = "OK";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "796"; */
+"796.title" = "Annuler";
+

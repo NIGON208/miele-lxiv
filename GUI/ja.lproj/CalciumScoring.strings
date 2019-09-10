@@ -1,0 +1,143 @@
+/* Class = "NSWindow"; title = "Calcium Scoring"; ObjectID = "5"; */
+"5.title" = "カルシウムスコアリング";
+
+/* Class = "NSButtonCell"; title = "Multislice (Threshold: 90HU)"; ObjectID = "8"; */
+"8.title" = "マルチスライス(しきい値:90HU)";
+
+/* Class = "NSButtonCell"; title = "Electron Beam (Threshold: 130HU)"; ObjectID = "9"; */
+"9.title" = "電子ビーム(閾値:130HU)";
+
+/* Class = "NSBox"; title = "CT"; ObjectID = "12"; */
+"12.title" = "CT";
+
+/* Class = "NSTableColumn"; headerCell.title = "Vessel"; ObjectID = "52"; */
+"52.headerCell.title" = "容器";
+
+/* Class = "NSTableColumn"; headerCell.title = "Score"; ObjectID = "53"; */
+"53.headerCell.title" = "スコア";
+
+/* Class = "NSTableColumn"; headerCell.title = "Volume"; ObjectID = "54"; */
+"54.headerCell.title" = "体積";
+
+/* Class = "NSTableColumn"; headerCell.title = "Mass"; ObjectID = "55"; */
+"55.headerCell.title" = "質量";
+
+/* Class = "NSFormCell"; title = "Institution:"; ObjectID = "85"; */
+"85.title" = "機関:";
+
+/* Class = "NSFormCell"; title = "Patient's Name:"; ObjectID = "86"; */
+"86.title" = "患者さんの名前:";
+
+/* Class = "NSFormCell"; title = "Patient ID:"; ObjectID = "87"; */
+"87.title" = "患者ID:";
+
+/* Class = "NSFormCell"; title = "Patient's DOB:"; ObjectID = "88"; */
+"88.title" = "患者のDOB:";
+
+/* Class = "NSFormCell"; title = "Patient's Age:"; ObjectID = "89"; */
+"89.title" = "患者の年齢:";
+
+/* Class = "NSFormCell"; title = "Patient's Sex:"; ObjectID = "90"; */
+"90.title" = "患者の性別:";
+
+/* Class = "NSFormCell"; title = "Exam Date:"; ObjectID = "91"; */
+"91.title" = "試験日:";
+
+/* Class = "NSTableColumn"; headerCell.title = "Mass"; ObjectID = "94"; */
+"94.headerCell.title" = "質量";
+
+/* Class = "NSTableColumn"; headerCell.title = "Volume"; ObjectID = "96"; */
+"96.headerCell.title" = "体積";
+
+/* Class = "NSTableColumn"; headerCell.title = "Score"; ObjectID = "98"; */
+"98.headerCell.title" = "スコア";
+
+/* Class = "NSTableColumn"; headerCell.title = "Vessel"; ObjectID = "100"; */
+"100.headerCell.title" = "容器";
+
+/* Class = "NSDateFormatter"; ibShadowedDateFormat = "%d %b %Y"; ObjectID = "130"; */
+"130.ibShadowedDateFormat" = "%d %b %Y";
+
+/* Class = "NSComboBoxCell"; 139.ibShadowedObjectValues[0] = "Left Anterior Descending Artery"; ObjectID = "139"; */
+"139.ibShadowedObjectValues[0]" = "左前下行枝";
+
+/* Class = "NSComboBoxCell"; 139.ibShadowedObjectValues[1] = "Left Coronary Artery"; ObjectID = "139"; */
+"139.ibShadowedObjectValues[1]" = "左冠状動脈";
+
+/* Class = "NSComboBoxCell"; 139.ibShadowedObjectValues[2] = "Left Circumflex Artery"; ObjectID = "139"; */
+"139.ibShadowedObjectValues[2]" = "左回旋動脈";
+
+/* Class = "NSComboBoxCell"; 139.ibShadowedObjectValues[3] = "Right Coronary Artery"; ObjectID = "139"; */
+"139.ibShadowedObjectValues[3]" = "右冠動脈";
+
+/* Class = "NSComboBoxCell"; title = "Left Anterior Descending Artery"; ObjectID = "139"; */
+"139.title" = "左前下行枝";
+
+/* Class = "NSTextFieldCell"; title = "(Click in the image)"; ObjectID = "140"; */
+"140.title" = "(画像をクリックしてください)";
+
+/* Class = "NSTextFieldCell"; title = "Starting Point:"; ObjectID = "141"; */
+"141.title" = "出発点:";
+
+/* Class = "NSTextFieldCell"; title = "px:\t\tx:0 y:0 z:0"; ObjectID = "142"; */
+"142.title" = "px:		x:0 y:0 z:0";
+
+/* Class = "NSTextFieldCell"; title = "value:\t0"; ObjectID = "143"; */
+"143.title" = "値:	0";
+
+/* Class = "NSTextFieldCell"; title = "mm:\t\tx:0 y:0 z:0"; ObjectID = "144"; */
+"144.title" = "mm:		x:0 y:0 z:0";
+
+/* Class = "NSButtonCell"; title = "Print"; ObjectID = "146"; */
+"146.title" = "印刷";
+
+/* Class = "NSButtonCell"; title = "Save"; ObjectID = "147"; */
+"147.title" = "保存";
+
+/* Class = "NSTextFieldCell"; title = "Calcium Score"; ObjectID = "149"; */
+"149.title" = "カルシウムスコア";
+
+/* Class = "NSTextFieldCell"; title = "Calcium Threshold:"; ObjectID = "150"; */
+"150.title" = "カルシウムの閾値:";
+
+/* Class = "NSTextFieldCell"; title = "-100 HU"; ObjectID = "151"; */
+"151.title" = "-100 HU";
+
+/* Class = "NSTextFieldCell"; title = "Calcium Score: Risk of Coronary Disease\n0: No identifiable plaque. Very low risk, generally less than 5%\n1-10: Minimal identifiable plaque. Low risk.\n11-100: Definite plaque.  Moderate risk.\n101-400: Definite plaque. Moderately High risk.\n401+: Extensive atherosclerotic. High likelihood of at least one stenosis."; ObjectID = "152"; */
+"152.title" = "カルシウムスコア:冠状動脈疾患のリスク
+0:同定可能なプラークはない。非常に低いリスク、一般に5％未満
+1-10:最小限の識別可能なプラーク。リスクが低い。
+11-100:明確なプラーク。中程度のリスク。
+101-400:明確なプラーク。中程度のリスク。
+401+:広範なアテローム性動脈硬化症。少なくとも1つの狭窄の可能性が高い。";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "158"; */
+"158.title" = "Radio";
+
+/* Class = "NSFormCell"; title = "Field:"; ObjectID = "159"; */
+"159.title" = "Field:";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "160"; */
+"160.title" = "Text Cell";
+
+/* Class = "NSTextFieldCell"; title = "123"; ObjectID = "161"; */
+"161.title" = "123";
+
+/* Class = "NSTextFieldCell"; title = "123"; ObjectID = "162"; */
+"162.title" = "123";
+
+/* Class = "NSTextFieldCell"; title = "123"; ObjectID = "163"; */
+"163.title" = "123";
+
+/* Class = "NSTextFieldCell"; title = "123"; ObjectID = "164"; */
+"164.title" = "123";
+
+/* Class = "NSTextFieldCell"; title = "123"; ObjectID = "165"; */
+"165.title" = "123";
+
+/* Class = "NSTextFieldCell"; title = "123"; ObjectID = "166"; */
+"166.title" = "123";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "167"; */
+"167.title" = "Text Cell";
+

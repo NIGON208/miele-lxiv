@@ -1,0 +1,120 @@
+/* Class = "NSWindow"; title = "Fly Through"; ObjectID = "7"; */
+"7.title" = "Fly Through";
+
+/* Class = "NSTabViewItem"; label = "Steps"; ObjectID = "30"; */
+"30.label" = "Passi";
+
+/* Class = "NSTabViewItem"; label = "Movie"; ObjectID = "31"; */
+"31.label" = "Film";
+
+/* Class = "NSBox"; title = "Interpolation"; ObjectID = "177"; */
+"177.title" = "Interpolazione";
+
+/* Class = "NSBox"; title = "Frame"; ObjectID = "179"; */
+"179.title" = "Frame";
+
+/* Class = "NSTableColumn"; headerCell.title = "Index"; ObjectID = "213"; */
+"213.headerCell.title" = "Indice";
+
+/* Class = "NSBox"; title = "Export"; ObjectID = "225"; */
+"225.title" = "Esporta";
+
+/* Class = "NSTableColumn"; headerCell.title = "Preview"; ObjectID = "255"; */
+"255.headerCell.title" = "Anteprima";
+
+/* Class = "NSButtonCell"; title = "Spline"; ObjectID = "283"; */
+"283.title" = "Spline";
+
+/* Class = "NSButtonCell"; title = "Linear"; ObjectID = "284"; */
+"284.title" = "Lineare";
+
+/* Class = "NSButtonCell"; title = "Current Rendering Quality"; ObjectID = "292"; */
+"292.title" = "Qualità di rendering attuale";
+
+/* Class = "NSButtonCell"; title = "Best rendering"; ObjectID = "293"; */
+"293.title" = "Migliore rendering";
+
+/* Class = "NSButtonCell"; title = "Quicktime"; ObjectID = "317"; */
+"317.title" = "Quicktime";
+
+/* Class = "NSButtonCell"; title = "DICOM, Series name:"; ObjectID = "318"; */
+"318.title" = "DICOM, nome della serie:";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "327"; */
+"327.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "768x768"; ObjectID = "328"; */
+"328.title" = "768x768";
+
+/* Class = "NSMenuItem"; title = "512x512"; ObjectID = "329"; */
+"329.title" = "512x512";
+
+/* Class = "NSMenuItem"; title = "Current"; ObjectID = "330"; */
+"330.title" = "Attuale";
+
+/* Class = "NSSegmentedCell"; 336.ibShadowedLabels[2] = "Reset"; ObjectID = "336"; */
+"336.ibShadowedLabels[2]" = "Ripristina";
+
+/* Class = "NSSegmentedCell"; 336.ibShadowedLabels[3] = "Import..."; ObjectID = "336"; */
+"336.ibShadowedLabels[3]" = "Importare...";
+
+/* Class = "NSSegmentedCell"; 336.ibShadowedLabels[4] = "Export..."; ObjectID = "336"; */
+"336.ibShadowedLabels[4]" = "Esportare...";
+
+/* Class = "NSTextFieldCell"; title = "Number of Frames:"; ObjectID = "338"; */
+"338.title" = "Numero di fotogrammi:";
+
+/* Class = "NSButtonCell"; title = "Compute"; ObjectID = "339"; */
+"339.title" = "Calcola";
+
+/* Class = "NSButtonCell"; title = "Loop"; ObjectID = "340"; */
+"340.title" = "Ciclo";
+
+/* Class = "NSTextFieldCell"; title = "Method:"; ObjectID = "341"; */
+"341.title" = "Metodo:";
+
+/* Class = "NSButtonCell"; title = "Play"; ObjectID = "343"; */
+"343.title" = "Play";
+
+/* Class = "NSButtonCell"; title = "Save"; ObjectID = "344"; */
+"344.title" = "Salva";
+
+/* Class = "NSTextFieldCell"; title = "Quality:"; ObjectID = "345"; */
+"345.title" = "Qualità:";
+
+/* Class = "NSTextFieldCell"; title = "FlyThru"; ObjectID = "347"; */
+"347.title" = "FlyThru";
+
+/* Class = "NSButtonCell"; title = "inclu. MPR views"; ObjectID = "348"; */
+"348.title" = "inclu. Viste MPR";
+
+/* Class = "NSTextFieldCell"; title = "Size:"; ObjectID = "349"; */
+"349.title" = "Size:";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "351"; */
+"351.title" = "Radio";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "352"; */
+"352.title" = "Radio";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "353"; */
+"353.title" = "Radio";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "354"; */
+"354.title" = "Text Cell";
+
+/* Class = "NSMenuItem"; title = "Add"; ObjectID = "438"; */
+"438.title" = "Aggiungi";
+
+/* Class = "NSMenuItem"; title = "Delete"; ObjectID = "439"; */
+"439.title" = "Elimina";
+
+/* Class = "NSMenuItem"; title = "Update"; ObjectID = "440"; */
+"440.title" = "Aggiorna";
+
+/* Class = "NSMenuItem"; title = "Reset"; ObjectID = "442"; */
+"442.title" = "Ripristina";
+
+/* Class = "NSTextFieldCell"; title = "50"; ObjectID = "460"; */
+"460.title" = "50";
+

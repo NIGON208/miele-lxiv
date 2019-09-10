@@ -1,0 +1,51 @@
+/* Class = "NSWindow"; title = "ROI Info"; ObjectID = "637"; */
+"637.title" = "ROI情報";
+
+/* Class = "NSWindow"; title = "Recalibrate"; ObjectID = "735"; */
+"735.title" = "再調整";
+
+/* Class = "NSComboBoxCell"; title = "ROI 1"; ObjectID = "779"; */
+"779.title" = "ROI 1";
+
+/* Class = "NSTextFieldCell"; title = "Name:"; ObjectID = "780"; */
+"780.title" = "名前:";
+
+/* Class = "NSTextFieldCell"; title = "Color:"; ObjectID = "781"; */
+"781.title" = "色:";
+
+/* Class = "NSButtonCell"; title = "Export to XML"; ObjectID = "782"; */
+"782.title" = "XML 形式でエクスポート";
+
+/* Class = "NSButtonCell"; title = "Histogram"; ObjectID = "783"; */
+"783.title" = "ヒストグラム";
+
+/* Class = "NSTextFieldCell"; title = "Thickness:"; ObjectID = "784"; */
+"784.title" = "厚さ:";
+
+/* Class = "NSTextFieldCell"; title = "Comments:"; ObjectID = "786"; */
+"786.title" = "コメント:";
+
+/* Class = "NSButtonCell"; title = "Save as file"; ObjectID = "787"; */
+"787.title" = "ファイルとして保存";
+
+/* Class = "NSButtonCell"; title = "Recalibrate"; ObjectID = "788"; */
+"788.title" = "再調整";
+
+/* Class = "NSButtonCell"; title = "X-Y Plot"; ObjectID = "789"; */
+"789.title" = "XYプロット";
+
+/* Class = "NSButtonCell"; title = "All with same name"; ObjectID = "790"; */
+"790.title" = "同じ名前のもの";
+
+/* Class = "NSTextFieldCell"; title = "Opacity:"; ObjectID = "791"; */
+"791.title" = "不透明度:";
+
+/* Class = "NSTextFieldCell"; title = "Distance in cm:"; ObjectID = "794"; */
+"794.title" = "距離 (cm):";
+
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "795"; */
+"795.title" = "OK";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "796"; */
+"796.title" = "キャンセル";
+

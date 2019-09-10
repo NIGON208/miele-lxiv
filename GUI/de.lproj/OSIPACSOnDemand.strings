@@ -1,0 +1,240 @@
+/* Class = "NSWindow"; title = "<< do not localize >>"; ObjectID = "12"; */
+"12.title" = "<< do not localize >>";
+
+/* Class = "NSButtonCell"; title = "Activate PACS On Demand"; ObjectID = "427"; */
+"427.title" = "PACS auf Nachfrage aktivieren";
+
+/* Class = "NSButtonCell"; title = "Activate search for following Smart Albums, with Q&R Date & Modality filters:"; ObjectID = "477"; */
+"477.title" = "Aktivieren Sie die Suche nach folgenden Smart Albums mit Q&R Datum&Modalitäts Filtern:";
+
+/* Class = "NSTextFieldCell"; title = "Drag sources into the priority order for retrieving"; ObjectID = "482"; */
+"482.title" = "Ziehen Sie Quellen in die Prioritätsreihenfolge für das Abrufen";
+
+/* Class = "NSTableColumn"; headerCell.title = "Name"; ObjectID = "486"; */
+"486.headerCell.title" = "Name";
+
+/* Class = "NSTableColumn"; headerCell.title = "Address"; ObjectID = "488"; */
+"488.headerCell.title" = "Adresse";
+
+/* Class = "NSTableColumn"; headerCell.title = "AETitle"; ObjectID = "489"; */
+"489.headerCell.title" = "AETitle";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "490"; */
+"490.title" = "Text Cell";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "491"; */
+"491.title" = "Text Cell";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "493"; */
+"493.title" = "Text Cell";
+
+/* Class = "NSTextFieldCell"; title = "See Locations Preferences for editing these DICOM Nodes"; ObjectID = "496"; */
+"496.title" = "Siehe Standortvorlieben für die Bearbeitung dieser DICOM-Töne";
+
+/* Class = "NSTableColumn"; headerCell.title = "Date"; ObjectID = "539"; */
+"539.headerCell.title" = "Datum";
+
+/* Class = "NSTableColumn"; headerCell.title = "Modality"; ObjectID = "540"; */
+"540.headerCell.title" = "Modalität";
+
+/* Class = "NSTableColumn"; headerCell.title = "Smart Album Name"; ObjectID = "542"; */
+"542.headerCell.title" = "Intelligenter Albumname";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "543"; */
+"543.title" = "Text Cell";
+
+/* Class = "NSWindow"; title = "Window"; ObjectID = "582"; */
+"582.title" = "Fenster";
+
+/* Class = "NSBox"; title = "Title"; ObjectID = "584"; */
+"584.title" = "Titel";
+
+/* Class = "NSButtonCell"; title = "Last 3 hours"; ObjectID = "591"; */
+"591.title" = "Letzte 3 Stunden";
+
+/* Class = "NSButtonCell"; title = "Last 1 hour"; ObjectID = "592"; */
+"592.title" = "Letzte 1 Stunde";
+
+/* Class = "NSButtonCell"; title = "Last 8 hours"; ObjectID = "593"; */
+"593.title" = "Letzte 8 Stunden";
+
+/* Class = "NSButtonCell"; title = "Last 6 hours"; ObjectID = "594"; */
+"594.title" = "Letzte 6 Stunden";
+
+/* Class = "NSButtonCell"; title = "Last 30 min"; ObjectID = "595"; */
+"595.title" = "Letzte 30 Minuten";
+
+/* Class = "NSButtonCell"; title = "Last 2 hours"; ObjectID = "596"; */
+"596.title" = "Letzte 2 Stunden";
+
+/* Class = "NSButtonCell"; title = "Day Before Yesterday"; ObjectID = "597"; */
+"597.title" = "Tag vor gestern";
+
+/* Class = "NSButtonCell"; title = "Today PM"; ObjectID = "598"; */
+"598.title" = "Heute PM";
+
+/* Class = "NSButtonCell"; title = "Any date"; ObjectID = "599"; */
+"599.title" = "Jeden Termin";
+
+/* Class = "NSButtonCell"; title = "Last month"; ObjectID = "600"; */
+"600.title" = "Letzten Monat";
+
+/* Class = "NSButtonCell"; title = "Today AM"; ObjectID = "601"; */
+"601.title" = "Heute";
+
+/* Class = "NSButtonCell"; title = "Last 3 months"; ObjectID = "602"; */
+"602.title" = "Die letzten 3 Monate";
+
+/* Class = "NSButtonCell"; title = "Today PM"; ObjectID = "603"; */
+"603.title" = "Heute PM";
+
+/* Class = "NSButtonCell"; title = "On:"; ObjectID = "604"; */
+"604.title" = "Auf:";
+
+/* Class = "NSButtonCell"; title = "Today"; ObjectID = "605"; */
+"605.title" = "Heute";
+
+/* Class = "NSButtonCell"; title = "Between:"; ObjectID = "606"; */
+"606.title" = "Zwischen:";
+
+/* Class = "NSButtonCell"; title = "Yesterday"; ObjectID = "607"; */
+"607.title" = "Gestern";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "608"; */
+"608.title" = "Radio";
+
+/* Class = "NSButtonCell"; title = "Last 12 hours"; ObjectID = "609"; */
+"609.title" = "Letzte 12 Stunden";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "610"; */
+"610.title" = "Radio";
+
+/* Class = "NSButtonCell"; title = "Last 2 days"; ObjectID = "611"; */
+"611.title" = "Letzte 2 Tage";
+
+/* Class = "NSButtonCell"; title = "Last 7 days"; ObjectID = "612"; */
+"612.title" = "Letzte 7 Tage";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "613"; */
+"613.title" = "Radio";
+
+/* Class = "NSButtonCell"; title = "Last 24 hours"; ObjectID = "614"; */
+"614.title" = "Letzten 24 Stunden";
+
+/* Class = "NSButtonCell"; title = "Last 3 hours"; ObjectID = "615"; */
+"615.title" = "Letzte 3 Stunden";
+
+/* Class = "NSButtonCell"; title = "AU"; ObjectID = "617"; */
+"617.title" = "AU";
+
+/* Class = "NSButtonCell"; title = "CR"; ObjectID = "618"; */
+"618.title" = "CR";
+
+/* Class = "NSButtonCell"; title = "ES"; ObjectID = "619"; */
+"619.title" = "ES";
+
+/* Class = "NSButtonCell"; title = "VL"; ObjectID = "620"; */
+"620.title" = "VL";
+
+/* Class = "NSButtonCell"; title = "CT"; ObjectID = "621"; */
+"621.title" = "CT";
+
+/* Class = "NSButtonCell"; title = "US"; ObjectID = "622"; */
+"622.title" = "US";
+
+/* Class = "NSButtonCell"; title = "MR"; ObjectID = "623"; */
+"623.title" = "MR";
+
+/* Class = "NSButtonCell"; title = "NM"; ObjectID = "624"; */
+"624.title" = "NM";
+
+/* Class = "NSButtonCell"; title = "XA"; ObjectID = "625"; */
+"625.title" = "XA";
+
+/* Class = "NSButtonCell"; title = "RF"; ObjectID = "626"; */
+"626.title" = "RF";
+
+/* Class = "NSButtonCell"; title = "DR"; ObjectID = "627"; */
+"627.title" = "DR";
+
+/* Class = "NSButtonCell"; title = "OT"; ObjectID = "628"; */
+"628.title" = "OT";
+
+/* Class = "NSButtonCell"; title = "SR"; ObjectID = "630"; */
+"630.title" = "SR";
+
+/* Class = "NSButtonCell"; title = "VL"; ObjectID = "631"; */
+"631.title" = "VL";
+
+/* Class = "NSButtonCell"; title = "XC"; ObjectID = "632"; */
+"632.title" = "XC";
+
+/* Class = "NSButtonCell"; title = "PT"; ObjectID = "633"; */
+"633.title" = "PT";
+
+/* Class = "NSButtonCell"; title = "MG"; ObjectID = "634"; */
+"634.title" = "MG";
+
+/* Class = "NSButtonCell"; title = "RG"; ObjectID = "635"; */
+"635.title" = "RG";
+
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "637"; */
+"637.title" = "OK";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "639"; */
+"639.title" = "Abbrechen";
+
+/* Class = "NSTextFieldCell"; title = "SQL Filter:"; ObjectID = "641"; */
+"641.title" = "SQL Filter:";
+
+/* Class = "NSTextFieldCell"; title = "Text"; ObjectID = "644"; */
+"644.title" = "Text";
+
+/* Class = "NSTextFieldCell"; title = "Text"; ObjectID = "645"; */
+"645.title" = "Text";
+
+/* Class = "NSTextFieldCell"; title = "Double-Click on a line to edit the Date & Modality Filters"; ObjectID = "647"; */
+"647.title" = "Doppelklicken Sie auf eine Zeile, um die Datums-und Modality-Filter zu bearbeiten";
+
+/* Class = "NSButtonCell"; title = "CT"; ObjectID = "660"; */
+"660.title" = "CT";
+
+/* Class = "NSButtonCell"; title = "If a distant study has more images than a local study, display the distant study"; ObjectID = "675"; */
+"675.title" = "Wenn eine entfernte Studie mehr Bilder hat als eine lokale Studie, zeigen Sie die entfernte Studie";
+
+/* Class = "NSTextFieldCell"; title = "DICOM Nodes for PACS On Demand matching and retrieving:"; ObjectID = "685"; */
+"685.title" = "DICOM-Knoten für PACS On Demand Abgleich und Abruf:";
+
+/* Class = "NSTableColumn"; headerCell.title = "Auto-retrieve"; ObjectID = "686"; */
+"686.headerCell.title" = "Auto abgerufen";
+
+/* Class = "NSTextFieldCell"; title = "2"; ObjectID = "696"; */
+"696.title" = "2";
+
+/* Class = "NSButtonCell"; title = "SC"; ObjectID = "712"; */
+"712.title" = "SC";
+
+/* Class = "NSButtonCell"; title = "DX"; ObjectID = "713"; */
+"713.title" = "DX";
+
+/* Class = "NSButtonCell"; title = "Comparative Studies, displayed at Study level"; ObjectID = "715"; */
+"715.title" = "Vergleichsstudien, die auf Studienebene gezeigt werden";
+
+/* Class = "NSButtonCell"; title = "Search function (requires access to entire database: empty Study Filter for Web User)"; ObjectID = "719"; */
+"719.title" = "Suchfunktion (erfordert Zugriff auf die gesamte Datenbank: Leerer Studierendenfilter für Web-Benutzer)";
+
+/* Class = "NSButtonCell"; title = "Albums (requires access to entire database: empty Study Filter for Web User)"; ObjectID = "722"; */
+"722.title" = "Alben (benötigt Zugriff auf die gesamte Datenbank: Leerer Studierendenfilter für Web-Benutzer)";
+
+/* Class = "NSBox"; title = "Activate PACS On Demand for following Web Server functions"; ObjectID = "724"; */
+"724.title" = "Aktivieren Sie PACS On Demand für die folgenden Web-Server-Funktionen";
+
+/* Class = "NSButtonCell"; title = "Automatically retrieve studies that have already some local images"; ObjectID = "731"; */
+"731.title" = "Studiengänge, die bereits einige lokale Bilder haben, automatisch abrufen";
+
+/* Class = "NSButtonCell"; title = "Use PACS On Demand, when using the toolbar search fields"; ObjectID = "735"; */
+"735.title" = "Verwenden Sie PACS On Demand, wenn Sie die Suchfelder der Toolbar verwenden";
+
+/* Class = "NSTextFieldCell"; title = "Maximum number of background auto-retrieve requests per server:"; ObjectID = "YAw-Tn-D5O"; */
+"YAw-Tn-D5O.title" = "Maximale Anzahl der Hintergrund-Anfragen pro Server:";
+

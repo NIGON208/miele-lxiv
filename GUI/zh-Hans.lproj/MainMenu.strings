@@ -1,0 +1,1926 @@
+/* Class = "NSMenu"; title = "Load Workspace State DICOM SR"; ObjectID = "0DA-9z-DyX"; */
+"0DA-9z-DyX.title" = "负载工作区状态 DICOM sr";
+
+/* Class = "NSMenuItem"; title = "Bring All to Front"; ObjectID = "5"; */
+"5.title" = "Bring All to Front";
+
+/* Class = "NSMenuItem"; title = "Flip Vertically"; ObjectID = "7UZ-Cj-EK7"; */
+"7UZ-Cj-EK7.title" = "垂直翻转";
+
+/* Class = "NSMenuItem"; title = "Flip Horizontally"; ObjectID = "8yc-RG-u6S"; */
+"8yc-RG-u6S.title" = "水平翻转";
+
+/* Class = "NSMenuItem"; title = "Window"; ObjectID = "19"; */
+"19.title" = "Window";
+
+/* Class = "NSMenuItem"; title = "Minimize"; ObjectID = "23"; */
+"23.title" = "最小化";
+
+/* Class = "NSMenu"; title = "Window"; ObjectID = "24"; */
+"24.title" = "Window";
+
+/* Class = "NSMenu"; title = "MainMenu"; ObjectID = "29"; */
+"29.title" = "MainMenu";
+
+/* Class = "NSMenuItem"; title = "OsiriX"; ObjectID = "56"; */
+"56.title" = "Miele-LXIV";
+
+/* Class = "NSMenu"; title = "OsiriX"; ObjectID = "57"; */
+"57.title" = "Miele-LXIV";
+
+/* Class = "NSMenuItem"; title = "About Miele-LXIV"; ObjectID = "58"; */
+"58.title" = "关于美乐 Miele-LXIV";
+
+/* Class = "NSMenuItem"; title = "Recent Studies"; ObjectID = "62R-VA-Hjt"; */
+"62R-VA-Hjt.title" = "最近的研究";
+
+/* Class = "NSMenuItem"; title = "Hide Miele-LXIV"; ObjectID = "134"; */
+"134.title" = "隐藏 Miele-LXIV";
+
+/* Class = "NSMenuItem"; title = "Quit Miele-LXIV"; ObjectID = "136"; */
+"136.title" = "退出 Miele-LXIV";
+
+/* Class = "NSMenuItem"; title = "Hide Others"; ObjectID = "145"; */
+"145.title" = "隐藏其他";
+
+/* Class = "NSMenuItem"; title = "Show All"; ObjectID = "150"; */
+"150.title" = "显示所有";
+
+/* Class = "NSMenuItem"; title = "Copy"; ObjectID = "157"; */
+"157.title" = "复制";
+
+/* Class = "NSMenuItem"; title = "Cut"; ObjectID = "160"; */
+"160.title" = "剪切";
+
+/* Class = "NSMenuItem"; title = "Edit"; ObjectID = "163"; */
+"163.title" = "编辑";
+
+/* Class = "NSMenu"; title = "Edit"; ObjectID = "169"; */
+"169.title" = "编辑";
+
+/* Class = "NSMenuItem"; title = "Paste"; ObjectID = "171"; */
+"171.title" = "粘贴";
+
+/* Class = "NSMenuItem"; title = "Select All"; ObjectID = "172"; */
+"172.title" = "全选";
+
+/* Class = "NSMenuItem"; title = "Preferences..."; ObjectID = "695"; */
+"695.title" = "首选项...";
+
+/* Class = "NSMenuItem"; title = "Close Window"; ObjectID = "841"; */
+"841.title" = "关闭窗口";
+
+/* Class = "NSMenuItem"; title = "File"; ObjectID = "848"; */
+"848.title" = "文件";
+
+/* Class = "NSMenu"; title = "File"; ObjectID = "849"; */
+"849.title" = "文件";
+
+/* Class = "NSMenuItem"; title = "Show Database Window"; ObjectID = "854"; */
+"854.title" = "显示数据库窗口";
+
+/* Class = "NSWindow"; title = "Local DICOM Database"; ObjectID = "885"; */
+"885.title" = "本地多博数据库";
+
+/* Class = "NSTableColumn"; headerCell.title = "Patient name"; ObjectID = "958"; */
+"958.headerCell.title" = "患者姓名";
+
+/* Class = "NSTableColumn"; headerCell.title = "Date Acquired"; ObjectID = "960"; */
+"960.headerCell.title" = "获取日期";
+
+/* Class = "NSTableColumn"; headerCell.title = "# im"; ObjectID = "967"; */
+"967.headerCell.title" = "# im";
+
+/* Class = "NSMenuItem"; title = "Rebuild Entire Database..."; ObjectID = "1112"; */
+"1112.title" = "正在重建整个数据库...";
+
+/* Class = "NSTableColumn"; headerCell.title = "Modality"; ObjectID = "1226"; */
+"1226.headerCell.title" = "形态";
+
+/* Class = "NSMenu"; title = "3D Viewer"; ObjectID = "1281"; */
+"1281.title" = "3D 查看器";
+
+/* Class = "NSMenuItem"; title = "Coronal View"; ObjectID = "1282"; */
+"1282.title" = "日冕视图";
+
+/* Class = "NSMenuItem"; title = "3D Viewer"; ObjectID = "1283"; */
+"1283.title" = "3D 查看器";
+
+/* Class = "NSMenuItem"; title = "Left Sagittal View"; ObjectID = "1284"; */
+"1284.title" = "左萨吉塔尔视图";
+
+/* Class = "NSMenuItem"; title = "Axial View"; ObjectID = "1285"; */
+"1285.title" = "轴向视图";
+
+/* Class = "NSTableColumn"; headerCell.title = "Date Added"; ObjectID = "1291"; */
+"1291.headerCell.title" = "添加日期";
+
+/* Class = "NSMenuItem"; title = "Check for Updates"; ObjectID = "1327"; */
+"1327.title" = "检查更新";
+
+/* Class = "NSTableColumn"; headerCell.title = "∆"; ObjectID = "1351"; */
+"1351.headerCell.title" = "∆";
+
+/* Class = "NSMenu"; title = "ROI"; ObjectID = "1400"; */
+"1400.title" = "ROI";
+
+/* Class = "NSMenuItem"; title = "ROI"; ObjectID = "1401"; */
+"1401.title" = "ROI";
+
+/* Class = "NSMenuItem"; title = "Propagate Selected ROI..."; ObjectID = "1408"; */
+"1408.title" = "传播选定的投资回报率...";
+
+/* Class = "NSMenuItem"; title = "Delete All ROIs in this Series"; ObjectID = "1409"; */
+"1409.title" = "删除此系列中的所有 ROI";
+
+/* Class = "NSMenuItem"; title = "Save Selected ROI(s)..."; ObjectID = "1438"; */
+"1438.title" = "节省所选投资回报率...";
+
+/* Class = "NSMenuItem"; title = "Import ROI(s)..."; ObjectID = "1439"; */
+"1439.title" = "导入投资回报率…";
+
+/* Class = "NSMenuItem"; title = "ROI Info..."; ObjectID = "1443"; */
+"1443.title" = "投资回报率信息...";
+
+/* Class = "NSMenuItem"; title = "Histogram of Selected ROI..."; ObjectID = "1445"; */
+"1445.title" = "选定的投资回报率直方图...";
+
+/* Class = "NSTableColumn"; headerCell.title = "Albums"; ObjectID = "1463"; */
+"1463.headerCell.title" = "专辑";
+
+/* Class = "NSMenuItem"; title = "Burn..."; ObjectID = "1470"; */
+"1470.title" = "烧伤...";
+
+/* Class = "NSMenuItem"; title = "Format"; ObjectID = "1474"; */
+"1474.title" = "格式";
+
+/* Class = "NSMenuItem"; title = "Bigger"; ObjectID = "1481"; */
+"1481.title" = "更大";
+
+/* Class = "NSMenuItem"; title = "Font"; ObjectID = "1482"; */
+"1482.title" = "字体";
+
+/* Class = "NSMenuItem"; title = "Show Fonts"; ObjectID = "1483"; */
+"1483.title" = "显示字体";
+
+/* Class = "NSMenuItem"; title = "Smaller"; ObjectID = "1487"; */
+"1487.title" = "小";
+
+/* Class = "NSMenuItem"; title = "Show Colors"; ObjectID = "1488"; */
+"1488.title" = "显示颜色";
+
+/* Class = "NSMenu"; title = "Format"; ObjectID = "1489"; */
+"1489.title" = "格式";
+
+/* Class = "NSMenu"; title = "Font"; ObjectID = "1493"; */
+"1493.title" = "字体";
+
+/* Class = "NSMenuItem"; title = "Bold"; ObjectID = "1501"; */
+"1501.title" = "粗体";
+
+/* Class = "NSMenuItem"; title = "Italic"; ObjectID = "1515"; */
+"1515.title" = "斜体";
+
+/* Class = "NSMenuItem"; title = "Print..."; ObjectID = "1550"; */
+"1550.title" = "打印...";
+
+/* Class = "NSMenuItem"; title = "Page Setup..."; ObjectID = "1551"; */
+"1551.title" = "页面设置...";
+
+/* Class = "NSTableColumn"; headerCell.title = "Date Opened"; ObjectID = "1592"; */
+"1592.headerCell.title" = "开业日期";
+
+/* Class = "NSMenuItem"; title = "Propagate Selected ROI to Current Thick Slab"; ObjectID = "1644"; */
+"1644.title" = "将选定的 ROI 传播到当前厚板";
+
+/* Class = "NSMenuItem"; title = "Plugins"; ObjectID = "1701"; */
+"1701.title" = "插件";
+
+/* Class = "NSMenu"; title = "Plugins"; ObjectID = "1703"; */
+"1703.title" = "插件";
+
+/* Class = "NSMenuItem"; title = "Image Filters"; ObjectID = "1704"; */
+"1704.title" = "图像过滤器";
+
+/* Class = "NSMenu"; title = "Image Filters"; ObjectID = "1705"; */
+"1705.title" = "图像过滤器";
+
+/* Class = "NSMenuItem"; title = "ROI Tools"; ObjectID = "1708"; */
+"1708.title" = "投资回报率工具";
+
+/* Class = "NSMenu"; title = "ROI Tools"; ObjectID = "1709"; */
+"1709.title" = "投资回报率工具";
+
+/* Class = "NSMenu"; title = "Others"; ObjectID = "1710"; */
+"1710.title" = "其他";
+
+/* Class = "NSMenuItem"; title = "Others"; ObjectID = "1711"; */
+"1711.title" = "其他";
+
+/* Class = "NSMenuItem"; title = "Anonymize..."; ObjectID = "1723"; */
+"1723.title" = "匿名...";
+
+/* Class = "NSMenuItem"; title = "Open Database Folder..."; ObjectID = "1725"; */
+"1725.title" = "打开数据库文件夹...";
+
+/* Class = "NSMenuItem"; title = "Search"; ObjectID = "11171"; */
+"11171.title" = "搜索";
+
+/* Class = "NSMenuItem"; title = "Customize Toolbar..."; ObjectID = "11219"; */
+"11219.title" = "自定义工具栏...";
+
+/* Class = "NSMenuItem"; title = "Set Pixel Values to..."; ObjectID = "11232"; */
+"11232.title" = "将像素值设置为...";
+
+/* Class = "NSMenuItem"; title = "Grow Region (2D/3D Segmentation)..."; ObjectID = "11234"; */
+"11234.title" = "增长区域 (2D/3D 分段)...";
+
+/* Class = "NSWindow"; title = "Window"; ObjectID = "11237"; */
+"11237.title" = "Window";
+
+/* Class = "NSTableColumn"; headerCell.title = "Comments"; ObjectID = "11258"; */
+"11258.headerCell.title" = "评论";
+
+/* Class = "NSTableColumn"; headerCell.title = "Status"; ObjectID = "11259"; */
+"11259.headerCell.title" = "状态";
+
+/* Class = "NSFormCell"; title = "Patient's Name:"; ObjectID = "11379"; */
+"11379.title" = "患者姓名:";
+
+/* Class = "NSFormCell"; title = "Patient ID:"; ObjectID = "11380"; */
+"11380.title" = "患者编号:";
+
+/* Class = "NSFormCell"; title = "Study Description:"; ObjectID = "11381"; */
+"11381.title" = "学习描述:";
+
+/* Class = "NSFormCell"; title = "Rows:"; ObjectID = "11387"; */
+"11387.title" = "行:";
+
+/* Class = "NSFormCell"; title = "Columns:"; ObjectID = "11388"; */
+"11388.title" = "列:";
+
+/* Class = "NSFormCell"; title = "Slices:"; ObjectID = "11389"; */
+"11389.title" = "片:";
+
+/* Class = "NSFormCell"; title = "Pixel Height:"; ObjectID = "11391"; */
+"11391.title" = "像素高度:";
+
+/* Class = "NSFormCell"; title = "Slice Thickness:"; ObjectID = "11392"; */
+"11392.title" = "切片厚度:";
+
+/* Class = "NSFormCell"; title = "Pixel Width:"; ObjectID = "11393"; */
+"11393.title" = "像素宽度:";
+
+/* Class = "NSFormCell"; title = "Offset:"; ObjectID = "11411"; */
+"11411.title" = "偏移:";
+
+/* Class = "NSButtonCell"; title = "8 bit color RGB"; ObjectID = "11457"; */
+"11457.title" = "8位颜色 RGB";
+
+/* Class = "NSButtonCell"; title = "8 bit grayscale"; ObjectID = "11458"; */
+"11458.title" = "8位灰度";
+
+/* Class = "NSButtonCell"; title = "16 bit unsigned grayscale little Endian"; ObjectID = "11459"; */
+"11459.title" = "16位无符号灰度小恩迪安";
+
+/* Class = "NSButtonCell"; title = "16 bit signed grayscale little Endian"; ObjectID = "11460"; */
+"11460.title" = "16位签名灰度小恩迪安";
+
+/* Class = "NSButtonCell"; title = "16 bit unsigned grayscale big endian"; ObjectID = "11461"; */
+"11461.title" = "16位无符号灰度大";
+
+/* Class = "NSButtonCell"; title = "16 bit signed grayscale big endian"; ObjectID = "11462"; */
+"11462.title" = "16位签名灰度大";
+
+/* Class = "NSMenuItem"; title = "Import Raw Data..."; ObjectID = "11465"; */
+"11465.title" = "正在导入原始数据...";
+
+/* Class = "NSMenuItem"; title = "Import"; ObjectID = "11466"; */
+"11466.title" = "导入";
+
+/* Class = "NSMenu"; title = "Import"; ObjectID = "11467"; */
+"11467.title" = "导入";
+
+/* Class = "NSMenuItem"; title = "Import Files..."; ObjectID = "11468"; */
+"11468.title" = "正在导入文件...";
+
+/* Class = "NSMenuItem"; title = "Import Image from URL..."; ObjectID = "11470"; */
+"11470.title" = "从 URL 导入图像...";
+
+/* Class = "NSMenuItem"; title = "Close All Viewers"; ObjectID = "11473"; */
+"11473.title" = "关闭所有查看器";
+
+/* Class = "NSMenuItem"; title = "Reset to Initial View"; ObjectID = "11477"; */
+"11477.title" = "重置为初始视图";
+
+/* Class = "NSMenuItem"; title = "Set Default ROI Name..."; ObjectID = "11478"; */
+"11478.title" = "设置默认ROI名称...";
+
+/* Class = "NSMenuItem"; title = "Undo"; ObjectID = "11528"; */
+"11528.title" = "撤销";
+
+/* Class = "NSMenuItem"; title = "Redo"; ObjectID = "11529"; */
+"11529.title" = "重做";
+
+/* Class = "NSMenuItem"; title = "Revert Series"; ObjectID = "11536"; */
+"11536.title" = "还原系列";
+
+/* Class = "NSMenuItem"; title = "Export"; ObjectID = "11542"; */
+"11542.title" = "导出";
+
+/* Class = "NSMenu"; title = "Export"; ObjectID = "11543"; */
+"11543.title" = "导出";
+
+/* Class = "NSMenuItem"; title = "Export to Movie"; ObjectID = "11544"; */
+"11544.title" = "导出到影片";
+
+/* Class = "NSMenuItem"; title = "Export to JPEG"; ObjectID = "11545"; */
+"11545.title" = "导出到 JPEG";
+
+/* Class = "NSMenuItem"; title = "Export to Raw"; ObjectID = "11546"; */
+"11546.title" = "导出到原始";
+
+/* Class = "NSMenuItem"; title = "Export to TIFF"; ObjectID = "11547"; */
+"11547.title" = "导出到 TIFF";
+
+/* Class = "NSMenuItem"; title = "Export to DICOM file(s)"; ObjectID = "11548"; */
+"11548.title" = "导出到 DICOM 文件";
+
+/* Class = "NSMenuItem"; title = "Export to Email"; ObjectID = "11549"; */
+"11549.title" = "导出到电子邮件";
+
+/* Class = "NSMenuItem"; title = "Export to Photos"; ObjectID = "11550"; */
+"11550.title" = "导出到 Photos";
+
+/* Class = "NSTableColumn"; headerCell.title = "Study Description"; ObjectID = "11576"; */
+"11576.headerCell.title" = "研究说明";
+
+/* Class = "NSTableColumn"; headerCell.title = "ID"; ObjectID = "11577"; */
+"11577.headerCell.title" = "ID";
+
+/* Class = "NSMenu"; title = "Menu"; ObjectID = "11583"; */
+"11583.title" = "菜单";
+
+/* Class = "NSMenuItem"; title = "Patient Name"; ObjectID = "11584"; */
+"11584.title" = "产品名称";
+
+/* Class = "NSMenuItem"; title = "Patient ID"; ObjectID = "11585"; */
+"11585.title" = "病人ID";
+
+/* Class = "NSMenuItem"; title = "Comments"; ObjectID = "11587"; */
+"11587.title" = "评论";
+
+/* Class = "NSMenuItem"; title = "Study Description"; ObjectID = "11588"; */
+"11588.title" = "研究说明";
+
+/* Class = "NSMenuItem"; title = "Modality"; ObjectID = "11597"; */
+"11597.title" = "形态";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "11620"; */
+"11620.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "None"; ObjectID = "11621"; */
+"11621.title" = "无";
+
+/* Class = "NSMenuItem"; title = "1 hour"; ObjectID = "11622"; */
+"11622.title" = "1小时";
+
+/* Class = "NSMenuItem"; title = "Last 7 days"; ObjectID = "11623"; */
+"11623.title" = "最近7天";
+
+/* Class = "NSMenuItem"; title = "One month"; ObjectID = "11624"; */
+"11624.title" = "一个月";
+
+/* Class = "NSMenuItem"; title = "Custom"; ObjectID = "11627"; */
+"11627.title" = "自定义";
+
+/* Class = "NSMenuItem"; title = "Today"; ObjectID = "11628"; */
+"11628.title" = "今天";
+
+/* Class = "NSMenuItem"; title = "6 hours"; ObjectID = "11629"; */
+"11629.title" = "6个小时";
+
+/* Class = "NSMenuItem"; title = "12 hours"; ObjectID = "11630"; */
+"11630.title" = "12 hours";
+
+/* Class = "NSWindow"; title = "Window"; ObjectID = "11675"; */
+"11675.title" = "Window";
+
+/* Class = "NSTableColumn"; headerCell.title = "Sources"; ObjectID = "11694"; */
+"11694.headerCell.title" = "来源";
+
+/* Class = "NSBox"; title = "Albums"; ObjectID = "11696"; */
+"11696.title" = "专辑";
+
+/* Class = "NSBox"; title = "Sources"; ObjectID = "11698"; */
+"11698.title" = "来源";
+
+/* Class = "NSTableColumn"; headerCell.title = "Referring Physician"; ObjectID = "11708"; */
+"11708.headerCell.title" = "推荐医师";
+
+/* Class = "NSTableColumn"; headerCell.title = "Performing Physician"; ObjectID = "11709"; */
+"11709.headerCell.title" = "表演医师";
+
+/* Class = "NSTableColumn"; headerCell.title = "Institution"; ObjectID = "11710"; */
+"11710.headerCell.title" = "机构";
+
+/* Class = "NSTableColumn"; headerCell.title = "Date of Birth"; ObjectID = "11711"; */
+"11711.headerCell.title" = "出生日期";
+
+/* Class = "NSMenuItem"; title = "Database"; ObjectID = "11712"; */
+"11712.title" = "数据库";
+
+/* Class = "NSMenu"; title = "Database"; ObjectID = "11713"; */
+"11713.title" = "数据库";
+
+/* Class = "NSMenuItem"; title = "Add FlyThru Point"; ObjectID = "11752"; */
+"11752.title" = "添加FlyThru Point";
+
+/* Class = "NSMenuItem"; title = "Remove FlyThru Point"; ObjectID = "11754"; */
+"11754.title" = "卸下飞流点";
+
+/* Class = "NSMenuItem"; title = "Reset FlyThru Path"; ObjectID = "11756"; */
+"11756.title" = "重置 flythru 路径";
+
+/* Class = "NSWindow"; title = "Password"; ObjectID = "11804"; */
+"11804.title" = "密码";
+
+/* Class = "NSMenuItem"; title = "Fullscreen"; ObjectID = "11923"; */
+"11923.title" = "全屏";
+
+/* Class = "NSTableColumn"; headerCell.title = "Patient ID"; ObjectID = "11994"; */
+"11994.headerCell.title" = "病人ID";
+
+/* Class = "NSMenuItem"; title = "Study ID"; ObjectID = "11995"; */
+"11995.title" = "序列号";
+
+/* Class = "NSTableColumn"; headerCell.title = "Age"; ObjectID = "12004"; */
+"12004.headerCell.title" = "年龄";
+
+/* Class = "NSTableColumn"; headerCell.title = "Accession Number"; ObjectID = "12005"; */
+"12005.headerCell.title" = "加入号码";
+
+/* Class = "NSMenuItem"; title = "ROI Manager..."; ObjectID = "12006"; */
+"12006.title" = "投资回报率经理...";
+
+/* Class = "NSMenuItem"; title = "24 hours"; ObjectID = "12025"; */
+"12025.title" = "24 小时";
+
+/* Class = "NSMenuItem"; title = "48 hours"; ObjectID = "12026"; */
+"12026.title" = "48小时";
+
+/* Class = "NSMenuItem"; title = "Display Info Only when ROI Selected"; ObjectID = "12213"; */
+"12213.title" = "仅在选择 ROI 时显示信息";
+
+/* Class = "NSMenuItem"; title = "Resize Window"; ObjectID = "12249"; */
+"12249.title" = "调整窗口大小";
+
+/* Class = "NSMenu"; title = "Resize Window"; ObjectID = "12250"; */
+"12250.title" = "调整窗口大小";
+
+/* Class = "NSMenuItem"; title = "300%"; ObjectID = "12251"; */
+"12251.title" = "300%";
+
+/* Class = "NSMenuItem"; title = "200%"; ObjectID = "12252"; */
+"12252.title" = "200%";
+
+/* Class = "NSMenuItem"; title = "100%"; ObjectID = "12253"; */
+"12253.title" = "100%";
+
+/* Class = "NSMenuItem"; title = "iPod Video"; ObjectID = "12254"; */
+"12254.title" = "iPod Video";
+
+/* Class = "NSMenuItem"; title = "50%"; ObjectID = "12255"; */
+"12255.title" = "50%";
+
+/* Class = "NSMenuItem"; title = "25%"; ObjectID = "12256"; */
+"12256.title" = "25%";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedNoSelectionPlaceholder = "Search"; ObjectID = "12308"; */
+"12308.ibShadowedNoSelectionPlaceholder" = "搜索";
+
+/* Class = "NSMenuItem"; title = "ROI Rename..."; ObjectID = "12313"; */
+"12313.title" = "投资回报率重命名...";
+
+/* Class = "NSMenuItem"; title = "Scissor Editing"; ObjectID = "12332"; */
+"12332.title" = "剪刀编辑";
+
+/* Class = "NSMenu"; title = "Scissor Editing"; ObjectID = "12333"; */
+"12333.title" = "剪刀编辑";
+
+/* Class = "NSMenuItem"; title = "Save"; ObjectID = "12334"; */
+"12334.title" = "保存";
+
+/* Class = "NSMenuItem"; title = "Load"; ObjectID = "12336"; */
+"12336.title" = "加载";
+
+/* Class = "NSMenuItem"; title = "Delete"; ObjectID = "12337"; */
+"12337.title" = "删除";
+
+/* Class = "NSMenuItem"; title = "Right Sagittal View"; ObjectID = "12341"; */
+"12341.title" = "右射手座视图";
+
+/* Class = "NSMenuItem"; title = "Report"; ObjectID = "12353"; */
+"12353.title" = "报告";
+
+/* Class = "NSMenu"; title = "Report"; ObjectID = "12354"; */
+"12354.title" = "报告";
+
+/* Class = "NSMenuItem"; title = "Open report"; ObjectID = "12355"; */
+"12355.title" = "未结报告";
+
+/* Class = "NSMenuItem"; title = "Delete report"; ObjectID = "12356"; */
+"12356.title" = "删除报告";
+
+/* Class = "NSTableColumn"; headerCell.title = "Report"; ObjectID = "12364"; */
+"12364.headerCell.title" = "报告";
+
+/* Class = "NSWindow"; title = "Window"; ObjectID = "12366"; */
+"12366.title" = "Window";
+
+/* Class = "NSMenuItem"; title = "Brush ROIs"; ObjectID = "12388"; */
+"12388.title" = "刷子机器人";
+
+/* Class = "NSMenu"; title = "Brush ROIs"; ObjectID = "12389"; */
+"12389.title" = "刷子机器人";
+
+/* Class = "NSMenuItem"; title = "Convert Between Polygon / Brush ROIs"; ObjectID = "12390"; */
+"12390.title" = "在多边形/画笔 ROI 之间转换";
+
+/* Class = "NSMenuItem"; title = "Dilatation"; ObjectID = "12391"; */
+"12391.title" = "扩张";
+
+/* Class = "NSMenuItem"; title = "Closing"; ObjectID = "12403"; */
+"12403.title" = "截止日期";
+
+/* Class = "NSMenuItem"; title = "Opening"; ObjectID = "12405"; */
+"12405.title" = "开放";
+
+/* Class = "NSButtonCell"; title = "Button"; ObjectID = "12451"; */
+"12451.title" = "Button";
+
+/* Class = "NSButtonCell"; title = "Button"; ObjectID = "12452"; */
+"12452.title" = "Button";
+
+/* Class = "NSButtonCell"; title = "Button"; ObjectID = "12453"; */
+"12453.title" = "Button";
+
+/* Class = "NSButtonCell"; title = "Button"; ObjectID = "12454"; */
+"12454.title" = "Button";
+
+/* Class = "NSButtonCell"; title = "Button"; ObjectID = "12455"; */
+"12455.title" = "Button";
+
+/* Class = "NSButtonCell"; title = "Button"; ObjectID = "12456"; */
+"12456.title" = "Button";
+
+/* Class = "NSButtonCell"; title = "Button"; ObjectID = "12457"; */
+"12457.title" = "Button";
+
+/* Class = "NSButtonCell"; title = "Button"; ObjectID = "12458"; */
+"12458.title" = "Button";
+
+/* Class = "NSButtonCell"; title = "Button"; ObjectID = "12459"; */
+"12459.title" = "Button";
+
+/* Class = "NSButtonCell"; title = "Button"; ObjectID = "12460"; */
+"12460.title" = "Button";
+
+/* Class = "NSButtonCell"; title = "Button"; ObjectID = "12461"; */
+"12461.title" = "Button";
+
+/* Class = "NSButtonCell"; title = "Button"; ObjectID = "12462"; */
+"12462.title" = "Button";
+
+/* Class = "NSButtonCell"; title = "Button"; ObjectID = "12463"; */
+"12463.title" = "Button";
+
+/* Class = "NSButtonCell"; title = "Button"; ObjectID = "12464"; */
+"12464.title" = "Button";
+
+/* Class = "NSButtonCell"; title = "Button"; ObjectID = "12465"; */
+"12465.title" = "Button";
+
+/* Class = "NSButtonCell"; title = "Button"; ObjectID = "12466"; */
+"12466.title" = "Button";
+
+/* Class = "NSMenuItem"; title = "Display Name Only"; ObjectID = "12467"; */
+"12467.title" = "仅显示名称";
+
+/* Class = "NSMenuItem"; title = "All fields"; ObjectID = "12522"; */
+"12522.title" = "所有字段";
+
+/* Class = "NSMenuItem"; title = "Accession Number"; ObjectID = "12524"; */
+"12524.title" = "加入号码";
+
+/* Class = "NSMenuItem"; title = "Rebuild Selected Thumbnails"; ObjectID = "12643"; */
+"12643.title" = "重建选定的缩略图";
+
+/* Class = "NSMenuItem"; title = "Copy Linked Files to Database Folder"; ObjectID = "12648"; */
+"12648.title" = "将链接的文件复制到数据库文件夹";
+
+/* Class = "NSMenuItem"; title = "Decompress selected DICOM files"; ObjectID = "12649"; */
+"12649.title" = "分解选定的 DICOM 文件";
+
+/* Class = "NSButtonCell"; title = "Compress all DICOM files in JPEG"; ObjectID = "12658"; */
+"12658.title" = "压缩 JPEG 中的所有 DICOM 文件";
+
+/* Class = "NSButtonCell"; title = "Decompress all DICOM files"; ObjectID = "12659"; */
+"12659.title" = "解压缩所有 DICOM 文件";
+
+/* Class = "NSButtonCell"; title = "Don't modify the files"; ObjectID = "12660"; */
+"12660.title" = "不要修改文件";
+
+/* Class = "NSButtonCell"; title = "Hierarchical"; ObjectID = "12670"; */
+"12670.title" = "分层";
+
+/* Class = "NSButtonCell"; title = "Flat"; ObjectID = "12671"; */
+"12671.title" = "扁平";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "12682"; */
+"12682.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "DICOM Print..."; ObjectID = "12762"; */
+"12762.title" = "DICOM打印...";
+
+/* Class = "NSWindow"; title = "Window"; ObjectID = "12799"; */
+"12799.title" = "Window";
+
+/* Class = "NSButtonCell"; title = "All Images"; ObjectID = "12850"; */
+"12850.title" = "所有图片";
+
+/* Class = "NSButtonCell"; title = "4D Viewer"; ObjectID = "12851"; */
+"12851.title" = "4d 查看器";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "12852"; */
+"12852.title" = "取消";
+
+/* Class = "NSButtonCell"; title = "Button"; ObjectID = "12853"; */
+"12853.title" = "Button";
+
+/* Class = "NSButtonCell"; title = "Button"; ObjectID = "12938"; */
+"12938.title" = "Button";
+
+/* Class = "NSMenuItem"; title = "Group Selected ROIs"; ObjectID = "12946"; */
+"12946.title" = "对选定的 ROI 进行分组";
+
+/* Class = "NSMenuItem"; title = "Ungroup Selected ROIs"; ObjectID = "12947"; */
+"12947.title" = "取消对选定的 ROI 的分组";
+
+/* Class = "NSMenuItem"; title = "Save Current State as 3D Preset..."; ObjectID = "12965"; */
+"12965.title" = "将当前状态另存为 3D 预设...";
+
+/* Class = "NSMenuItem"; title = "Select 3D Preset..."; ObjectID = "12974"; */
+"12974.title" = "选择3D预设...";
+
+/* Class = "NSMenuItem"; title = "Export to DICOM Network Node"; ObjectID = "12980"; */
+"12980.title" = "导出到 DICOM 网络节点";
+
+/* Class = "NSMenuItem"; title = "New Database Folder..."; ObjectID = "12982"; */
+"12982.title" = "新数据库文件夹...";
+
+/* Class = "NSMenuItem"; title = "Plugins Manager..."; ObjectID = "12989"; */
+"12989.title" = "插件管理器...";
+
+/* Class = "NSMenuItem"; title = "Create Layer from Selected ROI"; ObjectID = "12992"; */
+"12992.title" = "从所选投资回报率创建图层";
+
+/* Class = "NSMenuItem"; title = "Erosion"; ObjectID = "13002"; */
+"13002.title" = "侵蚀";
+
+/* Class = "NSMenuItem"; title = "ROI Volume"; ObjectID = "13007"; */
+"13007.title" = "投资回报率";
+
+/* Class = "NSMenu"; title = "ROI Volume"; ObjectID = "13008"; */
+"13008.title" = "投资回报率";
+
+/* Class = "NSMenuItem"; title = "Compute Volume..."; ObjectID = "13010"; */
+"13010.title" = "计算音量...";
+
+/* Class = "NSMenuItem"; title = "Generate Missing ROIs"; ObjectID = "13012"; */
+"13012.title" = "生成缺少的 ROI";
+
+/* Class = "NSMenuItem"; title = "Delete Generated ROIs"; ObjectID = "13014"; */
+"13014.title" = "删除生成的 ROI";
+
+/* Class = "NSMenuItem"; title = "Select All ROIs in this Series"; ObjectID = "13018"; */
+"13018.title" = "选择本系列中的所有 ROI";
+
+/* Class = "NSMenuItem"; title = "Deselect All ROIs in this Series"; ObjectID = "13020"; */
+"13020.title" = "取消选择此系列中的所有 ROI";
+
+/* Class = "NSMenuItem"; title = "Erase Content"; ObjectID = "13025"; */
+"13025.title" = "擦除内容";
+
+/* Class = "NSMenuItem"; title = "Restore Content"; ObjectID = "13026"; */
+"13026.title" = "还原内容";
+
+/* Class = "NSMenuItem"; title = "Delete All ROIs with Same Name as Selected ROI"; ObjectID = "13030"; */
+"13030.title" = "删除与所选投资回报率同名的所有 ROI";
+
+/* Class = "NSMenuItem"; title = "Merge Selected Studies"; ObjectID = "13044"; */
+"13044.title" = "合并选定的研究";
+
+/* Class = "NSTableColumn"; headerCell.title = "Lock"; ObjectID = "13047"; */
+"13047.headerCell.title" = "锁定";
+
+/* Class = "NSMenuItem"; title = "2D Viewer"; ObjectID = "13064"; */
+"13064.title" = "2D 查看器";
+
+/* Class = "NSMenu"; title = "2D Viewer"; ObjectID = "13065"; */
+"13065.title" = "2D 查看器";
+
+/* Class = "NSMenuItem"; title = "Convolution Filters"; ObjectID = "13068"; */
+"13068.title" = "卷积滤波器";
+
+/* Class = "NSMenu"; title = "Convolution Filters"; ObjectID = "13069"; */
+"13069.title" = "卷积滤波器";
+
+/* Class = "NSMenuItem"; title = "Propagate Settings Between Series"; ObjectID = "13070"; */
+"13070.title" = "传播系列之间的设置";
+
+/* Class = "NSMenuItem"; title = "Propagate Settings in Current Series"; ObjectID = "13071"; */
+"13071.title" = "传播当前系列中的设置";
+
+/* Class = "NSMenuItem"; title = "Sync Series (Same Study)"; ObjectID = "13072"; */
+"13072.title" = "同步系列 (同一研究)";
+
+/* Class = "NSMenu"; title = "Sync Series (Same Study)"; ObjectID = "13073"; */
+"13073.title" = "同步系列 (同一研究)";
+
+/* Class = "NSMenuItem"; title = "Off"; ObjectID = "13074"; */
+"13074.title" = "关闭";
+
+/* Class = "NSMenuItem"; title = "Slice Position - Absolute"; ObjectID = "13075"; */
+"13075.title" = "切片位置-绝对";
+
+/* Class = "NSMenuItem"; title = "Slice ID - Absolute"; ObjectID = "13077"; */
+"13077.title" = "切片 id-绝对";
+
+/* Class = "NSMenuItem"; title = "Limit to Same Study"; ObjectID = "13079"; */
+"13079.title" = "限制相同的研究";
+
+/* Class = "NSMenuItem"; title = "Slice ID - Relative"; ObjectID = "13080"; */
+"13080.title" = "切片 id-相对";
+
+/* Class = "NSMenuItem"; title = "Apply Convolution Filter on raw data"; ObjectID = "13081"; */
+"13081.title" = "在原始数据上应用卷积筛选器";
+
+/* Class = "NSMenuItem"; title = "Image Tiling"; ObjectID = "13084"; */
+"13084.title" = "图像平铺";
+
+/* Class = "NSMenuItem"; title = "Subtraction"; ObjectID = "13105"; */
+"13105.title" = "减法";
+
+/* Class = "NSMenu"; title = "Subtraction"; ObjectID = "13106"; */
+"13106.title" = "减法";
+
+/* Class = "NSMenuItem"; title = "Sum Less"; ObjectID = "13107"; */
+"13107.title" = "少求和";
+
+/* Class = "NSMenuItem"; title = "Subtract"; ObjectID = "13108"; */
+"13108.title" = "减";
+
+/* Class = "NSMenuItem"; title = "New Mask"; ObjectID = "13109"; */
+"13109.title" = "新面膜";
+
+/* Class = "NSMenuItem"; title = "Sharpen"; ObjectID = "13110"; */
+"13110.title" = "锐化";
+
+/* Class = "NSMenuItem"; title = "Pixel Shift NE"; ObjectID = "13112"; */
+"13112.title" = "像素移位 ne";
+
+/* Class = "NSMenuItem"; title = "Pixel Shift N"; ObjectID = "13113"; */
+"13113.title" = "像素移位 n";
+
+/* Class = "NSMenuItem"; title = "Pixel Shift NW"; ObjectID = "13114"; */
+"13114.title" = "像素移位 nw";
+
+/* Class = "NSMenuItem"; title = "Pixel Shift W"; ObjectID = "13115"; */
+"13115.title" = "像素移位 w";
+
+/* Class = "NSMenuItem"; title = "No Pixel Shift"; ObjectID = "13116"; */
+"13116.title" = "无像素移位";
+
+/* Class = "NSMenuItem"; title = "Pixel Shift E"; ObjectID = "13117"; */
+"13117.title" = "像素移位 e";
+
+/* Class = "NSMenuItem"; title = "Pixel Shift SW"; ObjectID = "13118"; */
+"13118.title" = "像素移位 sw";
+
+/* Class = "NSMenuItem"; title = "Pixel Shift S"; ObjectID = "13119"; */
+"13119.title" = "像素移位 s";
+
+/* Class = "NSMenuItem"; title = "Pixel Shift SE"; ObjectID = "13120"; */
+"13120.title" = "像素移位 se";
+
+/* Class = "NSMenuItem"; title = "Contrast Down"; ObjectID = "13122"; */
+"13122.title" = "向下对比度";
+
+/* Class = "NSMenuItem"; title = "Contrast Default"; ObjectID = "13123"; */
+"13123.title" = "对比度默认值";
+
+/* Class = "NSMenuItem"; title = "Contrast Up"; ObjectID = "13124"; */
+"13124.title" = "对比度";
+
+/* Class = "NSMenuItem"; title = "Brightness Down"; ObjectID = "13125"; */
+"13125.title" = "亮度降低";
+
+/* Class = "NSMenuItem"; title = "Brightness Default"; ObjectID = "13126"; */
+"13126.title" = "亮度默认值";
+
+/* Class = "NSMenuItem"; title = "Brightness Up"; ObjectID = "13127"; */
+"13127.title" = "亮度提升";
+
+/* Class = "NSMenuItem"; title = "No Sum"; ObjectID = "13128"; */
+"13128.title" = "无总和";
+
+/* Class = "NSMenuItem"; title = "Sum More"; ObjectID = "13129"; */
+"13129.title" = "求和更多";
+
+/* Class = "NSMenuItem"; title = "Save Workspace State"; ObjectID = "13131"; */
+"13131.title" = "保存工作区状态";
+
+/* Class = "NSMenuItem"; title = "Load Workspace State"; ObjectID = "13132"; */
+"13132.title" = "加载工作区状态";
+
+/* Class = "NSMenuItem"; title = "Reset Workspace State"; ObjectID = "13133"; */
+"13133.title" = "重置工作区状态";
+
+/* Class = "NSMenuItem"; title = "Annotations"; ObjectID = "13150"; */
+"13150.title" = "注释";
+
+/* Class = "NSMenu"; title = "Annotations"; ObjectID = "13151"; */
+"13151.title" = "注释";
+
+/* Class = "NSMenuItem"; title = "None"; ObjectID = "13152"; */
+"13152.title" = "无";
+
+/* Class = "NSMenuItem"; title = "Graphics Only"; ObjectID = "13153"; */
+"13153.title" = "仅限图形";
+
+/* Class = "NSMenuItem"; title = "Basic (No Name)"; ObjectID = "13154"; */
+"13154.title" = "基本 (无名称)";
+
+/* Class = "NSMenuItem"; title = "Full (Patient Name)"; ObjectID = "13155"; */
+"13155.title" = "完整 (患者姓名)";
+
+/* Class = "NSMenuItem"; title = "Plugin Only"; ObjectID = "13156"; */
+"13156.title" = "仅限插件";
+
+/* Class = "NSMenuItem"; title = "Sync Series (Different Studies) at Current Position"; ObjectID = "13157"; */
+"13157.title" = "同步系列 (不同的研究) 在当前位置";
+
+/* Class = "NSMenuItem"; title = "Window Width & Level"; ObjectID = "13159"; */
+"13159.title" = "窗口宽度和级别";
+
+/* Class = "NSMenu"; title = "Window Width & Level"; ObjectID = "13160"; */
+"13160.title" = "窗口宽度和级别";
+
+/* Class = "NSMenuItem"; title = "Reset Image View"; ObjectID = "13162"; */
+"13162.title" = "重置图像视图";
+
+/* Class = "NSMenuItem"; title = "Revert series"; ObjectID = "13163"; */
+"13163.title" = "还原系列";
+
+/* Class = "NSMenuItem"; title = "Orientation"; ObjectID = "13164"; */
+"13164.title" = "方向";
+
+/* Class = "NSMenuItem"; title = "Previous Series"; ObjectID = "13178"; */
+"13178.title" = "上一个系列";
+
+/* Class = "NSMenuItem"; title = "Color Look Up Table"; ObjectID = "13180"; */
+"13180.title" = "颜色查找表";
+
+/* Class = "NSMenuItem"; title = "Convert between BW / RGB"; ObjectID = "13182"; */
+"13182.title" = "在 bw/RGB 之间转换";
+
+/* Class = "NSMenu"; title = "Convert between BW / RGB"; ObjectID = "13183"; */
+"13183.title" = "在 bw/RGB 之间转换";
+
+/* Class = "NSMenuItem"; title = "Red ->BW"; ObjectID = "13184"; */
+"13184.title" = "红色-> bw";
+
+/* Class = "NSMenuItem"; title = "Green ->BW"; ObjectID = "13185"; */
+"13185.title" = "绿色-> bw";
+
+/* Class = "NSMenuItem"; title = "Blue ->BW"; ObjectID = "13186"; */
+"13186.title" = "蓝色-> bw";
+
+/* Class = "NSMenuItem"; title = "RGB ->BW"; ObjectID = "13187"; */
+"13187.title" = "RGB ->BW";
+
+/* Class = "NSMenuItem"; title = "Calibrate Resolution"; ObjectID = "13188"; */
+"13188.title" = "校准分辨率";
+
+/* Class = "NSMenuItem"; title = "Next Series"; ObjectID = "13189"; */
+"13189.title" = "下一个系列";
+
+/* Class = "NSMenuItem"; title = "Flip Series"; ObjectID = "13190"; */
+"13190.title" = "翻转系列";
+
+/* Class = "NSMenuItem"; title = "Key Image"; ObjectID = "13191"; */
+"13191.title" = "密钥图像";
+
+/* Class = "NSMenuItem"; title = "Use VOI LUT"; ObjectID = "13192"; */
+"13192.title" = "使用 voi lut";
+
+/* Class = "NSMenuItem"; title = "Display DICOM Overlays"; ObjectID = "13193"; */
+"13193.title" = "显示多博覆盖";
+
+/* Class = "NSMenuItem"; title = "Color Look Up Table Bar"; ObjectID = "13194"; */
+"13194.title" = "颜色查找表栏";
+
+/* Class = "NSMenu"; title = "Color Look Up Table Bar"; ObjectID = "13195"; */
+"13195.title" = "颜色查找表栏";
+
+/* Class = "NSMenuItem"; title = "Original Series Only"; ObjectID = "13196"; */
+"13196.title" = "仅限原装系列";
+
+/* Class = "NSMenuItem"; title = "Fused Series Only"; ObjectID = "13197"; */
+"13197.title" = "仅限保险丝系列";
+
+/* Class = "NSMenuItem"; title = "Both Series"; ObjectID = "13198"; */
+"13198.title" = "两种系列";
+
+/* Class = "NSMenuItem"; title = "Hide All"; ObjectID = "13199"; */
+"13199.title" = "隐藏全部";
+
+/* Class = "NSMenuItem"; title = "DICOM Meta-Data"; ObjectID = "13200"; */
+"13200.title" = "DICOM 元数据";
+
+/* Class = "NSMenuItem"; title = "Fuse/De-Fuse PET/SPECT - CT"; ObjectID = "13201"; */
+"13201.title" = "Fuse/De-Fuse PET/SPECT - CT";
+
+/* Class = "NSMenuItem"; title = "BW -> Red"; ObjectID = "13313"; */
+"13313.title" = "BW -> 红色";
+
+/* Class = "NSMenuItem"; title = "BW -> Green"; ObjectID = "13314"; */
+"13314.title" = "BW -> 绿色";
+
+/* Class = "NSMenuItem"; title = "BW -> Blue"; ObjectID = "13315"; */
+"13315.title" = "BW -> 蓝色";
+
+/* Class = "NSMenuItem"; title = "BW -> RGB"; ObjectID = "13316"; */
+"13316.title" = "BW -> RGB";
+
+/* Class = "NSButtonCell"; title = "Play"; ObjectID = "13341"; */
+"13341.title" = "播放";
+
+/* Class = "NSButtonCell"; title = "Download"; ObjectID = "13357"; */
+"13357.title" = "下载";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "13358"; */
+"13358.title" = "取消";
+
+/* Class = "NSTextFieldCell"; title = "URL:"; ObjectID = "13360"; */
+"13360.title" = "URL:";
+
+/* Class = "NSTextFieldCell"; title = "Example: http://www.osirix-viewer.com/internet.dcm"; ObjectID = "13361"; */
+"13361.title" = "示例: HTTP://www.Miele-LXIV-viewer.com/internet.dcm";
+
+/* Class = "NSSearchFieldCell"; placeholderString = "Search"; ObjectID = "13362"; */
+"13362.placeholderString" = "搜索";
+
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "13375"; */
+"13375.title" = "确定";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "13376"; */
+"13376.title" = "取消";
+
+/* Class = "NSTextFieldCell"; title = "Give a name for this album:"; ObjectID = "13377"; */
+"13377.title" = "为此相册指定一个名称:";
+
+/* Class = "NSTextFieldCell"; title = "This database is protected by a password."; ObjectID = "13386"; */
+"13386.title" = "此数据库受密码保护。";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "13387"; */
+"13387.title" = "取消";
+
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "13388"; */
+"13388.title" = "确定";
+
+/* Class = "NSTextFieldCell"; title = "Password:"; ObjectID = "13390"; */
+"13390.title" = "密码:";
+
+/* Class = "NSButtonCell"; title = "Add DICOMDIR"; ObjectID = "13391"; */
+"13391.title" = "添加 di倾倒 ir";
+
+/* Class = "NSTextFieldCell"; title = "DICOMDIR:"; ObjectID = "13392"; */
+"13392.title" = "DICOMDIR:";
+
+/* Class = "NSTextFieldCell"; title = "Compression:"; ObjectID = "13393"; */
+"13393.title" = "压缩:";
+
+/* Class = "NSTextFieldCell"; title = "Folder tree:"; ObjectID = "13394"; */
+"13394.title" = "文件夹树:";
+
+/* Class = "NSButtonCell"; title = "Create HTML pages"; ObjectID = "13424"; */
+"13424.title" = "创建 HTML 页面";
+
+/* Class = "NSTextFieldCell"; title = "Multiple 3D series are contained in this series. Which series to open?"; ObjectID = "13427"; */
+"13427.title" = "本系列中包含多个3d 系列。要打开哪个系列？";
+
+/* Class = "NSTextFieldCell"; title = "3D"; ObjectID = "13428"; */
+"13428.title" = "3D";
+
+/* Class = "NSTextFieldCell"; title = "4D"; ObjectID = "13429"; */
+"13429.title" = "4D";
+
+/* Class = "NSButtonCell"; title = "Open all 4D Series"; ObjectID = "13430"; */
+"13430.title" = "打开所有4D系列";
+
+/* Class = "NSButtonCell"; title = "Open all 3D Series"; ObjectID = "13431"; */
+"13431.title" = "打开所有3D系列";
+
+/* Class = "NSButtonCell"; title = "Button"; ObjectID = "13433"; */
+"13433.title" = "Button";
+
+/* Class = "NSFormCell"; title = "Field:"; ObjectID = "13434"; */
+"13434.title" = "Field:";
+
+/* Class = "NSFormCell"; title = "Field:"; ObjectID = "13435"; */
+"13435.title" = "Field:";
+
+/* Class = "NSFormCell"; title = "Field:"; ObjectID = "13436"; */
+"13436.title" = "Field:";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "13437"; */
+"13437.title" = "Radio";
+
+/* Class = "NSFormCell"; title = "Field:"; ObjectID = "13438"; */
+"13438.title" = "Field:";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "13439"; */
+"13439.title" = "Radio";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "13440"; */
+"13440.title" = "Radio";
+
+/* Class = "NSButtonCell"; title = "Button"; ObjectID = "13442"; */
+"13442.title" = "Button";
+
+/* Class = "NSButtonCell"; title = "Entire"; ObjectID = "13443"; */
+"13443.title" = "整个";
+
+/* Class = "NSButtonCell"; title = "Button"; ObjectID = "13444"; */
+"13444.title" = "Button";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "13445"; */
+"13445.title" = "Text Cell";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "13448"; */
+"13448.title" = "Text Cell";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "13452"; */
+"13452.title" = "Text Cell";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "13453"; */
+"13453.title" = "Text Cell";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "13454"; */
+"13454.title" = "Text Cell";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "13455"; */
+"13455.title" = "Text Cell";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "13460"; */
+"13460.title" = "Text Cell";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "13461"; */
+"13461.title" = "Text Cell";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "13462"; */
+"13462.title" = "Text Cell";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "13463"; */
+"13463.title" = "Text Cell";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "13464"; */
+"13464.title" = "Text Cell";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "13466"; */
+"13466.title" = "Text Cell";
+
+/* Class = "NSMenuItem"; title = "Rebuild SQL Index File..."; ObjectID = "13527"; */
+"13527.title" = "重建SQL索引文件...";
+
+/* Class = "NSMenuItem"; title = "Delete Selected Exam"; ObjectID = "13533"; */
+"13533.title" = "删除所选考试";
+
+/* Class = "NSMenuItem"; title = "Merge Selected Brush ROIs"; ObjectID = "13547"; */
+"13547.title" = "合并选定的画笔 ROI";
+
+/* Class = "NSMenuItem"; title = "3D Position Panel"; ObjectID = "13551"; */
+"13551.title" = "3D 位置面板";
+
+/* Class = "NSMenuItem"; title = "Navigator Panel"; ObjectID = "13553"; */
+"13553.title" = "导航面板";
+
+/* Class = "NSMenuItem"; title = "Display Cross Reference Lines"; ObjectID = "13556"; */
+"13556.title" = "显示交叉参考线";
+
+/* Class = "NSMenuItem"; title = "Find Next Key Image"; ObjectID = "13558"; */
+"13558.title" = "查找下一个密钥图像";
+
+/* Class = "NSMenuItem"; title = "Find Previous Key Image"; ObjectID = "13559"; */
+"13559.title" = "查找上一个密钥图像";
+
+/* Class = "NSMenuItem"; title = "Flatten Fused Image"; ObjectID = "13563"; */
+"13563.title" = "扁平融合的图像";
+
+/* Class = "NSMenuItem"; title = "Compress selected DICOM files"; ObjectID = "13565"; */
+"13565.title" = "压缩选定的 DICOM 文件";
+
+/* Class = "NSMenuItem"; title = "Don't Propagate WL&WW Between Series"; ObjectID = "13571"; */
+"13571.title" = "不要在系列之间传播 wl & ww";
+
+/* Class = "NSMenuItem"; title = "Mark All Images as Key Images"; ObjectID = "13652"; */
+"13652.title" = "将所有图像标记为关键图像";
+
+/* Class = "NSMenuItem"; title = "Mark All ROIs Images as Key Images"; ObjectID = "13654"; */
+"13654.title" = "将所有 ROI 图像标记为关键图像";
+
+/* Class = "NSMenuItem"; title = "Unmark All Images as Key Images"; ObjectID = "13656"; */
+"13656.title" = "取消将所有图像标记为关键图像";
+
+/* Class = "NSMenuItem"; title = "Save All ROIs of this Series..."; ObjectID = "13658"; */
+"13658.title" = "保存此系列的所有 ROI...";
+
+/* Class = "NSTableColumn"; headerCell.title = "Albums"; ObjectID = "13662"; */
+"13662.headerCell.title" = "专辑";
+
+/* Class = "NSMenuItem"; title = "Increase Thickness"; ObjectID = "13665"; */
+"13665.title" = "增加厚度";
+
+/* Class = "NSMenuItem"; title = "Decrease Thickness"; ObjectID = "13666"; */
+"13666.title" = "减少厚度";
+
+/* Class = "NSMenuItem"; title = "Increase Font Size"; ObjectID = "13667"; */
+"13667.title" = "增加字体大小";
+
+/* Class = "NSMenuItem"; title = "Decrease Font Size"; ObjectID = "13668"; */
+"13668.title" = "减小字体大小";
+
+/* Class = "NSMenuItem"; title = "Lock Selected ROIs"; ObjectID = "13740"; */
+"13740.title" = "锁定选定的 ROI";
+
+/* Class = "NSMenuItem"; title = "Unlock Selected ROIs"; ObjectID = "13741"; */
+"13741.title" = "解锁选定的 ROI";
+
+/* Class = "NSMenuItem"; title = "Make Selected ROIs Unselectable"; ObjectID = "13745"; */
+"13745.title" = "使选定的 ROI 无法选择";
+
+/* Class = "NSMenuItem"; title = "Make All ROIs Selectable"; ObjectID = "13746"; */
+"13746.title" = "使所有 ROI 都可选择";
+
+/* Class = "NSMenu"; title = "Color Look Up Table"; ObjectID = "13750"; */
+"13750.title" = "颜色查找表";
+
+/* Class = "NSMenuItem"; title = "Opacity"; ObjectID = "13751"; */
+"13751.title" = "不透明度";
+
+/* Class = "NSMenu"; title = "Opacity"; ObjectID = "13752"; */
+"13752.title" = "不透明度";
+
+/* Class = "NSMenuItem"; title = "3D MPR"; ObjectID = "13753"; */
+"13753.title" = "3D MPR";
+
+/* Class = "NSMenuItem"; title = "3D Curved-MPR"; ObjectID = "13754"; */
+"13754.title" = "3D 卷曲 MPR";
+
+/* Class = "NSMenuItem"; title = "2D Orthogonal MPR"; ObjectID = "13755"; */
+"13755.title" = "二维正交 MPR";
+
+/* Class = "NSMenuItem"; title = "3D MIP"; ObjectID = "13757"; */
+"13757.title" = "3D MIP";
+
+/* Class = "NSMenuItem"; title = "3D Volume Rendering"; ObjectID = "13758"; */
+"13758.title" = "3D 卷渲染";
+
+/* Class = "NSMenuItem"; title = "3D Surface Rendering"; ObjectID = "13759"; */
+"13759.title" = "3D 曲面渲染";
+
+/* Class = "NSMenuItem"; title = "3D Endoscopy"; ObjectID = "13760"; */
+"13760.title" = "3D 内窥镜";
+
+/* Class = "NSMenuItem"; title = "Export Displayed Database List as..."; ObjectID = "13772"; */
+"13772.title" = "导出显示的数据库列表...";
+
+/* Class = "NSMenuItem"; title = "Network"; ObjectID = "13787"; */
+"13787.title" = "网络";
+
+/* Class = "NSMenu"; title = "Network"; ObjectID = "13788"; */
+"13788.title" = "网络";
+
+/* Class = "NSMenuItem"; title = "Query / Retrieve Window..."; ObjectID = "13790"; */
+"13790.title" = "查询/检索窗口...";
+
+/* Class = "NSMenuItem"; title = "Query Selected Patient from Q&R Window..."; ObjectID = "13791"; */
+"13791.title" = "从 q & r 窗口查询选定的患者...";
+
+/* Class = "NSMenuItem"; title = "Abort Incoming DICOM Processes (Store-SCU)"; ObjectID = "13793"; */
+"13793.title" = "中止传入的 DICOM 进程 (存储 scu)";
+
+/* Class = "NSMenuItem"; title = "Network Logs"; ObjectID = "13794"; */
+"13794.title" = "网络日志";
+
+/* Class = "NSMenuItem"; title = "Export to DICOM Network Node"; ObjectID = "13801"; */
+"13801.title" = "导出到 DICOM 网络节点";
+
+/* Class = "NSWindow"; title = "CD/DVD Password"; ObjectID = "13805"; */
+"13805.title" = "密码/DVD 密码";
+
+/* Class = "NSTextFieldCell"; title = "This file is password protected. Enter password to read the images."; ObjectID = "13808"; */
+"13808.title" = "此文件受密码保护。输入密码以读取图像。";
+
+/* Class = "NSTextFieldCell"; title = "Password:"; ObjectID = "13810"; */
+"13810.title" = "密码:";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "13815"; */
+"13815.title" = "取消";
+
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "13816"; */
+"13816.title" = "确定";
+
+/* Class = "NSButtonCell"; title = "Soundex"; ObjectID = "13825"; */
+"13825.title" = "Soundex";
+
+/* Class = "NSTextFieldCell"; title = "ZIP Package:"; ObjectID = "13832"; */
+"13832.title" = "邮编套餐:";
+
+/* Class = "NSButtonCell"; title = "Save as ZIP file with password (optional):"; ObjectID = "13834"; */
+"13834.title" = "使用密码保存为ZIP文件（可选）:";
+
+/* Class = "NSWindow"; title = "CD/DVD Password"; ObjectID = "13843"; */
+"13843.title" = "密码/DVD 密码";
+
+/* Class = "NSTextFieldCell"; title = "Password:"; ObjectID = "13851"; */
+"13851.title" = "密码:";
+
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "13853"; */
+"13853.title" = "确定";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "13854"; */
+"13854.title" = "取消";
+
+/* Class = "NSTextFieldCell"; title = "Enter a password to encrypt the files for email sending (at least 8 characters):"; ObjectID = "13855"; */
+"13855.title" = "输入密码以加密用于发送电子邮件的文件 (至少8个字符):";
+
+/* Class = "NSWindow"; title = "Window"; ObjectID = "13869"; */
+"13869.title" = "Window";
+
+/* Class = "NSBox"; title = "Users"; ObjectID = "13873"; */
+"13873.title" = "用户";
+
+/* Class = "NSTextFieldCell"; title = "# out of #"; ObjectID = "13875"; */
+"13875.title" = "# 离开 #";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedDisplayPattern = "%{value1}@ out of %{value2}@"; ObjectID = "13876"; */
+"13876.ibShadowedDisplayPattern" = "% {价值 1} @ 从% {价值 2} @";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedDisplayPattern = "%{value1}@ out of %{value2}@"; ObjectID = "13877"; */
+"13877.ibShadowedDisplayPattern" = "% {价值 1} @ 从% {价值 2} @";
+
+/* Class = "NSTableColumn"; headerCell.title = "Phone"; ObjectID = "13883"; */
+"13883.headerCell.title" = "电话";
+
+/* Class = "NSTextFieldCell"; title = "Field"; ObjectID = "13884"; */
+"13884.title" = "Field";
+
+/* Class = "NSTableColumn"; headerCell.title = "Address"; ObjectID = "13886"; */
+"13886.headerCell.title" = "地址";
+
+/* Class = "NSTextFieldCell"; title = "Field"; ObjectID = "13887"; */
+"13887.title" = "Field";
+
+/* Class = "NSTableColumn"; headerCell.title = "Email"; ObjectID = "13889"; */
+"13889.headerCell.title" = "邮箱";
+
+/* Class = "NSTextFieldCell"; title = "Field"; ObjectID = "13890"; */
+"13890.title" = "Field";
+
+/* Class = "NSTableColumn"; headerCell.title = "Name"; ObjectID = "13892"; */
+"13892.headerCell.title" = "名称";
+
+/* Class = "NSTextFieldCell"; title = "Field"; ObjectID = "13893"; */
+"13893.title" = "Field";
+
+/* Class = "NSSearchFieldCell"; placeholderString = "All"; ObjectID = "13896"; */
+"13896.placeholderString" = "所有";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedDisplayName = "All"; ObjectID = "13897"; */
+"13897.ibShadowedDisplayName" = "所有";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedDisplayName = "Phone"; ObjectID = "13898"; */
+"13898.ibShadowedDisplayName" = "电话";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedDisplayName = "Address"; ObjectID = "13899"; */
+"13899.ibShadowedDisplayName" = "地址";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedDisplayName = "Email"; ObjectID = "13900"; */
+"13900.ibShadowedDisplayName" = "邮箱";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedDisplayName = "Name"; ObjectID = "13901"; */
+"13901.ibShadowedDisplayName" = "名称";
+
+/* Class = "NSTextFieldCell"; title = "Select the user(s) to which you want to send a notification email about the selected study/studies:"; ObjectID = "13903"; */
+"13903.title" = "选择要向其发送有关所选研究报告的通知电子邮件的用户:";
+
+/* Class = "NSTextFieldCell"; title = "And/Or to a temporary user, with this email:"; ObjectID = "13905"; */
+"13905.title" = "和/临时用户, 通过此电子邮件:";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "13910"; */
+"13910.title" = "取消";
+
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "13911"; */
+"13911.title" = "确定";
+
+/* Class = "NSTextFieldCell"; title = "This user account will be automatically deleted after: %{value1}@ days"; ObjectID = "13917"; */
+"13917.title" = "此用户帐户将在: %{value1} @ 天之后自动删除";
+
+/* Class = "NSWindow"; title = "Window"; ObjectID = "13928"; */
+"13928.title" = "Window";
+
+/* Class = "NSBox"; title = "Users"; ObjectID = "13938"; */
+"13938.title" = "用户";
+
+/* Class = "NSTableColumn"; headerCell.title = "Email"; ObjectID = "13946"; */
+"13946.headerCell.title" = "邮箱";
+
+/* Class = "NSTableColumn"; headerCell.title = "Name"; ObjectID = "13947"; */
+"13947.headerCell.title" = "名称";
+
+/* Class = "NSTableColumn"; headerCell.title = "Address"; ObjectID = "13948"; */
+"13948.headerCell.title" = "地址";
+
+/* Class = "NSTableColumn"; headerCell.title = "Phone"; ObjectID = "13949"; */
+"13949.headerCell.title" = "电话";
+
+/* Class = "NSTextFieldCell"; title = "Field"; ObjectID = "13950"; */
+"13950.title" = "Field";
+
+/* Class = "NSTextFieldCell"; title = "Field"; ObjectID = "13951"; */
+"13951.title" = "Field";
+
+/* Class = "NSTextFieldCell"; title = "Field"; ObjectID = "13952"; */
+"13952.title" = "Field";
+
+/* Class = "NSTextFieldCell"; title = "Field"; ObjectID = "13953"; */
+"13953.title" = "Field";
+
+/* Class = "NSSearchFieldCell"; placeholderString = "All"; ObjectID = "13954"; */
+"13954.placeholderString" = "所有";
+
+/* Class = "NSTextFieldCell"; title = "# out of #"; ObjectID = "13955"; */
+"13955.title" = "# 离开 #";
+
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "13958"; */
+"13958.title" = "确定";
+
+/* Class = "NSTextFieldCell"; title = "Select the user(s) to which you want to authorize to view the selected study(s):"; ObjectID = "13962"; */
+"13962.title" = "选择要授权的用户以查看所选的研究:";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "13963"; */
+"13963.title" = "取消";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedDisplayPattern = "%{value1}@ out of %{value2}@"; ObjectID = "13965"; */
+"13965.ibShadowedDisplayPattern" = "% {价值 1} @ 从% {价值 2} @";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedDisplayPattern = "%{value1}@ out of %{value2}@"; ObjectID = "13966"; */
+"13966.ibShadowedDisplayPattern" = "% {价值 1} @ 从% {价值 2} @";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedDisplayName = "All"; ObjectID = "13968"; */
+"13968.ibShadowedDisplayName" = "所有";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedDisplayName = "Phone"; ObjectID = "13969"; */
+"13969.ibShadowedDisplayName" = "电话";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedDisplayName = "Address"; ObjectID = "13970"; */
+"13970.ibShadowedDisplayName" = "地址";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedDisplayName = "Email"; ObjectID = "13971"; */
+"13971.ibShadowedDisplayName" = "邮箱";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedDisplayName = "Name"; ObjectID = "13972"; */
+"13972.ibShadowedDisplayName" = "名称";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedDisplayPattern = "This user account will be automatically deleted after: %{value1}@ days"; ObjectID = "13983"; */
+"13983.ibShadowedDisplayPattern" = "此用户帐户将在: %{value1} @ 天之后自动删除";
+
+/* Class = "NSTextFieldCell"; title = "Add this text in the email, about these study/studies:"; ObjectID = "13990"; */
+"13990.title" = "在电子邮件中添加此文本, 关于这些研究:";
+
+/* Class = "NSTextFieldCell"; title = "asdasd"; ObjectID = "13992"; */
+"13992.title" = "asdasd";
+
+/* Class = "NSMenuItem"; title = "Item 1"; ObjectID = "13999"; */
+"13999.title" = "Item 1";
+
+/* Class = "NSMenuItem"; title = "Item 2"; ObjectID = "14000"; */
+"14000.title" = "Item 2";
+
+/* Class = "NSMenuItem"; title = "Item 3"; ObjectID = "14001"; */
+"14001.title" = "Item 3";
+
+/* Class = "NSMenuItem"; title = "Windows Tiling - Rows"; ObjectID = "14002"; */
+"14002.title" = "窗口平铺-行";
+
+/* Class = "NSMenu"; title = "Windows Tiling - Rows"; ObjectID = "14015"; */
+"14015.title" = "窗口平铺-行";
+
+/* Class = "NSMenuItem"; title = "1"; ObjectID = "14016"; */
+"14016.title" = "1";
+
+/* Class = "NSMenuItem"; title = "Windows Tiling - Columns"; ObjectID = "14017"; */
+"14017.title" = "窗口平铺-列";
+
+/* Class = "NSMenu"; title = "Windows Tiling - Columns"; ObjectID = "14018"; */
+"14018.title" = "窗口平铺-列";
+
+/* Class = "NSMenuItem"; title = "1"; ObjectID = "14019"; */
+"14019.title" = "1";
+
+/* Class = "NSMenuItem"; title = "2"; ObjectID = "14020"; */
+"14020.title" = "2";
+
+/* Class = "NSMenuItem"; title = "3"; ObjectID = "14021"; */
+"14021.title" = "3";
+
+/* Class = "NSMenuItem"; title = "4"; ObjectID = "14022"; */
+"14022.title" = "4";
+
+/* Class = "NSMenuItem"; title = "5"; ObjectID = "14023"; */
+"14023.title" = "5";
+
+/* Class = "NSMenuItem"; title = "6"; ObjectID = "14024"; */
+"14024.title" = "6";
+
+/* Class = "NSMenuItem"; title = "2"; ObjectID = "14025"; */
+"14025.title" = "2";
+
+/* Class = "NSMenuItem"; title = "3"; ObjectID = "14026"; */
+"14026.title" = "3";
+
+/* Class = "NSMenuItem"; title = "4"; ObjectID = "14027"; */
+"14027.title" = "4";
+
+/* Class = "NSMenuItem"; title = "5"; ObjectID = "14028"; */
+"14028.title" = "5";
+
+/* Class = "NSMenuItem"; title = "6"; ObjectID = "14029"; */
+"14029.title" = "6";
+
+/* Class = "NSMenuItem"; title = "1 X 1"; ObjectID = "14038"; */
+"14038.title" = "1 X 1";
+
+/* Class = "NSMenuItem"; title = "1 X 2"; ObjectID = "14039"; */
+"14039.title" = "1 X 2";
+
+/* Class = "NSMenuItem"; title = "1 X 3"; ObjectID = "14040"; */
+"14040.title" = "1 X 3";
+
+/* Class = "NSMenuItem"; title = "1 X 4"; ObjectID = "14041"; */
+"14041.title" = "1 X 4";
+
+/* Class = "NSMenuItem"; title = "2 X 1"; ObjectID = "14043"; */
+"14043.title" = "2 X 1";
+
+/* Class = "NSMenuItem"; title = "2 X 2"; ObjectID = "14044"; */
+"14044.title" = "2 X 2";
+
+/* Class = "NSMenuItem"; title = "2 X 3"; ObjectID = "14045"; */
+"14045.title" = "2 X 3";
+
+/* Class = "NSMenuItem"; title = "2 X 4"; ObjectID = "14046"; */
+"14046.title" = "2 X 4";
+
+/* Class = "NSMenuItem"; title = "3 X 1"; ObjectID = "14048"; */
+"14048.title" = "3 X 1";
+
+/* Class = "NSMenuItem"; title = "3 X 2"; ObjectID = "14049"; */
+"14049.title" = "3 X 2";
+
+/* Class = "NSMenuItem"; title = "3 X 3"; ObjectID = "14050"; */
+"14050.title" = "3 X 3";
+
+/* Class = "NSMenuItem"; title = "3 X 4"; ObjectID = "14051"; */
+"14051.title" = "3 X 4";
+
+/* Class = "NSMenuItem"; title = "4 X 1"; ObjectID = "14053"; */
+"14053.title" = "4 X 1";
+
+/* Class = "NSMenuItem"; title = "4 X 2"; ObjectID = "14054"; */
+"14054.title" = "4 X 2";
+
+/* Class = "NSMenuItem"; title = "4 X 3"; ObjectID = "14055"; */
+"14055.title" = "4 X 3";
+
+/* Class = "NSMenuItem"; title = "4 X 4"; ObjectID = "14056"; */
+"14056.title" = "4 X 4";
+
+/* Class = "NSMenuItem"; title = "7"; ObjectID = "14074"; */
+"14074.title" = "7";
+
+/* Class = "NSMenuItem"; title = "8"; ObjectID = "14075"; */
+"14075.title" = "8";
+
+/* Class = "NSMenuItem"; title = "9"; ObjectID = "14076"; */
+"14076.title" = "9";
+
+/* Class = "NSMenuItem"; title = "7"; ObjectID = "14077"; */
+"14077.title" = "7";
+
+/* Class = "NSMenuItem"; title = "8"; ObjectID = "14078"; */
+"14078.title" = "8";
+
+/* Class = "NSMenuItem"; title = "9"; ObjectID = "14079"; */
+"14079.title" = "9";
+
+/* Class = "NSButtonCell"; title = "Re-Index in 3D in DB"; ObjectID = "14081"; */
+"14081.title" = "在数据库中重新索引3d";
+
+/* Class = "NSButtonCell"; title = "Re-Index in 4D in DB"; ObjectID = "14084"; */
+"14084.title" = "数据库中4d 中的重新索引";
+
+/* Class = "NSButtonCell"; title = "Include ROIs, Comments, Reports, ..."; ObjectID = "14090"; */
+"14090.title" = "包括 ROI, 注释, 报告,...";
+
+/* Class = "NSTextFieldCell"; title = "ROIs:"; ObjectID = "14091"; */
+"14091.title" = "ROI:";
+
+/* Class = "NSMenu"; title = "Orientation"; ObjectID = "14106"; */
+"14106.title" = "方向";
+
+/* Class = "NSMenuItem"; title = "Flip Image Horizontal"; ObjectID = "14107"; */
+"14107.title" = "水平翻转图像";
+
+/* Class = "NSMenuItem"; title = "Flip Image Vertical"; ObjectID = "14108"; */
+"14108.title" = "垂直翻转图像";
+
+/* Class = "NSMenuItem"; title = "Rotation 0 Degrees"; ObjectID = "14110"; */
+"14110.title" = "旋转0度";
+
+/* Class = "NSMenuItem"; title = "Rotation 90 Degrees"; ObjectID = "14111"; */
+"14111.title" = "旋转90度";
+
+/* Class = "NSMenuItem"; title = "Rotation 180 Degrees"; ObjectID = "14112"; */
+"14112.title" = "旋转180度";
+
+/* Class = "NSMenuItem"; title = "Sort By"; ObjectID = "14118"; */
+"14118.title" = "排序方式";
+
+/* Class = "NSMenu"; title = "Sort By"; ObjectID = "14119"; */
+"14119.title" = "排序方式";
+
+/* Class = "NSMenuItem"; title = "Instance Number - Ascending"; ObjectID = "14120"; */
+"14120.title" = "实例编号-升序";
+
+/* Class = "NSMenuItem"; title = "Instance Number - Descending"; ObjectID = "14121"; */
+"14121.title" = "实例编号-降序";
+
+/* Class = "NSMenuItem"; title = "Slice Location - Ascending"; ObjectID = "14122"; */
+"14122.title" = "切片位置-升序";
+
+/* Class = "NSMenuItem"; title = "Slice Location - Descending"; ObjectID = "14123"; */
+"14123.title" = "切片位置-降序";
+
+/* Class = "NSTableColumn"; headerCell.title = "Comments 2"; ObjectID = "14132"; */
+"14132.headerCell.title" = "评论2";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "14133"; */
+"14133.title" = "Text Cell";
+
+/* Class = "NSTableColumn"; headerCell.title = "Comments 3"; ObjectID = "14134"; */
+"14134.headerCell.title" = "评论3";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "14135"; */
+"14135.title" = "Text Cell";
+
+/* Class = "NSTableColumn"; headerCell.title = "Comments 4"; ObjectID = "14136"; */
+"14136.headerCell.title" = "评论4";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "14137"; */
+"14137.title" = "Text Cell";
+
+/* Class = "NSMenuItem"; title = "Comments 2"; ObjectID = "14138"; */
+"14138.title" = "评论2";
+
+/* Class = "NSMenuItem"; title = "Comments 3"; ObjectID = "14140"; */
+"14140.title" = "评论3";
+
+/* Class = "NSMenuItem"; title = "Comments 4"; ObjectID = "14142"; */
+"14142.title" = "评论4";
+
+/* Class = "NSTableColumn"; headerCell.title = "Activity"; ObjectID = "14156"; */
+"14156.headerCell.title" = "动态";
+
+/* Class = "NSBox"; title = "Threads"; ObjectID = "14167"; */
+"14167.title" = "线程";
+
+/* Class = "NSTextFieldCell"; title = "Database Info"; ObjectID = "14358"; */
+"14358.title" = "数据库信息";
+
+/* Class = "NSWindow"; title = "Window"; ObjectID = "14365"; */
+"14365.title" = "Window";
+
+/* Class = "NSTextFieldCell"; title = "This function will re-import all DICOM files in the database, removing unavailable items and optimizing the SQL index file located in the OsiriX Data folder."; ObjectID = "14378"; */
+"14378.title" = "此函数将重新导入数据库中的所有 DICOM 文件, 删除不可用的项目并优化位于 Miele-LXIV 数据文件夹中的 SQL 索引文件。";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "14383"; */
+"14383.title" = "Radio";
+
+/* Class = "NSButtonCell"; ibShadowedToolTip = "OsiriX will re-import all files available in the DATABASE folder. OsiriX will then check if all images of the studies are available. If not, OsiriX will remove those studies without associated DICOM files."; ObjectID = "14384"; */
+"14384.ibShadowedToolTip" = "Miele-LXIV 将重新导入 \"数据库\" 文件夹中可用的所有文件。然后, Miele-LXIV 将检查所有研究图像是否都可用。否则, Miele-LXIV 将删除这些研究, 但没有关联的 DICOM 文件。";
+
+/* Class = "NSButtonCell"; title = "Re-import DICOM files and clean"; ObjectID = "14384"; */
+"14384.title" = "重新导入 DICOM 文件并清除";
+
+/* Class = "NSButtonCell"; ibShadowedToolTip = "The SQL index will be deleted. OsiriX will then import all files available in the DATABASE folder. All 'linked' files, that were not in the DATABASE folder, will NOT be re-imported."; ObjectID = "14385"; */
+"14385.ibShadowedToolTip" = "SQL 索引将被删除。然后, Miele-LXIV 将导入 \"数据库\" 文件夹中可用的所有文件。所有不在 \"数据库\" 文件夹中的 \"链接\" 文件都不会重新导入。";
+
+/* Class = "NSButtonCell"; title = "Complete rebuild"; ObjectID = "14385"; */
+"14385.title" = "完成重建";
+
+/* Class = "NSTextFieldCell"; title = "Number of files in your database folder:"; ObjectID = "14387"; */
+"14387.title" = "数据库文件夹中的文件数:";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "14389"; */
+"14389.title" = "取消";
+
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "14390"; */
+"14390.title" = "确定";
+
+/* Class = "NSTextFieldCell"; title = "Estimated time to rebuild your database:"; ObjectID = "14391"; */
+"14391.title" = "估计重建数据库的时间:";
+
+/* Class = "NSTextFieldCell"; title = "100'000"; ObjectID = "14392"; */
+"14392.title" = "100'000";
+
+/* Class = "NSTextFieldCell"; title = "5 hours 32 minutes"; ObjectID = "14394"; */
+"14394.title" = "5小时32分钟";
+
+/* Class = "NSMenuItem"; title = "Scale"; ObjectID = "14455"; */
+"14455.title" = "规模";
+
+/* Class = "NSMenu"; title = "Scale"; ObjectID = "14456"; */
+"14456.title" = "规模";
+
+/* Class = "NSMenuItem"; title = "Scale To Fit"; ObjectID = "14457"; */
+"14457.title" = "缩放以适应";
+
+/* Class = "NSMenuItem"; title = "Actual Size"; ObjectID = "14458"; */
+"14458.title" = "实际大小";
+
+/* Class = "NSMenuItem"; title = "No Rescale Size (100%)"; ObjectID = "14459"; */
+"14459.title" = "无电阻大小 (100%)";
+
+/* Class = "NSMenuItem"; title = "3D Curved Path"; ObjectID = "14464"; */
+"14464.title" = "3D 曲线路径";
+
+/* Class = "NSMenu"; title = "3D Curved Path"; ObjectID = "14465"; */
+"14465.title" = "3D 曲线路径";
+
+/* Class = "NSMenuItem"; title = "Save to file..."; ObjectID = "14466"; */
+"14466.title" = "保存到文件...";
+
+/* Class = "NSMenuItem"; title = "Load from file..."; ObjectID = "14467"; */
+"14467.title" = "从文件加载...";
+
+/* Class = "NSBox"; title = "Not enough memory"; ObjectID = "14472"; */
+"14472.title" = "内存不足";
+
+/* Class = "NSButtonCell"; title = "Descending Date"; ObjectID = "14484"; */
+"14484.title" = "下降日期";
+
+/* Class = "NSButtonCell"; title = "Ascending Date"; ObjectID = "14486"; */
+"14486.title" = "升天日期";
+
+/* Class = "NSButtonCell"; title = "Instance Number"; ObjectID = "14487"; */
+"14487.title" = "实例编号";
+
+/* Class = "NSButtonCell"; title = "Ascending Slice Location"; ObjectID = "14488"; */
+"14488.title" = "上升切片位置";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "14489"; */
+"14489.title" = "Radio";
+
+/* Class = "NSButtonCell"; title = "Descending Slice Location"; ObjectID = "14490"; */
+"14490.title" = "下切切片位置";
+
+/* Class = "NSTextFieldCell"; title = "0"; ObjectID = "14491"; */
+"14491.title" = "0";
+
+/* Class = "NSTextFieldCell"; title = "To:"; ObjectID = "14492"; */
+"14492.title" = "至:";
+
+/* Class = "NSTextFieldCell"; title = "0"; ObjectID = "14493"; */
+"14493.title" = "0";
+
+/* Class = "NSTextFieldCell"; title = "1234"; ObjectID = "14494"; */
+"14494.title" = "1234";
+
+/* Class = "NSTextFieldCell"; title = "Sort By:"; ObjectID = "14496"; */
+"14496.title" = "排序方式:";
+
+/* Class = "NSTextFieldCell"; title = "From:"; ObjectID = "14497"; */
+"14497.title" = "从:";
+
+/* Class = "NSTextFieldCell"; title = "Interval:"; ObjectID = "14499"; */
+"14499.title" = "区间:";
+
+/* Class = "NSTextFieldCell"; title = "This version of OsiriX cannot open large series"; ObjectID = "14508"; */
+"14508.title" = "此版本的 Miele-LXIV 无法打开大型系列";
+
+/* Class = "NSTextFieldCell"; title = "OK !"; ObjectID = "14510"; */
+"14510.title" = "还行！";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "14511"; */
+"14511.title" = "取消";
+
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "14512"; */
+"14512.title" = "确定";
+
+/* Class = "NSMenuItem"; title = "Tile 2D Viewer Windows"; ObjectID = "14587"; */
+"14587.title" = "平铺 2D 查看器窗口";
+
+/* Class = "NSMenuItem"; title = "Tile 3D Viewer Windows"; ObjectID = "14588"; */
+"14588.title" = "平铺 3D 查看器窗口";
+
+/* Class = "NSMenuItem"; title = "Toggle Albums & Sources drawer"; ObjectID = "14591"; */
+"14591.title" = "切换相册和源抽屉";
+
+/* Class = "NSMenuItem"; title = "Albums"; ObjectID = "14593"; */
+"14593.title" = "专辑";
+
+/* Class = "NSMenu"; title = "Albums"; ObjectID = "14594"; */
+"14594.title" = "专辑";
+
+/* Class = "NSMenuItem"; title = "Create default albums..."; ObjectID = "14597"; */
+"14597.title" = "创建默认相册...";
+
+/* Class = "NSMenuItem"; title = "Import albums..."; ObjectID = "14598"; */
+"14598.title" = "导入相册...";
+
+/* Class = "NSMenuItem"; title = "Save albums..."; ObjectID = "14599"; */
+"14599.title" = "保存相册...";
+
+/* Class = "NSMenuItem"; title = "Delete selected album"; ObjectID = "14600"; */
+"14600.title" = "删除所选相册";
+
+/* Class = "NSMenuItem"; title = "Add a smart album..."; ObjectID = "14601"; */
+"14601.title" = "添加智能相册...";
+
+/* Class = "NSMenuItem"; title = "Add an album..."; ObjectID = "14602"; */
+"14602.title" = "添加相册...";
+
+/* Class = "NSMenuItem"; title = "Convert to PDF..."; ObjectID = "14610"; */
+"14610.title" = "转换为 pdf...";
+
+/* Class = "NSMenuItem"; title = "Convert to DICOM PDF"; ObjectID = "14611"; */
+"14611.title" = "转换为 DICOM pdf";
+
+/* Class = "NSMenuItem"; title = "Next Patient"; ObjectID = "14615"; */
+"14615.title" = "下一个病人";
+
+/* Class = "NSMenuItem"; title = "Previous Patient"; ObjectID = "14616"; */
+"14616.title" = "上一个患者";
+
+/* Class = "NSMenuItem"; title = "Series List"; ObjectID = "14617"; */
+"14617.title" = "系列一览";
+
+/* Class = "NSMenuItem"; title = "Auto Query / Retrieve Window..."; ObjectID = "14646"; */
+"14646.title" = "自动查询/检索窗口...";
+
+/* Class = "NSMenuItem"; title = "Auto Query / Retrieve Refresh"; ObjectID = "14648"; */
+"14648.title" = "自动查询/检索刷新";
+
+/* Class = "NSButtonCell"; title = "Albums, Sources and Activity"; ObjectID = "14652"; */
+"14652.title" = "";
+
+/* Class = "NSMenuItem"; title = "Slice ID - Absolute Ratio"; ObjectID = "14686"; */
+"14686.title" = "切片 id-绝对比率";
+
+/* Class = "NSTableColumn"; headerCell.title = "History"; ObjectID = "14725"; */
+"14725.headerCell.title" = "历史";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "14726"; */
+"14726.title" = "Text Cell";
+
+/* Class = "NSMenuItem"; title = "Toggle History drawer"; ObjectID = "14744"; */
+"14744.title" = "切换 \"历史记录\" 抽屉";
+
+/* Class = "NSTextFieldCell"; title = "Multiline Label"; ObjectID = "14752"; */
+"14752.title" = "多行标签";
+
+/* Class = "NSMenuItem"; title = "Retrieve selected PACS On-Demand studies"; ObjectID = "14754"; */
+"14754.title" = "检索选定的PACS按需研究";
+
+/* Class = "NSTableColumn"; headerCell.title = "# series"; ObjectID = "14758"; */
+"14758.headerCell.title" = "# 系列";
+
+/* Class = "NSMenuItem"; title = "Display Cobb angle"; ObjectID = "14760"; */
+"14760.title" = "显示科布角度";
+
+/* Class = "NSMenu"; title = "ModalitiesFilter"; ObjectID = "14784"; */
+"14784.title" = "模块化筛选器";
+
+/* Class = "NSMenuItem"; title = "All modalities"; ObjectID = "14785"; */
+"14785.title" = "所有模式";
+
+/* Class = "NSMenuItem"; title = "XA"; ObjectID = "14787"; */
+"14787.title" = "XA";
+
+/* Class = "NSMenuItem"; title = "OT"; ObjectID = "14788"; */
+"14788.title" = "OT";
+
+/* Class = "NSMenuItem"; title = "RF"; ObjectID = "14790"; */
+"14790.title" = "RF";
+
+/* Class = "NSMenuItem"; title = "AU"; ObjectID = "14791"; */
+"14791.title" = "AU";
+
+/* Class = "NSMenuItem"; title = "SC"; ObjectID = "14792"; */
+"14792.title" = "SC";
+
+/* Class = "NSMenuItem"; title = "CT"; ObjectID = "14793"; */
+"14793.title" = "CT";
+
+/* Class = "NSMenuItem"; title = "MR"; ObjectID = "14794"; */
+"14794.title" = "MR";
+
+/* Class = "NSMenuItem"; title = "MG"; ObjectID = "14795"; */
+"14795.title" = "MG";
+
+/* Class = "NSMenuItem"; title = "RG"; ObjectID = "14797"; */
+"14797.title" = "RG";
+
+/* Class = "NSMenuItem"; title = "NM"; ObjectID = "14798"; */
+"14798.title" = "NM";
+
+/* Class = "NSMenuItem"; title = "DR"; ObjectID = "14799"; */
+"14799.title" = "DR";
+
+/* Class = "NSMenuItem"; title = "DX"; ObjectID = "14800"; */
+"14800.title" = "DX";
+
+/* Class = "NSMenuItem"; title = "XC"; ObjectID = "14801"; */
+"14801.title" = "XC";
+
+/* Class = "NSMenuItem"; title = "ES"; ObjectID = "14802"; */
+"14802.title" = "ES";
+
+/* Class = "NSMenuItem"; title = "VL"; ObjectID = "14803"; */
+"14803.title" = "VL";
+
+/* Class = "NSMenuItem"; title = "US"; ObjectID = "14804"; */
+"14804.title" = "US";
+
+/* Class = "NSMenuItem"; title = "SR"; ObjectID = "14805"; */
+"14805.title" = "SR";
+
+/* Class = "NSMenuItem"; title = "PT"; ObjectID = "14806"; */
+"14806.title" = "PT";
+
+/* Class = "NSMenuItem"; title = "CR"; ObjectID = "14808"; */
+"14808.title" = "CR";
+
+/* Class = "NSButtonCell"; title = "45 results in entire DB"; ObjectID = "14822"; */
+"14822.title" = "整个数据库中的45个结果";
+
+/* Class = "NSMenuItem"; title = "Display Info when mouse is over"; ObjectID = "14830"; */
+"14830.title" = "鼠标结束时显示信息";
+
+/* Class = "NSMenuItem"; title = "Save as DICOM SC and mark as Key Image"; ObjectID = "14836"; */
+"14836.title" = "保存为DICOM SC并标记为关键图像";
+
+/* Class = "NSMenuItem"; title = "Meta-Data..."; ObjectID = "14838"; */
+"14838.title" = "元数据...";
+
+/* Class = "NSMenuItem"; title = "Refresh PACS On-Demand results"; ObjectID = "14841"; */
+"14841.title" = "刷新 PACS 按需结果";
+
+/* Class = "NSMenuItem"; title = "Convert from/to SUV"; ObjectID = "14844"; */
+"14844.title" = "从 SUV 转换为 SUV";
+
+/* Class = "NSMenuItem"; title = "Propagate Zoom Level Only if Planes are Parallel"; ObjectID = "14847"; */
+"14847.title" = "仅在平面平行时传播缩放级别";
+
+/* Class = "NSMenu"; title = "Recent Studies"; ObjectID = "a5x-qR-mZL"; */
+"a5x-qR-mZL.title" = "最近的研究";
+
+/* Class = "NSMenuItem"; title = "Empty"; ObjectID = "jhM-yg-NvV"; */
+"jhM-yg-NvV.title" = "空";
+
+/* Class = "NSTableColumn"; headerCell.title = "Database"; ObjectID = "SNx-WQ-5cH"; */
+"SNx-WQ-5cH.headerCell.title" = "数据库";
+
+/* Class = "NSMenuItem"; title = "Load Workspace State DICOM SR"; ObjectID = "URm-XW-3AR"; */
+"URm-XW-3AR.title" = "负载工作区状态 DICOM sr";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "Xie-B3-wnB"; */
+"Xie-B3-wnB.title" = "Text Cell";
+
+/* Class = "NSMenuItem"; title = "Save Workspace State as DICOM SR"; ObjectID = "za0-zz-olt"; */
+"za0-zz-olt.title" = "将工作区状态另存为DICOM SR";
+

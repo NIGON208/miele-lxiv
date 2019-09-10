@@ -1,0 +1,24 @@
+/* Class = "NSWindow"; title = "3D ROI Manager"; ObjectID = "5"; */
+"5.title" = "3D ROIマネージャ";
+
+/* Class = "NSTableColumn"; headerCell.title = "name"; ObjectID = "9"; */
+"9.headerCell.title" = "名前";
+
+/* Class = "NSTableColumn"; headerCell.title = "volume"; ObjectID = "11"; */
+"11.headerCell.title" = "ボリューム";
+
+/* Class = "NSTableColumn"; headerCell.title = "red"; ObjectID = "21"; */
+"21.headerCell.title" = "赤";
+
+/* Class = "NSTableColumn"; headerCell.title = "green"; ObjectID = "22"; */
+"22.headerCell.title" = "緑";
+
+/* Class = "NSTableColumn"; headerCell.title = "blue"; ObjectID = "23"; */
+"23.headerCell.title" = "青";
+
+/* Class = "NSTableColumn"; headerCell.title = "texture"; ObjectID = "72"; */
+"72.headerCell.title" = "テクスチャ";
+
+/* Class = "NSTableColumn"; headerCell.title = "opacity"; ObjectID = "74"; */
+"74.headerCell.title" = "不透明度";
+

@@ -1,0 +1,123 @@
+/* Class = "NSWindow"; title = "Segmentation Parameters"; ObjectID = "6"; */
+"6.title" = "セグメンテーションパラメータ";
+
+/* Class = "NSBox"; title = "Results"; ObjectID = "9"; */
+"9.title" = "結果";
+
+/* Class = "NSButtonCell"; title = "Set Inside Pixels to:"; ObjectID = "14"; */
+"14.title" = "内側のピクセルを次の値に設定します:";
+
+/* Class = "NSButtonCell"; title = "Set Outside Pixels to:"; ObjectID = "16"; */
+"16.title" = "外側のピクセルを次の値に設定します:";
+
+/* Class = "NSTextFieldCell"; title = "1000"; ObjectID = "19"; */
+"19.title" = "1000";
+
+/* Class = "NSTextFieldCell"; title = "0"; ObjectID = "21"; */
+"21.title" = "0";
+
+/* Class = "NSButtonCell"; title = "Create ROI(s) in the original series"; ObjectID = "64"; */
+"64.title" = "元のシリーズにROIを作成する";
+
+/* Class = "NSButtonCell"; title = "Generate a new series with:"; ObjectID = "65"; */
+"65.title" = "新しいシリーズを生成する:";
+
+/* Class = "NSButtonCell"; title = "Brush ROI"; ObjectID = "80"; */
+"80.title" = "ブラシROI";
+
+/* Class = "NSButtonCell"; title = "Polygon"; ObjectID = "81"; */
+"81.title" = "ポリゴン 多角形";
+
+/* Class = "NSButtonCell"; title = "3D Growing Region (entire series)"; ObjectID = "114"; */
+"114.title" = "3D成長地域(シリーズ全体)";
+
+/* Class = "NSButtonCell"; title = "2D Growing Region (current image only)"; ObjectID = "115"; */
+"115.title" = "2D成長領域(現在の画像のみ)";
+
+/* Class = "NSBox"; title = "Parameters"; ObjectID = "122"; */
+"122.title" = "パラメータ";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "125"; */
+"125.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Interval"; ObjectID = "126"; */
+"126.title" = "間隔";
+
+/* Class = "NSMenuItem"; title = "Threshold"; ObjectID = "128"; */
+"128.title" = "しきい値";
+
+/* Class = "NSFormCell"; stringValue = "20000"; ObjectID = "131"; */
+"131.stringValue" = "20000";
+
+/* Class = "NSFormCell"; title = "Interval:"; ObjectID = "131"; */
+"131.title" = "間隔:";
+
+/* Class = "NSTextFieldCell"; title = "# of points:"; ObjectID = "174"; */
+"174.title" = "ポイント数:";
+
+/* Class = "NSTextFieldCell"; title = "High"; ObjectID = "175"; */
+"175.title" = "高";
+
+/* Class = "NSTextFieldCell"; title = "Low"; ObjectID = "176"; */
+"176.title" = "低";
+
+/* Class = "NSTextFieldCell"; title = "ROI name:"; ObjectID = "177"; */
+"177.title" = "ROI名:";
+
+/* Class = "NSTextFieldCell"; title = "GrowingRegion"; ObjectID = "178"; */
+"178.title" = "GrowingRegion";
+
+/* Class = "NSButtonCell"; title = "Preview Result when clicking"; ObjectID = "179"; */
+"179.title" = "クリック時のプレビュー結果";
+
+/* Class = "NSButtonCell"; title = "Compute"; ObjectID = "180"; */
+"180.title" = "計算する";
+
+/* Class = "NSTextFieldCell"; title = "(Click in the image)"; ObjectID = "181"; */
+"181.title" = "(画像をクリックしてください)";
+
+/* Class = "NSTextFieldCell"; title = "Starting Point:"; ObjectID = "182"; */
+"182.title" = "出発点:";
+
+/* Class = "NSTextFieldCell"; title = "mm:\t\tx:0 y:0 z:0"; ObjectID = "183"; */
+"183.title" = "mm:		x:0 y:0 z:0";
+
+/* Class = "NSTextFieldCell"; title = "px:\t\tx:0 y:0 z:0"; ObjectID = "184"; */
+"184.title" = "px:		x:0 y:0 z:0";
+
+/* Class = "NSTextFieldCell"; title = "value:\t0"; ObjectID = "185"; */
+"185.title" = "値:	0";
+
+/* Class = "NSTextFieldCell"; title = "Algorithm:"; ObjectID = "187"; */
+"187.title" = "アルゴリズム:";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "189"; */
+"189.title" = "Radio";
+
+/* Class = "NSButtonCell"; title = "Switch"; ObjectID = "190"; */
+"190.title" = "切り替え";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "192"; */
+"192.title" = "Radio";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "193"; */
+"193.title" = "Radio";
+
+/* Class = "NSFormCell"; title = "Field:"; ObjectID = "194"; */
+"194.title" = "Field:";
+
+/* Class = "NSButtonCell"; title = "Directly generate ROI when clicking"; ObjectID = "196"; */
+"196.title" = "クリック時にROIを直接生成";
+
+/* Class = "NSButtonCell"; title = "Merge with existing Brush ROIs"; ObjectID = "198"; */
+"198.title" = "既存のBrush ROIとのマージ";
+
+/* Class = "NSButtonCell"; title = "Propagate result in 4D"; ObjectID = "229"; */
+"229.title" = "結果を4Dに伝播する";
+
+/* Class = "NSFormCell"; title = "Field:"; ObjectID = "fk7-ml-aID"; */
+"fk7-ml-aID.title" = "Field:";
+
+/* Class = "NSFormCell"; title = "Field:"; ObjectID = "hlp-LC-t2Z"; */
+"hlp-LC-t2Z.title" = "Field:";
+

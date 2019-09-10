@@ -1,0 +1,482 @@
+/* Class = "NSMenuItem"; title = "30 %"; ObjectID = "0lJ-d1-nP8"; */
+"0lJ-d1-nP8.title" = "30 %";
+
+/* Class = "NSWindow"; title = "<< do not localize >>"; ObjectID = "12"; */
+"12.title" = "<< do not localize >>";
+
+/* Class = "NSButtonCell"; ibShadowedToolTip = "Default Location is your home Documents folder."; ObjectID = "99"; */
+"99.ibShadowedToolTip" = "默认位置是您的主文档文件夹。";
+
+/* Class = "NSButtonCell"; title = "Recommended"; ObjectID = "99"; */
+"99.title" = "推荐";
+
+/* Class = "NSButtonCell"; ibShadowedToolTip = "Put Data folder where you want."; ObjectID = "101"; */
+"101.ibShadowedToolTip" = "将数据文件夹放在所需的位置。";
+
+/* Class = "NSButtonCell"; title = "Other:"; ObjectID = "101"; */
+"101.title" = "其他:";
+
+/* Class = "NSBox"; title = "File Management"; ObjectID = "107"; */
+"107.title" = "文件管理";
+
+/* Class = "NSBox"; title = "Database Display"; ObjectID = "145"; */
+"145.title" = "数据库显示";
+
+/* Class = "NSBox"; title = "Database Auto-Cleaning"; ObjectID = "262"; */
+"262.title" = "数据库自动清理";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "272"; */
+"272.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Three months"; ObjectID = "273"; */
+"273.title" = "三个月";
+
+/* Class = "NSMenuItem"; title = "One week"; ObjectID = "274"; */
+"274.title" = "一周";
+
+/* Class = "NSMenuItem"; title = "One month"; ObjectID = "275"; */
+"275.title" = "一个月";
+
+/* Class = "NSMenuItem"; title = "Six months"; ObjectID = "286"; */
+"286.title" = "六个月";
+
+/* Class = "NSMenuItem"; title = "One year"; ObjectID = "287"; */
+"287.title" = "一年";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "289"; */
+"289.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Three months"; ObjectID = "290"; */
+"290.title" = "三个月";
+
+/* Class = "NSMenuItem"; title = "One week"; ObjectID = "291"; */
+"291.title" = "一周";
+
+/* Class = "NSMenuItem"; title = "Six months"; ObjectID = "292"; */
+"292.title" = "六个月";
+
+/* Class = "NSMenuItem"; title = "One month"; ObjectID = "293"; */
+"293.title" = "一个月";
+
+/* Class = "NSMenuItem"; title = "One year"; ObjectID = "294"; */
+"294.title" = "一年";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "297"; */
+"297.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "1 GB"; ObjectID = "298"; */
+"298.title" = "1 GB";
+
+/* Class = "NSMenuItem"; title = "20 MB"; ObjectID = "299"; */
+"299.title" = "20 MB";
+
+/* Class = "NSMenuItem"; title = "100 MB"; ObjectID = "300"; */
+"300.title" = "100 MB";
+
+/* Class = "NSMenuItem"; title = "5 GB"; ObjectID = "305"; */
+"305.title" = "5 GB";
+
+/* Class = "NSBox"; title = "Sort Series by"; ObjectID = "321"; */
+"321.title" = "排序系列 (按";
+
+/* Class = "NSBox"; title = "Comments & Status fields"; ObjectID = "350"; */
+"350.title" = "注释和状态字段";
+
+/* Class = "NSBox"; title = "Series Parsing"; ObjectID = "369"; */
+"369.title" = "系列解析";
+
+/* Class = "NSBox"; title = "Reports"; ObjectID = "381"; */
+"381.title" = "报告";
+
+/* Class = "NSButtonCell"; title = "Acquisition date is older than :"; ObjectID = "495"; */
+"495.title" = "购置日期早于:";
+
+/* Class = "NSButtonCell"; title = "Not opened during last:"; ObjectID = "496"; */
+"496.title" = "在最后一次打开期间未打开:";
+
+/* Class = "NSButtonCell"; title = "Only if 'comments' field:"; ObjectID = "497"; */
+"497.title" = "仅当 \"注释\" 字段:";
+
+/* Class = "NSButtonCell"; title = "contains:"; ObjectID = "499"; */
+"499.title" = "contains:";
+
+/* Class = "NSButtonCell"; title = "doesn't contain:"; ObjectID = "500"; */
+"500.title" = "不包含:";
+
+/* Class = "NSButtonCell"; title = "Series ID"; ObjectID = "510"; */
+"510.title" = "系列 ID";
+
+/* Class = "NSButtonCell"; title = "Series Acquisition Time"; ObjectID = "511"; */
+"511.title" = "采集时间";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "536"; */
+"536.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Pages (.pages)"; ObjectID = "537"; */
+"537.title" = "Pages (.pages)";
+
+/* Class = "NSMenuItem"; title = "TextEdit (.rtf)"; ObjectID = "538"; */
+"538.title" = "TextEdit (.rtf)";
+
+/* Class = "NSMenuItem"; title = "Microsoft Word (.doc)"; ObjectID = "539"; */
+"539.title" = "Microsoft Word (.doc)";
+
+/* Class = "NSMenuItem"; title = "Plugins"; ObjectID = "541"; */
+"541.title" = "插件";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Using the 0018,0022 (ScanOptions) field"; ObjectID = "547"; */
+"547.ibShadowedToolTip" = "使用 0018, 0018 (扫描选项) 字段";
+
+/* Class = "NSButtonCell"; title = "Always"; ObjectID = "601"; */
+"601.title" = "总是";
+
+/* Class = "NSButtonCell"; title = "Combine"; ObjectID = "609"; */
+"609.title" = "组合起来";
+
+/* Class = "NSButtonCell"; title = "Split"; ObjectID = "610"; */
+"610.title" = "分裂";
+
+/* Class = "NSMenuItem"; title = "10 GB"; ObjectID = "633"; */
+"633.title" = "10 GB";
+
+/* Class = "NSMenuItem"; title = "40 GB"; ObjectID = "634"; */
+"634.title" = "40 GB";
+
+/* Class = "NSMenuItem"; title = "20 GB"; ObjectID = "635"; */
+"635.title" = "20 GB";
+
+/* Class = "NSTextFieldCell"; title = "Default Database Location:"; ObjectID = "754"; */
+"754.title" = "默认数据库位置:";
+
+/* Class = "NSButtonCell"; title = "Copy files to Data folder if:"; ObjectID = "755"; */
+"755.title" = "在以下情况下将文件复制到 \"数据\" 文件夹:";
+
+/* Class = "NSButtonCell"; title = "Select"; ObjectID = "756"; */
+"756.title" = "选择";
+
+/* Class = "NSButtonCell"; title = "Import DICOM file format only (ignore JPEG, TIFF, LSM, Analyze...)"; ObjectID = "757"; */
+"757.title" = "仅导入 DICOM 文件格式 (忽略 jpeg、tiff、lsm、分析...)";
+
+/* Class = "NSTextFieldCell"; title = "(Current user Documents folder)"; ObjectID = "759"; */
+"759.title" = "(当前用户文档文件夹)";
+
+/* Class = "NSTextFieldCell"; title = "Date & Time Format:"; ObjectID = "761"; */
+"761.title" = "日期和时间格式:";
+
+/* Class = "NSTextFieldCell"; title = "dd/bb/cc"; ObjectID = "762"; */
+"762.title" = "dd/bb/cc";
+
+/* Class = "NSButtonCell"; title = "Reset"; ObjectID = "763"; */
+"763.title" = "重置";
+
+/* Class = "NSTextFieldCell"; title = "Date Only Format:"; ObjectID = "764"; */
+"764.title" = "仅日期格式:";
+
+/* Class = "NSTextFieldCell"; title = "dd/bb/cc"; ObjectID = "765"; */
+"765.title" = "dd/bb/cc";
+
+/* Class = "NSButtonCell"; title = "Reset"; ObjectID = "766"; */
+"766.title" = "重置";
+
+/* Class = "NSButtonCell"; title = "Always display all studies of each patient"; ObjectID = "767"; */
+"767.title" = "始终显示每个患者的所有研究";
+
+/* Class = "NSButtonCell"; title = "Delete studies at these conditions:"; ObjectID = "768"; */
+"768.title" = "删除以下条件下的研究:";
+
+/* Class = "NSButtonCell"; title = "If HD free space is less than:"; ObjectID = "771"; */
+"771.title" = "如果高清可用空间小于:";
+
+/* Class = "NSTextFieldCell"; title = "delete:"; ObjectID = "773"; */
+"773.title" = "删除:";
+
+/* Class = "NSButtonCell"; title = "If image files are linked files (not stored in the Database folder), also delete the original file"; ObjectID = "775"; */
+"775.title" = "如果图像文件是链接文件 (未存储在 \"数据库\" 文件夹中), 也请删除原始文件";
+
+/* Class = "NSTextFieldCell"; title = "If all checked conditions are true.\nIf a study is in an album, it will NOT be deleted."; ObjectID = "776"; */
+"776.title" = "如果所有选中的条件都为真。
+如果研究内容在相册中, 则不会将其删除。";
+
+/* Class = "NSButtonCell"; title = "DICOM Field(s) to fill:"; ObjectID = "777"; */
+"777.title" = "DICOM字段填写:";
+
+/* Class = "NSTextFieldCell"; title = "Group:"; ObjectID = "778"; */
+"778.title" = "群组:";
+
+/* Class = "NSTextFieldCell"; title = "Element:"; ObjectID = "779"; */
+"779.title" = "元素:";
+
+/* Class = "NSTextFieldCell"; title = "0x0000"; ObjectID = "780"; */
+"780.title" = "0x0000";
+
+/* Class = "NSButtonCell"; title = "Split Multi-echo MR"; ObjectID = "782"; */
+"782.title" = "拆分多回波 mr";
+
+/* Class = "NSButtonCell"; title = "For CR, DR, DX, MG and RF:"; ObjectID = "783"; */
+"783.title" = "对于 cr、dr、dx、mg 和 rf:";
+
+/* Class = "NSButtonCell"; title = "Use Series Description"; ObjectID = "784"; */
+"784.title" = "使用系列说明";
+
+/* Class = "NSButtonCell"; title = "Split 4D Cardiac CT"; ObjectID = "785"; */
+"785.title" = "分裂 4D 心脏 CT";
+
+/* Class = "NSTextFieldCell"; title = "Create reports using:"; ObjectID = "787"; */
+"787.title" = "使用以下方法创建报表:";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "788"; */
+"788.title" = "Radio";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "789"; */
+"789.title" = "Radio";
+
+/* Class = "NSButtonCell"; title = "Older than :"; ObjectID = "791"; */
+"791.title" = "早于:";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "793"; */
+"793.title" = "Radio";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "794"; */
+"794.title" = "Radio";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "795"; */
+"795.title" = "Radio";
+
+/* Class = "NSButtonCell"; title = "For US : one series per file"; ObjectID = "797"; */
+"797.title" = "对于美国: 每个文件一个系列";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "802"; */
+"802.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "DICOM Fields"; ObjectID = "803"; */
+"803.title" = "DICOM 领域";
+
+/* Class = "NSMenuItem"; title = "Item 2"; ObjectID = "804"; */
+"804.title" = "Item 2";
+
+/* Class = "NSMenuItem"; title = "Item 3"; ObjectID = "805"; */
+"805.title" = "Item 3";
+
+/* Class = "NSButtonCell"; title = "Gather localizer images with Series Description:"; ObjectID = "814"; */
+"814.title" = "收集具有系列描述的定位器图像:";
+
+/* Class = "NSButtonCell"; title = "Regenerate"; ObjectID = "817"; */
+"817.title" = "重新生成";
+
+/* Class = "NSButtonCell"; title = "Don't delete a study, if there are comments (Comment Field of the Database)"; ObjectID = "822"; */
+"822.title" = "如果有注释, 请不要删除研究 (数据库的注释字段)";
+
+/* Class = "NSMenuItem"; title = "LibreOffice (.odt)"; ObjectID = "828"; */
+"828.title" = "LibreOffice (.odt)";
+
+/* Class = "NSButtonCell"; title = "Validate files before importing files from CD/DVD or external files (crash test)"; ObjectID = "830"; */
+"830.title" = "在从 cdvd 或外部文件导入文件之前验证文件 (崩溃测试)";
+
+/* Class = "NSBox"; title = "Sort Images by"; ObjectID = "847"; */
+"847.title" = "对图像进行排序的方法";
+
+/* Class = "NSButtonCell"; title = "Instance Number"; ObjectID = "849"; */
+"849.title" = "实例编号";
+
+/* Class = "NSButtonCell"; title = "Ascending Slice Location"; ObjectID = "850"; */
+"850.title" = "上升切片位置";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "851"; */
+"851.title" = "Radio";
+
+/* Class = "NSButtonCell"; title = "Descending Slice Location"; ObjectID = "853"; */
+"853.title" = "下切切片位置";
+
+/* Class = "NSButtonCell"; title = "Store them in DICOM files fields"; ObjectID = "856"; */
+"856.title" = "将它们存储在 DICOM 文件字段中";
+
+/* Class = "NSTextFieldCell"; title = "List of SOP Class UIDs displayed: "; ObjectID = "859"; */
+"859.title" = "显示的 sop 类 uid 列表: ";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "870"; */
+"870.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Item 1"; ObjectID = "871"; */
+"871.title" = "Item 1";
+
+/* Class = "NSMenuItem"; title = "Item 2"; ObjectID = "872"; */
+"872.title" = "Item 2";
+
+/* Class = "NSMenuItem"; title = "Item 3"; ObjectID = "873"; */
+"873.title" = "Item 3";
+
+/* Class = "NSButtonCell"; title = "Load them from DICOM files fields"; ObjectID = "876"; */
+"876.title" = "从 DICOM 文件字段加载它们";
+
+/* Class = "NSTextFieldCell"; title = "localizer, scout"; ObjectID = "881"; */
+"881.title" = "定位器, 球探";
+
+/* Class = "NSButtonCell"; title = "Ascending Date"; ObjectID = "883"; */
+"883.title" = "升天日期";
+
+/* Class = "NSButtonCell"; title = "Descending Date"; ObjectID = "884"; */
+"884.title" = "下降日期";
+
+/* Class = "NSMenuItem"; title = "5 %"; ObjectID = "887"; */
+"887.title" = "5 %";
+
+/* Class = "NSMenuItem"; title = "10 %"; ObjectID = "889"; */
+"889.title" = "10 %";
+
+/* Class = "NSMenuItem"; title = "20 %"; ObjectID = "890"; */
+"890.title" = "20 %";
+
+/* Class = "NSMenuItem"; title = "15 %"; ObjectID = "891"; */
+"891.title" = "15 %";
+
+/* Class = "NSButtonCell"; title = "If files aren't located on the HD"; ObjectID = "896"; */
+"896.title" = "如果文件不在 hd 上";
+
+/* Class = "NSButtonCell"; title = "Ask the user"; ObjectID = "898"; */
+"898.title" = "询问用户";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "907"; */
+"907.title" = "Radio";
+
+/* Class = "NSButtonCell"; title = "Least recently created"; ObjectID = "908"; */
+"908.title" = "最近创建的最少";
+
+/* Class = "NSButtonCell"; title = "Least recently added"; ObjectID = "909"; */
+"909.title" = "最近添加的最少";
+
+/* Class = "NSButtonCell"; title = "Least recently opened"; ObjectID = "910"; */
+"910.title" = "最近至少打开";
+
+/* Class = "NSButtonCell"; title = "Automatically create a DICOM PDF file of the report, when status is changed to \"validated\""; ObjectID = "920"; */
+"920.title" = "当状态更改为 \"已验证\" 时, 自动创建报表的 DICOM pdf 文件";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "926"; */
+"926.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Item 1"; ObjectID = "927"; */
+"927.title" = "Item 1";
+
+/* Class = "NSMenuItem"; title = "Item 2"; ObjectID = "928"; */
+"928.title" = "Item 2";
+
+/* Class = "NSMenuItem"; title = "Item 3"; ObjectID = "929"; */
+"929.title" = "Item 3";
+
+/* Class = "NSTextFieldCell"; title = "List of SOP Class UIDs stored: "; ObjectID = "930"; */
+"930.title" = "存储的 sop 类 uid 列表: ";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "935"; */
+"935.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "DICOM Field 1 :"; ObjectID = "936"; */
+"936.title" = "DICOM 字段 1:";
+
+/* Class = "NSMenuItem"; title = "DICOM Field 2 :"; ObjectID = "937"; */
+"937.title" = "DICOM 领域 2:";
+
+/* Class = "NSMenuItem"; title = "DICOM Field 3 :"; ObjectID = "938"; */
+"938.title" = "DICOM 领域 3:";
+
+/* Class = "NSMenuItem"; title = "DICOM Field 4 :"; ObjectID = "939"; */
+"939.title" = "DICOM 领域 4:";
+
+/* Class = "NSButtonCell"; title = "Display patient's names and descriptions with Capitalized Words"; ObjectID = "946"; */
+"946.title" = "使用大写的单词显示患者的姓名和描述";
+
+/* Class = "NSButtonCell"; title = "Clear Search field (in the toolbar), when changing current album"; ObjectID = "952"; */
+"952.title" = "更改当前相册时清除 \"搜索\" 字段 (在工具栏中)";
+
+/* Class = "NSBox"; title = "Patient Unique Identifier"; ObjectID = "955"; */
+"955.title" = "患者唯一标识符";
+
+/* Class = "NSButtonCell"; title = "Patient ID"; ObjectID = "971"; */
+"971.title" = "病人ID";
+
+/* Class = "NSButtonCell"; title = "Patient BirthDate"; ObjectID = "972"; */
+"972.title" = "患者出生日期";
+
+/* Class = "NSButtonCell"; title = "Patient's Name"; ObjectID = "973"; */
+"973.title" = "患者姓名";
+
+/* Class = "NSTextFieldCell"; title = "Use following fields to generate Patient UID:"; ObjectID = "982"; */
+"982.title" = "使用以下字段生成患者 uid:";
+
+/* Class = "NSTextFieldCell"; title = "Changing these settings will recompute all database patientUIDs.\nIt can require several minutes on large database."; ObjectID = "984"; */
+"984.title" = "更改这些设置将重新计算所有数据库患者 uid。
+在大型数据库上可能需要几分钟时间。";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "1004"; */
+"1004.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Comments 4"; ObjectID = "1005"; */
+"1005.title" = "评论4";
+
+/* Class = "NSMenuItem"; title = "Comments 3"; ObjectID = "1006"; */
+"1006.title" = "评论3";
+
+/* Class = "NSMenuItem"; title = "Comments 2"; ObjectID = "1007"; */
+"1007.title" = "评论2";
+
+/* Class = "NSMenuItem"; title = "Comments"; ObjectID = "1008"; */
+"1008.title" = "评论";
+
+/* Class = "NSTextFieldCell"; title = "Patient's age:"; ObjectID = "1012"; */
+"1012.title" = "患者年龄:";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "1015"; */
+"1015.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Current Age"; ObjectID = "1016"; */
+"1016.title" = "当前年龄";
+
+/* Class = "NSMenuItem"; title = "Age at acquisition time"; ObjectID = "1017"; */
+"1017.title" = "获取时的年龄";
+
+/* Class = "NSMenuItem"; title = "Both, if different"; ObjectID = "1018"; */
+"1018.title" = "两者, 如果不同";
+
+/* Class = "NSButtonCell"; title = "Study"; ObjectID = "1021"; */
+"1021.title" = "研究";
+
+/* Class = "NSButtonCell"; title = "Series"; ObjectID = "1025"; */
+"1025.title" = "系列";
+
+/* Class = "NSTextFieldCell"; title = "Level:"; ObjectID = "1029"; */
+"1029.title" = "等级:";
+
+/* Class = "NSButtonCell"; title = "Automatically delete the ENTIRE default database, at each startup: all studies will be deleted."; ObjectID = "1033"; */
+"1033.title" = "在每次启动时自动删除 entire 默认数据库: 所有研究都将被删除。";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "1039"; */
+"1039.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Large"; ObjectID = "1040"; */
+"1040.title" = "大";
+
+/* Class = "NSMenuItem"; title = "Regular"; ObjectID = "1041"; */
+"1041.title" = "定期";
+
+/* Class = "NSMenuItem"; title = "Small"; ObjectID = "1042"; */
+"1042.title" = "小";
+
+/* Class = "NSTextFieldCell"; title = "Font Size:"; ObjectID = "1043"; */
+"1043.title" = "字体大小:";
+
+/* Class = "NSButtonCell"; title = "Don't delete a study, if it is stored in an album (smart albums are not considered)"; ObjectID = "ENc-og-Jds"; */
+"ENc-og-Jds.title" = "如果研究存储在相册中, 请不要删除该研究 (不考虑智能相册)";
+
+/* Class = "NSMenuItem"; title = "Two weeks"; ObjectID = "k9l-Sm-hVU"; */
+"k9l-Sm-hVU.title" = "两周";
+
+/* Class = "NSMenuItem"; title = "40 %"; ObjectID = "pC2-mw-D6N"; */
+"pC2-mw-D6N.title" = "40 %";
+
+/* Class = "NSButtonCell"; title = "Display the History Drawer horizontally"; ObjectID = "pPT-1s-tm1"; */
+"pPT-1s-tm1.title" = "水平显示历史记录抽屉";
+
+/* Class = "NSMenuItem"; title = "Two weeks"; ObjectID = "r3S-NM-Xdy"; */
+"r3S-NM-Xdy.title" = "两周";
+
+/* Class = "NSMenuItem"; title = "50 %"; ObjectID = "ztl-T2-ykc"; */
+"ztl-T2-ykc.title" = "50 %";
+

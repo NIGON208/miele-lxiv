@@ -1,0 +1,102 @@
+/* Class = "NSWindow"; title = "DICOM Burner"; ObjectID = "6"; */
+"6.title" = "Masterizzatore DICOM";
+
+/* Class = "NSButtonCell"; title = "Decompress all DICOM files"; ObjectID = "26"; */
+"26.title" = "Decomprimere tutti i file DICOM";
+
+/* Class = "NSButtonCell"; title = "Don't modify the files"; ObjectID = "27"; */
+"27.title" = "Non modificare i file";
+
+/* Class = "NSButtonCell"; title = "Compress all DICOM files in JPEG"; ObjectID = "28"; */
+"28.title" = "Comprimere tutti i file DICOM in JPEG";
+
+/* Class = "NSTextFieldCell"; title = "Name:"; ObjectID = "58"; */
+"58.title" = "Nome:";
+
+/* Class = "NSTextFieldCell"; title = "DICOMCD"; ObjectID = "59"; */
+"59.title" = "DICOMCD";
+
+/* Class = "NSButtonCell"; title = "Burn"; ObjectID = "61"; */
+"61.title" = "Masterizza";
+
+/* Class = "NSTextFieldCell"; title = "Compression:"; ObjectID = "62"; */
+"62.title" = "Compressione:";
+
+/* Class = "NSTextFieldCell"; title = "asdasdasdqq"; ObjectID = "63"; */
+"63.title" = "asdasdasdqq";
+
+/* Class = "NSTextFieldCell"; title = "Anonymize:"; ObjectID = "65"; */
+"65.title" = "Anonimizzare:";
+
+/* Class = "NSButtonCell"; title = "Anonymize the DICOM files before burning"; ObjectID = "66"; */
+"66.title" = "Anonimizzare i file DICOM prima della masterizzazione";
+
+/* Class = "NSTextFieldCell"; title = "Misc:"; ObjectID = "67"; */
+"67.title" = "Varie:";
+
+/* Class = "NSButtonCell"; title = "Include Weasis viewer (multi-platform, about 17MB)"; ObjectID = "68"; */
+"68.title" = "Include Weasis viewer (multipiattaforma, circa 17MB)";
+
+/* Class = "NSButtonCell"; title = "Copy an html/Quicktime version of the images"; ObjectID = "69"; */
+"69.title" = "Copiare una versione HTML/Quicktime delle immagini";
+
+/* Class = "NSButtonCell"; title = "Copy the auxiliary folder (see CD/DVD Preferences) :"; ObjectID = "70"; */
+"70.title" = "Copiare la cartella ausiliaria (vedere Preferenze CD/DVD) :";
+
+/* Class = "NSTextFieldCell"; title = "Mini System Font Text"; ObjectID = "71"; */
+"71.title" = "Mini testo dei caratteri del sistema";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "72"; */
+"72.title" = "Radio";
+
+/* Class = "NSButtonCell"; title = "Copy the associated Report(s), if available"; ObjectID = "74"; */
+"74.title" = "Copia le relazioni associate, se disponibili";
+
+/* Class = "NSButtonCell"; title = "Encrypt Data in ZIP file, password protected"; ObjectID = "91"; */
+"91.title" = "Crittografia dei dati in un file ZIP, protetto da password";
+
+/* Class = "NSWindow"; title = "Window"; ObjectID = "95"; */
+"95.title" = "Finestra";
+
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "105"; */
+"105.title" = "OK";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "106"; */
+"106.title" = "Annulla";
+
+/* Class = "NSTextFieldCell"; title = "Password:"; ObjectID = "108"; */
+"108.title" = "Password:";
+
+/* Class = "NSTextFieldCell"; title = "(8 or more characters)"; ObjectID = "144"; */
+"144.title" = "(8 o più caratteri)";
+
+/* Class = "NSButtonCell"; title = "Include OsiriX Lite viewer (mac only, about 8MB)"; ObjectID = "147"; */
+"147.title" = "Includi il visualizzatore Miele-LXIV Lite (solo Mac, circa 8MB)";
+
+/* Class = "NSTextFieldCell"; title = "Destination:"; ObjectID = "158"; */
+"158.title" = "Destinazione:";
+
+/* Class = "NSButtonCell"; title = "Save as DMG file"; ObjectID = "161"; */
+"161.title" = "Salva come file DMG";
+
+/* Class = "NSButtonCell"; title = "CD/DVD Media"; ObjectID = "162"; */
+"162.title" = "CD/DVD Media";
+
+/* Class = "NSButtonCell"; title = "USB Key:"; ObjectID = "163"; */
+"163.title" = "Chiave USB:";
+
+/* Class = "NSButtonCell"; title = "Save as DMG file"; ObjectID = "169"; */
+"169.title" = "Salva come file DMG";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "172"; */
+"172.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Item 1"; ObjectID = "173"; */
+"173.title" = "Item 1";
+
+/* Class = "NSMenuItem"; title = "Item 2"; ObjectID = "174"; */
+"174.title" = "Item 2";
+
+/* Class = "NSMenuItem"; title = "Item 3"; ObjectID = "175"; */
+"175.title" = "Item 3";
+

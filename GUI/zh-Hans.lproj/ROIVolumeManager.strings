@@ -1,0 +1,24 @@
+/* Class = "NSWindow"; title = "3D ROI Manager"; ObjectID = "5"; */
+"5.title" = "3D 投资回报经理";
+
+/* Class = "NSTableColumn"; headerCell.title = "name"; ObjectID = "9"; */
+"9.headerCell.title" = "名称";
+
+/* Class = "NSTableColumn"; headerCell.title = "volume"; ObjectID = "11"; */
+"11.headerCell.title" = "体积";
+
+/* Class = "NSTableColumn"; headerCell.title = "red"; ObjectID = "21"; */
+"21.headerCell.title" = "红色";
+
+/* Class = "NSTableColumn"; headerCell.title = "green"; ObjectID = "22"; */
+"22.headerCell.title" = "绿色";
+
+/* Class = "NSTableColumn"; headerCell.title = "blue"; ObjectID = "23"; */
+"23.headerCell.title" = "蓝色";
+
+/* Class = "NSTableColumn"; headerCell.title = "texture"; ObjectID = "72"; */
+"72.headerCell.title" = "纹理";
+
+/* Class = "NSTableColumn"; headerCell.title = "opacity"; ObjectID = "74"; */
+"74.headerCell.title" = "透明度";
+

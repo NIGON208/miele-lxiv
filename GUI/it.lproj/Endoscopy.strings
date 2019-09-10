@@ -1,0 +1,356 @@
+/* Class = "NSWindow"; title = "Endoscopy"; ObjectID = "5"; */
+"5.title" = "Endoscopia";
+
+/* Class = "NSButtonCell"; ibShadowedToolTip = "Zoom (Right button or shift + click)"; ObjectID = "60"; */
+"60.ibShadowedToolTip" = "Zoom (mouse destro o Maiusc + click)";
+
+/* Class = "NSButtonCell"; title = "Zoom"; ObjectID = "60"; */
+"60.title" = "Zoom";
+
+/* Class = "NSButtonCell"; ibShadowedToolTip = "Navigate in the serie"; ObjectID = "63"; */
+"63.ibShadowedToolTip" = "Naviga nella serie";
+
+/* Class = "NSButtonCell"; title = "Next"; ObjectID = "63"; */
+"63.title" = "Avanti";
+
+/* Class = "NSButtonCell"; ibShadowedToolTip = "Window Level (Option + click)"; ObjectID = "64"; */
+"64.ibShadowedToolTip" = "Livello finestra (Opzione + click)";
+
+/* Class = "NSButtonCell"; title = "Levels"; ObjectID = "64"; */
+"64.title" = "Livelli";
+
+/* Class = "NSButtonCell"; ibShadowedToolTip = "Rotate (Ctrl + click)"; ObjectID = "66"; */
+"66.ibShadowedToolTip" = "Ruota (Ctrl + click)";
+
+/* Class = "NSButtonCell"; title = "Rotate"; ObjectID = "66"; */
+"66.title" = "Ruotare";
+
+/* Class = "NSButtonCell"; ibShadowedToolTip = "Move (Apple + click)"; ObjectID = "67"; */
+"67.ibShadowedToolTip" = "Sposta (Apple + clic)";
+
+/* Class = "NSButtonCell"; title = "Move"; ObjectID = "67"; */
+"67.title" = "Sposta";
+
+/* Class = "NSButtonCell"; ibShadowedToolTip = "Move the planes (hide/show planes with Space key)"; ObjectID = "68"; */
+"68.ibShadowedToolTip" = "Spostare i piani (nascondere/mostrare i piani con il tasto Spazio)";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "108"; */
+"108.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "WL/WW"; ObjectID = "109"; */
+"109.title" = "WL/WW";
+
+/* Class = "NSMenuItem"; title = "Item3"; ObjectID = "110"; */
+"110.title" = "Item3";
+
+/* Class = "NSMenuItem"; title = "Item2"; ObjectID = "111"; */
+"111.title" = "Item2";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "113"; */
+"113.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Item2"; ObjectID = "114"; */
+"114.title" = "Item2";
+
+/* Class = "NSMenuItem"; title = "Item3"; ObjectID = "115"; */
+"115.title" = "Item3";
+
+/* Class = "NSMenuItem"; title = "CLUT"; ObjectID = "116"; */
+"116.title" = "CLUT";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "120"; */
+"120.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Item2"; ObjectID = "121"; */
+"121.title" = "Item2";
+
+/* Class = "NSMenuItem"; title = "Item3"; ObjectID = "122"; */
+"122.title" = "Item3";
+
+/* Class = "NSMenuItem"; title = "Opacity"; ObjectID = "123"; */
+"123.title" = "Opacità";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "165"; */
+"165.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Item2"; ObjectID = "166"; */
+"166.title" = "Item2";
+
+/* Class = "NSMenuItem"; title = "Item3"; ObjectID = "167"; */
+"167.title" = "Item3";
+
+/* Class = "NSMenuItem"; title = "CLUT"; ObjectID = "168"; */
+"168.title" = "CLUT";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "170"; */
+"170.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Item2"; ObjectID = "171"; */
+"171.title" = "Item2";
+
+/* Class = "NSMenuItem"; title = "Item3"; ObjectID = "172"; */
+"172.title" = "Item3";
+
+/* Class = "NSMenuItem"; title = "WL/WW"; ObjectID = "173"; */
+"173.title" = "WL/WW";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "175"; */
+"175.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Item3"; ObjectID = "176"; */
+"176.title" = "Item3";
+
+/* Class = "NSMenuItem"; title = "Item2"; ObjectID = "177"; */
+"177.title" = "Item2";
+
+/* Class = "NSMenuItem"; title = "Opacity"; ObjectID = "178"; */
+"178.title" = "Opacità";
+
+/* Class = "NSButtonCell"; ibShadowedToolTip = "Window Level (Option + click)"; ObjectID = "182"; */
+"182.ibShadowedToolTip" = "Livello finestra (Opzione + click)";
+
+/* Class = "NSButtonCell"; title = "Levels"; ObjectID = "182"; */
+"182.title" = "Livelli";
+
+/* Class = "NSButtonCell"; ibShadowedToolTip = "Move (Apple + click)"; ObjectID = "183"; */
+"183.ibShadowedToolTip" = "Sposta (Apple + clic)";
+
+/* Class = "NSButtonCell"; title = "Move"; ObjectID = "183"; */
+"183.title" = "Sposta";
+
+/* Class = "NSButtonCell"; ibShadowedToolTip = "Zoom (Right button or shift + click)"; ObjectID = "184"; */
+"184.ibShadowedToolTip" = "Zoom (mouse destro o Maiusc + click)";
+
+/* Class = "NSButtonCell"; title = "Zoom"; ObjectID = "184"; */
+"184.title" = "Zoom";
+
+/* Class = "NSButtonCell"; ibShadowedToolTip = "Rotate (Apple + Option + click)"; ObjectID = "185"; */
+"185.ibShadowedToolTip" = "Ruota (Apple + Option + clic)";
+
+/* Class = "NSButtonCell"; title = "Rotate"; ObjectID = "185"; */
+"185.title" = "Ruotare";
+
+/* Class = "NSButtonCell"; ibShadowedToolTip = "Rotate around the focal point"; ObjectID = "186"; */
+"186.ibShadowedToolTip" = "Ruotare intorno al punto focale";
+
+/* Class = "NSButtonCell"; ibShadowedToolTip = "Rotate the camera"; ObjectID = "187"; */
+"187.ibShadowedToolTip" = "Ruotare la fotocamera";
+
+/* Class = "NSButtonCell"; ibShadowedToolTip = "Measurement"; ObjectID = "188"; */
+"188.ibShadowedToolTip" = "Measurement";
+
+/* Class = "NSWindow"; title = "Point Info"; ObjectID = "199"; */
+"199.title" = "Punto Info";
+
+/* Class = "NSWindow"; title = "Window"; ObjectID = "213"; */
+"213.title" = "Finestra";
+
+/* Class = "NSButtonCell"; title = "All four views"; ObjectID = "325"; */
+"325.title" = "Tutte e quattro le viste";
+
+/* Class = "NSButtonCell"; title = "3D Endoscopy view"; ObjectID = "326"; */
+"326.title" = "vista endoscopica 3D";
+
+/* Class = "NSWindow"; title = "Shading"; ObjectID = "399"; */
+"399.title" = "Ombreggiatura";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "405"; */
+"405.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Item1"; ObjectID = "406"; */
+"406.title" = "Item1";
+
+/* Class = "NSMenuItem"; title = "Item2"; ObjectID = "407"; */
+"407.title" = "Item2";
+
+/* Class = "NSMenuItem"; title = "Item3"; ObjectID = "408"; */
+"408.title" = "Item3";
+
+/* Class = "NSWindow"; title = "Window"; ObjectID = "498"; */
+"498.title" = "Finestra";
+
+/* Class = "NSTextFieldCell"; title = "CLUT:"; ObjectID = "516"; */
+"516.title" = "CLUT:";
+
+/* Class = "NSTextFieldCell"; title = "WL/WW:"; ObjectID = "517"; */
+"517.title" = "WL/WW:";
+
+/* Class = "NSTextFieldCell"; title = "Opacity:"; ObjectID = "519"; */
+"519.title" = "Opacità:";
+
+/* Class = "NSTextFieldCell"; title = "WL/WW:"; ObjectID = "526"; */
+"526.title" = "WL/WW:";
+
+/* Class = "NSTextFieldCell"; title = "Opacity:"; ObjectID = "527"; */
+"527.title" = "Opacità:";
+
+/* Class = "NSTextFieldCell"; title = "CLUT:"; ObjectID = "528"; */
+"528.title" = "CLUT:";
+
+/* Class = "NSButtonCell"; title = "Set Default"; ObjectID = "532"; */
+"532.title" = "Ripristina impostazioni iniziali";
+
+/* Class = "NSTextFieldCell"; title = "Point Radius:"; ObjectID = "534"; */
+"534.title" = "Raggio del punto:";
+
+/* Class = "NSButtonCell"; title = "All Points"; ObjectID = "535"; */
+"535.title" = "Tutti i punti";
+
+/* Class = "NSTextFieldCell"; title = "Point Color:"; ObjectID = "536"; */
+"536.title" = "Punto Colore:";
+
+/* Class = "NSTextFieldCell"; title = "Export to DICOM files:"; ObjectID = "537"; */
+"537.title" = "Esportazione in file DICOM:";
+
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "538"; */
+"538.title" = "OK";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "539"; */
+"539.title" = "Annulla";
+
+/* Class = "NSTextFieldCell"; title = "Endoscopy"; ObjectID = "540"; */
+"540.title" = "Endoscopia";
+
+/* Class = "NSTextFieldCell"; title = "Series name:"; ObjectID = "541"; */
+"541.title" = "Nome della serie:";
+
+/* Class = "NSButtonCell"; title = "Edit"; ObjectID = "542"; */
+"542.title" = "Modifica";
+
+/* Class = "NSButtonCell"; title = "Shading"; ObjectID = "543"; */
+"543.title" = "Ombreggiatura";
+
+/* Class = "NSTextFieldCell"; title = "Ambiant: 0.5\nDiffuse: 0.6\nSpecular: 0.6, 2.0"; ObjectID = "544"; */
+"544.title" = "Ambiente: 0,5
+Diffuso: 0,6
+Speculare: 0,6-2";
+
+/* Class = "NSTextFieldCell"; title = "Fine"; ObjectID = "545"; */
+"545.title" = "Fine";
+
+/* Class = "NSTextFieldCell"; title = "Coarse"; ObjectID = "546"; */
+"546.title" = "Grossolana";
+
+/* Class = "NSButtonCell"; title = "+"; ObjectID = "548"; */
+"548.title" = "+";
+
+/* Class = "NSTextFieldCell"; title = "Presets:"; ObjectID = "554"; */
+"554.title" = "Preimpostazioni:";
+
+/* Class = "NSTextFieldCell"; title = "Name:"; ObjectID = "555"; */
+"555.title" = "Nome:";
+
+/* Class = "NSButtonCell"; title = "-"; ObjectID = "557"; */
+"557.title" = "-";
+
+/* Class = "NSTextFieldCell"; title = "Name"; ObjectID = "560"; */
+"560.title" = "Nome";
+
+/* Class = "NSButtonCell"; title = "Save"; ObjectID = "561"; */
+"561.title" = "Salva";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "562"; */
+"562.title" = "Annulla";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "565"; */
+"565.title" = "Radio";
+
+/* Class = "NSTextFieldCell"; title = "Specular Power:"; ObjectID = "575"; */
+"575.title" = "Potere speculare:";
+
+/* Class = "NSTextFieldCell"; title = "Diffuse Coefficient:"; ObjectID = "582"; */
+"582.title" = "Coefficiente diffuso:";
+
+/* Class = "NSTextFieldCell"; title = "Ambient Coefficent:"; ObjectID = "583"; */
+"583.title" = "Coefficente ambientale:";
+
+/* Class = "NSTextFieldCell"; title = "Specular Coefficient:"; ObjectID = "586"; */
+"586.title" = "Coefficiente speculare:";
+
+/* Class = "NSButtonCell"; title = "edit"; ObjectID = "604"; */
+"604.title" = "modifica";
+
+/* Class = "NSWindow"; title = "Path Assistant Parameters"; ObjectID = "672"; */
+"672.title" = "Parametri dell'assistente di percorso";
+
+/* Class = "NSButtonCell"; title = "Apply"; ObjectID = "675"; */
+"675.title" = "Applica";
+
+/* Class = "NSTextFieldCell"; title = "-600"; ObjectID = "744"; */
+"744.title" = "-600";
+
+/* Class = "NSTextFieldCell"; title = "1.5"; ObjectID = "749"; */
+"749.title" = "1,5";
+
+/* Class = "NSTextFieldCell"; title = "2.0"; ObjectID = "752"; */
+"752.title" = "2,0";
+
+/* Class = "NSWindow"; title = "Path Assistant"; ObjectID = "765"; */
+"765.title" = "Assistente di percorso";
+
+/* Class = "NSBox"; title = "Mode"; ObjectID = "767"; */
+"767.title" = "Modo";
+
+/* Class = "NSButtonCell"; title = "Basic Mode"; ObjectID = "769"; */
+"769.title" = "Modalità di base";
+
+/* Class = "NSButtonCell"; title = "A to B"; ObjectID = "770"; */
+"770.title" = "Da A a B";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "771"; */
+"771.title" = "Radio";
+
+/* Class = "NSButtonCell"; title = "Lock Path"; ObjectID = "773"; */
+"773.title" = "Blocco del path";
+
+/* Class = "NSButtonCell"; title = "B"; ObjectID = "775"; */
+"775.title" = "B";
+
+/* Class = "NSButtonCell"; title = "A"; ObjectID = "777"; */
+"777.title" = "A";
+
+/* Class = "NSBox"; title = "Settings"; ObjectID = "778"; */
+"778.title" = "Impostazioni";
+
+/* Class = "NSButtonCell"; title = "Camera position on Path"; ObjectID = "782"; */
+"782.title" = "Posizione della telecamera sul percorso";
+
+/* Class = "NSButtonCell"; title = "Focal point on Path"; ObjectID = "783"; */
+"783.title" = "Punto focale sul percorso";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "784"; */
+"784.title" = "Radio";
+
+/* Class = "NSButtonCell"; title = "Look back"; ObjectID = "785"; */
+"785.title" = "Guardare indietro";
+
+/* Class = "NSButtonCell"; title = "Show Path on MPR"; ObjectID = "786"; */
+"786.title" = "Mostra percorso su MPR";
+
+/* Class = "NSButtonCell"; title = "Parameters..."; ObjectID = "791"; */
+"791.title" = "Parametri...";
+
+/* Class = "NSTextFieldCell"; title = "Threshold [Hu]"; ObjectID = "805"; */
+"805.title" = "Soglia [Hu]";
+
+/* Class = "NSTextFieldCell"; title = "Resample Size [mm]"; ObjectID = "807"; */
+"807.title" = "Dimensioni ricampionamento [mm]";
+
+/* Class = "NSTextFieldCell"; title = "Path Step Length [mm]"; ObjectID = "809"; */
+"809.title" = "Percorso Lunghezza passo [mm]";
+
+/* Class = "NSButtonCell"; title = "Fly Thru"; ObjectID = "811"; */
+"811.title" = "Fly Thru";
+
+/* Class = "NSButtonCell"; title = "Enable scroll wheel"; ObjectID = "819"; */
+"819.title" = "Abilita rotella di scorrimento";
+
+/* Class = "NSButtonCell"; title = "CPU"; ObjectID = "826"; */
+"826.title" = "CPU";
+
+/* Class = "NSButtonCell"; title = "GPU"; ObjectID = "827"; */
+"827.title" = "GPU";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "828"; */
+"828.title" = "Radio";
+

@@ -1,0 +1,318 @@
+/* Class = "NSWindow"; title = "DICOM Print"; ObjectID = "6"; */
+"6.title" = "Stampa DICOM";
+
+/* Class = "NSBox"; title = "Layout:"; ObjectID = "12"; */
+"12.title" = "Disposizione:";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "15"; */
+"15.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Standard 4,4"; ObjectID = "16"; */
+"16.title" = "Standard 4,4";
+
+/* Class = "NSMenuItem"; title = "Standard 1,2"; ObjectID = "17"; */
+"17.title" = "Standard 1,2";
+
+/* Class = "NSMenuItem"; title = "Standard 4,5"; ObjectID = "18"; */
+"18.title" = "Standard 4,5";
+
+/* Class = "NSMenuItem"; title = "Standard 2,1"; ObjectID = "19"; */
+"19.title" = "Standard 2,1";
+
+/* Class = "NSMenuItem"; title = "Standard 4,6"; ObjectID = "20"; */
+"20.title" = "Standard 4,6";
+
+/* Class = "NSMenuItem"; title = "Standard 2,3"; ObjectID = "21"; */
+"21.title" = "Standard 2,3";
+
+/* Class = "NSMenuItem"; title = "Standard 2,4"; ObjectID = "22"; */
+"22.title" = "Standard 2,4";
+
+/* Class = "NSMenuItem"; title = "Standard 5,6"; ObjectID = "23"; */
+"23.title" = "Standard 5,6";
+
+/* Class = "NSMenuItem"; title = "Standard 5,7"; ObjectID = "24"; */
+"24.title" = "Standard 5,7";
+
+/* Class = "NSMenuItem"; title = "Standard 3,3"; ObjectID = "25"; */
+"25.title" = "Standard 3,3";
+
+/* Class = "NSMenuItem"; title = "Standard 1,1"; ObjectID = "26"; */
+"26.title" = "Standard 1,1";
+
+/* Class = "NSMenuItem"; title = "Standard 3,4"; ObjectID = "27"; */
+"27.title" = "Standard 3,4";
+
+/* Class = "NSMenuItem"; title = "Standard 3,5"; ObjectID = "28"; */
+"28.title" = "Standard 3,5";
+
+/* Class = "NSBox"; title = "Settings:"; ObjectID = "31"; */
+"31.title" = "Impostazioni:";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "34"; */
+"34.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Processor"; ObjectID = "42"; */
+"42.title" = "Processore";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "48"; */
+"48.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "24 CM x  24 CM"; ObjectID = "49"; */
+"49.title" = "24 CM x  24 CM";
+
+/* Class = "NSMenuItem"; title = "14 IN x 14 IN"; ObjectID = "50"; */
+"50.title" = "14 IN x 14 IN";
+
+/* Class = "NSMenuItem"; title = "24 CM x  30 CM"; ObjectID = "51"; */
+"51.title" = "24 CM x  30 CM";
+
+/* Class = "NSMenuItem"; title = "11 IN x 17 IN"; ObjectID = "52"; */
+"52.title" = "11 IN x 17 IN";
+
+/* Class = "NSMenuItem"; title = "A4"; ObjectID = "53"; */
+"53.title" = "A4";
+
+/* Class = "NSMenuItem"; title = "11 IN x 14 IN"; ObjectID = "54"; */
+"54.title" = "11 IN x 14 IN";
+
+/* Class = "NSMenuItem"; title = "A3"; ObjectID = "55"; */
+"55.title" = "A3";
+
+/* Class = "NSMenuItem"; title = "10 IN x 14 IN"; ObjectID = "56"; */
+"56.title" = "10 IN x 14 IN";
+
+/* Class = "NSMenuItem"; title = "10 IN x 12 IN"; ObjectID = "57"; */
+"57.title" = "10 IN x 12 IN";
+
+/* Class = "NSMenuItem"; title = "8.5 IN x 11 IN"; ObjectID = "58"; */
+"58.title" = "8.5 IN x 11 IN";
+
+/* Class = "NSMenuItem"; title = "14 IN x 17 IN"; ObjectID = "59"; */
+"59.title" = "14 IN x 17 IN";
+
+/* Class = "NSMenuItem"; title = "8 IN x 10 IN"; ObjectID = "60"; */
+"60.title" = "8 IN x 10 IN";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "64"; */
+"64.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Portrait"; ObjectID = "65"; */
+"65.title" = "Ritratto";
+
+/* Class = "NSMenuItem"; title = "Landscape"; ObjectID = "66"; */
+"66.title" = "Panorama";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "84"; */
+"84.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "NO"; ObjectID = "85"; */
+"85.title" = "NO";
+
+/* Class = "NSMenuItem"; title = "YES"; ObjectID = "86"; */
+"86.title" = "SI";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "90"; */
+"90.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "REPLICATE"; ObjectID = "91"; */
+"91.title" = "RIPETIZIONE";
+
+/* Class = "NSMenuItem"; title = "BILINEAR"; ObjectID = "92"; */
+"92.title" = "BILINEARE";
+
+/* Class = "NSMenuItem"; title = "CUBIC"; ObjectID = "93"; */
+"93.title" = "CUBICO";
+
+/* Class = "NSMenuItem"; title = "NONE"; ObjectID = "94"; */
+"94.title" = "NESSUNA";
+
+/* Class = "NSBox"; title = "Job:"; ObjectID = "112"; */
+"112.title" = "Servizio:";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "118"; */
+"118.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "HIGH"; ObjectID = "119"; */
+"119.title" = "ALTA";
+
+/* Class = "NSMenuItem"; title = "MED"; ObjectID = "120"; */
+"120.title" = "MED";
+
+/* Class = "NSMenuItem"; title = "LOW"; ObjectID = "121"; */
+"121.title" = "BASSO";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "124"; */
+"124.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Blue Film"; ObjectID = "125"; */
+"125.title" = "Film Blu";
+
+/* Class = "NSMenuItem"; title = "Clear Film"; ObjectID = "126"; */
+"126.title" = "Film trasparente";
+
+/* Class = "NSMenuItem"; title = "Paper"; ObjectID = "127"; */
+"127.title" = "Carta";
+
+/* Class = "NSBox"; title = "Currently selected printer"; ObjectID = "129"; */
+"129.title" = "Stampante attualmente selezionata";
+
+/* Class = "NSBox"; title = "Images:"; ObjectID = "141"; */
+"141.title" = "Immagini:";
+
+/* Class = "NSButtonCell"; title = "Current image"; ObjectID = "145"; */
+"145.title" = "Immagine attuale";
+
+/* Class = "NSButtonCell"; title = "Only ROIs & Key images"; ObjectID = "146"; */
+"146.title" = "Solo ROI e immagini chiave";
+
+/* Class = "NSButtonCell"; title = "Entire series, including:"; ObjectID = "147"; */
+"147.title" = "Tutta la serie, incluso:";
+
+/* Class = "NSMenuItem"; title = "Magazine"; ObjectID = "268"; */
+"268.title" = "Caricatore";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "398"; */
+"398.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "WHITE"; ObjectID = "399"; */
+"399.title" = "BIANCO";
+
+/* Class = "NSMenuItem"; title = "BLACK"; ObjectID = "400"; */
+"400.title" = "NERO";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "402"; */
+"402.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "WHITE"; ObjectID = "403"; */
+"403.title" = "BIANCO";
+
+/* Class = "NSMenuItem"; title = "BLACK"; ObjectID = "404"; */
+"404.title" = "NERO";
+
+/* Class = "NSMenuItem"; title = "Standard 2,2"; ObjectID = "419"; */
+"419.title" = "Standard 2,2";
+
+/* Class = "NSTableColumn"; headerCell.title = "Dicom Printers"; ObjectID = "446"; */
+"446.headerCell.title" = "Stampanti Dicom";
+
+/* Class = "NSWindow"; title = "progressSheet"; ObjectID = "467"; */
+"467.title" = "progressSheet";
+
+/* Class = "NSTabViewItem"; label = "Progress Bar"; ObjectID = "470"; */
+"470.label" = "Barra di avanzamento";
+
+/* Class = "NSTabViewItem"; label = "OK Button"; ObjectID = "473"; */
+"473.label" = "Pulsante OK";
+
+/* Class = "NSBox"; title = "Box"; ObjectID = "487"; */
+"487.title" = "Box";
+
+/* Class = "NSTextFieldCell"; title = "Format:"; ObjectID = "533"; */
+"533.title" = "Formato:";
+
+/* Class = "NSTextFieldCell"; title = "Border Color:"; ObjectID = "534"; */
+"534.title" = "Colore Bordo:";
+
+/* Class = "NSTextFieldCell"; title = "Empty Image Color:"; ObjectID = "535"; */
+"535.title" = "Colore immagine vuota:";
+
+/* Class = "NSTextFieldCell"; title = "Film Orientation:"; ObjectID = "541"; */
+"541.title" = "Orientamento dei film:";
+
+/* Class = "NSTextFieldCell"; title = "Trim:"; ObjectID = "542"; */
+"542.title" = "Rifiniture:";
+
+/* Class = "NSTextFieldCell"; title = "Magnification Type:"; ObjectID = "544"; */
+"544.title" = "Tipo di ingrandimento:";
+
+/* Class = "NSTextFieldCell"; title = "Film Destination:"; ObjectID = "546"; */
+"546.title" = "Destinazione del film:";
+
+/* Class = "NSTextFieldCell"; title = "Configuration Information:"; ObjectID = "547"; */
+"547.title" = "Informazioni sulla configurazione:";
+
+/* Class = "NSTextFieldCell"; title = "Film Size:"; ObjectID = "549"; */
+"549.title" = "Dimensione del film:";
+
+/* Class = "NSTextFieldCell"; title = "Medium:"; ObjectID = "550"; */
+"550.title" = "Medium:";
+
+/* Class = "NSTextFieldCell"; title = "Copies:"; ObjectID = "551"; */
+"551.title" = "Copie:";
+
+/* Class = "NSTextFieldCell"; title = "1"; ObjectID = "553"; */
+"553.title" = "1";
+
+/* Class = "NSTextFieldCell"; title = "Priority:"; ObjectID = "555"; */
+"555.title" = "Priorità:";
+
+/* Class = "NSTextFieldCell"; title = "Port:"; ObjectID = "559"; */
+"559.title" = "Porta:";
+
+/* Class = "NSTextFieldCell"; title = "Host:"; ObjectID = "560"; */
+"560.title" = "Host:";
+
+/* Class = "NSTextFieldCell"; title = "AE Title:"; ObjectID = "561"; */
+"561.title" = "AE Title:";
+
+/* Class = "NSTextFieldCell"; title = "Printer Name:"; ObjectID = "563"; */
+"563.title" = "Nome stampante:";
+
+/* Class = "NSTextFieldCell"; title = "Selection:"; ObjectID = "565"; */
+"565.title" = "Selezione:";
+
+/* Class = "NSButtonCell"; title = "Colorprint"; ObjectID = "566"; */
+"566.title" = "Colorprint";
+
+/* Class = "NSTextFieldCell"; title = "From:"; ObjectID = "567"; */
+"567.title" = "Da:";
+
+/* Class = "NSTextFieldCell"; title = "0"; ObjectID = "568"; */
+"568.title" = "0";
+
+/* Class = "NSTextFieldCell"; title = "1234"; ObjectID = "570"; */
+"570.title" = "1234";
+
+/* Class = "NSTextFieldCell"; title = "1234"; ObjectID = "571"; */
+"571.title" = "1234";
+
+/* Class = "NSTextFieldCell"; title = "Interval:"; ObjectID = "572"; */
+"572.title" = "Intervallo:";
+
+/* Class = "NSTextFieldCell"; title = "To:"; ObjectID = "575"; */
+"575.title" = "A:";
+
+/* Class = "NSTextFieldCell"; title = "Pages:"; ObjectID = "576"; */
+"576.title" = "Pagine:";
+
+/* Class = "NSTextFieldCell"; title = "40 pages"; ObjectID = "577"; */
+"577.title" = "40 pagine";
+
+/* Class = "NSTextFieldCell"; title = "Mode:"; ObjectID = "578"; */
+"578.title" = "Modo:";
+
+/* Class = "NSButtonCell"; title = "Print"; ObjectID = "579"; */
+"579.title" = "Stampa";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "580"; */
+"580.title" = "Annulla";
+
+/* Class = "NSButtonCell"; title = "Show Printers..."; ObjectID = "581"; */
+"581.title" = "Mostra Stampanti...";
+
+/* Class = "NSButtonCell"; title = "Verify printer..."; ObjectID = "583"; */
+"583.title" = "Verificare la stampante...";
+
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "584"; */
+"584.title" = "OK";
+
+/* Class = "NSTextFieldCell"; title = "Preparing Print..."; ObjectID = "585"; */
+"585.title" = "Preparazione della stampa...";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "586"; */
+"586.title" = "Radio";
+
+/* Class = "NSButtonCell"; title = "Automatically adjusted"; ObjectID = "593"; */
+"593.title" = "Regolazione automatica";
+

@@ -1,0 +1,15 @@
+/* Class = "NSWindow"; title = "Histogram"; ObjectID = "637"; */
+"637.title" = "直方图";
+
+/* Class = "NSTextFieldCell"; title = "Bin width:"; ObjectID = "757"; */
+"757.title" = "收件箱宽度:";
+
+/* Class = "NSTextFieldCell"; title = "22"; ObjectID = "758"; */
+"758.title" = "22";
+
+/* Class = "NSTextFieldCell"; title = "999"; ObjectID = "759"; */
+"759.title" = "999";
+
+/* Class = "NSTextFieldCell"; title = "0"; ObjectID = "760"; */
+"760.title" = "0";
+

@@ -1,0 +1,15 @@
+/* Class = "NSWindow"; title = "ROI Manager"; ObjectID = "5"; */
+"5.title" = "投资回报经理";
+
+/* Class = "NSTableColumn"; headerCell.title = "Index"; ObjectID = "10"; */
+"10.headerCell.title" = "索引";
+
+/* Class = "NSTableColumn"; headerCell.title = "Name"; ObjectID = "11"; */
+"11.headerCell.title" = "名称";
+
+/* Class = "NSTableColumn"; headerCell.title = "Area (cm2)"; ObjectID = "30"; */
+"30.headerCell.title" = "面积 (cm²)";
+
+/* Class = "NSTableColumn"; headerCell.title = "Volume (cm3)"; ObjectID = "37"; */
+"37.headerCell.title" = "体积 (cm³)";
+

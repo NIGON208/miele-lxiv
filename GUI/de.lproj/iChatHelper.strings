@@ -1,0 +1,6 @@
+/* Class = "NSWindow"; title = "iChat Helper"; ObjectID = "1"; */
+"1.title" = "iChat Helfer";
+
+/* Class = "NSButtonCell"; title = "Don't show again"; ObjectID = "5"; */
+"5.title" = "Für immer ausblenden";
+

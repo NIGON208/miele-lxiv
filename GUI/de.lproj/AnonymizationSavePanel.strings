@@ -1,0 +1,15 @@
+/* Class = "NSWindow"; title = "Anonymization"; ObjectID = "3"; */
+"3.title" = "Anonymisierung";
+
+/* Class = "NSButtonCell"; title = "Export..."; ObjectID = "10"; */
+"10.title" = "Exportieren...";
+
+/* Class = "NSButtonCell"; title = "Replace"; ObjectID = "11"; */
+"11.title" = "Ersetzen";
+
+/* Class = "NSButtonCell"; title = "Add"; ObjectID = "12"; */
+"12.title" = "Hinzufügen";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "13"; */
+"13.title" = "Abbrechen";
+

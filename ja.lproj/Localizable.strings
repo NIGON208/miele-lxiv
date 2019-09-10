@@ -1,0 +1,306 @@
+/* No comment provided by engineer. */
+"ABD" = "ABD";
+
+/* No comment provided by engineer. */
+"ABDOMEN" = "腹部";
+
+/* No comment provided by engineer. */
+"AC JOINT" = "AC JOINT";
+
+/* No comment provided by engineer. */
+"ACROMIAL" = "ACROMIAL";
+
+/* No comment provided by engineer. */
+"ADRENAL" = "妊娠";
+
+/* No comment provided by engineer. */
+"ANKLE" = "足首";
+
+/* No comment provided by engineer. */
+"APPENDIX" = "付録";
+
+/* No comment provided by engineer. */
+"BICEPS" = "BICEPS";
+
+/* No comment provided by engineer. */
+"BLADDER" = "膀胱";
+
+/* No comment provided by engineer. */
+"BRACHIAL" = "ブラッチャリ";
+
+/* No comment provided by engineer. */
+"BRAIN" = "脳";
+
+/* No comment provided by engineer. */
+"C SPINE" = "C SPINE";
+
+/* No comment provided by engineer. */
+"CALCANEUS" = "カルカヌー";
+
+/* No comment provided by engineer. */
+"CARDIAC" = "カルディック";
+
+/* No comment provided by engineer. */
+"CAROTID" = "頚動脈";
+
+/* No comment provided by engineer. */
+"CARPAL" = "カーパル";
+
+/* No comment provided by engineer. */
+"CERVICAL" = "CERVICAL";
+
+/* No comment provided by engineer. */
+"CHEST" = "胸";
+
+/* No comment provided by engineer. */
+"CLAVICLE" = "CLAVICLE";
+
+/* No comment provided by engineer. */
+"Converting RTSTRUCT in ROIs..." = "ROIでのRTSTRUCTの変換...";
+
+/* No comment provided by engineer. */
+"CR" = "CR";
+
+/* No comment provided by engineer. */
+"CT" = "CT";
+
+/* No comment provided by engineer. */
+"default" = "デフォルト";
+
+/* No comment provided by engineer. */
+"Default" = "デフォルト";
+
+/* No comment provided by engineer. */
+"DX" = "DX";
+
+/* No comment provided by engineer. */
+"ELBOW" = "肘";
+
+/* No comment provided by engineer. */
+"ES" = "ES";
+
+/* No comment provided by engineer. */
+"FACE" = "面";
+
+/* No comment provided by engineer. */
+"FEMUR" = "フェミュー";
+
+/* No comment provided by engineer. */
+"FIBULA" = "腓骨";
+
+/* No comment provided by engineer. */
+"FINGER" = "指";
+
+/* No comment provided by engineer. */
+"FOOT" = "足";
+
+/* No comment provided by engineer. */
+"FOREARM" = "前腕部";
+
+/* No comment provided by engineer. */
+"Growing Region" = "成長地域";
+
+/* No comment provided by engineer. */
+"HALLUX" = "ハラス";
+
+/* No comment provided by engineer. */
+"HAND" = "ハンド";
+
+/* No comment provided by engineer. */
+"HEAD" = "頭";
+
+/* No comment provided by engineer. */
+"HEART" = "心臓";
+
+/* No comment provided by engineer. */
+"HEEL" = "ヒール";
+
+/* No comment provided by engineer. */
+"HIP" = "HIP";
+
+/* No comment provided by engineer. */
+"HIPS" = "ヒップ";
+
+/* No comment provided by engineer. */
+"HUMERUS" = "ヒト";
+
+/* No comment provided by engineer. */
+"IAC" = "IAC";
+
+/* No comment provided by engineer. */
+"IVP" = "IVP";
+
+/* No comment provided by engineer. */
+"KIDNEY" = "腎臓";
+
+/* No comment provided by engineer. */
+"KNEE" = "膝";
+
+/* No comment provided by engineer. */
+"L SPINE" = "Lスパイン";
+
+/* No comment provided by engineer. */
+"LIVER" = "肝";
+
+/* No comment provided by engineer. */
+"LOWER LEG" = "下肢";
+
+/* No comment provided by engineer. */
+"LUNG" = "肺";
+
+/* No comment provided by engineer. */
+"MANDIBLE" = "手持ち";
+
+/* No comment provided by engineer. */
+"MAXILLOFACIAL" = "MAXILLOFACIAL";
+
+/* No comment provided by engineer. */
+"MEDIASTINUM" = "MEDIASTINUM";
+
+/* No comment provided by engineer. */
+"MG" = "MG";
+
+/* No comment provided by engineer. */
+"MR" = "MR";
+
+/* No comment provided by engineer. */
+"NAVICULAR" = "航海";
+
+/* No comment provided by engineer. */
+"NECK" = "ネック";
+
+/* No comment provided by engineer. */
+"NM" = "NM";
+
+/* No comment provided by engineer. */
+"ORBIT" = "軌道";
+
+/* No comment provided by engineer. */
+"ORBITS" = "ORBITS";
+
+/* No comment provided by engineer. */
+"OS CALCIS" = "OS CALCIS";
+
+/* No comment provided by engineer. */
+"OT" = "OT";
+
+/* No comment provided by engineer. */
+"OVARIES" = "OVARIES";
+
+/* No comment provided by engineer. */
+"OVARY" = "卵巣";
+
+/* No comment provided by engineer. */
+"PANCREAS" = "膵臓";
+
+/* No comment provided by engineer. */
+"Patient's Actual Age" = "患者の実際の年齢";
+
+/* No comment provided by engineer. */
+"Patient's Age At Acquisition" = "取得時の患者の年齢";
+
+/* No comment provided by engineer. */
+"PELVIC" = "PELVIC";
+
+/* No comment provided by engineer. */
+"PELVIS" = "骨盤";
+
+/* No comment provided by engineer. */
+"PITUITARY" = "刑事";
+
+/* No comment provided by engineer. */
+"PROSTATE" = "前立腺";
+
+/* No comment provided by engineer. */
+"PT" = "PT";
+
+/* No comment provided by engineer. */
+"PULMONARY" = "パルモナリ";
+
+/* No comment provided by engineer. */
+"RADIUS" = "RADIUS";
+
+/* No comment provided by engineer. */
+"Reading..." = "読む...";
+
+/* No comment provided by engineer. */
+"RENAL" = "腎臓";
+
+/* No comment provided by engineer. */
+"RF" = "RF";
+
+/* No comment provided by engineer. */
+"ROTATOR CUFF" = "ロータリーカフ";
+
+/* No comment provided by engineer. */
+"SC" = "SC";
+
+/* No comment provided by engineer. */
+"SCAPHOID" = "SCAPHOID";
+
+/* No comment provided by engineer. */
+"SCAPULA" = "スカプラ";
+
+/* No comment provided by engineer. */
+"SHOULDER" = "ショルダー";
+
+/* No comment provided by engineer. */
+"SINUS" = "シヌス";
+
+/* No comment provided by engineer. */
+"STERNUM" = "胸骨";
+
+/* No comment provided by engineer. */
+"T SPINE" = "T SPINE";
+
+/* No comment provided by engineer. */
+"TALUS" = "タラス";
+
+/* No comment provided by engineer. */
+"TEMPORAL BONE" = "側頭骨";
+
+/* No comment provided by engineer. */
+"THIGH" = "大腿";
+
+/* No comment provided by engineer. */
+"This is an example" = "これは例です";
+
+/* No comment provided by engineer. */
+"THORACIC" = "トライアック";
+
+/* No comment provided by engineer. */
+"THORAX" = "胸郭";
+
+/* No comment provided by engineer. */
+"THUMB" = "親指";
+
+/* No comment provided by engineer. */
+"THYROID" = "THYROID";
+
+/* No comment provided by engineer. */
+"TIBIA" = "脛骨";
+
+/* No comment provided by engineer. */
+"TOE" = "TOE";
+
+/* No comment provided by engineer. */
+"TOES" = "TOES";
+
+/* No comment provided by engineer. */
+"ULNA" = "ULNA";
+
+/* No comment provided by engineer. */
+"UPPER ARM" = "上腕";
+
+/* No comment provided by engineer. */
+"US" = "US";
+
+/* No comment provided by engineer. */
+"UTERUS" = "子宮";
+
+/* No comment provided by engineer. */
+"WRIST" = "手首";
+
+/* No comment provided by engineer. */
+"XA" = "XA";
+

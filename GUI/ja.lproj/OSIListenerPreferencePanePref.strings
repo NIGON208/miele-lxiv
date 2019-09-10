@@ -1,0 +1,306 @@
+/* Class = "NSButtonCell"; title = "Automatically close all 2D Viewers before displaying studies"; ObjectID = "7gm-9P-05Z"; */
+"7gm-9P-05Z.title" = "スタディを表示する前にすべての2Dビューアを自動的に閉じる";
+
+/* Class = "NSWindow"; title = "<< do not localize >>"; ObjectID = "12"; */
+"12.title" = "<< do not localize >>";
+
+/* Class = "NSButtonCell"; title = "Move it to the NOT READABLE folder"; ObjectID = "102"; */
+"102.title" = "それをNOT READABLEフォルダに移動します";
+
+/* Class = "NSButtonCell"; title = "Delete it"; ObjectID = "115"; */
+"115.title" = "消して";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "270"; */
+"270.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "1 week"; ObjectID = "271"; */
+"271.title" = "1週間";
+
+/* Class = "NSMenuItem"; title = "1 month"; ObjectID = "272"; */
+"272.title" = "1ヶ月";
+
+/* Class = "NSMenuItem"; title = "3 months"; ObjectID = "273"; */
+"273.title" = "3か月";
+
+/* Class = "NSMenuItem"; title = "6 months"; ObjectID = "274"; */
+"274.title" = "6か月";
+
+/* Class = "NSMenuItem"; title = "1 year"; ObjectID = "275"; */
+"275.title" = "1年";
+
+/* Class = "NSMenuItem"; title = "1 day"; ObjectID = "278"; */
+"278.title" = "1日";
+
+/* Class = "NSButtonCell"; title = "Activate DICOM listener when Miele-LXIV is running"; ObjectID = "309"; */
+"309.title" = "Miele-LXIVの実行中にDICOMリスナーを有効にする";
+
+/* Class = "NSTextFieldCell"; title = "If OsiriX is not able to open a file received by the DICOM listener:"; ObjectID = "310"; */
+"310.title" = "Miele-LXIVがDICOMリスナーが受信したファイルを開くことができない場合:";
+
+/* Class = "NSTextFieldCell"; title = "(between 1 and 65535)"; ObjectID = "311"; */
+"311.title" = "(1〜65535の間)";
+
+/* Class = "NSButtonCell"; title = "Generate logs for DICOM Network events"; ObjectID = "317"; */
+"317.title" = "DICOMネットワークイベントのログを生成する";
+
+/* Class = "NSTextFieldCell"; title = "Check for new files every:"; ObjectID = "320"; */
+"320.title" = "毎回新しいファイルを確認する:";
+
+/* Class = "NSTextFieldCell"; title = "600"; ObjectID = "321"; */
+"321.title" = "600";
+
+/* Class = "NSTextFieldCell"; title = "seconds"; ObjectID = "322"; */
+"322.title" = "秒";
+
+/* Class = "NSButtonCell"; title = "Publish my DICOM node over the network through the Bonjour protocol"; ObjectID = "325"; */
+"325.title" = "Bonjourプロトコルを使用してネットワーク上にDICOMノードを公開する";
+
+/* Class = "NSTextFieldCell"; title = "Time-out for DICOM communications:"; ObjectID = "326"; */
+"326.title" = "DICOM通信のタイムアウト:";
+
+/* Class = "NSTextFieldCell"; title = "seconds"; ObjectID = "328"; */
+"328.title" = "秒";
+
+/* Class = "NSButtonCell"; title = "Activate the DICOM Listener only if this user session is active (user switching)"; ObjectID = "329"; */
+"329.title" = "DICOMリスナーをアクティブにするのは、このユーザーセッションがアクティブな場合(ユーザー切り替え)";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "331"; */
+"331.title" = "Radio";
+
+/* Class = "NSButtonCell"; title = "Activate the \"osirix://\" URL support and HTTP XML-RPC Server on port:"; ObjectID = "333"; */
+"333.title" = "ポート上で \"osirix://\" URLサポートとHTTP XML-RPC Serverを有効にします。";
+
+/* Class = "NSButtonCell"; title = "C-GET SCP"; ObjectID = "357"; */
+"357.title" = "C-GET SCP";
+
+/* Class = "NSButtonCell"; title = "Incoming and shared files are always linked to the default database (see path in DB Preferences)"; ObjectID = "361"; */
+"361.title" = "着信ファイルと共有ファイルは、常にデフォルトのデータベースにリンクされています(DB環境設定のパスを参照)";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "381"; */
+"381.title" = "OtherViews";
+
+/* Class = "NSTextFieldCell"; title = "(used during Q&R Retrieve)"; ObjectID = "386"; */
+"386.title" = "(取得中に使用されます)";
+
+/* Class = "NSMenuItem"; title = "Explicit Little Endian"; ObjectID = "409"; */
+"409.title" = "Explicit Little Endian";
+
+/* Class = "NSMenuItem"; title = "JPEG 2000 Lossless & Lossy"; ObjectID = "412"; */
+"412.title" = "JPEG 2000ロスレス＆ロス";
+
+/* Class = "NSMenuItem"; title = "JPEG Baseline"; ObjectID = "413"; */
+"413.title" = "JPEGベースライン";
+
+/* Class = "NSMenuItem"; title = "JPEG Extended"; ObjectID = "414"; */
+"414.title" = "JPEG拡張";
+
+/* Class = "NSMenuItem"; title = "RLE"; ObjectID = "415"; */
+"415.title" = "RLE";
+
+/* Class = "NSButtonCell"; title = "Use Host Name for AETitle"; ObjectID = "419"; */
+"419.title" = "AETitleにホスト名を使用する";
+
+/* Class = "NSTextFieldCell"; title = "Keep logs for:"; ObjectID = "426"; */
+"426.title" = "ログを保存する:";
+
+/* Class = "NSButtonCell"; title = "Don't modify"; ObjectID = "438"; */
+"438.title" = "変更しない";
+
+/* Class = "NSButtonCell"; title = "Decompress compressed images"; ObjectID = "439"; */
+"439.title" = "圧縮された画像を解凍する";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "440"; */
+"440.title" = "Radio";
+
+/* Class = "NSButtonCell"; title = "Compress non-compressed images with JPEG (See General Preferences)"; ObjectID = "441"; */
+"441.title" = "非圧縮画像をJPEGで圧縮する(一般設定を参照)";
+
+/* Class = "NSMenuItem"; title = "JPEG 2000 Lossless - Only"; ObjectID = "448"; */
+"448.title" = "JPEG 2000ロスレス - のみ";
+
+/* Class = "NSMenuItem"; title = "Implicit Little Endian - Only"; ObjectID = "449"; */
+"449.title" = "Implicit Little Endian - のみ";
+
+/* Class = "NSMenuItem"; title = "JPEG Lossless"; ObjectID = "450"; */
+"450.title" = "JPEG無損失";
+
+/* Class = "NSButtonCell"; title = "TLS Settings"; ObjectID = "725"; */
+"725.title" = "TLS設定";
+
+/* Class = "NSWindow"; title = "Window"; ObjectID = "726"; */
+"726.title" = "Window";
+
+/* Class = "NSBox"; title = "Peer Authentication"; ObjectID = "728"; */
+"728.title" = "ピア認証";
+
+/* Class = "NSBox"; title = "Cipher Suites"; ObjectID = "731"; */
+"731.title" = "暗号スイート";
+
+/* Class = "NSBox"; title = "Identification"; ObjectID = "732"; */
+"732.title" = "識別";
+
+/* Class = "NSButtonCell"; title = "Activate DICOM TLS Listener"; ObjectID = "735"; */
+"735.title" = "DICOM TLSリスナーを有効にする";
+
+/* Class = "NSButtonCell"; title = "Label"; ObjectID = "742"; */
+"742.title" = "ラベル";
+
+/* Class = "NSButtonCell"; title = "Choose"; ObjectID = "743"; */
+"743.title" = "選択";
+
+/* Class = "NSTableColumn"; headerCell.title = "Cipher"; ObjectID = "751"; */
+"751.headerCell.title" = "暗号";
+
+/* Class = "NSButtonCell"; title = "DH Parameter file"; ObjectID = "754"; */
+"754.title" = "DHパラメータファイル";
+
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "756"; */
+"756.title" = "OK";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "757"; */
+"757.title" = "キャンセル";
+
+/* Class = "NSTextFieldCell"; title = "Peer Certificate:"; ObjectID = "761"; */
+"761.title" = "ピア証明書:";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "763"; */
+"763.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Ignore"; ObjectID = "764"; */
+"764.title" = "無視";
+
+/* Class = "NSMenuItem"; title = "Verify"; ObjectID = "765"; */
+"765.title" = "確認";
+
+/* Class = "NSMenuItem"; title = "Require"; ObjectID = "766"; */
+"766.title" = "必須";
+
+/* Class = "NSTextFieldCell"; title = "When choosing \"Verify\" or \"Require\", the peer certificate is tested against all trusted certificates of the Keychain."; ObjectID = "767"; */
+"767.title" = "「Verify」または「Require」を選択すると、ピア証明書はKeychainのすべての信頼できる証明書に対してテストされます。";
+
+/* Class = "NSTextFieldCell"; title = "Port Number:"; ObjectID = "769"; */
+"769.title" = "ポート番号:";
+
+/* Class = "NSTextFieldCell"; title = "AETitle:"; ObjectID = "771"; */
+"771.title" = "AETitle:";
+
+/* Class = "NSTextFieldCell"; title = "Certificate:"; ObjectID = "773"; */
+"773.title" = "証明書:";
+
+/* Class = "NSButtonCell"; title = "Activate DICOM TLS Listener"; ObjectID = "783"; */
+"783.title" = "DICOM TLSリスナーを有効にする";
+
+/* Class = "NSTextFieldCell"; title = "AETitle:"; ObjectID = "811"; */
+"811.title" = "AETitle:";
+
+/* Class = "NSTextFieldCell"; title = "Port:"; ObjectID = "813"; */
+"813.title" = "ポート:";
+
+/* Class = "NSTextFieldCell"; title = "AETitleValue"; ObjectID = "815"; */
+"815.title" = "AETitleValue";
+
+/* Class = "NSTextFieldCell"; title = "PortValue"; ObjectID = "817"; */
+"817.title" = "PortValue";
+
+/* Class = "NSButtonCell"; title = "Same as Listener"; ObjectID = "830"; */
+"830.title" = "リスナーと同じ";
+
+/* Class = "NSTextFieldCell"; title = "From 1 to 65535"; ObjectID = "834"; */
+"834.title" = "1から65535まで";
+
+/* Class = "NSButtonCell"; title = "Select All"; ObjectID = "860"; */
+"860.title" = "すべて選択";
+
+/* Class = "NSButtonCell"; title = "Deselect All"; ObjectID = "864"; */
+"864.title" = "すべての選択を解除";
+
+/* Class = "NSTextFieldCell"; title = "AETitle:"; ObjectID = "869"; */
+"869.title" = "AETitle:";
+
+/* Class = "NSTextFieldCell"; title = "Port Number:"; ObjectID = "875"; */
+"875.title" = "ポート番号:";
+
+/* Class = "NSTextFieldCell"; title = "Address(es):"; ObjectID = "879"; */
+"879.title" = "住所:";
+
+/* Class = "NSTextFieldCell"; title = "Host Name:"; ObjectID = "883"; */
+"883.title" = "ホスト名:";
+
+/* Class = "NSTextFieldCell"; title = "Preferred Syntax:"; ObjectID = "894"; */
+"894.title" = "優先する構文:";
+
+/* Class = "NSButtonCell"; title = "Edit"; ObjectID = "905"; */
+"905.title" = "編集";
+
+/* Class = "NSButtonCell"; title = "Edit"; ObjectID = "907"; */
+"907.title" = "編集";
+
+/* Class = "NSBox"; title = "Incoming files"; ObjectID = "908"; */
+"908.title" = "着信ファイル";
+
+/* Class = "NSBox"; title = "Other options"; ObjectID = "956"; */
+"956.title" = "その他のオプション";
+
+/* Class = "NSTextFieldCell"; title = "Incoming files:"; ObjectID = "958"; */
+"958.title" = "着信ファイル:";
+
+/* Class = "NSButtonCell"; title = "Server mode (don't display errors messages, hide Database window at startup)"; ObjectID = "960"; */
+"960.title" = "サーバーモード(エラーメッセージを表示しない、起動時にデータベースウィンドウを非表示にする)";
+
+/* Class = "NSButtonCell"; title = "Protect it with a password:"; ObjectID = "967"; */
+"967.title" = "パスワードで保護する:";
+
+/* Class = "NSButtonCell"; title = "Activate OsiriX database sharing, and publish it using the name:"; ObjectID = "968"; */
+"968.title" = "Miele-LXIVデータベース共有を有効にし、名前を使用して公開します。";
+
+/* Class = "NSTextFieldCell"; placeholderString = "Hostname"; ObjectID = "975"; */
+"975.placeholderString" = "ホスト名";
+
+/* Class = "NSButtonCell"; title = "Use this AETitle for C-FIND SCU, C-STORE SCU, C-GET SCU"; ObjectID = "1013"; */
+"1013.title" = "C-FIND SCU、C-STORE SCU、C-GET SCUにこのAETitleを使用する";
+
+/* Class = "NSTextFieldCell"; title = "Syntax:"; ObjectID = "1024"; */
+"1024.title" = "構文:";
+
+/* Class = "NSTextFieldCell"; title = "Preferred Syntax"; ObjectID = "1026"; */
+"1026.title" = "優先する構文";
+
+/* Class = "NSMenuItem"; title = "JPEG LS Lossless - Only"; ObjectID = "1038"; */
+"1038.title" = "JPEG LS無損失 - のみ";
+
+/* Class = "NSMenuItem"; title = "JPEG LS Lossless & Lossy"; ObjectID = "1039"; */
+"1039.title" = "JPEG LSロスレス＆ロス";
+
+/* Class = "NSTextFieldCell"; title = "seconds"; ObjectID = "1043"; */
+"1043.title" = "秒";
+
+/* Class = "NSTextFieldCell"; title = "Connection time-out:"; ObjectID = "1051"; */
+"1051.title" = "接続タイムアウト:";
+
+/* Class = "NSButtonCell"; title = "Also search on PACS-On-Demand servers"; ObjectID = "1057"; */
+"1057.title" = "PACS-On-Demandサーバーでも検索";
+
+/* Class = "NSButtonCell"; title = "Store Source AETitle in SourceApplicationEntityTitle (0002,0016)"; ObjectID = "1061"; */
+"1061.title" = "SourceApplicationEntityTitle(0002,0016)にソースAETitleを格納する";
+
+/* Class = "NSButtonCell"; title = "Store Destination AETitle in PrivateInformationCreatorUID (0002,0100)"; ObjectID = "1064"; */
+"1064.title" = "PrivateInformationCreatorUID (0002,0100)にストア先AETitle";
+
+/* Class = "NSButtonCell"; title = "C-FIND SCP"; ObjectID = "1068"; */
+"1068.title" = "C-FIND SCP";
+
+/* Class = "NSBox"; title = "XML-RPC and osirix:// URL scheme"; ObjectID = "A6a-rA-21A"; */
+"A6a-rA-21A.title" = "XML-RPC and osirix:// URL scheme";
+
+/* Class = "NSMenuItem"; title = "4 years"; ObjectID = "cw5-Zg-DmK"; */
+"cw5-Zg-DmK.title" = "4年";
+
+/* Class = "NSMenuItem"; title = "2 years"; ObjectID = "MkC-kh-aPV"; */
+"MkC-kh-aPV.title" = "2年";
+
+/* Class = "NSButtonCell"; title = "C-MOVE SCP"; ObjectID = "Snw-DH-xRh"; */
+"Snw-DH-xRh.title" = "C-MOVE SCP";
+
+/* Class = "NSTextFieldCell"; title = "Activate support for:"; ObjectID = "xJP-7F-vCr"; */
+"xJP-7F-vCr.title" = "次のサポートを有効にする";
+

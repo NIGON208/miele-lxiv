@@ -1,0 +1,66 @@
+/* Class = "NSWindow"; title = "Smart Album"; ObjectID = "8"; */
+"8.title" = "Album intelligent";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "19"; */
+"19.title" = "Annuler";
+
+/* Class = "NSButtonCell"; title = "Create"; ObjectID = "20"; */
+"20.title" = "Créer";
+
+/* Class = "NSTextFieldCell"; title = "Album Name:"; ObjectID = "58"; */
+"58.title" = "Nom de l'album:";
+
+/* Class = "NSMenuItem"; title = "contains"; ObjectID = "67"; */
+"67.title" = "contient";
+
+/* Class = "NSMenuItem"; title = "begins with"; ObjectID = "68"; */
+"68.title" = "begins with";
+
+/* Class = "NSMenuItem"; title = "ends with"; ObjectID = "69"; */
+"69.title" = "se termine par";
+
+/* Class = "NSMenuItem"; title = "is"; ObjectID = "70"; */
+"70.title" = "est";
+
+/* Class = "NSMenuItem"; title = "is not"; ObjectID = "71"; */
+"71.title" = "n'est pas";
+
+/* Class = "NSMenuItem"; title = "name"; ObjectID = "72"; */
+"72.title" = "nom";
+
+/* Class = "NSMenuItem"; title = "address"; ObjectID = "73"; */
+"73.title" = "adresse";
+
+/* Class = "NSMenuItem"; title = "sign"; ObjectID = "74"; */
+"74.title" = "écriteau";
+
+/* Class = "NSMenuItem"; title = "of the following are true"; ObjectID = "77"; */
+"77.title" = "de ce qui suit sont vraies";
+
+/* Class = "NSMenuItem"; title = "Any"; ObjectID = "78"; */
+"78.title" = "Tous";
+
+/* Class = "NSMenuItem"; title = "All"; ObjectID = "79"; */
+"79.title" = "Tout";
+
+/* Class = "NSSegmentedCell"; 102.ibShadowedLabels[0] = "Predicate"; ObjectID = "102"; */
+"102.ibShadowedLabels[0]" = "Prédicat";
+
+/* Class = "NSSegmentedCell"; 102.ibShadowedLabels[1] = "SQL"; ObjectID = "102"; */
+"102.ibShadowedLabels[1]" = "SQL";
+
+/* Class = "NSTextView"; ibShadowedToolTip = "Study level predicate SQL"; ObjectID = "116"; */
+"116.ibShadowedToolTip" = "SQL prédicat au niveau de l'étude";
+
+/* Class = "NSButtonCell"; title = "Test"; ObjectID = "131"; */
+"131.title" = "Test";
+
+/* Class = "NSSegmentedCell"; 135.ibShadowedLabels[0] = "Schema"; ObjectID = "135"; */
+"135.ibShadowedLabels[0]" = "Schéma";
+
+/* Class = "NSSegmentedCell"; 135.ibShadowedLabels[1] = "Syntax"; ObjectID = "135"; */
+"135.ibShadowedLabels[1]" = "Syntaxe";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedIsNilPlaceholder = "TRUEPREDICATE"; ObjectID = "146"; */
+"146.ibShadowedIsNilPlaceholder" = "TRUEPREDICATE";
+

@@ -1,0 +1,306 @@
+/* Class = "NSButtonCell"; title = "Automatically close all 2D Viewers before displaying studies"; ObjectID = "7gm-9P-05Z"; */
+"7gm-9P-05Z.title" = "Cierre automático de todos los visores 2D antes de mostrar los estudios";
+
+/* Class = "NSWindow"; title = "<< do not localize >>"; ObjectID = "12"; */
+"12.title" = "<< do not localize >>";
+
+/* Class = "NSButtonCell"; title = "Move it to the NOT READABLE folder"; ObjectID = "102"; */
+"102.title" = "Moverlo a la carpeta NOT READABLE";
+
+/* Class = "NSButtonCell"; title = "Delete it"; ObjectID = "115"; */
+"115.title" = "Borrarlo";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "270"; */
+"270.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "1 week"; ObjectID = "271"; */
+"271.title" = "1 semana";
+
+/* Class = "NSMenuItem"; title = "1 month"; ObjectID = "272"; */
+"272.title" = "1 mes";
+
+/* Class = "NSMenuItem"; title = "3 months"; ObjectID = "273"; */
+"273.title" = "3 meses";
+
+/* Class = "NSMenuItem"; title = "6 months"; ObjectID = "274"; */
+"274.title" = "6 meses";
+
+/* Class = "NSMenuItem"; title = "1 year"; ObjectID = "275"; */
+"275.title" = "1 año";
+
+/* Class = "NSMenuItem"; title = "1 day"; ObjectID = "278"; */
+"278.title" = "1 día";
+
+/* Class = "NSButtonCell"; title = "Activate DICOM listener when Miele-LXIV is running"; ObjectID = "309"; */
+"309.title" = "Activar el oyente DICOM cuando Miele-LXIV se está ejecutando";
+
+/* Class = "NSTextFieldCell"; title = "If OsiriX is not able to open a file received by the DICOM listener:"; ObjectID = "310"; */
+"310.title" = "Si Miele-LXIV no es capaz de abrir un archivo recibido por el oyente DICOM:";
+
+/* Class = "NSTextFieldCell"; title = "(between 1 and 65535)"; ObjectID = "311"; */
+"311.title" = "(entre 1 y 65535)";
+
+/* Class = "NSButtonCell"; title = "Generate logs for DICOM Network events"; ObjectID = "317"; */
+"317.title" = "Generación de logs para eventos de DICOM Network";
+
+/* Class = "NSTextFieldCell"; title = "Check for new files every:"; ObjectID = "320"; */
+"320.title" = "Compruebe si hay nuevos archivos cada vez:";
+
+/* Class = "NSTextFieldCell"; title = "600"; ObjectID = "321"; */
+"321.title" = "600";
+
+/* Class = "NSTextFieldCell"; title = "seconds"; ObjectID = "322"; */
+"322.title" = "segundos";
+
+/* Class = "NSButtonCell"; title = "Publish my DICOM node over the network through the Bonjour protocol"; ObjectID = "325"; */
+"325.title" = "Publicar mi nodo DICOM en la red a través del protocolo Bonjour";
+
+/* Class = "NSTextFieldCell"; title = "Time-out for DICOM communications:"; ObjectID = "326"; */
+"326.title" = "Tiempo muerto para comunicaciones DICOM:";
+
+/* Class = "NSTextFieldCell"; title = "seconds"; ObjectID = "328"; */
+"328.title" = "segundos";
+
+/* Class = "NSButtonCell"; title = "Activate the DICOM Listener only if this user session is active (user switching)"; ObjectID = "329"; */
+"329.title" = "Activar el Listener DICOM sólo si esta sesión de usuario está activa (cambio de usuario).";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "331"; */
+"331.title" = "Radio";
+
+/* Class = "NSButtonCell"; title = "Activate the \"osirix://\" URL support and HTTP XML-RPC Server on port:"; ObjectID = "333"; */
+"333.title" = "Active el soporte de URL \"osirix://\" y el servidor HTTP XML-RPC en el puerto:";
+
+/* Class = "NSButtonCell"; title = "C-GET SCP"; ObjectID = "357"; */
+"357.title" = "C-GET SCP";
+
+/* Class = "NSButtonCell"; title = "Incoming and shared files are always linked to the default database (see path in DB Preferences)"; ObjectID = "361"; */
+"361.title" = "Los archivos entrantes y compartidos siempre están vinculados a la base de datos predeterminada (véase la ruta en Preferencias de la base de datos).";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "381"; */
+"381.title" = "OtherViews";
+
+/* Class = "NSTextFieldCell"; title = "(used during Q&R Retrieve)"; ObjectID = "386"; */
+"386.title" = "(usado durante la recuperación de Q&R)";
+
+/* Class = "NSMenuItem"; title = "Explicit Little Endian"; ObjectID = "409"; */
+"409.title" = "Explicit Little Endian";
+
+/* Class = "NSMenuItem"; title = "JPEG 2000 Lossless & Lossy"; ObjectID = "412"; */
+"412.title" = "JPEG 2000 sin pérdidas y con pérdidas";
+
+/* Class = "NSMenuItem"; title = "JPEG Baseline"; ObjectID = "413"; */
+"413.title" = "Línea de base JPEG";
+
+/* Class = "NSMenuItem"; title = "JPEG Extended"; ObjectID = "414"; */
+"414.title" = "JPEG extendido";
+
+/* Class = "NSMenuItem"; title = "RLE"; ObjectID = "415"; */
+"415.title" = "RLE";
+
+/* Class = "NSButtonCell"; title = "Use Host Name for AETitle"; ObjectID = "419"; */
+"419.title" = "Usar nombre de host para AETitle";
+
+/* Class = "NSTextFieldCell"; title = "Keep logs for:"; ObjectID = "426"; */
+"426.title" = "Guarda los registros de:";
+
+/* Class = "NSButtonCell"; title = "Don't modify"; ObjectID = "438"; */
+"438.title" = "No modifique";
+
+/* Class = "NSButtonCell"; title = "Decompress compressed images"; ObjectID = "439"; */
+"439.title" = "Descomprimir imágenes comprimidas";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "440"; */
+"440.title" = "Radio";
+
+/* Class = "NSButtonCell"; title = "Compress non-compressed images with JPEG (See General Preferences)"; ObjectID = "441"; */
+"441.title" = "Comprimir imágenes sin comprimir con JPEG (Ver Preferencias Generales)";
+
+/* Class = "NSMenuItem"; title = "JPEG 2000 Lossless - Only"; ObjectID = "448"; */
+"448.title" = "JPEG 2000 sin pérdidas - Sólo";
+
+/* Class = "NSMenuItem"; title = "Implicit Little Endian - Only"; ObjectID = "449"; */
+"449.title" = "Implícito Little Endian - Solamente";
+
+/* Class = "NSMenuItem"; title = "JPEG Lossless"; ObjectID = "450"; */
+"450.title" = "JPEG sin pérdidas";
+
+/* Class = "NSButtonCell"; title = "TLS Settings"; ObjectID = "725"; */
+"725.title" = "Configuración de TLS";
+
+/* Class = "NSWindow"; title = "Window"; ObjectID = "726"; */
+"726.title" = "Window";
+
+/* Class = "NSBox"; title = "Peer Authentication"; ObjectID = "728"; */
+"728.title" = "Autenticación por pares";
+
+/* Class = "NSBox"; title = "Cipher Suites"; ObjectID = "731"; */
+"731.title" = "Suites de cifrado";
+
+/* Class = "NSBox"; title = "Identification"; ObjectID = "732"; */
+"732.title" = "Identificación";
+
+/* Class = "NSButtonCell"; title = "Activate DICOM TLS Listener"; ObjectID = "735"; */
+"735.title" = "Activar el Listener DICOM TLS";
+
+/* Class = "NSButtonCell"; title = "Label"; ObjectID = "742"; */
+"742.title" = "Label";
+
+/* Class = "NSButtonCell"; title = "Choose"; ObjectID = "743"; */
+"743.title" = "Elegir";
+
+/* Class = "NSTableColumn"; headerCell.title = "Cipher"; ObjectID = "751"; */
+"751.headerCell.title" = "Cifra";
+
+/* Class = "NSButtonCell"; title = "DH Parameter file"; ObjectID = "754"; */
+"754.title" = "DH Fichero de parámetros";
+
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "756"; */
+"756.title" = "OK";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "757"; */
+"757.title" = "Cancelar";
+
+/* Class = "NSTextFieldCell"; title = "Peer Certificate:"; ObjectID = "761"; */
+"761.title" = "Certificado de Pares:";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "763"; */
+"763.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Ignore"; ObjectID = "764"; */
+"764.title" = "Ignorar";
+
+/* Class = "NSMenuItem"; title = "Verify"; ObjectID = "765"; */
+"765.title" = "Verificar";
+
+/* Class = "NSMenuItem"; title = "Require"; ObjectID = "766"; */
+"766.title" = "Requieren";
+
+/* Class = "NSTextFieldCell"; title = "When choosing \"Verify\" or \"Require\", the peer certificate is tested against all trusted certificates of the Keychain."; ObjectID = "767"; */
+"767.title" = "Al elegir \"Verificar\" o \"Requerir\", el certificado de par se comprueba con todos los certificados de confianza del llavero.";
+
+/* Class = "NSTextFieldCell"; title = "Port Number:"; ObjectID = "769"; */
+"769.title" = "Número de puerto:";
+
+/* Class = "NSTextFieldCell"; title = "AETitle:"; ObjectID = "771"; */
+"771.title" = "AETitle:";
+
+/* Class = "NSTextFieldCell"; title = "Certificate:"; ObjectID = "773"; */
+"773.title" = "Certificado:";
+
+/* Class = "NSButtonCell"; title = "Activate DICOM TLS Listener"; ObjectID = "783"; */
+"783.title" = "Activar el Listener DICOM TLS";
+
+/* Class = "NSTextFieldCell"; title = "AETitle:"; ObjectID = "811"; */
+"811.title" = "AETitle:";
+
+/* Class = "NSTextFieldCell"; title = "Port:"; ObjectID = "813"; */
+"813.title" = "Puerto:";
+
+/* Class = "NSTextFieldCell"; title = "AETitleValue"; ObjectID = "815"; */
+"815.title" = "AETitleValue";
+
+/* Class = "NSTextFieldCell"; title = "PortValue"; ObjectID = "817"; */
+"817.title" = "PortValue";
+
+/* Class = "NSButtonCell"; title = "Same as Listener"; ObjectID = "830"; */
+"830.title" = "Igual que el Escuchador";
+
+/* Class = "NSTextFieldCell"; title = "From 1 to 65535"; ObjectID = "834"; */
+"834.title" = "De 1 a 65535";
+
+/* Class = "NSButtonCell"; title = "Select All"; ObjectID = "860"; */
+"860.title" = "Seleccionar todo";
+
+/* Class = "NSButtonCell"; title = "Deselect All"; ObjectID = "864"; */
+"864.title" = "Deseleccionar todo";
+
+/* Class = "NSTextFieldCell"; title = "AETitle:"; ObjectID = "869"; */
+"869.title" = "AETitle:";
+
+/* Class = "NSTextFieldCell"; title = "Port Number:"; ObjectID = "875"; */
+"875.title" = "Número de puerto:";
+
+/* Class = "NSTextFieldCell"; title = "Address(es):"; ObjectID = "879"; */
+"879.title" = "Dirección(es):";
+
+/* Class = "NSTextFieldCell"; title = "Host Name:"; ObjectID = "883"; */
+"883.title" = "Nombre del host:";
+
+/* Class = "NSTextFieldCell"; title = "Preferred Syntax:"; ObjectID = "894"; */
+"894.title" = "Sintaxis preferida:";
+
+/* Class = "NSButtonCell"; title = "Edit"; ObjectID = "905"; */
+"905.title" = "Editar";
+
+/* Class = "NSButtonCell"; title = "Edit"; ObjectID = "907"; */
+"907.title" = "Editar";
+
+/* Class = "NSBox"; title = "Incoming files"; ObjectID = "908"; */
+"908.title" = "Ficheros entrantes";
+
+/* Class = "NSBox"; title = "Other options"; ObjectID = "956"; */
+"956.title" = "Otras Opciones";
+
+/* Class = "NSTextFieldCell"; title = "Incoming files:"; ObjectID = "958"; */
+"958.title" = "Archivos entrantes:";
+
+/* Class = "NSButtonCell"; title = "Server mode (don't display errors messages, hide Database window at startup)"; ObjectID = "960"; */
+"960.title" = "Modo servidor (no mostrar mensajes de error, ocultar la ventana de base de datos al inicio)";
+
+/* Class = "NSButtonCell"; title = "Protect it with a password:"; ObjectID = "967"; */
+"967.title" = "Protéjalo con una contraseña:";
+
+/* Class = "NSButtonCell"; title = "Activate OsiriX database sharing, and publish it using the name:"; ObjectID = "968"; */
+"968.title" = "Activar el uso compartido de la base de datos de Miele-LXIV y publicarla con el nombre:";
+
+/* Class = "NSTextFieldCell"; placeholderString = "Hostname"; ObjectID = "975"; */
+"975.placeholderString" = "Nombre del host";
+
+/* Class = "NSButtonCell"; title = "Use this AETitle for C-FIND SCU, C-STORE SCU, C-GET SCU"; ObjectID = "1013"; */
+"1013.title" = "Use este AETitle para SCU C-FIND, SCU C-STORE, SCU C-GET";
+
+/* Class = "NSTextFieldCell"; title = "Syntax:"; ObjectID = "1024"; */
+"1024.title" = "Sintaxis:";
+
+/* Class = "NSTextFieldCell"; title = "Preferred Syntax"; ObjectID = "1026"; */
+"1026.title" = "Sintaxis preferida";
+
+/* Class = "NSMenuItem"; title = "JPEG LS Lossless - Only"; ObjectID = "1038"; */
+"1038.title" = "JPEG LS sin pérdidas - Sólo";
+
+/* Class = "NSMenuItem"; title = "JPEG LS Lossless & Lossy"; ObjectID = "1039"; */
+"1039.title" = "JPEG LS sin pérdidas y con pérdidas";
+
+/* Class = "NSTextFieldCell"; title = "seconds"; ObjectID = "1043"; */
+"1043.title" = "segundos";
+
+/* Class = "NSTextFieldCell"; title = "Connection time-out:"; ObjectID = "1051"; */
+"1051.title" = "Tiempo muerto de conexión:";
+
+/* Class = "NSButtonCell"; title = "Also search on PACS-On-Demand servers"; ObjectID = "1057"; */
+"1057.title" = "También busque en servidores PACS-On-Demand";
+
+/* Class = "NSButtonCell"; title = "Store Source AETitle in SourceApplicationEntityTitle (0002,0016)"; ObjectID = "1061"; */
+"1061.title" = "Almacenar AETitle de origen en el título SourceApplicationEntityTitle (0002,0016)";
+
+/* Class = "NSButtonCell"; title = "Store Destination AETitle in PrivateInformationCreatorUID (0002,0100)"; ObjectID = "1064"; */
+"1064.title" = "Almacenar AETitle de destino en PrivateInformationCreatorUID (0002,0100)";
+
+/* Class = "NSButtonCell"; title = "C-FIND SCP"; ObjectID = "1068"; */
+"1068.title" = "C-FIND SCP";
+
+/* Class = "NSBox"; title = "XML-RPC and osirix:// URL scheme"; ObjectID = "A6a-rA-21A"; */
+"A6a-rA-21A.title" = "Esquema XML-RPC y osirix:// URL";
+
+/* Class = "NSMenuItem"; title = "4 years"; ObjectID = "cw5-Zg-DmK"; */
+"cw5-Zg-DmK.title" = "4 años";
+
+/* Class = "NSMenuItem"; title = "2 years"; ObjectID = "MkC-kh-aPV"; */
+"MkC-kh-aPV.title" = "2 años";
+
+/* Class = "NSButtonCell"; title = "C-MOVE SCP"; ObjectID = "Snw-DH-xRh"; */
+"Snw-DH-xRh.title" = "C-MOVE SCP";
+
+/* Class = "NSTextFieldCell"; title = "Activate support for:"; ObjectID = "xJP-7F-vCr"; */
+"xJP-7F-vCr.title" = "Active el soporte para:";
+

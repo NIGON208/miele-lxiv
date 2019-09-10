@@ -1,0 +1,96 @@
+/* Class = "NSWindow"; title = "<< do not localize >>"; ObjectID = "12"; */
+"12.title" = "<< do not localize >>";
+
+/* Class = "NSBox"; title = "Best Rendering Button"; ObjectID = "298"; */
+"298.title" = "Beste Rendering-Taste";
+
+/* Class = "NSBox"; title = "Default View Size"; ObjectID = "300"; */
+"300.title" = "Standardansicht Größe";
+
+/* Class = "NSButtonCell"; title = "Full Screen"; ObjectID = "312"; */
+"312.title" = "Full Screen";
+
+/* Class = "NSButtonCell"; title = "512 x 512"; ObjectID = "313"; */
+"313.title" = "512 x 512";
+
+/* Class = "NSButtonCell"; title = "Square - Full Screen"; ObjectID = "314"; */
+"314.title" = "Square-Full Screen";
+
+/* Class = "NSButtonCell"; title = "768 x 768"; ObjectID = "315"; */
+"315.title" = "768 x 768";
+
+/* Class = "NSBox"; title = "Misc"; ObjectID = "333"; */
+"333.title" = "Verschiedenes";
+
+/* Class = "NSTextFieldCell"; title = "Good"; ObjectID = "363"; */
+"363.title" = "Gut";
+
+/* Class = "NSTextFieldCell"; title = "Better"; ObjectID = "364"; */
+"364.title" = "Besser";
+
+/* Class = "NSTextFieldCell"; title = "Best"; ObjectID = "365"; */
+"365.title" = "Bestes";
+
+/* Class = "NSTextFieldCell"; title = "View Size:"; ObjectID = "367"; */
+"367.title" = "Größe anzeigen:";
+
+/* Class = "NSButtonCell"; title = "If there are multiple screens, open the 3D window on a different screen of the 2D Viewer."; ObjectID = "368"; */
+"368.title" = "Wenn es mehrere Bildschirme gibt, öffnen Sie das 3D-Fenster auf einem anderen Bildschirm des 2D-Viewers.";
+
+/* Class = "NSButtonCell"; title = "Auto-Rotate objects after 3 min. in Volume Rendering/MIP viewers."; ObjectID = "369"; */
+"369.title" = "Automatische Objekte nach 3 Minuten in Volume Rendering/MIP-Viewer.";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "370"; */
+"370.title" = "Radio";
+
+/* Class = "NSButtonCell"; title = "Use Spline for Scissors ROI"; ObjectID = "373"; */
+"373.title" = "Verwenden Sie Spline für Schere ROI";
+
+/* Class = "NSTextFieldCell"; title = ".00"; ObjectID = "378"; */
+"378.title" = ".00";
+
+/* Class = "NSTextFieldCell"; title = "Ray cast : Super Sampling:"; ObjectID = "379"; */
+"379.title" = "Ray cast: Super Sampling:";
+
+/* Class = "NSTextFieldCell"; title = "For representing 3D ROIs, use this algorithm:"; ObjectID = "386"; */
+"386.title" = "Für die Darstellung von 3D-ROMis verwenden Sie diesen Algorithmus:";
+
+/* Class = "NSButtonCell"; title = "Delaunay"; ObjectID = "388"; */
+"388.title" = "Delaunay";
+
+/* Class = "NSButtonCell"; title = "PowerCrust"; ObjectID = "389"; */
+"389.title" = "PowerCrust";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "390"; */
+"390.title" = "Radio";
+
+/* Class = "NSBox"; title = "Renderer"; ObjectID = "393"; */
+"393.title" = "Renderer";
+
+/* Class = "NSTextFieldCell"; title = "Engine:"; ObjectID = "396"; */
+"396.title" = "Getriebe:";
+
+/* Class = "NSButtonCell"; title = "GPU - Rendering on the graphic processor"; ObjectID = "397"; */
+"397.title" = "GPU-Rendering auf dem Grafikprozessor";
+
+/* Class = "NSButtonCell"; title = "CPU - Raycasting on the main processor"; ObjectID = "399"; */
+"399.title" = "CPU-Raycasting auf dem Hauptprozessor";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "401"; */
+"401.title" = "Radio";
+
+/* Class = "NSTextFieldCell"; title = "Default Shading value:"; ObjectID = "Cyi-vJ-Hc1"; */
+"Cyi-vJ-Hc1.title" = "Standard-Shading-Wert:";
+
+/* Class = "NSButtonCell"; title = "Off"; ObjectID = "iBo-vf-sdi"; */
+"iBo-vf-sdi.title" = "Aus";
+
+/* Class = "NSButtonCell"; title = "On"; ObjectID = "NHB-sV-Qob"; */
+"NHB-sV-Qob.title" = "An";
+
+/* Class = "NSButtonCell"; title = "Iso Contour"; ObjectID = "QyF-zJ-w3F"; */
+"QyF-zJ-w3F.title" = "Iso Contour";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "yrE-Hy-VDO"; */
+"yrE-Hy-VDO.title" = "Radio";
+
