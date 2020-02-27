@@ -2300,7 +2300,7 @@
 "Horizontally Flipped" = "Horizontal geklickt";
 
 /* Panel in preferences window */
-"Hot Keys" = "Heiße Tasten";
+"Hot Keys" = "Hotkeys";
 
 /* No comment provided by engineer. */
 "hour" = "Stunde";
@@ -3170,7 +3170,7 @@
 "On component %d: %@" = "Auf Komponente%1$d:%2$@";
 
 /* Panel in preferences window */
-"On-Demand" = "Auf Abforderung";
+"On-Demand" = "Zugriffe";
 
 /* No comment provided by engineer. */
 "One ROI has an area equal to ZERO!" = "Ein ROI hat eine Fläche, die ZERO gleich ist!";
