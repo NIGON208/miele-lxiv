@@ -6,7 +6,7 @@
 		<key>download_url</key>
 		<dict>
 			<key>scheme</key>
-			<string>http</string>
+			<string>https</string>
 			<key>host</key>
 			<string>bettar.github.io</string>
 			<key>path</key>
@@ -17,13 +17,13 @@
 		<key>url</key>
 		<string>http://bettar.github.io/miele-lxiv/plugins/InvertData/html/index.html</string>
 		<key>version</key>
-		<string>1.0</string>
+		<string>1.2</string>
 	</dict>
 	<dict>
 		<key>download_url</key>
 		<dict>
 			<key>scheme</key>
-			<string>http</string>
+			<string>https</string>
 			<key>host</key>
 			<string>bettar.github.io</string>
 			<key>path</key>
